@@ -4,6 +4,7 @@
 //  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
 //  This code is for de-protecting the ZX Spectrum text-only version of Temple of Terror
+//  It is Z80 assembly translated to C in the most lazy way imaginable.
 //
 //  Created by Petter Sjölund on 2022-04-19.
 //
@@ -14,7 +15,11 @@
 #include "loadtotpicture.h"
 #include "utility.h"
 
+#define SCREEN_MEMORY_SIZE 0x1b00
+
 static uint8_t *mem;
+static uint16_t *ScreenAddresses = NULL;
+static int AddressIndex = 0;
 
 static uint16_t push(uint16_t reg, uint16_t SP)
 {
@@ -26,78 +31,66 @@ static uint16_t push(uint16_t reg, uint16_t SP)
 
 static uint16_t pop(uint16_t *SP)
 {
-    uint16_t reg = mem[*SP] + mem[*SP + 1] * 256;
+    uint16_t reg = mem[*SP] | mem[*SP + 1] * 256;
     *SP += 2;
     return reg;
 }
 
 static int parity(uint8_t x)
 {
-    int bitsset = 0;
-    for (int i = 0; i < 8; i++)
-        if (x & (1 << i))
-            bitsset++;
-    return ((bitsset & 1) == 0);
+    x ^= x >> 4;
+    x ^= x >> 2;
+    x ^= x >> 1;
+    return (x & 1) == 0;
 }
-
-static uint16_t *DrawAdresses = NULL;
-static int AddressIndex = 0;
 
 /* The image loader reads a byte from tape, decrypts it and writes the result */
 /* to a screen adress pulled from the list we create here */
 
-/* Here we add another screen address to the address list array */
-static void addtoarray(uint16_t val)
+/* Add a new address to the screen addresses list array */
+static void add_to_array(uint16_t val)
 {
-    DrawAdresses[AddressIndex++] = val;
+    ScreenAddresses[AddressIndex++] = val;
 }
 
-/* Here we add another attribute address to the address list array */
-static void addcolour(uint16_t addr, uint8_t IYh)
+/* Add another "attributes" address to the screen addresses list array */
+static void add_colour(uint16_t addr, uint8_t IYh)
 { // COLOUR_LOAD
-    uint8_t msb = addr >> 8;
     if (!parity(IYh))
-        msb = msb ^ 0xff; // CPL
-    if (msb & 7)
-        return;
-    msb = addr >> 11;
-    msb = (msb & 3) | 0x58; // 0101 1000
-    addtoarray((addr & 0xff) + msb * 256);
+        addr ^= 0xffff;
+    if ((addr & 0x700) == 0)
+        add_to_array(((addr >> 11) & 0x300) | 0x5800);
 }
 
-/* Here we get the address in screen memory representing one line down */
+/* Here we get the address in screen memory representing one pixel down */
 /* or up from addr, depending on the parity of the IYh variable */
-static uint16_t nextlineaddr(uint16_t addr, uint8_t IYh)
+static uint16_t next_line_addr(uint16_t addr, uint8_t IYh)
 {
-    uint8_t msb = addr >> 8;
-    uint8_t lsb = addr & 0xff;
-    // byte down
+    // pixel down
     if (parity(IYh)) {
-        msb++;
-        if (msb & 7) // 0000 0111
-            return msb * 256 + lsb;
-        lsb += 32;
-        if ((lsb & 0xe0) == 0) // 1110 0000
-            return (msb * 256) + lsb;
-        return (msb - 8) * 256 + lsb;
+        addr += 0x100;
+        if ((addr & 0x700) != 0) // 0000 0111 0000 0000
+            return addr;
+
+        addr += 0x20;
+        if ((addr & 0xe0) == 0) // 1110 0000 {
+            return addr - 0x100;
+
+        return addr - 0x800;
     }
-    // byte up
-    msb--;
-    if ((msb ^ 0xff) & 7) // 0000 0111
-        return msb * 256 + lsb;
-    lsb -= 32;
-    if ((lsb ^ 0xff) & 0xe0) { // 1110 0000
-        msb += 8;
-    }
-    return msb * 256 + lsb;
+    // pixel up
+    addr -= 0x100;
+    if ((addr ^ 0xffff) & 0x700)
+        return addr;
+    addr -= 0x20;
+    if ((addr ^ 0xffff) & 0xe0)
+        return addr + 0x800;
+    return addr + 0x100;
 }
 
-uint16_t globalIY, globalBC, globalDE, globalHL;
-uint8_t globalA;
-
-static void registers_on_stack(uint8_t ack, uint16_t IY, uint16_t BC, uint16_t DE, uint16_t HL, uint8_t D)
+static void push_registers_on_stack(uint8_t ack, uint16_t IY, uint16_t BC, uint16_t DE, uint16_t HL, uint8_t D)
 {
-    uint16_t SP = D * 11 + 0xee57;
+    uint16_t SP = 0xee57 + D * 11;
     // D can be 1, 2 or 3, selecting a different "slot" at 0xee62, 0xee6d or 0xee78 respectively
     SP = push(IY, SP);
     SP = push(BC, SP);
@@ -107,13 +100,20 @@ static void registers_on_stack(uint8_t ack, uint16_t IY, uint16_t BC, uint16_t D
     push(AF, SP);
 }
 
-/* Here we determine in which direction to go for the next screen byte */
+/* Here we determine in which direction to go for the next screen byte. */
+/* Returns 0 of 0xff */
 static uint8_t styler(uint8_t ack, uint16_t *IY, uint16_t *HL, uint16_t *DE, uint16_t *BC)
 { // DIRECTION_OF_LOAD
-    uint16_t SP = ack * 11 + 0xee4d;
-    // A can be 1, 2 or 3, selecting a different "slot" at 0xee58, 0xee63 or 0xee6e, respectively
+
+    if (ack < 1 || ack > 3) {
+        fprintf(stderr, "Error! Bad ackumulator value! (%d)\n", ack);
+        exit(1);
+    }
+
+    uint16_t SP = 0xee4d + ack * 11;
+    // ack can be 1, 2 or 3, selecting a different "slot" at 0xee58, 0xee63 or 0xee6e, respectively
     uint16_t AF = pop(&SP);
-    uint8_t H, L;
+    uint8_t L;
     *HL = pop(&SP);
     *DE = pop(&SP);
     *BC = pop(&SP);
@@ -122,44 +122,43 @@ static uint8_t styler(uint8_t ack, uint16_t *IY, uint16_t *HL, uint16_t *DE, uin
         return 0;
     uint8_t IYh = *IY >> 8;
 
-    addcolour(*HL, IYh);
-    addtoarray(*HL);
-    *BC -= 256;
+    add_colour(*HL, IYh);
+    add_to_array(*HL);
+    *BC -= 0x100;
 
     if (IYh < 2) {
         if ((*BC >> 8) != 0) {
-            *HL = nextlineaddr(*HL, IYh); // find address of next line
+            *HL = next_line_addr(*HL, IYh); // find address of next line
             return 0xff;
         }
-        H = *DE >> 8;
         L = *BC & 0xff;
         if (!parity(IYh)) {
             L--;
         } else {
             L++;
         }
-        *BC = (*IY & 0xff) * 256 + L;
-        *HL = H * 256 + L;
+        *HL = (*DE & 0xff00) | L;
+        *BC = (*IY << 8) | L;
         *DE = (*DE & 0xff) - 1;
         if (*DE == 0)
             return 0;
         return 0xff;
     }
     // STYLE34
-    H = *HL >> 8;
     L = *HL & 0xff;
     if (!parity(IYh)) {
         L--;
     } else {
         L++;
     }
+    *HL = (*HL & 0xff00) | L;
+
     if ((*BC >> 8) != 0) {
-        *HL = H * 256 + L;
         return 0xff;
     }
-    *HL = nextlineaddr(H * 256 + (*BC & 0xff), IYh); // find address of next line
-    *BC = (*DE & 0xff) * 256 + (*HL & 0xff);
-    *DE -= 256;
+    *HL = next_line_addr((*HL & 0xff00) | (*BC & 0xff), IYh); // find address of next line
+    *BC = (*DE << 8) | (*HL & 0xff);
+    *DE -= 0x100;
     if ((*DE >> 8) == 0)
         return 0;
     return 0xff;
@@ -169,36 +168,36 @@ static void address_table(void)
 {
     uint16_t IY = 0x032d;
     uint16_t IX = 0xeeab;
-    uint16_t DE2, BC2, HL2;
-    uint16_t counter = mem[0xeea9] + mem[0xeeaa] * 256;
+    uint16_t DE, BC, HL;
+    uint16_t counter = mem[0xeea9] | mem[0xeeaa] * 0x100;
     uint8_t ack, B, C;
     do { // next line
         ack = mem[IX + 3] >> 5;
         C = ack + 1;
         for (int i = C; i > 0; i--) {
-            HL2 = mem[IX] + mem[IX + 1] * 256;
+            HL = mem[IX] | mem[IX + 1] * 0x100;
             ack = mem[IX + 3] & 0x1f; // 0001 1111
-            DE2 = (mem[IX + 2] & 0x3f) + ack * 2048; // 0011 1111
+            DE = (mem[IX + 2] & 0x3f) + ack * 0x800; // 0011 1111
             ack = mem[IX + 2] >> 6;
-            IY = (IY & 0xff) + ack * 256;
-            BC2 = (HL2 & 0xff) + (DE2 & 0xff) * 256;
+            IY = ack * 0x100 | (IY & 0xff);
+            BC = (DE << 8) | (HL & 0xff);
             if (ack < 2) {
-                IY = (DE2 >> 8) + ack * 256;
-                BC2 = mem[IX] + (DE2 >> 8) * 256;
-                DE2 = (DE2 & 0xff) + mem[IX + 1] * 256;
+                IY = ack * 0x100 | (DE >> 8);
+                BC = (DE >> 8) * 0x100 | mem[IX];
+                DE = mem[IX + 1] * 0x100 | (DE & 0xff);
             }
             ack++;
-            registers_on_stack(ack, IY, BC2, DE2, HL2, i);
+            push_registers_on_stack(ack, IY, BC, DE, HL, i);
             IX += 4;
             counter--;
         }
-
         do { // NXTP1
             B = 0;
             for (int i = C; i > 0; i--) {
-                ack = styler(i, &IY, &HL2, &DE2, &BC2);
-                registers_on_stack(ack, IY, BC2, DE2, HL2, i);
-                B = ack | B;
+                // styler() returns 0 or 0xff
+                ack = styler(i, &IY, &HL, &DE, &BC);
+                push_registers_on_stack(ack, IY, BC, DE, HL, i);
+                B += ack;
             }
         } while (B != 0);
     } while (counter != 0);
@@ -207,13 +206,13 @@ static void address_table(void)
 uint8_t *LoadAlkatrazPicture(uint8_t *memimage, uint8_t *file)
 {
     mem = memimage;
-    DrawAdresses = MemAlloc(6912 * sizeof(uint16_t));
+    ScreenAddresses = MemAlloc(SCREEN_MEMORY_SIZE * sizeof(uint16_t));
     address_table();
     uint8_t loacon = 0xf6;
     DeAlkatraz(file, mem, 0, 0xea7d, 2, &loacon, 0xc1, 0xcb, 1);
     uint16_t fileoffset = 2;
-    for (int i = 0; i < 6912; i++)
-        DeAlkatraz(file, mem, fileoffset++, DrawAdresses[i], 1, &loacon, 0xc1, 0xcb, 1);
-    free(DrawAdresses);
+    for (int i = 0; i < SCREEN_MEMORY_SIZE; i++)
+        DeAlkatraz(file, mem, fileoffset++, ScreenAddresses[i], 1, &loacon, 0xc1, 0xcb, 1);
+    free(ScreenAddresses);
     return mem;
 }
