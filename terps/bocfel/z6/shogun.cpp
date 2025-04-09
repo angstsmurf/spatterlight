@@ -1231,12 +1231,7 @@ void after_BUILDMAZE(void) {
     }
 
     transcribe_and_print_string("\n");
-//    debug_draw_maze();
     simplify_maze();
-//    fprintf(stderr, "After simplifying:\n");
-//    debug_draw_maze();
-
-    fprintf(stderr, "XSTART:%d YSTART:%d sg.MAZE_X:%d sg.MAZE_Y:%d\n", get_global(sg.MAZE_XSTART), get_global(sg.MAZE_YSTART), get_global(sg.MAZE_X), get_global(sg.MAZE_Y));
 }
 
 
