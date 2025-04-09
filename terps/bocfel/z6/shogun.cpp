@@ -75,24 +75,28 @@ static void setup_text_and_status(int P) {
 
     if (P == 0)
         P = P_BORDER_LOC;
-    int X, HIGH = gscreenh, WIDE = gscreenw, SLEFT = 0, SHIGH = STATUS_LINES * (gcellh + ggridmarginy), border_height;
+
+    int status_height = get_global(sg.SCENE) == 0 ? 0 : 2 * (gcellh + ggridmarginy);
+
+    int SHIGH = status_height;
+
+    int X, HIGH = gscreenh, WIDE = gscreenw, SLEFT = 0, border_height;
 
     if (graphics_type != kGraphicsTypeApple2) {
-        v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 1, gscreenw - shogun_banner_width_left * 2, 2 * (gcellh + ggridmarginy));
+        v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 1, gscreenw - shogun_banner_width_left * 2, status_height);
     } else { // Apple 2
         shogun_banner_width_left = 0;
         if (P == P_HINT_LOC) {
             get_image_size(P_HINT_BORDER, &X, &border_height);
-            set_global(0x37, border_height);
             SHIGH = border_height * imagescaley + 3 * gcellh + 2 * ggridmarginy;
             v6_define_window(&V6_STATUS_WINDOW, SLEFT * imagescalex, 1, WIDE * imagescalex,  SHIGH);
         } else {
             get_image_size(P_BORDER, &X, &border_height);
-            set_global(0x37, border_height);
+            if (get_global(sg.SCENE) == 0)
+                border_height = 0;
             // Graphics banner window
-
-            v6_define_window(&SHOGUN_A2_BORDER_WIN, 1, SHIGH + 1, WIDE * imagescalex, border_height * imagescaley);
-            v6_define_window(&V6_STATUS_WINDOW, SLEFT * imagescalex, 1, WIDE * imagescalex,  SHIGH);
+            v6_define_window(&SHOGUN_A2_BORDER_WIN, 1, status_height + 1, WIDE * imagescalex, border_height * imagescaley);
+            v6_define_window(&V6_STATUS_WINDOW, SLEFT * imagescalex, 1, WIDE * imagescalex,  status_height);
 
             SHIGH += border_height * imagescaley;
         }
@@ -100,6 +104,9 @@ static void setup_text_and_status(int P) {
 
     if (SHIGH < 0)
         SHIGH = 0;
+
+    if (SHOGUN_MENU_BG_WIN.id)
+        HIGH -= SHOGUN_MENU_BG_WIN.x_size;
 
     v6_define_window(&V6_TEXT_BUFFER_WINDOW, V6_STATUS_WINDOW.x_origin, imagescaley * 2 + SHIGH, V6_STATUS_WINDOW.x_size, HIGH - SHIGH);
 }
@@ -110,9 +117,24 @@ void SETUP_TEXT_AND_STATUS(void) {
 
 
 static bool last_was_interlude = false;
+static int a2_graphical_banner_height = 0;
 
 static void update_status_line(bool interlude) {
     last_was_interlude = interlude;
+
+    int status_height = (gcellh + ggridmarginy) * 2;
+
+    uint16_t scene = get_global(sg.SCENE);
+    if (scene == 0) {
+        V6_TEXT_BUFFER_WINDOW.y_origin = a2_graphical_banner_height;
+        V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - 2 * a2_graphical_banner_height;
+        if (SHOGUN_MENU_BG_WIN.id != 0)
+            V6_TEXT_BUFFER_WINDOW.y_size -= SHOGUN_MENU_BG_WIN.y_size;
+        v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
+        v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
+        fprintf(stderr, "Scene is zero!\n");
+        return;
+    }
 
     V6_STATUS_WINDOW.x = 1;
     V6_STATUS_WINDOW.y = 1;
@@ -121,7 +143,7 @@ static void update_status_line(bool interlude) {
     update_user_defined_colours();
 
     winid_t gwin = V6_STATUS_WINDOW.id;
-    v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 0, gscreenw - 2 * shogun_banner_width_left, (gcellh + ggridmarginy) * 2);
+    v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 0, gscreenw - 2 * shogun_banner_width_left, status_height);
     v6_get_and_sync_upperwin_size();
     set_current_window(&V6_STATUS_WINDOW);
     glk_window_get_size(gwin, &width, nullptr);
@@ -130,10 +152,7 @@ static void update_status_line(bool interlude) {
     garglk_set_zcolors(user_selected_background, user_selected_foreground);
     win_setbgnd(gwin->peer, user_selected_foreground);
     glk_window_clear(V6_STATUS_WINDOW.id);
-    uint16_t scene = get_global(sg.SCENE);
-    if (scene == 0) {
-        fprintf(stderr, "Scene is zero!\n");
-    }
+
     uint16_t here = get_global(sg.HERE);
     if (scene != 0) {
         uint32_t addr = user_word(st.SCENE_NAMES + scene * 2);
@@ -318,8 +337,6 @@ static int quicksearch(uint16_t chr_to_find, char *typed_letters, int type_pos) 
     }
     return 0;
 }
-
-static int a2_graphical_banner_height = 0;
 
 static void update_menu(void) {
     uint16_t cnt = user_word(current_menu); // first word of table is number of elements
@@ -610,7 +627,7 @@ void shogun_display_border(ShogunBorderType border) {
     if (border != NO_BORDER  && border != P_BORDER && border != P_BORDER2 && border != P_HINT_BORDER) {
         border = P_BORDER;
     }
-    bool start_menu_mode = (screenmode == MODE_SHOGUN_MENU && current_menu == sm.PART_MENU);
+    bool start_menu_mode = (get_global(sg.SCENE) == 0);
 
     if (get_global(sg.SCENE) == S_ERASMUS && current_menu == sm.PART_MENU) {
         border = (graphics_type == kGraphicsTypeApple2) ? P_BORDER2 : P_BORDER;
@@ -1228,8 +1245,10 @@ static void adjust_shogun_window(void) {
     V6_TEXT_BUFFER_WINDOW.x = 0;
     V6_TEXT_BUFFER_WINDOW.y = 0;
 
+    int status_window_height = (get_global(sg.SCENE) == 0) ? 0 : 2 * (gcellh + ggridmarginy);
+
     if (graphics_type == kGraphicsTypeApple2) {
-        V6_STATUS_WINDOW.y_size = 2 * (gcellh + ggridmarginy);
+        V6_STATUS_WINDOW.y_size = status_window_height;
         V6_STATUS_WINDOW.x_origin = 1;
         V6_STATUS_WINDOW.x_size = gscreenw;
         v6_sizewin(&V6_STATUS_WINDOW);
@@ -1240,9 +1259,7 @@ static void adjust_shogun_window(void) {
         V6_TEXT_BUFFER_WINDOW.x_size = gscreenw;
         V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin;
     } else {
-//        if (V6_STATUS_WINDOW.id == nullptr)
-//            V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid);
-        v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 1, gscreenw - shogun_banner_width_left * 2, 2 * (gcellh + ggridmarginy));
+        v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 1, gscreenw - shogun_banner_width_left * 2, status_window_height);
         V6_STATUS_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
         V6_STATUS_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
         V6_STATUS_WINDOW.style.reset(STYLE_REVERSE);
