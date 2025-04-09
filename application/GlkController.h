@@ -33,8 +33,8 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property ImageHandler *imageHandler;
 @property NSMutableArray *imagesToSpeak;
 
-@property NSMutableArray *windowsToBeAdded;
-@property NSMutableArray *windowsToBeRemoved;
+@property NSMutableArray<GlkWindow *> *windowsToBeAdded;
+@property NSMutableArray<GlkWindow *> *windowsToBeRemoved;
 @property IBOutlet NSView *borderView;
 @property IBOutlet GlkHelperView *gameView;
 
