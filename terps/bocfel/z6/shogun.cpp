@@ -868,7 +868,7 @@ void CENTER_PIC(void) {
     int width, height;
     get_image_size(P_CREST, &width, &height);
     v6_define_window(&SHOGUN_CREST_WINDOW, V6_STATUS_WINDOW.x_origin, V6_STATUS_WINDOW.y_size + imagescaley * 2, V6_STATUS_WINDOW.x_size, height * imagescaley + 2 * gcellh);
-    V6_TEXT_BUFFER_WINDOW.y_origin = V6_STATUS_WINDOW.y_size + SHOGUN_CREST_WINDOW.y_size;
+    V6_TEXT_BUFFER_WINDOW.y_origin = V6_STATUS_WINDOW.y_size + SHOGUN_CREST_WINDOW.y_size + 2;
     V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin;
     if (screenmode == MODE_SHOGUN_MENU) {
         V6_TEXT_BUFFER_WINDOW.y_size -= SHOGUN_MENU_WINDOW.y_size;
