@@ -301,11 +301,12 @@ static uint16_t menu_width(uint16_t MENU) {
 #define MAX_QUICKSEARCH 25
 
 static void print_quicksearch(char *typed) {
+    glk_window_clear(SHOGUN_MENU_BG_WIN.id);
     strid_t stream = glk_window_get_stream(SHOGUN_MENU_BG_WIN.id);
-    glk_window_move_cursor(SHOGUN_MENU_BG_WIN.id, 0, 1);
-    for (int i = 0; i < MAX_QUICKSEARCH; i++)
-        glk_put_char_stream(stream, UNICODE_SPACE);
-    glk_window_move_cursor(SHOGUN_MENU_BG_WIN.id, 0, 1);
+    char menu_message[100];
+    print_long_zstr_to_cstr(current_menu_message, menu_message, 100);
+    glk_put_string_stream(stream, menu_message);
+    glk_put_char_stream(stream, '\n');
     glk_put_string_stream(stream, typed);
 }
 
@@ -353,7 +354,7 @@ static void update_menu(void) {
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
     if (SHOGUN_MENU_BG_WIN.id == nullptr) {
-        SHOGUN_MENU_BG_WIN.id = gli_new_window(wintype_TextGrid, 0);
+        SHOGUN_MENU_BG_WIN.id = gli_new_window(wintype_TextBuffer, 0);
         v6_delete_win(&SHOGUN_MENU_WINDOW);
     }
     v6_define_window(&SHOGUN_MENU_BG_WIN, shogun_banner_width_left, menutop, (gscreenw - width) / 2  - shogun_banner_width_left, height);
