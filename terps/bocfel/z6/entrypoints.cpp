@@ -513,7 +513,7 @@ static std::vector<EntryPoint> entrypoints = {
         { 0xa0, 0x01, 0xca, 0xcd, 0x4f, 0x05 },
         0,
         0,
-        true,
+        false,
         SCENE_SELECT
     },
 
@@ -523,7 +523,7 @@ static std::vector<EntryPoint> entrypoints = {
         { 0xbe, 0x13, 0x5f, 0x07, 0x02 },
         0,
         0,
-        true,
+        false,
         SCENE_SELECT
     },
 
@@ -545,6 +545,17 @@ static std::vector<EntryPoint> entrypoints = {
         false,
         GET_FROM_MENU
     },
+
+    {
+        Game::Shogun,
+        "after GET-FROM-MENU",
+        {},
+        0,
+        0,
+        false,
+        after_GET_FROM_MENU
+    },
+
 
 
     {
@@ -1300,6 +1311,8 @@ void find_shogun_globals(void) {
     int start = 0;
     int mac_ii_return_address = 0;
     int credits_return_address = 0;
+    int menu_return_address = 0;
+
     bool found_scene_select_values = false;
     bool found_border_values = false;
 
@@ -1355,9 +1368,31 @@ void find_shogun_globals(void) {
             entrypoint.found_at_address = mac_ii_return_address;
 //            fprintf(stderr, "after_MAC_II at: 0x%x\n", entrypoint.found_at_address);
         } else if (entrypoint.fn == GET_FROM_MENU && entrypoint.found_at_address != 0) {
-            // RET L00
-            memory[entrypoint.found_at_address] = 0xab;
-            memory[entrypoint.found_at_address + 1] = 0x01;
+
+            // We rip out most of the original code
+            // and replace it with our own C(++) function
+            // (GET_FROM_MENU(), called by find_entrypoints())
+            // But we want call to the function associated with
+            // the menu to be done in Z-code, so that we can autosave
+            // in it properly.
+
+            //  e0 ab 03 09 02 07       CALL_VS         L02 (L08,L01) -> L06 ; LABEL
+            //  a0 07 bf f7             JZ              L06 [TRUE] LABEL
+            //  ab 07                   RET             L06
+
+
+            std::vector<uint8_t> patch = {0xe0, 0xab, 0x03, 0x09, 0x02, 0x07,
+                0xa0, 0x07, 0xbf, 0xf8,
+                0xab, 0x07};
+            start = entrypoint.found_at_address;
+            for (int i = 0; i < patch.size(); i++) {
+//                fprintf(stderr, "Patching 0x%x at address 0x%x (previous value 0x%x)\n", patch[i], start + i, memory[start + i]);
+                memory[start + i] = patch[i];
+            }
+            menu_return_address =  start + patch.size() - 2;
+
+        } else if (entrypoint.fn == after_GET_FROM_MENU && menu_return_address != 0) {
+            entrypoint.found_at_address = menu_return_address;
         } else if ((entrypoint.fn == V_VERSION || entrypoint.fn == V_CREDITS) && entrypoint.found_at_address != 0) {
 
             if (entrypoint.fn == V_CREDITS) {
@@ -1469,12 +1504,18 @@ void find_shogun_globals(void) {
             }
         } else if (entrypoint.fn == SCENE_SELECT && entrypoint.found_at_address != 0  && !found_scene_select_values) {
 
+            if (memory[entrypoint.found_at_address - 10] == 0xcf &&
+                memory[entrypoint.found_at_address - 9] == 0x1f) {
+                entrypoint.found_at_address -= 10;
+            }
+
             start = find_16_bit_values_in_pattern({ 0x8c, 0x00, 0x07, 0xcd, 0x4f, 0x05, WILDCARD, WILDCARD }, { &sm.PART_MENU }, entrypoint.found_at_address, 20);
 
             bool is_old_version = (start != -1);
 
             start = find_pattern_in_mem({ 0xed, 0x7f, 0x00, 0xeb, 0x7f, 0x00, 0xec }, entrypoint.found_at_address, 300);
             if (start != -1) {
+                int address_of_call = start + 6;
                 start += 12;
                 sm.YOU_MAY_CHOOSE = memory[start];
                 if (!is_old_version) {
@@ -1496,6 +1537,44 @@ void find_shogun_globals(void) {
                     }
                 }
 
+                // We rip out most of the original code
+                // and replace it with our own C(++) function
+                // (SCENE_SELECT(), called by find_entrypoints())
+                // But we want the actual call to GET-FROM-MENU
+                // be done in Z-code, so that we can autosave
+                // properly.
+
+                // The below will take over when our own
+                // SCENE_SELECT() C(++) function returns.
+
+//               <SET WHICH
+//               <GET-FROM-MENU "You may choose to: "
+//               ,PART-MENU
+//               ,SCENE-SELECT-F
+//               1>>
+
+//              ec 08 7f 16 06 00 56 05 13 33 01 06
+//              (LABEL)           CALL_VS2        GET-FROM-MENU (S012,L04,#1333,#01) -> L05
+//              a0 06 bf ab       JZ              L05 [TRUE] LABEL
+//              b0                RTRUE
+
+
+                std::vector<uint8_t> patch = {0xec, 0x08, 0x7f, 0x16, 0x06, 0x00, 0x56, 0x05, 0x13, 0x33, 0x01, 0x06,
+                    0xa0, 0x06, 0xbf, 0xfe,
+                    0xb0};
+                patch[3] = memory[address_of_call + 3]; // Replace with address
+                patch[4] = memory[address_of_call + 4]; // of function GET-FROM-MENU
+
+                patch[6] = memory[address_of_call + 6]; // Replace with message string address
+
+                patch[8] = sm.SCENE_SELECT_F >> 8;      // Replace with address
+                patch[9] = sm.SCENE_SELECT_F & 0xff;    // of function SCENE-SELECT-F
+
+                start = entrypoint.found_at_address;
+                for (int i = 0; i < patch.size(); i++) {
+//                    fprintf(stderr, "Patching 0x%x at address 0x%x (previous value 0x%x)\n", patch[i], start + i, memory[start + i]);
+                    memory[start + i] = patch[i];
+                }
             } else {
                 fprintf(stderr, "Error! Could not find sm.YOU_MAY_CHOOSE!\n");
             }

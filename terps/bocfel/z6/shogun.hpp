@@ -35,6 +35,7 @@ void MAC_II(void);
 void after_MAC_II(void);
 void shogun_DISPLAY_BORDER(void);
 void GET_FROM_MENU(void);
+void after_GET_FROM_MENU(void);
 void shogun_UPDATE_STATUS_LINE(void);
 void INTERLUDE_STATUS_LINE(void);
 void CENTER_PIC_X(void);
@@ -91,7 +92,6 @@ typedef struct ShogunGlobals {
 extern ShogunGlobals sg;
 
 typedef struct ShogunRoutines {
-    uint32_t UPDATE_STATUS_LINE;
     uint32_t V_REFRESH;
     uint32_t TELL_THE;
     uint32_t TELL_DIRECTION;
@@ -103,7 +103,6 @@ typedef struct ShogunRoutines {
 extern ShogunRoutines sr;
 
 typedef struct ShogunTables {
-    uint16_t K_DIROUT_TBL;
     uint16_t K_HINT_ITEMS;
     uint16_t SCENE_NAMES;
     uint16_t MAZE_BOX_TABLE;

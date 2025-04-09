@@ -500,23 +500,35 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
         }
 
         glk_window_clear(SHOGUN_MENU_BG_WIN.id);
+    }
 
-        uint16_t string_2 = user_word(MENU + 4);
-        if (result == 2 && (user_byte(string_2) == 24 ||
-                            (header.release < 300 &&
-                             user_byte(string_2) == 23))) { // "SAVE this game position\n" is 24 characters
-           bool success = super_hacky_shogun_menu_save(SaveType::Normal, SaveOpcode::None);
-            if (success == false) {
-                fprintf(stderr, "Save failed\n");
-            }
-            result = 0;
+    return result;
+}
+
+void GET_FROM_MENU(void) {
+    // On autorestore, we want to re-select the saved selection
+
+    if (current_menu_selection == 0) {
+        if (internal_arg_count() < 4) {
+            current_menu_selection = 1;
         } else {
-            result = internal_call_with_2_args(FCN, result, MENU);
+            current_menu_selection = variable(4);
         }
     }
+    uint16_t result = get_from_menu(variable(1), variable(2), variable(3), current_menu_selection);
+
+    // When we return to our hacked Zcode,
+    // L02 (var 3) must contain the address to the menu function,  L08 (var 9) must contain the index of selected line, L01 (var 2) must contain address of the menu.
+    store_variable(9, result);
+    current_menu_selection = 0;
     v6_delete_win(&SHOGUN_MENU_BG_WIN);
     v6_define_window(&V6_TEXT_BUFFER_WINDOW, shogun_banner_width_left, V6_TEXT_BUFFER_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2.0, gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin);
     screenmode = MODE_NORMAL;
+    glk_put_char_stream(glk_window_get_stream(V6_TEXT_BUFFER_WINDOW.id), '\n');
+    glk_put_char_stream(glk_window_get_stream(V6_TEXT_BUFFER_WINDOW.id), '\n');
+}
+
+void after_GET_FROM_MENU(void) {
     glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
     if (sg.CURRENT_BORDER != 0) {
         current_border = (ShogunBorderType)get_global(sg.CURRENT_BORDER);
@@ -530,15 +542,6 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
     }
 
     shogun_display_border(current_border);
-    return result;
-}
-
-void GET_FROM_MENU(void) {
-    // On autorestore, we want to re-select the saved selection
-    if (current_menu_selection == 0)
-        current_menu_selection = variable(4);
-    store_variable(1, get_from_menu(variable(1), variable(2), variable(3), current_menu_selection));
-    current_menu_selection = 0;
 }
 
 void SCENE_SELECT(void) {
@@ -546,13 +549,7 @@ void SCENE_SELECT(void) {
     if (internal_arg_count() > 0 && variable(1) == 1) {
         menu = st.SCENE_NAMES;
     }
-    if (current_menu_selection == 0)
-        current_menu_selection = variable(4);
-    uint16_t result = 0;
-    while (result == 0) {
-        result = get_from_menu(sm.YOU_MAY_CHOOSE, menu, sm.SCENE_SELECT_F, current_menu_selection);
-    }
-    current_menu_selection = 0;
+    store_variable(5, menu);
 }
 
 void V_VERSION(void) {

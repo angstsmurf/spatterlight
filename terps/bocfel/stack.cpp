@@ -1299,30 +1299,6 @@ static std::shared_ptr<IO> open_savefile(SaveType savetype, IO::Mode mode)
     }
 }
 
-#ifdef SPATTERLIGHT
-bool super_hacky_shogun_menu_save(SaveType savetype, SaveOpcode saveopcode)
-{
-
-    auto savefile = open_savefile(savetype, IO::Mode::WriteOnly);
-
-    if (savefile == nullptr) {
-        return false;
-    }
-
-    uint32_t stored_pc = pc;
-    pc--;
-
-    if (!save_quetzal(*savefile, savetype, saveopcode, true)) {
-        warning("error while writing save file");
-        pc = stored_pc;
-        return false;
-    }
-
-    pc = stored_pc;
-    return true;
-}
-#endif
-
 // Perform all aspects of a save, apart from storing/branching.
 // Returns true if the save was success, false if not.
 bool do_save(SaveType savetype, SaveOpcode saveopcode)
