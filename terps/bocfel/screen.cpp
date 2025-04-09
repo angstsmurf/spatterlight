@@ -6005,7 +6005,7 @@ void recover_library_state(library_state_data *dat)
                 if (windows[i].id->tag == dat->upperwintag)
                 {
                     upperwin = &windows[i];
-                    if (mouse_available() && !is_spatterlight_v6)
+                    if (mouse_available())
                         glk_request_mouse_event(upperwin->id);
                 }
             }
