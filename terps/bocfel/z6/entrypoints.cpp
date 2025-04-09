@@ -1626,10 +1626,13 @@ void find_shogun_globals(void) {
         } else if (entrypoint.fn == DISPLAY_MAZE && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0xbe, 0x05, 0x57, 0x2c, 0x01, 0x01, 0x62, 0x03, WILDCARD, 0x41, 0x0d, 0x04, 0x00, 0x62, 0x04, WILDCARD, 0x58 }, { &sg.MAZE_HEIGHT, &sg.MAZE_WIDTH }, entrypoint.found_at_address, 300);
 
+            if (start == -1)
+                fprintf(stderr, "Did not find MAZE_HEIGHT or MAZE_WIDTH!\n");
 //            fprintf(stderr, "sg.MAZE_HEIGHT = 0x%x sg.MAZE_WIDTH = 0x%x\n", sg.MAZE_HEIGHT, sg.MAZE_WIDTH);
         } else if (entrypoint.fn == MAZE_F && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0xbb, 0x8c, 0x00, 0x17, 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD, 0xb2 }, { &sg.MAZE_XSTART, &sg.MAZE_YSTART }, entrypoint.found_at_address, 400);
-
+            if (start == -1)
+                fprintf(stderr, "Did not find MAZE_XSTART or MAZE_YSTART!\n");
 //            fprintf(stderr, "sg.MAZE_XSTART = 0x%x sg.MAZE_YSTART = 0x%x\n", sg.MAZE_XSTART, sg.MAZE_YSTART);
             entrypoint.found_at_address = 0; // MAZE_F
         } else if (entrypoint.fn == shogun_DISPLAY_BORDER && entrypoint.found_at_address != 0 && !found_border_values) {
