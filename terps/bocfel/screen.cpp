@@ -457,6 +457,7 @@ private:
             }
 
             if (zversion == 6) {
+#ifdef SPATTERLIGHT
                 if (is_spatterlight_arthur) {
                     int16_t wordwidth = m_idx - 4;
                     if (wordwidth < 1)
@@ -465,6 +466,9 @@ private:
                 } else {
                     store_word(0x30, m_idx - 2);
                 }
+#else
+                store_word(0x30, m_idx - 2);
+#endif
             }
         }
 
@@ -1167,8 +1171,10 @@ void show_message(const char *fmt, ...)
         stream = glk_window_get_stream(errorwin);
         glk_set_style_stream(stream, style_Alert);
     } else {
+#ifdef SPATTERLIGHT
         if (mainwin->id->line_request)
             return;
+#endif
         stream = glk_window_get_stream(mainwin->id);
         message = "\n[" + message + "]\n";
     }
@@ -2629,10 +2635,10 @@ void update_monochrome_colours(void) {
     }
 }
 
+bool graphics_type_changed = true;
+
 #pragma mark window change on resize events
 #endif
-
-bool graphics_type_changed = true;
 
 #ifdef ZTERP_GLK
 #ifndef SPATTERLIGHT
@@ -3404,11 +3410,13 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             } else if (ev.win == graphics_window.id()) {
                 zterp_mouse_click(ev.val1 / graphics_window.ratio(), ev.val2 / graphics_window.ratio());
 #endif
-            } else if (ev.win->type == wintype_TextGrid) {
-                zterp_mouse_click(ev.val1 + 1, ev.val2 + 1);
             }
 
 #ifdef SPATTERLIGHT
+            else if (ev.win->type == wintype_TextGrid) {
+                zterp_mouse_click(ev.val1 + 1, ev.val2 + 1);
+            }
+
             uint8_t clicktype;
 
             if (curwin->last_click_x == ev.val1 && curwin->last_click_y == ev.val2)
@@ -4801,7 +4809,7 @@ void zpicture_data()
 void zget_wind_prop()
 {
     uint8_t font_width = 1, font_height = 1;
-    uint16_t val = 0;
+    uint16_t val;
     Window *win;
 
 #ifndef SPATTERLIGHT
@@ -4817,12 +4825,15 @@ void zget_wind_prop()
         graphics_window.destroy();
     }
 #endif
+#else
+    val = 0;
 #endif
 
     win = find_window(zargs[0]);
 
     // These are mostly bald-faced lies.
     switch (zargs[1]) {
+#ifdef SPATTERLIGHT
     case 0: // y origin
         val = win->y_origin;
         break;
@@ -4830,7 +4841,6 @@ void zget_wind_prop()
         val = win->x_origin;
         break;
     case 2:  // y size
-#ifdef SPATTERLIGHT
         if (is_spatterlight_arthur && win->id && win->id->type == wintype_TextGrid) {
             glui32 h;
             glk_window_get_size(win->id, nullptr, &h);
@@ -4838,12 +4848,8 @@ void zget_wind_prop()
         } else {
             val = win->y_size;
         }
-#else
-        val = word(0x24) * font_height;
-#endif
         break;
     case 3:  // x size
-#ifdef SPATTERLIGHT
         if (is_spatterlight_arthur && win->id && win->id->type == wintype_TextGrid) {
             glui32 w;
             glk_window_get_size(win->id, &w, NULL);
@@ -4851,12 +4857,22 @@ void zget_wind_prop()
             // gets cut off during live resize. No idea why.
             val = w - 1;
         } else if (is_spatterlight_arthur || is_spatterlight_shogun) {
-            val = win->x_size; // word(0x22) * font_width;
+            val = win->x_size;
         } else {
-#endif
-        val = word(0x22) * font_width;
-#ifdef SPATTERLIGHT
+            val = word(0x22) * font_width;
         }
+#else
+    case 0: // y coordinate
+        val = 0;
+        break;
+    case 1: // x coordinate
+        val = 0;
+        break;
+    case 2:  // y size
+        val = word(0x24) * font_height;
+        break;
+    case 3:  // x size
+        val = word(0x22) * font_width;
 #endif
         break;
     case 4:  // y cursor
@@ -4938,9 +4954,9 @@ void zprint_form()
 #ifdef SPATTERLIGHT
     if (!is_spatterlight_arthur) {
 #endif
-        curwin = saved;
+    curwin = saved;
 #ifdef ZTERP_GLK
-        glk_set_window(curwin->id);
+    glk_set_window(curwin->id);
 #endif
 #ifdef SPATTERLIGHT
     }

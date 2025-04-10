@@ -414,4 +414,3 @@ void recover_library_sound_state(library_state_data *dat)
         channel->queued.volume = 8;
 }
 #endif
-
