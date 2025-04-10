@@ -1729,7 +1729,7 @@ void check_entrypoints(uint32_t pc) {
 
     if (found != entrypoint_map.end()) {
         EntryPoint *entrypoint = entrypoint_map.at(pc);
-        fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint->title.c_str(), pc);
+//        fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint->title.c_str(), pc);
         (entrypoint->fn)();
    }
 }
