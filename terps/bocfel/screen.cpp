@@ -5959,6 +5959,8 @@ void stash_library_state(library_state_data *dat)
         for (int i = 0; i < number_of_margin_images; i++)
             dat->margin_images[i] = margin_images[i];
 
+        dat->number_of_margin_images = number_of_margin_images;
+
         if (is_spatterlight_journey) {
             stash_journey_state(dat);
         } else if (is_spatterlight_arthur) {
