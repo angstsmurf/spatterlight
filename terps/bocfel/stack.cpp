@@ -949,7 +949,9 @@ static void read_args(IFF &iff, SaveOpcode &saveopcode)
         break;
     case SaveOpcode::ReadChar:
         if (size != 2 && size != 4 && size != 6) {
+#ifndef SPATTERLIGHT
             throw RestoreError(fstring("invalid Args size: %lu", static_cast<unsigned long>(size)));
+#endif
         }
         break;
     default:
