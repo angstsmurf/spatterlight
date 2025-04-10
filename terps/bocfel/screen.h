@@ -158,9 +158,7 @@ void zmake_menu();
 void zbuffer_screen();
 
 #ifdef SPATTERLIGHT
-
 extern GraphicsType graphics_type;
-//extern bool centeredText;
 
 extern winid_t current_graphics_buf_win;
 extern winid_t graphics_bg_glk;
@@ -184,11 +182,11 @@ struct Window {
     uint16_t last_click_y;
 };
 
-extern glui32 user_selected_foreground, user_selected_background;
-
 extern std::array<Window, 8> windows;
 
 extern glui32 current_picture;
+extern glui32 user_selected_foreground;
+extern glui32 user_selected_background;
 extern bool graphics_type_changed;
 
 uint8_t internal_read_char(void);
