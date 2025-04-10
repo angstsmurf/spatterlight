@@ -5951,6 +5951,7 @@ void stash_library_state(library_state_data *dat)
         dat->last_random_seed = last_random_seed;
         dat->random_calls_count = random_calls_count;
         dat->screenmode = screenmode;
+        dat->current_picture = current_picture;
         dat->hints_depth = (int)hints_depth;
         dat->define_line = global_define_line;
         dat->internal_read_char_hack = internal_read_char_hack ? 1 : 0;
@@ -6017,6 +6018,7 @@ void recover_library_state(library_state_data *dat)
             zterp_rand();
 
         screenmode = dat->screenmode;
+        current_picture = dat->current_picture;
         hints_depth = (InfocomV6MenuType)dat->hints_depth;
         global_define_line = dat->define_line;
         internal_read_char_hack = (dat->internal_read_char_hack == 1);

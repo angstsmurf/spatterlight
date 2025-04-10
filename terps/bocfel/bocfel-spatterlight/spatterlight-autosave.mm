@@ -286,6 +286,7 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:(int32_t)library_state.stored_lower_tag forKey:@"bocfel_stored_lower_tag"];
     [encoder encodeInt32:(int32_t)library_state.hints_depth forKey:@"bocfel_hints_depth"];
     [encoder encodeInt32:(int32_t)library_state.slideshow_pic forKey:@"bocfel_slideshow_pic"];
+    [encoder encodeInt32:(int32_t)library_state.current_picture forKey:@"bocfel_current_picture"];
 
     [encoder encodeInt32:(int32_t)library_state.shogun_menu forKey:@"bocfel_shogun_menu"];
     [encoder encodeInt32:(int32_t)library_state.shogun_menu_selection forKey:@"bocfel_shogun_menu_selection"];
@@ -350,6 +351,7 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.stored_lower_tag = [decoder decodeInt32ForKey:@"bocfel_stored_lower_tag"];
     library_state.hints_depth = [decoder decodeInt32ForKey:@"bocfel_hints_depth"];
     library_state.slideshow_pic = [decoder decodeInt32ForKey:@"bocfel_slideshow_pic"];
+    library_state.current_picture = [decoder decodeInt32ForKey:@"bocfel_current_picture"];
 
     library_state.shogun_menu = [decoder decodeInt32ForKey:@"bocfel_shogun_menu"];
     library_state.shogun_menu_selection = [decoder decodeInt32ForKey:@"bocfel_shogun_menu_selection"];

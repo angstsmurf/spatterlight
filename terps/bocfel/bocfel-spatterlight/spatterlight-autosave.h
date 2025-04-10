@@ -97,6 +97,7 @@ typedef struct library_state_data_struct {
 
     int hints_depth;
     int slideshow_pic;
+    int current_picture;
 
     int define_line;
 
