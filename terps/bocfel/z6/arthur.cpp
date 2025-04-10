@@ -661,28 +661,6 @@ void arthur_update_after_restore(void) {
     after_V_COLOR();
 }
 
-void arthur_close_and_reopen_front_graphics_window(void) {
-    if (graphics_fg_glk) {
-        if (current_graphics_buf_win == graphics_fg_glk) {
-            current_graphics_buf_win = nullptr;
-        }
-        gli_delete_window(graphics_fg_glk);
-    }
-    graphics_fg_glk = gli_new_window(wintype_Graphics, 0);
-    if (screenmode == MODE_SLIDESHOW) {
-        win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
-        current_graphics_buf_win = graphics_fg_glk;
-        glk_request_mouse_event(graphics_fg_glk);
-    } else {
-        win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
-        if (screenmode == MODE_INITIAL_QUESTION) {
-            current_graphics_buf_win = nullptr;
-        } else {
-            current_graphics_buf_win = graphics_bg_glk;
-        }
-    }
-}
-
 void arthur_update_after_autorestore(void) {
     update_user_defined_colours();
     arthur_close_and_reopen_front_graphics_window();

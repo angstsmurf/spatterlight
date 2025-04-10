@@ -5874,8 +5874,11 @@ void init_screen(bool first_run)
                 screenmode = MODE_INITIAL_QUESTION;
             } else {
                 screenmode = MODE_SLIDESHOW;
+                v6_close_and_reopen_front_graphics_window();
             }
-            arthur_close_and_reopen_front_graphics_window();
+        } else if (is_spatterlight_shogun) {
+            screenmode = MODE_SLIDESHOW;
+            v6_close_and_reopen_front_graphics_window();
         }
     }
 #endif

@@ -122,7 +122,27 @@ int print_zstr_to_cstr(uint16_t addr, char *str) {
     return print_long_zstr_to_cstr(addr, str, STRING_BUFFER_SIZE);
 }
 
-
+void v6_close_and_reopen_front_graphics_window(void) {
+    if (graphics_fg_glk) {
+        if (current_graphics_buf_win == graphics_fg_glk) {
+            current_graphics_buf_win = nullptr;
+        }
+        gli_delete_window(graphics_fg_glk);
+    }
+    graphics_fg_glk = gli_new_window(wintype_Graphics, 0);
+    if (screenmode == MODE_SLIDESHOW) {
+        win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
+        current_graphics_buf_win = graphics_fg_glk;
+        glk_request_mouse_event(graphics_fg_glk);
+    } else {
+        win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
+        if (screenmode == MODE_INITIAL_QUESTION) {
+            current_graphics_buf_win = nullptr;
+        } else {
+            current_graphics_buf_win = graphics_bg_glk;
+        }
+    }
+}
 
 #pragma mark DEFINITIONS SCREEN
 

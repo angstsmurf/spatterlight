@@ -42,7 +42,6 @@ void arthur_update_after_restore(void);
 void arthur_update_after_autorestore(void);
 
 bool arthur_autorestore_internal_read_char_hacks(void);
-void arthur_close_and_reopen_front_graphics_window(void);
 
 void arthur_sync_screenmode(void);
 

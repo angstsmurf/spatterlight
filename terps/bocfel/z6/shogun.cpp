@@ -1444,6 +1444,11 @@ void shogun_update_after_autorestore(void) {
     if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
         set_current_window(&V6_TEXT_BUFFER_WINDOW);
 
+    v6_delete_win(&SHOGUN_MENU_WINDOW);
+
+    if (screenmode == MODE_SLIDESHOW) {
+        v6_close_and_reopen_front_graphics_window();
+    }
     window_change();
 }
 
