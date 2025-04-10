@@ -117,7 +117,6 @@ int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen) {
     return length;
 }
 
-
 int print_zstr_to_cstr(uint16_t addr, char *str) {
     return print_long_zstr_to_cstr(addr, str, STRING_BUFFER_SIZE);
 }

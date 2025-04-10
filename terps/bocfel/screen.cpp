@@ -2756,8 +2756,16 @@ void window_change()
 
             adjust_image_scale();
 
-            if (current_graphics_buf_win) {
-                glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
+            // These are needed to ensure correct
+            // colours on autorestore
+            if (graphics_bg_glk) {
+                glk_window_set_background_color(graphics_bg_glk, user_selected_background);
+            }
+            if (graphics_fg_glk) {
+                glk_window_set_background_color(graphics_fg_glk, user_selected_background);
+            }
+            if (V6_TEXT_BUFFER_WINDOW.id) {
+                win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
             }
 
             if (is_spatterlight_arthur) {
@@ -5652,14 +5660,14 @@ void init_screen(bool first_run)
             update_color(SPATTERLIGHT_CURRENT_FOREGROUND, gfgcol);
             update_color(SPATTERLIGHT_CURRENT_BACKGROUND, gbgcol);
         } else {
-            update_v6_colours();
             if (!colours_are_default) {
+                update_v6_colours();
                 fg = find_index_of_true_colour(user_selected_foreground);
                 bg = find_index_of_true_colour(user_selected_background);
             }
 
             if (is_spatterlight_arthur) {
-                // On restart, a blank status window will remain on top,
+                // On restart, a blank status window may remain visible,
                 // so we hide it here.
                 v6_define_window(upperwin, 0, 0, 0, 0);
             } else {

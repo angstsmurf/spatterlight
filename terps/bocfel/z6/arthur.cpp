@@ -363,7 +363,6 @@ void arthur_update_on_resize(void) {
         // We are showing a fullscreen image
         v6_define_window(mainwin, 1, 1, gscreenw, gscreenh);
 
-        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
         win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         glk_window_clear(current_graphics_buf_win);
         if (last_slideshow_pic == K_PIC_SWORD_MERLIN) {
@@ -544,7 +543,6 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
         if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_bg_glk) {
             current_graphics_buf_win = graphics_fg_glk;
         }
-        
         glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
         win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         screenmode = MODE_SLIDESHOW;
@@ -663,7 +661,6 @@ void arthur_update_after_restore(void) {
 
 void arthur_update_after_autorestore(void) {
     update_user_defined_colours();
-    arthur_close_and_reopen_front_graphics_window();
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
 
@@ -672,10 +669,7 @@ void arthur_update_after_autorestore(void) {
         window.bg_color = Color(Color::Mode::ANSI, bg);
     }
 
-    if (current_graphics_buf_win) {
-        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
-        glk_window_clear(current_graphics_buf_win);
-    }
+    v6_close_and_reopen_front_graphics_window();
 
     window_change();
 }

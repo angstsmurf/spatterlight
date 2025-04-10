@@ -1415,6 +1415,7 @@ void shogun_update_after_restore(void) {
     screenmode = MODE_NORMAL;
     if (sg.CURRENT_BORDER != 0)
         current_border = (ShogunBorderType)get_global(sg.CURRENT_BORDER);
+    update_status_line(last_was_interlude);
     current_menu_selection = 0;
     shogun_erase_screen();
     after_V_COLOR();
@@ -1455,7 +1456,7 @@ void shogun_update_after_autorestore(void) {
 void shogun_update_after_restart(void) {
     // Get rid of ending crest graphics window
     v6_delete_win(&SHOGUN_CREST_WINDOW);
-    current_menu_selection = 1;
+    current_menu_selection = 0;
 }
 
 bool shogun_autorestore_internal_read_char_hacks(void) {
