@@ -1488,9 +1488,6 @@
         NSLog(@"Failed to create Zork Font!");
 
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
-
-    para.maximumLineHeight = self.theme.cellHeight;
-    para.minimumLineHeight = self.theme.cellHeight;
     beyondZorkStyle[NSParagraphStyleAttributeName] = para;
 
     styles[style_BlockQuote] = beyondZorkStyle;
