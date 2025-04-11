@@ -127,19 +127,19 @@ void *MyCalloc(size_t size)
 
 void SetBit(int bit)
 {
-    if (bit < 64 && bit > 0) {
-        BitFlags |= (uint64_t)1 << bit;
-    } else {
+    if (bit >= 64 || bit < 0) {
         fprintf(stderr, "SetBit: bit %d out of range!\n", bit);
+    } else {
+        BitFlags |= (uint64_t)1 << bit;
     }
 }
 
 void ResetBit(int bit)
 {
-    if (bit < 64 && bit > 0) {
-        BitFlags &= ~((uint64_t)1 << bit);
-    } else {
+    if (bit >= 64 || bit < 0) {
         fprintf(stderr, "ResetBit: bit %d out of range!\n", bit);
+    } else {
+        BitFlags &= ~((uint64_t)1 << bit);
     }
 }
 
