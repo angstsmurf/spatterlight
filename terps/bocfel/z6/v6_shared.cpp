@@ -1305,7 +1305,6 @@ static int display_topics(void) {
 
 void redraw_hint_screen_on_resize(void) {
     draw_hints_windows();
-    glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
     switch (hints_depth) {
         case kV6MenuTypeHint:
             display_hints(true);
