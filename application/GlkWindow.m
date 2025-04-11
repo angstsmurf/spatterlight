@@ -544,6 +544,7 @@ fprintf(stderr, "%s\n",                                                    \
             if (fileFormat == kPlainText) {
                 NSCharacterSet *unwanted = [NSCharacterSet characterSetWithCharactersInString:@"\u00AD\0\uFFFC"];
                 NSString *string = [localTextStorage.string stringByTrimmingCharactersInSet:unwanted];
+                string = [string stringByReplacingOccurrencesOfString:@"\uFFFC" withString:@""];
                 unichar nc = '\0';
                 NSString *nullChar = [NSString stringWithCharacters:&nc length:1];
                 string = [string stringByReplacingOccurrencesOfString:nullChar withString:@""];

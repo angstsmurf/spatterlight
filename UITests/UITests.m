@@ -1176,7 +1176,7 @@
 
     [textField doubleClick];
 
-    XCUIElement *gameWindow = app.windows[@"Q.l9"];
+    XCUIElement *gameWindow = app.windows[@"Q.L9"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 

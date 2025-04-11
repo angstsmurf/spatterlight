@@ -1,16 +1,16 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2636
+{\rtf1\ansi\ansicpg1252\cocoartf2821
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;\f2\fswiss\fcharset0 Helvetica-Oblique;
 \f3\fnil\fcharset0 SourceCodePro-Regular;\f4\fswiss\fcharset0 Helvetica-BoldOblique;\f5\fnil\fcharset0 SourceCodePro-Bold;
 \f6\fnil\fcharset0 SourceCodePro-It;\f7\fnil\fcharset0 SourceCodePro-BoldIt;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red29\green93\blue28;
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red29\green93\blue28;\red255\green255\blue255;
 \red0\green0\blue0;\red232\green0\blue6;\red28\green211\blue4;\red235\green239\blue10;\red10\green85\blue166;
 \red251\green0\blue255;\red30\green238\blue235;\red255\green255\blue255;}
-{\*\expandedcolortbl;;\csgray\c0;\csgray\c100000;\cssrgb\c13700\c43100\c14500;
+{\*\expandedcolortbl;;\csgray\c0;\cssrgb\c13700\c43100\c14500;\csgray\c100000;
 \cspthree\c0\c0\c0;\cspthree\c85963\c18518\c12701;\cspthree\c38018\c82672\c24441;\cspthree\c93725\c93726\c30789;\cspthree\c17600\c41297\c68821;
 \cspthree\c91748\c20031\c96749;\cspthree\c42791\c92339\c93016;\cspthree\c100000\c100000\c100000;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
-\f0\fs26 \cf2 \cb3 \
+\f0\fs26 \cf2 \
 TerpEtude: A Z-machine Interpreter Exerciser\
 By Andrew Plotkin (erkyrath@netcom.com)\
 Release 2 / built with Inform v6.11\
@@ -38,7 +38,7 @@ Options: (hit Enter by itself to display this menu)\
   14: Printing before quitting\
 \
 > 
-\f1\b \cf4 1\
+\f1\b \cf3 1\
 
 \f0\b0 \cf2 \
 TerpEtude: A Z-machine Interpreter Exerciser\
@@ -51,7 +51,7 @@ NOTE: This program does not test everything in the Z-Spec. Passing all the tests
 For that matter, this program may have mistakes in it. I don\'92t think it does, but you should not assume it is the Fount of All Z-Machineness. If you find something strange, check the Z-Spec, check existing interpreters, check Infocom\'92s interpreters, and then send me mail if you\'92re still confused.\
 \
 > 
-\f1\b \cf4 2\
+\f1\b \cf3 2\
 
 \f0\b0 \cf2 \
 In the beginning, TerpEtude was written. That was release DRAFT-1.\
@@ -72,7 +72,7 @@ Title: Jon Ferro\
 Spec Aid: Graham, SJ, PDD, and the rest of the crowd\
 \
 > 
-\f1\b \cf4 3\
+\f1\b \cf3 3\
 
 \f0\b0 \cf2 \
 Your interpreter claims to follow revision 1.1 of the Z-Spec.\
@@ -87,14 +87,13 @@ Interpreter claims that timed input IS available.\
 Interpreter claims that \'93undo\'94 IS available.\
 \
 > 
-\f1\b \cf4 4\
+\f1\b \cf3 4\
 
 \f0\b0 \cf2 \
 Interpreter claims that emphasized (bold) text IS available.\
 Interpreter claims that italic (or underlined) text IS available.\
 Interpreter claims that fixed-width text IS available.\
 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
 \f1\b Test of emphasized (bold) text.
 \f0\b0 \
@@ -105,7 +104,7 @@ Interpreter claims that fixed-width text IS available.\
 \f0\i0 \
 ...normal font...\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
-\cf3 \cb2 Test of reverse-video text.\cf2 \cb3 \
+\cf4 \cb2 Test of reverse-video text.\cf2 \cb1 \
 ...normal font...\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
@@ -124,16 +123,16 @@ Now we will try combining styles. The Z-Spec does not require interpreters to di
 \f0\i0\b0 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
-\f1\b \cf3 \cb2 Test of bold, reverse text.
-\f0\b0 \cf2 \cb3 \
+\f1\b \cf4 \cb2 Test of bold, reverse text.
+\f0\b0 \cf2 \cb1 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
-\f2\i \cf3 \cb2 Test of italic, reverse text.
-\f0\i0 \cf2 \cb3 \
+\f2\i \cf4 \cb2 Test of italic, reverse text.
+\f0\i0 \cf2 \cb1 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
-\f4\i\b \cf3 \cb2 Test of bold, italic, reverse text.
-\f0\i0\b0 \cf2 \cb3 \
+\f4\i\b \cf4 \cb2 Test of bold, italic, reverse text.
+\f0\i0\b0 \cf2 \cb1 \
 \
 The following are all printed with \'93font off\'94 (that is, the header bit remains set, even though \'93style roman\'94 statements occur.)\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
@@ -145,30 +144,30 @@ The following are all printed with \'93font off\'94 (that is, the header bit rem
 \f6\i Test of fixed, italic text.
 \f3\i0 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
-\cf3 \cb2 Test of fixed, reverse text.\cf2 \cb3 \
+\cf4 \cb2 Test of fixed, reverse text.\cf2 \cb1 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
 \f7\i\b Test of fixed, bold, italic text.
 \f3\i0\b0 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
-\f5\b \cf3 \cb2 Test of fixed, bold, reverse text.
-\f3\b0 \cf2 \cb3 \
+\f5\b \cf4 \cb2 Test of fixed, bold, reverse text.
+\f3\b0 \cf2 \cb1 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
-\f6\i \cf3 \cb2 Test of fixed, italic, reverse text.
-\f3\i0 \cf2 \cb3 \
+\f6\i \cf4 \cb2 Test of fixed, italic, reverse text.
+\f3\i0 \cf2 \cb1 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
-\f7\i\b \cf3 \cb2 Test of fixed, bold, italic, reverse text.
-\f3\i0\b0 \cf2 \cb3 \
+\f7\i\b \cf4 \cb2 Test of fixed, bold, italic, reverse text.
+\f3\i0\b0 \cf2 \cb1 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
 \f0 \
 End of styles test.\
 \
 > 
-\f1\b \cf4 5\
+\f1\b \cf3 5\
 
 \f0\b0 \cf2 \
 Interpreter claims that colored text IS available.\
@@ -178,19 +177,19 @@ In the square below, you should see vertical stripes of background color (matchi
 
 \f3 \
 Bk Rd Gr Yl Bl Mg Cy Wh\
-\cf5 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Black\
-\cf6 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Red\
-\cf7 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Green\
-\cf8 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Yellow\
-\cf9 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Blue\
-\cf10 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Magenta\
-\cf11 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Cyan\
-\cf12 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : White\
+\cf5 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb1 : Black\
+\cf6 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb1 : Red\
+\cf7 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb1 : Green\
+\cf8 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb1 : Yellow\
+\cf9 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb1 : Blue\
+\cf10 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb1 : Magenta\
+\cf11 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb1 : Cyan\
+\cf12 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb1 : White\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
 \f0 \
 > 
-\f1\b \cf4 6\
+\f1\b \cf3 6\
 
 \f0\b0 \cf2 \
 This tests signed multiplication, division, and modulo operations. All these operations are supposed to be signed. (The Z-Spec 0.2 erroneously says they are unsigned; this is corrected in 0.99.)\
@@ -213,7 +212,7 @@ I am assuming the convention that division always rounds towards zero (not towar
 This aspect of your interpreter appears to behave according to spec.\
 \
 > 
-\f1\b \cf4 7\
+\f1\b \cf3 7\
 
 \f0\b0 \cf2 \
 This displays all the accented characters (encoding values 155 to 223). You will have to inspect your interpreter\'92s display to make sure they appear correctly.\
@@ -270,7 +269,6 @@ Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed
 \
 Accents> \
 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
 \f1\b a-umlaut:\'e4   o-umlaut:\'f6   u-umlaut:\'fc   A-umlaut:\'c4\
 O-umlaut:\'d6   U-umlaut:\'dc   sz-ligature:\'df   >>-quotes:\'bb\
@@ -460,7 +458,7 @@ Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed
 Accents> \
 \
 > 
-\f1\b \cf4 8\
+\f1\b \cf3 8\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
 \f0\b0 \cf2 \
@@ -479,7 +477,7 @@ AccentedInput> \
 Test finished.\
 \
 > 
-\f1\b \cf4 9\
+\f1\b \cf3 9\
 
 \f0\b0 \cf2 \
 This tests input of accented (actually, all) characters. Enter a line of text; it will be broken down, and you will see a list of what characters your interpreter thought you typed. Remember that the interpreter is supposed to reduce everything to lower-case.\
@@ -487,7 +485,7 @@ This tests input of accented (actually, all) characters. Enter a line of text; i
 Hit Enter by itself to return to the main menu.\
 \
 AccentedInput> 
-\f1\b \cf4 \'e9\'c5\'c4\'d6\'c9\'fc\'db\
+\f1\b \cf3 \'e9\'c5\'c4\'d6\'c9\'fc\'db\
 
 \f0\b0 \cf2 \
 code=170: e-acute:\'e9\
@@ -499,12 +497,12 @@ code=157: u-umlaut:\'fc\
 code=195: u-circumflex:\'fb\
 \
 AccentedInput> 
-\f1\b \cf4 \
+\f1\b \cf3 \
 
 \f0\b0 \cf2 \
 \
 > 
-\f1\b \cf4 12\
+\f1\b \cf3 12\
 
 \f0\b0 \cf2 \
 This tests whether your interpreter supports being handed input by the game file. (For example, after a function key is hit in Beyond Zork, the command prompt appears with text already in place \'96 whatever text you had typed before you interrupted it with the function key.)\
@@ -514,4 +512,4 @@ The command prompt below should appear with the word \'93Given\'94 already visib
 If you see the word \'93Given\'94 twice, your interpreter is printing the given characters, which it shouldn\'92t (that\'92s the responsibility of the game file.)\
 \
 Preload> 
-\f1\b \cf4 Given}
+\f1\b \cf3 Given}
