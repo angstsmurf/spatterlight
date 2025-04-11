@@ -510,7 +510,7 @@
      usingBlock:^(id value, NSRange range, BOOL *stop) {
 
         bgCol = (NSColor *)value;
-        if (bgCol && range.location < blocCols && range.length + 2 > blocCols) {
+        if (bgCol && range.location < blocCols) {
             if (NSMaxRange(range) > blockTextStorage.length - 3)
                 *stop = YES;
         } else {
