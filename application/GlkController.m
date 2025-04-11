@@ -1850,7 +1850,6 @@ fprintf(stderr, "%s\n",                                                    \
         _coverController = nil;
     }
     [self autoSaveOnExit];
-    self.window = nil;
     [_soundHandler stopAllAndCleanUp];
 
     if (_journeyMenuHandler) {
