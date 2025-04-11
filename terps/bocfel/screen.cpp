@@ -1172,8 +1172,8 @@ void show_message(const char *fmt, ...)
         glk_set_style_stream(stream, style_Alert);
     } else {
 #ifdef SPATTERLIGHT
-        if (mainwin->id->line_request)
-            return;
+        glk_cancel_line_event(mainwin->id, nullptr);
+        glk_cancel_char_event(mainwin->id);
 #endif
         stream = glk_window_get_stream(mainwin->id);
         message = "\n[" + message + "]\n";
