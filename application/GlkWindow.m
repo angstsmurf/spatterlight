@@ -542,6 +542,8 @@ fprintf(stderr, "%s\n",                                                    \
             NSError *error = nil;
             BOOL writeResult = NO;
             if (fileFormat == kPlainText) {
+                // If a text buffer window starts with a margin image before any text, we insert a soft hyphen (codepoint U+00AD) before the attachment character to avoid layout glitches. We strip that character from the plain text here.
+                // We also strip the unicode replacement character U+FFFC which both attachments and style changes seem to leave behind, and null characters, which might be hiding anywhere in an NSString.
                 NSCharacterSet *unwanted = [NSCharacterSet characterSetWithCharactersInString:@"\u00AD\0\uFFFC"];
                 NSString *string = [localTextStorage.string stringByTrimmingCharactersInSet:unwanted];
                 string = [string stringByReplacingOccurrencesOfString:@"\uFFFC" withString:@""];
@@ -558,6 +560,8 @@ fprintf(stderr, "%s\n",                                                    \
                 NSUInteger __block index = 1;
 
                 if (fileFormat == kRTFD) {
+                    // We replace all image attachments with file wrappers.
+                    // This will of course remove any image alignment settings. There is no support for that in RTFD (Apple's custom rich text format with attachments).
                     [localTextStorage
                      enumerateAttribute:NSAttachmentAttributeName
                      inRange:NSMakeRange(0, localTextStorage.length)
