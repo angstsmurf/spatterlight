@@ -694,8 +694,10 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSWindow *)createFullScreenWindow {
+    NSSize size = _libcontroller.view.window.screen.frame.size;
+    size.height -= 1;
     NSWindow *fullScreenWindow =
-    [[NSWindow alloc] initWithContentRect:(CGRect){ .size = _libcontroller.view.window.screen.frame.size }
+    [[NSWindow alloc] initWithContentRect:(CGRect){ .size = size }
                                 styleMask:NSWindowStyleMaskBorderless
                                   backing:NSBackingStoreBuffered
                                     defer:NO
