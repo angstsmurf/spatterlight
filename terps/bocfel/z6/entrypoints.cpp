@@ -1327,7 +1327,6 @@ void find_shogun_globals(void) {
         memory[start - 2] = 1;
     }
 
-
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD }, { &fg_global_idx, &bg_global_idx }, entrypoint.found_at_address, 300);
@@ -1338,13 +1337,13 @@ void find_shogun_globals(void) {
 
             if (start != -1) {
 //                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
-                start = find_pattern_in_mem({ 0xb0 }, start, 200);
+                int found = find_pattern_in_mem({ 0xb8 }, entrypoint.found_at_address, 300);
 
-                if (start == -1) {
-                    start = find_pattern_in_mem({ 0xb8 }, entrypoint.found_at_address, 400);
+                if (found == -1) {
+                    found = find_pattern_in_mem({ 0xb0 }, start, 200);
                 }
-                if (start != -1) {
-                    end_of_color_addr = start;
+                if (found != -1) {
+                    end_of_color_addr = found;
 //                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
                 } else {
                     fprintf(stderr, "Could not find return from routine V_COLOR!\n");
