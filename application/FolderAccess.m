@@ -59,14 +59,22 @@
     }
     NSError *error = nil;
 
-    [NSData dataWithContentsOfURL:url options:NSDataReadingMappedAlways error:&error];
+    if (@available(macOS 15.0, *)) {
+        [NSData dataWithContentsOfURL:url options:NSDataReadingMappedAlways error:&error];
+        // Error 257: "The file couldn’t be opened because you don’t have permission to view it."
+        if (error.domain == NSCocoaErrorDomain && error.code == 257) {
+            return YES;
+        }
+        return NO;
+    } else {
+        BOOL reachable = [url checkResourceIsReachableAndReturnError:&error];
+        if ( !reachable ) {
+            //Could not reach path (may not be an error; if file does not exist this is expected behavior
+            return NO;
+        }
 
-    // Error 257: "The file couldn’t be opened because you don’t have permission to view it."
-    if (error.domain == NSCocoaErrorDomain && error.code == 257) {
-        return YES;
+        return ![[NSFileManager defaultManager] isReadableFileAtPath:url.path];
     }
-
-    return NO;
 }
 
 + (void)askForAccessToURL:(NSURL *)url andThenRunBlock:(void (^)(void))block {
