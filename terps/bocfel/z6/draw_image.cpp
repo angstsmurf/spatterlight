@@ -8,6 +8,7 @@
 extern "C" {
 #include "glkimp.h"
 }
+#include <cmath>
 #include "v6_image.h"
 #include "draw_png.h"
 #include "draw_apple_2.h"

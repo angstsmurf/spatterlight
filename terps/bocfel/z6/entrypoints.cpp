@@ -4,6 +4,8 @@
 //
 //  Created by Administrator on 2023-08-06.
 //
+#include <unordered_map>
+
 #include "zterp.h"
 #include "screen.h"
 #include "memory.h"
