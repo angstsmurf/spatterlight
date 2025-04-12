@@ -70,7 +70,7 @@
 
     if (self) {
         // lines = [[NSMutableArray alloc] init];
-        
+
         NSDictionary *styleDict = nil;
 
         self.styleHints = [self deepCopyOfStyleHintsArray:glkctl_.gridStyleHints];
@@ -568,7 +568,7 @@
     if (NSMaxRange(_restoredSelection) <= _bufferTextStorage.length) {
         NSString *newSelectedString = [_bufferTextStorage.string substringWithRange:_restoredSelection];
         if ([newSelectedString isEqualToString:selectedString]) {
-           _textview.selectedRange = _restoredSelection;
+            _textview.selectedRange = _restoredSelection;
         }
     }
     _restoredSelection = _textview.selectedRange;
@@ -1032,7 +1032,7 @@
             p.y = charIndex / (cols + 1);
             p.x = charIndex % (cols + 1);
             if (p.x >= 0 && p.y >= 0 && p.x < cols && p.y < rows) {
-               gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
+                gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
                 [self.glkctl queueEvent:gev];
                 mouse_request = NO;
                 return YES;
@@ -1418,7 +1418,7 @@
     if (cx) {
         self.input.stringValue = cx;
         self.input.fieldEditor.selectedRange = NSMakeRange(cx.length, 0);
-    }  
+    }
 
     if (!cx.length) {
         if ([history empty])
@@ -1435,7 +1435,7 @@
     if (cx) {
         self.input.stringValue = cx;
         self.input.fieldEditor.selectedRange = NSMakeRange(cx.length, 0);
-    } 
+    }
 
     if (!cx.length) {
         if ([history empty])
@@ -1466,7 +1466,7 @@
     NSMutableDictionary *beyondZorkStyle = [styles[style_Normal] mutableCopy];
     NSString *normalFontName = self.theme.gridNormal.font.fontName;
     BOOL isMonaco = ([normalFontName isEqualToString:@"Monaco"]);
-    
+
     beyondZorkStyle[@"GlkStyle"] = @(style_BlockQuote);
 
     NSMutableParagraphStyle *para = [beyondZorkStyle[NSParagraphStyleAttributeName] mutableCopy];
