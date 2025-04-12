@@ -23,7 +23,7 @@
 
 @property BOOL hasNewText;
 
-// For Bureacracy form accessibility
+// For Bureaucracy form accessibility
 @property NSDate *keyPressTimeStamp;
 @property NSString *lastKeyPress;
 @property NSUInteger lastForm;

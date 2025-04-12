@@ -1155,7 +1155,7 @@
         [glkctl markLastSeen];
 
         if (glkctl.gameID == kGameIsBureaucracy) {
-            // Bureacracy on Bocfel will try to convert these keycodes
+            // Bureaucracy on Bocfel will try to convert these keycodes
             // to characters and then error out with
             // "fatal error: @print_char called with invalid character"
             // so we attempt to change them into something reasonable here.
