@@ -654,6 +654,8 @@ fprintf(stderr, "%s\n",                                                    \
     [accessoryView addSubview:_accessoryPopUp];
     [_accessoryPopUp selectItemWithTag:defaultType];
 
+    _accessoryPopUp.accessibilityIdentifier = @"saveFormatPopUp";
+
     return accessoryView;
 }
 

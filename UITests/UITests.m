@@ -85,18 +85,20 @@
 + (void)typeURL:(NSURL *)url intoFileDialog:(XCUIElement *)dialog {
     [dialog typeKey:@"g" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierShift];
 
-        XCUIElement *sheet = dialog.sheets.firstMatch;
+    XCUIElement *sheet = dialog.sheets.firstMatch;
+    if (!sheet.exists) {
         XCTAssert([sheet waitForExistenceWithTimeout:5]);
+    }
 
-        [sheet typeText:url.path];
-        [sheet typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
+    [sheet typeText:url.path];
+    [sheet typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
 }
 
 + (void)typeURL:(NSURL *)url intoApp:(XCUIApplication *)app {
     [app typeKey:@"g" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierShift];
 
     XCUIElement *sheet = app.sheets.firstMatch;
-    if(![sheet waitForExistenceWithTimeout:5]) {
+    if(![sheet exists]) {
         [app typeKey:@"g" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierShift];
     }
 
@@ -141,8 +143,6 @@
 
     [menuBarsQuery.menuBarItems[@"File"] click];
 
-    NSArray *menuItemTitles = @[@"Plain Text", @"Rich Text Format"];
-
     NSURL *url = [UITests tempDir];
 
     [menuBarsQuery.menuItems[@"Save Scrollback…"] click];
@@ -153,15 +153,8 @@
 
     [UITests typeURL:url intoFileDialog:savePanel];
 
-    XCUIElement *popUp;
-    for (NSString *popupTitle in menuItemTitles) {
-        popUp = savePanel.popUpButtons[popupTitle];
-        if ([popUp waitForExistenceWithTimeout:2]) {
-            break;
-        }
-    }
+    XCUIElement *popUp = [savePanel.popUpButtons elementMatchingType:XCUIElementTypePopUpButton identifier:@"saveFormatPopUp"];
     [popUp click];
-
     [popUp.menuItems[format] click];
     XCUIElement *saveButton = savePanel.buttons[@"Save"];
     [saveButton click];
@@ -182,6 +175,9 @@
     NSLog(@"Transcript is in directory %@", transcriptURL.path);
 
     XCUIElement *savePanel = gameWin.sheets.firstMatch;
+    if (!savePanel.exists) {
+        XCTAssert([savePanel waitForExistenceWithTimeout:5]);
+    }
 
     [UITests typeURL:transcriptURL intoFileDialog:savePanel andPressButtonWithText:@"Save"];
 
@@ -477,16 +473,7 @@
         [menuBarsQuery.menuItems[@"Save Scrollback…"] click];
         XCUIElement *savePanel = gamewin.sheets[@"save-panel"];
         XCTAssert([savePanel waitForExistenceWithTimeout:5]);
-        XCUIElement *popUp;
-
-        if ([savePanel.popUpButtons[@"Rich Text Format without images"] waitForExistenceWithTimeout:0.5]) {
-            popUp = savePanel.popUpButtons[@"Rich Text Format without images"];
-        } else if ([savePanel.popUpButtons[@"Rich Text Format with images"] waitForExistenceWithTimeout:0.5]) {
-            popUp = savePanel.popUpButtons[@"Rich Text Format with images"];
-        } else {
-            popUp = savePanel.popUpButtons[@"PlainText"];
-        }
-        [popUp click];
+       [[savePanel.popUpButtons elementMatchingType:XCUIElementTypePopUpButton identifier:@"saveFormatPopUp"] click];
 
         [savePanel.menuItems[menuItem] click];
         XCUIElement *saveButton = savePanel.buttons[@"Save"];
@@ -828,6 +815,7 @@
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
+    [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeText:@"transcript\r"];
 
@@ -2156,19 +2144,17 @@
     XCUIElement *formatTab = app.toolbars.buttons[@"Format"];
     [formatTab click];
 
-    [[[preferences childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:5] click];
-
+    [[app.popUpButtons elementMatchingType:XCUIElementTypePopUpButton identifier:@"arrowKeysPopup"] click];
     [app.menuItems[@"Replaced by \u2318↑ and \u2318↓"] click];
-    [app/*@START_MENU_TOKEN@*/.popUpButtons[@"Popup"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.popUpButtons[@\"Popup\"]",".popUpButtons[@\"Popup\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [app/*@START_MENU_TOKEN@*/.menuItems[@"Funky"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons[@\"Popup\"]",".menus.menuItems[@\"Funky\"]",".menuItems[@\"Funky\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
+    [[app.popUpButtons elementMatchingType:XCUIElementTypePopUpButton identifier:@"highBeepPopup"] click];
+    [app/*@START_MENU_TOKEN@*/.menuItems[@"Funky"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons[@\"arrowKeysPopup\"]",".menus.menuItems[@\"Funky\"]",".menuItems[@\"Funky\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    XCUIElement *popUpButton = [[preferences childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:2];
-    [popUpButton click];
+    [[app.popUpButtons elementMatchingType:XCUIElementTypePopUpButton identifier:@"lowBeepPopup"] click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"Bubble"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Bubble\"]",".menuItems[@\"Bubble\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    XCUIElement *popUpButton2 = [[preferences childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:0];
-    [popUpButton2 click];
+    [[app.popUpButtons elementMatchingType:XCUIElementTypePopUpButton identifier:@"systemPopup"] click];
+
     [app/*@START_MENU_TOKEN@*/.menuItems[@"1. DECSystem-20"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"1. DECSystem-20\"]",".menuItems[@\"1. DECSystem-20\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
     textField = [[preferences childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
@@ -2185,11 +2171,10 @@
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Fancy quote boxes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Fancy quote boxes\"]",".checkBoxes[@\"Fancy quote boxes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
     [app/*@START_MENU_TOKEN@*/.toolbars.buttons[@"VoiceOver"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.toolbars.buttons[@\"VoiceOver\"]",".toolbars.buttons[@\"VoiceOver\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [popUpButton2 click];
+    [[app.popUpButtons elementMatchingType:XCUIElementTypePopUpButton identifier:@"speakMenuLinesPopup"] click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"Text, index, and total"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Text, index, and total\"]",".menuItems[@\"Text, index, and total\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    XCUIElement *popUpButton3 = [[preferences childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:1];
-    [popUpButton3 click];
+    [[app.popUpButtons elementMatchingType:XCUIElementTypePopUpButton identifier:@"speakImagesPopup"] click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"All"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"All\"]",".menuItems[@\"All\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Speak commands"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Speak commands\"]",".checkBoxes[@\"Speak commands\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.toolbars.buttons[@"Misc"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.toolbars.buttons[@\"Misc\"]",".toolbars.buttons[@\"Misc\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
