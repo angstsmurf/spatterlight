@@ -16,8 +16,8 @@
 #define MAXWIN 64
 
 typedef enum kMinimumWindowSize : NSUInteger {
-    kMinimumWindowWidth = 213,
-    kMinimumWindowHeight = 107,
+    kMinimumWindowWidth = 212,
+    kMinimumWindowHeight = 105,
 } kMinimumWindowSize;
 
 @interface GlkHelperView : NSView

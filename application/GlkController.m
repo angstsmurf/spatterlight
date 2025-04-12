@@ -2082,6 +2082,21 @@ fprintf(stderr, "%s\n",                                                    \
     return frame;
 }
 
+- (NSRect)frameWithSanitycheckedSize:(NSRect)rect {
+    if (rect.size.width < kMinimumWindowWidth || rect.size.height < kMinimumWindowHeight) {
+        NSSize defaultSize = [self defaultContentSize];
+        if (rect.size.width < defaultSize.width)
+            rect.size.width = defaultSize.width;
+        if (rect.size.height < defaultSize.height)
+            rect.size.height = defaultSize.height;
+    }
+    if (rect.size.width < kMinimumWindowWidth)
+        rect.size.width = kMinimumWindowWidth;
+    if (rect.size.height < kMinimumWindowHeight)
+        rect.size.height = kMinimumWindowHeight;
+    return rect;
+}
+
 - (NSSize)defaultContentSize {
     // Actually the size of the content view, not including window title bar
     NSSize size;
@@ -4684,18 +4699,22 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         // We are not in fullscreen
         frame = [self contentFrameForWindowed];
     }
-    if (frame.size.width < kMinimumWindowWidth)
-        frame.size.width = kMinimumWindowWidth;
-    if (frame.size.height < kMinimumWindowHeight)
-        frame.size.height = kMinimumWindowHeight;
+
+    NSUInteger border = (NSUInteger)_theme.border;
+    NSRect contentRect = frame;
+    contentRect.size = NSMakeSize(frame.size.width + 2 * border, frame.size.height + 2 * border);
+    contentRect.origin = NSMakePoint(frame.origin.x - border, frame.origin.y - border);
+    if (contentRect.size.width < kMinimumWindowWidth || contentRect.size.height < kMinimumWindowHeight) {
+        contentRect = [self frameWithSanitycheckedSize:contentRect];
+        frame.size.width = contentRect.size.width - 2 * border;
+        frame.size.height = contentRect.size.height - 2 * border;
+    }
 
     NSRect windowframe = self.window.frame;
-    if (windowframe.size.width < kMinimumWindowWidth)
-        windowframe.size.width = kMinimumWindowWidth;
-    if (windowframe.size.height < kMinimumWindowHeight)
-        windowframe.size.height = kMinimumWindowHeight;
-    if (!NSEqualRects(self.window.frame, windowframe))
-        [self.window setFrame:windowframe display:YES];
+    NSRect frameForContent = [self.window frameRectForContentRect:contentRect];
+    if (windowframe.size.width < frameForContent.size.width || windowframe.size.height < frameForContent.size.height) {
+        [self.window setFrame:[self.window frameRectForContentRect:frame] display:YES];
+    }
 
     _gameView.frame = frame;
 }
