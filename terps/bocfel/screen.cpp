@@ -4825,8 +4825,6 @@ void zget_wind_prop()
         graphics_window.destroy();
     }
 #endif
-#else
-    val = 0;
 #endif
 
     win = find_window(zargs[0]);
