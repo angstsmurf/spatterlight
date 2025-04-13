@@ -490,33 +490,52 @@
     // and if so, uses this color for the window background color.
     // It is complicated by the fact that some games have a status line in reverse video, but leaves
     // a single character at the end non-reversed. Also, our setFrame implementation inserts newline
-    // charaters at the end of every row, and those may not have the right background color. So we have
-    // to check on a row by row basis.
+    // charaters at the end of every row, and those may not have the right background color. So we
+    // simply count the background color runs and check if one fills the window (which we fudge to
+    // mean "length of textstorage minus two colums".)
 
-    if (!_bufferTextStorage.length) {
+    NSAttributedString __block *blockTextStorage = _bufferTextStorage;
+
+    if (!blockTextStorage.length) {
         if (textstorage.length) {
-            _bufferTextStorage = textstorage;
+            blockTextStorage = textstorage;
         } else return;
     }
 
-    NSColor __block *bgCol;
-    NSUInteger __block blocCols = cols;
-    NSAttributedString __block *blockTextStorage = _bufferTextStorage;
+    NSMutableDictionary<NSColor *, NSValue *> __block *colors = [[NSMutableDictionary alloc] init];
 
     [blockTextStorage
      enumerateAttribute:NSBackgroundColorAttributeName
      inRange:NSMakeRange(0, blockTextStorage.length)
      options:0
-     usingBlock:^(id value, NSRange range, BOOL *stop) {
-
-        bgCol = (NSColor *)value;
-        if (bgCol && range.length + 2 > blocCols) {
-            if (NSMaxRange(range) > blockTextStorage.length - 3)
-                *stop = YES;
-        } else {
-            bgCol = nil;
+     usingBlock:^(NSColor *color, NSRange range, BOOL *stop) {
+        if (color) {
+            NSValue *rangeVal = colors[color];
+            if (rangeVal) {
+                NSRange storedRange = rangeVal.rangeValue;
+                storedRange.length += range.length;
+                colors[color] = [NSValue valueWithRange:storedRange];
+            } else {
+                colors[color] = [NSValue valueWithRange:range];
+            }
         }
     }];
+
+    NSColor *bgCol = nil;
+
+    if (colors.count) {
+        NSUInteger longest = 0;
+        for (NSColor *col in colors.allKeys) {
+            NSValue *rangeVal = colors[col];
+            NSUInteger length = rangeVal.rangeValue.length;
+            if (length > longest) {
+                longest = length;
+                bgCol = col;
+            }
+        }
+        if (longest < blockTextStorage.length - rows * 2)
+            bgCol = nil;
+    }
 
     if (!bgCol) {
         if (bgnd < 0 || !self.theme.doStyles) {
