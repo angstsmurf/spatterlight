@@ -17,7 +17,7 @@
 
 typedef enum kMinimumWindowSize : NSUInteger {
     kMinimumWindowWidth = 212,
-    kMinimumWindowHeight = 105,
+    kMinimumWindowHeight = 100
 } kMinimumWindowSize;
 
 @interface GlkHelperView : NSView
