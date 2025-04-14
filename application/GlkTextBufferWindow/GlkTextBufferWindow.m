@@ -512,7 +512,7 @@ fprintf(stderr, "%s\n",                                                    \
      usingBlock:^(NSTextAttachment *attachment, NSRange range, BOOL *stop) {
         MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
         if (cell) {
-            if (cell.align == imagealign_MarginLeft || cell.align == imagealign_MarginRight) {
+            if (cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight) {
                 if (cell.marginImgUUID != nil)
                     attachmentCells[cell.marginImgUUID] = cell;
             }
@@ -1707,7 +1707,7 @@ replacementString:(id)repl {
         MyAttachmentCell *cell = (MyAttachmentCell *)value.attachmentCell;
 
         NSImage *img = nil;
-        BOOL imageIsMargin = (cell.align == imagealign_MarginLeft || cell.align == imagealign_MarginRight);
+        BOOL imageIsMargin = (cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight);
 
         if (cell && [self.glkctl.imageHandler handleFindImageNumber:cell.index]) {
             CGFloat blockXScale = xscale;
@@ -1727,7 +1727,7 @@ replacementString:(id)repl {
 
         // Replace non-margin inline images (alignment imagealign_InlineUp, imagealign_InlineDown, or imagealign_InlineCenter)
         if (!imageIsMargin) {
-            NSTextAttachment *att = [self textAttachmenWithImage:img alignment:cell.align index:cell.index position:subrange.location];
+            NSTextAttachment *att = [self textAttachmenWithImage:img alignment:cell.glkImgAlign index:cell.index position:subrange.location];
             [textstorage addAttribute:NSAttachmentAttributeName value:att range:subrange];
             return;
         }

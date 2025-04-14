@@ -40,7 +40,7 @@
     else
         self = [super initImageCell:nil];
     if (self) {
-        _align = alignment;
+        _glkImgAlign = alignment;
         _attrstr = anattrstr;
         _pos = apos;
         _index = index;
@@ -55,7 +55,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        _align = [decoder decodeIntegerForKey:@"align"];
+        _glkImgAlign = [decoder decodeIntegerForKey:@"align"];
         _attrstr = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"attstr"];
         _marginImgUUID = [decoder decodeObjectOfClass:[NSString class] forKey:@"marginImgUUID"];
         _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
@@ -70,7 +70,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeInteger:_align forKey:@"align"];
+    [encoder encodeInteger:_glkImgAlign forKey:@"align"];
     [encoder encodeObject:_attrstr forKey:@"attrstr"];
     [encoder encodeObject:_marginImgUUID forKey:@"marginImgUUID"];
     [encoder encodeObject:self.accessibilityLabel forKey:@"label"];
@@ -89,7 +89,7 @@
                            inRect:(NSRect)cellFrame
                            ofView:(NSView *)controlView
                  atCharacterIndex:(NSUInteger)charIndex {
-    if (_align == imagealign_MarginLeft || _align == imagealign_MarginRight) {
+    if (_glkImgAlign == imagealign_MarginLeft || _glkImgAlign == imagealign_MarginRight) {
         return NO;
             }
     if (theEvent.type == NSEventTypeLeftMouseDragged || theEvent.type == NSEventTypeLeftMouseDown) {
@@ -121,9 +121,9 @@
     else
         lastXHeight = xHeight;
 
-    if (_align == imagealign_InlineCenter) {
+    if (_glkImgAlign == imagealign_InlineCenter) {
         return NSMakePoint(0, -(self.image.size.height / 2) + xHeight / 2);
-    } else if (_align == imagealign_InlineDown) {
+    } else if (_glkImgAlign == imagealign_InlineDown) {
         return NSMakePoint(0, -self.image.size.height + ascender);
     }
 
@@ -131,7 +131,7 @@
 }
 
 - (NSSize)cellSize {
-    if (_align == imagealign_MarginLeft || _align == imagealign_MarginRight) {
+    if (_glkImgAlign == imagealign_MarginLeft || _glkImgAlign == imagealign_MarginRight) {
         return NSZeroSize;
     }
     return [super cellSize];
@@ -141,7 +141,7 @@
                proposedLineFragment:(NSRect)lineFrag
                       glyphPosition:(NSPoint)position
                      characterIndex:(NSUInteger)charIndex {
-    if (_align == imagealign_MarginLeft || _align == imagealign_MarginRight) {
+    if (_glkImgAlign == imagealign_MarginLeft || _glkImgAlign == imagealign_MarginRight) {
         return NSZeroRect;
     }
     return [super cellFrameForTextContainer:textContainer
@@ -152,7 +152,7 @@
 
 - (void)drawWithFrame:(NSRect)cellFrame
                inView:(NSView *)controlView {
-    switch (_align) {
+    switch (_glkImgAlign) {
         case imagealign_MarginLeft:
         case imagealign_MarginRight:
             break;
@@ -166,7 +166,7 @@
 - (void)drawWithFrame:(NSRect)cellFrame
                inView:(NSView *)controlView
        characterIndex:(NSUInteger)charIndex {
-    switch (_align) {
+    switch (_glkImgAlign) {
         case imagealign_MarginLeft:
         case imagealign_MarginRight:
             break;
@@ -182,7 +182,7 @@
                inView:(NSView *)controlView
        characterIndex:(NSUInteger)charIndex
         layoutManager:(NSLayoutManager *)layoutManager  {
-    switch (_align) {
+    switch (_glkImgAlign) {
         case imagealign_MarginLeft:
         case imagealign_MarginRight:
             break;
@@ -199,7 +199,7 @@
 - (void)highlight:(BOOL)flag
         withFrame:(NSRect)cellFrame
            inView:(NSView *)controlView {
-    switch (_align) {
+    switch (_glkImgAlign) {
         case imagealign_MarginLeft:
         case imagealign_MarginRight:
             break;

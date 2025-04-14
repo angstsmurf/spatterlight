@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) NSAttributedString *attrstr;
 @property (weak) MarginImage *marginImage;
 @property NSUInteger pos;
-@property NSInteger align;
+@property NSInteger glkImgAlign;
 @property NSInteger index;
 @property NSString *marginImgUUID;
 
