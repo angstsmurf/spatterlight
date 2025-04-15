@@ -222,7 +222,7 @@
         _files = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"files"];
         for (SoundFile *file in _files.allValues)
             file.handler = self;
-        _resources = _resources = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSNumber class], [SoundResource class], nil] forKey:@"resources"];
+        _resources = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSNumber class], [SoundResource class], nil] forKey:@"resources"];
         if (_resources)
             for (SoundResource *res in _resources.allValues) {
                 res.soundFile = _files[res.filename];
