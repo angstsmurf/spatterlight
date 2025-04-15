@@ -149,7 +149,7 @@
 
                     if (NSIntersectsRect(bounds, newrect)) {
                         overlapped2 = YES;
-                        if (image.alignment == imagealign_MarginLeft) {
+                        if (image.glkImgAlign == imagealign_MarginLeft) {
                             // If we intersect with a left-aligned image, cut
                             // off the left end of the rect
 
@@ -247,11 +247,11 @@
     NSRect adjustedBounds = image.bounds;
 
     // If outside margin, move to opposite margin
-    if (image.alignment == imagealign_MarginLeft &&
+    if (image.glkImgAlign == imagealign_MarginLeft &&
         NSMaxX(adjustedBounds) > rightMargin + 1) {
         // Left-aligned image outside right margin
         adjustedBounds.origin.x = self.lineFragmentPadding;
-    } else if (image.alignment == imagealign_MarginRight &&
+    } else if (image.glkImgAlign == imagealign_MarginRight &&
                adjustedBounds.origin.x < leftMargin - 1) {
         // Right-aligned image outside left margin
         adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
@@ -262,8 +262,8 @@
 
         // If overlapping, shift in opposite alignment direction
         if (NSIntersectsRect(img2.bounds, adjustedBounds)) {
-            if (image.alignment == img2.alignment) {
-                if (image.alignment == imagealign_MarginLeft) {
+            if (image.glkImgAlign == img2.glkImgAlign) {
+                if (image.glkImgAlign == imagealign_MarginLeft) {
                     adjustedBounds.origin.x =
                         NSMaxX(img2.bounds) + self.lineFragmentPadding;
                     // Move to the right of image if both left-aligned,
@@ -293,7 +293,7 @@
             } else {
                 // If we have collided with an image of opposite alignment,
                 // move below it and back to margin
-                if (image.alignment == imagealign_MarginLeft)
+                if (image.glkImgAlign == imagealign_MarginLeft)
                     adjustedBounds.origin.x = self.lineFragmentPadding;
                 else
                     adjustedBounds.origin.x =

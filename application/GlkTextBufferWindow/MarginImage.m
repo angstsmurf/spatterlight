@@ -35,14 +35,14 @@
 }
 
 - (instancetype)initWithImage:(NSImage *)animage
-                    alignment:(NSInteger)alignment
+                    alignment:(NSInteger)imageAlignment
                        linkId:(NSUInteger)linkId
                            at:(NSUInteger)apos
                        sender:(id)sender {
     self = [super init];
     if (self) {
         _image = animage;
-        _alignment = alignment;
+        _glkImgAlign = imageAlignment;
         _bounds = NSZeroRect;
         _linkid = linkId;
         _pos = apos;
@@ -60,7 +60,7 @@
     self = [super init];
     if (self) {
         _image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
-        _alignment = [decoder decodeIntegerForKey:@"alignment"];
+        _glkImgAlign = [decoder decodeIntegerForKey:@"alignment"];
         _bounds = [decoder decodeRectForKey:@"bounds"];
         _linkid = (NSUInteger)[decoder decodeIntegerForKey:@"linkid"];
         _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
@@ -73,7 +73,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:_image forKey:@"image"];
-    [encoder encodeInteger:_alignment forKey:@"alignment"];
+    [encoder encodeInteger:_glkImgAlign forKey:@"alignment"];
     [encoder encodeRect:_bounds forKey:@"bounds"];
     [encoder encodeInteger:(NSInteger)_linkid forKey:@"linkid"];
     [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
@@ -113,7 +113,7 @@
 
         /* set bounds to be at the same line as anchor but in left/right margin
          */
-        if (_alignment == imagealign_MarginRight) {
+        if (_glkImgAlign == imagealign_MarginRight) {
             CGFloat rightMargin = textview.frame.size.width -
                                   textview.textContainerInset.width * 2 -
                                   _container.lineFragmentPadding;
@@ -295,9 +295,9 @@
     NSString *label = _image.accessibilityDescription;
     if (!label.length) {
         if (_linkid) {
-            label = [NSString stringWithFormat: @"Clickable %@ margin image", _alignment == imagealign_MarginLeft ? @"left" : @"right"];
+            label = [NSString stringWithFormat: @"Clickable %@ margin image", _glkImgAlign == imagealign_MarginLeft ? @"left" : @"right"];
         } else {
-            label = [NSString stringWithFormat: @"%@ margin image", _alignment == imagealign_MarginLeft ? @"Left" : @"Right"];
+            label = [NSString stringWithFormat: @"%@ margin image", _glkImgAlign == imagealign_MarginLeft ? @"Left" : @"Right"];
         }
     }
     return label;

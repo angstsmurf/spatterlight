@@ -1739,7 +1739,7 @@ replacementString:(id)repl {
         }
 
         [container.marginImages removeObject:mimg];
-        [container addImage:img alignment:mimg.alignment at:subrange.location linkid:0];
+        [container addImage:img alignment:mimg.glkImgAlign at:subrange.location linkid:0];
         cell.marginImage = container.marginImages.lastObject;
         cell.marginImgUUID = cell.marginImage.uuid;
     }];

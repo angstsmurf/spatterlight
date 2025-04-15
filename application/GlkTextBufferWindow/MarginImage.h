@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MarginImage : NSAccessibilityElement <NSSecureCoding, NSFilePromiseProviderDelegate, NSDraggingSource, NSPasteboardItemDataProvider>
 
 @property(strong) NSImage *image;
-@property(readonly) NSInteger alignment;
+@property(readonly) NSInteger glkImgAlign;
 @property NSUInteger pos;
 @property NSRect bounds;
 @property NSUInteger linkid;
