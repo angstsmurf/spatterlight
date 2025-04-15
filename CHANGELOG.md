@@ -1,5 +1,19 @@
 # Change log
 
+## Unreleased
+- Game windows would sometimes autorestore to minimum size.
+- The animation when opening or closing game info panels would trigger the macOS Game Mode, along with an annoying notification.
+- Adds full support for all versions of Infocom's *Shogun* and *Arthur: The Quest for Excalibur* with autosave, window resizing and VoiceOver support. All graphic formats work and can be changed on the fly.
+- Adds a new option to redirect Bocfel and *Shogun* error window text to the main buffer window.
+- Bocfel error windows could sometimes have incorrect colours in games that change colour on the fly, such as *Beyond Zork*.
+- Double copies of margin images would be autosaved, one in `MyAttachmentCell`, one in `MarginImage`.
+- The VoiceOver image rotor was broken.
+- Strips more leftover junk characters when saving scrollback as plain text.
+- The `subheader` Glk grid style text in the DOSBox and MS-DOS built-in themes is now white, which makes *Journey* more playable when using them. The subheader buffer style was already white, for some reason.
+- The `loadimage` function in `glkimp` was broken and leaked memory when not using blorb files.
+- Thanks to the new static analyzer in Xcode 16.3, several file resource leaks (i.e `fopen()` without corresponding `fclose()`) were discovered and fixed in too many places to list here.
+- Resetting a game will work even if the game file has been moved or renamed.
+
 ## Release 1.3
 - Fixes the decoding of certain characters in game descriptions downloaded from IFDB.
 - Fixes reading files managed by the File Provider API, such as those on Google Drive. Mostly by opening a lot of dialogs asking the user for permission to read files.
