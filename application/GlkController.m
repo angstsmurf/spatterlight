@@ -2085,10 +2085,15 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSRect)frameWithSanitycheckedSize:(NSRect)rect {
     if (rect.size.width < kMinimumWindowWidth || rect.size.height < kMinimumWindowHeight) {
         NSSize defaultSize = [self defaultContentSize];
-        if (rect.size.width < defaultSize.width)
+        NSRect screenFrame = self.window.screen.visibleFrame;
+        if (rect.size.width < defaultSize.width) {
             rect.size.width = defaultSize.width;
-        if (rect.size.height < defaultSize.height)
+            rect.origin.x = round((NSWidth(screenFrame) - defaultSize.width) / 2);
+        }
+        if (rect.size.height < defaultSize.height) {
             rect.size.height = defaultSize.height;
+            rect.origin.y = round(screenFrame.origin.y + (NSHeight(screenFrame) - defaultSize.height) / 2) + 40;
+        }
     }
     if (rect.size.width < kMinimumWindowWidth)
         rect.size.width = kMinimumWindowWidth;
