@@ -11,8 +11,9 @@
 - Strips more leftover junk characters when saving scrollback as plain text.
 - The `subheader` Glk grid style text in the DOSBox and MS-DOS built-in themes is now white, which makes *Journey* more playable when using them. The subheader buffer style was already white, for some reason.
 - The `loadimage` function in `glkimp` was broken and leaked memory when not using blorb files.
-- Thanks to the new static analyzer in Xcode 16.3, several file resource leaks (i.e `fopen()` without corresponding `fclose()`) were discovered and fixed in too many places to list here.
+- Thanks to the new static analyzer in Xcode 16.3, several file resource leaks (i.e `fopen()` without a corresponding `fclose()`) were discovered and fixed.
 - Resetting a game will work even if the game file has been moved or renamed.
+- Reduces the number of temporary files created when playing *Journey*.
 
 ## Release 1.3
 - Fixes the decoding of certain characters in game descriptions downloaded from IFDB.
