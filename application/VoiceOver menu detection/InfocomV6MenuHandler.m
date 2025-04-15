@@ -184,7 +184,7 @@
         NSString *indexString;
 
         if (hintDepth == kV6MenuTypeHint && _menuItems.count == 0) {
-            indexString = [NSString stringWithFormat:@"%ld hints available", _numberOfItems];
+            indexString = [NSString stringWithFormat:@"%ld hint%@ available", _numberOfItems, _numberOfItems == 1 ? @"" : @"s"];
         } else {
             if (_selectedLine >= _numberOfItems) {
                 _selectedLine = _numberOfItems - 1;
