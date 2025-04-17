@@ -549,6 +549,8 @@
 }
 
 - (void)flushDisplay {
+    // Making the textview temporarily editable
+    // reduces flicker in Hugo Tetris, for some reason.
     _textview.editable = YES;
     NSRange selectedRange = _textview.selectedRange;
     NSString *selectedString = [textstorage.string substringWithRange:selectedRange];
