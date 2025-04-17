@@ -1668,7 +1668,7 @@
     moveRangeIndex = self.moveRanges.count - 1;
     NSString *str = [textstorage.string substringWithRangeValue:self.moveRanges.lastObject];
 
-    if (!str.length) {
+    if (!str.length && sender != self.glkctl) {
         [self.glkctl speakStringNow:@"No last move to speak"];
         return;
     }

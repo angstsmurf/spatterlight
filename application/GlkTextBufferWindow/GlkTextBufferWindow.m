@@ -2178,7 +2178,11 @@ replacementString:(id)repl {
         str = [@"QUOTE: \n\n" stringByAppendingString:str];
     }
 
-    if (!str.length) {
+    // sender is only set to self.glkctl if repeatLastMove is called by
+    // the GlkController after entering a command, or the window gets focus,
+    // or VoiceOver is activated, i.e. not in response to the player
+    // using the shortcut or the menu item.
+    if (!str.length && sender != glkctl) {
         [glkctl speakStringNow:@"No last move to speak"];
         return;
     }

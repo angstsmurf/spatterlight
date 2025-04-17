@@ -5047,7 +5047,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                 return;
             }
         }
-        [largest repeatLastMove:nil];
+        [largest repeatLastMove:self];
     }
 }
 
@@ -5093,7 +5093,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
     [mainWindow setLastMove];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [mainWindow repeatLastMove:nil];
+        [mainWindow repeatLastMove:sender];
     });
 }
 
