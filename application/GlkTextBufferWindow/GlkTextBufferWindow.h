@@ -54,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollWheelchanged:(NSEvent *)event;
 - (void)updateImageAttachmentsWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale;
 
+- (void)resetLastSpokenString;
+
 // Only used by JourneyMenuHandler
 - (NSString *)lastMoveString;
 - (void)movesRangesFromV6Menu:(NSArray<NSString *> *)menuStrings;

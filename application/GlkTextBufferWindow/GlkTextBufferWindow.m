@@ -66,6 +66,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     BOOL scrolling;
     NSMutableArray<NSEvent *> *bufferedEvents;
+
+    NSRange lastSpokenRange;
+    NSString *lastSpokenString;
 }
 @end
 
@@ -797,6 +800,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (currentZColor && currentZColor.bg != zcolor_Current)
         bgnd = currentZColor.bg;
     [self recalcBackground];
+    [self resetLastSpokenString];
 }
 
 - (void)reallyClear {
@@ -2162,6 +2166,11 @@ replacementString:(id)repl {
     return str;
 }
 
+- (void)resetLastSpokenString {
+    lastSpokenRange = NSMakeRange(0, 0);
+    lastSpokenString = @"";
+}
+
 - (void)repeatLastMove:(id)sender {
     GlkController *glkctl = self.glkctl;
     if (glkctl.zmenu)
@@ -2185,6 +2194,16 @@ replacementString:(id)repl {
     if (!str.length && sender != glkctl) {
         [glkctl speakStringNow:@"No last move to speak"];
         return;
+    }
+
+    // The GlkController might sometimes think there
+    // is new text to speak after a key event even if there isn't,
+    // so we perform an extra check for that here.
+    if (sender == glkctl && NSEqualRanges(lastSpokenRange, self.moveRanges.lastObject.rangeValue) && [str isEqualToString:lastSpokenString]) {
+        return;
+    } else {
+        lastSpokenRange = self.moveRanges.lastObject.rangeValue;
+        lastSpokenString = str;
     }
 
     [glkctl speakString:str];

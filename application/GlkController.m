@@ -5098,6 +5098,11 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)speakMostRecentAfterDelay {
+    for (GlkWindow *win in _gwindows.allValues) {
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            [(GlkTextBufferWindow *)win resetLastSpokenString];
+    }
+
     CGFloat delay = _theme.vOHackDelay;
     shouldAddTitlePrefixToSpeech = (delay < 1);
     delay *= NSEC_PER_SEC;
