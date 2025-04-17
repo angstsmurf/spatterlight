@@ -165,7 +165,6 @@
     NSString *menuLineString = @"";
 
     if (_menuItems.count) {
-        NSLog(@"_selectedLine: %ld", _selectedLine);
         if (_selectedLine >= _menuItems.count) {
             _selectedLine = _menuItems.count - 1;
         }
