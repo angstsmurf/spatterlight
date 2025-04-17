@@ -988,7 +988,7 @@ fprintf(stderr, "%s\n",                                                    \
         //        NSLog(@"%ld does not want focus", self.name);
         for (win in (glkctl.gwindows).allValues) {
             if (win != self && win.wantsFocus) {
-                NSLog(@"GlkTextBufferWindow: Passing on keypress to window %ld", win.name);
+                NSLog(@"GlkTextBufferWindow %ld: Passing on keypress to %@ %ld", self.name, win.class, win.name);
                 [win grabFocus];
                 [win keyDown:evt];
                 return;

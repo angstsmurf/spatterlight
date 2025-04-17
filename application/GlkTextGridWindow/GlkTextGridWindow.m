@@ -1162,7 +1162,7 @@
         for (win in (glkctl.gwindows).allValues) {
             if (win != self && win.wantsFocus) {
                 [win grabFocus];
-                NSLog(@"GlkTextGridWindow: Passing on keypress");
+                NSLog(@"GlkTextGridWindow %ld: Passing on keypress to %@ %ld", self.name, win.class, win.name);
                 [win keyDown:evt];
                 return;
             }
