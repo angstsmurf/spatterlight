@@ -596,4 +596,8 @@ continueUserActivity:(NSUserActivity *)userActivity
     }
 }
 
+- (BOOL)applicationSupportsSecureRestorableState:(NSApplication*)app {
+    return YES;
+}
+
 @end
