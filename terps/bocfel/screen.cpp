@@ -44,6 +44,7 @@ extern "C" {
 #include "arthur.hpp"
 #include "journey.hpp"
 #include "shogun.hpp"
+#include "zorkzero.hpp"
 #include "random.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
@@ -132,6 +133,7 @@ glui32 current_picture = 0;
 bool is_spatterlight_arthur = false;
 bool is_spatterlight_journey = false;
 bool is_spatterlight_shogun = false;
+bool is_spatterlight_zork0 = false;
 bool is_spatterlight_v6 = false;
 
 // Full-window size background or in front
@@ -980,7 +982,7 @@ static void put_char_base(uint16_t c, bool unicode)
                         upperwin->x++;
                         xglk_put_char(c);
 #ifdef SPATTERLIGHT
-                    } else if (is_spatterlight_arthur) {
+                    } else if (is_spatterlight_arthur || is_spatterlight_zork0) {
                         upperwin->x++;
                         xglk_put_char(c);
 #endif
@@ -2279,6 +2281,8 @@ void v6_restore_hacks(void) {
             arthur_update_after_autorestore();
         } else if (is_spatterlight_shogun) {
             shogun_update_after_autorestore();
+        } else if (is_spatterlight_zork0) {
+            z0_update_after_autorestore();
         }
     } else {
         if (is_spatterlight_journey) {
@@ -2287,6 +2291,8 @@ void v6_restore_hacks(void) {
             arthur_update_after_restore();
         } else if (is_spatterlight_shogun) {
             shogun_update_after_restore();
+        } else if (is_spatterlight_zork0) {
+            z0_update_after_restore();
         }
     }
 }
@@ -2573,6 +2579,12 @@ int count_characters_in_zstring(uint16_t str) {
     print_zcode(unpack_string(str), false, count_print_str);
     return string_length_counter;
 }
+
+int count_characters_in_object(uint16_t obj) {
+    string_length_counter = 0;
+    print_zcode(property_address(obj) + 1, false, count_print_str);
+    return string_length_counter;
+}
 #endif
 
 void zprint_paddr()
@@ -2654,7 +2666,7 @@ void window_change()
 {
 #ifdef ZTERP_GLK_GRAPHICS
 #ifdef SPATTERLIGHT
-    if (!is_spatterlight_arthur && !is_spatterlight_shogun)
+    if (!(is_spatterlight_v6 && !is_spatterlight_journey))
 #endif
     graphics_window.destroy();
 #ifndef SPATTERLIGHT
@@ -2774,6 +2786,8 @@ void window_change()
                 journey_update_on_resize();
             } else if (is_spatterlight_shogun) {
                 shogun_update_on_resize();
+            } else if (is_spatterlight_zork0) {
+                z0_update_on_resize();
             }
         }
 #endif
@@ -3092,7 +3106,7 @@ static uint8_t zscii_from_glk(glui32 key)
 
 #ifdef SPATTERLIGHT
 void flush_image_buffer(void) {
-    if (is_spatterlight_arthur || is_spatterlight_shogun) {
+    if (is_spatterlight_arthur || is_spatterlight_shogun || is_spatterlight_zork0) {
         if (current_graphics_buf_win == nullptr && screenmode != MODE_SLIDESHOW) {
             current_graphics_buf_win = graphics_bg_glk;
         }
@@ -3642,6 +3656,8 @@ void zread_char()
             journey_autorestore_internal_read_char_hacks();
         else if (is_spatterlight_shogun)
             shogun_autorestore_internal_read_char_hacks();
+        else if (is_spatterlight_zork0)
+            z0_autorestore_internal_read_char_hacks();
         store(0);
         dont_repeat_question_on_autorestore = false;
         return;
@@ -4561,16 +4577,16 @@ void zdraw_picture()
 
 #ifdef SPATTERLIGHT
     image_needs_redraw = true;
+    if (is_spatterlight_v6)
+        current_picture = pic;
     if (is_spatterlight_journey) {
         current_picture = journey_draw_picture(pic, journey_window);
         return;
     } else if (is_spatterlight_arthur) {
-        current_picture = pic;
         if (arthur_display_picture(pic, x, y)) {
             return;
         }
     } else if (is_spatterlight_shogun) {
-        current_picture = pic;
         if (current_picture == kShogunTitleImage) {
             shogun_draw_title_image();
             return;
@@ -4580,6 +4596,8 @@ void zdraw_picture()
             shogun_display_inline_image(imagealign_MarginRight);
             return;
         }
+    } else if (is_spatterlight_zork0 && z0_display_picture(x, y, curwin)) {
+        return;
     }
 #endif
     if (glk_image_get_info(pic, &w, &h)) {
@@ -4887,7 +4905,7 @@ void zget_wind_prop()
             // We have to subtract one, or the rightmost character of the status bar
             // gets cut off during live resize. No idea why.
             val = w - 1;
-        } else if (is_spatterlight_arthur || is_spatterlight_shogun) {
+        } else if (is_spatterlight_arthur || is_spatterlight_shogun || is_spatterlight_zork0) {
             val = win->x_size;
         } else {
             val = word(0x22) * font_width;
@@ -5688,7 +5706,7 @@ void init_screen(bool first_run)
                                 (user_selected_foreground == gfgcol &&
                                  user_selected_background == gbgcol));
 
-    if (is_spatterlight_arthur || is_spatterlight_shogun) {
+    if (is_spatterlight_arthur || is_spatterlight_shogun || is_spatterlight_zork0) {
         if (first_run) {
             user_selected_foreground = gfgcol;
             user_selected_background = gbgcol;
@@ -5705,8 +5723,10 @@ void init_screen(bool first_run)
                 // On restart, a blank status window may remain visible,
                 // so we hide it here.
                 v6_define_window(upperwin, 0, 0, 0, 0);
-            } else {
+            } else if (is_spatterlight_shogun) {
                 shogun_update_after_restart();
+            } else if (is_spatterlight_zork0) {
+                z0_update_colors();
             }
         }
     } else {
@@ -5821,7 +5841,7 @@ void init_screen(bool first_run)
 #endif
 
 #ifdef SPATTERLIGHT
-        if (is_spatterlight_v6) {
+    if (is_spatterlight_v6) {
         gli_block_rearrange = 1;
         adjust_image_scale();
         glk_stylehint_clear(wintype_TextBuffer, style_Note, stylehint_Oblique);
@@ -5834,7 +5854,7 @@ void init_screen(bool first_run)
         if (graphics_type == kGraphicsTypeAmiga) {
             int width;
             get_image_size(1, &width, nullptr);
-            if ((is_spatterlight_arthur && width == 436) ||  (is_game(Game::ZorkZero) && width == 480) || (is_spatterlight_journey && width == 166) || (is_spatterlight_shogun && width == 479)) {
+            if ((is_spatterlight_arthur && width == 436) ||  (is_spatterlight_zork0 && width == 480) || (is_spatterlight_journey && width == 166) || (is_spatterlight_shogun && width == 479)) {
                 graphics_type = kGraphicsTypeMacBW;
                 hw_screenwidth = 480;
                 for (int i = 0; i < image_count; i++) {
@@ -5878,7 +5898,7 @@ void init_screen(bool first_run)
                 glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
-            } else if (is_spatterlight_shogun) {
+            } else if (is_spatterlight_shogun || is_spatterlight_zork0) {
                 graphics_bg_glk = glk_window_open(nullptr, 0, 10, wintype_Graphics, 3);
                 graphics_window.set_id(graphics_bg_glk);
                 mainwin->id = glk_window_open(graphics_window.id(), winmethod_Right | winmethod_Fixed, gscreenw / 2, wintype_TextBuffer, 1);
@@ -5932,6 +5952,9 @@ void init_screen(bool first_run)
             }
         } else if (is_spatterlight_shogun) {
             screenmode = MODE_SLIDESHOW;
+            v6_close_and_reopen_front_graphics_window();
+        } else if (is_spatterlight_zork0) {
+            screenmode = MODE_NORMAL;
             v6_close_and_reopen_front_graphics_window();
         }
     }

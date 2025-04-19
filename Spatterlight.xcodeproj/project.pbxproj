@@ -493,6 +493,7 @@
 		C30F8E931ED7153E005E6863 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C30FAD5E27B7D41000BD20B9 /* load_ti99_4a.c in Sources */ = {isa = PBXBuildFile; fileRef = C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */; };
 		C3100F5D27972E850027D6FF /* hulk.c in Sources */ = {isa = PBXBuildFile; fileRef = C3100F5C27972E850027D6FF /* hulk.c */; };
+		C310487B2DB255570023B713 /* zorkzero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C310487A2DB255570023B713 /* zorkzero.cpp */; };
 		C3109FC92798B18900854ED0 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C3109FC82798B18900854ED0 /* debug.c */; };
 		C3109FCD2798B19F00854ED0 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C3109FCC2798B19F00854ED0 /* parser.c */; };
 		C311866825BD3B1800739D7B /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = C311866725BD3B1800739D7B /* sound.c */; };
@@ -2733,6 +2734,8 @@
 		C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = load_ti99_4a.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3100F5B27972E850027D6FF /* hulk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hulk.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3100F5C27972E850027D6FF /* hulk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hulk.c; sourceTree = "<group>"; usesTabs = 0; };
+		C31048792DB255570023B713 /* zorkzero.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = zorkzero.hpp; sourceTree = "<group>"; };
+		C310487A2DB255570023B713 /* zorkzero.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = zorkzero.cpp; sourceTree = "<group>"; };
 		C3109FC72798B18900854ED0 /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3109FC82798B18900854ED0 /* debug.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3109FCB2798B19F00854ED0 /* parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; usesTabs = 0; };
@@ -5912,6 +5915,8 @@
 				C3ED635F2C6E1293000F90A8 /* journey.cpp */,
 				C3ABCA512D553B8400BC4268 /* shogun.hpp */,
 				C3ABCA522D553B8400BC4268 /* shogun.cpp */,
+				C31048792DB255570023B713 /* zorkzero.hpp */,
+				C310487A2DB255570023B713 /* zorkzero.cpp */,
 				C3824B7C2CAEF0F200D58EFC /* v6_shared.hpp */,
 				C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */,
 				C3ED63542C6E1192000F90A8 /* entrypoints.hpp */,
@@ -7161,6 +7166,7 @@
 				6DB774C92458B9B300EDC671 /* objects.cpp in Sources */,
 				6DB774CA2458B9B300EDC671 /* osdep.cpp in Sources */,
 				6DB774CB2458B9B300EDC671 /* patches.cpp in Sources */,
+				C310487B2DB255570023B713 /* zorkzero.cpp in Sources */,
 				6DB774CC2458B9B300EDC671 /* process.cpp in Sources */,
 				6DB774CD2458B9B300EDC671 /* random.cpp in Sources */,
 				6DB774CE2458B9B300EDC671 /* screen.cpp in Sources */,
