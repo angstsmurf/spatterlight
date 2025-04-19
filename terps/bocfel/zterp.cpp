@@ -696,8 +696,13 @@ static void process_story(IO &io, long offset)
         is_spatterlight_arthur = true;
     } else if (is_game(Game::Shogun)) {
         is_spatterlight_shogun = true;
+    } else if (is_game(Game::ZorkZero)) {
+        is_spatterlight_zork0 = true;
     }
-    if (is_spatterlight_journey || is_spatterlight_arthur || is_spatterlight_shogun) {
+    if (is_spatterlight_journey ||
+        is_spatterlight_arthur ||
+        is_spatterlight_shogun ||
+        is_spatterlight_zork0) {
         is_spatterlight_v6 = true;
         find_entrypoints();
     }

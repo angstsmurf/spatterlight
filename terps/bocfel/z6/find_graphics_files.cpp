@@ -353,6 +353,8 @@ void find_and_load_z6_graphics(void) {
             file_name.replace(delimiterpos, dotpos - delimiterpos, "/arthur");
         } else if (is_spatterlight_shogun) {
             file_name.replace(delimiterpos, dotpos - delimiterpos, "/shogun");
+        } else if (is_spatterlight_zork0) {
+            file_name.replace(delimiterpos, dotpos - delimiterpos, "/zork0");
         }
         if (file_name != game_file) {
             find_graphics_files(file_name);
