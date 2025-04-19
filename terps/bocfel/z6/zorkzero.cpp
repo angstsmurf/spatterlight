@@ -348,7 +348,6 @@ void INIT_STATUS_LINE(void) {
 //}
 
 void DRAW_NEW_HERE(void) {
-    fprintf(stderr, "DRAW_NEW_HERE\n");
     V6_STATUS_WINDOW.x = 1;
     V6_STATUS_WINDOW.y = 1;
 
@@ -458,7 +457,6 @@ void z0_resize_status_windows(void) {
 
     int stringlength = count_characters_in_object(HERE);
 
-    //    int width_in_chars = 13; // 13 characters to make room for "MOVES:" plus 2 spaces and 10000 moves
     int width_in_chars = MAX(stringlength, 13); // 13 characters to make room for "MOVES:" plus 2 spaces and 10000 moves
 
     width = width_in_chars * gcellw + 2 * ggridmarginx;
@@ -472,14 +470,10 @@ void z0_resize_status_windows(void) {
 
     z0_right_status_width = MAX(count_characters_in_zstring(REGION), 10); // 10 characters to make room for "SCORE:" plus 1000 points
 
-    fprintf(stderr, "z0_resize_status_windows: z0_right_status_width: %d\n", z0_right_status_width);
-
     width = z0_right_status_width * gcellw + 2 * ggridmarginx;
 
     x = gscreenw - x - width;
 
-    fprintf(stderr, "z0_resize_status_windows: z0_right_status_window: x:%d y:%d w:%d h:%d\n", x, y, width, height);
-    
     win_sizewin(z0_right_status_window->peer, x, y, x + width, y + height);
 
     // We trick the text printing routine into
@@ -525,7 +519,6 @@ void UPDATE_STATUS_LINE(void) {
 
     glk_window_move_cursor(BORDER_ON ? z0_right_status_window : z0_left_status_window, z0_right_status_width - count_characters_in_zstring(REGION), 0);
 
-    fprintf(stderr, "update_status_line: move cursor in z0_right_status_window to x:%d y:0\n", z0_right_status_width - count_characters_in_zstring(REGION));
     print_handler(unpack_string(REGION), nullptr);
 
     glk_window_move_cursor(BORDER_ON ? z0_right_status_window : z0_left_status_window, z0_right_status_width - 10, 1);
