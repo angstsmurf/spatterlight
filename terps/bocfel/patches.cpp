@@ -810,7 +810,6 @@ static std::vector<Patch> v6_patches = {
             { 0x4dcf, 3, {0x0d, 0xaf, 0x01}, {0x0d, 0xaf, 0x00} },
         }
     },
-#endif
 
     {
         "Zork Zero", "890714", 393, 0x791c,
@@ -846,6 +845,7 @@ static std::vector<Patch> v6_patches = {
             { 0x1c20d, 3, {0xa0, 0x00, 0xce}, {0xb4, 0xb4, 0xb4} },
         },
     },
+#endif
 };
 
 static bool apply_patch(const Replacement &r)

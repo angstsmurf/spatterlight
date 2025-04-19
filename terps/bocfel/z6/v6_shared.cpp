@@ -19,7 +19,7 @@
 
 #include "arthur.hpp"
 #include "shogun.hpp"
-//#include "zorkzero.hpp"
+#include "zorkzero.hpp"
 
 #include "v6_shared.hpp"
 
@@ -371,10 +371,9 @@ void V_DEFINE(void) {
     int linmax;
     uint16_t fkey, fdef, clicked_line, pressed_fkey, length;
 
-//    if (is_game(Game::ZorkZero)) {
-//        fkeys_table_addr = 0xce2a;
-//        update_user_defined_colours();
-//    }
+    if (is_spatterlight_zork0) {
+        update_user_defined_colours();
+    }
 
     glk_cancel_line_event(V6_TEXT_BUFFER_WINDOW.id, nullptr);
 
@@ -566,8 +565,8 @@ void V_DEFINE(void) {
 
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
-    if (is_game(Game::ZorkZero)) {
-        //        z0_update_on_resize();
+    if (is_spatterlight_zork0) {
+        z0_update_on_resize();
     } else {
         // Game is Shogun
         internal_call(pack_routine(sr.V_REFRESH));
@@ -748,15 +747,16 @@ static void draw_hints_windows(void) {
 
     int height = gcellh * 4 + ggridmarginy * 2;
 
-//    if (is_game(Game::ZorkZero)) {
-//        //        // Global BORDER-ON, false if in text-only mode
-//        //        bool text_only_mode = (get_global(0x83) == 0);
-//        //        if (!text_only_mode) {
-//        //            DISPLAY_BORDER(HINT_BORDER);
-//        //            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
-//        //            width = width * imagescalex;
-//        //            height = height * imagescaley;
-//        //        } else
+    if (is_spatterlight_zork0) {
+        // Global BORDER-ON, false if in text-only mode
+        bool text_only_mode = (get_global(0x83) == 0);
+        if (!text_only_mode) {
+            DISPLAY_BORDER(HINT_BORDER);
+            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
+            width = width * imagescalex;
+            height = height * imagescaley;
+        }
+    }
 
     if (is_spatterlight_arthur) {
         win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
@@ -1401,9 +1401,9 @@ void DO_HINTS(void) {
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
     win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
-
-    if (is_game(Game::ZorkZero)) {
-        //        z0_update_on_resize();
+    
+    if (is_spatterlight_zork0) {
+        z0_update_on_resize();
     } else if (is_spatterlight_shogun) {
         internal_call(pack_routine(sr.V_REFRESH));
         shogun_update_on_resize();
@@ -1424,8 +1424,6 @@ void after_V_CREDITS(void) {
     V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_ITALIC);
     V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_FIXED);
 }
-
-void update_monochrome_colours(void);
 
 void after_V_COLOR(void) {
     uint8_t fg = get_global(fg_global_idx);
@@ -1470,6 +1468,8 @@ void after_V_COLOR(void) {
         arthur_update_on_resize();
     } else if (is_spatterlight_shogun) {
         shogun_update_on_resize();
+    } else if (is_spatterlight_zork0) {
+        z0_update_on_resize();
     }
 }
 
@@ -1478,7 +1478,6 @@ void after_V_COLOR(void) {
 void DISPLAY_HINT(void) {}
 void RT_SEE_QST(void) {}
 void V_COLOR(void) {}
-void V_REFRESH(void) {}
 void V_BOW(void) {}
 void MAZE_F(void) {}
 void DESCRIBE_ROOM(void) {}
