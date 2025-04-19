@@ -14,6 +14,7 @@
 #include "arthur.hpp"
 #include "journey.hpp"
 #include "shogun.hpp"
+#include "zorkzero.hpp"
 
 #include "v6_shared.hpp"
 
@@ -901,6 +902,345 @@ static std::vector<EntryPoint> entrypoints = {
         false,
         DISPLAY_HINT
     },
+
+#pragma mark Zork Zero
+
+    {
+        Game::ZorkZero,
+        "UPDATE-STATUS-LINE",
+        { 0xeb, 0x7f, 0x01,  0xbe },
+        0,
+        0,
+        true,
+        UPDATE_STATUS_LINE
+    },
+
+    // Shared with Shogun
+    {
+        Game::ZorkZero,
+        "V-DEFINE",
+        { 0x98, 0x40, 0x00, 0xa0, 0x00, 0xca },
+        0,
+        0,
+        true,
+        V_DEFINE
+    },
+
+    {
+        Game::ZorkZero,
+        "V-DEFINE alt",
+        { 0xED, 0x3F, 0xFF, 0xFF, 0x36, 0x04, 0x01, 0x00 },
+        0,
+        0,
+        true,
+        V_DEFINE
+    },
+
+    {
+        Game::ZorkZero,
+        "V_REFRESH",
+        { 0x00, 0x00, 0x46, 0x4F, 0x05, 0x04, 0x04, 0x2D },
+        14,
+        0,
+        false,
+        V_REFRESH
+    },
+
+    // Shared with Arthur and Shogun
+    {
+        Game::ZorkZero,
+        "V-COLOR",
+        { 0x80, 0xA5, 0xCF, 0x2F},
+        2,
+        0,
+        false,
+        V_COLOR
+    },
+
+    {
+        Game::ZorkZero,
+        "after V-COLOR",
+        {},
+        0,
+        0,
+        false,
+        after_V_COLOR
+    },
+
+    {
+        Game::ZorkZero,
+        "V-CREDITS",
+        { 0xf9, 0x07, 0x15, 0x53, 0x00, 0xa1, 0x01 },
+        0,
+        0,
+        false,
+        V_CREDITS
+    },
+
+    {
+        Game::ZorkZero,
+        "after V-CREDITS alt",
+        { 0x40, 0x00, 0xB8, 0x00, 0x05},
+        2,
+        0,
+        false,
+        after_V_CREDITS
+    },
+
+//    {
+//        Game::ZorkZero,
+//        "after V-CREDITS",
+//        { 0x82, 0x00, 0xB8, 0x00 },
+//        2,
+//        0,
+//        false,
+//        after_V_CREDITS
+//    },
+
+    {
+        Game::ZorkZero,
+        "CENTER-1",
+        { 0x87, 0x00, 0x03, 0xbe, 0x13, 0x5F, 0x00, 0x03, 0x00, 0x57, 0x00, 0x02},
+        -3,
+        0,
+        false,
+        CENTER
+    },
+
+    {
+        Game::ZorkZero,
+        "CENTER-1 alt",
+        { 0x00, 0xBB, 0xB0, 0x00, 0x00},
+        -6,
+        0,
+        false,
+        CENTER
+    },
+
+    {
+        Game::ZorkZero,
+        "CENTER-2",
+        { 0x06, 0xF0, 0x3F},
+        1,
+        0,
+        false,
+        CENTER
+    },
+
+    {
+        Game::ZorkZero,
+        "CENTER-3",
+        { 0x08, 0xF0, 0x3F },
+        1,
+        0,
+        false,
+        CENTER
+    },
+
+    {
+        Game::ZorkZero,
+        "V-MODE",
+        { 0x00, 0xED, 0x3F, 0xFF, 0xFF, 0xA0 },
+        1,
+        0,
+        false,
+        V_MODE
+    },
+
+    {
+        Game::ZorkZero,
+        "V-MAP-LOOP",
+        { 0x88, 0x1e, 0xff, 0x00 },
+        0,
+        0,
+        false,
+        V_MAP_LOOP
+    },
+
+    {
+        Game::ZorkZero,
+        "after SPLIT-BY-PICTURE",
+        { 0x11, 0x6B, 0x01, 0x03, 0x00, 0xB0 },
+        5,
+        0,
+        false,
+        after_SPLIT_BY_PICTURE
+    },
+
+    {
+        Game::ZorkZero,
+        "INIT-STATUS-LINE",
+        { 0x0d, 0x02, 0x01, 0x0d, 0x05, 0x40 },
+        0,
+        0,
+        true,
+        INIT_STATUS_LINE
+    },
+
+    {
+        Game::ZorkZero,
+        "PEG-GAME",
+        { 0xa0, 0x02, 0xe8, 0x56, 0x02, 0x02, 0x00 },
+        0,
+        0,
+        false,
+        PEG_GAME
+    },
+
+    {
+        Game::ZorkZero,
+        "PBOZ-CLICK",
+        { 0x0d, 0x05, 0x02, 0xda, 0x4f, 0xbd, 0x01, 0xd8 },
+        0,
+        0,
+        false,
+        PBOZ_CLICK
+    },
+
+    {
+        Game::ZorkZero,
+        "SETUP-PBOZ",
+        { 0x0d, 0x01, 0x02, 0xcb, 0x1f, 0x01, 0x59, 0x07 },
+        0,
+        0,
+        true,
+        SETUP_PBOZ
+    },
+
+    {
+        Game::ZorkZero,
+        "DISPLAY-MOVES",
+        { 0xf3, 0x3f, 0xff, 0xff, 0xbb, 0xf3, 0x7f, 0x01, 0x55, 0x84, 0x02, 0x00},
+        0,
+        0,
+        false,
+        DISPLAY_MOVES
+    },
+
+
+    {
+        Game::ZorkZero,
+        "SETUP-FANUCCI",
+        { 0x98, 0x40, 0x00, 0xa0, 0x00, 0xc8 },
+        0,
+        0,
+        true,
+        SETUP_FANUCCI
+    },
+
+    {
+        Game::ZorkZero,
+        "FANUCCI",
+        { 0xda, 0x4f, 0xbd, 0x01, 0x80, 0xcf, 0x1f },
+        0,
+        0,
+        true,
+        FANUCCI
+    },
+
+    {
+        Game::ZorkZero,
+        "B-MOUSE-PEG-PICK",
+        { 0xbe, 0x06, 0x4f, 0x2b },
+        0,
+        0,
+        false,
+        B_MOUSE_PEG_PICK
+    },
+
+    {
+        Game::ZorkZero,
+        "DRAW-TOWER",
+        { 0xed, 0x7f, 0x07, 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x57},
+        0,
+        0,
+        true,
+        DRAW_TOWER
+    },
+
+    {
+        Game::ZorkZero,
+        "B-MOUSE-WEIGHT-PICK",
+        { 0xda, 0x4f, 0xbd, 0x01, 0xdb },
+        0,
+        0,
+        false,
+        B_MOUSE_WEIGHT_PICK
+    },
+
+
+
+    {
+        Game::ZorkZero,
+        "SETUP-SN",
+        { 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x57, 0x49, 0x01, 0x01},
+        43,
+        0,
+        false,
+        SETUP_SN
+    },
+
+    {
+        Game::ZorkZero,
+        "DRAW-SN-BOXES",
+        { 0x0d, 0x05, 0x01, 0xeb, 0x7f, 0x01, 0xda, 0x4f, 0xbd, 0x01, 0xd6 },
+        0,
+        0,
+        true,
+        DRAW_SN_BOXES
+    },
+
+    {
+        Game::ZorkZero,
+        "DRAW-PILE",
+        { 0xeb, 0x7f, 0x01, 0xcf, 0x2f, 0x73, 0xf9, 0x01, 0x02 },
+        0,
+        0,
+        true,
+        DRAW_PILE
+    },
+
+    {
+        Game::ZorkZero,
+        "DRAW-FLOWERS",
+        { 0x0d, 0x01, 0x01, 0x0d, 0x02, 0x01, 0xd9, 0x0f, 0x97, 0x3d, 0x73, 0xf9, 0x00 },
+        0,
+        0,
+        true,
+        DRAW_FLOWERS
+    },
+
+    {
+        Game::ZorkZero,
+        "SN-CLICK",
+        { 0x0d, 0x08, 0x01, 0xbe, 0x06, 0x0f, 0x01, 0xbd, 0x6e, 0x3b, 0xc2 },
+        0,
+        0,
+        false,
+        SN_CLICK
+    },
+
+
+    // Shared with Arthur and Shogun
+    {
+        Game::ZorkZero,
+        "DO-HINTS",
+        { 0xf1, 0x7f, 0x00, 0xef, 0x1f, 0xff, 0xff, 0x00, 0x88 },
+        0,
+        0,
+        false,
+        DO_HINTS
+    },
+
+    {
+        Game::ZorkZero,
+        "DISPLAY-HINT",
+        { 0xF1, 0x7F, 0x00, 0xED, 0x7F, 0x00, 0xEB },
+        0,
+        0,
+        false,
+        DISPLAY_HINT
+    },
 };
 
 static int32_t find_pattern_in_mem(std::vector<uint8_t> pattern, uint32_t startpos, uint32_t length_to_search) {
@@ -1694,6 +2034,87 @@ static void find_shogun_globals(void) {
     }
 }
 
+void find_zork0_globals(void) {
+    int start = 0;
+    for (auto &entrypoint : entrypoints) {
+        if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD }, { &fg_global_idx, &bg_global_idx }, entrypoint.found_at_address, 300);
+            if (start == -1) {
+                start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x02, 0x0d, WILDCARD, 0x09 }, { &bg_global_idx, &fg_global_idx }, entrypoint.found_at_address, 300);
+
+            }
+
+            if (start != -1) {
+                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
+                int found = find_pattern_in_mem({ 0xb8 }, entrypoint.found_at_address, 300);
+
+                if (found == -1) {
+                    found = find_pattern_in_mem({ 0xb0 }, start, 200);
+                }
+                if (found != -1) {
+                    end_of_color_addr = found;
+                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
+                } else {
+                    fprintf(stderr, "Could not find return from routine V_COLOR!\n");
+                }
+            } else {
+                fprintf(stderr, "Error! Could not find color globals!\n");
+            }
+            entrypoint.found_at_address = 0; // V_COLOR
+        } else if (entrypoint.fn == after_V_COLOR && end_of_color_addr != 0) {
+            entrypoint.found_at_address = end_of_color_addr;
+            fprintf(stderr, "after_V_COLOR at address 0x%x\n", entrypoint.found_at_address);
+        } else if (entrypoint.fn == DO_HINTS && entrypoint.found_at_address != 0) {
+            start = find_16_bit_values_in_pattern({ 0xf3, 0x3f, 0xff, 0xfd, 0xcd, 0x4f, WILDCARD, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD }, { &hints_table_addr, &hints_table_addr, &hints_table_addr }, entrypoint.found_at_address, 300);
+            if (start != -1) {
+                fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
+            }
+
+        } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0x0b, 0x54, WILDCARD, 0x01, 0x00 }, { &hint_quest_global_idx }, entrypoint.found_at_address, 300);
+            if (start != -1) {
+                fprintf(stderr, "hint_quest_global_idx = 0x%x\n", hint_quest_global_idx);
+                start = find_globals_in_pattern({ 0x01, 0x55, WILDCARD, 0x01, 0x00 }, { &hint_chapter_global_idx }, start, 200);
+                if (start != -1) {
+                    fprintf(stderr, "hint_chapter_global_idx = 0x%x\n", hint_chapter_global_idx);
+                    start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04 }, { &seen_hints_table_addr }, start, 300);
+                    if (start != -1) {
+                        fprintf(stderr, "seen_hints_table_addr = 0x%x\n", seen_hints_table_addr);
+                    }
+                } else {
+                    fprintf(stderr, "Error! Could not find hint_chapter_global_idx!\n");
+                }
+            } else {
+                fprintf(stderr, "Error! Could not fin hint_quest_global_idx!\n");
+            }
+            entrypoint.found_at_address = 0; // DISPLAY_HINT
+        } else if (entrypoint.fn == DO_HINTS &&
+                   entrypoint.found_at_address != 0) {
+            if (memory[entrypoint.found_at_address + 8] == 0x88) {
+                memory[entrypoint.found_at_address + 8] = 0xb0;
+            }
+        } else if ((entrypoint.fn == PBOZ_CLICK || entrypoint.fn == B_MOUSE_PEG_PICK || entrypoint.fn == B_MOUSE_WEIGHT_PICK)  &&
+                   entrypoint.found_at_address != 0) {
+            memory[entrypoint.found_at_address] = 0xab;
+            memory[entrypoint.found_at_address + 1] = 0x02;
+        } else if (entrypoint.fn == V_DEFINE && entrypoint.found_at_address != 0) {
+
+            start = find_16_bit_values_in_pattern({ 0xd4, 0x2f, WILDCARD, WILDCARD, 0x00, 0x06 }, { &fkeys_table_addr }, entrypoint.found_at_address, 300);
+
+            if (start != -1) {
+                fprintf(stderr, "fkeys_table_addr = 0x%x\n", fkeys_table_addr);
+                start = find_16_bit_values_in_pattern({ 0xf7, 0x8b, 0x0b, WILDCARD, WILDCARD, 0x00, 0x08, 0x66 }, { &fnames_table_addr }, start, 1100);
+                if (start != -1) {
+                    fprintf(stderr, "fnames_table_addr = 0x%x\n", fnames_table_addr);
+                }
+            } else {
+                fprintf(stderr, "Error! Could not find fkeys_table_addr!\n");
+            }
+        }
+
+    }
+}
+
 static std::unordered_map<uint32_t, EntryPoint *> entrypoint_map;
 
 static uint32_t lowest_entrypoint = UINT32_MAX;
@@ -1732,6 +2153,8 @@ void find_entrypoints(void) {
         find_journey_globals();
     } else if (is_spatterlight_shogun) {
         find_shogun_globals();
+    } else if (is_spatterlight_zork0) {
+        find_zork0_globals();
     }
 
     for (auto &entrypoint : entrypoints) {

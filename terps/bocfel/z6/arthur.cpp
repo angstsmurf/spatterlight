@@ -749,5 +749,4 @@ void ARTHUR_UPDATE_STATUS_LINE(void) {
     set_global(ag.GL_SL_TIME, 0);
 }
 
-void UPDATE_STATUS_LINE(void) {}
 void RT_TH_EXCALIBUR(void) {}
