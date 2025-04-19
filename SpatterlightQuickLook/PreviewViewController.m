@@ -1326,7 +1326,7 @@
             if (!_metaDict)
                 _metaDict = [NSMutableDictionary new];
             _metaDict[@"cover"] = (NSData *)game.metadata.cover.data;
-            _metaDict[@"coverArtDescription"] = game.metadata.cover.imageDescription;;
+            _metaDict[@"coverArtDescription"] = game.metadata.cover.imageDescription;
         }
     }
 }

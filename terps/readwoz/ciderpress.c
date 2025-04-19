@@ -378,7 +378,7 @@ typedef enum {              // main filesystem format (based on NuFX enum)
     // try to keep this in an unsigned char, e.g. for CP clipboard
 } FSFormat;
 
-PhysicalFormat  fPhysical = kPhysicalFormatNib525_6656;;
+PhysicalFormat  fPhysical = kPhysicalFormatNib525_6656;
 
 static int fHasSectors;    // image is sector-addressable
 static int fHasBlocks;     // image is block-addressable

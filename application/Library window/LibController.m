@@ -140,7 +140,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (MyButtonToolbarItem *)buttonToolbarItemWithImage:(NSString *)imageName selector:(SEL)selector label:(NSString *)label tooltip:(NSString *)tooltip identifier:(NSToolbarItemIdentifier)identifier enabled:(BOOL)enabled {
     NSImage *image = [NSImage imageNamed:imageName];
-    image.accessibilityDescription = NSLocalizedString(tooltip, nil);;
+    image.accessibilityDescription = NSLocalizedString(tooltip, nil);
     NSSegmentedControl *button = [NSSegmentedControl segmentedControlWithImages:@[image] trackingMode:NSSegmentSwitchTrackingMomentary target: self.tableViewController action:selector];
     button.enabled = enabled;
     MyButtonToolbarItem *toolbarItem = [[MyButtonToolbarItem alloc] initWithItemIdentifier:identifier];

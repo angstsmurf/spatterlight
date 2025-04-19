@@ -49,7 +49,7 @@
     if (self) {
         self.title = [decoder decodeObjectOfClass:[NSString class] forKey:@"title"];
         self.column = (NSUInteger)[decoder decodeIntegerForKey:@"column"];
-        self.line = (NSUInteger)[decoder decodeIntegerForKey:@"line"];;
+        self.line = (NSUInteger)[decoder decodeIntegerForKey:@"line"];
         self.tag = [decoder decodeIntegerForKey:@"tag"];
         self.actor = [decoder decodeObjectOfClass:[NSString class] forKey:@"actor"];
     }

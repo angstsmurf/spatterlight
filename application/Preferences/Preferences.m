@@ -1680,7 +1680,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         if (_lightTheme == theme) {
             _lightTheme = nil;
             if (_lightOverrideActive) {
-                lightOrDarkWasRemoved = YES;;
+                lightOrDarkWasRemoved = YES;
             }
         }
         theme.hardLight = NO;
@@ -1721,7 +1721,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         theme.hardDark = NO;
         if (_darkTheme == theme) {
             if (_darkOverrideActive) {
-                lightOrDarkWasRemoved = YES;;
+                lightOrDarkWasRemoved = YES;
             }
             _darkTheme = nil;
         }
@@ -1739,7 +1739,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         if (_lightTheme == theme) {
             _lightTheme = nil;
             if (_lightOverrideActive) {
-                lightOrDarkWasRemoved = YES;;
+                lightOrDarkWasRemoved = YES;
             }
         }
     }

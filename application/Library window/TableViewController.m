@@ -1398,7 +1398,7 @@ enum  {
                     menuItem.state = NSOnState;
                 }
             } else {
-                menuItem.title = NSLocalizedString(@"Dislike", nil);;
+                menuItem.title = NSLocalizedString(@"Dislike", nil);
                 menuItem.state = NSOffState;
             }
         }

@@ -2067,7 +2067,7 @@ fprintf(stderr, "%s\n",                                                    \
                         defaultFrame:(NSRect)screenframe {
     NSSize windowSize = [self defaultContentSize];
 
-    NSRect frame = [window frameRectForContentRect:NSMakeRect(0, 0, windowSize.width, windowSize.height)];;
+    NSRect frame = [window frameRectForContentRect:NSMakeRect(0, 0, windowSize.width, windowSize.height)];
 
     if (frame.size.width > screenframe.size.width)
         frame.size.width = screenframe.size.width;

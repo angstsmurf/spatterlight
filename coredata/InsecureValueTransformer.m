@@ -38,7 +38,7 @@
 
 
 - (id)transformedValue:(id)value {
-    return [NSKeyedArchiver archivedDataWithRootObject:value];;
+    return [NSKeyedArchiver archivedDataWithRootObject:value];
 }
 
 @end

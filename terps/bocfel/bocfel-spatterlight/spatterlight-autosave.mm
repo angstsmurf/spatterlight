@@ -346,7 +346,7 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.current_input_mode = (inputMode)[decoder decodeInt32ForKey:@"bocfel_current_input_mode"];
     library_state.current_input_length = [decoder decodeInt32ForKey:@"bocfel_current_input_length"];
 
-    library_state.current_graphics_win_tag = [decoder decodeInt32ForKey:@"bocfel_current_graphics_win_tag"];;
+    library_state.current_graphics_win_tag = [decoder decodeInt32ForKey:@"bocfel_current_graphics_win_tag"];
     library_state.graphics_fg_tag = [decoder decodeInt32ForKey:@"bocfel_graphics_fg_tag"];
     library_state.stored_lower_tag = [decoder decodeInt32ForKey:@"bocfel_stored_lower_tag"];
     library_state.hints_depth = [decoder decodeInt32ForKey:@"bocfel_hints_depth"];
