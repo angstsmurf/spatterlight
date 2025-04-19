@@ -68,6 +68,7 @@ extern V6ScreenMode screenmode;
 extern bool is_spatterlight_arthur;
 extern bool is_spatterlight_journey;
 extern bool is_spatterlight_shogun;
+extern bool is_spatterlight_zork0;
 extern bool is_spatterlight_v6;
 
 #endif /* z6_specific_h */
