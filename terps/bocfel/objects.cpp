@@ -44,7 +44,10 @@ static uint16_t find_object(uint16_t n)
 #define set_sibling(obj1, obj2)		set_relation(obj1, obj2, OFFSET_SIBLING)
 #define set_child(obj1, obj2)		set_relation(obj1, obj2, OFFSET_CHILD)
 
-static uint16_t property_address(uint16_t n)
+#ifndef SPATTERLIGHT
+static
+#endif
+uint16_t property_address(uint16_t n)
 {
     return word(find_object(n) + OFFSET_PROP);
 }
