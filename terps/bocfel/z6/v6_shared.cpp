@@ -746,7 +746,7 @@ static void draw_hints_windows(void) {
 
     if (is_spatterlight_zork0) {
         // Global BORDER-ON, false if in text-only mode
-        bool text_only_mode = (get_global(0x83) == 0);
+        bool text_only_mode = (get_global(zg.BORDER_ON) == 0);
         if (!text_only_mode) {
             DISPLAY_BORDER(HINT_BORDER);
             get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);

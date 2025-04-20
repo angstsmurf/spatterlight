@@ -2110,8 +2110,15 @@ void find_zork0_globals(void) {
             } else {
                 fprintf(stderr, "Error! Could not find fkeys_table_addr!\n");
             }
+        } else if (entrypoint.fn == V_REFRESH && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0x01, 0xc1, 0x8f, WILDCARD }, { &zg.CURRENT_SPLIT }, entrypoint.found_at_address, 200);
+            if (start == -1)
+                fprintf(stderr, "Could not find zg.CURRENT_SPLIT!\n");
+        } else if (entrypoint.fn == UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0xf1, 0x7f, 0x00, 0xa0, WILDCARD }, { &zg.BORDER_ON }, entrypoint.found_at_address, 300);
+            if (start == -1)
+                fprintf(stderr, "Could not find zg.BORDER_ON!\n");
         }
-
     }
 }
 
