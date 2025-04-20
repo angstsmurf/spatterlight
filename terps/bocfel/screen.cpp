@@ -3404,6 +3404,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             break;
         case evtype_MouseInput:
             if (ev.win == upperwin->id) {
+#ifndef SPATTERLIGHT
 #ifdef ZTERP_GLK_GRAPHICS
                 if (zorkzero_hack) {
                     // In Fanucci, mouse clicks are off by one, probably
@@ -3412,6 +3413,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                     ev.val1++;
                     ev.val2++;
                 }
+#endif
 #endif
                 zterp_mouse_click(ev.val1 + 1, ev.val2 + 1);
 #ifdef SPATTERLIGHT
