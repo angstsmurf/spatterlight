@@ -1362,6 +1362,34 @@ static uint16_t snarfem_click(bool already_picked_pile) {
     return 0;
 }
 
+static int last_pile = 0;
+
+static void draw_snarfem(void) {
+    clear_image_buffer();
+    ensure_pixmap(current_graphics_buf_win);
+    draw_to_pixmap_unscaled(zorkzero_snarfem_border, 0, 0);
+    for(int i = 1; i <= 4; i++)
+        snarfem_draw_pile(i);
+    DRAW_FLOWERS();
+    snarfem_draw_numbered_boxes(last_pile);
+
+    int x, y, distance_from_bottom, height;
+    get_image_size(SN_SPLIT, &x, &y);
+    set_global(0xb7, SN_SPLIT); // <SETG CURRENT-SPLIT .ID>
+    x *= imagescalex;
+    y++;
+    y *= imagescaley;
+    get_image_size(zorkzero_snarfem_border, nullptr, &height);
+    height *= imagescaley;
+    get_image_size(SN_BOTTOM, nullptr, &distance_from_bottom);
+    distance_from_bottom *= imagescaley;
+
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, x + imagescalex, y, gscreenw - 2 * x, height - y - distance_from_bottom);
+
+    flush_image_buffer();
+}
+
+
 void SETUP_SN(void) {
     if (z0_right_status_window != nullptr) {
         gli_delete_window(z0_right_status_window);
@@ -1373,11 +1401,9 @@ void SETUP_SN(void) {
         V6_STATUS_WINDOW.id = nullptr;
     }
 
-    ADJUST_TEXT_WINDOW(SN_BOTTOM);
+    draw_snarfem();
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
 }
-
-static int last_pile = 0;
 
 void DRAW_SN_BOXES(void) {
     last_pile = last_pile;
@@ -1390,19 +1416,6 @@ void DRAW_PILE(void) {
 
 void SN_CLICK(void) {
     store_variable(2, snarfem_click(variable(1)));
-}
-
-static void redraw_snarfem(void) {
-    clear_image_buffer();
-    ensure_pixmap(current_graphics_buf_win);
-    draw_to_pixmap_unscaled(zorkzero_snarfem_border, 0, 0);
-    for(int i = 1; i <= 4; i++)
-        snarfem_draw_pile(i);
-    DRAW_FLOWERS();
-    snarfem_draw_numbered_boxes(last_pile);
-    adjust_text_window_by_split(SN_SPLIT);
-    ADJUST_TEXT_WINDOW(SN_BOTTOM);
-    flush_image_buffer();
 }
 
 
@@ -1804,7 +1817,7 @@ void z0_update_on_resize(void) {
             flush_image_buffer();
             return;
         } else if (CURRENT_SPLIT == SN_SPLIT) { // Snarfem
-            redraw_snarfem();
+            draw_snarfem();
             return;
         } else if (CURRENT_SPLIT == F_SPLIT) { // Double Fanucci
             redraw_fanucci();
