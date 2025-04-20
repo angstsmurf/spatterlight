@@ -2041,9 +2041,7 @@ void find_zork0_globals(void) {
             start = find_globals_in_pattern({ 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD }, { &fg_global_idx, &bg_global_idx }, entrypoint.found_at_address, 300);
             if (start == -1) {
                 start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x02, 0x0d, WILDCARD, 0x09 }, { &bg_global_idx, &fg_global_idx }, entrypoint.found_at_address, 300);
-
             }
-
             if (start != -1) {
                 fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
                 int found = find_pattern_in_mem({ 0xb8 }, entrypoint.found_at_address, 300);
@@ -2069,7 +2067,6 @@ void find_zork0_globals(void) {
             if (start != -1) {
                 fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
             }
-
         } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0x0b, 0x54, WILDCARD, 0x01, 0x00 }, { &hint_quest_global_idx }, entrypoint.found_at_address, 300);
             if (start != -1) {
@@ -2085,7 +2082,7 @@ void find_zork0_globals(void) {
                     fprintf(stderr, "Error! Could not find hint_chapter_global_idx!\n");
                 }
             } else {
-                fprintf(stderr, "Error! Could not fin hint_quest_global_idx!\n");
+                fprintf(stderr, "Error! Could not find hint_quest_global_idx!\n");
             }
             entrypoint.found_at_address = 0; // DISPLAY_HINT
         } else if (entrypoint.fn == DO_HINTS &&
@@ -2115,9 +2112,26 @@ void find_zork0_globals(void) {
             if (start == -1)
                 fprintf(stderr, "Could not find zg.CURRENT_SPLIT!\n");
         } else if (entrypoint.fn == UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
-            start = find_globals_in_pattern({ 0xf1, 0x7f, 0x00, 0xa0, WILDCARD }, { &zg.BORDER_ON }, entrypoint.found_at_address, 300);
-            if (start == -1)
-                fprintf(stderr, "Could not find zg.BORDER_ON!\n");
+            start = find_globals_in_pattern({ 0xef, 0xaf, 0x03, 0x00, 0xdb, 0x8f, WILDCARD, 0xff, 0xff, 0x61, WILDCARD }, { &zg.DEFAULT_BG, &zg.HERE }, entrypoint.found_at_address, 300);
+            start = find_globals_in_pattern({ 0xef, 0xaf, 0x02, 0x01, 0xe6, 0xbf, WILDCARD, 0x61, WILDCARD }, { &zg.MOVES, &zg.SCORE }, start, 300);
+            if (start == -1) {
+                fprintf(stderr, "Could not find zg.SCORE!\n");
+            } else {
+                start = find_globals_in_pattern({ 0xf1, 0x7f, 0x00, 0xa0, WILDCARD }, { &zg.BORDER_ON }, start, 100);
+                if (start == -1) {
+                    fprintf(stderr, "Could not find zg.BORDER_ON!\n");
+                }
+            }
+        } else if (entrypoint.fn == INIT_STATUS_LINE && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({  0x00, 0xcd, 0x4f, WILDCARD, 0xff, 0xff, 0x0d }, { &zg.COMPASS_CHANGED, }, entrypoint.found_at_address, 300);
+            if (start == -1) {
+                fprintf(stderr, "Could not find zg.COMPASS_CHANGED!\n");
+            } else {
+                start = find_globals_in_pattern({ 0xeb, 0x7f, 0x07, 0x88, WILDCARD, WILDCARD, WILDCARD }, { &zg.CURRENT_BORDER, &zg.CURRENT_BORDER, &zg.CURRENT_BORDER }, start, 300);
+            }
+        } else if (entrypoint.fn == FANUCCI && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0x41, WILDCARD, 0x03, WILDCARD, 0xd4, 0x8f, WILDCARD, 0x03, 0xe8, WILDCARD }, { &zg.F_WIN_COUNT, &zg.YOUR_SCORE, &zg.YOUR_SCORE, &zg.YOUR_SCORE, &zg.YOUR_SCORE }, entrypoint.found_at_address, 300);
+            start = find_globals_in_pattern({ 0xeb, 0x7f, 0x01, 0x8f, WILDCARD, WILDCARD, 0x95, WILDCARD }, { &zg.F_PLAYS, &zg.F_PLAYS, &zg.F_PLAYS }, start, 300);
         }
     }
 }
@@ -2184,5 +2198,5 @@ void check_entrypoints(uint32_t pc) {
         EntryPoint *entrypoint = entrypoint_map.at(pc);
 //        fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint->title.c_str(), pc);
         (entrypoint->fn)();
-   }
+    }
 }
