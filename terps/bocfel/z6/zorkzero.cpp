@@ -63,7 +63,7 @@ bool is_zorkzero_peggleboz_image(int pic) {
 static bool has_made_peggleboz_move = false;
 
 bool is_zorkzero_peggleboz_box_image(int pic) {
-    uint16_t CURRENT_SPLIT = get_global(0x1e);
+    uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
 
     if (CURRENT_SPLIT != PBOZ_SPLIT)
         return false;
@@ -103,7 +103,7 @@ void V_MODE(void) {
 
 void V_REFRESH(void) {
     fprintf(stderr, "V-REFRESH\n");
-    uint16_t CURRENT_SPLIT = get_global(0x1e);
+    uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
     if (CURRENT_SPLIT == TEXT_WINDOW_PIC_LOC) {
         v6_delete_win(&windows[3]);
     }
@@ -147,14 +147,14 @@ void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
 
     uint16_t X;
 
-    if (get_global(0x83) == 0 && id == 0x0183) { // <EQUAL? .ID ,TEXT-WINDOW-PIC-LOC>>
+    if (get_global(zg.BORDER_ON) == 0 && id == 0x0183) { // <EQUAL? .ID ,TEXT-WINDOW-PIC-LOC>>
         X = 1;
     } else {
         X = width * imagescalex;
     }
 
     uint16_t x_size;
-    if (get_global(0x83) == 0 && id == 0x0183) { // <EQUAL? .ID ,TEXT-WINDOW-PIC-LOC>>
+    if (get_global(zg.BORDER_ON) == 0 && id == 0x0183) { // <EQUAL? .ID ,TEXT-WINDOW-PIC-LOC>>
         x_size = gscreenw;
     } else {
         x_size = gscreenw - X * 2;
@@ -257,7 +257,7 @@ bool z0_init_status_line(bool DONT_CLEAR) {
     set_global(0x59, 1);  // <SETG COMPASS-CHANGED T>
     set_global(0x6b, 1);  // <SETG NEW-COMPASS T>
 
-    bool border_on = get_global(0x83) == 1;
+    bool border_on = get_global(zg.BORDER_ON) == 1;
     if (!DONT_CLEAR) {
         // <CLEAR -1>
         if (V6_TEXT_BUFFER_WINDOW.id != nullptr) {
@@ -267,11 +267,11 @@ bool z0_init_status_line(bool DONT_CLEAR) {
         }
         clear_margin_image_list();
     }
-    SPLIT_BY_PICTURE(get_global(0x1e), false);
+    uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
+    SPLIT_BY_PICTURE(CURRENT_SPLIT, false);
 
-//    internal_call_with_2_args(pack_routine(0x1b958), get_global(0x1e), 0);
+//    internal_call_with_2_args(pack_routine(0x1b958), get_global(zg.CURRENT_SPLIT), 0);
 
-    uint16_t CURRENT_SPLIT = get_global(0x1e);
 
     if (CURRENT_SPLIT == TEXT_WINDOW_PIC_LOC) {
         ADJUST_TEXT_WINDOW(0);
@@ -390,7 +390,7 @@ void DRAW_NEW_SCORE(void) {
 
 void z0_resize_status_windows(void) {
 
-    bool BORDER_ON = (get_global(0x83) == 1);
+    bool BORDER_ON = (get_global(zg.BORDER_ON) == 1);
 
     if (z0_left_status_window == nullptr) {
         z0_left_status_window = gli_new_window(wintype_TextGrid, 0);
@@ -489,7 +489,7 @@ void z0_resize_status_windows(void) {
 void UPDATE_STATUS_LINE(void) {
     // Set proportional font / style_Preformatted
     
-    bool BORDER_ON = (get_global(0x83) == 1);
+    bool BORDER_ON = (get_global(zg.BORDER_ON) == 1);
     bool COMPASS_CHANGED = (get_global(0x59) == 1);
     uint16_t HERE = get_global(0x0b);
     uint16_t REGION = internal_get_prop(HERE, P_REGION);
