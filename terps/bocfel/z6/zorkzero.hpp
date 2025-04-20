@@ -150,20 +150,17 @@ void z0_autorestore_internal_read_char_hacks(void);
 
 typedef struct ZorkGlobals {
     uint8_t HERE;
-    uint8_t OLD_HERE;
-    uint8_t REGION;
-    uint8_t NARROW;
     uint8_t COMPASS_CHANGED;
     uint8_t NEW_COMPASS;
-    uint8_t SCORE;
     uint8_t MOVES;
+    uint8_t SCORE;
     uint8_t CURRENT_BORDER;
     uint8_t BORDER_ON;
     uint8_t CURRENT_SPLIT;
     uint8_t F_WIN_COUNT;
     uint8_t F_PLAYS;
     uint8_t YOUR_SCORE;
-    uint8_t DEFAULT_FG;
+    uint8_t DEFAULT_FG; //
     uint8_t DEFAULT_BG;
 } ZorkGlobals;
 

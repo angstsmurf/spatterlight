@@ -135,7 +135,7 @@ void CENTER(void) {
 
 
 void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
-    set_global(0xb7, id); // <SETG CURRENT-SPLIT .ID>
+    set_global(zg.CURRENT_SPLIT, id); // <SETG CURRENT-SPLIT .ID>
     if (clear_screen) {
         glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
         glk_window_clear(V6_STATUS_WINDOW.id);
@@ -188,7 +188,7 @@ void DISPLAY_BORDER(BorderType border) {
     current_graphics_buf_win = graphics_bg_glk;
     glk_request_mouse_event(current_graphics_buf_win);
 
-    set_global(0x6b, 1); // set global NEW-COMPASS to true
+//    set_global(zg.NEW_COMPASS, 1);
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
     draw_to_pixmap_unscaled(border, 0, 0);
@@ -254,8 +254,8 @@ glui32 z0_right_status_width;
 extern winid_t z0_right_status_window;
 
 bool z0_init_status_line(bool DONT_CLEAR) {
-    set_global(0x59, 1);  // <SETG COMPASS-CHANGED T>
-    set_global(0x6b, 1);  // <SETG NEW-COMPASS T>
+    set_global(zg.COMPASS_CHANGED, 1);  // <SETG COMPASS-CHANGED T>
+//    set_global(zg.NEW_COMPASS, 1);  // <SETG NEW-COMPASS T>
 
     bool border_on = get_global(zg.BORDER_ON) == 1;
     if (!DONT_CLEAR) {
@@ -269,9 +269,6 @@ bool z0_init_status_line(bool DONT_CLEAR) {
     }
     uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
     SPLIT_BY_PICTURE(CURRENT_SPLIT, false);
-
-//    internal_call_with_2_args(pack_routine(0x1b958), get_global(zg.CURRENT_SPLIT), 0);
-
 
     if (CURRENT_SPLIT == TEXT_WINDOW_PIC_LOC) {
         ADJUST_TEXT_WINDOW(0);
@@ -305,8 +302,8 @@ bool z0_init_status_line(bool DONT_CLEAR) {
         }
 
         set_current_window(&windows[7]); // <SCREEN ,S-FULL>
-        set_global(0x14, internal_call(pack_routine(0x1bb8c))); // <SETG CURRENT-BORDER <SET-BORDER>>
-        DISPLAY_BORDER((BorderType)get_global(0x14));
+        set_global(zg.CURRENT_BORDER, internal_call(pack_routine(0x1bb8c))); // <SETG CURRENT-BORDER <SET-BORDER>>
+        DISPLAY_BORDER((BorderType)get_global(zg.CURRENT_BORDER));
         for (int i = 1; i < 14; i++) {
             internal_clear_attr(0x166, i);
         }
@@ -351,10 +348,8 @@ void DRAW_NEW_HERE(void) {
     V6_STATUS_WINDOW.x = 1;
     V6_STATUS_WINDOW.y = 1;
 
-    set_global(0xb7, get_global(0x0b)); // OLD-HERE = HERE
-                                        //    SET_CURSOR (user_word(SL_LOC_TBL), BLANK_IT(1, NARROW ? 18 : 24));
-    bool NARROW = get_global(0x93) == 1;
-    int16_t HERE = get_global(0x0b);
+    int16_t HERE = get_global(zg.HERE);
+    bool NARROW = options.int_number == INTERP_APPLE_IIE || options.int_number == INTERP_MSDOS;
 
     if (NARROW || HERE == PHIL_HALL) {
         int16_t X = internal_get_prop(HERE, P_APPLE_DESC);
@@ -383,8 +378,7 @@ void DRAW_NEW_HERE(void) {
 }
 
 void DRAW_NEW_SCORE(void) {
-    int16_t SCORE = get_global(0x61);
-    set_global(0x79, SCORE);
+    int16_t SCORE = get_global(zg.SCORE);
     print_right_justified_number(SCORE);
 }
 
@@ -399,7 +393,7 @@ void z0_resize_status_windows(void) {
             win_maketransparent(z0_left_status_window->peer);
     }
 
-    int16_t CURRENT_BORDER = get_global(0x14);
+    int16_t CURRENT_BORDER = get_global(zg.CURRENT_BORDER);
 
     int imgwidth, imgheight;
     get_image_size(CURRENT_BORDER, &imgwidth, &imgheight);
@@ -431,18 +425,13 @@ void z0_resize_status_windows(void) {
 
 
     if (!BORDER_ON) {
-
         if (z0_right_status_window != nullptr) {
             gli_delete_window(z0_right_status_window);
             z0_right_status_window = nullptr;
         }
-
         v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, height);
-
         glk_window_clear(z0_left_status_window);
-
         z0_right_status_width = (gscreenw - 2 * ggridmarginx) / gcellw;
-
         return;
     }
 
@@ -452,17 +441,12 @@ void z0_resize_status_windows(void) {
         win_maketransparent(z0_right_status_window->peer);
     }
 
-
-    uint16_t HERE = get_global(0x0b);
-
+    uint16_t HERE = get_global(zg.HERE);
     int stringlength = count_characters_in_object(HERE);
-
     int width_in_chars = MAX(stringlength, 13); // 13 characters to make room for "MOVES:" plus 2 spaces and 10000 moves
-
     width = width_in_chars * gcellw + 2 * ggridmarginx;
 
     z0_left_status_window->bbox.x0 = x;
-
     win_sizewin(z0_left_status_window->peer, x, y, x + width, y + height);
     glk_window_clear(z0_left_status_window);
 
@@ -473,7 +457,6 @@ void z0_resize_status_windows(void) {
     width = z0_right_status_width * gcellw + 2 * ggridmarginx;
 
     x = gscreenw - x - width;
-
     win_sizewin(z0_right_status_window->peer, x, y, x + width, y + height);
 
     // We trick the text printing routine into
@@ -487,11 +470,9 @@ void z0_resize_status_windows(void) {
 }
 
 void UPDATE_STATUS_LINE(void) {
-    // Set proportional font / style_Preformatted
-    
     bool BORDER_ON = (get_global(zg.BORDER_ON) == 1);
-    bool COMPASS_CHANGED = (get_global(0x59) == 1);
-    uint16_t HERE = get_global(0x0b);
+    bool COMPASS_CHANGED = (get_global(zg.COMPASS_CHANGED) == 1);
+    uint16_t HERE = get_global(zg.HERE);
     uint16_t REGION = internal_get_prop(HERE, P_REGION);
 
     // if interpreter is IBM and color flag is unset
@@ -507,7 +488,7 @@ void UPDATE_STATUS_LINE(void) {
 
     glk_window_move_cursor(z0_left_status_window, 0, 1);
     glk_put_string(const_cast<char*>("Moves:  "));
-    print_number(get_global(0xe3));
+    print_number(get_global(zg.MOVES));
 
     if (BORDER_ON) {
         if (COMPASS_CHANGED) {
@@ -518,13 +499,10 @@ void UPDATE_STATUS_LINE(void) {
     }
 
     glk_window_move_cursor(BORDER_ON ? z0_right_status_window : z0_left_status_window, z0_right_status_width - count_characters_in_zstring(REGION), 0);
-
     print_handler(unpack_string(REGION), nullptr);
 
     glk_window_move_cursor(BORDER_ON ? z0_right_status_window : z0_left_status_window, z0_right_status_width - 10, 1);
-
     glk_put_string(const_cast<char*>("Score:"));
-
     DRAW_NEW_SCORE();
 
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
@@ -1025,10 +1003,10 @@ void FANUCCI(void) {
         } else {
             draw_cards();
             update_scores();
-            uint16_t f_win_count = get_global(0x41);
+            uint16_t f_win_count = get_global(zg.F_WIN_COUNT);
             if (f_win_count == 3) {
-                uint16_t your_score = get_global(0x3b);
-                set_global(0x3b, your_score + 1000);
+                uint16_t your_score = get_global(zg.YOUR_SCORE);
+                set_global(zg.YOUR_SCORE, your_score + 1000);
                 internal_clear_attr(0x012f, 0x1e); // <FCLEAR ,BROOM ,TRYTAKEBIT>
                 finished = true;
             } else if (score_check()) {
@@ -1037,8 +1015,8 @@ void FANUCCI(void) {
                 glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
                 j_play();
                 draw_cards();
-                uint16_t f_plays = get_global(0x6d);
-                set_global(0x6d, f_plays + 1);
+                uint16_t f_plays = get_global(zg.F_PLAYS);
+                set_global(zg.F_PLAYS, f_plays + 1);
                 update_scores();
             }
             if (score_check())
