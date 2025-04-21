@@ -903,7 +903,7 @@ static std::vector<EntryPoint> entrypoints = {
     },
 };
 
-int32_t find_pattern_in_mem(std::vector<uint8_t> pattern, uint32_t startpos, uint32_t length_to_search) {
+static int32_t find_pattern_in_mem(std::vector<uint8_t> pattern, uint32_t startpos, uint32_t length_to_search) {
     int32_t end = startpos + length_to_search - pattern.size();
     for (int32_t i = startpos; i < end; i++) {
         bool found = true;
@@ -920,7 +920,7 @@ int32_t find_pattern_in_mem(std::vector<uint8_t> pattern, uint32_t startpos, uin
     return -1;
 }
 
-int32_t find_globals_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_t *> vars, uint32_t startpos, uint32_t length_to_search
+static int32_t find_globals_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_t *> vars, uint32_t startpos, uint32_t length_to_search
                                 ) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
     if (offset == -1)
@@ -936,7 +936,7 @@ int32_t find_globals_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_
     return last_match_offset;
 }
 
-int32_t find_routines_in_pattern(std::vector<uint8_t> pattern, std::vector<uint32_t *> routines, uint32_t startpos, uint32_t length_to_search
+static int32_t find_routines_in_pattern(std::vector<uint8_t> pattern, std::vector<uint32_t *> routines, uint32_t startpos, uint32_t length_to_search
                                  ) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
     if (offset == -1)
@@ -952,7 +952,7 @@ int32_t find_routines_in_pattern(std::vector<uint8_t> pattern, std::vector<uint3
     return last_match_offset;
 }
 
-int32_t find_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_t *> vals, uint32_t startpos, uint32_t length_to_search
+static int32_t find_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_t *> vals, uint32_t startpos, uint32_t length_to_search
                                ) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
     if (offset == -1)
@@ -968,7 +968,7 @@ int32_t find_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_t
     return last_match_offset;
 }
 
-int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint16_t *> vals, uint32_t startpos, uint32_t length_to_search) {
+static int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint16_t *> vals, uint32_t startpos, uint32_t length_to_search) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
     if (offset == -1)
         return -1;
@@ -1008,7 +1008,7 @@ static void patch_arthur_pauses(void) {
 
 static uint32_t end_of_color_addr = 0;
 
-void find_arthur_globals(void) {
+static void find_arthur_globals(void) {
     int start = 0;
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
@@ -1133,7 +1133,7 @@ void find_arthur_globals(void) {
     patch_arthur_pauses();
 }
 
-void find_journey_globals(void) {
+static void find_journey_globals(void) {
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == BOLD_PARTY_CURSOR && entrypoint.found_at_address != 0) {
             // Later versions of Journey change font by calling a routine named
@@ -1334,7 +1334,7 @@ void find_journey_globals(void) {
     }
 }
 
-void find_shogun_globals(void) {
+static void find_shogun_globals(void) {
     int start = 0;
     int mac_ii_return_address = 0;
     int credits_return_address = 0;
