@@ -1688,7 +1688,6 @@ void find_shogun_globals(void) {
                     fprintf(stderr, "Patched V-BOW offset 0x%x\n", start + 9);
                     memory[start + 13] = 0x2d;
                 }
-
             }
             entrypoint.found_at_address = 0; // V_BOW
         }
@@ -1744,9 +1743,7 @@ void find_entrypoints(void) {
                 highest_entrypoint = entrypoint.found_at_address;
         }
     }
-
 }
-
 
 void check_entrypoints(uint32_t pc) {
     if (pc > highest_entrypoint || pc < lowest_entrypoint)
