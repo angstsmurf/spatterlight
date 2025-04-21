@@ -984,8 +984,6 @@ int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<
 }
 
 static void patch_arthur_pauses(void) {
-    if (!gli_voiceover_on)
-        return;
     if (memory_size < 0x10014) {
         fprintf(stderr, "patch_arthur_pauses: Unexpected memory size: 0x%x\n", memory_size);
         return;
