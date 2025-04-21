@@ -621,12 +621,12 @@ void arthur_erase_window(int16_t index) {
                     screenmode = MODE_NORMAL;
                 } else {
                     screenmode = MODE_INITIAL_QUESTION;
+                    win_sizewin(V6_STATUS_WINDOW.id->peer, 0, 0, 0, 0);
                 }
                 current_graphics_buf_win = nullptr;
                 win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
                 if (last_slideshow_pic == K_PIC_ENDGAME) {
                     glk_window_clear(graphics_bg_glk);
-                    win_sizewin(V6_STATUS_WINDOW.id->peer, 0, 0, 0, 0);
                     v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
                     win_sizewin(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0, gscreenw, gscreenh);
                 }
