@@ -2034,7 +2034,7 @@ static void find_shogun_globals(void) {
     }
 }
 
-void find_zork0_globals(void) {
+static void find_zork0_globals(void) {
     int start = 0;
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
