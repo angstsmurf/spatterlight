@@ -1013,7 +1013,8 @@ void find_arthur_globals(void) {
 
             start = find_globals_in_pattern({ 0xf1, 0x7f, 0x00, 0x0d, 0x56, 0x00, 0xef, 0x5f, 0x01, 0x01 }, { &ag.GL_TIME_WIDTH }, start, 300);
             if (start == -1) {
-                fprintf(stderr, "Error! Did not find ag.GL_TIME_WIDTH\n");
+                fprintf(stderr, "find_arthur_globals: Did not find ag.GL_TIME_WIDTH, which presumably means this is an early beta. Reported release number:%d\n", header.release);
+                ag.GL_TIME_WIDTH = 0;
                 start = entrypoint.found_at_address;
             }
 

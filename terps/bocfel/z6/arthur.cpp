@@ -445,7 +445,7 @@ void arthur_INIT_STATUS_LINE(void) {
     garglk_set_reversevideo(0);
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 
-    if (header.release > 41)
+    if (ag.GL_TIME_WIDTH != 0)
         set_global(ag.GL_TIME_WIDTH, 0);
     set_global(ag.GL_SL_HERE, 0);
     set_global(ag.GL_SL_VEH, 0);
