@@ -554,13 +554,33 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
             float scale = draw_centered_title_image(K_PIC_SWORD);
             draw_centered_image(K_PIC_SWORD_MERLIN, scale, 0, 0);
         }
+        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+        const char *message;
+        switch (picnum) {
+            case K_PIC_TITLE:
+                message = "\n(Showing title image in a golden frame. The words 'Arthur: The Quest for Excalibur' where the 'L' is a glittering sword.)\n";
+                break;
+            case K_PIC_SWORD:
+                message = "\n(Showing a full screen image in a golden frame. A sword of gold, with a jewel-encrusted hilt, stuck in a rock, in front of a crude medieval stone church.)\n";
+                break;
+            case K_PIC_SWORD_MERLIN:
+                message = "\n(Showing a full screen image in a golden frame. Merlin has appeared behind the sword, wearing a cloak. He raises his right hand while stroking his long beard with his left.)\n";
+                break;
+            case K_PIC_ANGRY_DEMON:
+                message = "\n(Showing a full screen image of a screaming demon.)\n";
+                break;
+            case K_PIC_ENDGAME:
+                message = "\n(Showing a full screen image in a golden frame. Arthur is holding up Excalibur, smiling, while the face of Merlin is watching from the sky behind.)\n";
+                break;
+            default:
+                message = "\n(Showing a full screen image.)\n";
+                break;
+        }
+        glk_put_string_stream(glk_window_get_stream(V6_TEXT_BUFFER_WINDOW.id), const_cast<char*>(message));
         return true;
-    }
-
-    else if (current_graphics_buf_win == nullptr) {
+    } else if (current_graphics_buf_win == nullptr) {
         current_graphics_buf_win = graphics_bg_glk;
     }
-
 
     // Room images
     if (is_arthur_room_image(picnum) || is_arthur_stamp_image(picnum)) { // Pictures 106-149 are map images
