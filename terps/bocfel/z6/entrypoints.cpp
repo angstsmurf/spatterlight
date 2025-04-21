@@ -983,6 +983,31 @@ int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<
     return last_match_offset;
 }
 
+static void patch_arthur_pauses(void) {
+    if (!gli_voiceover_on)
+        return;
+    if (memory_size < 0x10014) {
+        fprintf(stderr, "patch_arthur_pauses: Unexpected memory size: 0x%x\n", memory_size);
+        return;
+    }
+
+    for (int32_t i = 0x10000; i < memory_size - 0x14; i++) {
+        if (memory[i] == 0xf6 && memory[i + 2] == 0x01 && (memory[i + 1] == 0x53 || memory[i + 1] == 0x43)) {
+            uint8_t high = memory[i + 3];
+            uint8_t low = memory[i + 4];
+            std::vector<uint8_t> pattern = {};
+            if (high == 0x32) {
+                pattern = {0xf6, 0x7f, 0x01, 0x00, 0xb4, 0xb4, 0xb4};
+            } else if ((high == 0x02 && low == 0x58) || (high == 0x01 && low == 0x2c)) {
+                pattern = {0xf6, 0x7f, 0x01, 0x00, 0xb4, 0xb4, 0xb4, 0xb4};
+            }
+            for (int j = 0; j < pattern.size(); j++) {
+                memory[i + j] = pattern[j];
+            }
+        }
+    }
+}
+
 static uint32_t end_of_color_addr = 0;
 
 void find_arthur_globals(void) {
@@ -1107,6 +1132,7 @@ void find_arthur_globals(void) {
             entrypoint.found_at_address = 0;
         }
     }
+    patch_arthur_pauses();
 }
 
 void find_journey_globals(void) {
