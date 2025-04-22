@@ -2538,6 +2538,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (!preferencePane)
         return;
 
+    NSString *announcement = [item.label stringByAppendingString:NSLocalizedString(@" selected", nil)];
+
+    NSAccessibilityPostNotificationWithUserInfo(
+                                                self.window,
+                                                NSAccessibilityAnnouncementRequestedNotification,
+                                                @{NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh),
+                                                  NSAccessibilityAnnouncementKey: announcement
+                                                });
+
     currentPanel = preferencePane;
 
     CGFloat currentPanelHeight = NSHeight(currentPanel.frame);
