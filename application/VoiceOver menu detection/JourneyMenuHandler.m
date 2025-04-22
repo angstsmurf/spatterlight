@@ -846,20 +846,24 @@ errorDescription:(NSString * __autoreleasing *)error
         _storedDialogText = [NSString stringWithFormat:@"\"%@\"\n\n%@",  lastMoveString, _storedDialogText];
     }
 
-    switch (_storedDialogType) {
-        case kJourneyDialogTextEntry:
-            [self displayAlertWithTextEntry:_storedDialogText elvish:NO];
-            break;
-        case kJourneyDialogTextEntryElvish:
-            [self displayAlertWithTextEntry:_storedDialogText elvish:YES];
-            break;
-        case kJourneyDialogSingleChoice:
-            [self displayAlertWithText:_storedDialogText];
-            break;
-        case kJourneyDialogMultipleChoice:
-            [self displayPopupMenuWithMessageText:self.storedDialogText];
-            break;
-    }
+    JourneyMenuHandler __weak *weakSelf = self;
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        switch (weakSelf.storedDialogType) {
+            case kJourneyDialogTextEntry:
+                [self displayAlertWithTextEntry:weakSelf.storedDialogText elvish:NO];
+                break;
+            case kJourneyDialogTextEntryElvish:
+                [self displayAlertWithTextEntry:weakSelf.storedDialogText elvish:YES];
+                break;
+            case kJourneyDialogSingleChoice:
+                [self displayAlertWithText:weakSelf.storedDialogText];
+                break;
+            case kJourneyDialogMultipleChoice:
+                [self displayPopupMenuWithMessageText:weakSelf.storedDialogText];
+                break;
+        }
+    });
 }
 
 - (BOOL)updateOnBecameKey:(BOOL)recreateDialog {
