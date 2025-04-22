@@ -2406,8 +2406,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
         [weakSelf.openGameQueue addOperation:operation];
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (gctl.gameData == nil) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (gctl.gameData == nil && !systemWindowRestoration) {
                 gctl.slowReadAlert = [[NSAlert alloc] init];
                 NSAlert __weak *alert = gctl.slowReadAlert;
                 alert.messageText =
