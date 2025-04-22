@@ -806,6 +806,7 @@ errorDescription:(NSString * __autoreleasing *)error
 - (void)recreateDialog {
     [self showJourneyMenus];
 
+    [_textBufferWindow setLastMove];
     _lastDialogAddedMove = (_textBufferWindow.lastNewTextOnTurn == _delegate.turns);
 
     if (_reallyShowingDialog || [_journeyDialogClosedTimestamp timeIntervalSinceNow] > -1 || _delegate.mustBeQuiet || _delegate.shouldShowAutorestoreAlert) {
