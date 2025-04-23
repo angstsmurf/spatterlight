@@ -136,6 +136,10 @@ bool is_spatterlight_shogun = false;
 bool is_spatterlight_zork0 = false;
 bool is_spatterlight_v6 = false;
 
+    
+bool flowbreak_after_next_newline = false;
+bool pending_flowbreak = false;
+
 // Full-window size background or in front
 // Background during normal play with text windows on top,
 // or in front during Zork 0 map or "slideshows"
@@ -989,6 +993,17 @@ static void put_char_base(uint16_t c, bool unicode)
                     }
                 } else {
                     xglk_put_char(c);
+                    if (c == UNICODE_LINEFEED) {
+                        if (pending_flowbreak) {
+                            flowbreak_after_next_newline = true;
+                            pending_flowbreak = false;
+                        } else if (flowbreak_after_next_newline) {
+                            glk_window_flow_break(curwin->id);
+                            flowbreak_after_next_newline = false;
+                        }
+                    } else {
+                        flowbreak_after_next_newline = false;
+                    }
                 }
             }
 #else
