@@ -3293,6 +3293,11 @@ fprintf(stderr, "%s\n",                                                    \
                 }
             }
 
+            if (_slowReadAlert != nil) {
+                [_slowReadAlert.window close];
+                _slowReadAlert = nil;
+            }
+
             [self flushDisplay];
 
             if (_queue.count) {
