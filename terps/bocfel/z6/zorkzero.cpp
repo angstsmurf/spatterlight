@@ -1841,7 +1841,7 @@ void z0_update_after_autorestore(void) {
 
 }
 
-//extern bool pending_flowbreak;
+extern bool pending_flowbreak;
 
 bool z0_display_picture(int x, int y, Window *win) {
 
@@ -1886,12 +1886,12 @@ bool z0_display_picture(int x, int y, Window *win) {
     }
 
     if (win->id->type == wintype_TextBuffer) {
-//        pending_flowbreak = true;
-//        float inline_scale = 2.0;
-//        if (graphics_type == kGraphicsTypeMacBW)
-//            inline_scale = imagescalex;
-//        draw_inline_image(win->id, current_picture, imagealign_MarginLeft, current_picture, inline_scale, false);
-//        add_margin_image_to_list(current_picture);
+        pending_flowbreak = true;
+        float inline_scale = 2.0;
+        if (graphics_type == kGraphicsTypeMacBW)
+            inline_scale = imagescalex;
+        draw_inline_image(win->id, current_picture, imagealign_MarginLeft, current_picture, inline_scale, false);
+        add_margin_image_to_list(current_picture);
         return true;
     }
 
