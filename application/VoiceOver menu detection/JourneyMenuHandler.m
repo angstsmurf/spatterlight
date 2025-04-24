@@ -806,9 +806,6 @@ errorDescription:(NSString * __autoreleasing *)error
 - (void)recreateDialog {
     [self showJourneyMenus];
 
-    [_textBufferWindow setLastMove];
-    _lastDialogAddedMove = (_textBufferWindow.lastNewTextOnTurn == _delegate.turns);
-
     if (_reallyShowingDialog || [_journeyDialogClosedTimestamp timeIntervalSinceNow] > -1 || _delegate.mustBeQuiet || _delegate.shouldShowAutorestoreAlert) {
         return;
     }
@@ -818,6 +815,13 @@ errorDescription:(NSString * __autoreleasing *)error
     }
     _restoredShowingDialog = NO;
 
+    if (!_delegate.voiceOverActive || !_shouldShowDialog || _delegate.gameID != kGameIsJourney) {
+        return;
+    }
+
+    [_textBufferWindow setLastMove];
+    _lastDialogAddedMove = (_textBufferWindow.lastNewTextOnTurn == _delegate.turns);
+
     // Whether the current move has printed text
     // that we should add to the dialog
     // (to make VoiceOver read it to the player)
@@ -826,9 +830,6 @@ errorDescription:(NSString * __autoreleasing *)error
     }
     _restoredDialogAddedMove = NO;
 
-    if (!_delegate.voiceOverActive || !_shouldShowDialog || _delegate.gameID != kGameIsJourney) {
-        return;
-    }
     _shouldShowDialog = NO;
 
     if (_textBufferWindow.lastNewTextOnTurn == _delegate.turns || _lastDialogAddedMove) {
