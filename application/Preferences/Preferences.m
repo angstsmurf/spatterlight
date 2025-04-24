@@ -2534,18 +2534,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)switchToPanel:(NSToolbarItem *)item resizePreview:(BOOL)resizePreview {
+
+    // This must be set here for selecting tab using VoiceOver to work properly
+    self.window.toolbar.selectedItemIdentifier = item.itemIdentifier;
+
     NSView *preferencePane = itemIdentifierToViewDict[item.itemIdentifier];
     if (!preferencePane)
         return;
-
-    NSString *announcement = [item.label stringByAppendingString:NSLocalizedString(@" selected", nil)];
-
-    NSAccessibilityPostNotificationWithUserInfo(
-                                                self.window,
-                                                NSAccessibilityAnnouncementRequestedNotification,
-                                                @{NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh),
-                                                  NSAccessibilityAnnouncementKey: announcement
-                                                });
 
     currentPanel = preferencePane;
 
