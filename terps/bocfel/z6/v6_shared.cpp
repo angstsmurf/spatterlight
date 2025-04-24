@@ -308,20 +308,6 @@ static void display_softs(void) {
     }
 }
 
-void z0_erase_screen(void) {
-    //    clear_image_buffer();
-    //    clear_margin_image_list();
-    //    if (z0_right_status_window != nullptr) {
-    //        gli_delete_window(z0_right_status_window);
-    //        z0_right_status_window = nullptr;
-    //    }
-    //    if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
-    //        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-    //    if (V6_STATUS_WINDOW.id != nullptr)
-    //        glk_window_clear(V6_STATUS_WINDOW.id);
-    //    glk_window_clear(graphics_bg_glk);
-}
-
 void send_edited_menu_line(uint8_t chr) {
     win_menuitem(kV6MenuCurrentItemChanged, global_define_line, chr, 0, nullptr, 0);
 }
@@ -719,6 +705,9 @@ static void draw_hints_windows(void) {
                 if (upperwin_foreground == 0xffffff)
                     upperwin_foreground = 0;
             }
+        }
+        if (is_spatterlight_zork0) {
+            z0_erase_screen();
         }
     }
 
