@@ -126,13 +126,6 @@ enum BorderType {
 
 
 
-bool is_zorkzero_vignette(int picnum);
-bool is_zorkzero_border_image(int picnum);
-bool is_zorkzero_game_bg(int pic);
-bool is_zorkzero_rebus_image(int pic);
-bool is_zorkzero_tower_image(int pic);
-bool is_zorkzero_peggleboz_image(int pic);
-bool is_zorkzero_peggleboz_box_image(int pic);
 
 extern winid_t z0_left_status_window;
 extern winid_t z0_right_status_window;
@@ -143,10 +136,10 @@ void z0_update_after_autorestore(void);
 void z0_update_colors(void);
 void refresh_margin_images(void);
 void clear_margin_image_list(void);
-void z0_resize_status_windows(void);
 void DISPLAY_BORDER(BorderType border);
 bool z0_display_picture(int x, int y, Window *win);
 void z0_autorestore_internal_read_char_hacks(void);
+void z0_erase_screen(void);
 
 typedef struct ZorkGlobals {
     uint8_t HERE;
@@ -167,12 +160,18 @@ typedef struct ZorkGlobals {
 extern ZorkGlobals zg;
 
 typedef struct ZorkRoutines {
+    uint32_t SET_BORDER;
+    uint32_t DRAW_NEW_COMP;
+    uint32_t J_PLAY;
+    uint32_t SCORE_CHECK;
+    uint32_t DRAW_PEGS;
+    uint32_t SET_B_PIC;
+    uint32_t TOWER_WIN_CHECK;
     uint32_t V_REFRESH;
     uint32_t SETUP_SCREEN;
     uint32_t MAP_X;
     uint32_t MAP_Y;
-    uint32_t DESCRIBE_ROOM;
-    uint32_t DESCRIBE_OBJECTS;
+    uint32_t PLAY_SELECTED;
 } ZorkRoutines;
 
 extern ZorkRoutines zr;
