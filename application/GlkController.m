@@ -4997,10 +4997,14 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (void)speakNewText {
     // Find a "main text window"
     NSMutableArray *windowsWithText = _gwindows.allValues.mutableCopy;
+    NSMutableArray *bufWinsWithoutText = [[NSMutableArray alloc] init];
     for (GlkWindow *view in _gwindows.allValues) {
         if ([view isKindOfClass:[GlkGraphicsWindow class]] || ![(GlkTextBufferWindow *)view setLastMove]) {
             // Remove all Glk window objects with no new text to speak
             [windowsWithText removeObject:view];
+            if ([view isKindOfClass:[GlkTextBufferWindow class]] && ((GlkTextBufferWindow *)view).moveRanges.count) {
+                [bufWinsWithoutText addObject:view];
+            }
         }
     }
 
@@ -5009,13 +5013,16 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     if (!windowsWithText.count) {
         return;
-    } else if (windowsWithText.count > 1) {
+    } else {
         NSMutableArray *bufWinsWithText = [[NSMutableArray alloc] init];
         for (GlkWindow *view in windowsWithText)
             if ([view isKindOfClass:[GlkTextBufferWindow class]])
                 [bufWinsWithText addObject:view];
         if (bufWinsWithText.count == 1) {
             [self speakLargest:bufWinsWithText];
+            return;
+        } else if (bufWinsWithText.count == 0 && bufWinsWithoutText.count > 0) {
+            [self speakLargest:bufWinsWithoutText];
             return;
         }
     }
