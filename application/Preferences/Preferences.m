@@ -2618,12 +2618,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
-
-    NSMutableArray<NSToolbarItemIdentifier> *toolbarItemIdentifiers = [NSMutableArray new];
-
-    [toolbarItemIdentifiers addObjectsFromArray:@[themesPanel, stylesPanel, presentationPanel, formatPanel, voiceOverPanel, miscPanel, globalPanel]];
-
-    return toolbarItemIdentifiers;
+    return @[themesPanel, stylesPanel, presentationPanel, formatPanel, voiceOverPanel, miscPanel, globalPanel];
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
