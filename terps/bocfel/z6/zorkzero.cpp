@@ -22,47 +22,59 @@
 
 #define z0_left_status_window windows[1].id
 
+#define PHIL_HALL 0xc7
+#define G_U_MOUNTAIN 0xac
+#define G_U_SAVANNAH 0xc3
+#define G_U_HIGHWAY 0xce
+
+#define P_APPLE_DESC 0x19
+#define P_REGION 0x27
+
+#define HERE_LOC 382
+
+#define MAX(a,b) (a > b ? a : b)
+
 winid_t z0_right_status_window = nullptr;
+glui32 z0_right_status_width;
+
+static bool has_made_peggleboz_move = false;
+
+static int number_of_update_color_calls = 0;
+
 
 ZorkGlobals zg;
 ZorkRoutines zr;
 ZorkTables zt;
 ZorkObjects zo;
 
-bool is_zorkzero_vignette(int pic) {
-    return (pic >= 205 && pic <= 329);
-}
 
-bool is_zorkzero_border_image(int pic) {
-    return (pic >= 2 && pic <= 24 && pic != 8);
-}
+//#define SL_LOC_TBL 0x70a5
 
-bool is_zorkzero_game_bg(int pic) {
-    return (pic == zorkzero_tower_of_bozbar_border ||
-            pic == zorkzero_peggleboz_border ||
-            pic == zorkzero_snarfem_border ||
-            pic == zorkzero_double_fanucci_border);
-}
+// <CONSTANT SL-LOC-TBL
+// <TABLE 0 0 ;HERE-LOC
+// 0 0 ;REGION-LOC
+// 0 0 ;COMPASS-PIC-LOC
+// 0 0 ;U-BOX-LOC
+// 0 0 ;D-BOX-LOC
+// 0 0 ;ICON-OFFSET>>
 
-bool is_zorkzero_tower_image(int pic) {
+static bool is_zorkzero_tower_image(int pic) {
     return (pic >= 42 && pic <= 48);
 }
 
-bool is_zorkzero_rebus_image(int pic) {
+static bool is_zorkzero_rebus_image(int pic) {
     return (pic >= 34 && pic <= 40);
 }
 
-bool is_zorkzero_encyclopedia_image(int pic) {
+static bool is_zorkzero_encyclopedia_image(int pic) {
     return (pic >= 26 && pic <= 33);
 }
 
-bool is_zorkzero_peggleboz_image(int pic) {
+static bool is_zorkzero_peggleboz_image(int pic) {
     return (pic >= 50 && pic <= 72);
 }
 
-static bool has_made_peggleboz_move = false;
-
-bool is_zorkzero_peggleboz_box_image(int pic) {
+static bool is_zorkzero_peggleboz_box_image(int pic) {
     uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
 
     if (CURRENT_SPLIT != PBOZ_SPLIT)
@@ -84,6 +96,19 @@ bool is_zorkzero_peggleboz_box_image(int pic) {
     }
 }
 
+void z0_erase_screen(void) {
+    clear_image_buffer();
+    clear_margin_image_list();
+    if (z0_right_status_window != nullptr) {
+        gli_delete_window(z0_right_status_window);
+        z0_right_status_window = nullptr;
+    }
+    if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
+        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+    if (V6_STATUS_WINDOW.id != nullptr)
+        glk_window_clear(V6_STATUS_WINDOW.id);
+    glk_window_clear(graphics_bg_glk);
+}
 
 void after_SPLIT_BY_PICTURE(void) {
     if (screenmode == MODE_NO_GRAPHICS) {
@@ -143,25 +168,19 @@ void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
     int width, height;
     get_image_size(id, &width, &height);
 
-    uint16_t Y = (height + 1) * imagescaley;
-
-    uint16_t X;
+    uint16_t x, x_size;
+    uint16_t y = (height + 1) * imagescaley;
 
     if (get_global(zg.BORDER_ON) == 0 && id == 0x0183) { // <EQUAL? .ID ,TEXT-WINDOW-PIC-LOC>>
-        X = 1;
-    } else {
-        X = width * imagescalex;
-    }
-
-    uint16_t x_size;
-    if (get_global(zg.BORDER_ON) == 0 && id == 0x0183) { // <EQUAL? .ID ,TEXT-WINDOW-PIC-LOC>>
+        x = 1;
         x_size = gscreenw;
     } else {
-        x_size = gscreenw - X * 2;
+        x = width * imagescalex;
+        x_size = gscreenw - x * 2;
     }
 
-    v6_define_window(&V6_TEXT_BUFFER_WINDOW, X, Y, x_size, gscreenh - Y);
-    v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, Y);
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, x, y, x_size, gscreenh - y);
+    v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, y);
 }
 
 // ; "Make text window extend to bottom of screen (more or less) or to
@@ -227,33 +246,7 @@ void DISPLAY_BORDER(BorderType border) {
 void z0_autorestore_internal_read_char_hacks(void) {
 }
 
-#define PHIL_HALL 0xc7
-#define G_U_MOUNTAIN 0xac
-#define G_U_SAVANNAH 0xc3
-#define G_U_HIGHWAY 0xce
-
-#define P_APPLE_DESC 0x19
-#define P_REGION 0x27
-
-#define MAX(a,b) (a > b ? a : b)
-
-glui32 z0_right_status_width;
-
-#define HERE_LOC 382
-
-//#define SL_LOC_TBL 0x70a5
-
-// <CONSTANT SL-LOC-TBL
-// <TABLE 0 0 ;HERE-LOC
-// 0 0 ;REGION-LOC
-// 0 0 ;COMPASS-PIC-LOC
-// 0 0 ;U-BOX-LOC
-// 0 0 ;D-BOX-LOC
-// 0 0 ;ICON-OFFSET>>
-
-extern winid_t z0_right_status_window;
-
-bool z0_init_status_line(bool DONT_CLEAR) {
+static bool z0_init_status_line(bool DONT_CLEAR) {
     set_global(zg.COMPASS_CHANGED, 1);  // <SETG COMPASS-CHANGED T>
 //    set_global(zg.NEW_COMPASS, 1);  // <SETG NEW-COMPASS T>
 
@@ -312,7 +305,7 @@ bool z0_init_status_line(bool DONT_CLEAR) {
         set_current_window(&V6_STATUS_WINDOW); // <SCREEN ,S-WINDOW>
 //        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 1);
         glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_background);
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_foreground);
+//        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_foreground);
     }
 
 //    set_global(0x9a, 1); //  <SETG FONT-X <LOWCORE (FWRD 1)>>
@@ -344,7 +337,7 @@ void INIT_STATUS_LINE(void) {
 //    Default_Colors();
 //}
 
-void DRAW_NEW_HERE(void) {
+static void draw_new_here(void) {
     V6_STATUS_WINDOW.x = 1;
     V6_STATUS_WINDOW.y = 1;
 
@@ -377,12 +370,12 @@ void DRAW_NEW_HERE(void) {
     }
 }
 
-void DRAW_NEW_SCORE(void) {
+static void draw_new_score(void) {
     int16_t SCORE = get_global(zg.SCORE);
     print_right_justified_number(SCORE);
 }
 
-void z0_resize_status_windows(void) {
+static void z0_resize_status_windows(void) {
 
     bool BORDER_ON = (get_global(zg.BORDER_ON) == 1);
 
@@ -484,7 +477,7 @@ void UPDATE_STATUS_LINE(void) {
     set_current_window(&V6_STATUS_WINDOW);
     glk_window_move_cursor(z0_left_status_window, 0, 0);
 
-    DRAW_NEW_HERE();
+    draw_new_here();
 
     glk_window_move_cursor(z0_left_status_window, 0, 1);
     glk_put_string(const_cast<char*>("Moves:  "));
@@ -503,13 +496,11 @@ void UPDATE_STATUS_LINE(void) {
 
     glk_window_move_cursor(BORDER_ON ? z0_right_status_window : z0_left_status_window, z0_right_status_width - 10, 1);
     glk_put_string(const_cast<char*>("Score:"));
-    DRAW_NEW_SCORE();
+    draw_new_score();
 
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
 }
 
-
-static int counter = 0;
 
 #pragma mark Update Colors
 
@@ -526,7 +517,7 @@ void z0_update_colors(void) {
 //    DEFAULT_FG is global 0x4f
 //    DEFAULT_BG is global 0x81
 
-    fprintf(stderr, "update_z0_colors: Called %d times\n", ++counter);
+    fprintf(stderr, "update_z0_colors: Called %d times\n", ++number_of_update_color_calls);
 
     uint16_t default_fg = get_global(0x4f);
     uint16_t default_bg = get_global(0x81);
@@ -587,7 +578,7 @@ void z0_update_colors(void) {
         }
     }
 
-    if (counter == 1 && !(options.int_number != INTERP_MACINTOSH && graphics_type == kGraphicsTypeMacBW)) {
+    if (number_of_update_color_calls == 1 && !(options.int_number != INTERP_MACINTOSH && graphics_type == kGraphicsTypeMacBW)) {
         current_fg = 1;
         current_bg = 1;
     }
@@ -1681,6 +1672,8 @@ void B_MOUSE_WEIGHT_PICK(void) {
     store_variable(2, result);
 }
 
+#pragma mark Map stuff
+
 static void update_blink_coordinates(uint16_t x, uint16_t y) {
     store_word(get_global(0xd9) + 3 * 2, y);
     store_word(get_global(0xd9) + 4 * 2, x);
@@ -1710,6 +1703,8 @@ void V_MAP_LOOP(void) {
     store_variable(4, CX);
     store_variable(5, CY);
 }
+
+#pragma mark Other stuff
 
 void z0_update_on_resize(void) {
     // Window 0 is S-TEXT, buffer text window
@@ -1779,7 +1774,7 @@ void z0_update_on_resize(void) {
         update_blink_coordinates(CX, CY);
         return;
     } else if (screenmode == MODE_NORMAL || screenmode == MODE_Z0_GAME) {
-        uint16_t CURRENT_SPLIT = get_global(0x1e);
+        uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
         if (CURRENT_SPLIT == zorkzero_tower_of_bozbar_split) {
             draw_tower_of_bozbar();
             flush_image_buffer();
@@ -1803,12 +1798,14 @@ void z0_update_on_resize(void) {
         }
         internal_call(pack_routine(0x13614), {1}); // V-$REFRESH(DONT-CLEAR:true)
         if (V6_TEXT_BUFFER_WINDOW.id) {
-            refresh_margin_images();
-            float yscalefactor = 2.0;
-            if (graphics_type == kGraphicsTypeMacBW)
-                yscalefactor = imagescalex;
-            float xscalefactor = yscalefactor * pixelwidth;
-            win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, xscalefactor, yscalefactor);
+            if (graphics_type_changed) {
+                refresh_margin_images();
+                float yscalefactor = 2.0;
+                if (graphics_type == kGraphicsTypeMacBW)
+                    yscalefactor = imagescalex;
+                float xscalefactor = yscalefactor * pixelwidth;
+                win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, xscalefactor, yscalefactor);
+            }
             win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
         }
     } else if (screenmode == MODE_SLIDESHOW) {
@@ -1835,7 +1832,6 @@ void z0_update_on_resize(void) {
 void z0_update_after_restore(void) {
     
 }
-
 
 void z0_update_after_autorestore(void) {
 

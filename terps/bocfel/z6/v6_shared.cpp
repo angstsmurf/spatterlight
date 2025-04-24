@@ -714,9 +714,9 @@ static void draw_hints_windows(void) {
                     upperwin_foreground = 0;
             }
         }
-//        if (is_spatterlight_zork0) {
-//            z0_erase_screen();
-//        }
+        if (is_spatterlight_zork0) {
+            z0_erase_screen();
+        }
     }
 
     if (is_spatterlight_arthur || (upperwin_background != ROSE_TAUPE && upperwin_background != BROWN))
