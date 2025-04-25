@@ -2090,7 +2090,7 @@ void zerase_window()
         break;
     default:
 #ifdef SPATTERLIGHT
-        {
+        if (is_spatterlight_v6) {
             if (arg0 == -3)
                 arg0 = curwin->index;
             clear_window(&windows[arg0]);
