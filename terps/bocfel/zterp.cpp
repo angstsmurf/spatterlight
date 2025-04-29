@@ -175,8 +175,10 @@ static void initialize_games()
 #ifdef SPATTERLIGHT
         { Game::BeyondZork, { "1-870412", "1-870715", "47-870915", "49-870917", "51-870923", "57-871221", "60-880610" } },
         { Game::MadBomber, { "3-971123-caad" } },
-#endif
+        { Game::ZorkZero, { "242-880830", "242-880901", "296-88101", "66-890111", "343-890217", "366-890323", "383-890602", "387-890612", "392-890714", "393-890714" } },
+#else
         { Game::ZorkZero, { "0-870831", "393-890714" } },
+#endif
         { Game::MysteriousAdventures, mysterious },
     };
 
