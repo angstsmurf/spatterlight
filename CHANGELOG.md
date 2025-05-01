@@ -14,6 +14,10 @@
 - Thanks to the new static analyzer in Xcode 16.3, several file resource leaks (i.e `fopen()` without a corresponding `fclose()`) were discovered and fixed.
 - Resetting a game will work even if the game file has been moved or renamed.
 - Reduces the number of temporary files created when playing *Journey*.
+- Autorestoring a game during the "Spatterlight wants to access files in the desktop folder" permission dialog could leave a "X is taking a long time to load" alert that would not go away.
+- After making a selection in the *Journey* VoiceOver menu which opens a dialog, VoiceOver would sometimes focus on a non-existent top level element ("Alert, dialog") that could not be properly navigated.
+- VoiceOver will now speak text printed between dialogs in *Journey*, that it previously skipped, by adding it to the dialog text. It will also properly speak text printed after closing a dialog.
+- Pushing a Settings menu bar button using VoiceOver will now properly select it.
 
 ## Release 1.3
 - Fixes the decoding of certain characters in game descriptions downloaded from IFDB.
