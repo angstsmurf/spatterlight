@@ -923,7 +923,7 @@ static int16_t get_seen_hints(void) {
 }
 
 
-static void send_menuitem(uint16_t str, int max) {
+static void print_and_send_menuitem(uint16_t str, int max) {
     char string[4000];
     int length = print_long_zstr_to_cstr(str, string, 4000);
     glk_put_string(string);
@@ -978,7 +978,7 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
             store_word(at.K_HINT_ITEMS + number_of_entries * 2, i);
         }
         glk_window_move_cursor(V6_TEXT_BUFFER_WINDOW.id, x, y);
-        send_menuitem(str, number_of_entries);
+        print_and_send_menuitem(str, number_of_entries);
 
         y++;
         V6_TEXT_BUFFER_WINDOW.x = 1;
@@ -1142,7 +1142,7 @@ static bool display_hints(bool only_refresh) {
 
         if (cnt < max) {
             int16_t str = user_word(hints_base_address + (cnt + 2) * 2);
-            send_menuitem(str, max - 1);
+            print_and_send_menuitem(str, max - 1);
             glk_put_char(UNICODE_LINEFEED);
         }
     }
