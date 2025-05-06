@@ -1017,9 +1017,8 @@ fprintf(stderr, "%s\n",                                                    \
             ch = keycode_PageDown;
         else if (commandKeyOnly)
             ch = keycode_End;
-    }
 
-    else if (([str isEqualToString:@"f"] || [str isEqualToString:@"F"]) &&
+    } else if (([str isEqualToString:@"f"] || [str isEqualToString:@"F"]) &&
              commandKeyOnly) {
         if (!scrollview.findBarVisible) {
             _restoredFindBarVisible = YES;
