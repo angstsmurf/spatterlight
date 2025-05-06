@@ -637,7 +637,11 @@
 }
 
 - (void)speakSelectedLine {
-    [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:0.4];
+    if (!_haveSpokenMenu) {
+        [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1.5];
+    } else {
+        [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:0];
+    }
 }
 
 -(void)deferredSpeakSelectedLine:(id)sender {
