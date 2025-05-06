@@ -1012,8 +1012,14 @@ static void put_char_base(uint16_t c, bool unicode)
                 // expectation that it appear in a transcript, which means it also
                 // ought to appear in the history.
                 history.add_char(c);
-
+#ifdef SPATTERLIGHT
+                if (!is_spatterlight_v6 ||
+                    (mainwin->attribute & WINATTR_TRANSCRIPTING_BIT) == WINATTR_TRANSCRIPTING_BIT) {
+                    transcribe(c);
+                }
+#else
                 transcribe(c);
+#endif
             }
 
             // If the reverse video bit was flipped (for the character font), flip it back.
@@ -4806,6 +4812,33 @@ void zpicture_data()
 #endif
 }
 
+void zwindow_style(void) {
+    Window *win = find_window(zargs[0]);
+    uint16_t flags = zargs[1];
+
+    /* Supply default arguments */
+
+    if (znargs < 3)
+        zargs[2] = 0;
+
+    /* Set window style */
+
+    switch (zargs[2]) {
+        case 0:
+            win->attribute = flags;
+            break;
+        case 1:
+            win->attribute |= flags;
+            break;
+        case 2:
+            win->attribute &= ~flags;
+            break;
+        case 3:
+            win->attribute ^= flags;
+            break;
+    }
+}
+
 void zget_wind_prop()
 {
     uint8_t font_width = 1, font_height = 1;
@@ -4904,7 +4937,7 @@ void zget_wind_prop()
         val = (font_height << 8) | font_width;
         break;
     case 14: // attributes
-        val = 0;
+        val = win->attribute;
         break;
     case 15: // line count
         val = 0;
@@ -5698,6 +5731,12 @@ void init_screen(bool first_run)
         window.font = Window::Font::Normal;
 
 #ifdef SPATTERLIGHT
+        // Only the main window should really have this bit set
+        // but we don't check the other windows anyway,
+        // or the other window attributes,
+        // so let's simplify things a bit for now.
+        window.attribute = WINATTR_TRANSCRIPTING_BIT;
+
         if (is_spatterlight_v6) {
             window.index = i++;
             window.style.reset();

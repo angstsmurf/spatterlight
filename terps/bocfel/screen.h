@@ -105,6 +105,14 @@ enum : int {
     ISTREAM_FILE     = 1,
 };
 
+// Window attributes.
+enum : uint16_t {
+    WINATTR_WRAPPING_BIT =      (1 << 0),
+    WINATTR_SCROLLING_BIT =     (1 << 1),
+    WINATTR_TRANSCRIPTING_BIT = (1 << 2),
+    WINATTR_BUFFERING_BIT =     (1 << 3)
+};
+
 void screen_set_header_bit(bool set);
 
 bool output_stream(int16_t number, uint16_t table);
@@ -153,6 +161,7 @@ void zcheck_unicode();
 void zdraw_picture();
 void zpicture_data();
 void zget_wind_prop();
+void zwindow_style();
 void zprint_form();
 void zmake_menu();
 void zbuffer_screen();
@@ -170,7 +179,7 @@ struct Window {
     enum class Font { Query, Normal, Picture, Character, Fixed } font = Font::Normal;
 
     winid_t id = nullptr;
-    long x = 0, y = 0; // The hold Glk 0-based values, not Z-machine 1-based
+    long x = 0, y = 0; // These hold Glk 0-based values, not Z-machine 1-based
     bool has_echo = false;
 
     uint16_t y_size;
@@ -180,6 +189,7 @@ struct Window {
     uint16_t index;
     uint16_t last_click_x;
     uint16_t last_click_y;
+    uint16_t attribute;
 };
 
 extern std::array<Window, 8> windows;

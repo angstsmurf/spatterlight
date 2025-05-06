@@ -1328,6 +1328,8 @@ void DO_HINTS(void) {
     V6ScreenMode stored_mode = screenmode;
 
     glk_cancel_line_event(V6_TEXT_BUFFER_WINDOW.id, nullptr);
+    // Disallow transcript in main buffer window
+    V6_TEXT_BUFFER_WINDOW.attribute &= ~WINATTR_TRANSCRIPTING_BIT;
 
     if (is_spatterlight_shogun || is_spatterlight_arthur) {
         v6_delete_win(&windows[2]);
@@ -1409,6 +1411,8 @@ void DO_HINTS(void) {
         shogun_update_on_resize();
     }
 
+    // Allow transcript in main buffer window
+    V6_TEXT_BUFFER_WINDOW.attribute |= WINATTR_TRANSCRIPTING_BIT;
     glk_put_string(const_cast<char*>("Back to the story...\n"));
     glk_set_echo_line_event(V6_TEXT_BUFFER_WINDOW.id, 0);
 }
