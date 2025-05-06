@@ -1158,7 +1158,7 @@
 
     GlkWindow *win;
     // pass on this key press to another GlkWindow if we are not expecting one
-    if (!self.wantsFocus)
+    if (!self.wantsFocus) {
         for (win in (glkctl.gwindows).allValues) {
             if (win != self && win.wantsFocus) {
                 [win grabFocus];
@@ -1167,6 +1167,7 @@
                 return;
             }
         }
+    }
 
     // Stupid hack for Swedish keyboard
     if (char_request && glkctl.gameID == kGameIsBureaucracy && evt.keyCode == 30)
