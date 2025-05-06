@@ -321,7 +321,7 @@
 - (void)resetCommonValues {
     self.autosave = YES;
     self.autosaveOnTimer = YES;
-    self.bZTerminator = kBZArrowsCompromise;
+    self.bZTerminator = kBZArrowsSwapped;
     self.doGraphics = YES;
     self.doSound = YES;
     self.editable = NO;
