@@ -39,6 +39,9 @@
 #ifdef __GNUC__
 #include <sys/stat.h>
 #endif
+#ifdef _MSC_VER
+#include <io.h>
+#endif
 #ifndef S_IRUSR
 #define S_IRUSR 0400
 #define S_IWUSR 0200
@@ -61,29 +64,9 @@
 #define DIRSEP "/"
 #endif
 
-#include <limits.h>
-
-#if UCHAR_MAX==0xff
 typedef unsigned char type8;
-#else
-#error "Can't find an 8-bit integer type"
-#endif
-
-#if SHRT_MAX==0x7fff
 typedef unsigned short type16;
-#elif INT_MAX==0x7fff
-typedef unsigned int type16;
-#else
-#error "Can't find a 16-bit integer type"
-#endif
-
-#if INT_MAX==0x7fffffff
-typedef unsigned int type32;
-#elif LONG_MAX==0x7fffffff
-typedef unsigned long type32;
-#else
-#error "Can't find a 32-bit integer type"
-#endif
+typedef unsigned long int type32;
 
 int fdi, fdo_temp, fdo_gfx;
 char infilemask[FILENAMELENGTH];

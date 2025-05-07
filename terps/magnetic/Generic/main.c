@@ -3,11 +3,11 @@
 * Magnetic - Magnetic Scrolls Interpreter.
 *
 * Written by Niclas Karlsson <nkarlsso@abo.fi>,
-*            David Kinder <davidk.kinder@virgin.net>,
+*            David Kinder <davidk@davidkinder.co.uk>,
 *            Stefan Meier <Stefan.Meier@if-legends.org> and
 *            Paul David Doherty <pdd@if-legends.org>
 *
-* Copyright (C) 1997-2008  Niclas Karlsson
+* Copyright (C) 1997-2023  Niclas Karlsson
 *
 *     This program is free software; you can redistribute it and/or modify
 *     it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 *
 *     You should have received a copy of the GNU General Public License
 *     along with this program; if not, write to the Free Software
-*     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+*     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111, USA.
 *
 *     Simple ANSI interface main.c
 *
@@ -36,7 +36,7 @@
 #define WIDTH 78
 
 type8 buffer[80], xpos = 0, bufpos = 0, log_on = 0, ms_gfx_enabled, filename[256];
-FILE *log1 = 0, *log2 = 0;
+FILE *logfile1 = 0, *logfile2 = 0;
 
 type8 ms_load_file(type8s *name, type8 *ptr, type16 size)
 {
@@ -51,7 +51,8 @@ type8 ms_load_file(type8s *name, type8 *ptr, type16 size)
 		{
 			printf("Filename: ");
 		}
-		while (!gets(filename));
+		while (!fgets(filename,256,stdin));
+		filename[strlen(filename)-1] = 0;
 		realname = filename;
 	}
 	if (!(fh=fopen(realname,"rb")))
@@ -75,7 +76,8 @@ type8 ms_save_file(type8s *name, type8 *ptr, type16 size)
 		{
 			printf("Filename: ");
 		}
-		while (!gets(filename));
+		while (!fgets(filename,256,stdin));
+		filename[strlen(filename)-1] = 0;
 		realname = filename;
 	}
 	if (!(fh = fopen(realname,"wb")))
@@ -88,23 +90,23 @@ type8 ms_save_file(type8s *name, type8 *ptr, type16 size)
 
 void script_write(type8 c)
 {
-	if (log_on == 2 && fputc(c,log1) == EOF)
+	if (log_on == 2 && fputc(c,logfile1) == EOF)
 	{
 		printf("[Problem with script file - closing]\n");
-		fclose(log1);
+		fclose(logfile1);
 		log_on = 0;
 	}
 }
 
 void transcript_write(type8 c)
 {
-	if (log2 && c == 0x08 && ftell(log2) > 0)
-		fseek(log2,-1,SEEK_CUR);
-	else if (log2 && fputc(c,log2) == EOF)
+	if (logfile2 && c == 0x08 && ftell(logfile2) > 0)
+		fseek(logfile2,-1,SEEK_CUR);
+	else if (logfile2 && fputc(c,logfile2) == EOF)
 	{
 		printf("[Problem with transcript file - closing]\n");
-		fclose(log2);
-		log2 = 0;
+		fclose(logfile2);
+		logfile2 = 0;
 	}
 }
 
@@ -187,11 +189,11 @@ type8 ms_getchar(type8 trans)
 			if (log_on == 1)
 			{
 				/* Reading from logfile */
-				if ((c = fgetc(log1)) == EOF)
+				if ((c = fgetc(logfile1)) == EOF)
 				{
 					/* End of log? - turn off */
 					log_on = 0;
-					fclose(log1);
+					fclose(logfile1);
 					c = getchar();
 				}
 				else printf("%c",c); /* print the char as well */
@@ -211,7 +213,7 @@ type8 ms_getchar(type8 trans)
 					{
 						printf("[Closing script file]\n");
 						log_on = 0;
-						fclose(log1);
+						fclose(logfile1);
 					}
 					else if (!strcmp(buf,"undo"))
 						c = 0;
@@ -311,17 +313,17 @@ main(int argc, char **argv)
 					slimit = 655360;
 				break;
 			case 't':
-				if (!(log2 = fopen(&argv[i][2],"w")))
+				if (!(logfile2 = fopen(&argv[i][2],"w")))
 					printf("Failed to open \"%s\" for writing.\n",&argv[i][2]);
 				break; 
 			case 'r':
-				if (log1 = fopen(&argv[i][2],"r"))
+				if (logfile1 = fopen(&argv[i][2],"r"))
 					log_on = 1;
 				else
 					printf("Failed to open \"%s\" for reading.\n",&argv[i][2]);
 				break;
 			case 'w':
-				if (log1 = fopen(&argv[i][2],"w"))
+				if (logfile1 = fopen(&argv[i][2],"w"))
 					log_on = 2;
 				else
 					printf("Failed to open \"%s\" for writing.\n",&argv[i][2]);
@@ -340,7 +342,7 @@ main(int argc, char **argv)
 	}
 	if (!gamename)
 	{
-		printf("Magnetic 2.3 - a Magnetic Scrolls interpreter\n\n");
+		printf("Magnetic 2.3.1 - a Magnetic Scrolls interpreter\n\n");
 		printf("Usage: %s [options] game [gfxfile] [hintfile]\n\n"
 			"Where the options are:\n"
 			" -dn    activate register dump (after n instructions)\n"
@@ -374,9 +376,9 @@ main(int argc, char **argv)
 	}
 	ms_freemem();
 	if (log_on)
-		fclose(log1);
-	if (log2)
-		fclose(log2);
+		fclose(logfile1);
+	if (logfile2)
+		fclose(logfile2);
 	printf("\nExiting.\n");
 	return 0;
 }
