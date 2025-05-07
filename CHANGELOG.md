@@ -18,6 +18,7 @@
 - After making a selection in the *Journey* VoiceOver menu which opens a dialog, VoiceOver would sometimes focus on a non-existent top level element ("Alert, dialog") that could not be properly navigated.
 - VoiceOver will now speak text printed between dialogs in *Journey*, that it previously skipped, by adding it to the dialog text. It will also properly speak text printed after closing a dialog.
 - Pushing a Settings menu bar button using VoiceOver will now properly select it.
+- The Arrow key usage setting does now default to "Replaced by ⌘↑ and ⌘↓" in all built-in themes. You may have to select Rebuild Default Themes for this to take effect.
 
 ## Release 1.3
 - Fixes the decoding of certain characters in game descriptions downloaded from IFDB.
