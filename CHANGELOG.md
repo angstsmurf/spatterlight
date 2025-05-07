@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## Release 1.4.5
 - Game windows would sometimes autorestore to minimum size.
 - The animation when opening or closing game info panels would trigger the macOS Game Mode, along with an annoying notification.
 - Adds full support for all versions of Infocom's *Shogun* and *Arthur: The Quest for Excalibur* with autosave, window resizing and VoiceOver support. All graphic formats work and can be changed on the fly.
