@@ -1612,6 +1612,7 @@
     [textView typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
     [textView typeText:@" "];
+    [textView typeText:@" "];
 
     [textView typeText:@" i"];
 
@@ -1785,10 +1786,9 @@
     [textField rightClick];
     [libraryWindow.tables[@"Games"].menuItems[@"Show Info"] click];
 
-    XCUIElement *infoWin = app.windows[@"curses.z5 Info"];
-    if (!infoWin.exists)
-        infoWin = app.windows[@"Curses Info"];
-    XCUIElement *image = [[infoWin childrenMatchingType:XCUIElementTypeAny] elementBoundByIndex:4];
+    XCUIElement *infoWin = app.windows[@"infoWinZCODE-16-951024-4DE6"];
+    [infoWin click];
+    XCUIElement *image = [[infoWin childrenMatchingType:XCUIElementTypeImage] matchingIdentifier:@"coverImageView"].firstMatch;
     [self forceClickElement:image];
     [infoWin.menuItems[@"saveImage:"] click];
 
@@ -1898,8 +1898,9 @@
     [libraryWindow.toolbars.buttons[@"Show info"] click];
 
 
-    infoWin = app.windows[@"imagetest.gblorb Info"];
-    image = [[infoWin childrenMatchingType:XCUIElementTypeAny] elementBoundByIndex:4];
+    infoWin = app.windows[@"infoWinGLULX-3-151126-1731D3B6"];
+    [infoWin click];
+    image = [[[infoWin childrenMatchingType:XCUIElementTypeAny] matchingIdentifier:@"coverImageView"] elementBoundByIndex:0];
     [self forceClickElement:image];
     [infoWin.menuItems[@"Select Image File…"] click];
 
