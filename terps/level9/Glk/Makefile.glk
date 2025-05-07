@@ -27,11 +27,11 @@ IFPHDRTOOL	= /usr/bin/ifphdr
 IFPHDR		= level9.hdr
 
 # Level9 version.
-VERSION		= 5.1
+VERSION		= 5.2
 
 # Common definitions.
 CC		=  gcc
-WARNINGS	= -Wall # -W
+WARNINGS	= # -W -Wall
 DEBUG		=
 OPTIMIZE	= -O2 -DBITMAP_DECODER
 
@@ -43,7 +43,7 @@ CFLAGS	= -fPIC -ansi -I$(GLKINCDIR) $(WARNINGS) $(DEBUG) $(OPTIMIZE)
 LDFLAGS	= $(DEBUG)
 
 OBJS	= level9.o bitmap.o glk.o
-OS_LIB	= $(LINKLIBS) -lm -L$(GLKLIBDIR) $(GLKLIB)
+OS_LIB	= -L$(GLKLIBDIR) $(GLKLIB) $(LINKLIBS) -lm
 
 all:glklevel9 level9-$(VERSION).so
 
@@ -51,20 +51,11 @@ all:glklevel9 level9-$(VERSION).so
 level9.h level9.c bitmap.c: ../level9.h ../level9.c ../bitmap.c
 	cp ../$@ $@
 
-# Level9.c uses the non-ANSI str[n]icmp functions, so here we #define them
-# to be functions provided by the Glk interface module (and, in a very
-# underhand way, by defining NEED_STRICMP_PROTOTYPE here, the str[n]icmp
-# prototypes from level9.h are macro-redefined into gln_str[n]casecmp, so
-# everything looks fine and dandy...).
 level9.o: level9.c level9.h
-	$(CC) $(CFLAGS) 						\
-		-DNEED_STRICMP_PROTOTYPE -Dstricmp=gln_strcasecmp	\
-		-Dstrnicmp=gln_strncasecmp -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 bitmap.o: bitmap.c level9.h
-	$(CC) $(CFLAGS) 						\
-		-DNEED_STRICMP_PROTOTYPE -Dstricmp=gln_strcasecmp	\
-		-Dstrnicmp=gln_strncasecmp -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 # Build the standalone Level9 interpreter.
 # See glk.c comments for details on the -Wl,--wrap... options.
@@ -94,7 +85,7 @@ distclean: clean
 maintainer-clean: clean
 dist: distclean
 	mkdir distribution binaries
-	cd ..; zip -r Glk/distribution/Level9_5.1_Source.zip \
+	cd ..; zip -r Glk/distribution/Level9_5.2_Source.zip \
 			* -x Glk/distribution/\* Glk/binaries/
 	cp ../COPYING glk_readme.txt binaries
 	$(MAKE) -f Makefile.glk \
@@ -113,7 +104,7 @@ dist: distclean
 			GLKLIBDIR=../../cheapglk GLKINCDIR=../../cheapglk \
 			GLKMAKEINC=../../cheapglk/Make.cheapglk glklevel9
 	mv glklevel9 binaries/cheaplevel9
-	cd binaries; tar zcvf ../distribution/Level9_5.1_Linux.tgz *
+	cd binaries; tar zcvf ../distribution/Level9_5.2_Linux.tgz *
 
 # Dependencies.
 glk.o: glk.c level9.h

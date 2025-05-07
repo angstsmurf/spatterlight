@@ -1,8 +1,8 @@
 /***********************************************************************\
 *
 * Level 9 interpreter
-* Version 5.1
-* Copyright (c) 1996-2011 Glen Summers and contributors.
+* Version 5.2
+* Copyright (c) 1996-2023 Glen Summers and contributors.
 * Contributions from David Kinder, Alan Staniforth, Simon Baldwin,
 * Dieter Baron and Andreas Scherrer.
 *
@@ -18,7 +18,7 @@
 *
 * You should have received a copy of the GNU General Public License
 * along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111, USA.
 *
 * The input routine will repond to the following 'hash' commands
 *  #save         saves position file directly (bypasses any
@@ -45,10 +45,12 @@
 
 #include "level9.h"
 
+#ifdef SPATTERLIGHT
 extern int gli_determinism;
 
 extern L9UINT16 random_array[];
 int random_counter = 0;
+#endif
 
 /* #define L9DEBUG */
 /* #define CODEFOLLOW */
@@ -148,7 +150,7 @@ L9BYTE* list9ptr;
 
 int unpackd3;
 
-L9BYTE exitreversaltable[20] = { 0x00,0x04,0x06,0x07,0x01,0x08,0x02,0x03,0x05,0x0a,0x09,0x0c,0x0b,0xff,0xff,0x0f,0xff,0xff,0xff,0xff };
+L9BYTE exitreversaltable[20]= {0x00,0x04,0x06,0x07,0x01,0x08,0x02,0x03,0x05,0x0a,0x09,0x0c,0x0b,0xff,0xff,0x0f,0xff,0xff,0xff,0xff};
 
 L9UINT16 gnostack[128];
 L9BYTE gnoscratch[32];
@@ -1245,8 +1247,6 @@ long ScanV1(L9BYTE* StartFile,L9UINT32 FileSize)
 	printf("V1scan found code at %ld size %ld",MaxPos,MaxCount);
 #endif
 
-    dictOff1 = 0;
-
 	/* V1 dictionary detection from L9Cut by Paul David Doherty */
 	for (i=0;i<FileSize-20;i++)
 	{
@@ -1986,14 +1986,18 @@ void L9Random(void)
 #ifdef CODEFOLLOW
 	fprintf(f," %d",randomseed);
 #endif
+#ifdef SPATTERLIGHT
     if (gli_determinism) {
         randomseed = random_array[random_counter];
         random_counter++;
         if (random_counter > 99)
             random_counter = 0;
     } else {
-        randomseed=(((randomseed<<8) + 0x0a - randomseed) <<2) + randomseed + 1;
+#endif
+    randomseed=(((randomseed<<8) + 0x0a - randomseed) <<2) + randomseed + 1;
+#ifdef SPATTERLIGHT
     }
+#endif
 
 	*getvar()=randomseed & 0xff;
 #ifdef CODEFOLLOW
@@ -2026,6 +2030,32 @@ void save(void)
 	else printstring("\rUnable to save game.\r");
 }
 
+int StrCompare(const char *s1, const char *s2)
+{
+	int i = 0;
+
+	while (1)
+	{
+		i = toupper(*s1) - toupper(*s2);
+		if ((i != 0) || (*s1 == '\0')) return i;
+		++s1; ++s2;
+	}
+	return i;
+}
+
+int StrCompareN(const char *s1, const char *s2, int n)
+{
+	int i = 0;
+
+	while (n-- > 0)
+	{
+		i = toupper(*s1) - toupper(*s2);
+		if ((i != 0) || (*s1 == '\0')) return i;
+		++s1; ++s2;
+	}
+	return i;
+}
+
 L9BOOL CheckFile(GameState *gs)
 {
 	L9UINT16 checksum;
@@ -2037,7 +2067,7 @@ L9BOOL CheckFile(GameState *gs)
 	gs->checksum=0;
 	for (i=0;i<sizeof(GameState);i++) checksum-=*((L9BYTE*) gs+i);
 	if (checksum) return FALSE;
-	if (stricmp(gs->filename,LastGame))
+	if (StrCompare(gs->filename,LastGame))
 	{
 		printstring("\rWarning: game path name does not match, you may be about to load this position file into the wrong story file.\r");
 		printstring("Are you sure you want to restore? (Y/N)");
@@ -2180,7 +2210,7 @@ L9BOOL scriptinput(char* ibuff, int size)
 					*p = '\0';
 					break;
 				case '#':
-					if ((p==ibuff) && (strnicmp(p,"#seed ",6)==0))
+					if ((p==ibuff) && (StrCompareN(p,"#seed ",6)==0))
 						p++;
 					else
 						*p = '\0';
@@ -2419,24 +2449,24 @@ L9BOOL GetWordV3(char *buff,int Word)
 
 L9BOOL CheckHash(void)
 {
-	if (stricmp(ibuff,"#cheat")==0) StartCheat();
-	else if (stricmp(ibuff,"#save")==0)
+	if (StrCompare(ibuff,"#cheat")==0) StartCheat();
+	else if (StrCompare(ibuff,"#save")==0)
 	{
 		save();
 		return TRUE;
 	}
-	else if (stricmp(ibuff,"#restore")==0)
+	else if (StrCompare(ibuff,"#restore")==0)
 	{
 		restore();
 		return TRUE;
 	}
-	else if (stricmp(ibuff,"#quit")==0)
+	else if (StrCompare(ibuff,"#quit")==0)
 	{
 		StopGame();
 		printstring("\rGame Terminated\r");
 		return TRUE;
 	}
-	else if (stricmp(ibuff,"#dictionary")==0)
+	else if (StrCompare(ibuff,"#dictionary")==0)
 	{
 		CheatWord=0;
 		printstring("\r");
@@ -2448,7 +2478,7 @@ L9BOOL CheckHash(void)
 		printstring("\r");
 		return TRUE;
 	}
-	else if (strnicmp(ibuff,"#picture ",9)==0)
+	else if (StrCompareN(ibuff,"#picture ",9)==0)
 	{
 		int pic = 0;
 		if (sscanf(ibuff+9,"%d",&pic) == 1)
@@ -2463,7 +2493,7 @@ L9BOOL CheckHash(void)
 		printchar('\r');
 		return TRUE;
 	}
-	else if (strnicmp(ibuff,"#seed ",6)==0)
+	else if (StrCompareN(ibuff,"#seed ",6)==0)
 	{
 		int seed = 0;
 		if (sscanf(ibuff+6,"%d",&seed) == 1)
@@ -2472,7 +2502,7 @@ L9BOOL CheckHash(void)
 		printchar('\r');
 		return TRUE;
 	}
-	else if (stricmp(ibuff,"#play")==0)
+	else if (StrCompare(ibuff,"#play")==0)
 	{
 		playback();
 		return TRUE;
