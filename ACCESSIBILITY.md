@@ -8,6 +8,7 @@
 <li><a href="#menu-detect">Menu detection</a></li>
 <li><a href="#vo-settings">Settings</a></li>
 <li><a href="#journey">Playing Journey</a></li>
+<li><a href="#arthur">Playing Arthur and Shogun</a></li>
 <li><a href="#vo-utility">VoiceOver Utility settings</a></li>
 
 </ul>
@@ -85,7 +86,7 @@ Whether Spatterlight should try to interrupt VoiceOver's automatic description o
 <a id='journey'></a>
 ## Journey
 
-Any version of Journey found at [the Obsessively Complete Infocom Catalog][obsess] should work, except the first one, the Z5 prototype named `journey-dev-r46-s880603.z5`.
+Any version of *Journey* found at [the Obsessively Complete Infocom Catalog][obsess] should work, except the first one, the Z5 prototype named `journey-dev-r46-s880603.z5`.
 
 [obsess]: https://eblong.com/infocom/#journey "Zarf's the Obsessively Complete Infocom Catalog"
 
@@ -122,6 +123,21 @@ You can't tell from the video which buttons are pressed, but you can hear what r
 As an added bonus I created [a blorb file][blorb] where the placeholder image descriptions from the `dev-r46` prototype are added to every image, so that when you navigate the VoiceOver cursor to the graphics window, the image description will be read. These descriptions are usually not helpful and may not accurately describe the images, but some people might still enjoy them. Note that the blorb file has to be renamed to match the game file name, in order for the descriptions to work.
 
 [blorb]: https://www.ifarchive.org/if-archive/infocom/media/blorb/Journey%20%28with%20descriptions%29.blb "Blorb file containing all the images for Journey with descriptions. Should be renamed to match the game file."
+
+<a id='arthur'></a>
+## Arthur and Shogun
+
+Just like with *Journey*, most versions of [*Arthur: The Quest for Excalibur*][arthurocic] or [*Shogun*][shogunocic] found at [the Obsessively Complete Infocom Catalog][ocic] should run, but the later ones tend to have less problems. There are some devious game-breaking bugs in early versions of *Shogun*.
+
+In both of these games, the arrow up and arrow down keys may not work with command history unless "Settings > Format > Arrow key usage" is set to "Replaced by ⌘↑ and ⌘↓". This setting also applies to *Beyond Zork*.
+
+When playing *Arthur*, the setting "Format > Redirect text to main window" should also be checked, in order to make sure that error messages are spoken properly.
+
+There is a graphical maze in *Shogun* that is difficult to navigate with a screen reader, but Spatterlight will offer to simplify it before you enter it for the first time.
+
+[arthurocic]: https://eblong.com/infocom/#arthur "Zarf's the Obsessively Complete Infocom Catalog"
+[shogunocic]: https://eblong.com/infocom/#shogun "Zarf's the Obsessively Complete Infocom Catalog"
+[ocic]: https://eblong.com/infocom/ "Zarf's the Obsessively Complete Infocom Catalog"
 
 <a id='vo-utility'></a>
 ## VoiceOver Utility settings
