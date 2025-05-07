@@ -1787,7 +1787,8 @@
     [libraryWindow.tables[@"Games"].menuItems[@"Show Info"] click];
 
     XCUIElement *infoWin = app.windows[@"infoWinZCODE-16-951024-4DE6"];
-    [infoWin click];
+    [menuBarsQuery.menuBarItems[@"Window"] click];
+    [menuBarsQuery.menuItems[@"Curses Info"] click];
     XCUIElement *image = [[infoWin childrenMatchingType:XCUIElementTypeImage] matchingIdentifier:@"coverImageView"].firstMatch;
     [self forceClickElement:image];
     [infoWin.menuItems[@"saveImage:"] click];
@@ -1899,6 +1900,8 @@
 
 
     infoWin = app.windows[@"infoWinGLULX-3-151126-1731D3B6"];
+    [menuBarsQuery.menuBarItems[@"Window"] click];
+    [menuBarsQuery.menuItems[@"imagetest.gblorb Info"] click];
     [infoWin click];
     image = [[[infoWin childrenMatchingType:XCUIElementTypeAny] matchingIdentifier:@"coverImageView"] elementBoundByIndex:0];
     [self forceClickElement:image];
