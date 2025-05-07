@@ -7,7 +7,7 @@
 *            Stefan Meier <Stefan.Meier@if-legends.org> and
 *            Paul David Doherty <pdd@if-legends.org>
 *
-* Copyright (C) 1997-2008  Niclas Karlsson
+* Copyright (C) 1997-2023  Niclas Karlsson
 *
 *     This program is free software; you can redistribute it and/or modify
 *     it under the terms of the GNU General Public License as published by
@@ -35,32 +35,34 @@
 *       correct number of bits on your system !!!
 \*****************************************************************************/
 
-#ifdef GARGLK
+/*****************************************************************************\
+* Use stdint.h type definitions with modern C compilers
+\*****************************************************************************/
+
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+
 #include <stdint.h>
 
 typedef uint8_t type8;
-// The name implies a signed type, but this appears to generally be used
-// where "char" normally would (i.e. for C strings); that is, the fact
-// that it is signed does not appear to matter, and making it signed
-// causes all sorts of diagnostics due to the fact that "signed char"
-// and "char" are different types, even if "char" is signed. In any
-// case, making it "char" causes a lot fewer warnings, and regardless of
-// whether it's signed or plain char, the "solution" will be casting,
-// and this requires fewer casts.
-typedef char type8s;
-
+typedef int8_t type8s;
 typedef uint16_t type16;
 typedef int16_t type16s;
-
 typedef uint32_t type32;
 typedef int32_t type32s;
+
+/*****************************************************************************\
+* Fall back to legacy integer types for pre-C99 compilers
+\*****************************************************************************/
+
 #else
+
 typedef unsigned char  type8;
 typedef signed   char  type8s;
 typedef unsigned short type16;
 typedef signed   short type16s;
 typedef unsigned long  type32;
 typedef signed   long  type32s;
+
 #endif
 
 /****************************************************************************\
@@ -350,11 +352,7 @@ struct ms_hint
 {
   type16  elcount;
   type16  nodetype;
-#ifdef GARGLK
-  type8s * content;
-#else
   type8 * content;
-#endif
   type16  links[MAX_HITEMS];
   type16  parent;
 };
