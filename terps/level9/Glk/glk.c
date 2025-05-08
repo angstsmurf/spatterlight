@@ -49,10 +49,11 @@
 
 #include "glk.h"
 
+#ifdef SPATTERLIGHT
 L9UINT16 random_array[100];
 
 extern glui32 gli_determinism;
-
+#endif
 
 /*
  * True and false definitions -- usually defined in glkstart.h, but we need
@@ -6656,6 +6657,7 @@ gln_main (void)
    * better with a little less, so here, we'll seed the random number
    * generator ourselves.
    */
+#ifdef SPATTERLIGHT
   if (!gli_determinism)
       srand (time (NULL));
   else {
@@ -6667,7 +6669,9 @@ gln_main (void)
           random_array[i] = seed;
       }
   }
-
+#else
+  srand (time (NULL));
+#endif
   /* Repeat this game until no more restarts requested. */
   do
     {
