@@ -32,308 +32,335 @@ struct l9rec {
 
 
 static struct l9rec l9_registry[] = {
-    { 0x3a31, 0xe5, "LEVEL9-001-1" },
-    { 0x8333, 0xb7, "LEVEL9-001-1" },
-    { 0x7c6f, 0x0f, "LEVEL9-001-1" },
-    { 0x72fa, 0x8b, "LEVEL9-001-1" },
-    { 0x38dd, 0x31, "LEVEL9-001-A" },
-    { 0x39c0, 0x44, "LEVEL9-001-B" },
-    { 0x3a12, 0x8f, "LEVEL9-001-C" },
-    { 0x37f1, 0x77, "LEVEL9-001-2" },
-    { 0x844d, 0x50, "LEVEL9-001-2" },
-    { 0x738e, 0x5b, "LEVEL9-001-2" },
-    { 0x3900, 0x1c, "LEVEL9-001-3" },
-    { 0x8251, 0x5f, "LEVEL9-001-3" },
-    { 0x7375, 0xe5, "LEVEL9-001-3" },
-    { 0x3910, 0xac, "LEVEL9-001-4" },
-    { 0x7a78, 0x5e, "LEVEL9-001-4" },
-    { 0x78d5, 0xe3, "LEVEL9-001-4" },
-    { 0x3ad6, 0xa7, "LEVEL9-001-5" },
-    { 0x38a5, 0x0f, "LEVEL9-001-6" },
-    { 0x361e, 0x7e, "LEVEL9-001-7" },
-    { 0x3934, 0x75, "LEVEL9-001-8" },
-    { 0x3511, 0xcc, "LEVEL9-001-9" },
-    { 0x593a, 0xaf, "LEVEL9-002-1" },
-    { 0x7931, 0xb9, "LEVEL9-002-1" },
-    { 0x6841, 0x4a, "LEVEL9-002-1" },
-    { 0x57e6, 0x8a, "LEVEL9-002-2" },
-    { 0x7cdf, 0xa5, "LEVEL9-002-2" },
-    { 0x6bc0, 0x62, "LEVEL9-002-2" },
-    { 0x5819, 0xcd, "LEVEL9-002-3" },
-    { 0x7a0c, 0x97, "LEVEL9-002-3" },
-    { 0x692c, 0x21, "LEVEL9-002-3" },
-    { 0x579b, 0xad, "LEVEL9-002-4" },
-    { 0x7883, 0xe2, "LEVEL9-002-4" },
-    { 0x670a, 0x94, "LEVEL9-002-4" },
-    { 0x5323, 0xb7, "LEVEL9-003" },
-    { 0x6e60, 0x83, "LEVEL9-003" },
-    { 0x5b58, 0x50, "LEVEL9-003" },
-    { 0x63b6, 0x2e, "LEVEL9-003" },
-    { 0x6968, 0x32, "LEVEL9-003" },
-    { 0x5b50, 0x66, "LEVEL9-003" },
-    { 0x6970, 0xd6, "LEVEL9-003" },
-    { 0x5ace, 0x11, "LEVEL9-003" },
-    { 0x6e5c, 0xf6, "LEVEL9-003" },
-    { 0x1929, 0x00, "LEVEL9-004-DEMO" },
-    { 0x40e0, 0x02, "LEVEL9-004-DEMO" },
-    { 0x3ebb, 0x00, "LEVEL9-004-en" },
-    { 0x3e4f, 0x00, "LEVEL9-004-en" },
-    { 0x3e8f, 0x00, "LEVEL9-004-en" },
-    { 0x0fd8, 0x00, "LEVEL9-004-en" },
-    { 0x14a3, 0x00, "LEVEL9-004-en" },
-    { 0x110f, 0x00, "LEVEL9-004-fr" },
-    { 0x4872, 0x00, "LEVEL9-004-de" },
-    { 0x4846, 0x00, "LEVEL9-004-de" },
-    { 0x11f5, 0x00, "LEVEL9-004-de" },
-    { 0x11f5, 0x00, "LEVEL9-004-de" },
-    { 0x76f4, 0x5e, "LEVEL9-005" },
-    { 0x5b16, 0x3b, "LEVEL9-005" },
-    { 0x6c8e, 0xb6, "LEVEL9-005" },
-    { 0x6f4d, 0xcb, "LEVEL9-005" },
-    { 0x6f6a, 0xa5, "LEVEL9-005" },
-    { 0x5e31, 0x7c, "LEVEL9-005" },
-    { 0x6f70, 0x40, "LEVEL9-005" },
-    { 0x6f6e, 0x78, "LEVEL9-005" },
-    { 0x5a8e, 0xf2, "LEVEL9-005" },
-    { 0x76f4, 0x5a, "LEVEL9-005" },
-    { 0x630e, 0x8d, "LEVEL9-006" },
-    { 0x630e, 0xbe, "LEVEL9-006" },
-    { 0x6f0c, 0x95, "LEVEL9-006" },
-    { 0x593a, 0x80, "LEVEL9-006" },
-    { 0x6bd2, 0x65, "LEVEL9-006" },
-    { 0x6dc0, 0x63, "LEVEL9-006" },
-    { 0x58a6, 0x24, "LEVEL9-006" },
-    { 0x6de8, 0x4c, "LEVEL9-006" },
-    { 0x58a3, 0x38, "LEVEL9-006" },
-    { 0x63be, 0xd6, "LEVEL9-007" },
-    { 0x378c, 0x8d, "LEVEL9-007" },
-    { 0x63be, 0x0a, "LEVEL9-007" },
-    { 0x34b3, 0x20, "LEVEL9-008" },
-    { 0x34b3, 0xc7, "LEVEL9-008" },
-    { 0x34b3, 0x53, "LEVEL9-008" },
-    { 0xb1a9, 0x80, "LEVEL9-009-1" },
-    { 0x908e, 0x0d, "LEVEL9-009-1" },
-    { 0xad41, 0xa8, "LEVEL9-009-1" },
-    { 0xb1aa, 0xad, "LEVEL9-009-1" },
-    { 0x8aab, 0xc0, "LEVEL9-009-1" },
-    { 0xb0ec, 0xc2, "LEVEL9-009-1" },
-    { 0xb19e, 0x92, "LEVEL9-009-1" },
-    { 0x5ff0, 0xf8, "LEVEL9-009-1" },
-    { 0x52aa, 0xdf, "LEVEL9-009-1" },
-    { 0xab9d, 0x31, "LEVEL9-009-2" },
-    { 0x8f6f, 0x0a, "LEVEL9-009-2" },
-    { 0xa735, 0xf7, "LEVEL9-009-2" },
-    { 0xab8b, 0xbf, "LEVEL9-009-2" },
-    { 0x8ac8, 0x9a, "LEVEL9-009-2" },
-    { 0xaf82, 0x83, "LEVEL9-009-2" },
-    { 0x6024, 0x01, "LEVEL9-009-2" },
-    { 0x6ffa, 0xdb, "LEVEL9-009-2" },
-    { 0xae28, 0x87, "LEVEL9-009-3" },
-    { 0x9060, 0xbb, "LEVEL9-009-3" },
-    { 0xa9c0, 0x9e, "LEVEL9-009-3" },
-    { 0xae16, 0x81, "LEVEL9-009-3" },
-    { 0x8a93, 0x4f, "LEVEL9-009-3" },
-    { 0xb3e6, 0xab, "LEVEL9-009-3" },
-    { 0x6036, 0x3d, "LEVEL9-009-3" },
-    { 0x723a, 0x69, "LEVEL9-009-3" },
-    { 0xd188, 0x13, "LEVEL9-010-1" },
-    { 0x9089, 0xce, "LEVEL9-010-1" },
-    { 0xb770, 0x03, "LEVEL9-010-1" },
-    { 0xd19b, 0xad, "LEVEL9-010-1" },
-    { 0x8ab7, 0x68, "LEVEL9-010-1" },
-    { 0xd183, 0x83, "LEVEL9-010-1" },
-    { 0x5a38, 0xf7, "LEVEL9-010-1" },
-    { 0x76a0, 0x3a, "LEVEL9-010-1" },
-    { 0xc594, 0x03, "LEVEL9-010-2" },
-    { 0x908d, 0x80, "LEVEL9-010-2" },
-    { 0xb741, 0xb6, "LEVEL9-010-2" },
-    { 0xc5a5, 0xfe, "LEVEL9-010-2" },
-    { 0x8b1e, 0x84, "LEVEL9-010-2" },
-    { 0xc58f, 0x65, "LEVEL9-010-2" },
-    { 0x531a, 0xed, "LEVEL9-010-2" },
-    { 0x7674, 0x0b, "LEVEL9-010-2" },
-    { 0xd79f, 0xb5, "LEVEL9-010-3" },
-    { 0x909e, 0x9f, "LEVEL9-010-3" },
-    { 0xb791, 0xa1, "LEVEL9-010-3" },
-    { 0xd7ae, 0x9e, "LEVEL9-010-3" },
-    { 0x8b1c, 0xa8, "LEVEL9-010-3" },
-    { 0xd79a, 0x57, "LEVEL9-010-3" },
-    { 0x57e4, 0x19, "LEVEL9-010-3" },
-    { 0x765e, 0xba, "LEVEL9-010-3" },
-    { 0xbb93, 0x36, "LEVEL9-011-1" },
-    { 0x898a, 0x43, "LEVEL9-011-1" },
-    { 0x8970, 0x6b, "LEVEL9-011-1" },
-    { 0xbb6e, 0xa6, "LEVEL9-011-1" },
-    { 0x86d0, 0xb7, "LEVEL9-011-1" },
-    { 0xbb6e, 0xad, "LEVEL9-011-1" },
-    { 0x46ec, 0x64, "LEVEL9-011-1" },
-    { 0x74e0, 0x92, "LEVEL9-011-1" },
-    { 0xc58e, 0x4a, "LEVEL9-011-2" },
-    { 0x8b9f, 0x61, "LEVEL9-011-2" },
-    { 0x8b90, 0x4e, "LEVEL9-011-2" },
-    { 0xc58e, 0x43, "LEVEL9-011-2" },
-    { 0x8885, 0x22, "LEVEL9-011-2" },
-    { 0x6140, 0x18, "LEVEL9-011-2" },
-    { 0x6dbc, 0x97, "LEVEL9-011-2" },
-    { 0xcb9a, 0x0f, "LEVEL9-011-3" },
-    { 0x8af9, 0x61, "LEVEL9-011-3" },
-    { 0x8aea, 0x4e, "LEVEL9-011-3" },
-    { 0xcb9a, 0x08, "LEVEL9-011-3" },
-    { 0x87e5, 0x0e, "LEVEL9-011-3" },
-    { 0x640e, 0xc1, "LEVEL9-011-3" },
-    { 0x7402, 0x07, "LEVEL9-011-3" },
-    { 0xbba4, 0x94, "LEVEL9-012-1" },
-    { 0xc0cf, 0x4e, "LEVEL9-012-1" },
-    { 0x8afc, 0x07, "LEVEL9-012-1" },
-    { 0x8feb, 0xba, "LEVEL9-012-1" },
-    { 0xb4c9, 0x94, "LEVEL9-012-1" },
-    { 0xc0bd, 0x57, "LEVEL9-012-1" },
-    { 0x8ade, 0xf2, "LEVEL9-012-1" },
-    { 0x4fd2, 0x9d, "LEVEL9-012-1" },
-    { 0x5c7a, 0x44, "LEVEL9-012-1" },
-    { 0x768c, 0xe8, "LEVEL9-012-1" },
-    { 0xd0c0, 0x56, "LEVEL9-012-2" },
-    { 0xd5e9, 0x6a, "LEVEL9-012-2" },
-    { 0x8aec, 0x13, "LEVEL9-012-2" },
-    { 0x8f6b, 0xfa, "LEVEL9-012-2" },
-    { 0xb729, 0x51, "LEVEL9-012-2" },
-    { 0xd5d7, 0x99, "LEVEL9-012-2" },
-    { 0x8b0e, 0xfb, "LEVEL9-012-2" },
-    { 0x4dac, 0xa8, "LEVEL9-012-2" },
-    { 0x53a2, 0x1e, "LEVEL9-012-2" },
-    { 0x76b0, 0x1d, "LEVEL9-012-2" },
-    { 0xb6ac, 0xc6, "LEVEL9-012-3" },
-    { 0xbb8f, 0x1a, "LEVEL9-012-3" },
-    { 0x8aba, 0x0d, "LEVEL9-012-3" },
-    { 0x8f71, 0x2f, "LEVEL9-012-3" },
-    { 0xb702, 0xe4, "LEVEL9-012-3" },
-    { 0xbb7d, 0x17, "LEVEL9-012-3" },
-    { 0x8ab3, 0xc1, "LEVEL9-012-3" },
-    { 0x4f96, 0x22, "LEVEL9-012-3" },
-    { 0x5914, 0x22, "LEVEL9-012-3" },
-    { 0x765e, 0x4f, "LEVEL9-012-3" },
-    { 0x5eb9, 0x30, "LEVEL9-013" },
-    { 0x5eb9, 0x5d, "LEVEL9-013" },
-    { 0x5eb9, 0x6e, "LEVEL9-013" },
-    { 0xb257, 0xf8, "LEVEL9-013" },
-    { 0xb576, 0x2a, "LEVEL9-013" },
-    { 0x8d78, 0x3a, "LEVEL9-013" },
-    { 0x9070, 0x43, "LEVEL9-013" },
-    { 0xb38c, 0x37, "LEVEL9-013" },
-    { 0xb563, 0x6a, "LEVEL9-013" },
-    { 0xb57c, 0x44, "LEVEL9-013" },
-    { 0xb260, 0xe5, "LEVEL9-013" },
-    { 0x8950, 0xa1, "LEVEL9-013" },
-    { 0xb579, 0x89, "LEVEL9-013" },
-    { 0x579e, 0x97, "LEVEL9-013" },
-    { 0x69fe, 0x56, "LEVEL9-013" },
-    { 0x6f1e, 0xda, "LEVEL9-013" },
-    { 0x5671, 0xbc, "LEVEL9-014" },
-    { 0x6fc6, 0x14, "LEVEL9-014" },
-    { 0x5aa4, 0xc1, "LEVEL9-014" },
-    { 0x7410, 0x5e, "LEVEL9-014" },
-    { 0x5aa4, 0xc1, "LEVEL9-014" },
-    { 0x5aa4, 0xc1, "LEVEL9-014" },
-    { 0xb797, 0x1f, "LEVEL9-014" },
-    { 0xbaca, 0x3a, "LEVEL9-014" },
-    { 0x8c46, 0xf0, "LEVEL9-014" },
-    { 0x8f51, 0xb2, "LEVEL9-014" },
-    { 0xb451, 0xa8, "LEVEL9-014" },
-    { 0xbab2, 0x87, "LEVEL9-014" },
-    { 0xbac7, 0x7f, "LEVEL9-014" },
-    { 0xb7a0, 0x7e, "LEVEL9-014" },
-    { 0x8a60, 0x2a, "LEVEL9-014" },
-    { 0xbac4, 0x80, "LEVEL9-014" },
-    { 0x579a, 0x2a, "LEVEL9-014" },
-    { 0x5a50, 0xa9, "LEVEL9-014" },
-    { 0x6108, 0xdd, "LEVEL9-014" },
-    { 0x506c, 0xf0, "LEVEL9-015" },
-    { 0x505d, 0x32, "LEVEL9-015" },
-    { 0xa398, 0x82, "LEVEL9-015" },
-    { 0xa692, 0xd1, "LEVEL9-015" },
-    { 0x8d56, 0xd3, "LEVEL9-015" },
-    { 0x903f, 0x6b, "LEVEL9-015" },
-    { 0xa4e2, 0xa6, "LEVEL9-015" },
-    { 0xa67c, 0xb8, "LEVEL9-015" },
-    { 0xa69e, 0x6c, "LEVEL9-015" },
-    { 0xa3a4, 0xdf, "LEVEL9-015" },
-    { 0x8813, 0x11, "LEVEL9-015" },
-    { 0xa698, 0x41, "LEVEL9-015" },
-    { 0x5500, 0x50, "LEVEL9-015" },
-    { 0x6888, 0x8d, "LEVEL9-015" },
-    { 0x6da0, 0xb8, "LEVEL9-015" },
-    { 0x6064, 0xbd, "LEVEL9-016" },
-    { 0x6064, 0x01, "LEVEL9-016" },
-    { 0x6047, 0x6c, "LEVEL9-016" },
-    { 0x6064, 0xda, "LEVEL9-016" },
-    { 0x6064, 0x95, "LEVEL9-016" },
-    { 0x60c4, 0x28, "LEVEL9-016" },
-    { 0x5cb7, 0xfe, "LEVEL9-016" },
-    { 0x5ca1, 0x33, "LEVEL9-016" },
-    { 0x5cb7, 0x64, "LEVEL9-016" },
-    { 0x7d16, 0xe6, "LEVEL9-016" },
-    { 0x639c, 0x8b, "LEVEL9-016" },
-    { 0x60f7, 0x68, "LEVEL9-016" },
-    { 0x772f, 0xca, "LEVEL9-016" },
-    { 0x7cff, 0xf8, "LEVEL9-016" },
-    { 0x7cf8, 0x24, "LEVEL9-016" },
-    { 0x7d14, 0xe8, "LEVEL9-016" },
-    { 0x7c55, 0x18, "LEVEL9-016" },
-    { 0x5f43, 0xca, "LEVEL9-016" },
-    { 0xc132, 0x14, "LEVEL9-017-1" },
-    { 0xbeab, 0x2d, "LEVEL9-017-1" },
-    { 0x9058, 0xcf, "LEVEL9-017-1" },
-    { 0xbe94, 0xcc, "LEVEL9-017-1" },
-    { 0x8a21, 0xf4, "LEVEL9-017-1" },
-    { 0x55ce, 0xa1, "LEVEL9-017-1" },
-    { 0x5cbc, 0xa5, "LEVEL9-017-1" },
-    { 0x762e, 0x82, "LEVEL9-017-1" },
-    { 0x99bd, 0x65, "LEVEL9-017-2" },
-    { 0x8f43, 0xc9, "LEVEL9-017-2" },
-    { 0x8a12, 0xe3, "LEVEL9-017-2" },
-    { 0x54a6, 0xa9, "LEVEL9-017-2" },
-    { 0x5932, 0x4e, "LEVEL9-017-2" },
-    { 0x5bd6, 0x35, "LEVEL9-017-2" },
-    { 0xbcb6, 0x7a, "LEVEL9-017-3" }, //(Amiga/PC/ST)
-    { 0x90ac, 0x68, "LEVEL9-017-3" },
-    { 0x8a16, 0xcc, "LEVEL9-017-3" },
-    { 0x51bc, 0xe3, "LEVEL9-017-3" },
-    { 0x5860, 0x95, "LEVEL9-017-3" },
-    { 0x6fa8, 0xa4, "LEVEL9-017-3" },
-    { 0x5fab, 0x5c, "LEVEL9-018" },
-    { 0x5fab, 0x2f, "LEVEL9-018" },
-    { 0x7b31, 0x6e, "LEVEL9-018" },
-    { 0x67a3, 0x9d, "LEVEL9-018" },
-    { 0x6bf8, 0x3f, "LEVEL9-018" },
-    { 0x7363, 0x65, "LEVEL9-018" },
-    { 0x7b2f, 0x70, "LEVEL9-018" },
-    { 0x7b2f, 0x70, "LEVEL9-018" },
-    { 0x6541, 0x02, "LEVEL9-018" },
-    { 0x5834, 0x42, "LEVEL9-019-1" },
-    { 0x765d, 0xcd, "LEVEL9-019-1" },
-    { 0x6ce5, 0x58, "LEVEL9-019-1" },
-    { 0x56dd, 0x51, "LEVEL9-019-2" },
-    { 0x6e58, 0x07, "LEVEL9-019-2" },
-    { 0x68da, 0xc1, "LEVEL9-019-2" },
-    { 0x5801, 0x53, "LEVEL9-019-3" },
-    { 0x7e98, 0x6a, "LEVEL9-019-3" },
-    { 0x6c67, 0x9a, "LEVEL9-019-3" },
-    { 0x54a4, 0x01, "LEVEL9-019-4" },
-    { 0x81e2, 0xd5, "LEVEL9-019-4" },
-    { 0x6d91, 0xb9, "LEVEL9-019-4" },
-    { 0x5828, 0xbd, "LEVEL9-020" },
-    { 0x6d84, 0xf9, "LEVEL9-020" },
-    { 0x6d84, 0xc8, "LEVEL9-020" },
-    { 0x6030, 0x47, "LEVEL9-020" },
-    { 0x772b, 0xcd, "LEVEL9-020" },
-    { 0x546c, 0xb7, "LEVEL9-020" },
-    { 0x7cd9, 0x0c, "LEVEL9-020" },
-    { 0x60dd, 0xf2, "LEVEL9-020" },
-    { 0x6161, 0xf3, "LEVEL9-020" },
-    { 0x788d, 0x72, "LEVEL9-020" },
-    { 0x7cd7, 0x0e, "LEVEL9-020" },
-    { 0x5ebb, 0xf1, "LEVEL9-020" },
-    
+    { 0x3a31, 0xe5, "LEVEL9-001-1" }, // Adrian Mole I, pt. 1 (BBC)
+    { 0x8333, 0xb7, "LEVEL9-001-1" }, // Adrian Mole I, pt. 1 (Commodore 64)
+    { 0x7c6f, 0x0f, "LEVEL9-001-1" }, // Adrian Mole I, pt. 1 (Amstrad CPC)
+    { 0x72fa, 0x8b, "LEVEL9-001-1" }, // Adrian Mole I, pt. 1 (Spectrum)
+    { 0x38dd, 0x31, "LEVEL9-001-A" }, // Adrian Mole I, pt. 10 (BBC)
+    { 0x39c0, 0x44, "LEVEL9-001-B" }, // Adrian Mole I, pt. 11 (BBC)
+    { 0x3a12, 0x8f, "LEVEL9-001-C" }, // Adrian Mole I, pt. 12 (BBC)
+    { 0x37f1, 0x77, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (BBC)
+    { 0x844d, 0x50, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (Commodore 64)
+    { 0x738e, 0x5b, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (Spectrum)
+    { 0x3900, 0x1c, "LEVEL9-001-3" }, // Adrian Mole I, pt. 3 (BBC)
+    { 0x8251, 0x5f, "LEVEL9-001-3" }, // Adrian Mole I, pt. 3 (Commodore 64)
+    { 0x7375, 0xe5, "LEVEL9-001-3" }, // Adrian Mole I, pt. 3 (Spectrum)
+    { 0x3910, 0xac, "LEVEL9-001-4" }, // Adrian Mole I, pt. 4 (BBC)
+    { 0x7a78, 0x5e, "LEVEL9-001-4" }, // Adrian Mole I, pt. 4 (Commodore 64)
+    { 0x78d5, 0xe3, "LEVEL9-001-4" }, // Adrian Mole I, pt. 4 (Spectrum)
+    { 0x3ad6, 0xa7, "LEVEL9-001-5" }, // Adrian Mole I, pt. 5 (BBC)
+    { 0x38a5, 0x0f, "LEVEL9-001-6" }, // Adrian Mole I, pt. 6 (BBC)
+    { 0x361e, 0x7e, "LEVEL9-001-7" }, // Adrian Mole I, pt. 7 (BBC)
+    { 0x3934, 0x75, "LEVEL9-001-8" }, // Adrian Mole I, pt. 8 (BBC)
+    { 0x3511, 0xcc, "LEVEL9-001-9" }, // Adrian Mole I, pt. 9 (BBC)
+    { 0x593a, 0xaf, "LEVEL9-002-1" }, // Adrian Mole II, pt. 1 (BBC)
+    { 0x7931, 0xb9, "LEVEL9-002-1" }, // Adrian Mole II, pt. 1 (Commodore 64/Amstrad CPC/MSX)
+    { 0x6841, 0x4a, "LEVEL9-002-1" }, // Adrian Mole II, pt. 1 (Spectrum)
+    { 0x8324, 0x87, "LEVEL9-002-1" }, // Adrian Mole I, pt. 1 (MSX)
+    { 0x8442, 0x0f, "LEVEL9-002-2" }, // Adrian Mole I, pt. 2 (MSX)
+    { 0x823e, 0x5c, "LEVEL9-002-3" }, // Adrian Mole I, pt. 3 (MSX)
+    { 0x824e, 0x77, "LEVEL9-002-3" }, // Adrian Mole I, pt. 3 (MSX *reconstructed*)
+    { 0x7a71, 0xfb, "LEVEL9-002-4" }, // Adrian Mole I, pt. 4 (MSX)
+    { 0x7a75, 0xe3, "LEVEL9-002-4" }, // Adrian Mole I, pt. 4 (MSX *reconstructed*)
+    { 0x57e6, 0x8a, "LEVEL9-002-2" }, // Adrian Mole II, pt. 2 (BBC)
+    { 0x7cdf, 0xa5, "LEVEL9-002-2" }, // Adrian Mole II, pt. 2 (Commodore 64/Amstrad CPC/MSX)
+    { 0x6bc0, 0x62, "LEVEL9-002-2" }, // Adrian Mole II, pt. 2 (Spectrum)
+    { 0x5819, 0xcd, "LEVEL9-002-3" }, // Adrian Mole II, pt. 3 (BBC)
+    { 0x7a0c, 0x97, "LEVEL9-002-3" }, // Adrian Mole II, pt. 3 (Commodore 64/Amstrad CPC/MSX)
+    { 0x692c, 0x21, "LEVEL9-002-3" }, // Adrian Mole II, pt. 3 (Spectrum)
+    { 0x579b, 0xad, "LEVEL9-002-4" }, // Adrian Mole II, pt. 4 (BBC)
+    { 0x7883, 0xe2, "LEVEL9-002-4" }, // Adrian Mole II, pt. 4 (Commodore 64/Amstrad CPC/MSX)
+    { 0x670a, 0x94, "LEVEL9-002-4" }, // Adrian Mole II, pt. 4 (Spectrum)
+    { 0x5323, 0xb7, "LEVEL9-003" }, // Adventure Quest (Amstrad CPC/Spectrum)
+    { 0x5323, 0x11, "LEVEL9-003" }, // Adventure Quest (MSX)
+    { 0x6e60, 0x83, "LEVEL9-003" }, // Adventure Quest /JoD (Amiga/PC)
+    { 0x5b58, 0x50, "LEVEL9-003" }, // Adventure Quest /JoD (Atari)
+    { 0x63b6, 0x2e, "LEVEL9-003" }, // Adventure Quest /JoD (Commodore 64)
+    { 0x6968, 0x32, "LEVEL9-003" }, // Adventure Quest /JoD (Amstrad CPC128/Spectrum +3)
+    { 0x5b50, 0x66, "LEVEL9-003" }, // Adventure Quest /JoD (Amstrad CPC64)
+    { 0x6970, 0xd6, "LEVEL9-003" }, // Adventure Quest /JoD (Spectrum 128)
+    { 0x5ace, 0x11, "LEVEL9-003" }, // Adventure Quest /JoD (Spectrum 48)
+    { 0x6e5c, 0xf6, "LEVEL9-003" }, // Adventure Quest /JoD (ST)
+    { 0x6972, 0x55, "LEVEL9-003" }, // Adventure Quest /JoD (MSX)
+    { 0x1929, 0x00, "LEVEL9-004-DEMO" }, // Champion of the Raj (demo), 1/2 GD (ST)
+    { 0x40e0, 0x02, "LEVEL9-004-DEMO" }, // Champion of the Raj (demo), 2/2 GD (ST)
+    { 0x3ebb, 0x00, "LEVEL9-004-en" }, // Champion of the Raj (English) 1/2 GD (Amiga)
+    { 0x3e4f, 0x00, "LEVEL9-004-en" }, // Champion of the Raj (English) 1/2 GD (PC)
+    { 0x3e8f, 0x00, "LEVEL9-004-en" }, // Champion of the Raj (English) 1/2 GD (ST)
+    { 0x0fd8, 0x00, "LEVEL9-004-en" }, // Champion of the Raj (English) 2/2 GD (Amiga)
+    { 0x14a3, 0x00, "LEVEL9-004-en" }, // Champion of the Raj (English) 2/2 GD (PC)
+    { 0x110f, 0x00, "LEVEL9-004-fr" }, // Champion of the Raj (French) 2/2 GD (ST)
+    { 0x4872, 0x00, "LEVEL9-004-de" }, // Champion of the Raj (German) 1/2 GD (Amiga)
+    { 0x4846, 0x00, "LEVEL9-004-de" }, // Champion of the Raj (German) 1/2 GD (ST)
+    { 0x11f5, 0x00, "LEVEL9-004-de" }, // Champion of the Raj (German) 2/2 GD (Amiga / ST)
+    { 0x11f5, 0x00, "LEVEL9-004-de" }, // Champion of the Raj (German) 2/2 GD (Amiga / ST)
+    { 0x76f4, 0x5e, "LEVEL9-005" }, // Colossal Adventure /JoD (Amiga/PC)
+    { 0x5b16, 0x3b, "LEVEL9-005" }, // Colossal Adventure /JoD (Atari)
+    { 0x6c8e, 0xb6, "LEVEL9-005" }, // Colossal Adventure /JoD (Commodore 64)
+    { 0x6f4d, 0xcb, "LEVEL9-005" }, // Colossal Adventure /JoD (Amstrad CPC128[v1]/Spectrum +3)
+    { 0x6f6a, 0xa5, "LEVEL9-005" }, // Colossal Adventure /JoD (Amstrad CPC128[v2])
+    { 0x5e31, 0x7c, "LEVEL9-005" }, // Colossal Adventure /JoD (Amstrad CPC64)
+    { 0x6f70, 0x40, "LEVEL9-005" }, // Colossal Adventure /JoD (MSX) // Colossal Adventure /JoD (MSX)
+    { 0x6f6e, 0x78, "LEVEL9-005" }, // Colossal Adventure /JoD (Spectrum 128)
+    { 0x5a8e, 0xf2, "LEVEL9-005" }, // Colossal Adventure /JoD (Spectrum 48)
+    { 0x76f4, 0x5a, "LEVEL9-005" }, // Colossal Adventure /JoD (ST)
+    { 0x6155, 0xe8, "LEVEL9-005" }, // Colossal Adventure (MSX[A])
+    { 0x616a, 0x90, "LEVEL9-005" }, // Colossal Adventure (MSX[B])
+    { 0x630e, 0x8d, "LEVEL9-006" }, // Dungeon Adventure (Amstrad CPC)
+    { 0x630e, 0xbe, "LEVEL9-006" }, // Dungeon Adventure (MSX)
+    { 0x6f0c, 0x95, "LEVEL9-006" }, // Dungeon Adventure /JoD (Amiga/PC/ST)
+    { 0x593a, 0x80, "LEVEL9-006" }, // Dungeon Adventure /JoD (Atari)
+    { 0x6bd2, 0x65, "LEVEL9-006" }, // Dungeon Adventure /JoD (Commodore 64)
+    { 0x6dc0, 0x63, "LEVEL9-006" }, // Dungeon Adventure /JoD (Amstrad CPC128/Spectrum +3)
+    { 0x58a6, 0x24, "LEVEL9-006" }, // Dungeon Adventure /JoD (Amstrad CPC64)
+    { 0x6de8, 0x4c, "LEVEL9-006" }, // Dungeon Adventure /JoD (Spectrum 128)
+    { 0x58a3, 0x38, "LEVEL9-006" }, // Dungeon Adventure /JoD (Spectrum 48)
+    { 0x6dea, 0x50, "LEVEL9-006" }, // Dungeon Adventure /JoD (MSX)
+    { 0x63be, 0xd6, "LEVEL9-007" }, // Emerald Isle (Atari/Commodore 64/Amstrad CPC/Spectrum/MSX)
+    { 0x378c, 0x8d, "LEVEL9-007" }, // Emerald Isle (BBC)
+    { 0x63be, 0x0a, "LEVEL9-007" }, // Emerald Isle (MSX *corrupt*)
+    { 0x34b3, 0x20, "LEVEL9-008" }, // Erik the Viking (BBC/Commodore 64)
+    { 0x34b3, 0xc7, "LEVEL9-008" }, // Erik the Viking (Amstrad CPC)
+    { 0x34b3, 0x53, "LEVEL9-008" }, // Erik the Viking (Spectrum)
+    { 0x34b3, 0xa8, "LEVEL9-008" }, // Erik the Viking (MSX *converted*)
+    { 0xb1a9, 0x80, "LEVEL9-009-1" }, // Gnome Ranger, pt. 1 (Amiga/ST)
+    { 0x908e, 0x0d, "LEVEL9-009-1" }, // Gnome Ranger, pt. 1 (Commodore 64 Gfx)
+    { 0xad41, 0xa8, "LEVEL9-009-1" }, // Gnome Ranger, pt. 1 (Commodore 64 TO/MSX)
+    { 0xb1aa, 0xad, "LEVEL9-009-1" }, // Gnome Ranger, pt. 1 (PC)
+    { 0x8aab, 0xc0, "LEVEL9-009-1" }, // Gnome Ranger, pt. 1 (Spectrum 48)
+    { 0xb0ec, 0xc2, "LEVEL9-009-1" }, // Gnome Ranger, pt. 1 (ST[v1])
+    { 0xb19e, 0x92, "LEVEL9-009-1" }, // Gnome Ranger, pt. 1 (ST[v2])
+    { 0x5ff0, 0xf8, "LEVEL9-009-1" }, // Gnome Ranger, pt. 1 GD (Amstrad CPC/Spectrum +3)
+    { 0x52aa, 0xdf, "LEVEL9-009-1" }, // Gnome Ranger, pt. 1 GD (Spectrum 128)
+    { 0xab9d, 0x31, "LEVEL9-009-2" }, // Gnome Ranger, pt. 2 (Amiga/ST)
+    { 0x8f6f, 0x0a, "LEVEL9-009-2" }, // Gnome Ranger, pt. 2 (Commodore 64 Gfx)
+    { 0xa735, 0xf7, "LEVEL9-009-2" }, // Gnome Ranger, pt. 2 (Commodore 64 TO/MSX)
+    { 0xab8b, 0xbf, "LEVEL9-009-2" }, // Gnome Ranger, pt. 2 (PC/ST[v2])
+    { 0x8ac8, 0x9a, "LEVEL9-009-2" }, // Gnome Ranger, pt. 2 (Spectrum 48)
+    { 0xaf82, 0x83, "LEVEL9-009-2" }, // Gnome Ranger, pt. 2 (ST[v1])
+    { 0x6024, 0x01, "LEVEL9-009-2" }, // Gnome Ranger, pt. 2 GD (Amstrad CPC/Spectrum +3)
+    { 0x6ffa, 0xdb, "LEVEL9-009-2" }, // Gnome Ranger, pt. 2 GD (Spectrum 128)
+    { 0xae28, 0x87, "LEVEL9-009-3" }, // Gnome Ranger, pt. 3 (Amiga/ST)
+    { 0x9060, 0xbb, "LEVEL9-009-3" }, // Gnome Ranger, pt. 3 (Commodore 64 Gfx)
+    { 0xa9c0, 0x9e, "LEVEL9-009-3" }, // Gnome Ranger, pt. 3 (Commodore 64 TO/MSX)
+    { 0xae16, 0x81, "LEVEL9-009-3" }, // Gnome Ranger, pt. 3 (PC/ST[v2])
+    { 0x8a93, 0x4f, "LEVEL9-009-3" }, // Gnome Ranger, pt. 3 (Spectrum 48)
+    { 0xb3e6, 0xab, "LEVEL9-009-3" }, // Gnome Ranger, pt. 3 (Unknown)
+    { 0x6036, 0x3d, "LEVEL9-009-3" }, // Gnome Ranger, pt. 3 GD (Amstrad CPC/Spectrum +3)
+    { 0x723a, 0x69, "LEVEL9-009-3" }, // Gnome Ranger, pt. 3 GD (Spectrum 128)
+    { 0xd188, 0x13, "LEVEL9-010-1" }, // Ingrid's Back, pt. 1 (Amiga)
+    { 0x9089, 0xce, "LEVEL9-010-1" }, // Ingrid's Back, pt. 1 (Commodore 64 Gfx)
+    { 0xb770, 0x03, "LEVEL9-010-1" }, // Ingrid's Back, pt. 1 (Commodore 64 TO)
+    { 0xd19b, 0xad, "LEVEL9-010-1" }, // Ingrid's Back, pt. 1 (PC)
+    { 0x8ab7, 0x68, "LEVEL9-010-1" }, // Ingrid's Back, pt. 1 (Spectrum 48)
+    { 0xd183, 0x83, "LEVEL9-010-1" }, // Ingrid's Back, pt. 1 (ST)
+    { 0x5a38, 0xf7, "LEVEL9-010-1" }, // Ingrid's Back, pt. 1 GD (Amstrad CPC/Spectrum +3)
+    { 0x76a0, 0x3a, "LEVEL9-010-1" }, // Ingrid's Back, pt. 1 GD (Spectrum 128)
+    { 0xbefa, 0x1e, "LEVEL9-010-1" }, // Ingrid's Back, pt. 1 (MSX)
+    { 0xc594, 0x03, "LEVEL9-010-2" }, // Ingrid's Back, pt. 2 (Amiga)
+    { 0x908d, 0x80, "LEVEL9-010-2" }, // Ingrid's Back, pt. 2 (Commodore 64 Gfx)
+    { 0xb741, 0xb6, "LEVEL9-010-2" }, // Ingrid's Back, pt. 2 (Commodore 64 TO)
+    { 0xc5a5, 0xfe, "LEVEL9-010-2" }, // Ingrid's Back, pt. 2 (PC)
+    { 0x8b1e, 0x84, "LEVEL9-010-2" }, // Ingrid's Back, pt. 2 (Spectrum 48)
+    { 0xc58f, 0x65, "LEVEL9-010-2" }, // Ingrid's Back, pt. 2 (ST)
+    { 0x531a, 0xed, "LEVEL9-010-2" }, // Ingrid's Back, pt. 2 GD (Amstrad CPC/Spectrum +3)
+    { 0x7674, 0x0b, "LEVEL9-010-2" }, // Ingrid's Back, pt. 2 GD (Spectrum 128)
+    { 0xbd57, 0x14, "LEVEL9-010-2" }, // Ingrid's Back, pt. 2 (MSX)
+    { 0xd79f, 0xb5, "LEVEL9-010-3" }, // Ingrid's Back, pt. 3 (Amiga)
+    { 0x909e, 0x9f, "LEVEL9-010-3" }, // Ingrid's Back, pt. 3 (Commodore 64 Gfx)
+    { 0xb791, 0xa1, "LEVEL9-010-3" }, // Ingrid's Back, pt. 3 (Commodore 64 TO)
+    { 0xd7ae, 0x9e, "LEVEL9-010-3" }, // Ingrid's Back, pt. 3 (PC)
+    { 0x8b1c, 0xa8, "LEVEL9-010-3" }, // Ingrid's Back, pt. 3 (Spectrum 48)
+    { 0xd79a, 0x57, "LEVEL9-010-3" }, // Ingrid's Back, pt. 3 (ST)
+    { 0x57e4, 0x19, "LEVEL9-010-3" }, // Ingrid's Back, pt. 3 GD (Amstrad CPC/Spectrum +3)
+    { 0x765e, 0xba, "LEVEL9-010-3" }, // Ingrid's Back, pt. 3 GD (Spectrum 128)
+    { 0xbf4b, 0x9f, "LEVEL9-010-3" }, // Ingrid's Back, pt. 3 (MSX)
+    { 0xbb93, 0x36, "LEVEL9-011-1" }, // Knight Orc, pt. 1 (Amiga)
+    { 0x898a, 0x43, "LEVEL9-011-1" }, // Knight Orc, pt. 1 (Apple ][)
+    { 0x8970, 0x6b, "LEVEL9-011-1" }, // Knight Orc, pt. 1 (Commodore 64 Gfx)
+    { 0xbb6e, 0xa6, "LEVEL9-011-1" }, // Knight Orc, pt. 1 (PC)
+    { 0x86d0, 0xb7, "LEVEL9-011-1" }, // Knight Orc, pt. 1 (Spectrum 48)
+    { 0xbb6e, 0xad, "LEVEL9-011-1" }, // Knight Orc, pt. 1 (ST)
+    { 0x46ec, 0x64, "LEVEL9-011-1" }, // Knight Orc, pt. 1 GD (Amstrad CPC/Spectrum +3)
+    { 0x74e0, 0x92, "LEVEL9-011-1" }, // Knight Orc, pt. 1 GD (Spectrum 128)
+    { 0xb92d, 0x00, "LEVEL9-011-1" }, // Knight Orc, pt. 1 (MSX *corrupt*)
+    { 0xb92d, 0x25, "LEVEL9-011-1" }, // Knight Orc, pt. 1 (MSX)
+    { 0xc58e, 0x4a, "LEVEL9-011-2" }, // Knight Orc, pt. 2 (Amiga/ST)
+    { 0x8b9f, 0x61, "LEVEL9-011-2" }, // Knight Orc, pt. 2 (Apple ][)
+    { 0x8b90, 0x4e, "LEVEL9-011-2" }, // Knight Orc, pt. 2 (Commodore 64 Gfx)
+    { 0xc58e, 0x43, "LEVEL9-011-2" }, // Knight Orc, pt. 2 (PC)
+    { 0x8885, 0x22, "LEVEL9-011-2" }, // Knight Orc, pt. 2 (Spectrum 48)
+    { 0x6140, 0x18, "LEVEL9-011-2" }, // Knight Orc, pt. 2 GD (Amstrad CPC/Spectrum +3)
+    { 0x6dbc, 0x97, "LEVEL9-011-2" }, // Knight Orc, pt. 2 GD (Spectrum 128)
+    { 0xb734, 0xbc, "LEVEL9-011-2" }, // Knight Orc, pt. 2 (MSX)
+    { 0xcb9a, 0x0f, "LEVEL9-011-3" }, // Knight Orc, pt. 3 (Amiga/ST)
+    { 0x8af9, 0x61, "LEVEL9-011-3" }, // Knight Orc, pt. 3 (Apple ][)
+    { 0x8aea, 0x4e, "LEVEL9-011-3" }, // Knight Orc, pt. 3 (Commodore 64 Gfx)
+    { 0xcb9a, 0x08, "LEVEL9-011-3" }, // Knight Orc, pt. 3 (PC)
+    { 0x87e5, 0x0e, "LEVEL9-011-3" }, // Knight Orc, pt. 3 (Spectrum 48)
+    { 0x640e, 0xc1, "LEVEL9-011-3" }, // Knight Orc, pt. 3 GD (Amstrad CPC/Spectrum +3)
+    { 0x7402, 0x07, "LEVEL9-011-3" }, // Knight Orc, pt. 3 GD (Spectrum 128)
+    { 0xba02, 0x5f, "LEVEL9-011-3" }, // Knight Orc, pt. 3 (MSX)
+    { 0xbba4, 0x94, "LEVEL9-012-1" }, // Lancelot, pt. 1 (Amiga/PC *USA*)
+    { 0xc0cf, 0x4e, "LEVEL9-012-1" }, // Lancelot, pt. 1 (Amiga/PC/ST)
+    { 0x8afc, 0x07, "LEVEL9-012-1" }, // Lancelot, pt. 1 (Commodore 64 Gfx *USA*)
+    { 0x8feb, 0xba, "LEVEL9-012-1" }, // Lancelot, pt. 1 (Commodore 64 Gfx)
+    { 0xb4c9, 0x94, "LEVEL9-012-1" }, // Lancelot, pt. 1 (Commodore 64 TO/MSX)
+    { 0xc0bd, 0x57, "LEVEL9-012-1" }, // Lancelot, pt. 1 (Mac)
+    { 0x8ade, 0xf2, "LEVEL9-012-1" }, // Lancelot, pt. 1 (Spectrum 48)
+    { 0x4fd2, 0x9d, "LEVEL9-012-1" }, // Lancelot, pt. 1 GD (BBC)
+    { 0x5c7a, 0x44, "LEVEL9-012-1" }, // Lancelot, pt. 1 GD (Amstrad CPC/Spectrum +3)
+    { 0x768c, 0xe8, "LEVEL9-012-1" }, // Lancelot, pt. 1 GD (Spectrum 128)
+    { 0xd0c0, 0x56, "LEVEL9-012-2" }, // Lancelot, pt. 2 (Amiga/PC *USA*)
+    { 0xd5e9, 0x6a, "LEVEL9-012-2" }, // Lancelot, pt. 2 (Amiga/PC/ST)
+    { 0x8aec, 0x13, "LEVEL9-012-2" }, // Lancelot, pt. 2 (Commodore 64 Gfx *USA*)
+    { 0x8f6b, 0xfa, "LEVEL9-012-2" }, // Lancelot, pt. 2 (Commodore 64 Gfx)
+    { 0xb729, 0x51, "LEVEL9-012-2" }, // Lancelot, pt. 2 (Commodore 64 TO/MSX)
+    { 0xd5d7, 0x99, "LEVEL9-012-2" }, // Lancelot, pt. 2 (Mac)
+    { 0x8b0e, 0xfb, "LEVEL9-012-2" }, // Lancelot, pt. 2 (Spectrum 48)
+    { 0x4dac, 0xa8, "LEVEL9-012-2" }, // Lancelot, pt. 2 GD (BBC)
+    { 0x53a2, 0x1e, "LEVEL9-012-2" }, // Lancelot, pt. 2 GD (Amstrad CPC/Spectrum +3)
+    { 0x76b0, 0x1d, "LEVEL9-012-2" }, // Lancelot, pt. 2 GD (Spectrum 128)
+    { 0xb6ac, 0xc6, "LEVEL9-012-3" }, // Lancelot, pt. 3 (Amiga/PC *USA*)
+    { 0xbb8f, 0x1a, "LEVEL9-012-3" }, // Lancelot, pt. 3 (Amiga/PC/ST)
+    { 0x8aba, 0x0d, "LEVEL9-012-3" }, // Lancelot, pt. 3 (Commodore 64 Gfx *USA*)
+    { 0x8f71, 0x2f, "LEVEL9-012-3" }, // Lancelot, pt. 3 (Commodore 64 Gfx)
+    { 0xb702, 0xe4, "LEVEL9-012-3" }, // Lancelot, pt. 3 (Commodore 64 TO/MSX)
+    { 0xbb7d, 0x17, "LEVEL9-012-3" }, // Lancelot, pt. 3 (Mac)
+    { 0x8ab3, 0xc1, "LEVEL9-012-3" }, // Lancelot, pt. 3 (Spectrum 48)
+    { 0x4f96, 0x22, "LEVEL9-012-3" }, // Lancelot, pt. 3 GD (BBC)
+    { 0x5914, 0x22, "LEVEL9-012-3" }, // Lancelot, pt. 3 GD (Amstrad CPC/Spectrum +3)
+    { 0x765e, 0x4f, "LEVEL9-012-3" }, // Lancelot, pt. 3 GD (Spectrum 128)
+    { 0x5eb9, 0x30, "LEVEL9-013" }, // Lords of Time (Amstrad CPC)
+    { 0x5eb9, 0x5d, "LEVEL9-013" }, // Lords of Time (MSX *corrupt*)
+    { 0x5eb9, 0x6e, "LEVEL9-013" }, // Lords of Time (Spectrum/MSX *fixed*)
+    { 0xb257, 0xf8, "LEVEL9-013" }, // Lords of Time /T&M (Amiga *USA*)
+    { 0xb576, 0x2a, "LEVEL9-013" }, // Lords of Time /T&M (Amiga)
+    { 0x8d78, 0x3a, "LEVEL9-013" }, // Lords of Time /T&M (Commodore 64 Gfx *USA*)
+    { 0x9070, 0x43, "LEVEL9-013" }, // Lords of Time /T&M (Commodore 64 Gfx)
+    { 0xb38c, 0x37, "LEVEL9-013" }, // Lords of Time /T&M (Commodore 64 TO)
+    { 0xb563, 0x6a, "LEVEL9-013" }, // Lords of Time /T&M (Mac)
+    { 0xb57c, 0x44, "LEVEL9-013" }, // Lords of Time /T&M (PC)
+    { 0xb260, 0xe5, "LEVEL9-013" }, // Lords of Time /T&M (PC/ST *USA*)
+    { 0x8950, 0xa1, "LEVEL9-013" }, // Lords of Time /T&M (Spectrum 48)
+    { 0xb579, 0x89, "LEVEL9-013" }, // Lords of Time /T&M (ST)
+    { 0x579e, 0x97, "LEVEL9-013" }, // Lords of Time /T&M GD (BBC)
+    { 0x69fe, 0x56, "LEVEL9-013" }, // Lords of Time /T&M GD (Amstrad CPC/Spectrum +3)
+    { 0x6f1e, 0xda, "LEVEL9-013" }, // Lords of Time /T&M GD (Spectrum 128)
+    { 0xb393, 0x11, "LEVEL9-013" }, // Lords of Time /T&M (MSX)
+    { 0x5671, 0xbc, "LEVEL9-014" }, // Price of Magik (BBC)
+    { 0x6fc6, 0x14, "LEVEL9-014" }, // Price of Magik (Commodore 64)
+    { 0x5aa4, 0xc1, "LEVEL9-014" }, // Price of Magik (Spectrum 48 / Amstrad CPC)
+    { 0x7410, 0x5e, "LEVEL9-014" }, // Price of Magik (Spectrum 128)
+    { 0x5aa4, 0xc1, "LEVEL9-014" }, // Price of Magik (Spectrum 48 / Amstrad CPC)
+    { 0x5aa4, 0xc1, "LEVEL9-014" }, // Price of Magik (Spectrum 48 / Amstrad CPC)
+    { 0x7334, 0x87, "LEVEL9-014" }, // Price of Magik (MSX)
+    { 0xb797, 0x1f, "LEVEL9-014" }, // Price of Magik /T&M (Amiga *USA*)
+    { 0xbaca, 0x3a, "LEVEL9-014" }, // Price of Magik /T&M (Amiga)
+    { 0x8c46, 0xf0, "LEVEL9-014" }, // Price of Magik /T&M (Commodore 64 Gfx *USA*)
+    { 0x8f51, 0xb2, "LEVEL9-014" }, // Price of Magik /T&M (Commodore 64 Gfx)
+    { 0xb451, 0xa8, "LEVEL9-014" }, // Price of Magik /T&M (Commodore 64 TO)
+    { 0xbab2, 0x87, "LEVEL9-014" }, // Price of Magik /T&M (Mac)
+    { 0xbac7, 0x7f, "LEVEL9-014" }, // Price of Magik /T&M (PC)
+    { 0xb7a0, 0x7e, "LEVEL9-014" }, // Price of Magik /T&M (PC/ST *USA*)
+    { 0x8a60, 0x2a, "LEVEL9-014" }, // Price of Magik /T&M (Spectrum 48)
+    { 0xbac4, 0x80, "LEVEL9-014" }, // Price of Magik /T&M (ST)
+    { 0x579a, 0x2a, "LEVEL9-014" }, // Price of Magik /T&M GD (BBC)
+    { 0x5a50, 0xa9, "LEVEL9-014" }, // Price of Magik /T&M GD (Amstrad CPC/Spectrum +3)
+    { 0x6108, 0xdd, "LEVEL9-014" }, // Price of Magik /T&M GD (Spectrum 128)
+    { 0xb8b5, 0x27, "LEVEL9-014" }, // Price of Magik /T&M (MSX)
+    { 0x506c, 0xf0, "LEVEL9-015" }, // Red Moon (BBC/Commodore 64/Amstrad CPC/MSX)
+    { 0x505d, 0x32, "LEVEL9-015" }, // Red Moon (Spectrum)
+    { 0xa398, 0x82, "LEVEL9-015" }, // Red Moon /T&M (Amiga *USA*)
+    { 0xa692, 0xd1, "LEVEL9-015" }, // Red Moon /T&M (Amiga)
+    { 0x8d56, 0xd3, "LEVEL9-015" }, // Red Moon /T&M (Commodore 64 Gfx *USA*)
+    { 0x903f, 0x6b, "LEVEL9-015" }, // Red Moon /T&M (Commodore 64 Gfx)
+    { 0xa4e2, 0xa6, "LEVEL9-015" }, // Red Moon /T&M (Commodore 64 TO)
+    { 0xa67c, 0xb8, "LEVEL9-015" }, // Red Moon /T&M (Mac)
+    { 0xa69e, 0x6c, "LEVEL9-015" }, // Red Moon /T&M (PC)
+    { 0xa3a4, 0xdf, "LEVEL9-015" }, // Red Moon /T&M (PC/ST *USA*)
+    { 0x8813, 0x11, "LEVEL9-015" }, // Red Moon /T&M (Spectrum 48)
+    { 0xa698, 0x41, "LEVEL9-015" }, // Red Moon /T&M (ST)
+    { 0x5500, 0x50, "LEVEL9-015" }, // Red Moon /T&M GD (BBC)
+    { 0x6888, 0x8d, "LEVEL9-015" }, // Red Moon /T&M GD (Amstrad CPC/Spectrum +3)
+    { 0x6da0, 0xb8, "LEVEL9-015" }, // Red Moon /T&M GD (Spectrum 128)
+    { 0xa4d8, 0xd9, "LEVEL9-015" }, // Red Moon /T&M (MSX)
+    { 0x6064, 0xbd, "LEVEL9-016" }, // Return to Eden (Atari *corrupt*)
+    { 0x6064, 0x01, "LEVEL9-016" }, // Return to Eden (BBC[v1])
+    { 0x6047, 0x6c, "LEVEL9-016" }, // Return to Eden (BBC[v2])
+    { 0x6064, 0xda, "LEVEL9-016" }, // Return to Eden (Commodore 64[v2] *corrupt*)
+    { 0x6064, 0x95, "LEVEL9-016" }, // Return to Eden (Commodore 64[v2])
+    { 0x60c4, 0x28, "LEVEL9-016" }, // Return to Eden (Amstrad CPC/Commodore 64[v1])
+    { 0x5cb7, 0xfe, "LEVEL9-016" }, // Return to Eden (MSX)
+    { 0x5ca1, 0x33, "LEVEL9-016" }, // Return to Eden (Spectrum[v1])
+    { 0x5cb7, 0x64, "LEVEL9-016" }, // Return to Eden (Spectrum[v2])
+    { 0x7d16, 0xe6, "LEVEL9-016" }, // Return to Eden /SD (Amiga/ST)
+    { 0x639c, 0x8b, "LEVEL9-016" }, // Return to Eden /SD (Apple ][)
+    { 0x60f7, 0x68, "LEVEL9-016" }, // Return to Eden /SD (Atari)
+    { 0x772f, 0xca, "LEVEL9-016" }, // Return to Eden /SD (Commodore 64/MSX)
+    { 0x7cff, 0xf8, "LEVEL9-016" }, // Return to Eden /SD (Amstrad CPC/Spectrum +3)
+    { 0x7cf8, 0x24, "LEVEL9-016" }, // Return to Eden /SD (Mac)
+    { 0x7d14, 0xe8, "LEVEL9-016" }, // Return to Eden /SD (PC)
+    { 0x7c55, 0x18, "LEVEL9-016" }, // Return to Eden /SD (Spectrum 128)
+    { 0x5f43, 0xca, "LEVEL9-016" }, // Return to Eden /SD (Spectrum 48)
+    { 0xc132, 0x14, "LEVEL9-017-1" }, // Scapeghost, pt. 1 (Amiga *bak*)
+    { 0xbeab, 0x2d, "LEVEL9-017-1" }, // Scapeghost, pt. 1 (Amiga)
+    { 0x9058, 0xcf, "LEVEL9-017-1" }, // Scapeghost, pt. 1 (Commodore 64 Gfx)
+    { 0xbe94, 0xcc, "LEVEL9-017-1" }, // Scapeghost, pt. 1 (PC/ST)
+    { 0x8a21, 0xf4, "LEVEL9-017-1" }, // Scapeghost, pt. 1 (Spectrum 48)
+    { 0x55ce, 0xa1, "LEVEL9-017-1" }, // Scapeghost, pt. 1 GD (BBC)
+    { 0x5cbc, 0xa5, "LEVEL9-017-1" }, // Scapeghost, pt. 1 GD (Amstrad CPC/Spectrum +3)
+    { 0x762e, 0x82, "LEVEL9-017-1" }, // Scapeghost, pt. 1 GD (Spectrum 128)
+    { 0xb613, 0x4c, "LEVEL9-017-1" }, // Scapeghost, pt. 1 (Commodore 64 TO/MSX *converted*)
+    { 0x99bd, 0x65, "LEVEL9-017-2" }, // Scapeghost, pt. 2 (Amiga/PC/ST)
+    { 0x8f43, 0xc9, "LEVEL9-017-2" }, // Scapeghost, pt. 2 (Commodore 64 Gfx)
+    { 0x8a12, 0xe3, "LEVEL9-017-2" }, // Scapeghost, pt. 2 (Spectrum 48)
+    { 0x54a6, 0xa9, "LEVEL9-017-2" }, // Scapeghost, pt. 2 GD (BBC)
+    { 0x5932, 0x4e, "LEVEL9-017-2" }, // Scapeghost, pt. 2 GD (Amstrad CPC/Spectrum +3)
+    { 0x5bd6, 0x35, "LEVEL9-017-2" }, // Scapeghost, pt. 2 GD (Spectrum 128)
+    { 0x97c0, 0x48, "LEVEL9-017-2" }, // Scapeghost, pt. 2 (Commodore 64 TO/MSX *converted*)
+    { 0xbcb6, 0x7a, "LEVEL9-017-3" }, // Scapeghost, pt. 3 (Amiga/PC/ST)
+    { 0x90ac, 0x68, "LEVEL9-017-3" }, // Scapeghost, pt. 3 (Commodore 64 Gfx)
+    { 0x8a16, 0xcc, "LEVEL9-017-3" }, // Scapeghost, pt. 3 (Spectrum 48)
+    { 0x51bc, 0xe3, "LEVEL9-017-3" }, // Scapeghost, pt. 3 GD (BBC)
+    { 0x5860, 0x95, "LEVEL9-017-3" }, // Scapeghost, pt. 3 GD (Amstrad CPC/Spectrum +3)
+    { 0x6fa8, 0xa4, "LEVEL9-017-3" }, // Scapeghost, pt. 3 GD (Spectrum 128)
+    { 0xb60e, 0x6a, "LEVEL9-017-3" }, // Scapeghost, pt. 3 (Commodore 64 TO/MSX *converted*)
+    { 0x5fab, 0x5c, "LEVEL9-018" }, // Snowball (Amstrad CPC)
+    { 0x5fab, 0x2f, "LEVEL9-018" }, // Snowball (MSX)
+    { 0x7b31, 0x6e, "LEVEL9-018" }, // Snowball /SD (Amiga/ST)
+    { 0x67a3, 0x9d, "LEVEL9-018" }, // Snowball /SD (Apple ][)
+    { 0x6bf8, 0x3f, "LEVEL9-018" }, // Snowball /SD (Atari)
+    { 0x7363, 0x65, "LEVEL9-018" }, // Snowball /SD (Commodore 64/MSX)
+    { 0x7b2f, 0x70, "LEVEL9-018" }, // Snowball /SD (Mac/PC/Spectrum 128/Amstrad CPC/Spectrum +3)
+    { 0x7b2f, 0x70, "LEVEL9-018" }, // Snowball /SD (Mac/PC/Spectrum 128/Amstrad CPC/Spectrum +3)
+    { 0x6541, 0x02, "LEVEL9-018" }, // Snowball /SD (Spectrum 48)
+    { 0x5834, 0x42, "LEVEL9-019-1" }, // The Archers, pt. 1 (BBC)
+    { 0x765d, 0xcd, "LEVEL9-019-1" }, // The Archers, pt. 1 (Commodore 64/MSX)
+    { 0x6ce5, 0x58, "LEVEL9-019-1" }, // The Archers, pt. 1 (Spectrum)
+    { 0x56dd, 0x51, "LEVEL9-019-2" }, // The Archers, pt. 2 (BBC)
+    { 0x6e58, 0x07, "LEVEL9-019-2" }, // The Archers, pt. 2 (Commodore 64)
+    { 0x6e56, 0x17, "LEVEL9-019-2" }, // The Archers, pt. 2 (MSX)
+    { 0x68da, 0xc1, "LEVEL9-019-2" }, // The Archers, pt. 2 (Spectrum)
+    { 0x5801, 0x53, "LEVEL9-019-3" }, // The Archers, pt. 3 (BBC)
+    { 0x7e98, 0x6a, "LEVEL9-019-3" }, // The Archers, pt. 3 (Commodore 64/MSX)
+    { 0x6c67, 0x9a, "LEVEL9-019-3" }, // The Archers, pt. 3 (Spectrum)
+    { 0x54a4, 0x01, "LEVEL9-019-4" }, // The Archers, pt. 4 (BBC)
+    { 0x81e2, 0xd5, "LEVEL9-019-4" }, // The Archers, pt. 4 (Commodore 64/MSX)
+    { 0x6d91, 0xb9, "LEVEL9-019-4" }, // The Archers, pt. 4 (Spectrum)
+    { 0x5828, 0xbd, "LEVEL9-020" }, // Worm in Paradise (BBC)
+    { 0x6d84, 0xf9, "LEVEL9-020" }, // Worm in Paradise (Commodore 64 *corrupt*)
+    { 0x6d84, 0xc8, "LEVEL9-020" }, // Worm in Paradise (Commodore 64 *fixed*)
+    { 0x6030, 0x47, "LEVEL9-020" }, // Worm in Paradise (Amstrad CPC)
+    { 0x772b, 0xcd, "LEVEL9-020" }, // Worm in Paradise (Spectrum 128/MSX)
+    { 0x546c, 0xb7, "LEVEL9-020" }, // Worm in Paradise (Spectrum 48)
+    { 0x7cd9, 0x0c, "LEVEL9-020" }, // Worm in Paradise /SD (Amiga/ST)
+    { 0x60dd, 0xf2, "LEVEL9-020" }, // Worm in Paradise /SD (Apple ][)
+    { 0x6161, 0xf3, "LEVEL9-020" }, // Worm in Paradise /SD (Atari)
+    { 0x788d, 0x72, "LEVEL9-020" }, // Worm in Paradise /SD (Commodore 64/MSX)
+    { 0x7cd7, 0x0e, "LEVEL9-020" }, // Worm in Paradise /SD (Amstrad CPC/Mac/PC/Spectrum 128/Spectrum +3)
+    { 0x5ebb, 0xf1, "LEVEL9-020" }, // Worm in Paradise /SD (Spectrum 48)
+
     { 0, 0, NULL }
 };
 
