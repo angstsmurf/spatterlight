@@ -1060,6 +1060,8 @@ L9BOOL Check(L9BYTE* StartFile,L9UINT32 FileSize,L9UINT32 Offset)
 
 long Scan(L9BYTE* StartFile,L9UINT32 FileSize)
 {
+    if (FileSize == UINT32_MAX)
+        FileSize -= 1;
 	L9BYTE *Chk = calloc(FileSize+1, 1);
 	L9BYTE *Image=calloc(FileSize,1);
 	L9UINT32 i,num,Size,MaxSize=0;
@@ -1137,6 +1139,8 @@ long Scan(L9BYTE* StartFile,L9UINT32 FileSize)
 
 long ScanV2(L9BYTE* StartFile,L9UINT32 FileSize)
 {
+    if (FileSize == UINT32_MAX)
+        FileSize -= 1;
 	L9BYTE *Chk=calloc(FileSize+1, 1);
 	L9BYTE *Image=calloc(FileSize,1);
 	L9UINT32 i,Size,MaxSize=0,num;
@@ -1228,11 +1232,7 @@ long ScanV1(L9BYTE* StartFile,L9UINT32 FileSize)
 				if (Size>MaxCount && Size>100 && Size<10000)
 				{
 					MaxCount=Size;
-					MaxMin=Min;
-					MaxMax=Max;
-
 					MaxPos=i;
-					MaxJK=JumpKill;
 				}
 				Replace=0;
 			}
@@ -2578,7 +2578,6 @@ L9BOOL corruptinginput(void)
 			L9SETWORD(list9ptr+2,0);
 			list9ptr[1]=d0;
 			*a2=0x20;
-			keywordnumber=-1;
 			return TRUE;
 		}
 	}
@@ -2597,7 +2596,6 @@ L9BOOL corruptinginput(void)
 	a6--;
 	ibuffptr=a6;
 	abrevword=-1;
-	keywordnumber=-1;
 	list9ptr=list9startptr;
 /* setindex */
 	a0=dictdata;
@@ -2639,7 +2637,6 @@ L9BOOL corruptinginput(void)
 		if (unpackword())
 		{/* ip21b */
 			if (abrevword==-1) break; /* goto ip22 */
-			else d0=abrevword; /* goto ip18b */
 		}
 		else
 		{
@@ -2658,13 +2655,10 @@ L9BOOL corruptinginput(void)
 			if (d2!=0x20)
 			{/* ip17 */
 				if (abrevword==-1) continue;
-				else d0=-1;
 			}
-			else if (d0==0) d0=d1;
-			else if (abrevword!=-1) break;
-			else if (d6>=4) d0=d1;
-			else
-			{
+            else if (d0!=0 && abrevword!=-1) break;
+            else if (d0!=0 && d6<3)
+            {
 				abrevword=d1;
 				continue;
 			}
@@ -4012,6 +4006,7 @@ void RestoreGame(char* filename)
 		}
 		else
 			printstring("\rSorry, unrecognised format. Unable to restore\r");
+        fclose(f);
 	}
 	else
 		printstring("\rUnable to restore game.\r");

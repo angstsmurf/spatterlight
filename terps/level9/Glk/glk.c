@@ -6591,7 +6591,7 @@ gln_main (void)
 
   /* Ensure Level 9 internal types have the right sizes. */
   if (!(sizeof (gln_byte) == 1
-      && sizeof (gln_uint16) == 2 && sizeof (gln_uint32) == 4))
+      && sizeof (gln_uint16) == 2 && sizeof (gln_uint32) >= 4))
     {
       gln_fatal ("GLK: Types sized incorrectly, recompilation is needed");
       glk_exit ();
