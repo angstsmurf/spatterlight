@@ -1505,13 +1505,18 @@ static const glui32 GLN_GRAPHICS_TIMEOUT = 50;
  */
 static const int GLN_GRAPHICS_REPAINT_WAIT = 10;
 
+#ifdef SPATTERLIGHT
 /* Pixel size multiplier for image size scaling. */
 static const int GLN_GRAPHICS_PIXEL = 2;
 
 /* Proportion of the display to use for graphics. */
-#ifdef SPATTERLIGHT
 static const glui32 GLN_GRAPHICS_PROPORTION = 60;
 #else
+
+//* Pixel size multiplier for image size scaling. */
+static const int GLN_GRAPHICS_PIXEL = 1;
+
+/* Proportion of the display to use for graphics. */
 static const glui32 GLN_GRAPHICS_PROPORTION = 30;
 #endif
 
@@ -1825,7 +1830,7 @@ gln_graphics_clear_and_border (winid_t glk_window,
    */
   glk_window_set_background_color (glk_window, background);
   glk_window_clear (glk_window);
-#if !(defined(GARGLK) || defined(SPATTERLIGHT))
+#ifndef GARGLK
   /*
    * For very small pictures, just border them, but don't try and
    * do any shading.  Failing this check is probably highly unlikely.
@@ -2276,7 +2281,6 @@ break_y_max:
     }
 }
 
-#ifdef SPATTERLIGHT
 static void
 gln_graphics_paint_everything (winid_t glk_window,
 			glui32 palette[],
@@ -2300,7 +2304,6 @@ gln_graphics_paint_everything (winid_t glk_window,
 	    }
 	}
 }
-#endif
 
 /*
  * gln_graphics_timeout()
@@ -3781,7 +3784,7 @@ gln_status_print (void)
         {
           int index;
 
-#if !(defined(GARGLK) || defined(SPATTERLIGHT))
+#ifndef GARGLK
           /* Set fixed width font to try to preserve status line formatting. */
           glk_set_style (style_Preformatted);
 #endif
@@ -5419,7 +5422,7 @@ gln_expand_abbreviations (char *buffer, int size)
       memmove (command + strlen (expansion) - 1, command, strlen (command) + 1);
       memcpy (command, expansion, strlen (expansion));
 
-#if !(defined(GARGLK) || defined(SPATTERLIGHT))
+#ifndef GARGLK
       gln_standout_string ("[");
       gln_standout_char (abbreviation);
       gln_standout_string (" -> ");
@@ -6587,7 +6590,7 @@ gln_main (void)
 
   /* Ensure Level 9 internal types have the right sizes. */
   if (!(sizeof (gln_byte) == 1
-      && sizeof (gln_uint16) == 2 && sizeof (gln_uint32) >= 4))
+      && sizeof (gln_uint16) == 2 && sizeof (gln_uint32) == 4))
     {
       gln_fatal ("GLK: Types sized incorrectly, recompilation is needed");
       glk_exit ();
@@ -6885,6 +6888,7 @@ glkunix_startup_code (glkunix_startup_t * data)
 /*---------------------------------------------------------------------*/
 /*  Glk linkage relevant only to the Mac platform                      */
 /*---------------------------------------------------------------------*/
+#ifndef GARGLK
 #ifdef TARGET_OS_MAC
 
 #include "macglk_startup.h"
@@ -6960,3 +6964,4 @@ macglk_startup_code (macglk_startup_t * data)
   return TRUE;
 }
 #endif /* TARGET_OS_MAC */
+#endif
