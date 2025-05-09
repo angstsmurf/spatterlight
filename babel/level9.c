@@ -374,7 +374,7 @@ static int32 read_l9_int(unsigned char *sf)
 static int v2_recognition (unsigned char *sf, int32 extent, int32 *l, unsigned char *c)
 {
     int32 i, j;
-    for (i=0;i<extent-20;i++)
+    for (i=0;i<extent-0x1c;i++)
         if ((read_l9_int(sf+i+4) == 0x0020) &&
             (read_l9_int(sf+i+0x0a) == 0x8000) &&
             (read_l9_int(sf+i+0x14) == read_l9_int(sf+i+0x16)))
