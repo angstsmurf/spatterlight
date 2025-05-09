@@ -81,11 +81,6 @@ Header header;
 
 static bool checksum_verified;
 
-#ifdef ZTERP_GLK_BLORB
-int zterp_blorb_expected_release = -1;
-std::array<uint8_t, 6> zterp_blorb_expected_serial;
-#endif
-
 // The null character in the alphabet table does not actually signify a
 // null character: character 6 from A2 is special in that it specifies
 // that the next two characters form a 10-bit ZSCII character (§3.4).
@@ -157,8 +152,8 @@ static void initialize_games()
     static const std::vector<std::pair<Game, std::set<std::string>>> gamemap = {
         { Game::Infocom1234, infocom1234 },
 #ifndef SPATTERLIGHT
-        { Game::Arthur, { "74-890714" } },
-        { Game::Journey, { "83-890706" } },
+        { Game::Arthur, { "54-890606", "63-890622", "74-890714" } },
+        { Game::Journey, { "26-890316", "30-890322", "77-890616", "83-890706" } },
 #else
         { Game::Arthur, { "40-890502", "41-890504", "54-890606", "63-890622", "74-890714" } },
 
@@ -167,7 +162,7 @@ static void initialize_games()
         { Game::LurkingHorror, { "203-870506", "219-870912", "221-870918" } },
         { Game::Planetfall, { "1-830517", "20-830708", "26-831014", "29-840118", "37-851003", "39-880501" } },
 #ifndef SPATTERLIGHT
-        { Game::Shogun, { "322-890706" } },
+        { Game::Shogun, { "292-890314", "295-890321", "311-890510", "322-890706" } },
 #else
         { Game::Shogun, { "278-890209", "278-890211", "279-890217", "280-890217", "281-890222", "282-890224", "283-890228", "284-890302", "286-890306", "288-890308", "289-890309", "290-890311", "291-890313", "292-890314", "295-890321", "311-890510", "320-890627", "321-890629", "322-890706" } },
 #endif
@@ -177,7 +172,7 @@ static void initialize_games()
         { Game::MadBomber, { "3-971123-caad" } },
         { Game::ZorkZero, { "242-880830", "242-880901", "296-88101", "66-890111", "343-890217", "366-890323", "383-890602", "387-890612", "392-890714", "393-890714" } },
 #else
-        { Game::ZorkZero, { "0-870831", "393-890714" } },
+        { Game::ZorkZero, { "296-881019", "366-890323", "383-890602", "393-890714" } },
 #endif
         { Game::MysteriousAdventures, mysterious },
     };
@@ -1071,12 +1066,6 @@ static void real_main(int argc, char **argv)
         if (zversion == 6 && options.warn_on_v6) {
             show_message("Version 6 of the Z-machine is only partially supported. Be aware that the game might not function properly.");
         }
-
-#ifdef ZTERP_GLK_BLORB
-        if (zterp_blorb_expected_release != -1 && (header.release != zterp_blorb_expected_release || !std::equal(header.serial, header.serial + 6, zterp_blorb_expected_serial.begin()))) {
-            show_message("Found a Blorb file, but it does not match the story file. Proceeding, but expect odd behavior.");
-        }
-#endif
 #ifdef SPATTERLIGHT
         }
 #endif
