@@ -1160,7 +1160,7 @@ long ScanV2(L9BYTE* StartFile,L9UINT32 FileSize)
 	for (i=1;i<=FileSize;i++)
 		Chk[i]=Chk[i-1]+StartFile[i-1];
 
-	for (i=0;i<FileSize-28;i++)
+	for (i=0;i<FileSize-29;i++)
 	{
 		num=L9WORD(StartFile+i+28)+1;
         if ((i + num) <= FileSize && i < (FileSize - 32) && ((Chk[i + num] - Chk[i + 32]) & 0xff) == StartFile[i + 0x1e])
@@ -1220,7 +1220,7 @@ long ScanV1(L9BYTE* StartFile,L9UINT32 FileSize)
 		exit(0);
 	}
 
-	for (i=0;i<FileSize;i++)
+	for (i=0;i<FileSize-1;i++)
 	{
 		if ((StartFile[i]==0 && StartFile[i+1]==6) || (StartFile[i]==32 && StartFile[i+1]==4))
 		{
