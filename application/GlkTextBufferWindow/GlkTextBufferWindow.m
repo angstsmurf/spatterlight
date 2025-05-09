@@ -2344,6 +2344,7 @@ replacementString:(id)repl {
 - (NSDictionary <NSNumber *, NSTextAttachment *> *)attachmentsInRange:(NSRange)range withKeys:(NSArray * __autoreleasing *)keys {
     NSMutableDictionary <NSNumber *, NSTextAttachment *> __block *attachments = [NSMutableDictionary new];
     NSMutableArray __block *mutKeys = [NSMutableArray new];
+    range = NSIntersectionRange(range, NSMakeRange(0, textstorage.length));
     [textstorage
      enumerateAttribute:NSAttachmentAttributeName
      inRange:range
