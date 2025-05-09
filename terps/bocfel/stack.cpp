@@ -152,7 +152,7 @@ struct SaveStack {
         states.shrink_to_fit();
     }
 };
-static std::unordered_map<SaveStackType, SaveStack> save_stacks;
+static std::unordered_map<SaveStackType, SaveStack, EnumClassHash> save_stacks;
 
 bool seen_save_undo = false;
 

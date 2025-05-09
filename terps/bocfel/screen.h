@@ -226,5 +226,6 @@ void update_monochrome_colours(void);
 #endif
 
 void zjourney_dial();
+void zshogun_menu();
 
 #endif
