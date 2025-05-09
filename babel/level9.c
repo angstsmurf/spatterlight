@@ -361,12 +361,12 @@ static struct l9rec l9_registry[] = {
 };
 
 
-
 static int32 read_l9_int(unsigned char *sf)
 {
     return ((int32) sf[1]) << 8 | sf[0];
     
 }
+
 static int v2_recognition (unsigned char *sf, int32 extent, int32 *l, unsigned char *c)
 {
     int32 i, j;
@@ -386,6 +386,7 @@ static int v2_recognition (unsigned char *sf, int32 extent, int32 *l, unsigned c
         }
     return 0;
 }
+
 static int v1_recognition(unsigned char *sf, int32 extent, char **ifid)
 {
     int32 i;
@@ -413,6 +414,7 @@ static int v1_recognition(unsigned char *sf, int32 extent, char **ifid)
     else *ifid=NULL;
     return 1;
 }
+
 static int v3_recognition_phase (int phase,unsigned char *sf, int32 extent, int32 *l, unsigned char *c)
 {
     int32 end, i, j, ll;
@@ -468,6 +470,7 @@ static int v3_recognition_phase (int phase,unsigned char *sf, int32 extent, int3
     if (ll) return *l < 0x8500 ? 3:4;
     return 0;
 }
+
 static char *get_l9_ifid(int32 length, unsigned char chk)
 {
     int i;
@@ -475,6 +478,7 @@ static char *get_l9_ifid(int32 length, unsigned char chk)
         if (length==l9_registry[i].length && chk==l9_registry[i].chk) return l9_registry[i].ifid;
     return NULL;
 }
+
 static int get_l9_version(unsigned char *sf, int32 extent, char **ifid)
 {
     int i;
@@ -502,7 +506,6 @@ static int32 claim_story_file(void *story, int32 extent)
     }
     return INVALID_STORY_FILE_RV;
 }
-
 
 
 static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, int32 output_extent)
