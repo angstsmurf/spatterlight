@@ -246,6 +246,13 @@ static void print_menu_line_to_transcript(uint16_t menu, uint16_t result) {
     output_stream(1, 0);
 }
 
+static void print_zstring_to_transcript(uint16_t string) {
+    output_stream(-1, 0);
+    print_handler(unpack_string(string), nullptr);
+    output_stream(1, 0);
+}
+
+
 static void display_menu_line(uint16_t menu, uint16_t line, bool reverse, bool send_menu) {
 
     if (SHOGUN_MENU_WINDOW.id == nullptr) {
@@ -507,6 +514,7 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
         char message[40];
         int length = print_long_zstr_to_cstr(MSG, message, 40);
         glk_put_string_stream(glk_window_get_stream(SHOGUN_MENU_BG_WIN.id), message);
+        print_zstring_to_transcript(MSG);
         win_menuitem(kV6MenuTitle, 0, kV6MenuTypeShogun, 0, const_cast<char *>(message), length);
 
         result = menu_select(MENU, default_selection);
