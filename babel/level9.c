@@ -15,7 +15,7 @@
 
 #define FORMAT level9
 #define HOME_PAGE "http://www.if-legends.org/~l9memorial/html/home.html"
-#define FORMAT_EXT ".l9,.sna"
+#define FORMAT_EXT ".l9,.sna,.dat"
 #define NO_METADATA
 #define NO_COVER
 
@@ -36,18 +36,24 @@ static struct l9rec l9_registry[] = {
     { 0x8333, 0xb7, "LEVEL9-001-1" }, // Adrian Mole I, pt. 1 (Commodore 64)
     { 0x7c6f, 0x0f, "LEVEL9-001-1" }, // Adrian Mole I, pt. 1 (Amstrad CPC)
     { 0x72fa, 0x8b, "LEVEL9-001-1" }, // Adrian Mole I, pt. 1 (Spectrum)
+    { 0x8324, 0x87, "LEVEL9-001-1" }, // Adrian Mole I, pt. 1 (MSX)
     { 0x38dd, 0x31, "LEVEL9-001-A" }, // Adrian Mole I, pt. 10 (BBC)
     { 0x39c0, 0x44, "LEVEL9-001-B" }, // Adrian Mole I, pt. 11 (BBC)
     { 0x3a12, 0x8f, "LEVEL9-001-C" }, // Adrian Mole I, pt. 12 (BBC)
     { 0x37f1, 0x77, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (BBC)
     { 0x844d, 0x50, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (Commodore 64)
     { 0x738e, 0x5b, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (Spectrum)
+    { 0x8442, 0x0f, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (MSX)
     { 0x3900, 0x1c, "LEVEL9-001-3" }, // Adrian Mole I, pt. 3 (BBC)
     { 0x8251, 0x5f, "LEVEL9-001-3" }, // Adrian Mole I, pt. 3 (Commodore 64)
     { 0x7375, 0xe5, "LEVEL9-001-3" }, // Adrian Mole I, pt. 3 (Spectrum)
+    { 0x823e, 0x5c, "LEVEL9-001-3" }, // Adrian Mole I, pt. 3 (MSX)
+    { 0x824e, 0x77, "LEVEL9-001-3" }, // Adrian Mole I, pt. 3 (MSX *reconstructed*)
     { 0x3910, 0xac, "LEVEL9-001-4" }, // Adrian Mole I, pt. 4 (BBC)
     { 0x7a78, 0x5e, "LEVEL9-001-4" }, // Adrian Mole I, pt. 4 (Commodore 64)
     { 0x78d5, 0xe3, "LEVEL9-001-4" }, // Adrian Mole I, pt. 4 (Spectrum)
+    { 0x7a71, 0xfb, "LEVEL9-001-4" }, // Adrian Mole I, pt. 4 (MSX)
+    { 0x7a75, 0xe3, "LEVEL9-001-4" }, // Adrian Mole I, pt. 4 (MSX *reconstructed*)
     { 0x3ad6, 0xa7, "LEVEL9-001-5" }, // Adrian Mole I, pt. 5 (BBC)
     { 0x38a5, 0x0f, "LEVEL9-001-6" }, // Adrian Mole I, pt. 6 (BBC)
     { 0x361e, 0x7e, "LEVEL9-001-7" }, // Adrian Mole I, pt. 7 (BBC)
@@ -56,12 +62,6 @@ static struct l9rec l9_registry[] = {
     { 0x593a, 0xaf, "LEVEL9-002-1" }, // Adrian Mole II, pt. 1 (BBC)
     { 0x7931, 0xb9, "LEVEL9-002-1" }, // Adrian Mole II, pt. 1 (Commodore 64/Amstrad CPC/MSX)
     { 0x6841, 0x4a, "LEVEL9-002-1" }, // Adrian Mole II, pt. 1 (Spectrum)
-    { 0x8324, 0x87, "LEVEL9-002-1" }, // Adrian Mole I, pt. 1 (MSX)
-    { 0x8442, 0x0f, "LEVEL9-002-2" }, // Adrian Mole I, pt. 2 (MSX)
-    { 0x823e, 0x5c, "LEVEL9-002-3" }, // Adrian Mole I, pt. 3 (MSX)
-    { 0x824e, 0x77, "LEVEL9-002-3" }, // Adrian Mole I, pt. 3 (MSX *reconstructed*)
-    { 0x7a71, 0xfb, "LEVEL9-002-4" }, // Adrian Mole I, pt. 4 (MSX)
-    { 0x7a75, 0xe3, "LEVEL9-002-4" }, // Adrian Mole I, pt. 4 (MSX *reconstructed*)
     { 0x57e6, 0x8a, "LEVEL9-002-2" }, // Adrian Mole II, pt. 2 (BBC)
     { 0x7cdf, 0xa5, "LEVEL9-002-2" }, // Adrian Mole II, pt. 2 (Commodore 64/Amstrad CPC/MSX)
     { 0x6bc0, 0x62, "LEVEL9-002-2" }, // Adrian Mole II, pt. 2 (Spectrum)
@@ -72,7 +72,6 @@ static struct l9rec l9_registry[] = {
     { 0x7883, 0xe2, "LEVEL9-002-4" }, // Adrian Mole II, pt. 4 (Commodore 64/Amstrad CPC/MSX)
     { 0x670a, 0x94, "LEVEL9-002-4" }, // Adrian Mole II, pt. 4 (Spectrum)
     { 0x5323, 0xb7, "LEVEL9-003" }, // Adventure Quest (Amstrad CPC/Spectrum)
-    { 0x5323, 0x11, "LEVEL9-003" }, // Adventure Quest (MSX)
     { 0x6e60, 0x83, "LEVEL9-003" }, // Adventure Quest /JoD (Amiga/PC)
     { 0x5b58, 0x50, "LEVEL9-003" }, // Adventure Quest /JoD (Atari)
     { 0x63b6, 0x2e, "LEVEL9-003" }, // Adventure Quest /JoD (Commodore 64)
@@ -81,6 +80,7 @@ static struct l9rec l9_registry[] = {
     { 0x6970, 0xd6, "LEVEL9-003" }, // Adventure Quest /JoD (Spectrum 128)
     { 0x5ace, 0x11, "LEVEL9-003" }, // Adventure Quest /JoD (Spectrum 48)
     { 0x6e5c, 0xf6, "LEVEL9-003" }, // Adventure Quest /JoD (ST)
+    { 0x5323, 0x11, "LEVEL9-003" }, // Adventure Quest (MSX)
     { 0x6972, 0x55, "LEVEL9-003" }, // Adventure Quest /JoD (MSX)
     { 0x1929, 0x00, "LEVEL9-004-DEMO" }, // Champion of the Raj (demo), 1/2 GD (ST)
     { 0x40e0, 0x02, "LEVEL9-004-DEMO" }, // Champion of the Raj (demo), 2/2 GD (ST)
@@ -92,7 +92,6 @@ static struct l9rec l9_registry[] = {
     { 0x110f, 0x00, "LEVEL9-004-fr" }, // Champion of the Raj (French) 2/2 GD (ST)
     { 0x4872, 0x00, "LEVEL9-004-de" }, // Champion of the Raj (German) 1/2 GD (Amiga)
     { 0x4846, 0x00, "LEVEL9-004-de" }, // Champion of the Raj (German) 1/2 GD (ST)
-    { 0x11f5, 0x00, "LEVEL9-004-de" }, // Champion of the Raj (German) 2/2 GD (Amiga / ST)
     { 0x11f5, 0x00, "LEVEL9-004-de" }, // Champion of the Raj (German) 2/2 GD (Amiga / ST)
     { 0x76f4, 0x5e, "LEVEL9-005" }, // Colossal Adventure /JoD (Amiga/PC)
     { 0x5b16, 0x3b, "LEVEL9-005" }, // Colossal Adventure /JoD (Atari)
@@ -252,9 +251,6 @@ static struct l9rec l9_registry[] = {
     { 0x6fc6, 0x14, "LEVEL9-014" }, // Price of Magik (Commodore 64)
     { 0x5aa4, 0xc1, "LEVEL9-014" }, // Price of Magik (Spectrum 48 / Amstrad CPC)
     { 0x7410, 0x5e, "LEVEL9-014" }, // Price of Magik (Spectrum 128)
-    { 0x5aa4, 0xc1, "LEVEL9-014" }, // Price of Magik (Spectrum 48 / Amstrad CPC)
-    { 0x5aa4, 0xc1, "LEVEL9-014" }, // Price of Magik (Spectrum 48 / Amstrad CPC)
-    { 0x7334, 0x87, "LEVEL9-014" }, // Price of Magik (MSX)
     { 0xb797, 0x1f, "LEVEL9-014" }, // Price of Magik /T&M (Amiga *USA*)
     { 0xbaca, 0x3a, "LEVEL9-014" }, // Price of Magik /T&M (Amiga)
     { 0x8c46, 0xf0, "LEVEL9-014" }, // Price of Magik /T&M (Commodore 64 Gfx *USA*)
@@ -268,6 +264,7 @@ static struct l9rec l9_registry[] = {
     { 0x579a, 0x2a, "LEVEL9-014" }, // Price of Magik /T&M GD (BBC)
     { 0x5a50, 0xa9, "LEVEL9-014" }, // Price of Magik /T&M GD (Amstrad CPC/Spectrum +3)
     { 0x6108, 0xdd, "LEVEL9-014" }, // Price of Magik /T&M GD (Spectrum 128)
+    { 0x7334, 0x87, "LEVEL9-014" }, // Price of Magik (MSX)
     { 0xb8b5, 0x27, "LEVEL9-014" }, // Price of Magik /T&M (MSX)
     { 0x506c, 0xf0, "LEVEL9-015" }, // Red Moon (BBC/Commodore 64/Amstrad CPC/MSX)
     { 0x505d, 0x32, "LEVEL9-015" }, // Red Moon (Spectrum)
@@ -333,15 +330,14 @@ static struct l9rec l9_registry[] = {
     { 0x6bf8, 0x3f, "LEVEL9-018" }, // Snowball /SD (Atari)
     { 0x7363, 0x65, "LEVEL9-018" }, // Snowball /SD (Commodore 64/MSX)
     { 0x7b2f, 0x70, "LEVEL9-018" }, // Snowball /SD (Mac/PC/Spectrum 128/Amstrad CPC/Spectrum +3)
-    { 0x7b2f, 0x70, "LEVEL9-018" }, // Snowball /SD (Mac/PC/Spectrum 128/Amstrad CPC/Spectrum +3)
     { 0x6541, 0x02, "LEVEL9-018" }, // Snowball /SD (Spectrum 48)
     { 0x5834, 0x42, "LEVEL9-019-1" }, // The Archers, pt. 1 (BBC)
     { 0x765d, 0xcd, "LEVEL9-019-1" }, // The Archers, pt. 1 (Commodore 64/MSX)
     { 0x6ce5, 0x58, "LEVEL9-019-1" }, // The Archers, pt. 1 (Spectrum)
     { 0x56dd, 0x51, "LEVEL9-019-2" }, // The Archers, pt. 2 (BBC)
     { 0x6e58, 0x07, "LEVEL9-019-2" }, // The Archers, pt. 2 (Commodore 64)
-    { 0x6e56, 0x17, "LEVEL9-019-2" }, // The Archers, pt. 2 (MSX)
     { 0x68da, 0xc1, "LEVEL9-019-2" }, // The Archers, pt. 2 (Spectrum)
+    { 0x6e56, 0x17, "LEVEL9-019-2" }, // The Archers, pt. 2 (MSX)
     { 0x5801, 0x53, "LEVEL9-019-3" }, // The Archers, pt. 3 (BBC)
     { 0x7e98, 0x6a, "LEVEL9-019-3" }, // The Archers, pt. 3 (Commodore 64/MSX)
     { 0x6c67, 0x9a, "LEVEL9-019-3" }, // The Archers, pt. 3 (Spectrum)
@@ -411,6 +407,7 @@ static int v1_recognition(unsigned char *sf, int32 extent, char **ifid)
         return 0;
     if (a == 0x14 && b == 0xff) *ifid="LEVEL9-006";
     else if (a == 0x15 && b == 0x5d) *ifid="LEVEL9-013";
+    else if (a == 0x15 && b == 0x6c) *ifid="LEVEL9-018";
     else if (a == 0x1a && b == 0x24) *ifid="LEVEL9-005";
     else if (a == 0x20 && b == 0x3b) *ifid="LEVEL9-003";
     else *ifid=NULL;
