@@ -2125,12 +2125,12 @@
 		965032B509F29EE20083E64E /* htokens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = htokens.h; path = source/htokens.h; sourceTree = "<group>"; };
 		965032B709F29EE20083E64E /* stringfn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stringfn.c; path = source/stringfn.c; sourceTree = "<group>"; };
 		965032B909F29EE20083E64E /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = COPYING; path = terps/level9/COPYING; sourceTree = SOURCE_ROOT; };
-		965032BC09F29EE20083E64E /* level9.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = level9.c; path = terps/level9/level9.c; sourceTree = SOURCE_ROOT; };
+		965032BC09F29EE20083E64E /* level9.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = level9.c; path = terps/level9/level9.c; sourceTree = SOURCE_ROOT; usesTabs = 1; };
 		965032BD09F29EE20083E64E /* level9.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = level9.h; path = terps/level9/level9.h; sourceTree = SOURCE_ROOT; };
 		965032BE09F29EE20083E64E /* level9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level9.txt; path = terps/level9/level9.txt; sourceTree = SOURCE_ROOT; };
 		965032BF09F29EE20083E64E /* porting.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = porting.txt; path = terps/level9/porting.txt; sourceTree = SOURCE_ROOT; };
 		965032C109F29EE20083E64E /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
-		965032C309F29EE20083E64E /* emu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = emu.c; path = Generic/emu.c; sourceTree = "<group>"; };
+		965032C309F29EE20083E64E /* emu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = emu.c; path = Generic/emu.c; sourceTree = "<group>"; usesTabs = 1; };
 		965032C409F29EE20083E64E /* glk.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; name = glk.c; path = terps/magnetic/Glk/glk.c; sourceTree = SOURCE_ROOT; tabWidth = 2; };
 		965032C809F29EE20083E64E /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		965032CA09F29EE20083E64E /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -2966,7 +2966,7 @@
 		C39D803A26BDF7C300500E1C /* Transparent command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transparent command script.txt"; sourceTree = "<group>"; };
 		C39D803C26BDFA3F00500E1C /* Transcript of Transparent.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Transparent.txt"; sourceTree = "<group>"; };
 		C39DE25F1ECB76A100CE5B70 /* glk.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; name = glk.c; path = terps/level9/Glk/glk.c; sourceTree = SOURCE_ROOT; tabWidth = 2; };
-		C39DE2611ECB76C400CE5B70 /* bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitmap.c; path = terps/level9/bitmap.c; sourceTree = SOURCE_ROOT; };
+		C39DE2611ECB76C400CE5B70 /* bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitmap.c; path = terps/level9/bitmap.c; sourceTree = SOURCE_ROOT; usesTabs = 1; };
 		C39DE2631ECB799500CE5B70 /* heglk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heglk.c; path = heglk/heglk.c; sourceTree = "<group>"; };
 		C3A1997C299982E300D27500 /* OSFastGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSFastGraphics.h; sourceTree = "<group>"; };
 		C3A1997D299982E300D27500 /* OSFastGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSFastGraphics.m; sourceTree = "<group>"; };
@@ -3130,7 +3130,7 @@
 		C3CF36992660207E004D0F7B /* neo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = neo.c; sourceTree = "<group>"; };
 		C3CF369A2660207E004D0F7B /* neo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = neo.h; sourceTree = "<group>"; };
 		C3CF369C26605E4A004D0F7B /* zimage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zimage.h; sourceTree = "<group>"; };
-		C3D155671EDC4C820072D259 /* defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defs.h; path = Generic/defs.h; sourceTree = "<group>"; };
+		C3D155671EDC4C820072D259 /* defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defs.h; path = Generic/defs.h; sourceTree = "<group>"; usesTabs = 1; };
 		C3D219E125FAD0820066AC4E /* InsecureValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsecureValueTransformer.h; sourceTree = "<group>"; };
 		C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsecureValueTransformer.m; sourceTree = "<group>"; };
 		C3D571A127D8F5CF008FB786 /* taylor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = taylor; sourceTree = BUILT_PRODUCTS_DIR; };
