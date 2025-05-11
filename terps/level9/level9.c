@@ -780,7 +780,7 @@ L9BOOL load(char *filename)
 		fclose(f);
 		return FALSE;
 	}
- 	fclose(f);
+	fclose(f);
 	return TRUE;
 }
 
@@ -1060,8 +1060,8 @@ L9BOOL Check(L9BYTE* StartFile,L9UINT32 FileSize,L9UINT32 Offset)
 
 long Scan(L9BYTE* StartFile,L9UINT32 FileSize)
 {
-    if (FileSize == UINT32_MAX)
-        FileSize -= 1;
+	if (FileSize == UINT32_MAX)
+		FileSize -= 1;
 	L9BYTE *Chk = calloc(FileSize+1, 1);
 	L9BYTE *Image=calloc(FileSize,1);
 	L9UINT32 i,num,Size,MaxSize=0;
@@ -1139,8 +1139,8 @@ long Scan(L9BYTE* StartFile,L9UINT32 FileSize)
 
 long ScanV2(L9BYTE* StartFile,L9UINT32 FileSize)
 {
-    if (FileSize == UINT32_MAX)
-        FileSize -= 1;
+	if (FileSize == UINT32_MAX)
+		FileSize -= 1;
 	L9BYTE *Chk=calloc(FileSize+1, 1);
 	L9BYTE *Image=calloc(FileSize,1);
 	L9UINT32 i,Size,MaxSize=0,num;
@@ -1163,7 +1163,7 @@ long ScanV2(L9BYTE* StartFile,L9UINT32 FileSize)
 	for (i=0;i<FileSize-29;i++)
 	{
 		num=L9WORD(StartFile+i+28)+1;
-        if ((i + num) <= FileSize && i < (FileSize - 32) && ((Chk[i + num] - Chk[i + 32]) & 0xff) == StartFile[i + 0x1e])
+		if ((i + num) <= FileSize && i < (FileSize - 32) && ((Chk[i + num] - Chk[i + 32]) & 0xff) == StartFile[i + 0x1e])
 		{
 			for (j=0;j<14;j++)
 			{
@@ -1424,7 +1424,7 @@ L9BOOL findsubs(L9BYTE* testptr, L9UINT32 testsize, L9BYTE** picdata, L9UINT32 *
 			}
 			
 			if (*tmpptr != 0xff)
-			{ 		
+			{
 				*picdata = startptr;
 				*picsize = picptr - startptr;
 				return TRUE;
@@ -1495,7 +1495,7 @@ L9BOOL intinitialise(char*filename,char*picname)
 			if (Offset<0)
 			{
 				error("\rUnable to locate valid Level 9 game in file: %s\r",filename);
-			 	return FALSE;
+				return FALSE;
 			}
 		}
 	}
@@ -1987,16 +1987,16 @@ void L9Random(void)
 	fprintf(f," %d",randomseed);
 #endif
 #ifdef SPATTERLIGHT
-    if (gli_determinism) {
-        randomseed = random_array[random_counter];
-        random_counter++;
-        if (random_counter > 99)
-            random_counter = 0;
-    } else {
+	if (gli_determinism) {
+		randomseed = random_array[random_counter];
+		random_counter++;
+		if (random_counter > 99)
+			random_counter = 0;
+	} else {
 #endif
-    randomseed=(((randomseed<<8) + 0x0a - randomseed) <<2) + randomseed + 1;
+	randomseed=(((randomseed<<8) + 0x0a - randomseed) <<2) + randomseed + 1;
 #ifdef SPATTERLIGHT
-    }
+	}
 #endif
 
 	*getvar()=randomseed & 0xff;
@@ -2656,9 +2656,9 @@ L9BOOL corruptinginput(void)
 			{/* ip17 */
 				if (abrevword==-1) continue;
 			}
-            else if (d0!=0 && abrevword!=-1) break;
-            else if (d0!=0 && d6<3)
-            {
+			else if (d0!=0 && abrevword!=-1) break;
+			else if (d0!=0 && d6<3)
+			{
 				abrevword=d1;
 				continue;
 			}
@@ -3892,7 +3892,7 @@ void executeinstruction(void)
 		switch (code & 0x1f)
 		{
 			case 0:		Goto();break;
-			case 1: 	intgosub();break;
+			case 1:		intgosub();break;
 			case 2:		intreturn();break;
 			case 3:		printnumber();break;
 			case 4:		messagev();break;
@@ -4006,7 +4006,7 @@ void RestoreGame(char* filename)
 		}
 		else
 			printstring("\rSorry, unrecognised format. Unable to restore\r");
-        fclose(f);
+		fclose(f);
 	}
 	else
 		printstring("\rUnable to restore game.\r");

@@ -749,11 +749,11 @@ BitmapType bitmap_pc_type(char* file)
 	{
 		L9BYTE data[6];
 		int x, y;
-        
-        if(fread(data,1,sizeof data,f) != sizeof data && !feof(f)) {
-            fclose(f);
-            return NO_BITMAPS;
-        }
+
+		if(fread(data,1,sizeof data,f) != sizeof data && !feof(f)) {
+			fclose(f);
+			return NO_BITMAPS;
+		}
 		fclose(f);
 
 		x = data[2]+data[3]*256;
@@ -902,11 +902,11 @@ BitmapType bitmap_noext_type(char* file)
 	{
 		L9BYTE data[72];
 		int x, y;
-        
-        if(fread(data,1,sizeof data,f) != sizeof data && !feof(f)) {
-            fclose(f);
-            return NO_BITMAPS;
-        }
+
+		if(fread(data,1,sizeof data,f) != sizeof data && !feof(f)) {
+			fclose(f);
+			return NO_BITMAPS;
+		}
 		fclose(f);
 
 		x = data[67]+data[66]*256;
@@ -1431,10 +1431,10 @@ L9BOOL bitmap_bbc_decode(char* file, BitmapType type, int num)
 
 	/* Seek to the offset of the pixPat data and read in the data */
 	fseek(f,filelength(f)-32,SEEK_SET);
-    if(fread(patRowData,sizeof (L9BYTE),32,f) != 32 && !feof(f)) {
-        fclose(f);
-        return FALSE;
-    }
+	if(fread(patRowData,sizeof (L9BYTE),32,f) != 32 && !feof(f)) {
+		fclose(f);
+		return FALSE;
+	}
 	fclose(f);
 
 	/* Extract the patterns */

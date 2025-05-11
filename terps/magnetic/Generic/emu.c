@@ -273,9 +273,9 @@
 #include <alloc.h>
 
 #define fread(p,s,n,f) lfread(p,s,n,f)
-#define fopen(f,m)     lfopen(f,m)
-#define malloc(s)      farmalloc(s)
-#define free(p)        farfree(p)
+#define fopen(f,m)	   lfopen(f,m)
+#define malloc(s)	   farmalloc(s)
+#define free(p)		   farfree(p)
 
 extern long lfread(void far *, long, long, FILE far *);
 extern FILE far * lfopen(const char far *, const char far *);
@@ -365,9 +365,9 @@ void write_reg(int, int, type32);
 type32 spatterlight_rseed(type32 seed);
 #endif
 
-#define MAX_STRING_SIZE  0xFF00
+#define MAX_STRING_SIZE	 0xFF00
 #define MAX_PICTURE_SIZE 0xC800
-#define MAX_MUSIC_SIZE   0x4E20
+#define MAX_MUSIC_SIZE	 0x4E20
 
 #ifdef LOGEMU
 void out(char *format,...)
@@ -451,7 +451,7 @@ type16 read_w2(type8 * ptr)
 void ms_seed(type32 seed)
 {
 #if defined(SPATTERLIGHT)
-    rseed = spatterlight_rseed(seed);
+	rseed = spatterlight_rseed(seed);
 #else
 	rseed = seed;
 #endif
@@ -728,7 +728,7 @@ type8 ms_init(type8s * name, type8s * gfxname, type8s * hntname, type8s * sndnam
 		if (string_size > MAX_STRING_SIZE)
 		{
 			if (!(string = malloc(MAX_STRING_SIZE)) ||
-			    !(string3 = malloc(string_size - MAX_STRING_SIZE)))
+				!(string3 = malloc(string_size - MAX_STRING_SIZE)))
 			{
 				ms_freemem();
 				fclose(fp);
@@ -1082,9 +1082,9 @@ void extract_frame(struct picture * pic)
 			bit_x = 7 - (x & 7);
 			mask = 1 << bit_x;
 			value = ((values[0] & mask) >> bit_x) << 0|
-			        ((values[1] & mask) >> bit_x) << 1|
-			        ((values[2] & mask) >> bit_x) << 2|
-			        ((values[3] & mask) >> bit_x) << 3;
+					((values[1] & mask) >> bit_x) << 1|
+					((values[2] & mask) >> bit_x) << 2|
+					((values[3] & mask) >> bit_x) << 3;
 			value &= 15;
 
 			gfx_buf[yw + x] = (type8)value;
