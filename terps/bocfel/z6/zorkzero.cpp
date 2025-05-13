@@ -851,7 +851,7 @@ static int mouse_ptr_in_grid(void) {
 }
 
 static bool pick_play() {
-    int ptr = 0;
+    uint16_t ptr = 0;
     bool clicked_in_grid = false;
     int top, left;
     get_image_size(F_MENU_LOC, &left, &top);
@@ -1757,7 +1757,7 @@ void z0_update_on_resize(void) {
         return;
     } else if (screenmode == MODE_MAP) {
         // redraw the map
-        internal_call(pack_routine(0x13614), {1}); // V-$REFRESH(DONT-CLEAR:true)
+        internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
 //        internal_call(pack_routine(0x16130)); // DO-MAP
 
         // We are in a loop inside the BLINK routine
@@ -1767,7 +1767,7 @@ void z0_update_on_resize(void) {
         // (which are used to redraw/unhighlight the
         // previous location icon when we move away)
 
-        uint16_t TBL = internal_get_prop(get_global(0x0b), 0x26); //  <GETP ,HERE ,P?MAP-LOC>>
+        uint16_t TBL = internal_get_prop(get_global(zg.HERE), 0x26); //  <GETP ,HERE ,P?MAP-LOC>>
         uint16_t CY = internal_call(pack_routine(0x16690), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
         uint16_t CX = internal_call(pack_routine(0x16674), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
 
@@ -1796,7 +1796,7 @@ void z0_update_on_resize(void) {
             redraw_fanucci();
             return;
         }
-        internal_call(pack_routine(0x13614), {1}); // V-$REFRESH(DONT-CLEAR:true)
+        internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
         if (V6_TEXT_BUFFER_WINDOW.id) {
             if (graphics_type_changed) {
                 refresh_margin_images();
