@@ -859,8 +859,8 @@ static void hint_title(const char *title, int length) {
     win_menuitem(kV6MenuTitle, 0, hints_depth, 0, const_cast<char *>(title), length);
 }
 
-static bool rt_see_qst(int16_t obj) {
-    return (internal_call_with_arg(pack_routine(ar.RT_SEE_QST), obj) == 1);
+static bool rt_see_qst(uint16_t obj) {
+    return (internal_call(pack_routine(ar.RT_SEE_QST), {obj}) == 1);
 }
 
 static uint16_t hint_question_name(uint16_t question) {

@@ -3146,7 +3146,7 @@ void flush_image_buffer(void) {
             return;
 
         if (is_spatterlight_arthur && screenmode == MODE_ROOM_DESC) {
-            internal_call_with_arg(pack_routine(ar.RT_UPDATE_DESC_WINDOW), 1);
+            internal_call(pack_routine(ar.RT_UPDATE_DESC_WINDOW), {1});
         } else if (image_needs_redraw) {
             if (is_spatterlight_arthur && screenmode == MODE_NORMAL) {
                 draw_arthur_side_images(graphics_bg_glk);
