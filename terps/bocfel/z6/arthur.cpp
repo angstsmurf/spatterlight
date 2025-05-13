@@ -333,18 +333,18 @@ void arthur_update_on_resize(void) {
 
             if (screenmode == MODE_NORMAL) {
                 clear_image_buffer();
-                internal_call_with_arg(pack_routine(ar.RT_UPDATE_PICT_WINDOW), 1);
+                internal_call(pack_routine(ar.RT_UPDATE_PICT_WINDOW), {1});
                 draw_arthur_side_images(current_graphics_buf_win);
                 if (showing_wide_arthur_room_image)
                     arthur_draw_room_image(current_picture);
                 flush_bitmap(current_graphics_buf_win);
             } else if (screenmode == MODE_INVENTORY) {
-                internal_call_with_arg(pack_routine(ar.RT_UPDATE_INVT_WINDOW), 1);
+                internal_call(pack_routine(ar.RT_UPDATE_INVT_WINDOW), {1});
             } else if (screenmode == MODE_STATUS) {
-                internal_call_with_arg(pack_routine(ar.RT_UPDATE_STAT_WINDOW), 1);
+                internal_call(pack_routine(ar.RT_UPDATE_STAT_WINDOW), {1});
             } else if (screenmode == MODE_MAP) {
                 set_global(ag.GL_MAP_GRID_Y, 0);
-                internal_call_with_arg(pack_routine(ar.RT_UPDATE_MAP_WINDOW), 1);
+                internal_call(pack_routine(ar.RT_UPDATE_MAP_WINDOW), {1});
                 flush_bitmap(current_graphics_buf_win);
             }
         } else {

@@ -343,41 +343,6 @@ uint16_t internal_call(uint16_t routine, std::vector<uint16_t> args)
 }
 
 #ifdef SPATTERLIGHT
-uint16_t internal_call_with_args(uint16_t routine, uint16_t number_of_args, uint16_t *args)
-{
-    if (number_of_args > 4)
-        return 0;
-
-    std::vector<uint16_t> saved_args(zargs.begin(), zargs.begin() + znargs);
-
-    znargs = number_of_args + 1;
-    zargs[0] = routine;
-    for (int i = 1; i <= number_of_args; i++) {
-        zargs[i] = args[i - 1];
-    }
-
-    call(StoreWhere::Push);
-
-    process_instructions();
-
-    std::copy(saved_args.begin(), saved_args.end(), zargs.begin());
-    znargs = (int)saved_args.size();
-
-    return pop_stack();
-}
-
-uint16_t internal_call_with_arg(uint16_t routine, uint16_t arg)
-{
-    uint16_t args[1] = { arg };
-    return internal_call_with_args(routine, 1, args);
-}
-
-uint16_t internal_call_with_2_args(uint16_t routine, uint16_t arg1, uint16_t arg2)
-{
-    uint16_t args[2] = { arg1 , arg2 };
-    return internal_call_with_args(routine, 2, args);
-}
-
 uint16_t internal_arg_count(void) {
     return CURRENT_FRAME->nargs;
 }

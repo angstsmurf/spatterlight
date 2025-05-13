@@ -50,8 +50,8 @@ static int number_of_printed_journey_words = 0;
 static inputMode journey_current_input = INPUT_PARTY;
 static uint16_t journey_input_length = 0;
 
-static int16_t selected_journey_line = -1;
-static int16_t selected_journey_column = -1;
+static uint16_t selected_journey_line = -1;
+static uint16_t selected_journey_column = -1;
 static int journey_image_x, journey_image_y, journey_image_width, journey_image_height;
 static float journey_image_scale = 1.0;
 static glui32 screen_width_in_chars, screen_height_in_chars;
@@ -910,7 +910,7 @@ bool journey_read_elvish(int actor) {
     if (offset == 0)
         return false;
 
-    internal_call_with_arg(pack_routine(jr.MASSAGE_ELVISH), offset);  // <MASSAGE-ELVISH .OFF>
+    internal_call(pack_routine(jr.MASSAGE_ELVISH), {offset});  // <MASSAGE-ELVISH .OFF>
     set_global(jg.E_TEMP_LEN, offset); // <SETG E-TEMP-LEN .OFF>
 
     tokenize(get_global(jg.E_INBUF),get_global(jg.E_LEXV), 0, false);
@@ -940,7 +940,7 @@ void journey_change_name() {
 
     if (offset == 0) {
         set_global(jg.UPDATE_FLAG, 1); // <SETG UPDATE-FLAG T>
-    } else if (internal_call_with_arg(pack_routine(jr.ILLEGAL_NAME), offset) == 1) { // ILLEGAL-NAME
+    } else if (internal_call(pack_routine(jr.ILLEGAL_NAME), {offset}) == 1) { // ILLEGAL-NAME
         glk_put_string(const_cast<char*>("[The name you have chosen is reserved. Please try again.]"));
     } else {
         // Do the change
@@ -1372,27 +1372,21 @@ static void journey_adjust_windows(bool restoring) {
         store_word(0x10, word(0x10) & ~FLAGS2_STATUS);
 
         if (!restoring && screenmode != MODE_CREDITS) {
-            int16_t saved_line = selected_journey_line;
-            int16_t saved_column = selected_journey_column;
-
             if (selected_journey_column <= 0) { // call BOLD-PARTY-CURSOR
-                internal_call_with_2_args(pack_routine(jr.BOLD_PARTY_CURSOR), selected_journey_line, 0);
+                internal_call(pack_routine(jr.BOLD_PARTY_CURSOR), {selected_journey_line, 0});
             } else if (journey_current_input == INPUT_PARTY) { // call BOLD-CURSOR
-                internal_call_with_2_args(pack_routine(jr.BOLD_CURSOR), selected_journey_line, selected_journey_column);
+                internal_call(pack_routine(jr.BOLD_CURSOR), {selected_journey_line, selected_journey_column});
 
             } else if (journey_current_input != INPUT_ELVISH) { // call BOLD-OBJECT-CURSOR
                 int numwords = number_of_printed_journey_words;
 
                 for (int i = 0; i < numwords; i++) {
                     JourneyWords *word = &printed_journey_words[i];
-                    uint16_t args[3] = {word->pcm, word->pcf, word->str};
-                    internal_call_with_args(pack_routine(jr.BOLD_CURSOR), 3, args);
+                    std::vector<uint16_t> args = {word->pcm, word->pcf, word->str};
+                    internal_call(pack_routine(jr.BOLD_CURSOR), args);
                 }
-                internal_call_with_2_args(pack_routine(jr.BOLD_OBJECT_CURSOR), saved_line, saved_column); // BOLD-OBJECT-CURSOR(PCM, PCF)
+                internal_call(pack_routine(jr.BOLD_OBJECT_CURSOR), {selected_journey_line, selected_journey_column}); // BOLD-OBJECT-CURSOR(PCM, PCF)
             }
-
-            selected_journey_line = saved_line;
-            selected_journey_column = saved_column;
         }
     }
     journey_resize_graphics_and_buffer_windows();

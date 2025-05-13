@@ -180,22 +180,22 @@ static void update_status_line(bool interlude) {
             print_object(here, nullptr);
         }
         uint16_t player_object = get_global(sg.WINNER);
-        int16_t tmp = internal_get_parent(player_object);
+        uint16_t tmp = internal_get_parent(player_object);
         if (internal_test_attr(tmp, VEHICLEBIT)) {
             if (internal_test_attr(tmp, SUPPORTERBIT)) {
                 glk_put_string(const_cast<char*>(", on "));
             } else {
                 glk_put_string(const_cast<char*>(", in "));
             }
-            internal_call_with_arg(pack_routine(sr.TELL_THE), tmp);
+            internal_call(pack_routine(sr.TELL_THE), {tmp});
         }
 
         if ((here == so.BRIDGE_OF_ERASMUS && internal_test_attr(so.WHEEL, ONBIT)) || (here == so.GALLEY && internal_test_attr(so.GALLEY_WHEEL, ONBIT))) {
             glk_put_string(const_cast<char*>("; course "));
-            internal_call_with_arg(pack_routine(sr.TELL_DIRECTION), get_global(sg.SHIP_DIRECTION));
+            internal_call(pack_routine(sr.TELL_DIRECTION), {get_global(sg.SHIP_DIRECTION)});
 
             glk_put_string(const_cast<char*>("; wheel "));
-            internal_call_with_arg(pack_routine(sr.TELL_DIRECTION), get_global(sg.SHIP_COURSE));
+            internal_call(pack_routine(sr.TELL_DIRECTION), {get_global(sg.SHIP_COURSE)});
         }
 
     } else if (interlude) {
@@ -1076,7 +1076,7 @@ static int maze_mouse_f(void) {
     if (WX <= BX / 2 && WY <= BY / 2)
         return 0;
     if (DIR != 0) {
-        internal_call_with_arg(pack_routine(sr.ADD_TO_INPUT), DIR);
+        internal_call(pack_routine(sr.ADD_TO_INPUT), {DIR});
         glk_put_char(UNICODE_LINEFEED);
         return 13;
     }

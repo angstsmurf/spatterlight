@@ -851,7 +851,7 @@ static int mouse_ptr_in_grid(void) {
 }
 
 static bool pick_play() {
-    int ptr = 0;
+    uint16_t ptr = 0;
     bool clicked_in_grid = false;
     int top, left;
     get_image_size(F_MENU_LOC, &left, &top);
@@ -894,7 +894,7 @@ static bool pick_play() {
                 // Fallthrough
             case ZSCII_NEWLINE:
                 finished = true;
-                resigned = (internal_call_with_arg(pack_routine(0x2a9c8), ptr) == 1); // <PLAY-SELECTED PTR>
+                resigned = (internal_call(pack_routine(0x2a9c8), {ptr}) == 1); // <PLAY-SELECTED PTR>
                 if (!resigned) {
                     unbold_move(ptr);
                 }
@@ -1537,7 +1537,7 @@ static void draw_peg(uint16_t table, int offset) {
         uint16_t wgt = user_word(table + i * 2);
         if (wgt == 0)
             return;
-        uint16_t pic = internal_call_with_arg(pack_routine(0x32854), wgt); //  <SET-B-PIC WGT>
+        uint16_t pic = internal_call(pack_routine(0x32854), {wgt}); //  <SET-B-PIC WGT>
         draw_to_pixmap_unscaled(pic, x, user_word(B_Y_TBL + i * 2));
     }
 }
@@ -1697,8 +1697,8 @@ void V_MAP_LOOP(void) {
     // Get the map location table of current room
     uint16_t TBL = internal_get_prop(get_global(0x0b), 0x26); //  <GETP ,HERE ,P?MAP-LOC>>
     // Get the coordinates of the map representation of current room
-    uint16_t CY = internal_call_with_arg(pack_routine(0x16690), user_word(TBL + 2)); // <MAP-Y <ZGET .TBL 1>>
-    uint16_t CX = internal_call_with_arg(pack_routine(0x16674), user_word(TBL + 4)); // <MAP-X <ZGET .TBL 2>>
+    uint16_t CY = internal_call(pack_routine(0x16690), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
+    uint16_t CX = internal_call(pack_routine(0x16674), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
 
     store_variable(4, CX);
     store_variable(5, CY);
@@ -1757,7 +1757,7 @@ void z0_update_on_resize(void) {
         return;
     } else if (screenmode == MODE_MAP) {
         // redraw the map
-        internal_call_with_arg(pack_routine(zr.V_REFRESH), 1); // V-$REFRESH(DONT-CLEAR:true)
+        internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
 //        internal_call(pack_routine(0x16130)); // DO-MAP
 
         // We are in a loop inside the BLINK routine
@@ -1768,8 +1768,8 @@ void z0_update_on_resize(void) {
         // previous location icon when we move away)
 
         uint16_t TBL = internal_get_prop(get_global(zg.HERE), 0x26); //  <GETP ,HERE ,P?MAP-LOC>>
-        uint16_t CY = internal_call_with_arg(pack_routine(0x16690), user_word(TBL + 2)); // <MAP-Y <ZGET .TBL 1>>
-        uint16_t CX = internal_call_with_arg(pack_routine(0x16674), user_word(TBL + 4)); // <MAP-X <ZGET .TBL 2>>
+        uint16_t CY = internal_call(pack_routine(0x16690), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
+        uint16_t CX = internal_call(pack_routine(0x16674), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
 
         update_blink_coordinates(CX, CY);
         return;
@@ -1796,7 +1796,7 @@ void z0_update_on_resize(void) {
             redraw_fanucci();
             return;
         }
-        internal_call_with_arg(pack_routine(zr.V_REFRESH), 1); // V-$REFRESH(DONT-CLEAR:true)
+        internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
         if (V6_TEXT_BUFFER_WINDOW.id) {
             if (graphics_type_changed) {
                 refresh_margin_images();
