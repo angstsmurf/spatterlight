@@ -3689,7 +3689,7 @@ uint8_t internal_read_char(void) {
     internal_read_char_hack = true;
 
     if (options.autosave && !in_interrupt()) {
-        spatterlight_do_autosave(SaveOpcode::None);
+//        spatterlight_do_autosave(SaveOpcode::None);
     }
     uint8_t result = 0;
     if (get_input(0, 0, input)) {
@@ -3727,7 +3727,7 @@ void zread_char()
 #endif
     if (options.autosave && !in_interrupt()) {
 #ifdef SPATTERLIGHT
-        spatterlight_do_autosave(SaveOpcode::ReadChar);
+//        spatterlight_do_autosave(SaveOpcode::ReadChar);
 #else
         do_save(SaveType::Autosave, SaveOpcode::ReadChar);
 #endif
@@ -3873,7 +3873,7 @@ static bool read_handler()
 
     if (options.autosave && !in_interrupt()) {
 #ifdef SPATTERLIGHT
-        spatterlight_do_autosave(SaveOpcode::Read);
+//        spatterlight_do_autosave(SaveOpcode::Read);
 #else
         do_save(SaveType::Autosave, SaveOpcode::Read);
 #endif
