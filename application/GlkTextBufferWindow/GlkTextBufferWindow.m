@@ -284,6 +284,10 @@ fprintf(stderr, "%s\n",                                                    \
         [self reallyPerformScroll];
     }
     [NSUserDefaults.standardUserDefaults setValue:hyphenationLanguage forKey:@"NSHyphenationLanguage"];
+    if (_pendingEditable) {
+        _textview.editable = YES;
+        _pendingEditable = NO;
+    }
 }
 
 - (void)scrollWheelchanged:(NSEvent *)event {
@@ -1230,7 +1234,8 @@ fprintf(stderr, "%s\n",                                                    \
               attributes:_inputAttributes];
 
     [textstorage appendAttributedString:att];
-    _textview.editable = YES;
+    _pendingEditable = YES;
+//    _textview.editable = YES;
 
     line_request = YES;
     [self showInsertionPoint];
