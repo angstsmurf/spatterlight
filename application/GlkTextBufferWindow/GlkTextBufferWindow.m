@@ -1829,8 +1829,15 @@ replacementString:(id)repl {
 #pragma mark Scrolling
 
 - (void)forceLayout{
-    if (textstorage.length < 50000)
-        [layoutmanager glyphRangeForTextContainer:container];
+//    if (textstorage.length < 50000 && container.marginImages.count < 40 && !self.inLiveResize) {
+        if (!self.inLiveResize) {
+
+        //        [layoutmanager ensureLayoutForTextContainer:container];
+        NSUInteger length = MIN(textstorage.length , 1000);
+
+        [layoutmanager ensureLayoutForGlyphRange:NSMakeRange(textstorage.length - length, length)];
+    }
+
 }
 
 - (void)markLastSeen {
@@ -1906,6 +1913,8 @@ replacementString:(id)repl {
 }
 
 - (void)restoreScroll:(id)sender {
+    if (_textview.inLiveResize)
+        return;
     _pendingScrollRestore = NO;
     _pendingScroll = NO;
     //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
@@ -1982,9 +1991,10 @@ replacementString:(id)repl {
     if (!textstorage.length)
         return;
 
-    if (textstorage.length < 1000000)
-        // first, force a layout so we have the correct textview frame
-        [layoutmanager ensureLayoutForTextContainer:container];
+//    if (textstorage.length < 1000000)
+//        // first, force a layout so we have the correct textview frame
+//        [layoutmanager ensureLayoutForTextContainer:container];
+    [self forceLayout];
 
     // then, get the bottom
     CGFloat bottom = NSHeight(_textview.frame);
@@ -2015,7 +2025,7 @@ replacementString:(id)repl {
     lastAtBottom = YES;
 
     // first, force a layout so we have the correct textview frame
-    [layoutmanager glyphRangeForTextContainer:container];
+    [self forceLayout];
     NSPoint newScrollOrigin = NSMakePoint(0, NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds));
 
     [self scrollToPosition:newScrollOrigin.y animate:animate];
