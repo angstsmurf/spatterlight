@@ -29,7 +29,6 @@ void SET_BORDER(void);
 void DRAW_NEW_COMP(void);
 void SETUP_SCREEN(void);
 void MAP_X(void);
-void MAP_Y(void);
 void PLAY_SELECTED(void);
 void J_PLAY(void);
 void DRAW_PEGS(void);
