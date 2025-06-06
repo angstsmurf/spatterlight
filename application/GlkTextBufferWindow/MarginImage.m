@@ -91,6 +91,9 @@
     NSRect theline;
     NSSize size = _image.size;
 
+    if (_container.textView.inLiveResize)
+        return _bounds;
+
     if (recalc) {
         recalc = NO; /* don't infiniloop in here, settle for the first result */
 
@@ -103,9 +106,12 @@
         }
 
         /* force layout and get position of anchor glyph */
-        ourglyph = [layout glyphRangeForCharacterRange:NSMakeRange((NSUInteger)_pos, 1)
-                                  actualCharacterRange:&ourline];
-        theline = [layout lineFragmentRectForGlyphAtIndex:ourglyph.location
+//        ourglyph = [layout glyphRangeForCharacterRange:NSMakeRange((NSUInteger)_pos, 1)
+//                                  actualCharacterRange:&ourline];
+//        theline = [layout lineFragmentRectForGlyphAtIndex:ourglyph.location
+//                                           effectiveRange:nil];
+
+        theline = [layout lineFragmentRectForGlyphAtIndex:_pos
                                            effectiveRange:nil];
 
         NSParagraphStyle *para = [textview.textStorage attribute:NSParagraphStyleAttributeName atIndex:_pos effectiveRange:nil];
@@ -137,8 +143,8 @@
 
         /* invalidate our fake layout *after* we set the bounds ... to avoid
          * infiniloop */
-        [layout invalidateLayoutForCharacterRange:ourline
-                             actualCharacterRange:nil];
+//        [layout invalidateLayoutForCharacterRange:ourline
+//                             actualCharacterRange:nil];
     }
 
     [_container unoverlap:self];
@@ -147,7 +153,7 @@
 
 - (void)uncacheBounds {
     recalc = YES;
-    _bounds = NSZeroRect;
+//    _bounds = NSZeroRect;
 }
 
 -(void)cursorUpdate {
