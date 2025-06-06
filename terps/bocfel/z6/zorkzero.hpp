@@ -168,6 +168,7 @@ typedef struct ZorkGlobals {
     uint8_t YOUR_SCORE;
     uint8_t DEFAULT_FG; //
     uint8_t DEFAULT_BG;
+    uint8_t BLINK_TBL;
 } ZorkGlobals;
 
 extern ZorkGlobals zg;
