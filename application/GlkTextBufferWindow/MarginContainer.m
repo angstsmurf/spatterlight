@@ -204,7 +204,7 @@
                     if (newrect.size.width <= 50) {
                         overlapped2 = YES;
                         // If the rect has now become too narrow, push it down
-                        // and restore original width 50 is a slightly arbitrary
+                        // and restore original width. 50 is a slightly arbitrary
                         // cutoff width
                         newrect.size.width = rect.size.width; // Original width
                         newrect.origin.x = rect.origin.x;
