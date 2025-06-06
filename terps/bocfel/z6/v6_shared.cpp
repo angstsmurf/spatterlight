@@ -1475,3 +1475,14 @@ void V_BOW(void) {}
 void MAZE_F(void) {}
 void DESCRIBE_ROOM(void) {}
 void DESCRIBE_OBJECTS(void) {}
+void WINPROP(void) {}
+void SET_BORDER(void) {}
+void DRAW_NEW_COMP(void) {}
+void SETUP_SCREEN(void) {}
+void MAP_X(void) {}
+void MAP_Y(void) {}
+void PLAY_SELECTED(void) {}
+void SCORE_CHECK(void) {}
+void TOWER_WIN_CHECK(void) {}
+void DRAW_PEGS(void) {}
+void SET_B_PIC(void) {}
