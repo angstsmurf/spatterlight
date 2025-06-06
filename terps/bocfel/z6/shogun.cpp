@@ -513,6 +513,7 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
         glk_window_clear(SHOGUN_MENU_BG_WIN.id);
         char message[40];
         int length = print_long_zstr_to_cstr(MSG, message, 40);
+        garglk_set_zcolors_stream(glk_window_get_stream(SHOGUN_MENU_BG_WIN.id), user_selected_foreground, zcolor_Current);
         glk_put_string_stream(glk_window_get_stream(SHOGUN_MENU_BG_WIN.id), message);
         print_zstring_to_transcript(MSG);
         win_menuitem(kV6MenuTitle, 0, kV6MenuTypeShogun, 0, const_cast<char *>(message), length);
