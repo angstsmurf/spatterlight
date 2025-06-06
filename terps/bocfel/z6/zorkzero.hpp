@@ -23,7 +23,19 @@ void CENTER(void);
 void V_REFRESH(void);
 void V_MODE(void);
 void V_DEFINE(void);
+void DEFAULT_COLORS(void);
 void INIT_STATUS_LINE(void);
+void SET_BORDER(void);
+void DRAW_NEW_COMP(void);
+void SETUP_SCREEN(void);
+void MAP_X(void);
+void MAP_Y(void);
+void PLAY_SELECTED(void);
+void J_PLAY(void);
+void DRAW_PEGS(void);
+void SET_B_PIC(void);
+void TOWER_WIN_CHECK(void);
+void SCORE_CHECK(void);
 void UPDATE_STATUS_LINE(void);
 void DRAW_TOWER(void);
 void B_MOUSE_PEG_PICK(void);
@@ -40,6 +52,7 @@ void SN_CLICK(void);
 void FANUCCI(void);
 void SETUP_FANUCCI(void);
 void V_MAP_LOOP(void);
+void WINPROP(void);
 
 enum BorderType {
     CASTLE_BORDER = 5,
@@ -160,17 +173,17 @@ typedef struct ZorkGlobals {
 extern ZorkGlobals zg;
 
 typedef struct ZorkRoutines {
+    uint32_t V_REFRESH; //
+    uint32_t SETUP_SCREEN;
     uint32_t SET_BORDER;
     uint32_t DRAW_NEW_COMP;
+    uint32_t MAP_X;
+    uint32_t MAP_Y;
     uint32_t J_PLAY;
     uint32_t SCORE_CHECK;
     uint32_t DRAW_PEGS;
     uint32_t SET_B_PIC;
     uint32_t TOWER_WIN_CHECK;
-    uint32_t V_REFRESH;
-    uint32_t SETUP_SCREEN;
-    uint32_t MAP_X;
-    uint32_t MAP_Y;
     uint32_t PLAY_SELECTED;
 } ZorkRoutines;
 
@@ -178,6 +191,8 @@ extern ZorkRoutines zr;
 
 typedef struct ZorkTables {
     uint16_t K_HINT_ITEMS;
+    uint16_t F_PLAY_TABLE;
+    uint16_t F_PLAY_TABLE_APPLE;
 } ZorkTables;
 
 extern ZorkTables zt;

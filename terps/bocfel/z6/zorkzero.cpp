@@ -201,9 +201,14 @@ void ADJUST_TEXT_WINDOW(int id) {
 void DISPLAY_BORDER(BorderType border) {
     if (screenmode != MODE_HINTS)
         screenmode = MODE_NORMAL;
-    if (current_graphics_buf_win != graphics_bg_glk && current_graphics_buf_win != nullptr) {
-        v6_delete_glk_win(current_graphics_buf_win);
+    if (current_graphics_buf_win == graphics_fg_glk) {
+        win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
+        glk_cancel_char_event(graphics_fg_glk);
+        current_graphics_buf_win = graphics_bg_glk;
     }
+//    if (current_graphics_buf_win != graphics_bg_glk && current_graphics_buf_win != nullptr) {
+//        v6_delete_glk_win(current_graphics_buf_win);
+//    }
     current_graphics_buf_win = graphics_bg_glk;
     glk_request_mouse_event(current_graphics_buf_win);
 
@@ -295,7 +300,7 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
         }
 
         set_current_window(&windows[7]); // <SCREEN ,S-FULL>
-        set_global(zg.CURRENT_BORDER, internal_call(pack_routine(0x1bb8c))); // <SETG CURRENT-BORDER <SET-BORDER>>
+        set_global(zg.CURRENT_BORDER, internal_call(pack_routine(zr.SET_BORDER)));
         DISPLAY_BORDER((BorderType)get_global(zg.CURRENT_BORDER));
         for (int i = 1; i < 14; i++) {
             internal_clear_attr(0x166, i);
@@ -420,6 +425,7 @@ static void z0_resize_status_windows(void) {
 
 
     if (!BORDER_ON) {
+        fprintf(stderr, "z0_resize_status_windows: border is off\n");
         if (z0_right_status_window != nullptr) {
             gli_delete_window(z0_right_status_window);
             z0_right_status_window = nullptr;
@@ -487,8 +493,7 @@ void UPDATE_STATUS_LINE(void) {
 
     if (BORDER_ON) {
         if (COMPASS_CHANGED) {
-            internal_call(pack_routine(0x1bd08));
-            //        DRAW_NEW_COMP();
+            internal_call(pack_routine(zr.DRAW_NEW_COMP));
         }
         glk_set_window(z0_right_status_window);
     }
@@ -521,8 +526,8 @@ void z0_update_colors(void) {
 
     fprintf(stderr, "update_z0_colors: Called %d times\n", ++number_of_update_color_calls);
 
-    uint16_t default_fg = get_global(0x4f);
-    uint16_t default_bg = get_global(0x81);
+    uint16_t default_fg = get_global(zg.DEFAULT_FG); // 0x4f
+    uint16_t default_bg = get_global(zg.DEFAULT_BG); // 0x81
 
     uint16_t current_fg = get_global(fg_global_idx);
     uint16_t current_bg = get_global(bg_global_idx);
@@ -591,13 +596,13 @@ void z0_update_colors(void) {
     fprintf(stderr, "update_z0_colors: set FG-COLOR (global 0x1c) to %d\n", current_fg);
     fprintf(stderr, "update_z0_colors: set BG_COLOR (global 0xcc) to %d\n", current_bg);
 
-    if (current_fg == 1) {
-        current_fg = default_fg;
-    }
-
-    if (current_bg == 1) {
-        current_bg = default_bg;
-    }
+//    if (current_fg == 1) {
+//        current_fg = default_fg;
+//    }
+//
+//    if (current_bg == 1) {
+//        current_bg = default_bg;
+//    }
 
     bool colorized_bw = (gli_z6_colorize &&
                          (gli_z6_graphics == kGraphicsTypeCGA || gli_z6_graphics == kGraphicsTypeMacBW));
@@ -683,8 +688,6 @@ static void adjust_text_window_by_split(uint16_t id) {
 #define F_DISCARD_LOC 419
 #define F_CARD_1_LOC  420
 #define F_CARD_SPACE  421
-#define F_PLAY_TABLE_APPLE 0xdc8c
-#define F_PLAY_TABLE 0xdc6e
 
 #define F_DISCARD_PIC_LOC 369
 
@@ -816,7 +819,7 @@ static void fanucci_select_command(int ptr, bool bold) {
     } else {
         glk_put_char(UNICODE_SPACE);
     }
-    uint16_t fanucci_command_table = fanucci_window_is_narrow ? F_PLAY_TABLE_APPLE : F_PLAY_TABLE;
+    uint16_t fanucci_command_table = fanucci_window_is_narrow ? zt.F_PLAY_TABLE_APPLE : zt.F_PLAY_TABLE;
     uint16_t string = user_word(fanucci_command_table + ptr * 2);
     print_handler(unpack_string(string), nullptr);
     glk_set_style(style_Normal);
@@ -896,7 +899,7 @@ static bool pick_play() {
                 // Fallthrough
             case ZSCII_NEWLINE:
                 finished = true;
-                resigned = (internal_call(pack_routine(0x2a9c8), {(uint16_t)ptr}) == 1); // <PLAY-SELECTED PTR>
+                resigned = (internal_call(pack_routine(zr.PLAY_SELECTED), {ptr}) == 1); // <PLAY-SELECTED PTR>
                 if (!resigned) {
                     unbold_move(ptr);
                 }
@@ -968,12 +971,12 @@ static bool pick_play() {
     return resigned;
 }
 
-static void j_play(void) {
-    internal_call(pack_routine(0x2a578));
+void J_PLAY(void) {
+    internal_call(pack_routine(zr.J_PLAY));
 }
 
 static bool score_check(void) {
-    int result = internal_call(pack_routine(0x2a440));
+    int result = internal_call(pack_routine(zr.SCORE_CHECK));
     return (result == 1);
 }
 
@@ -1006,7 +1009,7 @@ void FANUCCI(void) {
                 finished = true;
             } else {
                 glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-                j_play();
+                J_PLAY();
                 draw_cards();
                 uint16_t f_plays = get_global(zg.F_PLAYS);
                 set_global(zg.F_PLAYS, f_plays + 1);
@@ -1433,7 +1436,7 @@ static void draw_peggles(void) {
         store_word(BOARD_TABLE + (i + 1) * 2, width);
     }
 
-    internal_call(pack_routine(0x2266c)); // <DRAW-PEGS>
+    internal_call(pack_routine(zr.DRAW_PEGS)); // <DRAW-PEGS>
 
     get_image_size(PBOZ_RESTART_BOX_LOC, &width, &height);
     if (has_made_peggleboz_move) {
@@ -1539,7 +1542,7 @@ static void draw_peg(uint16_t table, int offset) {
         uint16_t wgt = user_word(table + i * 2);
         if (wgt == 0)
             return;
-        uint16_t pic = internal_call(pack_routine(0x32854), {wgt}); //  <SET-B-PIC WGT>
+        uint16_t pic = internal_call(pack_routine(zr.SET_B_PIC), {wgt}); //  <SET-B-PIC WGT>
         draw_to_pixmap_unscaled(pic, x, user_word(B_Y_TBL + i * 2));
     }
 }
@@ -1588,7 +1591,7 @@ static void draw_tower_of_bozbar(void) {
     draw_peg(RIGHT_PEG_TABLE, 2);
 
     get_image_size(TOWER_UNDO_BOX_LOC, &width, &height);
-    if (undoing || internal_call(pack_routine(0x324b0))) { // TOWER-WIN-CHECK
+    if (undoing || internal_call(pack_routine(zr.TOWER_WIN_CHECK))) { // TOWER-WIN-CHECK
         draw_to_pixmap_unscaled(DIM_UNDO_BOX, width, height);
     } else {
         draw_to_pixmap_unscaled(UNDO_BOX, width, height);
@@ -1697,10 +1700,10 @@ static void update_blink_coordinates(uint16_t x, uint16_t y) {
 // coordinates upon every mouse click
 void V_MAP_LOOP(void) {
     // Get the map location table of current room
-    uint16_t TBL = internal_get_prop(get_global(0x0b), 0x26); //  <GETP ,HERE ,P?MAP-LOC>>
+    uint16_t TBL = internal_get_prop(get_global(zg.HERE), 0x26); //  <GETP ,HERE ,P?MAP-LOC>>
     // Get the coordinates of the map representation of current room
-    uint16_t CY = internal_call(pack_routine(0x16690), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
-    uint16_t CX = internal_call(pack_routine(0x16674), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
+    uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>> 0x16690
+    uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>> 0x16674
 
     store_variable(4, CX);
     store_variable(5, CY);
@@ -1749,7 +1752,7 @@ void z0_update_on_resize(void) {
 
     glk_request_timer_events(0);
     
-    internal_call(pack_routine(0x1ca6c)); // SETUP-SCREEN
+    internal_call(pack_routine(zr.SETUP_SCREEN)); // SETUP-SCREEN
 
     if (screenmode == MODE_DEFINE) {
         adjust_definitions_window();
@@ -1770,8 +1773,8 @@ void z0_update_on_resize(void) {
         // previous location icon when we move away)
 
         uint16_t TBL = internal_get_prop(get_global(zg.HERE), 0x26); //  <GETP ,HERE ,P?MAP-LOC>>
-        uint16_t CY = internal_call(pack_routine(0x16690), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
-        uint16_t CX = internal_call(pack_routine(0x16674), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
+        uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
+        uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
 
         update_blink_coordinates(CX, CY);
         return;
@@ -1856,34 +1859,34 @@ bool z0_display_picture(int x, int y, Window *win) {
     if (current_picture == zorkzero_title_image || current_picture == zorkzero_encyclopedia_border || current_picture == zorkzero_map_border || (is_zorkzero_rebus_image(current_picture) && screenmode == MODE_NORMAL)) {
 
         // Removes extra graphics window that appears after resizing map?
-        if (win->id != nullptr && win->id != graphics_bg_glk) {
-            v6_delete_glk_win(win->id);
-        }
+//        if (win->id != nullptr && win->id != graphics_bg_glk) {
+//            v6_delete_glk_win(win->id);
+//        }
+//
+//        if (win->id == nullptr)
+//            win->id = gli_new_window(wintype_Graphics, 0);
+//        v6_define_window(win, 1, 1, gscreenw, gscreenh);
 
-        if (win->id == nullptr)
-            win->id = gli_new_window(wintype_Graphics, 0);
-        v6_define_window(win, 1, 1, gscreenw, gscreenh);
+        current_graphics_buf_win = graphics_fg_glk;
+        win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
+        glk_request_mouse_event(graphics_fg_glk);
+        glk_request_char_event(graphics_fg_glk);
 
-        current_graphics_buf_win = win->id;
-        glk_request_mouse_event(win->id);
-
-        if (current_picture == zorkzero_map_border)
+        if (current_picture == zorkzero_map_border) {
             screenmode = MODE_MAP;
-        else
+        } else {
             screenmode = MODE_SLIDESHOW;
+        }
         if (current_picture == zorkzero_encyclopedia_border) {
             windows[3].id = gli_new_window(wintype_TextBuffer, 0);
             win_setbgnd(windows[3].id->peer, encyclopedia_background_color());
         }
-    }
-    if (!win->id || win->id->type != wintype_TextBuffer) {
-        if (current_graphics_buf_win == nullptr)
-            current_graphics_buf_win = graphics_bg_glk;
         draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
+        flush_bitmap(current_graphics_buf_win);
         return true;
     }
 
-    if (win->id->type == wintype_TextBuffer) {
+    if (win->id && win->id->type == wintype_TextBuffer) {
         pending_flowbreak = true;
         float inline_scale = 2.0;
         if (graphics_type == kGraphicsTypeMacBW)
@@ -1891,7 +1894,18 @@ bool z0_display_picture(int x, int y, Window *win) {
         draw_inline_image(win->id, current_picture, imagealign_MarginLeft, current_picture, inline_scale, false);
         add_margin_image_to_list(current_picture);
         return true;
+    } else {
+        fprintf(stderr, "Current window is %d\n", win->index);
+        if (current_graphics_buf_win == nullptr)
+            current_graphics_buf_win = graphics_bg_glk;
+        draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
+        return true;
     }
 
     return false;
+}
+
+void DEFAULT_COLORS(void) {
+    set_global(zg.DEFAULT_FG, 1);
+    set_global(zg.DEFAULT_BG, 1);
 }

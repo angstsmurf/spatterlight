@@ -905,10 +905,50 @@ static std::vector<EntryPoint> entrypoints = {
 
 #pragma mark Zork Zero
 
+//    {
+//        Game::ZorkZero,
+//        "V-DEFINE alt",
+//        { 0x36, 0x04, 0x01, 0x00, 0x34, 0x02, 0x00, 0x00 },
+//        -4,
+//        0,
+//        true,
+//        V_DEFINE
+//    },
+
+//    {
+//        Game::ZorkZero,
+//        "V_REFRESH alt",
+//        { 0xA0, 0x01, 0xD1, 0xA0, 0xA4, 0xC5 },
+//        0,
+//        0,
+//        false,
+//        V_REFRESH
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "after SPLIT-BY-PICTURE alt",
+//        { 0x11, 0x6B, 0x01, 0x03, 0x00, 0xB0 },
+//        5,
+//        0,
+//        false,
+//        after_SPLIT_BY_PICTURE
+//    },
+
+//    {
+//        Game::ZorkZero,
+//        "INIT-STATUS-LINE alt",
+//        { 0x0d, 0x02, 0x01, 0x0d, WILDCARD, WILDCARD, 0x0d, WILDCARD, 0x00},
+//        0,
+//        0,
+//        true,
+//        INIT_STATUS_LINE
+//    },
+
     {
         Game::ZorkZero,
         "UPDATE-STATUS-LINE",
-        { 0xeb, 0x7f, 0x01,  0xbe },
+        { 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7F, 0x04, 0x00, 0x10, 0x00, 0x1e, 0x00 },
         0,
         0,
         true,
@@ -920,16 +960,6 @@ static std::vector<EntryPoint> entrypoints = {
         Game::ZorkZero,
         "V-DEFINE",
         { 0x98, 0x40, 0x00, 0xa0, 0x00, 0xca },
-        0,
-        0,
-        true,
-        V_DEFINE
-    },
-
-    {
-        Game::ZorkZero,
-        "V-DEFINE alt",
-        { 0xED, 0x3F, 0xFF, 0xFF, 0x36, 0x04, 0x01, 0x00 },
         0,
         0,
         true,
@@ -950,8 +980,8 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "V-COLOR",
-        { 0x80, 0xA5, 0xCF, 0x2F},
-        2,
+        { 0x06, 0x80, 0xA5, 0xCF, 0x2F},
+        3,
         0,
         false,
         V_COLOR
@@ -965,6 +995,16 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         false,
         after_V_COLOR
+    },
+
+    {
+        Game::ZorkZero,
+        "DEFAULT-COLORS",
+        { 0x7b, WILDCARD, WILDCARD, 0xeb, 0x7f, 0x07, 0x7b, WILDCARD, WILDCARD, 0xeb, 0x7f, 0x00, 0xb0 },
+        -6,
+        0,
+        false,
+        DEFAULT_COLORS
     },
 
     {
@@ -1010,8 +1050,8 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "CENTER-1 alt",
-        { 0x00, 0xBB, 0xB0, 0x00, 0x00},
-        -6,
+        { 0x00, 0x00, 0xBB, 0xB0, 0x00, 0x00},
+        -7,
         0,
         false,
         CENTER
@@ -1050,11 +1090,31 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "V-MAP-LOOP",
-        { 0x88, 0x1e, 0xff, 0x00 },
+        { 0x88, 0x1e, WILDCARD, 0x00, 0xa0, 0x00, 0xf3 },
         0,
         0,
         false,
         V_MAP_LOOP
+    },
+
+    {
+        Game::ZorkZero,
+        "MAP_X",
+        { 0x43, 0x01, 0x00, 0x4c },
+        -1,
+        0,
+        false,
+        MAP_X
+    },
+
+    {
+        Game::ZorkZero,
+        "MAP_Y",
+        { 0x43, 0x01, 0x00, 0x4c },
+        -1,
+        0,
+        false,
+        MAP_Y
     },
 
     {
@@ -1079,6 +1139,46 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::ZorkZero,
+        "SET-BORDER",
+        { 0x41, 0x1b, 0xc1, 0x48  },
+        -1,
+        0,
+        false,
+        SET_BORDER
+    },
+
+    {
+        Game::ZorkZero,
+        "DRAW-NEW-COMP",
+        { 0x0d, 0x69, 0x00, 0xf9, 0x15, WILDCARD, WILDCARD, 0x3f, 0x09, 0x11 },
+        -1,
+        0,
+        false,
+        DRAW_NEW_COMP
+    },
+
+    {
+        Game::ZorkZero,
+        "SETUP-SCREEN",
+        { 0x10, 0x00, 0x1e, 0x3f, 0x41, 0x3f, 0x06, 0xc8},
+        -1,
+        0,
+        false,
+        SETUP_SCREEN
+    },
+
+    {
+        Game::ZorkZero,
+        "WINPROP",
+        { 0xBE, 0x13, 0x8B, 0x01, 0x70, 0x8B, 0x02 },
+        0,
+        0,
+        false,
+        WINPROP
+    },
+
+    {
+        Game::ZorkZero,
         "PEG-GAME",
         { 0xa0, 0x02, 0xe8, 0x56, 0x02, 0x02, 0x00 },
         0,
@@ -1090,7 +1190,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "PBOZ-CLICK",
-        { 0x0d, 0x05, 0x02, 0xda, 0x4f, 0xbd, 0x01, 0xd8 },
+        { 0x0d, 0x05, 0x02, 0xda, 0x4f, WILDCARD, 0x01, 0xd8 },
         0,
         0,
         false,
@@ -1109,14 +1209,23 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::ZorkZero,
+        "DRAW-PEGS",
+        { 0x0d, 0x01, 0x01, 0xca, 0x2f, 0x01, 0x59, 0x01, 0xe3 },
+        -1,
+        0,
+        false,
+        DRAW_PEGS
+    },
+
+    {
+        Game::ZorkZero,
         "DISPLAY-MOVES",
-        { 0xf3, 0x3f, 0xff, 0xff, 0xbb, 0xf3, 0x7f, 0x01, 0x55, 0x84, 0x02, 0x00},
+        { 0xf3, 0x3f, 0xff, 0xff, 0xbb, 0xf3, 0x7f, 0x01, 0x55, WILDCARD, 0x02, 0x00},
         0,
         0,
         false,
         DISPLAY_MOVES
     },
-
 
     {
         Game::ZorkZero,
@@ -1131,11 +1240,41 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "FANUCCI",
-        { 0xda, 0x4f, 0xbd, 0x01, 0x80, 0xcf, 0x1f },
+        { 0xda, 0x4f, WILDCARD, 0x01, 0x80, 0xcf, 0x1f },
         0,
         0,
         true,
         FANUCCI
+    },
+
+    {
+        Game::ZorkZero,
+        "SCORE_CHECK",
+        { 0x63, WILDCARD, WILDCARD, 0x54, 0x75, WILDCARD, WILDCARD, 0x00, 0xc3, 0x8f, 0x00 },
+        -1,
+        0,
+        false,
+        SCORE_CHECK
+    },
+
+    {
+        Game::ZorkZero,
+        "J-PLAY",
+        { 0xB2, 0x14, 0xE0, 0x00, 0x03, 0x62, 0xE0, 0x52 },
+        -1,
+        0,
+        false,
+        J_PLAY
+    },
+
+    {
+        Game::ZorkZero,
+        "PLAY-SELECTED",
+        { 0x41, 0x01, 0x0e, 0xc1, 0x41, 0x01, 0x0d },
+        -1,
+        0,
+        false,
+        PLAY_SELECTED
     },
 
     {
@@ -1150,8 +1289,18 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::ZorkZero,
+        "TOWER-WIN-CHECK",
+        { 0xc6, 0x0f, 0x01, 0xd0, 0x01, 0xc3, 0x66 },
+        -1,
+        0,
+        false,
+        TOWER_WIN_CHECK
+    },
+
+    {
+        Game::ZorkZero,
         "DRAW-TOWER",
-        { 0xed, 0x7f, 0x07, 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x57},
+        { 0xed, 0x7f, 0x07, 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x57 },
         0,
         0,
         true,
@@ -1161,14 +1310,22 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "B-MOUSE-WEIGHT-PICK",
-        { 0xda, 0x4f, 0xbd, 0x01, 0xdb },
+        { 0xda, 0x4f, WILDCARD, 0x01, 0xdb, 0xcf, 0x1f },
         0,
         0,
         false,
         B_MOUSE_WEIGHT_PICK
     },
 
-
+    {
+        Game::ZorkZero,
+        "SET-B-PIC",
+        { 0xc1, 0x8f, 0x01, 0x01, 0xd0, 0x44, 0x9b, 0x2b },
+        -1,
+        0,
+        false,
+        SET_B_PIC
+    },
 
     {
         Game::ZorkZero,
@@ -1183,7 +1340,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-SN-BOXES",
-        { 0x0d, 0x05, 0x01, 0xeb, 0x7f, 0x01, 0xda, 0x4f, 0xbd, 0x01, 0xd6 },
+        { 0x0d, 0x05, 0x01, 0xeb, 0x7f, 0x01, 0xda, 0x4f, WILDCARD, 0x01, 0xd6 },
         0,
         0,
         true,
@@ -1193,7 +1350,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-PILE",
-        { 0xeb, 0x7f, 0x01, 0xcf, 0x2f, 0x73, 0xf9, 0x01, 0x02 },
+        { 0xeb, 0x7f, 0x01, 0xcf, 0x2f, 0x73, WILDCARD, 0x01, 0x02 },
         0,
         0,
         true,
@@ -1203,7 +1360,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-FLOWERS",
-        { 0x0d, 0x01, 0x01, 0x0d, 0x02, 0x01, 0xd9, 0x0f, 0x97, 0x3d, 0x73, 0xf9, 0x00 },
+        { 0x0d, 0x01, 0x01, 0x0d, 0x02, 0x01, 0xd9, 0x0f, WILDCARD, WILDCARD, 0x73, WILDCARD, 0x00, 0xa0 },
         0,
         0,
         true,
@@ -1213,7 +1370,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "SN-CLICK",
-        { 0x0d, 0x08, 0x01, 0xbe, 0x06, 0x0f, 0x01, 0xbd, 0x6e, 0x3b, 0xc2 },
+        { 0x0d, 0x08, 0x01, 0xbe, 0x06, 0x0f, 0x01, 0xbd, 0x6e, WILDCARD, 0xc2 },
         0,
         0,
         false,
@@ -2056,9 +2213,57 @@ static void find_zork0_globals(void) {
                     fprintf(stderr, "Could not find return from routine V_COLOR!\n");
                 }
             } else {
-                fprintf(stderr, "Error! Could not find color globals!\n");
+                fprintf(stderr, "Could not find color globals!\n");
             }
             entrypoint.found_at_address = 0; // V_COLOR
+        } else if (entrypoint.fn == SET_BORDER && entrypoint.found_at_address != 0) {
+            zr.SET_BORDER = entrypoint.found_at_address;
+            fprintf(stderr, "zr.SET_BORDER at address 0x%x\n", entrypoint.found_at_address);
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == DRAW_NEW_COMP && entrypoint.found_at_address != 0) {
+            zr.DRAW_NEW_COMP = entrypoint.found_at_address;
+            fprintf(stderr, "zr.DRAW_NEW_COMP at address 0x%x\n", entrypoint.found_at_address);
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == SETUP_SCREEN && entrypoint.found_at_address != 0) {
+            zr.SETUP_SCREEN = entrypoint.found_at_address;
+            fprintf(stderr, "zr.SETUP_SCREEN at address 0x%x\n", entrypoint.found_at_address);
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == MAP_X && entrypoint.found_at_address != 0) {
+            zr.MAP_X = entrypoint.found_at_address;
+            fprintf(stderr, "zr.MAP_X at address 0x%x\n", entrypoint.found_at_address);
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == MAP_Y && entrypoint.found_at_address != 0) {
+            zr.MAP_X = entrypoint.found_at_address;
+            fprintf(stderr, "zr.MAP_Y at address 0x%x\n", entrypoint.found_at_address);
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == PLAY_SELECTED && entrypoint.found_at_address != 0) {
+            zr.PLAY_SELECTED = entrypoint.found_at_address;
+            fprintf(stderr, "zr.PLAY_SELECTED at address 0x%x\n", entrypoint.found_at_address);
+            start = find_16_bit_values_in_pattern({0xcf, 0x2f, WILDCARD, WILDCARD, 0x03, 0x00, 0x8c, 0x00, 0x08, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x03, 0x00, 0xad, 0x00}, {&zt.F_PLAY_TABLE, &zt.F_PLAY_TABLE_APPLE}, entrypoint.found_at_address - 24, 20);
+            if (start != -1) {
+                fprintf(stderr, "zt.F_PLAY_TABLE: 0x%x zt.F_PLAY_TABLE_APPLE 0x%x\n", zt.F_PLAY_TABLE, zt.F_PLAY_TABLE_APPLE);
+            }
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == SCORE_CHECK && entrypoint.found_at_address != 0) {
+            zr.SCORE_CHECK = entrypoint.found_at_address;
+            fprintf(stderr, "zr.SCORE_CHECK at address 0x%x\n", entrypoint.found_at_address);
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == J_PLAY && entrypoint.found_at_address != 0) {
+            zr.J_PLAY = entrypoint.found_at_address;
+            fprintf(stderr, "zr.J_PLAY at address 0x%x\n", entrypoint.found_at_address);
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == DRAW_PEGS && entrypoint.found_at_address != 0) {
+            zr.DRAW_PEGS = entrypoint.found_at_address;
+            fprintf(stderr, "zr.DRAW_PEGS at address 0x%x\n", entrypoint.found_at_address);
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == SET_B_PIC && entrypoint.found_at_address != 0) {
+            zr.SET_B_PIC = entrypoint.found_at_address;
+            fprintf(stderr, "zr.SET_B_PIC at address 0x%x\n", entrypoint.found_at_address);
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == TOWER_WIN_CHECK && entrypoint.found_at_address != 0) {
+            zr.TOWER_WIN_CHECK = entrypoint.found_at_address;
+            fprintf(stderr, "zr.TOWER_WIN_CHECK at address 0x%x\n", entrypoint.found_at_address);
+            entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == after_V_COLOR && end_of_color_addr != 0) {
             entrypoint.found_at_address = end_of_color_addr;
             fprintf(stderr, "after_V_COLOR at address 0x%x\n", entrypoint.found_at_address);
@@ -2066,6 +2271,11 @@ static void find_zork0_globals(void) {
             start = find_16_bit_values_in_pattern({ 0xf3, 0x3f, 0xff, 0xfd, 0xcd, 0x4f, WILDCARD, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD }, { &hints_table_addr, &hints_table_addr, &hints_table_addr }, entrypoint.found_at_address, 300);
             if (start != -1) {
                 fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
+            } else {
+                fprintf(stderr, "Could not find hints_table_addr\n");
+            }
+            if (memory[entrypoint.found_at_address + 8] == 0x88) {
+                memory[entrypoint.found_at_address + 8] = 0xb0;
             }
         } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0x0b, 0x54, WILDCARD, 0x01, 0x00 }, { &hint_quest_global_idx }, entrypoint.found_at_address, 300);
@@ -2085,12 +2295,7 @@ static void find_zork0_globals(void) {
                 fprintf(stderr, "Error! Could not find hint_quest_global_idx!\n");
             }
             entrypoint.found_at_address = 0; // DISPLAY_HINT
-        } else if (entrypoint.fn == DO_HINTS &&
-                   entrypoint.found_at_address != 0) {
-            if (memory[entrypoint.found_at_address + 8] == 0x88) {
-                memory[entrypoint.found_at_address + 8] = 0xb0;
-            }
-        } else if ((entrypoint.fn == PBOZ_CLICK || entrypoint.fn == B_MOUSE_PEG_PICK || entrypoint.fn == B_MOUSE_WEIGHT_PICK)  &&
+            } else if ((entrypoint.fn == PBOZ_CLICK || entrypoint.fn == B_MOUSE_PEG_PICK || entrypoint.fn == B_MOUSE_WEIGHT_PICK)  &&
                    entrypoint.found_at_address != 0) {
             memory[entrypoint.found_at_address] = 0xab;
             memory[entrypoint.found_at_address + 1] = 0x02;
@@ -2110,18 +2315,38 @@ static void find_zork0_globals(void) {
         } else if (entrypoint.fn == V_REFRESH && entrypoint.found_at_address != 0) {
             zr.V_REFRESH = entrypoint.found_at_address - 1;
             start = find_globals_in_pattern({ 0x01, 0xc1, 0x8f, WILDCARD }, { &zg.CURRENT_SPLIT }, entrypoint.found_at_address, 200);
-            if (start == -1)
-                fprintf(stderr, "Could not find zg.CURRENT_SPLIT!\n");
-        } else if (entrypoint.fn == UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
-            start = find_globals_in_pattern({ 0xef, 0xaf, 0x03, 0x00, 0xdb, 0x8f, WILDCARD, 0xff, 0xff, 0x61, WILDCARD }, { &zg.DEFAULT_BG, &zg.HERE }, entrypoint.found_at_address, 300);
-            start = find_globals_in_pattern({ 0xef, 0xaf, 0x02, 0x01, 0xe6, 0xbf, WILDCARD, 0x61, WILDCARD }, { &zg.MOVES, &zg.SCORE }, start, 300);
             if (start == -1) {
-                fprintf(stderr, "Could not find zg.SCORE!\n");
-            } else {
-                start = find_globals_in_pattern({ 0xf1, 0x7f, 0x00, 0xa0, WILDCARD }, { &zg.BORDER_ON }, start, 100);
+                start = find_globals_in_pattern({ WILDCARD, 0x01, 0x8C, 0x00, 0x05  }, { &zg.CURRENT_SPLIT }, entrypoint.found_at_address, 100);
                 if (start == -1) {
-                    fprintf(stderr, "Could not find zg.BORDER_ON!\n");
+                    fprintf(stderr, "Could not find zg.CURRENT_SPLIT!\n");
                 }
+            }
+        } else if (entrypoint.fn == UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0xef, 0xaf, 0x03, 0x00, 0xdb, 0x8f, WILDCARD, 0xff, 0xff, 0x61, WILDCARD }, { &zg.DEFAULT_FG, &zg.HERE }, entrypoint.found_at_address, 300);
+            if (start != -1) {
+                fprintf(stderr, "zg.DEFAULT_FG = 0x%x zg.HERE = 0x%x\n", zg.DEFAULT_FG, zg.HERE);
+
+                start = find_globals_in_pattern({ 0xef, 0xaf, 0x02, 0x01, 0xe6, 0xbf, WILDCARD, 0x61, WILDCARD }, { &zg.MOVES, &zg.SCORE }, start, 300);
+                if (start == -1) {
+                    fprintf(stderr, "Could not find zg.SCORE!\n");
+                } else {
+                    fprintf(stderr, "zg.MOVES = 0x%x zg.SCORE = 0x%x\n", zg.MOVES, zg.SCORE);
+
+                    start = find_globals_in_pattern({ 0xa0, WILDCARD, 0x45, 0xf1, 0x7f, 0x00 }, { &zg.BORDER_ON }, start, 200);
+                    if (start == -1) {
+                        fprintf(stderr, "Could not find zg.BORDER_ON!\n");
+                    } else {
+                        fprintf(stderr, "zg.BORDER_ON = 0x%x\n", zg.BORDER_ON);
+                    }
+                }
+            } else {
+                fprintf(stderr, "Could not find zg.SCORE!\n");
+                fprintf(stderr, "Could not find zg.BORDER_ON!\n");
+            }
+        } else if (entrypoint.fn == DEFAULT_COLORS && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0x2d, WILDCARD, WILDCARD, 0x2d, WILDCARD, WILDCARD }, { &fg_global_idx, &zg.DEFAULT_FG, &bg_global_idx, &zg.DEFAULT_BG }, entrypoint.found_at_address, 30);
+            if (start != -1) {
+                fprintf(stderr, "zg.DEFAULT_FG = 0x%x zg.DEFAULT_BG = 0x%x\n", zg.DEFAULT_FG, zg.DEFAULT_BG);
             }
         } else if (entrypoint.fn == INIT_STATUS_LINE && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({  0x00, 0xcd, 0x4f, WILDCARD, 0xff, 0xff, 0x0d }, { &zg.COMPASS_CHANGED, }, entrypoint.found_at_address, 300);
@@ -2129,10 +2354,23 @@ static void find_zork0_globals(void) {
                 fprintf(stderr, "Could not find zg.COMPASS_CHANGED!\n");
             } else {
                 start = find_globals_in_pattern({ 0xeb, 0x7f, 0x07, 0x88, WILDCARD, WILDCARD, WILDCARD }, { &zg.CURRENT_BORDER, &zg.CURRENT_BORDER, &zg.CURRENT_BORDER }, start, 300);
+                if (start == -1) {
+                    fprintf(stderr, "Could not find zg.CURRENT_BORDER!\n");
+                }
             }
         } else if (entrypoint.fn == FANUCCI && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0x41, WILDCARD, 0x03, WILDCARD, 0xd4, 0x8f, WILDCARD, 0x03, 0xe8, WILDCARD }, { &zg.F_WIN_COUNT, &zg.YOUR_SCORE, &zg.YOUR_SCORE, &zg.YOUR_SCORE, &zg.YOUR_SCORE }, entrypoint.found_at_address, 300);
             start = find_globals_in_pattern({ 0xeb, 0x7f, 0x01, 0x8f, WILDCARD, WILDCARD, 0x95, WILDCARD }, { &zg.F_PLAYS, &zg.F_PLAYS, &zg.F_PLAYS }, start, 300);
+            if (start == -1) {
+                fprintf(stderr, "Did not find zg.F_PLAYS!\n");
+            }
+        } else if (entrypoint.fn == WINPROP && entrypoint.found_at_address != 0) {
+            std::vector<uint8_t> patch = {0xaf, 0x01, 0x02, 0x00, 0xb8};
+            start = entrypoint.found_at_address + 2;
+            for (int i = 0; i < patch.size(); i++) {
+                fprintf(stderr, "Patching 0x%x at address 0x%x (previous value 0x%x)\n", patch[i], start + i, memory[start + i]);
+                memory[start + i] = patch[i];
+            }
         }
     }
 }
