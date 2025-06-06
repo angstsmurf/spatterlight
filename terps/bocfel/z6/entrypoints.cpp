@@ -1099,22 +1099,12 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::ZorkZero,
-        "MAP_X",
+        "MAP-X",
         { 0x43, 0x01, 0x00, 0x4c },
         -1,
         0,
         false,
         MAP_X
-    },
-
-    {
-        Game::ZorkZero,
-        "MAP_Y",
-        { 0x43, 0x01, 0x00, 0x4c },
-        -1,
-        0,
-        false,
-        MAP_Y
     },
 
     {
@@ -2230,11 +2220,8 @@ static void find_zork0_globals(void) {
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == MAP_X && entrypoint.found_at_address != 0) {
             zr.MAP_X = entrypoint.found_at_address;
-            fprintf(stderr, "zr.MAP_X at address 0x%x\n", entrypoint.found_at_address);
-            entrypoint.found_at_address = 0;
-        } else if (entrypoint.fn == MAP_Y && entrypoint.found_at_address != 0) {
-            zr.MAP_X = entrypoint.found_at_address;
-            fprintf(stderr, "zr.MAP_Y at address 0x%x\n", entrypoint.found_at_address);
+            zr.MAP_Y = entrypoint.found_at_address + 0x1c;
+            fprintf(stderr, "zr.MAP_X at address 0x%x zr.MAP_Y at address 0x%x\n", zr.MAP_X, zr.MAP_Y);
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == PLAY_SELECTED && entrypoint.found_at_address != 0) {
             zr.PLAY_SELECTED = entrypoint.found_at_address;

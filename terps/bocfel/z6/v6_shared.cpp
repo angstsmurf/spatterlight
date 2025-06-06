@@ -1522,7 +1522,6 @@ void SET_BORDER(void) {}
 void DRAW_NEW_COMP(void) {}
 void SETUP_SCREEN(void) {}
 void MAP_X(void) {}
-void MAP_Y(void) {}
 void PLAY_SELECTED(void) {}
 void SCORE_CHECK(void) {}
 void TOWER_WIN_CHECK(void) {}
