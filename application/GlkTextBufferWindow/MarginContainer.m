@@ -112,6 +112,42 @@
     if (_marginImages.count == 0)
         return rect;
 
+//    NSRect newrect = rect;
+//    NSRect newrect = [self adjustForBreaks:rect];
+
+
+//    NSEnumerator *enumerator = [_marginImages reverseObjectEnumerator];
+//    while (image = [enumerator nextObject]) {
+//        bounds = [image boundsWithLayout:self.layoutManager];
+//
+////        for (f in flowbreaks)
+////            if (f.pos > image.pos) {
+////                if (f.pos - image.pos > 1000)
+////                    break;
+////                [f boundsWithLayout:self.layoutManager];
+////            }
+//        if (NSIntersectsRect(bounds, newrect)) {
+//            if (image.glkImgAlign == imagealign_MarginLeft) {
+//               // If we intersect with a left-aligned image, cut
+//               // off the left end of the rect
+//                newrect.size.width -=
+//                (NSMaxX(bounds) - newrect.origin.x);
+//                newrect.origin.x = NSMaxX(bounds);
+//            } else {
+//                // If the image is right-aligned, cut off the
+//                // right end of line fragment rect
+//                newrect.size.width = bounds.origin.x - newrect.origin.x;
+//            }
+//            break;
+//        }
+//    }
+
+
+
+
+
+
+
     BOOL overlapped = YES;
     NSRect newrect = rect;
 
@@ -316,7 +352,7 @@
     MarginImage *image;
     NSEnumerator *enumerator = [_marginImages reverseObjectEnumerator];
     while (image = [enumerator nextObject]) {
-        [image boundsWithLayout:self.layoutManager];
+//        [image boundsWithLayout:self.layoutManager];
 
         bounds = image.bounds;
 
