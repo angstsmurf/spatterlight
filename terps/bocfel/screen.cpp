@@ -6045,7 +6045,7 @@ void init_screen(bool first_run)
                 glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
                 glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
-                glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
+//                glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
             }
         } // first run
 
