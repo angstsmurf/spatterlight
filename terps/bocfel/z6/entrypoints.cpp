@@ -2149,22 +2149,22 @@ void find_entrypoints(void) {
 
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game)) {
-//            fprintf(stderr, "Looking for entrypoint %s (starting at 0x%x)\n", entrypoint.title.c_str(), start);
+            fprintf(stderr, "Looking for entrypoint %s (starting at 0x%x)\n", entrypoint.title.c_str(), start);
             if (entrypoint.pattern.size()) {
                 int32_t offset = find_pattern_in_mem(entrypoint.pattern, start, end - start);
                 if (offset != -1) {
                     entrypoint.found_at_address = offset + entrypoint.offset;
                     start = entrypoint.found_at_address;
-//                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), start);
+                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), start);
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;
                         store_byte(entrypoint.found_at_address, 0xb0);
                     }
-//                } else {
-//                    fprintf(stderr, "Did not find it!\n");
+                } else {
+                    fprintf(stderr, "Did not find it!\n");
                 }
-//            } else {
-//                fprintf(stderr, "Did not find it! (No pattern)\n");
+            } else {
+                fprintf(stderr, "Did not find it! (No pattern)\n");
             }
         }
     }
@@ -2197,7 +2197,7 @@ void check_entrypoints(uint32_t pc) {
 
     if (found != entrypoint_map.end()) {
         EntryPoint *entrypoint = entrypoint_map.at(pc);
-//        fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint->title.c_str(), pc);
+        fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint->title.c_str(), pc);
         (entrypoint->fn)();
     }
 }

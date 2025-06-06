@@ -391,6 +391,8 @@ static void z0_resize_status_windows(void) {
     int imgwidth, imgheight;
     get_image_size(CURRENT_BORDER, &imgwidth, &imgheight);
 
+    fprintf(stderr, "z0_resize_status_windows: image width of CURRENT_BORDER (%d) is %d\n", CURRENT_BORDER, imgwidth);
+
     int x, y, width, height;
 
     V6_STATUS_WINDOW.x = 1;

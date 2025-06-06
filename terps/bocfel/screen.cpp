@@ -3299,7 +3299,31 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
 
         case evtype_CharInput:
             ZASSERT(input.type == Input::Type::Char, "got unexpected evtype_CharInput");
-            ZASSERT(ev.win == curwin->id, "got evtype_CharInput on unexpected window");
+
+                if (ev.win != curwin->id) {
+                    bool found = false;
+                    for (auto &window : windows) {
+                        if (window.id == ev.win) {
+                            fprintf(stderr, "Expected char input from window %d, got it from %d\n", window.index, curwin->index);
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        fprintf(stderr, "Expected char input from window %d\n", curwin->index);
+                        if (ev.win == graphics_bg_glk) {
+                            fprintf(stderr, "Got it from graphics_bg_glk\n");
+                        } else if (ev.win == graphics_fg_glk) {
+                            fprintf(stderr, "Got it from graphics_fg_glk\n");
+                        } else {
+                            fprintf(stderr, "Got it from an unattached window with peer %d\n", ev.win->peer);
+                        }
+                    }
+
+                    fprintf(stderr, "Here\n");
+
+                }
+
+//            ZASSERT(ev.win == curwin->id, "got evtype_CharInput on unexpected window");
 
             status = InputStatus::Received;
 
