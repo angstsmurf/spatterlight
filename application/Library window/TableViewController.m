@@ -1676,23 +1676,23 @@ enum  {
 }
 
 
-+ (nullable Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
++ (nullable Metadata *)fetchMetadataForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Ifid" inManagedObjectContext:context];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifid];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"hashTag" inManagedObjectContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@",hash];
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
-        NSLog(@"fetchMetadataForIFID: %@",error);
+        NSLog(@"fetchMetadataForHash: %@",error);
     }
 
     if (fetchedObjects.count > 1)
     {
-        NSLog(@"fetchMetadataForIFID: Found more than one Ifid object with ifidString %@",ifid);
+        NSLog(@"fetchMetadataForHash: Found more than one has object with ifidString %@",hash);
     }
     else if (fetchedObjects.count == 0)
     {
@@ -1702,14 +1702,14 @@ enum  {
     return ((Ifid *)fetchedObjects[0]).metadata;
 }
 
-+ (nullable Game *)fetchGameForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
++ (nullable Game *)fetchGameForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
     fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@",ifid];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@",hash];
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
@@ -1718,7 +1718,7 @@ enum  {
 
     if (fetchedObjects.count > 1)
     {
-        NSLog(@"Found more than one entry with ifid %@",ifid);
+        NSLog(@"Found more than one entry with hashTag %@",hash);
     }
     else if (fetchedObjects.count == 0)
     {
@@ -2275,8 +2275,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return [self playGame:game winRestore:NO];
 }
 
-- (nullable NSWindow *)playGameWithIFID:(NSString *)ifid {
-    Game *game = [TableViewController fetchGameForIFID:ifid inContext:self.managedObjectContext];
+- (nullable NSWindow *)playGameWithHash:(NSString *)hash {
+    Game *game = [TableViewController fetchGameForHash:hash inContext:self.managedObjectContext];
     if (!game) return nil;
     return [self playGame:game winRestore:YES];
 }
@@ -2536,15 +2536,15 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 }
 
-- (NSRect)rectForLineWithIfid:(NSString*)ifid {
+- (NSRect)rectForLineWithHash:(NSString*)hashTag {
     Game *game;
     NSRect frame = NSZeroRect;
     NSRect myFrame = self.view.window.frame;
     frame.origin.x = myFrame.origin.x + myFrame.size.width / 2;
     frame.origin.y = myFrame.origin.y + myFrame.size.height / 2;
 
-    if (ifid.length) {
-        game = [TableViewController fetchGameForIFID:ifid inContext:self.managedObjectContext];
+    if (hashTag.length) {
+        game = [TableViewController fetchGameForHash:hashTag inContext:self.managedObjectContext];
         if ([_gameTableModel containsObject:game]) {
             NSUInteger index = [_gameTableModel indexOfObject:game];
             frame = [_gameTableView rectOfRow:(NSInteger)index];
@@ -2557,11 +2557,11 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return frame;
 }
 
-- (void)selectGamesWithIfids:(NSArray*)ifids scroll:(BOOL)shouldscroll {
-    if (ifids.count) {
-        NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:ifids.count];
-        for (NSString *ifid in ifids) {
-            Game *game = [TableViewController fetchGameForIFID:ifid inContext:self.managedObjectContext];
+- (void)selectGamesWithHashes:(NSArray*)hashes scroll:(BOOL)shouldscroll {
+    if (hashes.count) {
+        NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:hashes.count];
+        for (NSString *ifid in hashes) {
+            Game *game = [TableViewController fetchGameForHash:ifid inContext:self.managedObjectContext];
             if (game) {
                 [newSelection addObject:game];
             } else NSLog(@"No game with ifid %@ in library, cannot restore selection", ifid);
