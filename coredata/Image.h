@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Image : NSManagedObject
 
++ (NSFetchRequest<Image *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
+
 @property (nullable, nonatomic, retain) NSObject *data;
 @property (nullable, nonatomic, copy) NSString *imageDescription;
 @property (nonatomic) kImageInterpolationType interpolation;
@@ -35,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeMetadataObject:(Metadata *)value;
 - (void)addMetadata:(NSSet<Metadata *> *)values;
 - (void)removeMetadata:(NSSet<Metadata *> *)values;
++ (void)deleteIfOrphan:(Image *)image;
 
 @end
 

@@ -230,21 +230,21 @@ PasteboardFilePasteLocation;
         window = appDelegate.prefctl.window;
     } else {
         NSString *firstLetters = [identifier substringToIndex:7];
-        NSString *ifid = [identifier substringFromIndex:7];
+        NSString *hashTag = [identifier substringFromIndex:7];
 
         if ([firstLetters isEqualToString:@"infoWin"]) {
             InfoController *infoctl =
-            [[InfoController alloc] initWithIfid:ifid];
+            [[InfoController alloc] initWithHash:hashTag];
             infoctl.libcontroller = appDelegate.libctl.tableViewController;
             NSWindow *infoWindow = infoctl.window;
             infoWindow.restorable = YES;
             infoWindow.restorationClass = [AppDelegate class];
             infoWindow.identifier =
-            [NSString stringWithFormat:@"infoWin%@", ifid];
-            (appDelegate.libctl.tableViewController.infoWindows)[ifid] = infoctl;
+            [NSString stringWithFormat:@"infoWin%@", hashTag];
+            (appDelegate.libctl.tableViewController.infoWindows)[hashTag] = infoctl;
             window = infoctl.window;
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
-            window = [appDelegate.libctl.tableViewController playGameWithIFID:ifid];
+            window = [appDelegate.libctl.tableViewController playGameWithHash:hashTag];
         }
     }
     completionHandler(window, nil);
@@ -533,7 +533,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 
     // We remember which window is key on termination
     // in order to make it key on restoration
-    [defaults setObject:key.game.ifid forKey:@"KeyWindowController"];
+    [defaults setObject:key.game.hashTag forKey:@"KeyWindowController"];
 
     return NSTerminateNow;
 }

@@ -344,10 +344,8 @@
     Image *image = _game.metadata.cover;
     _game.metadata.cover = nil;
     _game.metadata.coverArtDescription = nil;
-
     //If the Image object becomes an orphan, delete it from the Core Data store
-    if (image && image.metadata.count == 0)
-        [_game.managedObjectContext deleteObject:image];
+    [Image deleteIfOrphan:image];
 }
 
 - (void)copy:(id)sender {
@@ -377,10 +375,8 @@
             return;
         _game.metadata.cover = nil;
         _game.metadata.coverArtDescription = nil;
-
         //If the Image object becomes an orphan, delete it from the Core Data store
-        if (image.metadata.count == 0)
-            [_game.managedObjectContext deleteObject:image];
+        [Image deleteIfOrphan:image];
     }
 }
 
@@ -713,7 +709,10 @@
 
     Image *oldImageObj = [ImageView findImageObjectWithURL:URLPath inContext:_game.managedObjectContext];
     if (oldImageObj && [oldImageObj.data isEqualTo:imageData]) {
+        Image *oldCover = metadata.cover;
         metadata.cover = oldImageObj;
+        //If the Image object becomes an orphan, delete it from the Core Data store
+        [Image deleteIfOrphan:oldCover];
         metadata.coverArtURL = URLPath;
         return;
     }
@@ -765,8 +764,7 @@
 
 + (nullable Image *)findImageObjectWithURL:(NSString *)path inContext:(NSManagedObjectContext *)context {
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:context];
+    NSFetchRequest *fetchRequest = [Image fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL = %@", path];
 
     NSError *error = nil;

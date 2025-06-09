@@ -19,6 +19,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 #import "IFDBDownloader.h"
 #import "IFictionMetadata.h"
+#import "IFStory.h"
 #import "Metadata.h"
 #import "Image.h"
 #import "Game.h"
@@ -61,7 +62,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)URLSession:(NSURLSession *)session
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
-//    NSLog(@"URLSession:didReceiveChallenge:");
+    NSLog(@"URLSession:didReceiveChallenge:");
 
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURLProtectionSpace *protectionSpace = challenge.protectionSpace;
@@ -79,16 +80,16 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 return;
             }
 
-//            NSLog(@"secresult: %u", secresult);
+            NSLog(@"secresult: %u", secresult);
 
             switch (secresult) {
                 case kSecTrustResultUnspecified: // The OS trusts this certificate implicitly.
-//                    NSLog(@"kSecTrustResultUnspecified");
+                    NSLog(@"kSecTrustResultUnspecified");
                 case kSecTrustResultRecoverableTrustFailure:
-//                    NSLog(@"kSecTrustResultRecoverableTrustFailure");
-                case kSecTrustResultProceed: // The user explicitly told the OS to trust it.
-                {
-//                    NSLog(@"kSecTrustResultProceed");
+                    NSLog(@"kSecTrustResultRecoverableTrustFailure");
+                case kSecTrustResultProceed: {
+                    // The user explicitly told the OS to trust it.
+                    NSLog(@"kSecTrustResultProceed");
                     NSURLCredential *credential =
                     [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
                     completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
@@ -106,26 +107,26 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     });
 }
 
-+ (nullable DownloadOperation *)operationForIFID:(NSString*)ifid session:(NSURLSession *)session completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable))handler {
++ (nullable DownloadOperation *)operationForIFID:(NSString*)ifid session:(NSURLSession *)session identifier:(NSString *)identifier completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable,  NSString * _Nullable))handler {
     if (!ifid || ifid.length == 0) {
         return nil;
     }
     
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
-    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:session dataTaskURL:url completionHandler:handler];
-    
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:session dataTaskURL:url identifier:identifier completionHandler:handler];
+
     return operation;
 }
 
-+ (nullable DownloadOperation *)operationForTUID:(NSString*)tuid session:(NSURLSession *)session completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable))handler {
++ (nullable DownloadOperation *)operationForTUID:(NSString*)tuid session:(NSURLSession *)session identifier:(NSString *)identifier completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable, NSString * _Nullable))handler {
     if (tuid.length == 0) {
         return nil;
     }
     
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&id=" stringByAppendingString:tuid]];
     ;
-    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:session dataTaskURL:url completionHandler:handler];
-    
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:session dataTaskURL:url identifier:identifier completionHandler:handler];
+
     return operation;
 }
 
@@ -143,8 +144,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         IFDBDownloader *strongSelf = weakSelf;
         if (!strongSelf)
             return;
-        void (^internalHandler)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable) = ^void(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            
+        void (^internalHandler)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable,  NSString * _Nullable) = ^void(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error, NSString * _Nullable identifier) {
+
             if (error) {
                 if (!data) {
                     [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
@@ -165,14 +166,34 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                                 success = YES;
                             }
                         } else {
+                            IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data];
                             
-                            IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:localContext andQueue:queue];
-                            
-                            if (!result || result.stories.count == 0) {
-//                                NSLog(@"No metadata found!");
+                            if (result.stories.count == 0) {
+                                NSLog(@"No metadata found!");
                             } else {
-//                                NSLog(@"Downloaded metadata successfully!");
-                                success = YES;
+                                // IFictionMetadata does not directly touch the library
+                                // database or download anything by itself anymore,
+                                // so we take care of that here instead.
+                                NSLog(@"Downloaded metadata successfully!");
+                                // XML data downloaded from IFDB should always contain 1 story only
+                                if (result.stories.count == 1) {
+
+                                    NSURL *uri = [NSURL URLWithString:identifier];
+                                    NSManagedObjectID *objectID = [localContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+                                    Metadata *metadata = [localContext objectWithID:objectID];
+                                    if (metadata == nil) {
+                                        NSLog(@"ERROR! downloadMetadataForGames: found no metadata object with identifier \"%@\" to add metadata to!", identifier);
+                                    } else {
+                                        IFStory *story = result.stories.firstObject;
+                                        [story addInfoToMetadata:metadata];
+                                        if (metadata.coverArtURL && ![metadata.cover.originalURL isEqualToString:metadata.coverArtURL]) {
+                                            [strongSelf downloadImageFor:metadata onQueue:queue forceDialog:NO];
+                                        }
+                                        success = YES;
+                                    }
+                                } else {
+                                    NSLog(@"Downloaded XML data contained more than one story! (%ld)", result.stories.count);
+                                }
                             }
                         }
                         [localContext safeSave];
@@ -198,13 +219,20 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 continue;
             [downloadedMetadata addObject:game.metadata];
             DownloadOperation *operation;
+            NSString *identifier = game.metadata.objectID.URIRepresentation.absoluteString;
             if (game.metadata.tuid.length) {
-                operation = [IFDBDownloader operationForTUID:game.metadata.tuid session:defaultSession completionHandler:internalHandler];
+                operation = [IFDBDownloader operationForTUID:game.metadata.tuid session:defaultSession identifier:identifier completionHandler:internalHandler];
                 [queue addOperation:operation];
                 lastoperation = operation;
             } else {
-                for (Ifid *ifid in game.metadata.ifids) {
-                    operation = [IFDBDownloader operationForIFID:ifid.ifidString session:defaultSession completionHandler:internalHandler];
+                if (game.metadata.ifids.count) {
+                    for (Ifid *ifid in game.metadata.ifids) {
+                        operation = [IFDBDownloader operationForIFID:ifid.ifidString session:defaultSession identifier:identifier completionHandler:internalHandler];
+                        [queue addOperation:operation];
+                        lastoperation = operation;
+                    }
+                } else {
+                    operation = [IFDBDownloader operationForIFID:game.ifid session:defaultSession identifier:identifier completionHandler:internalHandler];
                     [queue addOperation:operation];
                     lastoperation = operation;
                 }
@@ -223,6 +251,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if (lastImageDownloadOperation)
         lastoperation = lastImageDownloadOperation;
     lastImageDownloadOperation = nil;
+    if (lastoperation == nil)
+        NSLog(@"Error! downloadMetadataForGames lastoperation == nil!");
     return lastoperation;
 }
 
@@ -266,9 +296,11 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         }];
     }
     
-    if (giveup)
+    if (giveup) {
+        NSLog(@"IFDBDownloader downloadImageFor: found no coverArtURL!");
         return;
-    
+    }
+
     Image __block *img = [IFDBDownloader fetchImageForURL:coverArtURL inContext:localcontext];
     
     if (img) {
@@ -285,7 +317,9 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         
         [self checkIfUserWants:newData ratherThan:oldData force:force completionHandler:^{
             [localcontext performBlock:^{
+                Image *oldCover = metadata.cover;
                 metadata.cover = img;
+                [Image deleteIfOrphan:oldCover];
                 metadata.coverArtDescription = img.imageDescription;
                 [localcontext safeSave];
             }];
@@ -303,7 +337,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
     IFDBDownloader __weak *weakSelf = self;
 
-    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:defaultSession dataTaskURL:url completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:defaultSession dataTaskURL:url identifier:nil completionHandler:^(NSData * data, NSURLResponse * response, NSError * error, NSString * identifier ) {
         IFDBDownloader *strongSelf = weakSelf;
         if (!strongSelf)
             strongSelf = [[IFDBDownloader alloc] initWithContext:localcontext];
@@ -377,24 +411,27 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     }
     
     [localcontext performBlock:^{
+        NSLog(@"IFDBDownLoader insertImageData: Creating new Image object in Core Data");
         img = (Image *) [NSEntityDescription
                          insertNewObjectForEntityForName:@"Image"
                          inManagedObjectContext:localcontext];
         img.data = [data copy];
         img.originalURL = metadata.coverArtURL;
         img.imageDescription = metadata.coverArtDescription;
+        Image *oldCover = metadata.cover;
         metadata.cover = img;
+        [Image deleteIfOrphan:oldCover];
         [localcontext safeSave];
     }];
 }
 
 + (Image *)findPlaceHolderInMetadata:(Metadata *)metadata imageData:(NSData *)data {
-//    NSLog(@"findPlaceHolderInMetadata");
     Image __block *placeholder;
     NSManagedObjectContext *context = metadata.managedObjectContext;
     [context performBlockAndWait:^{
         placeholder = [IFDBDownloader fetchImageForURL:@"Placeholder" inContext:context];
         if (!placeholder) {
+            NSLog(@"IFDBDownLoader insertImageData: Creating new  placeholder Image object in Core Data");
             placeholder = (Image *) [NSEntityDescription
                                      insertNewObjectForEntityForName:@"Image"
                                      inManagedObjectContext:metadata.managedObjectContext];
@@ -414,9 +451,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     
     [context performBlockAndWait:^{
         NSError *error = nil;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:context];
+        NSFetchRequest *fetchRequest = [Image fetchRequest];
         
         fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];

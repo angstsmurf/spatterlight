@@ -16,8 +16,11 @@
 
 @implementation Metadata
 
++ (NSFetchRequest<Metadata *> *)fetchRequest {
+	return [NSFetchRequest fetchRequestWithEntityName:@"Metadata"];
+}
+
 @dynamic author;
-@dynamic averageRating;
 @dynamic bafn;
 @dynamic blurb;
 @dynamic coverArtDescription;
@@ -31,6 +34,7 @@
 @dynamic format;
 @dynamic genre;
 @dynamic group;
+@dynamic hashTag;
 @dynamic headline;
 @dynamic language;
 @dynamic languageAsWord;
@@ -45,45 +49,57 @@
 @dynamic tuid;
 @dynamic userEdited;
 @dynamic cover;
-@dynamic games;
+@dynamic game;
 @dynamic ifids;
 @dynamic tag;
 
 
-- (Ifid *)findOrCreateIfid:(NSString *)ifidstring {
+//- (Ifid *)findOrCreateIfid:(NSString *)ifidstring {
+//
+//    Ifid *ifid = nil;
+//
+//    NSError *error = nil;
+//    NSArray *fetchedObjects;
+//
+//    NSFetchRequest *fetchRequest = [Ifid fetchRequest];
+//
+//    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifidstring];
+//    fetchRequest.includesPropertyValues = YES;
+//
+//    fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+//
+//    if (fetchedObjects == nil) {
+//        NSLog(@"findOrInsertIfid: %@",error);
+//    }
+//
+//    if (fetchedObjects.count > 1) {
+//        NSLog(@"findOrInsertIfid: Found more than one entry with ifidString %@",ifidstring);
+//    }
+//
+//    if (fetchedObjects == nil || fetchedObjects.count == 0) {
+//        ifid = (Ifid *) [NSEntityDescription
+//                         insertNewObjectForEntityForName:@"Ifid"
+//                         inManagedObjectContext:self.managedObjectContext];
+//        ifid.ifidString = ifidstring;
+//
+//    } else ifid = fetchedObjects[0];
+//
+//    [self addIfidsObject:ifid];
+//    
+//    return ifid;
+//}
 
-    Ifid *ifid = nil;
-
-    NSError *error = nil;
-    NSArray *fetchedObjects;
-
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Ifid" inManagedObjectContext:self.managedObjectContext];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifidstring];
-    fetchRequest.includesPropertyValues = YES;
-
-    fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects == nil) {
-        NSLog(@"findOrInsertIfid: %@",error);
+- (void)createIfid:(NSString *)ifidstring {
+    for (Ifid *ifid in self.ifids) {
+        if ([ifid.ifidString isEqualToString:ifidstring])
+            return;
     }
-
-    if (fetchedObjects.count > 1) {
-        NSLog(@"findOrInsertIfid: Found more than one entry with ifidString %@",ifidstring);
-    }
-
-    if (fetchedObjects == nil || fetchedObjects.count == 0) {
-        ifid = (Ifid *) [NSEntityDescription
+    Ifid *ifid = (Ifid *) [NSEntityDescription
                          insertNewObjectForEntityForName:@"Ifid"
                          inManagedObjectContext:self.managedObjectContext];
         ifid.ifidString = ifidstring;
 
-    } else ifid = fetchedObjects[0];
-
     [self addIfidsObject:ifid];
-    
-    return ifid;
 }
 
 - (void)willSave {

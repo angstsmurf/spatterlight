@@ -1,5 +1,5 @@
 //
-//  IFictionMetadata.h
+//  IFStory.m
 //  Adapted from Yazmin by David Schweinsberg
 //  See https://github.com/dcsch/yazmin
 //
@@ -24,28 +24,24 @@ fprintf(stderr, "%s\n",                                                    \
 #import "Metadata.h"
 #import "Image.h"
 #import "IFDBDownloader.h"
+#import "constants.h"
 
 @implementation IFStory
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue {
+- (instancetype)initWithXMLElement:(NSXMLElement *)element {
     self = [super init];
     if (self) {
         NSXMLElement *idElement;
         if ([element elementsForName:@"identification"].count) {
             idElement = [element elementsForName:@"identification"][0];
-            _identification = [[IFIdentification alloc] initWithXMLElement:idElement andContext:context];
+            _identification = [[IFIdentification alloc] initWithXMLElement:idElement];
         } else if ([element elementsForName:@"id"].count) {
             NSArray<NSXMLElement *> *elements = [element elementsForName:@"id"];
-            _identification = [[IFZoomID alloc] initWithElements:elements andContext:context];
+            _identification = [[IFZoomID alloc] initWithElements:elements];
         } else {
             NSLog(@"Unsupported iFiction file!");
             return nil;
         }
-
-        Metadata *metadata = _identification.metadata;
-
-        if (!metadata)
-            return nil;
 
         NSArray *biblioElements = [element elementsForName:@"bibliographic"];
         NSXMLElement *biblioElement;
@@ -58,39 +54,62 @@ fprintf(stderr, "%s\n",                                                    \
         } else {
             biblioElement = biblioElements.firstObject;
         }
-        _bibliographic = [[IFBibliographic alloc] initWithXMLElement:biblioElement andMetadata:metadata];
+
+        if (biblioElement) {
+            _bibliographic = [[IFBibliographic alloc] initWithXMLElement:biblioElement];
+        } else {
+            NSLog(@"IFStory initWithXMLElement: No bibliographic tag found!");
+        }
 
         NSArray *elements = [element elementsForLocalName:@"ifdb"
                                                       URI:@"http://ifdb.org/api/xmlns"];
         if (elements.count > 0) {
-            _ifdb = [[IFDB alloc] initWithXMLElement:elements[0] andMetadata:metadata];
-            if (metadata.coverArtURL && ![metadata.cover.originalURL isEqualToString:metadata.coverArtURL]) {
-                IFDBDownloader *downLoader = [[IFDBDownloader alloc] initWithContext:context];
-                [downLoader downloadImageFor:metadata onQueue:queue forceDialog:NO];
-            }
+            _ifdb = [[IFDB alloc] initWithXMLElement:elements[0]];
         }
 
         NSArray<NSXMLElement *> *coverElements = [element elementsForName:@"cover"];
         if (coverElements.count)
-            _coverDescription = [[IFCoverDescription alloc] initWithXMLElement:coverElements[0] andMetadata:metadata];
+            _coverDescription = [[IFCoverDescription alloc] initWithXMLElement:coverElements[0]];
 
-        NSArray<NSXMLElement *> *formatElements = [element elementsForName:metadata.format];
-        if (formatElements.count) {
-            NSLog(@"Found %@ element", metadata.format);
-            NSEnumerator *enumChildren = [formatElements[0].children objectEnumerator];
-            NSXMLNode *node;
-            while ((node = [enumChildren nextObject])) {
-                if ([node.name compare:@"coverpicture"] == 0) {
-                    NSString *coverArtIndex = node.stringValue;
-                    if (coverArtIndex && coverArtIndex.length) {
-                        NSLog(@"Found coverArtIndex %@", coverArtIndex);
+        // The metadata in some blorbs apparently can contain tags corresponding to the game
+        // format (e.g. <zcode> for a Z-code game.) (I need to find examples of this.)
+        // The code below simply looks for a <coverpicture> tag under such a tag and prints
+        // its contents (an image index).
+
+        if (gFormatMap.count) {
+            for (NSString *key in gFormatMap.allKeys) {
+                NSArray<NSXMLElement *> *formatElements = [element elementsForName:key];
+                if (formatElements.count) {
+                    NSLog(@"Found <%@> element", key);
+                    NSEnumerator *enumChildren = [formatElements[0].children objectEnumerator];
+                    NSXMLNode *node;
+                    while ((node = [enumChildren nextObject])) {
+                        if ([node.name compare:@"coverpicture"] == 0) {
+                            NSString *coverArtIndex = node.stringValue;
+                            if (coverArtIndex && coverArtIndex.length) {
+                                NSLog(@"Found coverArtIndex %@ under the %@ tag", coverArtIndex, key);
+                            }
+                        }
                     }
                 }
             }
         }
-
     }
     return self;
+}
+
+- (void)addInfoToMetadata:(Metadata * _Nonnull)metadata {
+    if (_identification) {
+        [_identification addInfoToMetadata:metadata];
+    }
+    if (_bibliographic) {
+        [_bibliographic addInfoToMetadata:metadata];
+    }
+    if (_ifdb) {
+        [_ifdb addInfoToMetadata:metadata];
+    }
+    if (_coverDescription && _coverDescription.coverArtDescription.length)
+        metadata.coverArtDescription = _coverDescription.coverArtDescription;
 }
 
 @end

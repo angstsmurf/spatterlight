@@ -62,6 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Theme : NSManagedObject
 
++ (NSFetchRequest<Theme *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
+
 @property (nonatomic) BOOL autosave;
 @property (nonatomic) BOOL autosaveOnTimer;
 @property (nullable, nonatomic, copy) NSString *beepHigh;
@@ -81,7 +83,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double cellHeight;
 @property (nonatomic) double cellWidth;
 @property (nonatomic) kCoverImagePrefsType coverArtStyle;
-@property (nonatomic) int32_t cursorShape;
 @property (nonatomic) int32_t dashes;
 @property (nonatomic) int32_t defaultCols;
 @property (nonatomic) int32_t defaultRows;
@@ -114,21 +115,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL smoothScroll;
 @property (nonatomic) kSpacesFormatType spaceFormat;
 @property (nullable, nonatomic, retain) NSColor *spacingColor;
-@property (nonatomic) int32_t winSpacingX;
-@property (nonatomic) int32_t winSpacingY;
-@property (nonatomic) int32_t zMachineTerp;
-@property (nullable, nonatomic, copy) NSString *zMachineLetter;
-@property (nonatomic) BOOL zMachineNoErrWin;
-
-@property (nonatomic) double vOHackDelay;
 @property (nonatomic) BOOL vODelayOn;
+@property (nonatomic) double vOHackDelay;
 @property (nonatomic) int32_t vOSpeakCommand;
 @property (nonatomic) kVOImagePrefsType vOSpeakImages;
 @property (nonatomic) kVOMenuPrefsType vOSpeakMenu;
-
-@property (nonatomic) kZ6GraphicsPrefsType z6GraphicsType;
+@property (nonatomic) int32_t winSpacingX;
+@property (nonatomic) int32_t winSpacingY;
 @property (nonatomic) BOOL z6Colorize1Bit;
-
+@property (nonatomic) kZ6GraphicsPrefsType z6GraphicsType;
+@property (nullable, nonatomic, copy) NSString *zMachineLetter;
+@property (nonatomic) BOOL zMachineNoErrWin;
+@property (nonatomic) int32_t zMachineTerp;
 @property (nullable, nonatomic, retain) GlkStyle *bufAlert;
 @property (nullable, nonatomic, retain) GlkStyle *bufBlock;
 @property (nullable, nonatomic, retain) GlkStyle *bufEmph;
@@ -157,11 +155,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) GlkStyle *gridUsr2;
 @property (nullable, nonatomic, retain) Interpreter *interpreter;
 @property (nullable, nonatomic, retain) Theme *lightTheme;
-@property (nullable, nonatomic, retain) Game *overrides;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme * _Nonnull clone;
 - (void)copyAttributesFrom:(Theme *)theme;
 - (void)populateStyles;
+- (void)resetCommonValues;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray<GlkStyle *> * _Nonnull allStyles;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasCustomStyles;
 
@@ -178,7 +176,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeGamesObject:(Game *)value;
 - (void)addGames:(NSSet<Game *> *)values;
 - (void)removeGames:(NSSet<Game *> *)values;
-- (void)resetCommonValues;
 
 @end
 

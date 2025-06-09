@@ -20,7 +20,7 @@
 @property (strong) TableViewController *libcontroller;
 @property (nonatomic, weak) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, weak) CoreDataManager *coreDataManager;
-@property NSString *ifid;
+@property NSString *hashTag;
 
 @property Metadata *meta;
 
@@ -33,7 +33,7 @@
 @property IBOutlet NSTextField *titleField;
 
 - (instancetype)initWithGame:(Game *)game;
-- (instancetype)initWithIfid:(NSString *)ifid;
+- (instancetype)initWithHash:(NSString *)hashTag;
 
 - (void)animateIn:(NSRect)frame;
 - (void)hideWindow;

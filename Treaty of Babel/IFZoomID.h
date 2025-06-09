@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IFZoomID : IFIdentification
 
-- (instancetype)initWithElements:(NSArray<NSXMLElement *> *)elements andContext:(NSManagedObjectContext *)context;
+- (instancetype)initWithElements:(NSArray<NSXMLElement *> *)elements;
 
 @end
 

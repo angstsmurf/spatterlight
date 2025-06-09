@@ -17,7 +17,7 @@ API_AVAILABLE(macos(10.12))
 @property BOOL vertical;
 @property BOOL showingView;
 
-@property NSString *ifid;
+@property NSString *hashTag;
 
 @property (readonly) NSPersistentContainer *persistentContainer;
 

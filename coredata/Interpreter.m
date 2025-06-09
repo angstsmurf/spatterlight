@@ -12,6 +12,10 @@
 
 @implementation Interpreter
 
++ (NSFetchRequest<Interpreter *> *)fetchRequest {
+	return [NSFetchRequest fetchRequestWithEntityName:@"Interpreter"];
+}
+
 @dynamic name;
 @dynamic setting;
 

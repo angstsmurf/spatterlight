@@ -13,6 +13,10 @@
 
 @implementation Image
 
++ (NSFetchRequest<Image *> *)fetchRequest {
+	return [NSFetchRequest fetchRequestWithEntityName:@"Image"];
+}
+
 @dynamic data;
 @dynamic imageDescription;
 @dynamic interpolation;
@@ -32,6 +36,12 @@
             NSLog(@"Deleting searchable item for Image failed: %@", blockerror);
         }
     }];
+}
+
++ (void)deleteIfOrphan:(Image *)image {
+    if (image && image.metadata.count == 0 && ![image.originalURL isEqualToString:@"Placeholder"]) {
+        [image.managedObjectContext deleteObject:image];
+    }
 }
 
 @end

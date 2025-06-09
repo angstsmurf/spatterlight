@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSWindow *)playGame:(Game *)game;
 - (nullable NSWindow *)playGame:(Game *)game winRestore:(BOOL)systemWindowRestoration;
-- (nullable NSWindow *)playGameWithIFID:(NSString *)ifid;
+- (nullable NSWindow *)playGameWithHash:(NSString *)ifid;
 - (void)releaseGlkControllerSoon:(GlkController *)glkctl;
 - (void)releaseInfoController:(InfoController *)infoctl;
 
@@ -119,20 +119,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showInfoForGame:(Game *)game toggle:(BOOL)toggle;
 
 - (void)selectGames:(NSSet*)games;
-- (void)selectGamesWithIfids:(NSArray*)ifids scroll:(BOOL)shouldscroll;
+- (void)selectGamesWithHashes:(NSArray*)ifids scroll:(BOOL)shouldscroll;
 
 - (void)updateTableViews; /* must call this after -importGame: */
 
 - (void)enableClickToRenameAfterDelay;
 
-- (NSRect)rectForLineWithIfid:(NSString*)ifid;
+- (NSRect)rectForLineWithHash:(NSString*)ifid;
 - (void)closeAndOpenNextAbove:(InfoController *)infocontroller;
 - (void)closeAndOpenNextBelow:(InfoController *)infocontroller;
 
-+ (nullable Game *)fetchGameForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
-+ (nullable Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
++ (nullable Game *)fetchGameForHash:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
++ (nullable Metadata *)fetchMetadataForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context;
 - (nullable Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context;
-+ (void)fixMetadataWithNoIfidsInContext:(NSManagedObjectContext *)context;
 - (void)waitToReportMetadataImport;
 
 + (nullable Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context;

@@ -22,6 +22,8 @@
 
 // Treaty of babel header
 #include "babel_handler.h"
+#import "IFictionMetadata.h"
+#import "IFStory.h"
 
 #import "TableViewController.h"
 
@@ -85,7 +87,7 @@ extern NSArray *gGameFileTypes;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [libController endImporting];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                    [libController selectGamesWithIfids:select scroll:YES];
+                    [libController selectGamesWithHashes:select scroll:YES];
                 });
             });
         }];
@@ -177,7 +179,8 @@ extern NSArray *gGameFileTypes;
     if (game) {
         [_libController beginImporting];
         if (select)
-            [select addObject:game.ifid];
+            [select addObject:game.hashTag];
+        // Download metadata from IFDB here if the option to do this is active
         if (downloadInfo && ![_downloadedMetadata containsObject:game.metadata]) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
             lastOperation = [downloader downloadMetadataForGames:@[game] onQueue:_libController.downloadQueue imageOnly:NO reportFailure:NO completionHandler:^{
@@ -188,11 +191,11 @@ extern NSArray *gGameFileTypes;
             [_downloadedMetadata addObject:game.metadata];
         }
         // We only look for images on the HDD if the game has
-        // no cover image or the Inform 7 placeholder image.
+        // no cover image or if it has the Inform 7 placeholder image.
         if (lookForImages && (game.metadata.cover.data == nil || [(NSData *)game.metadata.cover.data isPlaceHolderImage]))
             [self lookForImagesForGame:game];
     } else {
-        //NSLog(@"libctl: addFile: File %@ not added!", url.path);
+        NSLog(@"libctl: addFile: File %@ not added!", url.path);
     }
     return lastOperation;
 }
@@ -323,7 +326,7 @@ extern NSArray *gGameFileTypes;
 
     NSString *hash = path.signatureFromFile;
     // Hack to differ between hacked versions of Zork I and Suspended
-    if ([ifid isEqualToString:@"ZCODE-5-------"] && [hash isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"]) {
+    if ([ifid isEqualToString:@"ZCODE-5-------"] && [hash isEqualToString:@"5E4AB5E09B1046C6D2156C1E0143C6B59B74A459456EE214E813F0D22E8BD860"]) {
         ifid = @"ZCODE-5-830222";
     }
 
@@ -350,21 +353,21 @@ extern NSArray *gGameFileTypes;
         return nil;
     }
 
-    //NSLog(@"libctl: import game %@ (%s)", path, format);
+    NSLog(@"GameImporter: import game %@ (%s)", path, format);
 
     if (ifid == nil) {
         // If this happens, it means the Babel tool did not
         // work as it should. It detected the game but returned
         // an invalid IFID.
         NSLog(@"Error! Ifid nil! buf:%s (%x%x%x%x)", buf, buf[0], buf[1], buf[2], buf[3]);
-        return nil;
     }
-
-    TableViewController *libController = _libController;
 
     NSData __block *blockdata = fileData;
     [context performBlockAndWait:^{
-        metadata = [TableViewController fetchMetadataForIFID:ifid inContext:context];
+        // We really should check if there is a game-less metadata object that we can use here
+        // but we skip this for now.
+        metadata = [TableViewController fetchMetadataForHash:hash inContext:context];
+        game = metadata.game;
 
         if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]] && !blorb) {
             if (blockdata == nil)
@@ -372,97 +375,83 @@ extern NSArray *gGameFileTypes;
             blorb = [[Blorb alloc] initWithData:blockdata];
         }
 
-        if (!metadata)
-        {
-            if (blorb) {
-                NSData *mdbufData = blorb.metaData;
-                if (mdbufData) {
-                    metadata = [libController importMetadataFromXML:mdbufData inContext:context];
-                    metadata.source = @(kInternal);
-                    NSLog(@"Extracted metadata from blorb. Title: %@", metadata.title);
-                }
-                else NSLog(@"Found no metadata in blorb file %@", path);
-            }
+        if (!game) {
+            NSLog(@"importGame: Creating new Game object for game with hash %@", hash);
+            game = (Game *) [NSEntityDescription
+                             insertNewObjectForEntityForName:@"Game"
+                             inManagedObjectContext:context];
         } else {
-            game = [TableViewController fetchGameForIFID:ifid inContext:context];
-            if (game) {
-                if ([game.detectedFormat isEqualToString:@"glulx"])
-                    game.hashTag = hash;
-                else if ([game.detectedFormat isEqualToString:@"zcode"]) {
-                    [self addZCodeIDfromFile:path blorb:blorb toGame:game];
-                }
-                if (![path isEqualToString:game.path]) {
-                    NSLog(@"File location did not match for %@ (previous path:%@). Updating library with new file location (%@).", path.lastPathComponent, game.path, path);
-                    [game bookmarkForPath:path];
-                }
-                if (![game.detectedFormat isEqualToString:@(format)]) {
-                    NSLog(@"Game format did not match for %@ (previous format: %@). Updating library with new detected format (%s).", path.lastPathComponent, game.detectedFormat, format);
-                    game.detectedFormat = @(format);
-                }
-                if (blorb) {
-                    [self updateImageFromBlorb:blorb inGame:game];
-                }
-                game.found = YES;
-                if (!hide)
-                    game.hidden = NO;
-                return;
-            }
+            NSLog(@"importGame: Game with hash %@ already exists in library (%@)", hash, path.lastPathComponent);
         }
 
         if (!metadata) {
+            NSLog(@"GameImporter importGame: Creating new Metadata object for game with hash %@", hash);
             metadata = (Metadata *) [NSEntityDescription
                                      insertNewObjectForEntityForName:@"Metadata"
                                      inManagedObjectContext:context];
         }
 
-        [metadata findOrCreateIfid:ifid];
+        // There can be any number of Ifid objects with the same ifid string (because we ambitiously want to keep track of all ifids associated with a game) but they must all be attached to a Metadata object
+        [metadata createIfid:ifid];
 
         if (!metadata.format)
             metadata.format = @(format);
-        if (!metadata.title || metadata.title.length == 0) {
+        if (metadata.title.length == 0) {
             metadata.title = path.lastPathComponent;
         }
 
-        if (!metadata.cover) {
-            NSURL *imgURL = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:libController.imageDir];
-            NSData *img = [[NSData alloc] initWithContentsOfURL:imgURL];
-            if (img) {
-                NSLog(@"Found cover image in image directory for game %@", metadata.title);
-                metadata.coverArtURL = imgURL.path;
-                [IFDBDownloader insertImageData:img inMetadata:metadata];
-            } else {
-                if (blorb) {
-                    NSData *imageData = blorb.coverImageData;
-                    if (imageData) {
-                        metadata.coverArtURL = path;
-                        [IFDBDownloader insertImageData:imageData inMetadata:metadata];
-                        NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
-                    }
-                    else NSLog(@"Found no image in blorb file %@", path);
-                }
-            }
+        if (blorb.metaData) {
+            [GameImporter importInfoFromXML:blorb.metaData intoMetadata:metadata];
+            metadata.source = @(kInternal);
         }
-
-        game = (Game *) [NSEntityDescription
-                         insertNewObjectForEntityForName:@"Game"
-                         inManagedObjectContext:context];
 
         [game bookmarkForPath:path];
 
         game.added = [NSDate date];
         game.hidden = hide;
-        game.metadata = metadata;
         game.ifid = ifid;
         game.detectedFormat = @(format);
-        if ([game.detectedFormat isEqualToString:@"glulx"]) {
-            game.hashTag = path.signatureFromFile;
+        game.hashTag = hash;
+        metadata.hashTag = hash;
+
+        if (!metadata.cover) {
+            NSURL *imgURL = [NSURL URLWithString:[hash stringByAppendingPathExtension:@"tiff"] relativeToURL:_libController.imageDir];
+            NSData *img = [[NSData alloc] initWithContentsOfURL:imgURL];
+            if (img) {
+                NSLog(@"Found cover image in image directory for game %@", metadata.title);
+                metadata.coverArtURL = imgURL.path;
+                [IFDBDownloader insertImageData:img inMetadata:metadata];
+            } else if (blorb) {
+                NSData *imageData = blorb.coverImageData;
+                if (imageData) {
+                    metadata.coverArtURL = path;
+                    [IFDBDownloader insertImageData:imageData inMetadata:metadata];
+                    NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
+                }
+                else NSLog(@"Found no image in blorb file %@", path);
+            }
         }
+
+        game.metadata = metadata;
+
         if ([game.detectedFormat isEqualToString:@"zcode"]) {
             [self addZCodeIDfromFile:path blorb:blorb toGame:game];
         }
+        NSLog(@"GameImporter importGame: Title: %@ Hash:%@", game.metadata.title, game.hashTag);
     }];
 
     return game;
+}
+
++ (void)importInfoFromXML:(NSData *)mdbuf intoMetadata:(Metadata * _Nonnull)metadata {
+    IFictionMetadata *ifictionmetadata = [[IFictionMetadata alloc] initWithData:mdbuf];
+    if (!ifictionmetadata || ifictionmetadata.stories.count == 0)
+        return;
+    if (ifictionmetadata.stories.count > 1) {
+        NSLog(@"Found more than one story in data (%ld). Only using the first one", ifictionmetadata.stories.count);
+    }
+    IFStory *story = ifictionmetadata.stories.firstObject;
+    [story addInfoToMetadata:metadata];
 }
 
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game {

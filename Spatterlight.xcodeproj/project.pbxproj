@@ -2986,6 +2986,7 @@
 		C3A3EA15284BAF0000C8A693 /* graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
 		C3A3EA16284BAF0000C8A693 /* graphics.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = graphics.c; sourceTree = "<group>"; };
 		C3A3EA18284BAF1100C8A693 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 15.xcdatamodel"; sourceTree = "<group>"; };
 		C3A9FD2F27A676630032C068 /* c64decrunch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3A9FD3027A676630032C068 /* c64decrunch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c64decrunch.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scottgameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -11079,6 +11080,7 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */,
 				C3C2EA002C5F671E00D567EB /* Spatterlight 14.xcdatamodel */,
 				C30D583F295F539100BA063C /* Spatterlight 13.xcdatamodel */,
 				C3EE1A6127CACFE30008D790 /* Spatterlight 12.xcdatamodel */,
@@ -11094,7 +11096,7 @@
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = C3C2EA002C5F671E00D567EB /* Spatterlight 14.xcdatamodel */;
+			currentVersion = C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

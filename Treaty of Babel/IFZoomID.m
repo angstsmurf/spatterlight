@@ -19,33 +19,30 @@
 
 @implementation IFZoomID
 
-- (instancetype)initWithElements:(NSArray<NSXMLElement *> *)elements andContext:(NSManagedObjectContext *)context {
+- (instancetype)initWithElements:(NSArray<NSXMLElement *> *)elements {
     self = [super init];
     if (self) {
-
-        self.context = context;
-        self.metadata = nil;
-        NSMutableArray *ifidArray = [[NSMutableArray alloc] initWithCapacity:elements.count];
+//        self.context = metadata.managedObjectContext;
+        NSMutableSet *ifidSet = [[NSMutableSet alloc] initWithCapacity:elements.count];
         for (NSXMLElement *element in elements) {
             NSString *ifidString = [self ifidStringFromElement:element];
             if (ifidString.length)
-                [ifidArray addObject:ifidString];
+                [ifidSet addObject:ifidString];
         }
-        self.ifids = ifidArray;
+        self.ifids = ifidSet;
 
-
-        self.metadata = [self metadataFromIfids:ifidArray];
-        if (!self.metadata) {
-            return nil;
-        }
-        if (!self.metadata.format)
-            self.metadata.format = @"zcode";
+        // Used to find of create a unique metadata object that have Ifid objects representing the IFID strings in ifidArray.
+        // As neither Metada or Ifid objects are unique anymore, we just create new, fresh ones and return them.
+//        [self addIfids:ifidSet toMetadata:metadata];
+//
+//        if (!metadata.format)
+//            metadata.format = @"zcode";
     }
     return self;
 }
 
 
-// Look for a game in Core Data that matches the id tags. Return an ifid string.
+// Return an ifid string.
 - (NSString *)ifidStringFromElement:(NSXMLElement *)element {
     for (NSXMLNode *node in element.children) {
         if ([node.name compare:@"format"] == 0) {
@@ -68,13 +65,13 @@
     }
     if (!serial.length)
         return nil;
-    Game *game = [self findGame];
-    
-    if (game) {
-        if (!game.ifid.length)
-            NSLog(@"Error! Game object in store without ifid!");
-        return (game.ifid);
-    } else {
+//    Game *game = [self findGame];
+//    
+//    if (game) {
+//        if (!game.ifid.length)
+//            NSLog(@"Error! Game object in store without ifid!");
+//        return (game.ifid);
+//    } else {
         // If no matching game is found in the Core Data store, we create a new Ifid,
         // the way the Babel tool does it.
         unichar firstChar = [serial characterAtIndex:0];
@@ -83,18 +80,15 @@
         } else {
             return [NSString stringWithFormat:@"ZCODE-%ld-%@", (long)release, serial];
         }
-    }
+//    }
 }
 
-- (Game *)findGame {
+- (Game *)findGameInContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
     NSPredicate *predicate;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.context];
-
-    fetchRequest.entity = entity;
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
 
     predicate =  [NSPredicate predicateWithFormat:@"detectedFormat like[c] %@ AND serialString like[c] %@ AND releaseNumber == %d", @"zcode", serial, release];
 
@@ -108,7 +102,7 @@
 
     fetchRequest.predicate = predicate;
 
-    fetchedObjects = [self.context executeFetchRequest:fetchRequest error:&error];
+    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
         NSLog(@"findGame: Problem! %@",error);
         return nil;

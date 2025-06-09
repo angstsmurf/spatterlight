@@ -18,6 +18,10 @@
 
 @implementation Theme
 
++ (NSFetchRequest<Theme *> *)fetchRequest {
+	return [NSFetchRequest fetchRequestWithEntityName:@"Theme"];
+}
+
 @dynamic autosave;
 @dynamic autosaveOnTimer;
 @dynamic beepHigh;
@@ -37,7 +41,6 @@
 @dynamic cellHeight;
 @dynamic cellWidth;
 @dynamic coverArtStyle;
-@dynamic cursorShape;
 @dynamic dashes;
 @dynamic defaultCols;
 @dynamic defaultRows;
@@ -70,18 +73,18 @@
 @dynamic smoothScroll;
 @dynamic spaceFormat;
 @dynamic spacingColor;
-@dynamic winSpacingX;
-@dynamic winSpacingY;
-@dynamic zMachineTerp;
-@dynamic zMachineLetter;
-@dynamic zMachineNoErrWin;
-@dynamic vOHackDelay;
 @dynamic vODelayOn;
+@dynamic vOHackDelay;
 @dynamic vOSpeakCommand;
 @dynamic vOSpeakImages;
 @dynamic vOSpeakMenu;
-@dynamic z6GraphicsType;
+@dynamic winSpacingX;
+@dynamic winSpacingY;
 @dynamic z6Colorize1Bit;
+@dynamic z6GraphicsType;
+@dynamic zMachineLetter;
+@dynamic zMachineNoErrWin;
+@dynamic zMachineTerp;
 @dynamic bufAlert;
 @dynamic bufBlock;
 @dynamic bufEmph;
@@ -110,7 +113,6 @@
 @dynamic gridUsr2;
 @dynamic interpreter;
 @dynamic lightTheme;
-@dynamic overrides;
 
 - (Theme *)clone {
 

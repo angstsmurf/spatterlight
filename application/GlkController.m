@@ -1111,10 +1111,9 @@ fprintf(stderr, "%s\n",                                                    \
 - (Theme *)findThemeByName:(NSString *)name {
     if (!name || name.length == 0)
         return nil;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [Theme fetchRequest];
     NSManagedObjectContext *context = libcontroller.managedObjectContext;
     Theme *foundTheme = nil;
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:context];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", name];
     NSError *error = nil;
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];

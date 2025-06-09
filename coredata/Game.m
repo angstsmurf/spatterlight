@@ -13,13 +13,16 @@
 
 @implementation Game
 
++ (NSFetchRequest<Game *> *)fetchRequest {
+	return [NSFetchRequest fetchRequestWithEntityName:@"Game"];
+}
+
 @dynamic added;
 @dynamic autosaved;
 @dynamic blorbFile;
 @dynamic checksum;
 @dynamic compiler;
 @dynamic detectedFormat;
-@dynamic like;
 @dynamic fileLocation;
 @dynamic found;
 @dynamic group;
@@ -28,12 +31,12 @@
 @dynamic hidden;
 @dynamic ifid;
 @dynamic lastPlayed;
+@dynamic like;
 @dynamic path;
 @dynamic releaseNumber;
 @dynamic serialString;
 @dynamic version;
 @dynamic metadata;
-@dynamic override;
 @dynamic theme;
 
 - (nullable NSURL *)urlForBookmark {

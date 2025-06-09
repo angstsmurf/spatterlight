@@ -167,24 +167,10 @@ enum  {
 
 @interface TableViewController () {
     BOOL canEdit;
-    NSTimer *timer;
-
     NSString *searchString;
-    CGFloat lastSideviewWidth;
-    CGFloat lastSideviewPercentage;
-
-    /* for the importing */
-    NSInteger cursrc;
-    NSString *currentIfid;
-    NSMutableArray *ifidbuf;
-    NSMutableDictionary *metabuf;
-    NSInteger errorflag;
 
     NSLocale *englishUSLocale;
     NSDictionary *languageCodes;
-
-    NSManagedObjectContext *importContext;
-    BOOL sideViewUpdatePending;
     NSMenuItem *enabledThemeItem;
 
     BOOL countingMetadataChanges;
@@ -322,11 +308,6 @@ enum  {
                                                object:nil];
 
     _gameTableModel = [[TableViewController fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext] mutableCopy];
-
-    // Add metadata and games from plists to Core Data store if we have just created a new one
-    if (_gameTableModel.count == 0 && [[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"] == NO) {
-        [self convertLibraryToCoreData];
-    }
 
     [self rebuildThemesSubmenu];
 
@@ -502,14 +483,17 @@ enum  {
         [TableViewController fetchObjects:@"Game" predicate:@"hidden == YES" inContext:self.managedObjectContext];
         NSUInteger counter = gameEntriesToDelete.count;
         for (Game *game in gameEntriesToDelete) {
+            if (game.metadata)
+                NSLog(@"pruneLibrary: Deleting Game object with title %@", game.metadata.title);
             [self.managedObjectContext deleteObject:game];
         }
 
         NSArray *metadataEntriesToDelete =
-        [TableViewController fetchObjects:@"Metadata" predicate:@"ANY games == NIL" inContext:self.managedObjectContext];
+        [TableViewController fetchObjects:@"Metadata" predicate:@"game == NIL" inContext:self.managedObjectContext];
         counter += metadataEntriesToDelete.count;
 
         for (Metadata *meta in metadataEntriesToDelete) {
+            NSLog(@"pruneLibrary: Deleting Metadata object with title %@", meta.title);
             [self.managedObjectContext deleteObject:meta];
         }
 
@@ -518,6 +502,7 @@ enum  {
 
         counter += imageEntriesToDelete.count;
         for (Image *img in imageEntriesToDelete) {
+            NSLog(@"pruneLibrary: Deleting Image object with url %@", img.originalURL);
             [self.managedObjectContext deleteObject:img];
         }
 
@@ -686,7 +671,7 @@ enum  {
             [self.windowController.progIndicator stopAnimation:self];
         }
 
-        [TableViewController fixMetadataWithNoIfidsInContext:strongSelf.managedObjectContext];
+//        [TableViewController fixMetadataWithNoIfidsInContext:strongSelf.managedObjectContext];
 
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
@@ -843,7 +828,7 @@ enum  {
     Game *game = [Preferences instance].currentGame;
     if (!game)
         return nil;
-    GlkController *gctl = _gameSessions[game.ifid];
+    GlkController *gctl = _gameSessions[game.hashTag];
     if (!gctl.alive) {
         // If the current game is finished, look for another
         gctl = nil;
@@ -1085,14 +1070,14 @@ enum  {
         }];
         NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:^{
             [childContext performBlockAndWait:^{
-                [TableViewController fixMetadataWithNoIfidsInContext:childContext];
                 for (Game *game in gamesInContext) {
                     game.hasDownloaded = YES;
                 }
             }];
             [strongSelf endImporting];
         }];
-        [finisher addDependency:lastOperation];
+        if (lastOperation)
+            [finisher addDependency:lastOperation];
         [strongSelf.downloadQueue addOperation:finisher];
     }];
 }
@@ -1104,8 +1089,7 @@ enum  {
 
     themesMenu.showsStateColumn = YES;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest *fetchRequest = [Theme fetchRequest];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"editable" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
     NSError *error = nil;
 
@@ -1444,20 +1428,26 @@ enum  {
 - (void)showInfoForGame:(Game *)game toggle:(BOOL)toggle {
     InfoController *infoctl;
 
-    NSString *ifid = game.ifid;
-    if (!ifid)
+    NSString *hashTag = game.hashTag;
+    if (hashTag.length == 0) {
+        hashTag = game.path.signatureFromFile;
+        game.hashTag = hashTag;
+    }
+    if (hashTag.length == 0) {
+        NSLog(@"showInfoForGame: Could not create hash from game file!");
         return;
+    }
     // First, we check if we have created this info window already
-    infoctl = _infoWindows[ifid];
+    infoctl = _infoWindows[hashTag];
 
     if (!infoctl || infoctl.inDeletion) {
         infoctl = [[InfoController alloc] initWithGame:game];
         infoctl.libcontroller = self;
-        _infoWindows[ifid] = infoctl;
+        _infoWindows[hashTag] = infoctl;
         NSWindow *infoWindow = infoctl.window;
         infoWindow.restorable = YES;
         infoWindow.restorationClass = [AppDelegate class];
-        infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", ifid];
+        infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", hashTag];
 
         NSRect targetFrame = infoctl.window.frame;
         NSRect visibleFrame = infoctl.window.screen.visibleFrame;
@@ -1570,93 +1560,12 @@ enum  {
  * and can be exported.
  */
 
-- (void)addMetadata:(NSDictionary*)dict forIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
-    NSDateFormatter *dateFormatter;
-    Metadata *entry;
-    NSString *key;
-    NSString *keyVal;
-
-    entry = [TableViewController fetchMetadataForIFID:ifid inContext:context]; // this should always return nil
-    if (!entry)
-    {
-        entry = (Metadata *) [NSEntityDescription
-                              insertNewObjectForEntityForName:@"Metadata"
-                              inManagedObjectContext:context];
-        Ifid *ifidObj = (Ifid *) [NSEntityDescription
-                                  insertNewObjectForEntityForName:@"Ifid"
-                                  inManagedObjectContext:context];
-        ifidObj.ifidString = ifid;
-        ifidObj.metadata = entry;
-    } else {
-        NSLog(@"addMetaData:forIFIDs: Error! Found existing Metadata object with game %@", entry.title);
-        return;
-    }
-
-    for(key in dict) {
-        keyVal = dict[key];
-        if ([key isEqualToString:@"description"]) {
-            [entry setValue:keyVal forKey:@"blurb"];
-        } else if ([key isEqualToString:kSource]) {
-            NSInteger intVal = (NSInteger)dict[kSource];
-            if (intVal == kUser)
-                entry.userEdited=@(YES);
-            else
-                entry.userEdited=@(NO);
-            entry.source = @(intVal);
-        } else if ([key isEqualToString:@"firstpublished"]) {
-            if (dateFormatter == nil)
-                dateFormatter = [[NSDateFormatter alloc] init];
-            if (keyVal.length == 4)
-                dateFormatter.dateFormat = @"yyyy";
-            else if (keyVal.length == 10)
-                dateFormatter.dateFormat = @"yyyy-MM-dd";
-            else NSLog(@"Illegal date format in plist!");
-
-            entry.firstpublishedDate = [dateFormatter dateFromString:keyVal];
-            dateFormatter.dateFormat = @"yyyy";
-            entry.firstpublished = [dateFormatter stringFromDate:entry.firstpublishedDate];
-        } else if ([key isEqualToString:@"language"]) {
-            // In IFDB xml data, "language" is usually a language code such as "en"
-            // but may also be a locale code such as "en-US" or adescriptive string
-            // like "English, French (en, fr)." We try to deal with all of them here.
-            NSString *languageCode = keyVal;
-            if (languageCode.length > 1) {
-                if (languageCode.length > 3) {
-                    // If it is longer than three characters, we use the first two
-                    // as language code. This seems to cover all known cases.
-                    languageCode = [languageCode substringToIndex:2];
-                }
-                NSString *language = [englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
-                if (language) {
-                    entry.languageAsWord = language;
-                } else {
-                    // Otherwise we use the full string for both language and languageAsWord.
-                    entry.languageAsWord = keyVal;
-                    languageCode = keyVal;
-                }
-            }
-            entry.language = languageCode;
-        } else if ([key isEqualToString:@"format"]) {
-            if (entry.format == nil)
-                entry.format = dict[@"format"];
-        } else if ([key isEqualToString:@"forgiveness"]) {
-            entry.forgiveness = dict[@"forgiveness"];
-            entry.forgivenessNumeric = forgiveness[keyVal];
-        }
-        else
-        {
-            [entry setValue:keyVal forKey:key];
-        }
-    }
-}
-
 + (nullable Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context {
 
     NSError *error = nil;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [Theme fetchRequest];
 
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:context];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", name];
 
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
@@ -1676,40 +1585,60 @@ enum  {
 }
 
 
-+ (nullable Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
++ (nullable Metadata *)fetchMetadataForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [Metadata fetchRequest];
 
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Ifid" inManagedObjectContext:context];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifid];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@",hash];
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
-        NSLog(@"fetchMetadataForIFID: %@",error);
+        NSLog(@"fetchMetadataForHash: %@",error);
     }
 
-    if (fetchedObjects.count > 1)
-    {
-        NSLog(@"fetchMetadataForIFID: Found more than one Ifid object with ifidString %@",ifid);
-    }
-    else if (fetchedObjects.count == 0)
-    {
+    if (fetchedObjects.count > 1) {
+        NSLog(@"fetchMetadataForHash: Found more than one has object with ifidString %@",hash);
+    } else if (fetchedObjects.count == 0) {
         return nil;
     }
 
-    return ((Ifid *)fetchedObjects[0]).metadata;
+    return (Metadata *)fetchedObjects[0];
 }
 
-+ (nullable Game *)fetchGameForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
+//+ (nullable Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
+//    NSError *error = nil;
+//    NSArray *fetchedObjects;
+//
+//    NSFetchRequest *fetchRequest = [Ifid fetchRequest];
+//
+//    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifid];
+//
+//    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+//    if (fetchedObjects == nil) {
+//        NSLog(@"fetchMetadataForHash: %@",error);
+//    }
+//
+//    if (fetchedObjects.count > 1)
+//    {
+//        NSLog(@"fetchMetadataForIFID: Found more than one has object with ifidString %@",ifid);
+//    }
+//    else if (fetchedObjects.count == 0)
+//    {
+//        return nil;
+//    }
+//
+//    return ((Ifid *)fetchedObjects[0]).metadata;
+//}
+
++ (nullable Game *)fetchGameForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
 
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@",ifid];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@",hash];
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
@@ -1718,7 +1647,7 @@ enum  {
 
     if (fetchedObjects.count > 1)
     {
-        NSLog(@"Found more than one entry with ifid %@",ifid);
+        NSLog(@"Found more than one entry with hashTag %@",hash);
     }
     else if (fetchedObjects.count == 0)
     {
@@ -1764,158 +1693,6 @@ enum  {
     return dict;
 }
 
-- (void)convertLibraryToCoreData {
-
-    // Add games from plist files to Core Data store if we have just created a new one
-
-    NSString *homeString = NSHomeDirectory();
-    NSArray *pathComponents = homeString.pathComponents;
-    pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, 3)];
-    homeString = [NSString pathWithComponents:pathComponents];
-    homeString = [homeString stringByAppendingString:@"/Library/Application Support/Spatterlight/"];
-
-    NSString *metadataString = [homeString stringByAppendingPathComponent: @"Metadata.plist"];
-    NSString *gameString = [homeString stringByAppendingPathComponent: @"Games.plist"];
-
-    if ([[NSFileManager defaultManager] fileExistsAtPath:gameString]) {
-
-        TableViewController * __weak weakSelf = self;
-
-        NSManagedObjectContext *private = self.coreDataManager.privateChildManagedObjectContext;
-        private.undoManager = nil;
-
-        [self beginImporting];
-        _currentlyAddingGames = YES;
-        
-        [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:gameString isDirectory:NO] andThenRunBlock:^{
-            [private performBlock:^{
-                TableViewController *strongSelf = weakSelf;
-                if (!strongSelf)
-                    return;
-
-                // First, we try to load the Metadata.plist and add all entries as Metadata entities
-                NSMutableDictionary *metadata = [TableViewController load_mutable_plist:metadataString];
-
-                NSString *ifid;
-
-                NSEnumerator *enumerator = [metadata keyEnumerator];
-                while ((ifid = [enumerator nextObject]))
-                {
-                    [strongSelf addMetadata:metadata[ifid] forIFID:ifid inContext:private];
-                }
-
-                // Second, we try to load the Games.plist and add all entries as Game entities
-                NSDictionary *games = [TableViewController load_mutable_plist:gameString];
-
-                NSDate *timestamp = [NSDate date];
-
-                enumerator = [games keyEnumerator];
-                while ((ifid = [enumerator nextObject]))
-                {
-                    [strongSelf beginImporting];
-                    Metadata *meta = [TableViewController fetchMetadataForIFID:ifid inContext:private];
-
-                    Game *game;
-
-                    if (!meta || meta.games.count) {
-                        // If we did not create a matching Metadata entity for this Game above, we just
-                        // import it again, creating new metadata. This could happen if the user has deleted
-                        // the Metadata.plist but not the Games.plist file, or if the Metadata and Games plists
-                        // have gone out of sync somehow.
-                        game = [strongSelf importGame:[games valueForKey:ifid] inContext:private reportFailure:NO hide:NO];
-                        if (game)
-                            meta = game.metadata;
-                    } else {
-                        // Otherwise we simply use the Metadata entity we created
-                        game = (Game *) [NSEntityDescription
-                                         insertNewObjectForEntityForName:@"Game"
-                                         inManagedObjectContext:private];
-                    }
-                    // Now we should have a Game with corresponding Metadata
-                    // (but we check anyway just to make sure)
-                    if (meta) {
-                        if (!game) {
-                            NSLog(@"No game?");
-                            continue;
-                        }
-
-                        game.ifid = ifid;
-                        if (!ifid || !ifid.length)
-                            NSLog(@"No ifid?");
-                        game.metadata = meta;
-                        game.added = [NSDate date];
-                        [game bookmarkForPath:[games valueForKey:ifid]];
-                        game.path = [games valueForKey:ifid];
-
-                        // First, we look for a cover image file in Spatterlight Application Support folder
-                        NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:strongSelf.imageDir];
-                        NSData *imgdata;
-
-                        if ([[NSFileManager defaultManager] fileExistsAtPath:imgpath.path]) {
-                            imgdata = [[NSData alloc] initWithContentsOfURL:imgpath];
-                        }
-
-                        if (imgdata) {
-                            game.metadata.coverArtURL = imgpath.path;
-
-                            // If that fails, we try Babel
-                        } else {
-                            NSString *path = (NSString *)[games valueForKey:ifid];
-                            void *context = get_babel_ctx();
-                            const char *format = babel_init_ctx((char *)path.fileSystemRepresentation, context);
-                            if (format) {
-                                if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]]) {
-                                    Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
-                                    imgdata = blorb.coverImageData;
-                                    game.metadata.coverArtURL = path;
-                                }
-                            }
-                            babel_release_ctx(context);
-                            free(context);
-                        }
-
-                        if (imgdata) {
-                            [IFDBDownloader insertImageData:imgdata inMetadata:meta];
-                        }
-
-                    } else NSLog (@"Error! Could not create Game entity for game with ifid %@ and path %@", ifid, [games valueForKey:ifid]);
-
-                    if (timestamp.timeIntervalSinceNow < -0.5) {
-                        NSError *error = nil;
-                        if (private.hasChanges) {
-                            if (![private save:&error]) {
-                                NSLog(@"Unable to Save Changes of private managed object context!");
-                                if (error) {
-                                    [NSApp presentError:error];
-                                }
-                            }
-                        }
-                        timestamp = [NSDate date];
-                    }
-                }
-
-                NSError *error = nil;
-                if (private.hasChanges) {
-                    if (![private save:&error]) {
-                        NSLog(@"Unable to Save Changes of private managed object context!");
-                        if (error) {
-                            [NSApp presentError:error];
-                        }
-                    } else NSLog(@"Changes in private were saved");
-                } else NSLog(@"No changes to save in private");
-
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [strongSelf.coreDataManager saveChanges];
-                    [strongSelf endImporting];
-                    strongSelf.currentlyAddingGames = NO;
-                    [strongSelf askToDownload];
-                });
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasConvertedLibrary"];
-            }];
-        }];
-    }
-}
-
 - (void)askToDownload {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasAskedToDownload"])
         return;
@@ -1923,9 +1700,7 @@ enum  {
     NSError *error = nil;
     NSArray *fetchedObjects;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hasDownloaded = YES"];
 
     fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -1962,13 +1737,24 @@ enum  {
 }
 
 - (nullable Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context {
-    IFictionMetadata *metadata = [[IFictionMetadata alloc] initWithData:mdbuf andContext:context andQueue:self.downloadQueue];
-    if (!metadata || metadata.stories.count == 0)
+    IFictionMetadata *ifictionmetadata = [[IFictionMetadata alloc] initWithData:mdbuf];
+    if (!ifictionmetadata || ifictionmetadata.stories.count == 0)
         return nil;
-    return ((IFStory *)(metadata.stories)[0]).identification.metadata;
+    // Only returns the metadata of the first story found in the XML data
+//    return ((IFStory *)(ifictionmetadata.stories)[0]).identification.metadata;
+    return nil;
 }
 
-- (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context{
+
+//When importing iFiction (XML) data:
+//• If we are downloading from IFDB, the iFiction file should only contain data for one single game. If it does not, show an error. Check which one has a matching ifid.
+//
+//If we open an iFiction file directly, we may have one or more games selected, or opened it via the context menu of one or more games.
+//• Overwrite the metadata of any matching selected games. If the iFiction contains metadata for unselected games (and any games are selected) ask if we want to use this metadata as well.
+
+// We don't create a Metadata object if there is no suitable existant Game object to attach it to.
+
+- (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context {
     NSLog(@"libctl: importMetadataFromFile %@", filename);
 
     NSData *data = [NSData dataWithContentsOfFile:filename];
@@ -1986,6 +1772,25 @@ enum  {
 
     return success;
 }
+
+//- (BOOL)importIfidDataFile:(NSString *)filename intoMetadata:(Metadata *)metadata {
+//    NSLog(@"libctl: importIfidDataFile %@ intoMetadata", filename);
+//
+//    NSData *data = [NSData dataWithContentsOfFile:filename];
+//    if (!data)
+//        return NO;
+//
+//    BOOL __block success = NO;
+//    [context performBlockAndWait:^{
+//        Metadata *metadata = [self importMetadataFromXML:data inContext:context];
+//        if (metadata) {
+//            metadata.source = @(kExternal);
+//            success = YES;
+//        }
+//    }];
+//
+//    return success;
+//}
 
 - (void)waitToReportMetadataImport {
     insertedMetadataCount = 0;
@@ -2024,7 +1829,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (!val)
         return;
 
-    //"description" is a reserved word in core data
+    //"description" is a reserved word in core data,
+    // so we use "blurb" internally. We change this to
+    // "description" in XML output.
     if ([key isEqualToString:@"blurb"])
         key = @"description";
 
@@ -2072,9 +1879,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     fprintf(fp, "<ifindex version=\"1.0\">\n\n");
 
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest *fetchRequest = [Metadata fetchRequest];
 
     switch (what) {
         case X_EDITED:
@@ -2182,14 +1987,14 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     if ([object isKindOfClass:[Metadata class]]) {
         meta = (Metadata *)object;
-        game = meta.games.anyObject;
+        game = meta.game;
     } else if ([object isKindOfClass:[Game class]]) {
         game = (Game *)object;
         meta = game.metadata;
     } else if ([object isKindOfClass:[Image class]]) {
         Image *image = (Image *)object;
         meta = image.metadata.anyObject;
-        game = meta.games.anyObject;
+        game = meta.game;
     } else {
         NSLog(@"Object: %@", [object class]);
     }
@@ -2227,56 +2032,14 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     });
 }
 
-+ (void)fixMetadataWithNoIfidsInContext:(NSManagedObjectContext *)context {
-    [context performBlock:^{
-        NSArray<Metadata *> *noIfids = [TableViewController fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:context];
-        for (Metadata *meta in noIfids) {
-            if (meta.games.count == 0) {
-                [context deleteObject:meta];
-                NSLog(@"Deleted leftover metadata object");
-            } else {
-                NSLog(@"Metadata without ifid has attached game object");
-                NSString *ifidString = meta.games.anyObject.ifid;
-                if (ifidString.length) {
-                    Ifid *ifid = [IFIdentification fetchIfid:ifidString inContext:context];
-                    if (ifid) {
-                        NSLog(@"The game object's ifid exists in store");
-                        if (ifid.metadata) {
-                            NSLog(@"And it has metadata");
-                        } else {
-                            NSLog(@"But it has no metadata");
-                        }
-                        [context deleteObject:meta];
-                    } else {
-                        NSLog(@"Created new Ifid object with ifid %@ and attached it to metadata", ifidString);
-                        ifid = (Ifid *) [NSEntityDescription
-                                         insertNewObjectForEntityForName:@"Ifid"
-                                         inManagedObjectContext:context];
-                        ifid.ifidString = ifidString;
-                        ifid.metadata = meta;
-                        if (!meta.title.length) {
-                            meta.title = meta.games.anyObject.path.lastPathComponent;
-                        }
-                    }
-
-                } else {
-                    NSLog(@"But the game object has no ifid");
-                    [context deleteObject:meta];
-                    NSLog(@"Deleted leftover metadata object");
-                }
-            }
-        }
-    }];
-}
-
 #pragma mark Actually starting the game
 
 - (nullable NSWindow *) playGame:(Game *)game {
     return [self playGame:game winRestore:NO];
 }
 
-- (nullable NSWindow *)playGameWithIFID:(NSString *)ifid {
-    Game *game = [TableViewController fetchGameForIFID:ifid inContext:self.managedObjectContext];
+- (nullable NSWindow *)playGameWithHash:(NSString *)hash {
+    Game *game = [TableViewController fetchGameForHash:hash inContext:self.managedObjectContext];
     if (!game) return nil;
     return [self playGame:game winRestore:YES];
 }
@@ -2299,12 +2062,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSURL *url = game.urlForBookmark;
     NSString *path = url.path;
     NSString *terp;
-    GlkController *gctl = _gameSessions[game.ifid];
+    GlkController *gctl = _gameSessions[game.hashTag];
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     if (gctl) {
-        NSLog(@"A game with this ifid is already in session");
+        NSLog(@"A game with this hash is already in session");
         [gctl.window makeKeyAndOrderFront:nil];
         return gctl.window;
     }
@@ -2357,7 +2120,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if ([terp isEqualToString:@"glulxe"] || [terp isEqualToString:@"fizmo"] || [terp isEqualToString:@"bocfel"]) {
         gctl.window.restorable = YES;
         gctl.window.restorationClass = [AppDelegate class];
-        gctl.window.identifier = [NSString stringWithFormat:@"gameWin%@", game.ifid];
+        gctl.window.identifier = [NSString stringWithFormat:@"gameWin%@", game.hashTag];
     } else {
         gctl.window.restorable = NO;
     }
@@ -2371,7 +2134,15 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     GlkController __block *blockgctl = gctl;
     Game __block *blockGame = game;
-    NSString *ifid = game.ifid;
+    NSString *hashTag = game.hashTag;
+    if (hashTag.length == 0) {
+        hashTag = game.path.signatureFromFile;
+        game.hashTag = hashTag;
+    }
+    if (hashTag.length == 0) {
+        NSLog(@"Could not hash game data?");
+        return nil;
+    }
 
     [gctl askForAccessToURL:url showDialog:!systemWindowRestoration andThenRunBlock:^{
         OpenGameOperation *operation = [[OpenGameOperation alloc] initWithURL:url completionHandler:^(NSData * _Nullable newData, NSURL * _Nullable newURL) {
@@ -2385,7 +2156,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                     alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"File access to \"%@\" was not permitted.", nil), newURL.lastPathComponent];
                     [alert runModal];
                 } else {
-                    weakSelf.gameSessions[ifid] = blockgctl;
+                    weakSelf.gameSessions[hashTag] = blockgctl;
                     blockGame.lastPlayed = [NSDate date];
                     blockgctl.gameData = newData;
                     blockgctl.gameFileURL = newURL;
@@ -2487,7 +2258,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     GameImporter *importer = [[GameImporter alloc] initWithLibController:self];
     Game *result = [importer importGame:path inContext:context reportFailure:report hide:hide];
-
     if (result && !result.metadata.cover)
         [importer lookForImagesForGame:result];
     return result;
@@ -2536,15 +2306,15 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 }
 
-- (NSRect)rectForLineWithIfid:(NSString*)ifid {
+- (NSRect)rectForLineWithHash:(NSString*)hashTag {
     Game *game;
     NSRect frame = NSZeroRect;
     NSRect myFrame = self.view.window.frame;
     frame.origin.x = myFrame.origin.x + myFrame.size.width / 2;
     frame.origin.y = myFrame.origin.y + myFrame.size.height / 2;
 
-    if (ifid.length) {
-        game = [TableViewController fetchGameForIFID:ifid inContext:self.managedObjectContext];
+    if (hashTag.length) {
+        game = [TableViewController fetchGameForHash:hashTag inContext:self.managedObjectContext];
         if ([_gameTableModel containsObject:game]) {
             NSUInteger index = [_gameTableModel indexOfObject:game];
             frame = [_gameTableView rectOfRow:(NSInteger)index];
@@ -2557,14 +2327,16 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return frame;
 }
 
-- (void)selectGamesWithIfids:(NSArray*)ifids scroll:(BOOL)shouldscroll {
-    if (ifids.count) {
-        NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:ifids.count];
-        for (NSString *ifid in ifids) {
-            Game *game = [TableViewController fetchGameForIFID:ifid inContext:self.managedObjectContext];
+- (void)selectGamesWithHashes:(NSArray*)hashes scroll:(BOOL)shouldscroll {
+    if (hashes.count) {
+        NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:hashes.count];
+        for (NSString *hashTag in hashes) {
+            Game *game = [TableViewController fetchGameForHash:hashTag inContext:self.managedObjectContext];
             if (game) {
                 [newSelection addObject:game];
-            } else NSLog(@"No game with ifid %@ in library, cannot restore selection", ifid);
+            } else {
+                NSLog(@"No game with hash %@ in library, cannot restore selection", hashTag);
+            }
         }
         NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
 
@@ -2647,9 +2419,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSError *error = nil;
     NSArray<Game *> *searchResult = nil;
 
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
-
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
     NSMutableArray<NSPredicate *> *predicateArray = [NSMutableArray new];
 
     [predicateArray addObject:[NSPredicate predicateWithFormat:@"hidden == NO"]];
@@ -2858,7 +2628,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                 BOOL playing = NO;
                 if (_gameSessions.count < 100) {
                     for (GlkController *session in _gameSessions.allValues) {
-                        if ([session.game.ifid isEqual:game.ifid]) {
+                        if ([session.game.hashTag isEqual:game.hashTag]) {
                             if (session.alive) {
                                 if (@available(macOS 11.0, *)) {
                                     cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"play.fill" accessibilityDescription:NSLocalizedString(@"In progress", nil)];

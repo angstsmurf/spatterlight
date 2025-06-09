@@ -13,8 +13,7 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
-
-#include "babel_handler.h"
+#import "NSString+Categories.h"
 
 @implementation ThumbnailProvider
 
@@ -88,9 +87,7 @@
 
             NSArray *fetchedObjects;
 
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-            fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
+            NSFetchRequest *fetchRequest = [Game fetchRequest];
             fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path like[c] %@", url.path];
 
             fetchedObjects = [context executeFetchRequest:fetchRequest error:&blockerror];
@@ -101,13 +98,12 @@
             }
 
             if (!fetchedObjects.count) {
-                NSString *ifid = [self ifidFromFile:url.path];
-                if (ifid.length) {
-                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", ifid];
+                NSString *hashTag = url.path.signatureFromFile;
+                if (hashTag.length) {
+                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@", hashTag];
                     fetchedObjects = [context executeFetchRequest:fetchRequest error:&blockerror];
                 }
             }
-
 
             if (fetchedObjects.count) {
                 Game *game = fetchedObjects[0];
@@ -159,47 +155,6 @@
             }], nil);
         }
     }];
-    /*
-
-     // Second way: Draw the thumbnail into a context passed to your block, set up with Core Graphics's coordinate system.
-     handler([QLThumbnailReply replyWithContextSize:request.maximumSize drawingBlock:^BOOL(CGContextRef  _Nonnull context) {
-     // Draw the thumbnail here.
-
-     // Return YES if the thumbnail was successfully drawn inside this block.
-     return YES;
-     }], nil);
-
-     // Third way: Set an image file URL.
-     handler([QLThumbnailReply replyWithImageFileURL:[NSBundle.mainBundle URLForResource:@"fileThumbnail" withExtension:@"jpg"]], nil);
-
-     */
-}
-
-- (NSString *)ifidFromFile:(NSString *)path {
-    void *context = get_babel_ctx();
-    if (context == nil)
-        return nil;
-    char *format = babel_init_ctx((char*)path.fileSystemRepresentation, context);
-    if (!format || !babel_get_authoritative_ctx(context))
-    {
-        babel_release_ctx(context);
-        free(context);
-        return nil;
-    }
-
-    char buf[TREATY_MINIMUM_EXTENT];
-
-    int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
-    if (rv <= 0)
-    {
-        babel_release_ctx(context);
-        free(context);
-        return nil;
-    }
-
-    babel_release_ctx(context);
-    free(context);
-    return @(buf);
 }
 
 @end

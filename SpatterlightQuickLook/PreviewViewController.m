@@ -17,6 +17,7 @@
 #import "Ifid.h"
 
 #import "NSData+Categories.h"
+#import "NSString+Categories.h"
 
 #import "iFictionPreviewController.h"
 #import "PreviewViewController.h"
@@ -106,7 +107,7 @@
 }
 
 - (void)preparePreviewOfSearchableItemWithIdentifier:(NSString *)identifier queryString:(NSString *)queryString completionHandler:(void (^)(NSError * _Nullable))handler {
-    _ifid = nil;
+    _hashTag = nil;
 
     NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
     if (!context) {
@@ -161,14 +162,14 @@
 
         if ([object isKindOfClass:[Metadata class]]) {
             metadata = (Metadata *)object;
-            game = metadata.games.anyObject;
+            game = metadata.game;
         } else if ([object isKindOfClass:[Game class]]) {
             game = (Game *)object;
             metadata = game.metadata;
         } else if ([object isKindOfClass:[Image class]]) {
             image = (Image *)object;
             metadata = image.metadata.anyObject;
-            game = metadata.games.anyObject;
+            game = metadata.game;
             if (!metadata) {
                 NSLog(@"Image has no metadata!");
                 giveUp = YES;
@@ -248,7 +249,7 @@
 
 - (void)preparePreviewOfFileAtURL:(NSURL *)url completionHandler:(void (^)(NSError * _Nullable))handler {
 
-    _ifid = nil;
+    _hashTag = nil;
     _addedFileInfo = NO;
     _showingIcon = NO;
     _showingView = NO;
@@ -326,9 +327,8 @@
         NSError *error = nil;
         NSArray *fetchedObjects;
 
-        NSFetchRequest *fetchRequest = [NSFetchRequest new];
+        NSFetchRequest *fetchRequest = [Game fetchRequest];
 
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path like[c] %@", url.path];
 
         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
@@ -339,15 +339,15 @@
             return;
         }
         if (fetchedObjects.count == 0) {
-            strongSelf.ifid = [strongSelf ifidFromFile:url.path];
-            if (strongSelf.ifid) {
-                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", strongSelf.ifid];
+            strongSelf.hashTag = url.path.signatureFromFile;
+            if (strongSelf.hashTag) {
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@", strongSelf.hashTag];
                 fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
             }
             if (fetchedObjects.count == 0) {
                 metadata = [strongSelf metadataFromBlorb:url];
                 if (metadata == nil || metadata.count == 0) {
-                    // Found no matching path or ifid. File not a blorb or blorb empty. Bailing to noPreviewForURL
+                    // Found no matching path or hashTag. File not a blorb or blorb empty. Bailing to noPreviewForURL
                     [strongSelf noPreviewForURL:url handler:handler];
                     giveUp = YES;
                     return;
@@ -825,9 +825,16 @@
         _metaDict[@"blurb"] = description;
     }
 
-    if (_ifid.length) {
-        [self addInfoLine:[@"IFID: " stringByAppendingString:_ifid] attributes:attrDict linebreak:YES];
-        _metaDict[@"ifid"] = _ifid;
+    NSString *ifid = @"";
+
+    if (_metaDict[@"ifid"])
+        ifid = (NSString *)_metaDict[@"ifid"];
+    if (!ifid.length) {
+        [self ifidFromFile:url.path];
+    }
+    if (ifid.length) {
+        [self addInfoLine:[@"IFID: " stringByAppendingString:ifid] attributes:attrDict linebreak:YES];
+        _metaDict[@"ifid"] = ifid;
     }
 
     [self addFileInfo:url];
@@ -1049,15 +1056,12 @@
                     }
                 }
             }
-            if (_ifid) {
-                metaDict[@"ifid"] = _ifid;
-            } else {
-                idElement = [story elementsForName:@"identification"].firstObject;
-                for (NSXMLNode *node in idElement.children) {
-                    if ([node.name compare:@"ifid"] == 0 && node.stringValue.length) {
-                        metaDict[@"ifid"] = node.stringValue;
-                        break;
-                    }
+
+            idElement = [story elementsForName:@"identification"].firstObject;
+            for (NSXMLNode *node in idElement.children) {
+                if ([node.name compare:@"ifid"] == 0 && node.stringValue.length) {
+                    metaDict[@"ifid"] = node.stringValue;
+                    break;
                 }
             }
         }
@@ -1079,9 +1083,7 @@
         NSError *error = nil;
         NSArray *fetchedObjects;
 
-        NSFetchRequest *fetchRequest = [NSFetchRequest new];
-
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
+        NSFetchRequest *fetchRequest = [Game fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", ifid];
 
         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
@@ -1112,8 +1114,7 @@
         NSError *error = nil;
         NSArray *fetchedObjects;
 
-        NSFetchRequest *fetchRequest = [NSFetchRequest new];
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
+        NSFetchRequest *fetchRequest = [Game fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@", hash];
 
         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
@@ -1138,7 +1139,7 @@
     if (context == NULL) {
         return nil;
     }
-    char *format = babel_init_ctx((char*)path.UTF8String, context);
+    char *format = babel_init_ctx((char *)path.fileSystemRepresentation, context);
     if (!format || !babel_get_authoritative_ctx(context))
     {
         babel_release_ctx(context);
@@ -1229,8 +1230,7 @@
                         NSError *error = nil;
                         NSArray *fetchedObjects;
 
-                        NSFetchRequest *fetchRequest = [NSFetchRequest new];
-                        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
+                        NSFetchRequest *fetchRequest = [Game fetchRequest];
                         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"serialString LIKE[c] %@ AND releaseNumber == %d AND checksum == %d", serialNum, releaseNumber, checksum];
                         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
 

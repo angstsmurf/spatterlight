@@ -29,10 +29,9 @@
     if (!name)
         return nil;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [Theme fetchRequest];
     NSArray *fetchedObjects;
     NSError *error;
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", name];
     fetchRequest.includesPropertyValues = NO;
     fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];

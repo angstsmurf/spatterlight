@@ -237,15 +237,15 @@ fprintf(stderr, "%s\n",                                                    \
     [state encodeObject:_searchField.stringValue forKey:@"searchText"];
     [state encodeObject:@(self.tableViewController.gameTableView.enclosingScrollView.contentView.bounds.origin.y) forKey:@"scrollPosition"];
     if (self.tableViewController.selectedGames.count) {
-        NSMutableArray *selectedGameIfids = [NSMutableArray arrayWithCapacity:_tableViewController.selectedGames.count];
+        NSMutableArray *selectedGameHashtags = [NSMutableArray arrayWithCapacity:_tableViewController.selectedGames.count];
         NSString *str;
         for (Game *game in _tableViewController.selectedGames) {
-            str = game.ifid;
+            str = game.hashTag;
             if (str) {
-                [selectedGameIfids addObject:str];
+                [selectedGameHashtags addObject:str];
             }
         }
-        [state encodeObject:selectedGameIfids forKey:@"selectedGames"];
+        [state encodeObject:selectedGameHashtags forKey:@"selectedGames"];
     }
 }
 
@@ -259,20 +259,20 @@ fprintf(stderr, "%s\n",                                                    \
     }
     NSNumber *scrollPosNum = [state decodeObjectOfClass:[NSNumber class] forKey:@"scrollPosition"];
     CGFloat scrollPosition = scrollPosNum.floatValue;
-    NSArray *selectedIfids;
+    NSArray *selectedHashtags;
     if (@available(macOS 11.0, *)) {
         @try {
-            selectedIfids = [state decodeArrayOfObjectsOfClasses:[NSSet setWithObject:[NSString class]] forKey:@"selectedGames"];
+            selectedHashtags = [state decodeArrayOfObjectsOfClasses:[NSSet setWithObject:[NSString class]] forKey:@"selectedGames"];
         } @catch (NSException *exception) {
-            selectedIfids = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
+            selectedHashtags = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
         }
     } else {
-        selectedIfids = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
+        selectedHashtags = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
     }
 
     [self.tableViewController updateTableViews];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-        [self.tableViewController selectGamesWithIfids:selectedIfids scroll:NO];
+        [self.tableViewController selectGamesWithHashes:selectedHashtags scroll:NO];
         NSRect bounds = self.tableViewController.gameTableView.enclosingScrollView.contentView.bounds;
         bounds.origin.y = scrollPosition;
         self.tableViewController.gameTableView.enclosingScrollView.contentView.bounds = bounds;
