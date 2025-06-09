@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game;
 - (void)lookForImagesForGame:(Game *)game;
 
-@property (strong) TableViewController *libController;
+@property (weak) TableViewController *libController;
 
 @property NSMutableSet *downloadedMetadata;
 

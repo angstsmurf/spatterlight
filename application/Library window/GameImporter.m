@@ -85,7 +85,7 @@ extern NSArray *gGameFileTypes;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [libController endImporting];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                    [libController selectGamesWithIfids:select scroll:YES];
+                    [libController selectGamesWithHashes:select scroll:YES];
                 });
             });
         }];
@@ -177,7 +177,7 @@ extern NSArray *gGameFileTypes;
     if (game) {
         [_libController beginImporting];
         if (select)
-            [select addObject:game.ifid];
+            [select addObject:game.hashTag];
         if (downloadInfo && ![_downloadedMetadata containsObject:game.metadata]) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
             lastOperation = [downloader downloadMetadataForGames:@[game] onQueue:_libController.downloadQueue imageOnly:NO reportFailure:NO completionHandler:^{
@@ -364,7 +364,7 @@ extern NSArray *gGameFileTypes;
 
     NSData __block *blockdata = fileData;
     [context performBlockAndWait:^{
-        metadata = [TableViewController fetchMetadataForIFID:ifid inContext:context];
+        metadata = [TableViewController fetchMetadataForHash:hash inContext:context];
 
         if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]] && !blorb) {
             if (blockdata == nil)
@@ -384,7 +384,7 @@ extern NSArray *gGameFileTypes;
                 else NSLog(@"Found no metadata in blorb file %@", path);
             }
         } else {
-            game = [TableViewController fetchGameForIFID:ifid inContext:context];
+            game = [TableViewController fetchGameForHash:hash inContext:context];
             if (game) {
                 if ([game.detectedFormat isEqualToString:@"glulx"])
                     game.hashTag = hash;

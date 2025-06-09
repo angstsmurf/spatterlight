@@ -20,7 +20,7 @@
 @property (strong) TableViewController *libcontroller;
 @property (nonatomic, weak) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, weak) CoreDataManager *coreDataManager;
-@property NSString *ifid;
+@property NSString *hashTag;
 
 @property Metadata *meta;
 

@@ -121,18 +121,18 @@ fprintf(stderr, "%s\n",                                                    \
     if (self) {
         _game = game;
         _meta = game.metadata;
-        _ifid = game.ifid;
+        _hashTag = game.ifid;
     }
     return self;
 }
 
 // Used for window restoration
 
-- (instancetype)initWithIfid:(NSString *)initIfid {
+- (instancetype)initWithHash:(NSString *)initHash {
     self = [self init];
     if (self) {
-        _ifid = initIfid;
-        _game = [TableViewController fetchGameForIFID:_ifid inContext:self.managedObjectContext];
+        _hashTag = initHash;
+        _game = [TableViewController fetchGameForHash:_hashTag inContext:self.managedObjectContext];
         if (_game) {
             _meta = _game.metadata;
         }
@@ -153,7 +153,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     if (!_game) {
-        _game = [TableViewController fetchGameForIFID:_ifid inContext:self.managedObjectContext];
+        _game = [TableViewController fetchGameForHash:_hashTag inContext:self.managedObjectContext];
         if (_game) {
             _meta = _game.metadata;
         } else {
@@ -515,7 +515,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)animateIn:(NSRect)finalframe {
-    NSRect startingFrame = [_libcontroller rectForLineWithIfid:_game.ifid];
+    NSRect startingFrame = [_libcontroller rectForLineWithHash:_game.ifid];
     [self makeAndPrepareSnapshotWindow:startingFrame];
 
     NSWindow *snapshotWindow = snapshotController.window;
@@ -586,7 +586,7 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"nil!");
 
     NSRect currentFrame = snapshotLayer.frame;
-    NSRect targetFrame = [libctrl rectForLineWithIfid:_game.ifid];
+    NSRect targetFrame = [libctrl rectForLineWithHash:_game.ifid];
 
     NSRect finalLayerFrame = [snapshotWindow convertRectFromScreen:targetFrame];
 
@@ -614,7 +614,7 @@ fprintf(stderr, "%s\n",                                                    \
     positionAnimation.toValue = [NSValue valueWithPoint:point];
     positionAnimation.fillMode = kCAFillModeForwards;
 
-    NSString *blockIfid = _ifid;
+    NSString *blockIfid = _hashTag;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
