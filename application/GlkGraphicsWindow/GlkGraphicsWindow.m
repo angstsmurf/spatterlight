@@ -128,9 +128,7 @@
     if (subImages)
         [subImages removeAllObjects];
     dirtyRects = [NSMutableArray new];
-    // Unless we do this, the background in Arthur is never cleared.
-    // Adding self bounds to the dirtyRects array instead does not seem to work.
-    self.needsDisplay = YES;
+    [dirtyRects addObject:@(self.bounds)];
 }
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
@@ -226,8 +224,7 @@
 - (void)flushDisplay {
     if (dirty) {
         for (NSValue *val in dirtyRects) {
-            NSRect rect = val.rectValue;
-            [self setNeedsDisplayInRect:rect];
+            [self setNeedsDisplayInRect:val.rectValue];
         }
     }
     dirtyRects = [NSMutableArray new];
