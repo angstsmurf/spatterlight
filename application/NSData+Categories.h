@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (Categories)
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull md5String;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull sha256String;
 
 // Computes the game signature, which is a 64-character string unique to the

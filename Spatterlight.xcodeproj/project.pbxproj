@@ -757,6 +757,8 @@
 		C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3693265FA461004D0F7B /* CoverImageView.m */; };
 		C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3697265FB2FA004D0F7B /* GameImporter.m */; };
 		C3CF369B2660207E004D0F7B /* neo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CF36992660207E004D0F7B /* neo.c */; };
+		C3CF8A162DF8762600EF2297 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
+		C3CF8A172DF8799500EF2297 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
 		C3D571A827D8F5E9008FB786 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C3D571AC27D8F5EA008FB786 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
@@ -3130,6 +3132,8 @@
 		C3CF36992660207E004D0F7B /* neo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = neo.c; sourceTree = "<group>"; };
 		C3CF369A2660207E004D0F7B /* neo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = neo.h; sourceTree = "<group>"; };
 		C3CF369C26605E4A004D0F7B /* zimage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zimage.h; sourceTree = "<group>"; };
+		C3CF8A142DF8762600EF2297 /* FileSignature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSignature.h; sourceTree = "<group>"; };
+		C3CF8A152DF8762600EF2297 /* FileSignature.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileSignature.m; sourceTree = "<group>"; };
 		C3D155671EDC4C820072D259 /* defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defs.h; path = Generic/defs.h; sourceTree = "<group>"; usesTabs = 1; };
 		C3D219E125FAD0820066AC4E /* InsecureValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsecureValueTransformer.h; sourceTree = "<group>"; };
 		C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsecureValueTransformer.m; sourceTree = "<group>"; };
@@ -3604,6 +3608,8 @@
 				6D212737246BDC4E00D775A8 /* NSColor+integer.m */,
 				6D73051D22BFA9EB00DFC73C /* NSDate+relative.h */,
 				6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */,
+				C3CF8A142DF8762600EF2297 /* FileSignature.h */,
+				C3CF8A152DF8762600EF2297 /* FileSignature.m */,
 				6D794357224A2D2E0071EB3D /* NSString+Categories.h */,
 				6D794358224A2D2E0071EB3D /* NSString+Categories.m */,
 				C3075511265C2D2E00931D5B /* NSData+Categories.h */,
@@ -7191,6 +7197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3CF8A172DF8799500EF2297 /* FileSignature.m in Sources */,
 				961CCE9709F2383F00528FF9 /* blorb.c in Sources */,
 				961CCE9809F2383F00528FF9 /* connect.c in Sources */,
 				961CCE9909F2383F00528FF9 /* event.c in Sources */,
@@ -7277,6 +7284,7 @@
 				6D73052122BFA9EB00DFC73C /* NSDate+relative.m in Sources */,
 				C32419CD262DFFA300366AAE /* BuiltInThemes.m in Sources */,
 				6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */,
+				C3CF8A162DF8762600EF2297 /* FileSignature.m in Sources */,
 				6D7673E8239FFC6C00FB24C0 /* IFBibliographic.m in Sources */,
 				C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */,
 				6D7673EA239FFC6C00FB24C0 /* IFDB.m in Sources */,
