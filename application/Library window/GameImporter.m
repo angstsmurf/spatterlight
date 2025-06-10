@@ -437,8 +437,6 @@ extern NSArray *gGameFileTypes;
                         metadata.coverArtURL = path;
                         [IFDBDownloader insertImageData:imageData inMetadata:metadata];
                         NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
-                        NSLog(@"Image md5: %@", imageData.md5String);
-                        // 26BFA026324DC9C5B3080EA9769B29DE
                     }
                     else NSLog(@"Found no image in blorb file %@", path);
                 }

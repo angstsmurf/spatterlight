@@ -1331,15 +1331,13 @@ fprintf(stderr, "%s\n",                                                    \
             return nil;
         }
 
-        NSString *signature = _gameData.signature;
+        NSString *signature = _gamefile.signatureFromFile;
+
         if (signature.length == 0) {
             signature = game.hashTag;
             if (signature.length == 0) {
-                signature = _gamefile.signatureFromFile;
-                if (signature.length == 0) {
-                    NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", _gamefile);
-                    return nil;
-                }
+                NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", _gamefile);
+                return nil;
             }
         }
 

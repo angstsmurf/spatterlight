@@ -232,19 +232,20 @@
   for (BlorbResource *res in images)
     if (res.number == frontispiece) {
       NSData *imageData = [self dataForResource:res];
-      NSString *md5 = imageData.md5String;
+      NSString *sha = imageData.sha256String;
       // The images extracted this way from Narcolepsy, Dracula and
       // Pytho's mask are really boring, so we skip them
       if (fake &&
            // Dracula
-           ([md5 isEqualToString:@"26BFA026324DC9C5B3080EA9769B29DE"] ||
+           ([sha isEqualToString:@"838B2519FABA7D04463A0F5FAAB2403D84F302D32402F6CFE8ED817AC7F5A37E"] ||
            // Narcolepsy
-            [md5 isEqualToString:@"46AA4B34AFEBB6A80416E3CD6E0A17DF"] ||
+            [sha isEqualToString:@"C198379C894FB4B9EC686EABC0AAF368101A7B4FAFB50ED8304967E66138A6D2"] ||
            // Pytho's Mask
-            [md5 isEqualToString:@"D3546F7E2977FCB9283039AF71B5ED64"] ||
+            [sha isEqualToString:@"B47C56D78D86908C4C590549B4848C4FFACDBE039830EF2EE9947F565D739CF8"] ||
             // Mysterious Adventures
-            [md5 isEqualToString:@"7A65D493358966E90474E0B58D769334"]))
+            [sha isEqualToString:@"657B68A30153E51B42436E256869ECB916B16973583ED68B63FA22C78B434AAA"])) {
         frontispiece++;
+      }
       else return [self dataForResource:res];
     }
   return nil;
