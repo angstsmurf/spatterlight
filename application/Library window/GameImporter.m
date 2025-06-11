@@ -192,7 +192,7 @@ extern NSArray *gGameFileTypes;
         if (lookForImages && (game.metadata.cover.data == nil || [(NSData *)game.metadata.cover.data isPlaceHolderImage]))
             [self lookForImagesForGame:game];
     } else {
-        //NSLog(@"libctl: addFile: File %@ not added!", url.path);
+        NSLog(@"libctl: addFile: File %@ not added!", url.path);
     }
     return lastOperation;
 }
