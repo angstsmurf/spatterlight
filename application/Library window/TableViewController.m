@@ -1682,7 +1682,7 @@ enum  {
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
-    fetchRequest.entity = [NSEntityDescription entityForName:@"hashTag" inManagedObjectContext:context];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@",hash];
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
@@ -1693,6 +1693,32 @@ enum  {
     if (fetchedObjects.count > 1)
     {
         NSLog(@"fetchMetadataForHash: Found more than one has object with ifidString %@",hash);
+    }
+    else if (fetchedObjects.count == 0)
+    {
+        return nil;
+    }
+
+    return ((Game *)fetchedObjects[0]).metadata;
+}
+
++ (nullable Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
+    NSError *error = nil;
+    NSArray *fetchedObjects;
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Ifid" inManagedObjectContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifid];
+
+    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"fetchMetadataForHash: %@",error);
+    }
+
+    if (fetchedObjects.count > 1)
+    {
+        NSLog(@"fetchMetadataForIFID: Found more than one has object with ifidString %@",ifid);
     }
     else if (fetchedObjects.count == 0)
     {
@@ -2487,7 +2513,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     GameImporter *importer = [[GameImporter alloc] initWithLibController:self];
     Game *result = [importer importGame:path inContext:context reportFailure:report hide:hide];
-
     if (result && !result.metadata.cover)
         [importer lookForImagesForGame:result];
     return result;
