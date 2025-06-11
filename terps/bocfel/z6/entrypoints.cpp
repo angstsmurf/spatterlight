@@ -1279,6 +1279,16 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::ZorkZero,
+        "B-MOUSE-WEIGHT-PICK",
+        { 0xda, 0x4f, WILDCARD, 0x01, 0xdb, 0xcf, 0x1f },
+        0,
+        0,
+        false,
+        B_MOUSE_WEIGHT_PICK
+    },
+
+    {
+        Game::ZorkZero,
         "TOWER-WIN-CHECK",
         { 0xc6, 0x0f, 0x01, 0xd0, 0x01, 0xc3, 0x66 },
         -1,
@@ -1295,16 +1305,6 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         true,
         DRAW_TOWER
-    },
-
-    {
-        Game::ZorkZero,
-        "B-MOUSE-WEIGHT-PICK",
-        { 0xda, 0x4f, WILDCARD, 0x01, 0xdb, 0xcf, 0x1f },
-        0,
-        0,
-        false,
-        B_MOUSE_WEIGHT_PICK
     },
 
     {
