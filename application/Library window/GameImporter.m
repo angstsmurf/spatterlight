@@ -360,10 +360,8 @@ void freeContext(void **ctx) {
         // work as it should. It detected the game but returned
         // an invalid IFID.
         NSLog(@"Error! Ifid nil! buf:%s (%x%x%x%x)", buf, buf[0], buf[1], buf[2], buf[3]);
-        return nil;
+//        return nil;
     }
-
-    TableViewController *libController = _libController;
 
     NSData __block *blockdata = fileData;
     [context performBlockAndWait:^{
@@ -380,7 +378,7 @@ void freeContext(void **ctx) {
             if (blorb) {
                 NSData *mdbufData = blorb.metaData;
                 if (mdbufData) {
-                    metadata = [libController importMetadataFromXML:mdbufData inContext:context];
+                    metadata = [_libController importMetadataFromXML:mdbufData inContext:context];
                     metadata.source = @(kInternal);
                     NSLog(@"Extracted metadata from blorb. Title: %@", metadata.title);
                 }
@@ -413,6 +411,7 @@ void freeContext(void **ctx) {
         }
 
         if (!metadata) {
+            NSLog(@"importGame: Creating new Metadata object for game with hash %@", hash);
             metadata = (Metadata *) [NSEntityDescription
                                      insertNewObjectForEntityForName:@"Metadata"
                                      inManagedObjectContext:context];
@@ -427,7 +426,7 @@ void freeContext(void **ctx) {
         }
 
         if (!metadata.cover) {
-            NSURL *imgURL = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:libController.imageDir];
+            NSURL *imgURL = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:_libController.imageDir];
             NSData *img = [[NSData alloc] initWithContentsOfURL:imgURL];
             if (img) {
                 NSLog(@"Found cover image in image directory for game %@", metadata.title);
@@ -449,6 +448,8 @@ void freeContext(void **ctx) {
         game = (Game *) [NSEntityDescription
                          insertNewObjectForEntityForName:@"Game"
                          inManagedObjectContext:context];
+
+        NSLog(@"importGame: Creating new Game object for game with hash %@", hash);
 
         [game bookmarkForPath:path];
 
