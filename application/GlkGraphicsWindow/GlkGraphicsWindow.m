@@ -129,6 +129,7 @@
         [subImages removeAllObjects];
     dirtyRects = [NSMutableArray new];
     [dirtyRects addObject:@(self.bounds)];
+    dirty = YES;
 }
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
