@@ -323,7 +323,7 @@ extern NSArray *gGameFileTypes;
 
     NSString *hash = path.signatureFromFile;
     // Hack to differ between hacked versions of Zork I and Suspended
-    if ([ifid isEqualToString:@"ZCODE-5-------"] && [hash isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"]) {
+    if ([ifid isEqualToString:@"ZCODE-5-------"] && [hash isEqualToString:@"5E4AB5E09B1046C6D2156C1E0143C6B59B74A459456EE214E813F0D22E8BD860"]) {
         ifid = @"ZCODE-5-830222";
     }
 
