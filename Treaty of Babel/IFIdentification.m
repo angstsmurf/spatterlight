@@ -56,7 +56,7 @@
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
-        NSLog(@"fetchMetadataForIFID: Problem! %@",error);
+        NSLog(@"fetchIfid: Problem! %@",error);
     }
 
     if (fetchedObjects.count > 1)
@@ -100,8 +100,8 @@
                 ifidObj.metadata = metadata;
                 if (leftover.ifids.count == 0) {
                     [games unionSet:leftover.games];
-                    ////                    NSLog(@"Deleting leftover metadata object with title %@", leftover.title);
-                    ////                    [self.context deleteObject:leftover];
+                    //                   NSLog(@"Deleting leftover metadata object with title %@", leftover.title);
+                    //                   [self.context deleteObject:leftover];
                 }
             }
         }
