@@ -200,6 +200,12 @@ extern NSArray *gGameFileTypes;
     return lastOperation;
 }
 
+void freeContext(void **ctx) {
+    babel_release_ctx(*ctx);
+    free(*ctx);
+    *ctx = nil;
+}
+
 - (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     char buf[TREATY_MINIMUM_EXTENT];
     Metadata __block *metadata;
@@ -285,8 +291,7 @@ extern NSArray *gGameFileTypes;
     void *ctx = get_babel_ctx();
     format = babel_init_ctx((char*)path.fileSystemRepresentation, ctx);
     if (!format || !babel_get_authoritative_ctx(ctx)) {
-        babel_release_ctx(ctx);
-        free(ctx);
+        freeContext(&ctx);
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
@@ -303,8 +308,7 @@ extern NSArray *gGameFileTypes;
 
     rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
     if (rv <= 0) {
-        babel_release_ctx(ctx);
-        free(ctx);
+        freeContext(&ctx);
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
@@ -321,8 +325,7 @@ extern NSArray *gGameFileTypes;
     s = strchr(buf, ',');
     if (s) *s = 0;
     ifid = @(buf);
-    babel_release_ctx(ctx);
-    free(ctx);
+    freeContext(&ctx);
 
     NSString *hash = path.signatureFromFile;
     // Hack to differ between hacked versions of Zork I and Suspended
@@ -775,8 +778,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             [dirURL URLByAppendingPathComponent:
              [@(buf) stringByAppendingPathExtension:@"agx"] isDirectory:NO];
 
-            babel_release_ctx(ctx);
-            free(ctx);
+            freeContext(&ctx);
 
             [filemanager removeItemAtURL:cvtURL error:nil];
 
@@ -821,8 +823,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     } else {
         NSLog(@"GameImporter: babel did not like the converted file");
     }
-    babel_release_ctx(ctx);
-    free(ctx);
+    freeContext(&ctx);
     return nil;
 }
 

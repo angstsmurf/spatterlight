@@ -1132,6 +1132,11 @@
     }
 }
 
+void freeContext(void **ctx) {
+    babel_release_ctx(*ctx);
+    free(*ctx);
+}
+
 - (NSString *)ifidFromFile:(NSString *)path {
     if (!path.length)
         return nil;
@@ -1142,8 +1147,7 @@
     char *format = babel_init_ctx((char *)path.fileSystemRepresentation, context);
     if (!format || !babel_get_authoritative_ctx(context))
     {
-        babel_release_ctx(context);
-        free(context);
+        freeContext(&context);
         return nil;
     }
 
@@ -1152,13 +1156,11 @@
     int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
     if (rv <= 0)
     {
-        babel_release_ctx(context);
-        free(context);
+        freeContext(&context);
         return nil;
     }
 
-    babel_release_ctx(context);
-    free(context);
+    freeContext(&context);
     return @(buf);
 }
 
