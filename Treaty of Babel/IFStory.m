@@ -65,8 +65,8 @@ fprintf(stderr, "%s\n",                                                    \
         if (elements.count > 0) {
             _ifdb = [[IFDB alloc] initWithXMLElement:elements[0] andMetadata:metadata];
             if (metadata.coverArtURL && ![metadata.cover.originalURL isEqualToString:metadata.coverArtURL]) {
-                IFDBDownloader *downLoader = [[IFDBDownloader alloc] initWithContext:context];
-                [downLoader downloadImageFor:metadata onQueue:queue forceDialog:NO];
+                IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
+                [downloader downloadImageFor:metadata onQueue:queue forceDialog:NO];
             }
         }
 

@@ -92,18 +92,18 @@
         [ifidObjs addObject:ifidObj];
         if (!metadata) {
             metadata = ifidObj.metadata;
-        } else if (ifidObj.metadata && ifidObj.metadata != metadata) {
-            NSLog(@"Competing metadata objects found!");
-            metadata = [IFIdentification selectBestMetadataOf:metadata and:ifidObj.metadata];
-            if (metadata != ifidObj.metadata) {
-                Metadata *leftover = ifidObj.metadata;
-                ifidObj.metadata = metadata;
-                if (leftover.ifids.count == 0) {
-                    [games unionSet:leftover.games];
-                    //                   NSLog(@"Deleting leftover metadata object with title %@", leftover.title);
-                    //                   [self.context deleteObject:leftover];
-                }
-            }
+//        } else if (ifidObj.metadata && ifidObj.metadata != metadata) {
+//            NSLog(@"Competing metadata objects found!");
+//            metadata = [IFIdentification selectBestMetadataOf:metadata and:ifidObj.metadata];
+//            if (metadata != ifidObj.metadata) {
+//                Metadata *leftover = ifidObj.metadata;
+//                ifidObj.metadata = metadata;
+//                if (leftover.ifids.count == 0) {
+//                    [games unionSet:leftover.games];
+//                    NSLog(@"leftover metadata object exists with title %@", leftover.title);
+//                    //[self.context deleteObject:leftover];
+//                }
+//            }
         }
         [games unionSet:ifidObj.metadata.games];
     }

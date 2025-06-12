@@ -1740,7 +1740,7 @@ enum  {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
     fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@",hash];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@",hash];
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
@@ -1993,10 +1993,11 @@ enum  {
 }
 
 - (nullable Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context {
-    IFictionMetadata *metadata = [[IFictionMetadata alloc] initWithData:mdbuf andContext:context andQueue:self.downloadQueue];
-    if (!metadata || metadata.stories.count == 0)
+    IFictionMetadata *ifictionmetadata = [[IFictionMetadata alloc] initWithData:mdbuf andContext:context andQueue:self.downloadQueue];
+    if (!ifictionmetadata || ifictionmetadata.stories.count == 0)
         return nil;
-    return ((IFStory *)(metadata.stories)[0]).identification.metadata;
+    // Only returns the metadata of the first story found in the XML data
+    return ((IFStory *)(ifictionmetadata.stories)[0]).identification.metadata;
 }
 
 - (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context {
@@ -2592,8 +2593,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 - (void)selectGamesWithHashes:(NSArray*)hashes scroll:(BOOL)shouldscroll {
     if (hashes.count) {
         NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:hashes.count];
-        for (NSString *ifid in hashes) {
-            Game *game = [TableViewController fetchGameForHash:ifid inContext:self.managedObjectContext];
+        for (NSString *hashTag in hashes) {
+            Game *game = [TableViewController fetchGameForHash:hashTag inContext:self.managedObjectContext];
             if (game) {
                 [newSelection addObject:game];
             } else {

@@ -458,8 +458,12 @@ void freeContext(void **ctx) {
         game.metadata = metadata;
         game.ifid = ifid;
         game.detectedFormat = @(format);
-        if ([game.detectedFormat isEqualToString:@"glulx"]) {
-            game.hashTag = path.signatureFromFile;
+        if (game.hashTag == nil) {
+            if (hash) {
+                game.hashTag = hash;
+            } else {
+                game.hashTag = path.signatureFromFile;
+            }
         }
         if ([game.detectedFormat isEqualToString:@"zcode"]) {
             [self addZCodeIDfromFile:path blorb:blorb toGame:game];
