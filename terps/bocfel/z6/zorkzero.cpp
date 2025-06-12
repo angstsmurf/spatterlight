@@ -470,7 +470,7 @@ static void z0_resize_status_windows(void) {
     glk_window_clear(z0_right_status_window);
 }
 
-void UPDATE_STATUS_LINE(void) {
+void z0_UPDATE_STATUS_LINE(void) {
     bool BORDER_ON = (get_global(zg.BORDER_ON) == 1);
     bool COMPASS_CHANGED = (get_global(zg.COMPASS_CHANGED) == 1);
     uint16_t HERE = get_global(zg.HERE);
