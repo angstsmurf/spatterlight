@@ -353,7 +353,7 @@ void freeContext(void **ctx) {
         return nil;
     }
 
-    //NSLog(@"libctl: import game %@ (%s)", path, format);
+    NSLog(@"GameImporter: import game %@ (%s)", path, format);
 
     if (ifid == nil) {
         // If this happens, it means the Babel tool did not
@@ -411,7 +411,7 @@ void freeContext(void **ctx) {
         }
 
         if (!metadata) {
-            NSLog(@"importGame: Creating new Metadata object for game with hash %@", hash);
+            NSLog(@"GameImporter importGame: Creating new Metadata object for game with hash %@", hash);
             metadata = (Metadata *) [NSEntityDescription
                                      insertNewObjectForEntityForName:@"Metadata"
                                      inManagedObjectContext:context];

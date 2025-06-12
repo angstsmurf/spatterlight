@@ -165,13 +165,13 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                                 success = YES;
                             }
                         } else {
-                            
                             IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:localContext andQueue:queue];
                             
-                            if (!result || result.stories.count == 0) {
-//                                NSLog(@"No metadata found!");
+//                            if (!result || result.stories.count == 0) {
+                            if (result.stories.count == 0) {
+                                NSLog(@"No metadata found!");
                             } else {
-//                                NSLog(@"Downloaded metadata successfully!");
+                                NSLog(@"Downloaded metadata successfully!");
                                 success = YES;
                             }
                         }
@@ -377,6 +377,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     }
     
     [localcontext performBlock:^{
+        NSLog(@"IFDBDownLoader insertImageData: Creating new Image object in Core Data");
         img = (Image *) [NSEntityDescription
                          insertNewObjectForEntityForName:@"Image"
                          inManagedObjectContext:localcontext];
@@ -395,6 +396,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     [context performBlockAndWait:^{
         placeholder = [IFDBDownloader fetchImageForURL:@"Placeholder" inContext:context];
         if (!placeholder) {
+            NSLog(@"IFDBDownLoader insertImageData: Creating new  placeholder Image object in Core Data");
             placeholder = (Image *) [NSEntityDescription
                                      insertNewObjectForEntityForName:@"Image"
                                      inManagedObjectContext:metadata.managedObjectContext];

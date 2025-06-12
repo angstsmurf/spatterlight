@@ -109,6 +109,7 @@
     }
 
     if (!metadata) {
+        NSLog(@"IFIdentification metadataFromIfids: Creating new Metadata object in Core Data");
         metadata = (Metadata *) [NSEntityDescription
                                  insertNewObjectForEntityForName:@"Metadata"
                                  inManagedObjectContext:self.context];
@@ -116,7 +117,9 @@
 
     [metadata addIfids:[NSSet setWithSet:ifidObjs]];
     [metadata addGames:[NSSet setWithSet:games]];
-
+    for (Game *setGame in games) {
+        NSLog(@"IFIdentification metadataFromIfids: Added game with hashTag %@ to metadata.", setGame.hashTag);
+    }
     return metadata;
 }
 

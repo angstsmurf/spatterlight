@@ -1570,6 +1570,7 @@ enum  {
  * and can be exported.
  */
 
+// Only used by convertLibraryToCoreData
 - (void)addMetadata:(NSDictionary*)dict forIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSDateFormatter *dateFormatter;
     Metadata *entry;
@@ -1579,6 +1580,8 @@ enum  {
     entry = [TableViewController fetchMetadataForIFID:ifid inContext:context]; // this should always return nil
     if (!entry)
     {
+        NSLog(@"TableViewController addMetadata:forIFID: Creating new Metadata object for game with ifid %@", ifid);
+
         entry = (Metadata *) [NSEntityDescription
                               insertNewObjectForEntityForName:@"Metadata"
                               inManagedObjectContext:context];
@@ -1594,6 +1597,8 @@ enum  {
 
     for(key in dict) {
         keyVal = dict[key];
+        //"description" is a reserved word in Core Data,
+        // so we use "blurb" internally.
         if ([key isEqualToString:@"description"]) {
             [entry setValue:keyVal forKey:@"blurb"];
         } else if ([key isEqualToString:kSource]) {
@@ -1994,7 +1999,7 @@ enum  {
     return ((IFStory *)(metadata.stories)[0]).identification.metadata;
 }
 
-- (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context{
+- (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context {
     NSLog(@"libctl: importMetadataFromFile %@", filename);
 
     NSData *data = [NSData dataWithContentsOfFile:filename];
@@ -2050,7 +2055,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (!val)
         return;
 
-    //"description" is a reserved word in core data
+    //"description" is a reserved word in core data,
+    // so we use "blurb" internally. We change this to
+    // "description" in XML output.
     if ([key isEqualToString:@"blurb"])
         key = @"description";
 
@@ -2258,8 +2265,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         NSArray<Metadata *> *noIfids = [TableViewController fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:context];
         for (Metadata *meta in noIfids) {
             if (meta.games.count == 0) {
+                NSLog(@"Deleted leftover metadata object %@", meta.title);
                 [context deleteObject:meta];
-                NSLog(@"Deleted leftover metadata object");
             } else {
                 NSLog(@"Metadata without ifid has attached game object");
                 NSString *ifidString = meta.games.anyObject.ifid;
@@ -2287,8 +2294,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
                 } else {
                     NSLog(@"But the game object has no ifid");
+                    NSLog(@"fixMetadataWithNoIfidsInContext: Deleted leftover metadata object %@", meta.title);
                     [context deleteObject:meta];
-                    NSLog(@"Deleted leftover metadata object");
                 }
             }
         }
@@ -2589,7 +2596,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             Game *game = [TableViewController fetchGameForHash:ifid inContext:self.managedObjectContext];
             if (game) {
                 [newSelection addObject:game];
-            } else NSLog(@"No game with ifid %@ in library, cannot restore selection", ifid);
+            } else {
+                NSLog(@"No game with hash %@ in library, cannot restore selection", hashTag);
+            }
         }
         NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
 
