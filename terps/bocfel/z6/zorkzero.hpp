@@ -35,7 +35,7 @@ void DRAW_PEGS(void);
 void SET_B_PIC(void);
 void TOWER_WIN_CHECK(void);
 void SCORE_CHECK(void);
-void UPDATE_STATUS_LINE(void);
+void z0_UPDATE_STATUS_LINE(void);
 void DRAW_TOWER(void);
 void B_MOUSE_PEG_PICK(void);
 void B_MOUSE_WEIGHT_PICK(void);

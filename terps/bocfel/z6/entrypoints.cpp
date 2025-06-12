@@ -952,7 +952,7 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         0,
         true,
-        UPDATE_STATUS_LINE
+        z0_UPDATE_STATUS_LINE
     },
 
     // Shared with Shogun
@@ -2308,7 +2308,7 @@ static void find_zork0_globals(void) {
                     fprintf(stderr, "Could not find zg.CURRENT_SPLIT!\n");
                 }
             }
-        } else if (entrypoint.fn == UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
+        } else if (entrypoint.fn == z0_UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0xef, 0xaf, 0x03, 0x00, 0xdb, 0x8f, WILDCARD, 0xff, 0xff, 0x61, WILDCARD }, { &zg.DEFAULT_FG, &zg.HERE }, entrypoint.found_at_address, 300);
             if (start != -1) {
                 fprintf(stderr, "zg.DEFAULT_FG = 0x%x zg.HERE = 0x%x\n", zg.DEFAULT_FG, zg.HERE);
