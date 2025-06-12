@@ -278,12 +278,6 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
         return true;
     }
 
-    if (z0_left_status_window != nullptr) {
-        if (current_graphics_buf_win == z0_left_status_window)
-            current_graphics_buf_win = nullptr;
-        gli_delete_window(z0_left_status_window);
-        z0_left_status_window = nullptr;
-    }
     if (z0_right_status_window != nullptr) {
         gli_delete_window(z0_right_status_window);
         z0_right_status_window = nullptr;
