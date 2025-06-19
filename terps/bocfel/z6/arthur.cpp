@@ -649,7 +649,7 @@ void arthur_erase_window(int16_t index) {
 
 #pragma mark Restoring
 
-void stash_arthur_state(library_state_data *dat) {
+void arthur_stash_state(library_state_data *dat) {
 
     if (!dat)
         return;
@@ -663,7 +663,7 @@ void stash_arthur_state(library_state_data *dat) {
     dat->slideshow_pic = last_slideshow_pic;
 }
 
-void recover_arthur_state(library_state_data *dat) {
+void arthur_recover_state(library_state_data *dat) {
 
     if (!dat)
         return;

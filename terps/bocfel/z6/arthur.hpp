@@ -45,8 +45,8 @@ bool arthur_autorestore_internal_read_char_hacks(void);
 
 void arthur_sync_screenmode(void);
 
-void stash_arthur_state(library_state_data *dat);
-void recover_arthur_state(library_state_data *dat);
+void arthur_stash_state(library_state_data *dat);
+void arthur_recover_state(library_state_data *dat);
 
 typedef struct ArthurGlobals {
     uint8_t UPDATE; // G0e•

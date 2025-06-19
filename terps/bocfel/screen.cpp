@@ -3694,7 +3694,7 @@ uint8_t internal_read_char(void) {
     internal_read_char_hack = true;
 
     if (options.autosave && !in_interrupt()) {
-//        spatterlight_do_autosave(SaveOpcode::None);
+        spatterlight_do_autosave(SaveOpcode::None);
     }
     uint8_t result = 0;
     if (get_input(0, 0, input)) {
@@ -3732,7 +3732,7 @@ void zread_char()
 #endif
     if (options.autosave && !in_interrupt()) {
 #ifdef SPATTERLIGHT
-//        spatterlight_do_autosave(SaveOpcode::ReadChar);
+        spatterlight_do_autosave(SaveOpcode::ReadChar);
 #else
         do_save(SaveType::Autosave, SaveOpcode::ReadChar);
 #endif
@@ -3878,7 +3878,7 @@ static bool read_handler()
 
     if (options.autosave && !in_interrupt()) {
 #ifdef SPATTERLIGHT
-//        spatterlight_do_autosave(SaveOpcode::Read);
+        spatterlight_do_autosave(SaveOpcode::Read);
 #else
         do_save(SaveType::Autosave, SaveOpcode::Read);
 #endif
@@ -6173,11 +6173,13 @@ void stash_library_state(library_state_data *dat)
         dat->number_of_margin_images = number_of_margin_images;
 
         if (is_spatterlight_journey) {
-            stash_journey_state(dat);
+            journey_stash_state(dat);
         } else if (is_spatterlight_arthur) {
-            stash_arthur_state(dat);
+            arthur_stash_state(dat);
         } else if (is_spatterlight_shogun) {
-            stash_shogun_state(dat);
+            shogun_stash_state(dat);
+        } else if (is_spatterlight_zork0) {
+            z0_stash_state(dat);
         }
 
         stash_library_sound_state(dat);
@@ -6242,11 +6244,13 @@ void recover_library_state(library_state_data *dat)
 
         if (is_spatterlight_journey) {
             journey_window = windows[3].id;
-            recover_journey_state(dat);
+            journey_recover_state(dat);
         } else if (is_spatterlight_arthur) {
-            recover_arthur_state(dat);
+            arthur_recover_state(dat);
         } else if (is_spatterlight_shogun) {
-            recover_shogun_state(dat);
+            shogun_recover_state(dat);
+        } else if (is_spatterlight_zork0) {
+            z0_recover_state(dat);
         }
 
         recover_library_sound_state(dat);

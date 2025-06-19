@@ -1391,7 +1391,7 @@ void shogun_display_inline_image(glui32 align) {
 
 //TODO: Merge with stash_arthur_state and recover_arthur_state
 
-void stash_shogun_state(library_state_data *dat) {
+void shogun_stash_state(library_state_data *dat) {
     if (!dat)
         return;
 
@@ -1407,7 +1407,7 @@ void stash_shogun_state(library_state_data *dat) {
     dat->shogun_menu_selection = current_menu_selection;
 }
 
-void recover_shogun_state(library_state_data *dat) {
+void shogun_recover_state(library_state_data *dat) {
     if (!dat)
         return;
 

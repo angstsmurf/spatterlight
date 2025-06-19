@@ -23,8 +23,8 @@ void shogun_update_after_restore(void);
 void shogun_update_after_autorestore(void);
 void shogun_update_after_restart(void);
 
-void stash_shogun_state(library_state_data *dat);
-void recover_shogun_state(library_state_data *dat);
+void shogun_stash_state(library_state_data *dat);
+void shogun_recover_state(library_state_data *dat);
 bool shogun_autorestore_internal_read_char_hacks(void);
 
 void SCENE_SELECT(void);
