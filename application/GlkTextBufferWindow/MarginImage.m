@@ -86,8 +86,6 @@
 }
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout {
-    NSRange ourglyph;
-    NSRange ourline;
     NSRect theline;
     NSSize size = _image.size;
 
@@ -101,16 +99,11 @@
         NSTextView *textview = _container.textView;
 
         if (_pos >= textview.textStorage.length) {
-            NSLog(@"Error! _pos: %ld textStorage.length: %ld", _pos, textview.textStorage.length);
+            NSLog(@"MarginImage boundsWithLayout: _pos: %ld textStorage.length: %ld", _pos, textview.textStorage.length);
             return NSZeroRect;
         }
 
-        /* force layout and get position of anchor glyph */
-//        ourglyph = [layout glyphRangeForCharacterRange:NSMakeRange((NSUInteger)_pos, 1)
-//                                  actualCharacterRange:&ourline];
-//        theline = [layout lineFragmentRectForGlyphAtIndex:ourglyph.location
-//                                           effectiveRange:nil];
-
+        /* get position of anchor glyph */
         theline = [layout lineFragmentRectForGlyphAtIndex:_pos
                                            effectiveRange:nil];
 
@@ -126,25 +119,15 @@
             _bounds = NSMakeRect(rightMargin - size.width, theline.origin.y,
                                  size.width, size.height);
 
-            // NSLog(@"rightMargin = %f, _bounds = %@", rightMargin,
-            // NSStringFromRect(_bounds));
-
             // If the above places the image outside margin, move it within
             if (NSMaxX(_bounds) > rightMargin) {
                 _bounds.origin.x = rightMargin - size.width;
-                // NSLog(@"_bounds outside right margin. Moving it to %@",
-                // NSStringFromRect(_bounds));
             }
         } else {
             _bounds =
                 NSMakeRect(theline.origin.x + _container.lineFragmentPadding,
                            theline.origin.y, size.width, size.height);
         }
-
-        /* invalidate our fake layout *after* we set the bounds ... to avoid
-         * infiniloop */
-//        [layout invalidateLayoutForCharacterRange:ourline
-//                             actualCharacterRange:nil];
     }
 
     [_container unoverlap:self];
