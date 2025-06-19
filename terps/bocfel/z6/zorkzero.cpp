@@ -1832,7 +1832,7 @@ void z0_update_on_resize(void) {
 }
 
 void z0_update_after_restore(void) {
-    
+    after_V_COLOR();
 }
 
 void z0_update_after_autorestore(void) {
