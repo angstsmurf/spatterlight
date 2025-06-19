@@ -1460,8 +1460,7 @@ void SETUP_PBOZ(void) {
     }
 
     if (V6_STATUS_WINDOW.id != nullptr) {
-        gli_delete_window(V6_STATUS_WINDOW.id);
-        V6_STATUS_WINDOW.id = nullptr;
+        v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
     }
     
     internal_set_attr(NOT_HERE_OBJECT, 7);
@@ -1549,8 +1548,7 @@ static void draw_tower_of_bozbar(void) {
     }
 
     if (V6_STATUS_WINDOW.id != nullptr) {
-        gli_delete_window(V6_STATUS_WINDOW.id);
-        V6_STATUS_WINDOW.id = nullptr;
+        v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
     }
 
     int width, height;
