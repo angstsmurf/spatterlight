@@ -1901,3 +1901,24 @@ void DEFAULT_COLORS(void) {
     set_global(zg.DEFAULT_FG, 1);
     set_global(zg.DEFAULT_BG, 1);
 }
+
+void z0_stash_state(library_state_data *dat) {
+    if (!dat)
+        return;
+
+    if (current_graphics_buf_win)
+        dat->current_graphics_win_tag = current_graphics_buf_win->tag;
+    if (graphics_fg_glk)
+        dat->graphics_fg_tag = graphics_fg_glk->tag;
+    if (stored_bufferwin)
+        dat->stored_lower_tag = stored_bufferwin->tag;
+}
+
+void z0_recover_state(library_state_data *dat) {
+    if (!dat)
+        return;
+
+    current_graphics_buf_win = gli_window_for_tag(dat->current_graphics_win_tag);
+    graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
+    stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
+}
