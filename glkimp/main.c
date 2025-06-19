@@ -58,7 +58,7 @@ int main(int argc, char **argv)
     garglk_set_program_name("Unknown");
 
     if (!glkunix_startup_code(&startdata))
-	return 1;
+        return 1;
     inittime = FALSE;
     
     glk_main();
