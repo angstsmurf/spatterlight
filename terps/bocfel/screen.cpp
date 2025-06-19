@@ -2946,6 +2946,11 @@ static void request_mouse_events()
     if (graphics_window.id() != nullptr) {
         glk_request_mouse_event(graphics_window.id());
     }
+    // FIXME Find a cleaner way to do this.
+    // This requests a new mouse event after clicking in the map.
+    if (is_spatterlight_zork0 && screenmode == MODE_MAP) {
+        glk_request_mouse_event(graphics_fg_glk);
+    }
 #endif
 }
 
