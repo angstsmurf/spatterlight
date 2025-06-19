@@ -1871,7 +1871,6 @@ bool z0_display_picture(int x, int y, Window *win) {
         current_graphics_buf_win = graphics_fg_glk;
         win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         glk_request_mouse_event(graphics_fg_glk);
-        glk_request_char_event(graphics_fg_glk);
 
         if (current_picture == zorkzero_map_border) {
             screenmode = MODE_MAP;
