@@ -1753,6 +1753,11 @@ void z0_update_on_resize(void) {
         redraw_hint_screen_on_resize();
         return;
     } else if (screenmode == MODE_MAP) {
+        // FIXME Find a cleaner way to do this
+        if (z0_right_status_window != nullptr) {
+            gli_delete_window(z0_right_status_window);
+            z0_right_status_window = nullptr;
+        }
         // redraw the map
         internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
 //        internal_call(pack_routine(0x16130)); // DO-MAP
@@ -1858,6 +1863,12 @@ bool z0_display_picture(int x, int y, Window *win) {
 //        if (win->id == nullptr)
 //            win->id = gli_new_window(wintype_Graphics, 0);
 //        v6_define_window(win, 1, 1, gscreenw, gscreenh);
+
+        // FIXME Find a cleaner way to do this
+        if (z0_right_status_window != nullptr) {
+            gli_delete_window(z0_right_status_window);
+            z0_right_status_window = nullptr;
+        }
 
         current_graphics_buf_win = graphics_fg_glk;
         win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
