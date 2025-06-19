@@ -133,8 +133,8 @@ typedef struct JourneyAttributes {
 extern JourneyAttributes ja;
 
 
-void stash_journey_state(library_state_data *dat);
-void recover_journey_state(library_state_data *dat);
+void journey_stash_state(library_state_data *dat);
+void journey_recover_state(library_state_data *dat);
 
 void journey_update_after_restore(void);
 bool journey_autorestore_internal_read_char_hacks(void);

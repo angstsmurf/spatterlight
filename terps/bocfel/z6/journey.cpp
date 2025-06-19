@@ -1558,7 +1558,7 @@ void journey_update_on_resize(void) {
 
 #pragma mark Restoring
 
-void stash_journey_state(library_state_data *dat) {
+void journey_stash_state(library_state_data *dat) {
     if (!dat)
         return;
 
@@ -1574,7 +1574,7 @@ void stash_journey_state(library_state_data *dat) {
     }
 }
 
-void recover_journey_state(library_state_data *dat) {
+void journey_recover_state(library_state_data *dat) {
     if (!dat)
         return;
     selected_journey_line = dat->selected_journey_line;

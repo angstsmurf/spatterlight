@@ -152,6 +152,8 @@ void DISPLAY_BORDER(BorderType border);
 bool z0_display_picture(int x, int y, Window *win);
 void z0_autorestore_internal_read_char_hacks(void);
 void z0_erase_screen(void);
+void z0_stash_state(library_state_data *dat);
+void z0_recover_state(library_state_data *dat);
 
 typedef struct ZorkGlobals {
     uint8_t HERE;
