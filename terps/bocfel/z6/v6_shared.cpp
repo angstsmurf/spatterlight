@@ -1474,6 +1474,40 @@ void after_V_COLOR(void) {
     }
 }
 
+
+#pragma mark Skip puzzles prompt
+
+bool skip_puzzle_prompt(const char *str) {
+    // We skip asking about skipping the puzzle
+    // if VoiceOver is off and we did not just
+    // autorestore to this prompt.
+    if (gli_voiceover_on || dont_repeat_question_on_autorestore) {
+        set_current_window(&V6_TEXT_BUFFER_WINDOW);
+        if (!dont_repeat_question_on_autorestore)
+            transcribe_and_print_string(str);
+        dont_repeat_question_on_autorestore = false;
+        while (1) {
+            uint8_t c = internal_read_char();
+            glk_put_char(c);
+            transcribe(c);
+            transcribe_and_print_string("\n");
+            c = tolower(c);
+            switch (c) {
+                case 'n':
+                    transcribe_and_print_string("\n");
+                    return false;
+                case 'y':
+                    transcribe_and_print_string("\n");
+                    return true;
+                default:
+                    transcribe_and_print_string("(Y is affirmative): >");
+            }
+        }
+    }
+    return false;
+}
+
+
 #pragma mark Empty functions used by entrypoints code
 
 void DISPLAY_HINT(void) {}

@@ -1198,43 +1198,10 @@ void simplify_maze(void) {
 bool dont_repeat_question_on_autorestore = false;
 
 void after_BUILDMAZE(void) {
-
-    // We skip asking about simplifying the maze if
-    // VoiceOver is off and we did not just autorestore to
-    // this prompt.
-    if (!gli_voiceover_on && !dont_repeat_question_on_autorestore)
-        return;
-
-    set_current_window(&V6_TEXT_BUFFER_WINDOW);
-    if (!dont_repeat_question_on_autorestore)
-        transcribe_and_print_string("Would you like me to simplify the city maze, to make it easier to traverse without seeing the graphics? (Y is affirmative): >");
-
-    dont_repeat_question_on_autorestore = false;
-
-    bool done = false;
-    while (!done) {
-        uint8_t c = internal_read_char();
-        glk_put_char(c);
-        transcribe(c);
-        transcribe_and_print_string("\n");
-        switch (c) {
-            case 'n':
-            case 'N':
-                transcribe_and_print_string("\n");
-                return;
-            case 'y':
-            case 'Y':
-                done = true;
-                break;
-            default:
-                transcribe_and_print_string("(Y is affirmative): >");
-        }
+    if (skip_puzzle_prompt("Would you like me to simplify the city maze, to make it easier to traverse without seeing the graphics? (Y is affirmative): >")) {
+        simplify_maze();
     }
-
-    transcribe_and_print_string("\n");
-    simplify_maze();
 }
-
 
 #pragma mark Adjust windows
 
