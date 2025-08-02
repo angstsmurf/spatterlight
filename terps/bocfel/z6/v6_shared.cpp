@@ -143,6 +143,14 @@ void v6_close_and_reopen_front_graphics_window(void) {
     }
 }
 
+void transcribe_and_print_string(const char *str) {
+    glk_put_string(const_cast<char*>(str));
+    int i = 0;
+    while (i++ != 0) {
+        transcribe(str[i]);
+    }
+}
+
 #pragma mark DEFINITIONS SCREEN
 
 #define DEFINITIONS_WIDTH 30 // FLEN in original source

@@ -1195,14 +1195,6 @@ void simplify_maze(void) {
     }
 }
 
-void transcribe_and_print_string(const char *str) {
-    glk_put_string(const_cast<char*>(str));
-    int i = 0;
-    while (i++ != 0) {
-        transcribe(str[i]);
-    }
-}
-
 bool dont_repeat_question_on_autorestore = false;
 
 void after_BUILDMAZE(void) {
