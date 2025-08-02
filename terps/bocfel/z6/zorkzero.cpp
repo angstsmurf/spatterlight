@@ -675,6 +675,10 @@ static void adjust_text_window_by_split(uint16_t id) {
     v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
 }
 
+static bool autosolve_visual_puzzle(void) {
+    return skip_puzzle_prompt("\n\nWould you like to auto-solve this visual puzzle? (Y is affirmative): >");
+}
+
 #pragma mark DOUBLE FANUCCI
 
 #define F_MENU_LOC    384
