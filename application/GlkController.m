@@ -5024,10 +5024,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         } else { // VoiceOver was switched off
             [_journeyMenuHandler hideJourneyMenus];
         }
-        // We send an event to let the interpreter know VoiceOver status.
-        // Only to Bocfel for now.
-        if ([_terpname isEqualToString:@"bocfel"])
-            [self sendArrangeEventWithFrame:_gameView.frame force:NO];
+        // We send an event to make the interpreter aware of the new VoiceOver status.
+        [self sendArrangeEventWithFrame:_gameView.frame force:YES];
     } else {
         // Any unrecognized context must belong to super
         [super observeValueForKeyPath:keyPath
