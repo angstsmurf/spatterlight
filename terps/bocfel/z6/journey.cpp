@@ -355,7 +355,7 @@ static void update_internal_globals(void) {
 }
 
 static int party_pcm(int chr) {
-    uint16_t party_table = get_global(jg.PARTY); // global 0x63 is PARTY table
+    uint16_t party_table = get_global(jg.PARTY);
     uint16_t MAX = user_word(party_table);
     for (int cnt = 1; cnt <= MAX; cnt++) {
         if (word(party_table + cnt * 2) == chr)
@@ -779,7 +779,7 @@ static void journey_print_character_commands(bool clear) {
     if (clear)
         number_of_printed_journey_words = 0;
 
-    int line = get_global(jg.COMMAND_START_LINE); // COMMAND-START-LINE
+    int line = get_global(jg.COMMAND_START_LINE);
     int partytable, character, position;
     if (get_global(jg.UPDATE_FLAG) == 1 && !clear) {
         internal_call(pack_routine(jr.FILL_CHARACTER_TBL));
@@ -838,7 +838,7 @@ static void journey_print_character_commands(bool clear) {
             bool subgroup_attribute = internal_test_attr(character, ja.SUBGROUP); // attribute 0x2a is SUBGROUP flag
             // if the SHADOW_BIT attribute of a character is set, the character name is hidden
             // and its commands "belong" to the visible character above.
-            // This is used to give Praxis more than three commands in the mines.
+            // This is used to give Praxix more than three commands in the mines.
             bool shadow_attribute = internal_test_attr(character, ja.SHADOW); // attribute 0x17 is SHADOW flag
 
             bool should_print_command = true;
@@ -903,22 +903,21 @@ bool journey_read_elvish(int actor) {
 
     journey_input_length = 0;
 
-    journey_refresh_character_command_area(get_global(jg.COMMAND_START_LINE) - 1); // <REFRESH-CHARACTER-COMMAND-AREA <- ,COMMAND-START-LINE 1>>
-
-    set_global(jg.UPDATE_FLAG, 1); // <SETG UPDATE-FLAG T>
+    journey_refresh_character_command_area(get_global(jg.COMMAND_START_LINE) - 1);
+    set_global(jg.UPDATE_FLAG, 1);
 
     if (offset == 0)
         return false;
 
-    internal_call(pack_routine(jr.MASSAGE_ELVISH), {offset});  // <MASSAGE-ELVISH .OFF>
-    set_global(jg.E_TEMP_LEN, offset); // <SETG E-TEMP-LEN .OFF>
+    internal_call(pack_routine(jr.MASSAGE_ELVISH), {offset});
+    set_global(jg.E_TEMP_LEN, offset);
 
     tokenize(get_global(jg.E_INBUF),get_global(jg.E_LEXV), 0, false);
-    if (user_byte(get_global(jg.E_LEXV) + 1) == 0) // <ZERO? <GETB ,E-LEXV 1>>
+    if (user_byte(get_global(jg.E_LEXV) + 1) == 0)
         return false;
-    if (actor == jo.PRAXIX || actor == jo.BERGON) // PRAXIX ,BERGON
+    if (actor == jo.PRAXIX || actor == jo.BERGON)
         return true;
-    internal_call(pack_routine(jr.PARSE_ELVISH)); // <PARSE-ELVISH>
+    internal_call(pack_routine(jr.PARSE_ELVISH));
     return true;
 }
 
