@@ -2657,18 +2657,17 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)feedSaveFileToPrompt {
     NSInteger sendfd = sendfh.fileDescriptor;
-    waitforfilename = YES; /* don't interrupt */
-
+    [[NSUserDefaults standardUserDefaults]
+     setObject:_pendingSaveFilePath
+        .stringByDeletingLastPathComponent
+     forKey:@"SaveDirectory"];
+    const char *s = _pendingSaveFilePath.fileSystemRepresentation;
     struct message reply;
     reply.cmd = OKAY;
-    reply.len = _pendingSaveFilePath.length;
-
+    reply.len = strlen(s);
     write((int)sendfd, &reply, sizeof(struct message));
     if (reply.len)
-        write((int)sendfd,_pendingSaveFilePath.fileSystemRepresentation, reply.len);
-
-    waitforfilename = NO; /* we're all done, resume normal processing */
-
+        write((int)sendfd,s, reply.len);
     [readfh waitForDataInBackgroundAndNotify];
 }
 
