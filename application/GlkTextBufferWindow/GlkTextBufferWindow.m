@@ -285,8 +285,12 @@ fprintf(stderr, "%s\n",                                                    \
     }
     [NSUserDefaults.standardUserDefaults setValue:hyphenationLanguage forKey:@"NSHyphenationLanguage"];
     if (_pendingEditable) {
-        _textview.editable = YES;
-        _pendingEditable = NO;
+        if (glkctl.commandScriptRunning) {
+            [self scrollToBottomAnimated:NO];
+        } else {
+            _textview.editable = YES;
+            _pendingEditable = NO;
+        }
     }
 }
 
