@@ -35,9 +35,9 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-    _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
-    _bounds = [decoder decodeRectForKey:@"bounds"];
-    recalc = [decoder decodeBoolForKey:@"recalc"];
+        _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
+        _bounds = [decoder decodeRectForKey:@"bounds"];
+        recalc = YES;
     }
     return self;
 }
@@ -45,7 +45,6 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
     [encoder encodeRect:_bounds forKey:@"bounds"];
-    [encoder encodeBool:recalc forKey:@"recalc"];
 }
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout {
