@@ -1839,13 +1839,13 @@ replacementString:(id)repl {
 
 - (void)forceLayout{
 //    if (textstorage.length < 50000 && container.marginImages.count < 40 && !self.inLiveResize) {
-        if (!self.inLiveResize) {
-
-        //        [layoutmanager ensureLayoutForTextContainer:container];
-        NSUInteger length = MIN(textstorage.length , 1000);
-
-        [layoutmanager ensureLayoutForGlyphRange:NSMakeRange(textstorage.length - length, length)];
-    }
+//        if (!self.inLiveResize) {
+//
+//        //        [layoutmanager ensureLayoutForTextContainer:container];
+//        NSUInteger length = MIN(textstorage.length , 1000);
+//
+//        [layoutmanager ensureLayoutForGlyphRange:NSMakeRange(textstorage.length - length, length)];
+//    }
 
 }
 
