@@ -352,6 +352,15 @@ void zinsert_obj()
     set_parent(zargs[0], zargs[1]);
 }
 
+void internal_insert(uint16_t obj1, uint16_t obj2)
+{
+    remove_object(obj1);
+
+    set_sibling(obj1, child_of(obj2));
+    set_child(obj2, obj1);
+    set_parent(obj1, obj2);
+}
+
 void zget_sibling()
 {
     check_zero(true, true);

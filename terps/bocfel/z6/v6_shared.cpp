@@ -1519,7 +1519,9 @@ void DESCRIBE_ROOM(void) {}
 void DESCRIBE_OBJECTS(void) {}
 void WINPROP(void) {}
 void SET_BORDER(void) {}
+void DRAW_NEW_HERE(void) {}
 void DRAW_NEW_COMP(void) {}
+void DRAW_COMPASS_ROSE(void) {}
 void SETUP_SCREEN(void) {}
 void MAP_X(void) {}
 void PLAY_SELECTED(void) {}
@@ -1527,3 +1529,4 @@ void SCORE_CHECK(void) {}
 void TOWER_WIN_CHECK(void) {}
 void DRAW_PEGS(void) {}
 void SET_B_PIC(void) {}
+void BLINK(void) {}
