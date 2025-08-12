@@ -95,6 +95,8 @@ typedef struct library_state_data_struct {
 
     int stored_lower_tag;
 
+    int z0_right_status_tag;
+
     int hints_depth;
     int slideshow_pic;
     int current_picture;

@@ -22,16 +22,6 @@
 
 #define z0_left_status_window windows[1].id
 
-#define PHIL_HALL 0xc7
-#define G_U_MOUNTAIN 0xac
-#define G_U_SAVANNAH 0xc3
-#define G_U_HIGHWAY 0xce
-
-#define P_APPLE_DESC 0x19
-#define P_REGION 0x27
-
-#define HERE_LOC 382
-
 #define MAX(a,b) (a > b ? a : b)
 
 winid_t z0_right_status_window = nullptr;
@@ -46,17 +36,7 @@ ZorkGlobals zg;
 ZorkRoutines zr;
 ZorkTables zt;
 ZorkObjects zo;
-
-
-//#define SL_LOC_TBL 0x70a5
-
-// <CONSTANT SL-LOC-TBL
-// <TABLE 0 0 ;HERE-LOC
-// 0 0 ;REGION-LOC
-// 0 0 ;COMPASS-PIC-LOC
-// 0 0 ;U-BOX-LOC
-// 0 0 ;D-BOX-LOC
-// 0 0 ;ICON-OFFSET>>
+ZorkProperties zp;
 
 static bool is_zorkzero_tower_image(int pic) {
     return (pic >= 42 && pic <= 48);
@@ -96,13 +76,19 @@ static bool is_zorkzero_peggleboz_box_image(int pic) {
     }
 }
 
+void z0_hide_right_status(void) {
+    if (z0_right_status_window == nullptr) {
+        fprintf(stderr, "Error!\n");
+    }
+    glk_window_clear(z0_right_status_window);
+    win_sizewin(z0_right_status_window->peer, 0, 0, 0, 0);
+}
+
 void z0_erase_screen(void) {
     clear_image_buffer();
     clear_margin_image_list();
-    if (z0_right_status_window != nullptr) {
-        gli_delete_window(z0_right_status_window);
-        z0_right_status_window = nullptr;
-    }
+    z0_hide_right_status();
+
     if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
         glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
     if (V6_STATUS_WINDOW.id != nullptr)
@@ -171,7 +157,7 @@ void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
     uint16_t x, x_size;
     uint16_t y = (height + 1) * imagescaley;
 
-    if (get_global(zg.BORDER_ON) == 0 && id == 0x0183) { // <EQUAL? .ID ,TEXT-WINDOW-PIC-LOC>>
+    if (get_global(zg.BORDER_ON) == 0 && id == TEXT_WINDOW_PIC_LOC) {
         x = 1;
         x_size = gscreenw;
     } else {
@@ -252,7 +238,7 @@ void z0_autorestore_internal_read_char_hacks(void) {
 }
 
 static bool z0_init_status_line(bool DONT_CLEAR) {
-    set_global(zg.COMPASS_CHANGED, 1);  // <SETG COMPASS-CHANGED T>
+//    set_global(zg.COMPASS_CHANGED, 1);  // <SETG COMPASS-CHANGED T>
 //    set_global(zg.NEW_COMPASS, 1);  // <SETG NEW-COMPASS T>
 
     bool border_on = get_global(zg.BORDER_ON) == 1;
@@ -278,10 +264,7 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
         return true;
     }
 
-    if (z0_right_status_window != nullptr) {
-        gli_delete_window(z0_right_status_window);
-        z0_right_status_window = nullptr;
-    }
+    z0_hide_right_status();
 
     if (border_on) { // <COND (,BORDER-ON
 
@@ -294,8 +277,12 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
         }
 
         set_current_window(&windows[7]); // <SCREEN ,S-FULL>
-        set_global(zg.CURRENT_BORDER, internal_call(pack_routine(zr.SET_BORDER)));
-        DISPLAY_BORDER((BorderType)get_global(zg.CURRENT_BORDER));
+        if (zg.CURRENT_BORDER != 0) {
+            set_global(zg.CURRENT_BORDER, internal_call(pack_routine(zr.SET_BORDER)));
+            DISPLAY_BORDER((BorderType)get_global(zg.CURRENT_BORDER));
+        } else {
+            DISPLAY_BORDER((BorderType)internal_call(pack_routine(zr.SET_BORDER)));
+        }
         for (int i = 1; i < 14; i++) {
             internal_clear_attr(0x166, i);
         }
@@ -306,6 +293,9 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
         glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_background);
 //        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_foreground);
     }
+
+    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
+    win_refresh(z0_right_status_window->peer, 0, 0);
 
 //    set_global(0x9a, 1); //  <SETG FONT-X <LOWCORE (FWRD 1)>>
 
@@ -337,27 +327,32 @@ void INIT_STATUS_LINE(void) {
 //}
 
 static void draw_new_here(void) {
+//    zo.PHIL_HALL = 0xc7;
+//    zo.G_U_MOUNTAIN = 0xac;
+//    zo.G_U_SAVANNAH = 0xc3;
+//    zo.G_U_HIGHWAY = 0xce;
+
     V6_STATUS_WINDOW.x = 1;
     V6_STATUS_WINDOW.y = 1;
 
     int16_t HERE = get_global(zg.HERE);
     bool NARROW = options.int_number == INTERP_APPLE_IIE || options.int_number == INTERP_MSDOS;
 
-    if (NARROW || HERE == PHIL_HALL) {
-        int16_t X = internal_get_prop(HERE, P_APPLE_DESC);
+    if (NARROW || HERE == zo.PHIL_HALL) {
+        int16_t X = internal_get_prop(HERE, zp.P_APPLE_DESC);
         if (X) {
             print_handler(unpack_string(X), nullptr);
             return;
         }
     }
 
-    if (HERE == G_U_MOUNTAIN || HERE == G_U_SAVANNAH || HERE == G_U_HIGHWAY) {
+    if (HERE == zo.G_U_MOUNTAIN || HERE == zo.G_U_SAVANNAH || HERE == zo.G_U_HIGHWAY) {
         glk_put_string(const_cast<char*>("Great Undergd. "));
         //  <TELL "Great Undergd. ">
-        if (HERE == G_U_MOUNTAIN) {
+        if (HERE == zo.G_U_MOUNTAIN) {
             glk_put_string(const_cast<char*>("Mountain"));
             // <TELL "Mountain">
-        } else if (HERE == G_U_SAVANNAH) {
+        } else if (HERE == zo.G_U_SAVANNAH) {
             glk_put_string(const_cast<char*>("Savannah"));
             // <TELL "Savannah">
         } else {
@@ -385,7 +380,11 @@ static void z0_resize_status_windows(void) {
             win_maketransparent(z0_left_status_window->peer);
     }
 
-    int16_t CURRENT_BORDER = get_global(zg.CURRENT_BORDER);
+    int16_t CURRENT_BORDER;
+    if (zg.CURRENT_BORDER != 0)
+        CURRENT_BORDER = get_global(zg.CURRENT_BORDER);
+    else
+        CURRENT_BORDER = internal_call(pack_routine(zr.SET_BORDER));
 
     int imgwidth, imgheight;
     get_image_size(CURRENT_BORDER, &imgwidth, &imgheight);
@@ -420,21 +419,19 @@ static void z0_resize_status_windows(void) {
 
     if (!BORDER_ON) {
         fprintf(stderr, "z0_resize_status_windows: border is off\n");
-        if (z0_right_status_window != nullptr) {
-            gli_delete_window(z0_right_status_window);
-            z0_right_status_window = nullptr;
-        }
+        z0_hide_right_status();
+
         v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, height);
         glk_window_clear(z0_left_status_window);
         z0_right_status_width = (gscreenw - 2 * ggridmarginx) / gcellw;
         return;
     }
 
-    if (z0_right_status_window == nullptr) {
-        z0_right_status_window = gli_new_window(wintype_TextGrid, 0);
-        fprintf(stderr, "z0_resize_status_windows: creating a new right status window with peer %d\n", z0_right_status_window->peer);
-        win_maketransparent(z0_right_status_window->peer);
-    }
+//    if (z0_right_status_window == nullptr) {
+//        z0_right_status_window = gli_new_window(wintype_TextGrid, 0);
+//        fprintf(stderr, "z0_resize_status_windows: creating a new right status window with peer %d\n", z0_right_status_window->peer);
+//        win_maketransparent(z0_right_status_window->peer);
+//    }
 
     uint16_t HERE = get_global(zg.HERE);
     int stringlength = count_characters_in_object(HERE);
@@ -445,7 +442,7 @@ static void z0_resize_status_windows(void) {
     win_sizewin(z0_left_status_window->peer, x, y, x + width, y + height);
     glk_window_clear(z0_left_status_window);
 
-    int16_t REGION = internal_get_prop(HERE, P_REGION);
+    int16_t REGION = internal_get_prop(HERE, zp.P_REGION);
 
     z0_right_status_width = MAX(count_characters_in_zstring(REGION), 10); // 10 characters to make room for "SCORE:" plus 1000 points
 
@@ -466,9 +463,11 @@ static void z0_resize_status_windows(void) {
 
 void z0_UPDATE_STATUS_LINE(void) {
     bool BORDER_ON = (get_global(zg.BORDER_ON) == 1);
-    bool COMPASS_CHANGED = (get_global(zg.COMPASS_CHANGED) == 1);
+//    bool COMPASS_CHANGED = (get_global(zg.COMPASS_CHANGED) == 1);
+//    if (!COMPASS_CHANGED)
+//        fprintf(stderr, "z0_UPDATE_STATUS_LINE: COMPASS_CHANGED == %d\n", get_global(zg.COMPASS_CHANGED));
     uint16_t HERE = get_global(zg.HERE);
-    uint16_t REGION = internal_get_prop(HERE, P_REGION);
+    uint16_t REGION = internal_get_prop(HERE, zp.P_REGION);
 
     // if interpreter is IBM and color flag is unset
     // or border is off
@@ -479,6 +478,7 @@ void z0_UPDATE_STATUS_LINE(void) {
     set_current_window(&V6_STATUS_WINDOW);
     glk_window_move_cursor(z0_left_status_window, 0, 0);
 
+
     draw_new_here();
 
     glk_window_move_cursor(z0_left_status_window, 0, 1);
@@ -486,8 +486,34 @@ void z0_UPDATE_STATUS_LINE(void) {
     print_number(get_global(zg.MOVES));
 
     if (BORDER_ON) {
-        if (COMPASS_CHANGED) {
-            internal_call(pack_routine(zr.DRAW_NEW_COMP));
+//        if (COMPASS_CHANGED) {
+            if (zr.DRAW_NEW_COMP != 0) {
+                internal_call(pack_routine(zr.DRAW_NEW_COMP));
+            } else {
+//                set_global(zg.COMPASS_CHANGED, 0);
+                int width, height;
+                get_image_size(COMPASS_PIC_LOC, &width, &height);
+
+                store_word(zt.PICINF_TBL, (height + 1) * imagescaley);
+                store_word(zt.PICINF_TBL + 2, (width + 1)  * imagescalex);
+
+                fprintf(stderr, "COMPASS-PIC-LOC: width:%d height:%d\n", width, height);
+
+                fprintf(stderr, "PICINF-TBL 0:0x%x\n", word(zt.PICINF_TBL));
+                fprintf(stderr, "PICINF-TBL 1:0x%x\n", word(zt.PICINF_TBL + 2));
+
+                fprintf(stderr, "pixelwidth:%f\n", pixelwidth);
+                fprintf(stderr, "imagescalex:%f\n", imagescalex);
+                fprintf(stderr, "imagescaley:%f\n", imagescaley);
+
+                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_NORTH, N_HIGHLIGHTED, N_UNHIGHLIGHTED});
+                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_NE, NE_HIGHLIGHTED, NE_UNHIGHLIGHTED});
+                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_EAST, E_HIGHLIGHTED, E_UNHIGHLIGHTED});
+                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_SE, SE_HIGHLIGHTED, SE_UNHIGHLIGHTED});
+                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_SOUTH, S_HIGHLIGHTED, S_UNHIGHLIGHTED});
+                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_SW, SW_HIGHLIGHTED, SW_UNHIGHLIGHTED});
+                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_WEST, W_HIGHLIGHTED, W_UNHIGHLIGHTED});
+                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_NW, NW_HIGHLIGHTED, NW_UNHIGHLIGHTED});
         }
         glk_set_window(z0_right_status_window);
     }
@@ -640,28 +666,33 @@ static glsi32 encyclopedia_background_color(void) {
     }
 }
 
-static void draw_encyclopedia(void) {
-    clear_image_buffer();
-    ensure_pixmap(current_graphics_buf_win);
-    draw_to_pixmap_unscaled(zorkzero_encyclopedia_border, 0, 0);
-    int width, height;
-    get_image_size(zorkzero_encyclopedia_picture_location, &width, &height);
-    draw_to_pixmap_unscaled(current_picture, width, height);
+static void adjust_encyclopedia_text_window(void) {
+    int width, height, x, y;
 
-    flush_image_buffer();
-
-    get_image_size(zorkzero_encyclopedia_text_location, &width, &height);
-
+    get_image_size(zorkzero_encyclopedia_text_location, &x, &y);
     get_image_size(zorkzero_encyclopedia_text_size, &width, &height);
     if (graphics_type == kGraphicsTypeAmiga) {
         height -= 10;
     }
 
-    v6_define_window(&windows[3], width * imagescalex, height * imagescaley, width * imagescalex, height * imagescaley);
-    
-    win_setbgnd(windows[3].id->peer, encyclopedia_background_color());
-    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, encyclopedia_background_color());
-    win_refresh(windows[3].id->peer, 0, 0);
+    v6_define_window(&windows[3], x * imagescalex, y * imagescaley, width * imagescalex, height * imagescaley);
+
+    glsi32 encycl_bgnd = encyclopedia_background_color();
+    win_setbgnd(windows[3].id->peer, encycl_bgnd);
+    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, encycl_bgnd);
+//    win_refresh(windows[3].id->peer, 0, 0);
+}
+
+static void draw_encyclopedia(void) {
+    clear_image_buffer();
+    current_graphics_buf_win = graphics_fg_glk;
+    ensure_pixmap(current_graphics_buf_win);
+    draw_to_pixmap_unscaled(zorkzero_encyclopedia_border, 0, 0);
+    int width, height;
+    get_image_size(zorkzero_encyclopedia_picture_location, &width, &height);
+    draw_to_pixmap_unscaled(current_picture, width, height);
+    flush_bitmap(graphics_fg_glk);
+    adjust_encyclopedia_text_window();
 }
 
 static void adjust_text_window_by_split(uint16_t id) {
@@ -691,8 +722,8 @@ static bool autosolve_visual_puzzle(void) {
 
 #define DRAW_CARDS_OFFSET 22
 
-#define NOT_HERE_OBJECT 0x0159
-#define F_CARD_TABLE 0x71c7
+//#define NOT_HERE_OBJECT 0x0159
+//#define F_CARD_TABLE 0x71c7
 
 #define F_CARD_BACK 100
 #define F_CARD 101
@@ -774,8 +805,8 @@ static void draw_offset_image(int pic, int x, int y, int offpic) {
 
 static void draw_card(int x, int y, int rank, int suit) {
     int rank_order[] = { -1, 4, 5, 6, 7, 8, 9, 0, 10, 1, 2, 3 };
-    rank = user_byte(F_CARD_TABLE + rank);
-    suit = user_byte(F_CARD_TABLE + suit);
+    rank = user_byte(zt.F_CARD_TABLE + rank);
+    suit = user_byte(zt.F_CARD_TABLE + suit);
     if (rank == 0) {
         draw_to_pixmap_unscaled(F_CARD_BACK, x, y);
     } else if (rank > 11) {
@@ -792,12 +823,14 @@ static void draw_card(int x, int y, int rank, int suit) {
 }
 
 static void draw_cards(void) {
+    zo.NOT_HERE_OBJECT = 0x159;
+
     int x, y;
     for (int cnt = 0; cnt < 5; cnt++) {
         get_image_size(F_DISCARD_PIC_LOC + cnt, &x, &y);
         uint16_t draw_cards_attribute = DRAW_CARDS_OFFSET + cnt;
-        if (!internal_test_attr(NOT_HERE_OBJECT, draw_cards_attribute))
-            internal_set_attr(NOT_HERE_OBJECT, draw_cards_attribute);
+        if (!internal_test_attr(zo.NOT_HERE_OBJECT, draw_cards_attribute))
+            internal_set_attr(zo.NOT_HERE_OBJECT, draw_cards_attribute);
         draw_card(x, y, cnt * 2, cnt * 2 + 1);
     }
 };
@@ -888,7 +921,7 @@ static bool pick_play() {
 
         int column = ptr / 3;
         int line = ptr % 3;
-        switch(key) {
+        switch(tolower(key)) {
             case ZSCII_CLICK_SINGLE:
                 break;
             case ZSCII_CLICK_DOUBLE:
@@ -905,7 +938,6 @@ static bool pick_play() {
             case ZSCII_UP:
             case ZSCII_KEY8:
             case 'u':
-            case 'U':
                 unbold_move(ptr);
                 if (line > 0) {
                     ptr--;
@@ -919,7 +951,6 @@ static bool pick_play() {
             case ZSCII_DOWN:
             case ZSCII_KEY2:
             case 'd':
-            case 'D':
                 unbold_move(ptr);
                 if (line < 2) {
                     ptr++;
@@ -933,7 +964,6 @@ static bool pick_play() {
             case ZSCII_LEFT:
             case ZSCII_KEY4:
             case 'l':
-            case 'L':
                 unbold_move(ptr);
                 if (column > 0) {
                     ptr -= 3;
@@ -946,7 +976,6 @@ static bool pick_play() {
             case ZSCII_RIGHT:
             case ZSCII_KEY6:
             case 'r':
-            case 'R':
             case ZSCII_SPACE:
                 unbold_move(ptr);
                 if (column < 4) {
@@ -991,6 +1020,12 @@ void FANUCCI(void) {
         glk_put_string(const_cast<char*>(" to select your play."));
     }
     bool finished = false;
+
+    if (autosolve_visual_puzzle()) {
+        internal_clear_attr(0x012f, 0x1e); // <FCLEAR ,BROOM ,TRYTAKEBIT>
+        finished = true;
+    }
+
     while(!finished) {
         if (pick_play()) {
             finished = true;
@@ -1052,7 +1087,6 @@ uint16_t F_MOUSE_CARD_PICK(void) {
 
 
 
-
 // Window 1: Jester's Score
 // z0_right_status_window (no number): Your Score
 //
@@ -1080,9 +1114,10 @@ static void redraw_fanucci(void) {
     fanucci_window(1, x, y, 20);
     glk_put_string(const_cast<char*>("Jester's Score:  000"));
 
-    if (z0_right_status_window == nullptr) {
-        z0_right_status_window = gli_new_window(wintype_TextGrid, 0);
-    }
+//    if (z0_right_status_window == nullptr) {
+////        z0_right_status_window = gli_new_window(wintype_TextGrid, 0);
+//        fprintf(stderr, "Error!\n");
+//    }
 
     win_sizewin(z0_right_status_window->peer, MAX(gscreenw - 21 * gcellw - 2 * ggridmarginx, 0), y, gscreenw - x, y + V6_STATUS_WINDOW.y_size);
     glk_set_window(z0_right_status_window);
@@ -1195,7 +1230,7 @@ void SETUP_FANUCCI(void) {
 
 #pragma mark SNARFEM
 
-#define PILE_TABLE 0x73f9
+//#define PILE_TABLE 0x73f9
 
 #define PILE_OF_0 74
 
@@ -1223,10 +1258,10 @@ static void snarfem_draw_numbered_boxes(int pile) {
     for (int i = 1; i <= 9; i++) {
         bool dimmed = false;
         if (pile == 0) {
-            if (i > 4 || user_word(PILE_TABLE + i * 2) == 0) {
+            if (i > 4 || user_word(zt.PILE_TABLE + i * 2) == 0) {
                 dimmed = true;
             }
-        } else if (user_word(PILE_TABLE + pile * 2) < i) {
+        } else if (user_word(zt.PILE_TABLE + pile * 2) < i) {
             dimmed = true;
         }
 
@@ -1236,7 +1271,7 @@ static void snarfem_draw_numbered_boxes(int pile) {
 }
 
 static void snarfem_draw_pile(int pile) {
-    int num = user_word(PILE_TABLE + pile * 2);
+    int num = user_word(zt.PILE_TABLE + pile * 2);
     int x, y;
     get_image_size(PILE_1_PIC_LOC + pile - 1, &x, &y);
     draw_to_pixmap_unscaled(PILE_OF_0 + num, x, y);
@@ -1259,7 +1294,7 @@ void DRAW_FLOWERS(void) {
     uint16_t temp_table[4], pile_table[4];
     // Copy ZIL table to C array for convenience
     for (int i = 0; i < 4; i++) {
-        pile_table[i] = user_word(PILE_TABLE + (i + 1) * 2);
+        pile_table[i] = user_word(zt.PILE_TABLE + (i + 1) * 2);
     }
     if (snarfem_safe_number(pile_table)) {
         left = L_FLOWERS_0;
@@ -1347,7 +1382,7 @@ static void draw_snarfem(void) {
 
     int x, y, distance_from_bottom, height;
     get_image_size(SN_SPLIT, &x, &y);
-    set_global(0xb7, SN_SPLIT); // <SETG CURRENT-SPLIT .ID>
+    set_global(zg.CURRENT_SPLIT, SN_SPLIT); // <SETG CURRENT-SPLIT .ID>
     x *= imagescalex;
     y++;
     y *= imagescaley;
@@ -1363,10 +1398,7 @@ static void draw_snarfem(void) {
 
 
 void SETUP_SN(void) {
-    if (z0_right_status_window != nullptr) {
-        gli_delete_window(z0_right_status_window);
-        z0_right_status_window = nullptr;
-    }
+    z0_hide_right_status();
 
     v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
 
@@ -1388,12 +1420,15 @@ void SN_CLICK(void) {
     store_variable(2, snarfem_click(variable(1)));
 }
 
+void SNARFEM(void) {
+    if (autosolve_visual_puzzle()) {
+        transcribe_and_print_string("\n");
+        store_variable(4, 1);
+        internal_clear_attr(zo.FAN, zp.TRYTAKEBIT);
+    }
+}
 
 #pragma mark PEGGLEBOZ
-
-#define PBOZ_OBJECT 0x020f
-#define PBOZ_PIC_TABLE 0xd27a
-#define BOARD_TABLE 0x712f
 
 static void z0_draw_peggleboz_box_image(uint16_t pic, uint16_t x, uint16_t y) {
     int width, height;
@@ -1426,10 +1461,10 @@ static void draw_peggles(void) {
 
     int width, height;
     for (int i = 2; i < 43; i += 2) {
-        uint16_t pic = user_word(PBOZ_PIC_TABLE + i - 2);
+        uint16_t pic = user_word(zt.PBOZ_PIC_TABLE + i - 2);
         get_image_size(pic, &width, &height);
-        store_word(BOARD_TABLE + i * 2, height);
-        store_word(BOARD_TABLE + (i + 1) * 2, width);
+        store_word(zt.BOARD_TABLE + i * 2, height);
+        store_word(zt.BOARD_TABLE + (i + 1) * 2, width);
     }
 
     internal_call(pack_routine(zr.DRAW_PEGS)); // <DRAW-PEGS>
@@ -1456,22 +1491,32 @@ static void draw_peggles(void) {
 
 uint16_t selected_peg = 0;
 
-void SETUP_PBOZ(void) {
+bool skip_pboz = false;
 
-    if (z0_right_status_window != nullptr) {
-        gli_delete_window(z0_right_status_window);
-        z0_right_status_window = nullptr;
-    }
+void SETUP_PBOZ(void) {
+    z0_hide_right_status();
 
     if (V6_STATUS_WINDOW.id != nullptr) {
         v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
     }
-    
-    internal_set_attr(NOT_HERE_OBJECT, 7);
-    internal_set_attr(PBOZ_OBJECT, 0x20);
+
+    // (Note that the below does not apply to release 242)
+    // What does this do, exactly? Attribute 7 is checked in PBOZ-WIN-CHECK:
+    // Game is considered won if the first 21 attributes (1-21) of NOT-HERE-OBJECT are set
+    // except attribute 7, which must not be set
+    internal_set_attr(zo.NOT_HERE_OBJECT, 7);
+    internal_set_attr(zo.PBOZ_OBJECT, 0x20); // 0x20 is TOUCHBIT
     has_made_peggleboz_move = false;
     selected_peg = 0;
     draw_peggles();
+    flush_image_buffer();
+
+    if (autosolve_visual_puzzle()) {
+        transcribe_and_print_string("\n");
+        skip_pboz = true;
+        transcribe_and_print_string("Press any key twice to win.\n");
+    }
+
 }
 
 static uint16_t pboz_click(void) {
@@ -1499,8 +1544,8 @@ static uint16_t pboz_click(void) {
     get_image_size(UNHL_PEG, &peg_width, &peg_height);
 
     for (int i = 2; i < 43; i += 2) {
-        top = user_word(BOARD_TABLE + i * 2);
-        left = user_word(BOARD_TABLE + (i + 1) * 2);
+        top = user_word(zt.BOARD_TABLE + i * 2);
+        left = user_word(zt.BOARD_TABLE + (i + 1) * 2);
         if (within(left - expand_width, top, peg_width + 2 * expand_width, peg_height + expand_height)) {
             return i / 2 + 64; // "divide in half and convert to ASCII"
         }
@@ -1517,6 +1562,28 @@ void PEG_GAME(void) {
     selected_peg = variable(2) * 2;
 }
 
+void PEG_GAME_READ_CHAR(void) {
+    if (skip_pboz) {
+        if (selected_peg == 0)
+            store_variable(3, 'Q');
+        else
+            store_variable(3, 'G');
+    }
+}
+
+
+void PBOZ_WIN_CHECK(void) {
+    // Game is considered won if the first 21 attributes (1-21) of NOT-HERE-OBJECT are set
+    // except attribute 7, which must not be set.
+    if (skip_pboz) {
+        for (int i = 1; i < 22; i++) {
+            internal_set_attr(zo.NOT_HERE_OBJECT, i);
+        }
+        internal_clear_attr(zo.NOT_HERE_OBJECT, 7);
+        skip_pboz = false;
+    }
+}
+
 void DISPLAY_MOVES(void) {
     glk_put_char(UNICODE_LINEFEED);
 }
@@ -1524,32 +1591,162 @@ void DISPLAY_MOVES(void) {
 
 #pragma mark TOWER OF BOZBAR
 
-#define B_Y_TBL 0x7393
-#define B_X_TBL 0x738d
+static void clear_peg_table(uint16_t table) {
+    for (int i = 0; i < 6; i++) {
+        store_word(table + i * 2, 0);
+    }
+}
 
-#define LEFT_PEG_TABLE 0x73cf
-#define CENTER_PEG_TABLE 0x73db
-#define RIGHT_PEG_TABLE 0x73e7
+static void draw_tower_of_bozbar(void);
+
+static bool tower_solved = false;
+
+static void solve_tower(uint8_t c) {
+    uint16_t peg = 0;
+    uint16_t table = 0;
+    switch (c) {
+        case 'l':
+            peg = zo.LEFT_PEG;
+            table = zt.LEFT_PEG_TABLE;
+            break;
+        case 'c':
+            peg = zo.CENTER_PEG;
+            table = zt.CENTER_PEG_TABLE;
+            break;
+        case 'r':
+            peg = zo.RIGHT_PEG;
+            table = zt.RIGHT_PEG_TABLE;
+            break;
+        default:
+            fprintf(stderr, "ERROR!\n");
+            return;
+    }
+
+    internal_insert(zo.SIX_WEIGHT, peg);
+    internal_insert(zo.FIVE_WEIGHT, peg);
+    internal_insert(zo.FOUR_WEIGHT, peg);
+    internal_insert(zo.THREE_WEIGHT, peg);
+    internal_insert(zo.TWO_WEIGHT, peg);
+    internal_insert(zo.ONE_WEIGHT, peg);
+
+    clear_peg_table(zt.LEFT_PEG_TABLE);
+    clear_peg_table(zt.CENTER_PEG_TABLE);
+    clear_peg_table(zt.RIGHT_PEG_TABLE);
+
+    store_word(table, zo.SIX_WEIGHT);
+    store_word(table + 2, zo.FIVE_WEIGHT);
+    store_word(table + 4, zo.FOUR_WEIGHT);
+    store_word(table + 6, zo.THREE_WEIGHT);
+    store_word(table + 8, zo.TWO_WEIGHT);
+    store_word(table + 10,zo.ONE_WEIGHT);
+
+    draw_tower_of_bozbar();
+
+    if (zg.TOWER_CHANGED != 0) // Does not exist in r242
+        set_global(zg.TOWER_CHANGED, 1);
+    else
+        tower_solved = true;
+}
+
+static void ask_which_peg(void) {
+    uint16_t result = internal_call(pack_routine(zr.TOWER_WIN_CHECK));
+    if (result > 0) {
+        transcribe_and_print_string("Currently, the weights are on the ");
+        if (result == zo.PYRAMID_L) {
+            transcribe_and_print_string("left");
+        } else if (result == zo.PYRAMID_R) {
+            transcribe_and_print_string("right");
+        } else {
+            transcribe_and_print_string("center");
+        }
+        transcribe_and_print_string(" peg. ");
+    }
+    transcribe_and_print_string("To which peg do you want to move the weights? (L/C/R) >");
+
+    bool done = false;
+    uint8_t c;
+    while (!done) {
+        c = internal_read_char();
+        glk_put_char(c);
+        transcribe(c);
+        transcribe_and_print_string("\n");
+        c = tolower(c);
+        switch (c) {
+            case 'l':
+            case 'r':
+            case 'c':
+                done = true;
+                break;
+            default:
+                transcribe_and_print_string("Please type L, C, or R. > ");
+                break;
+        }
+    }
+
+    solve_tower(c);
+}
+
+void SMALL_DOOR_F(void) {
+    if (autosolve_visual_puzzle()) {
+        ask_which_peg();
+    } else if (gli_voiceover_on) {
+        transcribe_and_print_string("[Note that you can get a description of the weights arrangement by pressing the D button during play.]");
+    }
+}
+
+void TOWER_MODE(void) {
+    if (tower_solved) {
+        store_variable(5, 0);
+        store_variable(6, 0);
+        tower_solved = false;
+    }
+//    if (gli_voiceover_on) {
+//        if (!dont_repeat_question_on_autorestore)
+//            transcribe_and_print_string("Would you like to auto-solve this visual puzzle? (Y is affirmative): >");
+//
+//        dont_repeat_question_on_autorestore = false;
+//
+//        bool done = false;
+//        while (!done) {
+//            uint8_t c = internal_read_char();
+//            glk_put_char(c);
+//            transcribe(c);
+//            transcribe_and_print_string("\n");
+//            switch (c) {
+//                case 'n':
+//                case 'N':
+//                    transcribe_and_print_string("\n");
+//                    return;
+//                case 'y':
+//                case 'Y':
+//                    done = true;
+//                    break;
+//                default:
+//                    transcribe_and_print_string("(Y is affirmative): >");
+//            }
+//        }
+//
+//        transcribe_and_print_string("\n");
+//        solve_tower();
+//    }
+}
+
 
 static void draw_peg(uint16_t table, int offset) {
-    uint16_t x = user_word(B_X_TBL + offset * 2);
+    uint16_t x = user_word(zt.B_X_TBL + offset * 2);
     for (int i = 0; i < 6; i++) {
         uint16_t wgt = user_word(table + i * 2);
         if (wgt == 0)
             return;
         uint16_t pic = internal_call(pack_routine(zr.SET_B_PIC), {wgt}); //  <SET-B-PIC WGT>
-        draw_to_pixmap_unscaled(pic, x, user_word(B_Y_TBL + i * 2));
+        draw_to_pixmap_unscaled(pic, x, user_word(zt.B_Y_TBL + i * 2));
     }
 }
 
 static bool undoing = true;
 
 static void draw_tower_of_bozbar(void) {
-
-    if (z0_right_status_window != nullptr) {
-        gli_delete_window(z0_right_status_window);
-        z0_right_status_window = nullptr;
-    }
+    z0_hide_right_status();
 
     if (V6_STATUS_WINDOW.id != nullptr) {
         v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
@@ -1557,35 +1754,35 @@ static void draw_tower_of_bozbar(void) {
 
     int width, height;
     get_image_size(B_1_L_PIC_LOC, &width, &height);
-    store_word(B_Y_TBL + 5 * 2, height);
-    store_word(B_X_TBL, width);
+    store_word(zt.B_Y_TBL + 5 * 2, height);
+    store_word(zt.B_X_TBL, width);
 
     get_image_size(B_2_C_PIC_LOC, &width, &height);
-    store_word(B_Y_TBL + 4 * 2, height);
-    store_word(B_X_TBL + 2, width);
+    store_word(zt.B_Y_TBL + 4 * 2, height);
+    store_word(zt.B_X_TBL + 2, width);
 
     get_image_size(B_3_R_PIC_LOC, &width, &height);
-    store_word(B_Y_TBL + 3 * 2, height);
-    store_word(B_X_TBL + 2 * 2, width);
+    store_word(zt.B_Y_TBL + 3 * 2, height);
+    store_word(zt.B_X_TBL + 2 * 2, width);
 
     get_image_size(B_4_PIC_LOC, &width, &height);
-    store_word(B_Y_TBL + 2 * 2, height);
+    store_word(zt.B_Y_TBL + 2 * 2, height);
 
     get_image_size(B_5_PIC_LOC, &width, &height);
-    store_word(B_Y_TBL + 2, height);
+    store_word(zt.B_Y_TBL + 2, height);
 
     get_image_size(B_6_PIC_LOC, &width, &height);
-    store_word(B_Y_TBL,  height);
+    store_word(zt.B_Y_TBL,  height);
 
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
     draw_to_pixmap_unscaled(zorkzero_tower_of_bozbar_border, 0, 0);
-    draw_peg(LEFT_PEG_TABLE, 0);
-    draw_peg(CENTER_PEG_TABLE, 1);
-    draw_peg(RIGHT_PEG_TABLE, 2);
+    draw_peg(zt.LEFT_PEG_TABLE, 0);
+    draw_peg(zt.CENTER_PEG_TABLE, 1);
+    draw_peg(zt.RIGHT_PEG_TABLE, 2);
 
     get_image_size(TOWER_UNDO_BOX_LOC, &width, &height);
-    if (undoing || internal_call(pack_routine(zr.TOWER_WIN_CHECK))) { // TOWER-WIN-CHECK
+    if (undoing || internal_call(pack_routine(zr.TOWER_WIN_CHECK))) {
         draw_to_pixmap_unscaled(DIM_UNDO_BOX, width, height);
     } else {
         draw_to_pixmap_unscaled(UNDO_BOX, width, height);
@@ -1640,11 +1837,11 @@ uint8_t pick_weight(void) {
         return 'X';
     get_image_size(B_1_WEIGHT, &weight_width, &weight_height);
     weight_height++;
-    uint16_t tbl = LEFT_PEG_TABLE;
+    uint16_t tbl = zt.LEFT_PEG_TABLE;
     for (int cnt_x = 0; cnt_x < 3; cnt_x++) {
         for (int cnt_y = 0; cnt_y < 6; cnt_y++) {
-            left = user_word(B_X_TBL + cnt_x * 2);
-            top = user_word(B_Y_TBL + cnt_y * 2);
+            left = user_word(zt.B_X_TBL + cnt_x * 2);
+            top = user_word(zt.B_Y_TBL + cnt_y * 2);
             if (within(left, top, weight_width, weight_height)) {
                 num = user_word(tbl + cnt_y * 2);
                 if (num != 0) {
@@ -1657,9 +1854,9 @@ uint8_t pick_weight(void) {
             }
         }
         if (cnt_x == 0) {
-            tbl = CENTER_PEG_TABLE;
+            tbl = zt.CENTER_PEG_TABLE;
         } else {
-            tbl = RIGHT_PEG_TABLE;
+            tbl = zt.RIGHT_PEG_TABLE;
         }
     }
     win_beep(1);
@@ -1674,8 +1871,8 @@ void B_MOUSE_WEIGHT_PICK(void) {
 #pragma mark Map stuff
 
 static void update_blink_coordinates(uint16_t x, uint16_t y) {
-    store_word(get_global(0xd9) + 3 * 2, y);
-    store_word(get_global(0xd9) + 4 * 2, x);
+    store_word(get_global(zg.BLINK_TBL) + 3 * 2, y);
+    store_word(get_global(zg.BLINK_TBL) + 4 * 2, x);
 
     store_variable(3, y);
     store_variable(4, x);
@@ -1694,10 +1891,10 @@ static void update_blink_coordinates(uint16_t x, uint16_t y) {
 // coordinates upon every mouse click
 void V_MAP_LOOP(void) {
     // Get the map location table of current room
-    uint16_t TBL = internal_get_prop(get_global(zg.HERE), 0x26); //  <GETP ,HERE ,P?MAP-LOC>>
+    uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
     // Get the coordinates of the map representation of current room
-    uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>> 0x16690
-    uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>> 0x16674
+    uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
+    uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
 
     store_variable(4, CX);
     store_variable(5, CY);
@@ -1742,11 +1939,15 @@ void z0_update_on_resize(void) {
     int stored_margin_image_number = number_of_margin_images;
 
     bool NARROW = (MACHINE == INTERP_MSDOS || MACHINE == INTERP_APPLE_IIE);
-    set_global(0x93, NARROW);
+    set_global(zg.NARROW, NARROW);
 
     glk_request_timer_events(0);
-    
-    internal_call(pack_routine(zr.SETUP_SCREEN)); // SETUP-SCREEN
+
+    // SETUP-SCREEN copies image metrics
+    // for the header text and compass
+    // into the SL-LOC-TBL
+    if (zr.SETUP_SCREEN != 0)
+        internal_call(pack_routine(zr.SETUP_SCREEN));
 
     if (screenmode == MODE_DEFINE) {
         adjust_definitions_window();
@@ -1755,11 +1956,8 @@ void z0_update_on_resize(void) {
         redraw_hint_screen_on_resize();
         return;
     } else if (screenmode == MODE_MAP) {
-        // FIXME Find a cleaner way to do this
-        if (z0_right_status_window != nullptr) {
-            gli_delete_window(z0_right_status_window);
-            z0_right_status_window = nullptr;
-        }
+        z0_hide_right_status();
+
         // redraw the map
         internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
 //        internal_call(pack_routine(0x16130)); // DO-MAP
@@ -1786,8 +1984,8 @@ void z0_update_on_resize(void) {
         } else if (CURRENT_SPLIT == PBOZ_SPLIT) { // Peggleboz
             draw_peggles();
             if (selected_peg != 0) {
-                uint16_t CY = user_word(BOARD_TABLE + selected_peg * 2);
-                uint16_t CX = user_word(BOARD_TABLE + (selected_peg + 1) * 2);
+                uint16_t CY = user_word(zt.BOARD_TABLE + selected_peg * 2);
+                uint16_t CX = user_word(zt.BOARD_TABLE + (selected_peg + 1) * 2);
                 update_blink_coordinates(CX, CY);
                 return;
             }
@@ -1866,11 +2064,7 @@ bool z0_display_picture(int x, int y, Window *win) {
 //            win->id = gli_new_window(wintype_Graphics, 0);
 //        v6_define_window(win, 1, 1, gscreenw, gscreenh);
 
-        // FIXME Find a cleaner way to do this
-        if (z0_right_status_window != nullptr) {
-            gli_delete_window(z0_right_status_window);
-            z0_right_status_window = nullptr;
-        }
+        z0_hide_right_status();
 
         current_graphics_buf_win = graphics_fg_glk;
         win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
@@ -1883,7 +2077,10 @@ bool z0_display_picture(int x, int y, Window *win) {
         }
         if (current_picture == zorkzero_encyclopedia_border) {
             windows[3].id = gli_new_window(wintype_TextBuffer, 0);
-            win_setbgnd(windows[3].id->peer, encyclopedia_background_color());
+            draw_to_pixmap_unscaled(zorkzero_encyclopedia_border, 0, 0);
+            image_needs_redraw = true;
+            adjust_encyclopedia_text_window();
+            return true;
         }
         draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
         flush_bitmap(current_graphics_buf_win);
@@ -1897,6 +2094,10 @@ bool z0_display_picture(int x, int y, Window *win) {
             inline_scale = imagescalex;
         draw_inline_image(win->id, current_picture, imagealign_MarginLeft, current_picture, inline_scale, false);
         add_margin_image_to_list(current_picture);
+        return true;
+    } else if (is_zorkzero_encyclopedia_image(current_picture)) {
+        win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
+        draw_encyclopedia();
         return true;
     } else {
         fprintf(stderr, "Current window is %d\n", win->index);
@@ -1924,6 +2125,8 @@ void z0_stash_state(library_state_data *dat) {
         dat->graphics_fg_tag = graphics_fg_glk->tag;
     if (stored_bufferwin)
         dat->stored_lower_tag = stored_bufferwin->tag;
+    if (z0_right_status_window)
+        dat->z0_right_status_tag = z0_right_status_window->tag;
 }
 
 void z0_recover_state(library_state_data *dat) {
@@ -1933,4 +2136,5 @@ void z0_recover_state(library_state_data *dat) {
     current_graphics_buf_win = gli_window_for_tag(dat->current_graphics_win_tag);
     graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
     stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
+    z0_right_status_window = gli_window_for_tag(dat->z0_right_status_tag);
 }

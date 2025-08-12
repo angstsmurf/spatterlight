@@ -6051,6 +6051,10 @@ void init_screen(bool first_run)
                 glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
 //                glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
+                if (is_spatterlight_zork0) {
+                    z0_right_status_window = gli_new_window(wintype_TextGrid, 0);
+                    win_maketransparent(z0_right_status_window->peer);
+                }
             }
         } // first run
 
