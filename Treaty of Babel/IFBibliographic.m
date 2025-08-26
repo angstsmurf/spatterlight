@@ -7,6 +7,7 @@
 
 #import "IFBibliographic.h"
 #import "Metadata.h"
+#import "Game.h"
 #import "NSString+Categories.h"
 
 typedef NS_ENUM(NSInteger, kForgiveness) {
@@ -26,10 +27,9 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
 
 @implementation IFBibliographic
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andMetadata:(Metadata *)metadata {
+- (instancetype)initWithXMLElement:(NSXMLElement *)element {
     self = [super init];
     if (self) {
-
         NSLocale *englishUSLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 
         NSDictionary *forgiveness = @{
@@ -43,74 +43,72 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
 
         NSDateFormatter *dateFormatter;
 
-        NSString *keyVal;
-        NSArray *allKeys = metadata.entity.attributesByName.allKeys;
         for (NSXMLNode *node in element.children) {
-            keyVal = node.stringValue;
-            for (NSString *key in allKeys) {
+            NSString *keyVal = node.stringValue;
+            NSString *key = node.name;
 
-                if ([node.name compare:key] == 0 ||
-                    ([key isEqualToString:@"firstpublished"] && [node.name compare:@"year"] == 0)) {
-                    if ([key isEqualToString:@"firstpublished"])
-                    {
-                        if (dateFormatter == nil)
-                            dateFormatter = [[NSDateFormatter alloc] init];
-                        if (keyVal.length == 4)
-                            dateFormatter.dateFormat = @"yyyy";
-                        else if (keyVal.length == 10)
-                            dateFormatter.dateFormat = @"yyyy-MM-dd";
-                        else NSLog(@"Illegal date format!");
-
-                        metadata.firstpublishedDate = [dateFormatter dateFromString:keyVal];
-                        dateFormatter.dateFormat = @"yyyy";
-                        metadata.firstpublished = [dateFormatter stringFromDate:metadata.firstpublishedDate];
-
-                    } else if ([key isEqualToString:@"language"]) {
-                        // In IFDB xml data, "language" is usually a language code such as "en"
-                        // but may also be a locale code such as "en-US" or a descriptive string
-                        // like "English, French (en, fr)." We try to deal with all of them here.
-                        NSString *languageCode = keyVal;
-                        if (languageCode.length > 1) {
-                            if (languageCode.length > 3) {
-                                // If it is longer than three characters, we use the first two
-                                // as language code. This seems to cover all known cases.
-                                languageCode = [languageCode substringToIndex:2];
-                            }
-                            NSString *language = [englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
-                            if (language) {
-                                metadata.languageAsWord = language;
-                            } else {
-                                // Otherwise we use the full string for both language and languageAsWord.
-                                metadata.languageAsWord = keyVal;
-                                languageCode = keyVal;
-                            }
-                        }
-                        metadata.language = languageCode;
-                    } else {
-                        [metadata setValue:keyVal forKey:key];
-                        if ([key isEqualToString:@"forgiveness"])
-                            metadata.forgivenessNumeric = forgiveness[keyVal];
-                        if ([key isEqualToString:@"title"]) {
-                            NSString *title = (metadata.title).stringByDecodingXMLEntities;
-                            if (title && title.length)
-                                metadata.title = title;
-                        }
-                        if ([key isEqualToString:@"headline"]) {
-                            metadata.headline = [metadata.headline stringByReplacingOccurrencesOfString:@"[em dash]" withString:@"-"];
-                        }
+            if ([key isEqualToString:@"firstpublished"] || [key isEqualToString:@"year"]) {
+                if (dateFormatter == nil)
+                    dateFormatter = [[NSDateFormatter alloc] init];
+                if (keyVal.length == 4)
+                    dateFormatter.dateFormat = @"yyyy";
+                else if (keyVal.length == 10)
+                    dateFormatter.dateFormat = @"yyyy-MM-dd";
+                else NSLog(@"Illegal date format!");
+                _firstPublishedDate = [dateFormatter dateFromString:keyVal];
+                dateFormatter.dateFormat = @"yyyy";
+                _firstPublished = [dateFormatter stringFromDate:_firstPublishedDate];
+            } else if ([key isEqualToString:@"language"]) {
+                // In IFDB xml data, "language" is usually a language code such as "en"
+                // but may also be a locale code such as "en-US" or a descriptive string
+                // like "English, French (en, fr)." We try to deal with all of them here.
+                NSString *languageCode = keyVal;
+                if (languageCode.length > 1) {
+                    if (languageCode.length > 3) {
+                        // If it is longer than three characters, we use the first two
+                        // as language code. This seems to cover all known cases.
+                        languageCode = [languageCode substringToIndex:2];
                     }
-
-                } else if ([node.name compare:@"description"] == 0 || [node.name compare:@"teaser"] == 0) {
-                    metadata.blurb =
-                        [self renderDescriptionElement:(NSXMLElement *)node];
-                    metadata.blurb =
-                    [metadata.blurb stringByDecodingXMLEntities];
-                    metadata.blurb = [metadata.blurb stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n\n"];
-
-                    // When importing Return to Ditch Day, Babel returns a text with \\n instead of line breaks.
-                    metadata.blurb =
-                        [metadata.blurb stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+                    NSString *language = [englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
+                    if (language) {
+                        _languageAsWord = language;
+                    } else {
+                        // Otherwise we use the full string for both language and languageAsWord.
+                        _languageAsWord = keyVal;
+                        languageCode = keyVal;
+                    }
                 }
+                _language = languageCode;
+            } else if ([key isEqualToString:@"forgiveness"]) {
+                _forgivenessNumeric = forgiveness[keyVal];
+            } else if ([key isEqualToString:@"title"]) {
+                NSString *title = keyVal.stringByDecodingXMLEntities;
+                if (title.length)
+                    _title = title;
+            } else if ([key isEqualToString:@"headline"]) {
+                _headline = [keyVal stringByReplacingOccurrencesOfString:@"[em dash]" withString:@"-"];
+            } else if ([key isEqualToString:@"author"]) {
+                _author = keyVal;
+            } else if ([key isEqualToString:@"genre"]) {
+                _genre = keyVal;
+            } else if ([key isEqualToString:@"group"]) {
+                _group = keyVal;
+            } else if ([key isEqualToString:@"series"]) {
+                _series = keyVal;
+            } else if ([key isEqualToString:@"seriesNumber"]) {
+                _seriesnumber = keyVal;
+            } else if ([key isEqualToString:@"description"] || [key isEqualToString:@"teaser"]) {
+                _blurb =
+                [self renderDescriptionElement:(NSXMLElement *)node];
+                _blurb =
+                [_blurb stringByDecodingXMLEntities];
+                _blurb = [_blurb stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n\n"];
+
+                // When importing Return to Ditch Day, Babel returns a text with \\n instead of line breaks.
+                _blurb =
+                [_blurb stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+            } else {
+                NSLog(@"Unhandled node name:%@", key);
             }
         }
     }
@@ -137,5 +135,37 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
     }
     return string;
 }
+
+- (void)addInfoToMetadata:(Metadata *)metadata {
+    if (_title.length)
+        metadata.title = _title;
+    if (_author.length)
+        metadata.author = _author;
+    if (_language.length)
+        metadata.language = _language;
+    if (_languageAsWord.length)
+        metadata.languageAsWord = _languageAsWord;
+    if (_headline.length)
+        metadata.headline = _headline;
+    if (_blurb.length)
+        metadata.blurb = _blurb;
+    if (_firstPublished.length)
+        metadata.headline = _firstPublished;
+    if (_firstPublishedDate)
+        metadata.firstpublishedDate = _firstPublishedDate;
+    if (_genre.length)
+        metadata.genre = _genre;
+    if (_group.length)
+        metadata.group = _group;
+    if (_series.length)
+        metadata.series = _series;
+    if (_seriesnumber.length)
+        metadata.seriesnumber = _seriesnumber;
+    if (_forgiveness.length)
+        metadata.forgiveness = _forgiveness;
+    if (_forgivenessNumeric)
+        metadata.forgivenessNumeric = _forgivenessNumeric;
+}
+
 
 @end

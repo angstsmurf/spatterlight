@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeMetadataObject:(Metadata *)value;
 - (void)addMetadata:(NSSet<Metadata *> *)values;
 - (void)removeMetadata:(NSSet<Metadata *> *)values;
++ (void)deleteIfOrphan:(Image *)image;
 
 @end
 

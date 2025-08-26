@@ -34,4 +34,10 @@
     }];
 }
 
++ (void)deleteIfOrphan:(Image *)image {
+    if (image && image.metadata.count == 0 && ![image.originalURL isEqualToString:@"Placeholder"]) {
+        [image.managedObjectContext deleteObject:image];
+    }
+}
+
 @end

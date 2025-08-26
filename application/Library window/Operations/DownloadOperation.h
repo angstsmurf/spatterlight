@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DownloadOperation : NSOperation
 
-- (instancetype)initWithSession:(NSURLSession *)session dataTaskURL:(NSURL *)downloadTaskURL completionHandler:(nullable void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable))completionHandler;
+- (instancetype)initWithSession:(NSURLSession *)session dataTaskURL:(NSURL *)downloadTaskURL customString:(NSString * _Nullable)customString completionHandler:(nullable void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable, NSString * _Nullable))completionHandler;
 
 @end
 

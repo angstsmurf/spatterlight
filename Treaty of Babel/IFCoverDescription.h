@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IFCoverDescription : NSObject
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andMetadata:(Metadata *)metadata;
+- (instancetype)initWithXMLElement:(NSXMLElement *)element;
+
+@property NSString *coverArtDescription;
 
 @end
 

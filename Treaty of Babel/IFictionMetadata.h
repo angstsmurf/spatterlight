@@ -11,8 +11,7 @@
 @interface IFictionMetadata : NSObject
 
 @property(readonly) NSArray *stories;
-@property(readonly) NSString *xmlString;
 
-- (instancetype)initWithData:(NSData *)data andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue;
+- (instancetype)initWithData:(NSData *)data;
 
 @end

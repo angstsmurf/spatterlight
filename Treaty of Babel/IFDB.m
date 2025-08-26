@@ -1,5 +1,5 @@
 //
-//  IFictionMetadata.h
+//  IFDB.h
 //  Adapted from Yazmin by David Schweinsberg
 //  See https://github.com/dcsch/yazmin
 //
@@ -14,24 +14,24 @@
 
 @implementation IFDB
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andMetadata:(Metadata *)metadata {
+- (instancetype)initWithXMLElement:(NSXMLElement *)element {
   self = [super init];
   if (self) {
     for (NSXMLNode *node in element.children) {
       if ([node.name compare:@"tuid"] == 0) {
-        metadata.tuid = node.stringValue;
+        _tuid = node.stringValue;
       } else if ([node.name compare:@"coverart"] == 0) {
-          metadata.coverArtURL = [IFDB pathFromCoverArtElement:(NSXMLElement *)node];
+          _coverArtURL = [IFDB pathFromCoverArtElement:(NSXMLElement *)node];
       } else if ([node.name compare:@"starRating"] == 0) {
-          metadata.starRating = node.stringValue;
-//      } else if ([node.name compare:@"link"] == 0) {
-//        metadata.link = [NSURL URLWithString:node.stringValue];
+          _starRating = node.stringValue;
+      } else if ([node.name compare:@"link"] == 0) {
+          _link = [NSURL URLWithString:node.stringValue];
       } else if ([node.name compare:@"averageRating"] == 0) {
-        metadata.averageRating = node.stringValue;
-//      } else if ([node.name compare:@"ratingCountAvg"] == 0) {
-//        metadata.ratingCountAvg = node.stringValue;
+          _averageRating = node.stringValue;
+      } else if ([node.name compare:@"ratingCountAvg"] == 0) {
+          _ratingCountAvg = node.stringValue;
       } else if ([node.name compare:@"ratingCountTot"] == 0) {
-        metadata.ratingCountTot = node.stringValue;
+          _ratingCountTot = node.stringValue;
       }
     }
   }
@@ -45,6 +45,15 @@
     }
   }
   return nil;
+}
+
+- (void)addInfoToMetadata:(Metadata *)metadata {
+    if (_tuid.length)
+        metadata.tuid = _tuid;
+    if (_starRating.length)
+        metadata.starRating = _starRating;
+    if (_coverArtURL.length)
+        metadata.coverArtURL = _coverArtURL;
 }
 
 @end

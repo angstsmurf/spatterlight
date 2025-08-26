@@ -1,5 +1,5 @@
 //
-//  IFictionMetadata.h
+//  IFStory.h
 //  Adapted from Yazmin by David Schweinsberg
 //  See https://github.com/dcsch/yazmin
 //
@@ -7,10 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class IFIdentification;
-@class IFBibliographic;
-@class IFCoverDescription;
-@class IFDB;
+@class IFIdentification, IFBibliographic, IFCoverDescription, IFDB, Metadata;
 
 @interface IFStory : NSObject
 
@@ -19,6 +16,7 @@
 @property(readonly) IFCoverDescription *coverDescription;
 @property(readonly) IFDB *ifdb;
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue;
+- (instancetype)initWithXMLElement:(NSXMLElement *)element;
+- (void)addInfoToMetadata:(Metadata *)metadata;
 
 @end

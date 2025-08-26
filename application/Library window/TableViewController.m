@@ -1993,11 +1993,12 @@ enum  {
 }
 
 - (nullable Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context {
-    IFictionMetadata *ifictionmetadata = [[IFictionMetadata alloc] initWithData:mdbuf andContext:context andQueue:self.downloadQueue];
+    IFictionMetadata *ifictionmetadata = [[IFictionMetadata alloc] initWithData:mdbuf];
     if (!ifictionmetadata || ifictionmetadata.stories.count == 0)
         return nil;
     // Only returns the metadata of the first story found in the XML data
-    return ((IFStory *)(ifictionmetadata.stories)[0]).identification.metadata;
+//    return ((IFStory *)(ifictionmetadata.stories)[0]).identification.metadata;
+    return nil;
 }
 
 - (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context {
@@ -2259,48 +2260,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"ShowSideBar" object:nil]];
     });
-}
-
-+ (void)fixMetadataWithNoIfidsInContext:(NSManagedObjectContext *)context {
-    [context performBlock:^{
-        NSArray<Metadata *> *noIfids = [TableViewController fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:context];
-        for (Metadata *meta in noIfids) {
-            if (meta.games.count == 0) {
-                NSLog(@"Deleted leftover metadata object %@", meta.title);
-                [context deleteObject:meta];
-            } else {
-                NSLog(@"Metadata without ifid has attached game object");
-                NSString *ifidString = meta.games.anyObject.ifid;
-                if (ifidString.length) {
-                    Ifid *ifid = [IFIdentification fetchIfid:ifidString inContext:context];
-                    if (ifid) {
-                        NSLog(@"The game object's ifid exists in store");
-                        if (ifid.metadata) {
-                            NSLog(@"And it has metadata");
-                        } else {
-                            NSLog(@"But it has no metadata");
-                        }
-                        [context deleteObject:meta];
-                    } else {
-                        NSLog(@"Created new Ifid object with ifid %@ and attached it to metadata", ifidString);
-                        ifid = (Ifid *) [NSEntityDescription
-                                         insertNewObjectForEntityForName:@"Ifid"
-                                         inManagedObjectContext:context];
-                        ifid.ifidString = ifidString;
-                        ifid.metadata = meta;
-                        if (!meta.title.length) {
-                            meta.title = meta.games.anyObject.path.lastPathComponent;
-                        }
-                    }
-
-                } else {
-                    NSLog(@"But the game object has no ifid");
-                    NSLog(@"fixMetadataWithNoIfidsInContext: Deleted leftover metadata object %@", meta.title);
-                    [context deleteObject:meta];
-                }
-            }
-        }
-    }];
 }
 
 #pragma mark Actually starting the game

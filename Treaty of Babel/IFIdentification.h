@@ -10,15 +10,12 @@
 
 @interface IFIdentification : NSObject
 
-@property(nonatomic) NSArray *ifids;
-@property(nonatomic) NSString *format;
-@property(nonatomic) NSString *bafn;
-@property(nonatomic) Metadata *metadata;
+@property (nonatomic) NSSet *ifids;
+@property (nonatomic) NSString *format;
+@property (nonatomic) NSString *bafn;
 
-@property NSManagedObjectContext *context;
-
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context;
-+ (Ifid *)fetchIfid:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
-- (Metadata *)metadataFromIfids:(NSArray<NSString *> *)ifids;
+- (instancetype)initWithXMLElement:(NSXMLElement *)element;
++(void)addIfids:(NSSet<NSString *> *)ifids toMetadata:(Metadata *)metadata;
+- (void)addInfoToMetadata:(Metadata *)metadata;
 
 @end
