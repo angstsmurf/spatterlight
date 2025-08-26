@@ -157,7 +157,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) GlkStyle *gridUsr2;
 @property (nullable, nonatomic, retain) Interpreter *interpreter;
 @property (nullable, nonatomic, retain) Theme *lightTheme;
-@property (nullable, nonatomic, retain) Game *overrides;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme * _Nonnull clone;
 - (void)copyAttributesFrom:(Theme *)theme;

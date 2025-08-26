@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Metadata : NSManagedObject
 
 @property (nullable, nonatomic, copy) NSString *author;
-@property (nullable, nonatomic, copy) NSString *averageRating;
 @property (nullable, nonatomic, copy) NSString *bafn;
 @property (nullable, nonatomic, copy) NSString *blurb;
 @property (nullable, nonatomic, copy) NSString *coverArtDescription;
@@ -40,12 +39,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *format;
 @property (nullable, nonatomic, copy) NSString *genre;
 @property (nullable, nonatomic, copy) NSString *group;
+@property (nullable, nonatomic, copy) NSString *hashTag;
 @property (nullable, nonatomic, copy) NSString *headline;
 @property (nullable, nonatomic, copy) NSString *language;
 @property (nullable, nonatomic, copy) NSString *languageAsWord;
 @property (nullable, nonatomic, copy) NSDate *lastModified;
 @property (nullable, nonatomic, copy) NSString *myRating;
-@property (nullable, nonatomic, copy) NSString *ratingCountTot;
 @property (nullable, nonatomic, copy) NSString *series;
 @property (nullable, nonatomic, copy) NSString *seriesnumber;
 @property (nullable, nonatomic, copy) NSNumber *source;
@@ -54,20 +53,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *tuid;
 @property (nullable, nonatomic, copy) NSNumber *userEdited;
 @property (nullable, nonatomic, retain) Image *cover;
-@property (nullable, nonatomic, retain) NSSet<Game *> *games;
+@property (nullable, nonatomic, retain) Game *game;
 @property (nullable, nonatomic, retain) NSSet<Ifid *> *ifids;
 @property (nullable, nonatomic, retain) Tag *tag;
 
-- (Ifid *)findOrCreateIfid:(NSString *)ifidstring;
+//- (Ifid *)findOrCreateIfid:(NSString *)ifidstring;
+- (void)createIfid:(NSString *)ifidstring;
 
 @end
 
 @interface Metadata (CoreDataGeneratedAccessors)
-
-- (void)addGamesObject:(Game *)value;
-- (void)removeGamesObject:(Game *)value;
-- (void)addGames:(NSSet<Game *> *)values;
-- (void)removeGames:(NSSet<Game *> *)values;
 
 - (void)addIfidsObject:(Ifid *)value;
 - (void)removeIfidsObject:(Ifid *)value;

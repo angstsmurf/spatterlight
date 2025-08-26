@@ -110,7 +110,6 @@
 @dynamic gridUsr2;
 @dynamic interpreter;
 @dynamic lightTheme;
-@dynamic overrides;
 
 - (Theme *)clone {
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24F74" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="15">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24G90" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="15">
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="added" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="autosaved" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -20,7 +20,7 @@
         <attribute name="releaseNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="serialString" optional="YES" attributeType="String"/>
         <attribute name="version" optional="YES" attributeType="String"/>
-        <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="games" inverseEntity="Metadata"/>
+        <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="game" inverseEntity="Metadata"/>
         <relationship name="theme" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="games" inverseEntity="Theme"/>
     </entity>
     <entity name="GlkStyle" representedClassName="GlkStyle" syncable="YES">
@@ -66,7 +66,6 @@
     </entity>
     <entity name="Metadata" representedClassName="Metadata" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
-        <attribute name="averageRating" optional="YES" attributeType="String"/>
         <attribute name="bafn" optional="YES" attributeType="String"/>
         <attribute name="blurb" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="coverArtDescription" optional="YES" attributeType="String"/>
@@ -80,6 +79,7 @@
         <attribute name="format" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="genre" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="group" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
+        <attribute name="hashTag" optional="YES" attributeType="String"/>
         <attribute name="headline" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="language" optional="YES" attributeType="String"/>
         <attribute name="languageAsWord" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
@@ -94,7 +94,7 @@
         <attribute name="tuid" optional="YES" attributeType="String"/>
         <attribute name="userEdited" optional="YES" attributeType="Boolean" usesScalarValueType="NO"/>
         <relationship name="cover" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="metadata" inverseEntity="Image"/>
-        <relationship name="games" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Game" inverseName="metadata" inverseEntity="Game"/>
+        <relationship name="game" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="metadata" inverseEntity="Game"/>
         <relationship name="ifids" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ifid" inverseName="metadata" inverseEntity="Ifid"/>
         <relationship name="tag" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="metadata" inverseEntity="Tag"/>
     </entity>
@@ -194,6 +194,5 @@
         <relationship name="gridUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="gridUsr2" inverseEntity="GlkStyle"/>
         <relationship name="interpreter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Interpreter" inverseName="setting" inverseEntity="Interpreter"/>
         <relationship name="lightTheme" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="darkTheme" inverseEntity="Theme"/>
-        <relationship name="overrides" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game"/>
     </entity>
 </model>
