@@ -87,8 +87,9 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
         if (ificend >= 0 && ificend > ificpos) {
             void *tempmd;
             ificend += 10; /* length of closing tag */
-            tempmd = my_malloc(ificend-ificpos, "temporary ifiction buffer");
+            tempmd = my_malloc(ificend-ificpos + 1, "temporary ifiction buffer");
             memcpy(tempmd, story_file+ificpos, ificend-ificpos);
+            memset(tempmd + ificend - ificpos, 0, 1);
             int res = ifiction_get_IFID(tempmd, output, output_extent);
             free(tempmd);
             if (res >= 0)
