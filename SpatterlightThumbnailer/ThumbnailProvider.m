@@ -13,8 +13,7 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
-
-#include "babel_handler.h"
+#import "NSString+Categories.h"
 
 @implementation ThumbnailProvider
 
@@ -88,9 +87,7 @@
 
             NSArray *fetchedObjects;
 
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-            fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
+            NSFetchRequest *fetchRequest = [Game fetchRequest];
             fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path like[c] %@", url.path];
 
             fetchedObjects = [context executeFetchRequest:fetchRequest error:&blockerror];
@@ -101,13 +98,12 @@
             }
 
             if (!fetchedObjects.count) {
-                NSString *ifid = [self ifidFromFile:url.path];
-                if (ifid.length) {
-                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", ifid];
+                NSString *hashTag = url.path.signatureFromFile;
+                if (hashTag.length) {
+                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@", hashTag];
                     fetchedObjects = [context executeFetchRequest:fetchRequest error:&blockerror];
                 }
             }
-
 
             if (fetchedObjects.count) {
                 Game *game = fetchedObjects[0];
@@ -173,35 +169,6 @@
      handler([QLThumbnailReply replyWithImageFileURL:[NSBundle.mainBundle URLForResource:@"fileThumbnail" withExtension:@"jpg"]], nil);
 
      */
-}
-
-void freeContext(void **ctx) {
-    babel_release_ctx(*ctx);
-    free(*ctx);
-}
-
-- (NSString *)ifidFromFile:(NSString *)path {
-    void *context = get_babel_ctx();
-    if (context == nil)
-        return nil;
-    char *format = babel_init_ctx((char*)path.fileSystemRepresentation, context);
-    if (!format || !babel_get_authoritative_ctx(context))
-    {
-        freeContext(&context);
-        return nil;
-    }
-
-    char buf[TREATY_MINIMUM_EXTENT];
-
-    int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
-    if (rv <= 0)
-    {
-        freeContext(&context);
-        return nil;
-    }
-
-    freeContext(&context);
-    return @(buf);
 }
 
 @end

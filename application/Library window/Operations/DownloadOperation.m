@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, OperationState) {
 @property NSURLSessionDataTask *task;
 
 @property (atomic) OperationState state;
-@property NSString *customStringParameter;
+@property NSString *identifier;
 
 
 @end
@@ -63,12 +63,12 @@ typedef NS_ENUM(NSUInteger, OperationState) {
     return keyPaths;
 }
 
-- (instancetype)initWithSession:(NSURLSession *)session dataTaskURL:(NSURL *)dataTaskURL customString:(NSString * _Nullable)customStringParameter completionHandler:(nullable void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable, NSString * _Nullable))completionHandler {
+- (instancetype)initWithSession:(NSURLSession *)session dataTaskURL:(NSURL *)dataTaskURL identifier:(NSString * _Nullable)identifier completionHandler:(nullable void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable, NSString * _Nullable))completionHandler {
 
     self = [super init];
 
     if (self) {
-        _customStringParameter = customStringParameter;
+        _identifier = identifier;
         _state = kReady;
         DownloadOperation __weak *weakSelf = self;
         // use weak self to prevent retain cycle
@@ -91,7 +91,7 @@ typedef NS_ENUM(NSUInteger, OperationState) {
              custom completionHandler
              */
             if (completionHandler) {
-                completionHandler(localData, response, error, strongSelf.customStringParameter);
+                completionHandler(localData, response, error, strongSelf.identifier);
             }
 
             /*

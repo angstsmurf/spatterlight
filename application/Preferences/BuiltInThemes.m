@@ -20,8 +20,7 @@
                                  inManagedObjectContext:context].attributesByName;
 
     NSError *error = nil;
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:context];
+    NSFetchRequest *fetchRequest = [Theme fetchRequest];
 
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"editable = NO"];
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
@@ -979,8 +978,7 @@
     *existsFlagPointer = NO;
 
     // First, check if it already exists
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:context];
+    NSFetchRequest *fetchRequest = [Theme fetchRequest];
 
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", themeName];
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];

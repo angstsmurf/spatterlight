@@ -13,7 +13,9 @@
 
 @interface Tag : NSManagedObject
 
-@property (nonatomic, retain) NSString * content;
++ (NSFetchRequest<Tag *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
+
+@property (nonatomic, copy) NSString * content;
 @property (nonatomic, retain) NSSet *metadata;
 @end
 

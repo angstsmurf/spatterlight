@@ -16,6 +16,10 @@
 
 @implementation Metadata
 
++ (NSFetchRequest<Metadata *> *)fetchRequest {
+	return [NSFetchRequest fetchRequestWithEntityName:@"Metadata"];
+}
+
 @dynamic author;
 @dynamic bafn;
 @dynamic blurb;
@@ -36,6 +40,7 @@
 @dynamic languageAsWord;
 @dynamic lastModified;
 @dynamic myRating;
+@dynamic ratingCountTot;
 @dynamic series;
 @dynamic seriesnumber;
 @dynamic source;
@@ -56,9 +61,8 @@
 //    NSError *error = nil;
 //    NSArray *fetchedObjects;
 //
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    NSFetchRequest *fetchRequest = [Ifid fetchRequest];
 //
-//    fetchRequest.entity = [NSEntityDescription entityForName:@"Ifid" inManagedObjectContext:self.managedObjectContext];
 //    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifidstring];
 //    fetchRequest.includesPropertyValues = YES;
 //
@@ -86,6 +90,10 @@
 //}
 
 - (void)createIfid:(NSString *)ifidstring {
+    for (Ifid *ifid in self.ifids) {
+        if ([ifid.ifidString isEqualToString:ifidstring])
+            return;
+    }
     Ifid *ifid = (Ifid *) [NSEntityDescription
                          insertNewObjectForEntityForName:@"Ifid"
                          inManagedObjectContext:self.managedObjectContext];

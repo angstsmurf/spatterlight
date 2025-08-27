@@ -13,6 +13,10 @@
 
 @implementation Image
 
++ (NSFetchRequest<Image *> *)fetchRequest {
+	return [NSFetchRequest fetchRequestWithEntityName:@"Image"];
+}
+
 @dynamic data;
 @dynamic imageDescription;
 @dynamic interpolation;

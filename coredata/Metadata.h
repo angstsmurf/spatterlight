@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Metadata : NSManagedObject
 
++ (NSFetchRequest<Metadata *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
+
 @property (nullable, nonatomic, copy) NSString *author;
 @property (nullable, nonatomic, copy) NSString *bafn;
 @property (nullable, nonatomic, copy) NSString *blurb;
@@ -45,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *languageAsWord;
 @property (nullable, nonatomic, copy) NSDate *lastModified;
 @property (nullable, nonatomic, copy) NSString *myRating;
+@property (nullable, nonatomic, copy) NSString *ratingCountTot;
 @property (nullable, nonatomic, copy) NSString *series;
 @property (nullable, nonatomic, copy) NSString *seriesnumber;
 @property (nullable, nonatomic, copy) NSNumber *source;
@@ -57,7 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSSet<Ifid *> *ifids;
 @property (nullable, nonatomic, retain) Tag *tag;
 
-//- (Ifid *)findOrCreateIfid:(NSString *)ifidstring;
 - (void)createIfid:(NSString *)ifidstring;
 
 @end

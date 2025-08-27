@@ -121,7 +121,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (self) {
         _game = game;
         _meta = game.metadata;
-        _hashTag = game.ifid;
+        _hashTag = game.hashTag;
     }
     return self;
 }
@@ -515,7 +515,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)animateIn:(NSRect)finalframe {
-    NSRect startingFrame = [_libcontroller rectForLineWithHash:_game.ifid];
+    NSRect startingFrame = [_libcontroller rectForLineWithHash:_game.hashTag];
     [self makeAndPrepareSnapshotWindow:startingFrame];
 
     NSWindow *snapshotWindow = snapshotController.window;
@@ -586,7 +586,7 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"nil!");
 
     NSRect currentFrame = snapshotLayer.frame;
-    NSRect targetFrame = [libctrl rectForLineWithHash:_game.ifid];
+    NSRect targetFrame = [libctrl rectForLineWithHash:_game.hashTag];
 
     NSRect finalLayerFrame = [snapshotWindow convertRectFromScreen:targetFrame];
 
@@ -614,7 +614,7 @@ fprintf(stderr, "%s\n",                                                    \
     positionAnimation.toValue = [NSValue valueWithPoint:point];
     positionAnimation.fillMode = kCAFillModeForwards;
 
-    NSString *blockIfid = _hashTag;
+    NSString *blockHash = _hashTag;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
@@ -634,8 +634,8 @@ fprintf(stderr, "%s\n",                                                    \
         self->snapshotController = nil;
 
         [self checkForKeyPressesDuringAnimation];
-        if (libctrl.infoWindows && blockIfid.length && libctrl.infoWindows[blockIfid])
-            [libctrl.infoWindows removeObjectForKey:blockIfid];
+        if (libctrl.infoWindows && blockHash.length && libctrl.infoWindows[blockHash])
+            [libctrl.infoWindows removeObjectForKey:blockHash];
     }];
 }
 

@@ -13,6 +13,8 @@
 
 @interface Ifid : NSManagedObject
 
++ (NSFetchRequest<Ifid *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
+
 @property (nonatomic, retain) NSString * ifidString;
 @property (nonatomic, retain) Metadata *metadata;
 

@@ -88,10 +88,7 @@
     NSArray *fetchedObjects;
     NSPredicate *predicate;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
-
-    fetchRequest.entity = entity;
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
 
     predicate =  [NSPredicate predicateWithFormat:@"detectedFormat like[c] %@ AND serialString like[c] %@ AND releaseNumber == %d", @"zcode", serial, release];
 

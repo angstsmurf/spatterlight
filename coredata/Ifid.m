@@ -13,6 +13,10 @@
 
 @implementation Ifid
 
++ (NSFetchRequest<Ifid *> *)fetchRequest {
+	return [NSFetchRequest fetchRequestWithEntityName:@"Ifid"];
+}
+
 @dynamic ifidString;
 @dynamic metadata;
 

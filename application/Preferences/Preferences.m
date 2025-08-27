@@ -159,10 +159,9 @@ static Preferences *prefs = nil;
 
     NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [Theme fetchRequest];
     NSArray *fetchedObjects;
     NSError *error;
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:managedObjectContext];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", name];
     fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
@@ -486,8 +485,7 @@ NSString *fontToString(NSFont *font) {
     _lightTheme = nil;
     _lightOverrideActive = NO;
     _darkOverrideActive = NO;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest *fetchRequest = [Theme fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardDark == YES"];
     NSError *error = nil;
     NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -775,8 +773,7 @@ NSString *fontToString(NSFont *font) {
 
 - (Theme *)defaultTheme {
     if (_defaultTheme == nil) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
+        NSFetchRequest *fetchRequest = [Theme fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", @"Default"];
         NSError *error = nil;
         NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -1016,10 +1013,9 @@ NSString *fontToString(NSFont *font) {
 
         if (!_lightOverrideActive && !_darkOverrideActive) {
             if (_oneThemeForAll) {
-                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                NSFetchRequest *fetchRequest = [Game fetchRequest];
                 NSArray *fetchedObjects;
                 NSError *error;
-                fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
                 fetchRequest.includesPropertyValues = NO;
                 fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
                 [theme addGames:[NSSet setWithArray:fetchedObjects]];
@@ -1159,9 +1155,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     _themesHeader.stringValue = [self themeScopeTitle];
     if (oneThemeForAll) {
         _btnOneThemeForAll.state = NSOnState;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSFetchRequest *fetchRequest = [Game fetchRequest];
         NSError *error = nil;
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
         fetchRequest.includesPropertyValues = NO;
         NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
         theme.games = [NSSet setWithArray:fetchedObjects];
@@ -1173,9 +1168,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (IBAction)clickedOneThemeForAll:(id)sender {
     if ([sender state] == NSOnState) {
         if (![[NSUserDefaults standardUserDefaults] boolForKey:@"UseForAllAlertSuppression"]) {
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSFetchRequest *fetchRequest = [Game fetchRequest];
             NSError *error = nil;
-            fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
             fetchRequest.includesPropertyValues = NO;
             NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
             NSUInteger numberOfGames = fetchedObjects.count;
@@ -1313,10 +1307,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)deleteUserThemes:(id)sender {
     ThemeArrayController *arrayController = _arrayController;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [Theme fetchRequest];
     NSArray *fetchedObjects;
     NSError *error;
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"editable == YES"];
     fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
@@ -1409,10 +1402,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return NO;
         }
     } else if (action == @selector(deleteUserThemes:)) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSFetchRequest *fetchRequest = [Theme fetchRequest];
         NSArray *fetchedObjects;
         NSError *error;
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"editable == YES"];
         fetchRequest.includesPropertyValues = NO;
         fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];

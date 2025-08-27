@@ -15,13 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Game : NSManagedObject
 
++ (NSFetchRequest<Game *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
+
 @property (nullable, nonatomic, retain) NSDate *added;
 @property (nonatomic) BOOL autosaved;
 @property (nullable, nonatomic, retain) NSObject *blorbFile;
 @property (nonatomic) int32_t checksum;
 @property (nullable, nonatomic, copy) NSString *compiler;
 @property (nullable, nonatomic, copy) NSString *detectedFormat;
-@property (nonatomic) int32_t like;
 @property (nullable, nonatomic, retain) NSObject *fileLocation;
 @property (nonatomic) BOOL found;
 @property (nullable, nonatomic, copy) NSString *group;
@@ -30,12 +31,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL hidden;
 @property (nullable, nonatomic, copy) NSString *ifid;
 @property (nullable, nonatomic, retain) NSDate *lastPlayed;
+@property (nonatomic) int32_t like;
 @property (nullable, nonatomic, copy) NSString *path;
-@property (nullable, nonatomic, copy) NSString *serialString;
 @property (nonatomic) int32_t releaseNumber;
+@property (nullable, nonatomic, copy) NSString *serialString;
 @property (nullable, nonatomic, copy) NSString *version;
 @property (nullable, nonatomic, retain) Metadata *metadata;
-@property (nullable, nonatomic, retain) Theme *override;
 @property (nullable, nonatomic, retain) Theme *theme;
 
 @property (readonly, copy, nullable) NSURL *urlForBookmark;

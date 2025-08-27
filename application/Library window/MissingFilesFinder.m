@@ -52,14 +52,14 @@ extern NSArray *gGameFileTypes;
         NSModalResponse result = [panel runModal];
         if (result == NSModalResponseOK) {
             NSString *newPath = ((NSURL *)panel.URLs[0]).path;
-            NSString *ifid = [self ifidFromFile:newPath reportFailure:YES];
-            if (ifid && [ifid isEqualToString:game.ifid]) {
-                [game bookmarkForPath:newPath];
-                game.found = YES;
-                NSString *parentDirectory = newPath.stringByDeletingLastPathComponent;
-                [self lookForMoreMissingFilesInFolder:parentDirectory context:game.managedObjectContext];
-            } else {
-                if (ifid) {
+            NSString *hash = newPath.signatureFromFile;
+            if (hash.length) {
+                if ([hash isEqualToString:game.hashTag]) {
+                    [game bookmarkForPath:newPath];
+                    game.found = YES;
+                    NSString *parentDirectory = newPath.stringByDeletingLastPathComponent;
+                    [self lookForMoreMissingFilesInFolder:parentDirectory context:game.managedObjectContext];
+                } else {
                     NSAlert *anAlert = [[NSAlert alloc] init];
                     anAlert.alertStyle = NSAlertStyleInformational;
                     anAlert.messageText = NSLocalizedString(@"Not a match.", nil);
@@ -68,7 +68,6 @@ extern NSArray *gGameFileTypes;
                     [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
                     NSInteger response = [anAlert runModal];
                     if (response == NSAlertFirstButtonReturn) {
-
                         if ([libController importGame:newPath inContext:game.managedObjectContext reportFailure:YES hide:NO]) {
                             [game.managedObjectContext deleteObject:game];
                         }
@@ -76,7 +75,7 @@ extern NSArray *gGameFileTypes;
                 }
             }
         }
-    } else  if (choice == NSAlertThirdButtonReturn) {
+    } else if (choice == NSAlertThirdButtonReturn) {
         [game.managedObjectContext deleteObject:game];
     }
 }
@@ -127,7 +126,7 @@ extern NSArray *gGameFileTypes;
     NSError *error = nil;
     NSArray *fetchedObjects;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
 
     // We check all files in the directory, to see if they may
     // be other missing game files in our library
@@ -147,7 +146,6 @@ extern NSArray *gGameFileTypes;
         if (extension.length && [gGameFileTypes indexOfObject:extension] != NSNotFound) {
             NSString *filename = url.lastPathComponent;
             if (filename.length) {
-                fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path ENDSWITH[c] %@",filename];
                 fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
                 for (Game *game in fetchedObjects) {
@@ -169,8 +167,6 @@ extern NSArray *gGameFileTypes;
     }
     NSString *commonDirectory = directoryComponents[componentIndex];
 
-
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path CONTAINS[cd] %@", commonDirectory];
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
@@ -179,7 +175,6 @@ extern NSArray *gGameFileTypes;
     }
 
     // The we get all missing files in library and check if they can be found here
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"found == NO"];
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];

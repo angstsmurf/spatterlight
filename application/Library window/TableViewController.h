@@ -131,9 +131,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable Game *)fetchGameForHash:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 + (nullable Metadata *)fetchMetadataForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context;
-+ (nullable Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 - (nullable Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context;
-+ (void)fixMetadataWithNoIfidsInContext:(NSManagedObjectContext *)context;
 - (void)waitToReportMetadataImport;
 
 + (nullable Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context;

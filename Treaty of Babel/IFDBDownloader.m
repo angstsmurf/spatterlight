@@ -107,25 +107,25 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     });
 }
 
-+ (nullable DownloadOperation *)operationForIFID:(NSString*)ifid session:(NSURLSession *)session customString:(NSString *)customString completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable,  NSString * _Nullable))handler {
++ (nullable DownloadOperation *)operationForIFID:(NSString*)ifid session:(NSURLSession *)session identifier:(NSString *)identifier completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable,  NSString * _Nullable))handler {
     if (!ifid || ifid.length == 0) {
         return nil;
     }
     
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
-    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:session dataTaskURL:url customString:customString completionHandler:handler];
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:session dataTaskURL:url identifier:identifier completionHandler:handler];
 
     return operation;
 }
 
-+ (nullable DownloadOperation *)operationForTUID:(NSString*)tuid session:(NSURLSession *)session customString:(NSString *)customString completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable, NSString * _Nullable))handler {
++ (nullable DownloadOperation *)operationForTUID:(NSString*)tuid session:(NSURLSession *)session identifier:(NSString *)identifier completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable, NSString * _Nullable))handler {
     if (tuid.length == 0) {
         return nil;
     }
     
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&id=" stringByAppendingString:tuid]];
     ;
-    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:session dataTaskURL:url customString:customString completionHandler:handler];
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:session dataTaskURL:url identifier:identifier completionHandler:handler];
 
     return operation;
 }
@@ -219,21 +219,20 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 continue;
             [downloadedMetadata addObject:game.metadata];
             DownloadOperation *operation;
-            NSString *customString = game.metadata.objectID.URIRepresentation.absoluteString;
+            NSString *identifier = game.metadata.objectID.URIRepresentation.absoluteString;
             if (game.metadata.tuid.length) {
-                operation = [IFDBDownloader operationForTUID:game.metadata.tuid session:defaultSession customString:customString completionHandler:internalHandler];
+                operation = [IFDBDownloader operationForTUID:game.metadata.tuid session:defaultSession identifier:identifier completionHandler:internalHandler];
                 [queue addOperation:operation];
                 lastoperation = operation;
             } else {
                 if (game.metadata.ifids.count) {
                     for (Ifid *ifid in game.metadata.ifids) {
-                        operation = [IFDBDownloader operationForIFID:ifid.ifidString session:defaultSession customString:customString completionHandler:internalHandler];
+                        operation = [IFDBDownloader operationForIFID:ifid.ifidString session:defaultSession identifier:identifier completionHandler:internalHandler];
                         [queue addOperation:operation];
                         lastoperation = operation;
                     }
                 } else {
-                    NSString *ifidString = game.ifid;
-                    operation = [IFDBDownloader operationForIFID:ifidString session:defaultSession  customString:customString completionHandler:internalHandler];
+                    operation = [IFDBDownloader operationForIFID:game.ifid session:defaultSession identifier:identifier completionHandler:internalHandler];
                     [queue addOperation:operation];
                     lastoperation = operation;
                 }
@@ -338,7 +337,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
     IFDBDownloader __weak *weakSelf = self;
 
-    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:defaultSession dataTaskURL:url customString:nil completionHandler:^(NSData * data, NSURLResponse * response, NSError * error, NSString * customString ) {
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:defaultSession dataTaskURL:url identifier:nil completionHandler:^(NSData * data, NSURLResponse * response, NSError * error, NSString * identifier ) {
         IFDBDownloader *strongSelf = weakSelf;
         if (!strongSelf)
             strongSelf = [[IFDBDownloader alloc] initWithContext:localcontext];
@@ -452,9 +451,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     
     [context performBlockAndWait:^{
         NSError *error = nil;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:context];
+        NSFetchRequest *fetchRequest = [Image fetchRequest];
         
         fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];

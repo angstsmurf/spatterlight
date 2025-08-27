@@ -33,7 +33,7 @@
 @property IBOutlet NSTextField *titleField;
 
 - (instancetype)initWithGame:(Game *)game;
-- (instancetype)initWithIfid:(NSString *)ifid;
+- (instancetype)initWithHash:(NSString *)hashTag;
 
 - (void)animateIn:(NSRect)frame;
 - (void)hideWindow;

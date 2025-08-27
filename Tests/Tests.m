@@ -104,9 +104,7 @@
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
 
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
-    fetchRequest.entity = entity;
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"detectedFormat like[c] %@ OR detectedFormat like[c] %@ ", @"glulx", @"zcode"];
 
     NSError *error = nil;

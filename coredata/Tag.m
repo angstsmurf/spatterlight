@@ -12,6 +12,10 @@
 
 @implementation Tag
 
++ (NSFetchRequest<Tag *> *)fetchRequest {
+	return [NSFetchRequest fetchRequestWithEntityName:@"Tag"];
+}
+
 @dynamic content;
 @dynamic metadata;
 
