@@ -40,17 +40,17 @@ static const char *ifids[] = {
     "DAEE386546CE71831DC365B0FF10F233", // Questprobe featuring Spider-Man
     "13EA7A22731E90598456D13311923833", // Buckaroo Banzai
 
-    "186efec3-b22e-49af-b751-6b84f04b6957", // The Golden Baton
-    "59121f68-6194-4b26-975a-b1b98598930c", // The Time Machine
-    "2f527feb-1c68-4e83-8ec7-062f5f3de3a3", // Arrow of Death part 1
-    "e1161865-90af-44c0-a706-acf069d5327a", // Arrow of Death part 2
-    "5b92a1fd-03f9-43b3-8d93-f8034ae02534", // Escape from Pulsar 7
-    "38a97e57-a465-4fb6-baad-835973b64b3a", // Circus
-    "18f3167b-93c9-4323-8195-7b9166c9a304", // Feasibility Experiment
-    "258b5da1-180c-48be-928e-add508478301", // The Wizard of Akyrz
-    "0fa37e50-60ba-48eb-97ac-f4379a5f0096", // Perseus and Andromeda
-    "c25e70bd-120a-4cfd-95b7-60d2faca026b", // Ten Little Indians
-    "c3753c92-a85e-4bf1-8578-8b3623be8fca", // Waxworks
+    "9BEB5E4FD89BB8368C2B6962CC4D3EF1", // The Golden Baton
+    "49B3EBDB42CDF7EF81F79A5BEFB2C0B1", // The Time Machine
+    "6EB620344F2139194AAD464191DE7957", // Arrow of Death part 1
+    "D28C4608062FDA5CB2708607C9542FF6", // Arrow of Death part 2
+    "FA8382CBD402531D2FCFD8661A5519AA", // Escape from Pulsar 7
+    "94A1C699FEDBF677F6DBC16B4AB89973", // Circus
+    "AE0A5A85AC0B9B18E3A60BF2BECBDC73", // Feasibility Experiment
+    "4DEBBC71B92554789E3DB80B2F68BFB9", // The Wizard of Akyrz
+    "99D9BD730F603BBA54ACF20D2267FC2A", // Perseus and Andromeda
+    "487CF8350C5DF5A65F878507DE6FDAA2", // Ten Little Indians
+    "D0D41CFBE35F7840D0D803B9648E0291", // Waxworks
 
     "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A", // Gremlins
     "C9C5B722-D87E-46B4-9092-4DCA978A4668", // Gremlins - The Adventure (Spanish)
