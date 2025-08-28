@@ -1135,6 +1135,11 @@ static DIError LoadTSList(A2File *DOSFile)
      * Run through the set of t/s pairs.
      */
     iterations = 0;
+
+    SectorOrder fsOrder = kSectorOrderPhysical;
+    if (fPhysical == kPhysicalFormatNib525_6656)
+        fsOrder = kSectorOrderDOS;
+
     do {
         uint16_t sectorOffset;
         int lastNonZero;
@@ -1155,7 +1160,7 @@ static DIError LoadTSList(A2File *DOSFile)
         indexList[indexCount].sector = sector;
         indexCount++;
 
-        dierr = ReadTrackSector(track, sector, kSectorOrderPhysical, kSectorOrderDOS, sctBuf);
+        dierr = ReadTrackSector(track, sector, kSectorOrderPhysical, fsOrder, sctBuf);
         if (dierr != kDIErrNone)
             goto bail;
 
@@ -1276,6 +1281,10 @@ static DIError Read(A2File *pFile, uint8_t *buf, size_t len, size_t *pActual)
 
     assert(tsIndex >= 0 && tsIndex < pFile->tsCount);
 
+    SectorOrder fsOrder = kSectorOrderPhysical;
+    if (fPhysical == kPhysicalFormatNib525_6656)
+        fsOrder = kSectorOrderDOS;
+
     /* could be more clever in here and avoid double-buffering */
     while (len) {
         if (tsIndex >= pFile->tsCount) {
@@ -1287,7 +1296,7 @@ static DIError Read(A2File *pFile, uint8_t *buf, size_t len, size_t *pActual)
         if (pFile->tsList[tsIndex].track == 0 && pFile->tsList[tsIndex].sector == 0) {
             memset(sctBuf, 0, sizeof(sctBuf));
         } else {
-            dierr = ReadTrackSector(pFile->tsList[tsIndex].track, pFile->tsList[tsIndex].sector, kSectorOrderPhysical, kSectorOrderDOS, sctBuf);
+            dierr = ReadTrackSector(pFile->tsList[tsIndex].track, pFile->tsList[tsIndex].sector, kSectorOrderPhysical, fsOrder, sctBuf);
             if (dierr != kDIErrNone) {
                 debug_print(" DOS error reading file '%s'\n", pFile->fFileName);
                 return dierr;
@@ -2316,7 +2325,11 @@ static DIError ReadVTOC(void)
 {
     DIError dierr;
 
-    dierr = ReadTrackSector(kVTOCTrack, kVTOCSector, kSectorOrderPhysical, kSectorOrderDOS, fVTOC);
+    SectorOrder fsOrder = kSectorOrderPhysical;
+    if (fPhysical == kPhysicalFormatNib525_6656)
+        fsOrder = kSectorOrderDOS;
+
+    dierr = ReadTrackSector(kVTOCTrack, kVTOCSector, kSectorOrderPhysical, fsOrder, fVTOC);
     if (dierr != kDIErrNone)
         goto bail;
 
@@ -2367,8 +2380,12 @@ static DIError ReadCatalog(void)
 
     memset(fCatalogSectors, 0, sizeof(fCatalogSectors));
 
+    SectorOrder fsOrder = kSectorOrderPhysical;
+    if (fPhysical == kPhysicalFormatNib525_6656)
+        fsOrder = kSectorOrderDOS;
+
     while (catTrack != 0 && catSect != 0 && iterations < kMaxCatalogSectors) {
-        dierr = ReadTrackSector(catTrack, catSect, kSectorOrderPhysical, kSectorOrderDOS, sctBuf);
+        dierr = ReadTrackSector(catTrack, catSect, kSectorOrderPhysical, fsOrder, sctBuf);
         if (dierr != kDIErrNone)
             goto bail;
 
