@@ -2129,6 +2129,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     GlkController __block *blockgctl = gctl;
     Game __block *blockGame = game;
     NSString *hashTag = game.hashTag;
+    if (hashTag == nil) {
+        hashTag = game.path.signatureFromFile;
+        game.hashTag = hashTag;
+    }
 
     [gctl askForAccessToURL:url showDialog:!systemWindowRestoration andThenRunBlock:^{
         OpenGameOperation *operation = [[OpenGameOperation alloc] initWithURL:url completionHandler:^(NSData * _Nullable newData, NSURL * _Nullable newURL) {
