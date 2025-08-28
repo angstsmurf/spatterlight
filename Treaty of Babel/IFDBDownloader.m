@@ -256,7 +256,6 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     return lastoperation;
 }
 
-
 + (void)showNoDataFoundBezel {
     dispatch_async(dispatch_get_main_queue(), ^{
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:NSScreen.screens.firstObject];
@@ -358,7 +357,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 }];
                 
                 [strongSelf checkIfUserWants:data ratherThan:oldData force:force completionHandler:^{
-                    [IFDBDownloader insertImageData:data inMetadata:metadata];
+                    [IFDBDownloader insertImageData:data inMetadata:metadata context:localcontext];
                 }];
             }
         }
@@ -388,46 +387,44 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     }
 }
 
-+ (void)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata {
++ (void)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata context:(NSManagedObjectContext *)context {
     if (!data) {
         NSLog(@"No data");
         return;
     }
     Image __block *img;
-    NSManagedObjectContext *localcontext = metadata.managedObjectContext;
 
-    if (!localcontext) {
+    if (!context) {
         NSLog(@"Error! No context!");
         return;
     }
 
     if ([data isPlaceHolderImage]) {
-        [localcontext performBlock:^{
-            img = [IFDBDownloader findPlaceHolderInMetadata:metadata imageData:data];
+        [context performBlock:^{
+            img = [IFDBDownloader findPlaceHolderInMetadata:metadata imageData:data context:context];
             metadata.cover = img;
         }];
 
         return;
     }
     
-    [localcontext performBlock:^{
+    [context performBlock:^{
         NSLog(@"IFDBDownLoader insertImageData: Creating new Image object in Core Data");
         img = (Image *) [NSEntityDescription
                          insertNewObjectForEntityForName:@"Image"
-                         inManagedObjectContext:localcontext];
+                         inManagedObjectContext:context];
         img.data = [data copy];
         img.originalURL = metadata.coverArtURL;
         img.imageDescription = metadata.coverArtDescription;
         Image *oldCover = metadata.cover;
         metadata.cover = img;
         [Image deleteIfOrphan:oldCover];
-        [localcontext safeSave];
+        [context safeSave];
     }];
 }
 
-+ (Image *)findPlaceHolderInMetadata:(Metadata *)metadata imageData:(NSData *)data {
++ (Image *)findPlaceHolderInMetadata:(Metadata *)metadata imageData:(NSData *)data context:(NSManagedObjectContext *)context {
     Image __block *placeholder;
-    NSManagedObjectContext *context = metadata.managedObjectContext;
     [context performBlockAndWait:^{
         placeholder = [IFDBDownloader fetchImageForURL:@"Placeholder" inContext:context];
         if (!placeholder) {
