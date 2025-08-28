@@ -1647,7 +1647,7 @@ enum  {
 
     if (fetchedObjects.count > 1)
     {
-        NSLog(@"Found more than one entry with hashTag %@",hash);
+        NSLog(@"Found more than one entry (%ld) with hashTag %@", fetchedObjects.count, hash);
     }
     else if (fetchedObjects.count == 0)
     {
