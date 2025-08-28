@@ -48,10 +48,9 @@ fprintf(stderr, "%s\n",                                                    \
 
 @implementation IFDBDownloader
 
-- (instancetype)initWithContext:(NSManagedObjectContext *)context {
+- (instancetype)init {
     self = [super init];
     if (self) {
-        _context = context;
         defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:nil];
 
         lastImageDownloadOperation = nil;
@@ -211,13 +210,10 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 }
             }
         };
-        
-        NSMutableSet *downloadedMetadata = [NSMutableSet new];
-        
+
         for (Game *game in games) {
-            if (game.metadata == nil || [downloadedMetadata containsObject:game.metadata])
+            if (game.metadata == nil)
                 continue;
-            [downloadedMetadata addObject:game.metadata];
             DownloadOperation *operation;
             NSString *identifier = game.metadata.objectID.URIRepresentation.absoluteString;
             if (game.metadata.tuid.length) {
@@ -339,7 +335,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:defaultSession dataTaskURL:url identifier:nil completionHandler:^(NSData * data, NSURLResponse * response, NSError * error, NSString * identifier ) {
         IFDBDownloader *strongSelf = weakSelf;
         if (!strongSelf)
-            strongSelf = [[IFDBDownloader alloc] initWithContext:localcontext];
+            strongSelf = [[IFDBDownloader alloc] init];
         if (error) {
             if (!data) {
                 NSLog(@"Error connecting to url %@: %@", url, [error localizedDescription]);
@@ -431,7 +427,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             NSLog(@"IFDBDownLoader insertImageData: Creating new  placeholder Image object in Core Data");
             placeholder = (Image *) [NSEntityDescription
                                      insertNewObjectForEntityForName:@"Image"
-                                     inManagedObjectContext:metadata.managedObjectContext];
+                                     inManagedObjectContext:context];
             placeholder.data = [data copy];
             placeholder.originalURL = @"Placeholder";
             placeholder.imageDescription = @"Inform 7 placeholder cover image: The worn spine of an old book, laying open on top of another open book. Caption: \"Interactive fiction by Inform. Photograph: Scot Campbell\".";

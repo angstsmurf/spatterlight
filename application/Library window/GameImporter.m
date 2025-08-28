@@ -182,7 +182,7 @@ extern NSArray *gGameFileTypes;
             [select addObject:game.hashTag];
         // Download metadata from IFDB here if the option to do this is active
         if (downloadInfo && ![_downloadedMetadata containsObject:game.metadata]) {
-            IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
+            IFDBDownloader *downloader = [[IFDBDownloader alloc] init];
             lastOperation = [downloader downloadMetadataForGames:@[game] onQueue:_libController.downloadQueue imageOnly:NO reportFailure:NO completionHandler:^{
                 [game.managedObjectContext performBlock:^{
                     game.hasDownloaded = YES;
