@@ -1049,7 +1049,7 @@ enum  {
 
         TableViewController *strongSelf = weakSelf;
 
-        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] init];
         NSMutableArray<Game *> *gamesInContext = [[NSMutableArray alloc] initWithCapacity:games.count];
         for (NSManagedObjectID *objectID in blockGames) {
             if (!strongSelf.currentlyAddingGames)

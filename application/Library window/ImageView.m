@@ -509,7 +509,7 @@
 
     [game.managedObjectContext performBlock:^{
 
-        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:game.managedObjectContext];
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] init];
         
         [downloader downloadMetadataForGames:@[game] onQueue:queue imageOnly:YES reportFailure:YES completionHandler:^{
             [game.managedObjectContext performBlock:^{
