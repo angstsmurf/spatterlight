@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSOperation *)downloadMetadataForGames:(NSArray<Game *> *)games onQueue:(NSOperationQueue *)queue imageOnly:(BOOL)imageOnly reportFailure:(BOOL)reportFailure completionHandler:(nullable void (^)(void))completionHandler;
 - (void)downloadImageFor:(Metadata *)metadata onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force;
 + (nullable Image *)fetchImageForURL:(NSString *)imgurl inContext:(NSManagedObjectContext *)context;
-+ (void)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata;
++ (void)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata context:(NSManagedObjectContext *)context;
 
 @property (strong) NSManagedObjectContext *context;
 

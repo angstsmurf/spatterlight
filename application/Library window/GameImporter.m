@@ -423,12 +423,12 @@ void freeContext(void **ctx) {
             if (img) {
                 NSLog(@"Found cover image in image directory for game %@", metadata.title);
                 metadata.coverArtURL = imgURL.path;
-                [IFDBDownloader insertImageData:img inMetadata:metadata];
+                [IFDBDownloader insertImageData:img inMetadata:metadata context:context];
             } else if (blorb) {
                 NSData *imageData = blorb.coverImageData;
                 if (imageData) {
                     metadata.coverArtURL = path;
-                    [IFDBDownloader insertImageData:imageData inMetadata:metadata];
+                    [IFDBDownloader insertImageData:imageData inMetadata:metadata context:context];
                     NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
                 }
                 else NSLog(@"Found no image in blorb file %@", path);
@@ -469,11 +469,11 @@ void freeContext(void **ctx) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
                         if ([imageCompare userWantsImage:newImageData ratherThanImage:oldImageData source:kImageComparisonLocalFile force:NO]) {
-                            [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+                            [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata context:game.managedObjectContext];
                         }
                     });
                 } else {
-                    [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+                    [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata context:game.managedObjectContext];
                 }
             }
         }
@@ -664,7 +664,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             return;
 
         game.metadata.coverArtURL = chosenURL.path;
-        [IFDBDownloader insertImageData:imageData inMetadata:game.metadata];
+        [IFDBDownloader insertImageData:imageData inMetadata:game.metadata context:game.managedObjectContext];
     }
 }
 

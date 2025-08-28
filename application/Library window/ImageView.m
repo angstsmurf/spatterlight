@@ -737,7 +737,7 @@
             [metadata.managedObjectContext performBlockAndWait:^{
                 metadata.coverArtURL = URLPath;
                 metadata.coverArtDescription = nil;
-                [IFDBDownloader insertImageData:data inMetadata:metadata];
+                [IFDBDownloader insertImageData:data inMetadata:metadata context:metadata.managedObjectContext];
                 metadata.userEdited = @YES;
                 metadata.source = @(kUser);
             }];
@@ -753,7 +753,7 @@
                 [metadata.managedObjectContext performBlockAndWait:^{
                     metadata.coverArtURL = URLPath;
                     metadata.coverArtDescription = nil;
-                    [IFDBDownloader insertImageData:data inMetadata:metadata];
+                    [IFDBDownloader insertImageData:data inMetadata:metadata context:metadata.managedObjectContext];
                     metadata.userEdited = @YES;
                     metadata.source = @(kUser);
                 }];
