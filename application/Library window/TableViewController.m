@@ -1429,8 +1429,14 @@ enum  {
     InfoController *infoctl;
 
     NSString *hashTag = game.hashTag;
-    if (!hashTag)
+    if (hashTag.length == 0) {
+        hashTag = game.path.signatureFromFile;
+        game.hashTag = hashTag;
+    }
+    if (hashTag.length == 0) {
+        NSLog(@"showInfoForGame: Could not create hash from game file!");
         return;
+    }
     // First, we check if we have created this info window already
     infoctl = _infoWindows[hashTag];
 
@@ -2129,9 +2135,13 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     GlkController __block *blockgctl = gctl;
     Game __block *blockGame = game;
     NSString *hashTag = game.hashTag;
-    if (hashTag == nil) {
+    if (hashTag.length == 0) {
         hashTag = game.path.signatureFromFile;
         game.hashTag = hashTag;
+    }
+    if (hashTag.length == 0) {
+        NSLog(@"Could not hash game data?");
+        return nil;
     }
 
     [gctl askForAccessToURL:url showDialog:!systemWindowRestoration andThenRunBlock:^{
