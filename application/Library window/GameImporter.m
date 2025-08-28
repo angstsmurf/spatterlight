@@ -440,6 +440,7 @@ void freeContext(void **ctx) {
         if ([game.detectedFormat isEqualToString:@"zcode"]) {
             [self addZCodeIDfromFile:path blorb:blorb toGame:game];
         }
+        blorb = nil;
         NSLog(@"GameImporter importGame: Title: %@ Hash:%@", game.metadata.title, game.hashTag);
     }];
 
