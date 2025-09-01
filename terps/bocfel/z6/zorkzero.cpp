@@ -2100,7 +2100,7 @@ bool z0_display_picture(int x, int y, Window *win) {
         draw_encyclopedia();
         return true;
     } else {
-        fprintf(stderr, "Current window is %d\n", win->index);
+//        fprintf(stderr, "Current window is %d\n", win->index);
         if (current_graphics_buf_win == nullptr)
             current_graphics_buf_win = graphics_bg_glk;
         draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
