@@ -215,8 +215,8 @@
             CGFloat lowest = 0;
 
             for (img2 in _marginImages)
-                // Moving below the lowest image drawn before the flowbreak
-                // Flowbreaks are not supposed to affect images drawn after it
+                // Moving below the lowest image drawn before the flowbreak.
+                // A flowbreak does not affect images drawn after it.
                 if (img2.pos < f.pos && NSMaxY(img2.bounds) > lowest &&
                     NSMaxY(img2.bounds) > rect.origin.y) {
                     lowest = NSMaxY(img2.bounds) + 1;
