@@ -733,7 +733,6 @@ fprintf(stderr, "%s\n",                                                    \
         }
 
         [self.window setFrame:newWindowFrame display:NO];
-        [self adjustContentView];
     }
     lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
     [self showWindow:nil];
@@ -1010,9 +1009,21 @@ fprintf(stderr, "%s\n",                                                    \
     gevent = [[GlkEvent alloc] initPrefsEventForTheme:theme];
     [self queueEvent:gevent];
 
-    if (!(_inFullscreen && windowRestoredBySystem)) {
-        [self sendArrangeEventWithFrame:_gameView.frame force:NO];
+    if (_inFullscreen && windowRestoredBySystem) {
+        // Adjust the view when a game window has been restored
+        // in fullscreen by the system window restoration mechanism.
+        if (restoredControllerLate) {
+            _gameView.frame = restoredControllerLate.storedGameViewFrame;
+        } else if (restoredController) {
+            _gameView.frame = restoredController.storedGameViewFrame;
+        } else {
+            // If we have no restored GlkControllers, we just use the default view size.
+            // This tends to look narrow in fullscreen, though.
+            [self adjustContentView];
+        }
     }
+
+    [self sendArrangeEventWithFrame:_gameView.frame force:NO];
 
     restartingAlready = NO;
     [readfh waitForDataInBackgroundAndNotify];
@@ -1156,7 +1167,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     // Copy values from autorestored GlkController object
     _firstResponderView = restoredControllerLate.firstResponderView;
-    _windowPreFullscreenFrame = restoredControllerLate.windowPreFullscreenFrame;
+    _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:restoredControllerLate.windowPreFullscreenFrame];
     _autosaveTag = restoredController.autosaveTag;
 
     _bufferStyleHints = restoredController.bufferStyleHints;
@@ -4312,7 +4323,7 @@ again:
     // If we are starting up in fullscreen, we should use the
     // autosaved windowPreFullscreenFrame instead
     if (!(windowRestoredBySystem && _inFullscreen)) {
-        _windowPreFullscreenFrame = self.window.frame;
+        _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:self.window.frame];
     }
     windowRestoredBySystem = NO;
     _inFullscreen = YES;
@@ -4327,7 +4338,7 @@ again:
     _ignoreResizes = NO;
     inFullScreenResize = NO;
     _gameView.alphaValue = 1;
-    [window setFrame:_windowPreFullscreenFrame display:YES];
+    [window setFrame:[self frameWithSanitycheckedSize:_windowPreFullscreenFrame] display:YES];
     _gameView.frame = [self contentFrameForWindowed];
     [self restoreScrollOffsets];
     _gameView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
@@ -4511,7 +4522,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     // the window at its original size but moved to the
     // center of its eventual full screen frame.
 
-    NSRect centerWindowFrame = _windowPreFullscreenFrame;
+    NSRect centerWindowFrame = [self frameWithSanitycheckedSize:_windowPreFullscreenFrame];
     centerWindowFrame.origin = NSMakePoint(screen.frame.origin.x + floor((screen.frame.size.width -
                                                                           _borderView.frame.size.width) /
                                                                          2), screen.frame.origin.x + _borderFullScreenSize.height
@@ -4569,6 +4580,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
     [self storeScrollOffsets];
     _ignoreResizes = YES;
+    _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:_windowPreFullscreenFrame];
     NSRect oldFrame = _windowPreFullscreenFrame;
 
     oldFrame.size.width =
