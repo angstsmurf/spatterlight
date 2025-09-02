@@ -409,24 +409,25 @@ enum  {
 
         NSArray *entitiesToDelete = @[@"Metadata", @"Game", @"Ifid", @"Image"];
 
-        NSMutableSet *gamesToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
-        NSMutableSet *metadataToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
-        NSMutableSet *imagesToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
-        NSSet *ifidsToKeep = [[NSSet alloc] init];
+        NSMutableSet<NSManagedObjectID *> *gamesToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
+        NSMutableSet<NSManagedObjectID *> *metadataToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
+        NSMutableSet<NSManagedObjectID *> *imagesToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
+        NSMutableSet<NSManagedObjectID *> *ifidsToKeep = [[NSMutableSet alloc] init];
 
         for (GlkController *ctl in _gameSessions.allValues) {
             if (forceQuit || !ctl.alive) {
-                if (_infoWindows[ctl.game.ifid]) {
-                    _infoWindows[ctl.game.ifid].inDeletion = YES;
+                if (_infoWindows[ctl.game.hashTag]) {
+                    _infoWindows[ctl.game.hashTag].inDeletion = YES;
                 }
                 [ctl.window close];
             } else {
                 Game *game = ctl.game;
-                [gamesToKeep addObject:game];
-                [metadataToKeep addObject:game.metadata];
+                [gamesToKeep addObject:game.objectID];
+                [metadataToKeep addObject:game.metadata.objectID];
                 if (game.metadata.cover)
-                    [imagesToKeep addObject:game.metadata.cover];
-                ifidsToKeep  = [ifidsToKeep setByAddingObjectsFromSet:game.metadata.ifids];
+                    [imagesToKeep addObject:game.metadata.cover.objectID];
+                for (Ifid *ifid in game.metadata.ifids)
+                    [ifidsToKeep addObject:ifid.objectID];
             }
         }
 
@@ -434,34 +435,39 @@ enum  {
             _gameSessions = [NSMutableDictionary new];
         }
 
-        for (NSString *entity in entitiesToDelete) {
-            NSFetchRequest *fetchEntities = [[NSFetchRequest alloc] init];
-            fetchEntities.entity = [NSEntityDescription entityForName:entity inManagedObjectContext:self.managedObjectContext];
-            fetchEntities.includesPropertyValues = NO; //only fetch the managedObjectID
+        NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
 
-            NSError *error = nil;
-            NSArray *objectsToDelete = [self.managedObjectContext executeFetchRequest:fetchEntities error:&error];
-            if (error)
-                NSLog(@"deleteLibrary: %@", error);
+        [childContext performBlock:^{
+            for (NSString *entity in entitiesToDelete) {
 
-            NSMutableSet *set = [NSMutableSet setWithArray:objectsToDelete];
+                NSFetchRequest *fetchEntities = [[NSFetchRequest alloc] init];
+                fetchEntities.entity = [NSEntityDescription entityForName:entity inManagedObjectContext:childContext];
+                fetchEntities.resultType = NSManagedObjectIDResultType;
+                fetchEntities.includesPropertyValues = NO; //only fetch the managedObjectID
 
-            if ([entity isEqualToString:@"Game"]) {
-                [set minusSet:gamesToKeep];
-            } else if ([entity isEqualToString:@"Metadata"]) {
-                [set minusSet:metadataToKeep];
-            } else if ([entity isEqualToString:@"Image"]) {
-                [set minusSet:imagesToKeep];
-            } else if ([entity isEqualToString:@"Ifid"]) {
-                [set minusSet:ifidsToKeep];
+                NSError *error = nil;
+                NSArray *objectsToDelete = [childContext executeFetchRequest:fetchEntities error:&error];
+                if (error)
+                    NSLog(@"deleteLibrary: %@", error);
+
+                NSMutableSet *set = [NSMutableSet setWithArray:objectsToDelete];
+
+                if ([entity isEqualToString:@"Game"]) {
+                    [set minusSet:gamesToKeep];
+                } else if ([entity isEqualToString:@"Metadata"]) {
+                    [set minusSet:metadataToKeep];
+                } else if ([entity isEqualToString:@"Image"]) {
+                    [set minusSet:imagesToKeep];
+                } else if ([entity isEqualToString:@"Ifid"]) {
+                    [set minusSet:ifidsToKeep];
+                }
+
+                for (NSManagedObjectID *objectID in set) {
+                    [childContext deleteObject:[childContext objectWithID:objectID]];
+                }
             }
-
-            for (NSManagedObject *object in set) {
-                [self.managedObjectContext deleteObject:object];
-            }
-        }
-
-        [self.coreDataManager saveChanges];
+            [childContext safeSave];
+        }];
     }
 }
 
