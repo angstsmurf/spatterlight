@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GameImporter : NSObject
 
-- (instancetype)initWithLibController:(TableViewController *)libController;
+- (instancetype)initWithTableViewController:(TableViewController *)libController;
 
 - (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;
 
@@ -21,9 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game;
 - (void)lookForImagesForGame:(Game *)game;
 
-@property (weak) TableViewController *libController;
+@property (weak) TableViewController *tableViewController;
 
-@property NSMutableSet *downloadedMetadata;
 
 @end
 

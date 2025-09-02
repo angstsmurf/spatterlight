@@ -69,6 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSOperationQueue *alertQueue;
 @property (readonly) NSOperationQueue *openGameQueue;
 @property (nullable) NSData *lastImageComparisonData;
+@property (weak) NSOperation *lastImageDownloadOperation;
 
 @property NSInteger undoGroupingCount;
 
