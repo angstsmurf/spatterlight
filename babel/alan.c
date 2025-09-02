@@ -76,6 +76,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
 
 static bool crc_is_correct(byte *story_file, int32 size_in_awords) {
     /* Size of AcodeHeader is 50 Awords = 200 bytes */
+    if (size_in_awords > 100000000) return false;
     int32 calculated_crc = 0;
     int32 crc_in_file = read_alan_int_at(story_file+46*4);
     
