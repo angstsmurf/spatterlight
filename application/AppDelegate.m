@@ -544,10 +544,6 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 
-    for (GlkController *glkctl in (_tableViewController.gameSessions).allValues) {
-        [glkctl autoSaveOnExit];
-    }
-
     NSManagedObjectContext *mainContext = _coreDataManager.mainManagedObjectContext;
 
     [mainContext performBlockAndWait:^{
