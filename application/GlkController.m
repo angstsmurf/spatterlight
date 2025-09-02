@@ -197,6 +197,7 @@ fprintf(stderr, "%s\n",                                                    \
     kVOMenuPrefsType lastVOSpeakMenu;
     BOOL shouldAddTitlePrefixToSpeech;
     BOOL changedBorderThisTurn;
+    BOOL autorestoring;
 }
 
 @property (nonatomic) JourneyMenuHandler *journeyMenuHandler;
@@ -240,6 +241,8 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"GlkController runTerp called with nil game!");
         return;
     }
+
+    autorestoring = NO;
 
     _soundHandler = [SoundHandler new];
     _soundHandler.glkctl = self;
@@ -452,6 +455,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)runTerpWithAutorestore {
+    autorestoring = YES;
     @try {
         restoredController =
         [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileGUI];
@@ -685,6 +689,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)runTerpNormal {
+    autorestoring = NO;
     // Just start the game with no autorestore or fullscreen or resetting
     NSRect newContentFrame = (self.window.contentView).frame;
     if (!(windowRestoredBySystem || _showingCoverImage)) {
@@ -1278,8 +1283,11 @@ fprintf(stderr, "%s\n",                                                    \
     [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
-    if (_startingInFullscreen)
+    if (_startingInFullscreen) {
         [self performSelector:@selector(deferredEnterFullscreen:) withObject:nil afterDelay:0.1];
+    } else {
+        autorestoring = NO;
+    }
 }
 
 
@@ -2326,8 +2334,10 @@ fprintf(stderr, "%s\n",                                                    \
             self.window.restorable = NO;
         } else {
             self.window.restorable = YES;
-            _game.autosaved = YES;
-            [self handleAutosave:self.autosaveTag];
+            if (!autorestoring) { // Do not autosave until we have fully autorestored.
+                _game.autosaved = YES;
+                [self handleAutosave:self.autosaveTag];
+            }
         }
     }
 
@@ -2338,7 +2348,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     _shouldStoreScrollOffset = NO;
-    if ([defaults boolForKey:@"AdjustSize"]) {
+    if ([defaults boolForKey:@"AdjustSize"] && !autorestoring) {
         if (lastTheme != theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
             NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
             NSUInteger borders = (NSUInteger)theme.border * 2;
@@ -4648,6 +4658,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)deferredEnterFullscreen:(id)sender {
+    autorestoring = NO;
     [self.window toggleFullScreen:nil];
     [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:1];
 }
