@@ -977,7 +977,8 @@
         }
 
         // And finally, tell the receiver where we wrote our file
-        [sender setString:destinationFileURL.path forType:PasteboardFileURLPromise];
+        if (destinationFileURL.path.length > 0)
+            [sender setString:destinationFileURL.path forType:PasteboardFileURLPromise];
     }
 }
 
