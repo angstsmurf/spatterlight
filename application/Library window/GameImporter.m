@@ -36,26 +36,27 @@ extern NSArray *gGameFileTypes;
 
 @implementation GameImporter
 
-- (instancetype)initWithLibController:(TableViewController *)libController {
+- (instancetype)initWithTableViewController:(TableViewController *)tableViewController {
     self = [super init];
     if (self) {
-        _libController = libController;
+        _tableViewController = tableViewController;
     }
     return self;
 }
 
 - (void)addFiles:(NSArray<NSURL *> *)urls options:(NSDictionary *)options {
 
-    NSManagedObjectContext *context = options[@"context"];
     NSMutableArray *select = nil;
 
     //Don't select every game after import if we start with no games
-    if (_libController.gameTableModel.count)
+    if (_tableViewController.gameTableModel.count)
         select = [NSMutableArray arrayWithCapacity:urls.count];
 
     BOOL reportFailure = NO;
 
-    if (urls.count == 1) {
+    NSUInteger numberOfFiles = urls.count;
+
+    if (numberOfFiles == 1) {
         // If the user only selects one file, and it is
         // not a directory, we should report any failures.
         BOOL isDir;
@@ -68,43 +69,52 @@ extern NSArray *gGameFileTypes;
     newOptions[@"reportFailure"] = @(reportFailure);
     newOptions[@"select"] = select;
 
-    TableViewController *libController = _libController;
+    TableViewController *tableViewController = _tableViewController;
+    NSManagedObjectContext __block *context = options[@"context"];
+
+    int64_t pause = 0;
+    if (numberOfFiles > 1) {
+        pause = (int64_t)(0.5 * NSEC_PER_SEC);
+        if (numberOfFiles > 10) {
+            pause = NSEC_PER_SEC;
+        }
+    }
 
     // A block that will run when all files are added
     // and all metadata is downloaded
     void (^internalHandler)(void) = ^void() {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, pause), dispatch_get_main_queue(), ^{
+//            if (!tableViewController.currentlyAddingGames)
+//                return;
 
-        if (!libController.currentlyAddingGames)
-            return;
+            tableViewController.currentlyAddingGames = NO;
 
-        libController.currentlyAddingGames = NO;
+            NSError *error = nil;
+            BOOL result = [context save:&error];
+            if (!result || error != nil)
+                NSLog(@"context save error: %@", error);
+            [tableViewController.coreDataManager saveChanges];
+            context = nil;
 
-        [context safeSaveAndWait];
-        [libController.coreDataManager saveChanges];
+            [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
 
-        [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
-        [context performBlock:^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                [libController endImporting];
+                [tableViewController endImporting];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                    [libController selectGamesWithHashes:select scroll:YES];
+                    [tableViewController selectGamesWithHashes:select scroll:YES];
                 });
             });
-        }];
-    };
-    
-    // End of the block
+        });
+    }; // End of the block
 
     newOptions[@"completionHandler"] = internalHandler;
     
-    [libController beginImporting];
+    [tableViewController beginImporting];
     [self addGamesFromURLsRecursively:urls options:newOptions];
 }
 
 
-- (nullable NSOperation *)addGamesFromURLsRecursively:(NSArray*)urls options:(NSDictionary *)options
-{
-    _downloadedMetadata = [NSMutableSet new];
+- (nullable NSOperation *)addGamesFromURLsRecursively:(NSArray*)urls options:(NSDictionary *)options {
     NSManagedObjectContext *context = options[@"context"];
     void (^internalHandler)(void) = options[@"completionHandler"];
 
@@ -120,46 +130,49 @@ extern NSArray *gGameFileTypes;
 
     NSOperation *lastOperation = nil;
 
-    @autoreleasepool {
-        for (NSURL *url in urls)
-        {
-            if (!_libController.currentlyAddingGames) {
-                if (internalHandler)
-                    internalHandler();
-                return nil;
-            }
+    for (NSURL *url in urls) {
+        if (!_tableViewController.currentlyAddingGames) {
+            if (internalHandler)
+                internalHandler();
+            return nil;
+        }
 
-            NSNumber *isDirectory = nil;
-            [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+        NSNumber *isDirectory = nil;
+        [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
 
-            if (isDirectory.boolValue) {
-                NSArray *contentsOfDir = [filemgr contentsOfDirectoryAtURL:url
-                                                includingPropertiesForKeys:@[NSURLIsDirectoryKey]
-                                                                   options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                                     error:nil];
-                lastOperation = [self addGamesFromURLsRecursively:contentsOfDir options:options];
-            } else {
-                lastOperation = [self addSingleFile:url options:options];
-            }
+        if (isDirectory.boolValue) {
+            NSArray *contentsOfDir = [filemgr contentsOfDirectoryAtURL:url
+                                            includingPropertiesForKeys:@[NSURLIsDirectoryKey]
+                                                               options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                 error:nil];
+            lastOperation = [self addGamesFromURLsRecursively:contentsOfDir options:options];
+        } else {
+            lastOperation = [self addSingleFile:url options:options];
+        }
 
-            if (timestamp.timeIntervalSinceNow < -0.3) {
-                [context safeSaveAndWait];
-                [_libController.coreDataManager saveChanges];
-                timestamp = [NSDate date];
-            }
+        if (timestamp.timeIntervalSinceNow < -0.3) {
+            [context safeSave];
+            timestamp = [NSDate date];
         }
     }
 
     NSBlockOperation *finisher = nil;
     if (internalHandler) {
-        @autoreleasepool {
-            finisher = [NSBlockOperation blockOperationWithBlock:internalHandler];
-            if (lastOperation)
-                [finisher addDependency:lastOperation];
-            finisher.qualityOfService = NSQualityOfServiceUtility;
-            [_libController.downloadQueue addOperation:finisher];
-            lastOperation = nil;
-        }
+        finisher = [NSBlockOperation blockOperationWithBlock:internalHandler];
+        NSOperationQueue *downloadQueue = _tableViewController.downloadQueue;
+        NSBlockOperation *prefinisher = [NSBlockOperation blockOperationWithBlock:^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,(int64_t)(2 * NSEC_PER_SEC)),
+                           dispatch_get_main_queue(), ^{
+                [downloadQueue addOperation:finisher];
+            });
+        }];
+        [finisher addDependency:prefinisher];
+        if (lastOperation)
+            [prefinisher addDependency:lastOperation];
+        prefinisher.qualityOfService = NSQualityOfServiceUtility;
+        finisher.qualityOfService = NSQualityOfServiceUtility;
+        [_tableViewController.downloadQueue addOperation:prefinisher];
+        lastOperation = nil;
     }
     return lastOperation;
 }
@@ -171,24 +184,26 @@ extern NSArray *gGameFileTypes;
     BOOL lookForImages = [options[@"lookForImages"] isEqual:@YES];
     BOOL downloadInfo = [options[@"downloadInfo"] isEqual:@YES];
     NSManagedObjectContext *context = options[@"context"];
+    options = nil;
 
     NSOperation *lastOperation = nil;
 
     Game *game = [self importGame:url.path inContext:context reportFailure:reportFailure hide:NO];
 
     if (game) {
-        [_libController beginImporting];
+        [_tableViewController beginImporting];
         if (select)
             [select addObject:game.hashTag];
         // Download metadata from IFDB here if the option to do this is active
-        if (downloadInfo && ![_downloadedMetadata containsObject:game.metadata]) {
+        if (downloadInfo) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] init];
-            lastOperation = [downloader downloadMetadataForGames:@[game] onQueue:_libController.downloadQueue imageOnly:NO reportFailure:NO completionHandler:^{
-                [game.managedObjectContext performBlock:^{
-                    game.hasDownloaded = YES;
+            NSManagedObjectID *gameID = game.objectID.copy;
+            lastOperation = [downloader downloadMetadataForGames:@[gameID] inContext:context onQueue:_tableViewController.downloadQueue imageOnly:NO reportFailure:NO completionHandler:^{
+                [context performBlock:^{
+                    Game *blockGame = [context objectWithID:gameID];
+                    blockGame.hasDownloaded = YES;
                 }];
             }];
-            [_downloadedMetadata addObject:game.metadata];
         }
         // We only look for images on the HDD if the game has
         // no cover image or if it has the Inform 7 placeholder image.
@@ -239,8 +254,8 @@ void freeContext(void **ctx) {
     {
         if (report) {
             if ([extension isEqualToString:@"ifiction"]) {
-                [_libController waitToReportMetadataImport];
-                [_libController importMetadataFromFile:path inContext:context];
+                [_tableViewController waitToReportMetadataImport];
+                [_tableViewController importMetadataFromFile:path inContext:context];
                 return nil;
             }
 
@@ -418,17 +433,17 @@ void freeContext(void **ctx) {
         metadata.hashTag = hash;
 
         if (!metadata.cover) {
-            NSURL *imgURL = [NSURL URLWithString:[hash stringByAppendingPathExtension:@"tiff"] relativeToURL:_libController.imageDir];
+            NSURL *imgURL = [NSURL URLWithString:[hash stringByAppendingPathExtension:@"tiff"] relativeToURL:_tableViewController.imageDir];
             NSData *img = [[NSData alloc] initWithContentsOfURL:imgURL];
             if (img) {
                 NSLog(@"Found cover image in image directory for game %@", metadata.title);
                 metadata.coverArtURL = imgURL.path;
-                [IFDBDownloader insertImageData:img inMetadata:metadata context:context];
+                [IFDBDownloader insertImageData:img inMetadataID:metadata.objectID context:context];
             } else if (blorb) {
                 NSData *imageData = blorb.coverImageData;
                 if (imageData) {
                     metadata.coverArtURL = path;
-                    [IFDBDownloader insertImageData:imageData inMetadata:metadata context:context];
+                    [IFDBDownloader insertImageData:imageData inMetadataID:metadata.objectID context:context];
                     NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
                 }
                 else NSLog(@"Found no image in blorb file %@", path);
@@ -461,8 +476,8 @@ void freeContext(void **ctx) {
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game {
     if (blorb) {
         NSData *newImageData = blorb.coverImageData;
-        if (newImageData && ![newImageData isPlaceHolderImage] && ![_libController.lastImageComparisonData isEqual:newImageData]) {
-            _libController.lastImageComparisonData = newImageData;
+        if (newImageData && ![newImageData isPlaceHolderImage] && ![_tableViewController.lastImageComparisonData isEqual:newImageData]) {
+            _tableViewController.lastImageComparisonData = newImageData;
             NSData *oldImageData = (NSData *)game.metadata.cover.data;
             kImageComparisonResult comparisonResult = [ImageCompareViewController chooseImageA:newImageData orB:oldImageData source:kImageComparisonDownloaded force:NO];
             if (comparisonResult != kImageComparisonResultB) {
@@ -470,11 +485,11 @@ void freeContext(void **ctx) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
                         if ([imageCompare userWantsImage:newImageData ratherThanImage:oldImageData source:kImageComparisonLocalFile force:NO]) {
-                            [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata context:game.managedObjectContext];
+                            [IFDBDownloader insertImageData:newImageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
                         }
                     });
                 } else {
-                    [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata context:game.managedObjectContext];
+                    [IFDBDownloader insertImageData:newImageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
                 }
             }
         }
@@ -665,7 +680,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             return;
 
         game.metadata.coverArtURL = chosenURL.path;
-        [IFDBDownloader insertImageData:imageData inMetadata:game.metadata context:game.managedObjectContext];
+        [IFDBDownloader insertImageData:imageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
     }
 }
 
@@ -768,7 +783,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
         if (rv == 1) {
             dirURL =
-            [_libController.homepath URLByAppendingPathComponent:@"Converted" isDirectory:YES];
+            [_tableViewController.homepath URLByAppendingPathComponent:@"Converted" isDirectory:YES];
 
             [filemanager createDirectoryAtURL:dirURL
                   withIntermediateDirectories:YES

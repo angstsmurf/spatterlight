@@ -605,8 +605,8 @@ enum  {
                         game.found = YES;
                 }
             }
-            [childContext safeSave];
         }
+        [childContext safeSave];
 
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
@@ -644,13 +644,10 @@ enum  {
     //    NSLog(@"Beginning importing");
     TableViewController * __weak weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        TableViewController *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-        if (!strongSelf.spinnerSpinning) {
-            strongSelf.spinnerSpinning = YES;
-            self.windowController.progIndicator.hidden = NO;
-            [self.windowController.progIndicator startAnimation:self];
+        if (!weakSelf.spinnerSpinning) {
+            weakSelf.spinnerSpinning = YES;
+            weakSelf.windowController.progIndicator.hidden = NO;
+            [weakSelf.windowController.progIndicator startAnimation:self];
         }
     });
 }
@@ -661,31 +658,25 @@ enum  {
     TableViewController * __weak weakSelf = self;
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-        TableViewController *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-
-        if (strongSelf.spinnerSpinning) {
-            strongSelf.spinnerSpinning = NO;
-            self.windowController.progIndicator.hidden = YES;
-            [self.windowController.progIndicator stopAnimation:self];
+        if (weakSelf.spinnerSpinning) {
+            weakSelf.spinnerSpinning = NO;
+            weakSelf.windowController.progIndicator.hidden = YES;
+            [weakSelf.windowController.progIndicator stopAnimation:self];
         }
-
-//        [TableViewController fixMetadataWithNoIfidsInContext:strongSelf.managedObjectContext];
 
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
 
-        [strongSelf.managedObjectContext performBlock:^{
-            while (strongSelf.undoGroupingCount > 0) {
-                [strongSelf.managedObjectContext.undoManager endUndoGrouping];
-                strongSelf.undoGroupingCount--;
+        [weakSelf.managedObjectContext performBlock:^{
+            while (weakSelf.undoGroupingCount > 0) {
+                [weakSelf.managedObjectContext.undoManager endUndoGrouping];
+                weakSelf.undoGroupingCount--;
             }
         }];
 
         // This is the only way I have found to immediately enable the "Add to library…" button again.
-        // (Although the Apple header for validateVisibleItems says: "Typically you should not invoke this method.")
-        [strongSelf.windowController.window.toolbar validateVisibleItems];
+        // (The Apple header for validateVisibleItems says: "Typically you should not invoke this method.")
+        [weakSelf.windowController.window.toolbar validateVisibleItems];
     });
 }
 
@@ -702,12 +693,11 @@ enum  {
         if (result == NSModalResponseOK) {
             NSURL *url = panel.URL;
             [weakSelf.managedObjectContext performBlock:^{
-                TableViewController *strongSelf = weakSelf;
-                [strongSelf waitToReportMetadataImport];
-                [strongSelf beginImporting];
-                [strongSelf importMetadataFromFile:url.path inContext:strongSelf.managedObjectContext];
-                [strongSelf.coreDataManager saveChanges];
-                [strongSelf endImporting];
+                [weakSelf waitToReportMetadataImport];
+                [weakSelf beginImporting];
+                [weakSelf importMetadataFromFile:url.path inContext:weakSelf.managedObjectContext];
+                [weakSelf.coreDataManager saveChanges];
+                [weakSelf endImporting];
             }];
         }
     }];
@@ -794,13 +784,11 @@ enum  {
 
     _currentlyAddingGames = YES;
 
-    NSDictionary *options = @{ @"context":childContext,
-                               @"lookForImages":@(lookForImages),
-                               @"downloadInfo":@(downloadInfo) };
-
-    GameImporter *importer = [[GameImporter alloc] initWithLibController:self];
-
     [childContext performBlock:^{
+        GameImporter *importer = [[GameImporter alloc] initWithTableViewController:self];
+        NSDictionary *options = @{ @"context":childContext,
+                                   @"lookForImages":@(lookForImages),
+                                   @"downloadInfo":@(downloadInfo) };
         [importer addFiles:files options:options];
     }];
 }
@@ -926,7 +914,7 @@ enum  {
 
         if (choice == NSAlertFirstButtonReturn) {
             for (Game *toDelete in running) {
-                [_gameSessions[toDelete.ifid].window close];
+                [_gameSessions[toDelete.hashTag].window close];
                 [self.managedObjectContext deleteObject:toDelete];
             }
         }
@@ -1009,7 +997,13 @@ enum  {
 }
 
 - (void)downloadMetadataForGames:(NSArray<Game *> *)games {
-    [self.managedObjectContext performBlock:^{
+
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
+
+    _downloadWasCancelled = NO;
+
+    [self.managedObjectContext performBlockAndWait:^{
         [self.managedObjectContext.undoManager beginUndoGrouping];
         self.undoGroupingCount++;
     }];
@@ -1034,6 +1028,9 @@ enum  {
 
     _nestedDownload = _currentlyAddingGames;
 
+    if (_nestedDownload)
+        NSLog(@"downloadMetadataForGames: _nestedDownload:YES");
+
     verifyIsCancelled = YES;
     _currentlyAddingGames = YES;
 
@@ -1043,42 +1040,79 @@ enum  {
         [blockGames addObject:gameInMain.objectID];
     }
 
+    NSUInteger numberOfGames = games.count;
+
+    games = nil;
+
     TableViewController * __weak weakSelf = self;
 
     [childContext performBlock:^{
 
-        TableViewController *strongSelf = weakSelf;
-
         IFDBDownloader *downloader = [[IFDBDownloader alloc] init];
-        NSMutableArray<Game *> *gamesInContext = [[NSMutableArray alloc] initWithCapacity:games.count];
-        for (NSManagedObjectID *objectID in blockGames) {
-            if (!strongSelf.currentlyAddingGames)
-                break;
+        NSOperationQueue *queue = weakSelf.downloadQueue;
 
-            Game *game = [childContext objectWithID:objectID];
-            if (game)
-                [gamesInContext addObject:game];
+        int64_t pause = 0;
+        if (numberOfGames > 1) {
+            pause = (int64_t)(0.5 * NSEC_PER_SEC);
+            if (numberOfGames > 10) {
+                pause = 2 * NSEC_PER_SEC;
+            }
         }
 
-        NSOperation *lastOperation = [downloader downloadMetadataForGames:gamesInContext onQueue:strongSelf.downloadQueue imageOnly:NO reportFailure:(games.count == 1) completionHandler:^{
-
-            if (strongSelf.nestedDownload) {
-                strongSelf.nestedDownload = NO;
-            } else {
-                strongSelf.currentlyAddingGames = NO;
-            }
-        }];
-        NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:^{
-            [childContext performBlockAndWait:^{
-                for (Game *game in gamesInContext) {
-                    game.hasDownloaded = YES;
+        // A block that will run when all
+        // all metadata and all images are downloaded
+        void (^finisherBlock)(void) = ^void() {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, pause), dispatch_get_main_queue(), ^{
+                NSLog(@"Running finisherBlock");
+                if (weakSelf.nestedDownload) {
+                    NSLog(@"nestedDownload in finisherBlock!");
+                    weakSelf.nestedDownload = NO;
+                } else {
+                    weakSelf.currentlyAddingGames = NO;
                 }
-            }];
-            [strongSelf endImporting];
+                [childContext performBlock:^{
+                    for (NSManagedObjectID *objectID in blockGames) {
+                        Game *game = [childContext objectWithID:objectID];
+                        game.hasDownloaded = YES;
+                    }
+                    [childContext safeSave];
+                }];
+                [weakSelf endImporting];
+                [weakSelf.coreDataManager saveChanges];
+            });
+        };
+
+        if (numberOfGames > 1) {
+            pause = (int64_t)(0.5 * NSEC_PER_SEC);
+            if (numberOfGames > 10) {
+                pause = NSEC_PER_SEC;
+            }
+        }
+
+        NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:finisherBlock];
+        NSBlockOperation *preFinisher = [NSBlockOperation blockOperationWithBlock:^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, pause), dispatch_get_main_queue(), ^{
+                NSLog(@"Running preFinisher block. Adding finisher to queue.");
+                if (weakSelf.lastImageDownloadOperation) {
+                    NSLog(@"preFinisher: adding lastImageDownloadOperation dependency to finisher block.");
+                    [finisher addDependency:weakSelf.lastImageDownloadOperation];
+                }
+                [queue addOperation:finisher];
+            });
         }];
-        if (lastOperation)
-            [finisher addDependency:lastOperation];
-        [strongSelf.downloadQueue addOperation:finisher];
+
+        [finisher addDependency:preFinisher];
+
+        NSOperation *lastOperation = [downloader downloadMetadataForGames:blockGames inContext:childContext onQueue:weakSelf.downloadQueue imageOnly:NO reportFailure:(blockGames.count == 1) completionHandler:^{
+            if (weakSelf.lastImageDownloadOperation) {
+                [preFinisher addDependency:weakSelf.lastImageDownloadOperation];
+            }
+            [queue addOperation:preFinisher];
+        }];
+
+        if (lastOperation) {
+            [preFinisher addDependency:lastOperation];
+        }
     }];
 }
 
@@ -2168,7 +2202,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                     
                     if ([Blorb isBlorbURL:newURL]) {
                         Blorb *blorb = [[Blorb alloc] initWithData:newData];
-                        GameImporter *importer = [[GameImporter alloc] initWithLibController:weakSelf];
+                        GameImporter *importer = [[GameImporter alloc] initWithTableViewController:weakSelf];
                         [importer updateImageFromBlorb:blorb inGame:blockGame];
                     }
                 }
@@ -2256,7 +2290,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
-    GameImporter *importer = [[GameImporter alloc] initWithLibController:self];
+    GameImporter *importer = [[GameImporter alloc] initWithTableViewController:self];
     Game *result = [importer importGame:path inContext:context reportFailure:report hide:hide];
     if (result && !result.metadata.cover)
         [importer lookForImagesForGame:result];

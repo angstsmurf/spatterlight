@@ -511,9 +511,9 @@
 
         IFDBDownloader *downloader = [[IFDBDownloader alloc] init];
         
-        [downloader downloadMetadataForGames:@[game] onQueue:queue imageOnly:YES reportFailure:YES completionHandler:^{
+        [downloader downloadMetadataForGames:@[game.objectID] inContext:game.managedObjectContext onQueue:queue imageOnly:YES reportFailure:YES completionHandler:^{
             [game.managedObjectContext performBlock:^{
-                [downloader downloadImageFor:game.metadata onQueue:queue forceDialog:(setting == kNeverReplace)];
+                [downloader downloadImageFor:game.metadata.objectID inContext:game.managedObjectContext onQueue:queue forceDialog:(setting == kNeverReplace)];
             }];
         }];
     }];
@@ -737,7 +737,7 @@
             [metadata.managedObjectContext performBlockAndWait:^{
                 metadata.coverArtURL = URLPath;
                 metadata.coverArtDescription = nil;
-                [IFDBDownloader insertImageData:data inMetadata:metadata context:metadata.managedObjectContext];
+                [IFDBDownloader insertImageData:data inMetadataID:metadata.objectID context:metadata.managedObjectContext];
                 metadata.userEdited = @YES;
                 metadata.source = @(kUser);
             }];
@@ -753,7 +753,7 @@
                 [metadata.managedObjectContext performBlockAndWait:^{
                     metadata.coverArtURL = URLPath;
                     metadata.coverArtDescription = nil;
-                    [IFDBDownloader insertImageData:data inMetadata:metadata context:metadata.managedObjectContext];
+                    [IFDBDownloader insertImageData:data inMetadataID:metadata.objectID context:metadata.managedObjectContext];
                     metadata.userEdited = @YES;
                     metadata.source = @(kUser);
                 }];

@@ -94,12 +94,16 @@ typedef NS_ENUM(NSUInteger, OperationState) {
                 completionHandler(localData, response, error, strongSelf.identifier);
             }
 
+            localData = nil;
+
             /*
              set the operation state to finished once
              the download task is completed or have error
              */
-            if (strongSelf)
+            if (strongSelf) {
+                strongSelf.identifier = nil;
                 strongSelf.state = kFinished;
+            }
         }];
     }
 
