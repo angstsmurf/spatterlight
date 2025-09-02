@@ -3594,13 +3594,15 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin) {
                 NSImage *lastimage = _imageHandler.lastimage;
                 if (lastimage && lastimage.size.width > 0 && lastimage.size.height > 0) {
-                    struct drawrect *drawstruct = (void *)buf;
+                    struct drawrect *drawstruct = malloc(sizeof(struct drawrect));
+                    memcpy(drawstruct, buf, sizeof(struct drawrect));
                     [reqWin drawImage:lastimage
                                  val1:(glsi32)drawstruct->x
                                  val2:(glsi32)drawstruct->y
                                 width:drawstruct->width
                                height:drawstruct->height
                                 style:drawstruct->style];
+                    free(drawstruct);
                 }
             }
             break;
