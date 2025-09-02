@@ -13,7 +13,7 @@
 enum { BUFNONE, BUFPRINT, BUFRECT };
 
 static struct message wmsg;
-static char wbuf[GLKBUFSIZE];
+static uint8_t wbuf[GLKBUFSIZE];
 static uint16_t *pbuf = (void*)wbuf;
 
 /* These structs are used to transmit information that
