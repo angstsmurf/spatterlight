@@ -49,7 +49,6 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property(readonly) NSTimeInterval storedTimerInterval;
 @property(readonly) NSRect storedWindowFrame;
 @property(readonly) NSRect storedGameViewFrame;
-@property(readonly) NSRect storedBorderFrame;
 
 @property NSRect windowPreFullscreenFrame;
 

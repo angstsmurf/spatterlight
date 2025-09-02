@@ -1509,7 +1509,6 @@ fprintf(stderr, "%s\n",                                                    \
         [decoder decodeRectForKey:@"windowPreFullscreenFrame"];
 
         _storedGameViewFrame = [decoder decodeRectForKey:@"contentFrame"];
-        _storedBorderFrame = [self.window contentRectForFrameRect:_storedWindowFrame];
 
         _bgcolor = [decoder decodeObjectOfClass:[NSColor class] forKey:@"backgroundColor"];
 
