@@ -408,8 +408,7 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
         if (!res)
             return;
 
-        getautosavedir(gamefile->filename);
-        if (autosavedir == NULL) {
+        if (create_autosavedir(gamefile->filename) == 0) {
             return;
         }
         NSString *dirname = @(autosavedir);

@@ -34,7 +34,7 @@ static void setdefaultworkdir(char **string)
                                      @"taylor": @"TaylorMade"
                                      };
         NSError *error;
-        NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
+        NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
 
         if (error)
             NSLog(@"Could not find Application Support folder. Error: %@", error);
@@ -54,8 +54,6 @@ static void setdefaultworkdir(char **string)
         dirstr = [dirstr stringByAppendingString:@" Files"];
         dirstr = [dirstr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
         appSupportDir = [NSURL URLWithString:dirstr relativeToURL:appSupportDir];
-
-        [[NSFileManager defaultManager] createDirectoryAtURL:appSupportDir withIntermediateDirectories:YES attributes:nil error:NULL];
 
         length = appSupportDir.path.length;
         *string = malloc(length + 1);
@@ -82,16 +80,13 @@ void getautosavedir(char *file)
         return;
     }
 
-    char *tempstring;
+    char *tempstring = NULL;
     setdefaultworkdir(&tempstring);
 
     if (tempstring == NULL)
         return;
 
     @autoreleasepool {
-
-        NSError *error = nil;
-
         NSString *gamepath = @(file);
         NSString *dirname = @(tempstring);
         free(tempstring);
@@ -109,14 +104,6 @@ void getautosavedir(char *file)
         }
 
         dirname = [dirname stringByAppendingPathComponent:signature];
-
-        [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:dirname isDirectory:YES] withIntermediateDirectories:YES attributes:nil error:&error];
-        if (error) {
-            NSLog(@"getautosavedir: Could not create autosave directory at \"%@\". Error:%@",dirname,error);
-            if (![[NSFileManager defaultManager] fileExistsAtPath:dirname]) {
-                return;
-            }
-        }
 
         NSUInteger length = dirname.length;
         autosavedir = malloc(length + 1);
@@ -153,4 +140,36 @@ void gettempdir(void)
         strncpy(tempdir, temporaryDirectoryURL.fileSystemRepresentation, sizeof tempdir);
 
     }
+}
+
+int create_workdir(void) {
+    int retval = 0;
+    getworkdir();
+    @autoreleasepool {
+        NSURL *appSupportDir = [NSURL fileURLWithPath:@(gli_workdir) isDirectory:YES];
+        NSError *error = nil;
+        BOOL result = [[NSFileManager defaultManager] createDirectoryAtURL:appSupportDir withIntermediateDirectories:YES attributes:nil error:&error];
+        if (!result || error) {
+            NSLog(@"create_workdir at %@ failed: %@", appSupportDir.path, error);
+        } else {
+            retval = 1;
+        }
+    }
+    return retval;
+}
+
+int create_autosavedir(char *file) {
+    int retval = 0;
+    getautosavedir(file);
+    @autoreleasepool {
+        NSURL *autoSaveURL = [NSURL fileURLWithPath:@(autosavedir) isDirectory:YES];
+        NSError *error = nil;
+        BOOL result = [[NSFileManager defaultManager] createDirectoryAtURL:autoSaveURL withIntermediateDirectories:YES attributes:nil error:&error];
+        if (!result || error) {
+            NSLog(@"create_autosavedir: Could not create autosave directory at \"%@\". %@",autoSaveURL.path, error);
+        } else {
+            retval = 1;
+        }
+    }
+    return retval;
 }

@@ -155,20 +155,7 @@ frefid_t glk_fileref_create_from_fileref(glui32 usage, frefid_t oldfref, glui32 
 	return fref;
 }
 
-frefid_t garglk_fileref_create_in_game_dir(glui32 usage, char *name,
-                                           glui32 rock)
-{
-    fileref_t *fref = glk_fileref_create_by_name(usage, name, rock);
-    size_t len = gli_parentdirlength + strlen(name) + 2;
-    char *newname = malloc(len);
-    snprintf(newname, len, "%s/%s", gli_parentdir, name);
-    free(fref->filename);
-    fref->filename = newname;
-
-    return fref;
-}
-
-frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
+frefid_t gli_fileref_create_by_string_in_dir(glui32 usage, char *name, char *dirname, size_t dirlen,
                                     glui32 rock)
 {
     fileref_t *fref;
@@ -207,22 +194,46 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
         len = 5;
     }
 
-    getworkdir();
-    len += strlen(gli_workdir);
+    len += dirlen;
     suffix = gli_suffix_for_usage(usage);
     len += strlen(suffix);
-    snprintf(buf2, len + 2, "%s/%s%s", gli_workdir, buf, suffix);
+    snprintf(buf2, len + 2, "%s/%s%s", dirname, buf, suffix);
 
     fref = gli_new_fileref(buf2, usage, rock);
-    if (!fref) {
-        gli_strict_warning("fileref_create_by_name: unable to create fileref.");
-        return NULL;
-    }
-
-//    fprintf(stderr, "fileref_create_by_name: created fileref %d with name: %s\n", fref->tag, name);
     return fref;
 }
 
+frefid_t garglk_fileref_create_in_game_dir(glui32 usage, char *name, glui32 rock)
+{
+    if (gli_parentdir == NULL || gli_parentdirlength == 0) {
+        gli_strict_warning("garglk_fileref_create_in_game_dir: no game directory is set.");
+        return NULL;
+    }
+
+    fileref_t *fref = gli_fileref_create_by_string_in_dir(usage, name, gli_parentdir, gli_parentdirlength, rock);
+
+    if (!fref) {
+        gli_strict_warning("garglk_fileref_create_in_game_dir: unable to create fileref.");
+    }
+
+    return fref;
+}
+
+
+frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
+                                    glui32 rock) {
+    int result = create_workdir();
+    if (result == 0) {
+        gli_strict_warning("fileref_create_by_name: unable to create work directory.");
+        return NULL;
+    }
+
+    size_t len = strlen(gli_workdir);
+    fileref_t *fref = gli_fileref_create_by_string_in_dir(usage, name, gli_workdir, len, rock);
+    if (!fref) { gli_strict_warning("fileref_create_by_name: unable to create fileref.");
+    }
+    return fref;
+}
 
 frefid_t glk_fileref_create_by_prompt(glui32 usage, glui32 fmode, glui32 rock)
 {

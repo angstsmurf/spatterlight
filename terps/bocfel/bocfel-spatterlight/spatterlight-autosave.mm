@@ -65,7 +65,7 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
         char *c = new char[len + 1];
         std::copy(game_file.begin(), game_file.end(), c);
         c[len] = '\0';
-        getautosavedir(c);
+        create_autosavedir(c);
         delete[] c;
     }
 
