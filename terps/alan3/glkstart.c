@@ -100,20 +100,14 @@ static void openResourceFile() {
 #ifdef HAVE_WINGLK
     resourceFileRef = winglk_fileref_create_by_name(fileusage_BinaryMode,
                                                     resourceFileName, 0, false);
+#elif defined(SPATTERLIGHT)
+    resourceFileRef = garglk_fileref_create_in_game_dir(fileusage_BinaryMode,
+                                                 resourceFileName, 0);
 #else
     resourceFileRef = glk_fileref_create_by_name(fileusage_BinaryMode,
                                                  resourceFileName, 0);
 #endif
 
-#ifdef SPATTERLIGHT
-    free(resourceFileRef->filename);
-    size_t filename_length = 0;
-    if (originalFileName == NULL)
-        return;
-    filename_length = strlen(originalFileName);
-    resourceFileRef->filename = malloc(1 + filename_length);
-    strcpy(resourceFileRef->filename, originalFileName);
-#endif
     if (glk_fileref_does_file_exist(resourceFileRef)) {
         resourceFile = glk_stream_open_file(resourceFileRef, filemode_Read, 0);
         ecode = giblorb_set_resource_map(resourceFile);

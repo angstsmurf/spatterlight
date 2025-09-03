@@ -9,3 +9,5 @@ extern char *autosavedir;
 extern void getworkdir(void);
 extern void getautosavedir(char *file);
 extern void gettempdir(void);
+extern int create_workdir(void);
+extern int create_autosavedir(char *file);

@@ -1331,7 +1331,7 @@ fprintf(stderr, "%s\n",                                                    \
                                 URLForDirectory:NSApplicationSupportDirectory
                                 inDomain:NSUserDomainMask
                                 appropriateForURL:nil
-                                create:YES
+                                create:NO
                                 error:&error];
 
         if (error)
