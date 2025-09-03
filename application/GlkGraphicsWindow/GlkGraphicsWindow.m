@@ -111,7 +111,8 @@
 
 - (void)clear {
     if (NSEqualSizes(NSZeroSize, _image.size)) {
-        NSLog(@"GlkGraphicsWindow %ld clear: Image is zero size, so bailing", self.name);
+        // Image (and view) is zero size, so
+        // there is nothing to clear
         return;
     }
     [_image lockFocus];
