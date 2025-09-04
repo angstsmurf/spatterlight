@@ -19,6 +19,7 @@
 #import "NSString+Categories.h"
 #import "NSData+Categories.h"
 #import "OSImageHashing.h"
+#import "Preferences.h"
 
 // Treaty of babel header
 #include "babel_handler.h"
@@ -476,7 +477,9 @@ void freeContext(void **ctx) {
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game {
     if (blorb && !blorb.fakeFrontispiece) {
         NSData *newImageData = blorb.coverImageData;
-        if (newImageData && ![newImageData isPlaceHolderImage] && ![_tableViewController.lastImageComparisonData isEqual:newImageData]) {
+        kImageReplacementPrefsType userSetting = (kImageReplacementPrefsType)[[NSUserDefaults standardUserDefaults] integerForKey:@"ImageReplacement"];
+        if (newImageData && ![newImageData isPlaceHolderImage] &&
+            (userSetting == kAlwaysReplace || ![_tableViewController.lastImageComparisonData isEqual:newImageData])) {
             _tableViewController.lastImageComparisonData = newImageData;
             NSData *oldImageData = (NSData *)game.metadata.cover.data;
             kImageComparisonResult comparisonResult = [ImageCompareViewController chooseImageA:newImageData orB:oldImageData source:kImageComparisonDownloaded force:NO];
