@@ -48,12 +48,11 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (!force) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
+        kImageReplacementPrefsType userSetting = (kImageReplacementPrefsType)[defaults integerForKey:@"ImageReplacement"];
         if (source == kImageComparisonDownloaded) {
-            if ([defaults integerForKey:@"ImageReplacement"] == kNeverReplace)
+            if (userSetting == kNeverReplace)
                 return kImageComparisonResultB;
-            
-            if ([defaults integerForKey:@"ImageReplacement"] == kAlwaysReplace)
+            if (userSetting == kAlwaysReplace)
                 return kImageComparisonResultA;
         } else if (source == kImageComparisonLocalFile && [defaults boolForKey:@"ImageComparisonSuppression"]) {
             return kImageComparisonResultA;
