@@ -2669,7 +2669,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                 if (_gameSessions.count < 100) {
                     for (GlkController *session in _gameSessions.allValues) {
                         if ([session.game.hashTag isEqual:game.hashTag]) {
-                            if (session.alive) {
+                            if (session.alive || session.showingCoverImage) {
                                 if (@available(macOS 11.0, *)) {
                                     cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"play.fill" accessibilityDescription:NSLocalizedString(@"In progress", nil)];
                                 } else {
