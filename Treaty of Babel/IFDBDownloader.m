@@ -24,7 +24,6 @@ fprintf(stderr, "%s\n",                                                    \
 #import "Image.h"
 #import "Game.h"
 #import "Ifid.h"
-#import "NSData+Categories.h"
 #import "ImageCompareViewController.h"
 #import "IFDB.h"
 #import "NotificationBezel.h"
@@ -402,15 +401,19 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     [context performBlockAndWait:^{
         Metadata *metadata = [context objectWithID:metaID];
         img = [IFDBDownloader fetchImageForURL:metadata.coverArtURL inContext:context];
-        if (img && [((NSData *)img.data).sha256String isEqualToString:data.sha256String]) {
-            // Image with same originalURL already existed in database
-            if (img.imageDescription.length) {
-                metadata.coverArtDescription = img.imageDescription;
-            } else if (metadata.coverArtDescription.length) {
-                img.imageDescription = metadata.coverArtDescription;
+        if (img) {
+            if ([((NSData *)img.data) isEqual:data]) {
+                // Image with same originalURL already existed in database
+                if (img.imageDescription.length) {
+                    metadata.coverArtDescription = img.imageDescription;
+                } else if (metadata.coverArtDescription.length) {
+                    img.imageDescription = metadata.coverArtDescription;
+                }
+                metadata.cover = img;
+                [context safeSave];
+            } else {
+                img = nil;
             }
-            metadata.cover = img;
-            [context safeSave];
         }
     }];
 
@@ -477,7 +480,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         [objectsToDelete removeObject:toKeep];
         for (Image *image in objectsToDelete) {
             // Check if data is the same
-            if ([((NSData *)image.data).sha256String isEqualToString:((NSData *)toKeep.data).sha256String]) {
+            if ([(NSData *)image.data isEqual:(NSData *)toKeep.data]) {
                 [toKeep addMetadata:image.metadata];
                 [context deleteObject:image];
             }
