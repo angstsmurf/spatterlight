@@ -474,7 +474,7 @@ void freeContext(void **ctx) {
 }
 
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game {
-    if (blorb) {
+    if (blorb && !blorb.fakeFrontispiece) {
         NSData *newImageData = blorb.coverImageData;
         if (newImageData && ![newImageData isPlaceHolderImage] && ![_tableViewController.lastImageComparisonData isEqual:newImageData]) {
             _tableViewController.lastImageComparisonData = newImageData;

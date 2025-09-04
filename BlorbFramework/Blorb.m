@@ -222,10 +222,10 @@
 - (NSData *)coverImageData {
   NSArray<BlorbResource *> *images = [self resourcesForUsage:PictureResource];
 
-  BOOL fake = NO;
+  _fakeFrontispiece = NO;
   if (!frontispiece && images.count) {
     frontispiece = images.firstObject.number;
-    fake = YES;
+    _fakeFrontispiece = YES;
     NSLog(@"Providing a fake frontispiece index of %ld", frontispiece);
   }
 
@@ -235,7 +235,7 @@
       NSString *sha = imageData.sha256String;
       // The images extracted this way from Narcolepsy, Dracula and
       // Pytho's mask are really boring, so we skip them
-      if (fake &&
+      if (_fakeFrontispiece &&
            // Dracula
            ([sha isEqualToString:@"838B2519FABA7D04463A0F5FAAB2403D84F302D32402F6CFE8ED817AC7F5A37E"] ||
            // Narcolepsy

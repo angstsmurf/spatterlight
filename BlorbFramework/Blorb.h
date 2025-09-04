@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nullable) NSString *serialNumber;
 
 @property(nullable) NSMutableDictionary *optionalChunks;
+@property BOOL fakeFrontispiece;
 
 + (BOOL)isBlorbURL:(NSURL *)url;
 + (BOOL)isBlorbData:(NSData *)data;
