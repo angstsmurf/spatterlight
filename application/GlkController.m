@@ -166,7 +166,7 @@ fprintf(stderr, "%s\n",                                                    \
     // When a game supports autosave, but is still on its first turn,
     // so that no interpreter autosave file exists, we still restore the UI
     // to catch entered text and scroll position
-    BOOL restoredUIOnly;
+    BOOL restoreUIOnly;
 
     // Used for fullscreen animation
     NSWindowController *snapshotController;
@@ -235,13 +235,12 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)runTerp:(NSString *)terpname_
        withGame:(Game *)game_
           reset:(BOOL)shouldReset
-     winRestore:(BOOL)windowRestoredBySystem_ {
+     restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if (!game_) {
         NSLog(@"GlkController runTerp called with nil game!");
         return;
     }
-
     autorestoring = NO;
 
     _soundHandler = [SoundHandler new];
@@ -283,14 +282,15 @@ fprintf(stderr, "%s\n",                                                    \
 
     // This may happen if the game file is deleted (or the drive it is on
     // is disconnected) after a game has started, and the game is then reset,
-    // or if Spatterlight tries to autorestore a game at startup.
+    // or Spatterlight tries to autorestore it at startup.
     if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
         _gameFileURL = [game urlForBookmark];
         _gamefile = _gameFileURL.path;
         if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
             game.found = NO;
             if (windowRestoredBySystem) {
-                [self.window performClose:nil];
+                _restorationHandler(nil, nil);
+                _restorationHandler = nil;
             } else {
                 [self showGameFileGoneAlert];
             }
@@ -331,7 +331,8 @@ fprintf(stderr, "%s\n",                                                    \
     if (_theme.autosave == NO)
         self.window.restorable = NO;
     game.autosaved = (_supportsAutorestore && _theme.autosave);
-    windowRestoredBySystem = windowRestoredBySystem_;
+    windowRestoredBySystem = (completionHandler != nil);
+    _restorationHandler = completionHandler;
 
     _shouldShowAutorestoreAlert = NO;
     shouldRestoreUI = NO;
@@ -380,6 +381,12 @@ fprintf(stderr, "%s\n",                                                    \
         [self forkInterpreterTask];
         return;
     }
+
+    // When preferences change, we may change window size
+    // if the theme has changed, so we set this internal var to
+    // let that code know the theme has not changed
+    lastTheme = _theme;
+    _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:NSZeroRect];
 
     _voiceOverActive = [NSWorkspace sharedWorkspace].voiceOverEnabled;
 
@@ -450,6 +457,7 @@ fprintf(stderr, "%s\n",                                                    \
         ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI] || [[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath])) {
         [self runTerpWithAutorestore];
     } else {
+        [self deleteAutosaveFiles];
         [self runTerpNormal];
     }
 }
@@ -503,19 +511,6 @@ fprintf(stderr, "%s\n",                                                    \
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
 
     if ([fileManager fileExistsAtPath:autosaveLatePath]) {
-        @try {
-            restoredControllerLate =
-            [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
-        } @catch (NSException *ex) {
-            NSLog(@"Unable to restore late GUI autosave: %@", ex);
-            restoredControllerLate = restoredController;
-        }
-    } else {
-        NSLog(@"No late autosave exists (%@)", autosaveLatePath);
-    }
-
-    if ([[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath]) {
-
         // Get creation date of GUI late autosave
         attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
         if (attrs) {
@@ -523,11 +518,13 @@ fprintf(stderr, "%s\n",                                                    \
         } else {
             NSLog(@"Error: %@", error);
         }
-
-        // Try loading GUI late autosave
         @try {
             restoredControllerLate =
             [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
+            if (!restoredController) {
+                restoredController = restoredControllerLate;
+                GUIAutosaveDate = GUILateAutosaveDate;
+            }
         } @catch (NSException *ex) {
             NSLog(@"Unable to restore late GUI autosave: %@", ex);
             restoredControllerLate = restoredController;
@@ -543,7 +540,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (restoredController.autosaveTag != restoredControllerLate.autosaveTag) {
         NSLog(@"GUI late autosave tag does not match GUI autosave file tag!");
         NSLog(@"restoredController.autosaveTag %ld restoredControllerLate.autosaveTag: %ld", restoredController.autosaveTag, restoredControllerLate.autosaveTag);
-        if (restoredControllerLate.autosaveTag == 0)
+        if (restoredController && restoredControllerLate.autosaveTag == 0)
             restoredControllerLate = restoredController;
         else
             restoredController = restoredControllerLate;
@@ -553,17 +550,12 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *theme = _theme;
 
     if (!restoredController) {
-        if (restoredControllerLate) {
-            restoredController = restoredControllerLate;
-        } else {
-            // If there exists an autosave file but we failed to read it,
-            // (and also no "GUI-late" autosave)
-            // delete it and run game without autorestoring
-            [self deleteAutosaveFiles];
-            game.autosaved = NO;
-            [self runTerpNormal];
-            return;
-        }
+        // If there are no useful UI autosave files,
+        // delete any leftovers and run game without autorestoring
+        [self deleteAutosaveFiles];
+        game.autosaved = NO;
+        [self runTerpNormal];
+        return;
     }
 
     _inFullscreen = restoredControllerLate.inFullscreen;
@@ -590,7 +582,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     if ([fileManager fileExistsAtPath:self.autosaveFileTerp]) {
-        restoredUIOnly = NO;
+        restoreUIOnly = NO;
 
         TempLibrary *tempLib =
         [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileTerp];
@@ -615,9 +607,8 @@ fprintf(stderr, "%s\n",                                                    \
                 NSLog(@"Only restore UI state at first turn");
                 [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI isDirectory:NO],
                                      [NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO] ]];
-                restoredUIOnly = YES;
+                restoreUIOnly = YES;
             }
-
         } else {
             // Only show the alert about autorestoring if this is not a system
             // window restoration, and the user has not suppressed it.
@@ -646,12 +637,13 @@ fprintf(stderr, "%s\n",                                                    \
     } else {
         NSLog(@"No interpreter autorestore file exists");
         NSLog(@"Only restore UI state at first turn");
-        restoredUIOnly = YES;
+        restoreUIOnly = YES;
     }
 
-    if (restoredUIOnly && restoredControllerLate.hasAutoSaved) {
+    if (restoreUIOnly && restoredControllerLate.hasAutoSaved) {
         NSLog(@"restoredControllerLate was not saved at the first turn!");
-        restoredUIOnly = NO;
+        NSLog(@"Delete autosave files and start normally without restoring UI");
+        restoreUIOnly = NO;
         [self deleteAutosaveFiles];
         game.autosaved = NO;
         [self runTerpNormal];
@@ -735,7 +727,8 @@ fprintf(stderr, "%s\n",                                                    \
         [self.window setFrame:newWindowFrame display:NO];
     }
     lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
-    [self showWindow:nil];
+    if (![self runWindowsRestorationHandler])
+        [self showWindow:nil];
     if (_theme.coverArtStyle != kDontShow && _game.metadata.cover.data) {
         [self deleteAutosaveFiles];
         _gameView.autoresizingMask =
@@ -748,6 +741,16 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+- (BOOL)runWindowsRestorationHandler {
+    if (_restorationHandler == nil) {
+        return NO;
+    }
+
+    _restorationHandler(self.window, nil);
+    _restorationHandler = nil;
+    return YES;
+}
+
 - (void)restoreWindowWhenDead {
     if (restoredController.showingCoverImage) {
         dead = NO;
@@ -758,16 +761,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     dead = YES;
 
-    [self.window setFrame:restoredController.storedWindowFrame display:NO];
-
-    NSSize defsize = [self.window
-                      contentRectForFrameRect:restoredController.storedWindowFrame]
-        .size;
-    [self.window setContentSize:defsize];
-    _borderView.frame = NSMakeRect(0, 0, defsize.width, defsize.height);
-    _gameView.frame = restoredController.storedGameViewFrame;
-    _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-
+    [self runWindowsRestorationHandler];
     [self restoreUI];
     self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
 
@@ -1149,7 +1143,7 @@ fprintf(stderr, "%s\n",                                                    \
     // but not sent any events to the interpreter process.
     // This method is called in handleRequest on NEXTEVENT.
 
-    if (restoredUIOnly) {
+    if (restoreUIOnly) {
         restoredController = restoredControllerLate;
         _shouldShowAutorestoreAlert = NO;
     } else {
@@ -1181,7 +1175,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         win = _gwindows[key];
 
-        if (!restoredUIOnly) {
+        if (!restoreUIOnly) {
             if (win) {
                 [win removeFromSuperview];
             }
@@ -1261,12 +1255,12 @@ fprintf(stderr, "%s\n",                                                    \
     if (winToGrabFocus)
         [winToGrabFocus grabFocus];
 
-    if (!restoredUIOnly)
+    if (!restoreUIOnly)
         _hasAutoSaved = YES;
 
     restoredController = nil;
     restoredControllerLate = nil;
-    restoredUIOnly = NO;
+    restoreUIOnly = NO;
 
     // We create a forced arrange event in order to force the interpreter process
     // to re-send us window sizes. The player may have changed settings that
@@ -1291,9 +1285,11 @@ fprintf(stderr, "%s\n",                                                    \
     _shouldStoreScrollOffset = YES;
 
     // Now we can actually show the window
-    [self showWindow:nil];
-    [self.window makeKeyAndOrderFront:nil];
-    [self.window makeFirstResponder:nil];
+    if (![self runWindowsRestorationHandler]) {
+        [self showWindow:nil];
+        [self.window makeKeyAndOrderFront:nil];
+        [self.window makeFirstResponder:nil];
+    }
     if (_startingInFullscreen) {
         [self performSelector:@selector(deferredEnterFullscreen:) withObject:nil afterDelay:0.1];
     } else {
@@ -1708,7 +1704,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self runTerp:(NSString *)_terpname
          withGame:(Game *)_game
             reset:YES
-       winRestore:NO];
+       restorationHandler:nil];
 
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
@@ -2107,12 +2103,12 @@ fprintf(stderr, "%s\n",                                                    \
         NSRect screenFrame = self.window.screen.visibleFrame;
         if (rect.size.width < defaultSize.width) {
             rect.size.width = defaultSize.width;
-            rect.origin.x = round((NSWidth(screenFrame) - defaultSize.width) / 2);
         }
         if (rect.size.height < defaultSize.height) {
             rect.size.height = defaultSize.height;
             rect.origin.y = round(screenFrame.origin.y + (NSHeight(screenFrame) - defaultSize.height) / 2) + 40;
         }
+        rect.origin.x = round((NSWidth(screenFrame) - defaultSize.width) / 2);
     }
     if (rect.size.width < kMinimumWindowWidth)
         rect.size.width = kMinimumWindowWidth;
@@ -4320,14 +4316,19 @@ again:
 }
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
-    // Save the window frame so that it can be restored later.
+    // Save the window frame in _windowPreFullscreenFrame so that it can be restored when leaving fullscreen.
 
-    // If we are starting up in fullscreen, we should use the
-    // autosaved windowPreFullscreenFrame instead
-    if (!(windowRestoredBySystem && _inFullscreen)) {
-        _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:self.window.frame];
+    // If we are starting up in "system" fullscreen,
+    // we will use the autosaved windowPreFullscreenFrame
+    // instead (which will be set in the restoreUI method)
+    if (_restorationHandler == nil) {
+        _windowPreFullscreenFrame = self.window.frame;
     }
-    windowRestoredBySystem = NO;
+    // Sanity check the pre-fullscreen window size.
+    // If something has gone wrong, such as the autosave-GUI
+    // files becoming corrupted or deletd, this will
+    // ensure that the window size is still sensible.
+    _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:_windowPreFullscreenFrame];
     _inFullscreen = YES;
     [self storeScrollOffsets];
     _ignoreResizes = YES;

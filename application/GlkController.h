@@ -58,6 +58,8 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property(readonly) BOOL inFullscreen;
 @property BOOL shouldStoreScrollOffset;
 
+@property (copy) void (^restorationHandler)(NSWindow *, NSError *);
+
 @property(readonly) NSInteger firstResponderView;
 
 @property(readonly) NSMutableArray *queue;
@@ -195,7 +197,7 @@ typedef enum kGameIdentity : NSUInteger {
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game
           reset:(BOOL)shouldReset
-     winRestore:(BOOL)windowRestoredBySystem;
+     restorationHandler:(void (^)(NSWindow *, NSError *))completionHandler;
 
 - (void)deleteAutosaveFilesForGame:(Game *)game;
 
