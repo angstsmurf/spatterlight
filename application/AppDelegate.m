@@ -244,7 +244,9 @@ PasteboardFilePasteLocation;
             (appDelegate.libctl.tableViewController.infoWindows)[hashTag] = infoctl;
             window = infoctl.window;
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
-            window = [appDelegate.libctl.tableViewController playGameWithHash:hashTag];
+            window = [appDelegate.libctl.tableViewController playGameWithHash:hashTag restorationHandler:[completionHandler copy]];
+            if (window)
+                return;
         }
     }
     completionHandler(window, nil);

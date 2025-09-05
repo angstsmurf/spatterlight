@@ -235,7 +235,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)runTerp:(NSString *)terpname_
        withGame:(Game *)game_
           reset:(BOOL)shouldReset
-     winRestore:(BOOL)windowRestoredBySystem_ {
+     restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if (!game_) {
         NSLog(@"GlkController runTerp called with nil game!");
@@ -290,7 +290,8 @@ fprintf(stderr, "%s\n",                                                    \
         if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
             game.found = NO;
             if (windowRestoredBySystem) {
-                [self.window performClose:nil];
+                _restorationHandler(nil, nil);
+                _restorationHandler = nil;
             } else {
                 [self showGameFileGoneAlert];
             }
@@ -331,7 +332,8 @@ fprintf(stderr, "%s\n",                                                    \
     if (_theme.autosave == NO)
         self.window.restorable = NO;
     game.autosaved = (_supportsAutorestore && _theme.autosave);
-    windowRestoredBySystem = windowRestoredBySystem_;
+    windowRestoredBySystem = (completionHandler != nil);
+    _restorationHandler = completionHandler;
 
     _shouldShowAutorestoreAlert = NO;
     shouldRestoreUI = NO;
@@ -735,7 +737,8 @@ fprintf(stderr, "%s\n",                                                    \
         [self.window setFrame:newWindowFrame display:NO];
     }
     lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
-    [self showWindow:nil];
+    if (![self runWindowsRestorationHandler])
+        [self showWindow:nil];
     if (_theme.coverArtStyle != kDontShow && _game.metadata.cover.data) {
         [self deleteAutosaveFiles];
         _gameView.autoresizingMask =
@@ -748,6 +751,16 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+- (BOOL)runWindowsRestorationHandler {
+    if (_restorationHandler == nil) {
+        return NO;
+    }
+
+    _restorationHandler(self.window, nil);
+    _restorationHandler = nil;
+    return YES;
+}
+
 - (void)restoreWindowWhenDead {
     if (restoredController.showingCoverImage) {
         dead = NO;
@@ -758,16 +771,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     dead = YES;
 
-    [self.window setFrame:restoredController.storedWindowFrame display:NO];
-
-    NSSize defsize = [self.window
-                      contentRectForFrameRect:restoredController.storedWindowFrame]
-        .size;
-    [self.window setContentSize:defsize];
-    _borderView.frame = NSMakeRect(0, 0, defsize.width, defsize.height);
-    _gameView.frame = restoredController.storedGameViewFrame;
-    _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-
+    [self runWindowsRestorationHandler];
     [self restoreUI];
     self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
 
@@ -1291,9 +1295,11 @@ fprintf(stderr, "%s\n",                                                    \
     _shouldStoreScrollOffset = YES;
 
     // Now we can actually show the window
-    [self showWindow:nil];
-    [self.window makeKeyAndOrderFront:nil];
-    [self.window makeFirstResponder:nil];
+    if (![self runWindowsRestorationHandler]) {
+        [self showWindow:nil];
+        [self.window makeKeyAndOrderFront:nil];
+        [self.window makeFirstResponder:nil];
+    }
     if (_startingInFullscreen) {
         [self performSelector:@selector(deferredEnterFullscreen:) withObject:nil afterDelay:0.1];
     } else {
@@ -1708,7 +1714,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self runTerp:(NSString *)_terpname
          withGame:(Game *)_game
             reset:YES
-       winRestore:NO];
+       restorationHandler:nil];
 
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];

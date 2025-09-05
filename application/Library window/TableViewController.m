@@ -2075,17 +2075,16 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 #pragma mark Actually starting the game
 
 - (nullable NSWindow *) playGame:(Game *)game {
-    return [self playGame:game winRestore:NO];
+    return [self playGame:game restorationHandler:nil];
 }
 
-- (nullable NSWindow *)playGameWithHash:(NSString *)hash {
+- (nullable NSWindow *)playGameWithHash:(NSString *)hash restorationHandler:(void (^)(NSWindow *, NSError *))completionHandler  {
     Game *game = [TableViewController fetchGameForHash:hash inContext:self.managedObjectContext];
     if (!game) return nil;
-    return [self playGame:game winRestore:YES];
+    return [self playGame:game restorationHandler:completionHandler];
 }
 
-- (nullable NSWindow *)playGame:(Game *)game
-            winRestore:(BOOL)systemWindowRestoration {
+- (nullable NSWindow *)playGame:(Game *)game restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     // The systemWindowRestoration flag is just to let us know
     // if this is called from restoreWindowWithIdentifier in
@@ -2103,6 +2102,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSString *path = url.path;
     NSString *terp;
     GlkController *gctl = _gameSessions[game.hashTag];
+
+    BOOL systemWindowRestoration = (completionHandler != nil);
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
@@ -2201,7 +2202,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                     blockgctl.gameData = newData;
                     blockgctl.gameFileURL = newURL;
                     
-                    [blockgctl runTerp:terp withGame:blockGame reset:NO winRestore:systemWindowRestoration];
+                    [blockgctl runTerp:terp withGame:blockGame reset:NO restorationHandler:completionHandler];
                     
                     [((AppDelegate *)NSApp.delegate)
                      addToRecents:@[ newURL ]];

@@ -228,7 +228,7 @@
     } else
         gctl.window.restorable = NO;
 
-    [gctl runTerp:terp withGame:game reset:NO winRestore:NO];
+    [gctl runTerp:terp withGame:game reset:NO restorationHandler:nil];
     NSLog(@"Started game %@", game.metadata.title);
     return gctl;
 }
