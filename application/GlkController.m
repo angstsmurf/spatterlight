@@ -282,7 +282,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     // This may happen if the game file is deleted (or the drive it is on
     // is disconnected) after a game has started, and the game is then reset,
-    // or if Spatterlight tries to autorestore a game at startup.
+    // or Spatterlight tries to autorestore it at startup.
     if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
         _gameFileURL = [game urlForBookmark];
         _gamefile = _gameFileURL.path;
