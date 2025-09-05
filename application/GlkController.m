@@ -383,6 +383,12 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
+    // When preferences change, we may change window size
+    // if the theme has changed, so we set this internal var to
+    // let that code know the theme has not changed
+    lastTheme = _theme;
+    _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:NSZeroRect];
+
     _voiceOverActive = [NSWorkspace sharedWorkspace].voiceOverEnabled;
 
     [[NSWorkspace sharedWorkspace] addObserver:self forKeyPath:@"voiceOverEnabled" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:nil];
@@ -2113,12 +2119,12 @@ fprintf(stderr, "%s\n",                                                    \
         NSRect screenFrame = self.window.screen.visibleFrame;
         if (rect.size.width < defaultSize.width) {
             rect.size.width = defaultSize.width;
-            rect.origin.x = round((NSWidth(screenFrame) - defaultSize.width) / 2);
         }
         if (rect.size.height < defaultSize.height) {
             rect.size.height = defaultSize.height;
             rect.origin.y = round(screenFrame.origin.y + (NSHeight(screenFrame) - defaultSize.height) / 2) + 40;
         }
+        rect.origin.x = round((NSWidth(screenFrame) - defaultSize.width) / 2);
     }
     if (rect.size.width < kMinimumWindowWidth)
         rect.size.width = kMinimumWindowWidth;
@@ -4326,14 +4332,19 @@ again:
 }
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
-    // Save the window frame so that it can be restored later.
+    // Save the window frame in _windowPreFullscreenFrame so that it can be restored when leaving fullscreen.
 
-    // If we are starting up in fullscreen, we should use the
-    // autosaved windowPreFullscreenFrame instead
-    if (!(windowRestoredBySystem && _inFullscreen)) {
-        _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:self.window.frame];
+    // If we are starting up in "system" fullscreen,
+    // we will use the autosaved windowPreFullscreenFrame
+    // instead (which will be set in the restoreUI method)
+    if (_restorationHandler == nil) {
+        _windowPreFullscreenFrame = self.window.frame;
     }
-    windowRestoredBySystem = NO;
+    // Sanity check the pre-fullscreen window size.
+    // If something has gone wrong, such as the autosave-GUI
+    // files becoming corrupted or deletd, this will
+    // ensure that the window size is still sensible.
+    _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:_windowPreFullscreenFrame];
     _inFullscreen = YES;
     [self storeScrollOffsets];
     _ignoreResizes = YES;
