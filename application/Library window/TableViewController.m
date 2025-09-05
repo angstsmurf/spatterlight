@@ -2537,8 +2537,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             cmp = [TableViewController compareDate:[a valueForKey:strongSelf.gameSortColumn] withDate:[b valueForKey:strongSelf.gameSortColumn] ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
         } else if ([strongSelf.gameSortColumn isEqual:@"found"]) {
-            NSString *string1 = aid.found?nil:@"A";
-            NSString *string2 = bid.found?nil:@"A";
+            NSString *string1, *string2;
+            [self imageNameForGame:aid description:&string1];
+            [self imageNameForGame:bid description:&string2];
             cmp = [TableViewController compareString:string1 withString:string2 ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
         } else if ([strongSelf.gameSortColumn isEqual:@"like"]) {
@@ -2625,6 +2626,49 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     return 0;
 }
 
+- (NSString *)imageNameForGame:(Game *)game description:(NSString * __autoreleasing *)description {
+    NSString *name;
+    if (!game.found) {
+        *description = NSLocalizedString(@"File not found", nil);
+        name = @"exclamationmark.circle";
+    } else {
+        BOOL playing = NO;
+        if (_gameSessions.count < 100) {
+            for (GlkController *session in _gameSessions.allValues) {
+                if ([session.game.hashTag isEqual:game.hashTag]) {
+                    if (session.alive || session.showingCoverImage) {
+                        *description = NSLocalizedString(@"In progress", nil);
+                        if (@available(macOS 11.0, *)) {
+                            name = @"play.fill";
+                        } else {
+                            name = @"play";
+                        }
+                    } else {
+                        *description = NSLocalizedString(@"Stopped", nil);
+                        if (@available(macOS 11.0, *)) {
+                            name = @"stop.fill";
+                        } else {
+                            name = @"stop";
+                        }
+                    }
+                    playing = YES;
+                    break;
+                }
+            }
+        }
+        if (!playing) {
+            if (game.autosaved) {
+                *description = NSLocalizedString(@"Autosaved", nil);
+                name = @"pause.fill";
+            } else {
+                *description = nil;
+                name = nil;
+            }
+        }
+    }
+    return name;
+}
+
 - (nullable NSView *)tableView:(NSTableView*)tableView viewForTableColumn:(nullable NSTableColumn *)column row:(NSInteger)row {
 
     NSTableCellView *cellView = [tableView makeViewWithIdentifier:column.identifier owner:self];
@@ -2657,58 +2701,15 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         NSString *identifier = column.identifier;
 
         if ([identifier isEqual:@"found"]) {
-            if (!game.found) {
-                if (@available(macOS 11.0, *)) {
-                    cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"exclamationmark.circle" accessibilityDescription:NSLocalizedString(@"File not found", nil)];
-                } else {
-                    cellView.imageView.image = [NSImage imageNamed:@"exclamationmark.circle"];
-                    cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"File not found", nil);
-                }
-                cellView.imageView.accessibilityLabel = NSLocalizedString(@"File not found", nil);
+            NSString *description;
+            NSString *name = [self imageNameForGame:game description:&description];
+            if (@available(macOS 11.0, *)) {
+                cellView.imageView.image = [NSImage imageWithSystemSymbolName:name accessibilityDescription:description];
             } else {
-                BOOL playing = NO;
-                if (_gameSessions.count < 100) {
-                    for (GlkController *session in _gameSessions.allValues) {
-                        if ([session.game.hashTag isEqual:game.hashTag]) {
-                            if (session.alive || session.showingCoverImage) {
-                                if (@available(macOS 11.0, *)) {
-                                    cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"play.fill" accessibilityDescription:NSLocalizedString(@"In progress", nil)];
-                                } else {
-                                    cellView.imageView.image = [NSImage imageNamed:@"play"];
-                                    cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"In progress", nil);
-
-                                }
-                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"In progress", nil);
-                            } else {
-                                if (@available(macOS 11.0, *)) {
-                                    cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"stop.fill" accessibilityDescription:NSLocalizedString(@"Stopped", nil)];
-                                } else {
-                                    cellView.imageView.image = [NSImage imageNamed:@"stop"];
-                                    cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"Stopped", nil);
-
-                                }
-                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Stopped", nil);
-                            }
-                            playing = YES;
-                            break;
-                        }
-                    }
-                }
-                if (!playing) {
-                    if (game.autosaved) {
-                        if (@available(macOS 11.0, *)) {
-                            cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"pause.fill" accessibilityDescription:NSLocalizedString(@"Autosaved", nil)];
-                        } else {
-                            cellView.imageView.image = [NSImage imageNamed:@"pause.fill"];
-                            cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"Autosaved", nil);
-                        }
-                        cellView.imageView.accessibilityLabel = NSLocalizedString(@"Autosaved", nil);
-                    } else {
-                        cellView.imageView.image = nil;
-                        cellView.imageView.accessibilityLabel = nil;
-                    }
-                }
+                cellView.imageView.image = [NSImage imageNamed:name];
+                cellView.imageView.image.accessibilityDescription = description;
             }
+            cellView.imageView.accessibilityLabel = description;
         } else if ([identifier isEqual:@"like"]) {
             LikeCellView *likeCellView = (LikeCellView *)cellView;
             switch (game.like) {
