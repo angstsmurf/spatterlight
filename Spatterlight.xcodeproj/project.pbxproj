@@ -857,6 +857,7 @@
 		C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8892675FCF70076EAFB /* OSImageHashing.m */; };
 		C3FB3287269F5BEE00A1B09C /* stash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3286269F5BEE00A1B09C /* stash.cpp */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
+		C3FEF0BA2E6B752600276383 /* Fetches.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FEF0B92E6B752600276383 /* Fetches.m */; };
 		C3FF66B428901BBB00EBD578 /* atari8c64draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E8153F288C4AFE003C4FEB /* atari8c64draw.c */; };
 		C3FFF80227E52E19000C481A /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FFF80127E52E19000C481A /* restorestate.c */; };
 /* End PBXBuildFile section */
@@ -3257,6 +3258,8 @@
 		C3FB3286269F5BEE00A1B09C /* stash.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = stash.cpp; sourceTree = "<group>"; };
 		C3FE98D8261B2CA900152AB6 /* RotorHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotorHandler.h; sourceTree = "<group>"; };
 		C3FE98D9261B2CA900152AB6 /* RotorHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotorHandler.m; sourceTree = "<group>"; };
+		C3FEF0B82E6B752600276383 /* Fetches.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fetches.h; sourceTree = "<group>"; };
+		C3FEF0B92E6B752600276383 /* Fetches.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fetches.m; sourceTree = "<group>"; };
 		C3FFF7FF27E52E19000C481A /* restorestate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = restorestate.h; sourceTree = "<group>"; };
 		C3FFF80127E52E19000C481A /* restorestate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3766,6 +3769,8 @@
 				6DC6213C23A26078002DEF3B /* Ifid.m */,
 				C308E68C2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.h */,
 				C308E68D2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.m */,
+				C3FEF0B82E6B752600276383 /* Fetches.h */,
+				C3FEF0B92E6B752600276383 /* Fetches.m */,
 			);
 			name = coredata;
 			path = ../coredata;
@@ -7262,6 +7267,7 @@
 				961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */,
 				C3AD640926176589008614C5 /* MarginContainer.m in Sources */,
 				C353F04626264242006D17E3 /* SubImage.m in Sources */,
+				C3FEF0BA2E6B752600276383 /* Fetches.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
 				C39147482974C48C00692B9E /* TableViewController.m in Sources */,
 				C37E675D26E9844D0005873E /* MIDIChannel.m in Sources */,

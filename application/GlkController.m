@@ -34,6 +34,7 @@
 #import "Game.h"
 #import "Theme.h"
 #import "Image.h"
+#import "Fetches.h"
 
 #import "NSColor+integer.h"
 #import "NSData+Categories.h"
@@ -4810,7 +4811,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (IBAction)applyTheme:(id)sender {
     NSString *name = ((NSMenuItem *)sender).title;
 
-    Theme *theme = [TableViewController findTheme:name inContext:_game.managedObjectContext];
+    Theme *theme = [Fetches findTheme:name inContext:_game.managedObjectContext];
 
     if (!theme) {
         NSLog(@"applyTheme: found no theme with name %@", name);

@@ -26,6 +26,7 @@
 #import "Ifid.h"
 #import "Theme.h"
 #import "Image.h"
+#import "Fetches.h"
 
 #import "SideInfoView.h"
 #import "InfoController.h"
@@ -261,7 +262,7 @@ enum  {
     _gameTableView.headerView.frame = frame;
 
     if (@available(macOS 11.0, *)) {
-        NSArray *games = [TableViewController fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext];
+        NSArray *games = [Fetches fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext];
         if (games.count == 0)
             self.view.window.subtitle = @"No games";
         else if (games.count == 1)
@@ -307,7 +308,7 @@ enum  {
                                                  name:@"SideviewDownload"
                                                object:nil];
 
-    _gameTableModel = [[TableViewController fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext] mutableCopy];
+    _gameTableModel = [[Fetches fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext] mutableCopy];
 
     [self rebuildThemesSubmenu];
 
@@ -486,7 +487,7 @@ enum  {
         [self cancel:nil];
 
         NSArray *gameEntriesToDelete =
-        [TableViewController fetchObjects:@"Game" predicate:@"hidden == YES" inContext:self.managedObjectContext];
+        [Fetches fetchObjects:@"Game" predicate:@"hidden == YES" inContext:self.managedObjectContext];
         NSUInteger counter = gameEntriesToDelete.count;
         for (Game *game in gameEntriesToDelete) {
             if (game.metadata)
@@ -495,7 +496,7 @@ enum  {
         }
 
         NSArray *metadataEntriesToDelete =
-        [TableViewController fetchObjects:@"Metadata" predicate:@"game == NIL" inContext:self.managedObjectContext];
+        [Fetches fetchObjects:@"Metadata" predicate:@"game == NIL" inContext:self.managedObjectContext];
         counter += metadataEntriesToDelete.count;
 
         for (Metadata *meta in metadataEntriesToDelete) {
@@ -504,7 +505,7 @@ enum  {
         }
 
         // Now we removed any orphaned images
-        NSArray *imageEntriesToDelete = [TableViewController fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:self.managedObjectContext];
+        NSArray *imageEntriesToDelete = [Fetches fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:self.managedObjectContext];
 
         counter += imageEntriesToDelete.count;
         for (Image *img in imageEntriesToDelete) {
@@ -515,7 +516,7 @@ enum  {
         [self.coreDataManager saveChanges];
 
         // And then any orphaned ifids
-        NSArray *ifidEntriesToDelete = [TableViewController fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:self.managedObjectContext];
+        NSArray *ifidEntriesToDelete = [Fetches fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:self.managedObjectContext];
 
         counter += ifidEntriesToDelete.count;
         for (Ifid *ifid in ifidEntriesToDelete) {
@@ -1158,7 +1159,7 @@ enum  {
 
     NSString *name = ((NSMenuItem *)sender).title;
 
-    Theme *theme = [TableViewController findTheme:name inContext:self.managedObjectContext];
+    Theme *theme = [Fetches findTheme:name inContext:self.managedObjectContext];
 
     if (!theme) {
         NSLog(@"applyTheme: found no theme with name %@", name);
@@ -1600,139 +1601,6 @@ enum  {
  * and can be exported.
  */
 
-+ (nullable Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context {
-
-    NSError *error = nil;
-
-    NSFetchRequest *fetchRequest = [Theme fetchRequest];
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", name];
-
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"findTheme: inContext: %@",error);
-    }
-
-    if (fetchedObjects.count > 1)
-    {
-        NSLog(@"findTheme: inContext: Found more than one Theme object with name %@ (total %ld)",name, fetchedObjects.count);
-    } else if (fetchedObjects.count == 0) {
-        NSLog(@"findTheme: inContext: Found no Ifid object with with name %@", name);
-        return nil;
-    }
-
-    return fetchedObjects[0];
-}
-
-
-+ (nullable Metadata *)fetchMetadataForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context {
-    NSError *error = nil;
-    NSArray *fetchedObjects;
-
-    NSFetchRequest *fetchRequest = [Metadata fetchRequest];
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@",hash];
-
-    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"fetchMetadataForHash: %@",error);
-    }
-
-    if (fetchedObjects.count > 1) {
-        NSLog(@"fetchMetadataForHash: Found more than one has object with ifidString %@",hash);
-    } else if (fetchedObjects.count == 0) {
-        return nil;
-    }
-
-    return (Metadata *)fetchedObjects[0];
-}
-
-//+ (nullable Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
-//    NSError *error = nil;
-//    NSArray *fetchedObjects;
-//
-//    NSFetchRequest *fetchRequest = [Ifid fetchRequest];
-//
-//    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifid];
-//
-//    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-//    if (fetchedObjects == nil) {
-//        NSLog(@"fetchMetadataForHash: %@",error);
-//    }
-//
-//    if (fetchedObjects.count > 1)
-//    {
-//        NSLog(@"fetchMetadataForIFID: Found more than one has object with ifidString %@",ifid);
-//    }
-//    else if (fetchedObjects.count == 0)
-//    {
-//        return nil;
-//    }
-//
-//    return ((Ifid *)fetchedObjects[0]).metadata;
-//}
-
-+ (nullable Game *)fetchGameForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context {
-    NSError *error = nil;
-    NSArray *fetchedObjects;
-
-    NSFetchRequest *fetchRequest = [Game fetchRequest];
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@",hash];
-
-    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"Problem! %@",error);
-    }
-
-    if (fetchedObjects.count > 1)
-    {
-        NSLog(@"Found more than one entry (%ld) with hashTag %@", fetchedObjects.count, hash);
-    }
-    else if (fetchedObjects.count == 0)
-    {
-        return nil;
-    }
-
-    return fetchedObjects.firstObject;
-}
-
-+ (NSArray *)fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context {
-
-    NSArray __block *fetchedObjects;
-
-    [context performBlockAndWait:^{
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:context];
-        fetchRequest.entity = entity;
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:predicate];
-
-        NSError *error = nil;
-        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-        if (fetchedObjects == nil) {
-            NSLog(@"Problem! %@",error);
-        }
-    }];
-
-    return fetchedObjects;
-}
-
-+ (NSMutableDictionary *)load_mutable_plist:(NSString *)path {
-    NSMutableDictionary *dict = nil;
-    NSError *error;
-
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    if (data) {
-        dict = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:path] options:NSPropertyListMutableContainersAndLeaves format:nil error:&error];
-    }
-    if (!dict) {
-        NSLog(@"libctl: cannot load plist: %@", error);
-        dict = [[NSMutableDictionary alloc] init];
-    }
-
-    return dict;
-}
-
 - (void)askToDownload {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasAskedToDownload"])
         return;
@@ -2079,7 +1947,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (nullable NSWindow *)playGameWithHash:(NSString *)hash restorationHandler:(void (^)(NSWindow *, NSError *))completionHandler  {
-    Game *game = [TableViewController fetchGameForHash:hash inContext:self.managedObjectContext];
+    Game *game = [Fetches fetchGameForHash:hash inContext:self.managedObjectContext];
     if (!game) return nil;
     return [self playGame:game restorationHandler:completionHandler];
 }
@@ -2355,7 +2223,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     frame.origin.y = myFrame.origin.y + myFrame.size.height / 2;
 
     if (hashTag.length) {
-        game = [TableViewController fetchGameForHash:hashTag inContext:self.managedObjectContext];
+        game = [Fetches fetchGameForHash:hashTag inContext:self.managedObjectContext];
         if ([_gameTableModel containsObject:game]) {
             NSUInteger index = [_gameTableModel indexOfObject:game];
             frame = [_gameTableView rectOfRow:(NSInteger)index];
@@ -2372,7 +2240,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (hashes.count) {
         NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:hashes.count];
         for (NSString *hashTag in hashes) {
-            Game *game = [TableViewController fetchGameForHash:hashTag inContext:self.managedObjectContext];
+            Game *game = [Fetches fetchGameForHash:hashTag inContext:self.managedObjectContext];
             if (game) {
                 [newSelection addObject:game];
             } else {
@@ -3148,7 +3016,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     }
 
     if (@available(macOS 11.0, *)) {
-        NSArray *games = [TableViewController fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext];
+        NSArray *games = [Fetches fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext];
         if (games.count == 0)
             self.view.window.subtitle = @"No games";
         else if (games.count == 1)

@@ -130,12 +130,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)closeAndOpenNextAbove:(InfoController *)infocontroller;
 - (void)closeAndOpenNextBelow:(InfoController *)infocontroller;
 
-+ (nullable Game *)fetchGameForHash:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
-+ (nullable Metadata *)fetchMetadataForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context;
 - (nullable Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context;
-- (void)waitToReportMetadataImport;
 
-+ (nullable Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context;
+- (void)waitToReportMetadataImport;
 
 - (void)handleSpotlightSearchResult:(id)object;
 

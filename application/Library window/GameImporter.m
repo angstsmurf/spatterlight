@@ -11,6 +11,7 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
+#import "Fetches.h"
 
 #import "CoreDataManager.h"
 
@@ -385,7 +386,7 @@ void freeContext(void **ctx) {
     [context performBlockAndWait:^{
         // We really should check if there is a game-less metadata object that we can use here
         // but we skip this for now.
-        metadata = [TableViewController fetchMetadataForHash:hash inContext:context];
+        metadata = [Fetches fetchMetadataForHash:hash inContext:context];
         game = metadata.game;
 
         if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]] && !blorb) {

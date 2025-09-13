@@ -1,13 +1,16 @@
 #import "InfoController.h"
 
-#import "Game.h"
-#import "Metadata.h"
+
 #import "AppDelegate.h"
 #import "TableViewController.h"
 #import "CoreDataManager.h"
-#import "Image.h"
 #import "IFDBDownloader.h"
 #import "ImageView.h"
+
+#import "Game.h"
+#import "Image.h"
+#import "Metadata.h"
+#import "Fetches.h"
 
 #import "Constants.h"
 
@@ -132,7 +135,7 @@ fprintf(stderr, "%s\n",                                                    \
     self = [self init];
     if (self) {
         _hashTag = initHash;
-        _game = [TableViewController fetchGameForHash:_hashTag inContext:self.managedObjectContext];
+        _game = [Fetches fetchGameForHash:_hashTag inContext:self.managedObjectContext];
         if (_game) {
             _meta = _game.metadata;
         }
@@ -153,7 +156,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     if (!_game) {
-        _game = [TableViewController fetchGameForHash:_hashTag inContext:self.managedObjectContext];
+        _game = [Fetches fetchGameForHash:_hashTag inContext:self.managedObjectContext];
         if (_game) {
             _meta = _game.metadata;
         } else {
