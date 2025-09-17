@@ -1509,6 +1509,7 @@ static int YesOrNo(void)
             } else if (reply == n) {
                 result = 2;
             } else {
+                Output("\n");
                 Output(sys[ANSWER_YES_OR_NO]);
                 glk_request_char_event(Bottom);
             }
