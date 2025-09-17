@@ -2544,10 +2544,24 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         if (cmp) return cmp;
         cmp = [TableViewController compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:strongSelf.sortAscending];
         if (cmp) return cmp;
-        return [TableViewController compareString:aid.detectedFormat withString:bid.detectedFormat ascending:strongSelf.sortAscending];
+        return [TableViewController compareString:aid.hashTag withString:bid.hashTag ascending:strongSelf.sortAscending];
     }];
 
-    [_gameTableModel sortUsingDescriptors:@[sort]];
+    NSSortDescriptor *fallback = [NSSortDescriptor sortDescriptorWithKey:@"hashTag" ascending:_sortAscending comparator:^(Game *x, Game *y) {
+        TableViewController *strongSelf = weakSelf;
+
+        BOOL sortAscending;
+        if (!strongSelf) {
+            sortAscending = strongSelf.sortAscending;
+        } else {
+            sortAscending = YES;
+        }
+
+        return [TableViewController compareString:x.hashTag withString:y.hashTag ascending:sortAscending];
+    }];
+
+
+    [_gameTableModel sortUsingDescriptors:@[sort, fallback]];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         self.gameTableDirty = NO;
