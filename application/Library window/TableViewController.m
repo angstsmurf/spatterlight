@@ -2273,10 +2273,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 #pragma mark Table magic
 
 - (IBAction)searchForGames:(nullable id)sender {
-    searchString = [sender stringValue];
-
-    searchString = [searchString stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-
+    searchString = [[sender stringValue] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     _gameTableDirty = YES;
     [self updateTableViews];
 }
@@ -2349,8 +2346,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (void)selectGames:(NSSet*)games
 {
-    //NSLog(@"selectGames called with %ld games", games.count);
-
     if (games.count) {
         NSIndexSet *indexSet = [_gameTableModel indexesOfObjectsPassingTest:^BOOL(Game *obj, NSUInteger idx, BOOL *stop) {
             return [games containsObject:obj];
