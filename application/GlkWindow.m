@@ -695,6 +695,10 @@ fprintf(stderr, "%s\n",                                                    \
     return @[ @"name" ];
 }
 
++ (NSArray<Class> *) allowedClassesForRestorableStateKeyPath:(NSString *) keyPath {
+    return @[[NSString class]];
+}
+
 #pragma mark Accessibility
 
 - (void)repeatLastMove:(id)sender {

@@ -208,6 +208,10 @@ fprintf(stderr, "%s\n",                                                    \
     ];
 }
 
++ (NSArray<Class> *) allowedClassesForRestorableStateKeyPath:(NSString *) keyPath {
+    return @[[NSString class]];
+}
+
 - (void)sizeToFitImageAnimate:(BOOL)animate {
     if (_inAnimation)
         return;

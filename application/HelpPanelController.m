@@ -241,6 +241,10 @@ fprintf(stderr, "%s\n",                                                    \
     return @[ @"textView.string" ];
 }
 
++ (NSArray<Class> *) allowedClassesForRestorableStateKeyPath:(NSString *) keyPath {
+    return @[[NSString class]];
+}
+
 - (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
     NSSearchField *searchField = [self findSearchFieldIn:window.contentView];
     if (searchField) {
