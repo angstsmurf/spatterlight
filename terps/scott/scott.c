@@ -2717,7 +2717,7 @@ Distributed under the GNU software license\n\n");
                 if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
                     Output(sys[LIGHT_HAS_RUN_OUT]);
                 }
-                if ((Options & PREHISTORIC_LAMP) || (Game->subtype & MYSTERIOUS) || CurrentGame == TI994A)
+                if ((Options & PREHISTORIC_LAMP) || (Game->subtype & MYSTERIOUS))
                     Items[LIGHT_SOURCE].Location = DESTROYED;
             } else if (GameHeader.LightTime < 25) {
                 if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
