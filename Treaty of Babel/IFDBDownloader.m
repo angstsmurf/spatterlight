@@ -163,7 +163,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                             NSString *coverArtUrl = [IFDBDownloader coverArtUrlFromXMLData:data];
                             if (coverArtUrl.length) {
                                 metadata.coverArtURL = coverArtUrl;
-                                NSOperation *op = [strongSelf downloadImageFor:objectID inContext:context onQueue:queue forceDialog:NO];
+                                NSOperation *op = [strongSelf downloadImageFor:objectID inContext:context onQueue:queue forceDialog:NO reportFailure:NO];
                                 if (op) {
                                     TableViewController *libController = ((AppDelegate*)NSApp.delegate).tableViewController;
                                     libController.lastImageDownloadOperation = op;
@@ -187,7 +187,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                                 IFStory *story = result.stories.firstObject;
                                 [story addInfoToMetadata:metadata];
                                 if (metadata.coverArtURL && ![metadata.cover.originalURL isEqualToString:metadata.coverArtURL]) {
-                                    [strongSelf downloadImageFor:objectID inContext:context onQueue:queue forceDialog:NO];
+                                    [strongSelf downloadImageFor:objectID inContext:context onQueue:queue forceDialog:NO reportFailure:NO];
                                 }
                                 result = nil;
                                 story = nil;
@@ -276,20 +276,22 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     return result;
 }
 
-- (NSOperation *)downloadImageFor:(NSManagedObjectID *)metaID inContext:(NSManagedObjectContext *)context onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force {
+- (NSOperation *)downloadImageFor:(NSManagedObjectID *)metaID inContext:(NSManagedObjectContext *)context onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force reportFailure:(BOOL)report {
 
     NSString __block *coverArtURL = nil;
-    BOOL __block giveup = NO;
 
     [context performBlockAndWait:^{
         Metadata *metadata = [context objectWithID:metaID];
         coverArtURL = metadata.coverArtURL;
-        if (!coverArtURL.length)
-            giveup = YES;
     }];
 
-    if (giveup) {
+    if (!coverArtURL.length) {
         NSLog(@"IFDBDownloader downloadImageFor: found no coverArtURL!");
+        if (report) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+                [IFDBDownloader showNoDataFoundBezel];
+            }];
+        }
         return nil;
     }
 
