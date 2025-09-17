@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL isPlaceholder;
 
 @property NSInteger numberForSelfSourcedDrag;
-@property Game *game;
+@property NSManagedObjectID *gameObjID;
 @property (nullable, readonly) NSImage *image;
 @property NSSet<NSPasteboardType> *acceptableTypes;
 

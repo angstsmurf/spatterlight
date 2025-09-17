@@ -173,7 +173,7 @@ fprintf(stderr, "%s\n",                                                    \
      object:self.managedObjectContext];
 
     if (imageView) {
-        imageView.game = _game;
+        imageView.gameObjID = _game.objectID;
 
         NSImage *image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
         if (!image) {
