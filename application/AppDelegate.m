@@ -356,7 +356,6 @@ PasteboardFilePasteLocation;
     NSString *extension = path.pathExtension.lowercaseString;
 
     if ([extension isEqualToString:@"ifiction"]) {
-        [_tableViewController waitToReportMetadataImport];
         [_tableViewController importMetadataFromFile:path inContext:_libctl.managedObjectContext];
     } else if ([gDocFileTypes indexOfObject:extension] != NSNotFound) {
         [_tableViewController runCommandsFromFile:path];

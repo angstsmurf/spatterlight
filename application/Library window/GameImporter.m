@@ -86,21 +86,24 @@ extern NSArray *gGameFileTypes;
     // and all metadata is downloaded
     void (^internalHandler)(void) = ^void() {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, pause), dispatch_get_main_queue(), ^{
-//            if (!tableViewController.currentlyAddingGames)
-//                return;
-
+            //            if (!tableViewController.currentlyAddingGames)
+            //                return;
             tableViewController.currentlyAddingGames = NO;
 
-            NSError *error = nil;
-            BOOL result = [context save:&error];
-            if (!result || error != nil)
-                NSLog(@"context save error: %@", error);
             [tableViewController.coreDataManager saveChanges];
-            context = nil;
 
             [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
 
             dispatch_async(dispatch_get_main_queue(), ^{
+                if (tableViewController.ifictionMatches.count ||
+                    tableViewController.ifictionPartialMatches.count) {
+                    [context performBlock:^{
+                        [tableViewController askAboutImportingMetadata:tableViewController.ifictionMatches indirectMatches:tableViewController.ifictionPartialMatches inContext:context];
+                        tableViewController.ifictionMatches = [[NSMutableDictionary alloc] init];
+                        tableViewController.ifictionPartialMatches = [[NSMutableDictionary alloc] init];
+                    }];
+                }
+
                 [tableViewController endImporting];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
                     [tableViewController selectGamesWithHashes:select scroll:YES];
@@ -153,7 +156,8 @@ extern NSArray *gGameFileTypes;
         }
 
         if (timestamp.timeIntervalSinceNow < -0.3) {
-            [context safeSave];
+            [context safeSaveAndWait];
+            [_tableViewController.coreDataManager saveChanges];
             timestamp = [NSDate date];
         }
     }
@@ -254,13 +258,18 @@ void freeContext(void **ctx) {
 
     if (![gGameFileTypes containsObject:extension])
     {
-        if (report) {
             if ([extension isEqualToString:@"ifiction"]) {
-                [_tableViewController waitToReportMetadataImport];
-                [_tableViewController importMetadataFromFile:path inContext:context];
-                return nil;
+                NSData *data = [NSData dataWithContentsOfFile:path];
+                if (data) {
+                    NSDictionary<NSString *, IFStory *> *indirectMatches;
+                    NSDictionary<NSString *, IFStory *> *exactMatches = [TableViewController importMetadataFromXML:data indirectMatches:&indirectMatches inContext:context];
+                    [_tableViewController.ifictionMatches addEntriesFromDictionary:exactMatches];
+                    [_tableViewController.ifictionPartialMatches addEntriesFromDictionary:indirectMatches];
+                    return nil;
+                }
             }
 
+        if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
                 alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
@@ -344,12 +353,6 @@ void freeContext(void **ctx) {
     ifid = @(buf);
     freeContext(&ctx);
 
-    NSString *hash = path.signatureFromFile;
-    // Hack to differ between hacked versions of Zork I and Suspended
-    if ([ifid isEqualToString:@"ZCODE-5-------"] && [hash isEqualToString:@"5E4AB5E09B1046C6D2156C1E0143C6B59B74A459456EE214E813F0D22E8BD860"]) {
-        ifid = @"ZCODE-5-830222";
-    }
-
     if (([extension isEqualToString:@"dat"] &&
          !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
            [@(format) isEqualToString:@"level9"] ||
@@ -383,6 +386,8 @@ void freeContext(void **ctx) {
     }
 
     NSData __block *blockdata = fileData;
+    NSString *hash = path.signatureFromFile;
+
     [context performBlockAndWait:^{
         // We really should check if there is a game-less metadata object that we can use here
         // but we skip this for now.

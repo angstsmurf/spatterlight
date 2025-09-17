@@ -211,7 +211,9 @@ enum  {
     }
 
     _currentlyAddingGames = NO;
-
+    _ifictionMatches = [[NSMutableDictionary alloc] init];
+    _ifictionPartialMatches = [[NSMutableDictionary alloc] init];
+    
     NSError *error;
     NSURL *appSuppDir = [[NSFileManager defaultManager]
                          URLForDirectory:NSApplicationSupportDirectory
@@ -696,15 +698,11 @@ enum  {
     TableViewController * __weak weakSelf = self;
 
     [panel beginSheetModalForWindow:self.view.window
-                  completionHandler:^(NSInteger result) {
+                  completionHandler:^(NSModalResponse result) {
         if (result == NSModalResponseOK) {
             NSURL *url = panel.URL;
             [weakSelf.managedObjectContext performBlock:^{
-                [weakSelf waitToReportMetadataImport];
-                [weakSelf beginImporting];
                 [weakSelf importMetadataFromFile:url.path inContext:weakSelf.managedObjectContext];
-                [weakSelf.coreDataManager saveChanges];
-                [weakSelf endImporting];
             }];
         }
     }];
@@ -720,7 +718,7 @@ enum  {
     NSPopUpButton *localExportTypeControl = _exportTypeControl;
 
     [panel beginSheetModalForWindow:self.view.window
-                  completionHandler:^(NSInteger result) {
+                  completionHandler:^(NSModalResponse result) {
         if (result == NSModalResponseOK) {
             NSURL *url = panel.URL;
             [self exportMetadataToFile:url.path
@@ -746,7 +744,7 @@ enum  {
     TableViewController * __weak weakSelf = self;
 
     [panel beginSheetModalForWindow:self.view.window
-                  completionHandler:^(NSInteger result) {
+                  completionHandler:^(NSModalResponse result) {
         if (result == NSModalResponseOK) {
             NSArray *urls = panel.URLs;
 
@@ -1070,7 +1068,6 @@ enum  {
         // all metadata and all images are downloaded
         void (^finisherBlock)(void) = ^void() {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, pause), dispatch_get_main_queue(), ^{
-                NSLog(@"Running finisherBlock");
                 if (weakSelf.nestedDownload) {
                     NSLog(@"nestedDownload in finisherBlock!");
                     weakSelf.nestedDownload = NO;
@@ -1099,9 +1096,7 @@ enum  {
         NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:finisherBlock];
         NSBlockOperation *preFinisher = [NSBlockOperation blockOperationWithBlock:^{
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, pause), dispatch_get_main_queue(), ^{
-                NSLog(@"Running preFinisher block. Adding finisher to queue.");
                 if (weakSelf.lastImageDownloadOperation) {
-                    NSLog(@"preFinisher: adding lastImageDownloadOperation dependency to finisher block.");
                     [finisher addDependency:weakSelf.lastImageDownloadOperation];
                 }
                 [queue addOperation:finisher];
@@ -1110,7 +1105,14 @@ enum  {
 
         [finisher addDependency:preFinisher];
 
-        NSOperation *lastOperation = [downloader downloadMetadataForGames:blockGames inContext:childContext onQueue:weakSelf.downloadQueue imageOnly:NO reportFailure:(blockGames.count == 1) completionHandler:^{
+        BOOL reportFailure = NO;
+        if (blockGames.count == 1) {
+            Game *game = [childContext objectWithID:blockGames.firstObject];
+            if (game.metadata.ifids.count == 1)
+                reportFailure = YES;
+        }
+
+        NSOperation *lastOperation = [downloader downloadMetadataForGames:blockGames inContext:childContext onQueue:weakSelf.downloadQueue imageOnly:NO reportFailure:reportFailure completionHandler:^{
             if (weakSelf.lastImageDownloadOperation) {
                 [preFinisher addDependency:weakSelf.lastImageDownloadOperation];
             }
@@ -1635,8 +1637,7 @@ enum  {
         [alert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
-        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result) {
-
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse result) {
             if (result == NSAlertFirstButtonReturn) {
                 [self downloadMetadataForGames:fetchedObjects];
             }
@@ -1644,13 +1645,147 @@ enum  {
     }
 }
 
-- (nullable Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context {
+typedef NS_ENUM(int32_t, kImportResult) {
+    kImportResultNoneFound,
+    kImportResultExactMatchesOnly,
+    kImportResultPartialMatchesOnly,
+    kImportExactAndPartialMatchesBoth
+};
+
++ (NSDictionary<NSString *, IFStory *> *)importMetadataFromXML:(NSData *)mdbuf indirectMatches:(NSDictionary<NSString *, IFStory *> * __autoreleasing *)indirectDict inContext:(NSManagedObjectContext *)context {
+    NSMutableDictionary<NSString *, IFStory *> *directMatches, *indirectMatches;
+    directMatches = [[NSMutableDictionary alloc] init];
+
     IFictionMetadata *ifictionmetadata = [[IFictionMetadata alloc] initWithData:mdbuf];
+
     if (!ifictionmetadata || ifictionmetadata.stories.count == 0)
-        return nil;
-    // Only returns the metadata of the first story found in the XML data
-//    return ((IFStory *)(ifictionmetadata.stories)[0]).identification.metadata;
-    return nil;
+        return directMatches;
+
+    indirectMatches = [[NSMutableDictionary alloc] init];
+
+    for (IFStory *story in ifictionmetadata.stories) {
+        for (NSString *ifid in story.identification.ifids) {
+            NSArray *result = [Fetches fetchGamesForIfid:ifid inContext:context];
+            if (result.count) {
+                for (Game *game in result) {
+                    NSString *idString = game.objectID.URIRepresentation.absoluteString;
+                    directMatches[idString] = story;
+                }
+            } else {
+                NSSet *resultSet = [Fetches fetchMetadataForIfid:ifid inContext:context];
+                if (resultSet.count) {
+                    for (Metadata *meta in resultSet) {
+                        NSString *idString = meta.game.objectID.URIRepresentation.absoluteString;
+                        indirectMatches[idString] = story;
+                    }
+                }
+            }
+        }
+    }
+
+    if (indirectMatches.count && indirectDict != nil)
+        *indirectDict = indirectMatches;
+
+    return directMatches;
+}
+
++ (void)addInfoToMetadata:(NSSet<Game *>*)games fromStories:(NSDictionary<NSString *, IFStory *> *)stories {
+    for (Game *game in games) {
+        IFStory *story = stories[game.objectID.URIRepresentation.absoluteString];
+        [story addInfoToMetadata:game.metadata];
+        game.metadata.source = @(kExternal);
+    }
+}
+
+- (void)askAboutImportingMetadata:(NSDictionary<NSString *, IFStory *> *)storyDict indirectMatches:(NSDictionary<NSString *, IFStory *> *)indirectDict inContext:(NSManagedObjectContext *)context {
+
+    kImportResult __block importResult = kImportResultNoneFound;
+
+    NSSet<Game *> __block *games = [[NSSet alloc] init];
+    NSSet<Game *> __block *metas = [[NSSet alloc] init];
+
+    NSString __block *msg = @"There were no library matches for the games in the iFiction file.";
+    NSString __block *msg2;
+
+    NSLog(@"storyDict.count: %ld indirectDict.count: %ld", storyDict.count, indirectDict.count);
+
+    [context performBlockAndWait:^{
+        for (NSString *identifier in storyDict.allKeys) {
+            NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:identifier]];
+            Game *result = [context objectWithID:objectID];
+            if (result)
+                games = [games setByAddingObject:result];
+        }
+
+        for (NSString *identifier in indirectDict.allKeys) {
+            NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:identifier]];
+            Game *result = [context objectWithID:objectID];
+            if (result && ![games containsObject:result])
+                metas = [metas setByAddingObject:result];
+        }
+
+        if (games.count > 0) {
+            importResult = kImportResultExactMatchesOnly;
+            msg = [NSString stringWithFormat:@"Found details matching %@.",
+                   [NSString stringWithSummaryOfGames:games.allObjects]];
+        } else if (storyDict.count) {
+            NSLog(@"askAboutImportingMetadata: None of the %ld direct matches found in database", storyDict.count);
+        }
+
+        if (metas.count > 0) {
+            if (importResult == kImportResultExactMatchesOnly)
+                importResult = kImportExactAndPartialMatchesBoth;
+            else
+                importResult = kImportResultPartialMatchesOnly;
+
+            msg2 = [NSString stringWithFormat:@"%@ound partial match%@ for %@.", importResult == kImportExactAndPartialMatchesBoth ? @"Also f" : @"F", metas.count > 1 ? @"es" : @"", [NSString stringWithSummaryOfGames:metas.allObjects]];
+        } else if (indirectDict.count) {
+            NSLog(@"askAboutImportingMetadata: None of the %ld indirect matches found in database (or they were also exact matches)", indirectDict.count);
+        }
+    }];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        NSAlert *anAlert = [[NSAlert alloc] init];
+        [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
+        anAlert.messageText = NSLocalizedString(msg, nil);
+
+        if (importResult != kImportResultNoneFound) {
+            [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            anAlert.informativeText = NSLocalizedString(@"Would you like to replace existing information?", nil);
+        }
+
+        [anAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse result){
+            if (importResult == kImportResultNoneFound)
+                return;
+            if (result == NSAlertFirstButtonReturn) {
+                [context performBlockAndWait:^{
+                    if (importResult == kImportResultExactMatchesOnly ||
+                        importResult == kImportExactAndPartialMatchesBoth) {
+                        [TableViewController addInfoToMetadata:games fromStories:storyDict];
+                    } else if (importResult == kImportResultPartialMatchesOnly) {
+                        [TableViewController addInfoToMetadata:metas fromStories:indirectDict];
+                    }
+                    [context safeSave];
+                }];
+            }
+            if (importResult == kImportExactAndPartialMatchesBoth) {
+                NSAlert *alert2 = [[NSAlert alloc] init];
+                alert2.messageText = NSLocalizedString(msg2, nil);
+                [alert2 addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
+                [alert2 addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+                alert2.informativeText = anAlert.informativeText;
+                [alert2 beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse result2){
+                    if (result2 == NSAlertFirstButtonReturn) {
+                        [context performBlockAndWait:^{
+                            [TableViewController addInfoToMetadata:metas fromStories:indirectDict];
+                            [context safeSave];
+                        }];
+                    }
+                }];
+            }
+        }];
+    });
 }
 
 
@@ -1662,69 +1797,17 @@ enum  {
 
 // We don't create a Metadata object if there is no suitable existant Game object to attach it to.
 
-- (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context {
+- (void)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context {
     NSLog(@"libctl: importMetadataFromFile %@", filename);
 
     NSData *data = [NSData dataWithContentsOfFile:filename];
     if (!data)
-        return NO;
+        return;
 
-    BOOL __block success = NO;
-    [context performBlockAndWait:^{
-        Metadata *metadata = [self importMetadataFromXML:data inContext:context];
-        if (metadata) {
-            metadata.source = @(kExternal);
-            success = YES;
-        }
-    }];
-
-    return success;
-}
-
-//- (BOOL)importIfidDataFile:(NSString *)filename intoMetadata:(Metadata *)metadata {
-//    NSLog(@"libctl: importIfidDataFile %@ intoMetadata", filename);
-//
-//    NSData *data = [NSData dataWithContentsOfFile:filename];
-//    if (!data)
-//        return NO;
-//
-//    BOOL __block success = NO;
-//    [context performBlockAndWait:^{
-//        Metadata *metadata = [self importMetadataFromXML:data inContext:context];
-//        if (metadata) {
-//            metadata.source = @(kExternal);
-//            success = YES;
-//        }
-//    }];
-//
-//    return success;
-//}
-
-- (void)waitToReportMetadataImport {
-    insertedMetadataCount = 0;
-    updatedMetadataCount = 0;
-    countingMetadataChanges = YES;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self performSelector:@selector(reportChangedMetadata:) withObject:nil afterDelay:1];
-    });
-}
-
-- (void)reportChangedMetadata:(id)sender {
-    countingMetadataChanges = NO;
-    NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.view.window.screen];
-    if (insertedMetadataCount || updatedMetadataCount == 0) {
-        NSLog(@"reportChangedMetadata: %ld inserted", insertedMetadataCount);
-        [notification showStandardWithText:[NSString stringWithFormat:@"%ld entr%@ imported", insertedMetadataCount, insertedMetadataCount == 1 ? @"y" : @"ies"]];
-    }
-    if (updatedMetadataCount) {
-        NSLog(@"reportChangedMetadata: %ld updated", updatedMetadataCount);
-        double delayInSeconds = 0;
-        if (insertedMetadataCount)
-            delayInSeconds = 2;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [notification showStandardWithText:[NSString stringWithFormat:@"%ld entr%@ updated", self->updatedMetadataCount, self->updatedMetadataCount == 1 ? @"y" : @"ies"]];
-        });
+    NSDictionary<NSString *, IFStory *> *indirectMatches = nil;
+    NSDictionary<NSString *, IFStory *> *exactMatches = [TableViewController importMetadataFromXML:data indirectMatches:&indirectMatches inContext:context];
+    if (exactMatches.count > 0 || indirectMatches.count > 0) {
+        [self askAboutImportingMetadata:exactMatches indirectMatches:indirectMatches inContext:context];
     }
 }
 
@@ -2069,16 +2152,18 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                     blockGame.lastPlayed = [NSDate date];
                     blockgctl.gameData = newData;
                     blockgctl.gameFileURL = newURL;
-                    
+
                     [blockgctl runTerp:terp withGame:blockGame reset:NO restorationHandler:completionHandler];
-                    
+
                     [((AppDelegate *)NSApp.delegate)
                      addToRecents:@[ newURL ]];
-                    
+
                     if ([Blorb isBlorbURL:newURL]) {
                         Blorb *blorb = [[Blorb alloc] initWithData:newData];
-                        GameImporter *importer = [[GameImporter alloc] initWithTableViewController:weakSelf];
-                        [importer updateImageFromBlorb:blorb inGame:blockGame];
+                        if (!blockGame.metadata.cover) {
+                            GameImporter *importer = [[GameImporter alloc] initWithTableViewController:weakSelf];
+                            [importer updateImageFromBlorb:blorb inGame:blockGame];
+                        }
                     }
                 }
             });
@@ -2094,7 +2179,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                 [NSString stringWithFormat:NSLocalizedString(@"The game \"%@\" is taking a long time to load.", nil), blockGame.metadata.title];
                 [alert addButtonWithTitle:NSLocalizedString(@"Cancel loading", nil)];
 
-                [alert beginSheetModalForWindow:gctl.window completionHandler:^(NSInteger result){
+                [alert beginSheetModalForWindow:gctl.window completionHandler:^(NSModalResponse result){
                     if (result == NSAlertFirstButtonReturn) {
                         [operation cancel];
                     }

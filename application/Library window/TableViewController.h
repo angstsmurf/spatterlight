@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Metadata, GlkController, InfoController, Game, Theme, SplitViewController, LibController, CoreDataManager;
+@class Metadata, GlkController, InfoController, Game, Theme, SplitViewController, LibController, CoreDataManager, IFStory;
 
 @interface RatingsCellView : NSTableCellView
 @property (strong) IBOutlet NSLevelIndicator *rating;
@@ -57,8 +57,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) CoreDataManager *coreDataManager;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property NSMutableDictionary <NSString *, InfoController *> *infoWindows;
-@property NSMutableDictionary <NSString *, GlkController *> *gameSessions;
+@property NSMutableDictionary<NSString *, InfoController *> *infoWindows;
+@property NSMutableDictionary<NSString *, GlkController *> *gameSessions;
 
 @property (weak) IBOutlet NSMenuItem *themesSubMenu;
 @property (nonatomic, weak) NSMenuItem *mainThemesSubMenu;
@@ -74,6 +74,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSInteger undoGroupingCount;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasActiveGames;
+
+@property NSMutableDictionary<NSString *, IFStory *> *ifictionMatches;
+@property NSMutableDictionary<NSString *, IFStory *> *ifictionPartialMatches;
+
++ (nonnull NSDictionary<NSString *, IFStory *> *)importMetadataFromXML:(NSData *)mdbuf indirectMatches:(NSDictionary<NSString *, IFStory *> * _Nullable __autoreleasing *_Nullable)indirectDict inContext:(NSManagedObjectContext *)context;
 
 - (void)askToDownload;
 
@@ -101,8 +106,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)importMetadata:(id)sender;
 - (IBAction)exportMetadata:(id)sender;
-- (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context;
+- (void)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context;
 - (BOOL)exportMetadataToFile:(NSString *)filename what:(NSInteger)what;
+- (void)askAboutImportingMetadata:(NSDictionary<NSString *, IFStory *> *)storyDict indirectMatches:(NSDictionary<NSString *, IFStory *> *)indirectDict inContext:(NSManagedObjectContext *)context;
 
 - (IBAction)searchForGames:(nullable id)sender;
 - (IBAction)play:(id)sender;
@@ -129,10 +135,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSRect)rectForLineWithHash:(NSString*)ifid;
 - (void)closeAndOpenNextAbove:(InfoController *)infocontroller;
 - (void)closeAndOpenNextBelow:(InfoController *)infocontroller;
-
-- (nullable Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context;
-
-- (void)waitToReportMetadataImport;
 
 - (void)handleSpotlightSearchResult:(id)object;
 
