@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
                 _group = keyVal;
             } else if ([key isEqualToString:@"series"]) {
                 _series = keyVal;
-            } else if ([key isEqualToString:@"seriesNumber"]) {
+            } else if ([key isEqualToString:@"seriesnumber"]) {
                 _seriesnumber = keyVal;
             } else if ([key isEqualToString:@"description"] || [key isEqualToString:@"teaser"]) {
                 _blurb =
@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
                 _blurb =
                 [_blurb stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
             } else {
-                NSLog(@"Unhandled node name:%@", key);
+                NSLog(@"Unhandled node name:%@ value: %@", key, keyVal);
             }
         }
     }
