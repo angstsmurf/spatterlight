@@ -1155,7 +1155,7 @@ fprintf(stderr, "%s\n",                                                    \
     _gameView.frame = restoredControllerLate.storedGameViewFrame;
 
     // Copy all views and GlkWindow objects from restored Controller
-    for (id key in restoredController.gwindows) {
+    for (id key in restoredController.gwindows.allKeys) {
 
         win = _gwindows[key];
 
@@ -1192,6 +1192,20 @@ fprintf(stderr, "%s\n",                                                    \
 
             win.glkctl = self;
             win.theme = _theme;
+
+        // Ugly hack to make sure quote boxes shown at game start still appear when restoring UI only
+        } else if (_quoteBoxes.count == 0 && _restorationHandler && [win isKindOfClass:[GlkTextBufferWindow class]]) {
+            GlkWindow *restored = restoredController.gwindows[@(win.name)];
+            GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)restored).quoteBox;
+            if (quotebox) {
+                _quoteBoxes = [[NSMutableArray alloc] init];
+                [quotebox removeFromSuperview];
+                [_quoteBoxes addObject:quotebox];
+                quotebox.glkctl = self;
+                quotebox.quoteboxAddedOnPAC = _numberOfPrintsAndClears;
+                quotebox.quoteboxParent = ((GlkTextBufferWindow *)win).textview.enclosingScrollView;
+                ((GlkTextBufferWindow *)win).quoteBox = quotebox;
+            }
         }
         GlkWindow *laterWin = (restoredControllerLate.gwindows)[key];
         win.frame = laterWin.frame;
