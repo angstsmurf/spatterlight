@@ -28,12 +28,12 @@ fprintf(stderr, "%s\n",                                                    \
 #import "IFDB.h"
 #import "NotificationBezel.h"
 #import "AppDelegate.h"
-#import "LibController.h"
 #import "TableViewController.h"
 #import "DownloadOperation.h"
 #import "NSManagedObjectContext+safeSave.h"
 #import "ComparisonOperation.h"
 #import "NSData+Categories.h"
+#import "CoreDataManager.h"
 
 
 @interface IFDBDownloader () <NSURLSessionDelegate> {
@@ -45,10 +45,11 @@ fprintf(stderr, "%s\n",                                                    \
 
 @implementation IFDBDownloader
 
-- (instancetype)init {
+- (instancetype)initWithTableViewController:(TableViewController *)tableViewController {
     self = [super init];
     if (self) {
         defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:nil];
+        _tableViewController = tableViewController;
     }
     return self;
 }
@@ -163,7 +164,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                             NSString *coverArtUrl = [IFDBDownloader coverArtUrlFromXMLData:data];
                             if (coverArtUrl.length) {
                                 metadata.coverArtURL = coverArtUrl;
-                                NSOperation *op = [strongSelf downloadImageFor:objectID inContext:context onQueue:queue forceDialog:NO reportFailure:NO];
+                                NSOperation *op = [strongSelf downloadImageFor:objectID inContext:context onQueue:queue forceDialog:NO reportFailure:reportFailure];
                                 if (op) {
                                     TableViewController *libController = ((AppDelegate*)NSApp.delegate).tableViewController;
                                     libController.lastImageDownloadOperation = op;
@@ -204,6 +205,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                         [context safeSave];
                     }];
                 } else if (reportFailure) {
+                    NSLog(@"httpResponse: url:%@ status code:%ld", httpResponse.URL, httpResponse.statusCode);
                     [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
                         [IFDBDownloader showNoDataFoundBezel];
                     }];
@@ -280,6 +282,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
     NSString __block *coverArtURL = nil;
 
+    CoreDataManager *manager = _tableViewController.coreDataManager;
+
     [context performBlockAndWait:^{
         Metadata *metadata = [context objectWithID:metaID];
         coverArtURL = metadata.coverArtURL;
@@ -300,10 +304,11 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if (img) {
         NSData __block *newData;
         NSData __block *oldData;
+        NSManagedObjectID *imgID = img.objectID;
 
         [context performBlockAndWait:^{
             // Replace img with corresponding Image object in localcontext
-            img = [context objectWithID:img.objectID];
+            img = [context objectWithID:imgID];
 
             newData = (NSData *)img.data;
             Metadata *metadata = [context objectWithID:metaID];
@@ -311,16 +316,20 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         }];
 
         [IFDBDownloader checkIfUserWants:newData ratherThan:oldData force:force completionHandler:^{
-            [context performBlock:^{
-                Metadata *metadata = [context objectWithID:metaID];
-                Image *oldCover = metadata.cover;
-                metadata.cover = img;
+            NSManagedObjectContext *childContext = manager.privateChildManagedObjectContext;
+            childContext.undoManager = nil;
+            childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+            [childContext performBlockAndWait:^{
+                Metadata *blockmeta = [childContext objectWithID:metaID];
+                Image *oldCover = blockmeta.cover;
+                Image *blockImage = [childContext objectWithID:imgID];
+                blockmeta.cover = blockImage;
                 [Image deleteIfOrphan:oldCover];
-                metadata.coverArtDescription = img.imageDescription;
-                [context safeSave];
+                blockmeta.coverArtDescription = blockImage.imageDescription;
+                [childContext safeSave];
             }];
+            [manager saveChanges];
         }];
-
         return nil;
     }
 
@@ -328,6 +337,11 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
     if (!url || !([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"])) {
         NSLog(@"Could not create url from %@", coverArtURL);
+        if (report) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+                [IFDBDownloader showNoDataFoundBezel];
+            }];
+        }
         return nil;
     }
 
@@ -335,20 +349,34 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         if (error) {
             if (!data.length) {
                 NSLog(@"Error connecting to url %@: %@", url, [error localizedDescription]);
+                if (report) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+                        [IFDBDownloader showNoDataFoundBezel];
+                    }];
+                }
                 return;
             }
         } else {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
             if (httpResponse.statusCode == 200 && data) {
-
+                NSManagedObjectContext *childContext = manager.privateChildManagedObjectContext;
+                childContext.undoManager = nil;
+                childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
                 NSData __block *oldData;
-                [context performBlockAndWait:^{
-                    Metadata *metadata = [context objectWithID:metaID];
+                [childContext performBlockAndWait:^{
+                    Metadata *metadata = [childContext objectWithID:metaID];
                     oldData = (NSData *)metadata.cover.data;
                 }];
 
                 [IFDBDownloader checkIfUserWants:data ratherThan:oldData force:force completionHandler:^{
-                    [IFDBDownloader insertImageData:data inMetadataID:metaID context:context];
+                    NSManagedObjectContext *childChildContext = manager.privateChildManagedObjectContext;
+                    childChildContext.undoManager = nil;
+                    childChildContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+                    [IFDBDownloader insertImageData:data inMetadataID:metaID context:childChildContext];
+                }];
+            } else if (report) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+                    [IFDBDownloader showNoDataFoundBezel];
                 }];
             }
         }
@@ -402,6 +430,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
     [context performBlockAndWait:^{
         Metadata *metadata = [context objectWithID:metaID];
+        if (!metadata || metadata.coverArtURL.length == 0)
+            return;
         img = [IFDBDownloader fetchImageForURL:metadata.coverArtURL inContext:context];
         if (img) {
             if ([((NSData *)img.data) isEqual:data]) {
@@ -459,21 +489,25 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 + (Image *)fetchImageForURL:(NSString *)imgurl inContext:(NSManagedObjectContext *)context {
+
+    if (imgurl.length == 0)
+        return nil;
+
     NSArray __block *fetchedObjects;
-    
+
     [context performBlockAndWait:^{
         NSError *error = nil;
         NSFetchRequest *fetchRequest = [Image fetchRequest];
-        
+
         fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
-        
+
         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
         if (fetchedObjects == nil) {
             NSLog(@"fetchImageForURL: Could not execute fetch request! %@",error);
         }
     }];
-    
+
     if (fetchedObjects.count > 1) {
         // Found more than one Image object with the same originalURL string.
         // Delete all but the first one.

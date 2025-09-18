@@ -426,9 +426,6 @@ fprintf(stderr, "%s\n",                                                    \
      object:nil];
 
     lastContentResize = NSZeroRect;
-    _inFullscreen = NO;
-    _windowPreFullscreenFrame = self.window.frame;
-    _borderFullScreenSize = NSZeroSize;
 
     restoredController = nil;
     inFullScreenResize = NO;
@@ -1003,20 +1000,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     gevent = [[GlkEvent alloc] initPrefsEventForTheme:theme];
     [self queueEvent:gevent];
-
-    if (_inFullscreen && windowRestoredBySystem) {
-        // Adjust the view when a game window has been restored
-        // in fullscreen by the system window restoration mechanism.
-        if (restoredControllerLate) {
-            _gameView.frame = restoredControllerLate.storedGameViewFrame;
-        } else if (restoredController) {
-            _gameView.frame = restoredController.storedGameViewFrame;
-        } else {
-            // If we have no restored GlkControllers, we just use the default view size.
-            // This tends to look narrow in fullscreen, though.
-            [self adjustContentView];
-        }
-    }
 
     [self sendArrangeEventWithFrame:_gameView.frame force:NO];
 
@@ -4324,6 +4307,10 @@ again:
     // instead (which will be set in the restoreUI method)
     if (_restorationHandler == nil) {
         _windowPreFullscreenFrame = self.window.frame;
+        [self storeScrollOffsets];
+        _ignoreResizes = YES;
+        // _ignoreResizes means no storing scroll offsets,
+        // but also no arrange events
     }
     // Sanity check the pre-fullscreen window size.
     // If something has gone wrong, such as the autosave-GUI
@@ -4331,10 +4318,7 @@ again:
     // ensure that the window size is still sensible.
     _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:_windowPreFullscreenFrame];
     _inFullscreen = YES;
-    [self storeScrollOffsets];
-    _ignoreResizes = YES;
-    // _ignoreResizes means no storing scroll offsets,
-    // but also no arrange events
+
 }
 
 - (void)windowDidFailToEnterFullScreen:(NSWindow *)window {

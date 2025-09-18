@@ -108,7 +108,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)exportMetadata:(id)sender;
 - (void)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context;
 - (BOOL)exportMetadataToFile:(NSString *)filename what:(NSInteger)what;
-- (void)askAboutImportingMetadata:(NSDictionary<NSString *, IFStory *> *)storyDict indirectMatches:(NSDictionary<NSString *, IFStory *> *)indirectDict inContext:(NSManagedObjectContext *)context;
+- (void)askAboutImportingMetadata:(NSDictionary<NSString *, IFStory *> *)storyDict indirectMatches:(NSDictionary<NSString *, IFStory *> *)indirectDict;
 
 - (IBAction)searchForGames:(nullable id)sender;
 - (IBAction)play:(id)sender;

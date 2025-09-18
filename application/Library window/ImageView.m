@@ -510,23 +510,30 @@
 }
 
 - (IBAction)downloadImage:(id)sender {
-    Game *game = [self gameFromObjectID];
-    NSOperationQueue *queue = self.workQueue;
-
     TableViewController *libController = ((AppDelegate*)NSApp.delegate).tableViewController;
     libController.lastImageComparisonData = nil;
+    NSManagedObjectContext *context = libController.managedObjectContext;
+    Game *game = [context objectWithID:_gameObjID];
+    NSOperationQueue *queue = self.workQueue;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger setting = [defaults integerForKey:@"ImageReplacement"];
 
-    [game.managedObjectContext performBlock:^{
+    BOOL reportFailure = game.metadata.ifids.count <= 1;
 
-        IFDBDownloader *downloader = [[IFDBDownloader alloc] init];
-        
-        [downloader downloadMetadataForGames:@[game.objectID] inContext:game.managedObjectContext onQueue:queue imageOnly:YES reportFailure:NO completionHandler:^{
-            [game.managedObjectContext performBlock:^{
-                [downloader downloadImageFor:game.metadata.objectID inContext:game.managedObjectContext onQueue:queue forceDialog:(setting == kNeverReplace) reportFailure:YES];
-            }];
+    NSArray<NSManagedObjectID *> *gameArray = @[game.objectID];
+    NSManagedObjectID *metaID = game.metadata.objectID;
+    [context performBlock:^{
+
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithTableViewController:libController];
+
+        // We download the image twice. The second time to get a failure report.
+        // If the metadata has more than one IFID, it may try to download metadata several times,
+        // which may result in a failure bezel on one attempt while another one succeeds, so we
+        // have to do it this way in order to avoid that.
+        [downloader downloadMetadataForGames:gameArray inContext:context onQueue:queue imageOnly:YES reportFailure:NO completionHandler:^{
+            if (reportFailure)
+                [downloader downloadImageFor:metaID inContext:context onQueue:queue forceDialog:setting == kAskIfReplace reportFailure:YES];
         }];
     }];
 }
@@ -734,8 +741,11 @@
         return;
     }
 
+    NSData *gameData = (NSData *)game.metadata.cover.data;
+    NSString *gamePath = game.path;
+
     if ([URLPath isEqualToString:@"pasteboard"] ||
-        [self compareByFileNames:URLPath data:imageData]) {
+        [self compareByFileNames:URLPath data:imageData gamePath:gamePath gameData:gameData]) {
         dontAsk = YES;
     }
 
@@ -746,7 +756,7 @@
             data = [data reduceImageDimensionsTo:NSMakeSize(2048, 2048)];
 
         if ([URLPath isEqualToString:@"pasteboard"] ||
-            [self compareByFileNames:URLPath data:imageData]) {
+            [self compareByFileNames:URLPath data:imageData gamePath:gamePath gameData:gameData]) {
             askFlag = YES;
         }
 
@@ -798,19 +808,7 @@
     return fetchedObjects.firstObject;
 }
 
-- (BOOL)compareByFileNames:(NSString *)path data:(NSData *)data {
-    Game *game = [self gameFromObjectID];
-    if (!game.managedObjectContext)
-        return NO;
-
-    NSData __block *gameData;
-    NSString __block *gamePath;
-
-    [game.managedObjectContext performBlockAndWait:^{
-        gameData = (NSData *)game.metadata.cover.data;
-        gamePath = game.path;
-    }];
-
+- (BOOL)compareByFileNames:(NSString *)path data:(NSData *)data gamePath:(NSString *)gamePath gameData:(NSData *)gameData {
     if (!gameData) {
         return NO;
     }

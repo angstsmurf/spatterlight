@@ -1053,7 +1053,7 @@ enum  {
 
     [childContext performBlock:^{
 
-        IFDBDownloader *downloader = [[IFDBDownloader alloc] init];
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithTableViewController:weakSelf];
         NSOperationQueue *queue = weakSelf.downloadQueue;
 
         int64_t pause = 0;
@@ -1676,6 +1676,8 @@ typedef NS_ENUM(int32_t, kImportResult) {
                 if (resultSet.count) {
                     for (Metadata *meta in resultSet) {
                         NSString *idString = meta.game.objectID.URIRepresentation.absoluteString;
+                        if (idString == nil)
+                            continue;
                         indirectMatches[idString] = story;
                     }
                 }
@@ -1689,39 +1691,56 @@ typedef NS_ENUM(int32_t, kImportResult) {
     return directMatches;
 }
 
-+ (void)addInfoToMetadata:(NSSet<Game *>*)games fromStories:(NSDictionary<NSString *, IFStory *> *)stories {
-    for (Game *game in games) {
-        IFStory *story = stories[game.objectID.URIRepresentation.absoluteString];
-        [story addInfoToMetadata:game.metadata];
-        game.metadata.source = @(kExternal);
-    }
++ (void)addInfoToMetadata:(NSSet<NSManagedObjectID *>*)gameIDs fromStories:(NSDictionary<NSString *, IFStory *> *)stories coreDataManager:(CoreDataManager *)manager{
+    NSManagedObjectContext *childContext = manager.privateChildManagedObjectContext;
+    childContext.undoManager = nil;
+    childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+    [childContext performBlock:^{
+        for (NSManagedObjectID *gameID in gameIDs) {
+            IFStory *story = stories[gameID.URIRepresentation.absoluteString];
+            Game *game = [childContext objectWithID:gameID];
+            [story addInfoToMetadata:game.metadata];
+            game.metadata.source = @(kExternal);
+        }
+        [childContext safeSave];
+    }];
 }
 
-- (void)askAboutImportingMetadata:(NSDictionary<NSString *, IFStory *> *)storyDict indirectMatches:(NSDictionary<NSString *, IFStory *> *)indirectDict inContext:(NSManagedObjectContext *)context {
+- (void)askAboutImportingMetadata:(NSDictionary<NSString *, IFStory *> *)storyDict indirectMatches:(NSDictionary<NSString *, IFStory *> *)indirectDict {
 
     kImportResult __block importResult = kImportResultNoneFound;
 
     NSSet<Game *> __block *games = [[NSSet alloc] init];
-    NSSet<Game *> __block *metas = [[NSSet alloc] init];
+    NSSet<Game *> __block *indirectGames = [[NSSet alloc] init];
+    NSSet<NSManagedObjectID *> __block *gameIDs = [[NSSet alloc] init];
+    NSSet<NSManagedObjectID *> __block *indirectGameIDs = [[NSSet alloc] init];
 
     NSString __block *msg = @"There were no library matches for the games in the iFiction file.";
     NSString __block *msg2;
 
     NSLog(@"storyDict.count: %ld indirectDict.count: %ld", storyDict.count, indirectDict.count);
 
-    [context performBlockAndWait:^{
+    NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
+    childContext.undoManager = nil;
+    childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+
+    [childContext performBlockAndWait:^{
         for (NSString *identifier in storyDict.allKeys) {
-            NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:identifier]];
-            Game *result = [context objectWithID:objectID];
-            if (result)
+            NSManagedObjectID *objectID = [childContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:identifier]];
+            Game *result = [childContext objectWithID:objectID];
+            if (result) {
                 games = [games setByAddingObject:result];
+                gameIDs = [gameIDs setByAddingObject:objectID];
+            }
         }
 
         for (NSString *identifier in indirectDict.allKeys) {
-            NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:identifier]];
-            Game *result = [context objectWithID:objectID];
-            if (result && ![games containsObject:result])
-                metas = [metas setByAddingObject:result];
+            NSManagedObjectID *objectID = [childContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:identifier]];
+            Game *result = [childContext objectWithID:objectID];
+            if (result && ![games containsObject:result]) {
+                indirectGames = [indirectGames setByAddingObject:result];
+                indirectGameIDs = [indirectGameIDs setByAddingObject:objectID];
+            }
         }
 
         if (games.count > 0) {
@@ -1732,13 +1751,13 @@ typedef NS_ENUM(int32_t, kImportResult) {
             NSLog(@"askAboutImportingMetadata: None of the %ld direct matches found in database", storyDict.count);
         }
 
-        if (metas.count > 0) {
+        if (indirectGames.count > 0) {
             if (importResult == kImportResultExactMatchesOnly)
                 importResult = kImportExactAndPartialMatchesBoth;
             else
                 importResult = kImportResultPartialMatchesOnly;
 
-            msg2 = [NSString stringWithFormat:@"%@ound partial match%@ for %@.", importResult == kImportExactAndPartialMatchesBoth ? @"Also f" : @"F", metas.count > 1 ? @"es" : @"", [NSString stringWithSummaryOfGames:metas.allObjects]];
+            msg2 = [NSString stringWithFormat:@"%@ound partial match%@ for %@.", importResult == kImportExactAndPartialMatchesBoth ? @"Also f" : @"F", indirectGames.count > 1 ? @"es" : @"", [NSString stringWithSummaryOfGames:indirectGames.allObjects]];
         } else if (indirectDict.count) {
             NSLog(@"askAboutImportingMetadata: None of the %ld indirect matches found in database (or they were also exact matches)", indirectDict.count);
         }
@@ -1759,15 +1778,12 @@ typedef NS_ENUM(int32_t, kImportResult) {
             if (importResult == kImportResultNoneFound)
                 return;
             if (result == NSAlertFirstButtonReturn) {
-                [context performBlockAndWait:^{
-                    if (importResult == kImportResultExactMatchesOnly ||
-                        importResult == kImportExactAndPartialMatchesBoth) {
-                        [TableViewController addInfoToMetadata:games fromStories:storyDict];
-                    } else if (importResult == kImportResultPartialMatchesOnly) {
-                        [TableViewController addInfoToMetadata:metas fromStories:indirectDict];
-                    }
-                    [context safeSave];
-                }];
+                if (importResult == kImportResultExactMatchesOnly ||
+                    importResult == kImportExactAndPartialMatchesBoth) {
+                    [TableViewController addInfoToMetadata:gameIDs fromStories:storyDict coreDataManager:self.coreDataManager];
+                } else if (importResult == kImportResultPartialMatchesOnly) {
+                    [TableViewController addInfoToMetadata:indirectGameIDs fromStories:indirectDict coreDataManager:self.coreDataManager];
+                }
             }
             if (importResult == kImportExactAndPartialMatchesBoth) {
                 NSAlert *alert2 = [[NSAlert alloc] init];
@@ -1777,10 +1793,7 @@ typedef NS_ENUM(int32_t, kImportResult) {
                 alert2.informativeText = anAlert.informativeText;
                 [alert2 beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse result2){
                     if (result2 == NSAlertFirstButtonReturn) {
-                        [context performBlockAndWait:^{
-                            [TableViewController addInfoToMetadata:metas fromStories:indirectDict];
-                            [context safeSave];
-                        }];
+                        [TableViewController addInfoToMetadata:indirectGameIDs fromStories:indirectDict coreDataManager:self.coreDataManager];
                     }
                 }];
             }
@@ -1807,7 +1820,7 @@ typedef NS_ENUM(int32_t, kImportResult) {
     NSDictionary<NSString *, IFStory *> *indirectMatches = nil;
     NSDictionary<NSString *, IFStory *> *exactMatches = [TableViewController importMetadataFromXML:data indirectMatches:&indirectMatches inContext:context];
     if (exactMatches.count > 0 || indirectMatches.count > 0) {
-        [self askAboutImportingMetadata:exactMatches indirectMatches:indirectMatches inContext:context];
+        [self askAboutImportingMetadata:exactMatches indirectMatches:indirectMatches];
     }
 }
 
@@ -2159,9 +2172,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                      addToRecents:@[ newURL ]];
 
                     if ([Blorb isBlorbURL:newURL]) {
-                        Blorb *blorb = [[Blorb alloc] initWithData:newData];
-                        if (!blockGame.metadata.cover) {
+                        if (!blockGame.metadata.cover || [Blorb isBlorbURL:[NSURL fileURLWithPath:blockGame.metadata.cover.originalURL]]) {
+                            Blorb *blorb = [[Blorb alloc] initWithData:newData];
                             GameImporter *importer = [[GameImporter alloc] initWithTableViewController:weakSelf];
+                            blockGame.metadata.coverArtURL = newURL.absoluteString;
                             [importer updateImageFromBlorb:blorb inGame:blockGame];
                         }
                     }

@@ -76,40 +76,39 @@ extern NSArray *gGameFileTypes;
 
     int64_t pause = 0;
     if (numberOfFiles > 1) {
-        pause = (int64_t)(0.5 * NSEC_PER_SEC);
+        pause = (int64_t)(0.1 * NSEC_PER_SEC);
         if (numberOfFiles > 10) {
-            pause = NSEC_PER_SEC;
+            pause = (int64_t)(0.001 * NSEC_PER_SEC * numberOfFiles);
         }
     }
 
     // A block that will run when all files are added
     // and all metadata is downloaded
     void (^internalHandler)(void) = ^void() {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, pause), dispatch_get_main_queue(), ^{
             //            if (!tableViewController.currentlyAddingGames)
             //                return;
-            tableViewController.currentlyAddingGames = NO;
 
-            [tableViewController.coreDataManager saveChanges];
+        [context performBlock:^{
+            [context safeSave];
+
+            tableViewController.currentlyAddingGames = NO;
 
             [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (tableViewController.ifictionMatches.count ||
-                    tableViewController.ifictionPartialMatches.count) {
-                    [context performBlock:^{
-                        [tableViewController askAboutImportingMetadata:tableViewController.ifictionMatches indirectMatches:tableViewController.ifictionPartialMatches inContext:context];
-                        tableViewController.ifictionMatches = [[NSMutableDictionary alloc] init];
-                        tableViewController.ifictionPartialMatches = [[NSMutableDictionary alloc] init];
-                    }];
-                }
+            [tableViewController.coreDataManager saveChanges];
+            if (tableViewController.ifictionMatches.count ||
+                tableViewController.ifictionPartialMatches.count) {
+                [tableViewController askAboutImportingMetadata:tableViewController.ifictionMatches indirectMatches:tableViewController.ifictionPartialMatches];
+                tableViewController.ifictionMatches = [[NSMutableDictionary alloc] init];
+                tableViewController.ifictionPartialMatches = [[NSMutableDictionary alloc] init];
+            }
 
-                [tableViewController endImporting];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                    [tableViewController selectGamesWithHashes:select scroll:YES];
-                });
+            [tableViewController endImporting];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                [tableViewController selectGamesWithHashes:select scroll:YES];
             });
-        });
+        }];
+
     }; // End of the block
 
     newOptions[@"completionHandler"] = internalHandler;
@@ -202,7 +201,7 @@ extern NSArray *gGameFileTypes;
             [select addObject:game.hashTag];
         // Download metadata from IFDB here if the option to do this is active
         if (downloadInfo) {
-            IFDBDownloader *downloader = [[IFDBDownloader alloc] init];
+            IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithTableViewController:_tableViewController];
             NSManagedObjectID *gameID = game.objectID.copy;
             lastOperation = [downloader downloadMetadataForGames:@[gameID] inContext:context onQueue:_tableViewController.downloadQueue imageOnly:NO reportFailure:NO completionHandler:^{
                 [context performBlock:^{
@@ -481,13 +480,15 @@ void freeContext(void **ctx) {
 }
 
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game {
-    if (blorb && !blorb.fakeFrontispiece) {
+    if (blorb) {
         NSData *newImageData = blorb.coverImageData;
         kImageReplacementPrefsType userSetting = (kImageReplacementPrefsType)[[NSUserDefaults standardUserDefaults] integerForKey:@"ImageReplacement"];
         if (newImageData && ![newImageData isPlaceHolderImage] &&
             (userSetting == kAlwaysReplace || ![_tableViewController.lastImageComparisonData isEqual:newImageData])) {
-            _tableViewController.lastImageComparisonData = newImageData;
             NSData *oldImageData = (NSData *)game.metadata.cover.data;
+            if (oldImageData && blorb.fakeFrontispiece)
+                return;
+            _tableViewController.lastImageComparisonData = newImageData;
             kImageComparisonResult comparisonResult = [ImageCompareViewController chooseImageA:newImageData orB:oldImageData source:kImageComparisonDownloaded force:NO];
             if (comparisonResult != kImageComparisonResultB) {
                 if (comparisonResult == kImageComparisonResultWantsUserInput) {
