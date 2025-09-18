@@ -102,8 +102,10 @@
 
     if (!games || games.count == 0)
         return nil;
-
-    NSString *gameString = games[0].metadata.title;
+    Metadata *metadata = games.firstObject.metadata;
+    if (metadata == nil)
+        return nil;
+    NSString *gameString = metadata.title;
     if (gameString.length > 40) {
         gameString = [gameString substringToIndex:39];
         gameString = [NSString stringWithFormat:@"%@…", gameString];
