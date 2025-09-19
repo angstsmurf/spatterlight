@@ -63,6 +63,13 @@ enum  {
     FORGIVENESS_MERCIFUL
 };
 
+typedef NS_ENUM(int32_t, kImportResult) {
+    kImportResultNoneFound,
+    kImportResultExactMatchesOnly,
+    kImportResultPartialMatchesOnly,
+    kImportExactAndPartialMatchesBoth
+};
+
 #define RIGHT_VIEW_MIN_WIDTH 350.0
 #define PREFERRED_LEFT_VIEW_MIN_WIDTH 200.0
 #define ACTUAL_LEFT_VIEW_MIN_WIDTH 50.0
@@ -1001,130 +1008,6 @@ enum  {
     return _openGameQueue;
 }
 
-- (void)downloadMetadataForGames:(NSArray<Game *> *)games {
-
-    [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
-
-    _downloadWasCancelled = NO;
-
-    [self.managedObjectContext performBlockAndWait:^{
-        [self.managedObjectContext.undoManager beginUndoGrouping];
-        self.undoGroupingCount++;
-    }];
-
-    [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
-
-    _downloadWasCancelled = NO;
-
-    [self beginImporting];
-
-    NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
-    childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-
-    [self.coreDataManager saveChanges];
-
-    _lastImageComparisonData = nil;
-
-    // This deselects all games
-    if (_gameTableView.selectedRowIndexes.count > 10 && _gameTableView.selectedRowIndexes.count == _gameTableModel.count)
-        [_gameTableView selectRowIndexes:[NSIndexSet new] byExtendingSelection:NO];
-
-    _nestedDownload = _currentlyAddingGames;
-
-    if (_nestedDownload)
-        NSLog(@"downloadMetadataForGames: _nestedDownload:YES");
-
-    verifyIsCancelled = YES;
-    _currentlyAddingGames = YES;
-
-    NSMutableArray<NSManagedObjectID *> __block *blockGames = [NSMutableArray new];
-
-    for (Game *gameInMain in games) {
-        [blockGames addObject:gameInMain.objectID];
-    }
-
-    NSUInteger numberOfGames = games.count;
-
-    games = nil;
-
-    TableViewController * __weak weakSelf = self;
-
-    [childContext performBlock:^{
-
-        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithTableViewController:weakSelf];
-        NSOperationQueue *queue = weakSelf.downloadQueue;
-
-        int64_t pause = 0;
-        if (numberOfGames > 1) {
-            pause = (int64_t)(0.5 * NSEC_PER_SEC);
-            if (numberOfGames > 10) {
-                pause = 2 * NSEC_PER_SEC;
-            }
-        }
-
-        // A block that will run when all
-        // all metadata and all images are downloaded
-        void (^finisherBlock)(void) = ^void() {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, pause), dispatch_get_main_queue(), ^{
-                if (weakSelf.nestedDownload) {
-                    NSLog(@"nestedDownload in finisherBlock!");
-                    weakSelf.nestedDownload = NO;
-                } else {
-                    weakSelf.currentlyAddingGames = NO;
-                }
-                [childContext performBlock:^{
-                    for (NSManagedObjectID *objectID in blockGames) {
-                        Game *game = [childContext objectWithID:objectID];
-                        game.hasDownloaded = YES;
-                    }
-                    [childContext safeSave];
-                }];
-                [weakSelf endImporting];
-                [weakSelf.coreDataManager saveChanges];
-            });
-        };
-
-        if (numberOfGames > 1) {
-            pause = (int64_t)(0.5 * NSEC_PER_SEC);
-            if (numberOfGames > 10) {
-                pause = NSEC_PER_SEC;
-            }
-        }
-
-        NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:finisherBlock];
-        NSBlockOperation *preFinisher = [NSBlockOperation blockOperationWithBlock:^{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, pause), dispatch_get_main_queue(), ^{
-                if (weakSelf.lastImageDownloadOperation) {
-                    [finisher addDependency:weakSelf.lastImageDownloadOperation];
-                }
-                [queue addOperation:finisher];
-            });
-        }];
-
-        [finisher addDependency:preFinisher];
-
-        BOOL reportFailure = NO;
-        if (blockGames.count == 1) {
-            Game *game = [childContext objectWithID:blockGames.firstObject];
-            if (game.metadata.ifids.count == 1)
-                reportFailure = YES;
-        }
-
-        NSOperation *lastOperation = [downloader downloadMetadataForGames:blockGames inContext:childContext onQueue:weakSelf.downloadQueue imageOnly:NO reportFailure:reportFailure completionHandler:^{
-            if (weakSelf.lastImageDownloadOperation) {
-                [preFinisher addDependency:weakSelf.lastImageDownloadOperation];
-            }
-            [queue addOperation:preFinisher];
-        }];
-
-        if (lastOperation) {
-            [preFinisher addDependency:lastOperation];
-        }
-    }];
-}
-
 - (void)rebuildThemesSubmenu {
 
     enabledThemeItem = nil;
@@ -1645,12 +1528,92 @@ enum  {
     }
 }
 
-typedef NS_ENUM(int32_t, kImportResult) {
-    kImportResultNoneFound,
-    kImportResultExactMatchesOnly,
-    kImportResultPartialMatchesOnly,
-    kImportExactAndPartialMatchesBoth
-};
+- (void)downloadMetadataForGames:(NSArray<Game *> *)games {
+
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
+
+    _downloadWasCancelled = NO;
+
+    [self.managedObjectContext performBlockAndWait:^{
+        [self.managedObjectContext.undoManager beginUndoGrouping];
+        self.undoGroupingCount++;
+    }];
+
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
+
+    _downloadWasCancelled = NO;
+
+    [self beginImporting];
+
+    NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
+    childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+
+    [self.coreDataManager saveChanges];
+
+    _lastImageComparisonData = nil;
+
+    // This deselects all games
+    if (_gameTableView.selectedRowIndexes.count > 10 && _gameTableView.selectedRowIndexes.count == _gameTableModel.count)
+        [_gameTableView selectRowIndexes:[NSIndexSet new] byExtendingSelection:NO];
+
+    verifyIsCancelled = YES;
+    _currentlyAddingGames = YES;
+
+    NSMutableArray<NSManagedObjectID *> __block *blockGames = [NSMutableArray new];
+
+    for (Game *gameInMain in games) {
+        [blockGames addObject:gameInMain.objectID];
+    }
+
+
+    TableViewController * __weak weakSelf = self;
+
+    [childContext performBlock:^{
+
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithTableViewController:weakSelf];
+        NSOperationQueue *queue = weakSelf.downloadQueue;
+
+        // A block that will run when all
+        // all metadata and all images are downloaded
+        void (^finisherBlock)(void) = ^void() {
+            weakSelf.currentlyAddingGames = NO;
+            [childContext performBlock:^{
+                for (NSManagedObjectID *objectID in blockGames) {
+                    Game *game = [childContext objectWithID:objectID];
+                    game.hasDownloaded = YES;
+                }
+                [childContext safeSave];
+            }];
+            [weakSelf endImporting];
+            [weakSelf.coreDataManager saveChanges];
+        };
+
+        BOOL reportFailure = NO;
+        if (blockGames.count == 1) {
+            Game *game = [childContext objectWithID:blockGames.firstObject];
+            if (game.metadata.ifids.count <= 1 || game.metadata.tuid.length)
+                reportFailure = YES;
+        }
+
+        NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:finisherBlock];
+        finisher.qualityOfService = NSQualityOfServiceUtility;
+
+        NSOperation *lastOperation = [downloader downloadMetadataForGames:blockGames inContext:childContext onQueue:weakSelf.downloadQueue imageOnly:NO reportFailure:reportFailure completionHandler:^{
+            NSOperation *op = weakSelf.lastImageDownloadOperation;
+            if (op) {
+                [finisher addDependency:op];
+            }
+            [queue addOperation:finisher];
+        }];
+
+        // This is probably unnecessary
+        if (lastOperation) {
+            [finisher addDependency:lastOperation];
+        }
+    }];
+}
 
 + (NSDictionary<NSString *, IFStory *> *)importMetadataFromXML:(NSData *)mdbuf indirectMatches:(NSDictionary<NSString *, IFStory *> * __autoreleasing *)indirectDict inContext:(NSManagedObjectContext *)context {
     NSMutableDictionary<NSString *, IFStory *> *directMatches, *indirectMatches;
@@ -1691,18 +1654,21 @@ typedef NS_ENUM(int32_t, kImportResult) {
     return directMatches;
 }
 
-+ (void)addInfoToMetadata:(NSSet<NSManagedObjectID *>*)gameIDs fromStories:(NSDictionary<NSString *, IFStory *> *)stories coreDataManager:(CoreDataManager *)manager{
-    NSManagedObjectContext *childContext = manager.privateChildManagedObjectContext;
-    childContext.undoManager = nil;
-    childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-    [childContext performBlock:^{
-        for (NSManagedObjectID *gameID in gameIDs) {
-            IFStory *story = stories[gameID.URIRepresentation.absoluteString];
-            Game *game = [childContext objectWithID:gameID];
-            [story addInfoToMetadata:game.metadata];
-            game.metadata.source = @(kExternal);
-        }
-        [childContext safeSave];
+- (void)addInfoToMetadata:(NSSet<NSManagedObjectID *>*)gameIDs fromStories:(NSDictionary<NSString *, IFStory *> *)stories {
+    [self.downloadQueue addOperationWithBlock:^{
+        NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
+        childContext.undoManager = nil;
+        childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        [childContext performBlock:^{
+            for (NSManagedObjectID *gameID in gameIDs) {
+                IFStory *story = stories[gameID.URIRepresentation.absoluteString];
+                Game *game = [childContext objectWithID:gameID];
+                [story addInfoToMetadata:game.metadata];
+                game.metadata.source = @(kExternal);
+                game.metadata.lastModified = [NSDate date];
+            }
+            [childContext safeSave];
+        }];
     }];
 }
 
@@ -1780,9 +1746,9 @@ typedef NS_ENUM(int32_t, kImportResult) {
             if (result == NSAlertFirstButtonReturn) {
                 if (importResult == kImportResultExactMatchesOnly ||
                     importResult == kImportExactAndPartialMatchesBoth) {
-                    [TableViewController addInfoToMetadata:gameIDs fromStories:storyDict coreDataManager:self.coreDataManager];
+                    [self addInfoToMetadata:gameIDs fromStories:storyDict];
                 } else if (importResult == kImportResultPartialMatchesOnly) {
-                    [TableViewController addInfoToMetadata:indirectGameIDs fromStories:indirectDict coreDataManager:self.coreDataManager];
+                    [self addInfoToMetadata:indirectGameIDs fromStories:indirectDict];
                 }
             }
             if (importResult == kImportExactAndPartialMatchesBoth) {
@@ -1793,7 +1759,7 @@ typedef NS_ENUM(int32_t, kImportResult) {
                 alert2.informativeText = anAlert.informativeText;
                 [alert2 beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse result2){
                     if (result2 == NSAlertFirstButtonReturn) {
-                        [TableViewController addInfoToMetadata:indirectGameIDs fromStories:indirectDict coreDataManager:self.coreDataManager];
+                        [self addInfoToMetadata:indirectGameIDs fromStories:indirectDict];
                     }
                 }];
             }
@@ -1817,7 +1783,7 @@ typedef NS_ENUM(int32_t, kImportResult) {
     if (!data)
         return;
 
-    NSDictionary<NSString *, IFStory *> *indirectMatches = nil;
+    NSDictionary<NSString *, IFStory *> *indirectMatches = [[NSDictionary alloc] init];
     NSDictionary<NSString *, IFStory *> *exactMatches = [TableViewController importMetadataFromXML:data indirectMatches:&indirectMatches inContext:context];
     if (exactMatches.count > 0 || indirectMatches.count > 0) {
         [self askAboutImportingMetadata:exactMatches indirectMatches:indirectMatches];
@@ -2273,7 +2239,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (IBAction)cancel:(id)sender {
     _currentlyAddingGames = NO;
-    _nestedDownload = NO;
     _downloadWasCancelled = YES;
     verifyIsCancelled = YES;
     [_alertQueue cancelAllOperations];
@@ -2553,22 +2518,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         if (cmp) return cmp;
         cmp = [TableViewController compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:strongSelf.sortAscending];
         if (cmp) return cmp;
-        return [TableViewController compareString:aid.hashTag withString:bid.hashTag ascending:strongSelf.sortAscending];
+        return (NSInteger)[aid.hashTag compare:bid.hashTag];
     }];
 
-    NSSortDescriptor *fallback = [NSSortDescriptor sortDescriptorWithKey:@"hashTag" ascending:_sortAscending comparator:^(Game *x, Game *y) {
-        TableViewController *strongSelf = weakSelf;
-
-        BOOL sortAscending;
-        if (!strongSelf) {
-            sortAscending = strongSelf.sortAscending;
-        } else {
-            sortAscending = YES;
-        }
-
-        return [TableViewController compareString:x.hashTag withString:y.hashTag ascending:sortAscending];
+    NSSortDescriptor *fallback = [NSSortDescriptor sortDescriptorWithKey:@"hashTag" ascending:_sortAscending comparator:^(NSString *a, NSString *b) {
+        return [a compare:b];
     }];
-
 
     [_gameTableModel sortUsingDescriptors:@[sort, fallback]];
 
@@ -2887,6 +2842,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             game.metadata.myRating = nil;
         else
             game.metadata.myRating = [NSString stringWithFormat:@"%@", value];
+        game.metadata.lastModified = [NSDate date];
     }
 }
 

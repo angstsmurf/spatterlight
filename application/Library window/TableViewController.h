@@ -47,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSMutableArray<Game *> *gameTableModel;
 
 @property BOOL currentlyAddingGames;
-@property BOOL nestedDownload;
 @property BOOL spinnerSpinning;
 @property BOOL downloadWasCancelled;
 @property BOOL sortAscending;

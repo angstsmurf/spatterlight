@@ -59,9 +59,10 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
                 dateFormatter.dateFormat = @"yyyy";
                 _firstPublished = [dateFormatter stringFromDate:_firstPublishedDate];
             } else if ([key isEqualToString:@"language"]) {
-                // In IFDB xml data, "language" is usually a language code such as "en"
-                // but may also be a locale code such as "en-US" or a descriptive string
-                // like "English, French (en, fr)." We try to deal with all of them here.
+                // In IFDB xml data, "language" is usually a two-letter ISO 639 code such
+                // as "e", but may also be a locale code such as "en-US" or a descriptive
+                // string like "English, French (en, fr)."
+                // We try to deal with all of them here.
                 NSString *languageCode = keyVal;
                 if (languageCode.length > 1) {
                     if (languageCode.length > 3) {

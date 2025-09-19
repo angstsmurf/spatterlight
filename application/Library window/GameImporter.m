@@ -85,9 +85,6 @@ extern NSArray *gGameFileTypes;
     // A block that will run when all files are added
     // and all metadata is downloaded
     void (^internalHandler)(void) = ^void() {
-            //            if (!tableViewController.currentlyAddingGames)
-            //                return;
-
         [context performBlock:^{
             [context safeSave];
 
@@ -112,7 +109,7 @@ extern NSArray *gGameFileTypes;
     }; // End of the block
 
     newOptions[@"completionHandler"] = internalHandler;
-    
+
     [tableViewController beginImporting];
     [self addGamesFromURLsRecursively:urls options:newOptions];
 }
@@ -133,9 +130,10 @@ extern NSArray *gGameFileTypes;
     NSDate *timestamp = [NSDate date];
 
     NSOperation *lastOperation = nil;
+    TableViewController *tableViewController = _tableViewController;
 
     for (NSURL *url in urls) {
-        if (!_tableViewController.currentlyAddingGames) {
+        if (!tableViewController.currentlyAddingGames) {
             if (internalHandler)
                 internalHandler();
             return nil;
@@ -161,23 +159,17 @@ extern NSArray *gGameFileTypes;
         }
     }
 
-    NSBlockOperation *finisher = nil;
     if (internalHandler) {
-        finisher = [NSBlockOperation blockOperationWithBlock:internalHandler];
-        NSOperationQueue *downloadQueue = _tableViewController.downloadQueue;
-        NSBlockOperation *prefinisher = [NSBlockOperation blockOperationWithBlock:^{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,(int64_t)(2 * NSEC_PER_SEC)),
-                           dispatch_get_main_queue(), ^{
-                [downloadQueue addOperation:finisher];
-            });
-        }];
-        [finisher addDependency:prefinisher];
+        NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:internalHandler];
         if (lastOperation)
-            [prefinisher addDependency:lastOperation];
-        prefinisher.qualityOfService = NSQualityOfServiceUtility;
-        finisher.qualityOfService = NSQualityOfServiceUtility;
-        [_tableViewController.downloadQueue addOperation:prefinisher];
-        lastOperation = nil;
+            [finisher addDependency:lastOperation];
+        [tableViewController.downloadQueue addOperationWithBlock:^{
+            NSOperation *op = tableViewController.lastImageDownloadOperation;
+            if (op)
+                [finisher addDependency:op];
+            [tableViewController.downloadQueue addOperation:finisher];
+        }];
+        lastOperation = nil; // This ends recursion
     }
     return lastOperation;
 }
@@ -427,6 +419,7 @@ void freeContext(void **ctx) {
         if (blorb.metaData) {
             [GameImporter importInfoFromXML:blorb.metaData intoMetadata:metadata];
             metadata.source = @(kInternal);
+            metadata.lastModified = [NSDate date];
         }
 
         [game bookmarkForPath:path];

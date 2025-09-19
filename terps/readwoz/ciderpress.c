@@ -260,7 +260,8 @@ typedef enum { // format of the image data stream
 
 static const int kTrackLenNib525 = 6656;
 
-static const int kBlkSize = 512;
+//static const int kBlkSize = 512;
+#define kBlkSize 512
 static const int kVolHeaderBlock = 2;          // block where Volume Header resides
 static const int kMinReasonableBlocks = 16;    // min size for ProDOS volume
 static const int kExpectedBitmapStart = 6;     // block# where vol bitmap should start

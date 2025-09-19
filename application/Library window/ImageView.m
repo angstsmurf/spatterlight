@@ -519,21 +519,36 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger setting = [defaults integerForKey:@"ImageReplacement"];
 
-    BOOL reportFailure = game.metadata.ifids.count <= 1;
+    BOOL reportFailure = (game.metadata.ifids.count <= 1 || game.metadata.tuid.length);
 
     NSArray<NSManagedObjectID *> *gameArray = @[game.objectID];
     NSManagedObjectID *metaID = game.metadata.objectID;
+    NSString *oldURL = game.metadata.coverArtURL;
     [context performBlock:^{
 
         IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithTableViewController:libController];
 
-        // We download the image twice. The second time to get a failure report.
         // If the metadata has more than one IFID, it may try to download metadata several times,
-        // which may result in a failure bezel on one attempt while another one succeeds, so we
-        // have to do it this way in order to avoid that.
-        [downloader downloadMetadataForGames:gameArray inContext:context onQueue:queue imageOnly:YES reportFailure:NO completionHandler:^{
-            if (reportFailure)
-                [downloader downloadImageFor:metaID inContext:context onQueue:queue forceDialog:setting == kAskIfReplace reportFailure:YES];
+        // which may result in a failure bezel on one attempt while another one succeeds. Thus, if
+        // the metadata has more than one IFID and no TUID, we dowload the image again
+        // in order to get a failure report.
+        // Also, if the image replacement setting is set to never replace, we override it by
+        // downloading the image again with forceDialog set to YES.
+        [downloader downloadMetadataForGames:gameArray inContext:context onQueue:queue imageOnly:YES reportFailure:reportFailure completionHandler:^{
+            if (reportFailure && setting != kNeverReplace)
+                return;
+            BOOL __block reload = NO;
+            [context performBlockAndWait:^{
+                Metadata *meta = [context objectWithID:metaID];
+                if ([meta.coverArtURL isEqualToString:oldURL]) {
+                    reload = YES;
+                } else if (setting == kNeverReplace) {
+                    reload = YES;
+                }
+            }];
+
+            if (reload)
+                [downloader downloadImageFor:metaID inContext:context onQueue:queue forceDialog:(setting == kNeverReplace) reportFailure:YES];
         }];
     }];
 }
@@ -572,6 +587,12 @@
     }];
 }
 
++ (void)setUserEditedForMetadata:(Metadata *)metadata {
+    metadata.userEdited = @YES;
+    metadata.source = @(kUser);
+    metadata.lastModified = [NSDate date];
+}
+
 - (IBAction)addDescription:(id)sender {
 
     NSAlert *alert = [[NSAlert alloc] init];
@@ -596,8 +617,7 @@
     if (choice == NSAlertFirstButtonReturn && ![entryField.stringValue isEqualToString:metadata.coverArtDescription]) {
         metadata.coverArtDescription = entryField.stringValue;
         metadata.cover.imageDescription = entryField.stringValue;
-        metadata.userEdited = @YES;
-        metadata.source = @(kUser);
+        [ImageView setUserEditedForMetadata:metadata];
     }
 
 }
@@ -765,8 +785,7 @@
                 metadata.coverArtURL = URLPath;
                 metadata.coverArtDescription = nil;
                 [IFDBDownloader insertImageData:data inMetadataID:metadata.objectID context:metadata.managedObjectContext];
-                metadata.userEdited = @YES;
-                metadata.source = @(kUser);
+                [ImageView setUserEditedForMetadata:metadata];
             }];
             return;
         }
@@ -781,8 +800,7 @@
                     metadata.coverArtURL = URLPath;
                     metadata.coverArtDescription = nil;
                     [IFDBDownloader insertImageData:data inMetadataID:metadata.objectID context:metadata.managedObjectContext];
-                    metadata.userEdited = @YES;
-                    metadata.source = @(kUser);
+                    [ImageView setUserEditedForMetadata:metadata];
                 }];
             }
         });

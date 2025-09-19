@@ -172,7 +172,7 @@ fprintf(stderr, "%s\n",                                                    \
      name:NSManagedObjectContextObjectsDidChangeNotification
      object:self.managedObjectContext];
 
-    if (imageView) {
+    if (imageView && _game) {
         imageView.gameObjID = _game.objectID;
 
         NSImage *image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];

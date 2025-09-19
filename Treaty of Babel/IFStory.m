@@ -71,10 +71,10 @@ fprintf(stderr, "%s\n",                                                    \
         if (coverElements.count)
             _coverDescription = [[IFCoverDescription alloc] initWithXMLElement:coverElements[0]];
 
-        // The metadata in some blorbs apparently can contain tags corresponding to the game
-        // format (e.g. <zcode> for a Z-code game.) (I need to find examples of this.)
-        // The code below simply looks for a <coverpicture> tag under such a tag and prints
-        // its contents (an image index).
+        // The metadata in blorbs sometimes contain tags corresponding to the game
+        // format (e.g. <zcode> for a Z-code game.)
+        // The code below simply looks for these tags and prints them and their values
+        // for informational (debug?) purposes.
 
         if (gFormatMap.count) {
             for (NSString *key in gFormatMap.allKeys) {
@@ -84,12 +84,7 @@ fprintf(stderr, "%s\n",                                                    \
                     NSEnumerator *enumChildren = [formatElements[0].children objectEnumerator];
                     NSXMLNode *node;
                     while ((node = [enumChildren nextObject])) {
-                        if ([node.name compare:@"coverpicture"] == 0) {
-                            NSString *coverArtIndex = node.stringValue;
-                            if (coverArtIndex && coverArtIndex.length) {
-                                NSLog(@"Found coverArtIndex %@ under the %@ tag", coverArtIndex, key);
-                            }
-                        }
+                        NSLog(@"Found %@ : %@ under the \"%@\" element", node.name, node.stringValue, key);
                     }
                 }
             }

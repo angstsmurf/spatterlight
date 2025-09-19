@@ -133,6 +133,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
     IFDBDownloader __weak *weakSelf = self;
 
+    TableViewController *tableViewController = _tableViewController;
+
     [context performBlockAndWait:^{
         IFDBDownloader *strongSelf = weakSelf;
         if (!strongSelf)
@@ -160,41 +162,37 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                             NSLog(@"ERROR! downloadMetadataForGames: found no metadata object with identifier \"%@\" to add metadata to!", identifier);
                         }
 
-                        if (imageOnly) {
-                            NSString *coverArtUrl = [IFDBDownloader coverArtUrlFromXMLData:data];
-                            if (coverArtUrl.length) {
-                                metadata.coverArtURL = coverArtUrl;
-                                NSOperation *op = [strongSelf downloadImageFor:objectID inContext:context onQueue:queue forceDialog:NO reportFailure:reportFailure];
-                                if (op) {
-                                    TableViewController *libController = ((AppDelegate*)NSApp.delegate).tableViewController;
-                                    libController.lastImageDownloadOperation = op;
-                                }
-
-                                success = YES;
-                            }
+                        IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data];
+                        if (result.stories.count == 0) {
+                            NSLog(@"No metadata found!");
                         } else {
-                            IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data];
-                            if (result.stories.count == 0) {
-                                NSLog(@"No metadata found!");
-                            } else {
-                                // IFictionMetadata does not directly touch the library
-                                // database or download anything by itself anymore,
-                                // so we take care of that here instead.
-                                // XML data downloaded from IFDB should always contain 1 story only
-                                if (result.stories.count > 1)  {
-                                    NSLog(@"Downloaded XML data contained more than one story! (%ld)", result.stories.count);
-                                    NSLog(@"Throwing away all but the first one.");
+                            // IFictionMetadata does not directly touch the library
+                            // database or download anything by itself anymore,
+                            // so we take care of that here instead.
+                            // XML data downloaded from IFDB should always contain 1 story only
+                            if (result.stories.count > 1)  {
+                                NSLog(@"Downloaded XML data contained more than one story! (%ld)", result.stories.count);
+                                NSLog(@"Throwing away all but the first one.");
+                            }
+                            IFStory *story = result.stories.firstObject;
+                            
+                            NSString *coverArtURL = story.ifdb.coverArtURL;
+                            if (coverArtURL.length && ![metadata.cover.originalURL isEqualToString:coverArtURL]) {
+                                metadata.coverArtURL = coverArtURL;
+                                NSOperation *op = [strongSelf downloadImageFor:objectID inContext:context onQueue:queue forceDialog:NO reportFailure:NO];
+                                if (op) {
+                                    tableViewController.lastImageDownloadOperation = op;
                                 }
-                                IFStory *story = result.stories.firstObject;
+                            }
+                            if (!imageOnly) {
                                 [story addInfoToMetadata:metadata];
-                                if (metadata.coverArtURL && ![metadata.cover.originalURL isEqualToString:metadata.coverArtURL]) {
-                                    [strongSelf downloadImageFor:objectID inContext:context onQueue:queue forceDialog:NO reportFailure:NO];
-                                }
-                                result = nil;
-                                story = nil;
-                                metadata = nil;
+                                success = YES;
+                            } else if (coverArtURL.length) {
                                 success = YES;
                             }
+                            result = nil;
+                            story = nil;
+                            metadata = nil;
                         }
 
                         if (!success && reportFailure) {
@@ -243,7 +241,12 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         if (completionHandler && lastoperation) {
             NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:completionHandler];
             [finisher addDependency:lastoperation];
-            [queue addOperation:finisher];
+            [queue addOperationWithBlock:^{
+                NSOperation *op = tableViewController.lastImageDownloadOperation;
+                if (op)
+                    [finisher addDependency:op];
+                [queue addOperation:finisher];
+            }];
             lastoperation = finisher;
         }
     }];
@@ -258,24 +261,6 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:NSScreen.screens.firstObject];
         [bezel showStandardWithText:@"? No data found"];
     });
-}
-
-+ (NSString *)coverArtUrlFromXMLData:(NSData *)data {
-    NSString *result = @"";
-    NSError *error = nil;
-    NSXMLDocument *xml =
-    [[NSXMLDocument alloc] initWithData:data
-                                options:NSXMLDocumentTidyXML
-                                  error:&error];
-    NSXMLElement *root = xml.rootElement;
-    NSXMLElement *namespace = [NSXMLElement namespaceWithName:@"ns" stringValue:@"http://ifdb.org/api/xmlns"];
-    [root addNamespace:namespace];
-    NSArray *urls = [root nodesForXPath:@"//ns:url" error:&error];
-    if (urls.count) {
-        NSXMLElement *url = urls.firstObject;
-        result = url.stringValue;
-    }
-    return result;
 }
 
 - (NSOperation *)downloadImageFor:(NSManagedObjectID *)metaID inContext:(NSManagedObjectContext *)context onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force reportFailure:(BOOL)report {
@@ -325,7 +310,11 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 Image *blockImage = [childContext objectWithID:imgID];
                 blockmeta.cover = blockImage;
                 [Image deleteIfOrphan:oldCover];
-                blockmeta.coverArtDescription = blockImage.imageDescription;
+                if (blockImage.imageDescription.length) {
+                    blockmeta.coverArtDescription = blockImage.imageDescription;
+                } else if (blockmeta.coverArtDescription.length) {
+                    blockImage.imageDescription = blockmeta.coverArtDescription;
+                }
                 [childContext safeSave];
             }];
             [manager saveChanges];
@@ -495,18 +484,16 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
     NSArray __block *fetchedObjects;
 
-    [context performBlockAndWait:^{
-        NSError *error = nil;
-        NSFetchRequest *fetchRequest = [Image fetchRequest];
+    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [Image fetchRequest];
 
-        fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
+    fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
 
-        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-        if (fetchedObjects == nil) {
-            NSLog(@"fetchImageForURL: Could not execute fetch request! %@",error);
-        }
-    }];
+    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"fetchImageForURL: Could not execute fetch request! %@",error);
+    }
 
     if (fetchedObjects.count > 1) {
         // Found more than one Image object with the same originalURL string.
@@ -514,13 +501,15 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         NSMutableArray *objectsToDelete = fetchedObjects.mutableCopy;
         Image *toKeep = fetchedObjects[0];
         [objectsToDelete removeObject:toKeep];
-        for (Image *image in objectsToDelete) {
-            // Check if data is the same
-            if ([(NSData *)image.data isEqual:(NSData *)toKeep.data]) {
-                [toKeep addMetadata:image.metadata];
-                [context deleteObject:image];
+        [context performBlockAndWait:^{
+            for (Image *image in objectsToDelete) {
+                // Check if data is the same
+                if ([(NSData *)image.data isEqual:(NSData *)toKeep.data]) {
+                    [toKeep addMetadata:image.metadata];
+                    [context deleteObject:image];
+                }
             }
-        }
+        }];
     } else if (fetchedObjects.count == 0) {
         // Found no previously loaded Image object with url imgurl
         return nil;

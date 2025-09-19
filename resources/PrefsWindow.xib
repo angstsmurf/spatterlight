@@ -231,7 +231,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" drawsBackground="NO" id="nuy-We-W0h">
                         <rect key="frame" x="0.0" y="0.0" width="520" height="247"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="ThemesTable" rowSizeStyle="automatic" viewBased="YES" id="QwY-Jk-kmn">
                                 <rect key="frame" x="0.0" y="0.0" width="520" height="247"/>

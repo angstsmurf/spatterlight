@@ -166,11 +166,11 @@
                         <subviews>
                             <scrollView horizontalCompressionResistancePriority="310" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="N28-3A-g5e">
                                 <rect key="frame" x="0.0" y="0.0" width="762" height="473"/>
-                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="wuf-ni-l4A">
+                                <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="wuf-ni-l4A">
                                     <rect key="frame" x="0.0" y="0.0" width="762" height="473"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="GameTableView" rowHeight="14" rowSizeStyle="automatic" headerView="kXX-38-a4R" viewBased="YES" id="k0a-Om-UZ7" customClass="LibHelperTableView">
+                                        <tableView focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="GameTableView" rowHeight="14" rowSizeStyle="automatic" headerView="kXX-38-a4R" viewBased="YES" id="k0a-Om-UZ7" customClass="LibHelperTableView">
                                             <rect key="frame" x="0.0" y="0.0" width="762" height="445"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="0.0" height="8"/>

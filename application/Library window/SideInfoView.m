@@ -257,11 +257,15 @@ fprintf(stderr, "%s\n",                                                    \
 
     CGFloat superViewWidth = clipView.frame.size.width;
 
-    if (somedata.cover.data)
-    {
-
-        NSImage *theImage = [[NSImage alloc] initWithData:(NSData *)somedata.cover.data];
-
+    NSImage *theImage = nil;
+    if (somedata.cover.data) {
+        theImage = [[NSImage alloc] initWithData:(NSData *)somedata.cover.data];
+        if (theImage == nil && [somedata.coverArtURL isEqualToString:somedata.cover.originalURL]) {
+            [somedata.cover.managedObjectContext deleteObject:somedata.cover];
+            somedata.coverArtURL = nil;
+        }
+    }
+    if (theImage) {
         CGFloat ratio = theImage.size.width / theImage.size.height;
 
         _imageView = [[ImageView alloc] initWithGame:somegame image:theImage];
