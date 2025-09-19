@@ -144,7 +144,7 @@ extern NSArray *gSaveFileTypes;
     NSString *string = nil;
 
     if ( [pboard.types containsObject:NSPasteboardTypeString] ) {
-        string = [pboard  stringForType:NSPasteboardTypeString];
+        string = [pboard stringForType:NSPasteboardTypeString];
     } else if ( [pboard.types containsObject:NSPasteboardTypeURL] ) {
         NSURL *fileURL = [NSURL URLFromPasteboard:pboard];
         if ([gDocFileTypes indexOfObject:fileURL.pathExtension.lowercaseString] != NSNotFound) {
