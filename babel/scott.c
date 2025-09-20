@@ -258,7 +258,7 @@ static const struct scottrec scott_registry[] = {
    { 0x2adab, 0x751f, ADVENTURELAND_IFID }, // Adventureland C64 (D64) alt
    { 0x2adab, 0x64a4, ADVENTURELAND_IFID }, // Adventureland C64 (D64) alt 2
    { 0x2adab, 0x8847, ADVENTURELAND_IFID }, // Adventureland C64 (D64) alt 3
-
+   { 0x2ab00, 0x78fa, ADVENTURELAND_IFID }, // Scott Adams Adventure Pack (1983)(Adventure International)
     { 0x23000, 0x7e22, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK)
     { 0x23000, 0x510b, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK) Graphics disk
     { 0x23000, 0x81de, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK) alt

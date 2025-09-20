@@ -88,6 +88,7 @@ static const struct c64rec c64_registry[] = {
     { ADVENTURELAND_C64, 0x2adab, 0x751f, TYPE_D64, 0, NULL, NULL,    0,        0, 0, 0, 0 },      // Adventureland C64 (D64) alt
     { ADVENTURELAND_C64, 0x2adab, 0x64a4, TYPE_D64, 0, NULL, "SAG1PIC", -0xa53, 0, 0, 0, 0x65af }, // Adventureland C64 (D64) alt 2
     { ADVENTURELAND_C64, 0x2adab, 0x8847, TYPE_D64, 0, NULL, NULL,    0,        0, 0, 0, 0 }, // Adventureland C64 (D64) alt 3
+    { ADVENTURELAND_US, 0x2ab00, 0x78fa, TYPE_D64, 0, NULL, NULL,    0,        0, 0, 0, 0 }, // Scott Adams Adventure Pack (1983)(Adventure International)
 
     { PIRATE_US, 0x2adab, 0x04c5, TYPE_US, 0, NULL, "PIRATE",    0, 0, 0, 0, 0x06d30  }, // Pirate Adventure S.A.G.A version
 
@@ -420,6 +421,54 @@ static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
     }
 }
 
+static GameIDType adventure_pack_menu(uint8_t **sf, size_t *extent)
+{
+    Output("This disk image contains 12 games. Select one.\n\n1. Adventureland\n2. Pirate Adventure\n3. Mission Impossible\n4. Voodoo Castle\n5. The Count\n6. Strange Odyssey\n7. Fun House\n8. Pyramid of Doom\n9. Ghost Town\nA. Savage Island\nB. Savage Island Part 2\nC. The Golden Voyage");
+
+    glk_request_char_event(Bottom);
+
+    event_t ev;
+    int result = 0;
+    do {
+        glk_select(&ev);
+        if (ev.type == evtype_CharInput) {
+            if (ev.val1 >= '1' && ev.val1 <= '9') {
+                result = ev.val1 - '0';
+            } else if (ev.val1 >= 'A' && ev.val1 <= 'C') {
+                result = ev.val1 - 'A' + 10;
+            } else if (ev.val1 >= 'a' && ev.val1 <= 'c') {
+                result = ev.val1 - 'a' + 10;
+            } else {
+                glk_request_char_event(Bottom);
+            }
+        }
+    } while (result < 1 || result > 12);
+
+    glk_window_clear(Bottom);
+
+    char filename[100];
+    snprintf(filename, 100, "ADV%d.OBJ", result);
+
+    int length;
+    uint8_t *file = get_file_named(*sf, *extent, &length, filename);
+
+    if (file != NULL) {
+        int result = LoadBinaryDatabase(file, length, *Game, 0);
+        if (result) {
+            CurrentSys = SYS_C64;
+            free(*sf);
+            *sf = MemAlloc(length);
+            memcpy(*sf, file, length);
+            free(file);
+            *extent = length;
+            return CurrentGame;
+        }
+        free(file);
+    }
+    fprintf(stderr, "Failed loading file %s\n", filename);
+    return UNKNOWN_GAME;
+}
+
 
 static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasize,
     size_t bytestomove)
@@ -517,6 +566,8 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
                 return mysterious_menu(sf, extent, i);
             } else if (c64_registry[i].id == FEASIBILITY_C64 && (chksum == 0x9eaa || chksum == 0x9c18)) {
                 return mysterious_menu2(sf, extent, i);
+            } else if (c64_registry[i].id == ADVENTURELAND_US && chksum == 0x78fa) {
+                return adventure_pack_menu(sf, extent);
             }
             if (c64_registry[i].type == TYPE_D64) {
                 int newlength;
