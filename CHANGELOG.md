@@ -1,5 +1,22 @@
 # Change log
 
+## Unreleased
+- In previous versions, the library used IFIDs to keep track of games. This meant that if several games had the same IFID, they would also share all metadata such as title and cover image. This is not longer the case. Spatterlight now uses checksums calculated from the game file contents instead. This means that every variant of, say, *Adventureland*, in your collection can have its own name, cover image and release year in Spatterlight, as long as the game files are not exactly the same.
+- Reading of WOZ files in DOS 3.3 format, used by Apple 2 versions of the Scott Adams games, was broken.
+- Trying to download a cover image for a game which doesn't have one would sometimes download game data instead of an image, causing unpredictable behavior when trying to display it.
+- Batch import of games, metadata and cover images has been reworked, fixing many bugs that could potentially cause crashes and loss of data.
+- Animations in *Carma* would flicker.
+- Graphics in *Arthur* would sometimes not clear properly.
+- Restarting a Z-code game would not clear customs colors. This was especially apparent in *Just Two Wishes*, which would show a black screen after restarting in color mode.
+- Autorestoring a Z-code game would break input line echoing.
+- Opening a save file with the Open… command, (i.e. not from a save prompt) in order to restore it, now works at least some of the time.
+- The Level 9 interpreter was updated to version 5.2, adding support for MSX games.
+- No longer creates lots of empty directories in the Spatterlight Application Support directory.
+- Window restoration at startup could cause blank windows and broken games.
+- More sensible fallback game window size if window restoration fails.
+- The "stopped" (■) icon was shown in the status column of the table view when a game was showing a cover image at startup. It now displays the "playing" icon (▶) instead.
+- Allows sorting the table view on the status column.
+
 ## Release 1.4.5
 - Game windows would sometimes autorestore to minimum size.
 - The animation when opening or closing game info panels would trigger the macOS Game Mode, along with an annoying notification.
