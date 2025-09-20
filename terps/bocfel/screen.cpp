@@ -5709,6 +5709,8 @@ void init_screen(bool first_run)
                 shogun_update_after_restart();
             }
         }
+    } else {
+        colours_are_default = true;
     }
 
     Color fgcolor, bgcolor;
@@ -5750,6 +5752,9 @@ void init_screen(bool first_run)
             window.y_origin = 1;
             window.x_size = gscreenw;
             window.y_size = gscreenh;
+        } else if (window.id) {
+            garglk_set_zcolors_stream(glk_window_get_stream(window.id), zcolor_Default, zcolor_Default);
+            win_setbgnd(window.id->peer, zcolor_Default);
         }
 #endif
 
