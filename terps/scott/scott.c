@@ -2703,7 +2703,10 @@ Distributed under the GNU software license\n\n");
             break;
         case ER_RAN_ALL_LINES:
             Output(sys[YOU_CANT_DO_THAT_YET]);
-            FreeCommands();
+            // Failed actions should interrupt chains of commands
+            // but not TAKE ALL and DROP ALL
+            if (!CurrentCommand->allflag)
+                FreeCommands();
             break;
         default:
             JustStarted = 0;
