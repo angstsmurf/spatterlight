@@ -123,7 +123,9 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
     int IsBrokenKayleth = 0;
 
     if (*length == 0xb4bb) {
-        // This is (corrupted) Kayleth z80
+        // This is Kayleth z80.
+        // Snapshot was captured in the middle of
+        // decompression, so it needs extra care.
         IsBrokenKayleth = 1;
     }
 
@@ -212,6 +214,8 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         }
     }
 
+    // This z80 file was captured in the middle of
+    // decompression, so it needs extra care.
     if (IsBrokenKayleth) {
         uint8_t *mem = MemAlloc(0x10000);
         memcpy(mem + 0x4000, image, 0xc000);
