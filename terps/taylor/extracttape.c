@@ -19,12 +19,14 @@
 
 void ldir(uint8_t *mem, uint16_t DE, uint16_t HL, uint16_t BC)
 {
+    // Cannot use memcpy here because the rollover of 16-bit values is crucial
     for (int i = 0; i < BC; i++)
         mem[DE++] = mem[HL++];
 }
 
 void lddr(uint8_t *mem, uint16_t DE, uint16_t HL, uint16_t BC)
 {
+    // Cannot use memcpy here because the rollover of 16-bit values is crucial
     for (int i = 0; i < BC; i++)
         mem[DE--] = mem[HL--];
 }
