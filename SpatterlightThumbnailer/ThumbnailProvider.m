@@ -54,15 +54,12 @@
 
 - (void)provideThumbnailForFileRequest:(QLFileThumbnailRequest *)request completionHandler:(void (^)(QLThumbnailReply * _Nullable, NSError * _Nullable))handler  API_AVAILABLE(macos(10.15)) {
 
-    // There are three ways to provide a thumbnail through a QLThumbnailReply. Only one of them should be used.
-
     NSData __block *imgdata = nil;
     NSImage __block *image;
 
     NSURL __block *url = request.fileURL;
     NSSize __block newImageSize;
     NSSize __block contextSize;
-
 
     NSError *error;
 
@@ -139,10 +136,8 @@
         if (isnan(contextSize.width))
             contextSize.width = maximumSize.width;
 
-        // First way: Draw the thumbnail into the current context, set up with AppKit's coordinate system.
         if (@available(macOS 10.15, *)) {
             handler([QLThumbnailReply replyWithContextSize:contextSize currentContextDrawingBlock:^BOOL {
-                // Draw the thumbnail here.
 
                 // draw the image centered
                 [image drawInRect:NSMakeRect(0,
@@ -150,7 +145,6 @@
                                              newImageSize.width,
                                              newImageSize.height)];
 
-                // Return YES if the thumbnail was successfully drawn inside this block.
                 return YES;
             }], nil);
         }
