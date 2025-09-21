@@ -123,7 +123,7 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
     int IsBrokenKayleth = 0;
 
     if (*length == 0xb4bb) {
-        fprintf(stderr, "This is Kayleth z80\n");
+        // This is (corrupted) Kayleth z80
         IsBrokenKayleth = 1;
     }
 
@@ -137,7 +137,7 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         uint8_t *block;
         switch (*length) {
         case 0xccca:
-            fprintf(stderr, "This is the Temple of Terror side A tzx\n");
+            // This is the Temple of Terror side A tzx
             block = GetTZXBlock(4, image, length);
             if (block) {
                 uint8_t loacon = 0x9a;
@@ -147,17 +147,17 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 free(block);
                 image = ShrinkToSnaSize(uncompressed, image, length);
             } else {
-                fprintf(stderr, "Could not extract block\n");
+                fprintf(stderr, "Temple of Terror side A tzx: Could not extract block\n");
                 return image;
             }
             break;
         case 0xa000:
-            fprintf(stderr, "This is the Temple of Terror side B tzx\n");
+            // This is the Temple of Terror side B tzx
             image = DecryptToTSideB(image, length);
             image = ShrinkToSnaSize(image, uncompressed, length);
             break;
         case 0xcadc:
-            fprintf(stderr, "This is Kayleth tzx\n");
+            // This is Kayleth tzx
             block = GetTZXBlock(4, image, length);
             if (block) {
                 uint8_t loacon = 0xce;
@@ -167,13 +167,13 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 free(block);
                 image = ShrinkToSnaSize(uncompressed, image, length);
             } else {
-                fprintf(stderr, "Could not extract block\n");
+                fprintf(stderr, "Kayleth tzx: Could not extract block\n");
                 return image;
             }
             break;
         case 0xcd17:
         case 0xcd15:
-            fprintf(stderr, "This is Terraquake tzx\n");
+            // This is Terraquake tzx
             block = GetTZXBlock(3, image, length);
             if (block) {
                 uint8_t loacon = 0xe7;
@@ -183,7 +183,7 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 free(block);
                 image = ShrinkToSnaSize(uncompressed, image, length);
             } else {
-                fprintf(stderr, "Could not extract block\n");
+                fprintf(stderr, "Terraquake tzx: Could not extract block\n");
                 return image;
             }
             break;
