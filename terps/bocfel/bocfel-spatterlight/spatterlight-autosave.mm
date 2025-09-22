@@ -167,7 +167,6 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
             return false;
         }
         NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-        
         NSString *libsavepath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
         
         if (![[NSFileManager defaultManager] fileExistsAtPath:finalgamepath])

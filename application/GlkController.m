@@ -236,7 +236,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)runTerp:(NSString *)terpname_
        withGame:(Game *)game_
           reset:(BOOL)shouldReset
-     restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
+restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if (!game_) {
         NSLog(@"GlkController runTerp called with nil game!");
