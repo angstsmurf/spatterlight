@@ -489,7 +489,7 @@ fprintf(stderr, "%s\n",                                                    \
     attrs = [fileManager attributesOfItemAtPath:self.autosaveFileGUI error:&error];
     if (attrs) {
         GUIAutosaveDate = (NSDate*)attrs[NSFileCreationDate];
-        if (terpAutosaveDate && [terpAutosaveDate compare:GUIAutosaveDate] == NSOrderedDescending) {
+        if (terpAutosaveDate && GUIAutosaveDate && [terpAutosaveDate compare:GUIAutosaveDate] == NSOrderedDescending) {
             NSLog(@"GUI autosave file is created before terp autosave file!");
         }
     } else {
@@ -529,7 +529,7 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }
 
-    if ([GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
+    if (GUIAutosaveDate && GUILateAutosaveDate && [GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
         NSLog(@"GUI late autosave file is created before GUI autosave file!");
         NSLog(@"Do not use it.");
         restoredControllerLate = restoredController;
