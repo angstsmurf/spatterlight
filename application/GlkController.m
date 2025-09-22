@@ -451,6 +451,9 @@ fprintf(stderr, "%s\n",                                                    \
         [self adjustMaskLayer:nil];
     }
 
+    if (_supportsAutorestore && _theme.autosave) {
+        [self dealWithOldFormatAutosaveDir];
+    }
     if (_supportsAutorestore && _theme.autosave &&
         ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI] || [[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath])) {
         [self runTerpWithAutorestore];
@@ -1416,6 +1419,92 @@ fprintf(stderr, "%s\n",                                                    \
         _appSupportDir = appSupportURL.path;
     }
     return _appSupportDir;
+}
+
+// If there exists an autosave dir using the old hashing method,
+// copy any files from it to the new one, unless there are newer
+// equivalents in the new-style autosave directory. Then delete the
+// old files and the old directory.
+
+-(void)dealWithOldFormatAutosaveDir {
+    NSError *error = nil;
+
+    NSURL *newDirURL = [NSURL fileURLWithPath:self.appSupportDir isDirectory:YES];
+
+    // Create the URL an old-format autosave directory would have
+    NSString *oldDirPath = [self.appSupportDir stringByDeletingLastPathComponent];
+    oldDirPath = [oldDirPath stringByAppendingPathComponent:_gamefile.oldSignatureFromFile];
+    NSURL *oldDirURL = [NSURL fileURLWithPath:oldDirPath isDirectory:YES];
+
+    // Get a list of files in the old directory and iterate through them
+    NSArray<NSURL *> *files = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:oldDirURL includingPropertiesForKeys:nil options:0 error:&error];
+    if (files.count) {
+        for (NSURL *url in files) {
+            error = nil;
+            NSData *data = [NSData dataWithContentsOfURL:url options:NSDataReadingMappedAlways error:&error];
+            if (!data) {
+                NSLog(@"GlkController: Could not read file in old autosave directory. Error: %@", error);
+                continue;
+            } else {
+                NSString *filename = [url lastPathComponent];
+                NSDate *dateInOld = nil, *dateInNew = nil;
+
+                // Get the creation date of the file
+                error = nil;
+                NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:url.path error:&error];
+                if (attrs) {
+                    dateInOld = (NSDate*)attrs[NSFileCreationDate];
+                } else {
+                    NSLog(@"GlkController: Failed to get creation date of file %@ in old directory. Error:%@", url.path, error);
+                }
+                error = nil;
+                NSURL *newfileURL = [newDirURL URLByAppendingPathComponent:filename];
+                BOOL overwrite = YES;
+
+                // Get the creation date of the file with the same name in the new directory,
+                // if there is one.
+                error = nil;
+                attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:newfileURL.path error:&error];
+                if (attrs) {
+                    dateInNew = (NSDate*)attrs[NSFileCreationDate];
+                    if (dateInNew && dateInOld && [dateInNew compare:dateInOld] == NSOrderedDescending) {
+                        NSLog(@"%@: Newer file exists in new directory. Don't overwrite! dateInNew:%@ dateInOld:%@", filename, dateInNew, dateInOld);
+                        overwrite = NO;
+                    }
+                } else {
+                    NSLog(@"GlkController: Failed to get creation date of file %@ in new directory. Error:%@", url.path, error);
+                }
+
+                // Copy the file from the old directory to the new, overwriting any older files there
+                BOOL result = NO;
+                if (overwrite) {
+                    result = [data writeToURL:newfileURL options:NSDataWritingAtomic error:&error];
+                    if (!result) {
+                        NSLog(@"GlkController: Failed to copy file %@ to new autosave directory. Error:%@", filename, error);
+                    }
+                }
+
+                // Delete the original file
+                result = [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+                if (!result) {
+                    NSLog(@"GlkController: Failed to delete file %@ in old autosave directory. Error:%@", filename, error);
+                }
+            }
+        }
+        // Delete the old directory
+        BOOL result = [[NSFileManager defaultManager] removeItemAtURL:oldDirURL error:&error];
+        if (!result) {
+            NSLog(@"GlkController: Failed to delete old autosave directory at %@. Error:%@", oldDirURL.path, error);
+        }
+        // Re-write the late UI autosave, to give it a creation date later than autosave-GUI.plist
+        // (Our autorestore code will compare the creation dates of autosave-GUI.plist and
+        // autosave-GUI-late.plist.)
+        NSURL *lateUIURL = [newDirURL URLByAppendingPathComponent:@"autosave-GUI-late.plist"];
+        NSData *lateUISave = [NSData dataWithContentsOfURL:lateUIURL options:NSDataReadingMappedAlways error:&error];
+        if (lateUISave) {
+            result = [lateUISave writeToURL:lateUIURL options:NSDataWritingAtomic error:&error];
+        }
+    }
 }
 
 - (NSString *)autosaveFileGUI {
