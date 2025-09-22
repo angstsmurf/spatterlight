@@ -14,7 +14,9 @@
 
 @property (readonly, copy) NSString *stringByDecodingXMLEntities;
 
+//! A short summary of the games in the array, usually the title of the first and then the total count of games
 + (NSString *)stringWithSummaryOfGames:(NSArray<Game*> *)games;
+//! A SHA256 signature calculated from file data
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *signatureFromFile;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *scrubInvalidCharacters;
 //! Returns an \c NSArray of range values representing the lines in the string, including leading and trailing spaces (but strips leading and trailing blank lines)
@@ -27,5 +29,8 @@
 
 //! Converts range value to range and trims newlines and whitespace
 - (NSString *)substringWithRangeValue:(NSValue *)value;
+
+//! The old deprecated way to calculate a file signature, used for backward compatibility
+- (NSString *)oldSignatureFromFile;
 
 @end
