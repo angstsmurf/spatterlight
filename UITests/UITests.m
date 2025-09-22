@@ -443,12 +443,16 @@
     [app typeText:@" "];
     [[[libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tableRows childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:0] click];
     [gameMenuBarItem click];
-    [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Play Game"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Play Game\"]",".menuItems[@\"Play Game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [menuBarsQuery.menuItems[@"Play Game"] click];
+
+    [menuBarsQuery.menuBarItems[@"Window"] click];
+    [[menuBarsQuery.menuItems elementMatchingType:XCUIElementTypeMenuItem identifier:@"makeKeyAndOrderFront:"] click];
     XCUIElement *gameWindow = app.windows[@"imagetest.gblorb"];
-    [gameWindow click];
+    [XCUIElement performWithKeyModifiers:XCUIKeyModifierOption block:^{
+        [gameWindow.buttons[XCUIIdentifierFullScreenWindow] click];
+    }];
     [gameMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Reset Game"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Reset Game\"]",".menuItems[@\"Reset Game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [gameWindow click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Close Window"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Close Window\"]",".menuItems[@\"Close Window\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
@@ -1602,7 +1606,7 @@
     XCUIElement *textField = [self addAndSelectGame:@"curses.z5"];
     [textField doubleClick];
 
-    XCUIElement *gameWindow = app/*@START_MENU_TOKEN@*/.windows[@"gameWinZCODE-16-951024-4DE6"]/*[[".windows[@\"curses.z5\"]",".windows[@\"gameWinZCODE-16-951024-4DE6\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
+    XCUIElement *gameWindow = app.windows[@"curses.z5"];
 
     XCUIElement *scrollView = gameWindow.scrollViews[@"buffer scroll view"];
 
@@ -1769,7 +1773,7 @@
     XCUIElement *textField = [self addAndSelectGame:@"curses.z5"];
     [textField rightClick];
     [libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"].menuItems[@"Play"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".menus.menuItems[@\"Play\"]",".menuItems[@\"Play\"]",".tables[@\"Games\"]"],[[[-1,4,2],[-1,1,2],[-1,0,1]],[[-1,4,2],[-1,1,2]],[[-1,3],[-1,2]]],[0,0]]@END_MENU_TOKEN@*/ click];
-    [app/*@START_MENU_TOKEN@*/.windows[@"gameWinZCODE-16-951024-4DE6"]/*[[".windows[@\"Curses\"]",".windows[@\"gameWinZCODE-16-951024-4DE6\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons[XCUIIdentifierCloseWindow] click];
+    [app.windows[@"curses.z5"].buttons[XCUIIdentifierCloseWindow] click];
 
     [textField click];
     [textField rightClick];
@@ -1786,7 +1790,7 @@
     [textField rightClick];
     [libraryWindow.tables[@"Games"].menuItems[@"Show Info"] click];
 
-    XCUIElement *infoWin = app.windows[@"infoWinZCODE-16-951024-4DE6"];
+    XCUIElement *infoWin = app.windows[@"Curses Info"];
     [menuBarsQuery.menuBarItems[@"Window"] click];
     [menuBarsQuery.menuItems[@"Curses Info"] click];
     XCUIElement *image = [[infoWin childrenMatchingType:XCUIElementTypeImage] matchingIdentifier:@"coverImageView"].firstMatch;
@@ -1899,7 +1903,7 @@
     [libraryWindow.toolbars.buttons[@"Show info"] click];
 
 
-    infoWin = app.windows[@"infoWinGLULX-3-151126-1731D3B6"];
+    infoWin = app.windows[@"imagetest.gblorb Info"];
     [menuBarsQuery.menuBarItems[@"Window"] click];
     [menuBarsQuery.menuItems[@"imagetest.gblorb Info"] click];
     [infoWin click];
