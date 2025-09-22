@@ -11,6 +11,7 @@
 
 @implementation FileSignature
 
+// A 64 character string made up of 32 hex values from the digest produced by CC_SHA256()
 + (NSString *)sha256StringFromData:(NSData *)data {
     unsigned char resultCString[CC_SHA256_DIGEST_LENGTH];
     unsigned int length;
@@ -20,6 +21,7 @@
     } else {
         length = (unsigned int)data.length;
     }
+    // CC_SHA256 performs digest calculation and places the result in the caller-supplied buffer for digest (resultCString).
     CC_SHA256(data.bytes, length, resultCString);
 
     return [NSString stringWithFormat:
@@ -38,6 +40,7 @@
 + (NSString *)signatureFromData:(NSData *)theData {
     NSData *subData = theData;
 
+    // If the data seems to be a Blorb, we extract the executable chunk
     if (theData.length > 24) {
         Byte bytes24[24];
         [theData getBytes:bytes24 length:24];
@@ -45,8 +48,7 @@
         if (bytes24[0] == 'F' && bytes24[1] == 'O' && bytes24[2] == 'R' &&
             bytes24[3] == 'M' && bytes24[8] == 'I' && bytes24[9] == 'F' &&
             bytes24[10] == 'R' && bytes24[11] == 'S') {
-            // Game file seems to be a Blorb
-
+            // Data seems to be a Blorb
             if (!(bytes24[12] == 'R' && bytes24[13] == 'I' &&
                   bytes24[14] == 'd' && bytes24[15] == 'x'))
                 NSLog(@"signatureFromFile: Missing RIdx index header in Blorb!");
