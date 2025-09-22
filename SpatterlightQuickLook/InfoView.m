@@ -255,7 +255,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)updateWithMetadata:(Metadata *)somedata {
     NSClipView *clipView = (NSClipView *)[InfoView addTopConstraintsToView:self];
 
-    Game *somegame = somedata.games.anyObject;
+    Game *somegame = somedata.game;
 
     if(somedata.cover.data)
         _imageData = (NSData *)somedata.cover.data;

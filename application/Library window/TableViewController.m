@@ -2105,15 +2105,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     GlkController __block *blockgctl = gctl;
     Game __block *blockGame = game;
-    NSString *hashTag = game.hashTag;
-    if (hashTag.length == 0) {
-        hashTag = game.path.signatureFromFile;
-        game.hashTag = hashTag;
-    }
-    if (hashTag.length == 0) {
-        NSLog(@"Could not hash game data?");
-        return nil;
-    }
+    NSString __block *hashTag = game.hashTag;
 
     [gctl askForAccessToURL:url showDialog:!systemWindowRestoration andThenRunBlock:^{
         OpenGameOperation *operation = [[OpenGameOperation alloc] initWithURL:url completionHandler:^(NSData * _Nullable newData, NSURL * _Nullable newURL) {
@@ -2121,12 +2113,17 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                 [blockgctl.slowReadAlert.window close];
                 blockgctl.slowReadAlert = nil;
 
-                if (newData.length == 0) {
+                if (hashTag.length == 0) {
+                    hashTag = game.path.signatureFromFile;
+                }
+
+                if (newData.length == 0 || hashTag.length == 0) {
                     NSAlert *alert = [[NSAlert alloc] init];
                     alert.messageText = NSLocalizedString(@"Failed to open the game.", nil);
                     alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"File access to \"%@\" was not permitted.", nil), newURL.lastPathComponent];
                     [alert runModal];
                 } else {
+                    game.hashTag = hashTag;
                     weakSelf.gameSessions[hashTag] = blockgctl;
                     blockGame.lastPlayed = [NSDate date];
                     blockgctl.gameData = newData;
