@@ -609,6 +609,11 @@ NSString *fontToString(NSFont *font) {
         theme = self.defaultTheme;
     if (!theme.gridNormal.attributeDict)
         [theme populateStyles];
+    if (!theme.gridNormal.color) {
+        NSLog(@"Preferences updatePrefsPanel: Something is very wrong");
+        [BuiltInThemes createBuiltInThemesInContext:_managedObjectContext forceRebuild:YES];
+        return;
+    }
     clrGridFg.color = theme.gridNormal.color;
     clrGridBg.color = theme.gridBackground;
     clrBufferFg.color = theme.bufferNormal.color;
