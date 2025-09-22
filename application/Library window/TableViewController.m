@@ -1787,7 +1787,7 @@ enum  {
         [self beginImporting];
         _currentlyAddingGames = YES;
         
-        [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:gameString] andThenRunBlock:^{
+        [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:gameString isDirectory:NO] andThenRunBlock:^{
             [private performBlock:^{
                 TableViewController *strongSelf = weakSelf;
                 if (!strongSelf)

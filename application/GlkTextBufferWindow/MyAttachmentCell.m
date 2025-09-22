@@ -281,7 +281,7 @@
         // The receiver has passed us a URL where we are to write our data to.
 
         NSString *str = [pasteboard stringForType:PasteboardFilePasteLocation];
-        NSURL *destinationFolderURL = [NSURL fileURLWithPath:str  isDirectory:YES];
+        NSURL *destinationFolderURL = [NSURL fileURLWithPath:str isDirectory:YES];
         if (!destinationFolderURL) {
             NSLog(@"ERROR:- Receiver didn't tell us where to put the file?");
             return;
