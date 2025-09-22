@@ -6058,6 +6058,7 @@ void recover_library_state(library_state_data *dat)
             if (windows[i].id) {
                 if (windows[i].id->tag == dat->mainwintag) {
                     mainwin = &windows[i];
+                    mainwin->has_echo = true;
                 }
                 if (windows[i].id->tag == dat->curwintag) {
                     curwin = &windows[i];
