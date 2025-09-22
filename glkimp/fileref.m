@@ -103,12 +103,12 @@ void getautosavedir(char *file)
             return;
         }
 
-        dirname = [dirname stringByAppendingPathComponent:signature];
+        NSString *finalDir = [dirname stringByAppendingPathComponent:signature];
+        NSUInteger length = finalDir.length + 1;
 
-        NSUInteger length = dirname.length;
-        autosavedir = malloc(length + 1);
-        strncpy(autosavedir, dirname.fileSystemRepresentation, length);
-        autosavedir[length] = 0;
+        autosavedir = malloc(length);
+        [finalDir getFileSystemRepresentation:autosavedir maxLength:length];
+        autosavedir[finalDir.length] = 0;
     }
 }
 
