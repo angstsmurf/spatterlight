@@ -140,11 +140,10 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         if (!strongSelf)
             return;
         void (^internalHandler)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable,  NSString * _Nullable) = ^void(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error, NSString * _Nullable identifier) {
-
             if (error) {
                 if (!data) {
+                    NSLog(@"Error connecting: %@", [error localizedDescription]);
                     [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                        NSLog(@"Error connecting: %@", [error localizedDescription]);
                         if (reportFailure)
                             [IFDBDownloader showNoDataFoundBezel];
                     }];

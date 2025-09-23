@@ -53,42 +53,6 @@
 @dynamic ifids;
 @dynamic tag;
 
-
-//- (Ifid *)findOrCreateIfid:(NSString *)ifidstring {
-//
-//    Ifid *ifid = nil;
-//
-//    NSError *error = nil;
-//    NSArray *fetchedObjects;
-//
-//    NSFetchRequest *fetchRequest = [Ifid fetchRequest];
-//
-//    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifidstring];
-//    fetchRequest.includesPropertyValues = YES;
-//
-//    fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-//
-//    if (fetchedObjects == nil) {
-//        NSLog(@"findOrInsertIfid: %@",error);
-//    }
-//
-//    if (fetchedObjects.count > 1) {
-//        NSLog(@"findOrInsertIfid: Found more than one entry with ifidString %@",ifidstring);
-//    }
-//
-//    if (fetchedObjects == nil || fetchedObjects.count == 0) {
-//        ifid = (Ifid *) [NSEntityDescription
-//                         insertNewObjectForEntityForName:@"Ifid"
-//                         inManagedObjectContext:self.managedObjectContext];
-//        ifid.ifidString = ifidstring;
-//
-//    } else ifid = fetchedObjects[0];
-//
-//    [self addIfidsObject:ifid];
-//    
-//    return ifid;
-//}
-
 - (void)createIfid:(NSString *)ifidstring {
     for (Ifid *ifid in self.ifids) {
         if ([ifid.ifidString isEqualToString:ifidstring])

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -672,6 +672,9 @@
 		C3A3EA0D284BAE8400C8A693 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA0C284BAE8400C8A693 /* parseinput.c */; };
 		C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA10284BAEA300C8A693 /* loaddatabase.c */; };
 		C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA16284BAF0000C8A693 /* graphics.c */; };
+		C3A72FDA2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
+		C3A72FDB2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
+		C3A72FDC2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
 		C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3027A676630032C068 /* c64decrunch.c */; };
 		C3A9FD3327A6E56C0032C068 /* scottgameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */; };
 		C3ABCA532D553B8400BC4268 /* shogun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ABCA522D553B8400BC4268 /* shogun.cpp */; };
@@ -2990,6 +2993,8 @@
 		C3A3EA16284BAF0000C8A693 /* graphics.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = graphics.c; sourceTree = "<group>"; };
 		C3A3EA18284BAF1100C8A693 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 15.xcdatamodel"; sourceTree = "<group>"; };
+		C3A72FD82E8281FA00A840EC /* IfidToHashMigrationPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfidToHashMigrationPolicy.h; sourceTree = "<group>"; };
+		C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfidToHashMigrationPolicy.m; sourceTree = "<group>"; };
 		C3A9FD2F27A676630032C068 /* c64decrunch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3A9FD3027A676630032C068 /* c64decrunch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c64decrunch.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scottgameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -3265,6 +3270,53 @@
 		C3FFF7FF27E52E19000C481A /* restorestate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = restorestate.h; sourceTree = "<group>"; };
 		C3FFF80127E52E19000C481A /* restorestate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C3DB14592E8418BB00837F69 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Ifid1ToHash.xcmappingmodel,
+				Ifid2ToHash.xcmappingmodel,
+				Ifid3ToHash.xcmappingmodel,
+				Ifid4ToHash.xcmappingmodel,
+				Ifid5ToHash.xcmappingmodel,
+				Ifid6ToHash.xcmappingmodel,
+				Ifid7ToHash.xcmappingmodel,
+				Ifid8ToHash.xcmappingmodel,
+				Ifid9ToHash.xcmappingmodel,
+				Ifid10ToHash.xcmappingmodel,
+				Ifid11ToHash.xcmappingmodel,
+				Ifid12ToHash.xcmappingmodel,
+				Ifid13ToHash.xcmappingmodel,
+				IfidToHash.xcmappingmodel,
+			);
+			target = C311DEF425C472E500484639 /* SpatterlightQuickLook */;
+		};
+		C3DB145A2E8418BB00837F69 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Ifid1ToHash.xcmappingmodel,
+				Ifid2ToHash.xcmappingmodel,
+				Ifid3ToHash.xcmappingmodel,
+				Ifid4ToHash.xcmappingmodel,
+				Ifid5ToHash.xcmappingmodel,
+				Ifid6ToHash.xcmappingmodel,
+				Ifid7ToHash.xcmappingmodel,
+				Ifid8ToHash.xcmappingmodel,
+				Ifid9ToHash.xcmappingmodel,
+				Ifid10ToHash.xcmappingmodel,
+				Ifid11ToHash.xcmappingmodel,
+				Ifid12ToHash.xcmappingmodel,
+				Ifid13ToHash.xcmappingmodel,
+				IfidToHash.xcmappingmodel,
+			);
+			target = C322714925CC214A0083BD5B /* SpatterlightThumbnailer */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C3DB14582E8418BB00837F69 /* MappingModels */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C3DB14592E8418BB00837F69 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, C3DB145A2E8418BB00837F69 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = MappingModels; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		55368B55272BF1C500740A0A /* Frameworks */ = {
@@ -3757,6 +3809,9 @@
 				6DD7679B23E45FB7003B605C /* ThemeArrayController.m */,
 				C3DBCEB026E810F30011ABF8 /* CoreDataManager.h */,
 				6D76353522C4F113000873F3 /* CoreDataManager.m */,
+				C3DB14582E8418BB00837F69 /* MappingModels */,
+				C3A72FD82E8281FA00A840EC /* IfidToHashMigrationPolicy.h */,
+				C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */,
 				6DC520A823BAD54B0004923A /* Game.h */,
 				6DC520A923BAD54B0004923A /* Game.m */,
 				6DF73C3323B8F46100F76CF9 /* GlkStyle.h */,
@@ -6282,6 +6337,9 @@
 				966EFA4309F62D4C00FA7F19 /* PBXTargetDependency */,
 				C3D6AD701ECF372000ADB69C /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				C3DB14582E8418BB00837F69 /* MappingModels */,
+			);
 			name = Spatterlight;
 			productName = Spatterlight;
 			productReference = 961CCEC409F239C100528FF9 /* Spatterlight.app */;
@@ -7309,6 +7367,7 @@
 				6DC6214023A26078002DEF3B /* Image.m in Sources */,
 				C341A4A0272B265100A46ED4 /* ComparisonOperation.m in Sources */,
 				C3C2053D268D304500DB7AE0 /* BezelWindow.m in Sources */,
+				C3A72FDA2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */,
 				6DC6214323A26078002DEF3B /* Tag.m in Sources */,
 				6DC6214623A26078002DEF3B /* Interpreter.m in Sources */,
 				C3AD647326176982008614C5 /* FlowBreak.m in Sources */,
@@ -7793,6 +7852,7 @@
 				C30A89252E81BCC800416F0C /* FileSignature.m in Sources */,
 				C36B3892271F710200756D94 /* InfoView.m in Sources */,
 				C3E2EAB525D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m in Sources */,
+				C3A72FDB2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */,
 				C3E2EAB625D08EEC0012B7FB /* UKSyntaxColor.m in Sources */,
 				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
 				C309884825CB1AD300750F72 /* Game.m in Sources */,
@@ -7870,6 +7930,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C30A89272E81BCE100416F0C /* FileSignature.m in Sources */,
+				C3A72FDC2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */,
 				C3CAC15D2699C73200FCB7BF /* NSData+Categories.m in Sources */,
 				C32271C025CC22590083BD5B /* Image.m in Sources */,
 				C32271A625CC22530083BD5B /* Metadata.m in Sources */,

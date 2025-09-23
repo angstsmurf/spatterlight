@@ -163,8 +163,9 @@
         // The Core Data store already exists where we want it
         *needMigrate = NO;
     } else if ([fileManager fileExistsAtPath:oldURL.path]) {
-        // No group container Core Data store exists, but one in
-        // the non-sandboxed Application Support directory, so we try to migrate it.
+        // No group container Core Data store exists, but there
+        // is one in the non-sandboxed Application Support directory,
+        // so we try to migrate it.
         targetURL = oldURL;
         *needMigrate = YES;
     }
