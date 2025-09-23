@@ -2146,6 +2146,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             });
         }];
 
+        operation.queuePriority = NSOperationQueuePriorityVeryHigh;
+        operation.qualityOfService = NSQualityOfServiceUserInteractive;
         [weakSelf.openGameQueue addOperation:operation];
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
