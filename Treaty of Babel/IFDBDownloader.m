@@ -143,10 +143,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             if (error) {
                 if (!data) {
                     NSLog(@"Error connecting: %@", [error localizedDescription]);
-                    [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                        if (reportFailure)
-                            [IFDBDownloader showNoDataFoundBezel];
-                    }];
+                    if (reportFailure)
+                        [IFDBDownloader showNoDataFoundBezel];
                 }
             } else {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
@@ -195,17 +193,13 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                         }
 
                         if (!success && reportFailure) {
-                            [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                                [IFDBDownloader showNoDataFoundBezel];
-                            }];
+                            [IFDBDownloader showNoDataFoundBezel];
                         }
                         [context safeSave];
                     }];
                 } else if (reportFailure) {
                     NSLog(@"httpResponse: url:%@ status code:%ld", httpResponse.URL, httpResponse.statusCode);
-                    [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                        [IFDBDownloader showNoDataFoundBezel];
-                    }];
+                    [IFDBDownloader showNoDataFoundBezel];
                 }
             }
         };
@@ -256,10 +250,10 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 + (void)showNoDataFoundBezel {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:NSScreen.screens.firstObject];
         [bezel showStandardWithText:@"? No data found"];
-    });
+    }];
 }
 
 - (NSOperation *)downloadImageFor:(NSManagedObjectID *)metaID inContext:(NSManagedObjectContext *)context onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force reportFailure:(BOOL)report {
@@ -276,9 +270,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if (!coverArtURL.length) {
         NSLog(@"IFDBDownloader downloadImageFor: found no coverArtURL!");
         if (report) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                [IFDBDownloader showNoDataFoundBezel];
-            }];
+            [IFDBDownloader showNoDataFoundBezel];
         }
         return nil;
     }
@@ -326,9 +318,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if (!url || !([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"])) {
         NSLog(@"Could not create url from %@", coverArtURL);
         if (report) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                [IFDBDownloader showNoDataFoundBezel];
-            }];
+            [IFDBDownloader showNoDataFoundBezel];
         }
         return nil;
     }
@@ -338,9 +328,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             if (!data.length) {
                 NSLog(@"Error connecting to url %@: %@", url, [error localizedDescription]);
                 if (report) {
-                    [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                        [IFDBDownloader showNoDataFoundBezel];
-                    }];
+                    [IFDBDownloader showNoDataFoundBezel];
                 }
                 return;
             }
@@ -363,9 +351,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                     [IFDBDownloader insertImageData:data inMetadataID:metaID context:childChildContext];
                 }];
             } else if (report) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                    [IFDBDownloader showNoDataFoundBezel];
-                }];
+                [IFDBDownloader showNoDataFoundBezel];
             }
         }
     }];
