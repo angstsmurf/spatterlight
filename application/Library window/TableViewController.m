@@ -342,9 +342,9 @@ typedef NS_ENUM(int32_t, kImportResult) {
             }
         }
     }
-    NSArray<Game *> *selected = self.selectedGames;
+    NSArray<Game *> *selected = _selectedGames;
     if (selected.count > 2)
-        selected = @[self.selectedGames[0], self.selectedGames[1]];
+        selected = @[_selectedGames[0], _selectedGames[1]];
     [[NSNotificationCenter defaultCenter]
      postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
 
@@ -2529,7 +2529,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.gameTableDirty = NO;
         [self.gameTableView reloadData];
-        [self selectGames:[NSSet setWithArray:self->_selectedGames]];
+        [self selectGames:[NSSet setWithArray:self.selectedGames]];
         [self invalidateRestorableState];
     });
 }

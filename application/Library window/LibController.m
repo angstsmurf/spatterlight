@@ -272,7 +272,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self.tableViewController updateTableViews];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-        [self.tableViewController selectGamesWithHashes:selectedHashtags scroll:NO];
+        [self.tableViewController selectGamesWithHashes:selectedHashtags scroll:YES];
         NSRect bounds = self.tableViewController.gameTableView.enclosingScrollView.contentView.bounds;
         bounds.origin.y = scrollPosition;
         self.tableViewController.gameTableView.enclosingScrollView.contentView.bounds = bounds;
