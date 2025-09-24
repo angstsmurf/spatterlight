@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class Theme, Game;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Fetches : NSObject

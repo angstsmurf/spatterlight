@@ -63,20 +63,16 @@
 
 + (NSArray *)fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context {
 
-    NSArray __block *fetchedObjects;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:context];
+    fetchRequest.entity = entity;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:predicate];
 
-    [context performBlockAndWait:^{
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:context];
-        fetchRequest.entity = entity;
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:predicate];
-
-        NSError *error = nil;
-        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-        if (fetchedObjects == nil) {
-            NSLog(@"Problem! %@",error);
-        }
-    }];
+    NSError *error = nil;
+    NSArray<NSManagedObject *> *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"Problem! %@",error);
+    }
 
     return fetchedObjects;
 }
