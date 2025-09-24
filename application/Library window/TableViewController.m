@@ -613,12 +613,16 @@ typedef NS_ENUM(int32_t, kImportResult) {
                     ![[NSFileManager defaultManager] fileExistsAtPath:game.urlForBookmark.path]) {
                     if (deleteMissing) {
                         [childContext deleteObject:game];
-                    } else if (game.found) {
+                    } else {
                         game.found = NO;
                     }
                 } else {
-                    if (!game.found)
-                        game.found = YES;
+                    game.found = YES;
+
+                    if (!game.hashTag.length) {
+                        [FolderAccess grantAccessToFile:game.urlForBookmark];
+                        game.hashTag = [game.path signatureFromFile];
+                    }
                 }
             }
         }
