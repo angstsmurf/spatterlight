@@ -21,6 +21,8 @@
 
 @implementation FolderAccess
 
+NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
+
 + (BOOL) supportsSecureCoding {
     return YES;
 }

@@ -45,8 +45,6 @@ NSArray *gGridStyleNames;
 
 NSDictionary *gExtMap;
 NSDictionary *gFormatMap;
-NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
-
 
 NSPasteboardType PasteboardFileURLPromise,
 PasteboardFilePromiseContent,
