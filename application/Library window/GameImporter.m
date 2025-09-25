@@ -74,14 +74,6 @@ extern NSArray *gGameFileTypes;
     TableViewController *tableViewController = _tableViewController;
     NSManagedObjectContext __block *context = options[@"context"];
 
-    int64_t pause = 0;
-    if (numberOfFiles > 1) {
-        pause = (int64_t)(0.1 * NSEC_PER_SEC);
-        if (numberOfFiles > 10) {
-            pause = (int64_t)(0.001 * NSEC_PER_SEC * numberOfFiles);
-        }
-    }
-
     // A block that will run when all files are added
     // and all metadata is downloaded
     void (^internalHandler)(void) = ^void() {
