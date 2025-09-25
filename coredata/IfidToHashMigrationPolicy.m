@@ -74,6 +74,12 @@
 
     // Delete any old hash tags (because we use a new system)
     if ([destinationKeys indexOfObjectIdenticalTo:@"hashTag"] != NSNotFound) {
+        if ([mapping.destinationEntityName isEqualToString:@"Game"]) {
+            NSString *detectedFormat = [sInstance valueForKey:@"detectedFormat"];
+            if (detectedFormat.length && [detectedFormat isEqualToString:@"glulx"]) {
+                [destinationInstance setValue:[sInstance valueForKey:@"hashTag"] forKey:@"serialString"];
+            }
+        }
         [destinationInstance setValue:nil forKey:@"hashTag"];
     }
 
