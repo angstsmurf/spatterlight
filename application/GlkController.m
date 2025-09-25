@@ -1502,7 +1502,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         NSURL *lateUIURL = [newDirURL URLByAppendingPathComponent:@"autosave-GUI-late.plist"];
         NSData *lateUISave = [NSData dataWithContentsOfURL:lateUIURL options:NSDataReadingMappedAlways error:&error];
         if (lateUISave) {
-            result = [lateUISave writeToURL:lateUIURL options:NSDataWritingAtomic error:&error];
+            [lateUISave writeToURL:lateUIURL options:NSDataWritingAtomic error:&error];
         }
     }
 }
