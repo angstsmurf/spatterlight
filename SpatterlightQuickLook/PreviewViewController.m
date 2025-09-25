@@ -359,15 +359,12 @@
             Game *game = fetchedObjects[0];
             Metadata *meta = game.metadata;
 
-            NSDictionary *attributes = [NSEntityDescription
+            NSArray<NSString*> *attributes = [NSEntityDescription
                                         entityForName:@"Metadata"
-                                        inManagedObjectContext:context].attributesByName;
+                                        inManagedObjectContext:context].attributesByName.allKeys;
 
-            _metaDict = [[NSMutableDictionary alloc] initWithCapacity:attributes.count];
+            _metaDict = [meta dictionaryWithValuesForKeys:attributes].mutableCopy;
 
-            for (NSString *attr in attributes) {
-                [_metaDict setValue:[meta valueForKey:attr] forKey:attr];
-            }
             _metaDict[@"ifid"] = game.ifid;
             _metaDict[@"cover"] = game.metadata.cover.data;
             _metaDict[@"lastPlayed"] = game.lastPlayed;
