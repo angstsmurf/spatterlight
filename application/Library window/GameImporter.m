@@ -444,7 +444,11 @@ void freeContext(void **ctx) {
         game.metadata = metadata;
 
         if ([game.detectedFormat isEqualToString:@"zcode"]) {
+            // Used when associating save file with game
             [self addZCodeIDfromFile:path blorb:blorb toGame:game];
+        } else if ([game.detectedFormat isEqualToString:@"glulx"]) {
+            // Used when associating save file with game
+            game.serialString = [path oldSignatureFromFile];
         }
         blorb = nil;
         NSLog(@"GameImporter importGame: Title: %@ Hash:%@", game.metadata.title, game.hashTag);
