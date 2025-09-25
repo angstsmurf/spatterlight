@@ -2695,6 +2695,8 @@
 		96FE867109F38BF600D41D78 /* tadsr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tadsr; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FE876009F3A11900D41D78 /* libtads2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FE876509F3A12B00D41D78 /* libtads3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads3.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C300775C2E869F9300C32069 /* Spatterlight 14_1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 14_1.xcdatamodel"; sourceTree = "<group>"; };
+		C300775E2E869FA900C32069 /* Spatterlight 14_ 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 14_ 2.xcdatamodel"; sourceTree = "<group>"; };
 		C300D48223A11786000B2165 /* IFDBDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IFDBDownloader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C300D48323A11786000B2165 /* IFDBDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IFDBDownloader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C30135BC27219AC60006B85C /* DownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadOperation.h; sourceTree = "<group>"; };
@@ -2952,6 +2954,7 @@
 		C39613FC28E5D0B300A13624 /* saga.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = saga.h; sourceTree = "<group>"; };
 		C39613FD28E5D0B300A13624 /* saga.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = saga.c; sourceTree = "<group>"; };
 		C396140028E6112100A13624 /* pcdraw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pcdraw.h; sourceTree = "<group>"; };
+		C396691B2E85EA50008A75A7 /* Spatterlight 13_5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 13_5.xcdatamodel"; sourceTree = "<group>"; };
 		C396E8EF2732B2CE0090B5DF /* quest4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest4.c; sourceTree = "<group>"; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
 		C3998E2126C97A4E002C1E5D /* AGT-03201-0000E16C.agx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AGT-03201-0000E16C.agx"; sourceTree = "<group>"; };
@@ -11157,7 +11160,10 @@
 			isa = XCVersionGroup;
 			children = (
 				C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */,
+				C300775E2E869FA900C32069 /* Spatterlight 14_ 2.xcdatamodel */,
+				C300775C2E869F9300C32069 /* Spatterlight 14_1.xcdatamodel */,
 				C3C2EA002C5F671E00D567EB /* Spatterlight 14.xcdatamodel */,
+				C396691B2E85EA50008A75A7 /* Spatterlight 13_5.xcdatamodel */,
 				C30D583F295F539100BA063C /* Spatterlight 13.xcdatamodel */,
 				C3EE1A6127CACFE30008D790 /* Spatterlight 12.xcdatamodel */,
 				C39D4A21270BABE100517633 /* Spatterlight 11.xcdatamodel */,

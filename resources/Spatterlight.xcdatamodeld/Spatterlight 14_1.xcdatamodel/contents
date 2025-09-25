@@ -156,7 +156,7 @@
         <attribute name="spaceFormat" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="spacingColor" optional="YES" attributeType="Transformable" valueTransformerName="ColorTransformer"/>
         <attribute name="vODelayOn" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
-        <attribute name="vOHackDelay" optional="YES" attributeType="Double" minValueString="0" maxValueString="10" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="vOHackDelay" optional="YES" attributeType="Double" minValueString="0" maxValueString="10" defaultValueString="4" usesScalarValueType="YES"/>
         <attribute name="vOSpeakCommand" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="vOSpeakImages" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="vOSpeakMenu" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
@@ -166,7 +166,7 @@
         <attribute name="z6GraphicsType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="z6Simulate16Color" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="zMachineLetter" optional="YES" attributeType="String" defaultValueString="S"/>
-        <attribute name="zMachineTerp" optional="YES" attributeType="Integer 32" defaultValueString="4" usesScalarValueType="YES"/>
+        <attribute name="zMachineTerp" optional="YES" attributeType="Integer 32" minValueString="1" maxValueString="11" defaultValueString="4" usesScalarValueType="YES"/>
         <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufAlert" inverseEntity="GlkStyle"/>
         <relationship name="bufBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufBlock" inverseEntity="GlkStyle"/>
         <relationship name="bufEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufEmph" inverseEntity="GlkStyle"/>
