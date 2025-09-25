@@ -144,7 +144,6 @@
                     NSLog(@"createRelationshipsForDestinationInstance: Error! Metadata %@ already has game (%@)!", metadata.title, metadata.game.ifid);
                 }
                 game.metadata = metadata;
-                NSLog(@"Setting metadata relation for game %@ to entity with hashTag %@", metadata.title, metadata.hashTag);
                 metadata.hashTag = nil;
             } else {
                 NSLog(@"createRelationshipsForDestinationInstance: Found no suitable Metadata instance for game!");
@@ -226,9 +225,6 @@
                         break;
                     }
                 }
-            }
-            if (destinationMeta.game == nil) {
-                NSLog(@"createRelationshipsForDestinationInstance: Found no game for metadata %@", destinationMeta.title);
             }
         }
     // Create relationships for Image
