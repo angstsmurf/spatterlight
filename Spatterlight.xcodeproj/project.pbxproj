@@ -674,6 +674,7 @@
 		C3A3EA0D284BAE8400C8A693 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA0C284BAE8400C8A693 /* parseinput.c */; };
 		C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA10284BAEA300C8A693 /* loaddatabase.c */; };
 		C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA16284BAF0000C8A693 /* graphics.c */; };
+		C3A6E9A52E84B75B00908EE6 /* Ifid.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213C23A26078002DEF3B /* Ifid.m */; };
 		C3A72FDA2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
 		C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3027A676630032C068 /* c64decrunch.c */; };
 		C3A9FD3327A6E56C0032C068 /* scottgameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */; };
@@ -7819,6 +7820,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3A6E9A52E84B75B00908EE6 /* Ifid.m in Sources */,
 				C30A89252E81BCC800416F0C /* FileSignature.m in Sources */,
 				C36B3892271F710200756D94 /* InfoView.m in Sources */,
 				C3E2EAB525D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m in Sources */,

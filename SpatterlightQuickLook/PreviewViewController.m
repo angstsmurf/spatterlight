@@ -1075,6 +1075,7 @@
         return nil;
     }
     Game __block *game = nil;
+    Metadata __block *metadata = nil;
 
     [context performBlockAndWait:^{
         NSError *error = nil;
@@ -1084,10 +1085,17 @@
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", ifid];
 
         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-        if (fetchedObjects && fetchedObjects.count) {
-            if (fetchedObjects.count > 1)
-                NSLog(@"Found %ld games with ifid %@", fetchedObjects.count, ifid);
+        if (fetchedObjects.count) {
             game = fetchedObjects.firstObject;
+        } else {
+            NSFetchRequest *fetchRequest = [Ifid fetchRequest];
+            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@", ifid];
+            fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+            if (fetchedObjects.count) {
+                Ifid *ifidObj = fetchedObjects.firstObject;
+                metadata = ifidObj.metadata;
+                game = metadata.game;
+            }
         }
     }];
 
@@ -1095,7 +1103,7 @@
         [self addImageFromGame:game];
         return game.metadata.title;
     } else {
-        return nil;
+        return metadata.title;
     }
 }
 
@@ -1239,8 +1247,6 @@ void freeContext(void **ctx) {
                             fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
                         }
 
-                        if (fetchedObjects.count > 1)
-                            NSLog(@"Found %ld matching games!", fetchedObjects.count);
                         game = fetchedObjects.firstObject;
 
                     }];
