@@ -98,7 +98,7 @@
 
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
                 if (error != nil) {
-                    NSLog(@"Failed to load Core Data stack: %@", error);
+                    NSLog(@"Spatterlight Quick Look: Failed to load Core Data stack: %@", error);
                 }
             }];
         }
