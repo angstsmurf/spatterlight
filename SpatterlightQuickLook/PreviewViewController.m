@@ -1115,7 +1115,7 @@
         NSArray *fetchedObjects;
 
         NSFetchRequest *fetchRequest = [Game fetchRequest];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@", hash];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"serialString like[c] %@", hash];
 
         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
         if (fetchedObjects && fetchedObjects.count) {
