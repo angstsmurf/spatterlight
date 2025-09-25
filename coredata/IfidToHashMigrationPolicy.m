@@ -44,10 +44,8 @@
 
     if (cover) {
         NSString *originalURL = [cover valueForKey:@"originalURL"];
-        if (![destinationMetadata.coverArtURL isEqualToString:originalURL]) {
-            NSLog(@"Wrong coverArtURL: expected %@, got %@", originalURL, destinationMetadata.coverArtURL);
+        if (originalURL.length && ![destinationMetadata.coverArtURL isEqualToString:originalURL]) {
             destinationMetadata.coverArtURL = originalURL;
-
         }
     }
 
@@ -87,9 +85,9 @@
     [manager associateSourceInstance:sInstance withDestinationInstance:destinationInstance forEntityMapping:mapping];
 
     if ([mapping.destinationEntityName isEqualToString:@"Metadata"]) {
-        NSString *title = (NSString *)sourceValues[@"title"];
-        if (!title.length) {
-            NSLog(@"Metadata entity has no title");
+        NSObject *title = sourceValues[@"title"];
+        if ([title isEqual:[NSNull null]] || ![title respondsToSelector:NSSelectorFromString(@"title")] || [(NSString *)title length] == 0) {
+            [destinationInstance setValue:@"" forKey:@"title"];
         }
         // if this Metadata entity has more than one games entity:
         // loop through remaining games (after the first)
@@ -111,7 +109,8 @@
     } else if ([mapping.destinationEntityName isEqualToString:@"Game"]) {
         Game *game = (Game *)destinationInstance;
         if (game.found && !game.hashTag.length) {
-            [FolderAccess grantAccessToFile:game.urlForBookmark];
+            if ([game respondsToSelector:NSSelectorFromString(@"urlForBookmark")])
+                [FolderAccess grantAccessToFile:[game urlForBookmark]];
             game.hashTag = [game.path signatureFromFile];
         }
     }
@@ -167,6 +166,14 @@
                     NSLog(@"Fail!");
                 }
             }
+        }
+        if (game.metadata && game.metadata.title.length == 0) {
+            if (game.path.length) {
+                game.metadata.title = [game.path lastPathComponent];
+            } else {
+                game.metadata.title = @"Untitled";
+            }
+            NSLog(@"Set title of game to %@", game.metadata.title);
         }
     // Create relationships for Metadata
     } else if ([dInstance.entity.name isEqualToString:@"Metadata"]) {
