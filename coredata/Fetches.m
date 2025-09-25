@@ -72,6 +72,7 @@
     NSArray<NSManagedObject *> *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
         NSLog(@"Problem! %@",error);
+        fetchedObjects = @[];
     }
 
     return fetchedObjects;
