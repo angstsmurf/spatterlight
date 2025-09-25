@@ -674,6 +674,7 @@
 		C3A3EA0D284BAE8400C8A693 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA0C284BAE8400C8A693 /* parseinput.c */; };
 		C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA10284BAEA300C8A693 /* loaddatabase.c */; };
 		C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA16284BAF0000C8A693 /* graphics.c */; };
+		C3A6E9A52E84B75B00908EE6 /* Ifid.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213C23A26078002DEF3B /* Ifid.m */; };
 		C3A72FDA2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
 		C3A72FDB2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
 		C3A72FDC2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
