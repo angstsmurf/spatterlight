@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="14">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="13">
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="added" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="autosaved" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -123,6 +123,7 @@
         <attribute name="cellHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="cellWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="coverArtStyle" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="cursorShape" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="dashes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="defaultCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="defaultRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -141,6 +142,12 @@
         <attribute name="hardDark" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="hardLight" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="hardLightOrDark" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="imageSizing" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="justify" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="maxCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="maxRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="minCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="minRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="minTimer" optional="YES" attributeType="Double" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="morePrompt" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="name" optional="YES" attributeType="String" minValueString="1"/>
@@ -155,16 +162,13 @@
         <attribute name="smoothScroll" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="spaceFormat" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="spacingColor" optional="YES" attributeType="Transformable" valueTransformerName="ColorTransformer"/>
-        <attribute name="vODelayOn" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
-        <attribute name="vOHackDelay" optional="YES" attributeType="Double" minValueString="0" maxValueString="10" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="vOExtraElements" optional="YES" attributeType="Integer 32" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="vOSpeakCommand" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="vOSpeakImages" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="vOSpeakInputType" optional="YES" attributeType="Integer 32" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="vOSpeakMenu" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="winSpacingX" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="winSpacingY" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="z6Colorize1Bit" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="z6GraphicsType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="z6Simulate16Color" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="zMachineLetter" optional="YES" attributeType="String" defaultValueString="S"/>
         <attribute name="zMachineTerp" optional="YES" attributeType="Integer 32" defaultValueString="4" usesScalarValueType="YES"/>
         <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufAlert" inverseEntity="GlkStyle"/>
