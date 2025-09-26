@@ -156,14 +156,14 @@ frefid_t glk_fileref_create_from_fileref(glui32 usage, frefid_t oldfref, glui32 
 }
 
 frefid_t gli_fileref_create_by_string_in_dir(glui32 usage, char *name, char *dirname, size_t dirlen,
-                                    glui32 rock)
+                                    glui32 add_suffix, glui32 rock)
 {
     fileref_t *fref;
     char buf[BUFLEN];
     char buf2[2*BUFLEN+10];
     unsigned long len;
     char *cx;
-    char *suffix;
+    char *suffix = NULL;
 
     /* The new spec recommendations: delete all characters in the
      string "/\<>:|?*" (including quotes). Truncate at the first
@@ -195,8 +195,11 @@ frefid_t gli_fileref_create_by_string_in_dir(glui32 usage, char *name, char *dir
     }
 
     len += dirlen;
-    suffix = gli_suffix_for_usage(usage);
-    len += strlen(suffix);
+    if (add_suffix) {
+        suffix = gli_suffix_for_usage(usage);
+        len += strlen(suffix);
+    }
+
     snprintf(buf2, len + 2, "%s/%s%s", dirname, buf, suffix);
 
     fref = gli_new_fileref(buf2, usage, rock);
@@ -210,7 +213,7 @@ frefid_t garglk_fileref_create_in_game_dir(glui32 usage, char *name, glui32 rock
         return NULL;
     }
 
-    fileref_t *fref = gli_fileref_create_by_string_in_dir(usage, name, gli_parentdir, gli_parentdirlength, rock);
+    fileref_t *fref = gli_fileref_create_by_string_in_dir(usage, name, gli_parentdir, gli_parentdirlength, 0, rock);
 
     if (!fref) {
         gli_strict_warning("garglk_fileref_create_in_game_dir: unable to create fileref.");
@@ -229,7 +232,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
     }
 
     size_t len = strlen(gli_workdir);
-    fileref_t *fref = gli_fileref_create_by_string_in_dir(usage, name, gli_workdir, len, rock);
+    fileref_t *fref = gli_fileref_create_by_string_in_dir(usage, name, gli_workdir, len, 1, rock);
     if (!fref) { gli_strict_warning("fileref_create_by_name: unable to create fileref.");
     }
     return fref;
