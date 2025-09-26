@@ -510,7 +510,7 @@
 }
 
 - (IBAction)downloadImage:(id)sender {
-    TableViewController *libController = ((AppDelegate*)NSApp.delegate).tableViewController;
+    TableViewController *libController = ((AppDelegate *)NSApp.delegate).tableViewController;
     libController.lastImageComparisonData = nil;
     NSManagedObjectContext *context = libController.managedObjectContext;
     Game *game = [context objectWithID:_gameObjID];
