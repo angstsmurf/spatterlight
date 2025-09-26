@@ -21,6 +21,7 @@
 #import "NSData+Categories.h"
 #import "OSImageHashing.h"
 #import "Preferences.h"
+#import "Constants.h"
 
 // Treaty of babel header
 #include "babel_handler.h"
@@ -315,9 +316,11 @@ void freeContext(void **ctx) {
     s = strchr(format, ' ');
     if (s) format = s+1;
 
+    NSString *formatStr = @(format);
+
     rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
+    freeContext(&ctx);
     if (rv <= 0) {
-        freeContext(&ctx);
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
@@ -334,18 +337,21 @@ void freeContext(void **ctx) {
     s = strchr(buf, ',');
     if (s) *s = 0;
     ifid = @(buf);
-    freeContext(&ctx);
 
-    if (([extension isEqualToString:@"dat"] &&
-         !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
-           [@(format) isEqualToString:@"level9"] ||
-           [@(format) isEqualToString:@"advsys"] ||
-           [@(format) isEqualToString:@"sagaplus"] ||
-           [@(format) isEqualToString:@"scott"] )) ||
-        ([extension isEqualToString:@"sna"] && [@(format) isEqualToString:@"alan"]) ||
-        ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"]) ||
-        (([extension isEqualToString:@"msa"] || [extension isEqualToString:@"st"]) && ![@(format) isEqualToString:@"sagaplus"]) ||
-        (([extension isEqualToString:@"d64"] || [extension isEqualToString:@"dsk"]) && ![@(format) isEqualToString:@"scott"] && ![@(format) isEqualToString:@"taylor"] && ![@(format) isEqualToString:@"sagaplus"])) {
+    NSString *terp = gExtMap[path.pathExtension.lowercaseString];
+
+    if (!terp)
+        terp = gFormatMap[formatStr];
+
+    if (!terp || ([extension isEqualToString:@"dat"] &&
+         !(([formatStr isEqualToString:@"zcode"] && [self checkZcode:path]) ||
+           [formatStr isEqualToString:@"level9"] ||
+           [formatStr isEqualToString:@"advsys"] ||
+           [formatStr isEqualToString:@"sagaplus"] ||
+           [formatStr isEqualToString:@"scott"] )) ||
+        ([extension isEqualToString:@"gam"] && ![formatStr isEqualToString:@"tads2"]) ||
+        (([extension isEqualToString:@"msa"] || [extension isEqualToString:@"st"]) && ![formatStr isEqualToString:@"sagaplus"]) ||
+        (([extension isEqualToString:@"d64"] || [extension isEqualToString:@"dsk"]) && ![formatStr isEqualToString:@"scott"] && ![formatStr isEqualToString:@"taylor"] && ![formatStr isEqualToString:@"sagaplus"])) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
@@ -359,7 +365,7 @@ void freeContext(void **ctx) {
         return nil;
     }
 
-    NSLog(@"GameImporter: import game %@ (%s)", path, format);
+    NSLog(@"GameImporter: import game %@ (%@)", path, formatStr);
 
     if (ifid == nil) {
         // If this happens, it means the Babel tool did not
@@ -403,7 +409,7 @@ void freeContext(void **ctx) {
         [metadata createIfid:ifid];
 
         if (!metadata.format)
-            metadata.format = @(format);
+            metadata.format = formatStr;
         if (metadata.title.length == 0) {
             metadata.title = path.lastPathComponent;
         }
