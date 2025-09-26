@@ -830,7 +830,7 @@
     if (_metaDict[@"ifid"])
         ifid = (NSString *)_metaDict[@"ifid"];
     if (!ifid.length) {
-        [self ifidFromFile:url.path];
+        [PreviewViewController ifidFromFile:url.path];
     }
     if (ifid.length) {
         [self addInfoLine:[@"IFID: " stringByAppendingString:ifid] attributes:attrDict linebreak:YES];
@@ -1132,35 +1132,29 @@
     }
 }
 
-void freeContext(void **ctx) {
-    babel_release_ctx(*ctx);
-    free(*ctx);
-}
-
-- (NSString *)ifidFromFile:(NSString *)path {
++ (NSString *)ifidFromFile:(NSString *)path {
     if (!path.length)
         return nil;
     void *context = get_babel_ctx();
     if (context == NULL) {
         return nil;
     }
-    char *format = babel_init_ctx((char *)path.fileSystemRepresentation, context);
-    if (!format || !babel_get_authoritative_ctx(context))
-    {
-        freeContext(&context);
-        return nil;
-    }
 
+    int rv = 0;
     char buf[TREATY_MINIMUM_EXTENT];
 
-    int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
-    if (rv <= 0)
-    {
-        freeContext(&context);
+    char *format = babel_init_ctx((char *)path.fileSystemRepresentation, context);
+    if (format && babel_get_authoritative_ctx(context)) {
+        rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
+    }
+
+    babel_release_ctx(context);
+    free(context);
+
+    if (rv <= 0) {
         return nil;
     }
 
-    freeContext(&context);
     return @(buf);
 }
 
