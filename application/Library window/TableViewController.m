@@ -220,7 +220,7 @@ typedef NS_ENUM(int32_t, kImportResult) {
     _currentlyAddingGames = NO;
     _ifictionMatches = [[NSMutableDictionary alloc] init];
     _ifictionPartialMatches = [[NSMutableDictionary alloc] init];
-    
+
     NSError *error;
     NSURL *appSuppDir = [[NSFileManager defaultManager]
                          URLForDirectory:NSApplicationSupportDirectory
@@ -321,9 +321,10 @@ typedef NS_ENUM(int32_t, kImportResult) {
 
     [self rebuildThemesSubmenu];
 
+    [self verifyInBackground:nil];
+
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"RecheckForMissing"]) {
         [self startVerifyTimer];
-        [self verifyInBackground:nil];
     }
 
     [[NSNotificationCenter defaultCenter]
@@ -583,7 +584,65 @@ typedef NS_ENUM(int32_t, kImportResult) {
     return choice;
 }
 
-- (void)verifyInBackground:(id)sender {
++ (NSString *)ifidFromFile:(NSString *)path {
+    if (!path.length)
+        return nil;
+    void *context = get_babel_ctx();
+    if (context == NULL) {
+        return nil;
+    }
+
+    int rv = 0;
+    char buf[TREATY_MINIMUM_EXTENT];
+
+    char *format = babel_init_ctx((char *)path.fileSystemRepresentation, context);
+    if (format && babel_get_authoritative_ctx(context)) {
+        rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
+    }
+
+    babel_release_ctx(context);
+    free(context);
+
+    if (rv <= 0) {
+        return nil;
+    }
+
+    return @(buf);
+}
+
++ (void)deleteGameMetaAndIfid:(Game *)game inContext:(NSManagedObjectContext *)context {
+    NSSet *ifids = game.metadata.ifids.copy;
+    for (Ifid *ifid in ifids) {
+        [context deleteObject:ifid];
+    }
+    [context deleteObject:game.metadata];
+    [context deleteObject:game];
+}
+
+
++ (void)deleteIfDuplicate:(NSString *)hashTag inContext:(NSManagedObjectContext *)context {
+    if (!hashTag.length)
+        return;
+    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@",hashTag];
+
+    NSArray<Game *> *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"Problem! %@",error);
+    }
+
+    if (fetchedObjects.count > 1) {
+        Game *first = fetchedObjects.firstObject;
+        for (Game *game in fetchedObjects) {
+            if (game != first) {
+                [TableViewController deleteGameMetaAndIfid:game inContext:context];
+            }
+        }
+    }
+}
+
+- (void)verifyInBackground:(nullable id)sender {
     if (verifyIsCancelled) {
         verifyIsCancelled = NO;
         return;
@@ -609,10 +668,27 @@ typedef NS_ENUM(int32_t, kImportResult) {
             }
             Game *game = [childContext objectWithID:gameInMain.objectID];
             if (game) {
-                if (![[NSFileManager defaultManager] fileExistsAtPath:game.path] &&
-                    ![[NSFileManager defaultManager] fileExistsAtPath:game.urlForBookmark.path]) {
+                NSURL *gameURL = game.urlForBookmark;
+
+                NSString *path = nil;
+
+                if (gameURL) {
+                    path = gameURL.path;
+                } else {
+                    path = game.path;
+                }
+
+                // Check if the game is playable
+                NSString *terp = gExtMap[path.pathExtension.lowercaseString];
+                if (!terp)
+                    terp = gFormatMap[game.detectedFormat];
+                if (!terp) {
+                    [TableViewController deleteGameMetaAndIfid:game inContext:childContext];
+                }
+
+                if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
                     if (deleteMissing) {
-                        [childContext deleteObject:game];
+                        [TableViewController deleteGameMetaAndIfid:game inContext:childContext];
                     } else {
                         game.found = NO;
                     }
@@ -620,10 +696,22 @@ typedef NS_ENUM(int32_t, kImportResult) {
                     game.found = YES;
 
                     if (!game.hashTag.length) {
-                        [FolderAccess grantAccessToFile:game.urlForBookmark];
-                        game.hashTag = [game.path signatureFromFile];
+                        [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:path isDirectory:NO] andThenRunBlock:^{
+                            NSString *ifid = [TableViewController ifidFromFile:path];
+                            if (![ifid isEqualToString:game.ifid]) {
+                                BOOL hidden = game.hidden;
+                                [TableViewController deleteGameMetaAndIfid:game inContext:childContext];
+                                GameImporter *importer = [[GameImporter alloc] initWithTableViewController:self];
+                                [importer importGame:path inContext:childContext reportFailure:NO hide:hidden];
+                            } else {
+                                game.hashTag = [path signatureFromFile];
+                                game.metadata.hashTag = game.hashTag;
+                            }
+                            [TableViewController deleteIfDuplicate:game.hashTag inContext:childContext];
+                        }];
                     }
                 }
+                [TableViewController deleteIfDuplicate:game.hashTag inContext:childContext];
             }
         }
         [childContext safeSave];
