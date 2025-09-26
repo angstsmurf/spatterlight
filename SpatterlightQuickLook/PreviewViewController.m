@@ -363,7 +363,11 @@
                                         entityForName:@"Metadata"
                                         inManagedObjectContext:context].attributesByName.allKeys;
 
-            _metaDict = [meta dictionaryWithValuesForKeys:attributes].mutableCopy;
+            _metaDict = [[NSMutableDictionary alloc] initWithCapacity:attributes.count];
+
+            for (NSString *attr in attributes) {
+                [_metaDict setValue:[meta valueForKey:attr] forKey:attr];
+            }
 
             _metaDict[@"ifid"] = game.ifid;
             _metaDict[@"cover"] = game.metadata.cover.data;
