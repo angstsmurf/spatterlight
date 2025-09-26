@@ -256,7 +256,6 @@
     iFiction = NO;
 
     NSString *extension = url.pathExtension.lowercaseString;
-
     if ([extension isEqualToString:@"ifiction"]) {
         iFiction = YES;
         [_imageView removeFromSuperview];
@@ -885,15 +884,20 @@
             }
         }
 
-        BOOL noMeta = (!((NSString *)metadict[@"headline"]).length && !((NSString *)metadict[@"author"]).length && !((NSString *)metadict[@"blurb"]).length);
+
+        NSString *headlineString = (NSString *)metadict[@"headline"];
+        NSString *authorString = (NSString *)metadict[@"author"];
+        NSString *blurbString = (NSString *)metadict[@"blurb"];
+
+        BOOL noMeta = (headlineString.length + authorString.length + blurbString.length == 0);
 
         [self addStarRating:metadict];
         attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
-        [self addInfoLine:metadict[@"headline"] attributes:attrDict linebreak:YES];
-        [self addInfoLine:metadict[@"author"] attributes:attrDict linebreak:YES];
-        if (!metadict[@"author"])
+        [self addInfoLine:headlineString attributes:attrDict linebreak:YES];
+        [self addInfoLine:authorString attributes:attrDict linebreak:YES];
+        if (!authorString.length)
             [self addInfoLine:metadict[@"AUTH"] attributes:attrDict linebreak:YES];
-        [self addInfoLine:metadict[@"blurb"] attributes:attrDict linebreak:YES];
+        [self addInfoLine:blurbString attributes:attrDict linebreak:YES];
 
         [self addInfoLine:metadict[@"ANNO"] attributes:attrDict linebreak:YES];
         if (metadict[@"(c) "])
@@ -977,8 +981,10 @@
     if (fileAttributes) {
         NSDate *modificationDate = (NSDate *)fileAttributes[NSFileModificationDate];
         [self addInfoLine:[NSString stringWithFormat:@"Last modified: %@", [InfoView formattedStringFromDate:modificationDate]] attributes:attrDict linebreak:YES];
-
-        NSInteger fileSize = ((NSNumber *)fileAttributes[NSFileSize]).integerValue;
+        NSNumber *fileSizeObj = (NSNumber *)fileAttributes[NSFileSize];
+        NSInteger fileSize = 0;
+        if (fileSizeObj)
+            fileSize = fileSizeObj.integerValue;
         NSString *fileSizeString = [PreviewViewController unitStringFromBytes:fileSize];
         _metaDict[@"fileSize"] = fileSizeString;
         [self addInfoLine:fileSizeString attributes:attrDict linebreak:YES];
