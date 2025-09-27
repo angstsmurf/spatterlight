@@ -610,7 +610,13 @@ typedef NS_ENUM(int32_t, kImportResult) {
     return @(buf);
 }
 
-+ (void)deleteGameMetaAndIfid:(Game *)game inContext:(NSManagedObjectContext *)context {
+- (void)deleteGameMetaAndIfid:(Game *)game inContext:(NSManagedObjectContext *)context {
+    // Don't delete games that are playing
+    for (GlkController *session in _gameSessions.allValues) {
+        if ([session.game.hashTag isEqual:game.hashTag]) {
+            return;
+        }
+    }
     NSSet *ifids = game.metadata.ifids.copy;
     for (Ifid *ifid in ifids) {
         [context deleteObject:ifid];
@@ -620,7 +626,7 @@ typedef NS_ENUM(int32_t, kImportResult) {
 }
 
 
-+ (void)deleteIfDuplicate:(NSString *)hashTag inContext:(NSManagedObjectContext *)context {
+- (void)deleteIfDuplicate:(NSString *)hashTag inContext:(NSManagedObjectContext *)context {
     if (!hashTag.length)
         return;
     NSError *error = nil;
@@ -636,7 +642,7 @@ typedef NS_ENUM(int32_t, kImportResult) {
         Game *first = fetchedObjects.firstObject;
         for (Game *game in fetchedObjects) {
             if (game != first) {
-                [TableViewController deleteGameMetaAndIfid:game inContext:context];
+                [self deleteGameMetaAndIfid:game inContext:context];
             }
         }
     }
@@ -683,12 +689,12 @@ typedef NS_ENUM(int32_t, kImportResult) {
                 if (!terp)
                     terp = gFormatMap[game.detectedFormat];
                 if (!terp) {
-                    [TableViewController deleteGameMetaAndIfid:game inContext:childContext];
+                    [self deleteGameMetaAndIfid:game inContext:childContext];
                 }
 
                 if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
                     if (deleteMissing) {
-                        [TableViewController deleteGameMetaAndIfid:game inContext:childContext];
+                        [self deleteGameMetaAndIfid:game inContext:childContext];
                     } else {
                         game.found = NO;
                     }
@@ -700,18 +706,18 @@ typedef NS_ENUM(int32_t, kImportResult) {
                             NSString *ifid = [TableViewController ifidFromFile:path];
                             if (![ifid isEqualToString:game.ifid]) {
                                 BOOL hidden = game.hidden;
-                                [TableViewController deleteGameMetaAndIfid:game inContext:childContext];
+                                [self deleteGameMetaAndIfid:game inContext:childContext];
                                 GameImporter *importer = [[GameImporter alloc] initWithTableViewController:self];
                                 [importer importGame:path inContext:childContext reportFailure:NO hide:hidden];
                             } else {
                                 game.hashTag = [path signatureFromFile];
                                 game.metadata.hashTag = game.hashTag;
                             }
-                            [TableViewController deleteIfDuplicate:game.hashTag inContext:childContext];
+                            [self deleteIfDuplicate:game.hashTag inContext:childContext];
                         }];
                     }
                 }
-                [TableViewController deleteIfDuplicate:game.hashTag inContext:childContext];
+                [self deleteIfDuplicate:game.hashTag inContext:childContext];
             }
         }
         [childContext safeSave];
