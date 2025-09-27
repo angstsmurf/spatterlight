@@ -7932,10 +7932,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C30077D92E871FA600C32069 /* NSString+Categories.m in Sources */,
-				C30A89272E81BCE100416F0C /* FileSignature.m in Sources */,
-				C3A72FDC2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */,
-				C3CAC15D2699C73200FCB7BF /* NSData+Categories.m in Sources */,
 				C322718C25CC224F0083BD5B /* Game.m in Sources */,
 				C32271C025CC22590083BD5B /* Image.m in Sources */,
 				C32271A625CC22530083BD5B /* Metadata.m in Sources */,
