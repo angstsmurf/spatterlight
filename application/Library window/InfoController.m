@@ -145,7 +145,9 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    if (@available(macOS 13, *)) {
+    if (@available(macOS 15, *)) {
+        self.window.backgroundColor = [NSColor colorNamed:@"customWindowSequoia"];
+    } else if (@available(macOS 13, *)) {
         self.window.backgroundColor = [NSColor colorNamed:@"customWindowVentura"];
     } else if (@available(macOS 12, *)) {
         self.window.backgroundColor = [NSColor colorNamed:@"customWindowMonterey"];
