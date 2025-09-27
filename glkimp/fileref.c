@@ -171,22 +171,28 @@ frefid_t gli_fileref_create_by_string_in_dir(glui32 usage, char *name, char *dir
      an appropriate suffix: ".glkdata", ".glksave", ".txt".
      */
 
-    for (cx=name, len=0; (*cx && *cx!='.' && len<BUFLEN-1); cx++) {
-        switch (*cx) {
-            case '"':
-            case '\\':
-            case '/':
-            case '>':
-            case '<':
-            case ':':
-            case '|':
-            case '?':
-            case '*':
-                break;
-            default:
-                buf[len++] = *cx;
+    if (add_suffix) {
+        for (cx=name, len=0; (*cx && *cx!='.' && len<BUFLEN-1); cx++) {
+            switch (*cx) {
+                case '"':
+                case '\\':
+                case '/':
+                case '>':
+                case '<':
+                case ':':
+                case '|':
+                case '?':
+                case '*':
+                    break;
+                default:
+                    buf[len++] = *cx;
+            }
         }
+    } else {
+        len = strnlen(name, BUFLEN);
+        memcpy(buf, name, len);
     }
+
     buf[len] = '\0';
 
     if (len == 0) {
