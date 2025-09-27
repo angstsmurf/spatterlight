@@ -647,6 +647,21 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
     return 1;
 }
 
+// The only available source of Mission Impossible/Secret Mission
+// has an error at offset 0xfac1, but the correct data is available
+// at another offset on the disk image, so we copy it to the right
+// place.
+void PatchIfMissionImpossible(uint8_t *data, size_t size) {
+    uint8_t source[0x30];
+
+    if (size > 0xfaf1) {
+        memcpy(source, data + 0xfac1, 0x30);
+        if (memcmp(source, "\x0ahigh above the reactor core\x12maintenance room 2\x12", 0x30) == 0) {
+            memcpy(data + 0x914, source, 0x30);
+        }
+    }
+}
+
 static const uint8_t atrheader[6] = { 0x96, 0x02, 0x80, 0x16, 0x80, 0x00 };
 
 GameIDType DetectAtari8(uint8_t **sf, size_t *extent)
@@ -666,11 +681,14 @@ GameIDType DetectAtari8(uint8_t **sf, size_t *extent)
     size_t companionsize;
     uint8_t *companionfile = GetAtari8CompanionFile(&companionsize);
 
+    PatchIfMissionImpossible(*sf, *extent);
+
     ImageWidth = 280;
     ImageHeight = 158;
     result = LoadBinaryDatabase(*sf + data_start, *extent - data_start, *Game, 0);
     if (result == UNKNOWN_GAME && companionfile != NULL && companionsize > data_start) {
         debug_print("Could not find database in this file, trying the companion file\n");
+        PatchIfMissionImpossible(companionfile, companionsize);
         result = LoadBinaryDatabase(companionfile + data_start, companionsize - data_start, *Game, 0);
         if (result != UNKNOWN_GAME) {
             debug_print("Found database in companion file. Switching files.\n");
