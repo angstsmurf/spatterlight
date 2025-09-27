@@ -11,8 +11,8 @@
 #import <BlorbFramework/Blorb.h>
 
 #import "Game.h"
-#import "Metadata.h"
 #import "Image.h"
+#import "Metadata.h"
 #import "NSString+Categories.h"
 
 @implementation ThumbnailProvider

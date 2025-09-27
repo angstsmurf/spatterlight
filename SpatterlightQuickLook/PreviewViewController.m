@@ -12,9 +12,9 @@
 #import <BlorbFramework/BlorbFramework.h>
 
 #import "Game.h"
-#import "Metadata.h"
-#import "Image.h"
 #import "Ifid.h"
+#import "Image.h"
+#import "Metadata.h"
 
 #import "NSData+Categories.h"
 #import "NSString+Categories.h"

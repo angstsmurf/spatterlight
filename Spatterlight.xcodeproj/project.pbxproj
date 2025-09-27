@@ -739,7 +739,6 @@
 		C3C0EE68278BCA4D0044A615 /* decompresstext.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE67278BCA4D0044A615 /* decompresstext.c */; };
 		C3C0EE6B278BCA700044A615 /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE6A278BCA700044A615 /* restorestate.c */; };
 		C3C180C825C717F30040AE79 /* IFCoverDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C180C725C717F30040AE79 /* IFCoverDescription.m */; };
-		C3C183D225F160C90050A2EF /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
 		C3C2053C268D304500DB7AE0 /* NotificationBezel.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C20537268D304400DB7AE0 /* NotificationBezel.m */; };
 		C3C2053D268D304500DB7AE0 /* BezelWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C20539268D304500DB7AE0 /* BezelWindow.m */; };
 		C3C2053E268D304500DB7AE0 /* BezelContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C2053B268D304500DB7AE0 /* BezelContentView.m */; };
@@ -748,8 +747,6 @@
 		C3C5926826A81AE200DFB49B /* autosavetest.gblorb in Resources */ = {isa = PBXBuildFile; fileRef = C3C5926726A8185700DFB49B /* autosavetest.gblorb */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
 		C3C72B6F278CB0F900E095A6 /* detectgame.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C72B6E278CB0F900E095A6 /* detectgame.c */; };
-		C3CAC15C2699C72600FCB7BF /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
-		C3CAC15D2699C73200FCB7BF /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
 		C3CB504C2662606600A95BE2 /* CoverImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB504B2662606600A95BE2 /* CoverImageHandler.m */; };
 		C3CC7FF926C01F33009B0B25 /* The Elysium Enigma command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3CC7FF826C01F33009B0B25 /* The Elysium Enigma command script.txt */; };
 		C3CC7FFA26C02180009B0B25 /* Elysium.t3 in Resources */ = {isa = PBXBuildFile; fileRef = C3CC7FF726C00ACA009B0B25 /* Elysium.t3 */; };
@@ -3537,8 +3534,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3AE6C9C25CF408100B7AB0A /* libbabel.a in Frameworks */,
-				C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */,
 				C311DEF725C472E500484639 /* Quartz.framework in Frameworks */,
+				C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */,
 				C3F53C70271BBAF300538393 /* BlorbFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3568,11 +3565,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3C183D225F160C90050A2EF /* libbabel.a in Frameworks */,
-				C32271DA25CC22A20083BD5B /* CoreData.framework in Frameworks */,
-				C322714B25CC214A0083BD5B /* QuickLookThumbnailing.framework in Frameworks */,
 				C322714C25CC214A0083BD5B /* Quartz.framework in Frameworks */,
+				C32271DA25CC22A20083BD5B /* CoreData.framework in Frameworks */,
 				C3F53C71271BBB0A00538393 /* BlorbFramework.framework in Frameworks */,
+				C322714B25CC214A0083BD5B /* QuickLookThumbnailing.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7854,18 +7850,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C30077D72E871F9A00C32069 /* NSString+Categories.m in Sources */,
+				C309884825CB1AD300750F72 /* Game.m in Sources */,
 				C3A6E9A52E84B75B00908EE6 /* Ifid.m in Sources */,
+				C309886225CB1ADF00750F72 /* Image.m in Sources */,
+				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
+				C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */,
+				C30077D72E871F9A00C32069 /* NSString+Categories.m in Sources */,
 				C30A89252E81BCC800416F0C /* FileSignature.m in Sources */,
 				C36B3892271F710200756D94 /* InfoView.m in Sources */,
 				C3E2EAB525D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m in Sources */,
 				C3A72FDB2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */,
 				C3E2EAB625D08EEC0012B7FB /* UKSyntaxColor.m in Sources */,
-				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
-				C309884825CB1AD300750F72 /* Game.m in Sources */,
-				C309886225CB1ADF00750F72 /* Image.m in Sources */,
-				C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */,
-				C3CAC15C2699C72600FCB7BF /* NSData+Categories.m in Sources */,
 				C32A3D852719F30A0049C777 /* PreviewViewController.m in Sources */,
 				C32A3D862719F3240049C777 /* iFictionPreviewController.m in Sources */,
 				C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */,
@@ -7940,9 +7935,11 @@
 				C30A89272E81BCE100416F0C /* FileSignature.m in Sources */,
 				C3A72FDC2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */,
 				C3CAC15D2699C73200FCB7BF /* NSData+Categories.m in Sources */,
+				C322718C25CC224F0083BD5B /* Game.m in Sources */,
 				C32271C025CC22590083BD5B /* Image.m in Sources */,
 				C32271A625CC22530083BD5B /* Metadata.m in Sources */,
-				C322718C25CC224F0083BD5B /* Game.m in Sources */,
+				C30A89272E81BCE100416F0C /* FileSignature.m in Sources */,
+				C30077D92E871FA600C32069 /* NSString+Categories.m in Sources */,
 				C322715025CC214A0083BD5B /* ThumbnailProvider.m in Sources */,
 				C322717225CC22260083BD5B /* Spatterlight.xcdatamodeld in Sources */,
 			);
