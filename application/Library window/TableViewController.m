@@ -612,10 +612,8 @@ typedef NS_ENUM(int32_t, kImportResult) {
 
 - (void)deleteGameMetaAndIfid:(Game *)game inContext:(NSManagedObjectContext *)context {
     // Don't delete games that are playing
-    for (GlkController *session in _gameSessions.allValues) {
-        if ([session.game.hashTag isEqual:game.hashTag]) {
-            return;
-        }
+    if (game.hashTag.length && _gameSessions[game.hashTag]) {
+        return;
     }
     NSSet *ifids = game.metadata.ifids.copy;
     for (Ifid *ifid in ifids) {
@@ -2661,28 +2659,30 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         name = @"exclamationmark.circle";
     } else {
         BOOL playing = NO;
-        if (_gameSessions.count < 100) {
-            for (GlkController *session in _gameSessions.allValues) {
-                if ([session.game.hashTag isEqual:game.hashTag]) {
-                    if (session.alive || session.showingCoverImage) {
-                        *description = NSLocalizedString(@"In progress", nil);
-                        if (@available(macOS 11.0, *)) {
-                            name = @"play.fill";
-                        } else {
-                            name = @"play";
-                        }
-                    } else {
-                        *description = NSLocalizedString(@"Stopped", nil);
-                        if (@available(macOS 11.0, *)) {
-                            name = @"stop.fill";
-                        } else {
-                            name = @"stop";
-                        }
-                    }
-                    playing = YES;
-                    break;
+        if (game.hashTag.length == 0) {
+            game.hashTag = [game.path signatureFromFile];
+            if (game.hashTag.length == 0)
+                return nil;
+            game.metadata.hashTag = game.hashTag;
+        }
+        GlkController *session = _gameSessions[game.hashTag];
+        if (session) {
+            if (session.alive || session.showingCoverImage) {
+                *description = NSLocalizedString(@"In progress", nil);
+                if (@available(macOS 11.0, *)) {
+                    name = @"play.fill";
+                } else {
+                    name = @"play";
+                }
+            } else {
+                *description = NSLocalizedString(@"Stopped", nil);
+                if (@available(macOS 11.0, *)) {
+                    name = @"stop.fill";
+                } else {
+                    name = @"stop";
                 }
             }
+            playing = YES;
         }
         if (!playing) {
             if (game.autosaved) {
