@@ -1127,8 +1127,10 @@ static void journey_print_columns(bool party, bool is_second_noun) {
 
     int column, table, object;
     int line = get_global(jg.COMMAND_START_LINE);
+    fprintf(stderr, "journey_print_columns: COMMAND_START_LINE: %d\n", line);
 
     int command_width = get_global(jg.COMMAND_WIDTH);
+    fprintf(stderr, "journey_print_columns: COMMAND_WIDTH: %d\n", command_width);
     set_current_window(&JOURNEY_BG_GRID);
 
     if (party) {
@@ -1184,9 +1186,10 @@ static int journey_refresh_character_command_area(int16_t line) {
 
     // Width of a column (except Name column) in characters
     int command_width = get_global(jg.COMMAND_WIDTH);
+    fprintf(stderr, "journey_refresh_character_command_area: COMMAND_WIDTH: %d\n", command_width);
     // Width of Name column in characters
     int name_width = get_global(jg.NAME_WIDTH);
-
+    fprintf(stderr, "journey_refresh_character_command_area: NAME_WIDTH: %d\n", name_width);
     Window *lastwin = curwin;
     set_current_window(&JOURNEY_BG_GRID);
 
@@ -1249,6 +1252,7 @@ void REFRESH_CHARACTER_COMMAND_AREA(void) {
 }
 
 static void journey_reprint_partial_input(int x, int y, int length_so_far, int max_length, int16_t table_address) {
+    fprintf(stderr, "journey_reprint_partial_input\n");
     journey_move_cursor(x, y);
     glk_set_style(style_Normal);
     if (!global_font_3_flag) {
@@ -1577,14 +1581,21 @@ void journey_recover_state(library_state_data *dat) {
     if (!dat)
         return;
     selected_journey_line = dat->selected_journey_line;
+    fprintf(stderr, "journey_recover_state: restored selected_journey_line: %d\n", selected_journey_line);
     selected_journey_column = dat->selected_journey_column;
+    fprintf(stderr, "journey_recover_state: restored selected_journey_column: %d\n", selected_journey_column);
     journey_current_input = dat->current_input_mode;
+    fprintf(stderr, "journey_recover_state: restored journey_current_input: %d\n", journey_current_input);
     journey_input_length = dat->current_input_length;
+    fprintf(stderr, "journey_recover_state: restored journey_input_length: %d\n", journey_input_length);
     number_of_printed_journey_words = dat->number_of_journey_words;
     for (int i = 0; i < number_of_printed_journey_words; i++) {
         printed_journey_words[i].str = dat->journey_words[i].str;
+        fprintf(stderr, "journey_recover_state: word %d str: %d\n", i, printed_journey_words[i].str);
         printed_journey_words[i].pcf = dat->journey_words[i].pcf;
+        fprintf(stderr, "journey_recover_state: word %d pcf: %d\n", i, printed_journey_words[i].pcf);
         printed_journey_words[i].pcm = dat->journey_words[i].pcm;
+        fprintf(stderr, "journey_recover_state: word %d pcm: %d\n", i, printed_journey_words[i].pcm);
     }
 }
 

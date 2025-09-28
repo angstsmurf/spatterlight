@@ -225,6 +225,7 @@ static void load_resources()
     };
 
     if (set_map(game_file)) {
+        fprintf(stderr, "Bocfel load_resources: Game file is blorb!\n");
         return;
     }
 
