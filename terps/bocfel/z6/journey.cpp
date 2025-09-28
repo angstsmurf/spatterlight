@@ -1300,6 +1300,12 @@ static void journey_resize_graphics_and_buffer_windows(void) {
 
     JOURNEY_GRAPHICS_WIN.x_size = (float)(text_window_left - 2) * gcellw - JOURNEY_GRAPHICS_WIN.x_origin + ggridmarginx + (global_font_3_flag ? 0 : 2);
 
+    if (graphics_type == kGraphicsTypeNoGraphics) {
+        JOURNEY_GRAPHICS_WIN.x_size = 0;
+        JOURNEY_GRAPHICS_WIN.x_origin -= gcellw;
+        text_window_left = 0;
+    }
+
     if (journey_text_buffer == nullptr) {
         journey_text_buffer = &windows[ja.buffer_window_index];
     }
@@ -1310,7 +1316,7 @@ static void journey_resize_graphics_and_buffer_windows(void) {
     uint16_t y_size = (command_start_line - 2) * gcellh - global_font_3_flag;
 
     if (global_border_flag) {
-        x_size -= gcellw;
+        x_size -= gcellw * (graphics_type == kGraphicsTypeNoGraphics ? 4 : 1);
         y_size -= gcellh;
     }
 
@@ -1399,7 +1405,7 @@ static void journey_adjust_windows(bool restoring) {
 
     // Redraw image(s)
     // (unless we have no graphics)
-    if (JOURNEY_GRAPHICS_WIN.id != nullptr) {
+    if (JOURNEY_GRAPHICS_WIN.id != nullptr && graphics_type != kGraphicsTypeNoGraphics) {
         internal_call(pack_routine(jr.GRAPHIC));
 
         uint16_t HERE = get_global(jg.HERE);
@@ -1483,17 +1489,22 @@ void INIT_SCREEN(void) {
         // Show title image and wait for key press
         if (journey_text_buffer == NULL)
             journey_text_buffer = &windows[ja.buffer_window_index];
-        win_setbgnd(journey_text_buffer->id->peer, monochrome_black);
-        glk_window_clear(journey_text_buffer->id);
-        screenmode = MODE_SLIDESHOW;
-        // We do a fake resize event to draw the title image
-        journey_update_on_resize();
-        glk_request_mouse_event(JOURNEY_GRAPHICS_WIN.id);
-        glk_request_char_event(curwin->id);
-        internal_read_char();
+        if (graphics_type != kGraphicsTypeNoGraphics) {
+            win_setbgnd(journey_text_buffer->id->peer, monochrome_black);
+            glk_window_clear(journey_text_buffer->id);
+            screenmode = MODE_SLIDESHOW;
+            // We do a fake resize event to draw the title image
+            journey_update_on_resize();
+            glk_request_mouse_event(JOURNEY_GRAPHICS_WIN.id);
+            glk_request_char_event(curwin->id);
+            internal_read_char();
+        } else {
+            journey_update_on_resize();
+        }
         screenmode = MODE_CREDITS;
         win_setbgnd(JOURNEY_BG_GRID.id->peer, zcolor_Default);
         win_setbgnd(journey_text_buffer->id->peer, zcolor_Default);
+        glk_window_clear(journey_text_buffer->id);
 
         glk_window_set_background_color(JOURNEY_GRAPHICS_WIN.id, monochrome_black);
         glk_window_clear(JOURNEY_GRAPHICS_WIN.id);
