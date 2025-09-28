@@ -1321,6 +1321,7 @@ void glk_window_move_cursor(window_t *win, glui32 xpos, glui32 ypos)
     {
         case wintype_TextGrid:
             win_moveto(win->peer, xpos, ypos);
+            fprintf(stderr, "glk_window_move_cursor: x:%d y:%d\n", xpos, ypos);
             break;
         default:
             gli_strict_warning("window_move_cursor: not a TextGrid window");

@@ -320,6 +320,7 @@ void process_instructions()
         current_instruction = pc;
 #ifdef SPATTERLIGHT
         if (is_spatterlight_v6) {
+            fprintf(stderr, "pc == 0x%lx\n", pc);
             check_entrypoints(pc);
         }
 #endif

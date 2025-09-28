@@ -150,6 +150,8 @@ static void journey_draw_title_image(void) {
     win_setbgnd(-1, monochrome_black);
 
     get_image_size(160, &width, &height);
+    if (width == 0) // We have no graphics?
+        return;
     journey_adjust_image(160, &x, &y, width, height, gscreenw, gscreenh, &scale, pixelwidth);
     draw_inline_image(win, 160, x, y, scale, false);
 }
@@ -161,6 +163,8 @@ int journey_draw_picture(int pic, winid_t journey_window) {
 
     int width, height;
     get_image_size(pic, &width, &height);
+    if (width == 0 || height == 0)
+        return 0;
 
     Window *win = curwin;
     if (win->id && win->id->type != wintype_Graphics) {
@@ -402,7 +406,6 @@ static void journey_move_cursor(int column, int line) {
         if (line > screen_height_in_chars)
             line = screen_height_in_chars - 1;
     }
-
     glk_window_move_cursor(JOURNEY_BG_GRID.id, column, line);
 }
 
@@ -732,6 +735,7 @@ static int PRINT_DESC(int obj, bool cmd) {
 }
 
 static void journey_erase_command_chars(int line, int column, int num_spaces) {
+    fprintf(stderr, "journey_erase_command_chars: line %d, column %d num_spaces: %d\n", line, column, num_spaces);
     if (options.int_number == INTERP_MSDOS) {
         journey_move_cursor(column - 1, line);
     } else {
