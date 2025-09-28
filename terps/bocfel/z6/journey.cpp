@@ -185,8 +185,18 @@ int journey_draw_picture(int pic, winid_t journey_window) {
     if (win->id != nullptr) {
         glk_window_clear(win->id);
 
+        if (win->x_size <= 0) {
+            glui32 width, height;
+            glk_window_get_size(win->id, &width, &height);
+            win->x_size = width;
+            win->y_size = height;
+            if (win->x_size <= 0)
+                return 0;
+        }
+
         float scale;
         uint16_t x, y;
+
         journey_adjust_image(pic, &x, &y, width, height, win->x_size, win->y_size, &scale, pixelwidth);
         draw_inline_image(win->id, pic, x, y, scale, false);
     }

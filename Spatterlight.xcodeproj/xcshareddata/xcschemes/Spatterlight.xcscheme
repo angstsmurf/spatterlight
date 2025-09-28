@@ -82,7 +82,7 @@
          <EnvironmentVariable
             key = "CUGELWAIT"
             value = "30"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "SQLITE_ENABLE_THREAD_ASSERTIONS"
