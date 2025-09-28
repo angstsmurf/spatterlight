@@ -143,6 +143,14 @@ void v6_close_and_reopen_front_graphics_window(void) {
     }
 }
 
+void transcribe_and_print_string(const char *str) {
+    glk_put_string(const_cast<char*>(str));
+    int i = 0;
+    while (i++ != 0) {
+        transcribe(str[i]);
+    }
+}
+
 #pragma mark DEFINITIONS SCREEN
 
 #define DEFINITIONS_WIDTH 30 // FLEN in original source
@@ -308,20 +316,6 @@ static void display_softs(void) {
     }
 }
 
-void z0_erase_screen(void) {
-    //    clear_image_buffer();
-    //    clear_margin_image_list();
-    //    if (z0_right_status_window != nullptr) {
-    //        gli_delete_window(z0_right_status_window);
-    //        z0_right_status_window = nullptr;
-    //    }
-    //    if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
-    //        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-    //    if (V6_STATUS_WINDOW.id != nullptr)
-    //        glk_window_clear(V6_STATUS_WINDOW.id);
-    //    glk_window_clear(graphics_bg_glk);
-}
-
 void send_edited_menu_line(uint8_t chr) {
     win_menuitem(kV6MenuCurrentItemChanged, global_define_line, chr, 0, nullptr, 0);
 }
@@ -394,7 +388,7 @@ void V_DEFINE(void) {
 
     adjust_definitions_window();
 
-    z0_erase_screen();
+//    z0_erase_screen();
 
     winid_t gwin = DEFINITIONS_WINDOW.id;
 
@@ -566,13 +560,13 @@ void V_DEFINE(void) {
 
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
-    if (is_game(Game::ZorkZero)) {
-        //        z0_update_on_resize();
-    } else {
+//    if (is_spatterlight_zork0) {
+//        z0_update_on_resize();
+//    } else {
         // Game is Shogun
         internal_call(pack_routine(sr.V_REFRESH));
         shogun_update_on_resize();
-    }
+//    }
 }
 
 #pragma mark HINTS SCREEN
@@ -721,6 +715,9 @@ static void draw_hints_windows(void) {
                     upperwin_foreground = 0;
             }
         }
+//        if (is_spatterlight_zork0) {
+//            z0_erase_screen();
+//        }
     }
 
     if (is_spatterlight_arthur || (upperwin_background != ROSE_TAUPE && upperwin_background != BROWN))
@@ -748,15 +745,16 @@ static void draw_hints_windows(void) {
 
     int height = gcellh * 4 + ggridmarginy * 2;
 
-//    if (is_game(Game::ZorkZero)) {
-//        //        // Global BORDER-ON, false if in text-only mode
-//        //        bool text_only_mode = (get_global(0x83) == 0);
-//        //        if (!text_only_mode) {
-//        //            DISPLAY_BORDER(HINT_BORDER);
-//        //            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
-//        //            width = width * imagescalex;
-//        //            height = height * imagescaley;
-//        //        } else
+//    if (is_spatterlight_zork0) {
+//        // Global BORDER-ON, false if in text-only mode
+//        bool text_only_mode = (get_global(zg.BORDER_ON) == 0);
+//        if (!text_only_mode) {
+//            DISPLAY_BORDER(HINT_BORDER);
+//            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
+//            width = width * imagescalex;
+//            height = height * imagescaley;
+//        }
+//    }
 
     if (is_spatterlight_arthur) {
         win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
@@ -870,8 +868,8 @@ static void hint_title(const char *title, int length) {
     win_menuitem(kV6MenuTitle, 0, hints_depth, 0, const_cast<char *>(title), length);
 }
 
-static bool rt_see_qst(int16_t obj) {
-    return (internal_call_with_arg(pack_routine(ar.RT_SEE_QST), obj) == 1);
+static bool rt_see_qst(uint16_t obj) {
+    return (internal_call(pack_routine(ar.RT_SEE_QST), {obj}) == 1);
 }
 
 static uint16_t hint_question_name(uint16_t question) {
@@ -1403,10 +1401,11 @@ void DO_HINTS(void) {
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
     win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
-
-    if (is_game(Game::ZorkZero)) {
-        //        z0_update_on_resize();
-    } else if (is_spatterlight_shogun) {
+    
+//    if (is_spatterlight_zork0) {
+//        z0_update_on_resize();
+//    } else
+    if (is_spatterlight_shogun) {
         internal_call(pack_routine(sr.V_REFRESH));
         shogun_update_on_resize();
     }
@@ -1428,8 +1427,6 @@ void after_V_CREDITS(void) {
     V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_ITALIC);
     V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_FIXED);
 }
-
-void update_monochrome_colours(void);
 
 void after_V_COLOR(void) {
     uint8_t fg = get_global(fg_global_idx);
@@ -1474,8 +1471,44 @@ void after_V_COLOR(void) {
         arthur_update_on_resize();
     } else if (is_spatterlight_shogun) {
         shogun_update_on_resize();
+//    } else if (is_spatterlight_zork0) {
+//        z0_update_on_resize();
     }
 }
+
+
+#pragma mark Skip puzzles prompt
+
+bool skip_puzzle_prompt(const char *str) {
+    // We skip asking about skipping the puzzle
+    // if VoiceOver is off and we did not just
+    // autorestore to this prompt.
+    if (gli_voiceover_on || dont_repeat_question_on_autorestore) {
+        set_current_window(&V6_TEXT_BUFFER_WINDOW);
+        if (!dont_repeat_question_on_autorestore)
+            transcribe_and_print_string(str);
+        dont_repeat_question_on_autorestore = false;
+        while (1) {
+            uint8_t c = internal_read_char();
+            glk_put_char(c);
+            transcribe(c);
+            transcribe_and_print_string("\n");
+            c = tolower(c);
+            switch (c) {
+                case 'n':
+                    transcribe_and_print_string("\n");
+                    return false;
+                case 'y':
+                    transcribe_and_print_string("\n");
+                    return true;
+                default:
+                    transcribe_and_print_string("(Y is affirmative): >");
+            }
+        }
+    }
+    return false;
+}
+
 
 #pragma mark Empty functions used by entrypoints code
 
@@ -1487,3 +1520,16 @@ void V_BOW(void) {}
 void MAZE_F(void) {}
 void DESCRIBE_ROOM(void) {}
 void DESCRIBE_OBJECTS(void) {}
+void WINPROP(void) {}
+void SET_BORDER(void) {}
+void DRAW_NEW_HERE(void) {}
+void DRAW_NEW_COMP(void) {}
+void DRAW_COMPASS_ROSE(void) {}
+void SETUP_SCREEN(void) {}
+void MAP_X(void) {}
+void PLAY_SELECTED(void) {}
+void SCORE_CHECK(void) {}
+void TOWER_WIN_CHECK(void) {}
+void DRAW_PEGS(void) {}
+void SET_B_PIC(void) {}
+void BLINK(void) {}

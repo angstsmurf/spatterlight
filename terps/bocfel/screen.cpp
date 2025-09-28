@@ -3101,7 +3101,7 @@ void flush_image_buffer(void) {
             return;
 
         if (is_spatterlight_arthur && screenmode == MODE_ROOM_DESC) {
-            internal_call_with_arg(pack_routine(ar.RT_UPDATE_DESC_WINDOW), 1);
+            internal_call(pack_routine(ar.RT_UPDATE_DESC_WINDOW), {1});
         } else if (image_needs_redraw) {
             if (is_spatterlight_arthur && screenmode == MODE_NORMAL) {
                 draw_arthur_side_images(graphics_bg_glk);
@@ -6019,11 +6019,11 @@ void stash_library_state(library_state_data *dat)
         dat->number_of_margin_images = number_of_margin_images;
 
         if (is_spatterlight_journey) {
-            stash_journey_state(dat);
+            journey_stash_state(dat);
         } else if (is_spatterlight_arthur) {
-            stash_arthur_state(dat);
+            arthur_stash_state(dat);
         } else if (is_spatterlight_shogun) {
-            stash_shogun_state(dat);
+            shogun_stash_state(dat);
         }
 
         stash_library_sound_state(dat);
@@ -6089,11 +6089,11 @@ void recover_library_state(library_state_data *dat)
 
         if (is_spatterlight_journey) {
             journey_window = windows[3].id;
-            recover_journey_state(dat);
+            journey_recover_state(dat);
         } else if (is_spatterlight_arthur) {
-            recover_arthur_state(dat);
+            arthur_recover_state(dat);
         } else if (is_spatterlight_shogun) {
-            recover_shogun_state(dat);
+            shogun_recover_state(dat);
         }
 
         recover_library_sound_state(dat);

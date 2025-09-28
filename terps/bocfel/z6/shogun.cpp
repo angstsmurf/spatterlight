@@ -180,22 +180,22 @@ static void update_status_line(bool interlude) {
             print_object(here, nullptr);
         }
         uint16_t player_object = get_global(sg.WINNER);
-        int16_t tmp = internal_get_parent(player_object);
+        uint16_t tmp = internal_get_parent(player_object);
         if (internal_test_attr(tmp, VEHICLEBIT)) {
             if (internal_test_attr(tmp, SUPPORTERBIT)) {
                 glk_put_string(const_cast<char*>(", on "));
             } else {
                 glk_put_string(const_cast<char*>(", in "));
             }
-            internal_call_with_arg(pack_routine(sr.TELL_THE), tmp);
+            internal_call(pack_routine(sr.TELL_THE), {tmp});
         }
 
         if ((here == so.BRIDGE_OF_ERASMUS && internal_test_attr(so.WHEEL, ONBIT)) || (here == so.GALLEY && internal_test_attr(so.GALLEY_WHEEL, ONBIT))) {
             glk_put_string(const_cast<char*>("; course "));
-            internal_call_with_arg(pack_routine(sr.TELL_DIRECTION), get_global(sg.SHIP_DIRECTION));
+            internal_call(pack_routine(sr.TELL_DIRECTION), {get_global(sg.SHIP_DIRECTION)});
 
             glk_put_string(const_cast<char*>("; wheel "));
-            internal_call_with_arg(pack_routine(sr.TELL_DIRECTION), get_global(sg.SHIP_COURSE));
+            internal_call(pack_routine(sr.TELL_DIRECTION), {get_global(sg.SHIP_COURSE)});
         }
 
     } else if (interlude) {
@@ -245,6 +245,13 @@ static void print_menu_line_to_transcript(uint16_t menu, uint16_t result) {
     put_char(ZSCII_NEWLINE);
     output_stream(1, 0);
 }
+
+static void print_zstring_to_transcript(uint16_t string) {
+    output_stream(-1, 0);
+    print_handler(unpack_string(string), nullptr);
+    output_stream(1, 0);
+}
+
 
 static void display_menu_line(uint16_t menu, uint16_t line, bool reverse, bool send_menu) {
 
@@ -506,7 +513,9 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
         glk_window_clear(SHOGUN_MENU_BG_WIN.id);
         char message[40];
         int length = print_long_zstr_to_cstr(MSG, message, 40);
+        garglk_set_zcolors_stream(glk_window_get_stream(SHOGUN_MENU_BG_WIN.id), user_selected_foreground, zcolor_Current);
         glk_put_string_stream(glk_window_get_stream(SHOGUN_MENU_BG_WIN.id), message);
+        print_zstring_to_transcript(MSG);
         win_menuitem(kV6MenuTitle, 0, kV6MenuTypeShogun, 0, const_cast<char *>(message), length);
 
         result = menu_select(MENU, default_selection);
@@ -1068,7 +1077,7 @@ static int maze_mouse_f(void) {
     if (WX <= BX / 2 && WY <= BY / 2)
         return 0;
     if (DIR != 0) {
-        internal_call_with_arg(pack_routine(sr.ADD_TO_INPUT), DIR);
+        internal_call(pack_routine(sr.ADD_TO_INPUT), {DIR});
         glk_put_char(UNICODE_LINEFEED);
         return 13;
     }
@@ -1186,54 +1195,13 @@ void simplify_maze(void) {
     }
 }
 
-void transcribe_and_print_string(const char *str) {
-    glk_put_string(const_cast<char*>(str));
-    int i = 0;
-    while (i++ != 0) {
-        transcribe(str[i]);
-    }
-}
-
 bool dont_repeat_question_on_autorestore = false;
 
 void after_BUILDMAZE(void) {
-
-    // We skip asking about simplifying the maze if
-    // VoiceOver is off and we did not just autorestore to
-    // this prompt.
-    if (!gli_voiceover_on && !dont_repeat_question_on_autorestore)
-        return;
-
-    set_current_window(&V6_TEXT_BUFFER_WINDOW);
-    if (!dont_repeat_question_on_autorestore)
-        transcribe_and_print_string("Would you like me to simplify the city maze, to make it easier to traverse without seeing the graphics? (Y is affirmative): >");
-
-    dont_repeat_question_on_autorestore = false;
-
-    bool done = false;
-    while (!done) {
-        uint8_t c = internal_read_char();
-        glk_put_char(c);
-        transcribe(c);
-        transcribe_and_print_string("\n");
-        switch (c) {
-            case 'n':
-            case 'N':
-                transcribe_and_print_string("\n");
-                return;
-            case 'y':
-            case 'Y':
-                done = true;
-                break;
-            default:
-                transcribe_and_print_string("(Y is affirmative): >");
-        }
+    if (skip_puzzle_prompt("Would you like me to simplify the city maze, to make it easier to traverse without seeing the graphics? (Y is affirmative): >")) {
+        simplify_maze();
     }
-
-    transcribe_and_print_string("\n");
-    simplify_maze();
 }
-
 
 #pragma mark Adjust windows
 
@@ -1382,7 +1350,7 @@ void shogun_display_inline_image(glui32 align) {
 
 //TODO: Merge with stash_arthur_state and recover_arthur_state
 
-void stash_shogun_state(library_state_data *dat) {
+void shogun_stash_state(library_state_data *dat) {
     if (!dat)
         return;
 
@@ -1398,7 +1366,7 @@ void stash_shogun_state(library_state_data *dat) {
     dat->shogun_menu_selection = current_menu_selection;
 }
 
-void recover_shogun_state(library_state_data *dat) {
+void shogun_recover_state(library_state_data *dat) {
     if (!dat)
         return;
 

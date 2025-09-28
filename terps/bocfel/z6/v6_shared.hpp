@@ -27,6 +27,9 @@ void add_margin_image_to_list(int image);
 void clear_margin_image_list(void);
 void refresh_margin_images(void);
 void v6_close_and_reopen_front_graphics_window(void);
+void transcribe_and_print_string(const char *str);
+bool skip_puzzle_prompt(const char *str);
+void update_monochrome_colours(void);
 
 void DO_HINTS(void);
 void DISPLAY_HINT(void);

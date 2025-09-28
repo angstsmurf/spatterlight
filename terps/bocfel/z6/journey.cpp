@@ -50,8 +50,8 @@ static int number_of_printed_journey_words = 0;
 static inputMode journey_current_input = INPUT_PARTY;
 static uint16_t journey_input_length = 0;
 
-static int16_t selected_journey_line = -1;
-static int16_t selected_journey_column = -1;
+static uint16_t selected_journey_line = -1;
+static uint16_t selected_journey_column = -1;
 static int journey_image_x, journey_image_y, journey_image_width, journey_image_height;
 static float journey_image_scale = 1.0;
 static glui32 screen_width_in_chars, screen_height_in_chars;
@@ -355,7 +355,7 @@ static void update_internal_globals(void) {
 }
 
 static int party_pcm(int chr) {
-    uint16_t party_table = get_global(jg.PARTY); // global 0x63 is PARTY table
+    uint16_t party_table = get_global(jg.PARTY);
     uint16_t MAX = user_word(party_table);
     for (int cnt = 1; cnt <= MAX; cnt++) {
         if (word(party_table + cnt * 2) == chr)
@@ -779,7 +779,7 @@ static void journey_print_character_commands(bool clear) {
     if (clear)
         number_of_printed_journey_words = 0;
 
-    int line = get_global(jg.COMMAND_START_LINE); // COMMAND-START-LINE
+    int line = get_global(jg.COMMAND_START_LINE);
     int partytable, character, position;
     if (get_global(jg.UPDATE_FLAG) == 1 && !clear) {
         internal_call(pack_routine(jr.FILL_CHARACTER_TBL));
@@ -838,7 +838,7 @@ static void journey_print_character_commands(bool clear) {
             bool subgroup_attribute = internal_test_attr(character, ja.SUBGROUP); // attribute 0x2a is SUBGROUP flag
             // if the SHADOW_BIT attribute of a character is set, the character name is hidden
             // and its commands "belong" to the visible character above.
-            // This is used to give Praxis more than three commands in the mines.
+            // This is used to give Praxix more than three commands in the mines.
             bool shadow_attribute = internal_test_attr(character, ja.SHADOW); // attribute 0x17 is SHADOW flag
 
             bool should_print_command = true;
@@ -903,22 +903,21 @@ bool journey_read_elvish(int actor) {
 
     journey_input_length = 0;
 
-    journey_refresh_character_command_area(get_global(jg.COMMAND_START_LINE) - 1); // <REFRESH-CHARACTER-COMMAND-AREA <- ,COMMAND-START-LINE 1>>
-
-    set_global(jg.UPDATE_FLAG, 1); // <SETG UPDATE-FLAG T>
+    journey_refresh_character_command_area(get_global(jg.COMMAND_START_LINE) - 1);
+    set_global(jg.UPDATE_FLAG, 1);
 
     if (offset == 0)
         return false;
 
-    internal_call_with_arg(pack_routine(jr.MASSAGE_ELVISH), offset);  // <MASSAGE-ELVISH .OFF>
-    set_global(jg.E_TEMP_LEN, offset); // <SETG E-TEMP-LEN .OFF>
+    internal_call(pack_routine(jr.MASSAGE_ELVISH), {offset});
+    set_global(jg.E_TEMP_LEN, offset);
 
     tokenize(get_global(jg.E_INBUF),get_global(jg.E_LEXV), 0, false);
-    if (user_byte(get_global(jg.E_LEXV) + 1) == 0) // <ZERO? <GETB ,E-LEXV 1>>
+    if (user_byte(get_global(jg.E_LEXV) + 1) == 0)
         return false;
-    if (actor == jo.PRAXIX || actor == jo.BERGON) // PRAXIX ,BERGON
+    if (actor == jo.PRAXIX || actor == jo.BERGON)
         return true;
-    internal_call(pack_routine(jr.PARSE_ELVISH)); // <PARSE-ELVISH>
+    internal_call(pack_routine(jr.PARSE_ELVISH));
     return true;
 }
 
@@ -940,7 +939,7 @@ void journey_change_name() {
 
     if (offset == 0) {
         set_global(jg.UPDATE_FLAG, 1); // <SETG UPDATE-FLAG T>
-    } else if (internal_call_with_arg(pack_routine(jr.ILLEGAL_NAME), offset) == 1) { // ILLEGAL-NAME
+    } else if (internal_call(pack_routine(jr.ILLEGAL_NAME), {offset}) == 1) { // ILLEGAL-NAME
         glk_put_string(const_cast<char*>("[The name you have chosen is reserved. Please try again.]"));
     } else {
         // Do the change
@@ -1372,27 +1371,21 @@ static void journey_adjust_windows(bool restoring) {
         store_word(0x10, word(0x10) & ~FLAGS2_STATUS);
 
         if (!restoring && screenmode != MODE_CREDITS) {
-            int16_t saved_line = selected_journey_line;
-            int16_t saved_column = selected_journey_column;
-
             if (selected_journey_column <= 0) { // call BOLD-PARTY-CURSOR
-                internal_call_with_2_args(pack_routine(jr.BOLD_PARTY_CURSOR), selected_journey_line, 0);
+                internal_call(pack_routine(jr.BOLD_PARTY_CURSOR), {selected_journey_line, 0});
             } else if (journey_current_input == INPUT_PARTY) { // call BOLD-CURSOR
-                internal_call_with_2_args(pack_routine(jr.BOLD_CURSOR), selected_journey_line, selected_journey_column);
+                internal_call(pack_routine(jr.BOLD_CURSOR), {selected_journey_line, selected_journey_column});
 
             } else if (journey_current_input != INPUT_ELVISH) { // call BOLD-OBJECT-CURSOR
                 int numwords = number_of_printed_journey_words;
 
                 for (int i = 0; i < numwords; i++) {
                     JourneyWords *word = &printed_journey_words[i];
-                    uint16_t args[3] = {word->pcm, word->pcf, word->str};
-                    internal_call_with_args(pack_routine(jr.BOLD_CURSOR), 3, args);
+                    std::vector<uint16_t> args = {word->pcm, word->pcf, word->str};
+                    internal_call(pack_routine(jr.BOLD_CURSOR), args);
                 }
-                internal_call_with_2_args(pack_routine(jr.BOLD_OBJECT_CURSOR), saved_line, saved_column); // BOLD-OBJECT-CURSOR(PCM, PCF)
+                internal_call(pack_routine(jr.BOLD_OBJECT_CURSOR), {selected_journey_line, selected_journey_column}); // BOLD-OBJECT-CURSOR(PCM, PCF)
             }
-
-            selected_journey_line = saved_line;
-            selected_journey_column = saved_column;
         }
     }
     journey_resize_graphics_and_buffer_windows();
@@ -1564,7 +1557,7 @@ void journey_update_on_resize(void) {
 
 #pragma mark Restoring
 
-void stash_journey_state(library_state_data *dat) {
+void journey_stash_state(library_state_data *dat) {
     if (!dat)
         return;
 
@@ -1580,7 +1573,7 @@ void stash_journey_state(library_state_data *dat) {
     }
 }
 
-void recover_journey_state(library_state_data *dat) {
+void journey_recover_state(library_state_data *dat) {
     if (!dat)
         return;
     selected_journey_line = dat->selected_journey_line;
