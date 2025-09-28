@@ -232,7 +232,7 @@
     if (exists && !force)
         return defaultTheme;
 
-    defaultTheme.bZAdjustment = 0;
+    defaultTheme.bZAdjustment = -2;
     defaultTheme.dashes = YES;
     defaultTheme.defaultRows = 50;
     defaultTheme.defaultCols = 80;
@@ -286,7 +286,7 @@
     if (exists && !force)
         return classicTheme;
 
-    classicTheme.bZAdjustment = 4;
+    classicTheme.bZAdjustment = 0;
 
     classicTheme.dashes = NO;
     classicTheme.defaultRows = 50;
@@ -309,6 +309,12 @@
 
     classicTheme.gridBackground = [NSColor blackColor];
     classicTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+
+    NSMutableDictionary *dict = [classicTheme.gridNormal.attributeDict mutableCopy];
+    NSMutableParagraphStyle *para = [dict[NSParagraphStyleAttributeName] mutableCopy];
+    para.maximumLineHeight = 12;
+    dict[NSParagraphStyleAttributeName] = para;
+    classicTheme.gridNormal.attributeDict = dict;
 
     classicTheme.bufferNormal.font = [NSFont fontWithName:@"Helvetica" size:13];
 
@@ -343,7 +349,7 @@
     if (exists && !force)
         return gargoyleTheme;
 
-    gargoyleTheme.bZAdjustment = -3;
+    gargoyleTheme.bZAdjustment = 0;
 
     gargoyleTheme.dashes = YES;
     gargoyleTheme.defaultRows = 30;
@@ -377,7 +383,12 @@
     gargoyleTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.376 green:0.376 blue:0.376 alpha:1.0];
 
     NSMutableDictionary *dict = [gargoyleTheme.gridNormal.attributeDict mutableCopy];
-    dict[NSBaselineOffsetAttributeName] = @(-2);
+    dict[NSBaselineOffsetAttributeName] = @(0);
+
+    NSMutableParagraphStyle *para = [dict[NSParagraphStyleAttributeName] mutableCopy];
+    para.maximumLineHeight = 14;
+    dict[NSParagraphStyleAttributeName] = para;
+
     gargoyleTheme.gridNormal.attributeDict = dict;
 
     [gargoyleTheme populateStyles];
@@ -408,7 +419,7 @@
     if (exists && !force)
         return lectroteTheme;
 
-    lectroteTheme.bZAdjustment = -2;
+    lectroteTheme.bZAdjustment = -4;
 
     lectroteTheme.dashes = YES;
     lectroteTheme.defaultRows = 40;
@@ -466,7 +477,7 @@
     if (exists && !force)
         return lectroteDarkTheme;
 
-    lectroteDarkTheme.bZAdjustment = -2;
+    lectroteDarkTheme.bZAdjustment = -4;
 
     lectroteDarkTheme.dashes = YES;
     lectroteDarkTheme.defaultRows = 40;
@@ -524,7 +535,7 @@
 
     [zoomTheme resetCommonValues];
 
-    zoomTheme.bZAdjustment = -4;
+    zoomTheme.bZAdjustment = 0;
 
     zoomTheme.dashes = YES;
     zoomTheme.defaultRows = 50;
@@ -558,7 +569,10 @@
     zoomTheme.gridNormal.color = [NSColor blackColor];
 
     NSMutableDictionary *dict = [zoomTheme.gridNormal.attributeDict mutableCopy];
-    dict[NSBaselineOffsetAttributeName] = @(1);
+    NSMutableParagraphStyle *para = [dict[NSParagraphStyleAttributeName] mutableCopy];
+    para.maximumLineHeight = 12;
+    dict[NSBaselineOffsetAttributeName] = @(0);
+    dict[NSParagraphStyleAttributeName] = para;
     zoomTheme.gridNormal.attributeDict = dict;
 
     NSSize size = zoomTheme.gridNormal.cellSize;
@@ -575,7 +589,7 @@
 
     dict = zoomTheme.bufBlock.attributeDict.mutableCopy;
 
-    NSMutableParagraphStyle *para = [dict[NSParagraphStyleAttributeName] mutableCopy];
+    para = [dict[NSParagraphStyleAttributeName] mutableCopy];
     para.headIndent = 10;
     para.firstLineHeadIndent = 10;
     dict[NSParagraphStyleAttributeName] = para;
@@ -689,7 +703,7 @@
     if (exists && !force)
         return dosBoxTheme;
 
-    dosBoxTheme.bZAdjustment = -3;
+    dosBoxTheme.bZAdjustment = -2;
 
     dosBoxTheme.dashes = NO;
     dosBoxTheme.defaultRows = 24;
