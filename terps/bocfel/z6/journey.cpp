@@ -50,8 +50,8 @@ static int number_of_printed_journey_words = 0;
 static inputMode journey_current_input = INPUT_PARTY;
 static uint16_t journey_input_length = 0;
 
-static uint16_t selected_journey_line = -1;
-static uint16_t selected_journey_column = -1;
+static int16_t selected_journey_line = -1;
+static int16_t selected_journey_column = -1;
 static int journey_image_x, journey_image_y, journey_image_width, journey_image_height;
 static float journey_image_scale = 1.0;
 static glui32 screen_width_in_chars, screen_height_in_chars;
@@ -1372,10 +1372,9 @@ static void journey_adjust_windows(bool restoring) {
 
         if (!restoring && screenmode != MODE_CREDITS) {
             if (selected_journey_column <= 0) { // call BOLD-PARTY-CURSOR
-                internal_call(pack_routine(jr.BOLD_PARTY_CURSOR), {selected_journey_line, 0});
+                internal_call(pack_routine(jr.BOLD_PARTY_CURSOR), {(uint16_t)selected_journey_line, 0});
             } else if (journey_current_input == INPUT_PARTY) { // call BOLD-CURSOR
-                internal_call(pack_routine(jr.BOLD_CURSOR), {selected_journey_line, selected_journey_column});
-
+                internal_call(pack_routine(jr.BOLD_CURSOR), {(uint16_t)selected_journey_line, (uint16_t)selected_journey_column});
             } else if (journey_current_input != INPUT_ELVISH) { // call BOLD-OBJECT-CURSOR
                 int numwords = number_of_printed_journey_words;
 
@@ -1384,7 +1383,7 @@ static void journey_adjust_windows(bool restoring) {
                     std::vector<uint16_t> args = {word->pcm, word->pcf, word->str};
                     internal_call(pack_routine(jr.BOLD_CURSOR), args);
                 }
-                internal_call(pack_routine(jr.BOLD_OBJECT_CURSOR), {selected_journey_line, selected_journey_column}); // BOLD-OBJECT-CURSOR(PCM, PCF)
+                internal_call(pack_routine(jr.BOLD_OBJECT_CURSOR), {(uint16_t)selected_journey_line, (uint16_t)selected_journey_column}); // BOLD-OBJECT-CURSOR(PCM, PCF)
             }
         }
     }
