@@ -61,6 +61,7 @@ static uint16_t from_command_start_line = 0;
 static uint16_t input_column = 0;
 static uint16_t input_line = 0;
 static uint16_t input_table = 0;
+static int serial_as_int = 0;
 
 struct JourneyMenu {
     char name[STRING_BUFFER_SIZE];
@@ -680,7 +681,13 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
 
 
 static int GET_COMMAND(int cmd) {
-    if (header.release > 50) {
+
+    // Later releases have a separate table with abbreviated commands.
+    // This seems to have been introduced in release 51, serial 890522.
+    // (It is easier to do it this way than checking the release number
+    // directly because of release 142, serial 890205.)
+
+    if (serial_as_int >= 890522) {
         if (get_global(jg.COMMAND_WIDTH) < 13) {
             int STR = user_word(cmd + 10);
             if (STR)
@@ -965,6 +972,7 @@ void journey_init_screen(void) {
     glk_set_style(style_Normal);
     garglk_set_reversevideo(0);
 
+    serial_as_int = atoi((const char *)header.serial);
 
     journey_setup_windows();
     int text_window_left_edge = get_global(jg.TEXT_WINDOW_LEFT);
