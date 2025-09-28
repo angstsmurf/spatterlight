@@ -866,14 +866,11 @@ static void journey_print_character_commands(bool clear) {
                 if (should_print_command && PRINT_COMMAND(word(verbs_table + j * 2)) > 2) {
                     number_of_printed_verbs_and_objects++;
                 }
-
                 position += commandwidth;
             }
         }
-
         line++;
     }
-
 
     if (get_global(jg.SMART_DEFAULT_FLAG) == 1) { // SMART-DEFAULT-FLAG
         set_global(jg.SMART_DEFAULT_FLAG, 0);
