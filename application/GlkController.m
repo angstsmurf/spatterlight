@@ -3635,9 +3635,13 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
                     hmask = NSViewWidthSizable;
                 }
 
-                if (fabs(NSMaxY(rect) - _gameView.frame.size.height) < 2.0 &&
-                    rect.size.height > 0) {
-                    // If window is at bottom, attach to bottom
+                // We special-case graphics windows, because the fullscreen animation looks
+                // bad if they do not stay pinned to the top of the window.
+                if (!([reqWin isKindOfClass:[GlkGraphicsWindow class]] && rect.origin.y == 0) &&
+                    (fabs(NSMaxY(rect) - _gameView.frame.size.height) < 2.0 &&
+                           rect.size.height > 0)) {
+                    // Otherwise, if the Glk window is at the bottom,
+                    // pin it to the bottom of the main window
                     vmask = NSViewHeightSizable;
                 }
 
