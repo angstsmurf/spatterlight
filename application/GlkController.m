@@ -4466,8 +4466,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     inFullScreenResize = YES;
 
-    // Make sure the window style mask includes the
-    // full screen bit
+    // Make sure the window style mask includes the full screen bit
     window.styleMask = (window.styleMask | NSWindowStyleMaskFullScreen);
 
     if (restoredController && restoredController.inFullscreen) {
@@ -4484,9 +4483,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
 - (void)enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSWindow *window = self.window;
-    // Make sure the snapshot window style mask includes the
-    // full screen bit
     NSWindow *snapshotWindow = snapshotController.window;
+    // Make sure the snapshot window style mask includes the full screen bit
     snapshotWindow.styleMask = (snapshotWindow.styleMask | NSWindowStyleMaskFullScreen);
     [snapshotWindow setFrame:window.frame display:YES];
 
