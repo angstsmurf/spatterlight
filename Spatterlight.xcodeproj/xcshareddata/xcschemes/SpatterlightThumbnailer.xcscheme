@@ -94,7 +94,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-com.apple.coreData.concurrencyDebug 1"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>
