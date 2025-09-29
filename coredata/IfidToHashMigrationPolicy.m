@@ -60,7 +60,10 @@
                                                error:(NSError * __autoreleasing *) error {
 
     NSArray<NSString *> *sourceKeys = sInstance.entity.attributesByName.allKeys;
-    NSDictionary<NSString *, NSObject *> *sourceValues = [sInstance dictionaryWithValuesForKeys:sourceKeys];
+    NSMutableDictionary<NSString *, NSObject *> *sourceValues = [NSMutableDictionary new];
+    for (NSString *key in sourceKeys) {
+        sourceValues[key] = [sInstance valueForKey:key];
+    }
 
     // Create new instance in target context
     NSManagedObject *destinationInstance = [NSEntityDescription insertNewObjectForEntityForName:mapping.destinationEntityName inManagedObjectContext:manager.destinationContext];
@@ -136,33 +139,35 @@
         if (ifidStr.length == 0) {
             NSLog(@"createRelationshipsForDestinationInstance: Error! Game has no ifid?");
         } else {
-            request.predicate = [NSPredicate predicateWithFormat:@"hashTag LIKE %@", [dInstance valueForKey:@"ifid"]];
-            NSArray<Metadata *> *result = [dContext executeFetchRequest:request error:&error2];
-            if (result.count) {
-                Metadata *metadata = result.firstObject;
-                if (metadata.game) {
-                    NSLog(@"createRelationshipsForDestinationInstance: Error! Metadata %@ already has game (%@)!", metadata.title, metadata.game.ifid);
-                }
-                game.metadata = metadata;
-                metadata.hashTag = nil;
-            } else {
-                NSLog(@"createRelationshipsForDestinationInstance: Found no suitable Metadata instance for game!");
-            }
-        }
-        if (game.metadata == nil) {
-            NSLog(@"createRelationshipsForDestinationInstance: Game has no metadata!");
-            NSSet<Metadata *> *metas = [Fetches fetchMetadataForIfid:ifidStr inContext:game.managedObjectContext];
-            if (metas.count == 0) {
-                NSLog(@"createRelationshipsForDestinationInstance: Game has no metadata and found no Ifid with ifidString %@", ifidStr);
-            } else {
-                for (Metadata *meta in metas) {
-                    if (meta.game == nil) {
-                        game.metadata = meta;
-                        break;
+            if ([dInstance valueForKey:@"ifid"]) {
+                request.predicate = [NSPredicate predicateWithFormat:@"hashTag LIKE %@", [dInstance valueForKey:@"ifid"]];
+                NSArray<Metadata *> *result = [dContext executeFetchRequest:request error:&error2];
+                if (result.count) {
+                    Metadata *metadata = result.firstObject;
+                    if (metadata.game) {
+                        NSLog(@"createRelationshipsForDestinationInstance: Error! Metadata %@ already has game (%@)!", metadata.title, metadata.game.ifid);
                     }
+                    game.metadata = metadata;
+                    metadata.hashTag = nil;
+                } else {
+                    NSLog(@"createRelationshipsForDestinationInstance: Found no suitable Metadata instance for game!");
                 }
-                if (game.metadata == nil) {
-                    NSLog(@"Fail!");
+            }
+            if (game.metadata == nil) {
+                NSLog(@"createRelationshipsForDestinationInstance: Game has no metadata!");
+                NSSet<Metadata *> *metas = [Fetches fetchMetadataForIfid:ifidStr inContext:game.managedObjectContext];
+                if (metas.count == 0) {
+                    NSLog(@"createRelationshipsForDestinationInstance: Game has no metadata and found no Ifid with ifidString %@", ifidStr);
+                } else {
+                    for (Metadata *meta in metas) {
+                        if (meta.game == nil) {
+                            game.metadata = meta;
+                            break;
+                        }
+                    }
+                    if (game.metadata == nil) {
+                        NSLog(@"Fail!");
+                    }
                 }
             }
         }
@@ -218,17 +223,19 @@
             }
             if (!result.count) {
                 for (Ifid *ifid in destinationMeta.ifids) {
-                    request.predicate = [NSPredicate predicateWithFormat:@"metadata == NIL AND ifid LIKE %@", ifid.ifidString];
-                    result = [dContext executeFetchRequest:request error:&error2];
-                    if (result.count) {
-                        destinationMeta.game = result.firstObject;
-                        break;
+                    if (ifid.ifidString.length) {
+                        request.predicate = [NSPredicate predicateWithFormat:@"metadata == NIL AND ifid LIKE %@", ifid.ifidString];
+                        result = [dContext executeFetchRequest:request error:&error2];
+                        if (result.count) {
+                            destinationMeta.game = result.firstObject;
+                            break;
+                        }
                     }
                 }
             }
         }
     // Create relationships for Image
-    } else if ([dInstance.entity.name isEqualToString:@"Image"]) {
+    } else if ([dInstance.entity.name isEqualToString:@"Image"] && [dInstance valueForKey:@"originalURL"]) {
         request = [Metadata fetchRequest];
         request.predicate = [NSPredicate predicateWithFormat:@"coverArtURL LIKE %@", [dInstance valueForKey:@"originalURL"]];
         error3 = nil;
