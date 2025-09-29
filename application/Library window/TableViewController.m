@@ -1807,7 +1807,7 @@ typedef NS_ENUM(int32_t, kImportResult) {
 
         if (games.count > 0) {
             importResult = kImportResultExactMatchesOnly;
-            msg = [NSString stringWithFormat:@"Found details matching %@.",
+            msg = [NSString stringWithFormat:@"Found details matching %@ in iFiction file.",
                    [NSString stringWithSummaryOfGames:games.allObjects]];
         } else if (storyDict.count) {
             NSLog(@"askAboutImportingMetadata: None of the %ld direct matches found in database", storyDict.count);
@@ -1819,7 +1819,7 @@ typedef NS_ENUM(int32_t, kImportResult) {
             else
                 importResult = kImportResultPartialMatchesOnly;
 
-            msg2 = [NSString stringWithFormat:@"%@ound partial match%@ for %@.", importResult == kImportExactAndPartialMatchesBoth ? @"Also f" : @"F", indirectGames.count > 1 ? @"es" : @"", [NSString stringWithSummaryOfGames:indirectGames.allObjects]];
+            msg2 = [NSString stringWithFormat:@"%@ound partial match%@ for %@%@.", importResult == kImportExactAndPartialMatchesBoth ? @"Also f" : @"F", indirectGames.count > 1 ? @"es" : @"", [NSString stringWithSummaryOfGames:indirectGames.allObjects], importResult == kImportExactAndPartialMatchesBoth ? @"" : @" in iFiction file"];
         } else if (indirectDict.count) {
             NSLog(@"askAboutImportingMetadata: None of the %ld indirect matches found in database (or they were also exact matches)", indirectDict.count);
         }
