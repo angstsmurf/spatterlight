@@ -1825,8 +1825,11 @@ typedef NS_ENUM(int32_t, kImportResult) {
         }
     }];
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-
+    CGFloat delay = 0;
+    if (_spinnerSpinning) {
+        delay = 1;
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSAlert *anAlert = [[NSAlert alloc] init];
         [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
         anAlert.messageText = NSLocalizedString(msg, nil);
