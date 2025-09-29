@@ -108,8 +108,8 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
                 // When importing Return to Ditch Day, Babel returns a text with \\n instead of line breaks.
                 _blurb =
                 [_blurb stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
-            } else {
-                NSLog(@"Unhandled node name:%@ value: %@", key, keyVal);
+//            } else {
+//                NSLog(@"Unhandled node name:%@ value: %@", key, keyVal);
             }
         }
     }

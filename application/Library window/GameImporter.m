@@ -277,8 +277,8 @@ void freeContext(void **ctx) {
                     alert.informativeText = NSLocalizedString(@"No executable chunk found in Blorb file.", nil);
                     [alert runModal];
                 });
-            } else {
-                NSLog(@"No executable chunk found in Blorb file.");
+//            } else {
+//                NSLog(@"No executable chunk found in Blorb file.");
             }
             return nil;
         }
@@ -359,8 +359,8 @@ void freeContext(void **ctx) {
                 alert.informativeText = NSLocalizedString(@"Not a supported format.", nil);
                 [alert runModal];
             });
-        } else {
-            NSLog(@"%@: Recognized extension (%@) but unknown file format.", path.lastPathComponent, extension);
+//        } else {
+//            NSLog(@"%@: Recognized extension (%@) but unknown file format.", path.lastPathComponent, extension);
         }
         return nil;
     }
