@@ -76,19 +76,19 @@ fprintf(stderr, "%s\n",                                                    \
         // The code below simply looks for these tags and prints them and their values
         // for informational (debug?) purposes.
 
-        if (gFormatMap.count) {
-            for (NSString *key in gFormatMap.allKeys) {
-                NSArray<NSXMLElement *> *formatElements = [element elementsForName:key];
-                if (formatElements.count) {
-                    NSLog(@"Found <%@> element", key);
-                    NSEnumerator *enumChildren = [formatElements[0].children objectEnumerator];
-                    NSXMLNode *node;
-                    while ((node = [enumChildren nextObject])) {
-                        NSLog(@"Found %@ : %@ under the \"%@\" element", node.name, node.stringValue, key);
-                    }
-                }
-            }
-        }
+//        if (gFormatMap.count) {
+//            for (NSString *key in gFormatMap.allKeys) {
+//                NSArray<NSXMLElement *> *formatElements = [element elementsForName:key];
+//                if (formatElements.count) {
+//                    NSLog(@"Found <%@> element", key);
+//                    NSEnumerator *enumChildren = [formatElements[0].children objectEnumerator];
+//                    NSXMLNode *node;
+//                    while ((node = [enumChildren nextObject])) {
+//                        NSLog(@"Found %@ : %@ under the \"%@\" element", node.name, node.stringValue, key);
+//                    }
+//                }
+//            }
+//        }
     }
     return self;
 }

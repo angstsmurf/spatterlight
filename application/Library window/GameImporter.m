@@ -200,7 +200,7 @@ extern NSArray *gGameFileTypes;
         if (lookForImages && (game.metadata.cover.data == nil || [(NSData *)game.metadata.cover.data isPlaceHolderImage]))
             [self lookForImagesForGame:game];
     } else {
-        NSLog(@"libctl: addFile: File %@ not added!", url.path);
+//        NSLog(@"libctl: addFile: File %@ not added!", url.path);
     }
     return lastOperation;
 }
@@ -365,7 +365,7 @@ void freeContext(void **ctx) {
         return nil;
     }
 
-    NSLog(@"GameImporter: import game %@ (%@)", path, formatStr);
+//    NSLog(@"GameImporter: import game %@ (%@)", path, formatStr);
 
     if (ifid == nil) {
         // If this happens, it means the Babel tool did not
@@ -390,16 +390,16 @@ void freeContext(void **ctx) {
         }
 
         if (!game) {
-            NSLog(@"importGame: Creating new Game object for game with hash %@", hash);
+//            NSLog(@"importGame: Creating new Game object for game with hash %@", hash);
             game = (Game *) [NSEntityDescription
                              insertNewObjectForEntityForName:@"Game"
                              inManagedObjectContext:context];
         } else {
-            NSLog(@"importGame: Game with hash %@ already exists in library (%@)", hash, path.lastPathComponent);
+//            NSLog(@"importGame: Game with hash %@ already exists in library (%@)", hash, path.lastPathComponent);
         }
 
         if (!metadata) {
-            NSLog(@"GameImporter importGame: Creating new Metadata object for game with hash %@", hash);
+//            NSLog(@"GameImporter importGame: Creating new Metadata object for game with hash %@", hash);
             metadata = (Metadata *) [NSEntityDescription
                                      insertNewObjectForEntityForName:@"Metadata"
                                      inManagedObjectContext:context];
@@ -441,9 +441,9 @@ void freeContext(void **ctx) {
                 if (imageData) {
                     metadata.coverArtURL = path;
                     [IFDBDownloader insertImageData:imageData inMetadataID:metadata.objectID context:context];
-                    NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
+//                    NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
                 }
-                else NSLog(@"Found no image in blorb file %@", path);
+//                else NSLog(@"Found no image in blorb file %@", path);
             }
         }
 
@@ -457,7 +457,7 @@ void freeContext(void **ctx) {
             game.serialString = [path oldSignatureFromFile];
         }
         blorb = nil;
-        NSLog(@"GameImporter importGame: Title: %@ Hash:%@", game.metadata.title, game.hashTag);
+//        NSLog(@"GameImporter importGame: Title: %@ Hash:%@", game.metadata.title, game.hashTag);
     }];
 
     return game;
