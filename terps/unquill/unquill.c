@@ -397,7 +397,7 @@ uchar zmem(ushort addr)
 	{
 	    longjmp(myenv, 1);
 	}
-	exit(1);
+        glk_exit();
     }
     
     return zxmemory[addr - mem_base];
