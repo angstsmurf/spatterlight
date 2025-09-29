@@ -63,7 +63,7 @@ Journey using VoiceOver: https://youtu.be/9jauDyUu6Ro
 
 # Compiling
 
-Building the current version has only been tried on macOS 15 Sequoia and Xcode 16. If you have success on earlier versions, please let me know! The resulting binary will still run on 10.13 High Sierra, though.
+Building the current version has only been tried on macOS 15 Sequoia and Xcode 26. If you have success on earlier versions, please let me know! The resulting binary will still run on 10.13 High Sierra, though.
 
 Clone or download the source. Open the file `Spatterlight.xcodeproj` in Xcode. Make sure that the target is set to `Spatterlight > My Mac`. Press the Build & Run button.
 
