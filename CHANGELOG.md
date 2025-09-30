@@ -1,35 +1,35 @@
 # Change log
 
 ## Release 1.4.6
-- In previous versions, the library used IFIDs to keep track of games. This meant that if several games had the same IFID, they would also share all metadata such as title and cover image. This is not longer the case. Spatterlight now uses checksums calculated from the game file contents instead. This means that every variant of, say, *Adventureland*, in your collection can have its own name, cover image and release year in Spatterlight, as long as the game files are not exactly the same.
-- Importing metadata from an Ifiction file will now only use data matching games already in the Spatterlight database.
-- There is also a new confirmation dialog for Ifiction import.
-- Reading of WOZ files in DOS 3.3 format, used by Apple 2 versions of the Scott Adams games, was broken.
-- Sopport for *Scott Adams Adventure Pack*, a C64 disk image available from Scott Adams' web site.
+- In previous versions, the library used IFIDs to keep track of games. This meant that if several games had the same IFID, they would also share all metadata such as title and cover image. This is no longer the case. Spatterlight now uses checksums calculated from the game file contents instead. This means that every variant of, say, *Adventureland* in your collection can have its own name, cover image, and release year in Spatterlight, as long as the game files are not exactly the same.
+- Importing metadata from an iFiction file will now only use data matching games already in the Spatterlight database.
+- There is also a new confirmation dialog for iFiction import.
+- Trying to download a cover image for a game which doesn't have one would sometimes download game data instead of an image, causing unpredictable behavior when trying to display it.
+- Batch import of games, metadata and cover images has been reworked, fixing many bugs that could potentially cause crashes and loss of data.
+- Spatterlight will verify games by default when starting up.
+- The game verification will check for misidentified games and fix common database errors.
+- Reading of WOZ files in DOS 3.3 format, used by the Apple 2 versions of the Scott Adams games, was broken.
+- Autorestoring a Z-code game would break input line echoing.
+- Restarting a Z-code game would not clear customs colors. This was especially apparent in *Just Two Wishes*, which would display black text on a black background after restarting in color mode.
+- Adds support for *Scott Adams Adventure Pack*, a C64 disk image available from Scott Adams' web site.
 - The Atari 8-bit disk version of *Secret Mission* now works.
 - The TI-99/4A format ScottFree games no longer remove the lamp automatically.
 - TAKE ALL and DROP ALL commands in ScottFree will continue even if one action fails.
-- Fixes the commands in *Journey* development release 142-890205 at narrow sizes.
+- Fixes the command display in *Journey* development release 142-890205 at narrow sizes.
 - *Journey* will not open a graphics window if no graphic files are found.
 - Many of the built-in themes have been re-adjusted for *Journey*. Rebuild default themes in preferences to update them.
 - Full screen animation for *Shogun* and *Arthur* would flicker.
 - Graphics in *Arthur* would sometimes not clear properly.
 - Image descriptions are no longer momentarily visible in *Arthur* unless VoiceOver is active.
-- Trying to download a cover image for a game which doesn't have one would sometimes download game data instead of an image, causing unpredictable behavior when trying to display it.
-- Batch import of games, metadata and cover images has been reworked, fixing many bugs that could potentially cause crashes and loss of data.
 - Animations in *Carma* would flicker.
-- Restarting a Z-code game would not clear customs colors. This was especially apparent in *Just Two Wishes*, which would display black text on a black background after restarting in color mode.
-- Autorestoring a Z-code game would break input line echoing.
 - Unquill will now show an error message before closing when it fails to start a game.
 - Opening a save file with the Open… command, (i.e. not from a save prompt) in order to restore it, now works at least some of the time.
-- Spatterlight will verify games by default when starting up.
-- The game verification will check for misidentified games and common database errors.
 - The Level 9 interpreter was updated to version 5.2, adding support for MSX games.
 - No longer creates lots of empty directories in the Spatterlight Application Support directory.
 - Window restoration at startup could cause blank windows and broken games.
 - More sensible fallback game window size if window restoration fails.
 - The "stopped" (■) icon was shown in the status column of the table view when a game was showing a cover image at startup. It now displays the "playing" icon (▶) instead.
-- The "game file missing" icon (exclamation mark in a circle) would be too large and only partially visible on pre-Big Sur systems.
+- The "game file missing" icon (exclamation mark in a circle) would be too large and only partially visible on pre-Big Sur systems (macOS 10.15 Catalina and earlier.)
 - Allows sorting the table view on the status column.
 
 ## Release 1.4.5
