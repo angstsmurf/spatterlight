@@ -8,6 +8,7 @@
 - Batch import of games, metadata and cover images has been reworked, fixing many bugs that could potentially cause crashes and loss of data.
 - Spatterlight will verify games by default when starting up.
 - The game verification will check for misidentified games and fix common database errors.
+- Quitting Spatterlight while an autorestoring game is in full screen mode, and then re-launching (i.e. autorestoring in full screen mode at startup) would sometimes result in a blank screen.
 - Reading of WOZ files in DOS 3.3 format, used by the Apple 2 versions of the Scott Adams games, was broken.
 - Autorestoring a Z-code game would break input line echoing.
 - Restarting a Z-code game would not clear customs colors. This was especially apparent in *Just Two Wishes*, which would display black text on a black background after restarting in color mode.
