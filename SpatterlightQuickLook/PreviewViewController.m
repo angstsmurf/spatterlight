@@ -12,7 +12,6 @@
 #import <BlorbFramework/BlorbFramework.h>
 
 #import "Game.h"
-#import "Ifid.h"
 #import "Image.h"
 #import "Metadata.h"
 

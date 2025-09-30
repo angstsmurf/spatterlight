@@ -485,7 +485,6 @@
 		C30C7ADF28CA2C2E00D293BE /* apple2draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADD28CA2C2E00D293BE /* apple2draw.c */; };
 		C30C7AE028CA2C2E00D293BE /* atari8c64draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADE28CA2C2E00D293BE /* atari8c64draw.c */; };
 		C30C7AE328CA2C4F00D293BE /* sagagraphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AE128CA2C4F00D293BE /* sagagraphics.c */; };
-		C30C7EE02E8BFB8B00B2BD24 /* Ifid.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213C23A26078002DEF3B /* Ifid.m */; };
 		C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE6327EB06E6006C90FB /* gameinfo.c */; };
 		C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE7E27EBA06A006C90FB /* decompressz80.c */; };
 		C30E9626289929AC00590271 /* stdetect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30E9625289929AC00590271 /* stdetect.c */; };
@@ -7806,7 +7805,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C30C7EE02E8BFB8B00B2BD24 /* Ifid.m in Sources */,
 				C309884825CB1AD300750F72 /* Game.m in Sources */,
 				C309886225CB1ADF00750F72 /* Image.m in Sources */,
 				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
