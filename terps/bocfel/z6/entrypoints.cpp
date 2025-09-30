@@ -2395,7 +2395,11 @@ static void find_zork0_globals(void) {
             zr.J_PLAY = entrypoint.found_at_address;
             fprintf(stderr, "zr.J_PLAY at address 0x%x\n", entrypoint.found_at_address);
             start = find_16_bit_values_in_pattern({0xE2, 0x1B, WILDCARD, WILDCARD, 0x00, 0x02, 0xE2, 0x1B, WILDCARD, WILDCARD, 0x01, 0x03 }, {&zt.F_CARD_TABLE, &zt.F_PLAY_TABLE}, entrypoint.found_at_address, 500);
-            fprintf(stderr, "zt.F_CARD_TABLE: 0x%x\n", zt.F_CARD_TABLE);
+            if (start == -1) {
+                fprintf(stderr, "zt.F_CARD_TABLE not found!\n");
+            } else {
+                fprintf(stderr, "zt.F_CARD_TABLE: 0x%x\n", zt.F_CARD_TABLE);
+            }
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == DRAW_PEGS && entrypoint.found_at_address != 0) {
             zr.DRAW_PEGS = entrypoint.found_at_address;
@@ -2403,9 +2407,16 @@ static void find_zork0_globals(void) {
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == SET_B_PIC && entrypoint.found_at_address != 0) {
             zr.SET_B_PIC = entrypoint.found_at_address;
-            start = find_16_bit_values_in_pattern({0x05, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x02, 0x02}, {&zt.B_X_TBL}, entrypoint.found_at_address - 50, 50);
-            start = find_16_bit_values_in_pattern({0x05, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x04, 0x00}, {&zt.B_Y_TBL}, start, 50);
             fprintf(stderr, "zr.SET_B_PIC at address 0x%x\n", entrypoint.found_at_address);
+            start = find_16_bit_values_in_pattern({0x05, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x02, 0x02}, {&zt.B_X_TBL}, entrypoint.found_at_address - 50, 50);
+            if (start == -1) {
+                fprintf(stderr, "zt.B_X_TBL not found!\n");
+                start = entrypoint.found_at_address;
+            }
+            start = find_16_bit_values_in_pattern({0x05, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x04, 0x00}, {&zt.B_Y_TBL}, start, 50);
+            if (start == -1) {
+                fprintf(stderr, "zt.B_Y_TBL not found!\n");
+            }
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == TOWER_WIN_CHECK && entrypoint.found_at_address != 0) {
             zr.TOWER_WIN_CHECK = entrypoint.found_at_address;
@@ -2414,7 +2425,7 @@ static void find_zork0_globals(void) {
             std::vector<uint16_t *> weights = {&zo.ONE_WEIGHT, &zo.TWO_WEIGHT, &zo.THREE_WEIGHT, &zo.FOUR_WEIGHT, &zo.FIVE_WEIGHT, &zo.SIX_WEIGHT};
 
             start = entrypoint.found_at_address;
-            int32_t oldstart = start;
+            int32_t oldstart;
 
             for (auto weight : weights) {
                 oldstart = start;
@@ -2436,11 +2447,13 @@ static void find_zork0_globals(void) {
 
             uint8_t one_high = zo.ONE_WEIGHT >> 8;
             uint8_t one_lo = zo.ONE_WEIGHT & 0xff;
+            oldstart = start;
             start = find_16_bit_values_in_pattern({0xc6, 0x0f, one_high, one_lo, WILDCARD, WILDCARD },
                                                   { &zo.RIGHT_PEG }, start, 50);
 
             if (start == -1) {
                 fprintf(stderr, "Error!\n");
+                start = oldstart;
             } else {
                 zo.PYRAMID_L = memory[start - 5];
                 start = find_16_bit_values_in_pattern({0xc6, 0x0f, one_high, one_lo, WILDCARD, WILDCARD },
@@ -2449,13 +2462,23 @@ static void find_zork0_globals(void) {
                 fprintf(stderr, "zo.LEFT_PEG = 0x%x zo.CENTER_PEG = 0x%x zo.RIGHT_PEG = 0x%x\n", zo.LEFT_PEG, zo.CENTER_PEG, zo.RIGHT_PEG);
             }
 
-            uint8_t dummy;
+            uint8_t dummy = 0;
+            oldstart = start;
             start = find_values_in_pattern({0x40, 0x9b, WILDCARD }, {&dummy}, start, 50);
-            zo.PYRAMID = dummy;
+            if (start == -1) {
+                fprintf(stderr, "zo.PYRAMID not found!\n");
+                start = oldstart;
+            } else {
+                zo.PYRAMID = dummy;
+            }
 
             start = find_16_bit_values_in_pattern({0xC1, 0x8F, 0x01, 0x01, WILDCARD, WILDCARD, 0x8B, WILDCARD, WILDCARD, 0xC1, 0x8F, 0x01, WILDCARD, WILDCARD, WILDCARD, 0x8b, WILDCARD, WILDCARD, 0x8b, WILDCARD, WILDCARD, 0 }, {&zt.LEFT_PEG_TABLE, &zt.LEFT_PEG_TABLE, &zt.CENTER_PEG_TABLE, &zt.CENTER_PEG_TABLE, &zt.RIGHT_PEG_TABLE, &zt.CENTER_PEG_TABLE}, start, 100 );
 
-            fprintf(stderr, "zo.LEFT_PEG_TABLE = 0x%x zt.CENTER_PEG_TABLE = 0x%x zt.RIGHT_PEG_TABLE = 0x%x\n", zt.LEFT_PEG_TABLE, zt.CENTER_PEG_TABLE, zt.RIGHT_PEG_TABLE);
+            if (start != -1) {
+                fprintf(stderr, "zo.LEFT_PEG_TABLE = 0x%x zt.CENTER_PEG_TABLE = 0x%x zt.RIGHT_PEG_TABLE = 0x%x\n", zt.LEFT_PEG_TABLE, zt.CENTER_PEG_TABLE, zt.RIGHT_PEG_TABLE);
+            } else {
+                fprintf(stderr, "zo.LEFT_PEG_TABLE, zt.CENTER_PEG_TABLE, zt.RIGHT_PEG_TABLE not found!\n");
+            }
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == after_V_COLOR && end_of_color_addr != 0) {
             entrypoint.found_at_address = end_of_color_addr;
@@ -2463,6 +2486,9 @@ static void find_zork0_globals(void) {
         } else if (entrypoint.fn == TOWER_MODE && entrypoint.found_at_address != 0) {
             uint8_t dummy;
             start = find_globals_in_pattern({0xa0, WILDCARD, WILDCARD, WILDCARD, 0xa0, 0x05}, {&zg.TOWER_CHANGED, &dummy, &dummy}, entrypoint.found_at_address, 10);
+            if (start == -1) {
+                fprintf(stderr, "zg.TOWER_CHANGED not found!\n");
+            }
         } else if (entrypoint.fn == DO_HINTS && entrypoint.found_at_address != 0) {
             start = find_16_bit_values_in_pattern({ 0xf3, 0x3f, 0xff, 0xfd, 0xcd, 0x4f, WILDCARD, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD }, { &hints_table_addr, &hints_table_addr, &hints_table_addr }, entrypoint.found_at_address, 300);
             if (start != -1) {
@@ -2584,15 +2610,29 @@ static void find_zork0_globals(void) {
             } else {
                 fprintf(stderr, "zo.NOT_HERE_OBJECT not found!\n");
             }
-
+            int oldstart = start;
             start = find_16_bit_values_in_pattern({0xCD, 0x4F, 0x02, WILDCARD, WILDCARD, 0x4f  }, {&zt.PBOZ_PIC_TABLE }, start, 20);
-            fprintf(stderr, "zt.PBOZ_PIC_TABLE: 0x%x\n", zt.PBOZ_PIC_TABLE);
+            if (start != -1) {
+                fprintf(stderr, "zt.PBOZ_PIC_TABLE: 0x%x\n", zt.PBOZ_PIC_TABLE);
+            } else {
+                fprintf(stderr, "zt.PBOZ_PIC_TABLE not found!\n");
+                start = oldstart;
+            }
             start = find_16_bit_values_in_pattern({0xE1, 0x2B, WILDCARD, WILDCARD, 0x01, 0x00}, {&zt.BOARD_TABLE }, start, 50);
-            fprintf(stderr, "zt.BOARD_TABLE: 0x%x\n", zt.BOARD_TABLE);
+            if (start != -1) {
+
+                fprintf(stderr, "zt.BOARD_TABLE: 0x%x\n", zt.BOARD_TABLE);
+            } else {
+                fprintf(stderr, "zt.BOARD_TABLE not found!\n");
+            }
 
         } else if (entrypoint.fn == DRAW_PILE && entrypoint.found_at_address != 0) {
             start = find_16_bit_values_in_pattern({0xcf, 0x2f, WILDCARD, WILDCARD, 0x01, 0x02 }, {&zt.PILE_TABLE}, entrypoint.found_at_address, 10);
-            fprintf(stderr, "zt.PILE_TABLE: 0x%x\n", zt.PILE_TABLE);
+            if (start != -1) {
+                fprintf(stderr, "zt.PILE_TABLE: 0x%x\n", zt.PILE_TABLE);
+            } else {
+                fprintf(stderr, "zt.PILE_TABLE not found!\n");
+            }
         } else if (entrypoint.fn == SNARFEM && entrypoint.found_at_address != 0) {
             start = find_16_bit_values_in_pattern({0x0D, 0x04, 0x01, 0xCE, 0x2F, WILDCARD, WILDCARD, WILDCARD, 0xCC, 0x1F, WILDCARD, WILDCARD}, {&zo.FAN, &zo.FAN}, entrypoint.found_at_address, 220);
             if (start == -1) {
@@ -2604,7 +2644,7 @@ static void find_zork0_globals(void) {
             }
             fprintf(stderr, "zo.FAN: 0x%x zp.TRYTAKEBIT: 0x%x\n", zo.FAN, zp.TRYTAKEBIT);
         } else if (entrypoint.fn == DRAW_NEW_HERE && entrypoint.found_at_address != 0) {
-            uint8_t philhall, mountain, savannah, highway;
+            uint8_t philhall = 0, mountain = 0, savannah = 0, highway = 0;
             start = find_values_in_pattern({0xA0, WILDCARD, 0x46, 0x41, WILDCARD, WILDCARD, 0x4C, 0x51, WILDCARD, WILDCARD, 0x01, 0xA0, 0x01 }, {&zg.NARROW, &philhall, &philhall, &zp.P_APPLE_DESC, &zp.P_APPLE_DESC}, entrypoint.found_at_address, 50);
             if (start != -1) {
                 start = find_values_in_pattern({0xb0, 0xC1, 0x95, WILDCARD, WILDCARD, WILDCARD, WILDCARD, 0x67 }, {&mountain, &mountain, &savannah, &highway}, start, 20);
@@ -2632,6 +2672,9 @@ static void find_zork0_globals(void) {
         } else if (entrypoint.fn == DRAW_COMPASS_ROSE && entrypoint.found_at_address != 0) {
             zr.DRAW_COMPASS_ROSE = entrypoint.found_at_address;
             start = find_16_bit_values_in_pattern({0xCF, 0x1F, WILDCARD, WILDCARD, 0x00, 0x04 }, {&zt.PICINF_TBL}, entrypoint.found_at_address, 32);
+            if (start == -1) {
+                fprintf(stderr, "zt.PICINF_TBL not found!\n");
+            }
             entrypoint.found_at_address = 0;
         }
     }
