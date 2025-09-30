@@ -461,7 +461,6 @@
 		96FE87DA09F3A1D100D41D78 /* libtads2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876009F3A11900D41D78 /* libtads2.a */; };
 		96FE87DB09F3A1D100D41D78 /* libtads3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876509F3A12B00D41D78 /* libtads3.a */; };
 		C30077D72E871F9A00C32069 /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D794358224A2D2E0071EB3D /* NSString+Categories.m */; };
-		C30077D92E871FA600C32069 /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D794358224A2D2E0071EB3D /* NSString+Categories.m */; };
 		C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C300D48323A11786000B2165 /* IFDBDownloader.m */; };
 		C30135BF27219AC60006B85C /* DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C30135BD27219AC60006B85C /* DownloadOperation.m */; };
 		C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */; };
@@ -479,7 +478,6 @@
 		C309886225CB1ADF00750F72 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
 		C30A89252E81BCC800416F0C /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
-		C30A89272E81BCE100416F0C /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C30C57D72C68C31900C2AAAF /* options.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C30C57D52C68C31800C2AAAF /* options.cpp */; };
 		C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD728CA2C0300D293BE /* atari8detect.c */; };
 		C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD828CA2C0300D293BE /* apple2detect.c */; };
@@ -487,6 +485,7 @@
 		C30C7ADF28CA2C2E00D293BE /* apple2draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADD28CA2C2E00D293BE /* apple2draw.c */; };
 		C30C7AE028CA2C2E00D293BE /* atari8c64draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADE28CA2C2E00D293BE /* atari8c64draw.c */; };
 		C30C7AE328CA2C4F00D293BE /* sagagraphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AE128CA2C4F00D293BE /* sagagraphics.c */; };
+		C30C7EE02E8BFB8B00B2BD24 /* Ifid.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213C23A26078002DEF3B /* Ifid.m */; };
 		C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE6327EB06E6006C90FB /* gameinfo.c */; };
 		C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE7E27EBA06A006C90FB /* decompressz80.c */; };
 		C30E9626289929AC00590271 /* stdetect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30E9625289929AC00590271 /* stdetect.c */; };
@@ -559,6 +558,8 @@
 		C32A3D862719F3240049C777 /* iFictionPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35978C425DA14A6004B1448 /* iFictionPreviewController.m */; };
 		C32A3D882719F34B0049C777 /* iFiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3E2EAB325D08EEC0012B7FB /* iFiction.plist */; };
 		C32DBFA626714EFE00AB5704 /* MyFilePromiseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */; };
+		C33874D22E8BF89200153FED /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D794358224A2D2E0071EB3D /* NSString+Categories.m */; };
+		C33874D42E8BF8A900153FED /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C33B4504257E84500017EA26 /* ZMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C33B4502257E84500017EA26 /* ZMenu.m */; };
 		C33EAB382982F6550098CFD4 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		C341A4A0272B265100A46ED4 /* ComparisonOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C341A49F272B265100A46ED4 /* ComparisonOperation.m */; };
@@ -675,8 +676,6 @@
 		C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA10284BAEA300C8A693 /* loaddatabase.c */; };
 		C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA16284BAF0000C8A693 /* graphics.c */; };
 		C3A72FDA2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
-		C3A72FDB2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
-		C3A72FDC2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
 		C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3027A676630032C068 /* c64decrunch.c */; };
 		C3A9FD3327A6E56C0032C068 /* scottgameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */; };
 		C3ABCA532D553B8400BC4268 /* shogun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ABCA522D553B8400BC4268 /* shogun.cpp */; };
@@ -3273,51 +3272,8 @@
 		C3FFF80127E52E19000C481A /* restorestate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C3CB9A3B2E842B0F00BF00BA /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Ifid1ToHash.xcmappingmodel,
-				Ifid2ToHash.xcmappingmodel,
-				Ifid3ToHash.xcmappingmodel,
-				Ifid4ToHash.xcmappingmodel,
-				Ifid5ToHash.xcmappingmodel,
-				Ifid6ToHash.xcmappingmodel,
-				Ifid7ToHash.xcmappingmodel,
-				Ifid8ToHash.xcmappingmodel,
-				Ifid9ToHash.xcmappingmodel,
-				Ifid10ToHash.xcmappingmodel,
-				Ifid11ToHash.xcmappingmodel,
-				Ifid12ToHash.xcmappingmodel,
-				Ifid13ToHash.xcmappingmodel,
-				IfidToHash.xcmappingmodel,
-			);
-			target = C322714925CC214A0083BD5B /* SpatterlightThumbnailer */;
-		};
-		C3CB9A4B2E842B2300BF00BA /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Ifid1ToHash.xcmappingmodel,
-				Ifid2ToHash.xcmappingmodel,
-				Ifid3ToHash.xcmappingmodel,
-				Ifid4ToHash.xcmappingmodel,
-				Ifid5ToHash.xcmappingmodel,
-				Ifid6ToHash.xcmappingmodel,
-				Ifid7ToHash.xcmappingmodel,
-				Ifid8ToHash.xcmappingmodel,
-				Ifid9ToHash.xcmappingmodel,
-				Ifid10ToHash.xcmappingmodel,
-				Ifid11ToHash.xcmappingmodel,
-				Ifid12ToHash.xcmappingmodel,
-				Ifid13ToHash.xcmappingmodel,
-				IfidToHash.xcmappingmodel,
-			);
-			target = C311DEF425C472E500484639 /* SpatterlightQuickLook */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C3DB14582E8418BB00837F69 /* MappingModels */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C3CB9A4B2E842B2300BF00BA /* PBXFileSystemSynchronizedBuildFileExceptionSet */, C3CB9A3B2E842B0F00BF00BA /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = MappingModels; sourceTree = "<group>"; };
+		C3DB14582E8418BB00837F69 /* MappingModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MappingModels; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -7850,8 +7806,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C30C7EE02E8BFB8B00B2BD24 /* Ifid.m in Sources */,
 				C309884825CB1AD300750F72 /* Game.m in Sources */,
-				C3A6E9A52E84B75B00908EE6 /* Ifid.m in Sources */,
 				C309886225CB1ADF00750F72 /* Image.m in Sources */,
 				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
 				C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */,
@@ -7859,7 +7815,6 @@
 				C30A89252E81BCC800416F0C /* FileSignature.m in Sources */,
 				C36B3892271F710200756D94 /* InfoView.m in Sources */,
 				C3E2EAB525D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m in Sources */,
-				C3A72FDB2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */,
 				C3E2EAB625D08EEC0012B7FB /* UKSyntaxColor.m in Sources */,
 				C32A3D852719F30A0049C777 /* PreviewViewController.m in Sources */,
 				C32A3D862719F3240049C777 /* iFictionPreviewController.m in Sources */,
@@ -7931,15 +7886,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C30077D92E871FA600C32069 /* NSString+Categories.m in Sources */,
-				C30A89272E81BCE100416F0C /* FileSignature.m in Sources */,
-				C3A72FDC2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */,
-				C3CAC15D2699C73200FCB7BF /* NSData+Categories.m in Sources */,
 				C322718C25CC224F0083BD5B /* Game.m in Sources */,
 				C32271C025CC22590083BD5B /* Image.m in Sources */,
 				C32271A625CC22530083BD5B /* Metadata.m in Sources */,
-				C30A89272E81BCE100416F0C /* FileSignature.m in Sources */,
-				C30077D92E871FA600C32069 /* NSString+Categories.m in Sources */,
+				C33874D42E8BF8A900153FED /* FileSignature.m in Sources */,
+				C33874D22E8BF89200153FED /* NSString+Categories.m in Sources */,
 				C322715025CC214A0083BD5B /* ThumbnailProvider.m in Sources */,
 				C322717225CC22260083BD5B /* Spatterlight.xcdatamodeld in Sources */,
 			);
