@@ -48,7 +48,7 @@ static JourneyWords printed_journey_words[4];
 static int number_of_printed_journey_words = 0;
 
 static inputMode journey_current_input = INPUT_PARTY;
-static uint16_t journey_input_length = 0;
+static int16_t journey_input_length = 0;
 
 static int16_t selected_journey_line = -1;
 static int16_t selected_journey_column = -1;
@@ -623,7 +623,8 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
             garglk_set_reversevideo(0);
         }
         if (character == 0x7f || character == ZSCII_BACKSPACE || character == ZSCII_LEFT) { // DELETE-KEY ,BACK-SPACE ,LEFT-ARROW
-            if (journey_input_length == 0) {
+            if (journey_input_length <= 0) {
+                journey_input_length = 0;
                 win_beep(1);
                 continue;
             } else {
