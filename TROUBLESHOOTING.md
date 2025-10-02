@@ -36,6 +36,12 @@ If you have played a game for a long time and it has printed a lot of text to th
   <img src="readme_images/clearscrollback.png" width="300">
 </p>
 
+## Playing games without adding them to the library
+
+You may just want to play a game without it getting added to the library. There is a setting for this in the Open… dialog (the file dialog with the text "Please select a game".) Press the Show Options button to reveal the Add to library checkbox.
+
+There is a setting for this on the Global settings tab as well. Here you can uncheck "Add games to library when opened", and also "Show library window automatically" if you don't want to see the library window at all.
+
 ## Custom Finder icons and previews
 
 By default, Spatterlight will install Finder extensions which provide custom previews and icons for many supported file types. If you don't want these, they can be turned off in System Settings > Login Items & Extensions > Quick Look > Spatterlight.
