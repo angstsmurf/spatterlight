@@ -12,6 +12,10 @@ Baseline offset and Max line height are the most likely culprits.
   <img src="readme_images/gridnormal.png" width="600">
 </p>
 
+## Text too small or too large
+
+You can change the text size on-the-fly with the "⌘ +" and "⌘ -" shortcuts (command plus and command minus key combos.) This will also adapt relevant paragraph settings such as line spacing and maximum line height to the new size. "⌘ 0" (command zero) will reset the text size to its default value.
+
 ## Other font setting problems
 
 If one of the built-in themes does not seem to work as it should, you can delete and re-create all built-in themes with the Rebuild Default Themes menu item on the Themes Settings tab. (The "ellipsis in a circle" icon below the list.)
