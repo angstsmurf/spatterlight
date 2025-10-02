@@ -12,7 +12,11 @@ Download the latest release [here](https://github.com/angstsmurf/spatterlight/re
 
 Then report bugs on the [issues tracker][issues].
 
+Fixes for some common problems can be found in [TROUBLESHOOTING.md][troubleshooting].
+
 [issues]: https://github.com/angstsmurf/spatterlight/issues "The issues page of this repository"
+
+[troubleshooting]: https://github.com/angstsmurf/spatterlight/blob/master/ACCESSIBILITY.md "Work-in-progress list of common problems and their possible solutions"
 
 <img src="readme_images/jigsaw.png" width="900">
 
