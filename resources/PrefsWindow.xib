@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24128" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24128"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -641,7 +641,7 @@
                                 <rect key="frame" x="0.0" y="59" width="500" height="5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </box>
-                            <popUpButton verticalHuggingPriority="750" id="Jxm-9E-Ync" userLabel="Glk window type popup">
+                            <popUpButton toolTip="Whether the settings on this line applies to the proportionally-spaced scrolling buffer windows or to monospaced grid windows." verticalHuggingPriority="750" id="Jxm-9E-Ync" userLabel="Glk window type popup">
                                 <rect key="frame" x="35" y="20" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="recessed" title="Buffer" bezelStyle="recessed" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="3" imageScaling="proportionallyDown" inset="2" selectedItem="NaI-RY-1U1" id="wGC-DQ-zfI">
@@ -658,7 +658,7 @@
                                     <action selector="changeStylePopup:" target="-2" id="Kp4-fx-8e6"/>
                                 </connections>
                             </popUpButton>
-                            <popUpButton verticalHuggingPriority="750" id="YlM-je-Ts8" userLabel="Glk style popup">
+                            <popUpButton toolTip="Which style the settings to the right apply to. Most text will likely use Normal." verticalHuggingPriority="750" id="YlM-je-Ts8" userLabel="Glk style popup">
                                 <rect key="frame" x="93" y="20" width="95" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="recessed" title="Normal" bezelStyle="recessed" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="h6d-0M-qN1" id="oOj-mr-FW6">
@@ -684,7 +684,7 @@
                                     <action selector="changeStylePopup:" target="-2" id="1wV-UC-By2"/>
                                 </connections>
                             </popUpButton>
-                            <button tag="34" imageHugsTitle="YES" id="ovp-vO-s5a">
+                            <button toolTip="Font used by the style set to the left." tag="34" imageHugsTitle="YES" id="ovp-vO-s5a">
                                 <rect key="frame" x="186" y="24" width="155" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="smallSquare" title="Times Bold 12.0" alternateTitle="Set Input Font" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingMiddle" borderStyle="border" tag="34" inset="2" id="RnM-Qw-IeP">
@@ -695,7 +695,7 @@
                                     <action selector="showFontPanel:" target="-2" id="bOI-9w-XHE"/>
                                 </connections>
                             </button>
-                            <colorWell tag="31" id="jUl-fP-1Kk" userLabel="Any Style Color Well">
+                            <colorWell toolTip="Text color of this style." tag="31" id="jUl-fP-1Kk" userLabel="Any Style Color Well">
                                 <rect key="frame" x="349" y="25" width="50" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -703,10 +703,9 @@
                                     <action selector="changeColor:" target="-2" id="yTL-pb-XHw"/>
                                 </connections>
                             </colorWell>
-                            <button tag="14" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5h-NP-1Hh" userLabel="Show Paragraph Popover">
+                            <button toolTip="Show paragraph settings. Grid window problems may be fixed by adjusting these for the Grid Normal style." tag="14" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5h-NP-1Hh" userLabel="Show Paragraph Popover">
                                 <rect key="frame" x="400" y="26" width="27" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <string key="toolTip">Show more paragraph settings. Some of these may be overridden by game style hints unless the Games can set styles option is off. Most of these won't work well in grid windows.</string>
                                 <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSActionTemplate" imagePosition="only" alignment="center" controlSize="large" borderStyle="border" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="rcY-if-mn5">
                                     <behavior key="behavior" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
