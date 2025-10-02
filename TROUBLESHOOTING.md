@@ -26,7 +26,7 @@ If one of the built-in themes does not seem to work as it should, you can delete
 
 ## Getting rid of game information
 
-When a game is deleted on the Interactive Fiction library window, Spatterlight will remember all metadata such as title and cover image, so that they will still be there if you open the deleted game again. To completely get rid of all metadata, select the "Prune Library…" command by holding down the option key (⌥) while opening the File menu. As a nuclear option, you may also "Delete Library…", which will delete all metadata along with all your games. 
+When a game is deleted on the Interactive Fiction library window, Spatterlight will remember all metadata such as title and cover image, so that they will still be there if you open the deleted game again. To completely get rid of metadata after deleting a game, select the "Prune Library…" command by holding down the option key (⌥) while opening the File menu. As a nuclear option, you may also "Delete Library…", which will delete all of your metadata along with all of your games. (From the database, that is. The actual game files will be unaffected.) 
 
 <p align="center">
   <img src="readme_images/prune.png" width="300">
