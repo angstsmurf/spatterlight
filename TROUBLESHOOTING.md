@@ -6,7 +6,7 @@ If text is cut off or line spacing looks wrong in the status bar or other grid t
 
 You do this on the Glk Styles tab of the settings window, by setting the pop-up menus below the line (set to Buffer Input by default) to Grid Normal (the first one to Grid, the second to Normal) and then opening the paragraph settings pop-up sheet for this style by clicking the "ellipsis in a circle" button to the right.
 
-Baseline offset and Max line height are the most likely culprits.
+Baseline offset and Max line height are the most likely culprits. You probably want to set both to 0.
 
 <p align="center">
   <img src="readme_images/gridnormal.png" width="600">
