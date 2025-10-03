@@ -310,8 +310,8 @@ int win_newwin(int type)
     int expected_peer;
     win_flush();
 
-    if (type == wintype_Graphics && !gli_enable_graphics)
-        return -1;
+//    if (type == wintype_Graphics && !gli_enable_graphics)
+//        return -1;
 
     /* We calculate which peer id this new window should get,
      i.e. the first integer (including 0) that is not used by a window already.
