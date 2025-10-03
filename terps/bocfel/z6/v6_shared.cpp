@@ -1435,7 +1435,11 @@ void after_V_COLOR(void) {
     for (auto &window : windows) {
         // These will already be correctly set unless we are called from the after restore routine
         window.fg_color = Color(Color::Mode::ANSI, fg);
-        window.bg_color = Color(Color::Mode::ANSI, bg);
+        if (&window == &V6_STATUS_WINDOW) {
+            window.bg_color = Color();
+        } else {
+            window.bg_color = Color(Color::Mode::ANSI, bg);
+        }
         winid_t glkwin = window.id;
         if (glkwin != nullptr) {
             if (glkwin->type == wintype_Graphics) {
