@@ -429,22 +429,14 @@ void freeContext(void **ctx) {
         game.hashTag = hash;
         metadata.hashTag = hash;
 
-        if (!metadata.cover) {
-            NSURL *imgURL = [NSURL URLWithString:[hash stringByAppendingPathExtension:@"tiff"] relativeToURL:_tableViewController.imageDir];
-            NSData *img = [[NSData alloc] initWithContentsOfURL:imgURL];
-            if (img) {
-                NSLog(@"Found cover image in image directory for game %@", metadata.title);
-                metadata.coverArtURL = imgURL.path;
-                [IFDBDownloader insertImageData:img inMetadataID:metadata.objectID context:context];
-            } else if (blorb) {
-                NSData *imageData = blorb.coverImageData;
-                if (imageData) {
-                    metadata.coverArtURL = path;
-                    [IFDBDownloader insertImageData:imageData inMetadataID:metadata.objectID context:context];
-//                    NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
-                }
-//                else NSLog(@"Found no image in blorb file %@", path);
+        if (!metadata.cover && blorb) {
+            NSData *imageData = blorb.coverImageData;
+            if (imageData) {
+                metadata.coverArtURL = path;
+                [IFDBDownloader insertImageData:imageData inMetadataID:metadata.objectID context:context];
+                //                    NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
             }
+            //                else NSLog(@"Found no image in blorb file %@", path);
         }
 
         game.metadata = metadata;

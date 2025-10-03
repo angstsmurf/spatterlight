@@ -42,7 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property SplitViewController *splitViewController;
 
 @property NSURL *homepath;
-@property NSURL *imageDir;
 
 @property NSMutableArray<Game *> *gameTableModel;
 

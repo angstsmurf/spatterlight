@@ -234,15 +234,6 @@ typedef NS_ENUM(int32_t, kImportResult) {
 
     _homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:appSuppDir];
 
-    NSString* _imageDirName = @"Cover Art";
-    _imageDirName = [_imageDirName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
-    _imageDir = [NSURL URLWithString:_imageDirName relativeToURL:_homepath];
-
-    [[NSFileManager defaultManager] createDirectoryAtURL:_imageDir
-                             withIntermediateDirectories:YES
-                                              attributes:NULL
-                                                   error:NULL];
-
     NSString *key;
     NSSortDescriptor *sortDescriptor;
 
