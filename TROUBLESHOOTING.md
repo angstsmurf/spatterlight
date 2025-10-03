@@ -1,5 +1,9 @@
 # Fixes for common problems
 
+## Game does not start, just shows a blank window
+
+This is most likely caused by an old incompatible autosave. It should fix itself if you reset the game with the ⌥⌘R shortcut (Option + Command + R) although you will lose any progress in the old autosave file. If this does not work, please report it as a bug! 
+
 ## Weird text in status bar
 
 If text is cut off or line spacing looks wrong in the status bar or other grid text windows, it might be fixed by changing the paragraph settings of the Grid Normal style.
