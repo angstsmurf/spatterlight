@@ -28,7 +28,7 @@
     }
 
     if (fetchedObjects.count > 1) {
-        NSLog(@"fetchMetadataForHash: Found more than one has object with ifidString %@",hash);
+        NSLog(@"fetchMetadataForHash: Found more than one has object with hashTag %@",hash);
     } else if (fetchedObjects.count == 0) {
         return nil;
     }
