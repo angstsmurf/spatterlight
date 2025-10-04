@@ -581,8 +581,8 @@
 
     zoomTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
-    zoomTheme.gridBackground = [NSColor colorWithDeviceRed:1 green:1 blue:0.8 alpha:1];
-    zoomTheme.bufferBackground = [NSColor colorWithDeviceRed:1 green:1 blue:0.8 alpha:1];
+    zoomTheme.gridBackground = [NSColor colorWithDeviceRed:1 green:0.996 blue:0.820 alpha:1];
+    zoomTheme.bufferBackground = [NSColor colorWithDeviceRed:1 green:0.996 blue:0.820 alpha:1];
 
     zoomTheme.bufferNormal.font = [NSFont fontWithName:@"Gill Sans" size:12];
 
