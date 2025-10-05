@@ -109,11 +109,11 @@ void find_graphics_files(const std::string &file_name)
                     // Search for Apple 2 woz files
                     for (const auto &ext : {".woz", " side 1.woz", " - Side 1.woz"}) {
                         auto path = file_name;
-//                        auto zorkpos = path.rfind("ZORK0.");
-//                        if (zorkpos != std::string::npos) {
-//                            path.replace(zorkpos, std::string::npos, "Zork Zero.");
-//                            dotpos = path.rfind('.');
-//                        }
+                        auto zorkpos = path.rfind("ZORK0.");
+                        if (zorkpos != std::string::npos) {
+                            path.replace(zorkpos, std::string::npos, "Zork Zero.");
+                            dotpos = path.rfind('.');
+                        }
                         path.replace(dotpos, std::string::npos, ext);
                         strid_t file = load_file(path);
                         if (file != nullptr) {
