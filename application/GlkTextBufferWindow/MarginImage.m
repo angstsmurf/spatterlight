@@ -89,9 +89,6 @@
     NSRect theline;
     NSSize size = _image.size;
 
-    if (_container.textView.inLiveResize)
-        return _bounds;
-
     if (recalc) {
         recalc = NO; /* don't infiniloop in here, settle for the first result */
 
