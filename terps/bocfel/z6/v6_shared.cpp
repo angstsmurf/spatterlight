@@ -773,8 +773,13 @@ static void draw_hints_windows(void) {
                 status_x = width;
             }
         }
+    } else if (is_spatterlight_zork0 && graphics_type == kGraphicsTypeApple2) {
+        // Just for the lulz we try to use the Apple II hint screen header in Zork 0
+        // that the actual game did not use (presumably because it was impossible to
+        // fit the text in its low resolution.) We cut off 23 "pixels" on each side of
+        //  the status text view to make it fit between the question marks in the image.
+        status_x = 23 * imagescalex;
     }
-
     v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
 
     if (height < V6_STATUS_WINDOW.y_size + 1) {
