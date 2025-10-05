@@ -1837,22 +1837,11 @@ replacementString:(id)repl {
 
 #pragma mark Scrolling
 
-- (void)forceLayout{
-//    if (textstorage.length < 50000 && container.marginImages.count < 40 && !self.inLiveResize) {
-//        if (!self.inLiveResize) {
-//
-//        //        [layoutmanager ensureLayoutForTextContainer:container];
-//        NSUInteger length = MIN(textstorage.length , 1000);
-//
-//        [layoutmanager ensureLayoutForGlyphRange:NSMakeRange(textstorage.length - length, length)];
-//    }
-
+- (void)forceLayout {
+    [layoutmanager ensureLayoutForTextContainer:container];
 }
 
 - (void)markLastSeen {
-    NSRange glyphs;
-    NSRect line;
-
     _printPositionOnInput = textstorage.length;
     if (fence > 0 && !char_request) {
         _printPositionOnInput = fence;
@@ -1863,20 +1852,10 @@ replacementString:(id)repl {
         return;
     }
 
-    glyphs = [layoutmanager glyphRangeForTextContainer:container];
-
-    if (glyphs.length) {
-        line = [layoutmanager
-                lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
-                effectiveRange:nil];
-
-        _lastseen = (NSInteger)ceil(NSMaxY(line)); // bottom of the line
-        // NSLog(@"GlkTextBufferWindow: markLastSeen: %ld", (long)_lastseen);
-    }
+    _lastseen = (NSInteger)ceil(NSMaxY(scrollview.contentView.bounds) - 2 * _textview.textContainerInset.height);
 }
 
 - (void)storeScrollOffset {
-    //    NSLog(@"GlkTextBufferWindow %ld: storeScrollOffset", self.name);
     if (_pendingScrollRestore)
         return;
     if (self.scrolledToBottom) {
@@ -1891,7 +1870,7 @@ replacementString:(id)repl {
         return;
     }
 
-    [self forceLayout];
+//    [self forceLayout];
 
     NSRect visibleRect = scrollview.documentVisibleRect;
 
@@ -1999,21 +1978,23 @@ replacementString:(id)repl {
 
     if (!textstorage.length)
         return;
+    GlkTextBufferWindow __weak *weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        GlkTextBufferWindow *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        CGFloat bottom = NSHeight(strongSelf.textview.frame);
+        NSScrollView *blockScrollView = weakSelf.textview.enclosingScrollView;
 
-//    if (textstorage.length < 1000000)
-//        // first, force a layout so we have the correct textview frame
-//        [layoutmanager ensureLayoutForTextContainer:container];
-    [self forceLayout];
-
-    // then, get the bottom
-    CGFloat bottom = NSHeight(_textview.frame);
-
-    BOOL animate = !self.glkctl.commandScriptRunning;
-    if (bottom - _lastseen > NSHeight(scrollview.frame)) {
-        [self scrollToPosition:_lastseen animate:animate];
-    } else {
-        [self scrollToBottomAnimated:animate];
-    }
+        BOOL animate = !strongSelf.glkctl.commandScriptRunning;
+        if (bottom - strongSelf.lastseen > NSHeight(blockScrollView.frame)) {
+            NSLog(@"Scrolling down,but not to bottom");
+            [strongSelf scrollToPosition:strongSelf.lastseen animate:animate];
+        } else {
+            NSLog(@"Scrolling to bottom");
+            [strongSelf scrollToBottomAnimated:animate];
+        }
+    });
 }
 
 - (BOOL)scrolledToBottom {
@@ -2032,12 +2013,9 @@ replacementString:(id)repl {
 - (void)scrollToBottomAnimated:(BOOL)animate {
     lastAtTop = NO;
     lastAtBottom = YES;
+    CGFloat newScrollY = NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds);
 
-    // first, force a layout so we have the correct textview frame
-    [self forceLayout];
-    NSPoint newScrollOrigin = NSMakePoint(0, NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds));
-
-    [self scrollToPosition:newScrollOrigin.y animate:animate];
+    [self scrollToPosition:newScrollY animate:animate];
 }
 
 - (void)scrollToPosition:(CGFloat)position animate:(BOOL)animate {
