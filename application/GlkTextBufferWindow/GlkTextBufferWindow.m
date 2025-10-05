@@ -1239,7 +1239,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     [textstorage appendAttributedString:att];
     _pendingEditable = YES;
-//    _textview.editable = YES;
 
     line_request = YES;
     [self showInsertionPoint];
@@ -1869,8 +1868,6 @@ replacementString:(id)repl {
     if (lastAtBottom || lastAtTop || textstorage.length < 1) {
         return;
     }
-
-//    [self forceLayout];
 
     NSRect visibleRect = scrollview.documentVisibleRect;
 

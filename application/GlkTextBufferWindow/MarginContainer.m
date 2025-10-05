@@ -316,8 +316,6 @@
     MarginImage *image;
     NSEnumerator *enumerator = [_marginImages reverseObjectEnumerator];
     while (image = [enumerator nextObject]) {
-//        [image boundsWithLayout:self.layoutManager];
-
         bounds = image.bounds;
 
         if (!NSIsEmptyRect(bounds)) {
