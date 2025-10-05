@@ -2102,19 +2102,21 @@ void z0_update_on_resize(void) {
             win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
         }
     } else if (screenmode == MODE_SLIDESHOW) {
-        clear_image_buffer();
+        // We are showing a fullscreen image
+        v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
+        win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
+        glk_window_clear(current_graphics_buf_win);
         if (is_zorkzero_encyclopedia_image(current_picture)) {
             draw_encyclopedia();
             return;
+        } else if (current_picture == zorkzero_title_image) {
+            glk_window_set_background_color(graphics_fg_glk, graphics_type == kGraphicsTypeApple2 ? 0x101B9C : 0);
+            glk_window_clear(graphics_fg_glk);
+            draw_centered_title_image(current_picture);
         }
-        draw_to_buffer(current_graphics_buf_win, current_picture, 0, 0);
     }
 
     glui32 stored_bg = user_selected_background;
-
-    if (current_picture == zorkzero_title_image) {
-        user_selected_background = monochrome_black;
-    }
 
     flush_image_buffer();
 
@@ -2171,6 +2173,13 @@ bool z0_display_picture(int x, int y, Window *win) {
             draw_to_pixmap_unscaled(zorkzero_encyclopedia_border, 0, 0);
             image_needs_redraw = true;
             adjust_encyclopedia_text_window();
+            return true;
+        }
+        if (current_picture == zorkzero_title_image) {
+            glk_window_set_background_color(graphics_fg_glk, graphics_type == kGraphicsTypeApple2 ? 0x101B9C : 0);
+            glk_window_clear(current_graphics_buf_win);
+            draw_centered_title_image(current_picture);
+            glk_window_set_background_color(graphics_fg_glk, user_selected_background);
             return true;
         }
         draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
