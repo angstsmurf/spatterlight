@@ -418,6 +418,7 @@
 
     return gargoyleTheme;
 }
+
 + (Theme *)createLectroteThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
     BOOL exists = NO;
     Theme *lectroteTheme = [BuiltInThemes findOrCreateTheme:@"Lectrote" inContext:context alreadyExists:&exists];
