@@ -66,4 +66,7 @@ extern InfocomV6MenuType hints_depth;
 
 #define STRING_BUFFER_SIZE 15
 
+#define ROSE_TAUPE 0x836767
+#define BROWN 0xd47fd4
+
 #endif /* v6_shared_hpp */

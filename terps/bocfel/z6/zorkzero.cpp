@@ -1902,6 +1902,97 @@ void V_MAP_LOOP(void) {
 
 #pragma mark Other stuff
 
+#define Z0_HINT_BORDER_L 503
+#define Z0_HINT_BORDER_R 504
+
+// <CONSTANT HINT-BORDER 8>
+// <CONSTANT HINT-BORDER-L 503>
+// <CONSTANT HINT-BORDER-R 504>
+
+#define Z0_HINT_TOP_HEIGHT 33
+
+
+void z0_display_border(int border) {
+
+    int left_margin = 0;
+    int pillar_top = 0;
+
+    clear_image_buffer();
+    ensure_pixmap(current_graphics_buf_win);
+    int border_top = 0;
+
+    win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
+
+    int width, height;
+    get_image_size(border, &width, &height);
+
+    if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
+        border_top = height;
+        pillar_top = border_top;
+    } else {
+        pillar_top = border_top + Z0_HINT_TOP_HEIGHT;
+    }
+
+    float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
+    int desired_height = ceil(gscreenh / factor);
+
+    int lowest_drawn_line = height + border_top;
+    bool must_extend = (desired_height > lowest_drawn_line);
+
+    draw_to_pixmap_unscaled_using_current_palette(border, 0, 0);
+
+    int BL = Z0_HINT_BORDER_L;
+    int BR = Z0_HINT_BORDER_R;
+
+    // BL won't be found
+    // if graphics type is Amiga or Mac B/W
+    if (find_image(BL)) {
+        get_image_size(BL, &width, &height);
+        draw_to_pixmap_unscaled(BL, 0, border_top);
+        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
+        lowest_drawn_line = height + border_top;
+    } else {
+        // Amiga och Mac border graphics are a single image with everything,
+        // not separated into top and sides
+
+        if (must_extend && (graphics_type == kGraphicsTypeMacBW)) {
+            extend_mac_bw_hint_border(desired_height);
+            desired_height = 0;
+        }
+    }
+
+    if (must_extend) {
+        if (graphics_type == kGraphicsTypeCGA) {
+            lowest_drawn_line -= 10;
+        }
+        extend_shogun_border(desired_height, lowest_drawn_line, pillar_top);
+    }
+
+    // We draw a rectangle of status window color at the top to avoid
+    // visible gaps at the edges. (Except at the start menu, where
+    // there is no status window.)
+    bool should_draw_covering_rectangle = false;
+
+    glui32 rectangle_color = user_selected_foreground;
+
+    if (graphics_type == kGraphicsTypeCGA) {
+        should_draw_covering_rectangle = true;
+    } else {
+        left_margin = 0;
+        if (graphics_type == kGraphicsTypeMacBW) {
+            should_draw_covering_rectangle = true;
+        } else if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
+            should_draw_covering_rectangle = true;
+            rectangle_color = ROSE_TAUPE;
+        }
+    }
+
+    if (should_draw_covering_rectangle) {
+        draw_rectangle_on_bitmap(rectangle_color, left_margin, 0, hw_screenwidth - left_margin * 2, V6_STATUS_WINDOW.y_size / imagescaley + 1);
+    }
+    flush_bitmap(current_graphics_buf_win);
+}
+
 void z0_update_on_resize(void) {
     // Window 0 is S-TEXT, buffer text window
     // Window 1 is S-WINDOW, status text grid

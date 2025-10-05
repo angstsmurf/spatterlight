@@ -797,6 +797,8 @@ static void draw_hints_windows(void) {
 
     if (is_spatterlight_shogun) {
         shogun_display_border(P_HINT_BORDER);
+    } else if  (is_spatterlight_zork0) {
+        z0_display_border(Z0_HINT_BORDER);
     }
 }
 
