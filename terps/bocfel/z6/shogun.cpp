@@ -829,7 +829,7 @@ void shogun_display_border(ShogunBorderType border) {
                 should_draw_covering_rectangle = true;
             } else if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
                 should_draw_covering_rectangle = true;
-                rectangle_color = 0x826766;
+                rectangle_color = ROSE_TAUPE;
             }
         }
     }

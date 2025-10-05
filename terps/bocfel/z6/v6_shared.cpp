@@ -25,9 +25,6 @@
 
 #define DEFINITIONS_WINDOW windows[2]
 
-#define ROSE_TAUPE 0x826766
-#define BROWN 0xd47fd4
-
 int margin_images[100];
 int number_of_margin_images = 0;
 
@@ -691,7 +688,7 @@ static void draw_hints_windows(void) {
             case kGraphicsTypeVGA:
             case kGraphicsTypeBlorb:
             case kGraphicsTypeAmiga:
-                upperwin_background = ROSE_TAUPE;
+                upperwin_background = zcolor_Default;
                 break;
             case kGraphicsTypeEGA:
                 upperwin_background = BROWN;
@@ -716,10 +713,11 @@ static void draw_hints_windows(void) {
         }
         if (is_spatterlight_zork0) {
             z0_erase_screen();
+            garglk_set_zcolors_stream(glk_window_get_stream(V6_STATUS_WINDOW.id), upperwin_foreground, upperwin_background);
         }
     }
 
-    if (is_spatterlight_arthur || (upperwin_background != ROSE_TAUPE && upperwin_background != BROWN))
+    if (is_spatterlight_arthur || (upperwin_background != zcolor_Default && upperwin_background != BROWN))
         win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
 
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
