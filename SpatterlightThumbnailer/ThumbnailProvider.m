@@ -76,8 +76,11 @@
         NSError *blockerror = nil;
 
         if ([Blorb isBlorbURL:url]) {
-            Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
-            imgdata = [blorb coverImageData];
+            NSData *blorbData = [NSData dataWithContentsOfURL:url];
+            if (blorbData) {
+                Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
+                imgdata = [blorb coverImageData];
+            }
         }
 
         if (!imgdata) {

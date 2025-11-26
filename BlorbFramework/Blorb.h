@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nullable) NSMutableDictionary *optionalChunks;
 @property BOOL fakeFrontispiece;
 
-+ (BOOL)isBlorbURL:(NSURL *)url;
++ (BOOL)isBlorbURL:(nullable NSURL *)url;
 + (BOOL)isBlorbData:(NSData *)data;
 
 - (instancetype)initWithData:(NSData *)data NS_DESIGNATED_INITIALIZER;

@@ -27,7 +27,9 @@
 
 @implementation Blorb
 
-+ (BOOL)isBlorbURL:(nonnull NSURL *)url {
++ (BOOL)isBlorbURL:(nullable NSURL *)url {
+  if (!url)
+    return NO;
   NSString *pathExtension = url.pathExtension.lowercaseString;
   if ([pathExtension isEqualToString:@"zblorb"] ||
       [pathExtension isEqualToString:@"blorb"] ||
