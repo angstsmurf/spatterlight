@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isBlorbURL:(nullable NSURL *)url;
 + (BOOL)isBlorbData:(NSData *)data;
 
-- (instancetype)initWithData:(NSData *)data NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithData:(nullable NSData *)data NS_DESIGNATED_INITIALIZER;
 - (instancetype)init __attribute__((unavailable));
 
 - (nullable NSData *)dataForResource:(BlorbResource *)resource;

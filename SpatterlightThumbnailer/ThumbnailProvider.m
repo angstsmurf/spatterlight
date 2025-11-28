@@ -77,10 +77,9 @@
 
         if ([Blorb isBlorbURL:url]) {
             NSData *blorbData = [NSData dataWithContentsOfURL:url];
-            if (blorbData) {
-                Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
+            Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
+            if (blorb)
                 imgdata = [blorb coverImageData];
-            }
         }
 
         if (!imgdata) {

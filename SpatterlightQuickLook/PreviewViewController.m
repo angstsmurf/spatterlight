@@ -392,9 +392,12 @@
         _metaDict[@"title"] = url.lastPathComponent;
 
     if ([Blorb isBlorbURL:url]) {
-        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
-        imageData = [blorb coverImageData];
-        [_imageView addImageFromData:imageData];
+        NSData *blorbData = [NSData dataWithContentsOfURL:url];
+        Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
+        if (blorb) {
+            imageData = [blorb coverImageData];
+            [_imageView addImageFromData:imageData];
+        }
     }
 
     if (!_imageView.hasImage && _metaDict[@"cover"]) {
