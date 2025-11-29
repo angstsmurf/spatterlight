@@ -230,7 +230,7 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         int isTZX = 0;
         int TZXBlocknums[5] = {8, 12, 14, 16, 18};
         int TAPBlocknums[5] = {11, 15, 17, 19, 21};
-        int *blocknums = NULL;
+        int *blocknums = TAPBlocknums;
 
         switch (*length) {
             case 0xa000:
@@ -252,8 +252,6 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 isTZX = 1;
                 blocknums = TZXBlocknums;
             case 0x104c4: { // Blizzard Pass TAP
-                if (isTZX == 0)
-                    blocknums = TAPBlocknums;
                 out = MemAlloc(0x2001f);
                 if (!add_block(image, out, origlen, blocknums[0], 0x1801f, isTZX)) {
                     failure = 1;
