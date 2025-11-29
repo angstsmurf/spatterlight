@@ -45,7 +45,7 @@ static inline bool even_parity(uint8_t x)
 #endif
 }
 
-/* Record a snapshot into the slot 'slotIdx' (1..3). */
+/* Record a snapshot into the slot 'slotIdx' (0..2). */
 static void save_slot(int slotIdx, uint8_t A, uint16_t BC, uint16_t DE, uint16_t HL, uint16_t IY)
 {
     if (slotIdx < 0 || slotIdx > 2) {
@@ -53,7 +53,6 @@ static void save_slot(int slotIdx, uint8_t A, uint16_t BC, uint16_t DE, uint16_t
         exit(1);
     }
 
-    // slotIdx can be 1, 2 or 3, selecting a different "slot" at 0xee62, 0xee6d or 0xee78 respectively
     Slots[slotIdx].A = A;
     Slots[slotIdx].BC = BC;
     Slots[slotIdx].DE = DE;
@@ -61,7 +60,7 @@ static void save_slot(int slotIdx, uint8_t A, uint16_t BC, uint16_t DE, uint16_t
     Slots[slotIdx].IY = IY;
 }
 
-/* Read a previously saved snapshot from slot 'slotIdx' (1..3). */
+/* Read a previously saved snapshot from slot 'slotIdx' (0..2). */
 static uint8_t load_slot(int slotIdx, uint16_t *BC, uint16_t *DE, uint16_t *HL, uint16_t *IY)
 {
     if (slotIdx < 0 || slotIdx > 2) {
@@ -184,14 +183,15 @@ static void address_table(void)
             HL = (uint16_t)(mem[IX] | mem[IX + 1] * 0x100);
             DE = (uint16_t)((mem[IX + 2] & 0x3f) + (mem[IX + 3] & 0x1f) * 0x800);
             uint8_t A = (uint8_t)(mem[IX + 2] >> 6);
-            IY = (uint16_t)(A * 0x100 | (IY & 0xff));
-            BC = (uint16_t)((DE << 8) | (HL & 0xff));
-            if (A < 2) {
+            if (A > 1) {
+                IY = (uint16_t)(A * 0x100 | (IY & 0xff));
+                BC = (uint16_t)((DE << 8) | (HL & 0xff));
+            } else {
                 IY = (uint16_t)(A * 0x100 | (DE >> 8));
                 BC = (uint16_t)((DE >> 8) * 0x100 | mem[IX]);
                 DE = (uint16_t)(mem[IX + 1] * 0x100 | (DE & 0xff));
             }
-            /* save into slot i (1..3). */
+            /* save into slot (0..2). */
             save_slot(slot, A + 1, BC, DE, HL, IY);
             IX += 4;
             counter--;
