@@ -13,6 +13,6 @@
 
 #include <stdint.h>
 
-uint8_t *LoadAlkatrazPicture(uint8_t *mem, uint8_t *file);
+void LoadAlkatrazPicture(uint8_t *mem, uint8_t *file);
 
 #endif /* loadtotpicture_h */

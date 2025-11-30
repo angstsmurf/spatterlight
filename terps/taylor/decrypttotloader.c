@@ -373,7 +373,7 @@ uint8_t *DecryptToTSideB(uint8_t *data, size_t *length)
     if (block == 0)
         return NULL;
 
-    decrypted = LoadAlkatrazPicture(decrypted, block);
+    LoadAlkatrazPicture(decrypted, block);
     loacon = 0x8c;
     DeAlkatraz(block, decrypted, 0x1b02, 0xea69, 0x000e, &loacon, 0xc1, 0xcb, 1);
     DeAlkatraz(block, decrypted, 0x1b10, 0x6072, 0x6e96, &loacon, 0xc1, 0xcb, 1);
