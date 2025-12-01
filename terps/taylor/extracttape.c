@@ -21,18 +21,23 @@
 
 void ldir(uint8_t *mem, uint16_t DE, uint16_t HL, uint16_t BC)
 {
-    // Cannot use memcpy here because the rollover of 16-bit values is crucial
+    // Z80 block copy function.
+    // Cannot use memcpy() here because the original code might rely
+    // on overlap behavior.
     for (int i = 0; i < BC; i++)
         mem[DE++] = mem[HL++];
 }
 
 void lddr(uint8_t *mem, uint16_t DE, uint16_t HL, uint16_t BC)
 {
-    // Cannot use memcpy here because the rollover of 16-bit values is crucial
+    // Z80 block copy function (backwards ldir).
+    // Cannot use memcpy() here because the original code might rely
+    // on overlap behavior.
     for (int i = 0; i < BC; i++)
         mem[DE--] = mem[HL--];
 }
 
+// This moves the decrypted data into place
 void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t IX, uint16_t store)
 {
     uint16_t count, length;
@@ -54,6 +59,9 @@ uint8_t *DeAlkatraz(uint8_t *raw_data, uint8_t *target, size_t offset, uint16_t 
         memset(target, 0, 0x10000);
     }
 
+    // Thid is the main Alkatraz decryption function.
+    // Every raw byte is XORed with a semi-arbitrary value (val)
+    // that is iself transformed on every iteration.
     for (size_t i = offset; DE != 0; i++) {
         uint8_t val = *loacon;
         uint8_t D = (DE >> 8) & 0xff;
@@ -95,10 +103,7 @@ static uint8_t *ShrinkToSnaSize(uint8_t *uncompressed, uint8_t *old_image, size_
     return sna;
 }
 
-/* add_block: unified helper for TAP/TZX block copying.
-
- For TAP (is_tzx == 0) it uses find_tap_block and does not free the returned pointer.
- For TZX (is_tzx == 1) it uses GetTZXBlock and frees the returned block after copying. */
+/* add_block: unified helper for TAP/TZX block copying. */
 
 static uint8_t *add_block(uint8_t *image, uint8_t *outbuf, size_t origlen, int blocknum, size_t offset, int is_tzx)
 {
@@ -110,13 +115,12 @@ static uint8_t *add_block(uint8_t *image, uint8_t *outbuf, size_t origlen, int b
         if (!block) return NULL;
         if (len >= 2)
             memcpy(outbuf + offset, block + 1, len - 2);
-        free(block);
     } else {
-        block = find_tap_block(blocknum, image, &len);
+        block = GetTAPBlock(blocknum, image, &len);
         if (!block) return NULL;
         memcpy(outbuf + offset, block, len);
-        /* find_tap_block returns a pointer into the image data; do not free it */
     }
+    free(block);
     return outbuf;
 }
 
@@ -170,6 +174,20 @@ static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const Extrac
         return image;
     }
     return shrunk;
+}
+
+// Extra massaging for a Z80 image that was captured
+// from an emulator in the midst of decompression.
+uint8_t *FixBrokenKayleth(uint8_t *image, size_t *length) {
+    uint8_t *mem = MemAlloc(0x10000);
+    memcpy(mem + 0x4000, image, 0xc000);
+    lddr(mem, 0xf906, 0xf8fe, 0x1ed5);
+    mem[0xda2a] = 0;
+    ldir(mem, 0xda2b, 0xda2a, 7);
+    DeshuffleAlkatraz(mem, 0x13, 0x5bde, 0xfdcf);
+    free(image);
+    *length = 0x10000;
+    return mem;
 }
 
 uint8_t *ProcessFile(uint8_t *image, size_t *length)
@@ -228,9 +246,9 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         uint8_t *out = NULL;
         int failure = 0;
         int isTZX = 0;
-        int TZXBlocknums[5] = {8, 12, 14, 16, 18};
-        int TAPBlocknums[5] = {11, 15, 17, 19, 21};
-        int *blocknums = TAPBlocknums;
+        int TZXblocknums[5] = {8, 12, 14, 16, 18};
+        int TAPblocknums[5] = {11, 15, 17, 19, 21};
+        int *blocknums = TAPblocknums;
 
         switch (*length) {
             case 0xa000:
@@ -248,9 +266,10 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
             case 0xcd17:
                 image = process_tzx_extract(image, length, &terraquake);
                 break;
-            case 0x10428: // Blizzard Pass tzx
+            case 0x10428: // Blizzard Pass TZX
                 isTZX = 1;
-                blocknums = TZXBlocknums;
+                blocknums = TZXblocknums;
+                // Fallthrough
             case 0x104c4: { // Blizzard Pass TAP
                 out = MemAlloc(0x2001f);
                 if (!add_block(image, out, origlen, blocknums[0], 0x1801f, isTZX)) {
@@ -278,18 +297,10 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         }
     }
 
-    // This z80 file (Kayleth) was captured in the middle of
-    // decompression, so it needs extra care.
     if (origlen == 0xb4bb) {
-        uint8_t *mem = MemAlloc(0x10000);
-        memcpy(mem + 0x4000, image, 0xc000);
-        lddr(mem, 0xf906, 0xf8fe, 0x1ed5);
-        mem[0xda2a] = 0;
-        ldir(mem, 0xda2b, 0xda2a, 7);
-        DeshuffleAlkatraz(mem, 0x13, 0x5bde, 0xfdcf);
-        free(image);
-        image = mem;
-        *length = 0x10000;
+        // This z80 file (Kayleth) was captured in the middle of
+        // decompression, so it needs extra care.
+        image = FixBrokenKayleth(image, length);
     }
     return image;
 }

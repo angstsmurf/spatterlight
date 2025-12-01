@@ -41,7 +41,7 @@ typedef struct {
 
 static SavedRegs Slots[3];
 
-/* Record a snapshot into the slot 'slotIdx' (0..2). */
+/* Record a snapshot into the slot 'slot' (0..2). */
 static void save_slot(int slot, bool finished, uint8_t x_origin, uint8_t width, uint8_t remaining_x, uint8_t remaining_y, uint16_t current_addr, DirectionType direction)
 {
     if (slot < 0 || slot > 2) {

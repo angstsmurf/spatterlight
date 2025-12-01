@@ -1515,7 +1515,7 @@ find_tzx_block(int blockno, uint8_t *srcbuf, uint8_t **result,
     return LIBSPECTRUM_ERROR_NONE;
 }
 
-uint8_t *find_tap_block(int wantedindex, const uint8_t *buffer,
+uint8_t *GetTAPBlock(int wantedindex, const uint8_t *buffer,
     size_t *length)
 {
     size_t data_length, buf_length;
