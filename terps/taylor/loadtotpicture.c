@@ -4,7 +4,6 @@
 //  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
 //  This code is for de-protecting the ZX Spectrum text-only version of Temple of Terror
-//  It is Z80 assembly translated to C in the most lazy way imaginable.
 //
 //  Created by Petter Sjölund on 2022-04-19.
 //
@@ -19,160 +18,161 @@
 #define SCREEN_MEMORY_SIZE 0x1b00
 #define ATTRIBUTES_MEMORY_TOP 0x5800
 
-static uint16_t *AddressLookupTable = NULL;
-static int TableWritePosition = 0;
+typedef enum {
+    kDirRight = 0,
+    kDirLeft = 1,
+    kDirUp = 2,
+    kDirDown = 3
+} DirectionType;
+
+static uint16_t *LookupTable = NULL;
+static int TableWritePos = 0;
 
 /* Saved register snapshot */
 typedef struct {
-    uint8_t A;
-    uint16_t BC;
-    uint16_t DE;
-    uint16_t HL;
-    uint16_t IY;
+    bool finished;
+    uint8_t x_origin;
+    uint8_t width;
+    uint8_t remaining_x;
+    uint8_t remaining_y;
+    uint16_t current_addr;
+    DirectionType direction;
 } SavedRegs;
 
 static SavedRegs Slots[3];
 
-static inline bool even_parity(uint8_t x)
-{
-#if defined(__GNUC__) || defined(__clang__)
-    return (__builtin_popcount((unsigned)x) & 1) == 0;
-#else
-    x ^= x >> 4;
-    x ^= x >> 2;
-    x ^= x >> 1;
-    return (x & 1) == 0;
-#endif
-}
-
 /* Record a snapshot into the slot 'slotIdx' (0..2). */
-static void save_slot(int slotIdx, uint8_t A, uint16_t BC, uint16_t DE, uint16_t HL, uint16_t IY)
+static void save_slot(int slot, bool finished, uint8_t x_origin, uint8_t width, uint8_t remaining_x, uint8_t remaining_y, uint16_t current_addr, DirectionType direction)
 {
-    if (slotIdx < 0 || slotIdx > 2) {
-        fprintf(stderr, "Internal error: invalid slot index %u\n", slotIdx);
+    if (slot < 0 || slot > 2) {
+        fprintf(stderr, "Internal error: invalid slot index %u\n", slot);
         exit(1);
     }
 
-    Slots[slotIdx].A = A;
-    Slots[slotIdx].BC = BC;
-    Slots[slotIdx].DE = DE;
-    Slots[slotIdx].HL = HL;
-    Slots[slotIdx].IY = IY;
+    Slots[slot].finished = finished;
+    Slots[slot].x_origin = x_origin;
+    Slots[slot].width = width;
+    Slots[slot].remaining_x = remaining_x;
+    Slots[slot].remaining_y = remaining_y;
+    Slots[slot].current_addr = current_addr;
+    Slots[slot].direction = direction;
 }
 
-/* Read a previously saved snapshot from slot 'slotIdx' (0..2). */
-static uint8_t load_slot(int slotIdx, uint16_t *BC, uint16_t *DE, uint16_t *HL, uint16_t *IY)
+/* Read a previously saved state from slot 'slotIdx' (0..2). */
+static bool load_slot(int slot, uint8_t *x_origin, uint8_t *width, uint8_t *remaining_x, uint8_t *remaining_y, uint16_t *current_addr, DirectionType *direction)
 {
-    if (slotIdx < 0 || slotIdx > 2) {
-        fprintf(stderr, "Internal error: invalid slot index %u\n", slotIdx);
+    if (slot < 0 || slot > 2) {
+        fprintf(stderr, "Internal error: invalid slot index %u\n", slot);
         exit(1);
     }
 
-    *BC = Slots[slotIdx].BC;
-    *DE = Slots[slotIdx].DE;
-    *HL = Slots[slotIdx].HL;
-    *IY = Slots[slotIdx].IY;
+    *current_addr = Slots[slot].current_addr;
+    *direction = Slots[slot].direction;
+    *x_origin = Slots[slot].x_origin;
+    *width = Slots[slot].width;
+    *remaining_x = Slots[slot].remaining_x;
+    *remaining_y = Slots[slot].remaining_y;
 
-    return Slots[slotIdx].A;
+    return Slots[slot].finished;
 }
 
 /* Add a new address to the screen addresses list array */
 static void add_to_lookup_table(uint16_t val)
 {
-    if (TableWritePosition >= SCREEN_MEMORY_SIZE * sizeof(uint16_t)) {
+    if (TableWritePos >= SCREEN_MEMORY_SIZE) {
         fprintf(stderr, "loadtotpicture.c: lookup table write position out of bounds!\n");
         return;
     }
-    AddressLookupTable[TableWritePosition++] = val;
+    LookupTable[TableWritePos++] = val;
 }
 
-/* Add an "attributes" address to the screen addresses lookup table */
-static void add_attribute(uint16_t addr, uint8_t direction)
+/* Add an "attributes memory" address to the screen addresses lookup table */
+static void add_attribute(uint16_t addr, DirectionType direction)
 {
-    if (!even_parity(direction))
+    /* Convert the addr screen address to
+       its corresponding attributes memory address. */
+    /* Only the most significant 9 bits change. */
+    if (direction == kDirLeft || direction == kDirUp)
         addr ^= 0xffff;
     if ((addr & 0x700) == 0)
         add_to_lookup_table(((addr >> 11) & 0x300) | ATTRIBUTES_MEMORY_TOP);
 }
 
 /* Here we get the address in screen memory representing one pixel down */
-/* or up from addr, depending on the parity of the direction variable */
+/* or up from addr, depending on the parity of the direction variable. */
+
+/* (Of course, an address represents *eight* horizontal pixels, */
+/* but vertically the result is one pixel up or down.) */
 static uint16_t next_line_addr(uint16_t addr, uint8_t direction)
 {
-    if (even_parity(direction)) {
-        /* pixel down */
-        addr += 0x100;
-        if ((addr & 0x700) != 0)
-            return addr;
-        addr += 0x20;
-        if ((addr & 0xe0) == 0)
-            return addr - 0x100;
-        return addr - 0x800;
-    } else {
+    if (direction == kDirLeft || direction == kDirUp) {
         /* pixel up */
         addr -= 0x100;
         if (((addr ^ 0xffff) & 0x700) != 0)
             return addr;
-        addr -= 0x20;
+        else
+            addr -= 0x20;
         if (((addr ^ 0xffff) & 0xe0) != 0)
             return addr + 0x800;
-        return addr + 0x100;
+        else
+            return addr + 0x100;
+    } else {
+        /* pixel down */
+        addr += 0x100;
+        if ((addr & 0x700) != 0)
+            return addr;
+        else
+            addr += 0x20;
+        if ((addr & 0xe0) != 0)
+            return addr - 0x800;
+        else
+            return addr - 0x100;
     }
 }
 
-/* Determine the next direction (returns 0 or 0xff) and update registers. */
-static uint8_t styler(uint8_t slotIdx, uint16_t *BC, uint16_t *DE, uint16_t *HL, uint16_t *IY)
+/* Calculate the next lookup table address and update variables. Returns true if block is finished */
+static bool create_next_address(uint8_t slot, uint8_t *x_origin, uint8_t *width, uint8_t *x_remaining, uint8_t *y_remaining, uint16_t *current_addr, DirectionType *direction)
 {
-    if (slotIdx < 0 || slotIdx > 2) {
-        fprintf(stderr, "Error! Only slot values 0, 1, 2 allowed! (slot == %d)\n", slotIdx);
+    if (slot > 2) {
+        fprintf(stderr, "Error! Only slot values 2 and below allowed! (slot == %d)\n", slot);
         exit(1);
     }
 
     /* load the saved snapshot for this slot */
-    if (load_slot(slotIdx, BC, DE, HL, IY) == 0)
-        return 0; /* A was zero in saved snapshot -> return 0 */
+    if (load_slot(slot, x_origin, width, x_remaining, y_remaining, current_addr, direction))
+        return true; /* finished was true in saved snapshot -> return true */
 
-    // DIRECTION_OF_LOAD
-    uint8_t direction = (uint8_t)(*IY >> 8);
+    add_attribute(*current_addr, *direction);
+    add_to_lookup_table(*current_addr);
 
-    add_attribute(*HL, direction);
-    add_to_lookup_table(*HL);
+    *x_remaining -= 1;
 
-    *BC -= 0x100;
+    if (*direction == kDirLeft || *direction == kDirRight) {
+        /* direction is always 2 or 3 in Temple of Terror side B, so this code path is not implemented */
+        return true;
+    } else {
+        uint8_t low_byte = (uint8_t)(*current_addr & 0xff) + (*direction == kDirDown ? 1 : -1);
+        *current_addr = (uint16_t)((*current_addr & 0xff00) | low_byte);
 
-    if (direction < 2) {
-        if ((*BC >> 8) != 0) {
-            *HL = next_line_addr(*HL, direction);
-            return 0xff;
+        if (*x_remaining != 0) {
+            return false;  // not finished
+        } else {
+            *current_addr = next_line_addr((uint16_t)((*current_addr & 0xff00) | *x_origin), *direction);
+            *x_remaining = *width;
+            *x_origin = *current_addr & 0xff;
+            *y_remaining -= 1;
+            if (*y_remaining == 0)
+                return true; // true means finished
+            else
+                return false; // not finished
         }
-        uint8_t column = (uint8_t)(*BC & 0xff) + (even_parity(direction) ? 1 : -1);
-        *HL = (uint16_t)((*DE & 0xff00) | column);
-        *BC = (uint16_t)((*IY << 8) | column);
-        *DE = (uint16_t)((*DE & 0xff) - 1);
-        if (*DE == 0)
-            return 0;
-        return 0xff;
     }
-
-    /* STYLE34 */
-    uint8_t column = (uint8_t)(*HL & 0xff) + (even_parity(direction) ? 1 : -1);
-    *HL = (uint16_t)((*HL & 0xff00) | column);
-
-    if ((*BC >> 8) != 0) {
-        return 0xff;
-    }
-    *HL = next_line_addr((uint16_t)((*HL & 0xff00) | (*BC & 0xff)), direction);
-    *BC = (uint16_t)((*DE << 8) | (*HL & 0xff));
-    *DE -= 0x100;
-    if ((*DE >> 8) == 0)
-        return 0;
-    return 0xff;
 }
 
 /* Build the list of screen addresses used by the loader. */
 static void build_screen_address_lookup_table(uint8_t *mem)
 {
-    uint16_t IY = 0x032d;
+    // counter is the total number of draw blocks, including simultaneous ones. Four bytes per block.
     uint16_t counter = (uint16_t)(mem[0xeea9] | mem[0xeeaa] * 0x100);
     if (counter * 4 + 0xeeab >= 0x10000) {
         fprintf(stderr, "build_screen_address_lookup_table: Bad input data. Instruction count is out of bounds!\n");
@@ -180,48 +180,58 @@ static void build_screen_address_lookup_table(uint8_t *mem)
     }
     /* Instructions are encoded in (counter) consecutive groups of four bytes */
     uint8_t *instruction_bytes = &mem[0xeeab];
-    uint16_t DE, BC, HL;
+    uint16_t word_2, current_addr;
+    DirectionType direction;
+    uint8_t y_pos = 0, x_pos = 0, x_origin = 0, width = 0;
 
-    TableWritePosition = 0;
+    TableWritePos = 0;
 
-    do { /* next line */
-        /* Number of repetitons - 1 (0..3) is encoded in bits 7 to 6 of 4th instruction byte */
-        uint8_t repetitions = (uint8_t)(instruction_bytes[3] >> 5) + 1;
-        for (int slot = 0; slot < repetitions; slot++) {
-            /* HL is the first word of instructions */
-            HL = (uint16_t)(instruction_bytes[0] | instruction_bytes[1] * 0x100);
+    do {
+        /* Number (minus one) of simultaneous block drawing operations (0..3) is encoded in bits 7 to 6 of 4th instruction byte */
+        uint8_t simultaneous = (uint8_t)(instruction_bytes[3] >> 5) + 1;
 
-            /* A is bits 7 to 6 of 3rd instruction byte */
-            uint8_t A = (uint8_t)(instruction_bytes[2] >> 6);
+        /* We add a slot for each simultaneous block, by reading another four instruction bytes per block */
+        for (int slot = 0; slot < simultaneous; slot++) {
+            /* current_addr is the first word of instructions */
+            current_addr = (uint16_t)(instruction_bytes[0] | instruction_bytes[1] * 0x100);
 
-            /* DE is a word starting at bit 5 of 3rd instruction byte */
-            DE = (uint16_t)((instruction_bytes[2] & 0x3f) | (instruction_bytes[3] & 0x1f) * 0x800);
+            /* direction is bits 7 to 6 of the third instruction byte */
+            direction = (DirectionType)((instruction_bytes[2] >> 6) & 0xff);
 
-            if (A > 1) {
-                IY = (uint16_t)(A * 0x100 | (IY & 0xff));
-                BC = (uint16_t)((DE << 8) | (HL & 0xff));
+            /* word_2 is a word starting at bit 5 of the third instruction byte */
+            word_2 = (uint16_t)((instruction_bytes[2] & 0x3f) | (instruction_bytes[3] & 0x1f) * 0x800);
+
+            if (direction == kDirUp || direction == kDirDown) {
+                y_pos = word_2 >> 8;
+                x_pos = word_2 & 0xff;
+                x_origin = current_addr & 0xff;
+                width = x_pos;
             } else {
-                IY = (uint16_t)(A * 0x100 | (DE >> 8));
-                BC = (uint16_t)((DE & 0xff00) | (HL & 0xff));
-                DE = (uint16_t)((HL & 0xff00) | (DE & 0xff));
+                /* direction is always kDirUp or kDirDown (2 or 3) in Temple of Terror side B, so this code path is unimplemented */
             }
+
             /* save into slot (0..2). */
-            save_slot(slot, A + 1, BC, DE, HL, IY);
+            save_slot(slot, false, x_origin, width, x_pos, y_pos, current_addr, direction);
             instruction_bytes += 4;
             counter--;
         }
 
-        uint8_t keep_going;
-        do { /* NXTP1 loop */
-            keep_going = 0;
-            for (int slot = 0; slot < repetitions; slot++) {
-                // styler() returns 0 or 0xff
-                uint8_t styler_result = styler(slot, &BC, &DE, &HL, &IY);
-                /* push the possibly-updated registers back into the slot */
-				save_slot(slot, styler_result, BC, DE, HL, IY);
-                keep_going |= styler_result;
+        /* Now we repeat through the simultaneous block drawing operations until all are finished */
+        bool keep_going = true;
+        while (keep_going) {
+            keep_going = false;
+            for (int slot = 0; slot < simultaneous; slot++) {
+                bool styler_finished = create_next_address(slot, &x_origin, &width, &x_pos, &y_pos, &current_addr, &direction);
+
+                /* push the updated values back into the slot */
+                /* This is easier to do here than inside the save_slot() function */
+				save_slot(slot, styler_finished, x_origin, width, x_pos, y_pos, current_addr, direction);
+
+                // Keep going until all simultaneous blocks are finished
+                if (!styler_finished)
+                    keep_going = true;
             }
-        } while (keep_going != 0);
+        };
 
     } while (counter != 0);
 }
@@ -229,16 +239,15 @@ static void build_screen_address_lookup_table(uint8_t *mem)
 /* Public entry point: builds an address lookup table and runs DeAlkatraz
  to decrypt the picture into mem. */
 
-/* The original image loader reads a byte from tape, decrypts it and writes
- the result to a screen adress from the lookup table created here.
+/* The original image loader reads a byte from tape, decrypts it and writes the result to a screen adress from the lookup table created here.
  The resulting image is used to decrypt the game data. */
 
 void LoadAlkatrazPicture(uint8_t *memimage, uint8_t *file)
 {
-    if (AddressLookupTable != NULL)
-        free(AddressLookupTable);
+    if (LookupTable != NULL)
+        free(LookupTable);
 
-    AddressLookupTable = (uint16_t *)MemAlloc(SCREEN_MEMORY_SIZE * sizeof(uint16_t));
+    LookupTable = (uint16_t *)MemAlloc(SCREEN_MEMORY_SIZE * sizeof(uint16_t));
 
     build_screen_address_lookup_table(memimage);
 
@@ -246,7 +255,7 @@ void LoadAlkatrazPicture(uint8_t *memimage, uint8_t *file)
     DeAlkatraz(file, memimage, 0, 0xea7d, 2, &loacon, 0xc1, 0xcb, 1);
     size_t fileoffset = 2;
     for (int i = 0; i < SCREEN_MEMORY_SIZE; i++)
-        DeAlkatraz(file, memimage, fileoffset++, AddressLookupTable[i], 1, &loacon, 0xc1, 0xcb, 1);
-    free(AddressLookupTable);
-    AddressLookupTable = NULL;
+        DeAlkatraz(file, memimage, fileoffset++, LookupTable[i], 1, &loacon, 0xc1, 0xcb, 1);
+    free(LookupTable);
+    LookupTable = NULL;
 }
