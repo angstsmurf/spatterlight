@@ -3,7 +3,7 @@
 //
 //  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  This code is for de-protecting the ZX Spectrum text-only version of Temple of Terror
+//  Used for de-protecting the ZX Spectrum text-only version of Temple of Terror
 //
 //  Created by Petter Sjölund on 2022-04-18.
 //
@@ -205,6 +205,14 @@ static void double_loop_with_r(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t DE
     }
 }
 
+// The original self-modifying code would transform iself over and over,
+// each time decrypting a Z80 code snippet that would performs the next
+// transformation, until finally arring at the actual loading screen
+// drawing code.
+
+// We need the original code to XOR it with the encrypted
+// game data in order to decrypt it, so we have to perform all the
+// equivalent tranformations here.
 static void DecryptToTLoader(uint8_t *mem)
 {
     loop_with_d(mem, 0x3c, 0xe142, 0xdbf, 1);
@@ -335,69 +343,96 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_r(mem, 0x13, 0xea5f, 0x04a2);
 }
 
-void XORAlkatraz(uint8_t *mem, uint16_t IX, uint16_t HL, uint16_t DE, uint16_t BC)
+// XOR the memory starting at the target address with the contents of the
+// memory starting at the source address, overwriting the original memory contents
+// at the target.
+
+// This assumes that the source size is smaller than the target size. When we have
+// used all of the source data, we start over from the start of the source, until
+// every byte of the target is XORed.
+void XORAlkatraz(uint8_t *memory, uint16_t target_address, uint16_t source_address, uint16_t source_size, uint16_t target_size)
 {
-    uint16_t initialHL = HL;
+    uint16_t source_start_address = source_address;
     do {
-        for (int i = 0; i < DE; i++) {
-            mem[IX] ^= mem[HL];
-            HL++;
-            IX++;
-            BC--;
-            if (BC == 0)
+        for (int i = 0; i < source_size; i++) {
+            memory[target_address] ^= memory[source_address];
+            source_address++;
+            target_address++;
+            target_size--;
+            if (target_size == 0)
                 return;
         }
-        HL = initialHL;
-    } while (BC > 0);
+        source_address = source_start_address;
+    } while (target_size > 0);
 }
 
-uint8_t *DecryptToTSideB(uint8_t *data, size_t *length)
+uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
 {
-    size_t length2 = *length;
-    uint8_t *block3 = GetTZXBlock(3, data, &length2);
-    if (block3 == NULL)
+    size_t length = *original_data_length;
+    // We load the raw, encrypted tape loader data from the TZX image
+    uint8_t *encrypted_loader = GetTZXBlock(3, data, &length);
+    if (encrypted_loader == NULL)
         return NULL;
+    // We decrypt it in two passes. The original would to this byte-for-byte while loading from tape.
+    // Calling DeAlkatraz() with a NULL target parameter will make it create
+    // a new 64 KB memory snapshot for us.
     uint8_t loacon = 0xd3;
-    uint8_t *decrypted = DeAlkatraz(block3, NULL, 0, 0xdf98, 0x0002, &loacon, 0xde, 0xe8, 1);
-    DeAlkatraz(block3, decrypted, 2, 0xdf9d, 0x0f64, &loacon, 0xde, 0xe8, 1);
-    free(block3);
-    decrypted[0xef00] = 0x9a;
-    decrypted[0xdf9a] = 0x0f;
-    decrypted[0xdf9d] = 0;
-    ldir(decrypted, 0xdf9e, 0xdf9d, 0x10e);
+    uint8_t *memory = DeAlkatraz(encrypted_loader, NULL, 0, 0xdf98, 0x0002, &loacon, 0xde, 0xe8, 1);
+    DeAlkatraz(encrypted_loader, memory, 2, 0xdf9d, 0x0f64, &loacon, 0xde, 0xe8, 1);
+    free(encrypted_loader);
 
-    DecryptToTLoader(decrypted);
+    // We set some values and move the loader code into place
+    memory[0xef00] = 0x9a;
+    memory[0xdf9a] = 0x0f;
+    memory[0xdf9d] = 0;
+    ldir(memory, 0xdf9e, 0xdf9d, 0x10e);
 
-    length2 = *length;
-    uint8_t *block = GetTZXBlock(4, data, &length2);
+    // DecryptToTLoader() decrypts the loading screen drawing code.
+
+    // Although we don't use this directly (there is a C
+    // re-implementation in loadtotpicture.c instead) we still
+    // need to XOR the resulting drawing code with the
+    // encrypted game data in order to decrypt it.
+    DecryptToTLoader(memory);
+
+    // Next, we load, decrypt and unscramble the loading screen image
+    length = *original_data_length;
+    uint8_t *block = GetTZXBlock(4, data, &length);
     if (block == 0)
         return NULL;
 
-    LoadAlkatrazPicture(decrypted, block);
+    LoadAlkatrazPicture(memory, block);
 
     loacon = 0x8c;
-    DeAlkatraz(block, decrypted, 0x1b02, 0xea69, 0x000e, &loacon, 0xc1, 0xcb, 1);
-    DeAlkatraz(block, decrypted, 0x1b10, 0x6072, 0x6e96, &loacon, 0xc1, 0xcb, 1);
-    DeAlkatraz(block, decrypted, 0x89a6, 0x5b00, 0x01cc, &loacon, 0xc1, 0xcb, 1);
-    DeAlkatraz(block, decrypted, 0x8b72, 0xea79, 0x0003, &loacon, 0xc1, 0xcb, 1);
+    DeAlkatraz(block, memory, 0x1b02, 0xea69, 0x000e, &loacon, 0xc1, 0xcb, 1);
+    DeAlkatraz(block, memory, 0x1b10, 0x6072, 0x6e96, &loacon, 0xc1, 0xcb, 1);
+    DeAlkatraz(block, memory, 0x89a6, 0x5b00, 0x01cc, &loacon, 0xc1, 0xcb, 1);
+    DeAlkatraz(block, memory, 0x8b72, 0xea79, 0x0003, &loacon, 0xc1, 0xcb, 1);
 
-    decrypted[0xeb0d] = 0;
-    decrypted[0xeb0e] = 0;
-    decrypted[0xeb5e] = 0;
-    decrypted[0xeb5f] = 0;
+    memory[0xeb0d] = 0;
+    memory[0xeb0e] = 0;
+    memory[0xeb5e] = 0;
+    memory[0xeb5f] = 0;
 
-    decrypted[0xeb74] = 0;
-    decrypted[0xeaf3] = 0;
-    decrypted[0xeb00] = 0;
+    memory[0xeb74] = 0;
+    memory[0xeaf3] = 0;
+    memory[0xeb00] = 0;
 
-    XORAlkatraz(decrypted, 0x8782, 0x4000, 0x1800, 0x4786);
-    XORAlkatraz(decrypted, 0x8782, 0xea7f, 0x010c, 0x4786);
+    // In these final passes we XOR the game data with
+    // the loading image (i.e. the contents of screen memory)
+    // as well as with the Z80 loading screen drawing code.
+    XORAlkatraz(memory, 0x8782, 0x4000, 0x1800, 0x4786);
+    XORAlkatraz(memory, 0x8782, 0xea7f, 0x010c, 0x4786);
 
-    decrypted[0xea7f] = 0;
-    ldir(decrypted, 0xea80, 0xea7f, 0x237);
+    memory[0xea7f] = 0;
+    ldir(memory, 0xea80, 0xea7f, 0x237);
 
     free(block);
     free(data);
-    *length = 0x10000;
-    return decrypted;
+
+    *original_data_length = 0x10000;
+
+    // Return the 64 KB ZX Spectrum memory snapshot containing the
+    // decrypted game data.
+    return memory;
 }

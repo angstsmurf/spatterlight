@@ -41,7 +41,7 @@ typedef struct {
 
 static SavedRegs Slots[3];
 
-/* Record a snapshot into the slot 'slot' (0..2). */
+/* Record a snapshot into the slot (0..2). */
 static void save_slot(int slot, bool finished, uint8_t x_origin, uint8_t width, uint8_t remaining_x, uint8_t remaining_y, uint16_t current_addr, DirectionType direction)
 {
     if (slot < 0 || slot > 2) {
@@ -130,8 +130,8 @@ static uint16_t next_line_addr(uint16_t addr, uint8_t direction)
     }
 }
 
-/* Calculate the next lookup table address and update variables. Returns true if block is finished */
-static bool create_next_address(uint8_t slot, uint8_t *x_origin, uint8_t *width, uint8_t *x_remaining, uint8_t *y_remaining, uint16_t *current_addr, DirectionType *direction)
+/* Work out which screen memory address comes next in the lookup table and update variables. Returns true if this was the final address of the block in this slot. */
+static bool calculate_address(uint8_t slot, uint8_t *x_origin, uint8_t *width, uint8_t *x_remaining, uint8_t *y_remaining, uint16_t *current_addr, DirectionType *direction)
 {
     if (slot > 2) {
         fprintf(stderr, "Error! Only slot values 2 and below allowed! (slot == %d)\n", slot);
@@ -149,22 +149,23 @@ static bool create_next_address(uint8_t slot, uint8_t *x_origin, uint8_t *width,
 
     if (*direction == kDirLeft || *direction == kDirRight) {
         /* direction is always 2 or 3 in Temple of Terror side B, so this code path is not implemented */
+        fprintf(stderr, "TAYLOR: calculate_address: Unimplemented direction (%s).\n", *direction == kDirLeft ? "left" : "right");
         return true;
     } else {
         uint8_t low_byte = (uint8_t)(*current_addr & 0xff) + (*direction == kDirDown ? 1 : -1);
         *current_addr = (uint16_t)((*current_addr & 0xff00) | low_byte);
 
         if (*x_remaining != 0) {
-            return false;  // not finished
+            return false;  // keep going
         } else {
             *current_addr = next_line_addr((uint16_t)((*current_addr & 0xff00) | *x_origin), *direction);
             *x_remaining = *width;
             *x_origin = *current_addr & 0xff;
             *y_remaining -= 1;
             if (*y_remaining == 0)
-                return true; // true means finished
+                return true; // we have finished "drawing" the block
             else
-                return false; // not finished
+                return false; // keep going
         }
     }
 }
@@ -180,9 +181,9 @@ static void build_screen_address_lookup_table(uint8_t *mem)
     }
     /* Instructions are encoded in (counter) consecutive groups of four bytes */
     uint8_t *instruction_bytes = &mem[0xeeab];
-    uint16_t word_2, current_addr;
+    uint16_t current_addr;
     DirectionType direction;
-    uint8_t y_pos = 0, x_pos = 0, x_origin = 0, width = 0;
+    uint8_t y_remaining = 0, x_remaining = 0, x_origin = 0, width = 0;
 
     TableWritePos = 0;
 
@@ -196,22 +197,25 @@ static void build_screen_address_lookup_table(uint8_t *mem)
             current_addr = (uint16_t)(instruction_bytes[0] | instruction_bytes[1] * 0x100);
 
             /* direction is bits 7 to 6 of the third instruction byte */
-            direction = (DirectionType)((instruction_bytes[2] >> 6) & 0xff);
-
-            /* word_2 is a word starting at bit 5 of the third instruction byte */
-            word_2 = (uint16_t)((instruction_bytes[2] & 0x3f) | (instruction_bytes[3] & 0x1f) * 0x800);
+            direction = (DirectionType)(instruction_bytes[2] >> 6);
 
             if (direction == kDirUp || direction == kDirDown) {
-                y_pos = word_2 >> 8;
-                x_pos = word_2 & 0xff;
+                /* If we are moving vertically, x size (in characters) */
+                /* is given by the remainder (six rightmost bits) */
+                /* of the third instruction byte  */
+                x_remaining = instruction_bytes[2] & 0x3f;
+                /* y size (in pixels) is the fourth instruction byte */
+                /* times eight */
+                y_remaining = instruction_bytes[3] * 8;
                 x_origin = current_addr & 0xff;
-                width = x_pos;
+                width = x_remaining;
             } else {
                 /* direction is always kDirUp or kDirDown (2 or 3) in Temple of Terror side B, so this code path is unimplemented */
+                fprintf(stderr, "TAYLOR: build_screen_address_lookup_table: Unimplemented direction (%s).\n", direction == kDirLeft ? "left" : "right");
             }
 
             /* save into slot (0..2). */
-            save_slot(slot, false, x_origin, width, x_pos, y_pos, current_addr, direction);
+            save_slot(slot, false, x_origin, width, x_remaining, y_remaining, current_addr, direction);
             instruction_bytes += 4;
             counter--;
         }
@@ -221,14 +225,14 @@ static void build_screen_address_lookup_table(uint8_t *mem)
         while (keep_going) {
             keep_going = false;
             for (int slot = 0; slot < simultaneous; slot++) {
-                bool styler_finished = create_next_address(slot, &x_origin, &width, &x_pos, &y_pos, &current_addr, &direction);
+                bool slot_finished = calculate_address(slot, &x_origin, &width, &x_remaining, &y_remaining, &current_addr, &direction);
 
                 /* push the updated values back into the slot */
                 /* This is easier to do here than inside the save_slot() function */
-				save_slot(slot, styler_finished, x_origin, width, x_pos, y_pos, current_addr, direction);
+				save_slot(slot, slot_finished, x_origin, width, x_remaining, y_remaining, current_addr, direction);
 
                 // Keep going until all simultaneous blocks are finished
-                if (!styler_finished)
+                if (!slot_finished)
                     keep_going = true;
             }
         };
@@ -236,26 +240,28 @@ static void build_screen_address_lookup_table(uint8_t *mem)
     } while (counter != 0);
 }
 
-/* Public entry point: builds an address lookup table and runs DeAlkatraz
- to decrypt the picture into mem. */
+/* Public entry point: builds an address lookup table and runs DeAlkatraz() */
+/* to decrypt the picture into memory (the memory array represents the entire */
+/* addressable 64 KB of the ZX Spectrum). */
 
-/* The original image loader reads a byte from tape, decrypts it and writes the result to a screen adress from the lookup table created here.
- The resulting image is used to decrypt the game data. */
+/* The original image loader reads a byte from tape, decrypts it */
+/* and writes the result to a screen address from the lookup table */
+/* created here. The resulting image is then used to decrypt the game data. */
 
-void LoadAlkatrazPicture(uint8_t *memimage, uint8_t *file)
+void LoadAlkatrazPicture(uint8_t *memory, uint8_t *file)
 {
     if (LookupTable != NULL)
         free(LookupTable);
 
     LookupTable = (uint16_t *)MemAlloc(SCREEN_MEMORY_SIZE * sizeof(uint16_t));
 
-    build_screen_address_lookup_table(memimage);
+    build_screen_address_lookup_table(memory);
 
     uint8_t loacon = 0xf6;
-    DeAlkatraz(file, memimage, 0, 0xea7d, 2, &loacon, 0xc1, 0xcb, 1);
+    DeAlkatraz(file, memory, 0, 0xea7d, 2, &loacon, 0xc1, 0xcb, 1);
     size_t fileoffset = 2;
     for (int i = 0; i < SCREEN_MEMORY_SIZE; i++)
-        DeAlkatraz(file, memimage, fileoffset++, LookupTable[i], 1, &loacon, 0xc1, 0xcb, 1);
+        DeAlkatraz(file, memory, fileoffset++, LookupTable[i], 1, &loacon, 0xc1, 0xcb, 1);
     free(LookupTable);
     LookupTable = NULL;
 }

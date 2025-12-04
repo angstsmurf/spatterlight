@@ -19,25 +19,27 @@
 
 #define SPECTRUM_PRINTER_BUFFER 0x5b00
 
-void ldir(uint8_t *mem, uint16_t DE, uint16_t HL, uint16_t BC)
+void ldir(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size)
 {
     // Z80 block copy function.
     // Cannot use memcpy() here because the original code might rely
     // on overlap behavior.
-    for (int i = 0; i < BC; i++)
-        mem[DE++] = mem[HL++];
+    for (int i = 0; i < size; i++)
+        mem[target++] = mem[source++];
 }
 
-void lddr(uint8_t *mem, uint16_t DE, uint16_t HL, uint16_t BC)
+void lddr(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size)
 {
     // Z80 block copy function (backwards ldir).
     // Cannot use memcpy() here because the original code might rely
     // on overlap behavior.
-    for (int i = 0; i < BC; i++)
-        mem[DE--] = mem[HL--];
+    for (int i = 0; i < size; i++)
+        mem[target--] = mem[source--];
 }
 
-// This moves the decrypted data into place
+// This moves the decrypted data into place.
+// IX holds the memory offset of a list of values
+// (length and count of move operations.)
 void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t IX, uint16_t store)
 {
     uint16_t count, length;
@@ -52,41 +54,51 @@ void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t IX, uint16_t stor
     }
 }
 
-uint8_t *DeAlkatraz(uint8_t *raw_data, uint8_t *target, size_t offset, uint16_t IX, uint16_t DE, uint8_t *loacon, uint8_t add1, uint8_t add2, int selfmodify)
+// This is the main Alkatraz decryption function.
+// The unencrypted source bytes are XORed with a semi-arbitrary value (val)
+// which is iself transformed on every iteration.
+
+// The values fed as parameters to this function are mostly "magic numbers"
+// determined by looking at the memory / register contents of a ZX Spectrum
+// emulator running the decryption code of the original games.
+
+// The exception is the text-only version of Temple of Terror, which uses
+// a stronger encryption. See code in decrypttotloader.c and loadtotpicture.c
+
+uint8_t *DeAlkatraz(uint8_t *encrypted_source, uint8_t *decrypted_target, size_t source_offset, uint16_t target_offset, uint16_t bytes_remaining, uint8_t *loacon, uint8_t add1, uint8_t add2, int selfmodify)
 {
-    if (target == NULL) {
-        target = MemAlloc(0x10000);
-        memset(target, 0, 0x10000);
+    // If no pointer to target memory is provided, we create it.
+    if (decrypted_target == NULL) {
+        decrypted_target = MemAlloc(0x10000);
+        memset(decrypted_target, 0, 0x10000);
     }
 
-    // Thid is the main Alkatraz decryption function.
-    // Every raw byte is XORed with a semi-arbitrary value (val)
-    // that is iself transformed on every iteration.
-    for (size_t i = offset; DE != 0; i++) {
+    while (bytes_remaining != 0) {
         uint8_t val = *loacon;
-        uint8_t D = (DE >> 8) & 0xff;
-        uint8_t E = DE & 0xff;
+        uint8_t D = (bytes_remaining >> 8) & 0xff;
+        uint8_t E = bytes_remaining & 0xff;
         val ^= D;
         val ^= E;
-        val ^= (IX >> 8) & 0xff;
-        val ^= IX & 0xff;
-        val ^= raw_data[i];
-        target[IX] = val;
+        val ^= (target_offset >> 8) & 0xff;
+        val ^= target_offset & 0xff;
+        val ^= encrypted_source[source_offset];
+        decrypted_target[target_offset] = val;
         if (selfmodify) {
-            if (IX == 0xe022)
+            if (target_offset == 0xe022)
                 add1 = val;
-            if (IX == 0xe02f)
+            if (target_offset == 0xe02f)
                 add2 = val;
         }
         if (E & 0x10) {
-            *loacon = *loacon + add1 + E - D;
+            *loacon = *loacon + add1 - D + E;
         }
         *loacon += add2;
-        IX++;
-        DE--;
+        source_offset++;
+        target_offset++;
+        bytes_remaining--;
     }
 
-    return target;
+    return decrypted_target;
 }
 
 static uint8_t *ShrinkToSnaSize(uint8_t *uncompressed, uint8_t *old_image, size_t *length)
@@ -135,13 +147,13 @@ static uint8_t *add_block(uint8_t *image, uint8_t *outbuf, size_t origlen, int b
 typedef struct {
     int block_index;
     uint8_t loacon_init;
-    size_t decomp_offset;
-    uint16_t dealkatraz_DE;
+    size_t source_offset;
+    uint16_t size;
     uint8_t add1;
     uint8_t add2;
-    uint16_t lddr_DE;
-    uint16_t lddr_HL;
-    uint16_t lddr_BC;
+    uint16_t lddr_target;
+    uint16_t lddr_source;
+    uint16_t lddr_size;
     uint8_t deshuffle_repeats;
     uint16_t deshuffle_IX;
     uint16_t deshuffle_store;
@@ -157,14 +169,14 @@ static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const Extrac
     }
 
     uint8_t loacon = spec->loacon_init;
-    uint8_t *uncompressed = DeAlkatraz(block, NULL, spec->decomp_offset, SPECTRUM_PRINTER_BUFFER, spec->dealkatraz_DE, &loacon, spec->add1, spec->add2, 0);
+    uint8_t *uncompressed = DeAlkatraz(block, NULL, spec->source_offset, SPECTRUM_PRINTER_BUFFER, spec->size, &loacon, spec->add1, spec->add2, 0);
     if (!uncompressed) {
         free(block);
         fprintf(stderr, "DeAlkatraz failed for block %d\n", spec->block_index);
         return image;
     }
 
-    lddr(uncompressed, spec->lddr_DE, spec->lddr_HL, spec->lddr_BC);
+    lddr(uncompressed, spec->lddr_target, spec->lddr_source, spec->lddr_size);
     DeshuffleAlkatraz(uncompressed, spec->deshuffle_repeats, spec->deshuffle_IX, spec->deshuffle_store);
 
     free(block);
@@ -176,7 +188,7 @@ static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const Extrac
     return shrunk;
 }
 
-// Extra massaging for a Z80 image that was captured
+// Extra massaging for a Z80 memory snapshot that was captured
 // from an emulator in the midst of decompression.
 uint8_t *FixBrokenKayleth(uint8_t *image, size_t *length) {
     uint8_t *mem = MemAlloc(0x10000);
@@ -199,17 +211,17 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         free(image);
         image = uncompressed;
     } else {
-        /* Specs for repeated TZX extraction pattern */
+        /* Specs for repeated TZX decryption pattern */
         const ExtractSpec templeA = {
             .block_index = 4,
             .loacon_init = 0x9a,
-            .decomp_offset = 0x1b0c,
-            .dealkatraz_DE = 0x9f64,
+            .source_offset = 0x1b0c,
+            .size = 0x9f64,
             .add1 = 0xcf,
             .add2 = 0xcd,
-            .lddr_DE = 0xffff,
-            .lddr_HL = 0xfc85,
-            .lddr_BC = 0x9f8e,
+            .lddr_target = 0xffff,
+            .lddr_source = 0xfc85,
+            .lddr_size = 0x9f8e,
             .deshuffle_repeats = 05,
             .deshuffle_IX = 0x5b8b,
             .deshuffle_store = 0xfdd6
@@ -217,13 +229,13 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         const ExtractSpec kayleth = {
             .block_index = 4,
             .loacon_init = 0xce,
-            .decomp_offset = 0x172e,
-            .dealkatraz_DE = 0xa004,
+            .source_offset = 0x172e,
+            .size = 0xa004,
             .add1 = 0xeb,
             .add2 = 0x8f,
-            .lddr_DE = 0xfd93,
-            .lddr_HL = 0xfb02,
-            .lddr_BC = 0x9e38,
+            .lddr_target = 0xfd93,
+            .lddr_source = 0xfb02,
+            .lddr_size = 0x9e38,
             .deshuffle_repeats = 0x17,
             .deshuffle_IX = 0x5bf2,
             .deshuffle_store = 0xfd90
@@ -231,20 +243,19 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         const ExtractSpec terraquake = {
             .block_index = 3,
             .loacon_init = 0xe7,
-            .decomp_offset = 0x17eb,
-            .dealkatraz_DE = 0x9f64,
+            .source_offset = 0x17eb,
+            .size = 0x9f64,
             .add1 = 0x75,
             .add2 = 0x55,
-            .lddr_DE = 0xfc80,
-            .lddr_HL = 0xfa32,
-            .lddr_BC = 0x9d38,
+            .lddr_target = 0xfc80,
+            .lddr_source = 0xfa32,
+            .lddr_size = 0x9d38,
             .deshuffle_repeats = 0x03,
             .deshuffle_IX = 0x5b90,
             .deshuffle_store = 0xfc80
         };
 
         uint8_t *out = NULL;
-        int failure = 0;
         int isTZX = 0;
         int TZXblocknums[5] = {8, 12, 14, 16, 18};
         int TAPblocknums[5] = {11, 15, 17, 19, 21};
@@ -272,25 +283,16 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 // Fallthrough
             case 0x104c4: { // Blizzard Pass TAP
                 out = MemAlloc(0x2001f);
-                if (!add_block(image, out, origlen, blocknums[0], 0x1801f, isTZX)) {
-                    failure = 1;
-                } else if (!add_block(image, out, origlen, blocknums[1], 0x801b, isTZX)) {
-                    failure = 1;
-                } else if (!add_block(image, out, origlen, blocknums[2], 0x401b, isTZX)) {
-                    failure = 1;
-                } else if (!add_block(image, out, origlen,  blocknums[3], 0x1ee6, isTZX)) {
-                    failure = 1;
-                } else if (!add_block(image, out, origlen, blocknums[4], 0xbff7, isTZX)) {
-                    failure = 1;
+                int BlizzardPassBlockOffsets[5] = {0x1801f, 0x801b, 0x401b, 0x1ee6, 0xbff7};
+                for (int i = 0; i < 5; i++) {
+                    if (!add_block(image, out, origlen, blocknums[i], BlizzardPassBlockOffsets[i], isTZX)) {
+                        free(out);
+                        return image;
+                    }
                 }
-                if (failure == 1) {
-                    free(out);
-                    return image;
-                } else {
-                    *length = 0x2001f;
-                    free(image);
-                    return out;
-                }
+                *length = 0x2001f;
+                free(image);
+                return out;
             }
             default:
                 break;
