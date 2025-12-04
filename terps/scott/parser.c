@@ -3,9 +3,7 @@
 //  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Created by Petter Sjölund on 2022-01-19.
-//
 
-#include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -316,7 +314,7 @@ glui32 *ToUnicode(const char *string)
                 unichar = 0xdc; // Ü
                 i++;
             }
-            if (c == '\"') {
+            if (c == '"') {
                 unichar = 0x2019; // ’
             }
         } else if (Game && (CurrentGame == GREMLINS_SPANISH_C64 || CurrentGame == GREMLINS_SPANISH)) {
@@ -534,7 +532,6 @@ void SplitIntoWords(glui32 *string, int length)
                 /* Start a new word */
                 startpos[words_found] = i;
                 words_found++;
-                wordlength[words_found] = 0;
             }
             wordlength[words_found - 1]++;
             lastwasspace = 0;
@@ -605,134 +602,192 @@ int WhichWord(const char *word, const char **list, int word_length,
     int list_length)
 {
     int n = 1;
-    int ne = 1;
-    const char *tp;
-    while (ne < list_length) {
-        tp = list[ne];
+    for (int ne = 1; ne < list_length; ne++) {
+        const char *tp = list[ne];
+        if (!tp)
+            continue;
         if (*tp == '*')
             tp++;
         else
             n = ne;
         if (xstrncasecmp(word, tp, word_length) == 0)
-            return (n);
-        ne++;
+            return n;
     }
-    return (0);
+    return 0;
 }
 
-/* For the verb position in a command string sequence, we try the following
- lists in this order: Verbs, Directions, Abbreviations, SkipList, Nouns,
- ExtraCommands, Delimiters */
-static int FindVerb(const char *string, const char ***list)
-{
-    *list = Verbs;
-    int verb = WhichWord(string, *list, GameHeader.WordLength, GameHeader.NumWords + 1);
-    if (verb) {
-        return verb;
-    }
-    *list = Directions;
+/* Unified search engine with static SearchSpec tables */
 
-    verb = WhichWord(string, *list, GameHeader.WordLength, NUMBER_OF_DIRECTIONS);
-    if (verb) {
-        if (verb == 13)
-            verb = 4;
-        if (verb > 6)
-            verb -= 6;
-        return verb;
+/* List identifiers for static spec tables (so tables can be const). */
+typedef enum {
+    L_VERBS,
+    L_DIRECTIONS,
+    L_ABBREVS,
+    L_SKIP,
+    L_NOUNS,
+    L_EXTRACMD,
+    L_EXTRANOUN,
+    L_DELIM
+} ListId;
+
+typedef enum {
+    KIND_NORMAL,
+    KIND_DIRECTIONS,
+    KIND_ABBREVIATIONS,
+    KIND_SKIP,
+    KIND_EXTRACMD,
+    KIND_EXTRANOUN,
+    KIND_DELIMITER
+} SearchKind;
+
+typedef struct {
+    ListId list_id;
+    int use_game_word_length; /* 1 => use GameHeader.WordLength, 0 => use strlen(word) */
+    SearchKind kind;
+} SearchSpec;
+
+
+/* Map ListId to actual pointers and lengths (lengths when dynamic are provided at call) */
+static int get_list_and_length(ListId id, const char ***plist)
+{
+    switch (id) {
+        case L_VERBS:
+            *plist = Verbs;
+            return GameHeader.NumWords + 1;
+        case L_DIRECTIONS:
+            *plist = Directions;
+            return NUMBER_OF_DIRECTIONS;
+        case L_ABBREVS:
+            *plist = Abbreviations;
+            return NUMBER_OF_ABBREVIATIONS;
+        case L_SKIP:
+            *plist = SkipList;
+            return NUMBER_OF_SKIPPABLE_WORDS;
+        case L_NOUNS:
+            *plist = Nouns;
+            return GameHeader.NumWords + 1;
+        case L_EXTRACMD:
+            *plist = ExtraCommands;
+            return NUMBER_OF_EXTRA_COMMANDS;
+        case L_EXTRANOUN:
+            *plist = ExtraNouns;
+            return NUMBER_OF_EXTRA_NOUNS;
+        case L_DELIM:
+            *plist = DelimiterList;
+            return NUMBER_OF_DELIMITERS;
+        default:
+            *plist = NULL;
+            return 0;
     }
-    *list = Abbreviations;
-    verb = WhichWord(string, *list, GameHeader.WordLength, NUMBER_OF_ABBREVIATIONS);
-    if (verb) {
-        verb = WhichWord(AbbreviationsKey[verb], Verbs, GameHeader.WordLength,
-            GameHeader.NumWords + 1);
-        if (verb) {
-            *list = Verbs;
-            return verb;
+}
+
+/* Core unified search routine.
+ * - order: array of SearchSpec describing priority order to try.
+ * - out_list: returns the matched list pointer (may be set to NULL if no match).
+ *
+ * Return values:
+ * - For normal matches: index (same as WhichWord).
+ * - For mapped extra commands/nouns: (mapped_value + GameHeader.NumWords).
+ * - For skip matches: 0 (but out_list set to SkipList).
+ * - If nothing matched: 0 and *out_list = NULL.
+ */
+static int unified_search(const char *word, const SearchSpec *order, const char ***out_list)
+{
+    *out_list = NULL;
+    int list_size = sizeof(*order) / sizeof(order[0]);
+    for (int s = 0; s < list_size; s++) {
+        const SearchSpec *spec = &order[s];
+        const char **list = NULL;
+        int list_length = get_list_and_length(spec->list_id, &list);
+        if (!list || list_length <= 1)
+            continue;
+        int match_len = spec->use_game_word_length ? GameHeader.WordLength : (int)strlen(word);
+        int idx = WhichWord(word, list, match_len, list_length);
+        if (!idx)
+            continue;
+
+        switch (spec->kind) {
+            case KIND_NORMAL:
+                *out_list = list;
+                return idx;
+
+            case KIND_DIRECTIONS:
+                /* Return adjusted index (preserve original numeric mapping logic). */
+                if (idx == 13)
+                    idx = 4;
+                if (idx > 6)
+                    idx -= 6;
+                *out_list = list;
+                return idx;
+
+            case KIND_ABBREVIATIONS: {
+                int ab_idx = idx;
+                if (ab_idx > 0 && AbbreviationsKey[ab_idx]) {
+                    int v = WhichWord(AbbreviationsKey[ab_idx], Verbs, GameHeader.WordLength, GameHeader.NumWords + 1);
+                    if (v) {
+                        *out_list = Verbs;
+                        return v;
+                    }
+                }
+                break; /* fall through to next spec if abbrev didn't map */
+            }
+
+            case KIND_SKIP:
+                *out_list = list;
+                return 0; /* skippable */
+
+            case KIND_EXTRACMD: {
+                *out_list = list;
+                int mapped = ExtraCommandsKey[idx];
+                return mapped + GameHeader.NumWords;
+            }
+
+            case KIND_EXTRANOUN: {
+                *out_list = list;
+                int mapped = ExtraNounsKey[idx];
+                return mapped + GameHeader.NumWords;
+            }
+
+            case KIND_DELIMITER:
+                *out_list = list;
+                return idx;
         }
     }
 
-    int stringlength = strlen(string);
-
-    *list = SkipList;
-    verb = WhichWord(string, *list, stringlength, NUMBER_OF_SKIPPABLE_WORDS);
-    if (verb) {
-        return 0;
-    }
-    *list = Nouns;
-    verb = WhichWord(string, *list, GameHeader.WordLength, GameHeader.NumWords + 1);
-    if (verb) {
-        return verb;
-    }
-
-    *list = ExtraCommands;
-    verb = WhichWord(string, *list, stringlength, NUMBER_OF_EXTRA_COMMANDS);
-    if (verb) {
-        verb = ExtraCommandsKey[verb];
-        return verb + GameHeader.NumWords;
-    }
-
-    *list = ExtraNouns;
-    verb = WhichWord(string, *list, stringlength, NUMBER_OF_EXTRA_NOUNS);
-    if (verb) {
-        verb = ExtraNounsKey[verb];
-        return verb + GameHeader.NumWords;
-    }
-
-    *list = DelimiterList;
-    verb = WhichWord(string, *list, stringlength, NUMBER_OF_DELIMITERS);
-    if (!verb)
-        *list = NULL;
-    return verb;
+    *out_list = NULL;
+    return 0;
 }
 
-/* For the noun position in a command string sequence, we try the following
- lists in this order:
- Nouns, Directions, ExtraNouns, SkipList, Verbs, Delimiters */
+/* Static const search orders to reduce wrapper code repetition */
+static const SearchSpec verb_search_order[] = {
+    { L_VERBS,      1, KIND_NORMAL },
+    { L_DIRECTIONS, 1, KIND_DIRECTIONS },
+    { L_ABBREVS,    1, KIND_ABBREVIATIONS },
+    { L_SKIP,       0, KIND_SKIP },       /* use full string length for skip */
+    { L_NOUNS,      1, KIND_NORMAL },
+    { L_EXTRACMD,   0, KIND_EXTRACMD },
+    { L_EXTRANOUN,  0, KIND_EXTRANOUN },
+    { L_DELIM,      0, KIND_DELIMITER }
+};
+
+static const SearchSpec noun_search_order[] = {
+    { L_NOUNS,      1, KIND_NORMAL },
+    { L_DIRECTIONS, 1, KIND_DIRECTIONS },
+    { L_EXTRANOUN,  0, KIND_EXTRANOUN },
+    { L_SKIP,       0, KIND_SKIP },       /* use full string length for skip */
+    { L_VERBS,      1, KIND_NORMAL },
+    { L_DELIM,      0, KIND_DELIMITER }
+};
+
+/* Thin wrappers that preserve previous call-sites and list-pointer semantics. */
+static int FindVerb(const char *string, const char ***list)
+{
+    return unified_search(string, verb_search_order, list);
+}
+
 static int FindNoun(const char *string, const char ***list)
 {
-    *list = Nouns;
-    int noun = WhichWord(string, *list, GameHeader.WordLength, GameHeader.NumWords + 1);
-    if (noun) {
-        return noun;
-    }
-
-    *list = Directions;
-    noun = WhichWord(string, *list, GameHeader.WordLength, NUMBER_OF_DIRECTIONS);
-    if (noun) {
-        if (noun > 6)
-            noun -= 6;
-        *list = Nouns;
-        return noun;
-    }
-
-    int stringlength = strlen(string);
-
-    *list = ExtraNouns;
-
-    noun = WhichWord(string, *list, stringlength, NUMBER_OF_EXTRA_NOUNS);
-    if (noun) {
-        noun = ExtraNounsKey[noun];
-        return noun + GameHeader.NumWords;
-    }
-
-    *list = SkipList;
-    noun = WhichWord(string, *list, stringlength, NUMBER_OF_SKIPPABLE_WORDS);
-    if (noun) {
-        return 0;
-    }
-
-    *list = Verbs;
-    noun = WhichWord(string, *list, GameHeader.WordLength, GameHeader.NumWords + 1);
-    if (noun) {
-        return noun;
-    }
-
-    *list = DelimiterList;
-    noun = WhichWord(string, *list, stringlength, NUMBER_OF_DELIMITERS);
-
-    if (!noun)
-        *list = NULL;
-    return 0;
+    return unified_search(string, noun_search_order, list);
 }
 
 static struct Command *CommandFromStrings(int index, struct Command *previous);
@@ -778,10 +833,8 @@ static int FindExtaneousWords(int *index, int noun)
     if (list == NULL) {
         if (*index >= WordsInInput)
             *index = WordsInInput - 1;
-        //        debug_print("FindExtaneousWords Error: I don't know what a \"%s\" is\n", CharWords[*index]);
         CreateErrorMessage(sys[I_DONT_KNOW_WHAT_A], UnicodeWords[*index], sys[IS]);
     } else {
-        //        debug_print("FindExtaneousWords Error: I don't understand\n");
         CreateErrorMessage(sys[I_DONT_UNDERSTAND], NULL, NULL);
     }
 
@@ -883,7 +936,7 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
         noun = FindNoun(CharWords[i++], &list);
     } while (list == SkipList && i < WordsInInput);
 
-    if (list == Nouns || list == ExtraNouns) {
+    if (list == Nouns || list == Directions || list == ExtraNouns) {
         /* It is a noun */
 
         /* Check if it is an ALL followed by EXCEPT */
@@ -895,6 +948,8 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
         }
         if (ExtraCommandsKey[except] != EXCEPT && FindExtaneousWords(&i, noun) != 0)
             return NULL;
+        /* If we found a noun where a verb was expected, check
+           again to see if it matches a verb as well */
         if (found_noun_at_verb_position) {
             int realverb = WhichWord(CharWords[i - 1], Verbs, GameHeader.WordLength,
                 GameHeader.NumWords);
@@ -946,7 +1001,6 @@ static int CreateAllCommands(struct Command *command)
 
     struct Command *next = command->next;
     /* Check if the ALL command is followed by EXCEPT */
-    /* and if it is, build an array of items to be excepted */
     while (next && next->verb == GameHeader.NumWords + EXCEPT) {
         for (int i = 0; i <= GameHeader.NumItems; i++) {
             if (Items[i].AutoGet && xstrncasecmp(Items[i].AutoGet, CharWords[next->nounwordindex], GameHeader.WordLength) == 0) {
