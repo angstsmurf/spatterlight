@@ -136,7 +136,8 @@ const char *sysdict[MAX_SYSMESS] = {
     "BAD DATA! Invalid save file. ",
     "State saved. ",
     "State restored. ",
-    "No saved state exists. "
+    "No saved state exists. ",
+    "No previous action exists. "
 };
 
 /* These are supposed to be the original ScottFree system

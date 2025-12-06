@@ -98,13 +98,18 @@ ExtraCommandResult PerformExtraCommand(int command, int nextcommand)
 {
     switch (command) {
     case COM_AGAIN:
-        CurrentVerb = LastVerb;
-        CurrentNoun = LastNoun;
-        CurrentPrep = LastPrep;
-        CurrentPartp = LastPartp;
-        CurrentNoun2 = LastNoun2;
-        CurrentAdverb = LastAdverb;
-        return RESULT_AGAIN;
+        if (LastVerb == 0) {
+            SystemMessage(NO_PREVIOUS_ACTION);
+            return RESULT_ONE_WORD;
+        } else {
+            CurrentVerb = LastVerb;
+            CurrentNoun = LastNoun;
+            CurrentPrep = LastPrep;
+            CurrentPartp = LastPartp;
+            CurrentNoun2 = LastNoun2;
+            CurrentAdverb = LastAdverb;
+            return RESULT_AGAIN;
+        }
     case COM_UNDO:
         RestoreUndo(1);
         if (nextcommand == COM_MAND)

@@ -269,6 +269,7 @@ typedef enum {
     STATE_SAVED,
     STATE_RESTORED,
     NO_SAVED_STATE,
+    NO_PREVIOUS_ACTION,
     LAST_SYSTEM_MESSAGE
 } SysMessageType;
 
