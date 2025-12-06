@@ -17,7 +17,7 @@ void Fatal(const char *x);
 void Output(const char *string);
 void OpenGraphicsWindow(void);
 void CloseGraphicsWindow(void);
-void PrintDictWord(int idx, DictWord *dict);
+void PrintDictWord(int idx, const DictWord *dict);
 void Updates(event_t ev);
 void Display(winid_t w, const char *fmt, ...)
 #ifdef __GNUC__

@@ -18,7 +18,7 @@
 Synonym *Substitutions;
 uint8_t *MysteryValues;
 
-static const char *ConditionList[] = {
+static const char * const ConditionList[] = {
     "<ERROR>",
     "CARRIED",
     "HERE",
@@ -58,9 +58,9 @@ static const char *ConditionList[] = {
 
 struct Keyword
 {
-    char     *name;
-    int      opcode;
-    int      count;
+    const char *name;
+    int        opcode;
+    int        count;
 };
 
 static const struct Keyword CommandList[] =
@@ -497,7 +497,7 @@ static int NumberOfArguments(int opcode)
     return 0;
 }
 
-void PrintDictWord(int idx, DictWord *dict)
+void PrintDictWord(int idx, const DictWord *dict)
 {
     for (int i = 0; dict->Word != NULL; i++) {
         if (dict->Group == idx) {
@@ -756,7 +756,7 @@ static void ReadAction(FILE *f, Action *ap)
     memcpy(ap->Commands, commands, i);
 }
 
-static void PrintHeaderInfo(Header h)
+static void PrintHeaderInfo(const Header h)
 {
     debug_print("Number of items =\t%d\n", h.NumItems);
     debug_print("sum of actions =\t%d\n", h.ActionSum);
@@ -788,7 +788,7 @@ static int SetGame(const char *id_string, size_t length)
     return 0;
 }
 
-int FindAndAddImageFile(char *shortname, struct imgrec *rec)
+int FindAndAddImageFile(const char *shortname, struct imgrec *rec)
 {
     int result = 0;
     size_t pathlen = DirPathLength + 9;
