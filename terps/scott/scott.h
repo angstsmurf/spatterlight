@@ -129,6 +129,7 @@ void OpenGraphicsWindow(void);
 size_t GetFileLength(FILE *in);
 void *MemAlloc(int size);
 void *MyCalloc(int size);
+void *MemRealloc(void *ptr, size_t size);
 GameIDType LoadDatabase(FILE *f, int loud);
 void CloseGraphicsWindow(void);
 void Updates(event_t ev);

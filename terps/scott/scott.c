@@ -561,6 +561,14 @@ void *MemAlloc(int size)
     return (t);
 }
 
+void *MemRealloc(void *ptr, size_t size)
+{
+    void *t = (void *)realloc(ptr, size);
+    if (t == NULL)
+        Fatal("Out of memory");
+    return (t);
+}
+
 void *MyCalloc(int size)
 {
     void *t = (void *)calloc(1, size);
