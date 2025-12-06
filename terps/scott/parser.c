@@ -277,98 +277,195 @@ static void CreateErrorMessage(const char *fchar, glui32 *second, const char *tc
     free(first);
 }
 
+/* Single-byte mapping for bytes >= 0x80. Default: map byte to same codepoint (Latin‑1). Overrides below. */
+static glui32 MapLatin1(unsigned char b)
+{
+    return (glui32)b;
+}
+
+static glui32 Map_Spanish(unsigned char b)
+{
+    switch (b) {
+    case 0x83:
+        return 0x00BF; /* ¿ */
+    case 0x80:
+        return 0x00A1; /* ¡ */
+    case 0x82:
+        return 0x00FC; /* ü */
+    case '{':
+        return 0x00E1; /* á */
+    case '}':
+        return 0x00ED; /* í */
+    case '|':
+        return 0x00F3; /* ó */
+    case '~':
+        return 0x00F1; /* ñ */
+    case 0x84:
+        return 0x00E9; /* é */
+    case 0x85:
+        return 0x00FA; /* ú */
+    default:
+        return (glui32)b;
+    }
+}
+
+static glui32 MapTI994A(unsigned char b)
+{
+    switch (b) {
+    case '@':
+        return 0x00A9; /* © */
+    case '}':
+        return 0x00FC; /* ü */
+    case 12:
+        return 0x00F6; /* ö */
+    case '{':
+        return 0x00E4; /* ä */
+    default:
+        return (glui32)b;
+    }
+}
+
+/* Determine mapping function pointer based on CurrentGame */
+typedef glui32(*map_fn)(unsigned char);
+
+static map_fn SelectMapper(void)
+{
+    if (Game && (CurrentGame == GREMLINS_SPANISH ||
+                 CurrentGame == GREMLINS_SPANISH_C64))
+        return Map_Spanish;
+    if (Game && CurrentGame == TI994A)
+        return MapTI994A;
+    /* default: Latin-1 */
+    return MapLatin1;
+}
+
+/* Perform sequence folding for German digraphs such as ue->ü, oe->ö, ae->ä, ss->ß. */
+static glui32 *FoldGermanSequences(const glui32 *in, size_t in_len,
+                                     size_t *out_len)
+{
+    glui32 *out = MemAlloc((in_len + 1) * sizeof(glui32));
+    /* at most as large as input */
+    size_t write_pos = 0;
+    for (size_t i = 0; i < in_len; ++i) {
+        glui32 cp = in[i];
+        if (i + 1 < in_len) {
+            glui32 next = in[i + 1];
+            /* sequences are ASCII letters */
+            if (cp == 'u' && next == 'e' &&
+                !(i > 0 && in[i - 1] == 'e')) { /* No 'ü' in 'Abenteuer' */
+                out[write_pos++] = 0x00FC; /* ü */
+                ++i;
+                continue;
+            }
+            else if (cp == 'U' && next == 'E') {
+                out[write_pos++] = 0xdc; // Ü
+                ++i;
+            }
+            else if (cp == 'o' && next == 'e') {
+                out[write_pos++] = 0x00F6; /* ö */
+                ++i;
+                continue;
+            }
+            else if (cp == 'a' && next == 'e') {
+                out[write_pos++] = 0x00E4; /* ä */
+                ++i;
+                continue;
+            }
+            /* Not a sequences, just a single character */
+            /* substitution. */
+            else if (cp == '"') {
+                out[write_pos++] = 0x2019; /* ’ */
+                continue;
+            }
+            /* As far as I can tell, only five words in the German */
+            /* Gremlins output text use the double-s ß character: */
+            /* 'außer', 'draußen', 'Straße', 'schießt', and 'geschweißt' */
+            /* Simply checking the two preceding characters seems to be */
+            /* sufficient to avoid false positives. */
+            else if (cp == 's' && next == 's' && i > 1 &&
+                    ((in[i - 2] == 'a' && in[i - 1] == 'u') ||
+                     (in[i - 2] == 'r' && in[i - 1] == 'a') ||
+                     (in[i - 2] == 'i' && in[i - 1] == 'e') ||
+                     (in[i - 2] == 'e' && in[i - 1] == 'i'))) {
+                    out[write_pos++] = 0x00DF; /* ß */
+                    ++i;
+                    continue;
+            }
+        }
+        out[write_pos++] = cp;
+    }
+    out[write_pos] = 0;
+    *out_len = write_pos;
+    return out;
+}
+
 glui32 *ToUnicode(const char *string)
 {
     if (string == NULL)
         return NULL;
-    glui32 unicode[2048];
-    int i;
-    int dest = 0;
-    for (i = 0; string[i] != 0 && i < 2047; i++) {
-        char c = string[i];
-        if (c == 10 || c == 13) {
-            lastwasnewline = 1;
-            c = 10;
-        } else
-            lastwasnewline = 0;
-        glui32 unichar = (glui32)c;
-        if (Game && (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64)) {
-            const char d = string[i + 1];
-            if (c == 'u' && d == 'e') { // ü
-                if (!(i > 2 && string[i - 1] == 'e')) {
-                    unichar = 0xfc;
-                    i++;
-                }
-            } else if (c == 'o' && d == 'e') {
-                unichar = 0xf6; // ö
-                i++;
-            } else if (c == 'a' && d == 'e') {
-                unichar = 0xe4; // ä
-                i++;
-            } else if (c == 's' && d == 's') {
-                if (string[i + 2] != 'c' && string[i - 2] != 'W' && !(string[i - 1] == 'a' && string[i - 2] == 'l') && string[i + 2] != '-' && string[i - 2] != 'b') {
-                    unichar = 0xdf; // ß
-                    i++;
-                }
-            } else if (c == 'U' && d == 'E') {
-                unichar = 0xdc; // Ü
-                i++;
-            }
-            if (c == '"') {
-                unichar = 0x2019; // ’
-            }
-        } else if (Game && (CurrentGame == GREMLINS_SPANISH_C64 || CurrentGame == GREMLINS_SPANISH)) {
-            switch (c) {
-            case '\x83':
-                unichar = 0xbf; // ¿
-                break;
-            case '\x80':
-                unichar = 0xa1; // ¡
-                break;
-            case '\x82':
-                unichar = 0xfc; // ü
-                break;
-            case '{':
-                unichar = 0xe1; // á
-                break;
-            case '}':
-                unichar = 0xed; // í
-                break;
-            case '|':
-                unichar = 0xf3; // ó
-                break;
-            case '~':
-                unichar = 0xf1; // ñ
-                break;
-            case '\x84':
-                unichar = 0xe9; // é
-                break;
-            case '\x85':
-                unichar = 0xfa; // ú
-                break;
-            }
-        } else if (Game && CurrentGame == TI994A) {
-            switch (c) {
-            case '@':
-                unicode[dest++] = 0xa9;
-                unichar = ' ';
-                break;
-            case '}':
-                unichar = 0xfc;
-                break;
-            case 12:
-                unichar = 0xf6;
-                break;
-            case '{':
-                unichar = 0xe4;
-                break;
-            }
-        }
-        unicode[dest++] = unichar;
+
+    size_t in_len = strlen(string);
+    if (in_len == 0) {
+        glui32 *empty = MemAlloc(sizeof(glui32));
+        empty[0] = 0;
+        return empty;
     }
-    unicode[dest] = 0;
-    glui32 *result = MemAlloc((dest + 1) * 4);
-    memcpy(result, unicode, (dest + 1) * 4);
+
+    map_fn mapper = SelectMapper();
+
+    size_t cap = in_len + 1;
+    glui32 *tmp = MemAlloc(cap * sizeof(glui32));
+    size_t out_len = 0;
+
+    size_t i = 0;
+    while (i < in_len) {
+        unsigned char b = (unsigned char)string[i];
+        glui32 mapped = mapper(b);
+
+        if (mapped == 13 || mapped == 10) {
+            lastwasnewline = 1;
+            mapped = 10;
+        } else {
+            lastwasnewline = 0;
+        }
+
+        /* Special handling: We want the copyright symbol */
+        /* to be followed by a space in TI-99/4A games.   */
+        if (mapper == MapTI994A && mapped == 0x00A9 && out_len < cap) {
+            tmp[out_len++] = mapped;
+            mapped = ' ';
+        }
+
+        if (out_len + 1 >= cap) {
+            cap = cap * 2 + 8;
+            tmp = MemRealloc(tmp, cap * sizeof(glui32));
+        }
+        tmp[out_len++] = mapped;
+        i++;
+    }
+
+    if (out_len + 1 >= cap) {
+        cap = out_len + 2;
+        tmp = MemRealloc(tmp, cap * sizeof(glui32));
+    }
+    /* NUL terminate */
+    tmp[out_len] = 0;
+
+    /* If the current game is German,
+     * do sequence folding */
+    if (Game && (CurrentGame == GREMLINS_GERMAN ||
+                 CurrentGame == GREMLINS_GERMAN_C64)) {
+        size_t folded_len;
+        glui32 *folded = FoldGermanSequences(tmp, out_len, &folded_len);
+        free(tmp);
+        tmp = folded;
+        out_len = folded_len;
+    }
+
+    /* Shrink to exact size */
+    glui32 *result = MemAlloc((out_len + 1) * sizeof(glui32));
+    memcpy(result, tmp, (out_len + 1) * sizeof(glui32));
+    free(tmp);
     return result;
 }
 
