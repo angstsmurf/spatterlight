@@ -728,25 +728,16 @@ typedef enum {
     L_DELIM
 } ListId;
 
-typedef enum {
-    KIND_NORMAL,
-    KIND_DIRECTIONS,
-    KIND_ABBREVIATIONS,
-    KIND_SKIP,
-    KIND_EXTRACMD,
-    KIND_EXTRANOUN,
-    KIND_DELIMITER
-} SearchKind;
-
 typedef struct {
     ListId list_id;
-    int use_game_word_length; /* 1 => use GameHeader.WordLength, 0 => use strlen(word) */
-    SearchKind kind;
+    int use_header_word_length; /* 1 => use
+                                   GameHeader.WordLength, 0 =>
+                                   use strlen(word) */
 } SearchSpec;
 
-
-/* Map ListId to actual pointers and lengths (lengths when dynamic are provided at call) */
-static int get_list_and_length(ListId id, const char ***plist)
+/* Map ListId to actual pointers and lengths (lengths when
+ * dynamic are provided at call) */
+static int GetListAndLength(ListId id, const char ***plist)
 {
     switch (id) {
         case L_VERBS:
@@ -779,76 +770,92 @@ static int get_list_and_length(ListId id, const char ***plist)
     }
 }
 
-/* Core unified search routine.
- * - order: array of SearchSpec describing priority order to try.
- * - out_list: returns the matched list pointer (may be set to NULL if no match).
+/* Static const search orders to reduce wrapper code repetition
+ */
+static const SearchSpec verb_search_order[] = {
+    {L_VERBS, 1}, {L_DIRECTIONS, 1}, {L_ABBREVS, 1},   {L_SKIP, 0},
+    {L_NOUNS, 1}, {L_EXTRACMD, 0},   {L_EXTRANOUN, 0}, {L_DELIM, 0}};
+
+static const SearchSpec noun_search_order[] = {
+    {L_NOUNS, 1}, {L_DIRECTIONS, 1}, {L_EXTRANOUN, 0},
+    {L_SKIP, 0},  {L_VERBS, 1},      {L_DELIM, 0}};
+
+/* Unified search routine used by FindVerb() and FindNoun().
+ * - order: array of SearchSpec describing priority order to
+ * try.
+ * - out_list: returns the matched list pointer (may be set to
+ * NULL if no match).
  *
  * Return values:
- * - For normal matches: index (same as WhichWord).
- * - For mapped extra commands/nouns: (mapped_value + GameHeader.NumWords).
- * - For skip matches: 0 (but out_list set to SkipList).
+ * - For normal matches: index value returned by WhichWord().
+ * - For directions: direction index.
+ * - For mapped extra commands/nouns: (mapped_value +
+ * GameHeader.NumWords).
+ * - For skip list matches: 0.
  * - If nothing matched: 0 and *out_list = NULL.
  */
-static int unified_search(const char *word, const SearchSpec *order, const char ***out_list)
+static int FindVerbOrNoun(const char *word, const SearchSpec *order, int list_size,
+                          const char ***out_list)
 {
     *out_list = NULL;
-    int list_size = sizeof(*order) / sizeof(order[0]);
+
     for (int s = 0; s < list_size; s++) {
         const SearchSpec *spec = &order[s];
         const char **list = NULL;
-        int list_length = get_list_and_length(spec->list_id, &list);
+        int list_length = GetListAndLength(spec->list_id, &list);
         if (!list || list_length <= 1)
             continue;
-        int match_len = spec->use_game_word_length ? GameHeader.WordLength : (int)strlen(word);
+        *out_list = list;
+        int match_len = spec->use_header_word_length ? GameHeader.WordLength
+                                                     : (int)strlen(word);
         int idx = WhichWord(word, list, match_len, list_length);
         if (!idx)
             continue;
 
-        switch (spec->kind) {
-            case KIND_NORMAL:
-                *out_list = list;
+        switch (spec->list_id) {
+            case L_VERBS:
+            case L_NOUNS:
+            case L_DELIM:
                 return idx;
 
-            case KIND_DIRECTIONS:
-                /* Return adjusted index (preserve original numeric mapping logic). */
+            case L_DIRECTIONS:
+                /* Convert dictionary word index to direction index.
+                 */
                 if (idx == 13)
                     idx = 4;
                 if (idx > 6)
                     idx -= 6;
-                *out_list = list;
                 return idx;
 
-            case KIND_ABBREVIATIONS: {
-                int ab_idx = idx;
-                if (ab_idx > 0 && AbbreviationsKey[ab_idx]) {
-                    int v = WhichWord(AbbreviationsKey[ab_idx], Verbs, GameHeader.WordLength, GameHeader.NumWords + 1);
-                    if (v) {
+            case L_ABBREVS: {
+                if (idx > 0 && idx < NUMBER_OF_ABBREVIATIONS && AbbreviationsKey[idx]) {
+                    idx =
+                    WhichWord(AbbreviationsKey[idx], Verbs,
+                              GameHeader.WordLength, GameHeader.NumWords + 1);
+                    if (idx) {
                         *out_list = Verbs;
-                        return v;
+                        return idx;
                     }
                 }
-                break; /* fall through to next spec if abbrev didn't map */
+                break; /* fall through to next spec if abbrev didn't
+                        map */
             }
 
-            case KIND_SKIP:
-                *out_list = list;
-                return 0; /* skippable */
+            case L_SKIP:
+                return 0;
 
-            case KIND_EXTRACMD: {
-                *out_list = list;
-                int mapped = ExtraCommandsKey[idx];
-                return mapped + GameHeader.NumWords;
+            case L_EXTRACMD: {
+                if (idx > 0 && idx < NUMBER_OF_EXTRA_COMMANDS && ExtraCommandsKey[idx]) {
+                    return ExtraCommandsKey[idx] + GameHeader.NumWords;
+                }
             }
 
-            case KIND_EXTRANOUN: {
-                *out_list = list;
-                int mapped = ExtraNounsKey[idx];
-                return mapped + GameHeader.NumWords;
+            case L_EXTRANOUN: {
+                if (idx > 0 && idx < NUMBER_OF_EXTRA_NOUNS &&
+                    ExtraNounsKey[idx]) {
+                    return ExtraNounsKey[idx] + GameHeader.NumWords;
+                }
             }
-
-            case KIND_DELIMITER:
-                *out_list = list;
-                return idx;
         }
     }
 
@@ -856,36 +863,14 @@ static int unified_search(const char *word, const SearchSpec *order, const char 
     return 0;
 }
 
-/* Static const search orders to reduce wrapper code repetition */
-static const SearchSpec verb_search_order[] = {
-    { L_VERBS,      1, KIND_NORMAL },
-    { L_DIRECTIONS, 1, KIND_DIRECTIONS },
-    { L_ABBREVS,    1, KIND_ABBREVIATIONS },
-    { L_SKIP,       0, KIND_SKIP },       /* use full string length for skip */
-    { L_NOUNS,      1, KIND_NORMAL },
-    { L_EXTRACMD,   0, KIND_EXTRACMD },
-    { L_EXTRANOUN,  0, KIND_EXTRANOUN },
-    { L_DELIM,      0, KIND_DELIMITER }
-};
-
-static const SearchSpec noun_search_order[] = {
-    { L_NOUNS,      1, KIND_NORMAL },
-    { L_DIRECTIONS, 1, KIND_DIRECTIONS },
-    { L_EXTRANOUN,  0, KIND_EXTRANOUN },
-    { L_SKIP,       0, KIND_SKIP },       /* use full string length for skip */
-    { L_VERBS,      1, KIND_NORMAL },
-    { L_DELIM,      0, KIND_DELIMITER }
-};
-
-/* Thin wrappers that preserve previous call-sites and list-pointer semantics. */
 static int FindVerb(const char *string, const char ***list)
 {
-    return unified_search(string, verb_search_order, list);
+    return FindVerbOrNoun(string, verb_search_order, sizeof(verb_search_order) / sizeof(verb_search_order[0]), list);
 }
 
 static int FindNoun(const char *string, const char ***list)
 {
-    return unified_search(string, noun_search_order, list);
+    return FindVerbOrNoun(string, noun_search_order, sizeof(noun_search_order) / sizeof(noun_search_order[0]), list);
 }
 
 static struct Command *CommandFromStrings(int index, struct Command *previous);
