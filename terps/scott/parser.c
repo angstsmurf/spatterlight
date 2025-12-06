@@ -476,7 +476,7 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
 
     char dest[MAX_WORDLENGTH];
     glui32 unichar = unicode_string[sourcepos];
-    while (unichar != 0 && destpos < MAX_WORDLENGTH && sourcepos < origlength) {
+    while (unichar != 0 && destpos + 3 < MAX_WORDLENGTH && sourcepos < origlength) {
         switch (unichar) {
         case '.':
         case ',':
