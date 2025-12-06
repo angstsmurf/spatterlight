@@ -509,7 +509,7 @@ void PrintDictWord(int idx, const DictWord *dict)
     debug_print("%d", idx);
 }
 
-static void PrintCondition(uint8_t condition, uint16_t argument, int *negate, int *mult, int * or)
+static void PrintCondition(uint8_t condition, uint16_t argument, int *negate, int *mult, int *or)
 {
     if (condition == 0) {
         debug_print(" %d", argument);
@@ -1037,7 +1037,7 @@ static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *len)
     for (int i = 0; i < length; i++) {
         tmp[i] = *ptr++;
         if (tmp[i] == '`')
-            tmp[i] = '\"';
+            tmp[i] = '"';
     }
 
     tmp[length] = 0;

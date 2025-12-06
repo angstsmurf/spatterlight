@@ -15,9 +15,9 @@ const struct GameInfo games[] = {
         "BUCKAROO",
         BANZAI,
 
-        27, // no room images
-        24, // no item images
-        20, // no special images
+        27, // room images
+        24, // item images
+        20, // special images
     },
 
     {
@@ -55,9 +55,9 @@ const struct GameInfo games[] = {
         "X-MEN ",
         XMEN, // game ID
 
-        0, // room images
-        0, // item images
-        0, // special images
+        0, // no room images
+        0, // no item images
+        0, // no special images
     },
 
     { NULL }

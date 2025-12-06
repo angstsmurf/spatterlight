@@ -504,7 +504,7 @@ static int CommandFromTokens(int verb, int noun)
         /* not two verbs. */
         if (nextword < COM_ON) {
             nextword = 0;
-        };
+        }
         ExtraCommandResult result = PerformExtraCommand(word, nextword);
         if (result != RESULT_NOT_UNDERSTOOD) {
             if (result == RESULT_AGAIN)

@@ -1636,7 +1636,7 @@ static ActionResultType PerformLine(int ct)
             case 77:
                 if (CurrentCounter >= 1)
                     CurrentCounter--;
-                debug_print("decrementing current counter. Current counter is now %d.\n",
+                debug_print("Decrementing current counter. Current counter is now %d.\n",
                     CurrentCounter);
                 break;
             case 78:
@@ -2003,7 +2003,6 @@ static int IsExtraWordMatch(int ct)
 
 static int IsImplicitMatch(int ct, int doagain)
 {
-
     if (RandomPercent(Actions[ct].NounOrChance)) {
         return 1;
     }
@@ -2016,7 +2015,6 @@ static int IsImplicitMatch(int ct, int doagain)
 
 static int IsMatch(int ct, int doagain)
 {
-
     int verbvalue = Actions[ct].Verb;
     int nounvalue = Actions[ct].NounOrChance;
 
