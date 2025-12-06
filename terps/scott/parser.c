@@ -499,7 +499,8 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
             break;
         case 0xfc: // ü
             dest[destpos] = 'u';
-            if (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64) {
+            if (CurrentGame == GREMLINS_GERMAN ||
+                CurrentGame == GREMLINS_GERMAN_C64) {
                 destpos++;
                 dest[destpos] = 'e';
             }
@@ -552,11 +553,10 @@ static int MatchYMCA(glui32 *string, int length, int index)
 }
 
 /* Turns a unicode glui32 string into lower-case ASCII. */
-/* Converts German and Spanish diacritical characters into non-diacritical
- * equivalents */
-/* (for the translated Gremlins variants.) Coalesces all runs of whitespace into
- * a single standard space. */
-/* Turns ending commas and periods into separate strings. */
+/* Converts German and Spanish diacritical characters */
+/* into non-diacritical equivalents */
+/* Coalesces runs of whitespace into a single standard space. */
+/* Turns word-ending commas and periods into separate strings. */
 void SplitIntoWords(glui32 *string, int length)
 {
     if (length < 1) {
@@ -576,7 +576,8 @@ void SplitIntoWords(glui32 *string, int length)
     startpos[0] = 0;
     wordlength[0] = 0;
     int lastwasspace = 1;
-    for (int i = 0; string[i] != 0 && i < length && word_index < MAX_WORDS; i++) {
+    for (int i = 0; string[i] != 0 && i < length && word_index < MAX_WORDS;
+         i++) {
         foundspace = 0;
         switch (string[i]) {
         case 'y': {
@@ -599,9 +600,9 @@ void SplitIntoWords(glui32 *string, int length)
         case '!':
         case '?':
         case '\"':
-        case 0x83: // ¿
-        case 0x80: // ¡
-        case 0xa0: // non-breaking space
+        case 0x83:   // ¿
+        case 0x80:   // ¡
+        case 0xa0:   // non-breaking space
         case 0x2000: // en quad
         case 0x2001: // em quad
         case 0x2003: // em
@@ -633,7 +634,7 @@ void SplitIntoWords(glui32 *string, int length)
             wordlength[words_found - 1]++;
             lastwasspace = 0;
         } else {
-            /* Check if the last character of previous word was a period or comma */
+            /* Check if the last character of previous word was a period or a comma */
             lastwasspace = 1;
             foundcomma = 0;
         }
@@ -643,10 +644,12 @@ void SplitIntoWords(glui32 *string, int length)
         return;
     }
 
-    wordlength[words_found]--; /* Don't count final newline character */
+    wordlength[words_found]--; /* Don't count final newline
+                                  character */
 
-    /* Now we've created two arrays, one for starting positions
-     and one for word length. Now we convert these into an array of strings */
+    /* We've created two arrays, one for starting positions
+     and one for word length. Now we convert these into an
+     array of strings */
     glui32 **words = MemAlloc(words_found * sizeof(*words));
     char **words8 = MemAlloc(words_found * sizeof(*words8));
 
@@ -680,7 +683,6 @@ void LineInput(void)
         }
 
         unibuf[ev.val1] = 0;
-
         lastwasnewline = 1;
 
         SplitIntoWords(unibuf, ev.val1);
@@ -696,7 +698,7 @@ void LineInput(void)
 }
 
 int WhichWord(const char *word, const char **list, int word_length,
-    int list_length)
+              int list_length)
 {
     int n = 1;
     for (int ne = 1; ne < list_length; ne++) {
@@ -713,9 +715,8 @@ int WhichWord(const char *word, const char **list, int word_length,
     return 0;
 }
 
-/* Unified search engine with static SearchSpec tables */
-
-/* List identifiers for static spec tables (so tables can be const). */
+/* List identifiers for static spec tables
+ * (so tables can be const). */
 typedef enum {
     L_VERBS,
     L_DIRECTIONS,
