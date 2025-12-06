@@ -472,29 +472,65 @@ int IsNextParticiple(int partp, int noun2)
     return 0;
 }
 
-static int CommandFromTokens(int verb, int noun)
-{
-    debug_print("CommandFromTokens: WordIndex: %d verb: %d\n", WordIndex, verb);
+const char * const WordTypeStrings[] = {
+    "WORD_NOT_FOUND",
+    "OTHER_TYPE",
+    "VERB_TYPE",
+    "NOUN_TYPE",
+    "ADVERB_TYPE",
+    "PREPOSITION_TYPE"
+};
 
-    if (WordIndex == 0 && verb != 0)
-        debug_print("Bug!");
+DictWord *DictWordFromType(WordType type) {
+    switch (type) {
+        case VERB_TYPE:
+            return Verbs;
+        case NOUN_TYPE:
+            return Nouns;
+        case ADVERB_TYPE:
+            return Adverbs;
+        case PREPOSITION_TYPE:
+            return Prepositions;
+        default:
+            return NULL;
+    }
+};
 
-    if (!WordsInInput || (WordIndex >= WordsInInput)) {
-        FreeInputWords();
+static int FindWordOfType(WordType type, int *word) {
+    if (WordIndex < WordsInInput && TokenWords[WordIndex].Type == type) {
+        *word = TokenWords[WordIndex++].Index;
+
+        debug_print("FindWordOfType: Found %s \"", WordTypeStrings[type]);
+        DictWord *dict = DictWordFromType(type);
+        if (dict) {
+            PrintDictWord(*word, dict);
+        }
+        debug_print("\" (%d)\n", *word);
+
         return 1;
     }
+    return 0;
+}
 
-    InitialIndex = WordIndex;
+static int FindVerb(int *verb) { return FindWordOfType(VERB_TYPE, verb); }
+static int FindNoun(int *noun) { return (FindWordOfType(NOUN_TYPE, noun)); }
+static int FindPreposition(int *prep) { return FindWordOfType(PREPOSITION_TYPE, prep); }
+static int FindAdverb(int *adverb) { return FindWordOfType(ADVERB_TYPE, adverb); }
 
-    for (int i = WordIndex; i < WordsInInput; i++) {
-        char str[128];
+static void GetInputWordStrings(int start, int end) {
+    for (int i = start; i < end; i++) {
+        char str[MAX_WORDLENGTH];
         snprintf(str, sizeof str, "%s", InputWordStrings[i]);
         debug_print("Word %d: %s\n", i, str);
     }
+}
 
-    if (TokenWords[WordIndex].Type == OTHER_TYPE) {
-        int word = TokenWords[WordIndex].Index;
-        WordIndex++;
+#define NO_EXTRA_COMMAND_FOUND 2
+
+// Returns 2 if no valid command was found, 0 if the player typed AGAIN, otherwise 1.
+static int HandleExtraCommand(void) {
+    int word;
+    if (FindWordOfType(OTHER_TYPE, &word)) {
         int nextword = 0;
         if (WordIndex < WordsInInput) {
             nextword = ParseWord(InputWordStrings[WordIndex], ExtraWords);
@@ -516,24 +552,40 @@ static int CommandFromTokens(int verb, int noun)
             WordIndex = InitialIndex;
         }
     }
+    return NO_EXTRA_COMMAND_FOUND;
+}
+
+// Returns 0 if a command could be constructed, otherwise 1
+// (Unless an extra command was found, in which case we pass on the
+// return value from HandleExtraCommand())
+static int CommandFromTokens(int verb, int noun) {
+    debug_print("CommandFromTokens: WordIndex: %d verb: %d\n", WordIndex, verb);
+
+    if (WordIndex == 0 && verb != 0)
+        debug_print("CommandFromTokens: We are at the fist input word, but verb is not 0!\n");
+
+    if (!WordsInInput || (WordIndex >= WordsInInput)) {
+        FreeInputWords();
+        return 1;
+    }
+
+    InitialIndex = WordIndex;
+    GetInputWordStrings(WordIndex, WordsInInput);
+
+    int extracommand = HandleExtraCommand();
+    if (extracommand != NO_EXTRA_COMMAND_FOUND) {
+        return extracommand;
+    }
 
     CurrentPartp = 0;
     CurrentPrep = 0;
     CurrentNoun2 = 0;
     CurrentAdverb = 0;
 
-    if (TokenWords[WordIndex].Type == VERB_TYPE) {
-        verb = TokenWords[WordIndex++].Index;
-    }
+    FindVerb(&verb);
 
-    if (WordIndex < WordsInInput && TokenWords[WordIndex].Type == ADVERB_TYPE) {
-        CurrentAdverb = TokenWords[WordIndex++].Index;
-        debug_print("Found adverb \"");
-        PrintDictWord(CurrentAdverb, Adverbs);
-        debug_print("\" (%d)\n", CurrentAdverb);
-        if (WordIndex < WordsInInput && verb == 0 && TokenWords[WordIndex].Type == VERB_TYPE) {
-            verb = TokenWords[WordIndex++].Index;
-        }
+    if (FindAdverb(&CurrentAdverb) && verb == 0) {
+        FindVerb(&verb);
     }
 
     if (verb == 0) {
@@ -544,66 +596,32 @@ static int CommandFromTokens(int verb, int noun)
         return 1;
     }
 
-    debug_print("Found verb \"");
-    PrintDictWord(verb, Verbs);
-    debug_print("\" (%d)\n", verb);
-
     if (WordIndex >= WordsInInput) {
         CurrentVerb = verb;
-        CurrentNoun = noun;
+        CurrentNoun = 0;
         return 0;
     }
 
-    if (TokenWords[WordIndex].Type == NOUN_TYPE) {
-        noun = TokenWords[WordIndex++].Index;
+    if (!FindNoun(&noun) && FindPreposition(&CurrentPrep)) {
+        FindNoun(&noun);
     }
 
-    if (noun == 0) {
-        if (WordIndex < WordsInInput && TokenWords[WordIndex].Type == PREPOSITION_TYPE) {
-            CurrentPrep = TokenWords[WordIndex++].Index;
-            if (WordIndex < WordsInInput && TokenWords[WordIndex].Type == NOUN_TYPE) {
-                noun = TokenWords[WordIndex++].Index;
-            }
-        }
-    }
+    FindAdverb(&CurrentAdverb);
 
     if (CurrentPrep != 0) {
-        debug_print("Found preposition \"");
-        PrintDictWord(CurrentPrep, Prepositions);
-        debug_print("\" (%d)\n", CurrentPrep);
-    }
-
-    if (noun != 0) {
-        debug_print("Found noun \"");
-        PrintDictWord(noun, Nouns);
-        debug_print("\" (%d)\n", noun);
-    }
-
-    if (WordIndex < WordsInInput && TokenWords[WordIndex].Type == ADVERB_TYPE) {
-        CurrentAdverb = TokenWords[WordIndex++].Index;
-        if (CurrentAdverb > 0) {
-            debug_print("Found adverb \"");
-            PrintDictWord(CurrentAdverb, Adverbs);
-            debug_print("\" (%d)\n", CurrentAdverb);
+        if (noun == 0) {
+            FindNoun(&noun);
+        } else {
+            FindNoun(&CurrentNoun2);
         }
     }
 
-    if (WordIndex < WordsInInput && CurrentPrep != 0) {
-        if (TokenWords[WordIndex].Type == NOUN_TYPE) {
-            if (noun != 0) {
-                CurrentNoun2 = TokenWords[WordIndex++].Index;
-            } else {
-                noun = TokenWords[WordIndex++].Index;
-            }
-        }
-    }
-
-    if (WordIndex < WordsInInput && TokenWords[WordIndex].Type == PREPOSITION_TYPE) {
-        CurrentPartp = TokenWords[WordIndex++].Index;
-        if (WordIndex < WordsInInput && TokenWords[WordIndex].Type == NOUN_TYPE) {
-            if (CurrentNoun2 != 0)
+    if (FindPreposition(&CurrentPartp)) {
+        int SecondNounAlreadyFound = (CurrentNoun2 != 0);
+        if (FindNoun(&CurrentNoun2)) {
+            if (SecondNounAlreadyFound) {
                 debug_print("Found a third noun. This should never happen.\n");
-            CurrentNoun2 = TokenWords[WordIndex++].Index;
+            }
         } else {
             CurrentPartp = CurrentPrep;
             CurrentPrep = 0;
@@ -636,7 +654,6 @@ static int CommandFromTokens(int verb, int noun)
 
     CurrentVerb = verb;
     CurrentNoun = noun;
-
     return 0;
 }
 
@@ -704,6 +721,7 @@ void StopProcessingCommand(void)
     SetBit(STOPTIMEBIT);
 }
 
+// Returns 0 if input is valid, otherwise 1
 int GetInput(void)
 {
     int result = 0;
