@@ -1072,7 +1072,6 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
 
 static int CreateAllCommands(struct Command *command)
 {
-
     if (GameHeader.NumItems > 2048)
         Fatal("Bad number of items");
     int exceptions[2048];
