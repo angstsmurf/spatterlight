@@ -15,7 +15,7 @@
 char *DecompressText(uint8_t *source, int stringindex)
 {
     // Lookup table
-    const char *alphabet = " abcdefghijklmnopqrstuvwxyz'\x01,.\x00";
+    const char *alphabet = " abcdefghijklmnopqrstuvwxyz'\x01,.";
 
     int c, uppercase, i, j;
     uint8_t decompressed[256];
