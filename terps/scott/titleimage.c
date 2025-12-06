@@ -113,6 +113,7 @@ void DrawTitleImage(void)
     ResizeTitleImage();
     ImageWidth = storedwidth;
     ImageHeight = storedheight;
+    y_offset = 0;
     CloseGraphicsWindow();
 }
 

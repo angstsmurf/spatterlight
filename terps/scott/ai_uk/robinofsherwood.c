@@ -13,10 +13,10 @@
 #include "decompresstext.h"
 #include "sagadraw.h"
 #include "sagagraphics.h"
+#include "irmak.h"
 #include "scott.h"
 
 extern Image *images;
-extern uint8_t screenchars[768][8];
 
 static uint8_t *forest_images = NULL;
 
@@ -120,7 +120,7 @@ void draw_sherwood(int loc)
 
         image_number = forest_images[subimage_index++] & 127;
 
-        DrawSagaPictureAtPos(image_number, xpos, ypos);
+        DrawSagaPictureAtPos(image_number, xpos, ypos, 0);
 
         if (forest_type == BUSHES) {
             xpos += images[image_number].width;
@@ -135,7 +135,7 @@ void animate_waterfall(int stage)
         for (int col = 11; col < 17; col++) {
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
-                    if ((screenchars[col + line * 32][i] & (1 << j)) != 0) {
+                    if (isNthBitSet(layout[col + line * IRMAK_IMGWIDTH][i], j)) {
                         int ypos = line * 8 + i + stage;
                         if (ypos > 79)
                             ypos = ypos - 64;
@@ -151,7 +151,7 @@ void animate_waterfall_cave(int stage)
     for (int line = 3; line < 11; line++) {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
-                if ((screenchars[31 + line * 32][i] & (1 << j)) != 0) {
+                if (isNthBitSet(layout[31 + line * IRMAK_IMGWIDTH][i], j)) {
                     int ypos = line * 8 + i + stage;
                     if (ypos > 87)
                         ypos = ypos - 64;
@@ -169,7 +169,7 @@ void animate_lightning(int stage)
         SwitchPalettes(1, 14);
         SwitchPalettes(9, 6);
     }
-    DrawSagaPictureNumber(77);
+    DrawSagaPictureNumber(77, 0);
     if (stage == 11) {
         glk_request_timer_events(0);
     } else if (stage == 3) {

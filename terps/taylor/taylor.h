@@ -284,7 +284,7 @@ struct GameInfo {
     int start_of_messages;
     int start_of_messages_2;
 
-    int start_of_characters;
+    int start_of_tiles;
     int start_of_image_blocks;
     int image_patterns_lookup;
     int number_of_patterns;

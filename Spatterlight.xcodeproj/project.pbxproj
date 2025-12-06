@@ -591,6 +591,8 @@
 		C354C6DD275791C000EBB449 /* t23run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C354C6DC275791C000EBB449 /* t23run.cpp */; };
 		C354C6DF275791ED00EBB449 /* t2indlg.c in Sources */ = {isa = PBXBuildFile; fileRef = C354C6DE275791ED00EBB449 /* t2indlg.c */; };
 		C359499E2D2C39EB008F6551 /* InfocomV6MenuHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */; };
+		C359A2D52EE5AF670079F9EA /* irmak.c in Sources */ = {isa = PBXBuildFile; fileRef = C359A2D42EE5AF670079F9EA /* irmak.c */; };
+		C359A2D62EE656B30079F9EA /* irmak.c in Sources */ = {isa = PBXBuildFile; fileRef = C359A2D42EE5AF670079F9EA /* irmak.c */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		C35CB31E285DD7BF00601E97 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C35CB31D285DD7BF00601E97 /* animations.c */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
@@ -2864,6 +2866,8 @@
 		C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfocomV6MenuHandler.m; sourceTree = "<group>"; };
 		C35978C325DA14A6004B1448 /* iFictionPreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iFictionPreviewController.h; sourceTree = "<group>"; };
 		C35978C425DA14A6004B1448 /* iFictionPreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iFictionPreviewController.m; sourceTree = "<group>"; };
+		C359A2D32EE5AF670079F9EA /* irmak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = irmak.h; sourceTree = "<group>"; };
+		C359A2D42EE5AF670079F9EA /* irmak.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = irmak.c; sourceTree = "<group>"; };
 		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
 		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
 		C35CB31B285DD7BF00601E97 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
@@ -6015,6 +6019,8 @@
 				C37391DA27A25D04009147EF /* game_specific.c */,
 				C31DB980276E961F00547C9C /* sagadraw.h */,
 				C31DB982276E961F00547C9C /* sagadraw.c */,
+				C359A2D32EE5AF670079F9EA /* irmak.h */,
+				C359A2D42EE5AF670079F9EA /* irmak.c */,
 				C370B15227D0DD9400EB3F02 /* line_drawing.h */,
 				C38D6ECD27CFCC5400328B12 /* line_drawing.c */,
 				C38A881127D2092500AE917E /* ringbuffer.h */,
@@ -7855,6 +7861,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3109FCD2798B19F00854ED0 /* parser.c in Sources */,
+				C359A2D52EE5AF670079F9EA /* irmak.c in Sources */,
 				C3BCB7D728E8EBBB00D590ED /* titleimage.c in Sources */,
 				C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */,
 				C38A881327D2092500AE917E /* ringbuffer.c in Sources */,
@@ -7946,6 +7953,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C359A2D62EE656B30079F9EA /* irmak.c in Sources */,
 				C3B6100827DA0C080012FB97 /* sagadraw.c in Sources */,
 				C3D571B727D8F652008FB786 /* player.c in Sources */,
 				C3B148B227FD881400844708 /* animations.c in Sources */,

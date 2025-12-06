@@ -11,6 +11,7 @@
 #include <string.h>
 
 #include "sagadraw.h"
+#include "irmak.h"
 #include "scott.h"
 #include "seasofblood.h"
 
@@ -22,7 +23,6 @@ glui32 background_colour;
 extern const char *battle_messages[33];
 extern uint8_t enemy_table[126];
 uint8_t *blood_image_data;
-extern uint8_t buffer[384][9];
 
 #define VICTORY 0
 #define LOSS 1
@@ -32,9 +32,9 @@ extern uint8_t buffer[384][9];
 
 glui32 dice_pixel_size, dice_x_offset, dice_y_offset;
 
-int get_enemy_stats(int *strike, int *stamina, int *boatflag);
-void battle_loop(int strike, int stamina, int boatflag);
-void swap_stamina_and_crew_strength(void);
+static int get_enemy_stats(int *strike, int *stamina, int *boatflag);
+static void battle_loop(int strike, int stamina, int boatflag);
+static void swap_stamina_and_crew_strength(void);
 void blood_battle(void);
 
 void AdventureSheet(void)
@@ -88,90 +88,87 @@ void BloodAction(int p)
 
 #pragma mark Image drawing
 
-void mirror_left_half(void)
+static void mirror_left_half(void)
 {
-    for (int line = 0; line < 12; line++) {
-        for (int col = 32; col > 16; col--) {
-            buffer[line * 32 + col - 1][8] = buffer[line * 32 + (32 - col)][8];
+    for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
+        for (int col = IRMAK_IMGWIDTH; col > 16; col--) {
+            imagebuffer[line * IRMAK_IMGWIDTH + col - 1][8] = imagebuffer[line * IRMAK_IMGWIDTH + (IRMAK_IMGWIDTH - col)][8];
             for (int pixrow = 0; pixrow < 8; pixrow++)
-                buffer[line * 32 + col - 1][pixrow] = buffer[line * 32 + (32 - col)][pixrow];
-            Flip(buffer[line * 32 + col - 1]);
+                imagebuffer[line * IRMAK_IMGWIDTH + col - 1][pixrow] = imagebuffer[line * IRMAK_IMGWIDTH + (IRMAK_IMGWIDTH - col)][pixrow];
+            Flip(imagebuffer[line * IRMAK_IMGWIDTH + col - 1]);
         }
     }
 }
 
-void replace_colour(uint8_t before, uint8_t after)
+static void replace_colour(uint8_t before, uint8_t after)
 {
-
     // I don't think any of the data has bit 7 set,
     // so masking it is probably unnecessary, but this is what
     // the original code does.
     uint8_t beforeink = before & 7;
     uint8_t afterink = after & 7;
-    uint8_t inkmask = 0x07;
 
     uint8_t beforepaper = beforeink << 3;
     uint8_t afterpaper = afterink << 3;
-    uint8_t papermask = 0x38;
 
-    for (int j = 0; j < 384; j++) {
-        if ((buffer[j][8] & inkmask) == beforeink) {
-            buffer[j][8] = (buffer[j][8] & ~inkmask) | afterink;
+    for (int j = 0; j < IRMAK_IMGSIZE; j++) {
+        if ((imagebuffer[j][8] & INK_MASK) == beforeink) {
+            imagebuffer[j][8] = (imagebuffer[j][8] & ~INK_MASK) | afterink;
         }
 
-        if ((buffer[j][8] & papermask) == beforepaper) {
-            buffer[j][8] = (buffer[j][8] & ~papermask) | afterpaper;
+        if ((imagebuffer[j][8] & PAPER_MASK) == beforepaper) {
+            imagebuffer[j][8] = (imagebuffer[j][8] & ~PAPER_MASK) | afterpaper;
         }
     }
 }
 
-void draw_colour(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
+static void draw_colour(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
 {
     for (int i = 0; i < length; i++) {
-        buffer[y * 32 + x + i][8] = colour;
+        imagebuffer[y * IRMAK_IMGWIDTH + x + i][8] = colour;
     }
 }
 
-void make_light(void)
+static void make_light(void)
 {
-    for (int i = 0; i < 384; i++) {
-        buffer[i][8] = buffer[i][8] | 0x40;
+    for (int i = 0; i < IRMAK_IMGSIZE; i++) {
+        imagebuffer[i][8] = imagebuffer[i][8] | BRIGHT_FLAG;
     }
 }
 
-void flip_image(void)
+static void flip_image(void)
 {
 
-    uint8_t mirror[384][9];
+    uint8_t mirror[IRMAK_IMGSIZE][9];
 
-    for (int line = 0; line < 12; line++) {
-        for (int col = 32; col > 0; col--) {
+    for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
+        for (int col = IRMAK_IMGWIDTH; col > 0; col--) {
             for (int pixrow = 0; pixrow < 9; pixrow++)
-                mirror[line * 32 + col - 1][pixrow] = buffer[line * 32 + (32 - col)][pixrow];
-            Flip(mirror[line * 32 + col - 1]);
+                mirror[line * IRMAK_IMGWIDTH + col - 1][pixrow] = imagebuffer[line * IRMAK_IMGWIDTH + (IRMAK_IMGWIDTH - col)][pixrow];
+            Flip(mirror[line * IRMAK_IMGWIDTH + col - 1]);
         }
     }
 
-    memcpy(buffer, mirror, 384 * 9);
+    memcpy(imagebuffer, mirror, IRMAK_IMGSIZE * 9);
 }
 
 int should_draw_object_images;
 
-void draw_object_image(uint8_t x, uint8_t y)
+static void draw_object_image(uint8_t x, uint8_t y)
 {
     for (int i = 0; i < GameHeader.NumItems; i++) {
         if (Items[i].Flag != MyLoc)
             continue;
         if (Items[i].Location != MyLoc)
             continue;
-        DrawSagaPictureAtPos(Items[i].Image, x, y);
+        DrawSagaPictureAtPos(Items[i].Image, x, y, 1);
         should_draw_object_images = 0;
     }
 }
 
-void draw_blood(int loc)
+static void draw_blood(int loc)
 {
-    memset(buffer, 0, 384 * 9);
+    memset(imagebuffer, 0, IRMAK_IMGSIZE * 9);
     uint8_t *ptr = blood_image_data;
     for (int i = 0; i < loc; i++) {
         while (*(ptr) != 0xff)
@@ -182,11 +179,11 @@ void draw_blood(int loc)
         switch (*ptr) {
         case 0xff:
             if (loc == 13) {
-                buffer[8 * 32 + 18][8] = buffer[8 * 32 + 18][8] & ~0x40;
-                buffer[8 * 32 + 17][8] = buffer[8 * 32 + 17][8] & ~0x40;
+                imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] & ~BRIGHT_FLAG;
+                imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] & ~BRIGHT_FLAG;
 
-                buffer[8 * 32 + 9][8] = buffer[8 * 32 + 9][8] & ~0x40;
-                buffer[8 * 32 + 10][8] = buffer[8 * 32 + 10][8] & ~0x40;
+                imagebuffer[8 * IRMAK_IMGWIDTH + 9][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 9][8] & ~BRIGHT_FLAG;
+                imagebuffer[8 * IRMAK_IMGWIDTH + 10][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 10][8] & ~BRIGHT_FLAG;
             }
             return;
         case 0xfe:
@@ -211,7 +208,7 @@ void draw_blood(int loc)
             ptr = ptr + 2;
             break;
         default: // else draw image *ptr at x, y
-            DrawSagaPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2));
+            DrawSagaPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2), 1);
             ptr = ptr + 2;
         }
         ptr++;
@@ -228,7 +225,7 @@ void SeasOfBloodRoomImage(void)
                 DrawImage(Items[ct].Image);
             }
         }
-    DrawSagaPictureFromBuffer();
+    DrawIrmakPictureFromBuffer();
 }
 
 #pragma mark Battles
@@ -399,7 +396,7 @@ void blood_battle(void)
     SeasOfBloodRoomImage();
 }
 
-int get_enemy_stats(int *strike, int *stamina, int *boatflag)
+static int get_enemy_stats(int *strike, int *stamina, int *boatflag)
 {
     int enemy, i = 0;
     while (i < 124) {
@@ -699,7 +696,7 @@ void BattleHitEnter(int strike, int stamina, int boatflag)
     return;
 }
 
-void battle_loop(int strike, int stamina, int boatflag)
+static void battle_loop(int strike, int stamina, int boatflag)
 {
     update_result(0, strike, stamina, boatflag);
     update_result(1, 9, Counters[3], boatflag);
@@ -756,19 +753,15 @@ void battle_loop(int strike, int stamina, int boatflag)
     } while (stamina > 0 && Counters[3] > 0);
 }
 
-void swap_stamina_and_crew_strength(void)
+static void swap_stamina_and_crew_strength(void)
 {
     uint8_t temp = Counters[7]; // Crew strength
     Counters[7] = Counters[3]; // Stamina
     Counters[3] = temp;
 }
 
-extern int draw_to_buffer;
-
 void LoadExtraSeasOfBloodData(int c64)
 {
-    draw_to_buffer = 1;
-
 #pragma mark Enemy table
 
     int offset = file_baseline_offset + ((c64 == 1) ? 0x3fee: 0x47b7);

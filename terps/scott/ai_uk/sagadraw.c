@@ -1,29 +1,41 @@
-/* Sagadraw v2.5
- Originally by David Lodge
+//
+//  Based on Sagadraw v2.5 by David Lodge
+//  with help from Paul David Doherty (including the colour code)
+//
+//  Original code at https://github.com/tautology0/textadventuregraphics
+//  See also http://aimemorial.if-legends.org/gfxbdp.html
+//
+//
+//  The 8 x 8 pixel graphic building blocks used for these images were
+//  previously referred to in code as "characters", but that was a bit
+//  confusing, as they don't have anything to do with the characters
+//  used to print text. Also, this kind of computer graphics is commonly
+//  called "tile based" when used in arcade games and similar.
+//
+//  All instances of "character" are now changed to "tile".
+//  Hopefully this will make things less rather than more confusing.
+//
 
- With help from Paul David Doherty (including the colour code)
- */
 
-#include "glk.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "glk.h"
 #include "sagagraphics.h"
 #include "scott.h"
 #include "scottdefines.h"
 #include "seasofblood.h"
+#include "irmak.h"
 
 #include "sagadraw.h"
 
-int draw_to_buffer = 0;
-
-uint8_t sprite[256][8];
-uint8_t screenchars[768][8];
-uint8_t buffer[384][9];
-
 Image *images = NULL;
+
+static uint8_t *EndOfGraphicsData;
+
+/* palette handler stuff starts here */
 
 int white_colour = 15;
 int blue_colour = 9;
@@ -33,11 +45,7 @@ int32_t errorcount = 0;
 
 palette_type palchosen = NO_PALETTE;
 
-#define STRIDE 765 /* 255 pixels * 3 (r, g, b) */
-
 #define INVALIDCOLOR 16
-
-const char *flipdescription[] = { "none", "90°", "180°", "270°", "ERROR" };
 
 void DefinePalette(void)
 {
@@ -130,23 +138,19 @@ void DefinePalette(void)
         RGB yellow = { 202, 202, 0 };
         RGB white = { 202, 202, 202 };
         /*
-     old David Lodge palette:
+         old David Lodge palette:
 
-     RGB black = { 0, 0, 0 };
-     RGB blue = { 0, 0, 214 };
-     RGB red = { 214, 0, 0 };
-     RGB magenta = { 214, 0, 214 };
-     RGB green = { 0, 214, 0 };
-     RGB cyan = { 0, 214, 214 };
-     RGB yellow = { 214, 214, 0 };
-     RGB white = { 214, 214, 214 };
-     */
+         RGB black = { 0, 0, 0 };
+         RGB blue = { 0, 0, 214 };
+         RGB red = { 214, 0, 0 };
+         RGB magenta = { 214, 0, 214 };
+         RGB green = { 0, 214, 0 };
+         RGB cyan = { 0, 214, 214 };
+         RGB yellow = { 214, 214, 0 };
+         RGB white = { 214, 214, 214 };
+         */
         RGB brblack = { 0, 0, 0 };
-        RGB brblue = {
-            0,
-            0,
-            255,
-        };
+        RGB brblue = { 0, 0, 255 };
         RGB brred = { 255, 0, 20 };
         RGB brmagenta = { 255, 0, 255 };
         RGB brgreen = { 0, 255, 0 };
@@ -174,7 +178,6 @@ void DefinePalette(void)
         white_colour = 15;
         blue_colour = 9;
         dice_colour = 0xff0000;
-
     } else if (palchosen >= C64A) {
         /* and now: C64 palette (pepto/VICE) */
         RGB black = { 0, 0, 0 };
@@ -364,152 +367,6 @@ int32_t Remap(int32_t color)
 
 /* real code starts here */
 
-void Flip(uint8_t character[])
-{
-    int32_t i, j;
-    uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
-    for (i = 0; i < 8; i++)
-        for (j = 0; j < 8; j++)
-            if ((character[i] & (1 << j)) != 0)
-                work2[i] += 1 << (7 - j);
-    for (i = 0; i < 8; i++)
-        character[i] = work2[i];
-}
-
-void rot90(uint8_t character[])
-{
-    int32_t i, j;
-    uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
-    for (i = 0; i < 8; i++)
-        for (j = 0; j < 8; j++)
-            if ((character[j] & (1 << i)) != 0)
-                work2[7 - i] += 1 << j;
-
-    for (i = 0; i < 8; i++)
-        character[i] = work2[i];
-}
-
-void rot270(uint8_t character[])
-{
-    int32_t i, j;
-    uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
-    for (i = 0; i < 8; i++)
-        for (j = 0; j < 8; j++)
-            if ((character[j] & (1 << i)) != 0)
-                work2[i] += 1 << (7 - j);
-
-    for (i = 0; i < 8; i++)
-        character[i] = work2[i];
-}
-
-void rot180(uint8_t character[])
-{
-    int32_t i, j;
-    uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
-    for (i = 0; i < 8; i++)
-        for (j = 0; j < 8; j++)
-            if ((character[i] & (1 << j)) != 0)
-                work2[7 - i] += 1 << (7 - j);
-
-    for (i = 0; i < 8; i++)
-        character[i] = work2[i];
-}
-
-void transform(int32_t character, int32_t flip_mode, int32_t ptr)
-{
-    if (character > 255)
-        return;
-    uint8_t work[8];
-    int32_t i;
-
-#ifdef DRAWDEBUG
-    debug_print("Plotting char: %d with flip: %02x (%s) at %d: %d,%d\n",
-        character, flip_mode, flipdescription[(flip_mode & 48) >> 4], ptr,
-        ptr % 0x20, ptr / 0x20);
-#endif
-
-    // first copy the character into work
-    for (i = 0; i < 8; i++)
-        work[i] = sprite[character][i];
-
-    // Now flip it
-    if ((flip_mode & 0x30) == 0x10) {
-        rot90(work);
-        //      debug_print("rot 90 character %d\n",character);
-    }
-    if ((flip_mode & 0x30) == 0x20) {
-        rot180(work);
-        //       debug_print("rot 180 character %d\n",character);
-    }
-    if ((flip_mode & 0x30) == 0x30) {
-        rot270(work);
-        //       debug_print("rot 270 character %d\n",character);
-    }
-    if ((flip_mode & 0x40) != 0) {
-        Flip(work);
-        /* fprintf("flipping character %d\n",character); */
-    }
-    Flip(work);
-
-    // Now mask it onto the previous character
-    for (i = 0; i < 8; i++) {
-        if ((flip_mode & 0x0c) == 12)
-            screenchars[ptr][i] ^= work[i];
-        else if ((flip_mode & 0x0c) == 8)
-            screenchars[ptr][i] &= work[i];
-        else if ((flip_mode & 0x0c) == 4)
-            screenchars[ptr][i] |= work[i];
-        else
-            screenchars[ptr][i] = work[i];
-    }
-}
-
-void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
-    int32_t color)
-{
-    int bufferpos = (y / 8) * 32 + (x / 8);
-    if (bufferpos >= 0xD80)
-        return;
-    buffer[bufferpos][8] = buffer[bufferpos][8] | (color << 3);
-
-    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
-
-    glk_window_fill_rect(Graphics, glk_color, x * pixel_size + x_offset,
-        y * pixel_size + y_offset, width * pixel_size,
-        height * pixel_size);
-}
-
-void background(int32_t x, int32_t y, int32_t color)
-{
-    /* Draw the background */
-    RectFill(x * 8, y * 8, 8, 8, color);
-}
-
-void plotsprite(int32_t character, int32_t x, int32_t y, int32_t fg,
-    int32_t bg)
-{
-    int32_t i, j;
-    background(x, y, bg);
-    for (i = 0; i < 8; i++) {
-        for (j = 0; j < 8; j++)
-            if ((screenchars[character][i] & (1 << j)) != 0)
-                PutPixel(x * 8 + j, y * 8 + i, fg);
-    }
-}
-
-int isNthBitSet(unsigned const char c, int n)
-{
-    static unsigned const char mask[] = { 128, 64, 32, 16, 8, 4, 2, 1 };
-    return ((c & mask[n]) != 0);
-}
-
-uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
-    int xoff, int yoff);
-
 struct image_patch {
     GameIDType id;
     int picture_number;
@@ -518,7 +375,7 @@ struct image_patch {
     const char *patch;
 };
 
-struct image_patch image_patches[] = {
+static const struct image_patch image_patches[] = {
     { UNKNOWN_GAME, 0, 0, 0, "" },
     { CLAYMORGUE_C64, 12, 378, 9, "\x20\xa4\x02\x80\x20\x82\x01\x20\x84" },
     { CLAYMORGUE_C64, 28, 584, 1, "\x90" },
@@ -542,7 +399,7 @@ struct image_patch image_patches[] = {
     { NUMGAMES, 0, 0, 0, "" },
 };
 
-int FindImagePatch(GameIDType game, int image_number, int start)
+static int FindImagePatch(GameIDType game, int image_number, int start)
 {
     for (int i = start + 1; image_patches[i].id != NUMGAMES; i++) {
         if (image_patches[i].id == game && image_patches[i].picture_number == image_number) {
@@ -552,17 +409,16 @@ int FindImagePatch(GameIDType game, int image_number, int start)
     return 0;
 }
 
-void Patch(uint8_t *offset, int patch_number)
+static void Patch(uint8_t *offset, int patch_number)
 {
-    struct image_patch *patch = &image_patches[patch_number];
+    const struct image_patch *patch = &image_patches[patch_number];
     for (int i = 0; i < patch->number_of_bytes; i++) {
-        uint8_t newval = patch->patch[i];
-        //        debug_print("Patch: changing offset %d in image %d from %x to %x.\n", i + patch->offset, patch->picture_number, offset[i + patch->offset], newval);
-        offset[i + patch->offset] = newval;
+        const char newval = patch->patch[i];
+        offset[i + patch->offset] = (uint8_t)newval;
     }
 }
 
-void PatchOutBrokenClaymorgueImagesC64(void)
+static void PatchOutBrokenClaymorgueImagesC64(void)
 {
     Output("[This copy of The Sorcerer of Claymorgue Castle has 16 broken or "
            "missing pictures. These have been patched out.]\n\n");
@@ -576,7 +432,7 @@ void PatchOutBrokenClaymorgueImagesC64(void)
     }
 }
 
-void PatchOutBrokenClaymorgueImagesZX(void)
+static void PatchOutBrokenClaymorgueImagesZX(void)
 {
     Output("[This copy of The Sorcerer of Claymorgue Castle has 26 broken or "
            "missing pictures. These have been patched out.]\n\n");
@@ -598,6 +454,11 @@ size_t hulk_image_offset = 0x441b;
 
 void SagaSetup(size_t imgoffset)
 {
+	if (images != NULL)
+        return;
+
+    EndOfGraphicsData = entire_file + file_length;
+
     int32_t i, y;
 
     uint16_t image_offsets[Game->number_of_pictures];
@@ -615,38 +476,37 @@ void SagaSetup(size_t imgoffset)
 
     int version = Game->picture_format_version;
 
-    int32_t CHAR_START = Game->start_of_characters + file_baseline_offset;
-    int32_t OFFSET_TABLE_START = Game->start_of_image_data + file_baseline_offset;
+    int32_t tiles_start = Game->start_of_tiles + file_baseline_offset;
+    int32_t offset_table_start = Game->start_of_image_data + file_baseline_offset;
 
     if (Game->start_of_image_data == FOLLOWS) {
-        OFFSET_TABLE_START = CHAR_START + 0x800;
+        offset_table_start = tiles_start + 0x800;
     }
 
-    int32_t DATA_OFFSET = Game->image_address_offset + file_baseline_offset;
+    int32_t data_offset = Game->image_address_offset + file_baseline_offset;
     if (imgoffset)
-        DATA_OFFSET = imgoffset;
+        data_offset = imgoffset;
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
-    pos = SeekToPos(entire_file, CHAR_START);
+    pos = SeekToPos(entire_file, tiles_start);
 
 #ifdef DRAWDEBUG
-    debug_print("Grabbing Character details\n");
-    debug_print("Character Offset: %04x\n",
-        CHAR_START - file_baseline_offset);
+    debug_print("Grabbing tile details\n");
+    debug_print("Tile Offset: %04x\n", tiles_start - file_baseline_offset);
 #endif
     for (i = 0; i < 256; i++) {
-        for (y = 0; y < 8; y++) {
-            sprite[i][y] = *(pos++);
+        for (y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
+            tiles[i][y] = *(pos++);
         }
     }
 
-    /* Now we have hopefully read the character data */
+    /* Now we have hopefully read the tile data */
     /* Time for the image offsets */
 
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
 
-    pos = SeekToPos(entire_file, OFFSET_TABLE_START);
+    pos = SeekToPos(entire_file, offset_table_start);
 
     int broken_claymorgue_pictures_c64 = 0;
     int broken_claymorgue_pictures_zx = 0;
@@ -676,7 +536,7 @@ void SagaSetup(size_t imgoffset)
     }
 
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
-        pos = SeekToPos(entire_file, image_offsets[picture_number] + DATA_OFFSET);
+        pos = SeekToPos(entire_file, image_offsets[picture_number] + data_offset);
         if (pos == 0)
             return;
 
@@ -731,6 +591,7 @@ void SagaSetup(size_t imgoffset)
         }
 
         img->imagedata = pos;
+        img->datasize = EndOfGraphicsData - pos;
 
         int patch = FindImagePatch(CurrentGame, picture_number, 0);
         while (patch) {
@@ -759,251 +620,6 @@ void PrintImageContents(int index, uint8_t *data, size_t size)
     return;
 }
 
-void debugdrawcharacter(int character)
-{
-    debug_print("Contents of character %d of 256:\n", character);
-    for (int row = 0; row < 8; row++) {
-        for (int n = 0; n < 8; n++) {
-            if (isNthBitSet(sprite[character][row], n))
-                debug_print("■");
-            else
-                debug_print("0");
-        }
-        debug_print("\n");
-    }
-    if (character != 255)
-        debugdrawcharacter(255);
-}
-
-void debugdraw(int on, int character, int xoff, int yoff, int width)
-{
-    if (on) {
-        int x = character % width;
-        int y = character / width;
-        plotsprite(character, x + xoff, y + yoff, 0, 15);
-        debug_print("Contents of character position %d:\n", character);
-        for (int row = 0; row < 8; row++) {
-            for (int n = 0; n < 8; n++) {
-                if (isNthBitSet(screenchars[character][row], n))
-                    debug_print("■");
-                else
-                    debug_print("0");
-            }
-            debug_print("\n");
-        }
-    }
-}
-
-uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
-    int xoff, int yoff)
-{
-    int32_t offset = 0, cont = 0;
-    int32_t i, x, y, mask_mode;
-    uint8_t data, data2, old = 0;
-    int32_t ink[0x22][14], paper[0x22][14];
-
-    //   uint8_t *origptr = dataptr;
-    int version = Game->picture_format_version;
-
-    offset = 0;
-    int32_t character = 0;
-    int32_t count;
-    do {
-        count = 1;
-
-        /* first handle mode */
-        data = *dataptr++;
-        if (data < 0x80) {
-            if (character > 127 && version > 2) {
-                data += 128;
-            }
-            character = data;
-#ifdef DRAWDEBUG
-            debug_print("******* SOLO CHARACTER: %04x\n", character);
-#endif
-            transform(character, 0, offset);
-            offset++;
-            if (offset > 767)
-                break;
-        } else {
-            // first check for a count
-            if ((data & 2) == 2) {
-                count = (*dataptr++) + 1;
-            }
-
-            // Next get character and plot (count) times
-            character = *dataptr++;
-
-            // Plot the initial character
-            if ((data & 1) == 1 && character < 128)
-                character += 128;
-
-            for (i = 0; i < count; i++)
-                transform(character, (data & 0x0c) ? (data & 0xf3) : data, offset + i);
-
-            // Now check for overlays
-            if ((data & 0xc) != 0) {
-                // We have overlays so grab each member of the stream and work out what
-                // to do with it
-
-                mask_mode = (data & 0xc);
-                data2 = *dataptr++;
-                old = data;
-                do {
-                    cont = 0;
-                    if (data2 < 0x80) {
-                        if (version == 4 && (old & 1) == 1)
-                            data2 += 128;
-#ifdef DRAWDEBUG
-                        debug_print("Plotting %d directly (overlay) at %d\n", data2,
-                            offset);
-#endif
-                        for (i = 0; i < count; i++)
-                            transform(data2, old & 0x0c, offset + i);
-                    } else {
-                        character = *dataptr++;
-                        if ((data2 & 1) == 1)
-                            character += 128;
-#ifdef DRAWDEBUG
-                        debug_print("Plotting %d with flip %02x (%s) at %d %d\n",
-                            character, (data2 | mask_mode),
-                            flipdescription[((data2 | mask_mode) & 48) >> 4], offset,
-                            count);
-#endif
-                        for (i = 0; i < count; i++)
-                            transform(character, (data2 & 0xf3) | mask_mode, offset + i);
-                        if ((data2 & 0x0c) != 0) {
-                            mask_mode = (data2 & 0x0c);
-                            old = data2;
-                            cont = 1;
-                            data2 = *dataptr++;
-                        }
-                    }
-                } while (cont != 0);
-            }
-            offset += count;
-        }
-    } while (offset < xsize * ysize);
-
-    y = 0;
-    x = 0;
-
-    //   debug_print("Attribute data begins at offset %ld\n", dataptr -
-    //   origptr);
-
-    uint8_t colour = 0;
-    // Note version 3 count is inverse it is repeat previous colour
-    // Whilst version0-2 count is repeat next character
-    while (y < ysize) {
-        if (dataptr - entire_file > file_length)
-            return dataptr - 1;
-        data = *dataptr++;
-        if ((data & 0x80)) {
-            count = (data & 0x7f) + 1;
-            if (version >= 3) {
-                count--;
-            } else {
-                colour = *dataptr++;
-            }
-        } else {
-            count = 1;
-            colour = data;
-        }
-        while (count > 0) {
-            // Now split up depending on which version we're using
-
-            // For version 3+
-
-            if (draw_to_buffer)
-                buffer[(yoff + y) * 32 + (xoff + x)][8] = colour;
-            else {
-                if (version > 2) {
-                    if (x > 33)
-                        return NULL;
-                    // ink is 0-2, screen is 3-5, 6 in bright flag
-                    ink[x][y] = colour & 0x07;
-                    paper[x][y] = (colour & 0x38) >> 3;
-
-                    if ((colour & 0x40) == 0x40) {
-                        paper[x][y] += 8;
-                        ink[x][y] += 8;
-                    }
-                } else {
-                    if (x > 33)
-                        return NULL;
-                    paper[x][y] = colour & 0x07;
-                    ink[x][y] = ((colour & 0x70) >> 4);
-
-                    if ((colour & 0x08) == 0x08 || version < 2) {
-                        paper[x][y] += 8;
-                        ink[x][y] += 8;
-                    }
-                }
-            }
-
-            x++;
-            if (x == xsize) {
-                x = 0;
-                y++;
-            }
-            count--;
-        }
-    }
-    offset = 0;
-    int32_t xoff2;
-    for (y = 0; y < ysize; y++)
-        for (x = 0; x < xsize; x++) {
-            xoff2 = xoff;
-            if (version > 0 && version < 3)
-                xoff2 = xoff - 4;
-
-            if (draw_to_buffer) {
-                for (i = 0; i < 8; i++)
-                    buffer[(y + yoff) * 32 + x + xoff2][i] = screenchars[offset][i];
-            } else {
-                plotsprite(offset, x + xoff2, y + yoff, Remap(ink[x][y]),
-                    Remap(paper[x][y]));
-            }
-
-#ifdef DRAWDEBUG
-            debug_print("(gfx#:plotting %d,%d:paper=%s,ink=%s)\n", x + xoff2,
-                y + yoff, colortext(remap(paper[x][y])),
-                colortext(remap(ink[x][y])));
-#endif
-            offset++;
-            if (offset > 766)
-                break;
-        }
-    return dataptr;
-}
-
-void DrawSagaPictureNumber(int picture_number)
-{
-    int numgraphics = Game->number_of_pictures;
-    if (picture_number >= numgraphics) {
-        debug_print("Invalid image number %d! Last image:%d\n", picture_number,
-            numgraphics - 1);
-        return;
-    }
-
-    Image img = images[picture_number];
-
-    if (img.imagedata == NULL)
-        return;
-
-    DrawSagaPictureFromData(img.imagedata, img.width, img.height, img.xoff,
-        img.yoff);
-
-    last_image_index = picture_number;
-}
-
-void DrawSagaPictureAtPos(int picture_number, int x, int y)
-{
-    Image img = images[picture_number];
-
-    DrawSagaPictureFromData(img.imagedata, img.width, img.height, x, y);
-}
-
 void SwitchPalettes(int pal1, int pal2)
 {
     uint8_t temp[3];
@@ -1021,40 +637,46 @@ void SwitchPalettes(int pal1, int pal2)
     pal[pal2][2] = temp[2];
 }
 
-void DrawSagaPictureFromBuffer(void)
+void DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
+                             int xoff, int yoff, size_t datasize, int draw_to_buffer) {
+    IrmakImgContext ctx;
+    ctx.dataptr = dataptr;
+    ctx.origptr = dataptr;
+    ctx.xsize = xsize;
+    ctx.ysize = ysize;
+    ctx.xoff = xoff;
+    ctx.yoff = yoff;
+    ctx.version = Game->picture_format_version;
+    ctx.datasize = datasize;
+    ctx.offsetlimit = xsize * ysize;
+    ctx.draw_to_buffer = draw_to_buffer;
+
+    DrawIrmakPictureFromContext(ctx);
+}
+
+void DrawSagaPictureNumber(int picture_number, int draw_to_buffer)
 {
-    for (int line = 0; line < 12; line++) {
-        for (int col = 0; col < 32; col++) {
-
-            uint8_t colour = buffer[col + line * 32][8];
-
-            int paper = (colour >> 3) & 0x7;
-            paper += 8 * ((colour & 0x40) == 0x40);
-            paper = Remap(paper);
-            int ink = (colour & 0x7);
-            ink += 8 * ((colour & 0x40) == 0x40);
-            ink = Remap(ink);
-
-            background(col, line, paper);
-
-            for (int i = 0; i < 8; i++) {
-                if (buffer[col + line * 32][i] == 0)
-                    continue;
-                if (buffer[col + line * 32][i] == 255) {
-
-                    glui32 glk_color = (pal[ink][0] << 16) | (pal[ink][1] << 8) | pal[ink][2];
-
-                    glk_window_fill_rect(
-                        Graphics, glk_color, col * 8 * pixel_size + x_offset,
-                        (line * 8 + i) * pixel_size, 8 * pixel_size, pixel_size);
-                    continue;
-                }
-                for (int j = 0; j < 8; j++)
-                    if ((buffer[col + line * 32][i] & (1 << j)) != 0) {
-                        int ypos = line * 8 + i;
-                        PutPixel(col * 8 + j, ypos, ink);
-                    }
-            }
-        }
+    if (Game->number_of_pictures == 0)
+        return;
+    if (picture_number >= Game->number_of_pictures) {
+        debug_print("Invalid image number %d! Last image:%d\n", picture_number,
+                    Game->number_of_pictures - 1);
+        return;
     }
+
+    Image img = images[picture_number];
+
+    if (img.imagedata == NULL)
+        return;
+
+    DrawSagaPictureFromData(img.imagedata, img.width, img.height,
+                            img.xoff, img.yoff, img.datasize, draw_to_buffer);
+
+    last_image_index = picture_number;
+}
+
+void DrawSagaPictureAtPos(int picture_number, int x, int y, int draw_to_buffer)
+{
+    Image img = images[picture_number];
+    DrawSagaPictureFromData(img.imagedata, img.width, img.height, x, y, img.datasize, draw_to_buffer);
 }

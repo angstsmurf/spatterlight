@@ -312,7 +312,7 @@ struct GameInfo {
     int start_of_system_messages;
     int start_of_directions;
 
-    int start_of_characters;
+    int start_of_tiles;
     int start_of_image_data;
     int image_address_offset; /* This is the difference between the value given by
                                the image data lookup table and a usable file

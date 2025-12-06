@@ -15,6 +15,10 @@
 
 int pixel_size;
 int x_offset = 0;
+/* y_offset is only used by the title image,
+ because we adjust the in-game graphics window
+ height to fit the window, so that the image alsways
+ is drawn at the very top */
 int y_offset = 0;
 int right_margin;
 int left_margin = 0;
@@ -81,6 +85,16 @@ void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)
 
     glk_window_fill_rect(Graphics, glk_color, xpos * pixel_size + x_offset,
         ypos * pixel_size + y_offset, pixel_size * 2, pixel_size);
+}
+
+void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
+              int32_t color)
+{
+    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
+
+    glk_window_fill_rect(Graphics, glk_color, x * pixel_size + x_offset,
+                         y * pixel_size + y_offset, width * pixel_size,
+                         height * pixel_size);
 }
 
 int issagaimg(const char *name)

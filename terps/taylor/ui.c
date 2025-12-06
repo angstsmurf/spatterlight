@@ -471,7 +471,7 @@ void DrawRoomImage(void)
     ClearGraphMem();
     DrawTaylor(MyLoc);
     StartAnimations();
-    DrawSagaPictureFromBuffer();
+    DrawIrmakPictureFromBuffer();
 }
 
 void OpenBottomWindow(void)

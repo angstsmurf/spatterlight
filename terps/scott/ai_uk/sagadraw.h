@@ -11,21 +11,8 @@
 #include "glk.h"
 #include "scottdefines.h"
 
-typedef struct {
-    uint8_t *imagedata;
-    uint8_t xoff;
-    uint8_t yoff;
-    uint8_t width;
-    uint8_t height;
-} Image;
-
-uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
-    int xoff, int yoff);
-
-void DrawSagaPictureNumber(int picture_number);
-void DrawSagaPictureAtPos(int picture_number, int x, int y);
-void DrawSagaPictureFromBuffer(void);
-void Flip(uint8_t character[]);
+void DrawSagaPictureNumber(int picture_number, int draw_to_buffer);
+void DrawSagaPictureAtPos(int picture_number, int x, int y, int draw_to_buffer);
 
 void SagaSetup(size_t imgoffset);
 
@@ -38,8 +25,11 @@ int32_t Remap(int32_t color);
 
 extern palette_type palchosen;
 
+// Used by Robin of Sherwood waterfall animation
+// and Secret Mission screen animation
 extern int white_colour;
 extern int blue_colour;
+// Used by Seas of Blood
 extern glui32 dice_colour;
 
 #endif /* sagadraw_h */

@@ -490,7 +490,7 @@ void OpenGraphicsWindow(void)
                     optimal_height, NULL);
         }
 
-        /* Set the graphics window background to match
+    /* Set the graphics window background to match
      * the main window background, best as we can,
      * and clear the window.
      */
@@ -963,7 +963,7 @@ void DrawImage(int image)
     if (Game->picture_format_version == 99)
         DrawVectorPicture(image);
     else
-        DrawSagaPictureNumber(image);
+        DrawSagaPictureNumber(image, (Game->type == SEAS_OF_BLOOD_VARIANT));
 }
 
 void DrawRoomImage(void)

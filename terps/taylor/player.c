@@ -1279,7 +1279,7 @@ void Look(void)
 
     if (MyLoc != 0 && !NoGraphics && TAYLOR_GRAPHICS_ENABLED && Graphics) {
         if (Resizing) {
-            DrawSagaPictureFromBuffer();
+            DrawIrmakPictureFromBuffer();
             return;
         }
         if (Version == QUESTPROBE3_TYPE) {
@@ -1924,7 +1924,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             } else {
                 DrawSagaPictureNumber(arg1 - 1);
             }
-            DrawSagaPictureFromBuffer();
+            DrawIrmakPictureFromBuffer();
             break;
         default:
             fprintf(stderr, "Unknown command %d.\n", op);
@@ -1967,7 +1967,7 @@ static void QP3DrawExtraImages(void)
     } else if (MyLoc == 2 && ObjectLoc[17] == 2 && Flag[26] > 16 && Flag[26] < 20) {
         /* Draw close-up of Thing */
         DrawSagaPictureNumber(53);
-        DrawSagaPictureFromBuffer();
+        DrawIrmakPictureFromBuffer();
     }
 }
 
@@ -2369,7 +2369,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
 void PrintConditionAddresses(void)
 {
-    fprintf(stderr, "Memory adresses of conditions\n\n");
+    fprintf(stderr, "Memory addresses of conditions\n\n");
     uint16_t conditionsOffsets = 0x56A8 + FileBaselineOffset;
     uint8_t *conditions;
     conditions = &FileImage[conditionsOffsets];
@@ -2384,7 +2384,7 @@ void PrintConditionAddresses(void)
 
 void PrintActionAddresses(void)
 {
-    fprintf(stderr, "Memory adresses of actions\n\n");
+    fprintf(stderr, "Memory addresses of actions\n\n");
     uint16_t actionOffsets = 0x591C + FileBaselineOffset;
     uint8_t *actions;
     actions = &FileImage[actionOffsets];

@@ -18,6 +18,7 @@
 // second copy of the image buffer.
 
 #include "sagadraw.h"
+#include "irmak.h"
 #include "utility.h"
 
 #include "animations.h"
@@ -35,15 +36,13 @@ static int KaylethAnimationIndex = 0;
 static int AnimationStage = 0;
 static int ClickShelfStage = 0;
 
-extern uint8_t screenbuf[768][9];
 extern Image *images;
-extern int draw_to_buffer;
 
 static void AnimateStars(void)
 {
     int carry;
     /* First fill area with black, erasing all stars */
-    RectFill(48, 16, 160, 32, 0, 0);
+    RectFill(48, 16, 160, 32, 0);
     /* We go line by line and pixel row by pixel row */
     for (int line = 3; line < 7; line++) {
         for (int pixrow = 0; pixrow < 8; pixrow++) {
@@ -53,35 +52,35 @@ static void AnimateStars(void)
             /* because the bytes are flipped in our implementation */
             /* for some reason */
             for (int col = 15; col > 5; col--) {
-                uint8_t attribute = screenbuf[col + line * 32][8];
+                uint8_t attribute = imagebuffer[col + line * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
                 ink = Remap(ink);
                 for (int bit = 0; bit < 8; bit++) {
-                    if ((screenbuf[col + line * 32][pixrow] & (1 << bit)) != 0) {
+                    if ((imagebuffer[col + line * 32][pixrow] & (1 << bit)) != 0) {
                         PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
                     }
                 }
-                carry = rotate_right_with_carry(&(screenbuf[col + line * 32][pixrow]), carry);
+                carry = rotate_right_with_carry(&(imagebuffer[col + line * 32][pixrow]), carry);
             }
             if (carry) {
-                screenbuf[line * 32 + 15][pixrow] = screenbuf[line * 32 + 15][pixrow] | 128;
+                imagebuffer[line * 32 + 15][pixrow] = imagebuffer[line * 32 + 15][pixrow] | 128;
             }
             carry = 0;
             /* Then the right half */
             for (int col = 16; col < 26; col++) {
-                uint8_t attribute = screenbuf[col + line * 32][8];
+                uint8_t attribute = imagebuffer[col + line * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
                 ink = Remap(ink);
                 for (int pix = 0; pix < 8; pix++) {
-                    if ((screenbuf[col + line * 32][pixrow] & (1 << pix)) != 0) {
+                    if ((imagebuffer[col + line * 32][pixrow] & (1 << pix)) != 0) {
                         PutPixel(col * 8 + pix, line * 8 + pixrow, ink);
                     }
                 }
-                carry = rotate_left_with_carry(&(screenbuf[col + line * 32][pixrow]), carry);
+                carry = rotate_left_with_carry(&(imagebuffer[col + line * 32][pixrow]), carry);
             }
-            screenbuf[line * 32 + 16][pixrow] = screenbuf[line * 32 + 16][pixrow] | carry;
+            imagebuffer[line * 32 + 16][pixrow] = imagebuffer[line * 32 + 16][pixrow] | carry;
         }
     }
 }
@@ -90,10 +89,10 @@ static void AnimateForcefield(void)
 {
     int carry;
     /* First fill door area with black, erasing field */
-    RectFill(104, 16, 48, 39, 0, 0);
+    RectFill(104, 16, 48, 39, 0);
     /* We go line by line and pixel row by pixel row */
 
-    uint8_t colour = screenbuf[2 * 32 + 13][8];
+    uint8_t colour = imagebuffer[2 * 32 + 13][8];
     glui32 ink = Remap(colour & 0x7);
 
     for (int line = 2; line < 7; line++) {
@@ -101,7 +100,7 @@ static void AnimateForcefield(void)
             carry = 0;
             for (int col = 13; col < 19; col++) {
                 for (int pix = 0; pix < 8; pix++) {
-                    if ((screenbuf[col + line * 32][pixrow] & (1 << pix)) != 0) {
+                    if ((imagebuffer[col + line * 32][pixrow] & (1 << pix)) != 0) {
                         PutPixel(col * 8 + pix, line * 8 + pixrow, ink);
                     }
                 }
@@ -109,9 +108,9 @@ static void AnimateForcefield(void)
                 /* byte by byte, but we actually rotate to the left */
                 /* because the bytes are flipped in our implementation */
                 /* for some reason */
-                carry = rotate_left_with_carry(&(screenbuf[col + line * 32][pixrow]), carry);
+                carry = rotate_left_with_carry(&(imagebuffer[col + line * 32][pixrow]), carry);
             }
-            screenbuf[line * 32 + 13][pixrow] = screenbuf[line * 32 + 13][pixrow] | carry;
+            imagebuffer[line * 32 + 13][pixrow] = imagebuffer[line * 32 + 13][pixrow] | carry;
         }
     }
 }
@@ -122,7 +121,7 @@ static void FillCell(int cell, glui32 ink)
     int starty = (cell / 32) * 8;
     for (int pixrow = 0; pixrow < 8; pixrow++) {
         for (int pix = 0; pix < 8; pix++) {
-            if ((screenbuf[cell][pixrow] & (1 << pix)) == 0) {
+            if ((imagebuffer[cell][pixrow] & (1 << pix)) == 0) {
                 PutPixel(startx + pix, starty + pixrow, ink);
             }
         }
@@ -154,14 +153,12 @@ static void AnimateQueenComputer(void)
             rotatingink = 7;
     }
     if (AnimationStage == 0) {
-        draw_to_buffer = 0;
         /* Image block 18: Arcadian head */
-        DrawSagaPictureAtPos(18, 18, 1);
-        draw_to_buffer = 1;
+        DrawSagaPictureAtPos(18, 18, 1, 0);
     }
 
     if (AnimationStage == 7) {
-        RectFill(144, 8, 24, 40, 0, 0);
+        RectFill(144, 8, 24, 40, 0);
     }
 
     AnimationStage++;
@@ -171,28 +168,28 @@ static void AnimateQueenComputer(void)
 
 static void AnimateKaylethClickShelves(int stage)
 {
-    RectFill(100, 0, 56, 81, 0, 0);
+    RectFill(100, 0, 56, 81, 0);
     for (int line = 0; line < 10; line++) {
         for (int col = 12; col < 20; col++) {
             for (int i = 0; i < 8; i++) {
                 int ypos = line * 8 + i + stage;
                 if (ypos > 79)
                     ypos = ypos - 80;
-                uint8_t attribute = screenbuf[col + (ypos / 8) * 32][8];
+                uint8_t attribute = imagebuffer[col + (ypos / 8) * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
-                attribute = screenbuf[col + ((79 - ypos) / 8) * 32][8];
+                attribute = imagebuffer[col + ((79 - ypos) / 8) * 32][8];
                 glui32 ink2 = attribute & 7;
                 ink2 += 8 * ((attribute & 64) == 64);
                 ink = Remap(ink);
                 ink2 = Remap(ink2);
                 for (int j = 0; j < 8; j++)
                     if (col > 15) {
-                        if ((screenbuf[col + line * 32][i] & (1 << j)) != 0) {
+                        if ((imagebuffer[col + line * 32][i] & (1 << j)) != 0) {
                             PutPixel(col * 8 + j, ypos, ink);
                         }
                     } else {
-                        if ((screenbuf[col + (9 - line) * 32][7 - i] & (1 << j)) != 0) {
+                        if ((imagebuffer[col + (9 - line) * 32][7 - i] & (1 << j)) != 0) {
                             PutPixel(col * 8 + j, 79 - ypos, ink2);
                         }
                     }
@@ -298,7 +295,7 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
 
         if (frame->counter >= frame->counter_to_draw_at) {
             DrawTaylor(frame->image);
-            DrawSagaPictureFromBuffer();
+            DrawIrmakPictureFromBuffer();
             anim->current_frame++;
             frame->counter = 0;
             if (anim->current_frame >= anim->number_of_frames) {
@@ -359,22 +356,18 @@ void UpdateRebelAnimations(void)
             DrawTaylor(MyLoc);
         }
         if (AnimationStage) {
-            DrawSagaPictureAtPos(62 + AnimationStage, 14, 10 - AnimationStage - (AnimationStage > 2));
+            DrawSagaPictureAtPos(62 + AnimationStage, 14, 10 - AnimationStage - (AnimationStage > 2), 1);
         }
-        DrawSagaPictureFromBuffer();
+        DrawIrmakPictureFromBuffer();
     } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
-        draw_to_buffer = 0;
-        DrawSagaPictureAtPos(138 + AnimationStage, 13, 2);
+        DrawSagaPictureAtPos(138 + AnimationStage, 13, 2, 0);
         AnimationStage = (AnimationStage == 0);
-        draw_to_buffer = 1;
     } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
-        draw_to_buffer = 0;
         if (!AnimationStage)
-            DrawSagaPictureAtPos(133, 14, 4);
+            DrawSagaPictureAtPos(133, 14, 4, 0);
         else
-            DrawSagaPictureAtPos(142, 17, 6);
+            DrawSagaPictureAtPos(142, 17, 6, 0);
         AnimationStage = (AnimationStage == 0);
-        draw_to_buffer = 1;
     } else {
         glk_request_timer_events(0);
         AnimationRunning = 0;
