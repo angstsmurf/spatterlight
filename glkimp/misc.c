@@ -66,23 +66,6 @@ GLK_ATTRIBUTE_NORETURN void glk_exit(void)
     gli_close_all_file_streams();
     win_flush();
 
-    if (gli_program_info != NULL)
-        free(gli_program_info);
-    if (gli_game_path != NULL)
-        free(gli_game_path);
-    if (gli_story_name != NULL)
-        free(gli_story_name);
-    if (gli_story_title != NULL)
-        free(gli_story_title);
-    if (gli_program_name != NULL)
-        free(gli_program_name);
-    if (gli_workdir != NULL)
-        free(gli_workdir);
-    if (autosavedir != NULL)
-        free(autosavedir);
-    if (gli_parentdir != NULL)
-        free(gli_parentdir);
-
     close(0);
     close(1);
     exit(0);
