@@ -1985,10 +1985,8 @@ replacementString:(id)repl {
 
         BOOL animate = !strongSelf.glkctl.commandScriptRunning;
         if (bottom - strongSelf.lastseen > NSHeight(blockScrollView.frame)) {
-            NSLog(@"Scrolling down,but not to bottom");
             [strongSelf scrollToPosition:strongSelf.lastseen animate:animate];
         } else {
-            NSLog(@"Scrolling to bottom");
             [strongSelf scrollToBottomAnimated:animate];
         }
     });
