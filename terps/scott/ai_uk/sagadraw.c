@@ -648,7 +648,6 @@ void DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     ctx.yoff = yoff;
     ctx.version = Game->picture_format_version;
     ctx.datasize = datasize;
-    ctx.offsetlimit = xsize * ysize;
     ctx.draw_to_buffer = draw_to_buffer;
 
     DrawIrmakPictureFromContext(ctx);

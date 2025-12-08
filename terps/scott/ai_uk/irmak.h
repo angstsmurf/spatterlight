@@ -28,7 +28,7 @@ typedef struct {
     int xoff;
     int yoff;
     int version;
-    int offsetlimit;
+    int imagesize;
     int draw_to_buffer;
 } IrmakImgContext;
 

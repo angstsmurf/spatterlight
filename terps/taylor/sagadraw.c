@@ -35,13 +35,9 @@ typedef uint8_t RGB[3];
 typedef RGB PALETTE[16];
 PALETTE pal;
 
-int32_t errorcount = 0;
-
 palette_type palchosen = NO_PALETTE;
 
 #define INVALIDCOLOR 16
-
-static const char *flipdescription[] = { "none", "90°", "180°", "270°", "ERROR" };
 
 //#define DRAWDEBUG
 
@@ -438,7 +434,7 @@ void SagaSetup(void)
     if (!tiles_start)
         tiles_start = Game->start_of_tiles + FileBaselineOffset;
 #ifdef DRAWDEBUG
-    fprintf(stderr, "tiles_start: %zx (%zu)\n", Game->start_of_tiles + FileBaselineOffset, Game->start_of_tiles + FileBaselineOffset);
+    debug_print(stderr, "tiles_start: %zx (%zu)\n", Game->start_of_tiles + FileBaselineOffset, Game->start_of_tiles + FileBaselineOffset);
 #endif
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
@@ -937,7 +933,7 @@ void DrawTaylor(int loc)
 
              This would potentially cause problems if not for the fact that instruction 0xf7 is
              used by no other image and by no other TaylorMade game.
-             (No game seems to use 0xf6 or 0xf5, for that matter.)*/
+             (No game seems to use 0xf6 or 0xf5, for that matter.) */
             if (BaseGame == REBEL_PLANET && MyLoc == 43 && ObjectLoc[131] == 252)
                 return;
         case 0xf6: // set A to 04 and call draw image. See 0xf7 above.
@@ -965,7 +961,6 @@ void DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     ctx.yoff = yoff;
     ctx.version = 4;
     ctx.datasize = datasize;
-    ctx.offsetlimit = xsize * ysize;
     ctx.draw_to_buffer = draw_to_buffer;
 
     DrawIrmakPictureFromContext(ctx);

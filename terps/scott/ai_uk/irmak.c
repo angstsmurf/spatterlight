@@ -43,8 +43,6 @@
 #define V2_BRIGHT_FLAG   0x08
 
 uint8_t tiles[256][8];
-
-//uint8_t layout[IRMAK_IMGSIZE][8];
 uint8_t layout[IRMAK_IMGSIZE][8];
 uint8_t imagebuffer[IRMAK_IMGSIZE * 2][9];
 
@@ -194,12 +192,12 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
     uint8_t *dataptr = ctx->dataptr;
     uint8_t *origptr = ctx->origptr;
     int offset = 0;
-    int offsetlimit = ctx->offsetlimit;
+    int imagesize = ctx->imagesize;
     int version = ctx->version;
 
     int32_t tile = 0;
 
-    while (offset < offsetlimit) {
+    while (offset < imagesize) {
         if ((size_t)(dataptr - origptr) >= ctx->datasize) {
             fprintf(stderr, "PerformTileTranformations: tile data out of range\n");
             return;
@@ -220,7 +218,7 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
 #endif
             Transform(tile, 0, offset);
             offset++;
-            if (offset > offsetlimit) break;
+            if (offset > imagesize) break;
         } else {
             /* Possibly a repeated run with optional overlays */
             if ((data & REPEAT_BIT) == REPEAT_BIT) {
@@ -242,8 +240,8 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
             if ((data & ADD_128_BIT) == ADD_128_BIT && tile < 128)
                 tile += 128;
 
-            for (int i = 0; i < count; ++i) {
-                if (offset + i >= offsetlimit) {
+            for (int i = 0; i < count; i++) {
+                if (offset + i >= imagesize) {
                     ctx->dataptr = dataptr;
                     return;
                 }
@@ -286,7 +284,7 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
                                     flipdescription[((data2 | mask_mode) & 48) >> 4], offset,
                                     count);
 #endif
-                        for (int i = 0; i < count; ++i)
+                        for (int i = 0; i < count; i++)
                             // Use mask mode of previous command byte
                             Transform(tile, (data2 & OVERLAY_MASK) | mask_mode, offset + i);
 
@@ -294,7 +292,7 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
                             mask_mode = data2 & OVERLAY_BITS;
                             old = data2;
                             cont = 1;
-                            if ((size_t)(dataptr - origptr) >= ctx->datasize) {
+                            if ((size_t)(dataptr - origptr) > ctx->datasize) {
                                 fprintf(stderr, "PerformTileTranformations: overlay chain ends prematurely\n");
                                 return;
                             }
@@ -343,8 +341,8 @@ static void DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **
 
     /* allocate ink and paper if not drawing to buffer */
     if (!ctx->draw_to_buffer) {
-        ink = (uint8_t *)MemAlloc((size_t)xsize * ysize);
-        paper = (uint8_t *)(uint8_t *)MemAlloc((size_t)xsize * ysize);
+        ink = (uint8_t *)MemAlloc(ctx->imagesize);
+        paper = (uint8_t *)(uint8_t *)MemAlloc(ctx->imagesize);
     }
 
     int y = 0;
@@ -352,7 +350,7 @@ static void DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **
     uint8_t colour = 0;
 
     while (y < ysize) {
-        if ((size_t)(dataptr - origptr) >= datasize) {
+        if ((size_t)(dataptr - origptr) > datasize) {
             fprintf(stderr, "DecodeAttributes: data offset %zu out of range! Image size %zu. Bailing!\n",
                     (size_t)(dataptr - origptr), datasize);
             /* free on error */
@@ -368,7 +366,7 @@ static void DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **
                 count--;
             } else {
                 /* in version 2 and below, repeat the *following* colour byte */
-                if ((size_t)(dataptr - origptr) >= datasize) {
+                if ((size_t)(dataptr - origptr) > datasize) {
                     fprintf(stderr, "DecodeAttributes: missing colour byte\n");
                     FreeInkAndPaper(&ink, &paper);
                     return;
@@ -383,8 +381,8 @@ static void DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **
         while (count > 0) {
             if (ctx->draw_to_buffer) {
                 /* write colours into imagebuffer */
-                int bufpos = (yoff + y) * IRMAK_IMGWIDTH + (xoff + x);
-                if (bufpos >= 0 && bufpos < IRMAK_IMGSIZE) {
+                int bufpos = (yoff + y) * IRMAK_IMGWIDTH + xoff + x;
+                if (bufpos < IRMAK_IMGSIZE) {
                     imagebuffer[bufpos][8] = colour;
                 } else {
                     /* out of buffer: ignore but warn once */
@@ -402,7 +400,7 @@ static void DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **
                 }
                 /* write colours into ink/paper arrays */
                 int idx = y * xsize + x;
-                if (idx > ctx->offsetlimit)
+                if (idx > ctx->imagesize)
                     break;
                 if (version > 2) {
                     ink[idx] = colour & INK_MASK;
@@ -451,8 +449,8 @@ static void DrawDecodedImage(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
 
     int offset = 0;
 
-    for (int y = 0; y < ysize; ++y) {
-        for (int x = 0; x < xsize; ++x) {
+    for (int y = 0; y < ysize; y++) {
+        for (int x = 0; x < xsize; x++) {
             int xoff2 = xoff;
             if (version > 0 && version < 3)
                 xoff2 = xoff - 4;
@@ -471,7 +469,7 @@ static void DrawDecodedImage(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
             }
 
             offset++;
-            if (offset > ctx->offsetlimit)
+            if (offset > ctx->imagesize)
                 return;
         }
     }
@@ -480,6 +478,8 @@ static void DrawDecodedImage(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
 void DrawIrmakPictureFromContext(IrmakImgContext ctx)
 {
     if (!ctx.dataptr) return;
+
+    ctx.imagesize = ctx.xsize * ctx.ysize;
 
     /* Step 1: Transform and draw tiles into layout[][] */
     PerformTileTranformations(&ctx);
