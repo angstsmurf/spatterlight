@@ -223,8 +223,9 @@ fprintf(stderr, "%s\n",                                                    \
     self.framePending = YES;
     self.pendingFrame = frame;
 
-    if (self.inLiveResize)
+    if (self.inLiveResize && !glkctl.ignoreResizes) {
         [self flushDisplay];
+    }
 }
 
 - (void)flushDisplay {
@@ -239,26 +240,26 @@ fprintf(stderr, "%s\n",                                                    \
     if (!bufferTextstorage)
         bufferTextstorage = [[NSMutableAttributedString alloc] init];
 
+    if (_pendingClear) {
+        [self reallyClear];
+        [textstorage setAttributedString:bufferTextstorage];
+    } else if (bufferTextstorage.length) {
+        [textstorage appendAttributedString:bufferTextstorage];
+    }
+
+    bufferTextstorage = [[NSMutableAttributedString alloc] init];
+
     if (self.framePending) {
         self.framePending = NO;
         if (!NSEqualRects(self.pendingFrame, self.frame)) {
 
-            if ([container hasMarginImages])
-                [container invalidateLayout:nil];
-
+            // Crop width to gameView width
             if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.gameView.bounds) && NSWidth(self.pendingFrame) > 10) {
                 self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.gameView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
             }
 
             super.frame = self.pendingFrame;
         }
-    }
-
-    if (_pendingClear) {
-        [self reallyClear];
-        [textstorage setAttributedString:bufferTextstorage];
-    } else if (bufferTextstorage.length) {
-        [textstorage appendAttributedString:bufferTextstorage];
     }
 
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
@@ -369,9 +370,9 @@ fprintf(stderr, "%s\n",                                                    \
         if (!scrollview)
             NSLog(@"scrollview nil!");
         scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
-        scrollview.documentView = _textview;
         _textview.delegate = self;
         textstorage.delegate = self;
+        scrollview.documentView = _textview;
 
         if (_textview.textStorage != textstorage)
             NSLog(@"Error! _textview.textStorage != textstorage");
@@ -538,7 +539,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (cell) {
             cell.marginImage = img;
             img.pos = cell.pos;
-            img.bounds = [img boundsWithLayout:layoutmanager];
+//            img.bounds = [img boundsWithLayout:layoutmanager];
             cell.accessibilityLabel = cell.customA11yLabel;
         }
     }
@@ -593,6 +594,14 @@ fprintf(stderr, "%s\n",                                                    \
         bgcolor = [NSColor colorFromInteger:bgnd];
     }
     if (!bgcolor) {
+        if (!self.theme) {
+            NSLog(@"recalcBackground: No theme!");
+            return;
+        }
+        if (!self.theme.bufferBackground) {
+            NSLog(@"recalcBackground: No self.theme.bufferBackground!");
+            return;
+        }
         bgcolor = self.theme.bufferBackground;
     }
     _textview.backgroundColor = bgcolor;
@@ -1431,14 +1440,14 @@ replacementString:(id)repl {
     if (!line_request)
         return;
 
-    if (textstorage.editedRange.location < fence)
+    if (textStorage.editedRange.location < fence)
         return;
 
     if (!_inputAttributes)
         [self recalcInputAttributes];
 
-    [textstorage setAttributes:_inputAttributes
-                         range:textstorage.editedRange];
+    [textStorage setAttributes:_inputAttributes
+                         range:textStorage.editedRange];
 }
 
 - (NSRange)textView:(NSTextView *)aTextView willChangeSelectionFromCharacterRange:(NSRange)oldrange
@@ -1509,7 +1518,7 @@ replacementString:(id)repl {
     NSRange lineRange;
     for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++){
         [layoutmanager lineFragmentRectForGlyphAtIndex:index
-                                        effectiveRange:&lineRange];
+                                        effectiveRange:&lineRange withoutAdditionalLayout:YES];
         index = NSMaxRange(lineRange);
     }
     return numberOfLines;
@@ -1699,7 +1708,7 @@ replacementString:(id)repl {
 
 - (void)updateImageAttachmentsWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale {
 
-    if (xscale == 0 || yscale == 0)
+    if (xscale == 0 || yscale == 0 || _textview.inLiveResize)
         return;
 
     NSMutableDictionary<NSString *, MarginImage *> *marginImages = [[NSMutableDictionary alloc] initWithCapacity:container.marginImages.count];
@@ -1886,7 +1895,7 @@ replacementString:(id)repl {
 
     NSRect lastRect =
     [layoutmanager lineFragmentRectForGlyphAtIndex:lastVisible
-                                    effectiveRange:nil];
+                                    effectiveRange:nil withoutAdditionalLayout:YES];
 
     lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / self.theme.bufferCellHeight;
 
@@ -1902,10 +1911,10 @@ replacementString:(id)repl {
         return;
     _pendingScrollRestore = NO;
     _pendingScroll = NO;
-    //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
-    //    NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
+    // NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
+    // NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
     if (_textview.bounds.size.height <= scrollview.bounds.size.height) {
-        //        NSLog(@"All of textview fits in scrollview. Returning without scrolling");
+        // NSLog(@"All of textview fits in scrollview. Returning without scrolling");
         if (_textview.bounds.size.height == scrollview.bounds.size.height) {
             _textview.frame = self.bounds;
         }
@@ -1945,7 +1954,7 @@ replacementString:(id)repl {
 
     offset = offset * charHeight;
     // first, force a layout so we have the correct textview frame
-    [layoutmanager glyphRangeForTextContainer:container];
+//    [layoutmanager glyphRangeForTextContainer:container];
 
     line = [layoutmanager lineFragmentRectForGlyphAtIndex:character
                                            effectiveRange:nil];
