@@ -29,7 +29,8 @@ uint8_t *decompress_amiga(ImageStruct *image) {
             while (repeats < 0x80) {
                 // This conditional is inverted in
                 // the Magnetic code in ms_extract1().
-                // That code will add 1 and read from the subsequent byte in the array if the bit is *unset*.
+                // That code will add 1 and read from the subsequent
+                // byte in the array if the bit is *unset*.
                 // Here we do that if the bit is *set*.
                 if (image->data[j] & (1 << bit)) {
                     repeats = image->huffman_tree[2 * repeats + 1];
