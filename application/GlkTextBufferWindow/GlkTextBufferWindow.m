@@ -16,6 +16,7 @@
 #import "MyAttachmentCell.h"
 #import "MarginContainer.h"
 #import "MarginImage.h"
+#import "FlowBreak.h"
 #import "BufferTextView.h"
 #import "GridTextView.h"
 #import "InfocomV6MenuHandler.h"
@@ -69,6 +70,16 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSRange lastSpokenRange;
     NSString *lastSpokenString;
+
+    NSRect frameBeforeLiveResize;
+
+    BOOL needsToAdjustMarginImages;
+
+    NSLayoutManager *backgroundLayoutManager;
+    MarginContainer *backgroundContainer;
+    NSTextStorage *backgroundTextStorage;
+
+    BOOL inBackgroundLayout;
 }
 @end
 
@@ -128,6 +139,7 @@ fprintf(stderr, "%s\n",                                                    \
         bufferTextstorage = [textstorage mutableCopy];
 
         layoutmanager = [[NSLayoutManager alloc] init];
+        layoutmanager.delegate = self;
         layoutmanager.backgroundLayoutEnabled = YES;
         layoutmanager.allowsNonContiguousLayout = NO;
         [textstorage addLayoutManager:layoutmanager];
@@ -153,9 +165,6 @@ fprintf(stderr, "%s\n",                                                    \
         scrollview.verticalScrollElasticity = NSScrollElasticityNone;
 
         /* now configure the text stuff */
-
-        container.widthTracksTextView = YES;
-        container.heightTracksTextView = NO;
 
         _textview.horizontallyResizable = NO;
         _textview.verticallyResizable = YES;
@@ -223,8 +232,10 @@ fprintf(stderr, "%s\n",                                                    \
     self.framePending = YES;
     self.pendingFrame = frame;
 
-    if (self.inLiveResize)
+    if (self.inLiveResize && !glkctl.ignoreResizes) {
+        NSLog(@"GlkTextBufferWindow setFrame calling flushDisplay");
         [self flushDisplay];
+    }
 }
 
 - (void)flushDisplay {
@@ -239,21 +250,6 @@ fprintf(stderr, "%s\n",                                                    \
     if (!bufferTextstorage)
         bufferTextstorage = [[NSMutableAttributedString alloc] init];
 
-    if (self.framePending) {
-        self.framePending = NO;
-        if (!NSEqualRects(self.pendingFrame, self.frame)) {
-
-            if ([container hasMarginImages])
-                [container invalidateLayout:nil];
-
-            if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.gameView.bounds) && NSWidth(self.pendingFrame) > 10) {
-                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.gameView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
-            }
-
-            super.frame = self.pendingFrame;
-        }
-    }
-
     if (_pendingClear) {
         [self reallyClear];
         [textstorage setAttributedString:bufferTextstorage];
@@ -262,6 +258,45 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
+
+    if (self.framePending) {
+        self.framePending = NO;
+        if (!NSEqualRects(self.pendingFrame, self.frame)) {
+
+
+
+            // Crop width to gameView width
+            if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.gameView.bounds) && NSWidth(self.pendingFrame) > 10) {
+                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.gameView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
+            }
+
+            if (container.marginImages.count > 20 && NSWidth(self.pendingFrame) != NSWidth(self.frame)) {
+                self.glkctl.ignoreResizes = NO;
+                inBackgroundLayout = YES;
+                // Here we:
+                // create new layoutmanager with a copy of container with all margin images and flowbreaks
+                // start layouting on background thread
+
+                backgroundLayoutManager = [[NSLayoutManager alloc] init];
+                backgroundLayoutManager.backgroundLayoutEnabled = NO;
+                backgroundLayoutManager.allowsNonContiguousLayout = NO;
+                backgroundLayoutManager.delegate = self;
+//                [container invalidateImagesOnly];
+                NSSize size = NSMakeSize(NSWidth(self.pendingFrame) - 2 * _textview.textContainerInset.width, 10000000);
+                backgroundContainer = [container copyForBackgroundWithSize:size];
+                backgroundTextStorage = [[NSTextStorage alloc] initWithAttributedString:textstorage];
+                backgroundTextStorage.delegate = self;
+                [container pruneImages];
+            }
+
+            if (!inBackgroundLayout && [container hasMarginImages] && NSWidth(self.pendingFrame) != NSWidth(self.frame)) {
+                NSLog(@"GlkTextBufferWindow flushDisplay calling invalidateImagesOnly on textContainer");
+                [container invalidateImagesOnly];
+            }
+            NSLog(@"flushDisplay frame was %@ is set to %@", NSStringFromRect(self.frame), NSStringFromRect(self.pendingFrame));
+            super.frame = self.pendingFrame;
+        }
+    }
 
     if (_pendingScroll) {
         if (glkctl.commandScriptRunning) {
@@ -283,7 +318,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         [self reallyPerformScroll];
     }
-    [NSUserDefaults.standardUserDefaults setValue:hyphenationLanguage forKey:@"NSHyphenationLanguage"];
+//    [NSUserDefaults.standardUserDefaults setValue:hyphenationLanguage forKey:@"NSHyphenationLanguage"];
     if (_pendingEditable) {
         if (glkctl.commandScriptRunning) {
             [self scrollToBottomAnimated:NO];
@@ -357,6 +392,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (self) {
         _textview = [decoder decodeObjectOfClass:[BufferTextView class] forKey:@"textview"];
         layoutmanager = _textview.layoutManager;
+        layoutmanager.delegate = self;
         textstorage = _textview.textStorage;
         container = (MarginContainer *)_textview.textContainer;
         if (!layoutmanager)
@@ -369,9 +405,9 @@ fprintf(stderr, "%s\n",                                                    \
         if (!scrollview)
             NSLog(@"scrollview nil!");
         scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
-        scrollview.documentView = _textview;
         _textview.delegate = self;
         textstorage.delegate = self;
+        scrollview.documentView = _textview;
 
         if (_textview.textStorage != textstorage)
             NSLog(@"Error! _textview.textStorage != textstorage");
@@ -469,7 +505,9 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)postRestoreAdjustments:(GlkWindow *)win {
+    NSLog(@"GlkTextBufferWindow %ld postRestoreAdjustments", self.name);
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
+//    _autorestoring = NO;
 
     // No idea where these spurious storedNewlines come from
     if (line_request || self.glkctl.commandScriptRunning)
@@ -538,9 +576,18 @@ fprintf(stderr, "%s\n",                                                    \
         if (cell) {
             cell.marginImage = img;
             img.pos = cell.pos;
-            img.bounds = [img boundsWithLayout:layoutmanager];
+//            img.bounds = [img boundsWithLayout:layoutmanager];
             cell.accessibilityLabel = cell.customA11yLabel;
         }
+    }
+
+    MarginContainer *blockcontainer = container;
+    if (container.marginImages) {
+        blockcontainer.pendingInvalidate = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [blockcontainer.layoutManager textContainerChangedGeometry:blockcontainer];
+            blockcontainer.pendingInvalidate = NO;
+        });
     }
 
     if (!self.glkctl.inFullscreen || self.glkctl.startingInFullscreen)
@@ -593,6 +640,14 @@ fprintf(stderr, "%s\n",                                                    \
         bgcolor = [NSColor colorFromInteger:bgnd];
     }
     if (!bgcolor) {
+        if (!self.theme) {
+            NSLog(@"recalcBackground: No theme!");
+            return;
+        }
+        if (!self.theme.bufferBackground) {
+            NSLog(@"recalcBackground: No self.theme.bufferBackground!");
+            return;
+        }
         bgcolor = self.theme.bufferBackground;
     }
     _textview.backgroundColor = bgcolor;
@@ -772,8 +827,11 @@ fprintf(stderr, "%s\n",                                                    \
             [self showInsertionPoint];
             lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
             [self recalcBackground];
-            if ([container hasMarginImages])
+            if ([container hasMarginImages]) {
+                container.pendingInvalidate = YES;
+                NSLog(@"prefsDidChange is calling invalidateLayout");
                 [container performSelector:@selector(invalidateLayout:) withObject:nil afterDelay:0.2];
+            }
         }
         if (!_pendingScrollRestore) {
             _pendingScrollRestore = YES;
@@ -821,6 +879,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     self.moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;
+    NSLog(@"reallyClear is calling container invalidateLayout");
     [container invalidateLayout:nil];
     _pendingClear = NO;
 }
@@ -1431,14 +1490,18 @@ replacementString:(id)repl {
     if (!line_request)
         return;
 
-    if (textstorage.editedRange.location < fence)
+    if (textStorage != textstorage) {
+        NSLog(@"Something is wrong");
+    }
+
+    if (textStorage.editedRange.location < fence)
         return;
 
     if (!_inputAttributes)
         [self recalcInputAttributes];
 
-    [textstorage setAttributes:_inputAttributes
-                         range:textstorage.editedRange];
+    [textStorage setAttributes:_inputAttributes
+                         range:textStorage.editedRange];
 }
 
 - (NSRange)textView:(NSTextView *)aTextView willChangeSelectionFromCharacterRange:(NSRange)oldrange
@@ -1509,7 +1572,7 @@ replacementString:(id)repl {
     NSRange lineRange;
     for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++){
         [layoutmanager lineFragmentRectForGlyphAtIndex:index
-                                        effectiveRange:&lineRange];
+                                        effectiveRange:&lineRange withoutAdditionalLayout:YES];
         index = NSMaxRange(lineRange);
     }
     return numberOfLines;
@@ -1681,7 +1744,7 @@ replacementString:(id)repl {
     unichar uc = NSAttachmentCharacter;
     [textstorage.mutableString appendString:[NSString stringWithCharacters:&uc
                                                                     length:1]];
-    [container flowBreakAt:textstorage.length - 1];
+    [container addFlowBreakAt:textstorage.length - 1];
 }
 
 - (void)textView:(NSTextView *)view
@@ -1699,8 +1762,10 @@ replacementString:(id)repl {
 
 - (void)updateImageAttachmentsWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale {
 
-    if (xscale == 0 || yscale == 0)
+    if (xscale == 0 || yscale == 0 || _textview.inLiveResize)
         return;
+
+    NSLog(@"updateImageAttachmentsWithXScale:%f yScale:%f", xscale, yscale);
 
     NSMutableDictionary<NSString *, MarginImage *> *marginImages = [[NSMutableDictionary alloc] initWithCapacity:container.marginImages.count];
     for (MarginImage *marginImage in container.marginImages) {
@@ -1886,7 +1951,7 @@ replacementString:(id)repl {
 
     NSRect lastRect =
     [layoutmanager lineFragmentRectForGlyphAtIndex:lastVisible
-                                    effectiveRange:nil];
+                                    effectiveRange:nil withoutAdditionalLayout:YES];
 
     lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / self.theme.bufferCellHeight;
 
@@ -1902,6 +1967,7 @@ replacementString:(id)repl {
         return;
     _pendingScrollRestore = NO;
     _pendingScroll = NO;
+//    [container invalidateLayout:nil];
     //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
     //    NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
     if (_textview.bounds.size.height <= scrollview.bounds.size.height) {
@@ -1945,7 +2011,7 @@ replacementString:(id)repl {
 
     offset = offset * charHeight;
     // first, force a layout so we have the correct textview frame
-    [layoutmanager glyphRangeForTextContainer:container];
+//    [layoutmanager glyphRangeForTextContainer:container];
 
     line = [layoutmanager lineFragmentRectForGlyphAtIndex:character
                                            effectiveRange:nil];
@@ -2054,6 +2120,168 @@ replacementString:(id)repl {
 
     [scrollview.contentView scrollToPoint:NSZeroPoint];
 }
+
+#pragma mark Resizing
+
+- (void)viewWillStartLiveResize {
+    NSLog(@"GlkTextBufferWindow %ld viewWillStartLiveResize", self.name);
+//    frameBeforeLiveResize = self.frame;
+//
+//
+//
+//    if (container.marginImages.count > 10) {
+//        [self flushDisplay];
+//        self.glkctl.ignoreResizes = NO;
+//        [container pruneImages];
+//    }
+}
+
+- (void)viewDidEndLiveResize {
+    NSLog(@"GlkTextBufferWindow %ld viewDidEndLiveResize", self.name);
+//    if (container.marginImages.count > 10) {
+//        if (NSWidth(frameBeforeLiveResize) != NSWidth(self.frame)) {
+//            for (MarginImage *i in container.marginImages)
+//                [i uncacheBounds];
+//            for (FlowBreak *f in container.flowbreaks)
+//                [f uncacheBounds];
+//        }
+//        self.glkctl.ignoreResizes = NO;
+//        container.pendingInvalidate = NO;
+//    }
+
+//    layoutmanager.allowsNonContiguousLayout = NO;
+//    [self flushDisplay];
+
+//    NSLog(@"GlkTextBufferWindow viewDidEndLiveResize: before:");
+//    [layoutmanager ensureLayoutForTextContainer:container];
+//    [container forcedUpdateBounds];
+//    [self->layoutmanager textContainerChangedGeometry:self->container];
+//    [self.textview setNeedsLayout:YES];
+//    [container printPos];
+
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        NSLog(@"GlkTextBufferWindow viewDidEndLiveResize: after:");
+////        [self->container.layoutManager ensureLayoutForTextContainer:self->container];
+////        [self->container forcedUpdateBounds];
+////        [self.textview setNeedsDisplay:YES];
+////        [self->container forcedUpdateBounds];
+//        [self->layoutmanager textContainerChangedGeometry:self->container];
+//        [self->layoutmanager ensureLayoutForTextContainer:self->container];
+//        [self->container forcedUpdateBounds];
+////        [self.textview setNeedsLayout:YES];
+////        [self.textview setNeedsDisplay:YES];
+////        [self.textview setNeedsLayout:YES];
+////        [self->container printPos];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            NSLog(@"GlkTextBufferWindow viewDidEndLiveResize: final:");
+////            [self.textview setNeedsLayout:YES];
+////            [self->container forcedUpdateBounds];
+////            [self.textview setNeedsLayout:YES];
+////            [self->container forcedUpdateBounds];
+//            [self->layoutmanager textContainerChangedGeometry:self->container];
+//            [self->layoutmanager ensureLayoutForTextContainer:self->container];
+////            [self->container printPos];
+//        });
+//    });
+
+    if (backgroundLayoutManager) {
+        NSLayoutManager *blockLayoutManager = backgroundLayoutManager;
+        backgroundContainer.containerSize = container.containerSize;
+        MarginContainer *blockContainer = backgroundContainer;
+        NSTextStorage *blockTextStorage = backgroundTextStorage;
+//        BufferTextView *blockTextView = _textview;
+
+        NSLog(@"Initiating background layout");
+
+        //                [backgroundLayoutManager textContainerChangedGeometry:backgroundContainer];
+
+        dispatch_queue_t layoutQueue = dispatch_queue_create("Spetterlight background layout", NULL);
+        dispatch_async(layoutQueue, ^{
+            [blockTextStorage addLayoutManager:blockLayoutManager];
+            blockLayoutManager.textStorage = blockTextStorage;
+            blockContainer.layoutManager = blockLayoutManager;
+            [blockLayoutManager addTextContainer:blockContainer];
+            [blockContainer invalidateImagesOnly];
+            [blockLayoutManager textContainerChangedGeometry:blockContainer];
+            [blockLayoutManager ensureLayoutForTextContainer:blockContainer];
+
+            NSLog(@"Done initiating background layout");
+        });
+    }
+
+}
+
+
+- (void)layoutManager:(NSLayoutManager *)layoutManager didCompleteLayoutForTextContainer:(NSTextContainer *)textContainer atEnd:(BOOL)layoutFinishedFlag {
+    // If this is from a background layout, replace text container
+    if (layoutManager == backgroundLayoutManager || textContainer == backgroundContainer) {
+        NSLog(@"backgroundLayoutManager did complete layout!");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Replace text view here");
+            [self storeScrollOffset];
+            NSUInteger oldlength = self->backgroundTextStorage.length;
+            if (self->textstorage.length > oldlength) {
+                [self->backgroundTextStorage appendAttributedString:[self->textstorage attributedSubstringFromRange:NSMakeRange(oldlength, self->textstorage.length - oldlength)]];
+            }
+            [self.textview replaceTextContainer:self->backgroundContainer];
+
+            // Very important. The replaceTextContainer method above creates copies
+            // of everything.
+            self->textstorage = self.textview.textStorage;
+            self->layoutmanager = self.textview.layoutManager;
+            self->container = (MarginContainer *)self.textview.textContainer;
+            self->backgroundTextStorage = nil;
+            self->backgroundContainer = nil;
+            self->backgroundLayoutManager = nil;
+            self->inBackgroundLayout = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.textview.needsDisplay = YES;
+            });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self restoreScroll:nil];
+            });
+        });
+    }
+    if (layoutManager != layoutmanager)
+        return;
+    NSLog(@"layoutManager: didCompleteLayoutForTextContainer: atEnd: %@", layoutFinishedFlag ? @"YES" : @"NO");
+
+}
+
+- (void)layoutManagerDidInvalidateLayout:(NSLayoutManager *)sender {
+    NSLog(@"layoutManagerDidInvalidateLayout");
+    if (sender == backgroundLayoutManager) {
+        NSLog(@"backgroundLayoutManager did invalidate layout!");
+    }
+}
+
+- (void)layoutManager:(NSLayoutManager *)layoutManager textContainer:(NSTextContainer *)textContainer didChangeGeometryFromSize:(NSSize)oldSize {
+    NSLog(@"layoutManager: textContainer: didChangeGeometryFromSize: %@. New size: %@", NSStringFromSize(oldSize), NSStringFromSize(container.containerSize));
+
+    if (layoutManager == backgroundLayoutManager || textContainer == backgroundContainer) {
+        NSLog(@"backgroundLayoutManager did Change Geometry From Size!");
+    }
+    if (layoutManager != layoutmanager || textContainer != container)
+        return;
+    if (oldSize.width != container.size.width && container.hasMarginImages) {
+        needsToAdjustMarginImages = YES;
+    }
+}
+
+- (NSControlCharacterAction)layoutManager:(NSLayoutManager *)layoutManager shouldUseAction:(NSControlCharacterAction)action forControlCharacterAtIndex:(NSUInteger)charIndex {
+
+//    if (action == NSControlCharacterActionZeroAdvancement) {
+//        NSLog(@"layoutManager asked about NSControlCharacterActionZeroAdvancement");
+//    }
+
+    return action;
+}
+
+- (NSUInteger)layoutManager:(NSLayoutManager *)layoutManager shouldGenerateGlyphs:(nonnull const CGGlyph *)glyphs properties:(nonnull const NSGlyphProperty *)props characterIndexes:(nonnull const NSUInteger *)charIndexes font:(nonnull NSFont *)aFont forGlyphRange:(NSRange)glyphRange {
+    return 0;
+}
+
+
 
 #pragma mark Speech
 
