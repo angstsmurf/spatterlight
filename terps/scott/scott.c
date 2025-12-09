@@ -1500,7 +1500,7 @@ int PerformExtraCommand(int extra_stop_time)
 
 static int YesOrNo(void)
 {
-    glk_request_char_event(Bottom);
+    glk_request_char_event_uni(Bottom);
 
     event_t ev;
     int result = 0;
@@ -1510,7 +1510,9 @@ static int YesOrNo(void)
     do {
         glk_select(&ev);
         if (ev.type == evtype_CharInput) {
-            glk_put_char_stream(glk_window_get_stream(Bottom), ev.val1);
+            if ((glsi32)ev.val1 > 32) {
+                glk_put_char_stream_uni(glk_window_get_stream(Bottom), ev.val1);
+            }
             const char reply = tolower((char)ev.val1);
             if (reply == y) {
                 result = 1;
@@ -1519,7 +1521,7 @@ static int YesOrNo(void)
             } else {
                 Output("\n");
                 Output(sys[ANSWER_YES_OR_NO]);
-                glk_request_char_event(Bottom);
+                glk_request_char_event_uni(Bottom);
             }
         } else
             Updates(ev);
