@@ -384,6 +384,37 @@ static uint8_t *Q3Image(int imgnum, size_t base, size_t offsets, size_t imgdata)
     return &FileImage[image_addr];
 }
 
+static void ExtractQ3Image(Image *img, int picture_number, size_t base, size_t offsets, size_t imgdata) {
+    uint8_t *pos = Q3Image(picture_number, base, offsets, imgdata);
+    if (pos > EndOfData - 4 || pos < FileImage) {
+        fprintf(stderr, "Image %d out of range!\n", picture_number);
+        img->imagedata = NULL;
+        return;
+    }
+    img->width = *pos++;
+    img->height = *pos++;
+    img->xoff = *pos++;
+    img->yoff = *pos++;
+    img->imagedata = pos;
+    img->datasize = EndOfGraphicsData - pos;
+    if (picture_number == 17) {
+        img->imagedata = MemAlloc(608);
+        img->datasize = 608;
+        memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 608));
+        int patch = FindImagePatch(QUESTPROBE3, 55, 0);
+        Patch(img->imagedata, patch);
+    } else if (picture_number == 55 || (picture_number >= 18 && picture_number <= 20)) {
+        img->imagedata = images[17].imagedata;
+        img->datasize = images[17].datasize;
+    } else if (picture_number == 56) {
+        img->imagedata = MemAlloc(403);
+        img->datasize = 403;
+        memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 403));
+        int patch = FindImagePatch(QUESTPROBE3, 56, 0);
+        Patch(img->imagedata, patch);
+    }
+}
+
 static void RepeatOpcode(int *number, uint8_t *instructions, uint8_t repeatcount)
 {
     int i = *number - 1;
@@ -405,128 +436,39 @@ static size_t FindTilesStart(void)
     return pos;
 }
 
-void SagaSetup(void)
-{
-    if (images != NULL)
-        return;
-
-    if (Game->number_of_pictures == 0) {
-        NoGraphics = 1;
-        return;
+/* The image format stores width and height in a single byte, so max width is 16. */
+/* Blizzard Pass cheats and adds 16 to the width of a hardcoded list of images. */
+static void AdjustBlizzardPassImageWidth(Image *img, int picture_number) {
+    switch (picture_number) {
+        case 13:
+        case 15:
+        case 17:
+        case 34:
+        case 85:
+        case 111:
+            img->width += 16;
+            break;
+        default:
+            break;
     }
+}
 
-    EndOfGraphicsData = FileImage + FileImageLen;
+#define MAX_INSTRUCTIONS 2048
 
-    int32_t i, y;
-
-    if (palchosen == NO_PALETTE) {
-        palchosen = Game->palette;
-    }
-
-    if (palchosen == NO_PALETTE) {
-        debug_print("unknown palette\n");
-        exit(EXIT_FAILURE);
-    }
-
-    DefinePalette();
-
-    size_t tiles_start = FindTilesStart();
-    if (!tiles_start)
-        tiles_start = Game->start_of_tiles + FileBaselineOffset;
-#ifdef DRAWDEBUG
-    debug_print(stderr, "tiles_start: %zx (%zu)\n", Game->start_of_tiles + FileBaselineOffset, Game->start_of_tiles + FileBaselineOffset);
-#endif
-    uint8_t *pos;
-    int numgraphics = Game->number_of_pictures;
-    pos = SeekToPos(FileImage, tiles_start);
-
-#ifdef DRAWDEBUG
-    debug_print("Grabbing tile details\n");
-    debug_print("Tile Offset: %04x\n", tiles_start - file_baseline_offset);
-#endif
-    for (i = 0; i < 246; i++) {
-        for (y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
-            tiles[i][y] = *(pos++);
+static uint8_t *ExtractImage(Image *img, uint8_t *pos) {
+    uint8_t instructions[MAX_INSTRUCTIONS];
+    int number = 0;
+    uint8_t *copied_bytes = NULL;
+    uint8_t *stored_pointer = NULL;
+    do {
+        if (number >= MAX_INSTRUCTIONS) {
+            number = MAX_INSTRUCTIONS - 1;
+            break;
         }
-    }
-
-    /* Now we have hopefully read the tile data */
-    /* Time for the image offsets */
-
-    images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
-    Image *img = images;
-    size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
-
-    size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
-
-    pos = SeekToPos(FileImage, image_blocks_start_address);
-
-    size_t base = 0, offsets = 0, imgdata = 0;
-
-    if (Version == QUESTPROBE3_TYPE)
-        Q3Init(&base, &offsets, &imgdata);
-
-    for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
-        if (Version == QUESTPROBE3_TYPE) {
-            pos = Q3Image(picture_number, base, offsets, imgdata);
-            if (pos > EndOfData - 4 || pos < FileImage) {
-                fprintf(stderr, "Image %d out of range!\n", picture_number);
-                img->imagedata = NULL;
-                img++;
-                continue;
-            }
-            img->width = *pos++;
-            img->height = *pos++;
-            img->xoff = *pos++;
-            img->yoff = *pos++;
-            img->imagedata = pos;
-            img->datasize = EndOfGraphicsData - pos;
-            if (picture_number == 17) {
-                img->imagedata = MemAlloc(608);
-                img->datasize = 608;
-                memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 608));
-                int patch = FindImagePatch(QUESTPROBE3, 55, 0);
-                Patch(img->imagedata, patch);
-            } else if (picture_number == 55 || (picture_number >= 18 && picture_number <= 20)) {
-                img->imagedata = images[17].imagedata;
-                img->datasize = images[17].datasize;
-            } else if (picture_number == 56) {
-                img->imagedata = MemAlloc(403);
-                img->datasize = 403;
-                memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 403));
-                int patch = FindImagePatch(QUESTPROBE3, 56, 0);
-                Patch(img->imagedata, patch);
-            }
-            img++;
-            continue;
-        }
-
-        uint8_t widthheight = *pos++;
-        img->width = ((widthheight & 0xf0) >> 4) + 1;
-        img->height = (widthheight & 0x0f) + 1;
-        if (CurrentGame == BLIZZARD_PASS) {
-            switch (picture_number) {
-            case 13:
-            case 15:
-            case 17:
-            case 34:
-            case 85:
-            case 111:
-                img->width += 16;
-                break;
-            default:
-                break;
-            }
-        }
-        uint8_t instructions[2048];
-        int number = 0;
-        uint8_t *copied_bytes = NULL;
-        uint8_t *stored_pointer = NULL;
-        do {
-            instructions[number++] = *pos;
-            uint8_t opcode = *pos;
-            if (Version != HEMAN_TYPE) {
-                switch (opcode) {
+        instructions[number++] = *pos;
+        uint8_t opcode = *pos;
+        if (Version != HEMAN_TYPE) {
+            switch (opcode) {
                 case 0xfb:
                     number--;
                     if (!copied_bytes || copied_bytes[0] == 0) {
@@ -565,30 +507,103 @@ void SagaSetup(void)
                     copied_bytes[numbytes] = 0xfb;
                     pos = copied_bytes;
                     break;
-                }
-            } else if (Game->number_of_patterns) {
-                for (i = 0; i < Game->number_of_patterns; i++) {
-                    if (*pos == FileImage[patterns_lookup + i]) {
-                        number--;
-                        size_t baseoffset = patterns_lookup + Game->number_of_patterns + i * 2;
-                        size_t newoffset = FileImage[baseoffset] + FileImage[baseoffset + 1] * 256 - 0x4000 + FileBaselineOffset;
-                        while (FileImage[newoffset] != Game->pattern_end_marker) {
-                            instructions[number++] = FileImage[newoffset++];
-                        }
-                        break;
+            }
+        } else if (Game->number_of_patterns) {
+            size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
+            for (int i = 0; i < Game->number_of_patterns; i++) {
+                if (*pos == FileImage[patterns_lookup + i]) {
+                    number--;
+                    size_t baseoffset = patterns_lookup + Game->number_of_patterns + i * 2;
+                    size_t newoffset = FileImage[baseoffset] + FileImage[baseoffset + 1] * 256 - 0x4000 + FileBaselineOffset;
+                    while (FileImage[newoffset] != Game->pattern_end_marker) {
+                        instructions[number++] = FileImage[newoffset++];
                     }
+                    break;
                 }
             }
-            pos++;
-        } while (*pos != 0xfe);
-
-        instructions[number++] = 0xfe;
-
-        img->imagedata = MemAlloc(number);
-        img->datasize = number;
-        memcpy(img->imagedata, instructions, number);
-
+        }
         pos++;
+    } while (*pos != 0xfe);
+    
+    instructions[number++] = 0xfe;
+    
+    img->imagedata = MemAlloc(number);
+    img->datasize = number;
+    memcpy(img->imagedata, instructions, number);
+    return pos + 1;
+}
+
+void SagaSetup(void)
+{
+    if (images != NULL)
+        return;
+
+    if (Game->number_of_pictures == 0) {
+        NoGraphics = 1;
+        return;
+    }
+
+    EndOfGraphicsData = FileImage + FileImageLen;
+
+    if (palchosen == NO_PALETTE) {
+        palchosen = Game->palette;
+    }
+
+    if (palchosen == NO_PALETTE) {
+        fprintf(stderr, "SagaSetup: invalid palette. Entering text-only mode.\n");
+        Game->number_of_pictures = 0;
+        NoGraphics = 1;
+        return;
+    }
+
+    DefinePalette();
+
+    size_t tiles_start = FindTilesStart();
+    if (!tiles_start)
+        tiles_start = Game->start_of_tiles + FileBaselineOffset;
+#ifdef DRAWDEBUG
+    debug_print(stderr, "tiles_start: %zx (%zu)\n", Game->start_of_tiles + FileBaselineOffset, Game->start_of_tiles + FileBaselineOffset);
+#endif
+    uint8_t *pos;
+    int numgraphics = Game->number_of_pictures;
+    pos = SeekToPos(FileImage, tiles_start);
+
+#ifdef DRAWDEBUG
+    debug_print("Grabbing tile details\n");
+    debug_print("Tile Offset: %04x\n", tiles_start - file_baseline_offset);
+#endif
+    for (int i = 0; i < 246; i++) {
+        for (int y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
+            tiles[i][y] = *(pos++);
+        }
+    }
+
+    /* Now we have hopefully read the tile data */
+    /* Time for the image offsets */
+
+    images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
+    Image *img = images;
+    size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
+
+    pos = SeekToPos(FileImage, image_blocks_start_address);
+
+    size_t base = 0, offsets = 0, imgdata = 0;
+
+    if (Version == QUESTPROBE3_TYPE)
+        Q3Init(&base, &offsets, &imgdata);
+
+    for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
+        if (Version == QUESTPROBE3_TYPE) {
+            ExtractQ3Image(img, picture_number, base, offsets, imgdata);
+        } else {
+            uint8_t widthheight = *pos++;
+            img->width = ((widthheight & 0xf0) >> 4) + 1;
+            img->height = (widthheight & 0x0f) + 1;
+            if (CurrentGame == BLIZZARD_PASS) {
+                AdjustBlizzardPassImageWidth(img, picture_number);
+            }
+            pos = ExtractImage(img, pos);
+        }
         img++;
     }
 
@@ -818,17 +833,17 @@ void DrawTaylor(int loc)
     }
 
     while (ptr < EndOfGraphicsData) {
-        //        fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, *ptr);
+        // fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, *ptr);
         switch (*ptr) {
         case 0xff:
-            //                fprintf(stderr, "End of picture\n");
+            // fprintf(stderr, "End of picture\n");
             return;
         case 0xfe:
-            //                fprintf(stderr, "0xfe mirror_left_half\n");
+            // fprintf(stderr, "0xfe mirror_left_half\n");
             mirror_area(0, 0, IRMAK_IMGWIDTH, IRMAK_IMGHEIGHT);
             break;
         case 0xfd:
-            //                fprintf(stderr, "0xfd Replace colour %x with %x\n", *(ptr + 1), *(ptr + 2));
+            // fprintf(stderr, "0xfd Replace colour %x with %x\n", *(ptr + 1), *(ptr + 2));
             replace_colour(*(ptr + 1), *(ptr + 2));
             ptr += 2;
             break;
@@ -918,22 +933,22 @@ void DrawTaylor(int loc)
             break;
         case 0xf7: // set A to 0c and call draw image, but A seems to not be used. Vestigial code?
 
-          /* In the basement of the Zodiac Hotel in Rebel Planet, there is a locked alcove.
-             There is an image of the bottles inside, but in the original interpreter it is never
-             drawn.
+          /* In the basement of the Zodiac Hotel in Rebel Planet is a locked alcove.
+             There is an image of the bottles inside, but in the original interpreter
+             it is never drawn.
 
-             The image draw instructions for room 43 (the basement) calls opcode 0xf7 with the
-             bottles image index as its first argument, but the original code just resturns without
-             ever drawing it.
+             The image draw instructions for room 43 (the basement) call opcode 0xf7 with the
+             bottles image index as first argument, but the original code returns without
+             drawing anything.
 
-             The code below is a hack which checks if the phonic fork (object 131) is out of play
-             (in dummy room 252), which only seems to be the case when the alcove is locked.
-             If not, it falls through to the draw block instruction beneath, which will draw the
+             Below is a hack which checks if the phonic fork (object 131) is out of play
+             (i.e. in dummy room 252), which only seems to be the case if the alcove is locked.
+             If not, it falls through to the DrawSagaPictureAtPos() call, which will draw the
              bottles.
 
-             This would potentially cause problems if not for the fact that instruction 0xf7 is
-             used by no other image and by no other TaylorMade game.
-             (No game seems to use 0xf6 or 0xf5, for that matter.) */
+             This could potentially cause problems, if not for the fact that opcode 0xf7 is
+             not used by any other image or any other TaylorMade game.
+             (No game seems to use opcodes 0xf6 or 0xf5 either, for that matter.) */
             if (BaseGame == REBEL_PLANET && MyLoc == 43 && ObjectLoc[131] == 252)
                 return;
         case 0xf6: // set A to 04 and call draw image. See 0xf7 above.
@@ -954,7 +969,6 @@ void DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                              int xoff, int yoff, size_t datasize, int draw_to_buffer) {
     IrmakImgContext ctx;
     ctx.dataptr = dataptr;
-    ctx.origptr = dataptr;
     ctx.xsize = xsize;
     ctx.ysize = ysize;
     ctx.xoff = xoff;
@@ -968,7 +982,12 @@ void DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
 
 void DrawSagaPictureNumber(int picture_number)
 {
-    if (Game->number_of_pictures == 0)
+    DrawSagaPictureAtPos(picture_number, -1, -1, 1);
+}
+
+void DrawSagaPictureAtPos(int picture_number, int x, int y, int draw_to_buffer)
+{
+    if (NoGraphics || Game->number_of_pictures == 0)
         return;
     if (picture_number >= Game->number_of_pictures) {
         debug_print("Invalid image number %d! Last image:%d\n", picture_number,
@@ -977,17 +996,16 @@ void DrawSagaPictureNumber(int picture_number)
     }
 
     Image img = images[picture_number];
-
     if (img.imagedata == NULL)
         return;
 
-    DrawSagaPictureFromData(img.imagedata, img.width, img.height, img.xoff,
-        img.yoff, img.datasize, 1);
-}
+    if (x < 0 || x > IRMAK_IMGWIDTH) {
+        x = img.xoff;
+    }
+    if (y < 0 || y > IRMAK_IMGHEIGHT) {
+        y = img.yoff;
+    }
 
-void DrawSagaPictureAtPos(int picture_number, int x, int y, int draw_to_buffer)
-{
-    Image img = images[picture_number];
     DrawSagaPictureFromData(img.imagedata, img.width, img.height, x, y, img.datasize, draw_to_buffer);
 }
 

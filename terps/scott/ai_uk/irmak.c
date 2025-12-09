@@ -480,6 +480,7 @@ void DrawIrmakPictureFromContext(IrmakImgContext ctx)
     if (!ctx.dataptr) return;
 
     ctx.imagesize = ctx.xsize * ctx.ysize;
+    ctx.origptr = ctx.dataptr;
 
     /* Step 1: Transform and draw tiles into layout[][] */
     PerformTileTranformations(&ctx);
@@ -488,7 +489,7 @@ void DrawIrmakPictureFromContext(IrmakImgContext ctx)
     uint8_t *ink = NULL;
     uint8_t *paper = NULL;
     /* The ink and paper arguments will only be used
-     if we are not drawing to imagebuffer */
+     if we are not drawing to buffer */
     DecodeAttributes(&ctx, &ink, &paper);
 
     /* Step 3: compose image to buffer or direct render */

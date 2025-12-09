@@ -272,12 +272,6 @@ void InventoryUS(void)
     }
 }
 
-extern size_t hulk_coordinates;
-extern size_t hulk_item_image_offsets;
-extern size_t hulk_look_image_offsets;
-extern size_t hulk_special_image_offsets;
-extern size_t hulk_image_offset;
-
 static int SanityCheckScottFreeHeader(int ni, int na, int nw, int nr, int mc)
 {
     int16_t v = header[1]; // items
@@ -607,14 +601,6 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info
         if (index != 255)
             Items[index].Image = image++;
     } while (index != 255);
-
-    if (info.gameID == HULK_C64) {
-        hulk_coordinates = 0x22cd;
-        hulk_item_image_offsets = 0x2731;
-        hulk_look_image_offsets = 0x2761;
-        hulk_special_image_offsets = 0x2781;
-        hulk_image_offset = -0x7ff;
-    }
 
     return info.gameID;
 }

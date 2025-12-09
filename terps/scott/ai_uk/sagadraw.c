@@ -446,12 +446,6 @@ static void PatchOutBrokenClaymorgueImagesZX(void)
     }
 }
 
-size_t hulk_coordinates = 0x26db;
-size_t hulk_item_image_offsets = 0x2798;
-size_t hulk_look_image_offsets = 0x27bc;
-size_t hulk_special_image_offsets = 0x276e;
-size_t hulk_image_offset = 0x441b;
-
 void SagaSetup(size_t imgoffset)
 {
 	if (images != NULL)
@@ -468,8 +462,9 @@ void SagaSetup(size_t imgoffset)
     }
 
     if (palchosen == NO_PALETTE) {
-        debug_print("unknown palette\n");
-        exit(EXIT_FAILURE);
+        fprintf(stderr, "SagaSetup: invalid palette. Entering text-only mode.\n");
+        Game->number_of_pictures = 0;
+        return;
     }
 
     DefinePalette();
@@ -511,6 +506,32 @@ void SagaSetup(size_t imgoffset)
     int broken_claymorgue_pictures_c64 = 0;
     int broken_claymorgue_pictures_zx = 0;
 
+    size_t hulk_coordinates = 0;
+    size_t hulk_item_image_offsets = 0;
+    size_t hulk_closeup_image_offsets = 0;
+    size_t hulk_special_image_offsets = 0;
+    size_t hulk_image_offset = 0;
+
+    if (Game->picture_format_version == 0) {
+        if (CurrentGame == HULK_C64) {
+            hulk_coordinates = 0x22cd;
+            hulk_item_image_offsets = 0x2731;
+            hulk_closeup_image_offsets = 0x2761;
+            hulk_special_image_offsets = 0x2781;
+            hulk_image_offset = -0x7ff;
+        } else if (CurrentGame == HULK) {
+            hulk_coordinates = 0x26db;
+            hulk_item_image_offsets = 0x2798;
+            hulk_closeup_image_offsets = 0x27bc;
+            hulk_special_image_offsets = 0x276e;
+            hulk_image_offset = 0x441b;
+        } else {
+            fprintf(stderr, "SagaSetup: Unknown game with version 0 graphics. Entering text-only mode.\n");
+            Game->number_of_pictures = 0;
+            return;
+        }
+    }
+
     for (i = 0; i < numgraphics; i++) {
         if (Game->picture_format_version == 0) {
             uint16_t address;
@@ -520,7 +541,7 @@ void SagaSetup(size_t imgoffset)
             } else if (i < 28) {
                 address = hulk_item_image_offsets + (i - 10) * 2;
             } else if (i < 34) {
-                address = hulk_look_image_offsets + (i - 28) * 2;
+                address = hulk_closeup_image_offsets + (i - 28) * 2;
             } else {
                 address = hulk_special_image_offsets + (i - 34) * 2;
             }
@@ -541,19 +562,19 @@ void SagaSetup(size_t imgoffset)
             return;
 
         img->width = *(pos++);
-        if (img->width > 32)
-            img->width = 32;
+        if (img->width > IRMAK_IMGWIDTH)
+            img->width = IRMAK_IMGWIDTH;
 
         img->height = *(pos++);
-        if (img->height > 12)
-            img->height = 12;
+        if (img->height > IRMAK_IMGHEIGHT)
+            img->height = IRMAK_IMGHEIGHT;
 
         if (version > 0) {
             img->xoff = *(pos++);
-            if (img->xoff > 32)
+            if (img->xoff > IRMAK_IMGWIDTH)
                 img->xoff = 4;
             img->yoff = *(pos++);
-            if (img->yoff > 12)
+            if (img->yoff > IRMAK_IMGHEIGHT)
                 img->yoff = 0;
         } else {
             if (picture_number > 9 && picture_number < 28) {
@@ -570,8 +591,8 @@ void SagaSetup(size_t imgoffset)
         }
 
         if (broken_claymorgue_pictures_c64 && (picture_number == 16 || picture_number == 28)) {
-            img->height = 12;
-            img->width = 32;
+            img->height = IRMAK_IMGHEIGHT;
+            img->width = IRMAK_IMGWIDTH;
             img->xoff = 4;
             img->yoff = 0;
             if (picture_number == 28)
@@ -584,8 +605,8 @@ void SagaSetup(size_t imgoffset)
         }
 
         if (broken_claymorgue_pictures_zx && (picture_number == 14)) {
-            img->height = 12;
-            img->width = 32;
+            img->height = IRMAK_IMGHEIGHT;
+            img->width = IRMAK_IMGWIDTH;
             img->xoff = 4;
             img->yoff = 0;
         }
@@ -641,7 +662,6 @@ void DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                              int xoff, int yoff, size_t datasize, int draw_to_buffer) {
     IrmakImgContext ctx;
     ctx.dataptr = dataptr;
-    ctx.origptr = dataptr;
     ctx.xsize = xsize;
     ctx.ysize = ysize;
     ctx.xoff = xoff;

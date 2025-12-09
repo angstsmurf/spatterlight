@@ -36,8 +36,6 @@ static int KaylethAnimationIndex = 0;
 static int AnimationStage = 0;
 static int ClickShelfStage = 0;
 
-extern Image *images;
-
 static void AnimateStars(void)
 {
     int carry;
