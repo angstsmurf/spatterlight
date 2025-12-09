@@ -44,7 +44,7 @@
 
 uint8_t tiles[256][8];
 uint8_t layout[IRMAK_IMGSIZE][8];
-uint8_t imagebuffer[IRMAK_IMGSIZE * 2][9];
+uint8_t imagebuffer[IRMAK_IMGSIZE][9];
 
 // Forward declarations of necessary external functions
 int32_t Remap(int32_t color);

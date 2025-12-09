@@ -50,6 +50,6 @@ int isNthBitSet(unsigned const char c, int n);
 
 extern uint8_t tiles[256][8]; // Used by SagaSetup() and TaylorSetup()
 extern uint8_t layout[IRMAK_IMGSIZE][8]; // Used by animate_waterfall() in Robin of Sherwood
-extern uint8_t imagebuffer[IRMAK_IMGSIZE * 2][9]; // Used by Seas of Blood and Taylormade draw routines
+extern uint8_t imagebuffer[IRMAK_IMGSIZE][9]; // Used by Seas of Blood and Taylormade draw routines
 
 #endif /* irmak_h */

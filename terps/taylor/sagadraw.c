@@ -679,7 +679,7 @@ static void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t 
     //    fprintf(stderr, "flip_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
     uint8_t mirror[IRMAK_IMGSIZE][9];
 
-    for (int line = 0; line <= y2; line++) {
+    for (int line = 0; line <= y2 && line < IRMAK_IMGHEIGHT - y1; line++) {
         for (int col = x1; col < x1 + width; col++) {
             for (int pixrow = 0; pixrow < 8; pixrow++)
                 mirror[(y2 - line) * IRMAK_IMGWIDTH + col][7 - pixrow] = imagebuffer[(y1 + line) * IRMAK_IMGWIDTH + col][pixrow];
