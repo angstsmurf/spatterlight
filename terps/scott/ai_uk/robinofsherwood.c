@@ -135,7 +135,7 @@ void animate_waterfall(int stage)
         for (int col = 11; col < 17; col++) {
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
-                    if (isNthBitSet(layout[col + line * IRMAK_IMGWIDTH][i], j)) {
+                    if (isNthBitSet(layout[col + line * IRMAK_IMGWIDTH][i], 7 - j)) {
                         int ypos = line * 8 + i + stage;
                         if (ypos > 79)
                             ypos = ypos - 64;
@@ -151,7 +151,7 @@ void animate_waterfall_cave(int stage)
     for (int line = 3; line < 11; line++) {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
-                if (isNthBitSet(layout[31 + line * IRMAK_IMGWIDTH][i], j)) {
+                if (isNthBitSet(layout[31 + line * IRMAK_IMGWIDTH][i], 7 - j)) {
                     int ypos = line * 8 + i + stage;
                     if (ypos > 87)
                         ypos = ypos - 64;

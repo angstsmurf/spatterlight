@@ -143,8 +143,8 @@ static void Transform(int32_t tile, uint8_t mode, int offset)
     }
 
     // We flip the tile horizontally
-    // if FLIP_BIT is NOT set(!)
-    if ((mode & FLIP_BIT) == 0) {
+    // if FLIP_BIT is set
+    if ((mode & FLIP_BIT) == FLIP_BIT) {
         Flip(work);
     }
 
@@ -179,7 +179,7 @@ void PlotTile(int32_t tile, int32_t x, int32_t y, int32_t fg,
     FillBackground(x, y, bg);
     for (i = 0; i < 8; i++) {
         for (j = 0; j < 8; j++)
-            if (isNthBitSet(layout[tile][i], j))
+            if (isNthBitSet(layout[tile][i], (7 - j)))
                 PutPixel(x * 8 + j, y * 8 + i, fg);
     }
 }
@@ -520,14 +520,17 @@ void DrawIrmakPictureFromBuffer(void)
             FillBackground(col, line, paper);
 
             for (int i = 0; i < 8; i++) {
+                // Don't draw anything if current byte is zero
                 if (imagebuffer[col + line * 32][i] == 0)
                     continue;
+                // Draw a single box if current byte is 255
                 if (imagebuffer[col + line * 32][i] == 255) {
                     RectFill(col * 8, line * 8 + i, 8, 1, ink);
                     continue;
                 }
+                // Else check every bit and draw a pixel if set
                 for (int j = 0; j < 8; j++) {
-                    if (isNthBitSet(imagebuffer[col + line * 32][i], j)) {
+                    if (isNthBitSet(imagebuffer[col + line * 32][i], (7 - j))) {
                         int ypos = line * 8 + i;
                         PutPixel(col * 8 + j, ypos, ink);
                     }
@@ -542,7 +545,7 @@ void DebugDrawTile(int tile)
 {
     debug_print("Contents of tile %d of 256:\n", tile);
     for (int row = 0; row < 8; row++) {
-        for (int n = 0; n < 8; n++) {
+        for (int n = 7; n >= 0; n++) {
             if (isNthBitSet(tiles[tile][row], n))
                 debug_print("■");
             else

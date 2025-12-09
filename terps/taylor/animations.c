@@ -46,39 +46,41 @@ static void AnimateStars(void)
         for (int pixrow = 0; pixrow < 8; pixrow++) {
             carry = 0;
             /* The left half is rotated one pixel to the left, */
-            /* byte by byte, but we actually rotate to the right */
-            /* because the bytes are flipped in our implementation */
-            /* for some reason */
+            /* byte by byte */
             for (int col = 15; col > 5; col--) {
-                uint8_t attribute = imagebuffer[col + line * 32][8];
-                glui32 ink = attribute & 7;
-                ink += 8 * ((attribute & 64) == 64);
+                uint8_t attribute = imagebuffer[col + line * IRMAK_IMGWIDTH][8];
+                glui32 ink = attribute & INK_MASK;
+                ink += 8 * ((attribute & BRIGHT_FLAG) == BRIGHT_FLAG);
                 ink = Remap(ink);
                 for (int bit = 0; bit < 8; bit++) {
-                    if ((imagebuffer[col + line * 32][pixrow] & (1 << bit)) != 0) {
+                    if (isNthBitSet(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow], 7 - bit)) {
                         PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
                     }
                 }
-                carry = rotate_right_with_carry(&(imagebuffer[col + line * 32][pixrow]), carry);
+                carry =
+                rotate_left_with_carry(&(imagebuffer[col + line * 32][pixrow]), carry);
             }
-            if (carry) {
-                imagebuffer[line * 32 + 15][pixrow] = imagebuffer[line * 32 + 15][pixrow] | 128;
-            }
+            imagebuffer[line * IRMAK_IMGWIDTH + 15][pixrow] =
+                imagebuffer[line * IRMAK_IMGWIDTH + 15][pixrow] | carry;
             carry = 0;
             /* Then the right half */
             for (int col = 16; col < 26; col++) {
-                uint8_t attribute = imagebuffer[col + line * 32][8];
-                glui32 ink = attribute & 7;
-                ink += 8 * ((attribute & 64) == 64);
+                uint8_t attribute = imagebuffer[col + line * IRMAK_IMGWIDTH][8];
+                glui32 ink = attribute & INK_MASK;
+                ink += 8 * ((attribute & BRIGHT_FLAG) == BRIGHT_FLAG);
                 ink = Remap(ink);
-                for (int pix = 0; pix < 8; pix++) {
-                    if ((imagebuffer[col + line * 32][pixrow] & (1 << pix)) != 0) {
-                        PutPixel(col * 8 + pix, line * 8 + pixrow, ink);
+                for (int bit = 0; bit < 8; bit++) {
+                    if (isNthBitSet(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow], 7 - bit)) {
+                        PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
                     }
                 }
-                carry = rotate_left_with_carry(&(imagebuffer[col + line * 32][pixrow]), carry);
+                carry =
+                rotate_right_with_carry(&(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow]), carry);
             }
-            imagebuffer[line * 32 + 16][pixrow] = imagebuffer[line * 32 + 16][pixrow] | carry;
+            if (carry) {
+                imagebuffer[line * IRMAK_IMGWIDTH + 16][pixrow] =
+                imagebuffer[line * IRMAK_IMGWIDTH + 16][pixrow] | 128;
+            }
         }
     }
 }
@@ -90,36 +92,35 @@ static void AnimateForcefield(void)
     RectFill(104, 16, 48, 39, 0);
     /* We go line by line and pixel row by pixel row */
 
-    uint8_t colour = imagebuffer[2 * 32 + 13][8];
-    glui32 ink = Remap(colour & 0x7);
+    uint8_t colour = imagebuffer[2 * IRMAK_IMGWIDTH + 13][8];
+    glui32 ink = Remap(colour & INK_MASK);
 
     for (int line = 2; line < 7; line++) {
         for (int pixrow = 0; pixrow < 8; pixrow++) {
             carry = 0;
             for (int col = 13; col < 19; col++) {
                 for (int pix = 0; pix < 8; pix++) {
-                    if ((imagebuffer[col + line * 32][pixrow] & (1 << pix)) != 0) {
+                    if (isNthBitSet(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow], 7 - pix)) {
                         PutPixel(col * 8 + pix, line * 8 + pixrow, ink);
                     }
                 }
                 /* The force field is rotated one pixel to the right, */
-                /* byte by byte, but we actually rotate to the left */
-                /* because the bytes are flipped in our implementation */
-                /* for some reason */
-                carry = rotate_left_with_carry(&(imagebuffer[col + line * 32][pixrow]), carry);
+                /* byte by byte */
+                carry = rotate_right_with_carry(&(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow]), carry);
             }
-            imagebuffer[line * 32 + 13][pixrow] = imagebuffer[line * 32 + 13][pixrow] | carry;
+            if (carry)
+                imagebuffer[line * IRMAK_IMGWIDTH + 13][pixrow] = imagebuffer[line * IRMAK_IMGWIDTH + 13][pixrow] | 128;
         }
     }
 }
 
 static void FillCell(int cell, glui32 ink)
 {
-    int startx = (cell % 32) * 8;
-    int starty = (cell / 32) * 8;
+    int startx = (cell % IRMAK_IMGWIDTH) * 8;
+    int starty = (cell / IRMAK_IMGWIDTH) * 8;
     for (int pixrow = 0; pixrow < 8; pixrow++) {
         for (int pix = 0; pix < 8; pix++) {
-            if ((imagebuffer[cell][pixrow] & (1 << pix)) == 0) {
+            if (!isNthBitSet(imagebuffer[cell][pixrow], 7 - pix)) {
                 PutPixel(startx + pix, starty + pixrow, ink);
             }
         }
@@ -134,7 +135,7 @@ static void AnimateQueenComputer(void)
     for (int i = 0; i < 3; i++) {
         for (int line = 3; line <= 6; line += 3) {
             for (int cell = 0; cell < 2; cell++) {
-                FillCell(line * 32 + offset + cell, 8 + rotatingink);
+                FillCell(line * IRMAK_IMGWIDTH + offset + cell, 8 + rotatingink);
                 rotatingink--;
                 if (rotatingink < 0)
                     rotatingink = 7;
@@ -146,7 +147,7 @@ static void AnimateQueenComputer(void)
             offset = 27;
     }
     for (int cell = 0; cell < 3; cell++) {
-        FillCell(7 * 32 + 18 + cell, 8 + rotatingink--);
+        FillCell(7 * IRMAK_IMGWIDTH + 18 + cell, 8 + rotatingink--);
         if (rotatingink < 0)
             rotatingink = 7;
     }
@@ -183,11 +184,11 @@ static void AnimateKaylethClickShelves(int stage)
                 ink2 = Remap(ink2);
                 for (int j = 0; j < 8; j++)
                     if (col > 15) {
-                        if ((imagebuffer[col + line * 32][i] & (1 << j)) != 0) {
+                        if (isNthBitSet(imagebuffer[col + line * 32][i], 7 - j)) {
                             PutPixel(col * 8 + j, ypos, ink);
                         }
                     } else {
-                        if ((imagebuffer[col + (9 - line) * 32][7 - i] & (1 << j)) != 0) {
+                        if (isNthBitSet(imagebuffer[col + (9 - line) * 32][7 - i], 7 - j)) {
                             PutPixel(col * 8 + j, 79 - ypos, ink2);
                         }
                     }
