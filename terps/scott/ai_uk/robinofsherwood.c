@@ -163,9 +163,9 @@ void animate_waterfall_cave(int stage)
 void animate_lightning(int stage)
 {
     // swich blue and bright yellow
-    if (palchosen == C64B)
+    if (palchosen == C64B) {
         SwitchPalettes(6, 7);
-    else {
+    } else {
         SwitchPalettes(1, 14);
         SwitchPalettes(9, 6);
     }
