@@ -422,6 +422,8 @@ glui32 *ToUnicode(const char *string)
         unsigned char b = (unsigned char)string[i];
         glui32 mapped = mapper(b);
 
+        /* Normalize any carriage returns to line feeds */
+        /* (and set the lastwasnewline flag appropriately) */
         if (mapped == 13 || mapped == 10) {
             lastwasnewline = 1;
             mapped = 10;
