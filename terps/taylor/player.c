@@ -715,19 +715,22 @@ static void Message2(unsigned int m)
 
 void SysMessage(unsigned char m)
 {
-    if (Version != QUESTPROBE3_TYPE) {
-        Message(m);
-        return;
+    if (Version == QUESTPROBE3_TYPE) {
+        if (m == EXITS)
+            m = 217;
+        else
+            m = 210 + m;
     }
-    if (m == EXITS)
-        m = 217;
-    else
-        m = 210 + m;
+
     Message(m);
 }
 
 static void PrintObject(unsigned char obj)
 {
+    /* Temple of Terror has an object described as "locked door",
+       but there is no way to unlock it and you can just walk
+       through it anyway. This seems a bit unfair, so we change its
+       description to just "door" here. */
     if (BaseGame == TEMPLE_OF_TERROR && obj == 41) {
         OutString("door.");
         return;
@@ -835,7 +838,8 @@ static int Present(unsigned char obj)
     if (obj >= NumObjects())
         return 0;
     unsigned char v = ObjectLoc[obj];
-    if (v == MyLoc || v == Worn() || v == Carried() || (Version == QUESTPROBE3_TYPE && v == OtherGuyInv && OtherGuyLoc == MyLoc))
+    if (v == MyLoc || v == Worn() || v == Carried() ||
+        (Version == QUESTPROBE3_TYPE && v == OtherGuyInv && OtherGuyLoc == MyLoc))
         return 1;
     return 0;
 }
