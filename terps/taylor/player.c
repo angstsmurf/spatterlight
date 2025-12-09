@@ -2596,10 +2596,12 @@ void glk_main(void)
     while (1) {
         if (ShouldRestart) {
             RestartGame();
-            if (BaseGame != KAYLETH)
+            if (BaseGame != KAYLETH) {
                 SaveUndo();
-        } else if (!StopTime && !InKaylethPreview)
+            }
+        } else if (!StopTime && !InKaylethPreview) {
             SaveUndo();
+        }
         Parser();
         FirstAfterInput = 1;
         RunOneInput();
