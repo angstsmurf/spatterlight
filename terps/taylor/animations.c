@@ -18,6 +18,7 @@
 // second copy of the image buffer.
 
 #include "sagadraw.h"
+#include "taylordraw.h"
 #include "irmak.h"
 #include "utility.h"
 

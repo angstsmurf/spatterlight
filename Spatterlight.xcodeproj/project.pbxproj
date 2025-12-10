@@ -478,6 +478,7 @@
 		C309886225CB1ADF00750F72 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
 		C30A89252E81BCC800416F0C /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
+		C30AC87F2EE9333D00E1EE85 /* taylordraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30AC87C2EE9318800E1EE85 /* taylordraw.c */; };
 		C30C57D72C68C31900C2AAAF /* options.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C30C57D52C68C31800C2AAAF /* options.cpp */; };
 		C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD728CA2C0300D293BE /* atari8detect.c */; };
 		C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD828CA2C0300D293BE /* apple2detect.c */; };
@@ -2711,6 +2712,8 @@
 		C308E68C2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCoreDataCoreSpotlightDelegate.h; sourceTree = "<group>"; };
 		C308E68D2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCoreDataCoreSpotlightDelegate.m; sourceTree = "<group>"; };
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
+		C30AC87C2EE9318800E1EE85 /* taylordraw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = taylordraw.c; sourceTree = "<group>"; };
+		C30AC87E2EE931D100E1EE85 /* taylordraw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = taylordraw.h; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
 		C30C57D52C68C31800C2AAAF /* options.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = options.cpp; sourceTree = "<group>"; };
 		C30C57D62C68C31800C2AAAF /* options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = options.h; sourceTree = "<group>"; };
@@ -5863,6 +5866,8 @@
 				C349B4DA28803A7C00D99943 /* parseinput.c */,
 				C3B6100627DA07E90012FB97 /* sagadraw.h */,
 				C3B6100427DA07E90012FB97 /* sagadraw.c */,
+				C30AC87E2EE931D100E1EE85 /* taylordraw.h */,
+				C30AC87C2EE9318800E1EE85 /* taylordraw.c */,
 				C372018B27E47E4D00F6BE55 /* layouttext.h */,
 				C372018D27E47E4D00F6BE55 /* layouttext.c */,
 				C3FFF7FF27E52E19000C481A /* restorestate.h */,
@@ -7953,6 +7958,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C30AC87F2EE9333D00E1EE85 /* taylordraw.c in Sources */,
 				C359A2D62EE656B30079F9EA /* irmak.c in Sources */,
 				C3B6100827DA0C080012FB97 /* sagadraw.c in Sources */,
 				C3D571B727D8F652008FB786 /* player.c in Sources */,

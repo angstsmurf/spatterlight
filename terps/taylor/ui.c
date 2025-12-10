@@ -20,6 +20,7 @@
 #include "layouttext.h"
 #include "sagadraw.h"
 #include "taylor.h"
+#include "taylordraw.h"
 #include "utility.h"
 
 #define GLK_BUFFER_ROCK 1

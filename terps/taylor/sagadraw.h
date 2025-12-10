@@ -23,7 +23,6 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
 
 void DefinePalette(void);
 
-void DrawTaylor(int loc);
 void ClearGraphMem(void);
 int32_t Remap(int32_t color);
 

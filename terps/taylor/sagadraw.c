@@ -16,6 +16,7 @@
 
 #include "glk.h"
 #include "taylor.h"
+#include "taylordraw.h"
 #include "utility.h"
 #include "irmak.h"
 
@@ -26,7 +27,6 @@ static Image *images = NULL;
 glui32 pixel_size;
 glui32 x_offset;
 
-static uint8_t *taylor_image_data;
 static uint8_t *EndOfGraphicsData;
 
 /* palette handler stuff starts here */
@@ -312,7 +312,7 @@ int32_t Remap(int32_t color)
     return (mapcol);
 }
 
-/* real code starts here */
+#pragma mark Some common functions
 
 void PutPixel(glsi32 x, glsi32 y, int32_t color)
 {
@@ -330,11 +330,29 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
     glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
 
     glk_window_fill_rect(Graphics, glk_color, x * pixel_size + x_offset,
-        y * pixel_size, width * pixel_size,
-        height * pixel_size);
+        y * pixel_size, width * pixel_size, height * pixel_size);
 }
 
-struct image_patch {
+void ClearGraphMem(void)
+{
+    memset(imagebuffer, 0, IRMAK_IMGSIZE * 9);
+}
+
+void PatchAndDrawQP3Cannon(void)
+{
+    DrawSagaPictureNumber(46);
+    imagebuffer[IRMAK_IMGWIDTH * 8 + 25][8] &= 191;
+    imagebuffer[IRMAK_IMGWIDTH * 9 + 25][8] &= 191;
+    imagebuffer[IRMAK_IMGWIDTH * 9 + 26][8] &= 191;
+    imagebuffer[IRMAK_IMGWIDTH * 9 + 27][8] &= 191;
+    DrawIrmakPictureFromBuffer();
+}
+
+
+#pragma mark Image patching
+
+struct image_patch
+{
     GameIDType id;
     int picture_number;
     int offset;
@@ -370,33 +388,28 @@ static void Patch(uint8_t *offset, int patch_number)
     }
 }
 
-static void Q3Init(size_t *base, size_t *offsets, size_t *imgdata)
-{
-    *base = FindCode("\x00\x01\x01\x02\x03\x04\x05\x06\x02\x02", 0, 10);
-    *offsets = FindCode("\x00\x00\xa7\x02\xa7\x03\xb9\x08\xd7\x0b", 0, 10);
-    *imgdata = FindCode("\x20\x0c\x00\x00\x8a\x01\x44\xa0\x17\x8a", *offsets, 10);
-}
+#pragma mark Extract images from file
 
-static uint8_t *Q3Image(int imgnum, size_t base, size_t offsets, size_t imgdata)
+static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, size_t offsets, size_t imgdata)
 {
-    uint16_t offset_addr = (FileImage[base + imgnum] & 0x7f) * 2 + offsets;
-    uint16_t image_addr = imgdata + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256;
-    return &FileImage[image_addr];
-}
+    img->imagedata = NULL;
 
-static void ExtractQ3Image(Image *img, int picture_number, size_t base, size_t offsets, size_t imgdata) {
-    uint8_t *pos = Q3Image(picture_number, base, offsets, imgdata);
-    if (pos > EndOfData - 4 || pos < FileImage) {
-        fprintf(stderr, "Image %d out of range!\n", picture_number);
-        img->imagedata = NULL;
+    uint16_t offset_addr = (FileImage[base + picture_number] & 0x7f) * 2 + offsets;
+    if (offsets >= FileImageLen)
         return;
-    }
+    uint16_t image_addr = imgdata + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256;
+    if (image_addr >= FileImageLen - 4)
+        return;
+
+    uint8_t *pos = &FileImage[image_addr];
     img->width = *pos++;
     img->height = *pos++;
     img->xoff = *pos++;
     img->yoff = *pos++;
     img->imagedata = pos;
     img->datasize = EndOfGraphicsData - pos;
+
+    /* Fixes to broken original image data */
     if (picture_number == 17) {
         img->imagedata = MemAlloc(608);
         img->datasize = 608;
@@ -412,6 +425,18 @@ static void ExtractQ3Image(Image *img, int picture_number, size_t base, size_t o
         memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 403));
         int patch = FindImagePatch(QUESTPROBE3, 56, 0);
         Patch(img->imagedata, patch);
+    }
+}
+
+static void ExtractQ3Images(Image *img)
+{
+    size_t base = FindCode("\x00\x01\x01\x02\x03\x04\x05\x06\x02\x02", 0, 10);
+    size_t offsets = FindCode("\x00\x00\xa7\x02\xa7\x03\xb9\x08\xd7\x0b", 0, 10);
+    size_t imgdata = FindCode("\x20\x0c\x00\x00\x8a\x01\x44\xa0\x17\x8a", offsets, 10);
+
+    for (int picture_number = 0; picture_number < Game->number_of_pictures; picture_number++) {
+        ExtractSingleQ3Image(img, picture_number, base, offsets, imgdata);
+        img++;
     }
 }
 
@@ -438,7 +463,8 @@ static size_t FindTilesStart(void)
 
 /* The image format stores width and height in a single byte, so max width is 16. */
 /* Blizzard Pass cheats and adds 16 to the width of a hardcoded list of images. */
-static void AdjustBlizzardPassImageWidth(Image *img, int picture_number) {
+static void AdjustBlizzardPassImageWidth(Image *img, int picture_number)
+{
     switch (picture_number) {
         case 13:
         case 15:
@@ -455,76 +481,111 @@ static void AdjustBlizzardPassImageWidth(Image *img, int picture_number) {
 
 #define MAX_INSTRUCTIONS 2048
 
-static uint8_t *ExtractImage(Image *img, uint8_t *pos) {
-    uint8_t instructions[MAX_INSTRUCTIONS];
+static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
+{
     int number = 0;
-    uint8_t *copied_bytes = NULL;
-    uint8_t *stored_pointer = NULL;
+    uint8_t *pos = *outpos;
+    size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
     do {
         if (number >= MAX_INSTRUCTIONS) {
             number = MAX_INSTRUCTIONS - 1;
             break;
         }
         instructions[number++] = *pos;
-        uint8_t opcode = *pos;
-        if (Version != HEMAN_TYPE) {
-            switch (opcode) {
-                case 0xfb:
-                    number--;
-                    if (!copied_bytes || copied_bytes[0] == 0) {
-                        pos = stored_pointer;
-                        if (copied_bytes != NULL)
-                            free(copied_bytes);
-                        copied_bytes = NULL;
-                    } else {
-                        copied_bytes[0]--;
-                        pos = copied_bytes;
-                    }
+        for (int i = 0; i < Game->number_of_patterns; i++) {
+            // Look for a pattern marker at pos, and if found,
+            // insert the corresponding pattern into the instructions array.
+            if (patterns_lookup + i < FileImageLen &&
+                *pos == FileImage[patterns_lookup + i]) {
+                number--;
+                size_t baseoffset = patterns_lookup + Game->number_of_patterns + i * 2;
+                if (baseoffset >= FileImageLen - 1)
                     break;
-                case 0xef:
-                    RepeatOpcode(&number, instructions, 1);
-                    break;
-                case 0xee:
-                    RepeatOpcode(&number, instructions, 2);
-                    break;
-                case 0xeb:
-                    RepeatOpcode(&number, instructions, 3);
-                    break;
-                case 0xf3:
-                    pos++;
-                    RepeatOpcode(&number, instructions, *pos);
-                    break;
-                case 0xfa:
-                    number--;
-                    pos++;
-                    int numbytes = *pos++;
-                    stored_pointer = pos;
-                    if (copied_bytes != NULL)
-                        free(copied_bytes);
-                    copied_bytes = MemAlloc(numbytes + 1);
-                    memcpy(copied_bytes, pos, numbytes);
-                    copied_bytes[0]--;
-                    copied_bytes[numbytes] = 0xfb;
-                    pos = copied_bytes;
-                    break;
-            }
-        } else if (Game->number_of_patterns) {
-            size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
-            for (int i = 0; i < Game->number_of_patterns; i++) {
-                if (*pos == FileImage[patterns_lookup + i]) {
-                    number--;
-                    size_t baseoffset = patterns_lookup + Game->number_of_patterns + i * 2;
-                    size_t newoffset = FileImage[baseoffset] + FileImage[baseoffset + 1] * 256 - 0x4000 + FileBaselineOffset;
-                    while (FileImage[newoffset] != Game->pattern_end_marker) {
-                        instructions[number++] = FileImage[newoffset++];
-                    }
-                    break;
+                size_t newoffset = FileImage[baseoffset] + FileImage[baseoffset + 1] * 256 - 0x4000 + FileBaselineOffset;
+                while (newoffset < FileImageLen && FileImage[newoffset] != Game->pattern_end_marker) {
+                    instructions[number++] = FileImage[newoffset++];
                 }
+                break;
             }
         }
         pos++;
     } while (*pos != 0xfe);
-    
+
+    *outpos = pos;
+    return number;
+}
+
+static int DecompressEarlierType(uint8_t *instructions, uint8_t **outpos)
+{
+    uint8_t *copied_bytes = NULL;
+    uint8_t *stored_pointer = NULL;
+
+    int number = 0;
+    uint8_t *pos = *outpos;
+    do {
+        if (number >= MAX_INSTRUCTIONS) {
+            number = MAX_INSTRUCTIONS - 1;
+            break;
+        }
+        instructions[number++] = *pos;
+        switch (*pos) {
+            case 0xef:
+                RepeatOpcode(&number, instructions, 1);
+                break;
+            case 0xee:
+                RepeatOpcode(&number, instructions, 2);
+                break;
+            case 0xeb:
+                RepeatOpcode(&number, instructions, 3);
+                break;
+            case 0xf3:
+                pos++;
+                RepeatOpcode(&number, instructions, *pos);
+                break;
+            case 0xfa:
+                number--;
+                pos++;
+                int numbytes = *pos++;
+                stored_pointer = pos;
+                if (copied_bytes != NULL)
+                    free(copied_bytes);
+                copied_bytes = MemAlloc(numbytes + 1);
+                memcpy(copied_bytes, pos, numbytes);
+                copied_bytes[0]--;
+                copied_bytes[numbytes] = 0xfb;
+                pos = copied_bytes;
+                break;
+            case 0xfb:
+                number--;
+                if (!copied_bytes || copied_bytes[0] == 0) {
+                    pos = stored_pointer;
+                    if (copied_bytes != NULL)
+                        free(copied_bytes);
+                    copied_bytes = NULL;
+                } else {
+                    copied_bytes[0]--;
+                    pos = copied_bytes;
+                }
+                break;
+            default:
+                break;
+        }
+        pos++;
+    } while (*pos != 0xfe);
+
+    *outpos = pos;
+    return number;
+}
+
+static uint8_t *ExtractImage(Image *img, uint8_t *pos) {
+    uint8_t instructions[MAX_INSTRUCTIONS];
+    int number;
+    if (Version == HEMAN_TYPE) {
+        number = DecompressHemanType(instructions, &pos);
+    } else {
+        number = DecompressEarlierType(instructions, &pos);
+    }
+
     instructions[number++] = 0xfe;
     
     img->imagedata = MemAlloc(number);
@@ -587,383 +648,32 @@ void SagaSetup(void)
 
     pos = SeekToPos(FileImage, image_blocks_start_address);
 
-    size_t base = 0, offsets = 0, imgdata = 0;
 
-    if (Version == QUESTPROBE3_TYPE)
-        Q3Init(&base, &offsets, &imgdata);
-
-    for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
-        if (Version == QUESTPROBE3_TYPE) {
-            ExtractQ3Image(img, picture_number, base, offsets, imgdata);
-        } else {
+    if (Version == QUESTPROBE3_TYPE) {
+        ExtractQ3Images(images);
+    } else {
+        for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
             uint8_t widthheight = *pos++;
             img->width = ((widthheight & 0xf0) >> 4) + 1;
             img->height = (widthheight & 0x0f) + 1;
             if (CurrentGame == BLIZZARD_PASS) {
+                /* The image format stores width and height in a single byte,
+                   so max width is 16. Blizzard Pass cheats and adds 16 to
+                   the width of a hardcoded list of images. */
                 AdjustBlizzardPassImageWidth(img, picture_number);
             }
             pos = ExtractImage(img, pos);
+            img++;
         }
-        img++;
-    }
-
-    taylor_image_data = &FileImage[Game->start_of_image_instructions + FileBaselineOffset];
-}
-
-void PrintImageContents(int index, uint8_t *data, size_t size)
-{
-    debug_print("/* image %d ", index);
-    debug_print(
-        "width: %d height: %d xoff: %d yoff: %d size: %zu bytes*/\n{ ",
-        images[index].width, images[index].height, images[index].xoff,
-        images[index].yoff, size);
-    for (int i = 0; i < size; i++) {
-        debug_print("0x%02x, ", data[i]);
-        if (i % 8 == 7)
-            debug_print("\n  ");
-    }
-
-    debug_print(" },\n");
-    return;
-}
-
-#pragma mark Taylorimage
-
-static void mirror_area(int x1, int y1, int width, int y2)
-{
-    for (int line = y1; line < y2; line++) {
-        int source = line * IRMAK_IMGWIDTH + x1;
-        int target = source + width - 1;
-        for (int col = 0; col < width / 2; col++) {
-            imagebuffer[target][8] = imagebuffer[source][8];
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[target][pixrow] = imagebuffer[source][pixrow];
-            Flip(imagebuffer[target]);
-            source++;
-            target--;
-        }
+        /* Questprobe 3 has no Taylor image data,
+           (it uses the older type of graphics)
+           so we only set this for the other games. */
+        InitTaylorData(&FileImage[Game->start_of_image_instructions + FileBaselineOffset],
+                       EndOfGraphicsData - 4);
     }
 }
 
-static void mirror_top_half(void)
-{
-    for (int line = 0; line < IRMAK_IMGHEIGHT / 2; line++) {
-        for (int col = 0; col < IRMAK_IMGWIDTH; col++) {
-            imagebuffer[(11 - line) * IRMAK_IMGWIDTH + col][8] =
-            imagebuffer[line * IRMAK_IMGWIDTH + col][8];
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[(11 - line) * IRMAK_IMGWIDTH + col][7 - pixrow] =
-                imagebuffer[line * IRMAK_IMGWIDTH + col][pixrow];
-        }
-    }
-}
-
-static void flip_image_horizontally(void)
-{
-    uint8_t mirror[IRMAK_IMGSIZE][9];
-
-    for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
-        for (int col = 32; col > 0; col--) {
-            for (int pixrow = 0; pixrow < 9; pixrow++)
-                mirror[line * IRMAK_IMGWIDTH + col - 1][pixrow] = imagebuffer[line * IRMAK_IMGWIDTH + (32 - col)][pixrow];
-            Flip(mirror[line * IRMAK_IMGWIDTH + col - 1]);
-        }
-    }
-
-    memcpy(imagebuffer, mirror, IRMAK_IMGSIZE * 9);
-}
-
-static void flip_image_vertically(void)
-{
-    uint8_t mirror[IRMAK_IMGSIZE][9];
-
-    for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
-        for (int col = 0; col < IRMAK_IMGWIDTH; col++) {
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                mirror[(11 - line) * IRMAK_IMGWIDTH + col][7 - pixrow] =
-                imagebuffer[line * IRMAK_IMGWIDTH + col][pixrow];
-            mirror[(11 - line) * IRMAK_IMGWIDTH + col][8] =
-            imagebuffer[line * IRMAK_IMGWIDTH + col][8];
-        }
-    }
-    memcpy(imagebuffer, mirror, IRMAK_IMGSIZE * 9);
-}
-
-static void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2)
-{
-    //    fprintf(stderr, "flip_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
-    uint8_t mirror[IRMAK_IMGSIZE][9];
-
-    for (int line = 0; line <= y2 && line < IRMAK_IMGHEIGHT - y1; line++) {
-        for (int col = x1; col < x1 + width; col++) {
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                mirror[(y2 - line) * IRMAK_IMGWIDTH + col][7 - pixrow] = imagebuffer[(y1 + line) * IRMAK_IMGWIDTH + col][pixrow];
-            mirror[(y2 - line) *IRMAK_IMGWIDTH + col][8] = imagebuffer[(y1 + line) * IRMAK_IMGWIDTH + col][8];
-        }
-    }
-    for (int line = y1; line <= y2; line++) {
-        for (int col = x1; col < x1 + width; col++) {
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[line * IRMAK_IMGWIDTH + col][pixrow] =
-                mirror[line * IRMAK_IMGWIDTH + col][pixrow];
-            imagebuffer[line * IRMAK_IMGWIDTH + col][8] =
-            mirror[line * IRMAK_IMGWIDTH + col][8];
-        }
-    }
-}
-
-static void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2)
-{
-    for (int line = 0; line <= y2 / 2; line++) {
-        for (int col = x1; col < x1 + width; col++) {
-            imagebuffer[(y2 - line) * IRMAK_IMGWIDTH + col][8] =
-            imagebuffer[(y1 + line) * IRMAK_IMGWIDTH + col][8];
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[(y2 - line) * IRMAK_IMGWIDTH + col][7 - pixrow] =
-                imagebuffer[(y1 + line) * IRMAK_IMGWIDTH + col][pixrow];
-        }
-    }
-}
-
-static void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2)
-{
-    //    fprintf(stderr, "flip_area_horizontally x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
-    uint8_t mirror[IRMAK_IMGSIZE][9];
-
-    for (int line = y1; line < y2; line++) {
-        for (int col = 0; col < width; col++) {
-            for (int pixrow = 0; pixrow < 9; pixrow++)
-                mirror[line * IRMAK_IMGWIDTH + x1 + col][pixrow] =
-                imagebuffer[line * IRMAK_IMGWIDTH + (x1 + width - 1) - col][pixrow];
-            Flip(mirror[line * IRMAK_IMGWIDTH + x1 + col]);
-        }
-    }
-
-    for (int line = y1; line < y2; line++) {
-        for (int col = x1; col < x1 + width; col++) {
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[line * IRMAK_IMGWIDTH + col][pixrow] = mirror[line * IRMAK_IMGWIDTH + col][pixrow];
-            imagebuffer[line * IRMAK_IMGWIDTH + col][8] = mirror[line * IRMAK_IMGWIDTH + col][8];
-        }
-    }
-}
-
-static void draw_colour_old(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
-{
-    for (int i = 0; i < length; i++) {
-        imagebuffer[y * IRMAK_IMGWIDTH + x + i][8] = colour;
-    }
-}
-
-static void draw_colour(uint8_t colour, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
-{
-    for (int h = 0; h < height; h++) {
-        for (int w = 0; w < width; w++) {
-            imagebuffer[(y + h) * IRMAK_IMGWIDTH + x + w][8] = colour;
-        }
-    }
-}
-
-static void make_light(void)
-{
-    for (int i = 0; i < IRMAK_IMGSIZE; i++) {
-        imagebuffer[i][8] = imagebuffer[i][8] | BRIGHT_FLAG;
-    }
-}
-
-static void replace_colour(uint8_t before, uint8_t after)
-{
-    uint8_t beforeink = before & 7;
-    uint8_t afterink = after & 7;
-
-    uint8_t beforepaper = beforeink << 3;
-    uint8_t afterpaper = afterink << 3;
-
-    for (int j = 0; j < IRMAK_IMGSIZE; j++) {
-        if ((imagebuffer[j][8] & INK_MASK) == beforeink) {
-            imagebuffer[j][8] = (imagebuffer[j][8] & ~INK_MASK) | afterink;
-        }
-
-        if ((imagebuffer[j][8] & PAPER_MASK) == beforepaper) {
-            imagebuffer[j][8] = (imagebuffer[j][8] & ~PAPER_MASK) | afterpaper;
-        }
-    }
-}
-
-static uint8_t ink2paper(uint8_t ink)
-{
-    uint8_t paper = (ink & INK_MASK) << 3; // 0000 0111 mask ink
-    paper = paper & PAPER_MASK; // 0011 1000 mask paper
-    return (ink & BRIGHT_FLAG) | paper; // 0x40 = 0100 0000 preserve brightness bit from ink
-}
-
-static void replace(uint8_t before, uint8_t after, uint8_t mask)
-{
-    for (int j = 0; j < IRMAK_IMGSIZE; j++) {
-        uint8_t col = imagebuffer[j][8] & mask;
-        if (col == before) {
-            uint8_t newcol = imagebuffer[j][8] | mask;
-            newcol = newcol ^ mask;
-            imagebuffer[j][8] = newcol | after;
-        }
-    }
-}
-
-static void replace_paper_and_ink(uint8_t before, uint8_t after)
-{
-    uint8_t beforeink = before & (INK_MASK | BRIGHT_FLAG); // 0100 0111 ink + brightness
-    replace(beforeink, after, INK_MASK | BRIGHT_FLAG);
-    uint8_t beforepaper = ink2paper(before);
-    uint8_t afterpaper = ink2paper(after);
-    replace(beforepaper, afterpaper, PAPER_MASK | BRIGHT_FLAG); // 0111 1000 paper + brightness
-}
-
-void ClearGraphMem(void)
-{
-    memset(imagebuffer, 0, IRMAK_IMGSIZE * 9);
-}
-
-void DrawTaylor(int loc)
-{
-    uint8_t *ptr = taylor_image_data;
-    for (int i = 0; i < loc; i++) {
-        while (*(ptr) != 0xff)
-            ptr++;
-        ptr++;
-    }
-
-    while (ptr < EndOfGraphicsData) {
-        // fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, *ptr);
-        switch (*ptr) {
-        case 0xff:
-            // fprintf(stderr, "End of picture\n");
-            return;
-        case 0xfe:
-            // fprintf(stderr, "0xfe mirror_left_half\n");
-            mirror_area(0, 0, IRMAK_IMGWIDTH, IRMAK_IMGHEIGHT);
-            break;
-        case 0xfd:
-            // fprintf(stderr, "0xfd Replace colour %x with %x\n", *(ptr + 1), *(ptr + 2));
-            replace_colour(*(ptr + 1), *(ptr + 2));
-            ptr += 2;
-            break;
-        case 0xfc: // Draw colour: x, y, attribute, length 7808
-            if (Version != HEMAN_TYPE) {
-                // fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d length %d\n", *(ptr + 3), *(ptr + 1), *(ptr + 2), *(ptr + 4));
-                draw_colour_old(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
-                ptr = ptr + 4;
-            } else {
-                // fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d height %d width %d\n", *(ptr + 4), *(ptr + 2), *(ptr + 1), *(ptr + 3), *(ptr + 5));
-                draw_colour(*(ptr + 4), *(ptr + 2), *(ptr + 1), *(ptr + 5), *(ptr + 3));
-                ptr = ptr + 5;
-            }
-            break;
-        case 0xfb: // Make all screen colours bright 713e
-            // fprintf(stderr, "Make colours in picture area bright\n");
-            make_light();
-            break;
-        case 0xfa: // Flip entire image horizontally 7646
-            // fprintf(stderr, "0xfa Flip entire image horizontally\n");
-            flip_image_horizontally();
-            break;
-        case 0xf9: //0xf9 Draw picture n recursively;
-            // fprintf(stderr, "Draw Room Image %d recursively\n", *(ptr + 1));
-            DrawTaylor(*(ptr + 1));
-            ptr++;
-            break;
-        case 0xf8:
-            // fprintf(stderr, "0xf8: Skip rest of picture if object %d is not present\n", *(ptr + 1));
-            ptr++;
-            if (CurrentGame == BLIZZARD_PASS || BaseGame == REBEL_PLANET) {
-                if (ObjectLoc[*ptr] == MyLoc) {
-                    DrawSagaPictureAtPos(*(ptr + 1), *(ptr + 2), *(ptr + 3), 1);
-                }
-                ptr += 3;
-            } else {
-                if (ObjectLoc[*ptr] != MyLoc)
-                    return;
-            }
-            break;
-        case 0xf4: // End if object arg1 is present
-            // fprintf(stderr, "0xf4: Skip rest of picture if object %d IS present\n", *(ptr + 1));
-            if (ObjectLoc[*(ptr + 1)] == MyLoc)
-                return;
-            ptr++;
-            break;
-        case 0xf3:
-            // fprintf(stderr, "0xf3: goto 753d Mirror top half vertically\n");
-            mirror_top_half();
-            break;
-        case 0xf2: // arg1 arg2 arg3 arg4 Mirror horizontally
-            // fprintf(stderr, "0xf2: Mirror area x: %d y: %d width:%d y2:%d horizontally\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
-            mirror_area(*(ptr + 2), *(ptr + 1), *(ptr + 4), *(ptr + 3));
-            ptr = ptr + 4;
-            break;
-        case 0xf1: // arg1 arg2 arg3 arg4 Mirror vertically
-            // fprintf(stderr, "0xf1: Mirror area x: %d y: %d width:%d y2:%d vertically\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
-            mirror_area_vertically(*(ptr + 1), *(ptr + 2), *(ptr + 4), *(ptr + 3));
-            ptr = ptr + 4;
-            break;
-        case 0xee: // arg1 arg2 arg3 arg4  Flip area horizontally
-            // fprintf(stderr, "0xf1: Flip area x: %d y: %d width:%d y2:%d horizontally\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
-            flip_area_horizontally(*(ptr + 2), *(ptr + 1), *(ptr + 4), *(ptr + 3));
-            ptr = ptr + 4;
-            break;
-        case 0xed:
-            // fprintf(stderr, "0xed: Flip entire image vertically\n");
-            flip_image_vertically();
-            break;
-        case 0xec: // Flip area vertically
-            // fprintf(stderr, "0xf1: Flip area x: %d y: %d width:%d y2:%d vertically\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
-            flip_area_vertically(*(ptr + 1), *(ptr + 2), *(ptr + 4), *(ptr + 3));
-            ptr = ptr + 4;
-            break;
-        case 0xeb:
-        case 0xea:
-                fprintf(stderr, "Unimplemented draw instruction 0x%02x!\n", *ptr);
-                break;
-        case 0xe9:
-            // fprintf(stderr, "0xe9: (77ac) replace paper and ink %d for colour %d?\n",  *(ptr + 1), *(ptr + 2));
-            replace_paper_and_ink(*(ptr + 1), *(ptr + 2));
-            ptr = ptr + 2;
-            break;
-        case 0xe8:
-            // fprintf(stderr, "Clear graphics memory\n");
-            ClearGraphMem();
-            break;
-        case 0xf7: // set A to 0c and call draw image, but A seems to not be used. Vestigial code?
-
-          /* In the basement of the Zodiac Hotel in Rebel Planet is a locked alcove.
-             There is an image of the bottles inside, but in the original interpreter
-             it is never drawn.
-
-             The image draw instructions for room 43 (the basement) call opcode 0xf7 with the
-             bottles image index as first argument, but the original code returns without
-             drawing anything.
-
-             Below is a hack which checks if the phonic fork (object 131) is out of play
-             (i.e. in dummy room 252), which only seems to be the case if the alcove is locked.
-             If not, it falls through to the DrawSagaPictureAtPos() call, which will draw the
-             bottles.
-
-             This could potentially cause problems, if not for the fact that opcode 0xf7 is
-             not used by any other image or any other TaylorMade game.
-             (No game seems to use opcodes 0xf6 or 0xf5 either, for that matter.) */
-            if (BaseGame == REBEL_PLANET && MyLoc == 43 && ObjectLoc[131] == 252)
-                return;
-        case 0xf6: // set A to 04 and call draw image. See 0xf7 above.
-        case 0xf5: // set A to 08 and call draw image. See 0xf7 above.
-            // fprintf(stderr, "0x%02x: set A to unused value and draw image block %d at %d, %d\n",  *ptr, *(ptr + 1), *(ptr + 2), *(ptr + 3));
-            ptr++; // Deliberate fallthrough
-        default: // else draw image *ptr at x, y
-            // fprintf(stderr, "Default: Draw image block %d at %d,%d\n", *ptr, *(ptr + 1), *(ptr + 2));
-            DrawSagaPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2), 1);
-            ptr = ptr + 2;
-            break;
-        }
-        ptr++;
-    }
-}
+#pragma mark Irmak picture accessor functions
 
 void DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                              int xoff, int yoff, size_t datasize, int draw_to_buffer) {
@@ -1009,11 +719,21 @@ void DrawSagaPictureAtPos(int picture_number, int x, int y, int draw_to_buffer)
     DrawSagaPictureFromData(img.imagedata, img.width, img.height, x, y, img.datasize, draw_to_buffer);
 }
 
-void PatchAndDrawQP3Cannon(void) {
-    DrawSagaPictureNumber(46);
-    imagebuffer[IRMAK_IMGWIDTH * 8 + 25][8] &= 191;
-    imagebuffer[IRMAK_IMGWIDTH * 9 + 25][8] &= 191;
-    imagebuffer[IRMAK_IMGWIDTH * 9 + 26][8] &= 191;
-    imagebuffer[IRMAK_IMGWIDTH * 9 + 27][8] &= 191;
-    DrawIrmakPictureFromBuffer();
+#pragma mark Debug
+
+void PrintImageContents(int index, uint8_t *data, size_t size)
+{
+    debug_print("/* image %d ", index);
+    debug_print(
+                "width: %d height: %d xoff: %d yoff: %d size: %zu bytes*/\n{ ",
+                images[index].width, images[index].height, images[index].xoff,
+                images[index].yoff, size);
+    for (int i = 0; i < size; i++) {
+        debug_print("0x%02x, ", data[i]);
+        if (i % 8 == 7)
+            debug_print("\n  ");
+    }
+
+    debug_print(" },\n");
+    return;
 }
