@@ -1299,6 +1299,8 @@ int LoadDatabaseBinary(void)
             argcond = argcond & 0x7fff;
             uint16_t argument = argcond >> 5;
             uint16_t condition = argcond & 0x1f;
+            if (condargs >= 1024)
+                Fatal("Broken database!");
             conditions[condargs++] = condition;
             conditions[condargs++] = argument;
             if (condition != 0)
