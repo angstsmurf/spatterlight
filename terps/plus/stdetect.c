@@ -214,7 +214,7 @@ uint32_t get_next_cluster12(uint8_t *sf, uint32_t cluster)
     if (cluster & 1) {
         memcpy(&fat_entry[0], &sf[fat_offset + ((cluster / 2) * 3) + 1], 1);
         memcpy(&fat_entry[1], &sf[fat_offset + ((cluster / 2) * 3) + 2], 1);
-        memcpy(&new_clust, &fat_entry[0], 2);
+        new_clust = (fat_entry[1] << 8) | fat_entry[0];
         new_clust = new_clust >> 4;
     }
     // If it's even we're getting the first half.
@@ -222,7 +222,7 @@ uint32_t get_next_cluster12(uint8_t *sf, uint32_t cluster)
         memcpy(&fat_entry[0], &sf[fat_offset + ((cluster / 2) * 3)], 1);
         memcpy(&fat_entry[1], &sf[fat_offset + ((cluster / 2) * 3) + 1], 1);
         fat_entry[1] = fat_entry[1] & 0x0f;
-        memcpy(&new_clust, &fat_entry[0], 2);
+        new_clust = (fat_entry[1] << 8) | fat_entry[0];
     }
     // for FAT12, the valid entries are between 0x2 and0xfef.
     if ((new_clust > 2) && (new_clust < 4079)) {
