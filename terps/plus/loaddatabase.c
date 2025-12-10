@@ -715,11 +715,11 @@ static void ReadAction(FILE *f, Action *ap)
     ap->CommandLength = length & 0xf;
     ap->Verb = ReadNum(f);
     if (ap->Verb & 128) {
-        Fatal("2-byte verbs unimplemented\n");
+        Fatal("2-byte verbs unimplemented");
     }
     ap->NounOrChance = ReadNum(f);
     if (ap->NounOrChance & 128) {
-        Fatal("2-byte nouns unimplemented\n");
+        Fatal("2-byte nouns unimplemented");
     }
     ap->Words = MemAlloc(ap->NumWords);
 

@@ -234,7 +234,7 @@ static void FreeStrings(void)
     }
     if (WordsInInput == 0) {
         if (UnicodeWords != NULL || CharWords != NULL) {
-            Fatal("ERROR! Wordcount 0 but word arrays not empty!\n");
+            Fatal("ERROR! Wordcount 0 but word arrays not empty!");
         }
         return;
     }
