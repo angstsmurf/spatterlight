@@ -17,7 +17,7 @@
 // buffer array first, before drawing the image. This will require a
 // second copy of the image buffer.
 
-#include "sagadraw.h"
+#include "graphics.h"
 #include "taylordraw.h"
 #include "irmak.h"
 #include "utility.h"
@@ -154,7 +154,7 @@ static void AnimateQueenComputer(void)
     }
     if (AnimationStage == 0) {
         /* Image block 18: Arcadian head */
-        DrawSagaPictureAtPos(18, 18, 1, 0);
+        DrawPictureAtPos(18, 18, 1, 0);
     }
 
     if (AnimationStage == 7) {
@@ -356,17 +356,17 @@ void UpdateRebelAnimations(void)
             DrawTaylor(MyLoc);
         }
         if (AnimationStage) {
-            DrawSagaPictureAtPos(62 + AnimationStage, 14, 10 - AnimationStage - (AnimationStage > 2), 1);
+            DrawPictureAtPos(62 + AnimationStage, 14, 10 - AnimationStage - (AnimationStage > 2), 1);
         }
         DrawIrmakPictureFromBuffer();
     } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
-        DrawSagaPictureAtPos(138 + AnimationStage, 13, 2, 0);
+        DrawPictureAtPos(138 + AnimationStage, 13, 2, 0);
         AnimationStage = (AnimationStage == 0);
     } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
         if (!AnimationStage)
-            DrawSagaPictureAtPos(133, 14, 4, 0);
+            DrawPictureAtPos(133, 14, 4, 0);
         else
-            DrawSagaPictureAtPos(142, 17, 6, 0);
+            DrawPictureAtPos(142, 17, 6, 0);
         AnimationStage = (AnimationStage == 0);
     } else {
         glk_request_timer_events(0);

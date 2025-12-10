@@ -26,7 +26,7 @@
 #include "glkstart.h"
 #include "parseinput.h"
 #include "restorestate.h"
-#include "sagadraw.h"
+#include "graphics.h"
 #include "utility.h"
 
 #include "taylor.h"
@@ -1922,11 +1922,11 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             }
             if (arg1 == 0) {
                 ClearGraphMem();
-                DrawSagaPictureNumber(MyLoc - 1);
+                DrawPictureNumber(MyLoc - 1);
             } else if (arg1 == 45 && ObjectLoc[48] != MyLoc) {
                 break;
             } else {
-                DrawSagaPictureNumber(arg1 - 1);
+                DrawPictureNumber(arg1 - 1);
             }
             DrawIrmakPictureFromBuffer();
             break;
@@ -1970,7 +1970,7 @@ static void QP3DrawExtraImages(void)
         PatchAndDrawQP3Cannon();
     } else if (MyLoc == 2 && ObjectLoc[17] == 2 && Flag[26] > 16 && Flag[26] < 20) {
         /* Draw close-up of Thing */
-        DrawSagaPictureNumber(53);
+        DrawPictureNumber(53);
         DrawIrmakPictureFromBuffer();
     }
 }
@@ -2508,11 +2508,11 @@ static void LookForSecondTOTGame(void)
         while (Game->gameID != TOT_HYBRID) {
             Game = &games[index++];
         }
-        SagaSetup();
+        InitGraphics();
         UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
     } else {
         UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
-        SagaSetup();
+        InitGraphics();
         while (Game->gameID != TOT_HYBRID) {
             Game = &games[index++];
         }
@@ -2571,7 +2571,7 @@ void glk_main(void)
 
     GoVerb = ParseWord("GO");
 
-    SagaSetup();
+    InitGraphics();
 
     if (CurrentGame == QUESTPROBE3 || CurrentGame == REBEL_PLANET)
         DelimiterChar = '=';

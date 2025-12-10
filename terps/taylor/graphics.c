@@ -1,8 +1,8 @@
 //
-//  sagadraw.c
+//  graphics.c
 //  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Based on code  by David Lodge
+//  Palette code based on code by David Lodge
 //  with help from Paul David Doherty (including the colour code)
 //
 //  Original code at https://github.com/tautology0/textadventuregraphics
@@ -20,7 +20,7 @@
 #include "utility.h"
 #include "irmak.h"
 
-#include "sagadraw.h"
+#include "graphics.h"
 
 static Image *images = NULL;
 
@@ -340,7 +340,7 @@ void ClearGraphMem(void)
 
 void PatchAndDrawQP3Cannon(void)
 {
-    DrawSagaPictureNumber(46);
+    DrawPictureNumber(46);
     imagebuffer[IRMAK_IMGWIDTH * 8 + 25][8] &= 191;
     imagebuffer[IRMAK_IMGWIDTH * 9 + 25][8] &= 191;
     imagebuffer[IRMAK_IMGWIDTH * 9 + 26][8] &= 191;
@@ -349,7 +349,7 @@ void PatchAndDrawQP3Cannon(void)
 }
 
 
-#pragma mark Image patching
+#pragma mark Patching
 
 struct image_patch
 {
@@ -440,13 +440,13 @@ static void ExtractQ3Images(Image *img)
     }
 }
 
-static void RepeatOpcode(int *number, uint8_t *instructions, uint8_t repeatcount)
+static void RepeatOpcode(uint8_t *instructions, uint8_t repeatcount, int *index)
 {
-    int i = *number - 1;
+    int i = *index - 1;
     instructions[i++] = 0x82;
     instructions[i++] = repeatcount;
     instructions[i++] = 0;
-    *number = i;
+    *index = i;
 }
 
 static size_t FindTilesStart(void)
@@ -481,29 +481,32 @@ static void AdjustBlizzardPassImageWidth(Image *img, int picture_number)
 
 #define MAX_INSTRUCTIONS 2048
 
+/* A number of repeating patterns in the image drawing code (may) have been
+   replaced with single tokens. Here we replace any tokens with their
+   corresponding patterns. */
 static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
 {
-    int number = 0;
+    int index = 0;
     uint8_t *pos = *outpos;
     size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
     do {
-        if (number >= MAX_INSTRUCTIONS) {
-            number = MAX_INSTRUCTIONS - 1;
+        if (index >= MAX_INSTRUCTIONS) {
+            index = MAX_INSTRUCTIONS - 1;
             break;
         }
-        instructions[number++] = *pos;
+        instructions[index++] = *pos;
         for (int i = 0; i < Game->number_of_patterns; i++) {
-            // Look for a pattern marker at pos, and if found,
-            // insert the corresponding pattern into the instructions array.
+            /* Look for a pattern marker at pos, and if found,
+               insert the corresponding pattern into the instructions array. */
             if (patterns_lookup + i < FileImageLen &&
                 *pos == FileImage[patterns_lookup + i]) {
-                number--;
+                index--;
                 size_t baseoffset = patterns_lookup + Game->number_of_patterns + i * 2;
                 if (baseoffset >= FileImageLen - 1)
                     break;
                 size_t newoffset = FileImage[baseoffset] + FileImage[baseoffset + 1] * 256 - 0x4000 + FileBaselineOffset;
                 while (newoffset < FileImageLen && FileImage[newoffset] != Game->pattern_end_marker) {
-                    instructions[number++] = FileImage[newoffset++];
+                    instructions[index++] = FileImage[newoffset++];
                 }
                 break;
             }
@@ -512,60 +515,66 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
     } while (*pos != 0xfe);
 
     *outpos = pos;
-    return number;
+    return index;
 }
 
-static int DecompressEarlierType(uint8_t *instructions, uint8_t **outpos)
-{
-    uint8_t *copied_bytes = NULL;
-    uint8_t *stored_pointer = NULL;
 
-    int number = 0;
+/* A number of common "repeat next byte n times" instruction patterns
+   beginning with 0x82 have been replace with single tokens. Token 0xfa
+   means "copy the next n bytes m times, which is complicated by the fact
+   that those n bytes may themselves contain repeat tokens, so we call
+   this function again recursively with the bytes to copy.
+
+   See http://aimemorial.if-legends.org/gfxbdp.html and also irmak.c to get
+   more information about how repetitions in the tile-based graphics are
+   encoded.
+ */
+
+static int DecompressEarlierType(uint8_t *instructions, uint8_t **outpos, int recursion_guard)
+{
+    int index = 0;
     uint8_t *pos = *outpos;
     do {
-        if (number >= MAX_INSTRUCTIONS) {
-            number = MAX_INSTRUCTIONS - 1;
+        if (index >= MAX_INSTRUCTIONS) {
+            index = MAX_INSTRUCTIONS - 1;
             break;
         }
-        instructions[number++] = *pos;
+        fprintf(stderr, "writing 0x%x at index %d\n", *pos, index);
+        instructions[index++] = *pos;
         switch (*pos) {
             case 0xef:
-                RepeatOpcode(&number, instructions, 1);
+                RepeatOpcode(instructions, 1, &index);
                 break;
             case 0xee:
-                RepeatOpcode(&number, instructions, 2);
+                RepeatOpcode(instructions, 2, &index);
                 break;
             case 0xeb:
-                RepeatOpcode(&number, instructions, 3);
+                RepeatOpcode(instructions, 3, &index);
                 break;
             case 0xf3:
                 pos++;
-                RepeatOpcode(&number, instructions, *pos);
+                RepeatOpcode(instructions, *pos, &index);
                 break;
             case 0xfa:
-                number--;
+                if (recursion_guard)
+                    break;
+                index--;
                 pos++;
-                int numbytes = *pos++;
-                stored_pointer = pos;
-                if (copied_bytes != NULL)
-                    free(copied_bytes);
-                copied_bytes = MemAlloc(numbytes + 1);
-                memcpy(copied_bytes, pos, numbytes);
-                copied_bytes[0]--;
-                copied_bytes[numbytes] = 0xfb;
-                pos = copied_bytes;
-                break;
-            case 0xfb:
-                number--;
-                if (!copied_bytes || copied_bytes[0] == 0) {
-                    pos = stored_pointer;
-                    if (copied_bytes != NULL)
-                        free(copied_bytes);
-                    copied_bytes = NULL;
-                } else {
-                    copied_bytes[0]--;
-                    pos = copied_bytes;
+                int numbytes = *pos - 1;
+                pos++;
+                int copies = *pos;
+                uint8_t *copied_bytes = MemAlloc(numbytes + 1);
+                memcpy(copied_bytes, pos + 1, numbytes);
+                uint8_t *stored_pointer = copied_bytes;
+                copied_bytes[numbytes] = 0xfe;
+                for (int i = 0; i < copies; i++) {
+                    index += DecompressEarlierType(&instructions[index], &copied_bytes, 1);
+                    if (index >= MAX_INSTRUCTIONS) {
+                        break;
+                    }
+                    copied_bytes = stored_pointer;
                 }
+                free(copied_bytes);
                 break;
             default:
                 break;
@@ -574,27 +583,26 @@ static int DecompressEarlierType(uint8_t *instructions, uint8_t **outpos)
     } while (*pos != 0xfe);
 
     *outpos = pos;
-    return number;
+    return index;
 }
 
 static uint8_t *ExtractImage(Image *img, uint8_t *pos) {
     uint8_t instructions[MAX_INSTRUCTIONS];
-    int number;
+    int instructions_length;
     if (Version == HEMAN_TYPE) {
-        number = DecompressHemanType(instructions, &pos);
+        instructions_length = DecompressHemanType(instructions, &pos);
     } else {
-        number = DecompressEarlierType(instructions, &pos);
+        instructions_length = DecompressEarlierType(instructions, &pos, 0);
     }
-
-    instructions[number++] = 0xfe;
+    instructions[instructions_length++] = 0xfe;
     
-    img->imagedata = MemAlloc(number);
-    img->datasize = number;
-    memcpy(img->imagedata, instructions, number);
+    img->imagedata = MemAlloc(instructions_length);
+    img->datasize = instructions_length;
+    memcpy(img->imagedata, instructions, instructions_length);
     return pos + 1;
 }
 
-void SagaSetup(void)
+void InitGraphics(void)
 {
     if (images != NULL)
         return;
@@ -611,7 +619,7 @@ void SagaSetup(void)
     }
 
     if (palchosen == NO_PALETTE) {
-        fprintf(stderr, "SagaSetup: invalid palette. Entering text-only mode.\n");
+        fprintf(stderr, "InitGraphics: invalid palette. Entering text-only mode.\n");
         Game->number_of_pictures = 0;
         NoGraphics = 1;
         return;
@@ -669,7 +677,7 @@ void SagaSetup(void)
            (it uses the older type of graphics)
            so we only set this for the other games. */
         InitTaylorData(&FileImage[Game->start_of_image_instructions + FileBaselineOffset],
-                       EndOfGraphicsData - 4);
+                       EndOfGraphicsData - 5);
     }
 }
 
@@ -690,12 +698,12 @@ void DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     DrawIrmakPictureFromContext(ctx);
 }
 
-void DrawSagaPictureNumber(int picture_number)
+void DrawPictureNumber(int picture_number)
 {
-    DrawSagaPictureAtPos(picture_number, -1, -1, 1);
+    DrawPictureAtPos(picture_number, -1, -1, 1);
 }
 
-void DrawSagaPictureAtPos(int picture_number, int x, int y, int draw_to_buffer)
+void DrawPictureAtPos(int picture_number, int x, int y, int draw_to_buffer)
 {
     if (NoGraphics || Game->number_of_pictures == 0)
         return;

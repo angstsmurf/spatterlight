@@ -728,7 +728,7 @@
 		C3B377A11ECBA3E8006432BE /* vmtzobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */; };
 		C3B377A71ECBA4D5006432BE /* vmconnom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A61ECBA4D5006432BE /* vmconnom.cpp */; };
 		C3B4443F2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */; };
-		C3B6100827DA0C080012FB97 /* sagadraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B6100427DA07E90012FB97 /* sagadraw.c */; };
+		C3B6100827DA0C080012FB97 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B6100427DA07E90012FB97 /* graphics.c */; };
 		C3B6100B27DA10DF0012FB97 /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B6100A27DA10DF0012FB97 /* utility.c */; };
 		C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B7280F2667934100E9B08D /* NSImage+Categories.m */; };
 		C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */; };
@@ -3069,8 +3069,8 @@
 		C3B377A61ECBA4D5006432BE /* vmconnom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmconnom.cpp; sourceTree = "<group>"; };
 		C3B4443C2728CC5D006B29BD /* NSManagedObjectContext+safeSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+safeSave.h"; sourceTree = "<group>"; };
 		C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+safeSave.m"; sourceTree = "<group>"; };
-		C3B6100427DA07E90012FB97 /* sagadraw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sagadraw.c; sourceTree = "<group>"; };
-		C3B6100627DA07E90012FB97 /* sagadraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sagadraw.h; sourceTree = "<group>"; };
+		C3B6100427DA07E90012FB97 /* graphics.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = graphics.c; sourceTree = "<group>"; };
+		C3B6100627DA07E90012FB97 /* graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
 		C3B6100927DA10DF0012FB97 /* utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
 		C3B6100A27DA10DF0012FB97 /* utility.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = utility.c; sourceTree = "<group>"; };
 		C3B7280E2667934100E9B08D /* NSImage+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+Categories.h"; sourceTree = "<group>"; };
@@ -5864,8 +5864,8 @@
 				C3BD2E882874888E0019F676 /* c64decrunch.c */,
 				C349B4DB28803A7C00D99943 /* parseinput.h */,
 				C349B4DA28803A7C00D99943 /* parseinput.c */,
-				C3B6100627DA07E90012FB97 /* sagadraw.h */,
-				C3B6100427DA07E90012FB97 /* sagadraw.c */,
+				C3B6100627DA07E90012FB97 /* graphics.h */,
+				C3B6100427DA07E90012FB97 /* graphics.c */,
 				C30AC87E2EE931D100E1EE85 /* taylordraw.h */,
 				C30AC87C2EE9318800E1EE85 /* taylordraw.c */,
 				C372018B27E47E4D00F6BE55 /* layouttext.h */,
@@ -7960,7 +7960,7 @@
 			files = (
 				C30AC87F2EE9333D00E1EE85 /* taylordraw.c in Sources */,
 				C359A2D62EE656B30079F9EA /* irmak.c in Sources */,
-				C3B6100827DA0C080012FB97 /* sagadraw.c in Sources */,
+				C3B6100827DA0C080012FB97 /* graphics.c in Sources */,
 				C3D571B727D8F652008FB786 /* player.c in Sources */,
 				C3B148B227FD881400844708 /* animations.c in Sources */,
 				C3FFF80227E52E19000C481A /* restorestate.c in Sources */,

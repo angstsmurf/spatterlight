@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "sagadraw.h"
+#include "graphics.h"
 #include "taylor.h"
 
 #include "irmak.h"
@@ -263,7 +263,7 @@ void DrawTaylor(int loc)
             if (Version != HEMAN_TYPE) {
                 // Blizzard Pass and Rebel Planet: If object arg1 is present, draw image arg2 at arg3, arg4
                 if (ObjectLoc[*(ptr + 1)] == MyLoc) {
-                    DrawSagaPictureAtPos(*(ptr + 2), *(ptr + 3), *(ptr + 4), 1);
+                    DrawPictureAtPos(*(ptr + 2), *(ptr + 3), *(ptr + 4), 1);
                 }
                 ptr += 4;
                 break;
@@ -348,7 +348,7 @@ void DrawTaylor(int loc)
             ptr++; // Deliberate fallthrough
         default: // else draw image *ptr at x, y
             // fprintf(stderr, "Default: Draw image block %d at %d,%d\n", *ptr, *(ptr + 1), *(ptr + 2));
-            DrawSagaPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2), 1);
+            DrawPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2), 1);
             ptr = ptr + 2;
             break;
         }
