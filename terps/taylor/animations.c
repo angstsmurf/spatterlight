@@ -294,7 +294,7 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
         struct KaylethAnimationFrame *frame = &anim->frames[anim->current_frame];
 
         if (frame->counter >= frame->counter_to_draw_at) {
-            DrawTaylor(frame->image);
+            DrawTaylor(frame->image, MyLoc);
             DrawIrmakPictureFromBuffer();
             anim->current_frame++;
             frame->counter = 0;
@@ -353,7 +353,7 @@ void UpdateRebelAnimations(void)
             } else if (AnimationStage == 4) {
                 glk_request_timer_events(50);
             }
-            DrawTaylor(MyLoc);
+            DrawTaylor(MyLoc, MyLoc);
         }
         if (AnimationStage) {
             DrawPictureAtPos(62 + AnimationStage, 14, 10 - AnimationStage - (AnimationStage > 2), 1);

@@ -15,6 +15,7 @@
 #include <string.h>
 
 #include "glk.h"
+#include "palette.h"
 #include "taylor.h"
 #include "taylordraw.h"
 #include "utility.h"
@@ -22,295 +23,12 @@
 
 #include "graphics.h"
 
-static Image *images = NULL;
-
 glui32 pixel_size;
 glui32 x_offset;
 
+int last_image_index;
+
 static uint8_t *EndOfGraphicsData;
-
-/* palette handler stuff starts here */
-
-typedef uint8_t RGB[3];
-typedef RGB PALETTE[16];
-PALETTE pal;
-
-palette_type palchosen = NO_PALETTE;
-
-#define INVALIDCOLOR 16
-
-//#define DRAWDEBUG
-
-static void SetColor(int32_t index, RGB *colour)
-{
-    pal[index][0] = (*colour)[0];
-    pal[index][1] = (*colour)[1];
-    pal[index][2] = (*colour)[2];
-}
-
-void DefinePalette(void)
-{
-    /* set up the palette */
-    if (palchosen == VGA) {
-        RGB black = { 0, 0, 0 };
-        RGB blue = { 0, 0, 255 };
-        RGB red = { 255, 0, 0 };
-        RGB magenta = { 255, 0, 255 };
-        RGB green = { 0, 255, 0 };
-        RGB cyan = { 0, 255, 255 };
-        RGB yellow = { 255, 255, 0 };
-        RGB white = { 255, 255, 255 };
-        RGB brblack = { 0, 0, 0 };
-        RGB brblue = { 0, 0, 255 };
-        RGB brred = { 255, 0, 0 };
-        RGB brmagenta = { 255, 0, 255 };
-        RGB brgreen = { 0, 255, 0 };
-        RGB brcyan = { 0, 255, 255 };
-        RGB bryellow = { 255, 255, 0 };
-        RGB brwhite = { 255, 255, 255 };
-
-        SetColor(0, &black);
-        SetColor(1, &blue);
-        SetColor(2, &red);
-        SetColor(3, &magenta);
-        SetColor(4, &green);
-        SetColor(5, &cyan);
-        SetColor(6, &yellow);
-        SetColor(7, &white);
-        SetColor(8, &brblack);
-        SetColor(9, &brblue);
-        SetColor(10, &brred);
-        SetColor(11, &brmagenta);
-        SetColor(12, &brgreen);
-        SetColor(13, &brcyan);
-        SetColor(14, &bryellow);
-        SetColor(15, &brwhite);
-    } else if (palchosen == ZX) {
-        /* corrected Sinclair ZX palette (pretty dull though) */
-        RGB black = { 0, 0, 0 };
-        RGB blue = { 0, 0, 154 };
-        RGB red = { 154, 0, 0 };
-        RGB magenta = { 154, 0, 154 };
-        RGB green = { 0, 154, 0 };
-        RGB cyan = { 0, 154, 154 };
-        RGB yellow = { 154, 154, 0 };
-        RGB white = { 154, 154, 154 };
-        RGB brblack = { 0, 0, 0 };
-        RGB brblue = { 0, 0, 170 };
-        RGB brred = { 186, 0, 0 };
-        RGB brmagenta = { 206, 0, 206 };
-        RGB brgreen = { 0, 206, 0 };
-        RGB brcyan = { 0, 223, 223 };
-        RGB bryellow = { 239, 239, 0 };
-        RGB brwhite = { 255, 255, 255 };
-
-        SetColor(0, &black);
-        SetColor(1, &blue);
-        SetColor(2, &red);
-        SetColor(3, &magenta);
-        SetColor(4, &green);
-        SetColor(5, &cyan);
-        SetColor(6, &yellow);
-        SetColor(7, &white);
-        SetColor(8, &brblack);
-        SetColor(9, &brblue);
-        SetColor(10, &brred);
-        SetColor(11, &brmagenta);
-        SetColor(12, &brgreen);
-        SetColor(13, &brcyan);
-        SetColor(14, &bryellow);
-        SetColor(15, &brwhite);
-    } else if (palchosen == ZXOPT) {
-        /* optimized but not realistic Sinclair ZX palette (SPIN emu) */
-        RGB black = { 0, 0, 0 };
-        RGB blue = { 0, 0, 202 };
-        RGB red = {
-            202,
-            0,
-            0,
-        };
-        RGB magenta = { 202, 0, 202 };
-        RGB green = { 0, 202, 0 };
-        RGB cyan = { 0, 202, 202 };
-        RGB yellow = { 202, 202, 0 };
-        RGB white = { 202, 202, 202 };
-        /*
-         old David Lodge palette:
-
-         RGB black = { 0, 0, 0 };
-         RGB blue = { 0, 0, 214 };
-         RGB red = { 214, 0, 0 };
-         RGB magenta = { 214, 0, 214 };
-         RGB green = { 0, 214, 0 };
-         RGB cyan = { 0, 214, 214 };
-         RGB yellow = { 214, 214, 0 };
-         RGB white = { 214, 214, 214 };
-         */
-        RGB brblack = { 0, 0, 0 };
-        RGB brblue = { 0, 0, 255 };
-        RGB brred = { 255, 0, 20 };
-        RGB brmagenta = { 255, 0, 255 };
-        RGB brgreen = { 0, 255, 0 };
-        RGB brcyan = { 0, 255, 255 };
-        RGB bryellow = { 255, 255, 0 };
-        RGB brwhite = { 255, 255, 255 };
-
-        SetColor(0, &black);
-        SetColor(1, &blue);
-        SetColor(2, &red);
-        SetColor(3, &magenta);
-        SetColor(4, &green);
-        SetColor(5, &cyan);
-        SetColor(6, &yellow);
-        SetColor(7, &white);
-        SetColor(8, &brblack);
-        SetColor(9, &brblue);
-        SetColor(10, &brred);
-        SetColor(11, &brmagenta);
-        SetColor(12, &brgreen);
-        SetColor(13, &brcyan);
-        SetColor(14, &bryellow);
-        SetColor(15, &brwhite);
-    } else if ((palchosen == C64A) || (palchosen == C64B)) {
-        /* and now: C64 palette (pepto/VICE) */
-        RGB black = { 0, 0, 0 };
-        RGB white = { 255, 255, 255 };
-        RGB red = { 191, 97, 72 };
-        RGB cyan = { 153, 230, 249 };
-        RGB purple = { 177, 89, 185 };
-        RGB green = { 121, 213, 112 };
-        RGB blue = { 95, 72, 233 };
-        RGB yellow = { 247, 255, 108 };
-        RGB orange = { 186, 134, 32 };
-        RGB brown = { 116, 105, 0 };
-        RGB lred = { 231, 154, 132 };
-        RGB dgrey = { 69, 69, 69 };
-        RGB grey = { 167, 167, 167 };
-        RGB lgreen = { 192, 255, 185 };
-        RGB lblue = { 162, 143, 255 };
-        RGB lgrey = { 200, 200, 200 };
-
-        SetColor(0, &black);
-        SetColor(1, &white);
-        SetColor(2, &red);
-        SetColor(3, &cyan);
-        SetColor(4, &purple);
-        SetColor(5, &green);
-        SetColor(6, &blue);
-        SetColor(7, &yellow);
-        SetColor(8, &orange);
-        SetColor(9, &brown);
-        SetColor(10, &lred);
-        SetColor(11, &dgrey);
-        SetColor(12, &grey);
-        SetColor(13, &lgreen);
-        SetColor(14, &lblue);
-        SetColor(15, &lgrey);
-    }
-}
-
-const char *colortext(int32_t col)
-{
-    const char *zxcolorname[] = {
-        "black",
-        "blue",
-        "red",
-        "magenta",
-        "green",
-        "cyan",
-        "yellow",
-        "white",
-        "bright black",
-        "bright blue",
-        "bright red",
-        "bright magenta",
-        "bright green",
-        "bright cyan",
-        "bright yellow",
-        "bright white",
-        "INVALID",
-    };
-
-    const char *c64colorname[] = {
-        "black",
-        "white",
-        "red",
-        "cyan",
-        "purple",
-        "green",
-        "blue",
-        "yellow",
-        "orange",
-        "brown",
-        "light red",
-        "dark grey",
-        "grey",
-        "light green",
-        "light blue",
-        "light grey",
-        "INVALID",
-    };
-
-    if (palchosen >= C64A)
-        return (c64colorname[col]);
-    else
-        return (zxcolorname[col]);
-}
-
-int32_t Remap(int32_t color)
-{
-    int32_t mapcol;
-
-    if ((palchosen == ZX) || (palchosen == ZXOPT)) {
-        /* nothing to remap here; shows that the gfx were created on a ZX */
-        mapcol = (((color >= 0) && (color <= 15)) ? color : INVALIDCOLOR);
-    } else if (palchosen == C64A) {
-        /* remap A determined from Golden Baton, applies to S1/S3/S13 too (8col) */
-        int32_t c64remap[] = {
-            0, // black
-            6, // blue
-            2, // red
-            4, // magenta
-            5, // green
-            3, // cyan
-            7, // yellow
-            1, // white
-            0, // bright black
-            6, // bright blue
-            2, // bright red
-            4, // bright magenta
-            5, // bright green
-            3, // bright cyan
-            7, // bright yellow
-            1, // bright white
-        };
-        mapcol = (((color >= 0) && (color <= 15)) ? c64remap[color] : INVALIDCOLOR);
-    } else if (palchosen == C64B) {
-        /* remap B determined from Spiderman (16col) */
-        int32_t c64remap[] = {
-            0,
-            6,
-            9,
-            4,
-            5,
-            12,
-            8,
-            15,
-            0,
-            14,
-            2,
-            10,
-            13,
-            3,
-            7,
-            1,
-        };
-        mapcol = (((color >= 0) && (color <= 15)) ? c64remap[color] : INVALIDCOLOR);
-    } else
-        mapcol = (((color >= 0) && (color <= 15)) ? color : INVALIDCOLOR);
-
-    return (mapcol);
-}
 
 #pragma mark Some common functions
 
@@ -333,14 +51,9 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
         y * pixel_size, width * pixel_size, height * pixel_size);
 }
 
-void ClearGraphMem(void)
-{
-    memset(imagebuffer, 0, IRMAK_IMGSIZE * 9);
-}
-
 void PatchAndDrawQP3Cannon(void)
 {
-    DrawPictureNumber(46);
+    DrawPictureNumber(46, 1);
     imagebuffer[IRMAK_IMGWIDTH * 8 + 25][8] &= 191;
     imagebuffer[IRMAK_IMGWIDTH * 9 + 25][8] &= 191;
     imagebuffer[IRMAK_IMGWIDTH * 9 + 26][8] &= 191;
@@ -364,8 +77,8 @@ static const struct image_patch image_patches[] = {
     { UNKNOWN_GAME, 0, 0, 0, "" },
     { QUESTPROBE3, 55, 604, 3, "\xff\xff\x82" },
     { QUESTPROBE3, 56, 357, 46, "\x79\x81\x78\x79\x7b\x83\x47\x79\x82\x78\x79\x7b\x83\x47\x79\x83"
-                                "\x78\x79\x7b\x81\x79\x47\x79\x84\x7b\x83\x47\x79\x84\x58\x83\x47\x7a\x84\x5f\x18\x81\x5f"
-                                "\x47\x50\x84\x5f\x18\x81\x5f\x47" },
+        "\x78\x79\x7b\x81\x79\x47\x79\x84\x7b\x83\x47\x79\x84\x58\x83\x47"
+        "\x7a\x84\x5f\x18\x81\x5f\x47\x50\x84\x5f\x18\x81\x5f\x47" },
     { NUMGAMES, 0, 0, 0, "" },
 };
 
@@ -408,8 +121,12 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
     img->yoff = *pos++;
     img->imagedata = pos;
     img->datasize = EndOfGraphicsData - pos;
-
-    /* Fixes to broken original image data */
+    
+    /* In some Spectrum versions, the "wind tunnel" image
+       is damaged. As the game contains several (wasteful)
+       copies of this image and different ones are broken in
+       different ways, we just make use the data for number 17
+       for all of them (after patching it.)*/
     if (picture_number == 17) {
         img->imagedata = MemAlloc(608);
         img->datasize = 608;
@@ -420,6 +137,9 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
         img->imagedata = images[17].imagedata;
         img->datasize = images[17].datasize;
     } else if (picture_number == 56) {
+        /* The last image, 56, the egg and the bio gem,
+           is broken in many versions, especially the colours.
+           We fix it here. */
         img->imagedata = MemAlloc(403);
         img->datasize = 403;
         memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 403));
@@ -642,7 +362,7 @@ void InitGraphics(void)
 #endif
     for (int i = 0; i < 246; i++) {
         for (int y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
-            tiles[i][y] = *(pos++);
+            tiles[i][y] = *pos++;
         }
     }
 
@@ -675,72 +395,9 @@ void InitGraphics(void)
         /* Questprobe 3 has no Taylor image data,
            (it uses the older type of graphics)
            so we only set this for the other games. */
-        InitTaylorData(&FileImage[Game->start_of_image_instructions + FileBaselineOffset],
-                       EndOfGraphicsData - 5);
-    }
-}
-
-#pragma mark Irmak picture accessor functions
-
-void DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
-                             int xoff, int yoff, size_t datasize, int draw_to_buffer) {
-    IrmakImgContext ctx;
-    ctx.dataptr = dataptr;
-    ctx.xsize = xsize;
-    ctx.ysize = ysize;
-    ctx.xoff = xoff;
-    ctx.yoff = yoff;
-    ctx.version = 4;
-    ctx.datasize = datasize;
-    ctx.draw_to_buffer = draw_to_buffer;
-
-    DrawIrmakPictureFromContext(ctx);
-}
-
-void DrawPictureNumber(int picture_number)
-{
-    DrawPictureAtPos(picture_number, -1, -1, 1);
-}
-
-void DrawPictureAtPos(int picture_number, int x, int y, int draw_to_buffer)
-{
-    if (NoGraphics || Game->number_of_pictures == 0)
-        return;
-    if (picture_number >= Game->number_of_pictures) {
-        debug_print("Invalid image number %d! Last image:%d\n", picture_number,
-                    Game->number_of_pictures - 1);
-        return;
+        InitTaylor(&FileImage[Game->start_of_image_instructions + FileBaselineOffset],
+                       EndOfGraphicsData - 5, ObjectLoc, Version != HEMAN_TYPE, BaseGame == REBEL_PLANET, NULL);
     }
 
-    Image img = images[picture_number];
-    if (img.imagedata == NULL)
-        return;
-
-    if (x < 0 || x > IRMAK_IMGWIDTH) {
-        x = img.xoff;
-    }
-    if (y < 0 || y > IRMAK_IMGHEIGHT) {
-        y = img.yoff;
-    }
-
-    DrawSagaPictureFromData(img.imagedata, img.width, img.height, x, y, img.datasize, draw_to_buffer);
-}
-
-#pragma mark Debug
-
-void PrintImageContents(int index, uint8_t *data, size_t size)
-{
-    debug_print("/* image %d ", index);
-    debug_print(
-                "width: %d height: %d xoff: %d yoff: %d size: %zu bytes*/\n{ ",
-                images[index].width, images[index].height, images[index].xoff,
-                images[index].yoff, size);
-    for (int i = 0; i < size; i++) {
-        debug_print("0x%02x, ", data[i]);
-        if (i % 8 == 7)
-            debug_print("\n  ");
-    }
-
-    debug_print(" },\n");
-    return;
+    InitIrmak(Game->number_of_pictures, 4);
 }

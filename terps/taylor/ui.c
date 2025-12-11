@@ -19,6 +19,7 @@
 #include "animations.h"
 #include "layouttext.h"
 #include "graphics.h"
+#include "irmak.h"
 #include "taylor.h"
 #include "taylordraw.h"
 #include "utility.h"
@@ -324,9 +325,9 @@ void UpdateSettings(void)
         palchosen = ZXOPT;
     else if (Options & FORCE_PALETTE_C64) {
         if (BaseGame == QUESTPROBE3 || BaseGame == BLIZZARD_PASS)
-            palchosen = C64A;
+            palchosen = C64QP3;
         else
-            palchosen = C64B;
+            palchosen = C64TAYLOR;
     } else
         palchosen = Game->palette;
     if (palchosen != previous_pal) {
@@ -470,7 +471,7 @@ void DrawRoomImage(void)
         return;
     }
     ClearGraphMem();
-    DrawTaylor(MyLoc);
+    DrawTaylor(MyLoc, MyLoc);
     StartAnimations();
     DrawIrmakPictureFromBuffer();
 }

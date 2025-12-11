@@ -14,7 +14,6 @@
 void UpdateRobinOfSherwoodAnimations(void);
 void RobinOfSherwoodLook(void);
 void LoadExtraSherwoodData(int c64);
-int IsForestLocation(void);
 void SherwoodAction(int p);
 
 #endif /* robinofsherwood_h */

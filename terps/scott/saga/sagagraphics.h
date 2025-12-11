@@ -44,7 +44,6 @@ extern int right_margin, left_margin;
 extern PALETTE pal;
 
 void SetColor(int32_t index, const RGB *color);
-void SetRGB(int32_t index, int red, int green, int blue);
 
 void PutPixel(glsi32 x, glsi32 y, int32_t color);
 void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);

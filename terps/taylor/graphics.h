@@ -11,9 +11,8 @@
 #include "glk.h"
 #include "taylor.h"
 
-void DrawPictureNumber(int picture_number);
-void DrawIrmakPictureFromBuffer(void);
-void DrawPictureAtPos(int picture_number, int x, int y, int draw_to_buffer);
+//void DrawPictureNumber(int picture_number, int draw_to_buffer);
+//void DrawIrmakPictureFromBuffer(void);
 
 void InitGraphics(void);
 
@@ -21,10 +20,9 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color);
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
     int32_t color);
 
-void DefinePalette(void);
-
-void ClearGraphMem(void);
-int32_t Remap(int32_t color);
+//void DefinePalette(void);
+//
+//int32_t Remap(uint8_t color);
 
 void PatchAndDrawQP3Cannon(void);
 

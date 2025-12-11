@@ -43,8 +43,8 @@
 
 #include "glk.h"
 #include "glkstart.h"
+#include "irmak.h"
 #include "saga.h"
-#include "sagagraphics.h"
 #include "titleimage.h"
 
 #include "detectgame.h"
@@ -963,7 +963,7 @@ void DrawImage(int image)
     if (Game->picture_format_version == 99)
         DrawVectorPicture(image);
     else
-        DrawSagaPictureNumber(image, (Game->type == SEAS_OF_BLOOD_VARIANT));
+        DrawPictureNumber(image, (Game->type == SEAS_OF_BLOOD_VARIANT));
 }
 
 void DrawRoomImage(void)

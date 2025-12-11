@@ -27,6 +27,7 @@
 #include "parseinput.h"
 #include "restorestate.h"
 #include "graphics.h"
+#include "irmak.h"
 #include "utility.h"
 
 #include "taylor.h"
@@ -1922,11 +1923,11 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             }
             if (arg1 == 0) {
                 ClearGraphMem();
-                DrawPictureNumber(MyLoc - 1);
+                DrawPictureNumber(MyLoc - 1, 1);
             } else if (arg1 == 45 && ObjectLoc[48] != MyLoc) {
                 break;
             } else {
-                DrawPictureNumber(arg1 - 1);
+                DrawPictureNumber(arg1 - 1, 1);
             }
             DrawIrmakPictureFromBuffer();
             break;
@@ -1970,7 +1971,7 @@ static void QP3DrawExtraImages(void)
         PatchAndDrawQP3Cannon();
     } else if (MyLoc == 2 && ObjectLoc[17] == 2 && Flag[26] > 16 && Flag[26] < 20) {
         /* Draw close-up of Thing */
-        DrawPictureNumber(53);
+        DrawPictureNumber(53, 1);
         DrawIrmakPictureFromBuffer();
     }
 }

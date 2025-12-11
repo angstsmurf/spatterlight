@@ -23,8 +23,6 @@ int y_offset = 0;
 int right_margin;
 int left_margin = 0;
 
-PALETTE pal;
-
 struct USImage *USImages = NULL;
 
 int has_graphics(void)
@@ -52,17 +50,6 @@ void SetColor(int32_t index, const RGB *color)
     pal[index][0] = (*color)[0];
     pal[index][1] = (*color)[1];
     pal[index][2] = (*color)[2];
-}
-
-void SetRGB(int32_t index, int red, int green, int blue)
-{
-    red = red * 35.7;
-    green = green * 35.7;
-    blue = blue * 35.7;
-
-    pal[index][0] = red;
-    pal[index][1] = green;
-    pal[index][2] = blue;
 }
 
 void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)

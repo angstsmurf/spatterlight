@@ -15,6 +15,8 @@
 #include "detectgame.h"
 #include "line_drawing.h"
 #include "sagadraw.h"
+#include "irmak.h"
+#include "taylordraw.h"
 #include "scottgameinfo.h"
 
 #include "game_specific.h"
@@ -1346,7 +1348,7 @@ GameIDType DetectGame(const char *file_name)
         detectedGame = DetectTI994A();
 
         if (detectedGame == UNKNOWN_GAME) /* Not a TI99/4A game, check if C64 */
-            detectedGame = DetectC64(&entire_file, &file_length);
+            detectedGame = DetectC64(&entire_file, &file_length, file_name);
 
         if (detectedGame == UNKNOWN_GAME) { /* Not a C64 game, check if Atari */
             detectedGame = DetectAtari8(&entire_file, &file_length);
@@ -1518,6 +1520,18 @@ GameIDType DetectGame(const char *file_name)
     if (!(Game->subtype & (C64 | MYSTERIOUS)) && Game->number_of_pictures > 0) {
         SagaSetup(0);
     }
+
+//    if (Game->type == SEAS_OF_BLOOD_VARIANT) {
+//        for (int i = 0; i < 200; i++) {
+//            ClearGraphMem();
+//            DrawTaylor(i);
+//
+//            char filename[1024];
+//            snprintf(filename, 1024, "/Users/administrator/Desktop/Taylor Room Images/%s room image %d.tiff", Game->Title, i);
+//
+//            CreateTiffFromBuffer(filename);
+//        }
+//    }
 
     return detectedGame;
 }

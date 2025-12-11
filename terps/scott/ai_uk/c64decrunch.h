@@ -12,6 +12,6 @@
 
 #include "scottdefines.h"
 
-GameIDType DetectC64(uint8_t **sf, size_t *extent);
+GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename);
 
 #endif /* c64decrunch_h */

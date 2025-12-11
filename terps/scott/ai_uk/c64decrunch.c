@@ -551,7 +551,33 @@ void LoadC64USImages(uint8_t *data, size_t length) {
     }
 }
 
-GameIDType DetectC64(uint8_t **sf, size_t *extent)
+uint8_t *ReadFileIfExists(const char *name, size_t *size);
+
+GameIDType look_for_socc_companion_file(const char *filename, uint8_t **sf, size_t *extent) {
+    size_t namelen = strlen(filename);
+    uint8_t *newdata = NULL;
+    size_t newlen = 0;
+    for (int i = namelen - 2; i >= 0; i--) {
+        if (filename[i] == 's' && filename[i+1] == '1') {
+            char *newfile = MemAlloc(namelen + 1);
+            memcpy(newfile, filename, namelen + 1);
+            newfile[i+1] = '2';
+            newdata = ReadFileIfExists(newfile, &newlen);
+            free(newfile);
+            if (newdata != NULL) {
+                free(*sf);
+                *sf = newdata;
+                *extent = newlen;
+                return DetectC64(sf, extent, NULL);
+            } else {
+                break;
+            }
+        }
+    }
+    return UNKNOWN_GAME;
+}
+
+GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
 {
     if (*extent > MAX_LENGTH || *extent < MIN_LENGTH)
         return UNKNOWN_GAME;
@@ -568,6 +594,8 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
                 return mysterious_menu2(sf, extent, i);
             } else if (c64_registry[i].id == ADVENTURELAND_US && chksum == 0x78fa) {
                 return adventure_pack_menu(sf, extent);
+            } else if (c64_registry[i].id == CLAYMORGUE_US && chksum == 0xa957) {
+                return look_for_socc_companion_file(filename, sf, extent);
             }
             if (c64_registry[i].type == TYPE_D64) {
                 int newlength;

@@ -9,7 +9,7 @@
 #define taylor_h
 
 #include <stdlib.h>
-
+#include "palette.h"
 #include "glk.h"
 
 unsigned char WaitCharacter(void);
@@ -249,13 +249,6 @@ typedef enum {
     FORCE_INVENTORY = 16, /* Inventory in upper window always on */
     FORCE_INVENTORY_OFF = 32 /* Inventory in upper window always off */
 } OptionsType;
-
-typedef enum { NO_PALETTE,
-    ZX,
-    ZXOPT,
-    C64A,
-    C64B,
-    VGA } palette_type;
 
 typedef enum {
     NO_TYPE,

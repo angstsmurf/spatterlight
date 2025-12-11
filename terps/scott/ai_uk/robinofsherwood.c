@@ -120,7 +120,7 @@ void draw_sherwood(int loc)
 
         image_number = forest_images[subimage_index++] & 127;
 
-        DrawSagaPictureAtPos(image_number, xpos, ypos, 0);
+        DrawPictureAtPos(image_number, xpos, ypos, 0);
 
         if (forest_type == BUSHES) {
             xpos += images[image_number].width;
@@ -169,7 +169,7 @@ void animate_lightning(int stage)
         SwitchPalettes(1, 14);
         SwitchPalettes(9, 6);
     }
-    DrawSagaPictureNumber(77, 0);
+    DrawPictureNumber(77, 0);
     if (stage == 11) {
         glk_request_timer_events(0);
     } else if (stage == 3) {

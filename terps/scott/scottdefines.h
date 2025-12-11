@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 
+#include "palette.h"
+
 #define MAX_LENGTH 300000
 #define MIN_LENGTH 24
 
@@ -241,17 +243,6 @@ typedef enum {
     LOCALIZED = 0x4,
     C64 = 0x8
 } Subtype;
-
-typedef enum {
-    NO_PALETTE,
-    ZX,
-    ZXOPT,
-    C64A,
-    C64B,
-    C64C,
-    C64D,
-    VGA
-} palette_type;
 
 typedef enum {
     NO_HEADER,

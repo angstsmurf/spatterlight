@@ -10,12 +10,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "sagadraw.h"
+#include "decompresstext.h"
 #include "irmak.h"
+#include "sagadraw.h"
 #include "scott.h"
+#include "taylordraw.h"
+
 #include "seasofblood.h"
 
-#include "decompresstext.h"
 
 winid_t LeftDiceWin, RightDiceWin, BattleRight;
 glui32 background_colour;
@@ -88,143 +90,45 @@ void BloodAction(int p)
 
 #pragma mark Image drawing
 
-static void mirror_left_half(void)
-{
-    for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
-        for (int col = IRMAK_IMGWIDTH; col > 16; col--) {
-            imagebuffer[line * IRMAK_IMGWIDTH + col - 1][8] = imagebuffer[line * IRMAK_IMGWIDTH + (IRMAK_IMGWIDTH - col)][8];
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[line * IRMAK_IMGWIDTH + col - 1][pixrow] = imagebuffer[line * IRMAK_IMGWIDTH + (IRMAK_IMGWIDTH - col)][pixrow];
-            Flip(imagebuffer[line * IRMAK_IMGWIDTH + col - 1]);
-        }
-    }
-}
-
-static void replace_colour(uint8_t before, uint8_t after)
-{
-    // I don't think any of the data has bit 7 set,
-    // so masking it is probably unnecessary, but this is what
-    // the original code does.
-    uint8_t beforeink = before & 7;
-    uint8_t afterink = after & 7;
-
-    uint8_t beforepaper = beforeink << 3;
-    uint8_t afterpaper = afterink << 3;
-
-    for (int j = 0; j < IRMAK_IMGSIZE; j++) {
-        if ((imagebuffer[j][8] & INK_MASK) == beforeink) {
-            imagebuffer[j][8] = (imagebuffer[j][8] & ~INK_MASK) | afterink;
-        }
-
-        if ((imagebuffer[j][8] & PAPER_MASK) == beforepaper) {
-            imagebuffer[j][8] = (imagebuffer[j][8] & ~PAPER_MASK) | afterpaper;
-        }
-    }
-}
-
-static void draw_colour(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
-{
-    for (int i = 0; i < length; i++) {
-        imagebuffer[y * IRMAK_IMGWIDTH + x + i][8] = colour;
-    }
-}
-
-static void make_light(void)
-{
-    for (int i = 0; i < IRMAK_IMGSIZE; i++) {
-        imagebuffer[i][8] = imagebuffer[i][8] | BRIGHT_FLAG;
-    }
-}
-
-static void flip_image(void)
-{
-
-    uint8_t mirror[IRMAK_IMGSIZE][9];
-
-    for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
-        for (int col = IRMAK_IMGWIDTH; col > 0; col--) {
-            for (int pixrow = 0; pixrow < 9; pixrow++)
-                mirror[line * IRMAK_IMGWIDTH + col - 1][pixrow] = imagebuffer[line * IRMAK_IMGWIDTH + (IRMAK_IMGWIDTH - col)][pixrow];
-            Flip(mirror[line * IRMAK_IMGWIDTH + col - 1]);
-        }
-    }
-
-    memcpy(imagebuffer, mirror, IRMAK_IMGSIZE * 9);
-}
-
 int should_draw_object_images;
 
-static void draw_object_image(uint8_t x, uint8_t y)
+void DrawObjectImages(uint8_t x, uint8_t y)
 {
+    int draw_at_default_pos = ((int)x == -1);
     for (int i = 0; i < GameHeader.NumItems; i++) {
-        if (Items[i].Flag != MyLoc)
-            continue;
-        if (Items[i].Location != MyLoc)
-            continue;
-        DrawSagaPictureAtPos(Items[i].Image, x, y, 1);
-        should_draw_object_images = 0;
+        if ((Items[i].Flag & 127) == MyLoc && Items[i].Location == MyLoc) {
+            if (draw_at_default_pos) {
+                x = images[Items[i].Image].xoff;
+                y = images[Items[i].Image].yoff;
+            }
+            DrawPictureAtPos(Items[i].Image, x, y, 1);
+        }
     }
+    should_draw_object_images = 0;
 }
 
-static void draw_blood(int loc)
-{
-    memset(imagebuffer, 0, IRMAK_IMGSIZE * 9);
-    uint8_t *ptr = blood_image_data;
-    for (int i = 0; i < loc; i++) {
-        while (*(ptr) != 0xff)
-            ptr++;
-        ptr++;
-    }
-    while (ptr < blood_image_data + 2010) {
-        switch (*ptr) {
-        case 0xff:
-            if (loc == 13) {
-                imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] & ~BRIGHT_FLAG;
-                imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] & ~BRIGHT_FLAG;
-
-                imagebuffer[8 * IRMAK_IMGWIDTH + 9][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 9][8] & ~BRIGHT_FLAG;
-                imagebuffer[8 * IRMAK_IMGWIDTH + 10][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 10][8] & ~BRIGHT_FLAG;
-            }
-            return;
-        case 0xfe:
-            mirror_left_half();
-            break;
-        case 0xfD:
-            replace_colour(*(ptr + 1), *(ptr + 2));
-            ptr += 2;
-            break;
-        case 0xfc: // Draw colour: x, y, attribute, length
-            draw_colour(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
-            ptr = ptr + 4;
-            break;
-        case 0xfb: // Make all screen colours bright
-            make_light();
-            break;
-        case 0xfa: // Flip entire image horizontally
-            flip_image();
-            break;
-        case 0xf9: // Draw object image (if present) at x, y
-            draw_object_image(*(ptr + 1), *(ptr + 2));
-            ptr = ptr + 2;
-            break;
-        default: // else draw image *ptr at x, y
-            DrawSagaPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2), 1);
-            ptr = ptr + 2;
-        }
-        ptr++;
-    }
+void PatchCryptImage(void) {
+    imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] & ~BRIGHT_FLAG;
+    imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] & ~BRIGHT_FLAG;
+    imagebuffer[8 * IRMAK_IMGWIDTH + 9][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 9][8] & ~BRIGHT_FLAG;
+    imagebuffer[8 * IRMAK_IMGWIDTH + 10][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 10][8] & ~BRIGHT_FLAG;
 }
 
 void SeasOfBloodRoomImage(void)
 {
+    OpenGraphicsWindow();
     should_draw_object_images = 1;
-    draw_blood(MyLoc);
-    for (int ct = 0; ct <= GameHeader.NumItems; ct++)
-        if (Items[ct].Image && should_draw_object_images) {
-            if ((Items[ct].Flag & 127) == MyLoc && Items[ct].Location == MyLoc) {
-                DrawImage(Items[ct].Image);
-            }
-        }
+    ClearGraphMem();
+    DrawTaylor(MyLoc, MyLoc);
+
+    if (should_draw_object_images)
+        DrawObjectImages(-1,-1);
+
+    /* Remove ugly bright tiles behind sarcophagus
+     (only visible with ZX Spectrum palette) */
+    if (MyLoc == 13)
+        PatchCryptImage();
+
     DrawIrmakPictureFromBuffer();
 }
 
@@ -797,6 +701,9 @@ void LoadExtraSeasOfBloodData(int c64)
     ptr = SeekToPos(entire_file, offset);
 
     memcpy(blood_image_data, ptr, data_length);
+
+    InitTaylor(blood_image_data,
+                   blood_image_data + 2010, NULL, 1, 0, DrawObjectImages);
 
 #pragma mark System messages
 
