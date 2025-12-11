@@ -206,26 +206,22 @@ uint8_t read_fat12(uint8_t **sf, size_t offset, size_t fat_offset)
  */
 uint32_t get_next_cluster12(uint8_t *sf, uint32_t cluster)
 {
-    uint8_t fat_entry[2];
+    uint8_t fat_hi, fat_lo;
     uint32_t new_clust;
 
     int fat_offset = boot.reserved * boot.sector_size;
     // If the cluster number is odd, we're getting the last half of the three bytes.
     if (cluster & 1) {
-        memcpy(&fat_entry[0], &sf[fat_offset + ((cluster / 2) * 3) + 1], 1);
-        memcpy(&fat_entry[1], &sf[fat_offset + ((cluster / 2) * 3) + 2], 1);
-        new_clust = (fat_entry[1] << 8) | fat_entry[0];
-        new_clust = new_clust >> 4;
+        fat_lo = sf[fat_offset + ((cluster / 2) * 3) + 1];
+        fat_hi = sf[fat_offset + ((cluster / 2) * 3) + 2];
+        new_clust = (fat_hi << 4) | (fat_lo >> 4);
+    } else { // If it's even we're getting the first half.
+        fat_lo = sf[fat_offset + ((cluster / 2) * 3)];
+        fat_hi = sf[fat_offset + ((cluster / 2) * 3) + 1] & 0x0f;
+        new_clust = (fat_hi << 8) | fat_lo;
     }
-    // If it's even we're getting the first half.
-    else {
-        memcpy(&fat_entry[0], &sf[fat_offset + ((cluster / 2) * 3)], 1);
-        memcpy(&fat_entry[1], &sf[fat_offset + ((cluster / 2) * 3) + 1], 1);
-        fat_entry[1] = fat_entry[1] & 0x0f;
-        new_clust = (fat_entry[1] << 8) | fat_entry[0];
-    }
-    // for FAT12, the valid entries are between 0x2 and0xfef.
-    if ((new_clust > 2) && (new_clust < 4079)) {
+    // for FAT12, the valid entries are between 0x2 and 0xfef.
+    if ((new_clust > 0x2) && (new_clust < 0xfef)) {
         return new_clust;
     }
     return 0;
