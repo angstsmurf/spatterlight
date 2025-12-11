@@ -525,9 +525,9 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
    that those n bytes may themselves contain repeat tokens, so we call
    this function again recursively with the bytes to copy.
 
-   See http://aimemorial.if-legends.org/gfxbdp.html and also irmak.c to get
-   more information about how repetitions in the tile-based graphics are
-   encoded.
+   See http://aimemorial.if-legends.org/gfxbdp.html and also
+   PerformTileTranformations() in irmak.c for more information
+   about how repetitions in the tile-based graphics are encoded.
  */
 
 static int DecompressEarlierType(uint8_t *instructions, uint8_t **outpos, int recursion_guard)
@@ -539,7 +539,6 @@ static int DecompressEarlierType(uint8_t *instructions, uint8_t **outpos, int re
             index = MAX_INSTRUCTIONS - 1;
             break;
         }
-        fprintf(stderr, "writing 0x%x at index %d\n", *pos, index);
         instructions[index++] = *pos;
         switch (*pos) {
             case 0xef:

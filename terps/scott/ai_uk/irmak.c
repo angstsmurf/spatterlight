@@ -400,7 +400,7 @@ static void DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **
                 }
                 /* write colours into ink/paper arrays */
                 int idx = y * xsize + x;
-                if (idx > ctx->imagesize)
+                if (idx >= ctx->imagesize)
                     break;
                 if (version > 2) {
                     ink[idx] = colour & INK_MASK;
@@ -455,8 +455,8 @@ static void DrawDecodedImage(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
             if (version > 0 && version < 3)
                 xoff2 = xoff - 4;
 
-            int bufpos = (y + yoff) * IRMAK_IMGWIDTH + x + xoff2;
             if (ctx->draw_to_buffer) {
+                int bufpos = (y + yoff) * IRMAK_IMGWIDTH + x + xoff2;
                 if (bufpos >= 0 && bufpos < IRMAK_IMGSIZE) {
                     for (int i = 0; i < 8; ++i)
                         imagebuffer[bufpos][i] = layout[offset][i];
