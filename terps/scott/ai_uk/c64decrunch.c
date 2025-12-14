@@ -120,6 +120,9 @@ static const struct c64rec c64_registry[] = {
     { HULK_C64,      0x2ab00, 0xcdd8, TYPE_D64, 0, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64)
     { HULK_C64,      0x8534,  0x623a, TYPE_T64, 2, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64)
     { HULK_US,       0x2ab00,  0x2918, TYPE_US, 0, NULL, "SHULK.DB", 0, 0, 0, 0, 0 },  // Questprobe 1 - The Hulk C64 US (D64)
+    { HULK_US,       0x2adab,  0x5eeb, TYPE_US, 0, NULL, "SHULK.DB", 0, 0, 0, 0, 0 },  // Questprobe 1 - The Hulk C64 US (D64) [cbm_1984]
+    { HULK_US,       0x2ab00,  0xdcfe, TYPE_US, 0, NULL, "SHULK.DB", 0, 0, 0, 0, 0 },  // Questprobe 1 - The Hulk C64 US (D64) [gvp_1986]
+    { HULK_US,       0x2ab00,  0x14e7, TYPE_US, 0, NULL, "SHULK.DB", 0, 0, 0, 0, 0 },  // Questprobe 1 - The Hulk C64 US (D64) [sharedata_1987]
     { SPIDERMAN_C64, 0x2ab00, 0xde56, TYPE_D64, 0, NULL, NULL, 0, 0x1801, 0xa801, 0x2000, 0 }, // Spiderman C64 (D64)
     { SPIDERMAN_C64, 0x2ab00, 0x2736, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // Spiderman C64 (D64) alt
     { SPIDERMAN_C64, 0x2ab00, 0x490a, TYPE_D64, 1, NULL, NULL, 0, 0, 0, 0, -0x7ff }, // Spiderman C64 (D64) alt 2

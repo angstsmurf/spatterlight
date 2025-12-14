@@ -236,6 +236,10 @@ static const struct scottrec scott_registry[] = {
    { 0x2ab00, 0xcdd8, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk C64 (D64)
     { 0x8534, 0x623a, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk C64 (T64)
    { 0x2ab00, 0x2918, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (D64)
+   { 0x2adab, 0x5eeb, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US [cbm_1984](D64)
+   { 0x2ab00, 0xdcfe, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US [gvp_1986](D64)
+   { 0x2ab00, 0x14e7, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US [sharedata_1987](D64)
+
    { 0x3954c, 0x8626, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (WOZ)
    { 0x3954c, 0x9126, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (WOZ) Graphics disk
    { 0x23000, 0x0160, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK) pre-release
