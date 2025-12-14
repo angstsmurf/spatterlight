@@ -2017,8 +2017,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 55:
 #ifdef DEBUG_ACTIONS
-                debug_print(
-                    "Item %d (%s) is removed from the game (put in room 0).\n",
+                debug_print("Item %d (%s) is removed from the game (put in room 0).\n",
                     param[pptr], Items[param[pptr]].Text);
 #endif
                 Items[param[pptr++]].Location = 0;
@@ -2034,8 +2033,8 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 59:
 #ifdef DEBUG_ACTIONS
-                debug_print("Item %d (%s) is removed from play.\n", param[pptr],
-                    Items[param[pptr]].Text);
+                debug_print("Item %d (%s) is removed from the game (put in room 0).\n",
+                param[pptr], Items[param[pptr]].Text);
 #endif
                 Items[param[pptr++]].Location = 0;
                 break;
@@ -2073,25 +2072,43 @@ static ActionResultType PerformLine(int ct)
                 StopTime = 2;
                 break;
             case 67:
+#ifdef DEBUG_ACTIONS
+                debug_print("Set flag 0\n");
+#endif
                 SetBitFlag(0);
                 break;
             case 68:
+#ifdef DEBUG_ACTIONS
+                debug_print("Clear flag 0\n");
+#endif
                 ClearBitFlag(0);
                 break;
             case 69:
+#ifdef DEBUG_ACTIONS
+                debug_print("Refill lamp\n");
+#endif
                 GameHeader.LightTime = LightRefill;
                 Items[LIGHT_SOURCE].Location = CARRIED;
                 ClearBitFlag(LIGHTOUTBIT);
                 break;
             case 70:
+#ifdef DEBUG_ACTIONS
+                    debug_print("Clear screen\n");
+#endif
                 ClearScreen(); /* pdd. */
                 break;
             case 71:
+#ifdef DEBUG_ACTIONS
+                    debug_print("Save game\n");
+#endif
                 SaveGame();
                 StopTime = 2;
                 break;
             case 72:
                 p = param[pptr++];
+#ifdef DEBUG_ACTIONS
+                    debug_print("Swap locations of item %d (%s) (currently at %d) and item %d (%s) (currently at %d).\n", p, Items[p].Text, Items[p].Location, param[pptr], Items[param[pptr]].Text, Items[param[pptr]].Location);
+#endif
                 SwapItemLocations(p, param[pptr++]);
                 break;
             case 73:
