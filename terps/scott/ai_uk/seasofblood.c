@@ -762,4 +762,21 @@ void LoadExtraSeasOfBloodData(int c64)
         Items[125].Text = "A loose plank";
         Items[125].AutoGet = "PLAN";
     }
+
+    /*
+     If you drop the helmet in Seas of Blood, it disappears.
+     There is no way to get it back. However, if you wear
+     the helmet before dropping it, it ends up in the room
+     as expected. This seems likely to be a bug, so we patch it,
+     changing the "destroy" command to "move to current room".
+     */
+    if (Actions[154].Subcommand[0] == 8910) {
+        /* Spectrum */
+        debug_print("Patching DROP HELMET!\n");
+        Actions[154].Subcommand[0] = 8010;
+    } else if (Actions[156].Subcommand[0] == 8910) {
+        /* C64 */
+        debug_print("Patching DROP HELMET!\n");
+        Actions[156].Subcommand[0] = 8010;
+    }
 }
