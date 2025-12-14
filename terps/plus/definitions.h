@@ -275,14 +275,6 @@ typedef enum {
 
 #define MAX_SYSMESS LAST_SYSTEM_MESSAGE
 
-typedef enum {
-    NO_PALETTE,
-    ZX,
-    ZXOPT,
-    C64A,
-    C64B,
-    VGA } palette_type;
-
 struct GameInfo {
     const char *title;
     const char *ID_string;
