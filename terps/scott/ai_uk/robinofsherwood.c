@@ -22,7 +22,7 @@ static uint8_t *forest_images = NULL;
 
 #define WATERFALL_ANIMATION_RATE 15
 
-void animate_lightning(int stage);
+static void animate_lightning(int stage);
 
 void SherwoodAction(int p)
 {
@@ -62,12 +62,12 @@ void SherwoodAction(int p)
     }
 }
 
-int IsForestLocation(void) { return (MyLoc >= 11 && MyLoc <= 73); }
+static int IsForestLocation(void) { return (MyLoc >= 11 && MyLoc <= 73); }
 
 #define TREES 0
 #define BUSHES 1
 
-void draw_sherwood(int loc)
+static void draw_sherwood(int loc)
 {
     glk_window_clear(Graphics);
     int subimage_index = 0;
@@ -128,7 +128,7 @@ void draw_sherwood(int loc)
     }
 }
 
-void animate_waterfall(int stage)
+static void animate_waterfall(int stage)
 {
     RectFill(88, 16, 48, 64, white_colour);
     for (int line = 2; line < 10; line++) {
@@ -145,7 +145,7 @@ void animate_waterfall(int stage)
     }
 }
 
-void animate_waterfall_cave(int stage)
+static void animate_waterfall_cave(int stage)
 {
     RectFill(248, 24, 8, 64, white_colour);
     for (int line = 3; line < 11; line++) {
