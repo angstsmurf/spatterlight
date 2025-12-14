@@ -631,6 +631,7 @@ void SplitIntoWords(glui32 *string, int length)
             if (lastwasspace || foundcomma) {
                 /* Start a new word */
                 startpos[words_found] = i;
+                wordlength[words_found] = 0;
                 words_found++;
             }
             wordlength[words_found - 1]++;
