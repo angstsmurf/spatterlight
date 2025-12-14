@@ -285,7 +285,7 @@ void blood_battle(void)
     int enemy, strike, stamina, boatflag;
     enemy = get_enemy_stats(&strike, &stamina, &boatflag); // Determine their stats
     if (enemy == 0) {
-        fprintf(stderr, "Seas of blood battle: No enemy in location?\n");
+        fprintf(stderr, "Seas of blood battle called with no enemy in location?\n");
         return;
     }
     setup_battle_screen(boatflag);
@@ -600,8 +600,15 @@ void BattleHitEnter(int strike, int stamina, int boatflag)
     return;
 }
 
+//#define AUTOWIN
+
 static void battle_loop(int strike, int stamina, int boatflag)
 {
+#ifdef AUTOWIN
+    glk_put_string("YOU HAVE WON!");
+    ClearBitFlag(6);
+    return;
+#endif
     update_result(0, strike, stamina, boatflag);
     update_result(1, 9, Counters[3], boatflag);
     do {
