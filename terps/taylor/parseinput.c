@@ -81,8 +81,6 @@ void SplitIntoWords(const char *string, int length)
         return;
     }
 
-    wordlength[words_found]--; /* Don't count final newline character */
-
     /* Now we've created two arrays, one for starting positions
      and one for word length. Now we convert these into an array of strings */
     char **words = MemAlloc(words_found * sizeof(*words));
