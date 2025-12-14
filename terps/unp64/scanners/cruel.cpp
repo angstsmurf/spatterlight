@@ -52,17 +52,17 @@ void scnCruel(UnpStr *unp) {
 	mem = unp->_mem;
 	if (unp->_depAdr == 0) {
 		if (mem[0x810] == 0xb9 &&
-			((*(unsigned int *)(mem + 0x813) & 0xfffffeff) == 0xC800FA99) &&
+			u32eqmasked(mem + 0x813, 0xfffffeff, 0xC800FA99) &&
 			u16eq(mem + 0x818, 0x4CF7)) {
 			if (mem[0x814] == 0xFA) {
-				p = READ_LE_UINT16(&mem[0x811]); // mem[0x811] | mem[0x812] << 8;
+				p = READ_LE_UINT16(&mem[0x811]);
 				if (u32eq(mem + p + 9, 0xC8071C99)) {
-					unp->_endAdr = READ_LE_UINT16(&mem[p + 2]); // mem[p + 2] | mem[p + 3] << 8;
+					unp->_endAdr = READ_LE_UINT16(&mem[p + 2]);
 					unp->_depAdr = 0x100;
 					if (unp->_info->_run == -1)
 						unp->_forced = 0x80b;
 					unp->_fStrAf = 0xfc;
-					q = READ_LE_UINT16(&mem[p + 7]); // mem[p + 7] | mem[p + 8] << 8;
+					q = READ_LE_UINT16(&mem[p + 7]);
 					if ((mem[q + 0x8e] == 0xc6) && (mem[q + 0x8f] == 0x01) &&
 						(mem[q + 0x93] == 0xe6) && (mem[q + 0x94] == 0x01)) {
 						mem[q + 0x90] = 0x2c;
@@ -74,12 +74,12 @@ void scnCruel(UnpStr *unp) {
 					q = READ_LE_UINT16(&mem[p + 7]); // mem[p + 7] | mem[p + 8] << 8;
 					if (mem[q + 0x3c] == 0x4c) {
 						/* v2.2/dynamix, v2.5/cross, v2.5/crest */
-						strtmp = *(unsigned short int *)(mem + q + 0x3d);
+						strtmp = READ_LE_UINT16(mem + q + 0x3d);
 					} else if (mem[q + 0x4a] == 0x4c) {
-						strtmp = *(unsigned short int *)(mem + q + 0x4b);
+						strtmp = READ_LE_UINT16(mem + q + 0x4b);
 					} else if (mem[q + 0x3f] == 0x4c) {
 						/* v2.2/oneway+scs, also hacked as cruel 2mhz 1.0 */
-						strtmp = *(unsigned short int *)(mem + q + 0x40);
+						strtmp = READ_LE_UINT16(mem + q + 0x40);
 					} else {
 						/* todo: determine real retadr, for now a default seems ok */
 						strtmp = 0;
@@ -88,7 +88,7 @@ void scnCruel(UnpStr *unp) {
 						if (strtmp >= unp->_retAdr) {
 							unp->_retAdr = strtmp;
 						} else { /* now search it... variable code here */
-							strtmp += p - *(unsigned short int *)(mem + 0x814);
+							strtmp += p - READ_LE_UINT16(mem + 0x814);
 							for (q = strtmp; q < unp->_info->_end; q++) {
 								if ((mem[q] == 0xa9) || (mem[q] == 0x85)) {
 									q++;
@@ -99,7 +99,7 @@ void scnCruel(UnpStr *unp) {
 									continue;
 								}
 								if (mem[q] == 0x4c) {
-									unp->_retAdr = *(unsigned short int *)(mem + q + 1);
+									unp->_retAdr = READ_LE_UINT16(mem + q + 1);
 									;
 									break;
 								}

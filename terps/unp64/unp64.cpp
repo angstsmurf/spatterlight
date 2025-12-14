@@ -430,8 +430,8 @@ int unp64cpp(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, siz
 
 		if (_G(_unp)._debugP) {
 			for (p = 0; p < 0x20; p += 2) {
-				if (*(unsigned short int *)(mem + 0x314 + p) != *(unsigned short int *)(vector + p)) {
-					*(unsigned short int *)(vector + p) = *(unsigned short int *)(mem + 0x314 + p);
+				if (READ_LE_UINT16(mem + 0x314 + p) != READ_LE_UINT16(vector + p)) {
+					WRITE_UINT16(vector + p, READ_LE_UINT16(mem + 0x314 + p));
 				}
 			}
 		}
@@ -546,8 +546,8 @@ int unp64cpp(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, siz
 	}
 
 	if (r->_pc == 0xfce2) {
-		if ((*(unsigned int *)(mem + 0x8004) == 0x38cdc2c3) && (mem[0x8008] == 0x30)) {
-			r->_pc = r->_mem[0x8000] + (r->_mem[0x8001] << 8);
+		if (u32eq(mem + 0x8004, 0x38cdc2c3) && mem[0x8008] == 0x30) {
+			r->_pc = READ_LE_UINT16(&r->_mem[0x8000]);
 		}
 	} else if (r->_pc == 0xa7ae) {
 		info->_basicTxtStart = mem[0x2b] | mem[0x2c] << 8;
@@ -561,8 +561,8 @@ int unp64cpp(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, siz
 	if (_G(_unp)._wrMemF) {
 		_G(_unp)._wrMemF = 0;
 		for (p = 0x800; p < 0x10000; p += 4) {
-			if (*(unsigned int *)(oldmem + p) == *(unsigned int *)(mem + p)) {
-				*(unsigned int *)(mem + p) = 0;
+			if (u32eq(oldmem + p, READ_LE_UINT32(mem + p))) {
+				WRITE_LE_UINT32(mem + p, 0);
 				_G(_unp)._wrMemF = 1;
 			}
 		}

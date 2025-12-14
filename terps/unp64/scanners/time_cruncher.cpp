@@ -139,8 +139,7 @@ namespace Unp64 {
         }
         /*TimeCruncher 4.2 */
         if (unp->_depAdr == 0) {
-            if (/*((*(unsigned int*)(mem+0x80b)&0x00ffffff)==0x007800A2) &&*/
-                u32eq(mem + 0x811, 0x31BD0186) &&
+            if (u32eq(mem + 0x811, 0x31BD0186) &&
                 (u32eq(mem + 0x82c, 0xAD4C2E85) || u32eq(mem + 0x82c, 0xAD4Caf85)) &&
                 u32eqmasked(mem + 0x83b, 0xf0ffffff, 0x0077204C) &&
                 u32eqmasked(mem + 0x951, 0xf0ffffff, 0x003C4C68)) {
@@ -475,7 +474,7 @@ namespace Unp64 {
                     unp->_forced = 0x81a;
                 unp->_endAdr = mem[0x82e] | mem[0x834] << 8;
                 for (p = 0x935; p < 0x93a; p++) {
-                    if (*(mem + p) == 0x4c) {
+                    if (mem[p] == 0x4c) {
                         unp->_retAdr = READ_LE_UINT16(&mem[p + 1]);
                         unp->_fStrAf = 0xfc;
                     }

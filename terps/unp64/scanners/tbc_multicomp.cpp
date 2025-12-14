@@ -62,7 +62,7 @@ void scnTBCMultiComp(UnpStr *unp) {
 					unp->_retAdr = READ_LE_UINT16(&mem[0x8b2]); // mem[0x8b2] | mem[0x8b3] << 8;
 					if (unp->_retAdr == 0x1e1) {
 						if (u32eq(mem + 0x916, 0x4CA87120)) {
-							p = *(unsigned short int *)(mem + 0x91a);
+							p = READ_LE_UINT16(mem + 0x91a);
 							if (p == 0xa7ae) {
 								unp->_retAdr = p;
 								mem[0x8b2] = 0xae;

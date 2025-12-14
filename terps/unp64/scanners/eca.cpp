@@ -56,13 +56,13 @@ void scnECA(UnpStr *unp) {
 			if (u32eq(mem + p + 0x08, (unsigned int)(0x2D9D0032 + p)) &&
 				u32eq(mem + p + 0x3a, 0x2a2a2a2a) &&
 				u32eq(mem + p + 0x0c, 0xF710CA00)) {
-				if (((*(unsigned int *)(mem + p + 0x00) & 0xf4fff000) == 0x8434A000) &&
+				if (u32eqmasked(mem + p, 0xf4fff000, 0x8434A000) &&
 					u32eq(mem + p + 0x04, 0xBD05A201)) {
 					unp->_forced = p + 1;
-				} else if (((*(unsigned int *)(mem + p + 0x00) & 0xffffff00) == 0x04A27800) &&
+				} else if (u32eqmasked(mem + p + 0x00, 0xffffff00, 0x04A27800) &&
 						   u32eq(mem + p + 0x04, 0xBDE80186)) {
 					unp->_forced = p + 1;
-				} else if (((*(unsigned int *)(mem + p - 0x03) & 0xffffff00) == 0x04A27800) &&
+				} else if (u32eqmasked(mem + p - 0x03, 0xffffff00, 0x04A27800) &&
                         u32eq(mem + p + 0x04, 0xBDE80186)) {
 					unp->_forced = p - 2;
 				} else if (u32eq(mem + p - 0x03, 0x8D00a978)) {

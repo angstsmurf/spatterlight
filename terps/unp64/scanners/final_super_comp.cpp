@@ -52,7 +52,7 @@ void scnFinalSuperComp(UnpStr *unp) {
 		return;
 	mem = unp->_mem;
 	if (unp->_depAdr == 0) {
-        if (((*(unsigned int *)(mem + 0x810) & 0xff00ff00) == 0x9A00A200) &&
+        if (u32eqmasked(mem + 0x810, 0xff00ff00, 0x9A00A200) &&
 			u32eq(mem + 0x832, 0x0DF008C9) &&
 			u32eq(mem + 0x836, 0xB1083DCE) &&
 			u32eq(mem + 0x8af, 0x4C00FFBD) &&
@@ -110,12 +110,12 @@ void scnFinalSuperComp(UnpStr *unp) {
 	}
 	/* SC/Equal chars */
 	if (unp->_depAdr == 0) {
-        if (((*(unsigned int *)(mem + 0x810) & 0xf0ffffff) == 0xA0A93878) &&
+        if (u32eqmasked(mem + 0x810, 0xf0ffffff, 0xA0A93878) &&
 			(u32eq(mem + 0x814, 0xFC852DE5) ||
 			 u32eq(mem + 0x814, 0xFC85aeE5)) &&
 			(u32eq(mem + 0x818, 0xafE508A9) ||
 			 u32eq(mem + 0x818, 0x2EE508A9)) &&
-            ((*(unsigned int *)(mem + 0x844) & 0x00ffffff) == 0x00004C9A)) {
+            u32eqmasked(mem + 0x844, 0x00ffffff, 0x00004C9A)) {
 			unp->_depAdr = READ_LE_UINT16(&mem[0x846]);
 			unp->_forced = 0x810;
 			unp->_retAdr = READ_LE_UINT16(&mem[0x872]);
@@ -159,7 +159,7 @@ void scnFinalSuperComp(UnpStr *unp) {
 				mem[0x2a8] == 0x01 &&
 				mem[0x2a9] == 0x4c) {
 				p = READ_LE_UINT16(&mem[0x2aa]);
-				if ((*(unsigned int *)(mem + p) == (((unsigned int)((mem[0x2aa] + 0x15) & 0xff) << 24) | 0x00B99EA0U)) &&
+				if (u32eq(mem + p, ((((READ_LE_UINT32(&mem[0x2aa]) + 0x15) & 0xff) << 24) | 0x00B99EA0U)) &&
                     u32eq(mem + p + 0x96, 0x033B4CFE)) {
 					unp->_forced = 0x2a7;
 					unp->_depAdr = 0x334;
