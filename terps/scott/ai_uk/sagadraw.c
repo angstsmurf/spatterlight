@@ -31,8 +31,6 @@
 
 #include "sagadraw.h"
 
-//Image *images = NULL;
-
 static uint8_t *EndOfGraphicsData;
 
 int32_t errorcount = 0;

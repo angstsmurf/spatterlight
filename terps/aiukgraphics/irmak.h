@@ -31,7 +31,6 @@ typedef struct {
     int draw_to_buffer;
 } IrmakImgContext;
 
-//void DrawIrmakPictureFromContext(IrmakImgContext ctx);
 void DrawIrmakPictureFromBuffer(void);
 void Flip(uint8_t character[]);
 int isNthBitSet(unsigned const char c, int n);
@@ -52,9 +51,12 @@ void InitIrmak(int numimg, int imgver);
 #define IRMAK_IMGHEIGHT 12
 #define IRMAK_IMGSIZE IRMAK_IMGWIDTH * IRMAK_IMGHEIGHT
 
-extern uint8_t tiles[256][8]; // Used by SagaSetup() and TaylorSetup()
-extern uint8_t layout[IRMAK_IMGSIZE][8]; // Used by animate_waterfall() in Robin of Sherwood
-extern uint8_t imagebuffer[IRMAK_IMGSIZE][9]; // Used by Seas of Blood and Taylormade draw routines
+// Used by SagaSetup() and TaylorSetup()
+extern uint8_t tiles[256][8];
+// Used by animate_waterfall() in Robin of Sherwood
+extern uint8_t layout[IRMAK_IMGSIZE][8];
+// Used by Seas of Blood and Taylormade draw routines
+extern uint8_t imagebuffer[IRMAK_IMGSIZE][9];
 
 extern Image *images;
 

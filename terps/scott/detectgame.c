@@ -1521,17 +1521,5 @@ GameIDType DetectGame(const char *file_name)
         SagaSetup(0);
     }
 
-//    if (Game->type == SEAS_OF_BLOOD_VARIANT) {
-//        for (int i = 0; i < 200; i++) {
-//            ClearGraphMem();
-//            DrawTaylor(i);
-//
-//            char filename[1024];
-//            snprintf(filename, 1024, "/Users/administrator/Desktop/Taylor Room Images/%s room image %d.tiff", Game->Title, i);
-//
-//            CreateTiffFromBuffer(filename);
-//        }
-//    }
-
     return detectedGame;
 }

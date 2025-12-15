@@ -11,9 +11,6 @@
 #include "glk.h"
 #include "scottdefines.h"
 
-//void DrawSagaPictureNumber(int picture_number, int draw_to_buffer);
-//void DrawSagaPictureAtPos(int picture_number, int x, int y, int draw_to_buffer);
-
 void SagaSetup(size_t imgoffset);
 
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
