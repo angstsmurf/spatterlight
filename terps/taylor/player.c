@@ -51,7 +51,7 @@ static size_t ActionBase;
 static size_t FlagBase;
 size_t AnimationData = 0;
 
-int NumLowObjects;
+static int NumLowObjects;
 
 static int ActionsExecuted;
 int PrintedOK;
@@ -100,7 +100,7 @@ int InKaylethPreview = 0;
  */
 static unsigned char WordMap[256][5];
 
-static char *Condition[] = {
+static const char *Condition[] = {
     "<ERROR>",
     "AT",
     "NOTAT",
@@ -135,7 +135,7 @@ static char *Condition[] = {
     "COND31",
 };
 
-static char *Action[] = {
+static const char *Action[] = {
     "<ERROR>",
     "LOAD?",
     "QUIT",
@@ -219,7 +219,7 @@ static void PrintWord(unsigned char word)
 
 #endif
 
-static char Q3Condition[] = {
+static const char Q3Condition[] = {
     CONDITIONERROR,
     AT,
     NOTAT,
@@ -254,7 +254,7 @@ static char Q3Condition[] = {
     0,
 };
 
-static char Q3Action[] = {
+static const char Q3Action[] = {
     ACTIONERROR,
     SWITCHINVENTORY, /* Swap inventory and dark flag */
     DIAGNOSE, /* Print Reed Richards' watch status message */
@@ -1967,10 +1967,14 @@ static void QP3DrawExtraImages(void)
 {
     if (!TAYLOR_GRAPHICS_ENABLED)
         return;
+    /* There is an unused image of the cannon
+     on the road (room 34) but it has the wrong background
+     colour.
+     */
     if (MyLoc == 34 && ObjectLoc[29] == 34) {
         PatchAndDrawQP3Cannon();
     } else if (MyLoc == 2 && ObjectLoc[17] == 2 && Flag[26] > 16 && Flag[26] < 20) {
-        /* Draw close-up of Thing */
+        /* Draw close-up of Thing as he sinks */
         DrawPictureNumber(53, 1);
         DrawIrmakPictureFromBuffer();
     }
@@ -2370,41 +2374,41 @@ int glkunix_startup_code(glkunix_startup_t *data)
     return 1;
 }
 
-#ifdef DEBUG
+//#ifdef DEBUG
+//
+//static void PrintConditionAddresses(void)
+//{
+//    fprintf(stderr, "Memory addresses of conditions\n\n");
+//    uint16_t conditionsOffsets = 0x56A8 + FileBaselineOffset;
+//    uint8_t *conditions;
+//    conditions = &FileImage[conditionsOffsets];
+//    for (int i = 1; i < 20; i++) {
+//        uint16_t address = *conditions++;
+//        address += *conditions * 256;
+//        conditions++;
+//        fprintf(stderr, "Condition %02d: 0x%04x (%s)\n", i, address, Condition[Q3Condition[i]]);
+//    }
+//    fprintf(stderr, "\n");
+//}
+//
+//static void PrintActionAddresses(void)
+//{
+//    fprintf(stderr, "Memory addresses of actions\n\n");
+//    uint16_t actionOffsets = 0x591C + FileBaselineOffset;
+//    uint8_t *actions;
+//    actions = &FileImage[actionOffsets];
+//    for (int i = 1; i < 24; i++) {
+//        uint16_t address = *actions++;
+//        address += *actions * 256;
+//        actions++;
+//        fprintf(stderr, "   Action %02d: 0x%04x (%s)\n", i, address, Action[Q3Action[i]]);
+//    }
+//    fprintf(stderr, "\n");
+//}
+//
+//#endif
 
-void PrintConditionAddresses(void)
-{
-    fprintf(stderr, "Memory addresses of conditions\n\n");
-    uint16_t conditionsOffsets = 0x56A8 + FileBaselineOffset;
-    uint8_t *conditions;
-    conditions = &FileImage[conditionsOffsets];
-    for (int i = 1; i < 20; i++) {
-        uint16_t address = *conditions++;
-        address += *conditions * 256;
-        conditions++;
-        fprintf(stderr, "Condition %02d: 0x%04x (%s)\n", i, address, Condition[Q3Condition[i]]);
-    }
-    fprintf(stderr, "\n");
-}
-
-void PrintActionAddresses(void)
-{
-    fprintf(stderr, "Memory addresses of actions\n\n");
-    uint16_t actionOffsets = 0x591C + FileBaselineOffset;
-    uint8_t *actions;
-    actions = &FileImage[actionOffsets];
-    for (int i = 1; i < 24; i++) {
-        uint16_t address = *actions++;
-        address += *actions * 256;
-        actions++;
-        fprintf(stderr, "   Action %02d: 0x%04x (%s)\n", i, address, Action[Q3Action[i]]);
-    }
-    fprintf(stderr, "\n");
-}
-
-#endif
-
-struct GameInfo *DetectGame(size_t LocalVerbBase)
+static struct GameInfo *DetectGame(size_t LocalVerbBase)
 {
     struct GameInfo *LocalGame;
 

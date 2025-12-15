@@ -294,8 +294,6 @@ extern unsigned char Flag[];
 extern winid_t Bottom, Top, Graphics, CurrentWindow;
 extern long FileBaselineOffset;
 
-extern int NumLowObjects;
-
 extern struct GameInfo *Game;
 
 extern int Resizing;

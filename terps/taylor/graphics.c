@@ -53,6 +53,10 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
         y * pixel_size, width * pixel_size, height * pixel_size);
 }
 
+/* There is an unused image (46) of the cannon
+ on the road (room 34) but it has the wrong background
+ colour. We fix that here.
+ */
 void PatchAndDrawQP3Cannon(void)
 {
     DrawPictureNumber(46, 1);
