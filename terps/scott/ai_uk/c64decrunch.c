@@ -557,6 +557,8 @@ void LoadC64USImages(uint8_t *data, size_t length) {
 uint8_t *ReadFileIfExists(const char *name, size_t *size);
 
 GameIDType look_for_socc_companion_file(const char *filename, uint8_t **sf, size_t *extent) {
+    if (filename == NULL)
+        return UNKNOWN_GAME;
     size_t namelen = strlen(filename);
     uint8_t *newdata = NULL;
     size_t newlen = 0;
