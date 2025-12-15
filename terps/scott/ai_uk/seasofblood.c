@@ -130,7 +130,8 @@ void SeasOfBloodRoomImage(void)
     if (MyLoc == 13)
         PatchCryptImage();
 
-    DrawIrmakPictureFromBuffer();
+    if (Graphics != NULL)
+        DrawIrmakPictureFromBuffer();
 }
 
 #pragma mark Battles
