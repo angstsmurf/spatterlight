@@ -8,10 +8,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#include "robinofsherwood.h"
-
 #include "decompresstext.h"
-#include "sagadraw.h"
 #include "sagagraphics.h"
 #include "irmak.h"
 #include "scott.h"

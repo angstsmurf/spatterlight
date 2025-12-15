@@ -8,8 +8,6 @@
 #ifndef game_specific_h
 #define game_specific_h
 
-#include <stdio.h>
-
 void SecretAction(int p);
 void AdventurelandAction(int p);
 void AdventurelandDarkness(void);

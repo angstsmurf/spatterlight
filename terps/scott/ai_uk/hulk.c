@@ -5,7 +5,6 @@
 //  Created by Petter Sjölund on 2022-01-18.
 //
 
-#include "hulk.h"
 #include "apple2draw.h"
 #include "saga.h"
 #include "sagagraphics.h"

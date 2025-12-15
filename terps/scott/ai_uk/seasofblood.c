@@ -16,9 +16,6 @@
 #include "scott.h"
 #include "taylordraw.h"
 
-#include "seasofblood.h"
-
-
 winid_t LeftDiceWin, RightDiceWin, BattleRight;
 glui32 background_colour;
 

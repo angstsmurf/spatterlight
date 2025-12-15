@@ -8,9 +8,6 @@
 #ifndef robinofsherwood_h
 #define robinofsherwood_h
 
-#include "scottdefines.h"
-#include <stdio.h>
-
 void UpdateRobinOfSherwoodAnimations(void);
 void RobinOfSherwoodLook(void);
 void LoadExtraSherwoodData(int c64);

@@ -8,7 +8,6 @@
 #include <string.h>
 
 #include "apple2draw.h"
-#include "game_specific.h"
 #include "saga.h"
 #include "sagadraw.h"
 #include "scott.h"
