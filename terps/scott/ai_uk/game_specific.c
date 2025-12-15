@@ -28,6 +28,7 @@ void UpdateSecretAnimations(void)
     /* Flicker */
     if (AnimationFlag >= 48 && AnimationFlag < 100) {
         if (Items[21].Location == 0) {
+            /* Image 30 is a white square */
             DrawImage(30);
             glk_request_timer_events(0);
             AnimationFlag = 0;
@@ -59,19 +60,19 @@ void SecretAction(int p)
             glk_window_close(Top, NULL);
             Top = NULL;
             MyLoc = 1;
-            Rooms[1].Image = 25;
+            Rooms[1].Image = 25; /* BOOM */
             DrawImage(25);
             Delay(2);
             DrawImage(26);
-            Rooms[1].Image = 26;
+            Rooms[1].Image = 26; /* Mushroom cloud */
         }
         break;
     case 2: /* ID picture */
         DrawImage(24);
         if (Items[1].Location == CARRIED || Items[1].Location == MyLoc) {
-            DrawImage(27);
+            DrawImage(27); // "Security" label
         } else if ((Items[7].Location == CARRIED || Items[7].Location == MyLoc) && Items[8].Location != CARRIED && Items[8].Location != MyLoc && Items[41].Location != CARRIED && Items[41].Location != MyLoc) {
-            DrawImage(28);
+            DrawImage(28); /* "Visitor" label */
         }
         showing_closeup = 1;
         Output(sys[HIT_ENTER]);
@@ -80,6 +81,7 @@ void SecretAction(int p)
     case 3: /* Screen rolls down */
     case 4:
         oldimage = Rooms[13].Image;
+        /* Image 30 is a white square */
         Rooms[13].Image = 30;
         DrawBlack();
         AnimationFlag = 1;
@@ -117,15 +119,19 @@ void AdventurelandAction(int p)
     int image = 0;
     switch (p) {
     case 1:
+        /* BOOM */
         image = 36;
         break;
     case 2:
+        /* Genie */
         image = 34;
         break;
     case 3:
+        /* Dragon */
         image = 33;
         break;
     case 4:
+        /* White Ox */
         image = 35;
         break;
     default:

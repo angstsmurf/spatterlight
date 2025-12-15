@@ -35,8 +35,6 @@ static uint8_t *EndOfGraphicsData;
 
 int32_t errorcount = 0;
 
-/* real code starts here */
-
 struct image_patch {
     GameIDType id;
     int picture_number;
@@ -47,7 +45,8 @@ struct image_patch {
 
 static const struct image_patch image_patches[] = {
     { UNKNOWN_GAME, 0, 0, 0, "" },
-    // Claymorgue C64: Many images are hopelessly broken, but some can be salvaged.
+    // Claymorgue C64: Many images are hopelessly broken,
+    // but some can be salvaged.
     // 12. "Dungeon" room with door
     { CLAYMORGUE_C64, 12, 378, 9, "\x20\xa4\x02\x80\x20\x82\x01\x20\x84" },
     // 28. Dragon
