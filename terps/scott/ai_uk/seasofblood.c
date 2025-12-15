@@ -107,6 +107,8 @@ void DrawObjectImages(uint8_t x, uint8_t y)
     should_draw_object_images = 0;
 }
 
+/* Remove ugly bright tiles behind sarcophagus
+ (only visible with ZX Spectrum palette) */
 void PatchCryptImage(void) {
     imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] & ~BRIGHT_FLAG;
     imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] & ~BRIGHT_FLAG;
@@ -124,8 +126,7 @@ void SeasOfBloodRoomImage(void)
     if (should_draw_object_images)
         DrawObjectImages(-1,-1);
 
-    /* Remove ugly bright tiles behind sarcophagus
-     (only visible with ZX Spectrum palette) */
+    /* Remove ugly bright tiles behind sarcophagus */
     if (MyLoc == 13)
         PatchCryptImage();
 
@@ -759,6 +760,10 @@ void LoadExtraSeasOfBloodData(int c64)
         sys[PLAY_AGAIN] = system_messages[3];
         sys[YOURE_CARRYING_TOO_MUCH] = system_messages[27];
 
+        /*
+         Some Spectrum versions are missing strings
+         for the last object (the plank.)
+         */
         Items[125].Text = "A loose plank";
         Items[125].AutoGet = "PLAN";
     }
