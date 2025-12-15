@@ -1250,12 +1250,11 @@ GameIDType DetectZXSpectrum(void)
 {
     GameIDType detectedGame = UNKNOWN_GAME;
     int wasz80 = 0;
-    uint8_t *uncompressed = DecompressZ80(entire_file, file_length);
+    uint8_t *uncompressed = DecompressZ80(entire_file, &file_length);
     if (uncompressed != NULL) {
         wasz80 = 1;
         free(entire_file);
         entire_file = uncompressed;
-        file_length = 0xc000;
     }
 
     size_t offset;

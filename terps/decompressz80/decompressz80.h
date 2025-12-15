@@ -11,12 +11,11 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-/* Will return NULL on error or 0xc000 (49152) bytes of uncompressed raw data on
- * success */
+/* Will return NULL on error or 0xc000 (49152) bytes
+ of uncompressed raw data on success */
 uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length);
 uint8_t *GetTAPBlock(int wantedindex, const uint8_t *buffer,
     size_t *length);
-
 uint8_t *GetTZXBlock(int blockno, uint8_t *srcbuf, size_t *length);
 
 #endif /* decompressz80_h */
