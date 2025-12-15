@@ -146,30 +146,39 @@ void DrawHulkImage(int p)
     int image = 0;
     switch (p) {
     case 85:
+        /* Hulk lifts dome */
         image = 34;
         break;
     case 86:
+        /* Gas turns Hulk into Banner */
         image = 35;
         break;
     case 83:
+        /* Chair breaks */
         image = 36;
         break;
     case 84:
+        /* Banner becomes Hulk */
         image = 37;
         break;
     case 87:
+        /* Victory: Chief Examiner and gems */
         image = 38;
         break;
     case 88:
+        /* Hulk thinks about Nightmare */
         image = 39;
         break;
     case 89:
+        /* Hulk digs */
         image = 40;
         break;
     case 82:
+        /* Banner looks into mirror */
         image = 41;
         break;
     case 81:
+        /* Hulk looks into mirror */
         image = 42;
         break;
     default:
