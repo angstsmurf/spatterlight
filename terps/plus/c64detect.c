@@ -6,19 +6,16 @@
 //
 
 #include <ctype.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "c64diskimage.h"
 #include "common.h"
+#include "definitions.h"
 #include "gameinfo.h"
 #include "graphics.h"
 
 #include "c64detect.h"
-
-#define MAX_LENGTH 300000
-#define MIN_LENGTH 24
 
 int issagaimg(const char *name)
 {
@@ -69,7 +66,7 @@ static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
             }
             free(filenames);
 
-            Images = MemAlloc((imgindex + 1) * sizeof(struct imgrec));
+            Images = MemAlloc((imgindex + 1) * sizeof(imgrec));
             for (int i = 0; i < imgindex; i++) {
                 Images[i].Filename = imagefiles[i];
                 di_rawname_from_name(rawname, imagefiles[i]);
@@ -102,7 +99,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
         *extent = newlength;
         CurrentSys = SYS_C64;
         ImageWidth = 280;
-        ImageHeight = 158;
+        ImageHeight = 160;
         return 1;
     }
     return 0;

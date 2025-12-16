@@ -16,6 +16,7 @@
 #include "gameinfo.h"
 #include "graphics.h"
 #include "loaddatabase.h"
+#include "read_le16.h"
 
 #include "atari8detect.h"
 
@@ -24,7 +25,7 @@ typedef struct imglist {
     size_t offset;
 } imglist;
 
-static const struct imglist listFantastic[] = {
+static const imglist listFantastic[] = {
     { "R001", 0x0297 },
     { "R002", 0x0a8e },
     { "R003", 0x10e48 },
@@ -93,7 +94,7 @@ static const struct imglist listFantastic[] = {
     { NULL, 0 }
 };
 
-static const struct imglist listSpidey[] = {
+static const imglist listSpidey[] = {
     { "R001", 0x0297 },
     { "R002", 0x078e },
     { "R003", 0x0b64 },
@@ -166,7 +167,7 @@ static const struct imglist listSpidey[] = {
 //{ "S000", 0, Disk image A at offset 6d97
 //    0x0e94 },
 
-static const struct imglist listBanzai[] = {
+static const imglist listBanzai[] = {
     { "R001", 0x0297 },
     { "R002", 0x083a },
     { "R003", 0xb072 },
@@ -240,7 +241,7 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
 {
     size_t size;
 
-    const struct imglist *list = listSpidey;
+    const imglist *list = listSpidey;
     /* The number of images is 65 in all three Atari 8-bit Saga plus games!? */
     /* (Not counting the title image on disk A in Spider-Man.) */
     int count = 65;
@@ -249,16 +250,13 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
     else if (CurrentGame == FANTASTIC4)
         list = listFantastic;
 
-    Images = MemAlloc((count + 2) * sizeof(struct imgrec));
+    Images = MemAlloc((count + 2) * sizeof(imgrec));
 
     int outpic;
 
     // Now loop round for each image
     for (outpic = 0; outpic < count; outpic++) {
-        uint8_t *ptr = data + list[outpic].offset;
-
-        size = *ptr++;
-        size += *ptr * 256 + 4;
+        size = READ_LE_UINT16(data + list[outpic].offset) + 4;
 
         if (list[outpic].offset >= datasize) {
             fprintf(stderr, "Image %d (%s) offset %zx out of bounds. Size: %zx\n", outpic, list[outpic].filename, list[outpic].offset, datasize);
@@ -312,7 +310,7 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
     uint8_t *companionfile = GetCompanionFile(&companionsize);
 
     ImageWidth = 280;
-    ImageHeight = 158;
+    ImageHeight = 160;
     mem = main_disk + data_start;
     memlen = main_size - data_start;
     result = LoadDatabaseBinary();

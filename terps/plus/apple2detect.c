@@ -5,12 +5,14 @@
 //  Created by Petter Sjölund on 2022-08-03.
 //
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "common.h"
 #include "companionfile.h"
 #include "definitions.h"
+#include "read_le16.h"
 #include "graphics.h"
 
 #include "apple2detect.h"
@@ -243,7 +245,7 @@ int DetectApple2(uint8_t **sf, size_t *extent)
         offset -= 256;
     }
 
-    int actionsize = new[125490] + (new[125491] << 8);
+    int actionsize = READ_LE_UINT16(new + 0x1EA32);
     debug_print("Actionsize: %d\n", actionsize);
     if (actionsize < 4000 || actionsize > 7000) {
         size_t companionsize;
@@ -256,7 +258,7 @@ int DetectApple2(uint8_t **sf, size_t *extent)
                 memcpy(new + offset, companionfile + i, 256);
                 offset -= 256;
             }
-            actionsize = new[125490] + (new[125491] << 8);
+            actionsize = READ_LE_UINT16(new + 0x1EA32);
         }
         if (actionsize < 4000 || actionsize > 7000) {
             free(new);
@@ -305,7 +307,7 @@ void LookForApple2Images(void)
 
     int count = Game->no_of_room_images + Game->no_of_item_images + Game->no_of_special_images;
 
-    Images = MemAlloc((count + 1) * sizeof(struct imgrec));
+    Images = MemAlloc((count + 1) * sizeof(imgrec));
 
     int created = 0;
 
@@ -321,7 +323,7 @@ void LookForApple2Images(void)
             continue;
 
         size_t offset = 0x23000 - Rooms[i].Image - 0x100;
-        size_t size = new[offset] + new[offset + 1] * 0x100;
+        size_t size = READ_LE_UINT16(new + offset);
 
         int ct = 0;
         int found = 0;
@@ -370,7 +372,7 @@ void LookForApple2Images(void)
         size_t offset = 0x23000 - ObjectImages[i].Image - 0x100;
         if (offset > 0x23000)
             continue;
-        size_t size = new[offset] + new[offset + 1] * 0x100 + 2;
+        size_t size = READ_LE_UINT16(new + offset) + 2;
         if (offset + size > 0x23000)
             size = 0x23000 - offset;
 
@@ -417,7 +419,7 @@ void LookForApple2Images(void)
     while (list[ct].filename != NULL) {
         if (list[ct].filename[0] == 'S') {
             Images[created].Filename = list[ct].filename;
-            size_t size = new[list[ct].offset] + new[list[ct].offset + 1] * 256;
+            size_t size = READ_LE_UINT16(new + list[ct].offset);
             Images[created].Size = size;
             Images[created].Data = MemAlloc(size);
             memcpy(Images[created].Data, new + list[ct].offset, size);

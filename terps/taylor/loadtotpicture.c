@@ -8,6 +8,7 @@
 //  Created by Petter Sjölund on 2022-04-19.
 //
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -174,7 +175,7 @@ static bool calculate_address(uint8_t slot, uint8_t *x_origin, uint8_t *width, u
 static void build_screen_address_lookup_table(uint8_t *mem)
 {
     // counter is the total number of draw blocks, including simultaneous ones. Four bytes per block.
-    uint16_t counter = (uint16_t)(mem[0xeea9] | mem[0xeeaa] * 0x100);
+    uint16_t counter = READ_LE_UINT16(mem + 0xeea9);
     if (counter * 4 + 0xeeab >= 0x10000) {
         fprintf(stderr, "build_screen_address_lookup_table: Bad input data. Instruction count is out of bounds!\n");
         return;
@@ -194,7 +195,7 @@ static void build_screen_address_lookup_table(uint8_t *mem)
         /* We add a slot for each simultaneous block, by reading another four instruction bytes per block */
         for (int slot = 0; slot < simultaneous; slot++) {
             /* current_addr is the first word of instructions */
-            current_addr = (uint16_t)(instruction_bytes[0] | instruction_bytes[1] * 0x100);
+            current_addr = READ_LE_UINT16(instruction_bytes);
 
             /* direction is bits 7 to 6 of the third instruction byte */
             direction = (DirectionType)(instruction_bytes[2] >> 6);

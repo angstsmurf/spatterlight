@@ -8,8 +8,6 @@
 #ifndef seasofblood_h
 #define seasofblood_h
 
-#include <stdio.h>
-
 void LoadExtraSeasOfBloodData(int c64);
 void SeasOfBloodRoomImage(void);
 void AdventureSheet(void);

@@ -38,14 +38,16 @@ void lddr(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size)
 }
 
 // This moves the decrypted data into place.
-// IX holds the memory offset of a list of values
-// (length and count of move operations.)
+// IX holds the address of (the end of) a list
+// of values, (length and count of move operations)
+// which we work our way through backwards.
+
 void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t IX, uint16_t store)
 {
     uint16_t count, length;
     for (int i = 0; i < repeats; i++) {
-        length = mem[IX - 2] + mem[IX - 1] * 0x100 + 1;
-        count = mem[IX - 4] + mem[IX - 3] * 0x100;
+        count = READ_LE_UINT16(mem + IX - 4);
+        length = READ_LE_UINT16(mem + IX - 2) + 1;
         store += length;
         lddr(mem, store, store - length, store - count + 1);
         mem[count] = mem[IX];
@@ -188,8 +190,8 @@ static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const Extrac
     return shrunk;
 }
 
-// Extra massaging for a Z80 memory snapshot that was captured
-// from an emulator in the midst of decompression.
+// Extra massaging for a Z80 memory snapshot which apparently
+// was dumped from an emulator in the midst of decompression.
 uint8_t *FixBrokenKayleth(uint8_t *image, size_t *length) {
     uint8_t *mem = MemAlloc(0x10000);
     memcpy(mem + 0x4000, image, 0xc000);

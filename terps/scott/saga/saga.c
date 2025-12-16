@@ -10,7 +10,9 @@
 #include <string.h>
 
 #include "apple2draw.h"
-#include "atari8c64draw.h"
+#include "apple2draw.h"
+#include "c64a8draw.h"
+#include "c64a8scott.h"
 #include "detectgame.h"
 #include "pcdraw.h"
 #include "sagagraphics.h"
@@ -42,14 +44,13 @@ int LoadDOSImages(void)
 {
     USImages = new_image();
 
-    struct USImage *image = USImages;
+    USImage *image = USImages;
     size_t datasize;
     int found = 0;
 
     for (int i = 0; DOSFilenames[i] != NULL; i++) {
         const char *shortname = DOSFilenames[i];
         uint8_t *data = FindImageFile(shortname, &datasize);
-
         if (data) {
             found++;
             image->datasize = datasize;
@@ -127,13 +128,33 @@ uint8_t *ReadUSDictionary(uint8_t *ptr)
     return ptr;
 }
 
+int DrawApple2Image(USImage *image)
+{
+    if (image->usage == IMG_ROOM)
+        ClearApple2ScreenMem();
+    DrawApple2ImageFromData(image->imagedata, image->datasize, CurrentGame == COUNT_US, NULL);
+    debug_print("Drawing image with index %d, usage %d\n", image->index, image->usage);
+    return 1;
+}
+
+int DrawDOSImage(USImage *image) {
+    if (image->imagedata == NULL) {
+        fprintf(stderr, "DrawDOSImage: ptr == NULL\n");
+        return 0;
+    }
+
+    debug_print("DrawDOSImage: usage:%d index:%d\n", image->usage, image->index);
+
+    return DrawDOSImageFromData(image->imagedata);
+}
+
 int DrawUSImage(USImage *image)
 {
     last_image_index = image->index;
     if (image->systype == SYS_MSDOS)
         return DrawDOSImage(image);
     else if (image->systype == SYS_C64 || image->systype == SYS_ATARI8)
-        return DrawAtariC64Image(image);
+        return DrawC64A8Image(image);
     else if (image->systype == SYS_APPLE2)
         return DrawApple2Image(image);
     return 0;
@@ -141,7 +162,7 @@ int DrawUSImage(USImage *image)
 
 void DrawInventoryImages(void)
 {
-    struct USImage *image = USImages;
+    USImage *image = USImages;
     if (image != NULL) {
         do {
             if (image->usage == IMG_INV_OBJ && Items[image->index].Location == CARRIED) {
@@ -154,7 +175,7 @@ void DrawInventoryImages(void)
 
 void DrawRoomObjectImages(void)
 {
-    struct USImage *image = USImages;
+    USImage *image = USImages;
     if (image != NULL) {
         do {
             if (image->usage == IMG_ROOM_OBJ && image->index <= GameHeader.NumItems && Items[image->index].Location == MyLoc) {
@@ -167,7 +188,7 @@ void DrawRoomObjectImages(void)
 
 int DrawUSRoom(int room)
 {
-    struct USImage *image = USImages;
+    USImage *image = USImages;
     if (image != NULL) {
         do {
             if (image->usage == IMG_ROOM && image->index == room) {
@@ -181,7 +202,7 @@ int DrawUSRoom(int room)
 
 void DrawUSRoomObject(int item)
 {
-    struct USImage *image = USImages;
+    USImage *image = USImages;
     if (image != NULL) {
         do {
             if (image->usage == IMG_ROOM_OBJ && image->index == item) {
@@ -297,14 +318,14 @@ uint8_t *Skip(uint8_t *ptr, int count, uint8_t *eof)
 {
 #if (DEBUG_PRINT)
     for (int i = 0; i < count && ptr + i + 1 < eof; i += 2) {
-        uint16_t val = ptr[i] + ptr[i + 1] * 0x100;
+        uint16_t val = READ_LE_UINT16(ptr + i);
         debug_print("Unknown value %d: %d (%x)\n", i / 2, val, val);
     }
 #endif
     return ptr + count;
 }
 
-GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int dict_start)
+GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int dict_start)
 {
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
     int ct;
@@ -323,12 +344,15 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info
         debug_print("LoadBinaryDatabase: file baseline offset:%d\n",
             file_baseline_offset);
         offset = info.start_of_header + file_baseline_offset;
-        ptr = SeekToPos(data, offset);
+        if (offset < length)
+            ptr = data + offset;
+        else
+            return UNKNOWN_GAME;
     } else {
         int version = 0;
         int adventure_number = 0;
         for (int i = 0; i < 0x38; i += 2) {
-            int value = ptr[i] + ptr[i + 1] * 0x100;
+            int value = READ_LE_UINT16(ptr + i);
             if (value < 500) {
                 if (version == 0)
                     version = value;
@@ -530,10 +554,8 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info
         plus = 0;
 
         for (int j = 0; j < 5; j++) {
-            value = data[offset2 + ct * 2 + plus];
-            value2 = data[offset2 + ct * 2 + plus + 1];
-            ptr = &data[offset2 + ct * 2 + plus + 2];
-            ap->Condition[j] = value + value2 * 0x100;
+            ap->Condition[j] = READ_LE_UINT16(data + offset2 + ct * 2 + plus);
+            ptr = data + offset2 + ct * 2 + plus + 2;
             plus += (na + 1) * 2;
         }
 
@@ -603,31 +625,6 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info
     } while (index != 255);
 
     return info.gameID;
-}
-
-uint8_t *ReadFileIfExists(const char *name, size_t *size)
-{
-    FILE *fptr = fopen(name, "r");
-
-    if (fptr == NULL)
-        return NULL;
-
-    *size = GetFileLength(fptr);
-    if (*size < 1)
-        return NULL;
-
-    uint8_t *result = MemAlloc(*size);
-    fseek(fptr, 0, SEEK_SET);
-    int bytesread = fread(result, 1, *size, fptr);
-
-    fclose(fptr);
-
-    if (bytesread == 0) {
-        free(result);
-        return NULL;
-    }
-
-    return result;
 }
 
 int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2)

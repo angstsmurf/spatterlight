@@ -91,8 +91,8 @@ static void AnimateForcefield(void)
     int carry;
     /* First fill door area with black, erasing field */
     RectFill(104, 16, 48, 39, 0);
-    /* We go line by line and pixel row by pixel row */
 
+    /* We go line by line and pixel row by pixel row */
     uint8_t colour = imagebuffer[2 * IRMAK_IMGWIDTH + 13][8];
     glui32 ink = Remap(colour & INK_MASK);
 

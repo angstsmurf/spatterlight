@@ -1,72 +1,20 @@
 //
-//  atari8c64draw
-//  Part of ScottFree, an interpreter for adventures in Scott Adams format
+//  c64a8scott.c
+//  Spatterlight
 //
-//  Routines to draw Atari 8-bit and C64 RLE graphics
-//  Based on Code by David Lodge 29/04/2005
+//  The ScottFree-specific code required by
+//  the common code in common_sagadraw/c64a8draw.c
+//  to draw the bitmap graphics of Atari 8-bit and
+//  Commodore 64 games.
 //
-//  Original code at https://github.com/tautology0/textadventuregraphics
+//  Created by Administrator on 2025-12-15.
+//
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "sagagraphics.h"
 #include "scott.h"
-
-extern int x, y, count;
-extern int xlen, ylen;
-extern int xoff, yoff;
-extern int size;
-
-typedef uint8_t RGB[3];
-
-static void DrawA8C64Pixels(int pattern, int pattern2)
-{
-    int pix1, pix2, pix3, pix4;
-
-    if (x > (xlen - 3) * 8)
-        return;
-
-    pix1 = (pattern & 0xc0) >> 6;
-    pix2 = (pattern & 0x30) >> 4;
-    pix3 = (pattern & 0x0c) >> 2;
-    pix4 = (pattern & 0x03);
-
-    PutDoublePixel(x, y, pix1);
-    x += 2;
-    PutDoublePixel(x, y, pix2);
-    x += 2;
-    PutDoublePixel(x, y, pix3);
-    x += 2;
-    PutDoublePixel(x, y, pix4);
-    x += 2;
-    y++;
-    x -= 8;
-
-    pix1 = (pattern2 & 0xc0) >> 6;
-    pix2 = (pattern2 & 0x30) >> 4;
-    pix3 = (pattern2 & 0x0c) >> 2;
-    pix4 = (pattern2 & 0x03);
-
-    PutDoublePixel(x, y, pix1);
-    x += 2;
-    PutDoublePixel(x, y, pix2);
-    x += 2;
-    PutDoublePixel(x, y, pix3);
-    x += 2;
-    PutDoublePixel(x, y, pix4);
-    x += 2;
-    y++;
-    x -= 8;
-
-    if (y > ylen) {
-        x += 8;
-        y = yoff;
-    }
-}
+#include "c64a8draw.h"
+#include "c64a8scott.h"
 
 /* C64 colors */
-static const RGB black = { 0, 0, 0 };
 static const RGB white = { 255, 255, 255 };
 static const RGB red = { 191, 97, 72 };
 static const RGB purple = { 177, 89, 185 };
@@ -83,11 +31,10 @@ static const RGB lblue = { 162, 143, 255 };
 // clang-format off
 
 /* Atari 8-bit colors */
-RGB colors[256] = {
+static const RGB colors[256] = {
     { 0x00, 0x00, 0x00 }, // 0
     { 0x0e, 0x0e, 0x0e }, // 1
     { 0x1d, 0x1d, 0x1d }, // 2
-
     { 0x2c, 0x2c, 0x2c }, // 3
     { 0x3b, 0x3b, 0x3b }, // 4
     { 0x4a, 0x4a, 0x4a }, // 5
@@ -99,12 +46,12 @@ RGB colors[256] = {
     { 0xa4, 0xa4, 0xa4 }, // 11
     { 0xb3, 0xb3, 0xb3 }, // 12
     { 0xc2, 0xc2, 0xc2 }, // 13
-//    { 0xd1, 0xd1, 0xd1 }, // 14
+//  { 0xd1, 0xd1, 0xd1 }, // 14
     { 0xe0, 0xe0, 0xe0 },
     { 0xe0, 0xe0, 0xe0 }, // 15
     { 0x34, 0x00, 0x00 }, // 16
     { 0x43, 0x0e, 0x00 }, // 17
-//    { 0x52, 0x1d, 0x00 }, // 18
+//  { 0x52, 0x1d, 0x00 }, // 18
     { 0xad, 0x5f, 0x64 },
     { 0x61, 0x2c, 0x00 }, // 19
     { 0x70, 0x3b, 0x00 }, // 20
@@ -124,7 +71,7 @@ RGB colors[256] = {
     { 0x58, 0x10, 0x00 }, // 34
     { 0x67, 0x1f, 0x00 }, // 35
     { 0x76, 0x2e, 0x00 }, // 36
-//    { 0x85, 0x3d, 0x00 }, // 37
+//  { 0x85, 0x3d, 0x00 }, // 37
     { 0xad, 0x5f, 0x64 },
     { 0x94, 0x4c, 0x02 }, // 38
     { 0xa3, 0x5b, 0x11 }, // 39
@@ -138,17 +85,17 @@ RGB colors[256] = {
     { 0xee, 0xd2, 0x89 }, // 47
     { 0x36, 0x00, 0x00 }, // 48
     { 0x45, 0x00, 0x00 }, // 49
-//    { 0x54, 0x05, 0x0b }, // 50
+//  { 0x54, 0x05, 0x0b }, // 50
     { 0xad, 0x5f, 0x64 },
     { 0x62, 0x14, 0x1a }, // 51
     { 0x71, 0x23, 0x29 }, // 52
     { 0x80, 0x32, 0x38 }, // 53
-//    { 0x8f, 0x41, 0x46 }, // 54
+//  { 0x8f, 0x41, 0x46 }, // 54
     { 0xad, 0x5f, 0x64 },
     { 0x9e, 0x50, 0x55 }, // 55
     { 0xad, 0x5f, 0x64 }, // 56
     { 0xbc, 0x6e, 0x73 }, // 57
-//    { 0xcb, 0x7d, 0x82 }, // 58
+//  { 0xcb, 0x7d, 0x82 }, // 58
     { 0xad, 0x5f, 0x64 },
     { 0xda, 0x8c, 0x91 }, // 59
     { 0xe9, 0x9a, 0xa0 }, // 60
@@ -177,7 +124,7 @@ RGB colors[256] = {
     { 0x3c, 0x0f, 0x9e }, // 83
     { 0x4b, 0x1e, 0xad }, // 84
     { 0x5a, 0x2d, 0xbc }, // 85
-//    { 0x69, 0x3c, 0xcb }, // 86
+//  { 0x69, 0x3c, 0xcb }, // 86
     { 0x4b, 0x1e, 0xad },
     { 0x78, 0x4b, 0xda }, // 87
     { 0x87, 0x5a, 0xe9 }, // 88
@@ -225,7 +172,7 @@ RGB colors[256] = {
     { 0x00, 0x1d, 0xa8 }, // 130
     { 0x00, 0x2c, 0xb6 }, // 131
     { 0x07, 0x3b, 0xc5 }, // 132
-//    { 0x16, 0x4a, 0xd4 }, // 133
+//  { 0x16, 0x4a, 0xd4 }, // 133
     { 0x34, 0x68, 0xee },
     { 0x25, 0x59, 0xe3 }, // 134
     { 0x34, 0x68, 0xee }, // 135
@@ -291,9 +238,9 @@ RGB colors[256] = {
     { 0x1c, 0x49, 0x00 }, // 195
     { 0x2b, 0x58, 0x00 }, // 196
     { 0x3a, 0x67, 0x00 }, // 197
-//    { 0x49, 0x76, 0x00 }, // 198
+//  { 0x49, 0x76, 0x00 }, // 198
     { 0x2b, 0x58, 0x00 },
-//    { 0x58, 0x85, 0x00 }, // 199
+//  { 0x58, 0x85, 0x00 }, // 199
     { 0x3a, 0x67, 0x00 }, // 197
     { 0x67, 0x94, 0x05 }, // 200
     { 0x76, 0xa3, 0x14 }, // 201
@@ -311,7 +258,7 @@ RGB colors[256] = {
     { 0x54, 0x61, 0x00 }, // 213
     { 0x63, 0x70, 0x00 }, // 214
     { 0x72, 0x7e, 0x00 }, // 215
-//    { 0x81, 0x8d, 0x00 }, // 216
+//  { 0x81, 0x8d, 0x00 }, // 216
     { 0x63, 0x70, 0x00 },
     { 0x90, 0x9c, 0x00 }, // 217
     { 0x9f, 0xab, 0x00 }, // 218
@@ -324,7 +271,7 @@ RGB colors[256] = {
     { 0x31, 0x1b, 0x00 }, // 225
     { 0x40, 0x2a, 0x00 }, // 226
     { 0x4f, 0x38, 0x00 }, // 227
-//    { 0x5e, 0x47, 0x00 }, // 228
+//  { 0x5e, 0x47, 0x00 }, // 228
     { 0x94, 0x4c, 0x02 },
     { 0x6d, 0x56, 0x00 }, // 229
     { 0x7c, 0x65, 0x00 }, // 230
@@ -344,9 +291,9 @@ RGB colors[256] = {
     { 0x70, 0x3b, 0x00 }, // 244
     { 0x7e, 0x4a, 0x00 }, // 245
     { 0x8d, 0x59, 0x00 }, // 246
-//    { 0x9c, 0x68, 0x00 }, // 247
+//  { 0x9c, 0x68, 0x00 }, // 247
     { 0xad, 0x5f, 0x64 },
-//    { 0xab, 0x77, 0x00 }, // 248
+//  { 0xab, 0x77, 0x00 }, // 248
     { 0x8d, 0x59, 0x00 },
     { 0xba, 0x86, 0x00 }, // 249
     { 0xc9, 0x95, 0x0b }, // 250
@@ -354,13 +301,13 @@ RGB colors[256] = {
     { 0xe7, 0xb3, 0x29 }, // 252
     { 0xee, 0xc2, 0x38 }, // 253
     { 0xee, 0xd1, 0x46 }, // 254
-//    { 0xee, 0xe0, 0x55 }, // 255
+//  { 0xee, 0xe0, 0x55 }, // 255
     { 0xba, 0x86, 0x00 }
 };
 
 // clang-format on
 
-static void TranslateAtariColorRGB(int index, uint8_t value)
+void TransAtariColorScott(uint8_t index, uint8_t value)
 {
     SetColor(index, &colors[value]);
 }
@@ -371,168 +318,146 @@ static void TranslateAtariColorRGB(int index, uint8_t value)
  I have no idea how the original interpreter calculates
  them. I might have made some mistakes. */
 
-static void TranslateC64Color(int index, uint8_t value)
+void TransC64ColorScott(uint8_t index, uint8_t value)
 {
     debug_print("Color %d: %d\n", index, value);
     switch (value) {
-    case 2:
-    case 3:
-    case 4:
-    case 8:
-    case 9:
-    case 10:
-    case 12:
-    case 14:
-    case 15:
-    case 255:
-    case 137:
-    case 142:
-        SetColor(index, &white);
-        break;
-    case 35:
-    case 36:
-    case 38:
-    case 40:
-    case 244:
-    case 246:
-    case 248:
-        SetColor(index, &brown);
-        break;
-    case 24:
-    case 26:
-    case 30:
-    case 46:
-    case 16:
-    case 230:
-    case 237:
-    case 238:
-    case 252:
-        SetColor(index, &yellow);
-        break;
-    case 50:
-    case 51:
-    case 52:
-    case 53:
-    case 54:
-    case 56:
-    case 58:
-    case 59:
-    case 60:
-    case 66:
-    case 62:
-        SetColor(index, &orange);
-        break;
-    case 67:
-    case 68:
-    case 69:
-    case 70:
-    case 71:
-        SetColor(index, &red);
-        break;
-    case 0:
-    case 77:
-    case 81:
-    case 84:
-    case 85:
-    case 86:
-    case 87:
-    case 97:
-    case 101:
-    case 102:
-    case 103:
-    case 105:
-    case 224:
-        SetColor(index, &purple);
-        break;
-    case 89:
-        SetColor(index, &lred);
-        break;
-    case 1:
-    case 7:
-    case 116:
-    case 135:
-    case 148:
-    case 151:
-        SetColor(index, &blue);
-        break;
-    case 110:
-    case 157:
-        SetColor(index, &lblue);
-        break;
-    case 161:
-        SetColor(index, &grey);
-        break;
-    case 17:
-    case 20:
-    case 179:
-    case 182:
-    case 183:
-    case 194:
-    case 195:
-    case 196:
-    case 197:
-    case 198:
-    case 199:
-    case 200:
-    case 212:
-    case 214:
-    case 215:
-    case 216:
-        SetColor(index, &green);
-        break;
-    case 201:
-        SetColor(index, &lgreen);
-        break;
-    default:
-        fprintf(stderr, "Unknown color %d ", value);
-        break;
+        case 2:
+        case 3:
+        case 4:
+        case 8:
+        case 9:
+        case 10:
+        case 12:
+        case 14:
+        case 15:
+        case 255:
+        case 137:
+        case 142:
+            SetColor(index, &white);
+            break;
+        case 35:
+        case 36:
+        case 38:
+        case 40:
+        case 244:
+        case 246:
+        case 248:
+            SetColor(index, &brown);
+            break;
+        case 24:
+        case 26:
+        case 30:
+        case 46:
+        case 16:
+        case 230:
+        case 237:
+        case 238:
+        case 252:
+            SetColor(index, &yellow);
+            break;
+        case 50:
+        case 51:
+        case 52:
+        case 53:
+        case 54:
+        case 56:
+        case 58:
+        case 59:
+        case 60:
+        case 66:
+        case 62:
+            SetColor(index, &orange);
+            break;
+        case 67:
+        case 68:
+        case 69:
+        case 70:
+        case 71:
+            SetColor(index, &red);
+            break;
+        case 0:
+        case 77:
+        case 81:
+        case 84:
+        case 85:
+        case 86:
+        case 87:
+        case 97:
+        case 101:
+        case 102:
+        case 103:
+        case 105:
+        case 224:
+            SetColor(index, &purple);
+            break;
+        case 89:
+            SetColor(index, &lred);
+            break;
+        case 1:
+        case 7:
+        case 116:
+        case 135:
+        case 148:
+        case 151:
+        case 153:
+            SetColor(index, &blue);
+            break;
+        case 110:
+        case 157:
+            SetColor(index, &lblue);
+            break;
+        case 161:
+            SetColor(index, &grey);
+            break;
+        case 17:
+        case 20:
+        case 179:
+        case 182:
+        case 183:
+        case 194:
+        case 195:
+        case 196:
+        case 197:
+        case 198:
+        case 199:
+        case 200:
+        case 212:
+        case 214:
+        case 215:
+        case 216:
+            SetColor(index, &green);
+            break;
+        case 201:
+            SetColor(index, &lgreen);
+            break;
+        default:
+            fprintf(stderr, "Unknown color %d ", value);
+            break;
     }
+    fprintf(stderr, "\n");
 }
 
-int DrawAtariC64Image(USImage *image)
-{
-    uint8_t *ptr = image->imagedata;
-    size_t datasize = image->datasize;
+static USImage *current_image = NULL;
 
-    int work, work2;
-    int c;
-    int i;
-    int countflag = (CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US);
+int C64A8AdjustScott(int width, int height, int *x_origin) {
 
-    uint8_t *origptr = ptr;
-
-    x = 0;
-    y = 0;
-
-    ptr += 2;
-
-    work = *ptr++;
-    size = work + *ptr++ * 256;
-    // Get the offset
-    xoff = *ptr++ - 3;
-    yoff = *ptr++;
-    x = xoff * 8;
-    y = yoff;
-
-    // Get the x length
-    xlen = *ptr++;
-
-    ylen = *ptr++;
-    if (countflag)
-        ylen -= 2;
+    USImage *image = current_image;
+    if (image == NULL)
+        return width;
 
     glui32 curheight, curwidth;
     glk_window_get_size(Graphics, &curwidth, &curheight);
 
-    if (image->usage == IMG_ROOM || (xlen == 38 && xoff < 1)) {
-        xlen = xlen - 1 - image->cropright / 8;
+    if (image->usage == IMG_ROOM || (width == 38 && *x_origin < 1)) {
+        width = width - 1 - image->cropright / 8;
         left_margin = image->cropleft;
 
-        ImageWidth = xlen * 8 - 17 + left_margin;
-        ImageHeight = ylen + 2;
+        ImageWidth = width * 8 - 17 + left_margin;
+        ImageHeight = height + 2;
 
         if (image->index == 19 && image->systype == SYS_ATARI8) {
-            xlen++;
+            width++;
             ImageWidth = 308;
         }
 
@@ -550,44 +475,16 @@ int DrawAtariC64Image(USImage *image)
             winid_t parent = glk_window_get_parent(Graphics);
             if (parent)
                 glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-                    optimal_height, NULL);
+                                           optimal_height, NULL);
         }
     }
 
-    SetColor(0, &black);
-
-    // Get the palette
-    for (i = 1; i < 5; i++) {
-        work = *ptr++;
-        if (image->systype == SYS_C64)
-            TranslateC64Color(i, work);
-        else
-            TranslateAtariColorRGB(i, work);
-    }
-
-    while (ptr - origptr < datasize - 2) {
-        // First get count
-        c = *ptr++;
-
-        if (((c & 0x80) == 0x80) || countflag) { // is a counter
-            if (countflag) {
-                c -= 1;
-            } else {
-                c &= 0x7f;
-            }
-            work = *ptr++;
-            work2 = *ptr++;
-            for (i = 0; i < c + 1; i++) {
-                DrawA8C64Pixels(work, work2);
-            }
-        } else {
-            // Don't count on the next c characters
-            for (i = 0; i < c + 1 && ptr - origptr < datasize - 1; i++) {
-                work = *ptr++;
-                work2 = *ptr++;
-                DrawA8C64Pixels(work, work2);
-            }
-        }
-    }
-    return 1;
+    return width;
 }
+
+int DrawC64A8Image(USImage *image)
+{
+    current_image = image;
+    return DrawC64A8ImageFromData(image->imagedata, image->datasize, CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US, C64A8AdjustScott, image->systype == SYS_ATARI8 ? TransAtariColorScott : TransC64ColorScott);
+}
+

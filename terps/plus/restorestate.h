@@ -8,7 +8,7 @@
 #ifndef restorestate_h
 #define restorestate_h
 
-struct SavedState {
+typedef struct SavedState {
     uint16_t Counters[64];
     uint8_t ObjectLocations[256];
     uint64_t BitFlags;
@@ -17,9 +17,9 @@ struct SavedState {
     int LastImgIndex;
     struct SavedState *previousState;
     struct SavedState *nextState;
-};
+} SavedState;
 
-extern struct SavedState *InitialState;
+extern SavedState *InitialState;
 
 extern ImgType SavedImgType;
 extern int SavedImgIndex;
@@ -29,9 +29,9 @@ void SaveUndo(void);
 void RestoreUndo(int game);
 void RamSave(int game);
 void RamLoad(void);
-struct SavedState *SaveCurrentState(void);
-void RestoreState(struct SavedState *state);
-void RecoverFromBadRestore(struct SavedState *state);
+SavedState *SaveCurrentState(void);
+void RestoreState(SavedState *state);
+void RecoverFromBadRestore(SavedState *state);
 int LoadGame(void);
 void SaveGame(void);
 void RestartGame(void);

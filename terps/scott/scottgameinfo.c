@@ -11,7 +11,7 @@
 
 // clang-format off
 
-const struct GameInfo games[] = {
+const GameInfo games[] = {
     {
         "Pirate Adventure",
         PIRATE,

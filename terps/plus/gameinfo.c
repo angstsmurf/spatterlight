@@ -9,7 +9,7 @@
 
 #include "definitions.h"
 
-const struct GameInfo games[] = {
+const GameInfo games[] = {
     {
         "Buckaroo Banzai",
         "BUCKAROO",

@@ -9,9 +9,8 @@
 #define parser_h
 
 #include "glk.h"
-#include <stdio.h>
 
-struct Command {
+typedef struct Command {
     int verb;
     int noun;
     int item;
@@ -20,7 +19,7 @@ struct Command {
     int allflag;
     struct Command *previous;
     struct Command *next;
-};
+} Command;
 
 typedef enum {
     NO_COMMAND,

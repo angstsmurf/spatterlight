@@ -249,9 +249,9 @@ void LoadExtraSherwoodData(int c64)
 
     int offset = file_baseline_offset + ((c64 == 1) ? 0x1ffd : 0x3d99);
 
-    uint8_t *ptr= SeekToPos(entire_file, offset);
+    uint8_t *ptr= SeekToPos(offset);
 
-    if (ptr == 0)
+    if (ptr == NULL)
         return;
 
     int ct;
@@ -275,8 +275,8 @@ void LoadExtraSherwoodData(int c64)
 
     offset = file_baseline_offset + ((c64 == 1) ? 0x402e : 0x5b7e);
 
-    ptr = SeekToPos(entire_file, offset);
-    if (ptr == 0)
+    ptr = SeekToPos(offset);
+    if (ptr == NULL)
         return;
 
     do {
@@ -369,8 +369,8 @@ void LoadExtraSherwoodData(int c64)
 
     offset = file_baseline_offset + ((c64 == 1) ? 0x2300 : 0x3b6e);
 
-    ptr = SeekToPos(entire_file, offset);
-    if (ptr == 0)
+    ptr = SeekToPos(offset);
+    if (ptr == NULL)
         return;
 
     int cells = 555;

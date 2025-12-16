@@ -6,11 +6,11 @@
 //
 
 #include <ctype.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "common.h"
-
 #include "companionfile.h"
 
 typedef enum {
@@ -59,46 +59,6 @@ static int StripBrackets(char sideB[], size_t length)
         }
     }
     return 0;
-}
-
-size_t GetFileLength(FILE *in)
-{
-    if (fseek(in, 0, SEEK_END) == -1) {
-        return 0;
-    }
-    size_t length = ftell(in);
-    if (length == -1) {
-        return 0;
-    }
-    fseek(in, SEEK_SET, 0);
-    return length;
-}
-
-uint8_t *ReadFileIfExists(const char *name, size_t *size)
-{
-    FILE *fptr = fopen(name, "r");
-
-    if (fptr == NULL)
-        return NULL;
-
-    *size = GetFileLength(fptr);
-    if (*size < 1) {
-        fclose(fptr);
-        return NULL;
-    }
-
-    uint8_t *result = MemAlloc(*size);
-    fseek(fptr, 0, SEEK_SET);
-    size_t bytesread = fread(result, 1, *size, fptr);
-
-    fclose(fptr);
-
-    if (bytesread == 0) {
-        free(result);
-        return NULL;
-    }
-
-    return result;
 }
 
 static uint8_t *LookForCompanionFilename(int index, CompanionNameType type, size_t stringlen, size_t *filesize)
@@ -164,6 +124,13 @@ static uint8_t *LookForCompanionFilename(int index, CompanionNameType type, size
             sideB[ppos] = ']';
             debug_print("looking for companion file \"%s\"\n", sideB);
             result = ReadFileIfExists(sideB, filesize);
+        } else if (type == TYPE_2) {
+            // Hack for 177a - Buckaroo Banzai - Side 1.dsk ->
+            //          177b - Buckaroo Banzai - Side 2.dsk
+            if (index > 27 && sideB[index - 27] == 'a') {
+                sideB[index - 27] = 'b';
+                result = ReadFileIfExists(sideB, filesize);
+            }
         }
     }
 

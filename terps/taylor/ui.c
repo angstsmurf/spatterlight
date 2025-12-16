@@ -24,10 +24,6 @@
 #include "taylordraw.h"
 #include "utility.h"
 
-#define GLK_BUFFER_ROCK 1
-#define GLK_STATUS_ROCK 1010
-#define GLK_GRAPHICS_ROCK 1020
-
 winid_t Bottom, Top, Graphics;
 winid_t CurrentWindow;
 static int OutC;
@@ -39,18 +35,6 @@ glui32 TopHeight = 1; /* Height of top window */
 int Options; /* Option flags */
 int LineEvent = 0;
 int GraphicsOff = 0;
-
-winid_t FindGlkWindowWithRock(glui32 rock)
-{
-    winid_t win;
-    glui32 rockptr;
-    for (win = glk_window_iterate(NULL, &rockptr); win;
-         win = glk_window_iterate(win, &rockptr)) {
-        if (rockptr == rock)
-            return win;
-    }
-    return 0;
-}
 
 void Display(winid_t w, const char *fmt, ...)
 {
@@ -360,22 +344,23 @@ void Updates(event_t ev)
     }
 }
 
-const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
+#define IMAGE_WIDTH_IN_PIXELS 255
+#define IMAGE_HEIGHT_IN_PIXELS 96
+
+static glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
-    *width = 255;
-    *height = 96;
     int multiplier = 1;
     glui32 graphwidth, graphheight;
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
-    multiplier = graphheight / 96;
-    if (255 * multiplier > graphwidth)
-        multiplier = graphwidth / 255;
+    multiplier = graphheight / IMAGE_HEIGHT_IN_PIXELS;
+    if (IMAGE_WIDTH_IN_PIXELS * multiplier > graphwidth)
+        multiplier = graphwidth / IMAGE_WIDTH_IN_PIXELS;
 
     if (multiplier == 0)
         multiplier = 1;
 
-    *width = 255 * multiplier;
-    *height = 96 * multiplier;
+    *width = IMAGE_WIDTH_IN_PIXELS * multiplier;
+    *height = IMAGE_HEIGHT_IN_PIXELS * multiplier;
 
     return multiplier;
 }

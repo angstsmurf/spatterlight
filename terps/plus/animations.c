@@ -5,6 +5,7 @@
 //  Created by Petter Sjölund on 2022-03-24.
 //
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -12,6 +13,7 @@
 #include "definitions.h"
 #include "glk.h"
 #include "graphics.h"
+#include "apple2draw.h"
 
 #include "animations.h"
 
@@ -198,7 +200,6 @@ void StopAnimation(void)
     StopNext = 0;
 }
 
-void DrawApple2ImageFromVideoMem(void);
 void DrawBlack(void);
 
 void UpdateAnimation(void) // Draw animation frame
@@ -232,7 +233,7 @@ void UpdateAnimation(void) // Draw animation frame
             if (CurrentGame == SPIDERMAN && MyLoc == 5) {
                 DrawItemImage(23);
                 if (CurrentSys == SYS_APPLE2)
-                    DrawApple2ImageFromVideoMem();
+                    DrawApple2ImageFromVideoMemWithFlip(upside_down);
             }
         }
 
@@ -258,7 +259,7 @@ void UpdateAnimation(void) // Draw animation frame
         if (!DrawImageWithName(AnimationFilenames[AnimationFrames[AnimationStage++]]))
             StopNext = 1;
         else if (CurrentSys == SYS_APPLE2)
-            DrawApple2ImageFromVideoMem();
+            DrawApple2ImageFromVideoMemWithFlip(upside_down);
 
         if (PostCannonAnimationSeam && AnimationStage == 10) {
             CannonAnimationPause = 1;

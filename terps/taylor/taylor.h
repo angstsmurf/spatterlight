@@ -30,27 +30,9 @@ void CloseGraphicsWindow(void);
 void OpenGraphicsWindow(void);
 void OpenTopWindow(void);
 
-void PrintFirstTenBytes(size_t offset);
-
-#define FOLLOWS 0xffff
-
-#define MAX_WORDLENGTH 128
-#define MAX_WORDS 128
-
-#define DEBUG_ACTIONS 0
-
-#define debug_print(fmt, ...)                    \
-    do {                                         \
-        if (DEBUG_ACTIONS)                       \
-            fprintf(stderr, fmt, ##__VA_ARGS__); \
-    } while (0)
-
 #define CurrentGame (Game->gameID)
 #define Version (Game->type)
 #define BaseGame (Game->base_game)
-
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #ifdef SPATTERLIGHT
 #define TAYLOR_GRAPHICS_ENABLED gli_enable_graphics
@@ -258,7 +240,7 @@ typedef enum {
     QUESTPROBE3_TYPE
 } GameVersion;
 
-struct GameInfo {
+typedef struct {
     const char *Title;
 
     GameIDType gameID;
@@ -286,7 +268,7 @@ struct GameInfo {
     int number_of_pictures;
     palette_type palette;
     int start_of_intro_text;
-};
+} GameInfo;
 
 extern unsigned char ObjectLoc[];
 extern unsigned char Flag[];
@@ -294,7 +276,7 @@ extern unsigned char Flag[];
 extern winid_t Bottom, Top, Graphics, CurrentWindow;
 extern long FileBaselineOffset;
 
-extern struct GameInfo *Game;
+extern GameInfo *Game;
 
 extern int Resizing;
 extern char DelimiterChar;

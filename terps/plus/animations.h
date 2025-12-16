@@ -8,8 +8,6 @@
 #ifndef animations_h
 #define animations_h
 
-#include <stdio.h>
-
 void UpdateAnimation(void);
 void StartAnimations(void);
 void StopAnimation(void);

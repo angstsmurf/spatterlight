@@ -10,11 +10,10 @@
 
 #include "scottdefines.h"
 #include <stdint.h>
-#include <stdio.h>
 
 GameIDType DetectGame(const char *file_name);
 int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr);
-GameIDType TryLoading(struct GameInfo info, int dict_start, int loud);
+GameIDType TryLoading(GameInfo info, int dict_start, int loud);
 DictionaryType GetId(size_t *offset);
 int FindCode(const char *x, int base);
 uint8_t *ReadHeader(uint8_t *ptr);

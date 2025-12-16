@@ -431,7 +431,8 @@ int unp64cpp(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, siz
 		if (_G(_unp)._debugP) {
 			for (p = 0; p < 0x20; p += 2) {
 				if (READ_LE_UINT16(mem + 0x314 + p) != READ_LE_UINT16(vector + p)) {
-					WRITE_UINT16(vector + p, READ_LE_UINT16(mem + 0x314 + p));
+                    vector[p] = mem[0x314 + p];
+                    vector[p + 1] = mem[0x314 + p + 1];
 				}
 			}
 		}
@@ -562,7 +563,10 @@ int unp64cpp(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, siz
 		_G(_unp)._wrMemF = 0;
 		for (p = 0x800; p < 0x10000; p += 4) {
 			if (u32eq(oldmem + p, READ_LE_UINT32(mem + p))) {
-				WRITE_LE_UINT32(mem + p, 0);
+				mem[p + 0] = 0;
+                mem[p + 1] = 0;
+                mem[p + 2] = 0;
+                mem[p + 3] = 0;
 				_G(_unp)._wrMemF = 1;
 			}
 		}

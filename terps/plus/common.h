@@ -8,12 +8,14 @@
 #ifndef common_h
 #define common_h
 
+#include "common_utils.h"
+#include "common_file_utils.h"
+#include "debugprint.h"
 #include "definitions.h"
+#include "memory_allocation.h"
+
 #include "glk.h"
 
-void *MemAlloc(size_t size);
-void *MyCalloc(size_t size);
-void Fatal(const char *x);
 void Output(const char *string);
 void OpenGraphicsWindow(void);
 void CloseGraphicsWindow(void);
@@ -74,7 +76,7 @@ extern int lastwasnewline;
 extern int should_restart;
 
 extern SystemType CurrentSys;
-extern struct GameInfo *Game;
+extern GameInfo *Game;
 
 extern ImgType LastImgType;
 extern int LastImgIndex;

@@ -8,8 +8,6 @@
 #ifndef parseinput_h
 #define parseinput_h
 
-#include <stdio.h>
-
 void FreeInputWords(void);
 int GetInput(void);
 int IsNextParticiple(int partp, int noun2);

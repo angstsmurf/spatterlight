@@ -13,8 +13,6 @@
 
 #include "bsd.h"
 
-#define MAX_WORDLENGTH 128
-#define MAX_WORDS 128
 #define MAX_BUFFER 128
 
 extern struct Command *CurrentCommand;
@@ -873,7 +871,7 @@ static int FindNoun(const char *string, const char ***list)
     return FindVerbOrNoun(string, noun_search_order, sizeof(noun_search_order) / sizeof(noun_search_order[0]), list);
 }
 
-static struct Command *CommandFromStrings(int index, struct Command *previous);
+static Command *CommandFromStrings(int index, Command *previous);
 
 static int FindExtaneousWords(int *index, int noun)
 {
@@ -924,10 +922,10 @@ static int FindExtaneousWords(int *index, int noun)
     return 1;
 }
 
-static struct Command *CreateCommandStruct(int verb, int noun, int verbindex,
-    int nounindex, struct Command *previous)
+static Command *CreateCommandStruct(int verb, int noun, int verbindex,
+    int nounindex, Command *previous)
 {
-    struct Command *command = MemAlloc(sizeof(struct Command));
+    Command *command = MemAlloc(sizeof(Command));
     command->verb = verb;
     command->noun = noun;
     command->allflag = 0;
@@ -943,7 +941,7 @@ static struct Command *CreateCommandStruct(int verb, int noun, int verbindex,
     return command;
 }
 
-static struct Command *CommandFromStrings(int index, struct Command *previous)
+static Command *CommandFromStrings(int index, Command *previous)
 {
     if (index < 0 || index >= WordsInInput) {
         return NULL;
@@ -1070,7 +1068,7 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
     return NULL;
 }
 
-static int CreateAllCommands(struct Command *command)
+static int CreateAllCommands(Command *command)
 {
     if (GameHeader.NumItems > 2048)
         Fatal("Bad number of items");
@@ -1081,7 +1079,7 @@ static int CreateAllCommands(struct Command *command)
     if (command->verb == TAKE)
         location = MyLoc;
 
-    struct Command *next = command->next;
+    Command *next = command->next;
     /* Check if the ALL command is followed by EXCEPT */
     while (next && next->verb == GameHeader.NumWords + EXCEPT) {
         for (int i = 0; i <= GameHeader.NumItems; i++) {
@@ -1095,7 +1093,7 @@ static int CreateAllCommands(struct Command *command)
         command->next = next;
     }
 
-    struct Command *c = command;
+    Command *c = command;
     int found = 0;
     for (int i = 0; i < GameHeader.NumItems; i++) {
         if (Items[i].AutoGet != NULL && Items[i].AutoGet[0] != '*' && Items[i].Location == location) {
@@ -1108,7 +1106,7 @@ static int CreateAllCommands(struct Command *command)
             }
             if (!exception) {
                 if (found) {
-                    c->next = MemAlloc(sizeof(struct Command));
+                    c->next = MemAlloc(sizeof(Command));
                     c->next->previous = c;
                     c = c->next;
                 }

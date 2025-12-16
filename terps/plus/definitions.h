@@ -11,32 +11,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define DEBUG_ACTIONS 0
-
-#define debug_print(fmt, ...)                    \
-    do {                                         \
-        if (DEBUG_ACTIONS)                       \
-            fprintf(stderr, fmt, ##__VA_ARGS__); \
-    } while (0)
-
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-
-#define MAX_LENGTH 300000
-#define MIN_LENGTH 24
-
-#define GLK_BUFFER_ROCK 1
-#define GLK_STATUS_ROCK 1010
-#define GLK_GRAPHICS_ROCK 1020
-
-#define FOLLOWS 0xffff
-
-#define MAX_GAMEFILE_SIZE 200000
-
-#define MAX_WORDLENGTH 128
-#define MAX_WORDS 128
-
-#define MAX_BUFFER 512
+#include "common_defines.h"
+#include "minmax.h"
 
 #define YOUARE 1 /* You are not I am */
 #define DEBUGGING 4 /* Info from database load */
@@ -154,7 +130,7 @@ typedef struct {
     uint32_t Image;
 } ObjectImage;
 
-typedef struct imgrec {
+typedef struct {
     char *Filename;
     uint8_t *Data;
     size_t DiskOffset;
@@ -275,7 +251,7 @@ typedef enum {
 
 #define MAX_SYSMESS LAST_SYSTEM_MESSAGE
 
-struct GameInfo {
+typedef struct  {
     const char *title;
     const char *ID_string;
     GameIDType gameID;
@@ -283,6 +259,6 @@ struct GameInfo {
     int no_of_room_images;
     int no_of_item_images;
     int no_of_special_images;
-};
+} GameInfo;
 
 #endif /* definitions_h */

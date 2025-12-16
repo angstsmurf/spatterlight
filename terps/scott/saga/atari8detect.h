@@ -8,8 +8,6 @@
 #ifndef detectatari8_h
 #define detectatari8_h
 
-#include <stdio.h>
-
 #include "scottdefines.h"
 
 GameIDType DetectAtari8(uint8_t **sf, size_t *extent);

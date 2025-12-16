@@ -2,6 +2,9 @@
 //  decompresstext.h
 //  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
+//  Implements the text decompression scheme used by Robin of Sherwood
+//  and Seas of Blood.
+//
 //  Created by Petter Sjölund on 2022-01-10.
 //
 

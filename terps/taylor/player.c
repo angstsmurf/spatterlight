@@ -29,6 +29,7 @@
 #include "graphics.h"
 #include "irmak.h"
 #include "utility.h"
+#include "common_file_utils.h"
 
 #include "taylor.h"
 
@@ -83,8 +84,8 @@ static int GoVerb = 0;
 static int FoundVerb = 0;
 static int FoundNoun = 0;
 
-struct GameInfo *Game = NULL;
-extern struct GameInfo games[];
+GameInfo *Game = NULL;
+extern GameInfo games[];
 
 strid_t room_description_stream = NULL;
 
@@ -422,7 +423,7 @@ static size_t FindTokens(void)
             } else
                 return pos + 6;
         }
-        addr = (FileImage[pos - 1] << 8 | FileImage[pos - 2]) - 0x4000 + FileBaselineOffset;
+        addr = READ_LE_UINT16(FileImage + pos - 2) - 0x4000 + FileBaselineOffset;
     } while (LooksLikeTokens(addr) == 0);
     TokenClassify(addr);
     return addr;
@@ -878,7 +879,7 @@ static void NewGame(void)
     PrintedOK = 1;
 }
 
-static int GetFileLength(strid_t stream)
+static int GetGlkFileLength(strid_t stream)
 {
     glk_stream_set_position(stream, 0, seekmode_End);
     return glk_stream_get_position(stream);
@@ -912,9 +913,9 @@ int LoadGame(void)
     }
 
     /*
-         * Reject the file reference if we're expecting to read from it, and the
-         * referenced file doesn't exist.
-         */
+     * Reject the file reference if we're expecting to read from it, and the
+     * referenced file doesn't exist.
+     */
     if (!glk_fileref_does_file_exist(fileref)) {
         OutString("Unable to open file.\n");
         glk_fileref_destroy(fileref);
@@ -930,11 +931,11 @@ int LoadGame(void)
         return 0;
     }
 
-    struct SavedState *state = SaveCurrentState();
+    SavedState *state = SaveCurrentState();
 
     /* Restore saved game data. */
 
-    if (glk_get_buffer_stream(stream, (char *)Flag, 128) != 128 || glk_get_buffer_stream(stream, (char *)ObjectLoc, 256) != 256 || GetFileLength(stream) != 384) {
+    if (glk_get_buffer_stream(stream, (char *)Flag, 128) != 128 || glk_get_buffer_stream(stream, (char *)ObjectLoc, 256) != 256 || GetGlkFileLength(stream) != 384) {
         RecoverFromBadRestore(state);
     } else {
         glk_window_clear(Bottom);
@@ -2201,14 +2202,6 @@ static void RunOneInput(void)
         Flag[WaitFlag()] = 0;
 }
 
-void PrintFirstTenBytes(size_t offset)
-{
-    fprintf(stderr, "\nFirst 10 bytes at 0x%04zx: ", offset);
-    for (int i = 0; i < 10; i++)
-        fprintf(stderr, "0x%02x ", FileImage[offset + i]);
-    fprintf(stderr, "\n");
-}
-
 static void FindTables(void)
 {
     TokenBase = FindTokens();
@@ -2333,31 +2326,14 @@ int glkunix_startup_code(glkunix_startup_t *data)
     strncpy(Filename, argv[1], namelen);
     Filename[namelen] = '\0';
 
-    FILE *f = fopen(Filename, "r");
-    if (f == NULL) {
+    FileImage = ReadFileIfExists(Filename, &FileImageLen);
+    if (FileImage == NULL) {
         perror(Filename);
-        glk_exit();
-    }
-
-    fseek(f, 0, SEEK_END);
-    FileImageLen = ftell(f);
-    if (FileImageLen == -1) {
-        fclose(f);
-        glk_exit();
-    }
-
-    FileImage = MemAlloc(FileImageLen);
-
-    fseek(f, 0, SEEK_SET);
-    if (fread(FileImage, 1, FileImageLen, f) != FileImageLen) {
-        fprintf(stderr, "File read error!\n");
+        CleanupAndExit();
     }
 
     FileImage = ProcessFile(FileImage, &FileImageLen);
-
     EndOfData = FileImage + FileImageLen;
-
-    fclose(f);
 
 #ifdef GARGLK
     garglk_set_program_name("TaylorMade 0.4");
@@ -2383,9 +2359,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 //    uint8_t *conditions;
 //    conditions = &FileImage[conditionsOffsets];
 //    for (int i = 1; i < 20; i++) {
-//        uint16_t address = *conditions++;
-//        address += *conditions * 256;
-//        conditions++;
+//        uint16_t address = READ_LE_UINT16_AND_ADVANCE(&conditions);
 //        fprintf(stderr, "Condition %02d: 0x%04x (%s)\n", i, address, Condition[Q3Condition[i]]);
 //    }
 //    fprintf(stderr, "\n");
@@ -2398,9 +2372,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 //    uint8_t *actions;
 //    actions = &FileImage[actionOffsets];
 //    for (int i = 1; i < 24; i++) {
-//        uint16_t address = *actions++;
-//        address += *actions * 256;
-//        actions++;
+//        uint16_t address = READ_LE_UINT16_AND_ADVANCE(&actions);
 //        fprintf(stderr, "   Action %02d: 0x%04x (%s)\n", i, address, Action[Q3Action[i]]);
 //    }
 //    fprintf(stderr, "\n");
@@ -2408,9 +2380,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
 //
 //#endif
 
-static struct GameInfo *DetectGame(size_t LocalVerbBase)
+static GameInfo *DetectGame(size_t LocalVerbBase)
 {
-    struct GameInfo *LocalGame;
+    GameInfo *LocalGame;
 
     for (int i = 0; i < NUMGAMES; i++) {
         LocalGame = &games[i];
@@ -2457,25 +2429,13 @@ static void LookForSecondTOTGame(void)
     else
         *period = 'a';
 
-    FILE *f = fopen(secondfile, "r");
-    if (f == NULL)
-        return;
+    size_t filelength;
 
-    fseek(f, 0, SEEK_END);
-    size_t filelength = ftell(f);
-    if (filelength == -1) {
-        fclose(f);
+    CompanionFile = ReadFileIfExists(secondfile, &filelength);
+
+    if (CompanionFile == NULL) {
         return;
     }
-
-    CompanionFile = MemAlloc(filelength);
-
-    fseek(f, 0, SEEK_SET);
-    if (fread(CompanionFile, 1, filelength, f) != filelength) {
-        fprintf(stderr, "File read error!\n");
-    }
-
-    fclose(f);
 
     uint8_t *ParkedFile = FileImage;
     size_t ParkedLength = FileImageLen;
@@ -2493,7 +2453,7 @@ static void LookForSecondTOTGame(void)
         return;
     }
 
-    struct GameInfo *AltGame = DetectGame(AltVerbBase);
+    GameInfo *AltGame = DetectGame(AltVerbBase);
 
     if ((CurrentGame == TOT_TEXT_ONLY && AltGame->gameID != TEMPLE_OF_TERROR) || (CurrentGame == TEMPLE_OF_TERROR && AltGame->gameID != TOT_TEXT_ONLY)) {
         UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 1);

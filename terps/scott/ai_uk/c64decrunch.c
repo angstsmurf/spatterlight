@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "common_file_utils.h"
+
 #include "scott.h"
 #include "scottdefines.h"
 #include "scottgameinfo.h"
@@ -488,13 +490,6 @@ static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasi
     return newsize;
 }
 
-void PrintFirstTenBytes(uint8_t *ptr, size_t offset) {
-    fprintf(stderr, "First 10 bytes at 0x%04zx: ", offset);
-    for (int i = 0; i < 10; i++)
-        fprintf(stderr, "\\x%02x", ptr[offset + i]);
-    fprintf(stderr, "\n");
-}
-
 void LoadC64USImages(uint8_t *data, size_t length) {
     int numfiles;
 
@@ -518,7 +513,7 @@ void LoadC64USImages(uint8_t *data, size_t length) {
 
             if (imgindex) {
                 USImages = new_image();
-                struct USImage *image = USImages;
+                USImage *image = USImages;
                 for (int i = 0; i < imgindex; i++) {
                     const char *shortname = imagefiles[i];
                     di_rawname_from_name(rawname, shortname);
@@ -553,8 +548,6 @@ void LoadC64USImages(uint8_t *data, size_t length) {
         }
     }
 }
-
-uint8_t *ReadFileIfExists(const char *name, size_t *size);
 
 GameIDType look_for_socc_companion_file(const char *filename, uint8_t **sf, size_t *extent) {
     if (filename == NULL)
@@ -638,10 +631,10 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
 
             } else if (c64_registry[i].type == TYPE_T64) {
                 uint8_t *file_records = *sf + 64;
-                int number_of_records = (*sf)[36] + (*sf)[37] * 0x100;
-                int offset = file_records[8] + file_records[9] * 0x100;
-                int start_addr = file_records[2] + file_records[3] * 0x100;
-                int end_addr = file_records[4] + file_records[5] * 0x100;
+                int number_of_records = READ_LE_UINT16(*sf + 36);
+                int offset = READ_LE_UINT16(file_records + 8);
+                int start_addr = READ_LE_UINT16(file_records + 2);
+                int end_addr = READ_LE_UINT16(file_records + 4);
                 int size;
                 if (number_of_records == 1)
                     size = *extent - offset;

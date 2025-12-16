@@ -11,12 +11,8 @@
 #include <stdint.h>
 
 #include "palette.h"
-
-#define MAX_LENGTH 300000
-#define MIN_LENGTH 24
-
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#include "minmax.h"
+#include "common_defines.h"
 
 #define FOLLOWS 0xffff
 
@@ -265,7 +261,7 @@ typedef enum {
     HULK_ACTIONS
 } ActionTableType;
 
-struct GameInfo {
+typedef struct {
     const char *Title;
 
     GameIDType gameID;
@@ -312,6 +308,6 @@ struct GameInfo {
     palette_type palette;
     int picture_format_version;
     int start_of_intro_text;
-};
+} GameInfo;
 
 #endif /* scottdefines_h */

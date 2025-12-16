@@ -124,7 +124,7 @@ static void loadPrgData(uint8_t mem[65536], uint8_t *data, size_t dataLength, Lo
 }
 
 void loadData(uint8_t *data, size_t dataLength, uint8_t mem[65536], LoadInfo *info) {
-	int load = data[0] + data[1] * 0x100;
+    int load = READ_LE_UINT16(data);
 
 	info->_start = load;
 	loadPrgData(mem, data + 2, dataLength - 2, info);

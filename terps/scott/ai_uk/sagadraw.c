@@ -168,7 +168,7 @@ void SagaSetup(size_t imgoffset)
         data_offset = imgoffset;
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
-    pos = SeekToPos(entire_file, tiles_start);
+    pos = SeekToPos(tiles_start);
 
 #ifdef DRAWDEBUG
     debug_print("Grabbing tile details\n");
@@ -186,7 +186,7 @@ void SagaSetup(size_t imgoffset)
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
 
-    pos = SeekToPos(entire_file, offset_table_start);
+    pos = SeekToPos(offset_table_start);
 
     int broken_claymorgue_pictures_c64 = 0;
     int broken_claymorgue_pictures_zx = 0;
@@ -232,33 +232,32 @@ void SagaSetup(size_t imgoffset)
             }
 
             address += file_baseline_offset;
-            address = entire_file[address] + entire_file[address + 1] * 0x100;
+            address = READ_LE_UINT16(entire_file + address);
 
             image_offsets[i] = address + hulk_image_offset;
         } else {
-            image_offsets[i] = *(pos++);
-            image_offsets[i] += *(pos++) * 0x100;
+            image_offsets[i] = READ_LE_UINT16_AND_ADVANCE(&pos);
         }
     }
 
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
-        pos = SeekToPos(entire_file, image_offsets[picture_number] + data_offset);
+        pos = SeekToPos(image_offsets[picture_number] + data_offset);
         if (pos == 0)
             return;
 
-        img->width = *(pos++);
+        img->width = *pos++;
         if (img->width > IRMAK_IMGWIDTH)
             img->width = IRMAK_IMGWIDTH;
 
-        img->height = *(pos++);
+        img->height = *pos++;
         if (img->height > IRMAK_IMGHEIGHT)
             img->height = IRMAK_IMGHEIGHT;
 
         if (version > 0) {
-            img->xoff = *(pos++);
+            img->xoff = *pos++;
             if (img->xoff > IRMAK_IMGWIDTH)
                 img->xoff = 4;
-            img->yoff = *(pos++);
+            img->yoff = *pos++;
             if (img->yoff > IRMAK_IMGHEIGHT)
                 img->yoff = 0;
         } else {

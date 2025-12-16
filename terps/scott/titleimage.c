@@ -20,8 +20,6 @@
 
 #include "titleimage.h"
 
-glui32 OptimalPictureSize(glui32 *width, glui32 *height);
-
 void ResizeTitleImage(void)
 {
     glui32 graphwidth, graphheight, optimal_width, optimal_height;

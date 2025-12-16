@@ -8,8 +8,6 @@
 #ifndef graphics_h
 #define graphics_h
 
-#include <stdio.h>
-
 #include "glk.h"
 
 typedef uint8_t RGB[3];
@@ -24,7 +22,6 @@ extern int upside_down;
 
 extern int x, y;
 extern int xlen, ylen;
-extern int xoff, yoff;
 
 int DrawCloseup(int item);
 void DrawCurrentRoom(void);
@@ -33,6 +30,7 @@ void DrawItemImage(int item);
 int DrawImageWithName(char *filename);
 char *ShortNameFromType(char type, int index);
 void SetColor(int32_t index, const RGB *color);
+// Only IBM PC graphics in "striped" mode use PutPixel()
 void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color);
 void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);
 

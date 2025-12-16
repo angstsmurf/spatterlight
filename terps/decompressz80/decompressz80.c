@@ -544,6 +544,11 @@ libspectrum_error internal_z80_read(libspectrum_snap *snap,
     return LIBSPECTRUM_ERROR_NONE;
 }
 
+static inline uint16_t READ_LE_UINT16(const void *ptr) {
+    const uint8_t *b = (const uint8_t *)ptr;
+    return (b[1] << 8) | b[0];
+}
+
 static libspectrum_error read_header(const uint8_t *buffer,
     libspectrum_snap *snap,
     const uint8_t **data, int *version,
@@ -552,14 +557,14 @@ static libspectrum_error read_header(const uint8_t *buffer,
     const uint8_t *header = buffer;
     libspectrum_error error;
 
-    snap->pc = header[6] + header[7] * 0x100;
+    snap->pc = READ_LE_UINT16(header + 6);
 
     if (snap->pc == 0) { /* PC == 0x0000 => v2 or greater */
 
         size_t extra_length;
         const uint8_t *extra_header;
 
-        extra_length = header[LIBSPECTRUM_Z80_HEADER_LENGTH] + header[LIBSPECTRUM_Z80_HEADER_LENGTH + 1] * 0x100;
+        extra_length = READ_LE_UINT16(header + LIBSPECTRUM_Z80_HEADER_LENGTH);
 
         switch (extra_length) {
         case LIBSPECTRUM_Z80_V2_LENGTH:
@@ -579,7 +584,7 @@ static libspectrum_error read_header(const uint8_t *buffer,
 
         extra_header = buffer + LIBSPECTRUM_Z80_HEADER_LENGTH + 2;
 
-        snap->pc = extra_header[0] + extra_header[1] * 0x100;
+        snap->pc = READ_LE_UINT16(extra_header);
 
         error = get_machine_type(snap, extra_header[2], *version);
         if (error)
@@ -974,7 +979,7 @@ static libspectrum_error read_v2_block(const uint8_t *buffer, uint8_t **block,
 {
     size_t length2;
 
-    length2 = buffer[0] + buffer[1] * 0x100;
+    length2 = READ_LE_UINT16(buffer);
     (*page) = buffer[2];
 
     if (length2 == 0 && *page == 0) {
@@ -1401,7 +1406,7 @@ static libspectrum_error tzx_skip_archive_info(uint8_t **ptr, uint8_t *end)
         return LIBSPECTRUM_ERROR_CORRUPT;
     }
 
-    size_t length = **ptr + *(*ptr + 1) * 0x100 + 2;
+    size_t length = READ_LE_UINT16(*ptr) + 2;
     (*ptr) += length;
     return error;
 }
@@ -1515,6 +1520,13 @@ find_tzx_block(int blockno, uint8_t *srcbuf, uint8_t **result,
     return LIBSPECTRUM_ERROR_NONE;
 }
 
+static inline uint16_t READ_LE_UINT16_AND_ADVANCE(uint8_t **ptr)
+{
+    uint8_t *b = *ptr;
+    (*ptr) += 2;
+    return (b[1] << 8) | b[0];
+}
+
 uint8_t *GetTAPBlock(int wantedindex, const uint8_t *buffer,
     size_t *length)
 {
@@ -1540,9 +1552,7 @@ uint8_t *GetTAPBlock(int wantedindex, const uint8_t *buffer,
         }
 
         /* Get the length, and move along the buffer */
-        data_length = ptr[0] + ptr[1] * 0x100;
-        ptr += 2;
-
+        data_length = READ_LE_UINT16_AND_ADVANCE((uint8_t **)&ptr);
         buf_length = data_length;
 
         /* Have we got enough bytes left in buffer? */

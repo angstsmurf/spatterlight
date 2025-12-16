@@ -5,9 +5,11 @@
 //  Created by Petter Sjölund on 2022-09-07.
 //
 
+#include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
 
+#include "common_file_utils.h"
 #include "glk.h"
 #include "scott.h"
 
@@ -15,15 +17,16 @@
 
 int pixel_size;
 int x_offset = 0;
-/* y_offset is only used by the title image,
- because we adjust the in-game graphics window
- height to fit the window, so that the image alsways
- is drawn at the very top */
+/* The y_offset global is only used by the title image.
+ We always position the in-game graphics
+ relative to the graphics window top.
+ Images have an internal "y origin" value
+ that determines their vertical position. */
 int y_offset = 0;
 int right_margin;
 int left_margin = 0;
 
-struct USImage *USImages = NULL;
+USImage *USImages = NULL;
 
 int has_graphics(void)
 {
@@ -32,7 +35,7 @@ int has_graphics(void)
 
 USImage *new_image(void)
 {
-    struct USImage *new = MemAlloc(sizeof(USImage));
+    USImage *new = MemAlloc(sizeof(USImage));
     new->index = -1;
     new->datasize = 0;
     new->imagedata = NULL;
@@ -101,4 +104,23 @@ int issagaimg(const char *name)
         return 1;
     }
     return 0;
+}
+
+extern char *DirPath;
+
+uint8_t *FindImageFile(const char *shortname, size_t *datasize)
+{
+    *datasize = 0;
+    uint8_t *data = NULL;
+    size_t pathlen = strlen(DirPath) + strlen(shortname) + 5;
+    char *filename = MemAlloc(pathlen);
+    int n = snprintf(filename, pathlen, "%s%s.PAK", DirPath, shortname);
+    if (n > 0) {
+        data = ReadFileIfExists(filename, datasize);
+        if (data == NULL) {
+            fprintf(stderr, "Could not find or read image file %s\n", filename);
+        }
+    }
+    free(filename);
+    return data;
 }

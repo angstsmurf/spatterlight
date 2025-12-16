@@ -27,6 +27,7 @@
 
 #include "glk.h"
 #include "debugprint.h"
+#include "memory_allocation.h"
 #include "palette.h"
 
 #include "irmak.h"
@@ -60,7 +61,6 @@ uint8_t imagebuffer[IRMAK_IMGSIZE][9];
 // Forward declarations of necessary external functions
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
 void PutPixel(glsi32 x, glsi32 y, int32_t color);
-void *MemAlloc(int size);
 
 int isNthBitSet(unsigned const char c, int n)
 {
@@ -315,18 +315,6 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
     ctx->dataptr = dataptr;
 }
 
-static void FreeInkAndPaper(uint8_t **ink, uint8_t **paper)
-{
-    if (*ink != NULL) {
-        free(*ink);
-    }
-    if (*paper != NULL) {
-        free(*paper);
-    }
-    *ink = NULL;
-    *paper = NULL;
-}
-
 /* Parse attribute (ink/paper) data after tiles have been transformed
  and placed. If not drawing to buffer, this allocates ink and paper
  arrays (*out_ink and *out_paper) which the caller must free.
@@ -334,7 +322,7 @@ static void FreeInkAndPaper(uint8_t **ink, uint8_t **paper)
  If we *are* drawing to buffer, the out_ink and out_paper arguments
  will be unused and left as NULL, and the attributes will be written to
  the ninth byte of the corresponding imagebuffer[][] cell instead. */
-static int DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **out_paper)
+static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
 {
     uint8_t *dataptr = ctx->dataptr;
     uint8_t *origptr = ctx->origptr;
@@ -343,15 +331,6 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **o
     int ysize = ctx->ysize;
     int xoff = ctx->xoff;
     int yoff = ctx->yoff;
-
-    uint8_t *ink = NULL;
-    uint8_t *paper = NULL;
-
-    /* allocate ink and paper if not drawing to buffer */
-    if (!ctx->draw_to_buffer) {
-        ink = (uint8_t *)MemAlloc(ctx->imagesize);
-        paper = (uint8_t *)(uint8_t *)MemAlloc(ctx->imagesize);
-    }
 
     int y = 0;
     int x = 0;
@@ -362,7 +341,6 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **o
             fprintf(stderr, "DecodeAttributes: data offset %zu out of range! Image size %zu. Bailing!\n",
                     (size_t)(dataptr - origptr), datasize);
             /* free on error */
-            FreeInkAndPaper(&ink, &paper);
             return 0;
         }
         uint8_t data = *dataptr++;
@@ -376,7 +354,6 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **o
                 /* in version 2 and below, repeat the *following* colour byte */
                 if ((size_t)(dataptr - origptr) > datasize) {
                     fprintf(stderr, "DecodeAttributes: missing colour byte\n");
-                    FreeInkAndPaper(&ink, &paper);
                     return 0;
                 }
                 colour = *dataptr++;
@@ -403,7 +380,6 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **o
             } else { /* Not drawing to buffer */
                 if (x >= xsize) {
                     fprintf(stderr, "parse_attributes: x position out of range\n");
-                    FreeInkAndPaper(&ink, &paper);
                     return 0;
                 }
                 /* write colours into ink/paper arrays */
@@ -438,8 +414,6 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t **out_ink, uint8_t **o
     }
 
     ctx->dataptr = dataptr;
-    *out_ink = ink;
-    *out_paper = paper;
     return 1;
 }
 
@@ -531,20 +505,16 @@ void DrawIrmakPictureFromContext(IrmakImgContext ctx)
     PerformTileTranformations(&ctx);
 
     /* Step 2: Write attribute bytes */
-    uint8_t *ink = NULL;
-    uint8_t *paper = NULL;
+    uint8_t ink[IRMAK_IMGSIZE];
+    uint8_t paper[IRMAK_IMGSIZE];
     /* The ink and paper arguments will only be used
      if we are not drawing to buffer */
-    if (DecodeAttributes(&ctx, &ink, &paper)) {
-
-    /* Step 3: compose image to buffer or direct render */
-    /* The ink and paper arguments will still not be used
-     if we are drawing to buffer. */
+    if (DecodeAttributes(&ctx, ink, paper)) {
+        /* Step 3: compose image to buffer or direct render */
+        /* The ink and paper arguments will still not be used
+         if we are drawing to buffer. */
         DrawDecodedImage(&ctx, ink, paper);
     }
-
-    /* cleanup */
-    FreeInkAndPaper(&ink, &paper);
 }
 
 void DrawIrmakPictureFromBuffer(void)

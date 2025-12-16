@@ -21,6 +21,7 @@
 
 #include "animations.h"
 #include "apple2detect.h"
+#include "apple2draw.h"
 #include "atari8detect.h"
 #include "c64detect.h"
 #include "common.h"
@@ -56,7 +57,7 @@ winid_t Bottom, Top, Graphics;
 
 strid_t Transcript = NULL;
 
-struct GameInfo *Game = NULL;
+GameInfo *Game = NULL;
 
 SystemType CurrentSys = SYS_UNKNOWN;
 
@@ -99,30 +100,6 @@ GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
     if (Transcript)
         glk_stream_close(Transcript, NULL);
     glk_exit();
-}
-
-GLK_ATTRIBUTE_NORETURN void Fatal(const char *x)
-{
-    fprintf(stderr, "%s!\n", x);
-    if (Bottom)
-        Display(Bottom, "%s\n", x);
-    CleanupAndExit();
-}
-
-void *MemAlloc(size_t size)
-{
-    void *t = (void *)malloc(size);
-    if (t == NULL)
-        Fatal("Out of memory");
-    return (t);
-}
-
-void *MyCalloc(size_t size)
-{
-    void *t = (void *)calloc(1, size);
-    if (t == NULL)
-        Fatal("Out of memory");
-    return (t);
 }
 
 void SetBit(int bit)
@@ -168,13 +145,11 @@ void Display(winid_t w, const char *fmt, ...)
     glk_put_string_stream(glk_window_get_stream(w), msg);
 }
 
-static const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
+static glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
     int w = ImageWidth;
     int h = ImageHeight;
 
-    *width = w;
-    *height = h;
     int multiplier = 1;
     glui32 graphwidth, graphheight;
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
@@ -190,8 +165,6 @@ static const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 
     return multiplier;
 }
-
-static winid_t FindGlkWindowWithRock(glui32 rock);
 
 void OpenGraphicsWindow(void)
 {
@@ -573,7 +546,7 @@ void Look(int transcript)
         DrawCurrentRoom();
     }
 
-    char *buf = MyCalloc(1000);
+    char *buf = MemCalloc(1000);
     room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
 
     Room *r;
@@ -648,18 +621,6 @@ void SystemMessage(SysMessageType message)
         Output(" ");
     lastwasnewline = 0;
     Output(sys[message]);
-}
-
-static winid_t FindGlkWindowWithRock(glui32 rock)
-{
-    winid_t win;
-    glui32 rockptr;
-    for (win = glk_window_iterate(NULL, &rockptr); win;
-         win = glk_window_iterate(win, &rockptr)) {
-        if (rockptr == rock)
-            return win;
-    }
-    return 0;
 }
 
 void OpenTopWindow(void)
@@ -963,8 +924,6 @@ static void ClearScreen(void)
     glk_window_clear(Bottom);
 }
 
-void DrawApple2ImageFromVideoMem(void);
-
 static void SysCommand(int arg1, int arg2)
 {
     switch (arg1) {
@@ -997,7 +956,7 @@ static void SysCommand(int arg1, int arg2)
         debug_print("DrawItemImage %d\n", Counters[arg2]);
         DrawItemImage(Counters[arg2]);
         if (CurrentSys == SYS_APPLE2)
-            DrawApple2ImageFromVideoMem();
+            DrawApple2ImageFromVideoMemWithFlip(upside_down);
         break;
     case 8:
         debug_print("DrawRoomImage %d\n", Counters[arg2]);
@@ -2323,20 +2282,16 @@ void glk_main(void)
     if (f == NULL)
         Fatal("Cannot open game");
 
-    if (LoadDatabasePlaintext(f, DEBUG_ACTIONS) == UNKNOWN_GAME) {
-        fseek(f, 0, SEEK_END);
-        memlen = ftell(f);
-        if (memlen == -1) {
-            fclose(f);
-            Fatal("Game file empty");
-        }
+    size_t filesize = GetFileLength(f);
 
+    if (filesize == 0) {
+        fclose(f);
+        Fatal("Game file empty");
+    }
+
+    if (LoadDatabasePlaintext(f, DEBUG_PRINT) == UNKNOWN_GAME) {
         fseek(f, 0, SEEK_SET);
-        mem = malloc(memlen);
-        if (!mem) {
-            Fatal("Out of memory");
-        }
-
+        mem = MemAlloc(filesize);
         memlen = fread(mem, 1, memlen, f);
         fclose(f);
 

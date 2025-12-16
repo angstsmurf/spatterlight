@@ -676,7 +676,7 @@ void LoadExtraSeasOfBloodData(int c64)
 
     int offset = file_baseline_offset + ((c64 == 1) ? 0x3fee: 0x47b7);
 
-    uint8_t *ptr = SeekToPos(entire_file, offset);
+    uint8_t *ptr = SeekToPos(offset);
 
     int ct;
 
@@ -690,7 +690,7 @@ void LoadExtraSeasOfBloodData(int c64)
 
     offset = file_baseline_offset + ((c64 == 1) ? 0x82f6 : 0x71da);
 
-    ptr = SeekToPos(entire_file, offset);
+    ptr = SeekToPos(offset);
 
     for (int i = 0; i < 32; i++) {
         battle_messages[i] = DecompressText(ptr, i);
@@ -704,7 +704,7 @@ void LoadExtraSeasOfBloodData(int c64)
 
     blood_image_data = MemAlloc(data_length);
 
-    ptr = SeekToPos(entire_file, offset);
+    ptr = SeekToPos(offset);
 
     memcpy(blood_image_data, ptr, data_length);
 

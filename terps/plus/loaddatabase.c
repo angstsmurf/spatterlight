@@ -11,8 +11,10 @@
 #include <string.h>
 
 #include "common.h"
+#include "common_utils.h"
 #include "gameinfo.h"
 #include "graphics.h"
+#include "read_le16.h"
 #include "loaddatabase.h"
 
 Synonym *Substitutions;
@@ -56,14 +58,14 @@ static const char * const ConditionList[] = {
 
 // clang-format off
 
-struct Keyword
+typedef struct
 {
     const char *name;
     int        opcode;
     int        count;
-};
+} Keyword;
 
-static const struct Keyword CommandList[] =
+static const Keyword CommandList[] =
 {
     {"NOP",           0, 0 },
     {"GET",          52, 1 },
@@ -788,30 +790,22 @@ static int SetGame(const char *id_string, size_t length)
     return 0;
 }
 
-int FindAndAddImageFile(const char *shortname, struct imgrec *rec)
+int FindAndAddImageFile(const char *shortname, imgrec *rec)
 {
     int result = 0;
     size_t pathlen = DirPathLength + 9;
     char *filename = MemAlloc(pathlen);
     int n = snprintf(filename, pathlen, "%s%s.PAK", DirPath, shortname);
     if (n > 0) {
-        FILE *infile = fopen(filename, "rb");
-        if (infile) {
-            fseek(infile, 0, SEEK_END);
-            size_t length = ftell(infile);
-            if (length > 0) {
-                debug_print("Found and read image file %s\n", filename);
-                size_t namelen = strlen(shortname) + 1;
-                rec->Filename = MemAlloc(namelen);
-                memcpy(rec->Filename, shortname, namelen);
-                fseek(infile, 0, SEEK_SET);
-                rec->Data = MemAlloc(length);
-                rec->Size = fread(rec->Data, 1, length, infile);
-                result = 1;
-            }
-            fclose(infile);
+        rec->Data = ReadFileIfExists(filename, &rec->Size);
+        if (rec->Data == NULL) {
+            fprintf(stderr, "Could not find or read image file %s\n", filename);
         } else {
-            debug_print("Could not find or read image file %s\n", filename);
+            size_t namelen = strlen(shortname) + 1;
+            rec->Filename = MemAlloc(namelen);
+            memcpy(rec->Filename, shortname, namelen);
+            result = 1;
+            debug_print("Found and read image file %s\n", filename);
         }
     }
     free(filename);
@@ -998,7 +992,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
 
     int numimages = Game->no_of_room_images + Game->no_of_item_images + Game->no_of_special_images;
 
-    Images = MemAlloc((numimages + 1) * sizeof(struct imgrec));
+    Images = MemAlloc((numimages + 1) * sizeof(imgrec));
     debug_print("\nTotal number of images:%d\n", numimages);
 
     int i, recidx = 0, imgidx = 0;
@@ -1030,7 +1024,7 @@ static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *len)
     char tmp[1024];
     uint8_t length = *ptr++;
     if (length == 0 || length == 255) {
-        *string = MyCalloc(1);
+        *string = MemCalloc(1);
         *len = 0;
         return ptr;
     }
@@ -1068,27 +1062,6 @@ char **LoadMessages(int numstrings, uint8_t **ptr)
     return target;
 }
 
-uint8_t *SeekToPos(uint8_t *buf, int offset)
-{
-    if (offset > 0x10000)
-        return 0;
-    return buf + offset;
-}
-
-int SeekIfNeeded(int expected_start, int *offset, uint8_t **ptr)
-{
-    if (expected_start != FOLLOWS) {
-        *offset = expected_start;
-        uint8_t *ptrbefore = *ptr;
-        *ptr = SeekToPos(mem, *offset);
-        if (*ptr == ptrbefore)
-            fprintf(stderr, "Seek unnecessary, could have been set to FOLLOWS.\n");
-        if (*ptr == 0)
-            return 0;
-    }
-    return 1;
-}
-
 void ParseHeader(uint16_t *h, int *ni, int *as, int *nn, int *nv, int *nr, int *mc, int *pr, int *mn, int *trm, int *lt, int *prp, int *adv, int *na, int *tr, int *ss, int *unk1, int *oi, int *unk2)
 {
     *ni = h[0];
@@ -1116,12 +1089,11 @@ static uint8_t *ReadHeader(uint8_t *ptr)
     int i, value;
     for (i = 0; i < 16; i++) {
         if (CurrentSys == SYS_ST)
-            value = *ptr * 256 + *(ptr + 1);
+            value = READ_BE_UINT16_AND_ADVANCE(&ptr);
         else
-            value = *ptr + 256 * *(ptr + 1);
+            value = READ_LE_UINT16_AND_ADVANCE(&ptr);
         header[i] = value;
         debug_print("Header value %d: %d\n", i, header[i]);
-        ptr += 2;
     }
     return ptr - 2;
 }
@@ -1180,13 +1152,13 @@ int SanityCheckHeader(void)
     int16_t v = GameHeader.NumItems;
     if (v < 10 || v > 500)
         return 0;
-    v = GameHeader.NumNouns; // Nouns
+    v = GameHeader.NumNouns;
     if (v < 50 || v > 190)
         return 0;
-    v = GameHeader.NumVerbs; // Verbs
+    v = GameHeader.NumVerbs;
     if (v < 30 || v > 190)
         return 0;
-    v = GameHeader.NumRooms; // Number of rooms
+    v = GameHeader.NumRooms;
     if (v < 10 || v > 100)
         return 0;
 
@@ -1201,21 +1173,18 @@ int LoadDatabaseBinary(void)
     Action *ap;
     Room *rp;
     Item *ip;
+
     /* Load the header */
-
-    uint8_t *ptr = mem;
-
     int offset = 0x32;
 
-    int isSTSpiderman = 0, isSTFF = 0;
-
-    ptr = SeekToPos(mem, offset);
-    if (ptr == 0)
+    if (memlen <= offset)
         return 0;
+
+    int isSTSpiderman = 0, isSTFantastic4 = 0;
 
 #pragma mark header
 
-    ptr = ReadHeader(ptr);
+    uint8_t *ptr = ReadHeader(mem + offset);
 
     ParseHeader(header, &ni, &as, &nn, &nv, &nr, &mc, &pr,
         &mn, &trm, &lt, &prp, &adv, &na, &tr, &ss, &unk1, &oi, &unk2);
@@ -1224,7 +1193,7 @@ int LoadDatabaseBinary(void)
         isSTSpiderman = 1;
 
     if (CurrentSys == SYS_ST && as == 6991)
-        isSTFF = 1;
+        isSTFantastic4 = 1;
 
     GameHeader.NumItems = ni;
     Counters[43] = ni;
@@ -1291,9 +1260,7 @@ int LoadDatabaseBinary(void)
         uint16_t conditions[1024];
         int condargs = 0;
         while (reading_conditions) {
-            uint8_t hi = *ptr++;
-            uint8_t lo = *ptr++;
-            uint16_t argcond = hi * 256 + lo;
+            uint16_t argcond = READ_BE_UINT16_AND_ADVANCE(&ptr);
             if (argcond & 0x8000)
                 reading_conditions = 0;
             argcond = argcond & 0x7fff;
@@ -1366,11 +1333,24 @@ int LoadDatabaseBinary(void)
             ct++;
             rp++;
         }
-        if (isSTSpiderman || isSTFF)
+        /* The database seems to use big-endian 16-bit values
+          in the Atari ST versions of Questprobe featuring Spider-Man
+          and Questprobe featuring Human Torch and the Thing,
+          but because none of the actual values is above 255
+          (i.e. all values fit in 8 bits, so every other byte is zero)
+          we can simply advance the pointer a single byte and then read
+          all the values as if they were little-endian. */
+
+       /* Unfortunatey we also have to nudge the pointer in other ways,
+          here and there, which can not be explained by endianness.
+          It seems that theST games alternate between 8-bit and 16-bit
+          values in an inconsistent way. */
+
+        if (isSTSpiderman || isSTFantastic4)
             ptr++;
     }
 
-    if (isSTSpiderman || isSTFF) {
+    if (isSTSpiderman || isSTFantastic4) {
         ptr -= 2;
     }
 
@@ -1392,7 +1372,7 @@ int LoadDatabaseBinary(void)
     ip = Items;
     size_t length;
 
-    if (CurrentSys == SYS_ST && !isSTFF)
+    if (CurrentSys == SYS_ST && !isSTFantastic4)
         ptr++;
 
     while (ct < ni + 1) {
@@ -1402,7 +1382,7 @@ int LoadDatabaseBinary(void)
     }
 
 #pragma mark item locations
-    if (isSTSpiderman || isSTFF) {
+    if (isSTSpiderman || isSTFantastic4) {
         ptr++;
     }
 
@@ -1416,13 +1396,11 @@ int LoadDatabaseBinary(void)
     }
 
     for (ct = 0, ip = Items; ct <= ni; ct++, ip++) {
-        ip->Dictword = *ptr++;
-        ip->Dictword += *ptr++ * 256;
+        ip->Dictword = READ_LE_UINT16_AND_ADVANCE(&ptr);
     }
 
     for (ct = 0, ip = Items; ct <= ni; ct++, ip++) {
-        ip->Flag = *ptr++;
-        ip->Flag += *ptr++ * 256;
+        ip->Flag = READ_LE_UINT16_AND_ADVANCE(&ptr);
         debug_print("Item %d: \"%s\", %d, %d, %d\n", ct, ip->Text, ip->Location, ip->Dictword, ip->Flag);
     }
 
@@ -1445,7 +1423,7 @@ int LoadDatabaseBinary(void)
         return 0;
     }
 
-    if (isSTFF)
+    if (isSTFantastic4)
         ptr++;
 
     for (ct = 0; ct <= oi; ct++)

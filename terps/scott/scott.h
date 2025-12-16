@@ -21,9 +21,11 @@
 #define scott_h
 
 #include <stdint.h>
-#include <stdio.h>
 
 #include "debugprint.h"
+#include "memory_allocation.h"
+#include "read_le16.h"
+#include "common_utils.h"
 #include "scottdefines.h"
 
 // clang-format off
@@ -35,10 +37,6 @@
 #define LIGHTOUTBIT  16        /* Light gone out */
 
 // clang-format on
-
-#define GLK_BUFFER_ROCK 1
-#define GLK_STATUS_ROCK 1010
-#define GLK_GRAPHICS_ROCK 1020
 
 typedef struct {
     short Unknown;
@@ -76,12 +74,6 @@ typedef struct {
     uint8_t Flag;
     uint8_t Image;
 } Item;
-
-typedef struct {
-    short Version;
-    short AdventureNumber;
-    short Unknown;
-} Tail;
 
 // clang-format off
 
@@ -126,10 +118,6 @@ void ListInventory(int upper);
 void Delay(float seconds);
 void DrawImage(int image);
 void OpenGraphicsWindow(void);
-size_t GetFileLength(FILE *in);
-void *MemAlloc(int size);
-void *MyCalloc(int size);
-void *MemRealloc(void *ptr, size_t size);
 GameIDType LoadDatabase(FILE *f, int loud);
 void CloseGraphicsWindow(void);
 void Updates(event_t ev);
@@ -137,7 +125,7 @@ int PerformExtraCommand(int extra_stop_time);
 const char *MapSynonym(int noun);
 void Fatal(const char *x);
 void DrawBlack(void);
-uint8_t *SeekToPos(uint8_t *buf, int offset);
+uint8_t *SeekToPos(int offset);
 int CountCarried(void);
 int RandomPercent(int n);
 void DoneIt(void);
@@ -154,14 +142,14 @@ void SwapCounters(int index);
 void PrintMessage(int index);
 void PlayerIsDead(void);
 void UpdateSettings(void);
-winid_t FindGlkWindowWithRock(glui32 rock);
 void OpenTopWindow(void);
+glui32 OptimalPictureSize(glui32 *width, glui32 *height);
 void SetDark(void);
 void SetLight(void);
 void SetBitFlag(int bit);
 void ClearBitFlag(int bit);
 
-extern struct GameInfo *Game;
+extern GameInfo *Game;
 extern Header GameHeader;
 extern Room *Rooms;
 extern Item *Items;

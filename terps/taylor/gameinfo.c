@@ -10,7 +10,7 @@
 #include "taylor.h"
 
 // clang-format off
-struct GameInfo games[NUMGAMES] = {
+GameInfo games[NUMGAMES] = {
     {
         "Questprobe 3",
         QUESTPROBE3,

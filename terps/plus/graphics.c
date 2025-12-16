@@ -13,33 +13,28 @@
 #endif
 
 #include "animations.h"
+#include "apple2draw.h"
 #include "common.h"
 #include "graphics.h"
 #include "loaddatabase.h"
+#include "read_le16.h"
+#include "c64a8draw.h"
+#include "pcdraw.h"
+#include "sagadraw_glue.h"
 
 ImgType LastImgType;
 int LastImgIndex;
 
 int upside_down = 0;
 
-int x = 0, y = 0, at_last_line = 0;
-
-int xlen = 280, ylen = 158;
-int xoff = 0, yoff = 0;
-
 int pixel_size;
 int x_offset, y_offset, right_margin;
 
 PALETTE pal;
 
-struct imgrec *Images;
+imgrec *Images;
 
-int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
-int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize);
 int DrawSTImageFromData(uint8_t *ptr, size_t datasize);
-int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize);
-void DrawApple2ImageFromVideoMem(void);
-void ClearApple2ScreenMem(void);
 
 void DrawBlack(void)
 {
@@ -60,6 +55,8 @@ char *ShortNameFromType(char type, int index)
     return result;
 }
 
+/* Used by IBM PC graphics in "striped" mode where every other pixel is skipped
+   to make halftones */
 void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)
 {
     glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
@@ -90,8 +87,9 @@ void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)
 
     xpos = xpos * pixel_size;
 
-    if (upside_down)
-        xpos = ImageWidth * pixel_size - xpos;
+    if (upside_down) {
+        xpos = ImageWidth * pixel_size - xpos - 1;
+    }
     xpos += x_offset;
 
     if (xpos < x_offset || xpos >= right_margin) {
@@ -100,11 +98,11 @@ void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)
 
     ypos = ypos * pixel_size;
     if (upside_down) {
-        ypos = ImageHeight * pixel_size - ypos;
+        ypos = (ImageHeight - 1) * pixel_size - ypos;
         if (CurrentSys == SYS_ST)
-            ypos -= 3 * pixel_size;
-        else if (CurrentSys == SYS_ATARI8 || CurrentSys == SYS_MSDOS)
-            ypos -= pixel_size;
+            ypos -= 2 * pixel_size;
+        else if (CurrentSys == SYS_ATARI8)
+            ypos -= ImageHeight & 1;
     }
     ypos += y_offset;
 
@@ -171,13 +169,13 @@ int DrawImageWithName(char *filename)
     LastImgIndex = Images[i].Filename[3] - '0' + 10 * (Images[i].Filename[2] - '0');
 
     if (CurrentSys == SYS_C64 || CurrentSys == SYS_ATARI8) {
-        return DrawAtariC64ImageFromData(Images[i].Data, Images[i].Size);
+        return DrawC64A8ImageFromData(Images[i].Data, Images[i].Size, 0, C64A8AdjustPlus, CurrentSys == SYS_C64 ? TransC64ColorPlus : TransAtariColorPlus);
     } else if (CurrentSys == SYS_ST) {
         return DrawSTImageFromData(Images[i].Data, Images[i].Size);
     } else if (CurrentSys == SYS_APPLE2) {
-        return DrawApple2ImageFromData(Images[i].Data, Images[i].Size);
+        return DrawApple2ImageFromData(Images[i].Data + 2, READ_LE_UINT16(Images[i].Data), 0, Apple2AdjustPlus);
     } else
-        return DrawDOSImageFromData(Images[i].Data, Images[i].Size);
+        return DrawDOSImageFromData(Images[i].Data);
 }
 
 void DrawItemImage(int item)
@@ -296,6 +294,6 @@ void DrawCurrentRoom(void)
         }
 
     if (CurrentSys == SYS_APPLE2) {
-        DrawApple2ImageFromVideoMem();
+        DrawApple2ImageFromVideoMemWithFlip(upside_down);
     }
 }

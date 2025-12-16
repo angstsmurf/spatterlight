@@ -15,10 +15,10 @@
 #include <string.h>
 
 #include "debugprint.h"
+#include "minmax.h"
+#include "read_le16.h"
 
 #include "woz2nib.h"
-
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 #define STANDARD_TRACKS_PER_DISK 35
 #define SECTORS_PER_TRACK 16
@@ -424,11 +424,11 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
                     FatalError("Only 1-sided images are supported\n");
                 //                    uint8_t boot_sector_format = chunk_data[38];
                 //                    uint8_t optimal_bit_timing = chunk_data[39];
-                //                    uint16_t compatible_hardware = chunk_data[40] + chunk_data[41] * 256;
-                //                    uint16_t required_ram = chunk_data[42] + chunk_data[43] * 256;
-                //                    uint16_t largest_track = chunk_data[44] + chunk_data[45] * 256;
-                //                    uint16_t flux_block = chunk_data[46] + chunk_data[47] * 256;
-                //                    uint16_t largest_flux_track = chunk_data[48] + chunk_data[49] * 256;
+                //                    uint16_t compatible_hardware = READ_LE_UINT16(chunk_data + 40);
+                //                    uint16_t required_ram = READ_LE_UINT16(chunk_data + 42);
+                //                    uint16_t largest_track = READ_LE_UINT16(chunk_data + 44);
+                //                    uint16_t flux_block = READ_LE_UINT16(chunk_data + 46);
+                //                    uint16_t largest_flux_track = READ_LE_UINT16(chunk_data + 48);
             }
             debug_print("INFO: ver %d, type ", version);
             switch (disk_type) {
@@ -471,8 +471,8 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
                 debug_print("  trks: ");
                 for (int i = 0; i < 160; i++, cpos += 8) {
                     trks[i].bitstream = NULL;
-                    trks[i].starting_block = chunk_data[cpos] + chunk_data[cpos + 1] * 256;
-                    trks[i].block_count = chunk_data[cpos + 2] + chunk_data[cpos + 3] * 256;
+                    trks[i].starting_block = READ_LE_UINT16(chunk_data + cpos);
+                    trks[i].block_count = READ_LE_UINT16(chunk_data + cpos + 2);
                     trks[i].bit_count = chunk_data[cpos + 4] + (chunk_data[cpos + 5] << 8) + (chunk_data[cpos + 6] << 16) + (chunk_data[cpos + 7] << 24);
                     //                        debug_print("%d,%d,%d/", trks[i].starting_block, trks[i].block_count, trks[i].bit_count);
                 }
@@ -483,8 +483,8 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
                 int chunkdatalen = chunk_size;
                 int idx = 0;
                 while (chunkdatalen >= 6656 && idx < 160) {
-                    trks[idx].bytes_used = chunk_data[6646] + chunk_data[6647] * 256;
-                    trks[idx].bit_count = chunk_data[6648] + chunk_data[6649] * 256;
+                    trks[idx].bytes_used = READ_LE_UINT16(chunk_data + 6646);
+                    trks[idx].bit_count = READ_LE_UINT16(chunk_data + 6648);
                     trks[idx].bitstream = MemAlloc(6646);
                     memcpy(trks[idx].bitstream, chunk_data, 6646);
                     int newlen = chunkdatalen - 6656;

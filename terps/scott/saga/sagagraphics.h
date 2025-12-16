@@ -1,19 +1,17 @@
 //
-//  graphics.h
+//  sagagraphics.h
 //  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Created by Petter Sjölund on 2022-09-07.
 //
 
-#ifndef graphics_h
-#define graphics_h
-
-#include <stdio.h>
+#ifndef sagagraphics_h
+#define sagagraphics_h
 
 #include "glk.h"
 #include "scottdefines.h"
 
-typedef struct USImage {
+struct USImage {
     USImageType usage;
     int index;
     MachineType systype;
@@ -23,11 +21,13 @@ typedef struct USImage {
     int cropright;
     struct USImage *previous;
     struct USImage *next;
-} USImage;
+};
 
-extern struct USImage *USImages;
+typedef struct USImage USImage;
 
-typedef struct CropList {
+extern USImage *USImages;
+
+typedef struct {
     GameIDType game;
     USImageType usage;
     int index;
@@ -49,9 +49,10 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color);
 void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
               int32_t color);
+uint8_t *FindImageFile(const char *shortname, size_t *datasize);
 
 USImage *new_image(void);
 int issagaimg(const char *name);
 int has_graphics(void);
 
-#endif /* graphics_h */
+#endif /* sagagraphics_h */

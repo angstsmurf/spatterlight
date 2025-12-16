@@ -1,6 +1,7 @@
 //
 //  layouttext.c
-//  part of ScottFree, an interpreter for adventures in Scott Adams format
+//  Part of TaylorMade, ScottFree and Plus,
+//  interpreters of related text adventure formats.
 //
 //  Created by Petter Sjölund on 2022-01-11.
 //
@@ -9,14 +10,18 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "memory_allocation.h"
+
 #include "layouttext.h"
+
+#define LAYOUT_BUF_SIZE 768
 
 static int FindBreak(const char *buf, int pos, int columns)
 {
+    int diff = 0;
+
     if (isspace((unsigned char)buf[pos]))
         return 0;
-
-    int diff = 0;
 
     while (diff < columns && !isspace((unsigned char)buf[pos])) {
         pos--;
@@ -37,13 +42,17 @@ char *LineBreakText(const char *source, int columns, int *rows, int *length)
     columns -= 1;
 
     char *result = NULL;
-    char buf[768];
+    char buf[LAYOUT_BUF_SIZE];
     int col = 0;
     int row = 0;
     int sourcepos = 0;
     int destpos = 0;
     int diff = 0;
     *rows = 0;
+    if (!source)
+        return NULL;
+    while (source[sourcepos] != '\0' && (source[sourcepos] == ' ' || source[sourcepos] == '.'))
+        sourcepos++;
     while (source[sourcepos] != '\0') {
         while (col < columns && source[sourcepos] != '\0') {
             if (source[sourcepos] == 10 || source[sourcepos] == 13) {
@@ -60,6 +69,10 @@ char *LineBreakText(const char *source, int columns, int *rows, int *length)
             }
 
             buf[destpos++] = source[sourcepos++];
+
+            if (destpos >= LAYOUT_BUF_SIZE) {
+                return NULL;
+            }
 
             if (source[sourcepos] == 10 || source[sourcepos] == 13)
                 col--;
@@ -86,9 +99,7 @@ char *LineBreakText(const char *source, int columns, int *rows, int *length)
     }
     *rows = row;
     *length = 0;
-    result = malloc(destpos + 1);
-    if (result == NULL)
-        return NULL;
+    result = MemAlloc(destpos + 1);
     memcpy(result, buf, destpos);
     result[destpos] = '\0';
     *length = destpos;

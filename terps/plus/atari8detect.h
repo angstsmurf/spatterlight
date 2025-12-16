@@ -8,7 +8,6 @@
 #ifndef detectatari8_h
 #define detectatari8_h
 
-#include <stdio.h>
 int DetectAtari8(uint8_t **sf, size_t *extent);
 int LookForAtari8Images(uint8_t **sf, size_t *extent);
 

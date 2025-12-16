@@ -7,6 +7,7 @@
 
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -17,17 +18,13 @@
 
 #include "c64decrunch.h"
 
-
-#define MAX_LENGTH 300000
-#define MIN_LENGTH 24
-
 typedef enum {
     UNKNOWN_FILE_TYPE,
     TYPE_D64,
     TYPE_T64
 } file_type;
 
-struct c64rec {
+typedef struct {
     GameIDType id;
     size_t length;
     uint16_t chk;
@@ -35,9 +32,9 @@ struct c64rec {
     int decompress_iterations;
     const char *switches;
     int parameter;
-};
+} c64rec;
 
-static const struct c64rec c64_registry[] = {
+static const c64rec c64_registry[] = {
     { QUESTPROBE3_64, 0x69e3, 0x3b96, TYPE_T64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
     { QUESTPROBE3_64, 0x8298, 0xb93e, TYPE_T64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
     { QUESTPROBE3_64, 0x2ab00, 0x863d, TYPE_D64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
@@ -76,7 +73,7 @@ static const struct c64rec c64_registry[] = {
     { UNKNOWN_GAME, 0, 0, UNKNOWN_FILE_TYPE, 0, NULL, 0 }
 };
 
-extern struct GameInfo games[NUMGAMES];
+extern GameInfo games[NUMGAMES];
 
 static uint16_t checksum(uint8_t *sf, size_t extent)
 {
@@ -86,7 +83,7 @@ static uint16_t checksum(uint8_t *sf, size_t extent)
     return c;
 }
 
-static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec entry);
+static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec entry);
 
 static uint8_t *get_largest_file(uint8_t *data, size_t length, size_t *newlength)
 {
@@ -112,9 +109,9 @@ static uint8_t *get_largest_file(uint8_t *data, size_t length, size_t *newlength
 static uint8_t *GetFileFromT64(int filenum, int number_of_records, uint8_t **sf, size_t *extent)
 {
     uint8_t *file_records = *sf + 32 + 32 * filenum;
-    int offset = file_records[8] + file_records[9] * 0x100;
-    int start_addr = file_records[2] + file_records[3] * 0x100;
-    int end_addr = file_records[4] + file_records[5] * 0x100;
+    int offset = READ_LE_UINT16(file_records + 8);
+    int start_addr = READ_LE_UINT16(file_records + 2);
+    int end_addr = READ_LE_UINT16(file_records + 4);
     size_t size;
     if (number_of_records == filenum)
         size = *extent - offset;
@@ -170,14 +167,14 @@ static uint8_t *get_file_at_ts(uint8_t *data, size_t length, size_t *newlength, 
 
 static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
 {
-    struct c64rec rec = c64_registry[recindex];
+    c64rec rec = c64_registry[recindex];
     int isdisk = (rec.type == TYPE_D64);
     OpenBottomWindow();
     Display(Bottom, "This %s image contains one version of Temple of Terror with pictures, and one with without pictures but slightly more text.\n\nPlease select one:\n1. Graphics version\n2. Text-only version\n3. Use pictures from file 1 and text from file 2", isdisk ? "disk" : "datasette");
 
     int number_of_records = 0;
     if (!isdisk)
-        number_of_records = (*sf)[36] + (*sf)[37] * 0x100;
+        number_of_records = READ_LE_UINT16(*sf + 36);
     size_t size1 = *extent;
     size_t size2 = *extent;
     uint8_t *file1 = NULL;
@@ -273,7 +270,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
     uint16_t chksum = checksum(*sf, *extent);
 
     for (int i = 0; c64_registry[i].length != 0; i++) {
-        struct c64rec record = c64_registry[i];
+        c64rec record = c64_registry[i];
         if (*extent == record.length && chksum == record.chk) {
             if (record.type == TYPE_D64) {
                 if (chksum == 0x577e || chksum == 0x4661 || chksum == 0x7b2d) {
@@ -294,7 +291,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
             } else if (c64_registry[i].type == TYPE_T64) {
                 if (c64_registry[i].chk == 0x2b54 || c64_registry[i].chk == 0x3b37)
                     return terror_menu(sf, extent, i);
-                int number_of_records = (*sf)[36] + (*sf)[37] * 0x100;
+                int number_of_records = READ_LE_UINT16(*sf + 36);
                 size_t size = *extent;
                 uint8_t *first_file = GetFileFromT64(1, number_of_records, sf, &size);
                 free(*sf);
@@ -309,7 +306,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
     return UNKNOWN_GAME;
 }
 
-static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
+static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec record)
 {
     size_t decompressed_length = *extent;
 

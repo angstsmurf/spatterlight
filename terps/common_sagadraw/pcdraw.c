@@ -1,26 +1,28 @@
 //
-//  pcdraw.h
-//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
+//  pcdraw.c
 //
-//  Based on code witten by David Lodge on 29/04/2005
-//  Routines to draw the PC graphics in Plus games
+//  Used by ScottFree and Plus,
+//  two interpreters for adventures in Scott Adams formats
 //
-//  Original code at https://github.com/tautology0/textadventuregraphics
+//  Routines to draw IBM PC RLE bitmap graphics.
+//  Based on Code by David Lodge.
+//
+//  Original code:
+// https://github.com/tautology0/textadventuregraphics/blob/master/AdventureInternational/pcdraw.c
 //
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "common.h"
 #include "glk.h"
-#include "graphics.h"
+#include "read_le16.h"
 
-extern int at_last_line;
+static int x = 0, y = 0, at_last_line = 0;
 
-int ycount = 0;
-int skipy = 1;
+static int xlen = 280, ylen = 158;
+static int xoff = 0, yoff = 0;
+static int ycount = 0;
+static int skipy = 1;
 
-/* palette handler stuff starts here */
+void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);
+void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color);
 
 static void DrawDOSPixels(int pattern)
 {
@@ -56,7 +58,6 @@ static void DrawDOSPixels(int pattern)
         x = xoff;
         ycount++;
     }
-
     if (ycount > ylen) {
         y = yoff + 1;
         at_last_line++;
@@ -64,8 +65,13 @@ static void DrawDOSPixels(int pattern)
     }
 }
 
-int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
+typedef uint8_t RGB[3];
+void SetColor(int32_t index, const RGB *color);
+
+int DrawDOSImageFromData(uint8_t *ptr)
 {
+    uint8_t *origptr = ptr;
+
     x = 0;
     y = 0;
     at_last_line = 0;
@@ -78,14 +84,16 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
     skipy = 1;
 
     int work;
-    int c;
+    int repetitions;
     int i;
-    int rawoffset;
+
     // clang-format off
+
     RGB black =   { 0,0,0 };
     RGB magenta = { 255,0,255 };
     RGB cyan =    { 0,255,255 };
     RGB white =   { 255,255,255 };
+
     // clang-format on
 
     /* set up the palette */
@@ -94,59 +102,43 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
     SetColor(2, &magenta);
     SetColor(3, &white);
 
-    if (ptr == NULL) {
-        fprintf(stderr, "DrawMSDOSImageFromData: ptr == NULL\n");
-        return 0;
-    }
-
-    uint8_t *origptr = ptr;
-
     // Get the size of the graphics chunk
-    ptr = origptr + 0x05;
-    work = *ptr++;
-    int imagesize = work + (*ptr * 256);
+    size_t size = READ_LE_UINT16(origptr + 5);
 
     // Get whether it is lined
-    ptr = origptr + 0x0d;
-    work = *ptr++;
-    if (work == 0xff)
+    if (origptr[0x0d] == 0xff)
         skipy = 0;
 
     // Get the offset
-    ptr = origptr + 0x0f;
-    work = *ptr++;
-    rawoffset = work + (*ptr * 256);
+    int rawoffset = READ_LE_UINT16(origptr + 0x0f);
     xoff = ((rawoffset % 80) * 4) - 24;
     yoff = rawoffset / 40;
     yoff -= (yoff & 1);
     x = xoff;
     y = yoff;
 
-    // Get the y length
-    ptr = origptr + 0x11;
-    work = *ptr++;
-    ylen = work + (*ptr * 256);
-    ylen -= rawoffset;
-    ylen /= 80;
+    // Get the height
+    ylen = (READ_LE_UINT16(origptr + 0x11) - rawoffset) / 80;
 
-    // Get the x length
-    ptr = origptr + 0x13;
-    xlen = *ptr * 4;
+    // Get the width
+    xlen = origptr[0x13] * 4;
 
     ptr = origptr + 0x17;
-    while (ptr - origptr < imagesize) {
+    while (ptr - origptr < size) {
         // First get count
-        c = *ptr++;
+        repetitions = *ptr++;
 
-        if ((c & 0x80) == 0x80) { // is a counter
+        if ((repetitions & 0x80) == 0x80) {
+            repetitions &= 0x7f;
+            // Repeat the next byte (repetitions + 1) times
             work = *ptr++;
-            c &= 0x7f;
-            for (i = 0; i <= c; i++) {
+            for (i = 0; i < repetitions + 1; i++) {
                 DrawDOSPixels(work);
             }
         } else {
-            // Don't count on the next j characters
-            for (i = 0; i <= c; i++) {
+            // Draw the next (repetitions + 1) bytes
+            // without repeating
+            for (i = 0; i < repetitions + 1; i++) {
                 work = *ptr++;
                 DrawDOSPixels(work);
             }

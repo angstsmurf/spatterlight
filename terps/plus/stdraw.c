@@ -16,6 +16,8 @@
 #include "glk.h"
 #include "graphics.h"
 
+static int xoff = 0, yoff = 0;
+
 typedef struct {
     uint16_t x;
     uint16_t y;
@@ -32,6 +34,11 @@ typedef struct {
     int NumPix;
     Pixel *Pixels;
 } AnimationColor;
+
+static inline uint16_t READ_BE_UINT16(const void *ptr) {
+    const uint8_t *b = (const uint8_t *)ptr;
+    return b[1] | (b[0] << 8) ;
+}
 
 static int IsSTBitSet(int bit, uint8_t byte)
 {
@@ -95,8 +102,8 @@ static uint8_t *SetPaletteAnimation(uint8_t *ptr)
             col->NumPix = 0;
             col->Pixels = NULL;
             col->StartOffset = *ptr++;
-            uint8_t ratehi = *ptr++;
-            col->Rate = *ptr++ + ratehi * 256;
+            col->Rate = READ_BE_UINT16(ptr);
+            ptr += 2;
             col->Rate = 1 + col->Rate;
             val = val & 0xf;
             col->NumCol = val;
@@ -292,9 +299,8 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t total_size)
 
     uint8_t *ptr = &imgdata[4];
 
-    ImgAddrOffs = *ptr++ * 256;
-    ImgAddrOffs += *ptr++;
-    ImgAddrOffs *= 2;
+    ImgAddrOffs = READ_BE_UINT16(ptr) * 2;
+    ptr += 2;
 
     yoff = ImgAddrOffs / 160;
     xoff = 2 * (ImgAddrOffs % 160) + 6 * (ImgAddrOffs % 2);
@@ -351,7 +357,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t total_size)
     for (int i = 0; i < NumAnimCols; i++)
         Pixels[i] = MemAlloc(sizeof(Pixel) * 3000);
 
-    uint16_t imgdatasize = imgdata[2] * 256 + imgdata[3];
+    uint16_t imgdatasize = READ_BE_UINT16(imgdata + 2);
     uint8_t *endOfData = ptr + imgdatasize;
     if (endOfData > imgdata + total_size)
         endOfData = imgdata + total_size;

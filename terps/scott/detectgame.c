@@ -11,6 +11,7 @@
 
 #include "scott.h"
 
+#include "common_file_utils.h"
 #include "decompresstext.h"
 #include "detectgame.h"
 #include "line_drawing.h"
@@ -121,7 +122,7 @@ int SanityCheckHeader(void)
     return 1;
 }
 
-uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
+uint8_t *ReadDictionary(GameInfo info, uint8_t **pointer, int loud)
 {
     uint8_t *ptr = *pointer;
     if (info.word_length + 2 > 1024)
@@ -204,22 +205,18 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
     return ptr;
 }
 
-uint8_t *SeekToPos(uint8_t *buf, int offset)
+uint8_t *SeekToPos(int offset)
 {
-    if (offset > file_length)
+    if (offset > file_length || entire_file == NULL)
         return NULL;
-    return buf + offset;
+    return entire_file + offset;
 }
 
 int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr)
 {
     if (expected_start != FOLLOWS) {
         *offset = expected_start + file_baseline_offset;
-        //        uint8_t *ptrbefore = *ptr;
-        *ptr = SeekToPos(entire_file, *offset);
-        //        if (*ptr == ptrbefore)
-        //            debug_print("Seek unnecessary, could have been set to
-        //            FOLLOWS.\n");
+        *ptr = SeekToPos(*offset);
         if (*ptr == 0)
             return 0;
     }
@@ -401,7 +398,7 @@ typedef struct {
     size_t size;
 } LineImage;
 
-void LoadVectorData(struct GameInfo info, uint8_t *ptr)
+void LoadVectorData(GameInfo info, uint8_t *ptr)
 {
     size_t offset;
 
@@ -412,7 +409,7 @@ void LoadVectorData(struct GameInfo info, uint8_t *ptr)
 
     LineImages = MemAlloc(info.number_of_rooms * sizeof(struct line_image));
     int ct = 0;
-    struct line_image *lp = LineImages;
+    line_image *lp = LineImages;
     uint8_t byte = *(ptr++);
     do {
         Rooms[ct].Image = 0;
@@ -446,7 +443,7 @@ void LoadVectorData(struct GameInfo info, uint8_t *ptr)
 
 struct LineImage *lineImages = NULL;
 
-GameIDType TryLoadingOld(struct GameInfo info, int dict_start)
+GameIDType TryLoadingOld(GameInfo info, int dict_start)
 {
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
     int ct;
@@ -461,8 +458,8 @@ GameIDType TryLoadingOld(struct GameInfo info, int dict_start)
     debug_print("file_baseline_offset: %d\n", file_baseline_offset);
     size_t offset = info.start_of_header + file_baseline_offset;
 
-    ptr = SeekToPos(entire_file, offset);
-    if (ptr == 0)
+    ptr = SeekToPos(offset);
+    if (ptr == NULL)
         return UNKNOWN_GAME;
 
     ReadHeader(ptr);
@@ -508,8 +505,7 @@ GameIDType TryLoadingOld(struct GameInfo info, int dict_start)
     uint16_t value, cond, comm;
 
     while (ct < na + 1) {
-        value = *(ptr++);
-        value += *(ptr++) * 0x100; /* verb/noun */
+        value = READ_LE_UINT16_AND_ADVANCE(&ptr); /* verb/noun */
         ap->Vocab = value;
 
         cond = 5;
@@ -517,16 +513,15 @@ GameIDType TryLoadingOld(struct GameInfo info, int dict_start)
 
         for (int j = 0; j < 5; j++) {
             if (j < cond) {
-                value = *(ptr++);
-                value += *(ptr++) * 0x100;
+                value = READ_LE_UINT16_AND_ADVANCE(&ptr);
             } else
                 value = 0;
             ap->Condition[j] = value;
         }
         for (int j = 0; j < 2; j++) {
             if (j < comm) {
-                value = *(ptr++);
-                value += *(ptr++) * 0x100;
+                value = READ_LE_UINT16_AND_ADVANCE(&ptr);
+
             } else
                 value = 0;
             ap->Subcommand[j] = value;
@@ -733,7 +728,7 @@ GameIDType TryLoadingOld(struct GameInfo info, int dict_start)
     return info.gameID;
 }
 
-GameIDType TryLoading(struct GameInfo info, int dict_start, int loud)
+GameIDType TryLoading(GameInfo info, int dict_start, int loud)
 {
     /* The UK versions of Hulk uses the Mak Jukic binary database format */
     if (info.gameID == HULK || info.gameID == HULK_C64)
@@ -764,8 +759,8 @@ GameIDType TryLoading(struct GameInfo info, int dict_start, int loud)
 
     size_t offset = info.start_of_header + file_baseline_offset;
 
-    ptr = SeekToPos(entire_file, offset);
-    if (ptr == 0)
+    ptr = SeekToPos(offset);
+    if (ptr == NULL)
         return UNKNOWN_GAME;
 
     ReadHeader(ptr);
@@ -873,8 +868,7 @@ GameIDType TryLoading(struct GameInfo info, int dict_start, int loud)
     uint16_t value, cond, comm;
 
     while (ct < na + 1) {
-        value = *(ptr++);
-        value += *(ptr++) * 0x100; /* verb/noun */
+        value = READ_LE_UINT16_AND_ADVANCE(&ptr); /* verb/noun */
         ap->Vocab = value;
 
         if (info.actions_style == COMPRESSED) {
@@ -895,18 +889,18 @@ GameIDType TryLoading(struct GameInfo info, int dict_start, int loud)
         }
         for (int j = 0; j < 5; j++) {
             if (j < cond) {
-                value = *(ptr++);
-                value += *(ptr++) * 0x100;
-            } else
+                value = READ_LE_UINT16_AND_ADVANCE(&ptr);
+            } else {
                 value = 0;
+            }
             ap->Condition[j] = value;
         }
         for (int j = 0; j < 2; j++) {
             if (j < comm) {
-                value = *(ptr++);
-                value += *(ptr++) * 0x100;
-            } else
+                value = READ_LE_UINT16_AND_ADVANCE(&ptr);
+            } else {
                 value = 0;
+            }
             ap->Subcommand[j] = value;
         }
 
@@ -943,7 +937,7 @@ GameIDType TryLoading(struct GameInfo info, int dict_start, int loud)
 
         if (!compressed) {
             do {
-                c = *(ptr++);
+                c = *ptr++;
                 text[charindex] = c;
                 if (c == 0) {
                     rp->Text = MemAlloc(charindex + 1);
@@ -983,7 +977,7 @@ GameIDType TryLoading(struct GameInfo info, int dict_start, int loud)
 
     while (ct < nr + 1) {
         for (int j = 0; j < 6; j++) {
-            rp->Exits[j] = *(ptr++);
+            rp->Exits[j] = *ptr++;
         }
 
         ct++;
@@ -1113,7 +1107,7 @@ GameIDType TryLoading(struct GameInfo info, int dict_start, int loud)
     if (SeekIfNeeded(info.start_of_system_messages, &offset, &ptr) == 0)
         return info.gameID;
 jumpSysMess:
-    ptr = SeekToPos(entire_file, offset);
+    ptr = SeekToPos(offset);
     ct = 0;
     charindex = 0;
 
@@ -1163,6 +1157,15 @@ jumpSysMess:
     charindex = 0;
 
     ct = 0;
+
+    while(!isalpha(*ptr)) {
+        ptr++;
+        if (ptr - entire_file > file_length) {
+            debug_print("Read out of bounds!\n");
+            return info.gameID;
+        }
+    }
+
     do {
         c = *(ptr++);
         text[charindex] = c;
@@ -1223,7 +1226,7 @@ uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr)
         }
         uint8_t *nextptr = dataptr - 2;
         if ((*dataptr & 0x80) == 0) {
-            int repeats = *(dataptr - 1) + *dataptr * 0x100;
+            int repeats = READ_LE_UINT16(dataptr - 1);
             for (int i = 0; i < repeats && nextptr > entire_file && pos > entire_file; i++) {
                 *pos = *nextptr;
                 pos--;
@@ -1277,13 +1280,13 @@ GameIDType DetectZXSpectrum(void)
 
     if (!detectedGame && wasz80) {
         uint8_t *mem = entire_file;
-        uint16_t HL = mem[0x1b42] + mem[0x1b43] * 0x100 - 0x4000;
+        uint16_t HL = READ_LE_UINT16(mem + 0x1b42) - 0x4000;
         uint8_t *result = 0;
         if (HL < file_length)
             result = DecompressParsec(&mem[0x0fff], &mem[0x07ff], &mem[HL]);
         if (result) {
-            uint16_t BC = mem[0x1b48] + mem[0x1b49] * 0x100 - 0x4000;
-            uint16_t DE = mem[0x1b4b] + mem[0x1b4c] * 0x100 - 0x4000;
+            uint16_t BC = READ_LE_UINT16(mem + 0x1b48) - 0x4000;
+            uint16_t DE = READ_LE_UINT16(mem + 0x1b4b) - 0x4000;
             DecompressParsec(&mem[BC], &mem[DE], result);
             dict_type = GetId(&offset);
             if (dict_type == NOT_A_GAME)
@@ -1330,8 +1333,8 @@ GameIDType DetectGame(const char *file_name)
         return UNKNOWN_GAME;
     }
 
-    Game = (struct GameInfo *)MemAlloc(sizeof(struct GameInfo));
-    memset(Game, 0, sizeof(struct GameInfo));
+    Game = (GameInfo *)MemAlloc(sizeof(GameInfo));
+    memset(Game, 0, sizeof(GameInfo));
 
     // Check if the original ScottFree LoadDatabase() function can read the file.
     GameIDType detectedGame = LoadDatabase(f, Options & DEBUGGING);
@@ -1346,8 +1349,9 @@ GameIDType DetectGame(const char *file_name)
 
         detectedGame = DetectTI994A();
 
-        if (detectedGame == UNKNOWN_GAME) /* Not a TI99/4A game, check if C64 */
+        if (detectedGame == UNKNOWN_GAME) { /* Not a TI99/4A game, check if C64 */
             detectedGame = DetectC64(&entire_file, &file_length, file_name);
+        }
 
         if (detectedGame == UNKNOWN_GAME) { /* Not a C64 game, check if Atari */
             detectedGame = DetectAtari8(&entire_file, &file_length);
@@ -1361,8 +1365,11 @@ GameIDType DetectGame(const char *file_name)
             detectedGame = DetectZXSpectrum();
         }
 
-        if (detectedGame == UNKNOWN_GAME)
+        if (detectedGame == UNKNOWN_GAME) {
             return UNKNOWN_GAME;
+        }
+    } else {
+        fclose(f);
     }
 
     if (detectedGame == HULK_US) {

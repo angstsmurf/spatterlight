@@ -9,9 +9,8 @@
 #define restorestate_h
 
 #include <stdint.h>
-#include <stdio.h>
 
-struct SavedState {
+typedef struct SavedState {
     int Counters[16];
     int RoomSaved[16];
     long BitFlags;
@@ -23,14 +22,14 @@ struct SavedState {
     uint8_t *ItemLocations;
     struct SavedState *previousState;
     struct SavedState *nextState;
-};
+} SavedState;
 
 void SaveUndo(void);
 void RestoreUndo(void);
 void RamSave(void);
 void RamRestore(void);
-struct SavedState *SaveCurrentState(void);
-void RestoreState(struct SavedState *state);
-void RecoverFromBadRestore(struct SavedState *state);
+SavedState *SaveCurrentState(void);
+void RestoreState(SavedState *state);
+void RecoverFromBadRestore(SavedState *state);
 
 #endif /* restorestate_h */

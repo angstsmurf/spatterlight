@@ -13,12 +13,14 @@
 
 #include "common.h"
 #include "definitions.h"
+#include "c64detect.h"
 #include "graphics.h"
+#include "read_le16.h"
 
 #include "stdetect.h"
 
 // clang-format off
-struct fat_boot_sector {
+typedef struct {
 //    uint8_t    ignored[3];     /* Boot strap short or near jump */
 //    uint8_t    system_id[8];   /* Name - can be used to special case
 //                             partition manager volumes */
@@ -41,37 +43,27 @@ struct fat_boot_sector {
     uint8_t     vol_label[12];  /* Volume label */
     uint8_t     system_type;    /* filesystem type */
     uint16_t    backup_boot;    /* backup boot sector */
-};
+} fat_boot_sector;
 
 #define MSDOS_NAME 11
 
-struct msdos_dir_entry {
-    char    name[MSDOS_NAME];/* name and extension */
-    uint8_t    attr;           /* attribute bits */
-    uint8_t    lcase;          /* Case for base and extension */
-    uint8_t    ctime_cs;       /* Creation time, centiseconds (0-199) */
-    uint16_t  ctime;          /* Creation time */
-    uint16_t  cdate;          /* Creation date */
-    uint16_t  adate;          /* Last access date */
-    uint16_t  starthi;        /* High 16 bits of cluster in FAT32 */
-    uint16_t  time,date,start;/* time, date and first cluster */
-    uint32_t  size;           /* file size (in bytes) */
-};
+typedef struct {
+    char      name[MSDOS_NAME];/* name and extension */
+    uint8_t   attr;            /* attribute bits */
+    uint8_t   lcase;           /* Case for base and extension */
+    uint8_t   ctime_cs;        /* Creation time, centiseconds (0-199) */
+    uint16_t  ctime;           /* Creation time */
+    uint16_t  cdate;           /* Creation date */
+    uint16_t  adate;           /* Last access date */
+    uint16_t  starthi;         /* High 16 bits of cluster in FAT32 */
+    uint16_t  time,date,start; /* time, date and first cluster */
+    uint32_t  size;            /* file size (in bytes) */
+} msdos_dir_entry;
 // clang-format on
 
-struct fat_boot_sector boot;
+fat_boot_sector boot;
 
-uint16_t Read16LE(uint8_t **indata)
-{
-    uint8_t *ptr = *indata;
-
-    uint16_t val = *ptr++;
-    val += *ptr++ * 0x100;
-    *indata = ptr;
-    return val;
-}
-
-typedef struct MsaImageInfo {
+typedef struct {
     int sectorsize;
     int starttrack;
     int endtrack;
@@ -81,20 +73,19 @@ typedef struct MsaImageInfo {
     int totalsectors;
 } MsaImageInfo;
 
-#define READ_M16(address, offset) ((address[offset + 1] & 0xff) | ((address[offset] & 0xff) << 8))
-
-void ReadMsaImageInfo(MsaImageInfo *msa_image_info, uint8_t *msa_image)
+static void ReadMsaImageInfo(MsaImageInfo *msa_image_info, uint8_t *msa_image)
 {
+    msa_image += 2;
     msa_image_info->sectorsize = 512;
-    msa_image_info->sectors_per_track = READ_M16(msa_image, 2);
-    msa_image_info->numheads = READ_M16(msa_image, 4) + 1;
-    msa_image_info->starttrack = READ_M16(msa_image, 6);
-    msa_image_info->endtrack = READ_M16(msa_image, 8);
+    msa_image_info->sectors_per_track = READ_BE_UINT16_AND_ADVANCE(&msa_image);
+    msa_image_info->numheads = READ_BE_UINT16_AND_ADVANCE(&msa_image) + 1;
+    msa_image_info->starttrack = READ_BE_UINT16_AND_ADVANCE(&msa_image);
+    msa_image_info->endtrack = READ_BE_UINT16_AND_ADVANCE(&msa_image);
     msa_image_info->numtracks = msa_image_info->endtrack + 1;
     msa_image_info->totalsectors = msa_image_info->numtracks * msa_image_info->sectors_per_track * msa_image_info->numheads;
 }
 
-uint8_t *DecodeMsaImageToRawImage(uint8_t *msa_image, size_t *newsize)
+static uint8_t *DecodeMsaImageToRawImage(uint8_t *msa_image, size_t *newsize)
 {
     MsaImageInfo msa_image_info;
 
@@ -114,8 +105,7 @@ uint8_t *DecodeMsaImageToRawImage(uint8_t *msa_image, size_t *newsize)
 
     for (trackindex = msa_image_info.starttrack; trackindex <= msa_image_info.endtrack; trackindex++) {
         for (headindex = 0; headindex < msa_image_info.numheads; headindex++) {
-            numbytes = (*msa_pointer++ & 0xff) << 8;
-            numbytes |= *msa_pointer++ & 0xff;
+            numbytes = READ_BE_UINT16_AND_ADVANCE(&msa_pointer);
 
             if (numbytes < msa_image_info.sectors_per_track * msa_image_info.sectorsize) {
                 end_pointer = msa_pointer + numbytes;
@@ -127,9 +117,7 @@ uint8_t *DecodeMsaImageToRawImage(uint8_t *msa_image, size_t *newsize)
                         *raw_pointer++ = msa_data;
                     } else {
                         rle_data = *msa_pointer++;
-
-                        rle_count = (*msa_pointer++ & 0xff) << 8;
-                        rle_count |= *msa_pointer++ & 0xff;
+                        rle_count = READ_BE_UINT16_AND_ADVANCE(&msa_pointer);
 
                         while (rle_count) {
                             *raw_pointer++ = rle_data;
@@ -149,19 +137,19 @@ uint8_t *DecodeMsaImageToRawImage(uint8_t *msa_image, size_t *newsize)
     return raw_image;
 }
 
-int ReadFAT12BootSector(uint8_t **sf, size_t *extent)
+static int ReadFAT12BootSector(uint8_t **sf, size_t *extent)
 {
     uint8_t *ptr = &(*sf)[11];
-    boot.sector_size = Read16LE(&ptr);
+    boot.sector_size = READ_LE_UINT16_AND_ADVANCE(&ptr);
     boot.sec_per_clus = *ptr++;
-    boot.reserved = Read16LE(&ptr);
+    boot.reserved = READ_LE_UINT16_AND_ADVANCE(&ptr);
     boot.fats = *ptr++;
-    boot.dir_entries = Read16LE(&ptr);
-    boot.sectors = Read16LE(&ptr);
+    boot.dir_entries = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    boot.sectors = READ_LE_UINT16_AND_ADVANCE(&ptr);
     boot.media = *ptr++;
-    boot.fat_length = Read16LE(&ptr);
-    boot.secs_track = Read16LE(&ptr);
-    boot.heads = Read16LE(&ptr);
+    boot.fat_length = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    boot.secs_track = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    boot.heads = READ_LE_UINT16_AND_ADVANCE(&ptr);
     ptr += 10;
     boot.boot_signature = *ptr++;
     ptr += 4;
@@ -172,30 +160,25 @@ int ReadFAT12BootSector(uint8_t **sf, size_t *extent)
     return 1;
 }
 
-struct msdos_dir_entry *ReadFAT12DirEntry(uint8_t **pointer)
+static msdos_dir_entry *ReadFAT12DirEntry(uint8_t **pointer)
 {
     uint8_t *ptr = *pointer;
-    struct msdos_dir_entry *dir = MemAlloc(sizeof(struct msdos_dir_entry));
+    msdos_dir_entry *dir = MemAlloc(sizeof(msdos_dir_entry));
     memcpy(dir->name, ptr, MSDOS_NAME);
     ptr += MSDOS_NAME;
     dir->attr = *ptr;
     ptr += 3;
-    dir->ctime = Read16LE(&ptr);
-    dir->cdate = Read16LE(&ptr);
-    dir->adate = Read16LE(&ptr);
-    dir->starthi = Read16LE(&ptr);
-    dir->time = Read16LE(&ptr);
-    dir->date = Read16LE(&ptr);
-    dir->start = Read16LE(&ptr);
-    dir->size = Read16LE(&ptr);
-    dir->size += (Read16LE(&ptr) << 16);
+    dir->ctime = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    dir->cdate = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    dir->adate = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    dir->starthi = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    dir->time = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    dir->date = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    dir->start = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    dir->size = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    dir->size += (READ_LE_UINT16_AND_ADVANCE(&ptr) << 16);
     *pointer = ptr;
     return dir;
-}
-
-uint8_t read_fat12(uint8_t **sf, size_t offset, size_t fat_offset)
-{
-    return (*sf)[fat_offset + offset];
 }
 
 /*
@@ -204,7 +187,7 @@ uint8_t read_fat12(uint8_t **sf, size_t offset, size_t fat_offset)
  *
  * For FAT12, two entries are stored in 3 bytes. if the bytes are uv, wx, yz then the entries are xuv and yzw
  */
-uint32_t get_next_cluster12(uint8_t *sf, uint32_t cluster)
+static uint32_t get_next_cluster12(uint8_t *sf, uint32_t cluster)
 {
     uint8_t fat_hi, fat_lo;
     uint32_t new_clust;
@@ -221,15 +204,14 @@ uint32_t get_next_cluster12(uint8_t *sf, uint32_t cluster)
         new_clust = (fat_hi << 8) | fat_lo;
     }
     // for FAT12, the valid entries are between 0x2 and 0xfef.
-    if ((new_clust > 0x2) && (new_clust < 0xfef)) {
+    if ((new_clust > 0x02) && (new_clust < 0xfef)) {
         return new_clust;
     }
     return 0;
 }
 
-uint8_t *GetFile(uint8_t *sf, int cluster, struct msdos_dir_entry dir)
+static uint8_t *GetFile(uint8_t *sf, int cluster, msdos_dir_entry dir)
 {
-
     size_t datasection = boot.reserved + boot.fats * boot.fat_length + (boot.dir_entries * 32 / boot.sector_size);
     int bytespercluster = boot.sector_size * boot.sec_per_clus;
     uint8_t *result = MemAlloc(dir.size);
@@ -249,11 +231,9 @@ uint8_t *GetFile(uint8_t *sf, int cluster, struct msdos_dir_entry dir)
     return result;
 }
 
-int issagaimg(const char *name);
-
-uint8_t *ReadDirEntryRecursive(uint8_t *ptr, uint8_t **sf, int *imgidx, struct imgrec *imgs, int *found, uint8_t **database, size_t *databasesize)
+static uint8_t *ReadDirEntryRecursive(uint8_t *ptr, uint8_t **sf, int *imgidx, imgrec *imgs, int *found, uint8_t **database, size_t *databasesize)
 {
-    struct msdos_dir_entry *dir = ReadFAT12DirEntry(&ptr);
+    msdos_dir_entry *dir = ReadFAT12DirEntry(&ptr);
     if (dir->name[0] == 0) {
         free(dir);
         return NULL;
@@ -317,7 +297,7 @@ int DetectST(uint8_t **sf, size_t *extent)
     size_t databasesize = 0;
     int found = 0;
 
-    struct imgrec imgs[100];
+    imgrec imgs[100];
     int imgidx = 0;
 
     for (int i = 0; i < boot.dir_entries; i++) {

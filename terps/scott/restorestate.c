@@ -19,16 +19,16 @@ extern int RoomSaved[]; /* Range unknown */
 extern int StopTime;
 extern int JustStarted;
 
-struct SavedState *InitialState = NULL;
-static struct SavedState *ramsave = NULL;
-static struct SavedState *last_undo = NULL;
-static struct SavedState *oldest_undo = NULL;
+SavedState *InitialState = NULL;
+static SavedState *ramsave = NULL;
+static SavedState *last_undo = NULL;
+static SavedState *oldest_undo = NULL;
 
 static int number_of_undos;
 
-struct SavedState *SaveCurrentState(void)
+SavedState *SaveCurrentState(void)
 {
-    struct SavedState *s = (struct SavedState *)MemAlloc(sizeof(struct SavedState));
+    SavedState *s = (SavedState *)MemAlloc(sizeof(SavedState));
     for (int ct = 0; ct < 16; ct++) {
         s->Counters[ct] = Counters[ct];
         s->RoomSaved[ct] = RoomSaved[ct];
@@ -53,14 +53,14 @@ struct SavedState *SaveCurrentState(void)
     return s;
 }
 
-void RecoverFromBadRestore(struct SavedState *state)
+void RecoverFromBadRestore(SavedState *state)
 {
     Output(sys[BAD_DATA]);
     RestoreState(state);
     free(state);
 }
 
-void RestoreState(struct SavedState *state)
+void RestoreState(SavedState *state)
 {
     for (int ct = 0; ct < 16; ct++) {
         Counters[ct] = state->Counters[ct];
@@ -120,7 +120,7 @@ void RestoreUndo(void)
         Output(sys[NO_UNDO_STATES]);
         return;
     }
-    struct SavedState *current = last_undo;
+    SavedState *current = last_undo;
     last_undo = current->previousState;
     if (last_undo->previousState == NULL)
         oldest_undo = last_undo;

@@ -12,17 +12,17 @@
 #include "sagagraphics.h"
 #include "scott.h"
 
-struct line_image *LineImages;
+line_image *LineImages;
 
-struct pixel_to_draw {
+typedef struct {
     uint8_t x;
     uint8_t y;
     uint8_t colour;
-};
+} pixel_to_draw;
 
 VectorStateType VectorState = NO_VECTOR_IMAGE;
 
-struct pixel_to_draw **pixels_to_draw = NULL;
+pixel_to_draw **pixels_to_draw = NULL;
 
 int total_draw_instructions = 0;
 int current_draw_instruction = 0;
@@ -54,7 +54,7 @@ scott_linegraphics_plot_clip(int x, int y, int colour)
      */
     if (x >= 0 && x <= scott_graphics_width && y >= 0 && y < scott_graphics_height) {
         picture_bitmap[y * 255 + x] = colour;
-        struct pixel_to_draw *todraw = MemAlloc(sizeof(struct pixel_to_draw));
+        pixel_to_draw *todraw = MemAlloc(sizeof(pixel_to_draw));
         todraw->x = x;
         todraw->y = y;
         todraw->colour = colour;
@@ -91,7 +91,7 @@ void DrawSomeVectorPixels(int from_start)
     if (i == 0)
         RectFill(0, 0, scott_graphics_width, scott_graphics_height, Remap(bg_colour));
     for (; i < total_draw_instructions && (!gli_slowdraw || i < current_draw_instruction + 50); i++) {
-        struct pixel_to_draw todraw = *pixels_to_draw[i];
+        pixel_to_draw todraw = *pixels_to_draw[i];
         PutPixel(todraw.x, todraw.y, Remap(todraw.colour));
     }
     current_draw_instruction = i;
@@ -209,8 +209,8 @@ void DrawVectorPicture(int image)
     vector_image_shown = image;
     if (pixels_to_draw != NULL)
         FreePixels();
-    pixels_to_draw = MemAlloc(255 * 97 * sizeof(struct pixel_to_draw *));
-    memset(pixels_to_draw, 0, 255 * 97 * sizeof(struct pixel_to_draw *));
+    pixels_to_draw = MemAlloc(255 * 97 * sizeof(pixel_to_draw *));
+    memset(pixels_to_draw, 0, 255 * 97 * sizeof(pixel_to_draw *));
     total_draw_instructions = 0;
     current_draw_instruction = 0;
 

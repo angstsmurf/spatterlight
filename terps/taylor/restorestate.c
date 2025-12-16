@@ -22,16 +22,16 @@ extern uint8_t ObjectLoc[];
 
 extern winid_t Bottom;
 
-struct SavedState *InitialState = NULL;
-static struct SavedState *ramsave = NULL;
-static struct SavedState *last_undo = NULL;
-static struct SavedState *oldest_undo = NULL;
+SavedState *InitialState = NULL;
+static SavedState *ramsave = NULL;
+static SavedState *last_undo = NULL;
+static SavedState *oldest_undo = NULL;
 
 static int number_of_undos;
 
-struct SavedState *SaveCurrentState(void)
+SavedState *SaveCurrentState(void)
 {
-    struct SavedState *s = (struct SavedState *)MemAlloc(sizeof(struct SavedState));
+    SavedState *s = (SavedState *)MemAlloc(sizeof(SavedState));
 
     memcpy(s->Flags, Flag, 128);
     memcpy(s->ObjectLocations, ObjectLoc, 256);
@@ -42,14 +42,14 @@ struct SavedState *SaveCurrentState(void)
     return s;
 }
 
-void RecoverFromBadRestore(struct SavedState *state)
+void RecoverFromBadRestore(SavedState *state)
 {
     Display(Bottom, "BAD DATA! Invalid save file.\n");
     RestoreState(state);
     free(state);
 }
 
-void RestoreState(struct SavedState *state)
+void RestoreState(SavedState *state)
 {
     memcpy(Flag, state->Flags, 128);
     memcpy(ObjectLoc, state->ObjectLocations, 256);
@@ -74,7 +74,7 @@ void SaveUndo(void)
         Fatal("Number of undos == 0 but last_undo != NULL!");
 
     last_undo->nextState = SaveCurrentState();
-    struct SavedState *current = last_undo->nextState;
+    SavedState *current = last_undo->nextState;
     current->previousState = last_undo;
     last_undo = current;
     if (number_of_undos == MAX_UNDOS) {
@@ -99,7 +99,7 @@ void RestoreUndo(int from_player)
         Display(Bottom, "No undo states remaining\n");
         return;
     }
-    struct SavedState *current = last_undo;
+    SavedState *current = last_undo;
     last_undo = current->previousState;
     if (last_undo->previousState == NULL)
         oldest_undo = last_undo;

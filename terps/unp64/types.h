@@ -64,23 +64,9 @@ inline uint16_t READ_LE_UINT16(const void *ptr) {
     return (b[1] << 8) | b[0];
 }
 
-inline void WRITE_UINT16(void *ptr, uint16_t value) {
-    uint8_t *b = (uint8_t *)ptr;
-    b[0] = (uint8_t)(value >> 0);
-    b[1] = (uint8_t)(value >> 8);
-}
-
 inline uint32_t READ_LE_UINT32(const void *ptr) {
     const uint8_t *b = (const uint8_t *)ptr;
     return (b[3] << 24) | (b[2] << 16) | (b[1] << 8) | (b[0]);
-}
-
-inline void WRITE_LE_UINT32(void *ptr, uint32_t value) {
-    uint8_t *b = (uint8_t *)ptr;
-    b[0] = (uint8_t)(value >>  0);
-    b[1] = (uint8_t)(value >>  8);
-    b[2] = (uint8_t)(value >> 16);
-    b[3] = (uint8_t)(value >> 24);
 }
 
 } // End of namespace Unp64

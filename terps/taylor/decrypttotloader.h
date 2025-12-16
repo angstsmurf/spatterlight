@@ -12,7 +12,6 @@
 #define decryptloader_h
 
 #include <stdint.h>
-#include <stdio.h>
 
 uint8_t *DecryptToTSideB(uint8_t *data, size_t *length);
 

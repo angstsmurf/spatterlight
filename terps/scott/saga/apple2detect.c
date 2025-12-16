@@ -10,6 +10,7 @@
 #include <string.h>
 
 #include "apple2draw.h"
+#include "common_file_utils.h"
 #include "ciderpress.h"
 #include "hulk.h"
 #include "saga.h"
@@ -1009,7 +1010,7 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
         return 0;
     }
 
-    struct USImage *image = new_image();
+    USImage *image = new_image();
     if (!USImages) {
         USImages = image;
     } else {

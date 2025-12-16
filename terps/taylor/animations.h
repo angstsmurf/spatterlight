@@ -8,7 +8,6 @@
 #ifndef animations_h
 #define animations_h
 
-#include <stdio.h>
 void UpdateRebelAnimations(void);
 void UpdateKaylethAnimations(void);
 void StartAnimations(void);

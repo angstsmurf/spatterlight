@@ -51,7 +51,7 @@
 #include "layouttext.h"
 #include "line_drawing.h"
 #include "restorestate.h"
-#include "sagadraw.h"
+#include "sagagraphics.h"
 
 #include "parser.h"
 #include "ti99_4a_terp.h"
@@ -99,8 +99,8 @@ int ImageHeight = 96;
 int file_baseline_offset = 0;
 const char *title_screen = NULL;
 
-struct Command *CurrentCommand = NULL;
-struct GameInfo *Game;
+Command *CurrentCommand = NULL;
+GameInfo *Game;
 MachineType CurrentSys = SYS_UNKNOWN;
 
 extern const char *sysdict[MAX_SYSMESS];
@@ -122,7 +122,7 @@ int showing_closeup = 0;
 int last_image_index = -1;
 int lastwasnewline = 0;
 
-extern struct SavedState *InitialState;
+extern SavedState *InitialState;
 
 /* JustStarted is only used for the error message "Can't undo on first move" */
 int JustStarted = 1;
@@ -411,18 +411,6 @@ void Delay(float seconds)
     glk_request_timer_events(0);
 }
 
-winid_t FindGlkWindowWithRock(glui32 rock)
-{
-    winid_t win;
-    glui32 rockptr;
-    for (win = glk_window_iterate(NULL, &rockptr); win;
-         win = glk_window_iterate(win, &rockptr)) {
-        if (rockptr == rock)
-            return win;
-    }
-    return 0;
-}
-
 void OpenTopWindow(void)
 {
     Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
@@ -444,8 +432,6 @@ void OpenTopWindow(void)
 
 glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
-    *width = ImageWidth;
-    *height = ImageHeight;
     int multiplier = 1;
     glui32 graphwidth, graphheight;
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
@@ -529,7 +515,7 @@ void CloseGraphicsWindow(void)
     }
 }
 
-static void CleanupAndExit(void)
+GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
 {
     if (Transcript)
         glk_stream_close(Transcript, NULL);
@@ -542,39 +528,9 @@ static void CleanupAndExit(void)
     glk_exit();
 }
 
-void Fatal(const char *x)
-{
-    Display(Bottom, "%s\n", x);
-    CleanupAndExit();
-}
-
 static void ClearScreen(void)
 {
     glk_window_clear(Bottom);
-}
-
-void *MemAlloc(int size)
-{
-    void *t = (void *)malloc(size);
-    if (t == NULL)
-        Fatal("Out of memory");
-    return (t);
-}
-
-void *MemRealloc(void *ptr, size_t size)
-{
-    void *t = (void *)realloc(ptr, size);
-    if (t == NULL)
-        Fatal("Out of memory");
-    return (t);
-}
-
-void *MyCalloc(int size)
-{
-    void *t = (void *)calloc(1, size);
-    if (t == NULL)
-        Fatal("Out of memory");
-    return (t);
 }
 
 int RandomPercent(int n)
@@ -680,19 +636,6 @@ static char *ReadString(FILE *f)
     t = MemAlloc(ct + 1);
     memcpy(t, tmp, ct + 1);
     return (t);
-}
-
-size_t GetFileLength(FILE *in)
-{
-    if (fseek(in, 0, SEEK_END) == -1) {
-        return 0;
-    }
-    size_t length = ftell(in);
-    if (length == -1) {
-        return 0;
-    }
-    fseek(in, SEEK_SET, 0);
-    return length;
 }
 
 int header[24];
@@ -1263,7 +1206,7 @@ static void LoadGame(void)
     if (file == NULL)
         return;
 
-    struct SavedState *state = SaveCurrentState();
+    SavedState *state = SaveCurrentState();
 
     int result;
 
@@ -1405,7 +1348,7 @@ static void FlickerOff(void)
 
 int PerformExtraCommand(int extra_stop_time)
 {
-    struct Command command = *CurrentCommand;
+    Command command = *CurrentCommand;
     int verb = command.verb;
     if (verb > GameHeader.NumWords)
         verb -= GameHeader.NumWords;

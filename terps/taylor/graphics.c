@@ -70,16 +70,15 @@ void PatchAndDrawQP3Cannon(void)
 
 #pragma mark Patching
 
-struct image_patch
-{
+typedef struct {
     GameIDType id;
     int picture_number;
     int offset;
     int number_of_bytes;
     const char *patch;
-};
+} image_patch;
 
-static const struct image_patch image_patches[] = {
+static const image_patch image_patches[] = {
     { UNKNOWN_GAME, 0, 0, 0, "" },
     { QUESTPROBE3, 55, 604, 3, "\xff\xff\x82" },
     { QUESTPROBE3, 56, 357, 46, "\x79\x81\x78\x79\x7b\x83\x47\x79\x82\x78\x79\x7b\x83\x47\x79\x83"
@@ -100,7 +99,7 @@ static int FindImagePatch(GameIDType game, int image_number, int start)
 
 static void Patch(uint8_t *offset, int patch_number)
 {
-    const struct image_patch *patch = &image_patches[patch_number];
+    const image_patch *patch = &image_patches[patch_number];
     for (int i = 0; i < patch->number_of_bytes; i++) {
         const char newval = patch->patch[i];
         offset[i + patch->offset] = (uint8_t)newval;
@@ -116,7 +115,7 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
     uint16_t offset_addr = (FileImage[base + picture_number] & 0x7f) * 2 + offsets;
     if (offsets >= FileImageLen)
         return;
-    uint16_t image_addr = imgdata + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256;
+    uint16_t image_addr = imgdata + READ_LE_UINT16(FileImage + offset_addr);
     if (image_addr >= FileImageLen - 4)
         return;
 
@@ -230,7 +229,7 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
                 size_t baseoffset = patterns_lookup + Game->number_of_patterns + i * 2;
                 if (baseoffset >= FileImageLen - 1)
                     break;
-                size_t newoffset = FileImage[baseoffset] + FileImage[baseoffset + 1] * 256 - 0x4000 + FileBaselineOffset;
+                size_t newoffset = READ_LE_UINT16(FileImage + baseoffset) - 0x4000 + FileBaselineOffset;
                 while (newoffset < FileImageLen && FileImage[newoffset] != Game->pattern_end_marker) {
                     instructions[index++] = FileImage[newoffset++];
                 }
@@ -283,6 +282,8 @@ static int DecompressEarlierType(uint8_t *instructions, uint8_t **outpos, int re
             case 0xfa:
                 if (recursion_guard)
                     break;
+                /* Call this function recursively with copied_bytes,
+                   a 0xfe-terminated array of bytes to repeat .*/
                 index--;
                 pos++;
                 int numbytes = *pos - 1;
@@ -360,7 +361,7 @@ void InitGraphics(void)
 #endif
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
-    pos = SeekToPos(FileImage, tiles_start);
+    pos = SeekToPos(tiles_start);
 
 #ifdef DRAWDEBUG
     debug_print("Grabbing tile details\n");
@@ -372,15 +373,14 @@ void InitGraphics(void)
         }
     }
 
-    /* Now we have hopefully read the tile data */
-    /* Time for the image offsets */
+    /* Now we have hopefully read the tile data. */
+    /* Time for the image offsets. */
 
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
     size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
 
-    pos = SeekToPos(FileImage, image_blocks_start_address);
-
+    pos = SeekToPos(image_blocks_start_address);
 
     if (Version == QUESTPROBE3_TYPE) {
         ExtractQ3Images(images);

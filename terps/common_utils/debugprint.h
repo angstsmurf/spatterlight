@@ -16,6 +16,8 @@
 
 #ifdef DEBUG
 
+#include <stdio.h>
+
 #define debug_print(fmt, ...)                    \
     do {                                         \
         if (DEBUG_PRINT)                         \

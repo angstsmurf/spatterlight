@@ -10,13 +10,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "common_file_utils.h"
 #include "hulk.h"
 #include "saga.h"
 #include "sagagraphics.h"
 #include "scott.h"
 #include "scottdefines.h"
 
-#include "atari8c64draw.h"
+//#include "atari8c64draw.h"
 #include "atari8detect.h"
 #include "scottgameinfo.h"
 
@@ -31,7 +32,6 @@ static const pairrec a8companionlist[][2] = {
     { { 0x16810, 0x1de8, "S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[a][cr CSS].atr", 121 }, { 0x16810, 0x7c32, "S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[a].atr", 113 } },
 
     { { 0, 0, NULL }, { 0, 0, NULL } }
-
 };
 
 typedef struct imglist {
@@ -574,14 +574,12 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
     }
 
     USImages = new_image();
-    struct USImage *image = USImages;
+    USImage *image = USImages;
 
     // Now loop round for each image
     for (outpic = 0; list[outpic].offset != 0; outpic++) {
-        uint8_t *ptr = data + list[outpic].offset;
-
-        size = *ptr++;
-        size += *ptr * 256 + 2;
+        
+        size = READ_LE_UINT16(data + list[outpic].offset) + 2;
 
         image->usage = list[outpic].usage;
         image->index = list[outpic].index;
@@ -589,16 +587,20 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
         image->datasize = size;
         image->systype = SYS_ATARI8;
         memcpy(image->imagedata, data + list[outpic].offset - 2, size);
-        /* Bytes 0xb390 to 0xb410 correspond to the content of sector 360 (0x0168) of the original Atari disk
-           which contains the volume table of contents (mostly a bitmap of used sectors). This is not part of the
-           graphics data, so we cut it out. */
+        /* Bytes 0xb390 to 0xb410 correspond to the content of
+           sector 360 (0x0168) of the original Atari disk which
+           contains the volume table of contents (mostly a bitmap
+           of used sectors). This is not part of the graphics data,
+           so we cut it out. */
         if (list[outpic].offset < 0xb390 && list[outpic].offset + image->datasize > 0xb390) {
             memcpy(image->imagedata + 0xb390 - list[outpic].offset + 2, data + 0xb410, size - 0xb390 + list[outpic].offset - 2);
         }
 
-        /* Many images have black bars on one or more sides, probably used to center smaller images. The original
-           interpreters had a black background which hid this, but it looks strange if the background is not black,
-           so we crop them. */
+        /* Many images have black bars on one or more sides,
+           probably used to center smaller images. The original
+           interpreters had a black background which hid this,
+           but it looks strange if the background is not black,
+           so we crop them off. */
         if (CurrentGame == VOODOO_CASTLE_US && image->usage == IMG_ROOM)
             image->cropleft = 8;
 

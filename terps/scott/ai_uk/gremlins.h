@@ -8,8 +8,6 @@
 #ifndef gremlins_h
 #define gremlins_h
 
-#include <stdio.h>
-
 void UpdateGremlinsAnimations(void);
 void GremlinsLook(void);
 void GremlinsAction(void);

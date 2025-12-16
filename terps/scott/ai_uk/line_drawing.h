@@ -8,19 +8,19 @@
 #ifndef line_drawing_h
 #define line_drawing_h
 
-#include <stdint.h>
-
 struct line_image {
     uint8_t *data;
     int bgcolour;
     size_t size;
 };
 
+typedef struct line_image line_image;
+
 void DrawVectorPicture(int image);
 void DrawSomeVectorPixels(int from_start);
 int DrawingVector(void);
 
-extern struct line_image *LineImages;
+extern line_image *LineImages;
 
 typedef enum {
     NO_VECTOR_IMAGE,
