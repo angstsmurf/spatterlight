@@ -401,10 +401,8 @@ void StartAnimations(void)
             UpdateRebelAnimations();
         } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
             glk_request_timer_events(ROBOT_ANIMATION_RATE);
-            UpdateRebelAnimations();
         } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
             glk_request_timer_events(ROBOT_ANIMATION_RATE);
-            UpdateRebelAnimations();
         }
     } else if (BaseGame == KAYLETH) {
         int speed = 0;
