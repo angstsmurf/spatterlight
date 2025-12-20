@@ -42,12 +42,12 @@ static size_t get_file_length(FILE *in)
     if (fseek(in, 0, SEEK_END) == -1) {
         return 0;
     }
-    size_t length = ftell(in);
+    long length = ftell(in);
     if (length == -1) {
         return 0;
     }
     fseek(in, SEEK_SET, 0);
-    return length;
+    return (size_t)length;
 }
 
 static uint8_t *data_from_woz(const char *filename, size_t filenamelen, int *game, int *index, size_t *file_length){
