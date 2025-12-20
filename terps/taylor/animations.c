@@ -183,7 +183,7 @@ static void AnimateKaylethClickShelves(int stage)
                 ink2 += 8 * ((attribute & 64) == 64);
                 ink = Remap(ink);
                 ink2 = Remap(ink2);
-                for (int j = 0; j < 8; j++)
+                for (int j = 0; j < 8; j++) {
                     if (col > 15) {
                         if (isNthBitSet(imagebuffer[col + line * 32][i], 7 - j)) {
                             PutPixel(col * 8 + j, ypos, ink);
@@ -193,33 +193,34 @@ static void AnimateKaylethClickShelves(int stage)
                             PutPixel(col * 8 + j, 79 - ypos, ink2);
                         }
                     }
+                }
             }
         }
     }
 }
 
-struct KaylethAnimationFrame {
+typedef struct {
     int counter_to_draw_at;
     int counter;
     int image;
-};
+} KaylethAnimationFrame;
 
-struct KaylethAnimation {
+typedef struct {
     int loop_to;
     int required_object;
     int number_of_frames;
     int current_frame;
-    struct KaylethAnimationFrame *frames;
-};
+    KaylethAnimationFrame *frames;
+} KaylethAnimation;
 
-static struct KaylethAnimation **KaylethAnimations = NULL;
+static KaylethAnimation **KaylethAnimations = NULL;
 
-// This is really the number of rooms. We use NULL for rooms without animation.
+// This is really the number of rooms in the game. We use NULL for rooms without an animation.
 #define NUMBER_OF_KAYLETH_ANIMATIONS 92
 
 void LoadKaylethAnimationData(void)
 {
-    KaylethAnimations = MemAlloc(sizeof(struct KaylethAnimation *) * NUMBER_OF_KAYLETH_ANIMATIONS);
+    KaylethAnimations = MemAlloc(sizeof(KaylethAnimation *) * NUMBER_OF_KAYLETH_ANIMATIONS);
     KaylethAnimations[0] = NULL;
     uint8_t *ptr = &FileImage[AnimationData];
     int counter = 0;
@@ -231,17 +232,17 @@ void LoadKaylethAnimationData(void)
             ptr++;
         }
         if (counter < NUMBER_OF_KAYLETH_ANIMATIONS) {
-            struct KaylethAnimation *anim = MemAlloc(sizeof(struct KaylethAnimation));
+            KaylethAnimation *anim = MemAlloc(sizeof(KaylethAnimation));
             anim->loop_to = *ptr / 3; // The frame to loop back to after reaching the end. Usually 0.
             ptr++;
             anim->current_frame = 0;
             anim->required_object = *ptr;
-            ptr += 2; // Skipping skip byte, always zero initially
+            ptr += 2; // Skipping "skip byte", always zero initially
             anim->number_of_frames = 0;
             for (int i = 0; ptr[i] != 0xff; i += 3) {
                 anim->number_of_frames++;
             }
-            anim->frames = MemAlloc(anim->number_of_frames * sizeof(struct KaylethAnimationFrame));
+            anim->frames = MemAlloc(anim->number_of_frames * sizeof(KaylethAnimationFrame));
             for (int i = 0; i < anim->number_of_frames; i++) {
                 anim->frames[i].counter_to_draw_at = *ptr;
                 anim->frames[i].counter = 0;
@@ -281,7 +282,7 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
     if (Flag[10] > 1)
         ObjectLoc[122] = MyLoc;
 
-    struct KaylethAnimation *anim = KaylethAnimations[MyLoc];
+    KaylethAnimation *anim = KaylethAnimations[MyLoc];
 
     // Reset animation if we are in a new room
     if (KaylethAnimationIndex != MyLoc) {
@@ -291,7 +292,7 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
 
     if (ObjectLoc[anim->required_object] == MyLoc) {
 
-        struct KaylethAnimationFrame *frame = &anim->frames[anim->current_frame];
+        KaylethAnimationFrame *frame = &anim->frames[anim->current_frame];
 
         if (frame->counter >= frame->counter_to_draw_at) {
             DrawTaylor(frame->image, MyLoc);
@@ -337,6 +338,7 @@ void UpdateRebelAnimations(void)
     } else if (MyLoc == 88 && ObjectLoc[107] == 88) {
         AnimateQueenComputer();
     } else if (MyLoc > 28 && MyLoc < 34) {
+        // Sycane Serpent in sewers
         if (ObjectLoc[92] == MyLoc) {
             AnimationStage++;
             if (AnimationStage > 5) {
@@ -360,9 +362,11 @@ void UpdateRebelAnimations(void)
         }
         DrawIrmakPictureFromBuffer();
     } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
+        // Killer security robot in museum passage
         DrawPictureAtPos(138 + AnimationStage, 13, 2, 0);
         AnimationStage = (AnimationStage == 0);
     } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
+        // Crag snapper in cave
         if (!AnimationStage)
             DrawPictureAtPos(133, 14, 4, 0);
         else
