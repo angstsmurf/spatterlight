@@ -383,6 +383,7 @@ void StartAnimations(void)
 {
     if (BaseGame == REBEL_PLANET) {
         if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
+            // Stars
             int rate = STARS_ANIMATION_RATE;
             if (CurrentGame == REBEL_PLANET_64)
                 rate = STARS_ANIMATION_RATE_64;
@@ -391,21 +392,26 @@ void StartAnimations(void)
                 AnimationRunning = rate;
             }
         } else if (MyLoc == 86 && ObjectLoc[42] == 86) {
+            // Force field
             if (AnimationRunning != FIELD_ANIMATION_RATE) {
                 glk_request_timer_events(FIELD_ANIMATION_RATE);
                 AnimationRunning = FIELD_ANIMATION_RATE;
             }
         } else if (MyLoc == 88 && ObjectLoc[107] == 88) {
+            // Queen computer
             if (AnimationRunning != QUEEN_ANIMATION_RATE) {
                 glk_request_timer_events(QUEEN_ANIMATION_RATE);
                 AnimationRunning = QUEEN_ANIMATION_RATE;
             }
         } else if (MyLoc > 28 && MyLoc < 34) {
+            // Sycane Serpent in sewers
             glk_request_timer_events(SERPENT_ANIMATION_RATE);
             UpdateRebelAnimations();
         } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
+            // Killer security robot in museum passage
             glk_request_timer_events(ROBOT_ANIMATION_RATE);
         } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
+            // Crag snapper in cave
             glk_request_timer_events(ROBOT_ANIMATION_RATE);
         }
     } else if (BaseGame == KAYLETH) {
