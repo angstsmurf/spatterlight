@@ -64,7 +64,7 @@ void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)
     xpos = xpos * pixel_size;
 
     if (upside_down)
-        xpos = ImageWidth * pixel_size - xpos;
+        xpos = ImageWidth * pixel_size - xpos - 1;
 
     xpos += x_offset;
 
