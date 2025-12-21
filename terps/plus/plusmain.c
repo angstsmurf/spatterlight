@@ -2292,7 +2292,7 @@ void glk_main(void)
     if (LoadDatabasePlaintext(f, DEBUG_PRINT) == UNKNOWN_GAME) {
         fseek(f, 0, SEEK_SET);
         mem = MemAlloc(filesize);
-        memlen = fread(mem, 1, memlen, f);
+        memlen = fread(mem, 1, filesize, f);
         fclose(f);
 
         if (!DetectAtari8(&mem, &memlen)) {
