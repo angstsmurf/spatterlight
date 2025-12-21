@@ -14,34 +14,21 @@
 
 #include "c64a8draw.h"
 
-typedef uint8_t RGB[3];
-
 void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);
+void SetColor(int32_t index, const uint8_t color[3]);
 
 static int DrawPatternAndAdvancePos(int x, int *y,  uint8_t pattern) {
-    int pix1 = (pattern & 0xc0) >> 6;
-    int pix2 = (pattern & 0x30) >> 4;
-    int pix3 = (pattern & 0x0c) >> 2;
-    int pix4 = (pattern & 0x03);
+    uint8_t mask = 0xc0;
 
-    PutDoublePixel(x, *y, pix1);
-    x += 2;
-    PutDoublePixel(x, *y, pix2);
-    x += 2;
-    PutDoublePixel(x, *y, pix3);
-    x += 2;
-    PutDoublePixel(x, *y, pix4);
+    for (int i = 6; i >= 0; i -= 2) {
+        int color = (pattern & mask) >> i;
+        PutDoublePixel(x, *y, color);
+        mask >>= 2;
+        x += 2;
+    }
     (*y)++;
-    return x - 6;
+    return x - 8;
 }
-
-/* C64 colors */
-static const RGB black = { 0, 0, 0 };
-
-extern winid_t Graphics;
-extern int x_offset, right_margin, ImageWidth, ImageHeight, pixel_size;
-
-void SetColor(int32_t index, const RGB *color);
 
 int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, translate_color_fn translate)
 {
@@ -82,8 +69,9 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
     xpos = x_origin * 8;
     ypos = y_origin;
 
+    const uint8_t black[3] = { 0, 0, 0 };
 
-    SetColor(0, &black);
+    SetColor(0, black);
 
     // Get the palette
     for (i = 1; i < 5; i++) {
@@ -112,7 +100,7 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
             work = *ptr++;
             work2 = *ptr++;
         }
-        for (i = 0; i < repetitions + 1; i++) { //&& ptr - origptr < datasize - 1; i++) {
+        for (i = 0; i < repetitions + 1; i++) {
             // If we are not repeating bytes,
             // we read two new bytes on every iteration
             if (!repeat_next_two_bytes) {

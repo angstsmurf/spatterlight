@@ -46,7 +46,8 @@ extern PALETTE pal;
 void SetColor(int32_t index, const RGB *color);
 
 void PutPixel(glsi32 x, glsi32 y, int32_t color);
-void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);
+void PutDoublePixel(glsi32 x, glsi32 y, int32_t color);
+void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixel_width);
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
               int32_t color);
 uint8_t *FindImageFile(const char *shortname, size_t *datasize);

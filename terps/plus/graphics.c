@@ -59,29 +59,15 @@ char *ShortNameFromType(char type, int index)
    to make halftones */
 void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)
 {
-    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
-
-    xpos = xpos * pixel_size;
-
-    if (upside_down)
-        xpos = ImageWidth * pixel_size - xpos - 1;
-
-    xpos += x_offset;
-
-    if (xpos < x_offset || xpos >= right_margin) {
-        return;
-    }
-
-    ypos = ypos * pixel_size;
-    if (upside_down)
-        ypos = (ImageHeight - 1) * pixel_size - ypos;
-    ypos += y_offset;
-
-    glk_window_fill_rect(Graphics, glk_color, xpos,
-        ypos, pixel_size, pixel_size);
+    PutPixelWithWidth(xpos, ypos, color, 1);
 }
 
-void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)
+void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color) {
+    PutPixelWithWidth(xpos, ypos, color, 2);
+}
+
+
+void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixelwidth)
 {
     glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
 
@@ -107,7 +93,7 @@ void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)
     ypos += y_offset;
 
     glk_window_fill_rect(Graphics, glk_color, xpos,
-        ypos, pixel_size * 2, pixel_size);
+        ypos, pixel_size * pixelwidth, pixel_size);
 }
 
 void SetColor(int32_t index, const RGB *color)

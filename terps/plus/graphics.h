@@ -33,5 +33,6 @@ void SetColor(int32_t index, const RGB *color);
 // Only IBM PC graphics in "striped" mode use PutPixel()
 void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color);
 void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);
+void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixelwidth);
 
 #endif /* graphics_h */

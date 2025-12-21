@@ -183,7 +183,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
         // If bit 7 is set or this is an early game
         // we write the next two bytes (repetitions + 1) times
         int repeat_next_two_bytes = 0;
-        if ((repetitions & 0x80) == 0x80 || is_the_count) {
+        if (is_the_count || (repetitions & 0x80) == 0x80) {
             repeat_next_two_bytes = 1;
             if (is_the_count) {
                 repetitions -= 1;
