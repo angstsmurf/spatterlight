@@ -1027,7 +1027,7 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
         image->usage = list[outpic].usage;
         image->index = list[outpic].index;
 
-        //        debug_print("Reading image %d with size %zu and index %d\n", outpic, size, image->index);
+        debug_print("Reading image %d with size %zu and index %d\n", outpic, size, image->index);
 
         image->datasize = size;
         image->systype = SYS_APPLE2;

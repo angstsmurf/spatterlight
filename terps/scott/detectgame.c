@@ -1368,8 +1368,6 @@ GameIDType DetectGame(const char *file_name)
         if (detectedGame == UNKNOWN_GAME) {
             return UNKNOWN_GAME;
         }
-    } else {
-        fclose(f);
     }
 
     if (detectedGame == HULK_US) {
