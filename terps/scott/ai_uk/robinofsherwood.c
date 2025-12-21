@@ -130,14 +130,16 @@ static void animate_waterfall(int stage)
     RectFill(88, 16, 48, 64, white_colour);
     for (int line = 2; line < 10; line++) {
         for (int col = 11; col < 17; col++) {
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
                     if (isNthBitSet(layout[col + line * IRMAK_IMGWIDTH][i], 7 - j)) {
                         int ypos = line * 8 + i + stage;
                         if (ypos > 79)
                             ypos = ypos - 64;
                         PutPixel(col * 8 + j, ypos, blue_colour);
                     }
+                }
+            }
         }
     }
 }
@@ -146,14 +148,16 @@ static void animate_waterfall_cave(int stage)
 {
     RectFill(248, 24, 8, 64, white_colour);
     for (int line = 3; line < 11; line++) {
-        for (int i = 0; i < 8; i++)
-            for (int j = 0; j < 8; j++)
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 if (isNthBitSet(layout[31 + line * IRMAK_IMGWIDTH][i], 7 - j)) {
                     int ypos = line * 8 + i + stage;
                     if (ypos > 87)
                         ypos = ypos - 64;
                     PutPixel(248 + j, ypos, blue_colour);
                 }
+            }
+        }
     }
 }
 
@@ -183,12 +187,13 @@ void RobinOfSherwoodLook(void)
             CloseGraphicsWindow();
         } else {
             DrawImage(Rooms[MyLoc].Image);
-            for (int ct = 0; ct <= GameHeader.NumItems; ct++)
+            for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
                 if (Items[ct].Image) {
                     if ((Items[ct].Flag & 127) == MyLoc && Items[ct].Location == MyLoc) {
                         DrawImage(Items[ct].Image);
                     }
                 }
+            }
         }
     }
 
