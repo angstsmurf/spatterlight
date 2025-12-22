@@ -275,8 +275,8 @@ int DetectApple2(uint8_t **sf, size_t *extent)
         *sf = gamedata;
         *extent = datasize;
         CurrentSys = SYS_APPLE2;
-        ImageWidth = 280;
-        ImageHeight = 152;
+        ImageWidth = 490;
+        ImageHeight = 320;
         return 1;
     }
 

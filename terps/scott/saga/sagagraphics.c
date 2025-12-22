@@ -64,7 +64,12 @@ void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixel_width)
     glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
 
     glk_window_fill_rect(Graphics, glk_color, xpos * pixel_size + x_offset,
-        ypos * pixel_size + y_offset, pixel_size, pixel_size);
+        ypos * pixel_size + y_offset, pixel_size * pixel_width, pixel_size);
+}
+
+void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)
+{
+    PutPixelWithWidth(xpos, ypos, color, 1);
 }
 
 void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)

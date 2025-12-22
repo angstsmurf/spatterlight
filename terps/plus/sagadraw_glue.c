@@ -314,8 +314,8 @@ void Apple2AdjustPlus(uint8_t width, uint8_t height, uint8_t y_origin) {
     /* Adjust the graphics window to the image height,
        but not for small object images */
     if (y_origin == 0 && (LastImgType == IMG_ROOM || LastImgType == IMG_SPECIAL)) {
-        ImageHeight = height + 2;
-        ImageWidth = width * 8 - 32;
+        ImageHeight = (height + 2) * 2;
+        ImageWidth = (width + 1) * 14;
     }
 
     AdjustGraphicsWindowHeight();

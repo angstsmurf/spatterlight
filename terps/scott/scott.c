@@ -2592,7 +2592,8 @@ one letter.\n\nDo you want to restore previously saved game?\n",
 
     if (Game->type == US_VARIANT) {
         if (has_graphics()) {
-            ImageWidth = 280;
+            if (ImageWidth < 280)
+                ImageWidth = 280;
             if (ImageHeight < 158)
                 ImageHeight = 158;
             DrawTitleImage();

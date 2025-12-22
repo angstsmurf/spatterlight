@@ -12,6 +12,7 @@
 #include "glk.h"
 #include "debugprint.h"
 #include "read_le16.h"
+#include "minmax.h"
 #include "memory_allocation.h"
 
 #include "apple2draw.h"
@@ -38,10 +39,7 @@ void ClearApple2ScreenMem(void)
 
 static int WriteByteAndAdvanceY(uint8_t x, uint8_t *y, uint8_t byte_to_write)
 {
-    uint8_t lobyte = ((*y & 0xc0) >> 2 | (*y & 0xc0)) >> 1 | (*y & 8) << 4;
-    uint8_t hibyte = ((*y & 7) << 1 | (uint8_t)(*y << 2) >> 7) << 1 | (uint8_t)(*y << 3) >> 7;
-
-    uint16_t address = hibyte << 8 | lobyte + x;
+    uint16_t address = (((*y / 8) & 0x07) << 7) + (((*y / 8) & 0x18) * 5) + ((*y & 7) << 10) + x;
     if (address > MAX_SCREEN_ADDR) {
         debug_print("apple2draw WriteByteAt() ERROR: Attempt to write outside Apple 2 screen memory at offset 0x%04x. Max: 0x%04x\n", address, MAX_SCREEN_ADDR);
         return 0;
@@ -223,109 +221,163 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
     return 1;
 }
 
-static void PutApplePixel(glsi32 xpos, glsi32 ypos, glui32 color)
+static void PutApplePixel(glsi32 xpos, glsi32 ypos, glui32 color, int width)
 {
     xpos = xpos * pixel_size + x_offset;
     ypos = ypos * pixel_size + y_offset;
-    glk_window_fill_rect(Graphics, color, xpos, ypos, pixel_size, pixel_size);
+    glk_window_fill_rect(Graphics, color, xpos, ypos, pixel_size * width, pixel_size * 2);
 }
 
-static void PutApplePixelUpsideDown(glsi32 xpos, glsi32 ypos, glui32 color)
+static void PutApplePixelUpsideDown(glsi32 xpos, glsi32 ypos, glui32 color, int width)
 {
-    xpos = (280 - xpos) * pixel_size + x_offset;
-    ypos = (157 - ypos) * pixel_size + y_offset;
-    glk_window_fill_rect(Graphics, color, xpos, ypos, pixel_size, pixel_size);
+    xpos = (560 - xpos - width) * pixel_size + x_offset;
+    ypos = (319 - ypos) * pixel_size + y_offset - 1;
+    glk_window_fill_rect(Graphics, color, xpos, ypos, pixel_size * width, pixel_size * 2);
 }
 
 /* The code below is borrowed from the MAME Apple 2 driver. */
 
-/* Since I wrote this, MAME has upgraded to a more accurate
-   way of rendering Apple 2 graphics, but it would require
-   substantial changes to use that instead. Perhaps one day. */
+extern int ImageHeight;
 
-// clang-format off
-#define BLACK   0
-#define PURPLE  0xd53ef9
-#define BLUE    0x458ff7
-#define ORANGE  0xd7762c
-#define GREEN   0x64d440
-#define WHITE   0xffffff
+// 4-bit left rotate. Bits 4-6 of n must be a copy of bits 0-2.
+unsigned rotl4b(unsigned n, unsigned count) { return (n >> (-count & 3)) & 0x0f; }
 
-static const int32_t hires_artifact_color_table[] =
+//static uint8_t const artifact_color_lut[128] =
+//{
+//    0x00,0x00,0x00,0x00,0x88,0x00,0x00,0x00,0x11,0x11,0x55,0x11,0x99,0x99,0xdd,0xff,
+//    0x22,0x22,0x66,0x66,0xaa,0xaa,0xee,0xee,0x33,0x33,0x33,0x33,0xbb,0xbb,0xff,0xff,
+//    0x00,0x00,0x44,0x44,0xcc,0xcc,0xcc,0xcc,0x55,0x55,0x55,0x55,0x99,0x99,0xdd,0xff,
+//    0x00,0x22,0x66,0x66,0xee,0xaa,0xee,0xee,0x77,0x77,0x77,0x77,0xff,0xff,0xff,0xff,
+//    0x00,0x00,0x00,0x00,0x88,0x88,0x88,0x88,0x11,0x11,0x55,0x11,0x99,0x99,0xdd,0xff,
+//    0x00,0x22,0x66,0x66,0xaa,0xaa,0xaa,0xaa,0x33,0x33,0x33,0x33,0xbb,0xbb,0xff,0xff,
+//    0x00,0x00,0x44,0x44,0xcc,0xcc,0xcc,0xcc,0x11,0x11,0x55,0x55,0x99,0x99,0xdd,0xdd,
+//    0x00,0x22,0x66,0x66,0xee,0xaa,0xee,0xee,0xff,0xff,0xff,0x77,0xff,0xff,0xff,0xff
+//};
+
+static uint8_t const artifact_color_lut[128] =
 {
-    BLACK,  PURPLE, GREEN,  WHITE,
-    BLACK,  BLUE,   ORANGE, WHITE
+    0x00,0x00,0x00,0x00,0x88,0x00,0xcc,0x00,0x11,0x11,0x55,0x11,0x99,0x99,0xdd,0xff,
+    0x22,0x22,0x66,0x66,0xaa,0xaa,0xee,0xee,0x33,0x33,0x33,0x33,0xbb,0xbB,0xff,0xff,
+    0x00,0x00,0x44,0x44,0xcc,0xcc,0xcc,0xcc,0x55,0x55,0x55,0x55,0x99,0x99,0xdd,0xff,
+    0x66,0x22,0x66,0x66,0xee,0xaa,0xee,0xee,0x77,0x77,0x77,0x77,0xff,0xfF,0xff,0xff,
+    0x00,0x00,0x00,0x00,0x88,0x88,0x88,0x88,0x11,0x11,0x55,0x11,0x99,0x99,0xdd,0x99,
+    0x00,0x22,0x66,0x66,0xaa,0xaa,0xaa,0xaa,0x33,0x33,0x33,0x33,0xbb,0xbB,0xff,0xff,
+    0x00,0x00,0x44,0x44,0xcc,0xcc,0xcc,0xcc,0x11,0x11,0x55,0x55,0x99,0x99,0xdd,0xdd,
+    0x00,0x22,0x66,0x66,0xee,0xaa,0xee,0xee,0xff,0x33,0xff,0x77,0xff,0xfF,0xff,0xff,
 };
-// clang-format on
 
-static int32_t *m_hires_artifact_map = NULL;
-
-static void generate_artifact_map(void)
+static const glui32 apple2_palette[16] =
 {
-    /* generate hi-res artifact data */
-    int i, j;
-    uint16_t c;
+    0x000000, /* Black */
+    0xa70b40, /* Dark Red */
+    0x401cf7, /* Dark Blue */
+    0xe628ff, /* Purple */
+    0x007440, /* Dark Green */
+    0x808080, /* Dark Gray */
+    0x1990ff, /* Medium Blue */
+    0xbf9cff, /* Light Blue */
+    0x406300, /* Brown */
+    0xe66f00, /* Orange */
+    0x808080, /* Light Grey */
+    0xff8bbf, /* Pink */
+    0x19d700, /* Light Green */
+    0xbfe308, /* Yellow */
+    0x58f4bf, /* Aquamarine */
+    0xffffff  /* White */
+};
 
-    /* 2^3 dependent pixels * 2 color sets * 2 offsets */
-    m_hires_artifact_map = MemAlloc(sizeof(int32_t) * 8 * 2 * 2);
+#define CONTEXTBITS 3
 
-    /* build hires artifact map */
-    for (i = 0; i < 8; i++) {
-        for (j = 0; j < 2; j++) {
-            if (i & 0x02) {
-                if ((i & 0x05) != 0)
-                    c = 3;
-                else
-                    c = j ? 2 : 1;
+static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int startcol, int stopcol, int row, int upside_down)
+{
+    if (startcol >= stopcol)
+        return;  // to avoid OOB read
+
+    // w holds 3 bits of the previous 14-pixel group and the current and next groups.
+    uint32_t w = (CONTEXTBITS && startcol > 0) ? (in[startcol - 1] >> (14 - CONTEXTBITS)) : 0;
+    w += in[startcol] << CONTEXTBITS;
+
+    int16_t lastcolor = -1;
+    int run_length = 0;
+
+    for (int col = startcol; col < stopcol; col++)
+    {
+        if (col < 39)
+            w += in[col + 1] << (14 + CONTEXTBITS);
+
+        for (int b = 0; b < 14; b++)
+        {
+            uint16_t color = rotl4b(artifact_color_lut[w & 0x7f], col * 14 + b);
+            // We optimize runs of the same color by only drawing
+            // when the color changes or we are at the last pixel of the line.
+            if ((b == 13 && col == stopcol - 1) || (color != (uint16_t)lastcolor && run_length > 0)) {
+                glui32 glkcolor = apple2_palette[lastcolor];
+                if (upside_down) {
+                    fprintf(stderr, "row %d: Drawing a %d-pixel run of color %d, starting at x %d\n", row, run_length, lastcolor, col * 14 + b - run_length);
+                    PutApplePixelUpsideDown(col * 14 + b - run_length, row * 2, glkcolor, run_length + 1);
+                } else {
+                    PutApplePixel(col * 14 + b - run_length, row * 2, glkcolor, run_length + 1);
+                }
+                // The above code only draws the *previous* pixel(s),
+                // so we have to handle the last pixel of every line separately.
+                if (b == 13 && col == stopcol - 1) {
+                    glui32 glkcolor = apple2_palette[color];
+                    if (upside_down) {
+                        PutApplePixelUpsideDown(col * 14 + b, row * 2, glkcolor, 1);
+                    } else {
+                        PutApplePixel(col * 14 + b, row * 2, glkcolor, 1);
+                    }
+                }
+                run_length = 0;
             } else {
-                if ((i & 0x05) == 0x05)
-                    c = j ? 1 : 2;
-                else
-                    c = 0;
+                run_length++;
             }
-            m_hires_artifact_map[0 + j * 8 + i] = hires_artifact_color_table[(c + 0) % 8];
-            m_hires_artifact_map[16 + j * 8 + i] = hires_artifact_color_table[(c + 4) % 8];
+            lastcolor = color;
+            w >>= 1;
         }
     }
 }
 
-extern int ImageHeight;
+uint16_t *d7b_lookup_table = NULL;
+
+uint16_t Double7Bits(int i) {
+    if (d7b_lookup_table == NULL) {
+        d7b_lookup_table = MemCalloc(128 * 2);
+        for (unsigned i = 1; i < 128; i++)
+        {
+            d7b_lookup_table[i] = d7b_lookup_table[i >> 1] * 4 + (i & 1) * 3;
+        }
+    }
+    if (i > 127)
+        return 0;
+    return d7b_lookup_table[i];
+}
 
 void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
 {
-    if (m_hires_artifact_map == NULL)
-        generate_artifact_map();
+    int beginrow = 0, endrow = MIN(ImageHeight / 2, 160);
 
-    int32_t *artifact_map_ptr;
+    const int startcol = 0;
+    const int stopcol = 40;
 
-    uint8_t const *const vram = screenmem;
-    uint8_t vram_row[42];
-    vram_row[0] = 0;
-    vram_row[41] = 0;
+    for (int row = beginrow; row <= endrow; row++)
+    {
+        /* calculate address */
+        unsigned const address = (((row / 8) & 0x07) << 7) + (((row / 8) & 0x18) * 5) + ((row & 7) << 10);
+        uint8_t const *const vram_row = screenmem + address;
+        uint16_t words[40];
 
-    for (int row = 0; row < ImageHeight; row++) {
-        for (int col = 0; col < 40; col++) {
-            int const offset = ((((row / 8) & 0x07) << 7) | (((row / 8) & 0x18) * 5 + col)) | ((row & 7) << 10);
-            vram_row[1 + col] = vram[offset];
+        unsigned last_output_bit = 0;
+
+        for (int col = 0; col < 40; col++)
+        {
+            unsigned word = Double7Bits(vram_row[col] & 0x7f);
+            if (vram_row[col] & 0x80)
+                word = (word * 2 + last_output_bit) & 0x3fff;
+            words[col] = word;
+            last_output_bit = word >> 13;
         }
-
-        int pixpos = 0;
-
-        for (int col = 0; col < 40; col++) {
-            uint32_t w = (((uint32_t)vram_row[col + 0] & 0x7f) << 0)
-                | (((uint32_t)vram_row[col + 1] & 0x7f) << 7)
-                | (((uint32_t)vram_row[col + 2] & 0x7f) << 14);
-
-            artifact_map_ptr = &m_hires_artifact_map[((vram_row[col + 1] & 0x80) >> 7) * 16];
-
-            for (int b = 0; b < 7; b++) {
-                int32_t const v = artifact_map_ptr[((w >> (b + 7 - 1)) & 0x07) | (((b ^ col) & 0x01) << 3)];
-                if (upside_down)
-                    PutApplePixelUpsideDown(pixpos++, row, v);
-                else
-                    PutApplePixel(pixpos++, row, v);
-            }
-        }
+        RenderLineWithA2ArtifactColors(words, startcol, stopcol, row, upside_down);
     }
 }
 

@@ -760,8 +760,8 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
         if (result != UNKNOWN_GAME) {
             CurrentSys = SYS_APPLE2;
 
-            ImageWidth = 280;
-            ImageHeight = 160;
+            ImageWidth = 560;
+            ImageHeight = 320;
 
             if (CurrentGame == CLAYMORGUE_US_126) {
                 if (!USImages)
@@ -921,7 +921,6 @@ uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t st
 
 uint8_t *GetApple2CompanionFile(size_t *size, int *isnib)
 {
-
     *size = 0;
     *isnib = 0;
 
