@@ -322,6 +322,8 @@
 
     [context performBlockAndWait:^{
         PreviewViewController *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
         NSError *error = nil;
         NSArray *fetchedObjects;
 
