@@ -467,6 +467,8 @@ int unp64cpp(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, siz
 			return 0;
 
 		if ((mem[r->_pc] == 0x40) && (_G(_unp)._rtiFrc == 1)) {
+            if (nextInst(r) == 1)
+                return 0;
 			_G(_unp)._retAdr = r->_pc;
 			_G(_unp)._rtAFrc = 1;
 			if (_G(_unp)._retAdr < _G(_unp)._strMem)
