@@ -228,11 +228,15 @@ static void PutApplePixel(glsi32 xpos, glsi32 ypos, glui32 color, int width)
     glk_window_fill_rect(Graphics, color, xpos, ypos, pixel_size * width, pixel_size * 2);
 }
 
-static void PutApplePixelUpsideDown(glsi32 xpos, glsi32 ypos, glui32 color, int width)
+static void PutApplePixelFlippable(glsi32 xpos, glsi32 ypos, glui32 color, int width, int upside_down)
 {
-    xpos = (560 - xpos - width) * pixel_size + x_offset;
-    ypos = (319 - ypos) * pixel_size + y_offset - 1;
-    glk_window_fill_rect(Graphics, color, xpos, ypos, pixel_size * width, pixel_size * 2);
+    if (upside_down) {
+        xpos = (560 - xpos - width) * pixel_size + x_offset;
+        ypos = (319 - ypos) * pixel_size + y_offset - 1;
+        glk_window_fill_rect(Graphics, color, xpos, ypos, pixel_size * width, pixel_size * 2);
+    } else {
+        PutApplePixel(xpos, ypos, color, width);
+    }
 }
 
 /* The code below is borrowed from the MAME Apple 2 driver. */
@@ -297,8 +301,8 @@ static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int startcol, in
     uint32_t w = (CONTEXTBITS && startcol > 0) ? (in[startcol - 1] >> (14 - CONTEXTBITS)) : 0;
     w += in[startcol] << CONTEXTBITS;
 
-    int16_t lastcolor = -1;
-    int run_length = 0;
+    uint8_t lastcolor = 0xff;
+    int runlength = 0;
 
     for (int col = startcol; col < stopcol; col++)
     {
@@ -307,30 +311,27 @@ static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int startcol, in
 
         for (int b = 0; b < 14; b++)
         {
-            uint16_t color = rotl4b(artifact_color_lut[w & 0x7f], col * 14 + b);
+            // color is an index value between 0 (black) and 15 (white).
+            // See apple2_palette[16] above.
+            uint8_t color = (uint8_t)rotl4b(artifact_color_lut[w & 0x7f], col * 14 + b);
             // We optimize runs of the same color by only drawing
             // when the color changes or we are at the last pixel of the line.
-            if ((b == 13 && col == stopcol - 1) || (color != (uint16_t)lastcolor && run_length > 0)) {
+            int at_last_pixel = (b == 13 && col == stopcol - 1);
+            if (at_last_pixel || (color != lastcolor && runlength > 0)) {
                 glui32 glkcolor = apple2_palette[lastcolor];
-                if (upside_down) {
-                    fprintf(stderr, "row %d: Drawing a %d-pixel run of color %d, starting at x %d\n", row, run_length, lastcolor, col * 14 + b - run_length);
-                    PutApplePixelUpsideDown(col * 14 + b - run_length, row * 2, glkcolor, run_length + 1);
-                } else {
-                    PutApplePixel(col * 14 + b - run_length, row * 2, glkcolor, run_length + 1);
-                }
-                // The above code only draws the *previous* pixel(s),
-                // so we have to handle the last pixel of every line separately.
-                if (b == 13 && col == stopcol - 1) {
+                PutApplePixelFlippable(col * 14 + b - runlength, row * 2, glkcolor, runlength + 1, upside_down);
+                // The code above only draws the *previous* pixel(s),
+                // (except we always have to add 1 pixel of overlap to
+                // runlength to avoid gaps, not sure why) so if the last pixel
+                // of a line has a different color to the one on its
+                // we have to handle it separately.
+                if (at_last_pixel && color != lastcolor) {
                     glui32 glkcolor = apple2_palette[color];
-                    if (upside_down) {
-                        PutApplePixelUpsideDown(col * 14 + b, row * 2, glkcolor, 1);
-                    } else {
-                        PutApplePixel(col * 14 + b, row * 2, glkcolor, 1);
-                    }
+                    PutApplePixelFlippable(col * 14 + b, row * 2, glkcolor, 1, upside_down);
                 }
-                run_length = 0;
+                runlength = 0;
             } else {
-                run_length++;
+                runlength++;
             }
             lastcolor = color;
             w >>= 1;
