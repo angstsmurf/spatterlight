@@ -2492,8 +2492,10 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     for (GlkWindow *win in _gwindows.allValues)
     {
-        win.theme = theme;
-        [win prefsDidChange];
+        if (win.theme != theme) {
+            win.theme = theme;
+            [win prefsDidChange];
+        }
     }
 
     for (GlkTextGridWindow *quotebox in _quoteBoxes)
@@ -3398,7 +3400,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
                 _slowReadAlert = nil;
             }
 
-            [self flushDisplay];
+            if (!autorestoring)
+                [self flushDisplay];
 
             if (_queue.count) {
                 GlkEvent *gevent;
