@@ -106,7 +106,7 @@
 
             if (fetchedObjects.count) {
                 Game *game = fetchedObjects[0];
-                if (!imgdata)
+                if (!imgdata && game.metadata.cover.data)
                     imgdata = (NSData *)game.metadata.cover.data;
             }
         }
