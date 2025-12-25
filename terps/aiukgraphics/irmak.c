@@ -58,7 +58,7 @@ uint8_t tiles[256][8];
 uint8_t layout[IRMAK_IMGSIZE][8];
 uint8_t imagebuffer[IRMAK_IMGSIZE][9];
 
-// Forward declarations of necessary external functions
+/* Forward declarations of necessary external functions */
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
 void PutPixel(glsi32 x, glsi32 y, int32_t color);
 
@@ -68,7 +68,7 @@ int isNthBitSet(unsigned const char c, int n)
     return ((c & mask[n]) != 0);
 }
 
-// Flip a tile horizontally, i.e. mirror it
+/* Flip a tile horizontally, i.e. mirror it */
 void Flip(uint8_t tile[])
 {
     int32_t i, j;
@@ -136,13 +136,13 @@ static void Transform(uint8_t tile, uint8_t mode, int offset)
                 tile, flip_mode, flipdescription[(flip_mode & 48) >> 4], offset,
                 offset % 0x20, offset / 0x20);
 #endif
-    // first copy the tile into work
+    /* first copy the tile into work */
     for (i = 0; i < 8; i++)
         work[i] = tiles[tile][i];
 
     uint8_t rotate_mode = mode & ROTATE_BITS;
 
-    // Now rotate it
+    /* Now rotate it */
     if (rotate_mode == 0x10) {
         rot90(work);
     } else if (rotate_mode == 0x20) {
@@ -151,13 +151,13 @@ static void Transform(uint8_t tile, uint8_t mode, int offset)
         rot270(work);
     }
 
-    // We flip the tile horizontally
-    // if FLIP_BIT is set
+    /* We flip the tile horizontally
+       if FLIP_BIT is set */
     if ((mode & FLIP_BIT) == FLIP_BIT) {
         Flip(work);
     }
 
-    // Now mask it onto the previous tile
+    /* Now mask it onto the previous tile */
     mode &= OVERLAY_BITS;
     for (i = 0; i < 8; i++) {
         if (mode == 0x0c)
@@ -194,8 +194,8 @@ void PlotTile(int32_t tile, int32_t x, int32_t y, int32_t fg,
 }
 
 /* Apply the tile transformation data.
- The result is written into layout[][]
- by the Transform() function */
+   The result is written into layout[][]
+   by the Transform() function */
 static void PerformTileTranformations(IrmakImgContext *ctx)
 {
     uint8_t *dataptr = ctx->dataptr;
@@ -242,7 +242,7 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
                 return;
             }
 
-            // Get tile and plot it (count) times
+            /* Get tile and plot it (count) times */
             tile = *dataptr++;
 
             if ((data & ADD_128_BIT) == ADD_128_BIT && tile < 128)
@@ -253,7 +253,7 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
                     ctx->dataptr = dataptr;
                     return;
                 }
-                Transform(tile, data & OVERLAY_MASK, offset + i); // Ignore overlay bits
+                Transform(tile, data & OVERLAY_MASK, offset + i); /* Ignore overlay bits */
             }
 
             /* overlays handling */
@@ -293,7 +293,7 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
                                     count);
 #endif
                         for (int i = 0; i < count; i++)
-                            // Use mask mode of previous command byte
+                            /* Use mask mode of previous command byte */
                             Transform(tile, (data2 & OVERLAY_MASK) | mask_mode, offset + i);
 
                         if ((data2 & OVERLAY_BITS) != 0) {
@@ -319,8 +319,8 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
  and placed. If not drawing to buffer, this allocates ink and paper
  arrays (*out_ink and *out_paper) which the caller must free.
 
- If we *are* drawing to buffer, the out_ink and out_paper arguments
- will be unused and left as NULL, and the attributes will be written to
+ If we *are* drawing to buffer, the ink and paper arguments
+ will be unused, and the attributes will be written to
  the ninth byte of the corresponding imagebuffer[][] cell instead. */
 static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
 {
@@ -418,9 +418,9 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
 }
 
 /* compose the final image: copy layout into imagebuffer
- (if ctx->draw_to_buffer is set) or render directly with PlotTile()
- using ink and paper arrays. Ink and paper will be NULL if
- we are drawing to buffer. */
+   (if ctx->draw_to_buffer is set) or render directly with PlotTile()
+   using ink and paper arrays. The ink and paper arguments are not
+   used if we are drawing to the buffer. */
 static void DrawDecodedImage(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
 {
     int xsize = ctx->xsize;
@@ -435,6 +435,9 @@ static void DrawDecodedImage(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
     for (int y = 0; y < ysize; y++) {
         for (int x = 0; x < xsize; x++) {
             if (ctx->draw_to_buffer) {
+                /* We only replace the data in imagebuffer
+                   which the image covers. Any other data written
+                   by previous draw operations is left intact. */
                 unsigned bufpos = (y + yoff) * IRMAK_IMGWIDTH + x + xoff;
                 if (bufpos < IRMAK_IMGSIZE) {
                     for (int i = 0; i < 8; ++i)
@@ -508,11 +511,11 @@ void DrawIrmakPictureFromContext(IrmakImgContext ctx)
     uint8_t ink[IRMAK_IMGSIZE];
     uint8_t paper[IRMAK_IMGSIZE];
     /* The ink and paper arguments will only be used
-     if we are not drawing to buffer */
+       if we are not drawing to buffer */
     if (DecodeAttributes(&ctx, ink, paper)) {
         /* Step 3: compose image to buffer or direct render */
         /* The ink and paper arguments will still not be used
-         if we are drawing to buffer. */
+           if we are drawing to buffer. */
         DrawDecodedImage(&ctx, ink, paper);
     }
 }
@@ -537,15 +540,15 @@ void DrawIrmakPictureFromBuffer(void)
             FillBackground(col, line, paper);
 
             for (int i = 0; i < 8; i++) {
-                // Don't draw anything if current byte is zero
+                /* Don't draw anything if current byte is zero */
                 if (imagebuffer[index][i] == 0)
                     continue;
-                // Draw a single box if current byte is 255
+                /* Draw a single box if current byte is 255 */
                 if (imagebuffer[index][i] == 255) {
                     RectFill(col * 8, line * 8 + i, 8, 1, ink);
                     continue;
                 }
-                // Else check every bit and draw a pixel if set
+                /* Else check every bit and draw a pixel if set */
                 for (int j = 0; j < 8; j++) {
                     if (isNthBitSet(imagebuffer[index][i], (7 - j))) {
                         int ypos = line * 8 + i;
