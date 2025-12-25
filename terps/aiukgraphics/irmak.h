@@ -44,18 +44,22 @@ void InitIrmak(int numimg, int imgver);
 #define PAPER_MASK       0x38
 #define BRIGHT_FLAG      0x40
 
-// The image area consists of 12 rows
-// of 32 tile cells each
-// (for a total of 384 tiles)
+/* The image area consists of 12 rows
+   of 32 tile cells each
+   (for a total of 384 tiles) */
 #define IRMAK_IMGWIDTH 32
 #define IRMAK_IMGHEIGHT 12
 #define IRMAK_IMGSIZE IRMAK_IMGWIDTH * IRMAK_IMGHEIGHT
 
-// Used by SagaSetup() and TaylorSetup()
+/* Used by SagaSetup() and TaylorSetup() */
 extern uint8_t tiles[256][8];
-// Used by animate_waterfall() in Robin of Sherwood
+/* Used by animate_waterfall() in Robin of Sherwood.
+   This contains the tile data used by an image, which
+   might be smaller than the image area */
 extern uint8_t layout[IRMAK_IMGSIZE][8];
-// Used by Seas of Blood and Taylormade draw routines
+/* Used by Seas of Blood and Taylormade draw routines.
+   This always contains the full 32 x 12 tiles of
+   the image area, plus attributes (in the ninth byte) */
 extern uint8_t imagebuffer[IRMAK_IMGSIZE][9];
 
 extern Image *images;
