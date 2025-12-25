@@ -128,8 +128,9 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)viewWillStartLiveResize {
     GlkController *glkctl = _glkctrl;
     if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
-        NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes)
+        NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes) {
         [glkctl storeScrollOffsets];
+    }
 }
 
 - (void)viewDidEndLiveResize {
