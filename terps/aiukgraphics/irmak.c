@@ -480,23 +480,6 @@ void ClearGraphMem(void)
     memset(imagebuffer, 0, IRMAK_IMGSIZE * 9);
 }
 
-void PutPixelInPixmap(int x, int y, uint8_t *pixmap, size_t stride, uint8_t color)
-{
-    uint8_t *offset = GetOffsetInPixmap(x, y, pixmap, stride);
-    offset[RED]   = pal[color][RED];
-    offset[GREEN] = pal[color][GREEN];
-    offset[BLUE]  = pal[color][BLUE];
-    offset[ALPHA] = 0xff;
-}
-
-void FillPixmapBackground(int x, int y, uint8_t *pixmap, size_t stride, uint8_t color) {
-    for (int line = 0; line < 8; line++) {
-        for (int col = 0; col < 8; col++) {
-            PutPixelInPixmap(x * 8 + col, y * 8 + line, pixmap, stride, color);
-        }
-    }
-}
-
 void DrawIrmakPictureFromContext(IrmakImgContext ctx)
 {
     if (!ctx.dataptr) return;
