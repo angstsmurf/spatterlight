@@ -470,7 +470,7 @@ enum {
     ALPHA = 3,
 };
 
-typedef uint8_t RGB[3];
+typedef glui32 RGB;
 typedef RGB PALETTE[16];
 
 extern PALETTE pal;

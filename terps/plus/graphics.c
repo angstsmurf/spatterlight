@@ -69,8 +69,6 @@ void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color) {
 
 void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixelwidth)
 {
-    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
-
     xpos = xpos * pixel_size;
 
     if (upside_down) {
@@ -92,15 +90,13 @@ void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixelwidth)
     }
     ypos += y_offset;
 
-    glk_window_fill_rect(Graphics, glk_color, xpos,
+    glk_window_fill_rect(Graphics, pal[color], xpos,
         ypos, pixel_size * pixelwidth, pixel_size);
 }
 
-void SetColor(int32_t index, const RGB *color)
+void SetColor(int32_t index, RGB color)
 {
-    pal[index][0] = (*color)[0];
-    pal[index][1] = (*color)[1];
-    pal[index][2] = (*color)[2];
+    pal[index] = color;
 }
 
 void SetRGB(int32_t index, int red, int green, int blue)
@@ -109,9 +105,7 @@ void SetRGB(int32_t index, int red, int green, int blue)
     green = green * 35.7;
     blue = blue * 35.7;
 
-    pal[index][0] = red;
-    pal[index][1] = green;
-    pal[index][2] = blue;
+    pal[index] = red << 16 | green << 8 | blue;
 }
 
 int DrawImageWithName(char *filename)

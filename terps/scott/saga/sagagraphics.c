@@ -48,11 +48,9 @@ USImage *new_image(void)
     return new;
 }
 
-void SetColor(int32_t index, const RGB *color)
+void SetColor(int32_t index, RGB color)
 {
-    pal[index][0] = (*color)[0];
-    pal[index][1] = (*color)[1];
-    pal[index][2] = (*color)[2];
+    pal[index] = color;
 }
 
 
@@ -61,9 +59,8 @@ void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixel_width)
     if (!Graphics || xpos < 0 || xpos > right_margin || xpos < left_margin) {
         return;
     }
-    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
 
-    glk_window_fill_rect(Graphics, glk_color, xpos * pixel_size + x_offset,
+    glk_window_fill_rect(Graphics, pal[color], xpos * pixel_size + x_offset,
         ypos * pixel_size + y_offset, pixel_size * pixel_width, pixel_size);
 }
 
@@ -82,9 +79,8 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
 {
     if (!Graphics)
         return;
-    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
 
-    glk_window_fill_rect(Graphics, glk_color, x * pixel_size + x_offset,
+    glk_window_fill_rect(Graphics, pal[color], x * pixel_size + x_offset,
                          y * pixel_size + y_offset, width * pixel_size,
                          height * pixel_size);
 }

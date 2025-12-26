@@ -25,7 +25,7 @@ typedef enum {
     VGA
 } palette_type;
 
-typedef uint8_t RGB[3];
+typedef glui32 RGB;
 typedef RGB PALETTE[16];
 
 uint8_t Remap(uint8_t color);

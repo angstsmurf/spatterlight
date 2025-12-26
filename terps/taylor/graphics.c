@@ -36,9 +36,7 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color)
 {
     int y_offset = 0;
 
-    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
-
-    glk_window_fill_rect(Graphics, glk_color, x * pixel_size + x_offset,
+    glk_window_fill_rect(Graphics, pal[color], x * pixel_size + x_offset,
         y * pixel_size + y_offset, pixel_size, pixel_size);
 }
 
@@ -47,9 +45,8 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
 {
     if (!Graphics)
         return;
-    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
 
-    glk_window_fill_rect(Graphics, glk_color, x * pixel_size + x_offset,
+    glk_window_fill_rect(Graphics, pal[color], x * pixel_size + x_offset,
         y * pixel_size, width * pixel_size, height * pixel_size);
 }
 
