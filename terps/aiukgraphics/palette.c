@@ -19,175 +19,173 @@ palette_type palchosen = NO_PALETTE;
 
 #define INVALIDCOLOR 16
 
-static void SetColor(int32_t index, RGB *colour)
+static void SetColor(int32_t index, RGB colour)
 {
-    pal[index][0] = (*colour)[0];
-    pal[index][1] = (*colour)[1];
-    pal[index][2] = (*colour)[2];
+    pal[index] = colour;
 }
 
 void DefinePalette(void)
 {
     /* set up the palette */
     if (palchosen == VGA) {
-        RGB black = { 0, 0, 0 };
-        RGB blue = { 0, 0, 255 };
-        RGB red = { 255, 0, 0 };
-        RGB magenta = { 255, 0, 255 };
-        RGB green = { 0, 255, 0 };
-        RGB cyan = { 0, 255, 255 };
-        RGB yellow = { 255, 255, 0 };
-        RGB white = { 255, 255, 255 };
-        RGB brblack = { 0, 0, 0 };
-        RGB brblue = { 0, 0, 255 };
-        RGB brred = { 255, 0, 0 };
-        RGB brmagenta = { 255, 0, 255 };
-        RGB brgreen = { 0, 255, 0 };
-        RGB brcyan = { 0, 255, 255 };
-        RGB bryellow = { 255, 255, 0 };
-        RGB brwhite = { 255, 255, 255 };
+        RGB black =     0x000000;
+        RGB blue =      0x0000ff;
+        RGB red =       0xff0000;
+        RGB magenta =   0xff00ff;
+        RGB green =     0x00ff00;
+        RGB cyan =      0x00ffff;
+        RGB yellow =    0xffff00;
+        RGB white =     0xffffff;
+        RGB brblack =   0x000000;
+        RGB brblue =    0x0000ff;
+        RGB brred =     0xff0000;
+        RGB brmagenta = 0xff00ff;
+        RGB brgreen =   0x00ff00;
+        RGB brcyan =    0x00ffff;
+        RGB bryellow =  0xffff00;
+        RGB brwhite =   0xffffff;
 
-        SetColor(0, &black);
-        SetColor(1, &blue);
-        SetColor(2, &red);
-        SetColor(3, &magenta);
-        SetColor(4, &green);
-        SetColor(5, &cyan);
-        SetColor(6, &yellow);
-        SetColor(7, &white);
-        SetColor(8, &brblack);
-        SetColor(9, &brblue);
-        SetColor(10, &brred);
-        SetColor(11, &brmagenta);
-        SetColor(12, &brgreen);
-        SetColor(13, &brcyan);
-        SetColor(14, &bryellow);
-        SetColor(15, &brwhite);
+        SetColor(0, black);
+        SetColor(1, blue);
+        SetColor(2, red);
+        SetColor(3, magenta);
+        SetColor(4, green);
+        SetColor(5, cyan);
+        SetColor(6, yellow);
+        SetColor(7, white);
+        SetColor(8, brblack);
+        SetColor(9, brblue);
+        SetColor(10, brred);
+        SetColor(11, brmagenta);
+        SetColor(12, brgreen);
+        SetColor(13, brcyan);
+        SetColor(14, bryellow);
+        SetColor(15, brwhite);
     } else if (palchosen == ZX) {
         /* corrected Sinclair ZX palette (pretty dull though) */
-        RGB black = { 0, 0, 0 };
-        RGB blue = { 0, 0, 154 };
-        RGB red = { 154, 0, 0 };
-        RGB magenta = { 154, 0, 154 };
-        RGB green = { 0, 154, 0 };
-        RGB cyan = { 0, 154, 154 };
-        RGB yellow = { 154, 154, 0 };
-        RGB white = { 154, 154, 154 };
-        RGB brblack = { 0, 0, 0 };
-        RGB brblue = { 0, 0, 170 };
-        RGB brred = { 186, 0, 0 };
-        RGB brmagenta = { 206, 0, 206 };
-        RGB brgreen = { 0, 206, 0 };
-        RGB brcyan = { 0, 223, 223 };
-        RGB bryellow = { 239, 239, 0 };
-        RGB brwhite = { 255, 255, 255 };
+        RGB black =     0x000000;
+        RGB blue =      0x00009a;
+        RGB red =       0x9a0000;
+        RGB magenta =   0x9a009a;
+        RGB green =     0x009a00;
+        RGB cyan =      0x009a9a;
+        RGB yellow =    0x9a9a00;
+        RGB white =     0x9a9a9a;
+        RGB brblack =   0x000000;
+        RGB brblue =    0x0000aa;
+        RGB brred =     0xba0000;
+        RGB brmagenta = 0xce00ce;
+        RGB brgreen =   0x00ce00;
+        RGB brcyan =    0x00dfdf;
+        RGB bryellow =  0xefef00;
+        RGB brwhite =   0xffffff;
 
-        SetColor(0, &black);
-        SetColor(1, &blue);
-        SetColor(2, &red);
-        SetColor(3, &magenta);
-        SetColor(4, &green);
-        SetColor(5, &cyan);
-        SetColor(6, &yellow);
-        SetColor(7, &white);
-        SetColor(8, &brblack);
-        SetColor(9, &brblue);
-        SetColor(10, &brred);
-        SetColor(11, &brmagenta);
-        SetColor(12, &brgreen);
-        SetColor(13, &brcyan);
-        SetColor(14, &bryellow);
-        SetColor(15, &brwhite);
+        SetColor(0, black);
+        SetColor(1, blue);
+        SetColor(2, red);
+        SetColor(3, magenta);
+        SetColor(4, green);
+        SetColor(5, cyan);
+        SetColor(6, yellow);
+        SetColor(7, white);
+        SetColor(8, brblack);
+        SetColor(9, brblue);
+        SetColor(10, brred);
+        SetColor(11, brmagenta);
+        SetColor(12, brgreen);
+        SetColor(13, brcyan);
+        SetColor(14, bryellow);
+        SetColor(15, brwhite);
 
         white_colour = 15;
         blue_colour = 9;
         dice_colour = 0xff0000;
     } else if (palchosen == ZXOPT) {
         /* optimized but not realistic Sinclair ZX palette (SPIN emu) */
-        RGB black = { 0, 0, 0 };
-        RGB blue = { 0, 0, 202 };
-        RGB red = { 202, 0, 0 };
-        RGB magenta = { 202, 0, 202 };
-        RGB green = { 0, 202, 0 };
-        RGB cyan = { 0, 202, 202 };
-        RGB yellow = { 202, 202, 0 };
-        RGB white = { 202, 202, 202 };
+        RGB black =   0x000000;
+        RGB blue =    0x0000ca;
+        RGB red =     0xca0000;
+        RGB magenta = 0xca00ca;
+        RGB green =   0x00ca00;
+        RGB cyan =    0x00caca;
+        RGB yellow =  0xcaca00;
+        RGB white =   0xcacaca;
         /*
          old David Lodge palette:
 
-         RGB black = { 0, 0, 0 };
-         RGB blue = { 0, 0, 214 };
-         RGB red = { 214, 0, 0 };
-         RGB magenta = { 214, 0, 214 };
-         RGB green = { 0, 214, 0 };
-         RGB cyan = { 0, 214, 214 };
-         RGB yellow = { 214, 214, 0 };
-         RGB white = { 214, 214, 214 };
+         RGB black =   0x000000;
+         RGB blue =    0x0000d6;
+         RGB red =     0xd60000;
+         RGB magenta = 0xd600d6;
+         RGB green =   0x00d600;
+         RGB cyan =    0x00d6d6;
+         RGB yellow =  0xd6d600;
+         RGB white =   0xd6d6d6;
          */
-        RGB brblack = { 0, 0, 0 };
-        RGB brblue = { 0, 0, 255 };
-        RGB brred = { 255, 0, 20 };
-        RGB brmagenta = { 255, 0, 255 };
-        RGB brgreen = { 0, 255, 0 };
-        RGB brcyan = { 0, 255, 255 };
-        RGB bryellow = { 255, 255, 0 };
-        RGB brwhite = { 255, 255, 255 };
+        RGB brblack =   0x000000;
+        RGB brblue =    0x0000ff;
+        RGB brred =     0xff0014;
+        RGB brmagenta = 0xff00ff;
+        RGB brgreen =   0x00ff00;
+        RGB brcyan =    0x00ffff;
+        RGB bryellow =  0xffff00;
+        RGB brwhite =   0xffffff;
 
-        SetColor(0, &black);
-        SetColor(1, &blue);
-        SetColor(2, &red);
-        SetColor(3, &magenta);
-        SetColor(4, &green);
-        SetColor(5, &cyan);
-        SetColor(6, &yellow);
-        SetColor(7, &white);
-        SetColor(8, &brblack);
-        SetColor(9, &brblue);
-        SetColor(10, &brred);
-        SetColor(11, &brmagenta);
-        SetColor(12, &brgreen);
-        SetColor(13, &brcyan);
-        SetColor(14, &bryellow);
-        SetColor(15, &brwhite);
+        SetColor(0, black);
+        SetColor(1, blue);
+        SetColor(2, red);
+        SetColor(3, magenta);
+        SetColor(4, green);
+        SetColor(5, cyan);
+        SetColor(6, yellow);
+        SetColor(7, white);
+        SetColor(8, brblack);
+        SetColor(9, brblue);
+        SetColor(10, brred);
+        SetColor(11, brmagenta);
+        SetColor(12, brgreen);
+        SetColor(13, brcyan);
+        SetColor(14, bryellow);
+        SetColor(15, brwhite);
 
         white_colour = 15;
         blue_colour = 9;
         dice_colour = 0xff0000;
     } else {
         /* For all others we use this C64 palette (pepto/VICE) */
-        RGB black = { 0, 0, 0 };
-        RGB white = { 255, 255, 255 };
-        RGB red = { 191, 97, 72 };
-        RGB cyan = { 153, 230, 249 };
-        RGB purple = { 177, 89, 185 };
-        RGB green = { 121, 213, 112 };
-        RGB blue = { 95, 72, 233 };
-        RGB yellow = { 247, 255, 108 };
-        RGB orange = { 186, 134, 32 };
-        RGB brown = { 116, 105, 0 };
-        RGB lred = { 231, 154, 132 };
-        RGB dgrey = { 69, 69, 69 };
-        RGB grey = { 167, 167, 167 };
-        RGB lgreen = { 192, 255, 185 };
-        RGB lblue = { 162, 143, 255 };
-        RGB lgrey = { 200, 200, 200 };
+        RGB black =  0x000000;
+        RGB white =  0xffffff;
+        RGB red =    0xbf6148;
+        RGB cyan =   0x99e6f9;
+        RGB purple = 0xb159b9;
+        RGB green =  0x79d570;
+        RGB blue =   0x5f48e9;
+        RGB yellow = 0xf7ff6c;
+        RGB orange = 0xba8620;
+        RGB brown =  0x746900;
+        RGB lred =   0xe79a84;
+        RGB dgrey =  0x454545;
+        RGB grey =   0xa7a7a7;
+        RGB lgreen = 0xc0ffb9;
+        RGB lblue =  0xa28fff;
+        RGB lgrey =  0xc8c8c8;
 
-        SetColor(0, &black);
-        SetColor(1, &white);
-        SetColor(2, &red);
-        SetColor(3, &cyan);
-        SetColor(4, &purple);
-        SetColor(5, &green);
-        SetColor(6, &blue);
-        SetColor(7, &yellow);
-        SetColor(8, &orange);
-        SetColor(9, &brown);
-        SetColor(10, &lred);
-        SetColor(11, &dgrey);
-        SetColor(12, &grey);
-        SetColor(13, &lgreen);
-        SetColor(14, &lblue);
-        SetColor(15, &lgrey);
+        SetColor(0, black);
+        SetColor(1, white);
+        SetColor(2, red);
+        SetColor(3, cyan);
+        SetColor(4, purple);
+        SetColor(5, green);
+        SetColor(6, blue);
+        SetColor(7, yellow);
+        SetColor(8, orange);
+        SetColor(9, brown);
+        SetColor(10, lred);
+        SetColor(11, dgrey);
+        SetColor(12, grey);
+        SetColor(13, lgreen);
+        SetColor(14, lblue);
+        SetColor(15, lgrey);
 
         white_colour = 1;
         blue_colour = 6;
@@ -389,17 +387,9 @@ uint8_t Remap(uint8_t color)
 
 void SwitchPalettes(int pal1, int pal2)
 {
-    uint8_t temp[3];
+    glui32 temp;
 
-    temp[0] = pal[pal1][0];
-    temp[1] = pal[pal1][1];
-    temp[2] = pal[pal1][2];
-
-    pal[pal1][0] = pal[pal2][0];
-    pal[pal1][1] = pal[pal2][1];
-    pal[pal1][2] = pal[pal2][2];
-
-    pal[pal2][0] = temp[0];
-    pal[pal2][1] = temp[1];
-    pal[pal2][2] = temp[2];
+    temp = pal[pal1];
+    pal[pal1] = pal[pal2];
+    pal[pal2] = temp;
 }

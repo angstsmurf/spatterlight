@@ -18,7 +18,7 @@
 #include "read_le16.h"
 
 void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixelwidth);
-void SetColor(int32_t index, const uint8_t color[3]);
+void SetColor(int32_t index, glui32);
 
 typedef struct {
     int x;
@@ -69,11 +69,11 @@ int DrawDOSImageFromData(uint8_t *ptr)
     DrawState st = {0};
 
     /* set up the palette */
-    const uint8_t palette[4][3] = {
-        { 0x00, 0x00, 0x00 }, /* black */
-        { 0x00, 0xff, 0xff }, /* cyan */
-        { 0xff, 0x00, 0xff }, /* magenta */
-        { 0xff, 0xff, 0xff }  /* white */
+    const glui32 palette[4] = {
+        0x000000, /* black */
+        0x00ffff, /* cyan */
+        0xff00ff, /* magenta */
+        0xffffff  /* white */
     };
     for (int i = 0; i < 4; ++i) {
         SetColor(i, palette[i]);

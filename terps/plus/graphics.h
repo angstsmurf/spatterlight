@@ -10,7 +10,7 @@
 
 #include "glk.h"
 
-typedef uint8_t RGB[3];
+typedef glui32 RGB;
 typedef RGB PALETTE[16];
 
 extern winid_t Graphics;
@@ -29,7 +29,7 @@ int DrawRoomImage(int room);
 void DrawItemImage(int item);
 int DrawImageWithName(char *filename);
 char *ShortNameFromType(char type, int index);
-void SetColor(int32_t index, const RGB *color);
+void SetColor(int32_t index, RGB color);
 // Only IBM PC graphics in "striped" mode use PutPixel()
 void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color);
 void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);
