@@ -69,9 +69,7 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
     xpos = x_origin * 8;
     ypos = y_origin;
 
-    const uint8_t black[3] = { 0, 0, 0 };
-
-    SetColor(0, black);
+    SetColor(0, 0); // black
 
     // Get the palette
     for (i = 1; i < 5; i++) {

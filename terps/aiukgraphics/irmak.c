@@ -470,10 +470,7 @@ enum {
     ALPHA = 3,
 };
 
-typedef uint8_t RGB[3];
-typedef RGB PALETTE[16];
-
-extern PALETTE pal;
+extern glui32 pal[16];
 
 void ClearGraphMem(void)
 {
