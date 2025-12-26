@@ -654,9 +654,8 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
 // at another offset on the disk image, so we copy it to the right
 // place.
 void PatchIfMissionImpossible(uint8_t *data, size_t size) {
-    uint8_t source[0x30];
-
-    if (size > 0xfaf1) {
+    if (size > 0xfaf1 && memcmp(data + 0x7d3, "briefing", 8) == 0) {
+        uint8_t source[0x30];
         memcpy(source, data + 0xfac1, 0x30);
         if (memcmp(source, "\x0ahigh above the reactor core\x12maintenance room 2\x12", 0x30) == 0) {
             memcpy(data + 0x914, source, 0x30);
