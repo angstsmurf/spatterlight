@@ -25,14 +25,11 @@ typedef enum {
     VGA
 } palette_type;
 
-typedef glui32 RGB;
-typedef RGB PALETTE[16];
-
 uint8_t Remap(uint8_t color);
 void DefinePalette(void);
 void SwitchPalettes(int pal1, int pal2);
 
-extern PALETTE pal;
+extern glui32 pal[16];
 extern palette_type palchosen;
 
 // Used by Robin of Sherwood waterfall animation

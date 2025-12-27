@@ -48,7 +48,7 @@ USImage *new_image(void)
     return new;
 }
 
-void SetColor(int32_t index, RGB color)
+void SetColor(int32_t index, glui32 color)
 {
     pal[index] = color;
 }

@@ -35,15 +35,13 @@ typedef struct {
     int cropright;
 } CropList;
 
-typedef glui32 RGB;
-typedef RGB PALETTE[16];
 
 extern int pixel_size;
 extern int x_offset, y_offset;
 extern int right_margin, left_margin;
-extern PALETTE pal;
+extern glui32 pal[16];
 
-void SetColor(int32_t index, RGB color);
+void SetColor(int32_t index, glui32 color);
 
 void PutPixel(glsi32 x, glsi32 y, int32_t color);
 void PutDoublePixel(glsi32 x, glsi32 y, int32_t color);

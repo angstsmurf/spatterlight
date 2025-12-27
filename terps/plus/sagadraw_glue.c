@@ -11,42 +11,42 @@
 #include "graphics.h"
 
 /* C64 colors */
-static const RGB  black = 0x000000;
-static const RGB  white = 0xffffff;
-static const RGB  red = 0xbf6148;
-static const RGB  purple = 0xb159b9;
-static const RGB  green = 0x79d570;
-static const RGB  blue = 0x5f48e9;
-static const RGB  yellow = 0xf7ff6c;
-static const RGB  orange = 0xba8620;
-static const RGB  lred = 0xe79a84;
-static const RGB  grey = 0xa7a7a7;
-static const RGB  lgreen = 0xc0ffb9;
-static const RGB  lblue = 0xa28fff;
-static const RGB  brown = 0x837000;
+static const glui32  black = 0x000000;
+static const glui32  white = 0xffffff;
+static const glui32  red = 0xbf6148;
+static const glui32  purple = 0xb159b9;
+static const glui32  green = 0x79d570;
+static const glui32  blue = 0x5f48e9;
+static const glui32  yellow = 0xf7ff6c;
+static const glui32  orange = 0xba8620;
+static const glui32  lred = 0xe79a84;
+static const glui32  grey = 0xa7a7a7;
+static const glui32  lgreen = 0xc0ffb9;
+static const glui32  lblue = 0xa28fff;
+static const glui32  brown = 0x837000;
 
 /* Atari 8-bit colors */
-static const RGB  cyan = 0x9ce2c5;
-static const RGB  lpurple = 0xdfaaff;
-static const RGB  apurple = 0xdb47dd;
-static const RGB  deeppurple = 0x731c73;
-static const RGB  dblue = 0x3024ff;
-static const RGB  agreen = 0x088817;
-static const RGB  dgreen = 0x4f7420;
-static const RGB  darkergreen = 0x083800;
-static const RGB  ablue = 0x366eff;
-static const RGB  ayellow = 0xeff258;
-static const RGB  aorange = 0xbf7730;
-static const RGB  abrown = 0xab511f;
-static const RGB  dbrown = 0x732c00;
-static const RGB  alred = 0xc25257;
-static const RGB  beige = 0xff8f8f;
-static const RGB  dred = 0xa23f40;
-static const RGB  agrey = 0x929292;
-static const RGB  lgrey = 0xb4b5b4;
-static const RGB  algreen = 0x5f8f00;
-static const RGB  tan = 0xaf993a;
-static const RGB  lilac = 0x8358ee;
+static const glui32  cyan = 0x9ce2c5;
+static const glui32  lpurple = 0xdfaaff;
+static const glui32  apurple = 0xdb47dd;
+static const glui32  deeppurple = 0x731c73;
+static const glui32  dblue = 0x3024ff;
+static const glui32  agreen = 0x088817;
+static const glui32  dgreen = 0x4f7420;
+static const glui32  darkergreen = 0x083800;
+static const glui32  ablue = 0x366eff;
+static const glui32  ayellow = 0xeff258;
+static const glui32  aorange = 0xbf7730;
+static const glui32  abrown = 0xab511f;
+static const glui32  dbrown = 0x732c00;
+static const glui32  alred = 0xc25257;
+static const glui32  beige = 0xff8f8f;
+static const glui32  dred = 0xa23f40;
+static const glui32  agrey = 0x929292;
+static const glui32  lgrey = 0xb4b5b4;
+static const glui32  algreen = 0x5f8f00;
+static const glui32  tan = 0xaf993a;
+static const glui32  lilac = 0x8358ee;
 
 void TransAtariColorPlus(uint8_t index, uint8_t value)
 {
