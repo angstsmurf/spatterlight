@@ -2307,6 +2307,9 @@ void glk_main(void)
 
         if (CurrentSys == SYS_APPLE2)
             LookForApple2Images();
+
+        if (CurrentSys == SYS_C64 && CurrentGame == SPIDERMAN)
+            PatchSpidermanImages();
     }
 
 #ifdef SPATTERLIGHT
