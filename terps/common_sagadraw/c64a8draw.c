@@ -676,9 +676,9 @@ static int DrawPatternAndAdvancePos(int x, int *y,  uint8_t pattern) {
     return x - 8;
 }
 
-int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, translate_color_fn translate)
+int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, int is_c64)
 {
-    uint8_t work = 0, work2 = 0;
+    uint8_t pattern_top = 0, pattern_bottom = 0;
     int repetitions;
     int i;
 
@@ -696,35 +696,36 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
     if (size < datasize - 2) {
         datasize = size + 2;
     }
+
     // Get the offset
-    int x_origin = *ptr++ - 3;
-    int y_origin = *ptr++;
+    int left = *ptr++ - 3;
+    int top = *ptr++;
 
-    // Get the x length
-    int width = *ptr++;
-
-    int height = *ptr++;
+    // Get the x position of the right edge
+    int right = *ptr++;
+    // Get the y position of the bottom edge
+    int bottom = *ptr++;
     if (voodoo_or_count)
-        height -= 2;
+        bottom -= 2;
 
     // Custom graphics window adjustments
     // depending on whether we are being called
     // by Plus or by ScottFree.
-    width = adjustments(width, height, &x_origin);
+    right = adjustments(right, bottom, &left);
 
-    xpos = x_origin * 8;
-    ypos = y_origin;
+    xpos = left * 8;
+    ypos = top;
 
-    SetColor(0, 0); // black
+    SetColor(0, 0); // Color 0 is always black
 
     // Get the palette
     for (i = 1; i < 5; i++) {
-        work = *ptr++;
-        // One of four color translation functions
-        // depending on whether we are being called
-        // by Plus or by ScottFree and whether the format
-        // is Commodore 64 or Atari 8-bit.
-        translate(i, work);
+        uint8_t color = *ptr++;
+        if (is_c64) {
+            TranslateColorC64(i, color);
+        } else {
+            TranslateColorAtari8(i, color);
+        }
     }
 
     while (ptr - origptr < datasize - 2) {
@@ -741,8 +742,8 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
             } else {
                 repetitions &= 0x7f;
             }
-            work = *ptr++;
-            work2 = *ptr++;
+            pattern_top = *ptr++;
+            pattern_bottom = *ptr++;
         }
         for (i = 0; i < repetitions + 1; i++) {
             // If we are not repeating bytes,
@@ -750,17 +751,17 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
             if (!repeat_next_two_bytes) {
                 if (ptr - origptr >= datasize - 1)
                     return 1;
-                work = *ptr++;
-                work2 = *ptr++;
+                pattern_top = *ptr++;
+                pattern_bottom = *ptr++;
             }
-            if (xpos <= (width - 3) * 8) {
-                // We print a "pattern" of 8 pixels in a row,
-                // or technically 4 double-width, non-square pixels
-                xpos = DrawPatternAndAdvancePos(xpos, &ypos, work);
-                xpos = DrawPatternAndAdvancePos(xpos, &ypos, work2);
-                if (ypos > height) {
+            if (xpos <= (right - 3) * 8) {
+                // We print a "pattern" of 8 x 2 pixels,
+                // or technically 4 x 2 double-width, non-square pixels
+                xpos = DrawPatternAndAdvancePos(xpos, &ypos, pattern_top);
+                xpos = DrawPatternAndAdvancePos(xpos, &ypos, pattern_bottom);
+                if (ypos > bottom) {
                     xpos += 8;
-                    ypos = y_origin;
+                    ypos = top;
                 }
             }
         }
