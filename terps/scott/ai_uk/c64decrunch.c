@@ -21,6 +21,7 @@
 #include "detectgame.h"
 #include "sagadraw.h"
 #include "sagagraphics.h"
+#include "c64a8scott.h"
 
 #include "hulk.h"
 
@@ -186,7 +187,7 @@ static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
     *newlength = 0;
     DiskImage *d64 = di_create_from_data(data, length);
     if (d64) {
-        RawDirEntry *largest = find_largest_file_entry(d64);
+        RawDirEntry *largest = di_find_largest_file_entry(d64);
         if (largest) {
             ImageFile *c64file = di_open(d64, largest->rawname, largest->type, "rb");
             if (c64file) {
@@ -201,31 +202,10 @@ static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
     return file;
 }
 
-static uint8_t *get_file_named(uint8_t *data, int length, int *newlength,
-    const char *name)
-{
-    uint8_t *file = NULL;
-    *newlength = 0;
-    DiskImage *d64 = di_create_from_data(data, length);
-    unsigned char rawname[100];
-    di_rawname_from_name(rawname, name);
-    if (d64) {
-        ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
-        if (c64file) {
-            uint8_t buf[0xffff];
-            *newlength = di_read(c64file, buf, 0xffff);
-            file = MemAlloc(*newlength);
-            memcpy(file, buf, *newlength);
-            free(c64file);
-        }
-    }
-    return file;
-}
-
 uint8_t *save_island_appendix_1 = NULL;
-int save_island_appendix_1_length = 0;
+size_t save_island_appendix_1_length = 0;
 uint8_t *save_island_appendix_2 = NULL;
-int save_island_appendix_2_length = 0;
+size_t save_island_appendix_2_length = 0;
 
 static GameIDType savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
 {
@@ -252,18 +232,18 @@ static GameIDType savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
     recindex += result - 1;
 
     struct c64rec rec = c64_registry[recindex];
-    int length;
-    uint8_t *file = get_file_named(*sf, *extent, &length, rec.appendfile);
+    size_t length;
+    uint8_t *file = di_get_file_named(*sf, *extent, &length, rec.appendfile);
 
     if (file != NULL) {
         if (rec.chk == 0xc361) {
             if (rec.switches != NULL) {
-                save_island_appendix_1 = get_file_named(
+                save_island_appendix_1 = di_get_file_named(
                                                         *sf, *extent, &save_island_appendix_1_length, "SI1PC1");
-                save_island_appendix_2 = get_file_named(
+                save_island_appendix_2 = di_get_file_named(
                                                         *sf, *extent, &save_island_appendix_2_length, "SI1PC2");
             } else {
-                save_island_appendix_1 = get_file_named(
+                save_island_appendix_1 = di_get_file_named(
                                                         *sf, *extent, &save_island_appendix_1_length, "SI2PIC");
             }
         }
@@ -351,8 +331,8 @@ static GameIDType mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
             break;
     }
 
-    int length;
-    uint8_t *file = get_file_named(*sf, *extent, &length, filename);
+    size_t length;
+    uint8_t *file = di_get_file_named(*sf, *extent, &length, filename);
 
     if (file != NULL) {
         free(*sf);
@@ -411,8 +391,8 @@ static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
             break;
     }
 
-    int length;
-    uint8_t *file = get_file_named(*sf, *extent, &length, filename);
+    size_t length;
+    uint8_t *file = di_get_file_named(*sf, *extent, &length, filename);
 
     if (file != NULL) {
         free(*sf);
@@ -454,8 +434,8 @@ static GameIDType adventure_pack_menu(uint8_t **sf, size_t *extent)
     char filename[100];
     snprintf(filename, 100, "ADV%d.OBJ", result);
 
-    int length;
-    uint8_t *file = get_file_named(*sf, *extent, &length, filename);
+    size_t length;
+    uint8_t *file = di_get_file_named(*sf, *extent, &length, filename);
 
     if (file != NULL) {
         int result = LoadBinaryDatabase(file, length, *Game, 0);
@@ -495,7 +475,7 @@ void LoadC64USImages(uint8_t *data, size_t length) {
 
     DiskImage *d64 = di_create_from_data(data, length);
     if (d64) {
-        char **filenames = get_all_file_names(d64, &numfiles);
+        char **filenames = di_get_all_file_names(d64, &numfiles);
         unsigned char rawname[1024];
         if (filenames) {
             int imgindex = 0;
@@ -599,10 +579,10 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
                 int newlength;
                 uint8_t *largest_file = get_largest_file(*sf, *extent, &newlength);
                 uint8_t *appendix = NULL;
-                int appendixlen = 0;
+                size_t appendixlen = 0;
 
                 if (c64_registry[i].appendfile != NULL) {
-                    appendix = get_file_named(*sf, *extent, &appendixlen,
+                    appendix = di_get_file_named(*sf, *extent, &appendixlen,
                         c64_registry[i].appendfile);
                     if (appendix == NULL)
                         fprintf(stderr, "SCOTT: DetectC64() Appending file failed!\n");
@@ -647,8 +627,8 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
                 *sf = first_file;
                 *extent = size + 2;
             } else if (c64_registry[i].type == TYPE_US) {
-                int newlength;
-                uint8_t *database_file = get_file_named(*sf, *extent, &newlength, c64_registry[i].appendfile);
+                size_t newlength;
+                uint8_t *database_file = di_get_file_named(*sf, *extent, &newlength, c64_registry[i].appendfile);
                 if (database_file == NULL) {
                     fprintf(stderr, "SCOTT: DetectC64() Could not find database in D64\n");
                     return UNKNOWN_GAME;
