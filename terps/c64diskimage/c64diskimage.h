@@ -94,10 +94,12 @@ ImageFile *di_create_file_from_ts(DiskImage *di, int track, int sector);
 int di_read(ImageFile *imgfile, unsigned char *buffer, int len);
 int di_rawname_from_name(unsigned char *rawname, const char *name);
 
-RawDirEntry *find_largest_file_entry(DiskImage *di);
+RawDirEntry *di_find_largest_file_entry(DiskImage *di);
 DiskImage *di_create_from_data(uint8_t *data, int length);
 
 /* returns an array of strings containing all file names */
-char **get_all_file_names(DiskImage *di, int *numfiles);
+char **di_get_all_file_names(DiskImage *di, int *numfiles);
+
+uint8_t *di_get_file_named(uint8_t *data, size_t length, size_t *newlength, const char *name);
 
 #endif /* diskimage_h */

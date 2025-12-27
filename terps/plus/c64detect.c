@@ -34,14 +34,13 @@ int issagaimg(const char *name)
     return 0;
 }
 
-static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
-    const char *name)
+static uint8_t *get_files_from_d64(uint8_t *data, size_t length, size_t *newlength)
 {
     uint8_t *file = NULL;
     *newlength = 0;
     unsigned char rawname[100];
     DiskImage *d64 = di_create_from_data(data, (int)length);
-    di_rawname_from_name(rawname, name);
+    di_rawname_from_name(rawname, "DATA");
     if (d64) {
         ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
         if (c64file) {
@@ -52,7 +51,7 @@ static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
             free(c64file);
         }
         int numfiles;
-        char **filenames = get_all_file_names(d64, &numfiles);
+        char **filenames = di_get_all_file_names(d64, &numfiles);
 
         if (filenames) {
             int imgindex = 0;
@@ -81,6 +80,7 @@ static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
             }
             Images[imgindex].Filename = NULL;
         }
+        free(d64);
     }
     return file;
 }
@@ -91,7 +91,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
         return 0;
 
     size_t newlength;
-    uint8_t *datafile = get_file_named(*sf, *extent, &newlength, "DATA");
+    uint8_t *datafile = get_files_from_d64(*sf, *extent, &newlength);
 
     if (datafile) {
         free(*sf);
