@@ -17,21 +17,21 @@
 // clang-format off
 
 /* C64 colors */
-static const RGB  white =  0xffffff;
-static const RGB  red =    0xbf6148;
-static const RGB  purple = 0xb159b9;
-static const RGB  green =  0x79d570;
-static const RGB  blue =   0x5f48e9;
-static const RGB  yellow = 0xf7ff6c;
-static const RGB  orange = 0xba8620;
-static const RGB  lred =   0xe79a84;
-static const RGB  grey =   0xa7a7a7;
-static const RGB  lgreen = 0xc0ffb9;
-static const RGB  lblue =  0xa28fff;
-static const RGB  brown =  0x837000;
+static const glui32  white =  0xffffff;
+static const glui32  red =    0xbf6148;
+static const glui32  purple = 0xb159b9;
+static const glui32  green =  0x79d570;
+static const glui32  blue =   0x5f48e9;
+static const glui32  yellow = 0xf7ff6c;
+static const glui32  orange = 0xba8620;
+static const glui32  lred =   0xe79a84;
+static const glui32  grey =   0xa7a7a7;
+static const glui32  lgreen = 0xc0ffb9;
+static const glui32  lblue =  0xa28fff;
+static const glui32  brown =  0x837000;
 
 /* Atari 8-bit colors */
-static const RGB colors[256] = {
+static const glui32 colors[256] = {
     0x000000 , // 0
     0x0e0e0e , // 1
     0x1d1d1d , // 2

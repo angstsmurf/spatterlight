@@ -30,7 +30,7 @@ int upside_down = 0;
 int pixel_size;
 int x_offset, y_offset, right_margin;
 
-PALETTE pal;
+uint8_t pal[16];
 
 imgrec *Images;
 
@@ -94,7 +94,7 @@ void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixelwidth)
         ypos, pixel_size * pixelwidth, pixel_size);
 }
 
-void SetColor(int32_t index, RGB color)
+void SetColor(int32_t index, glui32 color)
 {
     pal[index] = color;
 }
