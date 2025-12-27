@@ -563,7 +563,7 @@ static int match_pattern(unsigned char *rawpattern, unsigned char *rawname)
     return 1;
 }
 
-RawDirEntry *find_largest_file_entry(DiskImage *di)
+RawDirEntry *di_find_largest_file_entry(DiskImage *di)
 {
     unsigned char *buffer;
     TrackSector ts;
@@ -588,7 +588,7 @@ RawDirEntry *find_largest_file_entry(DiskImage *di)
     return largest;
 }
 
-char **get_all_file_names(DiskImage *di, int *numfiles)
+char **di_get_all_file_names(DiskImage *di, int *numfiles)
 {
     unsigned char *buffer;
     TrackSector ts;
@@ -949,4 +949,28 @@ int di_read(ImageFile *imgfile, unsigned char *buffer, int len)
         }
     }
     return counter;
+}
+
+uint8_t *di_get_file_named(uint8_t *data, size_t length, size_t *newlength,
+                        const char *name)
+{
+    uint8_t *file = NULL;
+    *newlength = 0;
+    DiskImage *d64 = di_create_from_data(data, (int)length);
+    unsigned char rawname[100];
+    di_rawname_from_name(rawname, name);
+    if (d64) {
+        ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
+        if (c64file) {
+            uint8_t buf[0xffff];
+            *newlength = di_read(c64file, buf, 0xffff);
+            file = malloc(*newlength);
+            if (!file)
+                return NULL;
+            memcpy(file, buf, *newlength);
+            free(c64file);
+        }
+        free(d64);
+    }
+    return file;
 }

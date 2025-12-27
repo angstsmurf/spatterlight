@@ -91,7 +91,7 @@ static uint8_t *get_largest_file(uint8_t *data, size_t length, size_t *newlength
     *newlength = 0;
     DiskImage *d64 = di_create_from_data(data, (int)length);
     if (d64) {
-        RawDirEntry *largest = find_largest_file_entry(d64);
+        RawDirEntry *largest = di_find_largest_file_entry(d64);
         if (largest) {
             ImageFile *c64file = di_open(d64, largest->rawname, largest->type, "rb");
             if (c64file) {
@@ -123,27 +123,6 @@ static uint8_t *GetFileFromT64(int filenum, int number_of_records, uint8_t **sf,
     memcpy(file, file_records + 2, 2);
     memcpy(file + 2, *sf + offset, size);
     *extent = size + 2;
-    return file;
-}
-
-static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
-    const char *name)
-{
-    uint8_t *file = NULL;
-    *newlength = 0;
-    DiskImage *d64 = di_create_from_data(data, (int)length);
-    unsigned char rawname[100];
-    di_rawname_from_name(rawname, name);
-    if (d64) {
-        ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
-        if (c64file) {
-            uint8_t buf[0xffff];
-            *newlength = di_read(c64file, buf, 0xffff);
-            file = MemAlloc(*newlength);
-            memcpy(file, buf, *newlength);
-            free(c64file);
-        }
-    }
     return file;
 }
 
@@ -190,8 +169,8 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
             memcpy(file2 + 16, tempfile2, size2);
             size2 += 16;
         } else {
-            file1 = get_file_named(*sf, *extent, &size1, "TEMPLE O.TERROR2");
-            file2 = get_file_named(*sf, *extent, &size2, "TEMPLE O.TERROR1");
+            file1 = di_get_file_named(*sf, *extent, &size1, "TEMPLE O.TERROR2");
+            file2 = di_get_file_named(*sf, *extent, &size2, "TEMPLE O.TERROR1");
         }
     } else {
         file1 = GetFileFromT64(1, number_of_records, sf, &size1);
