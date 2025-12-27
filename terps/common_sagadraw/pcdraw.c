@@ -23,10 +23,10 @@ void SetColor(int32_t index, glui32);
 typedef struct {
     int x;
     int y;
-    int width;
-    int height;
-    int xorigin;
-    int yorigin;
+    int right;
+    int bottom;
+    int left;
+    int top;
     int ycount;
     int pixelwidth;
     int at_last_line;
@@ -36,13 +36,13 @@ typedef struct {
 static inline void StepX(DrawState *st, int dx)
 {
     st->x += dx;
-    if (st->x >= st->width + st->xorigin) {
+    if (st->x >= st->right + st->left) {
         st->y += 2;
-        st->x = st->xorigin;
+        st->x = st->left;
         st->ycount++;
     }
-    if (st->ycount > st->height) {
-        st->y = st->yorigin + 1;
+    if (st->ycount > st->bottom) {
+        st->y = st->top + 1;
         st->at_last_line++;
         st->ycount = 0;
     }
@@ -75,6 +75,7 @@ int DrawDOSImageFromData(uint8_t *ptr)
         0xff00ff, /* magenta */
         0xffffff  /* white */
     };
+
     for (int i = 0; i < 4; ++i) {
         SetColor(i, palette[i]);
     }
@@ -87,15 +88,15 @@ int DrawDOSImageFromData(uint8_t *ptr)
 
     /* Get the offset */
     int rawoffset = READ_LE_UINT16(ptr + 0x0f);
-    st.xorigin = ((rawoffset % 80) * 4) - 24;
-    st.yorigin = rawoffset / 40;
-    st.yorigin -= (st.yorigin & 1);
-    st.x = st.xorigin;
-    st.y = st.yorigin;
+    st.left = ((rawoffset % 80) * 4) - 24;
+    st.top = rawoffset / 40;
+    st.top -= (st.top & 1);
+    st.x = st.left;
+    st.y = st.top;
 
     /* Get the height and width */
-    st.height = (READ_LE_UINT16(ptr + 0x11) - rawoffset) / 80;
-    st.width = ptr[0x13] * 4;
+    st.bottom = (READ_LE_UINT16(ptr + 0x11) - rawoffset) / 80;
+    st.right = ptr[0x13] * 4;
 
     uint8_t *endptr = ptr + size;
     ptr += 0x17;

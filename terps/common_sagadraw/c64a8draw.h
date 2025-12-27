@@ -12,9 +12,8 @@
 #ifndef c64a8draw_h
 #define c64a8draw_h
 
-typedef void(*translate_color_fn)(uint8_t, uint8_t);
 typedef int(*adjustments_fn)(int, int, int *);
 
-int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, translate_color_fn translate);
+int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, int is_c64);
 
 #endif /* c64a8draw_h */

@@ -16,7 +16,6 @@
 void ClearApple2ScreenMem(void);
 void DrawApple2ImageFromVideoMem(void);
 void DrawApple2ImageFromVideoMemWithFlip(int upside_down);
-size_t DrawScrambledApple2Image(uint8_t *origptr, size_t datasize);
 typedef void(*adjust_plus_fn)(uint8_t, uint8_t, uint8_t);
 int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adjust_plus_fn adjust_plus);
 
