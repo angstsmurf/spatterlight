@@ -59,7 +59,7 @@ static uint16_t DescrambleScreenAddress(uint8_t ypos)
     return result;
 }
 
-size_t DrawScrambledApple2Image(uint8_t *ptr, size_t datasize)
+static size_t DrawScrambledApple2Image(uint8_t *ptr, size_t datasize)
 {
     if (screenmem == NULL) {
         screenmem = MemCalloc(SCREEN_MEM_SIZE);
@@ -116,14 +116,14 @@ size_t DrawScrambledApple2Image(uint8_t *ptr, size_t datasize)
 
 int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adjust_plus_fn adjust_plus)
 {
-    uint8_t work = 0, work2 = 0;
+    uint8_t pattern_top = 0, pattern_bottom = 0;
     uint8_t repetitions;
     uint8_t i;
 
     uint8_t xpos = 0;
     uint8_t ypos = 0;
 
-    uint8_t x_origin = 0, y_origin, width, height;
+    uint8_t left = 0, top, right, bottom;
 
     if (ptr == NULL)
         return 0;
@@ -142,36 +142,36 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
 
     if (!is_the_count) {
         // Get the origin
-        x_origin = *ptr++;
-        y_origin = *ptr++;
-        xpos = x_origin;
-        ypos = y_origin;
+        left = *ptr++;
+        top = *ptr++;
+        xpos = left;
+        ypos = top;
 
         // Get the dimensions
-        width = *ptr++;
-        height = *ptr++;
+        right = *ptr++;
+        bottom = *ptr++;
     } else {
-        y_origin = 0;
-        width = 0;
-        height = 0;
-        while (width == 0 && height == 0) {
-            width = *ptr++;
-            height = *ptr++;
+        top = 0;
+        right = 0;
+        bottom = 0;
+        while (right == 0 && bottom == 0) {
+            right = *ptr++;
+            bottom = *ptr++;
         }
     }
 
-    while (width == 0 && height == 0) {
-        width = *ptr++;
-        height = *ptr++;
+    while (right == 0 && bottom == 0) {
+        right = *ptr++;
+        bottom = *ptr++;
     }
 
-    debug_print("width: %d height: %d\n", width, height);
+    debug_print("width: %d height: %d\n", right, bottom);
 
     // Graphics window adjustments if we are being called
     // from Plus. (In the ScottFree games using this image
     // format, the images are all the same size.)
     if (adjust_plus != NULL) {
-        adjust_plus(width, height, y_origin);
+        adjust_plus(right, bottom, top);
     }
 
     while (ptr - origptr < datasize - 2) {
@@ -188,8 +188,8 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
             } else {
                 repetitions &= 0x7f;
             }
-            work = *ptr++;
-            work2 = *ptr++;
+            pattern_top = *ptr++;
+            pattern_bottom = *ptr++;
         }
         for (i = 0; i < repetitions + 1; i++) {
             // If we are not repeating bytes, we simply
@@ -200,19 +200,19 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
                     debug_print("Reached end of image data at offset %lx\n", ptr - origptr);
                     return 1;
                 }
-                work = *ptr++;
-                work2 = *ptr++;
+                pattern_top = *ptr++;
+                pattern_bottom = *ptr++;
             }
 
-            if (!WriteByteAndAdvanceY(xpos, &ypos, work) ||
-                !WriteByteAndAdvanceY(xpos, &ypos, work2)) {
+            if (!WriteByteAndAdvanceY(xpos, &ypos, pattern_top) ||
+                !WriteByteAndAdvanceY(xpos, &ypos, pattern_bottom)) {
                 return 1;
             }
-            if (ypos - 2 >= height && xpos < width) {
+            if (ypos - 2 >= bottom && xpos < right) {
                 xpos++;
-                ypos = y_origin;
+                ypos = top;
             }
-            if (xpos > width || ypos > height) {
+            if (xpos > right || ypos > bottom) {
                 debug_print("Reached end of image dimensions at offset %lx\n", ptr - origptr);
                 return 1;
             }
@@ -244,19 +244,7 @@ static void PutApplePixelFlippable(glsi32 xpos, glsi32 ypos, glui32 color, int w
 extern int ImageHeight;
 
 // 4-bit left rotate. Bits 4-6 of n must be a copy of bits 0-2.
-unsigned rotl4b(unsigned n, unsigned count) { return (n >> (-count & 3)) & 0x0f; }
-
-//static uint8_t const artifact_color_lut[128] =
-//{
-//    0x00,0x00,0x00,0x00,0x88,0x00,0x00,0x00,0x11,0x11,0x55,0x11,0x99,0x99,0xdd,0xff,
-//    0x22,0x22,0x66,0x66,0xaa,0xaa,0xee,0xee,0x33,0x33,0x33,0x33,0xbb,0xbb,0xff,0xff,
-//    0x00,0x00,0x44,0x44,0xcc,0xcc,0xcc,0xcc,0x55,0x55,0x55,0x55,0x99,0x99,0xdd,0xff,
-//    0x00,0x22,0x66,0x66,0xee,0xaa,0xee,0xee,0x77,0x77,0x77,0x77,0xff,0xff,0xff,0xff,
-//    0x00,0x00,0x00,0x00,0x88,0x88,0x88,0x88,0x11,0x11,0x55,0x11,0x99,0x99,0xdd,0xff,
-//    0x00,0x22,0x66,0x66,0xaa,0xaa,0xaa,0xaa,0x33,0x33,0x33,0x33,0xbb,0xbb,0xff,0xff,
-//    0x00,0x00,0x44,0x44,0xcc,0xcc,0xcc,0xcc,0x11,0x11,0x55,0x55,0x99,0x99,0xdd,0xdd,
-//    0x00,0x22,0x66,0x66,0xee,0xaa,0xee,0xee,0xff,0xff,0xff,0x77,0xff,0xff,0xff,0xff
-//};
+static unsigned rotl4b(unsigned n, unsigned count) { return (n >> (-count & 3)) & 0x0f; }
 
 static uint8_t const artifact_color_lut[128] =
 {
@@ -339,9 +327,9 @@ static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int startcol, in
     }
 }
 
-uint16_t *d7b_lookup_table = NULL;
+static uint16_t *d7b_lookup_table = NULL;
 
-uint16_t Double7Bits(int i) {
+static uint16_t Double7Bits(int i) {
     if (d7b_lookup_table == NULL) {
         d7b_lookup_table = MemCalloc(128 * 2);
         for (unsigned i = 1; i < 128; i++)
