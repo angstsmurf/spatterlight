@@ -104,3 +104,16 @@ int DetectC64(uint8_t **sf, size_t *extent)
     }
     return 0;
 }
+
+void PatchSpidermanImages(void) {
+    for (int i = 0; Images[i].Filename != NULL; i++) {
+        if (strcmp("B053", Images[i].Filename) == 0 || strcmp("B056", Images[i].Filename) == 0) {
+            if (Images[i].Data[8] == 8) {
+                Images[i].Data[8] = 7;
+                fprintf(stderr, "Successfully patched image %s\n",  Images[i].Filename);
+                if (i >= 40)
+                    break;
+            }
+        }
+    }
+}
