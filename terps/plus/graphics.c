@@ -30,7 +30,7 @@ int upside_down = 0;
 int pixel_size;
 int x_offset, y_offset, right_margin;
 
-uint8_t pal[16];
+glui32 pal[16];
 
 imgrec *Images;
 
@@ -149,7 +149,7 @@ int DrawImageWithName(char *filename)
     LastImgIndex = Images[i].Filename[3] - '0' + 10 * (Images[i].Filename[2] - '0');
 
     if (CurrentSys == SYS_C64 || CurrentSys == SYS_ATARI8) {
-        return DrawC64A8ImageFromData(Images[i].Data, Images[i].Size, 0, C64A8AdjustPlus, CurrentSys == SYS_C64 ? TransC64ColorPlus : TransAtariColorPlus);
+        return DrawC64A8ImageFromData(Images[i].Data, Images[i].Size, 0, C64A8AdjustPlus, CurrentSys == SYS_C64);
     } else if (CurrentSys == SYS_ST) {
         return DrawSTImageFromData(Images[i].Data, Images[i].Size);
     } else if (CurrentSys == SYS_APPLE2) {
