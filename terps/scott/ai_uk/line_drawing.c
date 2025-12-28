@@ -34,7 +34,8 @@ int line_colour = 15;
 int bg_colour = 0;
 
 int scott_graphics_width = 255;
-int scott_graphics_height = 94;
+int scott_graphics_height = 97;
+int scott_clipheight = 94;
 
 /*
  * scott_linegraphics_plot_clip()
@@ -50,10 +51,10 @@ scott_linegraphics_plot_clip(int x, int y, int colour)
 {
     /*
      * Clip the plot if the value is outside the context.  Otherwise, plot the
-     * pixel as colour1 if it is currently colour2.
+     * pixel as colour.
      */
-    if (x >= 0 && x <= scott_graphics_width && y >= 0 && y < scott_graphics_height) {
-        picture_bitmap[y * 255 + x] = colour;
+    if (x >= 0 && x <= scott_graphics_width && y >= 0 && y < scott_clipheight) {
+        picture_bitmap[y * scott_graphics_width + x] = colour;
         pixel_to_draw *todraw = MemAlloc(sizeof(pixel_to_draw));
         todraw->x = x;
         todraw->y = y;
@@ -89,7 +90,7 @@ void DrawSomeVectorPixels(int from_start)
     if (from_start)
         i = 0;
     if (i == 0)
-        RectFill(0, 0, scott_graphics_width, scott_graphics_height, Remap(bg_colour));
+        RectFill(0, 0, scott_graphics_width, scott_clipheight, Remap(bg_colour));
     for (; i < total_draw_instructions && (!gli_slowdraw || i < current_draw_instruction + 50); i++) {
         pixel_to_draw todraw = *pixels_to_draw[i];
         PutPixel(todraw.x, todraw.y, Remap(todraw.colour));
@@ -131,9 +132,9 @@ scott_linegraphics_draw_line(int x1, int y1, int x2, int y2,
 
     /* Decide on a direction to progress in. */
     if (dx >= dy) {
-        dy <<= 1;
+        dy *= 2;
         balance = dy - dx;
-        dx <<= 1;
+        dx *= 2;
 
         /* Loop until we reach the end point of the line. */
         while (x != x2) {
@@ -147,9 +148,9 @@ scott_linegraphics_draw_line(int x1, int y1, int x2, int y2,
         }
         scott_linegraphics_plot_clip(x, y, colour);
     } else {
-        dx <<= 1;
+        dx *= 2;
         balance = dx - dy;
-        dy <<= 1;
+        dy *= 2;
 
         /* Loop until we reach the end point of the line. */
         while (y != y2) {
@@ -167,7 +168,7 @@ scott_linegraphics_draw_line(int x1, int y1, int x2, int y2,
 
 static int linegraphics_get_pixel(int x, int y)
 {
-    return picture_bitmap[y * 255 + x];
+    return picture_bitmap[y * scott_graphics_width + x];
 }
 
 static void diamond_fill(uint8_t x, uint8_t y, int colour)
@@ -177,7 +178,7 @@ static void diamond_fill(uint8_t x, uint8_t y, int colour)
     circular_buf_putXY(ringbuf, x, y);
     while (!circular_buf_empty(ringbuf)) {
         circular_buf_getXY(ringbuf, &x, &y);
-        if (x >= 0 && x < scott_graphics_width && y >= 0 && y < scott_graphics_height && linegraphics_get_pixel(x, y) == bg_colour) {
+        if (x >= 0 && x < scott_graphics_width && y >= 0 && y < scott_clipheight && linegraphics_get_pixel(x, y) == bg_colour) {
             scott_linegraphics_plot_clip(x, y, colour);
             circular_buf_putXY(ringbuf, x, y + 1);
             circular_buf_putXY(ringbuf, x, y - 1);
@@ -209,8 +210,7 @@ void DrawVectorPicture(int image)
     vector_image_shown = image;
     if (pixels_to_draw != NULL)
         FreePixels();
-    pixels_to_draw = MemAlloc(255 * 97 * sizeof(pixel_to_draw *));
-    memset(pixels_to_draw, 0, 255 * 97 * sizeof(pixel_to_draw *));
+    pixels_to_draw = MemCalloc(scott_graphics_width * scott_graphics_height * sizeof(pixel_to_draw *));
     total_draw_instructions = 0;
     current_draw_instruction = 0;
 
@@ -218,9 +218,9 @@ void DrawVectorPicture(int image)
         palchosen = Game->palette;
         DefinePalette();
     }
-    picture_bitmap = MemAlloc(255 * 97);
+    picture_bitmap = MemAlloc(scott_graphics_width * scott_graphics_height);
     bg_colour = LineImages[image].bgcolour;
-    memset(picture_bitmap, bg_colour, 255 * 97);
+    memset(picture_bitmap, bg_colour, scott_graphics_width * scott_graphics_height);
     if (bg_colour == 0)
         line_colour = 7;
     else
