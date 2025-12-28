@@ -302,7 +302,7 @@ static int SanityCheckScottFreeHeader(int ni, int na, int nw, int nr, int mc)
     if (v < 100 || v > 500)
         return 0;
     v = header[3]; // word pairs
-    if (v < 50 || v > 200)
+    if (v < 48 || v > 200)
         return 0;
     v = header[4]; // Number of rooms
     if (v < 10 || v > 100)
