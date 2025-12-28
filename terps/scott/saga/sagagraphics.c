@@ -9,6 +9,10 @@
 #include <ctype.h>
 #include <string.h>
 
+#include "apple2draw.h"
+#include "apple2_vector_draw.h"
+#include "atari_8bit_vector_draw.h"
+#include "vector_common.h"
 #include "common_file_utils.h"
 #include "glk.h"
 #include "scott.h"
@@ -28,12 +32,32 @@ int left_margin = 0;
 
 USImage *USImages = NULL;
 
-int has_graphics(void)
+int HasGraphics(void)
 {
     return (USImages != NULL);
 }
 
-USImage *new_image(void)
+void DrawImageOrVector(void) {
+    if (!Graphics)
+        return;
+    if (CurrentSys == SYS_APPLE2 && USImages) {
+        if (USImages->systype != SYS_APPLE2_LINES) {
+            DrawApple2ImageFromVideoMem();
+        } else {
+            if (gli_slowdraw)
+                glk_request_timer_events(TimerDelay());
+            else
+                DrawSomeApple2VectorBytes(1);
+        }
+    } else if (USImages && USImages->systype == SYS_ATARI8_LINES) {
+        if (gli_slowdraw)
+            glk_request_timer_events(TimerDelay());
+        else
+            DrawSomeAtari8VectorBytes(1);
+    }
+}
+
+USImage *NewImage(void)
 {
     USImage *new = MemAlloc(sizeof(USImage));
     new->index = -1;
@@ -52,7 +76,6 @@ void SetColor(int32_t index, glui32 color)
 {
     pal[index] = color;
 }
-
 
 void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixel_width)
 {
@@ -85,7 +108,7 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
                          height * pixel_size);
 }
 
-int issagaimg(const char *name)
+int IsSagaImage(const char *name)
 {
     if (name == NULL)
         return 0;

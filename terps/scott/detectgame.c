@@ -18,11 +18,11 @@
 #include "sagadraw.h"
 #include "irmak.h"
 #include "taylordraw.h"
+#include "saga.h"
 #include "scottgameinfo.h"
 
 #include "game_specific.h"
 #include "gremlins.h"
-#include "hulk.h"
 #include "robinofsherwood.h"
 #include "seasofblood.h"
 
@@ -97,7 +97,7 @@ uint8_t *ReadHeader(uint8_t *ptr)
 {
     int i, value;
     for (i = 0; i < 15; i++) {
-        value = *ptr + 256 * *(ptr + 1);
+        value = READ_LE_UINT16(ptr);
         header[i] = value;
         ptr += 2;
     }
@@ -407,7 +407,7 @@ void LoadVectorData(GameInfo info, uint8_t *ptr)
     else if (SeekIfNeeded(info.start_of_image_data, &offset, &ptr) == 0)
         return;
 
-    LineImages = MemAlloc(info.number_of_rooms * sizeof(struct line_image));
+    LineImages = MemAlloc(info.number_of_rooms * sizeof(line_image));
     int ct = 0;
     line_image *lp = LineImages;
     uint8_t byte = *(ptr++);

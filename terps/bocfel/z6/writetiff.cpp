@@ -5,7 +5,7 @@
 //  Created by Administrator on 2023-05-22.
 //
 
-#include "writetiff.h"
+#include "writetiff.hpp"
 
 static void writehexstring(FILE *fptr, const char *s)
 {

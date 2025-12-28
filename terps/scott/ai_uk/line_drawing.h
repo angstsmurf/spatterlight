@@ -8,27 +8,16 @@
 #ifndef line_drawing_h
 #define line_drawing_h
 
-struct line_image {
+typedef struct {
     uint8_t *data;
     int bgcolour;
     size_t size;
-};
+} line_image;
 
-typedef struct line_image line_image;
-
-void DrawVectorPicture(int image);
-void DrawSomeVectorPixels(int from_start);
-int DrawingVector(void);
+void DrawHowarthVectorPicture(int image);
+void DrawSomeHowarthVectorPixels(int from_start);
+int DrawingHowarthVector(void);
 
 extern line_image *LineImages;
-
-typedef enum {
-    NO_VECTOR_IMAGE,
-    DRAWING_VECTOR_IMAGE,
-    SHOWING_VECTOR_IMAGE
-} VectorStateType;
-
-extern VectorStateType VectorState;
-extern int vector_image_shown;
 
 #endif /* line_drawing_h */

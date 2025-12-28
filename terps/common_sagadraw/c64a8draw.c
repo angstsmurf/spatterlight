@@ -13,6 +13,8 @@
 #include "read_le16.h"
 #include "c64a8draw.h"
 
+#include <stdio.h>
+
 void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);
 void SetColor(int32_t index, glui32 color);
 
@@ -663,7 +665,7 @@ static void TranslateColorC64(uint8_t index, uint8_t value) {
     }
 }
 
-static int DrawPatternAndAdvancePos(int x, int *y,  uint8_t pattern) {
+int DrawPatternAndAdvancePos(int x, int *y,  uint8_t pattern) {
     uint8_t mask = 0xc0;
 
     for (int i = 6; i >= 0; i -= 2) {
@@ -711,7 +713,8 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
     // Custom graphics window adjustments
     // depending on whether we are being called
     // by Plus or by ScottFree.
-    right = adjustments(right, bottom, &left);
+    if (adjustments != NULL)
+        right = adjustments(right, bottom, &left);
 
     xpos = left * 8;
     ypos = top;

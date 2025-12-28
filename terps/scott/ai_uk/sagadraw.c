@@ -25,7 +25,6 @@
 #include "glk.h"
 #include "sagagraphics.h"
 #include "scott.h"
-#include "scottdefines.h"
 #include "seasofblood.h"
 #include "irmak.h"
 
@@ -75,6 +74,7 @@ static const struct image_patch image_patches[] = {
     { SECRET_MISSION, 33, 2, 1, "\xa0" },
     // 33. Key on window sill, fix middle segment rotation
     { SECRET_MISSION_C64, 33, 2, 1, "\xa0" },
+    // (The broken glass still needs a proper fix to match the background pattern)
     // 38. Broken glass on window sill, fix bg colour
     { SECRET_MISSION, 38, 53, 1, "\x53" },
     // 38. Broken glass on window sill, fix bg colour

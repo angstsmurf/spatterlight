@@ -81,6 +81,8 @@ void RestoreState(SavedState *state)
 
     if (StopTime == 0)
         StopTime = 1;
+    
+    should_draw_image = 1;
 }
 
 void SaveUndo(void)

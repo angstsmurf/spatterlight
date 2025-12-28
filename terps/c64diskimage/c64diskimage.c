@@ -965,8 +965,10 @@ uint8_t *di_get_file_named(uint8_t *data, size_t length, size_t *newlength,
             uint8_t buf[0xffff];
             *newlength = di_read(c64file, buf, 0xffff);
             file = malloc(*newlength);
-            if (!file)
+            if (!file) {
+                free(c64file);
                 return NULL;
+            }
             memcpy(file, buf, *newlength);
             free(c64file);
         }

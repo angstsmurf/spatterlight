@@ -143,7 +143,7 @@ void PrintMessage(int index);
 void PlayerIsDead(void);
 void UpdateSettings(void);
 void OpenTopWindow(void);
-glui32 OptimalPictureSize(glui32 *width, glui32 *height);
+glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight);
 void SetDark(void);
 void SetLight(void);
 void SetBitFlag(int bit);
@@ -154,7 +154,7 @@ extern Header GameHeader;
 extern Room *Rooms;
 extern Item *Items;
 extern Action *Actions;
-extern const char **Verbs, **Nouns, **Messages;
+extern char **Verbs, **Nouns, **Messages;
 extern const char *title_screen;
 extern winid_t Bottom, Top, Graphics;
 extern const char *sys[];
@@ -183,5 +183,7 @@ extern MachineType CurrentSys;
 extern int lastwasnewline;
 extern int showing_closeup;
 extern int last_image_index;
+extern int gli_slowdraw;
+extern int should_draw_image;
 
 #endif /* scott_h */

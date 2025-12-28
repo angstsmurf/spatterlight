@@ -52,6 +52,7 @@
 #include "line_drawing.h"
 #include "restorestate.h"
 #include "sagagraphics.h"
+#include "vector_common.h"
 
 #include "parser.h"
 #include "ti99_4a_terp.h"
@@ -74,12 +75,12 @@ const char *game_file = NULL;
 char *DirPath = ".";
 
 Header GameHeader;
-Item *Items;
-Room *Rooms;
-const char **Verbs;
-const char **Nouns;
-const char **Messages;
-Action *Actions;
+Item *Items = NULL;
+Room *Rooms = NULL;
+char **Verbs = NULL;
+char **Nouns = NULL;
+char **Messages = NULL;
+Action *Actions = NULL;
 int LightRefill;
 int Counters[16] = { 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0 }; /* Range unknown */
@@ -121,6 +122,7 @@ int showing_inventory = 0;
 int showing_closeup = 0;
 int last_image_index = -1;
 int lastwasnewline = 0;
+int should_draw_image = 0;
 
 extern SavedState *InitialState;
 
@@ -144,7 +146,7 @@ int WeAreBigEndian = 0;
 #define TRS80_LINE \
     "\n<------------------------------------------------------------>\n"
 
-//#define DEBUG_ACTIONS
+#define DEBUG_ACTIONS
 
 static void RestartGame(void);
 static int YesOrNo(void);
@@ -209,7 +211,7 @@ void UpdateSettings(void)
 #endif
 
     if (DrawingVector())
-        glk_request_timer_events(20);
+        glk_request_timer_events(TimerDelay());
 
     palette_type previous_pal = palchosen;
     if (Options & FORCE_PALETTE_ZX)
@@ -226,6 +228,7 @@ void UpdateSettings(void)
         if (VectorState != NO_VECTOR_IMAGE)
             DrawSomeVectorPixels(1);
     }
+    should_draw_image = 1;
 }
 
 static void PrintWindowDelimiter(void)
@@ -343,20 +346,30 @@ void Updates(event_t ev)
         CloseGraphicsWindow();
         OpenGraphicsWindow();
 
-        if (split_screen) {
+        if (!gli_enable_graphics)
+            glk_request_timer_events(0);
+
+        if (split_screen && gli_enable_graphics) {
+            int saved_slowdraw = gli_slowdraw;
+            gli_slowdraw = 0;
             if (showing_inventory == 1) {
                 UpdateUSInventory();
             } else {
                 int lastimg = last_image_index;
+                if (!showing_closeup)
+                    should_draw_image = 1;
                 Look();
                 last_image_index = lastimg;
                 if (showing_closeup) {
-                    if (Game->type == US_VARIANT)
+                    should_draw_image = 1;
+                    if (Game->type == US_VARIANT) {
                         DrawUSRoom(last_image_index);
-                    else
+                        DrawImageOrVector();
+                    } else
                         DrawImage(last_image_index);
                 }
             }
+            gli_slowdraw = saved_slowdraw;
         }
     } else if (ev.type == evtype_Timer) {
         switch (Game->type) {
@@ -370,7 +383,7 @@ void Updates(event_t ev)
             UpdateSecretAnimations();
             break;
         default:
-            if (Game->picture_format_version == 99 && DrawingVector())
+            if (DrawingVector())
                 DrawSomeVectorPixels((VectorState == NO_VECTOR_IMAGE));
             break;
         }
@@ -430,20 +443,18 @@ void OpenTopWindow(void)
     }
 }
 
-glui32 OptimalPictureSize(glui32 *width, glui32 *height)
+glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight)
 {
     int multiplier = 1;
-    glui32 graphwidth, graphheight;
-    glk_window_get_size(Graphics, &graphwidth, &graphheight);
     multiplier = graphheight / ImageHeight;
-    if (255 * multiplier > graphwidth)
+    if (ImageWidth * multiplier > graphwidth)
         multiplier = graphwidth / ImageWidth;
 
     if (multiplier == 0)
         multiplier = 1;
 
-    *width = ImageWidth * multiplier;
-    *height = ImageHeight * multiplier;
+    *outwidth = ImageWidth * multiplier;
+    *outheight = ImageHeight * multiplier;
 
     return multiplier;
 }
@@ -466,7 +477,7 @@ void OpenGraphicsWindow(void)
         Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
             60, wintype_Graphics, GLK_GRAPHICS_ROCK);
         glk_window_get_size(Graphics, &graphwidth, &graphheight);
-        pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
+        pixel_size = OptimalPictureSize(graphwidth, graphheight, &optimal_width, &optimal_height);
         x_offset = ((int)graphwidth - (int)optimal_width) / 2;
 
         if (graphheight > optimal_height) {
@@ -494,7 +505,7 @@ void OpenGraphicsWindow(void)
             Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60,
                 wintype_Graphics, GLK_GRAPHICS_ROCK);
         glk_window_get_size(Graphics, &graphwidth, &graphheight);
-        pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
+        pixel_size = OptimalPictureSize(graphwidth, graphheight, &optimal_width, &optimal_height);
         x_offset = (graphwidth - optimal_width) / 2;
         winid_t parent = glk_window_get_parent(Graphics);
         if (parent)
@@ -663,12 +674,55 @@ int header[24];
 
 void FreeDatabase(void)
 {
-    free(Items);
-    free(Actions);
-    free(Verbs);
-    free(Nouns);
-    free(Rooms);
-    free(Messages);
+    if (Actions != NULL)
+        free(Actions);
+    if (Items != NULL) {
+        for (int i = 0; i <= GameHeader.NumItems; i++) {
+            if (Items[i].Text[0] != '.') {
+                free(Items[i].Text);
+            }
+        }
+        free(Items);
+    }
+    if (Rooms != NULL) {
+        for (int i = 0; i <= GameHeader.NumRooms; i++) {
+            if (Rooms[i].Text[0] != '.') {
+                free(Rooms[i].Text);
+            }
+        }
+        free(Rooms);
+    }
+    if (Nouns != NULL) {
+        for (int i = 0; i <= GameHeader.NumWords; i++) {
+            if (Nouns[i][0] != '.') {
+                free(Nouns[i]);
+            }
+        }
+        free(Nouns);
+    }
+    if (Verbs != NULL) {
+        for (int i = 0; i <= GameHeader.NumWords; i++) {
+            if (Verbs[i][0] != '.') {
+                free(Verbs[i]);
+            }
+        }
+        free(Verbs);
+    }
+    if (Messages != NULL) {
+        for (int i = 0; i < GameHeader.NumMessages; i++) {
+            if (Messages[i][0] != '.') {
+                free(Messages[i]);
+            }
+        }
+        free(Messages);
+    }
+
+    Items = NULL;
+    Actions = NULL;
+    Verbs = NULL;
+    Nouns = NULL;
+    Rooms = NULL;
+    Messages = NULL;
 }
 
 GameIDType LoadDatabase(FILE *f, int loud)
@@ -868,6 +922,8 @@ GameIDType LoadDatabase(FILE *f, int loud)
     fclose(f);
     if (ct == 703 && LoadDOSImages()) {
         CurrentSys = SYS_MSDOS;
+        ImageWidth = 280;
+        ImageHeight = 158;
         return HULK_US;
     }
     return SCOTTFREE;
@@ -904,7 +960,7 @@ void DrawImage(int image)
         return;
     }
     if (Game->picture_format_version == 99)
-        DrawVectorPicture(image);
+        DrawHowarthVectorPicture(image);
     else
         DrawPictureNumber(image, (Game->type == SEAS_OF_BLOOD_VARIANT));
 }
@@ -924,8 +980,7 @@ void DrawRoomImage(void)
         if (Game->type == US_VARIANT) {
             glk_window_clear(Graphics);
             DrawUSRoom(0);
-            if (CurrentSys == SYS_APPLE2)
-                DrawApple2ImageFromVideoMem();
+            DrawImageOrVector();
         } else
             DrawBlack();
         return;
@@ -1253,7 +1308,7 @@ static void LoadGame(void)
     SaveUndo();
     JustStarted = 0;
     StopTime = 1;
-    should_look_in_transcript = 1;
+    should_look_in_transcript = should_draw_image =  1;
 }
 
 static void RestartGame(void)
@@ -1491,6 +1546,7 @@ void HitEnter(void)
             Updates(ev);
     } while (result == 0);
     showing_closeup = 0;
+    should_draw_image = 1;
     return;
 }
 
@@ -1559,7 +1615,7 @@ static void LookWithPause(void)
     char fc = Rooms[MyLoc].Text[0];
     if (Rooms[MyLoc].Text == NULL || MyLoc == 0 || fc == 0 || fc == '.' || fc == ' ')
         return;
-    should_look_in_transcript = 1;
+    should_look_in_transcript = should_draw_image = 1;
     pause_next_room_description = 1;
     Look();
 }
@@ -1607,8 +1663,11 @@ void PrintNoun(void)
 void MoveItemAToLocOfItemB(int itemA, int itemB)
 {
     Items[itemA].Location = Items[itemB].Location;
-    if (Items[itemB].Location == MyLoc)
+    if (Items[itemB].Location == MyLoc) {
         should_look_in_transcript = 1;
+        DrawUSRoomObject(itemB);
+        DrawImageOrVector();
+    }
 }
 
 void GoTo(int loc)
@@ -1619,7 +1678,7 @@ void GoTo(int loc)
 #endif
     int oldloc = MyLoc;
     MyLoc = loc;
-    should_look_in_transcript = 1;
+    should_look_in_transcript = should_draw_image = 1;
     Look();
     if (oldloc != MyLoc && (Options & FLICKER_ON))
         Delay(0.2);
@@ -1634,7 +1693,7 @@ void GoToStoredLoc(void)
     int t = MyLoc;
     MyLoc = SavedRoom;
     SavedRoom = t;
-    should_look_in_transcript = 1;
+    should_look_in_transcript = should_draw_image = 1;
 }
 
 void SetBitFlag(int bit) {
@@ -1660,6 +1719,7 @@ static void ChangeDarkness(int dark) {
         ClearBitFlag(DARKBIT);
         should_look_in_transcript = (should_look_in_transcript == 1 || was_dark == 1);
     }
+    should_draw_image = should_look_in_transcript;
 }
 
 void SetDark(void) {
@@ -1678,7 +1738,7 @@ void SwapLocAndRoomflag(int index)
     int temp = MyLoc;
     MyLoc = RoomSaved[index];
     RoomSaved[index] = temp;
-    should_look_in_transcript = 1;
+    should_look_in_transcript = should_draw_image = 1;
     Look();
 }
 
@@ -1688,7 +1748,7 @@ void SwapItemLocations(int itemA, int itemB)
     Items[itemA].Location = Items[itemB].Location;
     Items[itemB].Location = temp;
     if (Items[itemA].Location == MyLoc || Items[itemB].Location == MyLoc)
-        should_look_in_transcript = 1;
+        should_look_in_transcript = should_draw_image = 1;
 }
 
 void PutItemAInRoomB(int itemA, int roomB)
@@ -1757,7 +1817,7 @@ static ActionResultType PerformLine(int ct)
 #endif
     int continuation = 0, dead = 0;
     int param[5], pptr = 0;
-    int p;
+    int p = 0;
     int act[4];
     int cc = 0;
     while (cc < 5) {
@@ -1944,6 +2004,8 @@ static ActionResultType PerformLine(int ct)
                 if (CountCarried() >= GameHeader.MaxCarry) {
                     Output(sys[YOURE_CARRYING_TOO_MUCH]);
                     return ACT_SUCCESS;
+                } else if (Items[param[pptr]].Location == MyLoc) {
+                    should_look_in_transcript = should_draw_image = 1;
                 }
                 Items[param[pptr++]].Location = CARRIED;
                 break;
@@ -1952,6 +2014,8 @@ static ActionResultType PerformLine(int ct)
                 debug_print("item %d (\"%s\") is now in location.\n", param[pptr],
                     Items[param[pptr]].Text);
 #endif
+                DrawUSRoomObject(param[pptr]);
+                DrawImageOrVector();
                 Items[param[pptr++]].Location = MyLoc;
                 should_look_in_transcript = 1;
                 break;
@@ -1959,10 +2023,14 @@ static ActionResultType PerformLine(int ct)
                 GoTo(param[pptr++]);
                 break;
             case 55:
+            case 59:
 #ifdef DEBUG_ACTIONS
                 debug_print("Item %d (%s) is removed from the game (put in room 0).\n",
                     param[pptr], Items[param[pptr]].Text);
 #endif
+                if (Items[param[pptr]].Location == MyLoc) {
+                    should_look_in_transcript = should_draw_image = 1;
+                }
                 Items[param[pptr++]].Location = 0;
                 break;
             case 56:
@@ -1974,13 +2042,7 @@ static ActionResultType PerformLine(int ct)
             case 58:
                 SetBitFlag(param[pptr++]);
                 break;
-            case 59:
-#ifdef DEBUG_ACTIONS
-                debug_print("Item %d (%s) is removed from the game (put in room 0).\n",
-                param[pptr], Items[param[pptr]].Text);
-#endif
-                Items[param[pptr++]].Location = 0;
-                break;
+            // 59: see 55
             case 60:
                 ClearBitFlag(param[pptr++]);
                 break;
@@ -2009,7 +2071,7 @@ static ActionResultType PerformLine(int ct)
                     AdventureSheet();
                 else
                     ListInventory(0);
-                if (Game->type == US_VARIANT && has_graphics()) {
+                if (Game->type == US_VARIANT && HasGraphics()) {
                     UpdateUSInventory();
                 }
                 StopTime = 2;
@@ -2061,6 +2123,9 @@ static ActionResultType PerformLine(int ct)
                 continuation = 1;
                 break;
             case 74:
+                if (Items[param[pptr]].Location == MyLoc) {
+                    should_look_in_transcript = should_draw_image = 1;
+                }
                 Items[param[pptr++]].Location = CARRIED;
                 break;
             case 75:
@@ -2071,7 +2136,7 @@ static ActionResultType PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
                 debug_print("LOOK\n");
 #endif
-                print_look_to_transcript = 1;
+                print_look_to_transcript = should_draw_image = 1;
                 if (split_screen)
                     Look();
                 print_look_to_transcript =
@@ -2136,7 +2201,13 @@ static ActionResultType PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
                 debug_print("Action 89, parameter %d\n", param[pptr]);
 #endif
-                p = param[pptr++];
+                fprintf(stderr, "Action 89, parameter %d\n", param[pptr]);
+                if (Game->type == US_VARIANT) {
+                    fprintf(stderr, "Action 89 called in US game, do not read parameter!\n");
+                    ShowUSCloseup(80, 0);
+                } else {
+                    p = param[pptr++];
+                }
                 switch (CurrentGame) {
                 case SPIDERMAN:
                 case SPIDERMAN_C64:
@@ -2169,15 +2240,17 @@ static ActionResultType PerformLine(int ct)
                     break;
                 }
                 break;
-
             case 90:
 #ifdef DEBUG_ACTIONS
                 debug_print("Draw Hulk image, parameter %d\n", param[pptr]);
 #endif
-                if (CurrentGame != HULK && CurrentGame != HULK_C64 && CurrentGame != HULK_US) {
-                    pptr++;
-                } else if (!ItIsDark())
-                    DrawHulkImage(param[pptr++]);
+                fprintf(stderr, "Draw Hulk image, parameter %d\n", param[pptr]);
+                    p = param[pptr++];
+                    if (!ItIsDark() && (CurrentGame == HULK || CurrentGame == HULK_C64)) {
+                        DrawHulkImage(p);
+                    } else if (Game->type == US_VARIANT) {
+                        ShowUSCloseup(p, 0);
+                    }
                 break;
             default:
                 debug_print("Unknown action %d [Param begins %d %d]\n", act[cc],
@@ -2236,7 +2309,7 @@ static ExplicitResultType PerformActions(int vb, int no)
             if (Options & (SPECTRUM_STYLE | TI994A_STYLE))
                 Output(sys[OK]);
             MyLoc = nl;
-            should_look_in_transcript = 1;
+            should_look_in_transcript = should_draw_image = 1;
             if (CurrentCommand && CurrentCommand->next) {
                 LookWithPause();
             }
@@ -2253,12 +2326,43 @@ static ExplicitResultType PerformActions(int vb, int no)
     }
 
     if (!dark) {
-        if ((CurrentGame == HULK || CurrentGame == HULK_C64 || CurrentGame == HULK_US) && vb == 39) {
-            HulkShowImageOnExamine(no);
-        } else if (CurrentGame == COUNT_US && vb == 8) {
-            CountShowImageOnExamineUS(no);
-        } else if (CurrentGame == VOODOO_CASTLE_US && vb == 42) {
-            VoodooShowImageOnExamineUS(no);
+        switch (CurrentGame) {
+            case HULK:
+            case HULK_C64:
+            case HULK_US:
+                if (vb == 39)
+                    HulkShowImageOnExamine(no);
+                break;
+            case COUNT_US:
+                if (vb == 8)
+                    CountShowImageOnExamineUS(no);
+                break;
+            case VOODOO_CASTLE_US:
+                if (vb == 42)
+                    VoodooShowImageOnExamineUS(no);
+                break;
+            case ADVENTURELAND_US:
+                if (vb == 29)
+                    AdventurelandShowImageOnExamineUS(no);
+                break;
+            case PIRATE_US:
+                fprintf(stderr, "vb:%d no:%d\n", vb, no);
+                if (vb == 27) {
+                    PirateShowImageOnExamineUS(no);
+                }
+                break;
+            case SECRET_MISSION_US:
+                fprintf(stderr, "vb:%d no:%d\n", vb, no);
+                if (vb == 40)
+                    MissionShowImageOnExamineUS(no);
+                break;
+            case STRANGE_ODYSSEY_US:
+                fprintf(stderr, "vb:%d no:%d\n", vb, no);
+                if (vb == 37)
+                    StrangeShowImageOnExamineUS(no);
+                break;
+            default:
+                break;
         }
     }
 
@@ -2381,6 +2485,7 @@ static ExplicitResultType PerformActions(int vb, int no)
                     return ER_SUCCESS;
                 }
                 Items[item].Location = CARRIED;
+                should_draw_image = 1;
                 PrintTakenOrDropped(TAKEN);
                 return ER_SUCCESS;
             }
@@ -2404,6 +2509,8 @@ static ExplicitResultType PerformActions(int vb, int no)
                     return ER_SUCCESS;
                 }
                 Items[item].Location = MyLoc;
+                DrawUSRoomObject(item);
+                DrawImageOrVector();
                 PrintTakenOrDropped(DROPPED);
                 return ER_SUCCESS;
             }
@@ -2591,11 +2698,7 @@ one letter.\n\nDo you want to restore previously saved game?\n",
     }
 
     if (Game->type == US_VARIANT) {
-        if (has_graphics()) {
-            if (ImageWidth < 280)
-                ImageWidth = 280;
-            if (ImageHeight < 158)
-                ImageHeight = 158;
+        if (HasGraphics()) {
             DrawTitleImage();
             OpenGraphicsWindow();
             sys[MESSAGE_DELIMITER] = " ";

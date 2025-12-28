@@ -10,16 +10,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "atari8detect.h"
 #include "common_file_utils.h"
-#include "hulk.h"
 #include "saga.h"
 #include "sagagraphics.h"
 #include "scott.h"
-#include "scottdefines.h"
-
-//#include "atari8c64draw.h"
-#include "atari8detect.h"
 #include "scottgameinfo.h"
+
 
 static const pairrec a8companionlist[][2] = {
     { { 0x16810, 0xa972, "S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side A)[!].atr", 87 }, { 0x16810, 0x8be3, "S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side B)[!][cr CSS].atr", 95 } },
@@ -34,13 +31,7 @@ static const pairrec a8companionlist[][2] = {
     { { 0, 0, NULL }, { 0, 0, NULL } }
 };
 
-typedef struct imglist {
-    USImageType usage;
-    int index;
-    size_t offset;
-} imglist;
-
-static const struct imglist listHulk[] = {
+static const imglist listHulk[] = {
     { IMG_ROOM, 0, 0x297 }, // (0) Too dark
     { IMG_ROOM, 1, 0x2479 }, // (1) *I'm Bruce Banner, tied hand & foot to a chair
     { IMG_ROOM, 2, 0x71e }, // (2) dome
@@ -115,7 +106,7 @@ static const struct imglist listHulk[] = {
 
 // "R0198", 0, Disk image A at offset 0x9890
 
-static const struct imglist listClaymorgue[] = {
+static const imglist listClaymorgue[] = {
     { IMG_INV_OBJ, 5, 0x297 }, // (0) *STAR
     { IMG_INV_OBJ, 6, 0x2c1 }, // (1) *STAR
     { IMG_INV_OBJ, 7, 0x2e4 }, // (2) *STAR
@@ -209,7 +200,7 @@ static const struct imglist listClaymorgue[] = {
     { 0, 0, 0 }
 };
 
-static const struct imglist listCount[] = {
+static const imglist listCount[] = {
     { IMG_INV_OBJ, 0, 0x297 }, // (0) Sheets
     { IMG_INV_OBJ, 16, 0x310 }, // (1) Tent STAKE
     { IMG_INV_OBJ, 26, 0x36b }, // (2) Pack of cigarettes
@@ -287,7 +278,7 @@ static const struct imglist listCount[] = {
     { 0, 0, 0 }
 };
 
-static const struct imglist listVoodoo[] = {
+static const imglist listVoodoo[] = {
     { IMG_ROOM, 1, 0x297 }, // (0) chapel
     { IMG_ROOM, 14, 0xac1 }, // (1) Chimney
     { IMG_ROOM, 2, 0x1a79 }, // (2) Dingy Looking Stairwell
@@ -367,6 +358,353 @@ static const struct imglist listVoodoo[] = {
     { IMG_INV_OBJ, 32, 0x164f2 }, //76 Rabbit's foot? // 16590, bd9a
     { IMG_ROOM, 250, 0x16490 }, // 77, Color test
     { IMG_ROOM_OBJ, 80, 0x165c1 }, // 77, Wooden boards unnailed (45)
+    { 0, 0, 0, }
+};
+
+#pragma mark Adventureland
+
+static const imglist listAdventureland[] = {
+    { IMG_ROOM, 0,  0x059c }, // (0) Too dark to see?
+    { IMG_ROOM, 1,  0x10b7 }, // (1) Dismal swamp
+    { IMG_ROOM, 2,  0x16c3 }, // (2) top of a tall cypress tree
+    { IMG_ROOM, 3,  0x18ae }, // (3) damp hollow stump in the swamp
+    { IMG_ROOM, 4,  0x1cb7 }, // (4) root chamber under the stump
+    { IMG_ROOM, 5,  0x2146 }, // (5) semi-dark hole by the root chamber
+    { IMG_ROOM, 6,  0x2202 }, // (6) long down sloping hall
+    { IMG_ROOM, 7,  0x24b1 }, // (7) large cavern
+    { IMG_ROOM, 8,  0x2702 }, // (8) large 8 sided room
+    { IMG_ROOM, 9,  0x275b }, // (9) royal anteroom
+    { IMG_ROOM, 10, 0x28d2 }, // (10) *I'm on the shore of a lake
+    { IMG_ROOM, 11, 0x2dc3 }, // (11) forest
+    { IMG_ROOM, 12, 0x33e7 }, // (12) maze of pits. UN...
+    { IMG_ROOM, 13, 0x3525 }, // (13) maze of pits
+    { IMG_ROOM, 14, 0x3628 }, // (14) maze of pits, Aladin
+    { IMG_ROOM, 15, 0x3773 }, // (15) maze of pits
+    { IMG_ROOM, 16, 0x3876 }, // (16) maze of pits
+    { IMG_ROOM, 17, 0x3979 }, // (17) maze of pits, arrow down
+    { IMG_ROOM, 18, 0x3aa5 }, // (18) *I'm at the bottom of a very deep chasm
+    { IMG_ROOM, 19, 0x427f }, // (19) *I'm on a narrow ledge by a chasm
+    { IMG_ROOM, 20, 0x42e4 }, // (20) royal chamber
+    { IMG_ROOM, 21, 0x44b7 }, // (21) *I'm on a narrow ledge by a Throne-room
+    { IMG_ROOM, 22, 0x453d }, // (22) throne room
+    { IMG_ROOM, 23, 0x4b55 }, // (23) sunny meadow
+    { IMG_ROOM, 24, 0x4ed2 }, // (24) *I think I'm in real trouble now! (Hell)
+    { IMG_ROOM, 25, 0x521c }, // (25) hidden grove
+    { IMG_ROOM, 26, 0x581f }, // (26) quick-sand bog
+    { IMG_ROOM, 27, 0x60bd }, // (27) Memory chip of a COMPUTER!
+    { IMG_ROOM, 28, 0x644f }, // (28) top of an oak
+    { IMG_ROOM, 29, 0x6855 }, // (29) *I'm at the edge of a BOTTOMLESS hole
+    { IMG_ROOM, 30, 0x6a67 }, // (30) *I'm on a ledge just below the rim of the BOTTOMLESS hole
+    { IMG_ROOM, 31, 0x6c08 }, // (31) long tunnel. I hear buzzing ahead
+    { IMG_ROOM, 32, 0x6f19 }, // (32) *I'm in an endless corridor
+    { IMG_ROOM, 33, 0x6fb4 }, // (33) large misty room with strange unreadable letters over all the exits.
+
+    { IMG_ROOM, 80, 0x72f3 }, // (80) Closeup genie
+    { IMG_ROOM, 81, 0x78c0 }, // (81) Closeup firestone
+    { IMG_ROOM, 82, 0x7b19 }, // (82) Closeup bee
+    { IMG_ROOM, 83, 0x7f73 }, // (83) Closeup flint and steel
+    { IMG_ROOM, 84, 0x8119 }, // (84) Closeup lava
+    { IMG_ROOM, 85, 0x833d }, // (85) Closeup mirror
+    { IMG_ROOM, 86, 0x84ba }, // (86) Closeup chigger
+    { IMG_ROOM, 87, 0x87a2 }, // (87) Closeup fruit
+    { IMG_ROOM, 88, 0x8ae1 }, // (88) Closeup ox
+    { IMG_ROOM, 89, 0x9016 }, // (89) Closeup dragon
+    { IMG_ROOM, 90, 0x9840 }, // (90) KA-BOOM
+    { IMG_ROOM, 91, 0x9b7f }, // (91) Deep hole
+    { IMG_ROOM, 98, 0x9c64 }, // (98) Inventory
+    { IMG_ROOM, 99, 0x9fcf }, // (99) Title background
+
+    { IMG_INV_AND_ROOM_OBJ, 0, 0xa94c }, // (0) Glowing *FIRESTONE*
+    { IMG_INV_AND_ROOM_OBJ, 2, 0xa973 }, // (2) *Pot of RUBIES*
+    { IMG_INV_AND_ROOM_OBJ, 4, 0xa9e7 }, // (4) -HOLLOW- stump and remains of a felled tree
+    { IMG_INV_AND_ROOM_OBJ, 7, 0xab22 }, // (7) Evil smelling mud
+    { IMG_INV_AND_ROOM_OBJ, 8, 0xab67 }, // (8) *GOLDEN FISH*
+    { IMG_INV_AND_ROOM_OBJ, 9, 0xac25 }, // (9) Lit brass lamp
+    { IMG_INV_AND_ROOM_OBJ, 10, 0xac8e }, // (10) Old fashioned brass lamp
+
+    { IMG_INV_AND_ROOM_OBJ, 11, 0xacd5 }, // (11) Rusty axe (Magic word "BUNYON" on it)
+    { IMG_INV_AND_ROOM_OBJ, 12, 0xad22 }, // (12) Water in bottle
+    { IMG_INV_AND_ROOM_OBJ, 13, 0xad61 }, // (13) Empty bottle
+    { IMG_INV_AND_ROOM_OBJ, 14, 0xad9f }, // (14) Ring of skeleton keys
+    { IMG_INV_AND_ROOM_OBJ, 17, 0xaddb }, // (17) Open door with a hallway beyond
+    { IMG_INV_AND_ROOM_OBJ, 19, 0xae3d }, // (19) *GOLDEN NET*
+    { IMG_INV_AND_ROOM_OBJ, 20, 0xae99 }, // (20) Chigger bites
+    { IMG_INV_AND_ROOM_OBJ, 21, 0xaea5 }, // (21) Infected chigger bites
+    { IMG_INV_AND_ROOM_OBJ, 22, 0xaec6 }, // (22) Patches of "OILY" slime
+    { IMG_INV_AND_ROOM_OBJ, 23, 0xaef0 }, // (23) *ROYAL HONEY*
+    { IMG_INV_AND_ROOM_OBJ, 24, 0xaf28 }, // (24) Large african bees
+    { IMG_INV_AND_ROOM_OBJ, 25, 0xb005 }, // (25) Very thin black bear
+    { IMG_INV_AND_ROOM_OBJ, 26, 0xb30e }, // (26) Bees in a bottle
+    { IMG_INV_AND_ROOM_OBJ, 27, 0xb37c }, // (27) Large sleeping dragon
+    { IMG_INV_AND_ROOM_OBJ, 28, 0xb773 }, // (28) Flint & steel
+    { IMG_INV_AND_ROOM_OBJ, 29, 0xb793 }, // (29) *Thick PERSIAN RUG*
+    { IMG_INV_AND_ROOM_OBJ, 31, 0xb7b4 }, // (31) Distended gas bladder
+    { IMG_INV_AND_ROOM_OBJ, 35, 0xb7e4 }, // (35) Bricked up window with a hole in it
+    { IMG_INV_AND_ROOM_OBJ, 36, 0xb816 }, // (36) Loose fire bricks
+    { IMG_INV_AND_ROOM_OBJ, 37, 0xb888 }, // (37) *GOLD CROWN*22
+    { IMG_INV_AND_ROOM_OBJ, 38, 0xb8d5 }, // (38) *MAGIC MIRROR*21
+    { IMG_INV_AND_ROOM_OBJ, 39, 0xb92e }, // (39) Sleeping bear
+    { IMG_INV_AND_ROOM_OBJ, 40, 0xbb40 }, // (40) Empty wine bladder9
+    { IMG_INV_AND_ROOM_OBJ, 41, 0xbb70 }, // (41) Broken glass
+    { IMG_INV_AND_ROOM_OBJ, 42, 0xbbdb }, // (42) Chiggers1
+    { IMG_INV_AND_ROOM_OBJ, 43, 0xbc02 }, // (43) Slightly woozy bear
+    { IMG_INV_AND_ROOM_OBJ, 44, 0xbd0e }, // (44) *DRAGON EGGS* (very rare)
+    { IMG_INV_AND_ROOM_OBJ, 45, 0xbd4f }, // (45) Lava stream with brick dam
+    { IMG_INV_AND_ROOM_OBJ, 46, 0xbda8 }, // (46) *JEWELED FRUIT*25
+    { IMG_INV_AND_ROOM_OBJ, 47, 0xbdf3 }, // (47) *Small statue of a BLUE OX*26
+    { IMG_INV_AND_ROOM_OBJ, 48, 0xbf08 }, // (48) *DIAMOND RING*
+    { IMG_INV_AND_ROOM_OBJ, 49, 0xbf3a }, // (49) *DIAMOND BRACELET*
+    { IMG_INV_AND_ROOM_OBJ, 52, 0xbf7f }, // (52) Smoking hole. pieces of dragon and gore.
+    { IMG_INV_AND_ROOM_OBJ, 55, 0xc02b }, // (55) Dead fish
+    { IMG_INV_AND_ROOM_OBJ, 56, 0xc0b7 }, // (56) *FIRESTONE* (cold now)
+    { IMG_INV_AND_ROOM_OBJ, 60, 0xc0de }, // (60) Empty lamp
+    { IMG_INV_AND_ROOM_OBJ, 61, 0xc125 }, // (61) Muddy worthless old rug
+    { IMG_ROOM, 250, 0xc146 }, // Color test
+    { IMG_INV_AND_ROOM_OBJ, 255, 0xc18b }, // (255) Title
+    { 0, 0, 0, }
+};
+
+static const imglist listPirate[] = {
+    { IMG_ROOM,  0, 0x0590 }, //  (0) Darkness
+    { IMG_ROOM,  1, 0x10b7 }, //  (1) Room in London
+    { IMG_ROOM,  2, 0x12f0 }, //  (2) alcove
+    { IMG_ROOM,  3, 0x152b }, //  (3) Secret passageway
+    { IMG_ROOM,  4, 0x163d }, //  (4) musty attic
+    { IMG_ROOM,  5, 0x17d2 }, //  (5) *I'm outside an open window
+    { IMG_ROOM,  6, 0x19ea }, //  (6) sandy beach on a tropical isle
+    { IMG_ROOM,  7, 0x1bf6 }, //  (7) maze of caves
+    { IMG_ROOM,  8, 0x201c }, //  (8) meadow
+    { IMG_ROOM,  9, 0x238e }, //  (9) grass shack
+    { IMG_ROOM, 10, 0x28e1 }, //  (10) *I'm in the ocean
+    { IMG_ROOM, 11, 0x293d }, //  (11) pit
+    { IMG_ROOM, 12, 0x2a4f }, //  (12) maze of caves
+    { IMG_ROOM, 13, 0x2e73 }, //  (13) maze of caves
+    { IMG_ROOM, 14, 0x3299 }, //  (14) *I'm at the foot of a cave ridden hill
+    { IMG_ROOM, 15, 0x34c6 }, //  (15) tool shed
+    { IMG_ROOM, 16, 0x37ba }, //  (16) long hallway
+    { IMG_ROOM, 17, 0x3a22 }, //  (17) large cavern
+    { IMG_ROOM, 18, 0x3e2b }, //  (18) *I'm on top of a hill.
+    { IMG_ROOM, 19, 0x41f9 }, //  (19) maze of caves
+    { IMG_ROOM, 20, 0x461f }, //  (20) *I'm aboard Pirate ship anchored off shore
+    { IMG_ROOM, 21, 0x49b7 }, //  (21) *I'm on the beach at *Treasure* Island
+    { IMG_ROOM, 22, 0x4c61 }, //  (22) spooky old graveyard filled with piles
+    { IMG_ROOM, 23, 0x50e7 }, //  (23) large barren field
+    { IMG_ROOM, 24, 0x525b }, //  (24) shallow lagoon.
+    { IMG_ROOM, 25, 0x5264 }, //  (25) sacked and deserted monastary
+    { IMG_ROOM, 26, 0x5731 }, //  (26) *Welcome to Never Never Land (Death)
+    { IMG_ROOM, 80, 0x5f37 }, //  (80) Sailing on map (set sail)
+    { IMG_ROOM, 81, 0x63ed }, //  (81) Closeup Plans
+    { IMG_ROOM, 82, 0x692e }, //  (82) Closeup Book
+    { IMG_ROOM, 83, 0x6b13 }, //  (83) Closeup Stamps
+    { IMG_ROOM, 84, 0x714c }, //  (84) Closeup Chest
+    { IMG_ROOM, 85, 0x74a8 }, //  (85) Closeup dubloons
+    { IMG_ROOM, 86, 0x7831 }, //  (86) Closeup map
+    { IMG_ROOM, 87, 0x7d0e }, //  (87) Parrot
+    { IMG_ROOM, 90, 0x8549 }, //  (90) Magic (say yoho)
+    { IMG_ROOM, 91, 0x85ba }, //  (91) Ship (make ship)
+    { IMG_ROOM, 98, 0x8c40 }, //  (98) Inventory
+    { IMG_ROOM, 99, 0x8fab }, //  (99) Title BG
+
+    { IMG_INV_AND_ROOM_OBJ,  3, 0x9928 }, // (3) blood-soaked book
+    { IMG_INV_AND_ROOM_OBJ,  4, 0x9964 }, // (4) Bookcase with secret passage beyond
+    { IMG_INV_AND_ROOM_OBJ,  5, 0x9a28 }, // (5) Pirate's duffel bag
+    { IMG_INV_AND_ROOM_OBJ,  7, 0x9a9c }, // (7) Empty bottle
+    { IMG_INV_AND_ROOM_OBJ,  8, 0x9ae7 }, // (8) Unlit torch
+    { IMG_INV_AND_ROOM_OBJ,  9, 0x9b55 }, // (8) Lit torch
+    { IMG_INV_AND_ROOM_OBJ, 10, 0x9c02 }, // (10) Matches
+    { IMG_INV_AND_ROOM_OBJ, 11, 0x9c1f }, // (11) Small ship's keel and mast
+    { IMG_INV_AND_ROOM_OBJ, 12, 0x9d40 }, // (12) Wicked looking pirate
+    { IMG_INV_AND_ROOM_OBJ, 13, 0xa06d }, // (13) Treasure chest
+    { IMG_INV_AND_ROOM_OBJ, 14, 0xa0c3 }, // (14) Mongoose8
+    { IMG_INV_AND_ROOM_OBJ, 15, 0xa279 }, // (15) Rusty anchor
+    { IMG_INV_AND_ROOM_OBJ, 17, 0xa2f3 }, // (17) Mean and hungry looking crocodiles
+    { IMG_INV_AND_ROOM_OBJ, 18, 0xa479 }, // (18) Locked door
+    { IMG_INV_AND_ROOM_OBJ, 19, 0xa485 }, // (19) Open door with hall beyond
+    { IMG_INV_AND_ROOM_OBJ, 20, 0xa4ba }, // (20) Pile of sails
+    { IMG_INV_AND_ROOM_OBJ, 21, 0xa52e }, // (21) Fish
+    { IMG_INV_AND_ROOM_OBJ, 22, 0xa5b4 }, // (22) *DUBLOONS*
+    { IMG_INV_AND_ROOM_OBJ, 23, 0xa5ea }, // (23) Deadly mamba snakes
+    { IMG_INV_AND_ROOM_OBJ, 24, 0xa7c3 }, // (24) Parrot
+    { IMG_INV_AND_ROOM_OBJ, 25, 0xa8ba }, // (25) Bottle of rum
+    { IMG_INV_AND_ROOM_OBJ, 26, 0xa90e }, // (26) Rug
+    { IMG_INV_AND_ROOM_OBJ, 27, 0xa931 }, // (27) Ring of keys
+    { IMG_INV_AND_ROOM_OBJ, 28, 0xa96d }, // (28) Open treasure chest
+    { IMG_INV_AND_ROOM_OBJ, 29, 0xa9e7 }, // (29) Set of plans
+    { IMG_INV_AND_ROOM_OBJ, 30, 0xaa2b }, // (30) Rug1
+    { IMG_INV_AND_ROOM_OBJ, 31, 0xaa4f }, // (31) Claw hammer
+    { IMG_INV_AND_ROOM_OBJ, 32, 0xaa88 }, // (32) Nails
+    { IMG_INV_AND_ROOM_OBJ, 33, 0xaa9c }, // (33) Pile of precut lumber
+    { IMG_INV_AND_ROOM_OBJ, 37, 0xab64 }, // (37) Pirate ship
+    { IMG_INV_AND_ROOM_OBJ, 41, 0xac7c }, // (41) Sleeping pirate
+    { IMG_INV_AND_ROOM_OBJ, 42, 0xadcf }, // (42) Bottle of salt water
+    { IMG_INV_AND_ROOM_OBJ, 44, 0xae25 }, // (44) Safety sneakers1
+    { IMG_INV_AND_ROOM_OBJ, 45, 0xaea2 }, // (45) Map
+    { IMG_INV_AND_ROOM_OBJ, 46, 0xaf1f }, // (46) Shovel
+    { IMG_INV_AND_ROOM_OBJ, 47, 0xaf76 }, // (47) Mouldy old bones
+    { IMG_INV_AND_ROOM_OBJ, 48, 0xaff9 }, // (48) Sand
+    { IMG_INV_AND_ROOM_OBJ, 49, 0xb040 }, // (49) Bottles of rum
+    { IMG_INV_AND_ROOM_OBJ, 50, 0xb093 }, // (50) Rare stamps
+    { IMG_INV_AND_ROOM_OBJ, 52, 0xb10e }, // (52) The tide is out
+    { IMG_INV_AND_ROOM_OBJ, 53, 0xb173 }, // (53) The tide is coming in
+    { IMG_INV_AND_ROOM_OBJ, 54, 0xb21f }, // (54) Water wings
+    { IMG_INV_AND_ROOM_OBJ, 57, 0xb2a2 }, // (57) Wooden box
+    { IMG_INV_AND_ROOM_OBJ, 58, 0xb2ed }, // (58) Dead squirrel
+    { IMG_INV_AND_ROOM_OBJ, 60, 0xb437 }, // (60) Sack of crackers1
+    { IMG_INV_AND_ROOM_OBJ, 61, 0xb499 }, // (61) Note
+    { IMG_INV_AND_ROOM_OBJ, 62, 0xb4f6 }, // (62) Small advertising flyer
+    { IMG_INV_AND_ROOM_OBJ, 63, 0xb549 }, // (63) Burnt out torch
+    { IMG_ROOM,             250, 0xb5db }, // Color test
+    { IMG_INV_AND_ROOM_OBJ, 255, 0xb61f }, // Title
+
+    { 0, 0, 0, }
+};
+
+static const imglist listImpossible[] = {
+    { IMG_ROOM,  0, 0x0590 }, // (0) Darkness. Not used?
+    { IMG_ROOM,  2, 0x10b7 }, // (2) briefing room
+    { IMG_ROOM,  3, 0x1234 }, // (3) long sloping grey corridor
+    { IMG_ROOM,  4, 0x1396 },  // (4) grey room
+    { IMG_ROOM,  5, 0x14e7 },  // (5) *I'm sitting in a grey chair there's a box pointing at me
+    { IMG_ROOM,  6, 0x15f9 },  // (6) twisting white hallway
+    { IMG_ROOM,  7, 0x168e },  // (7) twisting yellow hallway
+    { IMG_ROOM,  8, 0x1725 },  // (8) twisting blue hallway
+    { IMG_ROOM,  9, 0x17cc },  // (9) white room
+    { IMG_ROOM, 10, 0x187f },  // (10) yellow room
+    { IMG_ROOM, 11, 0x1958 },  // (11) blue room
+    { IMG_ROOM, 12, 0x1a16 },  // (12) maintenance room 1
+    { IMG_ROOM, 13, 0x1e31 },  // (13) large white visitors room
+    { IMG_ROOM, 14, 0x2185 },  // (14) yellow corridor
+    { IMG_ROOM, 15, 0x2243 },  // (15) blue anteroom
+    { IMG_ROOM, 16, 0x254c },  // (16) *I'm on a ledge outside of a window high above the reactor core
+    { IMG_ROOM, 17, 0x291f },  // (17) maintenance room 2
+    { IMG_ROOM, 18, 0x2aa2 },  // (18) projectionist room
+    { IMG_ROOM, 19, 0x2c40 },  // (19) Control room surronding the reactor core
+    { IMG_ROOM, 20, 0x30cc },  // (20) break room
+    { IMG_ROOM, 21, 0x3331 },  // (21) reactor core
+    { IMG_ROOM, 22, 0x3696 },  // (22) small viewing room
+    { IMG_ROOM, 23, 0x3710 },  // (23) storage
+
+    { IMG_ROOM, 80, 0x3d3d },  //    Death
+    { IMG_ROOM, 81, 0x4949 },  //    Closeup security
+    { IMG_ROOM, 82, 0x4bf6 },  //    Closeup visitor
+    { IMG_ROOM, 83, 0x4e79 },  //    Closeup maintenance
+    { IMG_ROOM, 84, 0x514c },  //    Closeup recorder
+    { IMG_ROOM, 85, 0x5746 },  //    Closeup bomb
+    { IMG_ROOM, 88, 0x5bd2 },  //    Victory
+    { IMG_ROOM, 89, 0x6037 },  //    Movie
+    { IMG_ROOM, 98, 0x694f },  //    Inventory
+    { IMG_ROOM, 99, 0x6cc6 },  //    Title background
+
+    { IMG_INV_AND_ROOM_OBJ,  0, 0x7643 }, // (0) Torn up map
+    { IMG_INV_AND_ROOM_OBJ,  1, 0x76d5 }, // (1) Picture of me stamped -security-
+    { IMG_INV_AND_ROOM_OBJ,  2, 0x7710 }, // (2) Bomb detector flashing yellow) bomb is now armed)
+    { IMG_INV_AND_ROOM_OBJ,  3, 0x7728 }, // (3) Large tape recorder2
+    { IMG_INV_AND_ROOM_OBJ,  7, 0x77e1 }, // (7) Picture of me stamped: -visitor-
+    { IMG_INV_AND_ROOM_OBJ,  8, 0x7813 }, // (8) Picture of me stamped -maintenance-
+    { IMG_INV_AND_ROOM_OBJ,  9, 0x785e }, // (9) Surgically implanted bomb detector glows green) bomb's -safe-))
+    { IMG_INV_AND_ROOM_OBJ,  10, 0x7876 }, // (10) Bomb detector glowing red) final countdown active)
+    { IMG_INV_AND_ROOM_OBJ,  11, 0x788e }, // (11) Blue key
+    { IMG_INV_AND_ROOM_OBJ,  12, 0x78d2 }, // (12) Yellow key
+    { IMG_INV_AND_ROOM_OBJ,  16, 0x7916 }, // (16) Old fashioned yarn mop
+    { IMG_INV_AND_ROOM_OBJ,  17, 0x7985 }, // (17) Empty window frame
+    { IMG_INV_AND_ROOM_OBJ,  19, 0x79ba }, // (19) Broken glass
+    { IMG_INV_AND_ROOM_OBJ,  21, 0x7a02 }, // (21: Movie projector with film cartridge
+
+    { IMG_INV_AND_ROOM_OBJ,  22, 0x7a25 }, // (22) Movie film cartridge
+    { IMG_INV_AND_ROOM_OBJ,  23, 0x7aa2 }, // (23) Empty plastic pail
+    { IMG_INV_AND_ROOM_OBJ,  24, 0x7aff }, // (24) Water filled plastic pail
+    { IMG_INV_AND_ROOM_OBJ,  26, 0x7b5b }, // (26) Wire cutters7
+    { IMG_INV_AND_ROOM_OBJ,  27, 0x7bb1 }, // (27) Anti-radiation suit
+    { IMG_INV_AND_ROOM_OBJ,  28, 0x7c5e }, // (28) Very large time bomb
+
+    { IMG_INV_AND_ROOM_OBJ,  30, 0x7d31 }, // (30) Strange lump of glowing plastic
+    { IMG_INV_AND_ROOM_OBJ,  36, 0x7dde }, // (36) The door is partially open
+    { IMG_INV_AND_ROOM_OBJ,  37, 0x7e0e }, // (37) Empty pill case
+    { IMG_INV_AND_ROOM_OBJ,  39, 0x7e34 }, // (39) Empty manila envelope
+    { IMG_INV_AND_ROOM_OBJ,  40, 0x7e96 }, // (40) Piece of yarn
+    { IMG_INV_AND_ROOM_OBJ,  41, 0x7ec9 }, // (41) Picture of saboteur stamped -window maintance-
+    { IMG_INV_AND_ROOM_OBJ,  42, 0x7f0e }, // (42) Dead saboteur
+    { IMG_INV_AND_ROOM_OBJ,  43, 0x7ff0 }, // (43) Loose red wire going into wall
+    { IMG_INV_AND_ROOM_OBJ,  49, 0x8002 }, // (49) A leaflet
+    { IMG_ROOM, 250, 0x8031 }, // Color test
+    { IMG_INV_AND_ROOM_OBJ, 255, 0x8082 }, // Title (not used by original)
+
+    { 0, 0, 0, }
+};
+
+static const imglist listStrange[] = {
+    { IMG_ROOM,  0, 0x0590 }, // (0) Darkness
+    { IMG_ROOM,  1, 0x10b7 }, // (1) one man scoutship
+    { IMG_ROOM,  2, 0x1528 }, // (2) small airlock
+    { IMG_ROOM,  3, 0x15bd }, // (3) large cavern
+    { IMG_ROOM,  4, 0x1b5e }, // (4) *I'm on a small planetoid
+    { IMG_ROOM,  5, 0x2070 }, // (5) *I'm on a small planetoid
+    { IMG_ROOM,  6, 0x2549 }, // (6) strange hexagonal room
+    { IMG_ROOM,  7, 0x27ba }, // (7) storage hold
+    { IMG_ROOM,  8, 0x2aea }, // (8) *I'm on a small planetoid
+    { IMG_ROOM,  9, 0x2fde }, // (9) Large grassy plain at edge of a jungle
+    { IMG_ROOM, 10, 0x3516 }, // (10) methane snow storm
+    { IMG_ROOM, 11, 0x3552 }, // (11) small derelict spacecraft
+    { IMG_ROOM, 12, 0x393a }, // (12) *I'm outside the airlock on a ledge. The ground is 90 meters below"
+    { IMG_ROOM, 13, 0x3b64 },  // (13) Alien Art Museum
+    { IMG_ROOM, 14, 0x3d8b },  // (14) deserted Jovian mining colony
+    { IMG_ROOM, 15, 0x458b },  // (15) Strange jungle
+    { IMG_ROOM, 17, 0x4f67 },  // (17) BLACK EMPTINESS
+    { IMG_ROOM, 18, 0x5522 },  // (18) methane snow storm
+    { IMG_ROOM, 19, 0x552b },  // (19) methane snow storm
+    { IMG_ROOM, 20, 0x5534 },  // (20) methane snow storm
+    { IMG_ROOM, 21, 0x553d },  // (21) *I'm in the ruins of an intergalatic ZOO
+    { IMG_ROOM, 22, 0x60a2 },  // (22) storage hold of the mother ship
+    { IMG_ROOM, 23, 0x67cc },  // (23) maintenance crawl way
+    { IMG_ROOM, 24, 0x686d },  // (24) hollow ice mound
+
+    { IMG_ROOM, 35, 0x697f },  // In a lot of trouble
+    { IMG_ROOM, 81, 0x74ae },  // Closeup phaser
+    { IMG_ROOM, 82, 0x77a2 },  // Closeup control console
+    { IMG_ROOM, 83, 0x7c08 },  // Closeup disc
+    { IMG_ROOM, 84, 0x7e10 },  // Closeup alien sculpture
+    { IMG_ROOM, 85, 0x812b },  // Closeup goggles
+    { IMG_ROOM, 86, 0x845b },  // Closeup belt
+    { IMG_ROOM, 87, 0x868e },  // Closeup beast
+    { IMG_ROOM, 88, 0x8bfc },  // Closeup ice diamond
+    { IMG_ROOM, 91, 0x9264 },  // Teleport
+    { IMG_ROOM, 92, 0x9610 },  // Alien twisting buckle
+    { IMG_ROOM, 93, 0x9cb1 },  // Alien painting
+    { IMG_ROOM, 98, 0xa19f },  // Inventory
+    { IMG_ROOM, 99, 0xa4fc },  // Title screen background
+    { IMG_INV_AND_ROOM_OBJ,  6, 0xae79 }, // (6) Space suit
+    { IMG_INV_AND_ROOM_OBJ,  7, 0xaf5b }, // (7) which I'm wearing
+    { IMG_INV_AND_ROOM_OBJ, 10, 0xb2d5 }, // (10) Phaser
+    { IMG_INV_AND_ROOM_OBJ, 12, 0xb343 }, // (12) Closed door
+    { IMG_INV_AND_ROOM_OBJ, 13, 0xb41c }, // (13) Open door
+    { IMG_INV_AND_ROOM_OBJ, 19, 0xb482 }, // (19) OPen outer door
+    { IMG_INV_AND_ROOM_OBJ, 21, 0xb4f3 }, // (21) Open inner door
+    { IMG_INV_AND_ROOM_OBJ, 23, 0xb525 }, // (23) Hose connects my suit to machine
+    { IMG_INV_AND_ROOM_OBJ, 24, 0xb56a }, // (24) Large boulder
+    { IMG_INV_AND_ROOM_OBJ, 27, 0xb8fc }, // (27) Rod jutting straight out of the wall
+    { IMG_INV_AND_ROOM_OBJ, 28, 0xb934 }, // (28) Broken piece of rod
+    { IMG_INV_AND_ROOM_OBJ, 29, 0xb98b }, // (29) Strange light far to the NORTH
+    { IMG_INV_AND_ROOM_OBJ, 30, 0xb9d2 }, // (30) Rigilian Dia-Ice Hound
+    { IMG_INV_AND_ROOM_OBJ, 31, 0xbad8 }, // (31) Stunned Dia-Ice Hound
+    { IMG_INV_AND_ROOM_OBJ, 34, 0xbb76 }, // (34) * ANCIENT FLASK SAURIAN BRANDY *
+    { IMG_INV_AND_ROOM_OBJ, 35, 0xbc19 }, // (35) Empty crystal holder
+    { IMG_INV_AND_ROOM_OBJ, 36, 0xbc64 }, // (36) Broken pieces of Power Crystal
+    { IMG_INV_AND_ROOM_OBJ, 37, 0xbcb1 }, // (37) Broken rod in power holder
+    { IMG_INV_AND_ROOM_OBJ, 38, 0xbd22 }, // (38) Large ice mound
+    { IMG_INV_AND_ROOM_OBJ, 39, 0xbfe4 }, // (39) Ancient ice pick
+    { IMG_INV_AND_ROOM_OBJ, 40, 0xc01f }, // (40) Broken ice pick
+    { IMG_INV_AND_ROOM_OBJ, 41, 0xc05e }, // (41) Short twisted piece of metal
+    { IMG_INV_AND_ROOM_OBJ, 42, 0xc0a5 }, // (42) Entrance to a crawlway
+    { IMG_INV_AND_ROOM_OBJ, 43, 0xc10e }, // (43) * RIGILIAN ICE DIAMOND *
+    { IMG_INV_AND_ROOM_OBJ, 44, 0xc1b1 }, // (44) * STRANGE ALIEN BELT *
+    { IMG_INV_AND_ROOM_OBJ, 47, 0xc24c }, // (47) * RARE ALIEN PAINTING *
+    { IMG_INV_AND_ROOM_OBJ, 48, 0xc2de }, // (48) Rock dust
+    { IMG_INV_AND_ROOM_OBJ, 50, 0xc50b }, // (50) * ALIEN SCULPTURE *
+    { IMG_INV_AND_ROOM_OBJ, 51, 0xc5bd }, // (51) Strange looking goggles
+    { IMG_INV_AND_ROOM_OBJ, 53, 0xc699 }, // (53) Shovel
+    { IMG_INV_AND_ROOM_OBJ, 55, 0xc72e }, // (55) EVERYTHING HAS A BLUEISH TINT
+    { IMG_ROOM, 250, 0xc758 }, // Color test
+    { IMG_INV_AND_ROOM_OBJ, 255, 0xc79c }, // Title
     { 0, 0, 0, }
 };
 
@@ -554,9 +892,28 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
 
     int outpic;
 
-    const struct imglist *list;
+    const imglist *list;
+
+    int is_vector = (CurrentGame == ADVENTURELAND_US || CurrentGame == PIRATE_US || CurrentGame == SECRET_MISSION_US || CurrentGame == STRANGE_ODYSSEY_US);
+
+    if (is_vector) {
+        ImageWidth = 320;
+        ImageHeight = 96;
+    }
 
     switch (CurrentGame) {
+    case ADVENTURELAND_US:
+        list = listAdventureland;
+        break;
+    case PIRATE_US:
+        list = listPirate;
+        break;
+    case SECRET_MISSION_US:
+        list = listImpossible;
+        break;
+    case STRANGE_ODYSSEY_US:
+        list = listStrange;
+        break;
     case CLAYMORGUE_US:
         list = listClaymorgue;
         break;
@@ -573,27 +930,51 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
         return 0;
     }
 
-    USImages = new_image();
+    USImages = NewImage();
     USImage *image = USImages;
 
     // Now loop round for each image
     for (outpic = 0; list[outpic].offset != 0; outpic++) {
-        
+
+        size_t offset = list[outpic].offset - 2;
+
         size = READ_LE_UINT16(data + list[outpic].offset) + 2;
+        image->systype = SYS_ATARI8;
+
+        if (is_vector) {
+            offset += 2;
+            size_t nextoff = list[outpic + 1].offset;
+            if (nextoff > 0) {
+                size = nextoff - offset;
+            } else {
+                size = datasize - offset;
+            }
+            image->systype = SYS_ATARI8_LINES;
+        }
 
         image->usage = list[outpic].usage;
         image->index = list[outpic].index;
         image->imagedata = MemAlloc(size);
         image->datasize = size;
-        image->systype = SYS_ATARI8;
-        memcpy(image->imagedata, data + list[outpic].offset - 2, size);
+
+        memcpy(image->imagedata, data + offset, size);
         /* Bytes 0xb390 to 0xb410 correspond to the content of
            sector 360 (0x0168) of the original Atari disk which
            contains the volume table of contents (mostly a bitmap
            of used sectors). This is not part of the graphics data,
            so we cut it out. */
         if (list[outpic].offset < 0xb390 && list[outpic].offset + image->datasize > 0xb390) {
-            memcpy(image->imagedata + 0xb390 - list[outpic].offset + 2, data + 0xb410, size - 0xb390 + list[outpic].offset - 2);
+            if (is_vector) {
+                if (CurrentGame != SECRET_MISSION_US) {
+                    memcpy(image->imagedata + 0xb390 - list[outpic].offset, data + 0xb410, size - 0xb390 + offset);
+                }
+            } else {
+                memcpy(image->imagedata + 0xb390 - list[outpic].offset + 2, data + 0xb410, size - 0xb390 + offset);
+            }
+        }
+
+        if (CurrentGame == STRANGE_ODYSSEY_US && image->index == 24 && image->usage == IMG_INV_AND_ROOM_OBJ && image->datasize > 3 && image->imagedata[3] == 0xA0) {
+            image->imagedata[3] = 0x80;
         }
 
         /* Many images have black bars on one or more sides,
@@ -615,13 +996,13 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
             }
         }
 
-        image->next = new_image();
+        image->next = NewImage();
         image->next->previous = image;
         image = image->next;
     }
 
     /* Read the inventory image from the boot disk */
-    if (otherdisk && othersize > 0x988e + 0x5fd) {
+    if (otherdisk && othersize > 0x988e + 0x5fd && CurrentGame != ADVENTURELAND_US) {
         image->usage = IMG_ROOM;
         image->index = 98;
         image->datasize = 0x5fd;
@@ -653,7 +1034,7 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
 // has an error at offset 0xfac1, but the correct data is available
 // at another offset on the disk image, so we copy it to the right
 // place.
-void PatchIfMissionImpossible(uint8_t *data, size_t size) {
+void PatchMissionImpossible(uint8_t *data, size_t size) {
     if (size > 0xfaf1 && memcmp(data + 0x7d3, "briefing", 8) == 0) {
         uint8_t source[0x30];
         memcpy(source, data + 0xfac1, 0x30);
@@ -664,6 +1045,7 @@ void PatchIfMissionImpossible(uint8_t *data, size_t size) {
 }
 
 static const uint8_t atrheader[6] = { 0x96, 0x02, 0x80, 0x16, 0x80, 0x00 };
+static const uint8_t atrheader_old[6] = { 0x96, 0x02, 0x40, 0x0a, 0x80, 0x00 };
 
 GameIDType DetectAtari8(uint8_t **sf, size_t *extent)
 {
@@ -675,21 +1057,30 @@ GameIDType DetectAtari8(uint8_t **sf, size_t *extent)
     if (*extent > MAX_LENGTH || *extent < data_start)
         return UNKNOWN_GAME;
 
-    for (int i = 0; i < 6; i++)
-        if ((*sf)[i] != atrheader[i])
-            return UNKNOWN_GAME;
+    for (int i = 0; i < 6; i++) {
+        if ((*sf)[i] != atrheader[i]) {
+            // Check for old version
+            for (int j = 0; j < 6; j++) {
+                if ((*sf)[j] != atrheader_old[j]) {
+                    return UNKNOWN_GAME;
+                } else {
+                    data_start = 0x040c;
+                }
+            }
+        }
+    }
 
     size_t companionsize;
     uint8_t *companionfile = GetAtari8CompanionFile(&companionsize);
 
-    PatchIfMissionImpossible(*sf, *extent);
+    PatchMissionImpossible(*sf, *extent);
 
     ImageWidth = 280;
     ImageHeight = 158;
     result = LoadBinaryDatabase(*sf + data_start, *extent - data_start, *Game, 0);
     if (result == UNKNOWN_GAME && companionfile != NULL && companionsize > data_start) {
         debug_print("Could not find database in this file, trying the companion file\n");
-        PatchIfMissionImpossible(companionfile, companionsize);
+        PatchMissionImpossible(companionfile, companionsize);
         result = LoadBinaryDatabase(companionfile + data_start, companionsize - data_start, *Game, 0);
         if (result != UNKNOWN_GAME) {
             debug_print("Found database in companion file. Switching files.\n");

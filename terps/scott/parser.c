@@ -9,7 +9,6 @@
 
 #include "parser.h"
 #include "scott.h"
-#include "scottdefines.h"
 
 #include "bsd.h"
 
@@ -744,7 +743,7 @@ static int GetListAndLength(ListId id, const char ***plist)
 {
     switch (id) {
         case L_VERBS:
-            *plist = Verbs;
+            *plist = (const char **)Verbs;
             return GameHeader.NumWords + 1;
         case L_DIRECTIONS:
             *plist = Directions;
@@ -756,7 +755,7 @@ static int GetListAndLength(ListId id, const char ***plist)
             *plist = SkipList;
             return NUMBER_OF_SKIPPABLE_WORDS;
         case L_NOUNS:
-            *plist = Nouns;
+            *plist = (const char **)Nouns;
             return GameHeader.NumWords + 1;
         case L_EXTRACMD:
             *plist = ExtraCommands;
@@ -833,10 +832,10 @@ static int FindVerbOrNoun(const char *word, const SearchSpec *order, int list_si
             case L_ABBREVS: {
                 if (idx > 0 && idx < NUMBER_OF_ABBREVIATIONS && AbbreviationsKey[idx]) {
                     idx =
-                    WhichWord(AbbreviationsKey[idx], Verbs,
+                    WhichWord(AbbreviationsKey[idx], (const char **)Verbs,
                               GameHeader.WordLength, GameHeader.NumWords + 1);
                     if (idx) {
-                        *out_list = Verbs;
+                        *out_list = (const char **)Verbs;
                         return idx;
                     }
                 }
@@ -889,7 +888,7 @@ static int FindExtaneousWords(int *index, int noun)
     int verb = 0;
     int stringlength = strlen(CharWords[*index]);
 
-    int secondnoun = WhichWord(CharWords[*index], Nouns, GameHeader.WordLength, GameHeader.NumWords + 1);
+    int secondnoun = WhichWord(CharWords[*index], (const char **)Nouns, GameHeader.WordLength, GameHeader.NumWords + 1);
     if (secondnoun) {
         if (MapSynonym(secondnoun) == MapSynonym(noun)) {
             *index = *index + 1;
@@ -972,7 +971,7 @@ static Command *CommandFromStrings(int index, Command *previous)
     int found_noun_at_verb_position = 0;
     int lastverb = 0;
 
-    if (list == Nouns || list == ExtraNouns) {
+    if (list == (const char **)Nouns || list == (const char **)Directions || list == (const char **)ExtraNouns) {
         /* It is a noun */
         /* If we find no verb, we try copying the verb from the previous command */
         if (previous) {
@@ -1022,12 +1021,12 @@ static Command *CommandFromStrings(int index, Command *previous)
         noun = FindNoun(CharWords[i++], &list);
     } while (list == SkipList && i < WordsInInput);
 
-    if (list == Nouns || list == Directions || list == ExtraNouns) {
+    if (list == (const char **)Nouns || list == (const char **)Directions || list == (const char **)ExtraNouns) {
         /* It is a noun */
 
         /* Check if it is an ALL followed by EXCEPT */
         int except = 0;
-        if (list == ExtraNouns && i < WordsInInput && noun - GameHeader.NumWords == ALL) {
+        if (list == (const char **)ExtraNouns && i < WordsInInput && noun - GameHeader.NumWords == ALL) {
             int stringlength = strlen(CharWords[i]);
             except = WhichWord(CharWords[i], ExtraCommands, stringlength,
                 NUMBER_OF_EXTRA_COMMANDS);
@@ -1037,7 +1036,7 @@ static Command *CommandFromStrings(int index, Command *previous)
         /* If we found a noun where a verb was expected, check
            again to see if it matches a verb as well */
         if (found_noun_at_verb_position) {
-            int realverb = WhichWord(CharWords[i - 1], Verbs, GameHeader.WordLength,
+            int realverb = WhichWord(CharWords[i - 1], (const char **)Verbs, GameHeader.WordLength,
                 GameHeader.NumWords);
             if (realverb) {
                 noun = verb;
@@ -1055,7 +1054,7 @@ static Command *CommandFromStrings(int index, Command *previous)
         return CreateCommandStruct(verb, 0, verbindex, i, previous);
     }
 
-    if (list == Verbs && found_noun_at_verb_position) {
+    if (list == (const char **)Verbs && found_noun_at_verb_position) {
         /* It is a verb */
         /* Check if it is an ALL followed by EXCEPT */
         int except = 0;
@@ -1117,7 +1116,7 @@ static int CreateAllCommands(Command *command)
                 }
                 found = 1;
                 c->verb = command->verb;
-                c->noun = WhichWord(Items[i].AutoGet, Nouns, GameHeader.WordLength,
+                c->noun = WhichWord(Items[i].AutoGet, (const char **)Nouns, GameHeader.WordLength,
                     GameHeader.NumWords);
                 c->item = i;
                 c->next = NULL;

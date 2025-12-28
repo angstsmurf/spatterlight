@@ -1387,7 +1387,7 @@ const GameInfo games[] = {
         EARLY,  // header style
 
         0x6364, // room images
-        0x85a7, // item flags
+        0x6386, // item flags
         0x63c5, // item images
         0x4160, // actions
         UNCOMPRESSED,

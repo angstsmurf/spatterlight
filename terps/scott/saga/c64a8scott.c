@@ -17,7 +17,6 @@
 static USImage *current_image = NULL;
 
 int C64A8AdjustScott(int width, int height, int *x_origin) {
-
     USImage *image = current_image;
     if (image == NULL)
         return width;

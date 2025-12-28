@@ -19,6 +19,7 @@ struct USImage {
     uint8_t *imagedata;
     int cropleft;
     int cropright;
+    char *filename;
     struct USImage *previous;
     struct USImage *next;
 };
@@ -35,6 +36,11 @@ typedef struct {
     int cropright;
 } CropList;
 
+typedef struct {
+    USImageType usage;
+    int index;
+    size_t offset;
+} imglist;
 
 extern int pixel_size;
 extern int x_offset, y_offset;
@@ -50,8 +56,9 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
               int32_t color);
 uint8_t *FindImageFile(const char *shortname, size_t *datasize);
 
-USImage *new_image(void);
-int issagaimg(const char *name);
-int has_graphics(void);
+USImage *NewImage(void);
+int IsSagaImage(const char *name);
+int HasGraphics(void);
+void DrawImageOrVector(void);
 
 #endif /* sagagraphics_h */

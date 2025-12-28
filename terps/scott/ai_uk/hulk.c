@@ -133,16 +133,6 @@ void HulkLook(void)
 
 void DrawHulkImage(int p)
 {
-    if (CurrentGame == HULK_US) {
-        if (DrawUSRoom(p)) {
-            showing_closeup = 1;
-            if (CurrentSys == SYS_APPLE2)
-                DrawApple2ImageFromVideoMem();
-            Output(sys[HIT_ENTER]);
-            HitEnter();
-        }
-        return;
-    }
     int image = 0;
     switch (p) {
     case 85:

@@ -17,9 +17,6 @@
 
 #include "apple2draw.h"
 
-#define SCREEN_MEM_SIZE 0x2000
-#define MAX_SCREEN_ADDR 0x1fff
-
 extern winid_t Graphics;
 
 extern int pixel_size;
@@ -27,13 +24,14 @@ extern int x_offset;
 extern int y_offset;
 
 uint8_t *descrambletable = NULL;
+uint8_t *screenmem = NULL;
 
-static uint8_t *screenmem = NULL;
+#define APPLE_SCREEN_WIDTH 160
 
 void ClearApple2ScreenMem(void)
 {
     if (screenmem) {
-        memset(screenmem, 0, SCREEN_MEM_SIZE);
+        memset(screenmem, 0, A2_SCREEN_MEM_SIZE);
     }
 }
 
@@ -53,7 +51,10 @@ static uint16_t DescrambleScreenAddress(uint8_t ypos)
 {
     if (0xc0 + ypos >= 0x182)
         return 0;
-    uint16_t result = descrambletable[ypos] + descrambletable[0xc0 + ypos] * 0x100 - SCREEN_MEM_SIZE;
+    // The descrambletable values are copied from the disk image, so we must subtract
+    // the offset of the Apple 2 screen memory (0x2000), in order to convert it to an index
+    // for our screenmem array (starting at 0 rather than 0x2000).
+    uint16_t result = ((descrambletable[0xc0 + ypos] << 8) | descrambletable[ypos]) - 0x2000;
     if (result > MAX_SCREEN_ADDR)
         return 0;
     return result;
@@ -62,7 +63,7 @@ static uint16_t DescrambleScreenAddress(uint8_t ypos)
 static size_t DrawScrambledApple2Image(uint8_t *ptr, size_t datasize)
 {
     if (screenmem == NULL) {
-        screenmem = MemCalloc(SCREEN_MEM_SIZE);
+        screenmem = MemCalloc(A2_SCREEN_MEM_SIZE);
     }
 
     uint8_t *origptr = ptr;
@@ -131,7 +132,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
     uint8_t *origptr = ptr;
 
     if (screenmem == NULL) {
-        screenmem = MemCalloc(SCREEN_MEM_SIZE);
+        screenmem = MemCalloc(A2_SCREEN_MEM_SIZE);
     }
 
     if (descrambletable) {
@@ -181,7 +182,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
         // If bit 7 is set or this is an early game
         // we write the next two bytes (repetitions + 1) times
         int repeat_next_two_bytes = 0;
-        if (is_the_count || (repetitions & 0x80) == 0x80) {
+        if (is_the_count || (repetitions & 0x80) != 0) {
             repeat_next_two_bytes = 1;
             if (is_the_count) {
                 repetitions -= 1;
@@ -280,19 +281,16 @@ static const glui32 apple2_palette[16] =
 
 #define CONTEXTBITS 3
 
-static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int startcol, int stopcol, int row, int upside_down)
+static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int row, int upside_down)
 {
-    if (startcol >= stopcol)
-        return;  // to avoid OOB read
-
     // w holds 3 bits of the previous 14-pixel group and the current and next groups.
-    uint32_t w = (CONTEXTBITS && startcol > 0) ? (in[startcol - 1] >> (14 - CONTEXTBITS)) : 0;
-    w += in[startcol] << CONTEXTBITS;
+    uint32_t w = 0;
+    w += in[0] << CONTEXTBITS;
 
     uint8_t lastcolor = 0xff;
     int runlength = 0;
 
-    for (int col = startcol; col < stopcol; col++)
+    for (int col = 0; col < 40; col++)
     {
         if (col < 39)
             w += in[col + 1] << (14 + CONTEXTBITS);
@@ -304,7 +302,7 @@ static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int startcol, in
             uint8_t color = (uint8_t)rotl4b(artifact_color_lut[w & 0x7f], col * 14 + b);
             // We optimize runs of the same color by only drawing
             // when the color changes or we are at the last pixel of the line.
-            int at_last_pixel = (b == 13 && col == stopcol - 1);
+            int at_last_pixel = (b == 13 && col == 39);
             if (at_last_pixel || (color != lastcolor && runlength > 0)) {
                 glui32 glkcolor = apple2_palette[lastcolor];
                 PutApplePixelFlippable(col * 14 + b - runlength, row * 2, glkcolor, runlength + 1, upside_down);
@@ -332,8 +330,7 @@ static uint16_t *d7b_lookup_table = NULL;
 static uint16_t Double7Bits(int i) {
     if (d7b_lookup_table == NULL) {
         d7b_lookup_table = MemCalloc(128 * 2);
-        for (unsigned i = 1; i < 128; i++)
-        {
+        for (unsigned i = 1; i < 128; i++) {
             d7b_lookup_table[i] = d7b_lookup_table[i >> 1] * 4 + (i & 1) * 3;
         }
     }
@@ -344,13 +341,12 @@ static uint16_t Double7Bits(int i) {
 
 void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
 {
-    int beginrow = 0, endrow = MIN(ImageHeight / 2, 160);
+    if (screenmem == NULL)
+        return;
 
-    const int startcol = 0;
-    const int stopcol = 40;
+    int endrow = MIN(ImageHeight / 2, 160);
 
-    for (int row = beginrow; row <= endrow; row++)
-    {
+    for (int row = 0; row <= endrow; row++) {
         /* calculate address */
         unsigned const address = (((row / 8) & 0x07) << 7) + (((row / 8) & 0x18) * 5) + ((row & 7) << 10);
         uint8_t const *const vram_row = screenmem + address;
@@ -358,16 +354,39 @@ void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
 
         unsigned last_output_bit = 0;
 
-        for (int col = 0; col < 40; col++)
-        {
+        for (int col = 0; col < 40; col++) {
             unsigned word = Double7Bits(vram_row[col] & 0x7f);
             if (vram_row[col] & 0x80)
                 word = (word * 2 + last_output_bit) & 0x3fff;
             words[col] = word;
             last_output_bit = word >> 13;
         }
-        RenderLineWithA2ArtifactColors(words, startcol, stopcol, row, upside_down);
+        RenderLineWithA2ArtifactColors(words, row, upside_down);
     }
+}
+
+void DrawSingleApple2ImageByte(uint8_t *mem, size_t offset)
+{
+    if (mem == NULL)
+        return;
+    
+    int row = ((offset & 0x7f) / 40) * 64 + ((offset >> 7) & 7) * 8 + ((offset >> 10) & 7);
+    int col = (offset & 0x7f) % 40;
+
+    unsigned const row_offset = (unsigned)offset - col;
+    uint8_t const *const vram_row = mem + row_offset;
+
+    uint16_t words[40];
+    unsigned last_output_bit = 0;
+
+    for (int col = 0; col < 40; col++) {
+        unsigned word = Double7Bits(vram_row[col] & 0x7f);
+        if (vram_row[col] & 0x80)
+            word = (word * 2 + last_output_bit) & 0x3fff;
+        words[col] = word;
+        last_output_bit = word >> 13;
+    }
+    RenderLineWithA2ArtifactColors(words, row, 0);
 }
 
 void DrawApple2ImageFromVideoMem(void)

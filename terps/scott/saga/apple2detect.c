@@ -8,16 +8,16 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "apple2draw.h"
 #include "common_file_utils.h"
 #include "ciderpress.h"
-#include "hulk.h"
 #include "saga.h"
 #include "sagagraphics.h"
 #include "scott.h"
-#include "scottdefines.h"
 #include "woz2nib.h"
+#include "apple2_vector_draw.h"
 
 #include "apple2detect.h"
 
@@ -27,6 +27,8 @@ static const pairrec a2companionlist[][2] = {
     { { 0x39557, 0x3ff3, "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 90 }, { 0x39557, 0x374e, "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 96 } },
 
     { { 0x39567, 0x8aa4, "SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 93 }, { 0x39567, 0xcf60, "SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 99 } },
+
+    { { 0x39567, 0x8aa4, "Scott Adams Graphic Adventure 2 - Pirate Adventure v2.1-408 (4am crack) side A.dsk", 82 }, { 0x39567, 0xcf60, "Scott Adams Graphic Adventure 2 - Pirate Adventure v2.1-408 (4am crack) side B - boot.dsk", 89 } },
 
     { { 0x39554, 0xbbd3, "SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 95 }, { 0x39554, 0x361a, "SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 101 } },
 
@@ -40,17 +42,27 @@ static const pairrec a2companionlist[][2] = {
 
     { { 0x23000, 0xd8ca, "Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side A.dsk", 81 }, { 0x23000, 0xd700, "Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side B - boot.dsk", 88 } },
 
+    { { 0x23000, 0xd8ca, "Sorcerer of Claymorgue Castle (1981)(Adventure International)(Disk 1 of 2)[cr Zapman].do", 87 }, { 0x23000, 0xd700, "Sorcerer of Claymorgue Castle (1981)(Adventure International)(Disk 2 of 2)[cr Zapman][unk filesys].do", 100 } },
+
+    { { 0x23000, 0xd8ca, "Questprobe featuring The Hulk v2.3-126 (1984)(Adventure International)(Disk 1 of 2)[cr Syndicate - Whip].do", 107 }, { 0x23000, 0xd700, "Questprobe featuring The Hulk v2.3-126 (1984)(Adventure International)(Disk 2 of 2)(Data Disk)[cr Syndicate - Whip].do", 118 } },
+
     { { 0, 0, NULL }, { 0, 0, NULL } }
 };
 
-typedef struct imglist {
+typedef enum {
+    GAME_HAS_NO_PICTURES,
+    EVERYTHING_WENT_FINE,
+    WRONG_DATABASE
+} ExtractResult;
+
+typedef struct {
     USImageType usage;
     int index;
     size_t offset;
     size_t size;
-} imglist;
+} a2list;
 
-static const imglist a2listHulk[] = {
+static const a2list a2listHulk[] = {
     { IMG_ROOM, 0, 0x1000, 0x4ad }, // Too dark
     { IMG_ROOM, 1, 0x1500, 0x69a }, // Tied to chair
     { IMG_ROOM, 2, 0x1c00, 0x6d1 }, // dome
@@ -155,7 +167,7 @@ static const imglist a2listHulk[] = {
     { 0, 0, 0, 0 }
 };
 
-static const imglist a2listHulk126[] = {
+static const a2list a2listHulk126[] = {
     { IMG_ROOM, 0, 0x1000, 0x4ad }, // Too dark
     { IMG_ROOM, 1, 0x1500, 0x6cc }, // Tied to chair
     { IMG_ROOM, 2, 0x1c00, 0x6c0 }, // dome
@@ -267,7 +279,7 @@ static const imglist a2listHulk126[] = {
     { 0, 0, 0, 0 }
 };
 
-static const imglist a2listClaymorgue[] = {
+static const a2list a2listClaymorgue[] = {
     { IMG_ROOM, 0, 0x1000, 0x01ac }, // Too dark
     { IMG_ROOM, 1, 0x01200, 0x0c4a }, // field
     { IMG_ROOM, 2, 0x01f00, 0x06da }, // on drawbridge
@@ -379,7 +391,7 @@ static const imglist a2listClaymorgue[] = {
 };
 
 // Images for alternative version, pre-release?
-static const imglist a2listClaymorgue126[] = {
+static const a2list a2listClaymorgue126[] = {
     { IMG_ROOM, 0, 0x1000, 0x1bf }, // Too dark
     { IMG_ROOM, 1, 0x1200, 0xc02 }, // field
     { IMG_ROOM, 2, 0x1f00, 0x67a }, // *I'm on a Drawbridge
@@ -492,7 +504,7 @@ static const imglist a2listClaymorgue126[] = {
     { 0, 0, 0, 0 }
 };
 
-static const imglist a2listCount[] = {
+static const a2list a2listCount[] = {
     { IMG_ROOM, 0, 0x01000, 0xa0c }, // Too dark to see
     { IMG_ROOM, 1, 0x01b00, 0x8ba }, // *I'm lying in a large brass bed
     { IMG_ROOM, 2, 0x02400, 0x992 }, // bedroom
@@ -575,7 +587,7 @@ static const imglist a2listCount[] = {
     { 0, 0, 0, 0 }
 };
 
-static const imglist a2listVoodoo[] = {
+static const a2list a2listVoodoo[] = {
     { IMG_ROOM, 0, 0x01000, 0x0836 }, // .
     { IMG_ROOM, 1, 0x01900, 0x0a58 }, // chapel
     { IMG_ROOM, 2, 0x02400, 0x0566 }, // Dingy Looking Stairwell
@@ -667,8 +679,7 @@ static const imglist a2listVoodoo[] = {
 #define kDiskImageSize 143360
 
 static uint8_t *GetApple2CompanionFile(size_t *size, int *isnib);
-static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, int isnib);
-
+static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdata, size_t othersize, int isnib);
 GameIDType DetectApple2(uint8_t **sf, size_t *extent)
 {
     if (*extent > MAX_LENGTH || *extent < kDiskImageSize)
@@ -715,7 +726,7 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
 
     if (invimg) {
         if (!USImages)
-            USImages = new_image();
+            USImages = NewImage();
         USImages->index = 98;
         USImages->systype = SYS_APPLE2;
         USImages->datasize = invimgsiz;
@@ -765,7 +776,7 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
 
             if (CurrentGame == CLAYMORGUE_US_126) {
                 if (!USImages)
-                    USImages = new_image();
+                    USImages = NewImage();
                 USImages->index = 98;
                 USImages->systype = SYS_APPLE2;
                 USImages->datasize = 0x4f8;
@@ -774,8 +785,34 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
                 USImages->usage = IMG_ROOM;
             }
             if (companionfile != NULL) {
-                ExtractImagesFromApple2CompanionFile(companionfile, companionsize, isnib);
+                ExtractResult result = ExtractImagesFromApple2CompanionFile(companionfile, companionsize, *sf, *extent, isnib);
+                if (result == WRONG_DATABASE) {
+                    // The Apple 2 Saga vector graphics games (i.e. Adventureland, Pirate
+                    // Adventure, Mission Impossible/Secret Mission and Strange Odyssey,
+                    // sometimes contain a database of a different game version on the data
+                    // disk (or A side.) This may cause problems, at least in Pirate Adventure,
+                    // where the alternative version won't display the ship building
+                    // or the navigation animations. Thus, we reload the correct database
+                    // from the other disk.
+                    FreeDiskImage();
+                    if (isnib)
+                        InitNibImage(companionfile, companionsize);
+                    else
+                        InitDskImage(companionfile, companionsize);
+                    uint8_t *temp = ReadApple2DOSFile(companionfile, &companionsize, &invimg, &invimgsiz, &m2);
+                    if (temp) {
+                        int finalresult = LoadBinaryDatabase(temp + 0x135, companionsize - 0x135, *Game, 0);
+                        if (!finalresult) {
+                            Fatal("Bad database");
+                        }
+                    }
+
+                }
                 free(companionfile);
+            } else if (CurrentGame == SECRET_MISSION_US) {
+                // There are one-disk versions of Secret Mission,
+                // so look for image files on the main disk as well
+                ExtractImagesFromApple2CompanionFile(*sf, *extent, *sf, *extent, isnib);
             } else if (USImages != NULL) {
                 free(USImages->imagedata);
                 free(USImages);
@@ -793,44 +830,44 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
     }
 }
 
-static int StripParens(char sideA[], size_t length)
+// Strip any parenthesis before the extension (but keep the extension)
+// Mainly to remove "(boot)"
+static bool StripTrailingParenthetical(char *sideA, size_t length)
 {
-    int left_paren = 0;
-    int right_paren = 0;
-    size_t ppos = length - 1;
-    while (sideA[ppos] != '.' && ppos > 0)
-        ppos--;
-    size_t extlen = length - ppos;
-    if (length > 4) {
-        for (int i = (int)ppos; i > 0; i--) {
-            char c = sideA[i];
-            if (c == ')') {
-                if (right_paren == 0) {
-                    right_paren = i;
-                } else {
-                    return 0;
-                }
-            } else if (c == '(') {
-                if (right_paren > 0) {
-                    if (i > 0 && sideA[i - 1] == ' ')
-                        i--;
-                    left_paren = i;
-                    break;
-                } else {
-                    return 0;
-                }
-            }
-        }
-        if (right_paren && left_paren && length > right_paren + extlen) {
-            right_paren++;
-            for (int i = 0; i < extlen; i++) {
-                sideA[left_paren++] = sideA[right_paren++];
-            }
-            sideA[left_paren] = '\0';
-            return 1;
-        }
+    if (!sideA || length < 4) {
+        return false;
     }
-    return 0;
+
+    // Find any extension
+    // (we assume that everything after the last period is an extension)
+    char *extension = strrchr(sideA, '.');
+
+    // This should not be possible
+    if (!extension)
+        return false;
+
+    size_t extlen = length - (extension - sideA) + 1;
+
+    // Find last closing paren
+    char *close_paren = strrchr(sideA, ')');
+    if (!close_paren || close_paren >= extension) {
+        return false;  // No trailing parenthetical
+    }
+
+    // Find matching opening paren
+    char *open_paren = strrchr(sideA, '(');
+    if (!open_paren || open_paren >= close_paren) {
+        return false;  // No matching opening paren
+    }
+
+    // Strip any space before first paren
+    if (open_paren > sideA && *(open_paren - 1) == ' ') {
+        open_paren--;
+    }
+
+    // Copy extension, inluding terminating 0, starting at the opening paren
+    memcpy(open_paren, close_paren + 1, extlen);
+    return true;  // Successfully stripped
 }
 
 uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib)
@@ -886,7 +923,7 @@ uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t st
     result = ReadA2DiskImageFile(sideB, filesize, isnib);
     if (!result) {
         if (type == TYPE_A) {
-            if (StripParens(sideB, stringlen)) {
+            if (StripTrailingParenthetical(sideB, stringlen)) {
                 debug_print("looking for companion file \"%s\"\n", sideB);
                 result = ReadA2DiskImageFile(sideB, filesize, isnib);
             }
@@ -931,9 +968,11 @@ uint8_t *GetApple2CompanionFile(size_t *size, int *isnib)
     if (foundname) {
         size_t filesize;
         result = ReadA2DiskImageFile(foundname, &filesize, isnib);
-        free((void *)foundname);
-        if (result)
+        free(foundname);
+        if (result) {
+            *size = filesize;
             return result;
+        }
     }
 
     char c;
@@ -980,11 +1019,67 @@ uint8_t *GetApple2CompanionFile(size_t *size, int *isnib)
     return NULL;
 }
 
-static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, int isnib)
-{
-    int outpic;
 
-    const struct imglist *list;
+size_t writeToFile(const char *name, uint8_t *data, size_t size);
+
+static int ReadVectorImageFiles(uint8_t *data, size_t datasize, USImage *image) {
+    size_t number_of_files;
+    size_t number_of_images_found = 0;
+    A2FileRec *rec = GetAllApple2DOSFiles(data, datasize, &number_of_files);
+
+    for (int i = 0; i < number_of_files; i++) {
+        A2FileRec *thisrec = &rec[i];
+        char *shortname = thisrec->filename;
+        if (!IsSagaImage(shortname)) {
+            free(thisrec->data);
+            free(thisrec->filename);
+            continue;
+        }
+        size_t namelen = strlen(shortname);
+        if (shortname[0] == 'R') {
+            image->usage = IMG_ROOM;
+            if (namelen > 4) {
+                image->index = (shortname[3] - '0') * 10 + shortname[4] - '0';
+            }
+        } else if(shortname[0] == 'B') {
+            if (namelen > 5) {
+                image->index = (shortname[3] - '0') * 100 + (shortname[4] - '0') * 10 + shortname[5] - '0';
+            }
+            // Mission Impossible uses index 225
+            // for its title image, while the other
+            // games use 255, so we just fudge it to
+            // be consistent.
+            if (image->index == 225)
+                image->index = 255;
+            // The games with vector graphics use
+            // the same images for both inventory
+            // and room objects
+            image->usage = IMG_INV_AND_ROOM_OBJ;
+        } else {
+            continue;
+        }
+        if (image->index == -1) {
+            continue;
+        }
+        image->filename = thisrec->filename;
+        image->systype = SYS_APPLE2_LINES;
+        image->datasize = thisrec->datasize;
+        image->imagedata = thisrec->data;
+        number_of_images_found++;
+        if (i < number_of_files - 1) {
+            image->next = NewImage();
+            image->next->previous = image;
+            image = image->next;
+            image->filename = NULL;
+        }
+    }
+    free(rec);
+    return number_of_images_found;
+}
+
+static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdata, size_t othersize, int isnib)
+{
+    const a2list *list;
 
     switch (CurrentGame) {
     case CLAYMORGUE_US:
@@ -1005,11 +1100,20 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
     case VOODOO_CASTLE_US:
         list = a2listVoodoo;
         break;
+    // These all have proper filesystems
+    // with each image in a separate file,
+    // so no need for hardcoded lists.
+    case ADVENTURELAND_US:
+    case PIRATE_US:
+    case SECRET_MISSION_US:
+    case STRANGE_ODYSSEY_US:
+        list = NULL;
+        break;
     default:
-        return 0;
+        return GAME_HAS_NO_PICTURES;
     }
 
-    USImage *image = new_image();
+    USImage *image = NewImage();
     if (!USImages) {
         USImages = image;
     } else {
@@ -1019,28 +1123,57 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
     if (isnib) {
         InitNibImage(data, datasize);
     }
-    // Now loop round for each image
-    for (outpic = 0; list[outpic].offset != 0; outpic++) {
-        size_t size = list[outpic].size + 4;
 
-        image->usage = list[outpic].usage;
-        image->index = list[outpic].index;
+    ExtractResult result = EVERYTHING_WENT_FINE;
 
-        debug_print("Reading image %d with size %zu and index %d\n", outpic, size, image->index);
-
-        image->datasize = size;
-        image->systype = SYS_APPLE2;
-
-        if (isnib) {
-            image->imagedata = ReadImageFromNib(list[outpic].offset, size, data, datasize);
-        } else {
-            image->imagedata = MemAlloc(size);
-            memcpy(image->imagedata, data + list[outpic].offset, size);
+    // list is NULL if the game has a file system on its companion disk
+    // (which the games with line-drawn vector graphics all have.)
+    if (list == NULL) {
+        int number_of_images_found = ReadVectorImageFiles(data, datasize, image);
+        if (number_of_images_found == 0 && data != otherdata) {
+            // The vector image versions have a game database
+            // file on both disks, so we can't use that
+            // to determine which disk is which. We'll just check
+            // for image files on both disks instead.
+            FreeDiskImage();
+            if (isnib) {
+                InitNibImage(otherdata, othersize);
+            } else {
+                InitDskImage(otherdata, othersize);
+            }
+            number_of_images_found = ReadVectorImageFiles(otherdata, othersize, image);
+            if (number_of_images_found > 0 && data != otherdata) {
+                result = WRONG_DATABASE;
+            }
         }
+        if (number_of_images_found > 0) {
+            ImageWidth = 560;
+            ImageHeight = 320;
+        }
+    } else {
+        // Now loop round for each image
+        for (int outpic = 0; list[outpic].offset != 0; outpic++) {
+            size_t size = list[outpic].size + 4;
 
-        image->next = new_image();
-        image->next->previous = image;
-        image = image->next;
+            image->usage = list[outpic].usage;
+            image->index = list[outpic].index;
+
+            debug_print("Reading image %d with size %zu and index %d\n", outpic, size, image->index);
+
+            image->datasize = size;
+            image->systype = SYS_APPLE2;
+
+            if (isnib) {
+                image->imagedata = ReadImageFromNib(list[outpic].offset, size, data, datasize);
+            } else {
+                image->imagedata = MemAlloc(size);
+                memcpy(image->imagedata, data + list[outpic].offset, size);
+            }
+
+            image->next = NewImage();
+            image->next->previous = image;
+            image = image->next;
+        }
     }
 
     FreeDiskImage();
@@ -1054,5 +1187,5 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
         CurrentGame = HULK_US;
     else if (CurrentGame == CLAYMORGUE_US_126)
         CurrentGame = CLAYMORGUE_US;
-    return 1;
+    return result;
 }

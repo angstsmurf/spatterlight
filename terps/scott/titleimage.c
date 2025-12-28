@@ -12,6 +12,7 @@
 #include "glk.h"
 #include "saga.h"
 #include "sagagraphics.h"
+#include "vector_common.h"
 #include "scott.h"
 
 #ifdef SPATTERLIGHT
@@ -28,7 +29,7 @@ void ResizeTitleImage(void)
     glk_window_clear(Graphics);
 #endif
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
-    pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
+    pixel_size = OptimalPictureSize(graphwidth, graphheight, &optimal_width, &optimal_height);
     x_offset = ((int)graphwidth - (int)optimal_width) / 2;
     right_margin = optimal_width + x_offset;
     y_offset = ((int)graphheight - (int)optimal_height) / 3;
@@ -77,9 +78,12 @@ void DrawTitleImage(void)
     if (DrawUSRoom(99)) {
         ResizeTitleImage();
         glk_window_clear(Graphics);
+
         DrawUSRoom(99);
-        if (CurrentSys == SYS_APPLE2)
-            DrawApple2ImageFromVideoMem();
+        if (USImages->systype == SYS_APPLE2_LINES || USImages->systype == SYS_ATARI8_LINES) {
+            DrawUSRoomObject(255);
+        }
+        DrawImageOrVector();
         event_t ev;
         do {
             glk_select(&ev);
@@ -88,11 +92,20 @@ void DrawTitleImage(void)
                 if (!gli_enable_graphics)
                     break;
 #endif
+                int stored_slowdraw = gli_slowdraw;
+                gli_slowdraw = 0;
                 ResizeTitleImage();
                 glk_window_clear(Graphics);
                 DrawUSRoom(99);
-                if (CurrentSys == SYS_APPLE2)
-                    DrawApple2ImageFromVideoMem();
+                if (USImages->systype == SYS_APPLE2_LINES || USImages->systype == SYS_ATARI8_LINES) {
+                    DrawUSRoomObject(255);
+                }
+                DrawImageOrVector();
+                gli_slowdraw = stored_slowdraw;
+            } else if (ev.type == evtype_Timer) {
+                if (DrawingVector()) {
+                    DrawSomeVectorPixels((VectorState == NO_VECTOR_IMAGE));
+                }
             }
         } while (ev.type != evtype_CharInput);
     }

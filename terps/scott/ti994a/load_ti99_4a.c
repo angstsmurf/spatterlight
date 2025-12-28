@@ -221,7 +221,7 @@ static char *GetTI994AString(uint16_t table, int table_offset)
 }
 
 static void LoadTI994ADict(uint16_t table, int num_words,
-    const char **dict)
+    char **dict)
 {
     uint16_t *wtable;
     int i;

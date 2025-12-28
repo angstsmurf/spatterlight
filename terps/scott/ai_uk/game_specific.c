@@ -7,6 +7,7 @@
 
 #include <string.h>
 
+#include "sagagraphics.h"
 #include "apple2draw.h"
 #include "saga.h"
 #include "sagadraw.h"
@@ -504,6 +505,19 @@ void SecretMission64Sysmess(void)
     sys[I_DONT_KNOW_HOW_TO] = "I don't know how to \"";
 }
 
+void ShowUSCloseup(int image, int offset) {
+    if (image >= 0) {
+        if (Graphics)
+            glk_window_clear(Graphics);
+        if (DrawUSRoom(offset + image)) {
+            showing_closeup = 1;
+            DrawImageOrVector();
+            Output(sys[HIT_ENTER]);
+            HitEnter();
+        }
+    }
+}
+
 void VoodooShowImageOnExamineUS(int noun)
 {
     int image = -1;
@@ -550,17 +564,7 @@ void VoodooShowImageOnExamineUS(int noun)
         break;
     }
 
-    if (image >= 0) {
-        if (Graphics)
-            glk_window_clear(Graphics);
-        if (DrawUSRoom(90 + image)) {
-            showing_closeup = 1;
-            if (CurrentSys == SYS_APPLE2)
-                DrawApple2ImageFromVideoMem();
-            Output(sys[HIT_ENTER]);
-            HitEnter();
-        }
-    }
+    ShowUSCloseup(image, 90);
 }
 
 void CountShowImageOnExamineUS(int noun)
@@ -579,15 +583,158 @@ void CountShowImageOnExamineUS(int noun)
         break;
     }
 
-    if (image >= 0) {
-        if (Graphics)
-            glk_window_clear(Graphics);
-        if (DrawUSRoom(90 + image)) {
-            showing_closeup = 1;
-            if (CurrentSys == SYS_APPLE2)
-                DrawApple2ImageFromVideoMem();
-            Output(sys[HIT_ENTER]);
-            HitEnter();
-        }
+    ShowUSCloseup(image, 90);
+}
+
+void AdventurelandShowImageOnExamineUS(int noun) {
+    int image = -1;
+    switch (noun) {
+        case 59: /* Firestone */
+            if (Items[56].Location == CARRIED || Items[56].Location == MyLoc || Items[0].Location == MyLoc)
+                image = 1;
+            break;
+        case 23: /* Bees */
+            if (Items[24].Location == CARRIED || Items[24].Location == MyLoc || Items[26].Location == CARRIED || Items[26].Location == MyLoc)
+                image = 2;
+            break;
+        case 26: /* Flint and steel */
+            if (Items[28].Location == CARRIED || Items[28].Location == MyLoc)
+                image = 3;
+            break;
+        case 54: /* Stream of lava */
+            if (Items[34].Location == MyLoc)
+                image = 4;
+            break;
+        case 10: /* Magic mirror */
+            if (Items[38].Location == CARRIED ||Items[38].Location == MyLoc)
+                image = 5;
+            break;
+        case 46: /* Chiggers */
+            if (Items[42].Location == CARRIED || Items[42].Location == MyLoc)
+                image = 6;
+            break;
+        case 43: /* Jewelled Fruit */
+            if (Items[46].Location == CARRIED || Items[46].Location == MyLoc)
+                image = 7;
+            break;
+        case 44: /* Blue Ox */
+            if (Items[47].Location == CARRIED || Items[47].Location == MyLoc)
+                image = 8;
+            break;
+        case 39: /* Dragon */
+            if (Items[27].Location == MyLoc)
+                image = 9;
+            break;
+        default:
+            break;
     }
+
+    ShowUSCloseup(image, 80);
+}
+
+void PirateShowImageOnExamineUS(int noun) {
+    int image = -1;
+    switch (noun) {
+        case 53: /* Map */
+            if (Items[45].Location == CARRIED || Items[45].Location == MyLoc)
+                image = 6;
+            break;
+        case 34: /* Plans */
+            if (Items[29].Location == CARRIED || Items[29].Location == MyLoc)
+                image = 1;
+            break;
+        case 10: /* Book */
+            if (Items[3].Location == CARRIED || Items[3].Location == MyLoc)
+                image = 2;
+            break;
+        case 66: /* Stamps */
+            if (Items[50].Location == CARRIED || Items[50].Location == MyLoc)
+                image = 3;
+            break;
+        case 38: /* Coffin */
+            if (Items[13].Location == CARRIED || Items[13].Location == MyLoc)
+                image = 4;
+            break;
+        case 29: /* DUBLOONS */
+            if (Items[24].Location == CARRIED || Items[24].Location == MyLoc)
+                image = 5;
+            break;
+        case 39: /* Parrot */
+            if (Items[24].Location == CARRIED || Items[24].Location == MyLoc)
+                image = 7;
+            break;
+        default:
+            break;
+    }
+
+    ShowUSCloseup(image, 80);
+}
+
+void MissionShowImageOnExamineUS(int noun) {
+    int image = -1;
+    switch (noun) {
+        case 14: // "Picture"
+            if (Items[1].Location == CARRIED || Items[1].Location == MyLoc) {
+                image = 1; // Security
+            } else if (Items[41].Location == CARRIED || Items[41].Location == MyLoc) {
+                image = 3; // Maintenance
+            } else if (Items[7].Location == CARRIED || Items[7].Location == MyLoc) {
+                image = 2; // Visitor
+            }
+            break;
+        case 7: // Recorder
+            if (Items[3].Location == CARRIED || Items[3].Location == MyLoc)
+                image = 4;
+            break;
+        case 29: // Bomb
+            if (Items[28].Location == CARRIED || Items[28].Location == MyLoc)
+                image = 5;
+            break;
+        default:
+            break;
+    }
+
+    ShowUSCloseup(image, 80);
+}
+
+void StrangeShowImageOnExamineUS(int noun) {
+    int image = -1;
+    switch (noun) {
+        case 22: // Phaser
+            if (Items[10].Location == CARRIED || Items[10].Location == MyLoc || Items[11].Location == CARRIED || Items[11].Location == MyLoc)
+                image = 1;
+            break;
+        case 30: // Control Console
+            if (Items[5].Location == MyLoc)
+                image = 2;
+            break;
+        case 41: // Small piece of plastic flush in the wall
+            if (Items[25].Location == MyLoc)
+                image = 3;
+            break;
+        case 69: /* Sculpture */
+            if (Items[44].Location == 0 && (Items[50].Location == CARRIED || Items[50].Location == MyLoc))
+                image = 4;
+            break;
+        case 75: /* Goggles */
+            if (Items[51].Location == CARRIED || Items[51].Location == MyLoc)
+                image = 5;
+            break;
+        case 58: /* Belt */
+            if (Items[44].Location == CARRIED || Items[4].Location == MyLoc)
+                image = 6;
+            break;
+        case 8: /* Hound */
+            if (Items[30].Location == MyLoc || Items[31].Location == MyLoc || Items[31].Location == CARRIED)
+                image = 7;
+            break;
+        case 56: /* Ice Diamond */
+            if (Items[43].Location == CARRIED || Items[43].Location == MyLoc )
+                image = 8;
+            break;
+        default:
+            break;
+    }
+
+    ShowUSCloseup(image, 80);
 }
