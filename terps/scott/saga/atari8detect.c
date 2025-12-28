@@ -664,6 +664,7 @@ void PatchIfMissionImpossible(uint8_t *data, size_t size) {
 }
 
 static const uint8_t atrheader[6] = { 0x96, 0x02, 0x80, 0x16, 0x80, 0x00 };
+static const uint8_t atrheader_old[6] = { 0x96, 0x02, 0x40, 0x0a, 0x80, 0x00 };
 
 GameIDType DetectAtari8(uint8_t **sf, size_t *extent)
 {
@@ -675,9 +676,18 @@ GameIDType DetectAtari8(uint8_t **sf, size_t *extent)
     if (*extent > MAX_LENGTH || *extent < data_start)
         return UNKNOWN_GAME;
 
-    for (int i = 0; i < 6; i++)
-        if ((*sf)[i] != atrheader[i])
-            return UNKNOWN_GAME;
+    for (int i = 0; i < 6; i++) {
+        if ((*sf)[i] != atrheader[i]) {
+            // Check for old version
+            for (int j = 0; j < 6; j++) {
+                if ((*sf)[j] != atrheader_old[j]) {
+                    return UNKNOWN_GAME;
+                } else {
+                    data_start = 0x040c;
+                }
+            }
+        }
+    }
 
     size_t companionsize;
     uint8_t *companionfile = GetAtari8CompanionFile(&companionsize);
