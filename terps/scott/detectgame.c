@@ -97,7 +97,7 @@ uint8_t *ReadHeader(uint8_t *ptr)
 {
     int i, value;
     for (i = 0; i < 15; i++) {
-        value = *ptr + 256 * *(ptr + 1);
+        value = READ_LE_UINT16(ptr);
         header[i] = value;
         ptr += 2;
     }
