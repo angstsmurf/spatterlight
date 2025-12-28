@@ -326,6 +326,7 @@ static const struct scottrec scott_registry[] = {
     { 0x2ab00, 0x8969, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed
     { 0x2ab00, 0x2682, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed 2
     { 0x2ab00, 0xac79, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed 3 (toko)
+    { 0x05f91, 0x04fc, VOODOO_CASTLE_IFID }, // Voodoo Castle US T64
 
     { 0x38f00, 0xf8eb, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ)
     { 0x39559, 0x4c17, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ) alt
@@ -363,6 +364,7 @@ static const struct scottrec scott_registry[] = {
     { 0x16810, 0x7c32, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle Atari 8-bit (boot disk)
     { 0x16810, 0xac42, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle Atari 8-bit v5.1-125 (boot disk)
     { 0x16810, 0x28d7, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle Atari 8-bit v5.1-125 (boot disk)
+    { 0x5210, 0x9115, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle Atari 8-bit v3.9_123 (boot disk)
 
     { 0xb36e, 0xbe5d, QUESTPROBE_SPIDERMAN_IFID }, // Questprobe 2 - Spiderman.tzx
     { 0xb280, 0x196d, QUESTPROBE_SPIDERMAN_IFID }, // Questprobe 2 - Spiderman - Alternate.tzx
@@ -385,6 +387,10 @@ static const struct scottrec scott_registry[] = {
     { 0x9a4c, 0xf104, SAVAGE_ISLAND_PART_I_IFID }, // Savage Island Part 1 Z80 image
    { 0x2ab00, 0xc361, SAVAGE_ISLAND_PART_I_IFID }, // Savage Island C64 (D64)
    { 0x2ab00, 0x8801, SAVAGE_ISLAND_PART_I_IFID }, // Savage Island C64 (D64) alt
+   { 0x2ab00, 0x1a2e, SAVAGE_ISLAND_PART_I_IFID }, // Savage Island C64 US (D64)
+   { 0x2ab00, 0xeea6, SAVAGE_ISLAND_PART_II_IFID }, // Savage Island II C64 US (D64)
+    { 0x2812, 0xd13a, SAVAGE_ISLAND_PART_I_IFID }, // Savage Island C64 US (T64)
+    { 0x2825, 0xa5b1, SAVAGE_ISLAND_PART_II_IFID }, // Savage Island II C64 US (T64)
 
     { 0x9d9e, 0x4d76, SAVAGE_ISLAND_PART_II_IFID }, // Savage Island Part 2.tzx
     { 0x9e59, 0x79f4, SAVAGE_ISLAND_PART_II_IFID }, // Savage Island Part 2 - Alternate.tzx
