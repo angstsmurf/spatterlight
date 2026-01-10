@@ -14,11 +14,9 @@
 #include "read_le16.h"
 #include "minmax.h"
 #include "memory_allocation.h"
+#include "writetiff.h"
 
 #include "apple2draw.h"
-
-#define SCREEN_MEM_SIZE 0x2000
-#define MAX_SCREEN_ADDR 0x1fff
 
 extern winid_t Graphics;
 
@@ -27,8 +25,7 @@ extern int x_offset;
 extern int y_offset;
 
 uint8_t *descrambletable = NULL;
-
-static uint8_t *screenmem = NULL;
+uint8_t *screenmem = NULL;
 
 void ClearApple2ScreenMem(void)
 {
@@ -181,7 +178,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
         // If bit 7 is set or this is an early game
         // we write the next two bytes (repetitions + 1) times
         int repeat_next_two_bytes = 0;
-        if (is_the_count || (repetitions & 0x80) == 0x80) {
+        if (is_the_count || (repetitions & 0x80) != 0) {
             repeat_next_two_bytes = 1;
             if (is_the_count) {
                 repetitions -= 1;
@@ -237,6 +234,24 @@ static void PutApplePixelFlippable(glsi32 xpos, glsi32 ypos, glui32 color, int w
     } else {
         PutApplePixel(xpos, ypos, color, width);
     }
+}
+
+#define STRIDE 560 * 4
+#define BITMAPHEIGHT 640
+
+static void WriteApplePixelToPixmap(glsi32 xpos, glsi32 ypos, glui32 color, uint8_t *bitmap)
+{
+    if (bitmap == NULL) {
+        bitmap = MemCalloc(STRIDE * BITMAPHEIGHT);
+    }
+    size_t offset = ypos * STRIDE + xpos * 4;
+    uint8_t red = (color >> 16) & 0xff;
+    uint8_t green = (color >> 8) & 0xff;
+    uint8_t blue = color & 0xff;
+    bitmap[offset] = red;
+    bitmap[offset + 1] = green;
+    bitmap[offset + 2] = blue;
+    bitmap[offset + 3] = 0xff;
 }
 
 /* The code below is borrowed from the MAME Apple 2 driver. */
@@ -327,6 +342,34 @@ static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int startcol, in
     }
 }
 
+static void  RenderLineWithA2ArtifactColorsToPixmap(uint16_t const *in, int row, uint8_t *bitmap)
+{
+    int startcol = 0;
+    int stopcol = 39;
+
+    // w holds 3 bits of the previous 14-pixel group and the current and next groups.
+    uint32_t w = (CONTEXTBITS && startcol > 0) ? (in[startcol - 1] >> (14 - CONTEXTBITS)) : 0;
+    w += in[startcol] << CONTEXTBITS;
+
+    for (int col = startcol; col < stopcol; col++)
+    {
+        if (col < 39)
+            w += in[col + 1] << (14 + CONTEXTBITS);
+
+        for (int b = 0; b < 14; b++)
+        {
+            // color is an index value between 0 (black) and 15 (white).
+            // See apple2_palette[16] above.
+            uint8_t color = (uint8_t)rotl4b(artifact_color_lut[w & 0x7f], col * 14 + b);
+            glui32 glkcolor = apple2_palette[color];
+            WriteApplePixelToPixmap(col * 14 + b, row * 2, glkcolor, bitmap);
+            WriteApplePixelToPixmap(col * 14 + b, row * 2 + 1, glkcolor, bitmap);
+            w >>= 1;
+
+        }
+    }
+}
+
 static uint16_t *d7b_lookup_table = NULL;
 
 static uint16_t Double7Bits(int i) {
@@ -344,13 +387,12 @@ static uint16_t Double7Bits(int i) {
 
 void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
 {
-    int beginrow = 0, endrow = MIN(ImageHeight / 2, 160);
+    if (screenmem == NULL)
+        return;
 
-    const int startcol = 0;
-    const int stopcol = 40;
+    int endrow = MIN(ImageHeight / 2, 160);
 
-    for (int row = beginrow; row <= endrow; row++)
-    {
+    for (int row = 0; row <= endrow; row++) {
         /* calculate address */
         unsigned const address = (((row / 8) & 0x07) << 7) + (((row / 8) & 0x18) * 5) + ((row & 7) << 10);
         uint8_t const *const vram_row = screenmem + address;
@@ -358,17 +400,70 @@ void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
 
         unsigned last_output_bit = 0;
 
-        for (int col = 0; col < 40; col++)
-        {
+        for (int col = 0; col < 40; col++) {
             unsigned word = Double7Bits(vram_row[col] & 0x7f);
             if (vram_row[col] & 0x80)
                 word = (word * 2 + last_output_bit) & 0x3fff;
             words[col] = word;
             last_output_bit = word >> 13;
         }
-        RenderLineWithA2ArtifactColors(words, startcol, stopcol, row, upside_down);
+        RenderLineWithA2ArtifactColors(words, 0, 40, row, upside_down);
     }
 }
+
+void DrawApple2ImageFromVideoMemToPixmap(uint8_t *bitmap)
+{
+    if (screenmem == NULL)
+        return;
+    if (bitmap == NULL)
+        bitmap = MemCalloc(STRIDE * BITMAPHEIGHT);
+
+    int endrow = MIN(ImageHeight / 2, 160);
+
+    for (int row = 0; row <= endrow; row++) {
+        /* calculate address */
+        unsigned const address = (((row / 8) & 0x07) << 7) + (((row / 8) & 0x18) * 5) + ((row & 7) << 10);
+        uint8_t const *const vram_row = screenmem + address;
+        uint16_t words[40];
+
+        unsigned last_output_bit = 0;
+
+        for (int col = 0; col < 40; col++) {
+            unsigned word = Double7Bits(vram_row[col] & 0x7f);
+            if (vram_row[col] & 0x80)
+                word = (word * 2 + last_output_bit) & 0x3fff;
+            words[col] = word;
+            last_output_bit = word >> 13;
+        }
+        RenderLineWithA2ArtifactColorsToPixmap(words, row, bitmap);
+    }
+}
+
+void DrawApple2ImageToTIFF(const char *name) {
+    uint8_t *bitmap = MemCalloc(STRIDE * BITMAPHEIGHT);
+    DrawApple2ImageFromVideoMemToPixmap(bitmap);
+
+    const char *path = "/Users/administrator/Desktop/SAGA_vector/";
+    size_t namelength = strlen(name) + strlen(path) + 6;
+    char *filename = MemAlloc(namelength);
+    snprintf(filename, namelength, "%s%s.tiff", path, name);
+
+    FILE *fptr = fopen(filename, "w");
+
+    if (fptr == NULL) {
+        fprintf(stderr, "File open error!\n");
+        return;
+    }
+
+    //    fprintf(stderr, "writeToTIFF: \"%s\"\n", name);
+
+    writetiff(fptr, bitmap, STRIDE * BITMAPHEIGHT, 560);
+    free(bitmap);
+
+    fclose(fptr);
+
+}
+
 
 void DrawApple2ImageFromVideoMem(void)
 {

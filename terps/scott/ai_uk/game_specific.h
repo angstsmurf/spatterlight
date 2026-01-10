@@ -20,4 +20,11 @@ void Supergran64Sysmess(void);
 void SecretMission64Sysmess(void);
 void UpdateSecretAnimations(void);
 
+void CountShowImageOnExamineUS(int noun);
+void VoodooShowImageOnExamineUS(int noun);
+void AdventurelandShowImageOnExamineUS(int noun);
+void PirateShowImageOnExamineUS(int noun);
+void MissionShowImageOnExamineUS(int noun);
+void StrangeShowImageOnExamineUS(int noun);
+
 #endif /* game_specific_h */

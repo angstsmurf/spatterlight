@@ -1,11 +1,13 @@
 //
-//  writetiff.cpp
+//  writetiff.c
 //  bocfel6
 //
 //  Created by Administrator on 2023-05-22.
 //
+#include <string.h>
+#include <_types/_uint16_t.h>
 
-#include "writetiff.hpp"
+#include "writetiff.h"
 
 static void writehexstring(FILE *fptr, const char *s)
 {

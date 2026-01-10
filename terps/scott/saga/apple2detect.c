@@ -18,6 +18,7 @@
 #include "scott.h"
 #include "scottdefines.h"
 #include "woz2nib.h"
+#include "apple2_vector_draw.h"
 
 #include "apple2detect.h"
 
@@ -1005,6 +1006,12 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
     case VOODOO_CASTLE_US:
         list = a2listVoodoo;
         break;
+    case ADVENTURELAND_US:
+    case PIRATE_US:
+    case SECRET_MISSION_US:
+    case STRANGE_ODYSSEY_US:
+        list = NULL;
+        break;
     default:
         return 0;
     }
@@ -1019,28 +1026,82 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
     if (isnib) {
         InitNibImage(data, datasize);
     }
-    // Now loop round for each image
-    for (outpic = 0; list[outpic].offset != 0; outpic++) {
-        size_t size = list[outpic].size + 4;
 
-        image->usage = list[outpic].usage;
-        image->index = list[outpic].index;
-
-        debug_print("Reading image %d with size %zu and index %d\n", outpic, size, image->index);
-
-        image->datasize = size;
-        image->systype = SYS_APPLE2;
-
-        if (isnib) {
-            image->imagedata = ReadImageFromNib(list[outpic].offset, size, data, datasize);
-        } else {
-            image->imagedata = MemAlloc(size);
-            memcpy(image->imagedata, data + list[outpic].offset, size);
+    // list is NULL if the game has a file system on its companion file
+    // (which the games with line-drawn vector graphics all have.)
+    if (list == NULL) {
+        size_t number_of_files;
+        A2FileRec *rec = GetAllApple2DOSFiles(data, datasize, &number_of_files);
+        if (rec) {
+            ImageWidth = 560;
+            ImageHeight = 320;
+            for (int i = 0; i < number_of_files; i++) {
+                A2FileRec *thisrec = &rec[i];
+                char *shortname = thisrec->filename;
+                size_t namelen = strlen(shortname);
+                if (shortname[0] == 'R') {
+                    image->usage = IMG_ROOM;
+                    if (namelen > 4) {
+                        image->index = (shortname[3] - '0') * 10 + shortname[4] - '0';
+//                        fprintf(stderr, "Found room object with index %d\n", image->index);
+                    }
+                } else if(shortname[0] == 'B') {
+                    if (namelen > 5) {
+                        image->index = (shortname[3] - '0') * 100 + (shortname[4] - '0') * 10 + shortname[5] - '0';
+                    }
+                    // Mission Impossible uses index 225
+                    // for its title image, while the other
+                    // games use 255, so we just fudge it to
+                    // be consistent.
+                    if (image->index == 225)
+                        image->index = 255;
+                    // The games with vector graphics use
+                    // the same images for both inventory
+                    // and room objects
+                    image->usage = IMG_INV_AND_ROOM_OBJ;
+                } else {
+                    continue;
+                }
+                if (image->index == -1) {
+                    continue;
+                }
+                image->filename = thisrec->filename;
+                image->systype = SYS_APPLE2_LINES;
+                image->datasize = thisrec->datasize;
+                image->imagedata = thisrec->data;
+                if (i < number_of_files - 1) {
+                    image->next = new_image();
+                    image->next->previous = image;
+                    image = image->next;
+                    image->filename = NULL;
+                }
+            }
+            free(rec);
         }
+    } else {
+        // Now loop round for each image
+        for (outpic = 0; list[outpic].offset != 0; outpic++) {
+            size_t size = list[outpic].size + 4;
 
-        image->next = new_image();
-        image->next->previous = image;
-        image = image->next;
+            image->usage = list[outpic].usage;
+            image->index = list[outpic].index;
+
+            debug_print("Reading image %d with size %zu and index %d\n", outpic, size, image->index);
+
+            image->datasize = size;
+            image->systype = SYS_APPLE2;
+
+            if (isnib) {
+                image->imagedata = ReadImageFromNib(list[outpic].offset, size, data, datasize);
+            } else {
+                image->imagedata = MemAlloc(size);
+                memcpy(image->imagedata, data + list[outpic].offset, size);
+            }
+
+            image->next = new_image();
+            image->next->previous = image;
+            image = image->next;
+        }
     }
 
     FreeDiskImage();

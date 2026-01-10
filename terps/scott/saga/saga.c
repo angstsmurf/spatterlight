@@ -10,7 +10,7 @@
 #include <string.h>
 
 #include "apple2draw.h"
-#include "apple2draw.h"
+#include "apple2_vector_draw.h"
 #include "c64a8draw.h"
 #include "c64a8scott.h"
 #include "detectgame.h"
@@ -151,13 +151,19 @@ int DrawDOSImage(USImage *image) {
 int DrawUSImage(USImage *image)
 {
     last_image_index = image->index;
-    if (image->systype == SYS_MSDOS)
-        return DrawDOSImage(image);
-    else if (image->systype == SYS_C64 || image->systype == SYS_ATARI8)
-        return DrawC64A8Image(image);
-    else if (image->systype == SYS_APPLE2)
-        return DrawApple2Image(image);
-    return 0;
+    switch (image->systype) {
+        case SYS_MSDOS:
+            return DrawDOSImage(image);
+        case SYS_C64:
+        case SYS_ATARI8:
+            return DrawC64A8Image(image);
+        case SYS_APPLE2:
+            return DrawApple2Image(image);
+        case SYS_APPLE2_LINES:
+            return DrawApple2VectorImage(image);
+        default:
+            return 0;
+    }
 }
 
 void DrawInventoryImages(void)
@@ -165,7 +171,9 @@ void DrawInventoryImages(void)
     USImage *image = USImages;
     if (image != NULL) {
         do {
-            if (image->usage == IMG_INV_OBJ && Items[image->index].Location == CARRIED) {
+            if ((image->usage == IMG_INV_OBJ || image->usage == IMG_INV_AND_ROOM_OBJ) &&
+                image->index <= GameHeader.NumItems &&
+                Items[image->index].Location == CARRIED) {
                 DrawUSImage(image);
             }
             image = image->next;
@@ -178,7 +186,9 @@ void DrawRoomObjectImages(void)
     USImage *image = USImages;
     if (image != NULL) {
         do {
-            if (image->usage == IMG_ROOM_OBJ && image->index <= GameHeader.NumItems && Items[image->index].Location == MyLoc) {
+            if ((image->usage == IMG_ROOM_OBJ ||
+                 image->usage == IMG_INV_AND_ROOM_OBJ) &&
+                image->index <= GameHeader.NumItems && Items[image->index].Location == MyLoc) {
                 DrawUSImage(image);
             }
             image = image->next;
@@ -205,7 +215,9 @@ void DrawUSRoomObject(int item)
     USImage *image = USImages;
     if (image != NULL) {
         do {
-            if (image->usage == IMG_ROOM_OBJ && image->index == item) {
+            if ((image->usage == IMG_ROOM_OBJ ||
+                image->usage == IMG_INV_AND_ROOM_OBJ) &&
+                image->index == item) {
                 DrawUSImage(image);
                 return;
             }

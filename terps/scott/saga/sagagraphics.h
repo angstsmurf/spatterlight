@@ -19,6 +19,7 @@ struct USImage {
     uint8_t *imagedata;
     int cropleft;
     int cropright;
+    char *filename;
     struct USImage *previous;
     struct USImage *next;
 };

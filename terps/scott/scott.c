@@ -430,20 +430,18 @@ void OpenTopWindow(void)
     }
 }
 
-glui32 OptimalPictureSize(glui32 *width, glui32 *height)
+glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight)
 {
     int multiplier = 1;
-    glui32 graphwidth, graphheight;
-    glk_window_get_size(Graphics, &graphwidth, &graphheight);
     multiplier = graphheight / ImageHeight;
-    if (255 * multiplier > graphwidth)
+    if (ImageWidth * multiplier > graphwidth)
         multiplier = graphwidth / ImageWidth;
 
     if (multiplier == 0)
         multiplier = 1;
 
-    *width = ImageWidth * multiplier;
-    *height = ImageHeight * multiplier;
+    *outwidth = ImageWidth * multiplier;
+    *outheight = ImageHeight * multiplier;
 
     return multiplier;
 }
@@ -466,7 +464,7 @@ void OpenGraphicsWindow(void)
         Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
             60, wintype_Graphics, GLK_GRAPHICS_ROCK);
         glk_window_get_size(Graphics, &graphwidth, &graphheight);
-        pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
+        pixel_size = OptimalPictureSize(graphwidth, graphheight, &optimal_width, &optimal_height);
         x_offset = ((int)graphwidth - (int)optimal_width) / 2;
 
         if (graphheight > optimal_height) {
@@ -494,7 +492,7 @@ void OpenGraphicsWindow(void)
             Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60,
                 wintype_Graphics, GLK_GRAPHICS_ROCK);
         glk_window_get_size(Graphics, &graphwidth, &graphheight);
-        pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
+        pixel_size = OptimalPictureSize(graphwidth, graphheight, &optimal_width, &optimal_height);
         x_offset = (graphwidth - optimal_width) / 2;
         winid_t parent = glk_window_get_parent(Graphics);
         if (parent)
@@ -2136,6 +2134,7 @@ static ActionResultType PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
                 debug_print("Action 89, parameter %d\n", param[pptr]);
 #endif
+                fprintf(stderr, "Action 89, parameter %d\n", param[pptr]);
                 p = param[pptr++];
                 switch (CurrentGame) {
                 case SPIDERMAN:
@@ -2149,6 +2148,9 @@ static ActionResultType PerformLine(int ct)
                 case ADVENTURELAND:
                 case ADVENTURELAND_C64:
                     AdventurelandAction(p);
+                    break;
+                case ADVENTURELAND_US:
+                    AdventurelandShowImageOnExamineUS(p);
                     break;
                 case SEAS_OF_BLOOD:
                 case SEAS_OF_BLOOD_C64:
@@ -2174,6 +2176,7 @@ static ActionResultType PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
                 debug_print("Draw Hulk image, parameter %d\n", param[pptr]);
 #endif
+                fprintf(stderr, "Draw Hulk image, parameter %d\n", param[pptr]);
                 if (CurrentGame != HULK && CurrentGame != HULK_C64 && CurrentGame != HULK_US) {
                     pptr++;
                 } else if (!ItIsDark())
@@ -2182,6 +2185,8 @@ static ActionResultType PerformLine(int ct)
             default:
                 debug_print("Unknown action %d [Param begins %d %d]\n", act[cc],
                     param[pptr], param[pptr + 1]);
+                fprintf(stderr, "Unknown action %d [Param begins %d %d]\n", act[cc],
+                                param[pptr], param[pptr + 1]);
                 break;
             }
         cc++;
@@ -2253,12 +2258,43 @@ static ExplicitResultType PerformActions(int vb, int no)
     }
 
     if (!dark) {
-        if ((CurrentGame == HULK || CurrentGame == HULK_C64 || CurrentGame == HULK_US) && vb == 39) {
-            HulkShowImageOnExamine(no);
-        } else if (CurrentGame == COUNT_US && vb == 8) {
-            CountShowImageOnExamineUS(no);
-        } else if (CurrentGame == VOODOO_CASTLE_US && vb == 42) {
-            VoodooShowImageOnExamineUS(no);
+        switch (CurrentGame) {
+            case HULK:
+            case HULK_C64:
+            case HULK_US:
+                if (vb == 39)
+                    HulkShowImageOnExamine(no);
+                break;
+            case COUNT_US:
+                if (vb == 8)
+                    CountShowImageOnExamineUS(no);
+                break;
+            case VOODOO_CASTLE_US:
+                if (vb == 42)
+                    VoodooShowImageOnExamineUS(no);
+                break;
+            case ADVENTURELAND_US:
+                fprintf(stderr, "vb:%d no:%d\n", vb, no);
+                if (vb == 29)
+                    AdventurelandShowImageOnExamineUS(no);
+                break;
+            case PIRATE_US:
+                fprintf(stderr, "vb:%d no:%d\n", vb, no);
+                if (vb == 42)
+                    PirateShowImageOnExamineUS(no);
+                break;
+            case SECRET_MISSION_US:
+                fprintf(stderr, "vb:%d no:%d\n", vb, no);
+                if (vb == 42)
+                    MissionShowImageOnExamineUS(no);
+                break;
+            case STRANGE_ODYSSEY_US:
+                fprintf(stderr, "vb:%d no:%d\n", vb, no);
+                if (vb == 42)
+                    StrangeShowImageOnExamineUS(no);
+                break;
+            default:
+                break;
         }
     }
 

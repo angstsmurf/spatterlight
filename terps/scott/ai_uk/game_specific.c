@@ -591,3 +591,102 @@ void CountShowImageOnExamineUS(int noun)
         }
     }
 }
+
+void AdventurelandShowImageOnExamineUS(int noun) {
+
+//case 1:
+//    /* BOOM */
+//    image = 36;
+//    break;
+//case 2:
+//    /* Genie */
+//    image = 34;
+//    break;
+//case 3:
+//    /* Dragon */
+//    image = 33;
+//    break;
+//case 4:
+//    /* White Ox */
+//    image = 35;
+//    break;
+
+    int image = -1;
+    switch (noun) {
+        case 48: /* Genie */
+            image = 0;
+            break;
+        case 23: /* Bees */
+            if (Items[24].Location == CARRIED || Items[24].Location == MyLoc)
+                image = 2;
+            break;
+        case 26: /* Flint and steel */
+            if (Items[28].Location == CARRIED || Items[28].Location == MyLoc)
+                image = 3;
+            break;
+        case 10: /* Magic mirror */
+            if (Items[38].Location == CARRIED ||Items[38].Location == MyLoc)
+                image = 5;
+            break;
+        case 46: /* Chiggers */
+            if (Items[42].Location == MyLoc)
+                image = 6;
+            break;
+        case 43: /* Jewelled Fruit */
+            if (Items[46].Location == CARRIED || Items[46].Location == MyLoc)
+                image = 7;
+            break;
+        case 44: /* Blue Ox */
+            if (Items[47].Location == CARRIED || Items[47].Location == MyLoc)
+                image = 8;
+            break;
+        case 39: /* Dragon */
+            if (Items[27].Location == MyLoc)
+                image = 9;
+            break;
+        default:
+            break;
+    }
+
+    if (image >= 0) {
+        if (Graphics)
+            glk_window_clear(Graphics);
+        if (DrawUSRoom(80 + image)) {
+            showing_closeup = 1;
+            if (CurrentSys == SYS_APPLE2)
+                DrawApple2ImageFromVideoMem();
+            Output(sys[HIT_ENTER]);
+            HitEnter();
+        }
+    }
+}
+
+void PirateShowImageOnExamineUS(int noun) {}
+void MissionShowImageOnExamineUS(int noun) {
+    int image = -1;
+    switch (noun) {
+        case 21: // "Security" label
+            if (Items[1].Location == CARRIED || Items[1].Location == MyLoc)
+                image = 7;
+            break;
+        case 50: /* "Visitor" label */
+            if ((Items[7].Location == CARRIED || Items[7].Location == MyLoc) && Items[8].Location != CARRIED && Items[8].Location != MyLoc && Items[41].Location != CARRIED && Items[41].Location != MyLoc)
+                image = 8;
+            break;
+        default:
+            break;
+    }
+
+    if (image >= 0) {
+        if (Graphics)
+            glk_window_clear(Graphics);
+        if (DrawUSRoom(80 + image)) {
+            showing_closeup = 1;
+            if (CurrentSys == SYS_APPLE2)
+                DrawApple2ImageFromVideoMem();
+            Output(sys[HIT_ENTER]);
+            HitEnter();
+        }
+    }
+}
+void StrangeShowImageOnExamineUS(int noun) {}

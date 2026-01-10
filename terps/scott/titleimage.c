@@ -28,10 +28,34 @@ void ResizeTitleImage(void)
     glk_window_clear(Graphics);
 #endif
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
-    pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
+    pixel_size = OptimalPictureSize(graphwidth, graphheight, &optimal_width, &optimal_height);
     x_offset = ((int)graphwidth - (int)optimal_width) / 2;
     right_margin = optimal_width + x_offset;
     y_offset = ((int)graphheight - (int)optimal_height) / 3;
+}
+
+extern uint8_t *screenmem;
+
+#include "common_file_utils.h"
+
+void compare_title_screen_memory(const char *filename) {
+    size_t size;
+    uint8_t *screen_dump =
+    ReadFileIfExists(filename, &size);
+    if (screen_dump == NULL || size == 0) {
+        fprintf(stderr, "Bad file!\n");
+        return;
+    }
+    int error = 0;
+    for (int i = 0; i < SCREEN_MEM_SIZE; i++) {
+        if (screen_dump[i] != screenmem[i]) {
+            fprintf(stderr, "Mismatch at 0x%x: expected 0x%x, got 0x%x\n", i, screen_dump[i], screenmem[i]);
+            error = 1;
+        }
+    }
+    if (error == 0) {
+        fprintf(stderr, "Incredible! All screen data matched!\n");
+    }
 }
 
 void DrawTitleImage(void)
@@ -77,7 +101,18 @@ void DrawTitleImage(void)
     if (DrawUSRoom(99)) {
         ResizeTitleImage();
         glk_window_clear(Graphics);
+        if (USImages->systype == SYS_APPLE2_LINES) {
+            DrawUSRoom(11);
+            compare_title_screen_memory("/Users/administrator/mame/forest.bin");
+            DrawUSRoom(23);
+            DrawUSRoomObject(27);
+            compare_title_screen_memory("/Users/administrator/mame/dragon.bin");
+        }
         DrawUSRoom(99);
+        if (USImages->systype == SYS_APPLE2_LINES) {
+            DrawUSRoomObject(255);
+            compare_title_screen_memory("/Users/administrator/mame/title.bin");
+        }
         if (CurrentSys == SYS_APPLE2)
             DrawApple2ImageFromVideoMem();
         event_t ev;
@@ -91,8 +126,12 @@ void DrawTitleImage(void)
                 ResizeTitleImage();
                 glk_window_clear(Graphics);
                 DrawUSRoom(99);
-                if (CurrentSys == SYS_APPLE2)
+                if (CurrentSys == SYS_APPLE2) {
+                    if (USImages->systype == SYS_APPLE2_LINES) {
+                        DrawUSRoomObject(255);
+                    }
                     DrawApple2ImageFromVideoMem();
+                }
             }
         } while (ev.type != evtype_CharInput);
     }
