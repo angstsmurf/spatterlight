@@ -26,6 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *uuid;
 @property (weak) MarginContainer *container;
 
+@property NSMutableArray<NSNumber *> *closeImagesBefore;
+@property NSMutableArray<NSNumber *> *closeImagesAfter;
+
+@property NSMutableArray<NSNumber *> *closeBreaksBefore;
+@property NSMutableArray<NSNumber *> *closeBreaksAfter;
+
 - (instancetype)initWithImage:(NSImage *)animage
                     alignment:(NSInteger)analign
                        linkId:(NSUInteger)linkId
@@ -39,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)dragMarginImageFrom:(NSTextView *)source event:(NSEvent *)event filename:(NSString *)filename rect:(NSRect)rect;
 
 -(void)cursorUpdate;
+
+- (void)forcedUpdateBounds;
 
 
 @end

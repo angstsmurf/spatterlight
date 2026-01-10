@@ -37,7 +37,10 @@
     if (self) {
         _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
         _bounds = [decoder decodeRectForKey:@"bounds"];
-        recalc = YES;
+        recalc = [decoder decodeBoolForKey:@"recalc"];
+
+        _closeImagesBefore = [decoder decodeObjectOfClasses:[NSSet setWithArray:@[[NSMutableArray class], [NSNumber class]]] forKey:@"closeImagesBefore"];
+        _closeImagesAfter = [decoder decodeObjectOfClasses:[NSSet setWithArray:@[[NSMutableArray class], [NSNumber class]]] forKey:@"closeImagesAfter"];
     }
     return self;
 }
@@ -45,6 +48,10 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
     [encoder encodeRect:_bounds forKey:@"bounds"];
+    [encoder encodeBool:recalc forKey:@"recalc"];
+
+    [encoder encodeObject:_closeImagesBefore forKey:@"closeImagesBefore"];
+    [encoder encodeObject:_closeImagesAfter forKey:@"closeImagesAfter"];
 }
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout {
@@ -53,20 +60,24 @@
     NSRect theline;
 
     if (recalc && _pos != 0) {
+        NSLog(@"FlowBreak recalculating bounds");
         recalc = NO; /* don't infiniloop in here, settle for the first result */
 
         /* force layout and get position of anchor glyph */
-        ourglyph = [layout glyphRangeForCharacterRange:NSMakeRange(_pos, 1)
-                                  actualCharacterRange:&ourline];
-        theline = [layout lineFragmentRectForGlyphAtIndex:ourglyph.location
+//        ourglyph = [layout glyphRangeForCharacterRange:NSMakeRange(_pos, 1)
+//                                  actualCharacterRange:&ourline];
+//        theline = [layout lineFragmentRectForGlyphAtIndex:ourglyph.location
+//                                           effectiveRange:nil];
+        theline = [layout lineFragmentRectForGlyphAtIndex:_pos
                                            effectiveRange:nil];
+
 
         _bounds = NSMakeRect(0, theline.origin.y, FLT_MAX, theline.size.height);
 
         /* invalidate our fake layout *after* we set the bounds ... to avoid
          * infiniloop */
-        [layout invalidateLayoutForCharacterRange:ourline
-                             actualCharacterRange:nil];
+//        [layout invalidateLayoutForCharacterRange:ourline
+//                             actualCharacterRange:nil];
     }
 
     return _bounds;

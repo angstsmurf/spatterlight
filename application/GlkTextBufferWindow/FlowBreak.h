@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSRect bounds;
 @property NSUInteger pos;
 
+@property NSMutableArray<NSNumber *> *closeImagesBefore;
+@property NSMutableArray<NSNumber *> *closeImagesAfter;
+
 @end
 
 NS_ASSUME_NONNULL_END

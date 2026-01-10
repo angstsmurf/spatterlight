@@ -346,6 +346,7 @@
 
     for (MarginImage *mi in ((MarginContainer *)self.textContainer).marginImages) {
         children = [children arrayByAddingObject:mi];
+        NSLog(@"BofferTextView calling boundsWithLayout on marginImage %@", mi.uuid);
         NSRect bounds = [mi boundsWithLayout:self.layoutManager];
         bounds = NSAccessibilityFrameInView(self, bounds);
         bounds.origin.x += self.textContainerInset.width;

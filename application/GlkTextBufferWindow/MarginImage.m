@@ -66,7 +66,12 @@
         _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
         _uuid = [decoder decodeObjectOfClass:[NSString class] forKey:@"uuid"];
         self.accessibilityRoleDescription = [decoder decodeObjectOfClass:[NSString class] forKey:@"accessibilityRoleDescription"];
-        recalc = YES;
+        recalc = [decoder decodeBoolForKey:@"recalc"];
+
+        _closeImagesBefore = [decoder decodeObjectOfClasses:[NSSet setWithArray:@[[NSMutableArray class], [NSNumber class]]] forKey:@"closeImagesBefore"];
+        _closeImagesAfter = [decoder decodeObjectOfClasses:[NSSet setWithArray:@[[NSMutableArray class], [NSNumber class]]] forKey:@"closeImagesAfter"];
+        _closeImagesBefore = [decoder decodeObjectOfClasses:[NSSet setWithArray:@[[NSMutableArray class], [NSNumber class]]] forKey:@"closeBreaksBefore"];
+        _closeImagesAfter = [decoder decodeObjectOfClasses:[NSSet setWithArray:@[[NSMutableArray class], [NSNumber class]]] forKey:@"closeBreaksAfter"];
     }
     return self;
 }
@@ -79,6 +84,12 @@
     [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
     [encoder encodeObject:_uuid forKey:@"uuid"];
     [encoder encodeObject:self.accessibilityRoleDescription forKey:@"accessibilityRoleDescription"];
+    [encoder encodeBool:recalc forKey:@"recalc"];
+
+    [encoder encodeObject:_closeImagesBefore forKey:@"closeImagesBefore"];
+    [encoder encodeObject:_closeImagesAfter forKey:@"closeImagesAfter"];
+    [encoder encodeObject:_closeBreaksBefore forKey:@"closeBreaksBefore"];
+    [encoder encodeObject:_closeBreaksAfter forKey:@"closeBreaksAfter"];
 }
 
 - (NSString *)accessibilityRole {
@@ -86,32 +97,40 @@
 }
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout {
-    NSRect theline;
-    NSSize size = _image.size;
-
+    MarginContainer *newContainer = (MarginContainer *)layout.textContainers.firstObject;
+//    if (newContainer != _container) {
+//        NSLog(@"MarginImage boundsWithLayout: layout.textContainers.firstObject %@ is not equal to _container %@", newContainer, _container);
+//    }
+    if (newContainer)
+        _container = newContainer;
     if (recalc) {
         recalc = NO; /* don't infiniloop in here, settle for the first result */
+        NSRect theline;
+        NSSize size = _image.size;
+//        NSLog(@"MarginImage boundsWithLayout: recalculating");
 
         _bounds = NSZeroRect;
-        NSTextView *textview = _container.textView;
 
-        if (_pos >= textview.textStorage.length) {
-            NSLog(@"MarginImage boundsWithLayout: _pos: %ld textStorage.length: %ld", _pos, textview.textStorage.length);
+        if (_pos >= layout.textStorage.length) {
+//            NSLog(@"MarginImage boundsWithLayout: _pos: %ld textStorage.length: %ld", _pos, layout.textStorage.length);
             return NSZeroRect;
         }
 
-        /* get position of anchor glyph */
-        theline = [layout lineFragmentRectForGlyphAtIndex:_pos
-                                           effectiveRange:nil];
+        NSTextStorage *storage = layout.textStorage;
+//        NSLog(@"textStorage.length: %ld", storage.length);
 
-        NSParagraphStyle *para = [textview.textStorage attribute:NSParagraphStyleAttributeName atIndex:_pos effectiveRange:nil];
+        /* get position of anchor glyph */
+        NSRange dummyrange = NSMakeRange(0, 0);
+        theline = [layout lineFragmentRectForGlyphAtIndex:_pos
+                                           effectiveRange:&dummyrange];
+
+        NSParagraphStyle *para = [layout.textStorage attribute:NSParagraphStyleAttributeName atIndex:_pos effectiveRange:nil];
         theline.origin.y += para.paragraphSpacingBefore;
 
         /* set bounds to be at the same line as anchor but in left/right margin
          */
         if (_glkImgAlign == imagealign_MarginRight) {
-            CGFloat rightMargin = textview.frame.size.width -
-                                  textview.textContainerInset.width * 2 -
+            CGFloat rightMargin = _container.containerSize.width -
                                   _container.lineFragmentPadding;
             _bounds = NSMakeRect(rightMargin - size.width, theline.origin.y,
                                  size.width, size.height);
@@ -125,15 +144,62 @@
                 NSMakeRect(theline.origin.x + _container.lineFragmentPadding,
                            theline.origin.y, size.width, size.height);
         }
+        NSLog(@"MarginImage boundsWithLayout: Adjusted bounds to %@", NSStringFromRect(_bounds));
     }
 
-    [_container unoverlap:self];
+//    if (_container.marginImages.count < 20) {
+//        [_container unoverlap:self];
+//    }
     return _bounds;
 }
 
 - (void)uncacheBounds {
     recalc = YES;
-//    _bounds = NSZeroRect;
+    _bounds = NSZeroRect;
+}
+
+- (void)forcedUpdateBounds {
+
+    NSRect theline;
+    NSLayoutManager *layout = _container.layoutManager;
+    NSSize size = _image.size;
+    NSLog(@"MarginImage boundsWithLayout: recalculating");
+
+    _bounds = NSZeroRect;
+    NSTextView *textview = _container.textView;
+
+    if (_pos >= textview.textStorage.length) {
+        NSLog(@"MarginImage boundsWithLayout: _pos: %ld textStorage.length: %ld", _pos, textview.textStorage.length);
+        return;
+    }
+
+    /* get position of anchor glyph */
+    theline = [layout lineFragmentRectForGlyphAtIndex:_pos
+                                       effectiveRange:nil];
+    NSLog(@"MarginImage boundsWithLayout: lineFragmentRectForGlyphAtIndex %ld: %@", _pos, NSStringFromRect(theline));
+
+
+    NSParagraphStyle *para = [textview.textStorage attribute:NSParagraphStyleAttributeName atIndex:_pos effectiveRange:nil];
+    theline.origin.y += para.paragraphSpacingBefore;
+
+    /* set bounds to be at the same line as anchor but in left/right margin
+     */
+    if (_glkImgAlign == imagealign_MarginRight) {
+        CGFloat rightMargin = textview.frame.size.width -
+        textview.textContainerInset.width * 2 -
+        _container.lineFragmentPadding;
+        _bounds = NSMakeRect(rightMargin - size.width, theline.origin.y,
+                             size.width, size.height);
+
+        // If the above places the image outside margin, move it within
+        if (NSMaxX(_bounds) > rightMargin) {
+            _bounds.origin.x = rightMargin - size.width;
+        }
+    } else {
+        _bounds =
+        NSMakeRect(theline.origin.x + _container.lineFragmentPadding,
+                   theline.origin.y, size.width, size.height);
+    }
 }
 
 -(void)cursorUpdate {

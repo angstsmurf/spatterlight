@@ -3609,12 +3609,9 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
                 checksumWidth = sizewin->gamewidth;
                 checksumHeight = sizewin->gameheight;
 
-                if (fabs(checksumWidth - _gameView.frame.size.width) > 1.0) {
-                    free(sizewin);
-                    break;
-                }
-
-                if (fabs(checksumHeight - _gameView.frame.size.height) > 1.0) {
+                if (fabs(checksumWidth - _gameView.frame.size.width) > 1.0 ||
+                    fabs(checksumHeight - _gameView.frame.size.height) > 1.0) {
+                    NSLog(@"GlkController handleRequest: SIZWIN: interpreter is confused about window size. Bailing.");
                     free(sizewin);
                     break;
                 }
@@ -4000,8 +3997,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 //            It can also update any inline images.
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
                 reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:_bufferStyleHints];
-                if (req->a2 > 0)
-                    [((GlkTextBufferWindow *)reqWin) updateImageAttachmentsWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
+//                if (req->a2 > 0)
+//                    [((GlkTextBufferWindow *)reqWin) updateImageAttachmentsWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
             } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
                 reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:_gridStyleHints];
             } else {
