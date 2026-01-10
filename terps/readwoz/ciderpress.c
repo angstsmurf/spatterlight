@@ -14,6 +14,7 @@
 #include <ctype.h>
 
 #include "debugprint.h"
+#include "ciderpress.h"
 
 //#define NIB_VERBOSE_DEBUG
 
@@ -395,6 +396,16 @@ typedef enum { kInitUnknown = 0, kInitHeaderOnly, kInitFull } InitMode;
 static void *MemAlloc(size_t size)
 {
     void *t = (void *)malloc(size);
+    if (t == NULL) {
+        fprintf(stderr, "Out of memory\n");
+        exit(1);
+    }
+    return (t);
+}
+
+static void *MemRealloc(void *ptr, size_t size)
+{
+    void *t = (void *)realloc(ptr, size);
     if (t == NULL) {
         fprintf(stderr, "Out of memory\n");
         exit(1);
@@ -2456,7 +2467,7 @@ static A2File *find_SAGA_database(void)
         if (strcmp("THE INCREDIBLE HULK", name) == 0)
             break;
         if (name[0] == 'A' && name[2] == '.' && name[3] == 'D' && name[4] == 'A' && name[5] == 'T') {
-            break; //A(adventure number).DAT
+            break; // A(adventure number).DAT
         }
         file = file->next;
     }
@@ -2519,12 +2530,58 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
     return buf;
 }
 
+
 A2File* GetNextFile(A2File *pFile)
 {
     if (pFile == NULL)
         return firstfile;
     else
         return pFile->next;
+}
+
+
+A2FileRec *GetAllApple2DOSFiles(uint8_t *data, size_t len, size_t *number_of_files)
+{
+    rawdata = data;
+    rawdatalen = len;
+
+    A2FileRec *recs = malloc(sizeof(A2FileRec));
+    A2FileRec *rec = recs;
+    ReadVTOC();
+    ReadCatalog();
+    A2File *file = GetNextFile(NULL);
+    int filecount = 0;
+    while (file) {
+        Open(file);
+        if (file->fLengthInSectors) {
+            size_t namelen = strnlen((char *)file->fFileName, kFileNameBufLen) + 1;
+            if (namelen) {
+                filecount++;
+                if (filecount > 1) {
+                    recs = MemRealloc(recs, sizeof(A2FileRec) * filecount);
+                    rec = &recs[filecount - 1];
+                }
+                rec->index = filecount - 1;
+                rec->filename = MemAlloc(namelen);
+                strncpy(rec->filename, (char *)file->fFileName, namelen);
+                rec->filename[namelen - 1] = 0;
+//                fprintf(stderr, "Extracted Apple 2 file named \"%s\"\n", rec->filename);
+                uint8_t *temp = MemAlloc(file->fLengthInSectors * kSectorSize);
+                Read(file, temp, (file->fLengthInSectors - 1) * kSectorSize, &rec->datasize);
+                rec->data = MemAlloc(rec->datasize);
+                memcpy(rec->data, temp, rec->datasize);
+                free(temp);
+            }
+        }
+        file = GetNextFile(file);
+    }
+    *number_of_files = filecount;
+    if (filecount == 0) {
+        free(recs);
+        recs = NULL;
+    }
+
+    return recs;
 }
 
 /*

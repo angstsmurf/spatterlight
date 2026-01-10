@@ -8,13 +8,11 @@
 #ifndef line_drawing_h
 #define line_drawing_h
 
-struct line_image {
+typedef struct {
     uint8_t *data;
     int bgcolour;
     size_t size;
-};
-
-typedef struct line_image line_image;
+} line_image;
 
 void DrawVectorPicture(int image);
 void DrawSomeVectorPixels(int from_start);

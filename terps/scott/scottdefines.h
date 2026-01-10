@@ -123,13 +123,15 @@ typedef enum {
     SYS_C64,
     SYS_ATARI8,
     SYS_APPLE2,
-    SYS_TI994A
+    SYS_TI994A,
+    SYS_APPLE2_LINES
 } MachineType;
 
 typedef enum {
     IMG_ROOM,
     IMG_ROOM_OBJ,
-    IMG_INV_OBJ
+    IMG_INV_OBJ,
+    IMG_INV_AND_ROOM_OBJ
 } USImageType;
 
 typedef enum {

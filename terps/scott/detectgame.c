@@ -407,7 +407,7 @@ void LoadVectorData(GameInfo info, uint8_t *ptr)
     else if (SeekIfNeeded(info.start_of_image_data, &offset, &ptr) == 0)
         return;
 
-    LineImages = MemAlloc(info.number_of_rooms * sizeof(struct line_image));
+    LineImages = MemAlloc(info.number_of_rooms * sizeof(line_image));
     int ct = 0;
     line_image *lp = LineImages;
     uint8_t byte = *(ptr++);

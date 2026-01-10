@@ -11,8 +11,6 @@
 #include "scottdefines.h"
 
 void HulkShowImageOnExamine(int noun);
-void CountShowImageOnExamineUS(int noun);
-void VoodooShowImageOnExamineUS(int noun);
 void HulkLook(void);
 void InventoryUS(void);
 void DrawHulkImage(int p);

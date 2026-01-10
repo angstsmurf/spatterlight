@@ -143,7 +143,7 @@ void PrintMessage(int index);
 void PlayerIsDead(void);
 void UpdateSettings(void);
 void OpenTopWindow(void);
-glui32 OptimalPictureSize(glui32 *width, glui32 *height);
+glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight);
 void SetDark(void);
 void SetLight(void);
 void SetBitFlag(int bit);
