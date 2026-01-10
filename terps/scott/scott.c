@@ -2274,7 +2274,6 @@ static ExplicitResultType PerformActions(int vb, int no)
                     VoodooShowImageOnExamineUS(no);
                 break;
             case ADVENTURELAND_US:
-                fprintf(stderr, "vb:%d no:%d\n", vb, no);
                 if (vb == 29)
                     AdventurelandShowImageOnExamineUS(no);
                 break;

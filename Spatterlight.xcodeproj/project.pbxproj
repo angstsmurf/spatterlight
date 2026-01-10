@@ -588,7 +588,6 @@
 		C344B2CC26E4DA87004B0A8F /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */; };
 		C344B2CD26E4DA87004B0A8F /* SFBAudioEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3484A7C2F105FF1003D6B4C /* writetiff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C384A6812C6EB06C0081FC50 /* writetiff.cpp */; };
-		C3484A802F106050003D6B4C /* writetiff.c in Sources */ = {isa = PBXBuildFile; fileRef = C3484A7F2F106050003D6B4C /* writetiff.c */; };
 		C349B4DC28803A7C00D99943 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C349B4DA28803A7C00D99943 /* parseinput.c */; };
 		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		C34E570F2CF3941200A8DC2B /* OpenGameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */; };
@@ -2894,8 +2893,6 @@
 		C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vmuni_cs.cpp; path = ../glk/vmuni_cs.cpp; sourceTree = "<group>"; };
 		C343E49F1ECC67C8000F15B6 /* t2askf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = t2askf.c; path = glk/t2askf.c; sourceTree = "<group>"; };
 		C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
-		C3484A7E2F106046003D6B4C /* writetiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = writetiff.h; sourceTree = "<group>"; };
-		C3484A7F2F106050003D6B4C /* writetiff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = writetiff.c; sourceTree = "<group>"; };
 		C349B4DA28803A7C00D99943 /* parseinput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parseinput.c; sourceTree = "<group>"; };
 		C349B4DB28803A7C00D99943 /* parseinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parseinput.h; sourceTree = "<group>"; };
 		C34DF53F26A1FFDE007AD7D3 /* IFZoomID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFZoomID.h; sourceTree = "<group>"; };
@@ -5771,8 +5768,6 @@
 				C36797D12EF0415B008A6A0D /* c64a8draw.c */,
 				C3F27EF02EF6037B00B7D716 /* pcdraw.h */,
 				C36797D32EF0415B008A6A0D /* pcdraw.c */,
-				C3484A7E2F106046003D6B4C /* writetiff.h */,
-				C3484A7F2F106050003D6B4C /* writetiff.c */,
 			);
 			path = common_sagadraw;
 			sourceTree = "<group>";
@@ -8162,7 +8157,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3484A802F106050003D6B4C /* writetiff.c in Sources */,
 				C36797D72EF0415B008A6A0D /* c64a8draw.c in Sources */,
 				C36797D82EF0415B008A6A0D /* pcdraw.c in Sources */,
 				C36797D92EF0415B008A6A0D /* apple2draw.c in Sources */,

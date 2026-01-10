@@ -14,7 +14,7 @@ extern "C" {
 #include "draw_apple_2.h"
 #include "decompress_amiga.hpp"
 #include "decompress_vga.hpp"
-#include "writetiff.h"
+#include "writetiff.hpp"
 #include "memory.h"
 #include "util.h"
 #include "zterp.h"
