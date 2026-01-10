@@ -60,14 +60,12 @@ void HPOSN(uint16_t xpos, uint8_t ypos, pixelpos_ctx *ctx)
     return;
 }
 
-typedef uint8_t byte;
-
 typedef struct {
     uint8_t CURRENT_Y;
     uint8_t STARTING_Y;
     uint16_t STARTING_X;
-    uint8_t FILL_PATTERN_EVEN;
-    uint8_t FILL_PATTERN_ODD;
+    uint8_t PATTERN_EVEN;
+    uint8_t PATTERN_ODD;
     uint8_t FILL_COLOR;
     uint16_t SCREEN_OFFSET;
     uint16_t HBAS;
@@ -79,51 +77,10 @@ typedef struct {
     uint8_t SCRBYTE;
     uint8_t HORIZ_PIXELS;
     uint8_t SHAPE_OFFSET;
-    uint8_t SHAPE;
+    Shape SHAPE;
 } flood_fill_ctx;
 
-
-void compare_screen_memory(void) {
-    size_t size;
-    uint8_t *screen_dump =
-    ReadFileIfExists("/Users/administrator/mame/screen.bin", &size);
-    if (screen_dump == NULL || size == 0) {
-        fprintf(stderr, "Bad file!\n");
-        return;
-    }
-    int error = 0;
-    for (int i = 0; i < SCREEN_MEM_SIZE; i++) {
-        if (screen_dump[i] != screenmem[i]) {
-            fprintf(stderr, "Mismatch at 0x%x: expected 0x%x, got 0x%x\n", i, screen_dump[i], screenmem[i]);
-            error = 1;
-        }
-    }
-    if (error == 0) {
-        fprintf(stderr, "Incredible! All screen data matched!\n");
-    }
-}
-
-void wait_for_key(void) {
-    glk_cancel_char_event(Graphics);
-    glk_request_char_event(Graphics);
-    event_t ev;
-    int result = 0;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            if (ev.val1 == keycode_Return) {
-                result = 1;
-            } else if (ev.val1 == 'c') {
-                compare_screen_memory();
-                glk_request_char_event(Graphics);
-            } else {
-                glk_request_char_event(Graphics);
-            }
-        }
-    } while (result == 0);
-}
-
-uint16_t GET_SCREEN_ADDRESS(flood_fill_ctx *ctx)
+static uint16_t GET_SCREEN_ADDRESS(flood_fill_ctx *ctx)
 {
     ctx->HBAS = CALC_APPLE2_ADDRESS(ctx->CURRENT_Y);
     return ctx->HBAS;
@@ -132,7 +89,7 @@ uint16_t GET_SCREEN_ADDRESS(flood_fill_ctx *ctx)
 uint8_t opcodes[1024];
 
 
-bool GET_COLOR(flood_fill_ctx *ctx)
+static bool GET_COLOR(flood_fill_ctx *ctx)
 {
     uint8_t bVar1;
     uint8_t bVar2;
@@ -161,11 +118,9 @@ bool GET_COLOR(flood_fill_ctx *ctx)
     return false;
 }
 
-int largest_mask_offset = 0;
+static const uint8_t FILL_COLOR_ARRAY_9054[128] =  { 0x00, 0x00, 0x00, 0x00, 0x55, 0x2A, 0x55, 0x2A, 0x2A, 0x55, 0x2A, 0x55, 0x7F, 0x7F, 0x7F, 0x7F, 0x80, 0x80, 0x80, 0x80, 0xD5, 0xAA, 0xD5, 0xAA, 0xAA, 0xD5, 0xAA, 0xD5, 0xFF, 0xFF, 0xFF, 0xFF, 0x33, 0x66, 0x4C, 0x19, 0xB3, 0xE6, 0xCC, 0x99, 0x4C, 0x19, 0x33, 0x66, 0xCC, 0x99, 0xB3, 0xE6, 0x11, 0x22, 0x44, 0x08, 0x91, 0xA2, 0xC4, 0x88, 0x44, 0x08, 0x11, 0x22, 0xC4, 0x88, 0x91, 0xA2, 0x22, 0x44, 0x08, 0x11, 0xA2, 0xC4, 0x88, 0x91, 0x08, 0x11, 0x22, 0x44, 0x88, 0x91, 0xA2, 0xC4, 0xC9, 0xA4, 0x92, 0x89, 0x24, 0x12, 0x49, 0x24, 0x77, 0x6E, 0x5D, 0x3B, 0xF7, 0xEE, 0xDD, 0xBB, 0x5D, 0x3B, 0x77, 0x6E, 0xDD, 0xBB, 0xF7, 0xEE, 0x6E, 0x5D, 0x3B, 0x77, 0xEE, 0xDD, 0xBB, 0xF7, 0x3B, 0x77, 0x6E, 0x5D, 0xBB, 0xF7, 0xEE, 0xDD, 0xA9, 0x00, 0x8D, 0x53, 0x8F, 0xAD, 0x56, 0x8F };
 
-const uint8_t FILL_COLOR_ARRAY_9054[128] =  { 0x00, 0x00, 0x00, 0x00, 0x55, 0x2A, 0x55, 0x2A, 0x2A, 0x55, 0x2A, 0x55, 0x7F, 0x7F, 0x7F, 0x7F, 0x80, 0x80, 0x80, 0x80, 0xD5, 0xAA, 0xD5, 0xAA, 0xAA, 0xD5, 0xAA, 0xD5, 0xFF, 0xFF, 0xFF, 0xFF, 0x33, 0x66, 0x4C, 0x19, 0xB3, 0xE6, 0xCC, 0x99, 0x4C, 0x19, 0x33, 0x66, 0xCC, 0x99, 0xB3, 0xE6, 0x11, 0x22, 0x44, 0x08, 0x91, 0xA2, 0xC4, 0x88, 0x44, 0x08, 0x11, 0x22, 0xC4, 0x88, 0x91, 0xA2, 0x22, 0x44, 0x08, 0x11, 0xA2, 0xC4, 0x88, 0x91, 0x08, 0x11, 0x22, 0x44, 0x88, 0x91, 0xA2, 0xC4, 0xC9, 0xA4, 0x92, 0x89, 0x24, 0x12, 0x49, 0x24, 0x77, 0x6E, 0x5D, 0x3B, 0xF7, 0xEE, 0xDD, 0xBB, 0x5D, 0x3B, 0x77, 0x6E, 0xDD, 0xBB, 0xF7, 0xEE, 0x6E, 0x5D, 0x3B, 0x77, 0xEE, 0xDD, 0xBB, 0xF7, 0x3B, 0x77, 0x6E, 0x5D, 0xBB, 0xF7, 0xEE, 0xDD, 0xA9, 0x00, 0x8D, 0x53, 0x8F, 0xAD, 0x56, 0x8F };
-
-void PLOT_FILL_COLOR(flood_fill_ctx *ctx) {
+static void PLOT_FILL_COLOR(flood_fill_ctx *ctx) {
     uint16_t offset = ((ctx->COLUMN & 3) | ctx->HORIZ_PIXELS);
     uint8_t color_mask = FILL_COLOR_ARRAY_9054[offset];
     ctx->OLD_COLOR_VALUE = (ctx->OLD_COLOR_VALUE ^ ctx->SCRBYTE) & 0x7f;
@@ -173,7 +128,7 @@ void PLOT_FILL_COLOR(flood_fill_ctx *ctx) {
     ctx->OLD_COLOR_VALUE;
 }
 
-void divide_and_modulo(flood_fill_ctx *ctx) {
+static void divide_and_modulo(flood_fill_ctx *ctx) {
     ctx->PREVIOUS_COLUMN = ctx->STARTING_X / 7;
     ctx->NUMBITS = ctx->STARTING_X % 7;
 }
@@ -201,184 +156,255 @@ static const uint8_t ARRAY_8f7c[256] = {
     0x7F, 0x7F, 0x7F, 0x7F, 0x80, 0x80, 0x80, 0x80, 0xD5, 0xAA, 0xD5, 0xAA,
     0xAA, 0xD5, 0xAA, 0xD5, 0xFF, 0xFF, 0xFF, 0xFF, 0x33, 0x66};
 
-int largest_offset = 0;
 
-void FLOOD_FILL(flood_fill_ctx *ctx)
+/* Helper: rotate value left `times` iterations, propagating carry.
+ * On each iteration:
+ *   new_carry = (value >> 7) & 1;
+ *   value = (value << 1) | (carry ? 1 : 0);
+ *   carry = new_carry;
+ *
+ * `times` may be 0. `carry` is updated in-place.
+ */
+static inline bool rotate_left_with_carry(uint8_t *value, bool *carry, int times)
 {
-    uint8_t bVar1;
-    uint8_t count;
-    uint8_t bVar3;
-    int8_t cVar4;
-    uint8_t bVar5;
-    bool bVar6;
-    bool bVar7 = 0;
-    uint8_t bVar8;
-    uint8_t carry;
-    uint8_t current_pixel;
-    uint8_t DAT_8f5c;
-    uint8_t DAT_9360;
-    uint8_t DAT_9361;
-    uint8_t DAT_9362;
+    uint8_t v = *value;
+    bool new_c = v >> 7;
+    if (times <= 0) return new_c;
+    bool c = *carry;
+    for (int i = 0; i < times; i++) {
+        new_c = (v >> 7) & 1;
+        v = (uint8_t)(v << 1) | (c ? 1u : 0u);
+        c = new_c;
+    }
+    *value = v;
+    *carry = c;
+    return new_c;
+}
 
-    ctx->FILL_PATTERN_EVEN = ARRAY_8f7c[(uint8_t)(ctx->FILL_COLOR * 2)];
-    ctx->FILL_PATTERN_ODD = ARRAY_8f7c[(uint8_t)(ctx->FILL_COLOR * 2 + 1)];
+/* Helper: rotate value right `times` iterations, propagating carry.
+ * On each iteration:
+ *   new_carry = value & 1;
+ *   value = (value >> 1) | (carry ? 0x80 : 0);
+ *   carry = new_carry;
+ */
+static inline bool rotate_right_with_carry(uint8_t *value, bool *carry, int times)
+{
+    uint8_t v = *value;
+    bool new_c = v & 1;
+    if (times <= 0) return new_c;
+
+    bool c = *carry;
+    for (int i = 0; i < times; i++) {
+        bool new_c = v & 1;
+        v = (uint8_t)(v >> 1) | (c ? 0x80u : 0u);
+        c = new_c;
+    }
+    *value = v;
+    *carry = c;
+    return new_c;
+}
+
+static void FLOOD_FILL(flood_fill_ctx *ctx)
+{
+    uint8_t loop_count;
+    uint8_t temp_count;
+    uint8_t screen_val;
+    int8_t chosen_pattern_char;
+    bool carry_flag;
+    bool msb_flag = 0;
+    bool carry;
+    uint8_t tmp_bit;
+    uint8_t seed_pixel;
+    uint8_t has_more_pixels;
+    uint8_t rightmost_column;
+    uint8_t left_shift_count;
+    uint8_t right_shift_count;
+
+    ctx->PATTERN_EVEN = ARRAY_8f7c[(uint8_t)(ctx->FILL_COLOR * 2)];
+    ctx->PATTERN_ODD = ARRAY_8f7c[(uint8_t)(ctx->FILL_COLOR * 2 + 1)];
 
     divide_and_modulo(ctx);
-    bVar1 = ctx->NUMBITS;
+    uint8_t work_byte = ctx->NUMBITS;
+
+    /*
+     * Find the first seed row: move upward from STARTING_Y until we find a
+     * scanline that is inside the region to be filled (GET_COLOR == false),
+     * or we reach the top. This mirrors the original upward search.
+     */
     do {
-        // Move upwards, line by line, until we find a pixel
-        // that is not white, or reach the top.
         if (ctx->CURRENT_Y == 0)
-            goto LAB_91d6;
-        bVar1 = 0;
+            goto AT_TOP;
+        work_byte = 0;
         ctx->CURRENT_Y--;
     } while (GET_COLOR(ctx));
-look_down:
-    // Move downwards, line by line, until we find a pixel
-    // that is not white, or reach the bottom.
-    bVar1 = ctx->CURRENT_Y + 1;
-    if (bVar1 != 192) {
-    LAB_91d6:
-        ctx->CURRENT_Y = bVar1;
-        if (GET_COLOR(ctx)) {
-            DAT_9361 = 0;
-            DAT_9362 = 0;
-            cVar4 = ctx->FILL_PATTERN_ODD;
-            if ((ctx->CURRENT_Y & 1) == 0) {
-                cVar4 = (char)ctx->FILL_PATTERN_EVEN;
-            }
-            ctx->HORIZ_PIXELS = cVar4 * 4;
-            bVar5 = 6 - ctx->NUMBITS;
-            bVar1 = ctx->OLD_COLOR_VALUE;
-            bVar6 = (((ctx->NUMBITS & (bVar5 | 0xf9)) | (bVar5 & 0xf9)) & 0x80) != 0;
-            for (int i = 0; i <= bVar5; i++) {
-                bVar7 = (bool)(bVar1 >> 7); // Store bit 7 of bVar1
-                // Shift bVar6 into bit 0
-                bVar1 = bVar1 << 1 | bVar6;
-                bVar6 = bVar7;
-            }
-            while( true ) {
-                if ((int8_t)bVar5 <= 0) goto LAB_9221;
-                if (bVar7 == false) break;
-                count = bVar7 << 7;
-                bVar7 = (bool)(bVar1 & 1);
-                bVar1 = (bVar1 >> 1) | count;
-                bVar5--;
-            }
-            bVar1 >>= bVar5;
-            DAT_9361 = bVar5;
-        LAB_9221:
-            carry = bVar1 & 1;
-            bVar5 = bVar1 >> 1;
 
-            ctx->SCRBYTE = bVar5;
-            for (int i = 0; i < ctx->NUMBITS; i++) {
-                bVar1 = ctx->SCRBYTE;
-                uint8_t next_carry = ctx->SCRBYTE & 1;
-                ctx->SCRBYTE = ctx->SCRBYTE / 2 + (carry * 0x80);
-                carry = next_carry;
+SCAN_DOWN:
+    /*
+     * Move downward from the found row until we find the first eligible row
+     * (GET_COLOR == true) or reach the bottom. This establishes the seed
+     * scanline for the fill.
+     */
+    work_byte = ctx->CURRENT_Y + 1;
+    if (work_byte != 192) {
+    AT_TOP:
+        ctx->CURRENT_Y = work_byte;
+        if (GET_COLOR(ctx)) {
+            left_shift_count = 0;
+            right_shift_count = 0;
+
+            // Choose odd/even pattern for this row
+            chosen_pattern_char = (ctx->CURRENT_Y & 1) == 0 ?
+            ctx->PATTERN_EVEN : ctx->PATTERN_ODD;
+
+            // HORIZ_PIXELS encodes which pattern alignment to use for table lookup
+            ctx->HORIZ_PIXELS = chosen_pattern_char * 4;
+
+            // Prepare a working byte based on the existing screen byte and NUMBITS
+            // bVar5 in original code = 6 - NUMBITS
+            screen_val = 6 - ctx->NUMBITS;
+            work_byte = ctx->OLD_COLOR_VALUE;
+
+            carry_flag = 0;
+
+            /* Rotate work_byte left `temp_count` times with carry propagation */
+            msb_flag = rotate_left_with_carry(&work_byte, &carry_flag, screen_val + 1);
+
+            /* If after rotation there are leading zeroes, shift them out */
+            while( true ) {
+                if ((int8_t)screen_val <= 0) goto PREP_SCRBYTE;
+                if (msb_flag == false) break;
+                loop_count = msb_flag << 7;
+                msb_flag = (bool)(work_byte & 1);
+                work_byte = (work_byte >> 1) | loop_count;
+                screen_val--;
             }
-            bVar1 &= 1;
-            for (bVar5 = ctx->NUMBITS; bVar5 > 0; bVar5--) {
-                count = bVar5;
-                if (bVar1 == 0) goto LAB_923d;
-                count = ctx->SCRBYTE >> 7;
-                ctx->SCRBYTE = ctx->SCRBYTE * 2 + 1;
-                bVar1 = count;
+            work_byte >>= screen_val;
+            left_shift_count = screen_val;
+
+        PREP_SCRBYTE:
+            carry = work_byte & 1;
+            screen_val = work_byte >> 1;
+
+            /* Set SCRBYTE to the right-aligned 7-bit chunk for the starting X */
+            ctx->SCRBYTE = screen_val;
+            rotate_right_with_carry(&ctx->SCRBYTE, &carry, ctx->NUMBITS);
+
+            work_byte = 1;
+            for (screen_val = ctx->NUMBITS; screen_val > 0; screen_val--) {
+                if (work_byte == 0) {
+                    loop_count = screen_val;
+                    goto SCRBYTE_SHIFTED_LEFT;
+                }
+                work_byte = ctx->SCRBYTE >> 7;
+                ctx->SCRBYTE = ctx->SCRBYTE << 1 | 1;
             }
-            goto LAB_9242;
+            goto SCRBYTE_DONE;
         }
     }
     return;
-LAB_923d:
-    ctx->SCRBYTE <<= count;
-    DAT_9362 = bVar5;
-LAB_9242:
-    current_pixel = ctx->SCRBYTE & 1;
-    DAT_8f5c = ((ctx->SCRBYTE & 0x40) != 0);
+
+SCRBYTE_SHIFTED_LEFT:
+    ctx->SCRBYTE <<= loop_count;
+    right_shift_count = screen_val;
+SCRBYTE_DONE:
+    seed_pixel = ctx->SCRBYTE & 1;
+    has_more_pixels = ((ctx->SCRBYTE & 0x40) != 0);
+
+    /* Start painting at the initial column */
     ctx->COLUMN = ctx->PREVIOUS_COLUMN;
     PLOT_FILL_COLOR(ctx);
-    bVar1 = ctx->COLUMN + 1; // Proceed to the right
-    while (DAT_8f5c != 0 && bVar1 < 40) {
-        bVar6 = false;
-        ctx->SCREEN_OFFSET = ctx->HBAS + bVar1;
+
+    /* Expand to the right while there are more pixels set and columns remain */
+    work_byte = ctx->COLUMN + 1;
+    while (has_more_pixels != 0 && work_byte < 40) {
+        bool bit0_flag = false;
+        ctx->SCREEN_OFFSET = ctx->HBAS + work_byte;
         ctx->OLD_COLOR_VALUE = screenmem[ctx->SCREEN_OFFSET];
-        count = 8;
-        bVar5 = ctx->OLD_COLOR_VALUE;
-        uint8_t bit0 = bVar6;
-        do {
-            bVar3 = bit0 << 7;
-            bit0 = (bVar5 & 1);
-            bVar5 = bVar5 >> 1 | bVar3;
-            if (--count == 0) goto LAB_92a4;
-            bVar3 = count;
-        } while (bit0);
+        loop_count = 8;
+        screen_val = ctx->OLD_COLOR_VALUE;
+        uint8_t rotating_bit = bit0_flag;
 
-        bVar5 >>= bVar3;
-        DAT_8f5c = 0;
-        DAT_9361 = count;
-    LAB_92a4:
-        ctx->SCRBYTE = bVar5 >> 1;
-        ctx->COLUMN = bVar1;
+        /* Rotate the screen byte right until we find a 0 bit or run out */
+        do {
+            temp_count = rotating_bit << 7;
+            rotating_bit = (screen_val & 1);
+            screen_val = screen_val >> 1 | temp_count;
+            if (--loop_count == 0) goto AFTER_RIGHT_SCAN;
+        } while (rotating_bit);
+
+        temp_count = loop_count;
+        screen_val >>= temp_count;
+        has_more_pixels = 0;
+        left_shift_count = loop_count;
+
+    AFTER_RIGHT_SCAN:
+        ctx->SCRBYTE = screen_val >> 1;
+        ctx->COLUMN = work_byte;
         PLOT_FILL_COLOR(ctx);
-        if (DAT_8f5c != 0)
-            bVar1 = ctx->COLUMN + 1;
+        if (has_more_pixels != 0)
+            work_byte = ctx->COLUMN + 1;
     }
-    DAT_9360 = ctx->COLUMN;
+    rightmost_column = ctx->COLUMN;
+
+    /* Now expand left from the starting spot */
     ctx->COLUMN = ctx->PREVIOUS_COLUMN;
-look_left:
-    // Proceed to the left
-    bVar1 = ctx->COLUMN - 1;
-    if (current_pixel != 0 && (int8_t)bVar1 >= 0) {
-        ctx->SCREEN_OFFSET = ctx->HBAS + bVar1;
-        ctx->OLD_COLOR_VALUE = screenmem[ctx->SCREEN_OFFSET ];
-        bVar3 = 7;
-        bVar5 = ctx->OLD_COLOR_VALUE << 1;
-        count = 0;
+
+LEFT_SCAN:
+    work_byte = ctx->COLUMN - 1;
+    if (seed_pixel != 0 && (int8_t)work_byte >= 0) {
+        ctx->SCREEN_OFFSET = ctx->HBAS + work_byte;
+        if (ctx->SCREEN_OFFSET > MAX_SCREEN_ADDR)
+            return;
+        ctx->OLD_COLOR_VALUE = screenmem[ctx->SCREEN_OFFSET];
+        temp_count = 7;
+        screen_val = ctx->OLD_COLOR_VALUE << 1;
+        loop_count = 0;
+
         do {
-            bVar8 = -((char)bVar5 >> 7);
-            bVar5 = bVar5 << 1 | count;
-            bVar3--;
-            bVar6 = bVar3 == 0;
-            count = bVar3;
-            if (bVar8 == 0) goto LAB_92f5;
-            count = bVar8;
-        } while (bVar3 != 0);
-        goto LAB_9305;
+            tmp_bit = -((char)screen_val >> 7);
+            screen_val = screen_val << 1 | loop_count;
+            temp_count--;
+            if (tmp_bit == 0) {
+                loop_count = temp_count;
+                goto LEFT_SCAN_DONE;
+            }
+            loop_count = tmp_bit;
+        } while (temp_count != 0);
+        goto LEFT_SCAN_EXIT;
     }
-    bVar1 = DAT_9360 - ctx->COLUMN - 1;
-    if ((int8_t)bVar1 < 0) {
-        bVar1 = 7;
+
+    /* If we couldn't expand left further, compute offsets for next seed */
+    work_byte = rightmost_column - ctx->COLUMN - 1;
+    if ((int8_t)work_byte < 0) {
+        work_byte = 7;
     } else {
-        bVar1 = bVar1 * 7 + 14;
+        work_byte = work_byte * 7 + 14;
     }
 
-    bVar1 = (uint8_t)(bVar1 - DAT_9361) - (DAT_9361 > bVar1);
-    bVar1 -= DAT_9362;
-    bVar1 = bVar1 >> 1;
+    work_byte = (uint8_t)(work_byte - left_shift_count) - (left_shift_count > work_byte);
+    work_byte -= right_shift_count;
+    work_byte = work_byte >> 1;
 
-    // Increase HORIZ_8f57 by bVar1 / 7
-    ctx->PREVIOUS_COLUMN = ctx->COLUMN + bVar1 / 7;
-    bVar1 = bVar1 % 7;
+    /* Advance PREVIOUS_COLUMN by (work_byte / 7), set up NUMBITS for next scanline */
+    ctx->PREVIOUS_COLUMN = ctx->COLUMN + work_byte / 7;
+    work_byte = work_byte % 7;
     
-    ctx->NUMBITS = (DAT_9362 + bVar1) % 7;
-    ctx->PREVIOUS_COLUMN += (DAT_9362 + bVar1) / 7;
+    ctx->NUMBITS = (right_shift_count + work_byte) % 7;
+    ctx->PREVIOUS_COLUMN += (right_shift_count + work_byte) / 7;
 
-    goto look_down;
-LAB_92f5:
-    while (!bVar6) {
-        bVar5 <<= 1;
-        bVar8 = 0;
-        bVar6 = (uint8_t)(count - 1) == 0;
-        count--;
-    }
-    current_pixel = 0;
-    DAT_9362 = bVar3;
-LAB_9305:
-    ctx->SCRBYTE = bVar5 << 1 | bVar8;
-    ctx->COLUMN = bVar1;
+    goto SCAN_DOWN;
+
+LEFT_SCAN_DONE:
+    screen_val <<= loop_count;
+    tmp_bit = 0;
+    seed_pixel = 0;
+    right_shift_count = temp_count;
+
+LEFT_SCAN_EXIT:
+    ctx->SCRBYTE = screen_val << 1 | tmp_bit;
+    ctx->COLUMN = work_byte;
     PLOT_FILL_COLOR(ctx);
-    goto look_left;
+    goto LEFT_SCAN;
 }
 
 static const uint8_t shape_array[256] = {
@@ -420,70 +446,72 @@ static const uint8_t shape_array9054[128] = {
     0xA9, 0x00, 0x8D, 0x53, 0x8F, 0xAD, 0x56, 0x8F
 };
 
-void PLOT_SHAPE(flood_fill_ctx *ctx)
+static void rotate_shape_bits(uint8_t shape_bits, uint8_t num_bits, uint8_t *out_a, uint8_t *out_b)
 {
-    uint8_t bVar3;
-    uint8_t bVar4;
-    uint8_t bVar5;
-    uint8_t DAT_9364;
-    uint8_t DAT_9365;
-    uint8_t DAT_9366;
-    uint8_t DAT_9367;
-    uint8_t DAT_94fe;
-    uint8_t DAT_94ff;
+    uint8_t mask1 = 0, mask2 = 0xfe, mask3 = 0;
+    uint8_t bits_to_draw = shape_bits << 1;
+    uint8_t carry = 0;
+    for (int bit = 0; bit < num_bits; bit++) {
+        uint8_t out_bit = bits_to_draw >> 7;
+        bits_to_draw = (bits_to_draw << 1) | carry;
+        carry = mask1 >> 7;
+        mask1 = (mask1 << 1) | out_bit;
+        out_bit = mask2 >> 7;
+        mask2 = (mask2 << 1) | carry;
+        carry = mask3 >> 7;
+        mask3 = (mask3 << 1) | out_bit;
+    }
+    *out_a = (bits_to_draw >> 1) | 0x80;
+    *out_b = (mask1 & 0x7f) | 0x80;
+}
 
-    for (int index = 0; index < 8; index++) {
+static void PLOT_SHAPE(flood_fill_ctx *ctx)
+{
+    for (int row = 0; row < 8; row++) {
         uint16_t address = GET_SCREEN_ADDRESS(ctx) + ctx->PREVIOUS_COLUMN;
-        uint8_t shape_byte = shape_array[ctx->SHAPE_OFFSET + index];
-        DAT_9365 = 0xfe;
-        DAT_9364 = 0;
-        DAT_9366 = 0;
-        bVar3 = shape_byte << 1;
-        bVar4 = 0;
-        for (int i = 0; i < ctx->NUMBITS; i++) {
-            bVar5 = bVar3 >> 7;
-            bVar3 = bVar3 << 1 | bVar4;
-            bVar4 = DAT_9366 >> 7;
-            DAT_9366 = DAT_9366 << 1 | bVar5;
-            bVar5 = DAT_9365 >> 7;
-            DAT_9365 = DAT_9365 << 1 | bVar4;
-            bVar4 = DAT_9364 >> 7;
-            DAT_9364 = DAT_9364 << 1 | bVar5;
-        }
-        DAT_9367 = bVar3 >> 1 | 0x80;
-        DAT_9366 = (DAT_9366 & 0x7f) | 0x80;
-        uint8_t fill_pattern = ctx->FILL_PATTERN_ODD;
-        if ((ctx->CURRENT_Y & 1) == 0) {
-            fill_pattern = ctx->FILL_PATTERN_EVEN;
-        }
+        if ((ctx->SHAPE_OFFSET + row) > sizeof(shape_array))
+            return;
+        uint8_t shape_bits = shape_array[ctx->SHAPE_OFFSET + row];
+
+        uint8_t shape_mask_a, shape_mask_b;
+        rotate_shape_bits(shape_bits, ctx->NUMBITS, &shape_mask_a, &shape_mask_b);
+
+        uint8_t shape_mask_c = shape_mask_a;
+        uint8_t shape_mask_d = shape_mask_b;
+
+        // Choose fill pattern based on row parity
+        uint8_t fill_pattern = (ctx->CURRENT_Y & 1) ? ctx->PATTERN_ODD : ctx->PATTERN_EVEN;
         ctx->HORIZ_PIXELS = fill_pattern << 2;
-        DAT_94fe = DAT_9367;
-        DAT_94ff = DAT_9366;
-        for (int i = 0; i <= 1; i++) {
-            int offset = (i + ctx->PREVIOUS_COLUMN & 3) | ctx->HORIZ_PIXELS;
-            if (i == 0) {
-                DAT_9367 = shape_array9054[offset] & DAT_9367;
-                if (DAT_94fe != 0x80) {
+
+        // Apply shapes and fill to screen memory
+        for (int col_offset = 0; col_offset <= 1; col_offset++) {
+            int fill_offset = (col_offset + ctx->PREVIOUS_COLUMN & 3) | ctx->HORIZ_PIXELS;
+
+            uint8_t fill_mask = shape_array9054[fill_offset];
+
+            if (col_offset == 0) {
+                shape_mask_a &= fill_mask;
+                if (shape_mask_c != 0x80) {
                     screenmem[address] =
-                    ((DAT_94fe | screenmem[address]) ^ DAT_94fe) | DAT_9367;
+                    ((shape_mask_c | screenmem[address]) ^ shape_mask_c) | shape_mask_a;
                 }
             } else {
-                DAT_9366 = shape_array9054[offset] & DAT_9366;
+                shape_mask_b &= fill_mask;
             }
         }
-        if (DAT_94ff != 0x80) {
+        if (shape_mask_d != 0x80) {
             screenmem[address + 1] =
-            ((DAT_94ff | screenmem[address + 1]) ^ DAT_94ff) | DAT_9366;
+            ((shape_mask_d | screenmem[address + 1]) ^ shape_mask_d) | shape_mask_b;
         }
         ctx->CURRENT_Y++;
     }
     ctx->CURRENT_Y--;
 }
 
-void DRAW_SHAPE(flood_fill_ctx *ctx)
+static void DRAW_SHAPE(flood_fill_ctx *ctx)
 {
-    ctx->FILL_PATTERN_EVEN = ARRAY_8f7c[ctx->FILL_COLOR * 2];
-    ctx->FILL_PATTERN_ODD = ARRAY_8f7c[ctx->FILL_COLOR * 2 + 1];
+    ctx->PATTERN_EVEN = ARRAY_8f7c[ctx->FILL_COLOR * 2];
+    ctx->PATTERN_ODD = ARRAY_8f7c[ctx->FILL_COLOR * 2 + 1];
     divide_and_modulo(ctx);
     ctx->SHAPE_OFFSET = ctx->SHAPE << 5;
     PLOT_SHAPE(ctx);
@@ -521,7 +549,7 @@ enum Opcode {
     OPCODE_RESET = 15
 };
 
-void MOVE_LEFT(pixelpos_ctx *ctx) {
+static void MOVE_LEFT(pixelpos_ctx *ctx) {
     if ((ctx->HMASK & 1) == 0) {
         ctx->HMASK = ctx->HMASK >> 1 ^ 0xc0;
         return;
@@ -536,7 +564,7 @@ void MOVE_LEFT(pixelpos_ctx *ctx) {
     }
 }
 
-void MOVE_RIGHT(pixelpos_ctx *ctx) {
+static void MOVE_RIGHT(pixelpos_ctx *ctx) {
     ctx->HMASK = ctx->HMASK << 1 ^ 0x80;
     if ((int8_t)ctx->HMASK < 0) {
         return;
@@ -551,8 +579,7 @@ void MOVE_RIGHT(pixelpos_ctx *ctx) {
     }
 }
 
-
-void MOVE_UP_OR_DOWN(bool down, pixelpos_ctx *ctx) {
+static void MOVE_UP_OR_DOWN(bool down, pixelpos_ctx *ctx) {
     if (down) {
         ctx->HGR_Y++;
         if (ctx->HGR_Y > 191) ctx->HGR_Y = 0;
@@ -563,21 +590,21 @@ void MOVE_UP_OR_DOWN(bool down, pixelpos_ctx *ctx) {
     ctx->HBAS = CALC_APPLE2_ADDRESS(ctx->HGR_Y);
 }
 
-void MOVE_LEFT_OR_RIGHT(bool left, pixelpos_ctx *ctx) {
+static void MOVE_LEFT_OR_RIGHT(bool left, pixelpos_ctx *ctx) {
     if (left)
         MOVE_LEFT(ctx);
     else
         MOVE_RIGHT(ctx);
 }
 
-void put_a2_vector_pixel(pixelpos_ctx *ctx) {
+static void put_a2_vector_pixel(pixelpos_ctx *ctx) {
     uint16_t offset = ctx->HBAS + ctx->HGR_HORIZ;
     if (offset > MAX_SCREEN_ADDR)
         return;
     screenmem[offset] = ((screenmem[offset] ^ ctx->HGR_BITS) & ctx->HMASK) ^ screenmem[offset];
 }
 
-void HGLIN(uint16_t target_x, uint8_t target_y, pixelpos_ctx *ctx)
+static void HGLIN(uint16_t target_x, uint8_t target_y, pixelpos_ctx *ctx)
 {
     bool move_down = target_y > ctx->HGR_Y;
     bool move_left = target_x < ctx->HGR_X;
@@ -613,7 +640,7 @@ void HGLIN(uint16_t target_x, uint8_t target_y, pixelpos_ctx *ctx)
 }
 
 
-void SET_COLOR(uint8_t color_index, pixelpos_ctx *ctx) {
+static void SET_COLOR(uint8_t color_index, pixelpos_ctx *ctx) {
     const uint8_t COLORTBL[8] = {0x00, 0x2a, 0x55, 0x7f, 0x80, 0xaa, 0xd5, 0xff};
     if (color_index < 8) {
         ctx->HGR_COLOR = COLORTBL[color_index];
@@ -622,7 +649,7 @@ void SET_COLOR(uint8_t color_index, pixelpos_ctx *ctx) {
     }
 }
 
-bool doImageOp(uint8_t **outptr, pixelpos_ctx *ctx) {
+static bool doImageOp(uint8_t **outptr, pixelpos_ctx *ctx) {
 
     uint8_t *ptr = *outptr;
     uint8_t opcode;
@@ -756,7 +783,7 @@ size_t writeToFile(const char *name, uint8_t *data, size_t size)
     return result;
 }
 
-void FILL_SCREEN(uint8_t color, pixelpos_ctx *ctx) {
+static void FILL_SCREEN(uint8_t color, pixelpos_ctx *ctx) {
     ctx->HGR_BITS = color;
     for (int i = 0; i < SCREEN_MEM_SIZE; i++) {
         screenmem[i] = ctx->HGR_BITS;
