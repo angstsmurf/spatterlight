@@ -61,7 +61,7 @@ void HPOSN(uint16_t xpos, uint8_t ypos, pixelpos_ctx *ctx)
 }
 
 typedef struct {
-    uint8_t CURRENT_Y;
+    uint8_t LINE;
     uint8_t STARTING_Y;
     uint16_t STARTING_X;
     uint8_t PATTERN_EVEN;
@@ -74,7 +74,7 @@ typedef struct {
     uint8_t PREVIOUS_COLUMN;
     uint8_t OLD_COLOR_VALUE;
     uint8_t NUMBITS;
-    uint8_t SCRBYTE;
+    uint8_t FILLBYTE;
     uint8_t HORIZ_PIXELS;
     uint8_t SHAPE_OFFSET;
     Shape SHAPE;
@@ -82,14 +82,14 @@ typedef struct {
 
 static uint16_t GET_SCREEN_ADDRESS(flood_fill_ctx *ctx)
 {
-    ctx->HBAS = CALC_APPLE2_ADDRESS(ctx->CURRENT_Y);
+    ctx->HBAS = CALC_APPLE2_ADDRESS(ctx->LINE);
     return ctx->HBAS;
 }
 
 uint8_t opcodes[1024];
 
 
-static bool GET_COLOR(flood_fill_ctx *ctx)
+static bool is_pixel_white(flood_fill_ctx *ctx)
 {
     uint8_t bVar1;
     uint8_t bVar2;
@@ -123,12 +123,12 @@ static const uint8_t FILL_COLOR_ARRAY_9054[128] =  { 0x00, 0x00, 0x00, 0x00, 0x5
 static void PLOT_FILL_COLOR(flood_fill_ctx *ctx) {
     uint16_t offset = ((ctx->COLUMN & 3) | ctx->HORIZ_PIXELS);
     uint8_t color_mask = FILL_COLOR_ARRAY_9054[offset];
-    ctx->OLD_COLOR_VALUE = (ctx->OLD_COLOR_VALUE ^ ctx->SCRBYTE) & 0x7f;
-    screenmem[ctx->SCREEN_OFFSET] = ((ctx->SCRBYTE | 0x80) & color_mask) |
+    ctx->OLD_COLOR_VALUE = (ctx->OLD_COLOR_VALUE ^ ctx->FILLBYTE) & 0x7f;
+    screenmem[ctx->SCREEN_OFFSET] = ((ctx->FILLBYTE | 0x80) & color_mask) |
     ctx->OLD_COLOR_VALUE;
 }
 
-static void divide_and_modulo(flood_fill_ctx *ctx) {
+static void calculate_xpos(flood_fill_ctx *ctx) {
     ctx->PREVIOUS_COLUMN = ctx->STARTING_X / 7;
     ctx->NUMBITS = ctx->STARTING_X % 7;
 }
@@ -204,207 +204,221 @@ static inline bool rotate_right_with_carry(uint8_t *value, bool *carry, int time
     return new_c;
 }
 
-static void FLOOD_FILL(flood_fill_ctx *ctx)
+#define APPLE2_SCREEN_HEIGHT 192
+#define APPLE2_SCREEN_WIDTH 40
+
+static bool find_top_seed_row(flood_fill_ctx *ctx)
 {
-    uint8_t loop_count;
-    uint8_t temp_count;
-    uint8_t screen_val;
-    int8_t chosen_pattern_char;
-    bool carry_flag;
-    bool msb_flag = 0;
-    bool carry;
-    uint8_t tmp_bit;
-    uint8_t seed_pixel;
-    uint8_t has_more_pixels;
-    uint8_t rightmost_column;
-    uint8_t left_shift_count;
-    uint8_t right_shift_count;
-
-    ctx->PATTERN_EVEN = ARRAY_8f7c[(uint8_t)(ctx->FILL_COLOR * 2)];
-    ctx->PATTERN_ODD = ARRAY_8f7c[(uint8_t)(ctx->FILL_COLOR * 2 + 1)];
-
-    divide_and_modulo(ctx);
-    uint8_t work_byte = ctx->NUMBITS;
-
-    /*
-     * Find the first seed row: move upward from STARTING_Y until we find a
-     * scanline that is inside the region to be filled (GET_COLOR == false),
-     * or we reach the top. This mirrors the original upward search.
+    /* Move up until we find a pixel that's not white (0xff)
+     * or we hit the top.
      */
     do {
-        if (ctx->CURRENT_Y == 0)
-            goto AT_TOP;
-        work_byte = 0;
-        ctx->CURRENT_Y--;
-    } while (GET_COLOR(ctx));
+        if (ctx->LINE == 0)
+            return false; /* Found no non-white pixels */
+        ctx->LINE--;
+    } while (is_pixel_white(ctx));
+    return true;
+}
 
-SCAN_DOWN:
-    /*
-     * Move downward from the found row until we find the first eligible row
-     * (GET_COLOR == true) or reach the bottom. This establishes the seed
-     * scanline for the fill.
-     */
-    work_byte = ctx->CURRENT_Y + 1;
-    if (work_byte != 192) {
-    AT_TOP:
-        ctx->CURRENT_Y = work_byte;
-        if (GET_COLOR(ctx)) {
-            left_shift_count = 0;
-            right_shift_count = 0;
+/*
+ * Prepare ctx->FILLBYTE for painting at the current STARTING_X/NUMBITS
+ * and the current scanline (ctx->LINE). Also compute the left/right
+ * shift counts used later by the expansion logic.
+ */
+static void prepare_fillbyte_for_seed(flood_fill_ctx *ctx,
+                                     uint8_t *out_left_shift,
+                                     uint8_t *out_right_shift,
+                                     uint8_t *out_seed_bit,
+                                     uint8_t *out_has_more)
+{
+    uint8_t tmp;
+    uint8_t work = 0;
+    bool carry = false;
 
-            // Choose odd/even pattern for this row
-            chosen_pattern_char = (ctx->CURRENT_Y & 1) == 0 ?
-            ctx->PATTERN_EVEN : ctx->PATTERN_ODD;
+    /* Choose pattern alignment for table lookup (keeps existing behavior) */
+    int chosen_pattern_char = (ctx->LINE & 1) == 0 ? ctx->PATTERN_EVEN : ctx->PATTERN_ODD;
+    ctx->HORIZ_PIXELS = chosen_pattern_char * 4;
 
-            // HORIZ_PIXELS encodes which pattern alignment to use for table lookup
-            ctx->HORIZ_PIXELS = chosen_pattern_char * 4;
+    /* Work out rotations based on NUMBITS */
+    uint8_t rotate_count = 6 - ctx->NUMBITS;
+    work = ctx->OLD_COLOR_VALUE;
+    carry = false;
 
-            // Prepare a working byte based on the existing screen byte and NUMBITS
-            // bVar5 in original code = 6 - NUMBITS
-            screen_val = 6 - ctx->NUMBITS;
-            work_byte = ctx->OLD_COLOR_VALUE;
+    /* Rotate left (with carry) rotate_count+1 times, matching original */
+    bool msb_flag = rotate_left_with_carry(&work, &carry, rotate_count + 1);
 
-            carry_flag = 0;
+    /* If the rotation left some leading set bits, shift them out */
+    while (rotate_count > 0 && msb_flag) {
+        uint8_t tmp_loop = (uint8_t)(msb_flag << 7);
+        msb_flag = (bool)(work & 1);
+        work = (work >> 1) | tmp_loop;
+        rotate_count--;
+    }
 
-            /* Rotate work_byte left `temp_count` times with carry propagation */
-            msb_flag = rotate_left_with_carry(&work_byte, &carry_flag, screen_val + 1);
+    /* Align the byte and remember left shift used */
+    if (rotate_count > 0)
+        work >>= rotate_count;
+    *out_left_shift = rotate_count;
 
-            /* If after rotation there are leading zeroes, shift them out */
-            while( true ) {
-                if ((int8_t)screen_val <= 0) goto PREP_SCRBYTE;
-                if (msb_flag == false) break;
-                loop_count = msb_flag << 7;
-                msb_flag = (bool)(work_byte & 1);
-                work_byte = (work_byte >> 1) | loop_count;
-                screen_val--;
-            }
-            work_byte >>= screen_val;
-            left_shift_count = screen_val;
+    /* Build SCRBYTE as a right-aligned 7-bit chunk for PREVIOUS_COLUMN */
+    carry = (work & 1) != 0;
+    tmp = work >> 1;
+    ctx->FILLBYTE = tmp;
+    rotate_right_with_carry(&ctx->FILLBYTE, &carry, ctx->NUMBITS);
 
-        PREP_SCRBYTE:
-            carry = work_byte & 1;
-            screen_val = work_byte >> 1;
-
-            /* Set SCRBYTE to the right-aligned 7-bit chunk for the starting X */
-            ctx->SCRBYTE = screen_val;
-            rotate_right_with_carry(&ctx->SCRBYTE, &carry, ctx->NUMBITS);
-
-            work_byte = 1;
-            for (screen_val = ctx->NUMBITS; screen_val > 0; screen_val--) {
-                if (work_byte == 0) {
-                    loop_count = screen_val;
-                    goto SCRBYTE_SHIFTED_LEFT;
-                }
-                work_byte = ctx->SCRBYTE >> 7;
-                ctx->SCRBYTE = ctx->SCRBYTE << 1 | 1;
-            }
-            goto SCRBYTE_DONE;
+    /* If NUMBITS > 0, ensure SCRBYTE is extended appropriately (original code
+     used a loop that inserted 1 bits while a condition held) */
+    uint8_t temp_count = ctx->NUMBITS;
+    uint8_t loop_byte = 1;
+    while (temp_count > 0) {
+        if (loop_byte == 0) {
+            break;
         }
+        loop_byte = ctx->FILLBYTE >> 7;
+        ctx->FILLBYTE = (ctx->FILLBYTE << 1) | 1;
+        temp_count--;
     }
-    return;
-
-SCRBYTE_SHIFTED_LEFT:
-    ctx->SCRBYTE <<= loop_count;
-    right_shift_count = screen_val;
-SCRBYTE_DONE:
-    seed_pixel = ctx->SCRBYTE & 1;
-    has_more_pixels = ((ctx->SCRBYTE & 0x40) != 0);
-
-    /* Start painting at the initial column */
-    ctx->COLUMN = ctx->PREVIOUS_COLUMN;
-    PLOT_FILL_COLOR(ctx);
-
-    /* Expand to the right while there are more pixels set and columns remain */
-    work_byte = ctx->COLUMN + 1;
-    while (has_more_pixels != 0 && work_byte < 40) {
-        bool bit0_flag = false;
-        ctx->SCREEN_OFFSET = ctx->HBAS + work_byte;
-        ctx->OLD_COLOR_VALUE = screenmem[ctx->SCREEN_OFFSET];
-        loop_count = 8;
-        screen_val = ctx->OLD_COLOR_VALUE;
-        uint8_t rotating_bit = bit0_flag;
-
-        /* Rotate the screen byte right until we find a 0 bit or run out */
-        do {
-            temp_count = rotating_bit << 7;
-            rotating_bit = (screen_val & 1);
-            screen_val = screen_val >> 1 | temp_count;
-            if (--loop_count == 0) goto AFTER_RIGHT_SCAN;
-        } while (rotating_bit);
-
-        temp_count = loop_count;
-        screen_val >>= temp_count;
-        has_more_pixels = 0;
-        left_shift_count = loop_count;
-
-    AFTER_RIGHT_SCAN:
-        ctx->SCRBYTE = screen_val >> 1;
-        ctx->COLUMN = work_byte;
-        PLOT_FILL_COLOR(ctx);
-        if (has_more_pixels != 0)
-            work_byte = ctx->COLUMN + 1;
-    }
-    rightmost_column = ctx->COLUMN;
-
-    /* Now expand left from the starting spot */
-    ctx->COLUMN = ctx->PREVIOUS_COLUMN;
-
-LEFT_SCAN:
-    work_byte = ctx->COLUMN - 1;
-    if (seed_pixel != 0 && (int8_t)work_byte >= 0) {
-        ctx->SCREEN_OFFSET = ctx->HBAS + work_byte;
-        if (ctx->SCREEN_OFFSET > MAX_SCREEN_ADDR)
-            return;
-        ctx->OLD_COLOR_VALUE = screenmem[ctx->SCREEN_OFFSET];
-        temp_count = 7;
-        screen_val = ctx->OLD_COLOR_VALUE << 1;
-        loop_count = 0;
-
-        do {
-            tmp_bit = -((char)screen_val >> 7);
-            screen_val = screen_val << 1 | loop_count;
-            temp_count--;
-            if (tmp_bit == 0) {
-                loop_count = temp_count;
-                goto LEFT_SCAN_DONE;
-            }
-            loop_count = tmp_bit;
-        } while (temp_count != 0);
-        goto LEFT_SCAN_EXIT;
-    }
-
-    /* If we couldn't expand left further, compute offsets for next seed */
-    work_byte = rightmost_column - ctx->COLUMN - 1;
-    if ((int8_t)work_byte < 0) {
-        work_byte = 7;
+    if (loop_byte == 0) {
+        /* we shifted some more than necessary; account for that */
+        ctx->FILLBYTE <<= temp_count;
+        *out_right_shift = temp_count;
     } else {
-        work_byte = work_byte * 7 + 14;
+        *out_right_shift = 0;
     }
 
-    work_byte = (uint8_t)(work_byte - left_shift_count) - (left_shift_count > work_byte);
-    work_byte -= right_shift_count;
-    work_byte = work_byte >> 1;
+    /* seed bit is LSB; has_more is bit6 (0x40) like the original */
+    *out_seed_bit = ctx->FILLBYTE & 1;
+    *out_has_more = ((ctx->FILLBYTE & 0x40) != 0);
+}
 
-    /* Advance PREVIOUS_COLUMN by (work_byte / 7), set up NUMBITS for next scanline */
-    ctx->PREVIOUS_COLUMN = ctx->COLUMN + work_byte / 7;
-    work_byte = work_byte % 7;
-    
-    ctx->NUMBITS = (right_shift_count + work_byte) % 7;
-    ctx->PREVIOUS_COLUMN += (right_shift_count + work_byte) / 7;
+static void FLOOD_FILL(flood_fill_ctx *ctx)
+{
+    uint8_t left_shift = 0;
+    uint8_t right_shift = 0;
+    uint8_t seed_bit = 0;
+    uint8_t has_more = 0;
 
-    goto SCAN_DOWN;
+    /* set fill patterns */
+    ctx->PATTERN_EVEN = ARRAY_8f7c[(uint8_t)(ctx->FILL_COLOR * 2)];
+    ctx->PATTERN_ODD  = ARRAY_8f7c[(uint8_t)(ctx->FILL_COLOR * 2 + 1)];
 
-LEFT_SCAN_DONE:
-    screen_val <<= loop_count;
-    tmp_bit = 0;
-    seed_pixel = 0;
-    right_shift_count = temp_count;
+    /* compute PREVIOUS_COLUMN and NUMBITS from STARTING_X */
+    calculate_xpos(ctx);
 
-LEFT_SCAN_EXIT:
-    ctx->SCRBYTE = screen_val << 1 | tmp_bit;
-    ctx->COLUMN = work_byte;
-    PLOT_FILL_COLOR(ctx);
-    goto LEFT_SCAN;
+    /* Find the topmost seed row to start fill from. */
+    if (find_top_seed_row(ctx)) {
+        /* Start below the first non-white pixel encountered */
+        /* If we didn't encounter one, start at zero */
+        ctx->LINE++;
+    }
+    /* Main scan loop: find next seed scanline and paint horizontal spans */
+    for (;;) {
+        if (ctx->LINE >= APPLE2_SCREEN_HEIGHT || !is_pixel_white(ctx))
+            return;
+
+        /* Prepare working SCRBYTE and shift counts for this scanline */
+        prepare_fillbyte_for_seed(ctx, &left_shift, &right_shift, &seed_bit, &has_more);
+
+        /* Paint starting column */
+        ctx->COLUMN = ctx->PREVIOUS_COLUMN;
+        PLOT_FILL_COLOR(ctx);
+
+        /* Expand to the right while there are more pixels and columns remain */
+        while (has_more && (ctx->COLUMN + 1) < 40) {
+            ctx->COLUMN++;
+            ctx->SCREEN_OFFSET = ctx->HBAS + ctx->COLUMN;
+            if (ctx->SCREEN_OFFSET > MAX_SCREEN_ADDR)
+                break;
+            ctx->OLD_COLOR_VALUE = screenmem[ctx->SCREEN_OFFSET];
+
+            /* Rotate right until low bit is zero or we
+             * exhausted 8 bits. Then compute the new FILLBYTE for that column.
+             */
+            uint8_t tmp = ctx->OLD_COLOR_VALUE;
+            uint8_t rotations = 8;
+            bool carry_bit = false;
+            while (rotations > 0) {
+                uint8_t carry_out = tmp & 1;
+                tmp = (tmp >> 1) | (carry_bit ? 0x80u : 0u);
+                carry_bit = carry_out;
+                rotations--;
+                if (!carry_out)
+                    break; /* found a zero LSB */
+            }
+            /* After scanning, tmp holds the rotated byte */
+            tmp >>= rotations;
+            left_shift = rotations;
+
+            ctx->FILLBYTE = tmp >> 1;
+            /* recompute has_more from newly prepared FILLBYTE for next iteration */
+            has_more = ((ctx->FILLBYTE & 0x40) != 0);
+
+            PLOT_FILL_COLOR(ctx);
+        }
+
+        /* remember rightmost painted column for later left-scan offset calculation */
+        uint8_t rightmost_column = ctx->COLUMN;
+
+        /* Now expand left from the starting spot */
+        ctx->COLUMN = ctx->PREVIOUS_COLUMN;
+
+        /* Expand left from the starting spot. We'll loop until left expansion cannot proceed. */
+        while (1) {
+            /* If the seed bit is set and we can move left, attempt to expand */
+            if (seed_bit != 0 && ctx->COLUMN > 0) {
+                ctx->COLUMN--;
+                ctx->SCREEN_OFFSET = ctx->HBAS + ctx->COLUMN;
+                if (ctx->SCREEN_OFFSET > MAX_SCREEN_ADDR)
+                    break;
+                ctx->OLD_COLOR_VALUE = screenmem[ctx->SCREEN_OFFSET];
+
+                /* Rotate left to find first zero */
+                uint8_t tmp = (uint8_t)(ctx->OLD_COLOR_VALUE << 1);
+                uint8_t remaining = 7;
+                uint8_t run_bits = 0;
+                while (remaining > 0) {
+                    uint8_t top = (uint8_t)(-((char)tmp >> 7));
+                    tmp = (tmp << 1) | run_bits;
+                    remaining--;
+                    if (top == 0) {
+                        run_bits = 0;
+                        tmp <<= remaining;
+                        seed_bit = 0;
+                        right_shift = remaining;
+                        break;
+                    }
+                    run_bits = top;
+                }
+                /* tmp is ready; compute new FILLBYTE */
+                ctx->FILLBYTE = tmp << 1 | run_bits;
+                PLOT_FILL_COLOR(ctx);
+
+                /* continue expanding left as long as FILLBYTE LSB remains set */
+                continue;
+            }
+
+            /* Can't expand left further. Compute offsets for next seed on the same scanline */
+            int8_t gap_columns = rightmost_column - ctx->COLUMN - 1;
+            uint8_t work = (gap_columns < 0) ? 7 : (gap_columns * 7 + 14);
+
+            /* adjust by left/right shifts computed earlier */
+            work = (uint8_t)(work - left_shift) - (left_shift > work);
+            work -= right_shift;
+            work = work >> 1;
+
+            /* Advance PREVIOUS_COLUMN by (work / 7), set up NUMBITS for next scanline */
+            ctx->PREVIOUS_COLUMN = ctx->COLUMN + (work / 7);
+            uint8_t rem = work % 7;
+
+            ctx->NUMBITS = (right_shift + rem) % 7;
+            ctx->PREVIOUS_COLUMN += (right_shift + rem) / 7;
+
+            /* After finishing this scanline we continue scanning downward for next seed */
+            ctx->LINE++;
+            break;
+        }
+        /* main loop continues, scanning for next seed row */
+    }
 }
 
 static const uint8_t shape_array[256] = {
@@ -480,7 +494,7 @@ static void PLOT_SHAPE(flood_fill_ctx *ctx)
         uint8_t shape_mask_d = shape_mask_b;
 
         // Choose fill pattern based on row parity
-        uint8_t fill_pattern = (ctx->CURRENT_Y & 1) ? ctx->PATTERN_ODD : ctx->PATTERN_EVEN;
+        uint8_t fill_pattern = (ctx->LINE & 1) ? ctx->PATTERN_ODD : ctx->PATTERN_EVEN;
         ctx->HORIZ_PIXELS = fill_pattern << 2;
 
         // Apply shapes and fill to screen memory
@@ -503,30 +517,30 @@ static void PLOT_SHAPE(flood_fill_ctx *ctx)
             screenmem[address + 1] =
             ((shape_mask_d | screenmem[address + 1]) ^ shape_mask_d) | shape_mask_b;
         }
-        ctx->CURRENT_Y++;
+        ctx->LINE++;
     }
-    ctx->CURRENT_Y--;
+    ctx->LINE--;
 }
 
 static void DRAW_SHAPE(flood_fill_ctx *ctx)
 {
     ctx->PATTERN_EVEN = ARRAY_8f7c[ctx->FILL_COLOR * 2];
     ctx->PATTERN_ODD = ARRAY_8f7c[ctx->FILL_COLOR * 2 + 1];
-    divide_and_modulo(ctx);
+    calculate_xpos(ctx);
     ctx->SHAPE_OFFSET = ctx->SHAPE << 5;
     PLOT_SHAPE(ctx);
     ctx->SHAPE_OFFSET += 8;
     uint8_t previous_x = ctx->PREVIOUS_COLUMN;
     ctx->PREVIOUS_COLUMN++;
-    ctx->CURRENT_Y -= 7;
+    ctx->LINE -= 7;
     PLOT_SHAPE(ctx);
     ctx->SHAPE_OFFSET += 8;
     ctx->PREVIOUS_COLUMN = previous_x;
-    ctx->CURRENT_Y++;
+    ctx->LINE++;
     PLOT_SHAPE(ctx);
     ctx->SHAPE_OFFSET += 8;
     ctx->PREVIOUS_COLUMN++;
-    ctx->CURRENT_Y -= 7;
+    ctx->LINE -= 7;
     PLOT_SHAPE(ctx);
 }
 
@@ -679,8 +693,6 @@ static bool doImageOp(uint8_t **outptr, pixelpos_ctx *ctx) {
 
         case OPCODE_TEXT_CHAR: // 3
         case OPCODE_TEXT_OUTLINE: // 5
-                                  // Text outline mode draws a bunch of pixels that sort of looks like the char
-                                  // TODO: See if the outline mode is ever used
             if (opcode == OPCODE_TEXT_OUTLINE)
                 fprintf(stderr, "TODO: Implement drawing text outlines\n");
             a = *ptr++;
@@ -731,7 +743,7 @@ static bool doImageOp(uint8_t **outptr, pixelpos_ctx *ctx) {
             b = *ptr++;
             flood_ctx.FILL_COLOR = ctx->FILL_COLOR;
             flood_ctx.SHAPE = ctx->SHAPE;
-            flood_ctx.CURRENT_Y = b;
+            flood_ctx.LINE = b;
             flood_ctx.STARTING_X = a;
             flood_ctx.HGR_PAGE = 0;
 
@@ -739,8 +751,7 @@ static bool doImageOp(uint8_t **outptr, pixelpos_ctx *ctx) {
             break;
 
         case OPCODE_DELAY: // 13
-                           // The original allowed for rendering to be paused briefly. We don't do
-                           // that in ScummVM, and just show the finished rendered image
+                           // The original allowed for rendering to be paused briefly.
             fprintf(stderr,   "OPCODE_DELAY: 0x%x\n", *ptr++);
             break;
 #pragma mark flood fill
@@ -752,7 +763,7 @@ static bool doImageOp(uint8_t **outptr, pixelpos_ctx *ctx) {
 
             flood_ctx.FILL_COLOR = ctx->FILL_COLOR;
             flood_ctx.STARTING_X = a;
-            flood_ctx.CURRENT_Y = b;
+            flood_ctx.LINE = b;
             flood_ctx.HGR_PAGE = 0;
 
             FLOOD_FILL(&flood_ctx);
@@ -781,16 +792,6 @@ size_t writeToFile(const char *name, uint8_t *data, size_t size)
 
     fclose(fptr);
     return result;
-}
-
-static void FILL_SCREEN(uint8_t color, pixelpos_ctx *ctx) {
-    ctx->HGR_BITS = color;
-    for (int i = 0; i < SCREEN_MEM_SIZE; i++) {
-        screenmem[i] = ctx->HGR_BITS;
-        if (((ctx->HGR_BITS * 2 + 0x40) & 0x80) != 0) {
-            ctx->HGR_BITS ^= 0x7f;
-        }
-    }
 }
 
 int DrawApple2VectorImage(USImage *img) {
