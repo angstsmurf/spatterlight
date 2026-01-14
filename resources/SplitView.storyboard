@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="JBx-dL-I1G">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="JBx-dL-I1G">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -209,7 +209,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="title" width="370" minWidth="85" maxWidth="700" id="5J1-eL-foW">
+                                                <tableColumn identifier="title" width="370" minWidth="85" maxWidth="800" id="5J1-eL-foW">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -361,7 +361,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="tDf-hH-NqA">
+                                                        <tableCellView id="tDf-hH-NqA">
                                                             <rect key="frame" x="0.0" y="4" width="0.0" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
@@ -381,7 +381,7 @@
                                                                 <constraint firstItem="755-8V-O23" firstAttribute="height" secondItem="tDf-hH-NqA" secondAttribute="height" constant="1" id="AAq-Hu-1ci"/>
                                                                 <constraint firstItem="755-8V-O23" firstAttribute="leading" secondItem="tDf-hH-NqA" secondAttribute="leading" constant="4" id="TpY-if-18G"/>
                                                                 <constraint firstItem="755-8V-O23" firstAttribute="top" secondItem="tDf-hH-NqA" secondAttribute="top" constant="-2" id="j1A-7Q-f0Y"/>
-                                                                <constraint firstAttribute="trailing" secondItem="755-8V-O23" secondAttribute="trailing" id="rZO-5N-K2K"/>
+                                                                <constraint firstAttribute="trailing" secondItem="755-8V-O23" secondAttribute="trailing" constant="-4" id="rZO-5N-K2K"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="755-8V-O23" id="0Yi-lr-aFm"/>
@@ -401,7 +401,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="ewS-Iv-Nhy">
+                                                        <tableCellView id="ewS-Iv-Nhy">
                                                             <rect key="frame" x="0.0" y="4" width="0.0" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
@@ -418,7 +418,7 @@
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="7Eu-Wf-qNS" secondAttribute="trailing" id="9KY-TP-b8Z"/>
+                                                                <constraint firstAttribute="trailing" secondItem="7Eu-Wf-qNS" secondAttribute="trailing" constant="-4" id="9KY-TP-b8Z"/>
                                                                 <constraint firstItem="7Eu-Wf-qNS" firstAttribute="leading" secondItem="ewS-Iv-Nhy" secondAttribute="leading" constant="4" id="YWi-c3-d4L"/>
                                                                 <constraint firstItem="7Eu-Wf-qNS" firstAttribute="top" secondItem="ewS-Iv-Nhy" secondAttribute="top" constant="-2" id="dt0-69-AE7"/>
                                                                 <constraint firstItem="7Eu-Wf-qNS" firstAttribute="height" secondItem="ewS-Iv-Nhy" secondAttribute="height" constant="1" id="zbm-vJ-utK"/>
@@ -441,7 +441,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="s89-B1-Oxz">
+                                                        <tableCellView id="s89-B1-Oxz">
                                                             <rect key="frame" x="0.0" y="4" width="0.0" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
@@ -461,7 +461,7 @@
                                                                 <constraint firstItem="ydZ-4H-o2E" firstAttribute="top" secondItem="s89-B1-Oxz" secondAttribute="top" constant="-2" id="LpY-cN-OZz"/>
                                                                 <constraint firstItem="ydZ-4H-o2E" firstAttribute="height" secondItem="s89-B1-Oxz" secondAttribute="height" constant="1" id="ZC4-z9-PUU"/>
                                                                 <constraint firstItem="ydZ-4H-o2E" firstAttribute="leading" secondItem="s89-B1-Oxz" secondAttribute="leading" constant="4" id="cX7-DW-QQa"/>
-                                                                <constraint firstAttribute="trailing" secondItem="ydZ-4H-o2E" secondAttribute="trailing" id="qUg-gb-H8z"/>
+                                                                <constraint firstAttribute="trailing" secondItem="ydZ-4H-o2E" secondAttribute="trailing" constant="-4" id="qUg-gb-H8z"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="ydZ-4H-o2E" id="3Dd-gT-3CL"/>
@@ -481,7 +481,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="jvc-A3-yKw" customClass="CellViewWithConstraint">
+                                                        <tableCellView id="jvc-A3-yKw" customClass="CellViewWithConstraint">
                                                             <rect key="frame" x="0.0" y="4" width="0.0" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
@@ -501,7 +501,7 @@
                                                             <constraints>
                                                                 <constraint firstItem="SP2-4p-xgs" firstAttribute="height" secondItem="jvc-A3-yKw" secondAttribute="height" constant="1" id="LAO-Ta-eyA"/>
                                                                 <constraint firstItem="SP2-4p-xgs" firstAttribute="top" secondItem="jvc-A3-yKw" secondAttribute="top" constant="-2" id="TIf-Sz-E8y"/>
-                                                                <constraint firstAttribute="trailing" secondItem="SP2-4p-xgs" secondAttribute="trailing" constant="4" id="YDc-u3-OO4"/>
+                                                                <constraint firstAttribute="trailing" secondItem="SP2-4p-xgs" secondAttribute="trailing" id="YDc-u3-OO4"/>
                                                                 <constraint firstItem="SP2-4p-xgs" firstAttribute="leading" secondItem="jvc-A3-yKw" secondAttribute="leading" id="x77-YE-lMA"/>
                                                             </constraints>
                                                             <connections>
@@ -523,7 +523,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="OkF-Nc-Wbk" userLabel="Format Cell View">
+                                                        <tableCellView id="OkF-Nc-Wbk" userLabel="Format Cell View">
                                                             <rect key="frame" x="0.0" y="4" width="0.0" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
@@ -540,7 +540,7 @@
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="R6y-OC-q3j" secondAttribute="trailing" id="1Tl-af-F7t"/>
+                                                                <constraint firstAttribute="trailing" secondItem="R6y-OC-q3j" secondAttribute="trailing" constant="-4" id="1Tl-af-F7t"/>
                                                                 <constraint firstItem="R6y-OC-q3j" firstAttribute="top" secondItem="OkF-Nc-Wbk" secondAttribute="top" constant="-2" id="1bJ-WX-NQC"/>
                                                                 <constraint firstItem="R6y-OC-q3j" firstAttribute="leading" secondItem="OkF-Nc-Wbk" secondAttribute="leading" constant="4" id="XYV-ZF-f55"/>
                                                                 <constraint firstItem="R6y-OC-q3j" firstAttribute="height" secondItem="OkF-Nc-Wbk" secondAttribute="height" constant="1" id="tnY-zv-xvU"/>
@@ -563,12 +563,13 @@
                                                     </popUpButtonCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="TV1-fM-6ns" customClass="ForgivenessCellView">
+                                                        <tableCellView id="TV1-fM-6ns" customClass="ForgivenessCellView">
                                                             <rect key="frame" x="0.0" y="4" width="0.0" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
-                                                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ghh-7O-eXh" userLabel="Pop Up Button">
-                                                                    <rect key="frame" x="-5" y="-7" width="70" height="27"/>
+                                                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ghh-7O-eXh" userLabel="Pop Up Button">
+                                                                    <rect key="frame" x="1" y="0.0" width="66" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" selectedItem="5cQ-yA-euP" id="iBk-TP-Suy" userLabel="Pop Up Button cell">
                                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="cellTitle"/>
@@ -589,12 +590,6 @@
                                                                     </connections>
                                                                 </popUpButton>
                                                             </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="Ghh-7O-eXh" firstAttribute="height" secondItem="TV1-fM-6ns" secondAttribute="height" constant="2" id="JiA-eL-vf0"/>
-                                                                <constraint firstAttribute="trailing" secondItem="Ghh-7O-eXh" secondAttribute="trailing" id="SVH-I7-6H5"/>
-                                                                <constraint firstItem="Ghh-7O-eXh" firstAttribute="top" secondItem="TV1-fM-6ns" secondAttribute="top" constant="-2" id="V9G-FD-Ww0"/>
-                                                                <constraint firstItem="Ghh-7O-eXh" firstAttribute="leading" secondItem="TV1-fM-6ns" secondAttribute="leading" constant="1" id="xE3-fU-uhJ"/>
-                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="popUpButton" destination="Ghh-7O-eXh" id="sZJ-OV-0QD"/>
                                                             </connections>
@@ -613,7 +608,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="QYw-Mb-m5O" userLabel="Language Cell View">
+                                                        <tableCellView id="QYw-Mb-m5O" userLabel="Language Cell View">
                                                             <rect key="frame" x="0.0" y="4" width="0.0" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
@@ -632,7 +627,7 @@
                                                             <constraints>
                                                                 <constraint firstItem="hkq-mp-dnc" firstAttribute="top" secondItem="QYw-Mb-m5O" secondAttribute="top" constant="-2" id="3lY-ua-sp9"/>
                                                                 <constraint firstItem="hkq-mp-dnc" firstAttribute="leading" secondItem="QYw-Mb-m5O" secondAttribute="leading" constant="4" id="NYm-VW-aEs"/>
-                                                                <constraint firstAttribute="trailing" secondItem="hkq-mp-dnc" secondAttribute="trailing" id="av5-Td-5sD"/>
+                                                                <constraint firstAttribute="trailing" secondItem="hkq-mp-dnc" secondAttribute="trailing" constant="-4" id="av5-Td-5sD"/>
                                                                 <constraint firstItem="hkq-mp-dnc" firstAttribute="height" secondItem="QYw-Mb-m5O" secondAttribute="height" constant="1" id="ppZ-61-s8Z"/>
                                                             </constraints>
                                                             <connections>
@@ -763,7 +758,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="IOw-vu-WlA" userLabel="Added Cell View">
+                                                        <tableCellView id="IOw-vu-WlA" userLabel="Added Cell View">
                                                             <rect key="frame" x="0.0" y="4" width="0.0" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
@@ -779,7 +774,7 @@
                                                             <constraints>
                                                                 <constraint firstItem="Edd-ct-pbD" firstAttribute="height" secondItem="IOw-vu-WlA" secondAttribute="height" constant="1" id="DNg-oq-Zzg"/>
                                                                 <constraint firstItem="Edd-ct-pbD" firstAttribute="leading" secondItem="IOw-vu-WlA" secondAttribute="leading" constant="4" id="ZHA-Xn-Wrr"/>
-                                                                <constraint firstAttribute="trailing" secondItem="Edd-ct-pbD" secondAttribute="trailing" id="jM3-MG-63m"/>
+                                                                <constraint firstAttribute="trailing" secondItem="Edd-ct-pbD" secondAttribute="trailing" constant="-4" id="jM3-MG-63m"/>
                                                                 <constraint firstItem="Edd-ct-pbD" firstAttribute="top" secondItem="IOw-vu-WlA" secondAttribute="top" constant="-2" id="nla-H1-58r"/>
                                                             </constraints>
                                                             <connections>
@@ -800,7 +795,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="bcc-Ko-IKc">
+                                                        <tableCellView id="bcc-Ko-IKc">
                                                             <rect key="frame" x="0.0" y="4" width="0.0" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
@@ -814,7 +809,7 @@
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="Qps-Xm-qdX" secondAttribute="trailing" id="5TM-G5-sVs"/>
+                                                                <constraint firstAttribute="trailing" secondItem="Qps-Xm-qdX" secondAttribute="trailing" constant="-4" id="5TM-G5-sVs"/>
                                                                 <constraint firstItem="Qps-Xm-qdX" firstAttribute="height" secondItem="bcc-Ko-IKc" secondAttribute="height" constant="1" id="Jgx-3o-hAB"/>
                                                                 <constraint firstItem="Qps-Xm-qdX" firstAttribute="top" secondItem="bcc-Ko-IKc" secondAttribute="top" constant="-2" id="iLH-eb-euG"/>
                                                                 <constraint firstItem="Qps-Xm-qdX" firstAttribute="leading" secondItem="bcc-Ko-IKc" secondAttribute="leading" constant="4" id="whC-az-4ZG"/>
@@ -837,7 +832,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="3fB-2Z-H2i">
+                                                        <tableCellView id="3fB-2Z-H2i">
                                                             <rect key="frame" x="0.0" y="4" width="0.0" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <subviews>
@@ -851,7 +846,7 @@
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="VgM-xO-ZQZ" secondAttribute="trailing" id="KTM-D4-WDS"/>
+                                                                <constraint firstAttribute="trailing" secondItem="VgM-xO-ZQZ" secondAttribute="trailing" constant="-4" id="KTM-D4-WDS"/>
                                                                 <constraint firstItem="VgM-xO-ZQZ" firstAttribute="leading" secondItem="3fB-2Z-H2i" secondAttribute="leading" constant="4" id="OX9-8g-CLP"/>
                                                                 <constraint firstItem="VgM-xO-ZQZ" firstAttribute="height" secondItem="3fB-2Z-H2i" secondAttribute="height" constant="1" id="XtB-AY-coD"/>
                                                                 <constraint firstItem="VgM-xO-ZQZ" firstAttribute="top" secondItem="3fB-2Z-H2i" secondAttribute="top" constant="-2" id="eUm-yA-WGd"/>
