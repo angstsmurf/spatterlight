@@ -656,7 +656,8 @@ typedef NS_ENUM(int32_t, kImportResult) {
         if (!strongSelf)
             return;
         BOOL deleteMissing = [[NSUserDefaults standardUserDefaults] boolForKey:@"DeleteMissing"];
-        for (Game *gameInMain in strongSelf.gameTableModel) {
+        NSArray *gameTableCopy = strongSelf.gameTableModel.copy;
+        for (Game *gameInMain in gameTableCopy) {
             if (strongSelf->verifyIsCancelled) {
                 strongSelf->verifyIsCancelled = NO;
                 return;
