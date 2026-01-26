@@ -97,16 +97,14 @@ static uint8_t *decompress_apple2(ImageStruct *image) {
             writtenbytes++;
             if (writtenbytes == finalsize) {
                 // Shave off any excess bytes
-                if (ptr - image->data < image->datasize) {
-                    size_t newsize = ptr - image->data;
-                    uint8_t *temp = (uint8_t *)malloc(newsize);
+                size_t newsize = ptr - image->data;
+                if (newsize < image->datasize) {
+                    void *temp = realloc(image->data, newsize);
                     if (temp == nullptr) {
-                        fprintf(stderr, "Out of memory\n");
+                        fprintf(stderr, "realloc error\n");
                         exit(1);
                     }
-                    memcpy(temp, image->data, newsize);
-                    free(image->data);
-                    image->data = temp;
+                    image->data = (uint8_t *)temp;
                     fprintf(stderr, "decompress_apple2: Shaved off %lu bytes. New size: %lu\n", image->datasize - newsize, newsize);
                     image->datasize = newsize;
                 }

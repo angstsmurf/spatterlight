@@ -279,6 +279,7 @@ static bool draw_indexed_png(uint8_t **pixmapptr, int *pixmapsize, int pixwidth,
         }
         set_pixel(nibble2, pixptr);
     }
+    delete[] inflate_output;
     *pixmapptr = pixmap;
     return true;
 }
