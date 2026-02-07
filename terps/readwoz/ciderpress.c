@@ -686,7 +686,7 @@ static DIError CalcSectorAndOffset(long track, int sector, SectorOrder imageOrde
     }
     if (sector < 0 || sector >= kNumSectPerTrack) {
         debug_print(" DI read invalid sector %d\n", sector);
-        return kDIErrInvalidSector;
+        sector = kNumSectPerTrack - 1;
     }
 
     size_t offset;
@@ -810,7 +810,7 @@ static DIError ReadNibbleSector(long track, int sector, uint8_t *buf)
     if (sector >= fpNibbleDescr->numSectors) {
         /* e.g. trying to read sector 14 on a 13-sector disk */
         debug_print(" DI ReadNibbleSector: bad sector number request");
-        return kDIErrInvalidSector;
+        sector = fpNibbleDescr->numSectors - 1;
     }
 
     assert(fpNibbleDescr != NULL);
@@ -1183,11 +1183,9 @@ static DIError LoadTSList(A2File *DOSFile)
 
         /* if T/S link is bogus, whole sector is probably bad */
         if (track >= kNumTracks || sector >= kNumSectPerTrack) {
-            // bogus T/S, mark file as damaged and stop
+            // bogus T/S
             debug_print(" DOS33 invalid T/S link %d,%d in '%s'\n", track, sector,
                 DOSFile->fFileName);
-            dierr = kDIErrBadFile;
-            goto bail;
         }
         if ((sectorOffset % kMaxTSPairs) != 0) {
             debug_print(" DOS33 invalid T/S header sector offset %u in '%s'\n",
@@ -1290,8 +1288,6 @@ static DIError Read(A2File *pFile, uint8_t *buf, size_t len, size_t *pActual)
     if (len == 0)
         return kDIErrNone;
     assert(pFile->fOpenEOF != 0);
-
-    assert(tsIndex >= 0 && tsIndex < pFile->tsCount);
 
     SectorOrder fsOrder = kSectorOrderPhysical;
     if (fPhysical == kPhysicalFormatNib525_6656)
@@ -2565,7 +2561,7 @@ A2FileRec *GetAllApple2DOSFiles(uint8_t *data, size_t len, size_t *number_of_fil
                 rec->filename = MemAlloc(namelen);
                 strncpy(rec->filename, (char *)file->fFileName, namelen);
                 rec->filename[namelen - 1] = 0;
-//                fprintf(stderr, "Extracted Apple 2 file named \"%s\"\n", rec->filename);
+                debug_print("GetAllApple2DOSFiles: Extracted Apple 2 file named \"%s\"\n", rec->filename);
                 uint8_t *temp = MemAlloc(file->fLengthInSectors * kSectorSize);
                 Read(file, temp, (file->fLengthInSectors - 1) * kSectorSize, &rec->datasize);
                 rec->data = MemAlloc(rec->datasize);
