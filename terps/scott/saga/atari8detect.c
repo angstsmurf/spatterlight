@@ -19,16 +19,16 @@
 
 
 static const pairrec a8companionlist[][2] = {
-    { { 0x16810, 0xa972, "S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side A)[!].atr", 87 }, { 0x16810, 0x8be3, "S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side B)[!][cr CSS].atr", 95 } },
-    { { 0x16810, 0x65a1, "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side A)[f][m].atr", 93 }, { 0x16810, 0x5750, "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side B)[cr CSS].atr", 95 } },
-    { { 0x16810, 0x3074, "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side A)[f][a].atr", 93 }, { 0x16810, 0x2429, "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side B)[a][cr CSS].atr", 98 } },
-    { { 0x16810, 0x4389, "S.A.G.A. 04 - Voodoo Castle v5.1-119 (1983)(Adventure International)(US)(Disk 1 of 2)[!].atr", 92 }, { 0x16810, 0x234f, "S.A.G.A. 04 - Voodoo Castle v5.1-119 (1983)(Adventure International)(US)(Disk 2 of 2)[!][cr CSS].atr", 100 } },
-    { { 0x16810, 0xc2f5, "S.A.G.A. 05 - The Count v5.1-115 (1983)(Adventure International)(US)(Side A)[!].atr", 83 }, { 0x16810, 0x3ebb, "S.A.G.A. 05 - The Count v5.1-115 (1983)(Adventure International)(US)(Side B)[!][cr CSS].atr", 91 } },
-    { { 0x16810, 0x6ee8, "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[!][cr CSS].atr", 120 }, { 0x16810, 0xac42, "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[f][!].atr", 115 } },
-    { { 0x16810, 0x1de8, "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[a][cr CSS].atr", 120 }, { 0x16810, 0x7c32, "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[a].atr", 112 } },
-    { { 0x16810, 0x1de8, "S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[a][cr CSS].atr", 121 }, { 0x16810, 0x7c32, "S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[a].atr", 113 } },
+    { { "S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side A)[!].atr", 87 }, { "S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side B)[!][cr CSS].atr", 95 } },
+    { { "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side A)[f][m].atr", 93 }, { "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side B)[cr CSS].atr", 95 } },
+    { { "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side A)[f][a].atr", 93 }, { "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side B)[a][cr CSS].atr", 98 } },
+    { { "S.A.G.A. 04 - Voodoo Castle v5.1-119 (1983)(Adventure International)(US)(Disk 1 of 2)[!].atr", 92 }, { "S.A.G.A. 04 - Voodoo Castle v5.1-119 (1983)(Adventure International)(US)(Disk 2 of 2)[!][cr CSS].atr", 100 } },
+    { { "S.A.G.A. 05 - The Count v5.1-115 (1983)(Adventure International)(US)(Side A)[!].atr", 83 }, { "S.A.G.A. 05 - The Count v5.1-115 (1983)(Adventure International)(US)(Side B)[!][cr CSS].atr", 91 } },
+    { { "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[!][cr CSS].atr", 120 }, { "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[f][!].atr", 115 } },
+    { { "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[a][cr CSS].atr", 120 }, { "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[a].atr", 112 } },
+    { { "S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[a][cr CSS].atr", 121 }, { "S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[a].atr", 113 } },
 
-    { { 0, 0, NULL }, { 0, 0, NULL } }
+    { { NULL }, { NULL } }
 };
 
 static const imglist listHulk[] = {
@@ -722,40 +722,35 @@ static const CropList a8croplist[] = {
 
 static int StripBrackets(char sideB[], size_t length)
 {
-    int left_bracket = 0;
-    int right_bracket = 0;
-    size_t ppos = length - 1;
-    while (sideB[ppos] != '.' && ppos > 0)
-        ppos--;
-    size_t extlen = length - ppos;
-    if (length > 4) {
-        for (int i = (int)ppos; i > 0; i--) {
-            char c = sideB[i];
-            if (c == ']') {
-                if (right_bracket == 0) {
-                    right_bracket = i;
-                } else {
-                    return 0;
-                }
-            } else if (c == '[') {
-                if (right_bracket > 0) {
-                    left_bracket = i;
-                    break;
-                } else {
-                    return 0;
-                }
-            }
-        }
-        if (right_bracket && left_bracket && length > right_bracket + extlen) {
-            right_bracket++;
-            for (int i = 0; i < extlen; i++) {
-                sideB[left_bracket++] = sideB[right_bracket++];
-            }
-            sideB[left_bracket] = '\0';
-            return 1;
-        }
+    if (!sideB || length < 4) {
+        return 0;
     }
-    return 0;
+
+    // Find any extension
+    // (we assume that everything after the last period is an extension)
+    char *extension = strrchr(sideB, '.');
+
+    // This should not be possible
+    if (!extension)
+        return 0;
+
+    size_t extlen = length - (extension - sideB) + 1;
+
+    // Find last closing bracket
+    char *close_paren = strrchr(sideB, ']');
+    if (!close_paren || close_paren >= extension) {
+        return 0;  // No trailing parenthetical
+    }
+
+    // Find matching opening bracket
+    char *open_paren = strrchr(sideB, '[');
+    if (!open_paren || open_paren >= close_paren) {
+        return 0;  // No matching opening paren
+    }
+
+    // Copy extension, inluding terminating 0, starting at the opening bracket
+    memcpy(open_paren, close_paren + 1, extlen);
+    return 1;  // Successfully stripped
 }
 
 static uint8_t *LookForAtari8CompanionFilename(int index, CompanionNameType type, size_t stringlen, size_t *filesize)
@@ -833,7 +828,7 @@ static uint8_t *GetAtari8CompanionFile(size_t *size)
 {
 
     size_t gamefilelen = strlen(game_file);
-    char *foundname = LookInDatabase(a8companionlist, gamefilelen);
+    char *foundname = LookInDatabase(a8companionlist, game_file, gamefilelen);
     uint8_t *result = NULL;
     if (foundname) {
         result = ReadFileIfExists(foundname, size);

@@ -16,8 +16,6 @@ void DrawUSRoomObject(int item);
 void LookUS(void);
 
 typedef struct {
-    uint32_t length;
-    uint16_t chk;
     const char *filename;
     uint32_t stringlength;
 } pairrec;
@@ -34,7 +32,7 @@ typedef enum {
 
 int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2);
 char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t stringlen, size_t *stringlength2);
-char *LookInDatabase(const pairrec list[][2], size_t stringlen);
+char *LookInDatabase(const pairrec list[][2], const char *game_path, size_t pathlen);
 GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int dict_start);
 
 #endif /* saga_h */

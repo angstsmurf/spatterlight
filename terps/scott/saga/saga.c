@@ -727,7 +727,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int d
 }
 
 
-
+// Compare two files from the end to the start of the shortest one, skipping the file extension
 int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2)
 {
     while (length1 > 0 && str1[length1] != '.') {
@@ -797,9 +797,8 @@ char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t game_fi
                 // Found match; use the companion (the other entry in the pair)
                 int companion_idx = 1 - j;
                 const char *companion = list[i][companion_idx].filename;
-                size_t companion_len = get_filename_length(companion, list[i][companion_idx].stringlength);
-
-                if (out_companion_len) *out_companion_len = companion_len;
+                *out_companion_len = get_filename_length(companion, list[i][companion_idx].stringlength);
+                // Copy the game file extension to the companion file
                 return AddGameFileExtension(companion, out_companion_len, game_file, game_filename_len);
             }
         }
@@ -807,20 +806,33 @@ char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t game_fi
     return NULL;
 }
 
-char *LookInDatabase(const pairrec list[][2], size_t stringlen)
+// Look for a match for game file name in the list, and return a
+// search path to the corresponding compantion file name.
+// We do not check whether that file exists here.
+char *LookInDatabase(const pairrec list[][2], const char *game_path, size_t pathlen)
 {
     size_t resultlen;
-    char *foundname = LookForCompanionFilenameInDatabase(list, stringlen, &resultlen);
+    char *foundname = LookForCompanionFilenameInDatabase(list, pathlen, &resultlen);
     if (foundname != NULL) {
-        while (stringlen > 0 && game_file[stringlen] != '/' && game_file[stringlen] != '\\')
-            stringlen--;
-        stringlen++;
+        const char *file_delimiter_position = strrchr(game_file, '/');
+        if (file_delimiter_position == NULL)
+            file_delimiter_position = strrchr(game_path, '\\');
+        size_t stringlen;
+        if (file_delimiter_position == NULL) {
+            // Found no search path before the game file name.
+            // We assume that means it is in the current working directory
+            // and just return the plain companion file name.
+            return foundname;
+        } else {
+            stringlen = file_delimiter_position - game_path + 1;
+        }
+        // Add the search path to the found companion file name
+        // (i.e. the path to the location of the game file)
         size_t newlen = stringlen + resultlen;
         char *path = MemAlloc(newlen + 1);
-        memcpy(path, game_file, stringlen);
-        memcpy(path + stringlen, foundname, resultlen);
+        memcpy(path, game_path, stringlen);
+        memcpy(path + stringlen, foundname, resultlen + 1);
         free(foundname);
-        path[newlen] = '\0';
         return path;
     }
 

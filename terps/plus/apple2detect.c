@@ -249,7 +249,7 @@ int DetectApple2(uint8_t **sf, size_t *extent)
     debug_print("Actionsize: %d\n", actionsize);
     if (actionsize < 4000 || actionsize > 7000) {
         size_t companionsize;
-        uint8_t *companionfile = GetCompanionFile(&companionsize);
+        uint8_t *companionfile = GetCompanionFile(game_file, &companionsize);
         if (companionfile && companionsize >= dsk_image_size) {
             free(new);
             new = MemAlloc(companionsize);

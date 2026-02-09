@@ -307,7 +307,7 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
             return 0;
 
     size_t companionsize;
-    uint8_t *companionfile = GetCompanionFile(&companionsize);
+    uint8_t *companionfile = GetCompanionFile(game_file, &companionsize);
 
     ImageWidth = 280;
     ImageHeight = 160;

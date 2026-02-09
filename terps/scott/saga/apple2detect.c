@@ -22,31 +22,31 @@
 #include "apple2detect.h"
 
 static const pairrec a2companionlist[][2] = {
-    { { 0x23000, 0xa989, "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side A.dsk", 79 }, { 0x23000, 0x5750, "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side B - boot.dsk", 86 } },
+    { { "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side A.dsk", 79 }, { "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side B - boot.dsk", 86 } },
 
-    { { 0x39557, 0x3ff3, "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 90 }, { 0x39557, 0x374e, "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 96 } },
+    { { "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 90 }, { "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 96 } },
 
-    { { 0x39567, 0x8aa4, "SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 93 }, { 0x39567, 0xcf60, "SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 99 } },
+    { { "SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 93 }, { "SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 99 } },
 
-    { { 0x39567, 0x8aa4, "Scott Adams Graphic Adventure 2 - Pirate Adventure v2.1-408 (4am crack) side A.dsk", 82 }, { 0x39567, 0xcf60, "Scott Adams Graphic Adventure 2 - Pirate Adventure v2.1-408 (4am crack) side B - boot.dsk", 89 } },
+    { { "Scott Adams Graphic Adventure 2 - Pirate Adventure v2.1-408 (4am crack) side A.dsk", 82 }, { "Scott Adams Graphic Adventure 2 - Pirate Adventure v2.1-408 (4am crack) side B - boot.dsk", 89 } },
 
-    { { 0x39554, 0xbbd3, "SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 95 }, { 0x39554, 0x361a, "SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 101 } },
+    { { "SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 95 }, { "SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 101 } },
 
-    { { 0x39558, 0x958f, "SAGA #4 - Voodoo Castle v2.1-119 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 90 }, { 0x39558, 0xff6a, "SAGA #4 - Voodoo Castle v2.1-119 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 96 } },
+    { { "SAGA #4 - Voodoo Castle v2.1-119 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 90 }, { "SAGA #4 - Voodoo Castle v2.1-119 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 96 } },
 
-    { { 0x23000, 0xedf, "Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side A.dsk", 75 }, { 0x23000, 0x09f4, "Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side B - boot.dsk", 82 } },
+    { { "Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side A.dsk", 75 }, { "Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side B - boot.dsk", 82 } },
 
-    { { 0x39589, 0x7010, "SAGA #5 - The Count v2.1-115 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 86 }, { 0x39589, 0xbf0e, "SAGA #5 - The Count v2.1-115 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 92 } },
+    { { "SAGA #5 - The Count v2.1-115 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 86 }, { "SAGA #5 - The Count v2.1-115 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 92 } },
 
-    { { 0x39589, 0xee5d, "SAGA #6 - Strange Odyssey v2.1-119 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 92 }, { 0x39589, 0x4c17, "SAGA #6 - Strange Odyssey v2.1-119 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 98 } },
+    { { "SAGA #6 - Strange Odyssey v2.1-119 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 92 }, { "SAGA #6 - Strange Odyssey v2.1-119 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 98 } },
 
-    { { 0x23000, 0xd8ca, "Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side A.dsk", 81 }, { 0x23000, 0xd700, "Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side B - boot.dsk", 88 } },
+    { { "Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side A.dsk", 81 }, { "Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side B - boot.dsk", 88 } },
 
-    { { 0x23000, 0xd8ca, "Sorcerer of Claymorgue Castle (1981)(Adventure International)(Disk 1 of 2)[cr Zapman].do", 87 }, { 0x23000, 0xd700, "Sorcerer of Claymorgue Castle (1981)(Adventure International)(Disk 2 of 2)[cr Zapman][unk filesys].do", 100 } },
+    { { "Sorcerer of Claymorgue Castle (1981)(Adventure International)(Disk 1 of 2)[cr Zapman].do", 87 }, { "Sorcerer of Claymorgue Castle (1981)(Adventure International)(Disk 2 of 2)[cr Zapman][unk filesys].do", 100 } },
 
-    { { 0x23000, 0xd8ca, "Questprobe featuring The Hulk v2.3-126 (1984)(Adventure International)(Disk 1 of 2)[cr Syndicate - Whip].do", 107 }, { 0x23000, 0xd700, "Questprobe featuring The Hulk v2.3-126 (1984)(Adventure International)(Disk 2 of 2)(Data Disk)[cr Syndicate - Whip].do", 118 } },
+    { { "Questprobe featuring The Hulk v2.3-126 (1984)(Adventure International)(Disk 1 of 2)[cr Syndicate - Whip].do", 107 }, { "Questprobe featuring The Hulk v2.3-126 (1984)(Adventure International)(Disk 2 of 2)(Data Disk)[cr Syndicate - Whip].do", 118 } },
 
-    { { 0, 0, NULL }, { 0, 0, NULL } }
+    { { NULL }, { NULL } }
 };
 
 typedef enum {
@@ -964,7 +964,7 @@ uint8_t *GetApple2CompanionFile(size_t *size, int *isnib)
     size_t gamefilelen = strlen(game_file);
     uint8_t *result = NULL;
 
-    char *foundname = LookInDatabase(a2companionlist, gamefilelen);
+    char *foundname = LookInDatabase(a2companionlist, game_file, gamefilelen);
     if (foundname) {
         size_t filesize;
         result = ReadA2DiskImageFile(foundname, &filesize, isnib);
