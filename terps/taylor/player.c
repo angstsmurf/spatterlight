@@ -30,6 +30,7 @@
 #include "irmak.h"
 #include "utility.h"
 #include "common_file_utils.h"
+#include "randomness.h"
 
 #include "taylor.h"
 
@@ -848,11 +849,7 @@ static int Present(unsigned char obj)
 
 static int Chance(int n)
 {
-    unsigned long v = rand() >> 12;
-    v %= 100;
-    if (v > n)
-        return 0;
-    return 1;
+    return (erkyrath_random() % 100 <= n);
 }
 
 void Look(void);

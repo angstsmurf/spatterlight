@@ -39,7 +39,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-#include <time.h>
 
 #include "glk.h"
 #include "glkstart.h"
@@ -63,6 +62,7 @@
 #include "hulk.h"
 #include "robinofsherwood.h"
 #include "seasofblood.h"
+#include "randomness.h"
 
 #include "bsd.h"
 #include "scott.h"
@@ -546,12 +546,7 @@ static void ClearScreen(void)
 
 int RandomPercent(int n)
 {
-    uint64_t rv = (uint64_t)rand() << 6;
-    rv &= 0xffffffff;
-    rv %= 100;
-    if (rv < n)
-        return (1);
-    return (0);
+    return erkyrath_random() % 100 < n;
 }
 
 int CountCarried(void)
@@ -2739,10 +2734,10 @@ Distributed under the GNU software license\n\n");
 #ifdef SPATTERLIGHT
     UpdateSettings();
     if (gli_determinism)
-        srand(1234);
+        set_erkyrath_random(1234);
     else
 #endif
-        srand((unsigned int)time(NULL));
+    set_erkyrath_random(0);
 
     InitialState = SaveCurrentState();
 

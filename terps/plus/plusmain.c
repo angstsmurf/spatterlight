@@ -31,6 +31,7 @@
 #include "layouttext.h"
 #include "loaddatabase.h"
 #include "parseinput.h"
+#include "randomness.h"
 #include "restorestate.h"
 #include "stdetect.h"
 
@@ -685,12 +686,7 @@ static void Delay(float seconds)
 
 int RandomPercent(int n)
 {
-    uint64_t rv = (uint64_t)rand() << 6;
-    rv &= 0xffffffff;
-    rv %= 100;
-    if (rv < n)
-        return (1);
-    return (0);
+   return erkyrath_random() % 100 < n;
 }
 
 static int CountItemsInRoom(int room)
@@ -1745,10 +1741,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 108:
                 debug_print("Put random number (1 to 100) in counter %d\n", arg1);
-                uint64_t rv = (uint64_t)rand() << 6;
-                rv &= 0xffffffff;
-                rv %= 100 + 1;
-                Counters[arg1] = rv;
+                Counters[arg1] = 1 + erkyrath_random() % 100;
                 cc++;
                 break;
             case 109:

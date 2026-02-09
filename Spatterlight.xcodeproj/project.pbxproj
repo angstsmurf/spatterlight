@@ -594,6 +594,9 @@
 		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		C34E570F2CF3941200A8DC2B /* OpenGameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */; };
 		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; };
+		C35032EF2F37EF0900BD32A6 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C35032F02F37EF0900BD32A6 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C35032F12F37EF0900BD32A6 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C353F04626264242006D17E3 /* SubImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C353EFAD26263D85006D17E3 /* SubImage.m */; };
 		C354AA68274CD8D900C8D01D /* adv01.dat in Resources */ = {isa = PBXBuildFile; fileRef = C354AA67274CD8D900C8D01D /* adv01.dat */; };
 		C354AA6A274CD8EF00C8D01D /* ScottFree command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */; };
@@ -2908,6 +2911,8 @@
 		C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGameOperation.m; sourceTree = "<group>"; };
 		C34F1FA61ED85E06002AB38B /* gi_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gi_debug.c; sourceTree = "<group>"; };
 		C34F1FA71ED85E06002AB38B /* gi_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gi_debug.h; sourceTree = "<group>"; };
+		C35032ED2F37EF0900BD32A6 /* randomness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = randomness.h; sourceTree = "<group>"; };
+		C35032EE2F37EF0900BD32A6 /* randomness.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = randomness.c; sourceTree = "<group>"; };
 		C353EFAD26263D85006D17E3 /* SubImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubImage.m; sourceTree = "<group>"; };
 		C353EFE126263DD7006D17E3 /* SubImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubImage.h; sourceTree = "<group>"; };
 		C354AA67274CD8D900C8D01D /* adv01.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = adv01.dat; sourceTree = "<group>"; };
@@ -5745,6 +5750,8 @@
 				C3590C702EF1494100F02FE7 /* read_le16.c */,
 				C31919B12EF6B97E0062991C /* common_file_utils.h */,
 				C31919B22EF6B97E0062991C /* common_file_utils.c */,
+				C35032ED2F37EF0900BD32A6 /* randomness.h */,
+				C35032EE2F37EF0900BD32A6 /* randomness.c */,
 			);
 			path = common_utils;
 			sourceTree = "<group>";
@@ -8108,6 +8115,7 @@
 				C314DFDD2F24181200A0879C /* c64_small.c in Sources */,
 				C3BCB7D728E8EBBB00D590ED /* titleimage.c in Sources */,
 				C3D83A9D2F2FA3CB00A5D6AE /* vector_common.c in Sources */,
+				C35032F02F37EF0900BD32A6 /* randomness.c in Sources */,
 				C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */,
 				C38A881327D2092500AE917E /* ringbuffer.c in Sources */,
 				C3590C712EF1494100F02FE7 /* read_le16.c in Sources */,
@@ -8192,6 +8200,7 @@
 				C37EC5A02847AA3C0084B841 /* gameinfo.c in Sources */,
 				C31919A12EF69BF80062991C /* memory_allocation.c in Sources */,
 				C3F3A2332894237500C8739F /* atari8detect.c in Sources */,
+				C35032EF2F37EF0900BD32A6 /* randomness.c in Sources */,
 				C3D6AA40286B098B000FA5DE /* extracommands.c in Sources */,
 				C30E9626289929AC00590271 /* stdetect.c in Sources */,
 				C3E1938128628E8400E3B013 /* restorestate.c in Sources */,
@@ -8241,6 +8250,7 @@
 				C3CED4482810190E0040252F /* loadtotpicture.c in Sources */,
 				C3B1489927FCD55400844708 /* extracommands.c in Sources */,
 				C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */,
+				C35032F12F37EF0900BD32A6 /* randomness.c in Sources */,
 				C349B4DC28803A7C00D99943 /* parseinput.c in Sources */,
 				C37344632804673F00D8AE01 /* extracttape.c in Sources */,
 				C3590C722EF1494100F02FE7 /* read_le16.c in Sources */,

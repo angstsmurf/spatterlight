@@ -15,6 +15,7 @@
 #include "sagadraw.h"
 #include "scott.h"
 #include "taylordraw.h"
+#include "randomness.h"
 
 winid_t LeftDiceWin, RightDiceWin, BattleRight;
 glui32 background_colour;
@@ -493,14 +494,14 @@ int roll_dice(int strike, int stamina, int boatflag)
     glk_request_timer_events(60);
     int rolls = 0;
     int our_turn = 0;
-    int left_dice = 1 + rand() % 6;
-    int right_dice = 1 + rand() % 6;
+    int left_dice = 1 + erkyrath_random() % 6;
+    int right_dice = 1 + erkyrath_random() % 6;
     int our_result;
     int their_result = 0;
     int their_dice_stopped = 0;
 
     event_t event;
-    int enemy_rolls = 20 + rand() % 10;
+    int enemy_rolls = 20 + erkyrath_random() % 10;
     glk_cancel_char_event(Top);
     glk_request_char_event(Top);
 
@@ -532,9 +533,9 @@ int roll_dice(int strike, int stamina, int boatflag)
             rolls++;
 
             if (rolls & 1)
-                left_dice = 1 + rand() % 6;
+                left_dice = 1 + erkyrath_random() % 6;
             else
-                right_dice = 1 + rand() % 6;
+                right_dice = 1 + erkyrath_random() % 6;
 
             update_dice(our_turn, left_dice, right_dice);
             if (our_turn == 0 && rolls == enemy_rolls) {
@@ -628,7 +629,7 @@ static void battle_loop(int strike, int stamina, int boatflag)
                 SetBitFlag(6);
                 Counters[7] = 0;
             } else {
-                SOBPrint(Bottom, "%s", battle_messages[1 + rand() % 5 + 16 * boatflag]);
+                SOBPrint(Bottom, "%s", battle_messages[1 + erkyrath_random() % 5 + 16 * boatflag]);
             }
         } else if (result == VICTORY) {
             stamina -= 2;
@@ -637,14 +638,14 @@ static void battle_loop(int strike, int stamina, int boatflag)
                 ClearBitFlag(6);
                 stamina = 0;
             } else {
-                SOBPrint(Bottom, "%s", battle_messages[6 + rand() % 5 + 16 * boatflag]);
+                SOBPrint(Bottom, "%s", battle_messages[6 + erkyrath_random() % 5 + 16 * boatflag]);
             }
         } else if (result == FLEE) {
             SetBitFlag(6);
             MyLoc = SavedRoom;
             return;
         } else {
-            SOBPrint(Bottom, "%s", battle_messages[11 + rand() % 5 + 16 * boatflag]);
+            SOBPrint(Bottom, "%s", battle_messages[11 + erkyrath_random() % 5 + 16 * boatflag]);
         }
 
         if (Counters[3] > 0 && stamina > 0) {
