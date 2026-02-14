@@ -51,7 +51,7 @@
 
 #ifdef SPATTERLIGHT
 L9UINT16 random_array[100];
-
+extern int gli_slowdraw;
 extern glui32 gli_determinism;
 #endif
 
@@ -150,6 +150,31 @@ static void gln_standout_string (const char *message);
 
 static int gln_confirm (const char *prompt);
 
+/*---------------------------------------------------------------------*/
+/*  Slow line drawing stuff                                            */
+/*---------------------------------------------------------------------*/
+
+typedef struct {
+  int x;
+  int y;
+  uint8_t colour;
+} pixel_to_draw;
+
+static pixel_to_draw **pixels_to_draw = NULL;
+
+static size_t draw_ops_capacity = 100;
+
+static int total_draw_instructions = 0;
+static int current_draw_instruction = 0;
+int vector_image_shown = -1;
+
+typedef enum {
+  NO_VECTOR_IMAGE,
+  DRAWING_VECTOR_IMAGE,
+  SHOWING_VECTOR_IMAGE
+} VectorStateType;
+
+VectorStateType VectorState = NO_VECTOR_IMAGE;
 
 /*---------------------------------------------------------------------*/
 /*  Glk port utility functions                                         */
@@ -1496,7 +1521,7 @@ static const int GLN_REPAINT_LIMIT = 256;
  * this, and can give us higher timer resolution; we'll set 50ms here, and
  * hope that no other Glk library is worse.
  */
-static const glui32 GLN_GRAPHICS_TIMEOUT = 50;
+static const glui32 GLN_GRAPHICS_TIMEOUT = 1;
 
 /*
  * Count of timeouts to wait on.  Waiting after a repaint smooths the
@@ -1648,6 +1673,7 @@ gln_graphics_start (void)
       /* If not running, start the updating "thread". */
       if (!gln_graphics_active)
         {
+          fprintf(stderr, "gln_graphics_start: requesting timer of %d\n", GLN_GRAPHICS_TIMEOUT);
           glk_request_timer_events (GLN_GRAPHICS_TIMEOUT);
           gln_graphics_active = TRUE;
         }
@@ -1663,11 +1689,14 @@ gln_graphics_start (void)
 static void
 gln_graphics_stop (void)
 {
+  fprintf(stderr, "gln_graphics_stop\n");
   /* If running, stop the updating "thread". */
   if (gln_graphics_active)
     {
       glk_request_timer_events (0);
       gln_graphics_active = FALSE;
+    } else {
+      fprintf(stderr, "gln_graphics_stop: gln_graphics_active was false.\n");
     }
 }
 
@@ -1809,6 +1838,8 @@ gln_graphics_clear_and_border (winid_t glk_window,
   int index;
   assert (glk_window);
 
+  fprintf(stderr, "gln_graphics_clear_and_border\n");
+
   /*
    * Try to detect the background color of the main window, by getting the
    * background for Normal style (Glk offers no way to directly get a window's
@@ -1831,6 +1862,7 @@ gln_graphics_clear_and_border (winid_t glk_window,
    */
   glk_window_set_background_color (glk_window, background);
   glk_window_clear (glk_window);
+  fprintf(stderr, "Clearing background to 0x%x\n", background);
 #ifndef GARGLK
   /*
    * For very small pictures, just border them, but don't try and
@@ -2289,6 +2321,7 @@ gln_graphics_paint_everything (winid_t glk_window,
 			int x_offset, int y_offset,
 			gln_uint16 width, gln_uint16 height)
 {
+  fprintf(stderr, "gln_graphics_paint_everything\n");
 	gln_byte		pixel;			/* Reference pixel color */
 	int		x, y;
 
@@ -2305,6 +2338,107 @@ gln_graphics_paint_everything (winid_t glk_window,
 	    }
 	}
 }
+
+static void
+glk_plot_pixel(winid_t glk_window, glsi32 x, glsi32 y, gln_byte pixel, int x_offset, int y_offset, glui32 palette[]) {
+  glk_window_fill_rect (glk_window,
+                        palette[ pixel ],
+                        x * GLN_GRAPHICS_PIXEL + x_offset,
+                        y * GLN_GRAPHICS_PIXEL + y_offset,
+                        GLN_GRAPHICS_PIXEL, GLN_GRAPHICS_PIXEL);
+}
+
+void FreePixels(void)
+{
+  if (pixels_to_draw == NULL)
+    return;
+  fprintf(stderr, "FreePixels\n");
+  for (int i = 0; i < total_draw_instructions; i++)
+    if (pixels_to_draw[i] != NULL)
+      free(pixels_to_draw[i]);
+  free(pixels_to_draw);
+  pixels_to_draw = NULL;
+  total_draw_instructions = 0;
+  draw_ops_capacity = 100;
+}
+
+static void ensure_capacity(void) {
+  // Ensure pixels_to_draw has room for all draw instructions.
+  // This could theoretically be more than the total amount of
+  // pixels in the bitmap, as lines may be overlapping.
+
+  if (pixels_to_draw == NULL) {
+    pixels_to_draw = gln_malloc(draw_ops_capacity * sizeof(pixel_to_draw *));
+  }
+
+  if (total_draw_instructions >= draw_ops_capacity) {
+    draw_ops_capacity *= 2;  // Double the capacity
+    pixel_to_draw **new_pixels = gln_realloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw *));
+    pixels_to_draw = new_pixels;
+  }
+}
+
+static void shrink_capacity(void) {
+  // When the image has finished drawing all its instructions,
+  // we might have allocated a lot more memory than we need,
+  // so free any excess space.
+  if (pixels_to_draw != NULL && draw_ops_capacity > total_draw_instructions) {
+    if (total_draw_instructions == 0) {
+      FreePixels();
+      return;
+    }
+    draw_ops_capacity = total_draw_instructions;
+    // Our wrapper of realloc() will exit() on failure,
+    // so no need to check the result here.
+    pixel_to_draw **new_pixels = gln_realloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw *));
+    pixels_to_draw = new_pixels;
+  }
+}
+
+
+#ifndef SPATTERLIGHT
+static int gli_slowdraw = 0;
+#endif
+
+#pragma mark DrawSomeL9VectorPixels
+
+void DrawSomeL9VectorPixels(glui32 bg_col, winid_t glk_window, int x_offset, int y_offset, glui32 palette[])
+{
+  fprintf(stderr, "DrawSomeL9VectorPixels\n");
+  fprintf(stderr, "current_draw_instruction: %d total_draw_instructions: %d\n", current_draw_instruction, total_draw_instructions);
+  VectorState = DRAWING_VECTOR_IMAGE;
+  int i = current_draw_instruction;
+//  if (from_start) {
+//    i = 0;
+//  }
+
+  if (i == 0) {
+    fprintf(stderr, "DrawSomeL9VectorPixels: Drawing a white background\n");
+
+    glk_window_fill_rect (glk_window,
+                          bg_col,
+                          x_offset,
+                          y_offset,
+                          gln_graphics_width * GLN_GRAPHICS_PIXEL,
+                          gln_graphics_height * GLN_GRAPHICS_PIXEL);
+  }
+
+  for (; i < total_draw_instructions && (!gli_slowdraw || i < current_draw_instruction + 50); i++) {
+    pixel_to_draw todraw = *pixels_to_draw[i];
+    glk_plot_pixel(glk_window, todraw.x, todraw.y, todraw.colour, x_offset, y_offset, palette);
+  }
+  current_draw_instruction = i;
+  if (current_draw_instruction >= total_draw_instructions) {
+    fprintf(stderr, "DrawSomeL9VectorPixels: finished!\n");
+//    glk_request_timer_events(0);
+    VectorState = SHOWING_VECTOR_IMAGE;
+    FreePixels();
+    gln_graphics_stop ();
+    // Start with a small allocation for pixels_to_draw.
+    // scott_linegraphics_plot_clip() will grow this as needed.
+  }
+}
+
 
 /*
  * gln_graphics_timeout()
@@ -2326,6 +2460,7 @@ gln_graphics_paint_everything (winid_t glk_window,
 static void
 gln_graphics_timeout (void)
 {
+  fprintf(stderr, "gln_graphics_timeout\n");
   static glui32 palette[GLN_PALETTE_SIZE];   /* Precomputed Glk palette */
   static int layers[GLN_PALETTE_SIZE];       /* Assigned image layers */
   static long layer_usage[GLN_PALETTE_SIZE]; /* Image layer occupancies */
@@ -2348,8 +2483,10 @@ gln_graphics_timeout (void)
   int regions;                               /* Count of regions painted */
 
   /* Ignore the call if the current graphics state is inactive. */
-  if (!gln_graphics_active)
+  if (!gln_graphics_active) {
+    fprintf(stderr, "gln_graphics_timeout: Graphics not active, skipping\n");
     return;
+  }
   assert (gln_graphics_window);
 
   /*
@@ -2361,9 +2498,12 @@ gln_graphics_timeout (void)
    */
   if (gln_graphics_repaint)
     {
+      fprintf(stderr, "gln_graphics_repaint is true\n");
       deferred_repaint = TRUE;
       gln_graphics_repaint = FALSE;
+      fprintf(stderr, "deferred_repaint is set to false\n");
       ignore_counter = GLN_GRAPHICS_REPAINT_WAIT - 1;
+      fprintf(stderr, "ignore_counter is set to %d\n", ignore_counter);
       return;
     }
 
@@ -2379,6 +2519,7 @@ gln_graphics_timeout (void)
   assert (ignore_counter >= 0);
   if (ignore_counter > 0)
     {
+      fprintf(stderr, "ignore_counter is %d, skipping this timeout\n", ignore_counter);
       ignore_counter--;
       return;
     }
@@ -2395,6 +2536,7 @@ gln_graphics_timeout (void)
    */
   if (gln_graphics_new_picture)
     {
+      fprintf(stderr, "gln_graphics_new_picture is true. Resetting and freeing all values\n");
       /* Initialize the off_screen buffer to be a copy of the base picture. */
       free (off_screen);
       off_screen = gln_malloc (picture_size * sizeof (*off_screen));
@@ -2426,6 +2568,12 @@ gln_graphics_timeout (void)
    */
   if (gln_graphics_new_picture || deferred_repaint)
     {
+      if (gln_graphics_new_picture)
+        fprintf(stderr, "gln_graphics_new_picture is true. ");
+      if (deferred_repaint)
+        fprintf(stderr, "deferred_repaint is true. ");
+      fprintf(stderr, "Calculating new position\n");
+
       /*
        * Calculate the x and y offset to center the picture in the graphics
        * window.
@@ -2434,12 +2582,14 @@ gln_graphics_timeout (void)
                                      GLN_GRAPHICS_PIXEL,
                                      gln_graphics_width, gln_graphics_height,
                                      &x_offset, &y_offset);
+      fprintf(stderr, "x_offset: %d y_offset:%d\n", x_offset, y_offset);
 
       /*
        * Reset all on-screen pixels to an unused value, guaranteed not to
        * match any in a real picture.  This forces all pixels to be repainted
        * on a buffer/on-screen comparison.
        */
+      fprintf(stderr, "Reset all on-screen pixels\n");
       free (on_screen);
       on_screen = gln_malloc (picture_size * sizeof (*on_screen));
       memset (on_screen, GLN_GRAPHICS_UNUSED_PIXEL,
@@ -2575,16 +2725,20 @@ gln_graphics_timeout (void)
   total_regions += regions;
 
 #else
-  gln_graphics_paint_everything
-      (gln_graphics_window,
-       palette, off_screen,
-       x_offset, y_offset,
-       gln_graphics_width,
-       gln_graphics_height);
+  if (gln_graphics_interpreter_state == GLN_GRAPHICS_LINE_MODE && (VectorState != SHOWING_VECTOR_IMAGE || current_draw_instruction == 0) && gli_slowdraw == 1) {
+    DrawSomeL9VectorPixels(palette[0], gln_graphics_window, x_offset, y_offset, palette);
+  } else {
+    gln_graphics_paint_everything
+    (gln_graphics_window,
+     palette, off_screen,
+     x_offset, y_offset,
+     gln_graphics_width,
+     gln_graphics_height);
+     gln_graphics_stop ();
+  }
 #endif
 
   /* Stop graphics; there's no more to be done until something restarts us. */
-  gln_graphics_stop ();
 }
 
 
@@ -2934,6 +3088,7 @@ gln_graphics_cleanup (void)
   gln_graphics_on_screen = NULL;
   free (gln_graphics_bitmap_directory);
   gln_graphics_bitmap_directory = NULL;
+  FreePixels();
 
   gln_graphics_bitmap_type = NO_BITMAPS;
   gln_graphics_picture = -1;
@@ -3020,7 +3175,7 @@ static void
 gln_linegraphics_clear_context (void)
 {
   long picture_bytes;
-
+  fprintf(stderr, "gln_linegraphics_clear_context\n");
   /* Get the picture size, and zero all bytes in the bitmap. */
   picture_bytes = gln_graphics_width
                   * gln_graphics_height * sizeof (*gln_graphics_bitmap);
@@ -3067,13 +3222,27 @@ gln_linegraphics_get_pixel (int x, int y)
   return gln_graphics_bitmap[y * gln_graphics_width + x];
 }
 
+#pragma mark gln_linegraphics_set_pixel
+
 static void
 gln_linegraphics_set_pixel (int x, int y, gln_byte color)
 {
   assert (x >= 0 && x < gln_graphics_width
           && y >= 0 && y < gln_graphics_height);
 
+  if (VectorState == DRAWING_VECTOR_IMAGE) {
+    FreePixels();
+    VectorState = NO_VECTOR_IMAGE;
+  }
+
   gln_graphics_bitmap[y * gln_graphics_width + x] = color;
+  pixel_to_draw *todraw = gln_malloc(sizeof(pixel_to_draw));
+  todraw->x = x;
+  todraw->y = y;
+  todraw->colour = color;
+  ensure_capacity();
+  pixels_to_draw[total_draw_instructions++] = todraw;
+  fprintf(stderr, "gln_linegraphics_set_pixel: total_draw_instructions: %d\n", total_draw_instructions);
 }
 
 
@@ -3375,6 +3544,8 @@ os_fill (int x, int y, int colour1, int colour2)
 }
 
 
+#pragma mark gln_linegraphics_process
+
 /*
  * gln_linegraphics_process()
  *
@@ -3408,6 +3579,10 @@ gln_linegraphics_process (void)
           if (gln_graphics_open ())
             {
               /* Set the new picture flag, and start the updating "thread". */
+
+
+              fprintf(stderr, "gln_linegraphics_process: Draw a new image\n");
+              current_draw_instruction = 0;
               gln_graphics_new_picture = TRUE;
               gln_graphics_start ();
             }
@@ -3542,16 +3717,19 @@ os_graphics (int mode)
 static void
 gln_arbitrate_request_timer_events (glui32 millisecs)
 {
+  fprintf(stderr, "gln_arbitrate_request_timer_events\n");
   if (millisecs > 0)
     {
       /* Setting timer events; suspend graphics if currently active. */
       if (gln_graphics_active)
         {
+          fprintf(stderr, "suspending timer_events\n");
           gln_graphics_suspended = TRUE;
           gln_graphics_stop ();
         }
 
       /* Set timer events as requested. */
+      fprintf(stderr, "gln_arbitrate_request_timer_events: requesting timer of %d\n", millisecs);
       glk_request_timer_events (millisecs);
     }
   else
@@ -3562,6 +3740,7 @@ gln_arbitrate_request_timer_events (glui32 millisecs)
        */
       if (gln_graphics_suspended)
         {
+          fprintf(stderr, "restarting timer_events\n");
           gln_graphics_suspended = FALSE;
           gln_graphics_start ();
 
