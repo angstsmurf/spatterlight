@@ -8,7 +8,7 @@
 #ifndef titleimage_h
 #define titleimage_h
 
-void DrawTitleImage(void);
+void DrawTitleImageScott(void);
 void PrintTitleScreenBuffer(void);
 void PrintTitleScreenGrid(void);
 

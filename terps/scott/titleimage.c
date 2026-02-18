@@ -35,7 +35,135 @@ void ResizeTitleImage(void)
     y_offset = ((int)graphheight - (int)optimal_height) / 3;
 }
 
-void DrawTitleImage(void)
+void InitTitleImage(void) {
+#ifdef SPATTERLIGHT
+    if (!gli_enable_graphics)
+        return;
+#endif
+    Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
+    if (Top) {
+        glk_window_close(Top, NULL);
+        Top = NULL;
+    }
+
+    glui32 background_color = -1;
+
+    Bottom = FindGlkWindowWithRock(GLK_BUFFER_ROCK);
+    if (Bottom) {
+        glk_style_measure(Bottom, style_Normal, stylehint_BackColor,
+                          &background_color);
+        glk_window_close(Bottom, NULL);
+    }
+
+    Graphics = glk_window_open(0, 0, 0, wintype_Graphics, GLK_GRAPHICS_ROCK);
+
+    if (glk_gestalt_ext(gestalt_GraphicsCharInput, 0, NULL, 0)) {
+        glk_request_char_event(Graphics);
+    } else {
+        Bottom = glk_window_open(Graphics, winmethod_Below | winmethod_Fixed,
+                                 2, wintype_TextBuffer, GLK_BUFFER_ROCK);
+        glk_request_char_event(Bottom);
+    }
+
+    if (background_color != -1) {
+        glk_window_set_background_color(Graphics, background_color);
+        glk_window_clear(Graphics);
+    }
+
+    ResizeTitleImage();
+}
+
+const char **GetRTPILines(const char *text) {
+    char *lines[24];
+    size_t linelenghts[24];
+    uint8_t line[128];
+    int lineidx = 0;
+    int pos = 0;
+    int linepos = 0;
+    while (lineidx < 24 && text[pos] != '\0') {
+        // Skip leading spaces
+        while (text[pos] == ' ') {
+            pos++;
+        }
+        while (text[pos] != '\n' && text[pos] != '\r' && text[pos] != '\0') {
+            line[linepos++] = text[pos++];
+        }
+        pos++;
+        lines[lineidx] = MemAlloc(linepos + 2);
+        memcpy(lines[lineidx], line, linepos);
+        lines[lineidx][linepos] = '\n';
+        lines[lineidx][linepos + 1] = '\0';
+        linelenghts[lineidx] = linepos + 2;
+        lineidx++;
+        linepos = 0;
+    }
+    const char **outlines = MemAlloc(26 * sizeof(char *));
+
+    static const uint8_t order[26] =
+    { 1, 2, 4, 3, 5, 8, 9, 11, 12, 14, 99, 14, 13, 15, 17, 19, 99, 19, 18, 20, 21, 23, 22, 99, 22, 0 };
+
+    for (int j = 0; j < 26; j++) {
+        if (order[j] == 99) {
+            outlines[j] = "*\n";
+        } else {
+            outlines[j] = lines[order[j]];
+        }
+    }
+    return outlines;
+}
+
+/*
+
+0. (HIT ANY KEY)
+1. Texas Instruments and
+2. Adventure International
+3.
+4. Proudly present
+5. Scott Adams Graphic Adventure
+6.
+7.
+8. “RETURN TO PIRATE’S ISLE”
+9.
+10.
+11. Copyright 1983
+12. by Scott Adams
+13. Written by Scott Adams.
+14.
+15. With special assistance from: Eric White, Scott Smith, and Linda Paladino.
+16.
+17. With love to my Mom who made it all possible!
+18. The next picture you see is correct!
+19.
+20. Do not try to adjust your TV. Just use your Adventuring skills!
+21.
+22.
+23. GOOD LUCK !
+
+*/
+
+void RTPITitle(void) {
+    if (!title_screen)
+        return;
+    Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
+    if (!Graphics)
+        return;
+    Bottom = FindGlkWindowWithRock(GLK_BUFFER_ROCK);
+    if (Bottom)
+        glk_window_close(Bottom, NULL);
+    glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_Justification, stylehint_just_Centered);
+    Bottom = glk_window_open(Graphics, winmethod_Below | winmethod_Proportional, 50, wintype_TextBuffer, GLK_BUFFER_ROCK);
+    glk_stream_set_current(glk_window_get_stream(Bottom));
+    const char **lines = GetRTPILines(title_screen);
+    free((void *)title_screen);
+    glk_set_style(style_User2);
+    for (int i = 0; i < 26; i++) {
+        Output(lines[i]);
+    }
+    glk_set_style(style_Normal);
+}
+
+
+void DrawTitleImageScott(void)
 {
     int storedwidth = ImageWidth;
     int storedheight = ImageHeight;
@@ -71,6 +199,10 @@ void DrawTitleImage(void)
     if (background_color != -1) {
         glk_window_set_background_color(Graphics, background_color);
         glk_window_clear(Graphics);
+    }
+
+    if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
+        RTPITitle();
     }
 
     ResizeTitleImage();
@@ -144,13 +276,19 @@ void PrintTitleScreenGrid(void)
 {
     int title_length = strlen(title_screen);
     int rows = 0;
+
+    // Count rows
     for (int i = 0; i < title_length; i++)
         if (title_screen[i] == '\n')
             rows++;
+
     winid_t titlewin = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, rows + 2,
         wintype_TextGrid, 0);
     glui32 width, height;
     glk_window_get_size(titlewin, &width, &height);
+
+    // If the screen size is too small to fit the entire text,
+    // just flush the text to the buffer window and be done with it.
     if (width < 40 || height < rows + 2) {
         glk_window_close(titlewin, NULL);
         PrintTitleScreenBuffer();

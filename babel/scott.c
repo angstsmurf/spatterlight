@@ -6,7 +6,7 @@
 
 #define FORMAT scott
 #define HOME_PAGE "https://github.com/cspiegel/scottfree-glk"
-#define FORMAT_EXT ".dat,.saga,.sna,.tzx,.tap,.z80,.d64,.t64,.dsk,.woz,.fiad,.atr,.sag"
+#define FORMAT_EXT ".dat,.saga,.sna,.tzx,.tap,.z80,.d64,.t64,.dsk,.woz,.fiad,.atr,.sag,.cart,.rpk,.zip"
 #define NO_METADATA
 #define NO_COVER
 
@@ -57,7 +57,9 @@ static const char *ifids[] = {
     "AA9FF03F-FBE3-4767-8ACD-29FBFDCD3A91", // Gremlins - The Adventure (German)
     "75EE0452-0A6A-4100-9185-A79316812E0B", // Super Gran - The Adventure
     "E8021308-8719-4A34-BDF9-C6F388129E53", // Robin Of Sherwood
-    "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB"  // Seas Of Blood
+    "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB", // Seas Of Blood
+
+    "9EA259B4FEAAF392815A79C3CECB936F"  // Return to Pirate's Isle
 };
 
 typedef enum {
@@ -95,6 +97,7 @@ typedef enum {
     SUPERGRAN_IFID,
     ROBIN_OF_SHERWOOD_IFID,
     SEAS_OF_BLOOD_IFID,
+    RETURN_TO_PIRATES_ISLE_IFID
 } IfidType;
 
 struct scottrec {
@@ -455,6 +458,9 @@ static const struct scottrec scott_registry[] = {
    { 0x2ab00, 0x5c1d, SEAS_OF_BLOOD_IFID }, // Seas of Blood C64 (D64)
    { 0x2ab00, 0xe308, SEAS_OF_BLOOD_IFID }, // Seas of Blood C64 (D64) alt
    { 0x2ab00, 0x3df2, SEAS_OF_BLOOD_IFID }, // Seas of Blood C64 (D64) alt 2
+
+   { 0x755f, 0x7113, RETURN_TO_PIRATES_ISLE_IFID }, // Return to Pirate's Isle (cartridge rpk format)
+   { 0x5e5c, 0x6d21, RETURN_TO_PIRATES_ISLE_IFID }, // Return to Pirate's Isle (cartridge MAME zip format)
 
    { 0, 0, 0 }
 };

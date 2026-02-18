@@ -10,10 +10,9 @@
 
 void DrawSomeVectorPixels(int from_start);
 int DrawingVector(void);
-<<<<<<< HEAD
 int TimerDelay(void);
-=======
->>>>>>> 4ed3c32f (ciderpress: Don't bail on bad sector index)
+int RunVectorTests(const char *supportpath);
+uint8_t *ReadTestDataFromFile(const char *filename, const char *supportpath, size_t *size);
 
 typedef enum {
     NO_VECTOR_IMAGE,

@@ -1342,8 +1342,8 @@ int LoadDatabaseBinary(void)
           all the values as if they were little-endian. */
 
        /* Unfortunatey we also have to nudge the pointer in other ways,
-          here and there, which can not be explained by endianness.
-          It seems that theST games alternate between 8-bit and 16-bit
+          here and there, which can't be explained by endianness.
+          It seems that the ST games alternate between 8-bit and 16-bit
           values in an inconsistent way. */
 
         if (isSTSpiderman || isSTFantastic4)

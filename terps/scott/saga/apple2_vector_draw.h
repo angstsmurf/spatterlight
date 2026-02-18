@@ -14,5 +14,6 @@
 int DrawApple2VectorImage(USImage *img);
 void DrawSomeApple2VectorBytes(int from_start);
 int DrawingApple2Vector(void);
+int RunApple2VectorTests(const char *supportpath);
 
 #endif /* apple2_vector_draw_h */

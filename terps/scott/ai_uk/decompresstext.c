@@ -12,7 +12,6 @@
 #include <string.h>
 
 #include "decompresstext.h"
-
 #include "scott.h"
 
 #define DECOMPRESS_BUF_SIZE 256

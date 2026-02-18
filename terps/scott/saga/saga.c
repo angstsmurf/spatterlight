@@ -17,6 +17,7 @@
 #include "c64_small.h"
 #include "detectgame.h"
 #include "pcdraw.h"
+#include "rtpi_graphics.h"
 #include "sagagraphics.h"
 #include "scott.h"
 
@@ -168,6 +169,9 @@ int DrawUSImage(USImage *image)
         case SYS_ATARI8_LINES:
             DrawAtari8BitVectorImage(image);
             return 1;
+        case SYS_TI994A:
+            DrawRTPIImage(image);
+            return 1;
         default:
             return 0;
     }
@@ -210,6 +214,29 @@ int DrawUSRoom(int room)
         do {
             if (image->usage == IMG_ROOM && image->index == room) {
                 return DrawUSImage(image);
+            }
+            image = image->next;
+        } while (image != NULL);
+    }
+    return 0;
+}
+
+int DrawFuzzyRoom(int room)
+{
+    // If at sea at night, and floodlights are off or battery is out, don't draw fuzzy image
+    // (because it really is dark)
+    if (Items[32].Location == DESTROYED && ((BitFlags & (1 << 29)) == 0 || CurrentCounter <= 0))
+        return 0;
+    // Also don't draw fuzzy image if bitflag 2 is set, which means we are
+    // wearing glasses or mask with lenses
+    if ((BitFlags & (1 << 2)) == 0)
+        return 0;
+
+    USImage *image = USImages;
+    if (image != NULL) {
+        do {
+            if (image->usage == IMG_ROOM && image->index == room) {
+                return DrawFuzzyRTPIImage(image);
             }
             image = image->next;
         } while (image != NULL);
@@ -283,23 +310,41 @@ void LookUS(void)
         }
         DrawRoomObjectImages();
 
-        if (CurrentGame == HULK_US) {
-            if (Items[18].Location == MyLoc && MyLoc == Items[18].InitialLoc) // Bio Gem
-                DrawUSRoomObject(70);
-            if (Items[21].Location == MyLoc && MyLoc == Items[21].InitialLoc) // Wax
-                DrawUSRoomObject(72);
-            if (Items[14].Location == MyLoc || Items[15].Location == MyLoc) // Large pit
-                DrawUSRoomObject(13);
-        } else if (CurrentGame == COUNT_US) {
-            if (Items[17].Location == MyLoc && MyLoc == 8) // Only draw mirror in bathroom
-                DrawUSRoomObject(80);
-            if (Items[35].Location == MyLoc && MyLoc == 18) // Only draw other end of sheet in pit
-                DrawUSRoomObject(81);
-            if (Items[5].Location == MyLoc && MyLoc == 9) // Only draw coat-of-arms at gate
-                DrawUSRoomObject(82);
-        } else if (CurrentGame == VOODOO_CASTLE_US) {
-            if (Items[45].Location == MyLoc && MyLoc == 14) // Only draw boards in chimney
-                DrawUSRoomObject(80);
+        switch (CurrentGame) {
+            case HULK_US:
+                if (Items[18].Location == MyLoc && MyLoc == Items[18].InitialLoc) // Bio Gem
+                    DrawUSRoomObject(70);
+                if (Items[21].Location == MyLoc && MyLoc == Items[21].InitialLoc) // Wax
+                    DrawUSRoomObject(72);
+                if (Items[14].Location == MyLoc || Items[15].Location == MyLoc) // Large pit
+                    DrawUSRoomObject(13);
+                break;
+            case COUNT_US:
+                if (Items[17].Location == MyLoc && MyLoc == 8) // Only draw mirror in bathroom
+                    DrawUSRoomObject(80);
+                if (Items[35].Location == MyLoc && MyLoc == 18) // Only draw other end of sheet in pit
+                    DrawUSRoomObject(81);
+                if (Items[5].Location == MyLoc && MyLoc == 9) // Only draw coat-of-arms at gate
+                    DrawUSRoomObject(82);
+                break;
+            case VOODOO_CASTLE_US:
+                if (Items[45].Location == MyLoc && MyLoc == 14) // Only draw boards in chimney
+                    DrawUSRoomObject(80);
+                break;
+            case RETURN_TO_PIRATES_ISLE:
+                if (MyLoc == 22) {
+                    DrawUSRoomObject(27); // Draw underside of dock when under the dock
+                    DrawUSRoom(31); // Draw low beam (on top of underside of dock)
+                } else if (Items[27].Location == MyLoc) {
+                    DrawUSRoom(30); // Draw high beam (on top of underside of dock)
+                } else if (MyLoc == 11 && Items[32].Location == DESTROYED) {
+                    DrawUSRoom(29); // Draw sea at night
+                    if (Items[28].Location == MyLoc) {
+                        DrawUSRoom(32); // Boat to the west at night
+                    }
+                }
+            default:
+                break;
         }
         DrawImageOrVector();
     }
@@ -312,6 +357,7 @@ void InventoryUS(void)
         return;
     glk_window_clear(Graphics);
     if (!DrawUSRoom(98)) {
+        should_draw_image = 1;
         LookUS();
         return;
     }
@@ -697,7 +743,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int d
         return FreeGameResources();
     }
 
-    // Skip image strings lookup table
+    // Skip item strings lookup table
     ptr = Skip(ptr, (GameHeader.NumItems + 1) * 4, data + length);
 
     // Parse actions

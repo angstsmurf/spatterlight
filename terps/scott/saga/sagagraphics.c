@@ -14,6 +14,7 @@
 #include "atari_8bit_vector_draw.h"
 #include "vector_common.h"
 #include "common_file_utils.h"
+#include "rtpi_graphics.h"
 #include "glk.h"
 #include "scott.h"
 
@@ -54,6 +55,8 @@ void DrawImageOrVector(void) {
             glk_request_timer_events(TimerDelay());
         else
             DrawSomeAtari8VectorBytes(1);
+    } else if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
+        DrawRTPIFromMem();
     }
 }
 

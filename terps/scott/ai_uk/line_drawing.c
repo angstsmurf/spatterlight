@@ -17,11 +17,11 @@
 #define OPCODE_FILL     0xc1
 #define OPCODE_END      0xff
 
-#define DRAW_HEIGHT_OFFSET 190
+#define DRAW_HEIGHT_OFFSET 191
 
 #define MYSTERIOUS_WIDTH 255
 #define MYSTERIOUS_HEIGHT 97
-#define MYSTERIOUS_CLIPHEIGHT 94
+#define MYSTERIOUS_CLIPHEIGHT 95
 
 line_image *LineImages;
 

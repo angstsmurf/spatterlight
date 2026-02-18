@@ -1193,6 +1193,8 @@ jumpSysMess:
 
 int IsMysterious(void)
 {
+    if (Game && (Game->subtype & MYSTERIOUS) != 0)
+        return 1;
     for (int i = 0; games[i].Title != NULL; i++) {
         if (games[i].subtype & MYSTERIOUS) {
             if (games[i].number_of_items == GameHeader.NumItems &&
@@ -1316,6 +1318,14 @@ GameIDType DetectGame(const char *file_name)
     if (f == NULL)
         Fatal("Cannot open game");
 
+    file_length = GetFileLength(f);
+
+    if (file_length > MAX_GAMEFILE_SIZE) {
+        debug_print("File too large to be a vaild game file (%zu bytes, max is %d)\n",
+            file_length, MAX_GAMEFILE_SIZE);
+        return UNKNOWN_GAME;
+    }
+
     for (int i = 0; i < NUMBER_OF_DIRECTIONS; i++)
         Directions[i] = EnglishDirections[i];
     for (int i = 0; i < NUMBER_OF_SKIPPABLE_WORDS; i++)
@@ -1324,14 +1334,6 @@ GameIDType DetectGame(const char *file_name)
         DelimiterList[i] = EnglishDelimiterList[i];
     for (int i = 0; i < NUMBER_OF_EXTRA_NOUNS; i++)
         ExtraNouns[i] = EnglishExtraNouns[i];
-
-    file_length = GetFileLength(f);
-
-    if (file_length > MAX_GAMEFILE_SIZE) {
-        debug_print("File too large to be a vaild game file (%zu bytes, max is %d)\n",
-            file_length, MAX_GAMEFILE_SIZE);
-        return UNKNOWN_GAME;
-    }
 
     Game = (GameInfo *)MemAlloc(sizeof(GameInfo));
     memset(Game, 0, sizeof(GameInfo));
@@ -1375,11 +1377,17 @@ GameIDType DetectGame(const char *file_name)
         Game->type = US_VARIANT;
     }
 
+    if (detectedGame == RETURN_TO_PIRATES_ISLE) {
+        CurrentGame = RETURN_TO_PIRATES_ISLE;
+        Game->type = US_VARIANT;
+    }
+
     if (detectedGame == SCOTTFREE || detectedGame == TI994A)
         CurrentGame = detectedGame;
 
     if (IsMysterious()) {
         Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
+        ImageHeight = 95;
     }
 
     if (detectedGame == SCOTTFREE || detectedGame == TI994A || Game->type == US_VARIANT)

@@ -145,5 +145,6 @@ enum
 	EVTVOLUME,
 
     EVTPREFS,
-    EVTQUIT
+    EVTQUIT,
+    EVTTEST
 };

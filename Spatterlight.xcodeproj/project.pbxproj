@@ -682,6 +682,7 @@
 		C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */ = {isa = PBXBuildFile; fileRef = C38D6ECD27CFCC5400328B12 /* line_drawing.c */; };
 		C39147442974C41D00692B9E /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39147432974C41D00692B9E /* SideViewController.m */; };
 		C39147482974C48C00692B9E /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39147472974C48C00692B9E /* TableViewController.m */; };
+		C391F77A2F3D795E00F3102B /* rtpi_graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C391F7792F3D795E00F3102B /* rtpi_graphics.c */; };
 		C39613FE28E5D0B300A13624 /* saga.c in Sources */ = {isa = PBXBuildFile; fileRef = C39613FD28E5D0B300A13624 /* saga.c */; };
 		C396E8F12732B2CE0090B5DF /* quest4.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E8EF2732B2CE0090B5DF /* quest4.c */; };
 		C3998E2326C97A5C002C1E5D /* AGT-03201-0000E16C.ico in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */; };
@@ -834,6 +835,7 @@
 		C3EAD78126D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */; };
 		C3EAD78326D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */; };
 		C3EC5026289C0C820078AB83 /* stdraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EC5024289C0C820078AB83 /* stdraw.c */; };
+		C3ED35092F464BE200E3A33D /* unzip_in_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = C3ED35082F464BE200E3A33D /* unzip_in_mem.c */; };
 		C3ED4172296E895A006EACED /* time_cruncher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED4171296E895A006EACED /* time_cruncher.cpp */; };
 		C3ED631D2C6E0FCC000F90A8 /* ciderpress.c in Sources */ = {isa = PBXBuildFile; fileRef = C3ED63182C6E0FCC000F90A8 /* ciderpress.c */; };
 		C3ED631E2C6E0FCC000F90A8 /* ciderpress.h in Headers */ = {isa = PBXBuildFile; fileRef = C3ED63192C6E0FCC000F90A8 /* ciderpress.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1339,6 +1341,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 961CCEB609F2396500528FF9;
 			remoteInfo = glkmain;
+		};
+		C3983DA32F62D08E00717789 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318F7612741AA2F006D626A;
+			remoteInfo = scott;
+		};
+		C39915082F65BE3C00D38500 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCEC309F239C100528FF9;
+			remoteInfo = Spatterlight;
 		};
 		C3B61C4F1ECCDB4600607CE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3025,10 +3041,13 @@
 		C39147432974C41D00692B9E /* SideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SideViewController.m; path = "application/Library window/SideViewController.m"; sourceTree = SOURCE_ROOT; };
 		C39147462974C48C00692B9E /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		C39147472974C48C00692B9E /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		C391F7782F3D795E00F3102B /* rtpi_graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rtpi_graphics.h; sourceTree = "<group>"; };
+		C391F7792F3D795E00F3102B /* rtpi_graphics.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rtpi_graphics.c; sourceTree = "<group>"; };
 		C39613FC28E5D0B300A13624 /* saga.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = saga.h; sourceTree = "<group>"; };
 		C39613FD28E5D0B300A13624 /* saga.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = saga.c; sourceTree = "<group>"; };
 		C396691B2E85EA50008A75A7 /* Spatterlight 13_5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 13_5.xcdatamodel"; sourceTree = "<group>"; };
 		C396E8EF2732B2CE0090B5DF /* quest4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest4.c; sourceTree = "<group>"; };
+		C3983D872F62CE4600717789 /* SpatterlightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpatterlightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
 		C3998E2126C97A4E002C1E5D /* AGT-03201-0000E16C.agx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AGT-03201-0000E16C.agx"; sourceTree = "<group>"; };
 		C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = "AGT-03201-0000E16C.ico"; sourceTree = "<group>"; };
@@ -3264,6 +3283,8 @@
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
 		C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Till Death Makes a Monk-Fish out of Me.txt"; sourceTree = "<group>"; };
 		C3EC5024289C0C820078AB83 /* stdraw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stdraw.c; sourceTree = "<group>"; };
+		C3ED35072F464BE200E3A33D /* unzip_in_mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unzip_in_mem.h; sourceTree = "<group>"; };
+		C3ED35082F464BE200E3A33D /* unzip_in_mem.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = unzip_in_mem.c; sourceTree = "<group>"; };
 		C3ED4171296E895A006EACED /* time_cruncher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = time_cruncher.cpp; sourceTree = "<group>"; };
 		C3ED63132C6E0E64000F90A8 /* libreadwoz.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libreadwoz.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3ED63182C6E0FCC000F90A8 /* ciderpress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ciderpress.c; sourceTree = "<group>"; };
@@ -3352,6 +3373,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		C3983D882F62CE4600717789 /* SpatterlightTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SpatterlightTests; sourceTree = "<group>"; };
 		C3DB14582E8418BB00837F69 /* MappingModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MappingModels; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -3639,6 +3661,13 @@
 				C3F06BA5288D440900AC7FDE /* libc64diskimage.dylib in Frameworks */,
 				C37EC5A42847AA810084B841 /* libglkimp.dylib in Frameworks */,
 				C37EC5A32847AA760084B841 /* libglkmain.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3983D842F62CE4600717789 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4236,6 +4265,7 @@
 				C35978C225DA14A6004B1448 /* iFictionQuickLook */,
 				C322714D25CC214A0083BD5B /* SpatterlightThumbnailer */,
 				C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */,
+				C3983D882F62CE4600717789 /* SpatterlightTests */,
 				961CCF6509F295CA00528FF9 /* Frameworks */,
 				961CCE7C09F237E700528FF9 /* Products */,
 				C3CEC2CC26A6D66800120469 /* Tests */,
@@ -4284,6 +4314,7 @@
 				C33BC70E2EEEF9650086C18C /* libaiukgraphics.a */,
 				C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */,
 				C36797CA2EF040F7008A6A0D /* libsagagraphics.a */,
+				C3983D872F62CE4600717789 /* SpatterlightTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -6196,6 +6227,10 @@
 				C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */,
 				C3DAC20D27C44BAD00368157 /* ti99_4a_terp.h */,
 				C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */,
+				C391F7782F3D795E00F3102B /* rtpi_graphics.h */,
+				C391F7792F3D795E00F3102B /* rtpi_graphics.c */,
+				C3ED35072F464BE200E3A33D /* unzip_in_mem.h */,
+				C3ED35082F464BE200E3A33D /* unzip_in_mem.c */,
 			);
 			path = ti994a;
 			sourceTree = "<group>";
@@ -6908,6 +6943,30 @@
 			productReference = C37EC5992847AA040084B841 /* plus */;
 			productType = "com.apple.product-type.tool";
 		};
+		C3983D862F62CE4600717789 /* SpatterlightTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3983D8D2F62CE4600717789 /* Build configuration list for PBXNativeTarget "SpatterlightTests" */;
+			buildPhases = (
+				C3983D832F62CE4600717789 /* Sources */,
+				C3983D842F62CE4600717789 /* Frameworks */,
+				C3983D852F62CE4600717789 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C39915092F65BE3C00D38500 /* PBXTargetDependency */,
+				C3983DA42F62D08E00717789 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C3983D882F62CE4600717789 /* SpatterlightTests */,
+			);
+			name = SpatterlightTests;
+			packageProductDependencies = (
+			);
+			productName = SpatterlightTests;
+			productReference = C3983D872F62CE4600717789 /* SpatterlightTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C3CEC2B526A6D0A200120469 /* UITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3CEC2BF26A6D0A200120469 /* Build configuration list for PBXNativeTarget "UITests" */;
@@ -7147,6 +7206,10 @@
 					C37EC5982847AA040084B841 = {
 						CreatedOnToolsVersion = 13.4;
 					};
+					C3983D862F62CE4600717789 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 961CCEC309F239C100528FF9;
+					};
 					C3CEC2B526A6D0A200120469 = {
 						CreatedOnToolsVersion = 12.5.1;
 						TestTargetID = 961CCEC309F239C100528FF9;
@@ -7236,6 +7299,7 @@
 				C33BC70D2EEEF9650086C18C /* aiukgraphics */,
 				C36797BA2EF02497008A6A0D /* decompressz80 */,
 				C36797C92EF040F7008A6A0D /* sagagraphics */,
+				C3983D862F62CE4600717789 /* SpatterlightTests */,
 			);
 		};
 /* End PBXProject section */
@@ -7286,6 +7350,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C322714825CC214A0083BD5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3983D852F62CE4600717789 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -8120,6 +8191,7 @@
 				C38A881327D2092500AE917E /* ringbuffer.c in Sources */,
 				C3590C712EF1494100F02FE7 /* read_le16.c in Sources */,
 				C318F7702741AA5B006D626A /* bsd.c in Sources */,
+				C391F77A2F3D795E00F3102B /* rtpi_graphics.c in Sources */,
 				C31F05282EED8793002A6EC0 /* palette.c in Sources */,
 				C30C7AE328CA2C4F00D293BE /* sagagraphics.c in Sources */,
 				C318F76F2741AA5B006D626A /* scott.c in Sources */,
@@ -8128,6 +8200,7 @@
 				C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */,
 				C37391DB27A25D04009147EF /* game_specific.c in Sources */,
 				C32B472B2F1700CA002AD28F /* atari_8bit_vector_draw.c in Sources */,
+				C3ED35092F464BE200E3A33D /* unzip_in_mem.c in Sources */,
 				C31919AD2EF69EF30062991C /* common_utils.c in Sources */,
 				C31919A22EF69BF80062991C /* memory_allocation.c in Sources */,
 				C31919B42EF6B97E0062991C /* common_file_utils.c in Sources */,
@@ -8215,6 +8288,13 @@
 				C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */,
 				C3EC5026289C0C820078AB83 /* stdraw.c in Sources */,
 				C3F06B88288CBB8400AC7FDE /* c64detect.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3983D832F62CE4600717789 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8629,6 +8709,16 @@
 			isa = PBXTargetDependency;
 			target = 961CCEB609F2396500528FF9 /* glkmain */;
 			targetProxy = C3824B502CAE7FB200D58EFC /* PBXContainerItemProxy */;
+		};
+		C3983DA42F62D08E00717789 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318F7612741AA2F006D626A /* scott */;
+			targetProxy = C3983DA32F62D08E00717789 /* PBXContainerItemProxy */;
+		};
+		C39915092F65BE3C00D38500 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCEC309F239C100528FF9 /* Spatterlight */;
+			targetProxy = C39915082F65BE3C00D38500 /* PBXContainerItemProxy */;
 		};
 		C3B61C501ECCDB4600607CE7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -10723,6 +10813,86 @@
 			};
 			name = Release;
 		};
+		C3983D8E2F62CE4600717789 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.SpatterlightTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spatterlight.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Spatterlight";
+			};
+			name = Debug;
+		};
+		C3983D8F2F62CE4600717789 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.SpatterlightTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spatterlight.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Spatterlight";
+			};
+			name = Release;
+		};
 		C3CEC2BD26A6D0A200120469 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -11588,6 +11758,15 @@
 			buildConfigurations = (
 				C37EC59E2847AA050084B841 /* Debug */,
 				C37EC59F2847AA050084B841 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3983D8D2F62CE4600717789 /* Build configuration list for PBXNativeTarget "SpatterlightTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3983D8E2F62CE4600717789 /* Debug */,
+				C3983D8F2F62CE4600717789 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

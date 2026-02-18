@@ -151,8 +151,10 @@ static void shrink_capacity(void) {
 }
 
 static void write_to_screenmem(uint16_t offset, uint8_t value90, uint8_t valueA0, bool fill, int delay) {
-    if (!is_valid_screen_offset(offset) && delay == 0)
+    if (!is_valid_screen_offset(offset) && delay == 0) {
+        fprintf(stderr, "write_to_screenmem: 0x%04x is an invalid screen address\n", offset);
         return;
+    }
 
     if (fill) {
         memset(a8_screenmem90, value90, A8_IMAGE_SIZE);
@@ -247,182 +249,72 @@ static inline void plot_pixel(a8_draw_ctx *ctx) {
 }
 
 static void draw_line(a8_draw_ctx *ctx) {
-    uint8_t tmp_diff_a;
-    uint8_t tmp_diff_b;
-    uint8_t two_dx;
-    uint8_t two_dy;
-    int dx;
-    int dy;
-    int step_x_sign;
-    int step_y_sign;
-    int16_t err;
-    bool carry;
-    bool right_and_down;
+    int dx = abs(ctx->target_x - ctx->start_x);
+    int dy = abs(ctx->target_y - ctx->start_y);
 
-    /* We are only plotting a single pixel */
-    ctx->xpos = ctx->target_x;
-    if (ctx->target_x == ctx->start_x) {
-        ctx->ypos = ctx->target_y;
-        if (ctx->target_y == ctx->start_y) {
-            offsets_from_coordinates(ctx);
-            plot_pixel(ctx);
-            return;
-        }
-    }
+    bool going_left = ctx->target_x < ctx->start_x;
+    bool going_up = ctx->target_y < ctx->start_y;
+    bool x_major = dy < dx;
+    bool positive_direction = (going_left == going_up);
 
-    /* Decide which block to take */
-    bool do_x_major = false;   /* iterate dx */
-
-    dy = abs(ctx->target_y - ctx->start_y);
-    dx = abs(ctx->target_x - ctx->start_x);
-
-    if (ctx->target_x < ctx->start_x) {
-        if (ctx->start_y < ctx->target_y) {
-            if (dy < dx) {
-                ctx->xpos = ctx->start_x;
-                ctx->ypos = ctx->start_y;
-                right_and_down = false;
-                do_x_major = true;
-            } else {
-                ctx->ypos = ctx->target_y;
-                right_and_down = false;
-                do_x_major = false;
-            }
-        } else {
-            if (dy < dx) {
-                ctx->ypos = ctx->target_y;
-                right_and_down = true;
-                do_x_major = true;
-            } else {
-                ctx->ypos = ctx->target_y;
-                right_and_down = true;
-                do_x_major = false;
-            }
-        }
+    /* Choose which endpoint to start from so the iteration direction
+       matches the primary axis.  For x-major the secondary step is
+       always move_down, so start from the endpoint with smaller y.
+       For y-major the secondary step is always move_right, so start
+       from the endpoint with smaller x. */
+    if (x_major ? !going_up : !going_left) {
+        ctx->xpos = ctx->start_x;
+        ctx->ypos = ctx->start_y;
     } else {
-        if (ctx->target_y < ctx->start_y) {
-            if (dy < dx) {
-                ctx->ypos = ctx->target_y;
-                right_and_down = false;
-                do_x_major = true;
-            } else {
-                ctx->xpos = ctx->start_x;
-                ctx->ypos = ctx->start_y;
-                right_and_down = false;
-                do_x_major = false;
-            }
-        } else {
-            if (dy < dx) {
-                ctx->xpos = ctx->start_x;
-                ctx->ypos = ctx->start_y;
-                right_and_down = true;
-                do_x_major = true;
-            } else {
-                ctx->xpos = ctx->start_x;
-                ctx->ypos = ctx->start_y;
-                right_and_down = true;
-                do_x_major = false;
-            }
-        }
+        ctx->xpos = ctx->target_x;
+        ctx->ypos = ctx->target_y;
     }
 
     offsets_from_coordinates(ctx);
-    step_x_sign = 0;
-    step_y_sign = 0;
-    carry = false;
-    two_dy = dy * 2;
-    if ((int8_t)dy < 0) {
-        step_x_sign = -1;
-        step_y_sign = 1;
-    }
-    two_dx = dx * 2;
-    if ((int8_t)dx < 0) {
-        step_x_sign--;
-        carry = true;
-    }
 
-    /* X-major path */
-    if (do_x_major) {
-        err = (step_y_sign << 8) + two_dy - dx;
-        if (step_x_sign >= 0) {
-            for (int i = 0; i < dx; i++) {
-                plot_pixel(ctx);
-                if (err < 0) {
-                    err += two_dy;
-                } else {
-                    move_down(ctx);
-                    tmp_diff_a = two_dy - two_dx;
+    /* For y-major, swap axes so the loop body is identical to x-major.
+       "major" is the primary iteration axis, "minor" is the secondary. */
+    int major = x_major ? dx : dy;
+    int minor = x_major ? dy : dx;
 
-                    if (two_dy < two_dx ) {
-                        err -= 0x100;
-                    }
-                    err += tmp_diff_a;
-                }
-                move_left_or_right(right_and_down, ctx);
-            }
-            plot_pixel(ctx);
-            return;
+    /* 8-bit overflow tracking (original Atari code used single-byte
+       arithmetic, so values >= 128 cause twice_* to wrap) */
+    uint8_t twice_major = major * 2;
+    uint8_t twice_minor = minor * 2;
+    int minor_overflows = (int8_t)minor < 0;
+    int major_overflows = (int8_t)major < 0;
+
+    int16_t error = (minor_overflows << 8) + twice_minor - major;
+    for (int i = 0; i < major; i++) {
+        plot_pixel(ctx);
+        if (error < 0) {
+            error += ((uint8_t)minor_overflows << 8) + twice_minor;
         } else {
-            for (int i = 0; i < dx; i++) {
-                plot_pixel(ctx);
-                if (err < 0) {
-                    err += ((uint8_t)step_y_sign << 8) + two_dy;
-                } else {
-                    move_down(ctx);
-                    tmp_diff_a = two_dy - two_dx;
-                    tmp_diff_b = step_y_sign - carry - (two_dx > two_dy ? 1 : 0);
-                    err += (tmp_diff_b << 8) + tmp_diff_a;
-                }
-                move_left_or_right(right_and_down, ctx);
-            }
-            plot_pixel(ctx);
-            return;
+            if (x_major)
+                move_down(ctx);
+            else
+                move_right(ctx);
+            uint8_t err_lo = twice_minor - twice_major;
+            int err_hi = minor_overflows - major_overflows - (twice_major > twice_minor ? 1 : 0);
+            error += (err_hi << 8) + err_lo;
         }
+        if (x_major)
+            move_left_or_right(positive_direction, ctx);
+        else
+            move_up_or_down(positive_direction, ctx);
     }
-
-    /* Y-major path */
-    else {
-        err = (uint8_t)(carry - (dy > two_dx ? 1 : 0)) << 8 | (two_dx - dy);
-        if (step_x_sign >= 0) {
-            for (int i = 0; i < dy; i++) {
-                plot_pixel(ctx);
-                if (err < 0) {
-                    err += two_dx;
-                } else {
-                    move_right(ctx);
-                    tmp_diff_a = two_dx - two_dy;
-
-                    if (two_dy > two_dx) {
-                        err -= 0x100;
-                    }
-                    err += tmp_diff_a;
-                }
-                move_up_or_down(right_and_down, ctx);
-            }
-            plot_pixel(ctx);
-            return;
-        } else {
-            for (int i = 0; i < dy; i++) {
-                plot_pixel(ctx);
-                if (err < 0) {
-                    err += two_dx + (carry ? 0x100 : 0);
-                } else {
-                    move_right(ctx);
-                    tmp_diff_a = two_dx - two_dy;
-                    tmp_diff_b = carry - step_y_sign - (two_dy > two_dx ? 1 : 0);
-                    err += (tmp_diff_b << 8) + tmp_diff_a;
-                }
-                move_up_or_down(right_and_down, ctx);
-            }
-            plot_pixel(ctx);
-        }
-    }
+    plot_pixel(ctx);
 }
 
 // Compose a single pattern byte from four 2-bit slot colors (s1..s4).
 // Bits layout: s1 in bits 7-6, s2 in bits 5-4, s3 in bits 3-2, s4 in bits 1-0.
 static inline uint8_t compose_pattern_byte(uint8_t s1, uint8_t s2, uint8_t s3, uint8_t s4) {
     return (uint8_t)(((s1 & 3) << 6) | ((s2 & 3) << 4) | ((s3 & 3) << 2) | (s4 & 3));
+}
+
+static void make_four_color_pattern(uint8_t param_1, uint8_t param_2, uint8_t param_3, uint8_t param_4, a8_draw_ctx *ctx) {
+    ctx->pattern_byte[2] = compose_pattern_byte(param_1, param_2, param_1, param_2);
+    ctx->pattern_byte[3] = compose_pattern_byte(param_3, param_4, param_3, param_4);
 }
 
 static void make_pattern_0(uint8_t color_1, uint8_t color_2, a8_draw_ctx *ctx) {
@@ -449,11 +341,6 @@ static void make_pattern_2(uint8_t param_1, uint8_t param_2, a8_draw_ctx *ctx) {
     ctx->pattern_byte[3] = compose_pattern_byte(param_2, param_2, param_2, param_2);
 }
 
-static void make_four_color_pattern(uint8_t param_1, uint8_t param_2, uint8_t param_3, uint8_t param_4, a8_draw_ctx *ctx) {
-    ctx->pattern_byte[2] = compose_pattern_byte(param_1, param_2, param_1, param_2);
-    ctx->pattern_byte[3] = compose_pattern_byte(param_3, param_4, param_3, param_4);
-}
-
 static void make_pattern_3(a8_draw_ctx *ctx) {
     make_four_color_pattern(ctx->pattern_color[2], ctx->pattern_color[0], ctx->pattern_color[3], ctx->pattern_color[1], ctx);
     // then copy bytes 2/3 into 0/1
@@ -470,8 +357,8 @@ static void make_pattern_4(a8_draw_ctx *ctx) {
 static void assign_plane_patterns(a8_draw_ctx *ctx) {
     ctx->planeA0_pattern_even = ctx->pattern_byte[0];
     ctx->plane90_pattern_even = ctx->pattern_byte[1];
-    ctx->planeA0_pattern_odd = ctx->pattern_byte[2];
-    ctx->plane90_pattern_odd = ctx->pattern_byte[3];
+    ctx->planeA0_pattern_odd  = ctx->pattern_byte[2];
+    ctx->plane90_pattern_odd  = ctx->pattern_byte[3];
 }
 
 static void initialize_pattern_colors(a8_draw_ctx *ctx) {
@@ -514,18 +401,13 @@ uint8_t build_plane_byte(uint8_t target_val) {
     return color_nibble << 4 | color_nibble;
 }
 
-#define RECURSION_LIMIT 4000
+#define RECURSION_LIMIT 2000
 
 static bool at_edge(a8_draw_ctx *ctx) {
     uint8_t color = get_pixel_color(ctx);
-    if (ctx->erase_enabled) {
-        if (color == ctx->fill_edge_color)
-            return true;
-    } else {
-        if (color != ctx->fill_background_color)
-            return true;
-    }
-    return false;
+    if (ctx->erase_enabled)
+        return color == ctx->fill_edge_color;
+    return color != ctx->fill_background_color;
 }
 
 static void swap_even_and_odd_patterns(a8_draw_ctx *ctx) {
@@ -541,23 +423,15 @@ static void swap_even_and_odd_patterns(a8_draw_ctx *ctx) {
 static bool scan_right(a8_draw_ctx *ctx) {
     for (;;) {
         move_right(ctx);
-        if (ctx->xpos == A8_SCREEN_WIDTH || ctx->xpos == ctx->scan_saved_xpos) {
+        if (ctx->xpos == A8_SCREEN_WIDTH || ctx->xpos == ctx->scan_saved_xpos)
             return true;
-        }
         if (!at_edge(ctx))
             return false;
     }
-    return false;
 }
-
-static void flood_fill_scanline(a8_draw_ctx *ctx);
 
 static void scan_left(a8_draw_ctx *ctx) {
     /* Move left to find left boundary of contiguous region */
-    ctx->recursion_depth++;
-    if (ctx->recursion_depth > RECURSION_LIMIT)
-        return;
-
     for (;;) {
         move_left(ctx);
         if ((int8_t)ctx->xpos == -1) break;
@@ -568,8 +442,9 @@ static void scan_left(a8_draw_ctx *ctx) {
      and recurse to continue fill on this scanline segment. */
     move_right(ctx);
     ctx->scan_saved_pixoff = ctx->pixel_offset;
-    flood_fill_scanline(ctx);
 }
+
+static void flood_fill_scanline(a8_draw_ctx *ctx);
 
 static void scanline_find_edge_and_recurse(a8_draw_ctx *ctx) {
     ctx->recursion_depth++;
@@ -593,35 +468,7 @@ static void scanline_find_edge_and_recurse(a8_draw_ctx *ctx) {
         return;
 
     scan_left(ctx);
-}
-
-static void flood_fill_scanline_right(a8_draw_ctx *ctx) {
-    ctx->recursion_depth++;
-    if (ctx->recursion_depth > RECURSION_LIMIT)
-        return;
-
-    move_right(ctx);
-
-    if (ctx->xpos != A8_SCREEN_WIDTH) {
-        flood_fill_scanline(ctx);
-        return;
-    }
-
-    scanline_find_edge_and_recurse(ctx);
-}
-
-static void flood_fill_scanline_slow(a8_draw_ctx *ctx) {
-    ctx->recursion_depth++;
-    if (ctx->recursion_depth > RECURSION_LIMIT)
-        return;
-
-    if (!at_edge(ctx)) {
-        plot_pixel(ctx);
-        flood_fill_scanline_right(ctx);
-        return;
-    }
-
-    scanline_find_edge_and_recurse(ctx);
+    flood_fill_scanline(ctx);
 }
 
 static void flood_fill_scanline(a8_draw_ctx *ctx) {
@@ -635,21 +482,21 @@ static void flood_fill_scanline(a8_draw_ctx *ctx) {
             return;
         }
 
-        /* if not aligned for fast path, go to slower handler */
-        if ((ctx->pixel_remainder != 0) || ctx->erase_enabled ||
-            (a8_screenmem90[ctx->screen_offset] != ctx->last_plane90_byte) ||
-            (a8_screenmemA0[ctx->screen_offset] != ctx->last_planeA0_byte)) {
-            flood_fill_scanline_slow(ctx);
-            return;
+        /* If not aligned for fast path, draw a single pixel */
+        if (ctx->pixel_remainder != 0 || ctx->erase_enabled ||
+            a8_screenmem90[ctx->screen_offset] != ctx->last_plane90_byte ||
+            a8_screenmemA0[ctx->screen_offset] != ctx->last_planeA0_byte) {
+            if (at_edge(ctx))
+                break;
+            plot_pixel(ctx);
+            move_right(ctx);
+        } else {
+            /* Fast 4-pixel write path */
+            write_to_screenmem(ctx->screen_offset, ctx->plane90_pattern_even, ctx->planeA0_pattern_even, false, 0);
+            ctx->xpos += 4;
+            ctx->pixel_offset += 4;
+            ctx->screen_offset++;
         }
-
-        /* fast 4-pixel write path */
-        write_to_screenmem(ctx->screen_offset, ctx->plane90_pattern_even, ctx->planeA0_pattern_even, false, 0);
-
-        ctx->xpos += 4;
-        ctx->pixel_offset += 4;
-        ctx->screen_offset++;
-
     } while (ctx->xpos != A8_SCREEN_WIDTH);
 
     scanline_find_edge_and_recurse(ctx);
@@ -675,26 +522,28 @@ static void flood_fill(a8_draw_ctx *ctx) {
     byte_offset_from_pixel_offset(ctx);
     coordinates_from_pixel_offset(ctx);
 
-    bool pattern_difference;
-    if ((ctx->ypos & 1) == 0) { // line is even
-        if (ctx->plane90_pattern_odd == ctx->plane90_pattern_even) {
-            pattern_difference = (int8_t)(ctx->planeA0_pattern_odd - ctx->planeA0_pattern_even) < 0;
-        } else {
-            pattern_difference = (int8_t)(ctx->plane90_pattern_odd - ctx->plane90_pattern_even) < 0;
-        }
-    } else { // line is odd
-        if (ctx->plane90_pattern_even == ctx->plane90_pattern_odd) {
-            pattern_difference = (int8_t)(ctx->planeA0_pattern_even - ctx->planeA0_pattern_odd) < 0;
-        } else {
-            pattern_difference = (int8_t)(ctx->plane90_pattern_even - ctx->plane90_pattern_odd) < 0;
-        }
+    // Determine whether even/odd patterns need swapping based on
+    // the parity of the starting line. On even lines the "first" pattern
+    // is even; on odd lines it is odd. We compare the first against
+    // the second and swap if the signed difference is negative.
+    uint8_t first_90, second_90, first_A0, second_A0;
+    if ((ctx->ypos & 1) == 0) {
+        first_90 = ctx->plane90_pattern_even;  second_90 = ctx->plane90_pattern_odd;
+        first_A0 = ctx->planeA0_pattern_even;  second_A0 = ctx->planeA0_pattern_odd;
+    } else {
+        first_90 = ctx->plane90_pattern_odd;   second_90 = ctx->plane90_pattern_even;
+        first_A0 = ctx->planeA0_pattern_odd;   second_A0 = ctx->planeA0_pattern_even;
     }
-    if (pattern_difference) {
+    bool need_swap = (first_90 == second_90)
+        ? (int8_t)(second_A0 - first_A0) < 0
+        : (int8_t)(second_90 - first_90) < 0;
+    if (need_swap) {
         swap_even_and_odd_patterns(ctx);
     }
     do {
         ctx->recursion_depth = 0;
         scan_left(ctx);
+        flood_fill_scanline(ctx);
     } while (ctx->recursion_depth > RECURSION_LIMIT);
 }
 
@@ -839,7 +688,10 @@ static bool handle_fill_or_set_background(a8_draw_ctx *ctx,
                 if (ctx->lines_only_mode) return false;
                 create_patterns(0, arg_a, arg_b, ctx);
                 write_to_screenmem(0, ctx->pattern_byte[1], ctx->pattern_byte[0], true, 0);
-                if (CurrentGame == PIRATE_US && vector_image_shown == 90)
+                /* The "teleport animation" in Pirate Adventure, which mostly just does a
+                   number of full-screen color changes in the Atari 8-bit version,
+                   needs an extra delay in order to be noticeable */
+                if (Game != NULL && CurrentGame == PIRATE_US && vector_image_shown == 90)
                     write_to_screenmem(0, 0, 0, 0, 10);
             } else {
                 /* If arg_0 == 1 we store the current pattern and then redraw
@@ -1036,4 +888,106 @@ uint8_t *DrawAtari8BitVectorImage(USImage *img) {
         }
     }
     return ctx.imagedata + offset;
+}
+
+static int Atari8bitVectorCompare(uint8_t *data, size_t datasize, int a0) {
+    fprintf(stderr, "Atari8bitVectorCompare\n");
+    uint8_t *target;
+    if (a0) {
+        target = a8_screenmemA0;
+        fprintf(stderr, "Comparing data to screen buffer at A0\n");
+    } else {
+        target = a8_screenmem90;
+        fprintf(stderr, "Comparing data to screen buffer at 90\n");
+    }
+    for (int i = 0; i < datasize; i++) {
+        if (target[i] != data[i]) {
+            fprintf(stderr, "Mismatch at offset 0x%04x: expected 0x%02x, got 0x%02x\n", i, data[i], target[i]);
+            return 0;
+        }
+    }
+    fprintf(stderr, "Incredible! All data matched!\n");
+    return 1;
+}
+
+int ReadAndDrawImageWithName(const char *name, const char *supportpath, USImageType usage) {
+    USImage *image = NewImage();
+
+    size_t pathlength = strlen(name) + 11;
+    char *finalname = MemAlloc(pathlength);
+
+    snprintf(finalname, pathlength, "atari8%s.dat", name);
+
+    size_t size;
+
+    image->imagedata = ReadTestDataFromFile(finalname, supportpath, &size);
+    if (!image->imagedata) {
+        fprintf(stderr, "Failed to read image data\n");
+        free(finalname);
+        return 0;
+    }
+    image->datasize = size;
+    image->usage = usage;
+    DrawAtari8BitVectorImage(image);
+    free(image->imagedata);
+    free(image);
+    free(finalname);
+    return 1;
+}
+
+int TestAtari8ImageWithName(const char *name, const char *supportpath) {
+    if (!ReadAndDrawImageWithName(name, supportpath, IMG_ROOM))
+        return 0;
+
+    size_t pathlength = strlen(name) + 16;
+    char *finalname = MemAlloc(pathlength);
+    snprintf(finalname, pathlength, "atari8%s90.result", name);
+
+    size_t size;
+    uint8_t *arg = ReadTestDataFromFile(finalname, supportpath, &size);
+    int result = Atari8bitVectorCompare(arg, size, 0);
+    free(arg);
+    if (result == 0) {
+        free(finalname);
+        return 0;
+    }
+    snprintf(finalname, pathlength, "atari8%sA0.result", name);
+    arg = ReadTestDataFromFile(finalname, supportpath, &size);
+    result = Atari8bitVectorCompare(arg, size, 1);
+    free(arg);
+    free(finalname);
+    return result;
+}
+
+int RunAtari8bitVectorTests(const char *supportpath) {
+
+    gli_slowdraw = 0;
+
+    if (!TestAtari8ImageWithName("mi_boom", supportpath))
+        return 0;
+    if (!TestAtari8ImageWithName("so_console", supportpath))
+        return 0;
+    if (!TestAtari8ImageWithName("so_painting", supportpath))
+        return 0;
+
+    if (!ReadAndDrawImageWithName("so_hexagonal", supportpath, IMG_ROOM))
+        return 0;
+    if (!ReadAndDrawImageWithName("so_rod", supportpath, IMG_INV_AND_ROOM_OBJ))
+        return 0;
+    if (!ReadAndDrawImageWithName("so_tint", supportpath, IMG_INV_AND_ROOM_OBJ))
+        return 0;
+
+    size_t size;
+    uint8_t *arg = ReadTestDataFromFile("tint90.result", supportpath, &size);
+    if (!Atari8bitVectorCompare(arg, size, 0)) {
+        return 0;
+    }
+    free(arg);
+    arg = ReadTestDataFromFile("tinta0.result", supportpath, &size);
+
+    if (!Atari8bitVectorCompare(arg, size, 1)) {
+        return 0;
+    }
+    
+    return 1;
 }

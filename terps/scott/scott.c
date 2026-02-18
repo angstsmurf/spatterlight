@@ -52,6 +52,7 @@
 #include "restorestate.h"
 #include "sagagraphics.h"
 #include "vector_common.h"
+#include "rtpi_graphics.h"
 
 #include "parser.h"
 #include "ti99_4a_terp.h"
@@ -98,7 +99,7 @@ glui32 TopHeight; /* Height of top window */
 int ImageWidth = 255;
 int ImageHeight = 96;
 int file_baseline_offset = 0;
-const char *title_screen = NULL;
+char *title_screen = NULL;
 
 Command *CurrentCommand = NULL;
 GameInfo *Game;
@@ -795,17 +796,17 @@ GameIDType LoadDatabase(FILE *f, int loud)
         }
 
         if (loud) {
-            debug_print("Action %d Vocab: %d (%d/%d)\n", ct, ap->Vocab,
-                ap->Vocab % 150, ap->Vocab / 150);
+            debug_print("Action %d Vocab: %d (Verb:%d/NounOrChance:%d)\n", ct, ap->Vocab,
+               ap->Vocab / 150,  ap->Vocab % 150);
             debug_print("Action %d Condition[0]: %d (%d/%d)\n", ct,
                 ap->Condition[0], ap->Condition[0] % 20, ap->Condition[0] / 20);
             debug_print("Action %d Condition[1]: %d (%d/%d)\n", ct,
                 ap->Condition[1], ap->Condition[1] % 20, ap->Condition[1] / 20);
             debug_print("Action %d Condition[2]: %d (%d/%d)\n", ct,
                 ap->Condition[2], ap->Condition[2] % 20, ap->Condition[2] / 20);
-            debug_print("Action %d Condition[0]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[3]: %d (%d/%d)\n", ct,
                 ap->Condition[3], ap->Condition[3] % 20, ap->Condition[3] / 20);
-            debug_print("Action %d Condition[0]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[4]: %d (%d/%d)\n", ct,
                 ap->Condition[4], ap->Condition[4] % 20, ap->Condition[4] / 20);
             debug_print("Action %d Subcommand [0]]: %d (%d/%d)\n", ct, ap->Subcommand[0], ap->Subcommand[0] % 150, ap->Subcommand[0] / 150);
             debug_print("Action %d Subcommand [1]]: %d (%d/%d)\n", ct, ap->Subcommand[1], ap->Subcommand[1] % 150, ap->Subcommand[1] / 150);
@@ -974,10 +975,18 @@ void DrawRoomImage(void)
         glk_request_timer_events(0);
         if (Game->type == US_VARIANT) {
             glk_window_clear(Graphics);
-            DrawUSRoom(0);
+            if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
+                if (!DrawFuzzyRoom(MyLoc)) {
+                    DrawBlack();
+                    return;
+                }
+            } else {
+                DrawUSRoom(0);
+            }
             DrawImageOrVector();
-        } else
+        } else {
             DrawBlack();
+        }
         return;
     }
 
@@ -1642,6 +1651,9 @@ int PrintScore(void)
         sys[ON_A_SCALE_THAT_RATES], (n * 100) / GameHeader.Treasures);
     if (n == GameHeader.Treasures) {
         Output(sys[YOUVE_SOLVED_IT]);
+        if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
+            ShowUSCloseup(26, 0);
+        }
         DoneIt();
         return 1;
     }
@@ -1695,14 +1707,14 @@ void SetBitFlag(int bit) {
 #ifdef DEBUG_ACTIONS
     debug_print("Bitflag %d is set\n", bit);
 #endif
-    BitFlags |= 1 << bit;
+    BitFlags |= (uint64_t)1 << bit;
 }
 
 void ClearBitFlag(int bit) {
 #ifdef DEBUG_ACTIONS
     debug_print("Bitflag %d is cleared\n", bit);
 #endif
-    BitFlags &= ~(1 << bit);
+    BitFlags &= ~((uint64_t)1 << bit);
 }
 
 static void ChangeDarkness(int dark) {
@@ -1802,6 +1814,7 @@ void PlayerIsDead(void)
 #endif
     Output(sys[IM_DEAD]);
     SetLight();
+    should_look_in_transcript = should_draw_image = 1;
     MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
 }
 
@@ -1880,14 +1893,14 @@ static ActionResultType PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
             debug_print("Is bitflag %d set?\n", dv);
 #endif
-            if ((BitFlags & (1 << dv)) == 0)
+            if ((BitFlags & ((uint64_t)1 << dv)) == 0)
                 return ACT_FAILURE;
             break;
         case 9:
 #ifdef DEBUG_ACTIONS
             debug_print("Is bitflag %d NOT set?\n", dv);
 #endif
-            if (BitFlags & (1 << dv))
+            if (BitFlags & ((uint64_t)1 << dv))
                 return ACT_FAILURE;
             break;
         case 10:
@@ -2314,6 +2327,7 @@ static ExplicitResultType PerformActions(int vb, int no)
             SetLight();
             MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
             Output(sys[YOU_FELL_AND_BROKE_YOUR_NECK]);
+            should_look_in_transcript = should_draw_image = 1;
             return ER_SUCCESS;
         }
         Output(sys[YOU_CANT_GO_THAT_WAY]);
@@ -2514,6 +2528,10 @@ static ExplicitResultType PerformActions(int vb, int no)
     return flag;
 }
 
+int RunTests(const char *supportpath) {
+    return RunVectorTests(supportpath);
+}
+
 glkunix_argumentlist_t glkunix_arguments[] = {
     { "-y", glkunix_arg_NoValue,
         "-y        Generate 'You are', 'You are carrying' type messages for games "
@@ -2577,6 +2595,13 @@ int glkunix_startup_code(glkunix_startup_t *data)
             case 'f':
                 Options |= FLICKER_ON;
                 break;
+            case 'z':
+                // Run the test suite RunTests() with the support file path as parameter,
+                // call win_testresult() with the return value as parameter,
+                // exit.
+                fprintf(stderr, "Running tests\n");
+                win_testresult(RunTests(argv[2]));
+                glk_exit();
             }
             argv++;
             argc--;
@@ -2667,7 +2692,7 @@ void glk_main(void)
         split_screen = 1;
     }
 
-    if (title_screen != NULL) {
+    if (title_screen != NULL && CurrentGame != RETURN_TO_PIRATES_ISLE) {
         if (split_screen)
             PrintTitleScreenGrid();
         else
@@ -2694,7 +2719,7 @@ one letter.\n\nDo you want to restore previously saved game?\n",
 
     if (Game->type == US_VARIANT) {
         if (HasGraphics()) {
-            DrawTitleImage();
+            DrawTitleImageScott();
             OpenGraphicsWindow();
             sys[MESSAGE_DELIMITER] = " ";
             sys[ITEM_DELIMITER] = ". ";
@@ -2714,6 +2739,9 @@ one letter.\n\nDo you want to restore previously saved game?\n",
             sys[WEST] = "WEST";
             sys[UP] = "UP";
             sys[DOWN] = "DOWN";
+
+            if (CurrentGame == RETURN_TO_PIRATES_ISLE)
+                UpdateRTPISystemMessages();
 
             Options |= PC_STYLE;
         } else {

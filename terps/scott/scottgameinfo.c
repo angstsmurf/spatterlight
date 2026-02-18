@@ -2707,7 +2707,7 @@ const char *sysdict_i_am[MAX_SYSMESS] = {
     "I don't see it here. ",
     "It is beyond my power to do that. ",
     "Dangerous to move in the dark! ",
-    "\nI fell and broke my neck.",
+    "\nI fell and broke my neck. ",
     "I can't go in that direction. ",
     "I don't know how to \"",
     "\" something. ",

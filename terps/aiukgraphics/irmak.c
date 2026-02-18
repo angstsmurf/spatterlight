@@ -11,16 +11,6 @@
 //  Original code at https://github.com/tautology0/textadventuregraphics
 //  See also http://aimemorial.if-legends.org/gfxbdp.html
 //
-//
-//  The 8 x 8 pixel graphic building blocks used for these images were
-//  previously referred to in code as "characters", but that was a bit
-//  confusing, as they don't have anything to do with the characters
-//  used to print text. Also, this kind of computer graphics is commonly
-//  called "tile based" when used in arcade games and similar.
-//
-//  All instances of "character" are now changed to "tile".
-//  Hopefully this will make things less rather than more confusing.
-//
 
 #include <stdio.h>
 #include <string.h>
@@ -40,6 +30,14 @@
 #define OVERLAY_MASK     0xF3
 #define REPEAT_BIT       0x02
 #define ADD_128_BIT      0x01
+
+#define MODE_XOR         0x0c
+#define MODE_AND         0x08
+#define MODE_OR          0x04
+
+#define MODE_ROT90       0x10
+#define MODE_ROT180      0x20
+#define MODE_ROT270      0x30
 
 #define OLD_PAPER_MASK   0x07
 #define OLD_INK_MASK     0x70
@@ -69,7 +67,7 @@ int isNthBitSet(unsigned const char c, int n)
 }
 
 /* Flip a tile horizontally, i.e. mirror it */
-void Flip(uint8_t tile[])
+void Flip(uint8_t *tile)
 {
     int32_t i, j;
     uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -78,11 +76,10 @@ void Flip(uint8_t tile[])
         for (j = 0; j < 8; j++)
             if (isNthBitSet(tile[i], j))
                 work2[i] += 1 << (7 - j);
-    for (i = 0; i < 8; i++)
-        tile[i] = work2[i];
+    memcpy(tile, work2, 8);
 }
 
-static void rot90(uint8_t tile[])
+void Rot90(uint8_t *tile)
 {
     int32_t i, j;
     uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -92,25 +89,10 @@ static void rot90(uint8_t tile[])
             if (isNthBitSet(tile[j], i))
                 work2[7 - i] += 1 << j;
 
-    for (i = 0; i < 8; i++)
-        tile[i] = work2[i];
+    memcpy(tile, work2, 8);
 }
 
-static void rot270(uint8_t tile[])
-{
-    int32_t i, j;
-    uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
-    for (i = 0; i < 8; i++)
-        for (j = 0; j < 8; j++)
-            if (isNthBitSet(tile[j], i))
-                work2[i] += 1 << (7 - j);
-
-    for (i = 0; i < 8; i++)
-        tile[i] = work2[i];
-}
-
-static void rot180(uint8_t tile[])
+void Rot180(uint8_t *tile)
 {
     int32_t i, j;
     uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -120,8 +102,20 @@ static void rot180(uint8_t tile[])
             if (isNthBitSet(tile[i], j))
                 work2[7 - i] += 1 << (7 - j);
 
+    memcpy(tile, work2, 8);
+}
+
+void Rot270(uint8_t *tile)
+{
+    int32_t i, j;
+    uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+
     for (i = 0; i < 8; i++)
-        tile[i] = work2[i];
+        for (j = 0; j < 8; j++)
+            if (isNthBitSet(tile[j], i))
+                work2[i] += 1 << (7 - j);
+
+    memcpy(tile, work2, 8);
 }
 
 /* Apply rotation, flip and overlay transformations to a tile and
@@ -137,18 +131,17 @@ static void Transform(uint8_t tile, uint8_t mode, int offset)
                 offset % 0x20, offset / 0x20);
 #endif
     /* first copy the tile into work */
-    for (i = 0; i < 8; i++)
-        work[i] = tiles[tile][i];
+    memcpy(work, tiles[tile], 8);
 
     uint8_t rotate_mode = mode & ROTATE_BITS;
 
     /* Now rotate it */
-    if (rotate_mode == 0x10) {
-        rot90(work);
-    } else if (rotate_mode == 0x20) {
-        rot180(work);
-    } else if (rotate_mode == 0x30) {
-        rot270(work);
+    if (rotate_mode == MODE_ROT90) {
+        Rot90(work);
+    } else if (rotate_mode == MODE_ROT180) {
+        Rot180(work);
+    } else if (rotate_mode == MODE_ROT270) {
+        Rot270(work);
     }
 
     /* We flip the tile horizontally
@@ -160,11 +153,11 @@ static void Transform(uint8_t tile, uint8_t mode, int offset)
     /* Now mask it onto the previous tile */
     mode &= OVERLAY_BITS;
     for (i = 0; i < 8; i++) {
-        if (mode == 0x0c)
+        if (mode == MODE_XOR)
             layout[offset][i] ^= work[i];
-        else if (mode == 0x08)
+        else if (mode == MODE_AND)
             layout[offset][i] &= work[i];
-        else if (mode == 0x04)
+        else if (mode == MODE_OR)
             layout[offset][i] |= work[i];
         else
             layout[offset][i] = work[i];

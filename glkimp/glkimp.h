@@ -198,6 +198,8 @@ typedef enum InfocomV6MenuType {
 
 void win_menuitem(int type, glui32 column, glui32 line, glui32 stopflag, char *str, int len);
 
+void win_testresult(int result);
+
 void gli_close_all_file_streams(void);
 
 /* unicode case mapping */

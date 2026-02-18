@@ -84,20 +84,20 @@ typedef struct {
 } a2_vector_ctx;
 
 typedef struct {
-    uint8_t LINE;
-    uint8_t PATTERN_EVEN;
-    uint8_t PATTERN_ODD;
-    uint8_t FILL_COLOR;
-    uint16_t SCREEN_OFFSET;
-    uint16_t SCREEN_ADDRESS;
-    uint8_t COLUMN;
-    uint8_t STARTING_COLUMN;
-    uint8_t OLD_COLOR_VALUE;
-    uint8_t PIXELS;
-    uint8_t FILLBYTE;
-    uint8_t HORIZ_PIXELS;
-    uint8_t BITMAP_INDEX;
-    Brush BRUSH_INDEX;
+    uint8_t scanline;
+    uint8_t pattern_even;
+    uint8_t pattern_odd;
+    uint8_t fill_color;
+    uint16_t screen_offset;
+    uint16_t screen_row_base;
+    uint8_t column;
+    uint8_t seed_column;
+    uint8_t existing_byte;
+    uint8_t pixel_offset;
+    uint8_t fill_mask;
+    uint8_t pattern_base;
+    uint8_t bitmap_index;
+    Brush brush_type;
 } a2_fill_ctx;
 
 
@@ -320,6 +320,24 @@ static void write_to_screenmem(uint16_t offset, uint8_t value, bool fill) {
 
 #pragma mark FLOOD FILL
 
+/* Read the screen byte at the given column on the current scanline row.
+   Sets ctx->screen_offset and ctx->existing_byte.
+   Returns false if the offset is out of bounds. */
+static bool read_screen_byte(a2_fill_ctx *ctx, uint8_t col) {
+    ctx->screen_offset = ctx->screen_row_base + col;
+    if (!is_valid_screen_offset(ctx->screen_offset))
+        return false;
+    ctx->existing_byte = screenmem[ctx->screen_offset];
+    return true;
+}
+
+/* Select the pattern table base offset for the current scanline,
+   choosing even or odd pattern based on scanline parity. */
+static void select_pattern_for_scanline(a2_fill_ctx *ctx) {
+    uint8_t pattern_index = (ctx->scanline & 1) ? ctx->pattern_odd : ctx->pattern_even;
+    ctx->pattern_base = pattern_index * 4;
+}
+
 /* Tests the contents of the hi-res screen to see if a specific pixel is white.
  Used by the fill code.
 
@@ -341,178 +359,176 @@ static void write_to_screenmem(uint16_t offset, uint8_t value, bool fill) {
 
  */
 
-static bool is_pixel_white(a2_fill_ctx *ctx) {
-    ctx->SCREEN_ADDRESS = CALC_APPLE2_ADDRESS(ctx->LINE);
-    ctx->SCREEN_OFFSET = ctx->SCREEN_ADDRESS + ctx->STARTING_COLUMN;
-    if (!is_valid_screen_offset(ctx->SCREEN_OFFSET))
+static bool is_seed_pixel_white(a2_fill_ctx *ctx) {
+    ctx->screen_row_base = CALC_APPLE2_ADDRESS(ctx->scanline);
+    if (!read_screen_byte(ctx, ctx->seed_column))
         return false;
     uint8_t two_bits[7] = {0x3, 0x3, 0x6, 0xC, 0x18, 0x30, 0x60};
-    uint8_t mask = two_bits[ctx->PIXELS];
-    ctx->OLD_COLOR_VALUE = screenmem[ctx->SCREEN_OFFSET];
-    return (mask & ctx->OLD_COLOR_VALUE) == mask;
+    uint8_t mask = two_bits[ctx->pixel_offset];
+    return (mask & ctx->existing_byte) == mask;
 }
 
-static void draw_pattern_pixels(a2_fill_ctx *ctx) {
-    uint16_t offset = ((ctx->COLUMN & 3) | ctx->HORIZ_PIXELS);
+static void paint_column_pattern(a2_fill_ctx *ctx) {
+    uint16_t offset = ((ctx->column & 3) | ctx->pattern_base);
     uint8_t color_mask = pattern_data[offset];
-    ctx->OLD_COLOR_VALUE = (ctx->OLD_COLOR_VALUE ^ ctx->FILLBYTE) & 0x7f;
-    if (!is_valid_screen_offset(ctx->SCREEN_OFFSET))
+    ctx->existing_byte = (ctx->existing_byte ^ ctx->fill_mask) & 0x7f;
+    if (!is_valid_screen_offset(ctx->screen_offset))
         return;
-    write_to_screenmem(ctx->SCREEN_OFFSET, ((ctx->FILLBYTE | 0x80) & color_mask) |
-                       ctx->OLD_COLOR_VALUE, false);
+    write_to_screenmem(ctx->screen_offset, ((ctx->fill_mask | 0x80) & color_mask) |
+                       ctx->existing_byte, false);
 }
 
-/*
-  Divides the 16-bit X coordinate by 7.  Produces an 8-bit quotient and an 8-bit
-  remainder. Used to convert an X coordinate into a column number and pixel
-  offset.
-*/
-static uint8_t divide_x_by_7(a2_fill_ctx *ctx, uint16_t x) {
-    ctx->STARTING_COLUMN = x / COL_BITS;
-    ctx->PIXELS = x % COL_BITS;
-    return ctx->STARTING_COLUMN;
+/* Convert an X pixel coordinate into a column number and pixel offset. */
+static void x_to_column_and_pixel(a2_fill_ctx *ctx, uint16_t x) {
+    ctx->seed_column = x / COL_BITS;
+    ctx->pixel_offset = x % COL_BITS;
 }
 
-static bool find_top_seed_row(a2_fill_ctx *ctx)
+static bool scan_up_to_border(a2_fill_ctx *ctx)
 {
     /* Move up until we find a pixel that's not white (0xff)
      * or we hit the top.
      */
     do {
-        if (ctx->LINE == 0)
+        if (ctx->scanline == 0)
             return false; /* Found no non-white pixels */
-        ctx->LINE--;
-    } while (is_pixel_white(ctx));
+        ctx->scanline--;
+    } while (is_seed_pixel_white(ctx));
     return true;
 }
 
-/*
- * Prepare ctx->FILLBYTE for painting at the current STARTING_X/PIXELS
- * and the current scanline (ctx->LINE). Also compute the left/right
- * edges used later by the expansion logic.
- */
-static void get_fillbyte_and_edges(a2_fill_ctx *ctx,
-                                     uint8_t *out_right_edge,
-                                     uint8_t *out_left_edge)
+/* Compute the right edge of the fill mask for the current scanline.
+   Rotates the existing screen byte to determine
+   how many pixels on the right side of the seed column are already filled.
+   Sets ctx->fill_mask and returns the right edge pixel count. */
+static uint8_t compute_right_edge(a2_fill_ctx *ctx)
 {
-    /* Choose pattern alignment for table lookup */
-    int pattern_index = (ctx->LINE & 1) == 0 ? ctx->PATTERN_EVEN : ctx->PATTERN_ODD;
-    ctx->HORIZ_PIXELS = pattern_index * 4;
+    /* Simulate rotating left with carry (7 - ctx->pixel_offset) times */
+    uint16_t rotate_word = ctx->existing_byte << (7 - ctx->pixel_offset);
+    ctx->fill_mask = (rotate_word & 0xff) | (rotate_word >> 9);
 
-    /* Work out rotations based on PIXELS */
-    int8_t rotate_count = 6 - ctx->PIXELS;
-
-    /* Simulate rotating left with carry (rotate_count + 1) times */
-    uint16_t colorword = ctx->OLD_COLOR_VALUE << (rotate_count + 1);
-    bool msb_flag = colorword & 0x100;
-    ctx->FILLBYTE = (colorword & 0xff) | (colorword >> 9);
-
-    /* If the rotation left some leading set bits, shift them out */
-    while (rotate_count > 0 && msb_flag) {
-        uint8_t tmp_loop = (uint8_t)(msb_flag << 7);
-        msb_flag = (bool)(ctx->FILLBYTE & 1);
-        ctx->FILLBYTE = (ctx->FILLBYTE >> 1) | tmp_loop;
-        rotate_count--;
+    /* If the rotation left some leading set bits, ensure fill_mask is extended appropriately */
+    uint8_t loop_byte = (rotate_word & 0x100) != 0;
+    int8_t remaining_bits;
+    for (remaining_bits = 6 - ctx->pixel_offset;
+         remaining_bits > 0 && loop_byte != 0; remaining_bits--) {
+        uint8_t carry = loop_byte << 7;
+        loop_byte = ctx->fill_mask & 1;
+        ctx->fill_mask = (ctx->fill_mask >> 1) | carry;
     }
 
-    /* Align the byte and remember left shift used */
-    ctx->FILLBYTE >>= rotate_count;
-    *out_right_edge = rotate_count;
-
-    /* Simulate rotating right with carry, (ctx->PIXELS + 1) times */
-    uint16_t rotate_word = (ctx->FILLBYTE << 8) >> (ctx->PIXELS + 1);
-    ctx->FILLBYTE = (rotate_word >> 8) | (rotate_word << 1);
-
-    /* If PIXELS > 0, ensure FILLBYTE is extended appropriately */
-    uint8_t remaining_bits = ctx->PIXELS;
-    uint8_t loop_byte = 1;
-    while (remaining_bits > 0) {
-        if (loop_byte == 0) {
-            break;
-        }
-        loop_byte = ctx->FILLBYTE >> 7;
-        ctx->FILLBYTE = (ctx->FILLBYTE << 1) | 1;
-        remaining_bits--;
-    }
-
-    *out_left_edge = remaining_bits;
-
-    /* In case we broke out of the loop while there
-     were still remaining bits */
-    ctx->FILLBYTE <<= remaining_bits;
+    /* Align the byte and remember the shift used */
+    ctx->fill_mask >>= remaining_bits;
+    return remaining_bits;
 }
 
-/*  Expand right from the seed point */
-static uint8_t expand_fill_right(a2_fill_ctx *ctx, uint8_t has_more, uint8_t right_edge) {
-    while (has_more && (ctx->COLUMN + 1) < APPLE2_SCREEN_COLS) {
-        ctx->COLUMN++;
-        ctx->SCREEN_OFFSET = ctx->SCREEN_ADDRESS + ctx->COLUMN;
+/* Compute the left edge of the fill mask for the current scanline.
+   Continues transforming ctx->fill_mask (set by compute_right_edge)
+   to determine how many pixels on the left are already filled.
+ Sets ctx->fill_mask and returns the left edge pixel count. */
+static uint8_t compute_left_edge(a2_fill_ctx *ctx)
+{
+    /* Simulate rotating right with carry, (pixel_offset + 1) times */
+    uint16_t rotate_word = (ctx->fill_mask << 8) >> (ctx->pixel_offset + 1);
+    ctx->fill_mask = (rotate_word >> 8) | (rotate_word << 1);
 
-        if (!is_valid_screen_offset(ctx->SCREEN_OFFSET)) break;
+    /* If pixel_offset > 0, ensure fill_mask is extended appropriately */
+    uint8_t loop_byte = 1;
+    int8_t remaining_bits;
+    for (remaining_bits = ctx->pixel_offset;
+         remaining_bits > 0 && loop_byte != 0; remaining_bits--) {
+        loop_byte = ctx->fill_mask >> 7;
+        ctx->fill_mask = (ctx->fill_mask << 1) | 1;
+    }
 
-        ctx->OLD_COLOR_VALUE = screenmem[ctx->SCREEN_OFFSET];
-        ctx->FILLBYTE = ctx->OLD_COLOR_VALUE;
-        uint8_t rotations = 8;
-        bool carry_bit = false;
-        while (rotations > 0) {
-            uint8_t carry_out = ctx->FILLBYTE & 1;
-            ctx->FILLBYTE = (ctx->FILLBYTE  >> 1) | (carry_bit ? 0x80 : 0);
-            carry_bit = carry_out;
-            rotations--;
-            if (!carry_out) break; // found a zero LSB
+    /* Align the byte and remember the shift used */
+    ctx->fill_mask <<= remaining_bits;
+    return remaining_bits;
+}
+
+/*  Expand right from the seed point.
+
+    For each column to the right, rotate the screen byte right with carry
+    to find the boundary between set and unset low bits. The rotation count
+    determines the right edge, and the remaining upper bits determine
+    whether to keep expanding further right. */
+static uint8_t fill_span_right(a2_fill_ctx *ctx, uint8_t right_edge, bool has_more) {
+    while (has_more && ctx->column + 1 < APPLE2_SCREEN_COLS) {
+        ctx->column++;
+        if (!read_screen_byte(ctx, ctx->column)) break;
+
+        /* Rotate right with carry to find the first zero bit from the LSB.
+           Carry chain feeds 1-bits back in from the top as long as the LSB
+           keeps producing 1s. */
+        ctx->fill_mask = ctx->existing_byte;
+        bool carry = false;
+        bool lsb_set = true;
+        int remaining;
+        for (remaining = 8; remaining > 0 && lsb_set; remaining--) {
+            lsb_set = ctx->fill_mask & 1;
+            ctx->fill_mask = (ctx->fill_mask >> 1) | (carry << 7);
+            carry = lsb_set;
         }
-        ctx->FILLBYTE >>= (rotations + 1);
+        ctx->fill_mask >>= (remaining + 1);
+        has_more = (ctx->fill_mask & RIGHT_EXPAND_MASK) != 0;
+        right_edge = remaining;
 
-        has_more = ((ctx->FILLBYTE & RIGHT_EXPAND_MASK) != 0);
-        right_edge = rotations;
-
-        draw_pattern_pixels(ctx);
+        paint_column_pattern(ctx);
     }
     return right_edge;
 }
 
-/* Expand left from the seed point */
-static bool expand_fill_left(a2_fill_ctx *ctx, uint8_t *left_edge, bool seed_bit) {
-    ctx->COLUMN--;
-    ctx->SCREEN_OFFSET = ctx->SCREEN_ADDRESS + ctx->COLUMN;
-    if (!is_valid_screen_offset(ctx->SCREEN_OFFSET)) return seed_bit;
-    ctx->OLD_COLOR_VALUE = screenmem[ctx->SCREEN_OFFSET];
+/* Expand left from the seed point.
+ 
+   Scans the screen byte at the column to the left, rotating bits left
+   to find the first zero bit from the MSB. If found, has_more is cleared
+   (stopping leftward expansion). */
+static uint8_t fill_span_left(a2_fill_ctx *ctx, uint8_t left_edge, bool has_more) {
+    while (has_more && ctx->column > 0) {
+        ctx->column--;
+        if (!read_screen_byte(ctx, ctx->column)) break;
 
-    /* Rotate left to find first zero */
-    ctx->FILLBYTE = ctx->OLD_COLOR_VALUE << 1;
-    uint8_t run_bits = 0;
-    for (int remaining = COL_BITS - 1; remaining >= 0; remaining--) {
-        uint8_t top = (uint8_t)(-((int8_t)ctx->FILLBYTE >> 7));
-        ctx->FILLBYTE = (ctx->FILLBYTE << 1) | run_bits;
-        if (top == 0) {
-            run_bits = 0;
-            ctx->FILLBYTE <<= remaining;
-            seed_bit = false;
-            *left_edge = remaining;
-            break;
+        /* Rotate left through the byte to find the first zero from the MSB */
+        ctx->fill_mask = ctx->existing_byte << 1;
+        bool carry = false;
+        bool msb_set = true;
+        int remaining;
+        for (remaining = COL_BITS - 1; remaining >= 0 && msb_set; remaining--) {
+            msb_set = ctx->fill_mask & 0x80;
+            ctx->fill_mask = (ctx->fill_mask << 1) | carry;
+            carry = msb_set;
+            if (!msb_set) {
+                ctx->fill_mask <<= remaining;
+                has_more = false;
+                left_edge = remaining;
+            }
         }
-        run_bits = top;
+        ctx->fill_mask = (ctx->fill_mask << 1) | msb_set;
+        paint_column_pattern(ctx);
     }
-    /* Finish the bit manipulation. Store the result in FILLBYTE */
-    ctx->FILLBYTE = ctx->FILLBYTE << 1 | run_bits;
-    draw_pattern_pixels(ctx);
-    return seed_bit;
+    return left_edge;
 }
 
-void compare_a2_screen_memory(const char *filename) {
-    fprintf(stderr, "compare_a2_screen_memory: Comparison with file %s\n", filename);
-    size_t size;
-    uint8_t *screen_dump =
-    ReadFileIfExists(filename, &size);
-    if (screen_dump == NULL || size == 0) {
-        fprintf(stderr, "Bad file!\n");
-        return;
-    }
-    for (int i = 0; i < A2_SCREEN_MEM_SIZE; i++) {
-        if (screen_dump[i] != screenmem[i]) {
-            fprintf(stderr, "Mismatch at 0x%x: expected 0x%x, got 0x%x\n", i, screen_dump[i], screenmem[i]);
-        }
-    }
+/* Compute the midpoint of the filled span and set ctx->seed_column and
+   ctx->pixel_offset for the next scanline. The midpoint is calculated from
+   the leftmost/rightmost painted columns and their edge pixel counts,
+   providing better handling of concave shapes. */
+static void advance_seed_to_midpoint(a2_fill_ctx *ctx,
+                                     uint8_t rightmost_column,
+                                     uint8_t right_edge_pixels,
+                                     uint8_t left_edge_pixels)
+{
+    int8_t filled_columns = rightmost_column - ctx->column - 1;
+    uint8_t midpoint = (filled_columns < 0) ? COL_BITS : (filled_columns * COL_BITS + 2 * COL_BITS);
+
+    midpoint = (uint8_t)(midpoint - right_edge_pixels) - (right_edge_pixels > midpoint);
+    midpoint = (uint8_t)(midpoint - left_edge_pixels) / 2;
+
+    ctx->seed_column = ctx->column + (midpoint / COL_BITS);
+    uint8_t remainder = midpoint % COL_BITS;
+
+    ctx->pixel_offset = (left_edge_pixels + remainder) % COL_BITS;
+    ctx->seed_column += (left_edge_pixels + remainder) / COL_BITS;
 }
 
 /*
@@ -528,104 +544,58 @@ void compare_a2_screen_memory(const char *filename) {
   The midpoint adjustment provides better handling of concave shapes.
  */
 
-void wait_for_key_a2(void) {
-    glk_cancel_char_event(Graphics);
-    glk_request_char_event(Graphics);
-    event_t ev;
-    int result = 0;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            if (ev.val1 == keycode_Return) {
-                result = 1;
-            } else  if (ev.val1 == 'c') {
-                compare_a2_screen_memory("/Users/administrator/mame/border.bin");
-            }
-            glk_request_char_event(Graphics);
-        }
-    } while (result == 0);
-}
-
 static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t color)
 {
-    uint8_t right_edge_pixels = 0;
-    uint8_t left_edge_pixels = 0;
-    bool seed_bit = 0;
-    uint8_t has_more = 0;
-
     a2_fill_ctx ctx = {};
 
-    ctx.FILL_COLOR = color;
-    ctx.LINE = y;
+    ctx.fill_color = color;
+    ctx.scanline = y;
 
-    /* configure pattern colors */
-    ctx.PATTERN_EVEN = color_pattern_subindices[(uint8_t)(ctx.FILL_COLOR * 2)];
-    ctx.PATTERN_ODD  = color_pattern_subindices[(uint8_t)(ctx.FILL_COLOR * 2 + 1)];
+    /* Configure pattern colors */
+    ctx.pattern_even = color_pattern_subindices[(uint8_t)(ctx.fill_color * 2)];
+    ctx.pattern_odd  = color_pattern_subindices[(uint8_t)(ctx.fill_color * 2 + 1)];
 
-    /* get col/pixel for this X position (in ctx.STARTING_X). */
-    ctx.STARTING_COLUMN = divide_x_by_7(&ctx, x);
+    /* Get col/pixel for this X position */
+    x_to_column_and_pixel(&ctx, x);
 
     /* Find the topmost seed row to start fill from. */
-    if (find_top_seed_row(&ctx)) {
-        /* Move back down to the last white pixel we saw. */
-        /* Unless we are at row 0 and it is white */
-        ctx.LINE++;
+    if (scan_up_to_border(&ctx)) {
+        /* Move back down to the last white pixel we saw.
+         * (Unless we are at row 0 and it is white) */
+        ctx.scanline++;
     }
-    /* Main scan loop: find next seed scanline and paint horizontal spans */
-    for (;;) {
-        /* Bail if we've reached the bottom, or if the initial pixel is not white */
-        if (ctx.LINE >= APPLE2_SCREEN_HEIGHT || !is_pixel_white(&ctx))
-            return;
 
-        /* Work out FILLBYTE and edge pixels for this scanline */
-        get_fillbyte_and_edges(&ctx, &right_edge_pixels, &left_edge_pixels);
+    uint8_t right_edge_pixels = 0;
+    uint8_t left_edge_pixels = 0;
 
-        seed_bit = ctx.FILLBYTE & 1;
-        has_more = ((ctx.FILLBYTE & RIGHT_EXPAND_MASK) != 0);
+    /* Main scan loop: paint horizontal spans, then move down */
+    while (ctx.scanline < APPLE2_SCREEN_HEIGHT && is_seed_pixel_white(&ctx)) {
+
+        select_pattern_for_scanline(&ctx);
+
+        /* Work out fill mask and edge pixels for this scanline */
+        right_edge_pixels = compute_right_edge(&ctx);
+        left_edge_pixels = compute_left_edge(&ctx);
+
+        bool has_more_left = (ctx.fill_mask & 1) != 0;
+        bool has_more_right = (ctx.fill_mask & RIGHT_EXPAND_MASK) != 0;
 
         /* Paint starting column */
-        ctx.COLUMN = ctx.STARTING_COLUMN;
-        draw_pattern_pixels(&ctx);
+        ctx.column = ctx.seed_column;
+        paint_column_pattern(&ctx);
 
-        /* Expand to the right while more columns and pixels remain. Keep track of right edge pixels */
-        right_edge_pixels = expand_fill_right(&ctx, has_more, right_edge_pixels);
+        /* Expand right */
+        right_edge_pixels = fill_span_right(&ctx, right_edge_pixels, has_more_right);
+        uint8_t rightmost_column = ctx.column;
 
-        /* remember rightmost painted column for later left-scan offset calculation */
-        uint8_t rightmost_column = ctx.COLUMN;
+        ctx.column = ctx.seed_column;
 
-        ctx.COLUMN = ctx.STARTING_COLUMN;
+        /* Expand left */
+        left_edge_pixels = fill_span_left(&ctx, left_edge_pixels, has_more_left);
 
-        /* Expand left from the starting spot. We'll loop until left expansion cannot proceed. */
-        while (1) {
-            /* If the seed bit is set and we can move left, attempt to expand */
-            if (seed_bit != 0 && ctx.COLUMN > 0) {
-                /* continue expanding left as long as FILLBYTE LSB remains set */
-                seed_bit = expand_fill_left(&ctx, &left_edge_pixels, seed_bit);
-                /* break out of two loops by abusing the for (;;) loop */
-                continue;
-            }
-
-            /* Line is filled.  Compute a new center X coord, by adding the left/right column numbers, multiplying by 7 to get a pixel column, then dividing by two. */
-            int8_t filled_columns = rightmost_column - ctx.COLUMN - 1;
-            uint8_t midpoint = (filled_columns < 0) ? COL_BITS : (filled_columns * COL_BITS + 2 * COL_BITS);
-
-            /* Subtract the edge pixels and divide by two */
-            midpoint = (uint8_t)(midpoint - right_edge_pixels) - (right_edge_pixels > midpoint);
-            midpoint = (uint8_t)(midpoint - left_edge_pixels) / 2;
-
-            /* Advance by (midpoint / 7) columns */
-            ctx.STARTING_COLUMN = ctx.COLUMN + (midpoint / COL_BITS);
-            uint8_t remainder = midpoint % COL_BITS;
-
-            /* Adjust by any remainder pixels */
-            ctx.PIXELS = (left_edge_pixels + remainder) % COL_BITS;
-            ctx.STARTING_COLUMN += (left_edge_pixels + remainder) / COL_BITS;
-
-            /* After finishing this line, we continue scanning downward */
-            ctx.LINE++;
-            break;
-        }
-        /* main loop continues */
+        /* Move seed position to the midpoint of the filled span */
+        advance_seed_to_midpoint(&ctx, rightmost_column, right_edge_pixels, left_edge_pixels);
+        ctx.scanline++;
     }
 }
 
@@ -645,22 +615,20 @@ static void draw_bitmap(a2_fill_ctx *ctx)
 {
     for (int row = 0; row < 8; row++) {
         /* calculate row base address */
-        uint16_t address = CALC_APPLE2_ADDRESS(ctx->LINE) + ctx->STARTING_COLUMN;
+        uint16_t address = CALC_APPLE2_ADDRESS(ctx->scanline) + ctx->seed_column;
         /* add byte offset to address. Now address points to
          the first byte we want to change */
         if (!is_valid_screen_offset(address))
             continue;
-        if ((ctx->BITMAP_INDEX + row) > sizeof(brush_bitmaps))
+        if ((ctx->bitmap_index + row) > sizeof(brush_bitmaps))
             return;
         /* get a byte from the bitmap */
-        uint8_t brush_bitmap = brush_bitmaps[ctx->BITMAP_INDEX + row];
+        uint8_t brush_bitmap = brush_bitmaps[ctx->bitmap_index + row];
 
         uint8_t mask_a, mask_b;
-        rotate_brush_bits(brush_bitmap, ctx->PIXELS, &mask_a, &mask_b);
+        rotate_brush_bits(brush_bitmap, ctx->pixel_offset, &mask_a, &mask_b);
 
-        // Choose fill pattern based on row parity
-        uint8_t fill_pattern = (ctx->LINE & 1) ? ctx->PATTERN_ODD : ctx->PATTERN_EVEN;
-        ctx->HORIZ_PIXELS = fill_pattern << 2;
+        select_pattern_for_scanline(ctx);
 
         uint8_t mask_c = mask_a;
         uint8_t mask_d = mask_b;
@@ -668,7 +636,7 @@ static void draw_bitmap(a2_fill_ctx *ctx)
         /* Iterate twice to write the low and then the high pattern byte */
         for (int col_offset = 0; col_offset <= 1; col_offset++) {
             // reduce the byte offset to 0-3 */
-            int pattern_offset = ctx->HORIZ_PIXELS + ((ctx->STARTING_COLUMN + col_offset) & 3);
+            int pattern_offset = ctx->pattern_base + ((ctx->seed_column + col_offset) & 3);
             if (pattern_offset >= 120)
                 return;
 
@@ -692,7 +660,7 @@ static void draw_bitmap(a2_fill_ctx *ctx)
             write_to_screenmem(address + 1, ((mask_d | screenmem[address + 1]) ^ mask_d) | mask_b, false);
         }
         /* move down a line and loop */
-        ctx->LINE++;
+        ctx->scanline++;
     }
 }
 
@@ -708,43 +676,43 @@ static void draw_bitmap(a2_fill_ctx *ctx)
 #define BRUSH__PART_HEIGHT 8
 
 static void draw_brush_quadrant(a2_fill_ctx *ctx, int column_offset, int line_offset) {
-    ctx->STARTING_COLUMN += column_offset;
-    ctx->LINE += line_offset;
+    ctx->seed_column += column_offset;
+    ctx->scanline += line_offset;
 
     draw_bitmap(ctx);
 
     /* Restore original column and line after drawing */
-    ctx->STARTING_COLUMN -= column_offset;
+    ctx->seed_column -= column_offset;
     /* The draw_bitmap() call added 8 lines */
-    ctx->LINE -= line_offset + BRUSH__PART_HEIGHT;
+    ctx->scanline -= line_offset + BRUSH__PART_HEIGHT;
 }
 
 static void draw_brush(uint16_t x, uint8_t y, Brush brush, uint8_t color) {
     a2_fill_ctx ctx = {};
 
     /* Initialize the context */
-    ctx.LINE = y;
-    ctx.BRUSH_INDEX = brush;
-    ctx.FILL_COLOR = color;
-    ctx.PATTERN_EVEN = color_pattern_subindices[ctx.FILL_COLOR * 2];
-    ctx.PATTERN_ODD = color_pattern_subindices[ctx.FILL_COLOR * 2 + 1];
+    ctx.scanline = y;
+    ctx.brush_type = brush;
+    ctx.fill_color = color;
+    ctx.pattern_even = color_pattern_subindices[ctx.fill_color * 2];
+    ctx.pattern_odd = color_pattern_subindices[ctx.fill_color * 2 + 1];
 
     /* Split X coordinate into byte/pixel */
-    ctx.STARTING_COLUMN = divide_x_by_7(&ctx, x);
-    ctx.BITMAP_INDEX = ctx.BRUSH_INDEX * BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS;
+    x_to_column_and_pixel(&ctx, x);
+    ctx.bitmap_index = ctx.brush_type * BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS;
 
-    if (ctx.BITMAP_INDEX + BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS > sizeof(brush_bitmaps)) {
+    if (ctx.bitmap_index + BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS > sizeof(brush_bitmaps)) {
         fprintf(stderr, "Error: Brush bitmap index out of bounds!\n");
         return;
     }
 
     /* Draw each quadrant of the brush */
     draw_brush_quadrant(&ctx, 0, 0);                   // Top-left
-    ctx.BITMAP_INDEX += BRUSH_PART_SIZE;
+    ctx.bitmap_index += BRUSH_PART_SIZE;
     draw_brush_quadrant(&ctx, 1, 0);                   // Top-right
-    ctx.BITMAP_INDEX += BRUSH_PART_SIZE;
+    ctx.bitmap_index += BRUSH_PART_SIZE;
     draw_brush_quadrant(&ctx, 0, BRUSH__PART_HEIGHT);  // Bottom-left
-    ctx.BITMAP_INDEX += BRUSH_PART_SIZE;
+    ctx.bitmap_index += BRUSH_PART_SIZE;
     draw_brush_quadrant(&ctx, 1, BRUSH__PART_HEIGHT);  // Bottom-right
 }
 
@@ -762,7 +730,7 @@ static void move_left(a2_vector_ctx *ctx) {
     if ((int8_t)ctx->HGR_HORIZ < 0) {
         /* we went off the left edge,
          so wrap around to the right edge */
-        ctx->HGR_HORIZ = 0x27;
+        ctx->HGR_HORIZ = 39;
     }
     /* new HMASK, rightmost bit on screen */
     ctx->HMASK = 0xc0;
@@ -783,7 +751,7 @@ static void move_right(a2_vector_ctx *ctx) {
     ctx->HMASK = 0x81;
     ctx->HGR_HORIZ++;
     /* move to the next byte to the right */
-    if (ctx->HGR_HORIZ > 0x27) {
+    if (ctx->HGR_HORIZ >= 40) {
         /* we went off the right edge,
          so wrap around to the left edge */
         ctx->HGR_HORIZ = 0;
@@ -799,9 +767,11 @@ static void move_right(a2_vector_ctx *ctx) {
 static void move_up_or_down(bool down, a2_vector_ctx *ctx) {
     if (down) {
         ctx->HGR_Y++;
+        // Wrap around if bottom reached
         if (ctx->HGR_Y > 191) ctx->HGR_Y = 0;
     } else {
         ctx->HGR_Y--;
+        // Wrap around if top reached
         if (ctx->HGR_Y < 0) ctx->HGR_Y = 191;
     }
     ctx->HBAS = CALC_APPLE2_ADDRESS(ctx->HGR_Y);
@@ -832,18 +802,18 @@ static void draw_apple2_line(const uint16_t target_x, const uint8_t target_y, a2
     const bool move_left = target_x < ctx->HGR_X;
 
     /* Calculate deltas */
-    const int16_t delta_x = (target_x > ctx->HGR_X) ? (target_x - ctx->HGR_X) : (ctx->HGR_X - target_x);
-    const int8_t delta_y = (target_y > ctx->HGR_Y) ? (target_y - ctx->HGR_Y) : (ctx->HGR_Y - target_y);
+    const uint16_t delta_x = (target_x > ctx->HGR_X) ? (target_x - ctx->HGR_X) : (ctx->HGR_X - target_x);
+    const uint8_t delta_y = (target_y > ctx->HGR_Y) ? (target_y - ctx->HGR_Y) : (ctx->HGR_Y - target_y);
 
     /* Plot the initial pixel */
     plot_a2_vector_pixel(ctx);
 
-    const int total_steps = (uint16_t)delta_x + (uint8_t)delta_y; // Total iterations of the loop
+    const int total_steps = delta_x + delta_y; // Total iterations of the loop
     if (total_steps == 0) return; // Single pixel, no line to draw
 
     /* The original sets the global HGR_DY to -delta_y - 1
        (but a carry of 1 is added every time it is used in calculations) */
-    const int minus_delta_y = (uint8_t)(-delta_y - 1) + 1;
+    const int minus_delta_y = (uint8_t)(~delta_y) + 1;
 
     bool carry = (uint8_t)delta_x + minus_delta_y < CARRY_THRESHOLD;
     /* The moving_vertically bool represents the value of the carry
@@ -861,7 +831,7 @@ static void draw_apple2_line(const uint16_t target_x, const uint8_t target_y, a2
             error_term += delta_x;
         } else {
             move_left_or_right(move_left, ctx);
-            /* We switch to vertical movement if the least siginificant byte
+            /* We switch to vertical movement if the least significant byte
              of error_term - delta_y does not overflow 8 bits
              (In the original, carry set means move horizontally.) */
             uint16_t nocarry = ((uint8_t)error_term + minus_delta_y < CARRY_THRESHOLD) << 8;
@@ -941,8 +911,6 @@ static bool doImageOp(uint8_t **outptr, a2_vector_ctx *ctx) {
         case OPCODE_DRAW_LINE: // 10
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
-//            fprintf(stderr,  "drawing line 0x%x 0x%x (%d, %d) - (%d, %d) (%d, %d)\n", a, b,
-//                    ctx->HGR_X, ctx->HGR_Y, a, b, a - ctx->HGR_X, b - ctx->HGR_Y);
 
             draw_apple2_line(a, b, ctx);
             break;
@@ -1091,6 +1059,75 @@ int DrawApple2VectorImage(USImage *img) {
 
     while (done == 0 && vecdata < img->imagedata + img->datasize) {
         done = doImageOp(&vecdata, &ctx);
+    }
+    return 1;
+}
+
+int CompareA2ScreenMemory(const char *filename, const char *supportpath) {
+    size_t pathlength = strlen(supportpath) + strlen(filename) + 1;
+    char *path = MemAlloc(pathlength);
+    snprintf(path, pathlength, "%s%s", supportpath, filename);
+    fprintf(stderr, "CompareA2ScreenMemory: Comparison with file %s\n", path);
+    size_t size;
+    uint8_t *screen_dump = ReadFileIfExists(path, &size);
+    if (screen_dump == NULL || size == 0) {
+        fprintf(stderr, "Bad file!\n");
+        return 0;
+    }
+    for (int i = 0; i < A2_SCREEN_MEM_SIZE; i++) {
+        if (screen_dump[i] != screenmem[i]) {
+            fprintf(stderr, "Mismatch at 0x%x: expected 0x%x, got 0x%x\n", i, screen_dump[i], screenmem[i]);
+            free(screen_dump);
+            return 0;
+        }
+    }
+    free(screen_dump);
+    return 1;
+}
+
+int TestApple2ImageWithName(const char *name, const char *supportpath) {
+    USImage *image = NewImage();
+
+    size_t pathlength = strlen(name) + 11;
+    char *finalname = MemAlloc(pathlength);
+
+    snprintf(finalname, pathlength, "apple2%s.dat", name);
+
+    size_t size;
+
+    image->imagedata = ReadTestDataFromFile(finalname, supportpath, &size);
+    if (!image->imagedata) {
+        fprintf(stderr, "Failed to read image data\n");
+        free(finalname);
+        return 0;
+    }
+    image->datasize = size;
+    image->usage = IMG_ROOM;
+    DrawApple2VectorImage(image);
+    free(image->imagedata);
+    free(image);
+    free(finalname);
+
+    pathlength = strlen(name) + 14;
+    finalname = MemAlloc(pathlength);
+    snprintf(finalname, pathlength, "apple2%s.result", name);
+    int result = CompareA2ScreenMemory(finalname, supportpath);
+    free(finalname);
+    return result;
+}
+
+int RunApple2VectorTests(const char *supportpath) {
+
+    gli_slowdraw = 0;
+
+    if (!TestApple2ImageWithName("mi_boom", supportpath)) {
+        return 0;
+    }
+    if (!TestApple2ImageWithName("so_console", supportpath)) {
+        return 0;
+    }
+    if (!TestApple2ImageWithName("so_painting", supportpath)) {
+        return 0;
     }
     return 1;
 }

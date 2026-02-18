@@ -13,6 +13,7 @@
 uint16_t READ_LE_UINT16(const void *ptr);
 uint16_t READ_LE_UINT16_AND_ADVANCE(uint8_t **ptr);
 uint16_t READ_BE_UINT16_AND_ADVANCE(uint8_t **ptr);
+uint16_t READ_BE_UINT16(const void *ptr);
 
 #endif
 

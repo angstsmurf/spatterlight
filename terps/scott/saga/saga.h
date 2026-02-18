@@ -11,6 +11,7 @@
 #include "scottdefines.h"
 
 int DrawUSRoom(int room);
+int DrawFuzzyRoom(int room);
 void DrawRoomObjectImages(void);
 void DrawUSRoomObject(int item);
 void LookUS(void);

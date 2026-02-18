@@ -12,6 +12,11 @@ inline uint16_t READ_LE_UINT16(const void *ptr) {
     return (b[1] << 8) | b[0];
 }
 
+inline uint16_t READ_BE_UINT16(const void *ptr) {
+    const uint8_t *b = (const uint8_t *)ptr;
+    return (b[0] << 8) | b[1];
+}
+
 inline uint16_t READ_LE_UINT16_AND_ADVANCE(uint8_t **ptr) {
     uint8_t *b = *ptr;
     (*ptr) += 2;

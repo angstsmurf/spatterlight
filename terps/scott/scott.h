@@ -155,7 +155,7 @@ extern Room *Rooms;
 extern Item *Items;
 extern Action *Actions;
 extern char **Verbs, **Nouns, **Messages;
-extern const char *title_screen;
+extern char *title_screen;
 extern winid_t Bottom, Top, Graphics;
 extern const char *sys[];
 extern const char *system_messages[];

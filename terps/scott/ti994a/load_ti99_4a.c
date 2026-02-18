@@ -123,8 +123,19 @@ static void GetMaxTI99Items(struct DATAHEADER dh)
 
 static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud);
 
+GameIDType DetectRTPI(uint8_t *ptr, size_t length);
+
 GameIDType DetectTI994A(void)
 {
+    GameIDType result = UNKNOWN_GAME;
+
+    if (file_length == 0x755f || file_length == 0x5e5c) {
+        result = DetectRTPI(entire_file, file_length);
+        if (result == RETURN_TO_PIRATES_ISLE) {
+            return result;
+        }
+    }
+
     int offset = FindCode("\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 10);
     if (offset == -1)
         return UNKNOWN_GAME;

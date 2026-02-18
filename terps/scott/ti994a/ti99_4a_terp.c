@@ -144,7 +144,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 #ifdef DEBUG_ACTIONS
             debug_print("Is bitflag %d NOT set?\n", *ptr);
 #endif
-            if (BitFlags & (1 << *(ptr++))) {
+            if (BitFlags & ((uint64_t)1 << (uint64_t)*(ptr++))) {
                 run_code = 1;
                 result = ACT_FAILURE;
             }

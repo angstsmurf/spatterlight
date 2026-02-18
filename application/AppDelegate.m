@@ -81,7 +81,7 @@ PasteboardFilePasteLocation;
         @"j2",  @"ulx", @"blb",  @"zlb",  @"blorb", @"glb",   @"gblorb",
         @"d64", @"t64", @"fiad", @"dsk",  @"quill", @"zblorb",@"atr",
         @"st",  @"msa", @"woz",  @"sag",  @"plus",  @"plu",   @"tay",
-        @"taylor"
+        @"taylor", @"rpk", @"cart", @"zip"
     ];
 
     gDocFileTypes = @[@"rtf", @"rtfd", @"html", @"doc", @"docx", @"odt", @"xml", @"webarchive", @"txt"];

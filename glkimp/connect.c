@@ -154,7 +154,7 @@ void win_hello(void)
 
     // get first event, which should always be Arrange
     win_select(&event, 1);
-    if (event.type != evtype_Arrange)
+    if (event.type != evtype_Arrange && event.type != EVTTEST)
     {
         fprintf(stderr, "protocol handshake error\n");
         exit(1);
@@ -798,6 +798,19 @@ void win_menuitem(int type, glui32 column, glui32 line, glui32 stopflag, char *s
     sendmsg(MENUITEM, type, column, line, stopflag, 0, len, str);
 }
 
+void win_testresult(int result)
+{
+    win_flush();
+
+    int cmd;
+    if (result == 1)
+        cmd = OKAY;
+    else
+        cmd = ERROR;
+    fprintf(stderr, "win_testresult: Sending result %d\n", cmd);
+    sendmsg_glk(cmd, 0, 0, 0, 0, 0, 0, NULL);
+}
+
 void win_select(event_t *event, int block)
 {
     int i;
@@ -1038,6 +1051,11 @@ again:
 #endif
             event->type = evtype_VolumeNotify;
             event->val2 = wmsg.a3;
+            break;
+
+        case EVTTEST:
+            fprintf(stderr, "win_select: received event EVTTEST\n");
+            event->type = EVTTEST;
             break;
 
         case EVTQUIT:
