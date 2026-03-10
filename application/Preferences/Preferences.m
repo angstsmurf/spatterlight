@@ -2312,6 +2312,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSFontPanel *fontPanel = [NSFontPanel sharedFontPanel];
     if (fontPanel.delegate != self.dummyTextView || !fontPanel.visible) {
         fontPanel.delegate = self.dummyTextView;
+        // NSFontPanel only supports .automatic, .expanded, and .unifiedCompact toolbar styles.
+        // Saved application states may give it an illegal style, so we try to fix that here.
+        if (@available(macOS 11.0, *)) {
+            fontPanel.toolbarStyle = NSWindowToolbarStyleAutomatic;
+        }
         [fontPanel makeKeyAndOrderFront:self];
     }
 
