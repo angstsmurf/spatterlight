@@ -5055,8 +5055,9 @@ gms_command_escape (const char *string, int *undo_command)
     return FALSE;
 
   /* Take a copy of the string, without any leading space or introducer. */
-  string_copy = gms_malloc (strlen (string + posn) + 1 - strlen ("glk"));
-  strcpy (string_copy, string + posn + strlen ("glk"));
+  size_t stringlength = strlen (string + posn) + 1 - strlen ("glk");
+  string_copy = gms_malloc (stringlength);
+  strncpy (string_copy, string + posn + strlen ("glk"), stringlength);
 
   /*
    * Find the subcommand; the first word in the string copy.  Find its end,

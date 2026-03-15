@@ -12,6 +12,8 @@
 #include "glk.h"
 #include "glkio.h"
 
+#define BUFSIZE 1024
+
 void glkio_printf(char *fmt, ...)
 {
   va_list argp;
@@ -21,8 +23,8 @@ void glkio_printf(char *fmt, ...)
     vprintf(fmt, argp);
   else
   {
-    char buf[1024];	/* FIXME: buf size should be foolproof */
-    vsprintf(buf, fmt, argp);
+    char buf[BUFSIZE];	/* FIXME: buf size should be foolproof */
+    vsnprintf(buf, BUFSIZE, fmt, argp);
     glk_put_string(buf);
   }
   va_end(argp);

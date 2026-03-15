@@ -1962,7 +1962,7 @@ void calldriver(void)
 	else if (d0==0x0b)
 	{
 		char NewName[MAX_PATH];
-		strcpy(NewName,LastGame);
+		strncpy(NewName,LastGame, MAX_PATH);
 		if (*a6==0)
 		{
 			printstring("\rSearching for next sub-game file.\r");
@@ -2020,7 +2020,7 @@ void save(void)
 	workspace.stacksize=STACKSIZE;
 	workspace.filenamesize=MAX_PATH;
 	workspace.checksum=0;
-	strcpy(workspace.filename,LastGame);
+	strncpy(workspace.filename,LastGame,MAX_PATH);
 
 	checksum=0;
 	for (i=0;i<sizeof(GameState);i++) checksum+=((L9BYTE*) &workspace)[i];
@@ -2442,7 +2442,7 @@ L9BOOL GetWordV3(char *buff,int Word)
 			Word++; /* force unpack again */
 		}
 	}
-	strcpy(buff,threechars);
+	strncpy(buff,threechars, IBUFFSIZE);
 	for (i=0;i<(int)strlen(buff);i++) buff[i]&=0x7f;
 	return TRUE;
 }
@@ -3952,7 +3952,7 @@ L9BOOL LoadGame2(char *filename,char *picname)
 		randomseed=constseed;
 	else
 		randomseed=(L9UINT16)time(NULL);
-	strcpy(LastGame,filename);
+	strlcpy(LastGame,filename,MAX_PATH);
 	return Running=TRUE;
 }
 

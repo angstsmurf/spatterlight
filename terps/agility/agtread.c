@@ -1651,7 +1651,7 @@ static void finish_read(rbool cleanup)
   cmds_syns_canon();
 }
 
-void free_all_agtread()
+void free_all_agtread(void)
 {
   int i;
 

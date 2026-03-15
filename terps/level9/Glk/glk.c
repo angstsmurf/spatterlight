@@ -5156,8 +5156,9 @@ gln_command_escape (const char *string)
     return FALSE;
 
   /* Take a copy of the string, without any leading space or introducer. */
-  string_copy = gln_malloc (strlen (string + posn) + 1 - strlen ("glk"));
-  strcpy (string_copy, string + posn + strlen ("glk"));
+  size_t stringsize = strlen (string + posn) + 1 - strlen ("glk");
+  string_copy = gln_malloc (stringsize);
+  strncpy (string_copy, string + posn + strlen ("glk"), stringsize);
 
   /*
    * Find the subcommand; the first word in the string copy.  Find its end,
@@ -5274,8 +5275,9 @@ gln_command_intercept (char *string)
 
   /* Take a copy of the string, excluding any leading whitespace. */
   posn = strspn (string, "\t ");
-  string_copy = gln_malloc (strlen (string + posn) + 1);
-  strcpy (string_copy, string + posn);
+  size_t stringsize = strlen (string + posn) + 1;
+  string_copy = gln_malloc (stringsize);
+  strncpy (string_copy, string + posn, stringsize);
 
   /*
    * Find the space or NUL after the first word, and check that anything
@@ -6379,8 +6381,9 @@ gln_establish_picture_filename (char *name, char **graphics)
   assert (name && graphics);
 
   /* Take a destroyable copy of the input filename. */
-  base = gln_malloc (strlen (name) + 1);
-  strcpy (base, name);
+  size_t stringsize = strlen (name) + 1;
+  base = gln_malloc (stringsize);
+  strncpy (base, name, stringsize);
 
   /* If base has an extension .LEV, .SNA, or similar, remove it. */
   if (strrchr (base, '.'))
@@ -6389,50 +6392,51 @@ gln_establish_picture_filename (char *name, char **graphics)
     }
 
   /* Allocate space for the return graphics file. */
-  graphics_file = gln_malloc (strlen (base) + strlen (".PIC") + 1);
+  size_t gfsize = strlen (base) + strlen (".PIC") + 1;
+  graphics_file = gln_malloc (gfsize);
 
   /* Form a candidate graphics file, using a .PIC extension. */
   if (!stream)
     {
-      strcpy (graphics_file, base);
-      strcat (graphics_file, ".PIC");
+      strncpy (graphics_file, base, gfsize);
+      strncat (graphics_file, ".PIC", gfsize);
       stream = fopen (graphics_file, "rb");
     }
 
   if (!stream)
     {
-      strcpy (graphics_file, base);
-      strcat (graphics_file, ".pic");
+      strncpy (graphics_file, base, gfsize);
+      strncat (graphics_file, ".pic", gfsize);
       stream = fopen (graphics_file, "rb");
     }
 
   /* Form a candidate graphics file, using a .CGA extension. */
   if (!stream)
     {
-      strcpy (graphics_file, base);
-      strcat (graphics_file, ".CGA");
+      strncpy (graphics_file, base, gfsize);
+      strncat (graphics_file, ".CGA", gfsize);
       stream = fopen (graphics_file, "rb");
     }
 
   if (!stream)
     {
-      strcpy (graphics_file, base);
-      strcat (graphics_file, ".cga");
+      strncpy (graphics_file, base, gfsize);
+      strncat (graphics_file, ".cga", gfsize);
       stream = fopen (graphics_file, "rb");
     }
 
   /* Form a candidate graphics file, using a .HRC extension. */
   if (!stream)
     {
-      strcpy (graphics_file, base);
-      strcat (graphics_file, ".HRC");
+      strncpy (graphics_file, base, gfsize);
+      strncat (graphics_file, ".HRC", gfsize);
       stream = fopen (graphics_file, "rb");
     }
 
   if (!stream)
     {
-      strcpy (graphics_file, base);
-      strcat (graphics_file, ".hrc");
+      strncpy (graphics_file, base, gfsize);
+      strncat (graphics_file, ".hrc", gfsize);
       stream = fopen (graphics_file, "rb");
     }
 
@@ -6463,17 +6467,18 @@ gln_establish_picture_filename (char *name, char **graphics)
   base[directory_end - base] = '\0';
 
   /* Again, allocate space for the return graphics file. */
-  graphics_file = gln_malloc (strlen (base) + strlen ("PICTURE.DAT") + 1);
+  gfsize = strlen (base) + strlen ("PICTURE.DAT") + 1;
+  graphics_file = gln_malloc (gfsize);
 
   /* As above, form a candidate graphics file. */
-  strcpy (graphics_file, base);
-  strcat (graphics_file, "PICTURE.DAT");
+  strncpy (graphics_file, base, gfsize);
+  strncat (graphics_file, "PICTURE.DAT", gfsize);
   stream = fopen (graphics_file, "rb");
   if (!stream)
     {
       /* Retry, using picture.dat extension instead. */
-      strcpy (graphics_file, base);
-      strcat (graphics_file, "picture.dat");
+      strncpy (graphics_file, base, gfsize);
+      strncat (graphics_file, "picture.dat", gfsize);
       stream = fopen (graphics_file, "rb");
       if (!stream)
         {

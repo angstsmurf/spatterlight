@@ -120,7 +120,7 @@ int32 TREATY_FUNCTION(FORMAT)(int32 selector,
  {
   case GET_HOME_PAGE_SEL:
                 ASSERT_OUTPUT_SIZE((signed) strlen(HOME_PAGE)+1);
-                strcpy((char *) output,HOME_PAGE);
+                strncpy((char *) output,HOME_PAGE,output_extent);
                 return NO_REPLY_RV;
   case GET_FORMAT_NAME_SEL:
                 ASSERT_OUTPUT_SIZE(512);

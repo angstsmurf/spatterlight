@@ -527,8 +527,9 @@ genfile readopen(fc_type fc, filetype ft, char **errstr)
 #endif    
     s=strerror(errno);
     t=formal_name(fc,ft);
-    *errstr=rmalloc(30+strlen(t)+strlen(s));
-    sprintf(*errstr,"Cannot open file %s: %s.",t,s);
+    size_t strsize = 30+strlen(t)+strlen(s);
+    *errstr=rmalloc(strsize);
+    snprintf(*errstr, strsize, "Cannot open file %s: %s.",t,s);
   }
   return f;
 }
@@ -625,9 +626,8 @@ long varread(genfile f, void *buff, long recsize, long recnum, char **errstr)
       return 0;
     }
 #else
-    errno=0;
     num=fread(buff,recsize,recnum,f);
-    if (num!=recnum && errno!=0)
+    if (num!=recnum && ferror(f))
       *errstr=rstrdup(strerror(errno));
     num=num*recsize;
 #endif
