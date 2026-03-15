@@ -346,6 +346,7 @@
     self.bufLinkStyle = NSUnderlineStyleSingle;
     self.bufLinkColor = nil;
     self.gridLinkColor = nil;
+    self.slowDrawing = YES;
 
 // These values are not currently used
 

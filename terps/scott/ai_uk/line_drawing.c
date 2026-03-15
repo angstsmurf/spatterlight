@@ -115,7 +115,7 @@ int DrawingHowarthVector(void)
 }
 
 #ifndef SPATTERLIGHT
-static int gli_slowdraw = 0;
+static int gli_slowdraw = 1;
 #endif
 
 void DrawSomeHowarthVectorPixels(int from_start)
