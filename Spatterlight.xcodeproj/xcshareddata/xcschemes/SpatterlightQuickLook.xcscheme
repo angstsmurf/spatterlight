@@ -63,6 +63,17 @@
                ReferencedContainer = "container:Spatterlight.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C3983D862F62CE4600717789"
+               BuildableName = "SpatterlightTests.xctest"
+               BlueprintName = "SpatterlightTests"
+               ReferencedContainer = "container:Spatterlight.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

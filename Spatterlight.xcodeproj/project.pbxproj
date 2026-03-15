@@ -787,7 +787,6 @@
 		C3CEC2B926A6D0A200120469 /* UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CEC2B826A6D0A200120469 /* UITests.m */; };
 		C3CEC2C426A6D1F900120469 /* freefall.z5 in Resources */ = {isa = PBXBuildFile; fileRef = C3CEC2C126A6D1F900120469 /* freefall.z5 */; };
 		C3CEC2C526A6D1F900120469 /* curses.z5 in Resources */ = {isa = PBXBuildFile; fileRef = C3CEC2C226A6D1F900120469 /* curses.z5 */; };
-		C3CEC2CE26A6D66800120469 /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CEC2CD26A6D66800120469 /* Tests.m */; };
 		C3CEC44426C5EB5B0060E64C /* converter.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CEC44226C5EB5B0060E64C /* converter.c */; };
 		C3CED4472810190E0040252F /* decrypttotloader.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CED4422810190E0040252F /* decrypttotloader.c */; };
 		C3CED4482810190E0040252F /* loadtotpicture.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CED4462810190E0040252F /* loadtotpicture.c */; };
@@ -3222,8 +3221,6 @@
 		C3CEC2C226A6D1F900120469 /* curses.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = curses.z5; sourceTree = "<group>"; };
 		C3CEC2C326A6D1F900120469 /* test_stories.iFiction */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test_stories.iFiction; sourceTree = "<group>"; };
 		C3CEC2CB26A6D66800120469 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3CEC2CD26A6D66800120469 /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
-		C3CEC2CF26A6D66800120469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3CEC44226C5EB5B0060E64C /* converter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = converter.c; sourceTree = "<group>"; };
 		C3CEC44326C5EB5B0060E64C /* converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = converter.h; sourceTree = "<group>"; };
 		C3CED4422810190E0040252F /* decrypttotloader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decrypttotloader.c; sourceTree = "<group>"; };
@@ -4265,10 +4262,9 @@
 				C35978C225DA14A6004B1448 /* iFictionQuickLook */,
 				C322714D25CC214A0083BD5B /* SpatterlightThumbnailer */,
 				C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */,
-				C3983D882F62CE4600717789 /* SpatterlightTests */,
 				961CCF6509F295CA00528FF9 /* Frameworks */,
 				961CCE7C09F237E700528FF9 /* Products */,
-				C3CEC2CC26A6D66800120469 /* Tests */,
+				C3983D882F62CE4600717789 /* SpatterlightTests */,
 				C3CEC2B726A6D0A200120469 /* UITests */,
 			);
 			sourceTree = "<group>";
@@ -6031,15 +6027,6 @@
 				C3A199892999E63A00D27500 /* Transcript of SPL13P.txt */,
 			);
 			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C3CEC2CC26A6D66800120469 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				C3CEC2CD26A6D66800120469 /* Tests.m */,
-				C3CEC2CF26A6D66800120469 /* Info.plist */,
-			);
-			path = Tests;
 			sourceTree = "<group>";
 		};
 		C3D571A227D8F5CF008FB786 /* taylor */ = {
@@ -8310,7 +8297,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3CEC2CE26A6D66800120469 /* Tests.m in Sources */,
 				C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
