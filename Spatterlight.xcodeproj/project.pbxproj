@@ -635,7 +635,6 @@
 		C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3893271F712600756D94 /* NonInterpolatedImage.m */; };
 		C36DFEDF29AA2F6800EC83A6 /* PreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C36DFEDE29AA2F6800EC83A6 /* PreviewController.m */; };
 		C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C372018D27E47E4D00F6BE55 /* layouttext.c */; };
-		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
@@ -1361,13 +1360,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 96FE876409F3A12B00D41D78;
 			remoteInfo = tads3;
-		};
-		C3CEC2D026A6D66800120469 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 961CCEC309F239C100528FF9;
-			remoteInfo = Spatterlight;
 		};
 		C3D571AA27D8F5EA008FB786 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3220,7 +3212,6 @@
 		C3CEC2C126A6D1F900120469 /* freefall.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = freefall.z5; sourceTree = "<group>"; };
 		C3CEC2C226A6D1F900120469 /* curses.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = curses.z5; sourceTree = "<group>"; };
 		C3CEC2C326A6D1F900120469 /* test_stories.iFiction */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test_stories.iFiction; sourceTree = "<group>"; };
-		C3CEC2CB26A6D66800120469 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CEC44226C5EB5B0060E64C /* converter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = converter.c; sourceTree = "<group>"; };
 		C3CEC44326C5EB5B0060E64C /* converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = converter.h; sourceTree = "<group>"; };
 		C3CED4422810190E0040252F /* decrypttotloader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decrypttotloader.c; sourceTree = "<group>"; };
@@ -3669,13 +3660,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C3CEC2B326A6D0A200120469 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C3CEC2C826A6D66800120469 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4297,7 +4281,6 @@
 				C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */,
 				C322714A25CC214A0083BD5B /* SpatterlightThumbnailer.appex */,
 				C3CEC2B626A6D0A200120469 /* UITests.xctest */,
-				C3CEC2CB26A6D66800120469 /* Tests.xctest */,
 				C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */,
 				55368B5B272BF1C500740A0A /* geas */,
 				C318F7562741AA10006D626A /* jacl */,
@@ -6972,24 +6955,6 @@
 			productReference = C3CEC2B626A6D0A200120469 /* UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		C3CEC2CA26A6D66800120469 /* Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C3CEC2D226A6D66800120469 /* Build configuration list for PBXNativeTarget "Tests" */;
-			buildPhases = (
-				C3CEC2C726A6D66800120469 /* Sources */,
-				C3CEC2C826A6D66800120469 /* Frameworks */,
-				C3CEC2C926A6D66800120469 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C3CEC2D126A6D66800120469 /* PBXTargetDependency */,
-			);
-			name = Tests;
-			productName = Tests;
-			productReference = C3CEC2CB26A6D66800120469 /* Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		C3D571A027D8F5CF008FB786 /* taylor */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3D571A527D8F5CF008FB786 /* Build configuration list for PBXNativeTarget "taylor" */;
@@ -7201,10 +7166,6 @@
 						CreatedOnToolsVersion = 12.5.1;
 						TestTargetID = 961CCEC309F239C100528FF9;
 					};
-					C3CEC2CA26A6D66800120469 = {
-						CreatedOnToolsVersion = 12.5.1;
-						TestTargetID = 961CCEC309F239C100528FF9;
-					};
 					C3D571A027D8F5CF008FB786 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -7277,7 +7238,6 @@
 				965037F109F2A4430083E64E /* unquill */,
 				C311DEF425C472E500484639 /* SpatterlightQuickLook */,
 				C322714925CC214A0083BD5B /* SpatterlightThumbnailer */,
-				C3CEC2CA26A6D66800120469 /* Tests */,
 				C3CEC2B526A6D0A200120469 /* UITests */,
 				C3F53C59271BB8BE00538393 /* BlorbFramework */,
 				C3F09D7E288892BD0035DAC2 /* unp64 */,
@@ -7420,13 +7380,6 @@
 				C3D7CB1626CA7056006DE4CC /* The Wyldkynd Project command script.txt in Resources */,
 				C321419426CEA6D600B49504 /* czech.z5 in Resources */,
 				C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C3CEC2C926A6D66800120469 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8293,14 +8246,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C3CEC2C726A6D66800120469 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C3D5719D27D8F5CF008FB786 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -8715,11 +8660,6 @@
 			isa = PBXTargetDependency;
 			target = 961CCEC309F239C100528FF9 /* Spatterlight */;
 			targetProxy = C35D51F426F21D18002E2F59 /* PBXContainerItemProxy */;
-		};
-		C3CEC2D126A6D66800120469 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 961CCEC309F239C100528FF9 /* Spatterlight */;
-			targetProxy = C3CEC2D026A6D66800120469 /* PBXContainerItemProxy */;
 		};
 		C3D571AB27D8F5EA008FB786 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -10967,92 +10907,6 @@
 			};
 			name = Release;
 		};
-		C3CEC2D326A6D66800120469 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.petter.Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spatterlight.app/Contents/MacOS/Spatterlight";
-			};
-			name = Debug;
-		};
-		C3CEC2D426A6D66800120469 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.petter.Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spatterlight.app/Contents/MacOS/Spatterlight";
-			};
-			name = Release;
-		};
 		C3D571A627D8F5CF008FB786 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -11762,15 +11616,6 @@
 			buildConfigurations = (
 				C3CEC2BD26A6D0A200120469 /* Debug */,
 				C3CEC2BE26A6D0A200120469 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C3CEC2D226A6D66800120469 /* Build configuration list for PBXNativeTarget "Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C3CEC2D326A6D66800120469 /* Debug */,
-				C3CEC2D426A6D66800120469 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
