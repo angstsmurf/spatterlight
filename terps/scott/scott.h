@@ -20,6 +20,7 @@
 #ifndef scott_h
 #define scott_h
 
+#include <stdio.h>
 #include <stdint.h>
 
 #include "debugprint.h"
