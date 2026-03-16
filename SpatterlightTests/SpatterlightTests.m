@@ -184,7 +184,7 @@ again:
     write(fd, &reply, sizeof(struct message));
 }
 
-- (void)testScott {
+- (void)testScottDraw {
 
     [self forkInterpreterTask:@"scott"];
 
