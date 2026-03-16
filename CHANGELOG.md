@@ -1,5 +1,18 @@
 # Change log
 
+## Unreleased
+- Adds support for the vector graphics in the SAGA re-releases of *Adventureland*, *Pirate Adventure*, *Mission Impossible* (a.k.a *Secret Mission*) and *Strange Odyssey*.
+- Adds support for graphics in the Commodore 64 SAGA re-releases of *Pirate Adventure* and *Voodoo Castle*. These are cassette versions where the graphics are scaled down compared to the disk-based versions.
+- Adds support for the TI-99/4A exclusive *Return to Pirate's Isle*, including graphics.
+- Fixes a crash that would occur when missing files were pruned from the library in a background process.
+- Attempts to fix crashes in the QuickLook and Thumbnailer extensions. 
+- Increases maximum with of title column in library view, to fit the long file names of certain Scott Adams game versions.
+- Fixes a bug where vertical border space was not accounted for.
+- Adds support for some new variants of Scott Adams games.
+- Certain Scott Adams games were mis-identified, causing various glitches.
+- The first animation frame was sometimes not shown in *Rebel Planet* animation.
+- Typing AGAIN as the first command in a Saga Plus game would generate a random action.
+
 ## Release 1.4.6
 - In previous versions, the library used IFIDs to keep track of games. This meant that if several games had the same IFID, they would also share all metadata such as title and cover image. This is no longer the case. Spatterlight now uses checksums calculated from the game file contents instead. This means that every variant of, say, *Adventureland* in your collection can have its own name, cover image, and release year in Spatterlight, as long as the game files are not exactly the same.
 - Importing metadata from an iFiction file will now only use data matching games already in the Spatterlight database.
