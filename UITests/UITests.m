@@ -75,11 +75,7 @@
 + (void)typeURL:(NSURL *)url intoApp:(XCUIApplication *)app andPressButtonWithText:(NSString *)buttonText
 {
     [UITests typeURL:url intoApp:app];
-
-    XCUIElement *openButton = app.buttons[buttonText].firstMatch;
-
-    XCTAssert([openButton waitForExistenceWithTimeout:5]);
-    [openButton click];
+    [app typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
 }
 
 + (void)typeURL:(NSURL *)url intoFileDialog:(XCUIElement *)dialog {
