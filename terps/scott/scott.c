@@ -2013,7 +2013,7 @@ static ActionResultType PerformLine(int ct)
                     Output(sys[YOURE_CARRYING_TOO_MUCH]);
                     return ACT_SUCCESS;
                 } else if (Items[param[pptr]].Location == MyLoc) {
-                    should_look_in_transcript = should_draw_image = 1;
+                    should_draw_image = 1;
                 }
                 Items[param[pptr++]].Location = CARRIED;
                 break;

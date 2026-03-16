@@ -223,7 +223,7 @@ I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I 
 
 O.K., I WANT YOU TO E
 
-O.K. I go EAST.
+O.K. I go EAST. Chandelier fell with a crash.
 
 I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
 
@@ -247,9 +247,7 @@ I'm in a pool of dirty smelly murky water. I see an exit up.
 
 O.K., I WANT YOU TO HOLD BREATH
 
-O.K. Chandelier fell with a crash.
-
-I'm in a pool of dirty smelly murky water. I see an exit up. 
+O.K.
 
 O.K., I WANT YOU TO SWIM DOWN
 
@@ -542,9 +540,7 @@ I'm on a drawbridge, and I see here a moat. I see exits to the east, and west.
 
 O.K., I WANT YOU TO THROW BRICK AT CAN
 
-O.K. Spell works! I hit it!
-
-I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
+O.K. Spell works! Drat I missed it!
 
 O.K., I WANT YOU TO E
 
@@ -556,37 +552,117 @@ O.K., I WANT YOU TO E
 
 O.K. I go EAST.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, and a tin can. I see exits to the north, south, east, and west. 
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO GET BRICK
+
+I've got fire bricks like those in a fireplace.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Permeability. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO THROW BRICK AT CAN
+
+O.K. Spell works! Drat I missed it!
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm on a drawbridge, and I see here a moat, and fire bricks like those in a fireplace. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO GET BRICK
+
+I've got fire bricks like those in a fireplace.
+
+I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO THROW BRICK AT CAN
+
+O.K. Spell works! Drat I missed it!
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO GET BRICK
+
+I've got fire bricks like those in a fireplace.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Permeability. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO THROW BRICK AT CAN
+
+O.K. Spell works! I hit it!
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Permeability. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm on a drawbridge, and I see here a moat, and a tin can. I see exits to the east, and west. 
 
 O.K., I WANT YOU TO GET CAN
 
 I've got a tin can.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Permeability. I see exits to the north, south, east, and west. 
+I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
 
 O.K., I WANT YOU TO OPEN CAN WITH METAL
 
 O.K.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Permeability. I see exits to the north, south, east, and west. 
+I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
 
 O.K., I WANT YOU TO DROP CAN
 
 I leave an open can.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, and an open can. I see exits to the north, south, east, and west. 
+I'm on a drawbridge, and I see here a moat, and an open can. I see exits to the east, and west. 
 
 O.K., I WANT YOU TO DROP METAL
 
 I leave a piece of metal.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+I'm on a drawbridge, and I see here a moat, an open can, and a piece of metal. I see exits to the east, and west. 
 
 O.K., I WANT YOU TO DROP TOWEL
 
 I leave a towel.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a towel, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+I'm on a drawbridge, and I see here a moat, a towel, an open can, and a piece of metal. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Permeability. I see exits to the north, south, east, and west. 
 
 O.K., I WANT YOU TO S
 
@@ -674,29 +750,19 @@ O.K., I WANT YOU TO N
 
 O.K. I go NORTH.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a towel, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Permeability. I see exits to the north, south, east, and west. 
 
 O.K., I WANT YOU TO DROP METHUSELAH
 
 I leave a spell of Methuselah.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Methuselah, a spell of Permeability, a towel, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Methuselah, and a spell of Permeability. I see exits to the north, south, east, and west. 
 
 O.K., I WANT YOU TO GET PERMEABILITY
 
 I've got a spell of Permeability.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Methuselah, a towel, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
-
-O.K., I WANT YOU TO GET TOWEL
-
-I've got a towel.
-
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Methuselah, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
-
-O.K., I WANT YOU TO LOOK CAN
-
-O.K. I got a *STAR.
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Methuselah. I see exits to the north, south, east, and west. 
 
 O.K., I WANT YOU TO W
 
@@ -704,11 +770,21 @@ O.K. I go WEST.
 
 I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
 
-O.K., I WANT YOU TO CROSS DRAWBRIDGE
+O.K., I WANT YOU TO W
 
-O.K.
+O.K. I go WEST.
 
-I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
+I'm on a drawbridge, and I see here a moat, a towel, an open can, and a piece of metal. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO GET TOWEL
+
+I've got a towel.
+
+I'm on a drawbridge, and I see here a moat, an open can, and a piece of metal. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO LOOK CAN
+
+O.K. I got a *STAR.
 
 O.K., I WANT YOU TO W
 
@@ -772,7 +848,7 @@ O.K., I WANT YOU TO CROSS DRAWBRIDGE
 
 O.K.
 
-I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
+I'm on a drawbridge, and I see here a moat, an open can, and a piece of metal. I see exits to the east, and west. 
 
 O.K., I WANT YOU TO E
 
@@ -784,19 +860,19 @@ O.K., I WANT YOU TO E
 
 O.K. I go EAST.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Methuselah, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Methuselah. I see exits to the north, south, east, and west. 
 
 O.K., I WANT YOU TO GET METHUSELAH
 
 I've got a spell of Methuselah.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, and a magic water fountain. I see exits to the north, south, east, and west. 
 
 O.K., I WANT YOU TO GET ALL STARS
 
 I've got a *STAR. I've got a *STAR. I've got a *STAR. I've got a *STAR.
 
-I'm in a courtyard inside a large and mystical looking castle, and I see here a magic water fountain, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+I'm in a courtyard inside a large and mystical looking castle, and I see here a magic water fountain. I see exits to the north, south, east, and west. 
 
 O.K., I WANT YOU TO ENTER FOUNTAIN
 
@@ -804,27 +880,27 @@ O.K.
 
 I'm in a magic fountain the water feels strange, and I see here a *STAR, and a courtyard. 
 
-O.K., I WANT YOU TO CAST METHUSELAH AT ME
-
-I am now invoking a spell of Methuselah. Spell works!
-
-I'm in a magic fountain the water feels strange, and I see here a *STAR, and a courtyard. 
-
 O.K., I WANT YOU TO GET STAR
 
-I've got a *STAR.
+I've got a *STAR. I feel very odd!
 
 I'm in a magic fountain the water feels strange, and I see here a courtyard. 
 
 O.K., I WANT YOU TO CLIMB FOUNTAIN
 
-O.K.
+O.K. I feel very odd!
+
+I'm on top of the magic fountain, and I see here a large dark air shaft going into the centerpiece, and a water outlet spewing out water. I see an exit down. 
+
+O.K., I WANT YOU TO CAST METHUSELAH AT ME
+
+I am now invoking a spell of Methuselah. Spell works! I feel very odd!
 
 I'm on top of the magic fountain, and I see here a large dark air shaft going into the centerpiece, and a water outlet spewing out water. I see an exit down. 
 
 O.K., I WANT YOU TO ENTER SHAFT
 
-O.K.
+O.K. I feel very odd!
 
 I'm in a dank, dim and very smelly old dungeon cell, and I see here an oaken door, an air shaft, and a *STAR. 
 
@@ -836,7 +912,7 @@ I'm in a dank, dim and very smelly old dungeon cell, and I see here an oaken doo
 
 O.K., I WANT YOU TO CAST YOHO AT ME
 
-I am now invoking a spell of YOHO. Spell works! I feel very odd!
+I am now invoking a spell of YOHO. Spell works!
 
 I'm in a hollow tree. A sign here says: "Drop Stars here.", and I see here a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, and a towel. 
 
@@ -848,7 +924,7 @@ I'm in a hollow tree. A sign here says: "Drop Stars here.", and I see here a *ST
 
 O.K., I WANT YOU TO SCORE
 
-I've stored 13 stars. On a scale of 0 to 100 that is a 100. I am 36 years old, The wizard appears and says: "Great, you've found them. You are now promoted to Apprentice First Class! Congratulations!"
+I've stored 13 stars. On a scale of 0 to 100 that is a 100. I am 25 years old, The wizard appears and says: "Great, you've found them. You are now promoted to Apprentice First Class! Congratulations!"
 The game is now over. Play again? Y
 
 

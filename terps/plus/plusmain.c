@@ -2308,10 +2308,10 @@ void glk_main(void)
 #ifdef SPATTERLIGHT
     UpdateSettings();
     if (gli_determinism)
-        srand(1234);
+        set_erkyrath_random(1234);
     else
 #endif
-        srand((unsigned int)time(NULL));
+    set_erkyrath_random(0);
 
     DrawTitleImage();
     UpdateSettings();

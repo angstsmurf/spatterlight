@@ -144,12 +144,6 @@ I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud 
 Tell me what to do ? DROP AXE
 O.K. 
 
-Tell me what to do ? GET MUD
-OK
-
-Tell me what to do ? DROP MUD
-O.K. 
-
 Tell me what to do ? GO STUMP
 
 I'm in a damp hollow stump in the swamp
@@ -514,6 +508,13 @@ I can also see: Very thin black bear - *MAGIC MIRROR* -
 Tell me what to do ? YELL
 Bear is so startled that he FELL off the ledge!
 
+I'm on a narrow ledge by a Throne-room
+Across the chasm is another ledge
+
+Obvious exits: None.
+
+I can also see: *MAGIC MIRROR* - 
+
 Tell me what to do ? GET MIRROR
 OK
 
@@ -875,10 +876,9 @@ BOY that really hit the spot!
 
 Tell me what to do ? GET BEES
 OK
-The bees all suffocated and disappeared
 
 Tell me what to do ? GET BEES
-OK
+First I need an empty container.
 
 Tell me what to do ? S
 
@@ -932,7 +932,6 @@ I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic w
 
 Tell me what to do ? DROP MUD
 O.K. 
-The bees all suffocated and disappeared
 
 Tell me what to do ? UNDO
 Move undone. 
@@ -961,6 +960,7 @@ Tell me what to do ? GET EGGS
 O.K. 
 
 Tell me what to do ? S
+The bees all suffocated and disappeared
 
 I'm in a dismal swamp
 
