@@ -1,0 +1,85 @@
+{
+  "configurations" : [
+    {
+      "id" : "CD228A79-70A8-4FA4-8A9D-3E7510D5301D",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-com.apple.CoreData.ConcurrencyDebug 1",
+        "enabled" : false
+      },
+      {
+        "argument" : "-com.apple.CoreData.MigrationDebug 1",
+        "enabled" : false
+      },
+      {
+        "argument" : "-com.apple.CoreData.Logging.stderr 1",
+        "enabled" : false
+      }
+    ],
+    "environmentVariableEntries" : [
+      {
+        "enabled" : false,
+        "key" : "CUGELWAIT",
+        "value" : "30"
+      }
+    ],
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Spatterlight.xcodeproj",
+      "identifier" : "961CCEC309F239C100528FF9",
+      "name" : "Spatterlight"
+    }
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "UITests\/testAGiliTy",
+        "UITests\/testAdvSys",
+        "UITests\/testAlan2",
+        "UITests\/testAlan3",
+        "UITests\/testAutosave",
+        "UITests\/testContextualMenus",
+        "UITests\/testCzech",
+        "UITests\/testEditMenu",
+        "UITests\/testFileMenu",
+        "UITests\/testGlulxe",
+        "UITests\/testHugo",
+        "UITests\/testImportMetadata",
+        "UITests\/testJacl",
+        "UITests\/testLaunchPerformance",
+        "UITests\/testLevel9",
+        "UITests\/testMagnetic",
+        "UITests\/testMoreFileMenu",
+        "UITests\/testPlus",
+        "UITests\/testPraxix",
+        "UITests\/testPreferences",
+        "UITests\/testScott",
+        "UITests\/testTADS2",
+        "UITests\/testTADS3",
+        "UITests\/testTaylor",
+        "UITests\/testTerpEtude"
+      ],
+      "target" : {
+        "containerPath" : "container:Spatterlight.xcodeproj",
+        "identifier" : "C3CEC2B526A6D0A200120469",
+        "name" : "UITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Spatterlight.xcodeproj",
+        "identifier" : "C3983D862F62CE4600717789",
+        "name" : "SpatterlightTests"
+      }
+    }
+  ],
+  "version" : 1
+}
