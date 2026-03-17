@@ -1078,7 +1078,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (self.glkctl.commandScriptRunning)
         [self scrollToBottomAnimated:NO];
 
-    if (!scrolling && !_pendingScroll && !self.scrolledToBottom && !self.glkctl.voiceOverActive && !self.glkctl.commandScriptRunning) {
+    if (!scrolling && !_pendingScroll && !self.scrolledToBottom && !self.glkctl.voiceOverActive && !self.glkctl.commandScriptRunning && !adjustScrollWhenLayoutFinishes) {
         // Not scrolled to the bottom, pagedown or navigate scrolling on each key instead
         switch (ch) {
             case keycode_PageUp:
