@@ -551,63 +551,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (void)deferredScrollPosition:(id)sender {
-    [self restoreScrollBarStyle];
-    if (lastAtBottom) {
-        [self scrollToBottomAnimated:NO];
-    } else if (lastAtTop) {
-        [self scrollToTop];
-    } else if (lastVisible == 0) {
-        [self scrollToTop];
-    } else {
-        [self scrollToCharacter:lastVisible withOffset:lastScrollOffset animate:NO];
-    }
-    _pendingScrollRestore = NO;
-}
-
-#pragma mark Resizing
-
-- (void)viewWillStartLiveResize {
-    if (!_pendingScrollRestore && !_pendingScroll && self.glkctl.ignoreResizes) {
-        [self storeScrollOffset];
-    }
-}
-
-- (void)viewDidEndLiveResize {
-    adjustScrollWhenLayoutFinishes = YES;
-    scrollAdjustTimeStamp = [NSDate date];
-}
-
-- (void)layoutManagerDidInvalidateLayout:(NSLayoutManager *)layoutManager {
-    if (!_pendingScrollRestore && !_pendingScroll)
-        adjustScrollWhenLayoutFinishes = YES;
-}
-
-- (void)layoutManager:(NSLayoutManager *)layoutManager didCompleteLayoutForTextContainer:(NSTextContainer *)textContainer atEnd:(BOOL)layoutFinishedFlag {
-    if (layoutFinishedFlag && adjustScrollWhenLayoutFinishes && !_pendingScroll && !self.inLiveResize && scrollAdjustTimeStamp.timeIntervalSinceNow > -1) {
-        [self deferredScrollPosition:nil];
-    }
-    adjustScrollWhenLayoutFinishes = NO;
-}
-
-- (void)restoreScrollBarStyle {
-    if (scrollview) {
-        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        scrollview.scrollerStyle = NSScrollerStyleOverlay;
-        scrollview.drawsBackground = YES;
-        NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
-        if (!bgcolor)
-            bgcolor = self.theme.bufferBackground;
-        scrollview.backgroundColor = bgcolor;
-        scrollview.hasHorizontalScroller = NO;
-        scrollview.hasVerticalScroller = YES;
-        scrollview.verticalScroller.alphaValue = 100;
-        scrollview.autohidesScrollers = YES;
-        scrollview.borderType = NSNoBorder;
-    }
-}
-
-
 #pragma mark Colors and styles
 
 - (BOOL)allowsDocumentBackgroundColorChange {
@@ -1872,6 +1815,61 @@ replacementString:(id)repl {
 }
 
 #pragma mark Scrolling
+
+- (void)deferredScrollPosition:(id)sender {
+    [self restoreScrollBarStyle];
+    if (lastAtBottom) {
+        [self scrollToBottomAnimated:NO];
+    } else if (lastAtTop) {
+        [self scrollToTop];
+    } else if (lastVisible == 0) {
+        [self scrollToTop];
+    } else {
+        [self scrollToCharacter:lastVisible withOffset:lastScrollOffset animate:NO];
+    }
+    _pendingScrollRestore = NO;
+}
+
+- (void)viewWillStartLiveResize {
+    if (!_pendingScrollRestore && !_pendingScroll && self.glkctl.ignoreResizes) {
+        [self storeScrollOffset];
+    }
+}
+
+- (void)viewDidEndLiveResize {
+    adjustScrollWhenLayoutFinishes = YES;
+    scrollAdjustTimeStamp = [NSDate date];
+}
+
+- (void)layoutManagerDidInvalidateLayout:(NSLayoutManager *)layoutManager {
+    if (!_pendingScrollRestore && !_pendingScroll)
+        adjustScrollWhenLayoutFinishes = YES;
+}
+
+- (void)layoutManager:(NSLayoutManager *)layoutManager didCompleteLayoutForTextContainer:(NSTextContainer *)textContainer atEnd:(BOOL)layoutFinishedFlag {
+    if (layoutFinishedFlag && adjustScrollWhenLayoutFinishes && !_pendingScroll && !self.inLiveResize && scrollAdjustTimeStamp.timeIntervalSinceNow > -1) {
+        [self deferredScrollPosition:nil];
+    }
+    adjustScrollWhenLayoutFinishes = NO;
+}
+
+- (void)restoreScrollBarStyle {
+    if (scrollview) {
+        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        scrollview.scrollerStyle = NSScrollerStyleOverlay;
+        scrollview.drawsBackground = YES;
+        NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+        if (!bgcolor)
+            bgcolor = self.theme.bufferBackground;
+        scrollview.backgroundColor = bgcolor;
+        scrollview.hasHorizontalScroller = NO;
+        scrollview.hasVerticalScroller = YES;
+        scrollview.verticalScroller.alphaValue = 100;
+        scrollview.autohidesScrollers = YES;
+        scrollview.borderType = NSNoBorder;
+    }
+}
+
 
 - (void)forceLayout {
     [layoutmanager ensureLayoutForTextContainer:container];
