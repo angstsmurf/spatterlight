@@ -257,7 +257,9 @@ fprintf(stderr, "%s\n",                                                    \
         self.framePending = NO;
         if (!NSEqualRects(self.pendingFrame, self.frame)) {
 
-            // Crop width to gameView width
+            if ([container hasMarginImages] && NSWidth(self.pendingFrame) != NSWidth(self.frame))
+                [container invalidateLayout:nil];
+
             if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.gameView.bounds) && NSWidth(self.pendingFrame) > 10) {
                 self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.gameView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
             }
@@ -477,7 +479,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (line_request || self.glkctl.commandScriptRunning)
         storedNewline = nil;
 
-    if (line_request && (restoredWin.restoredInput).length) {
+    if (line_request && restoredWin.restoredInput.length) {
         NSAttributedString *restoredInput = restoredWin.restoredInput;
         if (textstorage.length > fence) {
             // Delete any preloaded input
@@ -543,7 +545,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (cell) {
             cell.marginImage = img;
             img.pos = cell.pos;
-//            img.bounds = [img boundsWithLayout:layoutmanager];
+            // img.bounds = [img boundsWithLayout:layoutmanager];
             cell.accessibilityLabel = cell.customA11yLabel;
         }
     }
