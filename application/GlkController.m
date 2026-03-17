@@ -1136,6 +1136,17 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         _shouldShowAutorestoreAlert = NO;
     } else {
         _windowsToBeAdded = [[NSMutableArray alloc] init];
+
+        if (restoredController.commandScriptRunning) {
+            CommandScriptHandler *handler = restoredControllerLate.commandScriptHandler;
+            if (handler.commandIndex >= handler.commandArray.count - 1) {
+                restoredController.commandScriptHandler = nil;
+                restoredController.commandScriptRunning = NO;
+            } else {
+                skipNextScriptCommand = YES;
+                restoredController = restoredControllerLate;
+            }
+        }
     }
 
     shouldRestoreUI = NO;
@@ -3785,16 +3796,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
             if (!_gwindows.count && shouldRestoreUI) {
                 buf = "\0";
-                if (restoredController.commandScriptRunning) {
-                    CommandScriptHandler *handler = restoredControllerLate.commandScriptHandler;
-                    if (handler.commandIndex >= handler.commandArray.count - 1) {
-                        restoredController.commandScriptHandler = nil;
-                        restoredController.commandScriptRunning = NO;
-                    } else {
-                        skipNextScriptCommand = YES;
-                        restoredController = restoredControllerLate;
-                    }
-                }
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
