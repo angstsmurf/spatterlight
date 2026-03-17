@@ -140,7 +140,6 @@ fprintf(stderr, "%s\n",                                                    \
     if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes) {
         [glkctl contentDidResize:self.frame];
-        [glkctl restoreScrollOffsets];
     }
 }
 
@@ -2104,6 +2103,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 }
 
 - (void)performScroll {
+    if (autorestoring)
+        return;
     for (GlkWindow *win in _gwindows.allValues)
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [win performScroll];
@@ -4459,8 +4460,7 @@ again:
 - (void)restoreScrollOffsets {
     for (GlkWindow *win in _gwindows.allValues)
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            [(GlkTextBufferWindow *)win restoreScrollBarStyle];
-            [(GlkTextBufferWindow *)win performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
+            [(GlkTextBufferWindow *)win restoreScroll:self];
         }
 }
 

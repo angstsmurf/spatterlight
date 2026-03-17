@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 @interface GlkTextBufferWindow
-    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate>
+    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSLayoutManagerDelegate>
 
 @property BufferTextView *textview;
 
