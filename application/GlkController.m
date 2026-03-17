@@ -2595,7 +2595,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         }
     } else {
         sizeAfterZoom = [self defaultContentSize];
-        NSLog(@"noteDefaultSizeChanged: New default size: %@", NSStringFromSize(sizeAfterZoom));
     }
     NSRect oldframe = _gameView.frame;
 
@@ -2606,8 +2605,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         NSLog(@"noteDefaultSizeChanged: This would change the size in the wrong direction, so skip");
         return;
     }
-
-    NSLog(@"noteDefaultSizeChanged: Old contentView size: %@", NSStringFromSize(_gameView.frame.size));
 
     if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen) {
@@ -2631,8 +2628,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
 
         [self.window setFrame:winrect display:NO animate:NO];
-        NSLog(@"noteDefaultSizeChanged: New contentView size: %@", NSStringFromSize(_gameView.frame.size));
-
     } else {
         NSUInteger borders = (NSUInteger)_theme.border * 2;
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
@@ -2648,7 +2643,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         newframe.origin.y -= offset;
 
         _gameView.frame = newframe;
-        NSLog(@"noteDefaultSizeChanged: New contentView size: %@", NSStringFromSize(_gameView.frame.size));
     }
 }
 
