@@ -496,6 +496,11 @@
 		C311DE2A25C4383100484639 /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = C311DE2925C4383100484639 /* twine.c */; };
 		C311DEF725C472E500484639 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311DEFC25C472E500484639 /* PreviewViewController.xib */; };
+		C3123A7E2F6A103300A87289 /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
+		C3123A7F2F6A103D00A87289 /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D794358224A2D2E0071EB3D /* NSString+Categories.m */; };
+		C3123A802F6A106E00A87289 /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
+		C3123A812F6A108400A87289 /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
+		C3123A822F6A117400A87289 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C314DFDD2F24181200A0879C /* c64_small.c in Sources */ = {isa = PBXBuildFile; fileRef = C314DFDC2F24181200A0879C /* c64_small.c */; };
 		C318F76F2741AA5B006D626A /* scott.c in Sources */ = {isa = PBXBuildFile; fileRef = C318F76A2741AA5B006D626A /* scott.c */; };
 		C318F7702741AA5B006D626A /* bsd.c in Sources */ = {isa = PBXBuildFile; fileRef = C318F76E2741AA5B006D626A /* bsd.c */; };
@@ -776,6 +781,7 @@
 		C3C2053D268D304500DB7AE0 /* BezelWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C20539268D304500DB7AE0 /* BezelWindow.m */; };
 		C3C2053E268D304500DB7AE0 /* BezelContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C2053B268D304500DB7AE0 /* BezelContentView.m */; };
 		C3C2863D26596A9400D83926 /* spat-mg1.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C2863B26596A9400D83926 /* spat-mg1.c */; };
+		C3C3CEA82F6A03D8004C16D7 /* SpatterlightQuickLook.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C506E426590E4B00763D3E /* MissingFilesFinder.m */; };
 		C3C5926826A81AE200DFB49B /* autosavetest.gblorb in Resources */ = {isa = PBXBuildFile; fileRef = C3C5926726A8185700DFB49B /* autosavetest.gblorb */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
@@ -8087,6 +8093,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3123A812F6A108400A87289 /* NSData+Categories.m in Sources */,
 				C309884825CB1AD300750F72 /* Game.m in Sources */,
 				C309886225CB1ADF00750F72 /* Image.m in Sources */,
 				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
@@ -8174,6 +8181,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3123A802F6A106E00A87289 /* NSData+Categories.m in Sources */,
 				C322718C25CC224F0083BD5B /* Game.m in Sources */,
 				C32271C025CC22590083BD5B /* Image.m in Sources */,
 				C32271A625CC22530083BD5B /* Metadata.m in Sources */,
@@ -8337,6 +8345,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3123A822F6A117400A87289 /* FileSignature.m in Sources */,
+				C3123A7F2F6A103D00A87289 /* NSString+Categories.m in Sources */,
+				C3123A7E2F6A103300A87289 /* NSData+Categories.m in Sources */,
 				C3F53C64271BB93300538393 /* iff.c in Sources */,
 				55A01EDD2B189325003D7C18 /* BlorbResource.swift in Sources */,
 				C3F53C65271BB94C00538393 /* Blorb.m in Sources */,
@@ -10185,7 +10196,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = "$(APP_VERSION)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -10231,7 +10242,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = "$(APP_VERSION)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -10442,7 +10453,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = "$(APP_VERSION)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -10488,7 +10499,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = "$(APP_VERSION)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
