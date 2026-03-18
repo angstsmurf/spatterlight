@@ -19,7 +19,7 @@
 
 #include "arthur.hpp"
 #include "shogun.hpp"
-#include "zorkzero.hpp"
+//#include "zorkzero.hpp"
 
 #include "v6_shared.hpp"
 
@@ -362,9 +362,9 @@ void V_DEFINE(void) {
     int linmax;
     uint16_t fkey, fdef, clicked_line, pressed_fkey, length;
 
-    if (is_spatterlight_zork0) {
-        update_user_defined_colours();
-    }
+//    if (is_spatterlight_zork0) {
+//        update_user_defined_colours();
+//    }
 
     glk_cancel_line_event(V6_TEXT_BUFFER_WINDOW.id, nullptr);
 
@@ -555,14 +555,14 @@ void V_DEFINE(void) {
     global_define_line = 0;
 
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
-
-    if (is_spatterlight_zork0) {
-        z0_update_on_resize();
-    } else {
+//
+//    if (is_spatterlight_zork0) {
+//        z0_update_on_resize();
+//    } else {
         // Game is Shogun
         internal_call(pack_routine(sr.V_REFRESH));
         shogun_update_on_resize();
-    }
+//    }
 }
 
 #pragma mark HINTS SCREEN
@@ -711,10 +711,10 @@ static void draw_hints_windows(void) {
                     upperwin_foreground = 0;
             }
         }
-        if (is_spatterlight_zork0) {
-            z0_erase_screen();
-            garglk_set_zcolors_stream(glk_window_get_stream(V6_STATUS_WINDOW.id), upperwin_foreground, upperwin_background);
-        }
+//        if (is_spatterlight_zork0) {
+//            z0_erase_screen();
+//            garglk_set_zcolors_stream(glk_window_get_stream(V6_STATUS_WINDOW.id), upperwin_foreground, upperwin_background);
+//        }
     }
 
     if (is_spatterlight_arthur || (upperwin_background != zcolor_Default && upperwin_background != BROWN))
@@ -742,16 +742,16 @@ static void draw_hints_windows(void) {
 
     int height = gcellh * 4 + ggridmarginy * 2;
 
-    if (is_spatterlight_zork0) {
-        // Global BORDER-ON, false if in text-only mode
-        bool text_only_mode = (get_global(zg.BORDER_ON) == 0);
-        if (!text_only_mode) {
-            DISPLAY_BORDER(HINT_BORDER);
-            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
-            width = width * imagescalex;
-            height = height * imagescaley;
-        }
-    }
+//    if (is_spatterlight_zork0) {
+//        // Global BORDER-ON, false if in text-only mode
+//        bool text_only_mode = (get_global(zg.BORDER_ON) == 0);
+//        if (!text_only_mode) {
+//            DISPLAY_BORDER(HINT_BORDER);
+//            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
+//            width = width * imagescalex;
+//            height = height * imagescaley;
+//        }
+//    }
 
     if (is_spatterlight_arthur) {
         win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
@@ -773,12 +773,12 @@ static void draw_hints_windows(void) {
                 status_x = width;
             }
         }
-    } else if (is_spatterlight_zork0 && graphics_type == kGraphicsTypeApple2) {
-        // Just for the lulz we try to use the Apple II hint screen header in Zork 0
-        // that the actual game did not use (presumably because it was impossible to
-        // fit the text in its low resolution.) We cut off 23 "pixels" on each side of
-        //  the status text view to make it fit between the question marks in the image.
-        status_x = 23 * imagescalex;
+//    } else if (is_spatterlight_zork0 && graphics_type == kGraphicsTypeApple2) {
+//        // Just for the lulz we try to use the Apple II hint screen header in Zork 0
+//        // that the actual game did not use (presumably because it was impossible to
+//        // fit the text in its low resolution.) We cut off 23 "pixels" on each side of
+//        //  the status text view to make it fit between the question marks in the image.
+//        status_x = 23 * imagescalex;
     }
     v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
 
@@ -800,8 +800,8 @@ static void draw_hints_windows(void) {
 
     if (is_spatterlight_shogun) {
         shogun_display_border(P_HINT_BORDER);
-    } else if  (is_spatterlight_zork0) {
-        z0_display_border(Z0_HINT_BORDER);
+//    } else if  (is_spatterlight_zork0) {
+//        z0_display_border(Z0_HINT_BORDER);
     }
 }
 
@@ -1406,9 +1406,10 @@ void DO_HINTS(void) {
 
     win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
     
-    if (is_spatterlight_zork0) {
-        z0_update_on_resize();
-    } else if (is_spatterlight_shogun) {
+//    if (is_spatterlight_zork0) {
+//        z0_update_on_resize();
+//    } else
+        if (is_spatterlight_shogun) {
         internal_call(pack_routine(sr.V_REFRESH));
         shogun_update_on_resize();
     }
@@ -1478,8 +1479,8 @@ void after_V_COLOR(void) {
         arthur_update_on_resize();
     } else if (is_spatterlight_shogun) {
         shogun_update_on_resize();
-    } else if (is_spatterlight_zork0) {
-        z0_update_on_resize();
+//    } else if (is_spatterlight_zork0) {
+//        z0_update_on_resize();
     }
 }
 
@@ -1539,3 +1540,4 @@ void TOWER_WIN_CHECK(void) {}
 void DRAW_PEGS(void) {}
 void SET_B_PIC(void) {}
 void BLINK(void) {}
+void V_REFRESH(void) {}

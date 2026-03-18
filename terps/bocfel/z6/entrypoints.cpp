@@ -945,605 +945,605 @@ static std::vector<EntryPoint> entrypoints = {
 //        INIT_STATUS_LINE
 //    },
 
-    {
-        Game::ZorkZero,
-        "UPDATE-STATUS-LINE",
-        { 0x03, 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7F, 0x04, 0x00 },
-        1,
-        0,
-        true,
-        z0_UPDATE_STATUS_LINE
-    },
-
-    // Shared with Shogun
-    {
-        Game::ZorkZero,
-        "V-DEFINE",
-        { 0x98, 0x40, 0x00, 0xa0, 0x00, 0xca },
-        0,
-        0,
-        true,
-        V_DEFINE
-    },
-
-    {
-        Game::ZorkZero,
-        "V-DEFINE alt",
-        { 0xED, 0x7F, 0x00, 0x36, 0x04, 0x01, 0x00, 0x34, 0x02, 0x00, 0x00 },
-        0,
-        0,
-        true,
-        V_DEFINE
-    },
-
-    {
-        Game::ZorkZero,
-        "BLINK",
-        { 0xEB, 0xBF, 0x05, 0xbe, 0x05, 0xAB, 0x02, 0x03, 0x04, 0xEB, 0x7F, 0x00 },
-        0,
-        0,
-        false,
-        BLINK
-    },
-
-    {
-        Game::ZorkZero,
-        "V_REFRESH",
-        { 0x00, 0x00, 0x46, 0x4F, 0x05, 0x04, 0x04, 0x2D },
-        14,
-        0,
-        false,
-        V_REFRESH
-    },
-
-    // Shared with Arthur and Shogun
-    {
-        Game::ZorkZero,
-        "V-COLOR",
-        { 0x06, 0x80, 0xA5, 0xCF, 0x2F},
-        3,
-        0,
-        false,
-        V_COLOR
-    },
-
-    {
-        Game::ZorkZero,
-        "after V-COLOR",
-        {},
-        0,
-        0,
-        false,
-        after_V_COLOR
-    },
-
-    {
-        Game::ZorkZero,
-        "DEFAULT-COLORS",
-        { 0x7b, WILDCARD, WILDCARD, 0xeb, 0x7f, 0x07, 0x7b, WILDCARD, WILDCARD, 0xeb, 0x7f, 0x00, 0xb0 },
-        -6,
-        0,
-        false,
-        DEFAULT_COLORS
-    },
-
-    {
-        Game::ZorkZero,
-        "V-CREDITS",
-        { 0xf9, 0x07, 0x15, 0x53, 0x00, 0xa1, 0x01 },
-        0,
-        0,
-        false,
-        V_CREDITS
-    },
-
-    {
-        Game::ZorkZero,
-        "after V-CREDITS alt",
-        { 0x40, 0x00, 0xB8, 0x00, 0x05},
-        2,
-        0,
-        false,
-        after_V_CREDITS
-    },
-
 //    {
 //        Game::ZorkZero,
-//        "after V-CREDITS",
-//        { 0x82, 0x00, 0xB8, 0x00 },
+//        "UPDATE-STATUS-LINE",
+//        { 0x03, 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7F, 0x04, 0x00 },
+//        1,
+//        0,
+//        true,
+//        z0_UPDATE_STATUS_LINE
+//    },
+//
+//    // Shared with Shogun
+//    {
+//        Game::ZorkZero,
+//        "V-DEFINE",
+//        { 0x98, 0x40, 0x00, 0xa0, 0x00, 0xca },
+//        0,
+//        0,
+//        true,
+//        V_DEFINE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "V-DEFINE alt",
+//        { 0xED, 0x7F, 0x00, 0x36, 0x04, 0x01, 0x00, 0x34, 0x02, 0x00, 0x00 },
+//        0,
+//        0,
+//        true,
+//        V_DEFINE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "BLINK",
+//        { 0xEB, 0xBF, 0x05, 0xbe, 0x05, 0xAB, 0x02, 0x03, 0x04, 0xEB, 0x7F, 0x00 },
+//        0,
+//        0,
+//        false,
+//        BLINK
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "V_REFRESH",
+//        { 0x00, 0x00, 0x46, 0x4F, 0x05, 0x04, 0x04, 0x2D },
+//        14,
+//        0,
+//        false,
+//        V_REFRESH
+//    },
+//
+//    // Shared with Arthur and Shogun
+//    {
+//        Game::ZorkZero,
+//        "V-COLOR",
+//        { 0x06, 0x80, 0xA5, 0xCF, 0x2F},
+//        3,
+//        0,
+//        false,
+//        V_COLOR
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "after V-COLOR",
+//        {},
+//        0,
+//        0,
+//        false,
+//        after_V_COLOR
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "DEFAULT-COLORS",
+//        { 0x7b, WILDCARD, WILDCARD, 0xeb, 0x7f, 0x07, 0x7b, WILDCARD, WILDCARD, 0xeb, 0x7f, 0x00, 0xb0 },
+//        -6,
+//        0,
+//        false,
+//        DEFAULT_COLORS
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "V-CREDITS",
+//        { 0xf9, 0x07, 0x15, 0x53, 0x00, 0xa1, 0x01 },
+//        0,
+//        0,
+//        false,
+//        V_CREDITS
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "after V-CREDITS alt",
+//        { 0x40, 0x00, 0xB8, 0x00, 0x05},
 //        2,
 //        0,
 //        false,
 //        after_V_CREDITS
 //    },
-
-    {
-        Game::ZorkZero,
-        "CENTER-1",
-        { 0x87, 0x00, 0x03, 0xbe, 0x13, 0x5F, 0x00, 0x03, 0x00, 0x57, 0x00, 0x02},
-        -3,
-        0,
-        false,
-        CENTER
-    },
-
-    {
-        Game::ZorkZero,
-        "CENTER-1 alt",
-        { 0x00, 0x00, 0xBB, 0xB0, 0x00, 0x00},
-        -7,
-        0,
-        false,
-        CENTER
-    },
-
-    {
-        Game::ZorkZero,
-        "CENTER-2",
-        { 0x06, 0xF0, 0x3F},
-        1,
-        0,
-        false,
-        CENTER
-    },
-
-    {
-        Game::ZorkZero,
-        "CENTER-3",
-        { 0x08, 0xF0, 0x3F },
-        1,
-        0,
-        false,
-        CENTER
-    },
-
-    {
-        Game::ZorkZero,
-        "V-MODE alt",
-        { 0xA0, WILDCARD, 0xC8, 0x0D, WILDCARD, 0x00, 0x8C, 0x00, 0x05 },
-        -3,
-        0,
-        false,
-        V_MODE
-    },
-
-    {
-        Game::ZorkZero,
-        "V_REFRESH alt",
-        { 0xA0, 0x01, 0xD1, 0xA0, WILDCARD, 0xC5, 0x8F, 0x34, 0x3A, 0xF9, 0x27, 0x34, 0x81, WILDCARD, 0x01 },
-        0 ,
-        0,
-        false,
-        V_REFRESH
-    },
-
-    {
-        Game::ZorkZero,
-        "V-MODE",
-        { 0x00, 0xED, 0x3F, 0xFF, 0xFF, 0xA0 },
-        1,
-        0,
-        false,
-        V_MODE
-    },
-
-    {
-        Game::ZorkZero,
-        "V-MAP-LOOP",
-        { 0x88, 0x1e, WILDCARD, 0x00, 0xa0, 0x00, 0xf3 },
-        0,
-        0,
-        false,
-        V_MAP_LOOP
-    },
-
-    {
-        Game::ZorkZero,
-        "V-MAP-LOOP alt",
-        { 0xFA, 0x26, 0x9F, 0x15, 0xF7, 0x00, 0xCC, 0x06, 0x05, 0x07  },
-        0,
-        0,
-        false,
-        V_MAP_LOOP
-    },
-
-    {
-        Game::ZorkZero,
-        "MAP-X",
-        { 0x43, 0x01, 0x00, 0x4c },
-        -1,
-        0,
-        false,
-        MAP_X
-    },
-
-    {
-        Game::ZorkZero,
-        "MAP-X alt",
-        { 0x43, 0x01, 0x00, 0x4e, 0xda },
-        -1,
-        0,
-        false,
-        MAP_X
-    },
-
-    {
-        Game::ZorkZero,
-        "after SPLIT-BY-PICTURE",
-        { 0x11, 0x6B, 0x01, 0x03, 0x00, 0xB0 },
-        5,
-        0,
-        false,
-        after_SPLIT_BY_PICTURE
-    },
-
-    {
-        Game::ZorkZero,
-        "INIT-STATUS-LINE",
-        { 0x0d, 0x02, 0x01, 0x0d, WILDCARD, WILDCARD, 0x0d, WILDCARD, 00 },
-        0,
-        0,
-        true,
-        INIT_STATUS_LINE
-    },
-
-    {
-        Game::ZorkZero,
-        "SET-BORDER",
-        { 0x41, WILDCARD, WILDCARD, 0x48, 0x43, WILDCARD, 0x00, 0x44  },
-        -1,
-        0,
-        false,
-        SET_BORDER
-    },
-
-    {
-        Game::ZorkZero,
-        "DRAW-NEW-HERE",
-        { 0x2d, WILDCARD, WILDCARD, 0xCF, 0x1F, WILDCARD, WILDCARD, 0x00, 0x02, 0xa0  },
-        -1,
-        0,
-        false,
-        DRAW_NEW_HERE
-    },
-
-    {
-        Game::ZorkZero,
-        "DRAW-NEW-COMP",
-        { 0x0d, 0x69, 0x00, 0xf9, 0x15, WILDCARD, WILDCARD, 0x3f, 0x09, 0x11 },
-        -1,
-        0,
-        false,
-        DRAW_NEW_COMP
-    },
-
-    {
-        Game::ZorkZero,
-        "SETUP-SCREEN",
-        { 0x10, 0x00, 0x1e, 0x3f, 0x41, 0x3f, 0x06, 0xc8},
-        -1,
-        0,
-        false,
-        SETUP_SCREEN
-    },
-
-    {
-        Game::ZorkZero,
-        "UPDATE-STATUS-LINE alt",
-        { 0x02, 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7F, 0x04, 0x00 },
-        1,
-        0,
-        true,
-        z0_UPDATE_STATUS_LINE
-    },
-
-
-
-    {
-        Game::ZorkZero,
-        "DRAW-COMPASS-ROSE",
-        { 0xE0, 0x29, 0x35, 0x6F, WILDCARD, 0x01, 0x00, 0x00, 0xa0 },
-        -1,
-        0,
-        false,
-        DRAW_COMPASS_ROSE
-    },
-
-    {
-        Game::ZorkZero,
-        "WINPROP",
-        { 0xBE, 0x13, 0x8B, 0x01, 0x70, 0x8B, 0x02 },
-        0,
-        0,
-        false,
-        WINPROP
-    },
-
-
-    {
-        Game::ZorkZero,
-        "PEG-GAME",
-        { 0xa0, 0x02, 0xe8, 0x56, 0x02, 0x02, 0x00 },
-        0,
-        0,
-        false,
-        PEG_GAME
-    },
-
-    {
-        Game::ZorkZero,
-        "PEG-GAME-READ-CHAR",
-        { 0xc1, 0x97, 0x03, 0xfe, 0xfd, 0x46 },
-        0,
-        0,
-        false,
-        PEG_GAME_READ_CHAR
-    },
-
-    {
-        Game::ZorkZero,
-        "PBOZ-CLICK",
-        { 0x0d, 0x05, 0x02, 0xda, 0x4f, WILDCARD, 0x01, 0xd8 },
-        0,
-        0,
-        false,
-        PBOZ_CLICK
-    },
-
-    {
-        Game::ZorkZero,
-        "SETUP-PBOZ",
-        { 0x0d, 0x01, 0x02, 0xcb, 0x1f, 0x01, 0x59, 0x07 },
-        0,
-        0,
-        true,
-        SETUP_PBOZ
-    },
-
-    {
-        Game::ZorkZero,
-        "DRAW-PEGS",
-        { 0x0d, 0x01, 0x01, 0xca, 0x2f, 0x01, 0x59, 0x01, 0xe3 },
-        -1,
-        0,
-        false,
-        DRAW_PEGS
-    },
-
-    {
-        Game::ZorkZero,
-        "PBOZ-WIN-CHECK",
-        { 0x0d, 0x01, 0x01, 0xa0, WILDCARD, 0x40, 0x41, 0x01, 0x16, 0xcf },
-        0,
-        0,
-        false,
-        PBOZ_WIN_CHECK
-    },
-
-    {
-        Game::ZorkZero,
-        "DISPLAY-MOVES",
-        { 0xf3, 0x3f, 0xff, 0xff, 0xbb, 0xf3, 0x7f, 0x01, 0x55, WILDCARD, 0x02, 0x00},
-        0,
-        0,
-        false,
-        DISPLAY_MOVES
-    },
-
-    {
-        Game::ZorkZero,
-        "SETUP-FANUCCI",
-        { 0x98, 0x40, 0x00, 0xa0, 0x00, 0xc8 },
-        0,
-        0,
-        true,
-        SETUP_FANUCCI
-    },
-
-    {
-        Game::ZorkZero,
-        "FANUCCI",
-        { 0xda, 0x4f, WILDCARD, 0x01, 0x80, 0xcf, 0x1f },
-        0,
-        0,
-        true,
-        FANUCCI
-    },
-
-    {
-        Game::ZorkZero,
-        "SCORE_CHECK",
-        { 0x63, WILDCARD, WILDCARD, 0x54, 0x75, WILDCARD, WILDCARD, 0x00, 0xc3, 0x8f, 0x00 },
-        -1,
-        0,
-        false,
-        SCORE_CHECK
-    },
-
-    {
-        Game::ZorkZero,
-        "J-PLAY",
-        { 0xB2, 0x14, 0xE0, 0x00, 0x03, 0x62, 0xE0, 0x52 },
-        -1,
-        0,
-        false,
-        J_PLAY
-    },
-
-    {
-        Game::ZorkZero,
-        "PLAY-SELECTED",
-        { 0x41, 0x01, 0x0e, 0xc1, 0x41, 0x01, 0x0d },
-        -1,
-        0,
-        false,
-        PLAY_SELECTED
-    },
-
-    {
-        Game::ZorkZero,
-        "SMALL-DOOR-F",
-        { 0xB2, 0x00, 0x00, 0x13, 0x3E, 0x55, 0x40, 0x04 },
-        0,
-        0,
-        false,
-        SMALL_DOOR_F
-    },
-
-    {
-        Game::ZorkZero,
-        "TOWER-MODE",
-        { 0xa0, 0xe1, 0x80, 0x70  },
-        0,
-        0,
-        false,
-        TOWER_MODE
-    },
-
-    {
-        Game::ZorkZero,
-        "TOWER-MODE alt",
-        { 0xa0, 0x05, 0x00, 0x79  },
-        0,
-        0,
-        false,
-        TOWER_MODE
-    },
-
-    {
-        Game::ZorkZero,
-        "B-MOUSE-PEG-PICK",
-        { 0xbe, 0x06, 0x4f, 0x2b },
-        0,
-        0,
-        false,
-        B_MOUSE_PEG_PICK
-    },
-
-    {
-        Game::ZorkZero,
-        "B-MOUSE-WEIGHT-PICK",
-        { 0xda, 0x4f, WILDCARD, 0x01, 0xdb, 0xcf, 0x1f },
-        0,
-        0,
-        false,
-        B_MOUSE_WEIGHT_PICK
-    },
-
-    {
-        Game::ZorkZero,
-        "TOWER-WIN-CHECK",
-        { 0xc6, 0x0f, 0x01, WILDCARD, 0x01, WILDCARD, WILDCARD,
-            0xc6, 0x0f, 0x01, WILDCARD, 0x01, WILDCARD, WILDCARD,
-            0xc6
-        },
-        -1,
-        0,
-        false,
-        TOWER_WIN_CHECK
-    },
-
-    {
-        Game::ZorkZero,
-        "DRAW-TOWER",
-        { 0xed, 0x7f, 0x07, 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x57 },
-        0,
-        0,
-        true,
-        DRAW_TOWER
-    },
-
-    {
-        Game::ZorkZero,
-        "SET-B-PIC",
-        { 0xc1, 0x8f, 0x01, 0x01, WILDCARD, WILDCARD, 0x9b, 0x2b },
-        -1,
-        0,
-        false,
-        SET_B_PIC
-    },
-
-    {
-        Game::ZorkZero,
-        "SETUP-SN",
-        { 0xeb, 0x7f, 0x07, WILDCARD, 0x05, 0x57, 0x49, 0x01, 0x01},
-        43,
-        0,
-        false,
-        SETUP_SN
-    },
-
-    {
-        Game::ZorkZero,
-        "DRAW-SN-BOXES",
-        { 0x0d, 0x05, 0x01, 0xeb, 0x7f, 0x01, 0xda, 0x4f, WILDCARD, 0x01, 0xd6 },
-        0,
-        0,
-        true,
-        DRAW_SN_BOXES
-    },
-
-    {
-        Game::ZorkZero,
-        "DRAW-PILE",
-        { 0xeb, 0x7f, 0x01, 0xcf, 0x2f, 0x73, WILDCARD, 0x01, 0x02 },
-        0,
-        0,
-        true,
-        DRAW_PILE
-    },
-
-    {
-        Game::ZorkZero,
-        "DRAW-FLOWERS",
-        { 0x0d, 0x01, 0x01, 0x0d, 0x02, 0x01, 0xd9, 0x0f, WILDCARD, WILDCARD, 0x73, WILDCARD, 0x00, 0xa0 },
-        0,
-        0,
-        true,
-        DRAW_FLOWERS
-    },
-
-    {
-        Game::ZorkZero,
-        "SNARFEM",
-        { 0xa0, 0x04, 0x41, 0xa0, 0x03, 0x81, 0x75 },
-        0,
-        0,
-        false,
-        SNARFEM
-    },
-
-    {
-        Game::ZorkZero,
-        "SN-CLICK",
-        { 0x0d, 0x08, 0x01, 0xbe, 0x06, 0x0f, 0x01, 0xbd, 0x6e, WILDCARD, 0xc2 },
-        0,
-        0,
-        false,
-        SN_CLICK
-    },
-
-
-    // Shared with Arthur and Shogun
-    {
-        Game::ZorkZero,
-        "DO-HINTS",
-        { 0xf1, 0x7f, 0x00, 0xef, 0x1f, 0xff, 0xff, 0x00, 0x88 },
-        0,
-        0,
-        false,
-        DO_HINTS
-    },
-
-    {
-        Game::ZorkZero,
-        "DISPLAY-HINT",
-        { 0xF1, 0x7F, 0x00, 0xED, 0x7F, 0x00, 0xEB },
-        0,
-        0,
-        false,
-        DISPLAY_HINT
-    },
+//
+////    {
+////        Game::ZorkZero,
+////        "after V-CREDITS",
+////        { 0x82, 0x00, 0xB8, 0x00 },
+////        2,
+////        0,
+////        false,
+////        after_V_CREDITS
+////    },
+//
+//    {
+//        Game::ZorkZero,
+//        "CENTER-1",
+//        { 0x87, 0x00, 0x03, 0xbe, 0x13, 0x5F, 0x00, 0x03, 0x00, 0x57, 0x00, 0x02},
+//        -3,
+//        0,
+//        false,
+//        CENTER
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "CENTER-1 alt",
+//        { 0x00, 0x00, 0xBB, 0xB0, 0x00, 0x00},
+//        -7,
+//        0,
+//        false,
+//        CENTER
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "CENTER-2",
+//        { 0x06, 0xF0, 0x3F},
+//        1,
+//        0,
+//        false,
+//        CENTER
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "CENTER-3",
+//        { 0x08, 0xF0, 0x3F },
+//        1,
+//        0,
+//        false,
+//        CENTER
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "V-MODE alt",
+//        { 0xA0, WILDCARD, 0xC8, 0x0D, WILDCARD, 0x00, 0x8C, 0x00, 0x05 },
+//        -3,
+//        0,
+//        false,
+//        V_MODE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "V_REFRESH alt",
+//        { 0xA0, 0x01, 0xD1, 0xA0, WILDCARD, 0xC5, 0x8F, 0x34, 0x3A, 0xF9, 0x27, 0x34, 0x81, WILDCARD, 0x01 },
+//        0 ,
+//        0,
+//        false,
+//        V_REFRESH
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "V-MODE",
+//        { 0x00, 0xED, 0x3F, 0xFF, 0xFF, 0xA0 },
+//        1,
+//        0,
+//        false,
+//        V_MODE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "V-MAP-LOOP",
+//        { 0x88, 0x1e, WILDCARD, 0x00, 0xa0, 0x00, 0xf3 },
+//        0,
+//        0,
+//        false,
+//        V_MAP_LOOP
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "V-MAP-LOOP alt",
+//        { 0xFA, 0x26, 0x9F, 0x15, 0xF7, 0x00, 0xCC, 0x06, 0x05, 0x07  },
+//        0,
+//        0,
+//        false,
+//        V_MAP_LOOP
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "MAP-X",
+//        { 0x43, 0x01, 0x00, 0x4c },
+//        -1,
+//        0,
+//        false,
+//        MAP_X
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "MAP-X alt",
+//        { 0x43, 0x01, 0x00, 0x4e, 0xda },
+//        -1,
+//        0,
+//        false,
+//        MAP_X
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "after SPLIT-BY-PICTURE",
+//        { 0x11, 0x6B, 0x01, 0x03, 0x00, 0xB0 },
+//        5,
+//        0,
+//        false,
+//        after_SPLIT_BY_PICTURE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "INIT-STATUS-LINE",
+//        { 0x0d, 0x02, 0x01, 0x0d, WILDCARD, WILDCARD, 0x0d, WILDCARD, 00 },
+//        0,
+//        0,
+//        true,
+//        INIT_STATUS_LINE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "SET-BORDER",
+//        { 0x41, WILDCARD, WILDCARD, 0x48, 0x43, WILDCARD, 0x00, 0x44  },
+//        -1,
+//        0,
+//        false,
+//        SET_BORDER
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "DRAW-NEW-HERE",
+//        { 0x2d, WILDCARD, WILDCARD, 0xCF, 0x1F, WILDCARD, WILDCARD, 0x00, 0x02, 0xa0  },
+//        -1,
+//        0,
+//        false,
+//        DRAW_NEW_HERE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "DRAW-NEW-COMP",
+//        { 0x0d, 0x69, 0x00, 0xf9, 0x15, WILDCARD, WILDCARD, 0x3f, 0x09, 0x11 },
+//        -1,
+//        0,
+//        false,
+//        DRAW_NEW_COMP
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "SETUP-SCREEN",
+//        { 0x10, 0x00, 0x1e, 0x3f, 0x41, 0x3f, 0x06, 0xc8},
+//        -1,
+//        0,
+//        false,
+//        SETUP_SCREEN
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "UPDATE-STATUS-LINE alt",
+//        { 0x02, 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7F, 0x04, 0x00 },
+//        1,
+//        0,
+//        true,
+//        z0_UPDATE_STATUS_LINE
+//    },
+//
+//
+//
+//    {
+//        Game::ZorkZero,
+//        "DRAW-COMPASS-ROSE",
+//        { 0xE0, 0x29, 0x35, 0x6F, WILDCARD, 0x01, 0x00, 0x00, 0xa0 },
+//        -1,
+//        0,
+//        false,
+//        DRAW_COMPASS_ROSE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "WINPROP",
+//        { 0xBE, 0x13, 0x8B, 0x01, 0x70, 0x8B, 0x02 },
+//        0,
+//        0,
+//        false,
+//        WINPROP
+//    },
+//
+//
+//    {
+//        Game::ZorkZero,
+//        "PEG-GAME",
+//        { 0xa0, 0x02, 0xe8, 0x56, 0x02, 0x02, 0x00 },
+//        0,
+//        0,
+//        false,
+//        PEG_GAME
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "PEG-GAME-READ-CHAR",
+//        { 0xc1, 0x97, 0x03, 0xfe, 0xfd, 0x46 },
+//        0,
+//        0,
+//        false,
+//        PEG_GAME_READ_CHAR
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "PBOZ-CLICK",
+//        { 0x0d, 0x05, 0x02, 0xda, 0x4f, WILDCARD, 0x01, 0xd8 },
+//        0,
+//        0,
+//        false,
+//        PBOZ_CLICK
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "SETUP-PBOZ",
+//        { 0x0d, 0x01, 0x02, 0xcb, 0x1f, 0x01, 0x59, 0x07 },
+//        0,
+//        0,
+//        true,
+//        SETUP_PBOZ
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "DRAW-PEGS",
+//        { 0x0d, 0x01, 0x01, 0xca, 0x2f, 0x01, 0x59, 0x01, 0xe3 },
+//        -1,
+//        0,
+//        false,
+//        DRAW_PEGS
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "PBOZ-WIN-CHECK",
+//        { 0x0d, 0x01, 0x01, 0xa0, WILDCARD, 0x40, 0x41, 0x01, 0x16, 0xcf },
+//        0,
+//        0,
+//        false,
+//        PBOZ_WIN_CHECK
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "DISPLAY-MOVES",
+//        { 0xf3, 0x3f, 0xff, 0xff, 0xbb, 0xf3, 0x7f, 0x01, 0x55, WILDCARD, 0x02, 0x00},
+//        0,
+//        0,
+//        false,
+//        DISPLAY_MOVES
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "SETUP-FANUCCI",
+//        { 0x98, 0x40, 0x00, 0xa0, 0x00, 0xc8 },
+//        0,
+//        0,
+//        true,
+//        SETUP_FANUCCI
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "FANUCCI",
+//        { 0xda, 0x4f, WILDCARD, 0x01, 0x80, 0xcf, 0x1f },
+//        0,
+//        0,
+//        true,
+//        FANUCCI
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "SCORE_CHECK",
+//        { 0x63, WILDCARD, WILDCARD, 0x54, 0x75, WILDCARD, WILDCARD, 0x00, 0xc3, 0x8f, 0x00 },
+//        -1,
+//        0,
+//        false,
+//        SCORE_CHECK
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "J-PLAY",
+//        { 0xB2, 0x14, 0xE0, 0x00, 0x03, 0x62, 0xE0, 0x52 },
+//        -1,
+//        0,
+//        false,
+//        J_PLAY
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "PLAY-SELECTED",
+//        { 0x41, 0x01, 0x0e, 0xc1, 0x41, 0x01, 0x0d },
+//        -1,
+//        0,
+//        false,
+//        PLAY_SELECTED
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "SMALL-DOOR-F",
+//        { 0xB2, 0x00, 0x00, 0x13, 0x3E, 0x55, 0x40, 0x04 },
+//        0,
+//        0,
+//        false,
+//        SMALL_DOOR_F
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "TOWER-MODE",
+//        { 0xa0, 0xe1, 0x80, 0x70  },
+//        0,
+//        0,
+//        false,
+//        TOWER_MODE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "TOWER-MODE alt",
+//        { 0xa0, 0x05, 0x00, 0x79  },
+//        0,
+//        0,
+//        false,
+//        TOWER_MODE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "B-MOUSE-PEG-PICK",
+//        { 0xbe, 0x06, 0x4f, 0x2b },
+//        0,
+//        0,
+//        false,
+//        B_MOUSE_PEG_PICK
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "B-MOUSE-WEIGHT-PICK",
+//        { 0xda, 0x4f, WILDCARD, 0x01, 0xdb, 0xcf, 0x1f },
+//        0,
+//        0,
+//        false,
+//        B_MOUSE_WEIGHT_PICK
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "TOWER-WIN-CHECK",
+//        { 0xc6, 0x0f, 0x01, WILDCARD, 0x01, WILDCARD, WILDCARD,
+//            0xc6, 0x0f, 0x01, WILDCARD, 0x01, WILDCARD, WILDCARD,
+//            0xc6
+//        },
+//        -1,
+//        0,
+//        false,
+//        TOWER_WIN_CHECK
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "DRAW-TOWER",
+//        { 0xed, 0x7f, 0x07, 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x57 },
+//        0,
+//        0,
+//        true,
+//        DRAW_TOWER
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "SET-B-PIC",
+//        { 0xc1, 0x8f, 0x01, 0x01, WILDCARD, WILDCARD, 0x9b, 0x2b },
+//        -1,
+//        0,
+//        false,
+//        SET_B_PIC
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "SETUP-SN",
+//        { 0xeb, 0x7f, 0x07, WILDCARD, 0x05, 0x57, 0x49, 0x01, 0x01},
+//        43,
+//        0,
+//        false,
+//        SETUP_SN
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "DRAW-SN-BOXES",
+//        { 0x0d, 0x05, 0x01, 0xeb, 0x7f, 0x01, 0xda, 0x4f, WILDCARD, 0x01, 0xd6 },
+//        0,
+//        0,
+//        true,
+//        DRAW_SN_BOXES
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "DRAW-PILE",
+//        { 0xeb, 0x7f, 0x01, 0xcf, 0x2f, 0x73, WILDCARD, 0x01, 0x02 },
+//        0,
+//        0,
+//        true,
+//        DRAW_PILE
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "DRAW-FLOWERS",
+//        { 0x0d, 0x01, 0x01, 0x0d, 0x02, 0x01, 0xd9, 0x0f, WILDCARD, WILDCARD, 0x73, WILDCARD, 0x00, 0xa0 },
+//        0,
+//        0,
+//        true,
+//        DRAW_FLOWERS
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "SNARFEM",
+//        { 0xa0, 0x04, 0x41, 0xa0, 0x03, 0x81, 0x75 },
+//        0,
+//        0,
+//        false,
+//        SNARFEM
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "SN-CLICK",
+//        { 0x0d, 0x08, 0x01, 0xbe, 0x06, 0x0f, 0x01, 0xbd, 0x6e, WILDCARD, 0xc2 },
+//        0,
+//        0,
+//        false,
+//        SN_CLICK
+//    },
+//
+//
+//    // Shared with Arthur and Shogun
+//    {
+//        Game::ZorkZero,
+//        "DO-HINTS",
+//        { 0xf1, 0x7f, 0x00, 0xef, 0x1f, 0xff, 0xff, 0x00, 0x88 },
+//        0,
+//        0,
+//        false,
+//        DO_HINTS
+//    },
+//
+//    {
+//        Game::ZorkZero,
+//        "DISPLAY-HINT",
+//        { 0xF1, 0x7F, 0x00, 0xED, 0x7F, 0x00, 0xEB },
+//        0,
+//        0,
+//        false,
+//        DISPLAY_HINT
+//    },
 };
 
 static int32_t find_pattern_in_mem(std::vector<uint8_t> pattern, uint32_t startpos, uint32_t length_to_search) {
@@ -2692,22 +2692,22 @@ void find_entrypoints(void) {
 
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game)) {
-            fprintf(stderr, "Looking for entrypoint %s (starting at 0x%x)\n", entrypoint.title.c_str(), start);
+//            fprintf(stderr, "Looking for entrypoint %s (starting at 0x%x)\n", entrypoint.title.c_str(), start);
             if (entrypoint.pattern.size()) {
                 int32_t offset = find_pattern_in_mem(entrypoint.pattern, start, end - start);
                 if (offset != -1) {
                     entrypoint.found_at_address = offset + entrypoint.offset;
                     start = entrypoint.found_at_address;
-                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), start);
+//                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), start);
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;
                         store_byte(entrypoint.found_at_address, 0xb0);
                     }
                 } else {
-                    fprintf(stderr, "Did not find it!\n");
+//                    fprintf(stderr, "Did not find it!\n");
                 }
             } else {
-                fprintf(stderr, "Did not find it! (No pattern)\n");
+//                fprintf(stderr, "Did not find it! (No pattern)\n");
             }
         }
     }
@@ -2718,8 +2718,8 @@ void find_entrypoints(void) {
         find_journey_globals();
     } else if (is_spatterlight_shogun) {
         find_shogun_globals();
-    } else if (is_spatterlight_zork0) {
-        find_zork0_globals();
+//    } else if (is_spatterlight_zork0) {
+//        find_zork0_globals();
     }
 
     for (auto &entrypoint : entrypoints) {
@@ -2740,7 +2740,7 @@ void check_entrypoints(uint32_t pc) {
 
     if (found != entrypoint_map.end()) {
         EntryPoint *entrypoint = entrypoint_map.at(pc);
-        fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint->title.c_str(), pc);
+//        fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint->title.c_str(), pc);
         (entrypoint->fn)();
     }
 }

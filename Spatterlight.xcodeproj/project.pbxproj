@@ -489,7 +489,6 @@
 		C30F8E931ED7153E005E6863 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C30FAD5E27B7D41000BD20B9 /* load_ti99_4a.c in Sources */ = {isa = PBXBuildFile; fileRef = C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */; };
 		C3100F5D27972E850027D6FF /* hulk.c in Sources */ = {isa = PBXBuildFile; fileRef = C3100F5C27972E850027D6FF /* hulk.c */; };
-		C310487B2DB255570023B713 /* zorkzero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C310487A2DB255570023B713 /* zorkzero.cpp */; };
 		C3109FCD2798B19F00854ED0 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C3109FCC2798B19F00854ED0 /* parser.c */; };
 		C311866825BD3B1800739D7B /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = C311866725BD3B1800739D7B /* sound.c */; };
 		C31186DB25BD500800739D7B /* GlkSoundChannel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C31186D925BD500700739D7B /* GlkSoundChannel.mm */; };
@@ -7448,7 +7447,6 @@
 				6DB774C92458B9B300EDC671 /* objects.cpp in Sources */,
 				6DB774CA2458B9B300EDC671 /* osdep.cpp in Sources */,
 				6DB774CB2458B9B300EDC671 /* patches.cpp in Sources */,
-				C310487B2DB255570023B713 /* zorkzero.cpp in Sources */,
 				6DB774CC2458B9B300EDC671 /* process.cpp in Sources */,
 				6DB774CD2458B9B300EDC671 /* random.cpp in Sources */,
 				6DB774CE2458B9B300EDC671 /* screen.cpp in Sources */,

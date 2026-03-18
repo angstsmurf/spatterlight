@@ -44,7 +44,7 @@ extern "C" {
 #include "arthur.hpp"
 #include "journey.hpp"
 #include "shogun.hpp"
-#include "zorkzero.hpp"
+//#include "zorkzero.hpp"
 #include "random.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
@@ -133,7 +133,7 @@ glui32 current_picture = 0;
 bool is_spatterlight_arthur = false;
 bool is_spatterlight_journey = false;
 bool is_spatterlight_shogun = false;
-bool is_spatterlight_zork0 = false;
+//bool is_spatterlight_zork0 = false;
 bool is_spatterlight_v6 = false;
 
     
@@ -1004,7 +1004,7 @@ static void put_char_base(uint16_t c, bool unicode)
                         upperwin->x++;
                         xglk_put_char(c);
 #ifdef SPATTERLIGHT
-                    } else if (is_spatterlight_arthur || is_spatterlight_zork0) {
+                    } else if (is_spatterlight_arthur /*|| is_spatterlight_zork0*/) {
                         upperwin->x++;
                         xglk_put_char(c);
 #endif
@@ -2314,8 +2314,8 @@ void v6_restore_hacks(void) {
             arthur_update_after_autorestore();
         } else if (is_spatterlight_shogun) {
             shogun_update_after_autorestore();
-        } else if (is_spatterlight_zork0) {
-            z0_update_after_autorestore();
+//        } else if (is_spatterlight_zork0) {
+//            z0_update_after_autorestore();
         }
     } else {
         if (is_spatterlight_journey) {
@@ -2324,8 +2324,8 @@ void v6_restore_hacks(void) {
             arthur_update_after_restore();
         } else if (is_spatterlight_shogun) {
             shogun_update_after_restore();
-        } else if (is_spatterlight_zork0) {
-            z0_update_after_restore();
+//        } else if (is_spatterlight_zork0) {
+//            z0_update_after_restore();
         }
     }
 }
@@ -2819,8 +2819,8 @@ void window_change()
                 journey_update_on_resize();
             } else if (is_spatterlight_shogun) {
                 shogun_update_on_resize();
-            } else if (is_spatterlight_zork0) {
-                z0_update_on_resize();
+//            } else if (is_spatterlight_zork0) {
+//                z0_update_on_resize();
             }
         }
 #endif
@@ -2948,9 +2948,9 @@ static void request_mouse_events()
     }
     // FIXME Find a cleaner way to do this.
     // This requests a new mouse event after clicking in the map.
-    if (is_spatterlight_zork0 && screenmode == MODE_MAP) {
-        glk_request_mouse_event(graphics_fg_glk);
-    }
+//    if (is_spatterlight_zork0 && screenmode == MODE_MAP) {
+//        glk_request_mouse_event(graphics_fg_glk);
+//    }
 #endif
 }
 
@@ -3142,7 +3142,7 @@ static uint8_t zscii_from_glk(glui32 key)
 
 #ifdef SPATTERLIGHT
 void flush_image_buffer(void) {
-    if (is_spatterlight_arthur || is_spatterlight_shogun || is_spatterlight_zork0) {
+    if (is_spatterlight_arthur || is_spatterlight_shogun /*|| is_spatterlight_zork0*/) {
         if (current_graphics_buf_win == nullptr && screenmode != MODE_SLIDESHOW) {
             current_graphics_buf_win = graphics_bg_glk;
         }
@@ -3305,7 +3305,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
         case evtype_CharInput:
             ZASSERT(input.type == Input::Type::Char, "got unexpected evtype_CharInput");
 
-                if (ev.win != curwin->id) {
+                /*if (ev.win != curwin->id) {
                     bool found = false;
                     for (auto &window : windows) {
                         if (window.id == ev.win) {
@@ -3326,7 +3326,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
 
                     fprintf(stderr, "Here\n");
 
-                }
+                }*/
 
 //            ZASSERT(ev.win == curwin->id, "got evtype_CharInput on unexpected window");
 
@@ -3464,7 +3464,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             break;
         case evtype_MouseInput:
             if (ev.win == upperwin->id) {
-#ifndef SPATTERLIGHT
+//#ifndef SPATTERLIGHT
 #ifdef ZTERP_GLK_GRAPHICS
                 if (zorkzero_hack) {
                     // In Fanucci, mouse clicks are off by one, probably
@@ -3474,7 +3474,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                     ev.val2++;
                 }
 #endif
-#endif
+//#endif
                 zterp_mouse_click(ev.val1 + 1, ev.val2 + 1);
 #ifdef SPATTERLIGHT
             } else if (screenmode == MODE_HINTS && ev.win == windows[0].id) {
@@ -3482,16 +3482,15 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 // click was in the lower window.
                 zterp_mouse_click(ev.val1 + 1, ev.val2 + 4);
             } else if (ev.win->type == wintype_Graphics) {
-                if (is_spatterlight_zork0) {
-                    zterp_mouse_click(ev.val1, ev.val2);
-                } else {
+//                if (is_spatterlight_zork0) {
+//                    zterp_mouse_click(ev.val1, ev.val2);
+//                } else {
                     adjust_image_scale();
-                    fprintf(stderr, "mouse click: x:%d y:%d imagescalex:%f imagescaley:%f\n", ev.val1, ev.val2, imagescalex, imagescaley);
                     int16_t y = round((ev.val2) / imagescaley) - 1;
                     if (y < 3)
                         y = 3;
                     zterp_mouse_click(round(ev.val1 / imagescalex) - 1, y);
-                }
+//                }
 #endif
 #ifdef ZTERP_GLK_GRAPHICS
             } else if (ev.win == graphics_window.id()) {
@@ -3723,8 +3722,8 @@ void zread_char()
             journey_autorestore_internal_read_char_hacks();
         else if (is_spatterlight_shogun)
             shogun_autorestore_internal_read_char_hacks();
-        else if (is_spatterlight_zork0)
-            z0_autorestore_internal_read_char_hacks();
+//        else if (is_spatterlight_zork0)
+//            z0_autorestore_internal_read_char_hacks();
         store(0);
         dont_repeat_question_on_autorestore = false;
         return;
@@ -4663,8 +4662,8 @@ void zdraw_picture()
             shogun_display_inline_image(imagealign_MarginRight);
             return;
         }
-    } else if (is_spatterlight_zork0 && z0_display_picture(x, y, curwin)) {
-        return;
+//    } else if (is_spatterlight_zork0 && z0_display_picture(x, y, curwin)) {
+//        return;
     }
 #endif
     if (glk_image_get_info(pic, &w, &h)) {
@@ -4972,7 +4971,7 @@ void zget_wind_prop()
             // We have to subtract one, or the rightmost character of the status bar
             // gets cut off during live resize. No idea why.
             val = w - 1;
-        } else if (is_spatterlight_arthur || is_spatterlight_shogun || is_spatterlight_zork0) {
+        } else if (is_spatterlight_arthur || is_spatterlight_shogun /*|| is_spatterlight_zork0*/) {
             val = win->x_size;
         } else {
             val = word(0x22) * font_width;
@@ -5842,7 +5841,7 @@ void init_screen(bool first_run)
                                 (user_selected_foreground == gfgcol &&
                                  user_selected_background == gbgcol));
 
-    if (is_spatterlight_arthur || is_spatterlight_shogun || is_spatterlight_zork0) {
+    if (is_spatterlight_arthur || is_spatterlight_shogun /*|| is_spatterlight_zork0*/) {
         if (first_run) {
             user_selected_foreground = gfgcol;
             user_selected_background = gbgcol;
@@ -5861,8 +5860,8 @@ void init_screen(bool first_run)
                 v6_define_window(upperwin, 0, 0, 0, 0);
             } else if (is_spatterlight_shogun) {
                 shogun_update_after_restart();
-            } else if (is_spatterlight_zork0) {
-                z0_update_colors();
+//            } else if (is_spatterlight_zork0) {
+//                z0_update_colors();
             }
         }
     } else {
@@ -5990,7 +5989,7 @@ void init_screen(bool first_run)
         if (graphics_type == kGraphicsTypeAmiga) {
             int width;
             get_image_size(1, &width, nullptr);
-            if ((is_spatterlight_arthur && width == 436) ||  (is_spatterlight_zork0 && width == 480) || (is_spatterlight_journey && width == 166) || (is_spatterlight_shogun && width == 479)) {
+            if ((is_spatterlight_arthur && width == 436) /*||  (is_spatterlight_zork0 && width == 480)*/ || (is_spatterlight_journey && width == 166) || (is_spatterlight_shogun && width == 479)) {
                 graphics_type = kGraphicsTypeMacBW;
                 hw_screenwidth = 480;
                 for (int i = 0; i < image_count; i++) {
@@ -6034,7 +6033,7 @@ void init_screen(bool first_run)
                 glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
-            } else if (is_spatterlight_shogun || is_spatterlight_zork0) {
+            } else if (is_spatterlight_shogun /*|| is_spatterlight_zork0*/) {
                 graphics_bg_glk = glk_window_open(nullptr, 0, 10, wintype_Graphics, 3);
                 graphics_window.set_id(graphics_bg_glk);
                 mainwin->id = glk_window_open(graphics_window.id(), winmethod_Right | winmethod_Fixed, gscreenw / 2, wintype_TextBuffer, 1);
@@ -6051,10 +6050,10 @@ void init_screen(bool first_run)
                 glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
 //                glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
-                if (is_spatterlight_zork0) {
-                    z0_right_status_window = gli_new_window(wintype_TextGrid, 0);
-                    win_maketransparent(z0_right_status_window->peer);
-                }
+//                if (is_spatterlight_zork0) {
+//                    z0_right_status_window = gli_new_window(wintype_TextGrid, 0);
+//                    win_maketransparent(z0_right_status_window->peer);
+//                }
             }
         } // first run
 
@@ -6093,9 +6092,9 @@ void init_screen(bool first_run)
         } else if (is_spatterlight_shogun) {
             screenmode = MODE_SLIDESHOW;
             v6_close_and_reopen_front_graphics_window();
-        } else if (is_spatterlight_zork0) {
-            screenmode = MODE_NORMAL;
-            v6_close_and_reopen_front_graphics_window();
+//        } else if (is_spatterlight_zork0) {
+//            screenmode = MODE_NORMAL;
+//            v6_close_and_reopen_front_graphics_window();
         }
     }
 #endif
@@ -6187,8 +6186,8 @@ void stash_library_state(library_state_data *dat)
             arthur_stash_state(dat);
         } else if (is_spatterlight_shogun) {
             shogun_stash_state(dat);
-        } else if (is_spatterlight_zork0) {
-            z0_stash_state(dat);
+//        } else if (is_spatterlight_zork0) {
+//            z0_stash_state(dat);
         }
 
         stash_library_sound_state(dat);
@@ -6259,8 +6258,8 @@ void recover_library_state(library_state_data *dat)
             arthur_recover_state(dat);
         } else if (is_spatterlight_shogun) {
             shogun_recover_state(dat);
-        } else if (is_spatterlight_zork0) {
-            z0_recover_state(dat);
+//        } else if (is_spatterlight_zork0) {
+//            z0_recover_state(dat);
         }
 
         recover_library_sound_state(dat);
