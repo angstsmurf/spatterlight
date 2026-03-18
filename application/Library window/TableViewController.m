@@ -610,8 +610,10 @@ typedef NS_ENUM(int32_t, kImportResult) {
     for (Ifid *ifid in ifids) {
         [context deleteObject:ifid];
     }
-    [context deleteObject:game.metadata];
-    [context deleteObject:game];
+    if (game.metadata)
+        [context deleteObject:game.metadata];
+    if (game)
+        [context deleteObject:game];
 }
 
 
