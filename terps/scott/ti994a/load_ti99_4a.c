@@ -65,26 +65,11 @@ static uint16_t FixAddress(uint16_t ina)
     return (ina - 0x380 + file_baseline_offset);
 }
 
-static uint16_t FixWord(uint16_t word)
-{
-    if (WeAreBigEndian)
-        return word;
-    else
-        return (((word & 0xFF) << 8) | ((word >> 8) & 0xFF));
-}
-
 static uint16_t GetWord(uint8_t *mem)
 {
     if (mem < entire_file || mem + 1 >= entire_file + file_length)
         return 0;
-    uint16_t x;
-    if (WeAreBigEndian) {
-        x = (*(mem + 0) << 8);
-        x += (*(mem + 1) & 0xFF);
-    } else {
-        x = *(uint16_t *)mem;
-    }
-    return FixWord(x);
+    return READ_BE_UINT16(mem);
 }
 
 static void GetMaxTI99Messages(struct DATAHEADER dh)
@@ -92,9 +77,9 @@ static void GetMaxTI99Messages(struct DATAHEADER dh)
     uint8_t *msg;
     uint16_t msg1;
 
-    msg = (uint8_t *)entire_file + FixAddress(FixWord(dh.p_message));
+    msg = (uint8_t *)entire_file + FixAddress(READ_BE_UINT16(&dh.p_message));
     msg1 = FixAddress(GetWord((uint8_t *)msg));
-    max_messages = (msg1 - FixAddress(FixWord(dh.p_message))) / 2;
+    max_messages = (msg1 - FixAddress(READ_BE_UINT16(&dh.p_message))) / 2;
 }
 
 static void GetMaxTI99Items(struct DATAHEADER dh)
@@ -102,9 +87,9 @@ static void GetMaxTI99Items(struct DATAHEADER dh)
     uint8_t *msg;
     uint16_t msg1;
 
-    msg = (uint8_t *)entire_file + FixAddress(FixWord(dh.p_obj_descr));
+    msg = (uint8_t *)entire_file + FixAddress(READ_BE_UINT16(&dh.p_obj_descr));
     msg1 = FixAddress(GetWord((uint8_t *)msg));
-    max_item_descr = (msg1 - FixAddress(FixWord(dh.p_obj_descr))) / 2;
+    max_item_descr = (msg1 - FixAddress(READ_BE_UINT16(&dh.p_obj_descr))) / 2;
 }
 
 //static void PrintTI99HeaderInfo(struct DATAHEADER header)
@@ -151,17 +136,17 @@ GameIDType DetectTI994A(void)
 
     /* test some pointers for valid game... */
 
-    assert(file_length >= FixAddress(FixWord(dh.p_obj_table)));
-    assert(file_length >= FixAddress(FixWord(dh.p_orig_items)));
-    assert(file_length >= FixAddress(FixWord(dh.p_obj_link)));
-    assert(file_length >= FixAddress(FixWord(dh.p_obj_descr)));
-    assert(file_length >= FixAddress(FixWord(dh.p_message)));
-    assert(file_length >= FixAddress(FixWord(dh.p_room_exit)));
-    assert(file_length >= FixAddress(FixWord(dh.p_room_descr)));
-    assert(file_length >= FixAddress(FixWord(dh.p_noun_table)));
-    assert(file_length >= FixAddress(FixWord(dh.p_verb_table)));
-    assert(file_length >= FixAddress(FixWord(dh.p_explicit)));
-    assert(file_length >= FixAddress(FixWord(dh.p_implicit)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_obj_table)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_orig_items)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_obj_link)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_obj_descr)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_message)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_room_exit)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_room_descr)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_noun_table)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_verb_table)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_explicit)));
+    assert(file_length >= FixAddress(READ_BE_UINT16(&dh.p_implicit)));
 
     return TryLoadingTI994A(dh, Options & DEBUGGING);
 }
@@ -196,7 +181,7 @@ static char *GetTI994AString(uint16_t table, int table_offset)
 
     uint8_t *game = entire_file;
 
-    msgx = game + FixAddress(FixWord(table));
+    msgx = game + FixAddress(READ_BE_UINT16(&table));
 
     msgx += table_offset * 2;
     msg1 = FixAddress(GetWord((uint8_t *)msgx));
@@ -241,7 +226,7 @@ static void LoadTI994ADict(uint16_t table, int num_words,
     char *w2;
 
     /* table is either verb or noun table */
-    wtable = (uint16_t *)(entire_file + FixAddress(FixWord(table)));
+    wtable = (uint16_t *)(entire_file + FixAddress(READ_BE_UINT16(&table)));
 
     for (i = 0; i <= num_words; i++) {
         do {
@@ -265,7 +250,7 @@ static void ReadTI99ImplicitActions(struct DATAHEADER dh)
     uint8_t *ptr, *implicit_start;
     int loop_flag;
 
-    implicit_start = entire_file + FixAddress(FixWord(dh.p_implicit));
+    implicit_start = entire_file + FixAddress(READ_BE_UINT16(&dh.p_implicit));
     ptr = implicit_start;
     loop_flag = 0;
 
@@ -298,7 +283,7 @@ static void ReadTI99ExplicitActions(struct DATAHEADER dh)
     start = entire_file + file_length;
     end = entire_file;
 
-    size_t explicit_offset = FixAddress(FixWord(dh.p_explicit));
+    size_t explicit_offset = FixAddress(READ_BE_UINT16(&dh.p_explicit));
     blockstart = entire_file + explicit_offset;
 
     VerbActionOffsets = MemAlloc((dh.num_verbs + 1) * sizeof(uint8_t *));
@@ -406,7 +391,7 @@ static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
     tr = 0;
     trm = dh.treasure_locn;
     wl = dh.cmd_length;
-    lt = FixWord(dh.light_turns);
+    lt = READ_BE_UINT16(&dh.light_turns);
     mn = max_messages;
 
     uint8_t *ptr = entire_file;
@@ -434,7 +419,7 @@ static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
 #pragma mark rooms
 #endif
 
-    if (SeekIfNeeded(FixAddress(FixWord(dh.p_room_descr)), &offset, &ptr) == 0)
+    if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&dh.p_room_descr)), &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -490,7 +475,7 @@ static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
 #if defined(__clang__)
 #pragma mark room connections
 #endif
-    if (SeekIfNeeded(FixAddress(FixWord(dh.p_room_exit)), &offset, &ptr) == 0)
+    if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&dh.p_room_exit)), &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
     ct = 0;
@@ -507,7 +492,7 @@ static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
 #if defined(__clang__)
 #pragma mark item locations
 #endif
-    if (SeekIfNeeded(FixAddress(FixWord(dh.p_orig_items)), &offset, &ptr) == 0)
+    if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&dh.p_orig_items)), &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
     ct = 0;
@@ -548,7 +533,7 @@ static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
         Fatal("Bad number of items");
     int objectlinks[1024];
 
-    if (SeekIfNeeded(FixAddress(FixWord(dh.p_obj_link)), &offset, &ptr) == 0)
+    if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&dh.p_obj_link)), &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
     do {

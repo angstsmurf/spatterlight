@@ -170,7 +170,6 @@ extern int Counters[];
 extern int AnimationFlag;
 extern int SavedRoom;
 extern int AutoInventory;
-extern int WeAreBigEndian;
 extern int CurrentCounter;
 extern int RoomSaved[];
 extern int Options;
