@@ -1,16 +1,16 @@
 # Change log
 
-## Unreleased
-- Adds support for the vector graphics in the SAGA re-releases of *Adventureland*, *Pirate Adventure*, *Mission Impossible* (a.k.a *Secret Mission*) and *Strange Odyssey*.
-- Adds support for graphics in the Commodore 64 SAGA re-releases of *Pirate Adventure* and *Voodoo Castle*. These are cassette versions where the graphics are scaled down compared to the disk-based versions.
-- Adds support for the TI-99/4A exclusive *Return to Pirate's Isle*, including graphics.
-- Fixes a crash that would occur when missing files were pruned from the library in a background process.
-- Attempts to fix crashes in the QuickLook and Thumbnailer extensions. 
-- Increases maximum with of title column in library view, to fit the long file names of certain Scott Adams game versions.
+## Release 1.4.7
+- Adds support for the vector graphics in the SAGA re-releases of *Adventureland*, *Pirate Adventure*, *Mission Impossible* (a.k.a *Secret Mission*) and *Strange Odyssey*. The slow  draw speed of these games was sometimes used to create simple animations.
+- Adds support for graphics in the Commodore 64 SAGA re-releases of *Pirate Adventure* and *Voodoo Castle*. These are cassette versions where the graphics are scaled down compared to the disk-based releases.
+- Adds support for the TI-99/4A exclusive *Return to Pirate's Isle* cartridge, including graphics.
+- Fixes a crash that might occur when deleting files from the library.
+- Fixes crashes in the QuickLook and Thumbnailer extensions. 
+- Increases maximum width of title column in library view, in order to fit the long file names of certain Scott Adams game versions.
 - Fixes a bug where vertical border space was not accounted for.
 - Adds support for some new variants of Scott Adams games.
 - Certain Scott Adams games were mis-identified, causing various glitches.
-- The first animation frame was sometimes not shown in *Rebel Planet* animation.
+- The initial animation frame was sometimes missing in *Rebel Planet* animations.
 - Typing AGAIN as the first command in a Saga Plus game would generate a random action.
 
 ## Release 1.4.6
