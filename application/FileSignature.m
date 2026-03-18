@@ -21,6 +21,9 @@
     } else {
         length = (unsigned int)data.length;
     }
+
+    if (length < 32)
+        return @"";
     // CC_SHA256 performs digest calculation and places the result in the caller-supplied buffer for digest (resultCString).
     CC_SHA256(data.bytes, length, resultCString);
 
