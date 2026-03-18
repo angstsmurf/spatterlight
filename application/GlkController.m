@@ -4926,9 +4926,11 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     NSInteger choice = [alert runModal];
 
     if (choice == NSAlertFirstButtonReturn) {
-        _game.hidden = YES;
         [self.window close];
-        [_game.managedObjectContext deleteObject:_game];
+        if (_game) {
+            _game.hidden = YES;
+            [_game.managedObjectContext deleteObject:_game];
+        }
     }
 }
 

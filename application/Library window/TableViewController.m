@@ -465,7 +465,9 @@ typedef NS_ENUM(int32_t, kImportResult) {
                 }
 
                 for (NSManagedObjectID *objectID in set) {
-                    [childContext deleteObject:[childContext objectWithID:objectID]];
+                    NSManagedObject *obj = [childContext objectWithID:objectID];
+                    if (obj)
+                        [childContext deleteObject:obj];
                 }
             }
             [childContext safeSave];
@@ -740,6 +742,8 @@ typedef NS_ENUM(int32_t, kImportResult) {
 }
 
 - (void)lookForMissingFile:(Game *)game {
+    if (!game)
+        return;
     MissingFilesFinder *look = [MissingFilesFinder new];
     [look lookForMissingFile:game libController:self];
 }
