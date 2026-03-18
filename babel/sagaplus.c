@@ -293,7 +293,9 @@ static int32 detect_sagaplus(unsigned char *storystring, int32 extent) {
             found = 1;
 
     if (found == 0) {
+#ifdef DEBUG
         fprintf(stderr, "title: \"%s\"\n", title);
+#endif
         return INVALID_STORY_FILE_RV;
     }
 
