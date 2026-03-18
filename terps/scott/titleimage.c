@@ -97,6 +97,14 @@ const char **GetRTPILines(const char *text) {
         lineidx++;
         linepos = 0;
     }
+
+    if (lineidx < 26) {
+        for (int j = 0; j < lineidx; j++) {
+            free (lines[j]);
+        }
+        return NULL;
+    }
+
     const char **outlines = MemAlloc(26 * sizeof(char *));
 
     static const uint8_t order[26] =
@@ -155,6 +163,8 @@ void RTPITitle(void) {
     glk_stream_set_current(glk_window_get_stream(Bottom));
     const char **lines = GetRTPILines(title_screen);
     free((void *)title_screen);
+    if (!lines)
+        return;
     glk_set_style(style_User2);
     for (int i = 0; i < 26; i++) {
         Output(lines[i]);

@@ -2642,7 +2642,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
 void glk_main(void)
 {
-    int vb, no, n = 1;
+    int vb, no;
 
     glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Proportional, 0);
     glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Indentation, 20);
