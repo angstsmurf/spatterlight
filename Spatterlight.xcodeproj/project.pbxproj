@@ -477,7 +477,6 @@
 		C309884825CB1AD300750F72 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
 		C309886225CB1ADF00750F72 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
-		C30A89252E81BCC800416F0C /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C30C57D72C68C31900C2AAAF /* options.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C30C57D52C68C31800C2AAAF /* options.cpp */; };
 		C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD728CA2C0300D293BE /* atari8detect.c */; };
 		C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD828CA2C0300D293BE /* apple2detect.c */; };
@@ -572,7 +571,6 @@
 		C32B472B2F1700CA002AD28F /* atari_8bit_vector_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C32B472A2F1700CA002AD28F /* atari_8bit_vector_draw.c */; };
 		C32DBFA626714EFE00AB5704 /* MyFilePromiseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */; };
 		C33874D22E8BF89200153FED /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D794358224A2D2E0071EB3D /* NSString+Categories.m */; };
-		C33874D42E8BF8A900153FED /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C33B4504257E84500017EA26 /* ZMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C33B4502257E84500017EA26 /* ZMenu.m */; };
 		C33BC7132EEEFA500086C18C /* taylordraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30AC87C2EE9318800E1EE85 /* taylordraw.c */; };
 		C33BC7142EEEFA500086C18C /* irmak.c in Sources */ = {isa = PBXBuildFile; fileRef = C359A2D42EE5AF670079F9EA /* irmak.c */; };
@@ -780,7 +778,6 @@
 		C3C2053D268D304500DB7AE0 /* BezelWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C20539268D304500DB7AE0 /* BezelWindow.m */; };
 		C3C2053E268D304500DB7AE0 /* BezelContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C2053B268D304500DB7AE0 /* BezelContentView.m */; };
 		C3C2863D26596A9400D83926 /* spat-mg1.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C2863B26596A9400D83926 /* spat-mg1.c */; };
-		C3C3CEA82F6A03D8004C16D7 /* SpatterlightQuickLook.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C506E426590E4B00763D3E /* MissingFilesFinder.m */; };
 		C3C5926826A81AE200DFB49B /* autosavetest.gblorb in Resources */ = {isa = PBXBuildFile; fileRef = C3C5926726A8185700DFB49B /* autosavetest.gblorb */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
@@ -798,7 +795,6 @@
 		C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3693265FA461004D0F7B /* CoverImageView.m */; };
 		C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3697265FB2FA004D0F7B /* GameImporter.m */; };
 		C3CF369B2660207E004D0F7B /* neo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CF36992660207E004D0F7B /* neo.c */; };
-		C3CF8A162DF8762600EF2297 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C3CF8A172DF8799500EF2297 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
 		C3D571A827D8F5E9008FB786 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
@@ -7593,7 +7589,6 @@
 				6D73052122BFA9EB00DFC73C /* NSDate+relative.m in Sources */,
 				C32419CD262DFFA300366AAE /* BuiltInThemes.m in Sources */,
 				6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */,
-				C3CF8A162DF8762600EF2297 /* FileSignature.m in Sources */,
 				6D7673E8239FFC6C00FB24C0 /* IFBibliographic.m in Sources */,
 				C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */,
 				6D7673EA239FFC6C00FB24C0 /* IFDB.m in Sources */,
@@ -8097,7 +8092,6 @@
 				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
 				C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */,
 				C30077D72E871F9A00C32069 /* NSString+Categories.m in Sources */,
-				C30A89252E81BCC800416F0C /* FileSignature.m in Sources */,
 				C36B3892271F710200756D94 /* InfoView.m in Sources */,
 				C3E2EAB525D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m in Sources */,
 				C3E2EAB625D08EEC0012B7FB /* UKSyntaxColor.m in Sources */,
@@ -8183,7 +8177,6 @@
 				C322718C25CC224F0083BD5B /* Game.m in Sources */,
 				C32271C025CC22590083BD5B /* Image.m in Sources */,
 				C32271A625CC22530083BD5B /* Metadata.m in Sources */,
-				C33874D42E8BF8A900153FED /* FileSignature.m in Sources */,
 				C33874D22E8BF89200153FED /* NSString+Categories.m in Sources */,
 				C322715025CC214A0083BD5B /* ThumbnailProvider.m in Sources */,
 				C322717225CC22260083BD5B /* Spatterlight.xcdatamodeld in Sources */,
