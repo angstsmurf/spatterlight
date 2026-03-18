@@ -473,6 +473,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)postRestoreAdjustments:(GlkWindow *)win {
+    if (![win isKindOfClass:[GlkTextBufferWindow class]])
+        return;
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
 
     // No idea where these spurious storedNewlines come from
