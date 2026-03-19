@@ -295,8 +295,8 @@ static void draw_line(a8_draw_ctx *ctx) {
             else
                 move_right(ctx);
             uint8_t err_lo = twice_minor - twice_major;
-            int err_hi = minor_overflows - major_overflows - (twice_major > twice_minor ? 1 : 0);
-            error += (err_hi << 8) + err_lo;
+            uint8_t err_hi = minor_overflows - major_overflows - (twice_major > twice_minor ? 1 : 0);
+            error += (int16_t)(err_hi << 8 | err_lo);
         }
         if (x_major)
             move_left_or_right(positive_direction, ctx);
