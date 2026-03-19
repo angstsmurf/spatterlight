@@ -7,11 +7,11 @@
 - Fixes a crash that might occur when deleting files from the library.
 - Fixes crashes in the QuickLook and Thumbnailer extensions. 
 - Increases maximum width of title column in library view, in order to fit the long file names of certain Scott Adams game versions.
-- Fixes a bug where vertical border space was not accounted for.
-- Adds support for some new variants of Scott Adams games.
+- Fixes a bug where vertical border space was cut off at startup.
+- Adds support for some new Scott Adams game variants.
 - Certain Scott Adams games were mis-identified, causing various glitches.
-- The initial animation frame was sometimes missing in *Rebel Planet* animations.
-- Typing AGAIN as the first command in a Saga Plus game would generate a random action.
+- The initial frame was sometimes missing from *Rebel Planet* animations.
+- Typing AGAIN as the first command in Saga Plus games would generate a random action.
 
 ## Release 1.4.6
 - In previous versions, the library used IFIDs to keep track of games. This meant that if several games had the same IFID, they would also share all metadata such as title and cover image. This is no longer the case. Spatterlight now uses checksums calculated from the game file contents instead. This means that every variant of, say, *Adventureland* in your collection can have its own name, cover image, and release year in Spatterlight, as long as the game files are not exactly the same.
