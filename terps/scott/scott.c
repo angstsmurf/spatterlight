@@ -2250,7 +2250,6 @@ static ActionResultType PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
                 debug_print("Draw Hulk image, parameter %d\n", param[pptr]);
 #endif
-                fprintf(stderr, "Draw Hulk image, parameter %d\n", param[pptr]);
                     p = param[pptr++];
                     if (!ItIsDark() && (CurrentGame == HULK || CurrentGame == HULK_C64)) {
                         DrawHulkImage(p);
