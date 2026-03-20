@@ -51,27 +51,27 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
-//static const char *msgnames[] = {
-//    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
-//    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
-//    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
-//    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-//    "STYLEMEASURE",    "SETBGND",          "REFRESH",     "SETTITLE",
-//    "AUTOSAVE",        "RESET",            "BANNERCOLS",  "BANNERLINES",
-//    "TIMER",           "INITCHAR",         "CANCELCHAR",
-//    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
-//    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
-//    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
-//    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
-//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
-//    "UNPAUSE",         "BEEP",
-//    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
-//    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
-//    "PURGEIMG",        "MENU",
-//
-//    "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
-//    "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
-//    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
+static const char *msgnames[] = {
+    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
+    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
+    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
+    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
+    "STYLEMEASURE",    "SETBGND",          "REFRESH",     "SETTITLE",
+    "AUTOSAVE",        "RESET",            "BANNERCOLS",  "BANNERLINES",
+    "TIMER",           "INITCHAR",         "CANCELCHAR",
+    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
+    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
+    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
+    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
+    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
+    "UNPAUSE",         "BEEP",
+    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
+    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
+    "PURGEIMG",        "MENU",
+
+    "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
+    "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
+    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
 
 ////static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 ////    "wintype_Blank",    "wintype_TextBuffer",
@@ -129,6 +129,7 @@ fprintf(stderr, "%s\n",                                                    \
     GlkController *glkctl = _glkctrl;
     if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes) {
+        NSLog(@"GlkHelperView viewWillStartLiveResize: calling storeScrollOffsets");
         [glkctl storeScrollOffsets];
     }
 }
@@ -3863,6 +3864,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
                 lastRequest == MOVETO ||
                 lastKeyTimestamp.timeIntervalSinceNow < -1) {
                 // This flag may be set by GlkBufferWindow as well
+                NSLog(@"GlkController: handlerRequest: Setting _shouldScrollOnCharEvent to YES because lastRequest == %s", msgnames[lastRequest]);
                 _shouldScrollOnCharEvent = YES;
                 _shouldSpeakNewText = YES;
                 _shouldCheckForMenu = YES;
@@ -3871,6 +3873,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
             lastKeyTimestamp = [NSDate date];
 
             if (_shouldScrollOnCharEvent) {
+                NSLog(@"GlkController: _shouldScrollOnCharEvent is YES. Calling performScroll");
                 [self performScroll];
             }
 
@@ -4159,8 +4162,10 @@ static BOOL pollMoreData(int fd) {
             redrawEvent = [[GlkEvent alloc] initRedrawEvent];
     }
 
-    if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER || gevent.type == EVTMOUSE)
+    if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER || gevent.type == EVTMOUSE) {
+        NSLog(@"GlkController queueEvent is setting _shouldScrollOnCharEvent = YES because gevent.type == %s", msgnames[gevent.type]);
         _shouldScrollOnCharEvent = YES;
+    }
 
     if (waitforfilename) {
         [_queue addObject:gevent];
@@ -4416,6 +4421,7 @@ again:
     // instead (which will be set in the restoreUI method)
     if (_restorationHandler == nil) {
         _windowPreFullscreenFrame = self.window.frame;
+        NSLog(@"windowWillEnterFullScreen: calling storeScrollOffsets");
         [self storeScrollOffsets];
         _ignoreResizes = YES;
         // _ignoreResizes means no storing scroll offsets,
@@ -4437,6 +4443,7 @@ again:
     _gameView.alphaValue = 1;
     [window setFrame:[self frameWithSanitycheckedSize:_windowPreFullscreenFrame] display:YES];
     _gameView.frame = [self contentFrameForWindowed];
+    NSLog(@"windowDidFailToEnterFullScreen: calling restoreScrollOffsets");
     [self restoreScrollOffsets];
     _gameView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
     _borderView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
@@ -4456,8 +4463,7 @@ again:
 - (void)restoreScrollOffsets {
     for (GlkWindow *win in _gwindows.allValues)
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            [(GlkTextBufferWindow *)win restoreScrollBarStyle];
-            [(GlkTextBufferWindow *)win performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
+            [(GlkTextBufferWindow *)win restoreScroll];
         }
 }
 
@@ -4588,6 +4594,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                         // Send an arrangement event to fill
                         // the new extended area
                         [weakSelf sendArrangeEventWithFrame:localContentView.frame force:NO];
+                        NSLog(@"enterFullScreenAnimationWithDuration: Finished enter fullscreen animation: calling restoreScrollOffsets");
                         [weakSelf restoreScrollOffsets];
                         for (GlkTextGridWindow *quotebox in weakSelf.quoteBoxes)
                         {
@@ -4658,6 +4665,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
                 strongSelf.shouldShowAutorestoreAlert = stashShouldShowAlert;
                 [strongSelf performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
+                NSLog(@"startGameInFullScreenAnimationWithDuration completionHandler calling restoreScrollOffsets");
                 [strongSelf restoreScrollOffsets];
             }
         }];
@@ -4673,6 +4681,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [_coverController exitFullscreenWithDuration:duration];
         return;
     }
+    NSLog(@"startCustomAnimationToExitFullScreenWithDuration: calling storeScrollOffsets");
     [self storeScrollOffsets];
     _ignoreResizes = YES;
     _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:_windowPreFullscreenFrame];
@@ -4717,6 +4726,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     [self contentDidResize:_gameView.frame];
     lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
     _gameView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
+    NSLog(@"windowDidEnterFullScreen: calling restoreScrollOffsets");
     [self restoreScrollOffsets];
 }
 
@@ -4725,7 +4735,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     _inFullscreen = NO;
     inFullScreenResize = NO;
     [self contentDidResize:_gameView.frame];
-    [self restoreScrollOffsets];
     if (self.gameID == kGameIsNarcolepsy && _theme.doGraphics && _theme.doStyles) {
         // FIXME: Very ugly hack to fix the Narcolepsy mask layer
         // It breaks when exiting fullscreen after the player

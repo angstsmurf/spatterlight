@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL pendingClear;
 @property BOOL pendingScrollRestore;
 
+@property BOOL scrollDownWhenLayoutOrDelayFinishes;
+
 @property NSAttributedString *restoredInput;
 @property NSDictionary *inputAttributes;
 
@@ -47,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)storeScrollOffset;
 - (void)restoreTextFinder;
 - (void)restoreScrollBarStyle;
-- (void)restoreScroll:(nullable id)sender;
+- (void)restoreScroll;
 - (void)forceLayout;
 
 - (void)padWithNewlines:(NSUInteger)lines;
