@@ -98,7 +98,7 @@ const char **GetRTPILines(const char *text) {
         linepos = 0;
     }
 
-    if (lineidx < 26) {
+    if (lineidx < 24) {
         for (int j = 0; j < lineidx; j++) {
             free (lines[j]);
         }
