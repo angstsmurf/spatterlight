@@ -3,6 +3,7 @@
 ## Release 1.4.8
 - Just a hotfix for some annoying scrolling regressions
 - Two of the colors in the Atari 8-bit vector graphics have been adjusted.
+- Adds back the text on the title screen of *Return to Pirate's Isle*.
 
 ## Release 1.4.7
 - Adds support for the vector graphics in the SAGA re-releases of *Adventureland*, *Pirate Adventure*, *Mission Impossible* (a.k.a *Secret Mission*) and *Strange Odyssey*. The slow  draw speed of these games was sometimes used to create simple animations.
