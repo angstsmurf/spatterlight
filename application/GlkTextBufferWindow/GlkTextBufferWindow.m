@@ -69,9 +69,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSRange lastSpokenRange;
     NSString *lastSpokenString;
-
-    BOOL adjustScrollWhenLayoutFinishes;
-    NSDate *scrollAdjustTimeStamp;
 }
 @end
 
@@ -131,7 +128,6 @@ fprintf(stderr, "%s\n",                                                    \
         bufferTextstorage = [textstorage mutableCopy];
 
         layoutmanager = [[NSLayoutManager alloc] init];
-        layoutmanager.delegate = self;
         layoutmanager.backgroundLayoutEnabled = YES;
         layoutmanager.allowsNonContiguousLayout = NO;
         [textstorage addLayoutManager:layoutmanager];
@@ -227,9 +223,8 @@ fprintf(stderr, "%s\n",                                                    \
     self.framePending = YES;
     self.pendingFrame = frame;
 
-    if (self.inLiveResize && !glkctl.ignoreResizes) {
+    if (self.inLiveResize)
         [self flushDisplay];
-    }
 }
 
 - (void)flushDisplay {
@@ -244,20 +239,11 @@ fprintf(stderr, "%s\n",                                                    \
     if (!bufferTextstorage)
         bufferTextstorage = [[NSMutableAttributedString alloc] init];
 
-    if (_pendingClear) {
-        [self reallyClear];
-        [textstorage setAttributedString:bufferTextstorage];
-    } else if (bufferTextstorage.length) {
-        [textstorage appendAttributedString:bufferTextstorage];
-    }
-
-    bufferTextstorage = [[NSMutableAttributedString alloc] init];
-
     if (self.framePending) {
         self.framePending = NO;
         if (!NSEqualRects(self.pendingFrame, self.frame)) {
 
-            if ([container hasMarginImages] && NSWidth(self.pendingFrame) != NSWidth(self.frame))
+            if ([container hasMarginImages])
                 [container invalidateLayout:nil];
 
             if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.gameView.bounds) && NSWidth(self.pendingFrame) > 10) {
@@ -266,6 +252,13 @@ fprintf(stderr, "%s\n",                                                    \
 
             super.frame = self.pendingFrame;
         }
+    }
+
+    if (_pendingClear) {
+        [self reallyClear];
+        [textstorage setAttributedString:bufferTextstorage];
+    } else if (bufferTextstorage.length) {
+        [textstorage appendAttributedString:bufferTextstorage];
     }
 
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
@@ -291,14 +284,6 @@ fprintf(stderr, "%s\n",                                                    \
         [self reallyPerformScroll];
     }
     [NSUserDefaults.standardUserDefaults setValue:hyphenationLanguage forKey:@"NSHyphenationLanguage"];
-    if (_pendingEditable) {
-        if (glkctl.commandScriptRunning) {
-            [self scrollToBottomAnimated:NO];
-        } else {
-            _textview.editable = YES;
-            _pendingEditable = NO;
-        }
-    }
 }
 
 - (void)scrollWheelchanged:(NSEvent *)event {
@@ -376,9 +361,9 @@ fprintf(stderr, "%s\n",                                                    \
         if (!scrollview)
             NSLog(@"scrollview nil!");
         scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
+        scrollview.documentView = _textview;
         _textview.delegate = self;
         textstorage.delegate = self;
-        scrollview.documentView = _textview;
 
         if (_textview.textStorage != textstorage)
             NSLog(@"Error! _textview.textStorage != textstorage");
@@ -413,7 +398,8 @@ fprintf(stderr, "%s\n",                                                    \
         _restoredSearch = [decoder decodeObjectOfClass:[NSString class] forKey:@"searchString"];
         _restoredFindBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
         storedNewline = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"storedNewline"];
-        _pendingScroll = NO;
+
+        _pendingScroll = [decoder decodeBoolForKey:@"pendingScroll"];
         _pendingClear = [decoder decodeBoolForKey:@"pendingClear"];
         _pendingScrollRestore = NO;
 
@@ -426,7 +412,6 @@ fprintf(stderr, "%s\n",                                                    \
 
         pauseScrolling = NO;
         commandScriptWasRunning = NO;
-        adjustScrollWhenLayoutFinishes = YES;
     }
     return self;
 }
@@ -446,8 +431,9 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
 
     [self storeScrollOffset];
-    [encoder encodeBool:(self.scrolledToBottom || lastAtBottom) forKey:@"scrolledToBottom"];
-    [encoder encodeBool:(self.scrolledToTop || lastAtTop) forKey:@"scrolledToTop"];
+
+    [encoder encodeBool:lastAtBottom forKey:@"scrolledToBottom"];
+    [encoder encodeBool:lastAtTop forKey:@"scrolledToTop"];
     [encoder encodeInteger:(NSInteger)lastVisible forKey:@"lastVisible"];
     [encoder encodeDouble:lastScrollOffset forKey:@"scrollOffset"];
 
@@ -460,6 +446,8 @@ fprintf(stderr, "%s\n",                                                    \
     }
     [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
     [encoder encodeObject:storedNewline forKey:@"storedNewline"];
+
+    [encoder encodeBool:_pendingScroll forKey:@"pendingScroll"];
     [encoder encodeBool:_pendingClear forKey:@"pendingClear"];
     [encoder encodeBool:_pendingScrollRestore forKey:@"pendingScrollRestore"];
 
@@ -473,15 +461,13 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)postRestoreAdjustments:(GlkWindow *)win {
-    if (![win isKindOfClass:[GlkTextBufferWindow class]])
-        return;
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
 
     // No idea where these spurious storedNewlines come from
     if (line_request || self.glkctl.commandScriptRunning)
         storedNewline = nil;
 
-    if (line_request && restoredWin.restoredInput.length) {
+    if (line_request && (restoredWin.restoredInput).length) {
         NSAttributedString *restoredInput = restoredWin.restoredInput;
         if (textstorage.length > fence) {
             // Delete any preloaded input
@@ -517,9 +503,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     _pendingScrollRestore = YES;
     _pendingScroll = NO;
-    layoutmanager.delegate = self;
-    adjustScrollWhenLayoutFinishes = YES;
-    scrollAdjustTimeStamp = [NSDate date];
 
     _lastNewTextOnTurn = self.glkctl.turns;
 
@@ -547,11 +530,47 @@ fprintf(stderr, "%s\n",                                                    \
         if (cell) {
             cell.marginImage = img;
             img.pos = cell.pos;
-            // img.bounds = [img boundsWithLayout:layoutmanager];
+            img.bounds = [img boundsWithLayout:layoutmanager];
             cell.accessibilityLabel = cell.customA11yLabel;
         }
     }
+
+    if (!self.glkctl.inFullscreen || self.glkctl.startingInFullscreen)
+        [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.1];
+    else
+        [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.5];
 }
+
+- (void)deferredScrollPosition:(id)sender {
+    [self restoreScrollBarStyle];
+    if (_restoredAtBottom) {
+        [self scrollToBottomAnimated:NO];
+    } else {
+        if (_restoredLastVisible == 0)
+            [self scrollToBottomAnimated:NO];
+        else
+            [self scrollToCharacter:_restoredLastVisible withOffset:_restoredScrollOffset animate:NO];
+    }
+    _pendingScrollRestore = NO;
+}
+
+- (void)restoreScrollBarStyle {
+    if (scrollview) {
+        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        scrollview.scrollerStyle = NSScrollerStyleOverlay;
+        scrollview.drawsBackground = YES;
+        NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+        if (!bgcolor)
+            bgcolor = self.theme.bufferBackground;
+        scrollview.backgroundColor = bgcolor;
+        scrollview.hasHorizontalScroller = NO;
+        scrollview.hasVerticalScroller = YES;
+        scrollview.verticalScroller.alphaValue = 100;
+        scrollview.autohidesScrollers = YES;
+        scrollview.borderType = NSNoBorder;
+    }
+}
+
 
 #pragma mark Colors and styles
 
@@ -759,8 +778,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (!_pendingScrollRestore) {
             _pendingScrollRestore = YES;
             [self flushDisplay];
-            adjustScrollWhenLayoutFinishes = YES;
-            scrollAdjustTimeStamp = [NSDate date];
+            [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
         }
     } else {
         if (!glkctl.isAlive) {
@@ -1023,7 +1041,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (self.glkctl.commandScriptRunning)
         [self scrollToBottomAnimated:NO];
 
-    if (!scrolling && !_pendingScroll && !self.scrolledToBottom && !self.glkctl.voiceOverActive && !self.glkctl.commandScriptRunning && !adjustScrollWhenLayoutFinishes) {
+    if (!scrolling && !_pendingScroll && !self.scrolledToBottom && !self.glkctl.voiceOverActive && !self.glkctl.commandScriptRunning) {
         // Not scrolled to the bottom, pagedown or navigate scrolling on each key instead
         switch (ch) {
             case keycode_PageUp:
@@ -1220,7 +1238,7 @@ fprintf(stderr, "%s\n",                                                    \
               attributes:_inputAttributes];
 
     [textstorage appendAttributedString:att];
-    _pendingEditable = YES;
+    _textview.editable = YES;
 
     line_request = YES;
     [self showInsertionPoint];
@@ -1413,14 +1431,14 @@ replacementString:(id)repl {
     if (!line_request)
         return;
 
-    if (textStorage.editedRange.location < fence)
+    if (textstorage.editedRange.location < fence)
         return;
 
     if (!_inputAttributes)
         [self recalcInputAttributes];
 
-    [textStorage setAttributes:_inputAttributes
-                         range:textStorage.editedRange];
+    [textstorage setAttributes:_inputAttributes
+                         range:textstorage.editedRange];
 }
 
 - (NSRange)textView:(NSTextView *)aTextView willChangeSelectionFromCharacterRange:(NSRange)oldrange
@@ -1818,66 +1836,15 @@ replacementString:(id)repl {
 
 #pragma mark Scrolling
 
-- (void)deferredScrollPosition:(id)sender {
-    [self restoreScrollBarStyle];
-    if (lastAtBottom) {
-        [self scrollToBottomAnimated:NO];
-    } else if (lastAtTop) {
-        [self scrollToTop];
-    } else if (lastVisible == 0) {
-        [self scrollToTop];
-    } else {
-        [self scrollToCharacter:lastVisible withOffset:lastScrollOffset animate:NO];
-    }
-    _pendingScrollRestore = NO;
-}
-
-- (void)viewWillStartLiveResize {
-    if (!_pendingScrollRestore && !_pendingScroll && self.glkctl.ignoreResizes) {
-        [self storeScrollOffset];
-    }
-}
-
-- (void)viewDidEndLiveResize {
-    adjustScrollWhenLayoutFinishes = YES;
-    scrollAdjustTimeStamp = [NSDate date];
-}
-
-- (void)layoutManagerDidInvalidateLayout:(NSLayoutManager *)layoutManager {
-    if (!_pendingScrollRestore && !_pendingScroll)
-        adjustScrollWhenLayoutFinishes = YES;
-}
-
-- (void)layoutManager:(NSLayoutManager *)layoutManager didCompleteLayoutForTextContainer:(NSTextContainer *)textContainer atEnd:(BOOL)layoutFinishedFlag {
-    if (layoutFinishedFlag && adjustScrollWhenLayoutFinishes && !_pendingScroll && !self.inLiveResize && scrollAdjustTimeStamp.timeIntervalSinceNow > -1) {
-        [self deferredScrollPosition:nil];
-    }
-    adjustScrollWhenLayoutFinishes = NO;
-}
-
-- (void)restoreScrollBarStyle {
-    if (scrollview) {
-        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        scrollview.scrollerStyle = NSScrollerStyleOverlay;
-        scrollview.drawsBackground = YES;
-        NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
-        if (!bgcolor)
-            bgcolor = self.theme.bufferBackground;
-        scrollview.backgroundColor = bgcolor;
-        scrollview.hasHorizontalScroller = NO;
-        scrollview.hasVerticalScroller = YES;
-        scrollview.verticalScroller.alphaValue = 100;
-        scrollview.autohidesScrollers = YES;
-        scrollview.borderType = NSNoBorder;
-    }
-}
-
-
-- (void)forceLayout {
-    [layoutmanager ensureLayoutForTextContainer:container];
+- (void)forceLayout{
+    if (textstorage.length < 50000)
+        [layoutmanager glyphRangeForTextContainer:container];
 }
 
 - (void)markLastSeen {
+    NSRange glyphs;
+    NSRect line;
+
     _printPositionOnInput = textstorage.length;
     if (fence > 0 && !char_request) {
         _printPositionOnInput = fence;
@@ -1888,10 +1855,20 @@ replacementString:(id)repl {
         return;
     }
 
-    _lastseen = (NSInteger)ceil(NSMaxY(scrollview.contentView.bounds) - 2 * _textview.textContainerInset.height);
+    glyphs = [layoutmanager glyphRangeForTextContainer:container];
+
+    if (glyphs.length) {
+        line = [layoutmanager
+                lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
+                effectiveRange:nil];
+
+        _lastseen = (NSInteger)ceil(NSMaxY(line)); // bottom of the line
+        // NSLog(@"GlkTextBufferWindow: markLastSeen: %ld", (long)_lastseen);
+    }
 }
 
 - (void)storeScrollOffset {
+    //    NSLog(@"GlkTextBufferWindow %ld: storeScrollOffset", self.name);
     if (_pendingScrollRestore)
         return;
     if (self.scrolledToBottom) {
@@ -1905,6 +1882,8 @@ replacementString:(id)repl {
     if (lastAtBottom || lastAtTop || textstorage.length < 1) {
         return;
     }
+
+    [self forceLayout];
 
     NSRect visibleRect = scrollview.documentVisibleRect;
 
@@ -1923,7 +1902,7 @@ replacementString:(id)repl {
 
     NSRect lastRect =
     [layoutmanager lineFragmentRectForGlyphAtIndex:lastVisible
-                                    effectiveRange:nil withoutAdditionalLayout:YES];
+                                    effectiveRange:nil];
 
     lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / self.theme.bufferCellHeight;
 
@@ -1935,8 +1914,34 @@ replacementString:(id)repl {
 }
 
 - (void)restoreScroll:(id)sender {
-    adjustScrollWhenLayoutFinishes = YES;
-    scrollAdjustTimeStamp = [NSDate date];
+    _pendingScrollRestore = NO;
+    _pendingScroll = NO;
+    //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
+    //    NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
+    if (_textview.bounds.size.height <= scrollview.bounds.size.height) {
+        //        NSLog(@"All of textview fits in scrollview. Returning without scrolling");
+        if (_textview.bounds.size.height == scrollview.bounds.size.height) {
+            _textview.frame = self.bounds;
+        }
+        return;
+    }
+
+    if (lastAtBottom) {
+        [self scrollToBottomAnimated:NO];
+        return;
+    }
+
+    if (lastAtTop) {
+        [self scrollToTop];
+        return;
+    }
+
+    if (!lastVisible) {
+        return;
+    }
+
+    [self scrollToCharacter:lastVisible withOffset:lastScrollOffset animate:NO];
+    return;
 }
 
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate {
@@ -1954,7 +1959,7 @@ replacementString:(id)repl {
 
     offset = offset * charHeight;
     // first, force a layout so we have the correct textview frame
-//    [layoutmanager glyphRangeForTextContainer:container];
+    [layoutmanager glyphRangeForTextContainer:container];
 
     line = [layoutmanager lineFragmentRectForGlyphAtIndex:character
                                            effectiveRange:nil];
@@ -1984,21 +1989,20 @@ replacementString:(id)repl {
 
     if (!textstorage.length)
         return;
-    GlkTextBufferWindow __weak *weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        GlkTextBufferWindow *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-        CGFloat bottom = NSHeight(strongSelf.textview.frame);
-        NSScrollView *blockScrollView = weakSelf.textview.enclosingScrollView;
 
-        BOOL animate = !strongSelf.glkctl.commandScriptRunning;
-        if (bottom - strongSelf.lastseen > NSHeight(blockScrollView.frame)) {
-            [strongSelf scrollToPosition:strongSelf.lastseen animate:animate];
-        } else {
-            [strongSelf scrollToBottomAnimated:animate];
-        }
-    });
+    if (textstorage.length < 1000000)
+        // first, force a layout so we have the correct textview frame
+        [layoutmanager ensureLayoutForTextContainer:container];
+
+    // then, get the bottom
+    CGFloat bottom = NSHeight(_textview.frame);
+
+    BOOL animate = !self.glkctl.commandScriptRunning;
+    if (bottom - _lastseen > NSHeight(scrollview.frame)) {
+        [self scrollToPosition:_lastseen animate:animate];
+    } else {
+        [self scrollToBottomAnimated:animate];
+    }
 }
 
 - (BOOL)scrolledToBottom {
@@ -2007,7 +2011,7 @@ replacementString:(id)repl {
     // At least the start screen of Kerkerkruip uses a buffer window
     // with height 0 to catch key input.
     if (!clipView || NSHeight(clipView.bounds) == 0) {
-        return NO;
+        return YES;
     }
 
     return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) <
@@ -2017,9 +2021,12 @@ replacementString:(id)repl {
 - (void)scrollToBottomAnimated:(BOOL)animate {
     lastAtTop = NO;
     lastAtBottom = YES;
-    CGFloat newScrollY = NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds);
 
-    [self scrollToPosition:newScrollY animate:animate];
+    // first, force a layout so we have the correct textview frame
+    [layoutmanager glyphRangeForTextContainer:container];
+    NSPoint newScrollOrigin = NSMakePoint(0, NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds));
+
+    [self scrollToPosition:newScrollOrigin.y animate:animate];
 }
 
 - (void)scrollToPosition:(CGFloat)position animate:(BOOL)animate {
