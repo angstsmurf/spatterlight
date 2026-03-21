@@ -304,9 +304,14 @@
     [mainContext performBlock:^{
         NSError *error = nil;
         if (mainContext.hasChanges) {
-            BOOL result = [mainContext save:&error];
-            if (!result || error) {
-                NSLog(@"CoreDataManager saveMainContext error: %@", error);
+            BOOL result = NO;
+            @try {
+                result = [mainContext save:&error];
+            } @catch (NSException *exception) {
+                NSLog(@"Exception while saving managed object context: %@", exception);
+            } @finally {
+                if (!result || error)
+                    NSLog(@"Error while saving context: %@", error);
             }
         }
     }];
