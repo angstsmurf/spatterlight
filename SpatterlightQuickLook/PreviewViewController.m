@@ -340,7 +340,7 @@
         }
         if (fetchedObjects.count == 0) {
             strongSelf.hashTag = url.path.signatureFromFile;
-            if (strongSelf.hashTag) {
+            if (strongSelf.hashTag.length != 0) {
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@", strongSelf.hashTag];
                 fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
             }

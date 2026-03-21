@@ -377,6 +377,9 @@ void freeContext(void **ctx) {
     NSData __block *blockdata = fileData;
     NSString *hash = path.signatureFromFile;
 
+    if (!hash.length)
+        return nil;
+
     [context performBlockAndWait:^{
         // We really should check if there is a game-less metadata object that we can use here
         // but we skip this for now.
