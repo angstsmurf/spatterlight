@@ -39,7 +39,7 @@
 
 extern uint8_t *screenmem;
 
-#define CALC_APPLE2_ADDRESS(y) (((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10)
+#define CALC_APPLE2_ADDRESS(y) ((((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10))
 
 enum Opcode {
     OPCODE_END = 0,
