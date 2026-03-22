@@ -1,7 +1,10 @@
 # Change log
 
+## Release 1.4.9
+- A hotfix for a crash that could happen when opening older library databases.
+
 ## Release 1.4.8
-- Just a hotfix for some annoying scrolling regressions
+- Just a hotfix for some annoying scrolling regressions.
 - Two of the colors in the Atari 8-bit vector graphics have been adjusted.
 - Adds back the text on the title screen of *Return to Pirate's Isle*.
 
