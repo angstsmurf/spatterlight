@@ -73,14 +73,52 @@ void InitTitleImage(void) {
     ResizeTitleImage();
 }
 
+void wait_for_key_on_title_screen(void) {
+
+    if (Graphics != NULL) {
+        glk_request_char_event(Graphics);
+    } else if (Bottom != NULL) {
+        glk_request_char_event(Bottom);
+    } else {
+        return;
+    }
+
+    event_t ev;
+    do {
+        glk_select(&ev);
+        if (ev.type == evtype_Arrange) {
+#ifdef SPATTERLIGHT
+            if (!gli_enable_graphics)
+                break;
+#endif
+            int stored_slowdraw = gli_slowdraw;
+            gli_slowdraw = 0;
+            ResizeTitleImage();
+            glk_window_clear(Graphics);
+            DrawUSRoom(99);
+            if (USImages->systype == SYS_APPLE2_LINES || USImages->systype == SYS_ATARI8_LINES) {
+                DrawUSRoomObject(255);
+            }
+            DrawImageOrVector();
+            gli_slowdraw = stored_slowdraw;
+        } else if (ev.type == evtype_Timer) {
+            if (DrawingVector()) {
+                DrawSomeVectorPixels((VectorState == NO_VECTOR_IMAGE));
+            }
+        }
+    } while (ev.type != evtype_CharInput);
+}
+
+#define RTPI_TITLE_LINES 24
+
 const char **GetRTPILines(const char *text) {
-    char *lines[24];
-    size_t linelenghts[24];
+    char *lines[RTPI_TITLE_LINES];
+    size_t linelenghts[RTPI_TITLE_LINES];
     uint8_t line[128];
     int lineidx = 0;
     int pos = 0;
     int linepos = 0;
-    while (lineidx < 24 && text[pos] != '\0') {
+    while (lineidx < RTPI_TITLE_LINES && text[pos] != '\0') {
         // Skip leading spaces
         while (text[pos] == ' ') {
             pos++;
@@ -98,21 +136,21 @@ const char **GetRTPILines(const char *text) {
         linepos = 0;
     }
 
-    if (lineidx < 24) {
+    if (lineidx < RTPI_TITLE_LINES) {
         for (int j = 0; j < lineidx; j++) {
             free (lines[j]);
         }
         return NULL;
     }
 
-    const char **outlines = MemAlloc(26 * sizeof(char *));
+    const char **outlines = MemAlloc(RTPI_TITLE_LINES * sizeof(char *));
 
-    static const uint8_t order[26] =
-    { 1, 2, 4, 3, 5, 8, 9, 11, 12, 14, 99, 14, 13, 15, 17, 19, 99, 19, 18, 20, 21, 23, 22, 99, 22, 0 };
+    static const uint8_t order[RTPI_TITLE_LINES] =
+    { 1, 2, 4, 3, 5, 8, 9, 11, 12, 14, 0, 99, 13, 15, 17, 19, 0, 99, 18, 20, 21, 23, 22, 0 };
 
-    for (int j = 0; j < 26; j++) {
+    for (int j = 0; j < RTPI_TITLE_LINES; j++) {
         if (order[j] == 99) {
-            outlines[j] = "*\n";
+            outlines[j] = NULL;
         } else {
             outlines[j] = lines[order[j]];
         }
@@ -149,7 +187,7 @@ const char **GetRTPILines(const char *text) {
 
 */
 
-void RTPITitle(void) {
+void initRTPITitle(void) {
     if (!title_screen)
         return;
     Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
@@ -160,14 +198,22 @@ void RTPITitle(void) {
         glk_window_close(Bottom, NULL);
     glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_Justification, stylehint_just_Centered);
     Bottom = glk_window_open(Graphics, winmethod_Below | winmethod_Proportional, 50, wintype_TextBuffer, GLK_BUFFER_ROCK);
+}
+
+void RTPITitle(void) {
     glk_stream_set_current(glk_window_get_stream(Bottom));
     const char **lines = GetRTPILines(title_screen);
     free((void *)title_screen);
     if (!lines)
         return;
     glk_set_style(style_User2);
-    for (int i = 0; i < 26; i++) {
-        Output(lines[i]);
+    for (int i = 0; i < RTPI_TITLE_LINES; i++) {
+        if (lines[i] == NULL) {
+            wait_for_key_on_title_screen();
+            glk_window_clear(Bottom);
+        } else {
+            Output(lines[i]);
+        }
     }
     glk_set_style(style_Normal);
 }
@@ -198,21 +244,16 @@ void DrawTitleImageScott(void)
 
     Graphics = glk_window_open(0, 0, 0, wintype_Graphics, GLK_GRAPHICS_ROCK);
 
-    if (glk_gestalt_ext(gestalt_GraphicsCharInput, 0, NULL, 0)) {
-        glk_request_char_event(Graphics);
-    } else {
+    if (glk_gestalt_ext(gestalt_GraphicsCharInput, 0, NULL, 0) == 0) {
         Bottom = glk_window_open(Graphics, winmethod_Below | winmethod_Fixed,
             2, wintype_TextBuffer, GLK_BUFFER_ROCK);
-        glk_request_char_event(Bottom);
     }
+
+    initRTPITitle();
 
     if (background_color != -1) {
         glk_window_set_background_color(Graphics, background_color);
         glk_window_clear(Graphics);
-    }
-
-    if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
-        RTPITitle();
     }
 
     ResizeTitleImage();
@@ -226,30 +267,12 @@ void DrawTitleImageScott(void)
             DrawUSRoomObject(255);
         }
         DrawImageOrVector();
-        event_t ev;
-        do {
-            glk_select(&ev);
-            if (ev.type == evtype_Arrange) {
-#ifdef SPATTERLIGHT
-                if (!gli_enable_graphics)
-                    break;
-#endif
-                int stored_slowdraw = gli_slowdraw;
-                gli_slowdraw = 0;
-                ResizeTitleImage();
-                glk_window_clear(Graphics);
-                DrawUSRoom(99);
-                if (USImages->systype == SYS_APPLE2_LINES || USImages->systype == SYS_ATARI8_LINES) {
-                    DrawUSRoomObject(255);
-                }
-                DrawImageOrVector();
-                gli_slowdraw = stored_slowdraw;
-            } else if (ev.type == evtype_Timer) {
-                if (DrawingVector()) {
-                    DrawSomeVectorPixels((VectorState == NO_VECTOR_IMAGE));
-                }
-            }
-        } while (ev.type != evtype_CharInput);
+
+        if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
+            RTPITitle();
+        }
+
+        wait_for_key_on_title_screen();
     }
 
     glk_window_close(Graphics, NULL);
