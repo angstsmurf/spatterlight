@@ -107,7 +107,7 @@ static size_t current_write_op = 0;
 
 
 static inline bool is_valid_screen_offset(uint16_t offset) {
-    return offset <= A8_IMAGE_SIZE;
+    return offset < A8_IMAGE_SIZE;
 }
 
 static void ensure_capacity(void) {
@@ -306,26 +306,54 @@ static void draw_line(a8_draw_ctx *ctx) {
     plot_pixel(ctx);
 }
 
-// Compose a single pattern byte from four 2-bit slot colors (s1..s4).
-// Bits layout: s1 in bits 7-6, s2 in bits 5-4, s3 in bits 3-2, s4 in bits 1-0.
+/*
+ Pattern system overview:
+ 
+ The Scott Adams Atari 8-bit vector draw code uses two screen memory planes ($9000 and $A000).
+ Each byte holds four 2-bit pixels. The orignal code alternated between these on every screen update, giving the impression of a total of 16 colors (the color mixing being a side effect of the NTSC CRT hardware limitations, in combination with the perception limitations of the player.)
+ We simulate this with a lookup table of 16 colors (color_matrix), indexed by combining data from the two images (A0 bits as high pair, 90 bits as low pair).
+
+ On top of all this, additional colors are simulated by dithering.
+
+ Dithering patterns are defined as four bytes (pattern_byte[0..3]):
+   - Bytes 0/1 are written to even scanlines (A0 and 90 planes respectively).
+   - Bytes 2/3 are written to odd scanlines (A0 and 90 planes respectively).
+ This allows patterns to alternate row-by-row for dithering effects.
+ 
+ The four pattern_color values (derived from color_array via color_a_index
+ and color_b_index) serve as the building blocks:
+   - pattern_color[0] and [1] come from color_a_index (a pair of 2-bit colors)
+   - pattern_color[2] and [3] come from color_b_index (a second pair)
+ 
+ Five pattern types (0-4) combine these colors in different ways to produce
+ solid fills, horizontal stripes, checkerboards, and mixed dithers.
+ */
+
+/* Pack four 2-bit color values into a single byte.
+   s1 occupies bits 7-6, s2 bits 5-4, s3 bits 3-2, s4 bits 1-0.
+   Each pixel slot in the byte represents one of four screen pixels. */
 static inline uint8_t compose_pattern_byte(uint8_t s1, uint8_t s2, uint8_t s3, uint8_t s4) {
     return (uint8_t)(((s1 & 3) << 6) | ((s2 & 3) << 4) | ((s3 & 3) << 2) | (s4 & 3));
 }
 
-static void make_four_color_pattern(uint8_t param_1, uint8_t param_2, uint8_t param_3, uint8_t param_4, a8_draw_ctx *ctx) {
-    ctx->pattern_byte[2] = compose_pattern_byte(param_1, param_2, param_1, param_2);
-    ctx->pattern_byte[3] = compose_pattern_byte(param_3, param_4, param_3, param_4);
+static inline uint8_t pattern_byte_from_single_color(uint8_t color) {
+    return compose_pattern_byte(color, color, color, color);
 }
 
-static void make_pattern_0(uint8_t color_1, uint8_t color_2, a8_draw_ctx *ctx) {
-    // pattern bytes alternate between the two solid colors:
-    // byte0 = all color_1, byte1 = all color_2, byte2 = byte0, byte3 = byte1
-    ctx->pattern_byte[0] = compose_pattern_byte(color_1, color_1, color_1, color_1);
-    ctx->pattern_byte[1] = compose_pattern_byte(color_2, color_2, color_2, color_2);
+/* Pattern 0: Horizontal stripes.
+   Even scanlines are filled solid with pattern_color[0], odd with pattern_color[1].
+   Used for solid fills (when both colors are the same) or two-tone banding. */
+static void make_pattern_0(a8_draw_ctx *ctx) {
+    ctx->pattern_byte[0] = pattern_byte_from_single_color(ctx->pattern_color[0]);
+    ctx->pattern_byte[1] = pattern_byte_from_single_color(ctx->pattern_color[1]);
     ctx->pattern_byte[2] = ctx->pattern_byte[0];
     ctx->pattern_byte[3] = ctx->pattern_byte[1];
 }
 
+/* Pattern 1: Checkerboard.
+   Even scanlines alternate colors 0/2 horizontally; odd alternate 1/3.
+   On odd scanlines the order is swapped (2/0 and 3/1), creating a
+   two-by-two checkerboard of all four pattern colors. */
 static void make_pattern_1(a8_draw_ctx *ctx) {
     ctx->pattern_byte[0] = compose_pattern_byte(ctx->pattern_color[0], ctx->pattern_color[2], ctx->pattern_color[0], ctx->pattern_color[2]);
     ctx->pattern_byte[1] = compose_pattern_byte(ctx->pattern_color[1], ctx->pattern_color[3], ctx->pattern_color[1], ctx->pattern_color[3]);
@@ -333,27 +361,43 @@ static void make_pattern_1(a8_draw_ctx *ctx) {
     ctx->pattern_byte[3] = compose_pattern_byte(ctx->pattern_color[3], ctx->pattern_color[1], ctx->pattern_color[3], ctx->pattern_color[1]);
 }
 
-static void make_pattern_2(uint8_t param_1, uint8_t param_2, a8_draw_ctx *ctx) {
-    // Start with pattern_0 using pattern_color0/1 for bytes 0 and 1
-    make_pattern_0(ctx->pattern_color[0], ctx->pattern_color[1], ctx);
-    // Then override bytes 2 and 3 with solid param_1 / param_2
-    ctx->pattern_byte[2] = compose_pattern_byte(param_1, param_1, param_1, param_1);
-    ctx->pattern_byte[3] = compose_pattern_byte(param_2, param_2, param_2, param_2);
+/* Pattern 2: Mixed solid stripes.
+   Even scanlines use solid color_a pair (pattern_color 0/1),
+   odd scanlines use solid color_b pair (param_1/param_2).
+   Creates horizontal banding with different color pairs per line parity. */
+static void make_pattern_2(a8_draw_ctx *ctx) {
+    ctx->pattern_byte[0] = pattern_byte_from_single_color(ctx->pattern_color[0]);
+    ctx->pattern_byte[1] = pattern_byte_from_single_color(ctx->pattern_color[1]);
+    ctx->pattern_byte[2] = pattern_byte_from_single_color(ctx->pattern_color[2]);
+    ctx->pattern_byte[3] = pattern_byte_from_single_color(ctx->pattern_color[3]);
 }
 
+/* Pattern 3: Uniform vertical stripes.
+   All scanlines (even and odd) use the same alternating color_b/color_a
+   pattern, producing consistent vertical striping with no row variation. */
 static void make_pattern_3(a8_draw_ctx *ctx) {
-    make_four_color_pattern(ctx->pattern_color[2], ctx->pattern_color[0], ctx->pattern_color[3], ctx->pattern_color[1], ctx);
-    // then copy bytes 2/3 into 0/1
-    ctx->pattern_byte[0] = ctx->pattern_byte[2];
-    ctx->pattern_byte[1] = ctx->pattern_byte[3];
+    uint8_t byte_a = compose_pattern_byte(ctx->pattern_color[2], ctx->pattern_color[0], ctx->pattern_color[2], ctx->pattern_color[0]);
+    uint8_t byte_b = compose_pattern_byte(ctx->pattern_color[3], ctx->pattern_color[1], ctx->pattern_color[3], ctx->pattern_color[1]);
+    ctx->pattern_byte[0] = byte_a;
+    ctx->pattern_byte[1] = byte_b;
+    ctx->pattern_byte[2] = byte_a;
+    ctx->pattern_byte[3] = byte_b;
 }
 
+/* Pattern 4: Solid-to-striped dither.
+   Even scanlines are solid (color_a pair), while odd scanlines alternate
+   between color_b and color_a horizontally. Creates a half-tone dither
+   that transitions between solid and checkerboard appearance. */
 static void make_pattern_4(a8_draw_ctx *ctx) {
-    // combine pattern_0 for bytes 0/1 then a 4-color pattern for bytes 2/3
-    make_pattern_0(ctx->pattern_color[0], ctx->pattern_color[1], ctx);
-    make_four_color_pattern(ctx->pattern_color[2], ctx->pattern_color[0], ctx->pattern_color[3], ctx->pattern_color[1], ctx);
+    ctx->pattern_byte[0] = pattern_byte_from_single_color(ctx->pattern_color[0]);
+    ctx->pattern_byte[1] = pattern_byte_from_single_color(ctx->pattern_color[1]);
+    ctx->pattern_byte[2] = compose_pattern_byte(ctx->pattern_color[2], ctx->pattern_color[0], ctx->pattern_color[2], ctx->pattern_color[0]);
+    ctx->pattern_byte[3] = compose_pattern_byte(ctx->pattern_color[3], ctx->pattern_color[1], ctx->pattern_color[3], ctx->pattern_color[1]);
 }
 
+/* Copy the four pattern bytes into the plane-specific even/odd registers
+   that the drawing routines use directly.
+   Bytes 0/1 → even scanlines (A0/90 planes), bytes 2/3 → odd scanlines. */
 static void assign_plane_patterns(a8_draw_ctx *ctx) {
     ctx->planeA0_pattern_even = ctx->pattern_byte[0];
     ctx->plane90_pattern_even = ctx->pattern_byte[1];
@@ -361,6 +405,10 @@ static void assign_plane_patterns(a8_draw_ctx *ctx) {
     ctx->plane90_pattern_odd  = ctx->pattern_byte[3];
 }
 
+/* Look up the four 2-bit base colors from color_array.
+   color_a_index selects a pair (pattern_color[0..1]),
+   color_b_index selects a second pair (pattern_color[2..3]).
+   These are the raw color values used by the make_pattern_N functions. */
 static void initialize_pattern_colors(a8_draw_ctx *ctx) {
     ctx->pattern_color[0] = color_array[ctx->color_a_index << 1];
     ctx->pattern_color[1] = color_array[(ctx->color_a_index << 1) + 1];
@@ -368,17 +416,26 @@ static void initialize_pattern_colors(a8_draw_ctx *ctx) {
     ctx->pattern_color[3] = color_array[(ctx->color_b_index << 1) + 1];
 }
 
+/* Convert the opcode's x/y arguments into a pixel offset for the flood fill
+   seed point. The formula op_arg_b * 160 + op_arg_a computes the linear pixel
+   position (160 pixels per scanline). */
 static void compute_pattern_start_pixel(uint8_t op_arg_a, uint8_t op_arg_b, a8_draw_ctx *ctx) {
     ctx->pattern_start_pixel = (op_arg_b << 7) + op_arg_b * 32 + op_arg_a;
 }
 
+/* Build the complete fill pattern from an opcode's parameters.
+   Steps:
+   1. Look up the four base colors from color_a_index and color_b_index.
+   2. Compute the seed pixel offset from the x/y arguments.
+   3. Generate the four pattern bytes using the selected pattern type (0-4).
+   4. Copy the pattern bytes into the plane-specific drawing registers. */
 static void create_patterns(uint8_t pattern, uint8_t op_arg_a, uint8_t op_arg_b, a8_draw_ctx *ctx) {
     initialize_pattern_colors(ctx);
     compute_pattern_start_pixel(op_arg_a, op_arg_b, ctx);
     switch (pattern) {
-        case 0: make_pattern_0(ctx->pattern_color[0], ctx->pattern_color[1], ctx); break;
+        case 0: make_pattern_0(ctx); break;
         case 1: make_pattern_1(ctx); break;
-        case 2: make_pattern_2(ctx->pattern_color[2], ctx->pattern_color[3], ctx); break;
+        case 2: make_pattern_2(ctx); break;
         case 3: make_pattern_3(ctx); break;
         case 4: make_pattern_4(ctx); break;
         default: break;
@@ -401,7 +458,7 @@ uint8_t build_plane_byte(uint8_t target_val) {
     return color_nibble << 4 | color_nibble;
 }
 
-#define RECURSION_LIMIT 2000
+#define RECURSION_LIMIT 1000
 
 static bool at_edge(a8_draw_ctx *ctx) {
     uint8_t color = get_pixel_color(ctx);
