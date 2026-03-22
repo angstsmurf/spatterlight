@@ -683,6 +683,10 @@ NSString *fontToString(NSFont *font) {
 
     [_beepHighMenu selectItemWithTitle:beepHigh];
     [_beepLowMenu selectItemWithTitle:beepLow];
+    // Due to a bug in earlier versions, theme.zMachineTerp might be 0.
+    if (theme.zMachineTerp < 1 || theme.zMachineTerp > 11) {
+        theme.zMachineTerp = 6; // Interpreter 6 means IBM PC.
+    }
     [_zterpMenu selectItemWithTag:theme.zMachineTerp];
     [_bZArrowsMenu selectItemWithTag:theme.bZTerminator];
 
