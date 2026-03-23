@@ -1,3 +1,6 @@
+#ifndef GLKIMP_PROTOCOL
+#define GLKIMP_PROTOCOL
+
 #define GLKBUFSIZE (1024 * 64)
 
 struct message
@@ -148,3 +151,5 @@ enum
     EVTQUIT,
     EVTTEST
 };
+
+#endif

@@ -13,6 +13,7 @@
 #import "GlkTextBufferWindow.h"
 #import "BufferTextView.h"
 #import "GlkController.h"
+#import "GlkController+Speech.h"
 #import "MarginContainer.h"
 #import "MarginImage.h"
 #import "MyAttachmentCell.h"

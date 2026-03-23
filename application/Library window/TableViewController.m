@@ -13,6 +13,7 @@
 #import "LibController.h"
 #import "AppDelegate.h"
 #import "GlkController.h"
+#import "GlkController+Autorestore.h"
 #import "Preferences.h"
 
 #import "Constants.h"

@@ -8,6 +8,7 @@
 #import "BufferTextView.h"
 #import "GlkTextBufferWindow.h"
 #import "GlkController.h"
+#import "GlkController+Speech.h"
 #import "MarginContainer.h"
 #import "MarginImage.h"
 #import "CommandScriptHandler.h"

@@ -442,7 +442,9 @@
     [menuBarsQuery.menuItems[@"Play Game"] click];
 
     [menuBarsQuery.menuBarItems[@"Window"] click];
-    [[menuBarsQuery.menuItems elementMatchingType:XCUIElementTypeMenuItem identifier:@"makeKeyAndOrderFront:"] click];
+
+    [/*@START_MENU_TOKEN@*/[[app.menuBarItems matchingIdentifier:@"_NS:381"].menuItems matchingIdentifier:@"makeKeyAndOrderFront:"].firstMatch/*[["app","[[",".menuItems matchingIdentifier:@\"makeKeyAndOrderFront:\"] elementBoundByIndex:0]",".menus matchingIdentifier:@\"_NS:383\"].menuItems matchingIdentifier:@\"imagetest.gblorb\"].firstMatch",".menuBarItems matchingIdentifier:@\"_NS:381\"].menuItems matchingIdentifier:@\"makeKeyAndOrderFront:\"].firstMatch"],[[[-1,0,1]],[[1,4],[1,3],[1,2]]],[0,0]]@END_MENU_TOKEN@*/ click];
+    
     XCUIElement *gameWindow = app.windows[@"imagetest.gblorb"];
     [XCUIElement performWithKeyModifiers:XCUIKeyModifierOption block:^{
         [gameWindow.buttons[XCUIIdentifierFullScreenWindow] click];

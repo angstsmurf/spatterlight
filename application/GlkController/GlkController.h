@@ -199,46 +199,14 @@ typedef enum kGameIdentity : NSUInteger {
           reset:(BOOL)shouldReset
      restorationHandler:(void (^)(NSWindow *, NSError *))completionHandler;
 
-- (void)deleteAutosaveFilesForGame:(Game *)game;
-
 - (void)askForAccessToURL:(NSURL *)url showDialog:(BOOL)dialogFlag andThenRunBlock:(void (^)(void))block;
 
 
-- (IBAction)reset:(id)sender;
-
-- (void)queueEvent:(GlkEvent *)gevent;
 - (void)contentDidResize:(NSRect)frame;
 - (void)markLastSeen;
 - (void)performScroll;
-- (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow;
-- (void)restoreUI;
-- (void)autoSaveOnExit;
-- (void)storeScrollOffsets;
-- (void)restoreScrollOffsets;
-- (void)adjustContentView;
-- (void)cleanup;
-
-
-// VoiceOver
-- (IBAction)speakMostRecent:(id)sender;
-- (IBAction)speakPrevious:(id)sender;
-- (IBAction)speakNext:(id)sender;
-- (IBAction)speakStatus:(id)sender;
-
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkWindow *largestWithMoves;
-
-- (void)speakString:(NSString *)string;
-- (void)speakStringNow:(NSString *)string;
-
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *accessibilityCustomActions;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *createCustomRotors;
 
 - (void)forkInterpreterTask;
-- (void)deferredRestart:(id)sender;
-
-- (void)setBorderColor:(NSColor *)color;
 - (void)terminateTask;
-
-- (BOOL)showingInfocomV6Menu;
 
 @end

@@ -6,6 +6,7 @@
 //
 
 #import "GlkController.h"
+#import "GlkController+Speech.h"
 #import "ZMenu.h"
 #import "GlkWindow.h"
 #import "GlkTextBufferWindow.h"

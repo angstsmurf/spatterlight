@@ -78,6 +78,17 @@
     [super tearDown];
 }
 
+- (void)testAppSupportDirCreatesDirectoryWithTimeout {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"appSupportDir completes in time"];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self testAppSupportDirCreatesDirectory];
+        [expectation fulfill];
+    });
+
+    [self waitForExpectations:@[expectation] timeout:5.0];
+}
+
 - (void)testAppSupportDirCreatesDirectory {
     // Create Core Data objects
     Game *game = [NSEntityDescription insertNewObjectForEntityForName:@"Game"

@@ -1,5 +1,6 @@
 #import "GlkWindow.h"
 #import "GlkController.h"
+#import "GlkController+Speech.h"
 #import "GlkTextGridWindow.h"
 
 #import "InputHistory.h"
