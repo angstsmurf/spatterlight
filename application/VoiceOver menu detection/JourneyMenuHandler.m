@@ -7,6 +7,8 @@
 
 #import "AppDelegate.h"
 #import "GlkController.h"
+#import "GlkController+InterpreterGlue.h"
+#import "GlkController+Speech.h"
 #import "GlkTextGridWindow.h"
 #import "GlkTextBufferWindow.h"
 #import "BufferTextView.h"

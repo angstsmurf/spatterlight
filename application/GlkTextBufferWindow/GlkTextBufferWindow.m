@@ -4,6 +4,9 @@
 
 #import "Constants.h"
 #import "GlkController.h"
+#import "GlkController+BorderColor.h"
+#import "GlkController+InterpreterGlue.h"
+#import "GlkController+Speech.h"
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 #import "Theme.h"

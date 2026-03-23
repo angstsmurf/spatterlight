@@ -655,7 +655,6 @@
 		C37EC5A42847AA810084B841 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C37EC5A72847CD620084B841 /* sagaplus.c in Sources */ = {isa = PBXBuildFile; fileRef = C37EC5A62847CD620084B841 /* sagaplus.c */; };
 		C37EC5A8284807750084B841 /* plus in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = C37EC5992847AA040084B841 /* plus */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C381012A1EDA297E00B87B68 /* GlkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38101291EDA297E00B87B68 /* GlkController.m */; };
 		C3824B4C2CAD821F00D58EFC /* libreadwoz.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3ED63132C6E0E64000F90A8 /* libreadwoz.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3824B7A2CAEF0A800D58EFC /* arthur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3824B792CAEF0A800D58EFC /* arthur.cpp */; };
 		C3824B7E2CAEF0F200D58EFC /* v6_shared.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */; };
@@ -2750,7 +2749,6 @@
 		96A9BA5E0A064C9C001B5B9B /* treaty_builder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = treaty_builder.h; sourceTree = "<group>"; };
 		96A9BA5F0A064C9C001B5B9B /* zcode.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = zcode.c; sourceTree = "<group>"; tabWidth = 4; };
 		96A9BA790A06558F001B5B9B /* libbabel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbabel.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		96A9BB7A0A0662FA001B5B9B /* GlkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkController.h; sourceTree = "<group>"; };
 		96A9BBA30A0668EB001B5B9B /* GameWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameWindow.xib; sourceTree = "<group>"; };
 		96A9C0EF0A07AE17001B5B9B /* LibController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LibController.m; sourceTree = "<group>"; };
 		96A9C0F10A07AE31001B5B9B /* LibController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibController.h; sourceTree = "<group>"; };
@@ -2998,7 +2996,6 @@
 		C37EC5922847A9E00084B841 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
 		C37EC5992847AA040084B841 /* plus */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = plus; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37EC5A62847CD620084B841 /* sagaplus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sagaplus.c; sourceTree = "<group>"; };
-		C38101291EDA297E00B87B68 /* GlkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkController.m; sourceTree = "<group>"; };
 		C3824B782CAEF0A800D58EFC /* arthur.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = arthur.hpp; sourceTree = "<group>"; };
 		C3824B792CAEF0A800D58EFC /* arthur.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = arthur.cpp; sourceTree = "<group>"; };
 		C3824B7C2CAEF0F200D58EFC /* v6_shared.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = v6_shared.hpp; sourceTree = "<group>"; };
@@ -3370,6 +3367,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		C338CF402F71B86E00BCBD18 /* GlkController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = GlkController; sourceTree = "<group>"; };
 		C3983D882F62CE4600717789 /* SpatterlightTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SpatterlightTests; sourceTree = "<group>"; };
 		C3DB14582E8418BB00837F69 /* MappingModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MappingModels; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -4360,8 +4358,7 @@
 				C3241A1B262E256A00366AAE /* Library window */,
 				961CCED909F239E700528FF9 /* GlkEvent.h */,
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
-				96A9BB7A0A0662FA001B5B9B /* GlkController.h */,
-				C38101291EDA297E00B87B68 /* GlkController.m */,
+				C338CF402F71B86E00BCBD18 /* GlkController */,
 				C3CF3694265FA461004D0F7B /* CoverImageView.h */,
 				C3CF3693265FA461004D0F7B /* CoverImageView.m */,
 				C3CB504A2662606600A95BE2 /* CoverImageHandler.h */,
@@ -6497,6 +6494,7 @@
 				C3D6AD701ECF372000ADB69C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				C338CF402F71B86E00BCBD18 /* GlkController */,
 				C3DB14582E8418BB00837F69 /* MappingModels */,
 			);
 			name = Spatterlight;
@@ -7561,7 +7559,6 @@
 				961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */,
 				C3191A9E266CDAF300528F6E /* ImageView.m in Sources */,
 				C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */,
-				C381012A1EDA297E00B87B68 /* GlkController.m in Sources */,
 				961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */,
 				C3AD640926176589008614C5 /* MarginContainer.m in Sources */,
 				C353F04626264242006D17E3 /* SubImage.m in Sources */,

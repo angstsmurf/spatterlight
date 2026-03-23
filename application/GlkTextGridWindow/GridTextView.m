@@ -8,6 +8,7 @@
 #import "GridTextView.h"
 #import "GlkTextGridWindow.h"
 #import "GlkController.h"
+#import "GlkController+Speech.h"
 #import "InputTextField.h"
 #import "Theme.h"
 #import "Preferences.h"

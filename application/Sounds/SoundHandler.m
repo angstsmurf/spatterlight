@@ -10,6 +10,7 @@
 #import "GlkSoundChannel.h"
 #import "MIDIChannel.h"
 #import "GlkController.h"
+#import "GlkController+InterpreterGlue.h"
 #import "GlkEvent.h"
 
 @implementation SoundFile : NSObject
