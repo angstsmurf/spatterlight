@@ -575,8 +575,9 @@ genfile writeopen(fc_type fc, filetype ft,
   if (f==NULL) {
     const char *s;
     s=strerror(errno);
-    *errstr=rmalloc(30+strlen(name)+strlen(s));
-    sprintf(*errstr,"Cannot open file %s: %s.",name,s);
+    size_t stringlength=30+strlen(name)+strlen(s);
+    *errstr=rmalloc(stringlength);
+    snprintf(*errstr,stringlength,"Cannot open file %s: %s.",name,s);
   }
   if (pfileid==NULL)
     rfree(name);

@@ -16,6 +16,10 @@
 #import "FolderAccess.h"
 #import "LibController.h"
 #import "TableViewController.h"
+#import "TableViewController+DragDrop.h"
+#import "TableViewController+LibraryManagement.h"
+#import "GameLauncher.h"
+#import "Metadatahandler.h"
 #import "Game.h"
 #import "Theme.h"
 
@@ -242,7 +246,7 @@ PasteboardFilePasteLocation;
             (appDelegate.libctl.tableViewController.infoWindows)[hashTag] = infoctl;
             window = infoctl.window;
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
-            window = [appDelegate.libctl.tableViewController playGameWithHash:hashTag restorationHandler:[completionHandler copy]];
+            window = [appDelegate.libctl.tableViewController.gameLauncher playGameWithHash:hashTag restorationHandler:[completionHandler copy]];
             if (window)
                 return;
         }
@@ -308,7 +312,7 @@ PasteboardFilePasteLocation;
 
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     NSMutableArray *allowedTypes = gGameFileTypes.mutableCopy;
-    if ([_tableViewController hasActiveGames]) {
+    if ([_tableViewController.gameLauncher hasActiveGames]) {
         [allowedTypes addObjectsFromArray:gDocFileTypes];
         [allowedTypes addObjectsFromArray:gSaveFileTypes];
     }
@@ -354,13 +358,13 @@ PasteboardFilePasteLocation;
     NSString *extension = path.pathExtension.lowercaseString;
 
     if ([extension isEqualToString:@"ifiction"]) {
-        [_tableViewController importMetadataFromFile:path inContext:_libctl.managedObjectContext];
+        [_tableViewController.metadataHandler importMetadataFromFile:path inContext:_libctl.managedObjectContext];
     } else if ([gDocFileTypes indexOfObject:extension] != NSNotFound) {
-        [_tableViewController runCommandsFromFile:path];
+        [_tableViewController.gameLauncher runCommandsFromFile:path];
     } else if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
-        [_tableViewController restoreFromSaveFile:path];
+        [_tableViewController.gameLauncher restoreFromSaveFile:path];
     } else {
-        [_tableViewController importAndPlayGame:path];
+        [_tableViewController.gameLauncher importAndPlayGame:path];
     }
 
     return YES;
@@ -404,7 +408,7 @@ continueUserActivity:(NSUserActivity *)userActivity
             return NO;
         }
 
-        [_tableViewController handleSpotlightSearchResult:object];
+        [_tableViewController.metadataHandler handleSpotlightSearchResult:object];
     }
 
     return YES;

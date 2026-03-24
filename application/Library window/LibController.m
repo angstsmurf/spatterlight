@@ -8,6 +8,12 @@
 #import "CoreDataManager.h"
 #import "Game.h"
 #import "TableViewController.h"
+#import "TableViewController+DragDrop.h"
+#import "TableViewController+GameActions.h"
+#import "TableViewController+InfoWindows.h"
+#import "TableViewController+TableDelegate.h"
+#import "MetadataHandler.h"
+#import "LibHelperTableView.h"
 
 #import "LibController.h"
 
@@ -128,7 +134,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasAskedToDownload"] == NO) {
         if (_tableViewController)
-            [_tableViewController askToDownload];
+            [_tableViewController.metadataHandler askToDownloadInWindow:self.window context:self.managedObjectContext];
     }
     if (self.window.firstResponder == self.window)
         [self.window makeFirstResponder:_tableViewController.gameTableView];

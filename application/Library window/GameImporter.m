@@ -29,6 +29,8 @@
 #import "IFStory.h"
 
 #import "TableViewController.h"
+#import "TableViewController+TableDelegate.h"
+#import "MetadataHandler.h"
 
 #import "FolderAccess.h"
 #import "NSManagedObjectContext+safeSave.h"
@@ -246,7 +248,7 @@ void freeContext(void **ctx) {
                 NSData *data = [NSData dataWithContentsOfFile:path];
                 if (data) {
                     NSDictionary<NSString *, IFStory *> *indirectMatches;
-                    NSDictionary<NSString *, IFStory *> *exactMatches = [TableViewController importMetadataFromXML:data indirectMatches:&indirectMatches inContext:context];
+                    NSDictionary<NSString *, IFStory *> *exactMatches = [MetadataHandler importMetadataFromXML:data indirectMatches:&indirectMatches inContext:context];
                     [_tableViewController.ifictionMatches addEntriesFromDictionary:exactMatches];
                     [_tableViewController.ifictionPartialMatches addEntriesFromDictionary:indirectMatches];
                     return nil;

@@ -9,6 +9,7 @@
 #import "Metadata.h"
 #import "NSString+Categories.h"
 #import "TableViewController.h"
+#import "GameLauncher.h"
 
 #import "FolderAccess.h"
 #import "Constants.h"
@@ -68,7 +69,7 @@ extern NSArray *gGameFileTypes;
                     [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
                     NSInteger response = [anAlert runModal];
                     if (response == NSAlertFirstButtonReturn) {
-                        if ([libController importGame:newPath inContext:game.managedObjectContext reportFailure:YES hide:NO]) {
+                        if ([libController.gameLauncher importGame:newPath inContext:game.managedObjectContext reportFailure:YES hide:NO]) {
                             [game.managedObjectContext deleteObject:game];
                         }
                     }

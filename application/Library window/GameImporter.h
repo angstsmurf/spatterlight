@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Game, TableViewController;
+@class Game, TableViewController, Blorb;
 
 NS_ASSUME_NONNULL_BEGIN
 

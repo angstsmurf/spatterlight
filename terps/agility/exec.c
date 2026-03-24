@@ -66,7 +66,7 @@ static void time_out(char *s)
 
 
 
-void set_statline()
+void set_statline(void)
 {
   char timestr[20];
 
