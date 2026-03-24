@@ -342,7 +342,7 @@ void bitmap_st2_name(int num, char* dir, char* out)
 	/* title picture is #30 */
 	if (num == 0)
 		num = 30;
-	sprintf(out,"%s%d.squ",dir,num);
+	snprintf(out,MAX_PATH,"%s%d.squ",dir,num);
 }
 
 /*
@@ -361,7 +361,7 @@ void bitmap_pc_name(int num, char* dir, char* out)
 	/* title picture is #30 */
 	if (num == 0)
 		num = 30;
-	sprintf(out,"%s%d.pic",dir,num);
+	snprintf(out,MAX_PATH,"%s%d.pic",dir,num);
 }
 
 /*
@@ -782,7 +782,7 @@ void bitmap_noext_name(int num, char* dir, char* out)
 	{
 		FILE* f;
 
-		sprintf(out,"%stitle",dir);
+		snprintf(out,MAX_PATH,"%stitle",dir);
 		f = fopen(out,"rb");
 		if (f != NULL)
 		{
@@ -793,7 +793,7 @@ void bitmap_noext_name(int num, char* dir, char* out)
 			num = 30;
 	}
 
-	sprintf(out,"%s%d",dir,num);
+	snprintf(out,MAX_PATH,"%s%d",dir,num);
 }
 
 int bitmap_amiga_intensity(int col)
@@ -1068,9 +1068,9 @@ const Colour bitmap_bbc_colours[] = {
 void bitmap_c64_name(int num, char* dir, char* out)
 {
 	if (num == 0)
-		sprintf(out,"%stitle mpic",dir);
+		snprintf(out,MAX_PATH,"%stitle mpic",dir);
 	else
-		sprintf(out,"%spic%d",dir,num);
+		snprintf(out,MAX_PATH,"%spic%d",dir,num);
 }
 
 void bitmap_bbc_name(int num, char* dir, char* out)
@@ -1079,7 +1079,7 @@ void bitmap_bbc_name(int num, char* dir, char* out)
 
 	if (num == 0)
 	{
-		sprintf(out,"%sP.Title",dir);
+		snprintf(out,MAX_PATH,"%sP.Title",dir);
 		f = fopen(out,"rb");
 		if (f != NULL)
 		{
@@ -1087,11 +1087,11 @@ void bitmap_bbc_name(int num, char* dir, char* out)
 			return;
 		}
 
-		sprintf(out,"%stitle",dir);
+		snprintf(out,MAX_PATH,"%stitle",dir);
 	}
 	else
 	{
-		sprintf(out,"%sP.Pic%d",dir,num);
+		snprintf(out,MAX_PATH,"%sP.Pic%d",dir,num);
 		f = fopen(out,"rb");
 		if (f != NULL)
 		{
@@ -1099,18 +1099,18 @@ void bitmap_bbc_name(int num, char* dir, char* out)
 			return;
 		}
 
-		sprintf(out,"%spic%d",dir,num);
+		snprintf(out,MAX_PATH,"%spic%d",dir,num);
 	}
 }
 
 void bitmap_cpc_name(int num, char* dir, char* out)
 {
 	if (num == 0)
-		sprintf(out,"%stitle.pic",dir);
+		snprintf(out,MAX_PATH,"%stitle.pic",dir);
 	else if (num == 1)
-		sprintf(out,"%s1.pic",dir);
+		snprintf(out,MAX_PATH,"%s1.pic",dir);
 	else
-		sprintf(out,"%sallpics.pic",dir);
+		snprintf(out,MAX_PATH,"%sallpics.pic",dir);
 }
 
 BitmapType bitmap_c64_type(char* file)
