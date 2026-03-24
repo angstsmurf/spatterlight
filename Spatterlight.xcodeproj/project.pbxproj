@@ -571,6 +571,9 @@
 		C32B472B2F1700CA002AD28F /* atari_8bit_vector_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C32B472A2F1700CA002AD28F /* atari_8bit_vector_draw.c */; };
 		C32DBFA626714EFE00AB5704 /* MyFilePromiseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */; };
 		C33874D22E8BF89200153FED /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D794358224A2D2E0071EB3D /* NSString+Categories.m */; };
+		C338CF432F71BD4200BCBD18 /* LibHelperTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C338CF422F71BD4200BCBD18 /* LibHelperTableView.m */; };
+		C338CF472F71BDC600BCBD18 /* MetadataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C338CF462F71BDC600BCBD18 /* MetadataHandler.m */; };
+		C338CF4A2F71BE1000BCBD18 /* GameLauncher.m in Sources */ = {isa = PBXBuildFile; fileRef = C338CF492F71BE1000BCBD18 /* GameLauncher.m */; };
 		C33B4504257E84500017EA26 /* ZMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C33B4502257E84500017EA26 /* ZMenu.m */; };
 		C33BC7132EEEFA500086C18C /* taylordraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30AC87C2EE9318800E1EE85 /* taylordraw.c */; };
 		C33BC7142EEEFA500086C18C /* irmak.c in Sources */ = {isa = PBXBuildFile; fileRef = C359A2D42EE5AF670079F9EA /* irmak.c */; };
@@ -682,7 +685,6 @@
 		C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */; };
 		C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */ = {isa = PBXBuildFile; fileRef = C38D6ECD27CFCC5400328B12 /* line_drawing.c */; };
 		C39147442974C41D00692B9E /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39147432974C41D00692B9E /* SideViewController.m */; };
-		C39147482974C48C00692B9E /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39147472974C48C00692B9E /* TableViewController.m */; };
 		C391F77A2F3D795E00F3102B /* rtpi_graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C391F7792F3D795E00F3102B /* rtpi_graphics.c */; };
 		C39613FE28E5D0B300A13624 /* saga.c in Sources */ = {isa = PBXBuildFile; fileRef = C39613FD28E5D0B300A13624 /* saga.c */; };
 		C396E8F12732B2CE0090B5DF /* quest4.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E8EF2732B2CE0090B5DF /* quest4.c */; };
@@ -2898,6 +2900,12 @@
 		C32DBFA426714EFE00AB5704 /* MyFilePromiseProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFilePromiseProvider.h; sourceTree = "<group>"; };
 		C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFilePromiseProvider.m; sourceTree = "<group>"; };
 		C334C47A269C708700B00A2F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C338CF412F71BD3500BCBD18 /* LibHelperTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibHelperTableView.h; sourceTree = "<group>"; };
+		C338CF422F71BD4200BCBD18 /* LibHelperTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibHelperTableView.m; sourceTree = "<group>"; };
+		C338CF452F71BD6400BCBD18 /* MetadataHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetadataHandler.h; sourceTree = "<group>"; };
+		C338CF462F71BDC600BCBD18 /* MetadataHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MetadataHandler.m; sourceTree = "<group>"; };
+		C338CF482F71BDDC00BCBD18 /* GameLauncher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameLauncher.h; sourceTree = "<group>"; };
+		C338CF492F71BE1000BCBD18 /* GameLauncher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameLauncher.m; sourceTree = "<group>"; };
 		C33B4502257E84500017EA26 /* ZMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMenu.m; sourceTree = "<group>"; };
 		C33B4503257E84500017EA26 /* ZMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMenu.h; sourceTree = "<group>"; };
 		C33BC70E2EEEF9650086C18C /* libaiukgraphics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libaiukgraphics.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3036,8 +3044,6 @@
 		C38D6ECD27CFCC5400328B12 /* line_drawing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = line_drawing.c; sourceTree = "<group>"; };
 		C39147422974C41D00692B9E /* SideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SideViewController.h; path = "application/Library window/SideViewController.h"; sourceTree = SOURCE_ROOT; };
 		C39147432974C41D00692B9E /* SideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SideViewController.m; path = "application/Library window/SideViewController.m"; sourceTree = SOURCE_ROOT; };
-		C39147462974C48C00692B9E /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
-		C39147472974C48C00692B9E /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		C391F7782F3D795E00F3102B /* rtpi_graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rtpi_graphics.h; sourceTree = "<group>"; };
 		C391F7792F3D795E00F3102B /* rtpi_graphics.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rtpi_graphics.c; sourceTree = "<group>"; };
 		C39613FC28E5D0B300A13624 /* saga.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = saga.h; sourceTree = "<group>"; };
@@ -3368,6 +3374,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C338CF402F71B86E00BCBD18 /* GlkController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = GlkController; sourceTree = "<group>"; };
+		C3533BE42F71D39200A03CDE /* TableViewController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TableViewController; sourceTree = "<group>"; };
 		C3983D882F62CE4600717789 /* SpatterlightTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SpatterlightTests; sourceTree = "<group>"; };
 		C3DB14582E8418BB00837F69 /* MappingModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MappingModels; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -5713,8 +5720,13 @@
 				C3853E5E29676561002D4A27 /* SplitViewController.m */,
 				C39147422974C41D00692B9E /* SideViewController.h */,
 				C39147432974C41D00692B9E /* SideViewController.m */,
-				C39147462974C48C00692B9E /* TableViewController.h */,
-				C39147472974C48C00692B9E /* TableViewController.m */,
+				C338CF412F71BD3500BCBD18 /* LibHelperTableView.h */,
+				C338CF422F71BD4200BCBD18 /* LibHelperTableView.m */,
+				C338CF452F71BD6400BCBD18 /* MetadataHandler.h */,
+				C338CF462F71BDC600BCBD18 /* MetadataHandler.m */,
+				C338CF482F71BDDC00BCBD18 /* GameLauncher.h */,
+				C338CF492F71BE1000BCBD18 /* GameLauncher.m */,
+				C3533BE42F71D39200A03CDE /* TableViewController */,
 			);
 			path = "Library window";
 			sourceTree = "<group>";
@@ -6495,6 +6507,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				C338CF402F71B86E00BCBD18 /* GlkController */,
+				C3533BE42F71D39200A03CDE /* TableViewController */,
 				C3DB14582E8418BB00837F69 /* MappingModels */,
 			);
 			name = Spatterlight;
@@ -7550,6 +7563,7 @@
 				96A9C0F00A07AE17001B5B9B /* LibController.m in Sources */,
 				C3CF369B2660207E004D0F7B /* neo.c in Sources */,
 				C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */,
+				C338CF4A2F71BE1000BCBD18 /* GameLauncher.m in Sources */,
 				C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */,
 				96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */,
 				C39147442974C41D00692B9E /* SideViewController.m in Sources */,
@@ -7563,8 +7577,8 @@
 				C3AD640926176589008614C5 /* MarginContainer.m in Sources */,
 				C353F04626264242006D17E3 /* SubImage.m in Sources */,
 				C3FEF0BA2E6B752600276383 /* Fetches.m in Sources */,
+				C338CF432F71BD4200BCBD18 /* LibHelperTableView.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
-				C39147482974C48C00692B9E /* TableViewController.m in Sources */,
 				C37E675D26E9844D0005873E /* MIDIChannel.m in Sources */,
 				C36DFEDF29AA2F6800EC83A6 /* PreviewController.m in Sources */,
 				C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */,
@@ -7585,6 +7599,7 @@
 				C3C180C825C717F30040AE79 /* IFCoverDescription.m in Sources */,
 				6D73052122BFA9EB00DFC73C /* NSDate+relative.m in Sources */,
 				C32419CD262DFFA300366AAE /* BuiltInThemes.m in Sources */,
+				C338CF472F71BDC600BCBD18 /* MetadataHandler.m in Sources */,
 				6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */,
 				6D7673E8239FFC6C00FB24C0 /* IFBibliographic.m in Sources */,
 				C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */,

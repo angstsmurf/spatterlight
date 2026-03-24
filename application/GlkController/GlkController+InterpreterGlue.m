@@ -21,6 +21,7 @@
 #import "ImageHandler.h"
 #import "FolderAccess.h"
 #import "TableViewController.h"
+#import "TableViewController+TableDelegate.h"
 #import "JourneyMenuHandler.h"
 #import "GlkStyle.h"
 

@@ -7,6 +7,8 @@
 #import "Preferences.h"
 #import "InfoController.h"
 #import "TableViewController.h"
+#import "TableViewController+GameActions.h"
+#import "TableViewController+InfoWindows.h"
 #import "JourneyMenuHandler.h"
 #import "AppDelegate.h"
 #import "LibController.h"

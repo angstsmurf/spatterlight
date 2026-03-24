@@ -31,7 +31,7 @@
 /* VERBS: Functions that implement the predefined verbs.   */
 /* ------------------------------------------------------------------- */
 
-void v_look()
+void v_look(void)
 {
   do_look=1;
 }

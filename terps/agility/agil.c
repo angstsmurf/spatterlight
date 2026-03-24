@@ -648,7 +648,7 @@ static void fix_dummy(void)
 
   if (!PURE_SUBNAME)     /* Replace the 'e' by a space */
     for(i=0;i<MAX_SUB;i++)
-      sprintf(dict[sub_name[i]],"subroutin %d",i+1);
+      snprintf(dict[sub_name[i]],25,"subroutin %d",i+1);
   /* This must be no longer than 25 characters with the terminating null */
   
   /* Now set PURE_DOT based on whether any dictionary word 

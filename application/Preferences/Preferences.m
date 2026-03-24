@@ -15,6 +15,8 @@
 #import "ParagraphPopOver.h"
 #import "PreviewController.h"
 #import "TableViewController.h"
+#import "TableViewController+TableDelegate.h"
+#import "TableViewController+LibraryManagement.h"
 #import "Theme.h"
 #import "ThemeArrayController.h"
 
