@@ -26,6 +26,8 @@
 #include "glkimp.h"
 
 
+// In debug builds, redirect NSLog to stderr for faster, synchronous output.
+// In release builds, suppress NSLog entirely.
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                 \
 fprintf(stderr, "%s\n",                                                    \
@@ -35,43 +37,53 @@ fprintf(stderr, "%s\n",                                                    \
 #endif // DEBUG
 
 /*
- * Controller for the various objects required in the NSText* mess.
+ * GlkTextBufferWindow is the Glk text buffer window type — a scrollable,
+ * styled text view used for the main game transcript. It manages the full
+ * NSText* stack (NSTextStorage → NSLayoutManager → MarginContainer →
+ * BufferTextView → NSScrollView), handles line and character input requests,
+ * maintains command history, supports inline and margin images, hyperlinks,
+ * Z-machine color overrides, the find bar, VoiceOver speech, and autosave
+ * serialization of all of the above.
  */
 
 @interface GlkTextBufferWindow () <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate> {
-    NSScrollView *scrollview;
-    NSLayoutManager *layoutmanager;
-    MarginContainer *container;
-    NSTextStorage *textstorage;
-    NSMutableAttributedString *bufferTextstorage;
+    // --- Text system components ---
+    NSScrollView *scrollview;           // Scroll view wrapping the text view
+    NSLayoutManager *layoutmanager;     // Manages glyph layout for the text storage
+    MarginContainer *container;         // Custom text container supporting margin images and flow breaks
+    NSTextStorage *textstorage;         // The live text storage displayed in the text view
+    NSMutableAttributedString *bufferTextstorage; // Buffer for text not yet committed to textstorage
 
-    BOOL line_request;
-    BOOL hyper_request;
+    // --- Input state ---
+    BOOL line_request;                  // YES when the interpreter is waiting for a line of text
+    BOOL hyper_request;                 // YES when the interpreter is waiting for a hyperlink click
 
-    BOOL echo_toggle_pending; /* if YES, line echo behavior will be inverted,
-                               starting from the next line event*/
-    BOOL echo; /* if NO, line input text will be deleted when entered */
+    BOOL echo_toggle_pending;           // If YES, line echo behavior will be inverted
+                                        // starting from the next line event
+    BOOL echo;                          // If NO, line input text will be deleted when entered
 
-    NSUInteger fence; /* for input line editing */
+    NSUInteger fence;                   // Character index marking the start of editable input.
+                                        // Text before the fence is game output and cannot be edited.
 
-    CGFloat lastLineheight;
+    CGFloat lastLineheight;             // Used to restore scroll position with sub-line precision
 
-    NSAttributedString *storedNewline;
+    NSAttributedString *storedNewline;  // Deferred trailing newline to avoid blank lines at bottom
 
-    // for temporarily storing scroll position
-    NSUInteger lastVisible;
-    CGFloat lastScrollOffset;
-    BOOL lastAtBottom;
-    BOOL lastAtTop;
+    // --- Scroll position persistence ---
+    NSUInteger lastVisible;             // Character index of last visible character before resize
+    CGFloat lastScrollOffset;           // Sub-line scroll offset (fraction of cell height)
+    BOOL lastAtBottom;                  // Was scrolled to bottom before resize
+    BOOL lastAtTop;                     // Was scrolled to top before resize
 
-    BOOL pauseScrolling;
-    BOOL commandScriptWasRunning;
+    BOOL pauseScrolling;               // Temporarily pause auto-scrolling (during command scripts)
+    BOOL commandScriptWasRunning;      // Track command script transitions
 
-    BOOL scrolling;
-    NSMutableArray<NSEvent *> *bufferedEvents;
+    BOOL scrolling;                    // YES during animated scroll to prevent re-entry
+    NSMutableArray<NSEvent *> *bufferedEvents; // Key events received when no input request is active
 
-    NSRange lastSpokenRange;
-    NSString *lastSpokenString;
+    // --- VoiceOver speech tracking ---
+    NSRange lastSpokenRange;           // Range of text last spoken to avoid repeating
+    NSString *lastSpokenString;        // Text content last spoken
 }
 @end
 
@@ -82,6 +94,10 @@ fprintf(stderr, "%s\n",                                                    \
     return YES;
 }
 
+// Initialize a new text buffer window. Builds the entire NSText* stack from
+// scratch: NSTextStorage → NSLayoutManager → MarginContainer → BufferTextView,
+// wrapped in an NSScrollView. Also initializes Glk styles from the current
+// theme and style hints, command history, and link appearance.
 - (instancetype)initWithGlkController:(GlkController *)glkctl_ name:(NSInteger)name_ {
 
     self = [super initWithGlkController:glkctl_ name:name_];
@@ -92,9 +108,13 @@ fprintf(stderr, "%s\n",                                                    \
 
         NSUInteger i;
 
+        // Deep-copy the style hints so per-window hint changes don't affect others
         NSDictionary *styleDict = nil;
         self.styleHints = [self deepCopyOfStyleHintsArray:self.glkctl.bufferStyleHints];
 
+        // Build the styles array: one NSDictionary of text attributes per Glk style.
+        // When doStyles is on, game-provided style hints are applied on top of the
+        // theme defaults; otherwise, raw theme attributes are used directly.
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (i = 0; i < style_NUMSTYLES; i++) {
             if (self.theme.doStyles) {
@@ -125,8 +145,10 @@ fprintf(stderr, "%s\n",                                                    \
 
         [self restoreScrollBarStyle];
 
-        /* construct text system manually */
-
+        // Construct the NSText* stack manually rather than using IB, because
+        // we need a custom MarginContainer that supports margin images and
+        // flow breaks. The very large height (10M) allows unbounded vertical
+        // growth as text accumulates.
         textstorage = [[NSTextStorage alloc] init];
         bufferTextstorage = [textstorage mutableCopy];
 
@@ -155,8 +177,8 @@ fprintf(stderr, "%s\n",                                                    \
         scrollview.contentView.copiesOnScroll = YES;
         scrollview.verticalScrollElasticity = NSScrollElasticityNone;
 
-        /* now configure the text stuff */
-
+        // The container tracks the text view's width (for word wrapping) but
+        // not its height (so the text view grows vertically as text is added).
         container.widthTracksTextView = YES;
         container.heightTracksTextView = NO;
 
@@ -200,6 +222,10 @@ fprintf(stderr, "%s\n",                                                    \
     return self;
 }
 
+// Override setFrame: to defer the actual frame change until flushDisplay.
+// This batching prevents layout thrashing when multiple windows are resized
+// in a single update cycle. Also includes a Curses-specific workaround to
+// adjust the buffer window height when quote boxes expand the status line.
 - (void)setFrame:(NSRect)frame {
     GlkController *glkctl = self.glkctl;
 
@@ -230,6 +256,13 @@ fprintf(stderr, "%s\n",                                                    \
         [self flushDisplay];
 }
 
+// Commit all pending changes to the display:
+// 1. Apply any deferred frame change
+// 2. If a clear is pending, replace textstorage with the buffered content
+// 3. Otherwise, append buffered text to textstorage
+// 4. Perform any pending scroll
+// The hyphenation language is temporarily set to the game's language to
+// ensure correct word breaking for non-English text.
 - (void)flushDisplay {
     GlkController *glkctl = self.glkctl;
     NSString *language = glkctl.game.metadata.language;
@@ -289,6 +322,9 @@ fprintf(stderr, "%s\n",                                                    \
     [NSUserDefaults.standardUserDefaults setValue:hyphenationLanguage forKey:@"NSHyphenationLanguage"];
 }
 
+// Track scroll wheel activity during command script playback. Scrolling up
+// pauses auto-scrolling so the user can read, scrolling back down to the
+// bottom resumes it.
 - (void)scrollWheelchanged:(NSEvent *)event {
     if (self.glkctl.commandScriptRunning) {
         if (pauseScrolling && event.scrollingDeltaY < 0) {
@@ -306,6 +342,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+// Make this window's text view the first responder (keyboard focus).
 - (void)grabFocus {
     BufferTextView *localTextView = _textview;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -314,10 +351,13 @@ fprintf(stderr, "%s\n",                                                    \
     // NSLog(@"GlkTextBufferWindow %ld grabbed focus.", self.name);
 }
 
+// This window wants focus if it has an active character or line input request.
 - (BOOL)wantsFocus {
     return char_request || line_request;
 }
 
+// Called when the interpreter process terminates. Locks the text view to
+// read-only, grabs focus for accessibility, and performs a final scroll/flush.
 - (void)terpDidStop {
     _textview.editable = NO;
     [self grabFocus];
@@ -325,6 +365,9 @@ fprintf(stderr, "%s\n",                                                    \
     [self flushDisplay];
 }
 
+// Insert blank lines at the beginning of the text storage. Used during
+// autorestore to pad the text so that scroll position can be restored
+// correctly (the restored content needs the same vertical extent).
 - (void)padWithNewlines:(NSUInteger)lines {
     NSString *newlinestring = [[[NSString alloc] init]
                                stringByPaddingToLength:lines
@@ -347,6 +390,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Autorestore
 
+// Deserialize a text buffer window from an autosave archive. Reconstructs the
+// text system from the archived BufferTextView (which carries its text storage,
+// layout manager, and container), then restores all input state, scroll position,
+// find bar state, and pending operations.
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
@@ -419,6 +466,9 @@ fprintf(stderr, "%s\n",                                                    \
     return self;
 }
 
+// Serialize all window state for autosave. Captures the text view (which
+// includes the full text storage), input request state, fence position,
+// scroll position, caret state, find bar state, and any in-progress input.
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     [encoder encodeObject:_textview forKey:@"textview"];
@@ -463,6 +513,11 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeObject:_quoteBox forKey:@"quoteBox"];
 }
 
+// Apply final adjustments after the autorestore process completes. This is
+// called once the window has been re-created by the interpreter and the
+// restored state from the archive can be transferred into the live window.
+// Handles restoring input text, selection, find bar, scroll position, move
+// ranges (for VoiceOver navigation), and margin image attachment linkage.
 - (void)postRestoreAdjustments:(GlkWindow *)win {
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
 
@@ -544,6 +599,9 @@ fprintf(stderr, "%s\n",                                                    \
         [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.5];
 }
 
+// Restore the scroll position after a short delay, giving the layout manager
+// time to complete layout. Uses a longer delay when entering fullscreen because
+// the animation takes more time.
 - (void)deferredScrollPosition:(id)sender {
     [self restoreScrollBarStyle];
     if (_restoredAtBottom) {
@@ -557,6 +615,8 @@ fprintf(stderr, "%s\n",                                                    \
     _pendingScrollRestore = NO;
 }
 
+// Configure the scroll view to use overlay scrollers with the buffer
+// window's background color. Called during init and after preference changes.
 - (void)restoreScrollBarStyle {
     if (scrollview) {
         scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -581,6 +641,11 @@ fprintf(stderr, "%s\n",                                                    \
     return YES;
 }
 
+// Recalculate and apply the background color for this window. Priority:
+// 1. Z-machine color override (bgnd), if styles are enabled
+// 2. The Normal style's background color
+// 3. The theme's default buffer background
+// Also updates the scroll view background and notifies the border color system.
 - (void)recalcBackground {
     NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
 
@@ -610,6 +675,10 @@ fprintf(stderr, "%s\n",                                                    \
     [self recalcBackground];
 }
 
+// Respond to theme/preference changes. Rebuilds the styles array, re-applies
+// all style attributes to existing text (preserving inline images, hyperlinks,
+// Z-colors, and reverse video), updates margins, link appearance, and scroll
+// position. If the game has ended, adjusts the window frame to fill available space.
 - (void)prefsDidChange {
     NSDictionary *attributes;
     if (!_pendingScrollRestore) {
@@ -804,6 +873,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Output
 
+// Mark the window for clearing. The actual clear happens in flushDisplay via
+// reallyClear. Resets the background color based on Z-machine color state.
 - (void)clear {
     _pendingClear = YES;
     storedNewline = nil;
@@ -814,6 +885,8 @@ fprintf(stderr, "%s\n",                                                    \
     [self resetLastSpokenString];
 }
 
+// Perform the actual clear: reset the fence, lastseen marker, margin images,
+// move ranges (VoiceOver history), and invalidate the layout.
 - (void)reallyClear {
     [_textview resetTextFinder];
     fence = 0;
@@ -828,6 +901,9 @@ fprintf(stderr, "%s\n",                                                    \
     _pendingClear = NO;
 }
 
+// Clear old text, keeping only the current prompt and input. Finds the second
+// newline from the end of the text and deletes everything before it, preserving
+// the most recent prompt line and any in-progress input.
 - (void)clearScrollback:(id)sender {
     [self flushDisplay];
     if (storedNewline) {
@@ -889,6 +965,10 @@ fprintf(stderr, "%s\n",                                                    \
     self.moveRanges = [[NSMutableArray alloc] init];
 }
 
+// Append a string to the window with the given Glk style. This is the main
+// entry point for game text output. Includes a safety valve that trims the
+// buffer if it exceeds 50K characters (keeping the last 25K) to prevent
+// memory issues with extremely verbose games.
 - (void)putString:(NSString *)str style:(NSUInteger)stylevalue {
 
     if (!str.length) {
@@ -896,6 +976,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
+    // Prevent unbounded buffer growth for games that print enormous amounts
     if (bufferTextstorage.length > 50000)
         bufferTextstorage = [bufferTextstorage attributedSubstringFromRange:NSMakeRange(25000, bufferTextstorage.length - 25000)].mutableCopy;
 
@@ -913,8 +994,15 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+// Internal method that applies styling and appends text to bufferTextstorage.
+// Handles several special cases:
+// - Beyond Zork Font3 symbol translation (runic characters)
+// - Preformatted style space-collapse prevention (using non-breaking space)
+// - Trailing newline deferral (storedNewline) to avoid blank lines at bottom
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
 
+    // Beyond Zork uses Font3 (style_BlockQuote) for graphical symbols like
+    // arrows and runic letters. Translate them to Unicode equivalents.
     if (self.glkctl.usesFont3 && str.length == 1 && stylevalue == style_BlockQuote) {
         NSDictionary *font3 = [self font3ToUnicode];
         NSString *newString = font3[str];
@@ -965,6 +1053,9 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+// Remove a string from the end of the text storage if it matches (case-
+// insensitive). Used by the interpreter to retract printed text. Returns the
+// number of characters actually removed.
 - (NSUInteger)unputString:(NSString *)buf {
     [self flushDisplay];
     NSUInteger result = 0;
@@ -977,13 +1068,25 @@ fprintf(stderr, "%s\n",                                                    \
     return result;
 }
 
+// Request a change in echo behavior. The toggle is deferred until the next
+// line input request to avoid disrupting the current input.
 - (void)echo:(BOOL)val {
-    if ((!(val) && echo) || (val && !(echo))) // Do we need to toggle echo?
+    if ((!(val) && echo) || (val && !(echo)))
         echo_toggle_pending = YES;
 }
 
 #pragma mark Input
 
+// Handle keyboard input. This is the central key event dispatcher for buffer
+// windows. Depending on the current input state, it will:
+// - Forward to another window if this window doesn't want focus
+// - Map Cmd+Arrow / Opt+Arrow to Home/End/PageUp/PageDown
+// - Open the find bar on Cmd+F
+// - Scroll page-by-page if not at the bottom (the "more" prompt behavior)
+// - Send a character event if char_request is active
+// - Submit or terminate line input if line_request is active
+// - Navigate command history with Up/Down arrows
+// - Buffer keystrokes if no input request is pending
 - (void)keyDown:(NSEvent *)evt {
     NSString *str = evt.characters;
     unsigned ch = keycode_Unknown;
@@ -1135,6 +1238,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 
+// Send a command line from a command script (not typed by the user).
+// Optionally echoes the text before submitting.
 - (void)sendCommandLine:(NSString *)line {
     if (echo) {
         NSAttributedString *att = [[NSAttributedString alloc]
@@ -1146,6 +1251,10 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 
+// Submit the completed input line to the interpreter. Echoes a newline (if
+// echo is enabled) or deletes the input text (if echo is off), saves to
+// command history, scrubs invalid characters, maps Beyond Zork Home/End back
+// to Up/Down terminators, queues the line event, and resets input state.
 - (void)sendInputLine:(NSString *)line withTerminator:(NSUInteger)terminator {
     // NSLog(@"line event from %ld", (long)self.name);
     if (echo) {
@@ -1189,6 +1298,8 @@ fprintf(stderr, "%s\n",                                                    \
     [self.glkctl markLastSeen];
 }
 
+// Begin a character input request. The next keystroke will be sent to the
+// interpreter as a character event.
 - (void)initChar {
     //    NSLog(@"GlkTextbufferWindow %ld initChar", (long)self.name);
     char_request = YES;
@@ -1200,6 +1311,7 @@ fprintf(stderr, "%s\n",                                                    \
     char_request = NO;
 }
 
+// Send a single character event to the interpreter and end the char request.
 - (void)sendKeypress:(unsigned)ch {
     [self.glkctl markLastSeen];
 
@@ -1210,6 +1322,10 @@ fprintf(stderr, "%s\n",                                                    \
     _textview.editable = NO;
 }
 
+// Begin a line input request. Sets up the text view for editing by placing the
+// fence at the current end of text, applying input attributes, pre-filling any
+// initial text (str), and replaying any buffered keystrokes that arrived while
+// no input request was active.
 - (void)initLine:(NSString *)str maxLength:(NSUInteger)maxLength
 {
     //    NSLog(@"initLine: %@ in: %ld", str, (long)self.name);
@@ -1260,6 +1376,8 @@ fprintf(stderr, "%s\n",                                                    \
     _inputAttributes = [self getCurrentAttributesForStyle:style_Input];
 }
 
+// Cancel an active line input request. Returns the text entered so far,
+// echoes a newline (or deletes the input if echo is off), and locks editing.
 - (NSString *)cancelLine {
     [self flushDisplay];
     [_textview resetTextFinder];
@@ -1288,6 +1406,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Command history
 
+// Replace the current input with the previous command from history.
+// Announces via VoiceOver if at the start of history or history is empty.
 - (void)travelBackwardInHistory {
     [self flushDisplay];
     NSString *cx;
@@ -1314,6 +1434,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+// Replace the current input with the next command from history.
 - (void)travelForwardInHistory {
     NSString *cx = [history travelForwardInHistory];
     if (cx) {
@@ -1334,6 +1455,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Beyond Zork font
 
+// Create a scaled version of the "FreeFont3" bitmap font used by Beyond Zork
+// for pseudo-graphical characters (map symbols, compass rose, runes, etc.).
+// The font is scaled to match the normal text's character cell dimensions and
+// assigned to style_BlockQuote, which Beyond Zork uses for Font3 output.
 - (void)createBeyondZorkStyle {
     CGFloat pointSize = ((NSFont *)(styles[style_Normal][NSFontAttributeName])).pointSize;
     NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:pointSize];
