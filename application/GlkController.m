@@ -4580,6 +4580,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                     [localSnapshot.contentView animator].alphaValue = 0;
                 }
                  completionHandler:^{
+                    NSLog(@"enterFullScreenAnimationWithDuration: Finished enter fullscreen animation: extending contentview downward");
                     // Finally, we extend the content view vertically if needed.
                     [NSAnimationContext
                      runAnimationGroup:^(NSAnimationContext *context) {
@@ -4594,7 +4595,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                         // Send an arrangement event to fill
                         // the new extended area
                         [weakSelf sendArrangeEventWithFrame:localContentView.frame force:NO];
-                        NSLog(@"enterFullScreenAnimationWithDuration: Finished enter fullscreen animation: calling restoreScrollOffsets");
+                        NSLog(@"enterFullScreenAnimationWithDuration: Finished extending contenview: calling restoreScrollOffsets");
                         [weakSelf restoreScrollOffsets];
                         for (GlkTextGridWindow *quotebox in weakSelf.quoteBoxes)
                         {
