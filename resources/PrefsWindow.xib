@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24128" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24128"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -126,7 +126,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="155" y="449" width="560" height="355"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="870"/>
             <value key="minSize" type="size" width="560" height="165"/>
             <value key="maxSize" type="size" width="560" height="10000"/>
             <view key="contentView" id="408">
@@ -147,7 +147,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="520" height="100"/>
+                                            <size key="minSize" width="57" height="100"/>
                                             <size key="maxSize" width="560" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
@@ -460,11 +460,11 @@
                     <rect key="frame" x="27" y="106" width="506" height="167"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" id="Taa-c9-5iU">
-                        <rect key="frame" x="4" y="5" width="498" height="159"/>
+                        <rect key="frame" x="0.0" y="0.0" width="506" height="167"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="76" translatesAutoresizingMaskIntoConstraints="NO" id="xtz-SV-XZy">
-                                <rect key="frame" x="22" y="113" width="80" height="14"/>
+                                <rect key="frame" x="22" y="121" width="80" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Monospaced:" id="6df-MX-F1g">
                                     <font key="font" metaFont="smallSystem"/>
@@ -473,7 +473,7 @@
                                 </textFieldCell>
                             </textField>
                             <button toolTip="Font used in status bar and other grid windows." tag="14" imageHugsTitle="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qyg-oQ-DFE">
-                                <rect key="frame" x="108" y="108" width="155" height="24"/>
+                                <rect key="frame" x="108" y="116" width="155" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="smallSquare" title="Monaco 10.0" alternateTitle="Set Grid Font" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingMiddle" borderStyle="border" tag="14" inset="2" id="9k2-sN-HVU">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -484,7 +484,7 @@
                                 </connections>
                             </button>
                             <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="190" translatesAutoresizingMaskIntoConstraints="NO" id="WiC-Xr-l4T">
-                                <rect key="frame" x="106" y="136" width="158" height="14"/>
+                                <rect key="frame" x="106" y="144" width="158" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Font" id="Hes-dz-WNN">
                                     <font key="font" metaFont="smallSystem"/>
@@ -493,7 +493,7 @@
                                 </textFieldCell>
                             </textField>
                             <colorWell fixedFrame="YES" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="S1C-Jy-WhH" userLabel="Mono Ink Color Well">
-                                <rect key="frame" x="273" y="110" width="50" height="22"/>
+                                <rect key="frame" x="273" y="118" width="50" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -501,7 +501,7 @@
                                 </connections>
                             </colorWell>
                             <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="52" translatesAutoresizingMaskIntoConstraints="NO" id="gjw-SJ-c2o">
-                                <rect key="frame" x="270" y="135" width="56" height="14"/>
+                                <rect key="frame" x="270" y="143" width="56" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Ink" id="jc4-hf-9c1">
                                     <font key="font" metaFont="smallSystem"/>
@@ -510,7 +510,7 @@
                                 </textFieldCell>
                             </textField>
                             <button toolTip="Swap ink and paper colors." tag="14" imageHugsTitle="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8m5-Y3-tnq" userLabel="Swap Mono Colors Button">
-                                <rect key="frame" x="331" y="114" width="12.5" height="14"/>
+                                <rect key="frame" x="331" y="122" width="12.5" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="left" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="HJ4-4n-x3g">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -523,7 +523,7 @@
                                 </connections>
                             </button>
                             <colorWell fixedFrame="YES" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="7UF-NC-8m2" userLabel="Mono Paper Color Well">
-                                <rect key="frame" x="349" y="110" width="50" height="22"/>
+                                <rect key="frame" x="349" y="118" width="50" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -531,7 +531,7 @@
                                 </connections>
                             </colorWell>
                             <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="52" translatesAutoresizingMaskIntoConstraints="NO" id="RVD-qC-gOg">
-                                <rect key="frame" x="345" y="135" width="56" height="14"/>
+                                <rect key="frame" x="345" y="143" width="56" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Paper" id="1Yj-ev-c7r">
                                     <font key="font" metaFont="smallSystem"/>
@@ -540,7 +540,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="52" translatesAutoresizingMaskIntoConstraints="NO" id="Kzc-2Y-g1B">
-                                <rect key="frame" x="398" y="135" width="56" height="14"/>
+                                <rect key="frame" x="398" y="143" width="56" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Margin" id="okU-os-Ch7">
                                     <font key="font" metaFont="smallSystem"/>
@@ -549,7 +549,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField toolTip="Margin inside grid windows." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="kul-5n-eXQ">
-                                <rect key="frame" x="407" y="112" width="35" height="18"/>
+                                <rect key="frame" x="407" y="120" width="35" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="15" drawsBackground="YES" id="VBI-Lr-YZa">
                                     <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="NNj-4n-Zch">
@@ -569,7 +569,7 @@
                                 </connections>
                             </textField>
                             <textField toolTip="Margin inside buffer windows." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="23" translatesAutoresizingMaskIntoConstraints="NO" id="3lM-Qi-nfu">
-                                <rect key="frame" x="407" y="82" width="35" height="18"/>
+                                <rect key="frame" x="407" y="90" width="35" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="23" title="10" drawsBackground="YES" id="89X-cz-XWr">
                                     <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="5bU-mv-Bmn">
@@ -589,7 +589,7 @@
                                 </connections>
                             </textField>
                             <colorWell fixedFrame="YES" tag="22" translatesAutoresizingMaskIntoConstraints="NO" id="CnF-4F-TS9" userLabel="Prop Paper Color Well">
-                                <rect key="frame" x="349" y="80" width="50" height="22"/>
+                                <rect key="frame" x="349" y="88" width="50" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -597,7 +597,7 @@
                                 </connections>
                             </colorWell>
                             <button toolTip="Swap ink and paper colors." tag="14" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LAW-kM-ryd" userLabel="Swap Prop Colors Button">
-                                <rect key="frame" x="331" y="83" width="12.5" height="14"/>
+                                <rect key="frame" x="331" y="91" width="12.5" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="left" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="Bmm-oP-coZ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -610,7 +610,7 @@
                                 </connections>
                             </button>
                             <colorWell fixedFrame="YES" tag="21" translatesAutoresizingMaskIntoConstraints="NO" id="dN3-ZI-PPw" userLabel="Prop Ink Color Well">
-                                <rect key="frame" x="273" y="80" width="50" height="22"/>
+                                <rect key="frame" x="273" y="88" width="50" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -618,7 +618,7 @@
                                 </connections>
                             </colorWell>
                             <button toolTip="Font used in the main scroll view and other text buffer windows." tag="24" imageHugsTitle="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xGf-ml-Mg5">
-                                <rect key="frame" x="108" y="79" width="155" height="24"/>
+                                <rect key="frame" x="108" y="87" width="155" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="smallSquare" title="Times 12.0" alternateTitle="Set Buffer Font" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingMiddle" borderStyle="border" tag="24" inset="2" id="bCm-aX-v3z">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -629,7 +629,7 @@
                                 </connections>
                             </button>
                             <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="76" translatesAutoresizingMaskIntoConstraints="NO" id="O2S-su-d1i">
-                                <rect key="frame" x="22" y="84" width="80" height="14"/>
+                                <rect key="frame" x="22" y="92" width="80" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Proportional:" id="F47-2f-hYn">
                                     <font key="font" metaFont="smallSystem"/>
@@ -638,11 +638,11 @@
                                 </textFieldCell>
                             </textField>
                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Tg0-Ir-xZi">
-                                <rect key="frame" x="0.0" y="59" width="500" height="5"/>
+                                <rect key="frame" x="0.0" y="67" width="500" height="5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </box>
                             <popUpButton toolTip="Whether the settings on this line applies to the proportionally-spaced scrolling buffer windows or to monospaced grid windows." verticalHuggingPriority="750" id="Jxm-9E-Ync" userLabel="Glk window type popup">
-                                <rect key="frame" x="35" y="20" width="62" height="30"/>
+                                <rect key="frame" x="17" y="28" width="66" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="recessed" title="Buffer" bezelStyle="recessed" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="3" imageScaling="proportionallyDown" inset="2" selectedItem="NaI-RY-1U1" id="wGC-DQ-zfI">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -659,7 +659,7 @@
                                 </connections>
                             </popUpButton>
                             <popUpButton toolTip="Which style the settings to the right apply to. Most text will likely use Normal." verticalHuggingPriority="750" id="YlM-je-Ts8" userLabel="Glk style popup">
-                                <rect key="frame" x="93" y="20" width="95" height="30"/>
+                                <rect key="frame" x="82" y="28" width="104" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="recessed" title="Normal" bezelStyle="recessed" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="h6d-0M-qN1" id="oOj-mr-FW6">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -685,7 +685,7 @@
                                 </connections>
                             </popUpButton>
                             <button toolTip="Font used by the style set to the left." tag="34" imageHugsTitle="YES" id="ovp-vO-s5a">
-                                <rect key="frame" x="186" y="24" width="155" height="24"/>
+                                <rect key="frame" x="186" y="32" width="155" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="smallSquare" title="Times Bold 12.0" alternateTitle="Set Input Font" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingMiddle" borderStyle="border" tag="34" inset="2" id="RnM-Qw-IeP">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -696,7 +696,7 @@
                                 </connections>
                             </button>
                             <colorWell toolTip="Text color of this style." tag="31" id="jUl-fP-1Kk" userLabel="Any Style Color Well">
-                                <rect key="frame" x="349" y="25" width="50" height="22"/>
+                                <rect key="frame" x="349" y="33" width="50" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.058130499000000002" green="0.055541898999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -704,7 +704,7 @@
                                 </connections>
                             </colorWell>
                             <button toolTip="Show paragraph settings. Grid window problems may be fixed by adjusting these for the Grid Normal style." tag="14" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5h-NP-1Hh" userLabel="Show Paragraph Popover">
-                                <rect key="frame" x="400" y="26" width="27" height="19"/>
+                                <rect key="frame" x="400" y="34" width="27" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSActionTemplate" imagePosition="only" alignment="center" controlSize="large" borderStyle="border" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="rcY-if-mn5">
                                     <behavior key="behavior" lightByContents="YES"/>
@@ -715,7 +715,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Show separate horizontal and vertical margin settings." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bPr-fp-M7T" userLabel="Show Margin Popover Button">
-                                <rect key="frame" x="447" y="111" width="27" height="19"/>
+                                <rect key="frame" x="447" y="119" width="27" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSActionTemplate" imagePosition="only" controlSize="large" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="CHg-Uf-mEJ">
                                     <behavior key="behavior" lightByContents="YES"/>
