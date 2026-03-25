@@ -605,22 +605,22 @@ static void flood_fill(a8_draw_ctx *ctx) {
 }
 
 static const uint32_t RGBpalette[16] = {
-    /* black*/    0x000000,
-    /* blue */    0x2f869f,
-    /* red04 */   0xcc0043,
-    /* magenta */ 0x703d49,
-    /* green11 */ 0x3cc67b,
-    /* blue10 */  0x279bc2,
-    /* yellow15 */0x9da026,
-    /* white14 */ 0x8da2e6,
-    /* gold09 */  0xb78048,
-    /* violet06 */0x9983e1,
-    /* orange5 */ 0x971f16,
-    /* brmagenta*/0x8c41e2,
-    /* brgreen */ 0x75d512,
-    /* peach07 */ 0xdac309,
-    /* gold12 */  0xd5d062,
-    /* gold13 */  0x937706
+    /* black*/     0x000000,
+    /* blue */     0x2f869f,
+    /* red04 */    0xcc0043,
+    /* magenta */  0x703d49,
+    /* green11 */  0x319c4b,
+    /* blue10 */   0x279bc2,
+    /* yellow15 */ 0x9dc229,
+    /* white14 */  0x8da2e6,
+    /* gold09 */   0xa24922,
+    /* violet06 */ 0x693fa4,
+    /* orange5 */  0x971f16,
+    /* brmagnta */ 0x8c41e2,
+    /* brgreen */  0x75d512,
+    /* yellow07 */ 0x696023,
+    /* gold12 */   0xd5d062,
+    /* gold13 */   0x8c4a26,
 };
 
 typedef enum {
@@ -637,7 +637,7 @@ typedef enum {
     ORANGE5,
     BRMAGENTA,
     BRGREEN,
-    PEACH07,
+    YELLOW07,
     GOLD12,
     GOLD13
 } RGBColor;
@@ -645,8 +645,8 @@ typedef enum {
 
 static const RGBColor color_matrix[4][4] = {
     {BLACK,    YELLOW15, BLUE,     BLUE},
-    {RED04,    ORANGE5,  VIOLET06, PEACH07},
-    {PEACH07,  GOLD09,   BLUE10,   GREEN11},
+    {RED04,    ORANGE5,  VIOLET06, YELLOW07},
+    {YELLOW07, GOLD09,   BLUE10,   GREEN11},
     {GOLD12,   GOLD13,   WHITE14,  YELLOW15}
 };
 
