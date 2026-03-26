@@ -194,16 +194,16 @@ void DrawInventoryImages(void)
 
 void DrawRoomObjectImages(void)
 {
-    USImage *image = USImages;
-    if (image != NULL) {
-        do {
-            if ((image->usage == IMG_ROOM_OBJ ||
-                 image->usage == IMG_INV_AND_ROOM_OBJ) &&
-                image->index <= GameHeader.NumItems && Items[image->index].Location == MyLoc) {
-                DrawUSImage(image);
-            }
-            image = image->next;
-        } while (image != NULL);
+    // We must draw the object images like this, from highest index
+    // to lowest, to match the original and not get too many
+    // weird results where objects are partially covered by
+    // stuff which ought to be behind them.
+    // (While the images on the inventory screen are draw in the
+    // opposite order.)
+    for (int i = GameHeader.NumItems; i >= 0; i--) {
+        if (Items[i].Location == MyLoc) {
+            DrawUSRoomObject(i);
+        }
     }
 }
 
@@ -307,12 +307,6 @@ void LookUS(void)
         glk_window_clear(Graphics);
         if (!DrawUSRoom(room)) {
             return;
-        }
-
-        if (CurrentGame == ADVENTURELAND_US && Items[45].Location == MyLoc) {
-            // We gave the dam image index 80 to make sure that
-            // it doesn't not overdraw other item images.
-            DrawUSRoomObject(80);
         }
 
         DrawRoomObjectImages();
