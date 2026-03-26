@@ -308,6 +308,13 @@ void LookUS(void)
         if (!DrawUSRoom(room)) {
             return;
         }
+
+        if (CurrentGame == ADVENTURELAND_US && Items[45].Location == MyLoc) {
+            // We gave the dam image index 80 to make sure that
+            // it doesn't not overdraw other item images.
+            DrawUSRoomObject(80);
+        }
+
         DrawRoomObjectImages();
 
         switch (CurrentGame) {
@@ -343,6 +350,7 @@ void LookUS(void)
                         DrawUSRoom(32); // Boat to the west at night
                     }
                 }
+                break;
             default:
                 break;
         }
