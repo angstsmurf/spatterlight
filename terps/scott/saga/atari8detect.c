@@ -449,7 +449,9 @@ static const imglist listAdventureland[] = {
     { IMG_INV_AND_ROOM_OBJ, 42, 0xbbdb }, // (42) Chiggers1
     { IMG_INV_AND_ROOM_OBJ, 43, 0xbc02 }, // (43) Slightly woozy bear
     { IMG_INV_AND_ROOM_OBJ, 44, 0xbd0e }, // (44) *DRAGON EGGS* (very rare)
-    { IMG_INV_AND_ROOM_OBJ, 45, 0xbd4f }, // (45) Lava stream with brick dam
+    // We set this to index 80 as a part of a hack
+    // to make sure the dam does not overdraw other item images
+    { IMG_INV_AND_ROOM_OBJ, 80, 0xbd4f }, // (45) Lava stream with brick dam
     { IMG_INV_AND_ROOM_OBJ, 46, 0xbda8 }, // (46) *JEWELED FRUIT*25
     { IMG_INV_AND_ROOM_OBJ, 47, 0xbdf3 }, // (47) *Small statue of a BLUE OX*26
     { IMG_INV_AND_ROOM_OBJ, 48, 0xbf08 }, // (48) *DIAMOND RING*

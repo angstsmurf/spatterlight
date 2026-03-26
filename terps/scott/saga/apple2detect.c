@@ -1055,6 +1055,10 @@ static int ReadVectorImageFiles(uint8_t *data, size_t datasize, USImage *image) 
             // the same images for both inventory
             // and room objects
             image->usage = IMG_INV_AND_ROOM_OBJ;
+
+            // Hack for lava dam
+            if (CurrentGame == ADVENTURELAND_US && image->index == 45)
+                image->index = 80;
         } else {
             continue;
         }
