@@ -635,10 +635,6 @@ void AdventurelandShowImageOnExamineUS(int noun) {
 void PirateShowImageOnExamineUS(int noun) {
     int image = -1;
     switch (noun) {
-        case 53: /* Map */
-            if (Items[45].Location == CARRIED || Items[45].Location == MyLoc)
-                image = 6;
-            break;
         case 34: /* Plans */
             if (Items[29].Location == CARRIED || Items[29].Location == MyLoc)
                 image = 1;
@@ -656,8 +652,12 @@ void PirateShowImageOnExamineUS(int noun) {
                 image = 4;
             break;
         case 29: /* DUBLOONS */
-            if (Items[24].Location == CARRIED || Items[24].Location == MyLoc)
+            if (Items[22].Location == CARRIED || Items[22].Location == MyLoc)
                 image = 5;
+            break;
+        case 53: /* Map */
+            if (Items[45].Location == CARRIED || Items[45].Location == MyLoc)
+                image = 6;
             break;
         case 39: /* Parrot */
             if (Items[24].Location == CARRIED || Items[24].Location == MyLoc)
