@@ -25,20 +25,14 @@
 #import "ImageHandler.h"
 #include "glkimp.h"
 
-
-// In debug builds, redirect NSLog to stderr for faster, synchronous output.
 // In release builds, suppress NSLog entirely.
-#ifdef DEBUG
-#define NSLog(FORMAT, ...)                                                 \
-fprintf(stderr, "%s\n",                                                    \
-[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
-#else
+#ifndef DEBUG
 #define NSLog(...)
 #endif // DEBUG
 
 /*
  * GlkTextBufferWindow is the Glk text buffer window type — a scrollable,
- * styled text view used for the main game transcript. It manages the full
+ * styled text view used for the main game text. It manages the full
  * NSText* stack (NSTextStorage → NSLayoutManager → MarginContainer →
  * BufferTextView → NSScrollView), handles line and character input requests,
  * maintains command history, supports inline and margin images, hyperlinks,
@@ -1501,6 +1495,8 @@ fprintf(stderr, "%s\n",                                                    \
     styles[style_BlockQuote] = beyondZorkStyle;
 }
 
+// Mapping from Beyond Zork's Font3 ASCII characters to their Unicode
+// equivalents (arrows and Anglo-Saxon runes used for the in-game alphabet).
 - (NSDictionary *)font3ToUnicode {
     return @{
         @"!" : @"←",
@@ -1538,6 +1534,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark NSTextView customization
 
+// NSTextViewDelegate: Guard edits to enforce the fence boundary.
+// Only allow text changes at or beyond the fence during line input.
+// Also shows/hides the caret depending on whether the edit is in the
+// editable region.
 - (BOOL)textView:(NSTextView *)aTextView
 shouldChangeTextInRange:(NSRange)range
 replacementString:(id)repl {
@@ -1553,6 +1553,11 @@ replacementString:(id)repl {
 }
 
 
+// NSTextStorageDelegate: Apply input styling to newly typed text.
+// When the user types during a line input request, this ensures the
+// characters beyond the fence get the correct input attributes
+// (font, color, paragraph style) rather than inheriting from
+// adjacent game output.
 - (void)textStorage:(NSTextStorage *)textStorage willProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta {
     if ((editedMask & NSTextStorageEditedCharacters) == 0)
         return;
@@ -1569,20 +1574,25 @@ replacementString:(id)repl {
                          range:textstorage.editedRange];
 }
 
+// NSTextViewDelegate: Clamp the insertion point to the editable region.
+// During line input, prevents the caret from moving before the fence.
+// When there is no line input, forces the caret to the end of text
+// (it shouldn't be visible anyway, but this is a safety measure).
 - (NSRange)textView:(NSTextView *)aTextView willChangeSelectionFromCharacterRange:(NSRange)oldrange
    toCharacterRange:(NSRange)newrange {
 
     if (line_request) {
-        if (newrange.length == 0)
-            if (newrange.location < fence)
-                newrange.location = fence;
-    } else {
-        if (newrange.length == 0)
-            newrange.location = textstorage.length;
+        if (newrange.length == 0 && newrange.location < fence) {
+            newrange.location = fence;
+        }
+    } else if (newrange.length == 0) {
+        newrange.location = textstorage.length;
     }
     return newrange;
 }
 
+// Hide the text cursor by setting its color to match the background.
+// Called when there is no active line input, so no caret should be visible.
 - (void)hideInsertionPoint {
     if (!line_request) {
         NSColor *color = _textview.backgroundColor;
@@ -1596,6 +1606,10 @@ replacementString:(id)repl {
     }
 }
 
+// Make the text cursor visible by setting it to the foreground text color.
+// Uses the Z-machine color if set, and falls back to the text color at the
+// fence position if the primary color matches the background (which would
+// make the caret invisible).
 - (void)showInsertionPoint {
     if (line_request) {
         NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
@@ -1611,6 +1625,8 @@ replacementString:(id)repl {
     }
 }
 
+// Return the range of user-editable text (everything from fence to end).
+// Returns {NSNotFound, 0} when there is no active line input.
 - (NSRange)editableRange {
     if (!line_request)
         return NSMakeRange(NSNotFound, 0);
@@ -1630,6 +1646,8 @@ replacementString:(id)repl {
     return cols;
 }
 
+// Count the number of visual lines by walking the layout manager's
+// line fragment rects. Used by the interpreter to query the window size.
 - (NSUInteger)numberOfLines {
     [self flushDisplay];
     NSUInteger numberOfLines, index, numberOfGlyphs =
@@ -1645,6 +1663,10 @@ replacementString:(id)repl {
 
 #pragma mark Text finder
 
+// Recreate the find bar after autorestore. Temporarily disables editing
+// (required for NSTextFinder setup), configures the finder to use the
+// scroll view as its container, and re-populates the search field with
+// the previously saved search string if the find bar was visible.
 - (void)restoreTextFinder {
     BOOL waseditable = _textview.editable;
     _textview.editable = NO;
@@ -1671,6 +1693,9 @@ replacementString:(id)repl {
     _textview.editable = waseditable;
 }
 
+// Remove the find bar from the scroll view hierarchy. Walks up from
+// the search field to find its top-level container within the scroll
+// view, then removes it.
 - (void)destroyTextFinder {
     NSView *aView = [self findSearchFieldIn:scrollview];
     if (aView) {
@@ -1681,11 +1706,12 @@ replacementString:(id)repl {
     }
 }
 
+// Recursively search the view hierarchy for an NSSearchField.
+// Uses a weak/strong block pattern to allow recursive block invocation.
 - (NSSearchField *)findSearchFieldIn:
-(NSView *)theView // search the subviews for a view of class NSSearchField
+(NSView *)theView
 {
     NSSearchField __block __weak *(^weak_findSearchField)(NSView *);
-
     NSSearchField * (^findSearchField)(NSView *);
 
     weak_findSearchField = findSearchField = ^(NSView *view) {
@@ -1693,11 +1719,11 @@ replacementString:(id)repl {
             return (NSSearchField *)view;
         NSSearchField __block *foundView = nil;
         [view.subviews enumerateObjectsUsingBlock:^(
-                                                    NSView *subview, NSUInteger idx, BOOL *stop) {
-                                                        foundView = weak_findSearchField(subview);
-                                                        if (foundView)
-                                                            *stop = YES;
-                                                    }];
+                           NSView *subview, NSUInteger idx, BOOL *stop) {
+          foundView = weak_findSearchField(subview);
+          if (foundView)
+              *stop = YES;
+        }];
         return foundView;
     };
 
@@ -1706,6 +1732,8 @@ replacementString:(id)repl {
 
 #pragma mark images
 
+// Scale an image to the specified size using high-quality interpolation.
+// Returns the original if it already matches the target dimensions.
 - (NSImage *)scaleImage:(NSImage *)src size:(NSSize)dstsize {
     NSSize srcsize = src.size;
     NSImage *dst;
@@ -1731,6 +1759,9 @@ replacementString:(id)repl {
     return dst;
 }
 
+// Create an NSTextAttachment wrapping a MyAttachmentCell for an inline image.
+// The cell stores the Glk alignment mode and image resource index for later
+// identification during rescaling and accessibility queries.
 - (NSTextAttachment *)textAttachmenWithImage:(NSImage *)image alignment:(NSInteger)alignment index:(NSInteger)index position:(NSUInteger)position {
     NSTextAttachment *att = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
     MyAttachmentCell *cell =
@@ -1743,6 +1774,11 @@ replacementString:(id)repl {
     return att;
 }
 
+// Insert an image into the text buffer. Handles both inline images
+// (InlineUp/Down/Center) and margin-floated images (MarginLeft/Right).
+// Margin images are added to the MarginContainer's image list and require
+// the preceding character to be a newline. Inline images are appended as
+// text attachments. If width or height is 0, uses the image's natural size.
 - (void)drawImage:(NSImage *)image
              val1:(NSInteger)alignment
              val2:(NSInteger)index
@@ -1801,6 +1837,9 @@ replacementString:(id)repl {
     [textstorage addAttributes:styles[style] range:NSMakeRange(textstorage.length - 1, 1)];
 }
 
+// Insert a flow break marker into the text storage. This tells the
+// MarginContainer to stop floating margin images past this point,
+// forcing subsequent text to clear below them.
 - (void)flowBreak {
     [self flushDisplay];
     [_textview resetTextFinder];
@@ -1812,6 +1851,9 @@ replacementString:(id)repl {
     [container flowBreakAt:textstorage.length - 1];
 }
 
+// NSTextViewDelegate: Handle drag of an image attachment. Clears the
+// selection and initiates a drag session using the game's filename
+// as the base name for the exported image file.
 - (void)textView:(NSTextView *)view
      draggedCell:(id<NSTextAttachmentCell>)cell
           inRect:(NSRect)rect
@@ -1825,6 +1867,12 @@ replacementString:(id)repl {
     }
 }
 
+// Rescale all image attachments (both inline and margin) by the given
+// factors. Called when the window is resized or theme changes to keep
+// images proportional. Skips during live resize for performance.
+// Large inline images (>70% of content width) are additionally clamped
+// to fit the visible area. Margin images are removed and re-added to
+// the container at the new size.
 - (void)updateImageAttachmentsWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale {
 
     if (xscale == 0 || yscale == 0 || _textview.inLiveResize)
@@ -1886,17 +1934,21 @@ replacementString:(id)repl {
 
 #pragma mark Hyperlinks
 
+// Begin listening for hyperlink click events from the interpreter.
 - (void)initHyperlink {
     hyper_request = YES;
-    //    NSLog(@"txtbuf: hyperlink event requested");
 }
 
+// Stop listening for hyperlink click events.
 - (void)cancelHyperlink {
     hyper_request = NO;
-    //    NSLog(@"txtbuf: hyperlink event cancelled");
 }
 
-// Make margin image links clickable
+// Handle mouse clicks on margin images that have hyperlinks.
+// Margin images live outside the text storage, so NSTextView's built-in
+// link clicking doesn't reach them. This method converts the click point
+// to text container coordinates and asks the MarginContainer to look up
+// the hyperlink ID. Returns YES if a hyperlink was found and dispatched.
 - (BOOL)myMouseDown:(NSEvent *)theEvent {
     GlkEvent *gev;
 
@@ -1926,14 +1978,15 @@ replacementString:(id)repl {
     return NO;
 }
 
+// NSTextViewDelegate: Handle clicks on inline text hyperlinks.
+// Sends a Glk link event with the link's numeric ID back to the
+// interpreter. Also triggers the colderLightHack if needed.
 - (BOOL)textView:(NSTextView *)textview_
    clickedOnLink:(id)link
          atIndex:(NSUInteger)charIndex {
-    //    NSLog(@"txtbuf: clicked on link: %@", link);
 
     if (!hyper_request) {
         NSLog(@"txtbuf: No hyperlink request in window.");
-        //        return NO;
     }
 
     [self.glkctl markLastSeen];
@@ -1948,11 +2001,12 @@ replacementString:(id)repl {
     return YES;
 }
 
+// Game-specific workaround: "A Colder Light" only updates its title
+// bar in response to arrange events. After a hyperlink click, we send
+// a synthetic arrange event so the game refreshes its display.
 - (void)colderLightHack {
 
     GlkController *glkctl = self.glkctl;
-    // Send an arrange event to The Colder Light in order
-    // to make it update its title bar
     if (glkctl.gameID == kGameIsAColderLight) {
         GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)glkctl.gameView.frame.size.width
                                                     height:(NSInteger)glkctl.gameView.frame.size.height
@@ -1964,11 +2018,17 @@ replacementString:(id)repl {
 
 #pragma mark Scrolling
 
+// Trigger a full layout pass so glyph positions are up to date.
+// Skipped for very large documents (>50k chars) to avoid performance issues.
 - (void)forceLayout{
     if (textstorage.length < 50000)
         [layoutmanager glyphRangeForTextContainer:container];
 }
 
+// Record the Y-coordinate of the last visible line of text. This is
+// used by performScroll to decide whether to scroll to the bottom or
+// to the "last seen" position (showing a page at a time for long output).
+// Also records _printPositionOnInput for speech move tracking.
 - (void)markLastSeen {
     NSRange glyphs;
     NSRect line;
@@ -1995,8 +2055,12 @@ replacementString:(id)repl {
     }
 }
 
+// Capture the current scroll position for later restoration (e.g. after
+// a theme change or window resize). Records whether we're at the top,
+// bottom, or a mid-document position. For mid-document positions, stores
+// the character index at the bottom-right of the visible rect and the
+// fractional offset (in cell heights) for pixel-accurate restoration.
 - (void)storeScrollOffset {
-    //    NSLog(@"GlkTextBufferWindow %ld: storeScrollOffset", self.name);
     if (_pendingScrollRestore)
         return;
     if (self.scrolledToBottom) {
@@ -2041,6 +2105,9 @@ replacementString:(id)repl {
     //    NSLog(@"lastScrollOffset as percentage of cell height: %f", (lastScrollOffset / self.theme.bufferCellHeight) * 100);
 }
 
+// Restore the scroll position previously captured by storeScrollOffset.
+// Handles three cases: was at bottom, was at top, or was at a specific
+// character offset. Called after theme changes or window resizing.
 - (void)restoreScroll:(id)sender {
     _pendingScrollRestore = NO;
     _pendingScroll = NO;
@@ -2072,8 +2139,10 @@ replacementString:(id)repl {
     return;
 }
 
+// Scroll so that the given character index is visible at the bottom
+// of the viewport, adjusted by offset (in cell-height units).
+// If the target character is very close to the top, scrolls to top instead.
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate {
-//    NSLog(@"GlkTextBufferWindow %ld: scrollToCharacter %ld withOffset: %f", self.name, character, offset);
 
     CGFloat charHeight = self.theme.bufferCellHeight;
     if (pauseScrolling)
@@ -2102,12 +2171,19 @@ replacementString:(id)repl {
     [self scrollToPosition:floor(charbottom - NSHeight(scrollview.frame)) animate:animate];
 }
 
+// Request a deferred scroll. The actual scrolling happens in
+// reallyPerformScroll, which is called during the next flushDisplay cycle.
 - (void)performScroll {
     if (_pendingScrollRestore)
         return;
     _pendingScroll = YES;
 }
 
+// Execute the deferred scroll. If the new content since _lastseen is
+// taller than the viewport, scrolls to the _lastseen position (paging
+// through output). Otherwise scrolls all the way to the bottom.
+// Skips layout for very large documents (>1M chars) for performance.
+// Disables animation when a command script is running.
 - (void)reallyPerformScroll {
     _pendingScroll = NO;
     self.glkctl.shouldScrollOnCharEvent = NO;
@@ -2133,11 +2209,13 @@ replacementString:(id)repl {
     }
 }
 
+// Check if the scroll view is at the bottom of its content.
+// Considers the text container inset and bottom padding in the threshold.
+// Returns YES for zero-height windows (e.g. Kerkerkruip's invisible
+// buffer used to catch key input).
 - (BOOL)scrolledToBottom {
     NSView *clipView = scrollview.contentView;
 
-    // At least the start screen of Kerkerkruip uses a buffer window
-    // with height 0 to catch key input.
     if (!clipView || NSHeight(clipView.bounds) == 0) {
         return YES;
     }
@@ -2146,17 +2224,22 @@ replacementString:(id)repl {
             2 + _textview.textContainerInset.height + _textview.bottomPadding);
 }
 
+// Scroll to the very bottom of the text content. Forces a layout pass
+// first to ensure the text view frame reflects all current content.
 - (void)scrollToBottomAnimated:(BOOL)animate {
     lastAtTop = NO;
     lastAtBottom = YES;
 
-    // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
     NSPoint newScrollOrigin = NSMakePoint(0, NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds));
 
     [self scrollToPosition:newScrollOrigin.y animate:animate];
 }
 
+// Scroll to an absolute Y position within the text view. Only scrolls
+// downward (returns early if already past the target). When animation
+// is enabled and the theme supports smooth scrolling, animates with a
+// duration proportional to the distance (clamped to 0.3–1.0 seconds).
 - (void)scrollToPosition:(CGFloat)position animate:(BOOL)animate {
     if (pauseScrolling)
         return;
@@ -2181,6 +2264,7 @@ replacementString:(id)repl {
     }
 }
 
+// Check if the scroll view is at or near the top (within one cell height).
 - (BOOL)scrolledToTop {
     NSView *clipView = scrollview.contentView;
     if (!clipView) {
@@ -2190,6 +2274,7 @@ replacementString:(id)repl {
     return (diff < self.theme.bufferCellHeight);
 }
 
+// Scroll to the very top of the document.
 - (void)scrollToTop {
     if (pauseScrolling)
         return;
@@ -2201,6 +2286,11 @@ replacementString:(id)repl {
 
 #pragma mark Speech
 
+// Record the text range of the latest "move" (turn) for VoiceOver speech.
+// A move is the text output between two consecutive input prompts. The
+// range is computed from _printPositionOnInput (set by markLastSeen) to
+// the current end of text. For Infocom V6 menus, delegates to the
+// specialized menu handler instead.
 - (BOOL)setLastMove {
     NSUInteger maxlength = textstorage.length;
 
@@ -2253,14 +2343,17 @@ replacementString:(id)repl {
     return YES;
 }
 
+// Convert a move range to a speakable string. Retrieves the
+// accessibility-attributed string, then optionally injects image
+// descriptions (parenthesized) at the positions of any image
+// attachments. Also strips the command line from the start of the
+// string if the "speak command" preference is off.
 - (NSString *)stringFromRangeVal:(NSValue *)val {
     NSRange range = val.rangeValue;
     NSAttributedString *attStr = [_textview accessibilityAttributedStringForRange:range];
     NSMutableString *string = attStr.string.mutableCopy;
 
     if (self.theme.vOSpeakImages != kVOImageNone) {
-        // Look for image attachments and add their descriptions
-        // according to settings.
         NSArray *keys;
         NSDictionary *attachments = [self attachmentsInRange:range withKeys:&keys];
         NSUInteger offset = 0;
@@ -2291,6 +2384,8 @@ replacementString:(id)repl {
     return string;
 }
 
+// Return the speakable text of the most recent move, positioning the
+// move range index to the last entry.
 - (NSString *)lastMoveString {
     NSString *str = @"";
 
@@ -2301,11 +2396,18 @@ replacementString:(id)repl {
     return str;
 }
 
+// Clear the deduplication state so the next repeatLastMove call will
+// always speak, even if the text hasn't changed.
 - (void)resetLastSpokenString {
     lastSpokenRange = NSMakeRange(0, 0);
     lastSpokenString = @"";
 }
 
+// Speak the latest move text via VoiceOver. Cancels any pending Z-machine
+// menu or form timers first. Prepends quote box text if one is visible.
+// When called automatically by GlkController (sender == glkctl), deduplicates
+// against the last spoken string to avoid repeating identical output.
+// When invoked by the user (menu item or shortcut), always speaks.
 - (void)repeatLastMove:(id)sender {
     GlkController *glkctl = self.glkctl;
     if (glkctl.zmenu)
@@ -2344,8 +2446,9 @@ replacementString:(id)repl {
     [glkctl speakString:str];
 }
 
+// Navigate backward through move history and speak the previous move.
+// Announces "At first move" when already at the beginning.
 - (void)speakPrevious {
-    //    NSLog(@"GlkTextBufferWindow %ld speakPrevious:", self.name);
     if (!self.moveRanges.count)
         return;
     NSString *prefix = @"";
@@ -2359,8 +2462,9 @@ replacementString:(id)repl {
     [self.glkctl speakStringNow:str];
 }
 
+// Navigate forward through move history and speak the next move.
+// Announces "At last move" when already at the end.
 - (void)speakNext {
-    //    NSLog(@"GlkTextBufferWindow %ld speakNext:", self.name);
     [self setLastMove];
     if (!self.moveRanges.count) {
         return;
@@ -2379,6 +2483,9 @@ replacementString:(id)repl {
     [self.glkctl speakStringNow:str];
 }
 
+// Speak the entire text content of this buffer window. Used when the
+// user requests the status to be read aloud. Cancels pending Z-machine
+// menu/form timers to avoid conflicts.
 - (void)speakStatus {
     GlkController *glkctl = self.glkctl;
     if (glkctl.zmenu)
@@ -2388,6 +2495,9 @@ replacementString:(id)repl {
     [glkctl speakStringNow:textstorage.string];
 }
 
+// Build move ranges from Infocom V6 menu item strings. Each menu item
+// is located in the text storage by string matching, and its range is
+// added to moveRanges so VoiceOver can navigate between menu items.
 - (void)movesRangesFromV6Menu:(NSArray<NSString *> *)menuStrings {
     self.moveRanges = [[NSMutableArray<NSValue *> alloc] initWithCapacity:menuStrings.count];
     moveRangeIndex = menuStrings.count - 1;
@@ -2402,10 +2512,15 @@ replacementString:(id)repl {
 
 #pragma mark Accessibility
 
+// This view is a container, not an individual accessibility element.
+// The text view and its children provide the actual accessible content.
 - (BOOL)isAccessibilityElement {
     return NO;
 }
 
+// Collect hyperlink ranges for accessibility, prioritizing recent moves.
+// Walks move ranges in reverse order (most recent first) and caps at
+// 15 links to avoid overwhelming VoiceOver with too many elements.
 - (NSArray <NSValue *> *)links {
     NSRange allText = NSMakeRange(0, textstorage.length);
     if (self.moveRanges.count < 2)
@@ -2432,6 +2547,7 @@ replacementString:(id)repl {
     return links;
 }
 
+// Find all NSLinkAttributeName ranges within the given text range.
 - (NSArray <NSValue *> *)linksInRange:(NSRange)range {
     NSMutableArray <NSValue *> __block *links = [[NSMutableArray alloc] init];
     [textstorage
@@ -2447,6 +2563,8 @@ replacementString:(id)repl {
     return links;
 }
 
+// Return ranges of all image attachments for accessibility, respecting
+// the user's preference for whether images should be announced.
 - (NSArray<NSValue *> *)images {
     if (self.theme.vOSpeakImages == kVOImageNone)
         return @[];
@@ -2454,6 +2572,9 @@ replacementString:(id)repl {
     return images;
 }
 
+// Find image attachment ranges within the given text range. When the
+// "description only" preference is set, skips images without descriptions.
+// Expands margin image ranges to length 2 so VoiceOver can target them.
 - (NSArray<NSValue *> *)imagesInRange:(NSRange)range {
     NSMutableArray<NSValue *> __block *images = [NSMutableArray new];
     BOOL withDescOnly = (self.theme.vOSpeakImages == kVOImageWithDescriptionOnly);
@@ -2477,6 +2598,9 @@ replacementString:(id)repl {
     return images;
 }
 
+// Collect all text attachments in the given range, keyed by their
+// character index. Used by stringFromRangeVal to inject image
+// descriptions into the spoken text at the correct positions.
 - (NSDictionary <NSNumber *, NSTextAttachment *> *)attachmentsInRange:(NSRange)range withKeys:(NSArray * __autoreleasing *)keys {
     NSMutableDictionary <NSNumber *, NSTextAttachment *> __block *attachments = [NSMutableDictionary new];
     NSMutableArray __block *mutKeys = [NSMutableArray new];
