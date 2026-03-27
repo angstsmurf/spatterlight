@@ -7,11 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#ifdef DEBUG
-#define NSLog(FORMAT, ...)                                                     \
-fprintf(stderr, "%s\n",                                                    \
-[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
-#else
+#ifndef DEBUG
 #define NSLog(...)
 #endif
 
