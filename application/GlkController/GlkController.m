@@ -50,13 +50,9 @@
 #include "glkimp.h"
 #include "protocol.h"
 
-// In debug builds, redirect NSLog to stderr for faster, synchronous output.
+
 // In release builds, suppress NSLog entirely to avoid unnecessary logging overhead.
-#ifdef DEBUG
-#define NSLog(FORMAT, ...)                                                     \
-fprintf(stderr, "%s\n",                                                    \
-[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
-#else
+#ifndef DEBUG
 #define NSLog(...)
 #endif
 
