@@ -1178,8 +1178,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             NSFetchRequest *fetchRequest = [Game fetchRequest];
             NSError *error = nil;
             fetchRequest.includesPropertyValues = NO;
-            NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-            NSUInteger numberOfGames = fetchedObjects.count;
+            NSUInteger numberOfGames = [self.managedObjectContext countForFetchRequest:fetchRequest error:&error];
             Theme *mostPopularTheme = nil;
             NSUInteger highestCount = 0;
             NSUInteger currentCount = 0;
@@ -1192,7 +1191,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
             if (highestCount < numberOfGames) {
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"theme != %@", mostPopularTheme];
-                fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+                NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
                 [self showUseForAllAlert:fetchedObjects];
                 return;
             }
