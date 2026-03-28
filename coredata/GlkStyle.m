@@ -164,11 +164,11 @@
                      */
 
                 case stylehint_Indentation:
-                    para.headIndent = value * 3;
+                    para.headIndent = (CGFloat)value * 3;
                     break;
 
                 case stylehint_ParaIndentation:
-                    para.firstLineHeadIndent = para.headIndent + value * 3;
+                    para.firstLineHeadIndent = para.headIndent + (CGFloat)value * 3;
                     break;
 
                 case stylehint_Justification:
@@ -197,7 +197,7 @@
 
                 case stylehint_Size:
                     if (isBufferStyle) {
-                        CGFloat size = font.matrix[0] + value * 2;
+                        CGFloat size = font.matrix[0] + (CGFloat)value * 2;
                         font = [fontmgr convertFont:font toSize:size];
                     }
                     break;

@@ -1548,7 +1548,10 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // center on screen. Used when restoring saved window frames that might
 // have been saved with invalid dimensions.
 - (NSRect)frameWithSanitycheckedSize:(NSRect)rect {
-    if (rect.size.width < kMinimumWindowWidth || rect.size.height < kMinimumWindowHeight) {
+    CGFloat minimumWidth = (CGFloat)kMinimumWindowWidth;
+    CGFloat minimumHeight = (CGFloat)kMinimumWindowHeight;
+
+    if (rect.size.width < minimumWidth || rect.size.height < minimumHeight) {
         NSSize defaultSize = [self defaultContentSize];
         NSRect screenFrame = self.window.screen.visibleFrame;
         if (rect.size.width < defaultSize.width) {
@@ -1560,10 +1563,10 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         }
         rect.origin.x = round((NSWidth(screenFrame) - defaultSize.width) / 2);
     }
-    if (rect.size.width < kMinimumWindowWidth)
-        rect.size.width = kMinimumWindowWidth;
-    if (rect.size.height < kMinimumWindowHeight)
-        rect.size.height = kMinimumWindowHeight;
+    if (rect.size.width < minimumWidth)
+        rect.size.width = minimumWidth;
+    if (rect.size.height < minimumHeight)
+        rect.size.height = minimumHeight;
     return rect;
 }
 
@@ -1618,8 +1621,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen) {
 
-        newSize.width += borders;
-        newSize.height += borders;
+        newSize.width += (CGFloat)borders;
+        newSize.height += (CGFloat)borders;
 
         NSRect screenframe = [NSScreen mainScreen].visibleFrame;
 
@@ -1646,8 +1649,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
                                      newSize.width,
                                      NSHeight(_borderView.frame));
 
-        if (NSWidth(newframe) > NSWidth(_borderView.frame) - borders)
-            newframe.size.width = NSWidth(_borderView.frame) - borders;
+        if (NSWidth(newframe) > NSWidth(_borderView.frame) - (CGFloat)borders)
+            newframe.size.width = NSWidth(_borderView.frame) - (CGFloat)borders;
 
         CGFloat widthDiff = NSWidth(oldframe) - NSWidth(newframe);
 
@@ -1838,7 +1841,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     if ([defaults boolForKey:@"AdjustSize"] && !autorestoring) {
         if (lastTheme != theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
             NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
-            NSUInteger borders = (NSUInteger)theme.border * 2;
+            CGFloat borders = theme.border * 2;
             NSSize newSizeIncludingBorders = NSMakeSize(newContentSize.width + borders, newContentSize.height + borders);
 
             if (!NSEqualSizes(_borderView.bounds.size, newSizeIncludingBorders)
@@ -2029,7 +2032,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
         [self.window setFrame:winrect display:NO animate:NO];
     } else {
-        NSUInteger borders = (NSUInteger)_theme.border * 2;
+        CGFloat borders = _theme.border * 2;
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
                                      sizeAfterZoom.width - borders,
                                      NSHeight(_borderView.frame) - borders);
