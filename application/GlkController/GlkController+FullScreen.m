@@ -496,11 +496,11 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         frame = [self contentFrameForWindowed];
     }
 
-    NSUInteger border = (NSUInteger)self.theme.border;
+    CGFloat border = self.theme.border;
     NSRect contentRect = frame;
     contentRect.size = NSMakeSize(frame.size.width + 2 * border, frame.size.height + 2 * border);
     contentRect.origin = NSMakePoint(frame.origin.x - border, frame.origin.y - border);
-    if (contentRect.size.width < kMinimumWindowWidth || contentRect.size.height < kMinimumWindowHeight) {
+    if (contentRect.size.width < (CGFloat)kMinimumWindowWidth || contentRect.size.height < (CGFloat)kMinimumWindowHeight) {
         contentRect = [self frameWithSanitycheckedSize:contentRect];
         frame.size.width = contentRect.size.width - 2 * border;
         frame.size.height = contentRect.size.height - 2 * border;
@@ -516,14 +516,14 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (NSRect)contentFrameForWindowed {
-    NSUInteger border = (NSUInteger)self.theme.border;
-    return NSMakeRect(border, border,
+    CGFloat border = self.theme.border;
+    return NSMakeRect((CGFloat)border, (CGFloat)border,
                       round(NSWidth(self.borderView.bounds) - border * 2),
                       round(NSHeight(self.borderView.bounds) - border * 2));
 }
 
 - (NSRect)contentFrameForFullscreen {
-    NSUInteger border = (NSUInteger)self.theme.border;
+    CGFloat border = self.theme.border;
     return NSMakeRect(floor((NSWidth(self.borderView.bounds) -
                              NSWidth(self.gameView.frame)) / 2),
                       border, NSWidth(self.gameView.frame),

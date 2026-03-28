@@ -615,8 +615,8 @@ NSString *fontToString(NSFont *font) {
     clrBufferFg.color = theme.bufferNormal.color;
     clrBufferBg.color = theme.bufferBackground;
 
-    txtGridMargin.floatValue = theme.gridMarginX;
-    txtBufferMargin.floatValue = theme.bufferMarginX;
+    txtGridMargin.floatValue = (float)theme.gridMarginX;
+    txtBufferMargin.floatValue = (float)theme.bufferMarginX;
     txtLeading.doubleValue = theme.bufferNormal.lineSpacing;
 
     txtCols.intValue = theme.defaultCols;

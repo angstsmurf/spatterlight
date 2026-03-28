@@ -192,7 +192,7 @@
         _textview.delegate = self;
         textstorage.delegate = self;
 
-        _textview.textContainerInset = NSMakeSize(marginX, marginY);
+        _textview.textContainerInset = NSMakeSize((CGFloat)marginX, (CGFloat)marginY);
         _textview.insertionPointColor = styles[style_Normal][NSForegroundColorAttributeName];
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
