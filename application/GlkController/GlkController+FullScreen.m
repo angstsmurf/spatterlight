@@ -381,6 +381,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
     self.ignoreResizes = NO;
     inFullScreenResize = NO;
+    self.inFullscreen = YES;
     if (self.gameView.frame.size.width < 200)
         [self adjustContentView];
     [self contentDidResize:self.gameView.frame];
@@ -487,8 +488,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 // Some convenience methods
 - (void)adjustContentView {
     NSRect frame;
-    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen ||
-        self.borderView.frame.size.width == self.window.screen.frame.size.width || (dead && self.inFullscreen && windowRestoredBySystem)) {
+    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen || self.inFullscreen) {
         // We are in fullscreen
         frame = [self contentFrameForFullscreen];
     } else {
