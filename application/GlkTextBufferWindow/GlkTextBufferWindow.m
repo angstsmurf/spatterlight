@@ -73,6 +73,7 @@
     BOOL commandScriptWasRunning;      // Track command script transitions
 
     BOOL scrolling;                    // YES during animated scroll to prevent re-entry
+    NSDate *scrollAdjustTimeStamp;
     NSMutableArray<NSEvent *> *bufferedEvents; // Key events received when no input request is active
 
     // --- VoiceOver speech tracking ---
@@ -147,6 +148,7 @@
         bufferTextstorage = [textstorage mutableCopy];
 
         layoutmanager = [[NSLayoutManager alloc] init];
+        layoutmanager.delegate = self;
         layoutmanager.backgroundLayoutEnabled = YES;
         layoutmanager.allowsNonContiguousLayout = NO;
         [textstorage addLayoutManager:layoutmanager];
@@ -211,6 +213,7 @@
 
         underlineLinks = (self.theme.bufLinkStyle != NSUnderlineStyleNone);
         [self recalcBackground];
+        scrollAdjustTimeStamp = [NSDate distantPast];
     }
 
     return self;
@@ -397,6 +400,7 @@
         container = (MarginContainer *)_textview.textContainer;
         if (!layoutmanager)
             NSLog(@"layoutmanager nil!");
+        layoutmanager.delegate = self;
         if (!textstorage)
             NSLog(@"textstorage nil!");
         if (!container)
@@ -587,26 +591,15 @@
         }
     }
 
-    if (!self.glkctl.inFullscreen || self.glkctl.startingInFullscreen)
-        [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.1];
-    else
-        [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.5];
-}
-
-// Restore the scroll position after a short delay, giving the layout manager
-// time to complete layout. Uses a longer delay when entering fullscreen because
-// the animation takes more time.
-- (void)deferredScrollPosition:(id)sender {
-    [self restoreScrollBarStyle];
-    if (_restoredAtBottom) {
-        [self scrollToBottomAnimated:NO];
-    } else {
-        if (_restoredLastVisible == 0)
-            [self scrollToBottomAnimated:NO];
-        else
-            [self scrollToCharacter:_restoredLastVisible withOffset:_restoredScrollOffset animate:NO];
-    }
+    layoutmanager.delegate = self;
+    scrollAdjustTimeStamp = [NSDate date];
     _pendingScrollRestore = NO;
+
+    [self restoreScrollBarStyle];
+    if (!self.glkctl.inFullscreen || self.glkctl.startingInFullscreen)
+        [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.1];
+    else
+        [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.5];
 }
 
 // Configure the scroll view to use overlay scrollers with the buffer
@@ -886,6 +879,10 @@
     fence = 0;
     _lastseen = 0;
     _lastchar = '\n';
+    lastAtBottom = NO;
+    lastAtTop = NO;
+    lastVisible = 0;
+    scrollAdjustTimeStamp = [NSDate distantPast];
     _printPositionOnInput = 0;
     [container clearImages];
 
@@ -1107,6 +1104,11 @@
             }
         }
     }
+
+    // Cancel any in-progress scrolling
+    // (because we might want to start a new scroll animated,
+    // and that won't work if we are already at the bottom)
+    scrollAdjustTimeStamp = [NSDate distantPast];
 
     BOOL commandKeyOnly = ((flags & NSEventModifierFlagCommand) &&
                            !(flags & (NSEventModifierFlagOption | NSEventModifierFlagShift |
@@ -2018,6 +2020,18 @@ replacementString:(id)repl {
 
 #pragma mark Scrolling
 
+- (void)layoutManager:(NSLayoutManager *)layoutManager didCompleteLayoutForTextContainer:(NSTextContainer *)textContainer atEnd:(BOOL)layoutFinishedFlag {
+    if (layoutFinishedFlag == YES && layoutManager == layoutmanager && textContainer == container) {
+        if (scrollAdjustTimeStamp.timeIntervalSinceNow > -1 && !self.glkctl.ignoreResizes && !self.inLiveResize && !_pendingScroll) {
+            if (!scrolling) {
+                [self restoreScroll:self];
+            } else {
+                [self reallyPerformScroll];
+            }
+        }
+    }
+}
+
 // Trigger a full layout pass so glyph positions are up to date.
 // Skipped for very large documents (>50k chars) to avoid performance issues.
 - (void)forceLayout{
@@ -2030,9 +2044,6 @@ replacementString:(id)repl {
 // to the "last seen" position (showing a page at a time for long output).
 // Also records _printPositionOnInput for speech move tracking.
 - (void)markLastSeen {
-    NSRange glyphs;
-    NSRect line;
-
     _printPositionOnInput = textstorage.length;
     if (fence > 0 && !char_request) {
         _printPositionOnInput = fence;
@@ -2042,17 +2053,7 @@ replacementString:(id)repl {
         _lastseen = 0;
         return;
     }
-
-    glyphs = [layoutmanager glyphRangeForTextContainer:container];
-
-    if (glyphs.length) {
-        line = [layoutmanager
-                lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
-                effectiveRange:nil];
-
-        _lastseen = (NSInteger)ceil(NSMaxY(line)); // bottom of the line
-        // NSLog(@"GlkTextBufferWindow: markLastSeen: %ld", (long)_lastseen);
-    }
+    _lastseen = (NSInteger)(NSMaxY(scrollview.contentView.bounds) - 2.0 * _textview.textContainerInset.height);
 }
 
 // Capture the current scroll position for later restoration (e.g. after
@@ -2094,7 +2095,7 @@ replacementString:(id)repl {
 
     NSRect lastRect =
     [layoutmanager lineFragmentRectForGlyphAtIndex:lastVisible
-                                    effectiveRange:nil];
+                                    effectiveRange:nil withoutAdditionalLayout:YES];
 
     lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / self.theme.bufferCellHeight;
 
@@ -2109,6 +2110,7 @@ replacementString:(id)repl {
 // Handles three cases: was at bottom, was at top, or was at a specific
 // character offset. Called after theme changes or window resizing.
 - (void)restoreScroll:(id)sender {
+    scrollAdjustTimeStamp = [NSDate date];
     _pendingScrollRestore = NO;
     _pendingScroll = NO;
     //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
@@ -2132,6 +2134,7 @@ replacementString:(id)repl {
     }
 
     if (!lastVisible) {
+        [self scrollToTop];
         return;
     }
 
@@ -2155,11 +2158,9 @@ replacementString:(id)repl {
     }
 
     offset = offset * charHeight;
-    // first, force a layout so we have the correct textview frame
-    [layoutmanager glyphRangeForTextContainer:container];
 
     line = [layoutmanager lineFragmentRectForGlyphAtIndex:character
-                                           effectiveRange:nil];
+                                           effectiveRange:nil withoutAdditionalLayout:YES];
 
     CGFloat charbottom = NSMaxY(line); // bottom of the line
     if (fabs(charbottom - NSHeight(scrollview.frame)) < charHeight && NSHeight(scrollview.frame) / charHeight > 3) {
@@ -2194,17 +2195,14 @@ replacementString:(id)repl {
     if (!textstorage.length)
         return;
 
-    if (textstorage.length < 1000000)
-        // first, force a layout so we have the correct textview frame
-        [layoutmanager ensureLayoutForTextContainer:container];
-
     // then, get the bottom
     CGFloat bottom = NSHeight(_textview.frame);
 
     BOOL animate = !self.glkctl.commandScriptRunning;
-    if (bottom - _lastseen > NSHeight(scrollview.frame)) {
-        [self scrollToPosition:_lastseen animate:animate];
+    if (bottom - (CGFloat)_lastseen > NSHeight(scrollview.frame)) {
+        [self scrollToPosition:(CGFloat)_lastseen animate:animate];
     } else {
+        scrollAdjustTimeStamp = [NSDate date];
         [self scrollToBottomAnimated:animate];
     }
 }
@@ -2230,10 +2228,16 @@ replacementString:(id)repl {
     lastAtTop = NO;
     lastAtBottom = YES;
 
-    [layoutmanager glyphRangeForTextContainer:container];
-    NSPoint newScrollOrigin = NSMakePoint(0, NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds));
+    scrollAdjustTimeStamp = [NSDate date];
 
-    [self scrollToPosition:newScrollOrigin.y animate:animate];
+    BufferTextView *blockTextView = _textview;
+
+    scrolling = YES;
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSPoint newScrollOrigin = NSMakePoint(0, NSMaxY(blockTextView.frame) - NSHeight(blockTextView.enclosingScrollView.contentView.bounds));
+        [self scrollToPosition:newScrollOrigin.y animate:animate];
+    });
 }
 
 // Scroll to an absolute Y position within the text view. Only scrolls
@@ -2270,8 +2274,8 @@ replacementString:(id)repl {
     if (!clipView) {
         return NO;
     }
-    CGFloat diff = clipView.bounds.origin.y;
-    return (diff < self.theme.bufferCellHeight);
+    CGFloat diff = clipView.bounds.origin.y - _textview.textContainerInset.height;
+    return (fabs(diff) < self.theme.bufferCellHeight);
 }
 
 // Scroll to the very top of the document.
@@ -2281,7 +2285,9 @@ replacementString:(id)repl {
     lastAtTop = YES;
     lastAtBottom = NO;
 
-    [scrollview.contentView scrollToPoint:NSZeroPoint];
+    NSPoint p = NSMakePoint(0, _textview.textContainerInset.height);
+
+    [scrollview.contentView scrollToPoint:p];
 }
 
 #pragma mark Speech
