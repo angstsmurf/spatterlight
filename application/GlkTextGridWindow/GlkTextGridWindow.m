@@ -76,7 +76,7 @@
 
         NSDictionary *styleDict = nil;
 
-        self.styleHints = [self deepCopyOfStyleHintsArray:glkctl_.gridStyleHints];
+        self.styleHints = [GlkWindow deepCopyOfStyleHintsArray:glkctl_.gridStyleHints];
 
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
