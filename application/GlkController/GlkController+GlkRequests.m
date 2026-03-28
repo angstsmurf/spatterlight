@@ -1333,11 +1333,11 @@ fprintf(stderr, "%s\n",                                                    \
 //            that normally would only be applied to a new window.
 //            It can also update any inline images.
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
-                reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:self.bufferStyleHints];
+                reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.bufferStyleHints];
                 if (req->a2 > 0)
                     [((GlkTextBufferWindow *)reqWin) updateImageAttachmentsWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
             } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
-                reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:self.gridStyleHints];
+                reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.gridStyleHints];
             } else {
                 break;
             }

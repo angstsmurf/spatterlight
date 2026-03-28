@@ -104,7 +104,7 @@
 
         // Deep-copy the style hints so per-window hint changes don't affect others
         NSDictionary *styleDict = nil;
-        self.styleHints = [self deepCopyOfStyleHintsArray:self.glkctl.bufferStyleHints];
+        self.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.glkctl.bufferStyleHints];
 
         // Build the styles array: one NSDictionary of text attributes per Glk style.
         // When doStyles is on, game-provided style hints are applied on top of the

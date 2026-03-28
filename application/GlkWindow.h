@@ -99,7 +99,7 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 - (void)flowBreak;
 - (void)prefsDidChange;
 - (void)terpDidStop;
-- (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array;
++ (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array;
 - (void)postRestoreAdjustments:(GlkWindow *)win;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasCharRequest;
