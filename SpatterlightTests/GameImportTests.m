@@ -10,7 +10,10 @@
 
 #import "TableViewController.h"
 #import "GameImporter.h"
+#import "GameLauncher.h"
+#import "GlkController.h"
 #import "Game.h"
+#import "Theme.h"
 #import "Metadata.h"
 #import "CoreDataManager.h"
 #import "Fetches.h"
@@ -20,6 +23,20 @@
 @property (nonatomic, strong) CoreDataManager *coreDataManager;
 @property (nonatomic, strong) TableViewController *tableViewController;
 @property (nonatomic, strong) NSManagedObjectContext *testContext;
+
+// Helper methods
+- (NSURL *)cursesGameFileURL;
+- (NSURL *)commandScriptFileURL;
+- (void)deleteGameAtPath:(NSString *)path;
+- (NSUInteger)currentGameCount;
+- (Game *)fetchGameAtPath:(NSString *)path;
+- (void)observeImportCompletionWithInitialCount:(NSUInteger)initialCount
+                                      gameFileURL:(NSURL *)gameFileURL
+                                   fetchRequest:(NSFetchRequest *)fetchRequest
+                                     onComplete:(void (^)(Game *importedGame))completionBlock;
+- (void)verifyGame:(Game *)game hasPath:(NSString *)path;
+- (GameImporter *)createGameImporter;
+- (GameLauncher *)createAndSetupGameLauncher;
 
 @end
 
@@ -92,94 +109,166 @@
     }
 }
 
-#pragma mark - Tests
+#pragma mark - Helper Methods
 
-- (void)testImportCursesGameFile {
-    // Create an expectation for the async import operation
-    XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import completes"];
+// Get the URL for curses.z5 in the test bundle
+- (NSURL *)cursesGameFileURL {
+    return [self gameFileURLForFileNamed:@"curses.z5"];
+}
 
-    // Get the URL for curses.z5 in the test bundle
+// Get the URL for the file name in the test bundle
+- (NSURL *)gameFileURLForFileNamed:(NSString *)fileName {
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSURL *gameFileURL = [bundle URLForResource:@"curses" withExtension:@"z5"];
-
-    XCTAssertNotNil(gameFileURL, @"curses.z5 should exist in Supporting Files");
+    NSString *name = [fileName stringByDeletingPathExtension];
+    NSString *extension = [fileName pathExtension];
+    NSURL *gameFileURL = [bundle URLForResource:name withExtension:extension];
+    XCTAssertNotNil(gameFileURL, @"%@should exist in Supporting Files", fileName);
     XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:gameFileURL.path],
-                  @"curses.z5 file should be accessible");
+                  @"%@ file should be accessible", fileName);
+    return gameFileURL;
+}
 
-    
-    // Delete the game if it is already added
+// Get the URL for the command script file in the test bundle
+- (NSURL *)commandScriptFileURLForGame:(NSString *)gameName {
+    NSString *fileName = [NSString stringWithFormat:@"%@ command script", gameName];
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    return [bundle URLForResource:@"ScottFree command script" withExtension:@"txt"];
+}
+
+// Delete a game at the given path if it exists
+- (void)deleteGameAtPath:(NSString *)path {
     NSFetchRequest *gameFetch = [Game fetchRequest];
-    gameFetch.predicate = [NSPredicate predicateWithFormat:@"path == %@", gameFileURL.path];
-
-    NSError *fetchError = nil;
-    NSArray<Game *> *results = [self.testContext executeFetchRequest:gameFetch error:&fetchError];
-
-    XCTAssertNil(fetchError);
-
+    gameFetch.predicate = [NSPredicate predicateWithFormat:@"path == %@", path];
+    
+    NSError *error = nil;
+    NSArray<Game *> *results = [self.testContext executeFetchRequest:gameFetch error:&error];
+    
+    XCTAssertNil(error, @"Should be able to fetch games for deletion");
+    
     if (results.count) {
         [self.testContext deleteObject:results.firstObject];
+        NSError *saveError = nil;
+        [self.testContext save:&saveError];
+        XCTAssertNil(saveError, @"Should be able to save after deletion");
     }
+}
 
-    // Get initial game count
+// Get the current count of games in the database
+- (NSUInteger)currentGameCount {
     NSFetchRequest *fetchRequest = [Game fetchRequest];
     NSError *error = nil;
-
-    NSUInteger initialCount = [self.testContext countForFetchRequest:fetchRequest error:&error];
+    NSUInteger count = [self.testContext countForFetchRequest:fetchRequest error:&error];
     XCTAssertNil(error, @"Should be able to count games");
+    return count;
+}
 
-    // Create GameImporter
-    GameImporter *importer = [[GameImporter alloc] initWithTableViewController:self.tableViewController];
+// Fetch a game at the given path
+- (Game *)fetchGameAtPath:(NSString *)path {
+    NSFetchRequest *gameFetch = [Game fetchRequest];
+    gameFetch.predicate = [NSPredicate predicateWithFormat:@"path == %@", path];
+    
+    NSError *error = nil;
+    NSArray<Game *> *results = [self.testContext executeFetchRequest:gameFetch error:&error];
+    
+    XCTAssertNil(error, @"Should be able to fetch game");
+    return results.firstObject;
+}
 
-    // Observe context saves to know when import is complete
-    __block id observer = [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification
-                                                                             object:self.testContext
-                                                                              queue:nil
-                                                                         usingBlock:^(NSNotification * _Nonnull note) {
-        // Wait a bit for all operations to complete, then verify on the context's queue
+// Observe import completion and call the completion block when done
+- (void)observeImportCompletionWithInitialCount:(NSUInteger)initialCount
+                                      gameFileURL:(NSURL *)gameFileURL
+                                     fetchRequest:(NSFetchRequest *)fetchRequest
+                                       onComplete:(void (^)(Game *importedGame))completionBlock {
+    
+    __block id observer = [[NSNotificationCenter defaultCenter] 
+        addObserverForName:NSManagedObjectContextDidSaveNotification
+                    object:self.testContext
+                     queue:nil
+                usingBlock:^(NSNotification * _Nonnull note) {
+        // Verify on the context's queue to avoid priority inversion
         [self.testContext performBlock:^{
-            // Verify the game was added
             NSError *countError = nil;
             NSUInteger finalCount = [self.testContext countForFetchRequest:fetchRequest error:&countError];
             
             if (finalCount > initialCount) {
-                // Import completed, remove observer and verify
+                // Import completed, remove observer
                 [[NSNotificationCenter defaultCenter] removeObserver:observer];
                 
                 XCTAssertNil(countError, @"Should be able to count games after import");
                 XCTAssertEqual(finalCount, initialCount + 1, @"One game should have been added");
-
+                
                 // Fetch the imported game
-                NSFetchRequest *gameFetch = [Game fetchRequest];
-                gameFetch.predicate = [NSPredicate predicateWithFormat:@"path == %@", gameFileURL.path];
-
-                NSError *fetchError = nil;
-                NSArray<Game *> *results = [self.testContext executeFetchRequest:gameFetch error:&fetchError];
-
-                XCTAssertNil(fetchError, @"Should be able to fetch the imported game");
-                XCTAssertEqual(results.count, 1, @"Should find exactly one game with the given path");
-
-                if (results.count > 0) {
-                    Game *game = results.firstObject;
-
-                    // Verify game properties
-                    XCTAssertEqualObjects(game.path, gameFileURL.path, @"Game path should match");
-                    XCTAssertNotNil(game.metadata, @"Game should have metadata");
-                    XCTAssertTrue(game.found, @"Game should be marked as found");
-
-                    if (game.metadata) {
-                        XCTAssertNotNil(game.metadata.title, @"Game should have a title");
-                        XCTAssertTrue(game.metadata.title.length > 0, @"Game title should not be empty");
-
-                        NSLog(@"Successfully imported game: %@", game.metadata.title);
-                    }
+                Game *game = [self fetchGameAtPath:gameFileURL.path];
+                XCTAssertNotNil(game, @"Should be able to fetch the imported game");
+                
+                if (game && completionBlock) {
+                    completionBlock(game);
                 }
-
-                [importExpectation fulfill];
             }
         }];
     }];
+}
 
-    // Set up options
+// Verify standard game properties
+- (void)verifyGame:(Game *)game hasPath:(NSString *)path {
+    XCTAssertEqualObjects(game.path, path, @"Game path should match");
+    XCTAssertNotNil(game.metadata, @"Game should have metadata");
+    XCTAssertTrue(game.found, @"Game should be marked as found");
+    
+    if (game.metadata) {
+        XCTAssertNotNil(game.metadata.title, @"Game should have a title");
+        XCTAssertTrue(game.metadata.title.length > 0, @"Game title should not be empty");
+    }
+}
+
+// Create a GameImporter instance
+- (GameImporter *)createGameImporter {
+    return [[GameImporter alloc] initWithTableViewController:self.tableViewController];
+}
+
+// Create and setup a GameLauncher instance
+- (GameLauncher *)createAndSetupGameLauncher {
+    GameLauncher *launcher = [[GameLauncher alloc] initWithTableViewController:self.tableViewController];
+    
+    // Set the launcher on the table view controller
+    if ([self.tableViewController respondsToSelector:@selector(setGameLauncher:)]) {
+        [self.tableViewController setValue:launcher forKey:@"gameLauncher"];
+    }
+    
+    return launcher;
+}
+
+#pragma mark - Tests
+
+- (void)testImportCursesGameFile {
+    XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import completes"];
+
+    // Get the game file URL
+    NSURL *gameFileURL = [self cursesGameFileURL];
+    
+    // Delete any existing copy
+    [self deleteGameAtPath:gameFileURL.path];
+    
+    // Get initial game count
+    NSUInteger initialCount = [self currentGameCount];
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
+
+    // Create GameImporter
+    GameImporter *importer = [self createGameImporter];
+
+    // Observe import completion
+    [self observeImportCompletionWithInitialCount:initialCount
+                                        gameFileURL:gameFileURL
+                                       fetchRequest:fetchRequest
+                                         onComplete:^(Game *game) {
+        // Verify game properties
+        [self verifyGame:game hasPath:gameFileURL.path];
+        
+        NSLog(@"Successfully imported game: %@", game.metadata.title);
+        [importExpectation fulfill];
+    }];
+
+    // Set up options (with images and download)
     NSDictionary *options = @{
         @"lookForImages": @(YES),
         @"downloadInfo": @(YES),
@@ -191,7 +280,6 @@
 
     // Wait for expectations with a longer timeout for network operations
     [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-        [[NSNotificationCenter defaultCenter] removeObserver:observer];
         if (error) {
             XCTFail(@"Import operation timed out: %@", error);
         }
@@ -201,73 +289,309 @@
 - (void)testImportCursesWithoutImages {
     XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import without images"];
 
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSURL *gameFileURL = [bundle URLForResource:@"curses" withExtension:@"z5"];
-
-    XCTAssertNotNil(gameFileURL);
-
-    GameImporter *importer = [[GameImporter alloc] initWithTableViewController:self.tableViewController];
-
-    // Delete the game if it is already added
-    NSFetchRequest *gameFetch = [Game fetchRequest];
-    gameFetch.predicate = [NSPredicate predicateWithFormat:@"path == %@", gameFileURL.path];
-
-    NSError *fetchError = nil;
-    NSArray<Game *> *results = [self.testContext executeFetchRequest:gameFetch error:&fetchError];
-
-    XCTAssertNil(fetchError);
-
-    if (results.count) {
-        [self.testContext deleteObject:results.firstObject];
-    }
-
-
+    // Get the game file URL
+    NSURL *gameFileURL = [self cursesGameFileURL];
+    
+    // Delete any existing copy
+    [self deleteGameAtPath:gameFileURL.path];
+    
     // Get initial game count
+    NSUInteger initialCount = [self currentGameCount];
     NSFetchRequest *fetchRequest = [Game fetchRequest];
-    NSError *error = nil;
-    NSUInteger initialCount = [self.testContext countForFetchRequest:fetchRequest error:&error];
-    XCTAssertNil(error, @"Should be able to count games");
 
-    // Observe context saves to know when import is complete
-    __block id observer = [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification
-                                                                             object:self.testContext
-                                                                              queue:nil
-                                                                         usingBlock:^(NSNotification * _Nonnull note) {
-        // Verify on the context's queue to avoid priority inversion
-        [self.testContext performBlock:^{
-            NSError *countError = nil;
-            NSUInteger finalCount = [self.testContext countForFetchRequest:fetchRequest error:&countError];
-            
-            if (finalCount > initialCount) {
-                // Import completed, remove observer and verify
-                [[NSNotificationCenter defaultCenter] removeObserver:observer];
-                
-                NSFetchRequest *gameFetch = [Game fetchRequest];
-                gameFetch.predicate = [NSPredicate predicateWithFormat:@"path == %@", gameFileURL.path];
+    // Create GameImporter
+    GameImporter *importer = [self createGameImporter];
 
-                NSError *fetchError = nil;
-                NSArray<Game *> *results = [self.testContext executeFetchRequest:gameFetch error:&fetchError];
-
-                XCTAssertNil(fetchError);
-                XCTAssertGreaterThan(results.count, 0, @"Game should be imported");
-
-                [importExpectation fulfill];
-            }
-        }];
+    // Observe import completion
+    [self observeImportCompletionWithInitialCount:initialCount
+                                        gameFileURL:gameFileURL
+                                       fetchRequest:fetchRequest
+                                         onComplete:^(Game *game) {
+        XCTAssertNotNil(game, @"Game should be imported");
+        [importExpectation fulfill];
     }];
 
+    // Set up options (no images, no download)
     NSDictionary *options = @{
-        @"lookForImages": @(NO),  // Don't look for images
-        @"downloadInfo": @(NO),   // Don't download info
+        @"lookForImages": @(NO),
+        @"downloadInfo": @(NO),
         @"context": self.testContext
     };
 
     [importer addFiles:@[gameFileURL] options:options];
 
     [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-        [[NSNotificationCenter defaultCenter] removeObserver:observer];
         if (error) {
             XCTFail(@"Import operation timed out: %@", error);
+        }
+    }];
+}
+
+- (void)testImportAndStartCursesGame {
+    XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import completes"];
+    XCTestExpectation *gameStartExpectation = [self expectationWithDescription:@"Game starts running"];
+    XCTestExpectation *commandScriptExpectation = [self expectationWithDescription:@"Command script completes"];
+
+    // Get file URLs
+    NSURL *gameFileURL = [self cursesGameFileURL];
+    NSURL *scriptURL = [self commandScriptFileURLForGame:@"ScottFree"];
+
+    // Delete any existing copy
+    [self deleteGameAtPath:gameFileURL.path];
+    
+    // Get initial game count
+    NSUInteger initialCount = [self currentGameCount];
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
+
+    // Create GameImporter and GameLauncher
+    GameImporter *importer = [self createGameImporter];
+    GameLauncher *launcher = [self createAndSetupGameLauncher];
+
+    // Observe command script completion notification
+    __block id scriptObserver = [[NSNotificationCenter defaultCenter] 
+        addObserverForName:@"GlkCommandScriptDidComplete"
+                    object:nil
+                     queue:[NSOperationQueue mainQueue]
+                usingBlock:^(NSNotification *note) {
+        // Command script has completed
+        NSLog(@"Command script completed successfully");
+        
+        // Get the game controller to verify it's still running
+        GlkController *glkController = nil;
+        for (GlkController *controller in self.tableViewController.gameSessions.allValues) {
+            if (controller.isAlive) {
+                glkController = controller;
+                break;
+            }
+        }
+        
+        if (glkController) {
+            XCTAssertTrue(glkController.isAlive, @"Game should still be running after command script");
+            
+            // Clean up: close the game window
+            [glkController.window performClose:nil];
+        }
+        
+        [commandScriptExpectation fulfill];
+        [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
+    }];
+
+    // Observe import completion
+    [self observeImportCompletionWithInitialCount:initialCount
+                                        gameFileURL:gameFileURL
+                                       fetchRequest:fetchRequest
+                                         onComplete:^(Game *game) {
+        // Verify game properties
+        [self verifyGame:game hasPath:gameFileURL.path];
+        [importExpectation fulfill];
+        
+        // Now try to start the game
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSWindow *gameWindow = [launcher playGame:game restorationHandler:nil];
+            
+            // Give the game a moment to initialize
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                XCTAssertNotNil(gameWindow, @"Game window should be created");
+                
+                // Check if the game is actually running
+                GlkController *glkController = self.tableViewController.gameSessions[game.hashTag];
+                XCTAssertNotNil(glkController, @"GlkController should be created");
+                
+                if (glkController) {
+                    XCTAssertTrue(glkController.isAlive, @"Game should be running");
+                    XCTAssertNotNil(glkController.window, @"Game window should exist");
+                    
+                    NSLog(@"Successfully started game: %@", game.metadata.title);
+                    [gameStartExpectation fulfill];
+                    
+                    // Run command script if available
+                    if (scriptURL) {
+                        NSLog(@"Running command script: %@", scriptURL.path);
+                        
+                        // Give the game a moment to be fully ready, then start the script
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [launcher runCommandsFromFile:scriptURL.path];
+                            // The scriptObserver will handle fulfilling commandScriptExpectation
+                            // when the GlkCommandScriptDidComplete notification is posted
+                        });
+                    } else {
+                        NSLog(@"No command script found, skipping");
+                        [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
+                        [commandScriptExpectation fulfill];
+                        
+                        // Clean up: close the game window
+                        [glkController.window performClose:nil];
+                    }
+                } else {
+                    [gameStartExpectation fulfill];
+                    [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
+                    [commandScriptExpectation fulfill];
+                }
+            });
+        });
+    }];
+
+    // Set up options (no images/download to speed up test)
+    NSDictionary *options = @{
+        @"lookForImages": @(NO),
+        @"downloadInfo": @(NO),
+        @"context": self.testContext
+    };
+
+    // Import the game
+    [importer addFiles:@[gameFileURL] options:options];
+
+    // Wait for expectations with a longer timeout for game startup and command script
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError * _Nullable error) {
+        [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
+        if (error) {
+            XCTFail(@"Test timed out: %@", error);
+        }
+    }];
+}
+
+- (void)testImportAndStartAdventureland {
+    XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import completes"];
+    XCTestExpectation *gameStartExpectation = [self expectationWithDescription:@"Game starts running"];
+    XCTestExpectation *commandScriptExpectation = [self expectationWithDescription:@"Command script runs"];
+
+    // Get file URLs
+    NSURL *gameFileURL = [self gameFileURLForFileNamed:@"adv01.dat"];
+    NSURL *scriptURL = [self commandScriptFileURLForGame:@"ScottFree"];
+
+    // Delete any existing copy
+    [self deleteGameAtPath:gameFileURL.path];
+
+    // Get initial game count
+    NSUInteger initialCount = [self currentGameCount];
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
+
+    // Create GameImporter and GameLauncher
+    GameImporter *importer = [self createGameImporter];
+    GameLauncher *launcher = [self createAndSetupGameLauncher];
+    
+    // Store original determinism setting to restore later
+    __block BOOL originalDeterminismSetting = NO;
+
+    // Observe command script completion notification
+    __block id scriptObserver = [[NSNotificationCenter defaultCenter]
+                                 addObserverForName:@"GlkCommandScriptDidComplete"
+                                 object:nil
+                                 queue:[NSOperationQueue mainQueue]
+                                 usingBlock:^(NSNotification *note) {
+        // Command script has completed
+        NSLog(@"Command script completed successfully");
+
+        // Get the game controller to verify it's still running
+        GlkController *glkController = nil;
+        for (GlkController *controller in self.tableViewController.gameSessions.allValues) {
+            if (controller.isAlive) {
+                glkController = controller;
+                break;
+            }
+        }
+
+        if (glkController) {
+            XCTAssertTrue(glkController.isAlive, @"Game should still be running after command script");
+
+            // Restore original determinism setting
+            Game *game = glkController.game;
+            if (game && game.theme) {
+                game.theme.determinism = originalDeterminismSetting;
+                NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
+            }
+            
+            // Clean up: close the game window
+            [glkController.window performClose:nil];
+        }
+
+        [commandScriptExpectation fulfill];
+        [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
+    }];
+
+    // Observe import completion
+    [self observeImportCompletionWithInitialCount:initialCount
+                                      gameFileURL:gameFileURL
+                                     fetchRequest:fetchRequest
+                                       onComplete:^(Game *game) {
+        // Verify game properties
+        [self verifyGame:game hasPath:gameFileURL.path];
+        [importExpectation fulfill];
+        
+        // Enable determinism setting for reproducible test results
+        if (game.theme) {
+            originalDeterminismSetting = game.theme.determinism;
+            game.theme.determinism = YES;
+            NSLog(@"Enabled determinism setting for test");
+        }
+
+        // Now try to start the game
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSWindow *gameWindow = [launcher playGame:game restorationHandler:nil];
+
+            // Give the game a moment to initialize
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                XCTAssertNotNil(gameWindow, @"Game window should be created");
+
+                // Check if the game is actually running
+                GlkController *glkController = self.tableViewController.gameSessions[game.hashTag];
+                XCTAssertNotNil(glkController, @"GlkController should be created");
+
+                if (glkController) {
+                    XCTAssertTrue(glkController.isAlive, @"Game should be running");
+                    XCTAssertNotNil(glkController.window, @"Game window should exist");
+
+                    NSLog(@"Successfully started game: %@", game.metadata.title);
+                    [gameStartExpectation fulfill];
+
+                    // Run command script if available
+                    if (scriptURL) {
+                        NSLog(@"Running command script: %@", scriptURL.path);
+
+                        // Give the game a moment to be fully ready, then start the script
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [launcher runCommandsFromFile:scriptURL.path];
+                            // The scriptObserver will handle fulfilling commandScriptExpectation
+                            // when the GlkCommandScriptDidComplete notification is posted
+                        });
+                    } else {
+                        NSLog(@"No command script found, skipping");
+                        [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
+                        [commandScriptExpectation fulfill];
+
+                        // Restore original determinism setting
+                        if (game.theme) {
+                            game.theme.determinism = originalDeterminismSetting;
+                            NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
+                        }
+                        
+                        // Clean up: close the game window
+                        [glkController.window performClose:nil];
+                    }
+                } else {
+                    [gameStartExpectation fulfill];
+                    [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
+                    [commandScriptExpectation fulfill];
+                }
+            });
+        });
+    }];
+
+    // Set up options (no images/download to speed up test)
+    NSDictionary *options = @{
+        @"lookForImages": @(NO),
+        @"downloadInfo": @(NO),
+        @"context": self.testContext
+    };
+
+    // Import the game
+    [importer addFiles:@[gameFileURL] options:options];
+
+    // Wait for expectations with a longer timeout for game startup and command script
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError * _Nullable error) {
+        [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
+        if (error) {
+            XCTFail(@"Test timed out: %@", error);
         }
     }];
 }

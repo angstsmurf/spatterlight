@@ -192,17 +192,21 @@ static Preferences *prefs = nil;
 
 + (void)changeCurrentGlkController:(GlkController *)ctrl {
     if (prefs) {
-        if (prefs.currentGame == ctrl.game)
+        Game *game = nil;
+        if (ctrl.game)
+            game = [theme.managedObjectContext objectWithID:ctrl.game.objectID];
+        if (prefs.currentGame == game)
             return;
         if (ctrl == nil) {
             prefs.currentGame = nil;
         } else {
-            prefs.currentGame = ctrl.game;
+            prefs.currentGame = game;
+            Theme *ctrlCtxTheme = [ctrl.game.managedObjectContext objectWithID:theme.objectID];
             if (!ctrl.theme)
-                ctrl.theme = theme;
-            theme = ctrl.theme;
-            if (!ctrl.game.theme)
-                ctrl.game.theme = theme;
+                ctrl.theme = ctrlCtxTheme;
+            theme = [theme.managedObjectContext objectWithID:ctrl.theme.objectID];
+            if (!game.theme)
+                game.theme = theme;
         }
         [prefs restoreThemeSelection:theme];
         prefs.themesHeader.stringValue = [prefs themeScopeTitle];
@@ -985,7 +989,7 @@ NSString *fontToString(NSFont *font) {
 
 #pragma mark Themes Table View Magic
 
-- (void)restoreThemeSelection:(id)sender {
+- (void)restoreThemeSelection:(Theme *)sender {
     ThemeArrayController *arrayController = _arrayController;
     if (arrayController.selectedTheme == sender) {
         return;

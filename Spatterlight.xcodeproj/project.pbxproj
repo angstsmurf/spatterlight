@@ -640,6 +640,9 @@
 		C36B3892271F710200756D94 /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3891271F710200756D94 /* InfoView.m */; };
 		C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3893271F712600756D94 /* NonInterpolatedImage.m */; };
 		C36DFEDF29AA2F6800EC83A6 /* PreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C36DFEDE29AA2F6800EC83A6 /* PreviewController.m */; };
+		C36E352C2F7AB68A006E3AED /* curses.z5 in Resources */ = {isa = PBXBuildFile; fileRef = C3CEC2C226A6D1F900120469 /* curses.z5 */; };
+		C36E352D2F7AB68A006E3AED /* adv01.dat in Resources */ = {isa = PBXBuildFile; fileRef = C354AA67274CD8D900C8D01D /* adv01.dat */; };
+		C36E35BB2F7ABD86006E3AED /* ScottFree command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */; };
 		C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C372018D27E47E4D00F6BE55 /* layouttext.c */; };
 		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
@@ -3372,10 +3375,20 @@
 		C3FFF80127E52E19000C481A /* restorestate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C36E35152F7AB64B006E3AED /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C3983D862F62CE4600717789 /* SpatterlightTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C338CF402F71B86E00BCBD18 /* GlkController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = GlkController; sourceTree = "<group>"; };
 		C3533BE42F71D39200A03CDE /* TableViewController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TableViewController; sourceTree = "<group>"; };
-		C3983D882F62CE4600717789 /* SpatterlightTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SpatterlightTests; sourceTree = "<group>"; };
+		C3983D882F62CE4600717789 /* SpatterlightTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C36E35152F7AB64B006E3AED /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SpatterlightTests; sourceTree = "<group>"; };
 		C3DB14582E8418BB00837F69 /* MappingModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MappingModels; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -6940,7 +6953,7 @@
 			buildPhases = (
 				C3983D832F62CE4600717789 /* Sources */,
 				C3983D842F62CE4600717789 /* Frameworks */,
-				C3983D852F62CE4600717789 /* Resources */,
+				C36E35142F7AB64A006E3AED /* Resources */,
 			);
 			buildRules = (
 			);
@@ -7325,10 +7338,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C3983D852F62CE4600717789 /* Resources */ = {
+		C36E35142F7AB64A006E3AED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C36E35BB2F7ABD86006E3AED /* ScottFree command script.txt in Resources */,
+				C36E352C2F7AB68A006E3AED /* curses.z5 in Resources */,
+				C36E352D2F7AB68A006E3AED /* adv01.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
