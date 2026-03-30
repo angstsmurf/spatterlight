@@ -324,17 +324,18 @@
 
             // Check if we need to add padding to increase textview height to
             // accommodate for low image
-            if (textview.frame.size.height <= NSMaxY(bounds)) {
+            CGFloat bottom = NSMaxY(bounds);
+            if (textview.frame.size.height < bottom) {
                 textview.bottomPadding =
-                    NSMaxY(bounds) - textview.frame.size.height + inset.height;
+                bottom - textview.frame.size.height + inset.height;
                 extendneeded = textview.bottomPadding;
                 [textview setFrameSize:textview.frame.size];
             }
             // Check if padding is still needed
-            else if (textview.frame.size.height - textview.bottomPadding <=
-                     NSMaxY(bounds)) {
-                CGFloat bottom =
-                    NSMaxY(bounds) - textview.frame.size.height + inset.height;
+            else if (textview.frame.size.height - textview.bottomPadding <
+                     bottom) {
+                bottom =
+                bottom - textview.frame.size.height + inset.height;
                 if (extendneeded < bottom)
                     extendneeded = bottom;
             }
