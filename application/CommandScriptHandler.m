@@ -71,6 +71,11 @@ extern NSArray *gSaveFileTypes;
         _commandString = nil;
         _commandArray = nil;
         _glkctl.commandScriptRunning = NO;
+        
+        // Post notification that command script has completed
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"GlkCommandScriptDidComplete"
+                                                            object:self
+                                                          userInfo:nil];
     }
     if (!_commandString)
         return nil;

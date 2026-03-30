@@ -244,7 +244,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if (!_theme.name) {
         NSLog(@"GlkController runTerp called with theme without name!");
-        game.theme = [Preferences currentTheme];
+        if (Preferences.currentTheme)
+            game.theme = [game.managedObjectContext objectWithID:Preferences.currentTheme.objectID];
         _theme = game.theme;
     }
 

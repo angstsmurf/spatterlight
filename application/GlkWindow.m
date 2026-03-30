@@ -2,6 +2,10 @@
 #import "GlkController.h"
 #import "GlkController+Speech.h"
 #import "GlkTextGridWindow.h"
+#import "GlkTextBufferWindow.h"
+
+#import "Constants.h"
+#import "GlkStyle.h"
 
 #import "InputHistory.h"
 #import "MarginImage.h"
@@ -173,6 +177,16 @@
 // A possible optimization would be to cache this
 // instead of recreating it on every print operation.
 - (NSMutableDictionary *)getCurrentAttributesForStyle:(NSUInteger)stylevalue {
+
+    if ([styles[stylevalue] isEqual:[NSNull null]]) {
+        if ([self isKindOfClass:[GlkTextBufferWindow class]]) {
+            styles[stylevalue] = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]]).attributeDict;
+        } else if ([self isKindOfClass:[GlkTextGridWindow class]]) {
+            styles[stylevalue] = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]]).attributeDict;
+        } else {
+            return nil;
+        }
+    }
 
     NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
 
