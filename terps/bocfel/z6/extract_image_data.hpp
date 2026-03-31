@@ -1,10 +1,10 @@
 //
 //  extract_image_data.hpp
-//  bocfel6
+//  bocfel
 //
 //  Created by Administrator on 2023-07-17.
 //
-//  Parts are based on Mark Howell's pix2gif utility
+//  Parts are inspired by Mark Howell's pix2gif utility
 
 #ifndef extract_image_data_hpp
 #define extract_image_data_hpp

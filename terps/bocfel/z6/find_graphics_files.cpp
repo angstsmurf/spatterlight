@@ -30,7 +30,7 @@ static strid_t load_file(const std::string &file)
     return glkunix_stream_open_pathname(const_cast<char *>(file.c_str()), 0, 0);
 }
 
-extern uint8_t lookup_table[256];
+extern uint8_t default_huffman_tree[256];
 
 void free_images(void) {
     for (int i = 0; i < image_count; i++) {
@@ -39,9 +39,9 @@ void free_images(void) {
             free(img->data);
         if (img->palette)
             free(img->palette);
-        if (img->huffman_tree && img->huffman_tree != lookup_table) {
+        if (img->huffman_tree && img->huffman_tree != default_huffman_tree) {
             for (int j = 0; j < image_count; j++) {
-                if (j != i && raw_images[j].huffman_tree == img->huffman_tree && raw_images[j].huffman_tree != lookup_table)
+                if (j != i && raw_images[j].huffman_tree == img->huffman_tree && raw_images[j].huffman_tree != default_huffman_tree)
                     raw_images[j].huffman_tree = nullptr;
             }
             free(img->huffman_tree);
