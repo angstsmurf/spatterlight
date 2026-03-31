@@ -6,5 +6,6 @@
 - (void)queueEvent:(GlkEvent *)gevent;
 - (void)noteDataAvailable:(id)sender;
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification;
+- (void)closeLogFile;
 
 @end

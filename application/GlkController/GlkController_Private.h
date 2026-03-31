@@ -72,6 +72,9 @@
     NSString *_autosaveFileTerp;
     InfocomV6MenuHandler *_infocomV6MenuHandler;
     JourneyMenuHandler *_journeyMenuHandler;
+    
+    // For optional interpreter output logging
+    NSFileHandle *interpreterLogFileHandle;
 }
 
 @property (nonatomic) JourneyMenuHandler *journeyMenuHandler;

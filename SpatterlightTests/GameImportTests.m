@@ -25,8 +25,9 @@
 @property (nonatomic, strong) NSManagedObjectContext *testContext;
 
 // Helper methods
++ (NSURL *)tempDir;
 - (NSURL *)cursesGameFileURL;
-- (NSURL *)commandScriptFileURL;
+- (NSURL *)commandScriptFileURLForGame:(NSString *)gameName;
 - (void)deleteGameAtPath:(NSString *)path;
 - (NSUInteger)currentGameCount;
 - (Game *)fetchGameAtPath:(NSString *)path;
@@ -37,6 +38,8 @@
 - (void)verifyGame:(Game *)game hasPath:(NSString *)path;
 - (GameImporter *)createGameImporter;
 - (GameLauncher *)createAndSetupGameLauncher;
+- (void)importAndRunGameFile:(NSString *)gameFileName
+           commandScriptName:(NSString *)scriptName;
 
 @end
 
@@ -73,6 +76,8 @@
     self.tableViewController = nil;
     self.testContext = nil;
     self.coreDataManager = nil;
+
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"LogInterpreterOutput"];
 
     [super tearDown];
 }
@@ -132,7 +137,24 @@
 - (NSURL *)commandScriptFileURLForGame:(NSString *)gameName {
     NSString *fileName = [NSString stringWithFormat:@"%@ command script", gameName];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    return [bundle URLForResource:@"ScottFree command script" withExtension:@"txt"];
+    return [bundle URLForResource:fileName withExtension:@"txt"];
+}
+
++ (NSURL *)tempDir {
+    NSURL *usersURL = [NSURL fileURLWithPath:@"/Users"
+                                 isDirectory:YES];
+
+    NSError *error = nil;
+
+    NSURL *tempURL = [[NSFileManager defaultManager] URLForDirectory:NSItemReplacementDirectory
+                                                            inDomain:NSUserDomainMask
+                                                   appropriateForURL:usersURL
+                                                              create:YES
+                                                               error:&error];
+    if (error)
+        NSLog(@"tempDir: Error: %@", error);
+
+    return tempURL;
 }
 
 // Delete a game at the given path if it exists
@@ -236,6 +258,22 @@
     }
     
     return launcher;
+}
+
++ (NSString *)comparisonLogFor:(NSString *)name {
+    name = [NSString stringWithFormat:@"%@ log output", name];
+
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+
+    NSURL *url = [bundle URLForResource:name
+                              withExtension:@"txt"
+                               subdirectory:nil];
+
+    NSError *error = nil;
+    NSString *facit = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+    if (error)
+        NSLog(@"Error: %@", error);
+    return facit;
 }
 
 #pragma mark - Tests
@@ -450,14 +488,16 @@
     }];
 }
 
-- (void)testImportAndStartAdventureland {
+- (void)importAndRunGameFile:(NSString *)gameFileName
+           commandScriptName:(NSString *)scriptName {
     XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import completes"];
     XCTestExpectation *gameStartExpectation = [self expectationWithDescription:@"Game starts running"];
-    XCTestExpectation *commandScriptExpectation = [self expectationWithDescription:@"Command script runs"];
+    XCTestExpectation *commandScriptExpectation = [self expectationWithDescription:@"Command script completes"];
+    XCTestExpectation *logsMatchedExpectation = [self expectationWithDescription:@"Interpreter log output matched"];
 
     // Get file URLs
-    NSURL *gameFileURL = [self gameFileURLForFileNamed:@"adv01.dat"];
-    NSURL *scriptURL = [self commandScriptFileURLForGame:@"ScottFree"];
+    NSURL *gameFileURL = [self gameFileURLForFileNamed:gameFileName];
+    NSURL *scriptURL = [self commandScriptFileURLForGame:scriptName];
 
     // Delete any existing copy
     [self deleteGameAtPath:gameFileURL.path];
@@ -469,9 +509,10 @@
     // Create GameImporter and GameLauncher
     GameImporter *importer = [self createGameImporter];
     GameLauncher *launcher = [self createAndSetupGameLauncher];
-    
+
     // Store original determinism setting to restore later
     __block BOOL originalDeterminismSetting = NO;
+    __block NSURL *tempDir = [GameImportXCTests tempDir];
 
     // Observe command script completion notification
     __block id scriptObserver = [[NSNotificationCenter defaultCenter]
@@ -500,9 +541,31 @@
                 game.theme.determinism = originalDeterminismSetting;
                 NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
             }
-            
+
             // Clean up: close the game window
             [glkController.window performClose:nil];
+            // Compare log against comparison file in test bundle
+            NSArray *contentsOfDir = [[NSFileManager defaultManager]
+                                      contentsOfDirectoryAtURL:tempDir
+                                      includingPropertiesForKeys:@[ NSURLNameKey ]
+                                      options:NSDirectoryEnumerationSkipsHiddenFiles
+                                      error:nil];
+
+            NSURL *logURL = contentsOfDir.firstObject;
+
+            XCTAssertNotNil(logURL, @"Log file should be created");
+
+            NSError *error = nil;
+            NSString *log = [NSString stringWithContentsOfURL:logURL encoding:NSUTF8StringEncoding error:&error];
+            if (error)
+                NSLog(@"Error: %@", error);
+            XCTAssertNil(error, @"There should be no error");
+            XCTAssert(log.length > 0, @"Log file should contain text");
+
+            NSString *facit = [GameImportXCTests comparisonLogFor:scriptName];
+            XCTAssert(facit.length > 0, @"Comparison file should contain text");
+            XCTAssert([log isEqualToString:facit], @"Log file text should match comparison file text");
+            [logsMatchedExpectation fulfill];
         }
 
         [commandScriptExpectation fulfill];
@@ -517,13 +580,17 @@
         // Verify game properties
         [self verifyGame:game hasPath:gameFileURL.path];
         [importExpectation fulfill];
-        
+
         // Enable determinism setting for reproducible test results
         if (game.theme) {
             originalDeterminismSetting = game.theme.determinism;
             game.theme.determinism = YES;
             NSLog(@"Enabled determinism setting for test");
         }
+
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:YES forKey:@"LogInterpreterOutput"];
+        [defaults setObject:tempDir.path forKey:@"InterpreterLogDirectory"];
 
         // Now try to start the game
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -551,20 +618,13 @@
                         // Give the game a moment to be fully ready, then start the script
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [launcher runCommandsFromFile:scriptURL.path];
-                            // The scriptObserver will handle fulfilling commandScriptExpectation
-                            // when the GlkCommandScriptDidComplete notification is posted
                         });
                     } else {
                         NSLog(@"No command script found, skipping");
                         [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
                         [commandScriptExpectation fulfill];
+                        [logsMatchedExpectation fulfill];
 
-                        // Restore original determinism setting
-                        if (game.theme) {
-                            game.theme.determinism = originalDeterminismSetting;
-                            NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
-                        }
-                        
                         // Clean up: close the game window
                         [glkController.window performClose:nil];
                     }
@@ -572,6 +632,13 @@
                     [gameStartExpectation fulfill];
                     [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
                     [commandScriptExpectation fulfill];
+                    [logsMatchedExpectation fulfill];
+                }
+
+                // Restore original determinism setting
+                if (game.theme) {
+                    game.theme.determinism = originalDeterminismSetting;
+                    NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
                 }
             });
         });
@@ -594,6 +661,21 @@
             XCTFail(@"Test timed out: %@", error);
         }
     }];
+}
+
+- (void)testAdventureland {
+    [self importAndRunGameFile:@"adv01.dat"
+             commandScriptName:@"ScottFree"];
+}
+
+- (void)testTADS3 {
+    [self importAndRunGameFile:@"Elysium.t3"
+             commandScriptName:@"The Elysium Enigma"];
+}
+
+- (void)testTADS2 {
+    [self importAndRunGameFile:@"tildeath.gam"
+             commandScriptName:@"Till Death Makes a Monk-Fish out of Me"];
 }
 
 @end

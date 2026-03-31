@@ -541,6 +541,10 @@
 		C319328227E338100054FE2C /* io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C319328027E338100054FE2C /* io.cpp */; };
 		C319328327E338100054FE2C /* iff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C319328127E338100054FE2C /* iff.cpp */; };
 		C319329D27E407700054FE2C /* spatterlight-autosave.mm in Sources */ = {isa = PBXBuildFile; fileRef = C319329B27E4076F0054FE2C /* spatterlight-autosave.mm */; };
+		C31A66872F7BD77900392BE0 /* Elysium.t3 in Resources */ = {isa = PBXBuildFile; fileRef = C3CC7FF726C00ACA009B0B25 /* Elysium.t3 */; };
+		C31A66892F7BD79800392BE0 /* The Elysium Enigma command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3CC7FF826C01F33009B0B25 /* The Elysium Enigma command script.txt */; };
+		C31A67162F7BE60600392BE0 /* tildeath.gam in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD77E26D4539500AF31AF /* tildeath.gam */; };
+		C31A67182F7BE61E00392BE0 /* Till Death Makes a Monk-Fish out of Me command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */; };
 		C31AF2F427165168007B7120 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
 		C31AF2FA271652A0007B7120 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */; };
 		C31DB983276E961F00547C9C /* sagadraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C31DB982276E961F00547C9C /* sagadraw.c */; };
@@ -5765,6 +5769,57 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C345289D2F7BF21300A68BA3 /* Command scripts */ = {
+			isa = PBXGroup;
+			children = (
+				C3998E3726C984C2002C1E5D /* Bugged command script.txt */,
+				C3998E2926C97B15002C1E5D /* Guilty Bastards command script.txt */,
+				C3998E2D26C9836E002C1E5D /* Level 9 command script.txt */,
+				C3998E2F26C9839F002C1E5D /* Magnetic command script.txt */,
+				C3A199872999E4C500D27500 /* Plus command script.txt */,
+				C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */,
+				C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */,
+				C3A199802999D94000D27500 /* TaylorMade command script.txt */,
+				C321419E26CECD9000B49504 /* TerpEtude command script.txt */,
+				C3CC7FF826C01F33009B0B25 /* The Elysium Enigma command script.txt */,
+				C326B13C26C18280006C398F /* The Sound of One Hand Clapping command script.txt */,
+				C3D7CB1526CA7056006DE4CC /* The Wyldkynd Project command script.txt */,
+				C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */,
+				C3998E3426C9845A002C1E5D /* To Hell in a Hamper command script.txt */,
+				C39D803A26BDF7C300500E1C /* Transparent command script.txt */,
+				C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */,
+			);
+			path = "Command scripts";
+			sourceTree = "<group>";
+		};
+		C345289F2F7BF2FB00A68BA3 /* Transcripts */ = {
+			isa = PBXGroup;
+			children = (
+				C37391BC27A128E4009147EF /* Transcript of adv01.txt */,
+				C30451C126A9A8A5006E3D51 /* Transcript of autosavetest.txt */,
+				C3D7CB1D26CA9049006DE4CC /* Transcript of Bugged.txt */,
+				C321419926CEBAA000B49504 /* Transcript of CZECH.rtf */,
+				C3D7CB1F26CA9A7F006DE4CC /* Transcript of Guilty Bastards.txt */,
+				C3D7CB2826CA9F00006DE4CC /* Transcript of Level 9.txt */,
+				C3D7CB2A26CAA2F7006DE4CC /* Transcript of Magnetic.txt */,
+				C321419B26CEC55B00B49504 /* Transcript of Praxix.rtf */,
+				C3D8817C29A1BAE50085C383 /* Transcript of Praxix old.rtf */,
+				C3D7CB1A26CA8D09006DE4CC /* Transcript of Shades of Gray.txt */,
+				C3A199892999E63A00D27500 /* Transcript of SPL13P.txt */,
+				C3CC7FFB26C02784009B0B25 /* Transcript of The Elysium Enigma.txt */,
+				C326B14026C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt */,
+				C3D7CB1726CA83BD006DE4CC /* Transcript of The Wyldkynd Project.txt */,
+				C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */,
+				C3D7CB2C26CAA781006DE4CC /* Transcript of To Hell in a Hamper.txt */,
+				C3A199832999DB5600D27500 /* Transcript of tot.txt */,
+				C39D803C26BDFA3F00500E1C /* Transcript of Transparent.txt */,
+				C321419D26CECD9000B49504 /* Transcript of TerpEtude.rtf */,
+				C3D8817E29A1BAE50085C383 /* Transcript of TerpEtude old.rtf */,
+				C354AA6B274D05D800C8D01D /* Transcript of Unholy Grail.txt */,
+			);
+			path = Transcripts;
+			sourceTree = "<group>";
+		};
 		C353F0AB26264615006D17E3 /* GlkGraphicsWindow */ = {
 			isa = PBXGroup;
 			children = (
@@ -5976,70 +6031,35 @@
 			children = (
 				C3998E2126C97A4E002C1E5D /* AGT-03201-0000E16C.agx */,
 				C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */,
-				C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */,
-				C3D7CB1A26CA8D09006DE4CC /* Transcript of Shades of Gray.txt */,
+				C345289F2F7BF2FB00A68BA3 /* Transcripts */,
 				C354AA71274D095400C8D01D /* bugged.dat */,
 				C3998E3626C98489002C1E5D /* bugged.acd */,
-				C3998E3726C984C2002C1E5D /* Bugged command script.txt */,
-				C3D7CB1D26CA9049006DE4CC /* Transcript of Bugged.txt */,
 				C3998E2726C97AD4002C1E5D /* GBDATA */,
 				C3998E2626C97AD3002C1E5D /* guilty.hex */,
-				C3998E2926C97B15002C1E5D /* Guilty Bastards command script.txt */,
-				C3D7CB1F26CA9A7F006DE4CC /* Transcript of Guilty Bastards.txt */,
-				C3998E2D26C9836E002C1E5D /* Level 9 command script.txt */,
-				C3D7CB2826CA9F00006DE4CC /* Transcript of Level 9.txt */,
+				C345289D2F7BF21300A68BA3 /* Command scripts */,
 				C3998E2C26C9835B002C1E5D /* Q.CGA */,
 				C3998E2B26C9835A002C1E5D /* Q.L9 */,
 				C3998E3226C983FD002C1E5D /* mag.gfx */,
 				C3998E3126C983FD002C1E5D /* mag.mag */,
-				C3998E2F26C9839F002C1E5D /* Magnetic command script.txt */,
-				C3D7CB2A26CAA2F7006DE4CC /* Transcript of Magnetic.txt */,
 				C3998E3326C9844C002C1E5D /* Hamper.taf */,
-				C3998E3426C9845A002C1E5D /* To Hell in a Hamper command script.txt */,
-				C3D7CB2C26CAA781006DE4CC /* Transcript of To Hell in a Hamper.txt */,
 				C3EAD77E26D4539500AF31AF /* tildeath.gam */,
-				C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */,
-				C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */,
 				C3A1997F2999D91B00D27500 /* tot.tay */,
-				C3A199802999D94000D27500 /* TaylorMade command script.txt */,
-				C3A199832999DB5600D27500 /* Transcript of tot.txt */,
 				C39D803826BDEE8200500E1C /* Transparent.gblorb */,
-				C39D803A26BDF7C300500E1C /* Transparent command script.txt */,
-				C39D803C26BDFA3F00500E1C /* Transcript of Transparent.txt */,
 				C3CC7FF726C00ACA009B0B25 /* Elysium.t3 */,
-				C3CC7FF826C01F33009B0B25 /* The Elysium Enigma command script.txt */,
-				C3CC7FFB26C02784009B0B25 /* Transcript of The Elysium Enigma.txt */,
 				C326B13E26C182BF006C398F /* onehand.dat */,
-				C326B13C26C18280006C398F /* The Sound of One Hand Clapping command script.txt */,
-				C326B14026C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt */,
 				C3998E3B26C9A680002C1E5D /* 00 Wyldkynd Project.a3c */,
-				C3D7CB1526CA7056006DE4CC /* The Wyldkynd Project command script.txt */,
-				C3D7CB1726CA83BD006DE4CC /* Transcript of The Wyldkynd Project.txt */,
 				C30451BF26A971DD006E3D51 /* imagetest.gblorb */,
 				C3C5926726A8185700DFB49B /* autosavetest.gblorb */,
 				C3CEC2C226A6D1F900120469 /* curses.z5 */,
 				C3CEC2C126A6D1F900120469 /* freefall.z5 */,
 				C3CEC2C326A6D1F900120469 /* test_stories.iFiction */,
-				C30451C126A9A8A5006E3D51 /* Transcript of autosavetest.txt */,
 				C321419326CEA6D600B49504 /* czech.z5 */,
-				C321419926CEBAA000B49504 /* Transcript of CZECH.rtf */,
 				C321419526CEA75A00B49504 /* praxix.z5 */,
-				C321419B26CEC55B00B49504 /* Transcript of Praxix.rtf */,
-				C3D8817C29A1BAE50085C383 /* Transcript of Praxix old.rtf */,
 				C321419726CEA7B100B49504 /* etude.z5 */,
-				C321419E26CECD9000B49504 /* TerpEtude command script.txt */,
-				C321419D26CECD9000B49504 /* Transcript of TerpEtude.rtf */,
-				C3D8817E29A1BAE50085C383 /* Transcript of TerpEtude old.rtf */,
 				C354AA67274CD8D900C8D01D /* adv01.dat */,
-				C37391BC27A128E4009147EF /* Transcript of adv01.txt */,
-				C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */,
 				C354AA73274D096500C8D01D /* grail.blorb */,
 				C354AA6D274D05D800C8D01D /* grail.j2 */,
-				C354AA6B274D05D800C8D01D /* Transcript of Unholy Grail.txt */,
-				C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */,
 				C3A199852999E47800D27500 /* SPL13P.plus */,
-				C3A199872999E4C500D27500 /* Plus command script.txt */,
-				C3A199892999E63A00D27500 /* Transcript of SPL13P.txt */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -7342,6 +7362,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C31A67182F7BE61E00392BE0 /* Till Death Makes a Monk-Fish out of Me command script.txt in Resources */,
+				C31A67162F7BE60600392BE0 /* tildeath.gam in Resources */,
+				C31A66892F7BD79800392BE0 /* The Elysium Enigma command script.txt in Resources */,
+				C31A66872F7BD77900392BE0 /* Elysium.t3 in Resources */,
 				C36E35BB2F7ABD86006E3AED /* ScottFree command script.txt in Resources */,
 				C36E352C2F7AB68A006E3AED /* curses.z5 in Resources */,
 				C36E352D2F7AB68A006E3AED /* adv01.dat in Resources */,
