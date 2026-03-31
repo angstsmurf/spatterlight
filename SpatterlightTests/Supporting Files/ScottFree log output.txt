@@ -1,0 +1,6198 @@
+=== Spatterlight Interpreter Log ===
+Game: adv01.dat
+Interpreter: scott
+
+[MSG] cmd=3 a1=0 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=14 a1=3 a2=9 a3=6 len=0
+[MSG] cmd=14 a1=3 a2=9 a3=0 len=0
+[MSG] cmd=14 a1=3 a2=9 a3=1 len=0
+[MSG] cmd=14 a1=3 a2=2 a3=2 len=0
+[MSG] cmd=6 a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=316
+[TEXT] Scott Free, A Scott Adams game driver in C.
+Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.
+Distributed under the GNU software license
+
+
+[MSG] cmd=6 a1=4 a2=1 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=424
+[TEXT] A voice BOOOOMS out:
+
+Welcome to Adventure number: 1 "ADVENTURELAND".
+In this Adventure you're to find *TREASURES* & store them away.
+
+To see how well you're doing say: "SCORE"
+Remember you can always say "HELP"
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=32
+[TEXT] I'm in a forest
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=82
+[TEXT] Obvious exits: North, South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I can also see: Trees -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=54
+[TEXT] I'm on the shore of a lake
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=70
+[TEXT] Obvious exits: North, South, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: Water - *GOLDEN FISH* - Rusty axe (Magic word "BUNYON" on it) - Sign says
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=58
+[TEXT] "No swimming allowed here" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=54
+[TEXT] I'm on the shore of a lake
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=70
+[TEXT] Obvious exits: North, South, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I'm in a quick-sand bog
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: None.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=92
+[TEXT] I can also see: *Small statue of a BLUE OX* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I'm in a quick-sand bog
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: None.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=138
+[TEXT] bunyon
+Something I'm holding vibrates and...
+I'm carrying: 
+Nothing.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I'm in a quick-sand bog
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: None.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=54
+[TEXT] I'm on the shore of a lake
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=70
+[TEXT] Obvious exits: North, South, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=54
+[TEXT] I'm on the shore of a lake
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=70
+[TEXT] Obvious exits: North, South, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] I'm at the edge of a BOTTOMLESS hole
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] Obvious exits: North, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=106
+[TEXT] I can also see: Large outdoor Advertisement - Hole -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=120
+[TEXT] I'm on a ledge just below the rim of the BOTTOMLESS hole. I
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] don't think I want to go down
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I can also see: Flint & steel -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=120
+[TEXT] I'm on a ledge just below the rim of the BOTTOMLESS hole. I
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] don't think I want to go down
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I can also see: Flint & steel -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=120
+[TEXT] I'm on a ledge just below the rim of the BOTTOMLESS hole. I
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] don't think I want to go down
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I can also see: Flint & steel -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=120
+[TEXT] I'm on a ledge just below the rim of the BOTTOMLESS hole. I
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] don't think I want to go down
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] I'm at the edge of a BOTTOMLESS hole
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] Obvious exits: North, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=106
+[TEXT] I can also see: Large outdoor Advertisement - Hole -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of "OILY" slime -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a hidden grove
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] Obvious exits: North, East.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=182
+[TEXT] I can also see: Rusty axe (Magic word "BUNYON" on it) - *JEWELED FRUIT* - *Small statue of
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] a BLUE OX* - Sign says "Paul's place" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a hidden grove
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] Obvious exits: North, East.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: Rusty axe (Magic word "BUNYON" on it) - *JEWELED FRUIT* - Sign says "Paul's
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=18
+[TEXT] place" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a hidden grove
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] Obvious exits: North, East.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=122
+[TEXT] I can also see: *JEWELED FRUIT* - Sign says "Paul's place" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a hidden grove
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] Obvious exits: North, East.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=86
+[TEXT] I can also see: Sign says "Paul's place" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of "OILY" slime -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=72
+[TEXT] I'm in a top of a tall cypress tree
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=144
+[TEXT] I can also see: Spider web with writing on it - Ring of skeleton keys -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=72
+[TEXT] I'm in a top of a tall cypress tree
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=144
+[TEXT] I can also see: Spider web with writing on it - Ring of skeleton keys -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=72
+[TEXT] I'm in a top of a tall cypress tree
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=96
+[TEXT] I can also see: Spider web with writing on it -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of "OILY" slime -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=16
+[TEXT] TIMBER!
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Swamp gas
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=78
+[TEXT] - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=182
+[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here,
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] then say: SCORE" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=182
+[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here,
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] then say: SCORE" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=182
+[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here,
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] then say: SCORE" - *JEWELED FRUIT* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=182
+[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here,
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=134
+[TEXT] then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=78
+[TEXT] FRUIT* - *Small statue of a BLUE OX* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=114
+[TEXT] A glowing Genie appears, drops somehting, then vanishes.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=112
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=114
+[TEXT] A glowing Genie appears, drops somehting, then vanishes.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=154
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=122
+[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I'm in a root chamber under the stump
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=92
+[TEXT] I can also see: Dark hole - *Pot of RUBIES* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I'm in a root chamber under the stump
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I can also see: Dark hole -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=122
+[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=154
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I'm in a root chamber under the stump
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I can also see: Dark hole -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] I can also see: Locked door -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] I can also see: Locked door -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=100
+[TEXT] I can also see: Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=58
+[TEXT] I can't see. It is too dark!
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=88
+[TEXT] Lamp burns with a cold flameless blue glow.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a large cavern
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=90
+[TEXT] Obvious exits: North, South, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I'm in a royal anteroom
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=52
+[TEXT] Obvious exits: North, Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] I can also see: Empty wine bladder -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I'm in a royal anteroom
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=52
+[TEXT] Obvious exits: North, Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a large cavern
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=90
+[TEXT] Obvious exits: North, South, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=82
+[TEXT] Obvious exits: North, South, East, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=128
+[TEXT] I can also see: Sign here says "Opposite of LIGHT is UNLIGHT" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: West, Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=102
+[TEXT] Obvious exits: North, South, East, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=140
+[TEXT] I can also see: Strange scratchings on rock says: "ALADIN was here" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=102
+[TEXT] Obvious exits: North, South, East, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=120
+[TEXT] I can also see: *Thick PERSIAN RUG* - Arrow pointing down -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=102
+[TEXT] Obvious exits: North, South, East, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I can also see: Arrow pointing down -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=114
+[TEXT] I'm at the bottom of a very deep chasm. High above me is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=124
+[TEXT] a pair of ledges. One has a bricked up window across its face
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] the other faces a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=138
+[TEXT] I can also see: *GOLDEN NET* - Sign: "magic word's AWAY! Look la..."
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=92
+[TEXT] (Rest of sign is missing!) - Stream of lava -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=114
+[TEXT] I'm at the bottom of a very deep chasm. High above me is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=124
+[TEXT] a pair of ledges. One has a bricked up window across its face
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] the other faces a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] I can also see: Sign: "magic word's AWAY! Look la..."
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=92
+[TEXT] (Rest of sign is missing!) - Stream of lava -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=102
+[TEXT] Obvious exits: North, South, East, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I can also see: Arrow pointing down -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=76
+[TEXT] Something I'm holding vibrates and...
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=30
+[TEXT] OK
+Lamp is off
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Empty wine bladder -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=54
+[TEXT] I'm on the shore of a lake
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=70
+[TEXT] Obvious exits: North, South, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=54
+[TEXT] I'm on the shore of a lake
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=70
+[TEXT] Obvious exits: North, South, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=126
+[TEXT] I can also see: Water - Sign says "No swimming allowed here" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] I'm at the edge of a BOTTOMLESS hole
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] Obvious exits: North, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=106
+[TEXT] I can also see: Large outdoor Advertisement - Hole -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Empty wine bladder -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=154
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=154
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=166
+[TEXT] SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=24
+[TEXT] BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Empty wine bladder -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=62
+[TEXT] O.K. 
+
+I'm bitten by chiggers.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=66
+[TEXT] OK
+BOY that really hit the spot!
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=168
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=134
+[TEXT] "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=6
+[TEXT] OK
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I'm in a root chamber under the stump
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I can also see: Dark hole -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=58
+[TEXT] I can't see. It is too dark!
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=88
+[TEXT] Lamp burns with a cold flameless blue glow.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a large cavern
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=90
+[TEXT] Obvious exits: North, South, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I'm in a royal anteroom
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=52
+[TEXT] Obvious exits: North, Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=46
+[TEXT] I'm in a royal chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=72
+[TEXT] I can also see: Bricked up window -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=46
+[TEXT] I'm in a royal chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=120
+[TEXT] I can also see: Distended gas bladder - Bricked up window -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=40
+[TEXT] Gas bladder blew up
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=46
+[TEXT] I'm in a royal chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Bricked up window with a hole in it - Loose fire bricks -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] I'm on a narrow ledge by a chasm. Across the chasm is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=32
+[TEXT] the Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] I'm on a narrow ledge by a chasm. Across the chasm is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=32
+[TEXT] the Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=78
+[TEXT] I'm on a narrow ledge by a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Across the chasm is another ledge
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: None.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=112
+[TEXT] I can also see: Very thin black bear - *MAGIC MIRROR* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=78
+[TEXT] I'm on a narrow ledge by a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Across the chasm is another ledge
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: None.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=112
+[TEXT] I can also see: Very thin black bear - *MAGIC MIRROR* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=96
+[TEXT] Bear is so startled that he FELL off the ledge!
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=78
+[TEXT] I'm on a narrow ledge by a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Across the chasm is another ledge
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: None.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=66
+[TEXT] I can also see: *MAGIC MIRROR* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=6
+[TEXT] OK
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=78
+[TEXT] I'm on a narrow ledge by a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Across the chasm is another ledge
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: None.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] I'm in a throne room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=62
+[TEXT] I can also see: *GOLD CROWN* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] I'm in a throne room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=62
+[TEXT] I can also see: *GOLD CROWN* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] I'm in a throne room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=78
+[TEXT] I'm on a narrow ledge by a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Across the chasm is another ledge
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: None.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] I'm on a narrow ledge by a chasm. Across the chasm is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=32
+[TEXT] the Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] I'm on a narrow ledge by a chasm. Across the chasm is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=32
+[TEXT] the Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=46
+[TEXT] I'm in a royal chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Bricked up window with a hole in it - Loose fire bricks -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I'm in a royal anteroom
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=52
+[TEXT] Obvious exits: North, Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a large cavern
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=90
+[TEXT] Obvious exits: North, South, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I'm in a root chamber under the stump
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I can also see: Dark hole -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] *DIAMOND RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I'm in a root chamber under the stump
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I can also see: Dark hole -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a large cavern
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=90
+[TEXT] Obvious exits: North, South, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I'm in a royal anteroom
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=52
+[TEXT] Obvious exits: North, Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=46
+[TEXT] I'm in a royal chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Bricked up window with a hole in it - Loose fire bricks -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=28
+[TEXT] OK
+Its heavy!
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=46
+[TEXT] I'm in a royal chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=42
+[TEXT] Obvious exits: Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] I can also see: Bricked up window with a hole in it -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I'm in a royal anteroom
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=52
+[TEXT] Obvious exits: North, Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a large cavern
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=90
+[TEXT] Obvious exits: North, South, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=82
+[TEXT] Obvious exits: North, South, East, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=128
+[TEXT] I can also see: Sign here says "Opposite of LIGHT is UNLIGHT" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: West, Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=102
+[TEXT] Obvious exits: North, South, East, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=140
+[TEXT] I can also see: Strange scratchings on rock says: "ALADIN was here" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=102
+[TEXT] Obvious exits: North, South, East, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I can also see: Arrow pointing down -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=114
+[TEXT] I'm at the bottom of a very deep chasm. High above me is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=124
+[TEXT] a pair of ledges. One has a bricked up window across its face
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] the other faces a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] I can also see: Sign: "magic word's AWAY! Look la..."
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=136
+[TEXT] (Rest of sign is missing!) - Stream of lava - Slightly woozy bear -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=114
+[TEXT] I'm at the bottom of a very deep chasm. High above me is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=124
+[TEXT] a pair of ledges. One has a bricked up window across its face
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] the other faces a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=152
+[TEXT] I can also see: Glowing *FIRESTONE* - Sign: "magic word's AWAY! Look la..."
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=160
+[TEXT] (Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=114
+[TEXT] I'm at the bottom of a very deep chasm. High above me is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=124
+[TEXT] a pair of ledges. One has a bricked up window across its face
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] the other faces a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=152
+[TEXT] I can also see: Glowing *FIRESTONE* - Sign: "magic word's AWAY! Look la..."
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=160
+[TEXT] (Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=20
+[TEXT] Sizzle...
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=114
+[TEXT] I'm at the bottom of a very deep chasm. High above me is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=124
+[TEXT] a pair of ledges. One has a bricked up window across its face
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] the other faces a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] I can also see: Sign: "magic word's AWAY! Look la..."
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] (Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam - *FIRESTONE*
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=9 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=114
+[TEXT] I'm at the bottom of a very deep chasm. High above me is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=124
+[TEXT] a pair of ledges. One has a bricked up window across its face
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] the other faces a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] I can also see: Sign: "magic word's AWAY! Look la..."
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=176
+[TEXT] (Rest of sign is missing!) - Loose fire bricks - Slightly woozy bear - Lava stream with
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] brick dam - *FIRESTONE* (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=9 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=6
+[TEXT] OK
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=114
+[TEXT] I'm at the bottom of a very deep chasm. High above me is
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=124
+[TEXT] a pair of ledges. One has a bricked up window across its face
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=60
+[TEXT] the other faces a Throne-room
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] I can also see: Sign: "magic word's AWAY! Look la..."
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=176
+[TEXT] (Rest of sign is missing!) - Loose fire bricks - Slightly woozy bear - Lava stream with
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=24
+[TEXT] brick dam -
+
+[MSG] cmd=10 a1=1 a2=0 a3=9 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a maze of pits
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=102
+[TEXT] Obvious exits: North, South, East, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I can also see: Arrow pointing down -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=76
+[TEXT] Something I'm holding vibrates and...
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=30
+[TEXT] OK
+Lamp is off
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=54
+[TEXT] I'm on the shore of a lake
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=70
+[TEXT] Obvious exits: North, South, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=126
+[TEXT] I can also see: Water - Sign says "No swimming allowed here" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=6
+[TEXT] OK
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=54
+[TEXT] I'm on the shore of a lake
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=70
+[TEXT] Obvious exits: North, South, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=126
+[TEXT] I can also see: Water - Sign says "No swimming allowed here" -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] *DIAMOND RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] *DIAMOND RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=126
+[TEXT] *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *JEWELED FRUIT* - *Small
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=214
+[TEXT] Mirror lands softly on rug, lights up and says:
+" DRAGON STING " and fades. I don't get it, I hope you do.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=6
+[TEXT] OK
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=168
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=134
+[TEXT] "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I'm in a root chamber under the stump
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I can also see: Dark hole -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=58
+[TEXT] I can't see. It is too dark!
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=88
+[TEXT] Lamp burns with a cold flameless blue glow.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a large cavern
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=90
+[TEXT] Obvious exits: North, South, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=86
+[TEXT] I'm in a long tunnel. I hear buzzing ahead
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=58
+[TEXT] Obvious exits: North, South.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I'm in a large 8 sided room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] Obvious exits: South.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=106
+[TEXT] I can also see: *ROYAL HONEY* - Large african bees -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=6
+[TEXT] OK
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I'm in a large 8 sided room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] Obvious exits: South.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] I can also see: Large african bees -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=60
+[TEXT] BOY that really hit the spot!
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I'm in a large 8 sided room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] Obvious exits: South.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] I can also see: Large african bees -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=6
+[TEXT] OK
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I'm in a large 8 sided room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] Obvious exits: South.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] I can also see: Large african bees -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=66
+[TEXT] First I need an empty container.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I'm in a large 8 sided room
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] Obvious exits: South.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] I can also see: Large african bees -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=86
+[TEXT] I'm in a long tunnel. I hear buzzing ahead
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=58
+[TEXT] Obvious exits: North, South.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a large cavern
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=90
+[TEXT] Obvious exits: North, South, West, Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=64
+[TEXT] I'm in a long down sloping hall
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=88
+[TEXT] I'm in a semi-dark hole by the root chamber
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=76
+[TEXT] I'm in a root chamber under the stump
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=38
+[TEXT] Obvious exits: Up.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=56
+[TEXT] I can also see: Dark hole -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=168
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=134
+[TEXT] "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=26
+[TEXT] Move undone. 
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=168
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=134
+[TEXT] "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=172
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=154
+[TEXT] The bees attack the dragon which gets so annoyed it gets up
+and flys away...
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=166
+[TEXT] I can also see: Large african bees - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=82
+[TEXT] others..." - *DRAGON EGGS* (very rare) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a sunny meadow
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=166
+[TEXT] I can also see: Large african bees - Sign here says "In many cases mud is good. In
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] others..." -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=80
+[TEXT] The bees all suffocated and disappeared
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=44
+[TEXT] I'm in a dismal swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=68
+[TEXT] Obvious exits: North, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=158
+[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=178
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=26
+[TEXT] (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *DRAGON EGGS*
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=176
+[TEXT] (very rare) - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=74
+[TEXT] BRACELET* - *FIRESTONE* (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] SCORE" - *GOLDEN NET* - *ROYAL HONEY* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR*
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] - *DRAGON EGGS* (very rare) - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=160
+[TEXT] You have stored 13 treasures. On a scale of 0 to 100 that rates 100.
+Well done.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=180
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] SCORE" - *GOLDEN NET* - *ROYAL HONEY* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR*
+
+[MSG] cmd=10 a1=1 a2=0 a3=6 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=174
+[TEXT] - *DRAGON EGGS* (very rare) - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND
+
+[MSG] cmd=10 a1=1 a2=0 a3=7 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=108
+[TEXT] RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
+
+[MSG] cmd=10 a1=1 a2=0 a3=8 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=72
+[TEXT] 
+
+The game is now over. Play again?
+
+[MSG] cmd=25 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=6
+[TEXT] y
+
+
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=424
+[TEXT] A voice BOOOOMS out:
+
+Welcome to Adventure number: 1 "ADVENTURELAND".
+In this Adventure you're to find *TREASURES* & store them away.
+
+To see how well you're doing say: "SCORE"
+Remember you can always say "HELP"
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=32
+[TEXT] I'm in a forest
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=82
+[TEXT] Obvious exits: North, South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I can also see: Trees -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=72
+[TEXT] No transcript is currently running.
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=10 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=32
+[TEXT] I'm in a forest
+
+[MSG] cmd=10 a1=1 a2=0 a3=1 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=2 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=82
+[TEXT] Obvious exits: North, South, East, West.
+
+[MSG] cmd=10 a1=1 a2=0 a3=3 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=10 a1=1 a2=0 a3=4 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=48
+[TEXT] I can also see: Trees -
+
+[MSG] cmd=10 a1=1 a2=0 a3=5 len=0
+[MSG] cmd=11 a1=1 a2=0 a3=0 len=184
+[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=27 a1=0 a2=511 a3=0 len=0
+
+=== Session ended ===

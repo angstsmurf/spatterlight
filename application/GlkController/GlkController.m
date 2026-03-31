@@ -968,30 +968,42 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     task.currentDirectoryPath = NSHomeDirectory();
     task.standardOutput = readpipe;
     task.standardInput = sendpipe;
-
-#ifdef TEE_TERP_OUTPUT
-    [task setLaunchPath:@"/bin/bash"];
-
-    NSString *cmdline = @" ";
-    cmdline = [cmdline stringByAppendingString:terppath];
-    cmdline = [cmdline stringByAppendingString:@" \""];
-    cmdline = [cmdline stringByAppendingString:_gamefile];
-
-    cmdline = [cmdline
-               stringByAppendingString:@"\" | tee -a ~/Desktop/Spatterlight\\ "];
-
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH.mm"];
-    NSString *stringFromDate = [formatter stringFromDate:[NSDate date]];
-
-    stringFromDate =
-    [stringFromDate stringByReplacingOccurrencesOfString:@" "
-                                              withString:@"\\ "];
-    cmdline = [cmdline stringByAppendingString:stringFromDate];
-    cmdline = [cmdline stringByAppendingString:@".txt"];
-
-    [task setArguments:@[ @"-c", cmdline ]];
-#else
+    
+    // Optional: Log interpreter output to file for debugging
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL shouldLogOutput = [defaults boolForKey:@"LogInterpreterOutput"];
+    
+    if (shouldLogOutput) {
+        NSString *logDirectory = [defaults stringForKey:@"InterpreterLogDirectory"];
+        if (!logDirectory || logDirectory.length == 0) {
+            // Default to Desktop if no directory specified
+            logDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Desktop"];
+        }
+        
+        // Create log filename with timestamp
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd HH.mm.ss";
+        NSString *timestamp = [formatter stringFromDate:[NSDate date]];
+        
+        NSString *gameName = [_gamefile.lastPathComponent stringByDeletingPathExtension];
+        NSString *logFilename = [NSString stringWithFormat:@"Spatterlight-%@-%@.log", gameName, timestamp];
+        NSString *logPath = [logDirectory stringByAppendingPathComponent:logFilename];
+        
+        // Create/open the log file
+        [[NSFileManager defaultManager] createFileAtPath:logPath contents:nil attributes:nil];
+        interpreterLogFileHandle = [NSFileHandle fileHandleForWritingAtPath:logPath];
+        
+        if (interpreterLogFileHandle) {
+            NSLog(@"Logging interpreter output to: %@", logPath);
+            
+            // Write header to log file
+            NSString *header = [NSString stringWithFormat:@"=== Spatterlight Interpreter Log ===\nGame: %@\nInterpreter: %@\n\n",
+                                _gamefile.lastPathComponent, _terpname];
+            [interpreterLogFileHandle writeData:[header dataUsingEncoding:NSUTF8StringEncoding]];
+        } else {
+            NSLog(@"Warning: Could not create interpreter log file at %@", logPath);
+        }
+    }
 
     task.launchPath = terppath;
     task.arguments = @[ _gamefile ];
@@ -1025,8 +1037,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
             task.arguments = [extraTadsOptions arrayByAddingObjectsFromArray:task.arguments];
         }
     }
-
-#endif // TEE_TERP_OUTPUT
 
     GlkController * __weak weakSelf = self;
 
@@ -1267,6 +1277,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     }
     [self autoSaveOnExit];
     [_soundHandler stopAllAndCleanUp];
+
+    [self closeLogFile];
 
     if (_journeyMenuHandler) {
         [_journeyMenuHandler captureMembersMenu];

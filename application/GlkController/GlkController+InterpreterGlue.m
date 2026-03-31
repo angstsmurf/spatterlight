@@ -73,6 +73,18 @@ static BOOL pollMoreData(int fd) {
     return (select(fd + 1, &fdset, NULL, NULL, &tmout) > 0);
 }
 
+- (void)closeLogFile {
+    // Close and cleanup log file handle if logging was enabled
+    if (interpreterLogFileHandle) {
+//        NSString *footer = [NSString stringWithFormat:@"\n=== Session ended: %@ ===\n", [NSDate date]];
+        NSString *footer = @"\n=== Session ended ===\n";
+        [interpreterLogFileHandle writeData:[footer dataUsingEncoding:NSUTF8StringEncoding]];
+        [interpreterLogFileHandle closeFile];
+        interpreterLogFileHandle = nil;
+        NSLog(@"Closed interpreter log file");
+    }
+}
+
 - (void)noteTaskDidTerminate:(id)sender {
     if (windowClosedAlready)
         return;
@@ -116,6 +128,8 @@ static BOOL pollMoreData(int fd) {
 
     for (GlkWindow *win in self.gwindows.allValues)
         [win terpDidStop];
+
+    [self closeLogFile];
 
     self.window.title = [self.window.title stringByAppendingString:NSLocalizedString(@" (finished)", nil)];
     [self performScroll];
@@ -186,6 +200,9 @@ static BOOL pollMoreData(int fd) {
 
     int readfd = readfh.fileDescriptor;
     int sendfd = sendfh.fileDescriptor;
+    
+    // Access log file handle directly from ivar
+    NSFileHandle *logFileHandle = self->interpreterLogFileHandle;
 
 again:
 
@@ -203,6 +220,17 @@ again:
             NSLog(@"glkctl: connection closed");
         }
         return;
+    }
+    
+    // Log the message header if logging is enabled
+    if (logFileHandle) {
+        NSString *headerLog = [NSString stringWithFormat:@"[MSG] cmd=%u a1=%d a2=%d a3=%d len=%zu\n",
+                               request.cmd, request.a1, request.a2, request.a3, request.len];
+        @try {
+            [logFileHandle writeData:[headerLog dataUsingEncoding:NSUTF8StringEncoding]];
+        } @catch (NSException *exception) {
+            NSLog(@"noteDataAvailable: Could not write to log file: %@", exception);
+        }
     }
 
     /* this should only happen when sending resources */
@@ -232,6 +260,29 @@ again:
             }
             n += t;
         }
+        
+        // Log the message body if logging is enabled and it's text data
+        if (logFileHandle && request.len > 0) {
+            // Try to interpret as text for certain commands (like PRINT)
+            if (request.cmd == PRINT) { // PRINT command
+                unichar *unibuf = malloc(request.len);
+                if (unibuf == NULL) {
+                    NSLog(@"Out of memory!");
+                    return;
+                }
+                memcpy(unibuf, buf, request.len);
+                NSString *text = [NSString stringWithCharacters:unibuf length:request.len / sizeof(unichar)];
+                free(unibuf);
+                if (text) {
+                    NSString *bodyLog = [NSString stringWithFormat:@"[TEXT] %@\n", text];
+                    [logFileHandle writeData:[bodyLog dataUsingEncoding:NSUTF8StringEncoding]];
+                } else {
+                    // If not valid text, log as hex
+                    NSString *bodyLog = [NSString stringWithFormat:@"[DATA] %zu bytes\n", request.len];
+                    [logFileHandle writeData:[bodyLog dataUsingEncoding:NSUTF8StringEncoding]];
+                }
+            }
+        }
     }
 
     memset(&reply, 0, sizeof reply);
@@ -243,6 +294,13 @@ again:
         write(sendfd, &reply, sizeof(struct message));
         if (reply.len)
             write(sendfd, buf, reply.len);
+        
+        // Log reply if logging is enabled
+        if (logFileHandle) {
+            NSString *replyLog = [NSString stringWithFormat:@"[REPLY] cmd=%u a1=%d a2=%d a3=%d len=%zu\n",
+                                  reply.cmd, reply.a1, reply.a2, reply.a3, reply.len];
+            [logFileHandle writeData:[replyLog dataUsingEncoding:NSUTF8StringEncoding]];
+        }
     }
 
     if (maxibuf)
