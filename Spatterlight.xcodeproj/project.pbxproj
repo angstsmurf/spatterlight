@@ -648,6 +648,10 @@
 		C36E352D2F7AB68A006E3AED /* adv01.dat in Resources */ = {isa = PBXBuildFile; fileRef = C354AA67274CD8D900C8D01D /* adv01.dat */; };
 		C36E35BB2F7ABD86006E3AED /* ScottFree command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */; };
 		C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C372018D27E47E4D00F6BE55 /* layouttext.c */; };
+		C372B06C2F7D4DA200331461 /* Plus command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3A199872999E4C500D27500 /* Plus command script.txt */; };
+		C372B06D2F7D4DA200331461 /* TaylorMade command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3A199802999D94000D27500 /* TaylorMade command script.txt */; };
+		C372B06E2F7D4DA200331461 /* SPL13P.plus in Resources */ = {isa = PBXBuildFile; fileRef = C3A199852999E47800D27500 /* SPL13P.plus */; };
+		C372B0702F7D4DB800331461 /* tot.tay in Resources */ = {isa = PBXBuildFile; fileRef = C3A1997F2999D91B00D27500 /* tot.tay */; };
 		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
@@ -7362,6 +7366,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C372B0702F7D4DB800331461 /* tot.tay in Resources */,
+				C372B06C2F7D4DA200331461 /* Plus command script.txt in Resources */,
+				C372B06D2F7D4DA200331461 /* TaylorMade command script.txt in Resources */,
+				C372B06E2F7D4DA200331461 /* SPL13P.plus in Resources */,
 				C31A67182F7BE61E00392BE0 /* Till Death Makes a Monk-Fish out of Me command script.txt in Resources */,
 				C31A67162F7BE60600392BE0 /* tildeath.gam in Resources */,
 				C31A66892F7BD79800392BE0 /* The Elysium Enigma command script.txt in Resources */,
