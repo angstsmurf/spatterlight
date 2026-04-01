@@ -15,4 +15,6 @@
 int extract_images(uint8_t *data, size_t filesize, int disk, off_t offset, ImageStruct **image_list, int *version, GraphicsType *type);
 int extract_images_from_blorb(ImageStruct **image_list);
 
+extern uint8_t default_huffman_tree[256];
+
 #endif /* extract_image_data_hpp */
