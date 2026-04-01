@@ -26,21 +26,18 @@ extern "C" {
 
 #include "extract_image_data.hpp"
 
-#define    EXIT_FAILURE    1
-#define    EXIT_SUCCESS    0
-
 // Header structure at the start of an Infocom graphics file.
 // Multi-disk games split images across several files, each identified by disk_part.
 typedef struct InfocomImageFileHeader {
     uint8_t disk_part;            // Which disk this file belongs to (1-based)
     uint8_t flags;                // Format flags; 0x0e indicates monochrome Mac graphics
-    uint16_t unknown1;
+    uint16_t unknown_1;
     uint16_t image_count;         // Total number of images described in the directory
-    uint16_t unknown2;
+    uint16_t unknown_2;
     uint8_t directory_entry_size; // Size in bytes of each directory entry (8, 14, or 16)
-    uint8_t unknown3;
+    uint8_t unknown_3;
     uint16_t checksum;
-    uint16_t unknown4;
+    uint16_t unknown_4;
     uint16_t version;             // Graphics format version number
 } InfocomImageFileHeader;
 
@@ -48,7 +45,7 @@ typedef struct InfocomImageFileHeader {
 // Each entry describes one image's dimensions, location, and optional
 // color map / Huffman tree within the graphics data.
 typedef struct ImageDirectoryEntry {
-    uint16_t index;              // Image resource number used by the game
+    uint16_t id;              // Image resource number used by the game
     uint16_t width;
     uint16_t height;
     uint16_t flags;               // Bit 0: has transparency; upper bits encode transparent color index
@@ -59,28 +56,21 @@ typedef struct ImageDirectoryEntry {
 } ImageDirectoryEntry;
 
 
-// Read a single byte from *cursor and advance the cursor by one.
-static uint8_t read_byte_and_advance(uint8_t **cursor)
+// Read a single byte from *ptr and advance the pointer by one.
+static uint8_t read_byte_and_advance(uint8_t **ptr)
 {
-    int value;
+    uint8_t value = **ptr;
+    *ptr += 1;
+    return value;
+}
 
-    value = **cursor;
-    *cursor += 1;
-
-    return ((uint8_t) value);
-
-}/* read_byte_and_advance */
-
-// Read a 16-bit big-endian word from *cursor and advance by two bytes.
-static uint16_t read_big_endian_word(uint8_t **cursor)
+// Read a 16-bit big-endian word from *ptr and advance by two bytes.
+static uint16_t read_big_endian_word(uint8_t **ptr)
 {
-    unsigned int word;
-
-    word = (unsigned int) read_byte_and_advance(cursor) << 8;
-    word += (unsigned int) read_byte_and_advance(cursor);
-
-    return (word);
-}/* read_big_endian_word */
+    uint16_t word = (uint16_t)read_byte_and_advance(ptr) << 8;
+    word += (uint16_t)read_byte_and_advance(ptr);
+    return word;
+}
 
 // Swap the bytes of a 16-bit value if should_swap is true.
 // PC-format (VGA/EGA/CGA) graphics files store multi-byte fields
@@ -88,24 +78,18 @@ static uint16_t read_big_endian_word(uint8_t **cursor)
 static uint16_t conditional_byte_swap(bool should_swap, uint16_t value)
 {
     if (should_swap)
-        return ((value >> 8) | ((value & 255) << 8));
-    return value;
+        return ((value >> 8) | ((value & 0xff) << 8));
+    else
+        return value;
 }
 
 // Read a 24-bit value stored in big-endian order and return it as a uint32_t.
 // Used for reading 3-byte file offsets in the image directory.
-static uint32_t read_24bit_little_endian(uint8_t **cursor)
+static uint32_t read_24bit_little_endian(uint8_t **ptr)
 {
-    int lower_byte, middle_byte, upper_byte;
-
-    if ((upper_byte = read_byte_and_advance(cursor)) == -1)
-    { return -1; }
-
-    if ((middle_byte = read_byte_and_advance(cursor)) == -1)
-    { return -1; }
-
-    if ((lower_byte = read_byte_and_advance(cursor)) == -1)
-    { return -1; }
+    uint8_t upper_byte = read_byte_and_advance(ptr);
+    uint8_t middle_byte = read_byte_and_advance(ptr);
+    uint8_t lower_byte = read_byte_and_advance(ptr);
 
     return (uint32_t)((lower_byte & 0xff) | ((middle_byte & 0xff) << 8) | ((upper_byte & 0xff) << 16));
 }
@@ -118,10 +102,10 @@ static uint8_t *allocate_or_die(size_t size)
         fprintf(stderr, "Out of memory\n");
         exit(1);
     }
-    return (buffer);
+    return buffer;
 }
 
-// Shared Huffman decoding tree used by images that don't specify their own.
+// Shared Huffman decoding tree used by images that don't specify their own tree.
 // Populated from the data immediately following the image directory.
 uint8_t default_huffman_tree[256];
 
@@ -140,12 +124,12 @@ uint8_t default_huffman_tree[256];
 int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, ImageStruct **image_list, int *version, GraphicsType *type)
 {
     int entry_index;
-    uint8_t *cursor = data;
+    uint8_t *ptr = data;
     InfocomImageFileHeader file_header;
     ImageDirectoryEntry *directory;
 
-    cursor = data + offset;
-    file_header.disk_part = read_byte_and_advance(&cursor);
+    ptr = data + offset;
+    file_header.disk_part = read_byte_and_advance(&ptr);
     *image_list = NULL;
 
     // Verify this file is for the requested disk; multi-disk games have
@@ -157,7 +141,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     // PC-format files (VGA/EGA/CGA) use swapped byte order for multi-byte fields
     bool needs_byte_swap = (*type == kGraphicsTypeVGA || *type == kGraphicsTypeEGA || *type == kGraphicsTypeCGA);
 
-    file_header.flags = read_byte_and_advance(&cursor);
+    file_header.flags = read_byte_and_advance(&ptr);
 
     // A file named "pic.data" may contain colour Amiga graphics or monochrome Mac graphics,
     // but the flags always seem to equal 0xe (14) if the graphics are monochrome.
@@ -170,18 +154,18 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     }
 
     // Read remaining header fields, byte-swapping as needed for PC formats
-    file_header.unknown1 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&cursor));
-    file_header.image_count = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&cursor));
-    file_header.unknown2 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&cursor));
-    file_header.directory_entry_size = read_byte_and_advance(&cursor);
-    file_header.unknown3 = read_byte_and_advance(&cursor);
-    file_header.checksum = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&cursor));
-    file_header.unknown4 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&cursor));
-    file_header.version = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&cursor));
+    file_header.unknown_1 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
+    file_header.image_count = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
+    file_header.unknown_2 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
+    file_header.directory_entry_size = read_byte_and_advance(&ptr);
+    file_header.unknown_3 = read_byte_and_advance(&ptr);
+    file_header.checksum = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
+    file_header.unknown_4 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
+    file_header.version = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
 
-    if ((directory = (ImageDirectoryEntry *) calloc((size_t) file_header.image_count, sizeof (ImageDirectoryEntry))) == NULL) {
-        fprintf (stderr, "Insufficient memory\n");
-        exit (EXIT_FAILURE);
+    if ((directory = (ImageDirectoryEntry *)calloc((size_t)file_header.image_count, sizeof(ImageDirectoryEntry))) == NULL) {
+        fprintf(stderr, "Insufficient memory\n");
+        exit(1);
     }
 
     // Parse the image directory. Entry size varies by format version:
@@ -189,19 +173,19 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     //  14 bytes:  standard format with color map offset
     //  16 bytes:  extended format with color map and per-image Huffman tree offset
     for (entry_index = 0; entry_index < file_header.image_count; entry_index++) {
-        directory[entry_index].index = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&cursor));
+        directory[entry_index].id = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
         if (file_header.directory_entry_size == 8) {
             // Compact entries store dimensions and flags as single bytes
-            directory[entry_index].width = read_byte_and_advance(&cursor);
-            directory[entry_index].height = read_byte_and_advance(&cursor);
-            directory[entry_index].flags = read_byte_and_advance(&cursor);
+            directory[entry_index].width = read_byte_and_advance(&ptr);
+            directory[entry_index].height = read_byte_and_advance(&ptr);
+            directory[entry_index].flags = read_byte_and_advance(&ptr);
         } else {
-            directory[entry_index].width = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&cursor));
-            directory[entry_index].height = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&cursor));
-            directory[entry_index].flags = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&cursor));
+            directory[entry_index].width = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
+            directory[entry_index].height = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
+            directory[entry_index].flags = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
         }
 
-        directory[entry_index].pixel_data_offset = read_24bit_little_endian(&cursor);
+        directory[entry_index].pixel_data_offset = read_24bit_little_endian(&ptr);
 
         // Default the end-of-data boundary to end of file; this will be
         // refined below if a subsequent image's data starts after this one.
@@ -209,23 +193,23 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
             directory[entry_index].next_entry_data_offset = (uint32_t)datasize;
         }
         if ((unsigned int) file_header.directory_entry_size == 14) {
-            directory[entry_index].color_map_offset = read_24bit_little_endian(&cursor);
+            directory[entry_index].color_map_offset = read_24bit_little_endian(&ptr);
         } else if (file_header.directory_entry_size == 16 ){
-            directory[entry_index].color_map_offset = read_24bit_little_endian(&cursor);
+            directory[entry_index].color_map_offset = read_24bit_little_endian(&ptr);
             // Huffman tree offset is stored as a word that must be doubled
-            directory[entry_index].huffman_tree_offset = read_big_endian_word(&cursor) * 2;
+            directory[entry_index].huffman_tree_offset = read_big_endian_word(&ptr) * 2;
         } else if (file_header.directory_entry_size != 8) {
             directory[entry_index].color_map_offset = 0;
-            read_byte_and_advance(&cursor);  // skip unknown trailing byte
+            read_byte_and_advance(&ptr);  // skip unknown trailing byte
         }
     }
 
     // The 256-byte default Huffman tree immediately follows the directory.
     // Images without their own tree use this shared one.
-    memcpy(default_huffman_tree, cursor, 256);
+    memcpy(default_huffman_tree, ptr, 256);
 
     // The file format doesn't store explicit data lengths for each image.
-    // Compute each image's data size by finding the next image whose pixel data
+    // We compute each image's data size by finding the next image whose pixel data
     // starts at a higher offset. The last image uses the end-of-file as its boundary.
     for (entry_index = 0; entry_index < file_header.image_count - 1; entry_index++) {
         if (directory[entry_index].pixel_data_offset != 0) {
@@ -242,13 +226,13 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     *image_list = (ImageStruct *)calloc(file_header.image_count, sizeof(ImageStruct));
     if (*image_list == NULL) {
         fprintf(stderr, "Out of memory\n");
-        exit(EXIT_FAILURE);
+        exit(1);
     }
 
     // Populate each ImageStruct with metadata and a copy of the raw pixel data,
     // along with optional per-image Huffman tree and color palette.
     for (entry_index = 0; entry_index < file_header.image_count; entry_index++) {
-        (*image_list)[entry_index].index = directory[entry_index].index;
+        (*image_list)[entry_index].index = directory[entry_index].id;
         (*image_list)[entry_index].width = directory[entry_index].width;
         (*image_list)[entry_index].height = directory[entry_index].height;
         (*image_list)[entry_index].type = *type;
@@ -323,7 +307,7 @@ int extract_images_from_blorb(ImageStruct **image_list)
     *image_list = (ImageStruct *)calloc(total_image_count, sizeof(ImageStruct));
     if (*image_list == NULL) {
         fprintf(stderr, "Out of memory\n");
-        exit(EXIT_FAILURE);
+        exit(1);
     }
 
     giblorb_result_t blorb_result;
