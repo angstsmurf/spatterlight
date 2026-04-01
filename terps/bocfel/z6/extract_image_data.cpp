@@ -85,13 +85,13 @@ static uint16_t conditional_byte_swap(bool should_swap, uint16_t value)
 
 // Read a 24-bit value stored in big-endian order and return it as a uint32_t.
 // Used for reading 3-byte file offsets in the image directory.
-static uint32_t read_24bit_little_endian(uint8_t **ptr)
+static uint32_t read_24_big_endian_bits(uint8_t **ptr)
 {
     uint8_t upper_byte = read_byte_and_advance(ptr);
     uint8_t middle_byte = read_byte_and_advance(ptr);
     uint8_t lower_byte = read_byte_and_advance(ptr);
 
-    return (uint32_t)((lower_byte & 0xff) | ((middle_byte & 0xff) << 8) | ((upper_byte & 0xff) << 16));
+    return (uint32_t)(upper_byte << 16 | middle_byte << 8 | lower_byte);
 }
 
 // Allocate memory or terminate on failure.
@@ -185,7 +185,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
             directory[entry_index].flags = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
         }
 
-        directory[entry_index].pixel_data_offset = read_24bit_little_endian(&ptr);
+        directory[entry_index].pixel_data_offset = read_24_big_endian_bits(&ptr);
 
         // Default the end-of-data boundary to end of file; this will be
         // refined below if a subsequent image's data starts after this one.
@@ -193,9 +193,9 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
             directory[entry_index].next_entry_data_offset = (uint32_t)datasize;
         }
         if ((unsigned int) file_header.directory_entry_size == 14) {
-            directory[entry_index].color_map_offset = read_24bit_little_endian(&ptr);
+            directory[entry_index].color_map_offset = read_24_big_endian_bits(&ptr);
         } else if (file_header.directory_entry_size == 16 ){
-            directory[entry_index].color_map_offset = read_24bit_little_endian(&ptr);
+            directory[entry_index].color_map_offset = read_24_big_endian_bits(&ptr);
             // Huffman tree offset is stored as a word that must be doubled
             directory[entry_index].huffman_tree_offset = read_big_endian_word(&ptr) * 2;
         } else if (file_header.directory_entry_size != 8) {
