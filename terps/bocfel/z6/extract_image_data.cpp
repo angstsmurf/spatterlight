@@ -98,7 +98,7 @@ static uint32_t read_24_big_endian_bits(uint8_t **ptr)
 static uint8_t *allocate_or_die(size_t size)
 {
     uint8_t *buffer = (uint8_t *)malloc(size);
-    if (buffer == NULL) {
+    if (buffer == nullptr) {
         fprintf(stderr, "Out of memory\n");
         exit(1);
     }
@@ -130,7 +130,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
 
     ptr = data + offset;
     file_header.disk_part = read_byte_and_advance(&ptr);
-    *image_list = NULL;
+    *image_list = nullptr;
 
     // Verify this file is for the requested disk; multi-disk games have
     // separate graphics files for each disk.
@@ -163,7 +163,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     file_header.unknown_4 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
     file_header.version = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
 
-    if ((directory = (ImageDirectoryEntry *)calloc((size_t)file_header.image_count, sizeof(ImageDirectoryEntry))) == NULL) {
+    if ((directory = (ImageDirectoryEntry *)calloc((size_t)file_header.image_count, sizeof(ImageDirectoryEntry))) == nullptr) {
         fprintf(stderr, "Insufficient memory\n");
         exit(1);
     }
@@ -192,7 +192,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         if (directory[entry_index].pixel_data_offset != 0) {
             directory[entry_index].next_entry_data_offset = (uint32_t)datasize;
         }
-        if ((unsigned int) file_header.directory_entry_size == 14) {
+        if (file_header.directory_entry_size == 14) {
             directory[entry_index].color_map_offset = read_24_big_endian_bits(&ptr);
         } else if (file_header.directory_entry_size == 16 ){
             directory[entry_index].color_map_offset = read_24_big_endian_bits(&ptr);
@@ -206,14 +206,18 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
 
     // The 256-byte default Huffman tree immediately follows the directory.
     // Images without their own tree use this shared one.
-    memcpy(default_huffman_tree, ptr, 256);
+    if (ptr + 256 <= data + datasize) {
+        memcpy(default_huffman_tree, ptr, 256);
+    } else {
+        memset(default_huffman_tree, 0, 256);
+    }
 
     // The file format doesn't store explicit data lengths for each image.
     // We compute each image's data size by finding the next image whose pixel data
     // starts at a higher offset. The last image uses the end-of-file as its boundary.
     for (entry_index = 0; entry_index < file_header.image_count - 1; entry_index++) {
         if (directory[entry_index].pixel_data_offset != 0) {
-            for (int next_index = entry_index + 1; next_index < file_header.image_count - 1; next_index++) {
+            for (int next_index = entry_index + 1; next_index < file_header.image_count; next_index++) {
                 if (directory[next_index].pixel_data_offset > directory[entry_index].pixel_data_offset) {
                     directory[entry_index].next_entry_data_offset = directory[next_index].pixel_data_offset;
                     break;
@@ -224,7 +228,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
 
     // Allocate the output ImageStruct array
     *image_list = (ImageStruct *)calloc(file_header.image_count, sizeof(ImageStruct));
-    if (*image_list == NULL) {
+    if (*image_list == nullptr) {
         fprintf(stderr, "Out of memory\n");
         exit(1);
     }
@@ -242,6 +246,10 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
             continue;
 
         uint32_t pixel_data_length = directory[entry_index].next_entry_data_offset - directory[entry_index].pixel_data_offset;
+
+        // Validate that pixel data lies within the file bounds
+        if (directory[entry_index].pixel_data_offset + pixel_data_length > datasize)
+            continue;
 
         (*image_list)[entry_index].datasize = pixel_data_length;
         (*image_list)[entry_index].data = allocate_or_die(pixel_data_length);
@@ -262,7 +270,8 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
 
         // Use the per-image Huffman tree if one is specified, otherwise fall back
         // to the shared default tree read from after the directory.
-        if (directory[entry_index].huffman_tree_offset != 0) {
+        if (directory[entry_index].huffman_tree_offset != 0 &&
+            directory[entry_index].huffman_tree_offset + 256 <= datasize) {
             (*image_list)[entry_index].huffman_tree = allocate_or_die(256);
             memcpy((*image_list)[entry_index].huffman_tree, data + directory[entry_index].huffman_tree_offset, 256);
         } else {
@@ -270,7 +279,8 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         }
 
         // Copy the per-image color palette if present (512 bytes = 256 color entries x 2 bytes each)
-        if (directory[entry_index].color_map_offset != 0) {
+        if (directory[entry_index].color_map_offset != 0 &&
+            directory[entry_index].color_map_offset + 512 <= datasize) {
             (*image_list)[entry_index].palette = allocate_or_die(512);
             memcpy((*image_list)[entry_index].palette, data + directory[entry_index].color_map_offset, 512);
         }
@@ -305,7 +315,7 @@ int extract_images_from_blorb(ImageStruct **image_list)
         return 0;
 
     *image_list = (ImageStruct *)calloc(total_image_count, sizeof(ImageStruct));
-    if (*image_list == NULL) {
+    if (*image_list == nullptr) {
         fprintf(stderr, "Out of memory\n");
         exit(1);
     }
@@ -316,7 +326,9 @@ int extract_images_from_blorb(ImageStruct **image_list)
     // Iterate over all possible resource IDs in the range and load each image.
     // Not every ID in the range necessarily exists, so we only populate entries
     // for resources that load successfully.
-    for (int resource_id = first_resource_id; resource_id <= last_resource_id; resource_id++) {
+    for (glui32 resource_id = first_resource_id; resource_id <= last_resource_id; resource_id++) {
+        if (output_index >= (int)total_image_count)
+            break;
         if (giblorb_load_resource(resource_map, giblorb_method_Memory, &blorb_result, giblorb_ID_Pict, resource_id) == giblorb_err_None) {
             glui32 image_width, image_height;
             // Make the window process purge any cached images
@@ -328,9 +340,14 @@ int extract_images_from_blorb(ImageStruct **image_list)
             (*image_list)[output_index].width = image_width;
             (*image_list)[output_index].height = image_height;
             if (blorb_result.data.ptr != nullptr && blorb_result.length > 8) {
-                // Make a private copy of the image data since the Blorb map may
-                // unload the chunk later
+                // Make a private copy of the image data
+                // as the Blorb may be purged from memory during
+                // autorestore or when switching graphics type.
                 void *image_data_copy = malloc(blorb_result.length);
+                if (image_data_copy == nullptr) {
+                    fprintf(stderr, "Out of memory\n");
+                    exit(1);
+                }
                 memcpy(image_data_copy, blorb_result.data.ptr, blorb_result.length);
                 (*image_list)[output_index].data = (uint8_t *)image_data_copy;
                 (*image_list)[output_index].datasize = blorb_result.length;
@@ -351,7 +368,7 @@ int extract_images_from_blorb(ImageStruct **image_list)
         // value stored at bytes 2-3 of each entry.
         for (int byte_offset = 0; byte_offset < blorb_result.length; byte_offset += 4) {
             int adaptive_palette_image_id = *((uint8_t *)blorb_result.data.ptr + byte_offset + 3) + *((uint8_t *)blorb_result.data.ptr + byte_offset + 2) * 0x100;
-            for (int image_index = 0; image_index < total_image_count; image_index++) {
+            for (int image_index = 0; image_index < output_index; image_index++) {
                 if ((*image_list)[image_index].index == adaptive_palette_image_id) {
                     if ((*image_list)[image_index].palette != nullptr) {
                         free((*image_list)[image_index].palette);
@@ -362,5 +379,5 @@ int extract_images_from_blorb(ImageStruct **image_list)
             }
         }
     }
-    return total_image_count;
+    return output_index;
 }
