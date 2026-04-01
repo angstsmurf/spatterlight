@@ -1,6 +1,6 @@
 //
 //  find_graphics_files.hpp
-//  bocfel6
+//  bocfel
 //
 //  Created by Administrator on 2023-08-20.
 //
