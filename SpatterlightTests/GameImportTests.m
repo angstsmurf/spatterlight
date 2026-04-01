@@ -663,9 +663,19 @@
     }];
 }
 
-- (void)testAdventureland {
+- (void)testScottFree {
     [self importAndRunGameFile:@"adv01.dat"
              commandScriptName:@"ScottFree"];
+}
+
+- (void)testTaylorMade {
+    [self importAndRunGameFile:@"tot.tay"
+             commandScriptName:@"TaylorMade"];
+}
+
+- (void)testPlus {
+    [self importAndRunGameFile:@"SPL13P.plus"
+             commandScriptName:@"Plus"];
 }
 
 - (void)testTADS3 {
