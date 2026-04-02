@@ -6,129 +6,188 @@
 //
 //  Based on drilbo-mg1.h from Fizmo by Christoph Ender,
 //  which in turn is based on Mark Howell's pix2gif utility
+//
+//  Implements LZW decompression for Infocom V6 VGA/EGA/CGA image data.
+//  The compressed data uses variable-width codes (starting at 9 bits,
+//  growing up to 12 bits) with a code table of up to 4096 entries.
 
 #include <stdlib.h>
 #include <string.h>
 
 #include "decompress_vga.hpp"
 
-#define CODE_SIZE 8
-#define CODE_TABLE_SIZE 4096
-#define PREFIX 0
-#define PIXEL 1
+#define LZW_MIN_CODE_SIZE 8
+#define LZW_TABLE_SIZE 4096
+#define PREFIX 0    // Index into code table entry for the prefix code
+#define PIXEL 1     // Index into code table entry for the pixel value
 
-static const short mask[16] = {
+// Precomputed bitmasks for extracting N bits: bit_masks[n] = (1 << n) - 1.
+static const short bit_masks[16] = {
     0x0000, 0x0001, 0x0003, 0x0007,
     0x000f, 0x001f, 0x003f, 0x007f,
     0x00ff, 0x01ff, 0x03ff, 0x07ff,
     0x0fff, 0x1fff, 0x3fff, 0x7fff
 };
 
-typedef struct compress_s {
-    short next_code;
-    short slen;
-    short sptr;
-    short tlen;
-    short tptr;
-} compress_t;
+// Persistent state for reading variable-width LZW codes from a bitstream.
+typedef struct lzw_state_s {
+    short next_table_code;       // Next available code to add to the table
+    short buffer_bits_remaining; // Unread bits remaining in the read buffer
+    short buffer_bit_position;   // Current bit offset within the read buffer
+    short code_bit_width;        // Current code width in bits (9-12)
+} lzw_state_t;
 
 
-static int16_t read_code(uint8_t **ptr, size_t bytes_remaining, compress_t *comp, unsigned char *code_buffer)
+// Reads the next variable-width LZW code from the compressed bitstream.
+// Refills the read buffer from *ptr in LZW_TABLE_SIZE-byte chunks as needed.
+// Automatically increases code_bit_width when the table is about to overflow
+// the current width. Returns -1 if the input data is exhausted.
+static int16_t read_lzw_code(uint8_t **ptr, size_t bytes_remaining, lzw_state_t *state, unsigned char *read_buffer)
 {
-    short code, bsize, tlen, tptr;
+    short code, bits_available, bits_needed, bits_assembled;
 
     code = 0;
-    tlen = comp->tlen;
-    tptr = 0;
+    bits_needed = state->code_bit_width;
+    bits_assembled = 0;
 
-    while (tlen)
+    // Assemble the code one byte-boundary fragment at a time, since codes
+    // may straddle byte boundaries in the packed bitstream.
+    while (bits_needed)
     {
-        if (comp->slen == 0)
+        // Refill the read buffer when all buffered bits have been consumed.
+        if (state->buffer_bits_remaining == 0)
         {
-            size_t toread = CODE_TABLE_SIZE;
-            if (bytes_remaining < toread) {
-                toread = bytes_remaining;
+            size_t chunk_size = LZW_TABLE_SIZE;
+            if (bytes_remaining < chunk_size) {
+                chunk_size = bytes_remaining;
             }
-            memcpy(code_buffer, *ptr, toread);
-            (*ptr) += toread;
-            bytes_remaining -= toread;
-            comp->slen = toread * 8;
-            comp->sptr = 0;
+            if (chunk_size == 0)
+                return -1;
+            memcpy(read_buffer, *ptr, chunk_size);
+            (*ptr) += chunk_size;
+            bytes_remaining -= chunk_size;
+            state->buffer_bits_remaining = chunk_size * 8;
+            state->buffer_bit_position = 0;
         }
 
-        bsize = ((comp->sptr + 8) & ~7) - comp->sptr;
-        bsize = (tlen > bsize) ? bsize : tlen;
-        code |= (((unsigned int) code_buffer[comp->sptr >> 3] >> (comp->sptr & 7)) & (unsigned int)mask[bsize]) << tptr;
+        // Extract bits from the current byte up to the next byte boundary,
+        // or fewer if that's all we need to complete the code.
+        bits_available = ((state->buffer_bit_position + 8) & ~7) - state->buffer_bit_position;
+        bits_available = (bits_needed > bits_available) ? bits_available : bits_needed;
+        code |= (((unsigned int) read_buffer[state->buffer_bit_position >> 3] >> (state->buffer_bit_position & 7)) & (unsigned int)bit_masks[bits_available]) << bits_assembled;
 
-        tlen -= bsize;
-        tptr += bsize;
-        comp->slen -= bsize;
-        comp->sptr += bsize;
+        bits_needed -= bits_available;
+        bits_assembled += bits_available;
+        state->buffer_bits_remaining -= bits_available;
+        state->buffer_bit_position += bits_available;
     }
 
-    if ((comp->next_code == mask[comp->tlen]) && (comp->tlen < 12))
-        comp->tlen++;
+    // When the next code to be added would exceed the current bit width,
+    // increase the width (up to the 12-bit maximum).
+    if ((state->next_table_code == bit_masks[state->code_bit_width]) && (state->code_bit_width < 12))
+        state->code_bit_width++;
 
     return code;
 }
 
 
+// Decompresses LZW-encoded pixel data from an ImageStruct.
+// Returns a malloc'd buffer of width * height bytes containing palette indices,
+// or nullptr on allocation failure or corrupt data.
 uint8_t *decompress_vga(ImageStruct *image) {
-    int i;
-    uint8_t *ptr;
-    short code, old = 0, first, clear_code;
-    compress_t comp;
-    unsigned char code_buffer[CODE_TABLE_SIZE];
+    uint8_t *read_ptr;
+    short code, previous_code = 0, root_code, clear_code;
+    lzw_state_t state;
+    unsigned char read_buffer[LZW_TABLE_SIZE];
 
-    size_t final_size = image->width * image->height;
-    uint8_t *result = (uint8_t *)malloc(final_size);
-    if (result == nullptr)
-        exit(1);
+    size_t output_size = image->width * image->height;
+    uint8_t *output = (uint8_t *)malloc(output_size);
+    if (output == nullptr)
+        return nullptr;
 
-    clear_code = 1 << CODE_SIZE;
-    comp.next_code = clear_code + 2;
-    comp.slen = 0;
-    comp.sptr = 0;
-    comp.tlen = CODE_SIZE + 1;
-    comp.tptr = 0;
+    // The clear code resets the table; end code (clear_code + 1) signals
+    // the end of the compressed stream. First two codes after the 256
+    // literal pixel codes are reserved for these special codes.
+    clear_code = 1 << LZW_MIN_CODE_SIZE;
+    state.next_table_code = clear_code + 2;
+    state.buffer_bits_remaining = 0;
+    state.buffer_bit_position = 0;
+    state.code_bit_width = LZW_MIN_CODE_SIZE + 1;
 
-    uint8_t buffer[CODE_TABLE_SIZE];
-    uint16_t code_table[CODE_TABLE_SIZE][2];
+    // pixel_stack is used to reverse the prefix chain (which is stored
+    // root-last) into the correct output order.
+    uint8_t pixel_stack[LZW_TABLE_SIZE];
 
-    for (i = 0; i < CODE_TABLE_SIZE; i++) {
-        code_table[i][PREFIX] = CODE_TABLE_SIZE;
-        code_table[i][PIXEL] = (uint16_t)i;
+    // Each code table entry stores [PREFIX, PIXEL]: the prefix code that
+    // precedes this entry's pixel value. LZW_TABLE_SIZE as a prefix
+    // sentinel means "no prefix" (i.e., a root/literal code).
+    uint16_t lzw_table[LZW_TABLE_SIZE][2];
+
+    for (int i = 0; i < LZW_TABLE_SIZE; i++) {
+        lzw_table[i][PREFIX] = LZW_TABLE_SIZE;
+        lzw_table[i][PIXEL] = (uint16_t)i;
     }
 
-    int j = 0;
-    ptr = image->data;
+    int output_pos = 0;
+    read_ptr = image->data;
     for (;;) {
-        if ((code = read_code(&ptr, image->datasize - (ptr - image->data), &comp, code_buffer)) == (clear_code + 1))
+        code = read_lzw_code(&read_ptr, image->datasize - (read_ptr - image->data), &state, read_buffer);
+        if (code < 0 || code == clear_code + 1)
             break;
+        if (code >= LZW_TABLE_SIZE) {
+            free(output);
+            return nullptr;
+        }
 
         if (code == clear_code) {
-            comp.tlen = CODE_SIZE + 1;
-            comp.next_code = clear_code + 2;
-            code = read_code(&ptr, image->datasize - (ptr - image->data), &comp, code_buffer);
+            // Reset the code table to its initial state.
+            state.code_bit_width = LZW_MIN_CODE_SIZE + 1;
+            state.next_table_code = clear_code + 2;
+            code = read_lzw_code(&read_ptr, image->datasize - (read_ptr - image->data), &state, read_buffer);
+            if (code < 0 || code >= LZW_TABLE_SIZE) {
+                free(output);
+                return nullptr;
+            }
         } else {
-            first = (code == comp.next_code) ? old : code;
+            // Walk the prefix chain to find the root pixel of this code's
+            // string. For the special case where code == next_table_code
+            // (the "KwKwK" case), start from the previous code instead.
+            root_code = (code == state.next_table_code) ? previous_code : code;
 
-            while (code_table[first][PREFIX] != CODE_TABLE_SIZE)
-                first = code_table[first][PREFIX];
+            int chain_limit = LZW_TABLE_SIZE;
+            while (lzw_table[root_code][PREFIX] != LZW_TABLE_SIZE && --chain_limit > 0) {
+                root_code = (short)lzw_table[root_code][PREFIX];
+                if (root_code < 0 || root_code >= LZW_TABLE_SIZE) {
+                    free(output);
+                    return nullptr;
+                }
+            }
 
-            code_table[comp.next_code][PREFIX] = old;
-            code_table[comp.next_code++][PIXEL] = code_table[first][PIXEL];
+            // Add a new entry: previous code's string + this string's root pixel.
+            if (state.next_table_code < LZW_TABLE_SIZE) {
+                lzw_table[state.next_table_code][PREFIX] = previous_code;
+                lzw_table[state.next_table_code][PIXEL] = lzw_table[root_code][PIXEL];
+                state.next_table_code++;
+            }
         }
-        old = code;
+        previous_code = code;
 
-        i = 0;
-        do
-            buffer[i++] = (unsigned char) code_table[code][PIXEL];
-        while ((code = code_table[code][PREFIX]) != CODE_TABLE_SIZE);
+        // Walk the prefix chain for this code, pushing each pixel onto the
+        // stack (they come out in reverse order), then pop them into the
+        // output buffer in the correct forward order.
+        int stack_depth = 0;
+        int chain_limit = LZW_TABLE_SIZE;
+        do {
+            if (stack_depth >= LZW_TABLE_SIZE || code < 0 || code >= LZW_TABLE_SIZE)
+                break;
+            pixel_stack[stack_depth++] = (unsigned char) lzw_table[code][PIXEL];
+        } while ((code = (short)lzw_table[code][PREFIX]) != LZW_TABLE_SIZE && --chain_limit > 0);
 
         do {
-            result[j++] = buffer[--i];
-        } while (i > 0);
+            if (output_pos >= (int)output_size)
+                break;
+            output[output_pos++] = pixel_stack[--stack_depth];
+        } while (stack_depth > 0);
     }
-    return result;
+    return output;
 }

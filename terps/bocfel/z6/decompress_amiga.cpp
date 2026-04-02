@@ -4,6 +4,12 @@
 //
 //  Created by Administrator on 2023-08-02.
 //
+//  Decompresses Infocom V6 Amiga/Mac image data using a Huffman-based
+//  run-length encoding scheme. Each pixel is encoded as a Huffman code
+//  in the bitstream, where leaf nodes >= 0x90 represent run lengths
+//  (repeat the current color N times) and leaf nodes < 0x10 represent
+//  a new color index (used once). After decoding, a vertical XOR pass
+//  reconstructs the final image from delta-encoded scanlines.
 
 #include <stdlib.h>
 #include "decompress_amiga.hpp"
@@ -19,19 +25,19 @@ uint8_t *decompress_amiga(ImageStruct *image) {
     if (buffer == nullptr)
         exit(1);
 
-    // Skip first 6 bytes
-    int j = 6;
-    int bit = 7;
+    int j = 6;     // Byte offset into compressed data (first 6 bytes are header)
+    int bit = 7;   // Current bit position within the current byte (7 = MSB)
 
     for (int i = 0; i < finalsize; i++, repeats--) {
         if (repeats == 0) {
-            // Repeat while bit 7 of count is unset
+            // Walk the Huffman tree bit by bit until reaching a leaf node
+            // (indicated by the high bit being set, i.e. value >= 0x80).
+            // Each interior node at index N has children at 2*N (left/0-bit)
+            // and 2*N+1 (right/1-bit).
             while (repeats < 0x80) {
-                // This conditional is inverted in
-                // the Magnetic code in ms_extract1().
-                // That code will add 1 and read from the subsequent
-                // byte in the array if the bit is *unset*.
-                // Here we do that if the bit is *set*.
+                // Note: the bit sense is inverted compared to ms_extract1()
+                // in the Magnetic interpreter. Here, a set bit follows the
+                // right child; in Magnetic's code, an unset bit does.
                 if (image->data[j] & (1 << bit)) {
                     repeats = image->huffman_tree[2 * repeats + 1];
                 } else {
@@ -50,10 +56,14 @@ uint8_t *decompress_amiga(ImageStruct *image) {
                 bit = bit ? bit - 1 : 7;
             }
 
+            // The leaf value's low 7 bits encode either a run length or a
+            // color index. Values >= 0x10 mean "repeat the current color
+            // (value - 0x0f) times". Values < 0x10 set a new color index
+            // with an implicit repeat count of 1.
             repeats &= 0x7f;
             if (repeats >= 0x10) {
-                // We subtract 1 less here than the
-                // Magnetic code in ms_extract1()
+                // Run length: subtract 0x0f (one less than Magnetic's 0x10
+                // because the outer loop's post-decrement accounts for one).
                 repeats -= 0xf;
             }  else {
                 color_index = repeats;
@@ -64,7 +74,9 @@ uint8_t *decompress_amiga(ImageStruct *image) {
         buffer[i] = color_index;
     }
 
-    // XOR with the corresponding byte in the line above
+    // Delta decode: each scanline is XOR'd with the one above it.
+    // The first scanline is stored literally; subsequent scanlines store
+    // only the differences from the previous line.
     for (int i = image->width; i < finalsize; i++) {
         buffer[i] ^= buffer[i - image->width];
     }
