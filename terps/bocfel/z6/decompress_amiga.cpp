@@ -9,7 +9,8 @@
 //  in the bitstream, where leaf nodes >= 0x90 represent run lengths
 //  (repeat the current color N times) and leaf nodes < 0x10 represent
 //  a new color index (used once). After decoding, a vertical XOR pass
-//  reconstructs the final image from delta-encoded scanlines.
+//  reconstructs the final image from delta-encoded scanlines. This last
+//  step seems to be pure obfuscation.
 
 #include <stdlib.h>
 #include "decompress_amiga.hpp"
@@ -62,8 +63,7 @@ uint8_t *decompress_amiga(ImageStruct *image) {
             // with an implicit repeat count of 1.
             repeats &= 0x7f;
             if (repeats >= 0x10) {
-                // Run length: subtract 0x0f (one less than Magnetic's 0x10
-                // because the outer loop's post-decrement accounts for one).
+                // Run length: subtract 0x0f (one less than Magnetic's 0x10.)
                 repeats -= 0xf;
             }  else {
                 color_index = repeats;
