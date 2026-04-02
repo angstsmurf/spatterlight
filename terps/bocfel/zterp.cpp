@@ -509,9 +509,9 @@ static void process_story(IO &io, long offset)
 
         // Don't extract pictures if we have set another preferred graphics format
         if (graphics_type == gli_z6_graphics && graphics_type != kGraphicsTypeApple2) {
-            newmemory = extract_apple_2((const char *)game_file.c_str(), &file_length, nullptr, nullptr, nullptr);
+            newmemory = extract_apple2_story((const char *)game_file.c_str(), &file_length, nullptr, nullptr, nullptr);
         } else {
-            newmemory = extract_apple_2((const char *)game_file.c_str(), &file_length, &raw_images, &image_count, &pixversion);
+            newmemory = extract_apple2_story((const char *)game_file.c_str(), &file_length, &raw_images, &image_count, &pixversion);
 
             graphics_type = kGraphicsTypeApple2;
             //            options.int_number = INTERP_APPLE_IIE;

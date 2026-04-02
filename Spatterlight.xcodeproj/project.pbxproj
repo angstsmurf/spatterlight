@@ -619,6 +619,8 @@
 		C35CB31E285DD7BF00601E97 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C35CB31D285DD7BF00601E97 /* animations.c */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
+		C35F508F2F7DCACE00816AD0 /* read_le16.c in Sources */ = {isa = PBXBuildFile; fileRef = C3590C702EF1494100F02FE7 /* read_le16.c */; };
+		C35F50922F7DD00200816AD0 /* memory_allocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C35F50912F7DD00200816AD0 /* memory_allocation.cpp */; };
 		C36797BF2EF024B7008A6A0D /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797B12EF0241E008A6A0D /* decompressz80.c */; };
 		C36797C02EF024C5008A6A0D /* decompressz80.h in Headers */ = {isa = PBXBuildFile; fileRef = C36797B02EF0241E008A6A0D /* decompressz80.h */; };
 		C36797C12EF02557008A6A0D /* libdecompressz80.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -2955,6 +2957,8 @@
 		C35D520726F24142002E2F59 /* FolderAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FolderAccess.m; sourceTree = "<group>"; };
 		C35ED513256DD37A00C14847 /* InputHistory.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.h; sourceTree = "<group>"; };
 		C35ED514256DD37A00C14847 /* InputHistory.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.m; sourceTree = "<group>"; };
+		C35F50902F7DD00200816AD0 /* memory_allocation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = memory_allocation.hpp; sourceTree = "<group>"; };
+		C35F50912F7DD00200816AD0 /* memory_allocation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = memory_allocation.cpp; sourceTree = "<group>"; };
 		C36797B02EF0241E008A6A0D /* decompressz80.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = decompressz80.h; sourceTree = "<group>"; };
 		C36797B12EF0241E008A6A0D /* decompressz80.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = decompressz80.c; sourceTree = "<group>"; };
 		C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libdecompressz80.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -6113,6 +6117,8 @@
 				C3ED63642C6E14F6000F90A8 /* v6_specific.h */,
 				C384A6832C6EB0BB0081FC50 /* writetiff.hpp */,
 				C384A6812C6EB06C0081FC50 /* writetiff.cpp */,
+				C35F50902F7DD00200816AD0 /* memory_allocation.hpp */,
+				C35F50912F7DD00200816AD0 /* memory_allocation.cpp */,
 			);
 			path = z6;
 			sourceTree = "<group>";
@@ -7416,9 +7422,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C35F508F2F7DCACE00816AD0 /* read_le16.c in Sources */,
 				C384A6892C6EB3AF0081FC50 /* entrypoints.cpp in Sources */,
 				C384A6742C6EAEDF0081FC50 /* extract_apple_2.cpp in Sources */,
 				C384A6752C6EAEDF0081FC50 /* extract_image_data.cpp in Sources */,
+				C35F50922F7DD00200816AD0 /* memory_allocation.cpp in Sources */,
 				C384A6762C6EAEDF0081FC50 /* find_graphics_files.cpp in Sources */,
 				C384A6772C6EAEDF0081FC50 /* draw_apple_2.cpp in Sources */,
 				C384A67F2C6EAF780081FC50 /* decompress_amiga.cpp in Sources */,

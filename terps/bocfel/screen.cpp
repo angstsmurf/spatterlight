@@ -2772,7 +2772,7 @@ void window_change()
                     bool found = false;
                     bool was_apple = (graphics_type == kGraphicsTypeApple2);
                     if (gli_z6_graphics == kGraphicsTypeApple2) {
-                        image_count = extract_apple_2_images(found_graphics_files.at(kGraphicsFileWoz).c_str(), &raw_images, &pixversion);
+                        image_count = extract_apple2_disk_images(found_graphics_files.at(kGraphicsFileWoz).c_str(), &raw_images, &pixversion);
                         if (image_count > 0) {
                             found = true;
                             graphics_type = kGraphicsTypeApple2;
@@ -2787,7 +2787,7 @@ void window_change()
 
                     // If we were using Apple 2 graphics and found no other kind, fall back to Apple 2 graphics again
                     if (graphics_type == kGraphicsTypeNoGraphics && was_apple) {
-                        image_count = extract_apple_2_images(found_graphics_files.at(kGraphicsFileWoz).c_str(), &raw_images, &pixversion);
+                        image_count = extract_apple2_disk_images(found_graphics_files.at(kGraphicsFileWoz).c_str(), &raw_images, &pixversion);
                         if (image_count != 0) {
                             graphics_type = kGraphicsTypeApple2;
                         }

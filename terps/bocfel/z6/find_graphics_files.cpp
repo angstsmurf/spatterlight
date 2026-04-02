@@ -203,7 +203,7 @@ void extract_from_file(std::string path, GraphicsType type) {
 
         if (type == kGraphicsTypeApple2) {
             glk_stream_close(file, nullptr);
-            image_count = extract_apple_2_images(path.c_str(), &raw_images, &pixversion);
+            image_count = extract_apple2_disk_images(path.c_str(), &raw_images, &pixversion);
         } else if (type == kGraphicsTypeBlorb) {
             image_count = extract_images_from_blorb(&raw_images);
         } else {

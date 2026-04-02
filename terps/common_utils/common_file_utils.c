@@ -21,7 +21,7 @@ size_t GetFileLength(FILE *in)
     if (length == -1) {
         return 0;
     }
-    fseek(in, SEEK_SET, 0);
+    fseek(in, 0, SEEK_SET);
     return (size_t)length;
 }
 

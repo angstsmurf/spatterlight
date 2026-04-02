@@ -21,6 +21,7 @@ extern "C" {
 }
 
 #include "types.h"
+#include "memory_allocation.hpp"
 #include "v6_image.h"
 #include "draw_png.h"
 
@@ -94,17 +95,6 @@ static uint32_t read_24_big_endian_bits(uint8_t **ptr)
     return (uint32_t)(upper_byte << 16 | middle_byte << 8 | lower_byte);
 }
 
-// Allocate memory or terminate on failure.
-static uint8_t *allocate_or_die(size_t size)
-{
-    uint8_t *buffer = (uint8_t *)malloc(size);
-    if (buffer == nullptr) {
-        fprintf(stderr, "Out of memory\n");
-        exit(1);
-    }
-    return buffer;
-}
-
 // Shared Huffman decoding tree used by images that don't specify their own tree.
 // Populated from the data immediately following the image directory.
 uint8_t default_huffman_tree[256];
@@ -163,10 +153,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     file_header.unknown_4 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
     file_header.version = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
 
-    if ((directory = (ImageDirectoryEntry *)calloc((size_t)file_header.image_count, sizeof(ImageDirectoryEntry))) == nullptr) {
-        fprintf(stderr, "Insufficient memory\n");
-        exit(1);
-    }
+    directory = (ImageDirectoryEntry *)MemCalloc((size_t)file_header.image_count * sizeof(ImageDirectoryEntry));
 
     // Parse the image directory. Entry size varies by format version:
     //   8 bytes:  compact format (single-byte width/height/flags)
@@ -227,11 +214,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     }
 
     // Allocate the output ImageStruct array
-    *image_list = (ImageStruct *)calloc(file_header.image_count, sizeof(ImageStruct));
-    if (*image_list == nullptr) {
-        fprintf(stderr, "Out of memory\n");
-        exit(1);
-    }
+    *image_list = (ImageStruct *)MemCalloc(file_header.image_count * sizeof(ImageStruct));
 
     // Populate each ImageStruct with metadata and a copy of the raw pixel data,
     // along with optional per-image Huffman tree and color palette.
@@ -252,7 +235,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
             continue;
 
         (*image_list)[entry_index].datasize = pixel_data_length;
-        (*image_list)[entry_index].data = allocate_or_die(pixel_data_length);
+        (*image_list)[entry_index].data = (uint8_t *)MemAlloc(pixel_data_length);
 
         memcpy((*image_list)[entry_index].data, data + directory[entry_index].pixel_data_offset, pixel_data_length);
 
@@ -272,7 +255,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         // to the shared default tree read from after the directory.
         if (directory[entry_index].huffman_tree_offset != 0 &&
             directory[entry_index].huffman_tree_offset + 256 <= datasize) {
-            (*image_list)[entry_index].huffman_tree = allocate_or_die(256);
+            (*image_list)[entry_index].huffman_tree = (uint8_t *)MemAlloc(256);
             memcpy((*image_list)[entry_index].huffman_tree, data + directory[entry_index].huffman_tree_offset, 256);
         } else {
             (*image_list)[entry_index].huffman_tree = default_huffman_tree;
@@ -281,7 +264,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         // Copy the per-image color palette if present (512 bytes = 256 color entries x 2 bytes each)
         if (directory[entry_index].color_map_offset != 0 &&
             directory[entry_index].color_map_offset + 512 <= datasize) {
-            (*image_list)[entry_index].palette = allocate_or_die(512);
+            (*image_list)[entry_index].palette = (uint8_t *)MemAlloc(512);
             memcpy((*image_list)[entry_index].palette, data + directory[entry_index].color_map_offset, 512);
         }
     }
@@ -314,12 +297,7 @@ int extract_images_from_blorb(ImageStruct **image_list)
     if (total_image_count == 0)
         return 0;
 
-    *image_list = (ImageStruct *)calloc(total_image_count, sizeof(ImageStruct));
-    if (*image_list == nullptr) {
-        fprintf(stderr, "Out of memory\n");
-        exit(1);
-    }
-
+    *image_list = (ImageStruct *)MemCalloc(total_image_count * sizeof(ImageStruct));
     giblorb_result_t blorb_result;
     int output_index = 0;
 
@@ -343,11 +321,7 @@ int extract_images_from_blorb(ImageStruct **image_list)
                 // Make a private copy of the image data
                 // as the Blorb may be purged from memory during
                 // autorestore or when switching graphics type.
-                void *image_data_copy = malloc(blorb_result.length);
-                if (image_data_copy == nullptr) {
-                    fprintf(stderr, "Out of memory\n");
-                    exit(1);
-                }
+                void *image_data_copy = MemAlloc(blorb_result.length);
                 memcpy(image_data_copy, blorb_result.data.ptr, blorb_result.length);
                 (*image_list)[output_index].data = (uint8_t *)image_data_copy;
                 (*image_list)[output_index].datasize = blorb_result.length;
