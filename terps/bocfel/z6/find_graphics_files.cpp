@@ -11,6 +11,8 @@ extern "C" {
 #include "glkimp.h"
 }
 
+#include "memory_allocation.hpp"
+
 #include "zterp.h"
 #include "v6_image.h"
 #include "v6_specific.h"
@@ -171,9 +173,7 @@ uint8_t *read_from_file(strid_t file, glui32 *actual_length) {
     glk_stream_set_position(file, 0, seekmode_End);
     auto file_length = glk_stream_get_position(file);
     glk_stream_set_position(file, 0, seekmode_Start);
-    char *file_data = (char *)malloc(file_length);
-    if (file_data == nullptr)
-        exit(1);
+    char *file_data = (char *)MemAlloc(file_length);
     *actual_length = glk_get_buffer_stream(file, file_data, file_length);
     if (*actual_length != file_length)
         fprintf(stderr, "Read error! Result: %u\n", *actual_length);
@@ -182,7 +182,7 @@ uint8_t *read_from_file(strid_t file, glui32 *actual_length) {
 
 // Opens a graphics file and extracts images from it into the global raw_images
 // array. Handles three extraction paths:
-//   - Apple II: delegates to extract_apple_2_images (reads from disk image)
+//   - Apple II: delegates to extract_apple2_disk_images (reads from disk image)
 //   - Blorb: delegates to extract_images_from_blorb (uses the Glk resource map)
 //   - Raw formats (VGA/EGA/CGA/Amiga/Mac): reads file into memory and parses
 // For EGA, also loads supplementary images from a companion .EG2 file.
@@ -203,7 +203,7 @@ void extract_from_file(std::string path, GraphicsType type) {
 
         if (type == kGraphicsTypeApple2) {
             glk_stream_close(file, nullptr);
-            image_count = extract_apple_2_images(path.c_str(), &raw_images, &pixversion);
+            image_count = extract_apple2_disk_images(path.c_str(), &raw_images, &pixversion);
         } else if (type == kGraphicsTypeBlorb) {
             image_count = extract_images_from_blorb(&raw_images);
         } else {
@@ -259,7 +259,7 @@ void extract_from_file(std::string path, GraphicsType type) {
                     glk_stream_close(file, nullptr);
                     if (additional_count > 0) {
                         int total_count = image_count + additional_count;
-                        ImageStruct *all_images = (ImageStruct *)malloc(sizeof(ImageStruct) * total_count);
+                        ImageStruct *all_images = (ImageStruct *)MemAlloc(sizeof(ImageStruct) * total_count);
                         memcpy(all_images, raw_images, image_count * sizeof(ImageStruct));
                         memcpy(all_images + image_count, more_images, additional_count * sizeof(ImageStruct));
                         free(raw_images);

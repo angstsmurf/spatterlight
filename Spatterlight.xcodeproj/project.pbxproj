@@ -652,6 +652,31 @@
 		C372B06D2F7D4DA200331461 /* TaylorMade command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3A199802999D94000D27500 /* TaylorMade command script.txt */; };
 		C372B06E2F7D4DA200331461 /* SPL13P.plus in Resources */ = {isa = PBXBuildFile; fileRef = C3A199852999E47800D27500 /* SPL13P.plus */; };
 		C372B0702F7D4DB800331461 /* tot.tay in Resources */ = {isa = PBXBuildFile; fileRef = C3A1997F2999D91B00D27500 /* tot.tay */; };
+		C372B19B2F7D523700331461 /* bugged.dat in Resources */ = {isa = PBXBuildFile; fileRef = C354AA71274D095400C8D01D /* bugged.dat */; };
+		C372B19C2F7D523700331461 /* bugged.acd in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3626C98489002C1E5D /* bugged.acd */; };
+		C372B19D2F7D523700331461 /* onehand.dat in Resources */ = {isa = PBXBuildFile; fileRef = C326B13E26C182BF006C398F /* onehand.dat */; };
+		C372B19E2F7D523700331461 /* 00 Wyldkynd Project.a3c in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3B26C9A680002C1E5D /* 00 Wyldkynd Project.a3c */; };
+		C372B23C2F7D56A400331461 /* AGT-03201-0000E16C.agx in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2126C97A4E002C1E5D /* AGT-03201-0000E16C.agx */; };
+		C372B23D2F7D56A400331461 /* AGT-03201-0000E16C.ico in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */; };
+		C372B23E2F7D56A400331461 /* GBDATA in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2726C97AD4002C1E5D /* GBDATA */; };
+		C372B23F2F7D56A400331461 /* guilty.hex in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2626C97AD3002C1E5D /* guilty.hex */; };
+		C372B2402F7D56A400331461 /* Bugged command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3726C984C2002C1E5D /* Bugged command script.txt */; };
+		C372B2412F7D56A400331461 /* Guilty Bastards command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2926C97B15002C1E5D /* Guilty Bastards command script.txt */; };
+		C372B2422F7D56A400331461 /* Level 9 command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2D26C9836E002C1E5D /* Level 9 command script.txt */; };
+		C372B2432F7D56A400331461 /* Magnetic command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2F26C9839F002C1E5D /* Magnetic command script.txt */; };
+		C372B2442F7D56A400331461 /* Shades of Gray command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */; };
+		C372B2452F7D56A400331461 /* The Sound of One Hand Clapping command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C326B13C26C18280006C398F /* The Sound of One Hand Clapping command script.txt */; };
+		C372B2462F7D56A400331461 /* The Wyldkynd Project command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3D7CB1526CA7056006DE4CC /* The Wyldkynd Project command script.txt */; };
+		C372B2472F7D56A400331461 /* To Hell in a Hamper command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3426C9845A002C1E5D /* To Hell in a Hamper command script.txt */; };
+		C372B2482F7D56A400331461 /* Unholy Grail command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */; };
+		C372B2492F7D56A400331461 /* Q.CGA in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2C26C9835B002C1E5D /* Q.CGA */; };
+		C372B24A2F7D56A400331461 /* Q.L9 in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2B26C9835A002C1E5D /* Q.L9 */; };
+		C372B24B2F7D56A400331461 /* mag.gfx in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3226C983FD002C1E5D /* mag.gfx */; };
+		C372B24C2F7D56A400331461 /* mag.mag in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3126C983FD002C1E5D /* mag.mag */; };
+		C372B24D2F7D56A400331461 /* Hamper.taf in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3326C9844C002C1E5D /* Hamper.taf */; };
+		C372B24E2F7D56A400331461 /* grail.blorb in Resources */ = {isa = PBXBuildFile; fileRef = C354AA73274D096500C8D01D /* grail.blorb */; };
+		C372B24F2F7D56A400331461 /* grail.j2 in Resources */ = {isa = PBXBuildFile; fileRef = C354AA6D274D05D800C8D01D /* grail.j2 */; };
+		C372B2562F7D5CF900331461 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
@@ -7366,6 +7391,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C372B23C2F7D56A400331461 /* AGT-03201-0000E16C.agx in Resources */,
+				C372B23D2F7D56A400331461 /* AGT-03201-0000E16C.ico in Resources */,
+				C372B23E2F7D56A400331461 /* GBDATA in Resources */,
+				C372B23F2F7D56A400331461 /* guilty.hex in Resources */,
+				C372B2402F7D56A400331461 /* Bugged command script.txt in Resources */,
+				C372B2412F7D56A400331461 /* Guilty Bastards command script.txt in Resources */,
+				C372B2422F7D56A400331461 /* Level 9 command script.txt in Resources */,
+				C372B2432F7D56A400331461 /* Magnetic command script.txt in Resources */,
+				C372B2442F7D56A400331461 /* Shades of Gray command script.txt in Resources */,
+				C372B2452F7D56A400331461 /* The Sound of One Hand Clapping command script.txt in Resources */,
+				C372B2462F7D56A400331461 /* The Wyldkynd Project command script.txt in Resources */,
+				C372B2472F7D56A400331461 /* To Hell in a Hamper command script.txt in Resources */,
+				C372B2482F7D56A400331461 /* Unholy Grail command script.txt in Resources */,
+				C372B2492F7D56A400331461 /* Q.CGA in Resources */,
+				C372B24A2F7D56A400331461 /* Q.L9 in Resources */,
+				C372B24B2F7D56A400331461 /* mag.gfx in Resources */,
+				C372B24C2F7D56A400331461 /* mag.mag in Resources */,
+				C372B24D2F7D56A400331461 /* Hamper.taf in Resources */,
+				C372B24E2F7D56A400331461 /* grail.blorb in Resources */,
+				C372B24F2F7D56A400331461 /* grail.j2 in Resources */,
+				C372B19B2F7D523700331461 /* bugged.dat in Resources */,
+				C372B19C2F7D523700331461 /* bugged.acd in Resources */,
+				C372B19D2F7D523700331461 /* onehand.dat in Resources */,
+				C372B19E2F7D523700331461 /* 00 Wyldkynd Project.a3c in Resources */,
 				C372B0702F7D4DB800331461 /* tot.tay in Resources */,
 				C372B06C2F7D4DA200331461 /* Plus command script.txt in Resources */,
 				C372B06D2F7D4DA200331461 /* TaylorMade command script.txt in Resources */,
@@ -8304,6 +8353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C372B2562F7D5CF900331461 /* FileSignature.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

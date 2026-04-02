@@ -131,6 +131,11 @@ static BOOL pollMoreData(int fd) {
 
     [self closeLogFile];
 
+    // Post notification that command script has completed
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"GlkCommandScriptDidComplete"
+                                                        object:self
+                                                      userInfo:nil];
+
     self.window.title = [self.window.title stringByAppendingString:NSLocalizedString(@" (finished)", nil)];
     [self performScroll];
     task = nil;

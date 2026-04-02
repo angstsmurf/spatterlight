@@ -1,0 +1,2610 @@
+=== Spatterlight Interpreter Log ===
+Game: bugged.acd
+Interpreter: alan2
+
+[MSG] cmd=3 a1=0 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=6 a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=14 a1=4 a2=9 a3=9 len=0
+[MSG] cmd=6 a1=4 a2=1 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=8 a1=1 a2=0 a3=0 len=24
+[MSG] cmd=8 a1=0 a2=0 a3=0 len=24
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=9 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=1498
+[TEXT] As a fan of interactive fiction, you promised to your cousin, who also has taken an interest in text adventures, to try out his latest creation, even if his earlier attempts, honestly said, have left rather a lot to wish for. Nevertheless, the "I've implemented ten rooms and I bet you can't make it through!" was a downright Challenge, a slap in the face with a glove; and of course you couldn't back up anymore. So, here you are in the startroom, looking around with a certain reservation, hoping that this time your cousin would have succeeded in creating something you could perhaps even enjoy a bit... 
+
+BUGGED 
+(c) 2001 by Anssi Raisanen 
+Programmed with ALAN v2.8 
+Version 1.2 
+Please type 'help' for instructions and other background info.
+
+
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=20
+[TEXT] Startroom.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=910
+[TEXT] 
+Dark stone walls surround you in every direction. It is not clear what kind of building you are supposed to be in, but it looks like the setting is the not-too-original prison cell you are to get out of, in order to start the adventure for real. A sturdy door in the southern wall blocks the only obvious exit from the room. A window, up close to the ceiling, breaks the monotony of the wall opposite. In the middle of the room there is a wooden table.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=84 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=14
+[TEXT] 0 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=198
+[TEXT] You can't see any such thing. 
+
+ You raise your eyebrows a bit: a bug. You could see this coming.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=84 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=14
+[TEXT] 1 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=66
+[TEXT] The window is too high for you.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=84 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=14
+[TEXT] 2 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=306
+[TEXT] It is a rectangular, wooden table of heavy build, with four legs. On closer inspection, you notice a small, round dent on its otherwise smooth surface.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=84 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=14
+[TEXT] 3 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=86
+[TEXT] It looks too regular to be a natural one.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=84 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=14
+[TEXT] 4 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=244
+[TEXT] There is a silent click, and a secret drawer slides open from one side of the table! There seems to be something inside.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=84 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=14
+[TEXT] 5 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=138
+[TEXT] In the drawer you see a small iron key, an apple and a white flute.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=84 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=14
+[TEXT] 6 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=50
+[TEXT] It is a small iron key.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=84 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=14
+[TEXT] 7 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=70
+[TEXT] It is a fresh, red-cheeked apple.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=84 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=14
+[TEXT] 8 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=80
+[TEXT] It is a white, ordinary-looking flute.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=84 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=14
+[TEXT] 9 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=308
+[TEXT] A ring in the key's left ring finger indicates she's already taken. 
+
+  Sigh. Another one... Somehow you have the feeling that the worst is yet to come.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 10 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=142
+[TEXT] A ring in the apple's left ring finger indicates she's already taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 11 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=142
+[TEXT] A ring in the flute's left ring finger indicates she's already taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 12 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=104
+[TEXT] The drawer doesn't come loose, as much as you try.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 13 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=186
+[TEXT] You climb on the table, but seeing you still can't reach the window, climb back down again.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 14 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=16
+[TEXT] Taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 15 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=114
+[TEXT] Taken. 
+
+   Well, a convenient one for a change, too...
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] Startroom
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 16 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=40
+[TEXT] You exit the cell.
+
+
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=24
+[TEXT] Second Room.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=768
+[TEXT] 
+You are in a long north-south corridor. Torches set in the walls at regular distances from one another illuminate the place. Your cell is at the end of the corridor to the north, and there are other cells to both sides. About in the middle of the corridor there is a dark chasm in the floor, too wide for you to jump over. A ladder leans against the wall on your side of the chasm.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 17 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=104
+[TEXT] You empty the contents of the table into yourself.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 18 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] That's just scenery.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 19 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=62
+[TEXT] It looks dark and foreboding.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 20 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=88
+[TEXT] There is nothing special about the ladder.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 21 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=144
+[TEXT] A ring in the ladder's left ring finger indicates she's already taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 22 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=144
+[TEXT] The ladder doesn't lead anywhere, it just leans against the wall here.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 23 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=98
+[TEXT] Believe me, there is nothing interesting there.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 24 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=90
+[TEXT] The chasm is too wide for you to jump over.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 25 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=80
+[TEXT] I think I mentioned you can't do that.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 26 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=14
+[TEXT] Done.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Second Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 27 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=56
+[TEXT] You walk across the chasm.
+
+
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=22
+[TEXT] Third Room.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=700
+[TEXT] 
+The corridor from the north ends in a rather large and spacious room, with walls of red stone. Light is provided by burning torches high up on the walls. A suit of armour stands in one corner of the room and in another one is a chesstable. A heavy-looking stone door blocks further southward movement. Five levers protrude out of the western wall.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 28 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=84
+[TEXT] There is nothing special about the suit.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 29 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=16
+[TEXT] Taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 30 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=138
+[TEXT] On second thought, the suit is not your idea of the latest fashion.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 31 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=254
+[TEXT] The door is made of one smooth piece of stone. There are no handles or other knobs visible on its surface or in the vicinity.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 32 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=172
+[TEXT] You try to get hold of the surface of the door, but it being smooth stone, you fail.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 33 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=140
+[TEXT] A normal chesstable, with a chessboard and a complete set of pieces.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 34 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=106
+[TEXT] A normal chessboard, with a complete set of pieces.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 35 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=86
+[TEXT] A complete set of white and black pieces.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 36 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=242
+[TEXT] You play the chess for a while. You are surprised at how good you are, since you've actually played very little at all.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 37 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=16
+[TEXT] Taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 38 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=560
+[TEXT] Five crude iron levers protrude out of the wall. From the holes in the wall which they jut out of, you gather that they can be pulled up or down. Initially, they are all up. 
+   [You can refer to the individual levers by calling them the first (lever), the second (lever), etc.]
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 39 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=156
+[TEXT] You lower the third lever. 
+
+   Great! Your cousin really messed up again...
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 40 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=58
+[TEXT] You lower the second lever.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 41 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=56
+[TEXT] You lower the first lever.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 42 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=58
+[TEXT] You lower the fourth lever.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 43 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=316
+[TEXT] You lower the fifth lever. 
+   There is a loud click, and the stone door on the southern wall slides almost quietly aside, revealing a passage to the south.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=20
+[TEXT] Third Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 44 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=40
+[TEXT] You proceed south.
+
+
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=24
+[TEXT] Fourth Room.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=664
+[TEXT] 
+This room looks very similar to the one to the north. However, the only decoration here seem to be beautiful wall paintings on all of the four walls. The door to the south even has a knob this time. 
+   The only thing that would seem to hinder your progress is a dragon guarding the door, but you guess there had to be something.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 45 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=132
+[TEXT] There is nothing special about the door. It is currently closed.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 46 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=54
+[TEXT] The dragon is in the way.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 47 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=54
+[TEXT] The dragon is in the way.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 48 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=72
+[TEXT] It is, er, huge, fierce and green.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 49 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=204
+[TEXT] The dragon manages to look dangerous enough for you to decide you don't want to get too close to it.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 50 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=148
+[TEXT] No dragons were harmed in the making of this game. Now, don't YOU start!
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 51 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=458
+[TEXT] They are a series of paintings, depicting a story where a warrior confronts a dragon guarding a cave. The warrior plays a tune with an instrument that looks like a flute, the dragon falls asleep and the warrior enters the cave.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 52 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=126
+[TEXT] They are painted straight onto the walls and cannot be taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 53 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=86
+[TEXT] [Note to self: insert witty answer here.]
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 54 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=460
+[TEXT] You play the chess for a while. You are surprised at how good you are, since you've actually played very little at all. The music has a clear effect on the dragon; it gets drowsy, lies down on the ground and is soon fast asleep.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Fourth Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 55 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=234
+[TEXT] You open the door and walk south. After the doorway, a short flight of stairs leads upwards, and you climb it duly.
+
+
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=24
+[TEXT] Antechamber.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=1034
+[TEXT] 
+This room is considerably bigger and lighter than the previous ones. Daylight streams in from a big window. A beautiful, ornamented door leads south, giving you a hint that you must be in an antechamber of some sort, leading to more central parts of the castle (for you have gathered by now that this must be a castle). 
+ There is a princess here. 
+   "Hey, you came from the prison wing and I haven't seen you before, you must be an escaped prisoner", she says. "But you don't look that dangerous to me at all..."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 56 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=332
+[TEXT] She is a young, actually rather pretty princess. You can tell she's a princess from the royal clothes and ornaments she's wearing, and the little tiara on her head.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 57 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=90
+[TEXT] There is nothing special about the clothes.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 58 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=94
+[TEXT] There is nothing special about the ornaments.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 59 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=86
+[TEXT] There is nothing special about the tiara.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 60 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=66
+[TEXT] It is a beautiful, golden ring.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 61 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=170
+[TEXT] She slaps you at the hand, but with a grace that is fit for a princess. "Keep off!"
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 62 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] That's just scenery.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 63 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=214
+[TEXT] It is a beautifully ornamented door, with a small hatch at about eye-level. The door is currently closed.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 64 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=48
+[TEXT] It seems to be locked.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 65 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=368
+[TEXT] The hatch opens, and a guard's face peaks in. "You must be accompanied by a royal person in order to get access to this side", he utters politely but firmly, closing the hatch again.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 66 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=274
+[TEXT] "Why would you want to have the door?" the princess asks, "the guard on the other side would just get alarmed if you tried to take it."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 67 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=214
+[TEXT] You try to grab hold of the hatch, but to no avail. It really seems to be openable only from the outside.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 68 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=176
+[TEXT] "I am the king's eldest daughter, and some day this all is going to be under my rule!"
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 69 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=158
+[TEXT] "Well, I know it's not very present-day, but you've got to live somewhere..."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 70 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=348
+[TEXT] "You want to go through that door? The guard on the other side won't let you pass without me. I could take you with me there if you give me an apple - I feel a bit hungry."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 71 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=46
+[TEXT] "Any apple would do."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 72 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=90
+[TEXT] "Oh, I am not into chess that much myself."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 73 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=154
+[TEXT] "Oh, isn't he cute? He is my favourite dragon, always ready to protect me."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 74 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=232
+[TEXT] "I'm really sorry if it was an inconvenient one - even if I am not in any way in charge of maintaining the cells."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 75 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=292
+[TEXT] "Yes, they are working with the plumbing downstairs, but the amount of time it takes is ridiculous. Unneeded holes in the floor and all that..."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 76 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=64
+[TEXT] "Ah, that's just an ornament."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 77 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=54
+[TEXT] Taken. 
+
+ How convenient.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 78 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=766
+[TEXT] The hatch opens, and a guard's face peaks in. At first he sees only you. "You must be accompanied by a royal person..." Then he notices the princess accompanies you. "I'm sorry, mademoiselle, just a moment, I'll let you and your companion through." 
+  The guard's face disappears, a rattling noise is heard as he unlocks the door, and before you realise, the door stands wide open.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Antechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 79 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=24
+[TEXT] Throne Room.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=1500
+[TEXT] 
+You are in a huge, rectangular room, very apparently the main room of the castle. Daylight pours in from windows in the ceiling. A throne stands in the middle of the floor, towards the western end of the room. There are two doors to the north and two to the south (the directions to be referred are northwest, northeast, southwest and southeast). A door to the east is more majestic than the others; you gather that escape lies that way, while a door to the west, behind the throne, is the plainest one of them all. In front of every door there stands a guard, alert and erect, and in one hand resting a spear against the floor. 
+   Nobody seems to take any special notice of you, presumably because you entered the room in the princess's company.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Throne Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 80 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=810
+[TEXT] There are six guards here, one at each door leading out of the throne room. The guards look very dedicated to their job. 
+   The double doors to the east swing suddenly open. It seems the king is entering the throne room now. Trumpets sound his arrival, and a crowd of servants, lackeys, advisors and other attendants follow him. The king climbs a couple of steps leading up to the throne and sits down.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Throne Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 81 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=1348
+[TEXT] The king is rather tall and not at all old yet; he has a golden beard, piercing grey eyes, and a red cloak on his shoulders. 
+   The king starts talking. 
+    "My dear subjects! Two alarming matters have come to my attention. It has been reported to me that one of the prisoners has succeeded in escaping from the northern prison wing. You know, the one who was caught the other day after arousing suspicions by sneaking around in the castle's premises. The fact that the said offender has managed to break through our foolproof security systems, proves that we are dealing with a dangerous and cunning criminal who is to be searched for and captured as soon as possible."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Throne Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 82 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=1864
+[TEXT] You gasp as you realise that it is overlaid with gold. 
+   The king continues his speech. 
+    "Secondly, I noticed my golden sceptre is missing. I don't know if these two things are in any way connected with each other, but in any case it is a very unfortunate thing, as the sceptre is a symbol of the prosperity of our country, not to mention a symbol of my power. I appeal to each and every one of you to keep your eyes open, in order that these two matters could be settled and got over with for good. Now, begone!" 
+    The king stands up impatiently and walks out of the room with swift steps, some of his attendants following him, while others scatter hastily in different directions, trying to locate either the escapee (you try to look as small as possible) or the sceptre. 
+    Happening to glance at the princess, you notice that she is looking at you with an amused, knowing look, as if she was enjoying the situation.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Throne Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 83 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=106
+[TEXT] "Thanks to them, I feel safe in this big building."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Throne Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 84 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=1498
+[TEXT] "Oh, he's so fussy about that old sceptre. You know, I will be married to the prince of the neighboring country shortly, we're very much in love, but right now my fiance is attending to businesses in his own country, and I feel so lonely while he is away from me... so I decided to play a little prank on my father and hide the sceptre. - I like you, and would like to help you to leave the castle without problems, since I realise that my father has been once more over-sensitive about people who venture too near the castle... so if you should *find* the sceptre, he would be very grateful and not ask any questions." 
+   "Here, let me show you." 
+   The princess walks to the southwest, and the guard standing at the door duly opens it for her.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Throne Room
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 85 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=306
+[TEXT] You approach the door. The guard is about to stop you, when the princess says from inside: "It is ok, Edwin, a friend only." 
+   The guard steps aside.
+
+
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=42
+[TEXT] Southern Sidechamber.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=1374
+[TEXT] 
+You are in a small sidechamber, adjacent to the throne room. The chamber is very barely furnished. There is a little window high up on the southern wall. An exit leads north. 
+   The princess is here. 
+   "I'll help you only if you agree to do something in return... some time ago, I was throwing my ball against the wall here in this room, when it accidentally flew out of the window to the garden. In this part of the garden, the king has some rare and precious flowers growing, and therefore the access there is restricted. The only way to pick up the ball would be through that window, but it is too high for me... but surely, it is no problem for someone as agile as you, is it?"
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 86 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=112
+[TEXT] "You give me the ball, I'll help you get out of here."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 87 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=126
+[TEXT] "My father likes gardening, but I am not so much keen on it."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 88 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=376
+[TEXT] The window is too high for you to reach even if you jumped, but given the unevenness of the walls, you could probably climb to it. 
+    You can only see a small patch of the sky outside.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 89 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=70
+[TEXT] The walls are rather uneven here.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 90 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=460
+[TEXT] You start climbing the wall, but your foot slips soon after, and you fall back down. 
+   The princess points at some exotic fruits in a bowl on a sidetable here: "You should taste these, they really are good for your dexterity."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 91 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=128
+[TEXT] You don't recognise the species, but they sure look delicious.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 92 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=88
+[TEXT] You'll have to be holding the fruit first.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 93 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=142
+[TEXT] A ring in the fruit's left ring finger indicates she's already taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 94 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=100
+[TEXT] You lick the fruit but taste nothing unexpected.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 95 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=460
+[TEXT] You start climbing the wall, but your foot slips soon after, and you fall back down. 
+   The princess points at some exotic fruits in a bowl on a sidetable here: "You should taste these, they really are good for your dexterity."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 96 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=70
+[TEXT] The bowl is full of exotic fruit.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 97 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=88
+[TEXT] There's no point in taking the whole bowl.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 98 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] That's just scenery.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=83 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=16
+[TEXT] 99 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=44
+[TEXT] That's just scenery.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 100 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=66
+[TEXT] The window is too high for you.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 101 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=42
+[TEXT] Taken. 
+
+   Cool...
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 102 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=268
+[TEXT] "Good luck", the princess says, "I'll be waiting for you here."
+    You exit through the window and drop down to the garden outside.
+
+
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=26
+[TEXT] Small Garden.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=522
+[TEXT] 
+You are in a secluded part of the garden surrounding the castle. The castle wall, with a small window some way up, is to the north. Colourful flowers and bushes surround you everywhere, bathing in the light of the afternoon sun. 
+   A ball lies in the grass.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 103 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=40
+[TEXT] It is quite round.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 104 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=248
+[TEXT] The ring in the ball's left ring finger indicates she's already taken. 
+
+   This is really getting tedious, dear cousin...
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 105 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=232
+[TEXT] The flowers here are very colourful and exotic. Bees, flies and other bugs fly busily  from one flower to another.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 106 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=46
+[TEXT] Better let them grow.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 107 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=72
+[TEXT] The bushes are very thick-growing.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 108 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=142
+[TEXT] Looking closer at the bushes, you find a coil of rope in one of them.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 109 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=318
+[TEXT] The coil of rope looks long enough for you to use it to climb back up, but the problem is how you can climb the rope if you are holding the ball in one hand.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 110 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=140
+[TEXT] A ring in the rope's left ring finger indicates she's already taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 111 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=140
+[TEXT] You kick the ball gently. It rolls to a different spot in the grass.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 112 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=276
+[TEXT] You kick the ball, aiming at the window, but the ball hits the wall and bounces back down. Maybe another try would yield better results.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 113 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=304
+[TEXT] Being better able to calculate your strength and adjust your aim at the second attempt, you manage to kick the ball through the window, into the room.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 114 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=26
+[TEXT] Small Garden.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=462
+[TEXT] 
+You are in a secluded part of the garden surrounding the castle. The castle wall, with a small window some way up, is to the north. Colourful flowers and bushes surround you everywhere, bathing in the light of the afternoon sun.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 115 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=82
+[TEXT] There is nothing special about the sun.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 116 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=16
+[TEXT] Taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=24
+[TEXT] Small Garden
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 117 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=76
+[TEXT] You climb back up and into the room.
+
+
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=42
+[TEXT] Southern Sidechamber.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=1250
+[TEXT] 
+You are in a small sidechamber, adjacent to the throne room. The chamber is very barely furnished. There is a little window high up on the southern wall. An exit leads north. 
+ The princess is here, bouncing her ball against the wall. 
+   The princess is extremely happy after getting her ball back. 
+    "Oh, thank you so very much...! Well, I promised to help you, so listen: the sceptre is in the cellar which you can access through the door behind the throne, to the west. You'll need a lamp - here..." She bends down and pulls a lamp from some unknown nook or cranny in the wall and hands it to you. "Now, good luck!"
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 118 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=140
+[TEXT] There is nothing special about the lamp. It is currently turned off.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 119 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=48
+[TEXT] You turn off the lamp.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 120 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=48
+[TEXT] You turn off the lamp.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 121 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=48
+[TEXT] You can't go that way.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 121 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=102
+[TEXT] "You'll need some light if you go to the cellar."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 122 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=16
+[TEXT] Taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Southern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 123 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=24
+[TEXT] Throne Room.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=1262
+[TEXT] 
+You are in a huge, rectangular room, very apparently the main room of the castle. Daylight pours in from windows in the ceiling. A throne stands in the middle of the floor, towards the western end of the room. There are two doors to the north and two to the south (the directions to be referred are northwest, northeast, southwest and southeast). A door to the east is more majestic than the others; you gather that escape lies that way, while a door to the west, behind the throne, is the plainest one of them all. In front of every door there stands a guard, alert and erect, and in one hand resting a spear against the floor.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Throne Room
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 124 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=282
+[TEXT] You approach the door. The guard is about to stop you, when the princess remarks: "It is ok, Hank, just a friend." 
+ The guard steps aside.
+
+
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=42
+[TEXT] Northern Sidechamber.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=418
+[TEXT] 
+You are in a small sidechamber, adjacent to the throne room. The chamber is very barely furnished. There is a little window high up on the northern wall. An exit leads south. 
+   You see a rubber bone here.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Northern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 125 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=84
+[TEXT] There is nothing special about the bone.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Northern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 126 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=154
+[TEXT] A ring in the rubber bone's left ring finger indicates she's already taken.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Northern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 127 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=218
+[TEXT] "The rubber bone? That is one of my cute little pug's favourite toys. I wonder where Rufus is right now..."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Northern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 128 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=98
+[TEXT] "He's my favourite dog, so nice and lovable..."
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=40
+[TEXT] Northern Sidechamber
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 129 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=24
+[TEXT] Throne Room.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=1262
+[TEXT] 
+You are in a huge, rectangular room, very apparently the main room of the castle. Daylight pours in from windows in the ceiling. A throne stands in the middle of the floor, towards the western end of the room. There are two doors to the north and two to the south (the directions to be referred are northwest, northeast, southwest and southeast). A door to the east is more majestic than the others; you gather that escape lies that way, while a door to the west, behind the throne, is the plainest one of them all. In front of every door there stands a guard, alert and erect, and in one hand resting a spear against the floor.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Throne Room
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 130 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=398
+[TEXT] The princess orders the guard out of the way, and you open the door leading west and step to a dark stairway leading down. 
+  "Good luck!" you hear the princess say, "I'll be waiting for you here."
+
+
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=14
+[TEXT] Cellar.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=616
+[TEXT] 
+The air is very fusty here, and cobwebs hang in the dark corners of the room. Otherwise, there is not much to tell; seems like your cousin has used most of his creative energy by now. 
+   A fat, ugly, growling pug is here, holding a golden sceptre in its teeth as if it was a bone and watching you keenly.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=12
+[TEXT] Cellar
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 131 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=422
+[TEXT] On the basis of the short acquaintance you have had with the dog so far, you can only tell that it is very well-fed and fierce-tempered, but nevertheless probably a very dear and loved pet of the royal family.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=12
+[TEXT] Cellar
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 132 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=72
+[TEXT] It is a beautiful, golden sceptre.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=12
+[TEXT] Cellar
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 133 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=90
+[TEXT] There is nothing special about the cobwebs.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=12
+[TEXT] Cellar
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 134 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=40
+[TEXT] What on earth for?
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=12
+[TEXT] Cellar
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 135 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=84
+[TEXT] The dog would seem to disagree with you.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=12
+[TEXT] Cellar
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 136 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=336
+[TEXT] You grab the dog, and manage to hold on to it. However, it is surprisingly strong and vigorous, wriggling in your grasp, and you won't be able to hold it much longer.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=12
+[TEXT] Cellar
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 137 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=514
+[TEXT] 
+   You pause to think. If you use this command, the sceptre will end up on the floor and you won't be able to pick it up. You'll have to modify your command in some way. 
+   You can't hold on to the pug any longer. It squirms itself free from your grasp.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=12
+[TEXT] Cellar
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 138 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=336
+[TEXT] You grab the dog, and manage to hold on to it. However, it is surprisingly strong and vigorous, wriggling in your grasp, and you won't be able to hold it much longer.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=12
+[TEXT] Cellar
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 139 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=634
+[TEXT] You empty the contents of the fat growling pug into yourself. 
+ You can't hold on to the pug any longer. It squirms itself free from your grasp. 
+
+   You try to think what might help. Maybe your cousin programmed the dog to be a container, containing the sceptre. Perhaps that would be something to experiment with.
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=12
+[TEXT] Cellar
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 140 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+[MSG] cmd=59 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=0 a2=4 a3=0 len=24
+[TEXT] Throne Room.
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=4208
+[TEXT] 
+You are in a huge, rectangular room, very apparently the main room of the castle. Daylight pours in from windows in the ceiling. A throne stands in the middle of the floor, towards the western end of the room. There are two doors to the north and two to the south (the directions to be referred are northwest, northeast, southwest and southeast). A door to the east is more majestic than the others; you gather that escape lies that way, while a door to the west, behind the throne, is the plainest one of them all. In front of every door there stands a guard, alert and erect, and in one hand resting a spear against the floor. 
+   There is a princess here. 
+
+   One of the guards sees you are carrying the sceptre and shouts: "Summon the king! Summon the king! The sceptre has been found!" 
+    There is a lot of excitement and commotion, as the king and his attendants soon afterwards hurry into the throne room. 
+    "I am extremely relieved and happy", he says, "please accept this little token of my deep gratitude, before you leave." He reaches into his pocket and gives you a handful of golden coins. "And welcome back here anytime, as you seem to be a good friend to our dear princess." The princess smiles at you sweetly. 
+    An extra fanfare is blown in your honour, and you are escorted out of the castle and to the outer gates, from where you start walking along the road, into the next adventure. 
+
+    Suddenly, you feel a tap on your shoulder. Frightened, thinking one of the guards recognised you after all, you turn abruptly around, but only to see your cousin looking at the computer screen from behind your back. 
+    "Great, so I see you've finished it, well congratulations for that! How did you like it?" 
+    For a while, you think of a diplomatic answer and finally say: "Er.. it needs some polishing yet... but I am not sure if that will actually help it get any better than what it is now", leaving your cousin wondering whether that was a complaint or a compliment. 
+    Anyway, 
+
+     *** You have successfully escaped from the castle. ***
+
+Thank you for playing Bugged.
+
+
+
+[MSG] cmd=9 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=184
+[TEXT]                                                                                             
+[MSG] cmd=10 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=22
+[TEXT] Throne Room
+[MSG] cmd=10 a1=1 a2=82 a3=0 len=0
+[MSG] cmd=11 a1=1 a2=9 a3=0 len=18
+[TEXT] 140 moves
+[MSG] cmd=11 a1=0 a2=0 a3=0 len=116
+[TEXT] Do you want to RESTART, RESTORE a saved game, or QUIT?
+>> 
+[MSG] cmd=27 a1=0 a2=255 a3=0 len=0
+
+=== Session ended ===
