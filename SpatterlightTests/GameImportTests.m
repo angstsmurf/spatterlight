@@ -534,16 +534,8 @@
 
         // Get the game controller
         GlkController *glkController = self.tableViewController.gameSessions.allValues.firstObject;
-//        for (GlkController *controller in self.tableViewController.gameSessions.allValues) {
-//            if (controller.isAlive) {
-//                glkController = controller;
-//                break;
-//            }
-//        }
 
         if (glkController) {
-//            XCTAssertTrue(glkController.isAlive, @"Game should still be running after command script");
-
             // Restore original determinism setting
             Game *game = glkController.game;
             if (game && game.theme) {
@@ -733,14 +725,14 @@
              commandScriptName:@"TaylorMade"];
 }
 
-- (void)testTADS3 {
-    [self importAndRunGameFile:@"Elysium.t3"
-             commandScriptName:@"The Elysium Enigma"];
-}
-
 - (void)testTADS2 {
     [self importAndRunGameFile:@"tildeath.gam"
              commandScriptName:@"Till Death Makes a Monk-Fish out of Me"];
+}
+
+- (void)testTADS3 {
+    [self importAndRunGameFile:@"Elysium.t3"
+             commandScriptName:@"The Elysium Enigma"];
 }
 
 @end
