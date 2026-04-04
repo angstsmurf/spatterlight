@@ -229,8 +229,8 @@ again:
     
     // Log the message header if logging is enabled
     if (logFileHandle) {
-        NSString *headerLog = [NSString stringWithFormat:@"[MSG] cmd=%u a1=%d a2=%d a3=%d len=%zu\n",
-                               request.cmd, request.a1, request.a2, request.a3, request.len];
+        NSString *headerLog = [NSString stringWithFormat:@"[MSG] cmd=%s a1=%d a2=%d a3=%d len=%zu\n",
+                               msgnames[request.cmd], request.a1, request.a2, request.a3, request.len];
         @try {
             [logFileHandle writeData:[headerLog dataUsingEncoding:NSUTF8StringEncoding]];
         } @catch (NSException *exception) {

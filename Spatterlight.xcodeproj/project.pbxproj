@@ -725,6 +725,9 @@
 		C39147442974C41D00692B9E /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39147432974C41D00692B9E /* SideViewController.m */; };
 		C391F77A2F3D795E00F3102B /* rtpi_graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C391F7792F3D795E00F3102B /* rtpi_graphics.c */; };
 		C39613FE28E5D0B300A13624 /* saga.c in Sources */ = {isa = PBXBuildFile; fileRef = C39613FD28E5D0B300A13624 /* saga.c */; };
+		C396E2872F812E3500B6308A /* messagenames.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E2862F812E3500B6308A /* messagenames.c */; };
+		C396E2882F812E3500B6308A /* messagenames.h in Headers */ = {isa = PBXBuildFile; fileRef = C396E2852F812E3500B6308A /* messagenames.h */; };
+		C396E28A2F814ED500B6308A /* messagenames.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E2862F812E3500B6308A /* messagenames.c */; };
 		C396E8F12732B2CE0090B5DF /* quest4.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E8EF2732B2CE0090B5DF /* quest4.c */; };
 		C3998E2326C97A5C002C1E5D /* AGT-03201-0000E16C.ico in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */; };
 		C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */; };
@@ -3089,6 +3092,8 @@
 		C39613FC28E5D0B300A13624 /* saga.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = saga.h; sourceTree = "<group>"; };
 		C39613FD28E5D0B300A13624 /* saga.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = saga.c; sourceTree = "<group>"; };
 		C396691B2E85EA50008A75A7 /* Spatterlight 13_5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 13_5.xcdatamodel"; sourceTree = "<group>"; };
+		C396E2852F812E3500B6308A /* messagenames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = messagenames.h; sourceTree = "<group>"; };
+		C396E2862F812E3500B6308A /* messagenames.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = messagenames.c; sourceTree = "<group>"; };
 		C396E8EF2732B2CE0090B5DF /* quest4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest4.c; sourceTree = "<group>"; };
 		C3983D872F62CE4600717789 /* SpatterlightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpatterlightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
@@ -4368,6 +4373,8 @@
 			children = (
 				6D7917CF223130CC00C3C9F7 /* autorestore */,
 				961CCE9209F2381B00528FF9 /* protocol.h */,
+				C396E2852F812E3500B6308A /* messagenames.h */,
+				C396E2862F812E3500B6308A /* messagenames.c */,
 				961CCE8C09F2381B00528FF9 /* glkimp.h */,
 				961CCE8B09F2381B00528FF9 /* glk.h */,
 				961CCE8D09F2381B00528FF9 /* glkstart.h */,
@@ -6335,6 +6342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C36797E92EF0DA04008A6A0D /* read_le16.h in Headers */,
+				C396E2882F812E3500B6308A /* messagenames.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7629,6 +7637,7 @@
 				C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */,
 				C311866825BD3B1800739D7B /* sound.c in Sources */,
 				961CCEA109F2383F00528FF9 /* misc.c in Sources */,
+				C396E2872F812E3500B6308A /* messagenames.c in Sources */,
 				961CCEA309F2383F00528FF9 /* stream.c in Sources */,
 				961CCEA409F2383F00528FF9 /* stylehint.c in Sources */,
 				961CCEA509F2383F00528FF9 /* window.c in Sources */,
@@ -7656,6 +7665,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C396E28A2F814ED500B6308A /* messagenames.c in Sources */,
 				C3CB504C2662606600A95BE2 /* CoverImageHandler.m in Sources */,
 				C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */,
 				C3191AA4266D3A1F00528F6E /* NSBitmapImageRep+retro.m in Sources */,
