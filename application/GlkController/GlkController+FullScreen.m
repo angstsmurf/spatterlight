@@ -31,7 +31,7 @@
         NSSize borderSize = self.borderView.frame.size;
         NSRect contentFrame = self.gameView.frame;
         CGFloat midWidth = borderSize.width / 2;
-        if (contentFrame.origin.x > midWidth ||  NSMaxX(contentFrame) < midWidth) {
+        if (contentFrame.origin.x > midWidth || NSMaxX(contentFrame) < midWidth) {
             contentFrame.origin.x = round(borderSize.width - NSWidth(contentFrame) / 2);
             self.gameView.frame = contentFrame;
         }
