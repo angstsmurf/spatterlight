@@ -45,8 +45,8 @@
 
 int init_mg1_graphics(const char *mg1_filename);
 uint16_t get_number_of_mg1_images(void);
-uint16_t *get_all_picture_numbers(void);
-z_image *get_picture(int picture_number);
+uint16_t *get_mg1_picture_numbers(void);
+z_image *get_mg1_picture(int picture_number);
 int end_mg1_graphics(void);
 
 

@@ -2,7 +2,10 @@
 /* spat-mg1.c
  *
  * Converts MCGA .mg1 image files to the z_image intermediary
- * format.
+ * format. MG1 is the graphics format used by Infocom's V6 Z-machine
+ * games (Arthur, Shogun, Journey, Zork Zero) for VGA/EGA display.
+ * Each .mg1 file contains a header, an image directory, optional
+ * per-image colormaps, and LZW-compressed pixel data.
  *
  * This file is based on drilbo-mg1.h, part of Fizmo.
  *
@@ -48,38 +51,43 @@
 
 #include "spat-mg1.h"
 
-#define CODE_SIZE 8
-#define CODE_TABLE_SIZE 4096
-#define MAX_BIT 512 /* Must be less than or equal to CODE_TABLE_SIZE */
-#define PREFIX 0
-#define PIXEL 1
+#define LZW_MIN_CODE_SIZE 8
+#define LZW_TABLE_SIZE 4096
+#define READ_BUFFER_SIZE 512 /* Must be less than or equal to LZW_TABLE_SIZE */
+#define PREFIX 0    /* Index into code table entry for the prefix code */
+#define PIXEL 1     /* Index into code table entry for the pixel value */
 
 #define IMAGE_TYPE_RGB 1
 #define IMAGE_TYPE_GRAYSCALE 2
 
 
+/* MG1 file header: describes the graphics file as a whole.
+   Fields are read in order but with gaps (unknown/reserved bytes
+   are skipped via fseek). */
 struct mg1_header
 {
-  uint8_t part;
-  uint8_t flags;
+  uint8_t disk_part;         /* Part/disk number */
+  uint8_t flags;        /* File-level flags */
   //uint16_t unknown1;
-  uint16_t nof_images;
+  uint16_t nof_images;  /* Number of images in the file */
   //uint16_t unknown2;
-  uint8_t dir_size;
+  uint8_t dir_size;     /* Size of each directory entry (11 or 14 bytes) */
   //uint8_t unknown3;
   uint16_t checksum;
   //uint16_t unknown4;
-  uint16_t version;
+  uint16_t version;     /* Graphics format version */
 };
 
+/* Per-image directory entry: describes one image's dimensions,
+   flags, and file offsets for its pixel data and optional colormap. */
 struct mg1_image_entry
 {
-  uint16_t number;
+  uint16_t number;        /* Picture number (used to look up images) */
   uint16_t width;
   uint16_t height;
-  uint16_t flags;
-  uint32_t data_addr;
-  uint32_t cm_addr;
+  uint16_t flags;         /* Bit 0: transparency; bits 12-15: transparent color index */
+  uint32_t data_addr;     /* File offset of LZW-compressed pixel data */
+  uint32_t colormap_addr; /* File offset of custom colormap (0 = use EGA default) */
 };
 
 struct mg1_color {
@@ -115,51 +123,63 @@ static const uint8_t ega_colormap[16][3] =
   { 255,255,255 }
 };
 
-static const short mask[16] = { 
+/* Precomputed bitmasks for extracting N bits: bit_masks[n] = (1 << n) - 1. */
+static const short bit_masks[16] = { 
   0x0000, 0x0001, 0x0003, 0x0007,
   0x000f, 0x001f, 0x003f, 0x007f,
   0x00ff, 0x01ff, 0x03ff, 0x07ff,
   0x0fff, 0x1fff, 0x3fff, 0x7fff
 };
 
-typedef struct compress_s {
-  short next_code;
-  short slen;
-  short sptr;
-  short tlen;
-  short tptr;
-} compress_t;
+/* Persistent state for reading variable-width LZW codes from a bitstream. */
+typedef struct lzw_state_s {
+  short next_table_code;       /* Next available code to add to the table */
+  short buffer_bits_remaining; /* Unread bits remaining in the read buffer */
+  short buffer_bit_position;   /* Current bit offset within the read buffer */
+  short code_bit_width;        /* Current code width in bits (9-12) */
+} lzw_state_t;
 
-static short code_table[CODE_TABLE_SIZE][2];
-static unsigned char buffer[CODE_TABLE_SIZE];
+/* LZW code table: each entry stores [PREFIX, PIXEL].
+   LZW_TABLE_SIZE as a prefix sentinel means "no prefix" (root code). */
+static short lzw_table[LZW_TABLE_SIZE][2];
+
+/* Stack used to reverse the LZW prefix chain into correct output order. */
+static unsigned char pixel_stack[LZW_TABLE_SIZE];
 
 static FILE *mg1_file = NULL;
-static struct mg1_header header;
-static struct mg1_image_entry *mg1_image_entries = NULL;
+static struct mg1_header file_header;
+static struct mg1_image_entry *image_directory = NULL;
 
-uint8_t *image_data = NULL;
-z_image *zimage = NULL;
+/* Most recently decoded RGB pixel buffer (freed on next decode or cleanup). */
+uint8_t *rgb_pixel_data = NULL;
+/* Most recently returned z_image wrapper (freed on next decode or cleanup). */
+z_image *output_image = NULL;
 
 
-uint8_t getbyte(FILE *in)
+/* Reads a single byte from the file. Returns the byte value (0-255)
+   on success, or -1 on read failure / EOF. */
+static int read_file_byte(FILE *in)
 {
     uint8_t byte;
-    fread(&byte, 1, 1, in);
+    if (fread(&byte, 1, 1, in) != 1)
+        return -1;
     return byte;
 }
 
-size_t getbytes(void *ptr, size_t len, FILE *fileref)
+/* Reads up to len bytes into ptr. Returns the number of bytes actually read. */
+static size_t read_file_bytes(void *ptr, size_t len, FILE *fileref)
 {
     size_t bytes_read;
     bytes_read = fread(ptr, 1, len, fileref);
     return bytes_read;
 }
 
-static int read_byte(FILE *in, uint8_t *byte)
+/* Reads a single uint8 from the file. Returns 0 on success, -1 on failure. */
+static int read_uint8(FILE *in, uint8_t *byte)
 {
   int data;
 
-  if ((data = getbyte(in)) == -1)
+  if ((data = read_file_byte(in)) == -1)
   { fclose(in); return -1; }
 
   *byte = (uint8_t)data;
@@ -168,14 +188,15 @@ static int read_byte(FILE *in, uint8_t *byte)
 }
 
 
-static int read_word(FILE *in, uint16_t *word)
+/* Reads a little-endian uint16 from the file. Returns 0 on success, -1 on failure. */
+static int read_uint16_le(FILE *in, uint16_t *word)
 {
   int lower, upper;
 
-  if ((lower = getbyte(in)) == -1)
+  if ((lower = read_file_byte(in)) == -1)
   { fclose(in); return -1; }
 
-  if ((upper = getbyte(in)) == -1)
+  if ((upper = read_file_byte(in)) == -1)
   { fclose(in); return -1; }
 
   *word = (uint16_t)((lower & 0xff) | ((upper & 0xff) << 8));
@@ -184,17 +205,19 @@ static int read_word(FILE *in, uint16_t *word)
 }
 
 
-static int read_24bit(FILE *in, uint32_t *data)
+/* Reads a big-endian 24-bit unsigned integer from the file,
+   stored in a uint32. Returns 0 on success, -1 on failure. */
+static int read_uint24_be(FILE *in, uint32_t *data)
 {
   int lower, middle, upper;
 
-  if ((upper = getbyte(in)) == -1)
+  if ((upper = read_file_byte(in)) == -1)
   { fclose(in); return -1; }
 
-  if ((middle = getbyte(in)) == -1)
+  if ((middle = read_file_byte(in)) == -1)
   { fclose(in); return -1; }
 
-  if ((lower = getbyte(in)) == -1)
+  if ((lower = read_file_byte(in)) == -1)
   { fclose(in); return -1; }
 
   *data = (uint32_t)((lower & 0xff) | ((middle & 0xff) << 8) | ((upper & 0xff) << 16));
@@ -203,112 +226,137 @@ static int read_24bit(FILE *in, uint32_t *data)
 }
 
 
+/* Releases all resources allocated by init_mg1_graphics and get_mg1_picture.
+   Safe to call multiple times. */
 int end_mg1_graphics(void)
 {
-    if (mg1_file != NULL)
+    if (mg1_file != NULL) {
         fclose(mg1_file);
-
-    if (image_data != NULL) {
-        free(image_data);
-        image_data = NULL;
+        mg1_file = NULL;
     }
 
-    if (mg1_image_entries != NULL) {
-        free(mg1_image_entries);
-        mg1_image_entries = NULL;
+    if (rgb_pixel_data != NULL) {
+        free(rgb_pixel_data);
+        rgb_pixel_data = NULL;
+    }
+
+    if (image_directory != NULL) {
+        free(image_directory);
+        image_directory = NULL;
     }
     
-    if (zimage != NULL) {
-        free(zimage);
-        zimage = NULL;
+    if (output_image != NULL) {
+        free(output_image);
+        output_image = NULL;
     }
 
     return 0;
 }
 
 
+/* Opens an MG1 graphics file, reads the file header and the image
+   directory into memory. The file is kept open for later image
+   decoding via get_mg1_picture(). Returns 0 on success, -1 on failure.
+   
+   MG1 file layout:
+     Bytes 0-1:   part, flags
+     Bytes 2-3:   unknown (skipped)
+     Bytes 4-5:   number of images (LE)
+     Bytes 6-7:   unknown (skipped)
+     Byte  8:     directory entry size (11 or 14)
+     Byte  9:     unknown (skipped)
+     Bytes 10-11: checksum (LE)
+     Bytes 12-13: unknown (skipped)
+     Bytes 14-15: version (LE)
+     Bytes 16+:   image directory entries */
 int init_mg1_graphics(const char *mg1_filename)
 {
   int image_index;
-  struct mg1_image_entry *image;
+  struct mg1_image_entry *entry;
 
   if ((mg1_file = fopen(mg1_filename, "rb"))
       == NULL)
     return -1;
 
-  if ((read_byte(mg1_file, &header.part)) == -1)
+  if ((read_uint8(mg1_file, &file_header.disk_part)) == -1)
     return -1;
 
-  if ((read_byte(mg1_file, &header.flags)) == -1)
-    return -1;
-
-  if (fseek(mg1_file, 2, SEEK_CUR) == -1)
-  { fclose(mg1_file); return -1; }
-
-  if ((read_word(mg1_file, &header.nof_images)) == -1)
+  if ((read_uint8(mg1_file, &file_header.flags)) == -1)
     return -1;
 
   if (fseek(mg1_file, 2, SEEK_CUR) == -1)
   { fclose(mg1_file); return -1; }
 
-  if ((read_byte(mg1_file, &header.dir_size)) == -1)
+  if ((read_uint16_le(mg1_file, &file_header.nof_images)) == -1)
+    return -1;
+
+  if (fseek(mg1_file, 2, SEEK_CUR) == -1)
+  { fclose(mg1_file); return -1; }
+
+  if ((read_uint8(mg1_file, &file_header.dir_size)) == -1)
     return -1;
 
   if (fseek(mg1_file, 1, SEEK_CUR) == -1)
   { fclose(mg1_file); return -1; }
 
-  if ((read_word(mg1_file, &header.checksum)) == -1)
+  if ((read_uint16_le(mg1_file, &file_header.checksum)) == -1)
     return -1;
 
   if (fseek(mg1_file, 2, SEEK_CUR) == -1)
   { fclose(mg1_file); return -1; }
 
-  if ((read_word(mg1_file, &header.version)) == -1)
+  if ((read_uint16_le(mg1_file, &file_header.version)) == -1)
     return -1;
 
-  if ((mg1_image_entries
-        = malloc(sizeof(struct mg1_image_entry) * header.nof_images)) == NULL)
+  if ((image_directory
+        = malloc(sizeof(struct mg1_image_entry) * file_header.nof_images)) == NULL)
   { fclose(mg1_file); return -1; }
 
-  for (image_index=0; image_index<header.nof_images; image_index++)
+  /* Read each image directory entry. Each entry is dir_size bytes:
+     11 bytes for the base fields, or 14 bytes if a colormap address
+     (3 extra bytes, big-endian) is included. */
+  for (image_index=0; image_index<file_header.nof_images; image_index++)
   {
-    image = &(mg1_image_entries[image_index]);
+    entry = &(image_directory[image_index]);
 
-    if ((read_word(mg1_file, &image->number)) == -1)
-    { free(mg1_image_entries); return -1; }
+    if ((read_uint16_le(mg1_file, &entry->number)) == -1)
+    { free(image_directory); return -1; }
 
-    if ((read_word(mg1_file, &image->width)) == -1)
-    { free(mg1_image_entries); return -1; }
+    if ((read_uint16_le(mg1_file, &entry->width)) == -1)
+    { free(image_directory); return -1; }
 
-    if ((read_word(mg1_file, &image->height)) == -1)
-    { free(mg1_image_entries); return -1; }
+    if ((read_uint16_le(mg1_file, &entry->height)) == -1)
+    { free(image_directory); return -1; }
 
-    if ((read_word(mg1_file, &image->flags)) == -1)
-    { free(mg1_image_entries); return -1; }
+    if ((read_uint16_le(mg1_file, &entry->flags)) == -1)
+    { free(image_directory); return -1; }
 
-    if ((read_24bit(mg1_file, &image->data_addr)) == -1)
-    { free(mg1_image_entries); return -1; }
+    if ((read_uint24_be(mg1_file, &entry->data_addr)) == -1)
+    { free(image_directory); return -1; }
 
-    if (header.dir_size == 14)
+    if (file_header.dir_size == 14)
     {
-      if ((read_24bit(mg1_file, &image->cm_addr)) == -1)
-      { free(mg1_image_entries); return -1; }
+      if ((read_uint24_be(mg1_file, &entry->colormap_addr)) == -1)
+      { free(image_directory); return -1; }
     }
     else
-      image->cm_addr = 0;
+      entry->colormap_addr = 0;
   }
 
   return 0;
 }
 
 
+/* Returns the number of images in the loaded MG1 file, or 0 if none loaded. */
 uint16_t get_number_of_mg1_images(void)
 {
-  return mg1_file == NULL ? 0 : header.nof_images;
+  return mg1_file == NULL ? 0 : file_header.nof_images;
 }
 
 
-uint16_t *get_all_picture_numbers(void)
+/* Returns a malloc'd array of all picture numbers in the loaded MG1 file.
+   The caller is responsible for freeing the returned array. */
+uint16_t *get_mg1_picture_numbers(void)
 {
   uint16_t *result;
   int image_index;
@@ -316,29 +364,31 @@ uint16_t *get_all_picture_numbers(void)
   if (mg1_file == NULL)
     return NULL;
 
-  if ((result = (uint16_t*)malloc(sizeof(uint16_t) * header.nof_images))
+  if ((result = (uint16_t*)malloc(sizeof(uint16_t) * file_header.nof_images))
       == NULL)
     return NULL;
 
-  for (image_index = 0; image_index < header.nof_images; image_index++)
+  for (image_index = 0; image_index < file_header.nof_images; image_index++)
   {
-    result[image_index] = mg1_image_entries[image_index].number;
+    result[image_index] = image_directory[image_index].number;
   }
 
   return result;
 }
 
 
-static int get_image_index_from_number(int picture_number)
+/* Searches the image directory for a picture with the given number.
+   Returns its index (0-based), or -1 if not found. */
+static int find_image_index(int picture_number)
 {
   int image_index;
 
   if (mg1_file == NULL)
     return -1;
 
-  for (image_index = 0; image_index < header.nof_images; image_index++)
+  for (image_index = 0; image_index < file_header.nof_images; image_index++)
   {
-    if (mg1_image_entries[image_index].number == picture_number)
+    if (image_directory[image_index].number == picture_number)
       return image_index;
   }
 
@@ -346,63 +396,87 @@ static int get_image_index_from_number(int picture_number)
 }
 
 
-static short read_code(FILE *fp, compress_t *comp, unsigned char *code_buffer)
+/* Reads the next variable-width LZW code from the compressed bitstream.
+   Refills the read buffer from the file in READ_BUFFER_SIZE-byte chunks
+   as needed. Automatically increases code_bit_width when the table is
+   about to overflow the current width. Returns -1 if the input data
+   is exhausted before a complete code can be read. */
+static short read_lzw_code(FILE *fp, lzw_state_t *state, unsigned char *read_buffer)
 {
-  short code, bsize, tlen, tptr;
+  short code, bits_available, bits_needed, bits_assembled;
 
   code = 0;
-  tlen = comp->tlen;
-  tptr = 0;
+  bits_needed = state->code_bit_width;
+  bits_assembled = 0;
 
-  while (tlen)
+  /* Assemble the code one byte-boundary fragment at a time, since codes
+     may straddle byte boundaries in the packed bitstream. */
+  while (bits_needed)
   {
-    if (comp->slen == 0)
+    /* Refill the read buffer when all buffered bits have been consumed. */
+    if (state->buffer_bits_remaining == 0)
     {
-      if ((comp->slen = (short)getbytes(code_buffer, MAX_BIT, fp)) == 0)
-      {
-        perror("getbytes");
-        exit (EXIT_FAILURE);
-      }
-      comp->slen *= 8;
-      comp->sptr = 0;
+      if ((state->buffer_bits_remaining = (short)read_file_bytes(read_buffer, READ_BUFFER_SIZE, fp)) == 0)
+        return -1;
+      state->buffer_bits_remaining *= 8;
+      state->buffer_bit_position = 0;
     }
 
-    bsize = ((comp->sptr + 8) & ~7) - comp->sptr;
-    bsize = (tlen > bsize) ? bsize : tlen;
-    code |= (((unsigned int) code_buffer[comp->sptr >> 3] >> (comp->sptr & 7)) & (unsigned int)mask[bsize]) << tptr;
+    /* Extract bits from the current byte up to the next byte boundary,
+       or fewer if that's all we need to complete the code. */
+    bits_available = ((state->buffer_bit_position + 8) & ~7) - state->buffer_bit_position;
+    bits_available = (bits_needed > bits_available) ? bits_available : bits_needed;
+    code |= (((unsigned int) read_buffer[state->buffer_bit_position >> 3] >> (state->buffer_bit_position & 7)) & (unsigned int)bit_masks[bits_available]) << bits_assembled;
 
-    tlen -= bsize;
-    tptr += bsize;
-    comp->slen -= bsize;
-    comp->sptr += bsize;
+    bits_needed -= bits_available;
+    bits_assembled += bits_available;
+    state->buffer_bits_remaining -= bits_available;
+    state->buffer_bit_position += bits_available;
   }
 
-  if ((comp->next_code == mask[comp->tlen]) && (comp->tlen < 12))
-    comp->tlen++;
+  /* When the next code to be added would exceed the current bit width,
+     increase the width (up to the 12-bit maximum). */
+  if ((state->next_table_code == bit_masks[state->code_bit_width]) && (state->code_bit_width < 12))
+    state->code_bit_width++;
 
   return (code);
 }
 
 
-z_image *get_picture(int picture_number)
+/* Decodes and returns a single picture from the MG1 file as an RGB z_image.
+   
+   The decoding process:
+   1. Look up the image directory entry by picture number
+   2. Initialize the colormap: start with the default EGA palette, then
+      override with the image's custom colormap if one exists
+   3. If the transparency flag (bit 0) is set, force the transparent
+      color (index from bits 12-15) to black
+   4. Seek to the compressed pixel data and LZW-decompress it
+   5. Map each palette index through the colormap to produce RGB triples
+   
+   The returned z_image and its pixel data are owned by this module;
+   they remain valid until the next call to get_mg1_picture() or
+   end_mg1_graphics(). Returns NULL on failure. */
+z_image *get_mg1_picture(int picture_number)
 {
   int image_index;
   struct mg1_colormap colormap;
-  struct mg1_image_entry *image;
+  struct mg1_image_entry *entry;
   int i;
-  uint8_t *img_data_ptr;
-  short code, old = 0, first, clear_code;
-  compress_t comp;
-  unsigned char code_buffer[CODE_TABLE_SIZE];
-  int pixel;
+  uint8_t *write_ptr;
+  short code, previous_code = 0, root_code, clear_code;
+  lzw_state_t state;
+  unsigned char read_buffer[LZW_TABLE_SIZE];
+  int color_index;
 
-  image_index = get_image_index_from_number(picture_number);
+  image_index = find_image_index(picture_number);
 
   if (image_index < 0)
     return NULL;
 
-  image = &mg1_image_entries[image_index];
+  entry = &image_directory[image_index];
 
+  /* Start with the default 16-color EGA palette. */
   for (i = 0; i < 16; i++)
   {
     colormap.colors[i].red = ega_colormap[i][0];
@@ -410,12 +484,15 @@ z_image *get_picture(int picture_number)
     colormap.colors[i].blue = ega_colormap[i][2];
   }
 
-  if (image->cm_addr != 0)
+  /* If the image has a custom colormap, read it from the file.
+     The colormap replaces entries starting at index 2 (black and
+     white at indices 0-1 are always kept from the EGA palette). */
+  if (entry->colormap_addr != 0)
   {
-    if (fseek(mg1_file, image->cm_addr, SEEK_SET) != 0)
+    if (fseek(mg1_file, entry->colormap_addr, SEEK_SET) != 0)
       return NULL;
 
-    if (read_byte(mg1_file, &colormap.nof_colors) == -1)
+    if (read_uint8(mg1_file, &colormap.nof_colors) == -1)
       return NULL;
 
     // Fix for some buggy _Arthur_ pictures.
@@ -426,98 +503,145 @@ z_image *get_picture(int picture_number)
 
     for (i=2; i<colormap.nof_colors; i++)
     {
-      if (read_byte(mg1_file, &colormap.colors[i].red) == -1)
+      if (read_uint8(mg1_file, &colormap.colors[i].red) == -1)
         return NULL;
-      if (read_byte(mg1_file, &colormap.colors[i].green) == -1)
+      if (read_uint8(mg1_file, &colormap.colors[i].green) == -1)
         return NULL;
-      if (read_byte(mg1_file, &colormap.colors[i].blue) == -1)
+      if (read_uint8(mg1_file, &colormap.colors[i].blue) == -1)
         return NULL;
     }
   }
 
-  if (image->flags & 1)
+  /* If the transparency flag (bit 0) is set, force the transparent
+     color index (stored in bits 12-15) to black. */
+  if (entry->flags & 1)
   {
-    colormap.colors[image->flags >> 12].red = 0;
-    colormap.colors[image->flags >> 12].green = 0;
-    colormap.colors[image->flags >> 12].blue = 0;
+    colormap.colors[entry->flags >> 12].red = 0;
+    colormap.colors[entry->flags >> 12].green = 0;
+    colormap.colors[entry->flags >> 12].blue = 0;
   }
 
-  if (fseek(mg1_file, image->data_addr, SEEK_SET) != 0)
+  if (fseek(mg1_file, entry->data_addr, SEEK_SET) != 0)
     return NULL;
 
-  if (image_data != NULL)
-      free(image_data);
+  if (rgb_pixel_data != NULL)
+      free(rgb_pixel_data);
 
-  if ((image_data = (uint8_t*)malloc(image->width * image->height * 3)) == NULL)
+  /* Allocate the output buffer: 3 bytes (RGB) per pixel. */
+  size_t pixel_data_size = (size_t)entry->width * entry->height * 3;
+  if ((rgb_pixel_data = (uint8_t*)malloc(pixel_data_size)) == NULL)
     return NULL;
 
-  img_data_ptr = image_data;
+  uint8_t *write_end = rgb_pixel_data + pixel_data_size;
+  write_ptr = rgb_pixel_data;
 
-  clear_code = 1 << CODE_SIZE;
-  comp.next_code = clear_code + 2;
-  comp.slen = 0;
-  comp.sptr = 0;
-  comp.tlen = CODE_SIZE + 1;
-  comp.tptr = 0;
+  /* Initialize the LZW decoder. The clear code resets the table;
+     the end code (clear_code + 1) terminates the stream. Codes
+     start at 9 bits wide and grow up to 12 bits. */
+  clear_code = 1 << LZW_MIN_CODE_SIZE;
+  state.next_table_code = clear_code + 2;
+  state.buffer_bits_remaining = 0;
+  state.buffer_bit_position = 0;
+  state.code_bit_width = LZW_MIN_CODE_SIZE + 1;
 
-  for (i = 0; i < CODE_TABLE_SIZE; i++)
+  for (i = 0; i < LZW_TABLE_SIZE; i++)
   {
-    code_table[i][PREFIX] = CODE_TABLE_SIZE;
-    code_table[i][PIXEL] = (short)i;
+    lzw_table[i][PREFIX] = LZW_TABLE_SIZE;
+    lzw_table[i][PIXEL] = (short)i;
   }
 
+  /* Main LZW decompression loop. Unlike decompress_vga.cpp in terps/bocfel/z6
+     (which outputs palette indices), this loop maps each pixel through the
+     colormap immediately, writing RGB triples to the output buffer. */
   for (;;)
   {
-    if ((code = read_code(mg1_file, &comp, code_buffer)) == (clear_code + 1))
+    code = read_lzw_code(mg1_file, &state, read_buffer);
+    if (code < 0 || code == clear_code + 1)
       break;
+    if (code >= LZW_TABLE_SIZE) {
+      free(rgb_pixel_data);
+      rgb_pixel_data = NULL;
+      return NULL;
+    }
 
     if (code == clear_code)
     {
-      comp.tlen = CODE_SIZE + 1;
-      comp.next_code = clear_code + 2;
-      code = read_code(mg1_file, &comp, code_buffer);
+      /* Reset the code table to its initial state. */
+      state.code_bit_width = LZW_MIN_CODE_SIZE + 1;
+      state.next_table_code = clear_code + 2;
+      code = read_lzw_code(mg1_file, &state, read_buffer);
+      if (code < 0 || code >= LZW_TABLE_SIZE) {
+        free(rgb_pixel_data);
+        rgb_pixel_data = NULL;
+        return NULL;
+      }
     }
     else
     {
-      first = (code == comp.next_code) ? old : code;
+      /* Walk the prefix chain to find the root pixel of this code's
+         string. For the "KwKwK" case (code == next_table_code),
+         start from the previous code instead. */
+      root_code = (code == state.next_table_code) ? previous_code : code;
 
-      while (code_table[first][PREFIX] != CODE_TABLE_SIZE)
-        first = code_table[first][PREFIX];
+      int chain_limit = LZW_TABLE_SIZE;
+      while (lzw_table[root_code][PREFIX] != LZW_TABLE_SIZE && --chain_limit > 0) {
+        root_code = lzw_table[root_code][PREFIX];
+        if (root_code < 0 || root_code >= LZW_TABLE_SIZE) {
+          free(rgb_pixel_data);
+          rgb_pixel_data = NULL;
+          return NULL;
+        }
+      }
 
-      code_table[comp.next_code][PREFIX] = old;
-      code_table[comp.next_code++][PIXEL] = code_table[first][PIXEL];
+      /* Add a new entry: previous code's string + this string's root pixel. */
+      if (state.next_table_code < LZW_TABLE_SIZE) {
+        lzw_table[state.next_table_code][PREFIX] = previous_code;
+        lzw_table[state.next_table_code][PIXEL] = lzw_table[root_code][PIXEL];
+        state.next_table_code++;
+      }
     }
-    old = code;
+    previous_code = code;
 
+    /* Walk the prefix chain, pushing each pixel onto the stack
+       (they come out in reverse order). */
     i = 0;
-    do
-      buffer[i++] = (unsigned char) code_table[code][PIXEL];
-    while ((code = code_table[code][PREFIX]) != CODE_TABLE_SIZE);
+    int chain_limit = LZW_TABLE_SIZE;
+    do {
+      if (i >= LZW_TABLE_SIZE || code < 0 || code >= LZW_TABLE_SIZE)
+        break;
+      pixel_stack[i++] = (unsigned char) lzw_table[code][PIXEL];
+    } while ((code = lzw_table[code][PREFIX]) != LZW_TABLE_SIZE && --chain_limit > 0);
 
+    /* Pop pixels from the stack in correct order, mapping each
+       through the colormap to produce RGB output. */
     do
     {
-      pixel = buffer[--i];
-      *(img_data_ptr++) = colormap.colors[pixel].red;
-      *(img_data_ptr++) = colormap.colors[pixel].green;
-      *(img_data_ptr++) = colormap.colors[pixel].blue;
+      color_index = pixel_stack[--i];
+      if (color_index >= 16)
+        color_index = 0;
+      if (write_ptr + 3 > write_end)
+        break;
+      *(write_ptr++) = colormap.colors[color_index].red;
+      *(write_ptr++) = colormap.colors[color_index].green;
+      *(write_ptr++) = colormap.colors[color_index].blue;
     }
     while (i > 0);
   }
 
-  if (zimage != NULL)
-      free(zimage);
+  /* Wrap the decoded pixel data in a z_image struct for the caller. */
+  if (output_image != NULL)
+      free(output_image);
 
-  if ((zimage = (z_image*)malloc(sizeof(z_image))) == NULL)
-  { free(image_data); return NULL; }
+  if ((output_image = (z_image*)malloc(sizeof(z_image))) == NULL)
+  { free(rgb_pixel_data); rgb_pixel_data = NULL; return NULL; }
 
-    zimage->bits_per_sample = 8;
-    zimage->width = image->width;
-    zimage->height = image->height;
-    zimage->image_type = IMAGE_TYPE_RGB;
-    zimage->data = image_data;
+    output_image->bits_per_sample = 8;
+    output_image->width = entry->width;
+    output_image->height = entry->height;
+    output_image->image_type = IMAGE_TYPE_RGB;
+    output_image->data = rgb_pixel_data;
 
-  return zimage;
+  return output_image;
 }
 
 #endif /* mg1_c_INCLUDED */
-

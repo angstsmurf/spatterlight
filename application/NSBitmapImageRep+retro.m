@@ -82,9 +82,9 @@
         return nil;
     }
 
-    uint16_t *pictureNumberArray = get_all_picture_numbers();
+    uint16_t *pictureNumberArray = get_mg1_picture_numbers();
 
-    z_image *zimg = get_picture(pictureNumberArray[0]);
+    z_image *zimg = get_mg1_picture(pictureNumberArray[0]);
     free(pictureNumberArray);
 
     if (zimg == NULL) {
