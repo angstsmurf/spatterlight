@@ -56,8 +56,8 @@ Remember you can always say "HELP"
 [TEXT] I can also see: Trees -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -83,16 +83,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -118,16 +118,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: Water - *GOLDEN FISH* - Rusty axe (Magic word "BUNYON" on it) - Sign says
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: Water - *GOLDEN FISH* - Rusty axe (Magic word "BUNYON" on it) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=58
-[TEXT] "No swimming allowed here" -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=78
+[TEXT] Sign says "No swimming allowed here" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -160,8 +160,8 @@ Tell me what to do ?
 [TEXT] I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -191,8 +191,8 @@ Tell me what to do ?
 [TEXT] I can also see: *Small statue of a BLUE OX* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -217,8 +217,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: None.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -246,8 +246,8 @@ Nothing.
 [TEXT] Obvious exits: None.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -277,8 +277,8 @@ Tell me what to do ?
 [TEXT] I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -304,8 +304,8 @@ Tell me what to do ?
 [TEXT] I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -335,8 +335,8 @@ Tell me what to do ?
 [TEXT] I can also see: Large outdoor Advertisement - Hole -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -370,8 +370,8 @@ Tell me what to do ?
 [TEXT] I can also see: Flint & steel -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -400,8 +400,8 @@ Tell me what to do ?
 [TEXT] I can also see: Flint & steel -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -430,8 +430,8 @@ Tell me what to do ?
 [TEXT] I can also see: Flint & steel -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -460,8 +460,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -491,8 +491,8 @@ Tell me what to do ?
 [TEXT] I can also see: Large outdoor Advertisement - Hole -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -518,16 +518,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of "OILY" slime -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
-[TEXT] Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=52
+[TEXT] "OILY" slime - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -553,16 +553,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=182
-[TEXT] I can also see: Rusty axe (Magic word "BUNYON" on it) - *JEWELED FRUIT* - *Small statue of
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Rusty axe (Magic word "BUNYON" on it) - *JEWELED FRUIT* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
-[TEXT] a BLUE OX* - Sign says "Paul's place" -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=114
+[TEXT] *Small statue of a BLUE OX* - Sign says "Paul's place" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -591,16 +591,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: Rusty axe (Magic word "BUNYON" on it) - *JEWELED FRUIT* - Sign says "Paul's
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] I can also see: Rusty axe (Magic word "BUNYON" on it) - *JEWELED FRUIT* - Sign
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=18
-[TEXT] place" -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] says "Paul's place" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -633,8 +633,8 @@ Tell me what to do ?
 [TEXT] I can also see: *JEWELED FRUIT* - Sign says "Paul's place" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -667,8 +667,8 @@ Tell me what to do ?
 [TEXT] I can also see: Sign says "Paul's place" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -694,16 +694,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of "OILY" slime -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
-[TEXT] Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=52
+[TEXT] "OILY" slime - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -733,8 +733,8 @@ Tell me what to do ?
 [TEXT] I can also see: Spider web with writing on it - Ring of skeleton keys -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -760,8 +760,8 @@ Tell me what to do ?
 [TEXT] I can also see: Spider web with writing on it - Ring of skeleton keys -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -794,8 +794,8 @@ Tell me what to do ?
 [TEXT] I can also see: Spider web with writing on it -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -821,16 +821,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of "OILY" slime -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
-[TEXT] Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=52
+[TEXT] "OILY" slime - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -859,16 +859,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Swamp gas
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=78
-[TEXT] - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=102
+[TEXT] - Swamp gas - Patches of "OILY" slime - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -897,16 +897,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -932,16 +936,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=182
-[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here,
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=146
+[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=38
-[TEXT] then say: SCORE" -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=74
+[TEXT] *TREASURES* here, then say: SCORE" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -963,54 +967,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=182
-[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here,
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=38
-[TEXT] then say: SCORE" -
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
-[TEXT] 
-Tell me what to do ? 
-[MSG] cmd=INITLINE a1=0 a2=511 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=12
-[TEXT] O.K. 
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
-[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
-[TEXT] I'm in a damp hollow stump in the swamp
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
-[TEXT] Obvious exits: Up, Down.
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=182
-[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here,
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=146
+[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=74
-[TEXT] then say: SCORE" - *JEWELED FRUIT* -
+[TEXT] *TREASURES* here, then say: SCORE" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1039,16 +1005,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=182
-[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here,
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=146
+[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=134
-[TEXT] then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=110
+[TEXT] *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1077,16 +1043,58 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=146
+[TEXT] I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=78
-[TEXT] FRUIT* - *Small statue of a BLUE OX* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=12
+[TEXT] OX* -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=INITLINE a1=0 a2=511 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=2 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=114
+[TEXT] SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1115,16 +1123,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say:
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=112
-[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1153,54 +1161,58 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
+[TEXT] *DIAMOND BRACELET* -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=INITLINE a1=0 a2=511 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=2 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
 [TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
-[TEXT] 
-Tell me what to do ? 
-[MSG] cmd=INITLINE a1=0 a2=511 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=12
-[TEXT] O.K. 
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
-[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
-[TEXT] I'm in a damp hollow stump in the swamp
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
-[TEXT] Obvious exits: Up, Down.
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=122
-[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1230,8 +1242,8 @@ Tell me what to do ?
 [TEXT] I can also see: Dark hole - *Pot of RUBIES* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1264,8 +1276,8 @@ Tell me what to do ?
 [TEXT] I can also see: Dark hole -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1291,54 +1303,58 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=122
-[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
-[TEXT] 
-Tell me what to do ? 
-[MSG] cmd=INITLINE a1=0 a2=511 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=12
-[TEXT] O.K. 
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
-[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
-[TEXT] I'm in a damp hollow stump in the swamp
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
-[TEXT] Obvious exits: Up, Down.
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
 [TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=INITLINE a1=0 a2=511 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=2 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say:
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
+[TEXT] *DIAMOND BRACELET* -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1368,8 +1384,8 @@ Tell me what to do ?
 [TEXT] I can also see: Dark hole -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1399,8 +1415,8 @@ Tell me what to do ?
 [TEXT] I can also see: Locked door -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -1426,8 +1442,8 @@ Tell me what to do ?
 [TEXT] I can also see: Locked door -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1457,8 +1473,8 @@ Tell me what to do ?
 [TEXT] I can also see: Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1491,8 +1507,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1514,8 +1530,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -1525,8 +1541,8 @@ Tell me what to do ?
 [TEXT] I can't see. It is too dark!
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1551,8 +1567,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -1569,8 +1585,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1592,8 +1608,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, South, West, Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1623,8 +1639,8 @@ Tell me what to do ?
 [TEXT] I can also see: Empty wine bladder -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1649,8 +1665,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, Up.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1672,8 +1688,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, South, West, Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1703,8 +1719,8 @@ Tell me what to do ?
 [TEXT] I can also see: Sign here says "Opposite of LIGHT is UNLIGHT" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1726,8 +1742,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: West, Up.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1757,8 +1773,8 @@ Tell me what to do ?
 [TEXT] I can also see: Strange scratchings on rock says: "ALADIN was here" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1788,8 +1804,8 @@ Tell me what to do ?
 [TEXT] I can also see: *Thick PERSIAN RUG* - Arrow pointing down -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1822,8 +1838,8 @@ Tell me what to do ?
 [TEXT] I can also see: Arrow pointing down -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1865,8 +1881,8 @@ Tell me what to do ?
 [TEXT] (Rest of sign is missing!) - Stream of lava -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1911,8 +1927,8 @@ Tell me what to do ?
 [TEXT] (Rest of sign is missing!) - Stream of lava -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1942,8 +1958,8 @@ Tell me what to do ?
 [TEXT] I can also see: Arrow pointing down -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -1969,16 +1985,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=76
 [TEXT] Something I'm holding vibrates and...
 
@@ -2002,16 +2018,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2041,16 +2057,16 @@ Lamp is off
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -2071,16 +2087,16 @@ Lamp is off
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2106,16 +2122,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2144,20 +2164,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Empty wine bladder -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
-[TEXT] Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=64
+[TEXT] Empty wine bladder - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2183,16 +2203,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2222,8 +2242,8 @@ Tell me what to do ?
 [TEXT] I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2256,8 +2276,8 @@ Tell me what to do ?
 [TEXT] I can also see: Water - Sign says "No swimming allowed here" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2287,8 +2307,8 @@ Tell me what to do ?
 [TEXT] I can also see: Large outdoor Advertisement - Hole -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2314,20 +2334,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Empty wine bladder -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
-[TEXT] Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=64
+[TEXT] Empty wine bladder - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2353,16 +2373,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say:
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
-[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
+[TEXT] *DIAMOND BRACELET* -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -2384,100 +2408,104 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say:
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
-[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
-[TEXT] 
-Tell me what to do ? 
-[MSG] cmd=INITLINE a1=0 a2=511 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=12
-[TEXT] O.K. 
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
-[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
-[TEXT] I'm in a damp hollow stump in the swamp
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
-[TEXT] Obvious exits: Up, Down.
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=166
-[TEXT] SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=24
-[TEXT] BRACELET* -
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
-[TEXT] 
-Tell me what to do ? 
-[MSG] cmd=INITLINE a1=0 a2=511 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=12
-[TEXT] O.K. 
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
-[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
-[TEXT] I'm in a damp hollow stump in the swamp
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
-[TEXT] Obvious exits: Up, Down.
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
-
-[MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] *DIAMOND BRACELET* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=INITLINE a1=0 a2=511 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=2 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=152
+[TEXT] then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=58
+[TEXT] RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
+[TEXT] 
+Tell me what to do ? 
+[MSG] cmd=INITLINE a1=0 a2=511 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=12
+[TEXT] O.K. 
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
+[TEXT] I'm in a damp hollow stump in the swamp
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=2 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
+[TEXT] Obvious exits: Up, Down.
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX*
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
+[TEXT] - *DIAMOND RING* - *DIAMOND BRACELET* -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2503,20 +2531,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Empty wine bladder -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
-[TEXT] Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=64
+[TEXT] Empty wine bladder - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2547,16 +2575,20 @@ I'm bitten by chiggers.
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2586,16 +2618,16 @@ BOY that really hit the spot!
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=168
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=134
-[TEXT] "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=144
+[TEXT] word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2624,16 +2656,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2662,16 +2698,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2697,20 +2737,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX*
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
-[TEXT] *DIAMOND BRACELET* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
+[TEXT] - *DIAMOND RING* - *DIAMOND BRACELET* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -2732,20 +2772,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX*
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
-[TEXT] *DIAMOND BRACELET* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
+[TEXT] - *DIAMOND RING* - *DIAMOND BRACELET* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2775,8 +2815,8 @@ Tell me what to do ?
 [TEXT] I can also see: Dark hole -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2806,8 +2846,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -2833,8 +2873,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2856,8 +2896,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -2867,8 +2907,8 @@ Tell me what to do ?
 [TEXT] I can't see. It is too dark!
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2893,8 +2933,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -2911,8 +2951,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2934,8 +2974,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, South, West, Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2957,8 +2997,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, Up.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -2988,8 +3028,8 @@ Tell me what to do ?
 [TEXT] I can also see: Bricked up window -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3022,8 +3062,8 @@ Tell me what to do ?
 [TEXT] I can also see: Distended gas bladder - Bricked up window -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3057,8 +3097,8 @@ Tell me what to do ?
 [TEXT] I can also see: Bricked up window with a hole in it - Loose fire bricks -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3084,8 +3124,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: West.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -3107,8 +3147,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: West.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3142,8 +3182,8 @@ Tell me what to do ?
 [TEXT] I can also see: Very thin black bear - *MAGIC MIRROR* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -3172,8 +3212,8 @@ Tell me what to do ?
 [TEXT] I can also see: Very thin black bear - *MAGIC MIRROR* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3210,8 +3250,8 @@ Tell me what to do ?
 [TEXT] I can also see: *MAGIC MIRROR* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3240,8 +3280,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: None.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3271,8 +3311,8 @@ Tell me what to do ?
 [TEXT] I can also see: *GOLD CROWN* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -3298,8 +3338,8 @@ Tell me what to do ?
 [TEXT] I can also see: *GOLD CROWN* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3324,8 +3364,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: West.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3351,8 +3391,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: None.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3378,8 +3418,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: West.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -3400,8 +3440,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: West.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3431,8 +3471,8 @@ Tell me what to do ?
 [TEXT] I can also see: Bricked up window with a hole in it - Loose fire bricks -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3454,8 +3494,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, Up.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3477,8 +3517,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, South, West, Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3500,8 +3540,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3531,8 +3571,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -3557,8 +3597,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3588,8 +3628,8 @@ Tell me what to do ?
 [TEXT] I can also see: Dark hole -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3615,20 +3655,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX*
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
-[TEXT] *DIAMOND BRACELET* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=80
+[TEXT] - *DIAMOND RING* - *DIAMOND BRACELET* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3657,20 +3697,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] then say: SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=76
-[TEXT] *DIAMOND RING* - *DIAMOND BRACELET* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=122
+[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3700,8 +3740,8 @@ Tell me what to do ?
 [TEXT] I can also see: Dark hole -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3731,8 +3771,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -3758,8 +3798,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3781,8 +3821,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -3800,8 +3840,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3823,8 +3863,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, South, West, Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3846,8 +3886,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, Up.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3877,8 +3917,8 @@ Tell me what to do ?
 [TEXT] I can also see: Bricked up window with a hole in it - Loose fire bricks -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3912,8 +3952,8 @@ Its heavy!
 [TEXT] I can also see: Bricked up window with a hole in it -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3935,8 +3975,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, Up.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3958,8 +3998,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, South, West, Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -3989,8 +4029,8 @@ Tell me what to do ?
 [TEXT] I can also see: Sign here says "Opposite of LIGHT is UNLIGHT" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4012,8 +4052,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: West, Up.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4043,8 +4083,8 @@ Tell me what to do ?
 [TEXT] I can also see: Strange scratchings on rock says: "ALADIN was here" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4074,8 +4114,8 @@ Tell me what to do ?
 [TEXT] I can also see: Arrow pointing down -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4117,8 +4157,8 @@ Tell me what to do ?
 [TEXT] (Rest of sign is missing!) - Stream of lava - Slightly woozy bear -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4160,8 +4200,12 @@ Tell me what to do ?
 [TEXT] (Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=9 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -4198,8 +4242,12 @@ Tell me what to do ?
 [TEXT] (Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=9 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4240,16 +4288,16 @@ Tell me what to do ?
 [TEXT] I can also see: Sign: "magic word's AWAY! Look la..."
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] (Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam - *FIRESTONE*
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] (Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
+[TEXT] *FIRESTONE* (cold now) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=9 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4290,16 +4338,16 @@ Tell me what to do ?
 [TEXT] I can also see: Sign: "magic word's AWAY! Look la..."
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=176
-[TEXT] (Rest of sign is missing!) - Loose fire bricks - Slightly woozy bear - Lava stream with
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=152
+[TEXT] (Rest of sign is missing!) - Loose fire bricks - Slightly woozy bear - Lava
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=74
-[TEXT] brick dam - *FIRESTONE* (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=98
+[TEXT] stream with brick dam - *FIRESTONE* (cold now) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=9 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4340,16 +4388,16 @@ Tell me what to do ?
 [TEXT] I can also see: Sign: "magic word's AWAY! Look la..."
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=176
-[TEXT] (Rest of sign is missing!) - Loose fire bricks - Slightly woozy bear - Lava stream with
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=152
+[TEXT] (Rest of sign is missing!) - Loose fire bricks - Slightly woozy bear - Lava
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=24
-[TEXT] brick dam -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=48
+[TEXT] stream with brick dam -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=9 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4379,8 +4427,8 @@ Tell me what to do ?
 [TEXT] I can also see: Arrow pointing down -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4406,16 +4454,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=76
 [TEXT] Something I'm holding vibrates and...
 
@@ -4439,16 +4487,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4478,16 +4526,16 @@ Lamp is off
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -4508,16 +4556,16 @@ Lamp is off
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4547,8 +4595,8 @@ Tell me what to do ?
 [TEXT] I can also see: Water - Sign says "No swimming allowed here" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4581,8 +4629,8 @@ Tell me what to do ?
 [TEXT] I can also see: Water - Sign says "No swimming allowed here" -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4608,16 +4656,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4643,16 +4691,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4678,20 +4730,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] then say: SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=76
-[TEXT] *DIAMOND RING* - *DIAMOND BRACELET* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=122
+[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -4713,20 +4765,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] then say: SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=76
-[TEXT] *DIAMOND RING* - *DIAMOND BRACELET* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=122
+[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4755,20 +4807,24 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
+[TEXT] then say: SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=126
-[TEXT] *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=14
+[TEXT] now) -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4797,20 +4853,24 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *JEWELED FRUIT* - *Small
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *JEWELED
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
+[TEXT] *FIRESTONE* (cold now) -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4840,24 +4900,24 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=156
+[TEXT] then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=150
+[TEXT] MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=92
+[TEXT] *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4883,16 +4943,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4921,16 +4985,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=168
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=134
-[TEXT] "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=144
+[TEXT] word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -4956,24 +5020,24 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=156
+[TEXT] then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=150
+[TEXT] MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=92
+[TEXT] *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -4995,24 +5059,24 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=156
+[TEXT] then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=150
+[TEXT] MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=92
+[TEXT] *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5042,8 +5106,8 @@ Tell me what to do ?
 [TEXT] I can also see: Dark hole -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5073,8 +5137,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -5100,8 +5164,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5123,8 +5187,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -5134,8 +5198,8 @@ Tell me what to do ?
 [TEXT] I can't see. It is too dark!
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=1 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5160,8 +5224,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -5178,8 +5242,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5201,8 +5265,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, South, West, Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5224,8 +5288,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, South.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5255,8 +5319,8 @@ Tell me what to do ?
 [TEXT] I can also see: *ROYAL HONEY* - Large african bees -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5289,8 +5353,8 @@ Tell me what to do ?
 [TEXT] I can also see: Large african bees -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5323,8 +5387,8 @@ Tell me what to do ?
 [TEXT] I can also see: Large african bees -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5357,8 +5421,8 @@ Tell me what to do ?
 [TEXT] I can also see: Large african bees -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5391,8 +5455,8 @@ Tell me what to do ?
 [TEXT] I can also see: Large african bees -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5414,8 +5478,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, South.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5437,8 +5501,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: North, South, West, Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5460,8 +5524,8 @@ Tell me what to do ?
 [TEXT] Obvious exits: Up, Down.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=3 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5491,8 +5555,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
@@ -5517,8 +5581,8 @@ Tell me what to do ?
 [TEXT] I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5548,8 +5612,8 @@ Tell me what to do ?
 [TEXT] I can also see: Dark hole -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5575,24 +5639,24 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=156
+[TEXT] then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=150
+[TEXT] MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=92
+[TEXT] *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5618,16 +5682,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=168
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=134
-[TEXT] "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=144
+[TEXT] word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5656,16 +5720,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5693,16 +5761,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=168
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=134
-[TEXT] "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=144
+[TEXT] word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5731,16 +5799,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5766,16 +5838,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=172
-[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=154
+[TEXT] I can also see: Large sleeping dragon - Sign here says "In many cases mud is
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
+[TEXT] good. In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5805,16 +5877,16 @@ and flys away...
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=166
-[TEXT] I can also see: Large african bees - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: Large african bees - Sign here says "In many cases mud is good.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=82
-[TEXT] others..." - *DRAGON EGGS* (very rare) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=88
+[TEXT] In others..." - *DRAGON EGGS* (very rare) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5843,16 +5915,16 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=166
-[TEXT] I can also see: Large african bees - Sign here says "In many cases mud is good. In
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: Large african bees - Sign here says "In many cases mud is good.
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] others..." -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=32
+[TEXT] In others..." -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5881,16 +5953,20 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
-[TEXT] (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=22
+[TEXT] Chiggers -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -5916,24 +5992,24 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=156
+[TEXT] then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=150
+[TEXT] MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=92
+[TEXT] *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -5955,24 +6031,24 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=156
+[TEXT] then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=178
-[TEXT] FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE*
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=150
+[TEXT] MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=26
-[TEXT] (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=92
+[TEXT] *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -6001,24 +6077,24 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *DRAGON EGGS*
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=156
+[TEXT] then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=176
-[TEXT] (very rare) - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] MIRROR* - *DRAGON EGGS* (very rare) - *JEWELED FRUIT* - *Small statue of a BLUE
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=74
-[TEXT] BRACELET* - *FIRESTONE* (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=138
+[TEXT] OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -6044,24 +6120,28 @@ Tell me what to do ?
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] SCORE" - *GOLDEN NET* - *ROYAL HONEY* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR*
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=156
+[TEXT] then say: SCORE" - *GOLDEN NET* - *ROYAL HONEY* - *Thick PERSIAN RUG* - *GOLD
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] - *DRAGON EGGS* (very rare) - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] CROWN* - *MAGIC MIRROR* - *DRAGON EGGS* (very rare) - *JEWELED FRUIT* - *Small
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=108
-[TEXT] RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=14
+[TEXT] now) -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=9 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -6091,24 +6171,28 @@ Well done.
 [TEXT] 
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=4 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=180
-[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say:
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] SCORE" - *GOLDEN NET* - *ROYAL HONEY* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR*
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=156
+[TEXT] then say: SCORE" - *GOLDEN NET* - *ROYAL HONEY* - *Thick PERSIAN RUG* - *GOLD
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=6 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
-[TEXT] - *DRAGON EGGS* (very rare) - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] CROWN* - *MAGIC MIRROR* - *DRAGON EGGS* (very rare) - *JEWELED FRUIT* - *Small
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=7 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=108
-[TEXT] RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=158
+[TEXT] statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=8 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=14
+[TEXT] now) -
+
+[MSG] cmd=MOVETO a1=1 a2=0 a3=9 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=72
 [TEXT] 
 
@@ -6154,8 +6238,8 @@ Remember you can always say "HELP"
 [TEXT] I can also see: Trees -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 
@@ -6188,8 +6272,8 @@ Tell me what to do ?
 [TEXT] I can also see: Trees -
 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=5 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=184
-[TEXT] <------------------------------------------------------------------------------------------>
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[TEXT] <------------------------------------------------------------------------------>
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
 [TEXT] 
 Tell me what to do ? 

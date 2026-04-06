@@ -28,8 +28,8 @@ Interpreter: scare
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=66
@@ -67,8 +67,8 @@ Our Journey begins! A large crowd gathered this morning in Berkeley Square as we
 Press any key
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=66
@@ -88,8 +88,8 @@ Though I have expressed to him many times the importance of keeping the weight o
 Press any key
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=66
@@ -119,8 +119,8 @@ Mr. Booby assures me that he has disposed of all unnecessary weight, and yet som
 Press any key
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=66
@@ -143,13 +143,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -162,13 +162,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -181,13 +181,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -200,13 +200,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -219,13 +219,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -238,13 +238,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -257,13 +257,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -276,13 +276,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -295,13 +295,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -314,13 +314,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -333,13 +333,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -352,13 +352,13 @@ Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -373,13 +373,13 @@ With a deft movement of the wrist I succeed in cutting through the tough thread 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -392,13 +392,13 @@ With a deft movement of the wrist I succeed in cutting through the tough thread 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -411,13 +411,13 @@ With a deft movement of the wrist I succeed in cutting through the tough thread 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,300 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -436,13 +436,13 @@ The clock chimes five times. 'CUCKOO! CUCKOO! CUCKOO! CUCKOO! CUCKOO!'
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -455,13 +455,13 @@ The clock chimes five times. 'CUCKOO! CUCKOO! CUCKOO! CUCKOO! CUCKOO!'
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -479,13 +479,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,500 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -498,13 +498,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,500 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -520,13 +520,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,600 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -539,13 +539,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,600 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -561,13 +561,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 13,300 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -580,13 +580,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 13,300 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -604,13 +604,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -623,13 +623,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -642,13 +642,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -661,13 +661,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -680,13 +680,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -699,13 +699,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -718,13 +718,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -737,13 +737,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -756,13 +756,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -777,13 +777,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -796,13 +796,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -818,13 +818,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,500 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -837,13 +837,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,500 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -860,13 +860,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,500 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -879,13 +879,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,500 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -901,13 +901,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -920,13 +920,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -939,13 +939,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -958,13 +958,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -977,13 +977,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -996,13 +996,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1018,13 +1018,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,700 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1050,13 +1050,13 @@ As the mummy disappears from sight the sky seems to darken; the light alpine clo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 15,700 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1069,13 +1069,13 @@ As the mummy disappears from sight the sky seems to darken; the light alpine clo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 15,700 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1091,13 +1091,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1110,13 +1110,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1136,13 +1136,13 @@ Red hot embers fly from the smudge stick...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1158,13 +1158,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1177,13 +1177,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1196,13 +1196,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1215,13 +1215,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1238,13 +1238,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1257,13 +1257,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1276,13 +1276,13 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,300 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1298,13 +1298,13 @@ Unburdening the balloon of this large, heavy object causes a sudden and immediat
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 17,300 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1320,13 +1320,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 17,800 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1339,13 +1339,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 17,800 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1358,13 +1358,13 @@ The balance between the weight of the balloon and the lift provided by the gas i
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 17,800 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1390,13 +1390,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 18,500 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1409,13 +1409,13 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 18,500 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1437,13 +1437,13 @@ I have just one chance. Unless I speedily descend, ALL IS LOST!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 37,000 FEET
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
@@ -1456,13 +1456,13 @@ I have just one chance. Unless I speedily descend, ALL IS LOST!
 Press any key
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=52
 [TEXT] In the basket of a balloon
-[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=47 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 37,000 FEET
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0

@@ -36,12 +36,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 0 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -55,12 +55,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 1 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -72,12 +72,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 2 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -89,12 +89,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 3 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -106,12 +106,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 4 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -123,12 +123,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 5 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -140,12 +140,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 6 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -157,12 +157,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 7 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -174,12 +174,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 8 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -191,12 +191,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 9 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -210,12 +210,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 10 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -227,12 +227,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 11 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -244,12 +244,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 12 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -261,12 +261,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 13 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -278,12 +278,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 14 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -295,12 +295,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 15 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -314,12 +314,12 @@ Dark stone walls surround you in every direction. It is not clear what kind of b
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Startroom
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 16 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -338,12 +338,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 17 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -355,12 +355,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 18 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -372,12 +372,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 19 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -389,12 +389,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 20 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -406,12 +406,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 21 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -423,12 +423,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 22 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -440,12 +440,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 23 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -457,12 +457,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 24 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -474,12 +474,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 25 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -491,12 +491,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 26 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -508,12 +508,12 @@ You are in a long north-south corridor. Torches set in the walls at regular dist
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Second Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 27 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -532,12 +532,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 28 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -549,12 +549,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 29 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -566,12 +566,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 30 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -583,12 +583,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 31 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -600,12 +600,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 32 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -617,12 +617,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 33 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -634,12 +634,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 34 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -651,12 +651,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 35 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -668,12 +668,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 36 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -685,12 +685,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 37 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -702,12 +702,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 38 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -720,12 +720,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 39 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -739,12 +739,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 40 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -756,12 +756,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 41 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -773,12 +773,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 42 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -790,12 +790,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 43 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -808,12 +808,12 @@ The corridor from the north ends in a rather large and spacious room, with walls
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Third Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 44 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -833,12 +833,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 45 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -850,12 +850,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 46 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -867,12 +867,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 47 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -884,12 +884,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 48 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -901,12 +901,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 49 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -918,12 +918,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 50 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -935,12 +935,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 51 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -952,12 +952,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 52 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -969,12 +969,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 53 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -986,12 +986,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 54 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1003,12 +1003,12 @@ This room looks very similar to the one to the north. However, the only decorati
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Fourth Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 55 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1029,12 +1029,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 56 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1046,12 +1046,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 57 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1063,12 +1063,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 58 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1080,12 +1080,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 59 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1097,12 +1097,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 60 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1114,12 +1114,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 61 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1131,12 +1131,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 62 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1148,12 +1148,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 63 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1165,12 +1165,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 64 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1182,12 +1182,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 65 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1199,12 +1199,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 66 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1216,12 +1216,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 67 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1233,12 +1233,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 68 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1250,12 +1250,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 69 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1267,12 +1267,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 70 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1284,12 +1284,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 71 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1301,12 +1301,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 72 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1318,12 +1318,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 73 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1335,12 +1335,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 74 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1352,12 +1352,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 75 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1369,12 +1369,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 76 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1386,12 +1386,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 77 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1405,12 +1405,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 78 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1423,12 +1423,12 @@ This room is considerably bigger and lighter than the previous ones. Daylight st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Antechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 79 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1444,12 +1444,12 @@ You are in a huge, rectangular room, very apparently the main room of the castle
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Throne Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 80 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1462,12 +1462,12 @@ You are in a huge, rectangular room, very apparently the main room of the castle
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Throne Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 81 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1481,12 +1481,12 @@ You are in a huge, rectangular room, very apparently the main room of the castle
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Throne Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 82 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1502,12 +1502,12 @@ You are in a huge, rectangular room, very apparently the main room of the castle
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Throne Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 83 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1519,12 +1519,12 @@ You are in a huge, rectangular room, very apparently the main room of the castle
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Throne Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 84 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1538,12 +1538,12 @@ You are in a huge, rectangular room, very apparently the main room of the castle
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Throne Room
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 85 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1565,12 +1565,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 86 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1582,12 +1582,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 87 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1599,12 +1599,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 88 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1617,12 +1617,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 89 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1634,12 +1634,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 90 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1652,12 +1652,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 91 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1669,12 +1669,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 92 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1686,12 +1686,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 93 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1703,12 +1703,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 94 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1720,12 +1720,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 95 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1738,12 +1738,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 96 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1755,12 +1755,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 97 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1772,12 +1772,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 98 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1789,12 +1789,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 99 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1806,12 +1806,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 100 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1823,12 +1823,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 101 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1842,12 +1842,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 102 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1868,12 +1868,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 103 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1885,12 +1885,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 104 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1904,12 +1904,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 105 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1921,12 +1921,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 106 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1938,12 +1938,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 107 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1955,12 +1955,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 108 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1972,12 +1972,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 109 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1989,12 +1989,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 110 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2006,12 +2006,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 111 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2023,12 +2023,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 112 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2040,12 +2040,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 113 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2057,12 +2057,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 114 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2077,12 +2077,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 115 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2094,12 +2094,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 116 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2111,12 +2111,12 @@ You are in a secluded part of the garden surrounding the castle. The castle wall
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Small Garden
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 117 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2138,12 +2138,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 118 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2155,12 +2155,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 119 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2172,12 +2172,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 120 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2189,12 +2189,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 121 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2206,12 +2206,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 121 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2223,12 +2223,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 122 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2240,12 +2240,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Southern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 123 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2260,12 +2260,12 @@ You are in a huge, rectangular room, very apparently the main room of the castle
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Throne Room
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 124 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2286,12 +2286,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Northern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 125 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2303,12 +2303,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Northern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 126 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2320,12 +2320,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Northern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 127 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2337,12 +2337,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Northern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 128 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2354,12 +2354,12 @@ You are in a small sidechamber, adjacent to the throne room. The chamber is very
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Northern Sidechamber
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 129 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2374,12 +2374,12 @@ You are in a huge, rectangular room, very apparently the main room of the castle
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Throne Room
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 130 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2400,12 +2400,12 @@ The air is very fusty here, and cobwebs hang in the dark corners of the room. Ot
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Cellar
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 131 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2417,12 +2417,12 @@ The air is very fusty here, and cobwebs hang in the dark corners of the room. Ot
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Cellar
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 132 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2434,12 +2434,12 @@ The air is very fusty here, and cobwebs hang in the dark corners of the room. Ot
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Cellar
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 133 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2451,12 +2451,12 @@ The air is very fusty here, and cobwebs hang in the dark corners of the room. Ot
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Cellar
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 134 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2468,12 +2468,12 @@ The air is very fusty here, and cobwebs hang in the dark corners of the room. Ot
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Cellar
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 135 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2485,12 +2485,12 @@ The air is very fusty here, and cobwebs hang in the dark corners of the room. Ot
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Cellar
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 136 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2502,12 +2502,12 @@ The air is very fusty here, and cobwebs hang in the dark corners of the room. Ot
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Cellar
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 137 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2521,12 +2521,12 @@ The air is very fusty here, and cobwebs hang in the dark corners of the room. Ot
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Cellar
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 138 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2538,12 +2538,12 @@ The air is very fusty here, and cobwebs hang in the dark corners of the room. Ot
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Cellar
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 139 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2558,12 +2558,12 @@ The air is very fusty here, and cobwebs hang in the dark corners of the room. Ot
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Cellar
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 140 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2594,12 +2594,12 @@ Thank you for playing Bugged.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Throne Room
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 140 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=116

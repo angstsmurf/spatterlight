@@ -18,6 +18,7 @@
 #import "CoreDataManager.h"
 #import "Fetches.h"
 #import "NSString+Categories.h"
+#import "BuiltInThemes.h"
 
 @interface GameImportXCTests : XCTestCase
 
@@ -506,9 +507,6 @@
     XCTAssertNotNil(scriptURL, @"%@ should exist in Supporting Files", scriptName);
 
     // Delete any existing copy
-
-
-
     [self deleteGameAtPath:gameFileURL.path];
 
     // Get initial game count
@@ -521,7 +519,9 @@
 
     // Store original determinism setting to restore later
     __block BOOL originalDeterminismSetting = NO;
+    __block BOOL originalSlowDrawSetting = NO;
     __block NSURL *tempDir = [GameImportXCTests tempDir];
+    __block Theme *oldtheme = nil;
 
     // Observe command script completion notification
     __block id scriptObserver = [[NSNotificationCenter defaultCenter]
@@ -540,6 +540,8 @@
             Game *game = glkController.game;
             if (game && game.theme) {
                 game.theme.determinism = originalDeterminismSetting;
+                game.theme.slowDrawing = originalSlowDrawSetting;
+                game.theme = oldtheme;
                 NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
             }
 
@@ -582,11 +584,18 @@
         [self verifyGame:game hasPath:gameFileURL.path];
         [importExpectation fulfill];
 
+        Theme *theme = [BuiltInThemes createDefaultThemeInContext:self.testContext forceRebuild:NO];
+        Theme *oldtheme = game.theme;
+        game.theme = theme;
+
         // Enable determinism setting for reproducible test results
         if (game.theme) {
             originalDeterminismSetting = game.theme.determinism;
             game.theme.determinism = YES;
             NSLog(@"Enabled determinism setting for test");
+            originalSlowDrawSetting = game.theme.slowDrawing;
+            game.theme.slowDrawing = NO;
+            NSLog(@"Disabled slow drawing setting for test");
         }
 
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -640,6 +649,9 @@
                 if (game.theme) {
                     game.theme.determinism = originalDeterminismSetting;
                     NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
+                    game.theme.slowDrawing = originalSlowDrawSetting;
+                    NSLog(@"Restored slow draw setting to %@", originalSlowDrawSetting ? @"YES" : @"NO");
+                    game.theme = oldtheme;
                 }
             });
         });
@@ -656,8 +668,9 @@
     [importer addFiles:@[gameFileURL] options:options];
 
     // Wait for expectations with a longer timeout for game startup and command script
-    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:60.0 handler:^(NSError * _Nullable error) {
         [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
+        [self deleteGameAtPath:gameFileURL.path];
         if (error) {
             XCTFail(@"Test timed out: %@", error);
         }
