@@ -7,10 +7,10 @@ Interpreter: hugo
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=9 a3=2 len=0
-[MSG] cmd=SETBGND a1=-1 a2=16776657 a3=0 len=0
+[MSG] cmd=SETBGND a1=-1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=-1 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=-1 a2=0 a3=0 len=0
-[MSG] cmd=SETBGND a1=-1 a2=16776657 a3=0 len=0
+[MSG] cmd=SETBGND a1=-1 a2=16777215 a3=0 len=0
 [MSG] cmd=NEWCHAN a1=65536 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
 [MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
@@ -79,12 +79,12 @@ Interpreter: hugo
 [MSG] cmd=MAKETRANSPARENT a1=6 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=6 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=6 a2=0 a3=0 len=0
-[MSG] cmd=MOVETO a1=6 a2=27 a3=33 len=0
+[MSG] cmd=MOVETO a1=6 a2=21 a3=33 len=0
 [MSG] cmd=SETZCOLOR a1=6 a2=16711680 a3=0 len=0
 [MSG] cmd=PRINT a1=6 a2=2 a3=0 len=76
 [TEXT] One of these four idiots is a killer.
 
-[MSG] cmd=MOVETO a1=6 a2=27 a3=34 len=0
+[MSG] cmd=MOVETO a1=6 a2=21 a3=34 len=0
 [MSG] cmd=PRINT a1=6 a2=2 a3=0 len=72
 [TEXT] It's your job to find out which one.
 [MSG] cmd=INITCHAR a1=6 a2=0 a3=0 len=0
@@ -99,14 +99,14 @@ Interpreter: hugo
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=4 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=5 a2=0 a3=0 len=0
-[MSG] cmd=SETBGND a1=-1 a2=16776657 a3=0 len=0
+[MSG] cmd=SETBGND a1=-1 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=4 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=5 a2=0 a3=0 len=0
-[MSG] cmd=SETBGND a1=-1 a2=16776657 a3=0 len=0
+[MSG] cmd=SETBGND a1=-1 a2=16777215 a3=0 len=0
 [MSG] cmd=DELWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=DELWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=DELWIN a1=2 a2=0 a3=0 len=0
@@ -169,7 +169,6 @@ Your hotel room
 [MSG] cmd=SETBGND a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
@@ -183,9 +182,11 @@ Your hotel room
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Your hotel room                                                  8:00 a.m.
-[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Your hotel room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:00 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
@@ -238,8 +239,11 @@ Your hotel room
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Your hotel room                                                  8:01 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Your hotel room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:01 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -271,8 +275,11 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Your hotel room                                                  8:02 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Your hotel room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:02 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -337,8 +344,11 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=PRINT a1=1 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Your hotel room                                                  8:03 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Your hotel room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:03 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -368,8 +378,11 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Your hotel room                                                  8:04 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Your hotel room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:04 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -399,8 +412,11 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Your hotel room                                                  8:05 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Your hotel room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:05 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -454,8 +470,11 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Your hotel room                                                  8:06 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Your hotel room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:06 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -485,8 +504,11 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Pelican Hotel                                                    8:06 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Pelican Hotel
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:06 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -574,8 +596,11 @@ Pelican Hotel
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Pelican Hotel                                                    8:07 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Pelican Hotel
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:07 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -635,8 +660,11 @@ Pelican Hotel
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Pelican Hotel                                                    8:08 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Pelican Hotel
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:08 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -736,8 +764,11 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=PRINT a1=1 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio gate                                                      8:14 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:14 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -797,8 +828,11 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio gate                                                      8:15 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:15 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -823,8 +857,11 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio backlot                                                   8:15 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:15 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -908,8 +945,11 @@ Studio backlot
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio backlot                                                   8:16 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:16 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -934,8 +974,11 @@ Studio backlot
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    8:16 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:16 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1023,8 +1066,11 @@ Main building
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    8:17 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:17 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1056,8 +1102,11 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    8:18 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:18 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1114,8 +1163,11 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    8:19 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:19 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1170,8 +1222,11 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    8:20 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:20 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1203,8 +1258,11 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    8:21 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:21 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1231,8 +1289,11 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio backlot                                                   8:21 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:21 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1307,8 +1368,11 @@ Studio backlot
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio backlot                                                   8:22 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:22 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1333,8 +1397,11 @@ Studio backlot
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio gate                                                      8:22 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:22 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1421,8 +1488,11 @@ Studio gate
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio gate                                                      8:23 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:23 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1482,8 +1552,11 @@ Studio gate
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio gate                                                      8:24 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:24 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1579,8 +1652,11 @@ National Boulevard, in your cousin's Volvo
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] National Boulevard                                               8:35 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] National Boulevard
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:35 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1640,8 +1716,11 @@ National Boulevard, in your cousin's Volvo
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] National Boulevard                                               8:36 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] National Boulevard
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:36 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1666,8 +1745,11 @@ National Boulevard, in your cousin's Volvo
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's apartment building                               8:36 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=68
+[TEXT] Cindy Painter's apartment building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:36 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1751,8 +1833,11 @@ Cindy Painter's apartment building
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's apartment building                               8:37 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=68
+[TEXT] Cindy Painter's apartment building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:37 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1777,8 +1862,11 @@ Cindy Painter's apartment building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Apartment stairs                                                 8:37 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=32
+[TEXT] Apartment stairs
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:37 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1862,8 +1950,11 @@ Apartment stairs
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Apartment stairs                                                 8:38 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=32
+[TEXT] Apartment stairs
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:38 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1895,8 +1986,11 @@ Apartment stairs
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      8:38 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:38 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -1980,8 +2074,11 @@ Cindy Painter's living room
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      8:39 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:39 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2011,8 +2108,11 @@ Cindy Painter's living room
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      8:40 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:40 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2096,8 +2196,11 @@ Cindy Painter's living room
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      8:41 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:41 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2127,8 +2230,11 @@ Cindy Painter's living room
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      8:42 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:42 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2153,8 +2259,11 @@ Cindy Painter's living room
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          8:42 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:42 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2238,8 +2347,11 @@ Kitchen
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          8:43 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:43 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2269,8 +2381,11 @@ Kitchen
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          8:44 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:44 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2300,8 +2415,11 @@ Kitchen
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          8:45 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:45 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2334,8 +2452,11 @@ Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          8:46 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:46 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2365,8 +2486,11 @@ Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          8:47 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:47 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2396,8 +2520,11 @@ Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          8:48 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:48 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2427,8 +2554,11 @@ Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          8:49 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:49 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2453,8 +2583,11 @@ Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      8:49 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:49 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2532,8 +2665,11 @@ Cindy Painter's living room
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      8:50 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:50 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2563,8 +2699,11 @@ Cindy Painter's living room
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Apartment stairs                                                 8:50 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=32
+[TEXT] Apartment stairs
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:50 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2642,8 +2781,11 @@ Apartment stairs
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Apartment stairs                                                 8:51 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=32
+[TEXT] Apartment stairs
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:51 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2668,8 +2810,11 @@ Apartment stairs
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's apartment building                               8:51 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=68
+[TEXT] Cindy Painter's apartment building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:51 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2747,8 +2892,11 @@ Cindy Painter's apartment building
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's apartment building                               8:52 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=68
+[TEXT] Cindy Painter's apartment building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:52 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2773,8 +2921,11 @@ Cindy Painter's apartment building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] National Boulevard                                               8:52 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] National Boulevard
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:52 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2861,8 +3012,11 @@ National Boulevard
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] National Boulevard                                               8:53 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] National Boulevard
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:53 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2887,8 +3041,11 @@ National Boulevard
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Back alley                                                       8:53 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] Back alley
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:53 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -2972,8 +3129,11 @@ Back alley
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Back alley                                                       8:54 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] Back alley
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:54 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3003,8 +3163,11 @@ Back alley
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Back alley                                                       8:55 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] Back alley
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:55 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3034,8 +3197,11 @@ Back alley
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Back alley                                                       8:56 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] Back alley
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:56 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3065,8 +3231,11 @@ Back alley
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Back alley                                                       8:57 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] Back alley
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:57 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3098,8 +3267,11 @@ Inside the dull orange garbage bag are a birthday card and a torn business card.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Back alley                                                       8:58 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] Back alley
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:58 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3181,8 +3353,11 @@ torn business card:  Taken.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Back alley                                                       8:59 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] Back alley
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 8:59 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3212,8 +3387,11 @@ torn business card:  Taken.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Back alley                                                       9:00 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] Back alley
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:00 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3249,8 +3427,11 @@ torn business card:  Taken.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Back alley                                                       9:01 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] Back alley
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:01 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3280,8 +3461,11 @@ torn business card:  Taken.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Back alley                                                       9:02 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] Back alley
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:02 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3306,8 +3490,11 @@ torn business card:  Taken.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] National Boulevard                                               9:02 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] National Boulevard
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:02 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3424,8 +3611,11 @@ National Boulevard
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] National Boulevard                                               9:03 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] National Boulevard
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:03 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3485,8 +3675,11 @@ National Boulevard
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] National Boulevard                                               9:04 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] National Boulevard
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:04 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3576,8 +3769,11 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio gate                                                      9:15 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:15 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3637,8 +3833,11 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio gate                                                      9:16 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:16 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3663,8 +3862,11 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio backlot                                                   9:16 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:16 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3742,8 +3944,11 @@ Studio backlot
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Studio backlot                                                   9:17 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:17 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3768,8 +3973,11 @@ Studio backlot
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:17 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:17 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3847,8 +4055,11 @@ Main building
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:18 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:18 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3878,8 +4089,11 @@ Main building
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:19 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:19 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3898,8 +4112,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:20 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:20 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3918,8 +4135,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:21 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:21 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3938,8 +4158,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:22 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:22 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3958,8 +4181,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:23 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:23 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3978,8 +4204,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:24 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:24 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -3998,8 +4227,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:25 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:25 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4018,8 +4250,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:26 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:26 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4038,8 +4273,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:27 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:27 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4058,8 +4296,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:28 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:28 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4078,8 +4319,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:29 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:29 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4098,8 +4342,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:30 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:30 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4118,8 +4365,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:31 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:31 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4138,8 +4388,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:32 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:32 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4158,8 +4411,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:33 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:33 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4178,8 +4434,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:34 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:34 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4198,8 +4457,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:35 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:35 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4218,8 +4480,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:36 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:36 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4238,8 +4503,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:37 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:37 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4258,8 +4526,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:38 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:38 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4278,8 +4549,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:39 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:39 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4298,8 +4572,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:40 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:40 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4318,8 +4595,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:41 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:41 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4338,8 +4618,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:42 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:42 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4358,8 +4641,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:43 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:43 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4378,8 +4664,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:44 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:44 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4398,8 +4687,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:45 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:45 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4418,8 +4710,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:46 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:46 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4438,8 +4733,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:47 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:47 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4458,8 +4756,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:48 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:48 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4478,8 +4779,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:49 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:49 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4498,8 +4802,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:50 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:50 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4518,8 +4825,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:51 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:51 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4538,8 +4848,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:52 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:52 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4558,8 +4871,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:53 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:53 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4578,8 +4894,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:54 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:54 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4598,8 +4917,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:55 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:55 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4618,8 +4940,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:56 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:56 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4638,8 +4963,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:57 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:57 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4658,8 +4986,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:58 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:58 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4678,8 +5009,11 @@ Main building
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Main building                                                    9:59 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 9:59 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4748,8 +5082,11 @@ Milt Walker comes out of the Main Building.  He looks at his watch.  "I've only 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Main building                                                    10:00 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:00 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4785,8 +5122,11 @@ Milt sighs.  "All right.  I should have told you--I knew that Cindy was seeing t
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Main building                                                    10:01 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:01 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4820,8 +5160,11 @@ Milt sighs.  "All right.  I should have told you--I knew that Cindy was seeing t
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Main building                                                    10:02 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:02 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4855,8 +5198,11 @@ Milt sighs.  "All right.  I should have told you--I knew that Cindy was seeing t
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Main building                                                    10:03 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:03 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4881,8 +5227,11 @@ Milt sighs.  "All right.  I should have told you--I knew that Cindy was seeing t
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio backlot                                                   10:03 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:03 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4969,8 +5318,11 @@ Studio backlot
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio backlot                                                   10:04 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:04 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -4995,8 +5347,11 @@ Studio backlot
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio gate                                                      10:04 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:04 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5083,8 +5438,11 @@ Studio gate
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio gate                                                      10:05 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:05 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5144,8 +5502,11 @@ Studio gate
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio gate                                                      10:06 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:06 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5241,8 +5602,11 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Santa Monica                                                     10:11 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=24
+[TEXT] Santa Monica
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:11 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5302,8 +5666,11 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Santa Monica                                                     10:12 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=24
+[TEXT] Santa Monica
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:12 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5328,8 +5695,11 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Overlooking the beach                                            10:12 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=42
+[TEXT] Overlooking the beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:12 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5413,8 +5783,11 @@ Overlooking the beach
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Overlooking the beach                                            10:13 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=42
+[TEXT] Overlooking the beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:13 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5444,8 +5817,11 @@ Overlooking the beach
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Beach                                                            10:13 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=10
+[TEXT] Beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:13 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5534,8 +5910,11 @@ Beach
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Beach                                                            10:14 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=10
+[TEXT] Beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:14 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5560,8 +5939,11 @@ Beach
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           10:14 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:14 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5646,8 +6028,11 @@ Billy Van Earl's house
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           10:15 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:15 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5677,8 +6062,11 @@ Billy Van Earl's house
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           10:16 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:16 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5708,8 +6096,11 @@ Billy Van Earl's house
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           10:17 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:17 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5776,8 +6167,11 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           10:18 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:18 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5807,8 +6201,11 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           10:19 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:19 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5838,8 +6235,11 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           10:20 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:20 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5869,8 +6269,11 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           10:21 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:21 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5900,8 +6303,11 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           10:22 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:22 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -5926,8 +6332,11 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Beach                                                            10:22 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=10
+[TEXT] Beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:22 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6006,8 +6415,11 @@ Beach
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Beach                                                            10:23 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=10
+[TEXT] Beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:23 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6032,8 +6444,11 @@ Beach
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Overlooking the beach                                            10:23 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=42
+[TEXT] Overlooking the beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:23 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6109,8 +6524,11 @@ Overlooking the beach
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Overlooking the beach                                            10:24 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=42
+[TEXT] Overlooking the beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:24 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6135,8 +6553,11 @@ Overlooking the beach
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Santa Monica                                                     10:24 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=24
+[TEXT] Santa Monica
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:24 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6223,8 +6644,11 @@ Santa Monica
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Santa Monica                                                     10:25 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=24
+[TEXT] Santa Monica
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:25 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6284,8 +6708,11 @@ Santa Monica
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Santa Monica                                                     10:26 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=24
+[TEXT] Santa Monica
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:26 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6381,8 +6808,11 @@ Just off Wilshire Blvd., in your cousin's Volvo
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Just off Wilshire Blvd.                                          10:41 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=46
+[TEXT] Just off Wilshire Blvd.
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:41 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6442,8 +6872,11 @@ Just off Wilshire Blvd., in your cousin's Volvo
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Just off Wilshire Blvd.                                          10:42 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=46
+[TEXT] Just off Wilshire Blvd.
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:42 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6468,8 +6901,11 @@ Just off Wilshire Blvd., in your cousin's Volvo
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    10:42 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:42 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6553,8 +6989,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    10:43 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:43 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6584,8 +7023,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             10:43 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:43 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6673,8 +7115,11 @@ Chuck Bixby's office
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             10:44 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:44 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6704,8 +7149,11 @@ Chuck Bixby's office
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             10:45 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:45 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6760,8 +7208,11 @@ Chuck Bixby's office
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             10:46 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:46 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6791,8 +7242,11 @@ Chuck Bixby's office
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             10:47 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:47 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6822,8 +7276,11 @@ Chuck Bixby's office
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             10:48 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:48 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6848,8 +7305,11 @@ Chuck Bixby's office
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    10:48 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:48 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6924,8 +7384,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    10:49 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:49 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -6950,8 +7413,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               10:49 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:49 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7030,8 +7496,11 @@ Maintenance closet
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               10:50 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:50 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7091,8 +7560,11 @@ Maintenance closet
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               10:51 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:51 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7152,8 +7624,11 @@ Maintenance closet
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               10:52 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:52 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7213,8 +7688,11 @@ Maintenance closet
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               10:53 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:53 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7274,8 +7752,11 @@ Maintenance closet
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               10:54 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:54 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7305,8 +7786,11 @@ Maintenance closet
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               10:55 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:55 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7396,8 +7880,11 @@ Maintenance closet
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               10:56 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:56 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7427,8 +7914,11 @@ Maintenance closet
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               10:57 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:57 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7483,8 +7973,11 @@ Maintenance closet
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    10:57 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:57 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7601,8 +8094,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    10:58 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:58 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7632,8 +8128,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    10:59 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:59 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7658,8 +8157,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               10:59 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 10:59 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7747,8 +8249,11 @@ Maintenance closet
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               11:00 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:00 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7779,8 +8284,11 @@ Maintenance closet
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               11:01 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:01 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7852,8 +8360,11 @@ You can here voices of people in the lobby as the building is emptied out.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               11:02 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:02 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7880,8 +8391,11 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               11:03 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:03 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7908,8 +8422,11 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Maintenance closet                                               11:04 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] Maintenance closet
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:04 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -7945,8 +8462,11 @@ The fire alarm keeps ringing.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    11:04 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:04 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8045,8 +8565,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    11:05 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:05 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8076,8 +8599,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             11:05 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:05 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8152,8 +8678,11 @@ Chuck Bixby's office
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             11:06 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:06 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8183,8 +8712,11 @@ Chuck Bixby's office
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             11:07 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:07 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8247,8 +8779,11 @@ The fire alarm keeps ringing.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             11:08 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:08 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8282,8 +8817,11 @@ The fire alarm keeps ringing.
 [MSG] cmd=PRINT a1=1 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             11:09 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:09 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8335,8 +8873,11 @@ The fire alarm keeps ringing.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             11:10 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:10 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8375,8 +8916,11 @@ The fire alarm keeps ringing.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             11:11 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:11 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8430,8 +8974,11 @@ The fire alarm keeps ringing.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             11:12 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:12 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8465,8 +9012,11 @@ The fire alarm keeps ringing.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             11:13 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:13 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8505,8 +9055,11 @@ The fire alarm keeps ringing.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Chuck Bixby's office                                             11:14 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Chuck Bixby's office
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:14 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8531,8 +9084,11 @@ The fire alarm keeps ringing.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    11:14 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:14 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8631,8 +9187,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Wilshire Blvd. building lobby                                    11:15 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=58
+[TEXT] Wilshire Blvd. building lobby
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:15 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8657,8 +9216,11 @@ Wilshire Blvd. building lobby
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Just off Wilshire Blvd.                                          11:15 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=46
+[TEXT] Just off Wilshire Blvd.
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:15 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8749,8 +9311,11 @@ Your cousin's Volvo is parked here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Just off Wilshire Blvd.                                          11:16 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=46
+[TEXT] Just off Wilshire Blvd.
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:16 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8797,8 +9362,11 @@ The fire alarm keeps ringing.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Just off Wilshire Blvd.                                          11:17 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=46
+[TEXT] Just off Wilshire Blvd.
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:17 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8830,8 +9398,11 @@ Chuck produces a folded note and hands it to you.  "She said this came with the 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Just off Wilshire Blvd.                                          11:18 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=46
+[TEXT] Just off Wilshire Blvd.
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:18 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8861,8 +9432,11 @@ Chuck produces a folded note and hands it to you.  "She said this came with the 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Just off Wilshire Blvd.                                          11:19 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=46
+[TEXT] Just off Wilshire Blvd.
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:19 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -8933,8 +9507,11 @@ You're sitting in the Volvo.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Just off Wilshire Blvd.                                          11:20 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=46
+[TEXT] Just off Wilshire Blvd.
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:20 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9023,8 +9600,11 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Santa Monica                                                     11:35 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=24
+[TEXT] Santa Monica
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:35 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9084,8 +9664,11 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Santa Monica                                                     11:36 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=24
+[TEXT] Santa Monica
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:36 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9110,8 +9693,11 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Overlooking the beach                                            11:36 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=42
+[TEXT] Overlooking the beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:36 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9189,8 +9775,11 @@ Overlooking the beach
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Overlooking the beach                                            11:37 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=42
+[TEXT] Overlooking the beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:37 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9220,8 +9809,11 @@ Overlooking the beach
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Beach                                                            11:37 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=10
+[TEXT] Beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:37 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9303,8 +9895,11 @@ Beach
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Beach                                                            11:38 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=10
+[TEXT] Beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:38 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9329,8 +9924,11 @@ Beach
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           11:38 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:38 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9409,8 +10007,11 @@ Billy Van Earl's house
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           11:39 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:39 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9440,8 +10041,11 @@ Billy Van Earl's house
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           11:40 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:40 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9471,8 +10075,11 @@ Billy Van Earl's house
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           11:41 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:41 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9541,8 +10148,11 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           11:42 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:42 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9578,8 +10188,11 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Billy Van Earl's house                                           11:43 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=44
+[TEXT] Billy Van Earl's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:43 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9610,8 +10223,11 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Beach                                                            11:43 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=10
+[TEXT] Beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:43 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9690,8 +10306,11 @@ Beach
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Beach                                                            11:44 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=10
+[TEXT] Beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:44 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9753,8 +10372,11 @@ Billy follows you north up the beach, away from his house.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Overlooking the beach                                            11:44 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=42
+[TEXT] Overlooking the beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:44 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9830,8 +10452,11 @@ Overlooking the beach
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Overlooking the beach                                            11:45 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=42
+[TEXT] Overlooking the beach
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:45 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9893,8 +10518,11 @@ Billy climbs up the stairs after you.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Santa Monica                                                     11:45 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=24
+[TEXT] Santa Monica
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:45 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -9981,8 +10609,11 @@ Santa Monica
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Santa Monica                                                     11:46 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=24
+[TEXT] Santa Monica
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:46 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10083,8 +10714,11 @@ You're sitting in the Volvo.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Santa Monica                                                     11:47 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=24
+[TEXT] Santa Monica
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:47 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10185,8 +10819,11 @@ Malibu, in your cousin's Volvo
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Malibu                                                           11:52 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=12
+[TEXT] Malibu
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:52 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10280,8 +10917,11 @@ Your cousin's Volvo is parked here.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Malibu                                                           11:53 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=12
+[TEXT] Malibu
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:53 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10308,8 +10948,11 @@ Billy gets out of the Volvo, too.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Below the house                                                  11:53 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Below the house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:53 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10398,8 +11041,11 @@ Below the house
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Below the house                                                  11:54 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Below the house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:54 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10462,8 +11108,11 @@ Below the house
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Driveway                                                         11:54 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=16
+[TEXT] Driveway
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:54 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10542,8 +11191,11 @@ Driveway
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Driveway                                                         11:55 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=16
+[TEXT] Driveway
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:55 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10570,8 +11222,11 @@ Billy follows you north.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             11:55 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:55 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10650,8 +11305,11 @@ Holly Golden's house
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             11:56 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:56 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10718,8 +11376,11 @@ Holly Golden's house
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             11:57 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:57 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10809,8 +11470,11 @@ Holly Golden's house
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             11:58 a.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 11:58 a.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10839,8 +11503,8 @@ Holly Golden's house
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=104
-[TEXT] Home: 0                                      Away: 0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=92
+[TEXT] Home: 0                                Away: 0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10932,8 +11596,11 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:00 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:00 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10966,8 +11633,8 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=104
-[TEXT] Home: 0                                      Away: 0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=92
+[TEXT] Home: 0                                Away: 0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -10996,8 +11663,8 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=104
-[TEXT] Home: 0                                      Away: 0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=92
+[TEXT] Home: 0                                Away: 0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11059,8 +11726,11 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:03 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:03 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11158,8 +11828,11 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:04 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:04 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11193,8 +11866,11 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:05 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:05 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11224,8 +11900,11 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:06 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:06 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11259,8 +11938,11 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:07 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:07 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11290,8 +11972,11 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:08 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:08 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11321,8 +12006,11 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:09 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:09 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11384,8 +12072,11 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:10 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:10 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11415,8 +12106,11 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:11 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:11 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11478,8 +12172,11 @@ There are a basketball and a grimy length of string here.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Holly Golden's house                                             12:12 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=40
+[TEXT] Holly Golden's house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:12 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11504,8 +12201,11 @@ There are a basketball and a grimy length of string here.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Driveway                                                         12:12 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=16
+[TEXT] Driveway
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:12 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11580,8 +12280,11 @@ Driveway
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Driveway                                                         12:13 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=16
+[TEXT] Driveway
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:13 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11608,8 +12311,11 @@ Billy follows you west.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Below the house                                                  12:13 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Below the house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:13 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11688,8 +12394,11 @@ Below the house
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Below the house                                                  12:14 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Below the house
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:14 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11751,8 +12460,11 @@ Billy follows you back down away from the house.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Malibu                                                           12:14 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=12
+[TEXT] Malibu
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:14 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11839,8 +12551,11 @@ Malibu
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Malibu                                                           12:15 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=12
+[TEXT] Malibu
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:15 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11902,8 +12617,11 @@ Billy follows you south.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Malibu                                                           12:16 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=12
+[TEXT] Malibu
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:16 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -11995,8 +12713,11 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio gate                                                      12:21 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:21 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12090,8 +12811,11 @@ Your cousin's Volvo is parked here.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio gate                                                      12:22 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:22 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12118,8 +12842,11 @@ Billy gets out of the Volvo, too.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio backlot                                                   12:22 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:22 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12197,8 +12924,11 @@ Studio backlot
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio backlot                                                   12:23 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:23 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12225,8 +12955,11 @@ Billy follows you north.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Main building                                                    12:23 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:23 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12313,8 +13046,11 @@ Main building
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Main building                                                    12:24 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:24 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12381,8 +13117,11 @@ Billy follows you north toward the main building.  He sees Milt and cringes.  Un
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Main building                                                    12:25 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Main building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:25 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12409,8 +13148,11 @@ Milt looks at Billy like he's been painted blue.  "What the hell is he doing her
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio backlot                                                   12:25 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:25 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12485,8 +13227,11 @@ Studio backlot
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio backlot                                                   12:26 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:26 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12513,8 +13258,11 @@ Billy follows you south.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Side building                                                    12:26 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Side building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:26 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12593,8 +13341,11 @@ Side building
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Side building                                                    12:27 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Side building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:27 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12621,8 +13372,11 @@ Billy follows you west.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:27 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:27 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12702,8 +13456,11 @@ Reception area
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:28 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:28 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12795,8 +13552,11 @@ Billy hangs around the door to the reception area.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:29 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:29 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12826,8 +13586,11 @@ Billy hangs around the door to the reception area.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:30 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:30 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12857,8 +13620,11 @@ Billy hangs around the door to the reception area.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:31 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:31 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12890,8 +13656,11 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:32 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:32 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12910,8 +13679,11 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:33 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:33 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -12930,8 +13702,11 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:34 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:34 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13025,8 +13800,11 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:35 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:35 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13056,8 +13834,11 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:36 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:36 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13087,8 +13868,11 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:37 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:37 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13122,8 +13906,11 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:38 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:38 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13160,8 +13947,11 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:39 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:39 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13195,8 +13985,11 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:40 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:40 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13226,8 +14019,11 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:41 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:41 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13264,8 +14060,11 @@ The phone rings.  Anne answers it and takes down a message.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:42 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:42 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13284,8 +14083,11 @@ The phone rings.  Anne answers it and takes down a message.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:43 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:43 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13317,8 +14119,11 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Reception area                                                   12:44 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Reception area
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:44 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13380,8 +14185,11 @@ Stuart looks at his watch.  "Oh, you know what?  I'm forgetting a meeting.  Woul
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Side building                                                    12:44 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Side building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:44 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13456,8 +14264,11 @@ Side building
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Side building                                                    12:45 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Side building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:45 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13489,8 +14300,11 @@ Billy follows you south.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Behind the tree                                                  12:45 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Behind the tree
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:45 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13544,8 +14358,11 @@ Behind the tree
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Behind the tree                                                  12:46 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Behind the tree
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:46 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13577,8 +14394,11 @@ Billy follows you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Behind the tree                                                  12:47 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Behind the tree
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:47 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13607,8 +14427,11 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Behind the tree                                                  12:48 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Behind the tree
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:48 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13634,8 +14457,11 @@ Billy follows you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Behind the tree                                                  12:49 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Behind the tree
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:49 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13667,8 +14493,11 @@ Billy follows you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Behind the tree                                                  12:50 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=30
+[TEXT] Behind the tree
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:50 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13707,8 +14536,11 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Side building                                                    12:50 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Side building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:50 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13802,8 +14634,11 @@ Side building
 [TEXT] 
 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Side building                                                    12:51 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Side building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:51 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13839,8 +14674,11 @@ Inside the trunk of the Mazda are a screening report and some negatives.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Side building                                                    12:52 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Side building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:52 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13903,8 +14741,11 @@ Billy follows you.
 [TEXT] 
 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Side building                                                    12:53 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Side building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:53 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13936,8 +14777,11 @@ Billy follows you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Side building                                                    12:54 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=26
+[TEXT] Side building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:54 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -13964,8 +14808,11 @@ Billy follows you.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio backlot                                                   12:54 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:54 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14043,8 +14890,11 @@ Studio backlot
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio backlot                                                   12:55 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Studio backlot
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:55 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14072,8 +14922,11 @@ Billy follows you east.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio gate                                                      12:55 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:55 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14160,8 +15013,11 @@ Studio gate
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio gate                                                      12:56 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:56 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14223,8 +15079,11 @@ Billy follows you south.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=150
-[TEXT] Studio gate                                                      12:57 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=22
+[TEXT] Studio gate
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=20
+[TEXT] 12:57 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14315,8 +15174,11 @@ National Boulevard, in your cousin's Volvo
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] National Boulevard                                               1:08 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] National Boulevard
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:08 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14410,8 +15272,11 @@ Your cousin's Volvo is parked here.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] National Boulevard                                               1:09 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=36
+[TEXT] National Boulevard
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:09 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14438,8 +15303,11 @@ Billy gets out of the Volvo, too.
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's apartment building                               1:09 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=68
+[TEXT] Cindy Painter's apartment building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:09 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14517,8 +15385,11 @@ Cindy Painter's apartment building
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's apartment building                               1:10 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=68
+[TEXT] Cindy Painter's apartment building
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:10 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14580,8 +15451,11 @@ Billy follows you away from National, toward Cindy's apartment building.  "This 
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Apartment stairs                                                 1:10 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=32
+[TEXT] Apartment stairs
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:10 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14656,8 +15530,11 @@ Apartment stairs
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Apartment stairs                                                 1:11 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=32
+[TEXT] Apartment stairs
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:11 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14689,8 +15566,11 @@ Billy follows you up.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:11 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:11 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14765,8 +15645,11 @@ Cindy Painter's living room
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:12 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:12 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14798,8 +15681,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:13 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:13 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14818,8 +15704,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:14 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:14 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14838,8 +15727,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:15 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:15 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14869,8 +15761,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:16 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:16 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14889,8 +15784,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:17 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:17 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14909,8 +15807,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:18 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:18 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14940,8 +15841,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:19 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:19 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14960,8 +15864,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:20 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:20 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -14980,8 +15887,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:21 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:21 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15011,8 +15921,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:22 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:22 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15031,8 +15944,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:23 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:23 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15051,8 +15967,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:24 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:24 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15082,8 +16001,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:25 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:25 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15102,8 +16024,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:26 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:26 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15122,8 +16047,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:27 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:27 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15153,8 +16081,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:28 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:28 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15173,8 +16104,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:29 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:29 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15193,8 +16127,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:30 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:30 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15224,8 +16161,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:31 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:31 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15244,8 +16184,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:32 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:32 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15264,8 +16207,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:33 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:33 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15295,8 +16241,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:34 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:34 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15315,8 +16264,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:35 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:35 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15335,8 +16287,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:36 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:36 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15366,8 +16321,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:37 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:37 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15386,8 +16344,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:38 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:38 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15406,8 +16367,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:39 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:39 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15437,8 +16401,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:40 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:40 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15457,8 +16424,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:41 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:41 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15477,8 +16447,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:42 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:42 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15508,8 +16481,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:43 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:43 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15528,8 +16504,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:44 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:44 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15548,8 +16527,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:45 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:45 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15579,8 +16561,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:46 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:46 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15599,8 +16584,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:47 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:47 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15619,8 +16607,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:48 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:48 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15650,8 +16641,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:49 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:49 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15670,8 +16664,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:50 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:50 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15690,8 +16687,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:51 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:51 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15721,8 +16721,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:52 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:52 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15741,8 +16744,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:53 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:53 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15761,8 +16767,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:54 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:54 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15792,8 +16801,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:55 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:55 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15812,8 +16824,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:56 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:56 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15832,8 +16847,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:57 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:57 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15863,8 +16881,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:58 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:58 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15883,8 +16904,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      1:59 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 1:59 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15903,8 +16927,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      2:00 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:00 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15934,8 +16961,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      2:01 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:01 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15954,8 +16984,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      2:02 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:02 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -15974,8 +17007,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      2:03 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:03 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -16005,8 +17041,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      2:04 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:04 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -16025,8 +17064,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      2:05 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:05 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -16045,8 +17087,11 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Cindy Painter's living room                                      2:06 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:06 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -16074,8 +17119,11 @@ The apartment door opens.  You turn to look, expecting to see Billy standing the
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          2:06 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:06 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -16178,8 +17226,11 @@ Stuart shakes his head.  "You know," he says, "you're a real moron.  What, do yo
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          2:07 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:07 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -16218,8 +17269,11 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Kitchen                                                          2:08 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:08 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -16253,8 +17307,11 @@ After you manage to pull yourself together and convince your legs to stop shakin
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Police station                                                   2:08 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Police station
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:08 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -16313,8 +17370,11 @@ You leave the police station with a renewed sense of hope, that even just a litt
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=148
-[TEXT] Police station                                                   2:08 p.m.
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=28
+[TEXT] Police station
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:08 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0

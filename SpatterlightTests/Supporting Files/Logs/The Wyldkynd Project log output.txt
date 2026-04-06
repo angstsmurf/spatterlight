@@ -113,12 +113,12 @@ Your anxious thoughts are interrupted when an attractive woman wearing a stylish
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 0 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -148,12 +148,12 @@ Your anxious thoughts are interrupted when an attractive woman wearing a stylish
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 1 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -177,12 +177,12 @@ Your anxious thoughts are interrupted when an attractive woman wearing a stylish
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 2 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -210,12 +210,12 @@ Your anxious thoughts are interrupted when an attractive woman wearing a stylish
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 3 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -239,12 +239,12 @@ Your anxious thoughts are interrupted when an attractive woman wearing a stylish
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 4 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -268,12 +268,12 @@ Your anxious thoughts are interrupted when an attractive woman wearing a stylish
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 5 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -298,12 +298,12 @@ Janet looks over her shoulder before speaking.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 6 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -328,12 +328,12 @@ You hear a soft 'ding' from somewhere forward. "Excuse me for a moment," Janet t
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=84 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] 7 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -540,12 +540,12 @@ You hear a faint grinding noise followed by a brief high-pitched whine. You beco
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 14 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -560,12 +560,12 @@ You hear a faint grinding noise followed by a brief high-pitched whine. You beco
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 15 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -594,12 +594,12 @@ You feel a thud through the floor of the helicopter.
 [TEXT] 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Helicopter Interior
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 16 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -639,12 +639,12 @@ A distant bird call breaks the silence. There is no other response.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Landing Pad
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 17 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -659,12 +659,12 @@ A distant bird call breaks the silence. There is no other response.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Landing Pad
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 18 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -679,12 +679,12 @@ A distant bird call breaks the silence. There is no other response.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Landing Pad
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 19 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -704,12 +704,12 @@ A distant bird call breaks the silence. There is no other response.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Landing Pad
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 21 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -724,12 +724,12 @@ A distant bird call breaks the silence. There is no other response.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Landing Pad
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 21 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -744,12 +744,12 @@ A distant bird call breaks the silence. There is no other response.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Landing Pad
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 22 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -832,12 +832,12 @@ The forest fairy is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Forest (north)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 25 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -857,12 +857,12 @@ The fairy does a little victory dance in the air and looks at you in admiration 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Forest (north)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 26 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -907,12 +907,12 @@ The forest fairy is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Laboratory Entrance
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 27 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -938,12 +938,12 @@ As you step away from the display screen, you step on a small object that is emb
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Laboratory Entrance
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 28 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -958,12 +958,12 @@ As you step away from the display screen, you step on a small object that is emb
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Laboratory Entrance
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 29 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -978,12 +978,12 @@ As you step away from the display screen, you step on a small object that is emb
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Laboratory Entrance
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 30 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1001,12 +1001,12 @@ There are several rows of solar panels in this grassy area. There is a large she
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Solar Panel Meadow
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 31 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1041,12 +1041,12 @@ One of the indicator lights is out, which probably means that there is a dead ba
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Battery Shed
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 33 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1061,12 +1061,12 @@ One of the indicator lights is out, which probably means that there is a dead ba
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Battery Shed
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 34 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1121,12 +1121,12 @@ The forest fairy is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Laboratory Entrance
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 36 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1201,12 +1201,12 @@ A standard office wastebasket is here. A wisp of smoke rises from it. A laborato
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Laboratory
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 38 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1258,12 +1258,12 @@ This small clearing at the west side of the dome is surrounded by dense forest. 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Dumpster
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 41 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1278,12 +1278,12 @@ This small clearing at the west side of the dome is surrounded by dense forest. 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Dumpster
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 42 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1298,12 +1298,12 @@ This small clearing at the west side of the dome is surrounded by dense forest. 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Dumpster
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 43 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1323,12 +1323,12 @@ You hear a whirring of wings and turn to see the fairy hovering in the air watch
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Dumpster
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 44 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1343,12 +1343,12 @@ You hear a whirring of wings and turn to see the fairy hovering in the air watch
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Dumpster
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 45 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1368,12 +1368,12 @@ The fairy does a happy dance then waves goodbye as she flies away.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Dumpster
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 46 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1493,12 +1493,12 @@ As for the project, here is a job description that I wrote for you before Adrian
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Laboratory
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 50 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1563,12 +1563,12 @@ Abrams slaps you on the back. "That's the spirit!" he says with enthusiasm. "I t
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Laboratory
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 51 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1646,12 +1646,12 @@ Forest fairy is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Leeward Cove (Mid)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 54 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1666,12 +1666,12 @@ Forest fairy is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Leeward Cove (Mid)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 55 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1711,12 +1711,12 @@ You find that a driftwood stump blocks a path leading southeast into the forest.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Leeward Cove (East)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 56 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1736,12 +1736,12 @@ You carry the stump over to the edge of the sand where it won't block the trail 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Leeward Cove (East)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 58 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1771,12 +1771,12 @@ A feather is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Dark Forest (North)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 59 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1791,12 +1791,12 @@ A feather is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Dark Forest (North)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 60 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1824,12 +1824,12 @@ A large driftwood stump is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Leeward Cove (East)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 61 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1844,12 +1844,12 @@ A large driftwood stump is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Leeward Cove (East)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 62 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1914,12 +1914,12 @@ Forest fairy is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Leeward Cove (West)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 64 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1934,12 +1934,12 @@ Forest fairy is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Leeward Cove (West)
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 65 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1974,12 +1974,12 @@ Forest fairy is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Rocky Ridge
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 66 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -1994,12 +1994,12 @@ Forest fairy is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Rocky Ridge
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 67 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2044,12 +2044,12 @@ A charcoal briquette is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Rocky Causeway
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 68 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2069,12 +2069,12 @@ A charcoal briquette is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Rocky Causeway
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 70 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2089,12 +2089,12 @@ A charcoal briquette is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Rocky Causeway
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 71 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2217,12 +2217,12 @@ Abrams stands off to one side of the arch staring at it. He seems lost in though
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Laboratory
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 77 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2250,12 +2250,12 @@ The words on the arch's control panel are in red letters that say:
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Laboratory
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 78 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2311,12 +2311,12 @@ Web:
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Laboratory
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 79 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2396,12 +2396,12 @@ The web lights up with sporadic, weak flashes of energy. The diary is clearly vi
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Laboratory
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 80 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2515,12 +2515,12 @@ Abrams walks rapidly over to the arch and looks at the glowing web.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Laboratory
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 84 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2620,12 +2620,12 @@ Time passes...
 [TEXT] 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Open Sea
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 85 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2719,12 +2719,12 @@ You open your eyes to normal daylight. You realize that you are lying on your ba
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Somewhere
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 87 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2766,12 +2766,12 @@ You hear some rustling sounds as if she is doing something with her hands out of
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Somewhere
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 88 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2823,12 +2823,12 @@ Axia is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Mermaid Rock
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 89 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2879,12 +2879,12 @@ Anyway, apparently his efforts bore fruit. He says that she told him that she wo
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Mermaid Rock
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 91 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2932,12 +2932,12 @@ The dark shape continues to patrol the waters near the rock.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Mermaid Rock
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 91 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -2982,12 +2982,12 @@ She reaches behind her and gets a few items from a recess in the rock and hands 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Mermaid Rock
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 92 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3019,12 +3019,12 @@ The spell names are:
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Mermaid Rock
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 93 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3046,12 +3046,12 @@ The dark shape stops moving and sinks out of sight.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Mermaid Rock
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 94 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3091,12 +3091,12 @@ A crab is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Crab Beach
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 95 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3118,12 +3118,12 @@ A tangle of seaweed washes up on the beach. The crab wanders over to investigate
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Crab Beach
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 96 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3145,12 +3145,12 @@ The crab settles into the seaweed tangle and becomes motionless.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Crab Beach
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 97 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3165,12 +3165,12 @@ The crab settles into the seaweed tangle and becomes motionless.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Crab Beach
-[MSG] cmd=MOVETO a1=1 a2=83 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] 98 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3220,12 +3220,12 @@ Though her gaze is not directed at you, you still feel a wave of intense longing
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Mermaid Rock
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 100 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3255,12 +3255,12 @@ While the sand of the beach is covered with the marks made by the crabs, the cra
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Crab Beach
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 101 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3283,12 +3283,12 @@ A beautiful, black flower is growing from the junction of two large, black veins
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Beach Cave
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 102 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3303,12 +3303,12 @@ A beautiful, black flower is growing from the junction of two large, black veins
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Beach Cave
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 103 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3333,12 +3333,12 @@ As you enter the grotto, you feel an intense pain in your knees and a feeling of
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Sea Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 104 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3368,12 +3368,12 @@ As you enter the grotto, you feel an intense pain in your knees and a feeling of
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Sea Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 105 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3402,12 +3402,12 @@ However, we regretfully realized that we could not have any kind of intimate rel
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Sea Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 106 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3441,12 +3441,12 @@ About a week ago, I started swing-stepping around and around of the edge of the 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Sea Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 107 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3466,12 +3466,12 @@ About a week ago, I started swing-stepping around and around of the edge of the 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Sea Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 108 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3546,12 +3546,12 @@ A long moss streamer hangs down like a faded pennant next to the path.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Dark Forest
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 112 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3566,12 +3566,12 @@ A long moss streamer hangs down like a faded pennant next to the path.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Dark Forest
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 113 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3589,12 +3589,12 @@ The canopy over this small clearing allows a single shaft of sunlight to illumin
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Dark Forest Clearing
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 114 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3609,12 +3609,12 @@ The canopy over this small clearing allows a single shaft of sunlight to illumin
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Dark Forest Clearing
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 115 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3705,12 +3705,12 @@ A young merman is lying on the sand at the edge of the pool. He gives you a weak
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Sea Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 120 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3742,12 +3742,12 @@ Aerrowan wastes no time. He rises into a kneeling position, presses down on the 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Sea Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 121 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3809,12 +3809,12 @@ He turns and swims away from the beach. He dives beneath the surface of the wate
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Crab Beach
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 123 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3837,12 +3837,12 @@ A very large man is sitting cross-legged in the rock cleft and completely blocki
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Hilltop Trail
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 124 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3862,12 +3862,12 @@ The man puts the pearl into his pouch, gives you a big grin, and then lumbers aw
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Hilltop Trail
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 125 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3954,12 +3954,12 @@ He turns away from you and returns to sit on his rock.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Hill Top
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 127 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -3991,12 +3991,12 @@ He turns away from you and returns to sit on his rock.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Hill Top
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 128 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4016,12 +4016,12 @@ He turns away from you and returns to sit on his rock.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Hill Top
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 129 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4043,12 +4043,12 @@ For a minute or so, nothings seems to happen. Then an arboreal rodent having a l
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Hill Top
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 130 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4070,12 +4070,12 @@ For a minute or so, nothings seems to happen. Then an arboreal rodent having a l
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Hill Top
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 131 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4097,12 +4097,12 @@ Much to your surprise, the small crystal vibrates and merges with the medium cry
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Hill Top
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 132 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4127,12 +4127,12 @@ After about ten minutes, no more dirt is pushed out of the tunnel. Lpkac stands 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Hill Top
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 133 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4209,12 +4209,12 @@ Jharry is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] Snorter Wallows
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 134 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4285,12 +4285,12 @@ I was astonished. I didn't think it was possible for my sons to disobey me. Of c
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] Snorter Wallows
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 136 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4337,12 +4337,12 @@ The men in the wallows fall silent at her tone. They stare at you and shift arou
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] Snorter Wallows
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 137 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4399,12 +4399,12 @@ Edena waves her hand and four men emerge from the west path carrying a large div
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] Snorter Wallows
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 138 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4429,12 +4429,12 @@ This small island in the swamp has been built up by centuries of leaf fall from 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Fairy Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 139 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4472,12 +4472,12 @@ Copia is here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Fairy Palace
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 140 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4512,12 +4512,12 @@ Copia nods her head slightly.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Fairy Palace
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 141 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4562,12 +4562,12 @@ Clio laughs at the expression on your face. Due to the small size of her throat 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Fairy Palace
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 142 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4595,12 +4595,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Upper Branches
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 143 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4615,12 +4615,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Upper Branches
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 144 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4668,12 +4668,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Fairy Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 146 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4688,12 +4688,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Fairy Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 146 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4715,12 +4715,12 @@ A large chunk of well-composted leaves breaks off from the edge of the swamp and
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Fairy Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 147 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4742,12 +4742,12 @@ Rapidly growing vines erupt out of the water under the bridge and wrap themselve
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Fairy Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 148 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4775,12 +4775,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Fire Lake
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 149 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4808,12 +4808,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Rock hut
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 150 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4833,12 +4833,12 @@ The bowl looks like it has been pinched out of raw clay to make a useful contain
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Rock hut
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 152 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4853,12 +4853,12 @@ The bowl looks like it has been pinched out of raw clay to make a useful contain
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Rock hut
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 153 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4886,12 +4886,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Fire Lake
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 154 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4931,12 +4931,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Dragon Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 155 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4963,12 +4963,12 @@ You hear a loud, trumpeting sound from above. A moment later a huge female drago
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Dragon Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 156 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -4995,12 +4995,12 @@ Kassi looks at you with an odd expression in her eyes. She steps forward and low
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Dragon Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 157 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5029,12 +5029,12 @@ Kassi looks at you with an odd expression in her eyes. She steps forward and low
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Dragon Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 158 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5063,12 +5063,12 @@ Kassi looks at you with an odd expression in her eyes. She steps forward and low
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Dragon Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 159 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5083,12 +5083,12 @@ Kassi looks at you with an odd expression in her eyes. She steps forward and low
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Dragon Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 160 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5103,12 +5103,12 @@ Kassi looks at you with an odd expression in her eyes. She steps forward and low
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Dragon Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 161 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5123,12 +5123,12 @@ Kassi looks at you with an odd expression in her eyes. She steps forward and low
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Dragon Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 162 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5143,12 +5143,12 @@ Kassi looks at you with an odd expression in her eyes. She steps forward and low
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Dragon Island
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 163 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5197,12 +5197,12 @@ Clio flies over to the cave entrance and peers into the dark interior for a mome
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Dragon Peak
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 164 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5269,12 +5269,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Sacred Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 165 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5303,12 +5303,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Sacred Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 166 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5357,12 +5357,12 @@ I projected to Earth and sabotaged the portal as soon as I was able. I didn't th
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Sacred Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 167 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5390,12 +5390,12 @@ I projected to Earth and sabotaged the portal as soon as I was able. I didn't th
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Sacred Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 168 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5419,12 +5419,12 @@ I projected to Earth and sabotaged the portal as soon as I was able. I didn't th
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Sacred Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 169 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5459,12 +5459,12 @@ Adriana gazes at the pearl in the palm of your hand with fierce intensity. The s
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Sacred Grotto
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 170 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5532,12 +5532,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Grasslands
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 171 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5592,12 +5592,12 @@ Clio is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Sacred Meadow
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 172 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5622,12 +5622,12 @@ This sunlit glade is so vibrant, bright, and colorful that it looks like an astr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Unicorn Glade
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 173 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5681,12 +5681,12 @@ The smile fades from his face to be replaced by a serious look.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Laboratory Interior
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 174 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5716,12 +5716,12 @@ Andrew is following you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Unicorn Glade
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 175 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
@@ -5845,12 +5845,12 @@ You take a moment to mentally review the poverty, pollution, and widespread suff
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=26
 [TEXT] Sacred Meadow
-[MSG] cmd=MOVETO a1=1 a2=82 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] 175 moves
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=94

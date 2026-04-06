@@ -64,12 +64,12 @@ A simple wooden chair stands before the writing desk.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] The common area
-[MSG] cmd=MOVETO a1=1 a2=73 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=61 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Score: 0  Moves: 0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -84,12 +84,12 @@ A simple wooden chair stands before the writing desk.
 [TEXT] In the centre of the floor here there is a large circular opening. The surface of the lagoon sloshes gently against the internal walls of the opening less than a metre beneath your feet. A stainless steel ladder runs down, disappearing beneath the surface of the water while doorways allow passage in the four cardinal directions.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The pool
-[MSG] cmd=MOVETO a1=1 a2=73 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=61 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Score: 0  Moves: 1
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -108,12 +108,12 @@ Lisa is here, sitting in the chair.
 Lisa quickly flicks off the main screen of the control panel as you enter the room. Shooting up out of her chair, she turns to face you. "You startled me," she blurts nervously.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The control centre
-[MSG] cmd=MOVETO a1=1 a2=73 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=61 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Score: 0  Moves: 2
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -134,12 +134,12 @@ Lisa quickly flicks off the main screen of the control panel as you enter the ro
 Lisa is here, standing close by.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The control centre
-[MSG] cmd=MOVETO a1=1 a2=73 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=61 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Score: 0  Moves: 3
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -160,12 +160,12 @@ Lisa is here, standing close by.
 Lisa is here, standing close by.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The control centre
-[MSG] cmd=MOVETO a1=1 a2=73 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=61 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Score: 0  Moves: 4
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -185,12 +185,12 @@ Watching you intently, Lisa points to the screen. "It's a whale, we get a lot of
 [YOUR SCORE JUST WENT UP BY 10 POINTS]
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The control centre
-[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=60 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Score: 10  Moves: 5
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -205,12 +205,12 @@ Watching you intently, Lisa points to the screen. "It's a whale, we get a lot of
 [TEXT] You are now back at the docking pool.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The pool
-[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=60 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Score: 10  Moves: 6
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -227,12 +227,12 @@ Watching you intently, Lisa points to the screen. "It's a whale, we get a lot of
 On the long bench is a GPS unit and a syringe.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=60 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Score: 10  Moves: 7
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -244,12 +244,12 @@ On the long bench is a GPS unit and a syringe.
 [TEXT] You take the GPS unit.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=60 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Score: 10  Moves: 7
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -264,12 +264,12 @@ On the long bench is a GPS unit and a syringe.
 [TEXT] You are now back at the docking pool.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The pool
-[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=60 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Score: 10  Moves: 8
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -290,12 +290,12 @@ A set of scuba fins lie nearby.
 Standing upright on the ground is a scuba cylinder.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The storage area
-[MSG] cmd=MOVETO a1=1 a2=72 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=60 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Score: 10  Moves: 9
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -307,12 +307,12 @@ Standing upright on the ground is a scuba cylinder.
 [TEXT] You turn the tap on the scuba cylinder into the open position.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The storage area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 10
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -326,12 +326,12 @@ You take the scuba fins.
 You take the scuba cylinder.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The storage area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 10
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -345,12 +345,12 @@ You put the scuba fins on.
 You heave the scuba cylinder over your shoulder and manage to contort yourself enough to slip your other arm through the strap. Once comfortable, you place the regulator in your mouth then begin to breathe normally.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The storage area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 13
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -369,12 +369,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] You are now back at the docking pool.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The pool
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 14
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -393,12 +393,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] You are bobbing on the surface of the lagoon, surrounded by a circular wall. A stainless steel ladder runs up from here into the research outpost.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The lagoon surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 15
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -413,12 +413,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] You are floating in the warm waters of the lagoon. The white sandy floor can be seen below, dimmed by the shadow of the research outpost floating above. There is a stainless steel ladder within reach that leads up, out of the water.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Beneath the outpost
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 16
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -433,12 +433,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] The floor of the lagoon is rockier here, gently rising to the south. To the north a sharp drop-off marks the threshold to the deeper seas of the open ocean.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The lagoon bottom
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 17
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -453,12 +453,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Sunlight dances brightly on the choppy surface of the water several metres above your head. To the south you can see the edge of a shelf running in between the two heads of the lagoon.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Mid water
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 18
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -473,12 +473,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] You are floating on the surface of the ocean. To the south, in between the heads, you can enter the lagoon.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 19
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -493,12 +493,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] You are floating on the surface of the ocean. The island can be made out not far to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 20
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -513,12 +513,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] You are floating on the surface of the ocean. The island can be made out not far to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 21
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -533,12 +533,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] You are floating on the surface of the ocean. The island can be made out not far to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 22
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -553,12 +553,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] You are floating on the surface of the ocean. The island can be made out not far to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 23
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -573,12 +573,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] You are floating on the surface of the ocean. The island can be made out not far to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 24
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -593,12 +593,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] You are floating on the surface of the ocean. The island can be made out some distance to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 25
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -613,12 +613,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Sunlight dances brightly on the choppy surface of the water several metres above your head. 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Mid water
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 26
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -633,12 +633,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Sunlight filters down from above giving the water an eerie blue glow. There is nothing but water to the limit of visibility in every direction.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Mid water
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 27
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -653,12 +653,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Filtered through the mass of water above your head, the sunlight here is noticeably subdued. There is nothing but water to the limit of visibility in every direction.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Mid water
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 28
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -673,12 +673,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 [TEXT] With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Looking down, you can now begin to make out the sandy form of the ocean floor. 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Mid water
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 29
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -695,12 +695,12 @@ You heave the scuba cylinder over your shoulder and manage to contort yourself e
 Put on guard by the soft humming noise of an electric motor, you squat down behind the rock formation. Peering out and around, you see a group of four divers working to load several long steel canisters, neatly stacked on the ocean floor, into an unmarked submarine hovering nearby. The divers appear to be unaware of your presence.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The rock formation
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 30
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -714,12 +714,12 @@ Put on guard by the soft humming noise of an electric motor, you squat down behi
 As each canister is lined up with an opening in the aft end of the submarine, the divers slowly begin to slide it along a set of rollers until it disappears into the submarine's interior.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The rock formation
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 31
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -733,12 +733,12 @@ As each canister is lined up with an opening in the aft end of the submarine, th
 Sudden commotion near the submarine draws your attention back to it. It appears that one of the canisters has somehow come open while being loaded, spilling several small glass vials on to the ocean floor. Divers quickly scramble to recover them, then continue to finish loading the canister from which they came.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The rock formation
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 32
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -752,12 +752,12 @@ Sudden commotion near the submarine draws your attention back to it. It appears 
 With the canisters now firmly in place, one of the divers closes the hatch to the submarine. Glancing around briefly, he turns then follows the other divers up through an opening in the submarine's base.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The rock formation
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 33
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -773,12 +773,12 @@ The submarine's propellers, previously turning slowly to counter the mild curren
 As the silt stirred up by the submarine's propellers begins to clear, a soft glint catches your eye. It would appear that one of the spilled vials, having up until now been covered by a layer of soft sand, has been inadvertently left behind.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The rock formation
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 10  Moves: 34
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -794,12 +794,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [YOUR SCORE JUST WENT UP BY 10 POINTS]
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The rock formation
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 34
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -814,12 +814,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Looking down, you can now begin to make out the sandy form of the ocean floor. 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Mid water
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 35
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -834,12 +834,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Filtered through the mass of water above your head, the sunlight here is noticeably subdued. There is nothing but water to the limit of visibility in every direction.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Mid water
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 36
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -854,12 +854,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Sunlight filters down from above giving the water an eerie blue glow. There is nothing but water to the limit of visibility in every direction.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Mid water
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 37
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -874,12 +874,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Sunlight dances brightly on the choppy surface of the water several metres above your head. 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Mid water
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 38
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -894,12 +894,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are floating on the surface of the ocean. The island can be made out some distance to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 39
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -914,12 +914,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are floating on the surface of the ocean. The island can be made out not far to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 40
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -934,12 +934,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are floating on the surface of the ocean. The island can be made out not far to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 41
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -954,12 +954,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are floating on the surface of the ocean. The island can be made out not far to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 42
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -974,12 +974,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are floating on the surface of the ocean. The island can be made out not far to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 43
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -994,12 +994,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are floating on the surface of the ocean. The island can be made out not far to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 44
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1014,12 +1014,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are floating on the surface of the ocean. To the south, in between the heads, you can enter the lagoon.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The ocean surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 45
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1034,12 +1034,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] The red tropical sun warms your face pleasingly as you float on the surface of the lagoon. A small sandy beach stretches southward of the west head while the research outpost can be seen floating to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The lagoon surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 46
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1054,12 +1054,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] Once again, you are floating beneath the surface of the lagoon.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] The lagoon bottom
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 47
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1074,12 +1074,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are floating in the water beneath the outpost.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] Beneath the outpost
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 48
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1094,12 +1094,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are, once again, floating on the surface of docking pool.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The lagoon surface
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 49
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1118,12 +1118,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are now back at the docking pool.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The pool
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 50
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1142,12 +1142,12 @@ As the silt stirred up by the submarine's propellers begins to clear, a soft gli
 [TEXT] You are in the storage area again.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The storage area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 51
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1161,12 +1161,12 @@ You remove the scuba fins.
 You are carrying too much to remove the scuba cylinder.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The storage area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 53
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1181,12 +1181,12 @@ Unfastening the cummerbund, you slip the scuba cylinder off your shoulder and be
 You drop the scuba cylinder.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The storage area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 56
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1198,12 +1198,12 @@ You drop the scuba cylinder.
 [TEXT] You drop the GPS unit.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The storage area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 57
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1218,12 +1218,12 @@ You drop the scuba cylinder.
 [TEXT] You are now back at the docking pool.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The pool
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 58
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1240,12 +1240,12 @@ You drop the scuba cylinder.
 A simple wooden chair stands before the writing desk.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] The common area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 59
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1257,12 +1257,12 @@ A simple wooden chair stands before the writing desk.
 [TEXT] You open the desk drawer revealing your final report and a microcassette.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] The common area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 60
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1274,12 +1274,12 @@ A simple wooden chair stands before the writing desk.
 [TEXT] You reluctantly pick your report up again.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] The common area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 60
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1294,12 +1294,12 @@ A simple wooden chair stands before the writing desk.
 [TEXT] You are now back at the docking pool.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The pool
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 61
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1314,12 +1314,12 @@ A simple wooden chair stands before the writing desk.
 [TEXT] You have returned to the laboratory.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 62
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1331,12 +1331,12 @@ A simple wooden chair stands before the writing desk.
 [TEXT] You open the specimen fridge revealing the first petri dish, the second petri dish and a conical flask.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 63
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1350,12 +1350,12 @@ You take the second petri dish.
 You take the conical flask.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 63
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1367,12 +1367,12 @@ You take the conical flask.
 [TEXT] You take the syringe.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 63
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1384,12 +1384,12 @@ You take the conical flask.
 [TEXT] Puncturing the rubber membrane with the tip of the needle, you pull back on the plunger drawing the clear liquid into the syringe.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 64
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1401,12 +1401,12 @@ You take the conical flask.
 [TEXT] You inject the clear liquid into the brown agar.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 65
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1418,12 +1418,12 @@ You take the conical flask.
 [TEXT] You pour a small amount of the pale yellow liquid on to the brown agar.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 65
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1435,12 +1435,12 @@ You take the conical flask.
 [TEXT] You open the compartment, which is empty.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 66
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1452,12 +1452,12 @@ You take the conical flask.
 [TEXT] You put the first petri dish in the compartment.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 66
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1469,12 +1469,12 @@ You take the conical flask.
 [TEXT] You close the compartment.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 67
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1486,12 +1486,12 @@ You take the conical flask.
 [TEXT] A gentle hissing noise is followed by an electric whirr, a rather alarming chunking sound, then a triumphant beep. Moments later a green slide pops out on to the work bench from an opening on the side of the device.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 68
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1503,12 +1503,12 @@ You take the conical flask.
 [TEXT] You take the green slide.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 68
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1520,12 +1520,12 @@ You take the conical flask.
 [TEXT] With a sharp click, the slide fits neatly into the slot in the base of the microscope.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 20  Moves: 68
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1543,12 +1543,12 @@ The fragmented cell wall and internal structure indicate that the Salmonella bac
 [YOUR SCORE JUST WENT UP BY 10 POINTS]
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 30  Moves: 69
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1560,12 +1560,12 @@ The fragmented cell wall and internal structure indicate that the Salmonella bac
 [TEXT] You take the green slide.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] The laboratory
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 30  Moves: 69
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1580,12 +1580,12 @@ The fragmented cell wall and internal structure indicate that the Salmonella bac
 [TEXT] You are now back at the docking pool.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The pool
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 30  Moves: 70
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1608,12 +1608,12 @@ Standing upright on the ground is a scuba cylinder.
 There is a GPS unit here.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The storage area
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 30  Moves: 71
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1632,12 +1632,12 @@ There is a GPS unit here.
 [TEXT] Keeping a wide stance to help stabilise yourself, you are standing on a floating walkway that leads from the research outpost in the east, to the shore of the lagoon in the west. The door leading into the outpost is open.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] The floating walkway
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 30  Moves: 73
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1652,12 +1652,12 @@ There is a GPS unit here.
 [TEXT] You are standing on a beach that lines the west shore of the lagoon. Further to the west, the afternoon sun filters through a wall of tall palms that lines the bank of a steeply rising hill. To the south the beach narrows, eventually becoming nothing more than a meandering trail that gradually disappears into the jungle. A long walkway leads east from here, out across the calm waters of the lagoon to where the research outpost floats.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The lagoon beach
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 30  Moves: 74
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1672,12 +1672,12 @@ There is a GPS unit here.
 [TEXT] You are on a narrow trail that winds its way north-south through the jungle. Weird and wonderful noises fill the air, some you recognise, some you don't.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] The trail
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 30  Moves: 75
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1696,12 +1696,12 @@ There is a GPS unit here.
 [TEXT] The jungle thins and the trail fades as they approach the south shore of the island. Sparkling water flows down a sandy estuary from the northwest, bending to the south as it traverses the gentle slope towards the ocean. To the east lies the compound of the main military base.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] The estuary
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 30  Moves: 76
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1716,12 +1716,12 @@ There is a GPS unit here.
 [TEXT] The side of this grassy hill affords a magnificent view of the south coast of the island. Much more hospitable than the shear cliffs of the north, the long white sandy beach has been a popular spot for fishing, swimming or just lying about in the warm tropical sun. Looking around, you almost didn't notice a small wooden shed, partially covered in camouflage netting, standing crooked on the north bank of the stream.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The hill
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 30  Moves: 77
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1736,12 +1736,12 @@ There is a GPS unit here.
 [TEXT] Many crooked shelves line the walls of this disused shed. Its door, long ago ripped from its hinges, lies flat on the floor beside a large red metal drum. The ground can be seen clearly beneath your feet through large gaps in the decaying floor boards.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The shed
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 30  Moves: 78
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1757,12 +1757,12 @@ There is a GPS unit here.
 [YOUR SCORE JUST WENT UP BY 5 POINTS]
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The shed
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 35  Moves: 79
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1777,12 +1777,12 @@ There is a GPS unit here.
 [TEXT] Once again, you are standing on the grassy hill.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] The hill
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 35  Moves: 80
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1797,12 +1797,12 @@ There is a GPS unit here.
 [TEXT] You have arrived back at the estuary.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] The estuary
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 35  Moves: 81
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1817,12 +1817,12 @@ There is a GPS unit here.
 [TEXT] Stretching out before the gently rolling waves of the Pacific Ocean, this beach is undoubtedly the most beautiful on the island. Fresh water from the surrounding hills flows down to meet the ocean here, digging deep grooves in the soft white sand. To the northeast, through a band of sparse costal bushes, you can make out the back of a large hangar.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] The south beach
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 35  Moves: 82
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1837,12 +1837,12 @@ There is a GPS unit here.
 [TEXT] Scattered coastal bushes provide minimal cover from sight here behind the hangar. Up against the back wall of the hangar there is a rectangular crate.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] Behind the hangar
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 35  Moves: 83
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1858,12 +1858,12 @@ There is a GPS unit here.
 [YOUR SCORE JUST WENT UP BY 5 POINTS]
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] Behind the hangar
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 40  Moves: 84
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1878,12 +1878,12 @@ There is a GPS unit here.
 [TEXT] You are standing on top of the rectangular crate with the ground six feet below. The back wall of the hangar stretches up another seven feet taller than the top of the crate.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] On the crate
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 40  Moves: 85
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1902,12 +1902,12 @@ There is a GPS unit here.
 [TEXT] You are near the south end of the hangar's roof, crouching down below the ridge line in order not to be seen.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] South end of roof
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 40  Moves: 86
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1922,12 +1922,12 @@ There is a GPS unit here.
 [TEXT] You are near the north end of the hangar's roof, crouching down below the ridge line in order not to be seen. A square section of sheeting has been removed beside a ventilation pipe creating an opening large enough for you to pass through into the hangar's interior. A length of rope has one end tied to the ventilation pipe with the other dangling down through the opening.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] North end of roof
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 40  Moves: 87
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1967,12 +1967,12 @@ The access door opening stops your assailant in mid-sentence as he spins around,
 "Don't do it, Dr Meadows," the stranger protests, "you don't know what's going on. I've been investigating Dr Zuckerman and his work for over a year. If I get turned in now, chances are it will have all been for nothing. He's an evil man, Alex. Don't help the military protect him any longer."
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] North end of hanger
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 40  Moves: 88
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -1994,12 +1994,12 @@ Satisfied that Lisa is now securely bound, he begins to search around the room. 
 "Anything that will shed further light on the exact nature of Dr Zuckerman's experiments."
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] North end of hanger
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 40  Moves: 89
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2011,12 +2011,12 @@ Satisfied that Lisa is now securely bound, he begins to search around the room. 
 [TEXT] Pulling the drawer out to its extreme and then angling it upwards, you manage to remove the top drawer from its railing.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] North end of hanger
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 40  Moves: 89
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2028,12 +2028,12 @@ Satisfied that Lisa is now securely bound, he begins to search around the room. 
 [TEXT] You drop the top drawer.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] North end of hanger
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 40  Moves: 90
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2049,12 +2049,12 @@ Satisfied that Lisa is now securely bound, he begins to search around the room. 
 [YOUR SCORE JUST WENT UP BY 5 POINTS]
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] North end of hanger
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 45  Moves: 90
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2072,12 +2072,12 @@ As you do so the stranger's eyes light up. "Your tests appear to confirm our fin
 [YOUR SCORE JUST WENT UP BY 5 POINTS]
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] North end of hanger
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 50  Moves: 91
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2101,12 +2101,12 @@ After a lengthy pause, the stranger turns and looks you directly in in the eye. 
 "The fact that you are a scientist is exactly why we need you," the stranger interjects, making you aware of the fact that you had been thinking out loud. "Go and submit your final report as normal. Wise will then have you flown out to the mainland where one of our operatives will rendezvous with you. He will then escort you to Monte Carlo, where you will be briefed as to what we will require. We need you, Alex. The truth needs you."
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] North end of hanger
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 60  Moves: 92
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2121,12 +2121,12 @@ After a lengthy pause, the stranger turns and looks you directly in in the eye. 
 [TEXT] You are crouching down at the north end of the hangar's roof.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] North end of roof
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 60  Moves: 93
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2141,12 +2141,12 @@ After a lengthy pause, the stranger turns and looks you directly in in the eye. 
 [TEXT] You are crouching down at the south end of the hangar's roof.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] South end of roof
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 60  Moves: 94
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2161,12 +2161,12 @@ After a lengthy pause, the stranger turns and looks you directly in in the eye. 
 [TEXT] You are standing on the crate.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] On the crate
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 60  Moves: 95
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2181,12 +2181,12 @@ After a lengthy pause, the stranger turns and looks you directly in in the eye. 
 [TEXT] You are behind the hangar again.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] Behind the hangar
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 60  Moves: 96
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2201,12 +2201,12 @@ After a lengthy pause, the stranger turns and looks you directly in in the eye. 
 [TEXT] You are again at the south beach.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] The south beach
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 60  Moves: 97
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2221,12 +2221,12 @@ After a lengthy pause, the stranger turns and looks you directly in in the eye. 
 [TEXT] You have arrived back at the estuary.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] The estuary
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 60  Moves: 98
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2243,12 +2243,12 @@ After a lengthy pause, the stranger turns and looks you directly in in the eye. 
 A burly MP stands guard at the door to the hangar.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The compound
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
 [TEXT] Score: 60  Moves: 99
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2265,12 +2265,12 @@ A burly MP stands guard at the door to the hangar.
 "I had been expecting you a lot sooner than this," Colonel Wise grumbles as you enter. "There's a helicopter leaving for the mainland this evening," he continues after a moment's pause, strategically weighted to make you feel as uneasy as possible. "Under no circumstances do I want to go to sleep tonight without your report on my desk and your butt on that helicopter. Understood?"
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Colonel Wise's office
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 60  Moves: 100
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2346,12 +2346,12 @@ Agent Petrescu is standing stooped in the van.
 Taking the ear piece from Agent Petrescu's hand you place it in your ear.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] The van
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 70  Moves: 101
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2369,12 +2369,12 @@ Taking the ear piece from Agent Petrescu's hand you place it in your ear.
 "Good," Agent Petrescu continues. "The conference is strictly by invitation only, so be sure to make your entrance discreet. Remember, the reason you are here is to relate to Dr Zuckerman as a fellow scientist. Once you have made contact, try to get him talking about his project. When we have enough information, we will radio two undercover agents on the inside to make the arrest. Oh yeah, and good luck."
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] The van
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 70  Moves: 102
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2389,12 +2389,12 @@ Taking the ear piece from Agent Petrescu's hand you place it in your ear.
 [TEXT] Light from the street lamps is softened by a dense fog that is slowly beginning to roll in. To the south you can see down the steep rocky cliffs out across the Mediterranean Sea. To the west, parked against the curb, is a white Mercedes van while the Hotel Les Terrasses d'Eze lies across the road to the north. The sliding door to the van is currently open.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] The street
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 70  Moves: 103
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2409,12 +2409,12 @@ Taking the ear piece from Agent Petrescu's hand you place it in your ear.
 [TEXT] Several uniformed men stand here escorting hotel guests from their cars into the brightly lit lobby to the north. Valet parking attendants briskly dispatch each private vehicle to the hotel's underground car park while an endless stream of hire cars come and go at a chaotic rate.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The driveway
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 70  Moves: 104
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2435,12 +2435,12 @@ Taking the ear piece from Agent Petrescu's hand you place it in your ear.
 An A-frame sign stands to one side.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] The lobby
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 70  Moves: 105
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2457,12 +2457,12 @@ An A-frame sign stands to one side.
 Behind the bar, wearing a neatly pressed dinner suit, is a cocktail waiter.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] The bar
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 70  Moves: 106
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2485,12 +2485,12 @@ Standing by the table at which the men are seated is a waitress.
 The waitress takes two drinks from a tray that she is holding and places them onto the table occupied by the men. Thanking the waitress, the elderly man takes a credit card from his wallet and places it on the now empty tray. With a brief smile, the waitress heads off to the north.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] The lounge
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 70  Moves: 107
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2506,12 +2506,12 @@ The waitress takes two drinks from a tray that she is holding and places them on
 [YOUR SCORE JUST WENT UP BY 5 POINTS]
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] The lounge
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 75  Moves: 108
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2530,12 +2530,12 @@ Behind the bar, wearing a neatly pressed dinner suit, is a cocktail waiter.
 There is a waitress wandering about here taking peoples' orders.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] The bar
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 75  Moves: 109
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2551,12 +2551,12 @@ There is a waitress wandering about here taking peoples' orders.
 [YOUR SCORE JUST WENT UP BY 5 POINTS]
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] The bar
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 110
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2573,12 +2573,12 @@ There is a waitress wandering about here taking peoples' orders.
 An A-frame sign stands to one side.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] The lobby
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 111
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2595,12 +2595,12 @@ An A-frame sign stands to one side.
 A single concierge stands behind the counter.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The concierge desk
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 112
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2612,12 +2612,12 @@ A single concierge stands behind the counter.
 [TEXT] "And who shall I say is paging?" the concierge enquires.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The concierge desk
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 112
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2630,12 +2630,12 @@ A single concierge stands behind the counter.
 After a few brief words, he hangs the phone up again and turns back to you. "Monsieur Gullit will be down shortly."
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The concierge desk
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 113
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2652,12 +2652,12 @@ After a few brief words, he hangs the phone up again and turns back to you. "Mon
 An A-frame sign stands to one side.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] The lobby
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 114
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2672,12 +2672,12 @@ An A-frame sign stands to one side.
 [TEXT] You are on the ground floor standing outside a lift. There is a call button beside the lift door and a mirror on the wall to your left. Beneath the mirror there is an ornate side table. The hotel lobby can be seen to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The ground floor
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 115
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2689,12 +2689,12 @@ An A-frame sign stands to one side.
 [TEXT] A crisp-sounding bell rings briefly and the doors to the lift slide open.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] The ground floor
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 116
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2709,12 +2709,12 @@ An A-frame sign stands to one side.
 [TEXT] The lift is about three metres square and every bit as opulent as the rest of the hotel. There is a panel of buttons on the wall directly beneath a small metal plaque. The door to the south is currently open, and there is the usual panel of buttons beside it.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 117
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2728,12 +2728,12 @@ An A-frame sign stands to one side.
 The lift doors slide closed.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 118
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2745,12 +2745,12 @@ The lift doors slide closed.
 [TEXT] Time passes...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 119
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2762,12 +2762,12 @@ The lift doors slide closed.
 [TEXT] Time passes...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 120
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2779,12 +2779,12 @@ The lift doors slide closed.
 [TEXT] Time passes...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 121
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2796,12 +2796,12 @@ The lift doors slide closed.
 [TEXT] Time passes...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 122
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2813,12 +2813,12 @@ The lift doors slide closed.
 [TEXT] Time passes...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 123
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2832,12 +2832,12 @@ The lift doors slide closed.
 The lift vibrates as it slowly ascends.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 124
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2851,12 +2851,12 @@ The lift vibrates as it slowly ascends.
 The lift vibrates as it slowly ascends.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 125
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2870,12 +2870,12 @@ The lift vibrates as it slowly ascends.
 The lift vibrates as it slowly ascends.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 126
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2891,12 +2891,12 @@ Having arrived at the selected floor, the lift gently comes to a halt and the do
 A well dressed gentleman with dreadlocks enters the lift from outside and presses the button for the ground floor.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] The elevator
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 80  Moves: 127
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2915,12 +2915,12 @@ A well dressed gentleman with dreadlocks enters the lift from outside and presse
 [YOUR SCORE JUST WENT UP BY 10 POINTS]
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
 [TEXT] The third floor
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 90  Moves: 128
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2941,12 +2941,12 @@ A well dressed gentleman with dreadlocks enters the lift from outside and presse
 "Our next speaker will not be for several minutes ladies and gentlemen, so please relax and enjoy yourselves. Tea and coffee will be served shortly along with your choice of dessert from the menu," a distinguished-looking gentlemen says from behind the lectern, before taking his seat at a table near the front.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=38
 [TEXT] The conference room
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 90  Moves: 129
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2964,12 +2964,12 @@ A well dressed gentleman with dreadlocks enters the lift from outside and presse
 [TEXT] You are in a north-south hallway which runs along the west side of the conference room. The conference room can be entered through a doorway to the east while there are closed doors to the west and south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The backstage area
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 90  Moves: 130
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -2981,12 +2981,12 @@ A well dressed gentleman with dreadlocks enters the lift from outside and presse
 [TEXT] You gently open the door.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] The backstage area
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 90  Moves: 131
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -3007,12 +3007,12 @@ Standing with his back to you, staring out the window, is Dr Zuckerman.
 Pausing for a while, Dr Zuckerman's face softens slightly. "But, somewhere deep inside, I hoped that you would discover the truth -- that you would come and end the loneliness of my work. I do hope my faith in you and your reputation was not misplaced."
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Dr Zuckerman's office
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 90  Moves: 132
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -3024,12 +3024,12 @@ Pausing for a while, Dr Zuckerman's face softens slightly. "But, somewhere deep 
 [TEXT] Dr Zuckerman laughs. You are resourceful Dr Meadows! "Most of the logistics I left to the military. They seem to thrive on petty tasks like delivery."
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Dr Zuckerman's office
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 90  Moves: 133
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -3041,12 +3041,12 @@ Pausing for a while, Dr Zuckerman's face softens slightly. "But, somewhere deep 
 [TEXT] "The clear liquid you are referring to has one amazing property. It has the ability to efficiently conduct the energy that is the very essence of life. The Chinese studied it over two millennia ago, calling it congenital or prenatal jing. They discovered that everybody has a finite amount of this energy to conserve or to squander. Everybody except me that is." Taking a moment to bask in the glory of his achievement, Dr Zuckerman finally continues, "I have an unlimited supply, and that is the key to immortality."
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Dr Zuckerman's office
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 90  Moves: 134
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -3061,12 +3061,12 @@ Pausing for a while, Dr Zuckerman's face softens slightly. "But, somewhere deep 
 "Ask him about the project, about the human tests," Agent Hughes voice says, emanating from the ear piece.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Dr Zuckerman's office
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 90  Moves: 135
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -3078,12 +3078,12 @@ Pausing for a while, Dr Zuckerman's face softens slightly. "But, somewhere deep 
 [TEXT] "Most of my work on the island revolved around marine tests using a large fish tank in a hangar on the south side of the island. It was careless management by the military of the waste from those experiments that led to the original deaths of marine life in the waters surrounding the island, not the Rotenone."
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Dr Zuckerman's office
-[MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
 [TEXT] Score: 90  Moves: 136
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -3163,12 +3163,12 @@ Your score is 100% in 136 moves.
 [TEXT] .
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Game Over
-[MSG] cmd=MOVETO a1=1 a2=69 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] Score: 100  Moves: 136
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
@@ -3180,12 +3180,12 @@ Your score is 100% in 136 moves.
 [TEXT] Are you sure you want to quit?
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=184
-[TEXT]                                                                                             
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Game Over
-[MSG] cmd=MOVETO a1=1 a2=69 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] Score: 100  Moves: 136
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=58
