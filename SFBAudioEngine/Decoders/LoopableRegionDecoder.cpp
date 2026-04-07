@@ -126,8 +126,9 @@ SFB::CFString SFB::Audio::LoopableRegionDecoder::_GetSourceFormatDescription() c
 
 UInt32 SFB::Audio::LoopableRegionDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32 frameCount)
 {
-    if (mRepeatCount == SFB_INFINITE_LOOP && mCompletedPasses > mRepeatCount - 2)
-        mCompletedPasses = mRepeatCount - 2;
+	if (mRepeatCount == SFB_INFINITE_LOOP && mCompletedPasses > mRepeatCount - 2) {
+		mCompletedPasses = mRepeatCount - 2;
+	}
 
 	// If the repeat count is N then (N + 1) passes must be completed to read all the frames
 	if((1 + mRepeatCount) == mCompletedPasses) {
