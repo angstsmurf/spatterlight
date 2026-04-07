@@ -139,7 +139,7 @@
             return nil;
     }
     NSImageRep *rep = reps[0];
-    NSSize size = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+    NSSize size = NSMakeSize((CGFloat)rep.pixelsWide, (CGFloat)rep.pixelsHigh);
 
     if (size.height == 0 || size.width == 0) {
         NSLog(@"ImageResource: image size is zero!");
