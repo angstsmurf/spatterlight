@@ -327,7 +327,7 @@ static int _fetch_headers(OggVorbis_File *vf,vorbis_info *vi,vorbis_comment *vc,
          vorbis_synthesis_idheader(&op)){
         /* vorbis header; continue setup */
         vf->ready_state=STREAMSET;
-        if((ret=vorbis_synthesis_headerin(vi,vc,&op))){
+        if((vorbis_synthesis_headerin(vi,vc,&op))){
           ret=OV_EBADHEADER;
           goto bail_header;
         }

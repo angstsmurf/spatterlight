@@ -131,8 +131,8 @@ bool SFB::Audio::OggVorbisDecoder::_Open(CFErrorRef *error)
 	ov_callbacks callbacks = {
 		.read_func = read_func_callback,
 		.seek_func = seek_func_callback,
-		.tell_func = tell_func_callback,
-		.close_func = nullptr
+		.close_func = nullptr,
+		.tell_func = tell_func_callback
 	};
 
 	if(0 != ov_test_callbacks(this, &mVorbisFile, nullptr, 0, callbacks)) {
@@ -171,7 +171,7 @@ bool SFB::Audio::OggVorbisDecoder::_Open(CFErrorRef *error)
 	mFormat.mFormatFlags		= kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;
 
 	mFormat.mBitsPerChannel		= 8 * sizeof(float);
-	mFormat.mSampleRate			= ovInfo->rate;
+	mFormat.mSampleRate			= (Float64)ovInfo->rate;
 	mFormat.mChannelsPerFrame	= (UInt32)ovInfo->channels;
 
 	mFormat.mBytesPerPacket		= (mFormat.mBitsPerChannel / 8);
@@ -183,7 +183,7 @@ bool SFB::Audio::OggVorbisDecoder::_Open(CFErrorRef *error)
 	// Set up the source format
 	mSourceFormat.mFormatID				= kAudioFormatVorbis;
 
-	mSourceFormat.mSampleRate			= ovInfo->rate;
+	mSourceFormat.mSampleRate			= (Float64)ovInfo->rate;
 	mSourceFormat.mChannelsPerFrame		= (UInt32)ovInfo->channels;
 
 	switch(ovInfo->channels) {
