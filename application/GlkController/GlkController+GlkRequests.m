@@ -30,6 +30,7 @@
 #import "NSString+Categories.h"
 
 #include "glkimp.h"
+#include "messagenames.h"
 #include "protocol.h"
 
 #ifndef DEBUG

@@ -1,0 +1,1357 @@
+=== Spatterlight Interpreter Log ===
+Game: etude.z5
+Interpreter: bocfel
+
+[MSG] cmd=HELLO a1=0 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=4 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=4 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=4 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=1 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=1 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=1 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=5 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=5 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=5 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=2 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=2 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=2 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=9 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=9 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=9 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=10 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=10 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=10 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=4 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=1 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=5 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=5 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=2 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=9 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=9 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=10 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=10 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=6 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEWCHAN a1=65536 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEWCHAN a1=65536 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEWWIN a1=4 a2=1 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETBGND a1=0 a2=-1 a3=0 len=0
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETBGND a1=1 a2=-1 a3=0 len=0
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2176
+[TEXT] 
+TerpEtude: A Z-machine Interpreter Exerciser
+By Andrew Plotkin (erkyrath@netcom.com)
+Release 2 / built with Inform v6.11
+Tests compliance with Z-Machine Standards Document 0.99.
+
+NOTE: This program does not test everything in the Z-Spec. Passing all the tests in this program does NOT guarantee that your interpreter is Z-Spec-compliant.
+
+For that matter, this program may have mistakes in it. I don't think it does, but you should not assume it is the Fount of All Z-Machineness. If you find something strange, check the Z-Spec, check existing interpreters, check Infocom's interpreters, and then send me mail if you're still confused.
+
+Options: (hit Enter by itself to display this menu)
+  . (period): Exit TerpEtude
+  1: Version
+  2: Recent changes to TerpEtude
+  3: Header flags analysis
+  4: Styled text
+  5: Colored text
+  6: Multiplication, division, remainder
+  7: Accented character output
+  8: Single-key input
+  9: Full-line input
+  10: Timed single-key input
+  11: Timed full-line input
+  12: Pre-loading of input line
+  13: Undo capability
+  14: Printing before quitting
+
+> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] 1
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1282
+[TEXT] 
+TerpEtude: A Z-machine Interpreter Exerciser
+By Andrew Plotkin (erkyrath@netcom.com)
+Release 2 / built with Inform v6.11
+Tests compliance with Z-Machine Standards Document 0.99.
+
+NOTE: This program does not test everything in the Z-Spec. Passing all the tests in this program does NOT guarantee that your interpreter is Z-Spec-compliant.
+
+For that matter, this program may have mistakes in it. I don't think it does, but you should not assume it is the Fount of All Z-Machineness. If you find something strange, check the Z-Spec, check existing interpreters, check Infocom's interpreters, and then send me mail if you're still confused.
+
+> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] 2
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1332
+[TEXT] 
+In the beginning, TerpEtude was written. That was release DRAFT-1.
+
+   Release 2:
+Accented-out test: Added ability to display characters in bold, underline, and fixed-width styles.
+Accented-out test: Noted that >> and << are, in fact, tested correctly.
+Given-text test: It's the game file's job to print the given text before it calls @read. Fixed test to do this.
+Timed-string test: Changed test to do both "invisible" and "visible" interrupts (only one interrupt in three actually prints text.)
+
+   Upcoming Test Features:
+List of terminating characters
+Fonts
+Stream 3 nesting
+
+   Credits:
+Title: Jon Ferro
+Spec Aid: Graham, SJ, PDD, and the rest of the crowd
+
+> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] 3
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=906
+[TEXT] 
+Your interpreter claims to follow revision 1.1 of the Z-Spec.
+
+Interpreter claims that colored text IS available.
+Interpreter claims that emphasized (bold) text IS available.
+Interpreter claims that italic (or underlined) text IS available.
+Interpreter claims that fixed-width text IS available.
+Interpreter claims that sound effects ARE NOT available.
+Interpreter claims that timed input IS available.
+
+Interpreter claims that "undo" IS available.
+
+> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] 4
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=368
+[TEXT] 
+Interpreter claims that emphasized (bold) text IS available.
+Interpreter claims that italic (or underlined) text IS available.
+Interpreter claims that fixed-width text IS available.
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=62
+[TEXT] Test of emphasized (bold) text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=38
+[TEXT] 
+...normal font...
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=72
+[TEXT] Test of italic (or underlined) text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=38
+[TEXT] 
+...normal font...
+
+[MSG] cmd=SETREVERSE a1=0 a2=1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=54
+[TEXT] Test of reverse-video text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=38
+[TEXT] 
+...normal font...
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=138
+[TEXT] Test of fixed-width text (using "font off", which sets a header bit).
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=38
+[TEXT] 
+...normal font...
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=106
+[TEXT] Test of fixed-width text (using "@set_text_style 8").
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=342
+[TEXT] 
+
+Now we will try combining styles. The Z-Spec does not require interpreters to display combined styles, so the lines below may not have all the styles they say they do.
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=5 a3=0 len=52
+[TEXT] Test of bold, italic text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=54
+[TEXT] Test of bold, reverse text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=58
+[TEXT] Test of italic, reverse text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=5 a3=0 len=70
+[TEXT] Test of bold, italic, reverse text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=262
+[TEXT] 
+
+The following are all printed with "font off" (that is, the header bit remains set, even though "style roman" statements occur.)
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=9 a3=0 len=50
+[TEXT] Test of fixed, bold text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=10 a3=0 len=54
+[TEXT] Test of fixed, italic text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=56
+[TEXT] Test of fixed, reverse text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=66
+[TEXT] Test of fixed, bold, italic text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=9 a3=0 len=68
+[TEXT] Test of fixed, bold, reverse text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=10 a3=0 len=72
+[TEXT] Test of fixed, italic, reverse text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=84
+[TEXT] Test of fixed, bold, italic, reverse text.
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=48
+[TEXT] 
+End of styles test.
+
+> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] 5
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=488
+[TEXT] 
+Interpreter claims that colored text IS available.
+
+In the square below, you should see vertical stripes of background color (matching the column headers) and horizontal rows of foreground color (that is, all # marks in a row the same color.)
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=50
+[TEXT] 
+Bk Rd Gr Yl Bl Mg Cy Wh
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=0 a3=15663104 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=0 a3=15663104 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=0 a3=54784 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=0 a3=54784 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=0 a3=15724288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=0 a3=15724288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=0 a3=27573 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=0 a3=27573 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=0 a3=16711935 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=0 a3=16711935 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=0 a3=61423 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=0 a3=61423 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=0 a3=16777215 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=0 a3=16777215 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=16
+[TEXT] : Black
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15663104 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15663104 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15663104 a3=15663104 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15663104 a3=15663104 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15663104 a3=54784 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15663104 a3=54784 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15663104 a3=15724288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15663104 a3=15724288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15663104 a3=27573 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15663104 a3=27573 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15663104 a3=16711935 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15663104 a3=16711935 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15663104 a3=61423 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15663104 a3=61423 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15663104 a3=16777215 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15663104 a3=16777215 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=12
+[TEXT] : Red
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=54784 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=54784 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=54784 a3=15663104 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=54784 a3=15663104 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=54784 a3=54784 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=54784 a3=54784 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=54784 a3=15724288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=54784 a3=15724288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=54784 a3=27573 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=54784 a3=27573 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=54784 a3=16711935 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=54784 a3=16711935 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=54784 a3=61423 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=54784 a3=61423 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=54784 a3=16777215 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=54784 a3=16777215 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=16
+[TEXT] : Green
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15724288 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15724288 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15724288 a3=15663104 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15724288 a3=15663104 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15724288 a3=54784 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15724288 a3=54784 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15724288 a3=15724288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15724288 a3=15724288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15724288 a3=27573 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15724288 a3=27573 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15724288 a3=16711935 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15724288 a3=16711935 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15724288 a3=61423 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15724288 a3=61423 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=15724288 a3=16777215 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=15724288 a3=16777215 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=18
+[TEXT] : Yellow
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=27573 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=27573 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=27573 a3=15663104 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=27573 a3=15663104 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=27573 a3=54784 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=27573 a3=54784 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=27573 a3=15724288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=27573 a3=15724288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=27573 a3=27573 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=27573 a3=27573 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=27573 a3=16711935 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=27573 a3=16711935 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=27573 a3=61423 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=27573 a3=61423 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=27573 a3=16777215 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=27573 a3=16777215 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=14
+[TEXT] : Blue
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16711935 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16711935 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16711935 a3=15663104 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16711935 a3=15663104 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16711935 a3=54784 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16711935 a3=54784 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16711935 a3=15724288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16711935 a3=15724288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16711935 a3=27573 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16711935 a3=27573 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16711935 a3=16711935 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16711935 a3=16711935 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16711935 a3=61423 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16711935 a3=61423 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16711935 a3=16777215 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16711935 a3=16777215 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=20
+[TEXT] : Magenta
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=61423 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=61423 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=61423 a3=15663104 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=61423 a3=15663104 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=61423 a3=54784 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=61423 a3=54784 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=61423 a3=15724288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=61423 a3=15724288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=61423 a3=27573 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=61423 a3=27573 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=61423 a3=16711935 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=61423 a3=16711935 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=61423 a3=61423 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=61423 a3=61423 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=61423 a3=16777215 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=61423 a3=16777215 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=14
+[TEXT] : Cyan
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=15663104 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16777215 a3=15663104 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=54784 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16777215 a3=54784 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=15724288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16777215 a3=15724288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=27573 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16777215 a3=27573 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=16711935 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16777215 a3=16711935 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=61423 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16777215 a3=61423 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=16777215 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=16777215 a3=16777215 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[TEXT] ## 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=16
+[TEXT] : White
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] 6
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1776
+[TEXT] 
+This tests signed multiplication, division, and modulo operations. All these operations are supposed to be signed. (The Z-Spec 0.2 erroneously says they are unsigned; this is corrected in 0.99.)
+
+I am assuming the convention that division always rounds towards zero (not towards negative infinity), and (A % B) always has the same sign as A. These conventions seem to be common among existing C/C++ compilers. The Infocom interpreters also follow these conventions. (But they are not guaranteed by the C and C++ standards. Those only require that (A/B)*B + (A%B) == A, for all A and all nonzero B.)
+
+13 * 5 = 65 (ok)
+13 * -5 = -65 (ok)
+-13 * 5 = -65 (ok)
+-13 * -5 = 65 (ok)
+13 / 5 = 2 (ok)
+13 / -5 = -2 (ok)
+-13 / 5 = -2 (ok)
+-13 / -5 = 2 (ok)
+13 % 5 = 3 (ok)
+13 % -5 = 3 (ok)
+-13 % 5 = -3 (ok)
+-13 % -5 = -3 (ok)
+
+This aspect of your interpreter appears to behave according to spec.
+
+> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] 7
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4170
+[TEXT] 
+This displays all the accented characters (encoding values 155 to 223). You will have to inspect your interpreter's display to make sure they appear correctly.
+
+For the record, an umlaut is two dots; an acute accent is the one that slants up to the right; a grave accent is the one that slants down to the right; a circumflex is a pointy hat; a tilde is a squiggly hat; a ring is a ring; a cedilla is the little hook that hangs down below the C. Thorn looks like a capital D whose vertical bar extends both up and down, and Eth looks like a D with a little cross-stroke.
+
+NOTE: Inform 6.11 contradicts the Z-Spec 0.99 document, on the subject of the European angle-quotes (the ones that look like '>>' and '<<'). The Z-Spec says that the character '>>' is code 162, and '<<' is 163. However, Inform 6.11 (following the Z-Spec 0.2) compiles '@>>' as 163, and '@<<' as 162. The concensus is that the Z-Spec 0.2 and Inform 6.11 are wrong, and Z-Spec 0.99 and later are correct.
+
+a-umlaut:ä   o-umlaut:ö   u-umlaut:ü   A-umlaut:Ä
+O-umlaut:Ö   U-umlaut:Ü   sz-ligature:ß   >>-quotes:»
+<<-quotes:«   e-umlaut:ë   i-umlaut:ï   y-umlaut:ÿ
+E-umlaut:Ë   I-umlaut:Ï   a-acute:á   e-acute:é
+i-acute:í   o-acute:ó   u-acute:ú   y-acute:ý
+A-acute:Á   E-acute:É   I-acute:Í   O-acute:Ó
+U-acute:Ú   Y-acute:Ý   a-grave:à   e-grave:è
+i-grave:ì   o-grave:ò   u-grave:ù   A-grave:À
+E-grave:È   I-grave:Ì   O-grave:Ò   U-grave:Ù
+a-circumflex:â   e-circumflex:ê   i-circumflex:î   o-circumflex:ô
+u-circumflex:û   A-circumflex:Â   E-circumflex:Ê   I-circumflex:Î
+O-circumflex:Ô   U-circumflex:Û   a-ring:å   A-ring:Å
+o-slash:ø   O-slash:Ø   a-tilde:ã   n-tilde:ñ
+o-tilde:õ   A-tilde:Ã   N-tilde:Ñ   O-tilde:Õ
+ae-ligature:æ   AE-ligature:Æ   c-cedilla:ç   C-cedilla:Ç
+thorn:þ   eth:ð   Thorn:Þ   Eth:Ð
+pound-symbol:£   oe-ligature:œ   OE-ligature:Œ   inverse-!:¡
+inverse-?:¿   
+
+Type a digit (0..7) to repeat this list in a different text style, or "." to end this test.
+Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed bold; 6: fixed italic; 7: fixed bold italic.
+
+Accents> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2220
+[TEXT] 
+
+a-umlaut:ä   o-umlaut:ö   u-umlaut:ü   A-umlaut:Ä
+O-umlaut:Ö   U-umlaut:Ü   sz-ligature:ß   >>-quotes:»
+<<-quotes:«   e-umlaut:ë   i-umlaut:ï   y-umlaut:ÿ
+E-umlaut:Ë   I-umlaut:Ï   a-acute:á   e-acute:é
+i-acute:í   o-acute:ó   u-acute:ú   y-acute:ý
+A-acute:Á   E-acute:É   I-acute:Í   O-acute:Ó
+U-acute:Ú   Y-acute:Ý   a-grave:à   e-grave:è
+i-grave:ì   o-grave:ò   u-grave:ù   A-grave:À
+E-grave:È   I-grave:Ì   O-grave:Ò   U-grave:Ù
+a-circumflex:â   e-circumflex:ê   i-circumflex:î   o-circumflex:ô
+u-circumflex:û   A-circumflex:Â   E-circumflex:Ê   I-circumflex:Î
+O-circumflex:Ô   U-circumflex:Û   a-ring:å   A-ring:Å
+o-slash:ø   O-slash:Ø   a-tilde:ã   n-tilde:ñ
+o-tilde:õ   A-tilde:Ã   N-tilde:Ñ   O-tilde:Õ
+ae-ligature:æ   AE-ligature:Æ   c-cedilla:ç   C-cedilla:Ç
+thorn:þ   eth:ð   Thorn:Þ   Eth:Ð
+pound-symbol:£   oe-ligature:œ   OE-ligature:Œ   inverse-!:¡
+inverse-?:¿   
+
+Type a digit (0..7) to repeat this list in a different text style, or "." to end this test.
+Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed bold; 6: fixed italic; 7: fixed bold italic.
+
+Accents> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=1756
+[TEXT] a-umlaut:ä   o-umlaut:ö   u-umlaut:ü   A-umlaut:Ä
+O-umlaut:Ö   U-umlaut:Ü   sz-ligature:ß   >>-quotes:»
+<<-quotes:«   e-umlaut:ë   i-umlaut:ï   y-umlaut:ÿ
+E-umlaut:Ë   I-umlaut:Ï   a-acute:á   e-acute:é
+i-acute:í   o-acute:ó   u-acute:ú   y-acute:ý
+A-acute:Á   E-acute:É   I-acute:Í   O-acute:Ó
+U-acute:Ú   Y-acute:Ý   a-grave:à   e-grave:è
+i-grave:ì   o-grave:ò   u-grave:ù   A-grave:À
+E-grave:È   I-grave:Ì   O-grave:Ò   U-grave:Ù
+a-circumflex:â   e-circumflex:ê   i-circumflex:î   o-circumflex:ô
+u-circumflex:û   A-circumflex:Â   E-circumflex:Ê   I-circumflex:Î
+O-circumflex:Ô   U-circumflex:Û   a-ring:å   A-ring:Å
+o-slash:ø   O-slash:Ø   a-tilde:ã   n-tilde:ñ
+o-tilde:õ   A-tilde:Ã   N-tilde:Ñ   O-tilde:Õ
+ae-ligature:æ   AE-ligature:Æ   c-cedilla:ç   C-cedilla:Ç
+thorn:þ   eth:ð   Thorn:Þ   Eth:Ð
+pound-symbol:£   oe-ligature:œ   OE-ligature:Œ   inverse-!:¡
+inverse-?:¿   
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=460
+[TEXT] 
+
+Type a digit (0..7) to repeat this list in a different text style, or "." to end this test.
+Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed bold; 6: fixed italic; 7: fixed bold italic.
+
+Accents> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=1756
+[TEXT] a-umlaut:ä   o-umlaut:ö   u-umlaut:ü   A-umlaut:Ä
+O-umlaut:Ö   U-umlaut:Ü   sz-ligature:ß   >>-quotes:»
+<<-quotes:«   e-umlaut:ë   i-umlaut:ï   y-umlaut:ÿ
+E-umlaut:Ë   I-umlaut:Ï   a-acute:á   e-acute:é
+i-acute:í   o-acute:ó   u-acute:ú   y-acute:ý
+A-acute:Á   E-acute:É   I-acute:Í   O-acute:Ó
+U-acute:Ú   Y-acute:Ý   a-grave:à   e-grave:è
+i-grave:ì   o-grave:ò   u-grave:ù   A-grave:À
+E-grave:È   I-grave:Ì   O-grave:Ò   U-grave:Ù
+a-circumflex:â   e-circumflex:ê   i-circumflex:î   o-circumflex:ô
+u-circumflex:û   A-circumflex:Â   E-circumflex:Ê   I-circumflex:Î
+O-circumflex:Ô   U-circumflex:Û   a-ring:å   A-ring:Å
+o-slash:ø   O-slash:Ø   a-tilde:ã   n-tilde:ñ
+o-tilde:õ   A-tilde:Ã   N-tilde:Ñ   O-tilde:Õ
+ae-ligature:æ   AE-ligature:Æ   c-cedilla:ç   C-cedilla:Ç
+thorn:þ   eth:ð   Thorn:Þ   Eth:Ð
+pound-symbol:£   oe-ligature:œ   OE-ligature:Œ   inverse-!:¡
+inverse-?:¿   
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=460
+[TEXT] 
+
+Type a digit (0..7) to repeat this list in a different text style, or "." to end this test.
+Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed bold; 6: fixed italic; 7: fixed bold italic.
+
+Accents> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=5 a3=0 len=1756
+[TEXT] a-umlaut:ä   o-umlaut:ö   u-umlaut:ü   A-umlaut:Ä
+O-umlaut:Ö   U-umlaut:Ü   sz-ligature:ß   >>-quotes:»
+<<-quotes:«   e-umlaut:ë   i-umlaut:ï   y-umlaut:ÿ
+E-umlaut:Ë   I-umlaut:Ï   a-acute:á   e-acute:é
+i-acute:í   o-acute:ó   u-acute:ú   y-acute:ý
+A-acute:Á   E-acute:É   I-acute:Í   O-acute:Ó
+U-acute:Ú   Y-acute:Ý   a-grave:à   e-grave:è
+i-grave:ì   o-grave:ò   u-grave:ù   A-grave:À
+E-grave:È   I-grave:Ì   O-grave:Ò   U-grave:Ù
+a-circumflex:â   e-circumflex:ê   i-circumflex:î   o-circumflex:ô
+u-circumflex:û   A-circumflex:Â   E-circumflex:Ê   I-circumflex:Î
+O-circumflex:Ô   U-circumflex:Û   a-ring:å   A-ring:Å
+o-slash:ø   O-slash:Ø   a-tilde:ã   n-tilde:ñ
+o-tilde:õ   A-tilde:Ã   N-tilde:Ñ   O-tilde:Õ
+ae-ligature:æ   AE-ligature:Æ   c-cedilla:ç   C-cedilla:Ç
+thorn:þ   eth:ð   Thorn:Þ   Eth:Ð
+pound-symbol:£   oe-ligature:œ   OE-ligature:Œ   inverse-!:¡
+inverse-?:¿   
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=460
+[TEXT] 
+
+Type a digit (0..7) to repeat this list in a different text style, or "." to end this test.
+Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed bold; 6: fixed italic; 7: fixed bold italic.
+
+Accents> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=1756
+[TEXT] a-umlaut:ä   o-umlaut:ö   u-umlaut:ü   A-umlaut:Ä
+O-umlaut:Ö   U-umlaut:Ü   sz-ligature:ß   >>-quotes:»
+<<-quotes:«   e-umlaut:ë   i-umlaut:ï   y-umlaut:ÿ
+E-umlaut:Ë   I-umlaut:Ï   a-acute:á   e-acute:é
+i-acute:í   o-acute:ó   u-acute:ú   y-acute:ý
+A-acute:Á   E-acute:É   I-acute:Í   O-acute:Ó
+U-acute:Ú   Y-acute:Ý   a-grave:à   e-grave:è
+i-grave:ì   o-grave:ò   u-grave:ù   A-grave:À
+E-grave:È   I-grave:Ì   O-grave:Ò   U-grave:Ù
+a-circumflex:â   e-circumflex:ê   i-circumflex:î   o-circumflex:ô
+u-circumflex:û   A-circumflex:Â   E-circumflex:Ê   I-circumflex:Î
+O-circumflex:Ô   U-circumflex:Û   a-ring:å   A-ring:Å
+o-slash:ø   O-slash:Ø   a-tilde:ã   n-tilde:ñ
+o-tilde:õ   A-tilde:Ã   N-tilde:Ñ   O-tilde:Õ
+ae-ligature:æ   AE-ligature:Æ   c-cedilla:ç   C-cedilla:Ç
+thorn:þ   eth:ð   Thorn:Þ   Eth:Ð
+pound-symbol:£   oe-ligature:œ   OE-ligature:Œ   inverse-!:¡
+inverse-?:¿   
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=460
+[TEXT] 
+
+Type a digit (0..7) to repeat this list in a different text style, or "." to end this test.
+Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed bold; 6: fixed italic; 7: fixed bold italic.
+
+Accents> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=9 a3=0 len=1756
+[TEXT] a-umlaut:ä   o-umlaut:ö   u-umlaut:ü   A-umlaut:Ä
+O-umlaut:Ö   U-umlaut:Ü   sz-ligature:ß   >>-quotes:»
+<<-quotes:«   e-umlaut:ë   i-umlaut:ï   y-umlaut:ÿ
+E-umlaut:Ë   I-umlaut:Ï   a-acute:á   e-acute:é
+i-acute:í   o-acute:ó   u-acute:ú   y-acute:ý
+A-acute:Á   E-acute:É   I-acute:Í   O-acute:Ó
+U-acute:Ú   Y-acute:Ý   a-grave:à   e-grave:è
+i-grave:ì   o-grave:ò   u-grave:ù   A-grave:À
+E-grave:È   I-grave:Ì   O-grave:Ò   U-grave:Ù
+a-circumflex:â   e-circumflex:ê   i-circumflex:î   o-circumflex:ô
+u-circumflex:û   A-circumflex:Â   E-circumflex:Ê   I-circumflex:Î
+O-circumflex:Ô   U-circumflex:Û   a-ring:å   A-ring:Å
+o-slash:ø   O-slash:Ø   a-tilde:ã   n-tilde:ñ
+o-tilde:õ   A-tilde:Ã   N-tilde:Ñ   O-tilde:Õ
+ae-ligature:æ   AE-ligature:Æ   c-cedilla:ç   C-cedilla:Ç
+thorn:þ   eth:ð   Thorn:Þ   Eth:Ð
+pound-symbol:£   oe-ligature:œ   OE-ligature:Œ   inverse-!:¡
+inverse-?:¿   
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=460
+[TEXT] 
+
+Type a digit (0..7) to repeat this list in a different text style, or "." to end this test.
+Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed bold; 6: fixed italic; 7: fixed bold italic.
+
+Accents> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=10 a3=0 len=1756
+[TEXT] a-umlaut:ä   o-umlaut:ö   u-umlaut:ü   A-umlaut:Ä
+O-umlaut:Ö   U-umlaut:Ü   sz-ligature:ß   >>-quotes:»
+<<-quotes:«   e-umlaut:ë   i-umlaut:ï   y-umlaut:ÿ
+E-umlaut:Ë   I-umlaut:Ï   a-acute:á   e-acute:é
+i-acute:í   o-acute:ó   u-acute:ú   y-acute:ý
+A-acute:Á   E-acute:É   I-acute:Í   O-acute:Ó
+U-acute:Ú   Y-acute:Ý   a-grave:à   e-grave:è
+i-grave:ì   o-grave:ò   u-grave:ù   A-grave:À
+E-grave:È   I-grave:Ì   O-grave:Ò   U-grave:Ù
+a-circumflex:â   e-circumflex:ê   i-circumflex:î   o-circumflex:ô
+u-circumflex:û   A-circumflex:Â   E-circumflex:Ê   I-circumflex:Î
+O-circumflex:Ô   U-circumflex:Û   a-ring:å   A-ring:Å
+o-slash:ø   O-slash:Ø   a-tilde:ã   n-tilde:ñ
+o-tilde:õ   A-tilde:Ã   N-tilde:Ñ   O-tilde:Õ
+ae-ligature:æ   AE-ligature:Æ   c-cedilla:ç   C-cedilla:Ç
+thorn:þ   eth:ð   Thorn:Þ   Eth:Ð
+pound-symbol:£   oe-ligature:œ   OE-ligature:Œ   inverse-!:¡
+inverse-?:¿   
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=460
+[TEXT] 
+
+Type a digit (0..7) to repeat this list in a different text style, or "." to end this test.
+Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed bold; 6: fixed italic; 7: fixed bold italic.
+
+Accents> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=1756
+[TEXT] a-umlaut:ä   o-umlaut:ö   u-umlaut:ü   A-umlaut:Ä
+O-umlaut:Ö   U-umlaut:Ü   sz-ligature:ß   >>-quotes:»
+<<-quotes:«   e-umlaut:ë   i-umlaut:ï   y-umlaut:ÿ
+E-umlaut:Ë   I-umlaut:Ï   a-acute:á   e-acute:é
+i-acute:í   o-acute:ó   u-acute:ú   y-acute:ý
+A-acute:Á   E-acute:É   I-acute:Í   O-acute:Ó
+U-acute:Ú   Y-acute:Ý   a-grave:à   e-grave:è
+i-grave:ì   o-grave:ò   u-grave:ù   A-grave:À
+E-grave:È   I-grave:Ì   O-grave:Ò   U-grave:Ù
+a-circumflex:â   e-circumflex:ê   i-circumflex:î   o-circumflex:ô
+u-circumflex:û   A-circumflex:Â   E-circumflex:Ê   I-circumflex:Î
+O-circumflex:Ô   U-circumflex:Û   a-ring:å   A-ring:Å
+o-slash:ø   O-slash:Ø   a-tilde:ã   n-tilde:ñ
+o-tilde:õ   A-tilde:Ã   N-tilde:Ñ   O-tilde:Õ
+ae-ligature:æ   AE-ligature:Æ   c-cedilla:ç   C-cedilla:Ç
+thorn:þ   eth:ð   Thorn:Þ   Eth:Ð
+pound-symbol:£   oe-ligature:œ   OE-ligature:Œ   inverse-!:¡
+inverse-?:¿   
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=460
+[TEXT] 
+
+Type a digit (0..7) to repeat this list in a different text style, or "." to end this test.
+Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed bold; 6: fixed italic; 7: fixed bold italic.
+
+Accents> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=8
+[TEXT] 
+
+> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] 8
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=384
+[TEXT] 
+This tests input of accented (actually, all) characters. Type characters; you will see what characters your interpreter thought you typed. Hit "." to return to the main menu.
+
+AccentedInput> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=72
+[TEXT] 
+code=170: e-acute:é
+AccentedInput> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=70
+[TEXT] 
+code=201: a-ring:å
+AccentedInput> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=74
+[TEXT] 
+code=158: A-umlaut:Ä
+AccentedInput> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=74
+[TEXT] 
+code=159: O-umlaut:Ö
+AccentedInput> 
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=40
+[TEXT] 
+
+Test finished.
+
+> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] 9
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=652
+[TEXT] 
+This tests input of accented (actually, all) characters. Enter a line of text; it will be broken down, and you will see a list of what characters your interpreter thought you typed. Remember that the interpreter is supposed to reduce everything to lower-case.
+
+Hit Enter by itself to return to the main menu.
+
+AccentedInput> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=16
+[TEXT] éÅÄÖÉüÛ
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=328
+[TEXT] 
+code=170: e-acute:é
+code=201: a-ring:å
+code=155: a-umlaut:ä
+code=156: o-umlaut:ö
+code=170: e-acute:é
+code=157: u-umlaut:ü
+code=195: u-circumflex:û
+
+AccentedInput> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=8
+[TEXT] 
+
+> 
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=6
+[TEXT] 12
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1300
+[TEXT] 
+This tests whether your interpreter supports being handed input by the game file. (For example, after a function key is hit in Beyond Zork, the command prompt appears with text already in place -- whatever text you had typed before you interrupted it with the function key.)
+
+The command prompt below should appear with the word "Given" already visible after it. You should be able to type more characters, or go back and edit the given character as if you had typed them yourself.
+
+If you see the word "Given" twice, your interpreter is printing the given characters, which it shouldn't (that's the responsibility of the game file.)
+
+Preload> Given
+[MSG] cmd=UNPRINT a1=0 a2=0 a3=0 len=10
+[REPLY] cmd=1 a1=5 a2=0 a3=0 len=0
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=77 a3=0 len=10
+
+=== Session ended ===

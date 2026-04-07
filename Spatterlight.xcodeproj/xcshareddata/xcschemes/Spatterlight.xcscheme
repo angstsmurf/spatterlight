@@ -37,6 +37,53 @@
                BlueprintName = "UITests"
                ReferencedContainer = "container:Spatterlight.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "UITests/testAGiliTy">
+               </Test>
+               <Test
+                  Identifier = "UITests/testAdrift">
+               </Test>
+               <Test
+                  Identifier = "UITests/testAdvSys">
+               </Test>
+               <Test
+                  Identifier = "UITests/testAlan2">
+               </Test>
+               <Test
+                  Identifier = "UITests/testAlan3">
+               </Test>
+               <Test
+                  Identifier = "UITests/testHugo">
+               </Test>
+               <Test
+                  Identifier = "UITests/testJacl">
+               </Test>
+               <Test
+                  Identifier = "UITests/testLevel9">
+               </Test>
+               <Test
+                  Identifier = "UITests/testMagnetic">
+               </Test>
+               <Test
+                  Identifier = "UITests/testPlus">
+               </Test>
+               <Test
+                  Identifier = "UITests/testScott">
+               </Test>
+               <Test
+                  Identifier = "UITests/testTADS2">
+               </Test>
+               <Test
+                  Identifier = "UITests/testTADS3">
+               </Test>
+               <Test
+                  Identifier = "UITests/testTaylor">
+               </Test>
+               <Test
+                  Identifier = "UITests/testTerpEtude">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">

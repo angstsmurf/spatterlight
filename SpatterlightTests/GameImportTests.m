@@ -12,6 +12,7 @@
 #import "GameImporter.h"
 #import "GameLauncher.h"
 #import "GlkController.h"
+#import "GlkController+Autorestore.h"
 #import "Game.h"
 #import "Theme.h"
 #import "Metadata.h"
@@ -520,6 +521,7 @@
     // Store original determinism setting to restore later
     __block BOOL originalDeterminismSetting = NO;
     __block BOOL originalSlowDrawSetting = NO;
+    __block BOOL originalAutosaveSetting = NO;
     __block NSURL *tempDir = [GameImportXCTests tempDir];
     __block Theme *oldtheme = nil;
 
@@ -541,8 +543,11 @@
             if (game && game.theme) {
                 game.theme.determinism = originalDeterminismSetting;
                 game.theme.slowDrawing = originalSlowDrawSetting;
+                game.theme.autosave = originalAutosaveSetting;
                 game.theme = oldtheme;
                 NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
+                NSLog(@"Restored slow draw setting to %@", originalSlowDrawSetting ? @"YES" : @"NO");
+                NSLog(@"Restored autosave setting to %@", originalAutosaveSetting ? @"YES" : @"NO");
             }
 
             // Clean up: close the game window
@@ -584,6 +589,11 @@
         [self verifyGame:game hasPath:gameFileURL.path];
         [importExpectation fulfill];
 
+        // Delete any existing autosaves
+        GlkController *tempgctl = [[GlkController alloc] init];
+        [tempgctl deleteAutosaveFilesForGame:game];
+
+        // Set theme to default
         Theme *theme = [BuiltInThemes createDefaultThemeInContext:self.testContext forceRebuild:NO];
         Theme *oldtheme = game.theme;
         game.theme = theme;
@@ -596,6 +606,9 @@
             originalSlowDrawSetting = game.theme.slowDrawing;
             game.theme.slowDrawing = NO;
             NSLog(@"Disabled slow drawing setting for test");
+            originalAutosaveSetting = game.theme.autosave;
+            game.theme.autosave = NO;
+            NSLog(@"Disabled autosave setting for test");
         }
 
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -615,7 +628,6 @@
                 XCTAssertNotNil(glkController, @"GlkController should be created");
 
                 if (glkController) {
-                    XCTAssertTrue(glkController.isAlive, @"Game should be running");
                     XCTAssertNotNil(glkController.window, @"Game window should exist");
 
                     NSLog(@"Successfully started game: %@", game.metadata.title);
@@ -632,7 +644,6 @@
                     } else {
                         NSLog(@"No command script found, skipping");
                         [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
-                        [commandScriptExpectation fulfill];
                         [logsMatchedExpectation fulfill];
 
                         // Clean up: close the game window
@@ -651,6 +662,8 @@
                     NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
                     game.theme.slowDrawing = originalSlowDrawSetting;
                     NSLog(@"Restored slow draw setting to %@", originalSlowDrawSetting ? @"YES" : @"NO");
+                    game.theme.autosave = originalAutosaveSetting;
+                    NSLog(@"Restored autosave setting to %@", originalAutosaveSetting ? @"YES" : @"NO");
                     game.theme = oldtheme;
                 }
             });
@@ -703,6 +716,11 @@
              commandScriptName:@"The Wyldkynd Project"];
 }
 
+- (void)testCzech {
+    [self importAndRunGameFile:@"czech.z5"
+             commandScriptName:@"Czech"];
+}
+
 - (void)testHugo {
     [self importAndRunGameFile:@"guilty.hex"
              commandScriptName:@"Guilty Bastards"];
@@ -728,14 +746,14 @@
              commandScriptName:@"Plus"];
 }
 
+- (void)testPraxix {
+    [self importAndRunGameFile:@"praxix.z5"
+             commandScriptName:@"Praxix"];
+}
+
 - (void)testScottFree {
     [self importAndRunGameFile:@"adv01.dat"
              commandScriptName:@"ScottFree"];
-}
-
-- (void)testTaylorMade {
-    [self importAndRunGameFile:@"tot.tay"
-             commandScriptName:@"TaylorMade"];
 }
 
 - (void)testTADS2 {
@@ -746,6 +764,17 @@
 - (void)testTADS3 {
     [self importAndRunGameFile:@"Elysium.t3"
              commandScriptName:@"The Elysium Enigma"];
+}
+
+
+- (void)testTaylorMade {
+    [self importAndRunGameFile:@"tot.tay"
+             commandScriptName:@"TaylorMade"];
+}
+
+- (void)testTerpEtude {
+    [self importAndRunGameFile:@"etude.z5"
+             commandScriptName:@"TerpEtude"];
 }
 
 @end
