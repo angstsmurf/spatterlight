@@ -712,8 +712,8 @@
             [newstyles addObject:[NSNull null]];
     }
 
-    NSInteger marginX = self.theme.bufferMarginX;
-    NSInteger marginY = self.theme.bufferMarginY;
+    CGFloat marginX = (CGFloat)self.theme.bufferMarginX;
+    CGFloat marginY = (CGFloat)self.theme.bufferMarginY;
 
     BOOL marginHeightChanged = (marginY != _textview.textContainerInset.height);
     CGFloat heightDiff = marginY - _textview.textContainerInset.height;

@@ -720,11 +720,11 @@ NSString *fontToString(NSFont *font) {
     _btnShowBezels.state = [defaults boolForKey:@"ShowBezels"] ? NSOnState : NSOffState;
 
     if (theme.minTimer != 0) {
-        if (_timerSlider.integerValue != 1000.0 / theme.minTimer) {
-            _timerSlider.integerValue = (long)(1000.0 / theme.minTimer);
+        if (_timerSlider.doubleValue != floor(1000.0 / theme.minTimer)) {
+            _timerSlider.doubleValue = floor(1000.0 / (CGFloat)theme.minTimer);
         }
-        if (_timerTextField.integerValue != (1000.0 / theme.minTimer)) {
-            _timerTextField.integerValue = (long)(1000.0 / theme.minTimer);
+        if (_timerTextField.doubleValue != floor(1000.0 / theme.minTimer)) {
+            _timerTextField.doubleValue = floor(1000.0 / (CGFloat)theme.minTimer);
         }
         _timerSlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld per second", _timerSlider.integerValue];
     }
@@ -755,7 +755,7 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (NSString *)secondsAccessibilityString {
-    CGFloat fractional = _vODelaySlider.doubleValue - _vODelaySlider.integerValue;
+    CGFloat fractional = _vODelaySlider.doubleValue - (CGFloat)_vODelaySlider.integerValue;
     if (fractional < 0.05 || fractional > 0.95) {
         return [NSString stringWithFormat:@"%ld seconds", (long)round(_vODelaySlider.doubleValue)];
     } else {
@@ -1991,11 +1991,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeTimerSlider:(id)sender {
-    if ([sender integerValue] == 0 || theme.minTimer == 1000.0 / [sender integerValue]) {
+    if ([sender integerValue] == 0 || theme.minTimer == 1000.0 / [sender floatValue]) {
         return;
     }
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.minTimer = (1000.0 / [sender integerValue]);
+    themeToChange.minTimer = (1000.0 / [sender floatValue]);
     _timerTextField.integerValue = [sender integerValue];
     _timerSlider.integerValue = [sender integerValue];
     _timerSlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld per second", _timerSlider.integerValue];

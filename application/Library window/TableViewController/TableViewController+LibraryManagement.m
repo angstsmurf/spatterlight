@@ -386,7 +386,7 @@
         [self.verifyTimer invalidate];
     self.verifyIsCancelled = NO;
     NSInteger minutes = [[NSUserDefaults standardUserDefaults] integerForKey:@"RecheckFrequency"];
-    NSTimeInterval seconds = minutes * 60;
+    NSTimeInterval seconds = (CGFloat)minutes * 60;
     self.verifyTimer = [NSTimer scheduledTimerWithTimeInterval:seconds
                                                    target:self
                                                  selector:@selector(verifyInBackground:)

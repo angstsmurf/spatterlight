@@ -845,7 +845,7 @@
         if ([view isKindOfClass:[GlkGraphicsWindow class]])
             continue;
         if (view.textview.textStorage.length && view.frame.size.height > 0) {
-            if (view.frame.origin.y < topPos) {
+            if (view.frame.origin.y < (CGFloat)topPos) {
                 topWindow = view;
                 topPos = (NSUInteger)view.frame.origin.y;
             }

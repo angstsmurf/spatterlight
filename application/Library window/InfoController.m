@@ -235,7 +235,7 @@
     maxsize.height = maxsize.height * 0.75 - (initialWindowSize.height - initialWellSize.height);
 
     NSImageRep *rep = imageView.image.representations.lastObject;
-    imgsize = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+    imgsize = NSMakeSize((CGFloat)rep.pixelsWide, (CGFloat)rep.pixelsHigh);
 
     if (imgsize.height == 0)
         return;

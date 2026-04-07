@@ -303,7 +303,7 @@
         }
 
         timer =
-        [NSTimer scheduledTimerWithTimeInterval:millisecs / 1000.0
+        [NSTimer scheduledTimerWithTimeInterval:(CGFloat)millisecs / 1000.0
                                          target:self
                                        selector:@selector(noteTimerTick:)
                                        userInfo:0

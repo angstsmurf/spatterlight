@@ -72,10 +72,10 @@ OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForWidth(NSUInteger width)
     NSGraphicsContext *context = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
     context.imageInterpolation = imageInterpolation;
     [NSGraphicsContext setCurrentContext:context];
-    [sourceImageRep drawInRect:NSMakeRect(0, 0, width, height)];
+    [sourceImageRep drawInRect:NSMakeRect(0, 0, (CGFloat)width, (CGFloat)height)];
     [context flushGraphics];
     [NSGraphicsContext restoreGraphicsState];
-    imageRep.size = NSMakeSize(width, height);
+    imageRep.size = NSMakeSize((CGFloat)width, (CGFloat)height);
     return imageRep;
 }
 

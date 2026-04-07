@@ -419,7 +419,7 @@
     _backgroundView.hidden = YES;
 
     NSImageRep *rep = _imageView.image.representations.lastObject;
-    NSSize imageSize = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+    NSSize imageSize = NSMakeSize((CGFloat)rep.pixelsWide, (CGFloat)rep.pixelsHigh);
 
     CGFloat ratio = imageSize.width / imageSize.height;
     NSRect imageFrame = NSMakeRect(0,0, fullScreenHeight * ratio, fullScreenHeight);

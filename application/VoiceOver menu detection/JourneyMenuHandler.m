@@ -327,9 +327,9 @@ errorDescription:(NSString * __autoreleasing *)error
         y--;
     }
 
-    NSPoint point = NSMakePoint(x, y);
+    NSPoint point = NSMakePoint((CGFloat)x, (CGFloat)y);
 
-    if (x > winsize.width || y > winsize.height) {
+    if (x > (NSUInteger)winsize.width || y > (NSUInteger)winsize.height) {
         NSLog(@"Mouse click out of bounds at %@", NSStringFromPoint(point));
     }
 
