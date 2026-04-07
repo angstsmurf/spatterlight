@@ -26,6 +26,7 @@
 #import "GlkStyle.h"
 
 #include "protocol.h"
+#include "messagenames.h"
 #include "glkimp.h"
 
 #ifndef DEBUG

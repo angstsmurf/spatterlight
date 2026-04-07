@@ -1,0 +1,949 @@
+=== Spatterlight Interpreter Log ===
+Game: praxix.z5
+Interpreter: bocfel
+
+[MSG] cmd=HELLO a1=0 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=4 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=4 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=4 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=1 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=1 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=1 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=5 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=5 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=5 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=2 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=2 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=2 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=9 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=9 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=9 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=10 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=10 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=10 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=4 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=1 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=5 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=5 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=2 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=9 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=9 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=10 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=10 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=0 a2=6 a3=6 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEWCHAN a1=65536 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEWCHAN a1=65536 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEWWIN a1=4 a2=1 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETBGND a1=0 a2=-1 a3=0 len=0
+[MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETBGND a1=1 a2=-1 a3=0 len=0
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=12
+[TEXT] Praxix
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1114
+[TEXT] : A Z-code interpreter unit test
+Release 1 / Serial number 180329 / Inform v6.31, compiler options S
+
+A voice booooms out: Welcome to the test chamber.
+
+Type "help" to repeat this message, "quit" to exit, "all" to run all tests, or one of the following test options: "operand", "arith", "comarith", "bitwise", "shift", "inc", "incchk", "array", "undo", "multiundo", "indirect", "streamtrip", "streamop", "throwcatch", "tables", "specfixes", "spec11", "spec12".
+(Some tests check unspecified behaviour, and their results will be marked by (Unspecified).)
+
+
+>
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=120 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] all
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=19708
+[TEXT] All tests:
+
+Basic operand values:
+
+(1==1)=1, (1==1)=1, (1==1)=1, (1==1)=1
+(-2==-2)=1, (-2==-2)=1, (-2==-2)=1, (-2==-2)=1
+
+Passed.
+
+Integer arithmetic:
+
+2+2=4, -2+-3=-5, 3+-4=-1, -4+5=1, $7FFF+$7FFE=-3, $8000+$8000=0
+Globals 6+8=14, $7FFE+$7FFD=-5
+2-2=0, -2-3=-5, 3-4=-1, -4-(-5)=1, $7FFF-$7FFE=1, $8000-$8001=-1, $7FFF-$8001=-2
+Globals 6-8=-2, $7FFD-$7FFE=-1
+2*2=4, -2*-3=6, 3*-4=-12, -4*5=-20, $100*$100 (trunc)=0, 311*373 (trunc)=$C523
+Globals -6*-8=48, Globals -311*373=15069
+12/3=4, 11/2=5, -11/2=-5, 11/-2=-5, -11/-2=5, $7fff/2=$3FFF, $7fff/-2=$C001, -$7fff/2=$C001, -$7fff/-2=$3FFF, $8000/2=$C000, $8000/(-2)=$4000, $8000/1=$8000
+Globals -48/-8=6, 48/7=6, 48/-7=-6, -48/7=-6, -48/-7=6
+12%3=0, 13%5=3, -13%5=-3, 13%-5=3, -13%-5=-3, $7fff%11=9, -$7fff%11=-9, $7fff%-11=9, -$7fff%-11=-9, $8000%7=-1, $8000%-7=-1, $8000%2=0, $8000%-2=0, $8000%1=0
+Globals 49%8=1, 49%-8=1, -49%8=-1, -49%-8=-1
+
+Passed.
+
+Compound arithmetic expressions:
+
+(7+2)*-4=-36
+($7FFF+2)/16=-2047
+(-$7FFF+-2)/16=2047
+(-26103+-32647)/9=754
+(-$7FFF-2)/16=2047
+($7FFF--2)/16=-2047
+(-26103-32647)/9=754
+($100*$100)/16+1=1
+(311*373)/16=-941
+(311*-373)/16=941
+(111*373)/16=-1508
+(111*-373)/16=1508
+
+Passed.
+
+Bitwise arithmetic:
+
+0&0=$00, $FFFF&0=$00, $FFFF&$FFFF=$FFFF, $013F&$F310=$0110, $F731&$137F=$1331, $35&56=$14
+0|0=$00, $FFFF|0=$FFFF, $FFFF|$FFFF=$FFFF, $3700|$0012=$3712, $35|56=$77
+!0=$FFFF, !1=$FFFE, !$F=$FFF0, !$7FFF=$8000, !$8000=$7FFF, !$FFFD=$02
+
+Passed.
+
+Bit shifts:
+
+$11u<<0=$11, $11u<<1=$22, $11u<<4=$0110, $11u<<10=$4400, $11u<<15=$8000, $11u<<16=$00 (Unspecified), -2u<<0=-2, -2u<<1=-4, -2u<<7=-256, -2u<<15=0
+1u<<0=$01, 1u<<1=$02, 1u<<2=$04, 1u<<3=$08, 1u<<4=$10, 1u<<5=$20, 1u<<6=$40, 1u<<7=$80, 1u<<8=$0100, 1u<<9=$0200, 1u<<10=$0400, 1u<<11=$0800, 1u<<12=$1000, 1u<<13=$2000, 1u<<14=$4000, 1u<<15=$8000, 1u<<16=$00 (Unspecified)
+$4001u>>-0=$4001, $4001u>>-1=$2000, $4001u>>-6=$0100, $4001u>>-11=$08, $4001u>>-15=$00, $4001u>>-16=$00 (Unspecified)
+$7FFFu>>-0=$7FFF, $7FFFu>>-1=$3FFF, $7FFFu>>-2=$1FFF, $7FFFu>>-6=$01FF, $7FFFu>>-12=$07, $7FFFu>>-15=$00, $7FFFu>>-16=$00 (Unspecified)
+-1u>>-0=$FFFF, -1u>>-1=$7FFF, -1u>>-2=$3FFF, -1u>>-6=$03FF, -1u>>-12=$0F, -1u>>-13=$07, -1u>>-15=$01, -1u>>-16=$00 (Unspecified), -1u>>-17=$00 (Unspecified)
+-1u>>-1=$7FFF, -1u>>-2=$3FFF, -1u>>-3=$1FFF, -1u>>-4=$0FFF, -1u>>-5=$07FF, -1u>>-6=$03FF, -1u>>-7=$01FF, -1u>>-8=$FF, -1u>>-9=$7F, -1u>>-10=$3F, -1u>>-11=$1F, -1u>>-12=$0F, -1u>>-13=$07, -1u>>-14=$03, -1u>>-15=$01, -1u>>-16=$00 (Unspecified)
+$11s<<0=$11, $11s<<1=$22, $11s<<4=$0110, $11s<<10=$4400, $11s<<15=$8000, $11s<<16=$00 (Unspecified), -2s<<0=-2, -2s<<1=-4, -2s<<7=-256, -2s<<15=0
+1s<<0=$01, 1s<<1=$02, 1s<<2=$04, 1s<<3=$08, 1s<<4=$10, 1s<<5=$20, 1s<<6=$40, 1s<<7=$80, 1s<<8=$0100, 1s<<9=$0200, 1s<<10=$0400, 1s<<11=$0800, 1s<<12=$1000, 1s<<13=$2000, 1s<<14=$4000, 1s<<15=$8000, 1s<<16=$00 (Unspecified)
+$4001s>>-0=$4001, $4001s>>-1=$2000, $4001s>>-6=$0100, $4001s>>-11=$08, $4001s>>-15=$00, $4001s>>-16=$00 (Unspecified)
+$7FFFs>>-0=$7FFF, $7FFFs>>-1=$3FFF, $7FFFs>>-2=$1FFF, $7FFFs>>-6=$01FF, $7FFFs>>-12=$07, $7FFFs>>-13=$03, $7FFFs>>-14=$01, $7FFFs>>-15=$00, $7FFFs>>-16=$00 (Unspecified)
+-1s>>-0=-1, -1s>>-1=-1, -1s>>-15=-1, -1s>>-16=$FFFF (Unspecified), -1s>>-17=$FFFF (Unspecified)
+-1000s>>-0=-1000, -1000s>>-1=-500, -1000s>>-2=-250, -1000s>>-4=-63, -1000s>>-6=-16, -1000s>>-9=-2, -1000s>>-15=-1, -1000s>>-16=$FFFF (Unspecified), -1000s>>-17=$FFFF (Unspecified)
+-1s>>0=-1, -1s>>-1=-1, -1s>>-2=-1, -1s>>-3=-1, -1s>>-4=-1, -1s>>-5=-1, -1s>>-6=-1, -1s>>-7=-1, -1s>>-8=-1, -1s>>-9=-1, -1s>>-10=-1, -1s>>-11=-1, -1s>>-12=-1, -1s>>-13=-1, -1s>>-14=-1, -1s>>-15=-1, -1s>>-16=$FFFF (Unspecified)
+
+Passed.
+
+Increment/decrement:
+
+0++=1, 1++=2, -1++=0, -10++=-9, $7FFF++=$8000, $C000++=$C001
+0++=1, 1++=2, -1++=0, -10++=-9, $7FFF++=$8000, $C000++=$C001
+0++=1, 1++=2, -1++=0, -10++=-9, $7FFF++=$8000, $C000++=$C001
+0--=-1, 1--=0, -1--=-2, 10--=9, $8000--=$7FFF, $C000--=$BFFF
+0--=-1, 1--=0, -1--=-2, 10--=9, $8000--=$7FFF, $C000--=$BFFF
+0--=-1, 1--=0, -1--=-2, 10--=9, $8000--=$7FFF, $C000--=$BFFF
+
+Passed.
+
+Increment/decrement and branch:
+
+++0=1,1, ++1=2,1, ++-1=0,0, ++100=101,1, ++-10=-9,0, ++$7FFF=$8000,0, ++$C000=$C001,0
+++0=1,1, ++1=2,1, ++-1=0,0, ++100=101,1, ++-10=-9,0, ++$7FFF=$8000,0, ++$C000=$C001,0
+++0=1,1, ++1=2,1, ++-1=0,0, ++100=101,1, ++-10=-9,0, ++$7FFF=$8000,0, ++$C000=$C001,0
+--0=-1,1, --1=0,0, ---1=-2,1, --100=99,0, ---10=-11,1, --$8000=$7FFF,0, --$C000=$BFFF,1
+--0=-1,1, --1=0,0, ---1=-2,1, --100=99,0, ---10=-11,1, --$8000=$7FFF,0, --$C000=$BFFF,1
+--0=-1,1, --1=0,0, ---1=-2,1, --100=99,0, ---10=-11,1, --$8000=$7FFF,0, --$C000=$BFFF,1
+++50=51,0, ++70=71,1, ++-50=-49,1, ++-70=-69,0, ++-50=-49,0, ++50=51,1
+--50=49,1, --70=69,0, ---50=-51,0, ---70=-71,1, ---50=-51,1, --50=49,0
+
+Passed.
+
+Array loads and stores:
+
+a-->0=$1357, a-->0=$1357, a-->1=$FDB9, a-->1=$FDB9, a-->2=$11, a-->2=$11, a-->3=$FFEE, a-->3=$FFEE
+a+3-->-1=$57FD, a+3-->0=$B900, a+3-->1=$11FF, a+3-->-1=$57FD, a+3-->0=$B900, a+3-->1=$11FF
+a->0=$13, a->0=$13, a->1=$57, a->1=$57, a->2=$FD, a->2=$FD, a->3=$B9, a->3=$B9
+a+3->-1=$FD, a+3->0=$B9, a+3->1=$00, a+3->-1=$FD, a+3->0=$B9, a+3->1=$00
+a-->0=$1201, a-->0=$2302, a-->1=$3403, a-->1=$4504, a-->2=$5605, a-->2=$6706, a-->3=$7807, a-->3=$8908
+a-->-1=$AB0A, a-->0=$BC0B, a-->1=$CD0C, a-->-1=$BA1B, a-->0=$CB1C, a-->1=$DC1D
+a->0=$12, a->0=$23, a->1=$34, a->1=$45, a->2=$56, a->2=$67, a->3=$78, a->3=$89
+a->-1=$AB, a->0=$BC, a->1=$CD, a->-1=$BA, a->0=$CB, a->1=$DC
+$F1 concat $E2 = $F1E2
+$9876 = $98 concat $76
+
+Passed.
+
+Undo:
+
+Interpreter claims to support undo.
+
+Using a local variable for @save_undo result:
+Undo saved...
+Restoring undo...
+Undo succeeded, return value 2.
+loc=99 glob=999
+Using a global variable for @save_undo result:
+Undo saved...
+Restoring undo...
+Undo succeeded, return value 2.
+loc=98 glob=998
+Calling @save_undo within a function or two:
+Undo saved...
+Restoring undo...
+Undo succeeded, return value 2.
+loc=97 glob=997
+Using the stack for @save_undo result:
+Undo saved...
+Restoring undo...
+Undo succeeded, return value 2.
+loc=98 glob=998
+Checking @save_undo saves the stack correctly:
+Undo saved...
+guard=9
+Restoring undo...
+Undo succeeded, return value 2.
+loc=99 glob=999 glob2=-999
+guard=9
+
+Passed.
+
+Multi-level undo:
+(Note: this capability is not required by the spec.)
+
+Interpreter claims to support undo.
+
+Undo 1 saved...
+Undo 2 saved...
+Restoring undo 2...
+Undo 2 succeeded, return value 2.
+loc=77 glob=777
+Restoring undo 1...
+Undo 1 succeeded, return value 2.
+loc=99 glob=999
+
+Passed.
+
+Indirect opcodes:
+
+load sp -> result: 45, 45, 44
+load [spointer] -> result: 45, 45, 44
+load [sp=lpointer] -> result: 51, 45, 44
+load [sp=spointer] -> result: 45, 45, 44
+load sp -> sp: 45, 45
+load [sp=lpointer] -> sp: 51, 45
+load [sp=spointer] -> sp: 45, 45
+store sp 83: 83, 44
+store [spointer] 83: 83, 44
+store [sp=spointer] 83: 83, 44
+store [rpointer] 83: 83, 45, 44
+store [sp=rpointer] 83: 83, 45, 44
+store result sp: 45, 44, 43
+store sp sp: 45, 43
+store [sp=spointer] sp: 45, 43
+store [rpointer] sp: 45, 44, 43
+store [sp=rpointer] sp: 45, 44, 43
+pull result: 45, 44, 43
+pull [rpointer]: 45, 44, 43
+pull [sp=rpointer]: 45, 44, 43
+pull sp: 45, 43
+pull [sp=spointer]: 45, 43
+pull [spointer]: 45, 43
+inc result: 72, 45, 44
+inc [rpointer]: 72, 45, 44
+inc [sp=rpointer]: 72, 45, 44
+inc sp: 46, 44
+inc [spointer]: 46, 44
+inc [sp=spointer]: 46, 44
+dec result: 70, 45, 44
+dec [rpointer]: 70, 45, 44
+dec [sp=rpointer]: 70, 45, 44
+dec sp: 44, 44
+dec [spointer]: 44, 44
+dec [sp=spointer]: 44, 44
+inc_chk result: 72, 45, 44
+inc_chk [rpointer]: 72, 45, 44
+inc_chk [sp=rpointer]: 72, 45, 44
+inc_chk sp: 46, 44
+inc_chk [spointer]: 46, 44
+inc_chk [sp=spointer]: 46, 44
+dec_chk result: 70, 45, 44
+dec_chk [rpointer]: 70, 45, 44
+dec_chk [sp=rpointer]: 70, 45, 44
+dec_chk sp: 44, 44
+dec_chk [spointer]: 44, 44
+dec_chk [sp=spointer]: 44, 44
+
+Passed.
+
+Memory stream round-trip:
+
+Number of characters written: 166
+Number of characters read: 166
+
+Passed.
+
+Memory stream opcodes:
+
+@print_paddr: 3 characters written: 97 98 99
+@print_num: 3 characters written: 55 56 57
+@print_char: 1 characters written: 120 56 57
+
+Passed.
+
+@throw/@catch:
+
+Throwfunc1
+Throwfunc2
+Throwfunc3
+Throwfunc4
+Throwfunc5
+About to @throw - should then return from Throwfunc1
+Returning from Throwfunc1
+
+The function with @catch will be returned with the value of @throw: 1
+Intermediate functions should not set their storers.
+testglobal=0
+testglobal2=0
+
+Passed.
+
+*_table tests:
+
+@print_table - should print the alphabet in upper then lower case:
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+
+@scan_table:
+Default form, first word: 3001
+Default form, another word: 3129
+Manually specified default form: 3129
+Default form, nonexistent word: 0
+Byte form, first byte: 3001
+Byte form, another byte: 3129
+Byte form, nonexistent byte: 0
+Longer form, first word: 3001
+Longer form, another word: 3129
+Longer form, a word which will be skipped: 0
+Longer byte form, first byte: 3001
+Longer byte form, another byte: 3129
+Longer byte form, a byte which will be skipped: 0
+Default form, word after length of table: 0
+Longer form, word after length of table: 0
+
+@copy_table:
+Copying forward, non-overlapping.
+Copying backwards, non-overlapping.
+Copying forward, overlapping, non-corrupting.
+Copying backward, overlapping, non-corrupting.
+Copying forward, overlapping, corrupting.
+Using @copy_table to zero out an array.
+Checking final table (failures are not counted twice).
+
+Passed.
+
+Z-Machine 1.1 Updates/Clarifications:
+
+Operand evalution: 4-2=2
+Indirect variable references:
+@dec: guard=9
+@dec_chk: guard=9
+@inc: guard=9
+@inc_chk: guard=9
+@load: guard=9
+@pull: guard=9
+@store: guard=9
+@je operands: 3: 1, 4: 1
+@get_prop_len 0: 0
+
+Passed.
+
+Z-Machine 1.1 tests:
+
+Ok, interpreter is version 1.1.
+
+Checking @set_true_colour by printing a pretty rainbow (ultimate prettiness of rainbow depends on the observer's tastes):
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711680 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711680 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16718080 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16718080 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16722176 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16722176 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16726528 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16726528 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16730624 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16730624 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16737024 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16737024 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16741120 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16741120 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16747520 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16747520 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16751616 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16751616 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16755968 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16755968 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16760064 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16760064 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16766464 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16766464 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16770560 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16770560 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16774912 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16774912 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=15728384 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=15728384 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=14614272 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=14614272 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=13565696 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=13565696 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=11927296 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=11927296 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=10878720 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=10878720 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=9764608 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=9764608 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=8126208 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=8126208 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=7077632 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=7077632 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=5963520 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=5963520 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=4390656 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=4390656 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=3276544 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=3276544 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=2227968 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=2227968 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=589568 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=589568 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65305 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65305 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65329 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65329 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65346 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65346 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65362 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65362 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65379 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65379 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65403 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65403 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65420 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65420 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65445 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65445 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65461 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65461 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65477 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65477 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65494 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65494 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65519 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65519 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=65535 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=65535 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=59135 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=59135 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=55039 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=55039 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=50687 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=50687 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=46591 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=46591 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=40191 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=40191 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=36095 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=36095 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=29695 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=29695 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=25599 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=25599 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=21247 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=21247 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=17151 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=17151 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=10751 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=10751 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=6655 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=6655 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=255 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=255 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=524543 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=524543 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=2162943 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=2162943 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=3211519 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=3211519 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=4849919 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=4849919 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=5898495 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=5898495 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=7012607 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=7012607 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=8061183 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=8061183 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=9699583 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=9699583 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=10813695 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=10813695 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=12386559 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=12386559 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=13500671 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=13500671 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=14549247 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=14549247 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=15663359 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=15663359 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711927 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711927 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711910 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711910 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711886 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711886 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711869 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711869 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711853 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711853 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711836 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711836 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711812 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711812 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711795 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711795 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711770 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711770 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711754 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711754 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711738 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711738 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711721 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711721 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711696 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711696 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=142
+[TEXT] 
+
+Checking if the basic colour set uses the recommended true colours:
+
+
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=26
+[TEXT] Recommended: 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=15663104 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=15663104 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=54784 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=54784 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=15724288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=15724288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=27573 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=27573 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711935 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711935 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=61423 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=61423 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16777215 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16777215 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=11908533 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=11908533 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=9211020 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=9211020 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=5921370 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=5921370 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=28
+[TEXT] 
+Interpreter: 
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=15663104 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=15663104 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=54784 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=54784 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=15724288 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=15724288 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=27573 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=27573 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16711935 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16711935 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=61423 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=61423 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=16777215 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=16777215 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=11908533 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=11908533 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=9211020 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=9211020 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=5921370 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=5921370 len=0
+[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[TEXT]  
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=0 a2=-1 a3=-1 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=186
+[TEXT] 
+
+Z-Machine 1.2 (@gestalt):
+
+Stopping, interpreter is only version 1.1.
+
+All tests passed.
+
+>
+[MSG] cmd=TERMINATORS a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=120 a3=0 len=0
+
+=== Session ended ===
