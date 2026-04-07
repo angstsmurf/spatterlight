@@ -397,7 +397,7 @@
     NSWindow *window = glkctl.window;
     glkctl.windowPreFullscreenFrame = window.frame;
     NSScreen *screen = window.screen;
-    NSInteger border = glkctl.theme.border;
+    CGFloat border = (CGFloat)glkctl.theme.border;
 
     NSWindow *imageWindow = self.enterFullscreenWindow;
 

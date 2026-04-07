@@ -347,10 +347,7 @@
             [newstyles addObject:[NSNull null]];
     }
 
-    NSInteger marginX = self.theme.gridMarginX;
-    NSInteger marginY = self.theme.gridMarginY;
-
-    _textview.textContainerInset = NSMakeSize(marginX, marginY);
+    _textview.textContainerInset = NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
 
     if (different) {
         styles = newstyles;
@@ -674,7 +671,7 @@
         _selectedRow = _restoredSelection.location / (cols + 1);
         _selectedCol = _restoredSelection.location % (cols + 1);
 
-        if (newcols * self.theme.cellWidth > screensize.width || newrows * self.theme.cellHeight > screensize.height) {
+        if ((CGFloat)newcols * self.theme.cellWidth > screensize.width || (CGFloat)newrows * self.theme.cellHeight > screensize.height) {
             return;
         }
 
@@ -1023,7 +1020,7 @@
 }
 
 - (NSSize)currentSizeInChars {
-    return NSMakeSize(cols, rows);
+    return NSMakeSize((CGFloat)cols, (CGFloat)rows);
 }
 
 - (unichar)characterAtPoint:(NSPoint)point {
@@ -1053,9 +1050,9 @@
         // requests, covered by mouse requests.
         if(mouse_request) {
             NSPoint p;
-            p.y = charIndex / (cols + 1);
-            p.x = charIndex % (cols + 1);
-            if (p.x >= 0 && p.y >= 0 && p.x < cols && p.y < rows) {
+            p.y = (CGFloat)(charIndex / (cols + 1));
+            p.x = (CGFloat)(charIndex % (cols + 1));
+            if (p.x >= 0 && p.y >= 0 && p.x < (CGFloat)cols && p.y < (CGFloat)rows) {
                 gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
                 [self.glkctl queueEvent:gev];
                 mouse_request = NO;
@@ -1102,11 +1099,11 @@
                                        inTextContainer:container
               fractionOfDistanceBetweenInsertionPoints:nil];
 
-        point.y = charIndex / (cols + 1);
-        point.x = charIndex % (cols + 1);
-        if (point.x >= cols)
+        point.y = (CGFloat)(charIndex / (cols + 1));
+        point.x = (CGFloat)(charIndex % (cols + 1));
+        if (point.x >= (CGFloat)cols)
             point.x = point_in_window.x / self.theme.cellWidth;
-        if (point.x >= 0 && point.y >= 0 && point.x < cols && point.y < rows) {
+        if (point.x >= 0 && point.y >= 0 && point.x < (CGFloat)cols && point.y < (CGFloat)rows) {
             [self.glkctl markLastSeen];
             gev = [[GlkEvent alloc] initMouseEvent:point forWindow:self.name];
             [self.glkctl queueEvent:gev];
@@ -1282,11 +1279,11 @@
     maxInputLength = maxLength;
 
     NSRect bounds = self.bounds;
-    NSInteger mx = (NSInteger)_textview.textContainerInset.width;
-    NSInteger my = (NSInteger)_textview.textContainerInset.height;
+    CGFloat mx = _textview.textContainerInset.width;
+    CGFloat my = _textview.textContainerInset.height;
 
-    NSInteger x0 = (NSInteger)(NSMinX(bounds) + mx + container.lineFragmentPadding / 2);
-    NSInteger y0 = (NSInteger)(NSMinY(bounds) + my);
+    CGFloat x0 = (NSMinX(bounds) + mx + container.lineFragmentPadding / 2);
+    CGFloat y0 = (NSMinY(bounds) + my);
     CGFloat lineHeight = self.theme.cellHeight;
     CGFloat charWidth = self.theme.cellWidth;
 
@@ -1297,9 +1294,9 @@
         ypos = _bufferTextStorage.length / cols - 1;
 
     NSRect caret;
-    caret.origin.x = x0 + xpos * charWidth;
-    caret.origin.y = y0 + ypos * lineHeight;
-    caret.size.width = maxLength * charWidth + container.lineFragmentPadding;
+    caret.origin.x = x0 + (CGFloat)xpos * charWidth;
+    caret.origin.y = y0 + (CGFloat)ypos * lineHeight;
+    caret.size.width = (CGFloat)maxLength * charWidth + container.lineFragmentPadding;
     caret.size.height = lineHeight;
 
     self.input = [[InputTextField alloc] initWithFrame:caret maxLength:maxLength];
@@ -1555,7 +1552,7 @@
      usingBlock:^(id value, NSRange range, BOOL *stop) {
         changes++;
         // Add string between every other background change
-        if ((CGFloat)changes / 2 == changes / 2) {
+        if (changes % 2 == 0) {
             [quoteAttStr appendAttributedString:[blockTextStorage attributedSubstringFromRange:range]];
             NSAttributedString *newline = [[NSAttributedString alloc] initWithString:@"\n"];
             [quoteAttStr appendAttributedString:newline];
@@ -1584,7 +1581,7 @@
             glkctl.quoteBoxes = [[NSMutableArray alloc] init];
 
         GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:glkctl name:-1];
-        box.quoteboxSize = NSMakeSize(width, height);
+        box.quoteboxSize = NSMakeSize((CGFloat)width, (CGFloat)height);
         [box makeTransparent];
 
         [box.textview.textStorage setAttributedString:quoteAttStr];
@@ -1617,7 +1614,7 @@
     frame.size = boxSize;
     frame.origin.x = ceil((bufWin.frame.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (glkctl.gameID != kGameIsTrinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
     frame.origin.y = ceil(quoteboxParent.contentView.frame.origin.y +
-                          (_quoteboxVerticalOffset + 2 * (glkctl.gameID == kGameIsCurses)) * self.theme.cellHeight);
+                          (CGFloat)(_quoteboxVerticalOffset + 2 * (glkctl.gameID == kGameIsCurses)) * self.theme.cellHeight);
 
     // Push down buffer window text with newlines if the quote box covers text the player has not read yet.
     if (bufWin.moveRanges.count < 2 && (!bufWin.moveRanges || NSMaxRange(bufWin.moveRanges.lastObject.rangeValue) >= bufWin.textview.string.length)) {

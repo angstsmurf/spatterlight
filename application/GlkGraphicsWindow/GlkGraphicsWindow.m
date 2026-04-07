@@ -272,7 +272,7 @@
         [NSGraphicsContext currentContext].imageInterpolation =
         NSImageInterpolationHigh;
 
-        florpedRect = [self florpCoords:NSMakeRect(x, y, w, h)];
+        florpedRect = [self florpCoords:NSMakeRect((CGFloat)x, (CGFloat)y, (CGFloat)w, (CGFloat)h)];
 
         [src drawInRect:florpedRect
                fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)

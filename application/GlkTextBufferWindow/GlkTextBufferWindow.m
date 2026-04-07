@@ -1800,7 +1800,7 @@ replacementString:(id)repl {
     if (h == 0)
         h = (NSInteger)image.size.height;
 
-    image = [self scaleImage:image size:NSMakeSize(w, h)];
+    image = [self scaleImage:image size:NSMakeSize((CGFloat)w, (CGFloat)h)];
 
     if (textstorage.length == 0 && (alignment == imagealign_MarginLeft || alignment == imagealign_MarginRight)) {
         [textstorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"\u00AD" attributes:styles[style]]];
