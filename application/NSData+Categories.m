@@ -75,7 +75,7 @@
     if (!imageRep)
         return nil;
 
-    NSSize pixelSize = NSMakeSize(imageRep.pixelsWide,  imageRep.pixelsHigh);
+    NSSize pixelSize = NSMakeSize((CGFloat)imageRep.pixelsWide,  (CGFloat)imageRep.pixelsHigh);
     if (pixelSize.width <= size.width && pixelSize.height <= size.height)
         return self;
 

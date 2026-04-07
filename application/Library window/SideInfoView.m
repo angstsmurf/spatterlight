@@ -539,7 +539,7 @@
     NSDictionary *attributes = [titleString attributesAtIndex:0 effectiveRange:nil];
     NSClipView *clipView = (NSClipView *)self.superview;
 
-    NSUInteger superViewWidth = (NSUInteger)clipView.frame.size.width - 24;
+    CGFloat superViewWidth = clipView.frame.size.width - 24.0;
 
     NSFont *font = attributes[NSFontAttributeName];
 

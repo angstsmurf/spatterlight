@@ -1710,7 +1710,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         return;
     [Preferences instance].inMagnification = YES;
     _movingBorder = YES;
-    NSInteger diff = ((NSNumber *)notify.userInfo[@"diff"]).integerValue;
+    CGFloat diff = ((NSNumber *)notify.userInfo[@"diff"]).floatValue;
     _gameView.autoresizingMask = NSViewMaxXMargin | NSViewMaxYMargin | NSViewMinXMargin | NSViewMinYMargin;
     NSRect frame = self.window.frame;
     frame.origin = NSMakePoint(frame.origin.x - diff, frame.origin.y - diff);

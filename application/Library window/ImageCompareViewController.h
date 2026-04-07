@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak) IBOutlet NSButton *imageSelectDialogSuppressionButton;
 
-+ (kImageComparisonResult)chooseImageA:(NSData *)imageA orB:(NSData *)imageB source:(kImageComparisonSource)source force:(BOOL)force;
++ (kImageComparisonResult)chooseImageA:(NSData *)imageA orB:(nullable NSData *)imageB source:(kImageComparisonSource)source force:(BOOL)force;
 
 - (BOOL)userWantsImage:(NSData *)imageA ratherThanImage:(NSData *)imageB source:(kImageComparisonSource)type force:(BOOL)force;
 

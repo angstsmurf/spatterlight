@@ -26,7 +26,7 @@
 
 @implementation ImageCompareViewController
 
-+ (kImageComparisonResult)chooseImageA:(NSData *)imageA orB:(NSData *)imageB source:(kImageComparisonSource)source force:(BOOL)force {
++ (kImageComparisonResult)chooseImageA:(NSData *)imageA orB:(nullable NSData *)imageB source:(kImageComparisonSource)source force:(BOOL)force {
     if (!imageB.length || [imageB isPlaceHolderImage])
         return kImageComparisonResultA;
     if (!imageA.length || [imageA isPlaceHolderImage])

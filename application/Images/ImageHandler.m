@@ -281,7 +281,7 @@
         NSInteger height = ((const unsigned char *)(_resources[@(resno)].data.bytes))[7] + ((const unsigned char *)(_resources[@(resno)].data.bytes))[6] * 0x100;
 
         // No size must be 0, or both will be, so we add a "rounding error"
-        _lastimage = [[NSImage alloc] initWithSize:NSMakeSize(width + 0.01, height + 0.01)];
+        _lastimage = [[NSImage alloc] initWithSize:NSMakeSize((CGFloat)width + 0.01, (CGFloat)height + 0.01)];
     } else
         _lastimage = [_resources[@(resno)] createImage];
     if (_lastimage == nil) {

@@ -196,7 +196,7 @@
     imageLayer = [CALayer layer];
 
     NSImageRep *rep = image.representations.lastObject;
-    NSSize sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+    NSSize sizeInPixels = NSMakeSize((CGFloat)rep.pixelsWide, (CGFloat)rep.pixelsHigh);
     image.size = sizeInPixels;
 
     _ratio = sizeInPixels.width / sizeInPixels.height;
