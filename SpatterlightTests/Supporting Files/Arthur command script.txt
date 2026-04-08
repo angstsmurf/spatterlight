@@ -1,0 +1,462 @@
+
+N
+
+
+
+GET TORQUE THEN EXAMINE IT
+EXAMINE CRYSTAL
+WEAR TORQUE
+E
+PRAY
+W
+hide behind stone
+wait
+YES
+get up
+out
+s
+ask idiot about invisible knight
+ask idiot about himself
+thank floyd
+w
+w
+sw
+nw
+nw
+n
+get bag
+s
+s
+se
+se
+ne
+e
+e
+e
+s
+n
+w
+s
+s
+examine bird
+wait
+no
+cyr owl
+cyr human
+open cage
+get key
+unlock cupboard, then open it
+s
+z
+no
+open cupboard
+get bottle and cheese
+n
+eat cheese
+z
+yes
+yes
+no
+n
+e
+s
+examine hole
+cyr badger
+d
+push stone
+e
+cyr human
+ask prisoner about guards
+get stone
+hide behind door
+call guard
+wait
+no
+hit guard with stone
+get helmet and key
+unlock prisoner with key
+give helmet to prisoner
+n
+e
+e
+move tapestry
+e
+n
+n
+wait for bells
+s
+s
+s
+s
+cyr salamander
+w
+cyr human
+look in barrel
+push barrel
+get stone
+open door
+nw
+s
+wear armour
+polish shield with stone
+get shield
+drop stone
+n
+w
+say "than good king lot"
+s
+get bottle
+n
+w
+w
+cyr badger
+dig in roots
+cyr human
+get all
+w
+n
+nw
+n
+knock on door
+mount horse
+red
+2
+2
+2
+2
+n
+n
+n
+open door with key
+d
+cyr owl
+d
+read wall
+u
+cyr human
+get all but key
+u
+u
+u
+cyr salamander
+w
+e
+cyr human
+open door
+say "Thomas the Rhymer"
+thank old man
+open door
+get all
+d
+d
+open door
+s
+s
+nw
+nw
+n
+cyr turtle
+pull in head and feet
+wait
+y
+y
+no
+cyr human
+get all
+n
+hide behind rock
+listen
+out
+drop bottle
+hide behind rock
+wait
+yes
+no
+grab leprechaun
+s
+se
+n
+s
+se
+s
+s
+se
+s
+wear ring
+sw
+rub ring
+e
+yes
+say "th"
+get all
+put all in bag
+w
+se
+e
+w
+s
+cyr eel
+s
+e
+look through window
+w
+sw
+examine kraken
+examine rowboat
+zap kraken
+ne
+n
+cyr human
+get sword
+cut tentacle with sword
+cyr turtle
+s
+swim through bracelet
+n
+pull in head
+cyr human
+get bracelet
+wear bracelet
+cyr eel
+s
+se
+ne
+n
+n
+n
+cyr human
+e
+ne
+u
+n
+d
+sw
+get apple
+examine apple
+w
+cyr eel
+s
+s
+s
+sw
+nw
+n
+cyr human
+get all
+n
+nw
+ne
+n
+nw
+n
+n
+nw
+n
+throw apple and sword across the chasm
+cyr owl
+n
+cyr human
+get sword
+cut tusk with sword
+throw tusk and sword across the chasm
+cyr owl
+s
+cyr human
+get all
+put tusk in bag
+s
+se
+ne
+ne
+cyr owl
+u
+land in grove
+cyr human
+get brass egg
+drop brass egg
+cyr owl
+u
+land in nest
+cyr human
+push egg from nest
+cyr owl
+land in grove
+cyr human
+get all
+put egg in bag
+sw
+sw
+s
+s
+se
+ne
+open door
+open door
+examine slean
+get slean
+ne
+cut peat with slean
+drop slean
+sw
+get crutch
+open door
+put peat on fire
+give crutch to peasant
+ask peasant about bog
+thank peasant
+open door
+ne
+ne
+ne
+ne
+se
+e
+e
+e
+fight knight
+g
+g
+g
+cut medallion with sword
+get jug
+drop bag
+e
+e
+ne
+u
+give jug to dragon
+wait
+yes
+yes
+no
+n
+nw
+point shield at basilisk
+ne
+say "nudd"
+sw
+se
+ne
+say "nudd"
+get block
+sw
+nw
+ne
+kiss girl
+hello nudd
+yes
+get fleece
+get key
+unlock left manacle
+lock left manacle
+unlock right manacle
+cut hair with sword
+d
+sw
+w
+w
+get bag
+put fleece and hair in bag
+west
+west
+northwest
+southwest
+southwest
+southwest
+southwest
+southwest
+south
+southwest
+southeast
+east
+give tusk to knight
+give hair to knight
+give egg to knight
+give fleece to knight
+s
+s
+unlock door with silver key
+d
+wait until christmas eve
+no
+sleep
+u
+n
+n
+w
+s
+s
+cyr eel
+s
+se
+ne
+eat minnow
+sw
+nw
+n
+cyr human
+n
+nw
+ne
+e
+e
+e
+s
+cyr badger
+d
+s
+u
+d
+u
+get sprig
+d
+n
+n
+u
+cyr human
+get sprig
+n
+w
+w
+w
+sw
+se
+e
+s
+s
+d
+wait until christmas
+no
+sleep
+get all
+examine sprig
+wait
+wait
+no
+touch nimue with flower
+get gauntlet
+u
+n
+n
+w
+nw
+ne
+e
+e
+give red glass to floyd
+CYR BADGER
+EAT MOUSE
+CYR HUMAN
+get all
+e
+e
+e
+SLAP LOT WITH GAUNTLET
+DROP BRACELET
+FIGHT LOT
+SPARE LOT
+CALL NIMUE
+S
+pull sword
+
+

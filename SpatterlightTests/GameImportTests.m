@@ -716,6 +716,11 @@
              commandScriptName:@"The Wyldkynd Project"];
 }
 
+- (void)testArthur {
+    [self importAndRunGameFile:@"arthur.zblorb"
+             commandScriptName:@"Arthur"];
+}
+
 - (void)testCzech {
     [self importAndRunGameFile:@"czech.z5"
              commandScriptName:@"Czech"];
