@@ -756,6 +756,11 @@
              commandScriptName:@"ScottFree"];
 }
 
+- (void)testShogun {
+    [self importAndRunGameFile:@"shogun.zblorb"
+             commandScriptName:@"Shogun"];
+}
+
 - (void)testTADS2 {
     [self importAndRunGameFile:@"tildeath.gam"
              commandScriptName:@"Till Death Makes a Monk-Fish out of Me"];
