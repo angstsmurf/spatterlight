@@ -736,6 +736,11 @@
              commandScriptName:@"Unholy Grail"];
 }
 
+- (void)testJourney {
+    [self importAndRunGameFile:@"journey.zblorb"
+             commandScriptName:@"Journey"];
+}
+
 - (void)testLevel9 {
     [self importAndRunGameFile:@"Q.L9"
              commandScriptName:@"Level 9"];
