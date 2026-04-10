@@ -1327,7 +1327,15 @@ void show_message(const char *fmt, ...)
 
         glk_put_char_stream(glk_window_get_stream(errorwin), LATIN1_LINEFEED);
     } else {
+#ifdef SPATTERLIGHT
+        if (!is_spatterlight_v6 && !gli_zmachine_no_err_win) {
+            errorwin = glk_window_open(mainwin->id, winmethod_Below | winmethod_Fixed, error_lines = 2, wintype_TextBuffer, 0);
+            garglk_set_zcolors_stream(glk_window_get_stream(errorwin), gargoyle_color(mainwin->fg_color), gargoyle_color(mainwin->bg_color));
+            glk_window_clear(errorwin);
+        }
+#else
         errorwin = glk_window_open(mainwin->id, winmethod_Below | winmethod_Fixed, error_lines = 2, wintype_TextBuffer, static_cast<glui32>(WindowRock::ErrorWin));
+#endif
     }
 
     // If windows are not supported (e.g. in cheapglk or no Glk), messages

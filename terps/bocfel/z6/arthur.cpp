@@ -23,12 +23,13 @@
 //    - A mode-dependent upper area (room image, map, inventory grid, etc.)
 //    - The main text buffer for narrative output
 //    - An optional "error window" (inverted grid) at the bottom for
-//      author/copyright messages
+//      errors and parser "out-of-world" messages.
 //
-//  Room images include "stamp" overlays (small images positioned relative
+//  Room images are drawn with "stamp" overlays (small images positioned relative
 //  to a reference offset image) for details like the sword in the stone.
 //  Full-screen images are shown during the title sequence, endgame, and
-//  special story events, with VoiceOver descriptions for accessibility.
+//  special story events. I have provided VoiceOver descriptions of them
+//  for accessibility.
 //
 
 #include "draw_image.hpp"
