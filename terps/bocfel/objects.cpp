@@ -1,4 +1,4 @@
-// Copyright 2009-2021 Chris Spiegel.
+// Copyright 2009-2024 Chris Spiegel.
 //
 // SPDX-License-Identifier: MIT
 
@@ -44,10 +44,7 @@ static uint16_t find_object(uint16_t n)
 #define set_sibling(obj1, obj2)		set_relation(obj1, obj2, OFFSET_SIBLING)
 #define set_child(obj1, obj2)		set_relation(obj1, obj2, OFFSET_CHILD)
 
-#ifndef SPATTERLIGHT
-static
-#endif
-uint16_t property_address(uint16_t n)
+static uint16_t property_address(uint16_t n)
 {
     return word(find_object(n) + OFFSET_PROP);
 }
@@ -145,10 +142,7 @@ static uint8_t property_number(uint16_t propaddr)
 
 static uint16_t advance_prop_addr(uint16_t propaddr)
 {
-    uint8_t size;
-
-    size = user_byte(propaddr++);
-
+    uint8_t size = user_byte(propaddr++);
     if (size == 0) {
         return 0;
     }
@@ -258,80 +252,6 @@ void zclear_attr()
 
     store_byte(addr, byte(addr) & ~ATTR_BIT(zargs[1]));
 }
-
-#ifdef SPATTERLIGHT
-
-bool internal_test_attr(uint16_t object, uint16_t attribute)
-{
-    check_attr(attribute);
-
-    uint16_t addr = find_object(object) + (attribute / 8);
-
-    return ((byte(addr) & ATTR_BIT(attribute)) != 0);
-}
-
-void internal_set_attr(uint16_t object, uint16_t attribute)
-{
-    check_attr(attribute);
-
-    uint16_t addr = find_object(object) + (attribute / 8);
-
-    store_byte(addr, byte(addr) | ATTR_BIT(attribute));
-}
-
-void internal_clear_attr(uint16_t object, uint16_t attribute)
-{
-    check_attr(attribute);
-
-    uint16_t addr = find_object(object) + (attribute / 8);
-
-    store_byte(addr, byte(addr) & ~ATTR_BIT(attribute));
-}
-
-uint16_t internal_get_prop(int obj, int prop) {
-    check_propnum(prop);
-
-    uint16_t propaddr, proplen;
-
-    if (find_property(obj, prop, propaddr, proplen)) {
-        if (proplen == 1) {
-            return user_byte(propaddr);
-        } else {
-            return user_word(propaddr);
-        }
-    } else {
-        uint16_t i;
-
-        i = header.objects + (2 * (prop - 1));
-        return word(i);
-    }
-}
-
-void internal_put_prop(uint16_t object, uint16_t property, uint16_t value)
-{
-    check_propnum(property);
-
-    uint16_t propaddr, proplen;
-    bool found;
-
-    found = find_property(object, property, propaddr, proplen);
-
-    ZASSERT(found, "broken story: no prop");
-    ZASSERT(proplen == 1 || proplen == 2, "broken story: property too long: %u", static_cast<unsigned int>(proplen));
-
-    if (proplen == 1) {
-        user_store_byte(propaddr, zargs[2] & 0xff);
-    } else {
-        user_store_word(propaddr, zargs[2]);
-    }
-}
-
-int16_t internal_get_parent(int16_t obj) {
-    return (parent_of(obj));
-}
-
-#endif
-
 #undef ATTR_BIT
 
 void zremove_obj()
@@ -350,15 +270,6 @@ void zinsert_obj()
     set_sibling(zargs[0], child_of(zargs[1]));
     set_child(zargs[1], zargs[0]);
     set_parent(zargs[0], zargs[1]);
-}
-
-void internal_insert(uint16_t obj1, uint16_t obj2)
-{
-    remove_object(obj1);
-
-    set_sibling(obj1, child_of(obj2));
-    set_child(obj2, obj1);
-    set_parent(obj1, obj2);
 }
 
 void zget_sibling()
@@ -394,9 +305,7 @@ void zput_prop()
     check_propnum(zargs[1]);
 
     uint16_t propaddr, proplen;
-    bool found;
-
-    found = find_property(zargs[0], zargs[1], propaddr, proplen);
+    bool found = find_property(zargs[0], zargs[1], propaddr, proplen);
 
     ZASSERT(found, "broken story: no prop");
 
@@ -435,9 +344,7 @@ void zget_prop()
             store(user_word(propaddr));
         }
     } else {
-        uint16_t i;
-
-        i = header.objects + (2 * (zargs[1] - 1));
+        uint16_t i = header.objects + (2 * (zargs[1] - 1));
         store(word(i));
     }
 }

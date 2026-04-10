@@ -1,4 +1,4 @@
-// Copyright 2010-2021 Chris Spiegel.
+// Copyright 2010-2024 Chris Spiegel.
 //
 // SPDX-License-Identifier: MIT
 
@@ -44,9 +44,9 @@ glkunix_argumentlist_t glkunix_arguments[128] = {
 };
 
 #ifdef ZTERP_GLK_BLORB
-static strid_t load_file(const std::string &file)
+static strid_t load_file(const std::string &file, StreamRock rock)
 {
-    return glkunix_stream_open_pathname(const_cast<char *>(file.c_str()), 0, 0);
+    return glkunix_stream_open_pathname(const_cast<char *>(file.c_str()), 0, static_cast<glui32>(rock));
 }
 #endif
 
@@ -61,6 +61,12 @@ int glkunix_startup_code(glkunix_startup_t *data)
         return 1;
     }
 
+    // Not interrupt in the sense of SIGINT; it’s called by RemGlk
+    // when doing a -singleturn shutdown. That will involve closing
+    // all streams. So we must finalize any IO objects with Type::Glk
+    // first.
+    glk_set_interrupt_handler(screen_clean_up_glk_streams);
+
 #ifdef GARGLK
     if (!game_file.empty()) {
         auto story_name = game_file;
@@ -72,9 +78,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
         garglk_set_story_name(story_name.c_str());
     } else {
-        frefid_t ref;
-
-        ref = glk_fileref_create_by_prompt(fileusage_Data | fileusage_BinaryMode, filemode_Read, 0);
+        frefid_t ref = glk_fileref_create_by_prompt(fileusage_Data | fileusage_BinaryMode, filemode_Read, 0);
         if (ref != nullptr) {
             const char *filename = glkunix_fileref_get_filename(ref);
             if (filename != nullptr) {
@@ -106,9 +110,9 @@ int InitGlk(unsigned int);
 }
 
 #ifdef ZTERP_GLK_BLORB
-static strid_t load_file(const std::string &file)
+static strid_t load_file(const std::string &file, StreamRock rock)
 {
-    frefid_t ref = winglk_fileref_create_by_name(fileusage_BinaryMode | fileusage_Data, const_cast<char *>(file.c_str()), 0, 0);
+    frefid_t ref = winglk_fileref_create_by_name(fileusage_BinaryMode | fileusage_Data, const_cast<char *>(file.c_str()), 0, static_cast<glui32>(rock));
 
     if (ref == nullptr) {
         return nullptr;
@@ -134,7 +138,7 @@ static void startup()
     }
 
     if (game_file.empty()) {
-        const std::string patterns = "*.z1;*.z2;*.z3;*.z4;*.z5;*.z6;*.z7.*.z8;*.zblorb;*.zlb;*.blorb;*.blb";
+        const std::string patterns = "*.z1;*.z2;*.z3;*.z4;*.z5;*.z6;*.z7;*.z8;*.zblorb;*.zlb;*.blorb;*.blb";
         std::string filter;
         const char *filename;
 
@@ -188,17 +192,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 }
 #else
 #ifdef ZTERP_GLK_BLORB
-#define load_file(file) nullptr
+#define load_file(file, rock) nullptr
 #endif
 #error Glk on this platform is not supported.
-#endif
-
-#ifdef SPATTERLIGHT
-
-// If we find a valid blorb file (which may be external  or the game file itself)
-// we keep track of it using this global. (The blorb file stream stays open during tha game,
-// but is closed and reopened during autorestore.)
-strid_t active_blorb_file_stream = nullptr;
 #endif
 
 // A Blorb file can contain the story file, or it can simply be an
@@ -209,13 +205,11 @@ static void load_resources()
 {
 #ifdef ZTERP_GLK_BLORB
     auto set_map = [](const std::string &blorb_file) {
-        strid_t file = load_file(blorb_file);
+        strid_t file = load_file(blorb_file, StreamRock::BlorbStream);
         if (file != nullptr) {
             if (giblorb_set_resource_map(file) == giblorb_err_None) {
                 screen_load_scale_info(blorb_file);
-#ifdef SPATTERLIGHT
-                active_blorb_file_stream = file;
-#endif
+
                 return true;
             }
             glk_stream_close(file, nullptr);

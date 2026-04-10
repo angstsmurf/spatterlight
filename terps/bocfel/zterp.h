@@ -24,7 +24,7 @@ private:
 
 extern std::string game_file;
 
-#define ZTERP_VERSION	"2.2.4"
+#define ZTERP_VERSION	"2.5"
 
 // v3
 constexpr uint8_t FLAGS1_STATUSTYPE  = 1U << 1;
@@ -55,11 +55,7 @@ constexpr uint16_t FLAGS2_MENUS      = 1U << 8;
 
 #define status_is_time()	(zversion == 3 && (byte(0x01) & FLAGS1_STATUSTYPE))
 #define timer_available()	(zversion >= 4 && (byte(0x01) & FLAGS1_TIMED))
-#ifdef SPATTERLIGHT
-#define mouse_available()	(zversion >= 5 && (word(0x10) & FLAGS2_MOUSE || is_game(Game::BeyondZork) ))
-#else
-#define mouse_available()   (zversion >= 5 && (word(0x10) & FLAGS2_MOUSE))
-#endif
+#define mouse_available()	(zversion >= 5 && (word(0x10) & FLAGS2_MOUSE))
 
 struct Header {
     uint16_t pc;
@@ -73,8 +69,8 @@ struct Header {
     uint32_t file_length;
     uint8_t  serial[6];
     uint16_t checksum;
-    uint32_t R_O;
-    uint32_t S_O;
+    uint32_t routines_offset;
+    uint32_t strings_offset;
     uint16_t terminating_characters_table;
     uint16_t extension_table;
     uint16_t extension_entries;
@@ -83,10 +79,6 @@ struct Header {
 extern int zversion;
 extern Header header;
 extern std::array<uint8_t, 26 * 3> atable;
-
-#ifdef SPATTERLIGHT
-extern int pixversion;
-#endif
 
 const std::string &get_story_id();
 
@@ -98,11 +90,8 @@ enum class Game {
     Planetfall,
     Shogun,
     Stationfall,
-#ifdef SPATTERLIGHT
-    BeyondZork,
-    MadBomber,
-#endif
     ZorkZero,
+    ZorkZeroDOS,
     MysteriousAdventures,
 };
 
@@ -114,9 +103,6 @@ void start_story();
 uint32_t unpack_routine(uint16_t addr);
 uint32_t unpack_string(uint16_t addr);
 void store(uint16_t v);
-#ifdef SPATTERLIGHT
-uint32_t pack_routine(uint32_t addr);
-#endif
 
 void zterp_mouse_click(uint16_t x, uint16_t y);
 

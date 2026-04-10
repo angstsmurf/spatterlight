@@ -4,7 +4,9 @@
 #define ZTERP_CONFIG_H
 
 #include <bitset>
+#include <cctype>
 #include <functional>
+#include <map>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -13,17 +15,7 @@
 
 #include "stack.h"
 
-using Parser = std::function<void(const std::string &)>;
-
-struct OptValue {
-    enum class Type { Flag, Number, Value } type;
-    std::string desc;
-    Parser parser;
-};
-
 struct Options {
-    Options();
-
     unsigned long eval_stack_size = DEFAULT_STACK_SIZE;
     unsigned long call_stack_size = DEFAULT_CALL_DEPTH;
     bool disable_color = false;
@@ -60,35 +52,60 @@ struct Options {
     std::unique_ptr<unsigned long> random_seed = nullptr;
     std::unique_ptr<std::string> random_device = nullptr;
 
-#ifdef SPATTERLIGHT
-    bool autosave = true;
-#else
     bool autosave = false;
-#endif
+    bool skip_autorestore = false;
+    std::unique_ptr<std::string> autosave_directory = nullptr;
+    bool autosave_librarystate = false;
     bool persistent_transcript = false;
     std::unique_ptr<std::string> editor = nullptr;
     bool warn_on_v6 = true;
     bool redirect_v6_windows = true;
     bool disable_v6_hacks = false;
     double v6_hack_max_scale = 4.0;
+    bool v6_borders = true;
+    bool aspect_correction = false;
 
-    void read_config();
     void process_arguments(int argc, char **argv);
+
+#ifndef ZTERP_NO_OPTIONS
+    Options();
+    void read_config();
+    void read_envvars();
     void help();
 
-    std::vector<std::string> &errors() {
+    const std::vector<std::string> &errors() {
         return m_errors;
     }
 
+    using Parser = std::function<void(const std::string &)>;
+
+    struct OptValue {
+        enum class Type { Flag, Number, Value } type;
+        std::string desc;
+        Parser parser;
+    };
+
 private:
+    struct OptCompare {
+        bool operator()(const unsigned char &a, const unsigned char &b) const {
+            if (std::tolower(a) == std::tolower(b)) {
+                return std::islower(a) && std::isupper(b);
+            }
+
+            return std::tolower(a) < std::tolower(b);
+        }
+    };
+
     std::unordered_map<std::string, Parser> m_from_config;
-    std::unordered_map<char, OptValue> m_opts;
+    std::map<char, OptValue, OptCompare> m_opts;
     std::vector<std::string> m_errors;
 
+    static bool m_initialized;
 
     int getopt(int argc, char *const argv[]);
-    void add_parser(char flag, std::string desc, bool use_config, std::string name, const Parser &parser, OptValue::Type type);
-    std::vector<std::pair<char, OptValue>> sorted_opts();
+    void add_parser(char opt, std::string desc, bool use_config, std::string name, const Parser &parser, OptValue::Type type);
+    const decltype(m_opts) &opts() const { return m_opts; }
+#endif
 };
 
 // BadOption means an invalid option was provided (i.e. one that does
