@@ -1,4 +1,4 @@
-// Copyright 2011-2021 Chris Spiegel.
+// Copyright 2011-2025 Chris Spiegel.
 //
 // SPDX-License-Identifier: MIT
 
@@ -21,10 +21,6 @@ extern "C" {
 #if defined(GLK_MODULE_SOUND2) && defined(ZTERP_GLK_BLORB)
 #include <gi_blorb.h>
 #endif
-#ifdef SPATTERLIGHT
-#include "glkimp.h"
-#include "spatterlight-autosave.h"
-#endif
 }
 #endif
 
@@ -40,9 +36,7 @@ struct Channel {
     }
 
     ~Channel() {
-#ifndef SPATTERLIGHT
         glk_schannel_destroy(channel);
-#endif
     }
 
     Channel(const Channel &other) = delete;
@@ -75,7 +69,7 @@ public:
         // interrupt each other, but that’s better than no music.
         try {
             m_channels.emplace(Music, std::make_shared<Channel>());
-        } catch (const std::exception &) {
+        } catch (const Channel::Error &) {
             m_channels.emplace(Music, m_channels.at(Effects));
         }
     };
@@ -127,7 +121,7 @@ void init_sound()
         if (giblorb_load_chunk_by_type(map, giblorb_method_Memory, &res, chunktype, 0) == giblorb_err_None) {
             for (size_t i = 0; i < res.length; i += 8) {
                 auto read32 = [&res](size_t offset) {
-                    const auto *p = static_cast<const char *>(res.data.ptr) + offset;
+                    const auto *p = static_cast<unsigned char *>(res.data.ptr) + offset;
                     return (static_cast<uint32_t>(p[0]) << 24) |
                            (static_cast<uint32_t>(p[1]) << 16) |
                            (static_cast<uint32_t>(p[2]) <<  8) |
@@ -158,7 +152,7 @@ bool sound_loaded()
 #ifdef GLK_MODULE_SOUND2
 static void start_sound(glui32 chantype, Channel *channel, uint16_t number, uint8_t repeats, uint8_t volume)
 {
-    const std::array<uint32_t, 8> vols = {
+    static const std::array<uint32_t, 8> vols = {
         0x02000, 0x04000, 0x06000, 0x08000,
         0x0a000, 0x0c000, 0x0e000, 0x10000
     };
@@ -214,8 +208,6 @@ void zsound_effect()
     if (number == 1 || number == 2) {
 #ifdef GLK_MODULE_GARGLKBLEEP
         garglk_zbleep(number);
-#elif defined(SPATTERLIGHT)
-        win_beep(number);
 #endif
         return;
     }
@@ -383,34 +375,3 @@ void zsound_effect()
     }
 #endif
 }
-
-#ifdef SPATTERLIGHT
-void stash_library_sound_state(library_state_data *dat)
-{
-    if (!dat)
-        return;
-
-    auto channel = channels.at(Channels::Effects);
-
-    dat->autosave_version = 1;
-    dat->routine = channel->routine;
-    dat->queued_sound = channel->queued.number;
-    dat->queued_volume = channel->queued.volume;
-    if (channels.loaded())
-        dat->sound_channel_tag = channel->channel->tag;
-}
-
-void recover_library_sound_state(library_state_data *dat)
-{
-    if (!dat)
-        return;
-    auto channel = channels.at(Channels::Effects);
-    channel->channel = gli_schan_for_tag(dat->sound_channel_tag);
-    channel->routine = dat->routine;
-    channel->queued.number = dat->queued_sound;
-    if (dat->autosave_version > 0)
-        channel->queued.volume = dat->queued_volume;
-    else
-        channel->queued.volume = 8;
-}
-#endif

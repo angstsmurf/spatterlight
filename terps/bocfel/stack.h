@@ -4,7 +4,6 @@
 #define ZTERP_STACK_H
 
 #include <stdexcept>
-#include <string>
 #include <vector>
 
 #include "types.h"
@@ -23,7 +22,6 @@ void init_stack(bool first_run);
 
 uint16_t variable(uint16_t var);
 void store_variable(uint16_t var, uint16_t n);
-uint16_t *stack_top_element();
 
 void start_v6();
 uint16_t internal_call(uint16_t routine, std::vector<uint16_t> args = {});
@@ -33,12 +31,17 @@ enum class SaveType {
     Normal,
     Meta,
     Autosave,
+    AutosaveLib,
 };
 
 enum class SaveOpcode {
     None = -1,
     Read = 0,
     ReadChar = 1,
+    // Yes, we can autosave in the middle of a @save or @restore! It’s the
+    // fileref prompt that does it, not the save operation.
+    Save = 2,
+    Restore = 3,
 };
 
 bool do_save(SaveType savetype, SaveOpcode saveopcode);
@@ -81,10 +84,6 @@ void zrestore();
 
 void zcall_store();
 void zcall_nostore();
-
-#ifdef SPATTERLIGHT
-uint16_t internal_arg_count(void);
-#endif
 
 #define zcall		zcall_store
 #define zcall_1n	zcall_nostore

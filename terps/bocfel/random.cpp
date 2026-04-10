@@ -1,4 +1,4 @@
-// Copyright 2010-2021 Chris Spiegel.
+// Copyright 2010-2025 Chris Spiegel.
 //
 // SPDX-License-Identifier: MIT
 
@@ -51,30 +51,43 @@ static enum class Mode {
     Predictable,
 } mode = Mode::Random;
 
-// The PRNG used here is Xorshift32.
-static uint32_t xstate;
+class Xorshift32 {
+public:
+    void srand(uint32_t s) {
+        if (s == 0) {
+            s = 1;
+        }
 
-#ifdef SPATTERLIGHT
-long last_random_seed = 0;
-int random_calls_count = 0;
-#endif
-
-static void zterp_srand(uint32_t s)
-{
-    if (s == 0) {
-        s = 1;
+        m_state = s;
     }
 
-    xstate = s;
-}
+    uint32_t rand() {
+        m_state ^= m_state << 13;
+        m_state ^= m_state >> 17;
+        m_state ^= m_state <<  5;
+
+        return m_state;
+    }
+
+    uint32_t state() const {
+        return m_state;
+    }
+
+    void set_state(uint32_t state) {
+        if (state != 0) {
+            m_state = state;
+        }
+    }
+
+private:
+    uint32_t m_state = 1;
+};
+
+static Xorshift32 xorshift32;
 
 static std::ifstream random_file;
 
-#ifdef SPATTERLIGHT
-uint32_t zterp_rand()
-#else
 static uint32_t zterp_rand()
-#endif
 {
     if (mode == Mode::Random && random_file.is_open()) {
         uint32_t value;
@@ -87,15 +100,7 @@ static uint32_t zterp_rand()
         }
     }
 
-    xstate ^= xstate << 13;
-    xstate ^= xstate >> 17;
-    xstate ^= xstate <<  5;
-
-#ifdef SPATTERLIGHT
-    random_calls_count++;
-#endif
-
-    return xstate;
+    return xorshift32.rand();
 }
 
 // Called with 0, set the PRNG to random mode. Then seed it with either
@@ -105,17 +110,8 @@ static uint32_t zterp_rand()
 //
 // Otherwise, set the PRNG to predictable mode and seed with the
 // provided value.
-#ifdef SPATTERLIGHT
-void seed_random(uint32_t seed)
-#else
 static void seed_random(uint32_t seed)
-#endif
 {
-#ifdef SPATTERLIGHT
-
-    random_calls_count = 0;
-
-#endif
     if (seed == 0) {
         mode = Mode::Random;
 
@@ -128,27 +124,20 @@ static void seed_random(uint32_t seed)
             for (size_t i = 0; i < sizeof t; i++) {
                 s = s * (UCHAR_MAX + 2U) + p[i];
             }
-#ifdef SPATTERLIGHT
-            last_random_seed = s;
-#endif
-            zterp_srand(s);
+
+            xorshift32.srand(s);
         } else {
-#ifdef SPATTERLIGHT
-            last_random_seed = *options.random_seed;
-#endif
-            zterp_srand(*options.random_seed);
+            xorshift32.srand(*options.random_seed);
         }
     } else {
         mode = Mode::Predictable;
-#ifdef SPATTERLIGHT
-        last_random_seed = seed;
-#endif
-        zterp_srand(seed);
+
+        xorshift32.srand(seed);
     }
 }
 
 enum class RNGType {
-    XORShift32 = 0,
+    Xorshift32 = 0,
 };
 
 IFF::TypeID random_write_rand(IO &io)
@@ -157,8 +146,8 @@ IFF::TypeID random_write_rand(IO &io)
         return IFF::TypeID();
     }
 
-    io.write16(static_cast<uint16_t>(RNGType::XORShift32));
-    io.write32(xstate);
+    io.write16(static_cast<uint16_t>(RNGType::Xorshift32));
+    io.write32(xorshift32.state());
 
     return IFF::TypeID("Rand");
 }
@@ -175,8 +164,8 @@ void random_read_rand(IO &io)
         return;
     }
 
-    if (rng_type == static_cast<uint16_t>(RNGType::XORShift32) && state != 0) {
-        xstate = state;
+    if (rng_type == static_cast<uint16_t>(RNGType::Xorshift32) && state != 0) {
+        xorshift32.set_state(state);
         mode = Mode::Predictable;
     }
 }
@@ -185,12 +174,12 @@ class RandomStasher : public Stasher {
 public:
     void backup() override {
         m_mode = mode;
-        m_xstate = xstate;
+        m_xorshift32 = xorshift32;
     }
 
     bool restore() override {
         mode = m_mode;
-        xstate = m_xstate;
+        xorshift32 = m_xorshift32;
 
         return true;
     }
@@ -200,7 +189,7 @@ public:
 
 private:
     Mode m_mode = Mode::Random;
-    uint32_t m_xstate = 0;
+    Xorshift32 m_xorshift32;
 };
 
 void init_random(bool first_run)
@@ -224,7 +213,9 @@ void zrandom()
     int16_t v = as_signed(zargs[0]);
 
     if (v <= 0) {
-        seed_random(-v);
+        // Cast to long for the pathological case of -32768 and 16-bit
+        // int: 32768 isn’t representable in an int, so -v is undefined.
+        seed_random(-static_cast<long>(v));
         store(0);
     } else {
         store(zterp_rand() % zargs[0] + 1);

@@ -5,6 +5,7 @@
 
 #include <cstdarg>
 #include <functional>
+#include <memory>
 #include <string>
 #include <type_traits>
 
@@ -40,11 +41,7 @@ int16_t as_signed(uint16_t n);
 [[noreturn]]
 zprintflike(1, 2)
 void assert_fail(const char *fmt, ...);
-#ifdef SPATTERLIGHT
-#define ZASSERT(expr, ...) if(!(expr)) assert_fail(__VA_ARGS__);
-#else
 #define ZASSERT(expr, ...)	do { if (!(expr)) assert_fail(__VA_ARGS__); } while (false)
-#endif
 #else
 #define ZASSERT(expr, ...)	((void)0)
 #endif
@@ -64,5 +61,6 @@ std::string fstring(const char *fmt, ...);
 std::string ltrim(const std::string &s);
 std::string rtrim(const std::string &s);
 void parse_grouped_file(std::ifstream &f, const std::function<void(const std::string &line, int lineno)> &callback);
+std::unique_ptr<std::string> zterp_getenv(const std::string &name);
 
 #endif
