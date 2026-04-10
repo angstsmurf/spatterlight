@@ -242,8 +242,8 @@ void PlaySample(void)
 void PlayVideo(void)
 {
 	char filename[MAX_RES_PATH], resname[MAX_RES_PATH];
-	char loop_flag = 0, background = 0;
-	int volume = 100;
+	char loop_flag, background;
+	int volume;
 	long resstart, reslength;
 
 #if defined (COMPILE_V25)

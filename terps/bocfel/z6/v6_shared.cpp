@@ -1,9 +1,25 @@
+// v6_shared.cpp
 //
-//  v6_shared.cpp
-//  bocfel6
+// Shared UI functionality for all Infocom Z-machine version 6 games
+// (Zork Zero, Shogun, Arthur).
 //
-//  Created by Administrator on 2024-06-09.
+// This file contains code used by two or more of the V6 games:
 //
+// - Margin image tracking: Maintains a list of images drawn as margin
+//   (inline) images in text buffer windows, so they can be recreated
+//   when the graphics type changes.
+// - Number printing: Outputs integers to Glk windows character by character.
+// - Z-string to C-string conversion: Decodes Z-machine encoded strings
+//   into plain C strings for use with Glk and VoiceOver accessibility.
+// - Definitions screen (DEFINE command): A shared function-key editor
+//   that lets players assign text macros to function keys. Used by both
+//   Zork Zero and Shogun.
+// - Hints screen (InvisiClues): A three-level hint menu (topics ->
+//   questions -> progressive hints) shared by all three games. Supports
+//   keyboard and mouse navigation, with VoiceOver menu integration.
+// - Credits display and color management after V-COLOR.
+// - Visual puzzle skip prompt for accessibility.
+// - Empty stub functions for entry points that only some games implement.
 
 #include <sstream>
 
@@ -23,11 +39,18 @@
 
 #include "v6_shared.hpp"
 
+// Window 2 (SOFT-WINDOW) is used as the definitions text grid
 #define DEFINITIONS_WINDOW windows[2]
 
+#pragma mark - Margin Image Tracking
+
+// List of image numbers currently displayed as margin (inline) images in
+// text buffer windows. When the graphics type changes, these images need
+// to be recreated at the new resolution.
 int margin_images[100];
 int number_of_margin_images = 0;
 
+// Shifts the margin image list when full, discarding the oldest entry.
 void shift_margin_image_list(void) {
     fprintf(stderr, "More than 100 margin images! Shifting list, forgetting the first margin image (%d)\n", margin_images[0]);
     for (int i = 1; i < number_of_margin_images; i++) {
@@ -36,6 +59,8 @@ void shift_margin_image_list(void) {
     number_of_margin_images = 99;
 }
 
+// Adds an image to the margin image list if not already present.
+// Shifts the list if full (maximum 100 entries).
 void add_margin_image_to_list(int image) {
     if (number_of_margin_images >= 100) {
         shift_margin_image_list();
@@ -50,20 +75,22 @@ void add_margin_image_to_list(int image) {
     number_of_margin_images++;
 }
 
+// Resets the margin image list (e.g., when clearing the screen).
 void clear_margin_image_list(void) {
     number_of_margin_images = 0;
 }
 
+// Recreates all tracked margin images at the current graphics resolution.
+// Called when the graphics type changes (e.g., switching from Amiga to VGA).
 void refresh_margin_images(void) {
-    // We uncache all used margin images and create new ones
-
     for (int i = 0; i < number_of_margin_images; i++) {
         recreate_image(margin_images[i], false);
     }
 }
 
-#pragma mark PRINT NUMBER
+#pragma mark - Print Number
 
+// Prints an integer to the current Glk window, one character at a time.
 void print_number(int number) {
     std::ostringstream ss;
     ss << number;
@@ -72,6 +99,8 @@ void print_number(int number) {
     }
 }
 
+// Prints a number right-justified in a 4-character field, padding with
+// leading spaces. Used for score and move count display in status lines.
 void print_right_justified_number(int number) {
 
     int spaces;
@@ -91,17 +120,23 @@ void print_right_justified_number(int number) {
     print_number(number);
 }
 
-#pragma mark Print Z string to C string
+#pragma mark - Z-String to C-String Conversion
 
+// Buffer state for print_to_string_buffer callback
 static char *string_buf_ptr = nullptr;
 static int string_buf_pos = 0;
 static int string_maxlen = 0;
 
+// Callback for print_handler that appends characters to a C string buffer
+// instead of displaying them.
 static void print_to_string_buffer(uint8_t c) {
     if (string_buf_pos < string_maxlen)
         string_buf_ptr[string_buf_pos++] = c;
 }
 
+// Decodes a Z-machine encoded string at `addr` into a C string buffer `str`
+// with a maximum length of `maxlen`. Returns the string length, or 0 if
+// the string is shorter than 2 characters.
 int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen) {
     int length = count_characters_in_zstring(addr);
     if (length < 2)
@@ -114,10 +149,15 @@ int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen) {
     return length;
 }
 
+// Convenience wrapper: decodes a Z-string with the default buffer size.
 int print_zstr_to_cstr(uint16_t addr, char *str) {
     return print_long_zstr_to_cstr(addr, str, STRING_BUFFER_SIZE);
 }
 
+// Destroys and recreates the foreground graphics window. Used when the
+// graphics type changes and the window needs fresh configuration.
+// In slideshow mode, the new window is sized to fill the screen;
+// otherwise it's hidden (zero size) and the background window is used.
 void v6_close_and_reopen_front_graphics_window(void) {
     if (graphics_fg_glk) {
         if (current_graphics_buf_win == graphics_fg_glk) {
@@ -140,6 +180,8 @@ void v6_close_and_reopen_front_graphics_window(void) {
     }
 }
 
+// Prints a C string to the current Glk window and also sends it to the
+// transcript stream (if active).
 void transcribe_and_print_string(const char *str) {
     glk_put_string(const_cast<char*>(str));
     int i = 0;
@@ -148,21 +190,34 @@ void transcribe_and_print_string(const char *str) {
     }
 }
 
-#pragma mark DEFINITIONS SCREEN
+#pragma mark - Definitions Screen (DEFINE Command)
 
+// The Definitions screen lets players assign text macros to function keys.
+// Shared between Zork Zero and Shogun. The screen displays a centered
+// "Function Keys" title, a list of editable key definitions, and built-in
+// commands (Save Definitions, Restore Definitions, Exit).
+
+// Maximum width of a function key definition string
 #define DEFINITIONS_WIDTH 30 // FLEN in original source
 #define ARTHUR_LAST_OBJECT 0x137
 
+// Prints a single reverse-video space character, used as a text cursor
+// indicator in the definitions editor.
 static void print_reverse_video_space(void) {
     garglk_set_reversevideo(1);
     glk_put_char(UNICODE_SPACE);
     garglk_set_reversevideo(0);
 }
 
+// Address of the function key definitions table in Z-machine memory.
+// Each entry is 4 bytes: 2-byte key code + 2-byte pointer to definition data.
+// Default values are for Zork Zero; updated by entrypoints.cpp for other games.
 uint16_t fkeys_table_addr = 0xce2a;
+// Address of the function key names table (maps key codes to display names).
 uint16_t fnames_table_addr = 0x4b57;
 
-// Return width of the widest user-defined command
+// Returns the width of the widest user-defined command string.
+// Used to center the command text in the definitions window.
 static int soft_commands_width(void) {
     int widest = 0;
     int num_commands = user_word(fkeys_table_addr) / 2;
@@ -183,8 +238,12 @@ static int soft_commands_width(void) {
     return widest;
 }
 
+// Cached width of the widest command (0 = not yet computed)
 int define_window_width = 0;
 
+// Prints a Z-string centered on line `y` of the definitions window.
+// First clears the line area to the width of the widest command,
+// then prints the string centered.
 static void print_center_table(int y, uint16_t string) {
     if (define_window_width == 0)
         define_window_width = soft_commands_width();
@@ -205,6 +264,9 @@ static void print_center_table(int y, uint16_t string) {
     print_handler(unpack_string(string), nullptr);
 }
 
+// Scans a Z-machine table for a value. Searches `length` entries starting
+// at `address`, comparing either bytes (bytewise=true) or words (bytewise=false).
+// Returns the address of the match, or 0 if not found.
 static uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bool bytewise) {
     for (uint16_t i = 0; i < length; i++) {
         if ((bytewise && user_byte(address) == value) ||
@@ -218,9 +280,13 @@ static uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bo
     return 0;
 }
 
-// Print a single define menu line.
-// Either a function key name + an editable command
-// or a hard-coded menu item such as Save Definitions.
+// Displays a single line in the definitions menu. There are two types:
+// - Hard-coded commands (negative key code): centered text items like
+//   "Save Definitions" or "Exit" that run a Z-machine routine when selected.
+// - Editable definitions (non-negative key code): shows the function key
+//   name (reverse video) followed by the user's command text with a cursor.
+// When `inverse` is true, the line is shown as selected (highlighted).
+// When `send_menu` is true, sends VoiceOver menu item notifications.
 static void display_soft(int function_key, int index, bool inverse, bool send_menu) {
     int fdef, y;
     char str[60];
@@ -290,8 +356,11 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
     garglk_set_reversevideo(0);
 }
 
+// Currently selected line index in the definitions menu
 int global_define_line = 0;
 
+// Renders the entire definitions menu: title, all function key definitions,
+// and built-in commands. Sends VoiceOver menu items for each line.
 static void display_softs(void) {
     fprintf(stderr, "display_softs\n");
     uint16_t number_of_lines = user_word(fkeys_table_addr) / 2;
@@ -313,10 +382,14 @@ static void display_softs(void) {
     }
 }
 
+// Notifies VoiceOver that the current menu line's text has changed.
 void send_edited_menu_line(uint8_t chr) {
     win_menuitem(kV6MenuCurrentItemChanged, global_define_line, chr, 0, nullptr, 0);
 }
 
+// Creates or resizes the definitions window to be centered on screen,
+// sized to fit all menu lines. Sets up text styles, displays the menu,
+// and positions the cursor on the currently selected line.
 void adjust_definitions_window(void) {
 
     uint16_t fkey = fkeys_table_addr + 2 + 4 * global_define_line;
@@ -357,7 +430,13 @@ void adjust_definitions_window(void) {
     glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
 }
 
-// Shared between Zork Zero and Shogun
+// Z-machine entry point: main loop for the DEFINE command (function key editor).
+// Shared between Zork Zero and Shogun. Handles:
+// - Arrow key / mouse navigation between lines
+// - Enter on hard-coded commands (Save/Restore/Exit)
+// - Text editing (typing characters, backspace) for editable definitions
+// - Function key shortcuts to jump to the corresponding line
+// - Pipe character '|' is converted to ZSCII_NEWLINE (command separator)
 void V_DEFINE(void) {
     int linmax;
     uint16_t fkey, fdef, clicked_line, pressed_fkey, length;
@@ -565,32 +644,50 @@ void V_DEFINE(void) {
 //    }
 }
 
-#pragma mark HINTS SCREEN
+#pragma mark - Hints Screen (InvisiClues)
 
-// Shared between Zork Zero, Shogun, and Arthur
+// The hints system provides a three-level progressive hint menu:
+//   Level 1 (Topics): Categories of hints (e.g., "In the Dungeon")
+//   Level 2 (Questions): Specific puzzles within a topic
+//   Level 3 (Hints): Progressive hints revealed one at a time with Enter
+// Shared between Zork Zero, Shogun, and Arthur.
 
-// To keep track of the main buffer window while
-// using a grid for the hints menu
+// Saves the main text buffer window while the hints system temporarily
+// replaces it with a text grid for menu display.
 winid_t stored_bufferwin = nullptr;
 
+// Z-machine global indices for the current hint chapter and question,
+// so the game can persist hint state across save/restore.
 uint8_t hint_chapter_global_idx = 0;
 uint8_t hint_quest_global_idx = 0;
 
+// Address of the master hints table in Z-machine memory.
+// First word is the number of topics; subsequent words point to topic tables.
 uint16_t hints_table_addr = 0;
 
-static glui32 upperwin_foreground = zcolor_Default; // black
-static glui32 upperwin_background = zcolor_Default; // white
+// Colors for the hints status bar (upper window). Set per-platform
+// in draw_hints_windows.
+static glui32 upperwin_foreground = zcolor_Default;
+static glui32 upperwin_background = zcolor_Default;
 
+// Current depth in the hint menu hierarchy
 InfocomV6MenuType hints_depth = kV6MenuTypeTopic;
 
+// Current chapter (topic) and question indices within the hints table
 static uint16_t h_chapt_num = 1;
 static uint16_t h_quest_num = 1;
 
-// HINT-COUNTS in original source
-// 0xe9d2 is value for Zork Zero release 393
-// It is changed in entrypoints.cpp
+// Address of the "seen hints" nibble table (HINT-COUNTS in original source).
+// Tracks how many hints have been revealed for each question. Each byte
+// stores two questions: high nibble for odd-numbered, low nibble for even.
+// Default is for Zork Zero r393; changed in entrypoints.cpp for other games.
 uint16_t seen_hints_table_addr = 0xe9d2;
 
+// Waits for user input (keyboard or mouse) in the hints screen.
+// If a mouse click occurs, maps it to a command key (N/P/M/Q/Enter)
+// based on position in the status bar, or returns a line number if
+// clicked in the menu area. Left/right columns are supported for
+// two-column layouts.
 static int16_t select_hint_by_mouse(int16_t *chr) {
     glk_cancel_char_event(V6_STATUS_WINDOW.id);
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
@@ -645,12 +742,12 @@ static int16_t select_hint_by_mouse(int16_t *chr) {
 }
 
 
-//  Arthur has contextual hints that
-//  might not be shown, so the internal index of
-//  a hint might not match its line on-screen.
-//  If the game is not Arthur, these two functions
-//  return the argument unchanged
+// Arthur has contextual hints that may be hidden based on game state,
+// so the internal table index may not match the visible line number.
+// These two functions map between them. For non-Arthur games, they
+// return the argument unchanged.
 
+// Converts an internal hint table index to a visible line number.
 static uint16_t index_to_line(uint16_t index) {
     if (is_spatterlight_arthur) {
         uint16_t max = user_word(at.K_HINT_ITEMS);
@@ -663,6 +760,7 @@ static uint16_t index_to_line(uint16_t index) {
     return index;
 }
 
+// Converts a visible line number back to an internal hint table index.
 static uint16_t line_to_index(uint16_t line) {
     if (is_spatterlight_arthur) {
         uint16_t max = user_word(at.K_HINT_ITEMS);
@@ -674,6 +772,11 @@ static uint16_t line_to_index(uint16_t line) {
 }
 
 
+// Sets up the window layout for the hints screen. Configures colors
+// based on graphics type and platform, positions the status bar (with
+// navigation instructions) and the menu/hint text area. For topic and
+// question levels, the text buffer is remapped to a text grid for
+// fixed-position menu display. Handles game-specific border drawing.
 static void draw_hints_windows(void) {
 
     update_user_defined_colours();
@@ -805,6 +908,8 @@ static void draw_hints_windows(void) {
     }
 }
 
+// Prints a string centered on a given line of the status window.
+// If `reverse` is true, displays in reverse video.
 static void center_line(const char *str, int line, int length, bool reverse) {
     glui32 width;
     winid_t win = V6_STATUS_WINDOW.id;
@@ -825,6 +930,7 @@ static void center_line(const char *str, int line, int length, bool reverse) {
     }
 }
 
+// Prints a string right-aligned on a given line of the status window.
 static void right_line(const char *str, int line, int length) {
     glui32 width;
     winid_t win = V6_STATUS_WINDOW.id;
@@ -836,12 +942,19 @@ static void right_line(const char *str, int line, int length) {
     glk_put_string(const_cast<char *>(str));
 }
 
+// Prints a string left-aligned on a given line of the status window.
 static void left_line(const char *str, int line) {
     winid_t win = V6_STATUS_WINDOW.id;
     glk_window_move_cursor(win, 0, line - 1);
     glk_put_string(const_cast<char *>(str));
 }
 
+// Displays the hint screen's status bar with a centered title and
+// navigation instructions. Content varies by depth level:
+// - Topics: N/P to navigate, Return for hints, Q to quit
+// - Questions: adds M for hint menu
+// - Hints: Return for next hint, no N/P navigation
+// Also sends VoiceOver title notification.
 static void hint_title(const char *title, int length) {
     if (hints_depth != kV6MenuTypeHint)
         win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
@@ -872,10 +985,15 @@ static void hint_title(const char *title, int length) {
     win_menuitem(kV6MenuTitle, 0, hints_depth, 0, const_cast<char *>(title), length);
 }
 
+// Arthur-specific: checks if a hint question is relevant to the current
+// game state by calling the game's RT-SEE-QST routine.
 static bool rt_see_qst(uint16_t obj) {
     return (internal_call(pack_routine(ar.RT_SEE_QST), {obj}) == 1);
 }
 
+// Returns the Z-string address of a question's display name within the
+// current chapter. For Arthur, also checks context visibility.
+// Returns 0 if the question should be hidden.
 static uint16_t hint_question_name(uint16_t question) {
     uint16_t result = user_word(hints_table_addr + h_chapt_num * 2);
     uint16_t base_address = user_word(result + (question + 1) * 2);
@@ -889,6 +1007,8 @@ static uint16_t hint_question_name(uint16_t question) {
     return user_word(base_address + 2);
 }
 
+// Arthur-specific: checks if any question in a topic is currently relevant,
+// hiding entire topics that aren't applicable to the player's game state.
 static bool arthur_is_topic_in_context(uint16_t topic) {
     int16_t max = user_word(topic);
     for (uint16_t i = 2; i <= max; i++) {
@@ -898,6 +1018,8 @@ static bool arthur_is_topic_in_context(uint16_t topic) {
     return false;
 }
 
+// Returns the Z-string address of a topic's display name.
+// For Arthur, returns 0 if no questions in the topic are contextually relevant.
 static uint16_t hint_topic_name(uint16_t chapter) {
     uint16_t topic = user_word(hints_table_addr + chapter * 2);
 
@@ -907,13 +1029,10 @@ static uint16_t hint_topic_name(uint16_t chapter) {
     return user_word(topic + 2);
 }
 
+// Returns the number of hints already revealed for the current question.
+// The seen-hints table is a nibble table: the high 4 bits of each byte
+// store the count for odd-numbered questions; the low 4 bits store even.
 static int16_t get_seen_hints(void) {
-
-    // seen_hints_table_addr points to a byte table that keeps track of
-    // how many hints have been shown for a particular question.
-    // It is actually a nibble table where the high four bits of each byte store
-    // odd question numbers; the low four bits store even question numbers.
-
     int16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
     int16_t address = cv + (h_quest_num - 1) / 2;
     int16_t seen = user_byte(address);
@@ -925,6 +1044,8 @@ static int16_t get_seen_hints(void) {
 }
 
 
+// Decodes and prints a Z-string, then sends it as a VoiceOver menu item
+// at the appropriate index for the current hint depth level.
 static void print_and_send_menuitem(uint16_t str, int max) {
     char string[4000];
     int length = print_long_zstr_to_cstr(str, string, 4000);
@@ -951,6 +1072,11 @@ static void print_and_send_menuitem(uint16_t str, int max) {
 
 
 
+// Populates the hint menu with topic or question entries. Displays items
+// in a two-column grid layout (wrapping to the right column when the
+// left is full). For Arthur, builds the K_HINT_ITEMS mapping table
+// and skips contextually irrelevant items. Returns the total number of
+// visible entries.
 static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     uint16_t x = 0;
     uint16_t y = 0;
@@ -995,6 +1121,9 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     return number_of_entries;
 }
 
+// Moves the cursor to a menu line and optionally highlights it with
+// reverse video. Handles two-column layout by checking if the position
+// exceeds the column height. Returns the x coordinate of the line.
 static int hint_new_cursor(uint16_t pos, bool reverse) {
     uint16_t x = 0;
     if ((int16_t)pos < 1)
@@ -1023,8 +1152,8 @@ static int hint_new_cursor(uint16_t pos, bool reverse) {
     return x;
 }
 
-// Store the index of the last shown
-// hint in the nibble table
+// Stores the number of hints revealed for the current question in the
+// nibble table. Preserves the other nibble in the same byte.
 static void store_hints_seen(uint8_t value) {
     int16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
     int16_t address = cv + (h_quest_num - 1) / 2;
@@ -1041,6 +1170,10 @@ static void store_hints_seen(uint8_t value) {
     store_byte(address, value);
 }
 
+// Initializes the hint display for the current question: shows the title,
+// checks how many hints have been seen, and removes the "Return for a hint"
+// prompt if all hints are already revealed. Returns the maximum hint count
+// and optionally stores the base address for hint text lookup.
 static int16_t init_hints(int16_t *hints_base_address) {
 
     int16_t h = user_word(user_word(hints_table_addr + h_chapt_num * 2) + (h_quest_num + 1) * 2);
@@ -1065,6 +1198,12 @@ static int16_t init_hints(int16_t *hints_base_address) {
     return max;
 }
 
+// Displays progressive hints for the current question. Hints are revealed
+// one at a time when the user presses Enter, with a countdown showing
+// remaining hints. Already-seen hints are shown immediately. The user
+// can press M to return to the menu or Q to quit. If `only_refresh` is
+// true, only redraws already-seen hints without waiting for input.
+// Returns true if the user chose to return to the topic menu.
 static bool display_hints(bool only_refresh) {
     hints_depth = kV6MenuTypeHint;
 
@@ -1164,6 +1303,9 @@ static bool display_hints(bool only_refresh) {
 
 static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, InfocomV6MenuType name_routine, bool *exit_hint_menu);
 
+// Displays the question list for the current topic. Shows the topic
+// title and all questions, with the current selection highlighted.
+// Returns the number of visible questions.
 static int display_questions(void) {
     char str[30];
     int length = print_long_zstr_to_cstr(user_word(user_word(hints_table_addr + h_chapt_num * 2) + 2), str, 30);
@@ -1174,6 +1316,9 @@ static int display_questions(void) {
     return number_of_entries;
 }
 
+// Outer loop for question selection. Displays questions and enters the
+// navigation loop. Returns true if the user wants to continue browsing
+// topics, false if they want to exit hints entirely.
 static bool hint_pick_question(void) {
     bool result = true;
 
@@ -1190,6 +1335,15 @@ static bool hint_pick_question(void) {
     return result;
 }
 
+// Core navigation loop for topic and question menus. Handles:
+// - N/P/arrow keys: move selection up/down (with wrapping)
+// - Left/right arrows: switch columns in two-column layout
+// - M: return to topic menu (from question level only)
+// - Q: exit hints entirely
+// - Enter/click: drill into the selected item (questions or hints)
+// - Mouse: single-click selects, double-click enters
+// Updates the `index` to the selected item and notifies VoiceOver.
+// Returns true if the outer loop should continue (re-display needed).
 static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, InfocomV6MenuType local_menu_depth, bool *exit_hint_menu) {
     bool loop = true;
     bool outer_loop = true;
@@ -1298,6 +1452,8 @@ static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, InfocomV
     return outer_loop;
 }
 
+// Displays the top-level topic list with the "InvisiClues (tm)" title.
+// Returns the number of visible topics.
 static int display_topics(void) {
     hint_title(const_cast<char *>(" InvisiClues (tm) "), 18);
     int number_of_entries = hint_put_up_frobs(user_word(hints_table_addr), 1);
@@ -1305,6 +1461,8 @@ static int display_topics(void) {
     return number_of_entries;
 }
 
+// Redraws the hint screen after a window resize, restoring whichever
+// level (topics, questions, or hints) was being displayed.
 void redraw_hint_screen_on_resize(void) {
     draw_hints_windows();
     switch (hints_depth) {
@@ -1320,6 +1478,13 @@ void redraw_hint_screen_on_resize(void) {
     }
 }
 
+// Z-machine entry point: main hints screen controller. Saves the current
+// screen mode, sets up the hints windows, and enters the topic selection
+// loop. The loop can recurse into questions and then individual hints.
+// On exit, restores the original screen mode, cleans up windows, and
+// refreshes the game display. Supports autorestore (can resume at any
+// hint depth level). Temporarily disables transcript in the buffer window
+// to avoid logging hint text.
 void DO_HINTS(void) {
     // Screenmode will be MODE_HINTS on autorestore,
     // and we need to store the mode we were in before
@@ -1420,18 +1585,28 @@ void DO_HINTS(void) {
     glk_set_echo_line_event(V6_TEXT_BUFFER_WINDOW.id, 0);
 }
 
-#pragma mark Credits
+#pragma mark - Credits
 
+// Z-machine entry point: called before credits text is printed.
+// Ensures output goes to the main text buffer window.
 void V_CREDITS(void) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
+// Z-machine entry point: called after credits text. Resets bold, italic,
+// and fixed-width text styles that may have been set during credit display.
 void after_V_CREDITS(void) {
     V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_BOLD);
     V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_ITALIC);
     V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_FIXED);
 }
 
+// Z-machine entry point: called after the game's V-COLOR routine changes
+// colors. Updates all windows to use the new foreground and background
+// colors, including Glk style hints, window backgrounds, and z-colors.
+// Handles the special case where colors are set to "default" (1) after
+// a restore. Also updates monochrome palette and triggers a game-specific
+// screen refresh.
 void after_V_COLOR(void) {
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
@@ -1485,12 +1660,14 @@ void after_V_COLOR(void) {
 }
 
 
-#pragma mark Skip puzzles prompt
+#pragma mark - Skip Puzzles Prompt
 
+// Prompts the user to skip a visual puzzle for accessibility. Only shows
+// the prompt when VoiceOver is active or when autorestoring to a point
+// where the prompt was previously shown. Returns true if the user
+// accepts (types 'Y'), false if they decline ('N') or if the prompt
+// was not shown.
 bool skip_puzzle_prompt(const char *str) {
-    // We skip asking about skipping the puzzle
-    // if VoiceOver is off and we did not just
-    // autorestore to this prompt.
     if (gli_voiceover_on || dont_repeat_question_on_autorestore) {
         set_current_window(&V6_TEXT_BUFFER_WINDOW);
         if (!dont_repeat_question_on_autorestore)
@@ -1518,8 +1695,13 @@ bool skip_puzzle_prompt(const char *str) {
 }
 
 
-#pragma mark Empty functions used by entrypoints code
+#pragma mark - Entry Point Stubs
 
+// Empty stub functions for Z-machine entry points that are only implemented
+// by specific games. The entrypoints system requires all entry point functions
+// to exist, so games that don't use a particular entry point get these no-ops.
+// The actual implementations live in the game-specific files (zorkzero.cpp,
+// shogun.cpp, arthur.cpp).
 void DISPLAY_HINT(void) {}
 void RT_SEE_QST(void) {}
 void V_COLOR(void) {}

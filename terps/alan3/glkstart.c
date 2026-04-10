@@ -57,7 +57,7 @@ glkunix_argumentlist_t glkunix_arguments[] = {
 static strid_t resourceFile;
 
 /*----------------------------------------------------------------------*/
-static void openGlkWindows() {
+static void openGlkWindows(void) {
     glkMainWin = glk_window_open(0, 0, 0, wintype_TextBuffer, 0);
     if (glkMainWin == NULL) {
             printf("FATAL ERROR: Cannot open initial window");
@@ -74,7 +74,7 @@ static void openGlkWindows() {
 }
 
 /*----------------------------------------------------------------------*/
-static void openResourceFile() {
+static void openResourceFile(void) {
     char *originalFileName = strdup(adventureFileName);
     char *resourceFileName = originalFileName;
     char *extension = strrchr(resourceFileName, '.');

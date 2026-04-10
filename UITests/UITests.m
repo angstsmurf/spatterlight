@@ -32,7 +32,7 @@
     [fileMenuBarItem click];
     [menuBarsQuery.menuItems[@"Delete Library…"] click];
     XCUIElement *alertDialog = app.dialogs.firstMatch;
-    XCTAssert([alertDialog waitForExistenceWithTimeout:5]);
+    XCTAssert([UITests waitForElement:alertDialog toExistWithTimeout:5]);
     XCUIElement *checkbox = alertDialog.checkBoxes[@"Force quit running games and delete them."];
     if (checkbox.exists && [checkbox.value isEqual:@0])
         [checkbox click];
@@ -43,6 +43,33 @@
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+/// Waits for the element to exist using XCTWaiter to avoid priority inversion
+/// between User-interactive QoS test thread and Default QoS accessibility thread.
++ (BOOL)waitForElement:(XCUIElement *)element toExistWithTimeout:(NSTimeInterval)timeout {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"exists == true"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:element];
+    return [XCTWaiter waitForExpectations:@[expectation] timeout:timeout] == XCTWaiterResultCompleted;
+}
+
+- (BOOL)waitForElement:(XCUIElement *)element toExistWithTimeout:(NSTimeInterval)timeout {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"exists == true"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:element];
+    return [XCTWaiter waitForExpectations:@[expectation] timeout:timeout] == XCTWaiterResultCompleted;
+}
+
+/// Waits for the element to be both existing and hittable, avoiding priority inversion.
++ (BOOL)waitForElement:(XCUIElement *)element toBeHittableWithTimeout:(NSTimeInterval)timeout {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"exists == true AND hittable == true"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:element];
+    return [XCTWaiter waitForExpectations:@[expectation] timeout:timeout] == XCTWaiterResultCompleted;
+}
+
+- (BOOL)waitForElement:(XCUIElement *)element toBeHittableWithTimeout:(NSTimeInterval)timeout {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"exists == true AND hittable == true"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:element];
+    return [XCTWaiter waitForExpectations:@[expectation] timeout:timeout] == XCTWaiterResultCompleted;
 }
 
 + (NSURL *)tempDir {
@@ -68,7 +95,7 @@
 
     XCUIElement *openButton = dialog.buttons[buttonText];
 
-    XCTAssert([openButton waitForExistenceWithTimeout:5]);
+    XCTAssert([UITests waitForElement:openButton toExistWithTimeout:5]);
     [openButton click];
 }
 
@@ -83,7 +110,7 @@
 
     XCUIElement *sheet = dialog.sheets.firstMatch;
     if (!sheet.exists) {
-        XCTAssert([sheet waitForExistenceWithTimeout:5]);
+        XCTAssert([UITests waitForElement:sheet toExistWithTimeout:5]);
     }
 
     [sheet typeText:url.path];
@@ -98,7 +125,7 @@
         [app typeKey:@"g" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierShift];
     }
 
-    XCTAssert([sheet waitForExistenceWithTimeout:5]);
+    XCTAssert([UITests waitForElement:sheet toExistWithTimeout:5]);
 
     [sheet typeText:url.path];
     [sheet typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
@@ -172,7 +199,7 @@
 
     XCUIElement *savePanel = gameWin.sheets.firstMatch;
     if (!savePanel.exists) {
-        XCTAssert([savePanel waitForExistenceWithTimeout:5]);
+        XCTAssert([UITests waitForElement:savePanel toExistWithTimeout:5]);
     }
 
     [UITests typeURL:transcriptURL intoFileDialog:savePanel andPressButtonWithText:@"Save"];
@@ -271,7 +298,7 @@
 //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'You wake up.'"];
 //    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:lowerTextView];
 //
-//    [self waitForExpectations:@[expectation] timeout:5];
+//    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
 //
 //    // Start the tiles falling
 //    [lowerTextView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
@@ -331,7 +358,7 @@
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
     XCUIElement *fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
-    if(![fileMenuBarItem waitForExistenceWithTimeout:5] || !fileMenuBarItem.hittable) {
+    if (![self waitForElement:fileMenuBarItem toBeHittableWithTimeout:5]) {
         XCUIElement *gamewinzcode169510244de6Window = app/*@START_MENU_TOKEN@*/.windows[@"gameWinZCODE-16-951024-4DE6"]/*[[".windows[@\"Curses\"]",".windows[@\"gameWinZCODE-16-951024-4DE6\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
         [[gamewinzcode169510244de6Window.scrollViews[@"buffer scroll view"] childrenMatchingType:XCUIElementTypeTextView].element typeKey:@"f" modifierFlags:(XCUIKeyModifierCommand | XCUIKeyModifierControl)];
         fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
@@ -353,7 +380,7 @@
 
         XCUIElement *saveDialog = app.sheets.firstMatch;
 
-        XCTAssert([saveDialog waitForExistenceWithTimeout:5]);
+        XCTAssert([self waitForElement:saveDialog toExistWithTimeout:5]);
 
         NSURL *path = url.URLByDeletingLastPathComponent;
 
@@ -378,18 +405,18 @@
         [exportButton click];
 
         XCUIElement *alert = app.sheets.firstMatch;
-        if ([alert waitForExistenceWithTimeout:1]) {
+        if ([self waitForElement:alert toExistWithTimeout:1]) {
             XCUIElement *replaceButton = alert.buttons[@"Replace"];
-            if (replaceButton.exists)
+            if ([self waitForElement:replaceButton toExistWithTimeout:1])
                 [replaceButton click];
-            else if (alert.buttons.firstMatch.hittable) {
+            else if ([self waitForElement:alert.buttons.firstMatch toBeHittableWithTimeout:1]) {
                 [alert.buttons.firstMatch click];
             }
         }
 
         alert = app.dialogs[@"alert"];
 
-        if ([alert waitForExistenceWithTimeout:1] && alert.buttons.firstMatch.hittable) {
+        if ([self waitForElement:alert.buttons.firstMatch toBeHittableWithTimeout:1]) {
             [alert.buttons.firstMatch click];
         }
     }
@@ -418,7 +445,7 @@
     [app terminate];
     // Quit and restart the app to get back from Finder
     [app launch];
-    XCTAssert([app waitForExistenceWithTimeout:5]);
+    XCTAssert([self waitForElement:app toExistWithTimeout:5]);
 
     [menuBarsQuery.menuBarItems[@"Window"] click];
     [menuBarsQuery.menuItems[@"Interactive Fiction"] click];
@@ -454,7 +481,7 @@
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Close Window"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Close Window\"]",".menuItems[@\"Close Window\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
-    XCTAssert([libraryWindow waitForExistenceWithTimeout:5]);
+    XCTAssert([self waitForElement:libraryWindow toExistWithTimeout:5]);
     [libraryWindow.toolbars.buttons[@"Play"] click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Clear Scrollback"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Clear Scrollback\"]",".menuItems[@\"Clear Scrollback\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
@@ -474,7 +501,7 @@
         [fileMenuBarItem click];
         [menuBarsQuery.menuItems[@"Save Scrollback…"] click];
         XCUIElement *savePanel = gamewin.sheets[@"save-panel"];
-        XCTAssert([savePanel waitForExistenceWithTimeout:5]);
+        XCTAssert([self waitForElement:savePanel toExistWithTimeout:5]);
        [[savePanel.popUpButtons elementMatchingType:XCUIElementTypePopUpButton identifier:@"saveFormatPopUp"] click];
 
         [savePanel.menuItems[menuItem] click];
@@ -510,7 +537,7 @@
     [menuBarsQuery.menuItems[@"Import Metadata…"] click];
 
     XCUIElement *openDialog = app.sheets.firstMatch;
-    XCTAssert([openDialog waitForExistenceWithTimeout:5]);
+    XCTAssert([self waitForElement:openDialog toExistWithTimeout:5]);
 
     NSURL *url = [testBundle URLForResource:@"test_stories"
                               withExtension:@"iFiction"
@@ -555,7 +582,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'Not a game.'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
 
-    [self waitForExpectations:@[expectation] timeout:5];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
 
     XCUIElement *statusLine = [gameWindow.staticTexts elementBoundByIndex:0];
 
@@ -773,7 +800,7 @@
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     XCUIElement *alertSheet = gameWindow.sheets[@"alert"];
-    if ([alertSheet waitForExistenceWithTimeout:2]) {
+    if ([self waitForElement:alertSheet toExistWithTimeout:2]) {
         [alertSheet.checkBoxes[@"Remember this choice."] click];
         [alertSheet.buttons[@"Continue"] click];
     }
@@ -803,7 +830,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'Adjust your volume.'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
 
-    [self waitForExpectations:@[expectation] timeout:5];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
 
     [textView typeText:@"y\r"];
     [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
@@ -889,7 +916,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'The Elysium Enigma by Eric Eve; version 2.03 (2007-03-05)'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
 
-    [self waitForExpectations:@[expectation] timeout:5];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeText:@"script\r"];
@@ -904,7 +931,7 @@
 
     predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '30/422'"];
     expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     NSError *error = nil;
 
@@ -931,7 +958,7 @@
 
     [UITests turnOnDeterminism:@"Default"];
 
-    XCTAssert([textView waitForExistenceWithTimeout:1]);
+    XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
     [textView typeText:@"script\r"];
 
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
@@ -942,7 +969,7 @@
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'Please enter RESTORE, RESTART, QUIT, UNDO or AMUSING:  >'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of tildeath.gam.txt" isDirectory:NO];
 
@@ -978,7 +1005,7 @@
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '140 moves'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     NSString *transcript = [UITests transcriptFromFile:@"bugged.txt"];
 
@@ -1006,7 +1033,7 @@
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '175 moves'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     NSString *transcript = [UITests transcriptFromFile:@"00 Wyldkynd Project.txt"];
 
@@ -1031,7 +1058,7 @@
 
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:staticText];
 
-    [self waitForExpectations:@[expectation] timeout:5];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
 
     [gameWindow typeKey:@" " modifierFlags:XCUIKeyModifierNone];
 
@@ -1050,7 +1077,7 @@
 
     predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '2:08 p.m.'"];
     expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     NSError *error = nil;
 
@@ -1084,7 +1111,7 @@
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'Do you want to try again? '"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     NSString *transcript = [UITests transcriptFromFile:@"onehand.txt"];
 
@@ -1114,7 +1141,7 @@
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
 
-    [self waitForExpectations:@[expectation] timeout:5];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
@@ -1122,7 +1149,7 @@
 
     predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'You wake painfully,'"];
     expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:5];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
@@ -1130,7 +1157,7 @@
 
     predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'You are running through a dark and dreadful wood.'"];
     expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:5];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
     [textView typeText:@"glk script on\r"];
 
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
@@ -1143,7 +1170,7 @@
 
     predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'Moves: 654'"];
     expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     [textView typeText:@"glk script off\r"];
 
@@ -1171,7 +1198,7 @@
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
-    XCTAssert([textView waitForExistenceWithTimeout:1]);
+    XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
 
     [textView typeText:@"glk script on\r"];
 
@@ -1183,7 +1210,7 @@
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'Which do you want to do, RESTART or RESTORE? '"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     [textView typeText:@"glk script off\r"];
 
@@ -1211,7 +1238,7 @@
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
-    XCTAssert([textView waitForExistenceWithTimeout:1]);
+    XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
 
     [textView typeText:@"glk script on\r"];
 
@@ -1225,7 +1252,7 @@
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '350/344'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     NSError *error = nil;
 
@@ -1272,7 +1299,7 @@
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'ALTITUDE - 37,000 FEET'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     [textView click];
 
@@ -1356,7 +1383,7 @@
     XCUIElement *gameWindow = app.windows[@"praxix.z5"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
-    XCTAssert([textView waitForExistenceWithTimeout:1]);
+    XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
     [textView typeText:@"all\n"];
 
     NSURL *url;
@@ -1396,7 +1423,7 @@
     XCUIApplication *app = [[XCUIApplication alloc] init];
     XCUIElement *gameWindow = app.windows[@"etude.z5"];
     XCUIElement *alertSheet = gameWindow.sheets[@"alert"];
-    if ([alertSheet waitForExistenceWithTimeout:2]) {
+    if ([self waitForElement:alertSheet toExistWithTimeout:2]) {
         [alertSheet.checkBoxes[@"Remember this choice."] click];
         [alertSheet.buttons[@"Continue"] click];
     }
@@ -1465,7 +1492,7 @@
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH ' Game Over '"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    [self waitForExpectations:@[expectation] timeout:80];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 
     transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of grail.j2.txt" isDirectory:NO];
 
@@ -1503,7 +1530,7 @@
     textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'transcript off'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:25];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:25], XCTWaiterResultCompleted);
 
     transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of adv01.dat.txt" isDirectory:NO];
 
@@ -1543,7 +1570,7 @@
     textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'TRANSCRIPT OFF'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:25];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:25], XCTWaiterResultCompleted);
 
     transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of tot.tay.txt" isDirectory:NO];
 
@@ -1582,7 +1609,7 @@
     textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'TRANSCRIPT OFF'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:25];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:25], XCTWaiterResultCompleted);
 
     transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of SPL13P.plus.txt" isDirectory:NO];
 
@@ -1779,7 +1806,7 @@
 
     XCUIElement *imageDialog = app.dialogs[@"alert"];
 
-    BOOL result = [imageDialog waitForExistenceWithTimeout:5];
+    BOOL result = [self waitForElement:imageDialog toExistWithTimeout:5];
 
     if (result) {
         [imageDialog.buttons[@"Yes"] click];
@@ -1814,7 +1841,7 @@
     [infoWin.menuItems[@"Delete"] click];
 
     alert = app.dialogs.firstMatch;
-    XCTAssert([alert waitForExistenceWithTimeout:5]);
+    XCTAssert([self waitForElement:alert toExistWithTimeout:5]);
     [alert.buttons[@"Delete"] click];
 
     image = [infoWin childrenMatchingType:XCUIElementTypeImage].firstMatch;
@@ -1827,7 +1854,7 @@
     [infoWin.menuItems[@"Add description"] click];
 
     alert = app.dialogs.firstMatch;
-    XCTAssert([alert waitForExistenceWithTimeout:5]);
+    XCTAssert([self waitForElement:alert toExistWithTimeout:5]);
     [alert.textFields.firstMatch typeText:@"Some ancient, broken, rocks with a subway map of Paris in front."];
     [alert.buttons[@"Okay"] click];
 
@@ -1848,7 +1875,7 @@
     [app terminate];
     // Quit and restart the app to get back from Finder
     [app launch];
-    XCTAssert([app waitForExistenceWithTimeout:5]);
+    XCTAssert([self waitForElement:app toExistWithTimeout:5]);
     [menuBarsQuery.menuBarItems[@"Window"] click];
     [menuBarsQuery.menuItems[@"Interactive Fiction"] click];
     [textField rightClick];
@@ -1856,7 +1883,7 @@
     [app terminate];
     // Quit and restart the app to get back from Finder
     [app launch];
-    XCTAssert([app waitForExistenceWithTimeout:5]);
+    XCTAssert([self waitForElement:app toExistWithTimeout:5]);
     [menuBarsQuery.menuBarItems[@"Window"] click];
     [menuBarsQuery.menuItems[@"Interactive Fiction"] click];
     [textField rightClick];
@@ -1917,7 +1944,7 @@
     path = [path URLByAppendingPathComponent:@"curses.png" isDirectory:NO];
 
     XCUIElement *openDialog = app.sheets.firstMatch;
-    XCTAssert([openDialog waitForExistenceWithTimeout:5]);
+    XCTAssert([self waitForElement:openDialog toExistWithTimeout:5]);
     [UITests typeURL:path intoFileDialog:openDialog andPressButtonWithText:@"Open"];
 
     [self forceClickElement:image];
@@ -2213,7 +2240,7 @@
         [alert.buttons[@"Okay"] click];
 
     XCUIElement *actionMenuButton = app/*@START_MENU_TOKEN@*/.menuButtons[@"action"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.menuButtons[@\"action\"]",".menuButtons[@\"action\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
-    XCTAssert([actionMenuButton waitForExistenceWithTimeout:5]);
+    XCTAssert([self waitForElement:actionMenuButton toExistWithTimeout:5]);
     [actionMenuButton click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"deleteUserThemes:"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".menuButtons[@\"action\"]",".menus",".menuItems[@\"Delete All User Themes\"]",".menuItems[@\"deleteUserThemes:\"]",".dialogs[@\"preferences\"]"],[[[-1,5],[-1,4],[-1,3,4],[-1,2,3],[-1,1,2],[-1,6,1],[-1,0,1]],[[-1,5],[-1,4],[-1,3,4],[-1,2,3],[-1,1,2]],[[-1,5],[-1,4],[-1,3,4],[-1,2,3]],[[-1,5],[-1,4],[-1,3,4]],[[-1,5],[-1,4]]],[0]]@END_MENU_TOKEN@*/ click];
     [actionMenuButton click];
@@ -2251,7 +2278,7 @@
     [searchField click];
 
     XCUIElement *cancelButton = searchField.buttons[@"cancel"];
-    if ([cancelButton waitForExistenceWithTimeout:10])
+    if ([self waitForElement:cancelButton toExistWithTimeout:10])
         [cancelButton click];
     else {
         [searchField doubleClick];
@@ -2278,7 +2305,7 @@
     XCUIElement *libraryWindow = app.windows[@"library"];
 
     XCUIElement *searchField = libraryWindow.searchFields.firstMatch;
-    XCTAssert([searchField waitForExistenceWithTimeout:5]);
+    XCTAssert([self waitForElement:searchField toExistWithTimeout:5]);
     XCUIElement *cancelButton = searchField.buttons[@"cancel"];
     if (cancelButton.exists)
         [cancelButton click];

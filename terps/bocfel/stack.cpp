@@ -39,6 +39,10 @@
 #include "glkautosave.h"
 #endif
 
+#ifdef SPATTERLIGHT
+#include "journey.hpp"
+#endif
+
 using namespace std::literals;
 
 enum class StoreWhere {
@@ -342,6 +346,12 @@ uint16_t internal_call(uint16_t routine, std::vector<uint16_t> args)
 
     return pop_stack();
 }
+
+#ifdef SPATTERLIGHT
+uint16_t internal_arg_count(void) {
+    return CURRENT_FRAME->nargs;
+}
+#endif
 
 void zcall_store()
 {
@@ -903,7 +913,9 @@ static void read_args(IFF &iff, SaveOpcode &saveopcode)
         break;
     case SaveOpcode::ReadChar:
         if (size != 2 && size != 4 && size != 6) {
+#ifndef SPATTERLIGHT
             throw RestoreError(fstring("invalid Args size for %d: %lu", static_cast<int>(saveopcode), static_cast<unsigned long>(size)));
+#endif
         }
         break;
     case SaveOpcode::Save:
@@ -1306,6 +1318,12 @@ void zsave()
         return;
     }
 
+#ifdef SPATTERLIGHT
+    if (is_spatterlight_journey) {
+        journey_pre_save_hacks();
+    }
+#endif
+
     // Autosave before blocking on the fileref prompt. (Which will
     // certainly happen down in the guts of do_save(), because there
     // is no suggested filename.)
@@ -1321,6 +1339,12 @@ void zsave()
     }
 
     bool success = do_save(SaveType::Normal, SaveOpcode::None);
+
+#ifdef SPATTERLIGHT
+    if (is_spatterlight_journey) {
+        journey_post_save_hacks();
+    }
+#endif
 
     if (zversion <= 3) {
         branch_if(success);

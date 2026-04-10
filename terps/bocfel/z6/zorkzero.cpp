@@ -1,9 +1,34 @@
+// zorkzero.cpp
 //
-//  zorkzero.cpp
-//  bocfel6
+// Game-specific UI code for Zork Zero (Infocom, 1988).
 //
-//  Created by Administrator on 2023-07-30.
+// Zork Zero is a Z-machine version 6 game with an elaborate graphical UI
+// featuring multiple mini-games and special display modes:
 //
+// - Compass rose: An interactive compass in the status bar showing available
+//   exits, with highlighted/unhighlighted states for each direction.
+// - Double Fanucci: A full card game with graphical cards, score windows,
+//   and a command grid for selecting plays via keyboard or mouse.
+// - Peggleboz: A peg-jumping puzzle game with clickable pegs and UI buttons
+//   (restart, show moves, exit).
+// - Snarfem (Nim): A mathematical strategy game with numbered piles and
+//   flower indicators showing the optimal move.
+// - Tower of Bozbar: A Tower of Hanoi variant with 6 weights on 3 pegs,
+//   clickable weights and pegs, and an undo button.
+// - Encyclopedia Frobozzica: Fullscreen encyclopedia entries with images
+//   and a text overlay window.
+// - Rebus puzzles: Inline graphical puzzles displayed as margin images.
+// - Map: A fullscreen map with a blinking player-location indicator.
+//
+// The game supports multiple graphics platforms (Amiga, Mac B/W, Mac color,
+// Apple II, CGA, EGA, VGA, Blorb) with platform-specific border styles,
+// color schemes, and layout adjustments.
+//
+// Border types vary by location: castle, outside, underground, and hints,
+// each with optional side pillars for non-Amiga/Mac platforms.
+//
+// The status line is split into left (room name + moves) and right
+// (region + score) text grid windows positioned over the border graphics.
 
 #include "memory.h"
 #include "objects.h"
@@ -20,40 +45,59 @@
 
 #include "zorkzero.hpp"
 
+// Window 1 (S-WINDOW) is used as the left status text grid
 #define z0_left_status_window windows[1].id
 
 #define MAX(a,b) (a > b ? a : b)
 
+// Right status window: displays region name and score, positioned at the
+// right edge of the border. Not part of the standard window array.
 winid_t z0_right_status_window = nullptr;
+// Width of the right status window in characters
 glui32 z0_right_status_width;
 
+// Whether the player has made at least one move in the current Peggleboz game
+// (controls whether Restart and Show Moves buttons are dimmed)
 static bool has_made_peggleboz_move = false;
 
+// Tracks how many times z0_update_colors has been called (used to detect
+// first call for initial color setup)
 static int number_of_update_color_calls = 0;
 
-
+// Lookup tables for Z-machine globals, routines, tables, objects, and
+// properties specific to Zork Zero. Populated during game initialization
+// by scanning the game file for known identifiers.
 ZorkGlobals zg;
 ZorkRoutines zr;
 ZorkTables zt;
 ZorkObjects zo;
 ZorkProperties zp;
 
+#pragma mark - Image Classification
+
+// Tower of Bozbar weight images (pictures 42-48)
 static bool is_zorkzero_tower_image(int pic) {
     return (pic >= 42 && pic <= 48);
 }
 
+// Rebus puzzle images (pictures 34-40)
 static bool is_zorkzero_rebus_image(int pic) {
     return (pic >= 34 && pic <= 40);
 }
 
+// Encyclopedia Frobozzica illustration images (pictures 26-33)
 static bool is_zorkzero_encyclopedia_image(int pic) {
     return (pic >= 26 && pic <= 33);
 }
 
+// Peggleboz peg images (pictures 50-72: highlighted, unhighlighted, empty)
 static bool is_zorkzero_peggleboz_image(int pic) {
     return (pic >= 50 && pic <= 72);
 }
 
+// Checks if the given picture is a Peggleboz UI button (restart, show moves,
+// exit) and updates has_made_peggleboz_move based on which button variant.
+// Only returns true when the current game mode is Peggleboz.
 static bool is_zorkzero_peggleboz_box_image(int pic) {
     uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
 
@@ -76,6 +120,11 @@ static bool is_zorkzero_peggleboz_box_image(int pic) {
     }
 }
 
+#pragma mark - Status Line Utilities
+
+// Hides the right status window by clearing it and shrinking it to zero size.
+// Called when entering fullscreen modes (map, mini-games) that don't use
+// the split status bar.
 void z0_hide_right_status(void) {
     if (z0_right_status_window == nullptr) {
         fprintf(stderr, "Error!\n");
@@ -84,6 +133,8 @@ void z0_hide_right_status(void) {
     win_sizewin(z0_right_status_window->peer, 0, 0, 0, 0);
 }
 
+// Clears all display elements: image buffer, margin images, right status,
+// text buffer, status grid, and background graphics window.
 void z0_erase_screen(void) {
     clear_image_buffer();
     clear_margin_image_list();
@@ -96,6 +147,10 @@ void z0_erase_screen(void) {
     glk_window_clear(graphics_bg_glk);
 }
 
+#pragma mark - Window Layout
+
+// Z-machine entry point: called after SPLIT-BY-PICTURE.
+// In no-graphics mode, ensures the text window spans the full screen width.
 void after_SPLIT_BY_PICTURE(void) {
     if (screenmode == MODE_NO_GRAPHICS) {
         V6_TEXT_BUFFER_WINDOW.x_size = gscreenw;
@@ -103,6 +158,7 @@ void after_SPLIT_BY_PICTURE(void) {
     }
 }
 
+// Z-machine entry point: toggles between graphics and no-graphics display modes.
 void V_MODE(void) {
     if (screenmode != MODE_NO_GRAPHICS) {
         screenmode = MODE_NO_GRAPHICS;
@@ -112,6 +168,8 @@ void V_MODE(void) {
     }
 }
 
+// Z-machine entry point: handles screen refresh. Cleans up window 3
+// (encyclopedia caption) when returning from encyclopedia text view.
 void V_REFRESH(void) {
     fprintf(stderr, "V-REFRESH\n");
     uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
@@ -139,12 +197,17 @@ void V_REFRESH(void) {
 ////    }
 //}
 
+// Z-machine entry point: enables centered text output (for credits display).
 void CENTER(void) {
     V_CREDITS();
 //    buffer_xpos = 0;
 }
 
 
+// Splits the screen using the dimensions of picture `id` to determine the
+// border width and text area origin. Sets up the text buffer window below
+// the border and the status window spanning the top. When borders are off,
+// the text window uses full screen width.
 void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
     set_global(zg.CURRENT_SPLIT, id); // <SETG CURRENT-SPLIT .ID>
     if (clear_screen) {
@@ -169,8 +232,9 @@ void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
     v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, y);
 }
 
-// ; "Make text window extend to bottom of screen (more or less) or to
-// top of bottom edge of border, depending..."
+// Adjusts the text buffer window height to extend from its current y_origin
+// to the bottom of the screen (if id == 0) or to the top of the bottom
+// border strip identified by picture `id`.
 void ADJUST_TEXT_WINDOW(int id) {
     int height = 0;
     int hw_screenheight = gscreenh;
@@ -184,6 +248,12 @@ void ADJUST_TEXT_WINDOW(int id) {
     v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
 }
 
+#pragma mark - Border Display
+
+// Draws a decorative border around the screen. The border type (castle,
+// outside, underground, hint) determines which top graphic and side pillars
+// to use. Side pillars (BL/BR) are separate images on non-Amiga platforms
+// and are drawn below the top border strip.
 void DISPLAY_BORDER(BorderType border) {
     if (screenmode != MODE_HINTS)
         screenmode = MODE_NORMAL;
@@ -234,9 +304,16 @@ void DISPLAY_BORDER(BorderType border) {
     }
 }
 
+// Placeholder for any special handling needed when autorestoring during
+// an internal_read_char call. Currently unused for Zork Zero.
 void z0_autorestore_internal_read_char_hacks(void) {
 }
 
+// Initializes the status line layout. Splits the screen by the current split
+// picture, sets up border display (if borders are on), positions the status
+// windows, and configures text styles for the status area.
+// Returns true if the current split is for a mini-game (Fanucci/Peggleboz)
+// which needs special text window adjustment.
 static bool z0_init_status_line(bool DONT_CLEAR) {
 //    set_global(zg.COMPASS_CHANGED, 1);  // <SETG COMPASS-CHANGED T>
 //    set_global(zg.NEW_COMPASS, 1);  // <SETG NEW-COMPASS T>
@@ -304,6 +381,8 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
     return false;
 }
 
+// Z-machine entry point: wraps z0_init_status_line with the DONT-CLEAR
+// parameter from the Z-machine call stack.
 void INIT_STATUS_LINE(void) {
     fprintf(stderr, "INIT-STATUS-LINE(DONT-CLEAR: %s)\n", variable(1) == 1 ? "true" : "false");
     z0_init_status_line(variable(1));
@@ -326,6 +405,9 @@ void INIT_STATUS_LINE(void) {
 //    Default_Colors();
 //}
 
+// Prints the current room name in the left status window. Handles special
+// cases: narrow displays (Apple IIe/DOS) use abbreviated property descriptions,
+// and "Great Underground" rooms use a shortened prefix to save space.
 static void draw_new_here(void) {
 //    zo.PHIL_HALL = 0xc7;
 //    zo.G_U_MOUNTAIN = 0xac;
@@ -364,11 +446,16 @@ static void draw_new_here(void) {
     }
 }
 
+// Prints the current score right-justified in the status window.
 static void draw_new_score(void) {
     int16_t SCORE = get_global(zg.SCORE);
     print_right_justified_number(SCORE);
 }
 
+// Resizes and repositions the left and right status text grid windows
+// to align with the current border graphics. The left window shows room
+// name and move count; the right window shows region and score.
+// When borders are off, uses a single full-width status bar instead.
 static void z0_resize_status_windows(void) {
 
     bool BORDER_ON = (get_global(zg.BORDER_ON) == 1);
@@ -461,6 +548,10 @@ static void z0_resize_status_windows(void) {
     glk_window_clear(z0_right_status_window);
 }
 
+// Z-machine entry point: updates the full status line display.
+// Resizes status windows, prints room name and move count in the left
+// window, draws the compass rose (when borders are on), and prints
+// region name and score in the right window.
 void z0_UPDATE_STATUS_LINE(void) {
     bool BORDER_ON = (get_global(zg.BORDER_ON) == 1);
 //    bool COMPASS_CHANGED = (get_global(zg.COMPASS_CHANGED) == 1);
@@ -529,8 +620,14 @@ void z0_UPDATE_STATUS_LINE(void) {
 }
 
 
-#pragma mark Update Colors
+#pragma mark - Update Colors
 
+// Configures foreground and background colors based on the current interpreter
+// type and graphics mode. Each platform has different default colors:
+//   Amiga: black on grey    IBM EGA/VGA: black on white
+//   IBM CGA: white on black   Mac: black on white   Apple II: white on black
+// Also handles color availability constraints when switching platforms,
+// and updates Glk style hints for all text window types.
 void z0_update_colors(void) {
     // Every system has its own default colors:
     // Amiga: black text on grey
@@ -652,8 +749,11 @@ void z0_update_colors(void) {
     }
 }
 
-#pragma mark ENCYCLOPEDIA FROBOZZICA
+#pragma mark - Encyclopedia Frobozzica
 
+// Returns the background color for the encyclopedia text overlay window.
+// Amiga and VGA use a parchment-tan color; Blorb uses a slightly lighter
+// variant; monochrome platforms use white.
 static glsi32 encyclopedia_background_color(void) {
     switch (graphics_type) {
         case kGraphicsTypeAmiga:
@@ -666,6 +766,9 @@ static glsi32 encyclopedia_background_color(void) {
     }
 }
 
+// Positions and sizes window 3 (text buffer) to overlay the encyclopedia
+// border's text area, using image metadata for placement. Sets the
+// background to the parchment color.
 static void adjust_encyclopedia_text_window(void) {
     int width, height, x, y;
 
@@ -683,6 +786,8 @@ static void adjust_encyclopedia_text_window(void) {
 //    win_refresh(windows[3].id->peer, 0, 0);
 }
 
+// Draws the encyclopedia display: border frame, illustration at the
+// picture location, and positions the text overlay window.
 static void draw_encyclopedia(void) {
     clear_image_buffer();
     current_graphics_buf_win = graphics_fg_glk;
@@ -695,6 +800,9 @@ static void draw_encyclopedia(void) {
     adjust_encyclopedia_text_window();
 }
 
+// Positions the text buffer window below a mini-game border identified by
+// split picture `id`. The border's dimensions determine the text area origin,
+// and the window extends to fill the remaining screen space.
 static void adjust_text_window_by_split(uint16_t id) {
     int width, height;
     get_image_size(id, &width, &height);
@@ -706,12 +814,15 @@ static void adjust_text_window_by_split(uint16_t id) {
     v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
 }
 
+// Prompts the player to auto-solve a visual puzzle (used for accessibility
+// with VoiceOver). Returns true if the player accepts.
 static bool autosolve_visual_puzzle(void) {
     return skip_puzzle_prompt("\n\nWould you like to auto-solve this visual puzzle? (Y is affirmative): >");
 }
 
-#pragma mark DOUBLE FANUCCI
+#pragma mark - Double Fanucci
 
+// Image location constants for the Double Fanucci card game UI
 #define F_MENU_LOC    384
 #define J_SCORE_LOC   385
 #define F_DISCARD_LOC 419
@@ -720,11 +831,11 @@ static bool autosolve_visual_puzzle(void) {
 
 #define F_DISCARD_PIC_LOC 369
 
+// Attribute offset: attributes DRAW_CARDS_OFFSET+0..+4 on NOT-HERE-OBJECT
+// track which card slots have been drawn
 #define DRAW_CARDS_OFFSET 22
 
-//#define NOT_HERE_OBJECT 0x0159
-//#define F_CARD_TABLE 0x71c7
-
+// Card face image constants
 #define F_CARD_BACK 100
 #define F_CARD 101
 #define F_INKBLOTS 102
@@ -734,29 +845,28 @@ static bool autosolve_visual_puzzle(void) {
 #define F_SUIT_PIC_LOC 376
 #define F_REV_SUIT_PIC_LOC 377
 
+// Rank number images: F_0 + rank for normal, F_RV_0 + rank for reversed
 #define F_0 132
 #define F_RV_0 143
 
+// Special card: Granola (rank 12+)
 #define F_GRANOLA 154
 
 #define F_CARD 101
+// Location of card slot 1 (cards 2-4 follow at consecutive pic locs)
 #define F_1_PIC_LOC 370
 
+// Fanucci window layout (used during initial setup):
+//   Window 1: Jester's Score
+//   z0_right_status_window: Your Score
+//   Windows 2-6: Card labels (DISCARD, 1, 2, 3, 4)
+//   fanucci_command_grid: Command/play selection grid
+//   Window 7 (S-FULL): Background graphics
+//   Window 0 (S-TEXT): Text buffer for messages
 
-// Window 1: Jester's Score
-// Window 2: Your Score
-//
-// Windows 3 - 7 Card labels:
-// 3: DISCARD
-// 4: 1
-// 5: 2
-// 6: 3
-// 7: 4
-//
-// Window 8 Command grid
-// Window 0 Text buffer
-
-
+// Creates or resizes a text grid window for Fanucci UI elements (score
+// displays, card labels). Makes the window transparent so the border
+// graphics show through.
 static void fanucci_window(int index, int x, int y, int num_chars) {
     Window *win = &windows[index];
     win->x_origin = x - ggridmarginx;
@@ -778,6 +888,8 @@ static void fanucci_window(int index, int x, int y, int num_chars) {
     glk_set_window(win->id);
 }
 
+// Prints a zero-padded 3-digit score in the given window at the specified
+// character offset. Used for both Jester's and player's Fanucci scores.
 static void update_score(winid_t win, uint16_t global, int offset) {
     glk_set_window(win);
     glk_window_move_cursor(win, offset, 0);
@@ -791,18 +903,27 @@ static void update_score(winid_t win, uint16_t global, int offset) {
     print_number(score);
 }
 
+// Refreshes both Jester's and player's score displays.
 static void update_scores(void) {
     update_score(V6_STATUS_WINDOW.id, 0x39, 17);
     update_score(z0_right_status_window, 0x3b, 13);
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
+// Draws an image at a position offset from (x,y) by the dimensions stored
+// in the offset picture's metadata. Used for placing rank and suit symbols
+// on card faces.
 static void draw_offset_image(int pic, int x, int y, int offpic) {
     int offsetx, offsety;
     get_image_size(offpic, &offsetx, &offsety);
     draw_to_pixmap_unscaled(pic, x + offsetx, y + offsety);
 }
 
+// Draws a single Fanucci card at position (x,y). The rank and suit indices
+// are looked up in F_CARD_TABLE. Face-down cards show the card back;
+// special cards (Granola etc.) use dedicated images; normal cards are
+// composited from a blank card, rank numbers (normal + reversed), and
+// suit inkblot symbols.
 static void draw_card(int x, int y, int rank, int suit) {
     int rank_order[] = { -1, 4, 5, 6, 7, 8, 9, 0, 10, 1, 2, 3 };
     rank = user_byte(zt.F_CARD_TABLE + rank);
@@ -822,6 +943,9 @@ static void draw_card(int x, int y, int rank, int suit) {
 
 }
 
+// Draws all 5 card slots (discard pile + 4 hand cards) at their respective
+// positions. Sets attributes on NOT-HERE-OBJECT to track which slots are
+// visible.
 static void draw_cards(void) {
     zo.NOT_HERE_OBJECT = 0x159;
 
@@ -835,9 +959,14 @@ static void draw_cards(void) {
     }
 };
 
+// The text grid window used for the Fanucci command/play selection menu
 static winid_t fanucci_command_grid = nullptr;
+// Whether to use narrow (Apple IIe) command labels with 8-char spacing
 static bool fanucci_window_is_narrow = false;
 
+// Displays or un-highlights a command in the Fanucci play selection grid.
+// The 15 commands are arranged in a 5-column x 3-row grid. When bold is
+// true, prefixes the command with '>' in Subheader style.
 static void fanucci_select_command(int ptr, bool bold) {
     glk_set_window(fanucci_command_grid);
     glui32 menu_space = fanucci_window_is_narrow ? 8 : 14;
@@ -857,18 +986,23 @@ static void fanucci_select_command(int ptr, bool bold) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
+// Index of the currently highlighted command in the Fanucci grid (-1 = none)
 static int last_bold_move = 0;
 
+// Highlights a command and records it as the current selection.
 static void bold_move(int ptr) {
     fanucci_select_command(ptr, true);
     last_bold_move = ptr;
 }
 
+// Un-highlights a command (removes the '>' prefix).
 static void unbold_move(int ptr) {
     fanucci_select_command(ptr, false);
     last_bold_move = -1;
 }
 
+// Converts a mouse click position in the command grid window to a command
+// index (0-14). Returns -1 if the click is outside the grid.
 static int mouse_ptr_in_grid(void) {
     uint16_t width = fanucci_window_is_narrow ?
         8 : 14;
@@ -886,6 +1020,9 @@ static int mouse_ptr_in_grid(void) {
     return column * 3 + y;
 }
 
+// Main input loop for selecting a Fanucci play. Handles keyboard navigation
+// (arrow keys, U/D/L/R, Enter) and mouse clicks (single-click to highlight,
+// double-click to select). Returns true if the player resigned.
 static bool pick_play() {
     uint16_t ptr = 0;
     bool clicked_in_grid = false;
@@ -998,15 +1135,22 @@ static bool pick_play() {
     return resigned;
 }
 
+// Z-machine entry point: triggers the jester's play by calling the game's
+// J-PLAY routine.
 void J_PLAY(void) {
     internal_call(pack_routine(zr.J_PLAY));
 }
 
+// Checks whether the Fanucci game is over (one player's score is high enough).
 static bool score_check(void) {
     int result = internal_call(pack_routine(zr.SCORE_CHECK));
     return (result == 1);
 }
 
+// Z-machine entry point: main Double Fanucci game loop. Alternates between
+// player play selection and jester plays, updating cards and scores each
+// round. The game ends when one side wins 3 rounds, the score threshold is
+// met, or the player resigns. Offers auto-solve for accessibility.
 void FANUCCI(void) {
     bold_move(0);
     glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
@@ -1060,6 +1204,9 @@ void FANUCCI(void) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
+// Tests whether the last mouse click position falls within the rectangle
+// defined by (left, top, width, height) in unscaled image coordinates.
+// Used by all mini-games for mouse hit-testing.
 static bool within(uint16_t left, uint16_t top, uint16_t width, uint16_t height) {
     uint16_t mouse_click_addr = header.extension_table + 2;
     int16_t x = word(mouse_click_addr);
@@ -1074,6 +1221,8 @@ static bool within(uint16_t left, uint16_t top, uint16_t width, uint16_t height)
     return (x >= left - 1 && x < right && y >= top - 1 && y < bottom);
 }
 
+// Hit-tests a mouse click against the 4 hand card slots. Returns the ASCII
+// code '1'-'4' for the clicked card, or ZSCII_CLICK_SINGLE if no card was hit.
 uint16_t F_MOUSE_CARD_PICK(void) {
     int x, y, width, height;
     get_image_size(F_CARD, &width, &height);
@@ -1087,21 +1236,17 @@ uint16_t F_MOUSE_CARD_PICK(void) {
 
 
 
-// Window 1: Jester's Score
-// z0_right_status_window (no number): Your Score
+// Redraws the entire Double Fanucci display: border graphics, all cards,
+// score windows (Jester's in window 1, player's in right status window),
+// card slot labels (windows 2-6), and the command selection grid.
+// Adjusts layout for narrow screens by using abbreviated command labels.
 //
-// Windows 2 - 6 Card labels:
-// 2: DISCARD
-// 3: 1
-// 4: 2
-// 5: 3
-// 6: 4
-//
-// fanucci_command_grid (no number): Commands / Plays
-//
-// Window 7 is S-FULL, the entire background
-// Window 0 is S-TEXT, buffer text window
-
+// Window layout during Fanucci:
+//   Window 1: Jester's Score     right_status: Your Score
+//   Windows 2-6: Card labels (DISCARD, 1, 2, 3, 4)
+//   fanucci_command_grid: 5x3 play selection menu
+//   Window 7 (S-FULL): Background border
+//   Window 0 (S-TEXT): Text buffer for messages
 static void redraw_fanucci(void) {
     int x, y;
 
@@ -1220,6 +1365,9 @@ static void redraw_fanucci(void) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
+// Z-machine entry point: initializes the Double Fanucci game display.
+// Redraws the board, enables mouse events on the command grid, clears
+// the text buffer, and sets the screen mode to game mode.
 void SETUP_FANUCCI(void) {
     last_bold_move = 0;
     redraw_fanucci();
@@ -1228,28 +1376,40 @@ void SETUP_FANUCCI(void) {
     screenmode = MODE_Z0_GAME;
 }
 
-#pragma mark SNARFEM
+#pragma mark - Snarfem (Nim)
 
-//#define PILE_TABLE 0x73f9
+// Snarfem is a Nim-variant game: players take turns removing items from piles.
+// The game displays 4 piles of items, numbered selection boxes, and flower
+// indicators that hint at the optimal move.
 
+// Base picture numbers for pile display (PILE_OF_0 + count = pile image)
 #define PILE_OF_0 74
 
+// Flower images indicating the optimal move:
+// Left flower shows which pile, right flower shows how many to take
 #define L_FLOWERS_0 94
 #define R_FLOWERS_0 84
 
+// Image location for pile 1 (piles 2-4 follow at consecutive pic locs)
 #define PILE_1_PIC_LOC 357
 #define L_FLOWERS_PIC_LOC 361
 #define R_FLOWERS_PIC_LOC 362
 
+// Numbered selection box images
 #define BOX_1 445
 
+// Location and spacing for the row of numbered boxes
 #define BOX_1_LOC 470
 #define SN_BOX_SPACE 471
 
+// Dimmed vs active number images for the selection boxes
 #define DIMMED_SN_NUMBER 453
 #define SN_NUMBER 444
 
-
+// Draws the row of 9 numbered selection boxes. Boxes are dimmed if:
+// - No pile is selected (pile==0) and the box number exceeds 4 or the
+//   corresponding pile is empty
+// - A pile is selected and the box number exceeds that pile's count
 static void snarfem_draw_numbered_boxes(int pile) {
     int x, y, space;
 
@@ -1270,6 +1430,7 @@ static void snarfem_draw_numbered_boxes(int pile) {
     }
 }
 
+// Draws a single pile image showing the current count of items.
 static void snarfem_draw_pile(int pile) {
     int num = user_word(zt.PILE_TABLE + pile * 2);
     int x, y;
@@ -1277,6 +1438,10 @@ static void snarfem_draw_pile(int pile) {
     draw_to_pixmap_unscaled(PILE_OF_0 + num, x, y);
 }
 
+// Determines if a Nim position is "safe" (losing for the player who just
+// moved). Uses binary digit-sum analysis: converts each pile count to a
+// pseudo-binary representation and checks that all digit columns have even
+// sums (the Nim-sum is zero).
 static bool snarfem_safe_number(uint16_t tbl[]) {
     int binary_table[10] = { 0, 1, 10, 11, 100, 101, 110, 111, 1000, 1001 };
     int x = 0;
@@ -1287,6 +1452,11 @@ static bool snarfem_safe_number(uint16_t tbl[]) {
 }
 
 
+// Z-machine entry point: draws the flower hint indicators showing the
+// computer's optimal move. If the current position is already "safe"
+// (Nim-sum zero), shows neutral flowers. Otherwise, searches for a move
+// (pile + count to remove) that leaves a safe position, and shows flowers
+// indicating which pile and how many.
 void DRAW_FLOWERS(void) {
     int num = 1;
     int pile = 0;
@@ -1343,6 +1513,9 @@ void DRAW_FLOWERS(void) {
     draw_to_pixmap_unscaled(right, x, y);
 }
 
+// Hit-tests a mouse click for Snarfem. First checks numbered boxes (1-9),
+// then pile images (if a pile hasn't been picked yet). Returns the clicked
+// box/pile number, or 0 if nothing was hit.
 static uint16_t snarfem_click(bool already_picked_pile) {
     int width, height;
     get_image_size(BOX_1, &width, &height);
@@ -1369,8 +1542,11 @@ static uint16_t snarfem_click(bool already_picked_pile) {
     return 0;
 }
 
+// Tracks which pile was last selected (for numbered box display)
 static int last_pile = 0;
 
+// Redraws the entire Snarfem display: border, all 4 piles, flower hints,
+// numbered selection boxes, and positions the text buffer window below.
 static void draw_snarfem(void) {
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
@@ -1397,6 +1573,8 @@ static void draw_snarfem(void) {
 }
 
 
+// Z-machine entry point: initializes the Snarfem game display.
+// Hides the status bar, draws the board, and sets up the text window.
 void SETUP_SN(void) {
     z0_hide_right_status();
 
@@ -1407,19 +1585,26 @@ void SETUP_SN(void) {
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
 }
 
+// Z-machine entry point: redraws the numbered selection boxes for the
+// pile specified in local variable 1.
 void DRAW_SN_BOXES(void) {
     last_pile = last_pile;
     snarfem_draw_numbered_boxes(variable(1));
 }
 
+// Z-machine entry point: redraws a single pile (pile number in variable 1).
 void DRAW_PILE(void) {
     snarfem_draw_pile(variable(1));
 }
 
+// Z-machine entry point: processes a mouse click during Snarfem.
+// Stores the clicked element (pile or number) in variable 2.
 void SN_CLICK(void) {
     store_variable(2, snarfem_click(variable(1)));
 }
 
+// Z-machine entry point: offers auto-solve for the Snarfem game.
+// If accepted, immediately wins by clearing the TRYTAKEBIT on the FAN object.
 void SNARFEM(void) {
     if (autosolve_visual_puzzle()) {
         transcribe_and_print_string("\n");
@@ -1428,8 +1613,16 @@ void SNARFEM(void) {
     }
 }
 
-#pragma mark PEGGLEBOZ
+#pragma mark - Peggleboz
 
+// Peggleboz is a peg-solitaire puzzle. The player jumps pegs over each other
+// to remove them, trying to leave as few pegs as possible. The board has 21
+// peg positions. UI buttons: Restart, Show Moves, and Exit.
+
+// Draws a Peggleboz UI button (Restart, Show Moves, or Exit) at its
+// designated location. The Restart and Show Moves buttons also update the
+// has_made_peggleboz_move flag when their active (non-dimmed) variants
+// are drawn.
 static void z0_draw_peggleboz_box_image(uint16_t pic, uint16_t x, uint16_t y) {
     int width, height;
     switch (pic) {
@@ -1454,6 +1647,9 @@ static void z0_draw_peggleboz_box_image(uint16_t pic, uint16_t x, uint16_t y) {
     }
 }
 
+// Redraws the entire Peggleboz board: border, all peg positions (delegated
+// to the game's DRAW-PEGS routine), UI buttons (dimmed if no move has been
+// made), and positions the text window below the game area.
 static void draw_peggles(void) {
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
@@ -1489,10 +1685,16 @@ static void draw_peggles(void) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
+// Currently selected/highlighted peg position (0 = none, even index into
+// BOARD_TABLE for the peg's coordinates)
 uint16_t selected_peg = 0;
 
+// When true, auto-solves Peggleboz by faking input to win immediately
 bool skip_pboz = false;
 
+// Z-machine entry point: initializes the Peggleboz game. Hides the status
+// bar, sets attributes on game objects, draws the board, and offers
+// auto-solve for accessibility.
 void SETUP_PBOZ(void) {
     z0_hide_right_status();
 
@@ -1519,6 +1721,9 @@ void SETUP_PBOZ(void) {
 
 }
 
+// Hit-tests a mouse click for Peggleboz. Checks UI buttons first
+// (Restart='Z', Show Moves='Y', Exit='X'), then peg positions
+// (returns ASCII 65+ for peg index). Beeps if nothing was hit.
 static uint16_t pboz_click(void) {
     int left, top, width, height;
     get_image_size(PBOZ_RESTART_BOX_LOC, &left, &top);
@@ -1554,14 +1759,20 @@ static uint16_t pboz_click(void) {
     return ZSCII_CLICK_SINGLE;
 }
 
+// Z-machine entry point: processes a mouse click during Peggleboz.
 void PBOZ_CLICK(void) {
     store_variable(2, pboz_click());
 }
 
+// Z-machine entry point: records the selected peg position (variable 2
+// is the peg index, doubled for BOARD_TABLE indexing).
 void PEG_GAME(void) {
     selected_peg = variable(2) * 2;
 }
 
+// Z-machine entry point: intercepts character input during auto-solve.
+// If skip_pboz is set, returns 'Q' (quit) on the first call and 'G' (go)
+// on subsequent calls to quickly win the game.
 void PEG_GAME_READ_CHAR(void) {
     if (skip_pboz) {
         if (selected_peg == 0)
@@ -1572,6 +1783,8 @@ void PEG_GAME_READ_CHAR(void) {
 }
 
 
+// Z-machine entry point: during auto-solve, sets attributes 1-21 (except 7)
+// on NOT-HERE-OBJECT to fake a winning board state.
 void PBOZ_WIN_CHECK(void) {
     // Game is considered won if the first 21 attributes (1-21) of NOT-HERE-OBJECT are set
     // except attribute 7, which must not be set.
@@ -1584,13 +1797,20 @@ void PBOZ_WIN_CHECK(void) {
     }
 }
 
+// Z-machine entry point: outputs a line feed for the "Show Moves" display.
 void DISPLAY_MOVES(void) {
     glk_put_char(UNICODE_LINEFEED);
 }
 
 
-#pragma mark TOWER OF BOZBAR
+#pragma mark - Tower of Bozbar
 
+// Tower of Bozbar is a Tower of Hanoi variant with 6 weights on 3 pegs
+// (left, center, right). The player moves weights between pegs following
+// the standard rules (only the top weight can be moved, and a heavier
+// weight cannot be placed on a lighter one).
+
+// Clears a peg table (6 entries), removing all weights from that peg.
 static void clear_peg_table(uint16_t table) {
     for (int i = 0; i < 6; i++) {
         store_word(table + i * 2, 0);
@@ -1599,8 +1819,12 @@ static void clear_peg_table(uint16_t table) {
 
 static void draw_tower_of_bozbar(void);
 
+// Set by auto-solve to indicate the tower has been solved externally
 static bool tower_solved = false;
 
+// Auto-solves the Tower of Bozbar by moving all 6 weights (in order) onto
+// the specified peg ('l', 'c', or 'r'). Updates both the Z-machine object
+// tree and the peg tables, then redraws the display.
 static void solve_tower(uint8_t c) {
     uint16_t peg = 0;
     uint16_t table = 0;
@@ -1648,6 +1872,9 @@ static void solve_tower(uint8_t c) {
         tower_solved = true;
 }
 
+// Prompts the player to choose which peg to move all weights to for the
+// auto-solve. Shows the current peg holding the weights and loops until
+// a valid choice (L/C/R) is entered.
 static void ask_which_peg(void) {
     uint16_t result = internal_call(pack_routine(zr.TOWER_WIN_CHECK));
     if (result > 0) {
@@ -1686,6 +1913,9 @@ static void ask_which_peg(void) {
     solve_tower(c);
 }
 
+// Z-machine entry point: called when the Tower of Bozbar puzzle is first
+// encountered. Offers auto-solve for accessibility, or provides a VoiceOver
+// hint about the D key for descriptions.
 void SMALL_DOOR_F(void) {
     if (autosolve_visual_puzzle()) {
         ask_which_peg();
@@ -1694,6 +1924,9 @@ void SMALL_DOOR_F(void) {
     }
 }
 
+// Z-machine entry point: called each turn during Tower of Bozbar play.
+// If the tower was auto-solved, clears the result variables so the game
+// recognizes the win.
 void TOWER_MODE(void) {
     if (tower_solved) {
         store_variable(5, 0);
@@ -1732,6 +1965,9 @@ void TOWER_MODE(void) {
 }
 
 
+// Draws all weights on a single peg. Iterates through the peg's table
+// entries (up to 6 weights), calling SET-B-PIC to get the image for each
+// weight and drawing it at the appropriate x,y position.
 static void draw_peg(uint16_t table, int offset) {
     uint16_t x = user_word(zt.B_X_TBL + offset * 2);
     for (int i = 0; i < 6; i++) {
@@ -1743,8 +1979,13 @@ static void draw_peg(uint16_t table, int offset) {
     }
 }
 
+// Whether the last move was an undo (controls whether the Undo button is dimmed)
 static bool undoing = true;
 
+// Redraws the entire Tower of Bozbar display: border, all weights on all
+// 3 pegs, Undo and Exit buttons, and positions the text window below.
+// The Undo button is dimmed if the last action was already an undo or
+// if the puzzle is in its winning state.
 static void draw_tower_of_bozbar(void) {
     z0_hide_right_status();
 
@@ -1796,11 +2037,15 @@ static void draw_tower_of_bozbar(void) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
+// Z-machine entry point: redraws the tower display. Variable 1 indicates
+// whether the last action was an undo (1) or a normal move (0).
 void DRAW_TOWER(void) {
     undoing = (variable(1) == 1);
     draw_tower_of_bozbar();
 }
 
+// Hit-tests a mouse click against the 3 peg columns. Returns 'L', 'C',
+// or 'R' for the clicked peg, or ZSCII_CLICK_DOUBLE if none was hit.
 static uint8_t pick_peg(void) {
     int weight_width, left, top, peg_height;
     get_image_size(B_1_L_PIC_LOC, &left, &top);
@@ -1821,10 +2066,15 @@ static uint8_t pick_peg(void) {
     return ZSCII_CLICK_DOUBLE;
 }
 
+// Z-machine entry point: processes a mouse click for peg selection.
 void B_MOUSE_PEG_PICK(void) {
     store_variable(2, pick_peg());
 }
 
+// Hit-tests a mouse click for weight selection. Checks Undo button ('U'),
+// Exit button ('X'), then iterates through all weight positions on all 3
+// pegs. Returns the weight number as ASCII ('1'-'6'), a button key, or
+// ZSCII_CLICK_SINGLE if nothing valid was clicked.
 uint8_t pick_weight(void) {
     int left, top, width, height, weight_width, weight_height, num;
     get_image_size(TOWER_UNDO_BOX_LOC, &left, &top);
@@ -1863,13 +2113,17 @@ uint8_t pick_weight(void) {
     return ZSCII_CLICK_SINGLE;
 }
 
+// Z-machine entry point: processes a mouse click for weight selection.
 void B_MOUSE_WEIGHT_PICK(void) {
     uint16_t result = pick_weight();
     store_variable(2, result);
 }
 
-#pragma mark Map stuff
+#pragma mark - Map
 
+// Updates the blinking location indicator's coordinates in the BLINK-TBL
+// and the local variables used by the BLINK routine. Also flushes the
+// image buffer and restarts the timer to trigger the next blink cycle.
 static void update_blink_coordinates(uint16_t x, uint16_t y) {
     store_word(get_global(zg.BLINK_TBL) + 3 * 2, y);
     store_word(get_global(zg.BLINK_TBL) + 4 * 2, x);
@@ -1881,14 +2135,11 @@ static void update_blink_coordinates(uint16_t x, uint16_t y) {
     glk_request_timer_events(1);
 }
 
-// If we resize the screen inside the loop of the V-MAP routine
-// (i.e. the verb routine of the "map" command)
-// and then make a mouse click which does not lead to map movement
-// (i.e. we click outside of eligible rooms)
-// the blinking image will be drawn in the wrong position,
-// using the old coordinates.
-// We fix this by updating the internal variables storing the
-// coordinates upon every mouse click
+// Z-machine entry point: called each iteration of the map interaction loop.
+// Fixes a bug where resizing the screen during map mode and then clicking
+// outside an eligible room would draw the blinking indicator at stale
+// coordinates. We recalculate the current room's map position and update
+// the local variables every iteration.
 void V_MAP_LOOP(void) {
     // Get the map location table of current room
     uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
@@ -1900,18 +2151,19 @@ void V_MAP_LOOP(void) {
     store_variable(5, CY);
 }
 
-#pragma mark Other stuff
+#pragma mark - Hint Border Display
 
+// Side pillar images for hint screens
 #define Z0_HINT_BORDER_L 503
 #define Z0_HINT_BORDER_R 504
 
-// <CONSTANT HINT-BORDER 8>
-// <CONSTANT HINT-BORDER-L 503>
-// <CONSTANT HINT-BORDER-R 504>
-
+// Height of the Amiga/Mac hint border top section (used for pillar placement)
 #define Z0_HINT_TOP_HEIGHT 33
 
-
+// Draws the hint/special border. Unlike DISPLAY_BORDER (which handles the
+// 4 in-game border types), this handles extended border rendering with
+// vertical extension for tall screens, platform-specific pillar placement,
+// and a covering rectangle at the top to hide edge artifacts.
 void z0_display_border(int border) {
 
     int left_margin = 0;
@@ -1993,12 +2245,21 @@ void z0_display_border(int border) {
     flush_bitmap(current_graphics_buf_win);
 }
 
+#pragma mark - Resize Handling
+
+// Called when the display is resized. Redraws the appropriate screen mode:
+// definitions, hints, map (with blinking indicator update), mini-games
+// (Tower, Peggleboz, Snarfem, Fanucci), normal gameplay, slideshows,
+// or encyclopedia. Also handles graphics type changes by refreshing
+// margin images and window backgrounds.
+//
+// Window assignments:
+//   0 (S-TEXT): Main text buffer
+//   1 (S-WINDOW): Status text grid (left status)
+//   2 (SOFT-WINDOW): Text grid for DEFINE command
+//   3: Encyclopedia image captions (overlay on background)
+//   7 (S-FULL): Full background graphics
 void z0_update_on_resize(void) {
-    // Window 0 is S-TEXT, buffer text window
-    // Window 1 is S-WINDOW, status text grid
-    // Window 2 is SOFT-WINDOW, text grid used for DEFINE
-    // Window 3 is used for encyclopedia image captions (on top of background image)
-    // Window 7 is S-FULL, the entire background
 
 //    if (current_graphics_buf_win)
 //        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
@@ -2124,16 +2385,31 @@ void z0_update_on_resize(void) {
     number_of_margin_images = stored_margin_image_number;
 }
 
+#pragma mark - Save/Restore
+
+// Called after a manual restore. Re-applies the color configuration.
 void z0_update_after_restore(void) {
     after_V_COLOR();
 }
 
+// Called after an automatic restore. Currently a no-op for Zork Zero.
 void z0_update_after_autorestore(void) {
 
 }
 
 extern bool pending_flowbreak;
 
+#pragma mark - Image Display Dispatch
+
+// Main image display handler for Zork Zero. Routes each picture to the
+// appropriate rendering path based on the image type and current screen mode:
+// - Tower/Peggleboz images: drawn directly to the offscreen pixmap
+// - Peggleboz buttons: delegated to z0_draw_peggleboz_box_image
+// - Title, encyclopedia border, map border, rebus images: switch to
+//   fullscreen mode with the foreground graphics window
+// - Encyclopedia illustrations: drawn with border frame and text overlay
+// - Text buffer images (room illustrations): drawn as margin images
+// - Other images: drawn to the current background graphics buffer
 bool z0_display_picture(int x, int y, Window *win) {
 
     if (is_zorkzero_tower_image(current_picture) || is_zorkzero_peggleboz_image(current_picture)) {
@@ -2210,11 +2486,15 @@ bool z0_display_picture(int x, int y, Window *win) {
     return false;
 }
 
+// Z-machine entry point: resets color globals to 1 (meaning "use default").
 void DEFAULT_COLORS(void) {
     set_global(zg.DEFAULT_FG, 1);
     set_global(zg.DEFAULT_BG, 1);
 }
 
+// Saves Zork Zero's window tags into the library state structure for
+// serialization during save. Tags are stable identifiers that survive
+// window recreation.
 void z0_stash_state(library_state_data *dat) {
     if (!dat)
         return;
@@ -2229,6 +2509,8 @@ void z0_stash_state(library_state_data *dat) {
         dat->z0_right_status_tag = z0_right_status_window->tag;
 }
 
+// Restores Zork Zero's window pointers from saved tags after a restore
+// operation. Looks up the current window objects by their stable tags.
 void z0_recover_state(library_state_data *dat) {
     if (!dat)
         return;

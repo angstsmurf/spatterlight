@@ -85,9 +85,18 @@ private:
 
 static Xorshift32 xorshift32;
 
+#ifdef SPATTERLIGHT
+long last_random_seed = 0;
+int random_calls_count = 0;
+#endif
+
 static std::ifstream random_file;
 
+#ifdef SPATTERLIGHT
+uint32_t zterp_rand()
+#else
 static uint32_t zterp_rand()
+#endif
 {
     if (mode == Mode::Random && random_file.is_open()) {
         uint32_t value;
@@ -100,6 +109,10 @@ static uint32_t zterp_rand()
         }
     }
 
+#ifdef SPATTERLIGHT
+    random_calls_count++;
+#endif
+
     return xorshift32.rand();
 }
 
@@ -110,8 +123,17 @@ static uint32_t zterp_rand()
 //
 // Otherwise, set the PRNG to predictable mode and seed with the
 // provided value.
+#ifdef SPATTERLIGHT
+void seed_random(uint32_t seed)
+#else
 static void seed_random(uint32_t seed)
+#endif
 {
+#ifdef SPATTERLIGHT
+
+    random_calls_count = 0;
+
+#endif
     if (seed == 0) {
         mode = Mode::Random;
 
@@ -124,14 +146,21 @@ static void seed_random(uint32_t seed)
             for (size_t i = 0; i < sizeof t; i++) {
                 s = s * (UCHAR_MAX + 2U) + p[i];
             }
-
+#ifdef SPATTERLIGHT
+            last_random_seed = s;
+#endif
             xorshift32.srand(s);
         } else {
+#ifdef SPATTERLIGHT
+            last_random_seed = *options.random_seed;
+#endif
             xorshift32.srand(*options.random_seed);
         }
     } else {
         mode = Mode::Predictable;
-
+#ifdef SPATTERLIGHT
+        last_random_seed = seed;
+#endif
         xorshift32.srand(seed);
     }
 }

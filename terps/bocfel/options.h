@@ -51,8 +51,11 @@ struct Options {
     bool override_undo = false;
     std::unique_ptr<unsigned long> random_seed = nullptr;
     std::unique_ptr<std::string> random_device = nullptr;
-
+#ifdef SPATTERLIGHT
+    bool autosave = true;
+#else
     bool autosave = false;
+#endif
     bool skip_autorestore = false;
     std::unique_ptr<std::string> autosave_directory = nullptr;
     bool autosave_librarystate = false;

@@ -111,8 +111,8 @@ static uint16_t input_line = 0;                // Current cursor row (1-based)
 static uint16_t input_table = 0;               // Z-machine address of input buffer
 static int serial_as_int = 0;                  // Game serial number as integer, for version checks
 
-// Describes a single "VoiceOver" menu entry. These are standard macOS UI menus that reflect
-// the in-game command area menu text. This is done in order to make the game playable for visually
+// Describes a single "VoiceOver" menu entry. These are standard macOS UI menus or dialogs that reflect
+// the in-game command area menu text, in order to make the game playable for visually
 // impaired people. When the built-in macOS text-to-speech system VoiceOver is off,
 // these menus are not shown.
 
@@ -514,9 +514,9 @@ static void journey_move_cursor(int column, int line) {
 
 #pragma mark - VoiceOver menus
 
-// These functions create "VoiceOver" menus, (two) standard macOS UI menus that reflect
-// the in-game command area menu text. This is done in order to make the game playable
-// for visually impaired people. When VoiceOver (the built-in macOS text-to-speech system)
+// These functions create "VoiceOver" menus, standard macOS UI menus or dialogs that reflect
+// the in-game command area menu text, in order to make the game playable for visually
+// impaired people. When VoiceOver (the built-in macOS text-to-speech system)
 // is off, these menus are not shown.
 
 

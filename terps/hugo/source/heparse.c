@@ -564,7 +564,7 @@ void KillWord(int a)
 				       "Bob, <do something>"
 */
 
-int MatchCommand()
+int MatchCommand(void)
 {
 	int i, j, flag, a, mw = 0, gotspeaker = 0;
 	int wordnum;
@@ -2192,7 +2192,7 @@ int ObjWord(int obj, unsigned int w)
 	as compounds, removals, and synonyms.
 */
 
-int Parse()
+int Parse(void)
 {
 	char foundstring = 0;           /* allow one unknown word/phrase */
 	int notfound_word = 0;

@@ -30,6 +30,11 @@ extern "C" {
 #include "zoom.h"
 #endif
 
+#ifdef SPATTERLIGHT
+#include "spatterlight-autosave.h"
+#include "entrypoints.hpp"
+#endif
+
 unsigned long pc;
 unsigned long current_instruction;
 
@@ -269,7 +274,7 @@ void setup_opcodes()
 #ifndef ZTERP_NO_V6
     setup_single_opcode(6, 6, Opcount::Ext, 0x10, znop); // XXX move_window
     setup_single_opcode(6, 6, Opcount::Ext, 0x11, znop); // XXX window_size
-    setup_single_opcode(6, 6, Opcount::Ext, 0x12, znop); // XXX window_style
+    setup_single_opcode(6, 6, Opcount::Ext, 0x12, zwindow_style);
     setup_single_opcode(6, 6, Opcount::Ext, 0x13, zget_wind_prop);
     setup_single_opcode(6, 6, Opcount::Ext, 0x14, znop); // XXX scroll_window
     setup_single_opcode(6, 6, Opcount::Ext, 0x15, zpop_stack);
@@ -291,10 +296,12 @@ void setup_opcodes()
     setup_single_opcode(5, 6, Opcount::Ext, 0x83, zprint_timer);
 #endif
 
+#ifndef SPATTERLIGHT
 #ifndef ZTERP_NO_V6
     // V6 hacks.
     setup_single_opcode(6, 6, Opcount::Ext, JOURNEY_DIAL_EXT, zjourney_dial);
     setup_single_opcode(6, 6, Opcount::Ext, SHOGUN_MENU_EXT, zshogun_menu);
+#endif
 #endif
 }
 
@@ -306,14 +313,16 @@ void process_instructions()
 
     if (options.autosave && !options.skip_autorestore && !handled_autosave) {
         SaveOpcode saveopcode;
-        SaveType savetype = options.autosave_librarystate ? SaveType::AutosaveLib : SaveType::Autosave;
 
         handled_autosave = true;
 
-        if (do_restore(savetype, saveopcode)) {
-            if (savetype == SaveType::Autosave) {
-                show_message("Continuing last session from autosave");
-            }
+#ifdef SPATTERLIGHT
+        if (spatterlight_restore_autosave(&saveopcode)) {
+#else
+        SaveType savetype = options.autosave_librarystate ? SaveType::AutosaveLib : SaveType::Autosave;
+        if (do_restore(SaveType::Autosave, saveopcode)) {
+            show_message("Continuing last session from autosave");
+#endif
             throw Operation::Restore(saveopcode);
         }
     }
@@ -326,6 +335,12 @@ void process_instructions()
 #endif
 
         current_instruction = pc;
+#ifdef SPATTERLIGHT
+//        fprintf(stderr, "pc == 0x%04lx\n", pc);
+        if (is_spatterlight_v6) {
+            check_entrypoints(pc);
+        }
+#endif
         uint8_t opcode = byte(pc++);
 
         if (opcode < 0x80) { // long 2OP
@@ -420,6 +435,9 @@ void process_loop()
                 }
                 break;
             }
+#ifdef SPATTERLIGHT
+            v6_restore_hacks();
+#endif
         } catch (const Operation::Quit &) {
             break;
         }

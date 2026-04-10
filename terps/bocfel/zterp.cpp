@@ -39,8 +39,18 @@
 #include "unicode.h"
 #include "util.h"
 
+#ifdef SPATTERLIGHT
+#include "entrypoints.hpp"
+#include "extract_apple_2.h"
+#include "find_graphics_files.hpp"
+#include "v6_specific.h"
+#endif
+
 #ifdef ZTERP_GLK
 #include <glk.h>
+#ifdef SPATTERLIGHT
+#include "glkimp.h"
+#endif
 #endif
 
 using namespace std::literals;
@@ -59,6 +69,10 @@ const std::string &get_story_id()
 // Z-machine versions 7 and 8 are identical to version 5 but for a
 // couple of tiny details. They are thus classified as version 5.
 int zversion;
+
+#ifdef SPATTERLIGHT
+int pixversion;
+#endif
 
 Header header;
 
@@ -96,6 +110,13 @@ uint32_t unpack_string(uint16_t addr)
     return (addr * unpack_multiplier) + header.strings_offset;
 }
 
+#ifdef SPATTERLIGHT
+uint32_t pack_routine(uint32_t addr)
+{
+    return (uint32_t)(addr - header.routines_offset) / unpack_multiplier ;
+}
+#endif
+
 void store(uint16_t v)
 {
     store_variable(byte(pc++), v);
@@ -127,13 +148,29 @@ static void initialize_games()
 
     static const std::vector<std::pair<Game, std::set<std::string>>> gamemap = {
         { Game::Infocom1234, infocom1234 },
+#ifndef SPATTERLIGHT
         { Game::Arthur, { "54-890606", "63-890622", "74-890714" } },
         { Game::Journey, { "26-890316", "30-890322", "77-890616", "83-890706" } },
+#else
+        { Game::Arthur, { "40-890502", "41-890504", "54-890606", "63-890622", "74-890714" } },
+
+        { Game::Journey, { "142-890205", "2-890303", "11-890304", "3-890310", "5-890310", "10-890313", "26-890316", "30-890322", "51-890522", "54-890526", "76-890615", "77-890616", "79-890627", "83-890706" } },
+#endif
         { Game::LurkingHorror, { "203-870506", "219-870912", "221-870918" } },
         { Game::Planetfall, { "1-830517", "20-830708", "26-831014", "29-840118", "37-851003", "39-880501" } },
+#ifndef SPATTERLIGHT
         { Game::Shogun, { "292-890314", "295-890321", "311-890510", "322-890706" } },
+#else
+        { Game::Shogun, { "278-890209", "278-890211", "279-890217", "280-890217", "281-890222", "282-890224", "283-890228", "284-890302", "286-890306", "288-890308", "289-890309", "290-890311", "291-890313", "292-890314", "295-890321", "311-890510", "320-890627", "321-890629", "322-890706" } },
+#endif
         { Game::Stationfall, { "1-861017", "63-870218", "87-870326", "107-870430" } },
+#ifdef SPATTERLIGHT
+        { Game::BeyondZork, { "1-870412", "1-870715", "47-870915", "49-870917", "51-870923", "57-871221", "60-880610" } },
+        { Game::MadBomber, { "3-971123-caad" } },
+        { Game::ZorkZero, { "242-880830", "242-880901", "296-88101", "66-890111", "343-890217", "366-890323", "383-890602", "387-890612", "392-890714", "393-890714" } },
+#else
         { Game::ZorkZero, { "296-881019", "366-890323", "383-890602", "393-890714" } },
+#endif
         { Game::ZorkZeroDOS, { "393-890714" } },
         { Game::MysteriousAdventures, mysterious },
     };
@@ -327,6 +364,12 @@ void write_header()
     if (zversion >= 4) {
         unsigned int width, height;
 
+#ifdef SPATTERLIGHT
+        options.int_number = gli_zmachine_terp;
+        if (is_spatterlight_v6) {
+            v6_switch_to_allowed_interpreter_number();
+        }
+#endif
         store_byte(0x1e, options.int_number);
         store_byte(0x1f, options.int_version);
 
@@ -452,6 +495,30 @@ static void process_story(IO &io, long offset)
     } catch (const IO::IOError &) {
         die("unable to read from story file");
     }
+
+#ifdef SPATTERLIGHT
+    // Hack to read data file from Apple 2 Woz format disk images
+    if (memory[0] == 'W' && memory[1] == 'O' && memory[2] == 'Z') {
+        size_t file_length;
+
+        uint8_t *newmemory;
+
+        // Don't extract pictures if we have set another preferred graphics format
+        if (graphics_type == gli_z6_graphics && graphics_type != kGraphicsTypeApple2) {
+            newmemory = extract_apple2_story((const char *)game_file.c_str(), &file_length, nullptr, nullptr, nullptr);
+        } else {
+            newmemory = extract_apple2_story((const char *)game_file.c_str(), &file_length, &raw_images, &image_count, &pixversion);
+
+            graphics_type = kGraphicsTypeApple2;
+            hw_screenwidth = 140;
+            pixelwidth = 2.0;
+        }
+        if (newmemory) {
+            memory.assign(newmemory, newmemory + file_length);
+        }
+        memory_size = (uint32_t)file_length;
+    }
+#endif
 
     zversion = byte(0x00);
 
@@ -619,6 +686,25 @@ static void process_story(IO &io, long offset)
         create_graphicswin();
         apply_v6_patches();
     }
+
+#ifdef SPATTERLIGHT
+    if (is_game(Game::Journey)) {
+        is_spatterlight_journey = true;
+    } else if (is_game(Game::Arthur)) {
+        is_spatterlight_arthur = true;
+    } else if (is_game(Game::Shogun)) {
+        is_spatterlight_shogun = true;
+//    } else if (is_game(Game::ZorkZero)) {
+//        is_spatterlight_zork0 = true;
+    }
+    if (is_spatterlight_journey ||
+        is_spatterlight_arthur ||
+        is_spatterlight_shogun /* ||
+        is_spatterlight_zork0*/) {
+        is_spatterlight_v6 = true;
+        find_entrypoints();
+    }
+#endif
 
     if (zversion <= 3) {
         have_statuswin = create_statuswin();
@@ -956,6 +1042,12 @@ static void real_main(int argc, char **argv)
 
     process_story(*story.io, story.offset);
 
+#ifdef SPATTERLIGHT
+    if (is_spatterlight_v6) {
+        find_and_load_z6_graphics();
+    }
+#endif
+
     if (options.show_id) {
 #ifdef ZTERP_GLK
         glk_set_style(style_Preformatted);
@@ -968,9 +1060,15 @@ static void real_main(int argc, char **argv)
         // story or by the user, this will activate them.
         user_store_word(0x10, word(0x10));
 
+#ifdef SPATTERLIGHT
+        if (!is_spatterlight_v6) {
+#endif
         if (zversion == 6 && options.warn_on_v6) {
             show_message("Version 6 of the Z-machine is only partially supported. Be aware that the game might not function properly.");
         }
+#ifdef SPATTERLIGHT
+        }
+#endif
 
         setup_opcodes();
         process_loop();

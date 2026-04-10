@@ -81,6 +81,7 @@
     // instead (which will be set in the restoreUI method)
     if (self.restorationHandler == nil) {
         self.windowPreFullscreenFrame = self.window.frame;
+        NSLog(@"windowWillEnterFullScreen calling storeScrollOffsets");
         [self storeScrollOffsets];
         self.ignoreResizes = YES;
         // self.ignoreResizes means no storing scroll offsets,
@@ -102,12 +103,14 @@
     self.gameView.alphaValue = 1;
     [window setFrame:[self frameWithSanitycheckedSize:self.windowPreFullscreenFrame] display:YES];
     self.gameView.frame = [self contentFrameForWindowed];
+    NSLog(@"windowDidFailToEnterFullScreen calling restoreScrollOffsets");
     [self restoreScrollOffsets];
     self.gameView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
     self.borderView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
 }
 
 - (void)storeScrollOffsets {
+    NSLog(@"GlkController storeScrollOffsets");
     if (self.ignoreResizes)
         return;
     for (GlkWindow *win in self.gwindows.allValues)
@@ -253,6 +256,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                         // Send an arrangement event to fill
                         // the new extended area
                         [weakSelf sendArrangeEventWithFrame:localContentView.frame force:NO];
+                        NSLog(@"enterFullScreenAnimationWithDuration: finished animation, calling restoreScrollOffsets in fullscreen");
                         [weakSelf restoreScrollOffsets];
                         for (GlkTextGridWindow *quotebox in weakSelf.quoteBoxes)
                         {
@@ -323,6 +327,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
                 strongSelf.shouldShowAutorestoreAlert = stashShouldShowAlert;
                 [strongSelf performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
+                NSLog(@"startGameInFullScreenAnimationWithDuration: Finished. Restoring scroll offsets");
                 [strongSelf restoreScrollOffsets];
             }
         }];
@@ -407,6 +412,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)startInFullscreen {
+    NSLog(@"startInFullscreen");
     // First we show the game windowed
     [self.window setFrame:restoredControllerLate.windowPreFullscreenFrame
                   display:NO];
