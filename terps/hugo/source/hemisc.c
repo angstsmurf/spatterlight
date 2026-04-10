@@ -669,14 +669,12 @@ int CallRoutine(unsigned int addr)
 
 void ContextCommand(void)
 {
-	unsigned int n;
-
 ContextCommandLoop:
 
 	codeptr++;
 	
 #if !defined (COMPILE_V25)
-	n = GetValue();
+	unsigned int n = GetValue();
 	if (n==0)
 	{
 		context_commands = 0;

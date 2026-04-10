@@ -1783,7 +1783,7 @@ static void find_journey_globals(void) {
             // CHANGE-FONT. (Earlier versions call the FONT/set_font opcode
             // directly.) This routine returns false unless the argument is 3 or 4,
             // meaning that it will never set the font back to the standard font 1
-            // (unless font 3 or 4 are unavailable, when it will fall back to this.)
+            // (unless font 3 or 4 are unavailable - then it will fall back to 1.)
 
             // This is likely unintentional, and we want it to be able to set the font
             // in the main buffer text window back to 1, otherwise it will always use

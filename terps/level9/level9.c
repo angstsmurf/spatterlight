@@ -3590,6 +3590,11 @@ void GetPictureSize(int* width, int* height)
 	}
 }
 
+L9BOOL GraphicOpsAvailable(void) {
+	return (gfxa5 != NULL);
+}
+
+
 L9BOOL RunGraphics(void)
 {
 	if (gfxa5)

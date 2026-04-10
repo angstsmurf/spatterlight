@@ -74,6 +74,26 @@ static std::vector<Patch> base_patches = {
     // 0x21 in the header, which is the width of the screen in
     // characters, capped at 255.
     {
+        "Arthur", "890502", 40, 0x2f5d,
+        {
+            {
+                0x9789, 10,
+                {0xbe, 0x13, 0x5f, 0x01, 0x03, 0x00, 0x77, 0x00, 0x1f, 0x01},
+                {0x10, 0x00, 0x21, 0x01, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4}
+            }
+        },
+    },
+    {
+        "Arthur", "890504", 41, 0xa406,
+        {
+            {
+                0x9789, 10,
+                {0xbe, 0x13, 0x5f, 0x01, 0x03, 0x00, 0x77, 0x00, 0x1f, 0x01},
+                {0x10, 0x00, 0x21, 0x01, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4},
+            }
+        },
+    },
+    {
         "Arthur", "890606", 54, 0x8e4a,
         {
             {
@@ -606,10 +626,188 @@ static std::vector<Patch> base_patches = {
 #ifdef ZTERP_STATIC_PATCH_FILE
 #include ZTERP_STATIC_PATCH_FILE
 #endif
+#ifdef SPATTERLIGHT
+    // The Blorb demo “The Spy Who Came In From The Garden” seems to
+    // always be in a state of disrepair. One particular version appears
+    // to work better than most, but for a bad call to @sound_effect:
+    //
+    // [Routine number;
+    //     @sound_effect number 2 255 4;
+    // ];
+    //
+    // The “4” above is a routine to call, which is clearly invalid.
+    // The easiest way to work around this is to just rewrite it to not
+    // include the routine call; this becomes:
+    //
+    // @sound_effect number 2 255;
+    // @nop; ! This is for padding.
+    {
+        "The Spy Who Came In From The Garden", "980124", 1, 0x260,
+        {
+            {
+                0xb6c2, 5,
+                {0x95, 0x01, 0x02, 0xff, 0x01},
+                {0x97, 0x01, 0x02, 0xff, 0xb4},
+            },
+        }
+    },
+
+    // Transporter tries to read a property of non-existent objects,
+    // so we add a bounds check.
+    {
+        "Transporter", "960729", 1, 0x1ac6,
+        {
+            {
+                0x4bd1, 28,
+
+                {0x41, 0x01, 0x00, 0x00, 0x03, 0xb1, 0x52, 0x01,
+                    0x01, 0x03, 0x52, 0x01, 0x01, 0x00, 0x2d, 0xff,
+                    0x00, 0xa0, 0xff, 0xc5, 0xa4, 0xff, 0xff, 0xe8,
+                    0xbf, 0xff, 0x57, 0x00},
+
+                {0x42, 0x01, 0x01, 0x80, 0x09, 0xc3, 0x8f, 0x01,
+                    0x02, 0x31, 0x00, 0x03, 0xb1, 0x52, 0x01, 0x01,
+                    0x03, 0x2d, 0xff, 0x03, 0xa0, 0xff, 0xc5, 0xa4,
+                    0xff, 0xff, 0x57, 0xff}
+            },
+        }
+    },
+
+    // Unforgotten attempts to sleep with the following:
+    //
+    //
+    //      @aread local2 0 30 PauseFunc -> local3;
+    //
+    //
+    // However, since local2 is a local variable with value 0 instead of a
+    // text buffer, this is asking to read from/write to address 0. This
+    // works in some interpreters, but Bocfel is more strict, and aborts
+    // the program. Rewrite this instead to:
+    //
+    // @read_char 1 30 PauseFunc -> local3;
+    // @nop; ! This is for padding.
+    {
+        "Unforgotten", "050930", 1, 0x3ebc,
+        {
+            {
+                0x1d9f7, 8,
+                {0xe4, 0x94, 0x02, 0x00, 0x1e, 0x77, 0x5d, 0x03},
+                {0xf6, 0x53, 0x01, 0x1e, 0x77, 0x5d, 0x03, 0xb4},
+            },
+
+            {
+                0x1dd34, 8,
+                {0xe4, 0x94, 0x01, 0x00, 0x01, 0x77, 0x5d, 0x02},
+                {0xf6, 0x53, 0x01, 0x01, 0x77, 0x5d, 0x02, 0xb4},
+            },
+
+            {
+                0x1dd47, 8,
+                {0xe4, 0x94, 0x01, 0x00, 0x01, 0x77, 0x5d, 0x02},
+                {0xf6, 0x53, 0x01, 0x01, 0x77, 0x5d, 0x02, 0xb4},
+            },
+
+            {
+                0x1dd5a, 8,
+                {0xe4, 0x94, 0x01, 0x00, 0x01, 0x77, 0x5d, 0x02},
+                {0xf6, 0x53, 0x01, 0x01, 0x77, 0x5d, 0x02, 0xb4},
+            },
+        }
+    },
+#endif
 };
 
 // These patches help with the V6 hacks.
 static std::vector<Patch> v6_patches = {
+#ifdef SPATTERLIGHT
+    {
+        "Arthur", "890714", 74, 0xd526,
+        {
+            // In the intro to Arthur, two images are shown in immediate
+            // succession:
+            //
+            // <RT-CENTER-PIC ,K-PIC-SWORD>
+            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>
+            //
+            // This is presumably under the assmption that drawing is
+            // slow, so it will look like a small animation. On modern
+            // systems K-PIC-SWORD won't be seen in this sequence, so
+            // this patch rewrites the code to add a 1s sleep call via
+            // @read_char. There are two calls to @set_cursor (to hide
+            // the cursor) which have no effect in Bocfel, giving 8
+            // total bytes to work with, which is enough to add the new
+            // call. The following:
+            //
+            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>     |   call_2n         #19234 #03
+            // <CURSET -1> ;"Make cursor go away."     |   set_cursor      #ffff
+            // <INPUT 1 150 ,RT-STOP-READ>             |   read_char       #01 #96 #11d64 -> -(SP)
+            // <CURSET -2> ;"Make cursor come back."   |   set_cursor      #fffe
+            //
+            // is replaced with:
+            //
+            // <INPUT 1 10 ,RT-STOP-READ>              |   read_char        #01 #0a #11d64 -> -(SP)
+            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>     |   call_2n          #19234 #03
+            // <INPUT 1 150 ,RT-STOP-READ>             |   read_char        #01 #96 #11d64 -> -(SP)
+            // <NOOP>                                  |   nop
+            {
+                0x10e76, 20,
+                {0xda, 0x1f, 0x3d, 0xb1, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x20, 0x7d, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+                {0xf6, 0x53, 0x01, 0x03, 0x20, 0x7d, 0x00, 0xda, 0x1f, 0x3d, 0xb1, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x20, 0x7d, 0x00, 0xb4}
+            },
+        }
+    },
+    {
+        "Arthur", "890502", 40, 0x2f5d,
+        {
+            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>     |   call_2n         #1a824 #03
+            // <CURSET -1> ;"Make cursor go away."     |   set_cursor      #ffff
+            // <INPUT 1 150 ,RT-STOP-READ>             |   read_char       #01 #96 #118e8 -> -(SP)
+            // <CURSET -2> ;"Make cursor come back."   |   set_cursor      #fffe
+            //
+            // is replaced with:
+            //
+            // <INPUT 1 10 ,RT-STOP-READ>              |   read_char        #01 #0a #118e8 -> -(SP)
+            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>     |   call_2n          #1a824 #03
+            // <INPUT 1 150 ,RT-STOP-READ>             |   read_char        #01 #96 #118e8 -> -(SP)
+            // <NOOP>                                  |   nop
+            {
+                0x10cc4, 20,
+                {0xda, 0x1f, 0x44, 0xcf, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x21, 0x00, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+                {0xf6, 0x53, 0x01, 0x03, 0x21, 0x00, 0x00, 0xda, 0x1f, 0x44, 0xcf, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x21, 0x00, 0x00, 0xb4}
+            }
+        },
+    },
+    {
+        "Arthur", "890504", 41, 0xa406,
+        {
+            {
+                0x10cc8, 20,
+                {0xda, 0x1f, 0x44, 0xd2, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x21, 0x01, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+                {0xf6, 0x53, 0x01, 0x03, 0x21, 0x01, 0x00, 0xda, 0x1f, 0x44, 0xd2, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x21, 0x01, 0x00, 0xb4}
+            }
+        },
+    },
+    {
+        "Arthur", "890606", 54, 0x8e4a,
+        {
+            {
+                0x11418, 20,
+                {0xda, 0x1f, 0x49, 0xae, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x21, 0xd4, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+                {0xf6, 0x53, 0x01, 0x03, 0x21, 0xd4, 0x00, 0xda, 0x1f, 0x49, 0xae, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x21, 0xd4, 0x00, 0xb4}
+            }
+        },
+    },
+    {
+        "Arthur", "890622", 63, 0x45eb,
+        {
+            {
+                0x1147e, 20,
+                {0xda, 0x1f, 0x3f, 0x2e, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x22, 0x04, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+                {0xf6, 0x53, 0x01, 0x03, 0x22, 0x04, 0x00, 0xda, 0x1f, 0x3f, 0x2e, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x22, 0x04, 0x00, 0xb4}
+            }
+        },
+    },
+#else
     // There are two V6 hack patches for Arthur:
     //
     // 1. In the intro, two images are shown in immediate succession:
@@ -1072,6 +1270,7 @@ static std::vector<Patch> v6_patches = {
             { 0x1c20d, 3, {0xa0, 0x00, 0xce}, {0xb4, 0xb4, 0xb4} },
         },
     },
+#endif
 };
 
 static bool apply_patch(const Replacement &r)

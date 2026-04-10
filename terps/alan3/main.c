@@ -187,7 +187,7 @@ static void readTemporaryHeader(ACodeHeader *tmphdr) {
 
 
 /*----------------------------------------------------------------------*/
-static void reverseMemory() {
+static void reverseMemory(void) {
     if (littleEndian()) {
         if ((debugOption||traceSectionOption||traceInstructionOption) && !regressionTestOption)
             printf("<Hmm, this is a little-endian machine, fixing byte ordering....");
@@ -598,7 +598,7 @@ static void runInitialize(Aint theInstance) {
 
 
 /*----------------------------------------------------------------------*/
-static void initializeInstances() {
+static void initializeInstances(void) {
     int instanceId;
 
     /* Set initial locations */

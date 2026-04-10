@@ -85,6 +85,10 @@ void zrestore();
 void zcall_store();
 void zcall_nostore();
 
+#ifdef SPATTERLIGHT
+uint16_t internal_arg_count(void);
+#endif
+
 #define zcall		zcall_store
 #define zcall_1n	zcall_nostore
 #define zcall_1s	zcall_store

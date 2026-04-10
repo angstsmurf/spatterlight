@@ -4,6 +4,23 @@
 //
 //  Created by Administrator on 2023-07-21.
 //
+//  Implements the custom UI for Infocom's "Shogun" (1989), a Z-machine
+//  version 6 adaptation of James Clavell's novel. Shogun is largely a standard text adventure, apart from some custom menu functionality, graphical borders, inline illustrations, and a maze mini-game.
+//
+//  Key UI elements:
+//    - Decorative border graphics framing the text area (crests, waves,
+//      or hint-specific borders depending on context and platform)
+//    - A two-line status bar showing scene name, location, score, and moves
+//    - A pop-up menu system for story choices ("You may choose to: ...")
+//      with keyboard navigation and type-ahead quick search
+//    - Inline and marginal illustrations within the text buffer
+//    - A graphical maze mini-game with mouse/keyboard navigation
+//    - A title screen displayed at game start
+//
+//  The game supports multiple graphics modes: Amiga, Macintosh (B/W and
+//  color), Apple II, CGA, and modern Blorb resources. Border layout and
+//  image scaling vary significantly across these modes.
+//
 
 #include "draw_image.hpp"
 #include "memory.h"
@@ -19,52 +36,73 @@
 
 extern float imagescalex, imagescaley;
 
+// Width in pixels of the left border pillar graphic. Used to inset the
+// status bar and text buffer so they don't overlap the decorative frame.
 static int shogun_banner_width_left = 0;
 
-
+// Menu state: the currently highlighted line (1-based) and the Z-machine
+// address of the active menu table. Preserved across autosave/restore.
 uint16_t current_menu_selection = 0;
 uint16_t current_menu;
+// The currently active border style (crests, waves, hint border, or none).
 ShogunBorderType current_border;
 
+// Pixel offset and tile dimensions for the maze mini-game display.
+// The maze is rendered as a grid of small tile images drawn to the
+// background pixmap.
 static int maze_offset_x = 0;
 static int maze_offset_y = 0;
 static int maze_box_width = 0;
 static int maze_box_height = 0;
 
+// Global lookup tables mapping Z-machine global variable indices, routine
+// addresses, table addresses, menu identifiers, and object numbers to
+// symbolic names. Populated at startup by scanning the game's data.
 ShogunGlobals sg;
 ShogunRoutines sr;
 ShogunTables st;
 ShogunMenus sm;
 ShogunObjects so;
 
-#define SHOGUN_MAZE_WINDOW windows[3]
-#define SHOGUN_MENU_WINDOW windows[2]
-#define SHOGUN_MENU_BG_WIN windows[5]
-#define SHOGUN_CREST_WINDOW windows[4]
-#define SHOGUN_A2_BORDER_WIN windows[6]
+// Shogun uses several Glk windows for different UI regions.
+#define SHOGUN_MAZE_WINDOW windows[3]   // Maze graphics (no actual Glk window; draws to bg pixmap)
+#define SHOGUN_MENU_WINDOW windows[2]   // Grid window for the menu choice list
+#define SHOGUN_MENU_BG_WIN windows[5]   // Text buffer beside the menu for prompt messages
+#define SHOGUN_CREST_WINDOW windows[4]  // Graphics window for the final P-CREST image
+#define SHOGUN_A2_BORDER_WIN windows[6] // Apple II horizontal border banner
 
-#define P_BORDER_R 59
-#define P_BORDER2_R 60
+// Picture numbers for the right-side border pillar graphics.
+// The left pillar is part of the main border image; right pillars are separate.
+#define P_BORDER_R 59       // Right pillar for the standard crest border
+#define P_BORDER2_R 60      // Right pillar for the wave border
 
+// Picture numbers for left and right hint-mode border pillars.
 #define P_HINT_BORDER_L 61
 #define P_HINT_BORDER_R 62
 
-#define P_BORDER_LOC 2
-#define STATUS_LINES 2
+#define P_BORDER_LOC 2      // Picture number used to measure the left border/pillar width
+#define STATUS_LINES 2      // Height of the status bar in text lines
 
-#define S_ERASMUS 1
-#define S_VOYAGE 6
+// Scene constants used for special-case behaviour.
+#define S_ERASMUS 1         // Scene 1: aboard the Erasmus (affects border choice)
+#define S_VOYAGE 6          // Scene 6: the sea voyage
 
-#define SUPPORTERBIT 0x08
-#define ONBIT 0x13
-#define VEHICLEBIT 0x2c
+// Z-machine object attribute bit numbers used in status line display.
+#define SUPPORTERBIT 0x08   // Object is a supporter (player is "on" it)
+#define ONBIT 0x13          // Object is switched on (wheel is active)
+#define VEHICLEBIT 0x2c     // Object is a vehicle (player is "in" it)
 
-#define SCORE_FACTOR 5
+#define SCORE_FACTOR 5      // Multiplier applied to raw score for display
 
-#define P_MAZE_BACKGROUND 44
-#define P_MAZE_BOX 45
+// Picture numbers for the maze mini-game.
+#define P_MAZE_BACKGROUND 44  // Background grid image for the maze
+#define P_MAZE_BOX 45         // A single maze tile (used for sizing)
 
-// This should just call shogun_update_on_resize()
+// Configures the status bar and text buffer window positions based on the
+// current border type. 'P' is a picture number indicating which border is
+// active (P_BORDER_LOC for normal, P_HINT_LOC for hints). On Apple II,
+// a separate graphical banner window is created below the status bar.
+// Exits maze mode if we're switching to a non-maze border.
 static void setup_text_and_status(int P) {
 
     if (screenmode == MODE_SHOGUN_MAZE && P != P_BORDER_LOC) {
@@ -111,14 +149,20 @@ static void setup_text_and_status(int P) {
     v6_define_window(&V6_TEXT_BUFFER_WINDOW, V6_STATUS_WINDOW.x_origin, imagescaley * 2 + SHIGH, V6_STATUS_WINDOW.x_size, HIGH - SHIGH);
 }
 
+// Z-machine entry point. Variable 1 is the border picture number.
 void SETUP_TEXT_AND_STATUS(void) {
     setup_text_and_status(variable(1));
 }
 
 
-static bool last_was_interlude = false;
-static int a2_graphical_banner_height = 0;
+static bool last_was_interlude = false;     // Whether the last status update was for an interlude
+static int a2_graphical_banner_height = 0;  // Height of Apple II graphical banner in pixels
 
+// Redraws the two-line status bar. Line 1 shows the scene name (from
+// SCENE_NAMES table), centered "SHOGUN" title (non-Mac), and score.
+// Line 2 shows the current room name, vehicle info, ship navigation
+// details (course/wheel direction), and move count. When 'interlude' is
+// true, shows "Interlude" instead of a room name.
 static void update_status_line(bool interlude) {
     last_was_interlude = interlude;
 
@@ -208,6 +252,8 @@ static void update_status_line(bool interlude) {
     print_right_justified_number(tmp);
     glk_window_move_cursor(gwin, width - 10, 1);
     glk_put_string(const_cast<char*>("Moves:"));
+    if (get_global(sg.MOVES) == 278)
+        fprintf(stderr, "here\n");
     print_right_justified_number(get_global(sg.MOVES));
     set_current_window(&windows[0]);
 
@@ -216,10 +262,13 @@ static void update_status_line(bool interlude) {
     }
 }
 
+// Z-machine entry point for the normal (non-interlude) status line update.
 void shogun_UPDATE_STATUS_LINE(void) {
     update_status_line(false);
 }
 
+// Z-machine entry point for interlude status line (shows "Interlude"
+// instead of a location name, and uses the wave border on Apple II).
 void INTERLUDE_STATUS_LINE(void) {
     if (graphics_type != kGraphicsTypeApple2) {
         shogun_display_border(P_BORDER2);
@@ -227,10 +276,13 @@ void INTERLUDE_STATUS_LINE(void) {
     update_status_line(true);
 }
 
-#pragma mark SHOGUN MENU
+#pragma mark - Menu System
 
+// Z-machine address of the current menu prompt string (e.g. "You may choose to:").
 static uint16_t current_menu_message;
 
+// Writes the selected menu choice to the transcript stream. Called after
+// the player confirms a selection so the transcript records their choice.
 static void print_menu_line_to_transcript(uint16_t menu, uint16_t result) {
     output_stream(-1, 0);
     put_char(ZSCII_SPACE);
@@ -246,6 +298,7 @@ static void print_menu_line_to_transcript(uint16_t menu, uint16_t result) {
     output_stream(1, 0);
 }
 
+// Prints a Z-string to the transcript only (not to screen).
 static void print_zstring_to_transcript(uint16_t string) {
     output_stream(-1, 0);
     print_handler(unpack_string(string), nullptr);
@@ -253,6 +306,10 @@ static void print_zstring_to_transcript(uint16_t string) {
 }
 
 
+// Renders a single menu line in the menu grid window. If 'reverse' is true,
+// the line is drawn with reverse video (highlighted). Menu entries are stored
+// as length-prefixed byte strings in Z-machine memory. If 'send_menu' is true,
+// also sends the item to the front-end via win_menuitem() for accessibility.
 static void display_menu_line(uint16_t menu, uint16_t line, bool reverse, bool send_menu) {
 
     if (SHOGUN_MENU_WINDOW.id == nullptr) {
@@ -283,15 +340,18 @@ static void display_menu_line(uint16_t menu, uint16_t line, bool reverse, bool s
         win_menuitem(kV6MenuTypeShogun, line - 1, user_word(menu), 0, str, length);
 }
 
+// Highlights a menu line (draws it in reverse video).
 static void select_line(uint16_t menu, uint16_t line) {
     display_menu_line(menu, line, true, false);
 }
 
+// Unhighlights a menu line (draws it in normal video).
 static void unselect_line(uint16_t menu, uint16_t line) {
     display_menu_line(menu, line, false, false);
 }
 
-// Returns width of the longest menu entry in characters
+// Returns the width of the longest menu entry in characters. Used to
+// size the menu grid window so all entries fit without truncation.
 static uint16_t menu_width(uint16_t MENU) {
     uint16_t num_items = user_word(MENU);
     uint16_t string_start;
@@ -305,8 +365,10 @@ static uint16_t menu_width(uint16_t MENU) {
     return longest;
 }
 
-#define MAX_QUICKSEARCH 25
+#define MAX_QUICKSEARCH 25  // Maximum characters for type-ahead search
 
+// Updates the menu background window to show the prompt message and the
+// characters typed so far for quick search.
 static void print_quicksearch(char *typed) {
     glk_window_clear(SHOGUN_MENU_BG_WIN.id);
     strid_t stream = glk_window_get_stream(SHOGUN_MENU_BG_WIN.id);
@@ -317,7 +379,9 @@ static void print_quicksearch(char *typed) {
     glk_put_string_stream(stream, typed);
 }
 
-// Quick search function
+// Type-ahead quick search: as the player types letters, finds the first
+// menu entry whose prefix matches. Returns the 1-based index of the
+// matching entry, or 0 if no match. Case-insensitive.
 static int quicksearch(uint16_t chr_to_find, char *typed_letters, int type_pos) {
     chr_to_find = tolower(chr_to_find);
     if (type_pos < 0 || type_pos >= MAX_QUICKSEARCH || chr_to_find > 'z' || chr_to_find < 'a')
@@ -346,6 +410,11 @@ static int quicksearch(uint16_t chr_to_find, char *typed_letters, int type_pos) 
     return 0;
 }
 
+// Creates or updates the menu display: sizes and positions the menu grid
+// and background windows, renders all menu lines, and highlights the
+// current selection. The menu is placed at the bottom of the screen,
+// centered horizontally, with the prompt message in the background window
+// to its left.
 static void update_menu(void) {
     uint16_t cnt = user_word(current_menu); // first word of table is number of elements
     uint16_t width = menu_width(current_menu) * gcellw + 2 * ggridmarginx;
@@ -389,6 +458,10 @@ static void update_menu(void) {
     }
 }
 
+// Main menu interaction loop. Handles keyboard navigation (arrow keys,
+// Enter to confirm), mouse clicks (single-click to highlight, double-click
+// to confirm), and type-ahead letter search. Returns the 1-based index of
+// the selected menu entry when the player presses Enter or double-clicks.
 static int menu_select(uint16_t menu, uint16_t selection) {
     if (selection == 0)
         selection = 1;
@@ -491,6 +564,11 @@ static int menu_select(uint16_t menu, uint16_t selection) {
     return selection;
 }
 
+// High-level menu presentation function. Displays the border, shows the
+// prompt message (MSG), presents the menu (MENU), and loops until the
+// player makes a valid selection. If VoiceOver is active, waits for an
+// extra keypress first. Also handles transcripting of the chosen entry.
+// FCN is the Z-machine callback routine (not used directly here).
 static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_selection) {
     screenmode = MODE_SHOGUN_MENU;
     if (default_selection == 0)
@@ -532,6 +610,9 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
     return result;
 }
 
+// Z-machine entry point for the menu system. Variables: 1=message,
+// 2=menu table, 3=callback routine, 4=default selection (optional).
+// Stores the result in variable 9 for the Z-code to process.
 void GET_FROM_MENU(void) {
     // On autorestore, we want to re-select the saved selection
 
@@ -555,6 +636,9 @@ void GET_FROM_MENU(void) {
     glk_put_char_stream(glk_window_get_stream(V6_TEXT_BUFFER_WINDOW.id), '\n');
 }
 
+// Cleanup after a menu selection: resets text grid style hints and
+// restores the appropriate border. On non-Apple II, downgrades
+// P_BORDER2 (waves) to P_BORDER (crests) since waves are Apple II only.
 void after_GET_FROM_MENU(void) {
     glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
     if (sg.CURRENT_BORDER != 0) {
@@ -571,6 +655,9 @@ void after_GET_FROM_MENU(void) {
     shogun_display_border(current_border);
 }
 
+// Z-machine entry point: determines which menu to use for scene selection.
+// Variable 1=1 means use SCENE_NAMES (detailed), otherwise use PART_MENU.
+// Result stored in variable 5.
 void SCENE_SELECT(void) {
     uint16_t menu = sm.PART_MENU;
     if (internal_arg_count() > 0 && variable(1) == 1) {
@@ -579,6 +666,8 @@ void SCENE_SELECT(void) {
     store_variable(5, menu);
 }
 
+// Z-machine entry point for the VERSION verb. Delegates to the shared
+// V_CREDITS implementation used across V6 games.
 void V_VERSION(void) {
     V_CREDITS();
 }
@@ -588,25 +677,29 @@ void after_V_VERSION(void) {
 }
 
 
-// Checks whether we are running on an original
-// black and white Macintosh or a later one with
-// color (Mac II.)
-// The original returns true if interpreter version is Macintosh
-// and screen width is 640.
-// Used in V-COLOR and DO-COLOR.
+// Z-machine entry point: checks whether we are running on a color-capable
+// Macintosh (Mac II) vs. a black-and-white original Mac. The original game
+// detects this by checking if the screen is exactly 640px wide. Here we
+// temporarily set the graphics background width to 640 so the Z-code's
+// check succeeds, allowing it to enable color. Used by V-COLOR and DO-COLOR.
 void MAC_II(void) {
     V6_GRAPHICS_BG.x_size = 640;
 }
 
+// Restores the graphics background width to the actual screen width
+// after the MAC_II check completes.
 void after_MAC_II(void) {
     V6_GRAPHICS_BG.x_size = gscreenw;
 }
 
-#pragma mark Display border
+#pragma mark - Display Border
 
+// Draws the decorative border for Apple II graphics mode. Apple II uses
+// a single horizontal banner strip (crests or waves) placed below the
+// status bar. At the start menu, banners are drawn at both the top and
+// bottom of the screen. The banner is rendered to the offscreen pixmap
+// and then flushed to the screen.
 void shogun_display_apple_ii_border(ShogunBorderType border, bool start_menu_mode) {
-    // With Apple 2 graphics, the border is right below the status window
-    // (except at start menu screen)
     int border_top = V6_STATUS_WINDOW.y_size / imagescaley + 1;
     int width, height;
 
@@ -630,9 +723,18 @@ void shogun_display_apple_ii_border(ShogunBorderType border, bool start_menu_mod
     flush_bitmap(current_graphics_buf_win);
 }
 
-extern int margin_images[100];
-extern int number_of_margin_images;
+extern int margin_images[100];       // List of inline/margin images in the text buffer
+extern int number_of_margin_images;  // Count of tracked margin images
 
+// Master border drawing routine for all non-Apple II graphics modes.
+// Draws the top banner, left/right pillar graphics, and extends them
+// downward to fill the screen. The layout varies significantly by
+// graphics mode:
+//   - Amiga/Mac B/W: single combined image with all border elements
+//   - CGA: separated top + pillar images with special edge handling
+//   - Blorb: modern resources, similar to CGA layout
+// Also handles the hint-mode border which has different pillar images.
+// Draws a status-bar-colored rectangle at the top to mask any gaps.
 void shogun_display_border(ShogunBorderType border) {
     if (border != NO_BORDER  && border != P_BORDER && border != P_BORDER2 && border != P_HINT_BORDER) {
         border = P_BORDER;
@@ -841,6 +943,9 @@ void shogun_display_border(ShogunBorderType border) {
 }
 
 
+// Z-machine entry point for border display. Transitions screen mode from
+// slideshow to menu if needed, then draws the requested border (or the
+// default P_BORDER if no argument is provided).
 void shogun_DISPLAY_BORDER(void) {
     if (screenmode == MODE_SLIDESHOW)
         screenmode = MODE_SHOGUN_MENU;
@@ -853,6 +958,9 @@ void shogun_DISPLAY_BORDER(void) {
     }
 }
 
+// Z-machine entry point: draws an inline image centered in the text buffer.
+// Uses 2x scaling (or imagescalex for Mac B/W). The image is added to the
+// margin image list for tracking across redraws.
 void CENTER_PIC_X(void) {
     float inline_scale = 2.0;
     if (graphics_type == kGraphicsTypeMacBW)
@@ -864,9 +972,12 @@ void CENTER_PIC_X(void) {
     add_margin_image_to_list(variable(1));
 }
 
-#define P_CREST 31
+#define P_CREST 31  // Picture number for the Toranaga family crest
 
-// Only used for final P-CREST image
+// Z-machine entry point: displays the P_CREST image in a dedicated graphics
+// window above the text buffer. Only used for the final crest image shown
+// at the end of the game. Creates the crest window if it doesn't exist,
+// sizes it to fit the image, and adjusts the text buffer below it.
 void CENTER_PIC(void) {
     if (SHOGUN_CREST_WINDOW.id != nullptr && SHOGUN_CREST_WINDOW.id->type != wintype_Graphics) {
         v6_delete_win(&SHOGUN_CREST_WINDOW);
@@ -891,6 +1002,11 @@ void CENTER_PIC(void) {
     v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
 }
 
+// Z-machine entry point: draws an illustration as a margin image (floating
+// left or right of text). Variable 1 is the picture number, optional
+// variable 2 controls alignment (1=right, default; 0=left). Very wide
+// images that span nearly the full width are treated as centered instead.
+// Triggers a border redraw to update the palette.
 void MARGINAL_PIC(void) {
     if (variable(1) == 0)
         return;
@@ -929,8 +1045,11 @@ void MARGINAL_PIC(void) {
     shogun_display_border(current_border);
 }
 
-#pragma mark Maze
+#pragma mark - Maze Mini-Game
 
+// Draws a single maze tile at grid position (x, y) in the maze. The tile
+// is rendered to the offscreen pixmap at the appropriate pixel offset.
+// Pic 0 means empty (no tile to draw).
 static void display_maze_pic(int pic, int x, int y) {
     if (pic != 0) {
         draw_to_pixmap_unscaled(pic, maze_offset_x + x * maze_box_width, maze_offset_y + y * maze_box_height);
@@ -938,10 +1057,14 @@ static void display_maze_pic(int pic, int x, int y) {
     }
  }
 
+// Z-machine entry point. Variables: 1=pic, 2=y, 3=x (note reversed order).
 void DISPLAY_MAZE_PIC(void) {
     display_maze_pic(variable(1), variable(3), variable(2));
 }
 
+// Returns the maze grid dimensions in tiles. Uses Z-machine globals if
+// available (later releases), otherwise falls back to hardcoded defaults
+// (0x12 wide for Apple II, 0x25 for others; always 0x11 tall).
 static void get_maze_width_and_height(int *width, int *height) {
     if (sg.MAZE_WIDTH == 0) {
         if (graphics_type == kGraphicsTypeApple2) {
@@ -959,6 +1082,9 @@ static void get_maze_width_and_height(int *width, int *height) {
     }
 }
 
+// Renders the entire maze grid from the MAZE_MAP byte array. Each byte
+// represents a tile (0x00=street, 0x80=wall, or a specific tile image).
+// The maze background image is drawn first, then each tile is overlaid.
 static void print_maze(void) {
     int offs = 0;
     uint16_t maze_map_table = get_global(sg.MAZE_MAP);
@@ -987,6 +1113,9 @@ static void print_maze(void) {
     }
 }
 
+// Sets up the maze display: enters maze mode, positions the text buffer
+// below the maze area, calculates tile sizes and offsets, and renders
+// the full maze. If 'clear' is true, clears the text buffer first.
 static void display_maze(bool clear) {
     screenmode = MODE_SHOGUN_MAZE;
     int height;
@@ -1017,15 +1146,15 @@ static void display_maze(bool clear) {
     print_maze();
 }
 
+// Z-machine entry point for displaying the maze.
 void DISPLAY_MAZE(void) {
     display_maze(true);
 }
 
-// The original source lets you move diagonally as
-// well, but as the maze has no diagonal passages,
-// it only means a lot of bumping into walls.
-// I think this way is more user-friendly.
-
+// Handles mouse clicks in the maze. Determines the direction of the click
+// relative to the player's current position and issues a movement command.
+// The original source also allows diagonal movement, but since the maze has
+// no diagonal passages, only cardinal directions are supported here.
 static int maze_mouse_f(void) {
     int16_t WX, WY;
     uint16_t DIR = 0;
@@ -1084,16 +1213,19 @@ static int maze_mouse_f(void) {
     return 0;
 }
 
+// Z-machine entry point for maze mouse handling. Stores the direction
+// result (0 = no valid click, 13 = movement issued) in variable 1.
 void MAZE_MOUSE_F(void) {
     store_variable(1, maze_mouse_f());
 }
 
-# pragma mark Skip maze stuff
+# pragma mark - Maze Simplification
 
-#define P_MAZE_WALL 0x80
-#define P_MAZE_STREET 0
+// Maze tile constants for the simplification algorithm.
+#define P_MAZE_WALL 0x80    // Wall tile byte value in MAZE_MAP
+#define P_MAZE_STREET 0     // Open street tile byte value in MAZE_MAP
 
-
+// Stores which directions are open from a given maze cell.
 typedef struct MazeExits {
     uint8_t NORTH;
     uint8_t EAST;
@@ -1101,6 +1233,10 @@ typedef struct MazeExits {
     uint8_t WEST;
 } MazeExits;
 
+// Checks whether maze cell 'i' is a dead end (has exactly one open
+// neighbor). If so, populates 'me' with the exit directions. Skips
+// the start position, wall cells, and border cells. Used by
+// simplify_maze() to iteratively fill in dead-end paths.
 bool deadend(int i, MazeExits *me) {
     int MAZE_WIDTH, MAZE_HEIGHT;
 
@@ -1142,6 +1278,8 @@ bool deadend(int i, MazeExits *me) {
     return (exits == 1);
 }
 
+// Debug utility: prints the maze grid to stderr as ASCII art.
+// '0' = open street, 'X' = wall, '?' = unknown tile type.
 void debug_draw_maze(void) {
     int MAZE_HEIGHT, MAZE_WIDTH;
     get_maze_width_and_height(&MAZE_WIDTH, &MAZE_HEIGHT);
@@ -1170,6 +1308,11 @@ void debug_draw_maze(void) {
     fprintf(stderr, "\n");
 }
 
+// Simplifies the maze by iteratively filling in dead-end passages with
+// walls. This leaves only the paths that are part of a route between
+// two exits, making the maze much easier to navigate without graphics.
+// Each dead end is followed along its single exit until a junction is
+// reached, filling cells with walls as it goes.
 void simplify_maze(void) {
     MazeExits me = {};
 
@@ -1195,16 +1338,23 @@ void simplify_maze(void) {
     }
 }
 
+// Flag to suppress re-asking the maze simplification question on autorestore,
+// since the player already answered it in the original session.
 bool dont_repeat_question_on_autorestore = false;
 
+// Called after the Z-machine builds the maze. Prompts the player to optionally
+// simplify the maze (fill in dead ends) for a better text-only experience.
 void after_BUILDMAZE(void) {
     if (skip_puzzle_prompt("Would you like me to simplify the city maze, to make it easier to traverse without seeing the graphics? (Y is affirmative): >")) {
         simplify_maze();
     }
 }
 
-#pragma mark Adjust windows
+#pragma mark - Window Layout
 
+// Recalculates and applies the positions and sizes of the status and text
+// buffer windows. On Apple II, also adjusts the horizontal banner window.
+// Sets foreground/background colors from Z-machine globals.
 static void adjust_shogun_window(void) {
     V6_TEXT_BUFFER_WINDOW.x = 0;
     V6_TEXT_BUFFER_WINDOW.y = 0;
@@ -1240,6 +1390,9 @@ static void adjust_shogun_window(void) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
+// Draws the Shogun title screen (picture 1) scaled to fill the screen width,
+// positioned at the bottom of a white background. Creates a foreground
+// graphics window covering the entire screen to display it.
 void shogun_draw_title_image(void) {
     if (graphics_fg_glk == nullptr)
         graphics_fg_glk = gli_new_window(wintype_Graphics, 0);
@@ -1259,6 +1412,8 @@ void shogun_draw_title_image(void) {
     win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, monochrome_white);
 }
 
+// Tears down all auxiliary windows (menu, crest, Apple II border) in
+// preparation for a screen rebuild or game restart.
 void shogun_erase_screen(void) {
     v6_delete_win(&SHOGUN_MENU_WINDOW);
     v6_delete_win(&SHOGUN_MENU_BG_WIN);
@@ -1268,17 +1423,22 @@ void shogun_erase_screen(void) {
     }
 }
 
+// Master resize handler. Dispatches to the appropriate rebuild logic based
+// on the current screen mode (definitions, hints, slideshow, menu, maze,
+// or normal gameplay). In normal mode: redraws borders, refreshes margin
+// images, repositions windows, updates the status line, and redraws the
+// maze or crest window if active.
+//
+// Window layout:
+//   Window 0 (S-TEXT):    Text buffer, main narrative window
+//   Window 1 (S-STATUS):  Two-line status bar
+//   Window 2 (MENU-WINDOW): Grid window for menu choices (bottom-centered)
+//   Window 3 (MAZE-WINDOW): Maze (no Glk window; drawn to bg pixmap)
+//   Window 4 (CREST):     Graphics window for the final P-CREST image
+//   Window 5:             Text buffer for menu prompt messages
+//   Window 6 (S-BORDER):  Horizontal Apple II graphic banner
+//   Window 7 (S-FULL):    Full-screen background for border/maze graphics
 void shogun_update_on_resize(void) {
-    // Window 0: (S-TEXT) Text buffer, "main" window
-    // Window 1: (S-STATUS) Status
-    // Window 2: (MENU-WINDOW) Menu grid, centered on screen. We put it at the bottom, as
-    // we can't line windows up with text in a buffer window
-    // Window 3: (MAZE-WINDOW) Maze. This has no corresponding Glk window.
-    // All maze graphics are actually drawn to the "full screen" background window (7).
-    // Window 4: (SHOGUN_CREST_WINDOW) Top graphics window only used for P-CREST image at the end of the game.
-    // Window 5: Menu background, used for "You may choose to:" messages
-    // Window 6: (S-BORDER) Horizontal Apple 2 graphic border
-    // Window 7: (S-FULL) Full screen background, used by us for border graphics and maze
 
     set_global(sg.MACHINE, options.int_number); // GLOBAL MACHINE
 
@@ -1338,6 +1498,8 @@ void shogun_update_on_resize(void) {
     }
 }
 
+// Draws the current picture as an inline image in the text buffer with
+// the specified alignment. Used by the shared V6 image display code.
 void shogun_display_inline_image(glui32 align) {
     float inline_scale = 2.0;
     if (graphics_type == kGraphicsTypeMacBW)
@@ -1346,10 +1508,11 @@ void shogun_display_inline_image(glui32 align) {
     add_margin_image_to_list(current_picture);
 }
 
-#pragma mark Restoring
+#pragma mark - Save/Restore State
 
-//TODO: Merge with stash_arthur_state and recover_arthur_state
-
+// Saves Shogun-specific UI state into the autosave data structure: the
+// current graphics window tags, border type, and menu state. This allows
+// the exact UI configuration to be restored on autorestore.
 void shogun_stash_state(library_state_data *dat) {
     if (!dat)
         return;
@@ -1366,6 +1529,8 @@ void shogun_stash_state(library_state_data *dat) {
     dat->shogun_menu_selection = current_menu_selection;
 }
 
+// Restores Shogun-specific UI state from autosave data: looks up Glk
+// windows by their saved tags and restores the border type and menu state.
 void shogun_recover_state(library_state_data *dat) {
     if (!dat)
         return;
@@ -1379,6 +1544,9 @@ void shogun_recover_state(library_state_data *dat) {
     current_menu_selection = dat->shogun_menu_selection;
 }
 
+// Performs a full UI rebuild after a manual RESTORE command. Resets to
+// normal mode, redraws the border and status line, clears auxiliary
+// windows, re-applies colors, and re-describes the current room.
 void shogun_update_after_restore(void) {
     screenmode = MODE_NORMAL;
     if (sg.CURRENT_BORDER != 0)
@@ -1394,7 +1562,10 @@ void shogun_update_after_restore(void) {
     }
 }
 
-//TODO: Merge with arthur_update_after_autorestore
+// Performs a lighter UI rebuild after autorestore (app relaunch).
+// Re-applies colors to all windows, clears graphics, deletes the menu
+// window, and triggers a window change event. If the slideshow was
+// active, re-opens the foreground graphics window.
 void shogun_update_after_autorestore(void) {
     update_user_defined_colours();
     uint8_t fg = get_global(fg_global_idx);
@@ -1421,12 +1592,17 @@ void shogun_update_after_autorestore(void) {
     window_change();
 }
 
+// Cleanup after a RESTART command: removes the crest window and resets
+// the menu selection so the start menu works correctly.
 void shogun_update_after_restart(void) {
     // Get rid of ending crest graphics window
     v6_delete_win(&SHOGUN_CREST_WINDOW);
     current_menu_selection = 0;
 }
 
+// Handles edge cases when autorestoring into the middle of a read_char call.
+// Returns true if the autorestore should re-enter the interrupted input loop
+// (hints, menu, definitions, or the maze simplification prompt).
 bool shogun_autorestore_internal_read_char_hacks(void) {
     if (screenmode == MODE_HINTS || screenmode == MODE_SHOGUN_MENU || screenmode == MODE_DEFINE) {
         return true;

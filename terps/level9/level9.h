@@ -129,6 +129,7 @@ void StopGame(void);
 void RestoreGame(char* filename);
 void FreeMemory(void);
 void GetPictureSize(int* width, int* height);
+L9BOOL GraphicOpsAvailable(void);
 L9BOOL RunGraphics(void);
 
 /* bitmap routines provided by level9 interpreter */

@@ -4,6 +4,32 @@
 //
 //  Created by Administrator on 2023-07-18.
 //
+//  Implements the custom UI for Infocom's "Arthur: The Quest for
+//  Excalibur" (1989), a Z-machine version 6 interactive fiction game
+//  set in Arthurian legend.
+//
+//  Arthur features multiple switchable display modes, cycled via F-keys:
+//    F1 - Picture mode: room illustration above the text area
+//    F2 - Map mode: clickable overhead map with location markers
+//    F3 - Inventory mode: item list shown in a grid window
+//    F4 - Status mode: detailed character status in a grid window
+//    F5 - Room description: verbose room text in a text buffer
+//    F6 - No graphics: text-only with no upper window
+//
+//  The screen layout consists of:
+//    - Decorative banner borders (left/right pillars) drawn to the
+//      background graphics window
+//    - A one-line status bar showing location, vehicle, time, and form
+//    - A mode-dependent upper area (room image, map, inventory grid, etc.)
+//    - The main text buffer for narrative output
+//    - An optional "error window" (inverted grid) at the bottom for
+//      author/copyright messages
+//
+//  Room images include "stamp" overlays (small images positioned relative
+//  to a reference offset image) for details like the sword in the stone.
+//  Full-screen images are shown during the title sequence, endgame, and
+//  special story events, with VoiceOver descriptions for accessibility.
+//
 
 #include "draw_image.hpp"
 #include "memory.h"
@@ -19,44 +45,59 @@
 
 extern float imagescalex, imagescaley;
 
+// Global lookup tables mapping Z-machine global variable indices, routine
+// addresses, and table addresses to symbolic names. Populated at startup.
 ArthurGlobals ag;
 ArthurRoutines ar;
 ArthurTables at;
 
-#define K_PIC_TITLE 1
+// Picture number constants for Arthur's image resources.
+// Full-screen images (displayed during title sequence and special events):
+#define K_PIC_TITLE 1           // Title screen
+#define K_PIC_SWORD 2           // Sword in the stone (base layer)
+#define K_PIC_SWORD_MERLIN 3    // Merlin overlay drawn on top of the sword image
 
-#define K_PIC_SWORD 2
-#define K_PIC_SWORD_MERLIN 3
+#define K_PIC_ENDGAME 84        // Victory image (Arthur holding Excalibur)
+#define K_PIC_ANGRY_DEMON 85    // Demon image (game over scenario)
 
-#define K_PIC_ENDGAME 84
-#define K_PIC_ANGRY_DEMON 85
+// Banner and layout reference images:
+#define K_PIC_BANNER 54         // Decorative border/banner image
+#define K_PIC_BANNER_MARGIN 100 // Dummy image used to measure banner margins
+#define K_MAP_SCROLL 137        // Map scroll background image
 
-#define K_PIC_BANNER 54
-#define K_PIC_BANNER_MARGIN 100
-#define K_MAP_SCROLL 137
+// Room images with special handling:
+#define K_PIC_CHURCHYARD 4      // Standard-width room image (used for sizing reference)
+#define K_PIC_PARADE_AREA 17    // Wide room image (spans full width)
+#define K_PIC_AIR_SCENE 163     // Wide room image (flying scene)
 
-#define K_PIC_CHURCHYARD 4
-#define K_PIC_PARADE_AREA 17
-#define K_PIC_AIR_SCENE 163
-
-#define K_PIC_ISLAND_DOOR 158
-#define K_PIC_ISLAND_DOOR_OFF 159
-
-#define K_PIC_STONE_2 9
+// Stamp images (small overlays positioned by offset):
+#define K_PIC_ISLAND_DOOR 158   // Island door stamp
+#define K_PIC_ISLAND_DOOR_OFF 159 // Offset reference for the island door stamp
+#define K_PIC_STONE_2 9         // Stone stamp (has platform-specific offset fix)
 
 
 extern Window *mainwin, *curwin;
 
-#define ARTHUR_ROOM_GRAPHIC_WIN windows[2]
-#define ARTHUR_ERROR_WINDOW windows[3]
+// Arthur uses several Glk windows for different UI regions.
+#define ARTHUR_ROOM_GRAPHIC_WIN windows[2]  // Upper area: room image, inventory, status, or room desc
+#define ARTHUR_ERROR_WINDOW windows[3]      // Bottom inverted bar for author/error messages
 
+// Whether the current room image is a wide panoramic (parade area / air scene)
+// vs. the standard narrower size. Affects centering and redraw logic.
 bool showing_wide_arthur_room_image = false;
 
-static int arthur_text_top_margin = -1;
-static int arthur_x_margin = 0;
+// Layout metrics computed from the banner margin images. These control where
+// the status bar, text buffer, and room image are positioned vertically.
+static int arthur_text_top_margin = -1;  // Top of status bar / text area in pixels
+static int arthur_x_margin = 0;         // Horizontal margin for banner pillars in pixels
 
+// Vertical offset (in image-space pixels) for drawing room images. Accounts
+// for the banner height so images appear below the decorative frame.
 int arthur_pic_top_margin = 0;
 
+// Returns true if the picture is a "stamp" — a small overlay image that
+// is positioned relative to a reference offset image (typically picnum-1).
+// Stamps include things like the sword in the stone, the island door, etc.
 static bool is_arthur_stamp_image(int picnum) {
     switch (picnum) {
         case 6:
@@ -81,6 +122,10 @@ static bool is_arthur_stamp_image(int picnum) {
     return false;
 }
 
+// Returns true if the picture is a room illustration (drawn in the upper
+// area in picture mode). Most images 4-89 are room images, with specific
+// exceptions for stamps and banners. Images 101-102 and 154-167 are also
+// room images (wide scenes, alternate views).
 static bool is_arthur_room_image(int picnum) {
     switch (picnum) {
         case 101:
@@ -107,10 +152,15 @@ static bool is_arthur_room_image(int picnum) {
     return false;
 }
 
+// Returns true if the picture is a map marker/icon (images 105-153).
 bool is_arthur_map_image(int picnum) {
     return (picnum >= 105 && picnum <= 153);
 }
 
+// Calculates the vertical layout metrics from the banner/map images.
+// The map scroll background height determines where the status bar starts,
+// and the banner margin dummy image provides the border height offset for
+// positioning room images. Called on resize and init.
 void adjust_arthur_top_margin(void) {
     int mapheight, borderheight, margin;
     get_image_size(K_MAP_SCROLL, &margin, &mapheight); // Get height of map background image
@@ -124,6 +174,12 @@ void adjust_arthur_top_margin(void) {
 }
 
 
+// Draws a room image or stamp to the offscreen pixmap. Room images are
+// centered horizontally using the churchyard image width as reference
+// (or the actual width for wide panoramic scenes). Stamp images are
+// positioned by reading the dimensions of their offset reference image
+// (typically picnum-1) to determine the x,y displacement. Handles
+// platform-specific adjustments (Mac B/W vertical offset, Amiga stone fix).
 void arthur_draw_room_image(int picnum) {
     int x, y, width, height;
 
@@ -170,6 +226,9 @@ void arthur_draw_room_image(int picnum) {
 }
 
 
+// Draws a map marker/icon at the specified position on the map scroll.
+// The x coordinate is offset by the banner margin width. Minor y adjustments
+// are applied per platform and image number to align markers with the map.
 static void arthur_draw_map_image(int picnum, int x, int y) {
     int x_margin;
     get_image_size(K_PIC_BANNER_MARGIN, &x_margin, nullptr);
@@ -184,15 +243,19 @@ static void arthur_draw_map_image(int picnum, int x, int y) {
     draw_to_pixmap_unscaled(picnum, x, y);
 }
 
+// Arthur's display modes, stored in the GL_WINDOW_TYPE Z-machine global.
+// Each mode controls what appears in the upper area of the screen.
 enum kArthurWindowType {
-    K_WIN_NONE = 0,
-    K_WIN_INVT = 1,
-    K_WIN_DESC = 2,
-    K_WIN_STAT = 3,
-    K_WIN_MAP = 4,
-    K_WIN_PICT = 5
+    K_WIN_NONE = 0,  // No graphics (text only)
+    K_WIN_INVT = 1,  // Inventory list
+    K_WIN_DESC = 2,  // Verbose room description
+    K_WIN_STAT = 3,  // Character status display
+    K_WIN_MAP = 4,   // Overhead map with clickable locations
+    K_WIN_PICT = 5   // Room illustration (default)
 };
 
+// Synchronizes the internal screenmode enum with the Z-machine's
+// GL_WINDOW_TYPE global. Called after restore to ensure consistency.
 void arthur_sync_screenmode(void) {
     kArthurWindowType window_type = (kArthurWindowType)get_global(ag.GL_WINDOW_TYPE);
     switch (window_type) {
@@ -217,18 +280,18 @@ void arthur_sync_screenmode(void) {
     }
 }
 
-// Window 0 (S-TEXT) is the standard V6 text buffer window (V6_TEXT_BUFFER_WINDOW)
-// Window 1 (S-WINDOW) is the standard V6 status window (V6_STATUS_WINDOW)
-
-// Window 2 is the small room graphics window at top, not including banners (ARTHUR_ROOM_GRAPHIC_WIN)
-// Window 3 is the inverted error window at the bottom (ARTHUR_ERROR_WINDOW)
-
-// Windows 5 and 6 are left and right banners, but are only used when erasing
-// banner graphics. The banners are drawn to window S-FULL (7)
-
-// Window 7 (S-FULL) is the standard V6 fullscreen window (V6_GRAPHICS_BG)
-
-// Called on window_changed();
+// Master resize handler. Rebuilds the entire UI based on the current
+// screen mode. Repositions and resizes all windows, redraws banner
+// borders, room images, map, or text displays as appropriate.
+//
+// Window layout:
+//   Window 0 (S-TEXT): Main text buffer (V6_TEXT_BUFFER_WINDOW)
+//   Window 1 (S-WINDOW): One-line status bar (V6_STATUS_WINDOW)
+//   Window 2: Mode-dependent upper area — room image, inventory grid,
+//             status grid, or room description buffer (ARTHUR_ROOM_GRAPHIC_WIN)
+//   Window 3: Inverted error/author message bar at bottom (ARTHUR_ERROR_WINDOW)
+//   Windows 5, 6: Left/right banner erase regions (banners drawn to window 7)
+//   Window 7 (S-FULL): Full-screen background for border/room graphics (V6_GRAPHICS_BG)
 void arthur_update_on_resize(void) {
     image_needs_redraw = true;
     adjust_arthur_top_margin();
@@ -374,6 +437,9 @@ void arthur_update_on_resize(void) {
     }
 }
 
+// Moves the cursor in a grid window, converting from 1-based Z-machine
+// coordinates to 0-based Glk coordinates. Note the (y, x) parameter order
+// matches the Z-machine convention.
 void arthur_move_cursor(int16_t y, int16_t x, winid_t win) {
     x--;
     y--;
@@ -383,6 +449,9 @@ void arthur_move_cursor(int16_t y, int16_t x, winid_t win) {
     glk_window_move_cursor(win, x, y);
 }
 
+// Z-machine entry point: transitions to picture (room illustration) mode.
+// If coming from slideshow or initial question, shrinks the foreground
+// graphics window and switches to the background pixmap for room images.
 void RT_UPDATE_PICT_WINDOW(void) {
     if (screenmode == MODE_SLIDESHOW || screenmode == MODE_INITIAL_QUESTION) {
         screenmode = MODE_NORMAL;
@@ -394,6 +463,8 @@ void RT_UPDATE_PICT_WINDOW(void) {
     }
 }
 
+// Z-machine entry point: transitions to inventory display mode.
+// Sets the room graphic window to a grid window with subheader style.
 void RT_UPDATE_INVT_WINDOW(void) {
     screenmode = MODE_INVENTORY;
     if (ARTHUR_ROOM_GRAPHIC_WIN.id) {
@@ -402,19 +473,28 @@ void RT_UPDATE_INVT_WINDOW(void) {
     }
 }
 
+// Z-machine entry point: transitions to character status display mode.
 void RT_UPDATE_STAT_WINDOW(void) {
     screenmode = MODE_STATUS;
 }
 
+// Z-machine entry point: transitions to map display mode.
+// Enables mouse events on the background graphics window for clickable map.
 void RT_UPDATE_MAP_WINDOW(void) {
     screenmode = MODE_MAP;
     glk_request_mouse_event(graphics_bg_glk);
 }
 
+// Z-machine entry point: transitions to verbose room description mode.
 void RT_UPDATE_DESC_WINDOW(void) {
     screenmode = MODE_ROOM_DESC;
 }
 
+// Z-machine entry point: initializes the screen layout on game start.
+// Measures the banner margin image to determine pillar widths, defines
+// the left/right banner erase windows and the full-screen background,
+// fills the status bar with reverse-video spaces, and resets all status
+// line tracking globals so the Z-code will redraw everything.
 void arthur_INIT_STATUS_LINE(void) {
     arthur_update_on_resize();
 
@@ -454,6 +534,10 @@ void arthur_INIT_STATUS_LINE(void) {
     set_global(ag.GL_SL_FORM, 0);
 }
 
+// Counts the number of lines in a length-prefixed string table. Each entry
+// starts with a 16-bit character count followed by that many bytes of text.
+// The table ends when a zero count is encountered. Used by RT_AUTHOR_OFF
+// to size the error window.
 int count_lines(uint32_t table) {
     int lines = 0;
     for (uint16_t count = user_word(table); count != 0; count = user_word(table)) {
@@ -463,6 +547,12 @@ int count_lines(uint32_t table) {
     return lines;
 }
 
+// Z-machine entry point: displays the author/copyright message in an
+// inverted (reverse-video) grid window at the bottom of the screen.
+// Disables stream 3 (memory output), creates the error window sized to
+// fit the message text, and prints the K_DIROUT_TBL contents. The text
+// format changed between releases (length-prefixed lines in >41, single
+// block in <=41). Also shrinks the main text buffer to make room.
 void RT_AUTHOR_OFF(void) {
 
     output_stream(-3, 0);
@@ -536,9 +626,20 @@ void RT_AUTHOR_OFF(void) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
+// Central image dispatch: routes a picture to the appropriate drawing
+// method based on its type. Handles four categories:
+//   1. Full-screen images (title, sword/Merlin, endgame, demon): displayed
+//      in a foreground graphics window covering the entire screen, with
+//      VoiceOver descriptions for accessibility.
+//   2. Room images and stamps: drawn to the offscreen pixmap via
+//      arthur_draw_room_image().
+//   3. Map images: markers drawn at (x, y) on the map scroll, or the
+//      map background itself which enables mouse events.
+//   4. Banner image: flagged for later drawing in flush_image_buffer().
+// Returns true if the image was handled.
 bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
 
-    // Fullscreen images
+    // Full-screen images (title sequence and special events)
     if ((picnum >= 1 && picnum <= 3) || picnum == K_PIC_ENDGAME || picnum == K_PIC_ANGRY_DEMON) {
         if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_bg_glk) {
             current_graphics_buf_win = graphics_fg_glk;
@@ -607,6 +708,12 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
     return true;
 }
 
+// Handles window erase requests with Arthur-specific logic.
+//   index -1: full screen erase — transitions between slideshow, initial
+//     question, and normal modes. Clears graphics windows and adjusts
+//     layout for the endgame and demon images.
+//   index 2: clears the room image buffer.
+//   index 3: deletes the error/author message window.
 void arthur_erase_window(int16_t index) {
     if (!is_spatterlight_arthur)
         return;
@@ -649,8 +756,11 @@ void arthur_erase_window(int16_t index) {
     }
 }
 
-#pragma mark Restoring
+#pragma mark - Save/Restore State
 
+// Saves Arthur-specific UI state into the autosave data structure:
+// graphics window tags, foreground window tag, stored buffer window
+// tag, and the last slideshow picture number.
 void arthur_stash_state(library_state_data *dat) {
 
     if (!dat)
@@ -665,6 +775,8 @@ void arthur_stash_state(library_state_data *dat) {
     dat->slideshow_pic = last_slideshow_pic;
 }
 
+// Restores Arthur-specific UI state from autosave data: looks up Glk
+// windows by their saved tags and restores the last slideshow picture.
 void arthur_recover_state(library_state_data *dat) {
 
     if (!dat)
@@ -676,11 +788,16 @@ void arthur_recover_state(library_state_data *dat) {
     last_slideshow_pic = dat->slideshow_pic;
 }
 
+// Performs UI rebuild after a manual RESTORE command: syncs the screen
+// mode from the Z-machine global and re-applies user-selected colors.
 void arthur_update_after_restore(void) {
     arthur_sync_screenmode();
     after_V_COLOR();
 }
 
+// Performs a lighter UI rebuild after autorestore (app relaunch).
+// Re-applies foreground/background colors to all windows, reopens the
+// foreground graphics window, and triggers a window change event.
 void arthur_update_after_autorestore(void) {
     update_user_defined_colours();
     uint8_t fg = get_global(fg_global_idx);
@@ -696,11 +813,15 @@ void arthur_update_after_autorestore(void) {
     window_change();
 }
 
+// Maps a ZSCII function key code to its corresponding display mode.
 struct HotKeyDict {
-    kArthurWindowType wintype;
-    V6ScreenMode mode;
+    kArthurWindowType wintype;  // Z-machine window type global value
+    V6ScreenMode mode;          // Internal screen mode enum
 };
 
+// Function key to display mode mapping. F1-F6 cycle through the six
+// available display modes (picture, map, inventory, status, description,
+// no graphics).
 static std::unordered_map<uint8_t, HotKeyDict> hotkeys = {
     { ZSCII_F1, {K_WIN_PICT, MODE_NORMAL}      },
     { ZSCII_F2, {K_WIN_MAP,  MODE_MAP}         },
@@ -710,6 +831,10 @@ static std::unordered_map<uint8_t, HotKeyDict> hotkeys = {
     { ZSCII_F6, {K_WIN_NONE, MODE_NO_GRAPHICS} },
 };
 
+// Z-machine entry point: handles F-key presses to switch display modes.
+// Variable 1 contains the ZSCII key code. If the requested mode differs
+// from the current one, updates the Z-machine global and rebuilds the UI.
+// Ignored during hints and slideshow modes.
 void RT_HOT_KEY(void) {
     if (screenmode == MODE_HINTS || screenmode == MODE_SLIDESHOW)
         return;
@@ -726,6 +851,9 @@ void RT_HOT_KEY(void) {
     }
 }
 
+// Handles edge cases when autorestoring into the middle of a read_char call.
+// Returns true if in hints mode, signaling the caller to re-enter the hints
+// input loop.
 bool arthur_autorestore_internal_read_char_hacks(void) {
     if (screenmode == MODE_HINTS) {
         return true;
@@ -733,9 +861,11 @@ bool arthur_autorestore_internal_read_char_hacks(void) {
     return false;
 }
 
+// Z-machine entry point: forces a full status bar redraw. Fills the entire
+// status bar with reverse-video spaces to prevent stray characters from
+// previous content, then resets all status line tracking globals so the
+// Z-code's incremental update logic will repaint everything.
 void ARTHUR_UPDATE_STATUS_LINE(void) {
-    // We must always redraw the entire status bar,
-    // or stray letters will be left behind
 
     glk_set_window(V6_STATUS_WINDOW.id);
     glk_window_move_cursor(V6_STATUS_WINDOW.id, 0, 0);
@@ -751,4 +881,6 @@ void ARTHUR_UPDATE_STATUS_LINE(void) {
     set_global(ag.GL_SL_TIME, 0);
 }
 
+// Stub for the Excalibur animation routine. The visual effect is handled
+// entirely by the Z-code in this implementation.
 void RT_TH_EXCALIBUR(void) {}

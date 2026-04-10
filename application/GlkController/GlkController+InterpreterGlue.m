@@ -87,6 +87,7 @@ static BOOL pollMoreData(int fd) {
 }
 
 - (void)noteTaskDidTerminate:(id)sender {
+    NSLog(@"noteTaskDidTerminate:");
     if (windowClosedAlready)
         return;
 

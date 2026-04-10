@@ -215,7 +215,7 @@ static void traceInstruction5(char *name, Aword p1, Aword p2, Aword p3, Aword p4
 
 
 /*----------------------------------------------------------------------*/
-static void moveToStackTraceField() {
+static void moveToStackTraceField(void) {
     if (!resultTraced) {
         printf("%11s", "");       /* Move past result field */
         resultTraced = true;

@@ -125,6 +125,7 @@
     GlkController *glkctl = _glkctrl;
     if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes) {
+        NSLog(@"GlkHelperView calling glkctl storeScrollOffsets");
         [glkctl storeScrollOffsets];
     }
 }
@@ -138,6 +139,7 @@
     if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes) {
         [glkctl contentDidResize:self.frame];
+        NSLog(@"GlkHelperView viewDidEndLiveResize calling restoreScrollOffsets");
         [glkctl restoreScrollOffsets];
     }
 }
@@ -654,7 +656,9 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     _stashedTheme = theme;
     Theme *restoredTheme = [self findThemeByName:restoredControllerLate.oldThemeName];
     if (restoredTheme && restoredTheme != theme) {
+        NSLog(@"GlkController runtTerpWithAutorestore: Temporarily set theme to %@", restoredTheme.name);
         _theme = restoredTheme;
+        NSLog(@"GlkController runtTerpWithAutorestore: BufNormal font name to %@", restoredTheme.bufferNormal.font.displayName);
     } else _stashedTheme = nil;
 
     // If this is not a window restoration done by the system,
@@ -1193,7 +1197,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if ([[NSUserDefaults standardUserDefaults]
          boolForKey:@"CloseAlertSuppression"]) {
-        NSLog(@"Window close alert suppressed");
+        NSLog(@"windowShouldClose: Window close alert suppressed");
         return YES;
     }
     alert = [[NSAlert alloc] init];
@@ -1226,6 +1230,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // handler first to prevent the normal noteTaskDidTerminate: flow from firing,
 // since this is an intentional kill (e.g., during reset or window close).
 - (void)terminateTask {
+    NSLog(@"terminateTask");
     if (task) {
         [task setTerminationHandler:nil];
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
@@ -1514,7 +1519,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 #pragma mark Window resizing
 
 // Handle the "zoom" button (green traffic light). Returns a frame sized to
-// the theme's default character cell dimensions rather than filling the screen.
+// the theme's default character cell dimensions.
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window
                         defaultFrame:(NSRect)screenframe {
     NSSize windowSize = [self defaultContentSize];
@@ -1582,6 +1587,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         return;
     }
 
+    NSLog(@"contentDidResize: frame: %@ window frame: %@", NSStringFromRect(frame), NSStringFromRect(self. window.frame));
+
     lastContentResize = frame;
     lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
 
@@ -1611,6 +1618,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen) {
+        NSLog(@"zoomContentToSize: We are not in fullscreen");
 
         newSize.width += (CGFloat)borders;
         newSize.height += (CGFloat)borders;
@@ -1635,6 +1643,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         [self.window setFrame:winrect display:YES];
         _gameView.frame = [self contentFrameForWindowed];
     } else {
+        NSLog(@"zoomContentToSize: We are in fullscreen");
         // We are in fullscreen
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
                                      newSize.width,
