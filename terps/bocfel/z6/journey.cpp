@@ -1388,13 +1388,18 @@ static void journey_adjust_windows(bool restoring) {
             } else if (journey_current_input == INPUT_PARTY) { // call BOLD-CURSOR
                 internal_call(pack_routine(jr.BOLD_CURSOR), {(uint16_t)selected_journey_line, (uint16_t)selected_journey_column});
             } else if (journey_current_input != INPUT_ELVISH) { // call BOLD-OBJECT-CURSOR
+                // Calling BOLD_CURSOR will change selection, so we must stash it here
+                int16_t stashed_selected_journey_column = selected_journey_column;
+                int16_t stashed_selected_journey_line = selected_journey_line;
+                
                 int numwords = number_of_printed_journey_words;
-
                 for (int i = 0; i < numwords; i++) {
                     JourneyWords *word = &printed_journey_words[i];
                     std::vector<uint16_t> args = {word->pcm, word->pcf, word->str};
                     internal_call(pack_routine(jr.BOLD_CURSOR), args);
                 }
+                selected_journey_column = stashed_selected_journey_column;
+                selected_journey_line = stashed_selected_journey_line;
                 internal_call(pack_routine(jr.BOLD_OBJECT_CURSOR), {(uint16_t)selected_journey_line, (uint16_t)selected_journey_column}); // BOLD-OBJECT-CURSOR(PCM, PCF)
             }
         }
