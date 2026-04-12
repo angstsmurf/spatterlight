@@ -1,0 +1,1395 @@
+ne
+s
+w
+e
+w
+hide under table
+wait
+get out
+get parchment
+
+
+
+u
+s
+s
+push button
+get bag
+n
+n
+d
+s
+s
+get sceptre
+sit on throne
+snap fingers
+get off
+s
+get candle
+s
+w
+u
+u
+get key
+say y
+w
+s
+get all
+wear glove
+remove nose
+drop nose
+n
+e
+d
+d
+e
+e
+d
+s
+d
+get cap
+wear cap
+say triplet
+sw
+open maiden
+open chamber
+open pit
+get metronome
+ne
+n
+u
+w
+n
+n
+n
+n
+n
+e
+put sceptre and metronome in cauldron
+e
+d
+get walnut
+u
+w
+w
+ring bell
+say time
+wait
+get all
+drop proclamation
+n
+take worm
+nw
+nw
+u
+turn wheel
+d
+nw
+nw
+sw
+open locker
+get key
+ne
+ne
+se
+e
+n
+answer bookkeeper
+take coin
+get funny paper
+read it
+drop it
+s
+e
+s
+get package
+open package
+n
+e
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+s
+get t-square
+n
+d
+d
+d
+d
+get all
+examine slate
+read slate
+drop slate
+wear cap
+wear glove
+get candle
+get bag
+l
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+push button
+s
+drop package
+stand on stand
+get off
+get violin
+get on stand
+get off
+n
+u
+e
+n
+get ring
+s
+w
+w
+w
+w
+nw
+sw
+se
+se
+se
+se
+s
+e
+drop t-square into cauldron
+drop violin into cauldron
+s
+se
+unlock door with iron key
+drop iron key
+open door
+e
+n
+touch suit
+touch suit
+touch suit
+get lance
+read about jester
+sing lullaby
+s
+s
+open trap door
+n
+e
+get wand
+e
+u
+open large arched door
+n
+n
+wear goggles
+s
+s
+verbose
+open louvered door
+1
+l
+2
+r
+1
+r
+3
+l
+1
+c
+2
+l
+1
+l
+4
+r
+1
+r
+2
+c
+1
+c
+3
+r
+1
+l
+2
+r
+1
+r
+5
+l
+1
+c
+2
+l
+1
+l
+3
+c
+1
+r
+2
+c
+1
+c
+4
+l
+1
+l
+2
+r
+1
+r
+3
+l
+1
+c
+2
+l
+1
+l
+6
+r
+1
+r
+2
+c
+1
+c
+3
+r
+1
+l
+2
+r
+1
+r
+4
+c
+1
+c
+2
+l
+1
+r
+1
+l
+3
+c
+1
+r
+2
+c
+1
+c
+5
+r
+1
+l
+2
+r
+1
+r
+3
+l
+1
+c
+2
+l
+1
+l
+4
+r
+1
+r
+2
+c
+1
+c
+3
+r
+1
+l
+2
+r
+1
+r
+open large arched door
+n
+e
+get manuscript
+w
+s
+open louvered door
+1
+c
+2
+l
+1
+l
+3
+c
+1
+r
+2
+c
+1
+c
+4
+l
+1
+l
+2
+r
+1
+r
+3
+l
+1
+c
+2
+l
+1
+l
+5
+c
+1
+r
+2
+c
+1
+c
+3
+r
+1
+l
+2
+r
+1
+r
+4
+c
+1
+c
+2
+l
+1
+l
+3
+c
+1
+r
+2
+c
+1
+c
+6
+l
+1
+l
+2
+r
+1
+r
+3
+l
+1
+c
+2
+l
+1
+l
+4
+r
+1
+r
+2
+c
+1
+c
+3
+r
+1
+l
+2
+r
+1
+r
+5
+l
+1
+c
+2
+l
+1
+l
+3
+c
+1
+r
+2
+c
+1
+c
+4
+l
+1
+l
+2
+r
+1
+r
+3
+l
+1
+c
+2
+l
+1
+l
+drop bag
+open arched door
+n
+w
+get cup
+e
+s
+d
+w
+w
+w
+nw
+n
+put lance and manuscript in cauldron
+w
+w
+point wand at lobster
+take nutcracker
+s
+sw
+unlock door with steel key
+drop steel key
+open door
+w
+w
+open walnut with nutcracker
+show walnut to jester
+eat walnut
+n
+play peggleboz
+Q
+G
+S
+Q
+H
+R
+U
+L
+I
+K
+T
+I
+E
+J
+O
+G
+A
+E
+F
+N
+M
+O
+L
+J
+P
+F
+F
+C
+B
+D
+D
+K
+Q
+G
+E
+J
+O
+G
+x
+n
+point at shoe
+sing lullaby
+s
+s
+e
+ne
+e
+e
+n
+put bill in cauldron
+drop all
+w
+w
+s
+sw
+w
+s
+get dumbbell
+n
+e
+ne
+n
+e
+e
+put dumbbell in cauldron
+get all but worm and cup and wand and shell
+w
+n
+nw
+nw
+nw
+nw
+ne
+se
+e
+e
+e
+d
+s
+get package
+n
+u
+w
+w
+w
+nw
+sw
+se
+se
+se
+se
+s
+s
+d
+d
+examine vault door
+turn dial to 2570
+open vault door
+s
+take stock certificate
+n
+n
+take northwest-southeast passage
+take north-south passage
+read notice
+s
+u
+sw
+s
+w
+w
+SW. SE. W. W. N.
+NE. N.
+Install NW-SE passage in northwest wall
+NW. NE.
+Install north-south passage in north wall.
+N. NE. W.
+SW. SW. SW. W. NW. Drop the perch. Wear the cloak.
+W. W. W. N.
+give pigeon to knight
+remove cloak
+take pigeon from knight
+knight, go north, go north, go west.
+drop pigeon
+take pigeon
+knight, go east, go south, go south.
+drop pigeon
+take pigeon
+drop package
+take hat and perch
+SE. E. NE. NE. NE. E. SW. S.
+SW. SE. S. SW. S. E. E. NW. NE. E. E
+S
+S
+read sign
+put zorkmid coin in basket
+drop all but candle
+s
+e
+d
+take orbs
+u
+w
+n
+get all but cloak and notice
+take pigeon
+n
+e
+say buck
+sing lullaby
+get bomb
+w
+n
+n
+ne
+d
+d
+throw the bomb at the pits
+take lantern
+u
+u
+n
+wear hardhat
+take screwdriver
+s
+u
+n
+e
+Put the certificate and screwdriver in the cauldron
+drop lantern, pigeon and perch.
+drop orbs
+south. west. down. southwest. south. south. west
+west
+sw
+w
+w
+w
+n
+sit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1
+r
+d
+d
+
+2
+1
+1
+r
+d
+d
+
+1
+1
+1
+r
+d
+d
+
+3
+
+take broom. stand up.
+s. e. n.
+take number and box
+read sign
+wait. wait.
+executioner, behead me
+s
+s
+se
+ne
+read right door
+read center door
+open center door
+get shovel
+d
+ne. e. e. n. n. ne. u.
+s. s. s. s. e. d. s. se.
+sweep cobwebs with broom
+take flask. drop broom
+nw. n. n. n.
+look under the longest slab
+u
+n. w. nw. n
+put flask in cauldron
+w. n. nw. nw. nw. nw.
+stand on stump
+jump south
+jump east
+jump east
+dig with shovel
+drop shovel
+open chest
+take crown
+se. se. se. se. s. e.
+put crown in cauldron
+get pigeon
+get perch
+s. w. d
+open box
+se. e.
+enter dock
+enter boat
+examine controls
+press white
+d
+examine bathysphere
+drop squid repellent
+open bathysphere
+get inside
+close door. examine controls.
+turn on lights
+put hand in waldo hole
+get squid repellent
+push lever down
+wait. wait. wait. wait.
+release repellent
+get ruby
+push lever up
+wait
+wait
+wait
+wait
+remove hand from hole
+open door
+get out
+take ruby
+u
+push green
+leave yacht
+leave dock
+w
+w
+answer music
+sing lullaby
+Go east. south. east. northeast. north. east.
+wear amulet
+push boulder
+n
+Push the button
+go northeast.
+Drop all except the pigeon and the candle.
+southwest
+go down.
+Take the gravel.
+take the candle.
+take the pigeon.
+take the pigeon.
+Put the gravel in the bowl.
+southwest
+go down.
+Take the gravel.
+take the candle.
+take the pigeon.
+Put the gravel in the bowl.
+southwest
+go down.
+Take the gravel.
+take the candle.
+take the pigeon.
+Put the gravel in the bowl.
+Touch the elixir.
+get all
+southwest. south. down. north.
+Take the saddle and rooster.
+Go south. s.
+drop ticket and box.
+Take the fox. Go southwest. Take the fly.
+Go west. north.
+enter dock.
+enter yacht.
+press the yellow button.
+wait.
+leave yacht. leave dock.
+Go west. west.
+Get the toboggan.
+Go north. up. north. east.
+Put the diploma and saddle in the cauldron.
+get worm.
+Drop all except the fox, the worm and the rooster.
+west. west. south. southwest. west. west.
+Enter the dirigible then press the right button.
+Wait. Wait. Wait. Wait.
+exit then go south then go east then go north.
+Give the fox, rooster and worm to the jester.
+drop worm
+drop fox
+n
+drop rooster
+s
+get fox
+n
+drop fox
+get rooster
+s
+get worm
+drop rooster
+n
+drop worm
+s
+get rooster
+n
+get block
+enter gondola
+push left button
+wait
+wait
+wait
+wait
+get out
+e. e. ne. e. e. n.
+get ruby, candle, toboggan, pigeon, perch and orbs
+get pigeon
+south. southeast. east. south then down then down.
+drop perch
+put ruby in depression
+examine amulet
+examine amulet
+enter oracle
+drop toboggan then ride it
+examine milky orb in mirror
+examine fiery orb in mirror
+examine smoky orb in mirror
+examine glittery orb in mirror
+drop milky orb, fiery orb and smoky orb
+throw glittery orb to the east
+get off
+nw
+w
+get model
+e
+ne
+get orb
+drop pigeon
+take pigeon
+take pigeon
+u
+u
+n
+w
+nw
+n
+put model in cauldron
+remove goggles and glove and hardhat
+drop goggles and glove and hardhat
+get wand
+Go south then west then down then southeast
+drop pigeon
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+Point the wand at the snake
+open the cage
+take rope
+get pigeon
+enter mouth
+press button
+d
+tie rope to spire
+d
+take easel and landscape
+drop pigeon
+get pigeon
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+enter oracle
+ne
+d
+put orb on altar
+get flower
+u
+sw
+sw
+put block in hole
+s
+get sapphire
+drop pigeon
+get pigeon
+u then u then north. west. northwest. north
+Put the easel and landscape in the cauldron
+west. west. south. southwest. west. west.
+enter the dirigible
+press right button
+wait
+wait
+wait
+wait
+get out
+s. e. s
+
+
+2
+3
+
+3
+3
+
+2
+2
+
+2
+2
+
+1
+1
+
+take the fan
+n
+put flower in vase
+e
+take ladder
+w
+w
+n
+enter dirigible
+push left button
+z
+z
+z
+z
+get out
+e
+e
+ne
+e
+n
+e
+put fan in cauldron
+wear hard hat
+get pigeon
+i
+drop sapphire
+drop wand
+get lantern
+south. southeast. east. south. down. down
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+enter oracle
+e
+ne
+n
+press button
+nw
+take quill pen
+southeast. south. southwest. west.  w. southwest. southeast.
+e
+turn on lantern
+u
+e
+se
+cough
+prickly witch, hello
+get vial
+nw
+search nest
+get tie
+w
+d
+turn off lantern
+get all
+drop pigeon
+get pigeon
+u
+u
+n
+w
+nw
+n
+put tie and quill in cauldron
+south. southeast. east. south then down then down.
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+x amulet
+enter oracle
+sw
+s
+w
+read poem
+drop ladder
+climb ladder
+open trap door
+u
+press button
+d
+e
+n
+se
+e
+read sign
+enter shack
+get vial
+drop pigeon
+get pigeon
+u
+u
+n
+e
+e
+u
+get bag
+d
+w
+w
+w
+nw
+n
+get wand
+w
+w
+s
+Point the wand at the flamingo
+take the lawn ornament
+e
+d
+n
+n
+put flamingo in left booth
+enter right booth
+open bag
+wait
+wait
+wait
+push button
+eat food
+wait
+get all
+wear cap
+get pigeon
+u
+u
+n
+w
+nw
+w
+d
+s
+e
+e
+enter dock
+enter yacht
+push green
+wait
+get out
+get out
+s
+w
+ride camel
+e
+n
+w
+e
+s
+s
+sw
+se
+se
+ne
+dismount
+Fill the 9-gloop vial
+Fill the 4-gloop vial from it
+empty 4-gloop
+Fill the 4-gloop vial from 9-gloop vial
+empty 4-gloop
+empty 9-gloop vial into 4-gloop vial
+fill 9-gloop vial
+empty 9-gloop vial into 4-gloop vial
+examine 9-gloop
+drop pigeon
+get pigeon
+examine amulet
+enter oracle
+west. southwest. southeast. east. up.
+east.
+southeast.
+light lantern.
+Give the 9-gloop vial to prickly witch
+nw
+w
+d
+get all
+turn off lantern
+drop pigeon
+get it
+u
+u
+n
+w
+nw
+n
+get cup
+w
+s
+d. d. d. d. d.
+ne.
+d. d.
+w. w.
+u.
+drink potion
+listen.
+d
+e
+e
+u
+u
+u
+u
+u
+u
+u
+u
+n
+e
+get ring
+get sapphire
+i
+drop wand
+drop bag
+drop vial
+drop hardhat
+wear amulet
+drop pigeon
+get it
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+enter oracle
+sw
+w
+u. u. u. u. u. u.
+drink potion
+call for ricardo
+get small fungus
+d. d. d. d. d. d.
+e
+se
+s
+d
+wear ring
+take sapphire
+remove ring
+get candle
+get rusty key
+Go up then north. northwest. south. west
+climb ladder
+u
+unlock trunk with rusty key
+open trunk
+Get the notebook and fly. Read the notebook
+d
+e
+n
+se
+s
+d
+get all
+get pigeon
+get pigeon
+u
+u
+n
+w
+nw
+w
+d
+d
+d
+d
+d
+d
+ne
+d
+d
+w
+enter ear
+w
+w
+enter ear
+drop fungus
+in
+get wax
+drop pigeon
+get pigeon
+get pigeon
+get pigeon
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+enter oracle
+w
+sw
+se
+e
+u
+e
+se
+light lantern
+give wax to prickly witch
+nw
+w
+d
+get all
+turn off lantern
+w
+nw
+get club
+drop pigeon
+get pigeon
+u
+u
+n
+w
+nw
+n
+remove cap
+put club, lantern and cap in cauldron
+get fly
+s
+w
+s
+s
+s
+s
+w
+u
+u
+u
+u
+get fly
+drop pigeon
+get pigeon
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+examine amulet
+enter oracle
+ne
+ne
+get fly
+sw
+sw
+sw
+sw
+nw
+ask otto for spyglass
+give flies to otto
+ask otto for spyglass
+get spyglass
+drop pigeon
+get pigeon
+get pigeon
+u
+u
+n
+w
+nw
+n
+drop spyglass in cauldron
+say hildebud
+w
+n
+nw
+nw
+nw
+nw
+nw
+nw
