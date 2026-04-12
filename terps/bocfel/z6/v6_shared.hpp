@@ -31,10 +31,7 @@ void transcribe_and_print_string(const char *str);
 bool skip_puzzle_prompt(const char *str);
 
 void DO_HINTS(void);
-void DISPLAY_HINT(void);
-void RT_SEE_QST(void);
 
-void V_COLOR(void);
 void after_V_COLOR(void);
 
 void V_DEFINE(void);

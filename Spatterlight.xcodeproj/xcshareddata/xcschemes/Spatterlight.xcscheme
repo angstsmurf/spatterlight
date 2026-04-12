@@ -54,6 +54,9 @@
                   Identifier = "UITests/testAlan3">
                </Test>
                <Test
+                  Identifier = "UITests/testCzech">
+               </Test>
+               <Test
                   Identifier = "UITests/testHugo">
                </Test>
                <Test
@@ -67,6 +70,9 @@
                </Test>
                <Test
                   Identifier = "UITests/testPlus">
+               </Test>
+               <Test
+                  Identifier = "UITests/testPraxix">
                </Test>
                <Test
                   Identifier = "UITests/testScott">

@@ -22,6 +22,37 @@
 
 uint8_t fg_global_idx = 0, bg_global_idx = 0;
 
+#pragma mark - Entry Point Function Stubs
+
+// Dummy functions for unused Z-machine entry points.
+// The entrypoints system requires every entry to have
+// a function, but many of them are only used to
+// find the address of Z-machine functions or globals.
+// We declare the unused one as static here. This is a bit ugly.
+// I'll clean it up once everything works.
+
+static void RT_SEE_QST(void) {}
+static void BLINK(void) {}
+static void DISPLAY_HINT(void) {}
+static void V_COLOR(void) {}
+static void V_BOW(void) {}
+static void MAZE_F(void) {}
+static void DESCRIBE_ROOM(void) {}
+static void DESCRIBE_OBJECTS(void) {}
+static void WINPROP(void) {}
+static void SET_BORDER(void) {}
+static void DRAW_NEW_HERE(void) {}
+static void DRAW_NEW_COMP(void) {}
+static void DRAW_COMPASS_ROSE(void) {}
+static void SETUP_SCREEN(void) {}
+static void MAP_X(void) {}
+static void PLAY_SELECTED(void) {}
+static void SCORE_CHECK(void) {}
+static void TOWER_WIN_CHECK(void) {}
+static void DRAW_PEGS(void) {}
+static void SET_B_PIC(void) {}
+
+
 struct EntryPoint {
     Game game;
     std::string title;
@@ -2718,8 +2749,8 @@ void find_entrypoints(void) {
         find_journey_globals();
     } else if (is_spatterlight_shogun) {
         find_shogun_globals();
-//    } else if (is_spatterlight_zork0) {
-//        find_zork0_globals();
+    } else if (is_spatterlight_zork0) {
+        find_zork0_globals();
     }
 
     for (auto &entrypoint : entrypoints) {
