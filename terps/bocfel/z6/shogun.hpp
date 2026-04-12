@@ -41,17 +41,11 @@ void INTERLUDE_STATUS_LINE(void);
 void CENTER_PIC_X(void);
 void CENTER_PIC(void);
 void MARGINAL_PIC(void);
-void V_REFRESH(void);
-void V_BOW(void);
 void after_BUILDMAZE(void);
 
 void DISPLAY_MAZE(void);
 void DISPLAY_MAZE_PIC(void);
-void MAZE_F(void);
 void MAZE_MOUSE_F(void);
-
-void DESCRIBE_ROOM(void);
-void DESCRIBE_OBJECTS(void);
 
 #define kShogunTitleImage 1
 

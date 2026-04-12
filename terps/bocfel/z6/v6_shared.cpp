@@ -19,7 +19,6 @@
 //   keyboard and mouse navigation, with VoiceOver menu integration.
 // - Credits display and color management after V-COLOR.
 // - Visual puzzle skip prompt for accessibility.
-// - Empty stub functions for entry points that only some games implement.
 
 #include <sstream>
 
@@ -35,7 +34,7 @@
 
 #include "arthur.hpp"
 #include "shogun.hpp"
-//#include "zorkzero.hpp"
+#include "zorkzero.hpp"
 
 #include "v6_shared.hpp"
 
@@ -441,9 +440,9 @@ void V_DEFINE(void) {
     int linmax;
     uint16_t fkey, fdef, clicked_line, pressed_fkey, length;
 
-//    if (is_spatterlight_zork0) {
-//        update_user_defined_colours();
-//    }
+    if (is_spatterlight_zork0) {
+        update_user_defined_colours();
+    }
 
     glk_cancel_line_event(V6_TEXT_BUFFER_WINDOW.id, nullptr);
 
@@ -634,14 +633,14 @@ void V_DEFINE(void) {
     global_define_line = 0;
 
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
-//
-//    if (is_spatterlight_zork0) {
-//        z0_update_on_resize();
-//    } else {
+
+    if (is_spatterlight_zork0) {
+        z0_update_on_resize();
+    } else {
         // Game is Shogun
         internal_call(pack_routine(sr.V_REFRESH));
         shogun_update_on_resize();
-//    }
+    }
 }
 
 #pragma mark - Hints Screen (InvisiClues)
@@ -814,10 +813,10 @@ static void draw_hints_windows(void) {
                     upperwin_foreground = 0;
             }
         }
-//        if (is_spatterlight_zork0) {
-//            z0_erase_screen();
-//            garglk_set_zcolors_stream(glk_window_get_stream(V6_STATUS_WINDOW.id), upperwin_foreground, upperwin_background);
-//        }
+        if (is_spatterlight_zork0) {
+            z0_erase_screen();
+            garglk_set_zcolors_stream(glk_window_get_stream(V6_STATUS_WINDOW.id), upperwin_foreground, upperwin_background);
+        }
     }
 
     if (is_spatterlight_arthur || (upperwin_background != zcolor_Default && upperwin_background != BROWN))
@@ -845,16 +844,16 @@ static void draw_hints_windows(void) {
 
     int height = gcellh * 4 + ggridmarginy * 2;
 
-//    if (is_spatterlight_zork0) {
-//        // Global BORDER-ON, false if in text-only mode
-//        bool text_only_mode = (get_global(zg.BORDER_ON) == 0);
-//        if (!text_only_mode) {
-//            DISPLAY_BORDER(HINT_BORDER);
-//            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
-//            width = width * imagescalex;
-//            height = height * imagescaley;
-//        }
-//    }
+    if (is_spatterlight_zork0) {
+        // Global BORDER-ON, false if in text-only mode
+        bool text_only_mode = (get_global(zg.BORDER_ON) == 0);
+        if (!text_only_mode) {
+            DISPLAY_BORDER(HINT_BORDER);
+            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
+            width = width * imagescalex;
+            height = height * imagescaley;
+        }
+    }
 
     if (is_spatterlight_arthur) {
         win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
@@ -876,12 +875,12 @@ static void draw_hints_windows(void) {
                 status_x = width;
             }
         }
-//    } else if (is_spatterlight_zork0 && graphics_type == kGraphicsTypeApple2) {
-//        // Just for the lulz we try to use the Apple II hint screen header in Zork 0
-//        // that the actual game did not use (presumably because it was impossible to
-//        // fit the text in its low resolution.) We cut off 23 "pixels" on each side of
-//        //  the status text view to make it fit between the question marks in the image.
-//        status_x = 23 * imagescalex;
+    } else if (is_spatterlight_zork0 && graphics_type == kGraphicsTypeApple2) {
+        // Just for the lulz we try to use the Apple II hint screen header in Zork 0
+        // that the actual game did not use (presumably because it was impossible to
+        // fit the text in its low resolution.) We cut off 23 "pixels" on each side of
+        //  the status text view to make it fit between the question marks in the image.
+        status_x = 23 * imagescalex;
     }
     v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
 
@@ -903,8 +902,8 @@ static void draw_hints_windows(void) {
 
     if (is_spatterlight_shogun) {
         shogun_display_border(P_HINT_BORDER);
-//    } else if  (is_spatterlight_zork0) {
-//        z0_display_border(Z0_HINT_BORDER);
+    } else if  (is_spatterlight_zork0) {
+        z0_display_border(Z0_HINT_BORDER);
     }
 }
 
@@ -1571,9 +1570,9 @@ void DO_HINTS(void) {
 
     win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
     
-//    if (is_spatterlight_zork0) {
-//        z0_update_on_resize();
-//    } else
+    if (is_spatterlight_zork0) {
+        z0_update_on_resize();
+    } else
         if (is_spatterlight_shogun) {
         internal_call(pack_routine(sr.V_REFRESH));
         shogun_update_on_resize();
@@ -1590,15 +1589,29 @@ void DO_HINTS(void) {
 // Z-machine entry point: called before credits text is printed.
 // Ensures output goes to the main text buffer window.
 void V_CREDITS(void) {
-    glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+    if (is_spatterlight_zork0) {
+//        if (!centeredText) {
+//            centeredText = true;
+//            set_current_style();
+//        }
+    } else {
+        glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+    }
 }
 
 // Z-machine entry point: called after credits text. Resets bold, italic,
 // and fixed-width text styles that may have been set during credit display.
 void after_V_CREDITS(void) {
-    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_BOLD);
-    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_ITALIC);
-    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_FIXED);
+    if (is_spatterlight_zork0) {
+//            if (centeredText) {
+//                centeredText = false;
+//                set_current_style();
+//            }
+    } else {
+        V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_BOLD);
+        V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_ITALIC);
+        V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_FIXED);
+    }
 }
 
 // Z-machine entry point: called after the game's V-COLOR routine changes
@@ -1654,8 +1667,8 @@ void after_V_COLOR(void) {
         arthur_update_on_resize();
     } else if (is_spatterlight_shogun) {
         shogun_update_on_resize();
-//    } else if (is_spatterlight_zork0) {
-//        z0_update_on_resize();
+    } else if (is_spatterlight_zork0) {
+        z0_update_on_resize();
     }
 }
 
@@ -1693,33 +1706,3 @@ bool skip_puzzle_prompt(const char *str) {
     }
     return false;
 }
-
-
-#pragma mark - Entry Point Stubs
-
-// Empty stub functions for Z-machine entry points that are only implemented
-// by specific games. The entrypoints system requires all entry point functions
-// to exist, so games that don't use a particular entry point get these no-ops.
-// The actual implementations live in the game-specific files (zorkzero.cpp,
-// shogun.cpp, arthur.cpp).
-void DISPLAY_HINT(void) {}
-void RT_SEE_QST(void) {}
-void V_COLOR(void) {}
-void V_BOW(void) {}
-void MAZE_F(void) {}
-void DESCRIBE_ROOM(void) {}
-void DESCRIBE_OBJECTS(void) {}
-void WINPROP(void) {}
-void SET_BORDER(void) {}
-void DRAW_NEW_HERE(void) {}
-void DRAW_NEW_COMP(void) {}
-void DRAW_COMPASS_ROSE(void) {}
-void SETUP_SCREEN(void) {}
-void MAP_X(void) {}
-void PLAY_SELECTED(void) {}
-void SCORE_CHECK(void) {}
-void TOWER_WIN_CHECK(void) {}
-void DRAW_PEGS(void) {}
-void SET_B_PIC(void) {}
-void BLINK(void) {}
-void V_REFRESH(void) {}

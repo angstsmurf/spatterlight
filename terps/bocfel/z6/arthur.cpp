@@ -8,16 +8,16 @@
 //  Excalibur" (1989), a Z-machine version 6 interactive fiction game
 //  set in Arthurian legend.
 //
-//  Arthur features multiple switchable display modes, cycled via F-keys:
+//  Arthur features multiple switchable display modes, cycled via function keys:
 //    F1 - Picture mode: room illustration above the text area
 //    F2 - Map mode: clickable overhead map with location markers
 //    F3 - Inventory mode: item list shown in a grid window
 //    F4 - Status mode: detailed character status in a grid window
-//    F5 - Room description: verbose room text in a text buffer
+//    F5 - Room description: verbose room text at the top. We use a Glk buffer window for this.
 //    F6 - No graphics: text-only with no upper window
 //
 //  The screen layout consists of:
-//    - Decorative banner borders (left/right pillars) drawn to the
+//    - Decorative banner borders with left/right pillars drawn to the
 //      background graphics window
 //    - A one-line status bar showing location, vehicle, time, and form
 //    - A mode-dependent upper area (room image, map, inventory grid, etc.)
@@ -25,8 +25,8 @@
 //    - An optional "error window" (inverted grid) at the bottom for
 //      errors and parser "out-of-world" messages.
 //
-//  Room images are drawn with "stamp" overlays (small images positioned relative
-//  to a reference offset image) for details like the sword in the stone.
+//  Some room images are drawn with "stamp" overlays (small images positioned
+//  relative to a reference offset image) for details like the sword in the stone.
 //  Full-screen images are shown during the title sequence, endgame, and
 //  special story events. I have provided VoiceOver descriptions of them
 //  for accessibility.

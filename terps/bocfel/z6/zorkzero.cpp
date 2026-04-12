@@ -183,20 +183,6 @@ void V_REFRESH(void) {
 //    }
 }
 
-//void V_CREDITS(void) {
-////    if (!centeredText) {
-////        centeredText = true;
-////        set_current_style();
-////    }
-//}
-
-//void after_V_CREDITS(void) {
-////    if (centeredText) {
-////        centeredText = false;
-////        set_current_style();
-////    }
-//}
-
 // Z-machine entry point: enables centered text output (for credits display).
 void CENTER(void) {
     V_CREDITS();

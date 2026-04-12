@@ -760,6 +760,7 @@
 		C3A72FDA2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
 		C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3027A676630032C068 /* c64decrunch.c */; };
 		C3A9FD3327A6E56C0032C068 /* scottgameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */; };
+		C3AC26602F8A43B800DBBDBD /* zorkzero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C310487A2DB255570023B713 /* zorkzero.cpp */; };
 		C3AD63D42617648D008614C5 /* MyAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD63D32617648D008614C5 /* MyAttachmentCell.m */; };
 		C3AD640926176589008614C5 /* MarginContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD640826176589008614C5 /* MarginContainer.m */; };
 		C3AD642526176737008614C5 /* BufferTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD642426176737008614C5 /* BufferTextView.m */; };
@@ -7554,6 +7555,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3AC26602F8A43B800DBBDBD /* zorkzero.cpp in Sources */,
 				C36AD6E22F893E7B00E65111 /* spatterlight-autosave.mm in Sources */,
 				C36AD5692F89378C00E65111 /* arthur.cpp in Sources */,
 				C36AD56A2F89378C00E65111 /* journey.cpp in Sources */,

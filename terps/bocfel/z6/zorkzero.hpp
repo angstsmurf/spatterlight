@@ -18,27 +18,14 @@ extern "C" {
 
 void after_SPLIT_BY_PICTURE(void);
 void CENTER(void);
-//void V_CREDITS(void);
-//void after_V_CREDITS(void);
 void V_REFRESH(void);
 void V_MODE(void);
 void V_DEFINE(void);
 void DEFAULT_COLORS(void);
 void INIT_STATUS_LINE(void);
-void SET_BORDER(void);
-void DRAW_NEW_HERE(void);
-void DRAW_NEW_COMP(void);
-void DRAW_COMPASS_ROSE(void);
-void SETUP_SCREEN(void);
-void MAP_X(void);
-void PLAY_SELECTED(void);
 void SMALL_DOOR_F(void);
 void J_PLAY(void);
-void DRAW_PEGS(void);
-void SET_B_PIC(void);
 void TOWER_MODE(void);
-void TOWER_WIN_CHECK(void);
-void SCORE_CHECK(void);
 void z0_UPDATE_STATUS_LINE(void);
 void DRAW_TOWER(void);
 void B_MOUSE_PEG_PICK(void);
@@ -58,8 +45,6 @@ void SN_CLICK(void);
 void FANUCCI(void);
 void SETUP_FANUCCI(void);
 void V_MAP_LOOP(void);
-void WINPROP(void);
-void BLINK(void);
 
 enum BorderType {
     CASTLE_BORDER = 5,
