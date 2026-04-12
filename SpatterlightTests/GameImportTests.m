@@ -792,4 +792,9 @@
              commandScriptName:@"TerpEtude"];
 }
 
+- (void)testZorkZero {
+    [self importAndRunGameFile:@"zork0.zblorb"
+             commandScriptName:@"Zork Zero"];
+}
+
 @end
