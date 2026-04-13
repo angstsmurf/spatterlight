@@ -1826,6 +1826,10 @@ replacementString:(id)repl {
             return;
         }
 
+        if (container.marginImages.count > 10) {
+            [container.marginImages removeObject:container.marginImages.firstObject];
+        }
+
         [container addImage:image alignment:alignment at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
         cell.marginImage = container.marginImages.lastObject;
         cell.marginImgUUID = cell.marginImage.uuid;
