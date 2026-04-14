@@ -1519,35 +1519,19 @@ static void snarfem_draw_pile(int pile) {
     draw_to_pixmap_unscaled(PILE_OF_0 + num, x, y);
 }
 
-// Determines if a Nim position is "safe" (losing for the player who just
-// moved). Uses binary digit-sum analysis: converts each pile count to a
-// pseudo-binary representation and checks that all digit columns have even
-// sums (the Nim-sum is zero).
-static bool snarfem_safe_number(uint16_t tbl[]) {
-    int binary_table[10] = { 0, 1, 10, 11, 100, 101, 110, 111, 1000, 1001 };
-    int x = 0;
-    for (int i = 0; i < 4; i++) {
-        x += binary_table[tbl[i]];
-    }
-    return (x % 2 == 0 && (x / 10) % 2 == 0 && (x / 100) % 2 == 0 && (x / 1000) % 2 == 0);
-}
-
-
 // Z-machine entry point: draws the flower hint indicators showing the
 // computer's optimal move. If the current position is already "safe"
 // (Nim-sum zero), shows neutral flowers. Otherwise, searches for a move
 // (pile + count to remove) that leaves a safe position, and shows flowers
 // indicating which pile and how many.
 void DRAW_FLOWERS(void) {
-    int num = 1;
-    int pile = 0;
     int left, right;
-    uint16_t temp_table[4], pile_table[4];
-    // Copy ZIL table to C array for convenience
+    uint16_t pile_table[4];
     for (int i = 0; i < 4; i++) {
         pile_table[i] = user_word(zt.PILE_TABLE + (i + 1) * 2);
     }
-    if (snarfem_safe_number(pile_table)) {
+    uint16_t nim_sum = pile_table[0] ^ pile_table[1] ^ pile_table[2] ^ pile_table[3];
+    if (nim_sum == 0) {
         left = L_FLOWERS_0;
         right = R_FLOWERS_0;
     } else {
@@ -1561,7 +1545,7 @@ void DRAW_FLOWERS(void) {
                 break;
             }
         }
-        
+        int num = pile_table[pile] - (pile_table[pile] ^ nim_sum);
         left = L_FLOWERS_0 + 1 + pile;
         right = R_FLOWERS_0 + num;
     }
