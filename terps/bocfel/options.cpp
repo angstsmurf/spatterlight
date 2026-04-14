@@ -76,10 +76,10 @@ static Options::Parser bool_helper(bool &target)
     };
 }
 
-template <typename T>
-static Options::Parser number_helper(Range range, T &target, std::function<T(unsigned long)> wrapper)
+template <typename T, typename F>
+static Options::Parser number_helper(Range range, T &target, F wrapper)
 {
-    return [range, &target, wrapper = std::move(wrapper)](const std::string &val) {
+    return [range, &target, wrapper](const std::string &val) {
         char *endptr;
         errno = 0;
         auto n = std::strtoul(val.c_str(), &endptr, 10);
