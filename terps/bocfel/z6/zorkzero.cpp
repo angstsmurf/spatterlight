@@ -534,6 +534,101 @@ static void z0_resize_status_windows(void) {
     glk_window_clear(z0_right_status_window);
 }
 
+#pragma mark - Hint Border Display
+
+// Side pillar images for hint screens
+#define Z0_HINT_BORDER_L 503
+#define Z0_HINT_BORDER_R 504
+
+// Height of the Amiga/Mac hint border top section (used for pillar placement)
+#define Z0_HINT_TOP_HEIGHT 33
+
+// Draws the hint/special border. Unlike DISPLAY_BORDER (which handles the
+// 4 in-game border types), this handles extended border rendering with
+// vertical extension for tall screens, platform-specific pillar placement,
+// and a covering rectangle at the top (The raw graphics have a top bar that
+// won't fit all the header text, so the original interpreters also cover it
+// with a solid color rectangle.)
+void z0_display_border(int border) {
+
+    int left_margin = 0;
+    int pillar_top = 0;
+
+    clear_image_buffer();
+    ensure_pixmap(current_graphics_buf_win);
+    int border_top = 0;
+
+    win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
+
+    int width, height;
+    get_image_size(border, &width, &height);
+
+    if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
+        border_top = height;
+        pillar_top = border_top;
+    } else {
+        pillar_top = border_top + Z0_HINT_TOP_HEIGHT;
+    }
+
+    float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
+    int desired_height = ceil(gscreenh / factor);
+
+    int lowest_drawn_line = height + border_top;
+    bool must_extend = (desired_height > lowest_drawn_line);
+
+    draw_to_pixmap_unscaled_using_current_palette(border, 0, 0);
+
+    int BL = Z0_HINT_BORDER_L;
+    int BR = Z0_HINT_BORDER_R;
+
+    // BL won't be found
+    // if graphics type is Amiga or Mac B/W
+    if (find_image(BL)) {
+        get_image_size(BL, &width, &height);
+        draw_to_pixmap_unscaled(BL, 0, border_top);
+        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
+        lowest_drawn_line = height + border_top;
+    } else {
+        // Amiga och Mac border graphics are a single image with everything,
+        // not separated into top and sides
+
+        if (must_extend && (graphics_type == kGraphicsTypeMacBW)) {
+            extend_mac_bw_hint_border(desired_height);
+            desired_height = 0;
+        }
+    }
+
+    if (must_extend) {
+        if (graphics_type == kGraphicsTypeCGA) {
+            lowest_drawn_line -= 10;
+        }
+        extend_shogun_border(desired_height, lowest_drawn_line, pillar_top);
+    }
+
+    // We draw a rectangle of status window color at the top
+    bool should_draw_covering_rectangle = false;
+
+    glui32 rectangle_color = user_selected_foreground;
+
+    if (graphics_type == kGraphicsTypeCGA) {
+        should_draw_covering_rectangle = true;
+    } else {
+        left_margin = 0;
+        if (graphics_type == kGraphicsTypeMacBW) {
+            should_draw_covering_rectangle = true;
+        } else if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
+            should_draw_covering_rectangle = true;
+            rectangle_color = ROSE_TAUPE;
+        }
+    }
+
+    if (should_draw_covering_rectangle) {
+        draw_rectangle_on_bitmap(rectangle_color, left_margin, 0, hw_screenwidth - left_margin * 2, V6_STATUS_WINDOW.y_size / imagescaley + 1);
+    }
+    flush_bitmap(current_graphics_buf_win);
+}
+
+
 // Z-machine entry point: updates the full status line display.
 // Resizes status windows, prints room name and move count in the left
 // window, draws the compass rose (when borders are on), and prints
@@ -1456,36 +1551,14 @@ void DRAW_FLOWERS(void) {
         left = L_FLOWERS_0;
         right = R_FLOWERS_0;
     } else {
-        bool found = false;
-        while (!found) {
-            memcpy(temp_table, pile_table, sizeof(temp_table));
-            if (pile_table[pile] == 0) {
-                pile++;
-                if (pile > 3) {
-                    fprintf(stderr, "draw_flowers: ERROR: Could not find safe number\n");
-                }
-            } else {
-                if (pile_table[0] + pile_table[1] + pile_table[2] + pile_table[3] == pile_table[pile]) {
-                    // "case where three piles are empty"
-                    num = pile_table[pile];
-                    found = true;
-                } else {
-                    if (num > temp_table[pile]) {
-                        fprintf(stderr, "draw_flowers: ERROR: Could not find safe number\n");
-                    }
-                    temp_table[pile] -= num;
-                    if (snarfem_safe_number(temp_table)) {
-                        found = true;
-                    } else if (pile_table[pile] == num) {
-                        num = 1;
-                        pile++;
-                        if (pile > 3) {
-                            fprintf(stderr, "draw_flowers: ERROR: Could not find safe number\n");
-                        }
-                    } else {
-                        num++;
-                    }
-                }
+        // Find a pile that can be reduced to make the Nim-sum zero.
+        // The target value for that pile is pile[i] ^ nim_sum;
+        // this is smaller than pile[i] when pile[i] has a leading bit of nim_sum set.
+        int pile = 0;
+        for (int i = 0; i < 4; i++) {
+            if ((pile_table[i] ^ nim_sum) < pile_table[i]) {
+                pile = i;
+                break;
             }
         }
         
@@ -2135,100 +2208,6 @@ void V_MAP_LOOP(void) {
 
     store_variable(4, CX);
     store_variable(5, CY);
-}
-
-#pragma mark - Hint Border Display
-
-// Side pillar images for hint screens
-#define Z0_HINT_BORDER_L 503
-#define Z0_HINT_BORDER_R 504
-
-// Height of the Amiga/Mac hint border top section (used for pillar placement)
-#define Z0_HINT_TOP_HEIGHT 33
-
-// Draws the hint/special border. Unlike DISPLAY_BORDER (which handles the
-// 4 in-game border types), this handles extended border rendering with
-// vertical extension for tall screens, platform-specific pillar placement,
-// and a covering rectangle at the top (The raw graphics have a top bar that
-// won't fit all the header text, so the original interpreters also cover it
-// with a solid color rectangle.)
-void z0_display_border(int border) {
-
-    int left_margin = 0;
-    int pillar_top = 0;
-
-    clear_image_buffer();
-    ensure_pixmap(current_graphics_buf_win);
-    int border_top = 0;
-
-    win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
-
-    int width, height;
-    get_image_size(border, &width, &height);
-
-    if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
-        border_top = height;
-        pillar_top = border_top;
-    } else {
-        pillar_top = border_top + Z0_HINT_TOP_HEIGHT;
-    }
-
-    float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
-    int desired_height = ceil(gscreenh / factor);
-
-    int lowest_drawn_line = height + border_top;
-    bool must_extend = (desired_height > lowest_drawn_line);
-
-    draw_to_pixmap_unscaled_using_current_palette(border, 0, 0);
-
-    int BL = Z0_HINT_BORDER_L;
-    int BR = Z0_HINT_BORDER_R;
-
-    // BL won't be found
-    // if graphics type is Amiga or Mac B/W
-    if (find_image(BL)) {
-        get_image_size(BL, &width, &height);
-        draw_to_pixmap_unscaled(BL, 0, border_top);
-        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
-        lowest_drawn_line = height + border_top;
-    } else {
-        // Amiga och Mac border graphics are a single image with everything,
-        // not separated into top and sides
-
-        if (must_extend && (graphics_type == kGraphicsTypeMacBW)) {
-            extend_mac_bw_hint_border(desired_height);
-            desired_height = 0;
-        }
-    }
-
-    if (must_extend) {
-        if (graphics_type == kGraphicsTypeCGA) {
-            lowest_drawn_line -= 10;
-        }
-        extend_shogun_border(desired_height, lowest_drawn_line, pillar_top);
-    }
-
-    // We draw a rectangle of status window color at the top
-    bool should_draw_covering_rectangle = false;
-
-    glui32 rectangle_color = user_selected_foreground;
-
-    if (graphics_type == kGraphicsTypeCGA) {
-        should_draw_covering_rectangle = true;
-    } else {
-        left_margin = 0;
-        if (graphics_type == kGraphicsTypeMacBW) {
-            should_draw_covering_rectangle = true;
-        } else if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
-            should_draw_covering_rectangle = true;
-            rectangle_color = ROSE_TAUPE;
-        }
-    }
-
-    if (should_draw_covering_rectangle) {
-        draw_rectangle_on_bitmap(rectangle_color, left_margin, 0, hw_screenwidth - left_margin * 2, V6_STATUS_WINDOW.y_size / imagescaley + 1);
-    }
-    flush_bitmap(current_graphics_buf_win);
 }
 
 #pragma mark - Resize Handling
