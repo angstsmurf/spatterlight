@@ -2149,7 +2149,9 @@ void V_MAP_LOOP(void) {
 // Draws the hint/special border. Unlike DISPLAY_BORDER (which handles the
 // 4 in-game border types), this handles extended border rendering with
 // vertical extension for tall screens, platform-specific pillar placement,
-// and a covering rectangle at the top to hide edge artifacts.
+// and a covering rectangle at the top (The raw graphics have a top bar that
+// won't fit all the header text, so the original interpreters also cover it
+// with a solid color rectangle.)
 void z0_display_border(int border) {
 
     int left_margin = 0;
@@ -2206,9 +2208,7 @@ void z0_display_border(int border) {
         extend_shogun_border(desired_height, lowest_drawn_line, pillar_top);
     }
 
-    // We draw a rectangle of status window color at the top to avoid
-    // visible gaps at the edges. (Except at the start menu, where
-    // there is no status window.)
+    // We draw a rectangle of status window color at the top
     bool should_draw_covering_rectangle = false;
 
     glui32 rectangle_color = user_selected_foreground;
