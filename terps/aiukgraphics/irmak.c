@@ -186,21 +186,28 @@ void PlotTile(int32_t tile, int32_t x, int32_t y, int32_t fg,
     }
 }
 
+static inline int DataExhausted(const uint8_t *dataptr, const uint8_t *origptr, size_t datasize)
+{
+    return (size_t)(dataptr - origptr) >= datasize;
+}
+
 /* Apply the tile transformation data.
-   The result is written into layout[][]
-   by the Transform() function */
-static void PerformTileTranformations(IrmakImgContext *ctx)
+ The result is written into layout[][]
+ by the Transform() function */
+static void PerformTileTransformations(IrmakImgContext *ctx)
 {
     uint8_t *dataptr = ctx->dataptr;
     uint8_t *origptr = ctx->origptr;
     int offset = 0;
     int imagesize = ctx->imagesize;
 
+    /* Carries across iterations; the previous tile value
+       determines ADD_128 behavior for solo tiles */
     uint8_t tile = 0;
 
     while (offset < imagesize) {
-        if ((size_t)(dataptr - origptr) >= ctx->datasize) {
-            fprintf(stderr, "PerformTileTranformations: tile data out of range\n");
+        if (DataExhausted(dataptr, origptr, ctx->datasize)) {
+            fprintf(stderr, "PerformTileTransformations: tile data out of range\n");
             return;
         }
 
@@ -223,15 +230,15 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
         } else {
             /* Possibly a repeated run with optional overlays */
             if ((data & REPEAT_BIT) == REPEAT_BIT) {
-                if ((size_t)(dataptr - origptr) >= ctx->datasize) {
-                    fprintf(stderr, "PerformTileTranformations: count byte out of range\n");
+                if (DataExhausted(dataptr, origptr, ctx->datasize)) {
+                    fprintf(stderr, "PerformTileTransformations: count byte out of range\n");
                     return;
                 }
                 count = (int)(*dataptr++) + 1;
             }
 
-            if ((size_t)(dataptr - origptr) >= ctx->datasize) {
-                fprintf(stderr, "PerformTileTranformations: tile byte out of range\n");
+            if (DataExhausted(dataptr, origptr, ctx->datasize)) {
+                fprintf(stderr, "PerformTileTransformations: tile byte out of range\n");
                 return;
             }
 
@@ -252,15 +259,13 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
             /* overlays handling */
             if ((data & OVERLAY_BITS) != 0) {
                 uint8_t mask_mode = (data & OVERLAY_BITS);
-                if ((size_t)(dataptr - origptr) >= ctx->datasize) {
-                    fprintf(stderr, "PerformTileTranformations: overlay stream out of range\n");
+                if (DataExhausted(dataptr, origptr, ctx->datasize)) {
+                    fprintf(stderr, "PerformTileTransformations: overlay stream out of range\n");
                     return;
                 }
                 uint8_t data2 = *dataptr++;
                 uint8_t previous = data;
-                int keep_going;
-                do {
-                    keep_going = 0;
+                while (1) {
                     if (data2 < COMMAND_BIT) {
 #ifdef DRAWDEBUG
                         debug_print("Plotting %d directly (overlay) at %d\n", data2,
@@ -271,36 +276,37 @@ static void PerformTileTranformations(IrmakImgContext *ctx)
                             data2 += 128;
                         for (int i = 0; i < count; ++i)
                             Transform(data2, previous & OVERLAY_BITS, offset + i);
-                    } else {
-                        if ((size_t)(dataptr - origptr) >= ctx->datasize) {
-                            fprintf(stderr, "PerformTileTranformations: overlay tile out of range\n");
-                            return;
-                        }
-                        tile = *dataptr++;
-                        if ((data2 & ADD_128_BIT) == ADD_128_BIT)
-                            tile += 128;
-#ifdef DRAWDEBUG
-                        debug_print("Plotting %d with flip %02x (%s) at %d %d\n",
-                                    tile, (data2 | mask_mode),
-                                    flipdescription[((data2 | mask_mode) & 48) >> 4], offset,
-                                    count);
-#endif
-                        for (int i = 0; i < count; i++)
-                            /* Use mask mode of previous command byte */
-                            Transform(tile, (data2 & OVERLAY_MASK) | mask_mode, offset + i);
-
-                        if ((data2 & OVERLAY_BITS) != 0) {
-                            mask_mode = data2 & OVERLAY_BITS;
-                            previous = data2;
-                            keep_going = 1;
-                            if ((size_t)(dataptr - origptr) > ctx->datasize) {
-                                fprintf(stderr, "PerformTileTranformations: overlay chain ends prematurely\n");
-                                return;
-                            }
-                            data2 = *dataptr++;
-                        }
+                        break;
                     }
-                } while (keep_going);
+
+                    if (DataExhausted(dataptr, origptr, ctx->datasize)) {
+                        fprintf(stderr, "PerformTileTransformations: overlay tile out of range\n");
+                        return;
+                    }
+                    tile = *dataptr++;
+                    if ((data2 & ADD_128_BIT) == ADD_128_BIT)
+                        tile += 128;
+#ifdef DRAWDEBUG
+                    debug_print("Plotting %d with flip %02x (%s) at %d %d\n",
+                                tile, (data2 | mask_mode),
+                                flipdescription[((data2 | mask_mode) & 48) >> 4], offset,
+                                count);
+#endif
+                    for (int i = 0; i < count; i++)
+                        /* Use mask mode of previous command byte */
+                        Transform(tile, (data2 & OVERLAY_MASK) | mask_mode, offset + i);
+
+                    if ((data2 & OVERLAY_BITS) == 0)
+                        break;
+
+                    mask_mode = data2 & OVERLAY_BITS;
+                    previous = data2;
+                    if (DataExhausted(dataptr, origptr, ctx->datasize)) {
+                        fprintf(stderr, "PerformTileTransformations: overlay chain ends prematurely\n");
+                        return;
+                    }
+                    data2 = *dataptr++;
+                }
             }
             offset += count;
         }
@@ -330,10 +336,9 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
     uint8_t colour = 0;
 
     while (y < ysize) {
-        if ((size_t)(dataptr - origptr) > datasize) {
+        if (DataExhausted(dataptr, origptr, datasize)) {
             fprintf(stderr, "DecodeAttributes: data offset %zu out of range! Image size %zu. Bailing!\n",
                     (size_t)(dataptr - origptr), datasize);
-            /* free on error */
             return 0;
         }
         uint8_t data = *dataptr++;
@@ -345,7 +350,7 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
                 count--;
             } else {
                 /* in version 2 and below, repeat the *following* colour byte */
-                if ((size_t)(dataptr - origptr) > datasize) {
+                if (DataExhausted(dataptr, origptr, datasize)) {
                     fprintf(stderr, "DecodeAttributes: missing colour byte\n");
                     return 0;
                 }
@@ -356,7 +361,8 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
             colour = data;
         }
 
-        for (int i = 0; i < count; count--) {
+        while (count > 0) {
+            count--;
             if (ctx->draw_to_buffer) {
                 /* write colours into imagebuffer */
                 unsigned bufpos = (yoff + y) * IRMAK_IMGWIDTH + xoff + x;
@@ -372,7 +378,7 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
                 }
             } else { /* Not drawing to buffer */
                 if (x >= xsize) {
-                    fprintf(stderr, "parse_attributes: x position out of range\n");
+                    fprintf(stderr, "DecodeAttributes: x position out of range\n");
                     return 0;
                 }
                 /* write colours into ink/paper arrays */
@@ -401,7 +407,7 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
             if (x == xsize) {
                 x = 0;
                 y++;
-                if (y > ysize) break;
+                if (y >= ysize) break;
             }
         }
     }
@@ -478,7 +484,7 @@ void DrawIrmakPictureFromContext(IrmakImgContext ctx)
     ctx.origptr = ctx.dataptr;
 
     /* Step 1: Transform and draw tiles into layout[][] */
-    PerformTileTranformations(&ctx);
+    PerformTileTransformations(&ctx);
 
     /* Step 2: Write attribute bytes */
     uint8_t ink[IRMAK_IMGSIZE];
