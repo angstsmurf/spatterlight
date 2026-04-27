@@ -20,6 +20,6 @@
 #include <stdio.h>
 #include "v6_image.h"
 
-uint8_t *decompress_vga(ImageStruct *image);
+uint8_t *decompress_vga(const ImageStruct *image);
 
 #endif /* decompress_vga_hpp */
