@@ -435,8 +435,8 @@ uint8_t Remap(uint8_t color)
 }
 
 
-/* Swap two palette entries. Only used by
-   the Robin of Sherwood end lightning animation. */
+/* Swap two palette entries. Only used by the Robin
+   of Sherwood lightning flash animation. */
 void SwitchPalettes(int pal1, int pal2)
 {
     glui32 temp;

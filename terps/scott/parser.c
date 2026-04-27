@@ -16,14 +16,18 @@
 
 extern struct Command *CurrentCommand;
 
+/* Tokenized player input: parallel arrays of Unicode and ASCII word strings */
 glui32 **UnicodeWords = NULL;
 char **CharWords = NULL;
 static int WordsInInput = 0;
 
-static int lastnoun = 0;
+static int lastnoun = 0; /* Last noun used, for "IT" pronoun resolution */
 
-static glui32 *FirstErrorMessage = NULL;
+static glui32 *FirstErrorMessage = NULL; /* Deferred error message (shown after command processing) */
 
+/* Direction words by language — includes both full names and single-letter
+   abbreviations. Index 1-6 = full names (N/S/E/W/U/D), 7-12 = abbreviations,
+   13 = alternate west ('w' in Spanish is used for 'oeste'). */
 const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = {
     NULL, "north", "south", "east", "west", "up", "down",
     "n", "s", "e", "w", "u", "d", " "
@@ -39,6 +43,10 @@ const char *GermanDirections[NUMBER_OF_DIRECTIONS] = {
 
 const char *Directions[NUMBER_OF_DIRECTIONS];
 
+/* Meta-command words recognized by the parser but not in the game's
+   dictionary. Includes save/restore, undo, transcript, RAM save/load,
+   and command-chain operators (EXCEPT/BUT). The '#' prefix forms are
+   for compatibility with interpreters that use '#' as a command prefix. */
 const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     NULL,
     "restart",
@@ -146,6 +154,9 @@ const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "reinicia"
 };
 
+/* Maps each ExtraCommands[] entry to its canonical command enum.
+   Multiple strings can map to the same command (e.g. "restore", "load",
+   "#restore" all map to RESTORE). */
 extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
     NO_COMMAND, RESTART, RESTART, SAVE, SAVE, RESTORE, RESTORE,
     RESTORE, SCRIPT, SCRIPT, SCRIPT, SCRIPT, UNDO, UNDO, UNDO, UNDO,
@@ -154,6 +165,8 @@ extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
     RESTORE, RESTORE, SCRIPT, UNDO, RESTART
 };
 
+/* Extra noun words for meta-commands: "SAVE GAME", "TRANSCRIPT ON/OFF",
+   "TAKE ALL", "DROP IT", etc. */
 const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
     NULL,
     "game",
@@ -195,6 +208,7 @@ const extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = {
 
 #define NUMBER_OF_ABBREVIATIONS 6
 
+/* Single-letter command abbreviations and their expansions */
 const char *Abbreviations[NUMBER_OF_ABBREVIATIONS] = { NULL, "i", "l",
     "x", "z", "q" };
 
@@ -202,6 +216,7 @@ const char *AbbreviationsKey[NUMBER_OF_ABBREVIATIONS] = {
     NULL, "inventory", "look", "examine", "wait", "quit"
 };
 
+/* Filler words silently ignored by the parser (articles, prepositions, adverbs) */
 const char *EnglishSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
     NULL, "at", "to", "in", "into", "the",
     "a", "an", "my", "quickly", "carefully", "quietly",
@@ -215,6 +230,7 @@ const char *GermanSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
 
 const char *SkipList[NUMBER_OF_SKIPPABLE_WORDS];
 
+/* Words that separate multiple commands in a single input line */
 const char *EnglishDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "and",
     "then", " " };
 
@@ -223,6 +239,7 @@ const char *GermanDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "und",
 
 const char *DelimiterList[NUMBER_OF_DELIMITERS];
 
+/* Free all tokenized input strings and the deferred error message */
 static void FreeStrings(void)
 {
     if (FirstErrorMessage != NULL) {
@@ -248,6 +265,8 @@ static void FreeStrings(void)
     WordsInInput = 0;
 }
 
+/* Build a deferred error message from up to three parts (prefix + word + suffix).
+   Only the first error per input line is kept; subsequent calls are ignored. */
 static void CreateErrorMessage(const char *fchar, glui32 *second, const char *tchar)
 {
     if (FirstErrorMessage != NULL)
@@ -280,6 +299,7 @@ static glui32 MapLatin1(unsigned char b)
     return (glui32)b;
 }
 
+/* Map C64 PETSCII codes to Unicode for Spanish Gremlins */
 static glui32 Map_Spanish(unsigned char b)
 {
     switch (b) {
@@ -306,6 +326,7 @@ static glui32 Map_Spanish(unsigned char b)
     }
 }
 
+/* Map TI-99/4A character codes to Unicode */
 static glui32 MapTI994A(unsigned char b)
 {
     switch (b) {
@@ -336,7 +357,10 @@ static map_fn SelectMapper(void)
     return MapLatin1;
 }
 
-/* Perform sequence folding for German digraphs such as ue->ü, oe->ö, ae->ä, ss->ß. */
+/* Fold German digraph sequences into proper Unicode characters:
+   ue→ü, oe→ö, ae→ä, ss→ß (contextual), and "→'. The ß folding
+   checks the two preceding characters to avoid false positives
+   (only triggers after au/ra/ie/ei, covering außer/Straße/schießt/geschweißt). */
 static glui32 *FoldGermanSequences(const glui32 *in, size_t in_len,
                                      size_t *out_len)
 {
@@ -374,11 +398,11 @@ static glui32 *FoldGermanSequences(const glui32 *in, size_t in_len,
                 out[write_pos++] = 0x2019; /* ’ */
                 continue;
             }
-            /* As far as I can tell, only five words in the German */
-            /* Gremlins output text use the double-s ß character: */
-            /* 'außer', 'draußen', 'Straße', 'schießt', and 'geschweißt' */
-            /* Simply checking the two preceding characters seems to be */
-            /* sufficient to avoid false positives. */
+            /* As far as I can tell, only five words in the German
+               Gremlins output text use the double-s ß character:
+               'außer', 'draußen', 'Straße', 'schießt', and 'geschweißt'
+               Simply checking the two preceding characters seems to be
+               sufficient to avoid false positives. */
             else if (cp == 's' && next == 's' && i > 1 &&
                     ((in[i - 2] == 'a' && in[i - 1] == 'u') ||
                      (in[i - 2] == 'r' && in[i - 1] == 'a') ||
@@ -396,6 +420,10 @@ static glui32 *FoldGermanSequences(const glui32 *in, size_t in_len,
     return out;
 }
 
+/* Convert a byte string to a NUL-terminated Unicode (glui32) string.
+   Applies platform-specific character mapping (Latin-1, Spanish PETSCII,
+   or TI-99/4A), normalizes line endings, and folds German digraphs
+   for German Gremlins variants. */
 glui32 *ToUnicode(const char *string)
 {
     if (string == NULL)
@@ -468,6 +496,10 @@ glui32 *ToUnicode(const char *string)
     return result;
 }
 
+/* Convert a Unicode string back to ASCII for dictionary matching.
+   Diacritical characters are replaced with their base-letter equivalents
+   (ö→oe, ä→ae, ü→ue/u, ß→ss, á→a, etc.). Lone punctuation (.,;) is
+   converted to "and" as a command delimiter. */
 static char *FromUnicode(glui32 *unicode_string, int origlength)
 {
     int sourcepos = 0;
@@ -545,6 +577,8 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
     return result;
 }
 
+/* Check if the string at the given index starts with "y.m.c.a." (the Gremlins
+   item). Returns the number of characters matched (8 on full match). */
 static int MatchYMCA(glui32 *string, int length, int index)
 {
     const char *ymca = "y.m.c.a.";
@@ -556,11 +590,12 @@ static int MatchYMCA(glui32 *string, int length, int index)
     return i;
 }
 
-/* Turns a unicode glui32 string into lower-case ASCII. */
-/* Converts German and Spanish diacritical characters */
-/* into non-diacritical equivalents */
-/* Coalesces runs of whitespace into a single standard space. */
-/* Turns word-ending commas and periods into separate strings. */
+/* Tokenize a Unicode input string into words.
+   Lowercases the input, coalesces whitespace, splits on spaces and
+   various Unicode space variants, and turns commas/periods/semicolons
+   into separate tokens (acting as command delimiters). Produces
+   parallel UnicodeWords[] and CharWords[] arrays. Special-cases the
+   "y.m.c.a." item name from Gremlins to keep it as one token. */
 void SplitIntoWords(glui32 *string, int length)
 {
     if (length < 1) {
@@ -666,6 +701,8 @@ void SplitIntoWords(glui32 *string, int length)
     CharWords = words8;
 }
 
+/* Prompt the player and read a line of input via Glk.
+   Loops until at least one word is recognized. */
 void LineInput(void)
 {
     event_t ev;
@@ -699,6 +736,9 @@ void LineInput(void)
     return;
 }
 
+/* Search a word list for a match, comparing up to word_length characters.
+   Synonym entries (prefixed with '*') share the index of the preceding
+   canonical entry. Returns the matched index, or 0 if not found. */
 int WhichWord(const char *word, const char **list, int word_length,
               int list_length)
 {
@@ -877,9 +917,11 @@ static int FindNoun(const char *string, const char ***list)
 
 static Command *CommandFromStrings(int index, Command *previous);
 
+/* Check for unrecognized trailing words after a verb+noun pair.
+   Skips filler words and synonyms of the current noun. Returns 1
+   and sets an error message if an invalid word is found. */
 static int FindExtaneousWords(int *index, int noun)
 {
-    /* Looking for extraneous words that should invalidate the command */
     int original_index = *index;
     if (*index >= WordsInInput) {
         return 0;
@@ -926,6 +968,8 @@ static int FindExtaneousWords(int *index, int noun)
     return 1;
 }
 
+/* Allocate a Command node and recursively parse any remaining words
+   into a linked list of subsequent commands. */
 static Command *CreateCommandStruct(int verb, int noun, int verbindex,
     int nounindex, Command *previous)
 {
@@ -945,6 +989,13 @@ static Command *CreateCommandStruct(int verb, int noun, int verbindex,
     return command;
 }
 
+/* Parse tokenized words starting at `index` into a Command node.
+   Tries to identify a verb, then a noun, handling special cases:
+   - Directions become GO + direction_number
+   - German word order (noun before verb)
+   - Verb inheritance from the previous command in a chain
+   - Delimiter words start a new command
+   Returns NULL if the words can't form a valid command. */
 static Command *CommandFromStrings(int index, Command *previous)
 {
     if (index < 0 || index >= WordsInInput) {
@@ -1072,6 +1123,11 @@ static Command *CommandFromStrings(int index, Command *previous)
     return NULL;
 }
 
+/* Expand a TAKE ALL or DROP ALL command into a linked list of individual
+   commands, one per eligible item. Handles EXCEPT/BUT exclusions by
+   scanning the following command nodes. Items with AutoGet starting
+   with '*' (treasures) are excluded from ALL. Returns 0 if no items
+   matched (with an appropriate error message). */
 static int CreateAllCommands(Command *command)
 {
     if (GameHeader.NumItems > 2048)
@@ -1138,6 +1194,8 @@ static int CreateAllCommands(Command *command)
     return 1;
 }
 
+/* Free the entire command chain (rewind to head, then free forward) and
+   release all associated tokenized input strings. */
 void FreeCommands(void)
 {
     while (CurrentCommand && CurrentCommand->previous)
@@ -1164,6 +1222,16 @@ static void PrintPendingError(void)
     }
 }
 
+/* Get the next verb/noun pair for the game engine to process.
+
+   If commands remain in the current chain, advance to the next one.
+   Otherwise, prompt for new input and parse it into a command chain.
+   Handles meta-commands (verb > NumWords), ALL expansion, IT pronoun
+   resolution, and game-specific fixups (German "ALLE FALLEN LASSEN",
+   Robin of Sherwood "RESTORE"/"RESTART" vs "REST").
+
+   Returns 0 with vb/no set on success, or 1 to signal the main loop
+   should re-run without executing actions (meta-command handled or error). */
 int GetInput(int *vb, int *no)
 {
     if (CurrentCommand && CurrentCommand->next) {
@@ -1181,10 +1249,10 @@ int GetInput(int *vb, int *no)
         return 1;
     }
 
-    /* Hack to make ALLE FALLEN LASSEN work in German Gremlins    */
-    /* The normal verb <-> noun switching mechanism gets confused */
-    /* by the fact that the game lists FALLEN and LASSEN as both  */
-    /* verbs and nouns. */
+    /* Hack to make ALLE FALLEN LASSEN work in German Gremlins */
+    /* The normal verb <-> noun switching mechanism gets confused
+       by the fact that the game lists FALLEN and LASSEN as both
+       verbs and nouns. */
 
     if ((CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64) && CurrentCommand->verb - GameHeader.NumWords == ALL && CurrentCommand->noun == 123) {
         CurrentCommand->verb = DROP;
@@ -1234,6 +1302,9 @@ int GetInput(int *vb, int *no)
     return 0;
 }
 
+/* Re-check a command that the action table didn't recognize, looking for
+   meta-commands (save, undo, etc.) that might have been masked by a
+   game dictionary word with the same prefix. */
 int RecheckForExtraCommand(void)
 {
     const char *VerbWord = CharWords[CurrentCommand->verbwordindex];

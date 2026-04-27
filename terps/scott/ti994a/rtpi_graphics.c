@@ -4,6 +4,25 @@
 //
 //  Created by Administrator on 2026-02-12.
 //
+//  Loader and graphics decoder for "Return to Pirate's Isle" (RTPI),
+//  a Scott Adams adventure originally released for the TI-99/4A.
+//
+//  The game data is distributed as a zip archive containing ROM files
+//  ("c.bin" for CPU ROM, "g.bin" for GROM graphics data, or the five
+//  split MAME GROM files "phm3189g3.bin" through "phm3189g7.bin").
+//
+//  Graphics use the TI-99/4A's VDP (Video Display Processor) tile
+//  system: 256 screen positions arranged as 32 columns × 12 rows of
+//  8×8-pixel tiles. Image data is stored in GROM as a bytecode stream
+//  of 8 opcodes (0–7) that manipulate a 52-tile font with rotations
+//  and bitwise compositing (OR/AND/XOR), followed by RLE-compressed
+//  colour data. Colours use the TMS9918A's attribute format: one byte
+//  per pixel row, upper nibble = foreground, lower nibble = background.
+//
+//  If the game data contains a standard Scott Adams header, I have not been
+//  able to find it. Instead, all offsets and counts are hardcoded in a
+//  GameInfo struct within DetectRTPI().
+//
 
 #include <string.h>
 #include <stdlib.h>
@@ -16,21 +35,27 @@
 
 #include "rtpi_graphics.h"
 
-#define RTPI_IMAGE_SIZE 32 * 12 * 8 // 12 rows of 32 8x8 tiles: 0xc00 bytes
+/* VDP screen buffer: 32 columns × 12 rows × 8 bytes per tile = 0xC00 bytes.
+   vdp_pixels holds 1-bpp tile pattern data; vdp_colors holds per-row
+   colour attributes (upper nibble = fg, lower nibble = bg). */
+#define RTPI_IMAGE_SIZE 32 * 12 * 8
 
 static uint8_t vdp_pixels[RTPI_IMAGE_SIZE];
 static uint8_t vdp_colors[RTPI_IMAGE_SIZE];
 
+/* Total GROM data size (5 × 0x2000 byte banks). */
 #define GROM_SIZE 0xa000
 
-#define NUMBER_OF_RTPI_ROOM_IMAGES 24 + 9 // 24 rooms plus 9 extra images
+#define NUMBER_OF_RTPI_ROOM_IMAGES 24 + 9
 #define NUMBER_OF_RTPI_ITEM_IMAGES 7
 #define NUMBER_OF_RTPI_IMAGES NUMBER_OF_RTPI_ROOM_IMAGES + NUMBER_OF_RTPI_ITEM_IMAGES
 #define NUMBER_OF_RTPI_TILES 52
 #define RTPI_TITLE_TEXT_LENGTH 0x1e2
 
+/* The 52-entry tile font, loaded from the CPU ROM (c.bin). */
 static uint8_t ti994atiles[NUMBER_OF_RTPI_TILES][8];
 
+/* Debug names for the 8 draw opcodes. */
 const static char *opcode_names[8] = {
     "op0_copy_tiles",
     "op1_repeat_tile",
@@ -42,6 +67,8 @@ const static char *opcode_names[8] = {
     "op7_combine_tile_pairs"
 };
 
+/* Apply one of four rotation modes (0=none, 1=90°, 2=180°, 3=270°)
+   to an 8-byte tile, using the rotation primitives from irmak.c. */
 static void rotate(uint8_t *tile, int rotation) {
     switch (rotation) {
         case 0:
@@ -60,47 +87,72 @@ static void rotate(uint8_t *tile, int rotation) {
     }
 }
 
-static int DecodeRTPIColors(uint8_t *ptr, uint8_t *origptr) {
+/* Decode the RLE-compressed colour attribute stream that follows the
+   tile pattern opcodes. Each byte in vdp_colors holds the colour for
+   one pixel row: upper nibble = foreground, lower nibble = background.
+
+   The encoding uses three modes:
+     - Literal byte (top nibble != 0): write directly to vdp_colors.
+     - Top nibble == 0x7: address jump — next byte forms a 12-bit
+       write offset (in units of 8 bytes).
+     - Top nibble == 0, bottom nibble != 0: repeat count in lower
+       nibble; next byte is the colour to repeat (count × 8 times).
+     - Byte == 0x00: next byte is a full 8-bit repeat count (for
+       runs longer than 15). */
+static int DecodeRTPIColors(uint8_t *ptr, uint8_t *origptr, size_t datasize) {
     uint16_t write_offset = 0;
-    int zeroflag = 0;
-    uint8_t draw_op = *ptr++;
-    do {
-        if (!zeroflag && ((draw_op & 0xf0) != 0 || (draw_op & 0x0f) == 0)) {
-            if (draw_op != 0) {
-                if ((draw_op & 0xf0) == 0x70) {
-                    // Special case: If top nibble of draw_op is 7, jump to new write offset
-                    uint8_t newaddr = *ptr++;
-                    write_offset = ((draw_op & 0xf) << 8 | newaddr) * 8;
-                } else {
-                    vdp_colors[write_offset++] = draw_op;
-                }
-            } else {
-                // Special case: Draw op 0 means that the entire next byte is the repeat count
-                zeroflag = 1;
-            }
-        } else {
-            // If zeroflag is set (i.e. last draw_op was zero),
-            // the entire byte is the repeat count.
-            // Otherwise, it is just the lower nibble.
-            if (!zeroflag) {
-                draw_op &= 0x0f;
-            }
-            int16_t repeats = draw_op * 8;
-            zeroflag = 0;
-            uint8_t color = *ptr++;
-            for (int i = 0; i < repeats; i++) {
-                if (write_offset > RTPI_IMAGE_SIZE) {
-                    return 0;
-                }
-                vdp_colors[write_offset++] = color;
-            }
+    uint8_t *end = origptr + datasize;
+
+    while (ptr < end && write_offset < RTPI_IMAGE_SIZE) {
+        uint8_t draw_op = *ptr++;
+
+        uint8_t top    = draw_op & 0xf0;
+        uint8_t bottom = draw_op & 0x0f;
+
+        if (top == 0x70) {
+            if (ptr >= end)
+                break;
+            uint8_t newaddr = *ptr++;
+            write_offset = ((bottom << 8) | newaddr) * 8;
+            if (write_offset >= RTPI_IMAGE_SIZE)
+                return 0;
+            continue;
         }
-        draw_op = *ptr++;
-    } while (write_offset < RTPI_IMAGE_SIZE && !(zeroflag && draw_op == 0));
+
+        if (top != 0 && draw_op != 0) {
+            vdp_colors[write_offset++] = draw_op;
+            continue;
+        }
+
+        int repeat_count;
+        if (draw_op == 0) {
+            if (ptr >= end)
+                break;
+            repeat_count = *ptr++;
+            if (repeat_count == 0)
+                break;
+        } else {
+            repeat_count = bottom;
+        }
+
+        if (ptr >= end)
+            break;
+        int repeats = repeat_count * 8;
+        uint8_t color = *ptr++;
+        for (int i = 0; i < repeats; i++) {
+            if (write_offset >= RTPI_IMAGE_SIZE)
+                return 0;
+            vdp_colors[write_offset++] = color;
+        }
+    }
+
     debug_print("DecodeRTPIColors: Finished at offset 0x%lx\n", ptr - origptr);
     return 1;
 }
 
+/* Copy a tile from the font and apply rotation. Special case: tile 0
+   with rotation 1 produces a solid black (all-bits-set) tile rather
+   than a rotated blank. */
 static int get_tile_and_rotate(uint8_t *tile, int tile_index, int rotation) {
     if (tile_index >= NUMBER_OF_RTPI_TILES)
         return 0;
@@ -114,13 +166,30 @@ static int get_tile_and_rotate(uint8_t *tile, int tile_index, int rotation) {
     return 1;
 }
 
-static uint8_t *get_next_byte(uint8_t *ptr, uint16_t *tile_index, int *rotation) {
-    uint8_t grom_byte = *ptr++;
+/* Read one byte from the GROM stream and unpack the tile index
+   (bits 0–5) and rotation (bits 6–7). */
+static int get_next_byte(uint8_t **ptr, uint8_t *gend, uint16_t *tile_index, int *rotation) {
+    uint8_t *gptr = *ptr;
+    if (gptr >= gend)
+        return 0;
+    uint8_t grom_byte = *gptr++;
     *tile_index = grom_byte & 0x3f;
     *rotation = grom_byte >> 6;
-    return ptr;
+    *ptr = gptr;
+    return 1;
 }
 
+/* Copy 8 bytes from the VDP pixel buffer to the tile pointer.
+   Bounds-checked against the buffer end. */
+static int copy_tile_from_vdp(uint8_t *tile, int screen_index) {
+    if (screen_index * 8 + 8 > RTPI_IMAGE_SIZE)
+        return 0;
+    memcpy(tile, vdp_pixels + screen_index * 8, 8);
+    return 1;
+}
+
+/* Write 8 bytes of tile data to the VDP pixel buffer and advance
+   the write pointer. Bounds-checked against the buffer end. */
 static uint8_t *blit_tile(uint8_t *dst, uint8_t *tile) {
     if (dst + 8 > vdp_pixels + RTPI_IMAGE_SIZE)
         return dst;
@@ -129,29 +198,45 @@ static uint8_t *blit_tile(uint8_t *dst, uint8_t *tile) {
 }
 
 
+/* Decode a GROM image bytecode stream into vdp_pixels[] and vdp_colors[].
+
+   When 'fuzzy' is non-zero, the stream pointer starts 2 bytes late,
+   causing the bytecode to be misinterpreted — the resulting garbled
+   image simulates the protagonist's myopia (used when glasses are
+   not worn).
+
+   The bytecode operates on a 16-bit instruction word per iteration:
+     bits 13–15: opcode (0–7)
+     bits 9–12:  repeat count / sub-opcode selector
+     bits 6–7:   tile rotation (0/90/180/270)
+     bits 0–5:   tile index (0–51) for tile-based ops
+     bits 0–8:   screen position index for VDP-read ops
+
+   The stream ends when opcode 7 with repeat==0 is encountered, which
+   signals the transition to the colour attribute section. */
 static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
 
-    if (image == NULL || image->imagedata == NULL) {
+    if (image == NULL || image->imagedata == NULL || image->datasize < 2) {
         return 0;
     }
 
-    // At least one image (the crawlway) will leave the color of the previous image
-    // in the bottom right corner unless we clear color memory. On the other hand, we must
-    // not clear it when we are drawing an image that is meant to be a detail on top of another,
-    // larger image (i.e. a room object image.)
+    /* Clear colour memory for full room images to avoid residual
+       colours from the previous image. Don't clear for overlay
+       images (room objects) drawn on top of a base image. */
     if (image->usage == IMG_ROOM && image->index <= GameHeader.NumRooms) {
         memset(vdp_colors, 0, RTPI_IMAGE_SIZE);
     }
 
     uint8_t *dst = vdp_pixels;
+    uint8_t *vdp_end = vdp_pixels + RTPI_IMAGE_SIZE;
 
-    // Adding 2 to the starting offset makes the image "fuzzy"
-    // i.e. messes it up in an interesting way,
-    // representing the game protagonist's myopia.
-    uint8_t *gptr = image->imagedata + 2 * fuzzy;
+    /* Fuzzy mode: skip 2 bytes to misalign the bytecode stream,
+       producing a garbled image (simulates myopia). */
+    uint8_t *gptr = image->imagedata + (fuzzy ? 2 : 0);
+    uint8_t *gend = image->imagedata + image->datasize;
 
-    int rotation = 0; // 0..3
-    int repeats = 0; // 0..15
+    int rotation = 0;
+    int repeats = 0;
     int op = 0;
 
     uint16_t draw_ops_word = 0;
@@ -159,7 +244,7 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
     uint8_t tile[8] = {0,0,0,0,0,0,0,0};
     uint8_t worktile[8] = {0,0,0,0,0,0,0,0};
 
-    do {
+    while (gptr + 2 <= gend) {
         /*   - Bits 0-5: tile index. There are only 52 tile patterns.
          *   - Bits 6-7: rotation mode (0=none, 1=rot-90, 2=rot-180, 3=rot-270)
          *   - Some opcodes (such as 0) instead use bits 0-8 as the index to an
@@ -175,14 +260,11 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
         repeats = (draw_ops_word & 0x1e00) >> 9;
         op = (draw_ops_word & 0xe000) >> 13;
 
-        // Special cases:
         if (repeats == 0) {
-            // if repeats is 0 and op is 7, it is time to draw colors
             if (op == 7) {
-                return DecodeRTPIColors(gptr - 1, image->imagedata);
+                return DecodeRTPIColors(gptr - 1, image->imagedata, image->datasize);
             }
 
-            // if repeats is 0 and op is not 2, we need to back up a byte
             if (op != 2) {
                 gptr--;
                 memset(tile, 0, 8);
@@ -207,18 +289,20 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                  * the next tile index from GROM for the next iteration.
                  */
                 for (int i = 0; i < repeats; i++) {
-                    memcpy(tile, vdp_pixels + screen_index * 8, 8);
+                    if (!copy_tile_from_vdp(tile, screen_index))
+                        break;
                     dst = blit_tile(dst, tile);
                     if (i < repeats - 1) {
-                        uint8_t grom_byte = *gptr++;
-                        screen_index = grom_byte;
+                        if (gptr >= gend)
+                            break;
+                        screen_index = *gptr++;
                     }
                 }
                 break;
             case 1:
                 /* --- 1. Repeat tile. Draw tile with rotation, blit repeatedly ---
                  * Op 1: Processes a single tile with full rotation/composition,
-                 * then blits the result to VDP R2 times. Each blit writes the
+                 * then blits the result to VDP (repeats) times. Each blit writes the
                  * same composed tile to consecutive VDP positions.
                  */
                 if (!get_tile_and_rotate(tile, tile_index, rotation))
@@ -236,14 +320,16 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                  * then clears the buffer. This positions the write pointer
                  * without actually writing any tile data.
                  */
-                dst = vdp_pixels + screen_index * 8;
+                if (screen_index * 8 < RTPI_IMAGE_SIZE)
+                    dst = vdp_pixels + screen_index * 8;
                 break;
             case 3:
                 /* --- 3. Copy one tile. Read tile from VDP and blit with repeats ---
                  * Op 3: Reads one tile from VDP into the buffer, then blits
                  * it to VDP (repeat) times.
                  */
-                memcpy(tile, vdp_pixels + screen_index * 8, 8);
+                if (!copy_tile_from_vdp(tile, screen_index))
+                    break;
                 for (int i = 0; i < repeats; i++) {
                     dst = blit_tile(dst, tile);
                 }
@@ -260,7 +346,8 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                         continue;
                     dst = blit_tile(dst, tile);
                     if (i < repeats - 1) {
-                        gptr = get_next_byte(gptr, &tile_index, &rotation);
+                        if (!get_next_byte(&gptr, gend, &tile_index, &rotation))
+                            break;
                     }
                 }
                 memset(tile, 0, 8);
@@ -272,7 +359,8 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                  * sequential run of tiles (tile N, N+1, N+2, ...).
                  */
                 for (int i = 0; i < repeats; i++) {
-                    memcpy(tile, vdp_pixels + screen_index * 8, 8);
+                    if (!copy_tile_from_vdp(tile, screen_index))
+                        break;
                     dst = blit_tile(dst, tile);
                     screen_index++;
                 }
@@ -285,8 +373,6 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                  * used by the game are implemented.
                  */
 
-                // Most of the sub-ops start by getting and rotating worktile
-                // (All except 0, 13 and 15)
                 if (repeats > 0 && repeats < 13) {
                     if (!get_tile_and_rotate(worktile, tile_index, rotation))
                         break;
@@ -294,8 +380,10 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
 
                 switch(repeats) {
                     case 0: //  0. Writes 8 raw bytes to screen memory directly from GROM
+                        if (gptr + 8 > gend || dst + 8 > vdp_end)
+                            break;
                         for (int i = 0; i < 8; i++) {
-                            *dst++ = *gptr++;;
+                            *dst++ = *gptr++;
                         }
                         break;
                     case 1: //  1-4. OR tile_index with next (repeats) tiles, then blit and clear
@@ -306,7 +394,8 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                             for (int j = 0; j < 8; j++)
                                 tile[j] |= worktile[j];
                             if (i < repeats - 1) {
-                                gptr = get_next_byte(gptr, &tile_index, &rotation);
+                                if (!get_next_byte(&gptr, gend, &tile_index, &rotation))
+                                    break;
                                 if (!get_tile_and_rotate(worktile, tile_index, rotation))
                                     break;
                             }
@@ -315,7 +404,8 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                         memset(tile, 0, 8);
                         break;
                     case 6: //  6. Clear, AND tile_index with next tile, blit and clear
-                        gptr = get_next_byte(gptr, &tile_index, &rotation);
+                        if (!get_next_byte(&gptr, gend, &tile_index, &rotation))
+                            break;
                         if (!get_tile_and_rotate(tile, tile_index, rotation))
                             break;
                         for (int i = 0; i < 8; i++)
@@ -338,12 +428,13 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                             tile[i] ^= worktile[i];
                         }
                         break;
-                    case 13: // 13. Copy screen tile at tile_index to tile
-                        memcpy(tile, vdp_pixels + screen_index * 8, 8);
+                    case 13: // 13. Copy screen tile at screen_index to tile
+                        copy_tile_from_vdp(tile, screen_index);
                         break;
                     case 15: // 15. Blit tile and copy tile_index to tile
                         dst = blit_tile(dst, tile);
-                        memcpy(tile, ti994atiles[tile_index], 8);
+                        if (!get_tile_and_rotate(tile, tile_index, 0))
+                            memset(tile, 0, 8);
                         break;
                     default:
                         fprintf(stderr, "DrawRTPIImageWithFuzz: Unimplemented sub-opcode (%d)\n", repeats);
@@ -365,25 +456,31 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                         memset(tile, 0, 8);
                     }
                     if (i < repeats - 1) {
-                        gptr = get_next_byte(gptr, &tile_index, &rotation);
+                        if (!get_next_byte(&gptr, gend, &tile_index, &rotation))
+                            break;
                     }
                 }
                 break;
             default:
                 fprintf(stderr, "DrawRTPIImageWithFuzz: Illegal opcode %d!\n", op);
         }
-    } while (gptr - image->imagedata < image->datasize - 2);
+    }
     return 0;
 }
 
+/* Normal image rendering. */
 int DrawRTPIImage(USImage *image) {
     return DrawRTPIImageWithFuzz(image, 0);
 }
 
+/* Render with deliberate misalignment (myopia effect). */
 int DrawFuzzyRTPIImage(USImage *image) {
     return DrawRTPIImageWithFuzz(image, 1);
 }
 
+/* Set up the 16-entry palette to match the TMS9918A VDP's fixed
+   colour table. RGB values are derived from the MAME emulator's
+   analysis of the TMS9918A's composite video output. */
 static void SetupRTPIColors(void) {
 
     /* From MAME:
@@ -441,6 +538,10 @@ static void SetupRTPIColors(void) {
     SetColor(15, brwhite);
 }
 
+/* Render the decoded VDP buffers (vdp_pixels + vdp_colors) to the
+   screen. Iterates over each tile position, unpacking the per-row
+   colour attribute (fg in upper nibble, bg in lower) and drawing
+   foreground/background pixels accordingly. */
 void DrawRTPIFromMem(void) {
     glk_window_clear(Graphics);
 
@@ -472,6 +573,11 @@ void DrawRTPIFromMem(void) {
     }
 }
 
+/* Copy image data from GROM into a newly allocated USImage, handling
+   the GROM bank header discontinuity. Each 0x2000-byte GROM bank has
+   an 0x802-byte header that must be skipped when an image spans a bank
+   boundary. After copying, allocates and links a new (empty) USImage
+   node and returns it for the next image to use. */
 static USImage *finalize_img_make_new(USImage *image, uint16_t offset, uint16_t size, uint8_t *grom) {
 
     if (offset >= GROM_SIZE)
@@ -482,7 +588,10 @@ static USImage *finalize_img_make_new(USImage *image, uint16_t offset, uint16_t 
 
     uint16_t maxrange = offset + size;
 
-    // Skip grom header data
+    /* If the image spans a GROM bank boundary, the middle portion
+       contains a bank header (0x802 bytes) that is not image data.
+       Re-copy the tail from past the header to stitch the image
+       back together. */
     if (maxrange > 0x17fe && (maxrange - 0x17fe) % 0x2000 < size) {
         uint16_t cutoff = size - ((maxrange - 0x17fe) % 0x2000);
         if (offset + cutoff + 0x802 + size - cutoff >= GROM_SIZE)
@@ -500,11 +609,15 @@ static USImage *finalize_img_make_new(USImage *image, uint16_t offset, uint16_t 
 
 #define LAST_IMAGE_SIZE 0x72
 
+/* Build a linked list of USImage structs from the GROM data. Room
+   images come first (24 rooms + 9 extra scenes), followed by 7 item
+   overlay images. Image sizes are generally computed from the gap
+   between consecutive offsets, with hardcoded overrides for images
+   whose data is not contiguous (17, 22, 26). */
 static int LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_offsets[NUMBER_OF_RTPI_ITEM_IMAGES][2], uint8_t *grom) {
     USImages = NewImage();
     USImage *image = USImages;
 
-    // Create a linked list of USImage structs (one for every image)
     for (int i = 0; i < NUMBER_OF_RTPI_ROOM_IMAGES; i++) {
 
         if (room_image_offsets[i] == 0)
@@ -516,21 +629,25 @@ static int LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_of
         image->usage = IMG_ROOM;
         image->index = i;
         if (i == 25) {
-            // Give image 25 (Texas Instruments logo) the standard title image index (99)
+            /* Image 25 is the Texas Instruments logo / title screen;
+               map it to the standard title image index (99). */
             image->index = 99;
         } else if (i == 27) {
-            // Create a room image for item 29: Inside of boat
+            /* Smuggler's hold from below — displayed as an object
+               overlay for room 29 (inside of boat). */
             image->index = 29;
             image->usage = IMG_ROOM_OBJ;
         } else if (i == 28) {
-            // Create a room image for Item 4: Isle off in distance
-            // (The deck at night)
+            /* Deck at night — displayed as an object overlay for
+               room 4 (isle off in distance). */
             image->index = 4;
             image->usage = IMG_ROOM_OBJ;
         }
 
         size_t size;
 
+        /* Some images span GROM bank headers, so their sizes can't be computed
+         from the offset table and must be hardcoded. */
         if (i == 17) {
             size = 0x183;
         } else if (i == 22) {
@@ -538,6 +655,7 @@ static int LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_of
         } else if (i == 26) {
             size = 0xdd4;
         } else if (i < NUMBER_OF_RTPI_ROOM_IMAGES - 1) {
+            /* Normal case: size = next non-overlapping offset minus ours. */
             int j = i + 1;
             size_t next;
             do {
@@ -545,12 +663,17 @@ static int LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_of
             } while (next < offset);
             size = next - offset;
         } else {
+            /* Last room image: size extends to the first item image. */
             size = item_image_offsets[0][1] - offset;
         }
 
         image = finalize_img_make_new(image, offset, size, grom);
     }
 
+    /* Item overlay images. Each entry in item_image_offsets[][] is a pair:
+       [0] = index of room image the item overlays, [1] = GROM offset of image data.
+       Size is computed from the gap to the next item image, except for the
+       last one which has a hardcoded size (LAST_IMAGE_SIZE). */
     for (int i = 0; i < NUMBER_OF_RTPI_ITEM_IMAGES; i++) {
         size_t offset = item_image_offsets[i][1];
 
@@ -568,8 +691,9 @@ static int LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_of
         image = finalize_img_make_new(image, offset, size, grom);
     }
 
+    /* The loop always leaves one empty trailing USImage node.
+       Unlink and free it so the list ends cleanly. */
     if (image->imagedata == NULL) {
-        /* Free the last image, it is empty */
         if (image != USImages) {
             image->previous->next = NULL;
             free(image);
@@ -626,16 +750,32 @@ static int LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_of
      */
 }
 
+/* Forward declarations for shared Scott Adams loader functions
+   defined in saga.c. */
 GameIDType FreeGameResources(void);
 uint8_t *Skip(uint8_t *ptr, int count, uint8_t *eof);
 uint8_t *ParseRooms(uint8_t *ptr, uint8_t *endptr, int number_of_rooms);
 uint8_t *ParseItems(uint8_t *ptr, uint8_t *endptr, int number_of_items);
 
-static uint8_t *ReadRTPIDictionary(GameInfo info, uint8_t **pointer, int loud) {
-    uint8_t *ptr = *pointer;
-    if (info.word_length + 2 > 1024)
+/* Parse the dictionary from the GROM data stream into the global
+   Nouns[] and Verbs[] arrays.
+
+   The dictionary is a flat byte stream of fixed-width words
+   (info.word_length chars each). Nouns come first, then verbs. A '*'
+   character marks a synonym: it restarts the current word entry so
+   the synonym shares the same word number (the '*' prefix is preserved
+   in the stored string, as the game engine uses it to identify synonyms).
+   Trailing spaces within a word are collapsed. A byte with bit 7 set
+   signals the end of the dictionary.
+
+   When `loud` is set, each parsed word is printed for debugging. */
+static uint8_t *ReadRTPIDictionary(GameInfo info, uint8_t *ptr, uint8_t *endptr, int loud) {
+    int wl = info.word_length;
+    if (wl < 1 || wl > 1020)
         Fatal("Bad word length");
-    char dictword[1024];
+
+    #define DICTWORD_SIZE 1024
+    char dictword[DICTWORD_SIZE];
     char c = 0;
     int wordnum = 0;
     int charindex = 0;
@@ -644,28 +784,43 @@ static uint8_t *ReadRTPIDictionary(GameInfo info, uint8_t **pointer, int loud) {
     int nv = info.number_of_verbs;
     int nn = info.number_of_nouns;
 
+    /* Initialize all slots to "." (the Scott Adams placeholder for
+       empty/unused dictionary entries). */
     for (int i = 0; i < nw + 2; i++) {
         Verbs[i] = ".";
         Nouns[i] = ".";
     }
 
     do {
-        for (int i = 0; i < info.word_length; i++) {
+        int restarts = 0;
+        for (int i = 0; i < wl; i++) {
+            if (ptr >= endptr)
+                return ptr;
             c = *ptr++;
 
+            /* Skip leading NUL bytes (padding between entries). */
             if (c == 0 && charindex == 0) {
+                if (ptr >= endptr)
+                    return ptr;
                 c = *ptr++;
             }
+            /* Collapse trailing spaces: if the previous char was a space
+               and the current one isn't, back up to overwrite the space. */
             if (c != ' ' && charindex > 0 && dictword[charindex - 1] == ' ') {
                 i--;
                 charindex--;
             }
+            /* '*' marks a synonym — reset the word buffer and restart
+               reading so this entry replaces the previous one at the
+               same word number. The '*' prefix is preserved. */
             if (c == '*') {
-                if (charindex != 0)
-                    charindex = 0;
+                charindex = 0;
                 i = -1;
+                if (++restarts > wl)
+                    break;
             }
-            dictword[charindex++] = c;
+            if (charindex < DICTWORD_SIZE - 1)
+                dictword[charindex++] = c;
         }
         dictword[charindex] = 0;
         if (wordnum < nn) {
@@ -673,7 +828,7 @@ static uint8_t *ReadRTPIDictionary(GameInfo info, uint8_t **pointer, int loud) {
             memcpy((char *)Nouns[wordnum], dictword, charindex + 1);
             if (loud)
                 debug_print("Noun %d: \"%s\"\n", wordnum, Nouns[wordnum]);
-        } else {
+        } else if (wordnum - nn < nw + 2) {
             Verbs[wordnum - nn] = MemAlloc(charindex + 1);
             memcpy((char *)Verbs[wordnum - nn], dictword, charindex + 1);
             if (loud)
@@ -681,6 +836,7 @@ static uint8_t *ReadRTPIDictionary(GameInfo info, uint8_t **pointer, int loud) {
         }
         wordnum++;
 
+        /* A byte with the high bit set terminates the dictionary. */
         if (c > 127)
             return ptr;
 
@@ -688,70 +844,101 @@ static uint8_t *ReadRTPIDictionary(GameInfo info, uint8_t **pointer, int loud) {
     } while (wordnum <= nv + nn);
 
     return ptr;
+    #undef DICTWORD_SIZE
 }
 
-static uint8_t *ParseRTPIActions(uint8_t *ptr, uint8_t *data, size_t datalength, int number_of_actions)
+/* Parse the action table from the GROM data.
+
+   Unlike the ASCII Scott Adams .dat format, where each action is stored
+   as a contiguous record, the binary format uses a column-major
+   layout: all verbs for every action come first (one byte per action),
+   then all nouns, then subcommand pairs, and finally conditions. Each
+   "column" is (number_of_actions + 1) entries long.
+
+   Layout within `data` starting at `offset`:
+     Column 0: verb[0..N]                    — 1 byte each
+     Column 1: noun[0..N]                    — 1 byte each
+     Columns 2–5: subcommand values (4 cols) — 1 byte each, paired into 2 subcommands
+     Columns 6–15: conditions (5 cols)       — 2 bytes each (big-endian)
+
+   Vocab is encoded as verb*150 + noun, and subcommands as value*150 + value2,
+   matching the standard Scott Adams action encoding. Condition offsets
+   that cross the 0x97FE boundary wrap around (GROM bank boundary). */
+static int ParseRTPIActions(uint8_t *ptr, uint8_t *data, size_t datalength, int number_of_actions)
 {
-    int counter = 0;
     Action *ap = Actions;
+    size_t base = ptr - data;
+    size_t stride = (size_t)(number_of_actions + 1);
 
-    size_t offset = ptr - data;
-    size_t offset2;
+    /* Pre-compute the base offset of each single-byte column (0–5)
+       and the base offset of the conditions block (columns 6–15,
+       which are 16-bit). */
+    size_t col[6];
+    for (int c = 0; c < 6; c++)
+        col[c] = base + c * stride;
+    size_t cond_base = base + 6 * stride;
 
-    int verb, noun, value, value2, plus = 0;
-    while (counter <= number_of_actions && offset + counter + plus < datalength) {
-        plus = number_of_actions + 1;
-        verb = data[offset + counter];
-        noun = data[offset + counter + plus];
+    /* The farthest single-byte read is col[5] + number_of_actions.
+       Bail out early if that's already past the data. */
+    if (col[5] + number_of_actions >= datalength)
+        return 0;
 
-        ap->Vocab = verb * 150 + noun;
+    for (int i = 0; i <= number_of_actions; i++) {
+        /* Read verb and noun from their respective columns. */
+        ap->Vocab = data[col[0] + i] * 150 + data[col[1] + i];
 
-        for (int j = 0; j < 2; j++) {
-            plus += number_of_actions + 1;
-            value = data[offset + counter + plus];
-            plus += number_of_actions + 1;
-            value2 = data[offset + counter + plus];
-            ap->Subcommand[j] = 150 * value + value2;
-        }
+        /* Read 2 subcommands, each built from a pair of consecutive columns. */
+        ap->Subcommand[0] = 150 * data[col[2] + i] + data[col[3] + i];
+        ap->Subcommand[1] = 150 * data[col[4] + i] + data[col[5] + i];
 
-        offset2 = offset + 6 * (number_of_actions + 1);
-        plus = 0;
-
-        for (int j = 0; j < 5 && offset2 + counter * 2 + plus < datalength; j++) {
-            uint16_t offset3 = offset2 + counter * 2 + plus;
-            if (offset3 >= 0x97fe) {
-                offset3 -= 0x97fe;
+        /* Conditions are 16-bit big-endian values in 5 columns following
+           the 6 single-byte columns. Each condition column has a stride
+           of 2 * stride bytes. */
+        for (int j = 0; j < 5; j++) {
+            size_t cond_off = cond_base + (size_t)i * 2 + (size_t)j * stride * 2;
+            /* Wrap around GROM bank boundary at 0x97FE. */
+            if (cond_off >= 0x97fe)
+                cond_off -= 0x97fe;
+            if (cond_off + 2 > datalength) {
+                ap->Condition[j] = 0;
+                continue;
             }
-            ap->Condition[j] = READ_BE_UINT16(data + offset3);
-            ptr = data + offset2 + counter * 2 + plus + 2;
-            plus += (number_of_actions + 1) * 2;
+            ap->Condition[j] = READ_BE_UINT16(data + cond_off);
         }
 
-        debug_print("Action %d Vocab: %d (Verb:%d/NounOrChance:%d)\n", counter, ap->Vocab,
+        debug_print("Action %d Vocab: %d (Verb:%d/NounOrChance:%d)\n", i, ap->Vocab,
                     ap->Vocab / 150,  ap->Vocab % 150);
-        debug_print("Action %d Condition[0]: %d (%d/%d)\n", counter,
+        debug_print("Action %d Condition[0]: %d (%d/%d)\n", i,
                     ap->Condition[0], ap->Condition[0] % 20, ap->Condition[0] / 20);
-        debug_print("Action %d Condition[1]: %d (%d/%d)\n", counter,
+        debug_print("Action %d Condition[1]: %d (%d/%d)\n", i,
                     ap->Condition[1], ap->Condition[1] % 20, ap->Condition[1] / 20);
-        debug_print("Action %d Condition[2]: %d (%d/%d)\n", counter,
+        debug_print("Action %d Condition[2]: %d (%d/%d)\n", i,
                     ap->Condition[2], ap->Condition[2] % 20, ap->Condition[2] / 20);
-        debug_print("Action %d Condition[3]: %d (%d/%d)\n", counter,
+        debug_print("Action %d Condition[3]: %d (%d/%d)\n", i,
                     ap->Condition[3], ap->Condition[3] % 20, ap->Condition[3] / 20);
-        debug_print("Action %d Condition[4]: %d (%d/%d)\n", counter,
+        debug_print("Action %d Condition[4]: %d (%d/%d)\n", i,
                     ap->Condition[4], ap->Condition[4] % 20, ap->Condition[4] / 20);
-        debug_print("Action %d Subcommand [0]]: %d (%d/%d)\n", counter, ap->Subcommand[0], ap->Subcommand[0] % 150, ap->Subcommand[0] / 150);
-        debug_print("Action %d Subcommand [1]]: %d (%d/%d)\n", counter, ap->Subcommand[1], ap->Subcommand[1] % 150, ap->Subcommand[1] / 150);
+        debug_print("Action %d Subcommand [0]]: %d (%d/%d)\n", i, ap->Subcommand[0], ap->Subcommand[0] % 150, ap->Subcommand[0] / 150);
+        debug_print("Action %d Subcommand [1]]: %d (%d/%d)\n", i, ap->Subcommand[1], ap->Subcommand[1] % 150, ap->Subcommand[1] / 150);
 
         ap++;
-        counter++;
     }
-    return ptr;
+
+    /* Chack if we ran off the end of data. */
+    size_t end_off = cond_base + (size_t)number_of_actions * 2 + 4 * stride * 2 + 2;
+    return (end_off <= datalength);
 }
 
+/* Parse room exit connections from a column-major byte table.
+
+   Like the action table, this is stored column-major: all North exits
+   for every room come first, then all South exits, etc. There are 6
+   directions (N/S/E/W/U/D) and (number_of_rooms + 1) entries per
+   direction. Each byte is the destination room number (0 = no exit).
+
+   Room images are initialised to 255 (no image) here; the actual
+   image assignment happens later during gameplay. */
 static uint8_t *ParseRTPIRoomConnections(uint8_t *ptr, uint8_t *endptr, int number_of_rooms) {
-    /* The room connections are ordered by direction, not room, so all the North
-     * connections for all the rooms come first, then the South connections, and
-     * so on. */
     for (int j = 0; j < 6; j++) {
         int counter = 0;
         Room *rp = Rooms;
@@ -769,7 +956,14 @@ static uint8_t *ParseRTPIRoomConnections(uint8_t *ptr, uint8_t *endptr, int numb
 }
 
 
-static GameIDType LoadRTPI(uint8_t *data, size_t length, GameInfo info, int dict_start, int loud)
+/* Load all game data (dictionary, rooms, messages, items, actions,
+   room connections) from the GROM data for Return to Pirate's Isle.
+
+   The data is at absolute offsets within the GROM image (specified in
+   the GameInfo struct). Each section is parsed sequentially, with
+   bounds checks between sections. Returns the game ID on success, or
+   UNKNOWN_GAME if any section extends past the data boundary. */
+static GameIDType LoadRTPI(uint8_t *data, size_t length, GameInfo info, int loud)
 {
     uint8_t *ptr;
     uint8_t *endptr = data + length;
@@ -779,39 +973,49 @@ static GameIDType LoadRTPI(uint8_t *data, size_t length, GameInfo info, int dict
 #pragma mark dictionary
 
     ptr = data + info.start_of_dictionary;
-    if (ptr > endptr)
-        return UNKNOWN_GAME;
+    if (ptr >= endptr)
+        return FreeGameResources();
 
-    ptr = ReadRTPIDictionary(info, &ptr, loud);
+    ptr = ReadRTPIDictionary(info, ptr, endptr, loud);
 
 #pragma mark rooms
 
     ptr = data + info.start_of_room_descriptions;
-    if (ptr > endptr)
-        return UNKNOWN_GAME;
+    if (ptr >= endptr)
+        return FreeGameResources();
 
     ptr = ParseRooms(ptr - 1, endptr, GameHeader.NumRooms);
 
 #pragma mark messages
 
     ptr = data + info.start_of_messages;
-    if (ptr > endptr)
-        return UNKNOWN_GAME;
+    if (ptr >= endptr)
+        return FreeGameResources();
 
     ct = 0;
 
-    uint8_t stringlength = 0;
+    /* Messages are length-prefixed strings (1-byte length, then that
+       many characters). Empty messages (length 0) are stored as ".". */
     while (ct < GameHeader.NumMessages + 1) {
-        stringlength = *ptr++;
+        if (ptr >= endptr)
+            break;
+        uint8_t stringlength = *ptr++;
         if (stringlength != 0) {
             Messages[ct] = MemAlloc(stringlength + 1);
-            memcpy(Messages[ct], ptr, stringlength);
-            // Skip grom header
+            /* Message 60 spans a GROM bank boundary — the middle
+               0x802 bytes are a bank header, not message data. Stitch
+               the two halves together, skipping the header. */
             if (ct == 60) {
-                uint8_t *partial = (uint8_t *)Messages[ct];
-                memcpy(partial + 18, ptr + 0x814, 7);
-                memcpy(Messages[ct], partial, stringlength);
+                if (ptr + 18 > endptr || ptr + 0x814 + 7 > endptr) {
+                    Messages[ct][0] = 0;
+                } else {
+                    memcpy(Messages[ct], ptr, 18);
+                    memcpy((uint8_t *)Messages[ct] + 18, ptr + 0x814, 7);
+                }
                 ptr += 0x802;
+            } else {
+                if (ptr + stringlength <= endptr)
+                    memcpy(Messages[ct], ptr, stringlength);
             }
             Messages[ct][stringlength] = 0;
             if (loud)
@@ -825,20 +1029,22 @@ static GameIDType LoadRTPI(uint8_t *data, size_t length, GameInfo info, int dict
 
 #pragma mark items
 
-    if (ptr > endptr)
-        return UNKNOWN_GAME;
+    if (ptr >= endptr)
+        return FreeGameResources();
 
     ptr = ParseItems(ptr, endptr, GameHeader.NumItems);
 
 #pragma mark item locations
 
     ptr = data + info.start_of_item_locations;
-    if (ptr > endptr)
-        return UNKNOWN_GAME;
+    if (ptr >= endptr)
+        return FreeGameResources();
 
+    /* Item locations are a flat array of bytes, one per item. Each
+       byte is the room number where the item starts. */
     ct = 0;
     Item *ip = Items;
-    while (ct <= GameHeader.NumItems) {
+    while (ct <= GameHeader.NumItems && ptr < endptr) {
         ip->Location = *ptr++;
         ip->InitialLoc = ip->Location;
         if (Items[ct].Text && ip->Location < GameHeader.NumRooms && Rooms[ip->Location].Text)
@@ -848,24 +1054,29 @@ static GameIDType LoadRTPI(uint8_t *data, size_t length, GameInfo info, int dict
     }
 
     ptr = data + info.start_of_actions;
-    if (ptr > endptr)
-        return UNKNOWN_GAME;
+    if (ptr >= endptr)
+        return FreeGameResources();
 
-    // Parse actions
-    ptr = ParseRTPIActions(ptr, data, length, GameHeader.NumActions);
-    if (ptr == NULL || ptr >= endptr) {
+    ;
+    if (!ParseRTPIActions(ptr, data, length, GameHeader.NumActions)) {
         return FreeGameResources();
     }
 
     ptr = data + info.start_of_room_connections;
-    if (ptr > endptr)
-        return UNKNOWN_GAME;
+    if (ptr >= endptr)
+        return FreeGameResources();
 
     ptr = ParseRTPIRoomConnections(ptr, endptr, GameHeader.NumRooms);
 
     return info.gameID;
 }
 
+/* Translate a TI-99/4A GROM address into a file offset.
+
+   In the original hardware, GROM addresses start at 0x6000. The file
+   image starts at offset 0, so we subtract 0x6000 from any address
+   that has bit 15 set (i.e. addresses >= 0x8000, which are in the
+   range the game uses). Addresses below 0x8000 are left unchanged. */
 static uint16_t adjust_grom_offset(uint16_t offset) {
     if ((offset & 0x8000) != 0) {
         offset -= 0x6000;
@@ -873,15 +1084,37 @@ static uint16_t adjust_grom_offset(uint16_t offset) {
     return offset;
 }
 
+/* Byte offsets within the c.bin (CPU ROM) file where the image offset
+   tables begin. ROOM_IMAGES_OFFSET points to 33 big-endian 16-bit
+   GROM addresses (one per room image). ITEM_IMAGES_OFFSET points to
+   7 pairs of (room_index, GROM_address), each 4 bytes. */
 #define ROOM_IMAGES_OFFSET 0x12
 #define ITEM_IMAGES_OFFSET 0x54
 
+/* Detect and load the TI-99/4A "Return to Pirate's Isle" game from
+   a zip archive.
+
+   The game ships as a set of ROM files inside a zip:
+     - c.bin (or phm3189c.bin): CPU ROM — contains tile font data,
+       image offset tables, and the title screen text
+     - g.bin (or phm3189g3–g7.bin): GROM data — contains all game data
+       (dictionary, rooms, messages, items, actions, connections) and
+       the image data
+
+   Two zip layouts are supported: the "clean" layout with c.bin + g.bin,
+   and the MAME layout with the split phm3189*.bin files.
+
+   On success, all game data structures are populated and the function
+   returns RETURN_TO_PIRATES_ISLE. On failure (missing files, bad data)
+   it returns UNKNOWN_GAME. */
 GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
 
     size_t length;
 
+    /* Try to extract the CPU ROM, accepting either filename variant. */
     uint8_t *ptr = extract_file_from_zip_data(data, datalength, "c.bin", &length);
 
+    /* If c.bin is not present, try the MAME zip name */
     if (!ptr) {
         ptr = extract_file_from_zip_data(data, datalength, "phm3189c.bin", &length);
         if (!ptr) {
@@ -894,8 +1127,9 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
         return UNKNOWN_GAME;
     }
 
-    // We only need the tile data, image offsets and intro text from this file
-
+    /* Extract room and item image offset tables from the CPU ROM.
+       Room offsets are 33 big-endian 16-bit GROM addresses at 0x12.
+       Item offsets are 7 (room_index, GROM_address) pairs at 0x54. */
     uint16_t room_image_offsets[NUMBER_OF_RTPI_ROOM_IMAGES];
 
     for (int i = 0; i < NUMBER_OF_RTPI_ROOM_IMAGES; i++) {
@@ -909,7 +1143,8 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
         item_image_offsets[i][1] = adjust_grom_offset(READ_BE_UINT16(ptr + ITEM_IMAGES_OFFSET + i * 4 + 2));
     }
 
-    // Title screen text
+    /* Extract the title screen text. NUL bytes in the original data
+       are converted to newlines for display as a single string. */
     title_screen = MemAlloc(RTPI_TITLE_TEXT_LENGTH);
     memcpy((char *)title_screen, ptr + 0x13db, RTPI_TITLE_TEXT_LENGTH);
     for (int i = 0; i < RTPI_TITLE_TEXT_LENGTH; i++) {
@@ -918,15 +1153,18 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
     }
     title_screen[RTPI_TITLE_TEXT_LENGTH - 1] = '\0';
 
-    // Tile data
-    memcpy(ti994atiles, ptr + 0x1cf4, 51 * 8);
+    /* Extract the 52-tile font (8 bytes each) used for
+       rendering all the graphics. */
+    memcpy(ti994atiles, ptr + 0x1cf4, NUMBER_OF_RTPI_TILES * 8);
 
     free(ptr);
+
+    /* Load the GROM data. Try the single g.bin file first. */
     ptr = extract_file_from_zip_data(data, datalength, "g.bin", &length);
 
-    // If there is no g.bin file in the zip archive,
-    // look for the five smaller grom files in the MAME zip version
-    // and merge them (if found) to recreate the g.bin file.
+    /* If g.bin is not present, this may be the MAME zip format which
+       splits the GROM across five 0x2000-byte bank files (g3–g7).
+       Extract and concatenate them into a single contiguous buffer. */
     if (!ptr) {
         uint8_t *grom = MemCalloc(GROM_SIZE);
         char filename[14];
@@ -944,10 +1182,10 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
         length = GROM_SIZE;
     }
 
+    /* The TI-99/4A version has no standard Scott Adams header embedded
+       in the data. All game parameters are hardcoded here, matching
+       the known single release of the game. */
     int header[25];
-
-    // I failed to find anything resembling a header in the data,
-    // so we just hardcode the info here.
 
     header[0]  = 4;       // Word length: 4
     header[1]  = 104;     // Number of words: 104
@@ -985,6 +1223,12 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
     Messages = MemAlloc(sizeof(char *) * (mn + 1));
     GameHeader.TreasureRoom = trm;
 
+    /* GameInfo struct describing the GROM layout. The offsets here are
+       raw byte positions within the GROM file (not GROM addresses —
+       adjust_grom_offset has already been applied to image offsets, and
+       these offsets are used directly by LoadRTPI). Graphics data is
+       handled separately via LoadRTPIGraphics, so the image-related
+       fields are all zero. */
     GameInfo info = {
         "Return to Pirate's Isle",
         RETURN_TO_PIRATES_ISLE,
@@ -1032,7 +1276,10 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
 
     PrintHeaderInfo(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm);
 
-    if (LoadRTPI(ptr, length, info, 0, 1) == RETURN_TO_PIRATES_ISLE) {
+    /* Parse all game data from the GROM, then load graphics and set up
+       the TI-99/4A colour table. The original zip data is freed here
+       since it's no longer needed once the GROM has been loaded. */
+    if (LoadRTPI(ptr, length, info, 1) == RETURN_TO_PIRATES_ISLE) {
         free(data);
         LoadRTPIGraphics(room_image_offsets, item_image_offsets, ptr);
         free(ptr);
@@ -1046,6 +1293,9 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
     return UNKNOWN_GAME;
 }
 
+/* Override the default Scott Adams system messages with the text used
+   by the TI-99/4A version of Return to Pirate's Isle. These differ
+   from the standard messages in wording and punctuation. */
 void UpdateRTPISystemMessages(void) {
     sys[TOO_DARK_TO_SEE] = "I can't SEE!\n";
     sys[YOU_SEE] = ". Some visible items: ";

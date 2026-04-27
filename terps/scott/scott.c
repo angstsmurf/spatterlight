@@ -73,8 +73,9 @@
 #endif
 
 const char *game_file = NULL;
-char *DirPath = ".";
+char *DirPath = "."; /* Directory containing the game file */
 
+/* Core game data — populated by LoadDatabase or the SAGA/Plus loaders */
 Header GameHeader;
 Item *Items = NULL;
 Room *Rooms = NULL;
@@ -82,7 +83,7 @@ char **Verbs = NULL;
 char **Nouns = NULL;
 char **Messages = NULL;
 Action *Actions = NULL;
-int LightRefill;
+int LightRefill; /* Initial light duration, used when refilling the lamp */
 int Counters[16] = { 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0 }; /* Range unknown */
 int CurrentCounter;
@@ -92,33 +93,34 @@ int RoomSaved[16] = { 0, 0, 0, 0, 0, 0, 0, 0,
 
 long BitFlags = 0; /* Might be >32 flags - I haven't seen >32 yet */
 
-int AutoInventory = 0;
+int AutoInventory = 0; /* Auto-display inventory in room descriptions */
 int Options; /* Option flags set */
 glui32 TopWidth; /* Terminal width */
 glui32 TopHeight; /* Height of top window */
 int ImageWidth = 255;
 int ImageHeight = 96;
-int file_baseline_offset = 0;
+int file_baseline_offset = 0; /* Byte offset adjustment for files with extra data prepended */
 char *title_screen = NULL;
 
-Command *CurrentCommand = NULL;
-GameInfo *Game;
-MachineType CurrentSys = SYS_UNKNOWN;
+Command *CurrentCommand = NULL; /* Current node in the parsed command chain */
+GameInfo *Game; /* Metadata for the detected game (from the game database) */
+MachineType CurrentSys = SYS_UNKNOWN; /* Detected platform (DOS, C64, Spectrum, etc.) */
 
 extern const char *sysdict[MAX_SYSMESS];
 extern const char *sysdict_i_am[MAX_SYSMESS];
 
-const char *sys[MAX_SYSMESS];
+const char *sys[MAX_SYSMESS]; /* Active system messages (localized prompts, exits, etc.) */
 const char *system_messages[60];
 
-const char *battle_messages[33];
-uint8_t enemy_table[126];
+const char *battle_messages[33]; /* Seas of Blood combat messages */
+uint8_t enemy_table[126]; /* Seas of Blood enemy stat table */
 
-uint8_t *entire_file;
+uint8_t *entire_file; /* Raw game file loaded into memory */
 size_t file_length;
 
 int AnimationFlag = 0;
 
+/* Display state flags — track what's currently shown to avoid redundant redraws */
 int showing_inventory = 0;
 int showing_closeup = 0;
 int last_image_index = -1;
@@ -130,11 +132,11 @@ extern SavedState *InitialState;
 /* JustStarted is only used for the error message "Can't undo on first move" */
 int JustStarted = 1;
 static int should_restart = 0;
-int StopTime = 0;
+int StopTime = 0; /* When > 0, suppresses automatic (implicit) actions and decrements each turn */
 
 int should_look_in_transcript = 0;
 static int print_look_to_transcript = 0;
-static int pause_next_room_description = 0;
+static int pause_next_room_description = 0; /* Brief pause before next room description (for room transitions) */
 
 int split_screen = 1;
 winid_t Bottom, Top;
@@ -152,6 +154,7 @@ static int YesOrNo(void);
 
 static int PerformActions(int vb, int no);
 
+/* Format and output text to a Glk window, converting to Unicode */
 void Display(winid_t w, const char *fmt, ...)
 {
     va_list ap;
@@ -171,6 +174,8 @@ void Display(winid_t w, const char *fmt, ...)
     free(unistring);
 }
 
+/* Sync game options from the Spatterlight UI settings (delays, flicker,
+   inventory display mode, palette override) and refresh the display. */
 void UpdateSettings(void)
 {
 #ifdef SPATTERLIGHT
@@ -230,6 +235,8 @@ void UpdateSettings(void)
     should_draw_image = 1;
 }
 
+/* Draw a decorative separator line at the bottom of the status window.
+   Spectrum style uses asterisks; TRS-80 style uses <---...---> */
 static void PrintWindowDelimiter(void)
 {
     glk_window_get_size(Top, &TopWidth, &TopHeight);
@@ -248,6 +255,10 @@ static void PrintWindowDelimiter(void)
 
 static strid_t room_description_stream = NULL;
 
+/* Close the room description memory stream and render its contents.
+   In split-screen mode, the text is line-broken to fit the top window;
+   otherwise it's printed inline in the main window. Also handles
+   transcript output, window delimiter drawing, and the inter-room pause. */
 static void FlushRoomDescription(char *buf)
 {
     glk_stream_close(room_description_stream, 0);
@@ -325,6 +336,7 @@ static void FlushRoomDescription(char *buf)
     }
 }
 
+/* Render inventory into the upper window for US-variant games */
 static void UpdateUSInventory(void)
 {
     char *buf = MemAlloc(1000);
@@ -335,6 +347,8 @@ static void UpdateUSInventory(void)
     InventoryUS();
 }
 
+/* Handle Glk events: window arrangement changes trigger a full redraw,
+   timer ticks advance animations or vector drawing. */
 void Updates(event_t ev)
 {
     if (ev.type == evtype_Arrange) {
@@ -389,6 +403,8 @@ void Updates(event_t ev)
     }
 }
 
+/* Pause for a given duration using Glk timer events.
+   If vector drawing is in progress, waits for it to finish first. */
 void Delay(float seconds)
 {
     if (Options & NO_DELAYS)
@@ -423,6 +439,7 @@ void Delay(float seconds)
     glk_request_timer_events(0);
 }
 
+/* Open or find the status text-grid window above the main window */
 void OpenTopWindow(void)
 {
     Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
@@ -442,6 +459,8 @@ void OpenTopWindow(void)
     }
 }
 
+/* Compute the largest integer pixel multiplier that fits the game's
+   native image dimensions within the available graphics area. */
 glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight)
 {
     int multiplier = 1;
@@ -458,6 +477,9 @@ glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidt
     return multiplier;
 }
 
+/* Open the graphics window between the status window and the main text
+   window, sized to fit the game's native image resolution at the best
+   integer scale. Re-opens the status window above it if needed. */
 void OpenGraphicsWindow(void)
 {
 #ifdef SPATTERLIGHT
@@ -487,9 +509,8 @@ void OpenGraphicsWindow(void)
         }
 
     /* Set the graphics window background to match
-     * the main window background, best as we can,
-     * and clear the window.
-     */
+       the main window background, best as we can,
+       and clear the window. */
         glui32 background_color;
         if (Bottom && glk_style_measure(Bottom, style_Normal, stylehint_BackColor, &background_color)) {
             glk_window_set_background_color(Graphics, background_color);
@@ -560,6 +581,9 @@ int CountCarried(void)
     return (n);
 }
 
+/* Map a noun index to its canonical (non-synonym) word.
+   Synonyms in the dictionary are prefixed with '*' and share
+   the word number of the preceding canonical entry. */
 const char *MapSynonym(int noun)
 {
     int n = 1;
@@ -578,6 +602,8 @@ const char *MapSynonym(int noun)
     return (NULL);
 }
 
+/* Find the item whose AutoGet word matches the given noun at a given location.
+   Returns the item index, or -1 if no match. loc=0 matches any location. */
 static int MatchUpItem(int noun, int loc)
 {
     const char *word = MapSynonym(noun);
@@ -594,6 +620,9 @@ static int MatchUpItem(int noun, int loc)
     return (-1);
 }
 
+/* Read a double-quoted string from a ScottFree plaintext database file.
+   Handles escaped quotes (""), backtick-to-quote conversion, and
+   strips non-ASCII characters for Glk compatibility. */
 static char *ReadString(FILE *f)
 {
     char tmp[1024];
@@ -666,6 +695,9 @@ int header[24];
 //    return 1;
 //}
 
+/* Free all dynamically allocated game data arrays (actions, items, rooms,
+   dictionary, messages). Frees individual string elements that aren't
+   the shared "." placeholder, then frees the arrays and NULLs them. */
 void FreeDatabase(void)
 {
     if (Actions != NULL)
@@ -719,11 +751,23 @@ void FreeDatabase(void)
     Messages = NULL;
 }
 
+/* Load a ScottFree plaintext database from a FILE stream.
+
+   Reads the header, actions, word pairs (verb/noun dictionary), rooms
+   with exits, messages, items with locations, then the version/adventure
+   number trailer. Returns SCOTTFREE on success, HULK_US if the DOS Hulk
+   images are found, or UNKNOWN_GAME on parse failure.
+
+   The file format is the standard Scott Adams plain-text format as
+   used by the original IBM PC releases, the ScottKit toolkit,
+   and compatible tools. */
 GameIDType LoadDatabase(FILE *f, int loud)
 {
-    int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
+    int num_items, num_actions, num_words, num_rooms, max_carry;
+    int player_room, num_treasures, word_length, light_time;
+    int num_messages, treasure_room;
     int ct;
-    short lo;
+    short location;
     Action *ap;
     Room *rp;
     Item *ip;
@@ -731,31 +775,33 @@ GameIDType LoadDatabase(FILE *f, int loud)
 
     loud = 1;
 
-    if (fscanf(f, "%*d %d %d %d %d %d %d %d %d %d %d %d", &ni, &na, &nw, &nr, &mc,
-            &pr, &tr, &wl, &lt, &mn, &trm)
+    if (fscanf(f, "%*d %d %d %d %d %d %d %d %d %d %d %d",
+            &num_items, &num_actions, &num_words, &num_rooms, &max_carry,
+            &player_room, &num_treasures, &word_length, &light_time,
+            &num_messages, &treasure_room)
         < 10) {
         if (loud)
             debug_print("Invalid database(bad header)\n");
         return UNKNOWN_GAME;
     }
-    GameHeader.NumItems = ni;
-    Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
-    GameHeader.NumActions = na;
-    Actions = (Action *)MemAlloc(sizeof(Action) * (na + 1));
-    GameHeader.NumWords = nw;
-    GameHeader.WordLength = wl;
-    Verbs = MemAlloc(sizeof(char *) * (nw + 2));
-    Nouns = MemAlloc(sizeof(char *) * (nw + 2));
-    GameHeader.NumRooms = nr;
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
-    GameHeader.MaxCarry = mc;
-    GameHeader.PlayerRoom = pr;
-    GameHeader.Treasures = tr;
-    GameHeader.LightTime = lt;
-    LightRefill = lt;
-    GameHeader.NumMessages = mn;
-    Messages = MemAlloc(sizeof(char *) * (mn + 1));
-    GameHeader.TreasureRoom = trm;
+    GameHeader.NumItems = num_items;
+    Items = (Item *)MemAlloc(sizeof(Item) * (num_items + 1));
+    GameHeader.NumActions = num_actions;
+    Actions = (Action *)MemAlloc(sizeof(Action) * (num_actions + 1));
+    GameHeader.NumWords = num_words;
+    GameHeader.WordLength = word_length;
+    Verbs = MemAlloc(sizeof(char *) * (num_words + 2));
+    Nouns = MemAlloc(sizeof(char *) * (num_words + 2));
+    GameHeader.NumRooms = num_rooms;
+    Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
+    GameHeader.MaxCarry = max_carry;
+    GameHeader.PlayerRoom = player_room;
+    GameHeader.Treasures = num_treasures;
+    GameHeader.LightTime = light_time;
+    LightRefill = light_time;
+    GameHeader.NumMessages = num_messages;
+    Messages = MemAlloc(sizeof(char *) * (num_messages + 1));
+    GameHeader.TreasureRoom = treasure_room;
 
     if (loud) {
         debug_print("Number of items: %d\n", GameHeader.NumItems);
@@ -776,8 +822,8 @@ GameIDType LoadDatabase(FILE *f, int loud)
     ct = 0;
     ap = Actions;
     if (loud)
-        debug_print("Reading %d actions.\n", na);
-    while (ct < na + 1) {
+        debug_print("Reading %d actions.\n", num_actions);
+    while (ct < num_actions + 1) {
         if (fscanf(f, "%hu %hu %hu %hu %hu %hu %hu %hu",
                 &ap->Vocab,
                 &ap->Condition[0],
@@ -813,21 +859,23 @@ GameIDType LoadDatabase(FILE *f, int loud)
         ct++;
     }
 
+    /* Load the verb/noun dictionary (word pairs) */
     ct = 0;
     if (loud)
-        debug_print("Reading %d word pairs.\n", nw);
-    while (ct < nw + 1) {
+        debug_print("Reading %d word pairs.\n", num_words);
+    while (ct < num_words + 1) {
         Verbs[ct] = ReadString(f);
         debug_print("Verbs %d:%s.\n", ct, Verbs[ct]);
         Nouns[ct] = ReadString(f);
         debug_print("Nouns %d:%s.\n", ct, Nouns[ct]);
         ct++;
     }
+    /* Load rooms: 6 exit directions followed by a description string */
     ct = 0;
     rp = Rooms;
     if (loud)
-        debug_print("Reading %d rooms.\n", nr);
-    while (ct < nr + 1) {
+        debug_print("Reading %d rooms.\n", num_rooms);
+    while (ct < num_rooms + 1) {
         if (fscanf(f, "%hd %hd %hd %hd %hd %hd", &rp->Exits[0], &rp->Exits[1],
                 &rp->Exits[2], &rp->Exits[3], &rp->Exits[4],
                 &rp->Exits[5])
@@ -850,20 +898,22 @@ GameIDType LoadDatabase(FILE *f, int loud)
         rp++;
     }
 
+    /* Load messages (printed by action subcommands 1-51 and 102+) */
     ct = 0;
     if (loud)
-        debug_print("Reading %d messages.\n", mn);
-    while (ct < mn + 1) {
+        debug_print("Reading %d messages.\n", num_messages);
+    while (ct < num_messages + 1) {
         Messages[ct] = ReadString(f);
         if (loud)
             debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
         ct++;
     }
+    /* Load items: description string (with optional /AutoGet/ word) and location */
     ct = 0;
     if (loud)
-        debug_print("Reading %d items.\n", ni);
+        debug_print("Reading %d items.\n", num_items);
     ip = Items;
-    while (ct < ni + 1) {
+    while (ct < num_items + 1) {
         ip->Text = ReadString(f);
         if (loud)
             debug_print("Item %d: \"%s\"\n", ct, ip->Text);
@@ -876,24 +926,26 @@ GameIDType LoadDatabase(FILE *f, int loud)
             if (t != NULL)
                 *t = 0;
         }
-        if (fscanf(f, "%hd", &lo) != 1) {
+        if (fscanf(f, "%hd", &location) != 1) {
             debug_print("Bad item line (%d)\n", ct);
             FreeDatabase();
             return UNKNOWN_GAME;
         }
-        ip->Location = (unsigned char)lo;
+        ip->Location = (unsigned char)location;
         if (loud)
             debug_print("Location of item %d: %d\n", ct, ip->Location);
         ip->InitialLoc = ip->Location;
         ip++;
         ct++;
     }
+    /* Discard action comment strings (one per action, used only by
+       the original authoring tools for documentation) */
     ct = 0;
-    /* Discard Comment Strings */
-    while (ct < na + 1) {
+    while (ct < num_actions + 1) {
         free(ReadString(f));
         ct++;
     }
+    /* Read the version and adventure number trailer */
     if (fscanf(f, "%d", &ct) != 1) {
         debug_print("Cannot read version\n");
         FreeDatabase();
@@ -942,6 +994,8 @@ void DrawBlack(void)
         12 * 8 * (glui32)pixel_size);
 }
 
+/* Draw a game image using the appropriate rendering method:
+   Howarth vector graphics (format 99) or bitmap picture number. */
 void DrawImage(int image)
 {
 #ifdef SPATTERLIGHT
@@ -959,6 +1013,10 @@ void DrawImage(int image)
         DrawPictureNumber(image, (Game->type == SEAS_OF_BLOOD_VARIANT));
 }
 
+/* Draw the image for the current room, with special handling for
+   darkness (black screen or fuzzy image), US-variant layout, and
+   game-specific overrides (Seas of Blood, Robin of Sherwood, Hulk,
+   Gremlins, Savage Island). Also draws visible item overlays. */
 void DrawRoomImage(void)
 {
     if (CurrentGame == ADVENTURELAND || CurrentGame == ADVENTURELAND_C64) {
@@ -1059,6 +1117,7 @@ static void WriteToRoomDescriptionStream(const char *fmt, ...)
     glk_put_string_stream(room_description_stream, msg);
 }
 
+/* List room exits in ZX Spectrum style (only shown if exits exist) */
 static void ListExitsSpectrumStyle(void)
 {
     int ct = 0;
@@ -1083,6 +1142,7 @@ static void ListExitsSpectrumStyle(void)
     return;
 }
 
+/* List room exits in standard format (always shows header, "None" if empty) */
 static void ListExits(void)
 {
     int ct = 0;
@@ -1120,6 +1180,9 @@ static int ItemEndsWithPeriod(int item)
     return 0;
 }
 
+/* Build and display the full room description: room image, room text,
+   exits, visible items, and optionally the inventory. The description
+   is assembled in a memory stream, then flushed to the appropriate window. */
 void Look(void)
 {
     showing_inventory = 0;
@@ -1208,6 +1271,8 @@ void Look(void)
     FlushRoomDescription(buf);
 }
 
+/* Save the current game state to a file via Glk file prompts.
+   Writes counters, room flags, bit flags, location, and item positions. */
 void SaveGame(void)
 {
     strid_t file;
@@ -1242,6 +1307,9 @@ void SaveGame(void)
     Output(sys[SAVED]);
 }
 
+/* Load a saved game state from a file via Glk file prompts.
+   Validates all loaded values against the current database limits
+   and rolls back to a snapshot if any value is out of range. */
 static void LoadGame(void)
 {
     strid_t file;
@@ -1403,6 +1471,9 @@ static void FlickerOff(void)
     Options &= ~FLICKER_ON;
 }
 
+/* Handle meta-commands that aren't part of the game's action table:
+   save, restore, restart, undo, RAM save/load, transcript, and flicker.
+   Returns 1 if the command was handled, 0 otherwise. */
 int PerformExtraCommand(int extra_stop_time)
 {
     Command command = *CurrentCommand;
@@ -1498,6 +1569,8 @@ int PerformExtraCommand(int extra_stop_time)
     return 0;
 }
 
+/* Prompt for a yes/no response via single-character input.
+   Uses the localized first characters of sys[YES] and sys[NO]. */
 static int YesOrNo(void)
 {
     glk_request_char_event_uni(Bottom);
@@ -1568,6 +1641,8 @@ static void WriteToLowerWindow(const char *fmt, ...)
     free(unistring);
 }
 
+/* List the player's carried items. When upper=1, writes to the room
+   description stream (status window); otherwise writes to the main window. */
 void ListInventory(int upper)
 {
     void (*print_function)(const char *fmt, ...);
@@ -1612,6 +1687,8 @@ void ListInventory(int upper)
     }
 }
 
+/* Perform a Look with a brief pause, used during multi-command
+   sequences so the player can see intermediate room descriptions. */
 static void LookWithPause(void)
 {
     char fc = Rooms[MyLoc].Text[0];
@@ -1636,6 +1713,8 @@ void DoneIt(void)
     }
 }
 
+/* Count and display treasures stored in the treasure room.
+   If all treasures are found, triggers the victory sequence. */
 int PrintScore(void)
 {
     int i = 0;
@@ -1715,6 +1794,8 @@ void ClearBitFlag(int bit) {
     BitFlags &= ~((uint64_t)1 << bit);
 }
 
+/* Set or clear the darkness flag, tracking whether the lighting
+   state actually changed so the display is only refreshed when needed. */
 static void ChangeDarkness(int dark) {
     int was_dark = ItIsDark();
     if (dark) {
@@ -1816,6 +1897,16 @@ void PlayerIsDead(void)
     MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
 }
 
+/* Evaluate one action line: check up to 5 conditions, and if all pass,
+   execute the 4 subcommands encoded in the action's two Subcommand words.
+
+   Conditions are encoded as (value * 20 + condition_code). Condition
+   code 0 stores a parameter for later use by subcommands. Subcommands
+   1-51 and 102+ print messages; 52-90 are game state operations.
+
+   Returns ACT_FAILURE if a condition fails, ACT_CONTINUE for action 73
+   (continue to next line), ACT_GAMEOVER on game-ending actions, or
+   ACT_SUCCESS if all subcommands completed normally. */
 static ActionResultType PerformLine(int ct)
 {
 #ifdef DEBUG_ACTIONS
@@ -1985,7 +2076,8 @@ static ActionResultType PerformLine(int ct)
 #pragma mark Subcommands
 #endif
 
-    /* Actions */
+    /* Decode the 4 subcommands from two 16-bit words.
+       Each word encodes two actions: high = word / 150, low = word % 150. */
     act[0] = Actions[ct].Subcommand[0];
     act[2] = Actions[ct].Subcommand[1];
     act[1] = act[0] % 150;
@@ -2288,6 +2380,14 @@ static void PrintTakenOrDropped(int index)
     }
 }
 
+/* Main action dispatch: process player input (verb/noun pair) or
+   implicit actions (vb=0).
+
+   Handles movement (GO + direction), game-specific examine actions,
+   the action table scan, and built-in TAKE/DROP with auto-matching.
+   Action 73 (continue) chains consecutive lines with vocab 0,0.
+
+   For TI-99/4A games, delegates to the TI-specific action handler. */
 static ExplicitResultType PerformActions(int vb, int no)
 {
     int dark = ItIsDark();
@@ -2552,6 +2652,8 @@ glkunix_argumentlist_t glkunix_arguments[] = {
     { NULL, glkunix_arg_End, NULL }
 };
 
+/* Parse command-line arguments (display style, debugging, delays, etc.)
+   and extract the game file path and its parent directory. */
 int glkunix_startup_code(glkunix_startup_t *data)
 {
     int argc = data->argc;
@@ -2639,6 +2741,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
     return 1;
 }
 
+/* Main entry point: detect the game, configure display style, show the
+   title screen, then run the main game loop (implicit actions → Look →
+   get input → explicit actions → lamp timer). */
 void glk_main(void)
 {
     int vb, no;
@@ -2657,6 +2762,7 @@ void glk_main(void)
     if (game_file == NULL)
         Fatal("No game provided");
 
+    /* Select "You are" vs "I am" system message set */
     const char **dictpointer;
 
     if (Options & YOUARE)
@@ -2671,6 +2777,7 @@ void glk_main(void)
             sys[i] = sysdict[i];
     }
 
+    /* Detect the game format and load its database */
     GameIDType game_type = DetectGame(game_file);
 
     if (game_type == UNKNOWN_GAME)
@@ -2710,6 +2817,9 @@ one letter.\n\nDo you want to restore previously saved game?\n",
         ClearScreen();
     }
 
+    /* US-variant games use a distinct display style with first-person
+       messages and DOS/Apple II graphics. If no graphics are found,
+       fall back to plain ScottFree mode. */
     if (Game->type == US_VARIANT) {
         if (HasGraphics()) {
             DrawTitleImageScott();
@@ -2768,8 +2878,12 @@ Distributed under the GNU software license\n\n");
         if (should_restart)
             RestartGame();
 
+        /* Run implicit (automatic) actions — these have vocab 0 and
+           fire based on random chance or game state, not player input */
         if (!StopTime)
             PerformActions(0, 0);
+        /* Refresh the room description (skip during TAKE ALL / DROP ALL
+           mid-sequence to avoid flooding the display) */
         if (!(CurrentCommand && CurrentCommand->allflag && !(CurrentCommand->allflag & LASTALL))) {
             print_look_to_transcript = should_look_in_transcript;
             Look();
@@ -2784,6 +2898,7 @@ Distributed under the GNU software license\n\n");
         if (GetInput(&vb, &no) == 1)
             continue;
 
+        /* Run explicit (player-triggered) actions */
         switch (PerformActions(vb, no)) {
         case ER_RAN_ALL_LINES_NO_MATCH:
             if (!RecheckForExtraCommand()) {
@@ -2802,7 +2917,8 @@ Distributed under the GNU software license\n\n");
             JustStarted = 0;
         }
 
-        /* Brian Howarth games seem to use -1 for forever */
+        /* Decrement the lamp timer each turn. Brian Howarth games use -1
+           for infinite light. Warn when below 25 turns; extinguish at 0. */
         if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !StopTime) {
             GameHeader.LightTime--;
             if (GameHeader.LightTime < 1) {

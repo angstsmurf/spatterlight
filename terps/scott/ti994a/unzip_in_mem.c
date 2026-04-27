@@ -24,6 +24,7 @@
 #include "unzip_in_mem.h"
 
 
+/* MiniZip error codes */
 #define UNZ_OK                          (0)
 #define UNZ_END_OF_LIST_OF_FILE         (-100)
 #define UNZ_ERRNO                       (Z_ERRNO)
@@ -33,19 +34,24 @@
 #define UNZ_INTERNALERROR               (-104)
 #define UNZ_CRCERROR                    (-105)
 
+/* Sentinel value indicating the central directory was not found */
 #define CENTRALDIRINVALID (uint64_t)-1
+/* Size of a central directory entry (fixed-size portion): 46 bytes */
 #define SIZECENTRALDIRITEM (0x2e)
+/* Size of a local file header (fixed-size portion): 30 bytes */
 #define SIZEZIPLOCALHEADER (0x1e)
+/* Buffer size for scanning backward through the file to find the EOCD record */
 #define BUFREADCOMMENT (0x400)
 
+/* Default case sensitivity for filename matching (0 = use OS default) */
 #define CASESENSITIVITY (0)
+/* Default case sensitivity value: 2 = case-insensitive (like Windows) */
 #define CASESENSITIVITYDEFAULTVALUE 2
 
 #define UNZ_MAXFILENAMEINZIP (256)
 #define WRITEBUFFERSIZE (8192)
+/* Size of the internal read buffer for decompression */
 #define UNZ_BUFSIZE (16384)
-
-#define Z_BZIP2ED 12
 
 
 /* unz_global_info structure contain global data about the ZIPfile
@@ -94,10 +100,6 @@ typedef struct
     char  *read_buffer;         /* internal buffer for compressed data */
     z_stream stream;            /* zLib stream structure for inflate */
 
-#ifdef HAVE_BZIP2
-    bz_stream bstream;          /* bzLib stream structure for bziped */
-#endif
-
     uint64_t pos_in_zipfile;       /* position in byte on the zipfile, for fseek*/
     uLong stream_initialised;   /* flag set if stream structure is initialised*/
 
@@ -139,12 +141,14 @@ typedef struct
     file_in_zip64_read_info_s* pfile_in_zip_read; /* structure about the current
                                                    file if we are decompressing it */
     int encrypted;
-
     int isZip64;
 } unz64_s;
 
 
 
+/* Read a little-endian 64-bit integer from the memory buffer at *outptr,
+   advancing the pointer past the bytes read. Returns UNZ_EOF if fewer
+   than 8 bytes remain before endptr. */
 static int unz64local_getLong64(uint8_t **outptr,uint8_t *endptr,
                          uint64_t *pX) {
     uint8_t *ptr = *outptr;
@@ -163,6 +167,8 @@ static int unz64local_getLong64(uint8_t **outptr,uint8_t *endptr,
     return UNZ_OK;
 }
 
+/* Read a little-endian 32-bit integer from the memory buffer at *outptr,
+   advancing the pointer. Returns UNZ_EOF if fewer than 4 bytes remain. */
 static int unz64local_getLong(uint8_t **outptr, uint8_t *endptr,
                        uLong *pX) {
     uint8_t *ptr = *outptr;
@@ -180,6 +186,8 @@ static int unz64local_getLong(uint8_t **outptr, uint8_t *endptr,
     return UNZ_OK;
 }
 
+/* Read a little-endian 16-bit integer from the memory buffer at *outptr,
+   advancing the pointer. Returns UNZ_EOF if fewer than 2 bytes remain. */
 static int unz64local_getShort(uint8_t **outptr, uint8_t *endptr,
                                uLong *pX) {
     uint8_t *ptr = *outptr;
@@ -196,25 +204,30 @@ static int unz64local_getShort(uint8_t **outptr, uint8_t *endptr,
 }
 
 
-static uint64_t unz64local_SearchCentralDir64(voidpf filestream, size_t fileSize) {
+/* Search for the Zip64 end of central directory locator by scanning backward
+   from the end of the in-memory zip data. The locator has signature
+   0x07064b50 ("PK\x06\x07"). If found, follows the pointer to the Zip64
+   end of central directory record and returns its offset. Returns
+   CENTRALDIRINVALID if the archive is not Zip64. */
+static uint64_t unz64local_SearchCentralDir64(uint8_t *filestream, size_t fileSize) {
     unsigned char* buf;
     uint64_t uBackRead;
     uint64_t uMaxBack=0xffff; /* maximum size of global comment */
     uint64_t uPosFound=CENTRALDIRINVALID;
     uLong uL;
     uint64_t relativeOffset;
-    uint64_t uSizeFile = fileSize;
 
-    if (uMaxBack>uSizeFile)
-        uMaxBack = uSizeFile;
+    if (uMaxBack>fileSize)
+        uMaxBack = fileSize;
 
     buf = (unsigned char*)MemAlloc(BUFREADCOMMENT+4);
 
     uBackRead = 4;
 
-    uint8_t *ptr = filestream;
     uint8_t *endptr = filestream + fileSize;
 
+    /* Scan backward through the file in BUFREADCOMMENT-sized chunks,
+       looking for the Zip64 EOCD locator signature (0x07064b50). */
     while (uBackRead<uMaxBack)
     {
         uLong uReadSize;
@@ -224,17 +237,18 @@ static uint64_t unz64local_SearchCentralDir64(voidpf filestream, size_t fileSize
             uBackRead = uMaxBack;
         else
             uBackRead+=BUFREADCOMMENT;
-        uReadPos = uSizeFile-uBackRead ;
+        uReadPos = fileSize-uBackRead ;
 
-        uReadSize = ((BUFREADCOMMENT+4) < (uSizeFile-uReadPos)) ?
-        (BUFREADCOMMENT+4) : (uLong)(uSizeFile-uReadPos);
+        uReadSize = ((BUFREADCOMMENT+4) < (fileSize-uReadPos)) ?
+        (BUFREADCOMMENT+4) : (uLong)(fileSize-uReadPos);
 
-        ptr += uReadPos;
+        uint8_t *ptr = filestream + uReadPos;
         if (ptr + uReadSize > endptr)
             break;
 
         memcpy(buf, ptr, uReadSize);
 
+        /* Search backward through the chunk for the 4-byte signature */
         for (i=(int)uReadSize-3; (i--)>0;)
             if (((*(buf+i))==0x50) && ((*(buf+i+1))==0x4b) &&
                 ((*(buf+i+2))==0x06) && ((*(buf+i+3))==0x07))
@@ -250,8 +264,12 @@ static uint64_t unz64local_SearchCentralDir64(voidpf filestream, size_t fileSize
     if (uPosFound == CENTRALDIRINVALID)
         return CENTRALDIRINVALID;
 
-    /* Zip64 end of central directory locator */
-    ptr = filestream + uPosFound;
+    /* Parse the Zip64 end of central directory locator:
+       - Signature (0x07064b50) — already found
+       - Disk number with Zip64 EOCD (must be 0, no multi-disk support)
+       - Relative offset of the Zip64 EOCD record
+       - Total number of disks (must be 1) */
+    uint8_t *ptr = filestream + uPosFound;
     if (ptr > endptr)
         return CENTRALDIRINVALID;
 
@@ -275,12 +293,12 @@ static uint64_t unz64local_SearchCentralDir64(voidpf filestream, size_t fileSize
     if (uL != 1)
         return CENTRALDIRINVALID;
 
-    /* Goto end of central directory record */
+    /* Follow the offset to the Zip64 EOCD record and verify its
+       signature (0x06064b50 = "PK\x06\x06"). */
     ptr = filestream + relativeOffset;
     if (ptr > endptr)
         return CENTRALDIRINVALID;
 
-    /* the signature */
     if (unz64local_getLong(&ptr, endptr,&uL)!=UNZ_OK)
         return CENTRALDIRINVALID;
 
@@ -292,9 +310,20 @@ static uint64_t unz64local_SearchCentralDir64(voidpf filestream, size_t fileSize
 
 
 /*
- Get Info about the current file in the zipfile, with internal only info
+ Parse a central directory entry for the current file in the zipfile.
+
+ Reads the central directory header at s->pos_in_central_dir and populates:
+   - pfile_info: public file metadata (sizes, CRC, compression method, etc.)
+   - pfile_info_internal: internal info (offset to the local file header)
+   - szFileName: the stored filename (up to fileNameBufferSize bytes)
+   - extraField: extra field data (up to extraFieldBufferSize bytes)
+   - szComment: file comment (up to commentBufferSize bytes)
+
+ Any output parameter may be NULL to skip that field.
+ Also handles Zip64 extended information (header ID 0x0001) in the
+ extra field, which overrides 32-bit sizes/offsets with 64-bit values.
  */
-static int unz64local_GetCurrentFileInfoInternal(unz64_s *s,
+static int unz64local_GetCurrentFileInfo(unz64_s *s,
                                                  unz_file_info64 *pfile_info,
                                                  unz_file_info64_internal
                                                  *pfile_info_internal,
@@ -317,13 +346,14 @@ static int unz64local_GetCurrentFileInfoInternal(unz64_s *s,
     uint8_t *ptr = s->filestream;
     uint8_t *endptr = ptr + s->filesize;
 
+    /* Seek to the central directory entry for the current file */
     ptr = s->filestream + s->pos_in_central_dir+s->byte_before_the_zipfile;
 
     if (ptr > endptr) {
         err = UNZ_EOF;
     }
 
-    /* we check the magic */
+    /* Verify the central directory file header signature (0x02014b50 = "PK\x01\x02") */
     if (err==UNZ_OK)
     {
         if (unz64local_getLong(&ptr,endptr,&uMagic) != UNZ_OK)
@@ -332,6 +362,12 @@ static int unz64local_GetCurrentFileInfoInternal(unz64_s *s,
             err=UNZ_BADZIPFILE;
     }
 
+    /* Read the fixed-size fields of the central directory file header.
+       These appear in order after the signature, matching the ZIP spec:
+       version made by, version needed, flags, compression method,
+       last mod date/time, CRC-32, compressed size, uncompressed size,
+       filename length, extra field length, comment length,
+       disk number start, internal attrs, external attrs, local header offset. */
     if (unz64local_getShort(&ptr,endptr,&file_info.version) != UNZ_OK)
         err=UNZ_ERRNO;
 
@@ -346,8 +382,6 @@ static int unz64local_GetCurrentFileInfoInternal(unz64_s *s,
 
     if (unz64local_getLong(&ptr,endptr,&file_info.dosDate) != UNZ_OK)
         err=UNZ_ERRNO;
-
-    //    unz64local_DosDateToTmuDate(file_info.dosDate,&file_info.tmu_date);
 
     if (unz64local_getLong(&ptr,endptr,&file_info.crc) != UNZ_OK)
         err=UNZ_ERRNO;
@@ -378,11 +412,12 @@ static int unz64local_GetCurrentFileInfoInternal(unz64_s *s,
     if (unz64local_getLong(&ptr,endptr,&file_info.external_fa) != UNZ_OK)
         err=UNZ_ERRNO;
 
-    /* relative offset of local header */
+    /* relative offset of the local file header (32-bit; may be overridden by Zip64 extra) */
     if (unz64local_getLong(&ptr,endptr,&uL) != UNZ_OK)
         err=UNZ_ERRNO;
     file_info_internal.offset_curfile = uL;
 
+    /* Read the variable-length filename field that follows the fixed header */
     lSeek+=file_info.size_filename;
     if ((err==UNZ_OK) && (szFileName!=NULL))
     {
@@ -439,6 +474,11 @@ static int unz64local_GetCurrentFileInfoInternal(unz64_s *s,
         lSeek += file_info.size_file_extra;
 
 
+    /* Parse the extra field to look for Zip64 extended information.
+       The extra field is a sequence of (headerID, dataSize, data) tuples.
+       Header ID 0x0001 indicates Zip64 extended info, which provides
+       64-bit versions of sizes and offsets when the 32-bit fields
+       in the central directory header were set to 0xFFFFFFFF. */
     if ((err==UNZ_OK) && (file_info.size_file_extra != 0))
     {
         uLong acc = 0;
@@ -465,7 +505,7 @@ static int unz64local_GetCurrentFileInfoInternal(unz64_s *s,
             if (unz64local_getShort(&ptr, endptr, &dataSize) != UNZ_OK)
                 err=UNZ_ERRNO;
 
-            /* ZIP64 extra fields */
+            /* ZIP64 extended information extra field (0x0001) */
             if (headerId == 0x0001)
             {
                 if(file_info.uncompressed_size == UINT32_MAX)
@@ -506,6 +546,7 @@ static int unz64local_GetCurrentFileInfoInternal(unz64_s *s,
         }
     }
 
+    /* Read the file comment if requested */
     if ((err==UNZ_OK) && (szComment!=NULL))
     {
         uLong uSizeRead ;
@@ -535,6 +576,7 @@ static int unz64local_GetCurrentFileInfoInternal(unz64_s *s,
     }
 
 
+    /* Copy parsed results to the caller's output structs */
     if ((err==UNZ_OK) && (pfile_info!=NULL))
         *pfile_info=file_info;
 
@@ -575,7 +617,7 @@ static int unzGoToFirstFile(unz64_s *s) {
         return UNZ_PARAMERROR;
     s->pos_in_central_dir=s->offset_central_dir;
     s->num_file=0;
-    err=unz64local_GetCurrentFileInfoInternal(s,&s->cur_file_info,
+    err=unz64local_GetCurrentFileInfo(s,&s->cur_file_info,
                                               &s->cur_file_info_internal,
                                               NULL,0,NULL,0,NULL,0);
     s->current_file_ok = (err == UNZ_OK);
@@ -583,25 +625,9 @@ static int unzGoToFirstFile(unz64_s *s) {
 }
 
 /*
- Write info about the ZipFile in the *pglobal_info structure.
- No preparation of the structure is needed
- return UNZ_OK if there is no problem.
- */
-static int unzGetCurrentFileInfo64(unz64_s *file,
-                            unz_file_info64 * pfile_info,
-                            char * szFileName, uLong fileNameBufferSize,
-                            void *extraField, uLong extraFieldBufferSize,
-                            char* szComment,  uLong commentBufferSize) {
-    return unz64local_GetCurrentFileInfoInternal(file,pfile_info,NULL,
-                                                 szFileName,fileNameBufferSize,
-                                                 extraField,extraFieldBufferSize,
-                                                 szComment,commentBufferSize);
-}
-
-/*
- Set the current file of the zipfile to the next file.
+ Advance to the next file in the zipfile's central directory.
  return UNZ_OK if there is no problem
- return UNZ_END_OF_LIST_OF_FILE if the actual file was the latest.
+ return UNZ_END_OF_LIST_OF_FILE if the current file was the last one.
  */
 static int unzGoToNextFile(voidp file, size_t filesize) {
     unz64_s* s;
@@ -616,10 +642,11 @@ static int unzGoToNextFile(voidp file, size_t filesize) {
         if (s->num_file+1==s->gi.number_entry)
             return UNZ_END_OF_LIST_OF_FILE;
 
+    /* Skip past the current entry: fixed header + variable-length fields */
     s->pos_in_central_dir += SIZECENTRALDIRITEM + s->cur_file_info.size_filename +
     s->cur_file_info.size_file_extra + s->cur_file_info.size_file_comment ;
     s->num_file++;
-    err = unz64local_GetCurrentFileInfoInternal(file,&s->cur_file_info,
+    err = unz64local_GetCurrentFileInfo(file,&s->cur_file_info,
                                                 &s->cur_file_info_internal,
                                                 NULL,0,NULL,0,NULL,0);
     s->current_file_ok = (err == UNZ_OK);
@@ -627,8 +654,10 @@ static int unzGoToNextFile(voidp file, size_t filesize) {
 }
 
 /*
- Try locate the file szFileName in the zipfile.
- For the iCaseSensitivity signification, see unzStringFileNameCompare
+ Search the central directory for a file matching szFileName.
+ Iterates through all entries from the beginning. If found, that entry
+ becomes the "current file" in the unz64_s state. If not found, the
+ state is restored to whatever file was current before the call.
 
  return value :
  UNZ_OK if the file is found. It becomes the current file.
@@ -666,7 +695,7 @@ static int unzLocateFile(unz64_s *s, const char *szFileName, int iCaseSensitivit
     while (err == UNZ_OK)
     {
         char szCurrentFileName[UNZ_MAXFILENAMEINZIP+1];
-        err = unzGetCurrentFileInfo64(s,NULL,
+        err = unz64local_GetCurrentFileInfo(s,NULL,NULL,
                                       szCurrentFileName,sizeof(szCurrentFileName)-1,
                                       NULL,0,NULL,0);
         if (err == UNZ_OK)
@@ -689,14 +718,17 @@ static int unzLocateFile(unz64_s *s, const char *szFileName, int iCaseSensitivit
 }
 
 /*
- Read bytes from the current file.
- buf contains buffer where data must be copied
- len the size of buf.
+ Read and decompress bytes from the current file in the zip archive.
 
- return the number of byte copied if some bytes are copied
- return 0 if the end of file was reached
- return <0 with error code if there is an error
- (UNZ_ERRNO for IO error, or zLib error for uncompress error)
+ Handles two cases:
+   - Stored (uncompressed, method 0): copies data directly.
+   - Deflated (method 8): feeds compressed data to zlib's inflate().
+
+ buf: output buffer where decompressed data is written.
+ len: size of buf in bytes.
+
+ Returns the number of bytes written to buf (may be less than len),
+ 0 if the end of the file was reached, or a negative error code.
  */
 static int unzReadCurrentFile(unz64_s *s, voidp buf, unsigned len) {
     int err=UNZ_OK;
@@ -715,15 +747,18 @@ static int unzReadCurrentFile(unz64_s *s, voidp buf, unsigned len) {
     if (len==0)
         return 0;
 
+    /* Set up the zlib output stream to point at the caller's buffer */
     pfile_in_zip_read_info->stream.next_out = (Bytef*)buf;
 
     pfile_in_zip_read_info->stream.avail_out = (uInt)len;
 
+    /* Clamp output to remaining uncompressed bytes (normal mode) */
     if ((len>pfile_in_zip_read_info->rest_read_uncompressed) &&
         (!(pfile_in_zip_read_info->raw)))
         pfile_in_zip_read_info->stream.avail_out =
         (uInt)pfile_in_zip_read_info->rest_read_uncompressed;
 
+    /* Clamp output to remaining compressed bytes (raw mode) */
     if ((len>pfile_in_zip_read_info->rest_read_compressed+
          pfile_in_zip_read_info->stream.avail_in) &&
         (pfile_in_zip_read_info->raw))
@@ -734,8 +769,12 @@ static int unzReadCurrentFile(unz64_s *s, voidp buf, unsigned len) {
     uint8_t *ptr = pfile_in_zip_read_info->filestream;
     uint8_t *endptr = ptr + s->filesize;
 
+    /* Main decompression loop: keep going until the output buffer is full
+       or we run out of input data. */
     while (pfile_in_zip_read_info->stream.avail_out>0)
     {
+        /* Refill the internal read buffer from the in-memory zip data
+           when the zlib input buffer is empty and compressed bytes remain. */
         if ((pfile_in_zip_read_info->stream.avail_in==0) &&
             (pfile_in_zip_read_info->rest_read_compressed>0))
         {
@@ -760,6 +799,7 @@ static int unzReadCurrentFile(unz64_s *s, voidp buf, unsigned len) {
             pfile_in_zip_read_info->stream.avail_in = (uInt)uReadThis;
         }
 
+        /* Stored (uncompressed) data or raw mode: direct byte copy */
         if ((pfile_in_zip_read_info->compression_method==0) || (pfile_in_zip_read_info->raw))
         {
             uInt uDoCopy,i ;
@@ -791,6 +831,7 @@ static int unzReadCurrentFile(unz64_s *s, voidp buf, unsigned len) {
             pfile_in_zip_read_info->stream.total_out += uDoCopy;
             iRead += uDoCopy;
         }
+        /* Deflated data: call zlib inflate() to decompress */
         else
         {
             uint64_t uTotalOutBefore,uTotalOutAfter;
@@ -807,9 +848,9 @@ static int unzReadCurrentFile(unz64_s *s, voidp buf, unsigned len) {
                 err = Z_DATA_ERROR;
 
             uTotalOutAfter = pfile_in_zip_read_info->stream.total_out;
-            /* Detect overflow, because z_stream.total_out is uLong (32 bits) */
+            /* Detect 32-bit overflow in z_stream.total_out (uLong wraps at 4GB) */
             if (uTotalOutAfter<uTotalOutBefore)
-                uTotalOutAfter += 1LL << 32; /* Add maximum value of uLong + 1 */
+                uTotalOutAfter += 1LL << 32;
             uOutThis = uTotalOutAfter-uTotalOutBefore;
 
             pfile_in_zip_read_info->total_out_64 = pfile_in_zip_read_info->total_out_64 + uOutThis;
@@ -836,8 +877,10 @@ static int unzReadCurrentFile(unz64_s *s, voidp buf, unsigned len) {
 }
 
 /*
- Close the file in zip opened with unzOpenCurrentFile
- Return UNZ_CRCERROR if all the file was read but the CRC is not good
+ Close the file currently open for reading and free its decompression state.
+ Verifies the CRC-32 of the decompressed data against the expected value
+ from the zip header (unless in raw mode or not fully read).
+ Returns UNZ_CRCERROR if the CRC check fails, UNZ_OK otherwise.
  */
 static int unzCloseCurrentFile(unz64_s *s) {
     int err=UNZ_OK;
@@ -850,6 +893,7 @@ static int unzCloseCurrentFile(unz64_s *s) {
     if (pfile_in_zip_read_info==NULL)
         return UNZ_PARAMERROR;
 
+    /* If we read the entire file, verify CRC integrity */
     if ((pfile_in_zip_read_info->rest_read_uncompressed == 0) &&
         (!pfile_in_zip_read_info->raw))
     {
@@ -857,6 +901,7 @@ static int unzCloseCurrentFile(unz64_s *s) {
             err=UNZ_CRCERROR;
     }
 
+    /* Clean up: free the read buffer, end the inflate stream if active */
     free(pfile_in_zip_read_info->read_buffer);
     pfile_in_zip_read_info->read_buffer = NULL;
     if (pfile_in_zip_read_info->stream_initialised == Z_DEFLATED)
@@ -871,28 +916,26 @@ static int unzCloseCurrentFile(unz64_s *s) {
 }
 
 /*
- Locate the Central directory of the zipfile data (at the end, just before
- the global comment)
+ Search for the standard (non-Zip64) End of Central Directory Record (EOCD)
+ by scanning backward from the end of the in-memory zip data.
+ The EOCD signature is 0x06054b50 ("PK\x05\x06").
+ Returns the byte offset of the EOCD record, or CENTRALDIRINVALID if not found.
  */
 static uint64_t unz64local_SearchCentralDir(uint8_t *filestream, size_t size) {
     unsigned char* buf;
-    uint64_t uSizeFile;
     uint64_t uBackRead;
     uint64_t uMaxBack=0xffff; /* maximum size of global comment */
     uint64_t uPosFound=CENTRALDIRINVALID;
 
     uint8_t *endptr = filestream + size;
 
-    uSizeFile = size;
-
-    if (uMaxBack>uSizeFile)
-        uMaxBack = uSizeFile;
+    if (uMaxBack>size)
+        uMaxBack = size;
 
     buf = (unsigned char*)MemAlloc(BUFREADCOMMENT+4);
 
-    uint8_t *ptr = filestream;
-
     uBackRead = 4;
+    /* Scan backward in BUFREADCOMMENT-sized chunks looking for the signature */
     while (uBackRead<uMaxBack)
     {
         uLong uReadSize;
@@ -902,17 +945,17 @@ static uint64_t unz64local_SearchCentralDir(uint8_t *filestream, size_t size) {
             uBackRead = uMaxBack;
         else
             uBackRead+=BUFREADCOMMENT;
-        uReadPos = uSizeFile-uBackRead ;
+        uReadPos = size-uBackRead ;
 
-        uReadSize = ((BUFREADCOMMENT+4) < (uSizeFile-uReadPos)) ?
-        (BUFREADCOMMENT+4) : (uLong)(uSizeFile-uReadPos);
-        ptr += uReadPos;
+        uReadSize = ((BUFREADCOMMENT+4) < (size-uReadPos)) ?
+        (BUFREADCOMMENT+4) : (uLong)(size-uReadPos);
+        uint8_t *ptr = filestream + uReadPos;
         if (ptr + uReadSize > endptr)
             break;
 
         memcpy(buf, ptr, uReadSize);
-        ptr += uReadSize;
 
+        /* Search backward through the chunk for "PK\x05\x06" */
         for (i=(int)uReadSize-3; (i--)>0;)
             if (((*(buf+i))==0x50) && ((*(buf+i+1))==0x4b) &&
                 ((*(buf+i+2))==0x05) && ((*(buf+i+3))==0x06))
@@ -929,11 +972,16 @@ static uint64_t unz64local_SearchCentralDir(uint8_t *filestream, size_t size) {
 }
 
 /*
- Read the local header of the current zipfile
- Check the coherency of the local header and info in the end of central
- directory about this file
- store in *piSizeVar the size of extra info in local header
- (filename and size of extra field data)
+ Validate the local file header for the current file against the central
+ directory information. The ZIP format stores redundant metadata in both
+ places; this function checks that they agree (signature, compression
+ method, CRC, sizes, filename length).
+
+ Outputs:
+   *piSizeVar: total size of the variable-length fields in the local header
+               (filename + extra field), needed to locate the actual file data.
+   *poffset_local_extrafield: offset to the local extra field within the zip data.
+   *psize_local_extrafield: size of the local extra field.
  */
 static int unz64local_CheckCurrentFileCoherencyHeader(unz64_s* s, uInt* piSizeVar,
                                                       uint64_t * poffset_local_extrafield,
@@ -950,11 +998,13 @@ static int unz64local_CheckCurrentFileCoherencyHeader(unz64_s* s, uInt* piSizeVa
     uint8_t *ptr = s->filestream;
     uint8_t *endptr = s->filestream + s->filesize;
 
+    /* Seek to the local file header for this entry */
     ptr += s->cur_file_info_internal.offset_curfile + s->byte_before_the_zipfile;
 
     if (ptr > endptr)
         return UNZ_ERRNO;
 
+    /* Verify local file header signature (0x04034b50 = "PK\x03\x04") */
     if (err==UNZ_OK)
     {
         if (unz64local_getLong(&ptr, endptr,&uMagic) != UNZ_OK)
@@ -963,12 +1013,11 @@ static int unz64local_CheckCurrentFileCoherencyHeader(unz64_s* s, uInt* piSizeVa
             err=UNZ_BADZIPFILE;
     }
 
+    /* Read and cross-check local header fields against central directory:
+       version needed, general purpose flags, compression method */
     if (unz64local_getShort(&ptr, endptr,&uData) != UNZ_OK)
         err=UNZ_ERRNO;
-    /*
-     else if ((err==UNZ_OK) && (uData!=s->cur_file_info.wVersion))
-     err=UNZ_BADZIPFILE;
-     */
+
     if (unz64local_getShort(&ptr, endptr,&uFlags) != UNZ_OK)
         err=UNZ_ERRNO;
 
@@ -977,13 +1026,15 @@ static int unz64local_CheckCurrentFileCoherencyHeader(unz64_s* s, uInt* piSizeVa
     else if ((err==UNZ_OK) && (uData!=s->cur_file_info.compression_method))
         err=UNZ_BADZIPFILE;
 
+    /* Reject unsupported compression methods (only store and deflate are handled) */
     if ((err==UNZ_OK) && (s->cur_file_info.compression_method!=0) &&
-        /* #ifdef HAVE_BZIP2 */
-        (s->cur_file_info.compression_method!=Z_BZIP2ED) &&
-        /* #endif */
         (s->cur_file_info.compression_method!=Z_DEFLATED))
         err=UNZ_BADZIPFILE;
 
+    /* Cross-check date/time, CRC, compressed/uncompressed sizes.
+       Flag bit 3 (data descriptor) means these fields may be zero in the
+       local header and appear after the file data instead, so skip the
+       check in that case. 0xFFFFFFFF indicates Zip64 overflow. */
     if (unz64local_getLong(&ptr, endptr,&uData) != UNZ_OK) /* date/time */
         err=UNZ_ERRNO;
 
@@ -1020,26 +1071,35 @@ static int unz64local_CheckCurrentFileCoherencyHeader(unz64_s* s, uInt* piSizeVa
     return err;
 }
 
-/* Open the current file in the zipfile for reading data.
- If there is no error and the file is opened, the return value is UNZ_OK.
+/*
+ Prepare the current file in the zip archive for reading/decompression.
+
+ Validates the local file header, allocates the decompression state
+ (file_in_zip64_read_info_s), and initializes zlib's inflate stream
+ for deflated data. For stored (uncompressed) files, no inflate setup
+ is needed — data will be copied directly in unzReadCurrentFile.
+
+ Optional outputs:
+   *method: the compression method (0=stored, 8=deflated).
+   *level: the compression level (1=fastest, 9=best, 6=default).
+
+ The 'raw' flag, if set, returns compressed data without decompressing.
  */
-static int unzOpenCurrentFile3(unz64_s *file, int* method,
-                                int* level, int raw, const char* password) {
+static int unzOpenCurrentFile(unz64_s *s, int* method,
+                                int* level, int raw) {
     int err=UNZ_OK;
     uInt iSizeVar;
-    unz64_s* s;
     file_in_zip64_read_info_s* pfile_in_zip_read_info;
     uint64_t offset_local_extrafield;  /* offset of the local extra field */
     uInt  size_local_extrafield;    /* size of the local extra field */
 
-    if (file==NULL)
+    if (s==NULL)
         return UNZ_PARAMERROR;
-    s=(unz64_s*)file;
     if (!s->current_file_ok)
         return UNZ_PARAMERROR;
 
     if (s->pfile_in_zip_read != NULL)
-        unzCloseCurrentFile(file);
+        unzCloseCurrentFile(s);
 
     if (unz64local_CheckCurrentFileCoherencyHeader(s,&iSizeVar, &offset_local_extrafield,&size_local_extrafield)!=UNZ_OK)
         return UNZ_BADZIPFILE;
@@ -1049,6 +1109,11 @@ static int unzOpenCurrentFile3(unz64_s *file, int* method,
         return UNZ_INTERNALERROR;
 
     pfile_in_zip_read_info->read_buffer=(char*)MemAlloc(UNZ_BUFSIZE);
+    if (pfile_in_zip_read_info->read_buffer==NULL)
+    {
+        free(pfile_in_zip_read_info);
+        return UNZ_INTERNALERROR;
+    }
     pfile_in_zip_read_info->offset_local_extrafield = offset_local_extrafield;
     pfile_in_zip_read_info->size_local_extrafield = size_local_extrafield;
     pfile_in_zip_read_info->pos_local_extrafield=0;
@@ -1059,6 +1124,8 @@ static int unzOpenCurrentFile3(unz64_s *file, int* method,
     if (method!=NULL)
         *method = (int)s->cur_file_info.compression_method;
 
+    /* Decode compression level from the general purpose flag bits 1-2:
+       00 = normal (level 6), 01 = best (9), 10 = fast (2), 11 = super fast (1) */
     if (level!=NULL)
     {
         *level = 6;
@@ -1070,13 +1137,14 @@ static int unzOpenCurrentFile3(unz64_s *file, int* method,
         }
     }
 
+    /* Only stored (0) and deflated (Z_DEFLATED) are supported */
     if ((s->cur_file_info.compression_method!=0) &&
-        /* #ifdef HAVE_BZIP2 */
-        (s->cur_file_info.compression_method!=Z_BZIP2ED) &&
-        /* #endif */
         (s->cur_file_info.compression_method!=Z_DEFLATED))
-
-        err=UNZ_BADZIPFILE;
+    {
+        free(pfile_in_zip_read_info->read_buffer);
+        free(pfile_in_zip_read_info);
+        return UNZ_BADZIPFILE;
+    }
 
     pfile_in_zip_read_info->crc32_wait=s->cur_file_info.crc;
     pfile_in_zip_read_info->crc32=0;
@@ -1087,11 +1155,9 @@ static int unzOpenCurrentFile3(unz64_s *file, int* method,
 
     pfile_in_zip_read_info->stream.total_out = 0;
 
-    if ((s->cur_file_info.compression_method==Z_BZIP2ED) && (!raw))
-    {
-        pfile_in_zip_read_info->raw=1;
-    }
-    else if ((s->cur_file_info.compression_method==Z_DEFLATED) && (!raw))
+    /* For deflated data, initialize the zlib inflate stream.
+       -MAX_WBITS means raw deflate (no zlib/gzip header). */
+    if ((s->cur_file_info.compression_method==Z_DEFLATED) && (!raw))
     {
         pfile_in_zip_read_info->stream.zalloc = (alloc_func)0;
         pfile_in_zip_read_info->stream.zfree = (free_func)0;
@@ -1108,20 +1174,15 @@ static int unzOpenCurrentFile3(unz64_s *file, int* method,
             free(pfile_in_zip_read_info);
             return err;
         }
-        /* windowBits is passed < 0 to tell that there is no zlib header.
-         * Note that in this case inflate *requires* an extra "dummy" byte
-         * after the compressed stream in order to complete decompression and
-         * return Z_STREAM_END.
-         * In unzip, i don't wait absolutely Z_STREAM_END because I known the
-         * size of both compressed and uncompressed data
-         */
     }
+    /* Set up byte counters for the read loop */
     pfile_in_zip_read_info->rest_read_compressed =
     s->cur_file_info.compressed_size ;
     pfile_in_zip_read_info->rest_read_uncompressed =
     s->cur_file_info.uncompressed_size ;
 
-
+    /* Calculate the offset to the actual file data:
+       local header offset + fixed header size + variable fields (filename + extra) */
     pfile_in_zip_read_info->pos_in_zipfile =
     s->cur_file_info_internal.offset_curfile + SIZEZIPLOCALHEADER +
     iSizeVar;
@@ -1135,7 +1196,14 @@ static int unzOpenCurrentFile3(unz64_s *file, int* method,
 }
 
 /*
- Turn in-memory zipfile data into an unzFile Handle.
+ Open an in-memory zip archive for reading.
+
+ Locates the end of central directory record (trying Zip64 first, then
+ standard), parses the central directory metadata (number of entries,
+ directory offset and size), and returns an allocated unz64_s handle
+ positioned at the first file in the archive.
+
+ Returns NULL on any structural error in the zip data.
  */
 static unz64_s *unzOpenInternal(uint8_t *zipdata, size_t datasize) {
     unz64_s us;
@@ -1159,6 +1227,7 @@ static unz64_s *unzOpenInternal(uint8_t *zipdata, size_t datasize) {
 
     uint8_t *endptr = zipdata + datasize;
 
+    /* First try to find a Zip64 end of central directory record */
     central_pos = unz64local_SearchCentralDir64(us.filestream, datasize);
     if (central_pos!=CENTRALDIRINVALID)
     {
@@ -1220,6 +1289,7 @@ static unz64_s *unzOpenInternal(uint8_t *zipdata, size_t datasize) {
 
         us.gi.size_comment = 0;
     }
+    /* Fall back to standard (non-Zip64) end of central directory */
     else
     {
         central_pos = unz64local_SearchCentralDir(zipdata, datasize);
@@ -1275,6 +1345,7 @@ static unz64_s *unzOpenInternal(uint8_t *zipdata, size_t datasize) {
             err=UNZ_ERRNO;
     }
 
+    /* Sanity check: the EOCD must come after the central directory */
     if ((central_pos<us.offset_central_dir+us.size_central_dir) &&
         (err==UNZ_OK))
         err=UNZ_BADZIPFILE;
@@ -1284,12 +1355,16 @@ static unz64_s *unzOpenInternal(uint8_t *zipdata, size_t datasize) {
         return NULL;
     }
 
+    /* Calculate the offset of any data prepended before the zip archive
+       (e.g., a self-extracting executable stub). This "byte before" value
+       is added to all file offsets when seeking within the zip data. */
     us.byte_before_the_zipfile = central_pos -
     (us.offset_central_dir+us.size_central_dir);
     us.central_pos = central_pos;
     us.pfile_in_zip_read = NULL;
     us.encrypted = 0;
 
+    /* Allocate the persistent handle and position it at the first file */
     s=(unz64_s*)MemAlloc(sizeof(unz64_s));
     memcpy(s, &us, sizeof(unz64_s));
     s->filesize = datasize;
@@ -1298,6 +1373,9 @@ static unz64_s *unzOpenInternal(uint8_t *zipdata, size_t datasize) {
     return s;
 }
 
+/* Extract the current file from the zip archive into a newly allocated buffer.
+   The file must already be opened for reading via unzOpenCurrentFile.
+   Returns a pointer to the decompressed data (caller must free), or NULL on error. */
 static uint8_t *do_extract_currentfile(unz64_s *uf) {
     char filename_inzip[65536+1];
     int err=UNZ_OK;
@@ -1305,7 +1383,7 @@ static uint8_t *do_extract_currentfile(unz64_s *uf) {
     uInt size_buf;
 
     unz_file_info64 file_info;
-    err = unzGetCurrentFileInfo64(uf,&file_info,filename_inzip,sizeof(filename_inzip),NULL,0,NULL,0);
+    err = unz64local_GetCurrentFileInfo(uf,&file_info,NULL,filename_inzip,sizeof(filename_inzip),NULL,0,NULL,0);
 
     if (err!=UNZ_OK)
     {
@@ -1313,6 +1391,7 @@ static uint8_t *do_extract_currentfile(unz64_s *uf) {
         return NULL;
     }
 
+    /* Allocate a buffer for the full uncompressed file and read it in one call */
     size_buf = file_info.uncompressed_size;
     buf = (void*)MemAlloc(size_buf);
     err = unzReadCurrentFile(uf,buf,size_buf);
@@ -1324,6 +1403,10 @@ static uint8_t *do_extract_currentfile(unz64_s *uf) {
 }
 
 
+/* Locate a specific file by name within the zip archive, open it for
+   reading, and extract its contents into a newly allocated buffer.
+   Returns the decompressed data, or NULL if the file was not found or
+   could not be opened/read. */
 static uint8_t *do_extract_onefile(unz64_s *uf, const char* filename) {
     if (unzLocateFile(uf,filename, 0) != UNZ_OK)
     {
@@ -1331,7 +1414,7 @@ static uint8_t *do_extract_onefile(unz64_s *uf, const char* filename) {
         return NULL;
     }
 
-    if (unzOpenCurrentFile3(uf, NULL, NULL, 0, NULL) != UNZ_OK) {
+    if (unzOpenCurrentFile(uf, NULL, NULL, 0) != UNZ_OK) {
         fprintf(stderr, "Error when opening file \"%s\" in archive\n",filename);
         return NULL;
     }
@@ -1339,6 +1422,17 @@ static uint8_t *do_extract_onefile(unz64_s *uf, const char* filename) {
     return do_extract_currentfile(uf);
 }
 
+/*
+ Public entry point: extract a single named file from in-memory zip data.
+
+ Given a pointer to raw zip archive bytes (zipdata, zipdatasize), locates
+ and decompresses the file named filename_to_extract. On success, returns
+ a newly allocated buffer containing the uncompressed data and sets
+ *unzipped_size to its length. On failure, returns NULL and sets
+ *unzipped_size to 0.
+
+ The caller is responsible for freeing the returned buffer.
+ */
 uint8_t *extract_file_from_zip_data(uint8_t *zipdata, size_t zipdatasize, const char *filename_to_extract, size_t *unzipped_size) {
 
     unz64_s *uf = unzOpenInternal(zipdata, zipdatasize);
