@@ -2,6 +2,17 @@
 //  seasofblood.c
 //  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
+//  Implements game-specific features for "Seas of Blood" (Fighting Fantasy #16),
+//  a text adventure adaptation by Adventure Soft UK. This file handles:
+//    - The adventure sheet (player stats display)
+//    - The battle/combat system with animated dice rolling
+//    - Room image rendering with object overlays
+//    - Loading game-specific data (enemy tables, battle messages, images)
+//
+//  The battle system recreates the Fighting Fantasy dice combat: both sides
+//  roll 2d6 + strike skill. The loser takes 2 stamina damage. Ship combat
+//  ("boat battles") uses crew strength instead of personal stamina.
+//
 //  Created by Petter Sjölund on 2022-01-08.
 //
 
@@ -17,19 +28,25 @@
 #include "taylordraw.h"
 #include "randomness.h"
 
+// Glk windows for the split-screen battle display:
+// Two graphics windows for animated dice, plus a text grid for the player's stats.
 winid_t LeftDiceWin, RightDiceWin, BattleRight;
 glui32 background_colour;
 
 extern const char *battle_messages[33];
+// Enemy lookup table: 4-byte entries (item index, strike, stamina, boatflag),
+// terminated by 0xFF. Loaded from game data in LoadExtraSeasOfBloodData().
 extern uint8_t enemy_table[126];
 uint8_t *blood_image_data;
 
+// Battle outcome constants
 #define VICTORY 0
 #define LOSS 1
 #define DRAW 2
 #define FLEE 3
 #define ERROR 99
 
+// Dice rendering parameters, computed from the available window size
 glui32 dice_pixel_size, dice_x_offset, dice_y_offset;
 
 static int get_enemy_stats(int *strike, int *stamina, int *boatflag);
@@ -37,6 +54,9 @@ static void battle_loop(int strike, int stamina, int boatflag);
 static void swap_stamina_and_crew_strength(void);
 void blood_battle(void);
 
+// Displays the player's character sheet, mirroring the Fighting Fantasy
+// adventure sheet format. Player skill and crew strike are fixed at 9.
+// Game counters: [3]=stamina, [5]=provisions, [6]=log, [7]=crew strength.
 void AdventureSheet(void)
 {
     glk_stream_set_current(glk_window_get_stream(Bottom));
@@ -51,7 +71,7 @@ void AdventureSheet(void)
     if (Counters[6] < 10)
         Output("      PROVISIONS   :");
     else
-        Output("     PROVISIONS   :"); // one less space!
+        Output("     PROVISIONS   :"); // one less space for 2-digit numbers
     OutputNumber(Counters[5]);
     Output("\nCREW STRIKE:");
     OutputNumber(9);
@@ -63,17 +83,19 @@ void AdventureSheet(void)
     glk_set_style(style_Normal);
 }
 
+// Handles Seas of Blood-specific action codes triggered by the game engine.
+//   0 = no-op
+//   1 = increment the log (tracking voyage progress)
+//   2 = initiate combat with an enemy at the current location
 void BloodAction(int p)
 {
     switch (p) {
     case 0:
         break;
     case 1:
-        // Update LOG
         Counters[6]++;
         break;
     case 2:
-        // Battle
         Look();
         Output("You are attacked \n");
         Output("<HIT ENTER> \n");
@@ -88,8 +110,15 @@ void BloodAction(int p)
 
 #pragma mark Image drawing
 
+// Flag to track whether object images still need to be drawn on top of
+// the room image. Set to 1 before drawing the room, cleared after objects
+// are drawn. This allows the room drawing code to optionally call
+// DrawObjectImages itself at a specific position.
 int should_draw_object_images;
 
+// Draws images for all items present in the current room, overlaid on the
+// room image. If x is -1, each item is drawn at its default position from
+// the image table; otherwise all items are drawn at the specified (x, y).
 void DrawObjectImages(uint8_t x, uint8_t y)
 {
     int draw_at_default_pos = ((int)x == -1);
@@ -114,6 +143,10 @@ void PatchCryptImage(void) {
     imagebuffer[8 * IRMAK_IMGWIDTH + 10][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 10][8] & ~BRIGHT_FLAG;
 }
 
+// Renders the room image for the current location. The room background is
+// drawn using the DrawTaylor() function (shared with the TaylorMade engine),
+// then any item images are overlaid. Finally the completed image buffer is
+// drawn using DrawIrmakPictureFromBuffer().
 void SeasOfBloodRoomImage(void)
 {
     OpenGraphicsWindow();
@@ -124,7 +157,6 @@ void SeasOfBloodRoomImage(void)
     if (should_draw_object_images)
         DrawObjectImages(-1,-1);
 
-    /* Remove ugly bright tiles behind sarcophagus */
     if (MyLoc == 13)
         PatchCryptImage();
 
@@ -134,6 +166,8 @@ void SeasOfBloodRoomImage(void)
 
 #pragma mark Battles
 
+// Printf-style helper that outputs formatted text to a specific Glk window.
+// Used throughout the battle system to write to different panes.
 static void SOBPrint(winid_t w, const char *fmt, ...)
 #ifdef __GNUC__
     __attribute__((__format__(__printf__, 2, 3)))
@@ -154,6 +188,9 @@ static void SOBPrint(winid_t w, const char *fmt, ...)
     glk_put_string_stream(glk_window_get_stream(w), msg);
 }
 
+// Calculates the best pixel multiplier for rendering dice in the available
+// graphics window space. Each die face is drawn on an 8x8 grid; the
+// multiplier scales this up to fill the window while maintaining aspect ratio.
 static glui32 optimal_dice_pixel_size(glui32 *width, glui32 *height)
 {
     int ideal_width = 8;
@@ -179,6 +216,8 @@ static glui32 optimal_dice_pixel_size(glui32 *width, glui32 *height)
     return multiplier;
 }
 
+// Draws a box-drawing character border around a text grid window using
+// Unicode box-drawing characters (heavy lines: U+250F, U+2501, etc.).
 static void draw_border(winid_t win)
 {
     glui32 width, height;
@@ -204,6 +243,9 @@ static void draw_border(winid_t win)
     glk_put_char_uni(0x251B);
 }
 
+// Draws the stat labels in a battle panel. In personal combat, shows
+// "SKILL" and "STAMINA"; in ship combat (boatflag), shows "STRIKE" and
+// "CRW STR" instead. The player's panel also gets a "YOU" label.
 static void redraw_static_text(winid_t win, int boatflag)
 {
     glk_stream_set_current(glk_window_get_stream(win));
@@ -227,6 +269,8 @@ static void redraw_static_text(winid_t win, int boatflag)
     }
 }
 
+// Redraws the entire battle UI: recalculates dice sizing, draws borders
+// on both panels, and fills in the stat labels.
 static void redraw_battle_screen(int boatflag)
 {
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
@@ -244,6 +288,10 @@ static void redraw_battle_screen(int boatflag)
     redraw_static_text(BattleRight, boatflag);
 }
 
+// Creates the split-screen battle layout by subdividing the Top window:
+//   Top (left text grid)   = enemy stats    | BattleRight (right text grid) = player stats
+//   LeftDiceWin (graphics) = enemy dice     | RightDiceWin (graphics)       = player dice
+// Also sets dice colour based on the active palette (C64 blue vs Spectrum red).
 static void setup_battle_screen(int boatflag)
 {
     winid_t parent = glk_window_get_parent(Top);
@@ -280,18 +328,21 @@ static void setup_battle_screen(int boatflag)
     redraw_battle_screen(boatflag);
 }
 
+// Main battle entry point. Looks up the enemy at the current location,
+// sets up the battle UI, runs the combat loop, then tears down the
+// battle windows and restores the normal game display.
 void blood_battle(void)
 {
     int enemy, strike, stamina, boatflag;
-    enemy = get_enemy_stats(&strike, &stamina, &boatflag); // Determine their stats
+    enemy = get_enemy_stats(&strike, &stamina, &boatflag);
     if (enemy == 0) {
         fprintf(stderr, "Seas of blood battle called with no enemy in location?\n");
         return;
     }
     setup_battle_screen(boatflag);
-    battle_loop(strike, stamina, boatflag); // Into the battle loops
+    battle_loop(strike, stamina, boatflag);
     if (boatflag)
-        swap_stamina_and_crew_strength(); // Switch back stamina - crew strength
+        swap_stamina_and_crew_strength(); // Restore stamina/crew strength to their original counters
     glk_window_close(LeftDiceWin, NULL);
     glk_window_close(RightDiceWin, NULL);
     glk_window_close(BattleRight, NULL);
@@ -300,6 +351,11 @@ void blood_battle(void)
     SeasOfBloodRoomImage();
 }
 
+// Searches the enemy_table for an enemy item located in the current room.
+// Each 4-byte table entry is: item_index, strike, stamina, boatflag.
+// If boatflag is set, swaps stamina and crew strength counters so that
+// combat damage applies to crew strength instead. Returns the enemy item
+// index, or 0 if no enemy is found.
 static int get_enemy_stats(int *strike, int *stamina, int *boatflag)
 {
     int enemy, i = 0;
@@ -321,6 +377,8 @@ static int get_enemy_stats(int *strike, int *stamina, int *boatflag)
     return 0;
 }
 
+// Draws a filled rectangle in a dice graphics window, scaled by
+// dice_pixel_size and offset by the centering offsets.
 void draw_rect(winid_t win, int32_t x, int32_t y, int32_t width, int32_t height,
     int32_t color)
 {
@@ -329,10 +387,12 @@ void draw_rect(winid_t win, int32_t x, int32_t y, int32_t width, int32_t height,
         width * dice_pixel_size, height * dice_pixel_size);
 }
 
+// Renders a single die face (1-6) in a graphics window. The die body is
+// drawn as two overlapping rounded rectangles, then the pips are punched
+// out in the background colour. The number parameter is 0-based (0=1 pip).
 void draw_graphical_dice(winid_t win, int number)
 {
-    // The eye-less dice backgrounds consist of two rectangles on top of each
-    // other
+    // Die body: two overlapping rectangles form a rounded shape
     draw_rect(win, 1, 2, 7, 5, dice_colour);
     draw_rect(win, 2, 1, 5, 7, dice_colour);
 
@@ -375,6 +435,9 @@ void draw_graphical_dice(winid_t win, int number)
     }
 }
 
+// Updates both dice displays: clears the graphics windows, redraws the
+// graphical dice faces, and prints Unicode dice characters (U+2680-U+2685)
+// plus numeric values in the appropriate text panel.
 void update_dice(int our_turn, int left_dice, int right_dice)
 {
     left_dice--;
@@ -401,6 +464,7 @@ void update_dice(int our_turn, int left_dice, int right_dice)
     SOBPrint(win, "%d %d", left_dice + 1, right_dice + 1);
 }
 
+// Displays the combat total (dice + strike skill = sum) in the active panel.
 void print_sum(int our_turn, int sum, int strike)
 {
     winid_t win = our_turn ? BattleRight : Top;
@@ -415,6 +479,8 @@ void print_sum(int our_turn, int sum, int strike)
     glk_put_string("+ 9 = ");
 }
 
+// Refreshes the strike/stamina (or crew strike/strength) values in a
+// battle panel after damage is dealt.
 void update_result(int our_turn, int strike, int stamina, int boatflag)
 {
     winid_t win = our_turn ? BattleRight : Top;
@@ -433,6 +499,7 @@ void update_result(int our_turn, int strike, int stamina, int boatflag)
     }
 }
 
+// Clears the dice sum line in both battle panels, then redraws their borders.
 void clear_result(void)
 {
     winid_t win = Top;
@@ -450,6 +517,7 @@ void clear_result(void)
     }
 }
 
+// Clears the stamina/crew strength value line in both panels before updating.
 void clear_stamina(void)
 {
     winid_t win = Top;
@@ -467,6 +535,8 @@ void clear_stamina(void)
     }
 }
 
+// Handles window resize during combat. Tears down and rebuilds the entire
+// battle UI, then restores the current stats and borders.
 static void RearrangeBattleDisplay(int strike, int stamina, int boatflag)
 {
     UpdateSettings();
@@ -486,6 +556,14 @@ static void RearrangeBattleDisplay(int strike, int stamina, int boatflag)
     glk_request_char_event(Top);
 }
 
+// Runs one round of animated dice rolling for both combatants.
+//
+// The enemy's dice animate on a timer and stop automatically after a random
+// number of rolls. The player then sees their dice animate and presses
+// ENTER to stop them. The player may also press X to flee (land combat
+// only, not allowed at sea (location 1)).
+//
+// Returns VICTORY, LOSS, DRAW, or FLEE.
 int roll_dice(int strike, int stamina, int boatflag)
 {
     clear_result();
@@ -577,6 +655,8 @@ int roll_dice(int strike, int stamina, int boatflag)
     return ERROR;
 }
 
+// Waits for the player to press ENTER during combat, while still handling
+// window resize events to keep the battle display intact.
 void BattleHitEnter(int strike, int stamina, int boatflag)
 {
     glk_request_char_event(Bottom);
@@ -602,6 +682,13 @@ void BattleHitEnter(int strike, int stamina, int boatflag)
 
 //#define AUTOWIN
 
+// Main combat loop. Repeats dice rounds until one side's stamina reaches 0,
+// or the player flees. Each loss deals 2 stamina damage.
+// BitFlag 6 is the "battle lost" flag used by the game engine.
+// Battle messages are organized in groups of 5, offset by 16 for boat combat:
+//   [1-5]  = player hit messages,   [17-21] = boat: player hit
+//   [6-10] = enemy hit messages,    [22-26] = boat: enemy hit
+//   [11-15]= draw messages,         [27-31] = boat: draw
 static void battle_loop(int strike, int stamina, int boatflag)
 {
 #ifdef AUTOWIN
@@ -619,6 +706,7 @@ static void battle_loop(int strike, int stamina, int boatflag)
         clear_stamina();
         glk_stream_set_current(glk_window_get_stream(Bottom));
         if (result == LOSS) {
+            // Player takes 2 stamina (or crew strength) damage
             Counters[3] -= 2;
 
             if (Counters[3] <= 0) {
@@ -632,6 +720,7 @@ static void battle_loop(int strike, int stamina, int boatflag)
                 SOBPrint(Bottom, "%s", battle_messages[1 + erkyrath_random() % 5 + 16 * boatflag]);
             }
         } else if (result == VICTORY) {
+            // Enemy takes 2 stamina damage
             stamina -= 2;
             if (stamina <= 0) {
                 glk_put_string("YOU HAVE WON!");
@@ -645,6 +734,7 @@ static void battle_loop(int strike, int stamina, int boatflag)
             MyLoc = SavedRoom;
             return;
         } else {
+            // Draw — no damage dealt
             SOBPrint(Bottom, "%s", battle_messages[11 + erkyrath_random() % 5 + 16 * boatflag]);
         }
 
@@ -664,17 +754,25 @@ static void battle_loop(int strike, int stamina, int boatflag)
     } while (stamina > 0 && Counters[3] > 0);
 }
 
+// Swaps Counters[3] (stamina) and Counters[7] (crew strength) so that the
+// battle system's damage to Counters[3] actually affects crew strength
+// during ship combat. Called before and after ship battles.
 static void swap_stamina_and_crew_strength(void)
 {
-    uint8_t temp = Counters[7]; // Crew strength
-    Counters[7] = Counters[3]; // Stamina
+    uint8_t temp = Counters[7];
+    Counters[7] = Counters[3];
     Counters[3] = temp;
 }
 
+// Loads game-specific data that isn't part of the standard Scott Adams
+// format: enemy stats, battle messages, object image data, and system
+// messages. Data offsets differ between the C64 and ZX Spectrum versions.
 void LoadExtraSeasOfBloodData(int c64)
 {
 #pragma mark Enemy table
 
+    // Enemy table: 4 bytes per entry (item index, strike, stamina, boatflag),
+    // terminated by 0xFF.
     int offset = file_baseline_offset + ((c64 == 1) ? 0x3fee: 0x47b7);
 
     uint8_t *ptr = SeekToPos(offset);
@@ -689,6 +787,9 @@ void LoadExtraSeasOfBloodData(int c64)
 
 #pragma mark Battle messages
 
+    // 32 compressed text strings for combat flavour text, organized in
+    // groups of 5 for player-hit, enemy-hit, and draw outcomes (personal
+    // and ship variants). See battle_loop() for indexing.
     offset = file_baseline_offset + ((c64 == 1) ? 0x82f6 : 0x71da);
 
     ptr = SeekToPos(offset);
@@ -699,6 +800,8 @@ void LoadExtraSeasOfBloodData(int c64)
 
 #pragma mark Extra image data
 
+    // Object sprite image data (2010 bytes) used by the TaylorDraw engine
+    // to render item images overlaid on room backgrounds.
     offset = file_baseline_offset + ((c64 == 1) ? 0x5299: 0x3b10);
 
     int data_length = 2010;
@@ -709,11 +812,16 @@ void LoadExtraSeasOfBloodData(int c64)
 
     memcpy(blood_image_data, ptr, data_length);
 
+    // Initialize the TaylorDraw engine with the image data.
+    // The callback DrawObjectImages is invoked during room rendering.
     InitTaylor(blood_image_data,
                    blood_image_data + 2010, NULL, 1, 0, DrawObjectImages);
 
 #pragma mark System messages
 
+    // Map platform-specific system messages to the engine's canonical
+    // message keys. The C64 and Spectrum versions store these in different
+    // orders, so each needs its own mapping.
     if (c64 == 1) {
         SysMessageType messagekey[] = {
             NORTH,
@@ -767,13 +875,11 @@ void LoadExtraSeasOfBloodData(int c64)
         Items[125].AutoGet = "PLAN";
     }
 
-    /*
-     If you drop the helmet in Seas of Blood, it disappears.
-     There is no way to get it back. However, if you wear
-     the helmet before dropping it, it ends up in the room
-     as expected. This seems likely to be a bug, so we patch it,
-     changing the "destroy" command to "move to current room".
-     */
+    // Bug fix: dropping the helmet destroys it (action code 89xx = destroy
+    // item). If you wear then drop it, it works correctly (action code
+    // 80xx = move to current room). This appears to be an original bug,
+    // so we patch the action table to use "move to room" instead.
+    // Action indices differ between the Spectrum and C64 versions.
     if (Actions[154].Subcommand[0] == 8910) {
         /* Spectrum */
         debug_print("Patching DROP HELMET!\n");

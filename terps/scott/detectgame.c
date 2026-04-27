@@ -37,6 +37,9 @@
 extern const char *sysdict_zx[MAX_SYSMESS];
 extern int header[];
 
+/* Byte signatures used to locate the dictionary in a game file.
+   Each entry pairs a dictionary format with a short sequence of bytes
+   that uniquely identifies it (typically the first few dictionary words). */
 struct dictionaryKey {
     DictionaryType dict;
     const char *signature;
@@ -58,6 +61,8 @@ struct dictionaryKey dictKeys[] = {
     { NOT_A_GAME, NULL, 0 }
 };
 
+/* Search the entire loaded file for a byte sequence.
+   Returns the offset of the first match, or -1 if not found. */
 int FindCode(const char *x, int len)
 {
     unsigned const char *p = entire_file;
@@ -70,6 +75,10 @@ int FindCode(const char *x, int len)
     return -1;
 }
 
+/* Identify the game's dictionary format by scanning the file for known
+   signatures. Returns the dictionary type and sets *offset to the start
+   of the dictionary. Some formats require a backward offset adjustment
+   because the signature appears partway through the dictionary. */
 DictionaryType GetId(size_t *offset)
 {
     for (int i = 0; dictKeys[i].dict != NOT_A_GAME; i++) {
@@ -93,6 +102,8 @@ DictionaryType GetId(size_t *offset)
     return NOT_A_GAME;
 }
 
+/* Read 15 little-endian 16-bit values from ptr into the global header[].
+   Returns a pointer to the last byte read (ptr + 29). */
 uint8_t *ReadHeader(uint8_t *ptr)
 {
     int i, value;
@@ -104,6 +115,8 @@ uint8_t *ReadHeader(uint8_t *ptr)
     return ptr - 1;
 }
 
+/* Validate that parsed header values are within reasonable ranges.
+   Rejects databases with too few/many items, actions, words, or rooms. */
 int SanityCheckHeader(void)
 {
     int16_t v = GameHeader.NumItems;
@@ -122,6 +135,12 @@ int SanityCheckHeader(void)
     return 1;
 }
 
+/* Parse the dictionary from a binary game file into the global Verbs[]
+   and Nouns[] arrays. Handles three encoding schemes:
+   - Compressed/C64: first letter case indicates synonym ('*' prefix)
+   - Localized (non-English): high bit on first byte = new word
+   - Uncompressed: NUL-separated words, '*' = synonym marker
+   A byte > 127 terminates the dictionary. */
 uint8_t *ReadDictionary(GameInfo info, uint8_t **pointer, int loud)
 {
     uint8_t *ptr = *pointer;
@@ -205,6 +224,8 @@ uint8_t *ReadDictionary(GameInfo info, uint8_t **pointer, int loud)
     return ptr;
 }
 
+/* Convert a file offset to a pointer into the loaded file buffer.
+   Returns NULL if the offset is out of range. */
 uint8_t *SeekToPos(int offset)
 {
     if (offset > file_length || entire_file == NULL)
@@ -212,6 +233,8 @@ uint8_t *SeekToPos(int offset)
     return entire_file + offset;
 }
 
+/* Seek to a game data section if its position is specified (not FOLLOWS).
+   Applies the file_baseline_offset adjustment. Returns 0 on seek failure. */
 int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr)
 {
     if (expected_start != FOLLOWS) {
@@ -223,6 +246,10 @@ int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr)
     return 1;
 }
 
+/* Extract game parameters from the raw header[] array based on the header
+   layout type. Different platforms and game generations use different field
+   orderings — this function abstracts that away. Some formats pack two
+   values into one 16-bit word (e.g. max_carry + player_room in high/low bytes). */
 int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
     int *mc, int *pr, int *tr, int *wl, int *lt, int *mn,
     int *trm)
@@ -367,6 +394,7 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
     return 1;
 }
 
+/* Print parsed header values for debugging (only active when DEBUG_PRINT is set) */
 void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
     int tr, int wl, int lt, int mn, int trm)
 {
@@ -398,6 +426,9 @@ typedef struct {
     size_t size;
 } LineImage;
 
+/* Load Mysterious Adventures-format line-drawing vector image data. Each image starts
+   with 0xFF followed by a background colour byte, then drawing commands
+   until the next 0xFF. Truncated images are patched out with Image=255. */
 void LoadVectorData(GameInfo info, uint8_t *ptr)
 {
     size_t offset;
@@ -443,6 +474,11 @@ void LoadVectorData(GameInfo info, uint8_t *ptr)
 
 struct LineImage *lineImages = NULL;
 
+/* Load a game using the "old style" Brian Howarth binary format
+   (Mysterious Adventures era). Reads the header, actions, room connections,
+   item locations, dictionary, room descriptions, messages, item descriptions,
+   vector images, and system messages sequentially from known offsets.
+   Returns the game ID on success. */
 GameIDType TryLoadingOld(GameInfo info, int dict_start)
 {
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
@@ -728,6 +764,16 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
     return info.gameID;
 }
 
+/* Load a Adventure International UK / Brian Howarth game database given its GameInfo
+   descriptor and dictionary offset.
+   Dispatches to the SAGA binary loader for UK Hulk, to TryLoadingOld for
+   old-style formats, or handles the later binary format directly.
+
+   Validates the header against the expected GameInfo values. Supports both
+   compressed (packed condition/command counts) and uncompressed action
+   formats, and compressed vs plain NUL-terminated text strings.
+
+   On success, all global game arrays are populated and the game ID is returned. */
 GameIDType TryLoading(GameInfo info, int dict_start, int loud)
 {
     /* The UK versions of Hulk uses the Mak Jukic binary database format */
@@ -1191,6 +1237,9 @@ jumpSysMess:
     return info.gameID;
 }
 
+/* Check if the loaded game is a Mysterious Adventures title.
+   Checks the current Game pointer first, then falls back to matching header
+   values against the game database (for .dat plaintext format). */
 int IsMysterious(void)
 {
     if (Game && (Game->subtype & MYSTERIOUS) != 0)
@@ -1211,10 +1260,10 @@ int IsMysterious(void)
     return 0;
 }
 
-// There are four ZX Spectrum "scene releases" (by some guy in Denmark called Parsec)
-// which use RLE compression: Pirate Adventure, Voodoo Castle, Strange Odyssey and Buckaroo Banzai.
-// This function decompresses them.
-
+/* Decompress a Parsec-packed ZX Spectrum game file. Four "scene releases"
+   by Parsec (Denmark) use this RLE scheme: Pirate Adventure, Voodoo Castle,
+   Strange Odyssey, and Buckaroo Banzai. Operates backwards through memory,
+   expanding either literal runs or repeated byte-pairs. */
 uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr)
 {
     if (dataptr - 3 < entire_file) {
@@ -1251,6 +1300,10 @@ uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr)
     return dataptr;
 }
 
+/* Detect and load a ZX Spectrum game file. Handles .z80 snapshot
+   decompression, dictionary signature scanning, and Parsec RLE
+   decompression (a two-pass scheme using Z80 register values
+   stored at fixed offsets in the snapshot). */
 GameIDType DetectZXSpectrum(void)
 {
     GameIDType detectedGame = UNKNOWN_GAME;
@@ -1280,6 +1333,11 @@ GameIDType DetectZXSpectrum(void)
         }
     }
 
+    /* If no dictionary was found and this was a .z80 snapshot, try
+       Parsec RLE decompression. The decompression parameters (start/end
+       addresses) are stored in saved Z80 registers at fixed offsets.
+       Addresses are adjusted by -0x4000 to convert from the Spectrum's
+       memory map to the file buffer. */
     if (!detectedGame && wasz80) {
         uint8_t *mem = entire_file;
         uint16_t HL = READ_LE_UINT16(mem + 0x1b42) - 0x4000;
@@ -1312,17 +1370,30 @@ GameIDType DetectZXSpectrum(void)
     return detectedGame;
 }
 
+/* Top-level game detection: try each supported format in order.
+
+   1. ScottFree plaintext (LoadDatabase)
+   2. TI-99/4A cartridge
+   3. Commodore 64 (with optional decrunch)
+   4. Atari 8-bit
+   5. Apple II
+   6. ZX Spectrum (.z80 snapshots, Parsec-compressed)
+
+   Once the game is identified and loaded, configures system messages,
+   graphics, and game-specific overrides (system message mappings,
+   item/room image patches, parser language tables). */
 GameIDType DetectGame(const char *file_name)
 {
-    FILE *f = fopen(file_name, "r");
+    FILE *f = fopen(file_name, "rb");
     if (f == NULL)
         Fatal("Cannot open game");
 
     file_length = GetFileLength(f);
 
     if (file_length > MAX_GAMEFILE_SIZE) {
-        debug_print("File too large to be a vaild game file (%zu bytes, max is %d)\n",
+        debug_print("File too large to be a valid game file (%zu bytes, max is %d)\n",
             file_length, MAX_GAMEFILE_SIZE);
+        fclose(f);
         return UNKNOWN_GAME;
     }
 
@@ -1338,7 +1409,7 @@ GameIDType DetectGame(const char *file_name)
     Game = (GameInfo *)MemAlloc(sizeof(GameInfo));
     memset(Game, 0, sizeof(GameInfo));
 
-    // Check if the original ScottFree LoadDatabase() function can read the file.
+    /* Try the ScottFree plaintext format first (closes f on success) */
     GameIDType detectedGame = LoadDatabase(f, Options & DEBUGGING);
 
     if (detectedGame == UNKNOWN_GAME) { /* Not a ScottFree game, check if TI99/4A */
@@ -1368,6 +1439,8 @@ GameIDType DetectGame(const char *file_name)
         }
 
         if (detectedGame == UNKNOWN_GAME) {
+            free(entire_file);
+            free(Game);
             return UNKNOWN_GAME;
         }
     }
@@ -1393,11 +1466,15 @@ GameIDType DetectGame(const char *file_name)
     if (detectedGame == SCOTTFREE || detectedGame == TI994A || Game->type == US_VARIANT)
         return detectedGame;
 
-    /* Copy ZX Spectrum style system messages as base */
+    /* Copy ZX Spectrum style system messages as a base, then apply
+       game-specific overrides below */
     for (int i = 6; i < MAX_SYSMESS && sysdict_zx[i] != NULL; i++) {
         sys[i] = (char *)sysdict_zx[i];
     }
 
+    /* Game-specific post-load setup: load extra data (Robin of Sherwood
+       forest images, Seas of Blood combat tables), fix image assignments, and map
+       system_messages[] indices to the sys[] slots the engine uses. */
     switch (detectedGame) {
     case ROBIN_OF_SHERWOOD:
         LoadExtraSherwoodData(0);

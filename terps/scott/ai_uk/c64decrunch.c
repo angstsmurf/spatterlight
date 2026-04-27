@@ -26,6 +26,11 @@
 
 #include "unp64_interface.h"
 
+/* Registry of known C64 game images, identified by file size + checksum.
+   Fields: game ID, file length, 16-bit checksum, container type (D64/T64/US),
+   unp64 decompression iterations, unp64 switches, appended filename on disk,
+   parameter (iteration for switches or special flag), copy source/dest/size
+   for relocating graphics data, and image data offset. */
 // clang-format off
 static const c64rec c64_registry[] = {
     { BATON_C64,        0x2ab00, 0xc3fc, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // Mysterious Adventures C64 dsk 1
@@ -156,6 +161,8 @@ static const c64rec c64_registry[] = {
 };
 // clang-format off
 
+/* Compute a simple 16-bit additive checksum over a byte buffer.
+   Used together with file length to identify known C64 disk/tape images. */
 uint16_t checksum(uint8_t *sf, uint32_t extent)
 {
     uint16_t c = 0;
@@ -164,8 +171,11 @@ uint16_t checksum(uint8_t *sf, uint32_t extent)
     return c;
 }
 
-static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec entry);
+static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec entry);
 
+/* Extract the largest file from a D64 disk image into a newly allocated buffer.
+   Returns the file data (caller must free) and sets *newlength, or returns
+   NULL if the disk image couldn't be parsed. */
 static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
 {
     uint8_t *file = NULL;
@@ -187,11 +197,17 @@ static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
     return file;
 }
 
+/* Savage Island stores picture data in separate files on the D64 image.
+   These buffers hold the extracted picture files so they can be appended
+   to the main game data after decompression. */
 uint8_t *save_island_appendix_1 = NULL;
 size_t save_island_appendix_1_length = 0;
 uint8_t *save_island_appendix_2 = NULL;
 size_t save_island_appendix_2_length = 0;
 
+/* Prompt the user to choose between Savage Island part 1 and part 2,
+   which share a single D64 disk image. Extracts the selected game file
+   and its associated picture files, then decompresses. */
 static GameIDType savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
 {
     Output("This disk image contains two games. Select one.\n\n1. Savage Island "
@@ -239,13 +255,15 @@ static GameIDType savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
             save_island_appendix_1_length -= 2;
         if (save_island_appendix_2_length > 2)
             save_island_appendix_2_length -= 2;
-        return DecrunchC64(sf, extent, rec);
+        return ProcessC64(sf, extent, rec);
     } else {
         fprintf(stderr, "SCOTT: DetectC64() Failed loading file %s\n", rec.appendfile);
         return UNKNOWN_GAME;
     }
 }
 
+/* Append the Savage Island picture file(s) to the decompressed game data
+   at a fixed offset (0x6202). Frees the appendix buffers after copying. */
 static void appendSIfiles(uint8_t **sf, size_t *extent)
 {
     uint8_t megabuf[0xffff];
@@ -268,6 +286,9 @@ static void appendSIfiles(uint8_t **sf, size_t *extent)
     memcpy(*sf, megabuf, *extent);
 }
 
+/* Prompt the user to choose from the six Mysterious Adventures games on
+   C64 compilation disk 1. Extracts the selected game file from the D64
+   image and processes it. */
 static GameIDType mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
 {
     recindex = 0;
@@ -324,13 +345,15 @@ static GameIDType mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
         *sf = file;
         *extent = length;
         c64rec rec = c64_registry[recindex - 1 + result];
-        return DecrunchC64(sf, extent, rec);
+        return ProcessC64(sf, extent, rec);
     } else {
         fprintf(stderr, "SCOTT: DetectC64() Failed loading file %s\n", filename);
         return UNKNOWN_GAME;
     }
 }
 
+/* Prompt the user to choose from the five Mysterious Adventures games on
+   C64 compilation disk 2. Same approach as mysterious_menu(). */
 static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
 {
     recindex = 6;
@@ -384,13 +407,16 @@ static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
         *sf = file;
         *extent = length;
         c64rec rec = c64_registry[recindex - 1 + result];
-        return DecrunchC64(sf, extent, rec);
+        return ProcessC64(sf, extent, rec);
     } else {
         fprintf(stderr, "Failed loading file %s\n", filename);
         return UNKNOWN_GAME;
     }
 }
 
+/* Prompt the user to choose from the 12 Scott Adams games on the
+   "Adventure Pack" D64 compilation disk. Each game is stored as a
+   separate ADVn.OBJ file on the disk image. */
 static GameIDType adventure_pack_menu(uint8_t **sf, size_t *extent)
 {
     Output("This disk image contains 12 games. Select one.\n\n1. Adventureland\n2. Pirate Adventure\n3. Mission Impossible\n4. Voodoo Castle\n5. The Count\n6. Strange Odyssey\n7. Fun House\n8. Pyramid of Doom\n9. Ghost Town\nA. Savage Island\nB. Savage Island Part 2\nC. The Golden Voyage");
@@ -439,6 +465,10 @@ static GameIDType adventure_pack_menu(uint8_t **sf, size_t *extent)
     return UNKNOWN_GAME;
 }
 
+/* Relocate a block of bytes within a buffer, growing it if necessary.
+   Allocates a new buffer of at least max(dest + bytestomove, datasize),
+   copies the original data, then overwrites at dest with bytes from source.
+   Used to rearrange graphics data after decompression. */
 static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasize,
     size_t bytestomove)
 {
@@ -454,6 +484,9 @@ static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasi
     return newsize;
 }
 
+/* Scan a D64 disk image for S.A.G.A.-format picture files and load them
+   into the USImages linked list. Picture filenames encode the image index
+   and usage type (room, room+object, inventory object) in fixed positions. */
 void LoadC64USImages(uint8_t *data, size_t length)
 {
     int numfiles;
@@ -490,7 +523,9 @@ void LoadC64USImages(uint8_t *data, size_t length)
                         memcpy(image->imagedata, buf, image->datasize);
                         free(c64file);
                         image->systype = SYS_C64;
+                        /* Parse 3-digit image index from filename positions 3–5 */
                         image->index = shortname[5] - '0' + (shortname[4] - '0') * 10 + (shortname[3] - '0') * 100;
+                        /* Filename convention: 'R' prefix = room, char 6 'R' = room+object, 'I' = inventory */
                         if (shortname[0] == 'R') {
                             image->usage = IMG_ROOM;
                         } else if (shortname[6] == 'R') {
@@ -514,6 +549,9 @@ void LoadC64USImages(uint8_t *data, size_t length)
     }
 }
 
+/* Sorcerer of Claymorgue Castle US ships as a two-disk set (side A + B).
+   If we loaded side A, look for side B by replacing "s1" with "s2" in the
+   filename and re-running C64 detection on the companion disk. */
 GameIDType LookForSoCCompanion(const char *filename, uint8_t **sf, size_t *extent)
 {
     if (filename == NULL)
@@ -541,6 +579,7 @@ GameIDType LookForSoCCompanion(const char *filename, uint8_t **sf, size_t *exten
     return UNKNOWN_GAME;
 }
 
+/* Debug helper: write raw data to a file. */
 size_t writeToFile(const char *name, uint8_t *data, size_t size)
 {
     FILE *fptr = fopen(name, "w");
@@ -556,6 +595,13 @@ size_t writeToFile(const char *name, uint8_t *data, size_t size)
     return result;
 }
 
+/* Identify and load a C64 game from raw file data.
+
+   Matches the file against the c64_registry by size + checksum. For multi-game
+   compilation disks, presents a selection menu. Depending on the container
+   type (D64, T64, or US/S.A.G.A.), extracts the game file, optionally appends
+   companion data, decompresses via unp64, and loads the game database. Replaces
+   *sf and *extent with the final game data on success. */
 GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
 {
     if (*extent > MAX_LENGTH || *extent < MIN_LENGTH)
@@ -565,6 +611,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
 
     for (int i = 0; c64_registry[i].length != 0; i++) {
         if (*extent == c64_registry[i].length && chksum == c64_registry[i].chk) {
+            /* Multi-game disks need user selection before extraction */
             if (c64_registry[i].id == SAVAGE_ISLAND_C64) {
                 return savage_island_menu(sf, extent, i);
             } else if (c64_registry[i].id == BATON_C64 && (chksum == 0xc3fc || chksum == 0xbfbf)) {
@@ -576,6 +623,8 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
             } else if (c64_registry[i].id == CLAYMORGUE_US && chksum == 0xa957) {
                 return LookForSoCCompanion(filename, sf, extent);
             }
+            /* D64 disk image: extract the largest file (the game program),
+               optionally append a companion file (e.g. picture data) */
             if (c64_registry[i].type == TYPE_D64) {
                 int newlength;
                 uint8_t *largest_file = get_largest_file(*sf, *extent, &newlength);
@@ -610,6 +659,8 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
                 }
                 free(megabuf);
 
+            /* T64 tape image: parse the directory header to find and extract
+               the first file record (2-byte load address + program data) */
             } else if (c64_registry[i].type == TYPE_T64 || c64_registry[i].type == TYPE_T64_US) {
                 uint8_t *file_records = *sf + 64;
                 int number_of_records = READ_LE_UINT16(*sf + 36);
@@ -629,7 +680,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
                 *extent = size + 2;
 
                 if (c64_registry[i].type == TYPE_T64_US) {
-                    DecrunchC64(sf, extent, c64_registry[i]);
+                    ProcessC64(sf, extent, c64_registry[i]);
                     if (c64_registry[i].id == VOODOO_CASTLE_US || c64_registry[i].id == PIRATE_US) {
                         return handle_all_in_one(sf, extent, c64_registry[i]);
                     }
@@ -639,6 +690,8 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
                         return CurrentGame;
                     }
                 }
+            /* US S.A.G.A. format on D64: extract the named database file,
+               optionally decompress, and load the binary game database */
             } else if (c64_registry[i].type == TYPE_US) {
                 size_t newlength;
                 uint8_t *database_file = di_get_file_named(*sf, *extent, &newlength, c64_registry[i].appendfile);
@@ -649,7 +702,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
 
                 if (c64_registry[i].decompress_iterations) {
                     size_t len = (size_t)newlength;
-                    DecrunchC64(&database_file, &len, c64_registry[i]);
+                    ProcessC64(&database_file, &len, c64_registry[i]);
                     newlength = len;
                 }
 
@@ -672,13 +725,22 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
                     return CurrentGame;
                 }
             }
-            return DecrunchC64(sf, extent, c64_registry[i]);
+            return ProcessC64(sf, extent, c64_registry[i]);
         }
     }
     return UNKNOWN_GAME;
 }
 
-static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec record)
+/* Decompress a C64 game file, load its database, and set up graphics.
+
+   Many C64 adventure releases were packed with one or more layers of
+   compression (CruelCrunch, PUCrunch, Exomizer, etc.). This function
+   runs the unp64 decompressor for the number of iterations specified
+   in the registry entry (passing switches on a specific iteration if
+   needed), then identifies the game dictionary, loads the database via
+   TryLoading, appends any Savage Island picture data, relocates
+   graphics blocks via CopyData, and initializes the drawing system. */
+static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
 {
     size_t length = *extent;
     size_t decompressed_length = *extent;
@@ -687,6 +749,7 @@ static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec record)
 
     int result = 0;
 
+    /* Iteratively decompress — some releases were packed multiple times */
     for (int i = 1; i <= record.decompress_iterations; i++) {
         /* We only send switches on the iteration specified by parameter */
         if (i == record.parameter && record.switches != NULL) {
@@ -711,11 +774,13 @@ static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec record)
     if (uncompressed != NULL)
         free(uncompressed);
 
+    /* US-format games are loaded by the caller, not here */
     if (record.type == TYPE_US || record.type == TYPE_T64_US) {
         *extent = length;
         return record.id;
     }
 
+    /* Look up the full GameInfo entry in the master games[] table */
     for (int i = 0; games[i].Title != NULL; i++) {
         if (games[i].gameID == record.id) {
             free(Game);
@@ -756,6 +821,8 @@ static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec record)
         appendSIfiles(sf, extent);
     }
 
+    /* Relocate graphics data to the addresses the drawing engine expects.
+       Gremlins has an overlapping source/dest region that needs special handling. */
     if (CurrentGame == GREMLINS_C64 && record.copysource == 0xc801) {
         uint8_t overlap[0x1000];
         memcpy(overlap, *sf + 0xd801, 0x1000);
@@ -770,6 +837,7 @@ static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec record)
         }
     }
 
+    /* Claymorgue has extra image data that needs copying to a high offset */
     if (CurrentGame == CLAYMORGUE_C64 && record.copysource == 0x855) {
         result = CopyData(0x1531a, 0x2002, sf, *extent, 0x2000);
         if (result) {
