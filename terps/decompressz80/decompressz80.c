@@ -475,8 +475,24 @@ libspectrum_error internal_z80_read(libspectrum_snap *snap,
     const uint8_t *buffer,
     size_t buffer_length);
 
+// Decompresses a .z80 snapshot file into a flat memory buffer suitable for
+// the TaylorMade and ScottFree interpreters. Returns NULL if the data is
+// not a valid .z80 file.
+//
+// For a 48K Spectrum snapshot, returns 0xC000 (48 KB) bytes representing
+// the three 16 KB RAM pages in their standard memory-map order:
+//   Page 5 → 0x4000–0x7FFF (screen memory)
+//   Page 2 → 0x8000–0xBFFF
+//   Page 0 → 0xC000–0xFFFF
+//
+// For a 128K Spectrum snapshot, returns 0x2001F bytes: the three pages above
+// (with the currently banked-in page at 0xC000 determined by the 0x7FFD
+// memory port), followed by the remaining RAM banks.
+//
+// On success, *length is updated to reflect the output size.
 uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length)
 {
+    /* Parse the .z80 header and decompress all RAM pages */
     libspectrum_snap *snap = libspectrum_new(libspectrum_snap, 1);
     for (int i = 0; i < SNAPSHOT_RAM_PAGES; i++)
         libspectrum_snap_set_pages(snap, i, NULL);
@@ -487,6 +503,7 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length)
     uint8_t *uncompressed = NULL;
 
     if (snap->machine == LIBSPECTRUM_MACHINE_48) {
+        /* 48K: concatenate the three RAM pages in address order */
         uncompressed = malloc(0xc000);
         if (uncompressed != NULL) {
             memcpy(uncompressed, snap->pages[5], 0x4000);
@@ -496,6 +513,9 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length)
         }
 
     } else if (snap->machine == LIBSPECTRUM_MACHINE_128) {
+      /* 128K: pages 5 and 2 are always mapped; the third slot depends
+         on the last value written to port 0x7FFD. Append all remaining
+         banks after the first three. */
         uncompressed = malloc(0x2001f);
         if (uncompressed != NULL) {
             memcpy(uncompressed, snap->pages[5], 0x4000);
@@ -506,7 +526,7 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length)
                 offset += 0x4000;
             }
             for (int i = 0; i < SNAPSHOT_RAM_PAGES && offset < 0x2001f - 0x4000; i++) {
-                /* Already written pages 5, 2 and whatever's paged in */
+                /* Skip pages already written above */
                 if (i == 5 || i == 2 || i == snap->out_128_memoryport)
                     continue;
                 memcpy(uncompressed + offset, snap->pages[i], 0x4000);
@@ -516,6 +536,7 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length)
         }
     }
 
+    /* Clean up the temporary snapshot structure and its page buffers */
     for (int i = 0; i < SNAPSHOT_RAM_PAGES; i++)
         if (snap->pages[i] != NULL)
             free(snap->pages[i]);
