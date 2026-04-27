@@ -17,19 +17,15 @@
 #include "taylor.h"
 #include "utility.h"
 
-// Input separated into word strings
-char **InputWordStrings = NULL;
-// The indices of the words in InputWordStrings, 0 if not found
-uint8_t Word[5];
-// The positions in InputWordStrings of the words in Word
-int WordPositions[5];
-// The number of word strings in InputWordStrings
-int WordsInInput = 0;
-// The index in InputWordStrings of the next command
-int WordIndex = 0;
+char **InputWordStrings = NULL; /* Input split into word strings */
+uint8_t Word[5];               /* Dictionary codes for the parsed words (0 = not found) */
+int WordPositions[5];          /* Index into InputWordStrings for each Word entry */
+int WordsInInput = 0;          /* Number of word strings in InputWordStrings */
+int WordIndex = 0;             /* Position in InputWordStrings of the next command */
 
-int FoundExtraCommand = 0;
+int FoundExtraCommand = 0;     /* Set when parser finds a non-dictionary extra command */
 
+/* Free all allocated word strings and reset input state. */
 void FreeInputWords(void)
 {
     WordIndex = 0;
@@ -44,6 +40,10 @@ void FreeInputWords(void)
     WordsInInput = 0;
 }
 
+/* Split a raw input string into individual word strings. Words are
+   delimited by whitespace; commas, periods, and semicolons also start
+   a new word (for command chaining like "GO NORTH,LOOK"). Results are
+   stored in the global InputWordStrings array. */
 void SplitIntoWords(const char *string, int length)
 {
     if (length < 1) {
@@ -98,6 +98,9 @@ void SplitIntoWords(const char *string, int length)
     InputWordStrings = words;
 }
 
+/* Read a line of input from the player via Glk, displaying a prompt
+   appropriate to the game version. Loops until at least one word is
+   entered. Handles non-input events (timer, resize) while waiting. */
 void LineInput(void)
 {
     event_t ev;
@@ -158,9 +161,14 @@ void LineInput(void)
     } while (WordsInInput == 0 || InputWordStrings == NULL);
 }
 
+/* Single-letter abbreviation expansions (padded to 4 chars) */
 static const char *Abbreviations[] = { "I   ", "L   ", "X   ", "Z   ", "Q   ", "Y   ", NULL };
 static const char *AbbreviationValue[] = { "INVE", "LOOK", "EXAM", "WAIT", "QUIT", "YES ", NULL };
 
+/* Look up a word in the game dictionary. The dictionary is a flat list of
+   5-byte entries (4-char word + 1-byte code), terminated by code 126.
+   Returns the dictionary code, or 0 if not found (after also checking
+   single-letter abbreviations and extra commands). */
 int ParseWord(char *p)
 {
     char buf[5];
@@ -204,8 +212,10 @@ int ParseWord(char *p)
     return 0;
 }
 
+/* Words that separate chained commands in a single input line */
 static const char *Delimiters[] = { ",", ".", ";", "AND", "THEN", NULL };
 
+/* Check if a word is a command delimiter (case-insensitive). */
 static int IsDelimiterWord(char *word)
 {
     size_t len1 = strlen(word);
@@ -226,6 +236,9 @@ static int IsDelimiterWord(char *word)
     return 0;
 }
 
+/* Advance WordIndex past the next command delimiter in InputWordStrings.
+   Skips consecutive delimiters. Returns 1 if another command follows,
+   0 if no more commands remain (triggering a new LineInput). */
 static int FindNextCommandDelimiter(void)
 {
     if (WordIndex >= WordsInInput - 1 || WordsInInput < 2)
@@ -245,13 +258,17 @@ static int FindNextCommandDelimiter(void)
     return 0;
 }
 
+/* Parse the next command from the input. If there are remaining chained
+   commands (separated by delimiters), parse the next one; otherwise read
+   a new line. Looks up each word in the dictionary and fills the Word[]
+   array with up to 5 dictionary codes. Applies game-specific word fixups
+   for Blizzard Pass and Questprobe 3. */
 void Parser(void)
 {
     int i;
 
     FoundExtraCommand = 0;
 
-    /* Is there input remaining to be analyzed? */
     if (!FindNextCommandDelimiter()) {
         LineInput();
         if (WordsInInput == 0 || InputWordStrings == NULL)
