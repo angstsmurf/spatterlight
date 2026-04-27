@@ -20,10 +20,14 @@
 
 typedef enum {
     UNKNOWN_FILE_TYPE,
-    TYPE_D64,
-    TYPE_T64
+    TYPE_D64, /* 1541 disk image */
+    TYPE_T64  /* tape/datasette image */
 } file_type;
 
+/* A registry entry identifying a known C64 game image.
+   Fields: game ID, expected file length, 16-bit additive checksum,
+   container type, number of unp64 decompression passes, optional
+   unp64 switch string, and which iteration to apply switches on. */
 typedef struct {
     GameIDType id;
     size_t length;
@@ -34,6 +38,9 @@ typedef struct {
     int parameter;
 } c64rec;
 
+/* Known C64 TaylorMade game images indexed by file size + checksum.
+   Covers Questprobe 3, Rebel Planet, He-Man/Terraquake, Temple of Terror,
+   and Kayleth across various crack/pack releases. */
 static const c64rec c64_registry[] = {
     { QUESTPROBE3_64, 0x69e3, 0x3b96, TYPE_T64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
     { QUESTPROBE3_64, 0x8298, 0xb93e, TYPE_T64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
@@ -75,6 +82,7 @@ static const c64rec c64_registry[] = {
 
 extern GameInfo games[NUMGAMES];
 
+/* Simple 16-bit additive checksum for identifying known disk/tape images. */
 static uint16_t checksum(uint8_t *sf, size_t extent)
 {
     uint16_t c = 0;
@@ -83,8 +91,11 @@ static uint16_t checksum(uint8_t *sf, size_t extent)
     return c;
 }
 
-static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec entry);
+static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec entry);
 
+/* Extract the largest file from a D64 disk image into a new buffer.
+   Returns the file data (caller must free) and sets *newlength,
+   or returns NULL if the disk image couldn't be parsed. */
 static uint8_t *get_largest_file(uint8_t *data, size_t length, size_t *newlength)
 {
     uint8_t *file = NULL;
@@ -106,6 +117,10 @@ static uint8_t *get_largest_file(uint8_t *data, size_t length, size_t *newlength
     return file;
 }
 
+/* Extract a file from a T64 tape image by record number (1-based).
+   Reads the directory entry at offset 32 + 32*filenum to find the data
+   offset and size, then returns a buffer with the 2-byte C64 load address
+   prepended. Updates *extent to the extracted file size. */
 static uint8_t *GetFileFromT64(int filenum, int number_of_records, uint8_t **sf, size_t *extent)
 {
     uint8_t *file_records = *sf + 32 + 32 * filenum;
@@ -126,6 +141,9 @@ static uint8_t *GetFileFromT64(int filenum, int number_of_records, uint8_t **sf,
     return file;
 }
 
+/* Extract a file from a D64 image starting at a specific track/sector.
+   Used for Temple of Terror variants that store files at known disk
+   locations rather than in the directory. */
 static uint8_t *get_file_at_ts(uint8_t *data, size_t length, size_t *newlength, int track, int sector)
 {
     uint8_t *file = NULL;
@@ -144,6 +162,11 @@ static uint8_t *get_file_at_ts(uint8_t *data, size_t length, size_t *newlength, 
     return file;
 }
 
+/* Temple of Terror ships with two versions on the same disk/tape:
+   a graphics version and a text-only version with extra prose. The user
+   can also pick a hybrid that combines pictures from the graphics version
+   with the expanded text from the text-only version. This function
+   extracts both files, prompts for a choice, and decompresses. */
 static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
 {
     c64rec rec = c64_registry[recindex];
@@ -201,6 +224,7 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
 
     switch (result) {
     case 2: {
+        /* Swap so file1 is always the one we keep */
         uint8_t *temp = file1;
         file1 = file2;
         file2 = temp;
@@ -212,10 +236,12 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
         free(file2);
         *sf = file1;
         *extent = size1;
-        return DecrunchC64(sf, extent, rec);
+        return ProcessC64(sf, extent, rec);
     case 3: {
-        DecrunchC64(&file1, &size1, rec);
-        DecrunchC64(&file2, &size2, c64_registry[recindex + 1]);
+        /* Hybrid: decompress both, then splice the graphics data from
+           the graphics version into the text-only version's memory layout */
+        ProcessC64(&file1, &size1, rec);
+        ProcessC64(&file2, &size2, c64_registry[recindex + 1]);
 
         uint8_t *final = MemAlloc(size2 + 0x4124);
         memcpy(final, file2, size2);
@@ -241,6 +267,13 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
     return UNKNOWN_GAME;
 }
 
+/* Identify and extract a TaylorMade game from a C64 disk or tape image.
+
+   Matches the file against the c64_registry by size + checksum. For D64
+   images, extracts the largest file; for T64 tapes, extracts the first
+   file record. Temple of Terror images with two game versions trigger
+   a selection menu. Replaces *sf and *extent with the extracted file
+   data and hands off to ProcessC64 for decompression. */
 GameIDType DetectC64(uint8_t **sf, size_t *extent)
 {
     if (*extent > MAX_LENGTH || *extent < MIN_LENGTH)
@@ -252,6 +285,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
         c64rec record = c64_registry[i];
         if (*extent == record.length && chksum == record.chk) {
             if (record.type == TYPE_D64) {
+                /* Temple of Terror D64 variants with two game files */
                 if (chksum == 0x577e || chksum == 0x4661 || chksum == 0x7b2d) {
                     return terror_menu(sf, extent, i);
                 } else {
@@ -267,7 +301,9 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
                     }
                 }
 
+            /* T64 tape image: extract the first file record */
             } else if (c64_registry[i].type == TYPE_T64) {
+                /* Temple of Terror T64 variants with two game files */
                 if (c64_registry[i].chk == 0x2b54 || c64_registry[i].chk == 0x3b37)
                     return terror_menu(sf, extent, i);
                 int number_of_records = READ_LE_UINT16(*sf + 36);
@@ -279,13 +315,20 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
             } else {
                 Fatal("Unknown type");
             }
-            return DecrunchC64(sf, extent, c64_registry[i]);
+            return ProcessC64(sf, extent, c64_registry[i]);
         }
     }
     return UNKNOWN_GAME;
 }
 
-static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec record)
+/* Decompress the extracted C64 file and look up the game in the master table.
+
+   Runs unp64 for the number of iterations specified in the registry entry
+   (applying switches on a specific iteration if configured), then performs
+   checksum-specific memory block relocations for variants that store
+   graphics data at non-standard addresses. Finally, sets the global Game
+   pointer to the matching entry in games[]. */
+static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
 {
     size_t decompressed_length = *extent;
 
@@ -293,6 +336,7 @@ static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec record)
 
     int result = 0;
 
+    /* Iteratively decompress — some releases were packed multiple times */
     for (int i = 1; i <= record.decompress_iterations; i++) {
         /* We only send switches on the iteration specified by parameter */
         if (i == record.parameter && record.switches != NULL) {
@@ -317,18 +361,20 @@ static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec record)
     if (uncompressed != NULL)
         free(uncompressed);
 
+    /* Relocate graphics data for specific releases that store image blocks
+       at addresses the engine doesn't expect */
     uint8_t temp[0x2e79];
 
     switch (record.chk) {
-    case 0xa46f:
+    case 0xa46f: /* Rebel Planet: move block from 0x098a to 0x198a */
         memcpy(temp, *sf + 0x098a, 0x2e79);
         memcpy(*sf + 0x198a, temp, 0x2e79);
         break;
-    case 0x78ba:
+    case 0x78ba: /* He-Man: move image data from 0xc802 to 0x4808 */
         memcpy(temp, *sf + 0xc802, 0x1400);
         memcpy(*sf + 0x4808, temp, 0x1400);
         break;
-    case 0xf3b4:
+    case 0xf3b4: /* Temple of Terror (FBR crack): move image data from 0xd802 to 0x4808 */
         memcpy(temp, *sf + 0xd802, 0x1400);
         memcpy(*sf + 0x4808, temp, 0x1400);
         break;
@@ -336,6 +382,7 @@ static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, c64rec record)
         break;
     }
 
+    /* Look up the full GameInfo entry in the master games[] table */
     for (int i = 0; games[i].Title != NULL; i++) {
         if (games[i].gameID == record.id) {
             Game = &games[i];

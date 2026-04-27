@@ -24,7 +24,10 @@
 
 #include "animations.h"
 
+/* Object index for the "unfolding space" star view in Rebel Planet */
 #define UNFOLDING_SPACE 50
+
+/* Timer intervals (ms) for each Rebel Planet animation */
 #define STARS_ANIMATION_RATE 15
 #define STARS_ANIMATION_RATE_64 40
 #define FIELD_ANIMATION_RATE 10
@@ -32,11 +35,16 @@
 #define ROBOT_ANIMATION_RATE 400
 #define QUEEN_ANIMATION_RATE 120
 
-int AnimationRunning = 0;
-static int KaylethAnimationIndex = 0;
-static int AnimationStage = 0;
-static int ClickShelfStage = 0;
+int AnimationRunning = 0;              /* Current timer rate, or 0 if idle */
+static int KaylethAnimationIndex = 0;  /* Room index of the last Kayleth animation */
+static int AnimationStage = 0;         /* General-purpose frame counter */
+static int ClickShelfStage = 0;        /* Sub-counter for Kayleth click-shelf jerkiness */
 
+/* Animate the star field in Rebel Planet room 1 (view through a window).
+   The left half of the image scrolls left and the right half scrolls right,
+   creating a parallax / hyperspace effect. Works by rotating bits in the
+   ZX Spectrum-format imagebuffer (8 pixel-rows per character cell, 1 bit
+   per pixel) and redrawing the affected region. */
 static void AnimateStars(void)
 {
     int carry;
@@ -86,13 +94,16 @@ static void AnimateStars(void)
     }
 }
 
+/* Animate the force field in Rebel Planet room 86. The entire field
+   region is rotated one pixel to the right each frame, with the carry
+   bit wrapping from the rightmost column back to the leftmost. */
 static void AnimateForcefield(void)
 {
     int carry;
     /* First fill door area with black, erasing field */
     RectFill(104, 16, 48, 39, 0);
 
-    /* We go line by line and pixel row by pixel row */
+    /* Use the colour attribute from the top-left cell for the whole field */
     uint8_t colour = imagebuffer[2 * IRMAK_IMGWIDTH + 13][8];
     glui32 ink = Remap(colour & INK_MASK);
 
@@ -115,6 +126,8 @@ static void AnimateForcefield(void)
     }
 }
 
+/* Fill the unset (background) pixels of a character cell with the given
+   colour. Used by AnimateQueenComputer to cycle background colours. */
 static void FillCell(int cell, glui32 ink)
 {
     int startx = (cell % IRMAK_IMGWIDTH) * 8;
@@ -128,11 +141,16 @@ static void FillCell(int cell, glui32 ink)
     }
 }
 
+/* Animate the Queen's computer in Rebel Planet room 88. Cycles bright
+   colours through three pairs of indicator cells (at columns 3, 10, 27)
+   on two rows, plus three cells on the bottom row. Every 16th frame the
+   Arcadian head image is toggled on or off. */
 static void AnimateQueenComputer(void)
 {
     int offset = 3;
+    /* Map AnimationStage (0–15) to a colour index that wraps 0–7 */
     int rotatingink = 7 - (AnimationStage - 7 * (AnimationStage > 7));
-    /* First fill areas with black */
+    /* Fill indicator cells with rotating bright colours */
     for (int i = 0; i < 3; i++) {
         for (int line = 3; line <= 6; line += 3) {
             for (int cell = 0; cell < 2; cell++) {
@@ -153,11 +171,12 @@ static void AnimateQueenComputer(void)
             rotatingink = 7;
     }
     if (AnimationStage == 0) {
-        /* Image block 18: Arcadian head */
+        /* Draw the Arcadian head overlay (image block 18) */
         DrawPictureAtPos(18, 18, 1, 0);
     }
 
     if (AnimationStage == 7) {
+        /* Erase the Arcadian head area, creating a blink effect */
         RectFill(144, 8, 24, 40, 0);
     }
 
@@ -166,15 +185,22 @@ static void AnimateQueenComputer(void)
         AnimationStage = 0;
 }
 
+/* Animate the click shelves in Kayleth room 3. The shelves scroll
+   vertically with the stage parameter controlling the offset. The left
+   half (cols 12–15) scrolls downward using vertically mirrored data,
+   while the right half (cols 16–19) scrolls upward. Both wrap around
+   at 80 pixels to create an endless loop. */
 static void AnimateKaylethClickShelves(int stage)
 {
     RectFill(100, 0, 56, 81, 0);
     for (int line = 0; line < 10; line++) {
         for (int col = 12; col < 20; col++) {
             for (int i = 0; i < 8; i++) {
+                /* Compute wrapped vertical position */
                 int ypos = line * 8 + i + stage;
                 if (ypos > 79)
                     ypos = ypos - 80;
+                /* Look up colour attributes from the destination rows */
                 uint8_t attribute = imagebuffer[col + (ypos / 8) * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
@@ -185,10 +211,12 @@ static void AnimateKaylethClickShelves(int stage)
                 ink2 = Remap(ink2);
                 for (int j = 0; j < 8; j++) {
                     if (col > 15) {
+                        /* Right half: draw from source row, scrolling up */
                         if (isNthBitSet(imagebuffer[col + line * 32][i], 7 - j)) {
                             PutPixel(col * 8 + j, ypos, ink);
                         }
                     } else {
+                        /* Left half: draw from mirrored source row, scrolling down */
                         if (isNthBitSet(imagebuffer[col + (9 - line) * 32][7 - i], 7 - j)) {
                             PutPixel(col * 8 + j, 79 - ypos, ink2);
                         }
@@ -199,25 +227,40 @@ static void AnimateKaylethClickShelves(int stage)
     }
 }
 
+/* A single frame in a Kayleth animation sequence. The counter increments
+   each timer tick; when it reaches counter_to_draw_at, the frame's image
+   is drawn and the animation advances. */
 typedef struct {
-    int counter_to_draw_at;
-    int counter;
-    int image;
+    int counter_to_draw_at; /* Number of ticks before this frame is drawn */
+    int counter;            /* Current tick count (reset after drawing) */
+    int image;              /* Image index to draw for this frame */
 } KaylethAnimationFrame;
 
+/* A complete animation sequence for one Kayleth room. Animations only
+   play when required_object is present in the current room. After the
+   last frame, the sequence loops back to the frame at loop_to. */
 typedef struct {
-    int loop_to;
-    int required_object;
+    int loop_to;            /* Frame index to restart from after the last frame */
+    int required_object;    /* Object that must be present to trigger this animation */
     int number_of_frames;
     int current_frame;
     KaylethAnimationFrame *frames;
 } KaylethAnimation;
 
+/* Per-room animation table, indexed by room number (NULL = no animation) */
 static KaylethAnimation **KaylethAnimations = NULL;
 
-// This is really the number of rooms in the game. We use NULL for rooms without an animation.
+/* Total number of rooms in Kayleth; NULL entries for rooms without animation */
 #define NUMBER_OF_KAYLETH_ANIMATIONS 92
 
+/* Parse the Kayleth animation data from the game file image into the
+   KaylethAnimations table. The data format is a sequence of room entries:
+   - 0xFF bytes mark rooms with no animation (one per room).
+   - Otherwise: loop_to (byte, in units of 3), required_object (byte),
+     skip byte, then 3-byte frame records (delay, skip, image) terminated
+     by 0xFF.
+   After parsing, some timing values are patched to better match the
+   original ZX Spectrum playback speed. */
 void LoadKaylethAnimationData(void)
 {
     KaylethAnimations = MemAlloc(sizeof(KaylethAnimation *) * NUMBER_OF_KAYLETH_ANIMATIONS);
@@ -226,18 +269,18 @@ void LoadKaylethAnimationData(void)
     int counter = 0;
     while (counter < NUMBER_OF_KAYLETH_ANIMATIONS) {
         while (*ptr == 0xff) {
-            // No animation for this room
             KaylethAnimations[counter] = NULL;
             counter++;
             ptr++;
         }
         if (counter < NUMBER_OF_KAYLETH_ANIMATIONS) {
             KaylethAnimation *anim = MemAlloc(sizeof(KaylethAnimation));
-            anim->loop_to = *ptr / 3; // The frame to loop back to after reaching the end. Usually 0.
+            anim->loop_to = *ptr / 3;
             ptr++;
             anim->current_frame = 0;
             anim->required_object = *ptr;
-            ptr += 2; // Skipping "skip byte", always zero initially
+            ptr += 2; /* Skip the runtime counter byte (always zero in file) */
+            /* Count frames by scanning ahead for the 0xFF terminator */
             anim->number_of_frames = 0;
             for (int i = 0; ptr[i] != 0xff; i += 3) {
                 anim->number_of_frames++;
@@ -246,11 +289,11 @@ void LoadKaylethAnimationData(void)
             for (int i = 0; i < anim->number_of_frames; i++) {
                 anim->frames[i].counter_to_draw_at = *ptr;
                 anim->frames[i].counter = 0;
-                ptr += 2; // Skipping counter byte, always zero initially
+                ptr += 2; /* Skip the runtime counter byte */
                 anim->frames[i].image = *ptr++;
             }
 
-            // Hack Azap chamber animations to look more like the original
+            /* Patch Azap chamber timing to better match original speed */
             if (anim->frames[0].image == 118) {
                 anim->frames[1].counter_to_draw_at = 5;
                 anim->frames[3].counter_to_draw_at = 5;
@@ -259,32 +302,35 @@ void LoadKaylethAnimationData(void)
 
             KaylethAnimations[counter++] = anim;
 
-            ptr++;
+            ptr++; /* Skip the 0xFF terminator */
         }
     }
 
-    // Hack assembly line animation 2 to look more like the original
+    /* Patch assembly line (room 2) timing to match original speed */
     KaylethAnimations[2]->frames[0].counter_to_draw_at = 10;
     KaylethAnimations[2]->frames[1].counter_to_draw_at = 20;
     KaylethAnimations[2]->frames[2].counter_to_draw_at = 20;
 }
 
-static int UpdateKaylethAnimationFrames(void) // Draw animation frame
+/* Advance the Kayleth animation for the current room by one tick.
+   Returns 1 if the current room has an animation, 0 otherwise.
+   Object 0 is temporarily placed in the room so room-image drawing
+   can reference it. If the destroyer droid is pursuing (Flag[10] > 1),
+   object 122 is also temporarily placed here. */
+static int UpdateKaylethAnimationFrames(void)
 {
     if (KaylethAnimations[MyLoc] == NULL) {
         return 0;
     }
 
-    // Temporarily set object 0 to this location
     int obj0loc = ObjectLoc[0];
     ObjectLoc[0] = MyLoc;
-    // And object 122 if the destroyer droid has caught us
     if (Flag[10] > 1)
         ObjectLoc[122] = MyLoc;
 
     KaylethAnimation *anim = KaylethAnimations[MyLoc];
 
-    // Reset animation if we are in a new room
+    /* Reset animation sequence when entering a new room */
     if (KaylethAnimationIndex != MyLoc) {
         KaylethAnimationIndex = MyLoc;
         anim->current_frame = 0;
@@ -307,15 +353,17 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
         }
     }
 
-    // Reset the temporarily moved objects
     ObjectLoc[0] = obj0loc;
     ObjectLoc[122] = DESTROYED;
     return 1;
 }
 
+/* Timer callback for all Kayleth animations. Drives the per-room frame
+   animation and, in room 3, the click-shelf scrolling effect. The shelf
+   animation only advances on 7 out of every 9 ticks, reproducing the
+   jerky cadence of the original ZX Spectrum version. */
 void UpdateKaylethAnimations(void)
 {
-    // This is an attempt to make the animation jerky like the original.
     ClickShelfStage++;
     if (ClickShelfStage == 9)
         ClickShelfStage = 0;
@@ -329,6 +377,9 @@ void UpdateKaylethAnimations(void)
     }
 }
 
+/* Timer callback for all Rebel Planet animations. Dispatches to the
+   appropriate animation based on the current room and object presence.
+   Stops the timer when the player leaves an animated room. */
 void UpdateRebelAnimations(void)
 {
     if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
@@ -338,7 +389,10 @@ void UpdateRebelAnimations(void)
     } else if (MyLoc == 88 && ObjectLoc[107] == 88) {
         AnimateQueenComputer();
     } else if (MyLoc > 28 && MyLoc < 34) {
-        // Sycane Serpent in sewers
+        /* Sycane Serpent in sewers (rooms 29–33). AnimationStage tracks
+           how far the serpent has emerged (0–5). When the serpent object
+           is present it grows; when absent it retreats, speeding up as
+           it nears full retraction. */
         if (ObjectLoc[92] == MyLoc) {
             AnimationStage++;
             if (AnimationStage > 5) {
@@ -358,32 +412,39 @@ void UpdateRebelAnimations(void)
             DrawTaylor(MyLoc, MyLoc);
         }
         if (AnimationStage) {
+            /* Draw serpent overlay; higher stages use earlier image blocks
+               and move higher up the screen */
             DrawPictureAtPos(62 + AnimationStage, 14, 10 - AnimationStage - (AnimationStage > 2), 1);
         }
         DrawIrmakPictureFromBuffer();
     } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
-        // Killer security robot in museum passage
+        /* Killer security robot: alternates between two frames */
         DrawPictureAtPos(138 + AnimationStage, 13, 2, 0);
         AnimationStage = (AnimationStage == 0);
     } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
-        // Crag snapper in cave
+        /* Crag snapper: alternates between two poses at different positions */
         if (!AnimationStage)
             DrawPictureAtPos(133, 14, 4, 0);
         else
             DrawPictureAtPos(142, 17, 6, 0);
         AnimationStage = (AnimationStage == 0);
     } else {
+        /* No animation for this room — stop the timer */
         glk_request_timer_events(0);
         AnimationRunning = 0;
         AnimationStage = 0;
     }
 }
 
+/* Start or adjust the Glk timer for the animation in the current room.
+   Called after drawing the room image. Sets the timer interval appropriate
+   for the room's animation and, for some Rebel Planet rooms, kicks off
+   the first animation update immediately. For Kayleth, also handles
+   per-room speed overrides for specific locations. */
 void StartAnimations(void)
 {
     if (BaseGame == REBEL_PLANET) {
         if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
-            // Stars
             int rate = STARS_ANIMATION_RATE;
             if (CurrentGame == REBEL_PLANET_64)
                 rate = STARS_ANIMATION_RATE_64;

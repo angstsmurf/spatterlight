@@ -248,7 +248,7 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
    this function again recursively with the bytes to copy.
 
    See http://aimemorial.if-legends.org/gfxbdp.html and also
-   PerformTileTranformations() in irmak.c for more information
+   PerformTileTransformations() in irmak.c for more information
    about how repetitions in the tile-based graphics are encoded.
  */
 

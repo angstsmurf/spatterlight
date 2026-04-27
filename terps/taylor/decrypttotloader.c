@@ -3,7 +3,17 @@
 //
 //  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Used for de-protecting the ZX Spectrum text-only version of Temple of Terror
+//  Used for de-protecting the ZX Spectrum text-only version of Temple of Terror.
+//
+//  The Temple of Terror tape image uses the "Alkatraz" copy protection scheme,
+//  which encrypts game data behind layers of self-modifying Z80 machine code.
+//  Each decryption pass reveals a small Z80 routine that performs the next pass,
+//  repeating dozens of times before the actual game data is exposed.
+//
+//  This file re-implements those Z80 decryption routines in C. The functions
+//  below are named after the Z80 instructions or registers they emulate
+//  (HL, BC, DE, R, SP, etc.), preserving the structure of the original
+//  protection code.
 //
 //  Created by Petter Sjölund on 2022-04-18.
 //
@@ -18,6 +28,8 @@
 
 #include "decrypttotloader.h"
 
+// Adds a constant delta to each byte in the range [HL, HL+BC).
+// Emulates: ADD (HL), delta / INC HL / DJNZ
 static void loop_with_delta(uint8_t *mem, uint16_t HL, uint16_t BC, int8_t delta)
 {
     for (int i = 0; i < BC; i++) {
@@ -25,6 +37,10 @@ static void loop_with_delta(uint8_t *mem, uint16_t HL, uint16_t BC, int8_t delta
     }
 }
 
+// XORs each byte with an accumulator (D) that chains across iterations,
+// creating a CBC-like (cipher block chaining) dependency between bytes.
+// The direction parameter controls whether we traverse forward (+1) or backward (-1).
+// Emulates: LD A,(HL) / XOR D / LD (HL),A / LD D,A
 static void loop_with_d(uint8_t *mem, uint8_t D, uint16_t HL, uint16_t BC, int direction)
 {
     for (int i = 0; i < BC; i++) {
@@ -34,6 +50,9 @@ static void loop_with_d(uint8_t *mem, uint8_t D, uint16_t HL, uint16_t BC, int d
     }
 }
 
+// XORs each byte with a pseudo-random value derived from the Z80 R (refresh)
+// register. R increments by 9 each iteration and wraps at 0x80, simulating
+// the Z80's 7-bit refresh counter behavior.
 static void loop_with_r(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
@@ -44,6 +63,8 @@ static void loop_with_r(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC)
     }
 }
 
+// XORs each byte with both the high and low bytes of its own address.
+// Uses the memory address itself as a position-dependent key.
 static void loop_with_xor_hl(uint8_t *mem, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
@@ -53,6 +74,8 @@ static void loop_with_xor_hl(uint8_t *mem, uint16_t HL, uint16_t BC)
     }
 }
 
+// Negates (two's complement) each byte in the range.
+// Emulates: NEG applied to each byte via LD A,(HL) / NEG / LD (HL),A
 static void loop_with_neg(uint8_t *mem, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
@@ -61,6 +84,8 @@ static void loop_with_neg(uint8_t *mem, uint16_t HL, uint16_t BC)
     }
 }
 
+// Bitwise complements (flips all bits of) each byte in the range.
+// Emulates: CPL (complement accumulator), equivalent to XOR 0xFF.
 static void loop_with_cpl(uint8_t *mem, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
@@ -69,6 +94,10 @@ static void loop_with_cpl(uint8_t *mem, uint16_t HL, uint16_t BC)
     }
 }
 
+// Adds or subtracts a constant value from each byte, with an initial carry
+// applied only to the first byte. The sign parameter (+1 or -1) determines
+// whether the carry is added or subtracted. Direction controls traversal order.
+// Emulates: ADD A,val / SCF or SUB val / SCF with carry flag set on first byte.
 static void loop_with_sub_or_add(uint8_t *mem, uint16_t HL, uint16_t BC, int8_t val, int sign, int direction)
 {
     int carry = 1;
@@ -79,6 +108,8 @@ static void loop_with_sub_or_add(uint8_t *mem, uint16_t HL, uint16_t BC, int8_t 
     }
 }
 
+// Rotates each byte left by one bit, wrapping the top bit into the bottom.
+// Emulates: RLC (HL) — rotate left circular.
 static void loop_with_rotate_left(uint8_t *mem, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
@@ -88,6 +119,8 @@ static void loop_with_rotate_left(uint8_t *mem, uint16_t HL, uint16_t BC)
     }
 }
 
+// Rotates each byte right by one bit, wrapping the bottom bit into the top.
+// Emulates: RRC (HL) — rotate right circular.
 static void loop_with_rotate_right(uint8_t *mem, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
@@ -97,6 +130,9 @@ static void loop_with_rotate_right(uint8_t *mem, uint16_t HL, uint16_t BC)
     }
 }
 
+// XORs each byte with the R register, both bytes of DE, and both bytes of
+// the loop counter. DE starts at 0x61A8 and increments each iteration.
+// The combination of R, DE, and the counter creates a complex key stream.
 static void loop_with_r_and_de(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC)
 {
     uint16_t DE = 0x61a8;
@@ -113,6 +149,11 @@ static void loop_with_r_and_de(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC
     }
 }
 
+// Operates on word-aligned (2-byte) pairs starting at SP. For each pair,
+// XORs one byte with R, then swaps the bytes within the pair.
+// The dfirst flag selects whether the high byte (D) or low byte (E) is
+// XORed first, emulating different POP/PUSH register orderings.
+// HL here is the iteration count, not an address.
 static void loop_with_r_and_sp(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t SP, int dfirst)
 {
     uint8_t A, D, E;
@@ -136,6 +177,9 @@ static void loop_with_r_and_sp(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t SP
     }
 }
 
+// Similar to loop_with_r_and_sp but traverses downward from a fixed address
+// (0xEEFF). XORs the low byte of each pair with R, then swaps the pair.
+// HL here is the iteration count.
 static void loop_with_r_and_sp2(uint8_t *mem, uint8_t R, uint16_t HL)
 {
     uint16_t SP = 0xeeff;
@@ -149,6 +193,9 @@ static void loop_with_r_and_sp2(uint8_t *mem, uint8_t R, uint16_t HL)
     }
 }
 
+// Stores a return address at SP, then XORs each byte with R and both bytes
+// of a decrementing counter. Named after the Z80 EXX instruction (exchange
+// shadow registers) which the original code uses to juggle register sets.
 static void loop_with_exx(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t SP, uint16_t DE, uint16_t addr)
 {
     mem[SP] = addr & 0xff;
@@ -162,6 +209,8 @@ static void loop_with_exx(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t SP, uin
     }
 }
 
+// XORs each byte with both R and a fixed byte at address IY.
+// IY points to a single key byte that is reused for every iteration.
 static void loop_with_r_and_iy(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC, uint16_t IY)
 {
     for (int i = 0; i < BC; i++) {
@@ -173,6 +222,10 @@ static void loop_with_r_and_iy(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC
     }
 }
 
+// XORs bytes at an advancing IY pointer with R and both bytes of a
+// decrementing HL counter, combining address-based and R-based key streams.
+// Unlike most other loops, this writes to IY (not HL), and IY advances
+// while HL counts down.
 static void loop_with_r_and_iy2(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC, uint16_t IY)
 {
     for (int i = 0; i < BC; i++) {
@@ -186,6 +239,10 @@ static void loop_with_r_and_iy2(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t B
     }
 }
 
+// Processes two bytes per iteration of the outer loop. Each byte is XORed
+// with R and both bytes of DE. R advances differently on the first vs second
+// byte of each pair, and DE increments once per pair, creating a 16-bit
+// block-oriented key schedule.
 static void double_loop_with_r(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t DE, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
@@ -205,14 +262,15 @@ static void double_loop_with_r(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t DE
     }
 }
 
-// The original self-modifying code would transform iself over and over,
-// each time decrypting a Z80 code snippet that would performs the next
-// transformation, until finally arring at the actual loading screen
+// The original self-modifying Z80 code would transform itself over and over,
+// each time decrypting a small Z80 code snippet that performs the next
+// transformation, until finally arriving at the actual loading screen
 // drawing code.
-
-// We need the original code to XOR it with the encrypted
-// game data in order to decrypt it, so we have to perform all the
-// equivalent tranformations here.
+//
+// We need the resulting code to XOR it with the encrypted game data in order
+// to decrypt it, so we have to perform all the equivalent transformations
+// here. Each line below corresponds to one decryption pass from the original
+// protection, applied in strict sequence to a 64 KB memory image.
 static void DecryptToTLoader(uint8_t *mem)
 {
     loop_with_d(mem, 0x3c, 0xe142, 0xdbf, 1);
@@ -222,6 +280,7 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_r_and_de(mem, 0x75, 0xe194, 0x0d6d);
     loop_with_d(mem, 0x2d, 0xe1a6, 0x0d5b, 1);
     loop_with_sub_or_add(mem, 0xe1b7, 0x0d4a, (int8_t)-0x2e, -1, 1);
+    // Zero-fill memory from 0xEF01 to 0xFFFF (LDIR block copy of zeroes)
     mem[0xef02] = 0;
     ldir(mem, 0xef02, 0xef01, 0x10fd);
     loop_with_d(mem, 0x2b, 0xe1d7, 0x0d2a, 1);
@@ -230,8 +289,9 @@ static void DecryptToTLoader(uint8_t *mem)
     double_loop_with_r(mem, 0x53, 0xe224, 0x0013, 0x066e);
     loop_with_r(mem, 0x6e, 0xe235, 0x0ccc);
     loop_with_sub_or_add(mem, 0xe246, 0x0cbb, (int8_t)-0x18, -1, 1);
+    // Zero-fill ZX Spectrum screen memory and beyond (0x4000–0xE253)
     mem[0x4000] = 0;
-    ldir(mem, 0x4001, 0x4000, 0xa253);
+    ldir(mem, 0x4000 + 1, 0x4000, 0xa253);
     loop_with_d(mem, 5, 0xe266, 0x0c9b, 1);
     loop_with_r_and_de(mem, 0x1c, 0xe285, 0x0c7c);
     loop_with_r(mem, 0x57, 0xe295, 0x0c6c);
@@ -343,13 +403,12 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_r(mem, 0x13, 0xea5f, 0x04a2);
 }
 
-// XOR the memory starting at the target address with the contents of the
-// memory starting at the source address, overwriting the original memory contents
-// at the target.
-
-// This assumes that the source size is smaller than the target size. When we have
-// used all of the source data, we start over from the start of the source, until
-// every byte of the target is XORed.
+// XOR the memory at target_address with data from source_address, repeating
+// the source cyclically until the entire target region is covered.
+//
+// This is the final decryption step of the Alkatraz scheme: the encrypted
+// game data is XORed with known data (the loading screen bitmap and/or the
+// drawing code) to produce the plaintext game image.
 void XORAlkatraz(uint8_t *memory, uint16_t target_address, uint16_t source_address, uint16_t source_size, uint16_t target_size)
 {
     uint16_t source_start_address = source_address;
@@ -366,49 +425,68 @@ void XORAlkatraz(uint8_t *memory, uint16_t target_address, uint16_t source_addre
     } while (target_size > 0);
 }
 
+// Main entry point: decrypts Temple of Terror Side B from a TZX tape image.
+//
+// The decryption proceeds in stages:
+//   1. Extract and decrypt the tape loader code (Alkatraz-encrypted)
+//   2. Run all self-modifying decryption passes to produce the screen drawing code
+//   3. Load and decrypt the loading screen image
+//   4. XOR the game data with the loading screen and drawing code to recover it
+//
+// Returns a 64 KB memory buffer containing the decrypted ZX Spectrum memory
+// snapshot, or NULL on failure. The caller is responsible for freeing the result.
 uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
 {
     size_t length = *original_data_length;
-    // We load the raw, encrypted tape loader data from the TZX image
+    // Stage 1: Extract the raw, encrypted tape loader data from the TZX image
     uint8_t *encrypted_loader = GetTZXBlock(3, data, &length);
     if (encrypted_loader == NULL)
         return NULL;
-    // We decrypt it in two passes. The original would to this byte-for-byte while loading from tape.
-    // Calling DeAlkatraz() with a NULL target parameter will make it create
-    // a new 64 KB memory snapshot for us.
+    // Decrypt in two passes, mirroring the byte-for-byte decryption that
+    // the original tape loader performed during loading from cassette.
+    // Passing NULL as the target makes DeAlkatraz allocate a fresh 64 KB buffer.
     uint8_t loacon = 0xd3;
     uint8_t *memory = DeAlkatraz(encrypted_loader, NULL, 0, 0xdf98, 0x0002, &loacon, 0xde, 0xe8, 1);
+    if (memory == NULL) {
+        free(encrypted_loader);
+        return NULL;
+    }
     DeAlkatraz(encrypted_loader, memory, 2, 0xdf9d, 0x0f64, &loacon, 0xde, 0xe8, 1);
     free(encrypted_loader);
 
-    // We set some values and move the loader code into place
+    // Initialize key bytes and relocate the loader code via LDIR block copy
     memory[0xef00] = 0x9a;
     memory[0xdf9a] = 0x0f;
     memory[0xdf9d] = 0;
     ldir(memory, 0xdf9e, 0xdf9d, 0x10e);
 
-    // DecryptToTLoader() decrypts the loading screen drawing code.
-
-    // Although we don't use this directly (there is a C
-    // re-implementation in loadtotpicture.c instead) we still
-    // need to XOR the resulting drawing code with the
-    // encrypted game data in order to decrypt it.
+    // Stage 2: Run all ~90 decryption passes to produce the loading screen
+    // drawing code. Although we don't execute this Z80 code directly (there
+    // is a C re-implementation in loadtotpicture.c), the resulting byte
+    // pattern is needed as an XOR key to decrypt the game data.
     DecryptToTLoader(memory);
 
-    // Next, we load, decrypt and unscramble the loading screen image
+    // Stage 3: Load, decrypt and unscramble the loading screen image
     length = *original_data_length;
     uint8_t *block = GetTZXBlock(4, data, &length);
-    if (block == 0)
+    if (block == NULL) {
+        free(memory);
         return NULL;
+    }
 
+    // Draw the loading screen into the ZX Spectrum display file (0x4000-0x57FF)
     LoadAlkatrazPicture(memory, block);
 
+    // Decrypt the remaining data blocks from the tape image into memory.
+    // These multiple DeAlkatraz passes place the game data across the
+    // 64 KB address space at various target addresses.
     loacon = 0x8c;
     DeAlkatraz(block, memory, 0x1b02, 0xea69, 0x000e, &loacon, 0xc1, 0xcb, 1);
     DeAlkatraz(block, memory, 0x1b10, 0x6072, 0x6e96, &loacon, 0xc1, 0xcb, 1);
     DeAlkatraz(block, memory, 0x89a6, 0x5b00, 0x01cc, &loacon, 0xc1, 0xcb, 1);
     DeAlkatraz(block, memory, 0x8b72, 0xea79, 0x0003, &loacon, 0xc1, 0xcb, 1);
 
+    // Clear various control bytes used by the loader
     memory[0xeb0d] = 0;
     memory[0xeb0e] = 0;
     memory[0xeb5e] = 0;
@@ -418,12 +496,14 @@ uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
     memory[0xeaf3] = 0;
     memory[0xeb00] = 0;
 
-    // In these final passes we XOR the game data with
-    // the loading image (i.e. the contents of screen memory)
-    // as well as with the Z80 loading screen drawing code.
+    // Stage 4: Final decryption — XOR the game data at 0x8782 with:
+    //   (a) the loading screen bitmap at 0x4000 (6 KB, cycled over 18 KB), then
+    //   (b) the loading screen drawing code at 0xEA7F (268 bytes, cycled).
+    // This peels off the last encryption layer, revealing the actual game.
     XORAlkatraz(memory, 0x8782, 0x4000, 0x1800, 0x4786);
     XORAlkatraz(memory, 0x8782, 0xea7f, 0x010c, 0x4786);
 
+    // Clear the drawing code area now that it's no longer needed as a key
     memory[0xea7f] = 0;
     ldir(memory, 0xea80, 0xea7f, 0x237);
 
