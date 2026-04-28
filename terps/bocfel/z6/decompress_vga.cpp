@@ -88,7 +88,7 @@ static int16_t read_lzw_code(const uint8_t **ptr, size_t bytes_remaining, lzw_st
 
     // When the next code to be added would exceed the current bit width,
     // increase the width (up to the 12-bit maximum).
-    if (state->next_table_code == bit_masks[state->code_bit_width] && state->code_bit_width < 12)
+    if (state->code_bit_width < 12 && state->next_table_code == bit_masks[state->code_bit_width])
         state->code_bit_width++;
 
     return code;
