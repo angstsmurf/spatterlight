@@ -5,15 +5,15 @@
 //  Original code at https://github.com/tautology0/textadventuregraphics
 //  See also http://aimemorial.if-legends.org/gfxbdp.html
 //
+//  This file handles setup and initialisation of the Irmak tile-based
+//  graphics system used by Adventure International UK games. It reads
+//  the 256 8x8 tile definitions and per-image offset tables from the
+//  game data, then hands off to the Irmak decoder (irmak.c) which
+//  transforms and composites tiles into final images.
 //
-//  The 8 x 8 pixel graphic building blocks used for these images were
-//  previously referred to in code as "characters", but that was a bit
-//  confusing, as they don't have anything to do with the characters
-//  used to print text. Also, this kind of computer graphics is commonly
-//  called "tile based" when used in arcade games and similar.
-//
-//  All instances of "character" are now changed to "tile".
-//  Hopefully this will make things less rather than more confusing.
+//  Some game versions contain corrupted data bytes. The
+//  image_patches[] table applies surgical binary fixes at known
+//  offsets so these images render correctly.
 //
 
 
@@ -34,6 +34,9 @@ static uint8_t *EndOfGraphicsData;
 
 int32_t errorcount = 0;
 
+/* Binary patch for a single image in a specific game version.
+   Each entry replaces number_of_bytes bytes at the given offset
+   within the image's data stream. */
 struct image_patch {
     GameIDType id;
     int picture_number;
@@ -84,6 +87,10 @@ static const struct image_patch image_patches[] = {
     { NUMGAMES, 0, 0, 0, "" },
 };
 
+/* Search the patch table for an entry matching (game, image_number),
+   starting after index 'start'. Returns the index, or 0 (the sentinel)
+   if no more patches exist. Called in a loop to apply multiple patches
+   to the same image. */
 static int FindImagePatch(GameIDType game, int image_number, int start)
 {
     for (int i = start + 1; image_patches[i].id != NUMGAMES; i++) {
@@ -103,6 +110,10 @@ static void Patch(uint8_t *offset, int patch_number)
     }
 }
 
+/* One specific C64 version of Claymorgue Castle has 16 images
+   (12–27, excluding 16) whose data is hopelessly corrupt — not
+   fixable with simple byte patches. Reassign their rooms to image
+   255 (no picture) so the game doesn't try to render garbage. */
 static void PatchOutBrokenClaymorgueImagesC64(void)
 {
     Output("[This copy of The Sorcerer of Claymorgue Castle has 16 broken or "
@@ -117,6 +128,8 @@ static void PatchOutBrokenClaymorgueImagesC64(void)
     }
 }
 
+/* Same treatment for one ZX Spectrum version, which has even more
+   broken images (9–35, excluding 14). */
 static void PatchOutBrokenClaymorgueImagesZX(void)
 {
     Output("[This copy of The Sorcerer of Claymorgue Castle has 26 broken or "
@@ -131,6 +144,14 @@ static void PatchOutBrokenClaymorgueImagesZX(void)
     }
 }
 
+/* Main graphics initialisation entry point. Reads the tile font
+   (256 8x8-pixel tile definitions), the per-image offset table,
+   and each image's header (width, height, screen position).
+   Binary patches are applied to known-broken images before handing
+   everything to InitIrmak() for later rendering.
+
+   imgoffset, if non-zero, overrides the game's default data_offset
+   (used when graphics data has been relocated). */
 void SagaSetup(size_t imgoffset)
 {
 	if (images != NULL)
@@ -156,6 +177,9 @@ void SagaSetup(size_t imgoffset)
 
     int version = Game->picture_format_version;
 
+    /* The tile font (256 tiles × 8 bytes each = 0x800 bytes) is stored
+       at tiles_start. The image offset table immediately follows in
+       most versions, or is at a separately specified address. */
     int32_t tiles_start = Game->start_of_tiles + file_baseline_offset;
     int32_t offset_table_start = Game->start_of_image_data + file_baseline_offset;
 
@@ -163,6 +187,8 @@ void SagaSetup(size_t imgoffset)
         offset_table_start = tiles_start + 0x800;
     }
 
+    /* data_offset is added to each entry in the offset table to
+       produce the final file position of each image's data stream. */
     int32_t data_offset = Game->image_address_offset + file_baseline_offset;
     if (imgoffset)
         data_offset = imgoffset;
@@ -170,18 +196,13 @@ void SagaSetup(size_t imgoffset)
     int numgraphics = Game->number_of_pictures;
     pos = SeekToPos(tiles_start);
 
-#ifdef DRAWDEBUG
-    debug_print("Grabbing tile details\n");
-    debug_print("Tile Offset: %04x\n", tiles_start - file_baseline_offset);
-#endif
+    /* Read the 256-entry tile font (each tile is 8 bytes: one byte
+       per row of 8 pixels, MSB = leftmost pixel). */
     for (i = 0; i < 256; i++) {
         for (y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
             tiles[i][y] = *pos++;
         }
     }
-
-    /* Now we have hopefully read the tile data */
-    /* Time for the image offsets */
 
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
@@ -191,6 +212,11 @@ void SagaSetup(size_t imgoffset)
     int broken_claymorgue_pictures_c64 = 0;
     int broken_claymorgue_pictures_zx = 0;
 
+    /* Version 0 (Hulk) stores image offsets in four separate tables
+       for rooms, items, close-ups, and special images, at hardcoded
+       addresses that differ between the C64 and Spectrum releases.
+       hulk_image_offset adjusts the raw 16-bit pointers read from
+       those tables to file-relative positions. */
     size_t hulk_coordinates = 0;
     size_t hulk_item_image_offsets = 0;
     size_t hulk_closeup_image_offsets = 0;
@@ -217,6 +243,10 @@ void SagaSetup(size_t imgoffset)
         }
     }
 
+    /* Build the image offset table. Version 0 (Hulk) scatters its
+       offsets across four tables: rooms (0–10), items (11–27),
+       close-ups (28–33), and specials (34+). Later versions store
+       all offsets in a single contiguous LE16 table. */
     for (i = 0; i < numgraphics; i++) {
         if (Game->picture_format_version == 0) {
             uint16_t address;
@@ -240,6 +270,10 @@ void SagaSetup(size_t imgoffset)
         }
     }
 
+    /* Read each image header. The data stream starts with width and
+       height (in tiles), followed by x/y screen offsets in version 1+.
+       Version 0 (Hulk) stores item image coordinates in a separate
+       table and has no offsets for room or special images. */
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
         pos = SeekToPos(image_offsets[picture_number] + data_offset);
         if (pos == 0)
@@ -261,6 +295,8 @@ void SagaSetup(size_t imgoffset)
             if (img->yoff > IRMAK_IMGHEIGHT)
                 img->yoff = 0;
         } else {
+            /* Hulk item images (11–27) have per-image coordinates;
+               all others are drawn at the origin. */
             if (picture_number > 9 && picture_number < 28) {
                 img->xoff = entire_file[hulk_coordinates + picture_number - 10 + file_baseline_offset];
                 img->yoff = entire_file[hulk_coordinates + 18 + picture_number - 10 + file_baseline_offset];
@@ -269,6 +305,11 @@ void SagaSetup(size_t imgoffset)
             }
         }
 
+        /* Detect the corrupt Claymorgue release by checking whether a
+           specific image in the broken range has zero dimensions.
+           If so, disable the entire corrupt range and salvage the
+           few images that can be reconstructed (16/28 for C64, 14
+           for Spectrum) by giving them valid full-screen headers. */
         if (CurrentGame == CLAYMORGUE_C64 && img->height == 0 && img->width == 0 && picture_number == 13) {
             PatchOutBrokenClaymorgueImagesC64();
             broken_claymorgue_pictures_c64 = 1;
@@ -295,6 +336,10 @@ void SagaSetup(size_t imgoffset)
             img->yoff = 0;
         }
 
+        /* Point imagedata at the start of this image's tile/attribute
+           stream. datasize is a conservative upper bound (to end of
+           file) — the actual stream length is determined during
+           decoding. Apply any known binary patches for this image. */
         img->imagedata = pos;
         img->datasize = EndOfGraphicsData - pos;
 

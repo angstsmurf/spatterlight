@@ -4,19 +4,37 @@
 //
 //  Created by Administrator on 2025-12-13.
 //
+//  Colour palette definitions and remapping for
+//  Adventure International UK / Adventure Soft tile graphics.
+//
+//  The original games ran on two very different platforms — the ZX
+//  Spectrum (8 colours × 2 brightness levels = 16 entries) and the
+//  Commodore 64 (16 fixed colours, completely different ordering).
+//  The image data always uses the Spectrum colour numbering (0–7
+//  normal, 8–15 bright). On C64, a remap table translates those
+//  indices into the closest C64 equivalents.
+//
+//  Several C64 remap variants exist because different game releases
+//  chose slightly different colour substitutions.
+//
 
 #include "glk.h"
 #include "palette.h"
 
 
+/* Platform-dependent colour indices used by game-specific drawing code.
+   These are palette indices (into pal[]), not RGB values, and are set
+   by DefinePalette() to match the active platform's colour ordering. */
 int white_colour = 15;
 int blue_colour = 9;
-glui32 dice_colour = 0xff0000;
+glui32 dice_colour = 0xff0000;  /* RGB, used by Seas of Blood */
 
+/* The active 16-entry palette: pal[i] holds an 0xRRGGBB value. */
 glui32 pal[16];
 
 palette_type palchosen = NO_PALETTE;
 
+/* Sentinel value returned by Remap() for out-of-range colour indices. */
 #define INVALIDCOLOR 16
 
 static void SetColor(int32_t index, glui32 colour)
@@ -24,9 +42,19 @@ static void SetColor(int32_t index, glui32 colour)
     pal[index] = colour;
 }
 
+/* Populate the 16-entry pal[] array with RGB values for the chosen
+   platform palette, and set the platform-dependent colour indices
+   (white_colour, blue_colour, dice_colour).
+
+   Palette index layout for ZX/VGA modes:
+     0–7:  normal colours (black, blue, red, magenta, green, cyan, yellow, white)
+     8–15: bright variants of the same colours
+
+   For C64 modes the 16 entries follow the C64's native colour order
+   (black, white, red, cyan, purple, green, blue, yellow, orange,
+   brown, light red, dark grey, grey, light green, light blue, light grey). */
 void DefinePalette(void)
 {
-    /* set up the palette */
     if (palchosen == VGA) {
         glui32 black =     0x000000;
         glui32 blue =      0x0000ff;
@@ -62,7 +90,9 @@ void DefinePalette(void)
         SetColor(14, bryellow);
         SetColor(15, brwhite);
     } else if (palchosen == ZX) {
-        /* corrected Sinclair ZX palette (pretty dull though) */
+        /* Authentic Sinclair ZX Spectrum palette. The non-bright colours
+           are noticeably dim (0x9A ≈ 60% intensity) compared to the
+           bright variants — this matches real hardware output. */
         glui32 black =     0x000000;
         glui32 blue =      0x00009a;
         glui32 red =       0x9a0000;
@@ -101,7 +131,9 @@ void DefinePalette(void)
         blue_colour = 9;
         dice_colour = 0xff0000;
     } else if (palchosen == ZXOPT) {
-        /* optimized but not realistic Sinclair ZX palette (SPIN emu) */
+        /* Brighter ZX palette matching the SPIN emulator's output.
+           Less authentic than ZX but more visually appealing on
+           modern displays. */
         glui32 black =   0x000000;
         glui32 blue =    0x0000ca;
         glui32 red =     0xca0000;
@@ -152,7 +184,10 @@ void DefinePalette(void)
         blue_colour = 9;
         dice_colour = 0xff0000;
     } else {
-        /* For all others we use this C64 palette (pepto/VICE) */
+        /* Commodore 64 palette based on pepto's analysis (used by the
+           VICE emulator). The C64 has a completely different colour
+           ordering from the Spectrum, so the Remap() function
+           translates Spectrum colour indices into C64 palette entries. */
         glui32 black =  0x000000;
         glui32 white =  0xffffff;
         glui32 red =    0xbf6148;
@@ -241,15 +276,25 @@ void DefinePalette(void)
 //        return (zxcolorname[col]);
 //}
 
+/* Translate a Spectrum-format colour index (0–15) into the
+   corresponding palette index for the active platform.
+
+   For ZX/ZXOPT palettes the mapping is identity — the image data
+   already uses Spectrum numbering. For C64 palettes, a remap table
+   converts each Spectrum colour to its closest C64 equivalent.
+   Different game releases used slightly different mappings, hence
+   the multiple C64 variants (C64A through C64TAYLOR). */
 uint8_t Remap(uint8_t color)
 {
     int32_t mapcol;
 
     if ((palchosen == ZX) || (palchosen == ZXOPT)) {
-        /* nothing to remap here; shows that the gfx were created on a ZX */
+        /* Identity mapping: image data is already in Spectrum order */
         mapcol = (color <= 15) ? color : INVALIDCOLOR;
     } else if (palchosen == C64A) {
-        /* remap A determined from Golden Baton, applies to S1/S3/S13 too (8col) */
+        /* Earliest C64 remap, determined from The Golden Baton.
+           Also used by other early Mysterious Adventures (S1/S3/S13).
+           These games only used 8 colours. */
         int32_t c64remap[] = {
             0,
             6,
@@ -270,8 +315,9 @@ uint8_t Remap(uint8_t color)
         };
         mapcol = (color <= 15) ? c64remap[color] : INVALIDCOLOR;
     } else if (palchosen == C64B) {
-        /* remap B seem to be used in most C64 games after Mysterious Adventures
-         and before Seas of Blood */
+        /* Used by most C64 games released between the Mysterious
+           Adventures and Seas of Blood (e.g. Gremlins, Secret Mission).
+           The non-bright half maps differently from C64A. */
         int32_t c64remap[] = {
             0,
             6,
@@ -292,7 +338,8 @@ uint8_t Remap(uint8_t color)
         };
         mapcol = (color <= 15) ? c64remap[color] : INVALIDCOLOR;
     } else if (palchosen == C64C) {
-        /* remap C determined from Spiderman C64 */
+        /* Determined from Spider-Man C64. Differs from C64B only in
+           the non-bright cyan slot (14 instead of 12). */
         int32_t c64remap[] = {
             0,
             6,
@@ -313,7 +360,9 @@ uint8_t Remap(uint8_t color)
         };
         mapcol = (color <= 15) ? c64remap[color] : INVALIDCOLOR;
     } else if (palchosen == C64D) {
-        /* remap D determined from Seas of Blood C64 */
+        /* Determined from Seas of Blood C64. Notable difference:
+           non-bright yellow maps to orange (8) while bright yellow
+           maps to yellow (7). */
         int32_t c64remap[] = {
             0,
             6,
@@ -334,10 +383,9 @@ uint8_t Remap(uint8_t color)
         };
         mapcol = (color <= 15) ? c64remap[color] : INVALIDCOLOR;
     } else if (palchosen == C64QP3) {
-        /* remap used in Questprobe 3 C64 */
-        /* This is the same as Seas Of Blood
-         except non-bright yellow is mapped
-         to yellow instead of orange */
+        /* Questprobe 3 (Fantastic Four) C64. Same as C64D (Seas of
+           Blood) except non-bright yellow maps to yellow (7) instead
+           of orange (8). */
         int32_t c64remap[] = {
             0, // black
             6, // blue
@@ -358,7 +406,9 @@ uint8_t Remap(uint8_t color)
         };
         mapcol = (color <= 15) ? c64remap[color] : INVALIDCOLOR;
     } else if (palchosen == C64TAYLOR) {
-        /* remap B used in all other games */
+        /* Used by TaylorMade C64 games (He-Man, Blizzard Pass,
+           Rebel Planet). The bright half maps differently from
+           the non-bright half, unlike C64D/C64QP3 which mirror. */
         int32_t c64remap[] = {
             0,
             6,
@@ -385,6 +435,8 @@ uint8_t Remap(uint8_t color)
 }
 
 
+/* Swap two palette entries. Only used by
+   the Robin of Sherwood end lightning animation. */
 void SwitchPalettes(int pal1, int pal2)
 {
     glui32 temp;

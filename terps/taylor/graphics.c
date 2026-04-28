@@ -353,17 +353,10 @@ void InitGraphics(void)
     size_t tiles_start = FindTilesStart();
     if (!tiles_start)
         tiles_start = Game->start_of_tiles + FileBaselineOffset;
-#ifdef DRAWDEBUG
-    debug_print(stderr, "tiles_start: %zx (%zu)\n", Game->start_of_tiles + FileBaselineOffset, Game->start_of_tiles + FileBaselineOffset);
-#endif
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
     pos = SeekToPos(tiles_start);
 
-#ifdef DRAWDEBUG
-    debug_print("Grabbing tile details\n");
-    debug_print("Tile Offset: %04x\n", tiles_start - file_baseline_offset);
-#endif
     for (int i = 0; i < 246; i++) {
         for (int y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
             tiles[i][y] = *pos++;
