@@ -35,43 +35,43 @@
 #include "restorestate.h"
 #include "stdetect.h"
 
-const char *game_file = NULL;
-char *DirPath = ".";
+const char *game_file = NULL;    /* Path to the game file being played */
+char *DirPath = ".";             /* Directory containing the game file (for image lookups) */
 size_t DirPathLength = 1;
 
-uint8_t *mem;
+uint8_t *mem;                    /* Raw game file contents (for binary format detection) */
 size_t memlen;
 
-const char *sys[MAX_SYSMESS];
+const char *sys[MAX_SYSMESS];    /* System message strings (indexed by SysMessageType) */
 
-uint64_t BitFlags = 0;
-int Options; /* Option flags set */
+uint64_t BitFlags = 0;           /* 64 general-purpose bit flags used by the action table */
+int Options;                     /* Runtime option flags (NO_DELAYS, FORCE_INVENTORY, etc.) */
 
-int split_screen = 1;
-int lastwasnewline = 1;
-int pendingcomma = 0;
-int should_restart = 0;
+int split_screen = 1;            /* Whether to use a separate upper window for room descriptions */
+int lastwasnewline = 1;          /* Tracks whether the last output character was a newline */
+int pendingcomma = 0;            /* A trailing comma was deferred from the last message */
+int should_restart = 0;          /* Set by DoneIt() to trigger a restart at the top of the main loop */
 
-glui32 TopWidth, TopHeight;
+glui32 TopWidth, TopHeight;      /* Current dimensions of the status/room-description window */
 
-winid_t Bottom, Top, Graphics;
+winid_t Bottom, Top, Graphics;   /* Glk windows: main text, status bar, graphics */
 
 strid_t Transcript = NULL;
 
-GameInfo *Game = NULL;
+GameInfo *Game = NULL;           /* Detected game identity and metadata */
 
-SystemType CurrentSys = SYS_UNKNOWN;
+SystemType CurrentSys = SYS_UNKNOWN; /* Detected platform (C64, Apple II, ST, Atari 8-bit) */
 
-uint16_t header[64];
+uint16_t header[64];             /* Raw game database header values */
 
-int16_t Counters[64]; /* Range unknown */
+int16_t Counters[64];            /* General-purpose counter registers used by the action table */
 #define MAX_LOOPS 32
 
-int loops[MAX_LOOPS];
-int loop_index;
-int keep_going = 0;
-int startover = 0;
-int found_match = 0;
+int loops[MAX_LOOPS];            /* Loop stack: stores action indices for loop-back commands */
+int loop_index;                  /* Current depth in the loop stack */
+int keep_going = 0;              /* Continue scanning the action table after a match */
+int startover = 0;               /* Restart scanning the action table from the beginning */
+int found_match = 0;             /* An action matched the current input */
 
 /* JustStarted is only used for the error message "Can't undo on first move" */
 int JustStarted = 1;
@@ -79,23 +79,24 @@ int JustStarted = 1;
 /* JustRestarted is only used to adjust newlines and room descriptions in the transcript */
 extern int JustRestarted;
 
-int showing_inventory = 0;
+int showing_inventory = 0;       /* Non-zero while the Claymorgue inventory display is active */
 
 Header GameHeader;
 Item *Items;
 Room *Rooms;
 
-ObjectImage *ObjectImages;
-char **Messages;
-Action *Actions;
+ObjectImage *ObjectImages;       /* Mapping of objects to their image indices and rooms */
+char **Messages;                 /* Message strings referenced by action commands */
+Action *Actions;                 /* The game's action table (conditions + commands) */
 
-int ImageWidth = 280;
+int ImageWidth = 280;            /* Native image dimensions (platform-dependent) */
 int ImageHeight = 158;
 
-glui32 TimerRate = 0;
+glui32 TimerRate = 0;            /* Current Glk timer rate (ms), 0 = stopped */
 
-static char DelimiterChar = '_';
+static char DelimiterChar = '_'; /* Character used to draw the status window separator line */
 
+/* Close the transcript stream (if open) and exit via Glk. */
 GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
 {
     if (Transcript)
@@ -103,6 +104,9 @@ GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
     glk_exit();
 }
 
+/* Bit flag accessors. The 64-bit BitFlags word holds general-purpose
+   flags tested and set by the action table; several indices have fixed
+   meanings (e.g. DARKBIT=15, DRAWBIT=34, GRAPHICSBIT=35, STOPTIMEBIT=63). */
 void SetBit(int bit)
 {
     if (bit >= 64 || bit < 0) {
@@ -130,8 +134,12 @@ int IsSet(int bit)
     return ((BitFlags & ((uint64_t)1 << bit)) != 0);
 }
 
+/* Memory stream used to compose room descriptions before displaying
+   them in the status window. Written to by WriteToRoomDescriptionStream(),
+   flushed by FlushRoomDescription(). */
 static strid_t room_description_stream = NULL;
 
+/* Printf-style output to a specific Glk window. */
 void Display(winid_t w, const char *fmt, ...)
 {
     va_list ap;
@@ -146,6 +154,9 @@ void Display(winid_t w, const char *fmt, ...)
     glk_put_string_stream(glk_window_get_stream(w), msg);
 }
 
+/* Calculate the largest integer scaling multiplier that fits the native
+   image dimensions into the graphics window. Returns the multiplier and
+   writes the scaled dimensions to *width and *height. */
 static glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
     int w = ImageWidth;
@@ -167,6 +178,10 @@ static glui32 OptimalPictureSize(glui32 *width, glui32 *height)
     return multiplier;
 }
 
+/* Open (or reconfigure) the Glk graphics window above the text windows.
+   Calculates the optimal pixel scaling, centres the image horizontally,
+   and sizes the window to fit exactly. If a status window already exists
+   it is temporarily closed and reopened below the graphics window. */
 void OpenGraphicsWindow(void)
 {
     if (!IsSet(GRAPHICSBIT))
@@ -223,6 +238,7 @@ void OpenGraphicsWindow(void)
     right_margin = optimal_width + x_offset;
 }
 
+/* Close the graphics window and restore the status window dimensions. */
 void CloseGraphicsWindow(void)
 {
     if (Graphics == NULL)
@@ -234,12 +250,15 @@ void CloseGraphicsWindow(void)
     }
 }
 
+/* Set the Glk timer rate and record it in TimerRate. */
 void SetTimer(glui32 milliseconds)
 {
     TimerRate = milliseconds;
     glk_request_timer_events(milliseconds);
 }
 
+/* Sync runtime options (delays, inventory display, graphics) with
+   Spatterlight's user-facing preferences. */
 void UpdateSettings(void)
 {
 #ifdef SPATTERLIGHT
@@ -271,6 +290,10 @@ void UpdateSettings(void)
 static void FlushRoomDescription(char *buf, int transcript);
 static void ListInventory(int upper);
 
+/* Claymorgue Castle displays the inventory in the upper window alongside
+   images of carried items. This renders the inventory text to a memory
+   stream, flushes it to the status window, then redraws room 33's image
+   with overlays for each carried object. */
 static void UpdateClaymorgueInventory(void)
 {
     char *buf = MemAlloc(1000);
@@ -287,8 +310,12 @@ static void UpdateClaymorgueInventory(void)
 
 void UpdateColorCycling(void);
 
-static int AnimationCounter = 0;
+static int AnimationCounter = 0; /* Tick count for animation rate division */
 
+/* Handle non-input Glk events: window rearrange (redraw everything) and
+   timer ticks (advance animations and colour cycling). Animation updates
+   are rate-divided so the animation timer can run faster than the frame
+   rate (e.g. when colour cycling shares the same timer). */
 void Updates(event_t ev)
 {
     if (ev.type == evtype_Arrange) {
@@ -329,8 +356,12 @@ void Updates(event_t ev)
     }
 }
 
-static int DelayCounter = 0;
+static int DelayCounter = 0; /* Tick count for auto-dismissing AnyKey prompts */
 
+/* Wait for a keypress. If timeout is set and no animation is running,
+   auto-dismiss after ~3 seconds. Continues processing timer events
+   (animations, colour cycling) while waiting. Claymorgue disables
+   the timeout to avoid auto-advancing plot text. */
 void AnyKey(int timeout, int message)
 {
     if (message) {
@@ -384,6 +415,7 @@ void AnyKey(int timeout, int message)
     return;
 }
 
+/* Draw a line of DelimiterChar across the bottom row of the status window. */
 static void PrintWindowDelimiter(void)
 {
     glk_window_get_size(Top, &TopWidth, &TopHeight);
@@ -393,6 +425,10 @@ static void PrintWindowDelimiter(void)
         glk_put_char(DelimiterChar);
 }
 
+/* Close the room description memory stream, optionally write it to the
+   transcript, then display it. In split-screen mode, the text is word-
+   wrapped to the status window width and the window is resized to fit;
+   otherwise it goes to the lower text buffer. Frees buf when done. */
 static void FlushRoomDescription(char *buf, int transcript)
 {
     glk_stream_close(room_description_stream, 0);
@@ -473,6 +509,7 @@ static void FlushRoomDescription(char *buf, int transcript)
     }
 }
 
+/* Printf-style output to the room description memory stream. */
 static void WriteToRoomDescriptionStream(const char *fmt, ...)
 #ifdef __GNUC__
     __attribute__((__format__(__printf__, 1, 2)))
@@ -493,6 +530,8 @@ static void WriteToRoomDescriptionStream(const char *fmt, ...)
     glk_put_string_stream(room_description_stream, msg);
 }
 
+/* Append a natural-language list of available exits to the room description
+   stream (e.g. "I see exits to the North, East, and Down."). */
 static void ListExits(void)
 {
     int ct = 0;
@@ -526,6 +565,7 @@ static void ListExits(void)
     WriteToRoomDescriptionStream(".\n");
 }
 
+/* Return "a", "an", or empty string depending on the first character. */
 static const char *IndefiniteArticle(const char *word)
 {
     char c = word[0];
@@ -538,6 +578,10 @@ static const char *IndefiniteArticle(const char *word)
     return " a ";
 }
 
+/* Compose and display the full room description: room text, visible items,
+   exit list, and optionally the inventory. Draws the room image if DRAWBIT
+   is set. The description is built in a memory stream and flushed to the
+   status window (or lower window if split_screen is off). */
 void Look(int transcript)
 {
     showing_inventory = 0;
@@ -616,6 +660,8 @@ void Output(const char *string)
     Display(Bottom, "%s", string);
 }
 
+/* Output a system message (e.g. "OK", "I don't understand"), preceded
+   by a space if we're not at the start of a line. */
 void SystemMessage(SysMessageType message)
 {
     if (!lastwasnewline)
@@ -624,6 +670,8 @@ void SystemMessage(SysMessageType message)
     Output(sys[message]);
 }
 
+/* Open (or find) the status/room-description text grid window. Falls
+   back to using the main text buffer if a grid window can't be created. */
 void OpenTopWindow(void)
 {
     Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
@@ -643,6 +691,7 @@ void OpenTopWindow(void)
     }
 }
 
+/* Create all three Glk windows: text buffer, status grid, and graphics. */
 static void DisplayInit(void)
 {
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
@@ -660,6 +709,9 @@ static void OutputNumber(int a)
     }
 }
 
+/* Pause for the given number of seconds, continuing to process timer
+   events (so animations keep running). Skipped entirely if NO_DELAYS
+   is set or an animation is already running. */
 static void Delay(float seconds)
 {
     if (Options & NO_DELAYS || AnimationRunning)
@@ -689,6 +741,8 @@ int RandomPercent(int n)
    return erkyrath_random() % 100 < n;
 }
 
+/* Count items in a room (0 = CARRIED). Also stores the carried count
+   in Counter[33] when checking carried items. */
 static int CountItemsInRoom(int room)
 {
     int ct = 0;
@@ -705,6 +759,8 @@ static int CountItemsInRoom(int room)
     return (n);
 }
 
+/* Find the first takeable item whose dictionary word matches 'noun' and
+   is in location 'loc' (-1 = any location). Returns 0 if not found. */
 static int MatchUpItem(int noun, int loc)
 {
     for (int i = 0; i <= GameHeader.NumItems; i++)
@@ -713,6 +769,9 @@ static int MatchUpItem(int noun, int loc)
     return (0);
 }
 
+/* Print a message from the Messages table. Handles leading backslashes
+   (suppress space), trailing commas (defer to next message), and trailing
+   single spaces (strip). Also writes to the transcript if active. */
 static void PrintMessage(int index)
 {
     if (JustRestarted && Transcript) {
@@ -746,6 +805,7 @@ static void PrintMessage(int index)
     }
 }
 
+/* Print the dictionary word for the current noun (CurrentNoun). */
 static void PrintNoun(void)
 {
     DictWord *dict = Nouns;
@@ -759,6 +819,8 @@ static void PrintNoun(void)
     }
 }
 
+/* Find the index of the first word in a dictionary list that belongs
+   to the given synonym group. Used for debug printing of action verbs/nouns. */
 static int GetAnyDictWord(int group, DictWord *dict)
 {
     for (int i = 0; dict->Word != NULL; i++) {
@@ -782,6 +844,8 @@ int GetDictWord(int group)
     return 0;
 }
 
+/* Handle player death: print the death message, turn on lights, move
+   to the start room (Counter 35), reset the death counter, and redraw. */
 static void PlayerIsDead(void)
 {
     debug_print("Player is dead\n");
@@ -793,6 +857,8 @@ static void PlayerIsDead(void)
     Look(0);
 }
 
+/* If the given object has a room image overlay, set DRAWBIT so the
+   room will be redrawn with the updated object state. */
 void CheckForObjectImage(int obj)
 {
     for (int i = 0; i <= GameHeader.NumObjImg; i++)
@@ -836,6 +902,8 @@ static void MoveItemAToLocOfItemB(int itemA, int itemB)
     Items[itemA].Location = Items[itemB].Location;
 }
 
+/* Game over: ask if the player wants to play again, then either
+   set should_restart or exit. */
 static void DoneIt(void)
 {
     Output("\n");
@@ -849,6 +917,8 @@ static void DoneIt(void)
     }
 }
 
+/* Printf-style output to the lower text buffer, mirrored to the
+   transcript if active. Used by ListInventory for lower-window output. */
 static void WriteToLowerWindow(const char *fmt, ...)
 {
     va_list ap;
@@ -865,6 +935,9 @@ static void WriteToLowerWindow(const char *fmt, ...)
         glk_put_string_stream(Transcript, msg);
 }
 
+/* Print the player's inventory. If 'upper' is set, output goes to the
+   room description stream (for the status window); otherwise it goes to
+   the lower text buffer. Items with empty text are invisible and skipped. */
 static void ListInventory(int upper)
 {
     int i, ct = 0;
@@ -920,6 +993,9 @@ static void ClearScreen(void)
     glk_window_clear(Bottom);
 }
 
+/* Execute a system command (action opcode 110). These handle animation,
+   image drawing, save/restore, and item flag manipulation — operations
+   outside the standard Scott Adams action set. */
 static void SysCommand(int arg1, int arg2)
 {
     switch (arg1) {
@@ -985,6 +1061,10 @@ typedef enum {
     RIGHT_PAREN
 } ParenType;
 
+/* Process a condition-table logic control flag (condition code 31).
+   These modify how subsequent conditions are combined:
+   0=AND, 1=OR, 3=negate next, 4=negate until cancelled, 5=cancel negate,
+   6/7=parentheses, 8=always true, 9=fuzzy match, 10=strict match. */
 static ParenType SetLogicControlFlags(int mode, int *not_mode, int *not_continuous, int *or_mode, int *fuzzy_match)
 {
     ParenType paren = NO_PAREN;
@@ -1038,6 +1118,7 @@ static ParenType SetLogicControlFlags(int mode, int *not_mode, int *not_continuo
     return paren;
 }
 
+/* Combine two condition results: AND when or_condition is 0, OR when 1. */
 int CalculateConditionResult(int x, int y, int or_condition)
 {
     if (or_condition == 0) {
@@ -1047,9 +1128,14 @@ int CalculateConditionResult(int x, int y, int or_condition)
     return (x || y);
 }
 
-int parens_depth = 0;
-int parens_stack[5];
+int parens_depth = 0;    /* Current nesting depth of parenthesised condition groups */
+int parens_stack[5];     /* Saved intermediate results for each open parenthesis */
 
+/* Evaluate the condition list of an action. Conditions are pairs of
+   (code, argument) terminated by 255. Supports AND/OR/NOT logic,
+   parenthetical grouping, fuzzy dictionary matching, and special
+   argument values 998/999 for the current noun/noun2 objects.
+   Returns ACT_SUCCESS if all conditions pass, ACT_FAILURE otherwise. */
 static ActionResultType TestConditions(uint16_t *ptr)
 {
     int negate_condition = 0;
@@ -1342,6 +1428,7 @@ static ActionResultType TestConditions(uint16_t *ptr)
         return ACT_FAILURE;
 }
 
+/* Debug helper: print the meaning of well-known bit flag indices. */
 static void PrintFlagInfo(int arg)
 {
     switch (arg) {
@@ -1368,6 +1455,8 @@ static void PrintFlagInfo(int arg)
     }
 }
 
+/* Copy the current parsed input words into their counter-register aliases
+   (Counters 48–53) so the action table can read/modify them. */
 void SetCountersFromInput(void) {
     VerbCounter = CurrentVerb;
     NounCounter = CurrentNoun;
@@ -1377,6 +1466,12 @@ void SetCountersFromInput(void) {
     Noun2Counter = CurrentNoun2;
 }
 
+/* Execute a single action table entry: test its conditions, then run
+   its command sequence. Commands include item manipulation, player
+   movement, counter arithmetic, message printing, image drawing, loops,
+   and system commands. Returns an ActionResultType indicating whether
+   to continue scanning (ACT_CONTINUE), stop (ACT_DONE), loop back
+   (ACT_LOOP/ACT_LOOP_BEGIN), or that the game ended (ACT_GAMEOVER). */
 static ActionResultType PerformLine(int ct)
 {
     debug_print("\nPerforming line %d: (", ct);
@@ -1884,6 +1979,10 @@ static ActionResultType PerformLine(int ct)
     }
 }
 
+/* Check whether the player's input matches the "extra words" (adverbs,
+   prepositions, participles + second nouns) attached to action entry ct.
+   The Plus format stores these as typed word records alongside the main
+   verb/noun, enabling commands like "CAREFULLY THROW BALL AT WALL". */
 static int IsExtraWordMatch(int ct)
 {
     /* If the action has no "extra words" the command must contain no participle */
@@ -1953,6 +2052,9 @@ static int IsExtraWordMatch(int ct)
     return 1;
 }
 
+/* Check if an implicit (verb=0) action should fire. These are triggered
+   by a random percentage chance (NounOrChance), or unconditionally if
+   doagain is set (chained from a previous action via ACT_CONTINUE). */
 static int IsImplicitMatch(int ct, int doagain)
 {
     if (RandomPercent(Actions[ct].NounOrChance)) {
@@ -1965,6 +2067,10 @@ static int IsImplicitMatch(int ct, int doagain)
     return 0;
 }
 
+/* Check if an explicit (verb!=0) action matches the current input.
+   Matches when the verb matches and either the noun matches or is
+   a wildcard (0). Also checks extra words (adverbs, prepositions).
+   When doagain is set, verb-0 continuation entries also match. */
 static int IsMatch(int ct, int doagain)
 {
     int verbvalue = Actions[ct].Verb;
@@ -1996,6 +2102,11 @@ static int IsMatch(int ct, int doagain)
     return 0;
 }
 
+/* Run all implicit (automatic) actions — those with verb=0 at the start
+   of the action table. These fire each turn before the player is prompted,
+   handling timed events, NPC behaviour, and game-state updates. Supports
+   chaining (ACT_CONTINUE), loops (ACT_LOOP), and restart (startover).
+   Stops early if STOPTIMEBIT is set and no chain is active. */
 static CommandResultType PerformImplicit(void)
 {
     int ct = 0;
@@ -2064,6 +2175,11 @@ static CommandResultType PerformImplicit(void)
     return result;
 }
 
+/* Run the explicit (player-input) action table. Scans for actions whose
+   verb/noun match the current input, tests their conditions, and executes
+   commands. Sets MATCHBIT when vocabulary matches but conditions fail
+   (so the engine can report "You can't do that yet" vs "I don't understand").
+   Supports the same chaining, loops, and restart mechanisms as PerformImplicit. */
 static CommandResultType PerformExplicit(void)
 {
     int ct = 0;
@@ -2155,6 +2271,8 @@ static CommandResultType PerformExplicit(void)
 
 glkunix_argumentlist_t glkunix_arguments[10];
 
+/* Glk startup hook: extract the game file path from command-line arguments
+   and split it into DirPath + filename for image file lookups. */
 int glkunix_startup_code(glkunix_startup_t *data)
 {
     int argc = data->argc;
@@ -2192,6 +2310,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
     return 1;
 }
 
+/* Recalculate scaling and offsets for the title screen image, centring
+   it both horizontally and vertically (⅓ from top). */
 void ResizeTitleImage(void)
 {
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
@@ -2206,6 +2326,10 @@ void ResizeTitleImage(void)
     y_offset = ((int)graphheight - (int)optimal_height) / 3;
 }
 
+/* Display the title screen (image "S000") in a full-window graphics view.
+   Waits for a keypress to proceed, handling resize and colour-cycling
+   events while waiting. Closes all windows and reinitialises the normal
+   three-window layout when done. */
 void DrawTitleImage(void)
 {
     DisplayInit();
@@ -2260,11 +2384,20 @@ void DrawTitleImage(void)
     DisplayInit();
 }
 
+/* Main entry point. Loads the game database (trying plaintext first, then
+   binary formats for Atari 8-bit, Atari ST, Apple II, and C64), shows the
+   title screen, and enters the main game loop:
+     1. Run implicit (automatic) actions
+     2. Display the room
+     3. Get player input
+     4. Run explicit (player-command) actions
+     5. Report errors if no action matched */
 void glk_main(void)
 {
     if (game_file == NULL)
         Fatal("No game file");
 
+    /* Initialize system messages, preferring first-person ("I am") forms */
     for (int i = 0; i < MAX_SYSMESS; i++) {
         sys[i] = sysdict[i];
         if (sysdict_i_am[i])
@@ -2282,6 +2415,8 @@ void glk_main(void)
         Fatal("Game file empty");
     }
 
+    /* Try loading as plaintext database first; if that fails, attempt
+       binary format detection for each supported platform */
     if (LoadDatabasePlaintext(f, DEBUG_PRINT) == UNKNOWN_GAME) {
         fseek(f, 0, SEEK_SET);
         mem = MemAlloc(filesize);
@@ -2319,12 +2454,14 @@ void glk_main(void)
     InitAnimationBuffer();
     InitialState = SaveCurrentState();
 
+    /* --- Main game loop --- */
     while (1) {
         glk_tick();
 
         if (should_restart)
             RestartGame();
 
+        /* Run automatic actions unless time is stopped or we just restored */
         if (IsSet(STOPTIMEBIT) || JustRestored) {
             ResetBit(STOPTIMEBIT);
         } else {
@@ -2338,7 +2475,7 @@ void glk_main(void)
         if (should_restart)
             continue;
 
-        // For Thing in tar image
+        /* Restore a saved object image overlay (e.g. Thing in Fantastic Four) */
         if (JustRestored && SavedImgType == IMG_OBJECT) {
             DrawItemImage(SavedImgIndex);
         }
@@ -2351,6 +2488,7 @@ void glk_main(void)
 
         SetCountersFromInput();
 
+        /* Save current input as "last" for AGAIN/repeat commands */
         LastVerb = CurrentVerb;
         LastNoun = CurrentNoun;
         LastPrep = CurrentPrep;
@@ -2362,6 +2500,7 @@ void glk_main(void)
 
         CommandResultType result = PerformExplicit();
 
+        /* If no action fully matched, report the appropriate error */
         if (result == ER_RAN_ALL_LINES_NO_MATCH || result == ER_RAN_ALL_LINES || IsSet(MATCHBIT)) {
             if (result == ER_RAN_ALL_LINES_NO_MATCH)
                 SystemMessage(I_DONT_UNDERSTAND);
