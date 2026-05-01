@@ -21,10 +21,7 @@
 
 // clang-format off
 typedef struct {
-//    uint8_t    ignored[3];     /* Boot strap short or near jump */
-//    uint8_t    system_id[8];   /* Name - can be used to special case
-//                             partition manager volumes */
-    uint16_t    sector_size; /* bytes per logical sector */
+    uint16_t    sector_size;    /* bytes per logical sector */
     uint8_t     sec_per_clus;   /* sectors/cluster */
     uint16_t    reserved;       /* reserved sectors */
     uint8_t     fats;           /* number of FATs */
