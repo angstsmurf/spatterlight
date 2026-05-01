@@ -483,10 +483,9 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
 {
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
     int ct;
-
-    Action *ap;
-    Room *rp;
-    Item *ip;
+    char text[256];
+    char c;
+    int charindex;
     /* Load the header */
 
     uint8_t *ptr = entire_file;
@@ -511,15 +510,15 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
     }
 
     GameHeader.NumItems = ni;
-    Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
+    Items = MemAlloc(sizeof(Item) * (ni + 1));
     GameHeader.NumActions = na;
-    Actions = (Action *)MemAlloc(sizeof(Action) * (na + 1));
+    Actions = MemAlloc(sizeof(Action) * (na + 1));
     GameHeader.NumWords = nw;
     GameHeader.WordLength = wl;
     Verbs = MemAlloc(sizeof(char *) * (nw + 2));
     Nouns = MemAlloc(sizeof(char *) * (nw + 2));
     GameHeader.NumRooms = nr;
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
+    Rooms = MemAlloc(sizeof(Room) * (nr + 1));
     GameHeader.MaxCarry = mc;
     GameHeader.PlayerRoom = pr;
     GameHeader.Treasures = tr;
@@ -534,36 +533,12 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
     if (SeekIfNeeded(info.start_of_actions, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ct = 0;
-
-    ap = Actions;
-
-    uint16_t value, cond, comm;
-
-    while (ct < na + 1) {
-        value = READ_LE_UINT16_AND_ADVANCE(&ptr); /* verb/noun */
-        ap->Vocab = value;
-
-        cond = 5;
-        comm = 2;
-
-        for (int j = 0; j < 5; j++) {
-            if (j < cond) {
-                value = READ_LE_UINT16_AND_ADVANCE(&ptr);
-            } else
-                value = 0;
-            ap->Condition[j] = value;
-        }
-        for (int j = 0; j < 2; j++) {
-            if (j < comm) {
-                value = READ_LE_UINT16_AND_ADVANCE(&ptr);
-
-            } else
-                value = 0;
-            ap->Subcommand[j] = value;
-        }
-        ap++;
-        ct++;
+    for (ct = 0; ct <= na; ct++) {
+        Actions[ct].Vocab = READ_LE_UINT16_AND_ADVANCE(&ptr);
+        for (int j = 0; j < 5; j++)
+            Actions[ct].Condition[j] = READ_LE_UINT16_AND_ADVANCE(&ptr);
+        for (int j = 0; j < 2; j++)
+            Actions[ct].Subcommand[j] = READ_LE_UINT16_AND_ADVANCE(&ptr);
     }
 
 #pragma mark room connections
@@ -571,29 +546,18 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
     if (SeekIfNeeded(info.start_of_room_connections, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ct = 0;
-    rp = Rooms;
-
-    while (ct < nr + 1) {
-        for (int j = 0; j < 6; j++) {
-            rp->Exits[j] = *(ptr++);
-        }
-        ct++;
-        rp++;
-    }
+    for (ct = 0; ct <= nr; ct++)
+        for (int j = 0; j < 6; j++)
+            Rooms[ct].Exits[j] = *(ptr++);
 
 #pragma mark item locations
 
     if (SeekIfNeeded(info.start_of_item_locations, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ct = 0;
-    ip = Items;
-    while (ct < ni + 1) {
-        ip->Location = *(ptr++);
-        ip->InitialLoc = ip->Location;
-        ip++;
-        ct++;
+    for (ct = 0; ct <= ni; ct++) {
+        Items[ct].Location = *(ptr++);
+        Items[ct].InitialLoc = Items[ct].Location;
     }
 
 #pragma mark dictionary
@@ -612,24 +576,16 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
         ptr++;
 
     ct = 0;
-    rp = Rooms;
-
-    char text[256];
-    char c = 0;
-    int charindex = 0;
+    charindex = 0;
 
     do {
         c = *(ptr++);
         text[charindex] = c;
         if (c == 0) {
-            rp->Text = MemAlloc(charindex + 1);
-            strncpy(rp->Text, text, charindex + 1);
-            if (info.number_of_pictures > 0)
-                rp->Image = ct - 1;
-            else
-                rp->Image = 255;
+            Rooms[ct].Text = MemAlloc(charindex + 1);
+            memcpy(Rooms[ct].Text, text, charindex + 1);
+            Rooms[ct].Image = (info.number_of_pictures > 0) ? ct - 1 : 255;
             ct++;
-            rp++;
             charindex = 0;
         } else {
             charindex++;
@@ -638,7 +594,7 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
         }
         if (c > 127)
             return UNKNOWN_GAME;
-    } while (ct < nr + 1);
+    } while (ct <= nr);
 
 #pragma mark messages
 
@@ -648,12 +604,12 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
     ct = 0;
     charindex = 0;
 
-    while (ct < mn + 1) {
+    while (ct <= mn) {
         c = *(ptr++);
         text[charindex] = c;
         if (c == 0) {
             Messages[ct] = MemAlloc(charindex + 1);
-            strncpy((char *)Messages[ct], text, charindex + 1);
+            memcpy(Messages[ct], text, charindex + 1);
             ct++;
             charindex = 0;
         } else {
@@ -669,33 +625,31 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
         return UNKNOWN_GAME;
 
     ct = 0;
-    ip = Items;
     charindex = 0;
 
     do {
         uint8_t chr = *(ptr++);
         text[charindex] = chr;
         if (chr == 0 || chr > 126) {
-            ip->Text = MemAlloc(charindex + 1);
-            strncpy(ip->Text, text, charindex + 1);
-            ip->Text[charindex] = 0;
-            ip->AutoGet = strchr(ip->Text, '/');
+            Items[ct].Text = MemAlloc(charindex + 1);
+            memcpy(Items[ct].Text, text, charindex + 1);
+            Items[ct].Text[charindex] = 0;
+            Items[ct].AutoGet = strchr(Items[ct].Text, '/');
             /* Some games use // to mean no auto get/drop word! */
-            if (ip->AutoGet && strcmp(ip->AutoGet, "//") && strcmp(ip->AutoGet, "/*")) {
-                *ip->AutoGet++ = 0;
-                char *t = strchr(ip->AutoGet, '/');
+            if (Items[ct].AutoGet && strcmp(Items[ct].AutoGet, "//") && strcmp(Items[ct].AutoGet, "/*")) {
+                *Items[ct].AutoGet++ = 0;
+                char *t = strchr(Items[ct].AutoGet, '/');
                 if (t != NULL)
                     *t = 0;
             }
             ct++;
-            ip++;
             charindex = 0;
         } else {
             charindex++;
             if (charindex > 255)
                 break;
         }
-    } while (ct < ni + 1);
+    } while (ct <= ni);
 
 #pragma mark line images
 
@@ -718,9 +672,9 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
             if (charindex > 0) {
                 if (c == 0x0d)
                     charindex++;
-                char *newmess = MemAlloc(charindex + 1);
                 text[charindex] = '\0';
-                strncpy(newmess, text, charindex + 1);
+                char *newmess = MemAlloc(charindex + 1);
+                memcpy(newmess, text, charindex + 1);
                 system_messages[ct] = newmess;
                 ct++;
                 charindex = 0;
@@ -744,11 +698,11 @@ GameIDType TryLoadingOld(GameInfo info, int dict_start)
         text[charindex] = c;
         if (c == 0 || c == 0x0d) {
             if (charindex > 0) {
-                char *newmess = MemAlloc(charindex + 2);
                 if (c == 0x0d)
                     charindex++;
                 text[charindex] = '\0';
-                strncpy(newmess, text, charindex + 1);
+                char *newmess = MemAlloc(charindex + 1);
+                memcpy(newmess, text, charindex + 1);
                 sys[ct] = newmess;
                 ct++;
                 charindex = 0;
@@ -785,10 +739,9 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
 
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
     int ct;
-
-    Action *ap;
-    Room *rp;
-    Item *ip;
+    char text[256];
+    char c;
+    int charindex;
     /* Load the header */
 
     uint8_t *ptr = entire_file;
@@ -847,11 +800,11 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
         return UNKNOWN_GAME;
     }
 
-    Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
-    Actions = (Action *)MemAlloc(sizeof(Action) * (na + 1));
+    Items = MemAlloc(sizeof(Item) * (ni + 1));
+    Actions = MemAlloc(sizeof(Action) * (na + 1));
     Verbs = MemAlloc(sizeof(char *) * (nw + 2));
     Nouns = MemAlloc(sizeof(char *) * (nw + 2));
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
+    Rooms = MemAlloc(sizeof(Room) * (nr + 1));
     Messages = MemAlloc(sizeof(char *) * (mn + 1));
 
     int compressed = (info.dictionary == FOUR_LETTER_COMPRESSED);
@@ -862,41 +815,27 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
         if (SeekIfNeeded(info.start_of_room_image_list, &offset, &ptr) == 0)
             return UNKNOWN_GAME;
 
-        rp = Rooms;
-
-        for (ct = 0; ct <= GameHeader.NumRooms; ct++) {
-            rp->Image = *(ptr++);
-            rp++;
-        }
+        for (ct = 0; ct <= GameHeader.NumRooms; ct++)
+            Rooms[ct].Image = *(ptr++);
     }
 #pragma mark Item flags
 
     if (info.start_of_item_flags != 0) {
-
         if (SeekIfNeeded(info.start_of_item_flags, &offset, &ptr) == 0)
             return UNKNOWN_GAME;
 
-        ip = Items;
-
-        for (ct = 0; ct <= GameHeader.NumItems; ct++) {
-            ip->Flag = *(ptr++);
-            ip++;
-        }
+        for (ct = 0; ct <= GameHeader.NumItems; ct++)
+            Items[ct].Flag = *(ptr++);
     }
 
 #pragma mark item images
 
     if (info.start_of_item_image_list != 0) {
-
         if (SeekIfNeeded(info.start_of_item_image_list, &offset, &ptr) == 0)
             return UNKNOWN_GAME;
 
-        ip = Items;
-
-        for (ct = 0; ct <= GameHeader.NumItems; ct++) {
-            ip->Image = *(ptr++);
-            ip++;
-        }
+        for (ct = 0; ct <= GameHeader.NumItems; ct++)
+            Items[ct].Image = *(ptr++);
         if (loud)
             debug_print("Offset after reading item images: %lx\n",
                 ptr - entire_file - file_baseline_offset);
@@ -907,15 +846,11 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
     if (SeekIfNeeded(info.start_of_actions, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ct = 0;
-
-    ap = Actions;
-
     uint16_t value, cond, comm;
 
-    while (ct < na + 1) {
+    for (ct = 0; ct <= na; ct++) {
         value = READ_LE_UINT16_AND_ADVANCE(&ptr); /* verb/noun */
-        ap->Vocab = value;
+        Actions[ct].Vocab = value;
 
         if (info.actions_style == COMPRESSED) {
             value = *(ptr++); /* count of actions/conditions */
@@ -933,25 +868,10 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
             cond = 5;
             comm = 2;
         }
-        for (int j = 0; j < 5; j++) {
-            if (j < cond) {
-                value = READ_LE_UINT16_AND_ADVANCE(&ptr);
-            } else {
-                value = 0;
-            }
-            ap->Condition[j] = value;
-        }
-        for (int j = 0; j < 2; j++) {
-            if (j < comm) {
-                value = READ_LE_UINT16_AND_ADVANCE(&ptr);
-            } else {
-                value = 0;
-            }
-            ap->Subcommand[j] = value;
-        }
-
-        ap++;
-        ct++;
+        for (int j = 0; j < 5; j++)
+            Actions[ct].Condition[j] = (j < cond) ? READ_LE_UINT16_AND_ADVANCE(&ptr) : 0;
+        for (int j = 0; j < 2; j++)
+            Actions[ct].Subcommand[j] = (j < comm) ? READ_LE_UINT16_AND_ADVANCE(&ptr) : 0;
     }
     if (loud)
         debug_print("Offset after reading actions: %lx\n",
@@ -975,23 +895,18 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
             return UNKNOWN_GAME;
 
         ct = 0;
-        rp = Rooms;
-
-        char text[256];
-        char c = 0;
-        int charindex = 0;
+        charindex = 0;
 
         if (!compressed) {
             do {
                 c = *ptr++;
                 text[charindex] = c;
                 if (c == 0) {
-                    rp->Text = MemAlloc(charindex + 1);
-                    strncpy(rp->Text, text, charindex + 1);
+                    Rooms[ct].Text = MemAlloc(charindex + 1);
+                    memcpy(Rooms[ct].Text, text, charindex + 1);
                     if (loud)
-                        debug_print("Room %d: %s\n", ct, rp->Text);
+                        debug_print("Room %d: %s\n", ct, Rooms[ct].Text);
                     ct++;
-                    rp++;
                     charindex = 0;
                 } else {
                     charindex++;
@@ -1002,14 +917,12 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
                     return UNKNOWN_GAME;
             } while (ct < nr + 1);
         } else {
-            do {
-                rp->Text = DecompressText(ptr, ct);
-                if (rp->Text == NULL)
+            for (ct = 0; ct < nr; ct++) {
+                Rooms[ct].Text = DecompressText(ptr, ct);
+                if (Rooms[ct].Text == NULL)
                     return UNKNOWN_GAME;
-                *(rp->Text) = tolower(*(rp->Text));
-                ct++;
-                rp++;
-            } while (ct < nr);
+                Rooms[ct].Text[0] = tolower(Rooms[ct].Text[0]);
+            }
         }
     }
 
@@ -1018,44 +931,33 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
     if (SeekIfNeeded(info.start_of_room_connections, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ct = 0;
-    rp = Rooms;
-
-    while (ct < nr + 1) {
-        for (int j = 0; j < 6; j++) {
-            rp->Exits[j] = *ptr++;
-        }
-
-        ct++;
-        rp++;
-    }
+    for (ct = 0; ct <= nr; ct++)
+        for (int j = 0; j < 6; j++)
+            Rooms[ct].Exits[j] = *ptr++;
 
 #pragma mark messages
 
     if (SeekIfNeeded(info.start_of_messages, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ct = 0;
-    char text[256];
-    char c = 0;
-    int charindex = 0;
+    charindex = 0;
 
     if (compressed) {
-        while (ct < mn + 1) {
+        for (ct = 0; ct <= mn; ct++) {
             Messages[ct] = DecompressText(ptr, ct);
             if (loud)
                 debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
             if (Messages[ct] == NULL)
                 return UNKNOWN_GAME;
-            ct++;
         }
     } else {
-        while (ct < mn + 1) {
+        ct = 0;
+        while (ct <= mn) {
             c = *(ptr++);
             text[charindex] = c;
             if (c == 0) {
                 Messages[ct] = MemAlloc(charindex + 1);
-                strncpy((char *)Messages[ct], text, charindex + 1);
+                memcpy(Messages[ct], text, charindex + 1);
                 if (loud)
                     debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
                 ct++;
@@ -1073,57 +975,53 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
     if (SeekIfNeeded(info.start_of_item_descriptions, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ct = 0;
-    ip = Items;
     charindex = 0;
 
     if (compressed) {
-        do {
-            ip->Text = DecompressText(ptr, ct);
-            ip->AutoGet = NULL;
-            if (ip->Text != NULL && ip->Text[0] != '.') {
+        for (ct = 0; ct <= ni; ct++) {
+            Items[ct].Text = DecompressText(ptr, ct);
+            Items[ct].AutoGet = NULL;
+            if (Items[ct].Text != NULL && Items[ct].Text[0] != '.') {
                 if (loud)
-                    debug_print("Item %d: %s\n", ct, ip->Text);
-                ip->AutoGet = strchr(ip->Text, '.');
-                if (ip->AutoGet) {
-                    *ip->AutoGet++ = 0;
-                    ip->AutoGet++;
-                    char *t = strchr(ip->AutoGet, '.');
+                    debug_print("Item %d: %s\n", ct, Items[ct].Text);
+                Items[ct].AutoGet = strchr(Items[ct].Text, '.');
+                if (Items[ct].AutoGet) {
+                    *Items[ct].AutoGet++ = 0;
+                    Items[ct].AutoGet++;
+                    char *t = strchr(Items[ct].AutoGet, '.');
                     if (t != NULL)
                         *t = 0;
                     for (int i = 1; i < GameHeader.WordLength; i++)
-                        *(ip->AutoGet + i) = toupper(*(ip->AutoGet + i));
+                        Items[ct].AutoGet[i] = toupper(Items[ct].AutoGet[i]);
                 }
             }
-            ct++;
-            ip++;
-        } while (ct < ni + 1);
+        }
     } else {
+        ct = 0;
         do {
             c = *(ptr++);
             text[charindex] = c;
             if (c == 0) {
-                ip->Text = MemAlloc(charindex + 1);
-                strncpy(ip->Text, text, charindex + 1);
+                Items[ct].Text = MemAlloc(charindex + 1);
+                memcpy(Items[ct].Text, text, charindex + 1);
                 if (loud)
-                    debug_print("Item %d: %s\n", ct, ip->Text);
-                ip->AutoGet = strchr(ip->Text, '/');
+                    debug_print("Item %d: %s\n", ct, Items[ct].Text);
+                Items[ct].AutoGet = strchr(Items[ct].Text, '/');
                 /* Some games use // to mean no auto get/drop word! */
-                if (ip->AutoGet && strcmp(ip->AutoGet, "//") && strcmp(ip->AutoGet, "/*")) {
-                    *ip->AutoGet++ = 0;
-                    char *t = strchr(ip->AutoGet, '/');
+                if (Items[ct].AutoGet && strcmp(Items[ct].AutoGet, "//") && strcmp(Items[ct].AutoGet, "/*")) {
+                    *Items[ct].AutoGet++ = 0;
+                    char *t = strchr(Items[ct].AutoGet, '/');
                     if (t != NULL)
                         *t = 0;
                 }
                 ct++;
-                ip++;
                 charindex = 0;
             } else {
                 charindex++;
                 if (charindex > 255)
                     break;
             }
-        } while (ct < ni + 1);
+        } while (ct <= ni);
     }
 
 #pragma mark item locations
@@ -1131,15 +1029,11 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
     if (SeekIfNeeded(info.start_of_item_locations, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ct = 0;
-    ip = Items;
-    while (ct < ni + 1) {
-        ip->Location = *(ptr++);
-        ip->InitialLoc = ip->Location;
-        if (Items[ct].Text && ip->Location < nr && Rooms[ip->Location].Text)
-            debug_print("Location of item %d, \"%s\":%d\n", ct, Items[ct].Text, ip->Location);
-        ip++;
-        ct++;
+    for (ct = 0; ct <= ni; ct++) {
+        Items[ct].Location = *(ptr++);
+        Items[ct].InitialLoc = Items[ct].Location;
+        if (Items[ct].Text && Items[ct].Location < nr && Rooms[Items[ct].Location].Text)
+            debug_print("Location of item %d, \"%s\":%d\n", ct, Items[ct].Text, Items[ct].Location);
     }
 
 #pragma mark vector images
@@ -1174,9 +1068,9 @@ jumpSysMess:
                     offset--;
                     goto jumpSysMess;
                 }
-                char *newmess = MemAlloc(charindex + 1);
                 text[charindex] = '\0';
-                strncpy(newmess, text, charindex + 1);
+                char *newmess = MemAlloc(charindex + 1);
+                memcpy(newmess, text, charindex + 1);
                 system_messages[ct] = newmess;
                 if (loud)
                     debug_print("system_messages %d: \"%s\"\n", ct,
@@ -1217,11 +1111,11 @@ jumpSysMess:
         text[charindex] = c;
         if (c == 0 || c == 0x0d) {
             if (charindex > 0) {
-                char *newmess = MemAlloc(charindex + 2);
                 if (c == 0x0d)
                     charindex++;
                 text[charindex] = '\0';
-                strncpy(newmess, text, charindex + 1);
+                char *newmess = MemAlloc(charindex + 1);
+                memcpy(newmess, text, charindex + 1);
                 sys[ct] = newmess;
                 ct++;
                 charindex = 0;
