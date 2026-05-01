@@ -20,8 +20,7 @@
 //  per pixel row, upper nibble = foreground, lower nibble = background.
 //
 //  If the game data contains a standard Scott Adams header, I have not been
-//  able to find it. Instead, all offsets and counts are hardcoded in a
-//  GameInfo struct within DetectRTPI().
+//  able to find it. Instead, all offsets and counts are hardcoded in DetectRTPI().
 //
 
 #include <string.h>
@@ -214,7 +213,7 @@ static uint8_t *blit_tile(uint8_t *dst, uint8_t *tile) {
 
    The stream ends when opcode 7 with repeat==0 is encountered, which
    signals the transition to the colour attribute section. */
-static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
+static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
 
     if (image == NULL || image->imagedata == NULL || image->datasize < 2) {
         return 0;
@@ -437,7 +436,7 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                             memset(tile, 0, 8);
                         break;
                     default:
-                        fprintf(stderr, "DrawRTPIImageWithFuzz: Unimplemented sub-opcode (%d)\n", repeats);
+                        fprintf(stderr, "DrawRTPIImageWithOptionalFuzz: Unimplemented sub-opcode (%d)\n", repeats);
                         break;
                 }
                 break;
@@ -462,7 +461,7 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
                 }
                 break;
             default:
-                fprintf(stderr, "DrawRTPIImageWithFuzz: Illegal opcode %d!\n", op);
+                fprintf(stderr, "DrawRTPIImageWithOptionalFuzz: Illegal opcode %d!\n", op);
         }
     }
     return 0;
@@ -470,17 +469,18 @@ static int DrawRTPIImageWithFuzz(USImage *image, int fuzzy) {
 
 /* Normal image rendering. */
 int DrawRTPIImage(USImage *image) {
-    return DrawRTPIImageWithFuzz(image, 0);
+    return DrawRTPIImageWithOptionalFuzz(image, 0);
 }
 
 /* Render with deliberate misalignment (myopia effect). */
 int DrawFuzzyRTPIImage(USImage *image) {
-    return DrawRTPIImageWithFuzz(image, 1);
+    return DrawRTPIImageWithOptionalFuzz(image, 1);
 }
 
 /* Set up the 16-entry palette to match the TMS9918A VDP's fixed
-   colour table. RGB values are derived from the MAME emulator's
-   analysis of the TMS9918A's composite video output. */
+   colour table. RGB values are based on the MAME emulator's
+   analysis of the TMS9918A's composite video output, and then
+   hand adjusted. */
 static void SetupRTPIColors(void) {
 
     /* From MAME:
@@ -520,16 +520,16 @@ static void SetupRTPIColors(void) {
     glui32 bryellow =  0xEAD087;
     glui32 brwhite =   0xffffff;
 
-    SetColor(0, black);
-    SetColor(1, black);
-    SetColor(2, medgreen);
-    SetColor(3, lghtgreen);
-    SetColor(4, blue);
-    SetColor(5, brblue);
-    SetColor(6, darkred);
-    SetColor(7, cyan);
-    SetColor(8, mediumred);
-    SetColor(9, lightred);
+    SetColor( 0, black);
+    SetColor( 1, black);
+    SetColor( 2, medgreen);
+    SetColor( 3, lghtgreen);
+    SetColor( 4, blue);
+    SetColor( 5, brblue);
+    SetColor( 6, darkred);
+    SetColor( 7, cyan);
+    SetColor( 8, mediumred);
+    SetColor( 9, lightred);
     SetColor(10, yellow);
     SetColor(11, bryellow);
     SetColor(12, drkgreen);
@@ -1109,21 +1109,21 @@ static uint16_t adjust_grom_offset(uint16_t offset) {
    it returns UNKNOWN_GAME. */
 GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
 
-    size_t length;
+    size_t rom_length;
 
     /* Try to extract the CPU ROM, accepting either filename variant. */
-    uint8_t *ptr = extract_file_from_zip_data(data, datalength, "c.bin", &length);
+    uint8_t *cpu_rom = extract_file_from_zip_data(data, datalength, "c.bin", &rom_length);
 
     /* If c.bin is not present, try the MAME zip name */
-    if (!ptr) {
-        ptr = extract_file_from_zip_data(data, datalength, "phm3189c.bin", &length);
-        if (!ptr) {
+    if (!cpu_rom) {
+        cpu_rom = extract_file_from_zip_data(data, datalength, "phm3189c.bin", &rom_length);
+        if (!cpu_rom) {
             return UNKNOWN_GAME;
         }
     }
 
-    if (length < 0x1e94) {
-        free(ptr);
+    if (rom_length < 0x1e94) {
+        free(cpu_rom);
         return UNKNOWN_GAME;
     }
 
@@ -1133,20 +1133,20 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
     uint16_t room_image_offsets[NUMBER_OF_RTPI_ROOM_IMAGES];
 
     for (int i = 0; i < NUMBER_OF_RTPI_ROOM_IMAGES; i++) {
-        room_image_offsets[i] = adjust_grom_offset(READ_BE_UINT16(ptr + ROOM_IMAGES_OFFSET + i * 2));
+        room_image_offsets[i] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ROOM_IMAGES_OFFSET + i * 2));
     }
 
     uint16_t item_image_offsets[NUMBER_OF_RTPI_ITEM_IMAGES][2];
 
     for (int i = 0; i < 7; i++) {
-        item_image_offsets[i][0] = READ_BE_UINT16(ptr + ITEM_IMAGES_OFFSET + i * 4);
-        item_image_offsets[i][1] = adjust_grom_offset(READ_BE_UINT16(ptr + ITEM_IMAGES_OFFSET + i * 4 + 2));
+        item_image_offsets[i][0] = READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * 4);
+        item_image_offsets[i][1] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * 4 + 2));
     }
 
     /* Extract the title screen text. NUL bytes in the original data
        are converted to newlines for display as a single string. */
     title_screen = MemAlloc(RTPI_TITLE_TEXT_LENGTH);
-    memcpy((char *)title_screen, ptr + 0x13db, RTPI_TITLE_TEXT_LENGTH);
+    memcpy((char *)title_screen, cpu_rom + 0x13db, RTPI_TITLE_TEXT_LENGTH);
     for (int i = 0; i < RTPI_TITLE_TEXT_LENGTH; i++) {
         if (title_screen[i] == 0)
             title_screen[i] = '\n';
@@ -1155,73 +1155,80 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
 
     /* Extract the 52-tile font (8 bytes each) used for
        rendering all the graphics. */
-    memcpy(ti994atiles, ptr + 0x1cf4, NUMBER_OF_RTPI_TILES * 8);
+    memcpy(ti994atiles, cpu_rom + 0x1cf4, NUMBER_OF_RTPI_TILES * 8);
 
-    free(ptr);
+    free(cpu_rom);
 
     /* Load the GROM data. Try the single g.bin file first. */
-    ptr = extract_file_from_zip_data(data, datalength, "g.bin", &length);
+    size_t grom_length;
+    uint8_t *grom_data = extract_file_from_zip_data(data, datalength, "g.bin", &grom_length);
 
     /* If g.bin is not present, this may be the MAME zip format which
        splits the GROM across five 0x2000-byte bank files (g3–g7).
        Extract and concatenate them into a single contiguous buffer. */
-    if (!ptr) {
-        uint8_t *grom = MemCalloc(GROM_SIZE);
+    if (!grom_data) {
+        grom_data = MemCalloc(GROM_SIZE);
         char filename[14];
+        size_t bank_length;
         for (int i = 0; i < 5; i++) {
             snprintf(filename, 14, "phm3189g%d.bin", 3 + i);
-            ptr = extract_file_from_zip_data(data, datalength, filename, &length);
-            if (!ptr) {
-                free(grom);
+            uint8_t *bank = extract_file_from_zip_data(data, datalength, filename, &bank_length);
+            if (!bank) {
+                free(grom_data);
                 return UNKNOWN_GAME;
             }
-            memcpy(grom + 0x2000 * i, ptr, length);
-            free(ptr);
+            memcpy(grom_data + 0x2000 * i, bank, bank_length);
+            free(bank);
         }
-        ptr = grom;
-        length = GROM_SIZE;
+        grom_length = GROM_SIZE;
     }
 
-    /* The TI-99/4A version has no standard Scott Adams header embedded
-       in the data. All game parameters are hardcoded here, matching
-       the known single release of the game. */
-    int header[25];
+    /* I have been unable to find a standard Scott Adams header
+       in the data. Instead, all the game parameters are hardcoded here
+       to match those in the adv14a.dat file created by Paul David Doherty
+       (which was likely created by analyzing the same game data that we
+       are dealing with here.) */
+    /* See https://unbox.ifarchive.org/?url=/if-archive/scott-adams/games/scottfree/AdamsGames.zip */
+    int raw_header[25];
 
-    header[0]  = 4;       // Word length: 4
-    header[1]  = 104;     // Number of words: 104
-    header[2]  = 277;     // Number of actions: 277
-    header[3]  = 71;      // Number of items: 71
-    header[4]  = 89;      // Number of messages: 89
-    header[5]  = 24;      // Number of rooms: 24
-    header[6]  = 10;      // Max carried: 10
-    header[7]  = 1;       // Starting location: 1
-    header[8]  = 13;      // Number of treasures: 13
-    header[9]  = 1;       // Light time: 1
-    header[10] = 13 << 8; // Treasure room: 13
+    raw_header[0]  = 4;       // Word length: 4
+    raw_header[1]  = 104;     // Number of words: 104
+    raw_header[2]  = 277;     // Number of actions: 277
+    raw_header[3]  = 71;      // Number of items: 71
+    raw_header[4]  = 89;      // Number of messages: 89
+    raw_header[5]  = 24;      // Number of rooms: 24
+    raw_header[6]  = 10;      // Max carried: 10
+    raw_header[7]  = 1;       // Starting location: 1
+    raw_header[8]  = 13;      // Number of treasures: 13
+    raw_header[9]  = 1;       // Light time: 1
+    raw_header[10] = 13 << 8; // Treasure room: 13
 
-    int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
+    int num_items, num_actions, num_words, num_rooms, max_carry,
+        player_room, num_treasures, word_length, light_time,
+        num_messages, treasure_room;
 
-    ParseHeader(header, US_HEADER, &ni, &na, &nw, &nr, &mc, &pr, &tr,
-                &wl, &lt, &mn, &trm);
+    ParseHeader(raw_header, US_HEADER, &num_items, &num_actions, &num_words,
+                &num_rooms, &max_carry, &player_room, &num_treasures,
+                &word_length, &light_time, &num_messages, &treasure_room);
 
-    GameHeader.NumItems = ni;
-    Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
-    GameHeader.NumActions = na;
-    Actions = (Action *)MemAlloc(sizeof(Action) * (na + 1));
-    GameHeader.NumWords = nw;
-    GameHeader.WordLength = wl;
-    Verbs = MemAlloc(sizeof(char *) * (nw + 2));
-    Nouns = MemAlloc(sizeof(char *) * (nw + 2));
-    GameHeader.NumRooms = nr;
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
-    GameHeader.MaxCarry = mc;
-    GameHeader.PlayerRoom = pr;
-    GameHeader.Treasures = tr;
-    GameHeader.LightTime = lt;
-    LightRefill = lt;
-    GameHeader.NumMessages = mn;
-    Messages = MemAlloc(sizeof(char *) * (mn + 1));
-    GameHeader.TreasureRoom = trm;
+    GameHeader.NumItems = num_items;
+    Items = (Item *)MemAlloc(sizeof(Item) * (num_items + 1));
+    GameHeader.NumActions = num_actions;
+    Actions = (Action *)MemAlloc(sizeof(Action) * (num_actions + 1));
+    GameHeader.NumWords = num_words;
+    GameHeader.WordLength = word_length;
+    Verbs = MemAlloc(sizeof(char *) * (num_words + 2));
+    Nouns = MemAlloc(sizeof(char *) * (num_words + 2));
+    GameHeader.NumRooms = num_rooms;
+    Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
+    GameHeader.MaxCarry = max_carry;
+    GameHeader.PlayerRoom = player_room;
+    GameHeader.Treasures = num_treasures;
+    GameHeader.LightTime = light_time;
+    LightRefill = light_time;
+    GameHeader.NumMessages = num_messages;
+    Messages = MemAlloc(sizeof(char *) * (num_messages + 1));
+    GameHeader.TreasureRoom = treasure_room;
 
     /* GameInfo struct describing the GROM layout. The offsets here are
        raw byte positions within the GROM file (not GROM addresses —
@@ -1274,21 +1281,23 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
         0, // picture_format_version
     };
 
-    PrintHeaderInfo(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm);
+    PrintHeaderInfo(raw_header, num_items, num_actions, num_words, num_rooms,
+                    max_carry, player_room, num_treasures, word_length,
+                    light_time, num_messages, treasure_room);
 
     /* Parse all game data from the GROM, then load graphics and set up
        the TI-99/4A colour table. The original zip data is freed here
        since it's no longer needed once the GROM has been loaded. */
-    if (LoadRTPI(ptr, length, info, 1) == RETURN_TO_PIRATES_ISLE) {
+    if (LoadRTPI(grom_data, grom_length, info, 1) == RETURN_TO_PIRATES_ISLE) {
         free(data);
-        LoadRTPIGraphics(room_image_offsets, item_image_offsets, ptr);
-        free(ptr);
+        LoadRTPIGraphics(room_image_offsets, item_image_offsets, grom_data);
+        free(grom_data);
         SetupRTPIColors();
 
         return RETURN_TO_PIRATES_ISLE;
     }
 
-    free(ptr);
+    free(grom_data);
 
     return UNKNOWN_GAME;
 }
