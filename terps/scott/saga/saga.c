@@ -107,20 +107,16 @@ uint8_t *ReadUSDictionary(uint8_t *ptr)
 {
     char dictword[GameHeader.WordLength + 2];
     char c = 0;
-    int wordnum = 0;
     int charindex = 0;
 
     int nn = GameHeader.NumWords + 1;
 
-    do {
+    for (int wordnum = 0; wordnum <= GameHeader.NumWords * 2 + 1; wordnum++) {
         for (int i = 0; i < GameHeader.WordLength; i++) {
             c = *(ptr++);
             /* Skip leading zero-padding at the start of a word */
-            if (c == 0) {
-                if (charindex == 0) {
-                    c = *(ptr++);
-                }
-            }
+            if (c == 0 && charindex == 0)
+                c = *(ptr++);
             dictword[charindex] = c;
             /* '*' marks a synonym; don't count it toward the word length */
             if (c == '*')
@@ -133,23 +129,20 @@ uint8_t *ReadUSDictionary(uint8_t *ptr)
         /* First (NumWords + 1) entries are nouns, the rest are verbs */
         if (wordnum < nn) {
             Nouns[wordnum] = MemAlloc(charindex + 1);
-            memcpy((char *)Nouns[wordnum], dictword, charindex + 1);
-            debug_print("Nouns %d: \"%s\"\n", wordnum,
-                Nouns[wordnum]);
+            memcpy(Nouns[wordnum], dictword, charindex + 1);
+            debug_print("Nouns %d: \"%s\"\n", wordnum, Nouns[wordnum]);
         } else {
             Verbs[wordnum - nn] = MemAlloc(charindex + 1);
-            memcpy((char *)Verbs[wordnum - nn], dictword, charindex + 1);
-            debug_print("Verbs %d: \"%s\"\n", wordnum - nn,
-                Verbs[wordnum - nn]);
+            memcpy(Verbs[wordnum - nn], dictword, charindex + 1);
+            debug_print("Verbs %d: \"%s\"\n", wordnum - nn, Verbs[wordnum - nn]);
         }
-        wordnum++;
 
         /* High bit set on last character signals end of dictionary */
         if (c > 127)
             return ptr;
 
         charindex = 0;
-    } while (wordnum <= GameHeader.NumWords * 2 + 1);
+    }
 
     return ptr;
 }
@@ -165,7 +158,7 @@ int DrawApple2Image(USImage *image)
     return 1;
 }
 
-/* Draw a DOS/PC format image. */
+/* Draw a DOS/PC (CGA) format image. */
 int DrawDOSImage(USImage *image) {
     if (image->imagedata == NULL) {
         fprintf(stderr, "DrawDOSImage: ptr == NULL\n");
@@ -306,7 +299,7 @@ void DrawUSRoomObject(int item)
    lighting changes.
 
    Contains per-game special cases for composite images (e.g. The Hulk
-   reuses room images for multiple locations; Count has context-dependent
+   reuses room images for multiple locations; The Count has context-dependent
    object overlays; Return to Pirate's Isle composites dock/beam/boat
    layers). */
 void LookUS(void)
@@ -649,51 +642,40 @@ uint8_t *ParseMessages(uint8_t *ptr, uint8_t *endptr, int number_of_messages) {
    After all item strings, a separate table of 2-byte entries gives each
    item's starting location. */
 uint8_t *ParseItems(uint8_t *ptr, uint8_t *endptr, int number_of_items) {
-    int counter = 0;
-    Item *ip = Items;
-
-    do {
+    for (int ct = 0; ct <= number_of_items && ptr < endptr; ct++) {
         int string_length = *ptr++;
         if (string_length == 0) {
-            ip->Text = ".";
-            ip->AutoGet = NULL;
+            Items[ct].Text = ".";
+            Items[ct].AutoGet = NULL;
         } else {
-            ip->Text = MemAlloc(string_length + 1);
+            Items[ct].Text = MemAlloc(string_length + 1);
 
-            for (int i = 0; i < string_length && ptr < endptr; i++) {
-                ip->Text[i] = *ptr++;
-            }
-            ip->Text[string_length] = 0;
-            ip->AutoGet = strchr(ip->Text, '/');
+            for (int i = 0; i < string_length && ptr < endptr; i++)
+                Items[ct].Text[i] = *ptr++;
+            Items[ct].Text[string_length] = 0;
+            Items[ct].AutoGet = strchr(Items[ct].Text, '/');
             /* Some games use // to mean no auto get/drop word! */
-            if (ip->AutoGet && strcmp(ip->AutoGet, "//") && strcmp(ip->AutoGet, "/*") && ptr < endptr) {
+            if (Items[ct].AutoGet && strcmp(Items[ct].AutoGet, "//") && strcmp(Items[ct].AutoGet, "/*") && ptr < endptr) {
                 char *t;
-                *ip->AutoGet++ = 0;
-                t = strchr(ip->AutoGet, '/');
+                *Items[ct].AutoGet++ = 0;
+                t = strchr(Items[ct].AutoGet, '/');
                 if (t != NULL)
                     *t = 0;
                 ptr++;
             }
         }
 
-        debug_print("Item %d: %s\n", counter, ip->Text);
-        if (ip->AutoGet)
-            debug_print("Autoget:%s\n", ip->AutoGet);
-
-        counter++;
-        ip++;
-    } while (counter <= number_of_items && ptr < endptr);
+        debug_print("Item %d: %s\n", ct, Items[ct].Text);
+        if (Items[ct].AutoGet)
+            debug_print("Autoget:%s\n", Items[ct].AutoGet);
+    }
 
     ptr++;
-    counter = 0;
-    ip = Items;
-    while (counter <= number_of_items && ptr < endptr) {
-        ip->Location = *ptr;
-        ip->InitialLoc = ip->Location;
-        debug_print("Item %d (%s) start location: %d\n", counter, Items[counter].Text, ip->Location);
+    for (int ct = 0; ct <= number_of_items && ptr < endptr; ct++) {
+        Items[ct].Location = *ptr;
+        Items[ct].InitialLoc = Items[ct].Location;
+        debug_print("Item %d (%s) start location: %d\n", ct, Items[ct].Text, Items[ct].Location);
         ptr += 2;
-        ip++;
-        counter++;
     }
 
     return ptr;
@@ -711,8 +693,6 @@ uint8_t *ParseItems(uint8_t *ptr, uint8_t *endptr, int number_of_items) {
    Subcommands are similarly packed as (value * 150 + value2).
    Conditions are 16-bit words encoding condition type and argument. */
 uint8_t *ParseActions(uint8_t *ptr, uint8_t *data, size_t datalength, int number_of_actions) {
-    Action *ap = Actions;
-
     size_t base = ptr - data;
     size_t stride = number_of_actions + 1;
 
@@ -726,29 +706,27 @@ uint8_t *ParseActions(uint8_t *ptr, uint8_t *data, size_t datalength, int number
     if (end_of_table > datalength)
         return NULL;
 
-    for (int counter = 0; counter <= number_of_actions; counter++) {
+    for (int ct = 0; ct <= number_of_actions; ct++) {
         /* Column 0: verbs, Column 1: nouns */
-        int verb = data[base + counter];
-        int noun = data[base + counter + stride];
-        debug_print("Action %d: verb:%d noun:%d\n", counter, verb, noun);
+        int verb = data[base + ct];
+        int noun = data[base + ct + stride];
+        debug_print("Action %d: verb:%d noun:%d\n", ct, verb, noun);
 
-        ap->Vocab = verb * 150 + noun;
+        Actions[ct].Vocab = verb * 150 + noun;
 
         /* Columns 2-5: two subcommand pairs (each pair is two byte columns) */
         for (int j = 0; j < 2; j++) {
-            int value  = data[base + counter + (2 + j * 2) * stride];
-            int value2 = data[base + counter + (3 + j * 2) * stride];
-            ap->Subcommand[j] = 150 * value + value2;
-            debug_print("Action %d: Subcommand[%d]: %d %d\n", counter, j, value, value2);
+            int value  = data[base + ct + (2 + j * 2) * stride];
+            int value2 = data[base + ct + (3 + j * 2) * stride];
+            Actions[ct].Subcommand[j] = 150 * value + value2;
+            debug_print("Action %d: Subcommand[%d]: %d %d\n", ct, j, value, value2);
         }
 
         /* 5 columns of 16-bit condition words */
         for (int j = 0; j < 5; j++) {
-            ap->Condition[j] = READ_LE_UINT16(data + cond_base + counter * 2 + j * cond_stride);
-            debug_print("Action %d: Condition %d: %d\n", counter, j, ap->Condition[j]);
+            Actions[ct].Condition[j] = READ_LE_UINT16(data + cond_base + ct * 2 + j * cond_stride);
+            debug_print("Action %d: Condition %d: %d\n", ct, j, Actions[ct].Condition[j]);
         }
-
-        ap++;
     }
 
     return data + end_of_table;

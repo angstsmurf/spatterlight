@@ -768,12 +768,7 @@ GameIDType LoadDatabase(FILE *f, int loud)
     int num_messages, treasure_room;
     int ct;
     short location;
-    Action *ap;
-    Room *rp;
-    Item *ip;
     /* Load the header */
-
-    loud = 1;
 
     if (fscanf(f, "%*d %d %d %d %d %d %d %d %d %d %d %d",
             &num_items, &num_actions, &num_words, &num_rooms, &max_carry,
@@ -785,15 +780,15 @@ GameIDType LoadDatabase(FILE *f, int loud)
         return UNKNOWN_GAME;
     }
     GameHeader.NumItems = num_items;
-    Items = (Item *)MemAlloc(sizeof(Item) * (num_items + 1));
+    Items = MemAlloc(sizeof(Item) * (num_items + 1));
     GameHeader.NumActions = num_actions;
-    Actions = (Action *)MemAlloc(sizeof(Action) * (num_actions + 1));
+    Actions = MemAlloc(sizeof(Action) * (num_actions + 1));
     GameHeader.NumWords = num_words;
     GameHeader.WordLength = word_length;
     Verbs = MemAlloc(sizeof(char *) * (num_words + 2));
     Nouns = MemAlloc(sizeof(char *) * (num_words + 2));
     GameHeader.NumRooms = num_rooms;
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
+    Rooms = MemAlloc(sizeof(Room) * (num_rooms + 1));
     GameHeader.MaxCarry = max_carry;
     GameHeader.PlayerRoom = player_room;
     GameHeader.Treasures = num_treasures;
@@ -819,20 +814,18 @@ GameIDType LoadDatabase(FILE *f, int loud)
 
     /* Load the actions */
 
-    ct = 0;
-    ap = Actions;
     if (loud)
         debug_print("Reading %d actions.\n", num_actions);
-    while (ct < num_actions + 1) {
+    for (ct = 0; ct <= num_actions; ct++) {
         if (fscanf(f, "%hu %hu %hu %hu %hu %hu %hu %hu",
-                &ap->Vocab,
-                &ap->Condition[0],
-                &ap->Condition[1],
-                &ap->Condition[2],
-                &ap->Condition[3],
-                &ap->Condition[4],
-                &ap->Subcommand[0],
-                &ap->Subcommand[1])
+                &Actions[ct].Vocab,
+                &Actions[ct].Condition[0],
+                &Actions[ct].Condition[1],
+                &Actions[ct].Condition[2],
+                &Actions[ct].Condition[3],
+                &Actions[ct].Condition[4],
+                &Actions[ct].Subcommand[0],
+                &Actions[ct].Subcommand[1])
             != 8) {
             fprintf(stderr, "Bad action line (%d)\n", ct);
             FreeDatabase();
@@ -840,89 +833,70 @@ GameIDType LoadDatabase(FILE *f, int loud)
         }
 
         if (loud) {
-            debug_print("Action %d Vocab: %d (Verb:%d/NounOrChance:%d)\n", ct, ap->Vocab,
-               ap->Vocab / 150,  ap->Vocab % 150);
-            debug_print("Action %d Condition[0]: %d (%d/%d)\n", ct,
-                ap->Condition[0], ap->Condition[0] % 20, ap->Condition[0] / 20);
-            debug_print("Action %d Condition[1]: %d (%d/%d)\n", ct,
-                ap->Condition[1], ap->Condition[1] % 20, ap->Condition[1] / 20);
-            debug_print("Action %d Condition[2]: %d (%d/%d)\n", ct,
-                ap->Condition[2], ap->Condition[2] % 20, ap->Condition[2] / 20);
-            debug_print("Action %d Condition[3]: %d (%d/%d)\n", ct,
-                ap->Condition[3], ap->Condition[3] % 20, ap->Condition[3] / 20);
-            debug_print("Action %d Condition[4]: %d (%d/%d)\n", ct,
-                ap->Condition[4], ap->Condition[4] % 20, ap->Condition[4] / 20);
-            debug_print("Action %d Subcommand [0]]: %d (%d/%d)\n", ct, ap->Subcommand[0], ap->Subcommand[0] % 150, ap->Subcommand[0] / 150);
-            debug_print("Action %d Subcommand [1]]: %d (%d/%d)\n", ct, ap->Subcommand[1], ap->Subcommand[1] % 150, ap->Subcommand[1] / 150);
+            debug_print("Action %d Vocab: %d (Verb:%d/NounOrChance:%d)\n", ct, Actions[ct].Vocab,
+               Actions[ct].Vocab / 150, Actions[ct].Vocab % 150);
+            for (int i = 0; i < 5; i++)
+                debug_print("Action %d Condition[%d]: %d (%d/%d)\n", ct, i,
+                    Actions[ct].Condition[i], Actions[ct].Condition[i] % 20, Actions[ct].Condition[i] / 20);
+            debug_print("Action %d Subcommand [0]]: %d (%d/%d)\n", ct, Actions[ct].Subcommand[0], Actions[ct].Subcommand[0] % 150, Actions[ct].Subcommand[0] / 150);
+            debug_print("Action %d Subcommand [1]]: %d (%d/%d)\n", ct, Actions[ct].Subcommand[1], Actions[ct].Subcommand[1] % 150, Actions[ct].Subcommand[1] / 150);
         }
-        ap++;
-        ct++;
     }
 
     /* Load the verb/noun dictionary (word pairs) */
-    ct = 0;
     if (loud)
         debug_print("Reading %d word pairs.\n", num_words);
-    while (ct < num_words + 1) {
+    for (ct = 0; ct <= num_words; ct++) {
         Verbs[ct] = ReadString(f);
         debug_print("Verbs %d:%s.\n", ct, Verbs[ct]);
         Nouns[ct] = ReadString(f);
         debug_print("Nouns %d:%s.\n", ct, Nouns[ct]);
-        ct++;
     }
     /* Load rooms: 6 exit directions followed by a description string */
-    ct = 0;
-    rp = Rooms;
     if (loud)
         debug_print("Reading %d rooms.\n", num_rooms);
-    while (ct < num_rooms + 1) {
-        if (fscanf(f, "%hd %hd %hd %hd %hd %hd", &rp->Exits[0], &rp->Exits[1],
-                &rp->Exits[2], &rp->Exits[3], &rp->Exits[4],
-                &rp->Exits[5])
+    for (ct = 0; ct <= num_rooms; ct++) {
+        if (fscanf(f, "%hd %hd %hd %hd %hd %hd",
+                &Rooms[ct].Exits[0], &Rooms[ct].Exits[1],
+                &Rooms[ct].Exits[2], &Rooms[ct].Exits[3],
+                &Rooms[ct].Exits[4], &Rooms[ct].Exits[5])
             != 6) {
             debug_print("Bad room line (%d)\n", ct);
             FreeDatabase();
             return UNKNOWN_GAME;
         }
 
-        rp->Text = ReadString(f);
-        if (loud)
-            debug_print("Room %d: \"%s\"\n", ct, rp->Text);
+        Rooms[ct].Text = ReadString(f);
         if (loud) {
+            debug_print("Room %d: \"%s\"\n", ct, Rooms[ct].Text);
             debug_print("Room connections for room %d:\n", ct);
             for (int i = 0; i < 6; i++)
-                debug_print("Exit %d: %d\n", i, rp->Exits[i]);
+                debug_print("Exit %d: %d\n", i, Rooms[ct].Exits[i]);
         }
-        rp->Image = 255;
-        ct++;
-        rp++;
+        Rooms[ct].Image = 255;
     }
 
     /* Load messages (printed by action subcommands 1-51 and 102+) */
-    ct = 0;
     if (loud)
         debug_print("Reading %d messages.\n", num_messages);
-    while (ct < num_messages + 1) {
+    for (ct = 0; ct <= num_messages; ct++) {
         Messages[ct] = ReadString(f);
         if (loud)
             debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
-        ct++;
     }
     /* Load items: description string (with optional /AutoGet/ word) and location */
-    ct = 0;
     if (loud)
         debug_print("Reading %d items.\n", num_items);
-    ip = Items;
-    while (ct < num_items + 1) {
-        ip->Text = ReadString(f);
+    for (ct = 0; ct <= num_items; ct++) {
+        Items[ct].Text = ReadString(f);
         if (loud)
-            debug_print("Item %d: \"%s\"\n", ct, ip->Text);
-        ip->AutoGet = strchr(ip->Text, '/');
+            debug_print("Item %d: \"%s\"\n", ct, Items[ct].Text);
+        Items[ct].AutoGet = strchr(Items[ct].Text, '/');
         /* Some games use // to mean no auto get/drop word! */
-        if (ip->AutoGet && strcmp(ip->AutoGet, "//") && strcmp(ip->AutoGet, "/*")) {
+        if (Items[ct].AutoGet && strcmp(Items[ct].AutoGet, "//") && strcmp(Items[ct].AutoGet, "/*")) {
             char *t;
-            *ip->AutoGet++ = 0;
-            t = strchr(ip->AutoGet, '/');
+            *Items[ct].AutoGet++ = 0;
+            t = strchr(Items[ct].AutoGet, '/');
             if (t != NULL)
                 *t = 0;
         }
@@ -931,20 +905,15 @@ GameIDType LoadDatabase(FILE *f, int loud)
             FreeDatabase();
             return UNKNOWN_GAME;
         }
-        ip->Location = (unsigned char)location;
+        Items[ct].Location = (unsigned char)location;
         if (loud)
-            debug_print("Location of item %d: %d\n", ct, ip->Location);
-        ip->InitialLoc = ip->Location;
-        ip++;
-        ct++;
+            debug_print("Location of item %d: %d\n", ct, Items[ct].Location);
+        Items[ct].InitialLoc = Items[ct].Location;
     }
     /* Discard action comment strings (one per action, used only by
        the original authoring tools for documentation) */
-    ct = 0;
-    while (ct < num_actions + 1) {
+    for (ct = 0; ct <= num_actions; ct++)
         free(ReadString(f));
-        ct++;
-    }
     /* Read the version and adventure number trailer */
     if (fscanf(f, "%d", &ct) != 1) {
         debug_print("Cannot read version\n");
