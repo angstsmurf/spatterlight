@@ -18,19 +18,26 @@
 #include "parseinput.h"
 #include "restorestate.h"
 
-char **InputWordStrings = NULL;
-int WordsInInput = 0;
-int WordIndex = 0;
-int InitialIndex = 0;
-int ProtagonistString = 0;
+char **InputWordStrings = NULL;  /* Array of uppercased word strings from the player's input */
+int WordsInInput = 0;           /* Number of words in the current input line */
+int WordIndex = 0;              /* Current position in TokenWords during command parsing */
+int InitialIndex = 0;           /* WordIndex at the start of the current command (for multi-command lines) */
+int ProtagonistString = 0;      /* Message index for the player character's name, used in the prompt */
 
+/* Dictionary arrays loaded from the game data file. Each is a
+   NULL-terminated array of DictWord structs mapping strings to
+   group indices. */
 DictWord *Verbs;
 DictWord *Nouns;
 DictWord *Adverbs;
 DictWord *Prepositions;
 
+/* Current and previous command components. The action engine reads
+   Current* to match actions; Last* preserves the previous turn's
+   values so AGAIN can re-execute and implicit verbs can carry forward. */
 int CurrentVerb = 0, CurrentNoun = 0, CurrentPrep = 0, CurrentPartp = 0, CurrentNoun2 = 0, CurrentAdverb = 0, LastVerb = 0, LastNoun = 0, LastPrep = 0, LastPartp = 0, LastNoun2 = 0, LastAdverb = 0;
 
+/* Free all word strings from the current input and reset word state. */
 void FreeInputWords(void)
 {
     WordIndex = 0;
@@ -45,22 +52,23 @@ void FreeInputWords(void)
     WordsInInput = 0;
 }
 
+/* Compare two dictionary words character by character, stopping at the
+   first '#' in either string. Hash signs separate homonyms in the Plus
+   dictionary format, so "KEY#1" and "KEY#2" compare as equal. */
 int CompareUpToHashSign(char *word1, char *word2)
 {
-    size_t len1 = strlen(word1);
-    size_t len2 = strlen(word2);
-    size_t longest = MAX(len1, len2);
-    char w1[longest];
-    char w2[longest];
-    memcpy(w1, word1, len1);
-    memcpy(w2, word2, len2);
-    for (int i = 0; i < longest && w1[i] != '#' && w2[i] != '#'; i++) {
-        if (w1[i] != w2[i])
+    for (int i = 0; word1[i] != '#' && word2[i] != '#'; i++) {
+        if (word1[i] != word2[i])
             return 0;
+        if (word1[i] == 0)
+            return 1;
     }
     return 1;
 }
 
+/* Prompt the player for a single-character yes/no answer. Loops until
+   a valid response is given. Returns 1 for yes, 0 for no. The expected
+   characters are taken from the localised system messages. */
 int YesOrNo(void)
 {
     glk_request_char_event(Bottom);
@@ -91,6 +99,11 @@ int YesOrNo(void)
     return (result == 1);
 }
 
+/* Disambiguate a noun when multiple items present in the current room
+   (or carried) share a hash-separated dictionary word. If exactly one
+   item matches, return its dictionary index silently. If several match,
+   ask the player "do you mean X?" for each until one is confirmed.
+   Returns 0 if no match or the player declined all options. */
 static int FindNounWithHash(char *p)
 {
     int num_matches = 0;
@@ -119,6 +132,8 @@ static int FindNounWithHash(char *p)
     return 0;
 }
 
+/* Look up a word in a dictionary array by exact string match.
+   Returns the word's group index, or 0 if not found. */
 static int ParseWord(char *p, DictWord *dict)
 {
     for (int i = 0; dict[i].Word != NULL; i++) {
@@ -130,6 +145,9 @@ static int ParseWord(char *p, DictWord *dict)
     return 0;
 }
 
+/* Check whether synonym is a prefix of original that ends at a word
+   boundary (end of string or a space). Returns the number of matching
+   characters, or 0 on mismatch. */
 static int MatchingChars(const char *synonym, const char *original)
 {
     if (synonym[0] == 0 || original[0] == 0 || synonym == NULL || original == NULL)
@@ -143,6 +161,9 @@ static int MatchingChars(const char *synonym, const char *original)
     return (i == strlen(synonym) && (original[i] == 0 || original[i] == ' ' || (i > 0 && original[i - 1] == 0)));
 }
 
+/* Search for synonym within original, matching only at word boundaries
+   (start of string or preceded by a space). Returns the byte offset of
+   the match, or -1 if not found. */
 static int IsSynonymMatch(const char *synonym, const char *original)
 {
     char c = synonym[0];
@@ -159,162 +180,138 @@ static int IsSynonymMatch(const char *synonym, const char *original)
     return -1;
 }
 
+/* Collapse runs of whitespace in-place to single spaces. Updates *len. */
 static char *StripDoubleSpaces(char *result, int *len)
 {
-    int found = 0;
-    do {
-        found = 0;
-        for (int i = 0; i < *len - 1; i++) {
-            if (isspace(result[i]) && isspace(result[i + 1])) {
-                found = 1;
-                char new[512];
-                if (i > 0)
-                    memcpy(new, result, i);
-                int taillen = *len - i;
-                if (taillen > 0) {
-                    memcpy(new + i, result + i + 1, taillen);
-                }
-                free(result);
-                (*len)--;
-                new[*len] = 0;
-                result = MemAlloc(*len + 1);
-                memcpy(result, new, *len + 1);
-                break;
-            }
-        }
-    } while (found == 1);
-    result[*len] = 0;
-    return result;
-}
-
-static char *StripPunctuation(char *buf, int *len)
-{
-    for (int i = 0; i < *len; i++) {
-        char c = buf[i];
-        if (c == '.' || c == ',' || c == ':' || c == ';' || c == '\'' || c == '\"' || c == '-' || c == '!') {
-            buf[i] = ' ';
-        }
+    int dst = 0;
+    for (int src = 0; src < *len; src++) {
+        if (src > 0 && isspace(result[src]) && isspace(result[src - 1]))
+            continue;
+        result[dst++] = result[src];
     }
-    buf[*len] = 0;
-    char *final = MemAlloc(*len + 1);
-    memcpy(final, buf, *len + 1);
-    return final;
-}
-
-static char *ConcatStrings(const char *head, int headlen, const char *mid, int midlen, const char *tail, int taillen)
-{
-    int totallen = headlen + midlen + taillen;
-    char *result = MemAlloc(totallen + 1);
-    memcpy(result, head, headlen);
-    memcpy(result + headlen, mid, midlen);
-    memcpy(result + headlen + midlen, tail, taillen);
-    result[totallen] = 0;
-    if (totallen > 1)
-        result = StripDoubleSpaces(result, &totallen);
+    *len = dst;
+    result[dst] = 0;
     return result;
 }
 
-static char *ReplaceString(char *source, const char *pattern, const char *replacement, int *startpos)
-{
-    char *result = NULL;
-    char *head = NULL, *tail = NULL;
-    int headlength = *startpos;
-    head = MemAlloc(headlength + 1);
-    memcpy(head, source, headlength);
-    head[*startpos] = 0;
-    int tailpos = headlength + (int)strlen(pattern);
-    int sourcelen = (int)strlen(source);
-    int taillength = sourcelen - tailpos;
-    if (taillength < 0 || taillength > sourcelen) {
-        taillength = 0;
-        tailpos = sourcelen;
-    }
-    tail = MemAlloc(taillength + 1);
-    memcpy(tail, source + tailpos, taillength);
-    tail[taillength] = 0;
-    int midlength = (int)strlen(replacement);
-    result = ConcatStrings(head, headlength, replacement, midlength, tail, taillength);
-    free(head);
-    free(tail);
-    free(source);
-    *startpos = headlength + midlength + taillength;
-    return result;
-}
-
-static char *ReplaceSynonyms(char *buf, int *len)
+/* Return a copy of buf with punctuation characters replaced by spaces.
+   The input is not modified. */
+static char *StripPunctuation(const char *buf, int *len)
 {
     char *result = MemAlloc(*len + 1);
-    for (int i = 0; i < *len; i++)
-        result[i] = toupper(buf[i]);
-    result = StripDoubleSpaces(result, len);
-    int finallen = (int)strlen(result);
-    for (int i = 0; Substitutions[i].SynonymString != NULL; i++) {
-        char *syn = Substitutions[i].SynonymString;
-        finallen = IsSynonymMatch(syn, result);
-        while (finallen >= 0) {
-            debug_print("Replaced string \"%s\" with \"%s\".\n", syn, Substitutions[i].ReplacementString);
-            result = ReplaceString(result, syn, Substitutions[i].ReplacementString, &finallen);
-            debug_print("Result: \"%s\"\n", result);
-            finallen = IsSynonymMatch(syn, result);
-        }
+    for (int i = 0; i < *len; i++) {
+        char c = buf[i];
+        if (c == '.' || c == ',' || c == ':' || c == ';' || c == '\'' || c == '"' || c == '-' || c == '!')
+            c = ' ';
+        result[i] = c;
     }
-    *len = (int)strlen(result);
     result[*len] = 0;
-    free(buf);
     return result;
 }
 
+/* Replace one occurrence of pattern in source (at offset *startpos) with
+   replacement. Frees source, returns a new string, and sets *startpos to
+   the new total length. Collapses any double spaces introduced by the
+   substitution. */
+static char *ReplaceString(char *source, const char *pattern, const char *replacement, int *startpos)
+{
+    int sourcelen = (int)strlen(source);
+    int patternlen = (int)strlen(pattern);
+    int replacelen = (int)strlen(replacement);
+    int headlen = *startpos;
+    int taillen = sourcelen - headlen - patternlen;
+    if (taillen < 0)
+        taillen = 0;
+
+    int totallen = headlen + replacelen + taillen;
+    char *result = MemAlloc(totallen + 1);
+    memcpy(result, source, headlen);
+    memcpy(result + headlen, replacement, replacelen);
+    memcpy(result + headlen + replacelen, source + headlen + patternlen, taillen);
+    result[totallen] = 0;
+    free(source);
+
+    if (totallen > 1)
+        result = StripDoubleSpaces(result, &totallen);
+
+    *startpos = totallen;
+    return result;
+}
+
+/* Uppercase the input then apply all synonym substitutions from the
+   game's Substitutions table. Each synonym is replaced repeatedly until
+   no more matches are found (handling overlapping or chained rewrites). */
+static char *ReplaceSynonyms(char *buf, int *len)
+{
+    for (int i = 0; i < *len; i++)
+        buf[i] = toupper(buf[i]);
+    buf = StripDoubleSpaces(buf, len);
+
+    for (int i = 0; Substitutions[i].SynonymString != NULL; i++) {
+        char *syn = Substitutions[i].SynonymString;
+        int matchpos = IsSynonymMatch(syn, buf);
+        while (matchpos >= 0) {
+            debug_print("Replaced string \"%s\" with \"%s\".\n", syn, Substitutions[i].ReplacementString);
+            buf = ReplaceString(buf, syn, Substitutions[i].ReplacementString, &matchpos);
+            debug_print("Result: \"%s\"\n", buf);
+            matchpos = IsSynonymMatch(syn, buf);
+        }
+    }
+    *len = (int)strlen(buf);
+    return buf;
+}
+
+/* Split a string into an array of individually allocated word strings,
+   delimited by whitespace. Sets WordsInInput to the number of words
+   found. Returns NULL if no words are found. Capped at MAX_WORDS. */
 static char **SplitIntoWords(const char *string, int length)
 {
-    if (length < 1) {
+    if (length < 1)
         return NULL;
-    }
 
     int startpos[MAX_WORDS];
-    int wordlength[MAX_WORDS];
-
+    int wordlen[MAX_WORDS];
     int words_found = 0;
-    int word_index = 0;
-    startpos[0] = 0;
-    wordlength[0] = 0;
-    int lastwasspace = 1;
-    for (int i = 0; string[i] != 0 && i < length && word_index < MAX_WORDS; i++) {
-        if (!isspace(string[i])) {
-            if (lastwasspace) {
-                /* Start a new word */
-                startpos[words_found] = i;
-                words_found++;
-                wordlength[words_found] = 0;
-            }
-            wordlength[words_found - 1]++;
-            lastwasspace = 0;
+    int in_word = 0;
+
+    for (int i = 0; i < length && string[i] != 0; i++) {
+        if (isspace(string[i])) {
+            in_word = 0;
         } else {
-            lastwasspace = 1;
+            if (!in_word) {
+                if (words_found >= MAX_WORDS)
+                    break;
+                startpos[words_found] = i;
+                wordlen[words_found] = 1;
+                words_found++;
+                in_word = 1;
+            } else {
+                wordlen[words_found - 1]++;
+            }
         }
     }
 
-    if (words_found == 0) {
+    if (words_found == 0)
         return NULL;
-    }
 
-    /* Now we've created two arrays, one for starting positions
-     and one for word length. Now we convert these into an array of strings */
     char **words = MemAlloc(words_found * sizeof(*words));
-
     debug_print("%d words found\n", words_found);
     for (int i = 0; i < words_found; i++) {
-        words[i] = (char *)MemAlloc((wordlength[i] + 1));
-        memcpy(words[i], string + startpos[i], wordlength[i]);
-        words[i][wordlength[i]] = 0;
+        words[i] = MemAlloc(wordlen[i] + 1);
+        memcpy(words[i], string + startpos[i], wordlen[i]);
+        words[i][wordlen[i]] = 0;
         debug_print("Word %d: \"%s\"\n", i, words[i]);
     }
     WordsInInput = words_found;
-
     return words;
 }
 
-WordToken *TokenWords = NULL;
+WordToken *TokenWords = NULL;  /* Classified tokens, parallel to InputWordStrings */
 
+/* Heuristic: was the word at position i likely intended as a verb?
+   True if it's the first word in the command, or if it follows a lone
+   adverb with no preceding verb (e.g. "CAREFULLY OPEN"). Used to tailor
+   error messages ("I don't know how to X" vs "I don't know what X means"). */
 static int IntendedAsVerb(int i)
 {
     if (i == InitialIndex || i == 0)
@@ -325,6 +322,9 @@ static int IntendedAsVerb(int i)
     return 0;
 }
 
+/* Display an error message for the unrecognized word at position i.
+   The wording depends on whether the word was likely meant as a verb,
+   an adverb, or a noun/other. */
 static void WordNotFoundError(int i)
 {
     if (TokenWords[i].Type == ADVERB_TYPE)
@@ -335,18 +335,24 @@ static void WordNotFoundError(int i)
         Display(Bottom, "I don't know what %s means.\n", InputWordStrings[i]);
 }
 
+/* Classify each word in InputWordStrings into a token type using
+   priority-ordered dictionary lookups. The priority at position 0 is:
+   verb > adverb > noun > preposition > extra word.
+   At other positions verbs are tried last so that nouns and prepositions
+   take precedence (e.g. "OPEN" as a noun in "OPEN DOOR" vs as a verb).
+   Returns 1 on success, 0 if any word was unrecognized (with errors
+   reported) or a special error occurred. */
 static int TokenizeInputWords(void)
 {
-    if (TokenWords != NULL)
-        free(TokenWords);
+    free(TokenWords);
+    TokenWords = MemAlloc(WordsInInput * sizeof(WordToken));
+
     int word_not_found = -1;
     int found_verb = 0;
     int verb_position = -1;
 
-    TokenWords = MemAlloc(WordsInInput * sizeof(WordToken));
-    int result = 0;
-
     for (int i = 0; i < WordsInInput; i++) {
+        int result;
 
         if (i == 0) {
             result = ParseWord(InputWordStrings[i], Verbs);
@@ -392,23 +398,23 @@ static int TokenizeInputWords(void)
                 Output("-USE- may NOT be the first word of your command! ");
                 WordIndex = 255;
                 return 0;
-            } else {
-                debug_print("Found preposition %s at %d\n", InputWordStrings[i], i);
-                TokenWords[i].Index = result;
-                TokenWords[i].Type = PREPOSITION_TYPE;
-                continue;
             }
+            debug_print("Found preposition %s at %d\n", InputWordStrings[i], i);
+            TokenWords[i].Index = result;
+            TokenWords[i].Type = PREPOSITION_TYPE;
+            continue;
         }
 
-        if (i > 0)
+        if (i > 0) {
             result = ParseWord(InputWordStrings[i], Verbs);
-        if (result > 0) {
-            debug_print("Found verb %s at %d\n", InputWordStrings[i], i);
-            TokenWords[i].Index = result;
-            TokenWords[i].Type = VERB_TYPE;
-            found_verb = 1;
-            verb_position = i;
-            continue;
+            if (result > 0) {
+                debug_print("Found verb %s at %d\n", InputWordStrings[i], i);
+                TokenWords[i].Index = result;
+                TokenWords[i].Type = VERB_TYPE;
+                found_verb = 1;
+                verb_position = i;
+                continue;
+            }
         }
 
         result = ParseWord(InputWordStrings[i], ExtraWords);
@@ -438,10 +444,9 @@ static int TokenizeInputWords(void)
     if (word_not_found >= 0) {
         if (!found_verb || verb_position > word_not_found)
             WordNotFoundError(0);
-        if (word_not_found != 0)
-            for (int j = 1; j <= word_not_found; j++)
-                if (TokenWords[j].Type == WORD_NOT_FOUND)
-                    WordNotFoundError(j);
+        for (int j = 1; j <= word_not_found; j++)
+            if (TokenWords[j].Type == WORD_NOT_FOUND)
+                WordNotFoundError(j);
         WordIndex = word_not_found;
         return 0;
     }
@@ -449,6 +454,13 @@ static int TokenizeInputWords(void)
     return 1;
 }
 
+/* Check whether the next token(s) match a participle+noun2 pattern
+   required by the action being tested. Two forms are accepted:
+   - A bare noun when partp==2 (implicit preposition): "GIVE KEY JOHN"
+   - A preposition followed by a noun: "GIVE KEY TO JOHN"
+   If matched, advances WordIndex and sets CurrentPartp/CurrentNoun2.
+   partp and noun2 of 0 act as wildcards; partp==1 means "no participle
+   expected" and always returns 0. */
 int IsNextParticiple(int partp, int noun2)
 {
     if (WordIndex >= WordsInInput) {
@@ -471,6 +483,7 @@ int IsNextParticiple(int partp, int noun2)
     return 0;
 }
 
+/* Debug display names for WordType enum values. */
 const char * const WordTypeStrings[] = {
     "WORD_NOT_FOUND",
     "OTHER_TYPE",
@@ -480,6 +493,7 @@ const char * const WordTypeStrings[] = {
     "PREPOSITION_TYPE"
 };
 
+/* Map a token type to its corresponding dictionary array. */
 DictWord *DictWordFromType(WordType type) {
     switch (type) {
         case VERB_TYPE:
@@ -495,6 +509,9 @@ DictWord *DictWordFromType(WordType type) {
     }
 };
 
+/* If the token at WordIndex matches the given type, consume it: store
+   its dictionary index in *word, advance WordIndex, and return 1.
+   Returns 0 without advancing if the token doesn't match. */
 static int FindWordOfType(WordType type, int *word) {
     if (WordIndex < WordsInInput && TokenWords[WordIndex].Type == type) {
         *word = TokenWords[WordIndex++].Index;
@@ -511,11 +528,13 @@ static int FindWordOfType(WordType type, int *word) {
     return 0;
 }
 
+/* Convenience wrappers: consume the next token if it matches the type. */
 static int FindVerb(int *verb) { return FindWordOfType(VERB_TYPE, verb); }
 static int FindNoun(int *noun) { return (FindWordOfType(NOUN_TYPE, noun)); }
 static int FindPreposition(int *prep) { return FindWordOfType(PREPOSITION_TYPE, prep); }
 static int FindAdverb(int *adverb) { return FindWordOfType(ADVERB_TYPE, adverb); }
 
+/* Debug: print the remaining input words from start to end. */
 static void GetInputWordStrings(int start, int end) {
     for (int i = start; i < end; i++) {
         char str[MAX_WORDLENGTH];
@@ -526,7 +545,10 @@ static void GetInputWordStrings(int start, int end) {
 
 #define NO_EXTRA_COMMAND_FOUND 2
 
-// Returns 2 if no valid command was found, 0 if the player typed AGAIN, otherwise 1.
+/* Try to handle the current token as a meta-command (SAVE, LOAD, SCORE,
+   AGAIN, toggles like BRIEF/VERBOSE, etc.). Returns NO_EXTRA_COMMAND_FOUND
+   if the token isn't an extra command, 0 if the player typed AGAIN (so the
+   previous command is re-executed), or 1 for other extra commands. */
 static int HandleExtraCommand(void) {
     int word;
     if (FindWordOfType(OTHER_TYPE, &word)) {
@@ -554,16 +576,22 @@ static int HandleExtraCommand(void) {
     return NO_EXTRA_COMMAND_FOUND;
 }
 
-// Returns 0 if a command could be constructed, otherwise 1
-// (Unless an extra command was found, in which case we pass on the
-// return value from HandleExtraCommand())
+/* Parse the token stream into command components following the grammar:
+       [adverb] verb [noun] [preposition noun2] [participle noun2]
+   Adverbs may appear before or after the verb. If no direct noun is
+   found, a preposition+noun pair is tried (e.g. "LOOK AT DOOR").
+   A second preposition+noun extends the command (e.g. "PUT KEY IN LOCK").
+   Sets Current{Verb,Noun,Prep,Partp,Noun2,Adverb} for the action engine.
+   Returns 0 if a command was constructed, 1 on error or no input. On
+   continuation calls (multi-command input), verb carries forward from
+   the previous command. */
 static int CommandFromTokens(int verb, int noun) {
     debug_print("CommandFromTokens: WordIndex: %d verb: %d\n", WordIndex, verb);
 
     if (WordIndex == 0 && verb != 0)
-        debug_print("CommandFromTokens: We are at the fist input word, but verb is not 0!\n");
+        debug_print("CommandFromTokens: We are at the first input word, but verb is not 0!\n");
 
-    if (!WordsInInput || (WordIndex >= WordsInInput)) {
+    if (WordIndex >= WordsInInput) {
         FreeInputWords();
         return 1;
     }
@@ -583,6 +611,7 @@ static int CommandFromTokens(int verb, int noun) {
 
     FindVerb(&verb);
 
+    /* Handle adverb-first input like "CAREFULLY OPEN DOOR" */
     if (FindAdverb(&CurrentAdverb) && verb == 0) {
         FindVerb(&verb);
     }
@@ -601,12 +630,17 @@ static int CommandFromTokens(int verb, int noun) {
         return 0;
     }
 
+    /* Try noun directly, or preposition+noun ("LOOK AT DOOR") */
     if (!FindNoun(&noun) && FindPreposition(&CurrentPrep)) {
         FindNoun(&noun);
     }
 
     FindAdverb(&CurrentAdverb);
 
+    /* If a preposition was found, look for a second noun after it.
+       "PUT KEY ON TABLE" → noun=KEY, prep=ON, noun2=TABLE.
+       If the first noun was consumed by the preposition clause,
+       try one more time for the primary noun. */
     if (CurrentPrep != 0) {
         if (noun == 0) {
             FindNoun(&noun);
@@ -615,6 +649,11 @@ static int CommandFromTokens(int verb, int noun) {
         }
     }
 
+    /* Try for a second preposition acting as a participle, with its own
+       noun: "UNLOCK DOOR WITH KEY" → partp=WITH, noun2=KEY.
+       If a noun doesn't follow the second preposition, reclassify: the
+       original preposition becomes the participle and the prep slot is
+       cleared, since the grammar only has one prep+noun pair. */
     if (FindPreposition(&CurrentPartp)) {
         int SecondNounAlreadyFound = (CurrentNoun2 != 0);
         if (FindNoun(&CurrentNoun2)) {
@@ -641,6 +680,8 @@ static int CommandFromTokens(int verb, int noun) {
         debug_print("Found participle but no second noun. This should never happen.\n");
     }
 
+    /* Safety: ensure WordIndex advances past the current command to
+       prevent infinite loops in multi-command processing. */
     if (WordIndex <= InitialIndex)
         WordIndex++;
 
@@ -656,23 +697,24 @@ static int CommandFromTokens(int verb, int noun) {
     return 0;
 }
 
+/* Prompt the player, read a line of input, and preprocess it into
+   words. Strips punctuation, applies synonym substitutions, and splits
+   into InputWordStrings. Loops until at least one valid word is entered. */
 static void LineInput(void)
 {
     event_t ev;
     char buf[512];
     FreeInputWords();
 
-    do {
+    for (;;) {
         Display(Bottom, "\n\n%s, %s", Messages[ProtagonistString], sys[WHAT_NOW]);
         glk_request_line_event(Bottom, buf, (glui32)511, 0);
 
         while (1) {
             glk_select(&ev);
-
             if (ev.type == evtype_LineInput)
                 break;
-            else
-                Updates(ev);
+            Updates(ev);
         }
 
         int length = ev.val1;
@@ -681,7 +723,6 @@ static void LineInput(void)
         char *result = StripPunctuation(buf, &length);
         debug_print("After stripping punctuation: \"%s\"\n", result);
         result = ReplaceSynonyms(result, &length);
-
         debug_print("Final result: \"%s\"\n", result);
 
         InputWordStrings = SplitIntoWords(result, length);
@@ -689,16 +730,16 @@ static void LineInput(void)
 
         Output("\n");
 
-        if (WordsInInput > 0 && InputWordStrings) {
+        if (WordsInInput > 0 && InputWordStrings)
             return;
-        }
 
         WordsInInput = 0;
         Output(sys[HUH]);
-
-    } while (WordsInInput == 0 || InputWordStrings == NULL);
+    }
 }
 
+/* Check whether the unprocessed tail of the input contains another verb.
+   Used to decide whether to warn "The rest of your input was ignored." */
 static int RemainderContainsVerb(void)
 {
     debug_print("RemainderContainsVerb: WordIndex: %d WordsInInput: %d\n", WordIndex, WordsInInput);
@@ -710,6 +751,9 @@ static int RemainderContainsVerb(void)
     return 0;
 }
 
+/* Discard all remaining input. Warns the player if an unprocessed verb
+   would be lost, then frees word state and sets STOPTIMEBIT to suppress
+   the turn's timed events. */
 void StopProcessingCommand(void)
 {
     if (RemainderContainsVerb()) {
@@ -720,7 +764,11 @@ void StopProcessingCommand(void)
     SetBit(STOPTIMEBIT);
 }
 
-// Returns 0 if input is valid, otherwise 1
+/* Top-level input handler. If unprocessed words remain from the previous
+   line (a multi-command input like "TAKE KEY. OPEN DOOR"), continues
+   parsing with the current verb carried forward. Otherwise reads a fresh
+   line, tokenizes it, and builds the first command from the tokens.
+   Returns 0 on success, 1 on error or empty input. */
 int GetInput(void)
 {
     int result = 0;

@@ -416,6 +416,7 @@ void AnyKey(int timeout, int message)
 }
 
 /* Draw a line of DelimiterChar across the bottom row of the status window. */
+/* Currently, DelimiterChar is always an underscore character. */
 static void PrintWindowDelimiter(void)
 {
     glk_window_get_size(Top, &TopWidth, &TopHeight);
