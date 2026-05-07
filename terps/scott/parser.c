@@ -430,25 +430,17 @@ glui32 *ToUnicode(const char *string)
         return NULL;
 
     size_t in_len = strlen(string);
-    if (in_len == 0) {
-        glui32 *empty = MemAlloc(sizeof(glui32));
-        empty[0] = 0;
-        return empty;
-    }
-
     map_fn mapper = SelectMapper();
 
     size_t cap = in_len + 1;
     glui32 *tmp = MemAlloc(cap * sizeof(glui32));
     size_t out_len = 0;
 
-    size_t i = 0;
-    while (i < in_len) {
+    for (size_t i = 0; i < in_len; i++) {
         unsigned char b = (unsigned char)string[i];
         glui32 mapped = mapper(b);
 
         /* Normalize any carriage returns to line feeds */
-        /* (and set the lastwasnewline flag appropriately) */
         if (mapped == 13 || mapped == 10) {
             lastwasnewline = 1;
             mapped = 10;
@@ -468,18 +460,15 @@ glui32 *ToUnicode(const char *string)
             tmp = MemRealloc(tmp, cap * sizeof(glui32));
         }
         tmp[out_len++] = mapped;
-        i++;
     }
 
     if (out_len + 1 >= cap) {
         cap = out_len + 2;
         tmp = MemRealloc(tmp, cap * sizeof(glui32));
     }
-    /* NUL terminate */
     tmp[out_len] = 0;
 
-    /* If the current game is German,
-     * do sequence folding */
+    /* If the current game is German, do sequence folding */
     if (Game && (CurrentGame == GREMLINS_GERMAN ||
                  CurrentGame == GREMLINS_GERMAN_C64)) {
         size_t folded_len;
@@ -489,11 +478,8 @@ glui32 *ToUnicode(const char *string)
         out_len = folded_len;
     }
 
-    /* Shrink to exact size */
-    glui32 *result = MemAlloc((out_len + 1) * sizeof(glui32));
-    memcpy(result, tmp, (out_len + 1) * sizeof(glui32));
-    free(tmp);
-    return result;
+    tmp = MemRealloc(tmp, (out_len + 1) * sizeof(glui32));
+    return tmp;
 }
 
 /* Convert a Unicode string back to ASCII for dictionary matching.
@@ -502,12 +488,13 @@ glui32 *ToUnicode(const char *string)
    converted to "and" as a command delimiter. */
 static char *FromUnicode(glui32 *unicode_string, int origlength)
 {
-    int sourcepos = 0;
     int destpos = 0;
 
-    char dest[MAX_WORDLENGTH];
-    glui32 unichar = unicode_string[sourcepos];
-    while (unichar != 0 && destpos + 3 < MAX_WORDLENGTH && sourcepos < origlength) {
+    char *dest = MemAlloc(MAX_WORDLENGTH);
+    for (int i = 0; i < origlength && destpos + 3 < MAX_WORDLENGTH; i++) {
+        glui32 unichar = unicode_string[i];
+        if (unichar == 0)
+            break;
         switch (unichar) {
         case '.':
         case ',':
@@ -515,7 +502,7 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
             if (origlength == 1) {
                 dest[destpos++] = 'a';
                 dest[destpos++] = 'n';
-                dest[destpos++] = 'd';
+                dest[destpos] = 'd';
             } else {
                 dest[destpos] = (char)unichar;
             }
@@ -559,17 +546,15 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
             dest[destpos] = (char)unichar;
             break;
         }
-        sourcepos++;
         destpos++;
-        unichar = unicode_string[sourcepos];
     }
-    if (destpos == 0)
+    if (destpos == 0) {
+        free(dest);
         return NULL;
-    char *result = MemAlloc(destpos + 1);
-    memcpy(result, dest, destpos);
-
-    result[destpos] = 0;
-    return result;
+    }
+    dest = MemRealloc(dest, destpos + 1);
+    dest[destpos] = 0;
+    return dest;
 }
 
 /* Check if the string at the given index starts with "y.m.c.a." (the Gremlins
