@@ -626,50 +626,40 @@ static int MatchUpItem(int noun, int loc)
 static char *ReadString(FILE *f)
 {
     char tmp[1024];
-    char *t;
-    int c, nc;
+    int c;
     int ct = 0;
     do {
         c = fgetc(f);
     } while (c != EOF && isspace((unsigned char)c));
-    if (c != '"') {
+    if (c != '"')
         Fatal("Initial quote expected");
-    }
-    do {
+
+    for (;;) {
         c = fgetc(f);
         if (c == EOF)
             Fatal("EOF in string");
         if (c == '"') {
-            nc = fgetc(f);
+            int nc = fgetc(f);
             if (nc != '"') {
                 ungetc(nc, f);
                 break;
             }
         }
         if (c == '`')
-            c = '"'; /* pdd */
-
-        /* Ensure a valid Glk newline is sent. */
-        if (c == '\n')
-            tmp[ct++] = 10;
-        /* Special case: assume CR is part of CRLF in a
-		 * DOS-formatted file, and ignore it.
-		 */
-        else if (c == 13)
-            ;
-        /* Pass only ASCII to Glk; the other reasonable option
-		 * would be to pass Latin-1, but it's probably safe to
-		 * assume that Scott Adams games are ASCII only.
-		 */
-        else if ((c >= 32 && c <= 126))
+            c = '"';
+        /* Ignore CR (assume CRLF in DOS-formatted files) */
+        if (c == '\r')
+            continue;
+        /* Pass ASCII and newline to Glk; replace anything else */
+        if (c == '\n' || (c >= 32 && c <= 126))
             tmp[ct++] = c;
         else
             tmp[ct++] = '?';
-    } while (1);
+    }
     tmp[ct] = 0;
-    t = MemAlloc(ct + 1);
-    memcpy(t, tmp, ct + 1);
-    return (t);
+    char *result = MemAlloc(ct + 1);
+    memcpy(result, tmp, ct + 1);
+    return result;
 }
 
 int header[24];
@@ -763,40 +753,22 @@ void FreeDatabase(void)
    and compatible tools. */
 GameIDType LoadDatabase(FILE *f, int loud)
 {
-    int num_items, num_actions, num_words, num_rooms, max_carry;
-    int player_room, num_treasures, word_length, light_time;
-    int num_messages, treasure_room;
-    int ct;
-    short location;
     /* Load the header */
 
-    if (fscanf(f, "%*d %d %d %d %d %d %d %d %d %d %d %d",
-            &num_items, &num_actions, &num_words, &num_rooms, &max_carry,
-            &player_room, &num_treasures, &word_length, &light_time,
-            &num_messages, &treasure_room)
+    if (fscanf(f, "%*d %hd %hd %hd %hd %hd %hd %hd %hd %hd %hd %hd",
+            &GameHeader.NumItems, &GameHeader.NumActions,
+            &GameHeader.NumWords, &GameHeader.NumRooms,
+            &GameHeader.MaxCarry, &GameHeader.PlayerRoom,
+            &GameHeader.Treasures, &GameHeader.WordLength,
+            &GameHeader.LightTime, &GameHeader.NumMessages,
+            &GameHeader.TreasureRoom)
         < 10) {
         if (loud)
             debug_print("Invalid database(bad header)\n");
         return UNKNOWN_GAME;
     }
-    GameHeader.NumItems = num_items;
-    Items = MemAlloc(sizeof(Item) * (num_items + 1));
-    GameHeader.NumActions = num_actions;
-    Actions = MemAlloc(sizeof(Action) * (num_actions + 1));
-    GameHeader.NumWords = num_words;
-    GameHeader.WordLength = word_length;
-    Verbs = MemAlloc(sizeof(char *) * (num_words + 2));
-    Nouns = MemAlloc(sizeof(char *) * (num_words + 2));
-    GameHeader.NumRooms = num_rooms;
-    Rooms = MemAlloc(sizeof(Room) * (num_rooms + 1));
-    GameHeader.MaxCarry = max_carry;
-    GameHeader.PlayerRoom = player_room;
-    GameHeader.Treasures = num_treasures;
-    GameHeader.LightTime = light_time;
-    LightRefill = light_time;
-    GameHeader.NumMessages = num_messages;
-    Messages = MemAlloc(sizeof(char *) * (num_messages + 1));
-    GameHeader.TreasureRoom = treasure_room;
+    LightRefill = GameHeader.LightTime;
+    AllocateGameData();
 
     if (loud) {
         debug_print("Number of items: %d\n", GameHeader.NumItems);
@@ -815,8 +787,8 @@ GameIDType LoadDatabase(FILE *f, int loud)
     /* Load the actions */
 
     if (loud)
-        debug_print("Reading %d actions.\n", num_actions);
-    for (ct = 0; ct <= num_actions; ct++) {
+        debug_print("Reading %d actions.\n", GameHeader.NumActions);
+    for (int ct = 0; ct <= GameHeader.NumActions; ct++) {
         if (fscanf(f, "%hu %hu %hu %hu %hu %hu %hu %hu",
                 &Actions[ct].Vocab,
                 &Actions[ct].Condition[0],
@@ -845,8 +817,8 @@ GameIDType LoadDatabase(FILE *f, int loud)
 
     /* Load the verb/noun dictionary (word pairs) */
     if (loud)
-        debug_print("Reading %d word pairs.\n", num_words);
-    for (ct = 0; ct <= num_words; ct++) {
+        debug_print("Reading %d word pairs.\n", GameHeader.NumWords);
+    for (int ct = 0; ct <= GameHeader.NumWords; ct++) {
         Verbs[ct] = ReadString(f);
         debug_print("Verbs %d:%s.\n", ct, Verbs[ct]);
         Nouns[ct] = ReadString(f);
@@ -854,17 +826,19 @@ GameIDType LoadDatabase(FILE *f, int loud)
     }
     /* Load rooms: 6 exit directions followed by a description string */
     if (loud)
-        debug_print("Reading %d rooms.\n", num_rooms);
-    for (ct = 0; ct <= num_rooms; ct++) {
-        if (fscanf(f, "%hd %hd %hd %hd %hd %hd",
-                &Rooms[ct].Exits[0], &Rooms[ct].Exits[1],
-                &Rooms[ct].Exits[2], &Rooms[ct].Exits[3],
-                &Rooms[ct].Exits[4], &Rooms[ct].Exits[5])
+        debug_print("Reading %d rooms.\n", GameHeader.NumRooms);
+    for (int ct = 0; ct <= GameHeader.NumRooms; ct++) {
+        int exits[6];
+        if (fscanf(f, "%d %d %d %d %d %d",
+                &exits[0], &exits[1], &exits[2],
+                &exits[3], &exits[4], &exits[5])
             != 6) {
             debug_print("Bad room line (%d)\n", ct);
             FreeDatabase();
             return UNKNOWN_GAME;
         }
+        for (int i = 0; i < 6; i++)
+            Rooms[ct].Exits[i] = exits[i];
 
         Rooms[ct].Text = ReadString(f);
         if (loud) {
@@ -878,29 +852,22 @@ GameIDType LoadDatabase(FILE *f, int loud)
 
     /* Load messages (printed by action subcommands 1-51 and 102+) */
     if (loud)
-        debug_print("Reading %d messages.\n", num_messages);
-    for (ct = 0; ct <= num_messages; ct++) {
+        debug_print("Reading %d messages.\n", GameHeader.NumMessages);
+    for (int ct = 0; ct <= GameHeader.NumMessages; ct++) {
         Messages[ct] = ReadString(f);
         if (loud)
             debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
     }
     /* Load items: description string (with optional /AutoGet/ word) and location */
     if (loud)
-        debug_print("Reading %d items.\n", num_items);
-    for (ct = 0; ct <= num_items; ct++) {
+        debug_print("Reading %d items.\n", GameHeader.NumItems);
+    for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
         Items[ct].Text = ReadString(f);
         if (loud)
             debug_print("Item %d: \"%s\"\n", ct, Items[ct].Text);
-        Items[ct].AutoGet = strchr(Items[ct].Text, '/');
-        /* Some games use // to mean no auto get/drop word! */
-        if (Items[ct].AutoGet && strcmp(Items[ct].AutoGet, "//") && strcmp(Items[ct].AutoGet, "/*")) {
-            char *t;
-            *Items[ct].AutoGet++ = 0;
-            t = strchr(Items[ct].AutoGet, '/');
-            if (t != NULL)
-                *t = 0;
-        }
-        if (fscanf(f, "%hd", &location) != 1) {
+        ParseItemSlashAutoGet(ct);
+        int location;
+        if (fscanf(f, "%d", &location) != 1) {
             debug_print("Bad item line (%d)\n", ct);
             FreeDatabase();
             return UNKNOWN_GAME;
@@ -912,30 +879,31 @@ GameIDType LoadDatabase(FILE *f, int loud)
     }
     /* Discard action comment strings (one per action, used only by
        the original authoring tools for documentation) */
-    for (ct = 0; ct <= num_actions; ct++)
+    for (int ct = 0; ct <= GameHeader.NumActions; ct++)
         free(ReadString(f));
     /* Read the version and adventure number trailer */
-    if (fscanf(f, "%d", &ct) != 1) {
+    int val;
+    if (fscanf(f, "%d", &val) != 1) {
         debug_print("Cannot read version\n");
         FreeDatabase();
         return UNKNOWN_GAME;
     }
     if (loud)
-        debug_print("Version %d.%02d of Adventure ", ct / 100, ct % 100);
-    if (fscanf(f, "%d", &ct) != 1) {
+        debug_print("Version %d.%02d of Adventure ", val / 100, val % 100);
+    if (fscanf(f, "%d", &val) != 1) {
         debug_print("Cannot read adventure number\n");
         FreeDatabase();
         return UNKNOWN_GAME;
     }
     if (loud)
-        debug_print("%d.\nLoad Complete.\n\n", ct);
+        debug_print("%d.\nLoad Complete.\n\n", val);
     /* Extra value in at least Hulk */
-    if (!fscanf(f, "%d", &ct)) {
+    if (!fscanf(f, "%d", &val)) {
         debug_print("No extra value in file. This is not Hulk.\n");
     }
 
     fclose(f);
-    if (ct == 703 && LoadDOSImages()) {
+    if (val == 703 && LoadDOSImages()) {
         CurrentSys = SYS_MSDOS;
         ImageWidth = 280;
         ImageHeight = 158;
@@ -1002,8 +970,7 @@ void DrawRoomImage(void)
             glk_window_clear(Graphics);
             if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
                 if (!DrawFuzzyRoom(MyLoc)) {
-                    DrawBlack();
-                    return;
+                    ClearVDP();
                 }
             } else {
                 DrawUSRoom(0);
@@ -1774,7 +1741,9 @@ static void ChangeDarkness(int dark) {
         ClearBitFlag(DARKBIT);
         should_look_in_transcript = (should_look_in_transcript == 1 || was_dark == 1);
     }
-    should_draw_image = should_look_in_transcript;
+    if (should_draw_image == 0) {
+        should_draw_image = should_look_in_transcript;
+    }
 }
 
 void SetDark(void) {
@@ -2851,8 +2820,7 @@ Distributed under the GNU software license\n\n");
            fire based on random chance or game state, not player input */
         if (!StopTime)
             PerformActions(0, 0);
-        /* Refresh the room description (skip during TAKE ALL / DROP ALL
-           mid-sequence to avoid flooding the display) */
+        /* Refresh the room description (skip during TAKE ALL / DROP ALL) */
         if (!(CurrentCommand && CurrentCommand->allflag && !(CurrentCommand->allflag & LASTALL))) {
             print_look_to_transcript = should_look_in_transcript;
             Look();

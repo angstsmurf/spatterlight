@@ -114,7 +114,7 @@ GameIDType DetectTI994A(void)
 {
     GameIDType result = UNKNOWN_GAME;
 
-    if (file_length == 0x755f || file_length == 0x5e5c) {
+    if (file_length == 0x755f || file_length == 0x5e5c || (file_length == 0x2d000 && (!memcmp(entire_file, "PIRATE", 6) || !memcmp(entire_file, "RTNPIRAT", 8))) || (file_length == 0x16800 && !memcmp(entire_file, "ADV*RPI*CM", 10))) {
         result = DetectRTPI(entire_file, file_length);
         if (result == RETURN_TO_PIRATES_ISLE) {
             return result;
@@ -195,7 +195,7 @@ static char *GetTI994AString(uint16_t table, int table_offset)
         if (length == 0 || nextword == NULL) {
             return NULL;
         }
-        if (length > 100) {
+        if (length > 100 || total_length + length >= 1024) {
             free(nextword);
             return NULL;
         }

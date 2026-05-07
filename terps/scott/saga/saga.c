@@ -17,13 +17,15 @@
 #include "c64_small.h"
 #include "detectgame.h"
 #include "pcdraw.h"
+#include "randomness.h"
 #include "rtpi_graphics.h"
 #include "sagagraphics.h"
 #include "scott.h"
 
 #include "saga.h"
 
-/* DOS image filenames for Scott Adams SAGA games.
+/* DOS image filenames for Questprobe featuring The Incredible Hulk.
+   (The only SAGA graphical game released for MS-DOS)
    Naming convention:
      "R01xx"  — Room image, where xx is the room number.
      "B01xxR" — Object image associated with a room, where xx is the object index.
@@ -105,7 +107,7 @@ int LoadDOSImages(void)
    dictionary. */
 uint8_t *ReadUSDictionary(uint8_t *ptr)
 {
-    char dictword[GameHeader.WordLength + 2];
+    char dictword[32];
     char c = 0;
     int charindex = 0;
 
@@ -117,24 +119,22 @@ uint8_t *ReadUSDictionary(uint8_t *ptr)
             /* Skip leading zero-padding at the start of a word */
             if (c == 0 && charindex == 0)
                 c = *(ptr++);
-            dictword[charindex] = c;
+            dictword[charindex++] = c;
             /* '*' marks a synonym; don't count it toward the word length */
             if (c == '*')
                 i--;
-            charindex++;
-
-            dictword[charindex] = 0;
         }
+        dictword[charindex] = 0;
 
         /* First (NumWords + 1) entries are nouns, the rest are verbs */
+        char *word = MemAlloc(charindex + 1);
+        memcpy(word, dictword, charindex + 1);
         if (wordnum < nn) {
-            Nouns[wordnum] = MemAlloc(charindex + 1);
-            memcpy(Nouns[wordnum], dictword, charindex + 1);
-            debug_print("Nouns %d: \"%s\"\n", wordnum, Nouns[wordnum]);
+            Nouns[wordnum] = word;
+            debug_print("Nouns %d: \"%s\"\n", wordnum, word);
         } else {
-            Verbs[wordnum - nn] = MemAlloc(charindex + 1);
-            memcpy(Verbs[wordnum - nn], dictword, charindex + 1);
-            debug_print("Verbs %d: \"%s\"\n", wordnum - nn, Verbs[wordnum - nn]);
+            Verbs[wordnum - nn] = word;
+            debug_print("Verbs %d: \"%s\"\n", wordnum - nn, word);
         }
 
         /* High bit set on last character signals end of dictionary */
@@ -379,14 +379,37 @@ void LookUS(void)
                 if (MyLoc == 22) {
                     DrawUSRoomObject(27); // Draw underside of dock when under the dock
                     DrawUSRoom(31);       // Draw low beam (on top of underside of dock)
-                } else if (Items[27].Location == MyLoc) {
-                    DrawUSRoom(30);       // Draw high beam
-                } else if (MyLoc == 11 && Items[32].Location == DESTROYED) {
-                    DrawUSRoom(29);       // Draw sea at night
-                    if (Items[28].Location == MyLoc) {
-                        DrawUSRoom(32);   // Boat to the west at night
+                } else if (MyLoc == 11) { // If swimming in sea
+                    if (erkyrath_random() % 2 == 1) {
+                        /* If a random chance of 1 in 2 succeeds, randomly draw one of two fish images
+                           (but not if it would end up on top of the boat or dock) */
+                        int fish = 33 + erkyrath_random() % 2;
+                        if (!(fish == 34 && Items[28].Location == MyLoc) &&
+                            !(fish == 33 && Items[26].Location == MyLoc)) {
+                            DrawUSRoom(fish);
+                        }
+                    }
+                    if (Items[32].Location == DESTROYED) {
+                        DrawUSRoom(29);       // Draw sea at night
+                        if (Items[28].Location == MyLoc) {
+                            DrawUSRoom(32);   // Boat to the west at night
+                        }
+                    } else if (Items[27].Location == MyLoc) {
+                        /* Draw high beam if item 27: Underside of Dock is present */
+                        DrawUSRoom(30);
+                    }
+                } else if (MyLoc == 12) { // Diving under sea
+                    /* If a random chance of 1 in 2 succeeds, randomly draw one of three fish images */
+                    if (erkyrath_random() % 2 == 1) {
+                        DrawUSRoom(35 + erkyrath_random() % 3);
                     }
                 }
+
+                /* If it is night and we are out of battery, just make the image black by clearing the VDP */
+                if (Items[32].Location == DESTROYED && ((BitFlags & (1 << 29)) == 0 || CurrentCounter <= 0)) {
+                    ClearVDP();
+                }
+
                 break;
             default:
                 break;
@@ -535,24 +558,10 @@ uint8_t *LoadHeader(uint8_t *ptr, size_t length, GameInfo info, int dict_start) 
     if (!SanityCheckScottFreeHeader())
         return NULL;
 
-    GameHeader.NumItems = num_items;
-    Items = (Item *)MemAlloc(sizeof(Item) * (num_items + 1));
-    GameHeader.NumActions = num_actions;
-    Actions = (Action *)MemAlloc(sizeof(Action) * (num_actions + 1));
-    GameHeader.NumWords = num_words;
-    GameHeader.WordLength = word_length;
-    Verbs = MemAlloc(sizeof(char *) * (num_words + 2));
-    Nouns = MemAlloc(sizeof(char *) * (num_words + 2));
-    GameHeader.NumRooms = num_rooms;
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
-    GameHeader.MaxCarry = max_carry;
-    GameHeader.PlayerRoom = player_room;
-    GameHeader.Treasures = num_treasures;
-    GameHeader.LightTime = light_time;
-    LightRefill = light_time;
-    GameHeader.NumMessages = num_messages;
-    Messages = MemAlloc(sizeof(char *) * (num_messages + 1));
-    GameHeader.TreasureRoom = treasure_room;
+    SetGameHeader(num_items, num_actions, num_words, num_rooms, max_carry,
+                  player_room, num_treasures, word_length, light_time,
+                  num_messages, treasure_room);
+    AllocateGameData();
 
     /* When probing for UK Hulk, verify the parsed header matches the
        expected values from the game database. A mismatch means this
@@ -584,28 +593,31 @@ uint8_t *ParseDictionary(uint8_t *ptr, uint8_t *endptr) {
     return ReadUSDictionary(ptr);
 }
 
+/* Read and return a lenght-prefixed string and update the pointer.
+   If string length is 0, return a period string literal (".") */
+static char *ReadPascalString(uint8_t **inptr, uint8_t *endptr) {
+    char *string = ".";
+    uint8_t *ptr = *inptr;
+    uint8_t string_length = *ptr++;
+    if (string_length != 0 && ptr + string_length < endptr) {
+        string = MemAlloc(string_length + 1);
+        memcpy(string, ptr, string_length);
+        string[string_length] = 0;
+        ptr += string_length;
+    }
+    *inptr = ptr;
+    return string;
+}
+
 /* Parse room descriptions from the binary data. Each room is stored as
    a length-prefixed string (1 byte length + that many characters). */
 uint8_t *ParseRooms(uint8_t *ptr, uint8_t *endptr, int number_of_rooms) {
-    int counter = 0;
     Room *rp = Rooms;
-
-    uint8_t string_length = 0;
-    do {
-        string_length = *ptr++;
-        if (string_length == 0) {
-            rp->Text = ".";
-        } else {
-            rp->Text = MemAlloc(string_length + 1);
-            for (int i = 0; i < string_length && ptr < endptr; i++) {
-                rp->Text[i] = *ptr++;
-            }
-            rp->Text[string_length] = 0;
-        }
+    for (int counter = 0; counter <= number_of_rooms; counter++) {
+        rp->Text = ReadPascalString(&ptr, endptr);
         debug_print("Room %d: \"%s\"\n", counter, rp->Text);
         rp++;
-        counter++;
-    } while (counter <= number_of_rooms);
+    }
     return ptr;
 }
 
@@ -613,23 +625,10 @@ uint8_t *ParseRooms(uint8_t *ptr, uint8_t *endptr, int number_of_rooms) {
    string format as rooms. */
 uint8_t *ParseMessages(uint8_t *ptr, uint8_t *endptr, int number_of_messages) {
     int counter = 0;
-    char *string;
-
-    do {
-        uint8_t string_length = *ptr++;
-        if (string_length == 0) {
-            string = ".";
-        } else {
-            string = MemAlloc(string_length + 1);
-            for (int i = 0; i < string_length && ptr < endptr; i++) {
-                string[i] = *ptr++;
-            }
-            string[string_length] = 0;
-        }
-        Messages[counter] = string;
+    for (counter = 0; counter <= number_of_messages; counter++) {
+        Messages[counter] = ReadPascalString(&ptr,endptr);
         debug_print("Message %d: \"%s\"\n", counter, Messages[counter]);
-        counter++;
-    } while (counter < number_of_messages + 1);
+    }
     return ptr;
 }
 
@@ -639,35 +638,19 @@ uint8_t *ParseMessages(uint8_t *ptr, uint8_t *endptr, int number_of_messages) {
    a '/' delimiter has an auto-get/drop word after it (e.g. "Lamp/LAM").
    "//" or "[slash]*" means no auto-get word.
 
-   After all item strings, a separate table of 2-byte entries gives each
+   After all item strings, a separate table of [stride]-byte entries gives each
    item's starting location. */
-uint8_t *ParseItems(uint8_t *ptr, uint8_t *endptr, int number_of_items) {
-    for (int ct = 0; ct <= number_of_items && ptr < endptr; ct++) {
-        int string_length = *ptr++;
-        if (string_length == 0) {
-            Items[ct].Text = ".";
-            Items[ct].AutoGet = NULL;
-        } else {
-            Items[ct].Text = MemAlloc(string_length + 1);
+uint8_t *ParseItems(uint8_t *ptr, uint8_t *endptr, int number_of_items, int stride) {
+    for (int counter = 0; counter <= number_of_items && ptr < endptr; counter++) {
+        Items[counter].Text = ReadPascalString(&ptr, endptr);
 
-            for (int i = 0; i < string_length && ptr < endptr; i++)
-                Items[ct].Text[i] = *ptr++;
-            Items[ct].Text[string_length] = 0;
-            Items[ct].AutoGet = strchr(Items[ct].Text, '/');
-            /* Some games use // to mean no auto get/drop word! */
-            if (Items[ct].AutoGet && strcmp(Items[ct].AutoGet, "//") && strcmp(Items[ct].AutoGet, "/*") && ptr < endptr) {
-                char *t;
-                *Items[ct].AutoGet++ = 0;
-                t = strchr(Items[ct].AutoGet, '/');
-                if (t != NULL)
-                    *t = 0;
-                ptr++;
-            }
-        }
+        ParseItemSlashAutoGet(counter);
+        if (Items[counter].AutoGet != NULL && ptr < endptr)
+            ptr++;
 
-        debug_print("Item %d: %s\n", ct, Items[ct].Text);
-        if (Items[ct].AutoGet)
-            debug_print("Autoget:%s\n", Items[ct].AutoGet);
+        debug_print("Item %d: %s\n", counter, Items[counter].Text);
+        if (Items[counter].AutoGet)
+            debug_print("Autoget:%s\n", Items[counter].AutoGet);
     }
 
     ptr++;
@@ -675,7 +658,7 @@ uint8_t *ParseItems(uint8_t *ptr, uint8_t *endptr, int number_of_items) {
         Items[ct].Location = *ptr;
         Items[ct].InitialLoc = Items[ct].Location;
         debug_print("Item %d (%s) start location: %d\n", ct, Items[ct].Text, Items[ct].Location);
-        ptr += 2;
+        ptr += stride;
     }
 
     return ptr;
@@ -692,7 +675,7 @@ uint8_t *ParseItems(uint8_t *ptr, uint8_t *endptr, int number_of_items) {
    The verb and noun are packed into Vocab as (verb * 150 + noun).
    Subcommands are similarly packed as (value * 150 + value2).
    Conditions are 16-bit words encoding condition type and argument. */
-uint8_t *ParseActions(uint8_t *ptr, uint8_t *data, size_t datalength, int number_of_actions) {
+uint8_t *ParseActions(uint8_t *ptr, uint8_t *data, size_t datalength, int number_of_actions, int big_endian) {
     size_t base = ptr - data;
     size_t stride = number_of_actions + 1;
 
@@ -724,7 +707,10 @@ uint8_t *ParseActions(uint8_t *ptr, uint8_t *data, size_t datalength, int number
 
         /* 5 columns of 16-bit condition words */
         for (int j = 0; j < 5; j++) {
-            Actions[ct].Condition[j] = READ_LE_UINT16(data + cond_base + ct * 2 + j * cond_stride);
+            size_t off = cond_base + ct * 2 + j * cond_stride;
+            Actions[ct].Condition[j] = big_endian
+                ? READ_BE_UINT16(data + off)
+                : READ_LE_UINT16(data + off);
             debug_print("Action %d: Condition %d: %d\n", ct, j, Actions[ct].Condition[j]);
         }
     }
@@ -735,8 +721,8 @@ uint8_t *ParseActions(uint8_t *ptr, uint8_t *data, size_t datalength, int number
 /* Parse room exit connections from binary data.
    Like the action table, exits are stored in columnar layout: all North
    exits for every room, then all South exits, etc. (6 directions total).
-   Each exit is a 2-byte value giving the destination room number. */
-uint8_t *ParseRoomConnections(uint8_t *ptr, uint8_t *endptr, int number_of_rooms) {
+   Each exit is a [stride]-byte value giving the destination room number. */
+uint8_t *ParseRoomConnections(uint8_t *ptr, uint8_t *endptr, int number_of_rooms, int stride) {
     for (int j = 0; j < 6; j++) {
         int counter = 0;
         Room *rp = Rooms;
@@ -745,15 +731,13 @@ uint8_t *ParseRoomConnections(uint8_t *ptr, uint8_t *endptr, int number_of_rooms
             rp->Image = 255;
             rp->Exits[j] = *ptr;
             debug_print("Room %d (%s) exit %d (%s): %d\n", counter, Rooms[counter].Text, j, Nouns[j + 1], rp->Exits[j]);
-            ptr += 2;
+            ptr += stride;
             counter++;
             rp++;
         }
     }
     return ptr;
 }
-
-void FreeDatabase(void);
 
 /* Additional parsing for the UK release of Questprobe featuring The Hulk.
    The UK version stores room-to-image and item-to-image mapping tables
@@ -845,7 +829,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int d
     }
 
     // Parse items
-    ptr = ParseItems(ptr, endptr, GameHeader.NumItems);
+    ptr = ParseItems(ptr, endptr, GameHeader.NumItems, 2);
     if (ptr == NULL || ptr >= endptr) {
         return FreeGameResources();
     }
@@ -854,7 +838,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int d
     ptr = Skip(ptr, (GameHeader.NumItems + 1) * 4, data + length);
 
     // Parse actions
-    ptr = ParseActions(ptr, data, length, GameHeader.NumActions);
+    ptr = ParseActions(ptr, data, length, GameHeader.NumActions, 0);
     if (ptr == NULL || ptr >= endptr) {
         return FreeGameResources();
     }
@@ -864,7 +848,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int d
 
     endptr += 2;
 
-    ptr = ParseRoomConnections(ptr, endptr, GameHeader.NumRooms);
+    ptr = ParseRoomConnections(ptr, endptr, GameHeader.NumRooms, 2);
     if (ptr == NULL || ptr > endptr) {
         return FreeGameResources();
     }

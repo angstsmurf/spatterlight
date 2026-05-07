@@ -10,7 +10,7 @@
 
 #include "glk.h"
 
-void Fatal(const char *x);
+GLK_ATTRIBUTE_NORETURN void Fatal(const char *x);
 winid_t FindGlkWindowWithRock(glui32 rock);
 
 #endif /* common_utils_h */

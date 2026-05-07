@@ -2145,7 +2145,7 @@ const GameInfo games[] = {
         FOLLOWS, // start_of_room_connections
         FOLLOWS, // start_of_messages
         FOLLOWS, // start_of_item_descriptions
-        0x3b01, // start_of_item_locations
+        0x3b01,  // start_of_item_locations
 
         0x0255, // start_of_system_messages
         0x0255, // start of directions
