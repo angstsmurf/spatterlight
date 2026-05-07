@@ -461,6 +461,10 @@ static const struct scottrec scott_registry[] = {
 
    { 0x755f, 0x7113, RETURN_TO_PIRATES_ISLE_IFID }, // Return to Pirate's Isle (cartridge rpk format)
    { 0x5e5c, 0x6d21, RETURN_TO_PIRATES_ISLE_IFID }, // Return to Pirate's Isle (cartridge MAME zip format)
+    { 0x2d000, 0x41bf, RETURN_TO_PIRATES_ISLE_IFID }, // Return to Pirate's Isle (DSK format, Pirate1.dsk)
+    { 0x2d000, 0x41c0, RETURN_TO_PIRATES_ISLE_IFID }, // Return to Pirate's Isle (DSK format, Pirate2.dsk)
+    { 0x2d000, 0x54d7, RETURN_TO_PIRATES_ISLE_IFID }, // Return to Pirate's Isle (DSK format, RTNPIRAT.DSK)
+    { 0x16800, 0xd4ad, RETURN_TO_PIRATES_ISLE_IFID }, // Return to Pirate's Isle (DSK format, ReturnToPiratesIsle_EA.DSK)
 
    { 0, 0, 0 }
 };
