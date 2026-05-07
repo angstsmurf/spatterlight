@@ -505,14 +505,9 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
     int sourcepos = 0;
     int destpos = 0;
 
-    size_t cap = origlength + 1;
-    char *dest = MemAlloc(cap);
+    char dest[MAX_WORDLENGTH];
     glui32 unichar = unicode_string[sourcepos];
-    while (unichar != 0 && sourcepos < origlength) {
-        if (destpos + 4 > cap) {
-            cap = destpos + 4;
-            dest = MemRealloc(dest, cap);
-        }
+    while (unichar != 0 && destpos + 3 < MAX_WORDLENGTH && sourcepos < origlength) {
         switch (unichar) {
         case '.':
         case ',':
@@ -572,7 +567,7 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
         return NULL;
     char *result = MemAlloc(destpos + 1);
     memcpy(result, dest, destpos);
-    free(dest);
+
     result[destpos] = 0;
     return result;
 }
