@@ -774,9 +774,10 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
     if (uncompressed != NULL)
         free(uncompressed);
 
+    *extent = length;
+
     /* US-format games are loaded by the caller, not here */
     if (record.type == TYPE_US || record.type == TYPE_T64_US) {
-        *extent = length;
         return record.id;
     }
 
@@ -813,7 +814,7 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
         Fatal("Wrong game?");
     }
 
-    if (TryLoading(*Game, offset, 0) == UNKNOWN_GAME) {
+    if (TryLoading(Game, offset) == UNKNOWN_GAME) {
         Fatal("Game could not be read!");
     }
 

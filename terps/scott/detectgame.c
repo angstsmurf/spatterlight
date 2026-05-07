@@ -141,31 +141,28 @@ int SanityCheckHeader(void)
    - Localized (non-English): high bit on first byte = new word
    - Uncompressed: NUL-separated words, '*' = synonym marker
    A byte > 127 terminates the dictionary. */
-uint8_t *ReadDictionary(GameInfo info, uint8_t **pointer, int loud)
+uint8_t *ReadDictionary(const GameInfo *info, uint8_t **pointer)
 {
     uint8_t *ptr = *pointer;
-    if (info.word_length + 2 > 1024)
+    if (info->word_length + 2 > 1024)
         Fatal("Bad word length");
-    char dictword[1024];
+    char dictword[32];
     char c = 0;
-    int wordnum = 0;
     int charindex = 0;
 
-    int nw = info.number_of_words;
+    int nv = info->number_of_verbs;
+    int nn = info->number_of_nouns;
 
-    int nv = info.number_of_verbs;
-    int nn = info.number_of_nouns;
-
-    for (int i = 0; i < nw + 2; i++) {
+    for (int i = 0; i < info->number_of_words + 2; i++) {
         Verbs[i] = ".";
         Nouns[i] = ".";
     }
 
-    do {
-        for (int i = 0; i < info.word_length; i++) {
+    for (int wordnum = 0; wordnum <= nv + nn; wordnum++) {
+        for (int i = 0; i < info->word_length; i++) {
             c = *(ptr++);
 
-            if (info.dictionary == FOUR_LETTER_COMPRESSED || info.dictionary == GERMAN_C64 || info.dictionary == SPANISH_C64) {
+            if (info->dictionary == FOUR_LETTER_COMPRESSED || info->dictionary == GERMAN_C64 || info->dictionary == SPANISH_C64) {
                 if (charindex == 0) {
                     if (c >= 'a') {
                         c = toupper(c);
@@ -174,7 +171,7 @@ uint8_t *ReadDictionary(GameInfo info, uint8_t **pointer, int loud)
                     }
                 }
                 dictword[charindex++] = c;
-            } else if (info.subtype == LOCALIZED) {
+            } else if (info->subtype == LOCALIZED) {
                 if (charindex == 0) {
                     if (c & 0x80) {
                         c = c & 0x7f;
@@ -184,11 +181,8 @@ uint8_t *ReadDictionary(GameInfo info, uint8_t **pointer, int loud)
                 }
                 dictword[charindex++] = c;
             } else {
-                if (c == 0) {
-                    if (charindex == 0) {
-                        c = *(ptr++);
-                    }
-                }
+                if (c == 0 && charindex == 0)
+                    c = *(ptr++);
                 if (c != ' ' && charindex > 0 && dictword[charindex - 1] == ' ') {
                     i--;
                     charindex--;
@@ -202,24 +196,22 @@ uint8_t *ReadDictionary(GameInfo info, uint8_t **pointer, int loud)
             }
         }
         dictword[charindex] = 0;
+
+        char *word = MemAlloc(charindex + 1);
+        memcpy(word, dictword, charindex + 1);
         if (wordnum < nv) {
-            Verbs[wordnum] = MemAlloc(charindex + 1);
-            memcpy((char *)Verbs[wordnum], dictword, charindex + 1);
-            if (loud)
-                debug_print("Verb %d: \"%s\"\n", wordnum, Verbs[wordnum]);
+            Verbs[wordnum] = word;
+            debug_print("Verb %d: \"%s\"\n", wordnum, word);
         } else {
-            Nouns[wordnum - nv] = MemAlloc(charindex + 1);
-            memcpy((char *)Nouns[wordnum - nv], dictword, charindex + 1);
-            if (loud)
-                debug_print("Noun %d: \"%s\"\n", wordnum - nv, Nouns[wordnum - nv]);
+            Nouns[wordnum - nv] = word;
+            debug_print("Noun %d: \"%s\"\n", wordnum - nv, word);
         }
-        wordnum++;
 
         if (c > 127)
             return ptr;
 
         charindex = 0;
-    } while (wordnum <= nv + nn);
+    }
 
     return ptr;
 }
@@ -250,142 +242,143 @@ int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr)
    layout type. Different platforms and game generations use different field
    orderings — this function abstracts that away. Some formats pack two
    values into one 16-bit word (e.g. max_carry + player_room in high/low bytes). */
-int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
-    int *mc, int *pr, int *tr, int *wl, int *lt, int *mn,
-    int *trm)
+int ParseHeader(int *h, HeaderType type, int *num_items, int *num_actions,
+    int *num_words, int *num_rooms, int *max_carry, int *player_room,
+    int *treasures, int *word_length, int *light_time, int *num_messages,
+    int *treasure_room)
 {
     switch (type) {
     case NO_HEADER:
         return 0;
     case EARLY:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[3];
-        *nr = h[4];
-        *mc = h[5];
-        *pr = h[6];
-        *tr = h[7];
-        *wl = h[8];
-        *lt = h[9];
-        *mn = h[10];
-        *trm = h[11];
+        *num_items     = h[1];
+        *num_actions   = h[2];
+        *num_words     = h[3];
+        *num_rooms     = h[4];
+        *max_carry     = h[5];
+        *player_room   = h[6];
+        *treasures     = h[7];
+        *word_length   = h[8];
+        *light_time    = h[9];
+        *num_messages  = h[10];
+        *treasure_room = h[11];
         break;
     case LATE:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[3];
-        *nr = h[4];
-        *mc = h[5];
-        *wl = h[6];
-        *mn = h[7];
-        *pr = 1;
-        *tr = 0;
-        *lt = -1;
-        *trm = 0;
+        *num_items     = h[1];
+        *num_actions   = h[2];
+        *num_words     = h[3];
+        *num_rooms     = h[4];
+        *max_carry     = h[5];
+        *word_length   = h[6];
+        *num_messages  = h[7];
+        *player_room   = 1;
+        *treasures     = 0;
+        *light_time    = -1;
+        *treasure_room = 0;
         break;
     case US_HEADER:
-        *ni = h[3];
-        *na = h[2];
-        *nw = h[1];
-        *nr = h[5];
-        *mc = h[6];
-        *pr = h[7];
-        *tr = h[8];
-        *wl = h[0];
-        *lt = h[9];
-        *mn = h[4];
-        *trm = h[10] >> 8;
+        *num_items     = h[3];
+        *num_actions   = h[2];
+        *num_words     = h[1];
+        *num_rooms     = h[5];
+        *max_carry     = h[6];
+        *player_room   = h[7];
+        *treasures     = h[8];
+        *word_length   = h[0];
+        *light_time    = h[9];
+        *num_messages  = h[4];
+        *treasure_room = h[10] >> 8;
         break;
     case ROBIN_C64_HEADER:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[6];
-        *nr = h[4];
-        *mc = h[5];
-        *pr = 1;
-        *tr = 0;
-        *wl = h[7];
-        *lt = -1;
-        *mn = h[3];
-        *trm = 0;
+        *num_items     = h[1];
+        *num_actions   = h[2];
+        *num_words     = h[6];
+        *num_rooms     = h[4];
+        *max_carry     = h[5];
+        *player_room   = 1;
+        *treasures     = 0;
+        *word_length   = h[7];
+        *light_time    = -1;
+        *num_messages  = h[3];
+        *treasure_room = 0;
         break;
     case GREMLINS_C64_HEADER:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[5];
-        *nr = h[3];
-        *mc = h[6];
-        *pr = h[8];
-        *tr = 0;
-        *wl = h[7];
-        *lt = -1;
-        *mn = 98;
-        *trm = 0;
+        *num_items     = h[1];
+        *num_actions   = h[2];
+        *num_words     = h[5];
+        *num_rooms     = h[3];
+        *max_carry     = h[6];
+        *player_room   = h[8];
+        *treasures     = 0;
+        *word_length   = h[7];
+        *light_time    = -1;
+        *num_messages  = 98;
+        *treasure_room = 0;
         break;
     case SUPERGRAN_C64_HEADER:
-        *ni = h[3];
-        *na = h[1];
-        *nw = h[2];
-        *nr = h[4];
-        *mc = h[8];
-        *pr = 1;
-        *tr = 0;
-        *wl = h[6];
-        *lt = -1;
-        *mn = h[5];
-        *trm = 0;
+        *num_items     = h[3];
+        *num_actions   = h[1];
+        *num_words     = h[2];
+        *num_rooms     = h[4];
+        *max_carry     = h[8];
+        *player_room   = 1;
+        *treasures     = 0;
+        *word_length   = h[6];
+        *light_time    = -1;
+        *num_messages  = h[5];
+        *treasure_room = 0;
         break;
     case SEAS_OF_BLOOD_C64_HEADER:
-        *ni = h[0];
-        *na = h[1];
-        *nw = 134;
-        *nr = h[3];
-        *mc = h[4];
-        *pr = 1;
-        *tr = 0;
-        *wl = h[6];
-        *lt = -1;
-        *mn = h[2];
-        *trm = 0;
+        *num_items     = h[0];
+        *num_actions   = h[1];
+        *num_words     = 134;
+        *num_rooms     = h[3];
+        *max_carry     = h[4];
+        *player_room   = 1;
+        *treasures     = 0;
+        *word_length   = h[6];
+        *light_time    = -1;
+        *num_messages  = h[2];
+        *treasure_room = 0;
         break;
     case MYSTERIOUS_C64_HEADER:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[3];
-        *nr = h[4];
-        *mc = h[5] & 0xff;
-        *pr = h[5] >> 8;
-        *tr = h[6];
-        *wl = h[7];
-        *lt = h[8];
-        *mn = h[9];
-        *trm = 0;
+        *num_items     = h[1];
+        *num_actions   = h[2];
+        *num_words     = h[3];
+        *num_rooms     = h[4];
+        *max_carry     = h[5] & 0xff;
+        *player_room   = h[5] >> 8;
+        *treasures     = h[6];
+        *word_length   = h[7];
+        *light_time    = h[8];
+        *num_messages  = h[9];
+        *treasure_room = 0;
         break;
     case ARROW_OF_DEATH_PT_2_C64_HEADER:
-        *ni = h[3];
-        *na = h[1];
-        *nw = h[2];
-        *nr = h[4];
-        *mc = h[5] & 0xff;
-        *pr = h[5] >> 8;
-        *tr = h[6];
-        *wl = h[7];
-        *lt = h[8];
-        *mn = h[9];
-        *trm = 0;
+        *num_items     = h[3];
+        *num_actions   = h[1];
+        *num_words     = h[2];
+        *num_rooms     = h[4];
+        *max_carry     = h[5] & 0xff;
+        *player_room   = h[5] >> 8;
+        *treasures     = h[6];
+        *word_length   = h[7];
+        *light_time    = h[8];
+        *num_messages  = h[9];
+        *treasure_room = 0;
         break;
     case INDIANS_C64_HEADER:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[3];
-        *nr = h[4];
-        *mc = h[5] & 0xff;
-        *pr = h[5] >> 8;
-        *tr = h[6] & 0xff;
-        *wl = h[6] >> 8;
-        *lt = h[7] >> 8;
-        *mn = h[8] >> 8;
-        *trm = 0;
+        *num_items     = h[1];
+        *num_actions   = h[2];
+        *num_words     = h[3];
+        *num_rooms     = h[4];
+        *max_carry     = h[5] & 0xff;
+        *player_room   = h[5] >> 8;
+        *treasures     = h[6] & 0xff;
+        *word_length   = h[6] >> 8;
+        *light_time    = h[7] >> 8;
+        *num_messages  = h[8] >> 8;
+        *treasure_room = 0;
         break;
     default:
         debug_print("Unhandled header type!\n");
@@ -395,8 +388,9 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
 }
 
 /* Print parsed header values for debugging (only active when DEBUG_PRINT is set) */
-void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
-    int tr, int wl, int lt, int mn, int trm)
+void PrintHeaderInfo(int *h, int num_items, int num_actions, int num_words,
+    int num_rooms, int max_carry, int player_room, int treasures,
+    int word_length, int light_time, int num_messages, int treasure_room)
 {
 #if (DEBUG_PRINT)
     uint16_t value;
@@ -406,17 +400,17 @@ void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
         debug_print("\t%d (%04x)\n", value, value);
     }
 
-    debug_print("Number of items =\t%d\n", ni);
-    debug_print("Number of actions =\t%d\n", na);
-    debug_print("Number of words =\t%d\n", nw);
-    debug_print("Number of rooms =\t%d\n", nr);
-    debug_print("Max carried items =\t%d\n", mc);
-    debug_print("Word length =\t%d\n", wl);
-    debug_print("Number of messages =\t%d\n", mn);
-    debug_print("Player start location: %d\n", pr);
-    debug_print("Treasure room: %d\n", trm);
-    debug_print("Lightsource time left: %d\n", lt);
-    debug_print("Number of treasures: %d\n", tr);
+    debug_print("Number of items =\t%d\n", num_items);
+    debug_print("Number of actions =\t%d\n", num_actions);
+    debug_print("Number of words =\t%d\n", num_words);
+    debug_print("Number of rooms =\t%d\n", num_rooms);
+    debug_print("Max carried items =\t%d\n", max_carry);
+    debug_print("Word length =\t%d\n", word_length);
+    debug_print("Number of messages =\t%d\n", num_messages);
+    debug_print("Player start location: %d\n", player_room);
+    debug_print("Treasure room: %d\n", treasure_room);
+    debug_print("Lightsource time left: %d\n", light_time);
+    debug_print("Number of treasures: %d\n", treasures);
 #endif
 }
 
@@ -429,24 +423,23 @@ typedef struct {
 /* Load Mysterious Adventures-format line-drawing vector image data. Each image starts
    with 0xFF followed by a background colour byte, then drawing commands
    until the next 0xFF. Truncated images are patched out with Image=255. */
-void LoadVectorData(GameInfo info, uint8_t *ptr)
+void LoadVectorData(const GameInfo *info, uint8_t *ptr)
 {
     size_t offset;
 
-    if (info.start_of_image_data == FOLLOWS)
+    if (info->start_of_image_data == FOLLOWS)
         ptr++;
-    else if (SeekIfNeeded(info.start_of_image_data, &offset, &ptr) == 0)
+    else if (SeekIfNeeded(info->start_of_image_data, &offset, &ptr) == 0)
         return;
 
-    LineImages = MemAlloc(info.number_of_rooms * sizeof(line_image));
-    int ct = 0;
-    line_image *lp = LineImages;
+    LineImages = MemAlloc(info->number_of_rooms * sizeof(line_image));
     uint8_t byte = *(ptr++);
-    do {
+
+    for (int ct = 0; ct < info->number_of_rooms; ct++) {
         Rooms[ct].Image = 0;
         if (byte == 0xff) {
-            lp->bgcolour = *(ptr++);
-            lp->data = ptr;
+            LineImages[ct].bgcolour = *(ptr++);
+            LineImages[ct].data = ptr;
         } else {
             debug_print("Error! Image data does not start with 0xff!\n");
         }
@@ -456,404 +449,256 @@ void LoadVectorData(GameInfo info, uint8_t *ptr)
                 debug_print("Error! Image data for image %d cut off!\n", ct);
                 if (GameHeader.NumRooms - ct > 1)
                     Display(Bottom, "[This copy has %d broken or missing pictures. These have been patched out.]\n\n", GameHeader.NumRooms - ct);
-                if (lp->data >= ptr)
-                    lp->size = 0;
-                else
-                    lp->size = ptr - lp->data - 1;
+                LineImages[ct].size = (LineImages[ct].data < ptr) ? ptr - LineImages[ct].data - 1 : 0;
                 for (int i = ct + 2; i < GameHeader.NumRooms; i++)
                     Rooms[i].Image = 255;
                 return;
             }
         } while (byte != 0xff);
 
-        lp->size = ptr - lp->data;
-        lp++;
-        ct++;
-    } while (ct < info.number_of_rooms);
+        LineImages[ct].size = ptr - LineImages[ct].data;
+    }
 }
 
 struct LineImage *lineImages = NULL;
 
-/* Load a game using the "old style" Brian Howarth binary format
-   (Mysterious Adventures era). Reads the header, actions, room connections,
-   item locations, dictionary, room descriptions, messages, item descriptions,
-   vector images, and system messages sequentially from known offsets.
-   Returns the game ID on success. */
-GameIDType TryLoadingOld(GameInfo info, int dict_start)
+/* Validate a parsed header against the expected GameInfo values and
+   populate the global GameHeader. Returns 0 on any mismatch. */
+static int ValidateAndApplyHeader(GameInfo info, int num_items, int num_actions,
+                                  int num_words, int num_rooms, int max_carry,
+                                  int player_room, int treasures, int word_length,
+                                  int light_time, int num_messages,
+                                  int treasure_room, size_t offset)
 {
-    int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
-    int ct;
-    char text[256];
-    char c;
-    int charindex;
-    /* Load the header */
+    PrintHeaderInfo(header, num_items, num_actions, num_words, num_rooms,
+                    max_carry, player_room, treasures, word_length, light_time,
+                    num_messages, treasure_room);
 
-    uint8_t *ptr = entire_file;
-    file_baseline_offset = dict_start - info.start_of_dictionary;
-    debug_print("file_baseline_offset: %d\n", file_baseline_offset);
-    size_t offset = info.start_of_header + file_baseline_offset;
-
-    ptr = SeekToPos(offset);
-    if (ptr == NULL)
-        return UNKNOWN_GAME;
-
-    ReadHeader(ptr);
-
-    if (!ParseHeader(header, info.header_style, &ni, &na, &nw, &nr, &mc, &pr,
-            &tr, &wl, &lt, &mn, &trm))
-        return UNKNOWN_GAME;
-
-    if (ni != info.number_of_items || na != info.number_of_actions ||
-        nw != info.number_of_words || nr != info.number_of_rooms ||
-        mc != info.max_carried) {
-        return UNKNOWN_GAME;
+    if (num_items != info.number_of_items || num_actions != info.number_of_actions ||
+        num_words != info.number_of_words || num_rooms != info.number_of_rooms ||
+        max_carry != info.max_carried) {
+        debug_print("Non-matching header\n");
+        return 0;
     }
 
-    GameHeader.NumItems = ni;
-    Items = MemAlloc(sizeof(Item) * (ni + 1));
-    GameHeader.NumActions = na;
-    Actions = MemAlloc(sizeof(Action) * (na + 1));
-    GameHeader.NumWords = nw;
-    GameHeader.WordLength = wl;
-    Verbs = MemAlloc(sizeof(char *) * (nw + 2));
-    Nouns = MemAlloc(sizeof(char *) * (nw + 2));
-    GameHeader.NumRooms = nr;
-    Rooms = MemAlloc(sizeof(Room) * (nr + 1));
-    GameHeader.MaxCarry = mc;
-    GameHeader.PlayerRoom = pr;
-    GameHeader.Treasures = tr;
-    GameHeader.LightTime = lt;
-    LightRefill = lt;
-    GameHeader.NumMessages = mn;
-    Messages = MemAlloc(sizeof(char *) * (mn + 1));
-    GameHeader.TreasureRoom = trm;
+    SetGameHeader(num_items, num_actions, num_words, num_rooms, max_carry,
+                  player_room, treasures, word_length, light_time, num_messages,
+                  treasure_room);
 
-#pragma mark actions
+    if (SanityCheckHeader() == 0)
+        return 0;
 
-    if (SeekIfNeeded(info.start_of_actions, &offset, &ptr) == 0)
-        return UNKNOWN_GAME;
-
-    for (ct = 0; ct <= na; ct++) {
-        Actions[ct].Vocab = READ_LE_UINT16_AND_ADVANCE(&ptr);
-        for (int j = 0; j < 5; j++)
-            Actions[ct].Condition[j] = READ_LE_UINT16_AND_ADVANCE(&ptr);
-        for (int j = 0; j < 2; j++)
-            Actions[ct].Subcommand[j] = READ_LE_UINT16_AND_ADVANCE(&ptr);
+    debug_print("Found a valid header at position 0x%zx\n", offset);
+    if (offset != (size_t)(info.start_of_header + file_baseline_offset)) {
+        debug_print("Expected: 0x%x\n",
+                    info.start_of_header + file_baseline_offset);
     }
 
-#pragma mark room connections
-
-    if (SeekIfNeeded(info.start_of_room_connections, &offset, &ptr) == 0)
-        return UNKNOWN_GAME;
-
-    for (ct = 0; ct <= nr; ct++)
-        for (int j = 0; j < 6; j++)
-            Rooms[ct].Exits[j] = *(ptr++);
-
-#pragma mark item locations
-
-    if (SeekIfNeeded(info.start_of_item_locations, &offset, &ptr) == 0)
-        return UNKNOWN_GAME;
-
-    for (ct = 0; ct <= ni; ct++) {
-        Items[ct].Location = *(ptr++);
-        Items[ct].InitialLoc = Items[ct].Location;
-    }
-
-#pragma mark dictionary
-
-    if (SeekIfNeeded(info.start_of_dictionary, &offset, &ptr) == 0)
-        return UNKNOWN_GAME;
-
-    ptr = ReadDictionary(info, &ptr, 0);
-
-#pragma mark rooms
-
-    if (SeekIfNeeded(info.start_of_room_descriptions, &offset, &ptr) == 0)
-        return UNKNOWN_GAME;
-
-    if (info.start_of_room_descriptions == FOLLOWS)
-        ptr++;
-
-    ct = 0;
-    charindex = 0;
-
-    do {
-        c = *(ptr++);
-        text[charindex] = c;
-        if (c == 0) {
-            Rooms[ct].Text = MemAlloc(charindex + 1);
-            memcpy(Rooms[ct].Text, text, charindex + 1);
-            Rooms[ct].Image = (info.number_of_pictures > 0) ? ct - 1 : 255;
-            ct++;
-            charindex = 0;
-        } else {
-            charindex++;
-            if (charindex > 255)
-                break;
-        }
-        if (c > 127)
-            return UNKNOWN_GAME;
-    } while (ct <= nr);
-
-#pragma mark messages
-
-    if (SeekIfNeeded(info.start_of_messages, &offset, &ptr) == 0)
-        return UNKNOWN_GAME;
-
-    ct = 0;
-    charindex = 0;
-
-    while (ct <= mn) {
-        c = *(ptr++);
-        text[charindex] = c;
-        if (c == 0) {
-            Messages[ct] = MemAlloc(charindex + 1);
-            memcpy(Messages[ct], text, charindex + 1);
-            ct++;
-            charindex = 0;
-        } else {
-            charindex++;
-            if (charindex > 255)
-                break;
-        }
-    }
-
-#pragma mark items
-
-    if (SeekIfNeeded(info.start_of_item_descriptions, &offset, &ptr) == 0)
-        return UNKNOWN_GAME;
-
-    ct = 0;
-    charindex = 0;
-
-    do {
-        uint8_t chr = *(ptr++);
-        text[charindex] = chr;
-        if (chr == 0 || chr > 126) {
-            Items[ct].Text = MemAlloc(charindex + 1);
-            memcpy(Items[ct].Text, text, charindex + 1);
-            Items[ct].Text[charindex] = 0;
-            Items[ct].AutoGet = strchr(Items[ct].Text, '/');
-            /* Some games use // to mean no auto get/drop word! */
-            if (Items[ct].AutoGet && strcmp(Items[ct].AutoGet, "//") && strcmp(Items[ct].AutoGet, "/*")) {
-                *Items[ct].AutoGet++ = 0;
-                char *t = strchr(Items[ct].AutoGet, '/');
-                if (t != NULL)
-                    *t = 0;
-            }
-            ct++;
-            charindex = 0;
-        } else {
-            charindex++;
-            if (charindex > 255)
-                break;
-        }
-    } while (ct <= ni);
-
-#pragma mark line images
-
-    if (info.number_of_pictures > 0) {
-        LoadVectorData(info, ptr);
-    }
-
-#pragma mark System messages
-
-    ct = 0;
-    if (SeekIfNeeded(info.start_of_system_messages, &offset, &ptr) == 0)
-        return UNKNOWN_GAME;
-
-    charindex = 0;
-
-    do {
-        c = *(ptr++);
-        text[charindex] = c;
-        if (c == 0 || c == 0x0d) {
-            if (charindex > 0) {
-                if (c == 0x0d)
-                    charindex++;
-                text[charindex] = '\0';
-                char *newmess = MemAlloc(charindex + 1);
-                memcpy(newmess, text, charindex + 1);
-                system_messages[ct] = newmess;
-                ct++;
-                charindex = 0;
-            }
-        } else {
-            charindex++;
-        }
-
-        if (c != 0 && c != 0x0d && c != '\x83' && c != '\xc9' && c > 127)
-            break;
-    } while (ct < 40);
-
-    charindex = 0;
-
-    if (SeekIfNeeded(info.start_of_directions, &offset, &ptr) == 0)
-        return UNKNOWN_GAME;
-
-    ct = 0;
-    do {
-        c = *(ptr++);
-        text[charindex] = c;
-        if (c == 0 || c == 0x0d) {
-            if (charindex > 0) {
-                if (c == 0x0d)
-                    charindex++;
-                text[charindex] = '\0';
-                char *newmess = MemAlloc(charindex + 1);
-                memcpy(newmess, text, charindex + 1);
-                sys[ct] = newmess;
-                ct++;
-                charindex = 0;
-            }
-        } else {
-            charindex++;
-        }
-
-        if (c != 0 && c != 0x0d && c > 127)
-            break;
-    } while (ct < 6);
-
-    return info.gameID;
+    AllocateGameData();
+    return 1;
 }
 
-/* Load a Adventure International UK / Brian Howarth game database given its GameInfo
-   descriptor and dictionary offset.
-   Dispatches to the SAGA binary loader for UK Hulk, to TryLoadingOld for
-   old-style formats, or handles the later binary format directly.
-
-   Validates the header against the expected GameInfo values. Supports both
-   compressed (packed condition/command counts) and uncompressed action
-   formats, and compressed vs plain NUL-terminated text strings.
-
-   On success, all global game arrays are populated and the game ID is returned. */
-GameIDType TryLoading(GameInfo info, int dict_start, int loud)
+/* Set up the file baseline offset, seek to the header, read and parse it,
+   then validate against the expected GameInfo values. On success the global
+   GameHeader is populated and all game arrays are allocated. */
+static int LoadGameHeader(const GameInfo *info, int dict_start,
+                          uint8_t **ptr, size_t *offset)
 {
-    /* The UK versions of Hulk uses the Mak Jukic binary database format */
-    if (info.gameID == HULK || info.gameID == HULK_C64)
-        return LoadBinaryDatabase(entire_file, file_length, info, dict_start);
+    file_baseline_offset = dict_start - info->start_of_dictionary;
+    debug_print("file_baseline_offset: %d (%x)\n",
+                file_baseline_offset, file_baseline_offset);
 
-    if (info.type == OLD_STYLE)
-        return TryLoadingOld(info, dict_start);
+    *offset = info->start_of_header + file_baseline_offset;
+    *ptr = SeekToPos(*offset);
+    if (*ptr == NULL)
+        return 0;
 
-    int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
-    int ct;
-    char text[256];
-    char c;
-    int charindex;
-    /* Load the header */
+    ReadHeader(*ptr);
 
-    uint8_t *ptr = entire_file;
+    int num_items, num_actions, num_words, num_rooms, max_carry, player_room,
+        treasures, word_length, light_time, num_messages, treasure_room;
+    if (!ParseHeader(header, info->header_style, &num_items, &num_actions,
+            &num_words, &num_rooms, &max_carry, &player_room, &treasures,
+            &word_length, &light_time, &num_messages, &treasure_room))
+        return 0;
 
-    if (loud) {
-        debug_print("dict_start:%x\n", dict_start);
-        debug_print(" info.start_of_dictionary:%x\n", info.start_of_dictionary);
+    return ValidateAndApplyHeader(*info, num_items, num_actions, num_words,
+                                  num_rooms, max_carry, player_room, treasures,
+                                  word_length, light_time, num_messages,
+                                  treasure_room, *offset);
+}
+
+/* Read room exit connections from binary data: one byte per exit,
+   6 exits per room. */
+static void ReadRoomExits(uint8_t **ptr, int num_rooms)
+{
+    for (int ct = 0; ct <= num_rooms; ct++) {
+        memcpy(Rooms[ct].Exits, *ptr, 6);
+        *ptr += 6;
     }
-    file_baseline_offset = dict_start - info.start_of_dictionary;
+}
 
-    if (loud)
-        debug_print("file_baseline_offset:%x (%d)\n", file_baseline_offset,
-            file_baseline_offset);
+/* Read item starting locations from binary data: one byte per item. */
+static void ReadItemLocations(uint8_t **ptr, int num_items)
+{
+    for (int ct = 0; ct <= num_items; ct++) {
+        Items[ct].Location = *((*ptr)++);
+        Items[ct].InitialLoc = Items[ct].Location;
+    }
+}
 
-    size_t offset = info.start_of_header + file_baseline_offset;
+/* Read NUL-terminated room descriptions from binary data, rejecting
+   any string containing a byte > 127. Assigns room images based on
+   whether the images are in vector format and whether the game has
+   pictures. (Irmak tile style room images are already assigned in TryLoading().)
+   Returns 0 on invalid data. */
+static int ReadBinaryRoomDescs(uint8_t **ptr, int num_rooms, int has_pictures, int vector)
+{
+    for (int ct = 0; ct <= num_rooms; ct++) {
+        uint8_t *p = *ptr;
+        while (*p > 0 && *p <= 127)
+            p++;
+        if (*p > 127)
+            return 0;
+        size_t len = p - *ptr;
+        Rooms[ct].Text = MemAlloc(len + 1);
+        memcpy(Rooms[ct].Text, *ptr, len + 1);
+        debug_print("Room %d: %s\n", ct, Rooms[ct].Text);
+        if (vector || !has_pictures)
+            Rooms[ct].Image = has_pictures ? ct - 1 : 255;
+        *ptr = p + 1;
+    }
+    return 1;
+}
 
-    ptr = SeekToPos(offset);
-    if (ptr == NULL)
-        return UNKNOWN_GAME;
+/* Read NUL-or-CR-terminated strings from binary data into dest[].
+   Stops after max_count strings, on out-of-bounds reads, or when a
+   byte > 127 is encountered (if allowed_high is non-NULL, only bytes
+   not in the string cause a stop; if NULL, all bytes are accepted).
+   Returns the number of strings read. */
+static int ReadTerminatedStrings(uint8_t **ptr, const char **dest, int max_count,
+                                 const char *allowed_high)
+{
+    int count = 0;
 
-    ReadHeader(ptr);
+    while (count < max_count) {
+        uint8_t *string_start = *ptr;
+        if (string_start == NULL)
+            return count;
+        uint8_t *scan = string_start;
 
-    if (!ParseHeader(header, info.header_style, &ni, &na, &nw, &nr, &mc, &pr,
-            &tr, &wl, &lt, &mn, &trm))
-        return UNKNOWN_GAME;
+        while (scan >= entire_file && (size_t)(scan - entire_file) < file_length
+               && *scan != 0 && *scan != '\r') {
+            if (*scan > 127 && allowed_high != NULL && strchr(allowed_high, *scan) == NULL) {
+                *ptr = scan;
+                return count;
+            }
+            scan++;
+        }
 
-    if (loud)
-        PrintHeaderInfo(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm);
+        if (scan < entire_file || (size_t)(scan - entire_file) >= file_length) {
+            debug_print("Read out of bounds!\n");
+            *ptr = scan;
+            return count;
+        }
 
-    GameHeader.NumItems = ni;
-    GameHeader.NumActions = na;
-    GameHeader.NumWords = nw;
-    GameHeader.WordLength = wl;
-    GameHeader.NumRooms = nr;
-    GameHeader.MaxCarry = mc;
-    GameHeader.PlayerRoom = pr;
-    GameHeader.Treasures = tr;
-    GameHeader.LightTime = lt;
-    LightRefill = lt;
-    GameHeader.NumMessages = mn;
-    GameHeader.TreasureRoom = trm;
+        size_t length = scan - string_start;
+        if (length > 0) {
+            int is_cr = (*scan == '\r');
+            size_t alloc_size = length + (is_cr ? 2 : 1);
+            char *string = MemAlloc(alloc_size);
+            memcpy(string, string_start, length);
+            if (is_cr) {
+                string[length] = '\r';
+                string[length + 1] = '\0';
+            } else {
+                string[length] = '\0';
+            }
+            dest[count] = string;
+            debug_print("String %d: \"%s\"\n", count, dest[count]);
+            count++;
+        }
 
-    if (SanityCheckHeader() == 0) {
-        return UNKNOWN_GAME;
+        *ptr = scan + 1;
     }
 
-    if (loud) {
-        debug_print("Found a valid header at position 0x%zx\n", offset);
-        debug_print("Expected: 0x%x\n",
-            info.start_of_header + file_baseline_offset);
+    return count;
+}
+
+void SetGameHeader(int num_items, int num_actions, int num_words,
+                          int num_rooms, int max_carry, int player_room,
+                          int treasures, int word_length, int light_time,
+                          int num_messages, int treasure_room)
+{
+    GameHeader.NumItems = num_items;
+    GameHeader.NumActions = num_actions;
+    GameHeader.NumWords = num_words;
+    GameHeader.WordLength = word_length;
+    GameHeader.NumRooms = num_rooms;
+    GameHeader.MaxCarry = max_carry;
+    GameHeader.PlayerRoom = player_room;
+    GameHeader.Treasures = treasures;
+    GameHeader.LightTime = light_time;
+    LightRefill = light_time;
+    GameHeader.NumMessages = num_messages;
+    GameHeader.TreasureRoom = treasure_room;
+}
+
+void AllocateGameData(void)
+{
+    Items = MemAlloc(sizeof(Item) * (GameHeader.NumItems + 1));
+    Actions = MemAlloc(sizeof(Action) * (GameHeader.NumActions + 1));
+    Verbs = MemAlloc(sizeof(char *) * (GameHeader.NumWords + 2));
+    Nouns = MemAlloc(sizeof(char *) * (GameHeader.NumWords + 2));
+    Rooms = MemAlloc(sizeof(Room) * (GameHeader.NumRooms + 1));
+    Messages = MemAlloc(sizeof(char *) * (GameHeader.NumMessages + 1));
+}
+
+static char *ReadBinaryString(uint8_t **ptr)
+{
+    size_t len = strlen((char *)*ptr);
+    char *result = MemAlloc(len + 1);
+    memcpy(result, *ptr, len + 1);
+    *ptr += len + 1;
+    return result;
+}
+
+/* Extract the auto-get/drop word from an item description.
+   Item text uses the format "description/WORD/" where WORD is the
+   vocabulary word the engine uses for automatic GET/DROP commands.
+   This splits the text at the first '/' (NUL-terminating the
+   description) and points AutoGet at the word between the slashes.
+   Sets AutoGet to NULL if no word is present or if the suffix is
+   "//" or "[slash]*" (conventions meaning "no auto-get word"). */
+void ParseItemSlashAutoGet(int index)
+{
+    Items[index].AutoGet = strchr(Items[index].Text, '/');
+    if (Items[index].AutoGet == NULL)
+        return;
+    if (strcmp(Items[index].AutoGet, "//") == 0 || strcmp(Items[index].AutoGet, "/*") == 0) {
+        Items[index].AutoGet = NULL;
+        return;
     }
+    /* NUL-terminate the description and advance past the '/' */
+    *Items[index].AutoGet++ = 0;
+    /* Strip the trailing '/' from the word */
+    char *trailingslash = strchr(Items[index].AutoGet, '/');
+    if (trailingslash != NULL)
+        *trailingslash = 0;
+}
 
-    if (ni != info.number_of_items || na != info.number_of_actions || nw != info.number_of_words || nr != info.number_of_rooms || mc != info.max_carried) {
-        if (loud)
-            debug_print("Non-matching header\n");
-        return UNKNOWN_GAME;
-    }
+/* Read action tables from binary data. In compressed format, each action
+   has a packed byte encoding the number of conditions (low 5 bits) and
+   commands (high 3 bits). In uncompressed format, all 5 condition and
+   2 command slots are always present. */
+static void ReadActions(uint8_t **ptr, int num_actions, int compressed)
+{
+    for (int ct = 0; ct <= num_actions; ct++) {
+        Actions[ct].Vocab = READ_LE_UINT16_AND_ADVANCE(ptr);
 
-    Items = MemAlloc(sizeof(Item) * (ni + 1));
-    Actions = MemAlloc(sizeof(Action) * (na + 1));
-    Verbs = MemAlloc(sizeof(char *) * (nw + 2));
-    Nouns = MemAlloc(sizeof(char *) * (nw + 2));
-    Rooms = MemAlloc(sizeof(Room) * (nr + 1));
-    Messages = MemAlloc(sizeof(char *) * (mn + 1));
-
-    int compressed = (info.dictionary == FOUR_LETTER_COMPRESSED);
-
-#pragma mark room images
-
-    if (info.start_of_room_image_list != 0) {
-        if (SeekIfNeeded(info.start_of_room_image_list, &offset, &ptr) == 0)
-            return UNKNOWN_GAME;
-
-        for (ct = 0; ct <= GameHeader.NumRooms; ct++)
-            Rooms[ct].Image = *(ptr++);
-    }
-#pragma mark Item flags
-
-    if (info.start_of_item_flags != 0) {
-        if (SeekIfNeeded(info.start_of_item_flags, &offset, &ptr) == 0)
-            return UNKNOWN_GAME;
-
-        for (ct = 0; ct <= GameHeader.NumItems; ct++)
-            Items[ct].Flag = *(ptr++);
-    }
-
-#pragma mark item images
-
-    if (info.start_of_item_image_list != 0) {
-        if (SeekIfNeeded(info.start_of_item_image_list, &offset, &ptr) == 0)
-            return UNKNOWN_GAME;
-
-        for (ct = 0; ct <= GameHeader.NumItems; ct++)
-            Items[ct].Image = *(ptr++);
-        if (loud)
-            debug_print("Offset after reading item images: %lx\n",
-                ptr - entire_file - file_baseline_offset);
-    }
-
-#pragma mark actions
-
-    if (SeekIfNeeded(info.start_of_actions, &offset, &ptr) == 0)
-        return UNKNOWN_GAME;
-
-    uint16_t value, cond, comm;
-
-    for (ct = 0; ct <= na; ct++) {
-        value = READ_LE_UINT16_AND_ADVANCE(&ptr); /* verb/noun */
-        Actions[ct].Vocab = value;
-
-        if (info.actions_style == COMPRESSED) {
-            value = *(ptr++); /* count of actions/conditions */
+        uint16_t cond, comm;
+        if (compressed) {
+            uint16_t value = *((*ptr)++);
             cond = value & 0x1f;
             if (cond > 5) {
                 debug_print("Condition error at action %d!\n", ct);
@@ -869,55 +714,208 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
             comm = 2;
         }
         for (int j = 0; j < 5; j++)
-            Actions[ct].Condition[j] = (j < cond) ? READ_LE_UINT16_AND_ADVANCE(&ptr) : 0;
+            Actions[ct].Condition[j] = (j < cond) ? READ_LE_UINT16_AND_ADVANCE(ptr) : 0;
         for (int j = 0; j < 2; j++)
-            Actions[ct].Subcommand[j] = (j < comm) ? READ_LE_UINT16_AND_ADVANCE(&ptr) : 0;
+            Actions[ct].Subcommand[j] = (j < comm) ? READ_LE_UINT16_AND_ADVANCE(ptr) : 0;
     }
-    if (loud)
-        debug_print("Offset after reading actions: %lx\n",
+}
+
+/* Read item descriptions terminated by NUL or high byte (>126).
+   Each item's text is parsed for the /AutoGet/ word. */
+static void ReadBinaryItemDescs(uint8_t **ptr, int num_items)
+{
+    for (int ct = 0; ct <= num_items; ct++) {
+        uint8_t *p = *ptr;
+        while (*p > 0 && *p <= 126)
+            p++;
+        size_t len = p - *ptr;
+        Items[ct].Text = MemAlloc(len + 1);
+        memcpy(Items[ct].Text, *ptr, len);
+        Items[ct].Text[len] = 0;
+        *ptr = p + 1;
+        ParseItemSlashAutoGet(ct);
+    }
+}
+
+/* Load a game using the "old style" Brian Howarth binary format
+   (Mysterious Adventures era). Reads the header, actions, room connections,
+   item locations, dictionary, room descriptions, messages, item descriptions,
+   vector images, and system messages sequentially from known offsets.
+   Returns the game ID on success. */
+static GameIDType TryLoadingOld(const GameInfo *info, int dict_start)
+{
+    uint8_t *ptr;
+    size_t offset;
+
+    if (!LoadGameHeader(info, dict_start, &ptr, &offset))
+        return UNKNOWN_GAME;
+
+#pragma mark actions
+
+    if (SeekIfNeeded(info->start_of_actions, &offset, &ptr) == 0)
+        return UNKNOWN_GAME;
+
+    ReadActions(&ptr, GameHeader.NumActions, 0);
+
+#pragma mark room connections
+
+    if (SeekIfNeeded(info->start_of_room_connections, &offset, &ptr) == 0)
+        return UNKNOWN_GAME;
+
+    ReadRoomExits(&ptr, GameHeader.NumRooms);
+
+#pragma mark item locations
+
+    if (SeekIfNeeded(info->start_of_item_locations, &offset, &ptr) == 0)
+        return UNKNOWN_GAME;
+
+    ReadItemLocations(&ptr, GameHeader.NumItems);
+
+#pragma mark dictionary
+
+    if (SeekIfNeeded(info->start_of_dictionary, &offset, &ptr) == 0)
+        return UNKNOWN_GAME;
+
+    ptr = ReadDictionary(info, &ptr);
+
+#pragma mark rooms
+
+    if (info->start_of_room_descriptions != 0) {
+        if (SeekIfNeeded(info->start_of_room_descriptions, &offset, &ptr) == 0)
+            return UNKNOWN_GAME;
+
+        if (info->start_of_room_descriptions == FOLLOWS)
+            ptr++;
+
+        if (!ReadBinaryRoomDescs(&ptr, GameHeader.NumRooms, info->number_of_pictures > 0, info->picture_format_version == 99))
+            return UNKNOWN_GAME;
+    }
+
+#pragma mark messages
+
+    if (SeekIfNeeded(info->start_of_messages, &offset, &ptr) == 0)
+        return UNKNOWN_GAME;
+
+    for (int ct = 0; ct <= GameHeader.NumMessages; ct++) {
+        Messages[ct] = ReadBinaryString(&ptr);
+        debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
+    }
+
+#pragma mark items
+
+    if (SeekIfNeeded(info->start_of_item_descriptions, &offset, &ptr) == 0)
+        return UNKNOWN_GAME;
+
+    ReadBinaryItemDescs(&ptr, GameHeader.NumItems);
+
+#pragma mark line images
+
+    if (info->number_of_pictures > 0 && info->picture_format_version == 99) {
+        LoadVectorData(info, ptr);
+    }
+
+#pragma mark System messages
+
+    if (SeekIfNeeded(info->start_of_system_messages, &offset, &ptr) == 0)
+        return UNKNOWN_GAME;
+
+    ReadTerminatedStrings(&ptr, system_messages, 40, "\x83\xc9");
+
+    if (SeekIfNeeded(info->start_of_directions, &offset, &ptr) == 0)
+        return UNKNOWN_GAME;
+
+    ReadTerminatedStrings(&ptr, sys, 6, "");
+
+    return info->gameID;
+}
+
+/* Load a Adventure International UK / Brian Howarth game database given its
+   GameInfo descriptor and dictionary offset.
+   Dispatches to the SAGA binary loader for UK Hulk, to TryLoadingOld for
+   old-style formats, or handles the later binary format directly.
+
+   Validates the header against the expected GameInfo values. Supports both
+   compressed (packed condition/command counts) and uncompressed action
+   formats, and compressed vs plain NUL-terminated text strings.
+
+   On success, all global game arrays are populated and the game ID is returned. */
+GameIDType TryLoading(const GameInfo *info, int dict_start)
+{
+    /* The UK versions of Hulk uses the Mak Jukic binary database format */
+    if (info->gameID == HULK || info->gameID == HULK_C64)
+        return LoadBinaryDatabase(entire_file, file_length, *info, dict_start);
+
+    if (info->type == OLD_STYLE)
+        return TryLoadingOld(info, dict_start);
+
+    uint8_t *ptr;
+    size_t offset;
+
+    if (!LoadGameHeader(info, dict_start, &ptr, &offset))
+        return UNKNOWN_GAME;
+
+    int compressed = (info->dictionary == FOUR_LETTER_COMPRESSED);
+
+#pragma mark room images
+
+    if (info->start_of_room_image_list != 0) {
+        if (SeekIfNeeded(info->start_of_room_image_list, &offset, &ptr) == 0)
+            return UNKNOWN_GAME;
+
+        for (int ct = 0; ct <= GameHeader.NumRooms; ct++) {
+            Rooms[ct].Image = *ptr++;
+            debug_print("Room %d image: %d\n", ct, Rooms[ct].Image);
+        }
+    }
+#pragma mark Item flags
+
+    if (info->start_of_item_flags != 0) {
+        if (SeekIfNeeded(info->start_of_item_flags, &offset, &ptr) == 0)
+            return UNKNOWN_GAME;
+
+        for (int ct = 0; ct <= GameHeader.NumItems; ct++)
+            Items[ct].Flag = *(ptr++);
+    }
+
+#pragma mark item images
+
+    if (info->start_of_item_image_list != 0) {
+        if (SeekIfNeeded(info->start_of_item_image_list, &offset, &ptr) == 0)
+            return UNKNOWN_GAME;
+
+        for (int ct = 0; ct <= GameHeader.NumItems; ct++)
+            Items[ct].Image = *(ptr++);
+        debug_print("Offset after reading item images: %lx\n",
+                ptr - entire_file - file_baseline_offset);
+    }
+
+#pragma mark actions
+
+    if (SeekIfNeeded(info->start_of_actions, &offset, &ptr) == 0)
+        return UNKNOWN_GAME;
+
+    ReadActions(&ptr, GameHeader.NumActions, info->actions_style == COMPRESSED);
+    debug_print("Offset after reading actions: %lx\n",
             ptr - entire_file - file_baseline_offset);
 
 #pragma mark dictionary
 
-    if (SeekIfNeeded(info.start_of_dictionary, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info->start_of_dictionary, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ptr = ReadDictionary(info, &ptr, loud);
-
-    if (loud)
-        debug_print("Offset after reading dictionary: %lx\n",
-            ptr - entire_file - file_baseline_offset);
+    ptr = ReadDictionary(info, &ptr);
 
 #pragma mark rooms
 
-    if (info.start_of_room_descriptions != 0) {
-        if (SeekIfNeeded(info.start_of_room_descriptions, &offset, &ptr) == 0)
+    if (info->start_of_room_descriptions != 0) {
+        if (SeekIfNeeded(info->start_of_room_descriptions, &offset, &ptr) == 0)
             return UNKNOWN_GAME;
 
-        ct = 0;
-        charindex = 0;
-
         if (!compressed) {
-            do {
-                c = *ptr++;
-                text[charindex] = c;
-                if (c == 0) {
-                    Rooms[ct].Text = MemAlloc(charindex + 1);
-                    memcpy(Rooms[ct].Text, text, charindex + 1);
-                    if (loud)
-                        debug_print("Room %d: %s\n", ct, Rooms[ct].Text);
-                    ct++;
-                    charindex = 0;
-                } else {
-                    charindex++;
-                    if (charindex > 255)
-                        break;
-                }
-                if (c > 127)
-                    return UNKNOWN_GAME;
-            } while (ct < nr + 1);
+            if (!ReadBinaryRoomDescs(&ptr, GameHeader.NumRooms, info->number_of_pictures > 0, 0))
+                return UNKNOWN_GAME;
         } else {
-            for (ct = 0; ct < nr; ct++) {
+            for (int ct = 0; ct < GameHeader.NumRooms; ct++) {
                 Rooms[ct].Text = DecompressText(ptr, ct);
                 if (Rooms[ct].Text == NULL)
                     return UNKNOWN_GAME;
@@ -928,62 +926,41 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
 
 #pragma mark room connections
 
-    if (SeekIfNeeded(info.start_of_room_connections, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info->start_of_room_connections, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    for (ct = 0; ct <= nr; ct++)
-        for (int j = 0; j < 6; j++)
-            Rooms[ct].Exits[j] = *ptr++;
+    ReadRoomExits(&ptr, GameHeader.NumRooms);
 
 #pragma mark messages
 
-    if (SeekIfNeeded(info.start_of_messages, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info->start_of_messages, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    charindex = 0;
-
     if (compressed) {
-        for (ct = 0; ct <= mn; ct++) {
+        for (int ct = 0; ct <= GameHeader.NumMessages; ct++) {
             Messages[ct] = DecompressText(ptr, ct);
-            if (loud)
-                debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
+            debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
             if (Messages[ct] == NULL)
                 return UNKNOWN_GAME;
         }
     } else {
-        ct = 0;
-        while (ct <= mn) {
-            c = *(ptr++);
-            text[charindex] = c;
-            if (c == 0) {
-                Messages[ct] = MemAlloc(charindex + 1);
-                memcpy(Messages[ct], text, charindex + 1);
-                if (loud)
-                    debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
-                ct++;
-                charindex = 0;
-            } else {
-                charindex++;
-                if (charindex > 255)
-                    break;
-            }
+        for (int ct = 0; ct <= GameHeader.NumMessages; ct++) {
+            Messages[ct] = ReadBinaryString(&ptr);
+            debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
         }
     }
 
 #pragma mark items
 
-    if (SeekIfNeeded(info.start_of_item_descriptions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info->start_of_item_descriptions, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    charindex = 0;
-
     if (compressed) {
-        for (ct = 0; ct <= ni; ct++) {
+        for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
             Items[ct].Text = DecompressText(ptr, ct);
             Items[ct].AutoGet = NULL;
             if (Items[ct].Text != NULL && Items[ct].Text[0] != '.') {
-                if (loud)
-                    debug_print("Item %d: %s\n", ct, Items[ct].Text);
+                debug_print("Item %d: %s\n", ct, Items[ct].Text);
                 Items[ct].AutoGet = strchr(Items[ct].Text, '.');
                 if (Items[ct].AutoGet) {
                     *Items[ct].AutoGet++ = 0;
@@ -997,138 +974,69 @@ GameIDType TryLoading(GameInfo info, int dict_start, int loud)
             }
         }
     } else {
-        ct = 0;
-        do {
-            c = *(ptr++);
-            text[charindex] = c;
-            if (c == 0) {
-                Items[ct].Text = MemAlloc(charindex + 1);
-                memcpy(Items[ct].Text, text, charindex + 1);
-                if (loud)
-                    debug_print("Item %d: %s\n", ct, Items[ct].Text);
-                Items[ct].AutoGet = strchr(Items[ct].Text, '/');
-                /* Some games use // to mean no auto get/drop word! */
-                if (Items[ct].AutoGet && strcmp(Items[ct].AutoGet, "//") && strcmp(Items[ct].AutoGet, "/*")) {
-                    *Items[ct].AutoGet++ = 0;
-                    char *t = strchr(Items[ct].AutoGet, '/');
-                    if (t != NULL)
-                        *t = 0;
-                }
-                ct++;
-                charindex = 0;
-            } else {
-                charindex++;
-                if (charindex > 255)
-                    break;
-            }
-        } while (ct <= ni);
+        for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
+            Items[ct].Text = ReadBinaryString(&ptr);
+            debug_print("Item %d: %s\n", ct, Items[ct].Text);
+            ParseItemSlashAutoGet(ct);
+        }
     }
 
 #pragma mark item locations
 
-    if (SeekIfNeeded(info.start_of_item_locations, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info->start_of_item_locations, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    for (ct = 0; ct <= ni; ct++) {
-        Items[ct].Location = *(ptr++);
-        Items[ct].InitialLoc = Items[ct].Location;
-        if (Items[ct].Text && Items[ct].Location < nr && Rooms[Items[ct].Location].Text)
-            debug_print("Location of item %d, \"%s\":%d\n", ct, Items[ct].Text, Items[ct].Location);
-    }
+    ReadItemLocations(&ptr, GameHeader.NumItems);
 
 #pragma mark vector images
 
-    if (info.number_of_pictures > 0 && info.picture_format_version == 99) {
+    if (info->number_of_pictures > 0 && info->picture_format_version == 99) {
         LoadVectorData(info, ptr);
     }
 
 #pragma mark System messages
 
-    if (SeekIfNeeded(info.start_of_system_messages, &offset, &ptr) == 0)
-        return info.gameID;
-jumpSysMess:
-    ptr = SeekToPos(offset);
-    ct = 0;
-    charindex = 0;
+    if (SeekIfNeeded(info->start_of_system_messages, &offset, &ptr) == 0)
+        return info->gameID;
 
-    do {
-        c = *(ptr++);
-        if (ptr - entire_file > file_length || ptr < entire_file) {
-            debug_print("Read out of bounds!\n");
-            return UNKNOWN_GAME;
+    int is_c64_english = (info->subtype & (C64 | ENGLISH)) == (C64 | ENGLISH);
+
+    if (is_c64_english) {
+        while (offset > 0) {
+            ptr = SeekToPos(offset);
+            while (ptr - entire_file < file_length && (*ptr == 0 || *ptr == '\r'))
+                ptr++;
+            if (ptr - entire_file + 5 <= file_length && memcmp(ptr, "NORTH", 5) == 0)
+                break;
+            offset--;
         }
-        if (charindex > 255)
-            charindex = 0;
-        text[charindex] = c;
-        if (c == 0 || c == 0x0d) {
-            if (charindex > 0) {
-                if (c == 0x0d)
-                    charindex++;
-                if (ct == 0 && (info.subtype & (C64 | ENGLISH)) == (C64 | ENGLISH) && memcmp(text, "NORTH", 5) != 0) {
-                    offset--;
-                    goto jumpSysMess;
-                }
-                text[charindex] = '\0';
-                char *newmess = MemAlloc(charindex + 1);
-                memcpy(newmess, text, charindex + 1);
-                system_messages[ct] = newmess;
-                if (loud)
-                    debug_print("system_messages %d: \"%s\"\n", ct,
-                        system_messages[ct]);
-                ct++;
-                charindex = 0;
-            }
-        } else {
-            charindex++;
-        }
-    } while (ct < 45);
-
-    if (loud)
-        debug_print("Offset after reading system messages: %lx\n",
-            ptr - entire_file);
-
-    if ((info.subtype & (C64 | ENGLISH)) == (C64 | ENGLISH)) {
-        return info.gameID;
     }
 
-    if (SeekIfNeeded(info.start_of_directions, &offset, &ptr) == 0)
+    ptr = SeekToPos(offset);
+    if (ptr == NULL)
         return UNKNOWN_GAME;
+    ReadTerminatedStrings(&ptr, system_messages, 45, NULL);
 
-    charindex = 0;
+    debug_print("Offset after reading system messages: %lx\n",
+            ptr - entire_file);
 
-    ct = 0;
+    if (is_c64_english)
+        return info->gameID;
+
+    if (SeekIfNeeded(info->start_of_directions, &offset, &ptr) == 0)
+        return UNKNOWN_GAME;
 
     while(!isalpha(*ptr)) {
         ptr++;
         if (ptr - entire_file > file_length) {
             debug_print("Read out of bounds!\n");
-            return info.gameID;
+            return info->gameID;
         }
     }
 
-    do {
-        c = *(ptr++);
-        text[charindex] = c;
-        if (c == 0 || c == 0x0d) {
-            if (charindex > 0) {
-                if (c == 0x0d)
-                    charindex++;
-                text[charindex] = '\0';
-                char *newmess = MemAlloc(charindex + 1);
-                memcpy(newmess, text, charindex + 1);
-                sys[ct] = newmess;
-                ct++;
-                charindex = 0;
-            }
-        } else {
-            charindex++;
-        }
+    ReadTerminatedStrings(&ptr, sys, 6, "");
 
-        if (c != 0 && c != 0x0d && c > 127)
-            break;
-    } while (ct < 6);
-
-    return info.gameID;
+    return info->gameID;
 }
 
 /* Check if the loaded game is a Mysterious Adventures title.
@@ -1218,7 +1126,7 @@ GameIDType DetectZXSpectrum(void)
 
     for (int i = 0; games[i].Title != NULL; i++) {
         if (games[i].dictionary == dict_type) {
-            detectedGame = TryLoading(games[i], offset, 0);
+            detectedGame = TryLoading(&games[i], offset);
             if (detectedGame != UNKNOWN_GAME) {
                 free(Game);
                 Game = &games[i];
@@ -1247,7 +1155,7 @@ GameIDType DetectZXSpectrum(void)
                 Fatal("Unsupported game!");
             for (int i = 0; games[i].Title != NULL; i++) {
                 if (games[i].dictionary == dict_type) {
-                    if (TryLoading(games[i], offset, 1)) {
+                    if (TryLoading(&games[i], offset)) {
                         free(Game);
                         Game = &games[i];
                         detectedGame = Game->gameID;
@@ -1335,6 +1243,7 @@ GameIDType DetectGame(const char *file_name)
         if (detectedGame == UNKNOWN_GAME) {
             free(entire_file);
             free(Game);
+            Game = NULL;
             return UNKNOWN_GAME;
         }
     }

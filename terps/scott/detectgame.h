@@ -13,16 +13,25 @@
 
 GameIDType DetectGame(const char *file_name);
 int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr);
-GameIDType TryLoading(GameInfo info, int dict_start, int loud);
+GameIDType TryLoading(const GameInfo *info, int dict_start);
 DictionaryType GetId(size_t *offset);
 int FindCode(const char *x, int base);
 uint8_t *ReadHeader(uint8_t *ptr);
-int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
-    int *mc, int *pr, int *tr, int *wl, int *lt, int *mn,
-    int *trm);
+int ParseHeader(int *h, HeaderType type, int *num_items, int *num_actions,
+    int *num_words, int *num_rooms, int *max_carry, int *player_room,
+    int *treasures, int *word_length, int *light_time, int *num_messages,
+    int *treasure_room);
 
-void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
-    int tr, int wl, int lt, int mn, int trm);
+void PrintHeaderInfo(int *h, int num_items, int num_actions, int num_words,
+    int num_rooms, int max_carry, int player_room, int treasures,
+    int word_length, int light_time, int num_messages, int treasure_room);
+
+void ParseItemSlashAutoGet(int index);
+void SetGameHeader(int num_items, int num_actions, int num_words,
+                   int num_rooms, int max_carry, int player_room,
+                   int treasures, int word_length, int light_time,
+                   int num_messages, int treasure_room);
+void AllocateGameData(void);
 
 extern int header[];
 

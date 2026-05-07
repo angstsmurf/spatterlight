@@ -9,7 +9,7 @@
 
 #include "memory_allocation.h"
 
-void Fatal(const char *x);
+__attribute__((noreturn)) void Fatal(const char *x);
 
 void *MemAlloc(size_t size)
 {

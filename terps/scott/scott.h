@@ -62,7 +62,7 @@ typedef struct {
 
 typedef struct {
     char *Text;
-    short Exits[6];
+    uint8_t Exits[6];
     uint8_t Image;
 } Room;
 
@@ -124,7 +124,7 @@ void CloseGraphicsWindow(void);
 void Updates(event_t ev);
 int PerformExtraCommand(int extra_stop_time);
 const char *MapSynonym(int noun);
-void Fatal(const char *x);
+GLK_ATTRIBUTE_NORETURN void Fatal(const char *x);
 void DrawBlack(void);
 uint8_t *SeekToPos(int offset);
 int CountCarried(void);
@@ -149,6 +149,7 @@ void SetDark(void);
 void SetLight(void);
 void SetBitFlag(int bit);
 void ClearBitFlag(int bit);
+void FreeDatabase(void);
 
 extern GameInfo *Game;
 extern Header GameHeader;
