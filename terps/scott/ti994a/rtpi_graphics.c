@@ -168,7 +168,7 @@ restart:
     if (used < image->datasize) {
         image->imagedata = realloc(image->imagedata, used);
         image->datasize = used;
-        fprintf(stderr, "DecodeRTPIColors: Pruned size of image %d to 0x%zx\n", image->index, used);
+        fprintf(stderr, "DecodeRTPIColors: Pruned size of %s %d to 0x%zx\n", image->usage == IMG_ROOM ? "IMG_ROOM" : "IMG_ROOM_OBJ", image->index, used);
     }
     return 1;
 }
@@ -826,11 +826,11 @@ static const rtpi_image_record rtpi_disk_image_table[] = {
     { "PICB6/O", IMG_ROOM_OBJ, 27, 0x198 },
     { "PICB7/O", IMG_ROOM_OBJ,  7, 0x061 },
     { "PICB8/O", IMG_ROOM_OBJ, 52, 0x072 },
-    { "PICBB/O", IMG_ROOM_OBJ, 31, 0x0df },
+    { "PICBB/O", IMG_ROOM_OBJ, 31, 0x036 },
     { "PICBE/O", IMG_ROOM,     33, 0x01e },
     { "PICBF/O", IMG_ROOM,     34, 0x024 },
     { "PICBG/O", IMG_ROOM,     35, 0x026 },
-    { "PICBH/O", IMG_ROOM,     36, 0x026 },
+    { "PICBH/O", IMG_ROOM,     36, 0x01c },
     { "PICBI/O", IMG_ROOM,     37, 0x01c },
     {NULL, 0, 0, 0}
 };
@@ -1395,8 +1395,8 @@ ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length) {
     #define FDIR_SECTOR 1
     #define FDIR_MAX_ENTRIES 127
     #define FDR_NAME_LENGTH 10
-    #define FDR_SECTORS_ALLOC 0x0E
-    #define FDR_EOF_OFFSET 0x10
+    #define FDR_RECORD_LENGTH 0x11
+    #define FDR_NUM_RECORDS 0x12
     #define FDR_DATA_CHAIN 0x1C
 
     if (length < SECTOR_SIZE * 2)
@@ -1439,18 +1439,13 @@ ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length) {
             end--;
         name[end] = '\0';
 
-        uint16_t sectors_alloc = READ_BE_UINT16(fdr + FDR_SECTORS_ALLOC);
-        uint8_t eof_offset = fdr[FDR_EOF_OFFSET];
-
-        /* File size: (N-1) full sectors + EOF offset in last sector.
-           EOF offset 0 means the last sector is fully used. */
-        size_t filesize;
-        if (sectors_alloc == 0)
-            filesize = 0;
-        else if (eof_offset == 0)
-            filesize = (size_t)sectors_alloc * SECTOR_SIZE;
-        else
-            filesize = (size_t)(sectors_alloc - 1) * SECTOR_SIZE + eof_offset;
+        /* TI-99/4A fixed-length record files: logical size is record_length * num_records.
+           A record_length of 0 in the FDR means 256.
+           (This does not apply to program files,
+            but we are not interested in them here.) */
+        uint8_t record_length = fdr[FDR_RECORD_LENGTH];
+        uint8_t num_records = fdr[FDR_NUM_RECORDS];
+        size_t filesize = (size_t)(record_length == 0 ? 256 : record_length) * num_records;
 
         /* First data sector from the first data chain pointer.
            Each chain entry is 3 bytes: 2-byte start sector (little-endian)
