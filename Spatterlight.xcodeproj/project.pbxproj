@@ -3075,7 +3075,6 @@
 		C38784F326582AE200B4D886 /* ImageCompareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCompareViewController.m; sourceTree = "<group>"; };
 		C38784F426582AE200B4D886 /* ImageCompareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCompareViewController.xib; sourceTree = "<group>"; };
 		C3893A092F857FC1007A6D48 /* glkautosave.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glkautosave.h; sourceTree = "<group>"; };
-		C3893A0A2F857FC1007A6D48 /* glkautosave.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = glkautosave.cpp; sourceTree = "<group>"; };
 		C38974EF275336DA00876AF1 /* nodoc.htm */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = nodoc.htm; sourceTree = "<group>"; };
 		C38974F0275336DA00876AF1 /* t3changes.htm */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = t3changes.htm; sourceTree = "<group>"; };
 		C38974F1275336DA00876AF1 /* nolibref.htm */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = nolibref.htm; sourceTree = "<group>"; };
@@ -3422,6 +3421,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C367C9B92FAE217000741FC1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Supporting Files/mole.sna",
+			);
+			target = C3CEC2B526A6D0A200120469 /* UITests */;
+		};
 		C36E35152F7AB64B006E3AED /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -3434,7 +3440,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C338CF402F71B86E00BCBD18 /* GlkController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = GlkController; sourceTree = "<group>"; };
 		C3533BE42F71D39200A03CDE /* TableViewController */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TableViewController; sourceTree = "<group>"; };
-		C3983D882F62CE4600717789 /* SpatterlightTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C36E35152F7AB64B006E3AED /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SpatterlightTests; sourceTree = "<group>"; };
+		C3983D882F62CE4600717789 /* SpatterlightTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C367C9B92FAE217000741FC1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, C36E35152F7AB64B006E3AED /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SpatterlightTests; sourceTree = "<group>"; };
 		C3DB14582E8418BB00837F69 /* MappingModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MappingModels; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -4324,7 +4330,6 @@
 				961CCE7C09F237E700528FF9 /* Products */,
 				C3983D882F62CE4600717789 /* SpatterlightTests */,
 				C3CEC2B726A6D0A200120469 /* UITests */,
-				C36AD1A72F892CDA00E65111 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -5928,14 +5933,6 @@
 				C36797D32EF0415B008A6A0D /* pcdraw.c */,
 			);
 			path = common_sagadraw;
-			sourceTree = "<group>";
-		};
-		C36AD1A72F892CDA00E65111 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				C3893A0A2F857FC1007A6D48 /* glkautosave.cpp */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		C374D19726EE4B4F006F430E /* Products */ = {
@@ -9298,6 +9295,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "$(APP_BUILD)";
 				DEAD_CODE_STRIPPING = YES;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9355,6 +9353,7 @@
 				CURRENT_PROJECT_VERSION = "$(APP_BUILD)";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
