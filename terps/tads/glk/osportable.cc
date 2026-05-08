@@ -364,7 +364,10 @@ osfdup(osfildef *orig, const char *mode)
     *p = '\0';
 
     /* duplicate the handle in the given mode */
-    return fdopen(dup(fileno(orig)), mode);
+    int fd = dup(fileno(orig));
+    if (fd < 0)
+        return 0;
+    return fdopen(fd, mode);
 }
 
 
@@ -503,7 +506,7 @@ os_get_tmp_path( char* buf )
         return;
     }
 
-    strcpy(buf, tmpDir);
+    strncpy(buf, tmpDir, OSFNMAX);
 
     // Append a slash if necessary.
     size_t len = strlen(buf);

@@ -332,18 +332,18 @@ void os_set_save_ext(const char *ext)
 void os_get_charmap(char *mapname, int charmap_id)
 {
 #ifndef GLK_UNICODE
-    strcpy(mapname, "asc7dflt");
+    strncpy(mapname, "asc7dflt", 32);
 #else
     switch (charmap_id)
     {
         case OS_CHARMAP_DISPLAY:
         case OS_CHARMAP_FILECONTENTS:
-            strcpy(mapname, "utf-8");
+            strncpy(mapname, "utf-8", 32);
             break;
 
         case OS_CHARMAP_FILENAME:
         default:
-            strcpy(mapname, "asc7dflt");
+            strncpy(mapname, "asc7dflt", 32);
             break;
     }
 #endif
