@@ -141,14 +141,15 @@ int SanityCheckHeader(void)
    - Localized (non-English): high bit on first byte = new word
    - Uncompressed: NUL-separated words, '*' = synonym marker
    A byte > 127 terminates the dictionary. */
-uint8_t *ReadDictionary(const GameInfo *info, uint8_t **pointer)
+static uint8_t *ReadDictionary(const GameInfo *info, uint8_t *ptr)
 {
-    uint8_t *ptr = *pointer;
-    if (info->word_length + 2 > 1024)
+    int wl = info->word_length;
+    if (wl < 1 || wl > 30)
         Fatal("Bad word length");
     char dictword[32];
     char c = 0;
     int charindex = 0;
+    uint8_t *endptr = entire_file + file_length;
 
     int nv = info->number_of_verbs;
     int nn = info->number_of_nouns;
@@ -159,7 +160,10 @@ uint8_t *ReadDictionary(const GameInfo *info, uint8_t **pointer)
     }
 
     for (int wordnum = 0; wordnum <= nv + nn; wordnum++) {
-        for (int i = 0; i < info->word_length; i++) {
+        int restarts = 0;
+        for (int i = 0; i < wl; i++) {
+            if (ptr >= endptr)
+                return ptr;
             c = *(ptr++);
 
             if (info->dictionary == FOUR_LETTER_COMPRESSED || info->dictionary == GERMAN_C64 || info->dictionary == SPANISH_C64) {
@@ -167,32 +171,41 @@ uint8_t *ReadDictionary(const GameInfo *info, uint8_t **pointer)
                     if (c >= 'a') {
                         c = toupper(c);
                     } else if (c != '.' && c != 0) {
-                        dictword[charindex++] = '*';
+                        if (charindex < 31)
+                            dictword[charindex++] = '*';
                     }
                 }
-                dictword[charindex++] = c;
+                if (charindex < 31)
+                    dictword[charindex++] = c;
             } else if (info->subtype == LOCALIZED) {
                 if (charindex == 0) {
                     if (c & 0x80) {
                         c = c & 0x7f;
                     } else if (c != '.') {
-                        dictword[charindex++] = '*';
+                        if (charindex < 31)
+                            dictword[charindex++] = '*';
                     }
                 }
-                dictword[charindex++] = c;
+                if (charindex < 31)
+                    dictword[charindex++] = c;
             } else {
-                if (c == 0 && charindex == 0)
+                if (c == 0 && charindex == 0) {
+                    if (ptr >= endptr)
+                        return ptr;
                     c = *(ptr++);
+                }
                 if (c != ' ' && charindex > 0 && dictword[charindex - 1] == ' ') {
                     i--;
                     charindex--;
                 }
                 if (c == '*') {
-                    if (charindex != 0)
-                        charindex = 0;
+                    charindex = 0;
                     i = -1;
+                    if (++restarts > wl)
+                        break;
                 }
-                dictword[charindex++] = c;
+                if (charindex < 31)
+                    dictword[charindex++] = c;
             }
         }
         dictword[charindex] = 0;
@@ -776,7 +789,7 @@ static GameIDType TryLoadingOld(const GameInfo *info, int dict_start)
     if (SeekIfNeeded(info->start_of_dictionary, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ptr = ReadDictionary(info, &ptr);
+    ptr = ReadDictionary(info, ptr);
 
 #pragma mark rooms
 
@@ -903,7 +916,7 @@ GameIDType TryLoading(const GameInfo *info, int dict_start)
     if (SeekIfNeeded(info->start_of_dictionary, &offset, &ptr) == 0)
         return UNKNOWN_GAME;
 
-    ptr = ReadDictionary(info, &ptr);
+    ptr = ReadDictionary(info, ptr);
 
 #pragma mark rooms
 
