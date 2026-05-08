@@ -20,6 +20,8 @@
 #import "Fetches.h"
 #import "NSString+Categories.h"
 #import "BuiltInThemes.h"
+#import "GlkTextBufferWindow.h"
+#import "BufferTextView.h"
 
 @interface GameImportXCTests : XCTestCase
 
@@ -795,6 +797,179 @@
 - (void)testZorkZero {
     [self importAndRunGameFile:@"zork0.zblorb"
              commandScriptName:@"Zork Zero"];
+}
+
+- (void)testMoleScrolling {
+    XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import completes"];
+    XCTestExpectation *scrollTestExpectation = [self expectationWithDescription:@"Scroll test completes"];
+
+    NSURL *gameFileURL = [self gameFileURLForFileNamed:@"mole.sna"];
+
+    [self deleteGameAtPath:gameFileURL.path];
+
+    NSUInteger initialCount = [self currentGameCount];
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
+
+    GameImporter *importer = [self createGameImporter];
+    GameLauncher *launcher = [self createAndSetupGameLauncher];
+
+    __block BOOL originalDeterminismSetting = NO;
+    __block BOOL originalSlowDrawSetting = NO;
+    __block BOOL originalAutosaveSetting = NO;
+    __block Theme *oldTheme = nil;
+
+    [self observeImportCompletionWithInitialCount:initialCount
+                                      gameFileURL:gameFileURL
+                                     fetchRequest:fetchRequest
+                                       onComplete:^(Game *game) {
+        [self verifyGame:game hasPath:gameFileURL.path];
+        [importExpectation fulfill];
+
+        GlkController *tempgctl = [[GlkController alloc] init];
+        [tempgctl deleteAutosaveFilesForGame:game];
+
+        Theme *theme = [BuiltInThemes createDefaultThemeInContext:self.testContext forceRebuild:NO];
+        oldTheme = game.theme;
+        game.theme = theme;
+
+        originalDeterminismSetting = game.theme.determinism;
+        game.theme.determinism = YES;
+        originalSlowDrawSetting = game.theme.slowDrawing;
+        game.theme.slowDrawing = NO;
+        originalAutosaveSetting = game.theme.autosave;
+        game.theme.autosave = NO;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSWindow *gameWindow = [launcher playGame:game restorationHandler:nil];
+
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                XCTAssertNotNil(gameWindow, @"Game window should be created");
+
+                GlkController *glkController = self.tableViewController.gameSessions[game.hashTag];
+                XCTAssertNotNil(glkController, @"GlkController should be created");
+
+                if (!glkController) {
+                    [scrollTestExpectation fulfill];
+                    return;
+                }
+
+                XCTAssertNotNil(glkController.window, @"Game window should exist");
+
+                // Resize window to half the default content size
+                NSSize defaultSize = gameWindow.contentView.frame.size;
+                NSSize halfSize = NSMakeSize(defaultSize.width / 2.0, defaultSize.height / 2.0);
+                NSRect contentRect = NSMakeRect(0, 0, halfSize.width, halfSize.height);
+                NSRect newWindowFrame = [gameWindow frameRectForContentRect:contentRect];
+                newWindowFrame.origin = gameWindow.frame.origin;
+                [gameWindow setFrame:newWindowFrame display:YES];
+
+                // Wait for the resize to take effect and the game to settle
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+                    // Find the text buffer window
+                    GlkTextBufferWindow *bufferWin = nil;
+                    for (GlkWindow *win in glkController.gwindows.allValues) {
+                        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+                            bufferWin = (GlkTextBufferWindow *)win;
+                            break;
+                        }
+                    }
+
+                    XCTAssertNotNil(bufferWin, @"Should have a text buffer window");
+
+                    if (!bufferWin) {
+                        game.theme.determinism = originalDeterminismSetting;
+                        game.theme.slowDrawing = originalSlowDrawSetting;
+                        game.theme.autosave = originalAutosaveSetting;
+                        game.theme = oldTheme;
+                        [glkController.window performClose:nil];
+                        [scrollTestExpectation fulfill];
+                        return;
+                    }
+
+                    NSScrollView *scrollView = bufferWin.textview.enclosingScrollView;
+                    XCTAssertNotNil(scrollView, @"Buffer window should have a scroll view");
+
+                    CGFloat scrollPositionBefore = scrollView.contentView.bounds.origin.y;
+                    NSLog(@"Scroll position before wait: %f", scrollPositionBefore);
+
+                    // Wait 3 seconds and check that scroll position has not changed
+                    // (The Adrian Mole games cycle char events rapidly, which should
+                    // not cause scrolling)
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+                        CGFloat scrollPositionAfterWait = scrollView.contentView.bounds.origin.y;
+                        NSLog(@"Scroll position after wait: %f", scrollPositionAfterWait);
+
+                        XCTAssertEqual(scrollPositionBefore, scrollPositionAfterWait,
+                                       @"Scroll position should not change during idle wait (was %f, now %f)",
+                                       scrollPositionBefore, scrollPositionAfterWait);
+
+                        // Now send space keypresses and measure scroll changes
+                        CGFloat scrollPositionBeforeSpace = scrollPositionAfterWait;
+
+                        [bufferWin sendKeypress:' '];
+
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            CGFloat scrollAfterFirstSpace = scrollView.contentView.bounds.origin.y;
+                            CGFloat firstScrollDelta = scrollAfterFirstSpace - scrollPositionBeforeSpace;
+                            NSLog(@"Scroll position after first space: %f (delta: %f)", scrollAfterFirstSpace, firstScrollDelta);
+
+                            [bufferWin sendKeypress:' '];
+
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                CGFloat scrollAfterSecondSpace = scrollView.contentView.bounds.origin.y;
+                                CGFloat secondScrollDelta = scrollAfterSecondSpace - scrollAfterFirstSpace;
+                                NSLog(@"Scroll position after second space: %f (delta: %f)", scrollAfterSecondSpace, secondScrollDelta);
+
+                                [bufferWin sendKeypress:' '];
+
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                    CGFloat scrollAfterThirdSpace = scrollView.contentView.bounds.origin.y;
+                                    CGFloat thirdScrollDelta = scrollAfterThirdSpace - scrollAfterSecondSpace;
+                                    NSLog(@"Scroll position after third space: %f (delta: %f)", scrollAfterThirdSpace, thirdScrollDelta);
+
+                                    NSLog(@"Summary - scroll deltas on space: first=%f second=%f third=%f",
+                                          firstScrollDelta, secondScrollDelta, thirdScrollDelta);
+
+                                    XCTAssert(round(firstScrollDelta) == round(secondScrollDelta));
+                                    XCTAssert(round(thirdScrollDelta) == round(secondScrollDelta));
+
+                                    NSLog(@"Total scroll from %f to %f (total delta: %f)",
+                                          scrollPositionBeforeSpace, scrollAfterThirdSpace,
+                                          scrollAfterThirdSpace - scrollPositionBeforeSpace);
+
+                                    // Restore theme settings and clean up
+                                    game.theme.determinism = originalDeterminismSetting;
+                                    game.theme.slowDrawing = originalSlowDrawSetting;
+                                    game.theme.autosave = originalAutosaveSetting;
+                                    game.theme = oldTheme;
+
+                                    [glkController.window performClose:nil];
+                                    [scrollTestExpectation fulfill];
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    }];
+
+    NSDictionary *options = @{
+        @"lookForImages": @(NO),
+        @"downloadInfo": @(NO),
+        @"context": self.testContext
+    };
+
+    [importer addFiles:@[gameFileURL] options:options];
+
+    [self waitForExpectationsWithTimeout:60.0 handler:^(NSError * _Nullable error) {
+        [self deleteGameAtPath:gameFileURL.path];
+        if (error) {
+            XCTFail(@"Test timed out: %@", error);
+        }
+    }];
 }
 
 @end
