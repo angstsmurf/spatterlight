@@ -13,6 +13,30 @@
 #include "bsd.h"
 
 #define MAX_BUFFER 128
+#define INPUT_BUFFER_SIZE 512
+
+/* "y.m.c.a." is 8 characters; "Dr."/"Mr." titles are 3 */
+#define YMCA_PATTERN_LEN 8
+#define TITLE_PATTERN_LEN 3
+
+/* Direction array layout (see EnglishDirections[]):
+   indices 1-6 = full names (N/S/E/W/U/D),
+   indices 7-12 = single-letter abbreviations,
+   index 13 = alternate west (Spanish 'w' for 'oeste'). */
+#define DIR_ABBREV_OFFSET 6
+#define DIR_WEST 4
+#define DIR_ALT_WEST 13
+#define NUM_DIRECTION_NOUNS 6
+
+/* Sanity cap for item count in TAKE ALL / DROP ALL */
+#define MAX_ITEM_LIMIT 2048
+
+/* TI-99/4A repurposes ASCII form-feed (0x0C) for ö */
+#define TI99_O_UMLAUT 12
+
+/* Game-specific verb/noun indices for workarounds */
+#define SHERWOOD_REST_VERB 56
+#define GERMAN_FALLEN_NOUN 123
 
 extern struct Command *CurrentCommand;
 
@@ -287,8 +311,8 @@ static void CreateErrorMessage(const char *fchar, glui32 *second, const char *tc
         free(third);
     }
     int length = i + j + k;
-    FirstErrorMessage = MemAlloc((length + 1) * 4);
-    memcpy(FirstErrorMessage, buffer, length * 4);
+    FirstErrorMessage = MemAlloc((length + 1) * sizeof(glui32));
+    memcpy(FirstErrorMessage, buffer, length * sizeof(glui32));
     FirstErrorMessage[length] = 0;
     free(first);
 }
@@ -334,7 +358,7 @@ static glui32 MapTI994A(unsigned char b)
         return 0x00A9; /* © */
     case '}':
         return 0x00FC; /* ü */
-    case 12:
+    case TI99_O_UMLAUT:
         return 0x00F6; /* ö */
     case '{':
         return 0x00E4; /* ä */
@@ -441,9 +465,9 @@ glui32 *ToUnicode(const char *string)
         glui32 mapped = mapper(b);
 
         /* Normalize any carriage returns to line feeds */
-        if (mapped == 13 || mapped == 10) {
+        if (mapped == '\r' || mapped == '\n') {
             lastwasnewline = 1;
-            mapped = 10;
+            mapped = '\n';
         } else {
             lastwasnewline = 0;
         }
@@ -563,57 +587,72 @@ static int MatchYMCA(glui32 *string, int length, int index)
 {
     const char *ymca = "y.m.c.a.";
     int i;
-    for (i = 0; i < 8; i++) {
+    for (i = 0; i < YMCA_PATTERN_LEN; i++) {
         if (i + index > length || string[index + i] != ymca[i])
             return i;
     }
     return i;
 }
 
+static int MatchTitleWithPeriod(glui32 *string, int length, int index)
+{
+    if (length >= TITLE_PATTERN_LEN) {
+        if ((string[0] == 'm' || string[0] == 'd') &&
+            string[1] == 'r' &&
+            string[2] == '.')
+            return TITLE_PATTERN_LEN;
+    }
+    return 0;
+}
+
 /* Tokenize a Unicode input string into words.
    Lowercases the input, coalesces whitespace, splits on spaces and
-   various Unicode space variants, and turns commas/periods/semicolons
-   into separate tokens (acting as command delimiters). Produces
-   parallel UnicodeWords[] and CharWords[] arrays. Special-cases the
-   "y.m.c.a." item name from Gremlins to keep it as one token. */
+   various Unicode space variants, and emits commas/periods/semicolons
+   as single-character delimiter tokens (matched by DelimiterList).
+   Produces parallel UnicodeWords[] and CharWords[] arrays.
+   Special-cases "y.m.c.a." (Gremlins) and "Dr."/"Mr." titles
+   to keep them as single tokens despite the embedded periods. */
 void SplitIntoWords(glui32 *string, int length)
 {
-    if (length < 1) {
+    if (length < 1)
         return;
-    }
 
-    glk_buffer_to_lower_case_uni(string, 512, MIN(length, 512));
-    glk_buffer_canon_normalize_uni(string, 512, MIN(length, 512));
+    glk_buffer_to_lower_case_uni(string, INPUT_BUFFER_SIZE, MIN(length, INPUT_BUFFER_SIZE));
+    glk_buffer_canon_normalize_uni(string, INPUT_BUFFER_SIZE, MIN(length, INPUT_BUFFER_SIZE));
 
     int startpos[MAX_WORDS];
     int wordlength[MAX_WORDS];
-
     int words_found = 0;
-    int word_index = 0;
-    int foundspace = 0;
-    int foundcomma = 0;
-    startpos[0] = 0;
-    wordlength[0] = 0;
     int lastwasspace = 1;
-    for (int i = 0; string[i] != 0 && i < length && word_index < MAX_WORDS;
-         i++) {
-        foundspace = 0;
+
+    for (int i = 0; string[i] != 0 && i < length; i++) {
+        int title_len = 0;
+        int is_space = 0;
+        int is_delimiter = 0;
+
         switch (string[i]) {
+        case 'd':
+        case 'm':
+            title_len = MatchTitleWithPeriod(string, length, i);
+            /* Falls through to also check YMCA pattern */
         case 'y': {
-            int ymca = MatchYMCA(string, length, i);
-            if (ymca > 3) {
-                /* Start a new word */
+            int match_len = MatchYMCA(string, length, i);
+            if (title_len > match_len)
+                match_len = title_len;
+            if (match_len > YMCA_PATTERN_LEN / 2 || title_len > TITLE_PATTERN_LEN - 1) {
+                /* Matched "y.m.c.a." or "Dr."/"Mr." — emit as single token */
+                if (words_found >= MAX_WORDS)
+                    goto done;
                 startpos[words_found] = i;
-                wordlength[words_found] = ymca;
+                wordlength[words_found] = match_len;
                 words_found++;
-                wordlength[words_found] = 0;
-                i += ymca;
-                if (i < length)
-                    foundspace = 1;
-                lastwasspace = 0;
+                i += match_len - 1; /* -1: the for-loop increment adds 1 */
+                lastwasspace = 1;
+                continue;
             }
         } break;
-            /* Unicode space and tab variants */
+
+        /* Whitespace, punctuation treated as whitespace, and Unicode spaces */
         case ' ':
         case '\t':
         case '!':
@@ -624,55 +663,65 @@ void SplitIntoWords(glui32 *string, int length)
         case 0xa0:   // non-breaking space
         case 0x2000: // en quad
         case 0x2001: // em quad
-        case 0x2003: // em
-        case 0x2004: // three-per-em
-        case 0x2005: // four-per-em
-        case 0x2006: // six-per-em
+        case 0x2003: // em space
+        case 0x2004: // three-per-em space
+        case 0x2005: // four-per-em space
+        case 0x2006: // six-per-em space
         case 0x2007: // figure space
         case 0x2009: // thin space
         case 0x200A: // hair space
         case 0x202f: // narrow no-break space
         case 0x205f: // medium mathematical space
         case 0x3000: // ideographic space
-            foundspace = 1;
+            is_space = 1;
             break;
+
+        /* Punctuation delimiters — emitted as their own tokens */
         case '.':
         case ',':
         case ';':
-            foundcomma = 1;
+            is_delimiter = 1;
             break;
+
         default:
             break;
         }
-        if (!foundspace) {
-            if (lastwasspace || foundcomma) {
-                /* Start a new word */
+
+        if (is_space) {
+            lastwasspace = 1;
+        } else if (is_delimiter) {
+            /* Emit the delimiter character as a one-character word token
+               so downstream parsing can match it in DelimiterList */
+            if (words_found >= MAX_WORDS)
+                break;
+            startpos[words_found] = i;
+            wordlength[words_found] = 1;
+            words_found++;
+            lastwasspace = 1;
+        } else {
+            if (lastwasspace) {
+                if (words_found >= MAX_WORDS)
+                    break;
                 startpos[words_found] = i;
                 wordlength[words_found] = 0;
                 words_found++;
             }
             wordlength[words_found - 1]++;
             lastwasspace = 0;
-        } else {
-            /* Check if the last character of previous word was a period or a comma */
-            lastwasspace = 1;
-            foundcomma = 0;
         }
     }
+done:
 
-    if (words_found == 0) {
+    if (words_found == 0)
         return;
-    }
 
-    /* We've created two arrays, one for starting positions
-     and one for word length. Now we convert these into an
-     array of strings */
+    /* Convert start-position/length pairs into allocated string arrays */
     glui32 **words = MemAlloc(words_found * sizeof(*words));
     char **words8 = MemAlloc(words_found * sizeof(*words8));
 
     for (int i = 0; i < words_found; i++) {
-        words[i] = (glui32 *)MemAlloc((wordlength[i] + 1) * 4);
-        memcpy(words[i], string + startpos[i], wordlength[i] * 4);
+        words[i] = (glui32 *)MemAlloc((wordlength[i] + 1) * sizeof(glui32));
+        memcpy(words[i], string + startpos[i], wordlength[i] * sizeof(glui32));
         words[i][wordlength[i]] = 0;
         words8[i] = FromUnicode(words[i], wordlength[i]);
     }
@@ -686,11 +735,11 @@ void SplitIntoWords(glui32 *string, int length)
 void LineInput(void)
 {
     event_t ev;
-    glui32 unibuf[512];
+    glui32 unibuf[INPUT_BUFFER_SIZE];
 
     do {
         Display(Bottom, "\n%s", sys[WHAT_NOW]);
-        glk_request_line_event_uni(Bottom, unibuf, (glui32)511, 0);
+        glk_request_line_event_uni(Bottom, unibuf, (glui32)(INPUT_BUFFER_SIZE - 1), 0);
 
         while (1) {
             glk_select(&ev);
@@ -841,12 +890,11 @@ static int FindVerbOrNoun(const char *word, const SearchSpec *order, int list_si
                 return idx;
 
             case L_DIRECTIONS:
-                /* Convert dictionary word index to direction index.
-                 */
-                if (idx == 13)
-                    idx = 4;
-                if (idx > 6)
-                    idx -= 6;
+                /* Convert dictionary word index to direction index */
+                if (idx == DIR_ALT_WEST)
+                    idx = DIR_WEST;
+                if (idx > NUM_DIRECTION_NOUNS)
+                    idx -= DIR_ABBREV_OFFSET;
                 return idx;
 
             case L_ABBREVS: {
@@ -1110,9 +1158,9 @@ static Command *CommandFromStrings(int index, Command *previous)
    matched (with an appropriate error message). */
 static int CreateAllCommands(Command *command)
 {
-    if (GameHeader.NumItems > 2048)
+    if (GameHeader.NumItems > MAX_ITEM_LIMIT)
         Fatal("Bad number of items");
-    int exceptions[2048];
+    int exceptions[MAX_ITEM_LIMIT];
     int exceptioncount = 0;
 
     int location = CARRIED;
@@ -1234,14 +1282,14 @@ int GetInput(int *vb, int *no)
        by the fact that the game lists FALLEN and LASSEN as both
        verbs and nouns. */
 
-    if ((CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64) && CurrentCommand->verb - GameHeader.NumWords == ALL && CurrentCommand->noun == 123) {
+    if ((CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64) && CurrentCommand->verb - GameHeader.NumWords == ALL && CurrentCommand->noun == GERMAN_FALLEN_NOUN) {
         CurrentCommand->verb = DROP;
         CurrentCommand->noun = ALL + GameHeader.NumWords;
     }
 
     /* Hack to make RESTORE and RESTART work in Robin of Sherwood */
     /* instead of being understood as REST, a synonym of WAIT.     */
-    if (Game->type == SHERWOOD_VARIANT && CurrentCommand->verb == 56) {
+    if (Game->type == SHERWOOD_VARIANT && CurrentCommand->verb == SHERWOOD_REST_VERB) {
         char *verbword = CharWords[CurrentCommand->verbwordindex];
         if (xstrncasecmp(verbword, "restore", 7) == 0)
             CurrentCommand->verb = GameHeader.NumWords + RESTORE;
@@ -1275,7 +1323,7 @@ int GetInput(int *vb, int *no)
     *vb = CurrentCommand->verb;
     *no = CurrentCommand->noun;
 
-    if (*no > 6) {
+    if (*no > NUM_DIRECTION_NOUNS) {
         lastnoun = *no;
     }
 
