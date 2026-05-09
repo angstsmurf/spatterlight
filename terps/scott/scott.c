@@ -72,6 +72,132 @@
 #include "glkimp.h"
 #endif
 
+/* Number of exit directions per room (N/S/E/W/U/D) */
+#define NUM_EXITS 6
+
+/* Number of counter/room-flag save slots */
+#define NUM_COUNTERS 16
+
+/* Room image sentinel: no image assigned */
+#define NO_IMAGE 255
+
+/* Mask to extract the image index from a room/item image byte */
+#define IMAGE_INDEX_MASK 127
+
+/* Brian Howarth vector graphics format identifier */
+#define HOWARTH_FORMAT 99
+
+/* Action table encoding: vocab = verb * VOCAB_MULTIPLIER + noun,
+   condition = param * CONDITION_MULTIPLIER + condition_code */
+#define VOCAB_MULTIPLIER 150
+#define CONDITION_MULTIPLIER 20
+#define NUM_CONDITIONS 5
+#define NUM_SUBCOMMANDS 4
+
+/* Condition codes (0-19) — used in action table condition fields */
+#define COND_PARAMETER       0
+#define COND_CARRIED         1
+#define COND_IN_ROOM         2
+#define COND_PRESENT         3
+#define COND_AT_LOC          4
+#define COND_NOT_IN_ROOM     5
+#define COND_NOT_CARRIED     6
+#define COND_NOT_AT_LOC      7
+#define COND_FLAG_SET        8
+#define COND_FLAG_CLEAR      9
+#define COND_CARRYING_ANY   10
+#define COND_CARRYING_NONE  11
+#define COND_NOT_PRESENT    12
+#define COND_IN_PLAY        13
+#define COND_NOT_IN_PLAY    14
+#define COND_COUNTER_LE     15
+#define COND_COUNTER_GT     16
+#define COND_AT_INITIAL_LOC 17
+#define COND_MOVED          18
+#define COND_COUNTER_EQ     19
+
+/* Subcommand message ranges: codes 1-51 print that message directly,
+   codes 102+ print message (code - EXTENDED_MSG_OFFSET) */
+#define FIRST_MESSAGE 1
+#define LAST_DIRECT_MESSAGE 51
+#define EXTENDED_MSG_BASE 102
+#define EXTENDED_MSG_OFFSET 50
+
+/* Subcommand opcodes (52-90) — game state operations */
+#define CMD_GET             52
+#define CMD_DROP_HERE       53
+#define CMD_GOTO            54
+#define CMD_DESTROY         55
+#define CMD_SET_DARK        56
+#define CMD_SET_LIGHT       57
+#define CMD_SET_FLAG        58
+#define CMD_DESTROY_2       59
+#define CMD_CLEAR_FLAG      60
+#define CMD_DIE             61
+#define CMD_PUT_IN_ROOM     62
+#define CMD_GAME_OVER       63
+#define CMD_LOOK            64
+#define CMD_SCORE           65
+#define CMD_INVENTORY       66
+#define CMD_SET_FLAG0       67
+#define CMD_CLEAR_FLAG0     68
+#define CMD_REFILL_LAMP     69
+#define CMD_CLEAR_SCREEN    70
+#define CMD_SAVE_GAME       71
+#define CMD_SWAP_ITEMS      72
+#define CMD_CONTINUE        73
+#define CMD_FORCED_GET      74
+#define CMD_MOVE_TO_LOC_OF  75
+#define CMD_LOOK2           76
+#define CMD_DEC_COUNTER     77
+#define CMD_PRINT_COUNTER   78
+#define CMD_SET_COUNTER     79
+#define CMD_SWAP_LOC        80
+#define CMD_SWAP_COUNTERS   81
+#define CMD_ADD_COUNTER     82
+#define CMD_SUB_COUNTER     83
+#define CMD_PRINT_NOUN      84
+#define CMD_PRINTLN_NOUN    85
+#define CMD_NEWLINE         86
+#define CMD_SWAP_ROOMFLAG   87
+#define CMD_DELAY           88
+#define CMD_GAME_SPECIFIC   89
+#define CMD_DRAW_IMAGE      90
+
+/* Display/buffer sizes */
+#define DISPLAY_BUFFER_SIZE 2048
+#define ROOM_DESC_BUFFER_SIZE 1000
+#define READSTRING_BUFFER_SIZE 1024
+
+/* Array sizes for Seas of Blood data */
+#define NUM_SYSTEM_MESSAGES 60
+#define NUM_BATTLE_MESSAGES 33
+#define ENEMY_TABLE_SIZE 126
+
+/* Lamp timer thresholds */
+#define LAMP_WARNING_THRESHOLD 25
+#define LAMP_WARNING_INTERVAL 5
+
+/* Game-specific EXAMINE verb indices */
+#define HULK_EXAMINE_VERB 39
+#define COUNT_EXAMINE_VERB 8
+#define VOODOO_EXAMINE_VERB 42
+#define ADVENTURELAND_EXAMINE_VERB 29
+#define PIRATE_EXAMINE_VERB 27
+#define MISSION_EXAMINE_VERB 40
+#define STRANGE_EXAMINE_VERB 37
+
+/* Game-specific constants for workarounds */
+#define SAVAGE_BEAR_ITEM 20
+#define SAVAGE_BEACH_ROOM 8
+#define SAVAGE_BEAR_IMAGE 9
+#define RTPI_WIN_IMAGE 26
+#define US_GAME_SPECIFIC_IMAGE 80
+#define HULK_DOS_ID 703
+#define HULK_DOS_WIDTH 280
+#define HULK_DOS_HEIGHT 158
+#define DETERMINISTIC_SEED 1234
+
 const char *game_file = NULL;
 char *DirPath = "."; /* Directory containing the game file */
 
@@ -84,11 +210,11 @@ char **Nouns = NULL;
 char **Messages = NULL;
 Action *Actions = NULL;
 int LightRefill; /* Initial light duration, used when refilling the lamp */
-int Counters[16] = { 0, 0, 0, 0, 0, 0, 0, 0,
+int Counters[NUM_COUNTERS] = { 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0 }; /* Range unknown */
 int CurrentCounter;
 int SavedRoom;
-int RoomSaved[16] = { 0, 0, 0, 0, 0, 0, 0, 0,
+int RoomSaved[NUM_COUNTERS] = { 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0 }; /* Range unknown */
 
 long BitFlags = 0; /* Might be >32 flags - I haven't seen >32 yet */
@@ -110,10 +236,10 @@ extern const char *sysdict[MAX_SYSMESS];
 extern const char *sysdict_i_am[MAX_SYSMESS];
 
 const char *sys[MAX_SYSMESS]; /* Active system messages (localized prompts, exits, etc.) */
-const char *system_messages[60];
+const char *system_messages[NUM_SYSTEM_MESSAGES];
 
-const char *battle_messages[33]; /* Seas of Blood combat messages */
-uint8_t enemy_table[126]; /* Seas of Blood enemy stat table */
+const char *battle_messages[NUM_BATTLE_MESSAGES]; /* Seas of Blood combat messages */
+uint8_t enemy_table[ENEMY_TABLE_SIZE]; /* Seas of Blood enemy stat table */
 
 uint8_t *entire_file; /* Raw game file loaded into memory */
 size_t file_length;
@@ -158,7 +284,7 @@ static int PerformActions(int vb, int no);
 void Display(winid_t w, const char *fmt, ...)
 {
     va_list ap;
-    char msg[2048];
+    char msg[DISPLAY_BUFFER_SIZE];
 
     int size = sizeof msg;
 
@@ -221,7 +347,7 @@ void UpdateSettings(void)
     if (Options & FORCE_PALETTE_ZX)
         palchosen = ZXOPT;
     else if (Options & FORCE_PALETTE_C64) {
-        if (Game->picture_format_version == 99)
+        if (Game->picture_format_version == HOWARTH_FORMAT)
             palchosen = C64A;
         else
             palchosen = C64B;
@@ -291,13 +417,13 @@ static void FlushRoomDescription(char *buf)
         int line = 0;
         int index = 0;
         int i;
-        char string[2048];
-        if (TopWidth > 2047)
-            TopWidth = 2047;
+        char string[DISPLAY_BUFFER_SIZE];
+        if (TopWidth > DISPLAY_BUFFER_SIZE - 1)
+            TopWidth = DISPLAY_BUFFER_SIZE - 1;
         for (line = 0; line < rows && index < length; line++) {
             for (i = 0; i < TopWidth; i++) {
                 string[i] = text_with_breaks[index++];
-                if (string[i] == 10 || string[i] == 13 || index >= length)
+                if (string[i] == '\n' || string[i] == '\r' || index >= length)
                     break;
             }
             if (i < TopWidth + 1) {
@@ -339,9 +465,9 @@ static void FlushRoomDescription(char *buf)
 /* Render inventory into the upper window for US-variant games */
 static void UpdateUSInventory(void)
 {
-    char *buf = MemAlloc(1000);
-    buf = memset(buf, 0, 1000);
-    room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
+    char *buf = MemAlloc(ROOM_DESC_BUFFER_SIZE);
+    buf = memset(buf, 0, ROOM_DESC_BUFFER_SIZE);
+    room_description_stream = glk_stream_open_memory(buf, ROOM_DESC_BUFFER_SIZE, filemode_Write, 0);
     ListInventory(1);
     FlushRoomDescription(buf);
     InventoryUS();
@@ -625,7 +751,7 @@ static int MatchUpItem(int noun, int loc)
    strips non-ASCII characters for Glk compatibility. */
 static char *ReadString(FILE *f)
 {
-    char tmp[1024];
+    char tmp[READSTRING_BUFFER_SIZE];
     int c;
     int ct = 0;
     do {
@@ -651,7 +777,7 @@ static char *ReadString(FILE *f)
         if (c == '\r')
             continue;
         /* Pass ASCII and newline to Glk; replace anything else */
-        if (c == '\n' || (c >= 32 && c <= 126))
+        if (c == '\n' || (c >= ' ' && c <= '~'))
             tmp[ct++] = c;
         else
             tmp[ct++] = '?';
@@ -806,12 +932,12 @@ GameIDType LoadDatabase(FILE *f, int loud)
 
         if (loud) {
             debug_print("Action %d Vocab: %d (Verb:%d/NounOrChance:%d)\n", ct, Actions[ct].Vocab,
-               Actions[ct].Vocab / 150, Actions[ct].Vocab % 150);
-            for (int i = 0; i < 5; i++)
+               Actions[ct].Vocab / VOCAB_MULTIPLIER, Actions[ct].Vocab % VOCAB_MULTIPLIER);
+            for (int i = 0; i < NUM_CONDITIONS; i++)
                 debug_print("Action %d Condition[%d]: %d (%d/%d)\n", ct, i,
-                    Actions[ct].Condition[i], Actions[ct].Condition[i] % 20, Actions[ct].Condition[i] / 20);
-            debug_print("Action %d Subcommand [0]]: %d (%d/%d)\n", ct, Actions[ct].Subcommand[0], Actions[ct].Subcommand[0] % 150, Actions[ct].Subcommand[0] / 150);
-            debug_print("Action %d Subcommand [1]]: %d (%d/%d)\n", ct, Actions[ct].Subcommand[1], Actions[ct].Subcommand[1] % 150, Actions[ct].Subcommand[1] / 150);
+                    Actions[ct].Condition[i], Actions[ct].Condition[i] % CONDITION_MULTIPLIER, Actions[ct].Condition[i] / CONDITION_MULTIPLIER);
+            debug_print("Action %d Subcommand [0]]: %d (%d/%d)\n", ct, Actions[ct].Subcommand[0], Actions[ct].Subcommand[0] % VOCAB_MULTIPLIER, Actions[ct].Subcommand[0] / VOCAB_MULTIPLIER);
+            debug_print("Action %d Subcommand [1]]: %d (%d/%d)\n", ct, Actions[ct].Subcommand[1], Actions[ct].Subcommand[1] % VOCAB_MULTIPLIER, Actions[ct].Subcommand[1] / VOCAB_MULTIPLIER);
         }
     }
 
@@ -828,26 +954,26 @@ GameIDType LoadDatabase(FILE *f, int loud)
     if (loud)
         debug_print("Reading %d rooms.\n", GameHeader.NumRooms);
     for (int ct = 0; ct <= GameHeader.NumRooms; ct++) {
-        int exits[6];
+        int exits[NUM_EXITS];
         if (fscanf(f, "%d %d %d %d %d %d",
                 &exits[0], &exits[1], &exits[2],
                 &exits[3], &exits[4], &exits[5])
-            != 6) {
+            != NUM_EXITS) {
             debug_print("Bad room line (%d)\n", ct);
             FreeDatabase();
             return UNKNOWN_GAME;
         }
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < NUM_EXITS; i++)
             Rooms[ct].Exits[i] = exits[i];
 
         Rooms[ct].Text = ReadString(f);
         if (loud) {
             debug_print("Room %d: \"%s\"\n", ct, Rooms[ct].Text);
             debug_print("Room connections for room %d:\n", ct);
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < NUM_EXITS; i++)
                 debug_print("Exit %d: %d\n", i, Rooms[ct].Exits[i]);
         }
-        Rooms[ct].Image = 255;
+        Rooms[ct].Image = NO_IMAGE;
     }
 
     /* Load messages (printed by action subcommands 1-51 and 102+) */
@@ -903,10 +1029,10 @@ GameIDType LoadDatabase(FILE *f, int loud)
     }
 
     fclose(f);
-    if (val == 703 && LoadDOSImages()) {
+    if (val == HULK_DOS_ID && LoadDOSImages()) {
         CurrentSys = SYS_MSDOS;
-        ImageWidth = 280;
-        ImageHeight = 158;
+        ImageWidth = HULK_DOS_WIDTH;
+        ImageHeight = HULK_DOS_HEIGHT;
         return HULK_US;
     }
     return SCOTTFREE;
@@ -944,7 +1070,7 @@ void DrawImage(int image)
         debug_print("DrawImage: Graphic window NULL?\n");
         return;
     }
-    if (Game->picture_format_version == 99)
+    if (Game->picture_format_version == HOWARTH_FORMAT)
         DrawHowarthVectorPicture(image);
     else
         DrawPictureNumber(image, (Game->type == SEAS_OF_BLOOD_VARIANT));
@@ -962,7 +1088,7 @@ void DrawRoomImage(void)
 
     int dark = ItIsDark();
 
-    if (dark && Graphics != NULL && (Rooms[MyLoc].Image != 255 || Game->type == US_VARIANT)) {
+    if (dark && Graphics != NULL && (Rooms[MyLoc].Image != NO_IMAGE || Game->type == US_VARIANT)) {
         vector_image_shown = -1;
         VectorState = NO_VECTOR_IMAGE;
         glk_request_timer_events(0);
@@ -1004,7 +1130,7 @@ void DrawRoomImage(void)
         break;
     }
 
-    if (Rooms[MyLoc].Image == 255) {
+    if (Rooms[MyLoc].Image == NO_IMAGE) {
         CloseGraphicsWindow();
         return;
     }
@@ -1012,7 +1138,7 @@ void DrawRoomImage(void)
     if (dark)
         return;
 
-    if (Game->picture_format_version == 99) {
+    if (Game->picture_format_version == HOWARTH_FORMAT) {
         DrawImage(MyLoc - 1);
         return;
     }
@@ -1020,15 +1146,15 @@ void DrawRoomImage(void)
     if (Game->type == GREMLINS_VARIANT) {
         GremlinsLook();
     } else {
-        DrawImage(Rooms[MyLoc].Image & 127);
+        DrawImage(Rooms[MyLoc].Image & IMAGE_INDEX_MASK);
     }
     for (int ct = 0; ct <= GameHeader.NumItems; ct++)
         if (Items[ct].Image && Items[ct].Location == MyLoc) {
-            if ((Items[ct].Flag & 127) == MyLoc) {
+            if ((Items[ct].Flag & IMAGE_INDEX_MASK) == MyLoc) {
                 DrawImage(Items[ct].Image);
                 /* Draw the correct image of the bear on the beach */
-            } else if (Game->type == SAVAGE_ISLAND_VARIANT && ct == 20 && MyLoc == 8) {
-                DrawImage(9);
+            } else if (Game->type == SAVAGE_ISLAND_VARIANT && ct == SAVAGE_BEAR_ITEM && MyLoc == SAVAGE_BEACH_ROOM) {
+                DrawImage(SAVAGE_BEAR_IMAGE);
             }
         }
 }
@@ -1044,7 +1170,7 @@ static void WriteToRoomDescriptionStream(const char *fmt, ...)
     if (room_description_stream == NULL)
         return;
     va_list ap;
-    char msg[2048];
+    char msg[DISPLAY_BUFFER_SIZE];
 
     va_start(ap, fmt);
     vsnprintf(msg, sizeof msg, fmt, ap);
@@ -1059,7 +1185,7 @@ static void ListExitsSpectrumStyle(void)
     int ct = 0;
     int f = 0;
 
-    while (ct < 6) {
+    while (ct < NUM_EXITS) {
         if ((&Rooms[MyLoc])->Exits[ct] != 0) {
             if (f == 0) {
                 if (!(Options & PC_STYLE))
@@ -1086,7 +1212,7 @@ static void ListExits(void)
 
     WriteToRoomDescriptionStream("\n\n%s", sys[EXITS]);
 
-    while (ct < 6) {
+    while (ct < NUM_EXITS) {
         if ((&Rooms[MyLoc])->Exits[ct] != 0) {
             if (f) {
                 WriteToRoomDescriptionStream("%s", sys[EXITS_DELIMITER]);
@@ -1127,9 +1253,9 @@ void Look(void)
     if (split_screen && Top == NULL)
         return;
 
-    char *buf = MemAlloc(1000);
-    buf = memset(buf, 0, 1000);
-    room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
+    char *buf = MemAlloc(ROOM_DESC_BUFFER_SIZE);
+    buf = memset(buf, 0, ROOM_DESC_BUFFER_SIZE);
+    room_description_stream = glk_stream_open_memory(buf, ROOM_DESC_BUFFER_SIZE, filemode_Write, 0);
 
     Room *r;
     int ct, f;
@@ -1137,7 +1263,7 @@ void Look(void)
     if (!split_screen) {
         WriteToRoomDescriptionStream("\n");
     } else if (Transcript && print_look_to_transcript) {
-        glk_put_char_stream_uni(Transcript, 10);
+        glk_put_char_stream_uni(Transcript, '\n');
     }
 
     if (ItIsDark()) {
@@ -1226,7 +1352,7 @@ void SaveGame(void)
     if (file == NULL)
         return;
 
-    for (ct = 0; ct < 16; ct++) {
+    for (ct = 0; ct < NUM_COUNTERS; ct++) {
         snprintf(buf, sizeof buf, "%d %d\n", Counters[ct], RoomSaved[ct]);
         glk_put_string_stream(file, buf);
     }
@@ -1271,7 +1397,7 @@ static void LoadGame(void)
 
     int result;
 
-    for (ct = 0; ct < 16; ct++) {
+    for (ct = 0; ct < NUM_COUNTERS; ct++) {
         glk_get_line_stream(file, buf, sizeof buf);
         result = sscanf(buf, "%d %d", &Counters[ct], &RoomSaved[ct]);
         if (result != 2 || RoomSaved[ct] > GameHeader.NumRooms) {
@@ -1292,7 +1418,7 @@ static void LoadGame(void)
 
     /* Backward compatibility */
     if (DarkFlag)
-        SetBitFlag(15);
+        SetBitFlag(DARKBIT);
     for (ct = 0; ct <= GameHeader.NumItems; ct++) {
         glk_get_line_stream(file, buf, sizeof buf);
         result = sscanf(buf, "%hd\n", &lo);
@@ -1519,7 +1645,7 @@ static int YesOrNo(void)
     do {
         glk_select(&ev);
         if (ev.type == evtype_CharInput) {
-            if ((glsi32)ev.val1 > 32) {
+            if ((glsi32)ev.val1 > ' ') {
                 glk_put_char_stream_uni(glk_window_get_stream(Bottom), ev.val1);
             }
             const char reply = tolower((char)ev.val1);
@@ -1564,7 +1690,7 @@ void HitEnter(void)
 static void WriteToLowerWindow(const char *fmt, ...)
 {
     va_list ap;
-    char msg[2048];
+    char msg[DISPLAY_BUFFER_SIZE];
 
     int size = sizeof msg;
 
@@ -1619,7 +1745,7 @@ void ListInventory(int upper)
     if (upper) {
         WriteToRoomDescriptionStream("\n");
     } else if (Transcript) {
-        glk_put_char_stream_uni(Transcript, 10);
+        glk_put_char_stream_uni(Transcript, '\n');
     }
 }
 
@@ -1665,7 +1791,7 @@ int PrintScore(void)
     if (n == GameHeader.Treasures) {
         Output(sys[YOUVE_SOLVED_IT]);
         if (CurrentGame == RETURN_TO_PIRATES_ISLE) {
-            ShowUSCloseup(26, 0);
+            ShowUSCloseup(RTPI_WIN_IMAGE, 0);
         }
         DoneIt();
         return 1;
@@ -1795,9 +1921,9 @@ void SwapCounters(int index)
         "counter %d\n",
         index);
 #endif
-    if (index > 15) {
-        debug_print("ERROR! parameter out of range. Max 15, got %d\n", index);
-        index = 15;
+    if (index > NUM_COUNTERS - 1) {
+        debug_print("ERROR! parameter out of range. Max %d, got %d\n", NUM_COUNTERS - 1, index);
+        index = NUM_COUNTERS - 1;
     }
     int temp = CurrentCounter;
 
@@ -1819,7 +1945,7 @@ void PrintMessage(int index)
     if (message != NULL && message[0] != 0) {
         Output(message);
         const char lastchar = message[strlen(message) - 1];
-        if (lastchar != 13 && lastchar != 10)
+        if (lastchar != '\r' && lastchar != '\n')
             Output(sys[MESSAGE_DELIMITER]);
     }
 }
@@ -1851,107 +1977,107 @@ static ActionResultType PerformLine(int ct)
     debug_print("Performing line %d: ", ct);
 #endif
     int continuation = 0, dead = 0;
-    int param[5], pptr = 0;
+    int param[NUM_CONDITIONS], pptr = 0;
     int p = 0;
-    int act[4];
+    int act[NUM_SUBCOMMANDS];
     int cc = 0;
-    while (cc < 5) {
+    while (cc < NUM_CONDITIONS) {
         int cv, dv;
         cv = Actions[ct].Condition[cc];
-        dv = cv / 20;
-        cv %= 20;
+        dv = cv / CONDITION_MULTIPLIER;
+        cv %= CONDITION_MULTIPLIER;
 #ifdef DEBUG_ACTIONS
         debug_print("Testing condition %d: ", cv);
 #endif
         switch (cv) {
-        case 0:
+        case COND_PARAMETER:
             param[pptr++] = dv;
             break;
-        case 1:
+        case COND_CARRIED:
 #ifdef DEBUG_ACTIONS
             debug_print("Does the player carry %s?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != CARRIED)
                 return ACT_FAILURE;
             break;
-        case 2:
+        case COND_IN_ROOM:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s in location?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != MyLoc)
                 return ACT_FAILURE;
             break;
-        case 3:
+        case COND_PRESENT:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s held or in location?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != CARRIED && Items[dv].Location != MyLoc)
                 return ACT_FAILURE;
             break;
-        case 4:
+        case COND_AT_LOC:
 #ifdef DEBUG_ACTIONS
             debug_print("Is location %s?\n", Rooms[dv].Text);
 #endif
             if (MyLoc != dv)
                 return ACT_FAILURE;
             break;
-        case 5:
+        case COND_NOT_IN_ROOM:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s NOT in location?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == MyLoc)
                 return ACT_FAILURE;
             break;
-        case 6:
+        case COND_NOT_CARRIED:
 #ifdef DEBUG_ACTIONS
             debug_print("Does the player NOT carry %s?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == CARRIED)
                 return ACT_FAILURE;
             break;
-        case 7:
+        case COND_NOT_AT_LOC:
 #ifdef DEBUG_ACTIONS
             debug_print("Is location NOT %s?\n", Rooms[dv].Text);
 #endif
             if (MyLoc == dv)
                 return ACT_FAILURE;
             break;
-        case 8:
+        case COND_FLAG_SET:
 #ifdef DEBUG_ACTIONS
             debug_print("Is bitflag %d set?\n", dv);
 #endif
             if ((BitFlags & ((uint64_t)1 << dv)) == 0)
                 return ACT_FAILURE;
             break;
-        case 9:
+        case COND_FLAG_CLEAR:
 #ifdef DEBUG_ACTIONS
             debug_print("Is bitflag %d NOT set?\n", dv);
 #endif
             if (BitFlags & ((uint64_t)1 << dv))
                 return ACT_FAILURE;
             break;
-        case 10:
+        case COND_CARRYING_ANY:
 #ifdef DEBUG_ACTIONS
             debug_print("Does the player carry anything?\n");
 #endif
             if (CountCarried() == 0)
                 return ACT_FAILURE;
             break;
-        case 11:
+        case COND_CARRYING_NONE:
 #ifdef DEBUG_ACTIONS
             debug_print("Does the player carry nothing?\n");
 #endif
             if (CountCarried())
                 return ACT_FAILURE;
             break;
-        case 12:
+        case COND_NOT_PRESENT:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s neither carried nor in room?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == CARRIED || Items[dv].Location == MyLoc)
                 return ACT_FAILURE;
             break;
-        case 13:
+        case COND_IN_PLAY:
             if (dv > GameHeader.NumItems + 1)
                 Fatal("Broken database!");
 #ifdef DEBUG_ACTIONS
@@ -1960,42 +2086,42 @@ static ActionResultType PerformLine(int ct)
             if (Items[dv].Location == 0)
                 return ACT_FAILURE;
             break;
-        case 14:
+        case COND_NOT_IN_PLAY:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s NOT in play?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location)
                 return ACT_FAILURE;
             break;
-        case 15:
+        case COND_COUNTER_LE:
 #ifdef DEBUG_ACTIONS
             debug_print("Is CurrentCounter <= %d?\n", dv);
 #endif
             if (CurrentCounter > dv)
                 return ACT_FAILURE;
             break;
-        case 16:
+        case COND_COUNTER_GT:
 #ifdef DEBUG_ACTIONS
             debug_print("Is CurrentCounter > %d?\n", dv);
 #endif
             if (CurrentCounter <= dv)
                 return ACT_FAILURE;
             break;
-        case 17:
+        case COND_AT_INITIAL_LOC:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s still in initial room?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != Items[dv].InitialLoc)
                 return ACT_FAILURE;
             break;
-        case 18:
+        case COND_MOVED:
 #ifdef DEBUG_ACTIONS
             debug_print("Has %s been moved?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == Items[dv].InitialLoc)
                 return ACT_FAILURE;
             break;
-        case 19: /* Only seen in Brian Howarth games so far */
+        case COND_COUNTER_EQ:
 #ifdef DEBUG_ACTIONS
             debug_print("Is current counter == %d?\n", dv);
             if (CurrentCounter != dv)
@@ -2015,28 +2141,29 @@ static ActionResultType PerformLine(int ct)
 #endif
 
     /* Decode the 4 subcommands from two 16-bit words.
-       Each word encodes two actions: high = word / 150, low = word % 150. */
+       Each word encodes two actions: high = word / VOCAB_MULTIPLIER,
+       low = word % VOCAB_MULTIPLIER. */
     act[0] = Actions[ct].Subcommand[0];
     act[2] = Actions[ct].Subcommand[1];
-    act[1] = act[0] % 150;
-    act[3] = act[2] % 150;
-    act[0] /= 150;
-    act[2] /= 150;
+    act[1] = act[0] % VOCAB_MULTIPLIER;
+    act[3] = act[2] % VOCAB_MULTIPLIER;
+    act[0] /= VOCAB_MULTIPLIER;
+    act[2] /= VOCAB_MULTIPLIER;
     cc = 0;
     pptr = 0;
-    while (cc < 4) {
+    while (cc < NUM_SUBCOMMANDS) {
 #ifdef DEBUG_ACTIONS
         debug_print("Performing action %d: ", act[cc]);
 #endif
-        if (act[cc] >= 1 && act[cc] < 52) {
+        if (act[cc] >= FIRST_MESSAGE && act[cc] <= LAST_DIRECT_MESSAGE) {
             PrintMessage(act[cc]);
-        } else if (act[cc] > 101) {
-            PrintMessage(act[cc] - 50);
+        } else if (act[cc] >= EXTENDED_MSG_BASE) {
+            PrintMessage(act[cc] - EXTENDED_MSG_OFFSET);
         } else
             switch (act[cc]) {
             case 0: /* NOP */
                 break;
-            case 52:
+            case CMD_GET:
                 if (CountCarried() >= GameHeader.MaxCarry) {
                     Output(sys[YOURE_CARRYING_TOO_MUCH]);
                     return ACT_SUCCESS;
@@ -2045,7 +2172,7 @@ static ActionResultType PerformLine(int ct)
                 }
                 Items[param[pptr++]].Location = CARRIED;
                 break;
-            case 53:
+            case CMD_DROP_HERE:
 #ifdef DEBUG_ACTIONS
                 debug_print("item %d (\"%s\") is now in location.\n", param[pptr],
                     Items[param[pptr]].Text);
@@ -2055,11 +2182,11 @@ static ActionResultType PerformLine(int ct)
                 Items[param[pptr++]].Location = MyLoc;
                 should_look_in_transcript = 1;
                 break;
-            case 54:
+            case CMD_GOTO:
                 GoTo(param[pptr++]);
                 break;
-            case 55:
-            case 59:
+            case CMD_DESTROY:
+            case CMD_DESTROY_2:
 #ifdef DEBUG_ACTIONS
                 debug_print("Item %d (%s) is removed from the game (put in room 0).\n",
                     param[pptr], Items[param[pptr]].Text);
@@ -2069,40 +2196,39 @@ static ActionResultType PerformLine(int ct)
                 }
                 Items[param[pptr++]].Location = 0;
                 break;
-            case 56:
+            case CMD_SET_DARK:
                 SetDark();
                 break;
-            case 57:
+            case CMD_SET_LIGHT:
                 SetLight();
                 break;
-            case 58:
+            case CMD_SET_FLAG:
                 SetBitFlag(param[pptr++]);
                 break;
-            // 59: see 55
-            case 60:
+            case CMD_CLEAR_FLAG:
                 ClearBitFlag(param[pptr++]);
                 break;
-            case 61:
+            case CMD_DIE:
                 PlayerIsDead();
                 break;
-            case 62:
+            case CMD_PUT_IN_ROOM:
                 p = param[pptr++];
                 PutItemAInRoomB(p, param[pptr++]);
                 break;
-            case 63:
+            case CMD_GAME_OVER:
 #ifdef DEBUG_ACTIONS
                 debug_print("Game over.\n");
 #endif
                 DoneIt();
                 dead = 1;
                 break;
-            case 64:
+            case CMD_LOOK:
                 break;
-            case 65:
+            case CMD_SCORE:
                 dead = PrintScore();
                 StopTime = 2;
                 break;
-            case 66:
+            case CMD_INVENTORY:
                 if (Game->type == SEAS_OF_BLOOD_VARIANT)
                     AdventureSheet();
                 else
@@ -2112,19 +2238,19 @@ static ActionResultType PerformLine(int ct)
                 }
                 StopTime = 2;
                 break;
-            case 67:
+            case CMD_SET_FLAG0:
 #ifdef DEBUG_ACTIONS
                 debug_print("Set flag 0\n");
 #endif
                 SetBitFlag(0);
                 break;
-            case 68:
+            case CMD_CLEAR_FLAG0:
 #ifdef DEBUG_ACTIONS
                 debug_print("Clear flag 0\n");
 #endif
                 ClearBitFlag(0);
                 break;
-            case 69:
+            case CMD_REFILL_LAMP:
 #ifdef DEBUG_ACTIONS
                 debug_print("Refill lamp\n");
 #endif
@@ -2132,43 +2258,43 @@ static ActionResultType PerformLine(int ct)
                 Items[LIGHT_SOURCE].Location = CARRIED;
                 ClearBitFlag(LIGHTOUTBIT);
                 break;
-            case 70:
+            case CMD_CLEAR_SCREEN:
 #ifdef DEBUG_ACTIONS
                     debug_print("Clear screen\n");
 #endif
                 ClearScreen(); /* pdd. */
                 break;
-            case 71:
+            case CMD_SAVE_GAME:
 #ifdef DEBUG_ACTIONS
                     debug_print("Save game\n");
 #endif
                 SaveGame();
                 StopTime = 2;
                 break;
-            case 72:
+            case CMD_SWAP_ITEMS:
                 p = param[pptr++];
 #ifdef DEBUG_ACTIONS
                     debug_print("Swap locations of item %d (%s) (currently at %d) and item %d (%s) (currently at %d).\n", p, Items[p].Text, Items[p].Location, param[pptr], Items[param[pptr]].Text, Items[param[pptr]].Location);
 #endif
                 SwapItemLocations(p, param[pptr++]);
                 break;
-            case 73:
+            case CMD_CONTINUE:
 #ifdef DEBUG_ACTIONS
                 debug_print("Continue with next line\n");
 #endif
                 continuation = 1;
                 break;
-            case 74:
+            case CMD_FORCED_GET:
                 if (Items[param[pptr]].Location == MyLoc) {
                     should_look_in_transcript = should_draw_image = 1;
                 }
                 Items[param[pptr++]].Location = CARRIED;
                 break;
-            case 75:
+            case CMD_MOVE_TO_LOC_OF:
                 p = param[pptr++];
                 MoveItemAToLocOfItemB(p, param[pptr++]);
                 break;
-            case 76: /* Looking at adventure .. */
+            case CMD_LOOK2:
 #ifdef DEBUG_ACTIONS
                 debug_print("LOOK\n");
 #endif
@@ -2178,7 +2304,7 @@ static ActionResultType PerformLine(int ct)
                 print_look_to_transcript =
                 should_look_in_transcript = 0;
                 break;
-            case 77:
+            case CMD_DEC_COUNTER:
                 if (CurrentCounter >= 1)
                     CurrentCounter--;
 #ifdef DEBUG_ACTIONS
@@ -2187,60 +2313,60 @@ static ActionResultType PerformLine(int ct)
                     CurrentCounter);
 #endif
                 break;
-            case 78:
+            case CMD_PRINT_COUNTER:
                 OutputNumber(CurrentCounter);
                 Output(" ");
                 break;
-            case 79:
+            case CMD_SET_COUNTER:
 #ifdef DEBUG_ACTIONS
                 debug_print("CurrentCounter is set to %d.\n", param[pptr]);
 #endif
                 CurrentCounter = param[pptr++];
                 break;
-            case 80:
+            case CMD_SWAP_LOC:
                 GoToStoredLoc();
                 break;
-            case 81:
+            case CMD_SWAP_COUNTERS:
                 SwapCounters(param[pptr++]);
                 break;
-            case 82:
+            case CMD_ADD_COUNTER:
                 CurrentCounter += param[pptr++];
                 break;
-            case 83:
+            case CMD_SUB_COUNTER:
                 CurrentCounter -= param[pptr++];
                 if (CurrentCounter < -1)
                     CurrentCounter = -1;
                 /* Note: This seems to be needed. I don't yet
                          know if there is a maximum value to limit too */
                 break;
-            case 84:
+            case CMD_PRINT_NOUN:
                 PrintNoun();
                 break;
-            case 85:
+            case CMD_PRINTLN_NOUN:
                 PrintNoun();
                 Output("\n");
                 break;
-            case 86:
+            case CMD_NEWLINE:
                 if (!(Options & SPECTRUM_STYLE))
                     Output("\n");
                 break;
-            case 87:
+            case CMD_SWAP_ROOMFLAG:
                 SwapLocAndRoomflag(param[pptr++]);
                 break;
-            case 88:
+            case CMD_DELAY:
 #ifdef DEBUG_ACTIONS
                 debug_print("Delay\n");
 #endif
                 Delay(1);
                 break;
-            case 89:
+            case CMD_GAME_SPECIFIC:
 #ifdef DEBUG_ACTIONS
-                debug_print("Action 89, parameter %d\n", param[pptr]);
+                debug_print("Action CMD_GAME_SPECIFIC, parameter %d\n", param[pptr]);
 #endif
-                fprintf(stderr, "Action 89, parameter %d\n", param[pptr]);
+                fprintf(stderr, "Action CMD_GAME_SPECIFIC, parameter %d\n", param[pptr]);
                 if (Game->type == US_VARIANT) {
-                    fprintf(stderr, "Action 89 called in US game, do not read parameter!\n");
-                    ShowUSCloseup(80, 0);
+                    fprintf(stderr, "CMD_GAME_SPECIFIC called in US game, do not read parameter!\n");
+                    ShowUSCloseup(US_GAME_SPECIFIC_IMAGE, 0);
                 } else {
                     p = param[pptr++];
                 }
@@ -2276,7 +2402,7 @@ static ActionResultType PerformLine(int ct)
                     break;
                 }
                 break;
-            case 90:
+            case CMD_DRAW_IMAGE:
 #ifdef DEBUG_ACTIONS
                 debug_print("Draw Hulk image, parameter %d\n", param[pptr]);
 #endif
@@ -2309,7 +2435,7 @@ static void PrintTakenOrDropped(int index)
     Output(sys[index]);
     int length = strlen(sys[index]);
     char last = sys[index][length - 1];
-    if (last == 10 || last == 13)
+    if (last == '\n' || last == '\r')
         return;
     Output(" ");
     if ((!(CurrentCommand->allflag & LASTALL))
@@ -2340,7 +2466,7 @@ static ExplicitResultType PerformActions(int vb, int no)
         Output(sys[DIRECTION]);
         return ER_SUCCESS;
     }
-    if (vb == 1 && no >= 1 && no <= 6) {
+    if (vb == GO && no >= 1 && no <= NUM_EXITS) {
         int nl;
         if (dark)
             Output(sys[DANGEROUS_TO_MOVE_IN_DARK]);
@@ -2374,35 +2500,35 @@ static ExplicitResultType PerformActions(int vb, int no)
             case HULK:
             case HULK_C64:
             case HULK_US:
-                if (vb == 39)
+                if (vb == HULK_EXAMINE_VERB)
                     HulkShowImageOnExamine(no);
                 break;
             case COUNT_US:
-                if (vb == 8)
+                if (vb == COUNT_EXAMINE_VERB)
                     CountShowImageOnExamineUS(no);
                 break;
             case VOODOO_CASTLE_US:
-                if (vb == 42)
+                if (vb == VOODOO_EXAMINE_VERB)
                     VoodooShowImageOnExamineUS(no);
                 break;
             case ADVENTURELAND_US:
-                if (vb == 29)
+                if (vb == ADVENTURELAND_EXAMINE_VERB)
                     AdventurelandShowImageOnExamineUS(no);
                 break;
             case PIRATE_US:
                 fprintf(stderr, "vb:%d no:%d\n", vb, no);
-                if (vb == 27) {
+                if (vb == PIRATE_EXAMINE_VERB) {
                     PirateShowImageOnExamineUS(no);
                 }
                 break;
             case SECRET_MISSION_US:
                 fprintf(stderr, "vb:%d no:%d\n", vb, no);
-                if (vb == 40)
+                if (vb == MISSION_EXAMINE_VERB)
                     MissionShowImageOnExamineUS(no);
                 break;
             case STRANGE_ODYSSEY_US:
                 fprintf(stderr, "vb:%d no:%d\n", vb, no);
-                if (vb == 37)
+                if (vb == STRANGE_EXAMINE_VERB)
                     StrangeShowImageOnExamineUS(no);
                 break;
             default:
@@ -2428,8 +2554,8 @@ static ExplicitResultType PerformActions(int vb, int no)
             /* Oops.. added this minor cockup fix 1.11 */
             if (vb != 0 && !doagain && flag == 0)
                 break;
-            nounvalue = verbvalue % 150;
-            verbvalue /= 150;
+            nounvalue = verbvalue % VOCAB_MULTIPLIER;
+            verbvalue /= VOCAB_MULTIPLIER;
             if ((verbvalue == vb) || (doagain && Actions[ct].Vocab == 0)) {
                 if ((verbvalue == 0 && RandomPercent(nounvalue)) || doagain || (verbvalue != 0 && (nounvalue == no || nounvalue == 0))) {
                     if (verbvalue == vb && vb != 0 && nounvalue == no)
@@ -2803,7 +2929,7 @@ Distributed under the GNU software license\n\n");
 #ifdef SPATTERLIGHT
     UpdateSettings();
     if (gli_determinism)
-        set_erkyrath_random(1234);
+        set_erkyrath_random(DETERMINISTIC_SEED);
     else
 #endif
     set_erkyrath_random(0);
@@ -2865,12 +2991,12 @@ Distributed under the GNU software license\n\n");
                 }
                 if ((Options & PREHISTORIC_LAMP) || (Game->subtype & MYSTERIOUS))
                     Items[LIGHT_SOURCE].Location = DESTROYED;
-            } else if (GameHeader.LightTime < 25) {
+            } else if (GameHeader.LightTime < LAMP_WARNING_THRESHOLD) {
                 if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
                     if ((Options & SCOTTLIGHT) || (Game->subtype & MYSTERIOUS)) {
                         Display(Bottom, "%s %d %s\n", sys[LIGHT_RUNS_OUT_IN], GameHeader.LightTime, sys[TURNS]);
                     } else {
-                        if (GameHeader.LightTime % 5 == 0)
+                        if (GameHeader.LightTime % LAMP_WARNING_INTERVAL == 0)
                             Output(sys[LIGHT_GROWING_DIM]);
                     }
                 }
