@@ -680,6 +680,8 @@ static const a2list a2listVoodoo[] = {
 
 static uint8_t *GetApple2CompanionFile(size_t *size, int *isnib);
 static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdata, size_t othersize, int isnib);
+static int ExtractDrawingDataFromBuffer(uint8_t *data, size_t datasize);
+
 GameIDType DetectApple2(uint8_t **sf, size_t *extent)
 {
     if (*extent > MAX_LENGTH || *extent < kDiskImageSize)
@@ -696,14 +698,14 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
         InitDskImage(*sf, *extent);
     }
 
-    uint8_t *invimg = NULL, *m2 = NULL;
-    size_t invimgsiz;
+    uint8_t *invimg = NULL, *m2 = NULL, *m3 = NULL;
+    size_t invimgsiz, m3len = 0;
     int isnib;
 
     size_t companionsize;
     uint8_t *companionfile = GetApple2CompanionFile(&companionsize, &isnib);
 
-    uint8_t *datafile = ReadApple2DOSFile(*sf, extent, &invimg, &invimgsiz, &m2);
+    uint8_t *datafile = ReadApple2DOSFile(*sf, extent, &invimg, &invimgsiz, &m2, &m3, &m3len);
 
     if (!datafile && companionfile != NULL) {
         FreeDiskImage();
@@ -711,7 +713,7 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
             InitNibImage(companionfile, companionsize);
         else
             InitDskImage(companionfile, companionsize);
-        datafile = ReadApple2DOSFile(companionfile, &companionsize, &invimg, &invimgsiz, &m2);
+        datafile = ReadApple2DOSFile(companionfile, &companionsize, &invimg, &invimgsiz, &m2, &m3, &m3len);
         if (datafile) {
             uint8_t *temp = companionfile;
             size_t tempsize = companionsize;
@@ -736,6 +738,11 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
 
     if (m2) {
         descrambletable = m2;
+    }
+
+    if (m3) {
+        ExtractDrawingDataFromBuffer(m3, m3len);
+        free(m3);
     }
 
     uint8_t *database = NULL;
@@ -799,7 +806,7 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
                         InitNibImage(companionfile, companionsize);
                     else
                         InitDskImage(companionfile, companionsize);
-                    uint8_t *temp = ReadApple2DOSFile(companionfile, &companionsize, &invimg, &invimgsiz, &m2);
+                    uint8_t *temp = ReadApple2DOSFile(companionfile, &companionsize, &invimg, &invimgsiz, &m2, &m3, &m3len);
                     if (temp) {
                         int finalresult = LoadBinaryDatabase(temp + 0x135, companionsize - 0x135, *Game, 0);
                         if (!finalresult) {
@@ -1019,10 +1026,29 @@ uint8_t *GetApple2CompanionFile(size_t *size, int *isnib)
     return NULL;
 }
 
+static int ExtractAtAddress(uint8_t *data, size_t datasize, uint16_t addr, size_t len, void (*setter)(const uint8_t *)) {
+    if (datasize <= 4)
+        return 0;
+    uint16_t load_addr = data[0] | (data[1] << 8);
+    uint16_t file_len = data[2] | (data[3] << 8);
+    if (load_addr > addr || (uint32_t)load_addr + file_len < addr + len)
+        return 0;
+    size_t offset = 4 + (addr - load_addr);
+    if (offset + len > datasize)
+        return 0;
+    setter(data + offset);
+    return 1;
+}
 
-size_t writeToFile(const char *name, uint8_t *data, size_t size);
+static int ExtractDrawingDataFromBuffer(uint8_t *data, size_t datasize) {
+    int found = 0;
+    found |= ExtractAtAddress(data, datasize, 0x8F7C, 216, SetColorPatternSubindices);
+    found |= ExtractAtAddress(data, datasize, 0x9054, 120, SetPatternData);
+    found |= ExtractAtAddress(data, datasize, 0x9500, 256, SetBrushBitmaps);
+    return found;
+}
 
-static int ReadVectorImageFiles(uint8_t *data, size_t datasize, USImage *image) {
+static int ReadA2VectorImageFiles(uint8_t *data, size_t datasize, USImage *image) {
     size_t number_of_files;
     size_t number_of_images_found = 0;
     A2FileRec *rec = GetAllApple2DOSFiles(data, datasize, &number_of_files);
@@ -1031,6 +1057,8 @@ static int ReadVectorImageFiles(uint8_t *data, size_t datasize, USImage *image) 
         A2FileRec *thisrec = &rec[i];
         char *shortname = thisrec->filename;
         if (!IsSagaImage(shortname)) {
+            if (!strncmp(shortname, "M3", 2))
+                ExtractDrawingDataFromBuffer(thisrec->data, thisrec->datasize);
             free(thisrec->data);
             free(thisrec->filename);
             continue;
@@ -1079,6 +1107,20 @@ static int ReadVectorImageFiles(uint8_t *data, size_t datasize, USImage *image) 
     }
     free(rec);
     return number_of_images_found;
+}
+
+int LoadDrawingDataFromDisk(uint8_t *data, size_t datasize) {
+    size_t number_of_files;
+    A2FileRec *rec = GetAllApple2DOSFiles(data, datasize, &number_of_files);
+    int found = 0;
+    for (size_t i = 0; i < number_of_files; i++) {
+        if (!IsSagaImage(rec[i].filename))
+            found |= ExtractDrawingDataFromBuffer(rec[i].data, rec[i].datasize);
+        free(rec[i].data);
+        free(rec[i].filename);
+    }
+    free(rec);
+    return found;
 }
 
 static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdata, size_t othersize, int isnib)
@@ -1133,7 +1175,7 @@ static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t 
     // list is NULL if the game has a file system on its companion disk
     // (which the games with line-drawn vector graphics all have.)
     if (list == NULL) {
-        int number_of_images_found = ReadVectorImageFiles(data, datasize, image);
+        int number_of_images_found = ReadA2VectorImageFiles(data, datasize, image);
         if (number_of_images_found == 0 && data != otherdata) {
             // The vector image versions have a game database
             // file on both disks, so we can't use that
@@ -1145,7 +1187,7 @@ static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t 
             } else {
                 InitDskImage(otherdata, othersize);
             }
-            number_of_images_found = ReadVectorImageFiles(otherdata, othersize, image);
+            number_of_images_found = ReadA2VectorImageFiles(otherdata, othersize, image);
             if (number_of_images_found > 0 && data != otherdata) {
                 result = WRONG_DATABASE;
             }

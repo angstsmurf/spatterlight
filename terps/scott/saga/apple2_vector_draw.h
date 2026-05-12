@@ -15,5 +15,9 @@ int DrawApple2VectorImage(USImage *img);
 void DrawSomeApple2VectorBytes(int from_start);
 int DrawingApple2Vector(void);
 int RunApple2VectorTests(const char *supportpath);
+void SetBrushBitmaps(const uint8_t *data);
+void SetPatternData(const uint8_t *data);
+void SetColorPatternSubindices(const uint8_t *data);
+int LoadDrawingDataFromDisk(uint8_t *data, size_t datasize);
 
 #endif /* apple2_vector_draw_h */
