@@ -783,7 +783,6 @@
              commandScriptName:@"The Elysium Enigma"];
 }
 
-
 - (void)testTaylorMade {
     [self importAndRunGameFile:@"tot.tay"
              commandScriptName:@"TaylorMade"];
