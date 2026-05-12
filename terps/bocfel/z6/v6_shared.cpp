@@ -910,7 +910,7 @@ static void draw_hints_windows(void) {
 }
 
 // Prints a string centered on a given line of the status window.
-// If `reverse` is true, displays in reverse video.
+// If reverse is true, displays in reverse video.
 static void center_line(const char *str, int line, int length, bool reverse) {
     glui32 width;
     winid_t win = V6_STATUS_WINDOW.id;

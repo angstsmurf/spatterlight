@@ -18,6 +18,7 @@
 extern "C" {
 #include "glkimp.h"
 #include "gi_blorb.h"
+#include "read_le16.h"
 }
 
 #include "types.h"
@@ -27,19 +28,52 @@ extern "C" {
 
 #include "extract_image_data.hpp"
 
+// Infocom image directory entry sizes (bytes per entry)
+static const int kCompactEntrySize = 8;
+static const int kStandardEntrySize = 14;
+static const int kExtendedEntrySize = 16;
+
+// Header flags value indicating monochrome Mac graphics
+static const uint8_t kMacBWFlags = 0x0e;
+
+// Huffman decoding tree: 256 entries, one per possible byte value
+static const size_t kHuffmanTreeSize = 256;
+
+// Color palette: 256 entries × 2 bytes each
+static const size_t kColorPaletteSize = 512;
+
+// Per-image Huffman tree offsets in the directory are stored as half their
+// actual byte offset (i.e. in 2-byte units), so multiply by 2 to get bytes
+static const int kHuffmanOffsetScale = 2;
+
+// Transparency: bit 0 of the flags field indicates transparency is enabled.
+// The transparent color index is stored in the upper bits, shifted by 4 in
+// compact entries or 12 in standard/extended entries.
+static const uint16_t kTransparencyFlag = 0x01;
+static const int kCompactTransparentColorShift = 4;
+static const int kExtendedTransparentColorShift = 12;
+
+// Blorb APal (Adaptive Palette) chunk: each entry is 4 bytes with the
+// image ID as a big-endian 16-bit value at offset 2
+static const glui32 kAPalEntrySize = 4;
+static const glui32 kAPalImageIdOffset = 2;
+
+// Minimum meaningful Blorb resource size (must contain at least a header)
+static const glui32 kMinBlorbResourceSize = 8;
+
 // Header structure at the start of an Infocom graphics file.
 // Multi-disk games split images across several files, each identified by disk_part.
 typedef struct InfocomImageFileHeader {
-    uint8_t disk_part;            // Which disk this file belongs to (1-based)
-    uint8_t flags;                // Format flags; 0x0e indicates monochrome Mac graphics
+    uint8_t  disk_part; // Which disk this file belongs to (1-based)
+    uint8_t  flags; // Format flags; 0x0e indicates monochrome Mac graphics
     uint16_t unknown_1;
-    uint16_t image_count;         // Total number of images described in the directory
+    uint16_t image_count;// Total number of images described in the directory
     uint16_t unknown_2;
-    uint8_t directory_entry_size; // Size in bytes of each directory entry (8, 14, or 16)
-    uint8_t unknown_3;
+    uint8_t  directory_entry_size; // Size in bytes of each directory entry (8, 14, or 16)
+    uint8_t  unknown_3;
     uint16_t checksum;
     uint16_t unknown_4;
-    uint16_t version;             // Graphics format version number
+    uint16_t version; // Graphics format version number
 } InfocomImageFileHeader;
 
 // Per-image entry in the directory that follows the file header.
@@ -63,14 +97,6 @@ static uint8_t read_byte_and_advance(uint8_t **ptr)
     uint8_t value = **ptr;
     *ptr += 1;
     return value;
-}
-
-// Read a 16-bit big-endian word from *ptr and advance by two bytes.
-static uint16_t read_big_endian_word(uint8_t **ptr)
-{
-    uint16_t word = (uint16_t)read_byte_and_advance(ptr) << 8;
-    word += (uint16_t)read_byte_and_advance(ptr);
-    return word;
 }
 
 // Swap the bytes of a 16-bit value if should_swap is true.
@@ -97,7 +123,7 @@ static uint32_t read_24_big_endian_bits(uint8_t **ptr)
 
 // Shared Huffman decoding tree used by images that don't specify their own tree.
 // Populated from the data immediately following the image directory.
-uint8_t default_huffman_tree[256];
+uint8_t default_huffman_tree[kHuffmanTreeSize];
 
 // Parse an Infocom-format graphics file and extract all images into an ImageStruct array.
 //
@@ -113,14 +139,17 @@ uint8_t default_huffman_tree[256];
 // Returns the number of images extracted, or 0 if the file is for the wrong disk.
 int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, ImageStruct **image_list, int *version, GraphicsType *type)
 {
-    int entry_index;
-    uint8_t *ptr = data;
-    InfocomImageFileHeader file_header;
-    ImageDirectoryEntry *directory;
-
-    ptr = data + offset;
-    file_header.disk_part = read_byte_and_advance(&ptr);
     *image_list = nullptr;
+
+    static const size_t header_size = 16;
+    if (data == nullptr || (size_t)offset + header_size > datasize)
+        return 0;
+
+    uint8_t *ptr = data + offset;
+    uint8_t *end = data + datasize;
+    InfocomImageFileHeader file_header;
+
+    file_header.disk_part = read_byte_and_advance(&ptr);
 
     // Verify this file is for the requested disk; multi-disk games have
     // separate graphics files for each disk.
@@ -136,7 +165,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     // A file named "pic.data" may contain colour Amiga graphics or monochrome Mac graphics,
     // but the flags always seem to equal 0xe (14) if the graphics are monochrome.
     // (Amiga graphics data and Mac colour graphics data are identical.)
-    if (file_header.flags == 0xe) {
+    if (file_header.flags == kMacBWFlags) {
         if (*type == kGraphicsTypeAmiga)
             *type = kGraphicsTypeMacBW;
     } else if (*type == kGraphicsTypeMacBW) {
@@ -144,32 +173,40 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     }
 
     // Read remaining header fields, byte-swapping as needed for PC formats
-    file_header.unknown_1 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
-    file_header.image_count = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
-    file_header.unknown_2 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
+    file_header.unknown_1 = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
+    file_header.image_count = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
+    file_header.unknown_2 = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
     file_header.directory_entry_size = read_byte_and_advance(&ptr);
     file_header.unknown_3 = read_byte_and_advance(&ptr);
-    file_header.checksum = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
-    file_header.unknown_4 = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
-    file_header.version = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
+    file_header.checksum = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
+    file_header.unknown_4 = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
+    file_header.version = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
 
-    directory = (ImageDirectoryEntry *)MemCalloc((size_t)file_header.image_count * sizeof(ImageDirectoryEntry));
+    if (file_header.image_count == 0)
+        return 0;
+
+    // Verify the directory fits within the file
+    size_t directory_bytes = (size_t)file_header.image_count * file_header.directory_entry_size;
+    if (ptr + directory_bytes > end)
+        return 0;
+
+    ImageDirectoryEntry *directory = (ImageDirectoryEntry *)MemCalloc((size_t)file_header.image_count * sizeof(ImageDirectoryEntry));
 
     // Parse the image directory. Entry size varies by format version:
     //   8 bytes:  compact format (single-byte width/height/flags)
     //  14 bytes:  standard format with color map offset
     //  16 bytes:  extended format with color map and per-image Huffman tree offset
-    for (entry_index = 0; entry_index < file_header.image_count; entry_index++) {
-        directory[entry_index].id = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
-        if (file_header.directory_entry_size == 8) {
+    for (int entry_index = 0; entry_index < file_header.image_count; entry_index++) {
+        directory[entry_index].id = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
+        if (file_header.directory_entry_size == kCompactEntrySize) {
             // Compact entries store dimensions and flags as single bytes
             directory[entry_index].width = read_byte_and_advance(&ptr);
             directory[entry_index].height = read_byte_and_advance(&ptr);
             directory[entry_index].flags = read_byte_and_advance(&ptr);
         } else {
-            directory[entry_index].width = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
-            directory[entry_index].height = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
-            directory[entry_index].flags = conditional_byte_swap(needs_byte_swap, read_big_endian_word(&ptr));
+            directory[entry_index].width = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
+            directory[entry_index].height = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
+            directory[entry_index].flags = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
         }
 
         directory[entry_index].pixel_data_offset = read_24_big_endian_bits(&ptr);
@@ -179,13 +216,13 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         if (directory[entry_index].pixel_data_offset != 0) {
             directory[entry_index].next_entry_data_offset = (uint32_t)datasize;
         }
-        if (file_header.directory_entry_size == 14) {
+        if (file_header.directory_entry_size == kStandardEntrySize) {
             directory[entry_index].color_map_offset = read_24_big_endian_bits(&ptr);
-        } else if (file_header.directory_entry_size == 16 ){
+        } else if (file_header.directory_entry_size == kExtendedEntrySize) {
             directory[entry_index].color_map_offset = read_24_big_endian_bits(&ptr);
             // Huffman tree offset is stored as a word that must be doubled
-            directory[entry_index].huffman_tree_offset = read_big_endian_word(&ptr) * 2;
-        } else if (file_header.directory_entry_size != 8) {
+            directory[entry_index].huffman_tree_offset = READ_BE_UINT16_AND_ADVANCE(&ptr) * kHuffmanOffsetScale;
+        } else if (file_header.directory_entry_size != kCompactEntrySize) {
             directory[entry_index].color_map_offset = 0;
             read_byte_and_advance(&ptr);  // skip unknown trailing byte
         }
@@ -193,16 +230,16 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
 
     // The 256-byte default Huffman tree immediately follows the directory.
     // Images without their own tree use this shared one.
-    if (ptr + 256 <= data + datasize) {
-        memcpy(default_huffman_tree, ptr, 256);
+    if (ptr + kHuffmanTreeSize <= end) {
+        memcpy(default_huffman_tree, ptr, kHuffmanTreeSize);
     } else {
-        memset(default_huffman_tree, 0, 256);
+        memset(default_huffman_tree, 0, kHuffmanTreeSize);
     }
 
     // The file format doesn't store explicit data lengths for each image.
     // We compute each image's data size by finding the next image whose pixel data
     // starts at a higher offset. The last image uses the end-of-file as its boundary.
-    for (entry_index = 0; entry_index < file_header.image_count - 1; entry_index++) {
+    for (int entry_index = 0; entry_index + 1 < file_header.image_count; entry_index++) {
         if (directory[entry_index].pixel_data_offset != 0) {
             for (int next_index = entry_index + 1; next_index < file_header.image_count; next_index++) {
                 if (directory[next_index].pixel_data_offset > directory[entry_index].pixel_data_offset) {
@@ -218,7 +255,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
 
     // Populate each ImageStruct with metadata and a copy of the raw pixel data,
     // along with optional per-image Huffman tree and color palette.
-    for (entry_index = 0; entry_index < file_header.image_count; entry_index++) {
+    for (int entry_index = 0; entry_index < file_header.image_count; entry_index++) {
         (*image_list)[entry_index].index = directory[entry_index].id;
         (*image_list)[entry_index].width = directory[entry_index].width;
         (*image_list)[entry_index].height = directory[entry_index].height;
@@ -228,10 +265,14 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         if (directory[entry_index].pixel_data_offset == 0 || directory[entry_index].width == 0 || directory[entry_index].height == 0)
             continue;
 
+        // Guard against underflow when next_entry_data_offset < pixel_data_offset
+        if (directory[entry_index].next_entry_data_offset <= directory[entry_index].pixel_data_offset)
+            continue;
+
         uint32_t pixel_data_length = directory[entry_index].next_entry_data_offset - directory[entry_index].pixel_data_offset;
 
-        // Validate that pixel data lies within the file bounds
-        if (directory[entry_index].pixel_data_offset + pixel_data_length > datasize)
+        // Validate that pixel data lies within the file bounds (use size_t to avoid 32-bit overflow)
+        if ((size_t)directory[entry_index].pixel_data_offset + (size_t)pixel_data_length > datasize)
             continue;
 
         (*image_list)[entry_index].datasize = pixel_data_length;
@@ -242,30 +283,30 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         // Bit 0 of image_flags indicates the image has a transparent color.
         // The transparent color index is stored in the upper bits of the flags field,
         // shifted by 4 bits in compact (8-byte) entries or 12 bits in larger entries.
-        if (directory[entry_index].flags & 1) {
+        if (directory[entry_index].flags & kTransparencyFlag) {
             (*image_list)[entry_index].transparency = 1;
-            if (file_header.directory_entry_size == 8) {
-                (*image_list)[entry_index].transparent_color = directory[entry_index].flags >> 4;
+            if (file_header.directory_entry_size == kCompactEntrySize) {
+                (*image_list)[entry_index].transparent_color = directory[entry_index].flags >> kCompactTransparentColorShift;
             } else {
-                (*image_list)[entry_index].transparent_color = directory[entry_index].flags >> 12;
+                (*image_list)[entry_index].transparent_color = directory[entry_index].flags >> kExtendedTransparentColorShift;
             }
         }
 
         // Use the per-image Huffman tree if one is specified, otherwise fall back
         // to the shared default tree read from after the directory.
         if (directory[entry_index].huffman_tree_offset != 0 &&
-            directory[entry_index].huffman_tree_offset + 256 <= datasize) {
-            (*image_list)[entry_index].huffman_tree = (uint8_t *)MemAlloc(256);
-            memcpy((*image_list)[entry_index].huffman_tree, data + directory[entry_index].huffman_tree_offset, 256);
+            (size_t)directory[entry_index].huffman_tree_offset + kHuffmanTreeSize <= datasize) {
+            (*image_list)[entry_index].huffman_tree = (uint8_t *)MemAlloc(kHuffmanTreeSize);
+            memcpy((*image_list)[entry_index].huffman_tree, data + directory[entry_index].huffman_tree_offset, kHuffmanTreeSize);
         } else {
             (*image_list)[entry_index].huffman_tree = default_huffman_tree;
         }
 
         // Copy the per-image color palette if present (512 bytes = 256 color entries x 2 bytes each)
         if (directory[entry_index].color_map_offset != 0 &&
-            directory[entry_index].color_map_offset + 512 <= datasize) {
-            (*image_list)[entry_index].palette = (uint8_t *)MemAlloc(512);
-            memcpy((*image_list)[entry_index].palette, data + directory[entry_index].color_map_offset, 512);
+            (size_t)directory[entry_index].color_map_offset + kColorPaletteSize <= datasize) {
+            (*image_list)[entry_index].palette = (uint8_t *)MemAlloc(kColorPaletteSize);
+            memcpy((*image_list)[entry_index].palette, data + directory[entry_index].color_map_offset, kColorPaletteSize);
         }
     }
 
@@ -283,12 +324,11 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
 // Returns the total number of picture resources found, or 0 if none.
 int extract_images_from_blorb(ImageStruct **image_list)
 {
+    *image_list = nullptr;
 
     giblorb_map_t *resource_map = giblorb_get_resource_map();
-
-    if (resource_map == nullptr) {
+    if (resource_map == nullptr)
         return 0;
-    }
 
     // Query the Blorb map for the range of picture resource IDs
     glui32 total_image_count, first_resource_id, last_resource_id;
@@ -304,7 +344,7 @@ int extract_images_from_blorb(ImageStruct **image_list)
     // Iterate over all possible resource IDs in the range and load each image.
     // Not every ID in the range necessarily exists, so we only populate entries
     // for resources that load successfully.
-    for (glui32 resource_id = first_resource_id; resource_id <= last_resource_id; resource_id++) {
+    for (glui32 resource_id = first_resource_id; ; resource_id++) {
         if (output_index >= (int)total_image_count)
             break;
         if (giblorb_load_resource(resource_map, giblorb_method_Memory, &blorb_result, giblorb_ID_Pict, resource_id) == giblorb_err_None) {
@@ -317,10 +357,7 @@ int extract_images_from_blorb(ImageStruct **image_list)
             (*image_list)[output_index].type = kGraphicsTypeBlorb;
             (*image_list)[output_index].width = image_width;
             (*image_list)[output_index].height = image_height;
-            if (blorb_result.data.ptr != nullptr && blorb_result.length > 8) {
-                // Make a private copy of the image data
-                // as the Blorb may be purged from memory during
-                // autorestore or when switching graphics type.
+            if (blorb_result.data.ptr != nullptr && blorb_result.length > kMinBlorbResourceSize) {
                 void *image_data_copy = MemAlloc(blorb_result.length);
                 memcpy(image_data_copy, blorb_result.data.ptr, blorb_result.length);
                 (*image_list)[output_index].data = (uint8_t *)image_data_copy;
@@ -329,6 +366,8 @@ int extract_images_from_blorb(ImageStruct **image_list)
             }
             output_index++;
         }
+        if (resource_id == last_resource_id)
+            break;
     }
 
     // Check for an "APal" (Adaptive Palette) chunk. This optional Blorb chunk
@@ -338,10 +377,11 @@ int extract_images_from_blorb(ImageStruct **image_list)
     if (giblorb_load_chunk_by_type(resource_map,
                                    giblorb_method_Memory, &blorb_result, giblorb_make_id('A', 'P', 'a', 'l'),
                                    0) == giblorb_err_None) {
+        uint8_t *apal = (uint8_t *)blorb_result.data.ptr;
         // Each APal entry is 4 bytes; the image number is a big-endian 16-bit
         // value stored at bytes 2-3 of each entry.
-        for (int byte_offset = 0; byte_offset < blorb_result.length; byte_offset += 4) {
-            int adaptive_palette_image_id = *((uint8_t *)blorb_result.data.ptr + byte_offset + 3) + *((uint8_t *)blorb_result.data.ptr + byte_offset + 2) * 0x100;
+        for (glui32 byte_offset = 0; byte_offset + kAPalEntrySize - 1 < blorb_result.length; byte_offset += kAPalEntrySize) {
+            int adaptive_palette_image_id = READ_BE_UINT16(&apal[byte_offset + kAPalImageIdOffset]);
             for (int image_index = 0; image_index < output_index; image_index++) {
                 if ((*image_list)[image_index].index == adaptive_palette_image_id) {
                     if ((*image_list)[image_index].palette != nullptr) {

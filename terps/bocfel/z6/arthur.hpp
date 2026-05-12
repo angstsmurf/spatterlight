@@ -33,7 +33,6 @@ void RT_HOT_KEY(void);
 void ARTHUR_UPDATE_STATUS_LINE(void);
 void arthur_INIT_STATUS_LINE(void);
 void RT_AUTHOR_OFF(void);
-void RT_TH_EXCALIBUR(void);
 
 bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y);
 void arthur_draw_room_image(int picnum);

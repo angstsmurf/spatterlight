@@ -36,8 +36,6 @@ void GRAPHIC_STAMP(void);
 void READ_ELVISH(void);
 void CHANGE_NAME(void);
 void ERASE_COMMAND(void);
-void COMPLETE_DIAL_GRAPHICS(void);
-void TELL_AMOUNTS(void);
 
 typedef struct JourneyGlobals {
     uint8_t COMMAND_START_LINE; // G0e•

@@ -1904,9 +1904,3 @@ void journey_post_save_hacks(void) {
     set_global(jg.CHRV, 1);
     update_internal_globals();
 }
-
-// Stubs for Z-machine routines that are handled entirely by the game's
-// Z-code in this implementation. COMPLETE_DIAL_GRAPHICS draws the dial
-// puzzle in the Control Room; TELL_AMOUNTS displays resource counts.
-void COMPLETE_DIAL_GRAPHICS(void) {}
-void TELL_AMOUNTS(void) {}

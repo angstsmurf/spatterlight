@@ -80,82 +80,95 @@ static uint8_t *decompress_idat(uint8_t *data, size_t datalength, size_t max_out
 static uint32_t read32be(uint8_t *ptr, int index) { return (static_cast<uint32_t>(ptr[index]) << 24) | (static_cast<uint32_t>(ptr[index + 1]) << 16) | (static_cast<uint32_t>(ptr[index + 2]) <<  8) | (static_cast<uint32_t>(ptr[index + 3]) <<  0);
 }
 
-static bool read_png(uint8_t *data, size_t datalength, struct png_chunk *chunks, int *dataidx, int *palidx) {
+static bool read_png(uint8_t *png_data, size_t png_size, struct png_chunk *chunks, int *idat_index, int *plte_index) {
+    static const uint8_t kPNGSignature[8] = {0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a};
+    static const size_t kSignatureSize = 8;
+    static const size_t kChunkHeaderSize = 8;
+    static const size_t kChunkCRCSize = 4;
+    static const int kMaxChunks = 64;
+    static const size_t kIHDRDataSize = 13;
 
-    *dataidx = -1;
-    if (palidx != nullptr)
-        *palidx = -1;
-
-    if (datalength <= 16)
+    if (png_data == nullptr || idat_index == nullptr)
         return false;
-    uint8_t *ptr = data;
-    if (ptr[0] != 0x89 ||
-        ptr[1] != 0x50 ||
-        ptr[2] != 0x4e ||
-        ptr[3] != 0x47 ||
-        ptr[4] != 0x0d ||
-        ptr[5] != 0x0a ||
-        ptr[6] != 0x1a ||
-        ptr[7] != 0x0a) {
+
+    *idat_index = -1;
+    if (plte_index != nullptr)
+        *plte_index = -1;
+
+    if (png_size < kSignatureSize + kChunkHeaderSize)
+        return false;
+
+    if (memcmp(png_data, kPNGSignature, kSignatureSize) != 0) {
         debug_png_print("Not a png!\n");
         return false;
     }
 
-    ptr += 8;
+    uint8_t *read_ptr = png_data + kSignatureSize;
+    uint8_t *data_end = png_data + png_size;
 
-    int i;
+    int chunk_count;
+    for (chunk_count = 0; chunk_count < kMaxChunks; chunk_count++) {
+        size_t bytes_remaining = (size_t)(data_end - read_ptr);
+        if (bytes_remaining < kChunkHeaderSize)
+            break;
 
-    for (i = 0; i < 64 && ptr - data < datalength; i++) {
-        chunks[i].length = read32be(ptr, 0);
-        chunks[i].type = read32be(ptr, 4);
-        debug_png_print("Chunk %d is of type 0x%08x (%c%c%c%c)\n", i, chunks[i].type, ptr[4], ptr[5], ptr[6], ptr[7]);
-        if (chunks[i].type == IFF::TypeID("IDAT").val())
-            *dataidx = i;
-        if (palidx != nullptr && chunks[i].type == IFF::TypeID("PLTE").val())
-            *palidx = i;
-        if (chunks[i].type == IFF::TypeID("gAMA").val()) {
-//            int gamma = read32be(ptr, 8);
-//            debug_png_print("Found gAMA chunk with value %d (%f)\n", gamma, 1/((double)gamma / 100000.0));
-        }
-        chunks[i].data = &ptr[8];
-        ptr = ptr + 8 + chunks[i].length;
-        chunks[i].crc = read32be(ptr, 0);
-        ptr += 4;
+        chunks[chunk_count].length = read32be(read_ptr, 0);
+        chunks[chunk_count].type = read32be(read_ptr, 4);
+        debug_png_print("Chunk %d is of type 0x%08x (%c%c%c%c)\n", chunk_count, chunks[chunk_count].type, read_ptr[4], read_ptr[5], read_ptr[6], read_ptr[7]);
+
+        if (chunks[chunk_count].type == IFF::TypeID("IDAT").val())
+            *idat_index = chunk_count;
+        if (plte_index != nullptr && chunks[chunk_count].type == IFF::TypeID("PLTE").val())
+            *plte_index = chunk_count;
+
+        chunks[chunk_count].data = &read_ptr[kChunkHeaderSize];
+
+        // Verify chunk data + CRC fits within the file
+        size_t chunk_payload = (size_t)chunks[chunk_count].length + kChunkCRCSize;
+        if (bytes_remaining - kChunkHeaderSize < chunk_payload)
+            break;
+
+        read_ptr += kChunkHeaderSize + chunks[chunk_count].length;
+        chunks[chunk_count].crc = read32be(read_ptr, 0);
+        read_ptr += kChunkCRCSize;
     }
 
-    if (i < 2) {
+    if (chunk_count < 2) {
         debug_png_print("Bad PNG Data\n");
         return false;
     }
 
-    int l = i - 1;
+    int last_chunk = chunk_count - 1;
 
-    if (chunks[l].type != IFF::TypeID("IEND").val()) {
-        debug_png_print("IEND chunk not found! Wanted 0x%08x, got 0x%08x!\n",IFF::TypeID("IEND").val(), chunks[l].type);
+    if (chunks[last_chunk].type != IFF::TypeID("IEND").val()) {
+        debug_png_print("IEND chunk not found! Wanted 0x%08x, got 0x%08x!\n", IFF::TypeID("IEND").val(), chunks[last_chunk].type);
         return false;
     } else {
         debug_png_print("IEND chunk found!\n");
     }
 
     if (chunks[0].type != IFF::TypeID("IHDR").val()) {
-        debug_png_print("IHDR chunk not found! Wanted 0x%08x, got 0x%08x!\n",IFF::TypeID("IHDR").val(), chunks[0].type);
+        debug_png_print("IHDR chunk not found! Wanted 0x%08x, got 0x%08x!\n", IFF::TypeID("IHDR").val(), chunks[0].type);
         return false;
     }
 
-    ptr = chunks[0].data;
-    pngheader.width = read32be(ptr, 0);
+    if (chunks[0].length < kIHDRDataSize)
+        return false;
+
+    uint8_t *ihdr_data = chunks[0].data;
+    pngheader.width = read32be(ihdr_data, 0);
     debug_png_print("Width: %d\n", pngheader.width);
-    pngheader.height = read32be(ptr, 4);
+    pngheader.height = read32be(ihdr_data, 4);
     debug_png_print("Height: %d\n", pngheader.height);
-    pngheader.bit_depth = ptr[8];
+    pngheader.bit_depth = ihdr_data[8];
     debug_png_print("Bit depth: %d\n", pngheader.bit_depth);
-    pngheader.colour_type = ptr[9];
+    pngheader.colour_type = ihdr_data[9];
     debug_png_print("Colour type: %d\n", pngheader.colour_type);
-    pngheader.compression_method = ptr[10];
+    pngheader.compression_method = ihdr_data[10];
     debug_png_print("Compression method: %d\n", pngheader.compression_method);
-    pngheader.filter_method = ptr[11];
+    pngheader.filter_method = ihdr_data[11];
     debug_png_print("Filter method: %d\n", pngheader.filter_method);
-    pngheader.interlace_method = ptr[12];
+    pngheader.interlace_method = ihdr_data[12];
     debug_png_print("Interlace method: %d\n", pngheader.interlace_method);
 
     return true;
@@ -169,55 +182,58 @@ static int adjust_gamma(int intValue) {
     return theLinearValue <= 0.0031308f ? (int)(theLinearValue * 12.92f * 256) : (int)((powf (theLinearValue, 1.0f/x) * 1.055f - 0.055f) * 256) ;
 }
 
-uint8_t *extract_palette_from_png_data(uint8_t *data, size_t length) {
-    struct png_chunk chunks[64];
-    int dataidx, palidx;
-    if (read_png(data, length, chunks, &dataidx, &palidx) == false || palidx == -1)
-        return nullptr;
-    if (chunks[palidx].length % 3 != 0)
-        return nullptr;
-    int numcolors = chunks[palidx].length / 3;
-    debug_png_print("Constructing palette with %d entries\n", numcolors);
-    uint8_t local_palette[16][3];
-    for (int i = 0; i < chunks[palidx].length; i += 3) {
-        int index = i / 3;
-        local_palette[index][0] = adjust_gamma(chunks[palidx].data[i]);
-        local_palette[index][1] = adjust_gamma(chunks[palidx].data[i + 1]);
-        local_palette[index][2] = adjust_gamma(chunks[palidx].data[i + 2]);
-        debug_png_print("Palette %d: red 0x%x green 0x%x blue 0x%x\n", index, local_palette[index][0], local_palette[index][1], local_palette[index][2]);
-    }
-    uint8_t *result = (uint8_t *)calloc(16, 3);
-    if (result != nullptr) {
-        memcpy(result, local_palette, numcolors * 3);
-    }
-    return result;
-}
-
-static uint8_t *set_pixel(int palval, uint8_t *ptr) {
-    if (palval >= palentries) {
-        return ptr + 4;
-    }
-    if (palval != 0) {
-        int index = palval * 3;
-        *ptr++ = global_palette[index++]; // Red
-        *ptr++ = global_palette[index++]; // Green
-        *ptr++ = global_palette[index];   // Blue
-        *ptr++ = 0xff; // Fully opaque
-    } else {
-        ptr += 4;
-    }
-    return ptr;
-}
-
-static bool draw_indexed_png(uint8_t **pixmapptr, int *pixmapsize, int pixwidth, int x, int y, uint8_t *data, size_t datasize, bool flipped) {
+uint8_t *extract_palette_from_png_data(uint8_t *png_data, size_t png_size) {
+    static const int kMaxPaletteEntries = 16;
+    static const int kBytesPerColor = 3;
 
     struct png_chunk chunks[64];
+    int idat_index, plte_index;
+    if (!read_png(png_data, png_size, chunks, &idat_index, &plte_index) || plte_index == -1)
+        return nullptr;
+    if (chunks[plte_index].length % kBytesPerColor != 0)
+        return nullptr;
 
-    int dataidx, xpos, ypos;
+    int color_count = chunks[plte_index].length / kBytesPerColor;
+    if (color_count > kMaxPaletteEntries)
+        color_count = kMaxPaletteEntries;
 
-    bool result = read_png(data, datasize, chunks, &dataidx, nullptr);
+    debug_png_print("Constructing palette with %d entries\n", color_count);
 
-    if (!result)
+    uint8_t *palette = (uint8_t *)calloc(kMaxPaletteEntries, kBytesPerColor);
+    if (palette == nullptr)
+        return nullptr;
+
+    for (int color_index = 0; color_index < color_count; color_index++) {
+        int offset = color_index * kBytesPerColor;
+        palette[offset + 0] = adjust_gamma(chunks[plte_index].data[offset + 0]);
+        palette[offset + 1] = adjust_gamma(chunks[plte_index].data[offset + 1]);
+        palette[offset + 2] = adjust_gamma(chunks[plte_index].data[offset + 2]);
+        debug_png_print("Palette %d: red 0x%x green 0x%x blue 0x%x\n", color_index, palette[offset], palette[offset + 1], palette[offset + 2]);
+    }
+
+    return palette;
+}
+
+static void set_pixel(int color_index, uint8_t *write_ptr) {
+    if (color_index <= 0 || color_index >= palentries)
+        return;
+    int palette_offset = color_index * 3;
+    write_ptr[0] = global_palette[palette_offset + 0];
+    write_ptr[1] = global_palette[palette_offset + 1];
+    write_ptr[2] = global_palette[palette_offset + 2];
+    write_ptr[3] = 0xff;
+}
+
+static bool draw_indexed_png(uint8_t **canvas_ptr, int *canvas_size, int canvas_width, int dest_x, int dest_y, uint8_t *png_data, size_t png_size, bool flipped) {
+
+    struct png_chunk chunks[64];
+
+    int idat_index;
+
+    if (!read_png(png_data, png_size, chunks, &idat_index, nullptr))
+        return false;
+
+    if (idat_index < 0)
         return false;
 
     if (pngheader.bit_depth != 2 && pngheader.bit_depth != 4) {
@@ -225,62 +241,68 @@ static bool draw_indexed_png(uint8_t **pixmapptr, int *pixmapsize, int pixwidth,
         return false;
     }
 
-    uint8_t *pixmap = *pixmapptr;
+    uint8_t *canvas = *canvas_ptr;
 
-    int newsize = pixwidth * (y + pngheader.height) * 4;
-    if (*pixmapsize < newsize) {
-        uint8_t *temp = (uint8_t *)calloc(1, newsize);
-        memcpy(temp, pixmap, *pixmapsize);
-        *pixmapsize = newsize;
-        free(pixmap);
-        pixmap = temp;
+    int required_size = canvas_width * (dest_y + pngheader.height) * 4;
+    if (*canvas_size < required_size) {
+        uint8_t *expanded = (uint8_t *)calloc(1, required_size);
+        if (expanded == nullptr)
+            return false;
+        memcpy(expanded, canvas, *canvas_size);
+        *canvas_size = required_size;
+        free(canvas);
+        canvas = expanded;
     }
 
-    int bits_per_col = 8 / pngheader.bit_depth;
+    int pixels_per_byte = 8 / pngheader.bit_depth;
 
-    int stride = pngheader.width / bits_per_col + 1 + (pngheader.width % 2);
+    int row_stride = pngheader.width / pixels_per_byte + 1 + (pngheader.width % 2);
 
-    size_t needed = stride * pngheader.height;
-    debug_png_print("Needed space for image data: %zu\n", needed);
+    size_t decompressed_size = (size_t)row_stride * pngheader.height;
+    debug_png_print("Needed space for image data: %zu\n", decompressed_size);
 
-    uint8_t *inflate_output = decompress_idat(chunks[dataidx].data, chunks[dataidx].length, needed);
+    uint8_t *decompressed = decompress_idat(chunks[idat_index].data, chunks[idat_index].length, decompressed_size);
 
-    uint8_t *pixptr;
-
-    for (int i = 0; i < needed; i++) {
-        ypos = y + (i / stride);
+    for (size_t byte_index = 0; byte_index < decompressed_size; byte_index++) {
+        int draw_y = dest_y + (int)(byte_index / row_stride);
         if (flipped)
-            ypos = pngheader.height + y - ypos - 1;
-        
-        xpos = x + (i % stride - 1) * bits_per_col;
+            draw_y = pngheader.height + dest_y - draw_y - 1;
 
-        // Skip the "filter" byte at the start of each row
-        if (xpos < x || xpos > pngheader.width + x)
+        int draw_x = dest_x + ((int)(byte_index % row_stride) - 1) * pixels_per_byte;
+
+        // Skip the filter byte at the start of each row
+        if (draw_x < dest_x || draw_x > (int)pngheader.width + dest_x)
             continue;
-        if (ypos >= pngheader.height + y || ypos < y)
+        if (draw_y >= (int)pngheader.height + dest_y || draw_y < dest_y)
             break;
-        uint8_t nibble = inflate_output[i] >> (8 - pngheader.bit_depth);
-        pixptr = &pixmap[(ypos * pixwidth + xpos) * 4];
-        if (pixptr - pixmap + 4 > *pixmapsize)
+
+        // Bounds-check the last pixel this byte will produce
+        int last_pixel_x = draw_x + pixels_per_byte - 1;
+        uint8_t *last_write = &canvas[(draw_y * canvas_width + last_pixel_x) * 4];
+        if (last_write - canvas + 4 > *canvas_size)
             break;
-        set_pixel(nibble, pixptr);
-        pixptr = &pixmap[(ypos * pixwidth + xpos + 1) * 4];
-        uint8_t nibble2;
+
+        uint8_t *write_ptr = &canvas[(draw_y * canvas_width + draw_x) * 4];
+        uint8_t first_pixel = decompressed[byte_index] >> (8 - pngheader.bit_depth);
+        set_pixel(first_pixel, write_ptr);
+
+        write_ptr = &canvas[(draw_y * canvas_width + draw_x + 1) * 4];
+        uint8_t next_pixel;
         if (pngheader.bit_depth == 4) {
-            nibble2 = inflate_output[i] & 0xf;
+            next_pixel = decompressed[byte_index] & 0xf;
         } else {
-            nibble2 = (inflate_output[i] >> 4) & 3;
-            set_pixel(nibble2, pixptr);
-            pixptr = &pixmap[(ypos * pixwidth + xpos + 2) * 4];
-            nibble2 = (inflate_output[i] >> 2) & 3;
-            set_pixel(nibble2, pixptr);
-            pixptr = &pixmap[(ypos * pixwidth + xpos + 3) * 4];
-            nibble2 = inflate_output[i] & 3;
+            next_pixel = (decompressed[byte_index] >> 4) & 3;
+            set_pixel(next_pixel, write_ptr);
+            write_ptr = &canvas[(draw_y * canvas_width + draw_x + 2) * 4];
+            next_pixel = (decompressed[byte_index] >> 2) & 3;
+            set_pixel(next_pixel, write_ptr);
+            write_ptr = &canvas[(draw_y * canvas_width + draw_x + 3) * 4];
+            next_pixel = decompressed[byte_index] & 3;
         }
-        set_pixel(nibble2, pixptr);
+        set_pixel(next_pixel, write_ptr);
     }
-    delete[] inflate_output;
-    *pixmapptr = pixmap;
+    delete[] decompressed;
+    *canvas_ptr = canvas;
     return true;
 }
 

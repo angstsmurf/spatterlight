@@ -15,13 +15,11 @@
 
 #include "draw_apple_2.h"
 
-struct rgb_struct {
+typedef struct  {
     uint8_t red;
     uint8_t green;
     uint8_t blue;
-};
-
-typedef struct rgb_struct rgb_t;
+} rgb_t;
 
 // 16-color Apple II palette, hand-crafted to approximate the output
 // colours of the AppleWin emulator. Indexed 0x0-0xF.
@@ -49,27 +47,33 @@ static const rgb_t apple2_palette[] =
 // Each input byte is looked up in the Apple II palette and expanded to
 // 4 bytes (R, G, B, A). Transparent pixels (matching transparent_color
 // when transparency is enabled) are left as zeroed-out RGBA (fully
-// transparent). Takes ownership of and frees the input data array.
-static uint8_t *deindex(uint8_t *data, size_t size, ImageStruct *image) {
-    uint8_t *pixmap = (uint8_t *)calloc(1, size * 4);
-    int pixpos = 0;
-    for (int i = 0; i < size; i++) {
-        rgb_t color;
-        uint8_t wordval = data[i];
-        if (!(image->transparency && image->transparent_color == wordval)) {
-            color = apple2_palette[wordval];
-            if (pixpos >= size * 4)
-                break;
-            uint8_t *ptr = &pixmap[pixpos];
-            *ptr++ = color.red;
-            *ptr++ = color.green;
-            *ptr++ = color.blue;
-            *ptr++ = 0xff;
-        }
-        pixpos += 4;
+// transparent). Takes ownership of and frees the input indexed_pixels array.
+static uint8_t *deindex(uint8_t *indexed_pixels, size_t pixel_count, ImageStruct *image) {
+    if (indexed_pixels == nullptr || image == nullptr || pixel_count == 0) {
+        free(indexed_pixels);
+        return nullptr;
     }
-    free(data);
-    return pixmap;
+
+    uint8_t *rgba_buffer = (uint8_t *)calloc(pixel_count, 4);
+    if (rgba_buffer == nullptr) {
+        free(indexed_pixels);
+        return nullptr;
+    }
+
+    for (size_t pixel_index = 0; pixel_index < pixel_count; pixel_index++) {
+        uint8_t color_index = indexed_pixels[pixel_index] & 0x0f;
+        if (image->transparency && image->transparent_color == color_index)
+            continue;
+        rgb_t color = apple2_palette[color_index];
+        size_t write_offset = pixel_index * 4;
+        rgba_buffer[write_offset + 0] = color.red;
+        rgba_buffer[write_offset + 1] = color.green;
+        rgba_buffer[write_offset + 2] = color.blue;
+        rgba_buffer[write_offset + 3] = 0xff;
+    }
+
+    free(indexed_pixels);
+    return rgba_buffer;
 }
 
 // Decompresses Apple II image data from an ImageStruct.
@@ -81,71 +85,65 @@ static uint8_t *deindex(uint8_t *data, size_t size, ImageStruct *image) {
 // After decoding each pixel, a vertical XOR pass is applied inline:
 // each pixel is XOR'd with the one directly above it (one scanline
 // width earlier), reconstructing the image from delta-encoded scanlines.
+// (The last part seems to be pure obfuscation.)
 static uint8_t *decompress_apple2(ImageStruct *image) {
     if (image == nullptr || image->data == nullptr)
         return nullptr;
 
-    uint8_t bytevalue, repeats, counter;
+    static const size_t kHeaderSize = 3;
 
-    uint8_t *ptr = image->data + 3;  // Skip 3-byte image header
-    size_t finalsize = image->width * image->height;
-    uint8_t *result = (uint8_t *)calloc(1, finalsize);
-    if (result == nullptr)
-        exit(1);
+    if (image->width <= 0 || image->height <= 0 || image->datasize < kHeaderSize)
+        return nullptr;
 
-    size_t writtenbytes = 0;
+    uint8_t *read_ptr = image->data + kHeaderSize;
+    uint8_t *data_end = image->data + image->datasize;
+    size_t pixel_count = (size_t)image->width * (size_t)image->height;
+    uint8_t *pixel_buffer = (uint8_t *)calloc(1, pixel_count);
+    if (pixel_buffer == nullptr)
+        return nullptr;
 
-    do {
-        long bytesread = ptr - image->data;
-        if (bytesread >= image->datasize)
-            return result;
+    size_t pixel_offset = 0;
 
-        // Read the color/value byte.
-        bytevalue = *ptr++;
+    while (pixel_offset < pixel_count && read_ptr < data_end) {
+        uint8_t color_value = *read_ptr++;
 
-        // Read the repeat count byte. If we're at end of data or the
-        // next byte is a color value (<=0x0F), use a default count of 1.
-        if (bytesread + 1 >= image->datasize || *ptr <= 0xf) {
-            repeats = 0xf;
+        uint8_t run_length;
+        if (read_ptr >= data_end || *read_ptr <= 0x0f) {
+            run_length = 1;
         } else {
-            repeats = *ptr++;
+            run_length = *read_ptr++ - 0x0e;
         }
 
-        // Emit (repeats - 0x0E) copies of bytevalue, applying the
-        // vertical XOR delta inline for scanlines below the first.
-        for (counter = repeats - 0xe; counter != 0; counter--) {
-            result[writtenbytes] = bytevalue;
-            if (writtenbytes >= image->width) {
-                result[writtenbytes] = result[writtenbytes] ^ result[writtenbytes - image->width];
+        for (uint8_t remaining = run_length; remaining != 0; remaining--) {
+            pixel_buffer[pixel_offset] = color_value;
+            if (pixel_offset >= (size_t)image->width) {
+                pixel_buffer[pixel_offset] ^= pixel_buffer[pixel_offset - image->width];
             }
-            writtenbytes++;
-            if (writtenbytes == finalsize) {
+            pixel_offset++;
+            if (pixel_offset == pixel_count) {
                 // Image fully decoded. Trim the compressed data buffer to
                 // the actual bytes consumed, freeing any trailing excess.
-                size_t newsize = ptr - image->data;
-                if (newsize < image->datasize) {
-                    void *temp = realloc(image->data, newsize);
+                size_t consumed_bytes = read_ptr - image->data;
+                if (consumed_bytes < image->datasize) {
+                    void *temp = realloc(image->data, consumed_bytes);
                     if (temp == nullptr) {
                         fprintf(stderr, "realloc error\n");
                         exit(1);
                     }
                     image->data = (uint8_t *)temp;
-                    fprintf(stderr, "decompress_apple2: Shaved off %lu bytes. New size: %lu\n", image->datasize - newsize, newsize);
-                    image->datasize = newsize;
+                    fprintf(stderr, "decompress_apple2: Shaved off %lu bytes. New size: %lu\n", image->datasize - consumed_bytes, consumed_bytes);
+                    image->datasize = consumed_bytes;
                 }
-                return result;
+                return pixel_buffer;
             }
         }
-
-    } while (writtenbytes < finalsize);
-    return result;
+    }
+    return pixel_buffer;
 }
 
 // Public entry point: decompresses an Apple II image and converts the
 // palette-indexed result to a 32-bit RGBA pixmap ready for display.
 uint8_t *draw_apple2(ImageStruct *image) {
     uint8_t *result = decompress_apple2(image);
-    if (result)
-        return deindex(result, image->width * image->height, image);
-    return nullptr;
+    return deindex(result, image->width * image->height, image);
 }

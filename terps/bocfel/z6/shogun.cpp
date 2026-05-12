@@ -22,6 +22,10 @@
 //  image scaling vary significantly across these modes.
 //
 
+#include <queue>
+#include <vector>
+#include <algorithm>
+
 #include "draw_image.hpp"
 #include "memory.h"
 #include "objects.h"
@@ -734,7 +738,10 @@ extern int number_of_margin_images;  // Count of tracked margin images
 //   - CGA: separated top + pillar images with special edge handling
 //   - Blorb: modern resources, similar to CGA layout
 // Also handles the hint-mode border which has different pillar images.
-// Draws a status-bar-colored rectangle at the top to mask any gaps.
+// Draws a status-bar-colored rectangle at the top.
+// (The raw graphics have a top bar that
+ // won't fit all the header text, so the original interpreters also cover it
+ // with a solid color rectangle.)
 void shogun_display_border(ShogunBorderType border) {
     if (border != NO_BORDER  && border != P_BORDER && border != P_BORDER2 && border != P_HINT_BORDER) {
         border = P_BORDER;
@@ -849,97 +856,15 @@ void shogun_display_border(ShogunBorderType border) {
         draw_rectangle_on_bitmap(monochrome_black, hw_screenwidth - 1, 0, 1, gscreenh / imagescaley);
     }
 
-    draw_to_pixmap_unscaled_using_current_palette(border, 0, 0);
+    bool is_hint = (border == P_HINT_BORDER);
+    bool draw_non_hint_rect = (!start_menu_mode && !is_hint);
 
-    float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
-    int desired_height = ceil(gscreenh / factor);
-
-    int lowest_drawn_line = height + border_top;
-    bool must_extend = (desired_height > lowest_drawn_line);
-
-    // BL won't be found
-    // unless we are drawing the hints border
-    // and graphics type is not Amiga or Mac B/W
-    if (find_image(BL)) {
-        get_image_size(BL, &width, &height);
-        draw_to_pixmap_unscaled(BL, 0, border_top);
-        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
-        lowest_drawn_line = height + border_top;
-    } else {
-        // Amiga och Mac border graphics are a single image with everything,
-        // not separated into top and sides
-
-        if (must_extend && (graphics_type == kGraphicsTypeAmiga || graphics_type == kGraphicsTypeMacBW)) {
-            if (border == P_BORDER) {
-                if (graphics_type == kGraphicsTypeMacBW) {
-                    draw_to_pixmap_unscaled_flipped_using_current_palette(border, 0, height);
-                    lowest_drawn_line = height * 2;
-                } else {
-                    draw_to_pixmap_unscaled_flipped_using_current_palette(border, 0, height - 2);
-                    lowest_drawn_line = height * 2 - 2;
-                }
-            } else if (border == P_BORDER2) {
-                if (graphics_type == kGraphicsTypeMacBW) {
-                    draw_to_pixmap_unscaled_using_current_palette(border, 0, height - 35);
-                    lowest_drawn_line = height * 2 - 35;
-                } else {
-                    draw_to_pixmap_unscaled_using_current_palette(border, 0, height - 22);
-                    lowest_drawn_line = height * 2 - 22;
-                }
-            } else if (border == P_HINT_BORDER && graphics_type == kGraphicsTypeMacBW) {
-                extend_mac_bw_hint_border(desired_height);
-                desired_height = 0;
-            }
-        }
-        
-        if (find_image(BR)) {
-            get_image_size(BR, &width, &height);
-            if (graphics_type == kGraphicsTypeCGA) {
-                height -= 7;
-            }
-            if (must_extend)
-                draw_to_pixmap_unscaled_flipped_using_current_palette(border, hw_screenwidth - width, border_top + height);
-            draw_to_pixmap_unscaled_using_current_palette(BR, hw_screenwidth - width, border_top);
-            lowest_drawn_line = border_top + height;
-            if (must_extend) {
-                draw_to_pixmap_unscaled_flipped_using_current_palette(BR, 0, border_top + height);
-                lowest_drawn_line += height;
-            }
-            if (graphics_type == kGraphicsTypeCGA) {
-                draw_to_pixmap_unscaled(border, 0, 0);
-            }
-        }
-    }
-    extend_shogun_border(desired_height, lowest_drawn_line, pillar_top);
-
-    // We draw a rectangle of status window color at the top to avoid
-    // visible gaps at the edges. (Except at the start menu, where
-    // there is no status window.)
-    bool should_draw_covering_rectangle = false;
-
-    glui32 rectangle_color = user_selected_foreground;
-    if (!start_menu_mode && border != P_HINT_BORDER) {
-        should_draw_covering_rectangle = true;
-    }
-
-    if (border == P_HINT_BORDER ) {
-        if (graphics_type == kGraphicsTypeCGA) {
-            should_draw_covering_rectangle = true;
-        } else {
-            left_margin = 0;
-            if (graphics_type == kGraphicsTypeMacBW) {
-                should_draw_covering_rectangle = true;
-            } else if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
-                should_draw_covering_rectangle = true;
-                rectangle_color = ROSE_TAUPE;
-            }
-        }
-    }
-
-    if (should_draw_covering_rectangle) {
-        draw_rectangle_on_bitmap(rectangle_color, left_margin, 0, hw_screenwidth - left_margin * 2, V6_STATUS_WINDOW.y_size / imagescaley + 1);
-    }
-    flush_bitmap(current_graphics_buf_win);
+    draw_border_common(border, BL, BR,
+                       height, border_top, pillar_top,
+                       left_margin,
+                       0,    // cga_lowest_adjust
+                       is_hint,
+                       draw_non_hint_rect);
 }
 
 
@@ -1338,15 +1263,117 @@ void simplify_maze(void) {
     }
 }
 
+// Solves the maze using breadth-first search and prints step-by-step
+// directions from the start position to the exit. The exit is identified
+// as an open cell on the maze border (top/bottom row or left/right column)
+// that isn't the start position.
+void solve_maze(void) {
+    int MAZE_WIDTH, MAZE_HEIGHT;
+    get_maze_width_and_height(&MAZE_WIDTH, &MAZE_HEIGHT);
+    int MAZE_MAP = get_global(sg.MAZE_MAP);
+    int mazesize = MAZE_WIDTH * MAZE_HEIGHT;
+
+    int start = get_global(sg.MAZE_XSTART) + get_global(sg.MAZE_YSTART) * MAZE_WIDTH;
+
+    // Find exit: an open cell on the border that isn't the start
+    int exit_pos = -1;
+    for (int x = 0; x < MAZE_WIDTH && exit_pos == -1; x++) {
+        if (memory[MAZE_MAP + x] == P_MAZE_STREET && x != start)
+            exit_pos = x;
+        int bottom = (MAZE_HEIGHT - 1) * MAZE_WIDTH + x;
+        if (memory[MAZE_MAP + bottom] == P_MAZE_STREET && bottom != start)
+            exit_pos = bottom;
+    }
+    for (int y = 0; y < MAZE_HEIGHT && exit_pos == -1; y++) {
+        int left = y * MAZE_WIDTH;
+        if (memory[MAZE_MAP + left] == P_MAZE_STREET && left != start)
+            exit_pos = left;
+        int right = y * MAZE_WIDTH + MAZE_WIDTH - 1;
+        if (memory[MAZE_MAP + right] == P_MAZE_STREET && right != start)
+            exit_pos = right;
+    }
+
+    if (exit_pos == -1) {
+        transcribe_and_print_string("Could not find maze exit.\n");
+        return;
+    }
+
+    // BFS from start to exit
+    std::vector<int> parent(mazesize, -1);
+    std::vector<bool> visited(mazesize, false);
+    std::queue<int> bfs;
+
+    visited[start] = true;
+    bfs.push(start);
+
+    while (!bfs.empty()) {
+        int pos = bfs.front();
+        bfs.pop();
+
+        if (pos == exit_pos)
+            break;
+
+        // Cardinal neighbors: north, east, south, west
+        int deltas[] = { -MAZE_WIDTH, 1, MAZE_WIDTH, -1 };
+        for (int d : deltas) {
+            int next = pos + d;
+            if (next < 0 || next >= mazesize || visited[next])
+                continue;
+            if (memory[MAZE_MAP + next] != P_MAZE_STREET)
+                continue;
+            // Prevent wrapping across row boundaries for east/west moves
+            if (d == 1 && pos % MAZE_WIDTH == MAZE_WIDTH - 1)
+                continue;
+            if (d == -1 && pos % MAZE_WIDTH == 0)
+                continue;
+            visited[next] = true;
+            parent[next] = pos;
+            bfs.push(next);
+        }
+    }
+
+    if (!visited[exit_pos]) {
+        transcribe_and_print_string("No path found through the maze.\n");
+        return;
+    }
+
+    // Reconstruct path from exit back to start
+    std::vector<int> path;
+    for (int pos = exit_pos; pos != -1; pos = parent[pos])
+        path.push_back(pos);
+    std::reverse(path.begin(), path.end());
+
+    // Print directions
+    transcribe_and_print_string("\nMaze solution:\n");
+    int lastdiff = 0;
+    for (size_t i = 1; i < path.size(); i++) {
+        int diff = path[i] - path[i - 1];
+        if (lastdiff != diff) {
+            if (diff == -MAZE_WIDTH)
+                transcribe_and_print_string("North\n");
+            else if (diff == 1)
+                transcribe_and_print_string("East\n");
+            else if (diff == MAZE_WIDTH)
+                transcribe_and_print_string("South\n");
+            else if (diff == -1)
+                transcribe_and_print_string("West\n");
+        }
+        lastdiff = diff;
+    }
+    transcribe_and_print_string("\n");
+}
+
 // Flag to suppress re-asking the maze simplification question on autorestore,
 // since the player already answered it in the original session.
 bool dont_repeat_question_on_autorestore = false;
 
 // Called after the Z-machine builds the maze. Prompts the player to optionally
 // simplify the maze (fill in dead ends) for a better text-only experience.
+// If simplified, also solves the maze and prints directions.
 void after_BUILDMAZE(void) {
     if (skip_puzzle_prompt("Would you like me to simplify the city maze, to make it easier to traverse without seeing the graphics? (Y is affirmative): >")) {
         simplify_maze();
+//        solve_maze();
     }
 }
 
