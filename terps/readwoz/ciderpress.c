@@ -1,9 +1,15 @@
 /*
-    This is based on parts of the Ciderpress source.
-    See https://github.com/fadden/ciderpress for the full version.
-
-    Includes fragments from a2tools by Terry Kyriacopoulos and Paul Schlyter
-*/
+ * Apple II disk image reader.
+ *
+ * Reads DOS 3.3 and ProDOS disk images in .dsk (sector) and .nib (nibble)
+ * formats. Provides file-level access to extract individual files from the
+ * disk image's filesystem.
+ *
+ * Based on parts of the CiderPress source by Andy McFadden.
+ * See https://github.com/fadden/ciderpress for the full version.
+ *
+ * Includes fragments from a2tools by Terry Kyriacopoulos and Paul Schlyter.
+ */
 
 #include <assert.h>
 #include <stdarg.h>
@@ -16,19 +22,18 @@
 #include "debugprint.h"
 #include "ciderpress.h"
 
-//#define NIB_VERBOSE_DEBUG
-
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
+/* DOS 3.3 file type codes, stored in byte 2 of each catalog entry */
 enum {
-    FILETYPE_T = 0x00,
-    FILETYPE_I = 0x01,
-    FILETYPE_A = 0x02,
-    FILETYPE_B = 0x04,
-    FILETYPE_S = 0x08,
-    FILETYPE_R = 0x10,
-    FILETYPE_X = 0x20, /* "new A" */
-    FILETYPE_Y = 0x40, /* "new B" */
+    FILETYPE_T = 0x00,      // Text
+    FILETYPE_I = 0x01,      // Integer BASIC
+    FILETYPE_A = 0x02,      // Applesoft BASIC
+    FILETYPE_B = 0x04,      // Binary
+    FILETYPE_S = 0x08,      // "S" type
+    FILETYPE_R = 0x10,      // Relocatable
+    FILETYPE_X = 0x20,      // "new A"
+    FILETYPE_Y = 0x40,      // "new B"
     FILETYPE_UNKNOWN = 0x100
 };
 
@@ -58,16 +63,17 @@ static const int kMaxTSIterations = 32;
 
 #define kMaxCatalogSectors 64 // two tracks on a 32-sector disk
 
+/* Standard DOS 3.3 disk geometry: 35 tracks x 16 sectors x 256 bytes = 143360 */
 static size_t fLength = 143360;
 
 #define kNumTracks 35
-#define kNumSectPerTrack 16 // Is this ever 13?
+#define kNumSectPerTrack 16
 #define kSectorSize 256
 
-#define kChunkSize62 86 // (0x56)
+#define kChunkSize62 86 // 6&2 encoding: 86 "twos" bytes per sector
 
-#define kMaxNibbleTracks525 40 // max #of tracks on 5.25 nibble img
-#define kTrackAllocSize 6656 // max 5.25 nibble track len; for buffers
+#define kMaxNibbleTracks525 40  // max #of tracks on 5.25" nibble image
+#define kTrackAllocSize 6656    // max 5.25" nibble track length; for buffers
 
 /*
  * ==========================================================================
@@ -179,15 +185,17 @@ typedef enum DIError {
 
 // clang-format on
 
+/*
+ * Circular buffer for nibble track data. Allows wraparound access so that
+ * sector searches can span the end/start boundary of a track.
+ */
 struct ringbuf_t {
     uint8_t **buffer;
-    size_t size; //of the buffer
+    size_t size;
     int initialized;
 };
 
-// Opaque circular buffer structure
 typedef struct ringbuf_t ringbuf_t;
-// Handle type, the way users interact with the API
 typedef ringbuf_t *ringbuf_handle_t;
 
 /*
@@ -231,6 +239,7 @@ typedef struct {
     int dataEpilogVerifyCount;
 } NibbleDescr;
 
+/* 6&2 encoding table: maps 6-bit values (0-63) to valid disk bytes (>= 0x96) */
 static const uint8_t kDiskBytes62[64] = {
     0x96, 0x97, 0x9a, 0x9b, 0x9d, 0x9e, 0x9f, 0xa6,
     0xa7, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb2, 0xb3,
@@ -242,14 +251,14 @@ static const uint8_t kDiskBytes62[64] = {
     0xf7, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff
 };
 
-/* static data tables */
+/* Inverse of kDiskBytes62: maps disk bytes back to 6-bit values */
 static uint8_t *kInvDiskBytes62 = NULL;
 #define kInvInvalidValue 0xff
 
-static uint8_t *fNibbleTrackBuf = NULL; // allocated on heap
-static int fNibbleTrackLoaded = -1; // track currently in buffer
+static uint8_t *fNibbleTrackBuf = NULL;     // decoded nibble track cache
+static int fNibbleTrackLoaded = -1;         // which track is cached (-1 = none)
 
-static uint8_t *rawdata = NULL;
+static uint8_t *rawdata = NULL;             // pointer to the loaded disk image
 static size_t rawdatalen = 0;
 
 typedef enum { // format of the image data stream
@@ -350,9 +359,11 @@ typedef enum {
 } StorageType;
 
 
+/* Linked list of files found on the disk image */
 static A2File *firstfile = NULL;
 static A2File *lastfile = NULL;
 
+/* DOS 3.3 VTOC (Volume Table of Contents) fields */
 static int fFirstCatTrack;
 static int fFirstCatSector;
 static int fVTOCVolumeNumber;
@@ -360,9 +371,11 @@ static int fVTOCNumTracks;
 static int fVTOCNumSectors;
 uint8_t fVTOC[kSectorSize];
 
+/* ProDOS volume identification */
 static char fVolumeName[30];
 static char fVolumeID[31];
 
+/* ProDOS volume bitmap and block count */
 static int fBitMapPointer;
 static int fTotalBlocks;
 
@@ -429,6 +442,7 @@ static uint32_t GetLongLE(const uint8_t* ptr)
     (uint32_t) *(ptr+3) << 24;
 }
 
+/* Read a byte from the circular track buffer, wrapping around at boundaries */
 static uint8_t access_ringbuf(ringbuf_handle_t ringbuf, int index)
 {
     if (ringbuf == NULL || ringbuf->initialized == 0 || ringbuf->buffer == NULL || *(ringbuf->buffer) == NULL) {
@@ -466,6 +480,7 @@ static void CalcNibbleInvTables(void)
     }
 }
 
+/* Decode a 4-and-4 encoded byte pair (used in address fields) */
 static uint16_t ConvFrom44(uint8_t val1, uint8_t val2)
 {
     return ((val1 << 1) | 0x01) & val2;
@@ -652,8 +667,6 @@ static DIError DecodeNibbleData(ringbuf_handle_t ringbuffer, int idx,
  */
 static DIError CopyBytesOut(void *buf, size_t offset, int size)
 {
-    //    if (offset + size > rawdatalen)
-    //        return kDIErrDataUnderrun;
     memcpy(buf, rawdata + offset, size);
     return kDIErrNone;
 }
@@ -728,11 +741,7 @@ static DIError CalcSectorAndOffset(long track, int sector, SectorOrder imageOrde
         case kSectorOrderProDOS:
             newSector = raw2prodos[newSector];
             break;
-//        case kSectorOrderDOS:
-//            newSector = raw2dos[newSector];
-//            break;
         case kSectorOrderPhysical:
-            //newSector = newSector;
             break;
         case kSectorOrderUnknown:
             // should never happen; fall through to "default"
@@ -844,6 +853,10 @@ static DIError ReadNibbleSector(long track, int sector, uint8_t *buf)
     return dierr;
 }
 
+/*
+ * Initialize the reader for a .nib (nibble) disk image.
+ * Must be called before any file operations on nibble images.
+ */
 void InitNibImage(uint8_t *data, size_t datasize)
 {
     if (kInvDiskBytes62 == NULL)
@@ -856,6 +869,10 @@ void InitNibImage(uint8_t *data, size_t datasize)
     fPhysical = kPhysicalFormatNib525_6656;
 }
 
+/*
+ * Initialize the reader for a .dsk (sector) disk image.
+ * Must be called before any file operations on sector images.
+ */
 void InitDskImage(uint8_t *data, size_t datasize)
 {
     rawdata = data;
@@ -864,6 +881,10 @@ void InitDskImage(uint8_t *data, size_t datasize)
     fPhysical = kPhysicalFormatSectors;
 }
 
+/*
+ * Release all resources associated with the current disk image.
+ * Frees the file list, track buffer, and resets state.
+ */
 void FreeDiskImage(void)
 {
     rawdata = NULL;
@@ -889,6 +910,12 @@ void FreeDiskImage(void)
     lastfile = NULL;
 }
 
+/*
+ * Read a contiguous range of bytes from a nibble disk image.
+ *
+ * Decodes sectors on-the-fly starting from the given byte offset.
+ * The caller must free the returned buffer.
+ */
 uint8_t *ReadImageFromNib(size_t offset, size_t size, uint8_t *data, size_t datasize)
 {
     uint8_t *result = MemAlloc(size);
@@ -960,6 +987,7 @@ static DIError ReadTrackSector(long track, int sector, SectorOrder imageOrder, S
     return dierr;
 }
 
+/* Append a file entry to the linked list of discovered files */
 static void AddFileToList(A2File *file)
 {
     if (firstfile == NULL) {
@@ -1720,6 +1748,9 @@ bail:
 }
 
 
+/*
+ * Open a ProDOS file for reading by loading its block list.
+ */
 static DIError ProDOSOpen(A2File *pOpenFile)
 {
     DIError dierr = kDIErrNone;
@@ -1986,6 +2017,7 @@ bail:
     return dierr;
 }
 
+/* Convert a ProDOS filename character to lowercase, treating '.' as space */
 static char NameToLower(char ch)
 {
     if (ch == '.')
@@ -1995,6 +2027,11 @@ static char NameToLower(char ch)
 }
 
 
+/*
+ * Apply GS/OS tech note #8 lower-case flags to a ProDOS filename.
+ * Each bit in lcFlags indicates whether the corresponding character
+ * should be lowercased.
+ */
 static void GenerateLowerCaseName(const char* upperName,
                                          char* lowerName, uint16_t lcFlags)
 {
@@ -2021,6 +2058,7 @@ static void GenerateLowerCaseName(const char* upperName,
         lowerName[bit] = '\0';
 }
 
+/* Parse a ProDOS directory entry from raw block data */
 static void InitDirEntry(DirEntry* pEntry,
                                 const uint8_t* entryBuf)
 {
@@ -2158,6 +2196,7 @@ static void SetVolumeID(void)
     snprintf(fVolumeID, 31, "ProDOS /%s", fVolumeName);
 }
 
+/* Count the number of blocks in the volume directory chain */
 static DIError DetermineVolDirLen(uint16_t nextBlock, uint16_t* pBlocksUsed) {
     DIError dierr = kDIErrNone;
     uint8_t blkBuf[kBlkSize];
@@ -2437,6 +2476,7 @@ bail:
     return dierr;
 }
 
+/* Find a file in the catalog by exact name match (case-sensitive) */
 static A2File *find_file_named(char *name)
 {
     debug_print("find_file_named: \"%s\"\n", name);
@@ -2450,6 +2490,11 @@ static A2File *find_file_named(char *name)
     return file;
 }
 
+/*
+ * Search for the main SAGA adventure game data file.
+ * Recognizes several naming conventions used by different games:
+ * "DATABASE", specific game titles, or "A<n>.DAT" patterns.
+ */
 static A2File *find_SAGA_database(void)
 {
     A2File *file = firstfile;
@@ -2498,7 +2543,7 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
         Read(file, buf, (file->fLengthInSectors - 1) * kSectorSize, &actual);
         *len = actual;
     }
-    /* Many games have the inventory image on the boot disk (and the rest of the images on the other disk) */
+    /* The inventory image is often on the boot disk (other images on side B) */
     file = find_file_named("PAK.INVEN");
     if (!file) {
         file = find_file_named("PAC.INVEN");
@@ -2520,7 +2565,7 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
         free(inventemp);
     }
 
-    /* Image unscrambling tables are usually found somewhere in a file named M2 (As in memory part 2?) */
+    /* M2 contains image unscrambling tables (Norm Sailer lookup data) */
     file = find_file_named("M2");
     if (file) {
         Open(file);
@@ -2553,6 +2598,7 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
 }
 
 
+/* Iterate through the file list. Pass NULL to get the first file. */
 A2File* GetNextFile(A2File *pFile)
 {
     if (pFile == NULL)
@@ -2562,6 +2608,13 @@ A2File* GetNextFile(A2File *pFile)
 }
 
 
+/*
+ * Extract all files from a DOS 3.3 disk image into an array of A2FileRec
+ * structs. Each record contains the filename, raw file data (including the
+ * 4-byte binary header for B-type files), and data size.
+ *
+ * The caller must free each record's filename and data, then the array itself.
+ */
 A2FileRec *GetAllApple2DOSFiles(uint8_t *data, size_t len, size_t *number_of_files)
 {
     rawdata = data;
@@ -2654,8 +2707,18 @@ bail:
     return dierr;
 }
 
+/* Known Infocom V6 game titles on Apple II ProDOS disks */
 const char *titles[] = { "ZORK0", "SHOGUN", "JOURNEY", "ARTHUR", NULL };
 
+/*
+ * Read an Infocom V6 game file from a ProDOS disk image.
+ *
+ * Identifies the game by matching the volume name against known titles,
+ * then extracts the game data file (e.g. "ZORK0.D1").
+ *
+ * Returns the game data buffer (caller must free), or NULL on failure.
+ * Sets *game to the title index and *diskindex to the disk number.
+ */
 uint8_t *ReadInfocomV6File(uint8_t *data, size_t *len, int *game, int *diskindex)
 {
     rawdata = data;
