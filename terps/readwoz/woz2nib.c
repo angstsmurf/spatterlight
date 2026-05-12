@@ -1,13 +1,19 @@
-//
-//  woz2nib.c
-//  part of ScottFree, an interpreter for adventures in Scott Adams format
-//
-//  Created by Petter Sjölund on 2022-09-09.
-//  Based on woz2dsk.pl by LEE Sau Dan <leesaudan@gmail.com>
-//
-//  This is a quick translation of Perl code that I don't fully understand,
-//  so it likely contains bugs and redundant code, but seems to be working.
-//
+/*
+ * WOZ to NIB converter.
+ *
+ * Converts WOZ 1.x and 2.x disk image files into raw nibble (.nib) format.
+ * WOZ is a modern Apple II disk image format that stores raw flux/bit data;
+ * NIB is the simpler 6656-bytes-per-track nibble format used by emulators.
+ *
+ * The conversion process:
+ *   1. Parse the WOZ container (INFO, TMAP, TRKS chunks)
+ *   2. For each track, locate sync byte sequences to find sector alignment
+ *   3. Extract nibble bytes from the raw bitstream
+ *   4. Pad or trim to exactly 6656 nibbles per track
+ *
+ * Created by Petter Sjölund on 2022-09-09.
+ * Based on woz2dsk.pl by LEE Sau Dan <leesaudan@gmail.com>
+ */
 
 #include <stdarg.h>
 #include <stdio.h>
@@ -20,36 +26,68 @@
 
 #include "woz2nib.h"
 
+/* Standard Apple II 5.25" disk geometry */
 #define STANDARD_TRACKS_PER_DISK 35
 #define SECTORS_PER_TRACK 16
 #define BYTES_PER_SECTOR 256
 #define NIBBLES_PER_TRACK 6656
 
+/* Output format (only NIBBLE is currently used) */
 typedef enum {
     DOS,
     ProDOS,
     NIBBLE
 } SectorOrderType;
 
+/* WOZ file chunk types */
 typedef enum {
-    INFO,
-    TMAP,
-    TRKS,
-    WRIT,
-    META,
+    INFO,   // disk metadata (version, type, creator)
+    TMAP,   // track map (maps quarter-tracks to TRKS entries)
+    TRKS,   // track bitstream data
+    WRIT,   // write-protect info (ignored)
+    META,   // key-value metadata strings
     NUM_CHUNK_TYPES
 } ChunkType;
 
-static const char *chunktypes[6] = { "INFO", "TMAP", "TRKS", "WRIT", "META", NULL };
+static const char *chunktypes[NUM_CHUNK_TYPES + 1] = { "INFO", "TMAP", "TRKS", "WRIT", "META", NULL };
 
+/* WOZ container format constants */
+#define WOZ_MAGIC_SIZE 4
+#define WOZ_HEADER_SIZE 12          /* 4 magic + 4 fixed + 4 CRC */
+#define WOZ_CHUNK_HEADER_SIZE 8     /* 4 type ID + 4 size */
+#define WOZ_BLOCK_SIZE 512
+
+/* WOZ quarter-track limits */
+#define MAX_QUARTER_TRACKS 160
+#define TMAP_EMPTY_TRACK 0xFF
+
+/* WOZ 1.x track record layout */
+#define WOZ1_TRACK_DATA_SIZE 6646   /* bitstream data portion */
+#define WOZ1_TRACK_RECORD_SIZE 6656 /* data + 10-byte trailer */
+
+/* WOZ 2.x TRKS entry layout */
+#define WOZ2_TRKS_ENTRY_SIZE 8
+
+/* INFO chunk layout */
+#define INFO_CHUNK_SIZE 60
+#define INFO_CREATOR_OFFSET 5
+#define INFO_CREATOR_MAX_LENGTH 32
+#define INFO_DISK_SIDES_OFFSET 37
+
+/* Sync pattern lengths in bits (used to rotate past the pattern) */
+#define SYNC16_BIT_LENGTH 50
+#define SYNC13_BIT_LENGTH 72
+
+/* Per-track data from the TRKS chunk */
 typedef struct {
-    uint16_t starting_block;
-    uint16_t block_count;
-    uint32_t bit_count;
-    uint16_t bytes_used;
-    uint8_t *bitstream;
+    uint16_t starting_block;    // WOZ 2.x: offset in 512-byte blocks
+    uint16_t block_count;       // WOZ 2.x: number of 512-byte blocks
+    uint32_t bit_count;         // total number of valid bits in the track
+    uint16_t bytes_used;        // WOZ 1.x: actual bytes used in buffer
+    uint8_t *bitstream;         // WOZ 1.x: allocated copy of track data
 } trksdata;
 
+/* CRC-32 lookup table for WOZ file integrity verification */
 static const uint32_t crc32_tab[] = {
     0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706af48f,
     0xe963a535, 0x9e6495a3, 0x0edb8832, 0x79dcb8a4, 0xe0d5e91e, 0x97d2d988,
@@ -106,8 +144,6 @@ static uint32_t crc32(uint32_t crc, const void *buf, size_t size)
     return ~crc;
 }
 
-#define WOZ_BLOCK_SIZE 512
-
 static void FatalError(char *format, ...)
 {
     va_list argp;
@@ -131,6 +167,7 @@ static void *MemAlloc(size_t size)
     return (t);
 }
 
+/* Rotate a byte left by one bit, shifting in the carry from a previous rotation */
 static int rotate_left_with_carry(uint8_t *byte, int last_carry)
 {
     int carry = ((*byte & 0x80) > 0);
@@ -140,82 +177,94 @@ static int rotate_left_with_carry(uint8_t *byte, int last_carry)
     return carry;
 }
 
-// This is a translation of $trk =~ s{^0*(1.{7})}{}o;
-// Extract first set bit + 7 following bits.
-static uint8_t extract_nibble(uint8_t *bitstream, int bits, int *pos)
+/*
+ * Extract the next nibble byte from a bitstream.
+ *
+ * Scans forward from *pos, skipping zero bits until a '1' bit is found,
+ * then collects that bit plus the next 7 to form an 8-bit nibble.
+ * The consumed bits are zeroed out in the bitstream. Advances *pos.
+ */
+static uint8_t extract_nibble(uint8_t *bitstream, int total_bits, int *pos)
 {
-    int bytes = bits / 8 + (bits % 8 != 0);
+    int total_bytes = total_bits / 8 + (total_bits % 8 != 0);
     // skip any initial '0'.
-    while (*pos < bytes && bitstream[*pos] == 0) {
+    while (*pos < total_bytes && bitstream[*pos] == 0) {
         (*pos)++;
     }
 
-    if (*pos >= bits / 8) {
+    if (*pos >= total_bits / 8) {
         // bitstream contained only zeros until no full byte left.
         return 0;
     }
 
     int carry = 0;
-    int shiftcount = 0;
+    int shift_count = 0;
     while ((bitstream[*pos] & 0x80) == 0) {
         carry = rotate_left_with_carry(&bitstream[*pos + 1], carry);
         carry = rotate_left_with_carry(&bitstream[*pos], carry);
-        shiftcount++;
+        shift_count++;
     }
     uint8_t nibble = bitstream[*pos];
     bitstream[*pos] = 0;
-    bitstream[*pos + 1] = bitstream[*pos + 1] >> shiftcount;
+    bitstream[*pos + 1] = bitstream[*pos + 1] >> shift_count;
     return nibble;
 }
 
-static uint8_t *swap_head_and_tail(uint8_t *bitstream, int headbits, int bits)
+/*
+ * Rotate a bitstream by moving 'head_bits' bits from the front to the end.
+ *
+ * Used to align the track bitstream so that it starts at a sector boundary
+ * (just after sync bytes). This is a circular rotation at the bit level,
+ * handling non-byte-aligned boundaries.
+ */
+static uint8_t *swap_head_and_tail(uint8_t *bitstream, int head_bits, int total_bits)
 {
 
-    int bitspill = bits % 8;
-    int anybitspill = (bitspill != 0);
-    int totalbytes = bits / 8 + anybitspill;
-    int headspill = headbits % 8;
-    int anyheadspill = (headspill != 0);
-    int tailbits = bits - headbits;
-    int tailspill = tailbits % 8;
-    int headbytes = headbits / 8 + anyheadspill;
+    int trailing_bits = total_bits % 8;
+    int has_trailing_bits = (trailing_bits != 0);
+    int total_bytes = total_bits / 8 + has_trailing_bits;
+    int head_trailing = head_bits % 8;
+    int has_head_trailing = (head_trailing != 0);
+    int tail_bits = total_bits - head_bits;
+    int tail_trailing = tail_bits % 8;
+    int head_bytes = head_bits / 8 + has_head_trailing;
 
-    uint8_t lastbyte = bitstream[totalbytes - 1];
+    uint8_t last_byte = bitstream[total_bytes - 1];
 
-    if (anybitspill)
-        lastbyte = (bitstream[totalbytes - 2] << bitspill) | (lastbyte >> (8 - bitspill));
+    if (has_trailing_bits)
+        last_byte = (bitstream[total_bytes - 2] << trailing_bits) | (last_byte >> (8 - trailing_bits));
 
-    int tailbytes = tailbits / 8 + 2;
+    int tail_bytes = tail_bits / 8 + 2;
 
     // if there are spillover head bits, the tail copy must
     // include the last head byte,
-    // then be left shifted (headspill) times
+    // then be left shifted (head_trailing) times
 
-    uint8_t *tail = MemAlloc(tailbytes);
+    uint8_t *tail = MemAlloc(tail_bytes);
 
-    if (!anyheadspill) {
+    if (!has_head_trailing) {
         // If the number of head bits are cleanly divisible by 8 we don't need to do any shifting
-        memcpy(tail, bitstream + headbytes, tailbytes - 1);
+        memcpy(tail, bitstream + head_bytes, tail_bytes - 1);
     } else {
-        for (int i = 0; i < tailbytes && headbytes + i < totalbytes; i++) {
-            tail[i] = (bitstream[headbytes - 1 + i] << headspill) | (bitstream[headbytes + i] >> (8 - headspill));
+        for (int i = 0; i < tail_bytes && head_bytes + i < total_bytes; i++) {
+            tail[i] = (bitstream[head_bytes - 1 + i] << head_trailing) | (bitstream[head_bytes + i] >> (8 - head_trailing));
         }
     }
 
     // if there are spillover tail bits, the head copy must
-    // then be right shifted (tailspill) times,
+    // then be right shifted (tail_trailing) times,
     // while shifting in the original last tail bits
-    // we calculated as lastbyte above
+    // we calculated as last_byte above
 
-    uint8_t *head = MemAlloc(headbytes + 1);
+    uint8_t *head = MemAlloc(head_bytes + 1);
 
-    head[0] = (bitstream[0] >> tailspill) | (lastbyte << (8 - tailspill));
-    for (int i = 1; i <= headbytes; i++) {
-        head[i] = (bitstream[i] >> tailspill) | (bitstream[i - 1] << (8 - tailspill));
+    head[0] = (bitstream[0] >> tail_trailing) | (last_byte << (8 - tail_trailing));
+    for (int i = 1; i <= head_bytes; i++) {
+        head[i] = (bitstream[i] >> tail_trailing) | (bitstream[i - 1] << (8 - tail_trailing));
     }
 
-    memcpy(bitstream, tail, tailbytes);
-    memcpy(bitstream + tailbits / 8, head, headbytes + 1);
+    memcpy(bitstream, tail, tail_bytes);
+    memcpy(bitstream + tail_bits / 8, head, head_bytes + 1);
 
     free(head);
     free(tail);
@@ -223,15 +272,21 @@ static uint8_t *swap_head_and_tail(uint8_t *bitstream, int headbits, int bits)
     return bitstream;
 }
 
+/* Result of searching for sector sync byte patterns */
 typedef enum {
     FOUND_NONE,
-    FOUND16,
-    FOUND13,
+    FOUND16,    // 16-sector (DOS 3.3) sync pattern
+    FOUND13,    // 13-sector (DOS 3.2) sync pattern
 } SearchResultType;
 
 // clang-format off
 
-static const uint8_t syncbytes16[7] = {
+/*
+ * Sync byte patterns that precede sector address fields.
+ * These are sequences of self-sync bytes (10-bit patterns that always
+ * produce valid nibble bytes regardless of bit alignment).
+ */
+static const uint8_t sync_pattern_16[7] = {
     0xff, //    11111111
     0x3f, //    00111111
     0xcf, //    11001111
@@ -243,7 +298,7 @@ static const uint8_t syncbytes16[7] = {
 
 // clang-format on
 
-static const uint8_t syncbytes13[9] = {
+static const uint8_t sync_pattern_13[9] = {
     0xff, //    11111111
     0x7f, //    01111111
     0xbf, //    10111111
@@ -255,35 +310,34 @@ static const uint8_t syncbytes13[9] = {
     0xfe, //    11111110
 };
 
-// These two functions look for the two sync bytes sequences
-// in the bitstream array.
-// This is obviously not the quickest way to do it. It should be
-// possible to create a way to compare 64 bits at once on a
-// standard 64-bit little endian system.
-// This also seems relevant:
-// https://stackoverflow.com/questions/1572290/fastest-way-to-scan-for-bit-pattern-in-a-stream-of-bits
+#define SYNC16_PATTERN_LENGTH (int)(sizeof(sync_pattern_16))
+#define SYNC13_PATTERN_LENGTH (int)(sizeof(sync_pattern_13))
+#define MAX_SYNC_PATTERN_LENGTH SYNC13_PATTERN_LENGTH
 
-// Look for any of the two sync byte sequences in the bitstream array
-// This function assumes that the bitstream array is at least 9 bytes long.
-static SearchResultType find_in_bytes(uint8_t *bitstream)
+/*
+ * Check if the bytes at 'bitstream' match either the 16-sector or
+ * 13-sector sync byte pattern. Assumes at least MAX_SYNC_PATTERN_LENGTH
+ * bytes are available.
+ */
+static SearchResultType match_sync_pattern(uint8_t *bitstream)
 {
     int may_be_16 = 1;
     int may_be_13 = 1;
-    for (int i = 1; i < 9; i++) {
+    for (int i = 1; i < MAX_SYNC_PATTERN_LENGTH; i++) {
         // We know that the first byte is a matching 0xff
         bitstream++;
         if (may_be_13) {
-            if (syncbytes13[i] != *bitstream) {
+            if (sync_pattern_13[i] != *bitstream) {
                 may_be_13 = 0;
-            } else if (i == 8) {
+            } else if (i == SYNC13_PATTERN_LENGTH - 1) {
                 return FOUND13;
             }
         }
         if (may_be_16) {
-            if (i == 6 && (*bitstream & 0xc0) == 0) {
+            if (i == SYNC16_PATTERN_LENGTH - 1 && (*bitstream & 0xc0) == 0) {
                 return FOUND16;
             }
-            if (i > 6 || syncbytes16[i] != *bitstream) {
+            if (i >= SYNC16_PATTERN_LENGTH || sync_pattern_16[i] != *bitstream) {
                 may_be_16 = 0;
             }
         }
@@ -293,44 +347,51 @@ static SearchResultType find_in_bytes(uint8_t *bitstream)
     return FOUND_NONE;
 }
 
-static SearchResultType find_syncbytes(uint8_t *bitstream, int bitcount, int *pos)
+/*
+ * Search the entire track bitstream for sync byte patterns.
+ *
+ * First tries byte-aligned matches (fast path), then falls back to
+ * checking every possible bit offset (slow path). Sets *found_bit_pos
+ * to the bit position where the pattern was found.
+ */
+static SearchResultType find_syncbytes(uint8_t *bitstream, int bit_count, int *found_bit_pos)
 {
-    int bytes = bitcount / 8;
-    int repeats = bytes - 9;
+    int total_bytes = bit_count / 8;
+    int search_limit = total_bytes - MAX_SYNC_PATTERN_LENGTH;
     SearchResultType result = FOUND_NONE;
     // Both sync byte sequences begin with 0xff, so first we do
     // a simple loop looking for that, without shifting any bits.
     // This is enough to find what we're looking for
     // in the majority of cases.
-    for (int i = 0; i < repeats; i++) {
+    for (int i = 0; i < search_limit; i++) {
         if (bitstream[i] == 0xff) {
-            result = find_in_bytes(&bitstream[i]);
+            result = match_sync_pattern(&bitstream[i]);
             if (result != FOUND_NONE) {
-                *pos = i * 8;
+                *found_bit_pos = i * 8;
                 return result;
             }
         }
     }
 
-    uint8_t temp[9];
+    uint8_t shifted_bytes[MAX_SYNC_PATTERN_LENGTH];
     // Otherwise we will have to look harder, for byte pairs that can be left shifted to 0xff
-    for (int i = 0; i < repeats; i++) {
-        uint8_t b = bitstream[i];
+    for (int i = 0; i < search_limit; i++) {
+        uint8_t current_byte = bitstream[i];
         // Skip any bytes where the rightmost bit is unset
         // or the next byte has the leftmost bit unset
-        if ((b & 0x01) != 0 && (bitstream[i + 1] & 0x80) != 0) {
-            for (int j = 1; j < 8; j++) {
+        if ((current_byte & 0x01) != 0 && (bitstream[i + 1] & 0x80) != 0) {
+            for (int shift = 1; shift < 8; shift++) {
                 // Check if this byte left-shifted (together with the following byte)
-                // j places becomes 0xff
-                if ((uint8_t)(((bitstream[i] << j) | (bitstream[i + 1] >> (8 - j)))) == 0xff) {
-                    // If so, copy the following 8 bytes to a buffer left-shifted j positions,
+                // shift places becomes 0xff
+                if ((uint8_t)(((bitstream[i] << shift) | (bitstream[i + 1] >> (8 - shift)))) == 0xff) {
+                    // If so, copy the following bytes to a buffer left-shifted by shift positions,
                     // and compare them to the sync-byte sequences.
-                    for (int k = 8; k > 0; k--) {
-                        temp[k] = ((bitstream[i + k] << j) | (bitstream[i + k + 1] >> (8 - j)));
+                    for (int k = MAX_SYNC_PATTERN_LENGTH - 1; k > 0; k--) {
+                        shifted_bytes[k] = ((bitstream[i + k] << shift) | (bitstream[i + k + 1] >> (8 - shift)));
                     }
-                    result = find_in_bytes(temp);
+                    result = match_sync_pattern(shifted_bytes);
                     if (result != FOUND_NONE) {
-                        *pos = i * 8 + j;
+                        *found_bit_pos = i * 8 + shift;
                         return result;
                     }
                 }
@@ -340,61 +401,70 @@ static SearchResultType find_syncbytes(uint8_t *bitstream, int bitcount, int *po
     return result;
 }
 
-uint8_t *woz2nib(uint8_t *ptr, size_t *len)
+/*
+ * Convert a WOZ disk image (1.x or 2.x) to raw nibble format.
+ *
+ * On entry, woz_data points to the WOZ file data and *data_size is its size.
+ * On return, *data_size is set to the output size (35 tracks x 6656 bytes).
+ * Returns a newly allocated buffer containing the .nib data, or NULL on error.
+ */
+uint8_t *woz2nib(uint8_t *woz_data, size_t *data_size)
 {
-    uint8_t tempout[300000];
-    int writepos = 0;
+    uint8_t output_buffer[STANDARD_TRACKS_PER_DISK * NIBBLES_PER_TRACK];
+    int output_pos = 0;
     SectorOrderType format = NIBBLE;
     int nr_tracks = STANDARD_TRACKS_PER_DISK;
-    uint8_t *woz_buffer = ptr;
-    size_t woz_size = *len;
-    int woz_unpack_pos = 12;
-    char magic[4];
-    uint8_t fixed[4];
-    uint64_t crc = 0;
-    for (int i = 0; i < 4; i++) {
-        magic[i] = woz_buffer[i];
-        fixed[i] = woz_buffer[4 + i];
-        crc += (uint64_t)woz_buffer[8 + i] << (8 * i);
+    size_t woz_size = *data_size;
+    int read_pos = WOZ_HEADER_SIZE;
+    char magic[WOZ_MAGIC_SIZE];
+    uint8_t fixed[WOZ_MAGIC_SIZE];
+    uint64_t stored_crc = 0;
+    for (int i = 0; i < WOZ_MAGIC_SIZE; i++) {
+        magic[i] = woz_data[i];
+        fixed[i] = woz_data[WOZ_MAGIC_SIZE + i];
+        stored_crc += (uint64_t)woz_data[WOZ_MAGIC_SIZE * 2 + i] << (8 * i);
     }
 
+    /* Verify WOZ magic number: "WOZ1" or "WOZ2" */
     if (magic[0] != 'W' || magic[1] != 'O' || magic[2] != 'Z' || (magic[3] != '1' && magic[3] != '2'))
         FatalError("WOZ header not found\n");
 
+    /* Fixed header bytes: 0xFF 0x0A 0x0D 0x0A (high-bit set LF CR LF) */
     if (fixed[0] != 0xff || fixed[1] != 0x0a || fixed[2] != 0x0d || fixed[3] != 0x0a)
         FatalError("bad header\n");
 
-    uint32_t computed_crc32 = crc32(0, ptr + woz_unpack_pos, woz_size - woz_unpack_pos);
+    uint32_t computed_crc32 = crc32(0, woz_data + read_pos, woz_size - read_pos);
 
-    if (computed_crc32 != crc) {
-        debug_print("CRC mismatch (stored=%08llx; computed=%08x)\n", crc, computed_crc32);
+    if (computed_crc32 != stored_crc) {
+        debug_print("CRC mismatch (stored=%08llx; computed=%08x)\n", stored_crc, computed_crc32);
         return NULL;
     }
 
-    uint8_t tmap[40];
+    uint8_t tmap[STANDARD_TRACKS_PER_DISK];
     int info_found = 0;
     int tmap_found = 0;
     int trks_found = 0;
-    trksdata trks[160];
-    for (int i = 0; i < 160; i++)
+    trksdata trks[MAX_QUARTER_TRACKS];
+    for (int i = 0; i < MAX_QUARTER_TRACKS; i++)
         trks[i].bitstream = NULL;
 
-    while (woz_unpack_pos < woz_size) {
-        char chunkstring[5];
+    /* Parse WOZ chunks sequentially */
+    while (read_pos < woz_size) {
+        char chunk_type_str[WOZ_MAGIC_SIZE + 1];
         uint32_t chunk_size = 0;
-        for (int i = 0; i < 4; i++) {
-            chunkstring[i] = woz_buffer[woz_unpack_pos + i];
-            chunk_size += woz_buffer[woz_unpack_pos + 4 + i] << (8 * i);
+        for (int i = 0; i < WOZ_MAGIC_SIZE; i++) {
+            chunk_type_str[i] = woz_data[read_pos + i];
+            chunk_size += woz_data[read_pos + WOZ_MAGIC_SIZE + i] << (8 * i);
         }
-        chunkstring[4] = '\0';
+        chunk_type_str[WOZ_MAGIC_SIZE] = '\0';
         uint8_t *chunk_data = MemAlloc(chunk_size);
-        woz_unpack_pos += 8;
-        memcpy(chunk_data, woz_buffer + woz_unpack_pos, chunk_size);
-        woz_unpack_pos += chunk_size;
+        read_pos += WOZ_CHUNK_HEADER_SIZE;
+        memcpy(chunk_data, woz_data + read_pos, chunk_size);
+        read_pos += chunk_size;
 
         ChunkType chunk_id = NUM_CHUNK_TYPES;
         for (int i = 0; i < NUM_CHUNK_TYPES; i++) {
-            if (strncmp(chunkstring, chunktypes[i], 4) == 0) {
+            if (strncmp(chunk_type_str, chunktypes[i], WOZ_MAGIC_SIZE) == 0) {
                 chunk_id = i;
                 break;
             }
@@ -402,8 +472,8 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
 
         switch (chunk_id) {
         case INFO:
-            if (chunk_size != 60) {
-                debug_print("INFO chunk size is not 60 but %d bytes\n", chunk_size);
+            if (chunk_size != INFO_CHUNK_SIZE) {
+                debug_print("INFO chunk size is not %d but %d bytes\n", INFO_CHUNK_SIZE, chunk_size);
                 free(chunk_data);
                 return NULL;
             }
@@ -412,23 +482,13 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
             uint8_t disk_type = chunk_data[1];
             if (disk_type != 1)
                 FatalError("Only 5.25\" disks are supported\n");
-            //                uint8_t protected = chunk_data[2];
-            //                uint8_t synchronized = chunk_data[3];
-            //                uint8_t cleaned = chunk_data[4];
-            char creator[32];
-            memcpy(creator, chunk_data + 5, 32);
-            creator[31] = '\0';
+            char creator[INFO_CREATOR_MAX_LENGTH];
+            memcpy(creator, chunk_data + INFO_CREATOR_OFFSET, INFO_CREATOR_MAX_LENGTH);
+            creator[INFO_CREATOR_MAX_LENGTH - 1] = '\0';
             if (version >= 2) {
-                uint8_t disk_sides = chunk_data[37];
+                uint8_t disk_sides = chunk_data[INFO_DISK_SIDES_OFFSET];
                 if (disk_sides != 1)
                     FatalError("Only 1-sided images are supported\n");
-                //                    uint8_t boot_sector_format = chunk_data[38];
-                //                    uint8_t optimal_bit_timing = chunk_data[39];
-                //                    uint16_t compatible_hardware = READ_LE_UINT16(chunk_data + 40);
-                //                    uint16_t required_ram = READ_LE_UINT16(chunk_data + 42);
-                //                    uint16_t largest_track = READ_LE_UINT16(chunk_data + 44);
-                //                    uint16_t flux_block = READ_LE_UINT16(chunk_data + 46);
-                //                    uint16_t largest_flux_track = READ_LE_UINT16(chunk_data + 48);
             }
             debug_print("INFO: ver %d, type ", version);
             switch (disk_type) {
@@ -447,16 +507,16 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
             break;
         case TMAP:
             tmap_found = 1;
-            if (chunk_size != 160) {
-                debug_print("TMAP chunk size is not 160 but %d bytes\n", chunk_size);
+            if (chunk_size != MAX_QUARTER_TRACKS) {
+                debug_print("TMAP chunk size is not %d but %d bytes\n", MAX_QUARTER_TRACKS, chunk_size);
                 free(chunk_data);
                 return NULL;
             }
-            uint8_t tempmap[160];
-            memcpy(tempmap, chunk_data, 160);
+            uint8_t quarter_track_map[MAX_QUARTER_TRACKS];
+            memcpy(quarter_track_map, chunk_data, MAX_QUARTER_TRACKS);
             debug_print("TMAP: ");
             for (int i = 0; i < nr_tracks; i++) {
-                tmap[i] = tempmap[i * 4];
+                tmap[i] = quarter_track_map[i * 4];
                 if (i > 0)
                     debug_print(",");
                 debug_print("%d", tmap[i]);
@@ -467,35 +527,33 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
             trks_found = 1;
             debug_print("TRKS: %d bytes\n", chunk_size);
             if (magic[3] == '2') {
-                int cpos = 0;
+                int entry_offset = 0;
                 debug_print("  trks: ");
-                for (int i = 0; i < 160; i++, cpos += 8) {
+                for (int i = 0; i < MAX_QUARTER_TRACKS; i++, entry_offset += WOZ2_TRKS_ENTRY_SIZE) {
                     trks[i].bitstream = NULL;
-                    trks[i].starting_block = READ_LE_UINT16(chunk_data + cpos);
-                    trks[i].block_count = READ_LE_UINT16(chunk_data + cpos + 2);
-                    trks[i].bit_count = chunk_data[cpos + 4] + (chunk_data[cpos + 5] << 8) + (chunk_data[cpos + 6] << 16) + (chunk_data[cpos + 7] << 24);
-                    //                        debug_print("%d,%d,%d/", trks[i].starting_block, trks[i].block_count, trks[i].bit_count);
+                    trks[i].starting_block = READ_LE_UINT16(chunk_data + entry_offset);
+                    trks[i].block_count = READ_LE_UINT16(chunk_data + entry_offset + 2);
+                    trks[i].bit_count = chunk_data[entry_offset + 4] + (chunk_data[entry_offset + 5] << 8) + (chunk_data[entry_offset + 6] << 16) + (chunk_data[entry_offset + 7] << 24);
                 }
-                //                    debug_print("\n");
             } else {
                 if (magic[3] != '1')
                     FatalError("bug");
-                int chunkdatalen = chunk_size;
-                int idx = 0;
-                while (chunkdatalen >= 6656 && idx < 160) {
-                    trks[idx].bytes_used = READ_LE_UINT16(chunk_data + 6646);
-                    trks[idx].bit_count = READ_LE_UINT16(chunk_data + 6648);
-                    trks[idx].bitstream = MemAlloc(6646);
-                    memcpy(trks[idx].bitstream, chunk_data, 6646);
-                    int newlen = chunkdatalen - 6656;
-                    if (newlen > 0) {
-                        uint8_t *tempdata = MemAlloc(newlen);
-                        memcpy(tempdata, chunk_data + 6656, newlen);
-                        memcpy(chunk_data, tempdata, newlen);
-                        free(tempdata);
+                int remaining_bytes = chunk_size;
+                int track_index = 0;
+                while (remaining_bytes >= WOZ1_TRACK_RECORD_SIZE && track_index < MAX_QUARTER_TRACKS) {
+                    trks[track_index].bytes_used = READ_LE_UINT16(chunk_data + WOZ1_TRACK_DATA_SIZE);
+                    trks[track_index].bit_count = READ_LE_UINT16(chunk_data + WOZ1_TRACK_DATA_SIZE + 2);
+                    trks[track_index].bitstream = MemAlloc(WOZ1_TRACK_DATA_SIZE);
+                    memcpy(trks[track_index].bitstream, chunk_data, WOZ1_TRACK_DATA_SIZE);
+                    int new_remaining = remaining_bytes - WOZ1_TRACK_RECORD_SIZE;
+                    if (new_remaining > 0) {
+                        uint8_t *temp_data = MemAlloc(new_remaining);
+                        memcpy(temp_data, chunk_data + WOZ1_TRACK_RECORD_SIZE, new_remaining);
+                        memcpy(chunk_data, temp_data, new_remaining);
+                        free(temp_data);
                     }
-                    chunkdatalen -= 6656;
-                    idx++;
+                    remaining_bytes -= WOZ1_TRACK_RECORD_SIZE;
+                    track_index++;
                 }
             }
             break;
@@ -510,7 +568,7 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
             }
             break;
         default:
-            debug_print("ignoring unknown chunk: %s; size=%dbytes\n", chunkstring, chunk_size);
+            debug_print("ignoring unknown chunk: %s; size=%dbytes\n", chunk_type_str, chunk_size);
             break;
         }
         free(chunk_data);
@@ -524,7 +582,7 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
         FatalError("TRKS chunk not found\n");
 
     size_t out_file_size = nr_tracks * ((format == NIBBLE) ? NIBBLES_PER_TRACK : (SECTORS_PER_TRACK * BYTES_PER_SECTOR));
-    *len = out_file_size;
+    *data_size = out_file_size;
 
     uint8_t *outfile = MemAlloc(out_file_size);
 
@@ -534,9 +592,10 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
     int trks_index = 0;
     uint8_t *bitstream = NULL;
 
+    /* Convert each track's bitstream to nibble bytes */
     for (int track = 0; track < nr_tracks; track++) {
         trks_index = tmap[track];
-        if (trks_index == 0xff) { // empty track
+        if (trks_index == TMAP_EMPTY_TRACK) {
             debug_print("T[%02x]: empty track\n", track);
             if (format == NIBBLE) {
                 write_position += NIBBLES_PER_TRACK;
@@ -564,7 +623,7 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
                 return NULL;
             }
 
-            bitstream = woz_buffer + start;
+            bitstream = woz_data + start;
         } else {
             if (magic[3] != '1')
                 FatalError("Unsupported Woz version!");
@@ -572,50 +631,55 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len)
         }
 
         int bit_count = trk->bit_count;
-        int bytes = bit_count / 8;
+        int total_bytes = bit_count / 8;
 
-        int foundbitpos = -1;
-        SearchResultType result = find_syncbytes(bitstream, trk->bit_count, &foundbitpos);
+        /* Find sync bytes and rotate bitstream so extraction starts at a sector boundary */
+        int found_bit_pos = -1;
+        SearchResultType result = find_syncbytes(bitstream, trk->bit_count, &found_bit_pos);
         if (result == FOUND_NONE) {
-            bitstream = swap_head_and_tail(bitstream, bit_count - 72, bit_count);
-            result = find_syncbytes(bitstream, trk->bit_count, &foundbitpos);
+            /* Try again after rotating to expose a different part of the circular track */
+            bitstream = swap_head_and_tail(bitstream, bit_count - SYNC13_BIT_LENGTH, bit_count);
+            result = find_syncbytes(bitstream, trk->bit_count, &found_bit_pos);
         }
 
         switch (result) {
         case FOUND16:
-            bitstream = swap_head_and_tail(bitstream, foundbitpos + 50, bit_count);
+            /* Rotate past the 16-sector sync pattern */
+            bitstream = swap_head_and_tail(bitstream, found_bit_pos + SYNC16_BIT_LENGTH, bit_count);
             break;
         case FOUND13:
-            bitstream = swap_head_and_tail(bitstream, foundbitpos + 72, bit_count);
+            /* Rotate past the 13-sector sync pattern */
+            bitstream = swap_head_and_tail(bitstream, found_bit_pos + SYNC13_BIT_LENGTH, bit_count);
             break;
         default:
             debug_print("Found no sync bytes in track %d bitstream\n", track);
             break;
         }
 
-        int pos2 = 0;
+        /* Extract nibble bytes from the aligned bitstream */
+        int extract_pos = 0;
         uint8_t nibbles[NIBBLES_PER_TRACK];
-        int number_of_nibbles = 0;
+        int nibble_count = 0;
         do {
-            nibbles[number_of_nibbles++] = extract_nibble(bitstream, bit_count, &pos2);
-        } while (pos2 < bytes && number_of_nibbles < NIBBLES_PER_TRACK);
+            nibbles[nibble_count++] = extract_nibble(bitstream, bit_count, &extract_pos);
+        } while (extract_pos < total_bytes && nibble_count < NIBBLES_PER_TRACK);
 
-        if (number_of_nibbles < NIBBLES_PER_TRACK) {
-            for (int i = number_of_nibbles; i < NIBBLES_PER_TRACK; i++)
+        if (nibble_count < NIBBLES_PER_TRACK) {
+            for (int i = nibble_count; i < NIBBLES_PER_TRACK; i++)
                 nibbles[i] = 0;
             debug_print("padded to %d nibbles\n", NIBBLES_PER_TRACK);
         } else {
             debug_print("(just made!)\n");
         }
 
-        memcpy(tempout + writepos, nibbles, NIBBLES_PER_TRACK);
-        writepos += NIBBLES_PER_TRACK;
+        memcpy(output_buffer + output_pos, nibbles, NIBBLES_PER_TRACK);
+        output_pos += NIBBLES_PER_TRACK;
     }
 
-    for (int i = 0; i < 160; i++)
+    for (int i = 0; i < MAX_QUARTER_TRACKS; i++)
         if (trks[i].bitstream != NULL)
             free(trks[i].bitstream);
 
-    memcpy(outfile, tempout, MIN(out_file_size, writepos));
+    memcpy(outfile, output_buffer, MIN(out_file_size, output_pos));
     return outfile;
 }
