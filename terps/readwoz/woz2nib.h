@@ -14,6 +14,6 @@
 
 #include <stdint.h>
 
-uint8_t *woz2nib(uint8_t *ptr, size_t *len);
+uint8_t *woz2nib(uint8_t *woz_data, size_t *data_size);
 
 #endif /* woz2nib_h */
