@@ -2470,7 +2470,19 @@ static A2File *find_SAGA_database(void)
     return file;
 }
 
-uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t *invimglen, uint8_t **m2)
+/*
+ * Read a Scott Adams SAGA game from a DOS 3.3 disk image.
+ *
+ * Reads the VTOC and catalog, then extracts:
+ *   - The main game database file (returned directly)
+ *   - The inventory image from PAK.INVEN or PAC.INVEN (via *invimg)
+ *   - Image unscrambling tables from M2 (via *m2)
+ *   - Graphics Magician drawing data from M3 (via *m3)
+ *
+ * On entry, *len holds the disk image size. On return, *len is the
+ * size of the extracted game database.
+ */
+uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t *invimglen, uint8_t **m2, uint8_t **m3, size_t *m3len)
 {
     rawdata = data;
     rawdatalen = *len;
@@ -2521,6 +2533,20 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
             memcpy(*m2, m2temp + 0x174B, 0x182);
         }
         free(m2temp);
+    }
+
+    /* M3 contains Graphics Magician drawing data (brush bitmaps, patterns, etc.) */
+    file = find_file_named("M3");
+    if (file) {
+        Open(file);
+        *m3 = MemAlloc(file->fLengthInSectors * kSectorSize);
+        Read(file, *m3, (file->fLengthInSectors - 1) * kSectorSize, m3len);
+        if (*m3len) {
+            *m3 = MemRealloc(*m3, *m3len);
+        } else {
+            free(*m3);
+            *m3 = NULL;
+        }
     }
 
     return buf;

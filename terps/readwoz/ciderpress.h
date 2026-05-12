@@ -24,7 +24,7 @@ typedef struct {
 } A2FileRec;
 
 uint8_t *ReadImageFromNib(size_t offset, size_t size, uint8_t *data, size_t datasize);
-uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t *invimglen, uint8_t **m2);
+uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t *invimglen, uint8_t **m2, uint8_t **m3, size_t *m3len);
 A2FileRec *GetAllApple2DOSFiles(uint8_t *data, size_t len, size_t *number_of_files);
 
 uint8_t *ReadInfocomV6File(uint8_t *data, size_t *len, int *game, int *diskindex);
