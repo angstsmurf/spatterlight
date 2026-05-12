@@ -19,79 +19,84 @@
 
 #include "glk.h"
 #include "scott.h"
+#include "scott_actions.h"
 
 #include "load_ti99_4a.h"
 #include "ti99_4a_terp.h"
 
 /* --- TI-99/4A bytecode opcode definitions ---
-   Conditions (183–201): each takes one parameter byte. */
-#define OP_ITEM_CARRIED     183
-#define OP_ITEM_IN_ROOM     184
-#define OP_ITEM_AVAILABLE   185
-#define OP_ITEM_NOT_HERE    186
-#define OP_ITEM_NOT_CARRIED 187
-#define OP_ITEM_NOT_AVAIL   188
-#define OP_ITEM_IN_PLAY     189
-#define OP_ITEM_NOT_IN_PLAY 190
-#define OP_IN_ROOM          191
-#define OP_NOT_IN_ROOM      192
-#define OP_FLAG_SET         193
-#define OP_FLAG_CLEAR       194
-#define OP_CARRYING_ANY     195
-#define OP_CARRYING_NOTHING 196
-#define OP_COUNTER_LE       197
-#define OP_COUNTER_GT       198
-#define OP_COUNTER_EQ       199
-#define OP_ITEM_IN_INITIAL  200
-#define OP_ITEM_MOVED       201
+   Conditions (183–201): each takes one parameter byte.
+   Most are equivalent to the COND_XXX conditions in
+   scott_actions.c (but with different numbers). */
+#define TI99CND_CARRIED        183
+#define TI99CND_IN_ROOM        184
+#define TI99CND_PRESENT        185
+#define TI99CND_NOT_IN_ROOM    186
+#define TI99CND_NOT_CARRIED    187
+#define TI99CND_NOT_PRESENT    188
+#define TI99CND_IN_PLAY        189
+#define TI99CND_NOT_IN_PLAY    190
+#define TI99CND_AT_LOC         191
+#define TI99CND_NOT_AT_LOC     192
+#define TI99CND_FLAG_SET       193
+#define TI99CND_FLAG_CLEAR     194
+#define TI99CND_CARRYING_ANY   195
+#define TI99CND_CARRYING_NONE  196
+#define TI99CND_COUNTER_LE     197
+#define TI99CND_COUNTER_GT     198
+#define TI99CND_COUNTER_EQ     199
+#define TI99CND_NOT_MOVED      200
+#define TI99CND_MOVED          201
 
 /* Commands (212–254). */
-#define OP_CLEAR_SCREEN     212
-#define OP_AUTO_INV_ON      214
-#define OP_AUTO_INV_OFF     215
-#define OP_SUCCESS_OFF      216
-#define OP_SUCCESS_ON       217
-#define OP_TRY              218
-#define OP_GET_ITEM         219
-#define OP_DROP_ITEM        220
-#define OP_GOTO_ROOM        221
-#define OP_DESTROY_ITEM     222
-#define OP_SET_DARK         223
-#define OP_SET_LIGHT        224
-#define OP_SET_FLAG         225
-#define OP_CLEAR_FLAG       226
-#define OP_SET_FLAG_0       227
-#define OP_CLEAR_FLAG_0     228
-#define OP_DIE              229
-#define OP_MOVE_ITEM        230
-#define OP_GAME_OVER        231
-#define OP_PRINT_SCORE      232
-#define OP_LIST_INVENTORY   233
-#define OP_REFILL_LIGHT     234
-#define OP_SAVE             235
-#define OP_SWAP_ITEMS       236
-#define OP_FORCE_CARRY      237
-#define OP_MOVE_TO_LOC_OF   238
-#define OP_CLEAR            239
-#define OP_LOOK             240
-#define OP_LOOK_2           241
-#define OP_INC_COUNTER      242
-#define OP_DEC_COUNTER      243
-#define OP_PRINT_COUNTER    244
-#define OP_SET_COUNTER      245
-#define OP_ADD_COUNTER      246
-#define OP_SUB_COUNTER      247
-#define OP_GOTO_STORED      248
-#define OP_SWAP_ROOM        249
-#define OP_SWAP_COUNTER     250
-#define OP_PRINT_NOUN       251
-#define OP_PRINTLN_NOUN     252
-#define OP_NEWLINE          253
-#define OP_DELAY            254
-#define OP_SUCCESS          255
+/* equivalent to the OP_XXX opcodes in
+scott_actions.c (but with different numbers). */
+#define TI99OP_CLEAR_SCREEN     212
+#define TI99OP_AUTO_INV_ON      214
+#define TI99OP_AUTO_INV_OFF     215
+#define TI99OP_SUCCESS_OFF      216
+#define TI99OP_SUCCESS_ON       217
+#define TI99OP_TRY              218
+#define TI99OP_GET_ITEM         219
+#define TI99OP_DRTI99OP_ITEM        220
+#define TI99OP_GOTO_ROOM        221
+#define TI99OP_DESTROY_ITEM     222
+#define TI99OP_SET_DARK         223
+#define TI99OP_SET_LIGHT        224
+#define TI99OP_SET_FLAG         225
+#define TI99OP_CLEAR_FLAG       226
+#define TI99OP_SET_FLAG_0       227
+#define TI99OP_CLEAR_FLAG_0     228
+#define TI99OP_DIE              229
+#define TI99OP_MOVE_ITEM        230
+#define TI99OP_GAME_OVER        231
+#define TI99OP_PRINT_SCORE      232
+#define TI99OP_LIST_INVENTORY   233
+#define TI99OP_REFILL_LIGHT     234
+#define TI99OP_SAVE             235
+#define TI99OP_SWAP_ITEMS       236
+#define TI99OP_FORCE_CARRY      237
+#define TI99OP_MOVE_TO_LOC_OF   238
+#define TI99OP_CLEAR            239
+#define TI99OP_LOOK             240
+#define TI99OP_LOOK_2           241
+#define TI99OP_INC_COUNTER      242
+#define TI99OP_DEC_COUNTER      243
+#define TI99OP_PRINT_COUNTER    244
+#define TI99OP_SET_COUNTER      245
+#define TI99OP_ADD_COUNTER      246
+#define TI99OP_SUB_COUNTER      247
+#define TI99OP_GOTO_STORED      248
+#define TI99OP_SWAP_ROOM        249
+#define TI99OP_SWAP_COUNTER     250
+#define TI99OP_PRINT_NOUN       251
+#define TI99OP_PRINTLN_NOUN     252
+#define TI99OP_NEWLINE          253
+#define TI99OP_DELAY            254
+#define TI99OP_SUCCESS          255
 
 #define MAX_MESSAGE_OPCODE  182
-#define MAX_TRY_DEPTH       32
+#define MAX_TRY_DEPTH        32
 
 /* Execute a single action line (a sequence of condition checks
    followed by commands).  Returns ACT_SUCCESS if the line ran to
@@ -114,7 +119,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
     int done = 0;
     int fallback_offset = 0;
     ActionResultType result = ACT_FAILURE;
-    int opcode, second_param;
+    int opcode, seTI99CND_param;
 
     /* try-block fallback stack: each "try" opcode pushes an offset
        to resume at if the subsequent conditions fail. */
@@ -129,7 +134,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
         opcode = *(ip++);
 
         switch (opcode) {
-        case OP_ITEM_CARRIED:
+        case TI99CND_CARRIED:
 #ifdef DEBUG_ACTIONS
             debug_print("Does the player carry %s?\n", Items[*ip].Text);
 #endif
@@ -139,7 +144,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_ITEM_IN_ROOM:
+        case TI99CND_IN_ROOM:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s in location?\n", Items[*ip].Text);
 #endif
@@ -150,7 +155,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
 
             break;
 
-        case OP_ITEM_AVAILABLE:
+        case TI99CND_PRESENT:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s held or in location?\n", Items[*ip].Text);
 #endif
@@ -161,7 +166,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             ip++;
             break;
 
-        case OP_ITEM_NOT_HERE:
+        case TI99CND_NOT_IN_ROOM:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s NOT in location?\n", Items[*ip].Text);
 #endif
@@ -171,7 +176,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_ITEM_NOT_CARRIED:
+        case TI99CND_NOT_CARRIED:
 #ifdef DEBUG_ACTIONS
             debug_print("Does the player NOT carry %s?\n", Items[*ip].Text);
 #endif
@@ -181,7 +186,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_ITEM_NOT_AVAIL:
+        case TI99CND_NOT_PRESENT:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s neither carried nor in room?\n", Items[*ip].Text);
 #endif
@@ -193,7 +198,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             ip++;
             break;
 
-        case OP_ITEM_IN_PLAY:
+        case TI99CND_IN_PLAY:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s (%d) in play?\n", Items[*ip].Text, dv);
 #endif
@@ -203,7 +208,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_ITEM_NOT_IN_PLAY:
+        case TI99CND_NOT_IN_PLAY:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s NOT in play?\n", Items[*ip].Text);
 #endif
@@ -213,7 +218,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_IN_ROOM:
+        case TI99CND_AT_LOC:
 #ifdef DEBUG_ACTIONS
             debug_print("Is location %s?\n", Rooms[*ip].Text);
 #endif
@@ -223,7 +228,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_NOT_IN_ROOM:
+        case TI99CND_NOT_AT_LOC:
 #ifdef DEBUG_ACTIONS
             debug_print("Is location NOT %s?\n", Rooms[*ip].Text);
 #endif
@@ -233,7 +238,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_FLAG_SET:
+        case TI99CND_FLAG_SET:
 #ifdef DEBUG_ACTIONS
             debug_print("Is bitflag %d set?\n", *ip);
 #endif
@@ -243,7 +248,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_FLAG_CLEAR:
+        case TI99CND_FLAG_CLEAR:
 #ifdef DEBUG_ACTIONS
             debug_print("Is bitflag %d NOT set?\n", *ip);
 #endif
@@ -253,7 +258,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_CARRYING_ANY:
+        case TI99CND_CARRYING_ANY:
 #ifdef DEBUG_ACTIONS
             debug_print("Does the player carry anything?\n");
 #endif
@@ -263,7 +268,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_CARRYING_NOTHING:
+        case TI99CND_CARRYING_NONE:
 #ifdef DEBUG_ACTIONS
             debug_print("Does the player carry nothing?\n");
 #endif
@@ -273,7 +278,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_COUNTER_LE:
+        case TI99CND_COUNTER_LE:
 #ifdef DEBUG_ACTIONS
             debug_print("Is CurrentCounter <= %d?\n", *ip);
 #endif
@@ -283,7 +288,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_COUNTER_GT:
+        case TI99CND_COUNTER_GT:
 #ifdef DEBUG_ACTIONS
             debug_print("Is CurrentCounter > %d?\n", *ip);
 #endif
@@ -293,7 +298,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_COUNTER_EQ:
+        case TI99CND_COUNTER_EQ:
 #ifdef DEBUG_ACTIONS
             debug_print("Is current counter == %d?\n", *ip);
 #endif
@@ -303,7 +308,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             }
             break;
 
-        case OP_ITEM_IN_INITIAL:
+        case TI99CND_NOT_MOVED:
 #ifdef DEBUG_ACTIONS
             debug_print("Is %s still in initial room?\n", Items[*ip].Text);
 #endif
@@ -314,7 +319,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             ip++;
             break;
 
-        case OP_ITEM_MOVED:
+        case TI99CND_MOVED:
 #ifdef DEBUG_ACTIONS
             debug_print("Has %s been moved?\n", Items[*ip].Text);
 #endif
@@ -325,30 +330,30 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             ip++;
             break;
 
-        case OP_CLEAR_SCREEN:
+        case TI99OP_CLEAR_SCREEN:
             /* No known TI-99/4A game actually uses this opcode. */
             glk_window_clear(Bottom);
             break;
 
-        case OP_AUTO_INV_ON:
+        case TI99OP_AUTO_INV_ON:
             AutoInventory = 1;
             break;
 
-        case OP_AUTO_INV_OFF:
+        case TI99OP_AUTO_INV_OFF:
             AutoInventory = 0;
             break;
 
-        case OP_SUCCESS_OFF:
-                /* Unimplemented. Not to be confused with OP_SUCCESS or ACT_SUCCESS */
+        case TI99OP_SUCCESS_OFF:
+                /* Unimplemented. Not to be confused with TI99OP_SUCCESS or ACT_SUCCESS */
                 /* Indicates that the game ended unsuccessfully (e.g. because the player died). */
-                /* The GAME_OVER opcode on the original TI99/4A interpreter will change the color of the screen to indicate whether the game was successful or not. These two OP_SUCCESS_XXX opcodes are often found just before a game_over to indicate either success or failure (i.e. which color to use). This is not implemented here. */
+                /* The GAME_OVER opcode on the original TI99/4A interpreter will change the color of the screen to indicate whether the game was successful or not. These two TI99OP_SUCCESS_XXX opcodes are often found just before a game_over to indicate either success or failure (i.e. which color to use). This is not implemented here. */
                 /* FALLTHROUGH */
-        case OP_SUCCESS_ON:
-                /* Unimplemented. Not to be confused with OP_SUCCESS or ACT_SUCCESS */
+        case TI99OP_SUCCESS_ON:
+                /* Unimplemented. Not to be confused with TI99OP_SUCCESS or ACT_SUCCESS */
                 /* Indicates that the game ended successfully, i.e. the player has won. See above for more details. */
             break;
 
-        case OP_TRY:
+        case TI99OP_TRY:
             if (try_depth >= MAX_TRY_DEPTH) {
                 Fatal("ERROR Hit upper limit on try method.");
             }
@@ -356,7 +361,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             ip++;
             break;
 
-        case OP_GET_ITEM:
+        case TI99OP_GET_ITEM:
             if (CountCarried() >= GameHeader.MaxCarry) {
                 Output(sys[YOURE_CARRYING_TOO_MUCH]);
                 done = 1;
@@ -368,7 +373,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             ip++;
             break;
 
-        case OP_DROP_ITEM:
+        case TI99OP_DRTI99OP_ITEM:
 #ifdef DEBUG_ACTIONS
             debug_print("item %d (\"%s\") is now in location.\n", *ip,
                 Items[*ip].Text);
@@ -377,11 +382,11 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             should_look_in_transcript = 1;
             break;
 
-        case OP_GOTO_ROOM:
+        case TI99OP_GOTO_ROOM:
             GoTo(*(ip++));
             break;
 
-        case OP_DESTROY_ITEM:
+        case TI99OP_DESTROY_ITEM:
 #ifdef DEBUG_ACTIONS
             debug_print(
                 "Item %d (%s) is removed from the game (put in room 0).\n",
@@ -390,78 +395,78 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             Items[*(ip++)].Location = 0;
             break;
 
-        case OP_SET_DARK:
+        case TI99OP_SET_DARK:
             SetDark();
             break;
 
-        case OP_SET_LIGHT:
+        case TI99OP_SET_LIGHT:
             SetLight();
             break;
 
-        case OP_SET_FLAG:
+        case TI99OP_SET_FLAG:
             SetBitFlag(*(ip++));
             break;
 
-        case OP_CLEAR_FLAG:
+        case TI99OP_CLEAR_FLAG:
             ClearBitFlag(*(ip++));
             break;
-        case OP_SET_FLAG_0:
+        case TI99OP_SET_FLAG_0:
             SetBitFlag(0);
             break;
 
-        case OP_CLEAR_FLAG_0:
+        case TI99OP_CLEAR_FLAG_0:
             ClearBitFlag(0);
             break;
 
-        case OP_DIE:
+        case TI99OP_DIE:
                 /* The DIE opcode in the TI99/4A interpreter changes the screen color to red. */
                 /* This is not implemented. */
 #ifdef DEBUG_ACTIONS
             debug_print("Player is dead\n");
 #endif
             PlayerIsDead();
-            DoneIt();
+            GameOver();
             result = ACT_GAMEOVER;
             break;
 
-        case OP_MOVE_ITEM:
-            second_param = *(ip++);
-            PutItemAInRoomB(*(ip++), second_param);
+        case TI99OP_MOVE_ITEM:
+            seTI99CND_param = *(ip++);
+            PutItemAInRoomB(*(ip++), seTI99CND_param);
             break;
 
-        case OP_GAME_OVER:
-                /*  In the original interpreter, the GAME_OVER opcode changes the screen color to indicate success or failure of the whole game — see the OP_SUCCESS_OFF and OP_SUCCESS_ON opcodes above. This is not implemented. */
-            DoneIt();
+        case TI99OP_GAME_OVER:
+                /*  In the original interpreter, the GAME_OVER opcode changes the screen color to indicate success or failure of the whole game — see the TI99OP_SUCCESS_OFF and TI99OP_SUCCESS_ON opcodes above. This is not implemented. */
+            GameOver();
             return ACT_GAMEOVER;
 
-        case OP_PRINT_SCORE:
+        case TI99OP_PRINT_SCORE:
             if (PrintScore() == 1)
                 return ACT_GAMEOVER;
             StopTime = 2;
             break;
 
-        case OP_LIST_INVENTORY:
+        case TI99OP_LIST_INVENTORY:
             ListInventory(0);
             StopTime = 2;
             break;
 
-        case OP_REFILL_LIGHT:
+        case TI99OP_REFILL_LIGHT:
             GameHeader.LightTime = LightRefill;
             Items[LIGHT_SOURCE].Location = CARRIED;
             ClearBitFlag(LIGHTOUTBIT);
             break;
 
-        case OP_SAVE:
+        case TI99OP_SAVE:
             SaveGame();
             StopTime = 2;
             break;
 
-        case OP_SWAP_ITEMS:
-            second_param = *(ip++);
-            SwapItemLocations(second_param, *(ip++));
+        case TI99OP_SWAP_ITEMS:
+            seTI99CND_param = *(ip++);
+            SwapItemLocations(seTI99CND_param, *(ip++));
             break;
 
-        case OP_FORCE_CARRY:
+        case TI99OP_FORCE_CARRY:
 #ifdef DEBUG_ACTIONS
             fprintf(stderr,
                 "Player now carries item %d (%s).\n",
@@ -471,48 +476,48 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             should_look_in_transcript = 1;
             break;
 
-        case OP_MOVE_TO_LOC_OF:
-            second_param = *(ip++);
-            MoveItemAToLocOfItemB(second_param, *(ip++));
+        case TI99OP_MOVE_TO_LOC_OF:
+            seTI99CND_param = *(ip++);
+            MoveItemAToLocOfItemB(seTI99CND_param, *(ip++));
             break;
 
-        case OP_CLEAR: /* Not to be confused with OP_CLEAR_SCREEN. Unimplemented, probably should do nothing */
-               /* We call opcode 239 OP_CLEAR here, since its usage in adv01.fiad (Adventureland), adv02.fiad (Pirate Adventure), and adv05.fiad (The Count) correspond exactly to the origina versions of those games. But the converse is not true: the original versions use clear in additional places which do not correspond to anything in the TI99/4A versions. */
+        case TI99OP_CLEAR: /* Not to be confused with TI99OP_CLEAR_SCREEN. Unimplemented, probably should do nothing */
+               /* We call opcode 239 TI99OP_CLEAR here, since its usage in adv01.fiad (Adventureland), adv02.fiad (Pirate Adventure), and adv05.fiad (The Count) correspond exactly to the origina versions of those games. But the converse is not true: the original versions use clear in additional places which do not correspond to anything in the TI99/4A versions. */
                /* The ScottCom and Bunyon interpreters both consider this a no-operation. */
             break;
 
-        case OP_LOOK:
+        case TI99OP_LOOK:
             /* FALLTHROUGH */
 
-        case OP_LOOK_2:
+        case TI99OP_LOOK_2:
                 /* The LOOK_2 opcode (241) only appears once in all the Scott Adams games, in adv08.fiad (Pyramid of Doom). It occurs in exactly the same place as a look2 opcode in the original version of the game. */
                 /* It is probably equivalent to the look opcode above. */
             Look();
             should_look_in_transcript = 1;
             break;
 
-        case OP_INC_COUNTER:
+        case TI99OP_INC_COUNTER:
             CurrentCounter++;
             break;
 
-        case OP_DEC_COUNTER:
+        case TI99OP_DEC_COUNTER:
             if (CurrentCounter >= 1)
                 CurrentCounter--;
             break;
 
-        case OP_PRINT_COUNTER:
+        case TI99OP_PRINT_COUNTER:
             OutputNumber(CurrentCounter);
             Output(" ");
             break;
 
-        case OP_SET_COUNTER:
+        case TI99OP_SET_COUNTER:
 #ifdef DEBUG_ACTIONS
             debug_print("CurrentCounter is set to %d.\n", dv);
 #endif
             CurrentCounter = *(ip++);
             break;
 
-        case OP_ADD_COUNTER:
+        case TI99OP_ADD_COUNTER:
 #ifdef DEBUG_ACTIONS
             fprintf(stderr,
                 "%d is added to currentCounter. Result: %d\n",
@@ -521,42 +526,42 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             CurrentCounter += *(ip++);
             break;
 
-        case OP_SUB_COUNTER:
+        case TI99OP_SUB_COUNTER:
             CurrentCounter -= *(ip++);
             if (CurrentCounter < -1)
                 CurrentCounter = -1;
             break;
 
-        case OP_GOTO_STORED:
+        case TI99OP_GOTO_STORED:
             GoToStoredLoc();
             break;
 
-        case OP_SWAP_ROOM:
+        case TI99OP_SWAP_ROOM:
             SwapLocAndRoomflag(*(ip++));
             break;
 
-        case OP_SWAP_COUNTER:
+        case TI99OP_SWAP_COUNTER:
             SwapCounters(*(ip++));
             break;
 
-        case OP_PRINT_NOUN:
+        case TI99OP_PRINT_NOUN:
             PrintNoun();
             break;
 
-        case OP_PRINTLN_NOUN:
+        case TI99OP_PRINTLN_NOUN:
             PrintNoun();
             Output("\n");
             break;
 
-        case OP_NEWLINE:
+        case TI99OP_NEWLINE:
             Output("\n");
             break;
 
-        case OP_DELAY:
+        case TI99OP_DELAY:
             Delay(1);
             break;
 
-        case OP_SUCCESS:
+        case TI99OP_SUCCESS:
                 /* Stops executing the current action, and produces a SUCCESS result. */
                 /* This can be used inside a try block — the block (and any parent blocks) are immediately terminated, similar to a return statement. */
                 /* Outside of a try block also marks the physical end (within the file) of the action — the next action will begin directly after the 0xFF byte. */
@@ -577,10 +582,10 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
 
         /* A condition failed (done == 1) but there is a try-block
            fallback on the stack: pop it and resume execution at the
-           alternate code path.  On OP_SUCCESS the line completed,
+           alternate code path.  On TI99OP_SUCCESS the line completed,
            so don't retry. */
         if (done == 1 && try_depth > 0) {
-            if (opcode == OP_SUCCESS) {
+            if (opcode == TI99OP_SUCCESS) {
                 done = 1;
             } else {
                 fallback_offset = try_stack[try_depth - 1];

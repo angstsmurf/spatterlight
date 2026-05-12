@@ -12,6 +12,7 @@
 #include "saga.h"
 #include "sagadraw.h"
 #include "scott.h"
+#include "scott_actions.h"
 
 void UpdateSecretAnimations(void)
 {

@@ -4,6 +4,13 @@
 //
 //  Created by Administrator on 2026-01-23.
 //
+
+// Handles the compact C64 graphics format used by early Scott Adams
+// SAGA adventures (Pirate Adventure, Voodoo Castle) where game database
+// and image data are bundled in a single file. Room backgrounds use
+// RLE-compressed multicolor bitmaps; small inventory items are stored
+// as C64 hardware sprites (24x21 monochrome).
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -15,12 +22,15 @@
 
 #include "c64_small.h"
 
+/* Screen position for drawing a C64 sprite overlay */
 typedef struct {
-    int index;
-    int x;
-    int y;
+    int index; // object index this sprite represents
+    int x;     // pixel x position on screen
+    int y;     // pixel y position on screen
 } spritelist;
 
+/* Pirate Adventure sprite positions: maps object index to screen coordinates.
+   Items sharing coordinates are drawn at the same spot (e.g. all bottles). */
 static const spritelist sprites[] = {
     {25, 104,  62}, // Bottle of rum
     {7,  104,  62}, // Empty bottle
@@ -41,10 +51,14 @@ static const spritelist sprites[] = {
     {24, 171,  55}, // parrot
     {33, 152,  56}, // precut lumber
     {20, 189,  46}, // pile of sails
-    {0,    0,   0}
+    {0,    0,   0}  // sentinel
 };
 
+/* Image registry for Pirate Adventure C64: maps object/room indices to
+   byte offsets within the all-in-one file. Object images come first
+   (both RLE bitmaps and raw sprite data), then room backgrounds. */
 static const imglist listPirate[] = {
+    /* RLE bitmap object overlays */
     { IMG_ROOM_OBJ, 17, 0x0302 }, // (17) (Mean and hungry looking crocodiles
     { IMG_ROOM_OBJ, 30, 0x0447 }, // (30) Rug
     { IMG_ROOM_OBJ, 41, 0x0491 }, // (41) Sleeping pirate
@@ -56,7 +70,7 @@ static const imglist listPirate[] = {
     { IMG_ROOM_OBJ, 22, 0x09a6 }, // (22) DOUBLOONS
     { IMG_ROOM_OBJ, 23, 0x09fa }, // (23) Deadly mamba snakes
 
-    // c64 sprites
+    /* Raw 63-byte C64 sprite data (24x21 monochrome, 3 bytes per row) */
     { IMG_ROOM_OBJ, 25, 0x1d02 }, // (23) Bottle of rum
     { IMG_ROOM_OBJ, 44, 0x1d42 }, // (23) Safety sneakers
     { IMG_ROOM_OBJ, 46, 0x1d82 }, // (45) Shovel
@@ -73,6 +87,7 @@ static const imglist listPirate[] = {
     { IMG_ROOM_OBJ, 33, 0x2042 }, // (33) Pile of precut lumber
     { IMG_ROOM_OBJ, 20, 0x2082 }, // (20) Pile of sails
 
+    /* Room background images (RLE-compressed multicolor bitmaps) */
     { IMG_ROOM, 1, 0x2102 }, //  (1) Room in
     { IMG_ROOM, 2, 0x22c4 }, //  (2) alcove
     { IMG_ROOM, 3, 0x2517 }, //  (3) Secret passageway
@@ -102,6 +117,7 @@ static const imglist listPirate[] = {
     { 0, 0, 0, }
 };
 
+/* Image registry for Voodoo Castle C64. Same format as Pirate Adventure. */
 static const imglist listVoodoo[] = {
     { IMG_ROOM_OBJ, 37, 0x02 }, // (73) Closed Safe
     { IMG_ROOM_OBJ, 34, 0x65 }, // (72) Open SAfe
@@ -139,6 +155,9 @@ static const imglist listVoodoo[] = {
     { 0, 0, 0, }
 };
 
+/* Clone an existing image entry under a different object index.
+   Used when multiple objects share the same sprite data (e.g. all
+   three bottle variants reuse the rum bottle sprite). */
 static USImage *copyToImage(USImage *copy, USImage *original, int index) {
     USImage *previous = copy->previous;
     memcpy(copy, original, sizeof(USImage));
@@ -149,6 +168,12 @@ static USImage *copyToImage(USImage *copy, USImage *original, int index) {
     return copy->next;
 }
 
+/* Pirate Adventure reuses some sprites for multiple objects:
+   - Bottle of rum (#25) -> empty bottle (#7), salt water bottle (#42)
+   - Unlit torch (#8) -> burnt-out torch (#63), lit torch (#9)
+   - Rug (#30) -> map/plans (#26)
+   This creates the duplicate image entries so each object has its own
+   entry in the USImages list, pointing at the shared sprite data. */
 static USImage *add_dupliceate_image_entries(USImage *image) {
     USImage *image2 = USImages;
     USImage *bottle = NULL;
@@ -168,19 +193,24 @@ static USImage *add_dupliceate_image_entries(USImage *image) {
         image2 = image2->next;
     }
     if (bottle != NULL) {
-        image = copyToImage(image, bottle, 7);
-        image = copyToImage(image, bottle, 42);
+        image = copyToImage(image, bottle, 7);  // empty bottle
+        image = copyToImage(image, bottle, 42); // salt water bottle
     }
     if (torch != NULL) {
-        image = copyToImage(image, torch, 63);
-        image = copyToImage(image, torch, 9);
+        image = copyToImage(image, torch, 63); // burnt-out torch
+        image = copyToImage(image, torch, 9);  // lit torch
     }
     if (rug != NULL) {
-        image = copyToImage(image, rug, 26);
+        image = copyToImage(image, rug, 26); // map/plans
     }
     return image;
 }
 
+/* Load an all-in-one C64 file that bundles the game database and image
+   data together. Splits the file at imgoffset: the portion after the
+   cutoff becomes the game database (returned via *sf / *extent), while
+   the image data before and after the cutoff is extracted into USImages
+   using the game-specific registry table. */
 GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
 {
     int cutoff = c64_registry.imgoffset;
@@ -190,6 +220,7 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
 
     uint8_t *data = *sf;
 
+    /* Extract the game database portion (everything after the image data) */
     size_t smallsize = *extent - cutoff;
     uint8_t *shorter = MemAlloc(smallsize);
     memcpy(shorter, data + cutoff, smallsize);
@@ -218,13 +249,15 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
     USImages = NewImage();
     USImage *image = USImages;
 
-    // Now loop round for each image
+    /* Walk the registry and extract each image into the USImages linked list.
+       Image size is determined by the gap between consecutive offsets. */
     for (outpic = 0; list[outpic].offset != 0; outpic++) {
         size_t offset = list[outpic].offset;
         size_t nextoffset = list[outpic + 1].offset;
 
         size_t size;
         if (nextoffset < offset) {
+            /* Last entry or wrap-around: image extends to end of file */
             size = *extent - offset;
         } else {
             size = nextoffset - offset;
@@ -246,10 +279,10 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
         image = image->next;
     }
     if (image->imagedata == NULL) {
-        /* Free the last image, it is empty */
+        /* Trim the trailing empty node from the linked list */
         if (image != USImages) {
             if (CurrentGame == PIRATE_US) {
-                // Several items use the same image. Add image entries for them.
+                /* Add entries for objects that share sprites with other objects */
                 image = add_dupliceate_image_entries(image);
             }
             image->previous->next = NULL;
@@ -261,7 +294,7 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
         }
     }
 
-    /* If no images are found, free USImages struct (this should never happen) */
+    /* Safety check: discard the list if it ended up empty */
     if (USImages != NULL && USImages->next == NULL && USImages->imagedata == NULL) {
         free(USImages);
         USImages = NULL;
@@ -273,6 +306,7 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
     else
         ImageHeight = 78;
 
+    /* Replace the original all-in-one buffer with just the database portion */
     free(*sf);
     *sf = shorter;
     *extent = smallsize;
@@ -280,23 +314,8 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
     return CurrentGame;
 }
 
-static int PlotMiniC64(int *x, int *y, int right, int top, int bottom, uint8_t pixel1, uint8_t pixel2)
-{
-    *x = DrawPatternAndAdvancePos(*x, y, pixel1);
-    *x = DrawPatternAndAdvancePos(*x, y, pixel2);
-
-    if (*y > bottom ) {
-        if (*x == right) {
-            return 0;
-        }
-        *x = *x + 8;
-        *y = top;
-    }
-    return 1;
-}
-
+/* Standard Commodore 64 color palette (16 colors, RGB) */
 glui32 colorC64[16] = {
-    /* C64 colors */
     0x000000, // black
     0xffffff, // white
     0xbf6148, // red
@@ -315,6 +334,23 @@ glui32 colorC64[16] = {
     0x454545, // dark grey
 };
 
+/* Decode and draw an RLE-compressed multicolor bitmap.
+   Returns a pointer past the consumed data, or NULL on error.
+
+   Data format:
+     Byte 0:    left column (in character cells, 8px each)
+     Byte 1:    top scanline
+     Byte 2:    right column
+     Byte 3:    bottom scanline
+     Bytes 4-7: four palette entries (C64 color indices)
+     Remaining: RLE-compressed pixel data (pairs of bytes)
+
+   RLE encoding: a signed count byte followed by pixel data.
+     count >= 0: (count+1) literal pairs follow (2 bytes each)
+     count <  0: one pair follows, repeated (count & 0x7f)+1 times
+
+   Pixels are drawn in 8-pixel-wide columns, top to bottom. When the
+   bottom edge is reached, drawing advances to the next column. */
 static uint8_t *DrawMiniC64ImageFromData(uint8_t *ptr, size_t datasize)
 {
     if (datasize < 8)
@@ -322,30 +358,26 @@ static uint8_t *DrawMiniC64ImageFromData(uint8_t *ptr, size_t datasize)
 
     uint8_t *endptr = ptr + datasize - 1;
 
+    /* Parse the bounding rectangle (in character-cell coordinates).
+       Images with left < 10 are shifted right so all images align to
+       column 11, with the right edge extended to match. */
     int shifted = 0;
     int left = *ptr++;
-    // In the image data, the left value varies between 0 and 11,
-    // but the original code draws them all at the same position.
-    // How does this work?
     if (left < 10) {
         shifted = 11 - left;
         left = 11;
     }
-    left = left * 8;
+    left *= 8;
     int xpos = left;
 
     int top = *ptr++;
     int ypos = top;
 
-    int right = *ptr++;
-    right += shifted;
-    right = right * 8;
+    int right = (*ptr++ + shifted) * 8;
 
     int bottom = *ptr++;
 
-    int colors[4];
-    int has_colors = 0;
-    // Get the palette
+    /* Read and apply the 4-entry palette (multicolor mode: 2 bits per pixel) */
     for (int i = 0; i < 4; i++) {
         if (ptr >= endptr)
             return NULL;
@@ -354,16 +386,10 @@ static uint8_t *DrawMiniC64ImageFromData(uint8_t *ptr, size_t datasize)
             fprintf(stderr, "Error Illegal color!\n");
             return NULL;
         }
-        if (color > 0)
-            has_colors = 1;
-        colors[i] = color;
+        SetColor(i, colorC64[color]);
     }
 
-    if (has_colors) {
-        for (int i = 0; i < 4; i++)
-            SetColor(i, colorC64[colors[i]]);
-    }
-
+    /* Decode RLE-compressed pixel data */
     uint8_t work1 = 0, work2 = 0;
 
     while (xpos <= right && ptr < endptr) {
@@ -376,27 +402,35 @@ static uint8_t *DrawMiniC64ImageFromData(uint8_t *ptr, size_t datasize)
         }
         for (int i = 0; i <= count; i++) {
             if (!repeat_pattern) {
-                if (ptr > endptr - 1)
+                if (ptr + 1 > endptr)
                     return ptr;
                 work1 = *ptr++;
                 work2 = *ptr++;
             }
-            if (!PlotMiniC64(&xpos, &ypos, right, top, bottom, work1, work2)) {
-                return ptr;
+            /* Draw two bytes of pixel data and advance the cursor */
+            xpos = DrawPatternAndAdvancePos(xpos, &ypos, work1);
+            xpos = DrawPatternAndAdvancePos(xpos, &ypos, work2);
+
+            if (ypos > bottom) {
+                if (xpos == right)
+                    return ptr;
+                xpos += 8;
+                ypos = top;
             }
         }
     }
     return ptr;
 }
 
+/* Draw a C64 hardware sprite: 24x21 pixels, monochrome (white).
+   Sprite data is 63 bytes (3 bytes per row x 21 rows). Each row is
+   a 24-bit bitmask where set bits are drawn as white pixels. */
 static int DrawSprite(USImage *img, int index) {
     spritelist sprite = sprites[index];
     SetColor(5, 0xffffff);
     for (int i = 0; i < 63; i += 3) {
         glsi32 y = sprite.y + i / 3;
 
-        // C64 sprites are 24 * 21 pixels.
-        // Read three bytes into a uint32_t and draw aany set bits as white pixels.
         uint32_t line = img->imagedata[i] << 16 | img->imagedata[i + 1] << 8 | img->imagedata[i + 2];
         for (int j = 23; j >= 0; j--) {
             if ((line >> j) & 1) {
@@ -407,36 +441,38 @@ static int DrawSprite(USImage *img, int index) {
     return 1;
 }
 
+/* Main entry point for drawing a C64 "tiny" image.
+   For Pirate Adventure objects: some bitmaps are location-specific overlays
+   that only make sense in one room, so skip them elsewhere. Objects that
+   are C64 sprites are dispatched to DrawSprite; everything else goes
+   through the RLE bitmap decoder. After decoding, the image buffer is
+   shrunk to its actual consumed size. */
 int DrawMiniC64(USImage *img) {
     if (CurrentGame == PIRATE_US && img->usage == IMG_ROOM_OBJ) {
-        // Non-sprite room images will only look right in one specific location.
+        /* Location-specific bitmap overlays: only draw in the correct room */
         switch (img->index) {
-            case 26:
-                // Only draw rug in starting location
+            case 26: // rug — only in starting room
                 if (MyLoc != 1)
                     return 0;
                 break;
-            case 12:
-                // Only draw pirate in shack
+            case 12: // wicked pirate — only in shack
                 if (MyLoc != 9)
                     return 0;
                 break;
-            case 37:
-                // Only draw ship in beach
+            case 37: // pirate ship — only on beach
                 if (MyLoc != 6)
                     return 0;
                 break;
-            case 41:
-                // Only draw sleeping pirate in attic
+            case 41: // sleeping pirate — only in attic
                 if (MyLoc != 4)
                     return 0;
                 break;
-            case 22:
-                // Only draw dubleons in monastery
+            case 22: // doubloons — only in monastery
                 if (MyLoc != 25)
                     return 0;
                 break;
         }
+        /* Check if this object has a sprite; if so, draw it directly */
         for (int i = 0; sprites[i].index != 0; i++) {
             if (img->index == sprites[i].index) {
                 return DrawSprite(img, i);
@@ -447,13 +483,11 @@ int DrawMiniC64(USImage *img) {
     if (result == NULL)
         return 0;
 
-    // Shave off any unused bytes at the end of the data
+    /* Shrink the buffer to the actual decoded size, discarding trailing
+       padding that was allocated based on the gap to the next image. */
     size_t actual_size = result - img->imagedata;
     if (actual_size < img->datasize) {
-        // Our wrapper of realloc() will exit() on failure,
-        // so no need to check the result here.
-        uint8_t *new_data = MemRealloc(img->imagedata, actual_size);
-        img->imagedata = new_data;
+        img->imagedata = MemRealloc(img->imagedata, actual_size);;
         img->datasize = actual_size;
     }
    return 1;

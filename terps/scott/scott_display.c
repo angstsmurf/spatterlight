@@ -3,7 +3,7 @@
  *  Part of ScottFree, an interpreter for adventures in Scott Adams format
  *
  *  Room description display, image rendering, inventory listing,
- *  and related UI functions extracted from scott.c.
+ *  and related UI functions.
  */
 
 #include <stdarg.h>
@@ -15,6 +15,7 @@
 
 #include "layouttext.h"
 #include "line_drawing.h"
+#include "irmak.h"
 #include "sagagraphics.h"
 #include "vector_common.h"
 #include "rtpi_graphics.h"
@@ -28,7 +29,7 @@
 
 #include "parser.h"
 #include "saga.h"
-
+#include "scott_actions.h"
 #include "scott.h"
 
 #ifdef SPATTERLIGHT
@@ -143,7 +144,7 @@ static void FlushRoomDescription(char *buf)
     }
 }
 
-/* Render inventory into the upper window for US-variant games */
+/* Render inventory in the graphics window for US-variant games */
 void UpdateUSInventory(void)
 {
     char *buf = MemAlloc(ROOM_DESC_BUFFER_SIZE);
@@ -165,7 +166,7 @@ void DrawBlack(void)
         12 * 8 * (glui32)pixel_size);
 }
 
-/* Draw a game image using the appropriate rendering method:
+/* Draw a non-US game image using the appropriate rendering method:
    Howarth vector graphics (format 99) or bitmap picture number. */
 void DrawImage(int image)
 {

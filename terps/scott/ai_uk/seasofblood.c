@@ -25,6 +25,7 @@
 #include "irmak.h"
 #include "sagadraw.h"
 #include "scott.h"
+#include "scott_actions.h"
 #include "taylordraw.h"
 #include "randomness.h"
 
@@ -880,13 +881,13 @@ void LoadExtraSeasOfBloodData(int c64)
     // 80xx = move to current room). This appears to be an original bug,
     // so we patch the action table to use "move to room" instead.
     // Action indices differ between the Spectrum and C64 versions.
-    if (Actions[154].Subcommand[0] == 8910) {
+    if (Actions[154].Opcode[0] == 8910) {
         /* Spectrum */
         debug_print("Patching DROP HELMET!\n");
-        Actions[154].Subcommand[0] = 8010;
-    } else if (Actions[156].Subcommand[0] == 8910) {
+        Actions[154].Opcode[0] = 8010;
+    } else if (Actions[156].Opcode[0] == 8910) {
         /* C64 */
         debug_print("Patching DROP HELMET!\n");
-        Actions[156].Subcommand[0] = 8010;
+        Actions[156].Opcode[0] = 8010;
     }
 }

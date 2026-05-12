@@ -729,7 +729,7 @@ static void ReadActions(uint8_t **ptr, int num_actions, int compressed)
         for (int j = 0; j < 5; j++)
             Actions[ct].Condition[j] = (j < cond) ? READ_LE_UINT16_AND_ADVANCE(ptr) : 0;
         for (int j = 0; j < 2; j++)
-            Actions[ct].Subcommand[j] = (j < comm) ? READ_LE_UINT16_AND_ADVANCE(ptr) : 0;
+            Actions[ct].Opcode[j] = (j < comm) ? READ_LE_UINT16_AND_ADVANCE(ptr) : 0;
     }
 }
 

@@ -10,19 +10,27 @@
 
 #include "scottdefines.h"
 
+void ClearBitFlag(int bit);
+void ClearScreen(void);
 int CountCarried(void);
-void MoveItemAToLocOfItemB(int itemA, int itemB);
+void Delay(float seconds);
+void GameOver(void);
 void GoTo(int loc);
 void GoToStoredLoc(void);
+void MoveItemAToLocOfItemB(int itemA, int itemB);
+ExplicitResultType PerformActions(int vb, int no);
+void OutputNumber(int a);
+void PlayerIsDead(void);
+void PrintMessage(int index);
+void PrintNoun(void);
+int PrintScore(void);
+void PutItemAInRoomB(int itemA, int roomB);
+int RandomPercent(int n);
 void SetBitFlag(int bit);
-void ClearBitFlag(int bit);
 void SetDark(void);
 void SetLight(void);
-void SwapLocAndRoomflag(int index);
-void SwapItemLocations(int itemA, int itemB);
-void PutItemAInRoomB(int itemA, int roomB);
 void SwapCounters(int index);
-void PlayerIsDead(void);
-ExplicitResultType PerformActions(int vb, int no);
+void SwapItemLocations(int itemA, int itemB);
+void SwapLocAndRoomflag(int index);
 
 #endif /* scott_actions_h */
