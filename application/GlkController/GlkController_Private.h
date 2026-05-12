@@ -73,11 +73,11 @@
     InfocomV6MenuHandler *_infocomV6MenuHandler;
     JourneyMenuHandler *_journeyMenuHandler;
     
-    // For optional interpreter output logging
-    NSFileHandle *interpreterLogFileHandle;
 }
 
 @property (nonatomic) JourneyMenuHandler *journeyMenuHandler;
+// For optional interpreter output logging
+@property (nonatomic) NSFileHandle *interpreterLogFileHandle;
 @property NSURL *saveDir;
 
 // Redeclare readonly properties as readwrite for category access

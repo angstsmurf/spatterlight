@@ -76,12 +76,11 @@ static BOOL pollMoreData(int fd) {
 
 - (void)closeLogFile {
     // Close and cleanup log file handle if logging was enabled
-    if (interpreterLogFileHandle) {
-//        NSString *footer = [NSString stringWithFormat:@"\n=== Session ended: %@ ===\n", [NSDate date]];
+    if (self.interpreterLogFileHandle) {
         NSString *footer = @"\n=== Session ended ===\n";
-        [interpreterLogFileHandle writeData:[footer dataUsingEncoding:NSUTF8StringEncoding]];
-        [interpreterLogFileHandle closeFile];
-        interpreterLogFileHandle = nil;
+        [self.interpreterLogFileHandle writeData:[footer dataUsingEncoding:NSUTF8StringEncoding]];
+        [self.interpreterLogFileHandle closeFile];
+        self.interpreterLogFileHandle = nil;
         NSLog(@"Closed interpreter log file");
     }
 }
@@ -208,8 +207,7 @@ static BOOL pollMoreData(int fd) {
     int readfd = readfh.fileDescriptor;
     int sendfd = sendfh.fileDescriptor;
     
-    // Access log file handle directly from ivar
-    NSFileHandle *logFileHandle = self->interpreterLogFileHandle;
+    NSFileHandle *logFileHandle = self.interpreterLogFileHandle;
 
 again:
 
