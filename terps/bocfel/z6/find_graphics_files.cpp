@@ -68,73 +68,77 @@ void free_images(void) {
 // Found paths are stored in the global found_graphics_files array.
 void find_graphics_files(const std::string &file_name)
 {
-    // Tries to open a Blorb file and register it as the active resource map.
-    // Uses an existing stream if one is already open, otherwise opens a new one.
     auto set_map = [](std::string &blorb_file) {
-
         strid_t file;
         if (active_blorb_file_stream != nullptr) {
             file = active_blorb_file_stream;
             blorb_file = std::string(active_blorb_file_stream->filename);
         } else {
             file = load_file(blorb_file);
-            active_blorb_file_stream = file;
         }
         if (file != nullptr) {
             if (giblorb_set_resource_map(file) == giblorb_err_None) {
+                active_blorb_file_stream = file;
                 found_graphics_files.at(kGraphicsFileBlorb) = blorb_file;
                 return true;
             }
             glk_stream_close(file, nullptr);
+            if (file == active_blorb_file_stream)
+                active_blorb_file_stream = nullptr;
         }
-
         return false;
     };
-
 
     // Try Unix, Windows, and classic Mac path separators to extract the directory
     for (const auto &delimiter : {'/', '\\', ':'}) {
         auto dirpos = file_name.rfind(delimiter);
         if (dirpos != std::string::npos) {
             auto dir = file_name.substr(0, dirpos + 1);
-            int index = kGraphicsFileCPic;
-            for (const auto &filename : {"CPIC.DATA", "PIC.DATA"}) {
-                if (found_graphics_files.at(index).empty()) {
-                    auto path = dir + filename;
+
+            struct { const char *filename; GraphicsFile slot; } data_files[] = {
+                {"CPIC.DATA", kGraphicsFileCPic},
+                {"PIC.DATA",  kGraphicsFilePic},
+            };
+            for (const auto &entry : data_files) {
+                if (found_graphics_files.at(entry.slot).empty()) {
+                    auto path = dir + entry.filename;
                     strid_t file = load_file(path);
                     if (file != nullptr) {
-                        found_graphics_files.at(index) = path;
+                        found_graphics_files.at(entry.slot) = path;
                         glk_stream_close(file, nullptr);
                     }
                 }
-                index++;
             }
 
             auto dotpos = file_name.rfind('.');
             if (dotpos != std::string::npos) {
-                for (const auto &extension : {".MG1", ".EG1", ".CG1"}) {
-                    if (found_graphics_files.at(index).empty()) {
+                struct { const char *extension; GraphicsFile slot; } ext_files[] = {
+                    {".MG1", kGraphicsFileMG1},
+                    {".EG1", kGraphicsFileEG1},
+                    {".CG1", kGraphicsFileCG1},
+                };
+                for (const auto &entry : ext_files) {
+                    if (found_graphics_files.at(entry.slot).empty()) {
                         auto path = file_name;
-                        path.replace(dotpos, std::string::npos, extension);
+                        path.replace(dotpos, std::string::npos, entry.extension);
                         strid_t file = load_file(path);
                         if (file != nullptr) {
-                            found_graphics_files.at(index) = path;
+                            found_graphics_files.at(entry.slot) = path;
                             glk_stream_close(file, nullptr);
                         }
                     }
-                    index++;
                 }
 
                 if (found_graphics_files.at(kGraphicsFileWoz).empty()) {
-                    // Search for Apple 2 woz files
                     for (const auto &ext : {".woz", " side 1.woz", " - Side 1.woz"}) {
                         auto path = file_name;
+                        auto woz_dotpos = dotpos;
                         auto zorkpos = path.rfind("ZORK0.");
                         if (zorkpos != std::string::npos) {
                             path.replace(zorkpos, std::string::npos, "Zork Zero.");
-                            dotpos = path.rfind('.');
+                            woz_dotpos = path.rfind('.');
                         }
-                        path.replace(dotpos, std::string::npos, ext);
+                        path.replace(woz_dotpos, std::string::npos, ext);
                         strid_t file = load_file(path);
                         if (file != nullptr) {
                             found_graphics_files.at(kGraphicsFileWoz) = path;
@@ -148,9 +152,7 @@ void find_graphics_files(const std::string &file_name)
         }
     }
 
-
     if (found_graphics_files.at(kGraphicsFileBlorb).empty()) {
-        // Next, we look for external blorb files
         for (const auto &ext : {".zlb", ".zblorb", ".blb", ".blorb"}) {
             std::string blorb_file = file_name;
             auto dot = blorb_file.rfind('.');
@@ -170,14 +172,23 @@ void find_graphics_files(const std::string &file_name)
 // Reads an entire Glk stream into a malloc'd buffer and returns it.
 // The caller is responsible for freeing the returned buffer.
 uint8_t *read_from_file(strid_t file, glui32 *actual_length) {
+    if (file == nullptr || actual_length == nullptr)
+        return nullptr;
+
     glk_stream_set_position(file, 0, seekmode_End);
-    auto file_length = glk_stream_get_position(file);
+    glui32 file_length = glk_stream_get_position(file);
+    if (file_length == 0)
+        return nullptr;
+
     glk_stream_set_position(file, 0, seekmode_Start);
-    char *file_data = (char *)MemAlloc(file_length);
-    *actual_length = glk_get_buffer_stream(file, file_data, file_length);
-    if (*actual_length != file_length)
-        fprintf(stderr, "Read error! Result: %u\n", *actual_length);
-    return (uint8_t *)file_data;
+    uint8_t *file_data = (uint8_t *)MemAlloc(file_length);
+    *actual_length = glk_get_buffer_stream(file, (char *)file_data, file_length);
+    if (*actual_length != file_length) {
+        fprintf(stderr, "Read error! Expected: %u, got: %u\n", file_length, *actual_length);
+        free(file_data);
+        return nullptr;
+    }
+    return file_data;
 }
 
 // Opens a graphics file and extracts images from it into the global raw_images
@@ -187,7 +198,7 @@ uint8_t *read_from_file(strid_t file, glui32 *actual_length) {
 //   - Raw formats (VGA/EGA/CGA/Amiga/Mac): reads file into memory and parses
 // For EGA, also loads supplementary images from a companion .EG2 file.
 // Sets hw_screenwidth and pixelwidth based on the detected graphics type.
-void extract_from_file(std::string path, GraphicsType type) {
+void extract_from_file(const std::string &path, GraphicsType type) {
     strid_t file = nullptr;
     if (type == kGraphicsTypeBlorb) {
         file = active_blorb_file_stream;
@@ -195,68 +206,66 @@ void extract_from_file(std::string path, GraphicsType type) {
     if (file == nullptr) {
         file = load_file(path);
     }
-    if (file != nullptr) {
+    if (file == nullptr)
+        return;
+
+    graphics_type = type;
+
+    if (type == kGraphicsTypeApple2) {
+        glk_stream_close(file, nullptr);
+        image_count = extract_apple2_disk_images(path.c_str(), &raw_images, &pixversion);
+    } else if (type == kGraphicsTypeBlorb) {
+        image_count = extract_images_from_blorb(&raw_images);
+    } else {
         glui32 file_length = 0;
-        uint8_t *file_data;
-
-        graphics_type = type;
-
-        if (type == kGraphicsTypeApple2) {
-            glk_stream_close(file, nullptr);
-            image_count = extract_apple2_disk_images(path.c_str(), &raw_images, &pixversion);
-        } else if (type == kGraphicsTypeBlorb) {
-            image_count = extract_images_from_blorb(&raw_images);
-        } else {
-            file_data = read_from_file(file, &file_length);
-            if (file_data == nullptr)
-                return;
-            image_count = extract_images(file_data, file_length, 1, 0, &raw_images, &pixversion, &graphics_type);
-            free(file_data);
-        }
-
-        if (type != kGraphicsTypeApple2 && type != kGraphicsTypeBlorb)
-            glk_stream_close(file, nullptr);
-
-        if (image_count == 0)
+        uint8_t *file_data = read_from_file(file, &file_length);
+        glk_stream_close(file, nullptr);
+        if (file_data == nullptr)
             return;
+        image_count = extract_images(file_data, file_length, 1, 0, &raw_images, &pixversion, &graphics_type);
+        free(file_data);
+    }
 
-        switch(graphics_type) {
-            case kGraphicsTypeBlorb:
-            case kGraphicsTypeVGA:
-            case kGraphicsTypeAmiga:
-            case kGraphicsTypeNoGraphics:
-                hw_screenwidth = 320;
-                pixelwidth = 1.0;
-                break;
-            case kGraphicsTypeMacBW:
-                hw_screenwidth = 480;
-                pixelwidth = 1.0;
-                break;
-            case kGraphicsTypeEGA:
-            case kGraphicsTypeCGA:
-                hw_screenwidth = 640;
-                pixelwidth = 0.5;
-                break;
-            case kGraphicsTypeApple2:
-                hw_screenwidth = 140;
-                pixelwidth = 2.0;
-                break;
-        }
+    if (image_count == 0)
+        return;
 
-        if (graphics_type == kGraphicsTypeEGA) {
-            // look for .EG2 file and load additional pictures from it
-            auto dotpos = path.rfind('.');
-            if (dotpos != std::string::npos) {
-                path.replace(dotpos, std::string::npos, ".EG2");
-                file = load_file(path);
-                if (file != nullptr) {
-                    file_data = read_from_file(file, &file_length);
-                    if (file_data == nullptr)
-                        return;
+    switch(graphics_type) {
+        case kGraphicsTypeBlorb:
+        case kGraphicsTypeVGA:
+        case kGraphicsTypeAmiga:
+        case kGraphicsTypeNoGraphics:
+            hw_screenwidth = 320;
+            pixelwidth = 1.0;
+            break;
+        case kGraphicsTypeMacBW:
+            hw_screenwidth = 480;
+            pixelwidth = 1.0;
+            break;
+        case kGraphicsTypeEGA:
+        case kGraphicsTypeCGA:
+            hw_screenwidth = 640;
+            pixelwidth = 0.5;
+            break;
+        case kGraphicsTypeApple2:
+            hw_screenwidth = 140;
+            pixelwidth = 2.0;
+            break;
+    }
+
+    if (graphics_type == kGraphicsTypeEGA) {
+        auto dotpos = path.rfind('.');
+        if (dotpos != std::string::npos) {
+            std::string eg2_path = path;
+            eg2_path.replace(dotpos, std::string::npos, ".EG2");
+            strid_t eg2_file = load_file(eg2_path);
+            if (eg2_file != nullptr) {
+                glui32 eg2_length = 0;
+                uint8_t *eg2_data = read_from_file(eg2_file, &eg2_length);
+                glk_stream_close(eg2_file, nullptr);
+                if (eg2_data != nullptr) {
                     ImageStruct *more_images;
-                    int additional_count = extract_images((uint8_t *)file_data, file_length, 2, 0, &more_images, &pixversion, &graphics_type);
-                    free(file_data);
-                    glk_stream_close(file, nullptr);
+                    int additional_count = extract_images(eg2_data, eg2_length, 2, 0, &more_images, &pixversion, &graphics_type);
+                    free(eg2_data);
                     if (additional_count > 0) {
                         int total_count = image_count + additional_count;
                         ImageStruct *all_images = (ImageStruct *)MemAlloc(sizeof(ImageStruct) * total_count);
@@ -277,89 +286,59 @@ void extract_from_file(std::string path, GraphicsType type) {
 // preferred format isn't available, falls back to the first available format
 // in found_graphics_files.
 void load_best_graphics(void) {
-    bool found = true;
+
+    struct { GraphicsFile slot; GraphicsType type; } fallback_table[] = {
+        {kGraphicsFileCPic,  kGraphicsTypeAmiga},
+        {kGraphicsFilePic,   kGraphicsTypeAmiga},
+        {kGraphicsFileMG1,   kGraphicsTypeVGA},
+        {kGraphicsFileEG1,   kGraphicsTypeEGA},
+        {kGraphicsFileCG1,   kGraphicsTypeCGA},
+        {kGraphicsFileBlorb, kGraphicsTypeBlorb},
+        {kGraphicsFileWoz,   kGraphicsTypeApple2},
+    };
+
+    auto try_load = [](GraphicsFile slot, GraphicsType type) {
+        if (!found_graphics_files.at(slot).empty()) {
+            extract_from_file(found_graphics_files.at(slot), type);
+            return image_count != 0;
+        }
+        return false;
+    };
+
+    bool found = false;
+
     switch(gli_z6_graphics) {
         case kGraphicsTypeAmiga:
-            // Amiga format graphics data is found in "pic.data" on Amiga disks
-            // and in "Cpic.data" on Mac disks.
-            if (!found_graphics_files.at(kGraphicsFileCPic).empty()) {
-                extract_from_file(found_graphics_files.at(kGraphicsFileCPic), kGraphicsTypeAmiga);
-            } else if (!found_graphics_files.at(kGraphicsFilePic).empty()) {
-                extract_from_file(found_graphics_files.at(kGraphicsFilePic), kGraphicsTypeAmiga);
-            } else {
-                found = false;
-            }
+            found = try_load(kGraphicsFileCPic, kGraphicsTypeAmiga)
+                 || try_load(kGraphicsFilePic, kGraphicsTypeAmiga);
             break;
         case kGraphicsTypeMacBW:
-            if (!found_graphics_files.at(kGraphicsFilePic).empty()) {
-                extract_from_file(found_graphics_files.at(kGraphicsFilePic), kGraphicsTypeMacBW);
-            } else {
-                found = false;
-            }
+            found = try_load(kGraphicsFilePic, kGraphicsTypeMacBW);
             break;
         case kGraphicsTypeApple2:
-            if (!found_graphics_files.at(kGraphicsFileWoz).empty()) {
-                extract_from_file(found_graphics_files.at(kGraphicsFileWoz), kGraphicsTypeApple2);
-            } else {
-                found = false;
-            }
+            found = try_load(kGraphicsFileWoz, kGraphicsTypeApple2);
             break;
         case kGraphicsTypeBlorb:
-            if (!found_graphics_files.at(kGraphicsFileBlorb).empty()) {
-                extract_from_file(found_graphics_files.at(kGraphicsFileBlorb), kGraphicsTypeBlorb);
-            } else {
-                found = false;
-            }
+            found = try_load(kGraphicsFileBlorb, kGraphicsTypeBlorb);
             break;
         case kGraphicsTypeVGA:
-            if (!found_graphics_files.at(kGraphicsFileMG1).empty()) {
-                extract_from_file(found_graphics_files.at(kGraphicsFileMG1), kGraphicsTypeVGA);
-            } else {
-                found = false;
-            }
+            found = try_load(kGraphicsFileMG1, kGraphicsTypeVGA);
             break;
         case kGraphicsTypeEGA:
-            if (!found_graphics_files.at(kGraphicsFileEG1).empty()) {
-                extract_from_file(found_graphics_files.at(kGraphicsFileEG1), kGraphicsTypeEGA);
-            } else {
-                found = false;
-            }
-
+            found = try_load(kGraphicsFileEG1, kGraphicsTypeEGA);
             break;
         case kGraphicsTypeCGA:
-            if (!found_graphics_files.at(kGraphicsFileCG1).empty()) {
-                extract_from_file(found_graphics_files.at(kGraphicsFileCG1), kGraphicsTypeCGA);
-            } else {
-                found = false;
-            }
+            found = try_load(kGraphicsFileCG1, kGraphicsTypeCGA);
             break;
         default:
-            found = false;
             break;
     }
 
-    // Maps each found_graphics_files index to its corresponding GraphicsType.
-    // Used when falling back to any available format.
-    std::array<GraphicsType, 7> translation_table = {
-        kGraphicsTypeAmiga,
-        kGraphicsTypeAmiga,
-        kGraphicsTypeVGA,
-        kGraphicsTypeEGA,
-        kGraphicsTypeCGA,
-        kGraphicsTypeBlorb,
-        kGraphicsTypeApple2
-    };
-
-
     if (!found) {
-        for (size_t i = 0; i < found_graphics_files.size(); i++) {
-            const auto &filename = found_graphics_files.at(i);
-            if (!filename.empty()) {
-                extract_from_file(filename, translation_table.at(i));
-                if (image_count != 0) {
-                    found = true;
-                    break;
-                }
+        for (const auto &entry : fallback_table) {
+            if (try_load(entry.slot, entry.type)) {
+                found = true;
+                break;
             }
         }
     }
@@ -374,7 +353,7 @@ void load_best_graphics(void) {
 // named according the game file (e.g. journey-r83-s890706.blb if the game file is
 // journey-r83-s890706.z6), then looks for a "base" file name (journey.blb for
 // journey-r83-s890706.z6), and finally loads the best available format.
-// (See load_best_graphics() above.)
+// See load_best_graphics() above.
 void find_and_load_z6_graphics(void) {
     find_graphics_files(game_file);
     std::string file_name = game_file;

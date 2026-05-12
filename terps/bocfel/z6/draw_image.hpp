@@ -34,7 +34,19 @@ void draw_to_pixmap_using_current_palette(ImageStruct *image, uint8_t **pixmap, 
 void ensure_pixmap(winid_t winid);
 void draw_arthur_side_images(winid_t winid);
 void extend_shogun_border(int desired_height, int lowest_drawn_pixel, int start_copy_from);
-void extend_mac_bw_hint_border(int desired_height);
+void extend_zork_zero_border(void);
+void extend_pillars(int top_cut, int foot_height, int total_height,
+                              int pillar_height, int overlap, bool flip,
+                              bool hint_foot, int desired_height = 0);
+void extend_underground_pillars(int top_cut, int foot_height, int total_height,
+                                int pillar_height, int stone_height, int pillar_width);
+void extend_jungle_pillars(int top_cut, int total_height,
+                           int pillar_height, int overlap);
+void extend_mac_bw_castle_pillars(void);
+void draw_border_common(int border, int BL, int BR,
+                        int border_height, int border_top, int pillar_top,
+                        int left_margin, int cga_lowest_adjust,
+                        bool is_hint_border, bool draw_non_hint_rect);
 void draw_centered_image(int picnum, float scale, int width, int height);
 float draw_centered_title_image(int picnum);
 void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height);

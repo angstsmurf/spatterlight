@@ -51,6 +51,9 @@ static void SCORE_CHECK(void) {}
 static void TOWER_WIN_CHECK(void) {}
 static void DRAW_PEGS(void) {}
 static void SET_B_PIC(void) {}
+static void TELL_AMOUNTS(void) {}
+static void COMPLETE_DIAL_GRAPHICS(void) {}
+static void RT_TH_EXCALIBUR(void) {}
 
 
 struct EntryPoint {

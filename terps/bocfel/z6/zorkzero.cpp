@@ -279,7 +279,8 @@ void DISPLAY_BORDER(BorderType border) {
             BR = HINT_BORDER_R;
             break;
     }
-    if (find_image(BL)) {        
+
+    if (find_image(BL)) {
         draw_to_pixmap_unscaled(BL, 0, Y);
     }
 
@@ -287,6 +288,30 @@ void DISPLAY_BORDER(BorderType border) {
         int width;
         get_image_size(BR, &width, nullptr);
         draw_to_pixmap_unscaled(BR, X - width, Y);
+    }
+
+    if (border == CASTLE_BORDER) {
+        if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeAmiga || graphics_type == kGraphicsTypeBlorb) {
+            extend_pillars(43, 13, 200, 142, 0, false, false);
+        } else if (graphics_type == kGraphicsTypeMacBW) {
+            extend_mac_bw_castle_pillars();
+        } else if (graphics_type == kGraphicsTypeEGA) {
+            extend_pillars(45, 13, 203, 144, 9, false, false);
+        } else if (graphics_type == kGraphicsTypeCGA) {
+            extend_pillars(52, 25, 205, 137, 11, true, false);
+        }
+    } else if (border == UNDERGROUND_BORDER) {
+        if (graphics_type == kGraphicsTypeMacBW) {
+            extend_underground_pillars(107, 80, 300, 115, 56, 43);
+        } else {
+            extend_underground_pillars(73, 53, 200, 74, 38, 37);
+        }
+    } else if (border == OUTSIDE_BORDER) {
+        if (graphics_type != kGraphicsTypeMacBW) {
+            extend_jungle_pillars(67, 210, 143, 59);
+        } else {
+            extend_jungle_pillars(53, 300, 247, 33);
+        }
     }
 }
 
@@ -395,11 +420,6 @@ void INIT_STATUS_LINE(void) {
 // cases: narrow displays (Apple IIe/DOS) use abbreviated property descriptions,
 // and "Great Underground" rooms use a shortened prefix to save space.
 static void draw_new_here(void) {
-//    zo.PHIL_HALL = 0xc7;
-//    zo.G_U_MOUNTAIN = 0xac;
-//    zo.G_U_SAVANNAH = 0xc3;
-//    zo.G_U_HIGHWAY = 0xce;
-
     V6_STATUS_WINDOW.x = 1;
     V6_STATUS_WINDOW.y = 1;
 
@@ -489,7 +509,6 @@ static void z0_resize_status_windows(void) {
     x = (hereoffx - 1) * imagescalex - ggridmarginx + text_area_y_offset;
     y = (hereoffy - 1) * imagescaley - ggridmarginy + text_area_y_offset;
 
-
     if (!BORDER_ON) {
         fprintf(stderr, "z0_resize_status_windows: border is off\n");
         z0_hide_right_status();
@@ -550,82 +569,28 @@ static void z0_resize_status_windows(void) {
 // won't fit all the header text, so the original interpreters also cover it
 // with a solid color rectangle.)
 void z0_display_border(int border) {
-
-    int left_margin = 0;
-    int pillar_top = 0;
-
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
-    int border_top = 0;
-
     win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
 
     int width, height;
     get_image_size(border, &width, &height);
 
+    int border_top = 0;
+    int pillar_top = 0;
     if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
         border_top = height;
         pillar_top = border_top;
     } else {
-        pillar_top = border_top + Z0_HINT_TOP_HEIGHT;
+        pillar_top = Z0_HINT_TOP_HEIGHT;
     }
 
-    float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
-    int desired_height = ceil(gscreenh / factor);
-
-    int lowest_drawn_line = height + border_top;
-    bool must_extend = (desired_height > lowest_drawn_line);
-
-    draw_to_pixmap_unscaled_using_current_palette(border, 0, 0);
-
-    int BL = Z0_HINT_BORDER_L;
-    int BR = Z0_HINT_BORDER_R;
-
-    // BL won't be found
-    // if graphics type is Amiga or Mac B/W
-    if (find_image(BL)) {
-        get_image_size(BL, &width, &height);
-        draw_to_pixmap_unscaled(BL, 0, border_top);
-        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
-        lowest_drawn_line = height + border_top;
-    } else {
-        // Amiga och Mac border graphics are a single image with everything,
-        // not separated into top and sides
-
-        if (must_extend && (graphics_type == kGraphicsTypeMacBW)) {
-            extend_mac_bw_hint_border(desired_height);
-            desired_height = 0;
-        }
-    }
-
-    if (must_extend) {
-        if (graphics_type == kGraphicsTypeCGA) {
-            lowest_drawn_line -= 10;
-        }
-        extend_shogun_border(desired_height, lowest_drawn_line, pillar_top);
-    }
-
-    // We draw a rectangle of status window color at the top
-    bool should_draw_covering_rectangle = false;
-
-    glui32 rectangle_color = user_selected_foreground;
-
-    if (graphics_type == kGraphicsTypeCGA) {
-        should_draw_covering_rectangle = true;
-    } else {
-        left_margin = 0;
-        if (graphics_type == kGraphicsTypeMacBW) {
-            should_draw_covering_rectangle = true;
-        } else if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
-            should_draw_covering_rectangle = true;
-            rectangle_color = ROSE_TAUPE;
-        }
-    }
-
-    if (should_draw_covering_rectangle) {
-        draw_rectangle_on_bitmap(rectangle_color, left_margin, 0, hw_screenwidth - left_margin * 2, V6_STATUS_WINDOW.y_size / imagescaley + 1);
-    }
-    flush_bitmap(current_graphics_buf_win);
+    draw_border_common(border, Z0_HINT_BORDER_L, Z0_HINT_BORDER_R,
+                       height, border_top, pillar_top,
+                       0,     // left_margin
+                       10,    // cga_lowest_adjust
+                       true,  // is_hint_border
+                       false); // draw_non_hint_rect
 }
 
 
@@ -1829,8 +1794,9 @@ void PEG_GAME_READ_CHAR(void) {
 // Z-machine entry point: during auto-solve, sets attributes 1-21 (except 7)
 // on NOT-HERE-OBJECT to fake a winning board state.
 void PBOZ_WIN_CHECK(void) {
-    // Game is considered won if the first 21 attributes (1-21) of NOT-HERE-OBJECT are set
-    // except attribute 7, which must not be set.
+    // Each of the first 21 attributes of NOT-HERE-OBJECT represents a peg on the board.
+    // A set attribute means the peg is out-of-play. We simulate a winning state by
+    // setting all of them and then clearing one (number 7.)
     if (skip_pboz) {
         for (int i = 1; i < 22; i++) {
             internal_set_attr(zo.NOT_HERE_OBJECT, i);

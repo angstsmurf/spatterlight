@@ -881,7 +881,3 @@ void ARTHUR_UPDATE_STATUS_LINE(void) {
     set_global(ag.GL_SL_HIDE, 0);
     set_global(ag.GL_SL_TIME, 0);
 }
-
-// Stub for the Excalibur animation routine. The visual effect is handled
-// entirely by the Z-code in this implementation.
-void RT_TH_EXCALIBUR(void) {}
