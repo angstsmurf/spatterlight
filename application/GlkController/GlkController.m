@@ -973,15 +973,15 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         
         // Create/open the log file
         [[NSFileManager defaultManager] createFileAtPath:logPath contents:nil attributes:nil];
-        interpreterLogFileHandle = [NSFileHandle fileHandleForWritingAtPath:logPath];
+        self.interpreterLogFileHandle = [NSFileHandle fileHandleForWritingAtPath:logPath];
         
-        if (interpreterLogFileHandle) {
+        if (self.interpreterLogFileHandle) {
             NSLog(@"Logging interpreter output to: %@", logPath);
             
             // Write header to log file
             NSString *header = [NSString stringWithFormat:@"=== Spatterlight Interpreter Log ===\nGame: %@\nInterpreter: %@\n\n",
                                 _gamefile.lastPathComponent, _terpname];
-            [interpreterLogFileHandle writeData:[header dataUsingEncoding:NSUTF8StringEncoding]];
+            [self.interpreterLogFileHandle writeData:[header dataUsingEncoding:NSUTF8StringEncoding]];
         } else {
             NSLog(@"Warning: Could not create interpreter log file at %@", logPath);
         }
