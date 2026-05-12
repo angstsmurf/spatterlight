@@ -1,5 +1,5 @@
 /*
- *  scott_save.c
+ *  scott_meta.c
  *  Part of ScottFree, an interpreter for adventures in Scott Adams format
  *
  *  Save/load, restart, transcript, undo, and meta-command handling.
@@ -376,18 +376,4 @@ void HitEnter(void)
     showing_closeup = 0;
     should_draw_image = 1;
     return;
-}
-
-void DoneIt(void)
-{
-    if (split_screen && Top)
-        Look();
-    Output("\n\n");
-    Output(sys[PLAY_AGAIN]);
-    Output("\n");
-    if (YesOrNo()) {
-        should_restart = 1;
-    } else {
-        CleanupAndExit();
-    }
 }

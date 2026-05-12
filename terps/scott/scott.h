@@ -39,6 +39,32 @@
 
 // clang-format on
 
+/* Number of exit directions per room (N/S/E/W/U/D) */
+#define NUM_EXITS 6
+
+/* Number of counter/room-flag save slots */
+#define NUM_COUNTERS 16
+
+/* Room image sentinel: no image assigned */
+#define NO_IMAGE 255
+
+/* Mask to extract the image index from a room/item image byte */
+#define IMAGE_INDEX_MASK 127
+
+/* Brian Howarth vector graphics format identifier */
+#define HOWARTH_FORMAT 99
+
+/* Action table encoding: vocab = verb * VOCAB_MULTIPLIER + noun,
+   condition = param * CONDITION_MULTIPLIER + condition_code */
+#define VOCAB_MULTIPLIER 150
+#define CONDITION_MULTIPLIER 20
+#define NUM_CONDITIONS 5
+#define NUM_OPCODES 4
+
+/* Display/buffer sizes */
+#define DISPLAY_BUFFER_SIZE 2048
+#define ROOM_DESC_BUFFER_SIZE 1000
+
 typedef struct {
     short Unknown;
     short NumItems;
@@ -57,7 +83,7 @@ typedef struct {
 typedef struct {
     unsigned short Vocab;
     unsigned short Condition[5];
-    unsigned short Subcommand[2];
+    unsigned short Opcode[2];
 } Action;
 
 typedef struct {
@@ -106,7 +132,6 @@ typedef struct {
 #define CurrentGame (Game->gameID)
 
 void Output(const char *a);
-void OutputNumber(int a);
 void Display(winid_t w, const char *fmt, ...)
 #ifdef __GNUC__
     __attribute__((__format__(__printf__, 2, 3)))
@@ -116,7 +141,6 @@ void HitEnter(void);
 void Look(void);
 void DrawRoomImage(void);
 void ListInventory(int upper);
-void Delay(float seconds);
 void DrawImage(int image);
 void OpenGraphicsWindow(void);
 GameIDType LoadDatabase(FILE *f, int loud);
@@ -127,28 +151,10 @@ const char *MapSynonym(int noun);
 GLK_ATTRIBUTE_NORETURN void Fatal(const char *x);
 void DrawBlack(void);
 uint8_t *SeekToPos(int offset);
-int CountCarried(void);
-int RandomPercent(int n);
-void DoneIt(void);
 void SaveGame(void);
-void PrintNoun(void);
-int PrintScore(void);
-void MoveItemAToLocOfItemB(int itemA, int itemB);
-void GoTo(int loc);
-void GoToStoredLoc(void);
-void SwapLocAndRoomflag(int index);
-void SwapItemLocations(int itemA, int itemB);
-void PutItemAInRoomB(int itemA, int roomB);
-void SwapCounters(int index);
-void PrintMessage(int index);
-void PlayerIsDead(void);
 void UpdateSettings(void);
 void OpenTopWindow(void);
 glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight);
-void SetDark(void);
-void SetLight(void);
-void SetBitFlag(int bit);
-void ClearBitFlag(int bit);
 void FreeDatabase(void);
 
 extern GameInfo *Game;
@@ -186,5 +192,21 @@ extern int showing_closeup;
 extern int last_image_index;
 extern int gli_slowdraw;
 extern int should_draw_image;
+struct Command;
+extern struct Command *CurrentCommand;
+extern strid_t Transcript;
+extern glui32 TopWidth, TopHeight;
+extern int JustStarted;
+extern int should_restart;
+extern int print_look_to_transcript;
+
+int ItIsDark(void);
+void LookWithPause(void);
+void UpdateUSInventory(void);
+GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void);
+int MatchUpItem(int noun, int loc);
+int YesOrNo(void);
+void RestartGame(void);
+void LoadGame(void);
 
 #endif /* scott_h */

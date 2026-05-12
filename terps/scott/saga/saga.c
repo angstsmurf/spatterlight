@@ -668,12 +668,12 @@ uint8_t *ParseItems(uint8_t *ptr, uint8_t *endptr, int number_of_items, int stri
 
    The US binary format stores action data in a columnar layout rather
    than row-by-row: all verb bytes come first (one per action), then all
-   noun bytes, then subcommand bytes (2 pairs of 2 columns), then
+   noun bytes, then opcode bytes (2 pairs of 2 columns), then
    condition words (5 columns of 16-bit values). Each column has
    (number_of_actions + 1) entries.
 
    The verb and noun are packed into Vocab as (verb * 150 + noun).
-   Subcommands are similarly packed as (value * 150 + value2).
+   Action opcodes are similarly packed as (value * 150 + value2).
    Conditions are 16-bit words encoding condition type and argument. */
 uint8_t *ParseActions(uint8_t *ptr, uint8_t *data, size_t datalength, int number_of_actions, int big_endian) {
     size_t base = ptr - data;
@@ -697,12 +697,12 @@ uint8_t *ParseActions(uint8_t *ptr, uint8_t *data, size_t datalength, int number
 
         Actions[ct].Vocab = verb * 150 + noun;
 
-        /* Columns 2-5: two subcommand pairs (each pair is two byte columns) */
+        /* Columns 2-5: two opcode pairs (each pair is two byte columns) */
         for (int j = 0; j < 2; j++) {
             int value  = data[base + ct + (2 + j * 2) * stride];
             int value2 = data[base + ct + (3 + j * 2) * stride];
-            Actions[ct].Subcommand[j] = 150 * value + value2;
-            debug_print("Action %d: Subcommand[%d]: %d %d\n", ct, j, value, value2);
+            Actions[ct].Opcode[j] = 150 * value + value2;
+            debug_print("Action %d: Opcode[%d]: %d %d\n", ct, j, value, value2);
         }
 
         /* 5 columns of 16-bit condition words */
