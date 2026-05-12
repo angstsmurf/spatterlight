@@ -741,13 +741,15 @@ static void draw_apple2_line(const uint16_t target_x, const uint8_t target_y, a2
     const int total_steps = delta_x + delta_y; // Total iterations of the loop
     if (total_steps == 0) return; // Single pixel, no line to draw
 
-    /* The original sets the global HGR_DY to -delta_y - 1
-       (but a carry of 1 is added every time it is used in calculations) */
+    /* The original 6502 assembly code sets HGR_DY to -delta_y - 1,
+       but a carry of 1 is added every time it is used in calculations.
+       Note that this is not the same as (uint8_t)(-delta_y), as the
+       result may overflow 8 bits. */
     const int minus_delta_y = (uint8_t)(~delta_y) + 1;
 
     bool carry = (uint8_t)delta_x + minus_delta_y < CARRY_THRESHOLD;
     /* The moving_vertically bool represents the value of the carry
-    flag at the end of each iteration in the original 6502 code. */
+       flag at the end of each iteration in the original 6502 code. */
     bool moving_vertically = (delta_x >> 8) < carry;
 
     uint16_t error_term = delta_x + minus_delta_y - CARRY_THRESHOLD;
@@ -762,8 +764,8 @@ static void draw_apple2_line(const uint16_t target_x, const uint8_t target_y, a2
         } else {
             move_left_or_right(move_left, ctx);
             /* We switch to vertical movement if the least significant byte
-             of error_term - delta_y does not overflow 8 bits
-             (In the original, carry set means move horizontally.) */
+               of error_term - delta_y does not overflow 8 bits.
+               (In the original, carry set means move horizontally.) */
             uint16_t nocarry = ((uint8_t)error_term + minus_delta_y < CARRY_THRESHOLD) << 8;
             moving_vertically = error_term < nocarry;
             uint8_t e_low = (uint8_t)error_term + minus_delta_y;
@@ -771,7 +773,7 @@ static void draw_apple2_line(const uint16_t target_x, const uint8_t target_y, a2
         }
         plot_a2_vector_pixel(ctx);
     }
-    /* HGR_Y is already set (in move_up_or_down()), but not HGR_X */
+    /* HGR_Y is already set (in move_up_or_down()), but not HGR_X. */
     ctx->HGR_X = target_x;
 }
 
