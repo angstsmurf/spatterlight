@@ -111,7 +111,7 @@ int findSys(const uint8_t *buf, int target) {
 	return outstart;
 }
 
-static void loadPrgData(uint8_t mem[65536], uint8_t *data, size_t dataLength, LoadInfo *info) {
+static void loadPrgData(uint8_t mem[65536], const uint8_t *data, size_t dataLength, LoadInfo *info) {
 	int len = MIN(65536 - info->_start, static_cast<int>(dataLength));
 	memcpy(mem + info->_start, data, (size_t)len);
 
@@ -123,7 +123,7 @@ static void loadPrgData(uint8_t mem[65536], uint8_t *data, size_t dataLength, Lo
 	}
 }
 
-void loadData(uint8_t *data, size_t dataLength, uint8_t mem[65536], LoadInfo *info) {
+void loadData(const uint8_t *data, size_t dataLength, uint8_t mem[65536], LoadInfo *info) {
     int load = READ_LE_UINT16(data);
 
 	info->_start = load;

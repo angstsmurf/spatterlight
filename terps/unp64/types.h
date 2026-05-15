@@ -41,6 +41,7 @@
 #ifndef UNP64_TYPES_H
 #define UNP64_TYPES_H
 
+#include <cstddef>
 #include <cstdint>
 
 namespace Unp64 {
@@ -56,8 +57,6 @@ namespace Unp64 {
 #if !defined MIN
 #define MIN(a,b) (a < b ? a : b)
 #endif
-
-typedef unsigned long long size_t;
 
 inline uint16_t READ_LE_UINT16(const void *ptr) {
     const uint8_t *b = (const uint8_t *)ptr;
