@@ -30,96 +30,14 @@
 
 #include "scott.h"
 #include "scott_actions.h"
+#include "scott_defines.h"
+#include "scott_display.h"
 
 #ifdef SPATTERLIGHT
 #include "glkimp.h"
 #endif
 
 //#define DEBUG_ACTIONS
-
-/* Condition codes (0-19) — used in action table condition fields */
-#define COND_PARAMETER       0
-#define COND_CARRIED         1
-#define COND_IN_ROOM         2
-#define COND_PRESENT         3
-#define COND_AT_LOC          4
-#define COND_NOT_IN_ROOM     5
-#define COND_NOT_CARRIED     6
-#define COND_NOT_AT_LOC      7
-#define COND_FLAG_SET        8
-#define COND_FLAG_CLEAR      9
-#define COND_CARRYING_ANY   10
-#define COND_CARRYING_NONE  11
-#define COND_NOT_PRESENT    12
-#define COND_IN_PLAY        13
-#define COND_NOT_IN_PLAY    14
-#define COND_COUNTER_LE     15
-#define COND_COUNTER_GT     16
-#define COND_NOT_MOVED      17
-#define COND_MOVED          18
-#define COND_COUNTER_EQ     19
-
-/* Opcode message ranges: codes 1-51 print that message directly,
-   codes 102+ print message (code - EXTENDED_MSG_OFFSET) */
-#define FIRST_MESSAGE        1
-#define LAST_DIRECT_MESSAGE 51
-#define EXTENDED_MSG_BASE  102
-#define EXTENDED_MSG_OFFSET 50
-
-/* Action opcodes (52-90) — game state operations.
-   Equivalent to corresponding TI99OP_ definitions in ti99_4a_terp.c. */
-#define OP_GET_ITEM         52
-#define OP_DROP_ITEM        53
-#define OP_GOTO_ROOM        54
-#define OP_DESTROY_ITEM     55
-#define OP_SET_DARK         56
-#define OP_SET_LIGHT        57
-#define OP_SET_FLAG         58
-#define OP_DESTROY_ITEM_2   59
-#define OP_CLEAR_FLAG       60
-#define OP_DIE              61
-#define OP_MOVE_ITEM        62
-#define OP_GAME_OVER        63
-#define OP_LOOK             64
-#define OP_PRINT_SCORE      65
-#define OP_LIST_INVENTORY   66
-#define OP_SET_FLAG_0       67
-#define OP_CLEAR_FLAG_0     68
-#define OP_REFILL_LIGHT     69
-#define OP_CLEAR_SCREEN     70
-#define OP_SAVE             71
-#define OP_SWAP_ITEMS       72
-#define OP_CONTINUE         73
-#define OP_FORCE_CARRY      74
-#define OP_MOVE_TO_LOC_OF   75
-#define OP_LOOK_2           76
-#define OP_DEC_COUNTER      77
-#define OP_PRINT_COUNTER    78
-#define OP_SET_COUNTER      79
-#define OP_GOTO_STORED      80
-#define OP_SWAP_COUNTER     81
-#define OP_ADD_COUNTER      82
-#define OP_SUB_COUNTER      83
-#define OP_PRINT_NOUN       84
-#define OP_PRINTLN_NOUN     85
-#define OP_NEWLINE          86
-#define OP_SWAP_ROOM        87
-#define OP_DELAY            88
-#define OP_GAME_SPECIFIC    89
-#define OP_DRAW_IMAGE       90
-
-/* Game-specific EXAMINE verb indices */
-#define HULK_EXAMINE_VERB    39
-#define COUNT_EXAMINE_VERB    8
-#define VOODOO_EXAMINE_VERB  42
-#define ADVLAND_EXAMINE_VERB 29
-#define PIRATE_EXAMINE_VERB  27
-#define MISSION_EXAMINE_VERB 40
-#define STRANGE_EXAMINE_VERB 37
-
-/* US-variant game-specific image */
-#define US_CLOSEUP_IMAGE 80
-
 
 /* Game state operations — basically helper functions
    for PerformLine() and PerformTI99Line().
@@ -351,8 +269,6 @@ int RandomPercent(int n)
 }
 
 void OutputNumber(int a) { Display(Bottom, "%d", a); }
-
-#define RTPI_WIN_IMAGE 26
 
 int PrintScore(void)
 {

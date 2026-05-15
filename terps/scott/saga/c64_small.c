@@ -8,7 +8,7 @@
 // Handles the compact C64 graphics format used by early Scott Adams
 // SAGA adventures (Pirate Adventure, Voodoo Castle) where game database
 // and image data are bundled in a single file. Room backgrounds use
-// RLE-compressed multicolor bitmaps; small inventory items are stored
+// RLE-compressed multicolor bitmaps; small item images are stored
 // as C64 hardware sprites (24x21 monochrome).
 
 #include <stdlib.h>
@@ -249,6 +249,9 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
     USImages = NewImage();
     USImage *image = USImages;
 
+    /* Color 0 is always black */
+    SetColor(0, 0);
+
     /* Walk the registry and extract each image into the USImages linked list.
        Image size is determined by the gap between consecutive offsets. */
     for (outpic = 0; list[outpic].offset != 0; outpic++) {
@@ -305,6 +308,31 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
         ImageHeight = 80;
     else
         ImageHeight = 78;
+
+    /* Prepend a hard-coded all-black "darkness" ROOM image at index 0.
+       The RLE body fills the rect with palette-index-0 pixels
+       (which is black after the initial SetColor(0, 0) above). */
+    USImage *background = NewImage();
+    background->systype = SYS_C64_TINY;
+    background->usage = IMG_ROOM;
+    background->index = 0;
+    background->datasize = 8 + 7 * 3;
+    background->imagedata = MemCalloc(background->datasize);
+    background->imagedata[0] = 11;                    /* left  = 88  / 8 */
+    background->imagedata[1] = 0;                     /* top */
+    background->imagedata[2] = 29;                    /* right = 232 / 8 */
+    background->imagedata[3] = (uint8_t)ImageHeight;  /* bottom */
+
+    /* 7 repeat-128 commands, each emitting 128 pairs of color-0 pixels.
+       Comfortably covers 19 columns x up to 41 pairs = 779 pairs. */
+    for (int i = 0; i < 7; i++) {
+        // This leaves two zero bytes after every 0xff.
+        background->imagedata[8 + i * 3] = 0xff;
+    }
+    background->next = USImages;
+    if (USImages != NULL)
+        USImages->previous = background;
+    USImages = background;
 
     /* Replace the original all-in-one buffer with just the database portion */
     free(*sf);
@@ -377,16 +405,19 @@ static uint8_t *DrawMiniC64ImageFromData(uint8_t *ptr, size_t datasize)
 
     int bottom = *ptr++;
 
-    /* Read and apply the 4-entry palette (multicolor mode: 2 bits per pixel) */
+    /* Read and apply the 4-entry palette (multicolor mode: 2 bits per pixel.) */
+    /* Overlay images have all colors set to 0. For these, don't apply the palette –
+       these use the palette of the background image */
+    if (ptr + 4 > endptr)
+        return NULL;
     for (int i = 0; i < 4; i++) {
-        if (ptr >= endptr)
-            return NULL;
-        uint8_t color = *ptr++;
+        int color = *ptr++;
         if (color > 15) {
             fprintf(stderr, "Error Illegal color!\n");
             return NULL;
+        } else if (color != 0) {
+            SetColor(i, colorC64[color]);
         }
-        SetColor(i, colorC64[color]);
     }
 
     /* Decode RLE-compressed pixel data */
@@ -456,6 +487,10 @@ int DrawMiniC64(USImage *img) {
                     return 0;
                 break;
             case 12: // wicked pirate — only in shack
+                if (MyLoc != 9)
+                    return 0;
+                break;
+            case 28: // Open treasure chest — only in shack
                 if (MyLoc != 9)
                     return 0;
                 break;

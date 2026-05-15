@@ -12,6 +12,7 @@
 #include "sagagraphics.h"
 #include "irmak.h"
 #include "scott.h"
+#include "scott_display.h"
 
 extern Image *images;
 

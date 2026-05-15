@@ -3044,6 +3044,8 @@
 		C37391DA27A25D04009147EF /* game_specific.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_specific.c; sourceTree = "<group>"; usesTabs = 0; };
 		C374D1C226EE4E75006F430E /* SoundHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundHandler.m; sourceTree = "<group>"; };
 		C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 10.xcdatamodel"; sourceTree = "<group>"; };
+		C37B7BBA2FB60FEF000472AF /* scott_display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_display.h; sourceTree = "<group>"; };
+		C37B7BBC2FB61221000472AF /* scott_defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_defines.h; sourceTree = "<group>"; };
 		C37E675A26E9844D0005873E /* MIDIChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIChannel.h; sourceTree = "<group>"; };
 		C37E675C26E9844D0005873E /* MIDIChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIChannel.m; sourceTree = "<group>"; };
 		C37E675E26E987FF0005873E /* MIDIPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIPlayer.m; sourceTree = "<group>"; };
@@ -5689,8 +5691,10 @@
 				C318F76C2741AA5B006D626A /* README */,
 				C318F76D2741AA5B006D626A /* scott.h */,
 				C318F76A2741AA5B006D626A /* scott.c */,
+				C37B7BBC2FB61221000472AF /* scott_defines.h */,
 				C32705B82FB12CD4008E9E20 /* scott_actions.h */,
 				C30CAD012FAFD58800A90820 /* scott_actions.c */,
+				C37B7BBA2FB60FEF000472AF /* scott_display.h */,
 				C30CAD042FAFD61200A90820 /* scott_display.c */,
 				C30CAD062FAFD61400A90820 /* scott_meta.c */,
 				C3BCB7D528E8EBBB00D590ED /* titleimage.h */,

@@ -138,23 +138,14 @@ void Display(winid_t w, const char *fmt, ...)
 #endif
     ;
 void HitEnter(void);
-void Look(void);
-void DrawRoomImage(void);
-void ListInventory(int upper);
-void DrawImage(int image);
-void OpenGraphicsWindow(void);
 GameIDType LoadDatabase(FILE *f, int loud);
-void CloseGraphicsWindow(void);
 void Updates(event_t ev);
 int PerformExtraCommand(int extra_stop_time);
 const char *MapSynonym(int noun);
 GLK_ATTRIBUTE_NORETURN void Fatal(const char *x);
-void DrawBlack(void);
 uint8_t *SeekToPos(int offset);
 void SaveGame(void);
 void UpdateSettings(void);
-void OpenTopWindow(void);
-glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight);
 void FreeDatabase(void);
 
 extern GameInfo *Game;
@@ -198,11 +189,7 @@ extern strid_t Transcript;
 extern glui32 TopWidth, TopHeight;
 extern int JustStarted;
 extern int should_restart;
-extern int print_look_to_transcript;
 
-int ItIsDark(void);
-void LookWithPause(void);
-void UpdateUSInventory(void);
 GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void);
 int MatchUpItem(int noun, int loc);
 int YesOrNo(void);

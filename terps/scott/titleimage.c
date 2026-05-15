@@ -14,6 +14,7 @@
 #include "sagagraphics.h"
 #include "vector_common.h"
 #include "scott.h"
+#include "scott_display.h"
 
 #ifdef SPATTERLIGHT
 #include "glkimp.h"

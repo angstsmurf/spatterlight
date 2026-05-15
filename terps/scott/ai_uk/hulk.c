@@ -9,6 +9,7 @@
 #include "saga.h"
 #include "sagagraphics.h"
 #include "scott.h"
+#include "scott_display.h"
 
 void HulkShowImageOnExamineUS(int noun)
 {

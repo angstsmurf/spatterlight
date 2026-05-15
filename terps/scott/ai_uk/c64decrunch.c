@@ -148,7 +148,7 @@ static const c64rec c64_registry[] = {
     { GREMLINS_GERMAN_C64, 0x2ab00,   0x6729, TYPE_D64, 2, NULL,       NULL, 0, 0xdc02, 0xcac1, 0x1f00, 0 }, // German Gremlins C64 (D64) version * Exomizer
 
     { SUPERGRAN_C64, 0x726f, 0x0901, TYPE_T64, 1, NULL, NULL, 0, 0xd802, 0xc623, 0x1f00, 0 }, // Super Gran C64 (T64) PUCrunch Generic Hack
-    { SUPERGRAN_C64, 0x2ab00, 0x538c, TYPE_D64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Super Gran C64 (D64) PUCrunch Generic Hack
+    { SUPERGRAN_C64, 0x2ab00, 0x538c, TYPE_D64, 1, NULL, NULL, 0, 0xd802, 0xc623, 0x1f00, 0 }, // Super Gran C64 (D64) PUCrunch Generic Hack
 
     { SEAS_OF_BLOOD_C64, 0xa209,  0xf115, TYPE_T64, 6, "-e0x1000", NULL, 3, 0xd802, 0xb07c, 0x1fff, 0 }, // Seas of Blood C64 (T64) MasterCompressor / Relax -> ECA
                                                                                                          // Compacker -> Unknown -> MasterCompressor / Relax -> ECA

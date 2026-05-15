@@ -17,6 +17,7 @@
 #include "parser.h"
 #include "scott.h"
 #include "scott_actions.h"
+#include "scott_display.h"
 
 #ifdef SPATTERLIGHT
 #include "glkimp.h"

@@ -20,83 +20,11 @@
 #include "glk.h"
 #include "scott.h"
 #include "scott_actions.h"
+#include "scott_defines.h"
+#include "scott_display.h"
 
 #include "load_ti99_4a.h"
 #include "ti99_4a_terp.h"
-
-/* --- TI-99/4A bytecode opcode definitions ---
-   Conditions (183–201): each takes one parameter byte.
-   Most are equivalent to the COND_XXX conditions in
-   scott_actions.c (but with different numbers). */
-#define TI99CND_CARRIED        183
-#define TI99CND_IN_ROOM        184
-#define TI99CND_PRESENT        185
-#define TI99CND_NOT_IN_ROOM    186
-#define TI99CND_NOT_CARRIED    187
-#define TI99CND_NOT_PRESENT    188
-#define TI99CND_IN_PLAY        189
-#define TI99CND_NOT_IN_PLAY    190
-#define TI99CND_AT_LOC         191
-#define TI99CND_NOT_AT_LOC     192
-#define TI99CND_FLAG_SET       193
-#define TI99CND_FLAG_CLEAR     194
-#define TI99CND_CARRYING_ANY   195
-#define TI99CND_CARRYING_NONE  196
-#define TI99CND_COUNTER_LE     197
-#define TI99CND_COUNTER_GT     198
-#define TI99CND_COUNTER_EQ     199
-#define TI99CND_NOT_MOVED      200
-#define TI99CND_MOVED          201
-
-/* Commands (212–254). */
-/* equivalent to the OP_XXX opcodes in
-scott_actions.c (but with different numbers). */
-#define TI99OP_CLEAR_SCREEN     212
-#define TI99OP_AUTO_INV_ON      214
-#define TI99OP_AUTO_INV_OFF     215
-#define TI99OP_SUCCESS_OFF      216
-#define TI99OP_SUCCESS_ON       217
-#define TI99OP_TRY              218
-#define TI99OP_GET_ITEM         219
-#define TI99OP_DRTI99OP_ITEM        220
-#define TI99OP_GOTO_ROOM        221
-#define TI99OP_DESTROY_ITEM     222
-#define TI99OP_SET_DARK         223
-#define TI99OP_SET_LIGHT        224
-#define TI99OP_SET_FLAG         225
-#define TI99OP_CLEAR_FLAG       226
-#define TI99OP_SET_FLAG_0       227
-#define TI99OP_CLEAR_FLAG_0     228
-#define TI99OP_DIE              229
-#define TI99OP_MOVE_ITEM        230
-#define TI99OP_GAME_OVER        231
-#define TI99OP_PRINT_SCORE      232
-#define TI99OP_LIST_INVENTORY   233
-#define TI99OP_REFILL_LIGHT     234
-#define TI99OP_SAVE             235
-#define TI99OP_SWAP_ITEMS       236
-#define TI99OP_FORCE_CARRY      237
-#define TI99OP_MOVE_TO_LOC_OF   238
-#define TI99OP_CLEAR            239
-#define TI99OP_LOOK             240
-#define TI99OP_LOOK_2           241
-#define TI99OP_INC_COUNTER      242
-#define TI99OP_DEC_COUNTER      243
-#define TI99OP_PRINT_COUNTER    244
-#define TI99OP_SET_COUNTER      245
-#define TI99OP_ADD_COUNTER      246
-#define TI99OP_SUB_COUNTER      247
-#define TI99OP_GOTO_STORED      248
-#define TI99OP_SWAP_ROOM        249
-#define TI99OP_SWAP_COUNTER     250
-#define TI99OP_PRINT_NOUN       251
-#define TI99OP_PRINTLN_NOUN     252
-#define TI99OP_NEWLINE          253
-#define TI99OP_DELAY            254
-#define TI99OP_SUCCESS          255
-
-#define MAX_MESSAGE_OPCODE  182
-#define MAX_TRY_DEPTH        32
 
 /* Execute a single action line (a sequence of condition checks
    followed by commands).  Returns ACT_SUCCESS if the line ran to
