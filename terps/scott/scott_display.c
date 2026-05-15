@@ -29,8 +29,9 @@
 
 #include "parser.h"
 #include "saga.h"
-#include "scott_actions.h"
 #include "scott.h"
+#include "scott_actions.h"
+#include "scott_display.h"
 
 #ifdef SPATTERLIGHT
 #include "glkimp.h"
@@ -164,6 +165,113 @@ void DrawBlack(void)
 {
     glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * (glui32)pixel_size,
         12 * 8 * (glui32)pixel_size);
+}
+
+/* Open or find the status text-grid window above the main window */
+void OpenTopWindow(void)
+{
+    Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
+    if (Top == NULL) {
+        if (split_screen) {
+            Top = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed,
+                TopHeight, wintype_TextGrid, GLK_STATUS_ROCK);
+            if (Top == NULL) {
+                split_screen = 0;
+                Top = Bottom;
+            } else {
+                glk_window_get_size(Top, &TopWidth, NULL);
+            }
+        } else {
+            Top = Bottom;
+        }
+    }
+}
+
+/* Compute the largest integer pixel multiplier that fits the game's
+   native image dimensions within the available graphics area. */
+glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight)
+{
+    int multiplier = 1;
+    multiplier = graphheight / ImageHeight;
+    if (ImageWidth * multiplier > graphwidth)
+        multiplier = graphwidth / ImageWidth;
+
+    if (multiplier == 0)
+        multiplier = 1;
+
+    *outwidth = ImageWidth * multiplier;
+    *outheight = ImageHeight * multiplier;
+
+    return multiplier;
+}
+
+/* Open the graphics window between the status window and the main text
+   window, sized to fit the game's native image resolution at the best
+   integer scale. Re-opens the status window above it if needed. */
+void OpenGraphicsWindow(void)
+{
+#ifdef SPATTERLIGHT
+    if (!gli_enable_graphics)
+        return;
+#endif
+    glui32 graphwidth, graphheight, optimal_width, optimal_height;
+
+    if (Top == NULL)
+        Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
+    if (Graphics == NULL)
+        Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
+    if (Graphics == NULL && Top != NULL) {
+        glk_window_get_size(Top, &TopWidth, &TopHeight);
+        glk_window_close(Top, NULL);
+        Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
+            60, wintype_Graphics, GLK_GRAPHICS_ROCK);
+        glk_window_get_size(Graphics, &graphwidth, &graphheight);
+        pixel_size = OptimalPictureSize(graphwidth, graphheight, &optimal_width, &optimal_height);
+        x_offset = ((int)graphwidth - (int)optimal_width) / 2;
+
+        if (graphheight > optimal_height) {
+            winid_t parent = glk_window_get_parent(Graphics);
+            if (parent)
+                glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                    optimal_height, NULL);
+        }
+
+    /* Set the graphics window background to match
+       the main window background, best as we can,
+       and clear the window. */
+        glui32 background_color;
+        if (Bottom && glk_style_measure(Bottom, style_Normal, stylehint_BackColor, &background_color)) {
+            glk_window_set_background_color(Graphics, background_color);
+            glk_window_clear(Graphics);
+        }
+
+        Top = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, TopHeight,
+            wintype_TextGrid, GLK_STATUS_ROCK);
+        glk_window_get_size(Top, &TopWidth, &TopHeight);
+    } else {
+        if (!Graphics)
+            Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60,
+                wintype_Graphics, GLK_GRAPHICS_ROCK);
+        glk_window_get_size(Graphics, &graphwidth, &graphheight);
+        pixel_size = OptimalPictureSize(graphwidth, graphheight, &optimal_width, &optimal_height);
+        x_offset = (graphwidth - optimal_width) / 2;
+        winid_t parent = glk_window_get_parent(Graphics);
+        if (parent)
+            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                optimal_height, NULL);
+    }
+    right_margin = optimal_width + x_offset;
+}
+
+void CloseGraphicsWindow(void)
+{
+    if (Graphics == NULL)
+        Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
+    if (Graphics) {
+        glk_window_close(Graphics, NULL);
+        Graphics = NULL;
+        glk_window_get_size(Top, &TopWidth, &TopHeight);
+    }
 }
 
 /* Draw a non-US game image using the appropriate rendering method:
