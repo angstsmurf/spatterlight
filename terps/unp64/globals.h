@@ -47,7 +47,8 @@ public:
 	~Globals();
 };
 
-extern Globals *g_globals;
+/* Per-thread so concurrent unp64() calls on different threads don't race. */
+extern thread_local Globals *g_globals;
 
 #define _G(FIELD) (g_globals->FIELD)
 

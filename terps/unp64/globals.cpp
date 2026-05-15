@@ -28,7 +28,7 @@
 
 namespace Unp64 {
 
-Globals *g_globals;
+thread_local Globals *g_globals;
 
 Globals::Globals() {
 
@@ -36,6 +36,7 @@ Globals::Globals() {
 }
 
 Globals::~Globals() {
+	g_globals = nullptr;
 }
 
 } // End of namespace Unp64
