@@ -74,6 +74,7 @@ void reinitUnp(void) {
 	_G(_unp)._fStrAf = 0;
 	_G(_unp)._fStrBf = 0;
 	_G(_unp)._mon1st = 0;
+	_G(_unp)._keypressIdx = -1;
 }
 
 /* True if pc is one of the BASIC ROM entry points that signal
@@ -284,6 +285,284 @@ static void applyEndStartOffsets(const CpuCtx *r) {
 	}
 }
 
+/* Seed the emulated C64 RAM and CPU registers so the depacker starts in
+ * the state it would expect right after a BASIC `SYS <run>`: zero-page
+ * BASIC pointers, the stack page snapshot, the IRQ vector table, and
+ * sane CPU register/flag values. */
+static void seedC64State(CpuCtx *r, uint8_t *mem, LoadInfo *info,
+                         const uint8_t *stackSnap, size_t stackSize,
+                         const uint8_t *vector, size_t vectorSize) {
+	/* $0000 = RTS so a stray jump to zero unwinds cleanly. $0001 = bank
+	 * latch ($37 = ROMs+I/O visible; $38 = RAM exposed under ROM regions
+	 * when the forced entry sits in a ROM area). */
+	mem[0] = 0x60;
+	r->_cycles = 0;
+	mem[1] = 0x37;
+
+	if (((_G(_unp)._forced >= 0xa000) && (_G(_unp)._forced < 0xc000)) || (_G(_unp)._forced >= 0xd000))
+		mem[1] = 0x38;
+
+	/* TXTTAB / VARTAB / ARYTAB / STREND — packers often read these. */
+	mem[0x2b] = info->_basicTxtStart & 0xff;
+	mem[0x2c] = info->_basicTxtStart >> 8;
+	if (info->_basicVarStart == -1) {
+		mem[0x2d] = info->_end & 0xff;
+		mem[0x2e] = info->_end >> 8;
+	} else {
+		mem[0x2d] = info->_basicVarStart & 0xff;
+		mem[0x2e] = info->_basicVarStart >> 8;
+	}
+	mem[0x2f] = mem[0x2d];
+	mem[0x30] = mem[0x2e];
+	mem[0x31] = mem[0x2d];
+	mem[0x32] = mem[0x2e];
+	mem[0xae] = info->_end & 0xff;
+	mem[0xaf] = info->_end >> 8;
+
+	/* CCS unpacker requires $39/$3a (current basic line number) set. */
+	mem[0x39] = mem[0x803];
+	mem[0x3a] = mem[0x804];
+	mem[0x52] = 0;
+	mem[0x53] = 3;
+
+	if (_G(_unp)._fStack) {
+		memcpy(mem + 0x100, stackSnap, stackSize);
+		r->_sp = 0xf6; /* sys from immediate mode leaves $f6 in stackptr */
+	} else {
+		r->_sp = 0xff;
+	}
+
+	/* Some packers use IRQ vector bytes to decrypt — only stamp them in
+	 * if the PRG payload itself doesn't already occupy that region. */
+	if (info->_start > (long int)(0x314 + vectorSize)) {
+		memcpy(mem + 0x314, vector, vectorSize);
+	}
+
+	mem[0x200] = 0x8a; /* TXA — what the BASIC SYS evaluator leaves in $0200 */
+	r->_mem = mem;
+	r->_pc = info->_run;
+	r->_flags = 0x20;
+	r->_a = 0;
+	r->_y = 0;
+	if (info->_run > 0x351) /* temporary for XIP */ {
+		r->_x = 0;
+	}
+}
+
+/* Phase 1 of emulation: step the 6502 until pc reaches the depack-done
+ * address (or, if none is configured, until pc passes the return address).
+ * Most of the body is "the program just called a KERNAL/BASIC ROM
+ * routine" handling — we don't emulate ROM code, so we fake observable
+ * side effects and bounce execution back out with a synthesized RTS.
+ *
+ * Returns true if the loop exited normally, false on a fatal abort
+ * (illegal opcode or iteration cap). */
+static bool emulateUntilDepack(CpuCtx *r, uint8_t *mem, LoadInfo *info,
+                               uint8_t *vector, size_t vectorSize, int iterMax) {
+	_G(_iter) = 0;
+	while ((_G(_unp)._depAdr ? r->_pc != _G(_unp)._depAdr : r->_pc >= _G(_unp)._retAdr)) {
+		/* Executing inside ROM (BASIC at $A000-BFFF or KERNAL at $E000+)? */
+		if ((((mem[1] & 0x7) >= 6) && (r->_pc >= 0xe000)) || ((r->_pc >= 0xa000) && (r->_pc <= 0xbfff) && ((mem[1] & 0x7) > 6))) {
+			/* some packer relies on regs set at return from CLRSCR */
+			if ((r->_pc == 0xe536) || (r->_pc == 0xe544) || (r->_pc == 0xff5b) || ((r->_pc == 0xffd2) && (r->_a == 0x93))) {
+				if (r->_pc != 0xffd2) {
+					r->_x = 0x01;
+					r->_y = 0x84;
+					if (r->_pc == 0xff5b)
+						r->_a = 0x97; /* actually depends on $d012 */
+					else
+						r->_a = 0xd8;
+					r->_flags &= ~(128 | 2);
+					r->_flags |= (r->_a == 0 ? 2 : 0) | (r->_a & 128);
+				}
+				memset(mem + 0x400, 0x20, 1000);
+			}
+			/* intros: GETIN ($FFE4) / GET-CHAR ($F13E). Cycle through a
+			 * canned sequence of keypresses (space, N, Ctrl-C, _, cursor
+			 * down, return, 1) so any keyboard-driven intro/menu advances. */
+			if ((r->_pc == 0xffe4) || (r->_pc == 0xf13e)) {
+				static const unsigned char fpressedchars[] = {0x20, 0, 0x4e, 0, 3, 0, 0x5f, 0, 0x11, 00, 0x0d, 0, 0x31, 0};
+				_G(_unp)._keypressIdx++;
+				if (_G(_unp)._keypressIdx > ARRAYSIZE(fpressedchars))
+					_G(_unp)._keypressIdx = 0;
+				r->_a = fpressedchars[_G(_unp)._keypressIdx];
+				r->_flags &= ~(128 | 2);
+				r->_flags |= (r->_a == 0 ? 2 : 0) | (r->_a & 128);
+			}
+			/* RESTOR ($FD15): fake registers normally set by the KERNAL
+			 * vector restore so packers reading them get plausible values. */
+			if (r->_pc == 0xfd15) {
+				r->_a = 0x31;
+				r->_x = 0x30;
+				r->_y = 0xff;
+			}
+			/* IOINIT ($FDA3): mimic the post-init CIA/$01 state. */
+			if (r->_pc == 0xfda3) {
+				mem[0x01] = 0xe7;
+				r->_a = 0xd7;
+				r->_x = 0xff;
+			}
+			/* SETNAM ($FFBD): persist filename pointer/length in zeropage. */
+			if (r->_pc == 0xffbd) {
+				mem[0xB7] = r->_a;
+				mem[0xBB] = r->_x;
+				mem[0xBC] = r->_y;
+			}
+			/* LOAD ($FFD5) / KERNAL serial bus routine ($F4A2):
+			 * can't service real I/O — treat hitting these as "done". */
+			if ((r->_pc == 0xffd5) || (r->_pc == 0xf4a2)) {
+				break;
+			}
+			/* Landed in BASIC's RUN/READY path — look for the new SYS line
+			 * and jump there; otherwise fall through with an RTS. */
+			if (isBasicRun1(r->_pc)) {
+				info->_run = findSys(mem + info->_basicTxtStart, 65536 - info->_basicTxtStart);
+				if (info->_run > 0) {
+					r->_sp = 0xf6;
+					r->_pc = info->_run;
+				} else {
+					mem[0] = 0x60;
+					r->_pc = 0; /* force a RTS instead of executing ROM code */
+				}
+			} else {
+				mem[0] = 0x60;
+				r->_pc = 0; /* force a RTS instead of executing ROM code */
+			}
+		}
+
+		/* Step the emulated CPU one instruction. */
+		if (nextInst(r))
+			return false;
+
+		_G(_iter)++;
+		if (_G(_iter) == iterMax)
+			return false;
+
+		/* Exomizer family: while the decompressor runs its code-on-stack
+		 * tail at $100-$200, latch the end address out of $FE/$FF. */
+		if (_G(_unp)._exoFnd && (_G(_unp)._endAdr == 0x10000) && (r->_pc >= 0x100) && (r->_pc <= 0x200) && (_G(_unp)._strMem != 2)) {
+			_G(_unp)._endAdr = r->_mem[0xfe] + (r->_mem[0xff] << 8);
+			if ((_G(_unp)._exoFnd & 0xff) == 0x30) {
+				_G(_unp)._endAdr = (_G(_unp)._exoFnd >> 8) + (r->_mem[0xff] << 8);
+			} else if ((_G(_unp)._exoFnd & 0xff) == 0x32) {
+				_G(_unp)._endAdr = 1 + ((_G(_unp)._exoFnd >> 8) + (r->_mem[0xff] << 8));
+			}
+			if (_G(_unp)._endAdr == 0)
+				_G(_unp)._endAdr = 0x10001;
+		}
+
+		/* Latch end/start addresses from RAM the instant we hit _depAdr. */
+		if (_G(_unp)._fEndBf && (_G(_unp)._endAdr == 0x10000) && (r->_pc == _G(_unp)._depAdr)) {
+			_G(_unp)._endAdr = r->_mem[_G(_unp)._fEndBf] | r->_mem[_G(_unp)._fEndBf + 1] << 8;
+			_G(_unp)._endAdr++;
+			if (_G(_unp)._endAdr == 0)
+				_G(_unp)._endAdr = 0x10001;
+			_G(_unp)._fEndBf = 0;
+		}
+		if (_G(_unp)._fStrBf && (_G(_unp)._strMem != 0x2) && (r->_pc == _G(_unp)._depAdr)) {
+			_G(_unp)._strMem = r->_mem[_G(_unp)._fStrBf] | r->_mem[_G(_unp)._fStrBf + 1] << 8;
+			_G(_unp)._fStrBf = 0;
+		}
+
+		/* Debug: track which IRQ/NMI/BRK vector bytes the unpacker touches. */
+		if (_G(_unp)._debugP) {
+			for (size_t p = 0; p < vectorSize; p += 2) {
+				if (READ_LE_UINT16(mem + 0x314 + p) != READ_LE_UINT16(vector + p)) {
+					vector[p] = mem[0x314 + p];
+					vector[p + 1] = mem[0x314 + p + 1];
+				}
+			}
+		}
+	}
+	return true;
+}
+
+/* Phase 2 of emulation: depacker has written the payload to RAM and is
+ * now in its "transition to the depacked program" tail. Keep stepping
+ * until pc reaches (or passes) the configured return address so any
+ * final fix-ups land in RAM before we dump it. */
+static bool emulateUntilReturn(CpuCtx *r, uint8_t *mem, int iterMax) {
+	_G(_iter) = 0;
+	while (_G(_unp)._rtAFrc ? r->_pc != _G(_unp)._retAdr : r->_pc < _G(_unp)._retAdr) {
+		/* Each time we re-pass the depack address, sample the watched
+		 * "current write pointer" location; track the max-end / min-start. */
+		if (_G(_unp)._monEnd && r->_pc == _G(_unp)._depAdr) {
+			int p = r->_mem[_G(_unp)._monEnd >> 16] | r->_mem[_G(_unp)._monEnd & 0xffff] << 8;
+			if (p > (_G(_unp)._endAdr & 0xffff))
+				_G(_unp)._endAdr = p;
+		}
+		if (_G(_unp)._monStr && r->_pc == _G(_unp)._depAdr) {
+			int p = r->_mem[_G(_unp)._monStr >> 16] | r->_mem[_G(_unp)._monStr & 0xffff] << 8;
+			if (p > 0) {
+				if (_G(_unp)._mon1st == 0) {
+					_G(_unp)._strMem = p;
+				}
+				_G(_unp)._mon1st = (unsigned int)_G(_unp)._strMem;
+				_G(_unp)._strMem = (p < _G(_unp)._strMem ? p : _G(_unp)._strMem);
+			}
+		}
+
+		/* Don't actually run KERNAL code — bounce out via synthesized RTS. */
+		if (r->_pc >= 0xe000) {
+			if (((mem[1] & 0x7) >= 6) && ((mem[1] & 0x7) <= 7)) {
+				mem[0] = 0x60;
+				r->_pc = 0;
+			}
+		}
+		if (nextInst(r))
+			return false;
+
+		/* Scanner-detected RTI exit: step the RTI and treat its target as
+		 * the return address. */
+		if ((mem[r->_pc] == 0x40) && (_G(_unp)._rtiFrc == 1)) {
+			if (nextInst(r))
+				return false;
+			_G(_unp)._retAdr = r->_pc;
+			_G(_unp)._rtAFrc = 1;
+			if (_G(_unp)._retAdr < _G(_unp)._strMem)
+				_G(_unp)._strMem = 2;
+			break;
+		}
+
+		_G(_iter)++;
+		if (_G(_iter) == iterMax)
+			return false;
+
+		/* Reached BASIC ROM with BASIC banked in — likely returning to RUN. */
+		if ((r->_pc >= 0xa000) && (r->_pc <= 0xbfff) && ((mem[1] & 0x7) == 7)) {
+			if (isBasicRun2(r->_pc)) {
+				r->_pc = 0xa7ae;
+				break;
+			} else {
+				mem[0] = 0x60;
+				r->_pc = 0;
+			}
+		}
+
+		if (r->_pc >= 0xe000) {
+			if (((mem[1] & 0x7) >= 6) && ((mem[1] & 0x7) <= 7)) {
+				if (r->_pc == 0xffbd) {
+					mem[0xB7] = r->_a;
+					mem[0xBB] = r->_x;
+					mem[0xBC] = r->_y;
+				}
+				/* Return into IRQ handler — stop here. */
+				if (((r->_pc >= 0xea31) && (r->_pc <= 0xeb76)) || (r->_pc == 0xffd5) || (r->_pc == 0xfce2)) {
+					break;
+				}
+				if (r->_pc == 0xfda3) {
+					mem[0x01] = 0xe7;
+					r->_a = 0xd7;
+					r->_x = 0xff;
+				}
+				mem[0] = 0x60;
+				r->_pc = 0;
+			}
+		}
+	}
+	return true;
+}
+
 /* Write the standard PRG two-byte load-address header just before the
  * unpacked data, then copy [header .. end) to the caller's buffer.
  * Returns false if the result wouldn't fit. */
@@ -300,6 +579,14 @@ static bool writeUnpackedOutput(uint8_t *mem, int strMem, int endAdr,
 	*finalLength = outSize;
 	return true;
 }
+
+/* RAII guard that owns the lifetime of the _G(_unp)._info alias: the
+ * unpacker writes a pointer to a stack-local LoadInfo into the global
+ * state for the scanners' benefit, and this guard guarantees the global
+ * is cleared on every return path so the dangling pointer never escapes. */
+struct ScopedInfoAlias {
+	~ScopedInfoAlias() { _G(_unp)._info = nullptr; }
+};
 
 /* Core unpacker entry point.
  *
@@ -328,13 +615,9 @@ bool unp64cpp(const uint8_t *compressed, size_t length, uint8_t *destinationBuff
 	CpuCtx r[1];          /* 6502 CPU register/flag context */
 	LoadInfo info[1];     /* parsed metadata about the loaded PRG */
 
-	/* Common failure exit: invalidate the global _info pointer (which
-	 * aliases the local `info` and would otherwise dangle) and report
-	 * failure to the caller. */
-	auto fail = [&]() {
-		_G(_unp)._info = nullptr;
-		return false;
-	};
+	/* Guarantees _G(_unp)._info gets nulled on every return path. */
+	ScopedInfoAlias infoGuard;
+	(void)infoGuard;
 
 	/* Emulated C64 RAM and a pre-run snapshot used by -u/-l. Heap-allocated
 	 * to keep the 128 KiB out of the stack frame. */
@@ -386,7 +669,6 @@ bool unp64cpp(const uint8_t *compressed, size_t length, uint8_t *destinationBuff
 						 0xA7, 0xA7, 0x79, 0xA6, 0x9C, 0xE3};
 
 	int iterMax = ITERMAX; /* hard cap on emulated instructions per phase */
-	int p;
 
 	memset(&_G(_unp), 0, sizeof(_G(_unp)));
 	reinitUnp();
@@ -396,18 +678,19 @@ bool unp64cpp(const uint8_t *compressed, size_t length, uint8_t *destinationBuff
 	_G(_unp)._name = NULL;
 	_G(_unp)._info = info;
 
-	p = 0;
-
 	/* The -f<value> switch pre-fills the upper part of RAM with a byte
 	 * pattern; some packers leave the unfilled region untouched and a
-	 * known pattern makes "what was modified" detection (-u) reliable. */
+	 * known pattern makes "what was modified" detection (-u) reliable.
+	 * If present, -f must come first; subsequent switches start at
+	 * `firstUnconsumed`. */
+	int firstUnconsumed = 0;
 	if (numSettings != 0) {
 		if (settings[0][0] == '-' && _G(_parsePar) && settings[0][1] == 'f') {
-			strToInt(settings[p] + 2, (int *)&_G(_unp)._filler);
+			strToInt(settings[0] + 2, (int *)&_G(_unp)._filler);
 			if (_G(_unp)._filler) {
 				memset(mem + (_G(_unp)._filler >> 16), _G(_unp)._filler & 0xff, 0x10000 - (_G(_unp)._filler >> 16));
 			}
-			p++;
+			firstUnconsumed = 1;
 		}
 	}
 
@@ -421,27 +704,27 @@ bool unp64cpp(const uint8_t *compressed, size_t length, uint8_t *destinationBuff
 		/* no start address from load */
 	if (info->_run == -1) {
 		/* look for sys line */
-		info->_run = findSys(mem + info->_basicTxtStart, 0x9e);
+		info->_run = findSys(mem + info->_basicTxtStart, 65536 - info->_basicTxtStart);
 	}
 
 	/* Scan the loaded image for known packer signatures, which
 	 * populates _depAdr/_endAdr/_strMem hints and may set _idFlag. */
 	scanners(&_G(_unp));
 	if (_G(_unp)._idFlag == 2) {
-		return fail();
+		return false;
 	}
 
 	/* Apply user-supplied switches, but only on the first pass — when we
 	 * recurse on a nested payload, the inner pass should use whatever the
 	 * scanners detected, not the outer command-line overrides. */
 	if ((_G(_unp)._recurs == 0) && (numSettings > 0)) {
-		applySwitches(settings, numSettings, p, info, &iterMax);
+		applySwitches(settings, numSettings, firstUnconsumed, info, &iterMax);
 	}
 
 	/* Identify-only mode: bail out early if no depack address was found. */
 	if (_G(_unp)._idOnly) {
         if (_G(_unp)._depAdr == 0) {
-            return fail();
+            return false;
         }
 	}
 
@@ -455,310 +738,20 @@ bool unp64cpp(const uint8_t *compressed, size_t length, uint8_t *destinationBuff
 	}
 
 	if (info->_run == -1) {
-		return fail();
+		return false;
 	}
 
 	if (_G(_unp)._strMem > _G(_unp)._retAdr) {
 		_G(_unp)._strMem = _G(_unp)._retAdr;
 	}
 
-	/* Seed $0000 with RTS so any stray jump to zero terminates cleanly,
-	 * and $0001 (CPU port / bank-switching latch) to the default $37
-	 * (BASIC + KERNAL + I/O visible) unless the forced entry is in a
-	 * ROM region — then expose RAM there ($38). */
-	mem[0] = 0x60;
-	r->_cycles = 0;
-	mem[1] = 0x37;
+	seedC64State(r, mem, info, stack, sizeof(stack), vector, sizeof(vector));
 
-	if (((_G(_unp)._forced >= 0xa000) && (_G(_unp)._forced < 0xc000)) || (_G(_unp)._forced >= 0xd000))
-		mem[1] = 0x38;
+	if (!emulateUntilDepack(r, mem, info, vector, sizeof(vector), iterMax))
+		return false;
+	if (!emulateUntilReturn(r, mem, iterMax))
+		return false;
 
-	/* some packers rely on basic pointers already set */
-	mem[0x2b] = info->_basicTxtStart & 0xff;  /* TXTTAB - start of BASIC text */
-	mem[0x2c] = info->_basicTxtStart >> 8;
-
-	if (info->_basicVarStart == -1) {
-		mem[0x2d] = info->_end & 0xff;
-		mem[0x2e] = info->_end >> 8;
-	} else {
-		mem[0x2d] = info->_basicVarStart & 0xff;
-		mem[0x2e] = info->_basicVarStart >> 8;
-	}
-
-	/* VARTAB / ARYTAB / STREND all collapsed onto end-of-BASIC. */
-	mem[0x2f] = mem[0x2d];
-	mem[0x30] = mem[0x2e];
-	mem[0x31] = mem[0x2d];
-	mem[0x32] = mem[0x2e];
-	mem[0xae] = info->_end & 0xff;  /* EAL - end addr of last LOAD */
-	mem[0xaf] = info->_end >> 8;
-
-	/* CCS unpacker requires $39/$3a (current basic line number) set */
-	mem[0x39] = mem[0x803];
-	mem[0x3a] = mem[0x804];
-	mem[0x52] = 0;
-	mem[0x53] = 3;
-
-	if (_G(_unp)._fStack) {
-		memcpy(mem + 0x100, stack,
-			   sizeof(stack)); /* stack as found on clean start */
-		r->_sp = 0xf6;         /* sys from immediate mode leaves $f6 in stackptr */
-	} else {
-		r->_sp = 0xff;
-	}
-
-	if (info->_start > (long int)(0x314 + sizeof(vector))) {
-		/* some packers use values in irq pointers to decrypt themselves */
-		memcpy(mem + 0x314, vector, sizeof(vector));
-	}
-
-	/* $0200 is the start of BASIC's input buffer; $8A (TXA) is what
-	 * the SYS evaluator leaves there. */
-	mem[0x200] = 0x8a;
-	r->_mem = mem;
-	r->_pc = info->_run;
-	r->_flags = 0x20;
-	r->_a = 0;
-	r->_y = 0;
-
-	if (info->_run > 0x351) /* temporary for XIP */ {
-		r->_x = 0;
-	}
-
-	/* Phase 1: emulate forward until we reach the depack-done address
-	 * (or, if none is known, until pc passes the configured return
-	 * address). Most of the body handles "the program just called a
-	 * KERNAL/BASIC ROM routine" — we don't emulate ROM code, so we
-	 * fake its observable side effects and let execution continue. */
-	_G(_iter) = 0;
-	while ((_G(_unp)._depAdr ? r->_pc != _G(_unp)._depAdr : r->_pc >= _G(_unp)._retAdr)) {
-		/* Are we executing inside ROM (BASIC at $A000-BFFF or KERNAL at $E000+)? */
-		if ((((mem[1] & 0x7) >= 6) && (r->_pc >= 0xe000)) || ((r->_pc >= 0xa000) && (r->_pc <= 0xbfff) && ((mem[1] & 0x7) > 6))) {
-			/* some packer relies on regs set at return from CLRSCR */
-			if ((r->_pc == 0xe536) || (r->_pc == 0xe544) || (r->_pc == 0xff5b) || ((r->_pc == 0xffd2) && (r->_a == 0x93))) {
-				if (r->_pc != 0xffd2) {
-					r->_x = 0x01;
-					r->_y = 0x84;
-
-					if (r->_pc == 0xff5b)
-						r->_a = 0x97; /* actually depends on $d012 */
-					else
-						r->_a = 0xd8;
-
-					r->_flags &= ~(128 | 2);
-					r->_flags |= (r->_a == 0 ? 2 : 0) | (r->_a & 128);
-				}
-				memset(mem + 0x400, 0x20, 1000);
-			}
-			/* intros: GETIN ($FFE4) / GET-CHAR ($F13E). Cycle through a
-			 * canned sequence of keypresses (space, N, Ctrl-C, _, cursor
-			 * down, return, 1) so any keyboard-driven intro/menu eventually
-			 * advances rather than spinning forever. */
-			if ((r->_pc == 0xffe4) || (r->_pc == 0xf13e)) {
-				static int flipspe4 = -1;
-				static unsigned char fpressedchars[] = {0x20, 0, 0x4e, 0, 3, 0, 0x5f, 0, 0x11, 00, 0x0d, 0, 0x31, 0};
-				flipspe4++;
-
-				if (flipspe4 > ARRAYSIZE(fpressedchars))
-					flipspe4 = 0;
-
-				r->_a = fpressedchars[flipspe4];
-				r->_flags &= ~(128 | 2);
-				r->_flags |= (r->_a == 0 ? 2 : 0) | (r->_a & 128);
-			}
-
-			/* RESTOR ($FD15): fake registers normally set by the KERNAL
-			 * vector restore so packers reading them get plausible values. */
-			if (r->_pc == 0xfd15) {
-				r->_a = 0x31;
-				r->_x = 0x30;
-				r->_y = 0xff;
-			}
-
-			/* IOINIT ($FDA3): mimic the post-init CIA/$01 state. */
-			if (r->_pc == 0xfda3) {
-				mem[0x01] = 0xe7;
-				r->_a = 0xd7;
-				r->_x = 0xff;
-			}
-
-			/* SETNAM ($FFBD): persist filename pointer/length in zeropage. */
-			if (r->_pc == 0xffbd) {
-				mem[0xB7] = r->_a;
-				mem[0xBB] = r->_x;
-				mem[0xBC] = r->_y;
-			}
-
-			/* LOAD ($FFD5) / KERNAL serial bus routine ($F4A2):
-			 * we can't service real I/O, so treat hitting these as "done". */
-			if ((r->_pc == 0xffd5) || (r->_pc == 0xf4a2)) {
-				break;
-			}
-
-			/* If we've landed in BASIC's RUN/READY path, the unpacker has
-			 * handed control back to BASIC — look for the new SYS line and
-			 * jump there; otherwise fall through with an RTS. */
-			if (isBasicRun1(r->_pc)) {
-				info->_run = findSys(mem + info->_basicTxtStart, 0x9e);
-				if (info->_run > 0) {
-					r->_sp = 0xf6;
-					r->_pc = info->_run;
-				} else {
-					mem[0] = 0x60;
-					r->_pc = 0; /* force a RTS instead of executing ROM code */
-				}
-			} else {
-				mem[0] = 0x60;
-				r->_pc = 0; /* force a RTS instead of executing ROM code */
-			}
-		}
-
-		/* Step the emulated CPU one instruction. Non-zero means we hit
-		 * an illegal/unsupported opcode and must abort. */
-        if (nextInst(r) == 1) {
-            return fail();
-        }
-
-		_G(_iter)++;
-		if (_G(_iter) == iterMax) {
-				return false;
-		}
-
-		/* Exomizer family: while the decompressor is executing from its
-		 * code-on-stack tail at $100-$200, latch the end address out of
-		 * the $FE/$FF zeropage pair (Exomizer's "to" pointer). */
-		if (_G(_unp)._exoFnd && (_G(_unp)._endAdr == 0x10000) && (r->_pc >= 0x100) && (r->_pc <= 0x200) && (_G(_unp)._strMem != 2)) {
-			_G(_unp)._endAdr = r->_mem[0xfe] + (r->_mem[0xff] << 8);
-			if ((_G(_unp)._exoFnd & 0xff) == 0x30) { /* low byte of _endAdr, it's a lda $ff00,y */
-				_G(_unp)._endAdr = (_G(_unp)._exoFnd >> 8) + (r->_mem[0xff] << 8);
-			} else if ((_G(_unp)._exoFnd & 0xff) == 0x32) { /* add 1 */
-				_G(_unp)._endAdr = 1 + ((_G(_unp)._exoFnd >> 8) + (r->_mem[0xff] << 8));
-			}
-
-			if (_G(_unp)._endAdr == 0)
-				_G(_unp)._endAdr = 0x10001;
-		}
-
-		/* "Read end-address before-depack-done from this RAM location."
-		 * Scanners set _fEndBf when the packer keeps its end pointer in
-		 * a known temp word that's only valid right at the depack address. */
-		if (_G(_unp)._fEndBf && (_G(_unp)._endAdr == 0x10000) && (r->_pc == _G(_unp)._depAdr)) {
-			_G(_unp)._endAdr = r->_mem[_G(_unp)._fEndBf] | r->_mem[_G(_unp)._fEndBf + 1] << 8;
-			_G(_unp)._endAdr++;
-
-			if (_G(_unp)._endAdr == 0)
-					_G(_unp)._endAdr = 0x10001;
-
-			_G(_unp)._fEndBf = 0;
-		}
-
-		/* Same idea, but for the start address. */
-		if (_G(_unp)._fStrBf && (_G(_unp)._strMem != 0x2) && (r->_pc == _G(_unp)._depAdr)) {
-			_G(_unp)._strMem = r->_mem[_G(_unp)._fStrBf] | r->_mem[_G(_unp)._fStrBf + 1] << 8;
-			_G(_unp)._fStrBf = 0;
-		}
-
-		/* Debug: track which IRQ/NMI/BRK vector bytes the unpacker touches. */
-		if (_G(_unp)._debugP) {
-			for (p = 0; p < 0x20; p += 2) {
-				if (READ_LE_UINT16(mem + 0x314 + p) != READ_LE_UINT16(vector + p)) {
-                    vector[p] = mem[0x314 + p];
-                    vector[p + 1] = mem[0x314 + p + 1];
-				}
-			}
-		}
-	}
-
-	/* Phase 2: depacker has finished writing the payload to RAM and is
-	 * now in its "transition to the depacked program" tail. Keep stepping
-	 * until pc reaches (or passes) the configured return address, so any
-	 * final fix-ups the packer performs land in RAM before we dump it. */
-	_G(_iter) = 0;
-	while (_G(_unp)._rtAFrc ? r->_pc != _G(_unp)._retAdr : r->_pc < _G(_unp)._retAdr) {
-		/* Each time we re-pass the depack address, sample the watched
-		 * "current write pointer" location; track the maximum end and
-		 * minimum start the packer ever wrote to. */
-		if (_G(_unp)._monEnd && r->_pc == _G(_unp)._depAdr) {
-			p = r->_mem[_G(_unp)._monEnd >> 16] | r->_mem[_G(_unp)._monEnd & 0xffff] << 8;
-			if (p > (_G(_unp)._endAdr & 0xffff)) {
-				_G(_unp)._endAdr = p;
-			}
-		}
-		if (_G(_unp)._monStr && r->_pc == _G(_unp)._depAdr) {
-			p = r->_mem[_G(_unp)._monStr >> 16] | r->_mem[_G(_unp)._monStr & 0xffff] << 8;
-			if (p > 0) {
-				if (_G(_unp)._mon1st == 0) {
-					_G(_unp)._strMem = p;
-				}
-				_G(_unp)._mon1st = (unsigned int)_G(_unp)._strMem;
-				_G(_unp)._strMem = (p < _G(_unp)._strMem ? p : _G(_unp)._strMem);
-			}
-		}
-
-		/* Don't actually run KERNAL code — bounce out to a synthesized RTS. */
-		if (r->_pc >= 0xe000) {
-			if (((mem[1] & 0x7) >= 6) && ((mem[1] & 0x7) <= 7)) {
-				mem[0] = 0x60;
-				r->_pc = 0;
-			}
-		}
-        if (nextInst(r) == 1) {
-            return fail();
-        }
-
-		/* If the scanner flagged that the depacker exits via RTI ($40)
-		 * (a common trick to set processor flags and jump in one step),
-		 * step the RTI and treat its destination as the return address. */
-        if ((mem[r->_pc] == 0x40) && (_G(_unp)._rtiFrc == 1)) {
-            if (nextInst(r) == 1) {
-                return fail();
-            }
-			_G(_unp)._retAdr = r->_pc;
-			_G(_unp)._rtAFrc = 1;
-			if (_G(_unp)._retAdr < _G(_unp)._strMem)
-				_G(_unp)._strMem = 2;
-			break;
-		}
-
-		_G(_iter)++;
-		if (_G(_iter) == iterMax) {
-			return false;
-		}
-
-		/* Reached BASIC ROM with BASIC banked in — likely returning to
-		 * BASIC's RUN dispatcher; force re-entry at $A7AE and stop. */
-		if ((r->_pc >= 0xa000) && (r->_pc <= 0xbfff) && ((mem[1] & 0x7) == 7)) {
-			if (isBasicRun2(r->_pc)) {
-				r->_pc = 0xa7ae;
-				break;
-			} else {
-				mem[0] = 0x60;
-				r->_pc = 0;
-			}
-		}
-
-		if (r->_pc >= 0xe000) {
-			if (((mem[1] & 0x7) >= 6) && ((mem[1] & 0x7) <= 7)) {
-				if (r->_pc == 0xffbd) {
-					mem[0xB7] = r->_a;
-					mem[0xBB] = r->_x;
-					mem[0xBC] = r->_y;
-				}
-				/* return into IRQ handler, better stop here */
-				if (((r->_pc >= 0xea31) && (r->_pc <= 0xeb76)) || (r->_pc == 0xffd5) || (r->_pc == 0xfce2)) {
-					break;
-				}
-
-				if (r->_pc == 0xfda3) {
-					mem[0x01] = 0xe7;
-					r->_a = 0xd7;
-					r->_x = 0xff;
-				}
-				mem[0] = 0x60;
-				r->_pc = 0;
-			}
-		}
-	}
 
 	/* "Read end-address after depack-done from this location." Resolved
 	 * now because the value at _fEndAf is only correct once execution
@@ -810,7 +803,7 @@ bool unp64cpp(const uint8_t *compressed, size_t length, uint8_t *destinationBuff
 	} else if (r->_pc == 0xa7ae) {
 		info->_basicTxtStart = mem[0x2b] | mem[0x2c] << 8;
 		if (info->_basicTxtStart == 0x801) {
-			info->_run = findSys(mem + info->_basicTxtStart, 0x9e);
+			info->_run = findSys(mem + info->_basicTxtStart, 65536 - info->_basicTxtStart);
 			if (info->_run > 0)
 				r->_pc = info->_run;
 		}
@@ -821,12 +814,12 @@ bool unp64cpp(const uint8_t *compressed, size_t length, uint8_t *destinationBuff
 	 * the compressed image so only the truly-written bytes remain. */
 	if (_G(_unp)._wrMemF) {
 		_G(_unp)._wrMemF = 0;
-		for (p = 0x800; p < 0x10000; p += 4) {
-			if (u32eq(oldmem + p, READ_LE_UINT32(mem + p))) {
-				mem[p + 0] = 0;
-                mem[p + 1] = 0;
-                mem[p + 2] = 0;
-                mem[p + 3] = 0;
+		for (int addr = 0x800; addr < 0x10000; addr += 4) {
+			if (u32eq(oldmem + addr, READ_LE_UINT32(mem + addr))) {
+				mem[addr + 0] = 0;
+                mem[addr + 1] = 0;
+                mem[addr + 2] = 0;
+                mem[addr + 3] = 0;
 				_G(_unp)._wrMemF = 1;
 			}
 		}
@@ -840,11 +833,11 @@ bool unp64cpp(const uint8_t *compressed, size_t length, uint8_t *destinationBuff
 	 * compressed image, stopping at the first divergence — trims any
 	 * tail of unchanged bytes that the depacker happened to leave alone. */
 	if (_G(_unp)._lfMemF) {
-		for (p = 0xffff; p > 0x0800; p--) {
-			if (oldmem[--_G(_unp)._lfMemF] == mem[p])
-				mem[p] = 0x0;
+		for (int addr = 0xffff; addr > 0x0800; addr--) {
+			if (oldmem[--_G(_unp)._lfMemF] == mem[addr])
+				mem[addr] = 0x0;
 			else {
-				if (p >= 0xffff)
+				if (addr >= 0xffff)
 					_G(_unp)._lfMemF = 0 | _G(_unp)._ecaFlg;
 				break;
 			}
@@ -854,8 +847,8 @@ bool unp64cpp(const uint8_t *compressed, size_t length, uint8_t *destinationBuff
 	/*  endadr is set to a ZP location? then use it as a pointer
 	  todo: use __fEndAf instead, it can be used for any location, not only ZP. */
 	if (_G(_unp)._endAdr && (_G(_unp)._endAdr < 0x100)) {
-		p = (mem[_G(_unp)._endAdr] | mem[_G(_unp)._endAdr + 1] << 8) & 0xffff;
-		_G(_unp)._endAdr = p;
+		int zpPtr = (mem[_G(_unp)._endAdr] | mem[_G(_unp)._endAdr + 1] << 8) & 0xffff;
+		_G(_unp)._endAdr = zpPtr;
 	}
 
 	/* "Extra copy after" flag: some packers move a $1000-byte block out
@@ -897,7 +890,7 @@ bool unp64cpp(const uint8_t *compressed, size_t length, uint8_t *destinationBuff
 
 	if (!writeUnpackedOutput(mem, _G(_unp)._strMem, _G(_unp)._endAdr,
 	                         destinationBuffer, destBufferCapacity, finalLength)) {
-		return fail();
+		return false;
 	}
 
 	/* -c: the output we just produced may itself be packed (a wrapped

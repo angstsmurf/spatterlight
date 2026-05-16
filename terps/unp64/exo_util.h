@@ -44,11 +44,11 @@ struct LoadInfo {
 	int _end;           /* out */
 };
 
-int findSys(const uint8_t *buf, int target);
+int findSys(const uint8_t *buf, size_t bufsize);
 
 void loadData(const uint8_t *data, size_t dataLength, uint8_t mem[65536], LoadInfo *info);
 
-int strToInt(const char *str, int *value);
+bool strToInt(const char *str, int *value);
 
 bool u32eq(const unsigned char *addr, uint32_t val);
 bool u16eq(const unsigned char *addr, uint16_t val);

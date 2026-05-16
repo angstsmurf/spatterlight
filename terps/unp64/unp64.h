@@ -67,6 +67,7 @@ struct UnpStr {
 	int _debugP;          /* flag, verbosely emit various infos */
 	int _rtiFrc;          /* flag, RTI instruction forces return from unpacker */
 	int _recurs;          /* recursion counter */
+	int _keypressIdx;     /* index into the canned GETIN keypress ring */
 	unsigned int _monEnd;	/* End memory address pointers monitored during execution, updated every time DepAdr is reached */
 	unsigned int _monStr;	/* Start memory address pointers monitored during execution, updated every time DepAdr is reached */
 	unsigned int _mon1st;	/* flag for forcingly assign monitored str/end ptr the 1st time */

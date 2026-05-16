@@ -48,7 +48,7 @@ struct CpuCtx {
 	uint8_t _y;
 };
 
-int nextInst(CpuCtx *r);
+bool nextInst(CpuCtx *r);
 
 } // End of namespace Unp64
 
