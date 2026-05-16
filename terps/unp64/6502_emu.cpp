@@ -1123,217 +1123,206 @@ int flipspace(void) {
 	return _G(_retspace);
 }
 
-int nextInst(CpuCtx* r) {
+/* True if `opCode` is a 6502 instruction that writes to memory at an
+ * absolute address (so reaching the I/O page would have a side effect
+ * we'd need to suppress rather than let pass through to RAM). */
+static bool isAbsoluteWriteOpcode(int opCode) {
+	switch (opCode) {
+	case 0x0E: case 0x1E:           /* ASL $ffff[,X] */
+	case 0xCE: case 0xDE:           /* DEC $ffff[,X] */
+	case 0xEE: case 0xFE:           /* INC $ffff[,X] */
+	case 0x4E: case 0x5E:           /* LSR $ffff[,X] */
+	case 0x2E: case 0x3E:           /* ROL $ffff[,X] */
+	case 0x6E: case 0x7E:           /* ROR $ffff[,X] */
+	case 0x8D: case 0x9D: case 0x99: /* STA $ffff / $ffff,X / $ffff,Y */
+	case 0x91:                      /* STA ($ff),Y */
+	case 0x8E:                      /* STX $ffff */
+	case 0x8C:                      /* STY $ffff */
+		return true;
+	default:
+		return false;
+	}
+}
+
+/* Handle a write to the I/O page ($D000-$DFFF). The actual store is
+ * skipped (we don't model the VIC/SID/CIA registers); we just charge
+ * cycles and shadow $D011 so subsequent reads see the value back. */
+static void interceptIOWrite(CpuCtx *r, int opCode, const InstArg *arg) {
+	r->_cycles += g_ops[opCode]._cycles;
+	if (arg->_ea._value == 0xd011) {
+		switch (opCode) {
+		case 0x8D: _G(_byted011)[0] = r->_a & 0x7f; break;
+		case 0x8E: _G(_byted011)[0] = r->_x & 0x7f; break;
+		case 0x8C: _G(_byted011)[0] = r->_y & 0x7f; break;
+		default: break;
+		}
+	}
+}
+
+/* Handle a read from the I/O page. Returns true if the opcode was one
+ * of the few we synthesize (raster register, CIA1 joystick/keyboard,
+ * CIA2 idle), false if the read should fall through to normal dispatch.
+ *
+ * We update the synthetic raster shadow first so consumers see a value
+ * that advances with cycle count — that's what breaks `wait for raster`
+ * loops in packer intros. */
+static bool interceptIORead(CpuCtx *r, int opCode, const InstArg *arg) {
+	_G(_byted011)[1] = (r->_cycles / 0x3f) % 0x157;
+	_G(_byted011)[0] = (_G(_byted011)[0] & 0x7f) | ((_G(_byted011)[1] & 0x100) >> 1);
+	_G(_byted011)[1] &= 0xff;
+
+	const int ea = arg->_ea._value;
+	const bool isCia1Port = (ea == 0xdc00 || ea == 0xdc01);
+	const bool isRaster   = (ea == 0xd011 || ea == 0xd012);
+	const int cycles = g_ops[opCode]._cycles;
+
+	switch (opCode) {
+	/* LDA / LAX absolute. */
+	case 0xad:
+	case 0xaf:
+		if (isRaster) {
+			r->_cycles += cycles;
+			r->_a = _G(_byted011)[ea - 0xd011];
+			if (opCode == 0xaf) r->_x = r->_a;
+			updateFlagsNz(r, r->_a);
+			return true;
+		}
+		if (isCia1Port) {
+			r->_cycles += cycles;
+			r->_a = (ea == 0xdc00) ? flipfire() : flipspace();
+			if (opCode == 0xaf) r->_x = r->_a;
+			updateFlagsNz(r, r->_a);
+			return true;
+		}
+		if (ea >= 0xdd01 && ea <= 0xdd0f) {
+			r->_cycles += cycles;
+			r->_a = 0xff;
+			if (opCode == 0xaf) r->_x = r->_a;
+			updateFlagsNz(r, r->_a);
+			return true;
+		}
+		return false;
+
+	/* AND absolute against joystick/keyboard port. */
+	case 0x2d:
+		if (isCia1Port) {
+			r->_cycles += cycles;
+			r->_a &= (ea == 0xdc00) ? flipfire() : flipspace();
+			updateFlagsNz(r, r->_a);
+			return true;
+		}
+		return false;
+
+	/* LDX absolute. */
+	case 0xae:
+		if (isRaster) {
+			r->_cycles += cycles;
+			r->_x = _G(_byted011)[ea - 0xd011];
+			updateFlagsNz(r, r->_x);
+			return true;
+		}
+		if (isCia1Port) {
+			r->_cycles += cycles;
+			r->_x = (ea == 0xdc00) ? flipfire() : flipspace();
+			updateFlagsNz(r, r->_x);
+			return true;
+		}
+		return false;
+
+	/* LDY absolute. */
+	case 0xac:
+		if (isRaster) {
+			r->_cycles += cycles;
+			r->_y = _G(_byted011)[ea - 0xd011];
+			updateFlagsNz(r, r->_y);
+			return true;
+		}
+		if (isCia1Port) {
+			r->_cycles += cycles;
+			r->_y = (ea == 0xdc00) ? flipfire() : flipspace();
+			updateFlagsNz(r, r->_y);
+			return true;
+		}
+		return false;
+
+	/* BIT against the VIC raster — set N/V from the shadow byte, Z from (byte & A). */
+	case 0x2c:
+		if (isRaster) {
+			r->_cycles += cycles;
+			int bt = _G(_byted011)[ea - 0xd011];
+			r->_flags &= ~(FLAG_N | FLAG_V | FLAG_Z);
+			r->_flags |= (bt & FLAG_N) != 0 ? FLAG_N : 0;
+			r->_flags |= (bt & FLAG_V) != 0 ? FLAG_V : 0;
+			r->_flags |= (bt & r->_a) == 0 ? FLAG_Z : 0;
+			return true;
+		}
+		return false;
+
+	/* CMP / CPX / CPY against raster or joystick port. */
+	case 0xcd:
+	case 0xec:
+	case 0xcc: {
+		auto regForCompare = [&]() {
+			if (opCode == 0xec) return r->_x;
+			if (opCode == 0xcc) return r->_y;
+			return r->_a;
+		};
+		if (isRaster) {
+			r->_cycles += cycles;
+			subtract(r, 1, regForCompare(), _G(_byted011)[ea - 0xd011]);
+			return true;
+		}
+		if (isCia1Port) {
+			r->_cycles += cycles;
+			int bt = (ea == 0xdc00) ? flipfire() : flipspace();
+			subtract(r, 1, regForCompare(), bt);
+			return true;
+		}
+		return false;
+	}
+
+	default:
+		return false;
+	}
+}
+
+/* Step the 6502 CPU one instruction.
+ *
+ * Returns false to continue emulation, true to stop — either because the
+ * opcode is unimplemented (no handler in g_ops) or because we just
+ * decoded BRK ($00), which depackers should never legitimately reach.
+ *
+ * When the I/O page ($D000-$DFFF) is banked in, we don't emulate the
+ * VIC/SID/CIA chips themselves — instead we intercept the common
+ * opcodes that touch I/O and either suppress side effects (writes) or
+ * return plausible synthesized values (raster line, joystick/keyboard). */
+bool nextInst(CpuCtx *r) {
 	InstArg arg[1];
 	int opCode = r->_mem[r->_pc];
 	InstInfo *info = g_ops + opCode;
-	int mode, WriteToIO = 0;
-	int bt = 0, br;
 	if (info->_op == nullptr) {
-		return 1;
+		return true; /* unimplemented / illegal opcode */
 	}
-	mode = info->_mode->_f(r, arg);
+	int mode = info->_mode->_f(r, arg);
 
-	/* iAN: only if RAM is not visible there! */
-	if (((r->_mem[1] & 0x7) >= 0x5) && ((r->_mem[1] & 0x07) <= 0x7)) {
-		if (arg->_ea._value >= 0xd000 && arg->_ea._value < 0xe000) {
-			/* is this an absolute sta, stx or sty to the IO-area? */
-			/* iAN: added all possible writing opcodes */
-			if (opCode == 0x0E || /*ASL $ffff  */
-				opCode == 0x1E || /*ASL $ffff,X*/
-				opCode == 0xCE || /*DEC $ffff  */
-				opCode == 0xDE || /*DEC $ffff,X*/
-				opCode == 0xEE || /*INC $ffff  */
-				opCode == 0xFE || /*INC $ffff,X*/
-				opCode == 0x4E || /*LSR $ffff  */
-				opCode == 0x5E || /*LSR $ffff,X*/
-				opCode == 0x2E || /*ROL $ffff  */
-				opCode == 0x3E || /*ROL $ffff,X*/
-				opCode == 0x6E || /*ROR $ffff  */
-				opCode == 0x7E || /*ROR $ffff,X*/
-				opCode == 0x8D || /*STA $ffff  */
-				opCode == 0x9D || /*STA $ffff,X*/
-				opCode == 0x99 || /*STA $ffff,Y*/
-				opCode == 0x91 || /*STA ($ff),Y*/
-				opCode == 0x8E || /*STX $ffff  */
-				opCode == 0x8C    /*STY $ffff  */
-			) {
-				r->_cycles += g_ops[opCode]._cycles;
-				/* ignore it, its probably an effect */
-				/* try to keep updated at least a copy of $d011 */
-				if (arg->_ea._value == 0xd011) {
-					switch (opCode) {
-					case 0x8D:
-						_G(_byted011)[0] = r->_a & 0x7f;
-						break;
-					case 0x8E:
-						_G(_byted011)[0] = r->_x & 0x7f;
-						break;
-					case 0x8C:
-						_G(_byted011)[0] = r->_y & 0x7f;
-						break;
-					default:
-						break;
-					}
-				}
-				WriteToIO = 1;
-			} else {
-				_G(_byted011)[1] = (r->_cycles / 0x3f) % 0x157;
-				_G(_byted011)[0] = (_G(_byted011)[0] & 0x7f) | ((_G(_byted011)[1] & 0x100) >> 1);
-				_G(_byted011)[1] &= 0xff;
-				switch (opCode) {
-				case 0xad:
-				case 0xaf: /* lda $ffff / lax $ffff */
+	/* I/O page is visible when CPU port bits 0-2 are 5, 6 or 7. */
+	const bool ioVisible = (r->_mem[1] & 0x7) >= 5;
+	const bool targetsIO = arg->_ea._value >= 0xd000 && arg->_ea._value < 0xe000;
 
-					if ((arg->_ea._value == 0xd011) || (arg->_ea._value == 0xd012)) {
-						r->_cycles += g_ops[opCode]._cycles;
-						r->_a = _G(_byted011)[arg->_ea._value - 0xd011];
-						if (opCode == 0xaf)
-							r->_x = r->_a;
-						updateFlagsNz(r, r->_a);
-						WriteToIO = 5;
-						break;
-					}
-
-					/* intros: simulate space */
-					if (arg->_ea._value == 0xdc00 || arg->_ea._value == 0xdc01) {
-						r->_cycles += g_ops[opCode]._cycles;
-						if (arg->_ea._value == 0xdc00)
-							r->_a = flipfire();
-						else
-							r->_a = flipspace();
-						if (opCode == 0xaf)
-							r->_x = r->_a;
-						updateFlagsNz(r, r->_a);
-						WriteToIO = 6;
-						break;
-					}
-
-					if (arg->_ea._value >= 0xdd01 && arg->_ea._value <= 0xdd0f) {
-						r->_cycles += g_ops[opCode]._cycles;
-						r->_a = 0xff;
-						if (opCode == 0xaf)
-							r->_x = r->_a;
-						updateFlagsNz(r, r->_a);
-						WriteToIO = 2;
-						break;
-					}
-					break;
-				case 0x2d: /* and $ffff */
-
-					/* intros: simulate space */
-					if (arg->_ea._value == 0xdc00 || arg->_ea._value == 0xdc01) {
-						r->_cycles += g_ops[opCode]._cycles;
-						if (arg->_ea._value == 0xdc00)
-							r->_a &= flipfire();
-						else
-							r->_a &= flipspace();
-
-						updateFlagsNz(r, r->_a);
-						WriteToIO = 6;
-						break;
-					}
-					break;
-				case 0xae: /* ldx $ffff */
-
-					if ((arg->_ea._value == 0xd011) || (arg->_ea._value == 0xd012)) {
-						r->_cycles += g_ops[opCode]._cycles;
-						r->_x = _G(_byted011)[arg->_ea._value - 0xd011];
-						updateFlagsNz(r, r->_x);
-						WriteToIO = 5;
-						break;
-					}
-					if (arg->_ea._value == 0xdc00 || arg->_ea._value == 0xdc01) {
-						r->_cycles += g_ops[opCode]._cycles;
-						if (arg->_ea._value == 0xdc00)
-							r->_x = flipfire();
-						else
-							r->_x = flipspace();
-						updateFlagsNz(r, r->_x);
-						WriteToIO = 6;
-						break;
-					}
-					break;
-				case 0xac: /* ldy $ffff */
-
-					if ((arg->_ea._value == 0xd011) || (arg->_ea._value == 0xd012)) {
-						r->_cycles += g_ops[opCode]._cycles;
-						r->_y = _G(_byted011)[arg->_ea._value - 0xd011];
-						updateFlagsNz(r, r->_y);
-						WriteToIO = 5;
-						break;
-					}
-					if (arg->_ea._value == 0xdc00 || arg->_ea._value == 0xdc01) {
-						r->_cycles += g_ops[opCode]._cycles;
-						if (arg->_ea._value == 0xdc00)
-							r->_y = flipfire();
-						else
-							r->_y = flipspace();
-						updateFlagsNz(r, r->_y);
-						WriteToIO = 6;
-						break;
-					}
-					break;
-
-				case 0x2c: /* bit $d011 */
-
-					if ((arg->_ea._value == 0xd011) || (arg->_ea._value == 0xd012)) {
-						r->_cycles += g_ops[opCode]._cycles;
-						bt = _G(_byted011)[arg->_ea._value - 0xd011];
-						r->_flags &= ~(FLAG_N | FLAG_V | FLAG_Z);
-						r->_flags |= (bt & FLAG_N) != 0 ? FLAG_N : 0;
-						r->_flags |= (bt & FLAG_V) != 0 ? FLAG_V : 0;
-						r->_flags |= (bt & r->_a) == 0 ? FLAG_Z : 0;
-						WriteToIO = 3;
-					}
-					break;
-
-				case 0xcd: /* cmp $ffff */
-				case 0xec: /* cpx $ffff */
-				case 0xcc: /* cpy $ffff */
-					if ((arg->_ea._value == 0xd011) || (arg->_ea._value == 0xd012)) {
-						r->_cycles += g_ops[opCode]._cycles;
-						bt = _G(_byted011)[arg->_ea._value - 0xd011];
-						br = r->_a;
-						if (opCode == 0xec)
-							br = r->_x;
-						if (opCode == 0xcc)
-							br = r->_y;
-						subtract(r, 1, br, bt);
-						WriteToIO = 4;
-						break;
-					}
-					/* intros: simulate space */
-					if (arg->_ea._value == 0xdc00 || arg->_ea._value == 0xdc01) {
-						r->_cycles += g_ops[opCode]._cycles;
-						br = r->_a;
-						if (opCode == 0xec)
-							br = r->_x;
-						if (opCode == 0xcc)
-							br = r->_y;
-						if (arg->_ea._value == 0xdc00)
-							bt = flipfire();
-						else
-							bt = flipspace();
-						subtract(r, 1, br, bt);
-						WriteToIO = 6;
-						break;
-					}
-					break;
-				}
-			}
+	if (ioVisible && targetsIO) {
+		if (isAbsoluteWriteOpcode(opCode)) {
+			interceptIOWrite(r, opCode, arg);
+			return false;
 		}
-	}
-	if (WriteToIO) {
-		return 0;
+		if (interceptIORead(r, opCode, arg)) {
+			return false;
+		}
+		/* Fall through: I/O read we don't model — let normal dispatch run. */
 	}
 
 	info->_op->_f(r, mode, arg);
 	r->_cycles += info->_cycles;
-	if (opCode == 0) {
-		return 1;
-	}
-	return 0;
+	return opCode == 0; /* BRK: depacker off the rails, stop. */
 }
 
 } // End of namespace Unp64
