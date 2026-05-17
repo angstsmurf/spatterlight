@@ -44,7 +44,7 @@ static void loop_with_delta(uint8_t *mem, uint16_t HL, uint16_t BC, int8_t delta
 static void loop_with_d(uint8_t *mem, uint8_t D, uint16_t HL, uint16_t BC, int direction)
 {
     for (int i = 0; i < BC; i++) {
-        D = mem[HL] ^ D;
+        D ^= mem[HL];
         mem[HL] = D;
         HL += direction;
     }
@@ -56,10 +56,9 @@ static void loop_with_d(uint8_t *mem, uint8_t D, uint16_t HL, uint16_t BC, int d
 static void loop_with_r(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
-        mem[HL] = R ^ mem[HL];
+        mem[HL] ^= R;
         HL++;
-        R += 0x9;
-        R %= 0x80;
+        R = (R + 0x9) & 0x7F;
     }
 }
 
@@ -68,8 +67,7 @@ static void loop_with_r(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC)
 static void loop_with_xor_hl(uint8_t *mem, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
-        mem[HL] = mem[HL] ^ (HL >> 8);
-        mem[HL] = mem[HL] ^ (HL & 0xff);
+        mem[HL] ^= (uint8_t)(HL >> 8) ^ (uint8_t)HL;
         HL++;
     }
 }
@@ -89,7 +87,7 @@ static void loop_with_neg(uint8_t *mem, uint16_t HL, uint16_t BC)
 static void loop_with_cpl(uint8_t *mem, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
-        mem[HL] = mem[HL] ^ 0xff;
+        mem[HL] = ~mem[HL];
         HL++;
     }
 }
@@ -137,15 +135,12 @@ static void loop_with_r_and_de(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC
 {
     uint16_t DE = 0x61a8;
     for (uint16_t i = BC; i > 0; i--) {
-        uint8_t A = R ^ mem[HL];
-        A = A ^ (DE & 0xff);
-        A = A ^ (DE >> 8);
-        A = A ^ (i & 0xff);
-        A = A ^ (i >> 8);
-        DE++;
+        uint8_t A = R ^ mem[HL]
+                      ^ (uint8_t)DE ^ (uint8_t)(DE >> 8)
+                      ^ (uint8_t)i  ^ (uint8_t)(i >> 8);
         mem[HL++] = A;
-        R += 0x11;
-        R %= 0x80;
+        DE++;
+        R = (R + 0x11) & 0x7F;
     }
 }
 
@@ -156,24 +151,20 @@ static void loop_with_r_and_de(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC
 // HL here is the iteration count, not an address.
 static void loop_with_r_and_sp(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t SP, int dfirst)
 {
-    uint8_t A, D, E;
     for (int i = 0; i < HL; i++) {
-        D = mem[SP + 1];
-        E = mem[SP];
-        A = dfirst ? D : E;
-        A = A ^ R;
+        uint8_t D = mem[SP + 1];
+        uint8_t E = mem[SP];
+        /* Swap the pair, then XOR R into whichever byte was selected by
+           dfirst (high byte first → SP, low byte first → SP+1). */
         if (dfirst) {
-            D = E;
-            E = A;
+            mem[SP] = D ^ R;
+            mem[SP + 1] = E;
         } else {
-            E = D;
-            D = A;
+            mem[SP] = D;
+            mem[SP + 1] = E ^ R;
         }
-        mem[SP] = E;
-        mem[SP + 1] = D;
         SP += 2;
-        R += 0xe;
-        R %= 0x80;
+        R = (R + 0xe) & 0x7F;
     }
 }
 
@@ -188,8 +179,7 @@ static void loop_with_r_and_sp2(uint8_t *mem, uint8_t R, uint16_t HL)
         mem[SP] = mem[SP + 1];
         mem[SP + 1] = D;
         SP -= 2;
-        R += 0xf;
-        R %= 0x80;
+        R = (R + 0xf) & 0x7F;
     }
 }
 
@@ -198,14 +188,12 @@ static void loop_with_r_and_sp2(uint8_t *mem, uint8_t R, uint16_t HL)
 // shadow registers) which the original code uses to juggle register sets.
 static void loop_with_exx(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t SP, uint16_t DE, uint16_t addr)
 {
-    mem[SP] = addr & 0xff;
-    mem[SP + 1] = addr >> 8;
+    mem[SP]     = (uint8_t)addr;
+    mem[SP + 1] = (uint8_t)(addr >> 8);
     for (uint16_t i = DE; i > 0; i--) {
-        uint8_t A = R ^ (i >> 8);
-        A = A ^ mem[HL];
-        mem[HL++] = A ^ (i & 0xff);
-        R += 0xf;
-        R %= 0x80;
+        uint8_t A = R ^ mem[HL] ^ (uint8_t)(i >> 8) ^ (uint8_t)i;
+        mem[HL++] = A;
+        R = (R + 0xf) & 0x7F;
     }
 }
 
@@ -214,11 +202,9 @@ static void loop_with_exx(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t SP, uin
 static void loop_with_r_and_iy(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC, uint16_t IY)
 {
     for (int i = 0; i < BC; i++) {
-        mem[HL] = R ^ mem[HL];
-        mem[HL] = mem[HL] ^ mem[IY];
+        mem[HL] ^= R ^ mem[IY];
         HL++;
-        R += 0xE;
-        R %= 0x80;
+        R = (R + 0xE) & 0x7F;
     }
 }
 
@@ -229,13 +215,10 @@ static void loop_with_r_and_iy(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC
 static void loop_with_r_and_iy2(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC, uint16_t IY)
 {
     for (int i = 0; i < BC; i++) {
-        mem[IY] = R ^ mem[IY];
-        mem[IY] = mem[IY] ^ (HL >> 8);
-        mem[IY] = mem[IY] ^ (HL & 0xff);
+        mem[IY] ^= R ^ (uint8_t)(HL >> 8) ^ (uint8_t)HL;
         HL--;
         IY++;
-        R += 0xf;
-        R %= 0x80;
+        R = (R + 0xf) & 0x7F;
     }
 }
 
@@ -247,18 +230,13 @@ static void double_loop_with_r(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t DE
 {
     for (int i = 0; i < BC; i++) {
         for (int j = 0; j < 2; j++) {
-            uint8_t A = R ^ (DE & 0xff);
-            A = A ^ (DE >> 8);
-            mem[HL] = A ^ mem[HL];
+            mem[HL] ^= R ^ (uint8_t)DE ^ (uint8_t)(DE >> 8);
             HL++;
-            if (j != 1) {
-                R += 0x9;
-                R %= 0x80;
-            }
+            if (j != 1)
+                R = (R + 0x9) & 0x7F;
         }
         DE++;
-        R += 0x12;
-        R %= 0x80;
+        R = (R + 0x12) & 0x7F;
     }
 }
 
@@ -290,8 +268,8 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_r(mem, 0x6e, 0xe235, 0x0ccc);
     loop_with_sub_or_add(mem, 0xe246, 0x0cbb, (int8_t)-0x18, -1, 1);
     // Zero-fill ZX Spectrum screen memory and beyond (0x4000–0xE253)
-    mem[0x4000] = 0;
-    ldir(mem, 0x4000 + 1, 0x4000, 0xa253);
+    mem[ZX_RAM_BASE] = 0;
+    ldir(mem, ZX_RAM_BASE + 1, ZX_RAM_BASE, 0xa253);
     loop_with_d(mem, 5, 0xe266, 0x0c9b, 1);
     loop_with_r_and_de(mem, 0x1c, 0xe285, 0x0c7c);
     loop_with_r(mem, 0x57, 0xe295, 0x0c6c);
@@ -374,7 +352,7 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_r(mem, 0x5b, 0xe81a, 0x06e7);
     loop_with_neg(mem, 0xe82a, 0x06d7);
     loop_with_rotate_left(mem, 0xe838, 0x06c9);
-    loop_with_r_and_sp(mem, 0xE, 0x0359, 0xe84d, 0);
+    loop_with_r_and_sp(mem, 0x0e, 0x0359, 0xe84d, 0);
     loop_with_exx(mem, 0x77, 0xe872, 0xe853, 0x068f, 0xe864);
     loop_with_xor_hl(mem, 0xe882, 0x067f);
     loop_with_rotate_left(mem, 0xe890, 0x0671);
@@ -500,7 +478,7 @@ uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
     //   (a) the loading screen bitmap at 0x4000 (6 KB, cycled over 18 KB), then
     //   (b) the loading screen drawing code at 0xEA7F (268 bytes, cycled).
     // This peels off the last encryption layer, revealing the actual game.
-    XORAlkatraz(memory, 0x8782, 0x4000, 0x1800, 0x4786);
+    XORAlkatraz(memory, 0x8782, ZX_RAM_BASE, 0x1800, 0x4786);
     XORAlkatraz(memory, 0x8782, 0xea7f, 0x010c, 0x4786);
 
     // Clear the drawing code area now that it's no longer needed as a key

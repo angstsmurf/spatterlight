@@ -12,7 +12,7 @@ int GetInput(void);
 void StopProcessingCommand(void);
 void FreeInputWords(void);
 void Parser(void);
-int ParseWord(char *p);
+int ParseWord(const char *word);
 
 extern char **InputWordStrings;
 extern int WordPositions[5];

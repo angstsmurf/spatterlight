@@ -75,6 +75,45 @@ long FileBaselineOffset = 0;
 
 char DelimiterChar = '_';  /* Word separator in dictionary entries */
 
+/* Token table conventions: each byte's low 7 bits carry the character,
+   and the high bit marks the final byte of a token's expansion. */
+#define TOKEN_LAST_BYTE 0x80
+#define TOKEN_BYTE_MASK 0x7F
+
+/* First byte value treated as a token in QP3 text streams; raw bytes
+   below this are emitted as literal characters. */
+#define QP3_TOKEN_BASE 0x7b
+
+/* QP3 text-table framing: each entry ends with QP3_ENTRY_DELIM, and the
+   table itself ends with QP3_TABLE_END. */
+#define QP3_ENTRY_DELIM 0x1f
+#define QP3_TABLE_END   0x18
+
+/* QP3 object-location codes: an object can be in a room (room number) or
+   in one of these special locations. */
+#define LOC_DESTROYED   0xfc /* Object is removed from play */
+#define LOC_INV_TORCH   253  /* In Human Torch's inventory */
+#define LOC_INV_THING   254  /* In Thing's inventory */
+
+/* Message text terminators in non-QP3 versions: MSG_END ends an entry,
+ MSG_END_SPACE ends it and indicates a trailing space is pending. */
+#define MSG_END         0x7e
+#define MSG_END_SPACE   0x5e
+
+/* Action-table opcode byte layout: high bit marks an action byte (vs. a
+   condition byte); bit 6 on an action byte stops further table scanning;
+   the low 6 bits hold the opcode number. */
+#define ACTION_BIT      0x80
+#define ACTION_DONE_BIT 0x40
+#define ACTION_OP_MASK  0x3F
+
+/* Terminator byte that marks the end of a status or command action table. */
+#define ACTION_TABLE_END 0x7F
+
+/* Word code used as a wildcard in command-table verb/noun entries — matches
+   any input word. */
+#define WORD_WILDCARD    126
+
 static char *Filename;
 static uint8_t *CompanionFile; /* Second file for Temple of Terror hybrid mode */
 
@@ -210,7 +249,7 @@ static void LoadWordTable(void)
 
 static void PrintWord(unsigned char word)
 {
-    if (word == 126)
+    if (word == WORD_WILDCARD)
         fprintf(stderr, "*	  ");
     else if (word == 0 || WordMap[word][0] == 0)
         fprintf(stderr, "%-4d ", word);
@@ -318,11 +357,11 @@ static const char Q3Action[] = {
 
 /* Search FileImage for a byte pattern starting at base. Returns the
    offset if found, or (size_t)-1 if not found. */
-size_t FindCode(const char *x, size_t base, size_t len)
+size_t FindCode(const char *code, size_t base, size_t len)
 {
     unsigned char *p = FileImage + base;
     while (p < FileImage + FileImageLen - len) {
-        if (memcmp(p, x, len) == 0)
+        if (memcmp(p, code, len) == 0)
             return p - FileImage;
         p++;
     }
@@ -354,36 +393,38 @@ static size_t FindFlags(void)
 }
 
 /* Heuristic: check if the data at pos looks like a token table by
-   counting lowercase ASCII characters in the first 512 bytes. */
+   counting lowercase ASCII characters in a fixed-size sample window. */
 static int LooksLikeTokens(size_t pos)
 {
-    if (pos > FileImageLen)
+    enum {
+        TOKEN_SAMPLE_SIZE      = 512, /* bytes to inspect */
+        TOKEN_SAMPLE_THRESHOLD = 300, /* >this many lowercase letters = likely tokens */
+    };
+
+    if (pos > FileImageLen || FileImageLen - pos < TOKEN_SAMPLE_SIZE)
         return 0;
-    unsigned char *p = FileImage + pos;
-    int n = 0;
-    int t = 0;
-    while (n < 512) {
-        unsigned char c = p[n] & 0x7F;
+
+    unsigned char *sample = FileImage + pos;
+    int lowercase_count = 0;
+    for (int i = 0; i < TOKEN_SAMPLE_SIZE; i++) {
+        unsigned char c = sample[i] & TOKEN_BYTE_MASK;
         if (c >= 'a' && c <= 'z')
-            t++;
-        n++;
+            lowercase_count++;
     }
-    if (t > 300)
-        return 1;
-    return 0;
+    return lowercase_count > TOKEN_SAMPLE_THRESHOLD;
 }
 
 /* Detect version 0 format by checking for in-stream end markers
-   (0x5E or 0x7E) in the token table. */
+   (MSG_END_SPACE or MSG_END) in the token table. */
 static void TokenClassify(size_t pos)
 {
-    unsigned char *p = FileImage + pos;
+    unsigned char *ptr = FileImage + pos;
     int n = 0;
     while (n++ < 256) {
         do {
-            if (*p == 0x5E || *p == 0x7E)
+            if (*ptr == MSG_END_SPACE || *ptr == MSG_END)
                 Version = 0;
-        } while (!(*p++ & 0x80));
+        } while (!(*ptr++ & TOKEN_LAST_BYTE));
     }
 }
 
@@ -441,7 +482,7 @@ static size_t FindTokens(void)
             } else
                 return pos + 6;
         }
-        addr = READ_LE_UINT16(FileImage + pos - 2) - 0x4000 + FileBaselineOffset;
+        addr = READ_LE_UINT16(FileImage + pos - 2) - ZX_RAM_BASE + FileBaselineOffset;
     } while (LooksLikeTokens(addr) == 0);
     TokenClassify(addr);
     return addr;
@@ -512,10 +553,14 @@ int JustWrotePeriod = 0;
    - Auto-capitalization after sentence-ending punctuation */
 void OutChar(char c)
 {
+    /* Taylor's games use ']' as an in-game newline marker. */
     if (c == ']')
         c = '\n';
 
     if (c == '.') {
+        /* Accumulate periods so we can collapse runs into ellipses below.
+           But if this period follows punctuation/whitespace, demote it
+           to a space — it's not part of a sentence-ending mark. */
         periods++;
         if (LastChar == '?' || FirstAfterInput || isspace(LastChar) || LastChar == '.') {
             c = ' ';
@@ -524,7 +569,12 @@ void OutChar(char c)
         }
         PendSpace = 0;
     } else {
+        /* Non-period: flush any accumulated periods now (unless the next
+           char is itself terminal punctuation, in which case the periods
+           are part of an abbreviation and stay associated with it). */
         if (periods && !JustWrotePeriod && c != ',' && c != '?' && c != '!') {
+            /* Normalize a double-period to a single period; three or more
+               periods (an ellipsis) print verbatim. */
             if (periods == 2)
                 periods = 1;
             for (int i = 0; i < periods; i++) {
@@ -539,10 +589,15 @@ void OutChar(char c)
         periods = 0;
     }
 
+    /* Spaces are deferred via PendSpace so the next non-space character
+       can decide whether to actually emit one (or suppress it, e.g.
+       before punctuation). */
     if (c == ' ') {
         PendSpace = 1;
         return;
     }
+    /* First character after a player command: eat leading whitespace and
+       capitalize the first real character. */
     if (FirstAfterInput) {
         if (isspace(LastChar)) {
             LastChar = 0;
@@ -552,6 +607,8 @@ void OutChar(char c)
         }
         PendSpace = 0;
     }
+    /* Flush the one-character lookahead buffer. Suppress it if it was a
+       period we just wrote ourselves above (ellipsis flush). */
     if (LastChar) {
         if (isspace(LastChar))
             PendSpace = 0;
@@ -561,14 +618,19 @@ void OutChar(char c)
             OutWrite(LastChar);
         }
     }
+    /* Emit the deferred space, capitalizing afterwards if it sits between
+       a period and the next sentence (skipped for Kayleth, which has its
+       own casing rules). */
     if (PendSpace) {
         if (JustWrotePeriod && BaseGame != KAYLETH)
             Upper = 1;
         OutWrite(' ');
         PendSpace = 0;
     }
+    /* Buffer this character; the next call will flush it. Newlines reset
+       capitalization (both base and QP3-specific). */
     LastChar = c;
-    if (LastChar == 10 || LastChar == 13) {
+    if (LastChar == '\n' || LastChar == '\r') {
         Upper = 1;
         Q3Upper = 1;
     }
@@ -596,10 +658,10 @@ static unsigned char *TokenText(unsigned char n)
 {
     unsigned char *p = FileImage + TokenBase;
     if (Version == QUESTPROBE3_TYPE)
-        n -= 0x7b;
+        n -= QP3_TOKEN_BASE;
 
     while (n > 0 && p < EndOfData) {
-        while ((*p & 0x80) == 0)
+        while ((*p & TOKEN_LAST_BYTE) == 0)
             p++;
         n--;
         p++;
@@ -611,20 +673,28 @@ static unsigned char *TokenText(unsigned char n)
    auto-capitalize after sentence-ending punctuation. */
 void Q3PrintChar(uint8_t c)
 {
-    if (c < 0x20 && c != 0x0a)
+    /* Drop control characters except newline — QP3 token data sometimes
+       contains stray low bytes we don't want to emit. */
+    if (c < ' ' && c != '\n')
         return;
 
+    /* Treat the first character after a player command as sentence-start. */
     if (FirstAfterInput)
         Q3Upper = 1;
 
+    /* If a capital is pending and this is a lowercase letter, uppercase it. */
     if (Q3Upper && c >= 'a') {
-        c -= 0x20; // token is made uppercase
+        c -= 'a' - 'A';
     }
     OutChar(c);
+    /* Any "real" printable character (past space and '!') consumes the
+       pending-capital flag; space and '!' deliberately preserve it so a
+       sequence like "Hello! World" still capitalizes the W. */
     if (c > '!') {
         Q3Upper = 0;
         Upper = 0;
     }
+    /* Sentence-ending punctuation arms the flag for the next letter. */
     if (c == '!' || c == '?' || c == ':' || c == '.') {
         Q3Upper = 1;
     }
@@ -634,8 +704,10 @@ void Q3PrintChar(uint8_t c)
    are the character; the high bit marks the end of the token. */
 static void PrintToken(unsigned char n)
 {
+    /* Blizzard Pass: token 0x2d in room 49 should render as a single hyphen
+       instead of its usual expansion. */
     if (CurrentGame == BLIZZARD_PASS && MyLoc == 49 && n == 0x2d) {
-        OutChar(0x2d);
+        OutChar('-');
         return;
     }
     unsigned char *p = TokenText(n);
@@ -643,46 +715,62 @@ static void PrintToken(unsigned char n)
     do {
         c = *p++;
         if (Version == QUESTPROBE3_TYPE)
-            Q3PrintChar(c & 0x7F);
+            Q3PrintChar(c & TOKEN_BYTE_MASK);
         else
-            OutChar(c & 0x7F);
-    } while (p < EndOfData && !(c & 0x80));
+            OutChar(c & TOKEN_BYTE_MASK);
+    } while (p < EndOfData && !(c & TOKEN_LAST_BYTE));
 }
 
 /* Print the nth text entry from a QP3 text table. Entries are delimited
-   by 0x1F, with 0x18 marking end-of-table. Bytes >= 0x7B are tokens. */
-static void Q3PrintText(unsigned char *p, int n)
+   by QP3_ENTRY_DELIM (0x1f), with QP3_TABLE_END (0x18) marking end-of-table. Bytes >=
+   QP3_TOKEN_BASE (0x7B) are tokens. */
+static void Q3PrintText(unsigned char *stream, int text_index)
 {
-    while (n > 0) {
-        while (*p != 0x1f && *p != 0x18) {
-            p++;
-        }
-        n--;
-        p++;
+    /* Skip phase: walk past `text_index` entries by jumping to the next
+       delimiter each time. The inner loop stops at QP3_ENTRY_DELIM,
+       QP3_TABLE_END, or end of buffer. */
+    while (text_index > 0 && stream < EndOfData) {
+        while (stream < EndOfData && *stream != QP3_ENTRY_DELIM && *stream != QP3_TABLE_END)
+            stream++;
+        text_index--;
+        stream++;
     }
+    /* Print phase: emit every byte of the target entry. Bytes below
+       QP3_TOKEN_BASE are literal characters; bytes at or above are token
+       indices that expand to multi-byte text. Stops at QP3_ENTRY_DELIM
+       (post-test below), QP3_TABLE_END, or end of buffer. */
     do {
-        if (*p == 0x18)
+        if (stream >= EndOfData || *stream == QP3_TABLE_END)
             return;
-        if (*p >= 0x7b) // if c is >= 0x7b it is a token
-            PrintToken(*p);
+        if (*stream >= QP3_TOKEN_BASE)
+            PrintToken(*stream);
         else
-            Q3PrintChar(*p);
-    } while (*p++ != 0x1f);
+            Q3PrintChar(*stream);
+    } while (*stream++ != QP3_ENTRY_DELIM);
 }
 
-/* Print the nth text entry (version 1+). Entries are delimited by 0x7E
-   (end) or 0x5E (end with trailing space). Each byte is a token index. */
-static void PrintText1(unsigned char *p, int n)
+/* Print the nth text entry (version 1+). Entries are delimited by MSG_END
+   (0x7e) or MSG_END_SPACE (0x5E, trailing space). Each byte is a token index. */
+static void PrintText1(unsigned char *stream, int text_index)
 {
-    while (n > 0) {
-        while (p < EndOfData && *p != 0x7E && *p != 0x5E)
-            p++;
-        n--;
-        p++;
+    /* Skip phase: walk past `text_index` entries. Each entry is a run of
+       token-index bytes ending in MSG_END or MSG_END_SPACE. Bail out if
+       the stream runs out before we've skipped enough — the table is
+       shorter than the caller thinks. */
+    while (text_index > 0 && stream < EndOfData) {
+        while (stream < EndOfData && *stream != MSG_END && *stream != MSG_END_SPACE)
+            stream++;
+        if (stream >= EndOfData)
+            return;
+        text_index--;
+        stream++;
     }
-    while (p < EndOfData && *p != 0x7E && *p != 0x5E)
-        PrintToken(*p++);
-    if (*p == 0x5E) {
+    /* Print phase: expand each token index until we hit the terminator. */
+    while (stream < EndOfData && *stream != MSG_END && *stream != MSG_END_SPACE)
+        PrintToken(*stream++);
+    /* MSG_END_SPACE marks an entry whose printed form should be followed
+       by a space — defer it via PendSpace so the next OutChar emits it. */
+    if (stream < EndOfData && *stream == MSG_END_SPACE) {
         PendSpace = 1;
     }
 }
@@ -693,138 +781,156 @@ static void PrintText1(unsigned char *p, int n)
 
 static int InventoryLower = 0;
 
-/* Print the nth text entry (version 0 / Rebel Planet). End markers 0x5E
-   and 0x7E are embedded within the token stream rather than between
-   token indices, so we must fully expand each token to find them. */
-static void PrintTextRebelPlanet(unsigned char *p, int n)
+/* Print the nth text entry (version 0 / Rebel Planet). End markers
+   MSG_END_SPACE (0x5e) and MSG_END (0x7e) are embedded within the token stream rather
+   than between token indices, so we must fully expand each token to find
+   them. */
+static void PrintTextRebelPlanet(unsigned char *stream, int text_index)
 {
-    if (p > EndOfData)
+    if (stream > EndOfData)
         return;
-    unsigned char *t = NULL;
-    unsigned char c;
-    while (1) {
-        if (t == NULL)
-            t = TokenText(*p++);
-        c = *t & 0x7F;
-        if (c == 0x5E || c == 0x7E) {
-            if (n == 0) {
-                if (c == 0x5E) {
+    /* `token` walks through one token's expansion at a time. When NULL,
+       we fetch the next token by consuming a byte from `stream`. */
+    unsigned char *token = NULL;
+    while (stream < EndOfData) {
+        if (token == NULL)
+            token = TokenText(*stream++);
+        /* Mask off the high "last-byte" marker to get the character. */
+        unsigned char c = *token & TOKEN_BYTE_MASK;
+        if (c == MSG_END_SPACE || c == MSG_END) {
+            /* Terminator: either we're done with the target entry, or
+               this was a divider between earlier entries to skip past. */
+            if (text_index == 0) {
+                if (c == MSG_END_SPACE)
                     PendSpace = 1;
-                }
                 return;
             }
-            n--;
-        } else if (n == 0) {
+            text_index--;
+        } else if (text_index == 0) {
+            /* Inside the target entry — emit the character.
+               Rebel Planet's inventory header is followed by lowercase
+               items; InventoryLower flips the first letter and clears. */
             if (InventoryLower) {
                 c = tolower(c);
                 InventoryLower = 0;
             }
             OutChar(c);
         }
-        if (t >= EndOfData || (*t++ & 0x80))
-            t = NULL;
+        /* Advance within the current token; the high bit on this byte
+           marks the token's last byte, so reset `token` to fetch the
+           next one on the following iteration. */
+        if (token >= EndOfData || (*token++ & TOKEN_LAST_BYTE))
+            token = NULL;
     }
 }
 
 /* Dispatch to the correct text printer based on game version. */
-static void PrintText(unsigned char *p, int n)
+static void PrintText(unsigned char *stream, int text_index)
 {
-    if (Version == REBEL_PLANET_TYPE) { /* In-stream end markers */
-        PrintTextRebelPlanet(p, n);
-    } else if (Version == QUESTPROBE3_TYPE) {
-        Q3PrintText(p, n);
-    } else { /* Out of stream end markers (faster) */
-        PrintText1(p, n);
+    switch (Version) {
+    case REBEL_PLANET_TYPE: /* In-stream end markers */
+        PrintTextRebelPlanet(stream, text_index);
+        break;
+    case QUESTPROBE3_TYPE:
+        Q3PrintText(stream, text_index);
+        break;
+    default: /* Out-of-stream end markers (faster) */
+        PrintText1(stream, text_index);
+        break;
     }
 }
 
 /* Print message number m from the primary message table. */
-static void Message(unsigned char m)
+static void Message(unsigned char message_index)
 {
-    unsigned char *p = FileImage + MessageBase;
-    PrintText(p, m);
+    unsigned char *stream = FileImage + MessageBase;
+    PrintText(stream, message_index);
+    /* Most games want a separator space after each message; Blizzard
+       Pass handles its own spacing so we skip it there. */
     if (CurrentGame != BLIZZARD_PASS)
         OutChar(' ');
-    if (BaseGame == REBEL_PLANET && m == 156)
+    /* Rebel Planet's message 156 is the "You are carrying" header — the
+       inventory list that follows should be lowercased. Reset the flag
+       on any other message so a stray 156 doesn't leak into later output. */
+    if (BaseGame == REBEL_PLANET && message_index == 156)
         InventoryLower = 1;
     else
         InventoryLower = 0;
 }
 
 /* Print message number m from the secondary message table. */
-static void Message2(unsigned int m)
+static void Message2(unsigned int message_index)
 {
-    unsigned char *p = FileImage + Message2Base;
-    PrintText(p, m);
+    unsigned char *stream = FileImage + Message2Base;
+    PrintText(stream, message_index);
     OutChar(' ');
 }
 
 /* Print a system message (inventory prompt, error text, etc.).
    QP3 maps system message IDs to offsets in the main message table. */
-void SysMessage(unsigned char m)
+void SysMessage(unsigned char message_index)
 {
     if (Version == QUESTPROBE3_TYPE) {
-        if (m == EXITS)
-            m = 217;
+        if (message_index == EXITS)
+            message_index = 217;
         else
-            m = 210 + m;
+            message_index = 210 + message_index;
     }
 
-    Message(m);
+    Message(message_index);
 }
 
-static void PrintObject(unsigned char obj)
+static void PrintObject(unsigned char object_index)
 {
     /* Temple of Terror has an object described as "locked door",
        but there is no way to unlock it and you can just walk
        through it anyway. This seems a bit unfair, so we change its
        description to just "door" here. */
-    if (BaseGame == TEMPLE_OF_TERROR && obj == 41) {
+    if (BaseGame == TEMPLE_OF_TERROR && object_index == 41) {
         OutString("door.");
         return;
     }
-    unsigned char *p = FileImage + ObjectBase;
+    unsigned char *stream = FileImage + ObjectBase;
     if (Version == QUESTPROBE3_TYPE)
-        p--;
-    PrintText(p, obj);
+        stream--;
+    PrintText(stream, object_index);
 }
 
-static void PrintRoom(unsigned char room)
+static void PrintRoom(unsigned char room_index)
 {
-    unsigned char *p = FileImage + RoomBase;
-    if (CurrentGame == BLIZZARD_PASS && room < 102)
-        p = FileImage + 0x18000 + FileBaselineOffset;
-    PrintText(p, room);
+    unsigned char *stream = FileImage + RoomBase;
+    /* Blizzard Pass allows switching between graphics and short room descriptions,
+       or text-only and long descriptions. We always use the long ones.*/
+    if (CurrentGame == BLIZZARD_PASS && room_index < 102)
+        stream = FileImage + 0x18000 + FileBaselineOffset;
+    PrintText(stream, room_index);
 }
 
-static void PrintNumber(unsigned char n)
+/* Print a small integer (used by the PRINT action). Zero is printed as
+   "00" to match the original game's two-digit display for that case. */
+static void PrintNumber(unsigned char number)
 {
     char buf[4];
-    char *p = buf;
-    if (n == 0)
+    if (number == 0)
         snprintf(buf, sizeof buf, "00");
     else
-        snprintf(buf, sizeof buf, "%d", (int)n);
-
-    while (*p)
-        OutChar(*p++);
+        snprintf(buf, sizeof buf, "%d", (int)number);
+    OutString(buf);
 }
 
-static unsigned char Destroyed(void)
+inline static unsigned char Destroyed(void)
 {
     return 252;
 }
 
-static unsigned char Carried(void)
+inline static unsigned char Carried(void)
 {
     return Flag[2];
 }
 
-static unsigned char Worn(void)
+inline static unsigned char Worn(void)
 {
-    if (Version == QUESTPROBE3_TYPE)
-        return 0;
-    return Flag[3];
+    return Version == QUESTPROBE3_TYPE ? 0 : Flag[3];
 }
 
 static unsigned char NumObjects(void)
@@ -835,6 +941,7 @@ static unsigned char NumObjects(void)
     /* This removes one weird empty "You notice." in Kayleth */
     if (BaseGame == KAYLETH)
         return 120;
+
     return Flag[6];
 }
 
@@ -852,7 +959,7 @@ static int CarryItem(void)
 {
     if (Version == QUESTPROBE3_TYPE)
         return 1;
-    /* Flag 5: items carried, flag 4: max carried */
+    /* Flag 5: Items carried. Flag 4: Max carried */
     if (ItemsCarried == MaxCarried && CurrentGame != BLIZZARD_PASS)
         return 0;
     if (ItemsCarried < 255)
@@ -860,11 +967,9 @@ static int CarryItem(void)
     return 1;
 }
 
-static int DarkFlag(void)
+static inline int DarkFlag(void)
 {
-    if (Version == QUESTPROBE3_TYPE)
-        return 43;
-    return 1;
+    return Version == QUESTPROBE3_TYPE ? 43 : 1;
 }
 
 static void DropItem(void)
@@ -875,7 +980,7 @@ static void DropItem(void)
 
 static void Put(unsigned char obj, unsigned char loc)
 {
-    /* Will need refresh logics somewhere, maybe here ? */
+    /* Putting stuff in a room might change the picture, so redraw */
     if (ObjectLoc[obj] == MyLoc || loc == MyLoc)
         Redraw = 1;
     ObjectLoc[obj] = loc;
@@ -903,19 +1008,27 @@ void Look(void);
 static void NewGame(void)
 {
     Redraw = 1;
-    memset(Flag, 0, 128);
+    /* Zero every flag, then copy the seven initial flag values stored in
+       the file header. The remaining 121 flags stay at zero. */
+    memset(Flag, 0, sizeof(Flag));
     memcpy(Flag, FileImage + FlagBase, 7);
     if (Version == QUESTPROBE3_TYPE) {
+        /* QP3 keeps only Flag[0..3] from the file; force the rest to
+           zero (this overrides the file's values for Flag[4..6]) and
+           seed the inventory and dark flags. */
         for (int i = 0; i < 124; i++) {
             Flag[4 + i] = 0;
         }
-        Flag[42] = 0;
-        Flag[43] = 0;
-        Flag[2] = 254;
-        Flag[3] = 253;
+        Flag[42] = 0;                /* dark flag for current character */
+        Flag[43] = 0;                /* dark flag for other character */
+        Flag[2] = LOC_INV_THING;     /* Carried() — default is Thing, before randomization */
+        Flag[3] = LOC_INV_TORCH;     /* Worn() slot used for other character's inventory */
     }
+    /* Start in room 0 (the intro/title pseudo-room). */
     MyLoc = 0;
+    /* Restore each object's initial location from the file's location table. */
     memcpy(ObjectLoc, FileImage + ObjLocBase, NumObjects());
+    /* Reset the per-game wait counter, if this game uses one. */
     if (WaitFlag() != -1)
         Flag[WaitFlag()] = 0;
     Look();
@@ -978,7 +1091,9 @@ int LoadGame(void)
 
     /* Restore saved game data. */
 
-    if (glk_get_buffer_stream(stream, (char *)Flag, 128) != 128 || glk_get_buffer_stream(stream, (char *)ObjectLoc, 256) != 256 || GetGlkFileLength(stream) != 384) {
+    if (glk_get_buffer_stream(stream, (char *)Flag, sizeof(Flag)) != sizeof(Flag)
+        || glk_get_buffer_stream(stream, (char *)ObjectLoc, sizeof(ObjectLoc)) != sizeof(ObjectLoc)
+        || (size_t)GetGlkFileLength(stream) != sizeof(Flag) + sizeof(ObjectLoc)) {
         RecoverFromBadRestore(state);
     } else {
         glk_window_clear(Bottom);
@@ -1030,21 +1145,29 @@ static void QuitGame(void)
     }
 }
 
+/* Print the player's inventory: every object whose location matches the
+   "carried" or "worn" code. Each worn item is annotated with a "(worn)"
+   suffix; if nothing is carried, the "you have nothing" message prints. */
 static void Inventory(void)
 {
-    int i;
-    int f = 0;
+    /* Rebel Planet does its own capitalization via PrintTextRebelPlanet's
+       InventoryLower flag, so we skip OutCaps() for it. */
     if (BaseGame != REBEL_PLANET)
         OutCaps();
     SysMessage(INVENTORY);
-    for (i = 0; i < NumObjects(); i++) {
+
+    int printed_any = 0;
+    for (int i = 0; i < NumObjects(); i++) {
         if (ObjectLoc[i] == Carried() || ObjectLoc[i] == Worn()) {
-            f = 1;
+            printed_any = 1;
             PrintObject(i);
             if (ObjectLoc[i] == Worn()) {
+                /* Drop any pending separator, then append "(worn)". */
                 OutReplace(0);
                 SysMessage(NOWWORN);
                 if (CurrentGame == REBEL_PLANET) {
+                    /* Rebel Planet uses a comma between items instead of
+                       the default trailing space. */
                     OutKillSpace();
                     OutFlush();
                     OutChar(',');
@@ -1052,9 +1175,11 @@ static void Inventory(void)
             }
         }
     }
-    if (f == 0)
+    if (!printed_any) {
         SysMessage(NOTHING);
-    else {
+    } else {
+        /* End the list with ". " and arm capitalization for whatever
+           prints next (typically the prompt or the next room header). */
         OutReplace('.');
         OutChar(' ');
         OutCaps();
@@ -1099,8 +1224,8 @@ void SaveGame(void)
     }
 
     /* Write game state. */
-    glk_put_buffer_stream(file, (char *)Flag, 128);
-    glk_put_buffer_stream(file, (char *)ObjectLoc, 256);
+    glk_put_buffer_stream(file, (char *)Flag, sizeof(Flag));
+    glk_put_buffer_stream(file, (char *)ObjectLoc, sizeof(ObjectLoc));
     glk_stream_close(file, NULL);
     OutString("Saved.\n");
     OutFlush();
@@ -1204,28 +1329,32 @@ static int DropObject(unsigned char obj)
 /* List available exits from the current room by scanning the exit table. */
 static void ListExits(int caps)
 {
-    unsigned char locw = 0x80 | MyLoc;
-    unsigned char *p;
-    int f = 0;
-    p = FileImage + ExitBase;
+    /* Each room's exit block in the table is preceded by a marker byte:
+       the room number with the high bit set. */
+    unsigned char loc_marker = 0x80 | MyLoc;
+    unsigned char *entry = FileImage + ExitBase;
+    int printed_any = 0;
 
-    while (*p != locw)
-        p++;
-    p++;
-    while (*p < 0x80) {
-        if (f == 0) {
+    while (*entry != loc_marker)
+        entry++;
+    entry++;
+
+    /* Exit entries are (direction, destination) byte pairs; the block ends
+       when we see another marker byte (high bit set). */
+    while (*entry < 0x80) {
+        if (!printed_any) {
             if (CurrentGame == BLIZZARD_PASS && LastChar == ',')
                 LastChar = 0;
             OutCaps();
             SysMessage(EXITS);
+            printed_any = 1;
         }
-        f = 1;
         if (caps)
             OutCaps();
-        SysMessage(*p);
-        p += 2;
+        SysMessage(*entry);
+        entry += 2;
     }
-    if (f == 1) {
+    if (printed_any) {
         OutReplace('.');
         OutChar('\n');
     }
@@ -1239,14 +1368,20 @@ static void QP3DrawExtraImages(void);
    Draws the room image if graphics are enabled. */
 void Look(void)
 {
-    if (MyLoc == 0 || (BaseGame == KAYLETH && MyLoc == 91) || NoGraphics)
+    /* Room 0 is the intro/title pseudo-room; Kayleth's room 91 is an
+       analogous non-game screen. */
+    int is_intro_room = (MyLoc == 0 || (BaseGame == KAYLETH && MyLoc == 91));
+
+    if (is_intro_room || NoGraphics)
         CloseGraphicsWindow();
     else
         OpenGraphicsWindow();
     int i;
-    int f = 0;
+    int printed_any = 0;
 
     PendSpace = 0;
+    /* Skip the output reset while a line-input event is pending in the
+       bottom window — resetting would lose buffered input. */
     if (!(CurrentWindow == Bottom && LineEvent))
         OutReset();
     TopWindow();
@@ -1257,6 +1392,8 @@ void Look(void)
 
     OutCaps();
 
+    /* Dark room: print the canned "too dark" message and bail out before
+       drawing the room or listing its contents. */
     if (Flag[DarkFlag()]) {
         SysMessage(TOO_DARK_TO_SEE);
         OutString("\n\n");
@@ -1268,31 +1405,36 @@ void Look(void)
         OutString("You are ");
     PrintRoom(MyLoc);
 
+    /* "Low" objects are part of the room description (e.g. "...a sword
+       lies here."). They're listed inline rather than after "You see:". */
     for (i = 0; i < NumLowObjects; i++) {
         if (ObjectLoc[i] == MyLoc) {
-            if (f == 0) {
+            if (!printed_any) {
                 if (Version == QUESTPROBE3_TYPE) {
                     OutReplace(0);
                     SysMessage(0);
                 } else if (BaseGame == HEMAN || BaseGame == REBEL_PLANET) {
                     OutChar(' ');
                 }
+                printed_any = 1;
             }
-            f = 1;
             PendSpace = 1;
             PrintObject(i);
         }
     }
-    if (f == 1 && !isalpha(LastChar))
+    if (printed_any && !isalpha(LastChar))
         OutReplace('.');
 
+    /* QP3 has no "You see:" phase — every visible item is a low object.
+       For other versions, continue scanning from the same `i` to list
+       higher-numbered objects under a "You see:" heading. */
     if (Version == QUESTPROBE3_TYPE) {
         ListExits(1);
     } else {
-        f = 0;
+        printed_any = 0;
         for (; i < NumObjects(); i++) {
             if (ObjectLoc[i] == MyLoc) {
-                if (f == 0) {
+                if (!printed_any) {
                     /* Only the text-only and hybrid games */
                     if (BaseGame == TEMPLE_OF_TERROR
                         && CurrentGame != TEMPLE_OF_TERROR
@@ -1306,12 +1448,12 @@ void Look(void)
                     }
                     if (Version == REBEL_PLANET_TYPE)
                         OutReplace(0);
+                    printed_any = 1;
                 }
-                f = 1;
                 PrintObject(i);
             }
         }
-        if (f == 1)
+        if (printed_any)
             OutReplace('.');
         else
             OutChar('.');
@@ -1321,7 +1463,8 @@ void Look(void)
     if (LastChar != '\n')
         OutChar('\n');
 
-    if ((Options & FORCE_INVENTORY) && !(MyLoc == 0 || (BaseGame == KAYLETH && MyLoc == 91))) {
+    /* Don't show top window inventory in intro rooms */
+    if ((Options & FORCE_INVENTORY) && !is_intro_room) {
         OutChar('\n');
         Inventory();
         OutChar('\n');
@@ -1332,11 +1475,17 @@ void Look(void)
     BottomWindow();
 
     if (MyLoc != 0 && !NoGraphics && TAYLOR_GRAPHICS_ENABLED && Graphics) {
+        /* A resize-in-progress: reuse the buffered image rather than
+           re-running the room's drawing pipeline. */
         if (Resizing) {
             DrawIrmakPictureFromBuffer();
             return;
         }
         if (Version == QUESTPROBE3_TYPE) {
+            /* QP3 draws room images via the status table (which contains
+               IMAGE actions). Run it once with DrawImages=255 to draw
+               without advancing the turn; stash StopTime so the bypass
+               doesn't suppress next turn's real status pass. */
             int tempstop = StopTime;
             StopTime = 0;
             DrawImages = 255;
@@ -1350,14 +1499,14 @@ void Look(void)
     }
 }
 
-static void Goto(unsigned char loc)
+static void Goto(unsigned char destination)
 {
     if (BaseGame == QUESTPROBE3 && !PrintedOK)
         Okay();
-    if (BaseGame == HEMAN && MyLoc == 0 && loc == 1) {
+    if (BaseGame == HEMAN && MyLoc == 0 && destination == 1) {
         DeferredGoto = 1;
     } else {
-        MyLoc = loc;
+        MyLoc = destination;
         Redraw = 1;
     }
 }
@@ -1414,10 +1563,10 @@ static void Remove(unsigned char obj)
 
 /* Replace the current input words — used by action scripts to redirect
    a command to different verb/noun handling. */
-static void Means(unsigned char vb, unsigned char no)
+static void Means(unsigned char verb, unsigned char noun)
 {
-    Word[0] = vb;
-    Word[1] = no;
+    Word[0] = verb;
+    Word[1] = noun;
 }
 
 static void Q3SwitchInvFlags(unsigned char a, unsigned char b)
@@ -1433,26 +1582,26 @@ static void Q3SwitchInvFlags(unsigned char a, unsigned char b)
    update turn/asphyxiation counters. */
 static void Q3UpdateFlags(void)
 {
-    if (ObjectLoc[7] == 253)
-        ObjectLoc[7] = 254;
+    if (ObjectLoc[7] == LOC_INV_TORCH)
+        ObjectLoc[7] = LOC_INV_THING;
     if (IsThing) {
-        if (ObjectLoc[2] == 0xfc) {
+        if (ObjectLoc[2] == LOC_DESTROYED) {
             /* If the "holding HUMAN TORCH by the hands" object is destroyed (i.e. not held) */
             /* the "location of the other guy" flag is set to the location of the Human Torch object */
             OtherGuyLoc = ObjectLoc[18];
         } else {
             OtherGuyLoc = MyLoc;
         }
-        Q3SwitchInvFlags(253, 254);
+        Q3SwitchInvFlags(LOC_INV_TORCH, LOC_INV_THING);
     } else { /* I'm the HUMAN TORCH */
-        if (ObjectLoc[1] == 0xfc) {
+        if (ObjectLoc[1] == LOC_DESTROYED) {
             /* If the "holding THING by the hands" object is destroyed (i.e. not held) */
             /* The "location of the other guy" flag is set to the location of the Thing object */
             OtherGuyLoc = ObjectLoc[17];
         } else {
             OtherGuyLoc = MyLoc;
         }
-        Q3SwitchInvFlags(254, 253);
+        Q3SwitchInvFlags(LOC_INV_THING, LOC_INV_TORCH);
     }
 
     /* Reset flag 39 when Xandu is knocked out */
@@ -1464,14 +1613,14 @@ static void Q3UpdateFlags(void)
 
     /* Make sure that:
      - The watch isn't carried in the "intro"
-     - That Thing has it when the game starts, no
-     matter who we begin as
+     - That Thing has it when the game starts,
+     no matter who we begin as
      */
     if (!Q3SwitchedWatch) {
         if (MyLoc == 6 || MyLoc == 0) {
-            ObjectLoc[37] = 0xfc;
+            ObjectLoc[37] = LOC_DESTROYED;
         } else {
-            ObjectLoc[37] = 254;
+            ObjectLoc[37] = LOC_INV_THING;
             Q3SwitchedWatch = 1;
         }
     }
@@ -1532,36 +1681,37 @@ static void Q3AdjustActions(unsigned char op, unsigned char *arg1, unsigned char
     }
 }
 
-static int TwoConditionParameters(void)
+inline static int TwoConditionParameters(void)
 {
-    if (Version == QUESTPROBE3_TYPE)
-        return 16;
-    else
-        return 21;
+    return Version == QUESTPROBE3_TYPE ? 16 : 21;
 }
 
-static int TwoActionParameters(void)
+inline static int TwoActionParameters(void)
 {
-    if (Version == QUESTPROBE3_TYPE)
-        return 18;
-    else
-        return 22;
+    return Version == QUESTPROBE3_TYPE ? 18 : 22;
 }
 
 /* Execute one action line: evaluate conditions (bytes with bit 7 clear),
    and if all pass, run the action commands (bytes with bit 7 set).
-   Bit 6 on an action byte sets *done to stop further table scanning. */
-static void ExecuteLineCode(unsigned char *p, int *done)
+   Bit 6 on an action byte sets *done to stop further table scanning.
+
+   Convention inside the condition switch below: 'continue' means the
+   condition passed — go on to the next condition byte. 'break' falls out
+   of the switch and returns from the function, abandoning this line. */
+static void ExecuteLineCode(unsigned char *code, int *done)
 {
     unsigned char arg1 = 0, arg2 = 0;
-    int n;
-    do {
-        unsigned char op = *p;
+    int tmp;
 
-        if (op & 0x80)
+    /* Phase 1: read condition bytes until we see one with the action bit
+       set (which signals the start of the action stream for this line). */
+    do {
+        unsigned char op = *code;
+
+        if (op & ACTION_BIT)
             break;
-        p++;
-        arg1 = *p++;
+        code++;
+        arg1 = *code++;
 
 #ifdef DEBUG
         if (Version == QUESTPROBE3_TYPE) {
@@ -1572,13 +1722,16 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             fprintf(stderr, "%s %d ", Condition[op], arg1);
         }
 #endif
+        /* Conditions at or above this opcode index take a second argument. */
         if (op >= TwoConditionParameters()) {
-            arg2 = *p++;
+            arg2 = *code++;
 #ifdef DEBUG
             fprintf(stderr, "%d ", arg2);
 #endif
         }
 
+        /* QP3 uses a different opcode numbering — translate to the
+           canonical set and adjust arg1 to match. */
         if (Version == QUESTPROBE3_TYPE) {
             op = Q3Condition[op];
             Q3AdjustConditions(op, &arg1);
@@ -1643,7 +1796,10 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             break;
         case ZERO:
             if (BaseGame == TEMPLE_OF_TERROR) {
-                /* Unless we have kicked sand in the eyes of the guard, tracked by flag 63, make sure he kills us if we try to pass, by setting flag 28 to zero */
+                /* Unless we have kicked sand in the eyes of the guard, tracked by flag 63,
+                 make sure they kill us if we try to pass, by setting flag 28 to zero */
+                /* This fixes a bug in the original game, which lets us just walk
+                   past the guard */
                 if (arg1 == 28 && Flag[63] == 0 && Word[0] == 20 && Word[1] == 162)
                     Flag[28] = 0;
             }
@@ -1654,6 +1810,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             if (Flag[arg1] != 0)
                 continue;
             break;
+        /* WORD1/2/3 match against the third/fourth/fifth parsed input
+           words (Word[0] and Word[1] are the verb and primary noun). */
         case WORD1:
             if (Word[2] == arg1)
                 continue;
@@ -1704,32 +1862,39 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 #ifdef DEBUG
         fprintf(stderr, "\n");
 #endif
+        /* Condition failed (or unknown): abandon this line and let the
+           caller advance to the next one. */
         return;
     } while (1);
 
+    /* Phase 2: all conditions passed — record that we did something this
+       turn and execute the action bytes until we see one without the
+       action bit (i.e. the next line's conditions) or run off the end. */
     ActionsExecuted = 1;
 
     do {
-        unsigned char op = *p;
-        if (!(op & 0x80))
+        unsigned char op = *code;
+        if (!(op & ACTION_BIT))
             break;
 
 #ifdef DEBUG
-        if (op & 0x40)
+        if (op & ACTION_DONE_BIT)
             fprintf(stderr, "DONE:");
         if (Version == QUESTPROBE3_TYPE)
-            fprintf(stderr, "%s(%d) ", Action[Q3Action[op & 0x3F]], op & 0x3F);
+            fprintf(stderr, "%s(%d) ", Action[Q3Action[op & ACTION_OP_MASK]], op & ACTION_OP_MASK);
         else
-            fprintf(stderr, "%s(%d) ", Action[op & 0x3F], op & 0x3F);
+            fprintf(stderr, "%s(%d) ", Action[op & ACTION_OP_MASK], op & ACTION_OP_MASK);
 #endif
 
-        p++;
-        if (op & 0x40)
+        code++;
+        /* Bit 6 ("DONE") asks the table scanner to stop after this line. */
+        if (op & ACTION_DONE_BIT)
             *done = 1;
-        op &= 0x3F;
+        op &= ACTION_OP_MASK;
 
+        /* Opcodes 0-8 take no arguments; 9+ take at least one. */
         if (op > 8) {
-            arg1 = *p++;
+            arg1 = *code++;
 #ifdef DEBUG
             unsigned char debugarg1 = arg1;
             if (Version == QUESTPROBE3_TYPE)
@@ -1737,8 +1902,9 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             fprintf(stderr, "%d ", debugarg1);
 #endif
         }
+        /* Actions at or above this opcode index take a second argument. */
         if (op >= TwoActionParameters()) {
-            arg2 = *p++;
+            arg2 = *code++;
 #ifdef DEBUG
             unsigned char debugarg2 = arg2;
             if (Version == QUESTPROBE3_TYPE)
@@ -1747,6 +1913,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 #endif
         }
 
+        /* QP3 uses a different action numbering — translate to the
+           canonical set and adjust args to match. */
         if (Version == QUESTPROBE3_TYPE) {
             op = Q3Action[op];
             Q3AdjustActions(op, &arg1, &arg2);
@@ -1755,6 +1923,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 Okay();
         }
 
+        /* Track lighting before the action so we can redraw if the action
+           toggles the dark flag (e.g. lighting a lamp in a dark room). */
         int WasDark = Flag[DarkFlag()];
 
         switch (op) {
@@ -1782,7 +1952,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             SaveGame();
             break;
         case DROPALL:
-            if ((BaseGame == REBEL_PLANET && (Word[0] != 20 || Word[1] != 141)) || (BaseGame == KAYLETH && (Word[0] != 20 || Word[1] != 254)))
+            if ((BaseGame == REBEL_PLANET && (Word[0] != 20 || Word[1] != 141)) ||
+                (BaseGame == KAYLETH && (Word[0] != 20 || Word[1] != 254)))
                 DropAll(0);
             else
                 DropAll(1);
@@ -1867,29 +2038,29 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 if (arg1 == 12 && arg2 == 1)
                     arg1 = 60;
             }
-            n = Flag[arg1] + arg2;
-            if (n > 255)
-                n = 255;
-            Flag[arg1] = n;
+            tmp = Flag[arg1] + arg2;
+            if (tmp > 255)
+                tmp = 255;
+            Flag[arg1] = tmp;
             break;
         case SUB:
-            n = Flag[arg1] - arg2;
-            if (n < 0)
-                n = 0;
-            Flag[arg1] = n;
+            tmp = Flag[arg1] - arg2;
+            if (tmp < 0)
+                tmp = 0;
+            Flag[arg1] = tmp;
             break;
         case PUT:
             Put(arg1, arg2);
             break;
         case SWAP:
-            n = ObjectLoc[arg1];
+            tmp = ObjectLoc[arg1];
             Put(arg1, ObjectLoc[arg2]);
-            Put(arg2, n);
+            Put(arg2, tmp);
             break;
         case SWAPF:
-            n = Flag[arg1];
+            tmp = Flag[arg1];
             Flag[arg1] = Flag[arg2];
-            Flag[arg2] = n;
+            Flag[arg2] = tmp;
             break;
         case MEANS:
             Means(arg1, arg2);
@@ -1952,10 +2123,12 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             SysMessage(15);
             break;
         case SWITCHINVENTORY: {
-            uint8_t temp = Flag[2]; /* Switch inventory */
+            /* Swap "current" and "other character" state: inventory code
+               (Flag[2]) plus the two dark flags (Flag[42], Flag[43]). */
+            uint8_t temp = Flag[2];
             Flag[2] = OtherGuyInv;
             OtherGuyInv = temp;
-            temp = Flag[42]; /* Switch dark flag */
+            temp = Flag[42];
             Flag[42] = Flag[43];
             Flag[43] = temp;
             Redraw = 1;
@@ -2002,23 +2175,23 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 
 /* Advance past the current action line (conditions + actions) to the
    start of the next one. */
-static unsigned char *NextLine(unsigned char *p)
+static unsigned char *NextLine(unsigned char *ptr)
 {
-    unsigned char op;
-    while (!((op = *p) & 0x80)) {
-        p += 2;
-        if (op >= TwoConditionParameters())
-            p++;
+    unsigned char opcode;
+    while (!((opcode = *ptr) & ACTION_BIT)) {
+        ptr += 2;
+        if (opcode >= TwoConditionParameters())
+            ptr++;
     }
-    while (((op = *p) & 0x80)) {
-        op &= 0x3F;
-        p++;
-        if (op > 8)
-            p++;
-        if (op >= TwoActionParameters())
-            p++;
+    while (((opcode = *ptr) & ACTION_BIT)) {
+        opcode &= ACTION_OP_MASK;
+        ptr++;
+        if (opcode > 8)
+            ptr++;
+        if (opcode >= TwoActionParameters())
+            ptr++;
     }
-    return p;
+    return ptr;
 }
 
 /* Draw two images that are unused in the original game */
@@ -2040,7 +2213,7 @@ static void QP3DrawExtraImages(void)
 }
 
 /* Run the automatic (status) action table — these fire every turn
-   regardless of player input. Entries are executed until 0x7F end marker
+   regardless of player input. Entries are executed until ACTION_TABLE_END
    or an action sets the done flag. */
 static void RunStatusTable(void)
 {
@@ -2048,7 +2221,7 @@ static void RunStatusTable(void)
         StopTime--;
         return;
     }
-    unsigned char *p = FileImage + StatusBase;
+    unsigned char *ptr = FileImage + StatusBase;
 
     int done = 0;
     ActionsExecuted = 0;
@@ -2057,48 +2230,51 @@ static void RunStatusTable(void)
         Q3UpdateFlags();
     }
 
-    while (*p != 0x7F) {
-        while (Version == QUESTPROBE3_TYPE && *p == 0x7e) {
-            p++;
+    while (*ptr != ACTION_TABLE_END) {
+        /* QP3 pads the status table with 0x7e bytes between entries. */
+        while (Version == QUESTPROBE3_TYPE && *ptr == 0x7e) {
+            ptr++;
         }
-        ExecuteLineCode(p, &done);
+        ExecuteLineCode(ptr, &done);
         if (done) {
             return;
         }
-        p = NextLine(p);
+        ptr = NextLine(ptr);
     }
     if (Version == QUESTPROBE3_TYPE)
         DrawImages = 0;
 }
 
 /* Run the player command action table, matching the parsed input words
-   against verb/noun entries. Word code 126 is a wildcard. Entries can
+   against verb/noun entries. WORD_WILDCARD is a wildcard. Entries can
    match as VERB NOUN or NOUN VERB. */
 static void RunCommandTable(void)
 {
-    unsigned char *p = FileImage + ActionBase;
+    unsigned char *ptr = FileImage + ActionBase;
 
     int done = 0;
     ActionsExecuted = 0;
     FoundVerb = 0;
     FoundNoun = 0;
 
-    while (*p != 0x7F) {
+    while (*ptr != ACTION_TABLE_END) {
 
-        if (p[0] == Word[0] || p[0] == Word[1])
+        if (ptr[0] == Word[0] || ptr[0] == Word[1])
             FoundVerb = 1;
-        if (p[1] == Word[0] || p[1] == Word[1])
+        if (ptr[1] == Word[0] || ptr[1] == Word[1])
             FoundNoun = 1;
 
         /* Match input to table entry as VERB NOUN or NOUN VERB */
-        /* 126 is wildcard that matches any word */
-        if (((*p == 126 || *p == Word[0]) && (p[1] == 126 || p[1] == Word[1])) ||
-            ((*p == 126 || *p == Word[1]) && (p[1] == 126 || p[1] == Word[0]))) {
+        if (((*ptr == WORD_WILDCARD || *ptr == Word[0]) && (ptr[1] == WORD_WILDCARD || ptr[1] == Word[1])) ||
+            ((*ptr == WORD_WILDCARD || *ptr == Word[1]) && (ptr[1] == WORD_WILDCARD || ptr[1] == Word[0]))) {
 #ifdef DEBUG
-            PrintWord(p[0]);
-            PrintWord(p[1]);
+            PrintWord(ptr[0]);
+            PrintWord(ptr[1]);
 #endif
-            /* Work around a Questprobe 3 bug */
+            /* Work around a Questprobe 3 bug – the original game
+               can be broken by The Thing picking something up in
+               the great room right after entering it. */
+            /* We make sure he is ordered out instead. */
             if (Version == QUESTPROBE3_TYPE) {
                 /* In great room, Xandu present */
                 if (Present(33)) {
@@ -2109,11 +2285,11 @@ static void RunCommandTable(void)
                     return;
                 }
             }
-            ExecuteLineCode(p + 2, &done);
+            ExecuteLineCode(ptr + 2, &done);
             if (done)
                 return;
         }
-        p = NextLine(p + 2);
+        ptr = NextLine(ptr + 2);
     }
 }
 
@@ -2121,20 +2297,20 @@ static void RunCommandTable(void)
    If so, move the player there and return 1. */
 static int AutoExit(unsigned char v)
 {
-    unsigned char *p = FileImage + ExitBase;
+    unsigned char *ptr = FileImage + ExitBase;
     unsigned char want = MyLoc | 0x80;
-    while (*p != want) {
-        if (*p == 0xFE)
+    while (*ptr != want) {
+        if (*ptr == 0xfe)
             return 0;
-        p++;
+        ptr++;
     }
-    p++;
-    while (*p < 0x80) {
-        if (*p == v) {
-            Goto(p[1]);
+    ptr++;
+    while (*ptr < 0x80) {
+        if (*ptr == v) {
+            Goto(ptr[1]);
             return 1;
         }
-        p += 2;
+        ptr += 2;
     }
     return 0;
 }
@@ -2237,14 +2413,14 @@ static void RunOneInput(void)
 
     Redraw = 0;
 
-    int wf = WaitFlag();
+    int waitflag = WaitFlag();
 
-    if (wf != -1 && Flag[wf] > 1)
-        Flag[wf]++;
+    if (waitflag != -1 && Flag[waitflag] > 1)
+        Flag[waitflag]++;
 
     do {
-        if (wf != -1 && Flag[wf]) {
-            Flag[wf]--;
+        if (waitflag != -1 && Flag[waitflag]) {
+            Flag[waitflag]--;
             if (LastChar != '\n')
                 OutChar('\n');
         }
@@ -2267,11 +2443,11 @@ static void RunOneInput(void)
         }
         Redraw = 0;
 
-    } while (wf != -1 && Flag[wf] > 0);
+    } while (waitflag != -1 && Flag[waitflag] > 0);
     if (AnimationRunning)
         glk_request_timer_events(AnimationRunning);
-    if (wf != -1)
-        Flag[wf] = 0;
+    if (waitflag != -1)
+        Flag[waitflag] = 0;
 }
 
 /* Resolve all data table offsets from the Game struct, applying
@@ -2311,13 +2487,13 @@ static int GuessLowObjectEndRebelPlanet(void)
         if (t == NULL)
             t = TokenText(*p++);
         lc = c;
-        c = *t & 0x7F;
-        if (c == 0x5E || c == 0x7E) {
+        c = *t & TOKEN_BYTE_MASK;
+        if (c == MSG_END_SPACE || c == MSG_END) {
             if (lc == ',' && n > 20)
                 return n;
             n++;
         }
-        if (*t++ & 0x80)
+        if (*t++ & TOKEN_LAST_BYTE)
             t = NULL;
     }
     return -1;
@@ -2328,10 +2504,6 @@ static int GuessLowObjectEndRebelPlanet(void)
    descriptions end with a comma in the last token. */
 static int GuessLowObjectEnd(void)
 {
-    unsigned char *p = FileImage + ObjectBase;
-    unsigned char *x;
-    int n = 0;
-
     /* Can't automatically guess in this case */
     if (CurrentGame == BLIZZARD_PASS)
         return 70;
@@ -2341,18 +2513,23 @@ static int GuessLowObjectEnd(void)
     if (Version == REBEL_PLANET_TYPE)
         return GuessLowObjectEndRebelPlanet();
 
-    while (n < NumObjects()) {
-        while (*p != 0x7E && *p != 0x5E) {
-            p++;
+    unsigned char *obj_text = FileImage + ObjectBase;
+    int obj_index = 0;
+
+    while (obj_index < NumObjects()) {
+        while (*obj_text != MSG_END && *obj_text != MSG_END_SPACE) {
+            obj_text++;
         }
-        x = TokenText(p[-1]);
-        while (!(*x & 0x80)) {
-            x++;
+        /* obj_text[-1] is the last token index of the description; find
+           that token's last byte to check whether it ends in a comma. */
+        unsigned char *last_byte = TokenText(obj_text[-1]);
+        while (!(*last_byte & TOKEN_LAST_BYTE)) {
+            last_byte++;
         }
-        if ((*x & 0x7F) == ',')
-            return n;
-        n++;
-        p++;
+        if ((*last_byte & TOKEN_BYTE_MASK) == ',')
+            return obj_index;
+        obj_index++;
+        obj_text++;
     }
     fprintf(stderr, "Unable to guess the last description object.\n");
     return 0;
@@ -2582,6 +2759,9 @@ void LoadKaylethAnimationData(void);
    tables, initializes graphics, and enters the main input/action loop. */
 void glk_main(void)
 {
+    /* Step 1: load the game file. DetectC64 handles both raw image files
+       and C64 disk-image containers, decrunching as needed; the file is
+       installed into FileImage/FileImageLen on success. */
     if (DetectC64(&FileImage, &FileImageLen) != UNKNOWN_GAME) {
         EndOfData = FileImage + FileImageLen;
     } else {
@@ -2592,12 +2772,18 @@ void glk_main(void)
     fprintf(stderr, "Loaded %zu bytes.\n", FileImageLen);
 #endif
 
+    /* Step 2: locate the verb table by scanning for its signature — the
+       dictionary always starts with "NORT" + code 1 + "N" (the first
+       direction word, "NORTH", with code 1 followed by its alias "N"). */
     VerbBase = FindCode("NORT\001N", 0, 6);
     if (VerbBase == -1) {
         fprintf(stderr, "No verb table!\n");
         glk_exit();
     }
 
+    /* Step 3: identify which game we're playing. The verb table's offset
+       relative to its expected (in-game) address tells us how far the
+       loaded file's addressing differs from the original Z80 layout. */
     if (!Game)
         Game = DetectGame(VerbBase);
     if (Game == NULL) {
@@ -2610,6 +2796,8 @@ void glk_main(void)
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
 #endif
 
+    /* Seed the RNG. In determinism mode (used by automated tests and
+       transcript playback) we use a fixed seed; otherwise time-based. */
 #ifdef SPATTERLIGHT
     if (gli_determinism) {
         set_erkyrath_random(1234);
@@ -2619,45 +2807,70 @@ void glk_main(void)
 
     DisplayInit();
 
+    /* Temple of Terror ships as a paired text+graphics duo; check whether
+       a companion file is present alongside the loaded one. */
     if (CurrentGame == TEMPLE_OF_TERROR || CurrentGame == TOT_TEXT_ONLY) {
         LookForSecondTOTGame();
     }
 
+    /* Cache the dictionary code for "GO" — used by the implicit-verb
+       fallback when the player types just a direction. */
     GoVerb = ParseWord("GO");
 
     InitGraphics();
 
+    /* QP3 and Rebel Planet separate top and lower text windows by
+       a row of '=' rather than the default '_'. */
     if (CurrentGame == QUESTPROBE3 || CurrentGame == REBEL_PLANET)
         DelimiterChar = '=';
 
+    /* Step 4: locate all the remaining tables (tokens, messages, rooms,
+       actions, etc.) using game-specific offsets or signature scans. */
     FindTables();
 #ifdef DEBUG
     if (Version != BLIZZARD_PASS_TYPE && Version != QUESTPROBE3_TYPE)
         Action[12] = "MESSAGE2";
     LoadWordTable();
 #endif
+
+    /* Step 5: initialize state and present the opening room. NewGame()
+       resets flags and objects; GuessLowObjectEnd() determines which
+       objects render inline vs. in the "You see:" list; the initial
+       state is snapshotted for the RESTART command. */
     NewGame();
     NumLowObjects = GuessLowObjectEnd();
     InitialState = SaveCurrentState();
 
+    /* Run the status table once on entry so any per-turn setup actions
+       (e.g. drawing the first room image) execute before the prompt. */
     RunStatusTable();
     if (Redraw) {
         OutFlush();
         Look();
     }
 
+    /* Kayleth begins with a non-interactive "preview" sequence before
+       handing control to the player; load its animation data and arm
+       the flag so that undo is suppressed until MyLoc reaches 1. */
     if (BaseGame == KAYLETH) {
         LoadKaylethAnimationData();
         InKaylethPreview = 1;
     }
 
+    /* Main turn loop: snapshot undo state, read a command, execute it,
+       and repeat forever. Exits are handled by glk_exit() from within
+       QUIT/restart paths. */
     while (1) {
         if (ShouldRestart) {
             RestartGame();
+            /* Kayleth's restart sequence is itself non-interactive, so
+               don't capture undo until it's done. */
             if (BaseGame != KAYLETH) {
                 SaveUndo();
             }
         } else if (!StopTime && !InKaylethPreview) {
+            /* Take an undo snapshot before each real player turn, but
+               skip while time is paused or the preview is still running. */
             SaveUndo();
         }
         Parser();
@@ -2668,6 +2881,7 @@ void glk_main(void)
         } else if (!InKaylethPreview) {
             JustStarted = 0;
         }
+        /* Kayleth's preview ends when the player is put in room 1. */
         if (MyLoc == 1) {
             InKaylethPreview = 0;
         }

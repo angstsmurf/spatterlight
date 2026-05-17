@@ -10,6 +10,12 @@
 
 #include <stdint.h>
 
+/* Base address of the ZX Spectrum's writable RAM (and screen memory).
+   ROM occupies 0x0000-0x3FFF; usable RAM starts at 0x4000, which is also
+   where Taylor's games load. Used to translate between Z80 addresses
+   stored in game data and offsets into our loaded FileImage. */
+#define ZX_RAM_BASE 0x4000
+
 uint8_t *GetTZXBlock(int blockno, uint8_t *srcbuf, size_t *length);
 uint8_t *DeAlkatraz(uint8_t *raw_data, uint8_t *target, size_t offset, uint16_t IX, uint16_t DE, uint8_t *loacon, uint8_t add1, uint8_t add2, int selfmodify);
 void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t IX, uint16_t store);

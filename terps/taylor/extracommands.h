@@ -9,7 +9,7 @@
 #define extracommands_h
 
 int TryExtraCommand(void);
-int ParseExtraCommand(char *p);
+int ParseExtraCommand(const char *p);
 
 #define EXTRA_COMMAND 0xffff
 

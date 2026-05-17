@@ -328,55 +328,47 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
    checksum-specific memory block relocations for variants that store
    graphics data at non-standard addresses. Finally, sets the global Game
    pointer to the matching entry in games[]. */
-static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
+/* Run unp64 record.decompress_iterations times, peeling off one
+ * compression layer per pass. Each successful pass installs the
+ * unpacked buffer as the new input; a failed pass aborts the chain
+ * but keeps whatever was already unpacked. */
+static void decompressIterations(uint8_t **sf, size_t *extent, c64rec record)
 {
-    size_t decompressed_length = *extent;
+    uint8_t *output = MemAlloc(0x10000);
+    size_t decompressedLength = 0;
 
-    uint8_t *uncompressed = MemAlloc(0x10000);
-
-    int result = 0;
-
-    /* Iteratively decompress — some releases were packed multiple times */
     for (int i = 1; i <= record.decompress_iterations; i++) {
-        /* We only send switches on the iteration specified by parameter */
-        if (i == record.parameter && record.switches != NULL) {
-            result = unp64(*sf, *extent, uncompressed,
-                &decompressed_length, record.switches);
-        } else
-            result = unp64(*sf, *extent, uncompressed,
-                &decompressed_length, NULL);
-        if (result) {
-            if (*sf != NULL)
-                free(*sf);
-            *sf = MemAlloc(decompressed_length);
-            memcpy(*sf, uncompressed, decompressed_length);
-            *extent = decompressed_length;
-        } else {
-            free(uncompressed);
-            uncompressed = NULL;
+        const char *switches =
+            (i == record.parameter && record.switches != NULL) ? record.switches : NULL;
+        if (!unp64(*sf, *extent, output, &decompressedLength, switches))
             break;
-        }
+        /* Swap: the freshly-unpacked output replaces the input buffer.
+         * Grab a fresh 64 KiB scratch buffer for the next pass. */
+        free(*sf);
+        *sf = output;
+        *extent = decompressedLength;
+        output = MemAlloc(0x10000);
     }
 
-    if (uncompressed != NULL)
-        free(uncompressed);
+    free(output);
+}
+
+static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
+{
+    decompressIterations(sf, extent, record);
 
     /* Relocate graphics data for specific releases that store image blocks
-       at addresses the engine doesn't expect */
-    uint8_t temp[0x2e79];
-
+       at addresses the engine doesn't expect. memmove handles the
+       overlapping Rebel Planet case correctly. */
     switch (record.chk) {
     case 0xa46f: /* Rebel Planet: move block from 0x098a to 0x198a */
-        memcpy(temp, *sf + 0x098a, 0x2e79);
-        memcpy(*sf + 0x198a, temp, 0x2e79);
+        memmove(*sf + 0x198a, *sf + 0x098a, 0x2e79);
         break;
     case 0x78ba: /* He-Man: move image data from 0xc802 to 0x4808 */
-        memcpy(temp, *sf + 0xc802, 0x1400);
-        memcpy(*sf + 0x4808, temp, 0x1400);
+        memmove(*sf + 0x4808, *sf + 0xc802, 0x1400);
         break;
     case 0xf3b4: /* Temple of Terror (FBR crack): move image data from 0xd802 to 0x4808 */
-        memcpy(temp, *sf + 0xd802, 0x1400);
-        memcpy(*sf + 0x4808, temp, 0x1400);
+        memmove(*sf + 0x4808, *sf + 0xd802, 0x1400);
         break;
     default:
         break;

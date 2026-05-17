@@ -168,31 +168,26 @@ static void TranscriptOff(void)
         "Transcript is now off.\n");
 }
 
-int ParseExtraCommand(char *p)
+int ParseExtraCommand(const char *word)
 {
-    if (p == NULL)
+    if (word == NULL)
         return NO_COMMAND;
-    size_t len = strlen(p);
-    if (len == 0)
+    size_t word_len = strlen(word);
+    if (word_len == 0)
         return NO_COMMAND;
-    int j = 0;
-    int found = 0;
-    while (ExtraCommands[j] != NULL) {
-        size_t commandlen = strlen(ExtraCommands[j]);
-        if (commandlen == len) {
-            char *c = p;
-            found = 1;
-            for (int i = 0; i < len; i++) {
-                if (tolower(*c++) != ExtraCommands[j][i]) {
-                    found = 0;
-                    break;
-                }
-            }
-            if (found) {
-                return ExtraCommandsKey[j];
+    for (int cmd_index = 0; ExtraCommands[cmd_index] != NULL; cmd_index++) {
+        const char *command = ExtraCommands[cmd_index];
+        if (strlen(command) != word_len)
+            continue;
+        int matched = 1;
+        for (size_t i = 0; i < word_len; i++) {
+            if (tolower((unsigned char)word[i]) != command[i]) {
+                matched = 0;
+                break;
             }
         }
-        j++;
+        if (matched)
+            return ExtraCommandsKey[cmd_index];
     }
     return NO_COMMAND;
 }
