@@ -740,39 +740,37 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
    needed), then identifies the game dictionary, loads the database via
    TryLoading, appends any Savage Island picture data, relocates
    graphics blocks via CopyData, and initializes the drawing system. */
+
+/* Run unp64 record.decompress_iterations times, peeling off one
+   compression layer per pass. Each successful pass installs the
+   unpacked buffer as the new input; a failed pass aborts the chain
+   but keeps whatever was already unpacked. */
+static void decompressIterations(uint8_t **sf, size_t *length, c64rec record)
+{
+    uint8_t *output = MemAlloc(0x10000);
+    size_t decompressedLength = 0;
+
+    for (int i = 1; i <= record.decompress_iterations; i++) {
+        const char *switches =
+            (i == record.parameter && record.switches != NULL) ? record.switches : NULL;
+        if (!unp64(*sf, *length, output, &decompressedLength, switches))
+            break;
+        /* Swap: the freshly-unpacked output replaces the input buffer.
+         * Grab a fresh 64 KiB scratch buffer for the next pass. */
+        free(*sf);
+        *sf = output;
+        *length = decompressedLength;
+        output = MemAlloc(0x10000);
+    }
+
+    free(output);
+}
+
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
 {
     size_t length = *extent;
-    size_t decompressed_length = *extent;
 
-    uint8_t *uncompressed = MemAlloc(0x10000);
-
-    int result = 0;
-
-    /* Iteratively decompress — some releases were packed multiple times */
-    for (int i = 1; i <= record.decompress_iterations; i++) {
-        /* We only send switches on the iteration specified by parameter */
-        if (i == record.parameter && record.switches != NULL) {
-            result = unp64(*sf, length, uncompressed,
-                &decompressed_length, record.switches);
-        } else
-            result = unp64(*sf, length, uncompressed,
-                &decompressed_length, NULL);
-        if (result) {
-            if (*sf != NULL)
-                free(*sf);
-            *sf = MemAlloc(decompressed_length);
-            memcpy(*sf, uncompressed, decompressed_length);
-            length = decompressed_length;
-        } else {
-            free(uncompressed);
-            uncompressed = NULL;
-            break;
-        }
-    }
-
-    if (uncompressed != NULL)
-        free(uncompressed);
+    decompressIterations(sf, &length, record);
 
     *extent = length;
 
@@ -794,27 +792,17 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
         Fatal("Game not found!");
     }
 
-    /* The GetId(&offset) function looks for a pattern in the data pointed to by the global pointer
-       entire_file, so we have to set entire_file to the local data pointer *sf here. This means that if
-       entire_file was previously pointing to the entire disk image (which is likely), that disk image
-       data will now be lost and replaced with the decompressed file data. So we can't access other files
-       on the disk image or check if the game is in fact not a C64 game after this point.
-     */
-
-    if (entire_file != *sf && entire_file != NULL) {
-        free(entire_file);
-        entire_file = *sf;
-    }
-    file_length = length;
-
     size_t offset;
 
-    DictionaryType dictype = GetId(&offset);
+    DictionaryType dictype = GetId(*sf, length, &offset);
     if (dictype != Game->dictionary) {
         Fatal("Wrong game?");
     }
 
-    if (TryLoading(Game, offset) == UNKNOWN_GAME) {
+    /* TryLoading adopts the buffer into entire_file/file_length internally;
+       if entire_file was pointing at the source disk image, it is freed
+       as part of that adoption. */
+    if (TryLoading(*sf, length, Game, offset) == UNKNOWN_GAME) {
         Fatal("Game could not be read!");
     }
 
@@ -823,31 +811,34 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
     }
 
     /* Relocate graphics data to the addresses the drawing engine expects.
-       Gremlins has an overlapping source/dest region that needs special handling. */
+       Gremlins preserves a $1000-byte block that would otherwise be lost
+       across the CopyData reallocation, and rewrites it at a shifted offset. */
     if (CurrentGame == GREMLINS_C64 && record.copysource == 0xc801) {
         uint8_t overlap[0x1000];
         memcpy(overlap, *sf + 0xd801, 0x1000);
-        result = CopyData(record.copydest, record.copysource, sf, *extent, record.copysize);
-        *extent = result;
+        size_t newSize = CopyData(record.copydest, record.copysource, sf, *extent, record.copysize);
+        *extent = newSize;
         memcpy(*sf + 0xc774, overlap, 0x1000);
     } else if (record.copysource != 0) {
-        result = CopyData(record.copydest, record.copysource, sf, *extent,
+        size_t newSize = CopyData(record.copydest, record.copysource, sf, *extent,
             record.copysize);
-        if (result) {
-            *extent = result;
+        if (newSize) {
+            *extent = newSize;
         }
     }
 
     /* Claymorgue has extra image data that needs copying to a high offset */
     if (CurrentGame == CLAYMORGUE_C64 && record.copysource == 0x855) {
-        result = CopyData(0x1531a, 0x2002, sf, *extent, 0x2000);
-        if (result) {
-            *extent = result;
+        size_t newSize = CopyData(0x1531a, 0x2002, sf, *extent, 0x2000);
+        if (newSize) {
+            *extent = newSize;
         }
     }
 
+    /* If the game uses tile-based graphics (unlike the Mysterious Adventures)
+       we need to initialize them here. */
     if (!(Game->subtype & MYSTERIOUS))
-        SagaSetup(record.imgoffset);
+        SagaGraphicsSetup(record.imgoffset);
 
     return CurrentGame;
 }

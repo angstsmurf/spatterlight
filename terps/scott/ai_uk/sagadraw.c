@@ -152,7 +152,7 @@ static void PatchOutBrokenClaymorgueImagesZX(void)
 
    imgoffset, if non-zero, overrides the game's default data_offset
    (used when graphics data has been relocated). */
-void SagaSetup(size_t imgoffset)
+void SagaGraphicsSetup(size_t imgoffset)
 {
 	if (images != NULL)
         return;

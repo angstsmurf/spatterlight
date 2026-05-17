@@ -146,7 +146,7 @@ GameIDType DetectTI994A(void)
 
     /* Locate the header by searching for a known byte sequence that
        appears at a fixed logical offset (0x589) in the GROM data. */
-    int signature_offset = FindCode("\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 10);
+    int signature_offset = FindCode(entire_file, file_length, "\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 10);
     if (signature_offset == -1)
         return UNKNOWN_GAME;
 

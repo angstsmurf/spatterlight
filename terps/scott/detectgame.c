@@ -16,8 +16,6 @@
 #include "detectgame.h"
 #include "line_drawing.h"
 #include "sagadraw.h"
-#include "irmak.h"
-#include "taylordraw.h"
 #include "saga.h"
 #include "scottgameinfo.h"
 
@@ -37,6 +35,12 @@
 extern const char *sysdict_zx[MAX_SYSMESS];
 extern int header[];
 
+/* Base address of the ZX Spectrum's writable RAM. ROM occupies
+   0x0000-0x3FFF; RAM starts at 0x4000, which is where loaded programs
+   live. Used to translate Z80 addresses stored in saved .z80 snapshots
+   to offsets into our in-memory file buffer. */
+#define ZX_RAM_BASE 0x4000
+
 /* Byte signatures used to locate the dictionary in a game file.
    Each entry pairs a dictionary format with a short sequence of bytes
    that uniquely identifies it (typically the first few dictionary words). */
@@ -53,36 +57,39 @@ struct dictionaryKey dictKeys[] = {
     { FOUR_LETTER_COMPRESSED, "aUTOgO", 7 },
     { GERMAN_C64, "gEHENSTEIGE", 11 }, // Gremlins German C64
     { GERMAN, "\xc7"
-              "EHENSTEIGE",
-        10 },
+              "EHENSTEIGE", 10 },
     { SPANISH, "\x81\0\0\0\xc9R\0\0ANDAENTR", 16 },
     { SPANISH_C64, "\x81\0\0\0iR\0\0ANDAENTR", 16 },
     { ITALIAN, "AUTO\0VAI\0\0*ENTR", 15 },
     { NOT_A_GAME, NULL, 0 }
 };
 
-/* Search the entire loaded file for a byte sequence.
-   Returns the offset of the first match, or -1 if not found. */
-int FindCode(const char *x, int len)
+/* Search `data` (of length `datasize`) for the byte sequence `pattern`
+   (of length `patternLen`). Returns the offset of the first match, or
+   -1 if not found. */
+int FindCode(const uint8_t *data, size_t dataLen, const char *pattern, int patternLen)
 {
-    unsigned const char *p = entire_file;
-    while (p < entire_file + file_length - len) {
-        if (memcmp(p, x, len) == 0) {
-            return p - entire_file;
+    if (data == NULL || dataLen < (size_t)patternLen)
+        return -1;
+    const uint8_t *cursor = data;
+    const uint8_t *lastPossibleStart = data + dataLen - patternLen;
+    while (cursor < lastPossibleStart) {
+        if (memcmp(cursor, pattern, patternLen) == 0) {
+            return (int)(cursor - data);
         }
-        p++;
+        cursor++;
     }
     return -1;
 }
 
-/* Identify the game's dictionary format by scanning the file for known
+/* Identify the game's dictionary format by scanning `data` for known
    signatures. Returns the dictionary type and sets *offset to the start
    of the dictionary. Some formats require a backward offset adjustment
    because the signature appears partway through the dictionary. */
-DictionaryType GetId(size_t *offset)
+DictionaryType GetId(const uint8_t *data, size_t dataLen, size_t *offset)
 {
     for (int i = 0; dictKeys[i].dict != NOT_A_GAME; i++) {
-        *offset = FindCode(dictKeys[i].signature, dictKeys[i].len);
+        *offset = FindCode(data, dataLen, dictKeys[i].signature, dictKeys[i].len);
         if (*offset != -1) {
             switch (dictKeys[i].dict) {
             case GERMAN_C64:
@@ -852,8 +859,21 @@ static GameIDType TryLoadingOld(const GameInfo *info, int dict_start)
    formats, and compressed vs plain NUL-terminated text strings.
 
    On success, all global game arrays are populated and the game ID is returned. */
-GameIDType TryLoading(const GameInfo *info, int dict_start)
+GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int dict_start)
 {
+    /* TryLoading's downstream helpers (LoadGameHeader, SeekIfNeeded,
+       SeekToPos, ReadDictionary, etc.) currently read the game buffer
+       via the global entire_file / file_length pair. Adopt the caller's
+       buffer into those globals here. If the caller passed a buffer
+       different from the current entire_file (e.g. a PRG extracted from
+       a D64 disk image), the old buffer is freed — we're committed to
+       this game, so the rest of the disk image is no longer needed. */
+    if (data != entire_file) {
+        free(entire_file);
+        entire_file = data;
+    }
+    file_length = datasize;
+
     /* The UK versions of Hulk uses the Mak Jukic binary database format */
     if (info->gameID == HULK || info->gameID == HULK_C64)
         return LoadBinaryDatabase(entire_file, file_length, *info, dict_start);
@@ -1122,24 +1142,24 @@ uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr)
 GameIDType DetectZXSpectrum(void)
 {
     GameIDType detectedGame = UNKNOWN_GAME;
-    int wasz80 = 0;
+    int was_z80_snapshot = 0;
     uint8_t *uncompressed = DecompressZ80(entire_file, &file_length);
     if (uncompressed != NULL) {
-        wasz80 = 1;
+        was_z80_snapshot = 1;
         free(entire_file);
         entire_file = uncompressed;
     }
 
-    size_t offset;
+    size_t dict_offset;
 
-    DictionaryType dict_type = GetId(&offset);
+    DictionaryType dict_type = GetId(entire_file, file_length, &dict_offset);
 
     if (dict_type == NOT_A_GAME)
         return UNKNOWN_GAME;
 
     for (int i = 0; games[i].Title != NULL; i++) {
         if (games[i].dictionary == dict_type) {
-            detectedGame = TryLoading(&games[i], offset);
+            detectedGame = TryLoading(entire_file, file_length, &games[i], dict_offset);
             if (detectedGame != UNKNOWN_GAME) {
                 free(Game);
                 Game = &games[i];
@@ -1151,24 +1171,28 @@ GameIDType DetectZXSpectrum(void)
     /* If no dictionary was found and this was a .z80 snapshot, try
        Parsec RLE decompression. The decompression parameters (start/end
        addresses) are stored in saved Z80 registers at fixed offsets.
-       Addresses are adjusted by -0x4000 to convert from the Spectrum's
-       memory map to the file buffer. */
-    if (!detectedGame && wasz80) {
-        uint8_t *mem = entire_file;
-        uint16_t HL = READ_LE_UINT16(mem + 0x1b42) - 0x4000;
-        uint8_t *result = 0;
+       Addresses are adjusted by -ZX_RAM_BASE (0x4000) to convert from
+       the Spectrum's memory map to the file buffer. */
+    if (!detectedGame && was_z80_snapshot) {
+        uint8_t *file_data = entire_file;
+        /* HL: source pointer for the first Parsec pass (the compressed
+           data inside the snapshot). */
+        uint16_t HL = READ_LE_UINT16(file_data + 0x1b42) - ZX_RAM_BASE;
+        uint8_t *first_pass_result = 0;
         if (HL < file_length)
-            result = DecompressParsec(&mem[0x0fff], &mem[0x07ff], &mem[HL]);
-        if (result) {
-            uint16_t BC = READ_LE_UINT16(mem + 0x1b48) - 0x4000;
-            uint16_t DE = READ_LE_UINT16(mem + 0x1b4b) - 0x4000;
-            DecompressParsec(&mem[BC], &mem[DE], result);
-            dict_type = GetId(&offset);
+            first_pass_result = DecompressParsec(&file_data[0x0fff], &file_data[0x07ff], &file_data[HL]);
+        if (first_pass_result) {
+            /* BC/DE: output start/end for the second Parsec pass, which
+               unpacks the first-pass result into its final position. */
+            uint16_t BC = READ_LE_UINT16(file_data + 0x1b48) - ZX_RAM_BASE;
+            uint16_t DE = READ_LE_UINT16(file_data + 0x1b4b) - ZX_RAM_BASE;
+            DecompressParsec(&file_data[BC], &file_data[DE], first_pass_result);
+            dict_type = GetId(entire_file, file_length, &dict_offset);
             if (dict_type == NOT_A_GAME)
                 Fatal("Unsupported game!");
             for (int i = 0; games[i].Title != NULL; i++) {
                 if (games[i].dictionary == dict_type) {
-                    if (TryLoading(&games[i], offset)) {
+                    if (TryLoading(entire_file, file_length, &games[i], dict_offset)) {
                         free(Game);
                         Game = &games[i];
                         detectedGame = Game->gameID;
@@ -1423,7 +1447,7 @@ GameIDType DetectGame(const char *file_name)
 
     /* If it is a C64 or a Mysterious Adventures game, we have set up the graphics already */
     if (!(Game->subtype & (C64 | MYSTERIOUS)) && Game->number_of_pictures > 0) {
-        SagaSetup(0);
+        SagaGraphicsSetup(0);
     }
 
     return detectedGame;
