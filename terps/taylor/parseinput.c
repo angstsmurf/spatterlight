@@ -54,21 +54,21 @@ void SplitIntoWords(const char *string, int length)
     int wordlength[MAX_WORDS];
 
     int words_found = 0;
-    int word_index = 0;
     int foundcomma = 0;
-    startpos[0] = 0;
-    wordlength[0] = 0;
     int lastwasspace = 1;
-    for (int i = 0; string[i] != 0 && i < length && word_index < MAX_WORDS; i++) {
+    for (int i = 0; string[i] != 0 && i < length; i++) {
         char c = string[i];
         if (c == '.' || c == ',' || c == ';')
             foundcomma = 1;
-        if (!isspace(c)) {
+        if (!isspace((unsigned char)c)) {
             if (lastwasspace || foundcomma) {
                 /* Start a new word */
+                if (words_found >= MAX_WORDS)
+                    break;
                 startpos[words_found] = i;
-                words_found++;
                 wordlength[words_found] = 0;
+                words_found++;
+                foundcomma = 0;
             }
             wordlength[words_found - 1]++;
             lastwasspace = 0;
@@ -105,13 +105,20 @@ void LineInput(void)
 {
     event_t ev;
     char buf[512];
+    /* Discard any leftover word state from the previous turn and flush
+       pending output so the prompt appears below it. */
     FreeInputWords();
     OutFlush();
     FirstAfterInput = 0;
     LastVerb = 0;
     do {
+        /* Pretend the previous character was a newline so OutChar's
+           capitalization logic treats the prompt as a fresh sentence. */
         LastChar = '\n';
         if (Version == QUESTPROBE3_TYPE) {
+            /* QP3 prefixes the prompt with the active character's name
+               ("THING I want you to" / "HUMAN TORCH I want you to"),
+               except in the intro room. */
             if (MyLoc != 6) {
                 if (IsThing == 0)
                     SysMessage(8);
@@ -119,12 +126,18 @@ void LineInput(void)
                     SysMessage(9);
             }
             OutCaps();
+            /* "I want you to" */
             SysMessage(10);
         } else
             OutString("> ");
         OutFlush();
         glk_request_line_event(Bottom, buf, (glui32)511, 0);
 
+        /* Pump Glk events until the line-input completes. Non-input events
+           (timer, resize, etc.) are dispatched to Updates() so the
+           interpreter keeps rendering. Transcript is parked across those
+           dispatches to keep repeated room descriptions out of the saved log
+           when redrawing. */
         while (1) {
             glk_select(&ev);
 
@@ -145,6 +158,9 @@ void LineInput(void)
 
         SplitIntoWords(buf, length);
 
+        /* Defensive: the splitter caps at MAX_WORDS so this path is
+           currently unreachable, but if it ever fires, discard the input
+           and reprompt rather than overrunning downstream buffers. */
         if (WordsInInput >= MAX_WORDS) {
             Display(Bottom, "Too many words!\n");
             FreeInputWords();
@@ -154,6 +170,7 @@ void LineInput(void)
             return;
         }
 
+        /* Empty input (whitespace only) — print "Huh?" and reprompt. */
         WordsInInput = 0;
         Display(Bottom, "Huh?");
         FirstAfterInput = 0;
@@ -165,48 +182,43 @@ void LineInput(void)
 static const char *Abbreviations[] = { "I   ", "L   ", "X   ", "Z   ", "Q   ", "Y   ", NULL };
 static const char *AbbreviationValue[] = { "INVE", "LOOK", "EXAM", "WAIT", "QUIT", "YES ", NULL };
 
+/* Sentinel byte that terminates the dictionary in the game file */
+#define DICT_END 126
+
 /* Look up a word in the game dictionary. The dictionary is a flat list of
-   5-byte entries (4-char word + 1-byte code), terminated by code 126.
+   5-byte entries (4-char word + 1-byte code), terminated by code DICT_END.
    Returns the dictionary code, or 0 if not found (after also checking
    single-letter abbreviations and extra commands). */
-int ParseWord(char *p)
+int ParseWord(const char *word)
 {
-    char buf[5];
-    size_t len = strlen(p);
-    unsigned char *words = FileImage + VerbBase;
-    int i;
+    char key[5];
+    size_t word_len = strlen(word);
+    unsigned char *entry = FileImage + VerbBase;
 
-    if (len >= 4) {
-        memcpy(buf, p, 4);
-        buf[4] = 0;
+    if (word_len >= 4) {
+        memcpy(key, word, 4);
     } else {
-        memcpy(buf, p, len);
-        memset(buf + len, ' ', 4 - len);
+        memcpy(key, word, word_len);
+        memset(key + word_len, ' ', 4 - word_len);
     }
-    for (i = 0; i < 4; i++) {
-        if (buf[i] == 0)
-            break;
-        if (islower(buf[i]))
-            buf[i] = toupper(buf[i]);
-    }
-    while (*words != 126) {
-        if (memcmp(words, buf, 4) == 0)
-            return words[4];
-        words += 5;
+    key[4] = 0;
+    for (int i = 0; i < 4; i++)
+        key[i] = (char)toupper((unsigned char)key[i]);
+
+    while (*entry != DICT_END) {
+        if (memcmp(entry, key, 4) == 0)
+            return entry[4];
+        entry += 5;
     }
 
-    words = FileImage + VerbBase;
-    for (i = 0; Abbreviations[i] != NULL; i++) {
-        if (memcmp(Abbreviations[i], buf, 4) == 0) {
-            while (*words != 126) {
-                if (memcmp(words, AbbreviationValue[i], 4) == 0)
-                    return words[4];
-                words += 5;
-            }
+    if (word_len == 1) {
+        for (int i = 0; Abbreviations[i] != NULL; i++) {
+            if (memcmp(Abbreviations[i], key, 4) == 0)
+                return ParseWord(AbbreviationValue[i]);
         }
     }
 
-    if (ParseExtraCommand(p)) {
+    if (ParseExtraCommand(word)) {
         FoundExtraCommand = 1;
     }
     return 0;
@@ -216,22 +228,22 @@ int ParseWord(char *p)
 static const char *Delimiters[] = { ",", ".", ";", "AND", "THEN", NULL };
 
 /* Check if a word is a command delimiter (case-insensitive). */
-static int IsDelimiterWord(char *word)
+static int IsDelimiterWord(const char *word)
 {
-    size_t len1 = strlen(word);
+    size_t word_len = strlen(word);
     for (int i = 0; Delimiters[i] != NULL; i++) {
-        size_t len2 = strlen(Delimiters[i]);
-        if (len2 == len1) {
-            int found = 1;
-            for (int j = 0; j < len1; j++) {
-                if (toupper(word[j]) != Delimiters[i][j]) {
-                    found = 0;
-                    break;
-                }
+        const char *delim = Delimiters[i];
+        if (strlen(delim) != word_len)
+            continue;
+        int matched = 1;
+        for (size_t j = 0; j < word_len; j++) {
+            if (toupper((unsigned char)word[j]) != delim[j]) {
+                matched = 0;
+                break;
             }
-            if (found)
-                return 1;
         }
+        if (matched)
+            return 1;
     }
     return 0;
 }
@@ -265,8 +277,6 @@ static int FindNextCommandDelimiter(void)
    for Blizzard Pass and Questprobe 3. */
 void Parser(void)
 {
-    int i;
-
     FoundExtraCommand = 0;
 
     if (!FindNextCommandDelimiter()) {
@@ -278,12 +288,17 @@ void Parser(void)
         OutChar(' ');
     }
 
-    int wn = 0;
+    int out_index = 0;
 
-    for (i = 0; i < 5 && WordIndex + i < WordsInInput; i++) {
-        Word[wn] = ParseWord(InputWordStrings[WordIndex + i]);
-        /* Hack for Blizzard Pass verbs */
-        if (CurrentGame == BLIZZARD_PASS && wn == 0) {
+    for (int offset = 0; offset < 5 && WordIndex + offset < WordsInInput; offset++) {
+        int input_pos = WordIndex + offset;
+        Word[out_index] = ParseWord(InputWordStrings[input_pos]);
+        /* Hack for certain Blizzard Pass verbs */
+        /* which are detected as nouns. */
+        /* The TaylorMade dictionary format has a single word list and does not
+           differentiate between verbs and nouns, but Blizzard Pass seems confused
+           about this. */
+        if (CurrentGame == BLIZZARD_PASS && out_index == 0) {
             /* Change SKIN to VSKI */
             if (Word[0] == 249)
                 Word[0] = 43;
@@ -294,7 +309,7 @@ void Parser(void)
             else if (Word[0] == 134)
                 Word[0] = 49;
         }
-        if (Version == QUESTPROBE3_TYPE && wn == 1) {
+        if (Version == QUESTPROBE3_TYPE && out_index == 1) {
             /* Understand WALL and FIRE as the wall of fire */
             if ((Word[1] == 54 || Word[1] == 44) && (ObjectLoc[10] == MyLoc || ObjectLoc[11] == MyLoc))
                 Word[1] = 77;
@@ -302,17 +317,17 @@ void Parser(void)
             if (Word[1] == 106 && ObjectLoc[46] == MyLoc)
                 Word[1] = 121;
         }
-        if (Word[wn]) {
-            debug_print("Word %d is %d\n", wn, Word[wn]);
-            WordPositions[wn] = WordIndex + i;
-            wn++;
+        if (Word[out_index]) {
+            debug_print("Word %d is %d\n", out_index, Word[out_index]);
+            WordPositions[out_index] = input_pos;
+            out_index++;
         } else {
-            if (wn > 0 && IsDelimiterWord(InputWordStrings[WordIndex + i]))
+            if (out_index > 0 && IsDelimiterWord(InputWordStrings[input_pos]))
                 break;
-            debug_print("Word at position %d, %s, was not recognized\n", WordIndex + i, InputWordStrings[WordIndex + i]);
+            debug_print("Word at position %d, %s, was not recognized\n", input_pos, InputWordStrings[input_pos]);
         }
     }
-    for (i = wn; i < 5; i++) {
+    for (int i = out_index; i < 5; i++) {
         Word[i] = 0;
         WordPositions[i] = 0;
     }

@@ -20,6 +20,7 @@
 #include "taylordraw.h"
 #include "utility.h"
 #include "irmak.h"
+#include "extracttape.h"
 
 #include "graphics.h"
 
@@ -105,6 +106,15 @@ static void Patch(uint8_t *offset, int patch_number)
 
 #pragma mark Extract images from file
 
+/* Each QP3 image is preceded by a 4-byte header: width, height, xoff, yoff. */
+#define IMAGE_HEADER_BYTES 4
+
+/* Patched buffer sizes for two QP3 images that are damaged in many
+   distributed copies. We hold a private copy so patching doesn't mutate
+   the rest of the loaded file image. */
+#define Q3_WIND_TUNNEL_SIZE 608  /* picture 17 (wind tunnel) */
+#define Q3_EGG_BIOGEM_SIZE  403  /* picture 56 (egg and bio gem) */
+
 static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, size_t offsets, size_t imgdata)
 {
     img->imagedata = NULL;
@@ -113,7 +123,7 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
     if (offsets >= FileImageLen)
         return;
     uint16_t image_addr = imgdata + READ_LE_UINT16(FileImage + offset_addr);
-    if (image_addr >= FileImageLen - 4)
+    if (image_addr >= FileImageLen - IMAGE_HEADER_BYTES)
         return;
 
     uint8_t *pos = &FileImage[image_addr];
@@ -123,16 +133,16 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
     img->yoff = *pos++;
     img->imagedata = pos;
     img->datasize = EndOfGraphicsData - pos;
-    
+
     /* In some Spectrum versions, the "wind tunnel" image
        is damaged. As the game contains several (wasteful)
        copies of this image and different ones are broken in
        different ways, we just make use the data for number 17
        for all of them (after patching it.)*/
     if (picture_number == 17) {
-        img->imagedata = MemAlloc(608);
-        img->datasize = 608;
-        memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 608));
+        img->imagedata = MemAlloc(Q3_WIND_TUNNEL_SIZE);
+        img->datasize = Q3_WIND_TUNNEL_SIZE;
+        memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, Q3_WIND_TUNNEL_SIZE));
         int patch = FindImagePatch(QUESTPROBE3, 55, 0);
         Patch(img->imagedata, patch);
     } else if (picture_number == 55 || (picture_number >= 18 && picture_number <= 20)) {
@@ -142,9 +152,9 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
         /* The last image, 56, the egg and the bio gem,
            is broken in many versions, especially the colours.
            We fix it here. */
-        img->imagedata = MemAlloc(403);
-        img->datasize = 403;
-        memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 403));
+        img->imagedata = MemAlloc(Q3_EGG_BIOGEM_SIZE);
+        img->datasize = Q3_EGG_BIOGEM_SIZE;
+        memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, Q3_EGG_BIOGEM_SIZE));
         int patch = FindImagePatch(QUESTPROBE3, 56, 0);
         Patch(img->imagedata, patch);
     }
@@ -226,7 +236,7 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
                 size_t baseoffset = patterns_lookup + Game->number_of_patterns + i * 2;
                 if (baseoffset >= FileImageLen - 1)
                     break;
-                size_t newoffset = READ_LE_UINT16(FileImage + baseoffset) - 0x4000 + FileBaselineOffset;
+                size_t newoffset = READ_LE_UINT16(FileImage + baseoffset) - ZX_RAM_BASE + FileBaselineOffset;
                 while (newoffset < FileImageLen && FileImage[newoffset] != Game->pattern_end_marker) {
                     instructions[index++] = FileImage[newoffset++];
                 }
@@ -241,7 +251,9 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
 }
 
 
-/* A number of common "repeat next byte n times" instruction patterns
+/* Run-length compression of draw instructions (used in some ZX Spectrum
+   versions):
+   A number of common "repeat next byte n times" instruction patterns
    beginning with 0x82 have been replace with single tokens. Token 0xfa
    means "copy the next n bytes m times, which is complicated by the fact
    that those n bytes may themselves contain repeat tokens, so we call

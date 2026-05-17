@@ -4,9 +4,10 @@
 //
 //  Handles extraction and decryption of game data from ZX Spectrum tape images
 //  (TZX and TAP formats) and Z80 memory snapshots. Most Adventure Soft UK games
-//  used the "Alkatraz" copy protection scheme, which encrypts game data using
-//  XOR with a self-modifying key stream, then shuffles memory blocks to obscure
-//  the final layout. This file provides the tools to reverse that process.
+//  used the "Alkatraz" copy protection scheme (by Appleby Associates), which
+//  encrypts game data using XOR with a self-modifying key stream, then shuffles
+//  memory blocks to obscure the final layout. This file provides the tools to
+//  reverse that process.
 //
 //  Created by Petter Sjölund on 2022-04-11.
 //
@@ -240,7 +241,7 @@ static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const Extrac
 // before the game data is usable.
 uint8_t *FixBrokenKayleth(uint8_t *image, size_t *length) {
     uint8_t *mem = MemAlloc(0x10000);
-    memcpy(mem + 0x4000, image, 0xc000);
+    memcpy(mem + ZX_RAM_BASE, image, 0xc000);
     lddr(mem, 0xf906, 0xf8fe, 0x1ed5);
     mem[0xda2a] = 0;
     ldir(mem, 0xda2b, 0xda2a, 7);
