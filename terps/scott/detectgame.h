@@ -13,9 +13,9 @@
 
 GameIDType DetectGame(const char *file_name);
 int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr);
-GameIDType TryLoading(const GameInfo *info, int dict_start);
-DictionaryType GetId(size_t *offset);
-int FindCode(const char *x, int base);
+GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int dict_start);
+DictionaryType GetId(const uint8_t *data, size_t datasize, size_t *offset);
+int FindCode(const uint8_t *data, size_t datasize, const char *pattern, int patternLen);
 uint8_t *ReadHeader(uint8_t *ptr);
 int ParseHeader(int *h, HeaderType type, int *num_items, int *num_actions,
     int *num_words, int *num_rooms, int *max_carry, int *player_room,

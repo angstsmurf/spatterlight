@@ -54,7 +54,7 @@ void InitIrmak(int numimg, int imgver);
 #define IRMAK_IMGHEIGHT 12
 #define IRMAK_IMGSIZE IRMAK_IMGWIDTH * IRMAK_IMGHEIGHT
 
-/* Used by SagaSetup() and TaylorSetup() */
+/* Used by SagaGraphicsSetup() and TaylorSetup() */
 extern uint8_t tiles[256][8];
 /* Used by animate_waterfall() in Robin of Sherwood.
    This contains the tile data used by an image, which

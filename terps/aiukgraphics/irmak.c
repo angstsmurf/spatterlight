@@ -79,7 +79,7 @@ Image *images = NULL;
 int number_of_images;
 int image_version;
 
-/* Called from SagaSetup() after the game data has been parsed. */
+/* Called from SagaGraphicsSetup() after the game data has been parsed. */
 void InitIrmak(int numimg, int imgver) {
     number_of_images = numimg;
     image_version = imgver;
