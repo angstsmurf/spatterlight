@@ -3770,6 +3770,23 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 }
 #endif
                 zterp_mouse_click(ev.val1 + 1, ev.val2 + 1);
+#ifdef SPATTERLIGHT
+            } else if (screenmode == MODE_HINTS && ev.win == windows[0].id) {
+                // We add the upper window height if
+                // click was in the lower window.
+                zterp_mouse_click(ev.val1 + 1, ev.val2 + 4);
+            } else if (ev.win->type == wintype_Graphics) {
+                if (is_spatterlight_zork0) {
+                    zterp_mouse_click(ev.val1, ev.val2);
+                } else {
+                    adjust_image_scale();
+                    fprintf(stderr, "mouse click: x:%d y:%d imagescalex:%f imagescaley:%f\n", ev.val1, ev.val2, imagescalex, imagescaley);
+                    int16_t y = round((ev.val2) / imagescaley) - 1;
+                    if (y < 3)
+                        y = 3;
+                    zterp_mouse_click(round(ev.val1 / imagescalex) - 1, y);
+                }
+#endif
 #ifdef ZTERP_GLK_GRAPHICS
             } else if (ev.win == graphics_window.id()) {
                 glui32 x = std::round(ev.val1 / graphics_window.ratio());
