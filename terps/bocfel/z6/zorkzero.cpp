@@ -304,7 +304,7 @@ void DISPLAY_BORDER(BorderType border) {
         if (graphics_type == kGraphicsTypeMacBW) {
             extend_underground_pillars(107, 80, 300, 115, 56, 43);
         } else {
-            extend_underground_pillars(73, 53, 200, 74, 38, 37);
+            extend_underground_pillars(73, 54, 200, 74, 38, 37);
         }
     } else if (border == OUTSIDE_BORDER) {
         if (graphics_type != kGraphicsTypeMacBW) {
