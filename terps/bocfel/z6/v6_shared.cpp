@@ -55,7 +55,7 @@ int number_of_margin_images = 0;
 void shift_margin_image_list(void) {
     fprintf(stderr, "More than 100 margin images! Shifting list, forgetting the first margin image (%d)\n", margin_images[0]);
     for (int i = 1; i < number_of_margin_images; i++) {
-       margin_images[i] = margin_images[i - 1];
+       margin_images[i - 1] = margin_images[i];
     }
     number_of_margin_images = MAX_MARGIN_IMAGES - 1;
 }
