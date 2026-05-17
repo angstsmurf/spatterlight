@@ -1589,7 +1589,6 @@ void SETUP_SN(void) {
     v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
 
     draw_snarfem();
-    win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, 0xffffff);
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
 }
 
