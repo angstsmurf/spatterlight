@@ -19,8 +19,8 @@
 #include "game_specific.h"
 #include "gremlins.h"
 #include "hulk.h"
-#include "robinofsherwood.h"
-#include "seasofblood.h"
+#include "robin_of_sherwood.h"
+#include "seas_of_blood.h"
 
 #include "parser.h"
 #include "ti99_4a_terp.h"
@@ -30,7 +30,6 @@
 
 #include "scott.h"
 #include "scott_actions.h"
-#include "scott_defines.h"
 #include "scott_display.h"
 
 #ifdef SPATTERLIGHT

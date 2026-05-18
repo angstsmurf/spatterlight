@@ -15,7 +15,7 @@
 #include "saga.h"
 #include "sagagraphics.h"
 #include "scott.h"
-#include "scottgameinfo.h"
+#include "scott_game_info.h"
 
 
 static const pairrec a8companionlist[][2] = {

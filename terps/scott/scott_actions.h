@@ -8,7 +8,7 @@
 #ifndef scott_actions_h
 #define scott_actions_h
 
-#include "scottdefines.h"
+#include "scott_defines.h"
 
 void ClearBitFlag(int bit);
 void ClearScreen(void);

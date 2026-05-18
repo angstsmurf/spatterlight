@@ -8,7 +8,7 @@
 #ifndef apple2detect_h
 #define apple2detect_h
 
-#include "scottdefines.h"
+#include "scott_defines.h"
 
 GameIDType DetectApple2(uint8_t **sf, size_t *extent);
 

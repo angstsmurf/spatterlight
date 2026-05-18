@@ -8,7 +8,7 @@
 #ifndef load_ti99_4a_h
 #define load_ti99_4a_h
 
-#include "scottdefines.h"
+#include "scott_defines.h"
 #include <stdint.h>
 #include <stdio.h>
 

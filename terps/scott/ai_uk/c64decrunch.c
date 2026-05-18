@@ -14,11 +14,11 @@
 
 #include "saga.h"
 #include "scott.h"
-#include "scottgameinfo.h"
+#include "scott_game_info.h"
 
 #include "c64decrunch.h"
 #include "c64diskimage.h"
-#include "detectgame.h"
+#include "detect_game.h"
 #include "sagadraw.h"
 #include "sagagraphics.h"
 #include "c64a8scott.h"

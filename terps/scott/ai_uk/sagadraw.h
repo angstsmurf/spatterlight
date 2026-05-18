@@ -9,7 +9,7 @@
 #define sagadraw_h
 
 #include "glk.h"
-#include "scottdefines.h"
+#include "scott_defines.h"
 
 void SagaGraphicsSetup(size_t imgoffset);
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,

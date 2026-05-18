@@ -1,5 +1,5 @@
 //
-//  titleimage.c
+//  title_image.c
 //  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Created by Petter Sjölund on 2022-10-01.
@@ -20,7 +20,7 @@
 #include "glkimp.h"
 #endif
 
-#include "titleimage.h"
+#include "title_image.h"
 
 void ResizeTitleImage(void)
 {

@@ -1,12 +1,12 @@
 //
-//  scottdefines.h
+//  scott_defines.h
 //  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Created by Petter Sjölund on 2022-01-10.
 //
 
-#ifndef scottdefines_h
-#define scottdefines_h
+#ifndef scott_defines_h
+#define scott_defines_h
 
 #include <stdint.h>
 
@@ -14,12 +14,17 @@
 #include "minmax.h"
 #include "common_defines.h"
 
+/* Sentinel used in the parsed-command stream to mean "the next action
+   line continues this one" (i.e. multi-line action with a CONTINUE op). */
 #define FOLLOWS 0xffff
 
+/* Built-in verb codes that the interpreter needs to recognize directly
+   for movement and ALL-handling, regardless of the game's dictionary. */
 #define GO 1
 #define TAKE 10
 #define DROP 18
 
+/* Sentinel noun value meaning "the player typed ALL" (TAKE/DROP ALL). */
 #define LASTALL 128
 
 /* Condition codes (0-19) — used in action table condition fields */
@@ -93,7 +98,8 @@
 #define OP_GAME_SPECIFIC    89
 #define OP_DRAW_IMAGE       90
 
-/* Game-specific EXAMINE verb indices */
+/* EXAMINE verb dictionary slots, per game. Each title shipped EXAMINE
+   in a different position in its verb list, so we look it up by ID. */
 #define HULK_EXAMINE_VERB    39
 #define COUNT_EXAMINE_VERB    8
 #define VOODOO_EXAMINE_VERB  42
@@ -105,6 +111,7 @@
 /* US-variant game-specific image */
 #define US_CLOSEUP_IMAGE 80
 
+/* "Return to Pirate's Isle" winning-screen image index. */
 #define RTPI_WIN_IMAGE 26
 
 /* --- TI-99/4A bytecode opcode definitions ---
@@ -141,7 +148,7 @@ scott_actions.c (but with different numbers). */
 #define TI99OP_SUCCESS_ON       217
 #define TI99OP_TRY              218
 #define TI99OP_GET_ITEM         219
-#define TI99OP_DRTI99OP_ITEM        220
+#define TI99OP_DRTI99OP_ITEM    220
 #define TI99OP_GOTO_ROOM        221
 #define TI99OP_DESTROY_ITEM     222
 #define TI99OP_SET_DARK         223
@@ -178,9 +185,16 @@ scott_actions.c (but with different numbers). */
 #define TI99OP_DELAY            254
 #define TI99OP_SUCCESS          255
 
+/* Bytecode bytes 1-182 are "print message N" (modulo the range split
+   handled by EXTENDED_MSG_*); 183+ are conditions or commands. */
 #define MAX_MESSAGE_OPCODE  182
+
+/* Maximum nesting depth for TRY blocks before we give up. */
 #define MAX_TRY_DEPTH        32
 
+/* All supported games and ports. Each title has separate IDs for its
+   different releases (US edition, C64, localized translations, etc.)
+   because the interpreter applies per-release quirks. */
 typedef enum {
     UNKNOWN_GAME,
     ADVENTURELAND_US = 1,
@@ -263,13 +277,17 @@ typedef enum {
     NUMGAMES
 } GameIDType;
 
+/* Outcome of running an action table to completion: success, or one of
+   two "exhausted without matching" variants for the caller to handle. */
 typedef enum {
-    ER_NO_RESULT,
     ER_SUCCESS = 0,
+    ER_NO_RESULT = 1,
     ER_RAN_ALL_LINES_NO_MATCH = -1,
     ER_RAN_ALL_LINES = -2
 } ExplicitResultType;
 
+/* Result of executing a single action line — drives the action-table
+   loop (continue scanning, stop, or end the game). */
 typedef enum {
     ACT_SUCCESS = 0,
     ACT_FAILURE = 1,
@@ -277,6 +295,8 @@ typedef enum {
     ACT_GAMEOVER
 } ActionResultType;
 
+/* Source platform of the loaded game image. Used to switch between
+   format-specific loaders and graphics decoders. */
 typedef enum {
     SYS_UNKNOWN,
     SYS_MSDOS,
@@ -289,6 +309,8 @@ typedef enum {
     SYS_C64_TINY
 } MachineType;
 
+/* Categories of pictures in the US releases: room-only vs. room+object
+   overlays vs. inventory close-ups. */
 typedef enum {
     IMG_ROOM,
     IMG_ROOM_OBJ,
@@ -296,6 +318,9 @@ typedef enum {
     IMG_INV_AND_ROOM_OBJ
 } USImageType;
 
+/* Indices into the system-message table (compass words, parser
+   responses, save/restore prompts, transcript controls). Order is
+   fixed because the loader fills the table positionally. */
 typedef enum {
     NORTH,
     SOUTH,
@@ -373,6 +398,8 @@ typedef enum {
 
 #define MAX_SYSMESS LAST_SYSTEM_MESSAGE
 
+/* Dictionary encoding used by the game. Word length and compression
+   vary across versions; the loader picks the right reader from this. */
 typedef enum {
     NOT_A_GAME,
     FOUR_LETTER_UNCOMPRESSED,
@@ -386,6 +413,8 @@ typedef enum {
     ITALIAN
 } DictionaryType;
 
+/* Coarse "game family" used to dispatch per-family interpreter quirks.
+   A given GameIDType maps to exactly one of these. */
 typedef enum {
     NO_TYPE,
     GREMLINS_VARIANT,
@@ -397,6 +426,7 @@ typedef enum {
     OLD_STYLE
 } GameType;
 
+/* Bitfield describing language and target platform of a game image. */
 typedef enum {
     ENGLISH = 0x1,
     MYSTERIOUS = 0x2,
@@ -404,6 +434,8 @@ typedef enum {
     C64 = 0x8
 } Subtype;
 
+/* Layout of the data header (table sizes and counts) at the start of
+   the game image. Each shipped variant used a slightly different one. */
 typedef enum {
     NO_HEADER,
     EARLY,
@@ -418,6 +450,8 @@ typedef enum {
     INDIANS_C64_HEADER
 } HeaderType;
 
+/* Encoding of the action table inside the game image. Hulk has a
+   custom format; other games are either packed (COMPRESSED) or not. */
 typedef enum {
     UNKNOWN_ACTIONS_TYPE,
     COMPRESSED,
@@ -425,6 +459,8 @@ typedef enum {
     HULK_ACTIONS
 } ActionTableType;
 
+/* Per-game metadata record: title, identity, table sizes and the file
+   offsets the loader uses to locate every table in the raw image. */
 typedef struct {
     const char *Title;
 
@@ -474,4 +510,4 @@ typedef struct {
     int start_of_intro_text;
 } GameInfo;
 
-#endif /* scottdefines_h */
+#endif /* scott_defines_h */

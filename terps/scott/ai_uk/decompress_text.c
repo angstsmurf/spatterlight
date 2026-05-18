@@ -1,5 +1,5 @@
 //
-//  decompresstext.c
+//  decompress_text.c
 //  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Implements the text decompression scheme used by Robin of Sherwood
@@ -11,7 +11,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#include "decompresstext.h"
+#include "decompress_text.h"
 #include "scott.h"
 
 #define DECOMPRESS_BUF_SIZE 256

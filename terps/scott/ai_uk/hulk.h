@@ -8,7 +8,7 @@
 #ifndef hulk_h
 #define hulk_h
 
-#include "scottdefines.h"
+#include "scott_defines.h"
 
 void HulkShowImageOnExamine(int noun);
 void HulkLook(void);

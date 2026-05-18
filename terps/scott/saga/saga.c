@@ -15,7 +15,7 @@
 #include "c64a8draw.h"
 #include "c64a8scott.h"
 #include "c64_small.h"
-#include "detectgame.h"
+#include "detect_game.h"
 #include "pcdraw.h"
 #include "randomness.h"
 #include "rtpi_graphics.h"

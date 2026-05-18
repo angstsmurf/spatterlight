@@ -20,7 +20,6 @@
 #include "glk.h"
 #include "scott.h"
 #include "scott_actions.h"
-#include "scott_defines.h"
 #include "scott_display.h"
 
 #include "load_ti99_4a.h"

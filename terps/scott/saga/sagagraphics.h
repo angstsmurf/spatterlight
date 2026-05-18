@@ -9,7 +9,7 @@
 #define sagagraphics_h
 
 #include "glk.h"
-#include "scottdefines.h"
+#include "scott_defines.h"
 
 struct USImage {
     USImageType usage;

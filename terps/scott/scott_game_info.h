@@ -1,14 +1,14 @@
 //
-//  scottgameinfo.h
+//  scott_game_info.h
 //  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Created by Petter Sjölund on 2022-01-09.
 //
 
-#ifndef scottgameinfo_h
-#define scottgameinfo_h
+#ifndef scott_game_info_h
+#define scott_game_info_h
 
-#include "scottdefines.h"
+#include "scott_defines.h"
 
 extern GameInfo games[];
 extern const char *sysdict[];
@@ -16,4 +16,4 @@ extern const char *sysdict_i_am[];
 extern const char *sysdict_zx[];
 extern const char *sysdict_TI994A[];
 
-#endif /* scottgameinfo_h */
+#endif /* scott_game_info_h */

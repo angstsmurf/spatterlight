@@ -12,7 +12,7 @@
 
 #include "glk.h"
 
-#include "restorestate.h"
+#include "restore_state.h"
 
 #include "parser.h"
 #include "scott.h"

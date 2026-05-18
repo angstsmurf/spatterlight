@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#include "scottdefines.h"
+#include "scott_defines.h"
 
 typedef enum {
     UNKNOWN_FILE_TYPE,

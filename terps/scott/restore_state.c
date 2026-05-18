@@ -1,5 +1,5 @@
 //
-//  restorestate.c
+//  restore_state.c
 //  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Created by Petter Sjölund on 2022-01-10.
@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 
-#include "restorestate.h"
+#include "restore_state.h"
 
 #include "scott.h"
 
