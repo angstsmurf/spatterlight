@@ -713,7 +713,7 @@
 		C37EC5A72847CD620084B841 /* sagaplus.c in Sources */ = {isa = PBXBuildFile; fileRef = C37EC5A62847CD620084B841 /* sagaplus.c */; };
 		C37EC5A8284807750084B841 /* plus in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = C37EC5992847AA040084B841 /* plus */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3824B4C2CAD821F00D58EFC /* libreadwoz.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3ED63132C6E0E64000F90A8 /* libreadwoz.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C3836ED82789B569004B5061 /* seasofblood.c in Sources */ = {isa = PBXBuildFile; fileRef = C3836ED52789B553004B5061 /* seasofblood.c */; };
+		C3836ED82789B569004B5061 /* seas_of_blood.c in Sources */ = {isa = PBXBuildFile; fileRef = C3836ED52789B553004B5061 /* seas_of_blood.c */; };
 		C384A68B2C6EB64E0081FC50 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C384A68A2C6EB64E0081FC50 /* libz.tbd */; };
 		C384A68E2C6F480C0081FC50 /* JourneyMenuHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C384A68D2C6F480C0081FC50 /* JourneyMenuHandler.m */; };
 		C3853E5F29676561002D4A27 /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3853E5E29676561002D4A27 /* SplitViewController.m */; };
@@ -762,7 +762,7 @@
 		C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA16284BAF0000C8A693 /* graphics.c */; };
 		C3A72FDA2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
 		C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3027A676630032C068 /* c64decrunch.c */; };
-		C3A9FD3327A6E56C0032C068 /* scottgameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */; };
+		C3A9FD3327A6E56C0032C068 /* scott_game_info.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scott_game_info.c */; };
 		C3AC26602F8A43B800DBBDBD /* zorkzero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C310487A2DB255570023B713 /* zorkzero.cpp */; };
 		C3AD63D42617648D008614C5 /* MyAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD63D32617648D008614C5 /* MyAttachmentCell.m */; };
 		C3AD640926176589008614C5 /* MarginContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD640826176589008614C5 /* MarginContainer.m */; };
@@ -816,12 +816,12 @@
 		C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */; };
 		C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */; };
 		C3BC41E228F3944D00AB6E6F /* companionfile.c in Sources */ = {isa = PBXBuildFile; fileRef = C3BC41E128F3944D00AB6E6F /* companionfile.c */; };
-		C3BCB7D728E8EBBB00D590ED /* titleimage.c in Sources */ = {isa = PBXBuildFile; fileRef = C3BCB7D628E8EBBB00D590ED /* titleimage.c */; };
+		C3BCB7D728E8EBBB00D590ED /* title_image.c in Sources */ = {isa = PBXBuildFile; fileRef = C3BCB7D628E8EBBB00D590ED /* title_image.c */; };
 		C3BD2E8B2874888E0019F676 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3BD2E882874888E0019F676 /* c64decrunch.c */; };
-		C3C0EE62278BB9CE0044A615 /* robinofsherwood.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE61278BB9CE0044A615 /* robinofsherwood.c */; };
+		C3C0EE62278BB9CE0044A615 /* robin_of_sherwood.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE61278BB9CE0044A615 /* robin_of_sherwood.c */; };
 		C3C0EE65278BBF750044A615 /* gremlins.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE64278BBF750044A615 /* gremlins.c */; };
-		C3C0EE68278BCA4D0044A615 /* decompresstext.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE67278BCA4D0044A615 /* decompresstext.c */; };
-		C3C0EE6B278BCA700044A615 /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE6A278BCA700044A615 /* restorestate.c */; };
+		C3C0EE68278BCA4D0044A615 /* decompress_text.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE67278BCA4D0044A615 /* decompress_text.c */; };
+		C3C0EE6B278BCA700044A615 /* restore_state.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE6A278BCA700044A615 /* restore_state.c */; };
 		C3C180C825C717F30040AE79 /* IFCoverDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C180C725C717F30040AE79 /* IFCoverDescription.m */; };
 		C3C2053C268D304500DB7AE0 /* NotificationBezel.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C20537268D304400DB7AE0 /* NotificationBezel.m */; };
 		C3C2053D268D304500DB7AE0 /* BezelWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C20539268D304500DB7AE0 /* BezelWindow.m */; };
@@ -830,7 +830,7 @@
 		C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C506E426590E4B00763D3E /* MissingFilesFinder.m */; };
 		C3C5926826A81AE200DFB49B /* autosavetest.gblorb in Resources */ = {isa = PBXBuildFile; fileRef = C3C5926726A8185700DFB49B /* autosavetest.gblorb */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
-		C3C72B6F278CB0F900E095A6 /* detectgame.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C72B6E278CB0F900E095A6 /* detectgame.c */; };
+		C3C72B6F278CB0F900E095A6 /* detect_game.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C72B6E278CB0F900E095A6 /* detect_game.c */; };
 		C3CB504C2662606600A95BE2 /* CoverImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB504B2662606600A95BE2 /* CoverImageHandler.m */; };
 		C3CC7FF926C01F33009B0B25 /* The Elysium Enigma command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3CC7FF826C01F33009B0B25 /* The Elysium Enigma command script.txt */; };
 		C3CC7FFA26C02180009B0B25 /* Elysium.t3 in Resources */ = {isa = PBXBuildFile; fileRef = C3CC7FF726C00ACA009B0B25 /* Elysium.t3 */; };
@@ -3061,8 +3061,8 @@
 		C3824B792CAEF0A800D58EFC /* arthur.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = arthur.cpp; sourceTree = "<group>"; };
 		C3824B7C2CAEF0F200D58EFC /* v6_shared.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = v6_shared.hpp; sourceTree = "<group>"; };
 		C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_shared.cpp; sourceTree = "<group>"; };
-		C3836ED42789B553004B5061 /* seasofblood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = seasofblood.h; sourceTree = "<group>"; usesTabs = 0; };
-		C3836ED52789B553004B5061 /* seasofblood.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = seasofblood.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3836ED42789B553004B5061 /* seas_of_blood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = seas_of_blood.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3836ED52789B553004B5061 /* seas_of_blood.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = seas_of_blood.c; sourceTree = "<group>"; usesTabs = 0; };
 		C384A67A2C6EAF770081FC50 /* decompress_amiga.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = decompress_amiga.hpp; sourceTree = "<group>"; };
 		C384A67B2C6EAF770081FC50 /* decompress_vga.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = decompress_vga.cpp; sourceTree = "<group>"; };
 		C384A67C2C6EAF780081FC50 /* decompress_amiga.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = decompress_amiga.cpp; sourceTree = "<group>"; };
@@ -3155,7 +3155,7 @@
 		C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfidToHashMigrationPolicy.m; sourceTree = "<group>"; };
 		C3A9FD2F27A676630032C068 /* c64decrunch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3A9FD3027A676630032C068 /* c64decrunch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c64decrunch.c; sourceTree = "<group>"; usesTabs = 0; };
-		C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scottgameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3A9FD3227A6E56C0032C068 /* scott_game_info.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scott_game_info.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3ABCA512D553B8400BC4268 /* shogun.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shogun.hpp; sourceTree = "<group>"; };
 		C3ABCA522D553B8400BC4268 /* shogun.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shogun.cpp; sourceTree = "<group>"; };
 		C3AD63D22617648D008614C5 /* MyAttachmentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAttachmentCell.h; sourceTree = "<group>"; };
@@ -3230,20 +3230,20 @@
 		C3BB6A7026FC93FE009BE6DE /* h_le_c11.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = h_le_c11.h; sourceTree = "<group>"; };
 		C3BC41E028F3944D00AB6E6F /* companionfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = companionfile.h; sourceTree = "<group>"; };
 		C3BC41E128F3944D00AB6E6F /* companionfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = companionfile.c; sourceTree = "<group>"; };
-		C3BCB7D528E8EBBB00D590ED /* titleimage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = titleimage.h; sourceTree = "<group>"; };
-		C3BCB7D628E8EBBB00D590ED /* titleimage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = titleimage.c; sourceTree = "<group>"; };
+		C3BCB7D528E8EBBB00D590ED /* title_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = title_image.h; sourceTree = "<group>"; };
+		C3BCB7D628E8EBBB00D590ED /* title_image.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = title_image.c; sourceTree = "<group>"; };
 		C3BD2E862874888E0019F676 /* c64decrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; };
 		C3BD2E882874888E0019F676 /* c64decrunch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64decrunch.c; sourceTree = "<group>"; };
 		C3BD71E32630E3350061E55C /* Spatterlight 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 7.xcdatamodel"; sourceTree = "<group>"; };
-		C3C0EE5F278B96CF0044A615 /* scottgameinfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scottgameinfo.h; sourceTree = "<group>"; usesTabs = 0; };
-		C3C0EE60278BB9CE0044A615 /* robinofsherwood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = robinofsherwood.h; sourceTree = "<group>"; usesTabs = 0; };
-		C3C0EE61278BB9CE0044A615 /* robinofsherwood.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = robinofsherwood.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3C0EE5F278B96CF0044A615 /* scott_game_info.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_game_info.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C0EE60278BB9CE0044A615 /* robin_of_sherwood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = robin_of_sherwood.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C0EE61278BB9CE0044A615 /* robin_of_sherwood.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = robin_of_sherwood.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3C0EE63278BBF750044A615 /* gremlins.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gremlins.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C0EE64278BBF750044A615 /* gremlins.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gremlins.c; sourceTree = "<group>"; usesTabs = 0; };
-		C3C0EE66278BCA4D0044A615 /* decompresstext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = decompresstext.h; sourceTree = "<group>"; usesTabs = 0; };
-		C3C0EE67278BCA4D0044A615 /* decompresstext.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = decompresstext.c; sourceTree = "<group>"; usesTabs = 0; };
-		C3C0EE69278BCA700044A615 /* restorestate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = restorestate.h; sourceTree = "<group>"; usesTabs = 0; };
-		C3C0EE6A278BCA700044A615 /* restorestate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3C0EE66278BCA4D0044A615 /* decompress_text.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = decompress_text.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C0EE67278BCA4D0044A615 /* decompress_text.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = decompress_text.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3C0EE69278BCA700044A615 /* restore_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = restore_state.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C0EE6A278BCA700044A615 /* restore_state.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = restore_state.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3C1807A25C70F2F0040AE79 /* BlorbResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlorbResource.h; sourceTree = "<group>"; };
 		C3C1807B25C70F2F0040AE79 /* Blorb.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = Blorb.m; sourceTree = "<group>"; tabWidth = 2; };
 		C3C1807C25C70F2F0040AE79 /* Blorb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Blorb.h; sourceTree = "<group>"; };
@@ -3266,8 +3266,8 @@
 		C3C5926726A8185700DFB49B /* autosavetest.gblorb */ = {isa = PBXFileReference; lastKnownFileType = file; path = autosavetest.gblorb; sourceTree = "<group>"; };
 		C3C684E026137DC6002F1436 /* ImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHandler.h; sourceTree = "<group>"; };
 		C3C684E126137DC6002F1436 /* ImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHandler.m; sourceTree = "<group>"; };
-		C3C72B6D278CB0F900E095A6 /* detectgame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detectgame.h; sourceTree = "<group>"; usesTabs = 0; };
-		C3C72B6E278CB0F900E095A6 /* detectgame.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = detectgame.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3C72B6D278CB0F900E095A6 /* detect_game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detect_game.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C72B6E278CB0F900E095A6 /* detect_game.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = detect_game.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B71278CC21200E095A6 /* scott_defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_defines.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3CB504A2662606600A95BE2 /* CoverImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageHandler.h; sourceTree = "<group>"; };
 		C3CB504B2662606600A95BE2 /* CoverImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageHandler.m; sourceTree = "<group>"; };
@@ -5698,14 +5698,14 @@
 				C37B7BBA2FB60FEF000472AF /* scott_display.h */,
 				C30CAD042FAFD61200A90820 /* scott_display.c */,
 				C30CAD062FAFD61400A90820 /* scott_meta.c */,
-				C3BCB7D528E8EBBB00D590ED /* titleimage.h */,
-				C3BCB7D628E8EBBB00D590ED /* titleimage.c */,
-				C3C0EE5F278B96CF0044A615 /* scottgameinfo.h */,
-				C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */,
-				C3C72B6D278CB0F900E095A6 /* detectgame.h */,
-				C3C72B6E278CB0F900E095A6 /* detectgame.c */,
-				C3C0EE69278BCA700044A615 /* restorestate.h */,
-				C3C0EE6A278BCA700044A615 /* restorestate.c */,
+				C3BCB7D528E8EBBB00D590ED /* title_image.h */,
+				C3BCB7D628E8EBBB00D590ED /* title_image.c */,
+				C3C0EE5F278B96CF0044A615 /* scott_game_info.h */,
+				C3A9FD3227A6E56C0032C068 /* scott_game_info.c */,
+				C3C72B6D278CB0F900E095A6 /* detect_game.h */,
+				C3C72B6E278CB0F900E095A6 /* detect_game.c */,
+				C3C0EE69278BCA700044A615 /* restore_state.h */,
+				C3C0EE6A278BCA700044A615 /* restore_state.c */,
 				C318F76B2741AA5B006D626A /* bsd.h */,
 				C318F76E2741AA5B006D626A /* bsd.c */,
 				C3109FCB2798B19F00854ED0 /* parser.h */,
@@ -6289,10 +6289,10 @@
 			children = (
 				C3C0EE63278BBF750044A615 /* gremlins.h */,
 				C3C0EE64278BBF750044A615 /* gremlins.c */,
-				C3C0EE60278BB9CE0044A615 /* robinofsherwood.h */,
-				C3C0EE61278BB9CE0044A615 /* robinofsherwood.c */,
-				C3836ED42789B553004B5061 /* seasofblood.h */,
-				C3836ED52789B553004B5061 /* seasofblood.c */,
+				C3C0EE60278BB9CE0044A615 /* robin_of_sherwood.h */,
+				C3C0EE61278BB9CE0044A615 /* robin_of_sherwood.c */,
+				C3836ED42789B553004B5061 /* seas_of_blood.h */,
+				C3836ED52789B553004B5061 /* seas_of_blood.c */,
 				C3100F5B27972E850027D6FF /* hulk.h */,
 				C3100F5C27972E850027D6FF /* hulk.c */,
 				C37391D927A25D03009147EF /* game_specific.h */,
@@ -6305,8 +6305,8 @@
 				C38A881227D2092500AE917E /* ringbuffer.c */,
 				C3A9FD2F27A676630032C068 /* c64decrunch.h */,
 				C3A9FD3027A676630032C068 /* c64decrunch.c */,
-				C3C0EE66278BCA4D0044A615 /* decompresstext.h */,
-				C3C0EE67278BCA4D0044A615 /* decompresstext.c */,
+				C3C0EE66278BCA4D0044A615 /* decompress_text.h */,
+				C3C0EE67278BCA4D0044A615 /* decompress_text.c */,
 			);
 			path = ai_uk;
 			sourceTree = "<group>";
@@ -8290,7 +8290,7 @@
 				C3109FCD2798B19F00854ED0 /* parser.c in Sources */,
 				C36797E22EF0B43A008A6A0D /* c64a8scott.c in Sources */,
 				C314DFDD2F24181200A0879C /* c64_small.c in Sources */,
-				C3BCB7D728E8EBBB00D590ED /* titleimage.c in Sources */,
+				C3BCB7D728E8EBBB00D590ED /* title_image.c in Sources */,
 				C3D83A9D2F2FA3CB00A5D6AE /* vector_common.c in Sources */,
 				C35032F02F37EF0900BD32A6 /* randomness.c in Sources */,
 				C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */,
@@ -8303,7 +8303,7 @@
 				C30C7AE328CA2C4F00D293BE /* sagagraphics.c in Sources */,
 				C318F76F2741AA5B006D626A /* scott.c in Sources */,
 				C30CAD072FAFD61400A90820 /* scott_meta.c in Sources */,
-				C3C72B6F278CB0F900E095A6 /* detectgame.c in Sources */,
+				C3C72B6F278CB0F900E095A6 /* detect_game.c in Sources */,
 				C3E144E72F0209670068F099 /* apple2_vector_draw.c in Sources */,
 				C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */,
 				C37391DB27A25D04009147EF /* game_specific.c in Sources */,
@@ -8314,16 +8314,16 @@
 				C30CAD022FAFD58800A90820 /* scott_actions.c in Sources */,
 				C31919B42EF6B97E0062991C /* common_file_utils.c in Sources */,
 				C39613FE28E5D0B300A13624 /* saga.c in Sources */,
-				C3C0EE62278BB9CE0044A615 /* robinofsherwood.c in Sources */,
-				C3C0EE6B278BCA700044A615 /* restorestate.c in Sources */,
+				C3C0EE62278BB9CE0044A615 /* robin_of_sherwood.c in Sources */,
+				C3C0EE6B278BCA700044A615 /* restore_state.c in Sources */,
 				C3DAC21027C44BAD00368157 /* ti99_4a_terp.c in Sources */,
 				C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */,
 				C30FAD5E27B7D41000BD20B9 /* load_ti99_4a.c in Sources */,
 				C3100F5D27972E850027D6FF /* hulk.c in Sources */,
 				C3C0EE65278BBF750044A615 /* gremlins.c in Sources */,
-				C3836ED82789B569004B5061 /* seasofblood.c in Sources */,
-				C3C0EE68278BCA4D0044A615 /* decompresstext.c in Sources */,
-				C3A9FD3327A6E56C0032C068 /* scottgameinfo.c in Sources */,
+				C3836ED82789B569004B5061 /* seas_of_blood.c in Sources */,
+				C3C0EE68278BCA4D0044A615 /* decompress_text.c in Sources */,
+				C3A9FD3327A6E56C0032C068 /* scott_game_info.c in Sources */,
 				C31DB983276E961F00547C9C /* sagadraw.c in Sources */,
 				C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */,
 			);

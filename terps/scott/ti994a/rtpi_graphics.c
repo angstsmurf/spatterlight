@@ -29,7 +29,7 @@
 
 #include "scott.h"
 #include "irmak.h"
-#include "detectgame.h"
+#include "detect_game.h"
 #include "saga.h"
 #include "sagagraphics.h"
 #include "unzip_in_mem.h"

@@ -1,5 +1,5 @@
 //
-//  seasofblood.c
+//  seas_of_blood.c
 //  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Implements game-specific features for "Seas of Blood" (Fighting Fantasy #16),
@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "decompresstext.h"
+#include "decompress_text.h"
 #include "irmak.h"
 #include "sagadraw.h"
 #include "scott.h"

@@ -24,8 +24,8 @@
 #include "game_specific.h"
 #include "gremlins.h"
 #include "hulk.h"
-#include "robinofsherwood.h"
-#include "seasofblood.h"
+#include "robin_of_sherwood.h"
+#include "seas_of_blood.h"
 
 #include "parser.h"
 #include "saga.h"

@@ -27,7 +27,7 @@
 #include "memory_allocation.h"
 #include "read_le16.h"
 #include "common_utils.h"
-#include "scottdefines.h"
+#include "scott_defines.h"
 
 // clang-format off
 

@@ -1,12 +1,12 @@
 //
-//  restorestate.h
+//  restore_state.h
 //  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Created by Petter Sjölund on 2022-01-10.
 //
 
-#ifndef restorestate_h
-#define restorestate_h
+#ifndef restore_state_h
+#define restore_state_h
 
 #include <stdint.h>
 
@@ -32,4 +32,4 @@ SavedState *SaveCurrentState(void);
 void RestoreState(SavedState *state);
 void RecoverFromBadRestore(SavedState *state);
 
-#endif /* restorestate_h */
+#endif /* restore_state_h */

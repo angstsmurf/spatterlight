@@ -1,5 +1,5 @@
 //
-//  robinofsherwood.c
+//  robin_of_sherwood.c
 //  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Created by Petter Sjölund on 2022-01-10.
@@ -8,7 +8,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#include "decompresstext.h"
+#include "decompress_text.h"
 #include "sagagraphics.h"
 #include "irmak.h"
 #include "scott.h"

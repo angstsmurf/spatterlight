@@ -8,7 +8,7 @@
 #ifndef saga_h
 #define saga_h
 
-#include "scottdefines.h"
+#include "scott_defines.h"
 
 int DrawUSRoom(int room);
 int DrawFuzzyRoom(int room);

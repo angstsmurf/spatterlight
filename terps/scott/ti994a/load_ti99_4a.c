@@ -12,8 +12,8 @@
 #include "load_ti99_4a.h"
 #include "scott.h"
 
-#include "detectgame.h"
-#include "scottgameinfo.h"
+#include "detect_game.h"
+#include "scott_game_info.h"
 
 #define PACKED __attribute__((__packed__))
 

@@ -1,5 +1,5 @@
 //
-//  decompresstext.h
+//  decompress_text.h
 //  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Implements the text decompression scheme used by Robin of Sherwood
@@ -8,12 +8,12 @@
 //  Created by Petter Sjölund on 2022-01-10.
 //
 
-#ifndef decompresstext_h
-#define decompresstext_h
+#ifndef decompress_text_h
+#define decompress_text_h
 
 #include <stdint.h>
 #include <stdlib.h>
 
 char *DecompressText(uint8_t *source, int stringindex);
 
-#endif /* decompresstext_h */
+#endif /* decompress_text_h */

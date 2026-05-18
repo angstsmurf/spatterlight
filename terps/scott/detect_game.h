@@ -1,14 +1,14 @@
 //
-//  detectgame.h
+//  detect_game.h
 //  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
 //  Created by Petter Sjölund on 2022-01-10.
 //
 
-#ifndef detectgame_h
-#define detectgame_h
+#ifndef detect_game_h
+#define detect_game_h
 
-#include "scottdefines.h"
+#include "scott_defines.h"
 #include <stdint.h>
 
 GameIDType DetectGame(const char *file_name);
@@ -35,4 +35,4 @@ void AllocateGameData(void);
 
 extern int header[];
 
-#endif /* detectgame_h */
+#endif /* detect_game_h */

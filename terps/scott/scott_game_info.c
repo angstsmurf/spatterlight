@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 
-#include "scottdefines.h"
+#include "scott_defines.h"
 
 // clang-format off
 

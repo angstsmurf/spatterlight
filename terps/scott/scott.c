@@ -42,10 +42,10 @@
 #include "glk.h"
 #include "glkstart.h"
 #include "saga.h"
-#include "titleimage.h"
+#include "title_image.h"
 
-#include "detectgame.h"
-#include "restorestate.h"
+#include "detect_game.h"
+#include "restore_state.h"
 #include "sagagraphics.h"
 #include "vector_common.h"
 #include "rtpi_graphics.h"
@@ -55,7 +55,7 @@
 #include "game_specific.h"
 #include "gremlins.h"
 #include "hulk.h"
-#include "robinofsherwood.h"
+#include "robin_of_sherwood.h"
 #include "randomness.h"
 
 #include "bsd.h"

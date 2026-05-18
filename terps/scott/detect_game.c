@@ -12,17 +12,17 @@
 #include "scott.h"
 
 #include "common_file_utils.h"
-#include "decompresstext.h"
-#include "detectgame.h"
+#include "decompress_text.h"
+#include "detect_game.h"
 #include "line_drawing.h"
 #include "sagadraw.h"
 #include "saga.h"
-#include "scottgameinfo.h"
+#include "scott_game_info.h"
 
 #include "game_specific.h"
 #include "gremlins.h"
-#include "robinofsherwood.h"
-#include "seasofblood.h"
+#include "robin_of_sherwood.h"
+#include "seas_of_blood.h"
 
 #include "apple2detect.h"
 #include "atari8detect.h"

@@ -25,7 +25,7 @@
 #include "glk.h"
 #include "sagagraphics.h"
 #include "scott.h"
-#include "seasofblood.h"
+#include "seas_of_blood.h"
 #include "irmak.h"
 
 #include "sagadraw.h"
