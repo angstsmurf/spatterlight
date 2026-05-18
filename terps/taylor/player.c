@@ -18,6 +18,7 @@
 #ifdef SPATTERLIGHT
 #include "glkimp.h"
 #endif
+#include "animations.h"
 #include "c64decrunch.h"
 #include "decompressz80.h"
 #include "decrypttotloader.h"
@@ -129,12 +130,7 @@ static int FoundVerb = 0; /* Current input matched a verb in the action table */
 static int FoundNoun = 0; /* Current input matched a noun in the action table */
 
 GameInfo *Game = NULL;
-extern GameInfo games[];
-
 strid_t room_description_stream = NULL;
-
-extern int AnimationRunning;
-
 static int DeferredGoto = 0;
 int InKaylethPreview = 0;
 
@@ -671,7 +667,7 @@ static unsigned char *TokenText(unsigned char n)
 
 /* Print a character using Questprobe 3's capitalization rules:
    auto-capitalize after sentence-ending punctuation. */
-void Q3PrintChar(uint8_t c)
+static void Q3PrintChar(uint8_t c)
 {
     /* Drop control characters except newline — QP3 token data sometimes
        contains stray low bytes we don't want to emit. */
@@ -1001,8 +997,6 @@ static int Chance(int n)
 {
     return (erkyrath_random() % 100 <= n);
 }
-
-void Look(void);
 
 /* Reset all game state to initial values and display the starting room. */
 static void NewGame(void)

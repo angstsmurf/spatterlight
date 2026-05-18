@@ -29,12 +29,12 @@ winid_t CurrentWindow;
 static int OutCount;            /* Number of bytes currently buffered in OutWord. */
 static char OutWord[128];   /* Per-word output buffer, flushed on whitespace. */
 
-glui32 TopWidth; /* Terminal width */
-glui32 TopHeight = 1; /* Height of top window */
+static glui32 TopWidth; /* Terminal width */
+static glui32 TopHeight = 1; /* Height of top window */
 
 int Options; /* Option flags */
 int LineEvent = 0;
-int GraphicsOff = 0;
+static int GraphicsOff = 0;
 
 /* printf-style wrapper that writes formatted text to a Glk window. */
 void Display(winid_t w, const char *fmt, ...)
@@ -53,7 +53,7 @@ void Display(winid_t w, const char *fmt, ...)
 
 /* Block until the user presses Return in the bottom window. Other keys
    are re-requested so the wait continues. */
-void HitEnter(void)
+static void HitEnter(void)
 {
     glk_request_char_event(Bottom);
 
@@ -171,8 +171,7 @@ static void WordFlush(winid_t win)
     OutCount = 0;
 }
 
-extern strid_t room_description_stream;
-char *roomdescbuf = NULL;
+static char *roomdescbuf = NULL;
 
 /* Size of the memory buffer used to accumulate a single room description
    before it's wrapped and painted into the top window. */
@@ -312,16 +311,11 @@ void BottomWindow(void)
     CurrentWindow = Bottom;
 }
 
-void Look(void);
-
-void OpenGraphicsWindow(void);
-void CloseGraphicsWindow(void);
-
 /* Sync the local Options bitfield and palette selection with the user's
    Spatterlight preferences (delays, forced inventory mode, forced
    palette, graphics on/off). Switches the palette and re-defines colors
    if it changed. */
-void UpdateSettings(void)
+static void UpdateSettings(void)
 {
 #ifdef SPATTERLIGHT
     /* Delay actions (the "delay" verb) unless the user opted out. */

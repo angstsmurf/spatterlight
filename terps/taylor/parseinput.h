@@ -17,5 +17,8 @@ int ParseWord(const char *word);
 extern char **InputWordStrings;
 extern int WordPositions[5];
 extern int WordIndex;
+extern int WordsInInput;
+extern uint8_t Word[5];
+extern int FoundExtraCommand;
 
 #endif /* parseinput_h */

@@ -80,8 +80,6 @@ static const c64rec c64_registry[] = {
     { UNKNOWN_GAME, 0, 0, UNKNOWN_FILE_TYPE, 0, NULL, 0 }
 };
 
-extern GameInfo games[NUMGAMES];
-
 /* Simple 16-bit additive checksum for identifying known disk/tape images. */
 static uint16_t checksum(uint8_t *sf, size_t extent)
 {

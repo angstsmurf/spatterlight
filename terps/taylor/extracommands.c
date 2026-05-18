@@ -11,6 +11,7 @@
 
 #include "extracommands.h"
 #include "parseinput.h"
+#include "player.h"
 #include "restorestate.h"
 #include "utility.h"
 
@@ -108,20 +109,6 @@ const extra_command ExtraCommandsKey[] = {
     NO_COMMAND
 };
 
-extern int ShouldRestart;
-extern int StopTime;
-extern int Redraw;
-extern int WordsInInput;
-extern int PrintedOK;
-extern int InKaylethPreview;
-extern uint8_t Word[];
-
-extern winid_t Bottom;
-
-int YesOrNo(void);
-void SaveGame(void);
-int LoadGame(void);
-
 static void TranscriptOn(void)
 {
     frefid_t ref;
@@ -191,8 +178,6 @@ int ParseExtraCommand(const char *word)
     }
     return NO_COMMAND;
 }
-
-extern int FoundExtraCommand;
 
 int TryExtraCommand(void)
 {
