@@ -12,34 +12,22 @@
 #include "palette.h"
 #include "glk.h"
 
-unsigned char WaitCharacter(void);
-void DisplayInit(void);
-void TopWindow(void);
-void BottomWindow(void);
-void PrintCharacter(unsigned char c);
-void DrawRoomImage(void);
-size_t FindCode(const char *x, size_t base, size_t len);
-void Updates(event_t ev);
-void DrawBlack(void);
-void WriteToRoomDescriptionStream(const char *fmt, ...)
-#ifdef __GNUC__
-    __attribute__((__format__(__printf__, 1, 2)))
-#endif
-    ;
-void CloseGraphicsWindow(void);
-void OpenGraphicsWindow(void);
-void OpenTopWindow(void);
-
+/* Shortcuts for fields of the currently loaded GameInfo record. */
 #define CurrentGame (Game->gameID)
 #define Version (Game->type)
 #define BaseGame (Game->base_game)
 
+/* Runtime query for whether the Glk host can show graphics. Under
+   Spatterlight this is a user preference; elsewhere we ask Glk. */
 #ifdef SPATTERLIGHT
 #define TAYLOR_GRAPHICS_ENABLED gli_enable_graphics
 #else
 #define TAYLOR_GRAPHICS_ENABLED glk_gestalt(gestalt_Graphics, 0)
 #endif
 
+/* Named aliases for game-state flag slots. The slot numbers are baked
+   into the Taylor data format and referenced directly by action
+   opcodes, so they can't be renumbered. */
 #define MyLoc (Flag[0])
 #define OtherGuyLoc (Flag[1])
 #define OtherGuyInv (Flag[3])
@@ -53,6 +41,9 @@ void OpenTopWindow(void);
 #define DrawImages (Flag[52])
 #define Q3SwitchedWatch (Flag[126])
 
+/* All supported game variants. Each title has separate IDs for the ZX
+   Spectrum and Commodore 64 releases; Temple of Terror also has a
+   text-only/hybrid split. */
 typedef enum {
     QUESTPROBE3,
     QUESTPROBE3_64,
@@ -73,6 +64,9 @@ typedef enum {
     NUMGAMES
 } GameIDType;
 
+/* Indices into the per-game system-message table (compass directions,
+   "Inventory", "OK", "You can't go that way", etc.). Order is fixed
+   because the loader populates the table positionally. */
 typedef enum {
     YOU_SEE,
     NORTH,
@@ -134,6 +128,8 @@ typedef enum {
     LAST_SYSTEM_MESSAGE
 } SysMessageType;
 
+/* Condition opcodes from Taylor's action tables. Values match the
+   byte codes stored in the original game data and must stay in order. */
 typedef enum {
     CONDITIONERROR,
     AT,
@@ -169,6 +165,8 @@ typedef enum {
     COND31,
 } ConditionType;
 
+/* Action opcodes from Taylor's action tables. Values match the byte
+   codes stored in the original game data and must stay in order. */
 typedef enum {
     ACTIONERROR,
     LOADPROMPT,
@@ -223,6 +221,7 @@ typedef enum {
     ACT50,
 } ActionType;
 
+/* Bitfield of runtime options, mostly driven by user preferences. */
 typedef enum {
     DEBUGGING = 1, /* Info from database load */
     NO_DELAYS = 2, /* Skip all pauses */
@@ -232,6 +231,8 @@ typedef enum {
     FORCE_INVENTORY_OFF = 32 /* Inventory in upper window always off */
 } OptionsType;
 
+/* Coarse data-format family. Several game IDs may share one format,
+   so loader/interpreter quirks switch on this rather than on gameID. */
 typedef enum {
     NO_TYPE,
     REBEL_PLANET_TYPE,
@@ -240,6 +241,8 @@ typedef enum {
     QUESTPROBE3_TYPE
 } GameVersion;
 
+/* Per-game metadata: title, identity, and the file offsets the loader
+   needs to locate each table inside the raw game data. */
 typedef struct {
     const char *Title;
 
@@ -270,36 +273,10 @@ typedef struct {
     int start_of_intro_text;
 } GameInfo;
 
-extern unsigned char ObjectLoc[];
-extern unsigned char Flag[];
+/* Registry of all supported games, indexed by GameIDType. */
+extern GameInfo games[NUMGAMES];
 
-extern winid_t Bottom, Top, Graphics, CurrentWindow;
-extern long FileBaselineOffset;
-
-extern GameInfo *Game;
-
-extern int Resizing;
-extern char DelimiterChar;
-extern int JustWrotePeriod;
-
-extern int NoGraphics;
-extern int Options;
-extern int LineEvent;
-
-extern size_t AnimationData;
-
-extern size_t VerbBase;
-extern char LastChar;
-extern uint8_t Word[];
-extern int PendSpace;
-extern int FirstAfterInput;
-extern int LastVerb;
-
-void OutChar(char c);
-void OutString(char *p);
-void OutCaps(void);
-void OutFlush(void);
-void SysMessage(unsigned char m);
-void OpenBottomWindow(void);
+#include "player.h"
+#include "ui.h"
 
 #endif /* taylor_h */

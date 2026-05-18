@@ -12,4 +12,6 @@ void UpdateRebelAnimations(void);
 void UpdateKaylethAnimations(void);
 void StartAnimations(void);
 
+extern int AnimationRunning;
+
 #endif /* animations_h */

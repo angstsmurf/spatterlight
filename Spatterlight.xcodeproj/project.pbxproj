@@ -3045,7 +3045,6 @@
 		C374D1C226EE4E75006F430E /* SoundHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundHandler.m; sourceTree = "<group>"; };
 		C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 10.xcdatamodel"; sourceTree = "<group>"; };
 		C37B7BBA2FB60FEF000472AF /* scott_display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_display.h; sourceTree = "<group>"; };
-		C37B7BBC2FB61221000472AF /* scott_defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_defines.h; sourceTree = "<group>"; };
 		C37E675A26E9844D0005873E /* MIDIChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIChannel.h; sourceTree = "<group>"; };
 		C37E675C26E9844D0005873E /* MIDIChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIChannel.m; sourceTree = "<group>"; };
 		C37E675E26E987FF0005873E /* MIDIPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIPlayer.m; sourceTree = "<group>"; };
@@ -3097,6 +3096,8 @@
 		C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParagraphPopOver.xib; sourceTree = "<group>"; };
 		C38C226025CC7EB3004C4D68 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C38D6ECD27CFCC5400328B12 /* line_drawing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = line_drawing.c; sourceTree = "<group>"; };
+		C390F30D2FBA9497000F14D3 /* player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = "<group>"; };
+		C390F30E2FBAF03B000F14D3 /* ui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
 		C39147422974C41D00692B9E /* SideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SideViewController.h; path = "application/Library window/SideViewController.h"; sourceTree = SOURCE_ROOT; };
 		C39147432974C41D00692B9E /* SideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SideViewController.m; path = "application/Library window/SideViewController.m"; sourceTree = SOURCE_ROOT; };
 		C391F7782F3D795E00F3102B /* rtpi_graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rtpi_graphics.h; sourceTree = "<group>"; };
@@ -3267,7 +3268,7 @@
 		C3C684E126137DC6002F1436 /* ImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHandler.m; sourceTree = "<group>"; };
 		C3C72B6D278CB0F900E095A6 /* detectgame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detectgame.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B6E278CB0F900E095A6 /* detectgame.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = detectgame.c; sourceTree = "<group>"; usesTabs = 0; };
-		C3C72B71278CC21200E095A6 /* scottdefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scottdefines.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C72B71278CC21200E095A6 /* scott_defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_defines.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3CB504A2662606600A95BE2 /* CoverImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageHandler.h; sourceTree = "<group>"; };
 		C3CB504B2662606600A95BE2 /* CoverImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageHandler.m; sourceTree = "<group>"; };
 		C3CB504D26627B1A00A95BE2 /* Spatterlight 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 9.xcdatamodel"; sourceTree = "<group>"; };
@@ -5691,7 +5692,7 @@
 				C318F76C2741AA5B006D626A /* README */,
 				C318F76D2741AA5B006D626A /* scott.h */,
 				C318F76A2741AA5B006D626A /* scott.c */,
-				C37B7BBC2FB61221000472AF /* scott_defines.h */,
+				C3C72B71278CC21200E095A6 /* scott_defines.h */,
 				C32705B82FB12CD4008E9E20 /* scott_actions.h */,
 				C30CAD012FAFD58800A90820 /* scott_actions.c */,
 				C37B7BBA2FB60FEF000472AF /* scott_display.h */,
@@ -5701,7 +5702,6 @@
 				C3BCB7D628E8EBBB00D590ED /* titleimage.c */,
 				C3C0EE5F278B96CF0044A615 /* scottgameinfo.h */,
 				C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */,
-				C3C72B71278CC21200E095A6 /* scottdefines.h */,
 				C3C72B6D278CB0F900E095A6 /* detectgame.h */,
 				C3C72B6E278CB0F900E095A6 /* detectgame.c */,
 				C3C0EE69278BCA700044A615 /* restorestate.h */,
@@ -6135,6 +6135,7 @@
 				C3D571B227D8F651008FB786 /* FORMAT */,
 				C3D571B627D8F652008FB786 /* README */,
 				C3D571B127D8F651008FB786 /* taylor.h */,
+				C390F30D2FBA9497000F14D3 /* player.h */,
 				C3D571B327D8F652008FB786 /* player.c */,
 				C30DAE6327EB06E6006C90FB /* gameinfo.c */,
 				C3BD2E862874888E0019F676 /* c64decrunch.h */,
@@ -6157,6 +6158,7 @@
 				C3CED4462810190E0040252F /* loadtotpicture.c */,
 				C3B148AF27FD881400844708 /* animations.h */,
 				C3B148B127FD881400844708 /* animations.c */,
+				C390F30E2FBAF03B000F14D3 /* ui.h */,
 				C3D571B427D8F652008FB786 /* ui.c */,
 			);
 			path = taylor;

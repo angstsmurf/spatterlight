@@ -16,8 +16,6 @@
 
 strid_t Transcript = NULL;
 
-extern winid_t Bottom, Top;
-
 GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
 {
     if (Transcript)

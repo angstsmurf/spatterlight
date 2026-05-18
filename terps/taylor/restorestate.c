@@ -8,19 +8,13 @@
 #include <string.h>
 
 #include "glk.h"
+#include "player.h"
 #include "restorestate.h"
 #include "utility.h"
 
 #define MAX_UNDOS 100
 
-extern int StopTime;
-extern int JustStarted;
 int just_undid = 0;
-
-extern uint8_t Flag[];
-extern uint8_t ObjectLoc[];
-
-extern winid_t Bottom;
 
 SavedState *InitialState = NULL;
 static SavedState *ramsave = NULL;
