@@ -14,6 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Bocfel. If not, see <http://www.gnu.org/licenses/>.
 
+// Minimal PNG decoder for the indexed-color images shipped in the Blorb
+// resources used by Infocom V6 games. Only the chunks we care about (IHDR,
+// PLTE, IDAT, IEND) are inspected, and only bit depths 2 and 4 with paletted
+// color are rendered. The decoded pixels are composited onto a 32-bit RGBA
+// canvas using a gamma-corrected palette.
+
 extern "C" {
 #include <zlib.h>
 #include <math.h>
@@ -25,6 +31,7 @@ extern "C" {
 #include "draw_image.hpp"
 #include "zterp.h"
 
+// Set to 1 to enable verbose chunk/header/palette logging on stderr.
 #define DEBUG_PNG 0
 
 #define debug_png_print(fmt, ...)                    \
@@ -36,6 +43,9 @@ fprintf(stderr, fmt, ##__VA_ARGS__); \
 extern float imagescalex;
 extern float imagescaley;
 
+// One PNG chunk as it appears on disk: a 32-bit big-endian length, a
+// 4-byte FourCC type, a pointer into the source buffer for the chunk's
+// payload, and a 32-bit CRC trailer.
 struct png_chunk {
     uint32_t length;
     uint32_t type;
@@ -43,6 +53,7 @@ struct png_chunk {
     uint32_t crc;
 };
 
+// Decoded fields of the PNG IHDR chunk.
 struct png_header {
     uint32_t width;
     uint32_t height;
@@ -53,10 +64,19 @@ struct png_header {
     uint8_t interlace_method;
 };
 
-uint8_t global_palette[16 * 3];
+// Number of entries in `global_palette`. Color indices >= this are treated
+// as out of range by set_pixel().
+static constexpr int kMaxPaletteEntries = 16;
 
-static struct png_header pngheader;
+static const int kBytesPerColor = 3;
 
+// Active 16-entry RGB palette used by set_pixel. Populated by
+// extract_palette() (defined elsewhere) or extract_palette_from_png_data().
+uint8_t global_palette[kMaxPaletteEntries * kBytesPerColor];
+
+// zlib-inflate the IDAT payload into a freshly allocated buffer of exactly
+// max_output_size bytes. The caller is responsible for deleting the returned
+// buffer with delete[].
 static uint8_t *decompress_idat(uint8_t *data, size_t datalength, size_t max_output_size)
 {
     char* output = new char[max_output_size];
@@ -77,10 +97,19 @@ static uint8_t *decompress_idat(uint8_t *data, size_t datalength, size_t max_out
     return (uint8_t *)output;
 }
 
+// Read a big-endian 32-bit integer from ptr starting at byte offset index.
 static uint32_t read32be(uint8_t *ptr, int index) { return (static_cast<uint32_t>(ptr[index]) << 24) | (static_cast<uint32_t>(ptr[index + 1]) << 16) | (static_cast<uint32_t>(ptr[index + 2]) <<  8) | (static_cast<uint32_t>(ptr[index + 3]) <<  0);
 }
 
-static bool read_png(uint8_t *png_data, size_t png_size, struct png_chunk *chunks, int *idat_index, int *plte_index) {
+// Parse the PNG signature and walk the chunk table, recording each chunk
+// in `chunks` (caller-provided, must hold at least kMaxChunks entries) and
+// filling in `header` from the IHDR chunk.
+//
+// On success, *idat_index is set to the index of the IDAT chunk, and (if
+// non-null) *plte_index is set to the PLTE chunk index, or -1 if absent.
+// Returns false if the data is too short, not a PNG, has a missing IHDR
+// or IEND, or has a truncated chunk.
+static bool read_png(uint8_t *png_data, size_t png_size, struct png_chunk *chunks, int *idat_index, int *plte_index, struct png_header *header) {
     static const uint8_t kPNGSignature[8] = {0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a};
     static const size_t kSignatureSize = 8;
     static const size_t kChunkHeaderSize = 8;
@@ -156,24 +185,27 @@ static bool read_png(uint8_t *png_data, size_t png_size, struct png_chunk *chunk
         return false;
 
     uint8_t *ihdr_data = chunks[0].data;
-    pngheader.width = read32be(ihdr_data, 0);
-    debug_png_print("Width: %d\n", pngheader.width);
-    pngheader.height = read32be(ihdr_data, 4);
-    debug_png_print("Height: %d\n", pngheader.height);
-    pngheader.bit_depth = ihdr_data[8];
-    debug_png_print("Bit depth: %d\n", pngheader.bit_depth);
-    pngheader.colour_type = ihdr_data[9];
-    debug_png_print("Colour type: %d\n", pngheader.colour_type);
-    pngheader.compression_method = ihdr_data[10];
-    debug_png_print("Compression method: %d\n", pngheader.compression_method);
-    pngheader.filter_method = ihdr_data[11];
-    debug_png_print("Filter method: %d\n", pngheader.filter_method);
-    pngheader.interlace_method = ihdr_data[12];
-    debug_png_print("Interlace method: %d\n", pngheader.interlace_method);
+    header->width = read32be(ihdr_data, 0);
+    debug_png_print("Width: %d\n", header->width);
+    header->height = read32be(ihdr_data, 4);
+    debug_png_print("Height: %d\n", header->height);
+    header->bit_depth = ihdr_data[8];
+    debug_png_print("Bit depth: %d\n", header->bit_depth);
+    header->colour_type = ihdr_data[9];
+    debug_png_print("Colour type: %d\n", header->colour_type);
+    header->compression_method = ihdr_data[10];
+    debug_png_print("Compression method: %d\n", header->compression_method);
+    header->filter_method = ihdr_data[11];
+    debug_png_print("Filter method: %d\n", header->filter_method);
+    header->interlace_method = ihdr_data[12];
+    debug_png_print("Interlace method: %d\n", header->interlace_method);
 
     return true;
 }
 
+// Convert a single 0..255 color sample from the gamma-1.8 space used by the
+// Infocom V6 artwork to approximate sRGB (gamma ~2.2), so the palette colors
+// look correct on modern displays.
 static int adjust_gamma(int intValue) {
     float theLinearValue = (float)intValue / 256.0f;
 
@@ -182,13 +214,16 @@ static int adjust_gamma(int intValue) {
     return theLinearValue <= 0.0031308f ? (int)(theLinearValue * 12.92f * 256) : (int)((powf (theLinearValue, 1.0f/x) * 1.055f - 0.055f) * 256) ;
 }
 
+// Allocate and return a gamma-corrected 16-entry RGB palette (48 bytes,
+// caller frees with free()) from the PLTE chunk of the given PNG. Returns
+// nullptr if the PNG has no PLTE, the PLTE length isn't a multiple of 3,
+// or memory allocation fails. Excess entries beyond 16 are ignored; fewer
+// than 16 entries leaves the trailing slots zeroed.
 uint8_t *extract_palette_from_png_data(uint8_t *png_data, size_t png_size) {
-    static const int kMaxPaletteEntries = 16;
-    static const int kBytesPerColor = 3;
-
     struct png_chunk chunks[64];
+    struct png_header header;
     int idat_index, plte_index;
-    if (!read_png(png_data, png_size, chunks, &idat_index, &plte_index) || plte_index == -1)
+    if (!read_png(png_data, png_size, chunks, &idat_index, &plte_index, &header) || plte_index == -1)
         return nullptr;
     if (chunks[plte_index].length % kBytesPerColor != 0)
         return nullptr;
@@ -214,23 +249,33 @@ uint8_t *extract_palette_from_png_data(uint8_t *png_data, size_t png_size) {
     return palette;
 }
 
+// Write one fully-opaque RGBA pixel at write_ptr using global_palette entry
+// color_index. Index 0 is treated as transparent (left untouched), as are
+// indices that fall outside the active palette.
 static void set_pixel(int color_index, uint8_t *write_ptr) {
-    if (color_index <= 0 || color_index >= palentries)
+    if (color_index <= 0 || color_index >= kMaxPaletteEntries)
         return;
-    int palette_offset = color_index * 3;
+    int palette_offset = color_index * kBytesPerColor;
     write_ptr[0] = global_palette[palette_offset + 0];
     write_ptr[1] = global_palette[palette_offset + 1];
     write_ptr[2] = global_palette[palette_offset + 2];
     write_ptr[3] = 0xff;
 }
 
+// Decode an indexed PNG and composite it onto an RGBA canvas at
+// (dest_x, dest_y), using global_palette for color lookup. If the canvas is
+// too short to fit the image at the requested offset it is reallocated in
+// place (the caller's pointer and size are updated). When `flipped` is true
+// the image is drawn upside-down. Only bit depths 2 and 4 are supported.
+// Returns false on malformed PNG data or unsupported bit depth.
 static bool draw_indexed_png(uint8_t **canvas_ptr, int *canvas_size, int canvas_width, int dest_x, int dest_y, uint8_t *png_data, size_t png_size, bool flipped) {
 
     struct png_chunk chunks[64];
+    struct png_header pngheader;
 
     int idat_index;
 
-    if (!read_png(png_data, png_size, chunks, &idat_index, nullptr))
+    if (!read_png(png_data, png_size, chunks, &idat_index, nullptr, &pngheader))
         return false;
 
     if (idat_index < 0)
@@ -306,6 +351,11 @@ static bool draw_indexed_png(uint8_t **canvas_ptr, int *canvas_size, int canvas_
     return true;
 }
 
+// Top-level entry: allocate a fresh RGBA pixmap sized to the image and
+// render the PNG into it. If use_previous_palette is false, the image's
+// palette is (re)extracted into global_palette first; otherwise the palette
+// left over from the previous call is reused, which lets a series of images
+// share a consistent color table. Returns nullptr on failure.
 uint8_t *draw_png(ImageStruct *image, bool use_previous_palette) {
     int32_t pixmapsize = image->width * image->height * 4;
     uint8_t *pixmap = (uint8_t *)calloc(1, pixmapsize);

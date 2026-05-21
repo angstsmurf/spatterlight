@@ -18,7 +18,6 @@ extern "C" {
 
 ImageStruct *find_image(int picnum);
 bool get_image_size(int picnum, int *width, int *height);
-void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width);
 void clear_image_buffer(void);
 void flush_bitmap(winid_t winid);
 void extract_palette(ImageStruct *image);
