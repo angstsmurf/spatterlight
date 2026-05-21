@@ -96,8 +96,7 @@ static bool is_zorkzero_peggleboz_image(int pic) {
 }
 
 // Checks if the given picture is a Peggleboz UI button (restart, show moves,
-// exit) and updates has_made_peggleboz_move based on which button variant.
-// Only returns true when the current game mode is Peggleboz.
+// exit). Only returns true when the current game mode is Peggleboz.
 static bool is_zorkzero_peggleboz_box_image(int pic) {
     uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
 
@@ -107,11 +106,9 @@ static bool is_zorkzero_peggleboz_box_image(int pic) {
     switch(pic) {
         case SHOW_MOVES_BOX:
         case RESTART_BOX:
-            has_made_peggleboz_move = true;
             return true;
         case DIM_RESTART_BOX:
         case DIM_SHOW_MOVES_BOX:
-            has_made_peggleboz_move = false;
             return true;
         case EXIT_BOX:
             return true;
@@ -689,8 +686,8 @@ void z0_update_colors(void) {
 
     fprintf(stderr, "update_z0_colors: Called %d times\n", ++number_of_update_color_calls);
 
-    uint16_t default_fg = get_global(zg.DEFAULT_FG); // 0x4f
-    uint16_t default_bg = get_global(zg.DEFAULT_BG); // 0x81
+    uint16_t default_fg = get_global(zg.DEFAULT_FG);
+    uint16_t default_bg = get_global(zg.DEFAULT_BG);
 
     uint16_t current_fg = get_global(fg_global_idx);
     uint16_t current_bg = get_global(bg_global_idx);
@@ -733,8 +730,8 @@ void z0_update_colors(void) {
     if (default_bg == 0)
         default_bg = 1;
 
-    set_global(0x4f, default_fg);
-    set_global(0x81, default_bg);
+    set_global(zg.DEFAULT_FG, default_fg);
+    set_global(zg.DEFAULT_BG, default_bg);
 
     if (graphics_type == kGraphicsTypeApple2) { // Only default colors are allowed with Apple 2 graphics
         current_fg = WHITE_COLOUR;
@@ -1627,20 +1624,16 @@ void SNARFEM(void) {
 // peg positions. UI buttons: Restart, Show Moves, and Exit.
 
 // Draws a Peggleboz UI button (Restart, Show Moves, or Exit) at its
-// designated location. The Restart and Show Moves buttons also update the
-// has_made_peggleboz_move flag when their active (non-dimmed) variants
-// are drawn.
+// designated location.
 static void z0_draw_peggleboz_box_image(uint16_t pic, uint16_t x, uint16_t y) {
     int width, height;
     switch (pic) {
         case RESTART_BOX:
-            has_made_peggleboz_move = true;
         case DIM_RESTART_BOX:
             get_image_size(PBOZ_RESTART_BOX_LOC, &width, &height);
             draw_to_pixmap_unscaled(pic, width, height);
             return;
         case SHOW_MOVES_BOX:
-            has_made_peggleboz_move = true;
         case DIM_SHOW_MOVES_BOX:
             get_image_size(PBOZ_SHOW_MOVES_BOX_LOC, &width, &height);
             draw_to_pixmap_unscaled(pic, width, height);
@@ -1673,13 +1666,13 @@ static void draw_peggles(void) {
     internal_call(pack_routine(zr.DRAW_PEGS)); // <DRAW-PEGS>
 
     get_image_size(PBOZ_RESTART_BOX_LOC, &width, &height);
-    if (has_made_peggleboz_move) {
+    if (get_global(zg.PEG_MOVE_NUMBER) > 0) {
         draw_to_pixmap_unscaled(RESTART_BOX, width, height);
     } else {
         draw_to_pixmap_unscaled(DIM_RESTART_BOX, width, height);
     }
     get_image_size(PBOZ_SHOW_MOVES_BOX_LOC, &width, &height);
-    if (has_made_peggleboz_move) {
+    if (get_global(zg.PEG_MOVE_NUMBER) > 0) {
         draw_to_pixmap_unscaled(SHOW_MOVES_BOX, width, height);
     } else {
         draw_to_pixmap_unscaled(DIM_SHOW_MOVES_BOX, width, height);
@@ -1714,8 +1707,9 @@ void SETUP_PBOZ(void) {
     // Game is considered won if the first 21 attributes (1-21) of NOT-HERE-OBJECT are set
     // except attribute 7, which must not be set
     internal_set_attr(zo.NOT_HERE_OBJECT, 7);
-    internal_set_attr(zo.PBOZ_OBJECT, 0x20); // 0x20 is TOUCHBIT
-    has_made_peggleboz_move = false;
+    zp.TOUCHBIT = 0x20;
+    internal_set_attr(zo.PBOZ_OBJECT, zp.TOUCHBIT); // 0x20 is TOUCHBIT
+    set_global(zg.PEG_MOVE_NUMBER, 0);
     selected_peg = 0;
     draw_peggles();
     flush_image_buffer();
@@ -2301,14 +2295,41 @@ void z0_update_on_resize(void) {
 
 #pragma mark - Save/Restore
 
-// Called after a manual restore. Re-applies the color configuration.
+// Called after a manual restore. Applies the color configuration
+// in the save file.
 void z0_update_after_restore(void) {
+    uint8_t fg = get_global(fg_global_idx);
+    uint8_t bg = get_global(bg_global_idx);
+    z0_update_colors();
+    set_global(fg_global_idx, fg);
+    set_global(bg_global_idx, bg);
     after_V_COLOR();
 }
 
-// Called after an automatic restore. Currently a no-op for Zork Zero.
+// Called after an automatic restore. If we were in Peggleboz with a peg
+// selected, the C++ static selected_peg has been reset to 0 by the process
+// restart, so the resize handler no longer knows to restart the blink
+// timer. Recover selected_peg by matching the BLINK-TBL coordinates
+// (preserved as Z-machine state) against the BOARD-TABLE peg positions,
+// then restart the blink timer.
 void z0_update_after_autorestore(void) {
+    if ((screenmode != MODE_NORMAL && screenmode != MODE_Z0_GAME)
+        || get_global(zg.CURRENT_SPLIT) != PBOZ_SPLIT)
+        return;
 
+    uint16_t y = user_word(get_global(zg.BLINK_TBL) + 3 * 2);
+    uint16_t x = user_word(get_global(zg.BLINK_TBL) + 4 * 2);
+    if (x == 0 && y == 0)
+        return;
+
+    for (int i = 2; i < 43; i += 2) {
+        if (user_word(zt.BOARD_TABLE + i * 2) == y
+            && user_word(zt.BOARD_TABLE + (i + 1) * 2) == x) {
+            selected_peg = i;
+            update_blink_coordinates(x, y);
+            return;
+        }
+    }
 }
 
 extern bool pending_flowbreak;

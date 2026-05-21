@@ -91,13 +91,17 @@ ImageStruct *find_image(int picnum) {
     return nullptr;
 }
 
+// All bitmaps in this file are stored as interleaved RGBA — four bytes
+// per pixel.
+static constexpr int kBytesPerPixel = 4;
+
 // Module-private RGBA backing buffer all drawing routines composite into.
 // Lazily allocated by ensure_pixmap(); freed by clear_image_buffer().
 static uint8_t *pixmap = nullptr;
 
 // Current size of `pixmap` in bytes (NOT pixels). Grown by drawing routines
 // when an image extends below the currently-allocated area.
-static int pixlength = hw_screenwidth * 200 * 4;
+static int pixlength = hw_screenwidth * 200 * kBytesPerPixel;
 extern winid_t current_graphics_buf_win;
 
 extern glui32 user_selected_background;
@@ -165,12 +169,27 @@ static void write_to_tiff(const char *name, uint8_t *data, size_t size, uint32_t
     fclose(fptr);
 }
 
+// Color-table layout shared by the legacy-platform decoders.
+//
+// Slots 0 and 1 are reserved as sentinels: index 0 means "transparent" and
+// index 1 is the border color (handled by the caller). Actual palette
+// entries therefore begin at slot 2, which is why several code paths below
+// write to &color_table[kReservedPaletteSlots][...].
+//
+// On disk, both image->palette and the module-shared global_palette use the
+// same legacy layout: a 1-byte count at offset 0 followed by interleaved
+// RGB triplets, hence the `&...[1]` skip when copying from either source.
+static constexpr int kPaletteSize = 16;
+static constexpr int kBytesPerColor = 3;
+static constexpr int kReservedPaletteSlots = 2;
+static constexpr unsigned kMaxPaletteColors = kPaletteSize - kReservedPaletteSlots;
+
 // Copy `image`'s 16-entry RGB palette into the module-shared global_palette
 // (defined in draw_png.cpp) so subsequent decoders can resolve color
 // indices. No-op if the image has no palette.
 void extract_palette(ImageStruct *image) {
     if (image && image->palette) {
-        memcpy(global_palette, image->palette, 16 * 3);
+        memcpy(global_palette, image->palette, kPaletteSize * kBytesPerColor);
     }
 }
 
@@ -218,7 +237,7 @@ void flush_bitmap(winid_t winid) {
     write_to_tiff(filename, pixmap, pixlength, hw_screenwidth);
     win_purgeimage(600, filename, pixlength);
     free(filename);
-    win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixlength / (4 * hw_screenwidth * hw_screenwidth));
+    win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixlength / (kBytesPerPixel * hw_screenwidth * hw_screenwidth));
     image_needs_redraw = false;
 }
 
@@ -251,8 +270,6 @@ bool get_image_size(int picnum, int *width, int *height) {
 static void draw_bitmap_on_bitmap(const uint8_t *src_pixels, int src_buffer_size, int src_width,
                                   uint8_t **dst_pixels, int *dst_buffer_size, int dst_width,
                                   int dest_x, int dest_y, bool flipped) {
-    static const int kBytesPerPixel = 4;
-
     if (src_pixels == nullptr || dst_pixels == nullptr || *dst_pixels == nullptr)
         return;
     if (src_width <= 0 || dst_width <= 0)
@@ -312,7 +329,6 @@ static void draw_bitmap_on_bitmap(const uint8_t *src_pixels, int src_buffer_size
 // pattern shows through.
 //
 // This makes the bottom of the pillars look better on light backgrounds.
-
 static void draw_hint_menu_feet_mac(uint8_t *smallbitmap, int smallbitmapsize, uint8_t **largebitmap, int *largebitmapsize, int y) {
 
     int xpos, ypos;
@@ -323,10 +339,8 @@ static void draw_hint_menu_feet_mac(uint8_t *smallbitmap, int smallbitmapsize, u
 
     uint8_t *pixptr;
 
-    for (int i = 0; i < smallbitmapsize; i += 4) {
-
-            ypos = y + i / stride;
-
+    for (int i = 0; i < smallbitmapsize; i += kBytesPerPixel) {
+        ypos = y + i / stride;
 
         if (ypos < 0) {
             continue;
@@ -340,7 +354,7 @@ static void draw_hint_menu_feet_mac(uint8_t *smallbitmap, int smallbitmapsize, u
         if (ypos >= height + y || ypos < y)
             break;
 
-        pixptr = *largebitmap + ((ypos * width + xpos) * 4);
+        pixptr = *largebitmap + ((ypos * width + xpos) * kBytesPerPixel);
 
         // Stop if we have reached the end
         if (pixptr - *largebitmap + 3 > *largebitmapsize || i + 3 > smallbitmapsize) {
@@ -358,8 +372,6 @@ static void draw_hint_menu_feet_mac(uint8_t *smallbitmap, int smallbitmapsize, u
 // runs past the current allocation, and refuses requests wider than the
 // hardware screen.
 void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_width, int rect_height) {
-    static const int kBytesPerPixel = 4;
-
     int screen_width = (int)hw_screenwidth;
 
     if (rect_width <= 0 || rect_height <= 0 || rect_width > screen_width)
@@ -409,8 +421,6 @@ void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_wid
 // image->width × image->height RGBA buffer). Frees the original `source`
 // either way. Returns nullptr on OOM.
 static uint8_t *flip_bitmap(ImageStruct *image, uint8_t *source) {
-    static const int kBytesPerPixel = 4;
-
     if (source == nullptr || image == nullptr)
         return nullptr;
 
@@ -436,7 +446,6 @@ static uint8_t *flip_bitmap(ImageStruct *image, uint8_t *source) {
 // allocates the padded stride, expand bits to monochrome RGBA, then trim
 // the padding columns off each row. Caller frees the returned buffer.
 static uint8_t *draw_opaque_cga(ImageStruct *image) {
-    static const int kBytesPerPixel = 4;
     static const int kBitsPerByte = 8;
 
     if (image == nullptr || image->data == nullptr)
@@ -508,58 +517,75 @@ static uint8_t *draw_opaque_cga(ImageStruct *image) {
     return output;
 }
 
-// Decode an indexed image for any of the legacy platforms (Amiga, Mac B/W,
-// CGA, EGA, VGA). Picks a palette in this order: the image's own palette
-// (offset by 2 because slots 0-1 are reserved for transparent/border),
-// the default monochrome pair for Mac B/W and CGA, the fixed EGA color
-// table, or the previously extracted global_palette. Then dispatches to
-// decompress_vga or decompress_amiga and expands color indices to RGBA,
-// honoring image->transparency. Caller frees the returned buffer.
-static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous_palette) {
-    static const unsigned kMaxPaletteColors = 14;
-    static const int kPaletteSize = 16;
-    static const int kBytesPerColor = 3;
-    static const int kBytesPerPixel = 4;
-
-    if (image == nullptr || image->data == nullptr)
-        return nullptr;
-
-    uint8_t color_table[kPaletteSize][kBytesPerColor] = {};
-
-    unsigned palette_color_count = kMaxPaletteColors;
+// Fill `color_table` with the appropriate 16-entry palette for `image`,
+// honoring use_previous_palette as a request to reuse the currently active
+// global_palette instead of the image's own palette.
+static void populate_color_table(ImageStruct *image, bool use_previous_palette,
+                                 uint8_t color_table[kPaletteSize][kBytesPerColor]) {
+    memset(color_table, 0, kPaletteSize * kBytesPerColor);
 
     if (image->palette != nullptr && !use_previous_palette) {
-        palette_color_count = image->palette[0];
+        unsigned palette_color_count = image->palette[0];
         /* Fix for some buggy _Arthur_ pictures. */
         if (palette_color_count > kMaxPaletteColors)
             palette_color_count = kMaxPaletteColors;
-        memcpy(&color_table[2][RED], &image->palette[1], palette_color_count * kBytesPerColor);
-    } else if (image->type == kGraphicsTypeMacBW || image->type == kGraphicsTypeCGA) {
-        color_table[2][RED] = monochrome_white >> 16;
-        color_table[2][GREEN] = (monochrome_white >> 8) & 0xff;
-        color_table[2][BLUE] = monochrome_white & 0xff;
-
-        color_table[3][RED] = monochrome_black >> 16;
-        color_table[3][GREEN] = (monochrome_black >> 8) & 0xff;
-        color_table[3][BLUE] = monochrome_black & 0xff;
-    } else if (image->type == kGraphicsTypeEGA) {
-        memcpy(color_table, ega_colormap, kPaletteSize * kBytesPerColor);
-    } else {
-        memcpy(&color_table[2][RED], &global_palette[1], palette_color_count * kBytesPerColor);
+        memcpy(&color_table[kReservedPaletteSlots][RED], &image->palette[1],
+               palette_color_count * kBytesPerColor);
+        return;
     }
 
-    size_t pixel_count = (size_t)image->width * (size_t)image->height;
+    switch (image->type) {
+        case kGraphicsTypeMacBW:
+        case kGraphicsTypeCGA:
+            color_table[2][RED]   = monochrome_white >> 16;
+            color_table[2][GREEN] = (monochrome_white >> 8) & 0xff;
+            color_table[2][BLUE]  = monochrome_white & 0xff;
+
+            color_table[3][RED]   = monochrome_black >> 16;
+            color_table[3][GREEN] = (monochrome_black >> 8) & 0xff;
+            color_table[3][BLUE]  = monochrome_black & 0xff;
+            break;
+        case kGraphicsTypeEGA:
+            memcpy(color_table, ega_colormap, kPaletteSize * kBytesPerColor);
+            break;
+        default:
+            memcpy(&color_table[kReservedPaletteSlots][RED], &global_palette[1],
+                   kMaxPaletteColors * kBytesPerColor);
+            break;
+    }
+}
+
+// Decode an indexed image for any of the legacy platforms (Amiga, Mac B/W,
+// CGA, EGA, VGA). Dispatches to decompress_vga or decompress_amiga, then
+// expands color indices to RGBA using populate_color_table(). Honors
+// image->transparency. Caller frees the returned buffer.
+static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous_palette) {
+    if (image == nullptr || image->data == nullptr)
+        return nullptr;
+
+    uint8_t color_table[kPaletteSize][kBytesPerColor];
+    populate_color_table(image, use_previous_palette, color_table);
 
     uint8_t *decompressed = nullptr;
-    if (image->type == kGraphicsTypeVGA || image->type == kGraphicsTypeEGA || image->type == kGraphicsTypeCGA) {
-        decompressed = decompress_vga(image);
-    } else {
-        decompressed = decompress_amiga(image);
+    switch (image->type) {
+        case kGraphicsTypeVGA:
+        case kGraphicsTypeEGA:
+        case kGraphicsTypeCGA:
+            decompressed = decompress_vga(image);
+            break;
+        case kGraphicsTypeAmiga:
+        case kGraphicsTypeMacBW:
+            decompressed = decompress_amiga(image);
+            break;
+        default:
+            fprintf(stderr, "draw_amiga_mac_cga_ega_vga: unsupported image type %d\n", image->type);
+            return nullptr;
     }
 
     if (decompressed == nullptr)
         return nullptr;
 
+    size_t pixel_count = (size_t)image->width * (size_t)image->height;
     size_t rgba_size = pixel_count * kBytesPerPixel;
     uint8_t *rgba_buffer = (uint8_t *)malloc(rgba_size);
     if (rgba_buffer == nullptr) {
@@ -567,16 +593,17 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous
         return nullptr;
     }
 
-    memset(rgba_buffer, 0xff, rgba_size);
-
     for (size_t pixel_index = 0; pixel_index < pixel_count; pixel_index++) {
         uint8_t color_index = decompressed[pixel_index];
+        size_t write_offset = pixel_index * kBytesPerPixel;
         if (color_index >= kPaletteSize ||
             (image->transparency && image->transparent_color == color_index)) {
-            rgba_buffer[pixel_index * kBytesPerPixel + 3] = 0;
+            rgba_buffer[write_offset + 0] = 0;
+            rgba_buffer[write_offset + 1] = 0;
+            rgba_buffer[write_offset + 2] = 0;
+            rgba_buffer[write_offset + 3] = 0;
             continue;
         }
-        size_t write_offset = pixel_index * kBytesPerPixel;
         rgba_buffer[write_offset + 0] = color_table[color_index][RED];
         rgba_buffer[write_offset + 1] = color_table[color_index][GREEN];
         rgba_buffer[write_offset + 2] = color_table[color_index][BLUE];
@@ -682,7 +709,7 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
         return nullptr;
 
     extract_palette(image);
-    int32_t pixmapsize = image->width * image->height * 4;
+    int32_t pixmapsize = image->width * image->height * kBytesPerPixel;
 
     char *filename = create_temp_tiff_file_name();
 
@@ -749,8 +776,6 @@ void draw_to_pixmap_unscaled_flipped_using_current_palette(int image, int x, int
 // runs past the pixmap. Returns nullptr if the start row is out of range
 // or on OOM; caller frees with free().
 uint8_t *copy_lines_from_bitmap(int start_y, int line_count, size_t *out_size) {
-    static const int kBytesPerPixel = 4;
-
     if (out_size == nullptr)
         return nullptr;
     *out_size = 0;
@@ -792,7 +817,7 @@ uint8_t *copy_rect_from_bitmap(int x, int y, int width, int height, size_t *size
     }
 
     for (int row = 0; row < height; row++) {
-        int src_offset = (y + row) * src_stride + x * 4;
+        int src_offset = (y + row) * src_stride + x * kBytesPerPixel;
         if (src_offset + row_bytes > pixlength) {
             memset(result + (size_t)row * row_bytes, 0, (size_t)(height - row) * row_bytes);
             break;
@@ -862,7 +887,7 @@ void draw_arthur_side_images(winid_t winid) {
     get_image_size(54, nullptr, &image_height);
     float hw_screenheight = image_height + top_margin;
 
-    const int stride = hw_screenwidth * 4;
+    const int stride = hw_screenwidth * kBytesPerPixel;
     const int actual_pixmap_height = pixlength / stride;
 
     // Erase any stale content below the banner before drawing
@@ -983,7 +1008,7 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
     free(section_to_repeat);
 
     // Erase everything in the foot area and below
-    const int bitmap_height = (pixlength / 4) / hw_screenwidth;
+    const int bitmap_height = (pixlength / kBytesPerPixel) / hw_screenwidth;
     int foot_top = desired_height - foot_height;
     if (is_spatterlight_arthur)
         foot_top -= (foot_top & 1);

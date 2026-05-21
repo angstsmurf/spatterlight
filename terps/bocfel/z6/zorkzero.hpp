@@ -193,6 +193,7 @@ typedef struct ZorkGlobals {
     uint8_t BLINK_TBL;
     uint8_t TOWER_CHANGED;
     uint8_t NARROW;
+    uint8_t PEG_MOVE_NUMBER;
 } ZorkGlobals;
 
 extern ZorkGlobals zg;

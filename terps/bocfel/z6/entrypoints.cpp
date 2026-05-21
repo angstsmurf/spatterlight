@@ -4,6 +4,34 @@
 //
 //  Created by Administrator on 2023-08-06.
 //
+// Entrypoint system for the four Infocom Z-machine v6 games (Arthur,
+// Journey, Shogun, Zork Zero).
+//
+// Background: these games' v6 binaries do graphics, status lines, mouse
+// handling, etc. by calling Z-machine routines that assume the original
+// Infocom interpreter's quirks. Modern Glk-based interpreters can't run
+// those routines verbatim, so for each game we maintain a table of
+// patterns that locate specific Z-machine routines (and certain globals
+// next to them) inside the story file. When the Z-machine's program
+// counter hits one of those addresses, we hijack it: either run a C++
+// replacement function (`fn`) and/or patch the bytes in place so that
+// execution continues with new behavior.
+//
+// Flow:
+//   1. At startup, find_entrypoints() scans the story file for every
+//      entrypoint pattern that matches the loaded game. Found addresses
+//      are stored back into the EntryPoint struct.
+//   2. Per-game post-processing (find_arthur_globals / find_journey_globals
+//      / find_shogun_globals / find_zork0_globals) then uses those
+//      addresses as anchors to locate nearby globals, routines, tables,
+//      objects, properties, and to apply byte patches.
+//   3. During execution, check_entrypoints() is called on every
+//      instruction fetch; if PC matches a found entrypoint, the C++
+//      replacement function is invoked.
+//
+// Entries with `stub_original = true` have their first byte overwritten
+// with `rtrue` (0xb0), so the original Z-code at that address returns
+// immediately and the C++ replacement is the sole implementation.
 #include <unordered_map>
 
 #include "zterp.h"
@@ -20,6 +48,9 @@
 
 #include "entrypoints.hpp"
 
+// Global indices (in the Z-machine global variable table) of the
+// foreground and background color globals. Populated by the per-game
+// globals finders.
 uint8_t fg_global_idx = 0, bg_global_idx = 0;
 
 #pragma mark - Entry Point Function Stubs
@@ -27,8 +58,11 @@ uint8_t fg_global_idx = 0, bg_global_idx = 0;
 // Dummy functions for unused Z-machine entry points.
 // The entrypoints system requires every entry to have
 // a function, but many of them are only used to
-// find the address of Z-machine functions or globals.
-// We declare the unused one as static here. This is a bit ugly.
+// find the address of Z-machine functions or globals --
+// the function pointer's identity (compared to e.g. `V_COLOR`)
+// is what the per-game globals finder uses to recognize the
+// row, even though the body is never executed.
+// We declare the unused ones as static here. This is a bit ugly.
 // I'll clean it up once everything works.
 
 static void RT_SEE_QST(void) {}
@@ -56,6 +90,19 @@ static void COMPLETE_DIAL_GRAPHICS(void) {}
 static void RT_TH_EXCALIBUR(void) {}
 
 
+// One row in the entrypoints table.
+//   game:              which game this row applies to
+//   title:             human-readable name (used for diagnostics)
+//   pattern:           byte sequence to search for in story-file memory;
+//                      0xf8 (WILDCARD) matches any byte
+//   offset:            adjustment added to the match address (lets us point
+//                      at a location partway through the matched pattern)
+//   found_at_address:  populated by find_entrypoints(); 0 means not found
+//   stub_original:     when true, overwrite the first matched byte with
+//                      `rtrue` so the original Z-code immediately returns,
+//                      leaving the C++ `fn` as the sole implementation
+//   fn:                C++ replacement (or stub) invoked when PC reaches
+//                      the found address
 struct EntryPoint {
     Game game;
     std::string title;
@@ -66,8 +113,14 @@ struct EntryPoint {
     void (*fn)();
 };
 
+// Sentinel value in a pattern that matches any byte. Chosen so it's
+// unlikely to collide with a literal opcode at the same position.
 #define WILDCARD 0xf8
 
+// Master entrypoint table. Each game contributes a contiguous block;
+// find_entrypoints() walks the table in order, advancing the search
+// start address after each match, which means rows must stay in
+// roughly-ascending order of where they appear in the story file.
 static std::vector<EntryPoint> entrypoints = {
 
 #pragma mark Arthur
@@ -175,7 +228,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Arthur,
         "RT-UPDATE-MAP-WINDOW",
-        { 0xEB, 0x7F, 0x02, 0xBE, 0x12, 0x57, 0x02, 0x01, 0x02, 0xa0 },
+        { 0xeb, 0x7f, 0x02, 0xbe, 0x12, 0x57, 0x02, 0x01, 0x02, 0xa0 },
         -0x16,
         0,
         false,
@@ -392,7 +445,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Journey,
         "PRINT-CHARACTER-COMMANDS",
-        {  0x0D, 0x03, 0x05, 0x2D },
+        {  0x0d, 0x03, 0x05, 0x2d },
         0,
         0,
         true,
@@ -472,7 +525,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Journey,
         "after INTRO",
-        { 0xf1, 0x7f, 0x00, 0xBB },
+        { 0xf1, 0x7f, 0x00, 0xbb },
         0,
         0,
         false,
@@ -525,7 +578,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Journey,
         "DIVIDER",
-        { 0xFF, 0x7F, 0x01, 0xC5, 0x0D, 0x01, 0x04 },
+        { 0xff, 0x7f, 0x01, 0xc5, 0x0d, 0x01, 0x04 },
         0,
         0,
         true,
@@ -709,7 +762,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Shogun,
         "DESCRIBE-ROOM",
-        { 0x02, 0xAB, 0x02, 0x04, 0xA0, WILDCARD, 0x51, 0xB2 },
+        { 0x02, 0xab, 0x02, 0x04, 0xa0, WILDCARD, 0x51, 0xb2 },
         4,
         0,
         false,
@@ -719,7 +772,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Shogun,
         "DESCRIBE-OBJECTS",
-        { 0xBB, 0xB0, 0x04, 0xA3, WILDCARD, 0x03, 0xA2, WILDCARD, 0x01, 0xC2 },
+        { 0xbb, 0xb0, 0x04, 0xa3, WILDCARD, 0x03, 0xa2, WILDCARD, 0x01, 0xc2 },
         3,
         0,
         false,
@@ -738,7 +791,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Shogun,
         "after V-VERSION",
-        { 0xBF, 0x00, 0xA0, 0x01, 0xC5, 0x8F },
+        { 0xbf, 0x00, 0xa0, 0x01, 0xc5, 0x8f },
         9,
         0,
         false,
@@ -748,7 +801,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Shogun,
         "V-CREDITS",
-        { 0xF1, 0x7F, 0x02, 0xDA, 0x0F },
+        { 0xf1, 0x7f, 0x02, 0xda, 0x0f },
         0,
         0,
         false,
@@ -952,7 +1005,7 @@ static std::vector<EntryPoint> entrypoints = {
 //    {
 //        Game::ZorkZero,
 //        "V_REFRESH alt",
-//        { 0xA0, 0x01, 0xD1, 0xA0, 0xA4, 0xC5 },
+//        { 0xa0, 0x01, 0xd1, 0xa0, 0xa4, 0xc5 },
 //        0,
 //        0,
 //        false,
@@ -962,7 +1015,7 @@ static std::vector<EntryPoint> entrypoints = {
 //    {
 //        Game::ZorkZero,
 //        "after SPLIT-BY-PICTURE alt",
-//        { 0x11, 0x6B, 0x01, 0x03, 0x00, 0xB0 },
+//        { 0x11, 0x6b, 0x01, 0x03, 0x00, 0xb0 },
 //        5,
 //        0,
 //        false,
@@ -982,7 +1035,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "UPDATE-STATUS-LINE",
-        { 0x03, 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7F, 0x04, 0x00 },
+        { 0x03, 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7f, 0x04, 0x00 },
         1,
         0,
         true,
@@ -1003,7 +1056,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "V-DEFINE alt",
-        { 0xED, 0x7F, 0x00, 0x36, 0x04, 0x01, 0x00, 0x34, 0x02, 0x00, 0x00 },
+        { 0xed, 0x7f, 0x00, 0x36, 0x04, 0x01, 0x00, 0x34, 0x02, 0x00, 0x00 },
         0,
         0,
         true,
@@ -1013,7 +1066,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "BLINK",
-        { 0xEB, 0xBF, 0x05, 0xbe, 0x05, 0xAB, 0x02, 0x03, 0x04, 0xEB, 0x7F, 0x00 },
+        { 0xeb, 0xbf, 0x05, 0xbe, 0x05, 0xab, 0x02, 0x03, 0x04, 0xeb, 0x7f, 0x00 },
         0,
         0,
         false,
@@ -1023,7 +1076,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "V_REFRESH",
-        { 0x00, 0x00, 0x46, 0x4F, 0x05, 0x04, 0x04, 0x2D },
+        { 0x00, 0x00, 0x46, 0x4f, 0x05, 0x04, 0x04, 0x2d },
         14,
         0,
         false,
@@ -1034,7 +1087,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "V-COLOR",
-        { 0x06, 0x80, 0xA5, 0xCF, 0x2F},
+        { 0x06, 0x80, 0xa5, 0xcf, 0x2f},
         3,
         0,
         false,
@@ -1074,7 +1127,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "after V-CREDITS alt",
-        { 0x40, 0x00, 0xB8, 0x00, 0x05},
+        { 0x40, 0x00, 0xb8, 0x00, 0x05},
         2,
         0,
         false,
@@ -1084,7 +1137,7 @@ static std::vector<EntryPoint> entrypoints = {
 //    {
 //        Game::ZorkZero,
 //        "after V-CREDITS",
-//        { 0x82, 0x00, 0xB8, 0x00 },
+//        { 0x82, 0x00, 0xb8, 0x00 },
 //        2,
 //        0,
 //        false,
@@ -1094,7 +1147,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "CENTER-1",
-        { 0x87, 0x00, 0x03, 0xbe, 0x13, 0x5F, 0x00, 0x03, 0x00, 0x57, 0x00, 0x02},
+        { 0x87, 0x00, 0x03, 0xbe, 0x13, 0x5f, 0x00, 0x03, 0x00, 0x57, 0x00, 0x02},
         -3,
         0,
         false,
@@ -1104,7 +1157,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "CENTER-1 alt",
-        { 0x00, 0x00, 0xBB, 0xB0, 0x00, 0x00},
+        { 0x00, 0x00, 0xbb, 0xb0, 0x00, 0x00},
         -7,
         0,
         false,
@@ -1114,7 +1167,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "CENTER-2",
-        { 0x06, 0xF0, 0x3F},
+        { 0x06, 0xf0, 0x3f},
         1,
         0,
         false,
@@ -1124,7 +1177,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "CENTER-3",
-        { 0x08, 0xF0, 0x3F },
+        { 0x08, 0xf0, 0x3f },
         1,
         0,
         false,
@@ -1134,7 +1187,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "V-MODE alt",
-        { 0xA0, WILDCARD, 0xC8, 0x0D, WILDCARD, 0x00, 0x8C, 0x00, 0x05 },
+        { 0xa0, WILDCARD, 0xc8, 0x0d, WILDCARD, 0x00, 0x8c, 0x00, 0x05 },
         -3,
         0,
         false,
@@ -1144,7 +1197,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "V_REFRESH alt",
-        { 0xA0, 0x01, 0xD1, 0xA0, WILDCARD, 0xC5, 0x8F, 0x34, 0x3A, 0xF9, 0x27, 0x34, 0x81, WILDCARD, 0x01 },
+        { 0xa0, 0x01, 0xd1, 0xa0, WILDCARD, 0xc5, 0x8f, 0x34, 0x3a, 0xf9, 0x27, 0x34, 0x81, WILDCARD, 0x01 },
         0 ,
         0,
         false,
@@ -1154,7 +1207,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "V-MODE",
-        { 0x00, 0xED, 0x3F, 0xFF, 0xFF, 0xA0 },
+        { 0x00, 0xed, 0x3f, 0xff, 0xff, 0xa0 },
         1,
         0,
         false,
@@ -1174,7 +1227,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "V-MAP-LOOP alt",
-        { 0xFA, 0x26, 0x9F, 0x15, 0xF7, 0x00, 0xCC, 0x06, 0x05, 0x07  },
+        { 0xfa, 0x26, 0x9f, 0x15, 0xf7, 0x00, 0xcc, 0x06, 0x05, 0x07  },
         0,
         0,
         false,
@@ -1204,7 +1257,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "after SPLIT-BY-PICTURE",
-        { 0x11, 0x6B, 0x01, 0x03, 0x00, 0xB0 },
+        { 0x11, 0x6b, 0x01, 0x03, 0x00, 0xb0 },
         5,
         0,
         false,
@@ -1234,7 +1287,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-NEW-HERE",
-        { 0x2d, WILDCARD, WILDCARD, 0xCF, 0x1F, WILDCARD, WILDCARD, 0x00, 0x02, 0xa0  },
+        { 0x2d, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x02, 0xa0  },
         -1,
         0,
         false,
@@ -1264,19 +1317,17 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "UPDATE-STATUS-LINE alt",
-        { 0x02, 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7F, 0x04, 0x00 },
+        { 0x02, 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7f, 0x04, 0x00 },
         1,
         0,
         true,
         z0_UPDATE_STATUS_LINE
     },
 
-
-
     {
         Game::ZorkZero,
         "DRAW-COMPASS-ROSE",
-        { 0xE0, 0x29, 0x35, 0x6F, WILDCARD, 0x01, 0x00, 0x00, 0xa0 },
+        { 0xe0, 0x29, 0x35, 0x6f, WILDCARD, 0x01, 0x00, 0x00, 0xa0 },
         -1,
         0,
         false,
@@ -1286,7 +1337,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "WINPROP",
-        { 0xBE, 0x13, 0x8B, 0x01, 0x70, 0x8B, 0x02 },
+        { 0xbe, 0x13, 0x8b, 0x01, 0x70, 0x8b, 0x02 },
         0,
         0,
         false,
@@ -1397,7 +1448,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "J-PLAY",
-        { 0xB2, 0x14, 0xE0, 0x00, 0x03, 0x62, 0xE0, 0x52 },
+        { 0xb2, 0x14, 0xe0, 0x00, 0x03, 0x62, 0xe0, 0x52 },
         -1,
         0,
         false,
@@ -1417,7 +1468,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "SMALL-DOOR-F",
-        { 0xB2, 0x00, 0x00, 0x13, 0x3E, 0x55, 0x40, 0x04 },
+        { 0xb2, 0x00, 0x00, 0x13, 0x3e, 0x55, 0x40, 0x04 },
         0,
         0,
         false,
@@ -1572,7 +1623,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "DISPLAY-HINT",
-        { 0xF1, 0x7F, 0x00, 0xED, 0x7F, 0x00, 0xEB },
+        { 0xf1, 0x7f, 0x00, 0xed, 0x7f, 0x00, 0xeb },
         0,
         0,
         false,
@@ -1580,6 +1631,11 @@ static std::vector<EntryPoint> entrypoints = {
     },
 };
 
+#pragma mark - Pattern Search Helpers
+
+// Scans `length_to_search` bytes of story memory starting at `startpos`
+// for the given pattern. WILDCARD bytes in the pattern match anything.
+// Returns the absolute address of the first match, or -1 if not found.
 static int32_t find_pattern_in_mem(std::vector<uint8_t> pattern, uint32_t startpos, uint32_t length_to_search) {
     int32_t end = startpos + length_to_search - pattern.size();
     for (int32_t i = startpos; i < end; i++) {
@@ -1597,6 +1653,11 @@ static int32_t find_pattern_in_mem(std::vector<uint8_t> pattern, uint32_t startp
     return -1;
 }
 
+// Matches `pattern` and treats each WILDCARD slot as a Z-machine global
+// reference: the matched byte is subtracted by 0x10 (the global-base
+// offset used by the Z-machine encoding) and written into the next slot
+// of `vars`. Returns the address of the *last* wildcard in the matched
+// pattern, useful for chaining successive searches forward.
 static int32_t find_globals_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_t *> vars, uint32_t startpos, uint32_t length_to_search
                                 ) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
@@ -1613,6 +1674,9 @@ static int32_t find_globals_in_pattern(std::vector<uint8_t> pattern, std::vector
     return last_match_offset;
 }
 
+// Like find_globals_in_pattern, but each *pair* of adjacent WILDCARD
+// bytes is read as a packed 16-bit routine address. The address is
+// unpacked (multiplied by the v6 packing factor) before being stored.
 static int32_t find_routines_in_pattern(std::vector<uint8_t> pattern, std::vector<uint32_t *> routines, uint32_t startpos, uint32_t length_to_search
                                  ) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
@@ -1629,6 +1693,9 @@ static int32_t find_routines_in_pattern(std::vector<uint8_t> pattern, std::vecto
     return last_match_offset;
 }
 
+// Like find_globals_in_pattern, but each WILDCARD slot is captured
+// verbatim (no -0x10 adjustment). Use this for raw byte operands such
+// as object numbers, property numbers, or short constants.
 static int32_t find_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_t *> vals, uint32_t startpos, uint32_t length_to_search
                                ) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
@@ -1645,6 +1712,10 @@ static int32_t find_values_in_pattern(std::vector<uint8_t> pattern, std::vector<
     return last_match_offset;
 }
 
+// Like find_routines_in_pattern, but each adjacent WILDCARD pair is
+// read as a raw (un-unpacked) 16-bit word. Use this for byte-addressed
+// tables (object tables, picture tables, etc.) where no unpacking is
+// needed.
 static int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint16_t *> vals, uint32_t startpos, uint32_t length_to_search) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
     if (offset == -1)
@@ -1660,6 +1731,10 @@ static int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::
     return last_match_offset;
 }
 
+// Walks Arthur's dynamic memory looking for the original interpreter's
+// 50/300/600-tick busy-wait pauses (which used real wallclock delays)
+// and replaces each with a sequence of `nop` opcodes so modern players
+// don't have to sit through them.
 static void patch_arthur_pauses(void) {
     if (memory_size < 0x10014) {
         fprintf(stderr, "patch_arthur_pauses: Unexpected memory size: 0x%x\n", memory_size);
@@ -1683,8 +1758,17 @@ static void patch_arthur_pauses(void) {
     }
 }
 
+// Address of the final instruction (rtrue/rfalse) inside V-COLOR.
+// Shared across the per-game globals finders because the after_V_COLOR
+// entrypoint is positioned at this address.
 static uint32_t end_of_color_addr = 0;
 
+#pragma mark - Per-game Globals Finders
+
+// Second-pass scanner for Arthur. Uses each already-located entrypoint
+// as an anchor to find nearby globals (color indices, window-type flags,
+// timing values...), routine addresses, tables, and to apply small byte
+// patches that fix original-game bugs or hardcoded assumptions.
 static void find_arthur_globals(void) {
     int start = 0;
     for (auto &entrypoint : entrypoints) {
@@ -1810,6 +1894,9 @@ static void find_arthur_globals(void) {
     patch_arthur_pauses();
 }
 
+// Second-pass scanner for Journey. Locates globals for the party screen,
+// command-name table, scene-select menu, and patches a buggy V-BOW in
+// older releases. See per-block comments for individual quirks.
 static void find_journey_globals(void) {
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == BOLD_PARTY_CURSOR && entrypoint.found_at_address != 0) {
@@ -2011,6 +2098,9 @@ static void find_journey_globals(void) {
     }
 }
 
+// Second-pass scanner for Shogun. Locates maze globals, scene-select
+// table addresses, border globals, and patches V-BOW versions 283-295
+// to use direct (rather than indirect) variable assignment.
 static void find_shogun_globals(void) {
     int start = 0;
     int mac_ii_return_address = 0;
@@ -2371,6 +2461,10 @@ static void find_shogun_globals(void) {
     }
 }
 
+// Second-pass scanner for Zork Zero. Locates routine addresses for the
+// minigames (Tower of Bozbar, Peggleboz, Snarfem, Double Fanucci) and
+// the map/compass system, plus their backing tables and the BLINK_TBL
+// used by the map cursor.
 static void find_zork0_globals(void) {
     int start = 0;
     for (auto &entrypoint : entrypoints) {
@@ -2428,7 +2522,7 @@ static void find_zork0_globals(void) {
         } else if (entrypoint.fn == J_PLAY && entrypoint.found_at_address != 0) {
             zr.J_PLAY = entrypoint.found_at_address;
             fprintf(stderr, "zr.J_PLAY at address 0x%x\n", entrypoint.found_at_address);
-            start = find_16_bit_values_in_pattern({0xE2, 0x1B, WILDCARD, WILDCARD, 0x00, 0x02, 0xE2, 0x1B, WILDCARD, WILDCARD, 0x01, 0x03 }, {&zt.F_CARD_TABLE, &zt.F_PLAY_TABLE}, entrypoint.found_at_address, 500);
+            start = find_16_bit_values_in_pattern({0xe2, 0x1b, WILDCARD, WILDCARD, 0x00, 0x02, 0xe2, 0x1b, WILDCARD, WILDCARD, 0x01, 0x03 }, {&zt.F_CARD_TABLE, &zt.F_PLAY_TABLE}, entrypoint.found_at_address, 500);
             if (start == -1) {
                 fprintf(stderr, "zt.F_CARD_TABLE not found!\n");
             } else {
@@ -2439,6 +2533,13 @@ static void find_zork0_globals(void) {
             zr.DRAW_PEGS = entrypoint.found_at_address;
             fprintf(stderr, "zr.DRAW_PEGS at address 0x%x\n", entrypoint.found_at_address);
             entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == DISPLAY_MOVES && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0xED, 0x7F, 0x00, 0xA0, WILDCARD, 0x54}, { &zg.PEG_MOVE_NUMBER }, entrypoint.found_at_address - 110, 10);
+            if (start != -1) {
+                fprintf(stderr, "zg.PEG_MOVE_NUMBER is global 0x%x\n", zg.PEG_MOVE_NUMBER);
+            } else {
+                fprintf(stderr, "zg.PEG_MOVE_NUMBER not found!\n");
+            }
         } else if (entrypoint.fn == SET_B_PIC && entrypoint.found_at_address != 0) {
             zr.SET_B_PIC = entrypoint.found_at_address;
             fprintf(stderr, "zr.SET_B_PIC at address 0x%x\n", entrypoint.found_at_address);
@@ -2506,7 +2607,7 @@ static void find_zork0_globals(void) {
                 zo.PYRAMID = dummy;
             }
 
-            start = find_16_bit_values_in_pattern({0xC1, 0x8F, 0x01, 0x01, WILDCARD, WILDCARD, 0x8B, WILDCARD, WILDCARD, 0xC1, 0x8F, 0x01, WILDCARD, WILDCARD, WILDCARD, 0x8b, WILDCARD, WILDCARD, 0x8b, WILDCARD, WILDCARD, 0 }, {&zt.LEFT_PEG_TABLE, &zt.LEFT_PEG_TABLE, &zt.CENTER_PEG_TABLE, &zt.CENTER_PEG_TABLE, &zt.RIGHT_PEG_TABLE, &zt.CENTER_PEG_TABLE}, start, 100 );
+            start = find_16_bit_values_in_pattern({0xc1, 0x8f, 0x01, 0x01, WILDCARD, WILDCARD, 0x8b, WILDCARD, WILDCARD, 0xc1, 0x8f, 0x01, WILDCARD, WILDCARD, WILDCARD, 0x8b, WILDCARD, WILDCARD, 0x8b, WILDCARD, WILDCARD, 0 }, {&zt.LEFT_PEG_TABLE, &zt.LEFT_PEG_TABLE, &zt.CENTER_PEG_TABLE, &zt.CENTER_PEG_TABLE, &zt.RIGHT_PEG_TABLE, &zt.CENTER_PEG_TABLE}, start, 100 );
 
             if (start != -1) {
                 fprintf(stderr, "zo.LEFT_PEG_TABLE = 0x%x zt.CENTER_PEG_TABLE = 0x%x zt.RIGHT_PEG_TABLE = 0x%x\n", zt.LEFT_PEG_TABLE, zt.CENTER_PEG_TABLE, zt.RIGHT_PEG_TABLE);
@@ -2572,7 +2673,7 @@ static void find_zork0_globals(void) {
             zr.V_REFRESH = entrypoint.found_at_address - 1;
             start = find_globals_in_pattern({ 0x01, 0xc1, 0x8f, WILDCARD }, { &zg.CURRENT_SPLIT }, entrypoint.found_at_address, 200);
             if (start == -1) {
-                start = find_globals_in_pattern({ WILDCARD, 0x01, 0x8C, 0x00, 0x05  }, { &zg.CURRENT_SPLIT }, entrypoint.found_at_address, 100);
+                start = find_globals_in_pattern({ WILDCARD, 0x01, 0x8c, 0x00, 0x05  }, { &zg.CURRENT_SPLIT }, entrypoint.found_at_address, 100);
                 if (start == -1) {
                     fprintf(stderr, "Could not find zg.CURRENT_SPLIT!\n");
                 }
@@ -2580,7 +2681,7 @@ static void find_zork0_globals(void) {
         } else if (entrypoint.fn == z0_UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0xdb, 0x8f, WILDCARD, 0xff, 0xff, 0x61, WILDCARD }, { &zg.DEFAULT_FG, &zg.HERE }, entrypoint.found_at_address, 300);
             if (start == -1) {
-                start = find_globals_in_pattern({ 0xdb, 0x4F, 0x01, 0xFF, 0xFF, 0x61, WILDCARD }, { &zg.HERE }, entrypoint.found_at_address, 300);
+                start = find_globals_in_pattern({ 0xdb, 0x4f, 0x01, 0xff, 0xff, 0x61, WILDCARD }, { &zg.HERE }, entrypoint.found_at_address, 300);
             }
             if (start != -1) {
                 fprintf(stderr, "zg.DEFAULT_FG = 0x%x zg.HERE = 0x%x\n", zg.DEFAULT_FG, zg.HERE);
@@ -2645,14 +2746,14 @@ static void find_zork0_globals(void) {
                 fprintf(stderr, "zo.NOT_HERE_OBJECT not found!\n");
             }
             int oldstart = start;
-            start = find_16_bit_values_in_pattern({0xCD, 0x4F, 0x02, WILDCARD, WILDCARD, 0x4f  }, {&zt.PBOZ_PIC_TABLE }, start, 20);
+            start = find_16_bit_values_in_pattern({0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x4f  }, {&zt.PBOZ_PIC_TABLE }, start, 20);
             if (start != -1) {
                 fprintf(stderr, "zt.PBOZ_PIC_TABLE: 0x%x\n", zt.PBOZ_PIC_TABLE);
             } else {
                 fprintf(stderr, "zt.PBOZ_PIC_TABLE not found!\n");
                 start = oldstart;
             }
-            start = find_16_bit_values_in_pattern({0xE1, 0x2B, WILDCARD, WILDCARD, 0x01, 0x00}, {&zt.BOARD_TABLE }, start, 50);
+            start = find_16_bit_values_in_pattern({0xe1, 0x2b, WILDCARD, WILDCARD, 0x01, 0x00}, {&zt.BOARD_TABLE }, start, 50);
             if (start != -1) {
 
                 fprintf(stderr, "zt.BOARD_TABLE: 0x%x\n", zt.BOARD_TABLE);
@@ -2668,9 +2769,9 @@ static void find_zork0_globals(void) {
                 fprintf(stderr, "zt.PILE_TABLE not found!\n");
             }
         } else if (entrypoint.fn == SNARFEM && entrypoint.found_at_address != 0) {
-            start = find_16_bit_values_in_pattern({0x0D, 0x04, 0x01, 0xCE, 0x2F, WILDCARD, WILDCARD, WILDCARD, 0xCC, 0x1F, WILDCARD, WILDCARD}, {&zo.FAN, &zo.FAN}, entrypoint.found_at_address, 220);
+            start = find_16_bit_values_in_pattern({0x0d, 0x04, 0x01, 0xce, 0x2f, WILDCARD, WILDCARD, WILDCARD, 0xcc, 0x1f, WILDCARD, WILDCARD}, {&zo.FAN, &zo.FAN}, entrypoint.found_at_address, 220);
             if (start == -1) {
-                start = find_16_bit_values_in_pattern({0x0D, 0x04, 0x01, 0x0c, WILDCARD, WILDCARD, 0xbb, 0xbb}, {&zo.FAN}, entrypoint.found_at_address, 350);
+                start = find_16_bit_values_in_pattern({0x0d, 0x04, 0x01, 0x0c, WILDCARD, WILDCARD, 0xbb, 0xbb}, {&zo.FAN}, entrypoint.found_at_address, 350);
                 if (start != -1) {
                     zp.TRYTAKEBIT = zo.FAN & 0xff;
                     zo.FAN = zo.FAN >> 8;
@@ -2679,9 +2780,9 @@ static void find_zork0_globals(void) {
             fprintf(stderr, "zo.FAN: 0x%x zp.TRYTAKEBIT: 0x%x\n", zo.FAN, zp.TRYTAKEBIT);
         } else if (entrypoint.fn == DRAW_NEW_HERE && entrypoint.found_at_address != 0) {
             uint8_t philhall = 0, mountain = 0, savannah = 0, highway = 0;
-            start = find_values_in_pattern({0xA0, WILDCARD, 0x46, 0x41, WILDCARD, WILDCARD, 0x4C, 0x51, WILDCARD, WILDCARD, 0x01, 0xA0, 0x01 }, {&zg.NARROW, &philhall, &philhall, &zp.P_APPLE_DESC, &zp.P_APPLE_DESC}, entrypoint.found_at_address, 50);
+            start = find_values_in_pattern({0xa0, WILDCARD, 0x46, 0x41, WILDCARD, WILDCARD, 0x4c, 0x51, WILDCARD, WILDCARD, 0x01, 0xa0, 0x01 }, {&zg.NARROW, &philhall, &philhall, &zp.P_APPLE_DESC, &zp.P_APPLE_DESC}, entrypoint.found_at_address, 50);
             if (start != -1) {
-                start = find_values_in_pattern({0xb0, 0xC1, 0x95, WILDCARD, WILDCARD, WILDCARD, WILDCARD, 0x67 }, {&mountain, &mountain, &savannah, &highway}, start, 20);
+                start = find_values_in_pattern({0xb0, 0xc1, 0x95, WILDCARD, WILDCARD, WILDCARD, WILDCARD, 0x67 }, {&mountain, &mountain, &savannah, &highway}, start, 20);
                 if (start != -1) {
                     zg.NARROW -= 0x10;
                     zo.PHIL_HALL = philhall;
@@ -2693,7 +2794,7 @@ static void find_zork0_globals(void) {
             }
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == BLINK && entrypoint.found_at_address != 0) {
-            start = find_globals_in_pattern({0xEB, 0x7F, 0x00, 0xE1, 0x9B, WILDCARD, 0x00, 0x05}, {&zg.BLINK_TBL}, entrypoint.found_at_address, 20);
+            start = find_globals_in_pattern({0xeb, 0x7f, 0x00, 0xe1, 0x9b, WILDCARD, 0x00, 0x05}, {&zg.BLINK_TBL}, entrypoint.found_at_address, 20);
             if (start != -1) {
                 fprintf(stderr, "zg.BLINK_TBL: 0x%x\n", zg.BLINK_TBL);
             }
@@ -2705,7 +2806,7 @@ static void find_zork0_globals(void) {
             }
         } else if (entrypoint.fn == DRAW_COMPASS_ROSE && entrypoint.found_at_address != 0) {
             zr.DRAW_COMPASS_ROSE = entrypoint.found_at_address;
-            start = find_16_bit_values_in_pattern({0xCF, 0x1F, WILDCARD, WILDCARD, 0x00, 0x04 }, {&zt.PICINF_TBL}, entrypoint.found_at_address, 32);
+            start = find_16_bit_values_in_pattern({0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x04 }, {&zt.PICINF_TBL}, entrypoint.found_at_address, 32);
             if (start == -1) {
                 fprintf(stderr, "zt.PICINF_TBL not found!\n");
             }
@@ -2714,11 +2815,23 @@ static void find_zork0_globals(void) {
     }
 }
 
+#pragma mark - Entrypoint Lookup
+
+// PC -> EntryPoint lookup table built by find_entrypoints(), consulted
+// by check_entrypoints() on every instruction fetch.
 static std::unordered_map<uint32_t, EntryPoint *> entrypoint_map;
 
+// Cached lowest/highest entrypoint address. Used as a cheap range check
+// in check_entrypoints() to skip the hash lookup entirely for PCs that
+// can't possibly match.
 static uint32_t lowest_entrypoint = UINT32_MAX;
 static uint32_t highest_entrypoint = 0;
 
+// One-time entrypoint discovery, called shortly after the story file
+// has been loaded into memory. Walks the master `entrypoints` table in
+// order, locates each row's pattern in dynamic memory, stubs the
+// originals where requested, then runs the per-game globals finder and
+// finally populates the lookup map consulted on every instruction.
 void find_entrypoints(void) {
 
     int start = header.static_start;
@@ -2732,7 +2845,7 @@ void find_entrypoints(void) {
                 if (offset != -1) {
                     entrypoint.found_at_address = offset + entrypoint.offset;
                     start = entrypoint.found_at_address;
-//                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), start);
+                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), start);
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;
                         store_byte(entrypoint.found_at_address, 0xb0);
@@ -2767,6 +2880,10 @@ void find_entrypoints(void) {
     }
 }
 
+// Hot-path dispatcher called from the Z-machine interpreter on each
+// instruction fetch. If the current PC matches a registered entrypoint,
+// invokes the corresponding C++ replacement. The cheap range check
+// keeps the overhead negligible when no entrypoint matches.
 void check_entrypoints(uint32_t pc) {
     if (pc > highest_entrypoint || pc < lowest_entrypoint)
         return;

@@ -790,7 +790,8 @@ void arthur_recover_state(library_state_data *dat) {
 }
 
 // Performs UI rebuild after a manual RESTORE command: syncs the screen
-// mode from the Z-machine global and re-applies user-selected colors.
+// mode from the Z-machine global and recolors the screen according to the
+// colors set in the save file.
 void arthur_update_after_restore(void) {
     arthur_sync_screenmode();
     after_V_COLOR();
