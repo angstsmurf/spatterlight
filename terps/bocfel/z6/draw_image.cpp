@@ -4,11 +4,20 @@
 //
 //  Created by Administrator on 2023-07-17.
 //
+//  Bitmap compositing core for Infocom V6 graphics. Owns a single 32-bit
+//  RGBA "pixmap" sized to the original hardware screen, into which all
+//  image decoders write. Higher-level code calls draw_to_buffer /
+//  draw_to_pixmap_* / extend_*_pillars to build up a frame, then
+//  flush_bitmap() encodes the pixmap as a TIFF and hands it to the Glk
+//  graphics window.
+//
 
 extern "C" {
 #include "glkimp.h"
 }
+#include <cerrno>
 #include <cmath>
+#include <cstring>
 #include "v6_image.h"
 #include "draw_png.h"
 #include "draw_apple_2.h"
@@ -26,11 +35,17 @@ extern "C" {
 #include "v6_shared.hpp"
 #include "options.h"
 
+// Loaded image table: parsed once at startup from the game's Blorb/image
+// resources. find_image() looks images up here by picture number.
 ImageStruct *raw_images;
 int image_count;
 
+// Set whenever something has changed the pixmap; cleared by flush_bitmap().
+// When true, the next flush will glk_window_clear() the destination so
+// stale pixels don't bleed through.
 bool image_needs_redraw = true;
 
+// Channel indices into an [R,G,B] color triplet.
 enum PaletteColours {
     RED   = 0,
     GREEN = 1,
@@ -59,9 +74,15 @@ static const uint8_t ega_colormap[16][3] =
     { 255,255,255 }
 };
 
+// Width in source pixels of the original target hardware screen. Drawing
+// is done in this coordinate space and scaled up to the Glk window by
+// flush_bitmap(). pixelwidth is the aspect-ratio correction factor used
+// for platforms whose pixels weren't square (e.g. CGA 2:1).
 float hw_screenwidth = 320.0;
 float pixelwidth = 1.0;
 
+// Linear scan of the loaded image table for the entry whose Z-machine
+// picture number matches picnum. Returns nullptr if no such image exists.
 ImageStruct *find_image(int picnum) {
     for (int i = 0; i < image_count; i++) {
         if (raw_images[i].index == picnum)
@@ -70,18 +91,24 @@ ImageStruct *find_image(int picnum) {
     return nullptr;
 }
 
-int palentries = 16;
-
+// Module-private RGBA backing buffer all drawing routines composite into.
+// Lazily allocated by ensure_pixmap(); freed by clear_image_buffer().
 static uint8_t *pixmap = nullptr;
 
+// Current size of `pixmap` in bytes (NOT pixels). Grown by drawing routines
+// when an image extends below the currently-allocated area.
 static int pixlength = hw_screenwidth * 200 * 4;
 extern winid_t current_graphics_buf_win;
 
 extern glui32 user_selected_background;
 
+// Effective foreground/background for monochrome (Mac B/W, CGA) artwork.
+// Default to pure black/white but may be overwritten with theme colors.
 int32_t monochrome_black = 0;
 int32_t monochrome_white = 0xffffff;
 
+// Lazily allocate the global pixmap and size the graphics window to fit
+// the full screen. Safe to call repeatedly; a no-op once the pixmap exists.
 void ensure_pixmap(winid_t winid) {
     if (winid == nullptr) {
         fprintf(stderr, "ensure_pixmap called with a null winid!\n");
@@ -117,28 +144,39 @@ void ensure_pixmap(winid_t winid) {
 //    }
 //}
 
-void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width) {
-    FILE *fptr = fopen(name, "w");
-
-    if (fptr == NULL) {
-        fprintf(stderr, "File open error!\n");
+// Serialize an RGBA buffer to a TIFF file at `name`. Used to hand the
+// pixmap to the Glk image cache via a temp file. Silently no-ops if
+// `size` doesn't fit in the uint32_t TIFF row count; logs to stderr on
+// fopen failure with errno detail.
+static void write_to_tiff(const char *name, uint8_t *data, size_t size, uint32_t width) {
+    if (size > UINT32_MAX) {
+        fprintf(stderr, "write_to_tiff: buffer too large (%zu bytes)\n", size);
         return;
     }
 
-    fprintf(stderr, "writeToTIFF: \"%s\"\n", name);
+    FILE *fptr = fopen(name, "wb");
+    if (fptr == nullptr) {
+        fprintf(stderr, "write_to_tiff: fopen(\"%s\") failed: %s\n", name, strerror(errno));
+        return;
+    }
 
     writetiff(fptr, data, (uint32_t)size, width);
 
     fclose(fptr);
-    return;
 }
 
+// Copy `image`'s 16-entry RGB palette into the module-shared global_palette
+// (defined in draw_png.cpp) so subsequent decoders can resolve color
+// indices. No-op if the image has no palette.
 void extract_palette(ImageStruct *image) {
     if (image && image->palette) {
         memcpy(global_palette, image->palette, 16 * 3);
     }
 }
 
+// Generate a unique filename ending in ".tiff" by taking a Glk temp file
+// path and appending the extension. The underlying temp file is deleted
+// immediately so only the path string is reused. Caller frees with free().
 static char *create_temp_tiff_file_name(void) {
     fileref_t *fileref = glk_fileref_create_temp(fileusage_Data, NULL);
     if (fileref == nullptr)
@@ -146,13 +184,19 @@ static char *create_temp_tiff_file_name(void) {
     const char *filename = glkunix_fileref_get_filename(fileref);
     size_t filenamelength = strlen(filename);
     char *tiffname = (char *)malloc(filenamelength + 6);
-    memcpy(tiffname, filename, filenamelength + 1);
+    if (tiffname != nullptr) {
+        memcpy(tiffname, filename, filenamelength + 1);
+        strncat(tiffname, ".tiff", 5);
+    }
     glk_fileref_delete_file(fileref);
     glk_fileref_destroy(fileref);
-    strncat(tiffname, ".tiff", 5);
     return tiffname;
 }
 
+// Commit the accumulated pixmap to the Glk graphics window: write it out
+// as a TIFF, hand it to the image cache under a fixed resource id (600),
+// and stretch-blit it to fill the destination. If image_needs_redraw is
+// set, the window is cleared first so previous frames don't show through.
 void flush_bitmap(winid_t winid) {
     if (winid == nullptr)
         return;
@@ -171,7 +215,7 @@ void flush_bitmap(winid_t winid) {
     char *filename = create_temp_tiff_file_name();
     if (filename == nullptr)
         return;
-    writeToTIFF(filename, pixmap, pixlength, hw_screenwidth);
+    write_to_tiff(filename, pixmap, pixlength, hw_screenwidth);
     win_purgeimage(600, filename, pixlength);
     free(filename);
     win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixlength / (4 * hw_screenwidth * hw_screenwidth));
@@ -180,6 +224,10 @@ void flush_bitmap(winid_t winid) {
 
 extern GraphicsType graphics_type;
 
+// Look up an image by picture number and return its native dimensions in
+// hw_screen pixels through the (optionally non-null) width/height out-params.
+// Returns true if the image exists; on miss, returns false and zeroes the
+// outputs.
 bool get_image_size(int picnum, int *width, int *height) {
     ImageStruct *image = find_image(picnum);
     if (image == nullptr) {
@@ -254,6 +302,8 @@ static void draw_bitmap_on_bitmap(const uint8_t *src_pixels, int src_buffer_size
     }
 }
 
+// Pack the three RGB bytes at `p` (pointer to an RGBA pixel) into a single
+// 24-bit color value, dropping alpha. Used for fast color comparisons.
 #define GET_RGB(p)    (((uint8_t)*(p) << 16) | ((uint8_t) *(p + 1) << 8) | *(p + 2))
 
 // Draws the foot (shadow) section of the Mac B/W Shogun/Zork Zero hint borders onto
@@ -303,6 +353,10 @@ static void draw_hint_menu_feet_mac(uint8_t *smallbitmap, int smallbitmapsize, u
     }
 }
 
+// Fill an opaque rectangle on the global pixmap at (dest_x, dest_y).
+// Clamps dest_x into bounds, grows the pixmap downward if rect_height
+// runs past the current allocation, and refuses requests wider than the
+// hardware screen.
 void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_width, int rect_height) {
     static const int kBytesPerPixel = 4;
 
@@ -351,6 +405,9 @@ void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_wid
     }
 }
 
+// Return a freshly-allocated, vertically-flipped copy of `source` (an
+// image->width × image->height RGBA buffer). Frees the original `source`
+// either way. Returns nullptr on OOM.
 static uint8_t *flip_bitmap(ImageStruct *image, uint8_t *source) {
     static const int kBytesPerPixel = 4;
 
@@ -373,6 +430,11 @@ static uint8_t *flip_bitmap(ImageStruct *image, uint8_t *source) {
     return flipped;
 }
 
+// Decode an opaque CGA image into an RGBA buffer. Opaque CGA stores 8
+// pixels per byte (one bit per pixel), with each row padded to a multiple
+// of 8 pixels. We temporarily widen image->width so the VGA decompressor
+// allocates the padded stride, expand bits to monochrome RGBA, then trim
+// the padding columns off each row. Caller frees the returned buffer.
 static uint8_t *draw_opaque_cga(ImageStruct *image) {
     static const int kBytesPerPixel = 4;
     static const int kBitsPerByte = 8;
@@ -446,6 +508,13 @@ static uint8_t *draw_opaque_cga(ImageStruct *image) {
     return output;
 }
 
+// Decode an indexed image for any of the legacy platforms (Amiga, Mac B/W,
+// CGA, EGA, VGA). Picks a palette in this order: the image's own palette
+// (offset by 2 because slots 0-1 are reserved for transparent/border),
+// the default monochrome pair for Mac B/W and CGA, the fixed EGA color
+// table, or the previously extracted global_palette. Then dispatches to
+// decompress_vga or decompress_amiga and expands color indices to RGBA,
+// honoring image->transparency. Caller frees the returned buffer.
 static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous_palette) {
     static const unsigned kMaxPaletteColors = 14;
     static const int kPaletteSize = 16;
@@ -518,6 +587,9 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous
     return rgba_buffer;
 }
 
+// Dispatch image decoding to the right backend based on image->type and,
+// for CGA, whether the image is opaque or transparent. Returns a freshly
+// allocated RGBA buffer (caller frees) or nullptr on unsupported types.
 static uint8_t *decompress_image(ImageStruct *image, bool use_previous_palette) {
     uint8_t *result = nullptr;
     switch (image->type) {
@@ -545,6 +617,8 @@ static uint8_t *decompress_image(ImageStruct *image, bool use_previous_palette) 
 }
 
 
+// Convenience wrapper: look up an image by number and load its palette as
+// the active global_palette. No-op if the image isn't found.
 void extract_palette_from_picnum(int picnum) {
     ImageStruct *image = find_image(picnum);
     if (image != nullptr) {
@@ -552,6 +626,11 @@ void extract_palette_from_picnum(int picnum) {
     }
 }
 
+// Workhorse: decode an image and composite it at (x, y) into the caller's
+// destination pixmap. x and y are in display coordinates; they get divided
+// by xscale/yscale to land at the right offset in the hw_screen-space
+// destination. If use_previous_palette is false the image's palette is
+// also loaded as the new global_palette.
 void draw_to_pixmap_palette_optional(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped, bool use_previous_palette) {
     if (*pixmap == nullptr) {
         fprintf(stderr, "draw_to_pixmap_palette_optional called with a nullptr pixmap!\n");
@@ -566,14 +645,20 @@ void draw_to_pixmap_palette_optional(ImageStruct *image, uint8_t **pixmap, int *
     }
 }
 
+// draw_to_pixmap_palette_optional with palette replacement enabled.
 void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
     draw_to_pixmap_palette_optional(image, pixmap, pixmapsize, screenwidth, x, y, xscale, yscale, flipped, false);
 }
 
+// As draw_to_pixmap, but keeps whatever palette is already loaded. Used
+// when compositing several images that should share a single palette.
 void draw_to_pixmap_using_current_palette(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
     draw_to_pixmap_palette_optional(image, pixmap, pixmapsize, screenwidth, x, y, xscale, yscale, flipped, true);
 }
 
+// Top-level "draw image N at (x, y)" entry point. Resolves the picture
+// number, ensures the global pixmap is allocated for `winid`, and composites
+// into it at the configured screen scaling factors.
 void draw_to_buffer(winid_t winid, int picnum, int x, int y) {
     ImageStruct *image = find_image(picnum);
     if (image == nullptr)
@@ -583,6 +668,10 @@ void draw_to_buffer(winid_t winid, int picnum, int x, int y) {
     draw_to_pixmap(image, &pixmap, &pixlength, hw_screenwidth, x, y, imagescalex, imagescaley, false);
 }
 
+// Re-render image `picnum` (optionally flipped) into a TIFF and register
+// it with the Glk image cache under its picture number, so subsequent
+// win_drawimage() calls can find it. Returns the underlying ImageStruct
+// (or nullptr on failure) so callers can read its dimensions.
 ImageStruct *recreate_image(glui32 picnum, int flipped) {
     ImageStruct *image = find_image(picnum);
     if (image == nullptr)
@@ -604,7 +693,7 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
         result = flip_bitmap(image, result);
     }
 
-    writeToTIFF(filename, result, pixmapsize, image->width);
+    write_to_tiff(filename, result, pixmapsize, image->width);
     free(result);
 
     win_purgeimage(picnum, filename, pixmapsize);
@@ -612,6 +701,11 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
     return image;
 }
 
+// Decode `picnum` into the Glk image cache and immediately blit it to
+// `winid` at (x, y), scaled by `scalefactor` (with pixelwidth applied on
+// the x-axis to correct for non-square source pixels). Used to draw images
+// that go directly into a text buffer or graphics window without first
+// being composited into the global pixmap.
 void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y, float scalefactor, bool flipped) {
     ImageStruct *image = recreate_image(picnum, flipped);
     if (image == nullptr)
@@ -625,24 +719,35 @@ void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y, float s
     win_drawimage(winid->peer, x, y, image->width * xscalefactor, image->height * scalefactor);
 }
 
+// Draw image `image` at (x, y) into the global pixmap with no scaling and
+// load its palette as the new active palette. Coordinates are in hw_screen
+// pixels.
 void draw_to_pixmap_unscaled(int image, int x, int y) {
     ImageStruct *img = find_image(image);
     if (img != nullptr)
         draw_to_pixmap(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, false);
 }
 
+// Like draw_to_pixmap_unscaled but keeps the currently active palette.
 void draw_to_pixmap_unscaled_using_current_palette(int image, int x, int y) {
     ImageStruct *img = find_image(image);
     if (img != nullptr)
         draw_to_pixmap_using_current_palette(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, false);
 }
 
+// Like draw_to_pixmap_unscaled_using_current_palette but vertically flipped.
+// Used for tiled fills where alternating tiles should be mirrored.
 void draw_to_pixmap_unscaled_flipped_using_current_palette(int image, int x, int y) {
     ImageStruct *img = find_image(image);
     if (img != nullptr)
         draw_to_pixmap_using_current_palette(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, true);
 }
 
+// Copy a horizontal strip (`line_count` rows starting at `start_y`) out of
+// the global pixmap into a freshly allocated buffer. *out_size receives the
+// byte size of the copy, which may be clipped if `start_y + line_count`
+// runs past the pixmap. Returns nullptr if the start row is out of range
+// or on OOM; caller frees with free().
 uint8_t *copy_lines_from_bitmap(int start_y, int line_count, size_t *out_size) {
     static const int kBytesPerPixel = 4;
 
@@ -672,6 +777,10 @@ uint8_t *copy_lines_from_bitmap(int start_y, int line_count, size_t *out_size) {
     return line_buffer;
 }
 
+// Copy a rectangular region of the global pixmap into a freshly allocated
+// buffer of `width * height * 4` bytes. Rows that would read past the end
+// of the pixmap are zero-filled instead. *size receives the buffer size.
+// Caller frees with free().
 uint8_t *copy_rect_from_bitmap(int x, int y, int width, int height, size_t *size) {
     *size = 0;
     int src_stride = (int)hw_screenwidth * 4;
@@ -695,6 +804,9 @@ uint8_t *copy_rect_from_bitmap(int x, int y, int width, int height, size_t *size
     return result;
 }
 
+// Zero out `height` rows of the global pixmap starting at row `y`. Clips
+// the erase if it would run past the current allocation. Used to clear
+// stale tiles before redrawing a section.
 void erase_lines_in_bitmap(int y, int height) {
     int stride = hw_screenwidth * 4;
     int startpos = y * stride;
@@ -888,6 +1000,12 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
     free(foot);
 }
 
+// Vertically extend the Zork Zero "underground" castle pillars to fill a
+// taller-than-original screen. Copies the pillar strip and the left/right
+// side rectangles, then tiles them downward, alternating which sides get
+// drawn so the masonry pattern stays consistent. The foot section is
+// drawn last, and a final partial "stone" may be erased near the bottom
+// so the foot lands flush against the screen edge.
 void extend_underground_pillars(int top_cut, int foot_height, int total_height,
                               int pillar_height, int stone_height, int pillar_width) {
 
@@ -947,6 +1065,12 @@ void extend_underground_pillars(int top_cut, int foot_height, int total_height,
 #define kZ0MacLowerHeight 110
 #define kZ0MacFootHeight 15
 
+// Vertically extend the Zork Zero Mac B/W castle border. The border image
+// is split into upper, ring, lower, and foot sections; this routine tiles
+// upper+lower repeatedly to fill the screen, then places the decorative
+// middle ring near the vertical center and finally stamps the foot at the
+// bottom. No-op if the destination screen isn't much taller than the
+// original art.
 void extend_mac_bw_castle_pillars(void) {
 
     const float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
@@ -998,6 +1122,9 @@ void extend_mac_bw_castle_pillars(void) {
     free(foot);
 }
 
+// Simple vertical tiler for the Zork Zero jungle border: copy a strip
+// starting at `top_cut` and stamp it downward with the requested overlap
+// until the screen is filled. No special foot handling.
 void extend_jungle_pillars(int top_cut, int total_height,
                                 int pillar_height, int overlap) {
 
@@ -1190,6 +1317,9 @@ void draw_border_common(int border, int BL, int BR,
 
 extern winid_t current_graphics_buf_win;
 
+// Discard the global pixmap so the next ensure_pixmap() reallocates a
+// fresh zeroed buffer. Used when switching display modes or starting a
+// new fullscreen scene.
 void clear_image_buffer(void) {
     if (pixmap != nullptr) {
         free(pixmap);
@@ -1197,8 +1327,15 @@ void clear_image_buffer(void) {
     }
 }
 
+// Picture number of the most recently displayed centered slideshow image,
+// or -1 if no slideshow image is currently shown. Read by resize logic to
+// redraw the last image at the new size.
 int last_slideshow_pic = -1;
 
+// Draw image `picnum` centered in the Glk graphics window at the given
+// scale. If width/height are 0 they're looked up from the image; if the
+// image still has no dimensions the call is silently dropped. Updates
+// last_slideshow_pic so resize handlers know what to restore.
 void draw_centered_image(int picnum, float scale, int width, int height) {
     int x, y;
     if (width == 0 || height == 0) {
@@ -1214,6 +1351,10 @@ void draw_centered_image(int picnum, float scale, int width, int height) {
     last_slideshow_pic = picnum;
 }
 
+// Draw a title screen image as large as it will fit in the current
+// graphics window while preserving aspect ratio (limited by both width
+// and height). Returns the chosen scale factor so callers can mirror it
+// for related overlays.
 float draw_centered_title_image(int picnum) {
     int width, height;
     get_image_size(picnum, &width, &height);

@@ -40,7 +40,6 @@ typedef struct ImageStruct ImageStruct;
 
 extern ImageStruct *raw_images;
 extern int image_count;
-extern int palentries;
 extern uint8_t global_palette[16 * 3];
 
 extern float imagescalex;
