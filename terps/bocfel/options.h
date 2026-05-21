@@ -68,10 +68,10 @@ struct Options {
     bool v6_borders = true;
     bool aspect_correction = false;
 
+    Options();
     void process_arguments(int argc, char **argv);
 
 #ifndef ZTERP_NO_OPTIONS
-    Options();
     void read_config();
     void read_envvars();
     void help();
