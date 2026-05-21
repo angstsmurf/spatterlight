@@ -56,9 +56,10 @@ winid_t z0_right_status_window = nullptr;
 // Width of the right status window in characters
 glui32 z0_right_status_width;
 
-// Whether the player has made at least one move in the current Peggleboz game
-// (controls whether Restart and Show Moves buttons are dimmed)
-static bool has_made_peggleboz_move = false;
+// Set once we've nudged the player toward the built-in InvisiClues on their
+// first rebus encounter, so we don't keep reminding them.
+static bool shown_rebus_hint_message = false;
+static bool should_show_rebus_hint_message = false;
 
 // Tracks how many times z0_update_colors has been called (used to detect
 // first call for initial color setup)
@@ -330,9 +331,15 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
     if (!DONT_CLEAR) {
         // <CLEAR -1>
         if (V6_TEXT_BUFFER_WINDOW.id != nullptr) {
-//            gli_delete_window(V6_TEXT_BUFFER_WINDOW.id);
-//            V6_TEXT_BUFFER_WINDOW.id = gli_new_window(wintype_TextBuffer, 0);
             glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+            if (should_show_rebus_hint_message) {
+                glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+                transcribe_and_print_string("\n[If the rebus images are causing you trouble, don't hesitate to consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA > reading the rebus.]\n");
+                should_show_rebus_hint_message = false;
+                shown_rebus_hint_message = true;
+                glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
+                glk_cancel_char_event(V6_TEXT_BUFFER_WINDOW.id);
+            }
         }
         clear_margin_image_list();
     }
@@ -752,17 +759,6 @@ void z0_update_colors(void) {
 
     set_global(fg_global_idx, current_fg);
     set_global(bg_global_idx, current_bg);
-
-    fprintf(stderr, "update_z0_colors: set FG-COLOR (global 0x1c) to %d\n", current_fg);
-    fprintf(stderr, "update_z0_colors: set BG_COLOR (global 0xcc) to %d\n", current_bg);
-
-//    if (current_fg == 1) {
-//        current_fg = default_fg;
-//    }
-//
-//    if (current_bg == 1) {
-//        current_bg = default_bg;
-//    }
 
     bool colorized_bw = (gli_z6_colorize &&
                          (gli_z6_graphics == kGraphicsTypeCGA || gli_z6_graphics == kGraphicsTypeMacBW));
@@ -2359,6 +2355,16 @@ bool z0_display_picture(int x, int y, Window *win) {
 
     if (current_picture == zorkzero_title_image || current_picture == zorkzero_encyclopedia_border || current_picture == zorkzero_map_border || (is_zorkzero_rebus_image(current_picture) && screenmode == MODE_NORMAL)) {
 
+        // First time the player sees a rebus, nudge them toward the
+        // built-in InvisiClues. We print into the text buffer while it is
+        // still the active window (we are still in MODE_NORMAL here), so
+        // the message will be waiting in the scrollback once the player
+        // dismisses the fullscreen rebus image.
+        if (gli_voiceover_on && is_zorkzero_rebus_image(current_picture) && !shown_rebus_hint_message) {
+            shown_rebus_hint_message = true;
+            should_show_rebus_hint_message = true;
+        }
+
         // Removes extra graphics window that appears after resizing map?
 //        if (win->id != nullptr && win->id != graphics_bg_glk) {
 //            v6_delete_glk_win(win->id);
@@ -2442,6 +2448,8 @@ void z0_stash_state(library_state_data *dat) {
         dat->stored_lower_tag = stored_bufferwin->tag;
     if (z0_right_status_window)
         dat->z0_right_status_tag = z0_right_status_window->tag;
+
+    dat->z0_shown_rebus_hint_message = shown_rebus_hint_message;
 }
 
 // Restores Zork Zero's window pointers from saved tags after a restore
@@ -2454,4 +2462,6 @@ void z0_recover_state(library_state_data *dat) {
     graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
     stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
     z0_right_status_window = gli_window_for_tag(dat->z0_right_status_tag);
+
+    shown_rebus_hint_message = dat->z0_shown_rebus_hint_message;
 }
