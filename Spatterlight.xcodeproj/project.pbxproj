@@ -940,6 +940,7 @@
 		C3F53C70271BBAF300538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
 		C3F53C71271BBB0A00538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
 		C3F709162756127B00CAD227 /* DownloadButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F709152756127B00CAD227 /* DownloadButton.xib */; };
+		C3F743792FC0530D009DFFB4 /* draw_border.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F743782FC0530C009DFFB4 /* draw_border.cpp */; };
 		C3F9D8882675FCE00076EAFB /* OSCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8832675FCE00076EAFB /* OSCategories.m */; };
 		C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8892675FCF70076EAFB /* OSImageHashing.m */; };
 		C3FB3287269F5BEE00A1B09C /* stash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3286269F5BEE00A1B09C /* stash.cpp */; };
@@ -3416,6 +3417,7 @@
 		C3F53C5C271BB8BE00538393 /* BlorbFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlorbFramework.h; sourceTree = "<group>"; };
 		C3F53C5D271BB8BE00538393 /* BlorbFramework.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = BlorbFramework.docc; sourceTree = "<group>"; };
 		C3F709152756127B00CAD227 /* DownloadButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadButton.xib; sourceTree = "<group>"; };
+		C3F743782FC0530C009DFFB4 /* draw_border.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = draw_border.cpp; sourceTree = "<group>"; };
 		C3F9D8832675FCE00076EAFB /* OSCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCategories.m; sourceTree = "<group>"; };
 		C3F9D8862675FCE00076EAFB /* OSCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCategories.h; sourceTree = "<group>"; };
 		C3F9D8892675FCF70076EAFB /* OSImageHashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSImageHashing.m; sourceTree = "<group>"; };
@@ -6213,6 +6215,7 @@
 				C3ED63572C6E1193000F90A8 /* draw_apple_2.cpp */,
 				C3ED63522C6E1192000F90A8 /* draw_image.hpp */,
 				C3ED63582C6E1193000F90A8 /* draw_image.cpp */,
+				C3F743782FC0530C009DFFB4 /* draw_border.cpp */,
 				C3ED63562C6E1192000F90A8 /* draw_png.h */,
 				C3ED63532C6E1192000F90A8 /* draw_png.cpp */,
 				C384A67A2C6EAF770081FC50 /* decompress_amiga.hpp */,
@@ -7588,6 +7591,7 @@
 				C36AD5782F89378C00E65111 /* memory_allocation.cpp in Sources */,
 				6DB774C02458B9B300EDC671 /* blorb.cpp in Sources */,
 				6DB774C12458B9B300EDC671 /* branch.cpp in Sources */,
+				C3F743792FC0530D009DFFB4 /* draw_border.cpp in Sources */,
 				6DB774C22458B9B300EDC671 /* dict.cpp in Sources */,
 				6DB774C32458B9B300EDC671 /* glkstart.cpp in Sources */,
 				6DB774C62458B9B300EDC671 /* mathop.cpp in Sources */,

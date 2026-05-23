@@ -47,6 +47,9 @@ void arthur_sync_screenmode(void);
 void arthur_stash_state(library_state_data *dat);
 void arthur_recover_state(library_state_data *dat);
 
+extern int arthur_pic_top_margin;
+extern bool showing_wide_arthur_room_image;
+
 typedef struct ArthurGlobals {
     uint8_t UPDATE; // G0e•
     uint8_t NAME_COLUMN; // Ga3•

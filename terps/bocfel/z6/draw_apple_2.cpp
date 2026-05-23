@@ -1,6 +1,6 @@
 //
 //  draw_apple_2.c
-//  A2InfocomWozExtractor
+//  Apple 2 Infocom Woz extractor
 //
 //  Created by Administrator on 2023-07-14.
 //

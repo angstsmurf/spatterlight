@@ -856,15 +856,19 @@ void shogun_display_border(ShogunBorderType border) {
         draw_rectangle_on_bitmap(monochrome_black, hw_screenwidth - 1, 0, 1, gscreenh / imagescaley);
     }
 
-    bool is_hint = (border == P_HINT_BORDER);
-    bool draw_non_hint_rect = (!start_menu_mode && !is_hint);
+    BorderKind kind;
+    if (border == P_HINT_BORDER)
+        kind = BorderKind::Hint;
+    else if (start_menu_mode)
+        kind = BorderKind::ShogunStartMenu;
+    else
+        kind = BorderKind::ShogunGame;
 
     draw_border_common(border, BL, BR,
                        height, border_top, pillar_top,
                        left_margin,
                        0,    // cga_lowest_adjust
-                       is_hint,
-                       draw_non_hint_rect);
+                       kind);
 }
 
 

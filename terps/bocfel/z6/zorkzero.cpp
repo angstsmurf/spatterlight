@@ -246,9 +246,6 @@ void DISPLAY_BORDER(BorderType border) {
         glk_cancel_char_event(graphics_fg_glk);
         current_graphics_buf_win = graphics_bg_glk;
     }
-//    if (current_graphics_buf_win != graphics_bg_glk && current_graphics_buf_win != nullptr) {
-//        v6_delete_glk_win(current_graphics_buf_win);
-//    }
     current_graphics_buf_win = graphics_bg_glk;
     glk_request_mouse_event(current_graphics_buf_win);
 
@@ -593,8 +590,7 @@ void z0_display_border(int border) {
                        height, border_top, pillar_top,
                        0,     // left_margin
                        10,    // cga_lowest_adjust
-                       true,  // is_hint_border
-                       false); // draw_non_hint_rect
+                       BorderKind::Hint);
 }
 
 
