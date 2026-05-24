@@ -32,7 +32,7 @@ void draw_to_pixmap_unscaled_flipped_using_current_palette(int image, int x, int
 void draw_to_pixmap_using_current_palette(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped, bool);
 void ensure_pixmap(winid_t winid);
 void draw_arthur_side_images(winid_t winid);
-void shogun_extend_border(int desired_height, int lowest_drawn_pixel, int start_copy_from);
+void common_extend_border(int desired_height, int lowest_drawn_pixel, int start_copy_from);
 void extend_zork_zero_border(void);
 void extend_pillars(int top_cut, int foot_height, int total_height,
                               int pillar_height, int overlap, bool flip,

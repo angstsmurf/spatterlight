@@ -240,14 +240,13 @@ void ADJUST_TEXT_WINDOW(int id) {
 #pragma mark - Border Display
 
 // Draws a decorative border around the screen. The border type (castle,
-// outside, underground, hint) determines which top graphic and side pillars
+// outside, underground) determines which top graphic and side pillars
 // to use. Side pillars (BL/BR) are separate images on non-Amiga/Mac platforms
 // and are drawn below the top border strip.
+// Hint border drawing is skipped here and later handled by DO_HINTS().
 void DISPLAY_BORDER(BorderType border) {
-    // Hint screens reuse this routine as part of their layout, so preserve
-    // MODE_HINTS; otherwise we're returning to normal gameplay rendering.
-    if (screenmode != MODE_HINTS)
-        screenmode = MODE_NORMAL;
+    if (screenmode == MODE_HINTS)
+        return;
 
     // If the foreground graphics window is currently in use (slideshow,
     // map, etc.), hide it and cancel any pending input on it before
@@ -293,8 +292,7 @@ void DISPLAY_BORDER(BorderType border) {
             BR = UNDERGROUND_BORDER_R;
             break;
         case HINT_BORDER:
-            BL = HINT_BORDER_L;
-            BR = HINT_BORDER_R;
+            // Should never happen
             break;
     }
 
@@ -318,38 +316,43 @@ void DISPLAY_BORDER(BorderType border) {
     // border type has its own tiling logic; the magic numbers below are
     // per-art-asset top_cut/foot/height/pillar/overlap measurements that
     // match the layout of each platform's source artwork.
-    if (border == CASTLE_BORDER) {
-        if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeAmiga || graphics_type == kGraphicsTypeBlorb) {
-            extend_pillars(43, 13, 200, 142, 0, false, false);
-        } else if (graphics_type == kGraphicsTypeMacBW) {
-            // Mac B/W castle has its own bespoke routine because the
-            // pillar art is split into upper/ring/lower/foot sections.
-            extend_mac_bw_castle_pillars();
-        } else if (graphics_type == kGraphicsTypeEGA) {
-            extend_pillars(45, 13, 203, 144, 9, false, false);
-        } else if (graphics_type == kGraphicsTypeCGA) {
-            // CGA uses flipped alternating tiles (the `true` argument).
-            extend_pillars(52, 25, 205, 133, 11, true, false);
-        }
-    } else if (border == UNDERGROUND_BORDER) {
-        // The underground border has stone-block sides that alternate
-        // left/right tiles; Mac B/W uses a taller variant of the same art.
-        if (graphics_type == kGraphicsTypeMacBW) {
-            extend_underground_pillars(107, 80, 300, 115, 56, 43);
-        } else {
-            extend_underground_pillars(73, 54, 200, 74, 38, 37);
-        }
-    } else if (border == OUTSIDE_BORDER) {
-        // The jungle border just repeats a single strip with no foot;
-        // Mac B/W again uses a taller version of the same art.
-        if (graphics_type != kGraphicsTypeMacBW) {
-            extend_jungle_pillars(67, 210, 143, 59);
-        } else {
-            extend_jungle_pillars(53, 300, 247, 33);
-        }
+    switch(border) {
+        case CASTLE_BORDER:
+            if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeAmiga || graphics_type == kGraphicsTypeBlorb) {
+                extend_pillars(43, 13, 200, 142, 0, false, false);
+            } else if (graphics_type == kGraphicsTypeMacBW) {
+                // Mac B/W castle has its own bespoke routine because the
+                // pillar art is split into upper/ring/lower/foot sections.
+                extend_mac_bw_castle_pillars();
+            } else if (graphics_type == kGraphicsTypeEGA) {
+                extend_pillars(45, 13, 203, 144, 9, false, false);
+            } else if (graphics_type == kGraphicsTypeCGA) {
+                // CGA uses flipped alternating tiles (the `true` argument).
+                extend_pillars(52, 25, 205, 133, 11, true, false);
+            }
+            break;
+        case UNDERGROUND_BORDER:
+            // The underground border has stone-block sides that alternate
+            // left/right tiles; Mac B/W uses a taller variant of the same art.
+            if (graphics_type == kGraphicsTypeMacBW) {
+                extend_underground_pillars(107, 80, 300, 115, 56, 43);
+            } else {
+                extend_underground_pillars(73, 54, 200, 74, 38, 37);
+            }
+            break;
+        case OUTSIDE_BORDER:
+            // The jungle border just repeats a single strip with no foot;
+            // Mac B/W again uses a taller version of the same art.
+            if (graphics_type != kGraphicsTypeMacBW) {
+                extend_jungle_pillars(67, 210, 143, 59);
+            } else {
+                extend_jungle_pillars(53, 300, 247, 33);
+            }
+            break;
+        case HINT_BORDER:
+            // Hint border drawing is handled by DO_HINTS()
+            break;
     }
-    // HINT_BORDER falls through with no extension here — DO_HINTS later
-    // calls draw_border_common() to lay out the hint frame separately.
 }
 
 // Placeholder for any special handling needed when autorestoring during
@@ -605,19 +608,18 @@ static void z0_resize_status_windows(void) {
 // Height of the Amiga/Mac hint border top section (used for pillar placement)
 #define Z0_HINT_TOP_HEIGHT 33
 
-// Draws the hint/special border. Unlike DISPLAY_BORDER (which handles the
-// 4 in-game border types), this handles extended border rendering with
-// vertical extension for tall screens, platform-specific pillar placement,
-// and a covering rectangle at the top (The raw graphics have a top bar that
-// won't fit all the header text, so the original interpreters also cover it
-// with a solid color rectangle.)
-void z0_display_border(int border) {
+// Draws the hint border. Unlike DISPLAY_BORDER (which handles the
+// 4 in-game border types), this also handles vertical border extension for
+// tall screens, platform-specific pillar placement, and a covering rectangle
+// at the top (The raw graphics have a top bar that won't fit all the header
+// text, so the original interpreters cover it with a solid color rectangle.)
+void z0_display_hint_border(void) {
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
     win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
 
     int width, height;
-    get_image_size(border, &width, &height);
+    get_image_size(Z0_HINT_BORDER, &width, &height);
 
     int border_top = 0;
     int pillar_top = 0;
@@ -630,7 +632,7 @@ void z0_display_border(int border) {
 
     int bottom_offset = (graphics_type == kGraphicsTypeCGA) ? 10 : 0;
 
-    draw_border_common(border, Z0_HINT_BORDER_L, Z0_HINT_BORDER_R,
+    draw_border_common(Z0_HINT_BORDER, Z0_HINT_BORDER_L, Z0_HINT_BORDER_R,
                        height, border_top, pillar_top,
                        0,     // left_margin
                        bottom_offset,
@@ -832,7 +834,7 @@ void z0_update_colors(void) {
 
 // Returns the background color for the encyclopedia text overlay window.
 // Amiga and VGA use a parchment-tan color; Blorb uses a slightly lighter
-// variant; monochrome platforms use white.
+// variant; Apple 2 uses black ; monochrome platforms use white.
 static glsi32 encyclopedia_background_color(void) {
     switch (graphics_type) {
         case kGraphicsTypeAmiga:
@@ -840,6 +842,8 @@ static glsi32 encyclopedia_background_color(void) {
             return 0xE8CDAE;
         case kGraphicsTypeBlorb:
             return 0xEAD3B7;
+        case kGraphicsTypeApple2:
+            return 0;
         default:
             return monochrome_white;
     }
