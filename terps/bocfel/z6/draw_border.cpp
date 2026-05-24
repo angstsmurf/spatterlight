@@ -498,7 +498,7 @@ void extend_jungle_pillars(int top_cut, int total_height,
 // it downward until desired_height is reached, truncating the last copy if
 // needed. Used as the final vertical fill after border images and pillars
 // have been drawn.
-void shogun_extend_border(int desired_height, int lowest_drawn_pixel, int start_copy_from) {
+void common_extend_border(int desired_height, int lowest_drawn_pixel, int start_copy_from) {
     if (desired_height > lowest_drawn_pixel) {
         size_t copysize;
         int height = lowest_drawn_pixel - start_copy_from;
@@ -565,7 +565,8 @@ static int shogun_draw_right_strip(int left_strip, int right_strip, bool must_ex
     return lowest_drawn_line;
 }
 
-// Common border drawing pipeline shared between Zork Zero and Shogun.
+// Common border drawing pipeline shared between Shogun (all borders)
+// and Zork Zero (hint border only).
 // Draws the border image, attempts to draw side pillars, extends vertically
 // for tall screens, draws a covering rectangle at the top, and flushes.
 //
@@ -607,6 +608,7 @@ void draw_border_common(int border, int BL, int BR,
         draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
         lowest_drawn_line = height + border_top;
     } else {
+        // When called by Zork Zero, is_hint_border is always true.
         if (is_hint_border) {
             // Mac B/W hint borders have their own pillar tiling with a
             // transparent foot shadow; this handles full vertical extension,
@@ -618,20 +620,21 @@ void draw_border_common(int border, int BL, int BR,
                                         false, true, desired_height);
                 desired_height = 0;
             }
-        } else if (must_extend && single_piece_border) {
-            lowest_drawn_line = shogun_extend_amiga_mac_border(border, border_height);
-        }
-
-        if (!is_hint_border && find_image(BR)) {
-            lowest_drawn_line = shogun_draw_right_strip(border, BR, must_extend);
+        } else {
+        // Only Shogun ever takes this path.
+            if (must_extend && single_piece_border) {
+                lowest_drawn_line = shogun_extend_amiga_mac_border(border, border_height);
+            }
+            if (find_image(BR)) {
+                lowest_drawn_line = shogun_draw_right_strip(border, BR, must_extend);
+            }
         }
     }
 
     // Step 3: Fill any remaining vertical gap by tiling a strip of the
-    // already-drawn pixmap downward (from pillar_top to lowest_drawn_line).
+    // already-drawn pixmap downward (from pillar_top to lowest_drawn_line - bottom_offset).
     if (must_extend) {
-        lowest_drawn_line -= bottom_offset;
-        shogun_extend_border(desired_height, lowest_drawn_line, pillar_top);
+        common_extend_border(desired_height, lowest_drawn_line - bottom_offset, pillar_top);
     }
 
     // Step 4: Draw a covering rectangle of status-window color at the top.
@@ -667,6 +670,10 @@ void draw_border_common(int border, int BL, int BR,
                         rectangle_color = ROSE_TAUPE;
                     }
                     break;
+                case kGraphicsTypeEGA:
+                    left_margin = 0;
+                    should_draw_covering_rectangle = true;
+                    rectangle_color = ORANGE;
                 default:
                     break;
             }

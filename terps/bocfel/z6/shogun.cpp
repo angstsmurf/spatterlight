@@ -619,7 +619,6 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
 // Stores the result in variable 9 for the Z-code to process.
 void GET_FROM_MENU(void) {
     // On autorestore, we want to re-select the saved selection
-
     if (current_menu_selection == 0) {
         if (internal_arg_count() < 4) {
             current_menu_selection = 1;
@@ -642,7 +641,7 @@ void GET_FROM_MENU(void) {
 
 // Cleanup after a menu selection: resets text grid style hints and
 // restores the appropriate border. On non-Apple II, downgrades
-// P_BORDER2 (waves) to P_BORDER (crests) since waves are Apple II only.
+// P_BORDER2 (crests) to P_BORDER (waves) since waves are Apple II only.
 void after_GET_FROM_MENU(void) {
     glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
     if (sg.CURRENT_BORDER != 0) {
@@ -660,7 +659,8 @@ void after_GET_FROM_MENU(void) {
 }
 
 // Z-machine entry point: determines which menu to use for scene selection.
-// Variable 1=1 means use SCENE_NAMES (detailed), otherwise use PART_MENU.
+// Variable 1=1 means use SCENE_NAMES (debug jump to any scene in the game),
+// otherwise use PART_MENU.
 // Result stored in variable 5.
 void SCENE_SELECT(void) {
     uint16_t menu = sm.PART_MENU;
@@ -730,6 +730,79 @@ void shogun_display_apple_ii_border(ShogunBorderType border, bool start_menu_mod
 extern int margin_images[100];       // List of inline/margin images in the text buffer
 extern int number_of_margin_images;  // Count of tracked margin images
 
+// True if `b` is a real border picture (P_BORDER, P_BORDER2, P_HINT_BORDER).
+// NO_BORDER is treated as "not specified" and falls through to the lookup
+// fallbacks in shogun_display_border.
+static bool is_real_shogun_border(ShogunBorderType b) {
+    return b == P_BORDER || b == P_BORDER2 || b == P_HINT_BORDER;
+}
+
+// Resolve which border picture to actually draw. Precedence:
+//   1. Hints mode always uses P_HINT_BORDER.
+//   2. The Erasmus part-menu special case picks a graphics-dependent border.
+//   3. Otherwise prefer the caller's argument, falling back to the
+//      most-recently-drawn border, and finally to P_BORDER.
+static ShogunBorderType resolve_shogun_border(ShogunBorderType requested) {
+    if (screenmode == MODE_HINTS)
+        return P_HINT_BORDER;
+    if (get_global(sg.SCENE) == S_ERASMUS && current_menu == sm.PART_MENU)
+        return (graphics_type == kGraphicsTypeApple2) ? P_BORDER2 : P_BORDER;
+    if (is_real_shogun_border(requested))
+        return requested;
+    if (is_real_shogun_border(current_border))
+        return current_border;
+    return P_BORDER;
+}
+
+// If the foreground graphics window currently overlays the background
+// (because we were showing the title screen or another fullscreen
+// image), tear it down so the new border can be drawn against a clean
+// background.
+static void shogun_clear_covering_graphics_window(void) {
+    if (current_graphics_buf_win == graphics_bg_glk || current_graphics_buf_win == nullptr)
+        return;
+    if (current_graphics_buf_win == graphics_fg_glk)
+        graphics_fg_glk = nullptr;
+    // Suppress the redraw that would otherwise flash the new border in the
+    // wrong color while the old image is still on screen.
+    image_needs_redraw = false;
+    glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
+    glk_window_clear(current_graphics_buf_win);
+    v6_delete_glk_win(current_graphics_buf_win);
+}
+
+// Re-attach the background graphics window so subsequent drawing goes
+// into it (sizing it to fill the screen if it isn't already).
+static void shogun_attach_background_graphics_window(void) {
+    current_graphics_buf_win = graphics_bg_glk;
+    if (V6_GRAPHICS_BG.id != current_graphics_buf_win) {
+        v6_delete_win(&V6_GRAPHICS_BG);
+        V6_GRAPHICS_BG.id = current_graphics_buf_win;
+        v6_define_window(&V6_GRAPHICS_BG, 1, 1, gscreenw, gscreenh);
+    }
+}
+
+// Picks the BL/BR pillar images that go with `border`. Returns by writing
+// out-params; BL is -1 for borders that don't have a separate left pillar.
+static void shogun_pillar_images_for(ShogunBorderType border, int16_t *BL, int16_t *BR) {
+    *BL = -1;
+    *BR = -1;
+    switch (border) {
+        case P_HINT_BORDER:
+            *BL = P_HINT_BORDER_L;
+            *BR = P_HINT_BORDER_R;
+            break;
+        case P_BORDER:
+            *BR = P_BORDER_R;
+            break;
+        case P_BORDER2:
+            *BR = P_BORDER2_R;
+            break;
+        case NO_BORDER:
+            break; // unreachable after resolve_shogun_border
+    }
+}
+
 // Master border drawing routine for all non-Apple II graphics modes.
 // Draws the top banner, left/right pillar graphics, and extends them
 // downward to fill the screen. The layout varies significantly by
@@ -743,55 +816,23 @@ extern int number_of_margin_images;  // Count of tracked margin images
  // won't fit all the header text, so the original interpreters also cover it
  // with a solid color rectangle.)
 void shogun_display_border(ShogunBorderType border) {
-    if (border != NO_BORDER  && border != P_BORDER && border != P_BORDER2 && border != P_HINT_BORDER) {
-        border = P_BORDER;
-    }
-    bool start_menu_mode = (get_global(sg.SCENE) == 0);
+    const bool start_menu_mode = (get_global(sg.SCENE) == 0);
 
-    if (get_global(sg.SCENE) == S_ERASMUS && current_menu == sm.PART_MENU) {
-        border = (graphics_type == kGraphicsTypeApple2) ? P_BORDER2 : P_BORDER;
-    }
+    border = resolve_shogun_border(border);
 
-    if (border == 0) {
-        border = current_border;
-    }
-
-    if (border == 0) {
-        border = P_BORDER;
-    }
-
-    if (screenmode == MODE_HINTS)
-        border = P_HINT_BORDER;
-
+    // Remember the resolved border (except hint borders, which are
+    // transient and shouldn't displace the last gameplay choice).
     if (border != P_HINT_BORDER) {
-        if (sg.CURRENT_BORDER != 0) {
+        if (sg.CURRENT_BORDER != 0)
             set_global(sg.CURRENT_BORDER, border);
-        }
         current_border = border;
     }
 
-    // Delete covering graphics window (which would show the title screen)
-    if (current_graphics_buf_win != graphics_bg_glk && current_graphics_buf_win != nullptr) {
-        if (current_graphics_buf_win == graphics_fg_glk)
-            graphics_fg_glk = nullptr;
-        // Hack to avoid border changing color before image gets removed
-        image_needs_redraw = false;
-        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
-        glk_window_clear(current_graphics_buf_win);
-        v6_delete_glk_win(current_graphics_buf_win);
-    }
-
-    current_graphics_buf_win = graphics_bg_glk;
-    if (V6_GRAPHICS_BG.id != current_graphics_buf_win) {
-        v6_delete_win(&V6_GRAPHICS_BG);
-        V6_GRAPHICS_BG.id = current_graphics_buf_win;
-        v6_define_window(&V6_GRAPHICS_BG, 1, 1, gscreenw, gscreenh);
-    }
+    shogun_clear_covering_graphics_window();
+    shogun_attach_background_graphics_window();
 
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
-    int border_top = 0;
-
     win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
 
     if (graphics_type == kGraphicsTypeApple2) {
@@ -801,43 +842,32 @@ void shogun_display_border(ShogunBorderType border) {
 
     int width, height;
     if (!get_image_size(border, &width, &height)) {
-        if (border == P_BORDER2) {
-            border = P_BORDER;
-            if (!get_image_size(border, &width, &height)) {
-                return;
-            }
-        }
+        // P_BORDER2 isn't present in every release; fall back to P_BORDER.
+        if (border != P_BORDER2)
+            return;
+        border = P_BORDER;
+        if (!get_image_size(border, &width, &height))
+            return;
     }
 
-    if (number_of_margin_images > 0 && border != P_HINT_BORDER) {
+    if (number_of_margin_images > 0 && border != P_HINT_BORDER)
         extract_palette_from_picnum(margin_images[number_of_margin_images - 1]);
-    } else {
+    else
         extract_palette_from_picnum(border);
-    }
 
-    int16_t BR = -1;
-    int16_t BL = -1;
-    switch(border) {
-        case P_HINT_BORDER:
-            BL = P_HINT_BORDER_L;
-            BR = P_HINT_BORDER_R;
-            break;
-        case P_BORDER:
-            BR = P_BORDER_R;
-            break;
-        case P_BORDER2:
-            BR = P_BORDER2_R;
-            break;
-        case NO_BORDER:
-            fprintf(stderr, "Error: No border!\n");
-            break;
-    }
+    int16_t BL, BR;
+    shogun_pillar_images_for(border, &BL, &BR);
 
-    int left_margin = 0;
+    // Layout: where the pillar artwork starts (border_top), where to begin
+    // copying for vertical extension (pillar_top), and how wide the
+    // pillars are (used as the covering-rectangle left margin).
+    int border_top = 0;
     int pillar_top = 0;
 
     if (border == P_HINT_BORDER) {
-        if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
+        const bool single_piece = (graphics_type == kGraphicsTypeAmiga ||
+                                   graphics_type == kGraphicsTypeMacBW);
+        if (!single_piece) {
             border_top = height;
             pillar_top = border_top;
             get_image_size(P_HINT_LOC, &width, nullptr);
@@ -847,27 +877,25 @@ void shogun_display_border(ShogunBorderType border) {
     } else {
         get_image_size(P_BORDER_LOC, &width, nullptr);
     }
-    left_margin = width;
+    const int left_margin = width;
     shogun_banner_width_left = ceil(width * imagescalex) + 1;
     a2_graphical_banner_height = 0;
 
-    // Draw a line to mask background at rightmost pixels in CGA
-    if (border == P_HINT_BORDER && graphics_type == kGraphicsTypeCGA) {
+    // CGA hint border: a one-pixel-wide mask covers garbage at the right edge.
+    if (border == P_HINT_BORDER && graphics_type == kGraphicsTypeCGA)
         draw_rectangle_on_bitmap(monochrome_black, hw_screenwidth - 1, 0, 1, gscreenh / imagescaley);
-    }
 
-    BorderKind kind;
+    BorderKind kind = BorderKind::ShogunGame;
     if (border == P_HINT_BORDER)
         kind = BorderKind::Hint;
     else if (start_menu_mode)
         kind = BorderKind::ShogunStartMenu;
-    else
-        kind = BorderKind::ShogunGame;
 
     int bottom_offset = 0;
-    if (border == P_BORDER2) {
+    if (border == P_BORDER2)
         bottom_offset = (graphics_type == kGraphicsTypeMacBW) ? 35 : 24;
-    }
+    else if (border == P_HINT_BORDER)
+        bottom_offset = (graphics_type == kGraphicsTypeCGA) ? 12 : 0;
 
     draw_border_common(border, BL, BR,
                        height, border_top, pillar_top,
@@ -1087,64 +1115,38 @@ void DISPLAY_MAZE(void) {
 
 // Handles mouse clicks in the maze. Determines the direction of the click
 // relative to the player's current position and issues a movement command.
-// The original source also allows diagonal movement, but since the maze has
-// no diagonal passages, only cardinal directions are supported here.
+// The original source also allows diagonal movement, but since the maze
+// has no diagonal passages, only cardinal directions are supported here.
 static int maze_mouse_f(void) {
-    int16_t WX, WY;
-    uint16_t DIR = 0;
     int BX, BY;
     get_image_size(P_MAZE_BOX, &BX, &BY);
-    uint16_t X = get_global(sg.MAZE_X);
-    uint16_t Y = get_global(sg.MAZE_Y);
-    WY = maze_offset_y + Y * BY + BY / 2;
-    WX = maze_offset_x + X * BX + BX / 2;
 
-    uint16_t mouse_click_addr = header.extension_table + 2;
-    int16_t mouse_x = word(mouse_click_addr) - 1;
-    int16_t mouse_y = word(mouse_click_addr + 2) - 1;
+    // Pixel coordinates of the center of the player's current tile.
+    const int player_center_x = maze_offset_x + get_global(sg.MAZE_X) * BX + BX / 2;
+    const int player_center_y = maze_offset_y + get_global(sg.MAZE_Y) * BY + BY / 2;
 
-    WY = mouse_y - WY;
-    WX = mouse_x - WX;
+    const uint16_t mouse_click_addr = header.extension_table + 2;
+    const int16_t mouse_x = word(mouse_click_addr) - 1;
+    const int16_t mouse_y = word(mouse_click_addr + 2) - 1;
 
-    if (WX >= 0) { // right side
-        if (WY < 0) { // top right
-            WY = -WY;
-            if (WX > WY) {
-                DIR = so.EAST;
-            } else {
-                DIR = so.NORTH;
-            }
-        } else { // bottom right
-            if (WX > WY) {
-                DIR = so.EAST;
-            } else {
-                DIR = so.SOUTH;
-            }
-        }
-    } else if (WY < 0) { // top left
-        WY = -WY;
-        WX = -WX;
-        if (WX > WY) {
-            DIR = so.WEST;
-        } else {
-            DIR = so.NORTH;
-        }
-    } else { // bottom left
-        WX = -WX;
-        if (WX > WY) {
-            DIR = so.WEST;
-        } else {
-            DIR = so.SOUTH;
-        }
-    }
-    if (WX <= BX / 2 && WY <= BY / 2)
+    const int16_t dx = mouse_x - player_center_x;
+    const int16_t dy = mouse_y - player_center_y;
+    const int16_t abs_dx = (dx < 0) ? -dx : dx;
+    const int16_t abs_dy = (dy < 0) ? -dy : dy;
+
+    // Click inside the player's own tile — ignore.
+    if (abs_dx <= BX / 2 && abs_dy <= BY / 2)
         return 0;
-    if (DIR != 0) {
-        internal_call(pack_routine(sr.ADD_TO_INPUT), {DIR});
-        glk_put_char(UNICODE_LINEFEED);
-        return 13;
-    }
-    return 0;
+
+    // The axis with the larger magnitude wins; ties go to the vertical
+    // axis, matching the original quadrant cascade.
+    const uint16_t DIR = (abs_dx > abs_dy)
+        ? ((dx > 0) ? so.EAST  : so.WEST)
+        : ((dy > 0) ? so.SOUTH : so.NORTH);
+
+    internal_call(pack_routine(sr.ADD_TO_INPUT), {DIR});
+    glk_put_char(UNICODE_LINEFEED);
+    return 13;
 }
 
 // Z-machine entry point for maze mouse handling. Stores the direction
@@ -1171,7 +1173,7 @@ typedef struct MazeExits {
 // neighbor). If so, populates 'me' with the exit directions. Skips
 // the start position, wall cells, and border cells. Used by
 // simplify_maze() to iteratively fill in dead-end paths.
-bool deadend(int i, MazeExits *me) {
+bool deadend(int index, MazeExits *maze_exits) {
     int MAZE_WIDTH, MAZE_HEIGHT;
 
     get_maze_width_and_height(&MAZE_WIDTH, &MAZE_HEIGHT);
@@ -1181,35 +1183,35 @@ bool deadend(int i, MazeExits *me) {
 
     int start = get_global(sg.MAZE_XSTART) + get_global(sg.MAZE_YSTART) * MAZE_WIDTH;
 
-    int exits = 0;
+    int exit_count = 0;
 
-    if (i == start || memory[MAZE_MAP + i] != P_MAZE_STREET || i % MAZE_WIDTH == 0 || (i + 1) % MAZE_WIDTH == 0) { // skip left and right borders
+    if (index == start || memory[MAZE_MAP + index] != P_MAZE_STREET || index % MAZE_WIDTH == 0 || (index + 1) % MAZE_WIDTH == 0) { // skip left and right borders
         return false;
     }
 
-    me->NORTH = P_MAZE_WALL;
-    me->EAST = P_MAZE_WALL;
-    me->SOUTH = P_MAZE_WALL;
-    me->WEST = P_MAZE_WALL;
+    maze_exits->NORTH = P_MAZE_WALL;
+    maze_exits->EAST = P_MAZE_WALL;
+    maze_exits->SOUTH = P_MAZE_WALL;
+    maze_exits->WEST = P_MAZE_WALL;
 
-    if (i > MAZE_WIDTH && memory[MAZE_MAP + (i - MAZE_WIDTH)] == P_MAZE_STREET) {
-        me->NORTH = P_MAZE_STREET;
-        exits++;
+    if (index > MAZE_WIDTH && memory[MAZE_MAP + (index - MAZE_WIDTH)] == P_MAZE_STREET) {
+        maze_exits->NORTH = P_MAZE_STREET;
+        exit_count++;
     }
-    if (i < mazesize - 1 && memory[MAZE_MAP + i + 1] == P_MAZE_STREET) {
-        me->EAST = P_MAZE_STREET;
-        exits++;
+    if (index < mazesize - 1 && memory[MAZE_MAP + index + 1] == P_MAZE_STREET) {
+        maze_exits->EAST = P_MAZE_STREET;
+        exit_count++;
     }
-    if (i < mazesize - MAZE_WIDTH && memory[MAZE_MAP + i + MAZE_WIDTH] == P_MAZE_STREET) {
-        me->SOUTH = P_MAZE_STREET;
-        exits++;
+    if (index < mazesize - MAZE_WIDTH && memory[MAZE_MAP + index + MAZE_WIDTH] == P_MAZE_STREET) {
+        maze_exits->SOUTH = P_MAZE_STREET;
+        exit_count++;
     }
-    if (i > 1 && memory[MAZE_MAP + i - 1] == P_MAZE_STREET) {
-        me->WEST = P_MAZE_STREET;
-        exits++;
+    if (index > 1 && memory[MAZE_MAP + index - 1] == P_MAZE_STREET) {
+        maze_exits->WEST = P_MAZE_STREET;
+        exit_count++;
     }
 
-    return (exits == 1);
+    return (exit_count == 1);
 }
 
 // Debug utility: prints the maze grid to stderr as ASCII art.
@@ -1378,7 +1380,6 @@ bool dont_repeat_question_on_autorestore = false;
 
 // Called after the Z-machine builds the maze. Prompts the player to optionally
 // simplify the maze (fill in dead ends) for a better text-only experience.
-// If simplified, also solves the maze and prints directions.
 void after_BUILDMAZE(void) {
     if (skip_puzzle_prompt("Would you like me to simplify the city maze, to make it easier to traverse without seeing the graphics? (Y is affirmative): >")) {
         simplify_maze();

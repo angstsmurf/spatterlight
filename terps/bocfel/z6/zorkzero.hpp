@@ -174,7 +174,7 @@ void z0_autorestore_internal_read_char_hacks(void);
 void z0_erase_screen(void);
 void z0_stash_state(library_state_data *dat);
 void z0_recover_state(library_state_data *dat);
-void z0_display_border(int border);
+void z0_display_hint_border(void);
 
 typedef struct ZorkGlobals {
     uint8_t HERE;

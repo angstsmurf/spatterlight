@@ -65,5 +65,5 @@ extern InfocomV6MenuType hints_depth;
 
 #define ROSE_TAUPE 0x836767
 #define BROWN 0xd47fd4
-
+#define ORANGE 0xA55A1F
 #endif /* v6_shared_hpp */
