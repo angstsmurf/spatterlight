@@ -236,11 +236,17 @@ void ADJUST_TEXT_WINDOW(int id) {
 
 // Draws a decorative border around the screen. The border type (castle,
 // outside, underground, hint) determines which top graphic and side pillars
-// to use. Side pillars (BL/BR) are separate images on non-Amiga platforms
+// to use. Side pillars (BL/BR) are separate images on non-Amiga/Mac platforms
 // and are drawn below the top border strip.
 void DISPLAY_BORDER(BorderType border) {
+    // Hint screens reuse this routine as part of their layout, so preserve
+    // MODE_HINTS; otherwise we're returning to normal gameplay rendering.
     if (screenmode != MODE_HINTS)
         screenmode = MODE_NORMAL;
+
+    // If the foreground graphics window is currently in use (slideshow,
+    // map, etc.), hide it and cancel any pending input on it before
+    // switching to the background graphics window where borders live.
     if (current_graphics_buf_win == graphics_fg_glk) {
         win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
         glk_cancel_char_event(graphics_fg_glk);
@@ -250,11 +256,23 @@ void DISPLAY_BORDER(BorderType border) {
     glk_request_mouse_event(current_graphics_buf_win);
 
 //    set_global(zg.NEW_COMPASS, 1);
+
+    // Start each border draw from a clean pixmap so leftover pixels from
+    // an earlier border or scene don't bleed through.
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
+
+    // Step 1: stamp the main border image (the decorative top strip) at
+    // the very top of the pixmap, and record its native dimensions so we
+    // know where the side pillars start.
     draw_to_pixmap_unscaled(border, 0, 0);
     int X, Y;
     get_image_size(border, &X, &Y);
+
+    // Step 2: pick the matching left/right pillar image numbers for this
+    // border type. On Amiga and Mac B/W these images don't exist (the
+    // top strip already includes the sides), and find_image() below will
+    // return null for them.
     int BL = -1, BR = -1;
     switch(border) {
         case OUTSIDE_BORDER:
@@ -275,39 +293,58 @@ void DISPLAY_BORDER(BorderType border) {
             break;
     }
 
+    // Draw the left pillar flush against the left edge, immediately below
+    // the top strip.
     if (find_image(BL)) {
         draw_to_pixmap_unscaled(BL, 0, Y);
     }
 
+    // Draw the right pillar flush against the right edge. We need BR's
+    // width to compute its x-offset; height is implicit.
     if (find_image(BR)) {
         int width;
         get_image_size(BR, &width, nullptr);
         draw_to_pixmap_unscaled(BR, X - width, Y);
     }
 
+    // Step 3: per-border vertical extension to fill taller modern screens.
+    // The original DOS/Amiga/Mac art was sized for a 200-line display, so
+    // anything taller than that needs the pillars tiled downward. Each
+    // border type has its own tiling logic; the magic numbers below are
+    // per-art-asset top_cut/foot/height/pillar/overlap measurements that
+    // match the layout of each platform's source artwork.
     if (border == CASTLE_BORDER) {
         if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeAmiga || graphics_type == kGraphicsTypeBlorb) {
             extend_pillars(43, 13, 200, 142, 0, false, false);
         } else if (graphics_type == kGraphicsTypeMacBW) {
+            // Mac B/W castle has its own bespoke routine because the
+            // pillar art is split into upper/ring/lower/foot sections.
             extend_mac_bw_castle_pillars();
         } else if (graphics_type == kGraphicsTypeEGA) {
             extend_pillars(45, 13, 203, 144, 9, false, false);
         } else if (graphics_type == kGraphicsTypeCGA) {
-            extend_pillars(52, 25, 205, 137, 11, true, false);
+            // CGA uses flipped alternating tiles (the `true` argument).
+            extend_pillars(52, 25, 205, 133, 11, true, false);
         }
     } else if (border == UNDERGROUND_BORDER) {
+        // The underground border has stone-block sides that alternate
+        // left/right tiles; Mac B/W uses a taller variant of the same art.
         if (graphics_type == kGraphicsTypeMacBW) {
             extend_underground_pillars(107, 80, 300, 115, 56, 43);
         } else {
             extend_underground_pillars(73, 54, 200, 74, 38, 37);
         }
     } else if (border == OUTSIDE_BORDER) {
+        // The jungle border just repeats a single strip with no foot;
+        // Mac B/W again uses a taller version of the same art.
         if (graphics_type != kGraphicsTypeMacBW) {
             extend_jungle_pillars(67, 210, 143, 59);
         } else {
             extend_jungle_pillars(53, 300, 247, 33);
         }
     }
+    // HINT_BORDER falls through with no extension here — DO_HINTS later
+    // calls draw_border_common() to lay out the hint frame separately.
 }
 
 // Placeholder for any special handling needed when autorestoring during
@@ -586,10 +623,12 @@ void z0_display_border(int border) {
         pillar_top = Z0_HINT_TOP_HEIGHT;
     }
 
+    int bottom_offset = (graphics_type == kGraphicsTypeCGA) ? 10 : 0;
+
     draw_border_common(border, Z0_HINT_BORDER_L, Z0_HINT_BORDER_R,
                        height, border_top, pillar_top,
                        0,     // left_margin
-                       10,    // cga_lowest_adjust
+                       bottom_offset,
                        BorderKind::Hint);
 }
 

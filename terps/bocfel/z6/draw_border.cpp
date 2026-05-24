@@ -576,11 +576,12 @@ static int shogun_draw_right_strip(int left_strip, int right_strip, bool must_ex
 //   border_top      – y-offset where pillars begin (non-Amiga/Mac: border_height, else 0)
 //   pillar_top      – y-offset to start copying from when extending
 //   left_margin     – left margin for covering rectangle (0 for hint borders)
-//   cga_lowest_adjust – CGA-specific adjustment subtracted from lowest_drawn_line
+//   bottom_offset   – adjustment subtracted from lowest_drawn_line
+//                     (to make repeated pattern seamless)
 //   kind            – which variant we're drawing (hint / Shogun game / Shogun start menu)
 void draw_border_common(int border, int BL, int BR,
                         int border_height, int border_top, int pillar_top,
-                        int left_margin, int cga_lowest_adjust,
+                        int left_margin, int bottom_offset,
                         BorderKind kind) {
 
     const float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
@@ -629,8 +630,7 @@ void draw_border_common(int border, int BL, int BR,
     // Step 3: Fill any remaining vertical gap by tiling a strip of the
     // already-drawn pixmap downward (from pillar_top to lowest_drawn_line).
     if (must_extend) {
-        if (graphics_type == kGraphicsTypeCGA)
-            lowest_drawn_line -= cga_lowest_adjust;
+        lowest_drawn_line -= bottom_offset;
         shogun_extend_border(desired_height, lowest_drawn_line, pillar_top);
     }
 
