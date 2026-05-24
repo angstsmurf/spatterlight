@@ -17,7 +17,8 @@
 //   clickable weights and pegs, and an undo button.
 // - Encyclopedia Frobozzica: Fullscreen encyclopedia entries with images
 //   and a text overlay window.
-// - Rebus puzzles: Inline graphical puzzles displayed as margin images.
+// - Rebus: A number of fullscreen images depicting a rebus decreasingly covered
+//   by animal-shaped jigsaw pieces.
 // - Map: A fullscreen map with a blinking player-location indicator.
 //
 // The game supports multiple graphics platforms (Amiga, Mac B/W, Mac color,
@@ -96,6 +97,18 @@ static bool is_zorkzero_peggleboz_image(int pic) {
     return (pic >= 50 && pic <= 72);
 }
 
+// Pictures that take over the entire foreground graphics window: the title
+// screen, the encyclopedia border frame, the map border, and rebus puzzles.
+// Rebus images only qualify when we're transitioning into the slideshow
+// from normal gameplay — once already in slideshow, they're a no-op
+// redraw, not a mode change.
+static bool is_zorkzero_fullscreen_picture(int pic) {
+    return pic == zorkzero_title_image
+        || pic == zorkzero_encyclopedia_border
+        || pic == zorkzero_map_border
+        || (is_zorkzero_rebus_image(pic) && screenmode == MODE_NORMAL);
+}
+
 // Checks if the given picture is a Peggleboz UI button (restart, show moves,
 // exit). Only returns true when the current game mode is Peggleboz.
 static bool is_zorkzero_peggleboz_box_image(int pic) {
@@ -107,10 +120,8 @@ static bool is_zorkzero_peggleboz_box_image(int pic) {
     switch(pic) {
         case SHOW_MOVES_BOX:
         case RESTART_BOX:
-            return true;
         case DIM_RESTART_BOX:
         case DIM_SHOW_MOVES_BOX:
-            return true;
         case EXIT_BOX:
             return true;
         default:
@@ -174,17 +185,11 @@ void V_REFRESH(void) {
     if (CURRENT_SPLIT == TEXT_WINDOW_PIC_LOC) {
         v6_delete_win(&windows[3]);
     }
-//    if (screenmode == MODE_DEFINE) {
-//        screenmode = MODE_NORMAL;
-//        v6_delete_win(&windows[2]);
-//        v6_remap_win_to_buffer(&V6_TEXT_BUFFER_WINDOW);
-//    }
 }
 
 // Z-machine entry point: enables centered text output (for credits display).
 void CENTER(void) {
     V_CREDITS();
-//    buffer_xpos = 0;
 }
 
 
@@ -1678,6 +1683,8 @@ static void z0_draw_peggleboz_box_image(uint16_t pic, uint16_t x, uint16_t y) {
     }
 }
 
+static const int kPegBoardTableSize = 43;
+
 // Redraws the entire Peggleboz board: border, all peg positions (delegated
 // to the game's DRAW-PEGS routine), UI buttons (dimmed if no move has been
 // made), and positions the text window below the game area.
@@ -1687,7 +1694,7 @@ static void draw_peggles(void) {
     draw_to_pixmap_unscaled(zorkzero_peggleboz_border, 0, 0);
 
     int width, height;
-    for (int i = 2; i < 43; i += 2) {
+    for (int i = 2; i < kPegBoardTableSize; i += 2) {
         uint16_t pic = user_word(zt.PBOZ_PIC_TABLE + i - 2);
         get_image_size(pic, &width, &height);
         store_word(zt.BOARD_TABLE + i * 2, height);
@@ -1718,10 +1725,10 @@ static void draw_peggles(void) {
 
 // Currently selected/highlighted peg position (0 = none, even index into
 // BOARD_TABLE for the peg's coordinates)
-uint16_t selected_peg = 0;
+static uint16_t selected_peg_pos = 0;
 
 // When true, auto-solves Peggleboz by faking input to win immediately
-bool skip_pboz = false;
+static bool skip_pboz = false;
 
 // Z-machine entry point: initializes the Peggleboz game. Hides the status
 // bar, sets attributes on game objects, draws the board, and offers
@@ -1741,7 +1748,7 @@ void SETUP_PBOZ(void) {
     zp.TOUCHBIT = 0x20;
     internal_set_attr(zo.PBOZ_OBJECT, zp.TOUCHBIT); // 0x20 is TOUCHBIT
     set_global(zg.PEG_MOVE_NUMBER, 0);
-    selected_peg = 0;
+    selected_peg_pos = 0;
     draw_peggles();
     flush_image_buffer();
 
@@ -1780,7 +1787,7 @@ static uint16_t pboz_click(void) {
     get_image_size(EXPAND_HOT_SPOT, &expand_width, &expand_height);
     get_image_size(UNHL_PEG, &peg_width, &peg_height);
 
-    for (int i = 2; i < 43; i += 2) {
+    for (int i = 2; i < kPegBoardTableSize; i += 2) {
         top = user_word(zt.BOARD_TABLE + i * 2);
         left = user_word(zt.BOARD_TABLE + (i + 1) * 2);
         if (within(left - expand_width, top, peg_width + 2 * expand_width, peg_height + expand_height)) {
@@ -1799,7 +1806,7 @@ void PBOZ_CLICK(void) {
 // Z-machine entry point: records the selected peg position (variable 2
 // is the peg index, doubled for BOARD_TABLE indexing).
 void PEG_GAME(void) {
-    selected_peg = variable(2) * 2;
+    selected_peg_pos = variable(2) * 2;
 }
 
 // Z-machine entry point: intercepts character input during auto-solve.
@@ -1807,7 +1814,7 @@ void PEG_GAME(void) {
 // on subsequent calls to quickly win the game.
 void PEG_GAME_READ_CHAR(void) {
     if (skip_pboz) {
-        if (selected_peg == 0)
+        if (selected_peg_pos == 0)
             store_variable(3, 'Q');
         else
             store_variable(3, 'G');
@@ -1966,35 +1973,6 @@ void TOWER_MODE(void) {
         store_variable(6, 0);
         tower_solved = false;
     }
-//    if (gli_voiceover_on) {
-//        if (!dont_repeat_question_on_autorestore)
-//            transcribe_and_print_string("Would you like to auto-solve this visual puzzle? (Y is affirmative): >");
-//
-//        dont_repeat_question_on_autorestore = false;
-//
-//        bool done = false;
-//        while (!done) {
-//            uint8_t c = internal_read_char();
-//            glk_put_char(c);
-//            transcribe(c);
-//            transcribe_and_print_string("\n");
-//            switch (c) {
-//                case 'n':
-//                case 'N':
-//                    transcribe_and_print_string("\n");
-//                    return;
-//                case 'y':
-//                case 'Y':
-//                    done = true;
-//                    break;
-//                default:
-//                    transcribe_and_print_string("(Y is affirmative): >");
-//            }
-//        }
-//
-//        transcribe_and_print_string("\n");
-//        solve_tower();
-//    }
 }
 
 
@@ -2198,35 +2176,44 @@ void V_MAP_LOOP(void) {
 //   2 (SOFT-WINDOW): Text grid for DEFINE command
 //   3: Encyclopedia image captions (overlay on background)
 //   7 (S-FULL): Full background graphics
+
+// Redraw the active mini-game (Tower of Bozbar, Peggleboz, Snarfem, or
+// Double Fanucci) for the current `CURRENT_SPLIT`. Returns true if a
+// mini-game was matched and redrawn; false otherwise so the caller can
+// fall through to the normal-mode path.
+static bool redraw_minigame_on_resize(uint16_t current_split) {
+    if (current_split == zorkzero_tower_of_bozbar_split) {
+        draw_tower_of_bozbar();
+        flush_image_buffer();
+        return true;
+    }
+    if (current_split == PBOZ_SPLIT) {
+        draw_peggles();
+        if (selected_peg_pos != 0) {
+            uint16_t CY = user_word(zt.BOARD_TABLE + selected_peg_pos * 2);
+            uint16_t CX = user_word(zt.BOARD_TABLE + (selected_peg_pos + 1) * 2);
+            update_blink_coordinates(CX, CY);
+        } else {
+            flush_image_buffer();
+        }
+        return true;
+    }
+    if (current_split == SN_SPLIT) {
+        draw_snarfem();
+        return true;
+    }
+    if (current_split == F_SPLIT) {
+        redraw_fanucci();
+        return true;
+    }
+    return false;
+}
+
 void z0_update_on_resize(void) {
-
-//    if (current_graphics_buf_win)
-//        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
-//    if (V6_TEXT_BUFFER_WINDOW.id)
-//        win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
-
-    // Input text color should also be the same as the other text.
-
-    // Global 0x2f is MACHINE
-
-
     int MACHINE = byte(0x1e);
-    fprintf(stderr, "HW interpreter number (byte 0x1e): %d options.int_number:%lu\n", MACHINE, options.int_number);
 
-    int FONT_X = byte(0x27);
-    int FONT_Y = byte(0x26);
-
-    fprintf(stderr, "HW font width (byte 0x1e): %d gcellw: %f HW font height (byte 0x1e): %d gcellh:%f\n", FONT_X, gcellw, FONT_Y, gcellh);
-
-    int WIDTH = word(17 * 2);
-    int HEIGHT = word(18 * 2);
-
-    fprintf(stderr, "HW screen width (word 18): %d gscreenw: %d HW screen height (word 17): %d gscreenh:%d\n", WIDTH, gscreenw, HEIGHT, gscreenh);
-
-    WIDTH = byte(33);
-
-    fprintf(stderr, "WIDTH (Global 119) (byte 33): %d\n", WIDTH);
-
+    // SETUP_SCREEN and the various V-REFRESH paths below clobber both of
+    // these — stash them now so we can put them back at the end.
     int stored_margin_image_number = number_of_margin_images;
 
     bool NARROW = (MACHINE == INTERP_MSDOS || MACHINE == INTERP_APPLE_IIE);
@@ -2234,92 +2221,88 @@ void z0_update_on_resize(void) {
 
     glk_request_timer_events(0);
 
-    // SETUP-SCREEN copies image metrics
-    // for the header text and compass
-    // into the SL-LOC-TBL
+    // SETUP-SCREEN copies image metrics for the header text and compass
+    // into the SL-LOC-TBL.
     if (zr.SETUP_SCREEN != 0)
         internal_call(pack_routine(zr.SETUP_SCREEN));
 
-    if (screenmode == MODE_DEFINE) {
-        adjust_definitions_window();
-        return;
-    } else if (screenmode == MODE_HINTS) {
-        redraw_hint_screen_on_resize();
-        return;
-    } else if (screenmode == MODE_MAP) {
-        z0_hide_right_status();
-
-        // redraw the map
-        internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
-//        internal_call(pack_routine(0x16130)); // DO-MAP
-
-        // We are in a loop inside the BLINK routine
-        // and need to update coordinates in the BLINK-TBL
-        // (which will be read by the TYPED? routine)
-        // as well as the local Y and X variables
-        // (which are used to redraw/unhighlight the
-        // previous location icon when we move away)
-
-        uint16_t TBL = internal_get_prop(get_global(zg.HERE), 0x26); //  <GETP ,HERE ,P?MAP-LOC>>
-        uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
-        uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
-
-        update_blink_coordinates(CX, CY);
-        return;
-    } else if (screenmode == MODE_NORMAL || screenmode == MODE_Z0_GAME) {
-        uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
-        if (CURRENT_SPLIT == zorkzero_tower_of_bozbar_split) {
-            draw_tower_of_bozbar();
-            flush_image_buffer();
+    switch (screenmode) {
+        case MODE_DEFINE:
+            adjust_definitions_window();
             return;
-        } else if (CURRENT_SPLIT == PBOZ_SPLIT) { // Peggleboz
-            draw_peggles();
-            if (selected_peg != 0) {
-                uint16_t CY = user_word(zt.BOARD_TABLE + selected_peg * 2);
-                uint16_t CX = user_word(zt.BOARD_TABLE + (selected_peg + 1) * 2);
-                update_blink_coordinates(CX, CY);
+
+        case MODE_HINTS:
+            redraw_hint_screen_on_resize();
+            return;
+
+        case MODE_MAP: {
+            z0_hide_right_status();
+
+            // Redraw the map.
+            internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
+
+            // We are in a loop inside the BLINK routine and need to
+            // update coordinates in the BLINK-TBL (which will be read by
+            // the TYPED? routine) as well as the local Y and X variables
+            // (which are used to redraw/unhighlight the previous
+            // location icon when we move away).
+            uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
+            uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)});
+            uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)});
+            update_blink_coordinates(CX, CY);
+            return;
+        }
+
+        case MODE_NORMAL:
+        case MODE_Z0_GAME:
+            if (redraw_minigame_on_resize(get_global(zg.CURRENT_SPLIT)))
+                return;
+
+            internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
+            if (V6_TEXT_BUFFER_WINDOW.id) {
+                if (graphics_type_changed) {
+                    refresh_margin_images();
+                    float yscalefactor = 2.0;
+                    if (graphics_type == kGraphicsTypeMacBW)
+                        yscalefactor = imagescalex;
+                    float xscalefactor = yscalefactor * pixelwidth;
+                    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, xscalefactor, yscalefactor);
+                }
+                win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
+            }
+            break;
+
+        case MODE_SLIDESHOW:
+            // We are showing a fullscreen image.
+            v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
+            win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
+            glk_window_clear(current_graphics_buf_win);
+            if (is_zorkzero_encyclopedia_image(current_picture)) {
+                draw_encyclopedia();
+                return;
+            } else if (current_picture == zorkzero_title_image) {
+                glk_window_set_background_color(graphics_fg_glk, graphics_type == kGraphicsTypeApple2 ? 0x101B9C : 0);
+                glk_window_clear(graphics_fg_glk);
+                draw_centered_title_image(current_picture);
+            } else if (is_zorkzero_rebus_image(current_picture)) {
+                clear_image_buffer();
+                ensure_pixmap(current_graphics_buf_win);
+                draw_to_pixmap_unscaled(current_picture, 0, 0);
+                flush_bitmap(current_graphics_buf_win);
                 return;
             }
-            flush_image_buffer();
-            return;
-        } else if (CURRENT_SPLIT == SN_SPLIT) { // Snarfem
-            draw_snarfem();
-            return;
-        } else if (CURRENT_SPLIT == F_SPLIT) { // Double Fanucci
-            redraw_fanucci();
-            return;
-        }
-        internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
-        if (V6_TEXT_BUFFER_WINDOW.id) {
-            if (graphics_type_changed) {
-                refresh_margin_images();
-                float yscalefactor = 2.0;
-                if (graphics_type == kGraphicsTypeMacBW)
-                    yscalefactor = imagescalex;
-                float xscalefactor = yscalefactor * pixelwidth;
-                win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, xscalefactor, yscalefactor);
-            }
-            win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
-        }
-    } else if (screenmode == MODE_SLIDESHOW) {
-        // We are showing a fullscreen image
-        v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
-        win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
-        glk_window_clear(current_graphics_buf_win);
-        if (is_zorkzero_encyclopedia_image(current_picture)) {
-            draw_encyclopedia();
-            return;
-        } else if (current_picture == zorkzero_title_image) {
-            glk_window_set_background_color(graphics_fg_glk, graphics_type == kGraphicsTypeApple2 ? 0x101B9C : 0);
-            glk_window_clear(graphics_fg_glk);
-            draw_centered_title_image(current_picture);
-        }
+            break;
+
+        default:
+            break;
     }
 
+    // flush_image_buffer() ends up running V-COLOR / refresh paths that
+    // overwrite user_selected_background and reset number_of_margin_images
+    // to zero. Snapshot, flush, then restore so margin-image tracking and
+    // the chosen background color survive the resize.
     glui32 stored_bg = user_selected_background;
-
     flush_image_buffer();
-
     user_selected_background = stored_bg;
     number_of_margin_images = stored_margin_image_number;
 }
@@ -2340,7 +2323,7 @@ void z0_update_after_restore(void) {
 // Called after an automatic restore. If we were in Peggleboz with a peg
 // selected, the C++ static selected_peg has been reset to 0 by the process
 // restart, so the resize handler no longer knows to restart the blink
-// timer. Recover selected_peg by matching the BLINK-TBL coordinates
+// timer. Recover selected_peg_pos by matching the BLINK-TBL coordinates
 // (preserved as Z-machine state) against the BOARD-TABLE peg positions,
 // then restart the blink timer.
 void z0_update_after_autorestore(void) {
@@ -2353,10 +2336,10 @@ void z0_update_after_autorestore(void) {
     if (x == 0 && y == 0)
         return;
 
-    for (int i = 2; i < 43; i += 2) {
+    for (int i = 2; i < kPegBoardTableSize; i += 2) {
         if (user_word(zt.BOARD_TABLE + i * 2) == y
             && user_word(zt.BOARD_TABLE + (i + 1) * 2) == x) {
-            selected_peg = i;
+            selected_peg_pos = i;
             update_blink_coordinates(x, y);
             return;
         }
@@ -2377,49 +2360,50 @@ extern bool pending_flowbreak;
 // - Text buffer images (room illustrations): drawn as margin images
 // - Other images: drawn to the current background graphics buffer
 bool z0_display_picture(int x, int y, Window *win) {
-
+    // Tower of Bozbar weights and Peggleboz pegs are drawn straight into
+    // the offscreen pixmap; their parent screens flush it explicitly later.
     if (is_zorkzero_tower_image(current_picture) || is_zorkzero_peggleboz_image(current_picture)) {
         draw_to_pixmap_unscaled(current_picture, x, y);
         return true;
     }
 
+    // Peggleboz UI buttons (Restart, Show Moves, Exit) have their own
+    // helper.
     if (is_zorkzero_peggleboz_box_image(current_picture)) {
         z0_draw_peggleboz_box_image(current_picture, x, y);
         return true;
     }
 
-    if (current_picture == zorkzero_title_image || current_picture == zorkzero_encyclopedia_border || current_picture == zorkzero_map_border || (is_zorkzero_rebus_image(current_picture) && screenmode == MODE_NORMAL)) {
-
+    // Fullscreen images: title screen, encyclopedia border, map border,
+    // and the first rebus draw of a session each take over the foreground
+    // graphics window.
+    if (is_zorkzero_fullscreen_picture(current_picture)) {
         // First time the player sees a rebus, nudge them toward the
-        // built-in InvisiClues. We print into the text buffer while it is
-        // still the active window (we are still in MODE_NORMAL here), so
-        // the message will be waiting in the scrollback once the player
-        // dismisses the fullscreen rebus image.
+        // built-in InvisiClues. We print into the text buffer while it
+        // is still the active window (we're still in MODE_NORMAL here),
+        // so the message is waiting in the scrollback once the player
+        // dismisses the fullscreen image.
         if (gli_voiceover_on && is_zorkzero_rebus_image(current_picture) && !shown_rebus_hint_message) {
             shown_rebus_hint_message = true;
             should_show_rebus_hint_message = true;
         }
 
-        // Removes extra graphics window that appears after resizing map?
-//        if (win->id != nullptr && win->id != graphics_bg_glk) {
-//            v6_delete_glk_win(win->id);
-//        }
-//
-//        if (win->id == nullptr)
-//            win->id = gli_new_window(wintype_Graphics, 0);
-//        v6_define_window(win, 1, 1, gscreenw, gscreenh);
-
         z0_hide_right_status();
-
         current_graphics_buf_win = graphics_fg_glk;
+        clear_image_buffer();
+        ensure_pixmap(graphics_fg_glk);
         win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         glk_request_mouse_event(graphics_fg_glk);
 
         if (current_picture == zorkzero_map_border) {
             screenmode = MODE_MAP;
-        } else {
-            screenmode = MODE_SLIDESHOW;
+            draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
+            flush_bitmap(current_graphics_buf_win);
+            return true;
         }
+
+        screenmode = MODE_SLIDESHOW;
+
         if (current_picture == zorkzero_encyclopedia_border) {
             windows[3].id = gli_new_window(wintype_TextBuffer, 0);
             draw_to_pixmap_unscaled(zorkzero_encyclopedia_border, 0, 0);
@@ -2427,6 +2411,7 @@ bool z0_display_picture(int x, int y, Window *win) {
             adjust_encyclopedia_text_window();
             return true;
         }
+
         if (current_picture == zorkzero_title_image) {
             glk_window_set_background_color(graphics_fg_glk, graphics_type == kGraphicsTypeApple2 ? 0x101B9C : 0);
             glk_window_clear(current_graphics_buf_win);
@@ -2434,32 +2419,36 @@ bool z0_display_picture(int x, int y, Window *win) {
             glk_window_set_background_color(graphics_fg_glk, user_selected_background);
             return true;
         }
+
+        // Rebus image (the remaining case in this branch).
         draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
         flush_bitmap(current_graphics_buf_win);
         return true;
     }
 
+    // Inline image in a text buffer: drawn as a margin image so text
+    // wraps around it.
     if (win->id && win->id->type == wintype_TextBuffer) {
         pending_flowbreak = true;
-        float inline_scale = 2.0;
-        if (graphics_type == kGraphicsTypeMacBW)
-            inline_scale = imagescalex;
+        float inline_scale = (graphics_type == kGraphicsTypeMacBW) ? imagescalex : 2.0;
         draw_inline_image(win->id, current_picture, imagealign_MarginLeft, current_picture, inline_scale, false);
         add_margin_image_to_list(current_picture);
         return true;
-    } else if (is_zorkzero_encyclopedia_image(current_picture)) {
+    }
+
+    // Encyclopedia Frobozzica illustrations are drawn with the surrounding
+    // border frame and caption window; draw_encyclopedia() does the work.
+    if (is_zorkzero_encyclopedia_image(current_picture)) {
         win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
         draw_encyclopedia();
         return true;
-    } else {
-//        fprintf(stderr, "Current window is %d\n", win->index);
-        if (current_graphics_buf_win == nullptr)
-            current_graphics_buf_win = graphics_bg_glk;
-        draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
-        return true;
     }
 
-    return false;
+    // Default: composite into the current background graphics buffer.
+    if (current_graphics_buf_win == nullptr)
+        current_graphics_buf_win = graphics_bg_glk;
+    draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
+    return true;
 }
 
 // Z-machine entry point: resets color globals to 1 (meaning "use default").
