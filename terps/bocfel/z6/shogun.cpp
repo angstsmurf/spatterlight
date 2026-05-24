@@ -864,10 +864,15 @@ void shogun_display_border(ShogunBorderType border) {
     else
         kind = BorderKind::ShogunGame;
 
+    int bottom_offset = 0;
+    if (border == P_BORDER2) {
+        bottom_offset = (graphics_type == kGraphicsTypeMacBW) ? 35 : 24;
+    }
+
     draw_border_common(border, BL, BR,
                        height, border_top, pillar_top,
                        left_margin,
-                       0,    // cga_lowest_adjust
+                       bottom_offset,
                        kind);
 }
 
