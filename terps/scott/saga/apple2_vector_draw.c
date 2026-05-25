@@ -150,6 +150,10 @@ static size_t write_ops_capacity = 100;
 static size_t total_write_ops = 0;
 static size_t current_write_op = 0;
 
+/* Bytes emitted per slow-draw tick. Pairs with the graphics timer interval —
+ * change in step with it. */
+#define APPLE2_VECTOR_BYTES_PER_TICK 50
+
 #ifdef SPATTERLIGHT
 extern int gli_slowdraw;
 #else
@@ -891,12 +895,12 @@ static void white_background(void) {
     RectFill(2, 0, ImageWidth - 2, ImageHeight, 1);
 }
 
-static int write_pixel(byte_to_write towrite, int current_op_index) {
-    slow_vector_screenmem[towrite.offset] = towrite.value;
-    DrawSingleApple2ImageByte(slow_vector_screenmem, towrite.offset);
+static int write_pixel(const byte_to_write *towrite, int current_op_index) {
+    slow_vector_screenmem[towrite->offset] = towrite->value;
+    DrawSingleApple2ImageByte(slow_vector_screenmem, towrite->offset);
     if (current_op_index + 1 < total_write_ops) {
-        byte_to_write next_byte = *bytes_to_write[current_op_index + 1];
-        if ((next_byte.offset >= towrite.offset - 1 && next_byte.offset <= towrite.offset + 1) || next_byte.value == towrite.value) {
+        const byte_to_write *next_byte = bytes_to_write[current_op_index + 1];
+        if ((next_byte->offset >= towrite->offset - 1 && next_byte->offset <= towrite->offset + 1) || next_byte->value == towrite->value) {
             return 1;
         }
     }
@@ -910,20 +914,24 @@ void DrawSomeApple2VectorBytes(int from_start)
         current_write_op = total_write_ops;
     } else {
         VectorState = DRAWING_VECTOR_IMAGE;
-        int i = current_write_op;
         if (from_start) {
-            i = 0;
+            current_write_op = 0;
             shrink_capacity();
         }
+        size_t i = current_write_op;
 
+        /* keep_going extends the chunk past the normal cap when the next op
+         * is adjacent or shares a value — this avoids visible seams in runs
+         * of related writes. */
         int keep_going = 0;
+        size_t chunk_end = i + APPLE2_VECTOR_BYTES_PER_TICK;
 
-        for (; i < total_write_ops && (!gli_slowdraw || i < current_write_op + 50 || keep_going); i++) {
-            byte_to_write towrite = *bytes_to_write[i];
-            if (towrite.fill_bg) {
+        for (; i < total_write_ops && (i < chunk_end || keep_going); i++) {
+            const byte_to_write *towrite = bytes_to_write[i];
+            if (towrite->fill_bg) {
                 white_background();
             } else {
-                keep_going = write_pixel(towrite, i);
+                keep_going = write_pixel(towrite, (int)i);
             }
         }
 

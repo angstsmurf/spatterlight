@@ -38,6 +38,15 @@ static int total_draw_instructions = 0;
 static int current_draw_instruction = 0;
 int vector_image_shown = -1;
 
+/* Pixels emitted per slow-draw tick. Pairs with the 20 ms timer interval
+ * used by DrawHowarthVectorPicture — change in step with it. */
+#define SCOTT_VECTOR_PIXELS_PER_TICK 50
+
+/* TRUE once the background fill has been issued for the current image. Reset
+ * in FreePixels() and whenever DrawSomeHowarthVectorPixels is asked to start
+ * over. */
+static int vector_background_painted = 0;
+
 static uint8_t *picture_bitmap = NULL;
 
 static int line_colour = 15;
@@ -55,6 +64,7 @@ static int bg_colour = 0;
 
 void FreePixels(void)
 {
+    vector_background_painted = 0;
     for (int i = 0; i < total_draw_instructions; i++)
         if (pixels_to_draw[i] != NULL)
             free(pixels_to_draw[i]);
@@ -121,19 +131,29 @@ static int gli_slowdraw = 1;
 void DrawSomeHowarthVectorPixels(int from_start)
 {
     VectorState = DRAWING_VECTOR_IMAGE;
+    if (from_start) {
+        current_draw_instruction = 0;
+        vector_background_painted = 0;
+    }
     int i = current_draw_instruction;
-    if (from_start)
-        i = 0;
 
-    // Draw background if this is the first instruction
-    if (i == 0)
+    /* Paint the background once per image, before any pixels are plotted. */
+    if (!vector_background_painted) {
         RectFill(0, 0, MYSTERIOUS_WIDTH, MYSTERIOUS_CLIPHEIGHT, Remap(bg_colour));
+        vector_background_painted = 1;
+    }
 
-    for (; i < total_draw_instructions && (!gli_slowdraw || i < current_draw_instruction + 50); i++) {
-        pixel_to_draw todraw = *pixels_to_draw[i];
-        PutPixel(todraw.x, todraw.y, Remap(todraw.colour));
+    /* Emit pixels until we run out or, in slow-draw mode, hit the chunk limit
+     * that yields back to the timer loop. */
+    int chunk_end = i + SCOTT_VECTOR_PIXELS_PER_TICK;
+    for (; i < total_draw_instructions && (!gli_slowdraw || i < chunk_end); i++) {
+        const pixel_to_draw *todraw = pixels_to_draw[i];
+        PutPixel(todraw->x, todraw->y, Remap(todraw->colour));
     }
     current_draw_instruction = i;
+
+    /* All instructions consumed: stop the timer, transition to "showing",
+     * and release the instruction buffer. */
     if (current_draw_instruction >= total_draw_instructions) {
         glk_request_timer_events(0);
         VectorState = SHOWING_VECTOR_IMAGE;
