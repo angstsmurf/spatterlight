@@ -105,6 +105,10 @@ static size_t write_ops_capacity = 100;
 static size_t total_write_ops = 0;
 static size_t current_write_op = 0;
 
+/* Bytes emitted per slow-draw tick. Pairs with the graphics timer interval —
+ * change in step with it. */
+#define ATARI8_VECTOR_BYTES_PER_TICK 50
+
 
 static inline bool is_valid_screen_offset(uint16_t offset) {
     return offset < A8_IMAGE_SIZE;
@@ -770,18 +774,18 @@ static void DrawSingleByteAt(uint8_t byte90,  uint8_t bytea0, glsi32 x, glsi32 y
     }
 }
 
-void DrawSingleAtari8ImageByte(a8_byte_to_write towrite) {
-    if (towrite.fill_bg == true) {
-        int idx90 = (towrite.value90 & 0x3);
-        int idxA0 = (towrite.valueA0 & 0x3);
+void DrawSingleAtari8ImageByte(const a8_byte_to_write *towrite) {
+    if (towrite->fill_bg == true) {
+        int idx90 = (towrite->value90 & 0x3);
+        int idxA0 = (towrite->valueA0 & 0x3);
         RGBColor rgbidx = color_matrix[idx90][idxA0];
         glui32 color = RGBpalette[rgbidx];
         SetColor(1, color);
         RectFill(0, 0, ImageWidth, ImageHeight, 1);
     } else {
-        glsi32 y = towrite.offset / A8_SCREEN_COLUMNS;
-        glsi32 x = (towrite.offset % A8_SCREEN_COLUMNS) * 8;
-        DrawSingleByteAt(towrite.value90, towrite.valueA0, x, y);
+        glsi32 y = towrite->offset / A8_SCREEN_COLUMNS;
+        glsi32 x = (towrite->offset % A8_SCREEN_COLUMNS) * 8;
+        DrawSingleByteAt(towrite->value90, towrite->valueA0, x, y);
     }
 }
 
@@ -794,9 +798,8 @@ void DrawSomeAtari8VectorBytes(int from_start)
         current_write_op = total_write_ops;
     } else {
         VectorState = DRAWING_VECTOR_IMAGE;
-        int i = current_write_op;
         if (from_start) {
-            i = 0;
+            current_write_op = 0;
             delay_active = 0;
             shrink_capacity();
         }
@@ -806,14 +809,18 @@ void DrawSomeAtari8VectorBytes(int from_start)
             return;
         }
 
-        for (; i < total_write_ops && (!gli_slowdraw || i < current_write_op + 50); i++) {
-            if (bytes_to_write[i]->delay > 0) {
-                delay_active = bytes_to_write[i]->delay;
+        size_t i = current_write_op;
+        size_t chunk_end = i + ATARI8_VECTOR_BYTES_PER_TICK;
+
+        for (; i < total_write_ops && i < chunk_end; i++) {
+            const a8_byte_to_write *towrite = bytes_to_write[i];
+            if (towrite->delay > 0) {
+                delay_active = towrite->delay;
                 debug_print("DrawSomeAtari8VectorBytes: initiating a delay of %d\n", delay_active);
                 current_write_op = i + 1;
                 return;
             }
-            DrawSingleAtari8ImageByte(*bytes_to_write[i]);
+            DrawSingleAtari8ImageByte(towrite);
         }
 
         current_write_op = i;

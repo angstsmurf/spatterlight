@@ -170,6 +170,14 @@ static int total_draw_instructions = 0;
 static int current_draw_instruction = 0;
 int vector_image_shown = -1;
 
+/* Pixels emitted per slow-draw tick. Pairs with the graphics timeout
+ * interval — change in step with it. */
+#define GLN_VECTOR_PIXELS_PER_TICK 50
+
+/* TRUE once the background fill has been issued for the current image. Reset
+ * in FreePixels() when the instruction buffer is torn down. */
+static int vector_background_painted = FALSE;
+
 typedef enum {
   NO_VECTOR_IMAGE,
   DRAWING_VECTOR_IMAGE,
@@ -2357,9 +2365,9 @@ glk_plot_pixel(winid_t glk_window, glsi32 x, glsi32 y, gln_byte pixel, int x_off
 
 static void FreePixels(void)
 {
+  vector_background_painted = FALSE;
   if (pixels_to_draw == NULL)
     return;
-  fprintf(stderr, "FreePixels\n");
   for (int i = 0; i < total_draw_instructions; i++)
     if (pixels_to_draw[i] != NULL)
       free(pixels_to_draw[i]);
@@ -2404,42 +2412,158 @@ static void shrink_capacity(void) {
 
 #pragma mark DrawSomeL9VectorPixels
 
+/*
+ * Renders the recorded vector image into glk_window, resuming from wherever
+ * the previous call left off. Called repeatedly from the graphics timeout so
+ * that drawing can be interleaved with game play instead of blocking on a
+ * single large paint.
+ *
+ * When gli_slowdraw is set, only 50 pixels are emitted per call so the user
+ * sees the picture build up gradually (mimicking the original Level 9
+ * line-mode look). Otherwise every remaining instruction is flushed in one go.
+ */
 void DrawSomeL9VectorPixels(glui32 bg_col, winid_t glk_window, int x_offset, int y_offset, glui32 palette[])
 {
-  fprintf(stderr, "DrawSomeL9VectorPixels\n");
-  fprintf(stderr, "current_draw_instruction: %d total_draw_instructions: %d\n", current_draw_instruction, total_draw_instructions);
   VectorState = DRAWING_VECTOR_IMAGE;
   int i = current_draw_instruction;
-//  if (from_start) {
-//    i = 0;
-//  }
 
-  if (i == 0) {
-    fprintf(stderr, "DrawSomeL9VectorPixels: Drawing a white background\n");
-
+  /* Paint the background once per image, before any pixels are plotted. */
+  if (!vector_background_painted) {
     glk_window_fill_rect (glk_window,
                           bg_col,
                           x_offset,
                           y_offset,
                           gln_graphics_width * GLN_GRAPHICS_PIXEL,
                           gln_graphics_height * GLN_GRAPHICS_PIXEL);
+    vector_background_painted = TRUE;
   }
 
-  for (; i < total_draw_instructions && (!gli_slowdraw || i < current_draw_instruction + 50); i++) {
-    pixel_to_draw todraw = *pixels_to_draw[i];
-    glk_plot_pixel(glk_window, todraw.x, todraw.y, todraw.colour, x_offset, y_offset, palette);
+  /* Emit pixels until we run out or, in slow-draw mode, hit the chunk limit
+   * that yields back to the timeout loop. */
+  int chunk_end = i + GLN_VECTOR_PIXELS_PER_TICK;
+  for (; i < total_draw_instructions && (!gli_slowdraw || i < chunk_end); i++) {
+    const pixel_to_draw *todraw = pixels_to_draw[i];
+    glk_plot_pixel(glk_window, todraw->x, todraw->y, todraw->colour, x_offset, y_offset, palette);
   }
   current_draw_instruction = i;
+
+  /* All instructions consumed: transition to the static "showing" state,
+   * release the instruction buffer, and shut down the graphics timer. */
   if (current_draw_instruction >= total_draw_instructions) {
-    fprintf(stderr, "DrawSomeL9VectorPixels: finished!\n");
-//    glk_request_timer_events(0);
     VectorState = SHOWING_VECTOR_IMAGE;
     FreePixels();
     gln_graphics_stop ();
-    // Start with a small allocation for pixels_to_draw.
-    // scott_linegraphics_plot_clip() will grow this as needed.
   }
 }
+
+
+#ifndef GARGLK
+
+/* Per-pass state for the upstream layer-scan renderer. Lives here rather than
+ * as locals in gln_graphics_timeout so the loop body can be a standalone
+ * helper. Reset via gln_graphics_paint_pass_reset on every new picture or
+ * deferred repaint. */
+static int saved_layer_state, saved_x_state, saved_y_state;
+static int yield_counter_state;
+
+static void
+gln_graphics_paint_pass_reset(void)
+{
+  saved_layer_state = 0;
+  saved_x_state = 0;
+  saved_y_state = 0;
+  yield_counter_state = 0;
+}
+
+/*
+ * Make a portion of an image pass, from lower to higher image layers,
+ * scanning for invalidated pixels in the current layer. Each invalidated
+ * pixel triggers one paint region. On hitting GLN_REPAINT_LIMIT regions we
+ * save scan position and yield by returning; the next call resumes.
+ */
+static void
+gln_graphics_paint_pass(glui32 palette[], int layers[], long layer_usage[],
+                        gln_byte *on_screen, gln_byte *off_screen,
+                        int x_offset, int y_offset,
+                        long picture_size)
+{
+  int regions = 0;
+
+  for (int layer = saved_layer_state;
+       layer < GLN_PALETTE_SIZE && layer_usage[layer] > 0; layer++)
+    {
+      /* Track the row's starting index incrementally to avoid the per-pixel
+       * multiplication. */
+      long index_row = saved_y_state * gln_graphics_width;
+      for (int y = saved_y_state; y < gln_graphics_height; y++)
+        {
+          for (int x = saved_x_state; x < gln_graphics_width; x++)
+            {
+              long index = index_row + x;
+              assert (index < picture_size);
+
+              if (layers[off_screen[index]] == layer
+                  && on_screen[index] != off_screen[index])
+                {
+                  gln_graphics_paint_region (gln_graphics_window,
+                                             palette, layers,
+                                             off_screen, on_screen,
+                                             x, y, x_offset, y_offset,
+                                             GLN_GRAPHICS_PIXEL,
+                                             gln_graphics_width,
+                                             gln_graphics_height);
+
+                  if (++regions >= GLN_REPAINT_LIMIT)
+                    {
+                      yield_counter_state++;
+                      saved_layer_state = layer;
+                      saved_x_state = x;
+                      saved_y_state = y;
+                      return;
+                    }
+                }
+            }
+          saved_x_state = 0;
+          index_row += gln_graphics_width;
+        }
+      saved_y_state = 0;
+    }
+
+  assert (regions < GLN_REPAINT_LIMIT);
+}
+
+#else /* GARGLK */
+
+/* Slow-draw vector rendering is in progress (or just about to start) and the
+ * user has slow-draw enabled — the timeout should keep feeding vector pixels
+ * to the window instead of paint_everything-ing the whole bitmap. */
+static int
+gln_should_continue_slow_vector_draw(void)
+{
+  return gln_graphics_interpreter_state == GLN_GRAPHICS_LINE_MODE
+      && (VectorState != SHOWING_VECTOR_IMAGE || current_draw_instruction == 0)
+      && gli_slowdraw == 1;
+}
+
+static void
+gln_graphics_paint_garglk(glui32 palette[],
+                                gln_byte *off_screen,
+                                int x_offset, int y_offset)
+{
+  if (gln_should_continue_slow_vector_draw()) {
+    DrawSomeL9VectorPixels(palette[0], gln_graphics_window, x_offset, y_offset, palette);
+  } else {
+    gln_graphics_paint_everything(gln_graphics_window,
+                                  palette, off_screen,
+                                  x_offset, y_offset,
+                                  gln_graphics_width,
+                                  gln_graphics_height);
+    /* Nothing more to do until something restarts us. */
+    gln_graphics_stop();
+  }
+}
+
+#endif /* GARGLK */
 
 
 /*
@@ -2462,7 +2586,6 @@ void DrawSomeL9VectorPixels(glui32 bg_col, winid_t glk_window, int x_offset, int
 static void
 gln_graphics_timeout (void)
 {
-  fprintf(stderr, "gln_graphics_timeout\n");
   static glui32 palette[GLN_PALETTE_SIZE];   /* Precomputed Glk palette */
   static int layers[GLN_PALETTE_SIZE];       /* Assigned image layers */
   static long layer_usage[GLN_PALETTE_SIZE]; /* Image layer occupancies */
@@ -2471,24 +2594,14 @@ gln_graphics_timeout (void)
   static int ignore_counter;                 /* Count of calls ignored */
 
   static int x_offset, y_offset;             /* Point plot offsets */
-  static int yield_counter;                  /* Yields in rendering */
-  static int saved_layer;                    /* Saved current layer */
-  static int saved_x, saved_y;               /* Saved x,y coord */
-
-  static int total_regions;                  /* Debug statistic */
 
   gln_byte *on_screen;                       /* On-screen image buffer */
   gln_byte *off_screen;                      /* Off-screen image buffer */
   long picture_size;                         /* Picture size in pixels */
-  int layer;                                 /* Image layer iterator */
-  int x, y;                                  /* Image iterators */
-  int regions;                               /* Count of regions painted */
 
   /* Ignore the call if the current graphics state is inactive. */
-  if (!gln_graphics_active) {
-    fprintf(stderr, "gln_graphics_timeout: Graphics not active, skipping\n");
+  if (!gln_graphics_active)
     return;
-  }
   assert (gln_graphics_window);
 
   /*
@@ -2500,12 +2613,9 @@ gln_graphics_timeout (void)
    */
   if (gln_graphics_repaint)
     {
-      fprintf(stderr, "gln_graphics_repaint is true\n");
       deferred_repaint = TRUE;
       gln_graphics_repaint = FALSE;
-      fprintf(stderr, "deferred_repaint is set to false\n");
       ignore_counter = GLN_GRAPHICS_REPAINT_WAIT - 1;
-      fprintf(stderr, "ignore_counter is set to %d\n", ignore_counter);
       return;
     }
 
@@ -2521,7 +2631,6 @@ gln_graphics_timeout (void)
   assert (ignore_counter >= 0);
   if (ignore_counter > 0)
     {
-      fprintf(stderr, "ignore_counter is %d, skipping this timeout\n", ignore_counter);
       ignore_counter--;
       return;
     }
@@ -2538,7 +2647,6 @@ gln_graphics_timeout (void)
    */
   if (gln_graphics_new_picture)
     {
-      fprintf(stderr, "gln_graphics_new_picture is true. Resetting and freeing all values\n");
       /* Initialize the off_screen buffer to be a copy of the base picture. */
       free (off_screen);
       off_screen = gln_malloc (picture_size * sizeof (*off_screen));
@@ -2548,10 +2656,7 @@ gln_graphics_timeout (void)
       /* Note the buffer for freeing on cleanup. */
       gln_graphics_off_screen = off_screen;
 
-      /*
-       * Pre-convert all the picture palette colors into their corresponding
-       * Glk colors.
-       */
+      /* Pre-convert palette colors to their Glk equivalents. */
       gln_graphics_convert_palette (gln_graphics_palette, palette);
 
       /* Save the color count for possible queries later. */
@@ -2570,175 +2675,53 @@ gln_graphics_timeout (void)
    */
   if (gln_graphics_new_picture || deferred_repaint)
     {
-      if (gln_graphics_new_picture)
-        fprintf(stderr, "gln_graphics_new_picture is true. ");
-      if (deferred_repaint)
-        fprintf(stderr, "deferred_repaint is true. ");
-      fprintf(stderr, "Calculating new position\n");
-
-      /*
-       * Calculate the x and y offset to center the picture in the graphics
-       * window.
-       */
       gln_graphics_position_picture (gln_graphics_window,
                                      GLN_GRAPHICS_PIXEL,
                                      gln_graphics_width, gln_graphics_height,
                                      &x_offset, &y_offset);
-      fprintf(stderr, "x_offset: %d y_offset:%d\n", x_offset, y_offset);
 
       /*
        * Reset all on-screen pixels to an unused value, guaranteed not to
        * match any in a real picture.  This forces all pixels to be repainted
        * on a buffer/on-screen comparison.
        */
-      fprintf(stderr, "Reset all on-screen pixels\n");
       free (on_screen);
       on_screen = gln_malloc (picture_size * sizeof (*on_screen));
       memset (on_screen, GLN_GRAPHICS_UNUSED_PIXEL,
               picture_size * sizeof (*on_screen));
-
-      /* Note the buffer for freeing on cleanup. */
       gln_graphics_on_screen = on_screen;
 
-      /*
-       * Assign new layers to the current image.  This sorts colors by usage
-       * and puts the most used colors in the lower layers.  It also hands us
-       * a count of pixels in each layer, useful for knowing when to stop
-       * scanning for layers in the rendering loop.
-       */
 #ifndef GARGLK
+      /*
+       * Assign new layers to the current image.  Sorts colors by usage so the
+       * most-used colors land in lower layers, and yields per-layer pixel
+       * counts that let the paint loop stop early on empty layers.
+       */
       gln_graphics_assign_layers (off_screen, on_screen,
                                   gln_graphics_width, gln_graphics_height,
                                   layers, layer_usage);
 #endif
 
-      /* Clear the graphics window. */
       gln_graphics_clear_and_border (gln_graphics_window,
                                      x_offset, y_offset,
                                      GLN_GRAPHICS_PIXEL,
                                      gln_graphics_width, gln_graphics_height);
 
-      /* Start a fresh picture rendering pass. */
-      yield_counter = 0;
-      saved_layer = 0;
-      saved_x = 0;
-      saved_y = 0;
-      total_regions = 0;
+#ifndef GARGLK
+      gln_graphics_paint_pass_reset();
+#endif
 
-      /* Clear the new picture and deferred repaint flags. */
       gln_graphics_new_picture = FALSE;
       deferred_repaint = FALSE;
     }
 
 #ifndef GARGLK
-  /*
-   * Make a portion of an image pass, from lower to higher image layers,
-   * scanning for invalidated pixels that are in the current image layer we
-   * are painting.  Each invalidated pixel gives rise to a region paint,
-   * which equates to one Glk rectangle fill.
-   *
-   * When the limit on regions is reached, save the current image pass layer
-   * and coordinates, and yield control to the main game playing code by
-   * returning.  On the next call, pick up where we left off.
-   *
-   * As an optimization, we can leave the loop on the first empty layer we
-   * encounter.  Since layers are ordered by complexity and color usage, all
-   * layers higher than the first unused one will also be empty, so we don't
-   * need to scan them.
-   */
-  regions = 0;
-  for (layer = saved_layer;
-       layer < GLN_PALETTE_SIZE && layer_usage[layer] > 0; layer++)
-    {
-      long index_row;
-
-      /*
-       * As an optimization to avoid multiplications in the loop, maintain a
-       * separate index row.
-       */
-      index_row = saved_y * gln_graphics_width;
-      for (y = saved_y; y < gln_graphics_height; y++)
-        {
-          for (x = saved_x; x < gln_graphics_width; x++)
-            {
-              long index;
-
-              /* Get the index for this pixel. */
-              index = index_row + x;
-              assert (index < picture_size * sizeof (*off_screen));
-
-              /*
-               * Ignore pixels not in the current layer, and pixels not
-               * currently invalid (that is, ones whose on-screen represen-
-               * tation matches the off-screen buffer).
-               */
-              if (layers[off_screen[index]] == layer
-                  && on_screen[index] != off_screen[index])
-                {
-                  /*
-                   * Rather than painting just one pixel, here we try to
-                   * paint the maximal region we can for the layer of the
-                   * given pixel.
-                   */
-                  gln_graphics_paint_region (gln_graphics_window,
-                                             palette, layers,
-                                             off_screen, on_screen,
-                                             x, y, x_offset, y_offset,
-                                             GLN_GRAPHICS_PIXEL,
-                                             gln_graphics_width,
-                                             gln_graphics_height);
-
-                  /*
-                   * Increment count of regions handled, and yield, by
-                   * returning, if the limit on paint regions is reached.
-                   * Before returning, save the current layer and scan
-                   * coordinates, so we can pick up here on the next call.
-                   */
-                  regions++;
-                  if (regions >= GLN_REPAINT_LIMIT)
-                    {
-                      yield_counter++;
-                      saved_layer = layer;
-                      saved_x = x;
-                      saved_y = y;
-                      total_regions += regions;
-                      return;
-                    }
-                }
-            }
-
-          /* Reset the saved x coordinate on y increment. */
-          saved_x = 0;
-
-          /* Update the index row on change of y. */
-          index_row += gln_graphics_width;
-        }
-
-      /* Reset the saved y coordinate on layer change. */
-      saved_y = 0;
-    }
-
-  /*
-   * If we reach this point, then we didn't get to the limit on regions
-   * painted on this pass.  In that case, we've finished rendering the
-   * image.
-   */
-  assert (regions < GLN_REPAINT_LIMIT);
-  total_regions += regions;
-
+  gln_graphics_paint_pass(palette, layers, layer_usage,
+                          on_screen, off_screen,
+                          x_offset, y_offset,
+                          picture_size);
 #else
-  if (gln_graphics_interpreter_state == GLN_GRAPHICS_LINE_MODE && (VectorState != SHOWING_VECTOR_IMAGE || current_draw_instruction == 0) && gli_slowdraw == 1) {
-    DrawSomeL9VectorPixels(palette[0], gln_graphics_window, x_offset, y_offset, palette);
-  } else {
-    gln_graphics_paint_everything
-    (gln_graphics_window,
-     palette, off_screen,
-     x_offset, y_offset,
-     gln_graphics_width,
-     gln_graphics_height);
-     /* Stop graphics; there's no more to be done until something restarts us. */
-     gln_graphics_stop ();
-  }
+  gln_graphics_paint_garglk(palette, off_screen, x_offset, y_offset);
 #endif
 }
 
