@@ -44,14 +44,25 @@
 static uint8_t vdp_pixels[RTPI_IMAGE_SIZE];
 static uint8_t vdp_colors[RTPI_IMAGE_SIZE];
 
+#define NUMBER_OF_GROM_BANKS        5
+#define GROM_BANK_SIZE              0x2000
+
 /* Total GROM data size (5 × 0x2000 byte banks). */
-#define GROM_SIZE 0xa000
+#define GROM_SIZE NUMBER_OF_GROM_BANKS * GROM_BANK_SIZE
+
+/* Size of the per-bank header that prefixes each GROM bank. */
+#define GROM_HEADER_SIZE 0x802
 
 #define NUMBER_OF_RTPI_ROOM_IMAGES 24 + 9
 #define NUMBER_OF_RTPI_ITEM_IMAGES 7
 #define NUMBER_OF_RTPI_IMAGES NUMBER_OF_RTPI_ROOM_IMAGES + NUMBER_OF_RTPI_ITEM_IMAGES
 #define NUMBER_OF_RTPI_TILES 52
 #define RTPI_TITLE_TEXT_LENGTH 0x1e2
+
+/* MAME zip layout splits the GROM across five 0x2000-byte bank files
+ named phm3189g3.bin through phm3189g7.bin. */
+#define FIRST_GROM_BANK_NUMBER      3
+#define RTPI_GROM_FILENAME_BUF_SIZE 14
 
 /* The 52-entry tile font, loaded from the CPU ROM (c.bin). */
 static uint8_t rtpi_tile_font[NUMBER_OF_RTPI_TILES][8];
@@ -87,8 +98,6 @@ static void rotate(uint8_t *tile, int rotation) {
             break; // Should never happen
     }
 }
-
-size_t writeToFile(const char *name, uint8_t *data, size_t size);
 
 /* Decode the RLE-compressed colour attribute stream that follows the
    tile pattern opcodes. Each byte in vdp_colors holds the colour for
@@ -126,13 +135,10 @@ restart:
             debug_print("DecodeRTPIColors: move opcode (0x70). New write offset: 0x%04x\n", write_offset);
             if (write_offset >= RTPI_IMAGE_SIZE) {
                 debug_print("DecodeRTPIColors: write offset 0x%04x is offscreen. Max is 0x%04x. (read offset: 0x%lx) Bailing\n", write_offset, RTPI_IMAGE_SIZE, ptr - origcolptr);
-                write_offset = 516;
-                goto cheat;
-//                return 0;
+                return 0;
             }
             continue;
         }
-    cheat:
         if (top != 0 && draw_op != 0) {
             debug_print("DecodeRTPIColors: Drew 0x%02x to 0x%04x.\n", draw_op, write_offset);
             vdp_colors[write_offset++] = draw_op;
@@ -312,7 +318,7 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
         switch (op) {
             case 0:
                 /* --- 0. Copy tiles: read from VDP, compose, blit, repeat ---
-                 * Op 0: For each repeat, reads a tile from VDP into the buffer,
+                 * For each repeat, reads a tile from VDP into the buffer,
                  * blits the buffer to VDP at R4, clears the buffer, and reads
                  * the next tile index from GROM for the next iteration.
                  */
@@ -329,7 +335,7 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
                 break;
             case 1:
                 /* --- 1. Repeat tile. Draw tile with rotation, blit repeatedly ---
-                 * Op 1: Processes a single tile with full rotation/composition,
+                 * Processes a single tile with full rotation/composition,
                  * then blits the result to VDP (repeats) times. Each blit writes the
                  * same composed tile to consecutive VDP positions.
                  */
@@ -343,7 +349,7 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
                 break;
             case 2:
                 /* --- 2. Move write address to tile position ---
-                 * Op 2: "Move cursor" Sets the VDP write address to
+                 * Move cursor. Sets the VDP write address to
                  * the pattern table location for tile (tile_index * 8),
                  * then clears the buffer. This positions the write pointer
                  * without actually writing any tile data.
@@ -353,7 +359,7 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
                 break;
             case 3:
                 /* --- 3. Copy one tile. Read tile from VDP and blit with repeats ---
-                 * Op 3: Reads one tile from VDP into the buffer, then blits
+                 * Reads one tile from VDP into the buffer, then blits
                  * it to VDP (repeat) times.
                  */
                 if (!copy_tile_from_vdp(tile, screen_index))
@@ -364,8 +370,8 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
                 memset(tile, 0, 8);
                 break;
             case 4:
-                /* --- 4. Process tile with rotation, blit, clear, repeat (0x7AD0) ---
-                 * Op 4: Decode and blit tiles. For each iteration, reads a tile
+                /* --- 4. Process tile with rotation, blit, clear, repeat ---
+                 * Decode and blit tiles. For each iteration, reads a tile
                  * index from GROM, processes it with rotation, blits to VDP,
                  * clears the buffer, and repeats for (repeats) iterations.
                  */
@@ -382,7 +388,7 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
                 break;
             case 5:
                 /* --- 5. Copy tile run from VDP ---
-                 * Op 5: Reads a tile from VDP, blits it, increments the tile
+                 * Reads a tile from VDP, blits it, increments the tile
                  * index, clears the buffer, and repeats. This draws a
                  * sequential run of tiles (tile N, N+1, N+2, ...).
                  */
@@ -395,10 +401,10 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
                 memset(tile, 0, 8);
                 break;
             case 6:
-                /* --- 6. Lots of sub-opcodes ---
-                 * Op 6: One of 16 sub-opcodes depending on
-                 * the value in (repeats). Only the ones actually
-                 * used by the game are implemented.
+                /* --- 6. Sub-opcodes ---
+                 * One of 16 sub-opcodes depending on
+                 * the value of `repeats`. Only the ones actually
+                 * used by the game are implemented here.
                  */
 
                 if (repeats > 0 && repeats < 13) {
@@ -407,7 +413,7 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
                 }
 
                 switch(repeats) {
-                    case 0: //  0. Writes 8 raw bytes to screen memory directly from GROM
+                    case 0: //  0. Write 8 raw bytes to screen memory directly from GROM
                         if (gptr + 8 > gend || dst + 8 > vdp_end)
                             break;
                         for (int i = 0; i < 8; i++) {
@@ -471,7 +477,7 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
                 break;
             case 7:
                 /* --- 7. Combine tile pairs ---
-                 * Op 7: OR two tiles and blit them.
+                 * OR two tiles and blit them.
                  * Repeat (repeats / 2) times.
                  */
                 for (int i = 0; i < repeats; i++) {
@@ -626,11 +632,11 @@ static USImage *finalize_img_make_new(USImage *image, uint16_t offset, uint16_t 
        contains a bank header (0x802 bytes) that is not image data.
        Re-copy the tail from past the header to stitch the image
        back together. */
-    if (maxrange > 0x17fe && (maxrange - 0x17fe) % 0x2000 < size) {
-        uint16_t cutoff = size - ((maxrange - 0x17fe) % 0x2000);
-        if (offset + cutoff + 0x802 + size - cutoff >= GROM_SIZE)
+    if (maxrange > 0x17fe && (maxrange - 0x17fe) % GROM_BANK_SIZE < size) {
+        uint16_t cutoff = size - ((maxrange - 0x17fe) % GROM_BANK_SIZE);
+        if (offset + cutoff + GROM_HEADER_SIZE + size - cutoff >= GROM_SIZE)
             Fatal("Bad image data\n");
-        memcpy(image->imagedata + cutoff, grom + offset + cutoff + 0x802, size - cutoff);
+        memcpy(image->imagedata + cutoff, grom + offset + cutoff + GROM_HEADER_SIZE, size - cutoff);
     }
 
     image->datasize = size;
@@ -863,7 +869,7 @@ typedef struct {
     size_t filesize;
 } ti99_disk_file;
 
-ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length);
+static ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length);
 
 static uint8_t rtpi_room_5_tile_patch[23] = { 0x05, 0x0F, 0x0C, 0xF5, 0x06, 0x5F, 0x03, 0x1F, 0x02, 0x2F, 0x04, 0x02, 0x05, 0x0F, 0x06, 0xF5, 0x06, 0x15, 0x04, 0xF5, 0x05, 0x2F, 0x06 };
 
@@ -941,6 +947,19 @@ static int LoadRTPIGraphicsFromDSK(uint8_t *dsk, size_t size) {
     return 1;
 }
 
+/* Sanity bound for word_length to prevent runaway parsing if the
+   header value is bogus. */
+#define RTPI_DICT_MAX_WORD_LENGTH 1000
+
+/* Storage for one parsed dictionary word (one byte reserved for NUL). */
+#define RTPI_DICT_WORD_BUF_SIZE 32
+
+/* Trailing placeholder slots in Verbs[]/Nouns[] beyond number_of_words. */
+#define RTPI_DICT_PADDING 2
+
+/* End-of-dictionary marker: high bit set on the final byte. */
+#define RTPI_DICT_END_THRESHOLD 0x7F
+
 /* Parse the dictionary from the GROM data stream into the global
    Nouns[] and Verbs[] arrays.
 
@@ -953,10 +972,10 @@ static int LoadRTPIGraphicsFromDSK(uint8_t *dsk, size_t size) {
    signals the end of the dictionary. */
 static uint8_t *ReadRTPIDictionary(const GameInfo *info, uint8_t *ptr, uint8_t *endptr) {
     int wl = info->word_length;
-    if (wl < 1 || wl > 1020)
+    if (wl < 1 || wl > RTPI_DICT_MAX_WORD_LENGTH)
         Fatal("Bad word length");
 
-    char dictword[32];
+    char dictword[RTPI_DICT_WORD_BUF_SIZE];
 
     int nw = info->number_of_words;
     int nv = info->number_of_verbs;
@@ -964,7 +983,7 @@ static uint8_t *ReadRTPIDictionary(const GameInfo *info, uint8_t *ptr, uint8_t *
 
     /* Initialize all slots to "." (the Scott Adams placeholder for
        empty/unused dictionary entries). */
-    for (int i = 0; i < nw + 2; i++) {
+    for (int i = 0; i < nw + RTPI_DICT_PADDING; i++) {
         Verbs[i] = ".";
         Nouns[i] = ".";
     }
@@ -999,7 +1018,7 @@ static uint8_t *ReadRTPIDictionary(const GameInfo *info, uint8_t *ptr, uint8_t *
                 if (++restarts > wl)
                     break;
             }
-            if (charindex < 31)
+            if (charindex < RTPI_DICT_WORD_BUF_SIZE - 1)
                 dictword[charindex++] = c;
         }
         dictword[charindex] = 0;
@@ -1008,13 +1027,13 @@ static uint8_t *ReadRTPIDictionary(const GameInfo *info, uint8_t *ptr, uint8_t *
         if (wordnum < nn) {
             Nouns[wordnum] = word;
             debug_print("Noun %d: \"%s\"\n", wordnum, word);
-        } else if (wordnum - nn < nw + 2) {
+        } else if (wordnum - nn < nw + RTPI_DICT_PADDING) {
             Verbs[wordnum - nn] = word;
             debug_print("Verb %d: \"%s\"\n", wordnum - nn, word);
         }
 
         /* A byte with the high bit set terminates the dictionary. */
-        if (c > 127)
+        if (c > RTPI_DICT_END_THRESHOLD)
             return ptr;
     }
 
@@ -1097,20 +1116,19 @@ static inline uint16_t adjust_grom_offset(uint16_t offset) {
     return (offset >= 0x8000) ? offset - 0x6000 : offset;
 }
 
+
 /* To make the game data contiguous, we cut out all the grom headers
    and arrange the banks in order 1, 2, 3, 4, 0. */
 static uint8_t *CutOutGromHeaders(uint8_t *grom, size_t *grom_length) {
-    size_t bank_size = 0x2000;
-    size_t header_size = 0x802;
-    size_t usable_per_bank = bank_size - header_size;
-    int num_banks = (int)(*grom_length / bank_size);
-    size_t new_length = num_banks * usable_per_bank;
+    const size_t usable_per_bank = GROM_BANK_SIZE - GROM_HEADER_SIZE;
+    const int num_banks = (int)(*grom_length / GROM_BANK_SIZE);
+    const size_t new_length = num_banks * usable_per_bank;
     uint8_t *result = MemAlloc(new_length);
 
     for (int i = 0; i < num_banks; i++) {
         // Bank order 1, 2, 3, 4, 0.
         int src_bank = (i + 1) % num_banks;
-        memcpy(result + i * usable_per_bank, grom + src_bank * bank_size, usable_per_bank);
+        memcpy(result + i * usable_per_bank, grom + src_bank * GROM_BANK_SIZE, usable_per_bank);
     }
 
     free(grom);
@@ -1124,6 +1142,35 @@ static uint8_t *CutOutGromHeaders(uint8_t *grom, size_t *grom_length) {
    7 pairs of (room_index, GROM_address), each 4 bytes. */
 #define ROOM_IMAGES_OFFSET 0x12
 #define ITEM_IMAGES_OFFSET 0x54
+
+/* Minimum c.bin size for all of the embedded tables, title text and
+   tile font to fit. */
+#define CPU_ROM_MIN_SIZE          0x1e94
+
+/* Byte offsets within the c.bin (CPU ROM) of additional payloads. */
+#define CPU_ROM_TITLE_TEXT_OFFSET 0x13db
+#define CPU_ROM_TILE_FONT_OFFSET  0x1cf4
+
+/* Each ITEM_IMAGES_OFFSET entry is 4 bytes: a 2-byte room_index
+   followed by a 2-byte GROM address. */
+#define ITEM_IMAGE_ENTRY_SIZE 4
+
+/* Number of int fields in the synthetic Scott Adams header. */
+#define RTPI_RAW_HEADER_SIZE 25
+
+/* Disk-image (.dsk) distribution layout: game data is stored as
+   DSK_RECORD_SIZE-byte records on DSK_SECTOR_SIZE-byte sectors,
+   starting at DSK_GROM_SRC_START in the disk image and placed
+   into the rebuilt GROM buffer starting at DSK_GROM_DST_START.
+   The title screen and tile font live at their own absolute offsets. */
+#define DSK_GROM_LENGTH       0x77f6
+#define DSK_GROM_DST_START    0x3d79
+#define DSK_GROM_DST_END      0x76f6
+#define DSK_GROM_SRC_START    0x2200
+#define DSK_RECORD_SIZE       0xfe
+#define DSK_SECTOR_SIZE       0x100
+#define DSK_TITLE_TEXT_OFFSET 0x9763
+#define DSK_TILE_FONT_OFFSET  0xac25
 
 /* Detect and load the TI-99/4A "Return to Pirate's Isle" game from
    a zip archive.
@@ -1165,7 +1212,7 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
             }
         }
 
-        if (rom_length < 0x1e94) {
+        if (rom_length < CPU_ROM_MIN_SIZE) {
             free(cpu_rom);
             return UNKNOWN_GAME;
         }
@@ -1177,20 +1224,17 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
 
         for (int i = 0; i < NUMBER_OF_RTPI_ROOM_IMAGES; i++) {
             room_image_offsets[i] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ROOM_IMAGES_OFFSET + i * 2));
-            fprintf(stderr, "room_image_offset %d: 0x%04x\n", i, room_image_offsets[i]);
         }
 
-
-        for (int i = 0; i < 7; i++) {
-            item_image_offsets[i][0] = READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * 4);
-            item_image_offsets[i][1] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * 4 + 2));
-            fprintf(stderr, "item_image_offset %d: 0x%04x\n", item_image_offsets[i][0], item_image_offsets[i][1]);
+        for (int i = 0; i < NUMBER_OF_RTPI_ITEM_IMAGES; i++) {
+            item_image_offsets[i][0] = READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * ITEM_IMAGE_ENTRY_SIZE);
+            item_image_offsets[i][1] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * ITEM_IMAGE_ENTRY_SIZE + 2));
         }
 
         /* Extract the title screen text. NUL bytes in the original data
          are converted to newlines for display as a single string. */
         title_screen = MemAlloc(RTPI_TITLE_TEXT_LENGTH);
-        memcpy((char *)title_screen, cpu_rom + 0x13db, RTPI_TITLE_TEXT_LENGTH);
+        memcpy((char *)title_screen, cpu_rom + CPU_ROM_TITLE_TEXT_OFFSET, RTPI_TITLE_TEXT_LENGTH);
         for (int i = 0; i < RTPI_TITLE_TEXT_LENGTH; i++) {
             if (title_screen[i] == 0)
                 title_screen[i] = '\n';
@@ -1199,7 +1243,7 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
 
         /* Extract the 52-tile font (8 bytes each) used for
          rendering all the graphics. */
-        memcpy(rtpi_tile_font, cpu_rom + 0x1cf4, NUMBER_OF_RTPI_TILES * 8);
+        memcpy(rtpi_tile_font, cpu_rom + CPU_ROM_TILE_FONT_OFFSET, NUMBER_OF_RTPI_TILES * 8);
 
         free(cpu_rom);
 
@@ -1211,16 +1255,16 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
          Extract and concatenate them into a single contiguous buffer. */
         if (!grom_data) {
             grom_data = MemCalloc(GROM_SIZE);
-            char filename[14];
+            char filename[RTPI_GROM_FILENAME_BUF_SIZE];
             size_t bank_length;
-            for (int i = 0; i < 5; i++) {
-                snprintf(filename, 14, "phm3189g%d.bin", 3 + i);
+            for (int i = 0; i < NUMBER_OF_GROM_BANKS; i++) {
+                snprintf(filename, RTPI_GROM_FILENAME_BUF_SIZE, "phm3189g%d.bin", FIRST_GROM_BANK_NUMBER + i);
                 uint8_t *bank = extract_file_from_zip_data(data, datalength, filename, &bank_length);
                 if (!bank) {
                     free(grom_data);
                     return UNKNOWN_GAME;
                 }
-                memcpy(grom_data + 0x2000 * i, bank, bank_length);
+                memcpy(grom_data + GROM_BANK_SIZE * i, bank, bank_length);
                 free(bank);
             }
             grom_length = GROM_SIZE;
@@ -1233,7 +1277,7 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
        (which was likely created by analyzing the same game data that we
        are dealing with here.) */
     /* See https://unbox.ifarchive.org/?url=/if-archive/scott-adams/games/scottfree/AdamsGames.zip */
-    int raw_header[25];
+    int raw_header[RTPI_RAW_HEADER_SIZE];
 
     raw_header[0]  = 4;       // Word length: 4
     raw_header[1]  = 104;     // Number of words: 104 (0x68)
@@ -1261,8 +1305,8 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
     Actions = (Action *)MemAlloc(sizeof(Action) * (num_actions + 1));
     GameHeader.NumWords = num_words;
     GameHeader.WordLength = word_length;
-    Verbs = MemAlloc(sizeof(char *) * (num_words + 2));
-    Nouns = MemAlloc(sizeof(char *) * (num_words + 2));
+    Verbs = MemAlloc(sizeof(char *) * (num_words + RTPI_DICT_PADDING));
+    Nouns = MemAlloc(sizeof(char *) * (num_words + RTPI_DICT_PADDING));
     GameHeader.NumRooms = num_rooms;
     Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
     GameHeader.MaxCarry = max_carry;
@@ -1336,17 +1380,17 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
         /* Make the game data in GROM contiguous */
         grom_data = CutOutGromHeaders(grom_data, &grom_length);
     } else {
-        grom_length = 0x77f6;
+        grom_length = DSK_GROM_LENGTH;
         grom_data = MemAlloc(grom_length);
-        size_t dst_off = 0x3d79;
-        size_t src_off = 0x2200;
-        while (dst_off < 0x76f6) {
-            memcpy(grom_data + dst_off, data + src_off, 0xfe);
-            src_off += 0x100;
-            dst_off += 0xfe;
+        size_t dst_off = DSK_GROM_DST_START;
+        size_t src_off = DSK_GROM_SRC_START;
+        while (dst_off < DSK_GROM_DST_END) {
+            memcpy(grom_data + dst_off, data + src_off, DSK_RECORD_SIZE);
+            src_off += DSK_SECTOR_SIZE;
+            dst_off += DSK_RECORD_SIZE;
         }
 
-        title_screen = (char *)unTaggedCode(data + 0x9763, RTPI_TITLE_TEXT_LENGTH, datalength);
+        title_screen = (char *)unTaggedCode(data + DSK_TITLE_TEXT_OFFSET, RTPI_TITLE_TEXT_LENGTH, datalength);
         for (int i = 0; i < RTPI_TITLE_TEXT_LENGTH; i++) {
             if (title_screen[i] == 0)
                 title_screen[i] = '\n';
@@ -1355,7 +1399,7 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
 
         /* Extract the 52-tile font (8 bytes each) used for
          rendering all the graphics. */
-        uint8_t *flat_tiles = unTaggedCode(data + 0xac25, NUMBER_OF_RTPI_TILES * 8, datalength);
+        uint8_t *flat_tiles = unTaggedCode(data + DSK_TILE_FONT_OFFSET, NUMBER_OF_RTPI_TILES * 8, datalength);
         memcpy(rtpi_tile_font, flat_tiles, NUMBER_OF_RTPI_TILES * 8);
 
         LoadRTPIGraphicsFromDSK(data, datalength);
@@ -1390,15 +1434,26 @@ void UpdateRTPISystemMessages(void) {
     sys[YOUVE_SOLVED_IT] = "Congrats! You did it!\n";
 }
 
-ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length) {
-    #define SECTOR_SIZE 256
-    #define FDIR_SECTOR 1
-    #define FDIR_MAX_ENTRIES 127
-    #define FDR_NAME_LENGTH 10
-    #define FDR_RECORD_LENGTH 0x11
-    #define FDR_NUM_RECORDS 0x12
-    #define FDR_DATA_CHAIN 0x1C
+/* TI-99/4A DSR (Device Service Routine) disk layout. Sector 0 is the
+   volume header, sector 1 is the FDIR (file index) which holds up to
+   127 2-byte FDR sector pointers, and each pointed-to sector is a
+   File Descriptor Record (FDR) describing one file. */
+#define SECTOR_SIZE       0x100
+#define FDIR_SECTOR       1
+#define FDIR_MAX_ENTRIES  127
+#define FDIR_ENTRY_SIZE   2
+#define FDR_NAME_LENGTH   10
+#define FDR_RECORD_LENGTH 0x11
+#define FDR_NUM_RECORDS   0x12
+#define FDR_DATA_CHAIN    0x1C
 
+/* Cap computed disk byte offsets to 20 bits (1 MB) and skip the
+   18-byte leader before file data begins. (Empirically derived from
+   the game's disk image format.) */
+#define DSK_ADDRESS_MASK 0xfffff
+#define DSK_DATA_LEADER  0x12
+
+static ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length) {
     if (length < SECTOR_SIZE * 2)
         return NULL;
 
@@ -1406,7 +1461,7 @@ ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length) {
 
     int count = 0;
     for (int i = 0; i < FDIR_MAX_ENTRIES; i++) {
-        uint16_t fdr_sector = READ_BE_UINT16(fdir + i * 2);
+        uint16_t fdr_sector = READ_BE_UINT16(fdir + i * FDIR_ENTRY_SIZE);
         if (fdr_sector == 0)
             break;
         count++;
@@ -1415,22 +1470,18 @@ ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length) {
     if (count == 0)
         return NULL;
 
-    ti99_disk_file *files = malloc((count + 1) * sizeof(ti99_disk_file));
-    if (files == NULL)
-        return NULL;
+    ti99_disk_file *files = MemAlloc((count + 1) * sizeof(ti99_disk_file));
 
     int found = 0;
     for (int i = 0; i < count; i++) {
-        uint16_t fdr_sector = READ_BE_UINT16(fdir + i * 2);
+        uint16_t fdr_sector = READ_BE_UINT16(fdir + i * FDIR_ENTRY_SIZE);
         size_t fdr_offset = (size_t)fdr_sector * SECTOR_SIZE;
         if (fdr_offset + SECTOR_SIZE > length)
             continue;
 
         uint8_t *fdr = dsk + fdr_offset;
 
-        char *name = malloc(FDR_NAME_LENGTH + 1);
-        if (name == NULL)
-            break;
+        char *name = MemAlloc(FDR_NAME_LENGTH + 1);
         memcpy(name, fdr, FDR_NAME_LENGTH);
 
         /* Trim trailing spaces */
@@ -1440,18 +1491,18 @@ ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length) {
         name[end] = '\0';
 
         /* TI-99/4A fixed-length record files: logical size is record_length * num_records.
-           A record_length of 0 in the FDR means 256.
+           A record_length of 0 in the FDR means SECTOR_SIZE (it doesn't fit in a byte).
            (This does not apply to program files,
             but we are not interested in them here.) */
         uint8_t record_length = fdr[FDR_RECORD_LENGTH];
         uint8_t num_records = fdr[FDR_NUM_RECORDS];
-        size_t filesize = (size_t)(record_length == 0 ? 256 : record_length) * num_records;
+        size_t filesize = (size_t)(record_length == 0 ? SECTOR_SIZE : record_length) * num_records;
 
         /* First data sector from the first data chain pointer.
            Each chain entry is 3 bytes: 2-byte start sector (little-endian)
            + 1-byte offset to last sector in the chain. */
         uint16_t first_data_sector = READ_LE_UINT16(fdr + FDR_DATA_CHAIN);
-        size_t disk_offset = (size_t)((first_data_sector * SECTOR_SIZE) & 0xfffff) + 0x12;
+        size_t disk_offset = (size_t)((first_data_sector * SECTOR_SIZE) & DSK_ADDRESS_MASK) + DSK_DATA_LEADER;
         files[found].filename = name;
         files[found].disk_offset = disk_offset;
         files[found].filesize = filesize;
@@ -1462,12 +1513,4 @@ ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length) {
     /* NULL-terminate by zeroing the sentinel entry */
     memset(&files[found], 0, sizeof(ti99_disk_file));
     return files;
-
-    #undef SECTOR_SIZE
-    #undef FDIR_SECTOR
-    #undef FDIR_MAX_ENTRIES
-    #undef FDR_NAME_LENGTH
-    #undef FDR_SECTORS_ALLOC
-    #undef FDR_EOF_OFFSET
-    #undef FDR_DATA_CHAIN
 }
