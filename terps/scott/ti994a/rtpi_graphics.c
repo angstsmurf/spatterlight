@@ -50,8 +50,13 @@ static uint8_t vdp_colors[RTPI_IMAGE_SIZE];
 /* Total GROM data size (5 × 0x2000 byte banks). */
 #define GROM_SIZE NUMBER_OF_GROM_BANKS * GROM_BANK_SIZE
 
-/* Size of the per-bank header that prefixes each GROM bank. */
+/* Size of the per-bank header that prefixes each GROM bank, and the
+   usable data region that follows it within each bank. */
 #define GROM_HEADER_SIZE 0x802
+#define GROM_BANK_DATA_SIZE (GROM_BANK_SIZE - GROM_HEADER_SIZE)
+
+/* Usable GROM data size with headers cut out (5 × 0x17fe = 0x77f6). */
+#define GROM_FLAT_SIZE NUMBER_OF_GROM_BANKS * GROM_BANK_DATA_SIZE
 
 #define NUMBER_OF_RTPI_ROOM_IMAGES 24 + 9
 #define NUMBER_OF_RTPI_ITEM_IMAGES 7
@@ -512,32 +517,32 @@ int DrawFuzzyRTPIImage(USImage *image) {
     return DrawRTPIImageWithOptionalFuzz(image, 1);
 }
 
+/* TI-99/4a colour information from MAME:
+
+ Color            Y      R-Y     B-Y     R       G       B       R   G   B
+ 0 Transparent
+ 1 Black         0.00    0.47    0.47    0.00    0.00    0.00      0   0   0
+ 2 Medium green  0.53    0.07    0.20    0.13    0.79    0.26     33 200  66
+ 3 Light green   0.67    0.17    0.27    0.37    0.86    0.47     94 220 120
+ 4 Dark blue     0.40    0.40    1.00    0.33    0.33    0.93     84  85 237
+ 5 Light blue    0.53    0.43    0.93    0.49    0.46    0.99    125 118 252
+ 6 Dark red      0.47    0.83    0.30    0.83    0.32    0.30    212  82  77
+ 7 Cyan          0.73    0.00    0.70    0.26    0.92    0.96     66 235 245
+ 8 Medium red    0.53    0.93    0.27    0.99    0.33    0.33    252  85  84
+ 9 Light red     0.67    0.93    0.27    1.13(!) 0.47    0.47    255 121 120
+ A Dark yellow   0.73    0.57    0.07    0.83    0.76    0.33    212 193  84
+ B Light yellow  0.80    0.57    0.17    0.90    0.81    0.50    230 206 128
+ C Dark green    0.47    0.13    0.23    0.13    0.69    0.23     33 176  59
+ D Magenta       0.53    0.73    0.67    0.79    0.36    0.73    201  91 186
+ E Gray          0.80    0.47    0.47    0.80    0.80    0.80    204 204 204
+ F White         1.00    0.47    0.47    1.00    1.00    1.00    255 255 255
+ */
+
 /* Set up the 16-entry palette to match the TMS9918A VDP's fixed
    colour table. RGB values are based on the MAME emulator's
    analysis of the TMS9918A's composite video output, and then
    hand adjusted. */
 static void SetupRTPIColors(void) {
-
-    /* From MAME:
-
-     Color            Y      R-Y     B-Y     R       G       B       R   G   B
-     0 Transparent
-     1 Black         0.00    0.47    0.47    0.00    0.00    0.00      0   0   0
-     2 Medium green  0.53    0.07    0.20    0.13    0.79    0.26     33 200  66
-     3 Light green   0.67    0.17    0.27    0.37    0.86    0.47     94 220 120
-     4 Dark blue     0.40    0.40    1.00    0.33    0.33    0.93     84  85 237
-     5 Light blue    0.53    0.43    0.93    0.49    0.46    0.99    125 118 252
-     6 Dark red      0.47    0.83    0.30    0.83    0.32    0.30    212  82  77
-     7 Cyan          0.73    0.00    0.70    0.26    0.92    0.96     66 235 245
-     8 Medium red    0.53    0.93    0.27    0.99    0.33    0.33    252  85  84
-     9 Light red     0.67    0.93    0.27    1.13(!) 0.47    0.47    255 121 120
-     A Dark yellow   0.73    0.57    0.07    0.83    0.76    0.33    212 193  84
-     B Light yellow  0.80    0.57    0.17    0.90    0.81    0.50    230 206 128
-     C Dark green    0.47    0.13    0.23    0.13    0.69    0.23     33 176  59
-     D Magenta       0.53    0.73    0.67    0.79    0.36    0.73    201  91 186
-     E Gray          0.80    0.47    0.47    0.80    0.80    0.80    204 204 204
-     F White         1.00    0.47    0.47    1.00    1.00    1.00    255 255 255
-     */
 
     glui32 black =     0x000000;
     glui32 blue =      0x5051E0;
@@ -629,11 +634,11 @@ static USImage *finalize_img_make_new(USImage *image, uint16_t offset, uint16_t 
     uint16_t maxrange = offset + size;
 
     /* If the image spans a GROM bank boundary, the middle portion
-       contains a bank header (0x802 bytes) that is not image data.
-       Re-copy the tail from past the header to stitch the image
-       back together. */
-    if (maxrange > 0x17fe && (maxrange - 0x17fe) % GROM_BANK_SIZE < size) {
-        uint16_t cutoff = size - ((maxrange - 0x17fe) % GROM_BANK_SIZE);
+       contains a bank header (GROM_HEADER_SIZE bytes) that is not
+       image data. Re-copy the tail from past the header to stitch
+       the image back together. */
+    if (maxrange > GROM_BANK_DATA_SIZE && (maxrange - GROM_BANK_DATA_SIZE) % GROM_BANK_SIZE < size) {
+        uint16_t cutoff = size - ((maxrange - GROM_BANK_DATA_SIZE) % GROM_BANK_SIZE);
         if (offset + cutoff + GROM_HEADER_SIZE + size - cutoff >= GROM_SIZE)
             Fatal("Bad image data\n");
         memcpy(image->imagedata + cutoff, grom + offset + cutoff + GROM_HEADER_SIZE, size - cutoff);
@@ -649,12 +654,56 @@ static USImage *finalize_img_make_new(USImage *image, uint16_t offset, uint16_t 
 
 #define LAST_IMAGE_SIZE 0x72
 
+/* Reference: image-to-room mapping in the original GROM data.
+
+   Image for room 0 (.) has offset 0x8000 (darkness)
+   Image for room 1 (bottom bunk) has offset 0x8047
+   Image for room 2 (ship's cabin) has offset 0x831f
+   Image for room 3 (*I'm on a dock) has offset 0x854c
+   Image for room 4 (*I'm on deck) has offset 0x87d7
+   Image for room 5 (beach by a small hill) has offset 0x8953
+   Image for room 6 (*I'm on ledge 8 feet below hill summit) has offset 0x8ab2
+   Image for room 7 (*I'm on top of a small hill) has offset 0x8d10
+   Image for room 8 (cavern) has offset 0x0000 (no image)
+   Image for room 9 (tool shed) has offset 0x0000 (no image)
+   Image for room 10 (*Sorry, to explore Pirate's Isle you'll need Adventure #2) has offset 0x8e84
+   Image for room 11 (sea) has offset 0x8fcf
+   Image for room 12 (*I'm undersea) has offset 0x90c8
+   Image for room 13 (smugglers hold inside ship) has offset 0x92fe
+   Image for room 14 (hall) has offset 0x0000 (no image)
+   Image for room 15 (*I'm on a rocky beach by sea) has offset 0x9426
+   Image for room 16 (top bunk) has offset 0x9619
+   Image for room 17 (*I'm on the engine) has offset 0x9773
+   Image for room 18 (*I'm in an engine room) has offset 0xa0fa
+   Image for room 19 (*I'm on catwalk on outside of ship by porthole) has offset 0xa378
+   Image for room 20 (narrow crawlway) has offset 0xa468
+   Image for room 21 (ship's hold) has offset 0xa54e
+   Image for room 22 (*I'm on beam under dock) has offset 0x8fcf
+   Image for room 23 (sunken ship) has offset 0xa5ca
+   Image for room 24 (Never Never Land) has offset 0xa86a
+   Image for room 25 () has offset 0xab0f // Title screen / Texas Instruments logo
+   Image for room 26 () has offset 0xadc2 // Congrats, victory screen
+   Image for room 27 () has offset 0xc39a // Smuggler's hold from below
+   Image for room 28 () has offset 0xc47c // Boat's deck at night with island in the distance
+   Image for room 29 () has offset 0xc588 // Sea at night
+   Image for room 30 () has offset 0xc610 // High beam (to be drawn over Underside of Dock)
+   Image for room 31 () has offset 0xc676 // Low beam (to be drawn over I'm on beam under dock)
+   Image for room 32 () has offset 0xc6dc // Boat to the west at night (to be drawn over 29)
+   Image for room object 63 (Sunken Ship) has offset 0xc775
+   Image for room object 26 (Dock to the East) has offset 0xc8f7
+   Image for room object 28 (Boat to the WEST) has offset 0xc9f1
+   Image for room object 36 (Rocky beach) has offset 0xcaa2
+   Image for room object 27 (Underside of Dock) has offset 0xcb04
+   Image for room object 7  (Sleeping Pirate) has offset 0xcca6
+   Image for room object 52 (Pirate at helm) has offset 0xcd08
+*/
+
 /* Build a linked list of USImage structs from the GROM data. Room
    images come first (24 rooms + 9 extra scenes), followed by 7 item
    overlay images. Image sizes are generally computed from the gap
    between consecutive offsets, with hardcoded overrides for images
    whose data is not contiguous (17, 22, 26). */
-static int LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_offsets[NUMBER_OF_RTPI_ITEM_IMAGES][2], uint8_t *grom) {
+static void LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_offsets[NUMBER_OF_RTPI_ITEM_IMAGES][2], uint8_t *grom) {
     USImages = NewImage();
     USImage *image = USImages;
 
@@ -694,17 +743,16 @@ static int LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_of
             size = 0xf7;
         } else if (i == 26) {
             size = 0xdd4;
-        } else if (i < NUMBER_OF_RTPI_ROOM_IMAGES - 1) {
-            /* Normal case: size = next non-overlapping offset minus ours. */
-            int j = i + 1;
-            size_t next;
-            do {
-                next = room_image_offsets[j++];
-            } while (next < offset);
-            size = next - offset;
         } else {
-            /* Last room image: size extends to the first item image. */
-            size = item_image_offsets[0][1] - offset;
+            /* Normal case: walk forward to the next entry whose offset
+               is >= ours and use the gap as the size. If we run out of
+               room entries, fall back to the first item image offset. */
+            int j = i + 1;
+            while (j < NUMBER_OF_RTPI_ROOM_IMAGES && room_image_offsets[j] < offset)
+                j++;
+            size_t next = (j < NUMBER_OF_RTPI_ROOM_IMAGES) ? room_image_offsets[j]
+                                                           : item_image_offsets[0][1];
+            size = next - offset;
         }
 
         image = finalize_img_make_new(image, offset, size, grom);
@@ -737,57 +785,11 @@ static int LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_of
         if (image != USImages) {
             image->previous->next = NULL;
             free(image);
-            image = NULL;
         } else {
             free(USImages);
             USImages = NULL;
         }
     }
-
-    return 1;
-
-    /*
-     Image for room 0 (.) has offset 0x8000 (darkness)
-     Image for room 1 (bottom bunk) has offset 0x8047
-     Image for room 2 (ship's cabin) has offset 0x831f
-     Image for room 3 (*I'm on a dock) has offset 0x854c
-     Image for room 4 (*I'm on deck) has offset 0x87d7
-     Image for room 5 (beach by a small hill) has offset 0x8953
-     Image for room 6 (*I'm on ledge 8 feet below hill summit) has offset 0x8ab2
-     Image for room 7 (*I'm on top of a small hill) has offset 0x8d10
-     Image for room 8 (cavern) has offset 0x0000 (no image)
-     Image for room 9 (tool shed) has offset 0x0000 (no image)
-     Image for room 10 (*Sorry, to explore Pirate's Isle you'll need Adventure #2) has offset 0x8e84
-     Image for room 11 (sea) has offset 0x8fcf
-     Image for room 12 (*I'm undersea) has offset 0x90c8
-     Image for room 13 (smugglers hold inside ship) has offset 0x92fe
-     Image for room 14 (hall) has offset 0x0000 (no image)
-     Image for room 15 (*I'm on a rocky beach by sea) has offset 0x9426
-     Image for room 16 (top bunk) has offset 0x9619
-     Image for room 17 (*I'm on the engine) has offset 0x9773
-     Image for room 18 (*I'm in an engine room) has offset 0xa0fa
-     Image for room 19 (*I'm on catwalk on outside of ship by porthole) has offset 0xa378
-     Image for room 20 (narrow crawlway) has offset 0xa468
-     Image for room 21 (ship's hold) has offset 0xa54e
-     Image for room 22 (*I'm on beam under dock) has offset 0x8fcf
-     Image for room 23 (sunken ship) has offset 0xa5ca
-     Image for room 24 (Never Never Land) has offset 0xa86a
-     Image for room 25 () has offset 0xab0f // Title screen / Texas Instruments logo
-     Image for room 26 () has offset 0xadc2 // Congrats, victory screen
-     Image for room 27 () has offset 0xc39a // Smuggler's hold from below
-     Image for room 28 () has offset 0xc47c // Boat's deck at night with island in the distance
-     Image for room 29 () has offset 0xc588 // Sea at night
-     Image for room 30 () has offset 0xc610 // High beam (to be drawn over Underside of Dock)
-     Image for room 31 () has offset 0xc676 // Low beam (to be drawn over I'm on beam under dock)
-     Image for room 32 () has offset 0xc6dc // Boat to the west at night (to be drawn over 29)
-     Image for room object 63 (Sunken Ship) has offset 0xc775
-     Image for room object 26 (Dock to the East) has offset 0xc8f7
-     Image for room object 28 (Boat to the WEST) has offset 0xc9f1
-     Image for room object 36 (Rocky beach) has offset 0xcaa2
-     Image for room object 27 (Underside of Dock) has offset 0xcb04
-     Image for room object 7  (Sleeping Pirate) has offset 0xcca6
-     Image for room object 52 (Pirate at helm) has offset 0xcd08
-     */
 }
 
 typedef struct {
@@ -1116,23 +1118,19 @@ static inline uint16_t adjust_grom_offset(uint16_t offset) {
     return (offset >= 0x8000) ? offset - 0x6000 : offset;
 }
 
-
 /* To make the game data contiguous, we cut out all the grom headers
-   and arrange the banks in order 1, 2, 3, 4, 0. */
-static uint8_t *CutOutGromHeaders(uint8_t *grom, size_t *grom_length) {
-    const size_t usable_per_bank = GROM_BANK_SIZE - GROM_HEADER_SIZE;
-    const int num_banks = (int)(*grom_length / GROM_BANK_SIZE);
-    const size_t new_length = num_banks * usable_per_bank;
-    uint8_t *result = MemAlloc(new_length);
+   and arrange the banks in order 1, 2, 3, 4, 0. The output buffer
+   is always GROM_FLAT_SIZE (0x77f6) bytes. */
+static uint8_t *CutOutGromHeaders(uint8_t *grom) {
+    uint8_t *result = MemAlloc(GROM_FLAT_SIZE);
 
-    for (int i = 0; i < num_banks; i++) {
-        // Bank order 1, 2, 3, 4, 0.
-        int src_bank = (i + 1) % num_banks;
-        memcpy(result + i * usable_per_bank, grom + src_bank * GROM_BANK_SIZE, usable_per_bank);
+    for (size_t i = 0; i < NUMBER_OF_GROM_BANKS; i++) {
+        /* Bank order 1, 2, 3, 4, 0. */
+        size_t src_bank = (i + 1) % NUMBER_OF_GROM_BANKS;
+        memcpy(result + i * GROM_BANK_DATA_SIZE, grom + src_bank * GROM_BANK_SIZE, GROM_BANK_DATA_SIZE);
     }
 
     free(grom);
-    *grom_length = new_length;
     return result;
 }
 
@@ -1163,7 +1161,6 @@ static uint8_t *CutOutGromHeaders(uint8_t *grom, size_t *grom_length) {
    starting at DSK_GROM_SRC_START in the disk image and placed
    into the rebuilt GROM buffer starting at DSK_GROM_DST_START.
    The title screen and tile font live at their own absolute offsets. */
-#define DSK_GROM_LENGTH       0x77f6
 #define DSK_GROM_DST_START    0x3d79
 #define DSK_GROM_DST_END      0x76f6
 #define DSK_GROM_SRC_START    0x2200
@@ -1172,124 +1169,194 @@ static uint8_t *CutOutGromHeaders(uint8_t *grom, size_t *grom_length) {
 #define DSK_TITLE_TEXT_OFFSET 0x9763
 #define DSK_TILE_FONT_OFFSET  0xac25
 
-/* Detect and load the TI-99/4A "Return to Pirate's Isle" game from
-   a zip archive.
+/* GameInfo describing the GROM layout. The offsets are raw byte
+   positions within the GROM file. Graphics data is handled
+   separately via LoadRTPIGraphics, so the image-related fields
+   are all zero. */
+static const GameInfo rtpi_info = {
+    "Return to Pirate's Isle",
+    RETURN_TO_PIRATES_ISLE,
+    US_VARIANT,               // type
+    ENGLISH,                  // subtype
+    FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
-   The game ships as a set of ROM files inside a zip:
-     - c.bin (or phm3189c.bin): CPU ROM — contains tile font data,
-       image offset tables, and the title screen text
-     - g.bin (or phm3189g3–g7.bin): GROM data — contains all game data
-       (dictionary, rooms, messages, items, actions, connections) and
-       the image data
+    71,  // Number of items
+    277, // Number of actions
+    104, // Number of words
+    26,  // Number of rooms
+    10,  // Max carried items
+    4,   // Word length
+    89,  // Number of messages
 
-   Two zip layouts are supported: the "clean" layout with c.bin + g.bin,
-   and the MAME layout with the split phm3189*.bin files.
+    103, // number_of_verbs
+    105, // number_of_nouns
 
-   On success, all game data structures are populated and the function
-   returns RETURN_TO_PIRATES_ISLE. On failure (missing files, bad data)
-   it returns UNKNOWN_GAME. */
-GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
+    0,   // no header
+    NO_HEADER,  // no header style
 
+    0,   // no room images
+    0,   // no item flags
+    0,   // no item images
+
+    0x4F6C, // actions
+    UNCOMPRESSED,
+    0x3d98,  // dictionary
+    0x41B1,  // start_of_room_descriptions
+    0x60fE,  // start_of_room_connections
+    0x438D,  // start_of_messages
+    FOLLOWS, // start_of_item_descriptions
+    FOLLOWS, // start_of_item_locations
+
+    0, // start_of_system_messages
+    0, // start of directions
+
+    0, // start_of_characters
+    0, // start_of_image_data
+    0, // image_address_offset
+    0, // number_of_pictures
+    0, // palette
+    0, // picture_format_version
+};
+
+/* Replace embedded NULs with newlines so a multi-line blob can be
+   displayed as a single string, then NUL-terminate at the end. */
+static void replace_nuls_with_newlines(char *str, size_t length) {
+    for (size_t i = 0; i < length; i++) {
+        if (str[i] == 0)
+            str[i] = '\n';
+    }
+    str[length - 1] = '\0';
+}
+
+/* Load the zip-archive distribution: extract c.bin and g.bin (or
+   the split MAME phm3189*.bin files), parse the image offset
+   tables, extract title text and tile font, load image data, and
+   produce the contiguous GROM buffer. Returns NULL on failure. */
+static uint8_t *load_rtpi_zip_payload(uint8_t *data, size_t datalength) {
+    size_t rom_length;
+
+    /* Try to extract the CPU ROM, accepting either filename variant. */
+    uint8_t *cpu_rom = extract_file_from_zip_data(data, datalength, "c.bin", &rom_length);
+    if (!cpu_rom) {
+        cpu_rom = extract_file_from_zip_data(data, datalength, "phm3189c.bin", &rom_length);
+        if (!cpu_rom)
+            return NULL;
+    }
+
+    if (rom_length < CPU_ROM_MIN_SIZE) {
+        free(cpu_rom);
+        return NULL;
+    }
+
+    /* Extract room and item image offset tables from the CPU ROM.
+       Room offsets are 33 big-endian 16-bit GROM addresses at 0x12.
+       Item offsets are 7 (room_index, GROM_address) pairs at 0x54. */
     uint16_t room_image_offsets[NUMBER_OF_RTPI_ROOM_IMAGES];
     uint16_t item_image_offsets[NUMBER_OF_RTPI_ITEM_IMAGES][2];
 
+    for (int i = 0; i < NUMBER_OF_RTPI_ROOM_IMAGES; i++) {
+        room_image_offsets[i] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ROOM_IMAGES_OFFSET + i * 2));
+    }
+    for (int i = 0; i < NUMBER_OF_RTPI_ITEM_IMAGES; i++) {
+        item_image_offsets[i][0] = READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * ITEM_IMAGE_ENTRY_SIZE);
+        item_image_offsets[i][1] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * ITEM_IMAGE_ENTRY_SIZE + 2));
+    }
+
+    /* Extract the title screen text. */
+    title_screen = MemAlloc(RTPI_TITLE_TEXT_LENGTH);
+    memcpy((char *)title_screen, cpu_rom + CPU_ROM_TITLE_TEXT_OFFSET, RTPI_TITLE_TEXT_LENGTH);
+    replace_nuls_with_newlines((char *)title_screen, RTPI_TITLE_TEXT_LENGTH);
+
+    /* Extract the 52-tile font (8 bytes per tile). */
+    memcpy(rtpi_tile_font, cpu_rom + CPU_ROM_TILE_FONT_OFFSET, NUMBER_OF_RTPI_TILES * 8);
+
+    free(cpu_rom);
+
+    /* Load the GROM data. Try the single g.bin file first. */
     size_t grom_length;
-    uint8_t *grom_data = NULL;
+    uint8_t *grom_data = extract_file_from_zip_data(data, datalength, "g.bin", &grom_length);
 
-    int is_disk = !memcmp(entire_file, "PIRATE", 6) || !memcmp(entire_file, "ADV*RPI*CM", 10) || !memcmp(entire_file, "RTNPIRAT", 8);
-
-    if (!is_disk) {
-        size_t rom_length;
-
-        /* Try to extract the CPU ROM, accepting either filename variant. */
-        uint8_t *cpu_rom = extract_file_from_zip_data(data, datalength, "c.bin", &rom_length);
-
-        /* If c.bin is not present, try the MAME zip name */
-        if (!cpu_rom) {
-            cpu_rom = extract_file_from_zip_data(data, datalength, "phm3189c.bin", &rom_length);
-            if (!cpu_rom) {
-                return UNKNOWN_GAME;
+    /* If g.bin is not present, this may be the MAME zip format which
+       splits the GROM across NUMBER_OF_GROM_BANKS bank files (g3–g7). */
+    if (!grom_data) {
+        grom_data = MemCalloc(GROM_SIZE);
+        char filename[RTPI_GROM_FILENAME_BUF_SIZE];
+        size_t bank_length;
+        for (int i = 0; i < NUMBER_OF_GROM_BANKS; i++) {
+            snprintf(filename, RTPI_GROM_FILENAME_BUF_SIZE, "phm3189g%d.bin", FIRST_GROM_BANK_NUMBER + i);
+            uint8_t *bank = extract_file_from_zip_data(data, datalength, filename, &bank_length);
+            if (!bank) {
+                free(grom_data);
+                return NULL;
             }
-        }
-
-        if (rom_length < CPU_ROM_MIN_SIZE) {
-            free(cpu_rom);
-            return UNKNOWN_GAME;
-        }
-
-        /* Extract room and item image offset tables from the CPU ROM.
-         Room offsets are 33 big-endian 16-bit GROM addresses at 0x12.
-         Item offsets are 7 (room_index, GROM_address) pairs at 0x54. */
-
-
-        for (int i = 0; i < NUMBER_OF_RTPI_ROOM_IMAGES; i++) {
-            room_image_offsets[i] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ROOM_IMAGES_OFFSET + i * 2));
-        }
-
-        for (int i = 0; i < NUMBER_OF_RTPI_ITEM_IMAGES; i++) {
-            item_image_offsets[i][0] = READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * ITEM_IMAGE_ENTRY_SIZE);
-            item_image_offsets[i][1] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * ITEM_IMAGE_ENTRY_SIZE + 2));
-        }
-
-        /* Extract the title screen text. NUL bytes in the original data
-         are converted to newlines for display as a single string. */
-        title_screen = MemAlloc(RTPI_TITLE_TEXT_LENGTH);
-        memcpy((char *)title_screen, cpu_rom + CPU_ROM_TITLE_TEXT_OFFSET, RTPI_TITLE_TEXT_LENGTH);
-        for (int i = 0; i < RTPI_TITLE_TEXT_LENGTH; i++) {
-            if (title_screen[i] == 0)
-                title_screen[i] = '\n';
-        }
-        title_screen[RTPI_TITLE_TEXT_LENGTH - 1] = '\0';
-
-        /* Extract the 52-tile font (8 bytes each) used for
-         rendering all the graphics. */
-        memcpy(rtpi_tile_font, cpu_rom + CPU_ROM_TILE_FONT_OFFSET, NUMBER_OF_RTPI_TILES * 8);
-
-        free(cpu_rom);
-
-        /* Load the GROM data. Try the single g.bin file first. */
-        grom_data = extract_file_from_zip_data(data, datalength, "g.bin", &grom_length);
-
-        /* If g.bin is not present, this may be the MAME zip format which
-         splits the GROM across five 0x2000-byte bank files (g3–g7).
-         Extract and concatenate them into a single contiguous buffer. */
-        if (!grom_data) {
-            grom_data = MemCalloc(GROM_SIZE);
-            char filename[RTPI_GROM_FILENAME_BUF_SIZE];
-            size_t bank_length;
-            for (int i = 0; i < NUMBER_OF_GROM_BANKS; i++) {
-                snprintf(filename, RTPI_GROM_FILENAME_BUF_SIZE, "phm3189g%d.bin", FIRST_GROM_BANK_NUMBER + i);
-                uint8_t *bank = extract_file_from_zip_data(data, datalength, filename, &bank_length);
-                if (!bank) {
-                    free(grom_data);
-                    return UNKNOWN_GAME;
-                }
-                memcpy(grom_data + GROM_BANK_SIZE * i, bank, bank_length);
-                free(bank);
-            }
-            grom_length = GROM_SIZE;
+            memcpy(grom_data + GROM_BANK_SIZE * i, bank, bank_length);
+            free(bank);
         }
     }
 
-    /* I have been unable to find a standard Scott Adams header
-       in the data. Instead, all the game parameters are hardcoded here
-       to match those in the adv14a.dat file created by Paul David Doherty
-       (which was likely created by analyzing the same game data that we
-       are dealing with here.) */
-    /* See https://unbox.ifarchive.org/?url=/if-archive/scott-adams/games/scottfree/AdamsGames.zip */
-    int raw_header[RTPI_RAW_HEADER_SIZE];
+    /* Image positions are relative to the raw banks, so copy them
+       out before CutOutGromHeaders re-arranges the buffer. */
+    LoadRTPIGraphics(room_image_offsets, item_image_offsets, grom_data);
+    return CutOutGromHeaders(grom_data);
+}
 
-    raw_header[0]  = 4;       // Word length: 4
-    raw_header[1]  = 104;     // Number of words: 104 (0x68)
-    raw_header[2]  = 277;     // Number of actions: 277 (0x115)
-    raw_header[3]  = 71;      // Number of items: 71 (0x47)
-    raw_header[4]  = 89;      // Number of messages: 89 (0x59)
-    raw_header[5]  = 24;      // Number of rooms: 24 (0x18)
-    raw_header[6]  = 10;      // Max carried: 10 (0xa)
-    raw_header[7]  = 1;       // Starting location: 1
-    raw_header[8]  = 13;      // Number of treasures: 13 (0xd)
-    raw_header[9]  = 1;       // Light time: 1
-    raw_header[10] = 13 << 8; // Treasure room: 13 (0xd)
+/* Load the disk-image distribution: rebuild the GROM buffer from
+   on-disk records and extract title text and tile font. */
+static uint8_t *load_rtpi_disk_payload(uint8_t *data, size_t datalength) {
+    uint8_t *grom_data = MemAlloc(GROM_FLAT_SIZE);
+    size_t dst_off = DSK_GROM_DST_START;
+    size_t src_off = DSK_GROM_SRC_START;
+    while (dst_off < DSK_GROM_DST_END) {
+        memcpy(grom_data + dst_off, data + src_off, DSK_RECORD_SIZE);
+        src_off += DSK_SECTOR_SIZE;
+        dst_off += DSK_RECORD_SIZE;
+    }
+
+    title_screen = (char *)unTaggedCode(data + DSK_TITLE_TEXT_OFFSET, RTPI_TITLE_TEXT_LENGTH, datalength);
+    replace_nuls_with_newlines(title_screen, RTPI_TITLE_TEXT_LENGTH);
+
+    /* Extract the 52-tile font (8 bytes per tile). */
+    uint8_t *flat_tiles = unTaggedCode(data + DSK_TILE_FONT_OFFSET, NUMBER_OF_RTPI_TILES * 8, datalength);
+    memcpy(rtpi_tile_font, flat_tiles, NUMBER_OF_RTPI_TILES * 8);
+
+    LoadRTPIGraphicsFromDSK(data, datalength);
+    return grom_data;
+}
+
+/* Detect and load the TI-99/4A "Return to Pirate's Isle" game.
+   Supports the zip-archive distribution (c.bin + g.bin or the
+   MAME split phm3189*.bin layout) and the .dsk disk image.
+
+   On success, all game data structures are populated and the
+   function returns RETURN_TO_PIRATES_ISLE. On failure (missing
+   files, bad data) it returns UNKNOWN_GAME. */
+GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
+    int is_disk = !memcmp(entire_file, "PIRATE", 6) || !memcmp(entire_file, "ADV*RPI*CM", 10) || !memcmp(entire_file, "RTNPIRAT", 8);
+
+    uint8_t *grom_data = is_disk ? load_rtpi_disk_payload(data, datalength)
+                                 : load_rtpi_zip_payload(data, datalength);
+    if (!grom_data)
+        return UNKNOWN_GAME;
+
+    /* I have been unable to find a standard Scott Adams header in
+       the data, so all game parameters are hardcoded here to match
+       those in the adv14a.dat file created by Paul David Doherty
+       (likely created by analyzing the same game data we are
+       dealing with here.)
+       See https://unbox.ifarchive.org/?url=/if-archive/scott-adams/games/scottfree/AdamsGames.zip */
+    int raw_header[RTPI_RAW_HEADER_SIZE] = {
+        4,       // Word length
+        104,     // Number of words
+        277,     // Number of actions
+        71,      // Number of items
+        89,      // Number of messages
+        24,      // Number of rooms
+        10,      // Max carried
+        1,       // Starting location
+        13,      // Number of treasures
+        1,       // Light time
+        13 << 8, // Treasure room
+    };
 
     int num_items, num_actions, num_words, num_rooms, max_carry,
         player_room, num_treasures, word_length, light_time,
@@ -1318,106 +1385,21 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
     Messages = MemAlloc(sizeof(char *) * (num_messages + 1));
     GameHeader.TreasureRoom = treasure_room;
 
-    /* GameInfo struct describing the GROM layout. The offsets here are
-       raw byte positions within the GROM file (not GROM addresses —
-       adjust_grom_offset has already been applied to image offsets, and
-       these offsets are used directly by LoadRTPI). Graphics data is
-       handled separately via LoadRTPIGraphics, so the image-related
-       fields are all zero. */
-    GameInfo info = {
-        "Return to Pirate's Isle",
-        RETURN_TO_PIRATES_ISLE,
-        US_VARIANT,               // type
-        ENGLISH,                  // subtype
-        FOUR_LETTER_UNCOMPRESSED, // dictionary type
-
-        71,  // Number of items
-        277, // Number of actions
-        104, // Number of words
-        26,  // Number of rooms
-        10,  // Max carried items
-        4,   // Word length
-        89,  // Number of messages
-
-        103, // number_of_verbs
-        105, // number_of_nouns
-
-        0,   // no header
-        NO_HEADER,  // no header style
-
-        0,   // no room images
-        0,   // no item flags
-        0,   // no item images
-
-        0x4F6C, // actions
-        UNCOMPRESSED,
-        0x3d98,  // dictionary
-        0x41B1,  // start_of_room_descriptions
-        0x60fE,  // start_of_room_connections
-        0x438D,  // start_of_messages
-        FOLLOWS, // start_of_item_descriptions
-        FOLLOWS, // start_of_item_locations
-
-        0, // start_of_system_messages
-        0, // start of directions
-
-        0, // start_of_characters
-        0, // start_of_image_data
-        0, // image_address_offset
-        0, // number_of_pictures
-        0, // palette
-        0, // picture_format_version
-    };
-
     PrintHeaderInfo(raw_header, num_items, num_actions, num_words, num_rooms,
                     max_carry, player_room, num_treasures, word_length,
                     light_time, num_messages, treasure_room);
 
-    if (!is_disk) {
-        /* Copy the image data out into USImage structs. */
-        LoadRTPIGraphics(room_image_offsets, item_image_offsets, grom_data);
-
-        /* Make the game data in GROM contiguous */
-        grom_data = CutOutGromHeaders(grom_data, &grom_length);
-    } else {
-        grom_length = DSK_GROM_LENGTH;
-        grom_data = MemAlloc(grom_length);
-        size_t dst_off = DSK_GROM_DST_START;
-        size_t src_off = DSK_GROM_SRC_START;
-        while (dst_off < DSK_GROM_DST_END) {
-            memcpy(grom_data + dst_off, data + src_off, DSK_RECORD_SIZE);
-            src_off += DSK_SECTOR_SIZE;
-            dst_off += DSK_RECORD_SIZE;
-        }
-
-        title_screen = (char *)unTaggedCode(data + DSK_TITLE_TEXT_OFFSET, RTPI_TITLE_TEXT_LENGTH, datalength);
-        for (int i = 0; i < RTPI_TITLE_TEXT_LENGTH; i++) {
-            if (title_screen[i] == 0)
-                title_screen[i] = '\n';
-        }
-        title_screen[RTPI_TITLE_TEXT_LENGTH - 1] = '\0';
-
-        /* Extract the 52-tile font (8 bytes each) used for
-         rendering all the graphics. */
-        uint8_t *flat_tiles = unTaggedCode(data + DSK_TILE_FONT_OFFSET, NUMBER_OF_RTPI_TILES * 8, datalength);
-        memcpy(rtpi_tile_font, flat_tiles, NUMBER_OF_RTPI_TILES * 8);
-
-        LoadRTPIGraphicsFromDSK(data, datalength);
-    }
-
     /* Parse all game data from the GROM, then set up the TI-99/4A
        colour table. The original zip data is freed here since
        it's no longer needed once the GROM has been loaded. */
-    if (LoadRTPI(grom_data, grom_length, info) == RETURN_TO_PIRATES_ISLE) {
+    if (LoadRTPI(grom_data, GROM_FLAT_SIZE, rtpi_info) == RETURN_TO_PIRATES_ISLE) {
         free(data);
         free(grom_data);
         SetupRTPIColors();
-
         return RETURN_TO_PIRATES_ISLE;
     }
 
     free(grom_data);
-
     return UNKNOWN_GAME;
 }
 
