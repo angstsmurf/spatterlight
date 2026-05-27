@@ -520,8 +520,6 @@ static gln_game_table_t GLN_GAME_TABLE[] = {
   {0x6e5c, 0xf6, 0xd356, "Adventure Quest /JoD (ST)"},
   {0x6f0c, 0x95, 0x1f64, "Dungeon Adventure /JoD (Amiga/PC/ST)"},
 
-  {0x6f70, 0x40, 0xbd91, "Colossal Adventure /JoD (MSX)"},
-
   {0x6f6e, 0x78, 0x28cd, "Colossal Adventure /JoD (Spectrum 128)"},
   {0x6970, 0xd6, 0xa820, "Adventure Quest /JoD (Spectrum 128)"},
   {0x6de8, 0x4c, 0xd795, "Dungeon Adventure /JoD (Spectrum 128)"},
@@ -1542,8 +1540,13 @@ static glui32 GLN_GRAPHICS_TIMEOUT = 50;
 static const int GLN_GRAPHICS_REPAINT_WAIT = 10;
 
 #ifdef SPATTERLIGHT
-/* Pixel size multiplier for image size scaling. */
-static const int GLN_GRAPHICS_PIXEL = 2;
+/* Pixel size multiplier for image size scaling. Recomputed per picture in
+ * gln_graphics_position_picture() to the largest integer scale that still
+ * fits the image horizontally in the current graphics window. */
+static int GLN_GRAPHICS_PIXEL = 2;
+
+/* Margin between picture and text */
+static const int GLN_VERTICAL_PADDING = 10;
 
 /* Proportion of the display to use for graphics. */
 static const glui32 GLN_GRAPHICS_PROPORTION = 60;
@@ -1704,14 +1707,11 @@ gln_graphics_start (void)
 static void
 gln_graphics_stop (void)
 {
-  fprintf(stderr, "gln_graphics_stop\n");
   /* If running, stop the updating "thread". */
   if (gln_graphics_active)
     {
       glk_request_timer_events (0);
       gln_graphics_active = FALSE;
-    } else {
-      fprintf(stderr, "gln_graphics_stop: gln_graphics_active was false.\n");
     }
 }
 
@@ -1853,8 +1853,6 @@ gln_graphics_clear_and_border (winid_t glk_window,
   int index;
   assert (glk_window);
 
-  fprintf(stderr, "gln_graphics_clear_and_border\n");
-
   /*
    * Try to detect the background color of the main window, by getting the
    * background for Normal style (Glk offers no way to directly get a window's
@@ -1877,7 +1875,6 @@ gln_graphics_clear_and_border (winid_t glk_window,
    */
   glk_window_set_background_color (glk_window, background);
   glk_window_clear (glk_window);
-  fprintf(stderr, "Clearing background to 0x%x\n", background);
 #ifndef GARGLK
   /*
    * For very small pictures, just border them, but don't try and
@@ -1999,14 +1996,42 @@ gln_graphics_position_picture (winid_t glk_window, int pixel_size,
   glk_window_get_size (glk_window, &window_width, &window_height);
 
 #ifdef SPATTERLIGHT
-    if (window_height < height * pixel_size + GLN_GRAPHICS_BORDER * 2 + GLN_GRAPHICS_SHADING)
+    /* Pick the largest integer scale that still fits the image horizontally —
+     * same idea as OptimalPictureSize() in scott_display.c, but width-only
+     * since the height is what we're resizing the window to match. */
+    int optimal_pixel = window_width / width;
+    if (optimal_pixel < 1)
+        optimal_pixel = 1;
+    GLN_GRAPHICS_PIXEL = optimal_pixel;
+    pixel_size = optimal_pixel;
+
+  glui32 target_height = height * pixel_size + GLN_GRAPHICS_BORDER * 2 + GLN_GRAPHICS_SHADING + GLN_VERTICAL_PADDING;
+    if (window_height != target_height)
     {
-        glk_window_close(gln_graphics_window, NULL);
-        gln_graphics_window = glk_window_open (gln_main_window,
-                                           winmethod_Above
-                                           | winmethod_Fixed,
-                                           height * pixel_size + GLN_GRAPHICS_BORDER * 2 + GLN_GRAPHICS_SHADING + 20,
-                                           wintype_Graphics, 0);
+        winid_t parent = glk_window_get_parent (gln_graphics_window);
+
+        /* Resize, then verify the text buffer kept at least 4 rows. Glk has no
+         * "pixels per line" query, so if the text buffer came out too short we
+         * shrink the graphics target and retry. Bounded so a degenerate window
+         * can't loop forever. */
+        for (int attempt = 0; attempt < 10; attempt++)
+        {
+            glk_window_set_arrangement (parent,
+                                        winmethod_Above | winmethod_Fixed,
+                                        target_height,
+                                        gln_graphics_window);
+            if (!gln_main_window)
+                break;
+            glui32 main_cols, main_rows;
+            glk_window_get_size (gln_main_window, &main_cols, &main_rows);
+            if (main_rows >= 4 || target_height == 0)
+                break;
+            /* Shrink proportionally to how many rows short we are. */
+            glui32 shrink = target_height / (4 - main_rows + 1);
+            if (shrink == 0)
+                shrink = 1;
+            target_height = (target_height > shrink) ? target_height - shrink : 0;
+        }
         glk_window_get_size (gln_graphics_window, &window_width, &window_height);
     }
 #endif
@@ -2016,7 +2041,7 @@ gln_graphics_position_picture (winid_t glk_window, int pixel_size,
    * the image centers inside the graphical window.
    */
   *x_offset = ((int) window_width - width * pixel_size) / 2;
-  *y_offset = ((int) window_height - height * pixel_size) / 2;
+  *y_offset = ((int) window_height - height * pixel_size - GLN_VERTICAL_PADDING) / 2;
 }
 
 
@@ -2336,7 +2361,6 @@ gln_graphics_paint_everything (winid_t glk_window,
 			int x_offset, int y_offset,
 			gln_uint16 width, gln_uint16 height)
 {
-  fprintf(stderr, "gln_graphics_paint_everything\n");
 	gln_byte		pixel;			/* Reference pixel color */
 	int		x, y;
 
@@ -2656,7 +2680,10 @@ gln_graphics_timeout (void)
       /* Note the buffer for freeing on cleanup. */
       gln_graphics_off_screen = off_screen;
 
-      /* Pre-convert palette colors to their Glk equivalents. */
+      /*
+       * Pre-convert all the picture palette colors into their corresponding
+       * Glk colors.
+       */
       gln_graphics_convert_palette (gln_graphics_palette, palette);
 
       /* Save the color count for possible queries later. */
@@ -2675,6 +2702,10 @@ gln_graphics_timeout (void)
    */
   if (gln_graphics_new_picture || deferred_repaint)
     {
+      /*
+       * Calculate the x and y offset to center the picture in the graphics
+       * window.
+       */
       gln_graphics_position_picture (gln_graphics_window,
                                      GLN_GRAPHICS_PIXEL,
                                      gln_graphics_width, gln_graphics_height,
@@ -2689,19 +2720,23 @@ gln_graphics_timeout (void)
       on_screen = gln_malloc (picture_size * sizeof (*on_screen));
       memset (on_screen, GLN_GRAPHICS_UNUSED_PIXEL,
               picture_size * sizeof (*on_screen));
+
+      /* Note the buffer for freeing on cleanup. */
       gln_graphics_on_screen = on_screen;
 
-#ifndef GARGLK
       /*
-       * Assign new layers to the current image.  Sorts colors by usage so the
-       * most-used colors land in lower layers, and yields per-layer pixel
-       * counts that let the paint loop stop early on empty layers.
+       * Assign new layers to the current image.  This sorts colors by usage
+       * and puts the most used colors in the lower layers.  It also hands us
+       * a count of pixels in each layer, useful for knowing when to stop
+       * scanning for layers in the rendering loop.
        */
+#ifndef GARGLK
       gln_graphics_assign_layers (off_screen, on_screen,
                                   gln_graphics_width, gln_graphics_height,
                                   layers, layer_usage);
 #endif
 
+      /* Clear the graphics window. */
       gln_graphics_clear_and_border (gln_graphics_window,
                                      x_offset, y_offset,
                                      GLN_GRAPHICS_PIXEL,
@@ -2711,6 +2746,7 @@ gln_graphics_timeout (void)
       gln_graphics_paint_pass_reset();
 #endif
 
+      /* Clear the new picture and deferred repaint flags. */
       gln_graphics_new_picture = FALSE;
       deferred_repaint = FALSE;
     }
@@ -3159,7 +3195,7 @@ static void
 gln_linegraphics_clear_context (void)
 {
   long picture_bytes;
-  fprintf(stderr, "gln_linegraphics_clear_context\n");
+
   /* Get the picture size, and zero all bytes in the bitmap. */
   picture_bytes = gln_graphics_width
                   * gln_graphics_height * sizeof (*gln_graphics_bitmap);
@@ -3567,9 +3603,6 @@ gln_linegraphics_process (void)
           if (gln_graphics_open ())
             {
               /* Set the new picture flag, and start the updating "thread". */
-
-
-              fprintf(stderr, "gln_linegraphics_process: Draw a new image\n");
               current_draw_instruction = 0;
               gln_graphics_new_picture = TRUE;
               gln_graphics_start ();
@@ -3705,19 +3738,16 @@ os_graphics (int mode)
 static void
 gln_arbitrate_request_timer_events (glui32 millisecs)
 {
-  fprintf(stderr, "gln_arbitrate_request_timer_events\n");
   if (millisecs > 0)
     {
       /* Setting timer events; suspend graphics if currently active. */
       if (gln_graphics_active)
         {
-          fprintf(stderr, "suspending timer_events\n");
           gln_graphics_suspended = TRUE;
           gln_graphics_stop ();
         }
 
       /* Set timer events as requested. */
-      fprintf(stderr, "gln_arbitrate_request_timer_events: requesting timer of %d\n", millisecs);
       glk_request_timer_events (millisecs);
     }
   else
@@ -3728,7 +3758,6 @@ gln_arbitrate_request_timer_events (glui32 millisecs)
        */
       if (gln_graphics_suspended)
         {
-          fprintf(stderr, "restarting timer_events\n");
           gln_graphics_suspended = FALSE;
           gln_graphics_start ();
 
