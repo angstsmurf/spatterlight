@@ -1,8 +1,9 @@
 /* level9.c  Treaty of Babel module for Level 9 files
  * 2006 By L. Ross Raszewski
  *
- * Note that this module will handle both bare Level 9 A-Code and
- * Spectrum .SNA snapshots.  It will not handle compressed .Z80 images.
+ * Note that this module will handle bare Level 9 A-Code, Spectrum .SNA
+ * snapshots, and Spectrum .TZX/.Z80 images (the latter two recognised by
+ * whole-file (length, 16-bit sum) entries in l9_registry).
  *
  * The Level 9 identification algorithm is based in part on the algorithm
  * used by Paul David Doherty's l9cut program.
@@ -15,18 +16,32 @@
 
 #define FORMAT level9
 #define HOME_PAGE "http://www.if-legends.org/~l9memorial/html/home.html"
-#define FORMAT_EXT ".l9,.sna,.dat"
+#define FORMAT_EXT ".l9,.sna,.dat,.tap,.tzx,.z80,"
 #define NO_METADATA
 #define NO_COVER
 
 #include "treaty_builder.h"
 #include <ctype.h>
+#include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
+/* Scanner-derived entries (l9_registry): the v1/v2/v3 recognisers locate the
+ * embedded a-code, then look it up by `length` (the a-code length) and `chk`
+ * (the a-code's 8-bit byte sum). */
 struct l9rec {
     int32 length;
     unsigned char chk;
+    char *ifid;
+};
+
+/* Whole-file entries (l9_file_registry): tape/snapshot/disk containers (TZX,
+ * Z80, CPC disk images…) the a-code recognisers can't see through, identified
+ * by the whole file's `length` and its 16-bit byte sum `file_chk`. */
+struct l9filerec {
+    int32 length;
+    uint16_t file_chk;
     char *ifid;
 };
 
@@ -309,6 +324,10 @@ static struct l9rec l9_registry[] = {
     { 0x5cbc, 0xa5, "LEVEL9-017-1" }, // Scapeghost, pt. 1 GD (Amstrad CPC/Spectrum +3)
     { 0x762e, 0x82, "LEVEL9-017-1" }, // Scapeghost, pt. 1 GD (Spectrum 128)
     { 0xb613, 0x4c, "LEVEL9-017-1" }, // Scapeghost, pt. 1 (Commodore 64 TO/MSX *converted*)
+    // Whole-disk Extended CPC/Spectrum +3 disk images. The a-code is split
+    // into separate GAMEDATn.DAT + ACODEn.ACD files and stored across
+    // sector-interleaved tracks, so the scanner can't extract it; match the
+    // whole image instead. IFID is that of the first game on the disk.
     { 0x99bd, 0x65, "LEVEL9-017-2" }, // Scapeghost, pt. 2 (Amiga/PC/ST)
     { 0x8f43, 0xc9, "LEVEL9-017-2" }, // Scapeghost, pt. 2 (Commodore 64 Gfx)
     { 0x8a12, 0xe3, "LEVEL9-017-2" }, // Scapeghost, pt. 2 (Spectrum 48)
@@ -356,7 +375,24 @@ static struct l9rec l9_registry[] = {
     { 0x788d, 0x72, "LEVEL9-020" }, // Worm in Paradise /SD (Commodore 64/MSX)
     { 0x7cd7, 0x0e, "LEVEL9-020" }, // Worm in Paradise /SD (Amstrad CPC/Mac/PC/Spectrum 128/Spectrum +3)
     { 0x5ebb, 0xf1, "LEVEL9-020" }, // Worm in Paradise /SD (Spectrum 48)
+    { 0, 0, NULL }
+};
 
+/* Whole-file container entries: see struct l9filerec. */
+static struct l9filerec l9_file_registry[] = {
+    { 0xa96d, 0x5018, "LEVEL9-001-1" }, // Adrian Mole I, pt. 1 (Spectrum)
+    { 0xa705, 0x3dda, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (Spectrum)
+    { 0xaec9, 0xcc6c, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (Spectrum Z80, *corrupt* dump)
+    { 0x2f900, 0xaec7, "LEVEL9-005" }, // Jewels of Darkness (Amstrad CPC/Spectrum +3 disk; 1st game Colossal Adventure)
+    { 0x2f900, 0x924f, "LEVEL9-011-1" }, // Knight Orc (Amstrad CPC/Spectrum +3, game disk; 1st part)
+    { 0x2f900, 0xe840, "LEVEL9-011-1" }, // Knight Orc (Amstrad CPC/Spectrum +3, graphics disk: only contains the file ALLPICS.PIC)
+    { 0x17c38, 0xec57, "LEVEL9-014" }, // Price of Magik /T&M TZX (Spectrum 48)
+    { 0x17ba0, 0xbb69, "LEVEL9-014" }, // Price of Magik /T&M TZX (Spectrum 128)
+    { 0x2f900, 0x59bb, "LEVEL9-017-1" }, // Scapeghost (Amstrad CPC/Spectrum +3, game disk: GAMEDAT1-3/ACODE1-3)
+    { 0x2f900, 0x37ba, "LEVEL9-017-1" }, // Scapeghost (Amstrad CPC/Spectrum +3, graphics disk: ALLPICS.PIC)
+    { 0x2f900, 0xbc42, "LEVEL9-018" }, // Silicon Dreams (Amstrad CPC/Spectrum +3 disk; 1st game Snowball)
+    { 0xb433, 0xd55c, "LEVEL9-019-1" }, // The Archers, pt. 1 (Spectrum)
+    { 0xb08e, 0x9a19, "LEVEL9-019-2" }, // The Archers, pt. 2 (Spectrum Z80, *corrupt* dump)
     { 0, 0, NULL }
 };
 
@@ -364,7 +400,6 @@ static struct l9rec l9_registry[] = {
 static int32 read_l9_int(unsigned char *sf)
 {
     return ((int32) sf[1]) << 8 | sf[0];
-    
 }
 
 static int v2_recognition (unsigned char *sf, int32 extent, int32 *l, unsigned char *c)
@@ -415,59 +450,83 @@ static int v1_recognition(unsigned char *sf, int32 extent, char **ifid)
     return 1;
 }
 
+/* Locate embedded Level 9 V3/V4 a-code by scanning for its header signature.
+ * Ported from the v3_recognition routine in Paul David Doherty's l9cut, which
+ * runs three increasingly lenient passes:
+ *   phase 1 - require two zero bytes bracketing the end of the data;
+ *   phase 2 - as phase 1 but without the zero-padding requirement;
+ *   phase 3 - "desperate mode": a looser structural test and no checksum.
+ * On a match returns 3 (V3) or 4 (V4) depending on the a-code length, sets *l
+ * to that length and *c to the a-code's stored 8-bit checksum byte. */
 static int v3_recognition_phase (int phase,unsigned char *sf, int32 extent, int32 *l, unsigned char *c)
 {
-    int32 end, i, j, ll;
-    if (sf == NULL || *sf == '\0')
+    int32 i, j, end;
+    int found = 0;
+
+    if (sf == NULL)
         return 0;
-    ll=0;
-    for (i=0;i<extent-20;i++)
+
+    for (i = 0; i < extent - 20 && !found; i++)
     {
-        if (ll) break;
+        int match = 0;
         *l = read_l9_int(sf+i);
-        end=*l+i;
-        if (phase!=3)
+        end = *l + i;
+
+        if (phase != 3)
         {
-            if (end <= extent &&
-                (
-                 ((phase == 2) ||
-                  (((end >= 1 && sf[end-1] == 0) &&
-                    (end >= 2 && sf[end-2] == 0)) ||
-                   ((end <= extent - 2 && sf[end+1] == 0) &&
-                    (end <= extent - 3 && sf[end+2] == 0))))
-                 && (*l>0x4000) && (*l<=0xdb00)))
-                if ((*l!=0) && (sf[i+0x0d] == 0))
-                    for (j=i;j<i+16;j+=2)
-                        if (((read_l9_int(sf+j)+read_l9_int(sf+j+2))==read_l9_int(sf+j+4))
-                            && ((read_l9_int(sf+j)+read_l9_int(sf+j+2))))
-                            ll++;
+            /* Length in range, dictionary-length high byte (offset 0x0d) zero,
+             * the data optionally ending in two zero bytes (phase 1 only), and
+             * at least two of the first eight address-table entries forming a
+             * consistent running sum. */
+            int padded = (end >= 2 && sf[end-1] == 0 && sf[end-2] == 0) ||
+                         (end <= extent-3 && sf[end+1] == 0 && sf[end+2] == 0);
+            if (end <= extent && (phase == 2 || padded)
+                && *l > 0x4000 && *l <= 0xdb00 && sf[i+0x0d] == 0)
+            {
+                int triples = 0;
+                for (j = i; j < i + 16; j += 2)
+                {
+                    int32 sum = read_l9_int(sf+j) + read_l9_int(sf+j+2);
+                    if (sum != 0 && sum == read_l9_int(sf+j+4))
+                        triples++;
+                }
+                match = (triples > 1);
+            }
         }
         else
         {
-            if ((extent>0x0fd0) && (end <= extent) &&
-                (((read_l9_int(sf+i+2) + read_l9_int(sf+i+4))==read_l9_int(sf+i+6))
-                 && (read_l9_int(sf+i+2) != 0) && (read_l9_int(sf+i+4)) != 0) &&
-                (((read_l9_int(sf+i+6) + read_l9_int(sf+i+8)) == read_l9_int(sf+i+10))
-                 && ((sf[i + 18] == 0x2a) || (sf[i + 18] == 0x2c))
-                 && (sf[i + 19] == 0) && (sf[i + 20] == 0) && (sf[i + 21] == 0)))
-                ll = 2;
+            /* Desperate mode: two consecutive consistent running sums in the
+             * address table, then a 0x2a/0x2c opcode followed by three zeroes. */
+            int32 w2 = read_l9_int(sf+i+2), w4 = read_l9_int(sf+i+4);
+            int32 w6 = read_l9_int(sf+i+6);
+            if (extent > 0x0fd0 && end <= extent
+                && w2 != 0 && w4 != 0 && w2 + w4 == w6
+                && w6 + read_l9_int(sf+i+8) == read_l9_int(sf+i+10)
+                && (sf[i+18] == 0x2a || sf[i+18] == 0x2c)
+                && sf[i+19] == 0 && sf[i+20] == 0 && sf[i+21] == 0)
+                match = 1;
         }
-        if (ll>1)
+
+        if (!match)
+            continue;
+
+        if (phase == 3)
         {
-            *c=0;
-            if (phase==3) ll=1;
-            else
-            { char checksum=0;
-                *c = sf[end];
-                for (j=i;j<=end;j++)
-                    checksum += sf[j];
-                if (!checksum) ll=1;
-                else ll=0;
-            }
-        } else ll=0;
+            *c = 0;
+            found = 1;
+        }
+        else
+        {
+            /* Confirm the a-code's 8-bit checksum closes to zero. */
+            char checksum = 0;
+            *c = sf[end];
+            for (j = i; j <= end; j++)
+                checksum += sf[j];
+            found = (checksum == 0);
+        }
     }
-    
-    if (ll) return *l < 0x8500 ? 3:4;
+
+    if (found) return *l < 0x8500 ? 3:4;
     return 0;
 }
 
@@ -475,15 +534,49 @@ static char *get_l9_ifid(int32 length, unsigned char chk)
 {
     int i;
     for(i=0;l9_registry[i].length;i++)
-        if (length==l9_registry[i].length && chk==l9_registry[i].chk) return l9_registry[i].ifid;
+        if (length==l9_registry[i].length && chk==l9_registry[i].chk)
+            return l9_registry[i].ifid;
     return NULL;
 }
 
-static int get_l9_version(unsigned char *sf, int32 extent, char **ifid)
+static uint16_t l9_file_sum16(unsigned char *sf, int32 extent)
+{
+    uint16_t c = 0;
+    int32 i;
+    for (i = 0; i < extent; i++) c += sf[i];
+    return c;
+}
+
+/* Match the l9_file_registry entries against the raw input buffer. The a-code
+ * recognisers can't see through tape/snapshot/disk wrappers, so for those we
+ * identify the container by (length, 16-bit sum) — the same approach the scott
+ * and taylor babel modules use. */
+static const struct l9filerec *get_l9_file_rec(unsigned char *sf, int32 extent)
 {
     int i;
-    int32 l;
-    unsigned char c;
+    int computed = 0;
+    uint16_t chk = 0;
+    for (i = 0; l9_file_registry[i].length; i++) {
+        if (extent != l9_file_registry[i].length) continue;
+        if (!computed) {
+            chk = l9_file_sum16(sf, extent);
+            fprintf(stderr, "Checksum is 0x%x\n", chk);
+            computed = 1;
+        }
+        if (chk == l9_file_registry[i].file_chk) return &l9_file_registry[i];
+    }
+    return NULL;
+}
+
+/* Run the a-code recognisers over a flat memory image, in the same order the
+ * module has always used. Returns the Level 9 version (0 if nothing found) and
+ * sets *ifid to the matched IFID, or NULL when only the version could be
+ * established (desperate mode / unknown checksum). */
+static int scan_l9_acode(unsigned char *sf, int32 extent, char **ifid)
+{
+    int i;
+    int32 l = 0;
+    unsigned char c = 0;
     if (v2_recognition(sf,extent, &l, &c)) { *ifid=get_l9_ifid(l,c); return 2; }
     l=0; c=0;
     i=v3_recognition_phase(1,sf,extent, &l, &c);
@@ -495,6 +588,142 @@ static int get_l9_version(unsigned char *sf, int32 extent, char **ifid)
     i=v3_recognition_phase(3,sf,extent, &l, &c);
     *ifid=NULL;
     return i;
+}
+
+/* Decode one Z80-snapshot memory block (ED ED run-length encoding) from
+ * in[0..inlen) into out[0..outsize), zero-padding any shortfall. Faithful to
+ * the decoder in Paul David Doherty's l9cut (z80_block), with added output
+ * bounds checks so a malformed snapshot can't overrun the buffer. */
+static void z80_decode_block(const unsigned char *in, int32 inlen,
+                             unsigned char *out, int32 outsize)
+{
+    int32 x = 0, y = 0;
+    while (x < inlen && y < outsize) {
+        if (in[x] != 237) { out[y++] = in[x]; x++; }
+        else if (x+1 >= inlen) { out[y++] = in[x]; x++; }
+        else if (in[x+1] != 237) {
+            out[y++] = 237;
+            if (y < outsize) out[y++] = in[x+1];
+            x += 2;
+        } else {
+            if (x+3 >= inlen) break;
+            int count = in[x+2];
+            unsigned char val = in[x+3];
+            while (count-- > 0 && y < outsize) out[y++] = val;
+            x += 4;
+        }
+    }
+    while (y < outsize) out[y++] = 0;
+}
+
+/* For a v2/v3 Z80 snapshot, walk the page list starting at `pos` and decode the
+ * 16K page whose page-type byte equals `wanted` into out[0..16384). */
+static int z80_find_page(const unsigned char *sf, int32 extent, int32 pos,
+                         int wanted, unsigned char *out)
+{
+    while (pos + 3 <= extent) {
+        int32 len = sf[pos] | (sf[pos+1] << 8);
+        int type = sf[pos+2];
+        int32 data = pos + 3;
+        if (type == wanted) {
+            if (len == 0xffff) {
+                int32 n = extent - data; if (n > 16384) n = 16384;
+                if (n > 0) memcpy(out, sf+data, n);
+            } else {
+                int32 n = len; if (n > extent - data) n = extent - data;
+                z80_decode_block(sf+data, n, out, 16384);
+            }
+            return 1;
+        }
+        if (len == 0xffff) len = 16384;
+        pos = data + len;
+    }
+    return 0;
+}
+
+/* If 'sf' is a Z80 Spectrum snapshot, rebuild the visible 48K memory image
+ * (0x4000-0xffff) into a freshly malloc'd 49152-byte buffer so the a-code
+ * recognisers can see through Z80 compression. Returns NULL when the buffer is
+ * not a recognisable Z80 snapshot. Mirrors l9cut's dec_open_z80. */
+static unsigned char *z80_to_image(const unsigned char *sf, int32 extent, int32 *out_len)
+{
+    unsigned char *img;
+    if (extent < 34) return NULL;
+
+    if ((sf[6] | (sf[7] << 8)) != 0) {
+        /* v1.45: a single 48K block follows the 30-byte header */
+        int flags = sf[12];
+        if (flags == 255) flags = 1;
+        if ((img = malloc(49152)) == NULL) return NULL;
+        if (flags & 0x20) {
+            /* compressed up to the trailing 00 ED ED 00 end marker */
+            int32 inlen = extent - 34;
+            if (inlen < 0) { free(img); return NULL; }
+            z80_decode_block(sf+30, inlen, img, 49152);
+        } else {
+            int32 inlen = extent - 30;
+            if (inlen > 49152) inlen = 49152;
+            memcpy(img, sf+30, inlen);
+            if (inlen < 49152) memset(img+inlen, 0, 49152-inlen);
+        }
+        *out_len = 49152;
+        return img;
+    }
+
+    /* v2/v3: extra header length distinguishes the sub-version */
+    {
+        int xhlen = sf[30] | (sf[31] << 8);
+        int32 seekseed;
+        int firsttype, pages[3], k;
+        if (xhlen == 23) seekseed = 55;                 /* v2.01 */
+        else if (xhlen == 54 || xhlen == 55) seekseed = 86; /* v3.0x */
+        else return NULL;
+        if (seekseed + 3 > extent) return NULL;
+        firsttype = sf[seekseed+2];
+        if (firsttype == 4) {       /* 48K snapshot: pages 5-1-2 */
+            pages[0]=8; pages[1]=4; pages[2]=5;
+        } else if (firsttype == 3) {/* 128K snapshot: banks 5-2-0 */
+            pages[0]=8; pages[1]=5; pages[2]=3;
+        } else return NULL;
+        if ((img = malloc(49152)) == NULL) return NULL;
+        memset(img, 0, 49152);
+        for (k = 0; k < 3; k++)
+            z80_find_page(sf, extent, seekseed, pages[k], img + k*16384);
+        *out_len = 49152;
+        return img;
+    }
+}
+
+static int get_l9_version(unsigned char *sf, int32 extent, char **ifid)
+{
+    int v, rawver;
+    char *rawifid;
+    int32 dlen = 0;
+    unsigned char *img;
+    const struct l9filerec *rec = get_l9_file_rec(sf, extent);
+    /* A whole-file match always carries an IFID; the return value only needs
+     * to be nonzero (it is never surfaced as a version number). */
+    if (rec) { *ifid = rec->ifid; return 1; }
+
+    /* First scan the raw buffer (catches bare a-code and uncompressed
+     * tape/snapshot dumps). */
+    v = scan_l9_acode(sf, extent, ifid);
+    if (v && *ifid) return v;
+    rawver = v; rawifid = *ifid;
+
+    /* Fall back to decoding a Z80 snapshot and scanning the decompressed
+     * image. Only accept a positively identified game so a stray buffer that
+     * merely looks like a Z80 header can't produce a false claim. */
+    img = z80_to_image(sf, extent, &dlen);
+    if (img) {
+        char *zifid = NULL;
+        int zv = scan_l9_acode(img, dlen, &zifid);
+        free(img);
+        if (zv && zifid) { *ifid = zifid; return zv; }
+    }
+
+    *ifid = rawifid;
+    return rawver;
 }
 
 static int32 claim_story_file(void *story, int32 extent)

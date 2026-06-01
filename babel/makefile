@@ -45,7 +45,7 @@ ifndef VERBOSE
   MAKEFLAGS+=--no-print-directory
 endif
 
-treaty_objs = zcode${OBJ} magscrolls${OBJ} blorb${OBJ} glulx${OBJ} hugo${OBJ} agt${OBJ} level9${OBJ} html${OBJ} executable${OBJ} advsys${OBJ} tads${OBJ} tads2${OBJ} tads3${OBJ} adrift${OBJ} alan${OBJ}
+treaty_objs = zcode${OBJ} magscrolls${OBJ} blorb${OBJ} glulx${OBJ} hugo${OBJ} agt${OBJ} level9${OBJ} html${OBJ} executable${OBJ} advsys${OBJ} tads${OBJ} tads2${OBJ} tads3${OBJ} adrift${OBJ} alan${OBJ} jacl${OBJ} quest4${OBJ} quill${OBJ} sagaplus${OBJ} scott${OBJ} taylor${OBJ} twine${OBJ}
 bh_objs = babel_handler${OBJ} register${OBJ} misc${OBJ} md5${OBJ} ${treaty_objs}
 ifiction_objs = ifiction${OBJ} register_ifiction${OBJ}
 babel_functions =  babel_story_functions${OBJ} babel_ifiction_functions${OBJ} babel_multi_functions${OBJ}
