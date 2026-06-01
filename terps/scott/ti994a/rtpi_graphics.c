@@ -1343,7 +1343,8 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
        those in the adv14a.dat file created by Paul David Doherty
        (likely created by analyzing the same game data we are
        dealing with here.)
-       See https://unbox.ifarchive.org/?url=/if-archive/scott-adams/games/scottfree/AdamsGames.zip */
+       See https://unbox.ifarchive.org/?url=/if-archive/scott-adams/games/scottfree/AdamsGames.zip
+     */
     int raw_header[RTPI_RAW_HEADER_SIZE] = {
         4,       // Word length
         104,     // Number of words
@@ -1429,9 +1430,9 @@ void UpdateRTPISystemMessages(void) {
 #define FDR_NUM_RECORDS   0x12
 #define FDR_DATA_CHAIN    0x1C
 
-/* Cap computed disk byte offsets to 20 bits (1 MB) and skip the
-   18-byte leader before file data begins. (Empirically derived from
-   the game's disk image format.) */
+/* Cap computed disk byte offsets to 20 bits (1 MB)
+   and skip the 18-byte leader before file data begins.
+   (Empirically derived from the game's disk image format.) */
 #define DSK_ADDRESS_MASK 0xfffff
 #define DSK_DATA_LEADER  0x12
 

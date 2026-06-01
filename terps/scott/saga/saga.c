@@ -257,7 +257,7 @@ int DrawFuzzyRoom(int room)
     if (Items[32].Location == DESTROYED && ((BitFlags & (1 << 29)) == 0 || CurrentCounter <= 0))
         return 0;
     /* Also don't draw fuzzy image if bitflag 2 is set, which means we are
-       wearing glasses or mask with lenses */
+       wearing corrective lenses */
     if ((BitFlags & (1 << 2)) == 0)
         return 0;
 
@@ -420,7 +420,7 @@ void LookUS(void)
 }
 
 /* Display the inventory screen. Room image 98 is used as the inventory
-   background/frame. If no such image exists, falls back to redrawing
+   background. If no such image exists, falls back to redrawing
    the normal room view. Carried item images are composited on top. */
 void InventoryUS(void)
 {

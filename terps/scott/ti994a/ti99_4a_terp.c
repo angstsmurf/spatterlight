@@ -409,16 +409,16 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             break;
 
         case TI99OP_CLEAR: /* Not to be confused with TI99OP_CLEAR_SCREEN. Unimplemented, probably should do nothing */
-               /* We call opcode 239 TI99OP_CLEAR here, since its usage in adv01.fiad (Adventureland), adv02.fiad (Pirate Adventure), and adv05.fiad (The Count) correspond exactly to the origina versions of those games. But the converse is not true: the original versions use clear in additional places which do not correspond to anything in the TI99/4A versions. */
-               /* The ScottCom and Bunyon interpreters both consider this a no-operation. */
+               /* We call opcode 239 TI99OP_CLEAR here, since its usage in adv01.fiad (Adventureland), adv02.fiad (Pirate Adventure), and adv05.fiad (The Count) correspond exactly to the origina versions of those games. But the converse is not true: the original versions use clear in additional places which do not correspond to anything in the TI99/4A versions.
+                  The ScottCom and Bunyon interpreters both consider this a no-operation. */
             break;
 
         case TI99OP_LOOK:
             /* FALLTHROUGH */
 
         case TI99OP_LOOK_2:
-                /* The LOOK_2 opcode (241) only appears once in all the Scott Adams games, in adv08.fiad (Pyramid of Doom). It occurs in exactly the same place as a look2 opcode in the original version of the game. */
-                /* It is probably equivalent to the look opcode above. */
+                /* The LOOK_2 opcode (241) only appears once in all the Scott Adams games, in adv08.fiad (Pyramid of Doom). It occurs in exactly the same place as a look2 opcode in the original version of the game.
+                   It is probably equivalent to the look opcode above. */
             Look();
             should_look_in_transcript = 1;
             break;
@@ -489,9 +489,9 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line,
             break;
 
         case TI99OP_SUCCESS:
-                /* Stops executing the current action, and produces a SUCCESS result. */
-                /* This can be used inside a try block — the block (and any parent blocks) are immediately terminated, similar to a return statement. */
-                /* Outside of a try block also marks the physical end (within the file) of the action — the next action will begin directly after the 0xFF byte. */
+                /* Stops executing the current action, and produces a SUCCESS result.
+                   This can be used inside a try block — the block (and any parent blocks) are immediately terminated, similar to a return statement.
+                   Outside of a try block also marks the physical end (within the file) of the action — the next action will begin directly after the 0xFF byte. */
             result = ACT_SUCCESS;
             done = 1;
             try_depth = 0;

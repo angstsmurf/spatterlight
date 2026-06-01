@@ -630,7 +630,8 @@ static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
         noun_links[idx] = *(data_ptr++);
         if (noun_links[idx] && noun_links[idx] <= num_words) {
             item->AutoGet = (char *)Nouns[noun_links[idx]];
-            /* Colossal Cave item 3 ("bird") has no noun link in the data */
+            /* Colossal Cave item 3 ("bird") has no noun link in the data.
+               A hack like this is probably overkill for such a broken game. */
             if (idx == 3 && strncmp("bird", Items[idx].Text, 4) == 0)
                 item->AutoGet = "BIRD";
         } else {
