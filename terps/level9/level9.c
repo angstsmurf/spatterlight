@@ -1136,11 +1136,48 @@ static L9BOOL try_join_split(int part_index)
 	return TRUE;
 }
 
+/* Returns the number of bytes of valid graphics-subroutine data immediately
+ * following the a-code at p[i+dl..maxend). Mirrors findsubs()'s `nn nl ll ...
+ * ff` walk: a header satisfies (nn & 0x80) == 0, (nl & 0x0c) == 0, ll >= 4,
+ * length <= 0x3ff, and the byte right before the next header (or at +length-1)
+ * is 0xff. Some games (e.g. Adrian Mole on Spectrum tape) precede the first
+ * subroutine with a short pointer/padding block — we skip up to 64 bytes of
+ * that to find a clean run. Returns 0 when no convincing run is present, so
+ * the legacy "carve exactly dl bytes" behaviour stays in place for games that
+ * really have no trailing pictures. */
+static L9UINT32 pic_trail_length(L9BYTE *p, L9UINT32 base, L9UINT32 maxend)
+{
+	L9UINT32 s;
+	if (base + 4 >= maxend) return 0;
+	for (s = base; s + 4 < maxend && s - base < 64; s++) {
+		L9UINT32 q = s;
+		int count = 0;
+		if ((p[q] & 0x80) || (p[q+1] & 0x0c) || p[q+2] < 4) continue;
+		for (;;) {
+			L9UINT32 len = ((p[q+1] & 0x0f) << 8) | p[q+2];
+			if (len < 4 || len > 0x3ff) break;
+			if (q + len + 3 > maxend) break;
+			if (p[q + len - 1] != 0xff) break;
+			count++;
+			q += len;
+			if ((p[q] & 0x80) || (p[q+1] & 0x0c) || p[q+2] < 4) break;
+		}
+		if (count >= 4) return q - base;
+	}
+	return 0;
+}
+
 /* Carve out the part_index'th complete (self-contained) Level 9 datafile from
  * the current startfile and replace startfile with that single game. Without
  * this step Scan() picks the LARGEST datafile in a tape compilation, which is
  * not necessarily part 1 — e.g. Lancelot ships three complete parts on Side A
- * and part 2's a-code is the biggest, so Scan() would otherwise load part 2. */
+ * and part 2's a-code is the biggest, so Scan() would otherwise load part 2.
+ *
+ * Adrian Mole (Spectrum tape) appends its vector picture subroutines to the
+ * tape block immediately after the a-code, outside the a-code's own size
+ * word. To keep those pictures reachable by findsubs() during init, we also
+ * include any trailing run of graphics-subroutine data, stopping at the next
+ * datafile (next game part) or at end of buffer. */
 static L9BOOL try_carve_datafile(int part_index)
 {
 	L9BYTE *p = startfile;
@@ -1150,13 +1187,20 @@ static L9BOOL try_carve_datafile(int part_index)
 		if (l9_is_datafile(p, i, n)) {
 			L9UINT32 dl = (L9UINT32)L9WORD(p + i) + 1;
 			if (hits == part_index - 1) {
-				L9BYTE *out = malloc(dl + 2);
+				/* Find the next datafile boundary so any pic trail
+				 * we keep stays within this part's region. */
+				L9UINT32 boundary = n;
+				for (L9UINT32 j = i + dl; j + 0x2a < n; j++)
+					if (l9_is_datafile(p, j, n)) { boundary = j; break; }
+				L9UINT32 trail = pic_trail_length(p, i + dl, boundary);
+				L9UINT32 keep = dl + trail;
+				L9BYTE *out = malloc(keep + 2);
 				if (!out) return FALSE;
-				memcpy(out, p + i, dl);
-				out[dl] = out[dl + 1] = 0;
+				memcpy(out, p + i, keep);
+				out[keep] = out[keep + 1] = 0;
 				free(startfile);
 				startfile = out;
-				FileSize = dl + 2;
+				FileSize = keep + 2;
 				return TRUE;
 			}
 			hits++;
