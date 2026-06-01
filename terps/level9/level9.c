@@ -44,6 +44,7 @@
 #include <time.h>
 
 #include "level9.h"
+#include "decompressz80.h"
 
 #ifdef SPATTERLIGHT
 extern int gli_determinism;
@@ -762,9 +763,589 @@ void FreeMemory(void)
 	gfxa5=NULL;
 }
 
+/* Case-insensitive match against the file's extension. */
+static int has_extension(const char *filename, const char *ext)
+{
+	if (!filename || !ext) return 0;
+	size_t flen = strlen(filename), elen = strlen(ext);
+	if (flen < elen) return 0;
+	const char *p = filename + flen - elen;
+	for (size_t i = 0; i < elen; i++)
+		if (tolower((unsigned char)p[i]) != tolower((unsigned char)ext[i]))
+			return 0;
+	return 1;
+}
+
+/* Forward declarations: defined later in this file. */
+long Scan(L9BYTE* StartFile, L9UINT32 FileSize);
+long ScanV2(L9BYTE* StartFile, L9UINT32 FileSize);
+long ScanV1(L9BYTE* StartFile, L9UINT32 FileSize);
+
+/* Returns TRUE if any of the Level 9 scanners finds a valid game in the
+ * current startfile/FileSize. Used to probe candidate Z80 layouts and to
+ * gate later fallbacks (try_desperate_scan etc.).
+ *
+ * ScanV1() routinely returns a positive offset for non-V1 byte patterns
+ * (e.g. `00 06` or `20 04` appearing anywhere in a 48K snapshot will
+ * match), with L9V1Game == -1 meaning "looks V1-ish but not a known game".
+ * Treat that as "no game found" — otherwise the false hit short-circuits
+ * the desperate-mode fallback, and downstream intinitialise itself bails
+ * with "V1 game was found but not recognised". */
+static L9BOOL probe_l9_scanners(void)
+{
+	if (Scan(startfile, FileSize) >= 0) return TRUE;
+	if (ScanV2(startfile, FileSize) >= 0) return TRUE;
+	if (ScanV1(startfile, FileSize) >= 0 && L9V1Game >= 0) return TRUE;
+	return FALSE;
+}
+
+/* Desperate-mode V3 scan, mirroring l9cut's "type_of_check == 3" pass.
+ * Looks for a V3-shaped header by structural pair-sum invariants alone,
+ * skipping the byte-sum checksum that the standard Scan() requires. Used
+ * as a last resort when a snapshot's a-code has been touched at runtime
+ * (a workspace byte mutated, a self-modifying init routine), which breaks
+ * the strong checksum but leaves the structure intact.
+ *
+ * On a hit, the trailing "checksum slack" byte at offset+length is patched
+ * so the byte sum becomes 0, allowing the standard Scan() to then accept
+ * the candidate. The patched byte isn't executed as code — it exists only
+ * to make the sum work — so this doesn't affect gameplay. Returns TRUE if
+ * a candidate was found, patched in place, and Scan() accepted it. */
+static L9BOOL try_desperate_scan(void)
+{
+	for (L9UINT32 i = 0; i + 22 < FileSize; i++) {
+		L9UINT16 len = L9WORD(startfile + i);
+		L9UINT32 end = (L9UINT32)i + len;
+		if (end + 1 > FileSize) continue;
+		if (len < 0x4001 || len > 0xdb00) continue;
+		L9UINT16 w2 = L9WORD(startfile + i + 2);
+		L9UINT16 w4 = L9WORD(startfile + i + 4);
+		if (!w2 || !w4 || w2 + w4 != L9WORD(startfile + i + 6)) continue;
+		L9UINT16 w6 = L9WORD(startfile + i + 6);
+		L9UINT16 w8 = L9WORD(startfile + i + 8);
+		if (w6 + w8 != L9WORD(startfile + i + 10)) continue;
+		if (startfile[i + 18] != 0x2a && startfile[i + 18] != 0x2c) continue;
+		if (startfile[i + 19] || startfile[i + 20] || startfile[i + 21]) continue;
+
+		/* Compute current byte sum and figure out how much to subtract
+		 * from the end-byte to bring it to 0. */
+		L9UINT32 sum = 0;
+		for (L9UINT32 k = i; k <= end; k++) sum += startfile[k];
+		L9BYTE saved_end = startfile[end];
+		if (sum & 0xff) {
+			fprintf(stderr, "Changing byte at 0x%x from 0x%x to 0x%x\n", end, startfile[end], (L9BYTE)(saved_end - (sum & 0xff)));
+			startfile[end] = (L9BYTE)(saved_end - (sum & 0xff));
+		}
+
+		if (Scan(startfile, FileSize) >= 0)
+			return TRUE;
+
+		/* This candidate's bytecode failed ValidateSequence — restore the
+		 * byte and keep scanning. */
+		startfile[end] = saved_end;
+	}
+	return FALSE;
+}
+
+/* Walk every supported TZX data block, strip the 1-byte flag prefix and
+ * 1-byte checksum suffix that wrap a Spectrum tape block, and concatenate
+ * the payloads into a fresh buffer. If the result contains a scannable
+ * Level 9 game, replace startfile/FileSize with it and return TRUE.
+ *
+ * Some TZX images (e.g. LancelotA.tzx) interleave the Level 9 a-code with
+ * loader code and other framing that makes raw-byte scanning unreliable —
+ * extracting just the tape payloads gives Scan() a clean view. Only ROM
+ * (0x10) and TURBO (0x11) blocks contribute data; other skippable block
+ * types (ARCHIVE_INFO, COMMENT) are walked past. */
+static L9BOOL try_extract_tzx_blocks(uint8_t *raw_tzx, size_t raw_size)
+{
+	static const char tzx_signature[] = "ZXTape!\x1a";
+	if (raw_size < 10 || memcmp(raw_tzx, tzx_signature, 8) != 0)
+		return FALSE;
+
+	L9BYTE *combined = NULL;
+	size_t combined_size = 0;
+	int hits = 0, misses = 0;
+
+	for (int blockno = 0; blockno < 256; blockno++) {
+		size_t block_len = raw_size;
+		uint8_t *block = GetTZXBlock(blockno, raw_tzx, &block_len);
+		if (!block) {
+			misses++;
+			if (hits > 0 && misses >= 4) break;
+			if (hits == 0 && misses >= 16) break;
+			continue;
+		}
+		misses = 0;
+		hits++;
+
+		if (block_len > 2) {
+			size_t payload_len = block_len - 2;
+			L9BYTE *grown = realloc(combined, combined_size + payload_len);
+			if (!grown) {
+				free(block);
+				free(combined);
+				return FALSE;
+			}
+			memcpy(grown + combined_size, block + 1, payload_len);
+			combined = grown;
+			combined_size += payload_len;
+		}
+		free(block);
+	}
+
+	if (combined_size < 256) {
+		free(combined);
+		return FALSE;
+	}
+
+	/* Swap in the extracted buffer and verify a scanner finds a game. If
+	 * not, restore the caller's responsibility and report failure. */
+	L9BYTE *saved_startfile = startfile;
+	L9UINT32 saved_filesize = FileSize;
+	startfile = combined;
+	FileSize = (L9UINT32)combined_size;
+	if (probe_l9_scanners())
+		return TRUE;
+
+	free(combined);
+	startfile = saved_startfile;
+	FileSize = saved_filesize;
+	return FALSE;
+}
+
+/* Tape/disk data-block table + split-join, used by the container loaders and
+ * by the 128K-snapshot path below. */
+#define L9_MAXBLK 256
+static L9UINT32 cblk_start[L9_MAXBLK];	/* payload offset of each tape data block */
+static L9UINT32 cblk_len[L9_MAXBLK];	/* its length (for a-code size-word match) */
+static int cblk_n;
+static L9BOOL try_join_split(int part_index);
+static L9BOOL try_carve_datafile(int part_index);
+
+/* A 128K snapshot of a split-acode game (e.g. Scapeghost) holds the data image
+ * spread across paged banks and the a-code in another bank — no single static
+ * page view is a valid game. Rebuild the loader's bank layout (pages 5,2,0,1 =
+ * the order the Spectrum 128 paging used) into one flat image and run the
+ * split-join on it, exactly as the standalone l9cut does. Returns TRUE (with
+ * startfile/FileSize replaced by the joined datafile) on success. */
+static L9BOOL try_z80_split_join(uint8_t *raw_z80, size_t raw_size)
+{
+	int is_128k = 0, default_bank = 0;
+	uint8_t *pages = DecompressZ80Pages(raw_z80, raw_size, &is_128k, &default_bank);
+	L9BYTE *flat, *saved_startfile;
+	L9UINT32 saved_filesize;
+	if (!pages) return FALSE;
+	if (!is_128k) { free(pages); return FALSE; }
+
+	flat = malloc(4 * 0x4000);
+	if (!flat) { free(pages); return FALSE; }
+	memcpy(flat + 0x0000, pages + 5 * 0x4000, 0x4000);
+	memcpy(flat + 0x4000, pages + 2 * 0x4000, 0x4000);
+	memcpy(flat + 0x8000, pages + 0 * 0x4000, 0x4000);
+	memcpy(flat + 0xc000, pages + 1 * 0x4000, 0x4000);
+	free(pages);
+
+	cblk_n = 4;
+	cblk_start[0] = 0x0000; cblk_start[1] = 0x4000;
+	cblk_start[2] = 0x8000; cblk_start[3] = 0xc000;
+	cblk_len[0] = cblk_len[1] = cblk_len[2] = cblk_len[3] = 0;	/* unknown */
+
+	saved_startfile = startfile;
+	saved_filesize = FileSize;
+	startfile = flat;
+	FileSize = 4 * 0x4000;
+	if (try_join_split(1))
+		return TRUE;	/* startfile now points at the joined datafile */
+
+	free(flat);
+	startfile = saved_startfile;
+	FileSize = saved_filesize;
+	return FALSE;
+}
+
+/* ===================================================================
+ * Direct loading of ZX Spectrum / Amstrad tape & disk container formats
+ * (.tzx, .tap, +3/CPC .dsk), including the split "small gamedata + a-code"
+ * layout used by the Spectrum 128K / +3 / CPC releases of the later Level 9
+ * games (Scapeghost, Knight Orc, Lancelot, Gnome Ranger, Ingrid's Back,
+ * Time & Magik ...).  This mirrors what the standalone l9cut tool does, so
+ * these images play without a separate conversion step.
+ *
+ * A "split" datafile is a complete V3/V4 data image (messages + dictionary)
+ * whose acodeptr points at a tiny in-image stub near EOF, plus the real
+ * A-code stored separately.  Joining them reproduces the toolchain's "large
+ * gamedata" file (GAMEDATn.DAT), which the interpreter runs unmodified.
+ * =================================================================== */
+
+/* TRUE if a Level 9 V3/V4 data image with a valid byte-sum-zero checksum AND a
+ * stub acodeptr (near EOF) sits at p[off] — i.e. the split "small gamedata". */
+static L9BOOL l9_is_stub_image(L9BYTE *p, L9UINT32 off, L9UINT32 max)
+{
+	L9UINT16 w0, w2, w4, w6, w8, w10, acp;
+	L9UINT32 dl, q;
+	L9BYTE sm = 0;
+	if (off + 0x2a > max) return FALSE;
+	w0 = L9WORD(p + off);     w2 = L9WORD(p + off + 2);
+	w4 = L9WORD(p + off + 4); w6 = L9WORD(p + off + 6);
+	w8 = L9WORD(p + off + 8); w10 = L9WORD(p + off + 0x0a);
+	acp = L9WORD(p + off + 0x28);
+	if (p[off + 0x12] != 0x2a && p[off + 0x12] != 0x2c) return FALSE;
+	if (w0 <= 0x4000 || w0 > 0xdb00) return FALSE;
+	if (!w2) return FALSE;
+	if ((L9UINT16)(w2 + w4) != w6) return FALSE;
+	if ((L9UINT16)(w6 + w8) != w10) return FALSE;
+	dl = (L9UINT32)w0 + 1;
+	if (off + dl > max) return FALSE;
+	for (q = 0; q < dl; q++) sm += p[off + q];
+	if (sm) return FALSE;
+	return (L9UINT32)acp + 8 >= dl && acp <= dl;
+}
+
+/* TRUE if a complete (self-contained) Level 9 V3/V4 datafile with a valid
+ * byte-sum-zero checksum sits at p[off] — header invariants hold and the
+ * acodeptr points inside the file. Used to carve individual games out of a
+ * compilation flat (e.g. Jewels of Darkness) that the scanner won't locate
+ * inside a larger buffer. */
+static L9BOOL l9_is_datafile(L9BYTE *p, L9UINT32 off, L9UINT32 max)
+{
+	L9UINT16 w0, w2, w4, w6, w8, w10, acp;
+	L9UINT32 dl, q;
+	L9BYTE sm = 0;
+	if (off + 0x2a > max) return FALSE;
+	w0 = L9WORD(p + off);     w2 = L9WORD(p + off + 2);
+	w4 = L9WORD(p + off + 4); w6 = L9WORD(p + off + 6);
+	w8 = L9WORD(p + off + 8); w10 = L9WORD(p + off + 0x0a);
+	acp = L9WORD(p + off + 0x28);
+	if (p[off + 0x12] != 0x2a && p[off + 0x12] != 0x2c) return FALSE;
+	if (w0 <= 0x4000 || w0 > 0xdb00) return FALSE;
+	if (!w2) return FALSE;
+	if ((L9UINT16)(w2 + w4) != w6) return FALSE;
+	if ((L9UINT16)(w6 + w8) != w10) return FALSE;
+	if (acp < 2 || acp > w0) return FALSE;
+	dl = (L9UINT32)w0 + 1;
+	if (off + dl > max) return FALSE;
+	for (q = 0; q < dl; q++) sm += p[off + q];
+	return sm == 0;
+}
+
+/* Build the joined "large gamedata" datafile from a data image + A-code:
+ *   data[0 : acodeptr-2] + ACODE(full) + 00 00 + checksum, size word fixed. */
+static L9BYTE *l9_build_combined(L9BYTE *dimg, L9UINT32 dlen,
+				 L9BYTE *acode, L9UINT32 alen, L9UINT32 *outlen)
+{
+	L9UINT16 acp = L9WORD(dimg + 0x28);
+	L9UINT32 keep, total, q, s = 0;
+	L9BYTE *out;
+	if (acp < 2 || acp > dlen) return NULL;
+	keep = (L9UINT32)acp - 2;
+	total = keep + alen + 3;
+	out = malloc(total);
+	if (!out) return NULL;
+	memcpy(out, dimg, keep);
+	memcpy(out + keep, acode, alen);
+	out[keep + alen] = out[keep + alen + 1] = out[keep + alen + 2] = 0;
+	out[0] = (L9BYTE)((total - 1) & 0xff);
+	out[1] = (L9BYTE)((total - 1) >> 8);
+	out[total - 1] = 0;
+	for (q = 0; q < total; q++) s += out[q];
+	out[total - 1] = (L9BYTE)((256 - (s & 0xff)) & 0xff);
+	*outlen = total;
+	return out;
+}
+
+/* Extract the data-block payloads of a .tzx or .tap tape into a flat buffer,
+ * recording each payload's offset/length in cblk[] for a-code detection. The
+ * generic tape walk lives in decompressz80.c (ExtractTapePayloads), shared with
+ * the other Spectrum terps; this wrapper just adapts its block table into the
+ * file-scope cblk[] used by try_join_split. */
+static L9BYTE *extract_tape(L9BYTE *raw, L9UINT32 rawlen, int is_tzx, L9UINT32 *outlen)
+{
+	size_t boff[L9_MAXBLK], blen[L9_MAXBLK], olen = 0;
+	int nblk = 0, i;
+	uint8_t *out = ExtractTapePayloads(raw, rawlen, is_tzx, &olen,
+					   boff, blen, &nblk, L9_MAXBLK);
+	cblk_n = nblk;
+	for (i = 0; i < nblk; i++) {
+		cblk_start[i] = (L9UINT32)boff[i];
+		cblk_len[i] = (L9UINT32)blen[i];
+	}
+	*outlen = (L9UINT32)olen;
+	return (L9BYTE *)out;
+}
+
+/* On the current startfile (a flat tape-payload buffer with cblk[] populated),
+ * locate the part_index'th split data image and its paired A-code, join them,
+ * and swap the result into startfile/FileSize. Returns TRUE on success.
+ *
+ * The A-code block is identified at a recorded tape-block boundary (so a stray
+ * 2-byte value mid-block can't match): it must not itself be a data image, its
+ * size word must be a plausible A-code length, and where the block length is
+ * known a matching size-word is preferred. Among candidates the one nearest the
+ * chosen data image wins (its own game part). */
+static L9BOOL try_join_split(int part_index)
+{
+	L9BYTE *p = startfile;
+	L9UINT32 n = FileSize, doff = 0, dlen, aoff = 0, alen = 0, clen;
+	int found = 0, dhits = 0, b, have = 0, lenmatch_exists = 0;
+	L9UINT32 bestdist = 0xffffffffUL;
+	L9BYTE *combined;
+
+	for (L9UINT32 i = 0; i + 0x2a < n; i++)
+		if (l9_is_stub_image(p, i, n)) {
+			if (dhits == part_index - 1) { doff = i; found = 1; break; }
+			dhits++;
+			i += (L9UINT32)L9WORD(p + i);	/* step past this part */
+		}
+	if (!found) return FALSE;
+	dlen = (L9UINT32)L9WORD(p + doff) + 1;
+
+	for (b = 0; b < cblk_n; b++) {
+		L9UINT32 i = cblk_start[b];
+		L9UINT16 s;
+		L9UINT32 d;
+		if ((i >= doff && i < doff + dlen) || i + 2 >= n) continue;
+		if (l9_is_stub_image(p, i, n)) continue;
+		s = L9WORD(p + i);
+		if (s < 0x1000 || s >= 0x6000 || (L9UINT32)i + s > n) continue;
+		d = cblk_len[b] >= s ? cblk_len[b] - s : s - cblk_len[b];
+		if (cblk_len[b] && d <= 4) lenmatch_exists = 1;
+	}
+	for (b = 0; b < cblk_n; b++) {
+		L9UINT32 i = cblk_start[b];
+		L9UINT16 s;
+		L9UINT32 d, dist;
+		int lm;
+		if ((i >= doff && i < doff + dlen) || i + 2 >= n) continue;
+		if (l9_is_stub_image(p, i, n)) continue;
+		s = L9WORD(p + i);
+		if (s < 0x1000 || s >= 0x6000 || (L9UINT32)i + s > n) continue;
+		d = cblk_len[b] >= s ? cblk_len[b] - s : s - cblk_len[b];
+		lm = cblk_len[b] && d <= 4;
+		if (lenmatch_exists && !lm) continue;
+		dist = i > doff ? i - doff : doff - i;
+		if (dist < bestdist) { bestdist = dist; aoff = i; alen = s; have = 1; }
+	}
+	if (!have) return FALSE;
+
+	combined = l9_build_combined(p + doff, dlen, p + aoff, alen, &clen);
+	if (!combined) return FALSE;
+	free(startfile);
+	startfile = combined;
+	FileSize = clen;
+	return TRUE;
+}
+
+/* Carve out the part_index'th complete (self-contained) Level 9 datafile from
+ * the current startfile and replace startfile with that single game. Without
+ * this step Scan() picks the LARGEST datafile in a tape compilation, which is
+ * not necessarily part 1 — e.g. Lancelot ships three complete parts on Side A
+ * and part 2's a-code is the biggest, so Scan() would otherwise load part 2. */
+static L9BOOL try_carve_datafile(int part_index)
+{
+	L9BYTE *p = startfile;
+	L9UINT32 n = FileSize, i;
+	int hits = 0;
+	for (i = 0; i + 0x2a < n; i++) {
+		if (l9_is_datafile(p, i, n)) {
+			L9UINT32 dl = (L9UINT32)L9WORD(p + i) + 1;
+			if (hits == part_index - 1) {
+				L9BYTE *out = malloc(dl + 2);
+				if (!out) return FALSE;
+				memcpy(out, p + i, dl);
+				out[dl] = out[dl + 1] = 0;
+				free(startfile);
+				startfile = out;
+				FileSize = dl + 2;
+				return TRUE;
+			}
+			hits++;
+			i += dl - 1;
+		}
+	}
+	return FALSE;
+}
+
+/* ---- +3DOS / Amstrad CPC .dsk catalogue extraction ---- */
+
+static int cont_name_has(const char *nm, const char *sub) { return strstr(nm, sub) != NULL; }
+static int cont_name_digit(const char *nm)
+{
+	int i;
+	for (i = 0; nm[i]; i++) if (nm[i] >= '0' && nm[i] <= '9') return nm[i] - '0';
+	return -1;
+}
+
+/* Reassemble the next catalogue file (consecutive same-name extents) from its
+ * 1 KB allocation blocks. Returns byte length (0 = no more), advances *eidx. */
+static L9UINT32 dsk_read_file(L9BYTE *lf, L9UINT32 lflen, L9UINT32 base,
+			      int *eidx, L9BYTE *out, char *nm)
+{
+	int e = *eidx, k, started = 0;
+	L9UINT32 fl = 0;
+	char cur[12];
+	for (; e < 64; e++) {
+		L9BYTE *ent = lf + base + e * 32;
+		int ok = 1;
+		char nm2[12];
+		if (ent[0] == 0xe5 || ent[0] > 15) { if (started) break; else continue; }
+		for (k = 0; k < 11; k++) { nm2[k] = ent[1 + k] & 0x7f; if ((L9BYTE)nm2[k] < 32) ok = 0; }
+		nm2[11] = 0;
+		if (!ok) { if (started) break; else continue; }
+		if (!started) { memcpy(cur, nm2, 12); started = 1; }
+		else if (memcmp(nm2, cur, 11) != 0) break;
+		for (k = 0; k < 16; k++) {
+			int blk = ent[16 + k];
+			if (blk && fl + 1024 <= 0x20000 && base + (L9UINT32)blk * 1024 + 1024 <= lflen) {
+				memcpy(out + fl, lf + base + (L9UINT32)blk * 1024, 1024);
+				fl += 1024;
+			}
+		}
+	}
+	*eidx = e;
+	if (started) { memcpy(nm, cur, 12); return fl; }
+	return 0;
+}
+
+/* Decode a +3 / Amstrad CPC .dsk. Returns a malloc'd buffer: a joined datafile
+ * (*joined=1) for a split image's part_index'th part, otherwise the flat
+ * logical-sector image (*joined=0) for the normal scanner. */
+static L9BYTE *extract_dsk(L9BYTE *raw, L9UINT32 rawlen, int part_index,
+			   L9UINT32 *outlen, int *joined)
+{
+	int ext = (raw[0] == 'E'), ntr = raw[0x30], nsd = raw[0x31], t;
+	L9UINT32 std = raw[0x32] | (raw[0x33] << 8);
+	L9UINT32 lflen = 0, pos = 0x100, base;
+	L9BYTE *lf, *fbuf, *dimg = NULL, *acod = NULL;
+	L9UINT32 dimg_len = 0, acod_len = 0;
+	*joined = 0;
+	lf = malloc((L9UINT32)ntr * nsd * 9 * 1024 + 0x4000);
+	if (!lf) return NULL;
+	for (t = 0; t < ntr * nsd; t++) {
+		L9UINT32 tsz = ext ? (L9UINT32)raw[0x34 + t] * 256 : std;
+		L9BYTE *th = raw + pos;
+		int nsec, s, a, c, order[64];
+		L9UINT32 soff[64], slen[64], so = 0x100;
+		if (tsz == 0) continue;
+		if (pos + tsz > rawlen) break;
+		if (memcmp(th, "Track-Info", 10) != 0) { pos += tsz; continue; }
+		nsec = th[0x15]; if (nsec > 64) nsec = 64;
+		for (s = 0; s < nsec; s++) {
+			L9BYTE *si = th + 0x18 + s * 8;
+			L9UINT32 dl = ext ? (si[6] | (si[7] << 8)) : ((L9UINT32)128 << th[0x14]);
+			if (dl == 0) dl = (L9UINT32)128 << si[3];
+			soff[s] = so; slen[s] = dl; order[s] = s; so += dl;
+		}
+		for (a = 0; a < nsec; a++)
+			for (c = a + 1; c < nsec; c++)
+				if (th[0x18 + order[c]*8 + 2] < th[0x18 + order[a]*8 + 2])
+					{ int tt = order[a]; order[a] = order[c]; order[c] = tt; }
+		for (s = 0; s < nsec; s++) { memcpy(lf + lflen, th + soff[order[s]], slen[order[s]]); lflen += slen[order[s]]; }
+		pos += tsz;
+	}
+
+	fbuf = malloc(0x20000);
+	if (!fbuf) { free(lf); return NULL; }
+	for (base = 0; base + 2048 <= lflen && base <= 0x4000 && !dimg; base += 512) {
+		L9BYTE *pd[10], *pa[10];
+		L9UINT32 pdl[10], pal[10], fl;
+		int part, hdr = -1, eidx, seen = 0;
+		char nm[12];
+		for (part = 0; part < 10; part++) { pd[part] = pa[part] = NULL; pdl[part] = pal[part] = 0; }
+		eidx = 0;
+		while ((fl = dsk_read_file(lf, lflen, base, &eidx, fbuf, nm)) != 0) {
+			int o, dig = cont_name_digit(nm);
+			if (!cont_name_has(nm, "GAMEDAT") && !cont_name_has(nm, "SMALLGD")) continue;
+			for (o = 0; o <= 128; o += 128)
+				if (l9_is_stub_image(fbuf, o, fl)) {
+					L9UINT32 dl = (L9UINT32)L9WORD(fbuf + o) + 1;
+					if (dig >= 0 && dig < 10 && !pd[dig]) { pd[dig] = malloc(dl); memcpy(pd[dig], fbuf + o, dl); pdl[dig] = dl; }
+					if (hdr < 0) hdr = o;
+					break;
+				}
+		}
+		if (hdr < 0) continue;
+		eidx = 0;
+		while ((fl = dsk_read_file(lf, lflen, base, &eidx, fbuf, nm)) != 0) {
+			int dig = cont_name_digit(nm);
+			L9UINT16 s;
+			if (!cont_name_has(nm, "ACODE") && !cont_name_has(nm, "ACD")) continue;
+			if ((L9UINT32)hdr + 2 > fl) continue;
+			s = L9WORD(fbuf + hdr);
+			if (s >= 0x1000 && s < 0x6000 && (L9UINT32)hdr + s <= fl && dig >= 0 && dig < 10 && !pa[dig])
+				{ pa[dig] = malloc(s); memcpy(pa[dig], fbuf + hdr, s); pal[dig] = s; }
+		}
+		for (part = 0; part < 10; part++)
+			if (pd[part] && pa[part]) {
+				if (seen == part_index - 1) { dimg = pd[part]; dimg_len = pdl[part]; acod = pa[part]; acod_len = pal[part]; pd[part] = pa[part] = NULL; break; }
+				seen++;
+			}
+		for (part = 0; part < 10; part++) { if (pd[part]) free(pd[part]); if (pa[part]) free(pa[part]); }
+	}
+	free(fbuf);
+
+	if (dimg && acod) {
+		L9BYTE *combined = l9_build_combined(dimg, dimg_len, acod, acod_len, outlen);
+		free(dimg); free(acod); free(lf);
+		if (combined) { *joined = 1; return combined; }
+		return NULL;
+	}
+
+	/* No split datafile: carve out the part_index'th complete datafile (the
+	 * scanner can't locate a datafile embedded inside a large flat buffer). */
+	{
+		int hits = 0;
+		L9UINT32 i;
+		for (i = 0; i + 0x2a < lflen; i++)
+			if (l9_is_datafile(lf, i, lflen)) {
+				L9UINT32 dl = (L9UINT32)L9WORD(lf + i) + 1;
+				if (hits == part_index - 1) {
+					L9BYTE *out = malloc(dl + 2);
+					if (out) {
+						memcpy(out, lf + i, dl);
+						out[dl] = out[dl + 1] = 0;
+						free(lf);
+						*outlen = dl + 2;
+						*joined = 1;
+						return out;
+					}
+				}
+				hits++;
+				i += dl - 1;
+			}
+	}
+
+	*outlen = lflen;	/* last resort: hand the flat to the scanner */
+	return lf;
+}
+
 L9BOOL load(char *filename)
 {
-	FILE *f=fopen(filename,"rb");
+	/* Optional "#N" suffix selects the Nth game in a multi-part tape image
+	 * (.tzx/.tap). Strip it for the fopen path and skip past N-1 earlier
+	 * games after extraction. */
+	int part_index = 1;
+	int joined = 0;		/* set once a split datafile has been reassembled */
+	char open_buf[MAX_PATH];
+	char *open_name = filename;
+	{
+		char *hash = strrchr(filename, '#');
+		if (hash && hash > filename) {
+			char *endp;
+			long n = strtol(hash + 1, &endp, 10);
+			if (n >= 1 && n <= 99 && *endp == '\0') {
+				part_index = (int)n;
+				size_t base_len = (size_t)(hash - filename);
+				if (base_len < sizeof(open_buf)) {
+					memcpy(open_buf, filename, base_len);
+					open_buf[base_len] = '\0';
+					open_name = open_buf;
+				}
+			}
+		}
+	}
+
+	FILE *f=fopen(open_name,"rb");
 	if (!f) return FALSE;
 
 	if ((FileSize=filelength(f)) < 256)
@@ -781,6 +1362,110 @@ L9BOOL load(char *filename)
 		return FALSE;
 	}
 	fclose(f);
+
+	/* Spectrum .z80 snapshots are compressed and have no magic signature, so
+	 * the scanner can't see the embedded a-code. Decompress them to a flat
+	 * 48K or 128K RAM image; Scan() then finds the Level 9 game inside.
+	 * If the default DecompressZ80 layout doesn't yield a scannable game,
+	 * fall back to the split-join path for snapshots whose a-code lives in
+	 * a non-resident bank (e.g. Scapeghost). */
+	if (has_extension(filename, ".z80"))
+	{
+		L9UINT32 raw_size = FileSize;
+		uint8_t *raw_z80 = malloc(raw_size);
+		if (raw_z80) {
+			memcpy(raw_z80, startfile, raw_size);
+
+			size_t z80_len = raw_size;
+			uint8_t *decompressed = DecompressZ80(raw_z80, &z80_len);
+			if (decompressed) {
+				free(startfile);
+				startfile = decompressed;
+				FileSize = (L9UINT32)z80_len;
+				if (!probe_l9_scanners())
+					try_z80_split_join(raw_z80, raw_size);
+			}
+			free(raw_z80);
+		}
+	}
+
+	/* Amstrad CPC / Spectrum +3 disk image: extract the Level 9 data from the
+	 * +3DOS catalogue. A split release (data image + separate a-code, e.g.
+	 * Scapeghost/Knight Orc) is reassembled here into the requested part; a
+	 * compilation of complete datafiles (e.g. Jewels of Darkness) yields the
+	 * flat sector image for the normal scanner / multi-part advance below. */
+	if (FileSize > 0x100 &&
+	    (memcmp(startfile, "EXTENDED", 8) == 0 || memcmp(startfile, "MV - CPC", 8) == 0))
+	{
+		L9UINT32 raw_size = FileSize, olen = 0;
+		uint8_t *raw = malloc(raw_size);
+		if (raw) {
+			memcpy(raw, startfile, raw_size);
+			L9BYTE *res = extract_dsk(raw, raw_size, part_index, &olen, &joined);
+			free(raw);
+			if (res && olen >= 256) { free(startfile); startfile = res; FileSize = olen; }
+			else free(res);
+		}
+	}
+	/* Spectrum .tzx / .tap tape image: concatenate the data-block payloads
+	 * (stripping the tape flag + checksum) into a clean buffer, then — if it's
+	 * a split release — join the requested part's data image with its a-code.
+	 * Extracting just the payloads also avoids the false-positive offsets the
+	 * byte scanners can hit on tape framing. */
+	else if ((FileSize >= 10 && memcmp(startfile, "ZXTape!\x1a", 8) == 0)
+		 || has_extension(filename, ".tap"))
+	{
+		int is_tzx = (FileSize >= 10 && memcmp(startfile, "ZXTape!\x1a", 8) == 0);
+		L9UINT32 raw_size = FileSize, olen = 0;
+		uint8_t *raw = malloc(raw_size);
+		if (raw) {
+			memcpy(raw, startfile, raw_size);
+			L9BYTE *flat = extract_tape(raw, raw_size, is_tzx, &olen);
+			if (flat && olen >= 256) {
+				free(startfile);
+				startfile = flat;
+				FileSize = olen;
+				if (try_join_split(part_index)) joined = 1;
+				else if (try_carve_datafile(part_index)) joined = 1;
+			} else {
+				free(flat);
+			}
+			/* Fall back to the libspectrum TZX walker for any exotic block
+			 * types the simple walker above doesn't decode. */
+			if (is_tzx && !joined && !probe_l9_scanners())
+				try_extract_tzx_blocks(raw, raw_size);
+			free(raw);
+		}
+	}
+
+	/* Last-resort desperate scan: standard Scan() rejects snapshots whose
+	 * a-code byte sum has been disturbed by runtime mutation (e.g.
+	 * ADRMOLE2.Z80 has one workspace byte that the game modifies during
+	 * init). The desperate scan finds the header structurally and patches
+	 * the trailing checksum-slack byte so Scan() will accept it. */
+	if (!probe_l9_scanners())
+		try_desperate_scan();
+
+	/* Multi-game image (a compilation of complete datafiles, e.g. Jewels of
+	 * Darkness): advance past the first N-1 games so the Nth becomes the one
+	 * Scan() finds first. Skipped when a split datafile was already joined
+	 * into the requested part above. */
+	if (!joined) for (int n = 1; n < part_index; n++) {
+		long off = Scan(startfile, FileSize);
+		if (off < 0) {
+			error("\rNo part %d in this tape image\r", part_index);
+			return FALSE;
+		}
+		L9UINT32 game_len = L9WORD(startfile + off) + 1;
+		L9UINT32 advance = (L9UINT32)off + game_len;
+		if (advance >= FileSize) {
+			error("\rNo part %d in this tape image\r", part_index);
+			return FALSE;
+		}
+		memmove(startfile, startfile + advance, FileSize - advance);
+		FileSize -= advance;
+	}
+
 	return TRUE;
 }
 
@@ -1010,7 +1695,7 @@ L9BOOL ValidateSequence(L9BYTE* Base,L9BYTE* Image,L9UINT32 iPos,L9UINT32 acode,
 			case 29: /* ilins */
 			case 30: /* ilins */
 			case 31: /* ilins */
-#ifdef L9DEBUG 
+#ifdef L9DEBUG
 				/* printf("scan: illegal instruction"); */
 #endif
 				Valid=FALSE;
