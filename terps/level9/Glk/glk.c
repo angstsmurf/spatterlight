@@ -172,7 +172,7 @@ int vector_image_shown = -1;
 
 /* Pixels emitted per slow-draw tick. Pairs with the graphics timeout
  * interval — change in step with it. */
-#define GLN_VECTOR_PIXELS_PER_TICK 50
+#define GLN_VECTOR_PIXELS_PER_TICK 40
 
 /* TRUE once the background fill has been issued for the current image. Reset
  * in FreePixels() when the instruction buffer is torn down. */
@@ -1529,7 +1529,7 @@ static const int GLN_REPAINT_LIMIT = 256;
  * this, and can give us higher timer resolution; we'll set 50ms here, and
  * hope that no other Glk library is worse.
  */
-static glui32 GLN_GRAPHICS_TIMEOUT = 50;
+static glui32 GLN_GRAPHICS_TIMEOUT = 0;
 
 /*
  * Count of timeouts to wait on.  Waiting after a repaint smooths the
@@ -1564,7 +1564,7 @@ static const glui32 GLN_GRAPHICS_PROPORTION = 30;
  * timeouts to wait on after fully rendering the title picture (~2 seconds).
  */
 static const int GLN_GRAPHICS_TITLE_PICTURE = 0,
-                 GLN_GRAPHICS_TITLE_WAIT = 40;
+                 GLN_GRAPHICS_TITLE_WAIT = 400;
 
 /*
  * Border and shading control.  For cases where we can't detect the back-
@@ -1691,7 +1691,6 @@ gln_graphics_start (void)
           } else {
             GLN_GRAPHICS_TIMEOUT = 50;
           }
-          fprintf(stderr, "gln_graphics_start: requesting timer of %d\n", GLN_GRAPHICS_TIMEOUT);
           glk_request_timer_events (GLN_GRAPHICS_TIMEOUT);
           gln_graphics_active = TRUE;
         }
@@ -2476,6 +2475,7 @@ void DrawSomeL9VectorPixels(glui32 bg_col, winid_t glk_window, int x_offset, int
   if (current_draw_instruction >= total_draw_instructions) {
     VectorState = SHOWING_VECTOR_IMAGE;
     FreePixels();
+    current_draw_instruction = 0;
     gln_graphics_stop ();
   }
 }
@@ -2560,13 +2560,21 @@ gln_graphics_paint_pass(glui32 palette[], int layers[], long layer_usage[],
 
 /* Slow-draw vector rendering is in progress (or just about to start) and the
  * user has slow-draw enabled — the timeout should keep feeding vector pixels
- * to the window instead of paint_everything-ing the whole bitmap. */
+ * to the window instead of paint_everything-ing the whole bitmap.
+ *
+ * Gate this on there being pixels left to emit (total_draw_instructions > 0).
+ * Once an image is complete, FreePixels() has set total_draw_instructions to
+ * 0, so a later timeout — in particular one triggered by an arrange/redraw
+ * (resize) event — falls through to gln_graphics_paint_everything(), which
+ * repaints the whole image from off_screen.  Without this gate a resize after
+ * the final image would run DrawSomeL9VectorPixels() over an empty buffer and
+ * paint only the background, erasing the picture. */
 static int
 gln_should_continue_slow_vector_draw(void)
 {
   return gln_graphics_interpreter_state == GLN_GRAPHICS_LINE_MODE
-      && (VectorState != SHOWING_VECTOR_IMAGE || current_draw_instruction == 0)
-      && gli_slowdraw == 1;
+      && gli_slowdraw == 1
+      && total_draw_instructions > 0;
 }
 
 static void
@@ -2744,6 +2752,25 @@ gln_graphics_timeout (void)
 
 #ifndef GARGLK
       gln_graphics_paint_pass_reset();
+#endif
+
+#ifdef GARGLK
+      /*
+       * If a vector image is still being slow-drawn when this runs (i.e. a
+       * resize arrived mid-draw), the window clear above has just discarded
+       * the pixels plotted so far, while current_draw_instruction still points
+       * partway through the buffer.  Restart the vector draw from the top so
+       * the whole accumulated image is re-emitted at the new size - every
+       * pixel is still held in pixels_to_draw, as FreePixels() only runs once
+       * the image is complete.  (For a brand-new picture these are already 0 /
+       * FALSE, so this is a no-op there.)
+       */
+      if (gln_graphics_interpreter_state == GLN_GRAPHICS_LINE_MODE
+          && total_draw_instructions > 0)
+        {
+          current_draw_instruction = 0;
+          vector_background_painted = FALSE;
+        }
 #endif
 
       /* Clear the new picture and deferred repaint flags. */
@@ -3125,11 +3152,14 @@ gln_graphics_cleanup (void)
  * over-vibrant, so to soften it a bit this table uses non-primary colors.
  */
 static const gln_rgb_t GLN_LINEGRAPHICS_COLOR_TABLE[] = {
-  { 47,  79,  79},  /* DarkSlateGray  [Black] */
+//  { 47,  79,  79},  /* DarkSlateGray  [Black] */
+  { 11,  19,  19},  /* DarkSlateGray  [Black] */
   {238,  44,  44},  /* Firebrick2     [Red] */
-  { 67, 205, 128},  /* SeaGreen3      [Green] */
+//  { 67, 205, 128},  /* SeaGreen3      [Green] */
+  { 22, 192, 62},  /* SeaGreen3      [Green] */
   {238, 201,   0},  /* Gold2          [Yellow] */
-  { 92, 172, 238},  /* SteelBlue2     [Blue] */
+//  { 92, 172, 238},  /* SteelBlue2     [Blue] */
+  { 25, 46, 200},  /* SteelBlue2     [Blue] */
   {139,  87,  66},  /* LightSalmon4   [Brown] */
   {175, 238, 238},  /* PaleTurquoise  [Cyan] */
   {245, 245, 245},  /* WhiteSmoke     [White] */
@@ -3203,6 +3233,8 @@ gln_linegraphics_clear_context (void)
 
   /* Clear palette colors to all black. */
   memset (gln_graphics_palette, 0, sizeof (gln_graphics_palette));
+  FreePixels();
+  vector_background_painted = FALSE;
 }
 
 
@@ -3537,11 +3569,51 @@ skip:         for (x++;
  * Interpreter entry points for line drawing graphics.  All calls to these
  * are ignored if line drawing mode is not set.
  */
+
+static void gln_wait_for_slow_draw (void);
+
 void
 os_cleargraphics (void)
 {
-  if (gln_graphics_interpreter_state == GLN_GRAPHICS_LINE_MODE)
-    gln_linegraphics_clear_context ();
+  if (gln_graphics_interpreter_state != GLN_GRAPHICS_LINE_MODE)
+    return;
+
+  /*
+   * Finish drawing the previous picture before revealing it.  A picture is
+   * drawn in two parts: the common-frame border, run synchronously by
+   * absrunsub(0) inside show_picture(), and the picture detail, stepped
+   * incrementally by RunGraphics().  The intro shows pictures back-to-back
+   * with no input pause between them, so the detail of the previous picture
+   * may not have been pumped yet (gln_linegraphics_process() only runs from
+   * os_readchar/os_input).  At this point gfxa5 still points at the previous
+   * picture - it isn't reassigned until absrunsub(0) runs after we return -
+   * so step it to completion here to accumulate its detail pixels.
+   */
+  while (RunGraphics ())
+    ;
+
+  /*
+   * If pixels from the previous picture are still pending, finish revealing
+   * it (slow-draw) and hold it briefly before clearing for the next one.
+   *
+   * This is done synchronously here, at the moment the game asks to clear,
+   * which is BEFORE the next picture's absrunsub(0) common-frame drawing
+   * accumulates any pixels.  Doing it here (rather than deferring it into the
+   * next graphics pump) means the previous picture's reveal can't be cut
+   * short by the next picture's pixels arriving mid-draw, and it guarantees
+   * the final picture of a run is shown too - it no longer depends on a
+   * following clear that, for the last picture, never comes.
+   */
+  if (total_draw_instructions > 0
+      && gln_graphics_enabled && gln_graphics_open ())
+    {
+      current_draw_instruction = 0;
+      gln_graphics_new_picture = TRUE;
+      gln_graphics_start ();
+      gln_wait_for_slow_draw ();
+    }
+
+  gln_linegraphics_clear_context ();
 }
 
 void
@@ -3565,6 +3637,59 @@ os_fill (int x, int y, int colour1, int colour2)
     gln_linegraphics_fill_4way_if (x, y, colour1, colour2);
 }
 
+// gln_wait_for_slow_draw() is essentially the title‑picture wait, repurposed:
+
+static void
+gln_wait_for_slow_draw (void)
+{
+  gln_bool finished = TRUE;
+  event_t event;
+  glk_request_char_event (gln_main_window);
+  do
+  {
+    gln_event_wait_2 (evtype_CharInput, evtype_Timer, &event);
+
+    if (event.type == evtype_CharInput)
+    {
+      /* User skip: flush the remainder of pixels_to_draw at once. */
+      int x_offset, y_offset;
+      gln_graphics_position_picture (gln_graphics_window,
+                                     GLN_GRAPHICS_PIXEL,
+                                     gln_graphics_width, gln_graphics_height,
+                                     &x_offset, &y_offset);
+      static glui32 palette[GLN_PALETTE_SIZE];
+      gln_graphics_convert_palette (gln_graphics_palette, palette);
+      gln_graphics_paint_everything(gln_graphics_window,
+                                    palette, gln_graphics_off_screen,
+                                    x_offset, y_offset,
+                                    gln_graphics_width,
+                                    gln_graphics_height);
+      finished = FALSE;
+      break;
+    }
+  }
+  while (gln_graphics_active);
+
+  glk_cancel_char_event (gln_main_window);
+
+  /*
+   * Now wait another couple of seconds, or until a keypress.  We'll do this
+   * in graphics timeout chunks, so that if graphics restarts while we're
+   * delaying, and it requests timer events and overwrites ours, we wind up
+   * with the identical timer event period to the one we're expecting anyway.
+   */
+  if (finished == TRUE) {
+    glk_request_timer_events (GLN_GRAPHICS_TIMEOUT);
+    for (int count = 0; count < GLN_GRAPHICS_TITLE_WAIT; count++)
+    {
+      gln_event_wait_2 (evtype_CharInput, evtype_Timer, &event);
+
+      if (event.type == evtype_CharInput)
+        break;
+    }
+  }
+}
+
 
 #pragma mark gln_linegraphics_process
 
@@ -3584,10 +3709,11 @@ gln_linegraphics_process (void)
   if (gln_graphics_interpreter_state == GLN_GRAPHICS_LINE_MODE)
     {
       int opcodes_count;
-      if (GraphicOpsAvailable())
-        FreePixels();
 
-      /* Run all the available graphics opcodes. */
+      /* Run all the available graphics opcodes, accumulating the picture's
+       * pixels.  Revealing a finished picture and holding it before the next
+       * one is handled by os_cleargraphics() at the next clear; the final
+       * picture is revealed by the after-loop start below. */
       for (opcodes_count = 0; RunGraphics (); )
         {
           opcodes_count++;
@@ -6304,6 +6430,19 @@ os_load_file (gln_byte * ptr, int *bytes, int max)
  * platforms that don't implement a file path/name mechanism that matches
  * the expectations of the Level 9 base interpreter fairly closely.
  */
+/* Case-insensitive extension test against the trailing chars of 's'. */
+static int
+gln_str_ends_with (const char *s, const char *suffix)
+{
+  size_t sl = strlen (s), el = strlen (suffix);
+  if (sl < el) return 0;
+  const char *p = s + sl - el;
+  for (size_t i = 0; i < el; i++)
+    if (tolower ((unsigned char)p[i]) != tolower ((unsigned char)suffix[i]))
+      return 0;
+  return 1;
+}
+
 gln_bool
 os_get_game_file (char *newname, int size)
 {
@@ -6315,6 +6454,54 @@ os_get_game_file (char *newname, int size)
   /* Find the last element of the filename passed in. */
   basename = strrchr (newname, GLN_FILE_DELIM);
   basename = basename ? basename + 1 : newname;
+
+  /* Spectrum tape images can contain multiple game parts in a single file.
+   * Walk through them by appending a "#N" suffix that level9.c's load()
+   * parses to select the Nth game. The file is opened from the same path
+   * each time; only the in-tape part index changes. */
+  {
+    char *hash = strrchr (basename, '#');
+    char saved = 0;
+    if (hash) { saved = *hash; *hash = '\0'; }
+    int is_tape = gln_str_ends_with (basename, ".tzx") ||
+                  gln_str_ends_with (basename, ".tap");
+    if (hash) *hash = saved;
+    if (is_tape) {
+      int current = hash ? atoi (hash + 1) : 1;
+      int next = current + 1;
+      if (next > 99) {
+        gln_watchdog_tick ();
+        return FALSE;
+      }
+      /* Verify the underlying tape file is still openable. */
+      if (hash) *hash = '\0';
+      stream = fopen (newname, "rb");
+      if (hash) *hash = saved;
+      if (!stream) {
+        gln_watchdog_tick ();
+        return FALSE;
+      }
+      fclose (stream);
+
+      /* Write back the new #N+1 suffix. */
+      char *write_at = hash ? hash : (newname + strlen (newname));
+      int room = size - (int)(write_at - newname);
+      if (room < 5) {  /* "#NN" + NUL */
+        gln_watchdog_tick ();
+        return FALSE;
+      }
+      snprintf (write_at, room, "#%d", next);
+
+      gln_output_flush ();
+      gln_game_prompted ();
+      gln_standout_string ("\nNext part: ");
+      gln_standout_string (basename);
+      gln_standout_string ("\n\n");
+      gln_gameid_game_name_reset ();
+      gln_watchdog_tick ();
+      return TRUE;
+    }
+  }
 
   /* Search for the last numeric character in the basename. */
   digit = -1;
@@ -6406,6 +6593,39 @@ os_set_filenumber (char *newname, int size, int file_number)
   /* Find the last element of the new filename. */
   basename = strrchr (newname, GLN_FILE_DELIM);
   basename = basename ? basename + 1 : newname;
+
+  /* Spectrum tape images hold multiple game parts in one file. Select the
+   * Nth part with a "#N" suffix that level9.c's load() parses; same approach
+   * os_get_game_file uses. Without this, tapes like Lancelot - Side A.tzx
+   * (no digit to replace) would silently fall through and reload part 1
+   * instead of jumping to the requested part. */
+  {
+    char *hash = strrchr (basename, '#');
+    char saved = 0;
+    if (hash) { saved = *hash; *hash = '\0'; }
+    int is_tape = gln_str_ends_with (basename, ".tzx") ||
+                  gln_str_ends_with (basename, ".tap");
+    if (hash) *hash = saved;
+    if (is_tape) {
+      if (hash) *hash = '\0';
+      char *write_at = hash ? hash : (newname + strlen (newname));
+      int room = size - (int)(write_at - newname);
+      if (room < 5) {
+        gln_watchdog_tick ();
+        return;
+      }
+      snprintf (write_at, room, "#%d", file_number);
+
+      gln_output_flush ();
+      gln_game_prompted ();
+      gln_standout_string ("\nNext part: ");
+      gln_standout_string (basename);
+      gln_standout_string ("\n\n");
+      gln_gameid_game_name_reset ();
+      gln_watchdog_tick ();
+      return;
+    }
+  }
 
   /* Search for the last numeric character in the basename. */
   digit = -1;
