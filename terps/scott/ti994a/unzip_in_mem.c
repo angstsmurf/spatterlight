@@ -10,8 +10,8 @@
 // The original code is currently at https://github.com/madler/zlib/tree/develop/contrib/minizip
 // See http://www.info-zip.org/pub/infozip/license.html for the Info-ZIP license.
 
-// It is used here to extract a single file from a Return to Pirate's Isle cartridge image
-// and may not work properly for any other purpose.
+// It is used here to extract files from a Return to Pirate's Isle cartridge image
+// and may not work properly for other purposes.
 
 
 #include <ctype.h>
@@ -1212,12 +1212,10 @@ static unz64_s *unzOpenInternal(uint8_t *zipdata, size_t datasize) {
     uLong   uL;
 
     uLong number_disk;          /* number of the current disk, used for
-                                 spanning ZIP, unsupported, always 0*/
+                                 spanning ZIP, unsupported, always 0 */
     uLong number_disk_with_CD;  /* number the disk with central dir, used
-                                 for spanning ZIP, unsupported, always 0*/
-    uint64_t number_entry_CD;      /* total number of entries in
-                                    the central dir
-                                    (same than number_entry on nospan) */
+                                 for spanning ZIP, unsupported, always 0 */
+    uint64_t number_entry_CD;   /* total number of entries in the central dir */
 
     int err=UNZ_OK;
 
@@ -1431,8 +1429,7 @@ static uint8_t *do_extract_onefile(unz64_s *uf, const char* filename) {
  *unzipped_size to its length. On failure, returns NULL and sets
  *unzipped_size to 0.
 
- The caller is responsible for freeing the returned buffer.
- */
+ The caller is responsible for freeing the returned buffer. */
 uint8_t *extract_file_from_zip_data(uint8_t *zipdata, size_t zipdatasize, const char *filename_to_extract, size_t *unzipped_size) {
 
     unz64_s *uf = unzOpenInternal(zipdata, zipdatasize);
