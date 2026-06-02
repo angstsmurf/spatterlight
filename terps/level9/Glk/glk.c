@@ -2925,6 +2925,18 @@ os_show_bitmap (int picture, int x, int y)
     return;
 
   /*
+   * The Amstrad CPC and Spectrum +3 releases share C64-format picture files.
+   * Reuse the "Colorize 1-bit graphics" theme preference (gli_z6_colorize) to
+   * pick between the full-colour C64/CPC decode (preference on) and the
+   * authentic monochrome +3 rendering (preference off).  Harmless for the
+   * other bitmap types, which ignore this setting.
+   */
+  {
+    extern int gli_z6_colorize;
+    bitmap_zx_set_colour (gli_z6_colorize ? TRUE : FALSE);
+  }
+
+  /*
    * Get the core interpreter's bitmap for the requested picture.  If this
    * returns NULL, the picture doesn't exist, so ignore the call silently.
    */
