@@ -136,6 +136,9 @@ L9BOOL RunGraphics(void);
 /* bitmap routines provided by level9 interpreter */
 BitmapType DetectBitmaps(char* dir);
 Bitmap* DecodeBitmap(char* dir, BitmapType type, int num, int x, int y);
+/* Choose colour (default) or authentic monochrome rendering of the
+   Amstrad CPC / Spectrum +3 (C64-format) pictures. */
+void bitmap_zx_set_colour(L9BOOL colour);
 
 #ifdef __cplusplus
 }
