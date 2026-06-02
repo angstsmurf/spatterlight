@@ -123,6 +123,7 @@ FILE* os_open_script_file(void);
 L9BOOL os_find_file(char* NewName);
 
 /* routines provided by level9 interpreter */
+int CountTapeParts(const char* filename);
 L9BOOL LoadGame(char* filename, char* picname);
 L9BOOL RunGame(void);
 void StopGame(void);
