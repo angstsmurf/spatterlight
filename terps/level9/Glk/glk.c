@@ -1529,7 +1529,7 @@ static const int GLN_REPAINT_LIMIT = 256;
  * this, and can give us higher timer resolution; we'll set 50ms here, and
  * hope that no other Glk library is worse.
  */
-static glui32 GLN_GRAPHICS_TIMEOUT = 0;
+static glui32 GLN_GRAPHICS_TIMEOUT = 10;
 
 /*
  * Count of timeouts to wait on.  Waiting after a repaint smooths the
@@ -3159,7 +3159,7 @@ static const gln_rgb_t GLN_LINEGRAPHICS_COLOR_TABLE[] = {
   { 22, 192, 62},  /* SeaGreen3      [Green] */
   {238, 201,   0},  /* Gold2          [Yellow] */
 //  { 92, 172, 238},  /* SteelBlue2     [Blue] */
-  { 25, 46, 200},  /* SteelBlue2     [Blue] */
+  { 36, 67, 206},  /* SteelBlue2     [Blue] */
   {139,  87,  66},  /* LightSalmon4   [Brown] */
   {175, 238, 238},  /* PaleTurquoise  [Cyan] */
   {245, 245, 245},  /* WhiteSmoke     [White] */
@@ -3579,14 +3579,15 @@ os_cleargraphics (void)
     return;
 
   /*
-   * Finish drawing the previous picture before revealing it.  A picture is
-   * drawn in two parts: the common-frame border, run synchronously by
-   * absrunsub(0) inside show_picture(), and the picture detail, stepped
-   * incrementally by RunGraphics().  The intro shows pictures back-to-back
-   * with no input pause between them, so the detail of the previous picture
-   * may not have been pumped yet (gln_linegraphics_process() only runs from
-   * os_readchar/os_input).  At this point gfxa5 still points at the previous
-   * picture - it isn't reassigned until absrunsub(0) runs after we return -
+   * Finish drawing the previous picture before revealing it.
+   * At least The Secret Diary of Adrian Mole draws its pictures in
+   * two parts: the common-frame border, run synchronously by bsrunsub(0)
+   * ainside show_picture(), and the picture detail, stepped incrementally
+   * by RunGraphics().  The intro shows pictures back-to-back with no input
+   * pause between them, so the detail of the previous picture may not have
+   * been pumped yet (gln_linegraphics_process() only runs from os_readchar/
+   * os_input). At this point gfxa5 still points at the previous picture
+   * - it isn't reassigned until absrunsub(0) runs after we return -
    * so step it to completion here to accumulate its detail pixels.
    */
   while (RunGraphics ())
