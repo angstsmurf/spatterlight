@@ -1561,10 +1561,13 @@ static const glui32 GLN_GRAPHICS_PROPORTION = 30;
 #endif
 
 /*
- * Special title picture number, requiring its own handling, and count of
- * timeouts to wait on after fully rendering the title picture (~2 seconds).
+ * Special picture numbers that get their own handling: the title (0) and the
+ * first in-game picture (1), both of which are otherwise instantly overwritten
+ * by the next picture before they can be seen.  Plus the count of timeouts to
+ * wait on after such a picture has fully rendered (~2 seconds).
  */
 static const int GLN_GRAPHICS_TITLE_PICTURE = 0,
+                 GLN_GRAPHICS_FIRST_PICTURE = 1,
                  GLN_GRAPHICS_TITLE_WAIT = 400;
 
 /*
@@ -1605,6 +1608,15 @@ static int gln_graphics_picture = -1;
 static int gln_graphics_new_picture = FALSE,
            gln_graphics_repaint = FALSE,
            gln_graphics_active = FALSE;
+
+/*
+ * Count of background timeouts for which a newly-arrived picture's paint is
+ * postponed, to keep the picture currently on screen visible for a moment
+ * first (used to hold the first in-game picture before the one that would
+ * otherwise instantly overwrite it).  Counted down in gln_graphics_timeout()
+ * without blocking the interpreter, and cleared by player input.
+ */
+static glui32 gln_graphics_hold_timeouts = 0;
 
 /*
  * State to monitor the state of interpreter graphics.  The values of the
@@ -2653,6 +2665,18 @@ gln_graphics_timeout (void)
     }
 
   /*
+   * If a picture hold is in effect, keep the image currently on screen and
+   * postpone painting any newly-arrived picture.  This counts down on each
+   * background timeout, so it delays the next picture without blocking the
+   * interpreter, which carries on running meanwhile.
+   */
+  if (gln_graphics_hold_timeouts > 0)
+    {
+      gln_graphics_hold_timeouts--;
+      return;
+    }
+
+  /*
    * If asked to ignore a given number of calls, decrement the ignore counter
    * and return having done nothing more.  This lets us delay graphics
    * operations by a number of timeouts, providing partial protection from
@@ -3027,6 +3051,20 @@ gln_graphics_hold_picture (int picture)
   while (gln_graphics_active);
 
   /*
+   * For pictures other than the title, don't block: the image is on screen
+   * now, so arm a non-blocking hold (counted down by gln_graphics_timeout,
+   * cleared by input) that postpones the next picture's paint, then return so
+   * the game keeps running.
+   */
+  if (picture != GLN_GRAPHICS_TITLE_PICTURE)
+    {
+      gln_graphics_hold_timeouts = GLN_GRAPHICS_TITLE_WAIT;
+      glk_cancel_char_event (gln_main_window);
+      gln_watchdog_tick ();
+      return;
+    }
+
+  /*
    * Now wait another couple of seconds, or until a keypress.  We'll do this
    * in graphics timeout chunks, so that if graphics restarts while we're
    * delaying, and it requests timer events and overwrites ours, we wind up
@@ -3141,16 +3179,17 @@ os_show_bitmap (int picture, int x, int y)
     {
       /*
        * Ensure graphics on, then set the new picture flag and start the
-       * updating "thread".  If this is the title picture, start special
-       * handling.
+       * updating "thread".  The title picture and the first in-game picture
+       * are otherwise instantly overwritten, so hold them on screen briefly.
        */
       if (gln_graphics_open ())
         {
           gln_graphics_new_picture = TRUE;
           gln_graphics_start ();
 
-          if (picture == GLN_GRAPHICS_TITLE_PICTURE)
-            gln_graphics_handle_title_picture ();
+          if (picture == GLN_GRAPHICS_TITLE_PICTURE
+              || picture == GLN_GRAPHICS_FIRST_PICTURE)
+            gln_graphics_hold_picture (picture);
         }
     }
 }
@@ -6469,6 +6508,13 @@ gln_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
         case evtype_Timer:
           /* Do background graphics updates on timeout. */
           gln_graphics_timeout ();
+          break;
+
+        case evtype_CharInput:
+        case evtype_LineInput:
+          /* Player input cuts short any pending picture hold, so the next
+           * picture appears at once rather than after the remaining delay. */
+          gln_graphics_hold_timeouts = 0;
           break;
         }
     }
