@@ -7637,10 +7637,15 @@ glkunix_startup_code (glkunix_startup_t * data)
 
 
 /*---------------------------------------------------------------------*/
-/*  Glk linkage relevant only to the Mac platform                      */
+/*  Glk linkage relevant only to the classic (pre-OS X) Mac platform    */
 /*---------------------------------------------------------------------*/
+/* TARGET_OS_MAC is 1 on every Apple platform, so it is not enough to select
+ * the classic Mac Toolbox (macglk) code below.  Modern, Mach-based macOS
+ * predefines __MACH__ (classic Mac OS never did), so exclude this block there;
+ * it would otherwise pull in macglk_startup.h, which exists only for pre-OS X
+ * Macs. */
 #ifndef GARGLK
-#ifdef TARGET_OS_MAC
+#if defined(TARGET_OS_MAC) && !defined(__MACH__)
 
 #include "macglk_startup.h"
 
@@ -7714,5 +7719,5 @@ macglk_startup_code (macglk_startup_t * data)
   /* macglk_setprefs(); */
   return TRUE;
 }
-#endif /* TARGET_OS_MAC */
+#endif /* classic Mac OS (TARGET_OS_MAC && !__MACH__) */
 #endif
