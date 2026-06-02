@@ -1170,6 +1170,24 @@ BitmapType bitmap_c64_type(char* file)
 	each forming a picture, in the C64 game file format (minus the two
 	byte header).
 */
+
+static Colour bitmap_zx_colours[2] =
+{
+	{ 0x00, 0x00, 0x00 },	/* 0 = paper (black) */
+	{ 0xff, 0xff, 0xff },	/* 1 = ink   (white) */
+};
+
+/* Runtime selection between colour and monochrome rendering of the
+   CPC/Spectrum+3 picture files. Defaults to full colour; the front end
+   may flip it with bitmap_zx_set_colour(). Honoured by bitmap_c64_decode's
+   CPC_BITMAPS path below. */
+static L9BOOL zx_use_colour = TRUE;
+
+void bitmap_zx_set_colour(L9BOOL colour)
+{
+	zx_use_colour = colour;
+}
+
 L9BOOL bitmap_c64_decode(char* file, BitmapType type, int num)
 {
 	L9BYTE* data = NULL;
@@ -1285,6 +1303,71 @@ L9BOOL bitmap_c64_decode(char* file, BitmapType type, int num)
 		}
 		else
 			return FALSE;
+	}
+
+	/*
+	 * The Amstrad CPC and Spectrum +3 releases share these C64-format picture
+	 * files, but the Spectrum could not display the colour artwork.  When
+	 * colour is disabled (see bitmap_zx_set_colour) render the monochrome
+	 * image instead, reusing the offsets computed above: the 2-bit pixel still
+	 * selects one of {background, screen hi-nibble, screen lo-nibble, colour
+	 * map}, but the chosen colour nibble is looked up in a fixed dither table
+	 * to give an 8-pixel 1bpp fill.  This is the direct analogue of
+	 * bitmap_bbc_decode's colour-nibble -> pattern remap.  The full picture
+	 * width (max_x, i.e. 40 cells) is rendered, matching the colour path, so
+	 * the image is not truncated.
+	 */
+	if (type == CPC_BITMAPS && !zx_use_colour)
+	{
+		/* nibble (C64 colour 0-15) -> 8-pixel monochrome dither pattern */
+		static const L9BYTE zx_pat[16] =
+		{
+			0x00, 0xff, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0xff,
+			0x55, 0xaa, 0xaa, 0x55, 0xff, 0xaa, 0x55, 0x55
+		};
+		L9BYTE t[4], scr, d, v;
+		int cell, g, ncols = max_x / 8;		/* 8 mono pixels per cell */
+
+		if (bitmap)
+			free(bitmap);
+		bitmap = bitmap_alloc(max_x,max_y);
+		if (bitmap == NULL)
+		{
+			free(data);
+			return FALSE;
+		}
+
+		for (cy = 0; cy < max_y/8; cy++)
+		{
+			for (cx = 0; cx < ncols; cx++)
+			{
+				cell = cy*ncols + cx;
+				scr = data[off_scr+cell];
+				t[0] = zx_pat[data[off_bg] & 0x0f];	/* p=0 background */
+				t[1] = zx_pat[(scr>>4) & 0x0f];		/* p=1 screen hi-nibble */
+				t[2] = zx_pat[scr & 0x0f];		/* p=2 screen lo-nibble */
+				if (col_comp)				/* p=3 colour map */
+					t[3] = zx_pat[(data[off_col+cell/2]>>((1-(cx%2))*4)) & 0x0f];
+				else
+					t[3] = zx_pat[data[off_col+cell] & 0x0f];
+
+				for (py = 0; py < 8; py++)
+				{
+					d = data[off+cell*8+py];
+					v = (t[(d>>6)&3] & 0xc0) | (t[(d>>4)&3] & 0x30)
+					  | (t[(d>>2)&3] & 0x0c) | (t[d&3] & 0x03);
+					for (g = 0; g < 8; g++)
+						bitmap->bitmap[(max_x*(cy*8+py)) + cx*8 + g] = (v>>(7-g)) & 1;
+				}
+			}
+		}
+
+		bitmap->npalette = 2;
+		for (i = 0; i < 2; i++)
+			bitmap->palette[i] = bitmap_zx_colours[i];
+
+		free(data);
+		return TRUE;
 	}
 
 	if (bitmap)
@@ -1565,7 +1648,10 @@ Bitmap* DecodeBitmap(char* dir, BitmapType type, int num, int x, int y)
 		bitmap_cpc_name(num,dir,file);
 		if (os_find_file(file))
 		{
-			if (bitmap_c64_decode(file,type,num)) /* Nearly identical to C64 */
+			/* CPC/Spectrum+3 share C64-format files; bitmap_c64_decode
+			   renders them in colour, or as authentic +3 monochrome when
+			   bitmap_zx_set_colour(FALSE) has been called. */
+			if (bitmap_c64_decode(file,type,num))
 				return bitmap;
 		}
 		break;
