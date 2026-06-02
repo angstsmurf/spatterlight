@@ -1223,7 +1223,7 @@ static int cont_name_digit(const char *nm)
 /* Reassemble the next catalogue file (consecutive same-name extents) from its
  * 1 KB allocation blocks. Returns byte length (0 = no more), advances *eidx. */
 static L9UINT32 dsk_read_file(L9BYTE *lf, L9UINT32 lflen, L9UINT32 base,
-			      int *eidx, L9BYTE *out, char *nm)
+			      int *eidx, L9BYTE *out, L9UINT32 outmax, char *nm)
 {
 	int e = *eidx, k, started = 0;
 	L9UINT32 fl = 0;
@@ -1240,7 +1240,7 @@ static L9UINT32 dsk_read_file(L9BYTE *lf, L9UINT32 lflen, L9UINT32 base,
 		else if (memcmp(nm2, cur, 11) != 0) break;
 		for (k = 0; k < 16; k++) {
 			int blk = ent[16 + k];
-			if (blk && fl + 1024 <= 0x20000 && base + (L9UINT32)blk * 1024 + 1024 <= lflen) {
+			if (blk && fl + 1024 <= outmax && base + (L9UINT32)blk * 1024 + 1024 <= lflen) {
 				memcpy(out + fl, lf + base + (L9UINT32)blk * 1024, 1024);
 				fl += 1024;
 			}
@@ -1251,19 +1251,15 @@ static L9UINT32 dsk_read_file(L9BYTE *lf, L9UINT32 lflen, L9UINT32 base,
 	return 0;
 }
 
-/* Decode a +3 / Amstrad CPC .dsk. Returns a malloc'd buffer: a joined datafile
- * (*joined=1) for a split image's part_index'th part, otherwise the flat
- * logical-sector image (*joined=0) for the normal scanner. */
-static L9BYTE *extract_dsk(L9BYTE *raw, L9UINT32 rawlen, int part_index,
-			   L9UINT32 *outlen, int *joined)
+/* Flatten a +3 / Amstrad CPC .dsk (EXTENDED or "MV - CPC") into its logical
+ * CP/M sector image: each track's sectors concatenated in ascending sector-id
+ * order. Returns a malloc'd buffer and its length; caller frees. */
+static L9BYTE *dsk_to_logical(L9BYTE *raw, L9UINT32 rawlen, L9UINT32 *lflen_out)
 {
 	int ext = (raw[0] == 'E'), ntr = raw[0x30], nsd = raw[0x31], t;
 	L9UINT32 std = raw[0x32] | (raw[0x33] << 8);
-	L9UINT32 lflen = 0, pos = 0x100, base;
-	L9BYTE *lf, *fbuf, *dimg = NULL, *acod = NULL;
-	L9UINT32 dimg_len = 0, acod_len = 0;
-	*joined = 0;
-	lf = malloc((L9UINT32)ntr * nsd * 9 * 1024 + 0x4000);
+	L9UINT32 lflen = 0, pos = 0x100;
+	L9BYTE *lf = malloc((L9UINT32)ntr * nsd * 9 * 1024 + 0x4000);
 	if (!lf) return NULL;
 	for (t = 0; t < ntr * nsd; t++) {
 		L9UINT32 tsz = ext ? (L9UINT32)raw[0x34 + t] * 256 : std;
@@ -1287,6 +1283,22 @@ static L9BYTE *extract_dsk(L9BYTE *raw, L9UINT32 rawlen, int part_index,
 		for (s = 0; s < nsec; s++) { memcpy(lf + lflen, th + soff[order[s]], slen[order[s]]); lflen += slen[order[s]]; }
 		pos += tsz;
 	}
+	*lflen_out = lflen;
+	return lf;
+}
+
+/* Decode a +3 / Amstrad CPC .dsk. Returns a malloc'd buffer: a joined datafile
+ * (*joined=1) for a split image's part_index'th part, otherwise the flat
+ * logical-sector image (*joined=0) for the normal scanner. */
+static L9BYTE *extract_dsk(L9BYTE *raw, L9UINT32 rawlen, int part_index,
+			   L9UINT32 *outlen, int *joined)
+{
+	L9UINT32 lflen = 0, base;
+	L9BYTE *lf, *fbuf, *dimg = NULL, *acod = NULL;
+	L9UINT32 dimg_len = 0, acod_len = 0;
+	*joined = 0;
+	lf = dsk_to_logical(raw, rawlen, &lflen);
+	if (!lf) return NULL;
 
 	fbuf = malloc(0x20000);
 	if (!fbuf) { free(lf); return NULL; }
@@ -1297,7 +1309,7 @@ static L9BYTE *extract_dsk(L9BYTE *raw, L9UINT32 rawlen, int part_index,
 		char nm[12];
 		for (part = 0; part < 10; part++) { pd[part] = pa[part] = NULL; pdl[part] = pal[part] = 0; }
 		eidx = 0;
-		while ((fl = dsk_read_file(lf, lflen, base, &eidx, fbuf, nm)) != 0) {
+		while ((fl = dsk_read_file(lf, lflen, base, &eidx, fbuf, 0x20000, nm)) != 0) {
 			int o, dig = cont_name_digit(nm);
 			if (!cont_name_has(nm, "GAMEDAT") && !cont_name_has(nm, "SMALLGD")) continue;
 			for (o = 0; o <= 128; o += 128)
@@ -1310,7 +1322,7 @@ static L9BYTE *extract_dsk(L9BYTE *raw, L9UINT32 rawlen, int part_index,
 		}
 		if (hdr < 0) continue;
 		eidx = 0;
-		while ((fl = dsk_read_file(lf, lflen, base, &eidx, fbuf, nm)) != 0) {
+		while ((fl = dsk_read_file(lf, lflen, base, &eidx, fbuf, 0x20000, nm)) != 0) {
 			int dig = cont_name_digit(nm);
 			L9UINT16 s;
 			if (!cont_name_has(nm, "ACODE") && !cont_name_has(nm, "ACD")) continue;
@@ -1361,6 +1373,51 @@ static L9BYTE *extract_dsk(L9BYTE *raw, L9UINT32 rawlen, int part_index,
 
 	*outlen = lflen;	/* last resort: hand the flat to the scanner */
 	return lf;
+}
+
+/* Enumerate the catalogue of a +3 / Amstrad CPC .dsk image. For every file
+ * whose 3-char extension matches ext3 (e.g. "PIC"; NULL matches all), call
+ * cb(name8, data, len, ctx) with the file's 8-char base name (space padded),
+ * its reassembled bytes and length (length is rounded up to the 1 KB block).
+ * The data passed to cb is owned here and valid only during the call. Returns
+ * the number of files emitted, or -1 if raw is not a CPC/+3 disk image.
+ *
+ * This shares dsk_to_logical() and dsk_read_file() with extract_dsk(); the
+ * graphics layer uses it to pull picture files (title.pic / 1.pic / allpics.pic)
+ * out of a disk image when they are not present as loose files. */
+int DiskCatalogue(L9BYTE *raw, L9UINT32 rawlen, const char *ext3,
+		  void (*cb)(const char *name8, L9BYTE *data, L9UINT32 len, void *ctx),
+		  void *ctx)
+{
+	L9UINT32 lflen, base;
+	L9BYTE *lf, *fbuf;
+	int count = 0;
+
+	if (rawlen < 0x100
+	    || (memcmp(raw, "EXTENDED", 8) != 0 && memcmp(raw, "MV - CPC", 8) != 0))
+		return -1;
+	lf = dsk_to_logical(raw, rawlen, &lflen);
+	if (!lf) return -1;
+	fbuf = malloc(0x40000);		/* picture files exceed the 0x20000 datafile cap */
+	if (!fbuf) { free(lf); return -1; }
+
+	for (base = 0; base + 2048 <= lflen && base <= 0x4000; base += 512) {
+		int eidx = 0, any = 0;
+		L9UINT32 fl;
+		char nm[12];
+		while ((fl = dsk_read_file(lf, lflen, base, &eidx, fbuf, 0x40000, nm)) != 0) {
+			any = 1;
+			if (!ext3
+			    || (toupper((unsigned char)nm[8]) == ext3[0]
+				&& toupper((unsigned char)nm[9]) == ext3[1]
+				&& toupper((unsigned char)nm[10]) == ext3[2]))
+				{ cb(nm, fbuf, fl, ctx); count++; }
+		}
+		if (any) break;		/* first valid catalogue wins */
+	}
+	free(fbuf);
+	free(lf);
+	return count;
 }
 
 /* Count the complete Level 9 datafiles ("parts") packed into a Spectrum
