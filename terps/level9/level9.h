@@ -124,6 +124,9 @@ L9BOOL os_find_file(char* NewName);
 
 /* routines provided by level9 interpreter */
 int CountTapeParts(const char* filename);
+int DiskCatalogue(L9BYTE* raw, L9UINT32 rawlen, const char* ext3,
+                  void (*cb)(const char* name8, L9BYTE* data, L9UINT32 len, void* ctx),
+                  void* ctx);
 L9BOOL LoadGame(char* filename, char* picname);
 L9BOOL RunGame(void);
 void StopGame(void);

@@ -44,6 +44,7 @@
 #include <string.h>
 #include <limits.h>
 #include <stddef.h>
+#include <unistd.h>
 
 #include "level9.h"
 
@@ -2790,6 +2791,141 @@ gln_graphics_timeout (void)
 
 
 /*
+ * Reading picture files out of Amstrad CPC / Spectrum +3 disk images
+ * ------------------------------------------------------------------
+ * The CPC and +3 releases keep their picture files (title.pic, 1.pic and
+ * allpics.pic) inside an EXTENDED-CPC / +3DOS .dsk disk image rather than as
+ * loose files.  When no loose picture files are found beside the game, we
+ * parse any .dsk images in the same folder and drop their *.PIC files into a
+ * temporary directory that the normal bitmap loader can then read.  The .dsk /
+ * CP/M parsing is shared with the core loader via DiskCatalogue() in level9.c;
+ * here we only handle the temporary directory and writing the files out.
+ */
+
+/* Context for gln_write_pic_file(): the (lazily created) temp directory. */
+typedef struct { char *dir; } gln_pic_extract;
+
+/* DiskCatalogue() callback: write one *.PIC file out as "<name>.pic". */
+static void
+gln_write_pic_file (const char *name8, L9BYTE *data, L9UINT32 len, void *vctx)
+{
+  gln_pic_extract *ctx = (gln_pic_extract *) vctx;
+  char outname[16], outpath[4096];
+  FILE *f;
+  int k, w;
+
+  if (len == 0)
+    return;
+
+  /* Create the temporary directory on the first file actually extracted. */
+  if (!ctx->dir)
+    {
+      const char *base = getenv ("TMPDIR");
+      char tmpl[4096];
+      size_t bl;
+      char *made;
+
+      if (!base || !base[0])
+        base = "/tmp";
+      bl = strlen (base);
+      snprintf (tmpl, sizeof tmpl, "%s%sglnpicsXXXXXX",
+                base, (bl && base[bl-1] == GLN_FILE_DELIM) ? "" : "/");
+      made = mkdtemp (tmpl);
+      if (!made)
+        return;
+      ctx->dir = gln_malloc (strlen (made) + 2);
+      strcpy (ctx->dir, made);
+      bl = strlen (ctx->dir);
+      ctx->dir[bl] = GLN_FILE_DELIM;
+      ctx->dir[bl + 1] = '\0';
+    }
+
+  w = 0;                               /* build "<name>.pic", lower case */
+  for (k = 0; k < 8 && name8[k] != ' '; k++)
+    outname[w++] = tolower ((unsigned char) name8[k]);
+  outname[w++] = '.'; outname[w++] = 'p'; outname[w++] = 'i'; outname[w++] = 'c';
+  outname[w] = '\0';
+
+  snprintf (outpath, sizeof outpath, "%s%s", ctx->dir, outname);
+  f = fopen (outpath, "rb");           /* keep the first disk's copy on a clash */
+  if (f)
+    { fclose (f); return; }
+  f = fopen (outpath, "wb");
+  if (f)
+    { fwrite (data, 1, len, f); fclose (f); }
+}
+
+/* Pull the *.PIC files out of one .dsk image into ctx (no-op if `path` is not
+ * a CPC/+3 disk image, or cannot be read). */
+static void
+gln_extract_one_disk (const char *path, gln_pic_extract *ctx)
+{
+  FILE *f;
+  L9BYTE *raw;
+  long rawlen;
+
+  f = fopen (path, "rb");
+  if (!f)
+    return;
+  fseek (f, 0, SEEK_END);
+  rawlen = ftell (f);
+  fseek (f, 0, SEEK_SET);
+  if (rawlen > 0 && (raw = malloc (rawlen)) != NULL)
+    {
+      if (fread (raw, 1, rawlen, f) == (size_t) rawlen)
+        DiskCatalogue (raw, (L9UINT32) rawlen, "PIC", gln_write_pic_file, ctx);
+      free (raw);
+    }
+  fclose (f);
+}
+
+/* Advance a game filename to its next physical part (Side/Tape stepping);
+ * defined further down and shared with os_get_game_file(). */
+static int gln_advance_tape_file (char *name, int size);
+
+/*
+ * gln_extract_disk_pictures()
+ *
+ * Extract the *.PIC files from the disk image(s) belonging to this game into a
+ * fresh temporary directory.  Rather than trawling the whole folder, we look
+ * only at the game file itself and its sibling parts, located with the same
+ * Side/Tape stepping os_get_game_file() uses (e.g. "... - Side A.dsk" ->
+ * "... - Side B.dsk"), so an unrelated game's disks in the same folder are
+ * never touched.  Returns the temp directory path (gln_malloc'd, with a
+ * trailing GLN_FILE_DELIM) or NULL if nothing was extracted.
+ */
+static char *
+gln_extract_disk_pictures (const char *gamefile)
+{
+  gln_pic_extract ctx;
+  char name[MAX_PATH], *base, *hash;
+
+  ctx.dir = NULL;
+  if (!gamefile || strlen (gamefile) + 1 > sizeof name)
+    return NULL;
+  strcpy (name, gamefile);
+
+  /* Drop any "#N" multi-part selector so we have a real filename. */
+  base = strrchr (name, GLN_FILE_DELIM);
+  base = base ? base + 1 : name;
+  hash = strchr (base, '#');
+  if (hash)
+    *hash = '\0';
+
+  /* Walk the game file and each subsequent part; DiskCatalogue() silently
+   * ignores anything that is not a CPC/+3 disk image. */
+  for (;;)
+    {
+      gln_extract_one_disk (name, &ctx);
+      if (!gln_advance_tape_file (name, sizeof name))
+        break;
+    }
+
+  return ctx.dir;
+}
+
+
+/*
  * gln_graphics_locate_bitmaps()
  *
  * Given the name of the game file being run, try to set up the graphics
@@ -2819,6 +2955,26 @@ gln_graphics_locate_bitmaps (const char *gamefile)
   bitmap_type = DetectBitmaps (dirname);
   if (bitmap_type == NO_BITMAPS)
     {
+      /*
+       * No loose picture files.  The Amstrad CPC and Spectrum +3 releases
+       * keep title.pic / 1.pic / allpics.pic inside a .dsk disk image, so try
+       * extracting the *.PIC files from this game's own disk image(s) and
+       * detect again in that temporary directory.
+       */
+      char *extracted = gln_extract_disk_pictures (gamefile);
+      if (extracted)
+        {
+          BitmapType extracted_type = DetectBitmaps (extracted);
+          if (extracted_type != NO_BITMAPS)
+            {
+              free (dirname);
+              gln_graphics_bitmap_directory = extracted;
+              gln_graphics_bitmap_type = extracted_type;
+              return;
+            }
+          free (extracted);
+        }
+
       free (dirname);
       gln_graphics_bitmap_directory = NULL;
       gln_graphics_bitmap_type = NO_BITMAPS;
@@ -2832,20 +2988,25 @@ gln_graphics_locate_bitmaps (const char *gamefile)
 
 
 /*
- * gln_graphics_handle_title_picture()
+ * gln_graphics_hold_picture()
  *
- * Picture 0 is special, normally the title picture.  Unless we handle it
- * specially, the next picture comes along and instantly overwrites it.
- * Here, then, we try to delay until the picture has rendered, allowing the
- * delay to be broken with a keypress.
+ * Some pictures are otherwise instantly overwritten by the next one before
+ * they can be seen: picture 0 (the title) and picture 1 (the first in-game
+ * picture, which several games replace immediately).  Both are first pumped to
+ * completion so they actually reach the screen.  The title then announces
+ * itself with a prompt and waits (blocking) for a couple of seconds or a
+ * keypress.  Other pictures are held WITHOUT blocking: a hold is armed so the
+ * background timeout postpones the next picture's paint while the interpreter
+ * keeps running, and player input ends the hold early.
  */
 static void
-gln_graphics_handle_title_picture (void)
+gln_graphics_hold_picture (int picture)
 {
   event_t event;
   int count;
 
-  gln_standout_string ("\n[ Press any key to skip the title picture... ]\n\n");
+  if (picture == GLN_GRAPHICS_TITLE_PICTURE)
+    gln_standout_string ("\n[ Press any key to skip the title picture... ]\n\n");
 
   /* Wait until a keypress or graphics rendering is complete. */
   glk_request_char_event (gln_main_window);
