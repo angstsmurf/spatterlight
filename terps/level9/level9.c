@@ -1363,6 +1363,46 @@ static L9BYTE *extract_dsk(L9BYTE *raw, L9UINT32 rawlen, int part_index,
 	return lf;
 }
 
+/* Count the complete Level 9 datafiles ("parts") packed into a Spectrum
+ * .tzx/.tap tape image. A multi-load game can split its parts across physical
+ * tape sides (e.g. The Growing Pains of Adrian Mole keeps parts 1-2 on
+ * "Side 1" and parts 3-4 on "Side 2"); the OS layer uses this count to know
+ * when the next part must come from the following side rather than the
+ * current image. Returns 0 if the file can't be read or holds no datafile. */
+int CountTapeParts(const char *filename)
+{
+	FILE *f;
+	L9UINT32 len, i, flatlen = 0;
+	L9BYTE *raw, *flat;
+	int is_tzx, parts = 0;
+
+	f = fopen(filename, "rb");
+	if (!f) return 0;
+	len = filelength(f);
+	if (len < 256) { fclose(f); return 0; }
+	raw = malloc(len);
+	if (!raw) { fclose(f); return 0; }
+	if (fread(raw, 1, len, f) != len) { fclose(f); free(raw); return 0; }
+	fclose(f);
+
+	is_tzx = (len >= 10 && memcmp(raw, "ZXTape!\x1a", 8) == 0);
+	if (!is_tzx && !has_extension(filename, ".tap")) { free(raw); return 0; }
+
+	flat = extract_tape(raw, len, is_tzx, &flatlen);
+	free(raw);
+	if (!flat) return 0;
+
+	for (i = 0; i + 0x2a < flatlen; i++) {
+		if (l9_is_datafile(flat, i, flatlen)) {
+			L9UINT32 dl = (L9UINT32)L9WORD(flat + i) + 1;
+			parts++;
+			i += dl - 1;
+		}
+	}
+	free(flat);
+	return parts;
+}
+
 L9BOOL load(char *filename)
 {
 	/* Optional "#N" suffix selects the Nth game in a multi-part tape image

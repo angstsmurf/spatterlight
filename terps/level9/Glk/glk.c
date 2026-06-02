@@ -6443,6 +6443,110 @@ gln_str_ends_with (const char *s, const char *suffix)
   return 1;
 }
 
+/*
+ * gln_bump_marker()
+ *
+ * Advance the digit (or letter) that follows the last case-insensitive
+ * occurrence of `word` in a filename's basename, in place: with word "side",
+ * "... - Side 1.tzx" becomes "... - Side 2.tzx" (and "Side A" -> "Side B");
+ * with word "tape", "Tape 1 - ..." becomes "Tape 2 - ...".  Used to step to
+ * the next file of a multi-load game.  The bump is single-character and
+ * length-preserving, so any pointers into the name stay valid.  The last
+ * occurrence is used so a stray match inside a game's title is ignored.
+ * Returns 1 if the marker was found and advanced, 0 otherwise.
+ */
+static int
+gln_bump_marker (char *name, const char *word)
+{
+  char *basename, *marker = NULL, *p;
+  size_t wl = strlen (word);
+
+  basename = strrchr (name, GLN_FILE_DELIM);
+  basename = basename ? basename + 1 : name;
+
+  for (p = basename; *p; p++)
+    {
+      size_t i;
+      for (i = 0; i < wl; i++)
+        if (tolower ((unsigned char)p[i]) != tolower ((unsigned char)word[i]))
+          break;
+      if (i == wl)
+        marker = p;
+    }
+  if (!marker)
+    return 0;
+
+  /* Skip the word and any spaces, then advance the digit or letter that
+   * follows.  Refuse to roll past 9 / Z. */
+  p = marker + wl;
+  while (*p == ' ')
+    p++;
+  if (isdigit ((unsigned char)*p) && *p < '9')
+    {
+      (*p)++;
+      return 1;
+    }
+  if (isalpha ((unsigned char)*p) && tolower ((unsigned char)*p) < 'z')
+    {
+      (*p)++;
+      return 1;
+    }
+  return 0;
+}
+
+/* True if `path` names an existing, readable file. */
+static int
+gln_file_exists (const char *path)
+{
+  FILE *f = fopen (path, "rb");
+  if (f)
+    {
+      fclose (f);
+      return 1;
+    }
+  return 0;
+}
+
+/*
+ * gln_advance_tape_file()
+ *
+ * Advance a bare tape path (no "#N" suffix) to the next physical file of a
+ * multi-load game, trying the next tape ("Tape 1" -> "Tape 2") before the
+ * next side ("Side 1" -> "Side 2").  The tape preference matters for releases
+ * like Ingrid's Back, whose parts live on successive "Tape N - Side 1" files
+ * while each tape's Side 2 carries a parallel 128K edition that must not be
+ * mistaken for the next part.  The next-tape file is chosen only when it
+ * actually exists, so genuinely side-split games (e.g. The Growing Pains of
+ * Adrian Mole, with no "Tape" marker, or a single tape whose part 2 is on its
+ * second side) still fall through to the side bump.  Returns 1 and updates
+ * `name` in place on success.
+ */
+static int
+gln_advance_tape_file (char *name, int size)
+{
+  char attempt[MAX_PATH];
+
+  (void) size;
+  if (strlen (name) + 1 > sizeof attempt)
+    return 0;
+
+  strcpy (attempt, name);
+  if (gln_bump_marker (attempt, "tape") && gln_file_exists (attempt))
+    {
+      strcpy (name, attempt);   /* length-preserving bump: fits `name` */
+      return 1;
+    }
+
+  strcpy (attempt, name);
+  if (gln_bump_marker (attempt, "side") && gln_file_exists (attempt))
+    {
+      strcpy (name, attempt);
+      return 1;
+    }
+
+  return 0;
+}
+
 gln_bool
 os_get_game_file (char *newname, int size)
 {
@@ -6469,23 +6573,47 @@ os_get_game_file (char *newname, int size)
     if (is_tape) {
       int current = hash ? atoi (hash + 1) : 1;
       int next = current + 1;
+      int parts;
+      char *write_at;
+      int room;
       if (next > 99) {
         gln_watchdog_tick ();
         return FALSE;
       }
-      /* Verify the underlying tape file is still openable. */
+
+      /* Work on the bare tape path (no "#N" suffix) while we probe it and,
+       * if needed, advance to the next physical side. */
       if (hash) *hash = '\0';
+
+      /* Verify the underlying tape file is still openable. */
       stream = fopen (newname, "rb");
-      if (hash) *hash = saved;
       if (!stream) {
+        if (hash) *hash = saved;
         gln_watchdog_tick ();
         return FALSE;
       }
       fclose (stream);
 
-      /* Write back the new #N+1 suffix. */
-      char *write_at = hash ? hash : (newname + strlen (newname));
-      int room = size - (int)(write_at - newname);
+      /* A multi-load game's parts can be split across several physical tapes
+       * or tape sides (e.g. Ingrid's Back puts each part on its own "Tape N -
+       * Side 1", while The Growing Pains of Adrian Mole holds parts 1-2 on
+       * "Side 1" and 3-4 on "Side 2").  When the next part lies beyond those
+       * on the current image, roll over to the following tape/side and resume
+       * the part count from 1 there. */
+      parts = CountTapeParts (newname);
+      if (parts > 0 && next > parts) {
+        if (!gln_advance_tape_file (newname, size)) {
+          if (hash) *hash = saved;
+          gln_watchdog_tick ();
+          return FALSE;        /* no further tape/side to continue on */
+        }
+        next -= parts;
+      }
+
+      /* Write the selected part's "#N" suffix onto the (possibly side-
+       * advanced) tape path. */
+      write_at = newname + strlen (newname);
+      room = size - (int)(write_at - newname);
       if (room < 5) {  /* "#NN" + NUL */
         gln_watchdog_tick ();
         return FALSE;
@@ -6503,9 +6631,16 @@ os_get_game_file (char *newname, int size)
     }
   }
 
-  /* Search for the last numeric character in the basename. */
+  /* Search for the last numeric character in the basename, ignoring any
+   * file extension so we change the digit in the game name itself rather
+   * than a digit inside the extension - ADRMOLE1.Z80 -> ADRMOLE2.Z80, not
+   * ADRMOLE1.Z81. */
   digit = -1;
-  for (index = strlen (basename) - 1; index >= 0; index--)
+  {
+    char *dot = strrchr (basename, '.');
+    index = dot ? (int)(dot - basename) - 1 : (int)strlen (basename) - 1;
+  }
+  for (; index >= 0; index--)
     {
       if (isdigit (basename[index]))
         {
@@ -6607,14 +6742,24 @@ os_set_filenumber (char *newname, int size, int file_number)
                   gln_str_ends_with (basename, ".tap");
     if (hash) *hash = saved;
     if (is_tape) {
+      int part = file_number;
+      char *write_at;
+      int room, parts;
       if (hash) *hash = '\0';
-      char *write_at = hash ? hash : (newname + strlen (newname));
-      int room = size - (int)(write_at - newname);
+
+      /* Continue onto the next physical tape/side when the requested part
+       * lies beyond those on this one (see os_get_game_file). */
+      parts = CountTapeParts (newname);
+      if (parts > 0 && part > parts && gln_advance_tape_file (newname, size))
+        part -= parts;
+
+      write_at = newname + strlen (newname);
+      room = size - (int)(write_at - newname);
       if (room < 5) {
         gln_watchdog_tick ();
         return;
       }
-      snprintf (write_at, room, "#%d", file_number);
+      snprintf (write_at, room, "#%d", part);
 
       gln_output_flush ();
       gln_game_prompted ();
@@ -6627,9 +6772,16 @@ os_set_filenumber (char *newname, int size, int file_number)
     }
   }
 
-  /* Search for the last numeric character in the basename. */
+  /* Search for the last numeric character in the basename, ignoring any
+   * file extension so we change the digit in the game name itself rather
+   * than a digit inside the extension - ADRMOLE1.Z80 -> ADRMOLE2.Z80, not
+   * ADRMOLE1.Z81. */
   digit = -1;
-  for (index = strlen (basename) - 1; index >= 0; index--)
+  {
+    char *dot = strrchr (basename, '.');
+    index = dot ? (int)(dot - basename) - 1 : (int)strlen (basename) - 1;
+  }
+  for (; index >= 0; index--)
     {
       if (isdigit (basename[index]))
         {
