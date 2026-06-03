@@ -1509,6 +1509,29 @@ static libspectrum_error tzx_skip_to_block(int blockno, uint8_t **ptr, uint8_t *
             if (error)
                 return error;
             break;
+        /* Skippable framing blocks with fixed payload sizes. These don't
+         * contribute tape data but must be walked past so the block index
+         * stays aligned with what TZX players see. */
+        case LIBSPECTRUM_TAPE_BLOCK_PAUSE:        /* 0x20: 2-byte pause duration */
+        case LIBSPECTRUM_TAPE_BLOCK_JUMP:         /* 0x23: 2-byte signed offset */
+        case LIBSPECTRUM_TAPE_BLOCK_LOOP_START:   /* 0x24: 2-byte iteration count */
+            if (end - *ptr < 2)
+                return LIBSPECTRUM_ERROR_CORRUPT;
+            *ptr += 2;
+            break;
+        case LIBSPECTRUM_TAPE_BLOCK_GROUP_END:    /* 0x22: no payload */
+        case LIBSPECTRUM_TAPE_BLOCK_LOOP_END:     /* 0x25: no payload */
+            break;
+        case LIBSPECTRUM_TAPE_BLOCK_STOP48:       /* 0x2a: 4-byte zero */
+            if (end - *ptr < 4)
+                return LIBSPECTRUM_ERROR_CORRUPT;
+            *ptr += 4;
+            break;
+        case LIBSPECTRUM_TAPE_BLOCK_GROUP_START:  /* 0x21: 1-byte length + text */
+            error = tzx_skip_data(ptr, end, -1);
+            if (error)
+                return error;
+            break;
         default: /* For now, don't handle anything else */
             libspectrum_print_error(
                 LIBSPECTRUM_ERROR_UNKNOWN,
@@ -1559,6 +1582,16 @@ find_tzx_block(int blockno, uint8_t *srcbuf, uint8_t **result,
     error = tzx_skip_to_block(blockno, &ptr, end);
     if (error)
         return error;
+
+    /* tzx_skip_to_block exits its loop on either reaching the requested block
+     * OR running out of buffer. If we ran out, ptr is at end and reading one
+     * more byte would over-run. */
+    if (ptr >= end) {
+        libspectrum_print_error(LIBSPECTRUM_ERROR_CORRUPT,
+            "find_tzx_block: ran past end of buffer looking for block %d",
+            blockno);
+        return LIBSPECTRUM_ERROR_CORRUPT;
+    }
 
     /* Get the ID of the next block */
     libspectrum_tape_type id = *ptr++;
