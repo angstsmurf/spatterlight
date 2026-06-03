@@ -1167,6 +1167,43 @@ static L9UINT32 pic_trail_length(L9BYTE *p, L9UINT32 base, L9UINT32 maxend)
 	return 0;
 }
 
+/* Locate a run of vector graphics subroutines (findsubs-style: >10 chained
+ * subroutines) nearest to `anchor`, skipping any run that overlaps the datafile
+ * region [ex0, ex1).  Returns TRUE and sets *off to the run's first header.
+ *
+ * The 128K tape editions (e.g. Jewels of Darkness Side B) page their picture
+ * subroutines in from a separate tape block that is not adjacent to — and may
+ * precede — the datafile, so the graphics are not part of the carved datafile
+ * and pic_trail_length() finds nothing.  This scans the whole tape buffer for
+ * the graphics belonging to the chosen part (the run closest to its datafile). */
+static L9BOOL find_gfx_run(L9BYTE *p, L9UINT32 n, L9UINT32 anchor,
+			   L9UINT32 ex0, L9UINT32 ex1, L9UINT32 *off)
+{
+	L9UINT32 i, best = 0xffffffffUL, bestoff = 0;
+	int found = 0;
+	if (n < 8) return FALSE;
+	for (i = 4; i + 4 < n; i++) {
+		L9UINT32 q = i, dist;
+		int count = 0;
+		if (p[i-1] != 0xff || (p[i] & 0x80) || (p[i+1] & 0x0c) || p[i+2] < 4) continue;
+		for (;;) {
+			L9UINT32 len = ((p[q+1] & 0x0f) << 8) + p[q+2];
+			if (len > 0x3ff || q + len + 4 > n) break;
+			q += len;
+			if (p[q-1] != 0xff) { q -= len; break; }
+			if ((p[q] & 0x80) || (p[q+1] & 0x0c) || p[q+2] < 4) break;
+			count++;
+		}
+		if (count <= 10) continue;
+		if (i < ex1 && q > ex0) { i = q; continue; }	/* inside the datafile */
+		dist = i > anchor ? i - anchor : anchor - i;
+		if (dist < best) { best = dist; bestoff = i; found = 1; }
+		i = q;
+	}
+	if (found) *off = bestoff;
+	return found;
+}
+
 /* Carve out the part_index'th complete (self-contained) Level 9 datafile from
  * the current startfile and replace startfile with that single game. Without
  * this step Scan() picks the LARGEST datafile in a tape compilation, which is
@@ -1194,13 +1231,42 @@ static L9BOOL try_carve_datafile(int part_index)
 					if (l9_is_datafile(p, j, n)) { boundary = j; break; }
 				L9UINT32 trail = pic_trail_length(p, i + dl, boundary);
 				L9UINT32 keep = dl + trail;
-				L9BYTE *out = malloc(keep + 2);
+				L9UINT32 gfxoff = 0, gfxlen = 0, total;
+				L9BYTE *out;
+				/* No graphics immediately after the a-code: this may be a
+				 * 128K tape edition that pages its vector pictures in from
+				 * a separate, non-adjacent tape block.  Find that block and
+				 * append it so findsubs() can reach the pictures. */
+				if (trail == 0) {
+					L9UINT32 g;
+					if (find_gfx_run(p, n, i, i, i + dl, &g)) {
+						int b;
+						for (b = 0; b < cblk_n; b++)
+							if (g >= cblk_start[b]
+							    && g < cblk_start[b] + cblk_len[b]
+							    && cblk_start[b] + cblk_len[b] <= n) {
+								gfxoff = cblk_start[b];
+								gfxlen = cblk_len[b];
+								break;
+							}
+						if (!gfxlen) {	/* no tape-block match: keep a window */
+							gfxoff = g > 64 ? g - 64 : 0;
+							gfxlen = (g + 0x2000 <= n) ? 0x2000 : n - gfxoff;
+						}
+					}
+				}
+				total = keep + (gfxlen ? gfxlen + 2 : 0);
+				out = malloc(total + 2);
 				if (!out) return FALSE;
 				memcpy(out, p + i, keep);
-				out[keep] = out[keep + 1] = 0;
+				if (gfxlen) {
+					out[keep] = out[keep + 1] = 0;
+					memcpy(out + keep + 2, p + gfxoff, gfxlen);
+				}
+				out[total] = out[total + 1] = 0;
 				free(startfile);
 				startfile = out;
-				FileSize = keep + 2;
+				FileSize = total + 2;
 				return TRUE;
 			}
 			hits++;
