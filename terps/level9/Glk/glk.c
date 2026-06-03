@@ -7351,6 +7351,33 @@ gln_startup_code (int argc, char *argv[])
   if (argv_index == argc - 1)
     {
       gln_gamefile = argv[argv_index];
+
+      /*
+       * Several Level 9 +3 disk releases (Scapeghost, Gnome Ranger, ...) ship
+       * as a two-sided pair.  "Side A.dsk" holds the game (ACODE1-3.ACD) plus
+       * its initial pictures (TITLE.PIC, 1.PIC); "Side B.dsk" holds the rest
+       * of the pictures in the file ALLPICS.PIC.  If the user opens Side B,
+       * redirect to the sibling Side A so the actual game loads, and so the
+       * picture-extractor's forward Side A -> Side B walk picks up both intro
+       * pictures (Side A) and the rest (Side B). Without this, opening Side B
+       * would extract only ALLPICS and miss the Side-A pictures.  We only
+       * redirect when a sibling Side A.dsk actually exists, so a genuinely
+       * single-sided file named "... Side B.dsk" is left untouched.
+       */
+      {
+        static char gln_redirect_buf[MAX_PATH];
+        const char *side_b = " - Side B.dsk";
+        size_t flen = strlen (gln_gamefile), blen = strlen (side_b);
+        if (flen >= blen && flen < sizeof gln_redirect_buf
+            && strcmp (gln_gamefile + flen - blen, side_b) == 0)
+          {
+            memcpy (gln_redirect_buf, gln_gamefile, flen + 1);
+            gln_redirect_buf[flen - 5] = 'A';  /* flip 'B' before ".dsk" */
+            if (access (gln_redirect_buf, R_OK) == 0)
+              gln_gamefile = gln_redirect_buf;
+          }
+      }
+
       gln_game_message = NULL;
 #ifdef GARGLK
     {
