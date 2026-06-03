@@ -1509,6 +1509,9 @@ int DiskCatalogue(L9BYTE *raw, L9UINT32 rawlen, const char *ext3,
 	fbuf = malloc(0x40000);		/* picture files exceed the 0x20000 datafile cap */
 	if (!fbuf) { free(lf); return -1; }
 
+	char seen[64][12];
+	int nseen = 0;
+
 	for (base = 0; base + 2048 <= lflen && base <= 0x4000; base += 512) {
 		int eidx = 0, any = 0;
 		L9UINT32 fl;
@@ -1519,10 +1522,67 @@ int DiskCatalogue(L9BYTE *raw, L9UINT32 rawlen, const char *ext3,
 			    || (toupper((unsigned char)nm[8]) == ext3[0]
 				&& toupper((unsigned char)nm[9]) == ext3[1]
 				&& toupper((unsigned char)nm[10]) == ext3[2]))
-				{ cb(nm, fbuf, fl, ctx); count++; }
+				{
+					cb(nm, fbuf, fl, ctx); count++;
+					if (nseen < 64) memcpy(seen[nseen++], nm, 12);
+				}
 		}
 		if (any) break;		/* first valid catalogue wins */
 	}
+
+	/* Some +3 releases store picture files outside the +3DOS catalogue as raw
+	 * AMSDOS-headered data in otherwise-free sectors — e.g. Knight Orc keeps
+	 * its opening "1.PIC" as an uncatalogued file the directory scan never
+	 * sees.  Sweep the logical image at sector boundaries for valid AMSDOS
+	 * headers (128 bytes, byte-sum checksum at 67-68) whose 3-char extension
+	 * matches, and emit each whose name the catalogue pass didn't produce.
+	 * The emitted buffer keeps the 128-byte AMSDOS header, exactly like the
+	 * catalogued copies the bitmap decoder already skips. */
+	if (ext3) {
+		L9UINT32 p;
+		/* AMSDOS files start on a sector boundary, so step a sector at a time. */
+		for (p = 0; p + 128 <= lflen; p += 512) {
+			L9BYTE *h = lf + p;		/* candidate 128-byte AMSDOS header */
+			L9UINT32 sum = 0, dlen;
+			char nm[12];
+			int k, dup = 0;
+			/* Byte 0 is the user number (0-15); anything else isn't a header. */
+			if (h[0] > 15) continue;
+			/* Bytes 1-8 are the name, 9-11 the extension; require ours. */
+			if (toupper((unsigned char)h[9]) != ext3[0]
+			    || toupper((unsigned char)h[10]) != ext3[1]
+			    || toupper((unsigned char)h[11]) != ext3[2]) continue;
+			/* Copy the 11-char name (high bit is the read-only/flag bits);
+			   reject if any character is non-printable. */
+			for (k = 0; k < 11; k++) {
+				nm[k] = h[1 + k] & 0x7f;
+				if ((L9BYTE)nm[k] < 32) break;
+			}
+			if (k < 11) continue;
+			nm[11] = 0;
+			/* AMSDOS checksum: 16-bit sum of bytes 0-66 stored at 67-68. This
+			   is what distinguishes a real header from coincidental data; a
+			   zero sum means an all-zero (blank) sector, not a header. */
+			for (k = 0; k < 67; k++) sum += h[k];
+			if ((sum & 0xffff) == 0
+			    || (sum & 0xffff) != (L9UINT32)(h[67] | (h[68] << 8))) continue;
+			/* Bytes 64-66 hold the 24-bit file length (excludes the header).
+			   Bound it to a sane picture size that fits in the image. */
+			dlen = h[0x40] | (h[0x41] << 8) | (h[0x42] << 16);
+			if (dlen < 0x100 || dlen > 0x30000 || p + 128 + dlen > lflen) continue;
+			/* Skip names the +3DOS directory pass already emitted, so a
+			   catalogued picture (whose data also begins with this header)
+			   isn't produced twice. */
+			for (k = 0; k < nseen; k++)
+				if (memcmp(seen[k], nm, 11) == 0) { dup = 1; break; }
+			if (dup) continue;
+			/* Emit header + data; the bitmap decoder skips the 128-byte
+			   header itself, exactly as it does for catalogued copies. */
+			cb(nm, h, 128 + dlen, ctx); count++;
+			if (nseen < 64) memcpy(seen[nseen++], nm, 12);
+		}
+	}
+
 	free(fbuf);
 	free(lf);
 	return count;
