@@ -1628,12 +1628,110 @@ int CountTapeParts(const char *filename)
 	return parts;
 }
 
+/* ---- Compilation part-selection menu --------------------------------------
+ * Jewels of Darkness (Colossal Adventure / Adventure Quest / Dungeon
+ * Adventure) and Silicon Dreams (Snowball / Return to Eden / Worm in
+ * Paradise) ship as a single tape or disk holding several COMPLETE, standalone
+ * Level 9 datafiles. The original 128K/+3 releases booted a small BASIC loader
+ * that asked which game to run. This reproduces that loader: when such a
+ * multi-game image is opened without an explicit "#N" part selector, ask the
+ * player which game they want.
+ *
+ * NOTE: the third Level 9 anthology, Time and Magik, is intentionally excluded
+ * — it carries its own in-game (a-code) selection menu, so the interpreter
+ * must not impose one of its own. */
+
+/* Count the complete standalone datafiles in a flat (de-containered) image. */
+static int count_datafiles(L9BYTE *buf, L9UINT32 len)
+{
+	int parts = 0;
+	L9UINT32 i;
+	for (i = 0; i + 0x2a < len; i++)
+		if (l9_is_datafile(buf, i, len)) {
+			parts++;
+			i += (L9UINT32)L9WORD(buf + i);	/* skip this datafile (+1 via loop ++) */
+		}
+	return parts;
+}
+
+/* Flatten the raw image by container type, then count the complete standalone
+ * datafiles it carries. Disks and tapes are de-containered exactly as the
+ * loader does below; anything else is scanned as-is. */
+static int compilation_part_count(L9BYTE *raw, L9UINT32 rawlen, const char *filename)
+{
+	int n = 0;
+	if (rawlen > 0x100 &&
+	    (memcmp(raw, "EXTENDED", 8) == 0 || memcmp(raw, "MV - CPC", 8) == 0)) {
+		L9UINT32 lflen = 0;
+		L9BYTE *lf = dsk_to_logical(raw, rawlen, &lflen);
+		if (lf) { n = count_datafiles(lf, lflen); free(lf); }
+	} else if ((rawlen >= 10 && memcmp(raw, "ZXTape!\x1a", 8) == 0)
+		   || has_extension(filename, ".tap")) {
+		int is_tzx = (rawlen >= 10 && memcmp(raw, "ZXTape!\x1a", 8) == 0);
+		L9UINT32 olen = 0;
+		L9BYTE *flat = extract_tape(raw, rawlen, is_tzx, &olen);
+		if (flat) { n = count_datafiles(flat, olen); free(flat); }
+	} else {
+		n = count_datafiles(raw, rawlen);
+	}
+	return n;
+}
+
+/* Per-game titles for the trilogies, chosen by the image's filename. Returns a
+ * 3-entry title array, or NULL for a generic "Part N" menu. */
+static const char *const *compilation_titles(const char *filename)
+{
+	static const char *const jewels[]  = { "Colossal Adventure", "Adventure Quest", "Dungeon Adventure" };
+	static const char *const silicon[] = { "Snowball", "Return to Eden", "Worm in Paradise" };
+	char low[MAX_PATH];
+	size_t i;
+	for (i = 0; filename[i] && i + 1 < sizeof(low); i++)
+		low[i] = (char)tolower((unsigned char)filename[i]);
+	low[i] = '\0';
+	if (strstr(low, "jewel") || strstr(low, "darkness")) return jewels;
+	if (strstr(low, "silicon") || strstr(low, "dreams"))  return silicon;
+	/* The Time and Magik compilation is deliberately NOT handled here: it
+	 * ships its own in-game (a-code) menu to pick Lords of Time / Red Moon /
+	 * The Price of Magik, so the interpreter must leave its selection alone. */
+	return NULL;
+}
+
+/* Show the compilation menu and return the 1-based part the player picked
+ * (defaults to 1 on empty/garbage input). */
+static int select_compilation_part(int nparts, const char *filename)
+{
+	const char *const *titles = compilation_titles(filename);
+	char ibuff[64];
+	int i, choice = 0;
+
+	printstring("\rThis is a Level 9 compilation. Choose a game to play:\r\r");
+	for (i = 1; i <= nparts; i++) {
+		char line[80];
+		if (titles && i <= 3)
+			snprintf(line, sizeof line, "  %d. %s\r", i, titles[i - 1]);
+		else
+			snprintf(line, sizeof line, "  %d. Part %d\r", i, i);
+		printstring(line);
+	}
+	printstring("\rWhich would you like to play? ");
+
+	ibuff[0] = '\0';
+	if (os_input(ibuff, sizeof ibuff)) {
+		for (i = 0; ibuff[i]; i++)
+			if (ibuff[i] >= '1' && ibuff[i] <= '9') { choice = ibuff[i] - '0'; break; }
+	}
+	if (choice < 1 || choice > nparts) choice = 1;
+	printstring("\r");
+	return choice;
+}
+
 L9BOOL load(char *filename)
 {
 	/* Optional "#N" suffix selects the Nth game in a multi-part tape image
 	 * (.tzx/.tap). Strip it for the fopen path and skip past N-1 earlier
 	 * games after extraction. */
 	int part_index = 1;
+	int explicit_part = 0;	/* set when an explicit "#N" selector was given */
 	int joined = 0;		/* set once a split datafile has been reassembled */
 	char open_buf[MAX_PATH];
 	char *open_name = filename;
@@ -1644,6 +1742,7 @@ L9BOOL load(char *filename)
 			long n = strtol(hash + 1, &endp, 10);
 			if (n >= 1 && n <= 99 && *endp == '\0') {
 				part_index = (int)n;
+				explicit_part = 1;
 				size_t base_len = (size_t)(hash - filename);
 				if (base_len < sizeof(open_buf)) {
 					memcpy(open_buf, filename, base_len);
@@ -1696,6 +1795,23 @@ L9BOOL load(char *filename)
 			}
 			free(raw_z80);
 		}
+	}
+
+	/* A multi-game compilation (Jewels of Darkness, Silicon Dreams) loaded
+	 * without an explicit "#N" part: reproduce the original BASIC loader's
+	 * menu and let the player choose which game to run. The chosen part_index
+	 * then drives the same extraction/advance path as "#N".
+	 * The menu is gated on recognising the image as one of the three Level 9
+	 * anthologies by name (compilation_titles): structurally, an anthology of
+	 * separate games is indistinguishable from a single game that loads in
+	 * sequential parts (Gnome Ranger, Lancelot, the standalone Price of Magik,
+	 * the Adrian Mole games, ...), and offering a "pick a game" menu for those
+	 * would let the player start mid-story. The datafile count is a secondary
+	 * guard so a mis-named single-game file never prompts. */
+	if (!explicit_part && compilation_titles(open_name)) {
+		int nparts = compilation_part_count(startfile, FileSize, open_name);
+		if (nparts >= 2)
+			part_index = select_compilation_part(nparts, open_name);
 	}
 
 	/* Amstrad CPC / Spectrum +3 disk image: extract the Level 9 data from the
