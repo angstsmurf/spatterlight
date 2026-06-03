@@ -73,6 +73,7 @@
     BOOL commandScriptWasRunning;      // Track command script transitions
 
     BOOL scrolling;                    // YES during animated scroll to prevent re-entry
+    BOOL scrollToBottomPending;        // YES when a scrollToBottomAnimated callback is queued
     NSDate *scrollAdjustTimeStamp;
     CGFloat preScrollPosition;
 
@@ -1142,7 +1143,6 @@
     }
 
     NSNumber *key = @(ch);
-    BOOL scrolled = NO;
 
     if (self.glkctl.commandScriptRunning)
         [self scrollToBottomAnimated:NO];
@@ -1174,17 +1174,12 @@
                     [self scrollToBottomAnimated:NO];
                 } else
                     [self performScroll];
-                // To fix scrolling in the Adrian Mole games
-                scrolled = YES;
                 break;
         }
     }
 
     if (char_request && ch != keycode_Unknown) {
-        // To fix scrolling in the Adrian Mole games
-        if (!scrolled)
-            glkctl.shouldScrollOnCharEvent = YES;
-
+        glkctl.shouldScrollOnCharEvent = YES;
         [self sendKeypress:ch];
 
     } else if (line_request && (ch == keycode_Return ||
@@ -2237,6 +2232,14 @@ replacementString:(id)repl {
     // then, get the bottom
     CGFloat bottom = NSHeight(_textview.frame);
 
+    // If _lastseen is stale (e.g. a game restart truncated the textstorage
+    // without going through the clear-window path that resets it), it can
+    // point past the new document. Don't paginate to a position that no
+    // longer exists; treat it as 0 so the player's fresh viewport is held.
+    if ((CGFloat)_lastseen > bottom) {
+        _lastseen = 0;
+    }
+
     BOOL animate = !self.glkctl.commandScriptRunning;
     if (bottom - (CGFloat)_lastseen > NSHeight(scrollview.frame)) {
         NSLog(@"reallyPerformScroll: scrollToPosition: %ld", _lastseen);
@@ -2244,7 +2247,7 @@ replacementString:(id)repl {
     } else {
         scrollAdjustTimeStamp = [NSDate date];
         NSLog(@"reallyPerformScroll: scrollToBottomAnimated: %@", animate ? @"YES":@"NO");
-        [self scrollToBottomAnimated:animate];
+        [self scrollToBottomAnimated:animate respectCaps:YES];
     }
 }
 
@@ -2263,26 +2266,83 @@ replacementString:(id)repl {
             2 + _textview.textContainerInset.height + _textview.bottomPadding);
 }
 
-// Scroll to the very bottom of the text content. Forces a layout pass
-// first to ensure the text view frame reflects all current content.
+// Scroll to the very bottom of the text content. Call sites that surface
+// game output (reallyPerformScroll's auto path) should pass respectCaps:YES
+// so the callback doesn't race past unread text; call sites that act on the
+// user's explicit request (End key, line-input cursor follow, command-script
+// replay, restoreScroll) should pass NO so the scroll actually reaches the
+// bottom of the document.
 - (void)scrollToBottomAnimated:(BOOL)animate {
+    [self scrollToBottomAnimated:animate respectCaps:NO];
+}
+
+- (void)scrollToBottomAnimated:(BOOL)animate respectCaps:(BOOL)respectCaps {
     NSLog(@"scrollToBottomAnimated");
     lastAtTop = NO;
     lastAtBottom = YES;
 
     scrollAdjustTimeStamp = [NSDate date];
 
+    // Coalesce overlapping scroll-to-bottom requests. Without this, every
+    // PRINT-then-INITCHAR cycle from a chatty game queues a new 100ms-delayed
+    // callback; each one advances by one viewport (see the cap below), so N
+    // callbacks compound into N viewports of advance and the player misses
+    // unread text in between.
+    if (respectCaps && scrollToBottomPending)
+        return;
+    if (respectCaps)
+        scrollToBottomPending = YES;
+
     BufferTextView *blockTextView = _textview;
 
     scrolling = YES;
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        CGFloat bottom = NSMaxY(blockTextView.frame) - NSHeight(blockTextView.enclosingScrollView.contentView.bounds) + blockTextView.textContainerInset.height;
-
-
-        NSLog(@"scrollToBottomAnimated: scrollToPosition: %f", bottom);
+        if (respectCaps)
+            self->scrollToBottomPending = NO;
 
         NSScrollView *blockscrollview = blockTextView.enclosingScrollView;
+        CGFloat viewportHeight = NSHeight(blockscrollview.contentView.bounds);
+        CGFloat currentPosition = blockscrollview.contentView.bounds.origin.y;
+        CGFloat bottom = NSMaxY(blockTextView.frame) - viewportHeight + blockTextView.textContainerInset.height;
+
+        if (respectCaps) {
+            // The 100ms delay above means `bottom` is read after later PRINTs
+            // may have grown the document. If this callback fires after a
+            // different performScroll already paginated past the old bottom,
+            // jumping all the way to the new bottom would skip past unread
+            // text. Cap each callback to a single viewport's worth of advance
+            // so it behaves like one "more"-page step instead of a
+            // jump-to-end.
+            if (bottom - currentPosition > viewportHeight) {
+                bottom = currentPosition + viewportHeight;
+            }
+
+            // Also never advance past `_lastseen` — the bottom of the
+            // viewport at the user's last keypress. Auto-scroll exists to
+            // surface what the game just emitted; it must not race past
+            // content the player hasn't had a chance to acknowledge.
+            // Paginate scrolls to exactly _lastseen, so without this cap a
+            // follow-up scroll-to-bottom callback would advance another
+            // viewport and the player would miss the screen paginate just
+            // revealed. When _lastseen == 0 (the player hasn't pressed any
+            // key yet — e.g. the very first chunk of game output, like the
+            // "STOP THE TAPE" prompt) this clamps to 0 so the initial
+            // screen stays put until the player acknowledges it. If
+            // _lastseen now sits beyond the document (the textstorage was
+            // truncated by a game restart without the clear-window path
+            // resetting it), treat it as 0 so the new game's initial
+            // screen is held in place.
+            CGFloat lastseenCap = (CGFloat)self->_lastseen;
+            if (lastseenCap > NSMaxY(blockTextView.frame)) {
+                lastseenCap = 0;
+            }
+            if (bottom > lastseenCap) {
+                bottom = lastseenCap;
+            }
+        }
+
+        NSLog(@"scrollToBottomAnimated: scrollToPosition: %f", bottom);
 
         NSLog(@"scrollview.contentView.frame:%@", NSStringFromRect(blockscrollview.contentView.frame));
         NSLog(@"scrollview.contentView.bounds:%@", NSStringFromRect(blockscrollview.contentView.bounds));

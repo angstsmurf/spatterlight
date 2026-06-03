@@ -1186,10 +1186,13 @@
                 reqWin = self.gwindows[@(req->a1)];
             }
 
-            // Hack to fix the Level 9 Adrian Mole games.
-            // These request and cancel lots of char events every second,
-            // which breaks scrolling, as we normally scroll down
-            // one screen on every char event.
+            // Distinguish a meaningful INITCHAR (one that follows real game
+            // output) from one issued by a rapid CANCELCHAR/INITCHAR cycle
+            // some games use as a polling timer (notably the Level 9 Adrian
+            // Mole / Archers games). Only treat this INITCHAR as a real
+            // input prompt — for scrolling, VoiceOver, and menu detection —
+            // if a real output request preceded it, or it has been more
+            // than a second since the last keystroke.
             if (lastRequest == PRINT ||
                 lastRequest == SETZCOLOR ||
                 lastRequest == NEXTEVENT ||

@@ -798,11 +798,39 @@
              commandScriptName:@"Zork Zero"];
 }
 
-- (void)testMoleScrolling {
+- (void)testGrowingPainsScrolling {
+    [self performMoleScrollingTestWithFileName:@"mole.sna" smoothScroll:YES];
+}
+
+- (void)testSecretDiaryScrolling {
+    [self performMoleScrollingTestWithFileName:@"The Secret Diary Of Adrian Mole - Side 1.tzx" smoothScroll:YES];
+}
+
+- (void)testArchersScrolling {
+    [self performMoleScrollingTestWithFileName:@"The Archers - Side 1.tzx" smoothScroll:YES];
+}
+
+- (void)testGrowingPainsScrollingNoSmooth {
+    [self performMoleScrollingTestWithFileName:@"mole.sna" smoothScroll:NO];
+}
+
+- (void)testSecretDiaryScrollingNoSmooth {
+    [self performMoleScrollingTestWithFileName:@"The Secret Diary Of Adrian Mole - Side 1.tzx" smoothScroll:NO];
+}
+
+- (void)testArchersScrollingNoSmooth {
+    [self performMoleScrollingTestWithFileName:@"The Archers - Side 1.tzx" smoothScroll:NO];
+}
+
+// Shared scrolling test body for the Adrian Mole / Archers Level 9 games.
+// These games rapidly request and cancel char events on a timer, and the GUI
+// must distinguish that from real user keypresses so it only scrolls by one
+// screenful when the user actually presses space.
+- (void)performMoleScrollingTestWithFileName:(NSString *)fileName smoothScroll:(BOOL)smoothScroll {
     XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import completes"];
     XCTestExpectation *scrollTestExpectation = [self expectationWithDescription:@"Scroll test completes"];
 
-    NSURL *gameFileURL = [self gameFileURLForFileNamed:@"mole.sna"];
+    NSURL *gameFileURL = [self gameFileURLForFileNamed:fileName];
 
     [self deleteGameAtPath:gameFileURL.path];
 
@@ -815,6 +843,7 @@
     __block BOOL originalDeterminismSetting = NO;
     __block BOOL originalSlowDrawSetting = NO;
     __block BOOL originalAutosaveSetting = NO;
+    __block BOOL originalSmoothScrollSetting = NO;
     __block Theme *oldTheme = nil;
 
     [self observeImportCompletionWithInitialCount:initialCount
@@ -837,6 +866,8 @@
         game.theme.slowDrawing = NO;
         originalAutosaveSetting = game.theme.autosave;
         game.theme.autosave = NO;
+        originalSmoothScrollSetting = game.theme.smoothScroll;
+        game.theme.smoothScroll = smoothScroll;
 
         dispatch_async(dispatch_get_main_queue(), ^{
             NSWindow *gameWindow = [launcher playGame:game restorationHandler:nil];
@@ -889,6 +920,9 @@
                     NSScrollView *scrollView = bufferWin.textview.enclosingScrollView;
                     XCTAssertNotNil(scrollView, @"Buffer window should have a scroll view");
 
+                    CGFloat viewportHeight = scrollView.contentView.bounds.size.height;
+                    NSLog(@"Viewport height: %f", viewportHeight);
+
                     CGFloat scrollPositionBefore = scrollView.contentView.bounds.origin.y;
                     NSLog(@"Scroll position before wait: %f", scrollPositionBefore);
 
@@ -904,51 +938,81 @@
                                        @"Scroll position should not change during idle wait (was %f, now %f)",
                                        scrollPositionBefore, scrollPositionAfterWait);
 
-                        // Now send space keypresses and measure scroll changes
-                        CGFloat scrollPositionBeforeSpace = scrollPositionAfterWait;
+                        // Drive the game by repeatedly pressing '1' (picks the first
+                        // multiple-choice option, also advances past "more"/"press
+                        // any key" prompts in these Level 9 games). After each
+                        // press, verify the scroll position did not advance past
+                        // more than one viewport — that's the real "don't skip
+                        // unread text" invariant.
+                        const NSInteger kMaxPresses = 50;
+                        const NSInteger kNoProgressLimit = 3;
+                        const CGFloat scrollTolerance = 20.0;
 
-                        [bufferWin sendKeypress:' '];
+                        __block NSInteger pressCount = 0;
+                        __block NSInteger noProgressCount = 0;
 
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            CGFloat scrollAfterFirstSpace = scrollView.contentView.bounds.origin.y;
-                            CGFloat firstScrollDelta = scrollAfterFirstSpace - scrollPositionBeforeSpace;
-                            NSLog(@"Scroll position after first space: %f (delta: %f)", scrollAfterFirstSpace, firstScrollDelta);
+                        void (^finishUp)(void) = ^{
+                            game.theme.determinism = originalDeterminismSetting;
+                            game.theme.slowDrawing = originalSlowDrawSetting;
+                            game.theme.autosave = originalAutosaveSetting;
+                            game.theme.smoothScroll = originalSmoothScrollSetting;
+                            game.theme = oldTheme;
 
-                            [bufferWin sendKeypress:' '];
+                            [glkController.window performClose:nil];
+                            [scrollTestExpectation fulfill];
+                        };
+
+                        // Note: pressOneAndCheck self-references via __block, which
+                        // forms a retain cycle. Don't break it by nil-ing inside the
+                        // block — that releases the block we're currently executing
+                        // and crashes on the next captured-variable access. The
+                        // cycle is short-lived (one per test invocation) and
+                        // released along with the dispatch_after task chain.
+                        __block void (^pressOneAndCheck)(void) = nil;
+                        pressOneAndCheck = ^{
+                            if (pressCount >= kMaxPresses) {
+                                NSLog(@"Reached press cap of %ld; ending playthrough.", (long)kMaxPresses);
+                                finishUp();
+                                return;
+                            }
+
+                            CGFloat scrollBefore = scrollView.contentView.bounds.origin.y;
+                            CGFloat docBefore = scrollView.documentView.frame.size.height;
+
+                            [bufferWin sendKeypress:'1'];
+                            pressCount++;
 
                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                CGFloat scrollAfterSecondSpace = scrollView.contentView.bounds.origin.y;
-                                CGFloat secondScrollDelta = scrollAfterSecondSpace - scrollAfterFirstSpace;
-                                NSLog(@"Scroll position after second space: %f (delta: %f)", scrollAfterSecondSpace, secondScrollDelta);
+                                CGFloat scrollAfter = scrollView.contentView.bounds.origin.y;
+                                CGFloat docAfter = scrollView.documentView.frame.size.height;
+                                CGFloat scrollDelta = scrollAfter - scrollBefore;
+                                CGFloat docDelta = docAfter - docBefore;
 
-                                [bufferWin sendKeypress:' '];
+                                NSLog(@"Press %ld: scroll %f -> %f (delta %f), doc %f -> %f (delta %f)",
+                                      (long)pressCount, scrollBefore, scrollAfter, scrollDelta,
+                                      docBefore, docAfter, docDelta);
 
-                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                    CGFloat scrollAfterThirdSpace = scrollView.contentView.bounds.origin.y;
-                                    CGFloat thirdScrollDelta = scrollAfterThirdSpace - scrollAfterSecondSpace;
-                                    NSLog(@"Scroll position after third space: %f (delta: %f)", scrollAfterThirdSpace, thirdScrollDelta);
+                                XCTAssertLessThanOrEqual(scrollDelta, viewportHeight + scrollTolerance,
+                                                         @"Press %ld: scroll delta %f exceeds one viewport (%f)",
+                                                         (long)pressCount, scrollDelta, viewportHeight);
 
-                                    NSLog(@"Summary - scroll deltas on space: first=%f second=%f third=%f",
-                                          firstScrollDelta, secondScrollDelta, thirdScrollDelta);
+                                if (scrollDelta == 0 && docDelta == 0) {
+                                    noProgressCount++;
+                                    if (noProgressCount >= kNoProgressLimit) {
+                                        NSLog(@"%ld consecutive presses with no progress — assuming end of part 1.",
+                                              (long)kNoProgressLimit);
+                                        finishUp();
+                                        return;
+                                    }
+                                } else {
+                                    noProgressCount = 0;
+                                }
 
-                                    XCTAssert(round(firstScrollDelta) == round(secondScrollDelta));
-                                    XCTAssert(round(thirdScrollDelta) == round(secondScrollDelta));
-
-                                    NSLog(@"Total scroll from %f to %f (total delta: %f)",
-                                          scrollPositionBeforeSpace, scrollAfterThirdSpace,
-                                          scrollAfterThirdSpace - scrollPositionBeforeSpace);
-
-                                    // Restore theme settings and clean up
-                                    game.theme.determinism = originalDeterminismSetting;
-                                    game.theme.slowDrawing = originalSlowDrawSetting;
-                                    game.theme.autosave = originalAutosaveSetting;
-                                    game.theme = oldTheme;
-
-                                    [glkController.window performClose:nil];
-                                    [scrollTestExpectation fulfill];
-                                });
+                                pressOneAndCheck();
                             });
-                        });
+                        };
+
+                        pressOneAndCheck();
                     });
                 });
             });
@@ -963,7 +1027,7 @@
 
     [importer addFiles:@[gameFileURL] options:options];
 
-    [self waitForExpectationsWithTimeout:60.0 handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:90.0 handler:^(NSError * _Nullable error) {
         [self deleteGameAtPath:gameFileURL.path];
         if (error) {
             XCTFail(@"Test timed out: %@", error);
