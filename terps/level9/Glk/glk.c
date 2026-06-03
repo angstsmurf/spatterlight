@@ -4010,6 +4010,7 @@ gln_wait_for_slow_draw (void)
    * same length whatever the timer period.
    */
   if (finished == TRUE) {
+    glk_request_char_event (gln_main_window);
     glk_request_timer_events (GLN_GRAPHICS_TIMEOUT);
     glui32 start_millisecs = gln_graphics_get_millisecs ();
     while (gln_graphics_get_millisecs () - start_millisecs
@@ -4020,6 +4021,7 @@ gln_wait_for_slow_draw (void)
       if (event.type == evtype_CharInput)
         break;
     }
+    glk_cancel_char_event (gln_main_window);
   }
 }
 
