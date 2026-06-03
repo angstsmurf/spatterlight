@@ -213,6 +213,28 @@ int i;
 #endif
 	if (p == NULL)
 		p = NewName;
+
+	/* +3/CPC .dsk compilations (e.g. Time and Magik) pack their sub-games as
+	 * GAMEDAT_N + ACODE_N inside one image, with no part digit in the filename
+	 * to bump. Select the Nth sub-game with a "#N" suffix that load() parses,
+	 * replacing any existing one. */
+	{
+		char *hash = strrchr(p, '#');
+		size_t blen = hash ? (size_t)(hash - p) : strlen(p);
+		if (blen >= 4
+		    && (p[blen-4]=='.')
+		    && (p[blen-3]=='d'||p[blen-3]=='D')
+		    && (p[blen-2]=='s'||p[blen-2]=='S')
+		    && (p[blen-1]=='k'||p[blen-1]=='K'))
+		{
+			if (hash) *hash = 0;
+			i = (int)strlen(NewName);
+			if (i + 4 < Size)
+				snprintf(NewName + i, Size - i, "#%d", n);
+			return;
+		}
+	}
+
 	for (i = strlen(p)-1; i >= 0; i--)
 	{
 		if (isdigit(p[i]))
