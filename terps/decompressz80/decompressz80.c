@@ -549,6 +549,42 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length)
     return uncompressed;
 }
 
+/* Decompress a .z80 snapshot and return all RAM pages in page-index order
+ * (slot N is Spectrum page N, regardless of where it was mapped at the time
+ * the snapshot was taken). Pages not present in the snapshot are zero-filled. */
+uint8_t *DecompressZ80Pages(uint8_t *raw_data, size_t length,
+    int *is_128k, int *banked_page)
+{
+    libspectrum_snap *snap = libspectrum_new(libspectrum_snap, 1);
+    for (int i = 0; i < SNAPSHOT_RAM_PAGES; i++)
+        libspectrum_snap_set_pages(snap, i, NULL);
+    if (internal_z80_read(snap, raw_data, length) != LIBSPECTRUM_ERROR_NONE) {
+        free(snap);
+        return NULL;
+    }
+
+    /* 8 pages × 0x4000 bytes; zero-filled for any page the snapshot didn't
+     * provide. */
+    uint8_t *out = calloc(8, 0x4000);
+    if (out) {
+        for (int i = 0; i < 8; i++)
+            if (snap->pages[i])
+                memcpy(out + i * 0x4000, snap->pages[i], 0x4000);
+    }
+
+    if (is_128k)
+        *is_128k = (snap->machine != LIBSPECTRUM_MACHINE_48);
+    if (banked_page)
+        *banked_page = snap->out_128_memoryport & 0x07;
+
+    for (int i = 0; i < SNAPSHOT_RAM_PAGES; i++)
+        if (snap->pages[i])
+            free(snap->pages[i]);
+    free(snap);
+
+    return out;
+}
+
 libspectrum_error internal_z80_read(libspectrum_snap *snap,
     const uint8_t *buffer,
     size_t buffer_length)
