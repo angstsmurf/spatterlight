@@ -1699,3 +1699,69 @@ uint8_t *GetTZXBlock(int blockno, uint8_t *srcbuf, size_t *length)
     memcpy(result, ptr, *length);
     return result;
 }
+
+uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
+    size_t *out_len, size_t *blk_off, size_t *blk_len, int *n_blk, int max_blk)
+{
+    uint8_t *out = NULL;
+    size_t olen = 0, pos = is_tzx ? 10 : 0;
+    int nblk = 0;
+
+    if (n_blk)
+        *n_blk = 0;
+
+    while (pos + (is_tzx ? 1u : 2u) <= raw_len) {
+        size_t blen;
+        const uint8_t *payload;
+
+        if (is_tzx) {
+            int id = raw[pos++];
+            if (id == 0x10) {            /* standard speed data block */
+                if (pos + 4 > raw_len) break;
+                blen = raw[pos+2] | (raw[pos+3] << 8); pos += 4;
+            } else if (id == 0x11) {     /* turbo speed data block */
+                if (pos + 18 > raw_len) break;
+                blen = raw[pos+15] | (raw[pos+16] << 8) | (raw[pos+17] << 16); pos += 18;
+            } else if (id == 0x30) {     /* text description */
+                if (pos >= raw_len) break;
+                pos += 1 + raw[pos]; continue;
+            } else if (id == 0x20) {     /* pause / stop the tape */
+                pos += 2; continue;
+            } else if (id == 0x21) {     /* group start */
+                if (pos >= raw_len) break;
+                pos += 1 + raw[pos]; continue;
+            } else if (id == 0x22) {     /* group end */
+                continue;
+            } else if (id == 0x32) {     /* archive info */
+                if (pos + 2 > raw_len) break;
+                pos += 2 + (raw[pos] | (raw[pos+1] << 8)); continue;
+            } else {
+                break;                   /* unknown block: stop here */
+            }
+        } else {
+            blen = raw[pos] | (raw[pos+1] << 8); pos += 2;
+            if (blen == 0) break;
+        }
+
+        if (pos + blen > raw_len) break;
+        payload = raw + pos;
+        if (blen > 2 && payload[0] == 0xff) {    /* ROM data block */
+            uint8_t *grown = realloc(out, olen + (blen - 2));
+            if (!grown) { free(out); return NULL; }
+            out = grown;
+            if (blk_off && blk_len && nblk < max_blk) {
+                blk_off[nblk] = olen;
+                blk_len[nblk] = blen - 2;
+                nblk++;
+            }
+            memcpy(out + olen, payload + 1, blen - 2);   /* strip flag + checksum */
+            olen += blen - 2;
+        }
+        pos += blen;
+    }
+
+    if (n_blk)
+        *n_blk = nblk;
+    *out_len = olen;
+    return out;
+}
