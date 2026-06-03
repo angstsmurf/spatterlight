@@ -3994,6 +3994,18 @@ gln_wait_for_slow_draw (void)
                                     x_offset, y_offset,
                                     gln_graphics_width,
                                     gln_graphics_height);
+      /*
+       * Finalize the reveal exactly as DrawSomeL9VectorPixels() does when it
+       * completes naturally: empty the buffer and stop the timer.  Otherwise
+       * the timer keeps firing and, once os_cleargraphics() returns and the
+       * next picture's frame pixels start accumulating, a background timeout
+       * reveals that frame on its own - before its detail pixels have been
+       * pumped - leaving a blank framed picture.
+       */
+      VectorState = SHOWING_VECTOR_IMAGE;
+      FreePixels ();
+      current_draw_instruction = 0;
+      gln_graphics_stop ();
       finished = FALSE;
       break;
     }
