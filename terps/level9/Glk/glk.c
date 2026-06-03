@@ -7043,6 +7043,7 @@ os_set_filenumber (char *newname, int size, int file_number)
     if (hash) { saved = *hash; *hash = '\0'; }
     int is_tape = gln_str_ends_with (basename, ".tzx") ||
                   gln_str_ends_with (basename, ".tap");
+    int is_disk = gln_str_ends_with (basename, ".dsk");
     if (hash) *hash = saved;
     if (is_tape) {
       int part = file_number;
@@ -7067,6 +7068,31 @@ os_set_filenumber (char *newname, int size, int file_number)
       gln_output_flush ();
       gln_game_prompted ();
       gln_standout_string ("\nNext part: ");
+      gln_standout_string (basename);
+      gln_standout_string ("\n\n");
+      gln_gameid_game_name_reset ();
+      gln_watchdog_tick ();
+      return;
+    }
+    if (is_disk) {
+      /* +3/CPC disk compilations (e.g. Time and Magik) pack their sub-games
+       * as GAMEDAT_N + ACODE_N in a single image; the disk filename carries
+       * no part digit to bump.  Select the Nth sub-game with a "#N" suffix
+       * that level9.c's load()/extract_dsk parse, replacing any existing one. */
+      char *write_at;
+      int room;
+      if (hash) *hash = '\0';
+      write_at = newname + strlen (newname);
+      room = size - (int)(write_at - newname);
+      if (room < 5) {
+        gln_watchdog_tick ();
+        return;
+      }
+      snprintf (write_at, room, "#%d", file_number);
+
+      gln_output_flush ();
+      gln_game_prompted ();
+      gln_standout_string ("\nNext disk file: ");
       gln_standout_string (basename);
       gln_standout_string ("\n\n");
       gln_gameid_game_name_reset ();
