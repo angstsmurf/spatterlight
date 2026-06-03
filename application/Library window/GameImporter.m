@@ -345,15 +345,36 @@ void freeContext(void **ctx) {
     if (!terp)
         terp = gFormatMap[formatStr];
 
-    if (!terp || ([extension isEqualToString:@"dat"] &&
-         !(([formatStr isEqualToString:@"zcode"] && [self checkZcode:path]) ||
-           [formatStr isEqualToString:@"level9"] ||
-           [formatStr isEqualToString:@"advsys"] ||
-           [formatStr isEqualToString:@"sagaplus"] ||
-           [formatStr isEqualToString:@"scott"] )) ||
-        ([extension isEqualToString:@"gam"] && ![formatStr isEqualToString:@"tads2"]) ||
-        (([extension isEqualToString:@"msa"] || [extension isEqualToString:@"st"]) && ![formatStr isEqualToString:@"sagaplus"]) ||
-        (([extension isEqualToString:@"d64"] || [extension isEqualToString:@"dsk"]) && ![formatStr isEqualToString:@"scott"] && ![formatStr isEqualToString:@"taylor"] && ![formatStr isEqualToString:@"sagaplus"])) {
+    // Some extensions are used across many unrelated formats (e.g. .dsk could be a
+    // Scott Adams disk image, a Level 9 game, a Taylor adventure, etc.). For each
+    // such ambiguous extension, list the formats we actually know how to handle;
+    // any other format reported by babel is rejected. This guards against, e.g.,
+    // a random .dsk disk image being misidentified.
+    static NSDictionary<NSString *, NSSet<NSString *> *> *allowedFormatsByExtension;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        allowedFormatsByExtension = @{
+            @"dat": [NSSet setWithObjects:@"zcode", @"level9", @"advsys", @"sagaplus", @"scott", nil],
+            @"gam": [NSSet setWithObjects:@"tads2", nil],
+            @"msa": [NSSet setWithObjects:@"sagaplus", nil],
+            @"st":  [NSSet setWithObjects:@"sagaplus", nil],
+            @"d64": [NSSet setWithObjects:@"scott", @"taylor", @"sagaplus", @"level9", nil],
+            @"dsk": [NSSet setWithObjects:@"scott", @"taylor", @"sagaplus", @"level9", nil],
+        };
+    });
+
+    NSSet<NSString *> *allowedFormats = allowedFormatsByExtension[extension];
+    BOOL extensionIsAmbiguous = (allowedFormats != nil);
+    BOOL formatMatchesExtension = [allowedFormats containsObject:formatStr];
+
+    // .dat + zcode additionally requires the file to actually look like Z-code,
+    // since plenty of unrelated games ship a story file called e.g. "story.dat".
+    if (formatMatchesExtension && [extension isEqualToString:@"dat"] &&
+        [formatStr isEqualToString:@"zcode"] && ![self checkZcode:path]) {
+        formatMatchesExtension = NO;
+    }
+
+    if (!terp || (extensionIsAmbiguous && !formatMatchesExtension)) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
