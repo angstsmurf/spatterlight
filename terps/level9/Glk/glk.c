@@ -1602,6 +1602,16 @@ static Colour gln_graphics_palette[GLN_PALETTE_SIZE]; /* = { 0, ... }; */
 static int gln_graphics_picture = -1;
 
 /*
+ * The x,y offset and "colorize" (gli_z6_colorize) preference that the current
+ * picture was decoded with, kept so it can be re-decoded with identical
+ * parameters when only the colour preference has changed (see
+ * gln_graphics_recolor).  -1 colorize means "no picture decoded yet".
+ */
+static int gln_graphics_picture_x = 0,
+           gln_graphics_picture_y = 0,
+           gln_graphics_colorize = -1;
+
+/*
  * Flags set on new picture, and on resize or arrange events, and a flag
  * to indicate whether background repaint is stopped or active.
  */
@@ -3146,9 +3156,17 @@ os_show_bitmap (int picture, int x, int y)
 
   /*
    * Note the last thing passed to os_show_bitmap, to avoid possible repaints
-   * of the current picture.
+   * of the current picture.  Also remember the decode parameters (offset and
+   * the colour preference in force) so the picture can be re-decoded later if
+   * the colour preference changes (see gln_graphics_recolor).
    */
   gln_graphics_picture = picture;
+  gln_graphics_picture_x = x;
+  gln_graphics_picture_y = y;
+  {
+    extern int gli_z6_colorize;
+    gln_graphics_colorize = gli_z6_colorize ? 1 : 0;
+  }
 
   /* Calculate the picture size in bytes. */
   picture_bytes = bitmap->width * bitmap->height * sizeof (*bitmap->bitmap);
@@ -3192,6 +3210,67 @@ os_show_bitmap (int picture, int x, int y)
             gln_graphics_hold_picture (picture);
         }
     }
+}
+
+
+/*
+ * gln_graphics_recolor()
+ *
+ * Re-decode and repaint the current picture when the "Colorize 1-bit graphics"
+ * preference (gli_z6_colorize) has changed since it was last decoded, so a
+ * CPC/+3 picture switches between full colour and monochrome on the fly.
+ * Called on arrange/redraw events, which Glk delivers when the preference is
+ * toggled.  Returns TRUE if it re-decoded the picture (so the caller can skip
+ * the normal repaint), or FALSE when there is nothing to recolor — preference
+ * unchanged, no current picture, or graphics not displayed — in which case the
+ * caller's gln_graphics_paint() handles the event as usual.
+ */
+static int
+gln_graphics_recolor (void)
+{
+  extern int gli_z6_colorize;
+  Bitmap *bitmap;
+  long picture_bytes;
+  int colorize = gli_z6_colorize ? 1 : 0;
+
+  if (!gln_graphics_enabled || !gln_graphics_are_displayed ()
+      || gln_graphics_interpreter_state != GLN_GRAPHICS_BITMAP_MODE)
+    return FALSE;
+  if (gln_graphics_picture < 0 || colorize == gln_graphics_colorize)
+    return FALSE;
+
+  /* Re-decode the same picture, at the same offset, with the new preference. */
+  bitmap_zx_set_colour (colorize ? TRUE : FALSE);
+  bitmap = DecodeBitmap (gln_graphics_bitmap_directory,
+                         gln_graphics_bitmap_type, gln_graphics_picture,
+                         gln_graphics_picture_x, gln_graphics_picture_y);
+  if (!bitmap)
+    return FALSE;
+  gln_graphics_colorize = colorize;
+
+  /* Replace the cached bitmap, dimensions, and palette, exactly as
+   * os_show_bitmap() does for a freshly delivered picture. */
+  picture_bytes = bitmap->width * bitmap->height * sizeof (*bitmap->bitmap);
+  free (gln_graphics_bitmap);
+  gln_graphics_bitmap = gln_malloc (picture_bytes);
+  memcpy (gln_graphics_bitmap, bitmap->bitmap, picture_bytes);
+  gln_graphics_width = bitmap->width;
+  gln_graphics_height = bitmap->height;
+  memset (gln_graphics_palette, 0, sizeof (gln_graphics_palette));
+  memcpy (gln_graphics_palette, bitmap->palette,
+          bitmap->npalette * sizeof (bitmap->palette[0]));
+
+  /*
+   * Cancel any in-progress picture hold (the long pause that keeps the title
+   * or first in-game picture on screen) so the new colour appears at once
+   * rather than after the hold expires, and force a full re-render as for a
+   * new picture.  Returning TRUE lets the caller skip the gln_graphics_paint()
+   * repaint, whose smoothing delay would otherwise postpone the redraw.
+   */
+  gln_graphics_hold_timeouts = 0;
+  gln_graphics_new_picture = TRUE;
+  gln_graphics_start ();
+  return TRUE;
 }
 
 
@@ -6500,9 +6579,13 @@ gln_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
         {
         case evtype_Arrange:
         case evtype_Redraw:
-          /* Refresh any sensitive windows on size events. */
+          /* Refresh any sensitive windows on size events.  A colour-preference
+           * toggle arrives as one of these too: if it changed, re-decode the
+           * current picture and repaint it at once; otherwise fall back to the
+           * normal resize repaint. */
           gln_status_redraw ();
-          gln_graphics_paint ();
+          if (!gln_graphics_recolor ())
+            gln_graphics_paint ();
           break;
 
         case evtype_Timer:
