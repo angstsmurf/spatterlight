@@ -16,7 +16,7 @@
 
 #define FORMAT level9
 #define HOME_PAGE "http://www.if-legends.org/~l9memorial/html/home.html"
-#define FORMAT_EXT ".l9,.sna,.dat,.tap,.tzx,.z80,"
+#define FORMAT_EXT ".l9,.sna,.dat,.tap,.tzx,.z80,.dsk"
 #define NO_METADATA
 #define NO_COVER
 
@@ -324,10 +324,6 @@ static struct l9rec l9_registry[] = {
     { 0x5cbc, 0xa5, "LEVEL9-017-1" }, // Scapeghost, pt. 1 GD (Amstrad CPC/Spectrum +3)
     { 0x762e, 0x82, "LEVEL9-017-1" }, // Scapeghost, pt. 1 GD (Spectrum 128)
     { 0xb613, 0x4c, "LEVEL9-017-1" }, // Scapeghost, pt. 1 (Commodore 64 TO/MSX *converted*)
-    // Whole-disk Extended CPC/Spectrum +3 disk images. The a-code is split
-    // into separate GAMEDATn.DAT + ACODEn.ACD files and stored across
-    // sector-interleaved tracks, so the scanner can't extract it; match the
-    // whole image instead. IFID is that of the first game on the disk.
     { 0x99bd, 0x65, "LEVEL9-017-2" }, // Scapeghost, pt. 2 (Amiga/PC/ST)
     { 0x8f43, 0xc9, "LEVEL9-017-2" }, // Scapeghost, pt. 2 (Commodore 64 Gfx)
     { 0x8a12, 0xe3, "LEVEL9-017-2" }, // Scapeghost, pt. 2 (Spectrum 48)
@@ -384,12 +380,20 @@ static struct l9filerec l9_file_registry[] = {
     { 0xa705, 0x3dda, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (Spectrum)
     { 0xaec9, 0xcc6c, "LEVEL9-001-2" }, // Adrian Mole I, pt. 2 (Spectrum Z80, *corrupt* dump)
     { 0x2f900, 0xaec7, "LEVEL9-005" }, // Jewels of Darkness (Amstrad CPC/Spectrum +3 disk; 1st game Colossal Adventure)
+    { 0x2f900, 0xbaa8, "LEVEL9-013" }, // Time and Magic GD (Amstrad CPC/Spectrum +3 disk; 1st game Lords of Time)
+    { 0x2f900, 0xa151, "LEVEL9-013" }, // Time and Magic GD (Amstrad CPC/Spectrum +3 disk; side B)
+
     { 0x2f900, 0x924f, "LEVEL9-011-1" }, // Knight Orc (Amstrad CPC/Spectrum +3, game disk; 1st part)
     { 0x2f900, 0xe840, "LEVEL9-011-1" }, // Knight Orc (Amstrad CPC/Spectrum +3, graphics disk: only contains the file ALLPICS.PIC)
     { 0x17c38, 0xec57, "LEVEL9-014" }, // Price of Magik /T&M TZX (Spectrum 48)
     { 0x17ba0, 0xbb69, "LEVEL9-014" }, // Price of Magik /T&M TZX (Spectrum 128)
+    // Whole-disk Extended CPC/Spectrum +3 disk images. The a-code is split
+    // into separate GAMEDATn.DAT + ACODEn.ACD files and stored across
+    // sector-interleaved tracks, so the scanner can't extract it; match the
+    // whole image instead. IFID is that of the first game on the disk.
     { 0x2f900, 0x59bb, "LEVEL9-017-1" }, // Scapeghost (Amstrad CPC/Spectrum +3, game disk: GAMEDAT1-3/ACODE1-3)
     { 0x2f900, 0x37ba, "LEVEL9-017-1" }, // Scapeghost (Amstrad CPC/Spectrum +3, graphics disk: ALLPICS.PIC)
+    { 0x2f900, 0xded3, "LEVEL9-009-1" }, // Gnome Rangeer (Amstrad CPC/Spectrum +3, graphics disk: ALLPICS.PIC)
     { 0x2f900, 0xbc42, "LEVEL9-018" }, // Silicon Dreams (Amstrad CPC/Spectrum +3 disk; 1st game Snowball)
     { 0xb433, 0xd55c, "LEVEL9-019-1" }, // The Archers, pt. 1 (Spectrum)
     { 0xb08e, 0x9a19, "LEVEL9-019-2" }, // The Archers, pt. 2 (Spectrum Z80, *corrupt* dump)
@@ -478,7 +482,7 @@ static int v3_recognition_phase (int phase,unsigned char *sf, int32 extent, int3
              * the data optionally ending in two zero bytes (phase 1 only), and
              * at least two of the first eight address-table entries forming a
              * consistent running sum. */
-            int padded = (end >= 2 && sf[end-1] == 0 && sf[end-2] == 0) ||
+            int padded = (end >= 2 && end <= extent && sf[end-1] == 0 && sf[end-2] == 0) ||
                          (end <= extent-3 && sf[end+1] == 0 && sf[end+2] == 0);
             if (end <= extent && (phase == 2 || padded)
                 && *l > 0x4000 && *l <= 0xdb00 && sf[i+0x0d] == 0)
