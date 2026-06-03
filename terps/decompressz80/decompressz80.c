@@ -512,7 +512,11 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length)
             *length = 0xc000;
         }
 
-    } else if (snap->machine == LIBSPECTRUM_MACHINE_128) {
+    } else if (snap->machine == LIBSPECTRUM_MACHINE_128
+            || snap->machine == LIBSPECTRUM_MACHINE_PLUS2
+            || snap->machine == LIBSPECTRUM_MACHINE_PLUS2A
+            || snap->machine == LIBSPECTRUM_MACHINE_PLUS3
+            || snap->machine == LIBSPECTRUM_MACHINE_PLUS3E) {
       /* 128K: pages 5 and 2 are always mapped; the third slot depends
          on the last value written to port 0x7FFD. Append all remaining
          banks after the first three. */
@@ -729,6 +733,9 @@ static libspectrum_error get_machine_type_v3(libspectrum_snap *snap,
         libspectrum_snap_set_machine(snap, LIBSPECTRUM_MACHINE_48);
         break;
     case Z80_MACHINE_128:
+        libspectrum_snap_set_machine(snap, LIBSPECTRUM_MACHINE_128);
+        break;
+    case Z80_MACHINE_128_IF1:
         libspectrum_snap_set_machine(snap, LIBSPECTRUM_MACHINE_128);
         break;
     case Z80_MACHINE_128_MGT:
