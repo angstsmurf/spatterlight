@@ -3944,6 +3944,14 @@ os_cleargraphics (void)
     }
 
   gln_linegraphics_clear_context ();
+
+  /*
+   * Revealing and holding the picture above can dwell here for several seconds
+   * of real time.  That is interpreter-side display time, not the game looping,
+   * so tick the watchdog before returning - otherwise the elapsed time counts
+   * against the infinite-loop timeout and trips a false "infinite loop" prompt.
+   */
+  gln_watchdog_tick ();
 }
 
 void
