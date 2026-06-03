@@ -3899,6 +3899,7 @@ skip:         for (x++;
  */
 
 static void gln_wait_for_slow_draw (void);
+static void gln_output_flush (void);
 
 void
 os_cleargraphics (void)
@@ -4000,6 +4001,15 @@ gln_wait_for_slow_draw (void)
   while (gln_graphics_active);
 
   glk_cancel_char_event (gln_main_window);
+
+  /*
+   * The picture is now fully on screen.  Flush any game text buffered since the
+   * previous picture so it appears alongside this one, matching the original's
+   * picture-then-text-then-picture interleaving.  Without this, os_cleargraphics
+   * holds each picture but leaves the text buffered until the next input call,
+   * which would then dump every picture's text at once.
+   */
+  gln_output_flush ();
 
   /*
    * Now wait the title pause, or until a keypress.  We do this in graphics
