@@ -1563,12 +1563,21 @@ static const glui32 GLN_GRAPHICS_PROPORTION = 30;
 /*
  * Special picture numbers that get their own handling: the title (0) and the
  * first in-game picture (1), both of which are otherwise instantly overwritten
- * by the next picture before they can be seen.  Plus the count of timeouts to
- * wait on after such a picture has fully rendered (~2 seconds).
+ * by the next picture before they can be seen.
  */
 static const int GLN_GRAPHICS_TITLE_PICTURE = 0,
-                 GLN_GRAPHICS_FIRST_PICTURE = 1,
-                 GLN_GRAPHICS_TITLE_WAIT = 400;
+                 GLN_GRAPHICS_FIRST_PICTURE = 1;
+
+/*
+ * How long to hold such a picture on screen once it has fully rendered, in
+ * milliseconds (~4 seconds).  This is a wall-clock duration, measured against
+ * the Glk real-time clock, rather than a count of background timeouts: the
+ * timer period differs a lot between line graphics (fast) and bitmap graphics
+ * (slow), and a requested period is in any case floored to the configured
+ * minimum, so counting timeouts gives wildly different pauses.  Measuring real
+ * time keeps the pause about the same in both kinds of game.
+ */
+static const glui32 GLN_GRAPHICS_TITLE_WAIT_MS = 4000;
 
 /*
  * Border and shading control.  For cases where we can't detect the back-
@@ -1620,13 +1629,15 @@ static int gln_graphics_new_picture = FALSE,
            gln_graphics_active = FALSE;
 
 /*
- * Count of background timeouts for which a newly-arrived picture's paint is
- * postponed, to keep the picture currently on screen visible for a moment
- * first (used to hold the first in-game picture before the one that would
- * otherwise instantly overwrite it).  Counted down in gln_graphics_timeout()
- * without blocking the interpreter, and cleared by player input.
+ * Picture hold: while active, a newly-arrived picture's paint is postponed to
+ * keep the picture currently on screen visible for a moment first (used to
+ * hold the first in-game picture before the one that would otherwise instantly
+ * overwrite it).  The hold lasts GLN_GRAPHICS_TITLE_WAIT_MS of real time from
+ * gln_graphics_hold_start, is released in gln_graphics_timeout() without
+ * blocking the interpreter, and is cleared early by player input.
  */
-static glui32 gln_graphics_hold_timeouts = 0;
+static int gln_graphics_hold_active = FALSE;
+static glui32 gln_graphics_hold_start = 0;
 
 /*
  * State to monitor the state of interpreter graphics.  The values of the
@@ -2622,6 +2633,25 @@ gln_graphics_paint_garglk(glui32 palette[],
 
 
 /*
+ * gln_graphics_get_millisecs()
+ *
+ * Return a millisecond timestamp from the Glk real-time clock, used to hold
+ * title and first pictures for a fixed wall-clock duration rather than a fixed
+ * number of background timeouts (whose real period varies with the timer rate
+ * and the configured minimum).  Only differences between returned values are
+ * used, so the unsigned wrap of the seconds-times-1000 term is harmless.
+ */
+static glui32
+gln_graphics_get_millisecs (void)
+{
+  glktimeval_t now;
+
+  glk_current_time (&now);
+  return (glui32) now.low_sec * 1000 + (glui32) now.microsec / 1000;
+}
+
+
+/*
  * gln_graphics_timeout()
  *
  * This is a background function, called on Glk timeouts.  Its job is to
@@ -2680,10 +2710,12 @@ gln_graphics_timeout (void)
    * background timeout, so it delays the next picture without blocking the
    * interpreter, which carries on running meanwhile.
    */
-  if (gln_graphics_hold_timeouts > 0)
+  if (gln_graphics_hold_active)
     {
-      gln_graphics_hold_timeouts--;
-      return;
+      if (gln_graphics_get_millisecs () - gln_graphics_hold_start
+          < GLN_GRAPHICS_TITLE_WAIT_MS)
+        return;
+      gln_graphics_hold_active = FALSE;
     }
 
   /*
@@ -3037,7 +3069,7 @@ static void
 gln_graphics_hold_picture (int picture)
 {
   event_t event;
-  int count;
+  glui32 start_millisecs;
 
   if (picture == GLN_GRAPHICS_TITLE_PICTURE)
     gln_standout_string ("\n[ Press any key to skip the title picture... ]\n\n");
@@ -3062,26 +3094,31 @@ gln_graphics_hold_picture (int picture)
 
   /*
    * For pictures other than the title, don't block: the image is on screen
-   * now, so arm a non-blocking hold (counted down by gln_graphics_timeout,
-   * cleared by input) that postpones the next picture's paint, then return so
-   * the game keeps running.
+   * now, so arm a non-blocking hold (released by gln_graphics_timeout once the
+   * wait duration elapses, cleared by input) that postpones the next picture's
+   * paint, then return so the game keeps running.
    */
   if (picture != GLN_GRAPHICS_TITLE_PICTURE)
     {
-      gln_graphics_hold_timeouts = GLN_GRAPHICS_TITLE_WAIT;
+      gln_graphics_hold_active = TRUE;
+      gln_graphics_hold_start = gln_graphics_get_millisecs ();
       glk_cancel_char_event (gln_main_window);
       gln_watchdog_tick ();
       return;
     }
 
   /*
-   * Now wait another couple of seconds, or until a keypress.  We'll do this
-   * in graphics timeout chunks, so that if graphics restarts while we're
-   * delaying, and it requests timer events and overwrites ours, we wind up
-   * with the identical timer event period to the one we're expecting anyway.
+   * Now wait the title pause, or until a keypress.  We do this in graphics
+   * timeout chunks, so that if graphics restarts while we're delaying, and it
+   * requests timer events and overwrites ours, we wind up with the identical
+   * timer event period to the one we're expecting anyway.  The number of
+   * chunks isn't fixed: we stop once GLN_GRAPHICS_TITLE_WAIT_MS of real time
+   * has passed, so the pause is the same length whatever the timer period.
    */
   glk_request_timer_events (GLN_GRAPHICS_TIMEOUT);
-  for (count = 0; count < GLN_GRAPHICS_TITLE_WAIT; count++)
+  start_millisecs = gln_graphics_get_millisecs ();
+  while (gln_graphics_get_millisecs () - start_millisecs
+         < GLN_GRAPHICS_TITLE_WAIT_MS)
     {
       gln_event_wait_2 (evtype_CharInput, evtype_Timer, &event);
 
@@ -3267,7 +3304,7 @@ gln_graphics_recolor (void)
    * new picture.  Returning TRUE lets the caller skip the gln_graphics_paint()
    * repaint, whose smoothing delay would otherwise postpone the redraw.
    */
-  gln_graphics_hold_timeouts = 0;
+  gln_graphics_hold_active = FALSE;
   gln_graphics_new_picture = TRUE;
   gln_graphics_start ();
   return TRUE;
@@ -3965,14 +4002,18 @@ gln_wait_for_slow_draw (void)
   glk_cancel_char_event (gln_main_window);
 
   /*
-   * Now wait another couple of seconds, or until a keypress.  We'll do this
-   * in graphics timeout chunks, so that if graphics restarts while we're
-   * delaying, and it requests timer events and overwrites ours, we wind up
-   * with the identical timer event period to the one we're expecting anyway.
+   * Now wait the title pause, or until a keypress.  We do this in graphics
+   * timeout chunks, so that if graphics restarts while we're delaying, and it
+   * requests timer events and overwrites ours, we wind up with the identical
+   * timer event period to the one we're expecting anyway.  We stop once
+   * GLN_GRAPHICS_TITLE_WAIT_MS of real time has passed, so the pause is the
+   * same length whatever the timer period.
    */
   if (finished == TRUE) {
     glk_request_timer_events (GLN_GRAPHICS_TIMEOUT);
-    for (int count = 0; count < GLN_GRAPHICS_TITLE_WAIT; count++)
+    glui32 start_millisecs = gln_graphics_get_millisecs ();
+    while (gln_graphics_get_millisecs () - start_millisecs
+           < GLN_GRAPHICS_TITLE_WAIT_MS)
     {
       gln_event_wait_2 (evtype_CharInput, evtype_Timer, &event);
 
@@ -6597,7 +6638,7 @@ gln_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
         case evtype_LineInput:
           /* Player input cuts short any pending picture hold, so the next
            * picture appears at once rather than after the remaining delay. */
-          gln_graphics_hold_timeouts = 0;
+          gln_graphics_hold_active = FALSE;
           break;
         }
     }
