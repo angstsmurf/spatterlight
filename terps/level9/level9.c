@@ -1220,34 +1220,76 @@ static int cont_name_digit(const char *nm)
 	return -1;
 }
 
-/* Reassemble the next catalogue file (consecutive same-name extents) from its
- * 1 KB allocation blocks. Returns byte length (0 = no more), advances *eidx. */
+/* True if directory slot `e` holds a live file entry (user 0..15, printable
+ * 8.3 name); copies the 11-byte name into nm2[12] when non-NULL. */
+static int dsk_dir_entry(L9BYTE *lf, L9UINT32 base, int e, char *nm2)
+{
+	L9BYTE *ent = lf + base + e * 32;
+	int k;
+	if (ent[0] == 0xe5 || ent[0] > 15) return 0;
+	for (k = 0; k < 11; k++) {
+		char ch = ent[1 + k] & 0x7f;
+		if ((L9BYTE)ch < 32) return 0;
+		if (nm2) nm2[k] = ch;
+	}
+	if (nm2) nm2[11] = 0;
+	return 1;
+}
+
+/* Reassemble the next catalogue file from its 1 KB allocation blocks. Returns
+ * each distinct filename once (in order of first appearance), advancing *eidx
+ * past that first directory slot; 0 = no more files.
+ *
+ * A file larger than one 16 KB extent spans several directory entries, and
+ * CP/M does not guarantee they are consecutive or in extent order — Ingrid's
+ * Back, for instance, stores some extents reversed (ext 1 before ext 0) and
+ * even interleaved with other files.  So we gather every extent that shares
+ * this name across the whole directory and concatenate their blocks in
+ * ascending extent-number (EX + 32*S2) order. */
 static L9UINT32 dsk_read_file(L9BYTE *lf, L9UINT32 lflen, L9UINT32 base,
 			      int *eidx, L9BYTE *out, L9UINT32 outmax, char *nm)
 {
-	int e = *eidx, k, started = 0;
-	L9UINT32 fl = 0;
-	char cur[12];
+	int e = *eidx, k, p, a, c;
 	for (; e < 64; e++) {
-		L9BYTE *ent = lf + base + e * 32;
-		int ok = 1;
-		char nm2[12];
-		if (ent[0] == 0xe5 || ent[0] > 15) { if (started) break; else continue; }
-		for (k = 0; k < 11; k++) { nm2[k] = ent[1 + k] & 0x7f; if ((L9BYTE)nm2[k] < 32) ok = 0; }
-		nm2[11] = 0;
-		if (!ok) { if (started) break; else continue; }
-		if (!started) { memcpy(cur, nm2, 12); started = 1; }
-		else if (memcmp(nm2, cur, 11) != 0) break;
-		for (k = 0; k < 16; k++) {
-			int blk = ent[16 + k];
-			if (blk && fl + 1024 <= outmax && base + (L9UINT32)blk * 1024 + 1024 <= lflen) {
-				memcpy(out + fl, lf + base + (L9UINT32)blk * 1024, 1024);
-				fl += 1024;
+		char cur[12];
+		int eo[64], en[64], ne = 0;
+		L9UINT32 fl = 0;
+		if (!dsk_dir_entry(lf, base, e, cur)) continue;
+		/* Act only on a filename's first slot: a later extent whose name
+		 * appeared earlier was already returned with that first slot. */
+		for (p = 0; p < e; p++)
+			if (dsk_dir_entry(lf, base, p, NULL)
+			    && memcmp(lf + base + p * 32 + 1, lf + base + e * 32 + 1, 11) == 0)
+				break;
+		if (p < e) continue;
+		/* Collect all extents of this name, then sort by extent number. */
+		for (c = 0; c < 64; c++) {
+			L9BYTE *ce = lf + base + c * 32;
+			if (!dsk_dir_entry(lf, base, c, NULL)) continue;
+			if (memcmp(ce + 1, lf + base + e * 32 + 1, 11) != 0) continue;
+			eo[ne] = c; en[ne] = ce[12] + 32 * ce[14]; ne++;
+		}
+		for (a = 0; a < ne; a++)
+			for (c = a + 1; c < ne; c++)
+				if (en[c] < en[a]) {
+					int t = en[a]; en[a] = en[c]; en[c] = t;
+					t = eo[a]; eo[a] = eo[c]; eo[c] = t;
+				}
+		for (a = 0; a < ne; a++) {
+			L9BYTE *de = lf + base + eo[a] * 32;
+			for (k = 0; k < 16; k++) {
+				int blk = de[16 + k];
+				if (blk && fl + 1024 <= outmax && base + (L9UINT32)blk * 1024 + 1024 <= lflen) {
+					memcpy(out + fl, lf + base + (L9UINT32)blk * 1024, 1024);
+					fl += 1024;
+				}
 			}
 		}
+		*eidx = e + 1;
+		memcpy(nm, cur, 12);
+		return fl;
 	}
 	*eidx = e;
-	if (started) { memcpy(nm, cur, 12); return fl; }
 	return 0;
 }
 
