@@ -51,6 +51,10 @@ static void alk_emit_attr(uint16_t addr, int dir, uint16_t *out, int *n, int max
         out[(*n)++] = (uint16_t)(((0x58 + ((h >> 3) & 3)) << 8) | (addr & 0xff));
 }
 
+/* One strip being drawn. `inner` counts cells along the strip's fast axis
+   (resetting to `inner_reset` at the end of each line/column); `outer` counts
+   how many lines/columns remain. (olow, ohigh) remembers the strip's origin
+   along the slow axis so each new line/column starts from the right place. */
 typedef struct {
     int dir;
     int vertical;       /* 1 = strip runs across rows; 0 = down columns */
@@ -63,14 +67,21 @@ typedef struct {
 int AlkatrazScreenOrder(const uint8_t *descriptors, int nwin,
     uint16_t *out, int maxout)
 {
-    int n = 0, w = 0;
+    int n = 0;     /* number of addresses emitted so far */
+    int w = 0;     /* index of the next descriptor to consume */
 
+    /* Walk the descriptors in groups. The first descriptor of each group says
+       how many strips (windows) in that group are drawn at the same time. */
     while (w < nwin && n < maxout) {
         const uint8_t *first = descriptors + w * 4;
         int sim = ((first[3] >> 5) & 7) + 1;   /* 1..8 simultaneous windows */
-        if (w + sim > nwin)
+        if (w + sim > nwin)                    /* clamp a malformed last group */
             sim = nwin - w;
 
+        /* Load the group's descriptors into draw-state slots. Each descriptor
+           is 4 bytes: [0..1] start address (LE), [2] bits 6-7 direction +
+           bits 0-5 width (chars), [3] bits 5-7 simultaneous-count + bits 0-4
+           height (chars, x8 = pixels). Directions: 0=right,1=left,2=up,3=down. */
         AlkSlot slot[8];
         for (int s = 0; s < sim; s++) {
             const uint8_t *d = descriptors + (w + s) * 4;
@@ -80,14 +91,18 @@ int AlkatrazScreenOrder(const uint8_t *descriptors, int nwin,
             int height = (d[3] & 0x1f) * 8;
             slot[s].dir = dir;
             slot[s].addr = addr;
-            slot[s].olow = addr & 0xff;
-            slot[s].ohigh = (addr >> 8) & 0xff;
+            slot[s].olow = addr & 0xff;          /* origin low byte (column)  */
+            slot[s].ohigh = (addr >> 8) & 0xff;  /* origin high byte (row)    */
             slot[s].done = 0;
-            if (dir >= 2) {                      /* vertical: rows of `width` */
+            if (dir >= 2) {
+                /* Vertical window: drawn row by row. Each row is `width`
+                   characters wide; there are `height` pixel rows. */
                 slot[s].vertical = 1;
                 slot[s].inner = slot[s].inner_reset = width;
                 slot[s].outer = height;
-            } else {                             /* horizontal: columns of `height` */
+            } else {
+                /* Horizontal window: drawn column by column. Each column is
+                   `height` pixels tall; there are `width` columns. */
                 slot[s].vertical = 0;
                 slot[s].inner = slot[s].inner_reset = height;
                 slot[s].outer = width;
@@ -95,7 +110,10 @@ int AlkatrazScreenOrder(const uint8_t *descriptors, int nwin,
         }
         w += sim;
 
-        /* Round-robin the simultaneous slots a byte at a time until all done. */
+        /* Emit the group's cells. Within a group the simultaneous strips are
+           interleaved one cell each per pass (this is what makes the loader's
+           wipe look "woven"), so round-robin the slots until every strip is
+           finished. `guard` just bounds a runaway on malformed data. */
         int active = 1, guard = 0;
         while (active && n < maxout && guard++ < 0x40000) {
             active = 0;
@@ -104,13 +122,19 @@ int AlkatrazScreenOrder(const uint8_t *descriptors, int nwin,
                     continue;
                 active = 1;
 
+                /* Emit this strip's current cell: first its attribute address
+                   if we just crossed onto a new character row, then the byte. */
                 alk_emit_attr(slot[s].addr, slot[s].dir, out, &n, maxout);
                 if (n < maxout)
                     out[n++] = slot[s].addr;
 
+                /* Advance to the strip's next cell. */
                 if (slot[s].vertical) {
+                    /* Step along the row (a character column at a time). */
                     slot[s].addr = alk_next_col(slot[s].addr, slot[s].dir);
                     if (--slot[s].inner == 0) {
+                        /* Row finished: back to the row's start column, drop
+                           down/up one pixel row, and count the row off. */
                         slot[s].inner = slot[s].inner_reset;
                         slot[s].addr = (uint16_t)((slot[s].addr & 0xff00) | slot[s].olow);
                         slot[s].addr = alk_next_line(slot[s].addr, slot[s].dir);
@@ -119,8 +143,11 @@ int AlkatrazScreenOrder(const uint8_t *descriptors, int nwin,
                             slot[s].done = 1;
                     }
                 } else {
+                    /* Step down the column (a pixel row at a time). */
                     slot[s].addr = alk_next_line(slot[s].addr, slot[s].dir);
                     if (--slot[s].inner == 0) {
+                        /* Column finished: back to the column's start row,
+                           move one character column across, count it off. */
                         slot[s].inner = slot[s].inner_reset;
                         slot[s].addr = (uint16_t)((slot[s].ohigh << 8) | slot[s].olow);
                         slot[s].addr = alk_next_col(slot[s].addr, slot[s].dir);
@@ -134,5 +161,5 @@ int AlkatrazScreenOrder(const uint8_t *descriptors, int nwin,
         }
     }
 
-    return n;
+    return n;     /* total addresses written to out[] */
 }
