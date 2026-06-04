@@ -6,7 +6,7 @@
 
 #define FORMAT sagaplus
 #define HOME_PAGE "https://github.com/angstsmurf/spatterlight/tree/master/terps/plus"
-#define FORMAT_EXT ".dat,.d64,.atr,.st,.msa,.dsk,.plus,.plu"
+#define FORMAT_EXT ".dat,.d64,.atr,.st,.msa,.dsk,.woz,.plus,.plu"
 #define NO_METADATA
 #define NO_COVER
 
@@ -80,6 +80,8 @@ static const struct plusrec plus_registry[] = {
     { 0x5a000, 0x973b, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // st
     { 0x23000, 0xc267, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // apple 2
     { 0x23000, 0x80b2, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // apple 2 side A
+    { 0x39547, 0x874f, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // apple 2 (WOZ) side A
+    { 0x39547, 0xd729, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // apple 2 (WOZ) side B
     { 0, 0, SORCERER_OF_CLAYMORGUE_CASTLE_ID_STRING, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Claymorgue MS-DOS
     { 0x5a000, 0xcc3, SORCERER_OF_CLAYMORGUE_CASTLE_ID_STRING, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // st
     { 0, 0, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID },
