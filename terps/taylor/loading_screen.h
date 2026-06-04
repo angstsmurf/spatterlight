@@ -27,9 +27,12 @@ uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx);
    (a snapshot taken at a BASIC/text prompt), i.e. not worth showing. */
 int ZXScreenIsBlackOnWhite(const uint8_t *scr);
 
-/* Reconstruct Kayleth's Alkatraz-drawn loading screen from the raw TZX
-   image. Returns a malloc'd 6912-byte SCREEN$ (caller frees) or NULL. */
-uint8_t *DecodeKaylethLoadingScreen(uint8_t *image, size_t length);
+/* Reconstruct an Alkatraz-drawn loading screen (e.g. Kayleth, Terraquake)
+   from the raw TZX image, using the game's window descriptors and stream
+   parameters. Returns a malloc'd 6912-byte SCREEN$ (caller frees) or NULL. */
+uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
+    const uint8_t *descriptors, int nwin, int block_index, int offset,
+    uint8_t loacon0, uint8_t add2, uint8_t attrfill);
 
 /* Show ZXLoadingScreen as a title image, wait for a keypress, then
    restore the normal game windows. Frees ZXLoadingScreen, sets it NULL. */

@@ -3053,6 +3053,7 @@
 		C3FACE0100000000DEAD0002 /* loading_screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = loading_screen.c; sourceTree = "<group>"; };
 		C3FACE0100000000DEAD0003 /* loading_screen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = loading_screen.h; sourceTree = "<group>"; };
 		C3FACE0100000000DEAD0004 /* kayleth_loadscreen_data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kayleth_loadscreen_data.h; sourceTree = "<group>"; };
+		C3FACE0100000000DEAD0008 /* terraquake_loadscreen_data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = terraquake_loadscreen_data.h; sourceTree = "<group>"; };
 		C3FACE0100000000DEAD0006 /* alkatraz_screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = alkatraz_screen.c; sourceTree = "<group>"; };
 		C3FACE0100000000DEAD0007 /* alkatraz_screen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = alkatraz_screen.h; sourceTree = "<group>"; };
 		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
@@ -6173,6 +6174,7 @@
 				C3FACE0100000000DEAD0002 /* loading_screen.c */,
 				C3FACE0100000000DEAD0003 /* loading_screen.h */,
 				C3FACE0100000000DEAD0004 /* kayleth_loadscreen_data.h */,
+				C3FACE0100000000DEAD0008 /* terraquake_loadscreen_data.h */,
 				C3FACE0100000000DEAD0006 /* alkatraz_screen.c */,
 				C3FACE0100000000DEAD0007 /* alkatraz_screen.h */,
 				C3CED4452810190E0040252F /* decrypttotloader.h */,
