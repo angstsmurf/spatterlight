@@ -29,6 +29,7 @@
 #include "c64decrunch.h"
 #include "decompressz80.h"
 #include "load_ti99_4a.h"
+#include "title_image.h"
 
 #include "parser.h"
 
@@ -1143,11 +1144,35 @@ GameIDType DetectZXSpectrum(void)
 {
     GameIDType detectedGame = UNKNOWN_GAME;
     int was_z80_snapshot = 0;
+
+    /* Capture a loading screen to show as a title image. For .tap/.tzx
+       tapes the SCREEN$ is a data block we extract from the raw image,
+       so grab it before DecompressZ80() (a no-op on tapes) runs. */
+    int is_tzx = (file_length > 8 && memcmp(entire_file, "ZXTape!\x1a", 8) == 0);
+    int looks_like_tap = (!is_tzx && file_length > 21 &&
+        entire_file[0] == 0x13 && entire_file[1] == 0x00 && entire_file[2] == 0x00);
+    if (is_tzx || looks_like_tap)
+        ZXLoadingScreen = FindTapeLoadingScreen(entire_file, file_length, is_tzx);
+
     uint8_t *uncompressed = DecompressZ80(entire_file, &file_length);
     if (uncompressed != NULL) {
         was_z80_snapshot = 1;
         free(entire_file);
         entire_file = uncompressed;
+        /* In a decompressed 48K snapshot, offset 0 maps to Spectrum
+           address 0x4000 (the display file), so the first 6912 bytes are
+           whatever screen was visible when the snapshot was saved. */
+        if (ZXLoadingScreen == NULL && file_length >= ZX_SCREEN_SIZE) {
+            ZXLoadingScreen = MemAlloc(ZX_SCREEN_SIZE);
+            memcpy(ZXLoadingScreen, entire_file, ZX_SCREEN_SIZE);
+        }
+    }
+
+    /* Snapshots saved at a text prompt (e.g. "Resume a saved game?") have
+       no picture, just black text on white. Don't show those as a title. */
+    if (ZXLoadingScreen != NULL && ZXScreenIsBlackOnWhite(ZXLoadingScreen)) {
+        free(ZXLoadingScreen);
+        ZXLoadingScreen = NULL;
     }
 
     size_t dict_offset;

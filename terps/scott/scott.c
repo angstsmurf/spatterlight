@@ -111,6 +111,7 @@ int ImageWidth = 255;
 int ImageHeight = 96;
 int file_baseline_offset = 0; /* Byte offset adjustment for files with extra data prepended */
 char *title_screen = NULL;
+uint8_t *ZXLoadingScreen = NULL; /* ZX Spectrum SCREEN$ shown as a title image, or NULL */
 
 Command *CurrentCommand = NULL; /* Current node in the parsed command chain */
 GameInfo *Game; /* Metadata for the detected game (from the game database) */
@@ -785,6 +786,9 @@ void glk_main(void)
             Options |= TRS80_STYLE;
         split_screen = 1;
     }
+
+    if (ZXLoadingScreen != NULL && Game->type != US_VARIANT)
+        DrawZXTitleImage();
 
     if (title_screen != NULL && CurrentGame != RETURN_TO_PIRATES_ISLE) {
         if (split_screen)

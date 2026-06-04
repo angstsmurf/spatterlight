@@ -155,6 +155,7 @@ extern Item *Items;
 extern Action *Actions;
 extern char **Verbs, **Nouns, **Messages;
 extern char *title_screen;
+extern uint8_t *ZXLoadingScreen;
 extern winid_t Bottom, Top, Graphics;
 extern const char *sys[];
 extern const char *system_messages[];
