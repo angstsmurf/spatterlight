@@ -2470,38 +2470,18 @@ static void shrink_capacity(void) {
 static glui32 gln_graphics_get_millisecs (void);
 
 /*
- * Buffered keystroke captured during the picture-pause in os_cleargraphics.
- * The pause requests a char event so the player can cancel it; the consumed
- * character is stashed here and picked up by the next os_input/os_readchar
- * so it isn't lost.  0 means no character buffered.
- */
-static glui32 gln_buffered_skip_char = 0;
-
-/*
  * TRUE while the most recently drawn picture has not yet had a chance to
  * be flushed to the player via a real input wait.  Set at the end of
  * os_cleargraphics; cleared in gln_event_wait_2 when a real LineInput or
  * CharInput arrives.  When os_cleargraphics is called again with this flag
  * still TRUE, it means two pictures are arriving back-to-back with no input
- * between them (e.g. The Secret Diary of Adrian Mole's intro), so a brief
- * dwell is inserted to give Glk time to flush the previous picture before
- * the next picture's absrunsub() clobbers the bitmap.  In the common case
- * (Adventure Quest gameplay, one picture per location) the flag is cleared
- * by the player's intervening command, so no artificial delay is incurred.
+ * between them (e.g. The Secret Diary of Adrian Mole's intro), so the
+ * deferred / synchronous slow-draw path is taken instead of fast-paint to
+ * keep the previous picture visible.  In the common case (Adventure Quest
+ * gameplay, one picture per location) the flag is cleared by the player's
+ * intervening command, so no artificial delay is incurred.
  */
 static int gln_picture_dwell_pending = FALSE;
-
-/*
- * TRUE until the first real LineInput/CharInput from the player.  While in
- * this pre-input phase, back-to-back pictures get an extra visibility dwell
- * at the end of os_cleargraphics so each intro frame stays on screen for a
- * moment before the next one starts being drawn (especially important when
- * gli_slowdraw is FALSE, where the fast-paint commit is instantaneous and
- * the buffered Glk output would otherwise be overwritten by the next
- * picture's pixels before anything reached the screen).  Cleared on the
- * first real input; gameplay never pays this cost.
- */
-static int gln_pre_input_phase = TRUE;
 
 /*
  * Deferred-commit state for vector graphics.  When os_cleargraphics is
@@ -4283,12 +4263,10 @@ os_cleargraphics (void)
           glk_select_poll (&event);
 
           /* Arm hold only for intro commits.  was_back_to_back is the right
-           * gate: the splash-dismissal keypress at game start clears
-           * gln_pre_input_phase before the title even appears, but Adrian
-           * Mole's text-paging polls between intro pictures short-circuit
-           * in os_readchar without going through the event loop, so
-           * gln_picture_dwell_pending stays TRUE across them.  Gameplay
-           * input (LineInput / real CharInput) clears it via
+           * gate: Adrian Mole's text-paging polls between intro pictures
+           * short-circuit in os_readchar without going through the event
+           * loop, so gln_picture_dwell_pending stays TRUE across them.
+           * Gameplay input (LineInput / real CharInput) clears it via
            * gln_event_wait_2, keeping per-command transitions snappy. */
           if (was_back_to_back)
             {
@@ -6509,23 +6487,8 @@ os_input (char *buffer, int size)
   /*
    * No input log being read, or we just hit the end of file on one.  Revert
    * to normal line input; start by getting a new line from Glk.
-   *
-   * If the player (or command script) cancelled an os_cleargraphics
-   * picture-pause with a keystroke, seed the input line with that
-   * (printable) character so it isn't lost — the next character they type
-   * continues the same input line.  Non-printable cancellers are dropped.
    */
-  glui32 initlen = 0;
-  if (gln_buffered_skip_char)
-    {
-      if (gln_buffered_skip_char >= 32 && gln_buffered_skip_char < UCHAR_MAX)
-        {
-          buffer[0] = (char)gln_buffered_skip_char;
-          initlen = 1;
-        }
-      gln_buffered_skip_char = 0;
-    }
-  glk_request_line_event (gln_main_window, buffer, size - 1, initlen);
+  glk_request_line_event (gln_main_window, buffer, size - 1, 0);
   gln_event_wait (evtype_LineInput, &event);
 
   /* Terminate the input line with a NUL. */
@@ -6681,19 +6644,6 @@ os_readchar (int millis)
 
   /* If doing linemode graphics, run all graphic opcodes available. */
   gln_linegraphics_process ();
-
-  /*
-   * If the player (or command script) hit a key during the os_cleargraphics
-   * picture-pause, that keystroke was consumed there to cancel the wait.
-   * Return it now instead of asking for a fresh one, so it isn't lost.
-   */
-  if (gln_buffered_skip_char)
-    {
-      glui32 c = gln_buffered_skip_char;
-      gln_buffered_skip_char = 0;
-      gln_watchdog_tick ();
-      return c == keycode_Return ? '\n' : (char)c;
-    }
 
   /*
    * Here's the way we try to emulate keyboard polling for the case of no Glk
@@ -6991,13 +6941,9 @@ gln_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
         case evtype_LineInput:
           /* Real input has been delivered: glk_select has flushed Glk's
            * buffer, so the previously drawn picture is safely on screen and
-           * the next os_cleargraphics does not need to dwell before
-           * clobbering the bitmap. */
+           * the next os_cleargraphics does not need to defer to keep it
+           * visible. */
           gln_picture_dwell_pending = FALSE;
-          /* Exit the intro/pre-input phase: subsequent back-to-back picture
-           * transitions during gameplay no longer get the visibility dwell,
-           * so per-command picture changes stay snappy. */
-          gln_pre_input_phase = FALSE;
           /* Cut a picture hold short on player input ONLY if the hold has
            * already been on screen for a minimum dwell — otherwise games like
            * The Secret Diary of Adrian Mole, which use char input almost
