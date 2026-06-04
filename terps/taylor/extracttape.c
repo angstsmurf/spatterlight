@@ -237,6 +237,11 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 image = ShrinkToSnaSize(image, uncompressed, length);
                 break;
             case 0xcadc:  // Kayleth (TZX)
+                // The screen is drawn by the Alkatraz loader, not stored as a
+                // plain block, so reconstruct it from block 4 before extraction
+                // consumes the raw image.
+                if (ZXLoadingScreen == NULL)
+                    ZXLoadingScreen = DecodeKaylethLoadingScreen(image, origlen);
                 image = process_tzx_extract(image, length, &kayleth);
                 break;
             case 0xccca:  // Temple of Terror, Side A (TZX)
