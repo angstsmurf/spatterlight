@@ -25,6 +25,7 @@
 #include "extracommands.h"
 #include "extracttape.h"
 #include "glkstart.h"
+#include "loading_screen.h"
 #include "parseinput.h"
 #include "restorestate.h"
 #include "graphics.h"
@@ -2800,6 +2801,10 @@ void glk_main(void)
     set_erkyrath_random(0);
 
     DisplayInit();
+
+    /* If the loaded file carried a ZX Spectrum loading screen, show it as
+       a title image before the game proper begins. */
+    DrawZXTitleImage();
 
     /* Temple of Terror ships as a paired text+graphics duo; check whether
        a companion file is present alongside the loaded one. */

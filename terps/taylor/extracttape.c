@@ -19,6 +19,7 @@
 
 #include "decompressz80.h"
 #include "decrypttotloader.h"
+#include "loading_screen.h"
 #include "taylor.h"
 #include "utility.h"
 
@@ -154,11 +155,27 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
 {
     size_t origlen = *length;
 
+    // Capture a ZX loading screen to show as a title image. For .tap/.tzx
+    // tapes the SCREEN$ is a data block in the raw image, so grab it now,
+    // before the snapshot/tape extraction below transforms the buffer.
+    int is_tzx = (origlen > 8 && memcmp(image, "ZXTape!\x1a", 8) == 0);
+    int looks_like_tap = (!is_tzx && origlen > 21 &&
+        image[0] == 0x13 && image[1] == 0x00 && image[2] == 0x00);
+    if (is_tzx || looks_like_tap)
+        ZXLoadingScreen = FindTapeLoadingScreen(image, origlen, is_tzx);
+
     // First, try to decompress as a Z80 snapshot format
     uint8_t *uncompressed = DecompressZ80(image, length);
     if (uncompressed != NULL) {
         free(image);
         image = uncompressed;
+        // In a decompressed 48K snapshot, offset 0 maps to Spectrum address
+        // 0x4000 (the display file): the first 6912 bytes are the screen
+        // visible when the snapshot was saved.
+        if (ZXLoadingScreen == NULL && *length >= ZX_SCREEN_SIZE) {
+            ZXLoadingScreen = MemAlloc(ZX_SCREEN_SIZE);
+            memcpy(ZXLoadingScreen, image, ZX_SCREEN_SIZE);
+        }
     } else {
         // Not a Z80 snapshot — try TZX/TAP extraction, identified by file size.
         // Each ExtractSpec holds the Alkatraz decryption parameters for one game.
@@ -258,5 +275,13 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
     if (origlen == 0xb4bb) {
         image = FixBrokenKayleth(image, length);
     }
+
+    // Snapshots saved at a text prompt (e.g. "Resume a saved game?") have
+    // no picture, just black text on white. Don't show those as a title.
+    if (ZXLoadingScreen != NULL && ZXScreenIsBlackOnWhite(ZXLoadingScreen)) {
+        free(ZXLoadingScreen);
+        ZXLoadingScreen = NULL;
+    }
+
     return image;
 }
