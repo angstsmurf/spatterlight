@@ -190,13 +190,14 @@
 
     NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
 
-    if (((NSArray *)self.styleHints[stylevalue]).count == 0)
+    NSArray *hintsForStyle = self.styleHints[stylevalue];
+    if (hintsForStyle.count <= stylehint_ReverseColor)
         return attributes;
 
     if (currentZColor) {
         attributes[@"ZColor"] = currentZColor;
         if (self.theme.doStyles) {
-            if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+            if ([hintsForStyle[stylehint_ReverseColor] isEqualTo:@(1)]) {
                 // If the style has reverseColor hint set, we apply the zcolors in reverse
                 attributes = [currentZColor reversedAttributes:attributes];
             } else {
@@ -207,7 +208,7 @@
 
     if (self.currentReverseVideo) {
         attributes[@"ReverseVideo"] = @(YES);
-        if (!self.theme.doStyles || [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
+        if (!self.theme.doStyles || [hintsForStyle[stylehint_ReverseColor] isNotEqualTo:@(1)]) {
             // Current style has stylehint_ReverseColor unset, so we reverse colors
             attributes = [self reversedAttributes:attributes background:[self isKindOfClass:[GlkTextGridWindow class]] ? self.theme.gridBackground : self.theme.bufferBackground];
         }
@@ -346,6 +347,11 @@
 
 - (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
     NSUInteger textstoragelength = attStr.length;
+    
+    NSArray *styleHints = self.styleHints;
+
+    if (textstoragelength == 0 || styleHints.count == 0)
+        return attStr;
 
     GlkWindow * __weak weakSelf = self;
     NSColor *blockBgCol;
@@ -369,8 +375,13 @@
              options:0
              usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
                 NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+                if (stylevalue >= styleHints.count)
+                    return;
+                NSArray *hintsForStyle = styleHints[stylevalue];
+                if (hintsForStyle.count <= stylehint_ReverseColor)
+                    return;
                 NSMutableDictionary *mutDict = [dict mutableCopy];
-                if ([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+                if ([hintsForStyle[stylehint_ReverseColor] isEqualTo:@(1)]) {
                     // Style has stylehint_ReverseColor set,
                     // So we apply Zcolor with reversed attributes
                     mutDict = [z reversedAttributes:mutDict];
@@ -396,8 +407,13 @@
          options:0
          usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
             NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+            if (stylevalue >= styleHints.count)
+                return;
+            NSArray *hintsForStyle = styleHints[stylevalue];
+            if (hintsForStyle.count <= stylehint_ReverseColor)
+                return;
             BOOL zcolorValue = (dict[@"ZColor"] != nil);
-            if (!([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
+            if (!([hintsForStyle[stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
                 NSMutableDictionary *mutDict = [dict mutableCopy];
                 mutDict = [weakSelf reversedAttributes:mutDict background:blockBgCol];
                 [attStr addAttributes:mutDict range:range2];
