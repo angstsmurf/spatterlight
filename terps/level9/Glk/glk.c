@@ -4270,6 +4270,18 @@ os_cleargraphics (void)
           FreePixels ();
           gln_graphics_stop ();
 
+          /* Force a Glk buffer flush so any text the game printed during
+           * this picture transition reaches GlkTextBufferWindow now, in
+           * proportion to this picture's worth of output, rather than
+           * piling up until the next os_input fires its own glk_select.
+           * Path 2's synchronous slow-draw already does this implicitly via
+           * its many gln_event_wait() calls; the fast-paint loop above
+           * makes none, so we mirror the behaviour with one poll here.
+           * Without this, the accumulated text dumps in one batch on the
+           * next input and the auto-scroll over-shoots a viewport. */
+          gln_output_flush ();
+          glk_select_poll (&event);
+
           /* Arm hold only for intro commits.  was_back_to_back is the right
            * gate: the splash-dismissal keypress at game start clears
            * gln_pre_input_phase before the title even appears, but Adrian

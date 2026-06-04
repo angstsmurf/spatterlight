@@ -2072,7 +2072,21 @@ replacementString:(id)repl {
         _lastseen = 0;
         return;
     }
-    _lastseen = (NSInteger)(NSMaxY(scrollview.contentView.bounds) - 2.0 * _textview.textContainerInset.height);
+    // Clamp _lastseen to the actual document height: if the current
+    // document is shorter than the viewport (e.g. a small "STOP THE
+    // TAPE" prompt in a tall viewport with no graphics window yet),
+    // using the raw viewport bottom over-records what the user has
+    // seen — the y-coords above the doc end contain no text. When the
+    // game subsequently grows the document and the viewport shrinks
+    // (graphics window appears), reallyPerformScroll's pagination would
+    // then jump to _lastseen, which is a full viewport past the actual
+    // end of the read content — surfacing as a one-viewport-too-far
+    // auto-scroll on the first keypress after STOP THE TAPE.
+    NSInteger viewportBottom =
+        (NSInteger)(NSMaxY(scrollview.contentView.bounds)
+                    - 2.0 * _textview.textContainerInset.height);
+    NSInteger docBottom = (NSInteger)NSHeight(_textview.frame);
+    _lastseen = MIN(viewportBottom, docBottom);
 }
 
 // Capture the current scroll position for later restoration (e.g. after
@@ -2150,14 +2164,21 @@ replacementString:(id)repl {
     }
 
     if (lastAtBottom) {
-        NSLog(@"restoreScroll: lastAtBottom");
-        NSLog(@"restoreScroll: calling scrollToBottomAnimated:NO");
-        [self scrollToBottomAnimated:NO];
+//        NSLog(@"restoreScroll: lastAtBottom");
+//        NSLog(@"restoreScroll: calling scrollToBottomAnimated:NO");
+        // Respect caps here: if the doc grew while the viewport shrank
+        // (graphics window appeared above the text window), an uncapped
+        // jump to the new bottom would skip past unread content the
+        // player has not seen yet — including the very text the game just
+        // emitted in response to the keypress. The cap allows the auto-
+        // scroll to advance by at most one viewport, just like the normal
+        // performScroll path.
+        [self scrollToBottomAnimated:NO respectCaps:YES];
         return;
     }
 
     if (lastAtTop) {
-        NSLog(@"restoreScroll: lastAtTop");
+//        NSLog(@"restoreScroll: lastAtTop");
         [self scrollToTop];
         return;
     }
@@ -2218,7 +2239,20 @@ replacementString:(id)repl {
 // Skips layout for very large documents (>1M chars) for performance.
 // Disables animation when a command script is running.
 - (void)reallyPerformScroll {
-    NSLog(@"reallyPerformScroll");
+    // If a scrollToBottomAnimated callback is already queued from a prior
+    // call, skip this one. Otherwise each layoutComplete callback that
+    // arrives during a single text burst would advance one more viewport
+    // (via the IF-branch cap below or via the dispatch's cap), compounding
+    // into many viewports of total advance for a single "round" of game
+    // output. The pending callback already captured the right intent;
+    // letting it run alone matches the per-burst pacing of the slow-draw
+    // path.
+    if (scrollToBottomPending) {
+        _pendingScroll = NO;
+        self.glkctl.shouldScrollOnCharEvent = NO;
+        return;
+    }
+
     _pendingScroll = NO;
     self.glkctl.shouldScrollOnCharEvent = NO;
 
@@ -2242,8 +2276,27 @@ replacementString:(id)repl {
 
     BOOL animate = !self.glkctl.commandScriptRunning;
     if (bottom - (CGFloat)_lastseen > NSHeight(scrollview.frame)) {
-        NSLog(@"reallyPerformScroll: scrollToPosition: %ld", _lastseen);
-        [self scrollToPosition:(CGFloat)_lastseen animate:animate];
+//        NSLog(@"reallyPerformScroll: scrollToPosition: %ld", _lastseen);
+        // Cap the paginate jump to at most one viewport's advance (minus
+        // one line of overlap) from the current scroll position. _lastseen
+        // is the y-coord of the bottom of the viewport at the user's last
+        // keypress, but if the viewport has since shrunk (e.g. a graphics
+        // window appeared above the text window), _lastseen can sit more
+        // than one viewport below the current scroll position — paginating
+        // straight to it would skip past unread text and look like a "one
+        // viewport too far" auto-scroll. The ELSE branch's
+        // scrollToBottomAnimated:respectCaps applies the same cap; mirror
+        // it here so the IF branch behaves consistently.
+        CGFloat currentPos = scrollview.contentView.bounds.origin.y;
+        CGFloat viewportHeight = NSHeight(scrollview.contentView.bounds);
+        CGFloat lineHeight = self.theme.bufferCellHeight;
+        CGFloat advance = viewportHeight - lineHeight;
+        if (advance < lineHeight) advance = viewportHeight;
+        CGFloat target = (CGFloat)_lastseen;
+        if (target - currentPos > advance) {
+            target = currentPos + advance;
+        }
+        [self scrollToPosition:target animate:animate];
     } else {
         scrollAdjustTimeStamp = [NSDate date];
         NSLog(@"reallyPerformScroll: scrollToBottomAnimated: %@", animate ? @"YES":@"NO");
@@ -2312,10 +2365,16 @@ replacementString:(id)repl {
             // different performScroll already paginated past the old bottom,
             // jumping all the way to the new bottom would skip past unread
             // text. Cap each callback to a single viewport's worth of advance
-            // so it behaves like one "more"-page step instead of a
-            // jump-to-end.
-            if (bottom - currentPosition > viewportHeight) {
-                bottom = currentPosition + viewportHeight;
+            // (minus one line of overlap so the last line of the old viewport
+            // becomes the first line of the new one — the standard "page
+            // down" convention, which gives the reader a continuity anchor
+            // instead of cutting off mid-paragraph) so it behaves like one
+            // "more"-page step instead of a jump-to-end.
+            CGFloat lineHeight = self.theme.bufferCellHeight;
+            CGFloat advance = viewportHeight - lineHeight;
+            if (advance < lineHeight) advance = viewportHeight;
+            if (bottom - currentPosition > advance) {
+                bottom = currentPosition + advance;
             }
 
             // Also never advance past `_lastseen` — the bottom of the
