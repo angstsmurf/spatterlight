@@ -536,7 +536,8 @@
         self.game.autosaved = !dead;
     } else {
         [self deleteAutosaveFiles];
-        self.game.autosaved = NO;
+        if (self.game && self.game.managedObjectContext)
+            self.game.autosaved = NO;
     }
 }
 
