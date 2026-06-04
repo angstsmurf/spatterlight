@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "alkatraz_screen.h"
 #include "decompressz80.h"
 #include "decrypttotloader.h"
 #include "loading_screen.h"
@@ -242,6 +243,13 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 if (image != NULL && ZXLoadingScreen == NULL) {
                     ZXLoadingScreen = MemAlloc(ZX_SCREEN_SIZE);
                     memcpy(ZXLoadingScreen, image + ZX_RAM_BASE, ZX_SCREEN_SIZE);
+                    // The loader's window descriptors survive in the decrypted
+                    // image (count at 0xeea9); regenerate the draw order so the
+                    // title reveals in the same sequence the loader used.
+                    uint16_t order[ZX_SCREEN_SIZE];
+                    int n = AlkatrazScreenOrder(image + 0xeeab,
+                        READ_LE_UINT16(image + 0xeea9), order, ZX_SCREEN_SIZE);
+                    ZXSetDrawOrder(order, n);
                 }
                 image = ShrinkToSnaSize(image, uncompressed, length);
                 break;
