@@ -2467,6 +2467,67 @@ static void shrink_capacity(void) {
   }
 }
 
+static glui32 gln_graphics_get_millisecs (void);
+
+/*
+ * Buffered keystroke captured during the picture-pause in os_cleargraphics.
+ * The pause requests a char event so the player can cancel it; the consumed
+ * character is stashed here and picked up by the next os_input/os_readchar
+ * so it isn't lost.  0 means no character buffered.
+ */
+static glui32 gln_buffered_skip_char = 0;
+
+/*
+ * TRUE while the most recently drawn picture has not yet had a chance to
+ * be flushed to the player via a real input wait.  Set at the end of
+ * os_cleargraphics; cleared in gln_event_wait_2 when a real LineInput or
+ * CharInput arrives.  When os_cleargraphics is called again with this flag
+ * still TRUE, it means two pictures are arriving back-to-back with no input
+ * between them (e.g. The Secret Diary of Adrian Mole's intro), so a brief
+ * dwell is inserted to give Glk time to flush the previous picture before
+ * the next picture's absrunsub() clobbers the bitmap.  In the common case
+ * (Adventure Quest gameplay, one picture per location) the flag is cleared
+ * by the player's intervening command, so no artificial delay is incurred.
+ */
+static int gln_picture_dwell_pending = FALSE;
+
+/*
+ * TRUE until the first real LineInput/CharInput from the player.  While in
+ * this pre-input phase, back-to-back pictures get an extra visibility dwell
+ * at the end of os_cleargraphics so each intro frame stays on screen for a
+ * moment before the next one starts being drawn (especially important when
+ * gli_slowdraw is FALSE, where the fast-paint commit is instantaneous and
+ * the buffered Glk output would otherwise be overwritten by the next
+ * picture's pixels before anything reached the screen).  Cleared on the
+ * first real input; gameplay never pays this cost.
+ */
+static int gln_pre_input_phase = TRUE;
+
+/*
+ * Deferred-commit state for vector graphics.  When os_cleargraphics is
+ * called while gln_graphics_hold_active is still TRUE from a previous
+ * picture, the next picture's commit is parked here instead of painted
+ * immediately.  This keeps the held picture on screen without blocking
+ * the interpreter, mirroring the bitmap-graphics async hold pattern.
+ *
+ * gln_graphics_timeout fires the deferred paint once the hold expires:
+ * the entire snapshot for gli_slowdraw=FALSE, or in chunks of GLN_VECTOR_
+ * PIXELS_PER_TICK for gli_slowdraw=TRUE so the player sees the same
+ * gradual reveal as the rest of the intro.  Ownership of the pixels_to_draw
+ * buffer is transferred here (the live pixels_to_draw is then reset to
+ * NULL so absrunsub(0) for the next picture starts with a fresh buffer).
+ */
+static pixel_to_draw **gln_pending_paint_list = NULL;
+static int gln_pending_paint_count = 0;
+static int gln_pending_paint_index = 0;
+static gln_uint16 gln_pending_paint_width = 0;
+static gln_uint16 gln_pending_paint_height = 0;
+static Colour gln_pending_paint_palette[GLN_PALETTE_SIZE];
+static int gln_pending_paint_x_offset = 0;
+static int gln_pending_paint_y_offset = 0;
+static int gln_pending_paint_background_done = FALSE;
+static int gln_pending_paint_pending = FALSE;
+
 #pragma mark DrawSomeL9VectorPixels
 
 /*
@@ -2716,6 +2777,77 @@ gln_graphics_timeout (void)
           < GLN_GRAPHICS_TITLE_WAIT_MS)
         return;
       gln_graphics_hold_active = FALSE;
+    }
+
+  /*
+   * Vector graphics deferred-commit: os_cleargraphics may have parked an
+   * intro picture's pixels here while the previous picture's hold was still
+   * in effect.  Now that the hold has expired, paint the parked snapshot —
+   * all at once for fast-paint (gli_slowdraw=FALSE), or in GLN_VECTOR_PIXELS
+   * _PER_TICK chunks for gli_slowdraw=TRUE so the player sees the gradual
+   * reveal.  When the snapshot is fully painted, arm a fresh hold for it
+   * (so the next picture's commit defers in turn) and free the buffer.
+   *
+   * Painted directly via glk_window_fill_rect; we don't go through the
+   * normal new_picture / paint_garglk path because those would clear the
+   * window (using the live gln_graphics_* state, which already reflects the
+   * picture AFTER this one) and then paint pixels_to_draw (which has the
+   * next picture's border instead of this snapshot's pixels).
+   */
+  if (gln_pending_paint_pending)
+    {
+      glui32 pending_palette[GLN_PALETTE_SIZE];
+      gln_graphics_convert_palette (gln_pending_paint_palette,
+                                    pending_palette);
+
+      if (!gln_pending_paint_background_done)
+        {
+          glk_window_fill_rect (gln_graphics_window, pending_palette[0],
+                                gln_pending_paint_x_offset,
+                                gln_pending_paint_y_offset,
+                                gln_pending_paint_width * GLN_GRAPHICS_PIXEL,
+                                gln_pending_paint_height * GLN_GRAPHICS_PIXEL);
+          gln_pending_paint_background_done = TRUE;
+        }
+
+      int chunk_end = gli_slowdraw
+        ? gln_pending_paint_index + GLN_VECTOR_PIXELS_PER_TICK
+        : gln_pending_paint_count;
+      if (chunk_end > gln_pending_paint_count)
+        chunk_end = gln_pending_paint_count;
+
+      for (int i = gln_pending_paint_index; i < chunk_end; i++)
+        {
+          const pixel_to_draw *p = gln_pending_paint_list[i];
+          glk_window_fill_rect (gln_graphics_window,
+                                pending_palette[p->colour],
+                                p->x * GLN_GRAPHICS_PIXEL
+                                  + gln_pending_paint_x_offset,
+                                p->y * GLN_GRAPHICS_PIXEL
+                                  + gln_pending_paint_y_offset,
+                                GLN_GRAPHICS_PIXEL,
+                                GLN_GRAPHICS_PIXEL);
+          free (gln_pending_paint_list[i]);
+        }
+      gln_pending_paint_index = chunk_end;
+
+      if (gln_pending_paint_index >= gln_pending_paint_count)
+        {
+          free (gln_pending_paint_list);
+          gln_pending_paint_list = NULL;
+          gln_pending_paint_count = 0;
+          gln_pending_paint_index = 0;
+          gln_pending_paint_pending = FALSE;
+          gln_pending_paint_background_done = FALSE;
+
+          /* Arm fresh hold for the just-committed snapshot.  The next
+           * picture (either deferred-painted here on next expiry, or
+           * slow-drawn during input wait via the regular paint path) will
+           * wait this out. */
+          gln_graphics_hold_active = TRUE;
+          gln_graphics_hold_start = gln_graphics_get_millisecs ();
+        }
+      return;
     }
 
   /*
@@ -3561,8 +3693,14 @@ gln_linegraphics_clear_context (void)
 
   /* Clear palette colors to all black. */
   memset (gln_graphics_palette, 0, sizeof (gln_graphics_palette));
-  FreePixels();
-  vector_background_painted = FALSE;
+  /*
+   * Do NOT FreePixels() here: pixels from the previous picture may still be
+   * draining when the game calls os_cleargraphics, and tossing them would
+   * make Adrian Mole's title image disappear before it could finish drawing.
+   * gln_linegraphics_process() frees them at the start of the next picture
+   * (when new graphic opcodes arrive), and DrawSomeL9VectorPixels frees them
+   * on natural drain completion.
+   */
 }
 
 
@@ -3898,7 +4036,6 @@ skip:         for (x++;
  * are ignored if line drawing mode is not set.
  */
 
-static void gln_wait_for_slow_draw (void);
 static void gln_output_flush (void);
 
 void
@@ -3906,6 +4043,20 @@ os_cleargraphics (void)
 {
   if (gln_graphics_interpreter_state != GLN_GRAPHICS_LINE_MODE)
     return;
+
+  /*
+   * Snapshot the dwell flag: a TRUE value means the previous picture has
+   * not yet been flushed via a real input wait, so two pictures are arriving
+   * back-to-back (e.g. The Secret Diary of Adrian Mole's intro).  Snapshot
+   * here so we can use the same value to gate the synchronous slow-draw
+   * reveal below.
+   */
+  int was_back_to_back = gln_picture_dwell_pending;
+
+  /* Clear the dwell flag now that we've snapshotted it; the visibility
+   * window for back-to-back pictures is provided by the synchronous
+   * slow-draw below, not by an explicit pause. */
+  gln_picture_dwell_pending = FALSE;
 
   /*
    * Finish drawing the previous picture before revealing it.
@@ -3923,25 +4074,202 @@ os_cleargraphics (void)
     ;
 
   /*
-   * If pixels from the previous picture are still pending, finish revealing
-   * it (slow-draw) and hold it briefly before clearing for the next one.
+   * Commit the previous picture to screen before the next one's absrunsub(0)
+   * frame setup overwrites the palette/bitmap.  Without this, back-to-back
+   * show_picture calls during an intro lose every picture except the last:
+   * each new absrunsub() updates the bitmap while the previous picture's
+   * setup never actually painted to the window.
    *
-   * This is done synchronously here, at the moment the game asks to clear,
-   * which is BEFORE the next picture's absrunsub(0) common-frame drawing
-   * accumulates any pixels.  Doing it here (rather than deferring it into the
-   * next graphics pump) means the previous picture's reveal can't be cut
-   * short by the next picture's pixels arriving mid-draw, and it guarantees
-   * the final picture of a run is shown too - it no longer depends on a
-   * following clear that, for the last picture, never comes.
+   * Three sub-paths:
+   *   1) hold from the previous picture still active → defer: take ownership
+   *      of pixels_to_draw and let gln_graphics_timeout fire the actual paint
+   *      after the hold expires.  Mirrors the bitmap-graphics async hold so
+   *      the interpreter keeps running (text emission etc.) while the held
+   *      picture stays on screen.
+   *   2) gli_slowdraw + back-to-back → existing synchronous slow-draw branch
+   *      for the gradual reveal (only used on the first commit of an intro,
+   *      since subsequent commits hit path 1).
+   *   3) otherwise → fast-paint the buffered pixels directly.
+   *
+   * Paths 2/3 arm the hold for the just-committed picture so the NEXT
+   * os_cleargraphics defers via path 1.  Path 1 doesn't arm a new hold here
+   * — the existing hold stays active; a fresh hold for the deferred picture
+   * is armed by gln_graphics_timeout when the deferred paint completes.
    */
   if (total_draw_instructions > 0
       && gln_graphics_enabled && gln_graphics_open ())
     {
-      current_draw_instruction = 0;
-      gln_graphics_new_picture = TRUE;
-      gln_graphics_start ();
-      gln_wait_for_slow_draw ();
+      int x_offset, y_offset;
+      static glui32 palette[GLN_PALETTE_SIZE];
+      event_t event;
+
+      gln_graphics_position_picture (gln_graphics_window,
+                                     GLN_GRAPHICS_PIXEL,
+                                     gln_graphics_width, gln_graphics_height,
+                                     &x_offset, &y_offset);
+      gln_graphics_convert_palette (gln_graphics_palette, palette);
+
+      /* Queue depth is 1: if a paint is still pending from a previous defer
+       * (the timer-driven deferred paint hasn't had a chance to run yet —
+       * e.g. intro storylets arriving faster than glk_select can fire),
+       * commit it synchronously now to make room.  Arm a fresh hold for the
+       * just-flushed picture so the upcoming defer (if any) waits it out. */
+      if (gln_pending_paint_pending)
+        {
+          glui32 prev_palette[GLN_PALETTE_SIZE];
+          gln_graphics_convert_palette (gln_pending_paint_palette,
+                                        prev_palette);
+          if (!gln_pending_paint_background_done)
+            {
+              glk_window_fill_rect (gln_graphics_window, prev_palette[0],
+                                    gln_pending_paint_x_offset,
+                                    gln_pending_paint_y_offset,
+                                    gln_pending_paint_width * GLN_GRAPHICS_PIXEL,
+                                    gln_pending_paint_height * GLN_GRAPHICS_PIXEL);
+            }
+          for (int i = gln_pending_paint_index;
+               i < gln_pending_paint_count; i++)
+            {
+              const pixel_to_draw *p = gln_pending_paint_list[i];
+              glk_window_fill_rect (gln_graphics_window,
+                                    prev_palette[p->colour],
+                                    p->x * GLN_GRAPHICS_PIXEL
+                                      + gln_pending_paint_x_offset,
+                                    p->y * GLN_GRAPHICS_PIXEL
+                                      + gln_pending_paint_y_offset,
+                                    GLN_GRAPHICS_PIXEL,
+                                    GLN_GRAPHICS_PIXEL);
+              free (gln_pending_paint_list[i]);
+            }
+          free (gln_pending_paint_list);
+          gln_pending_paint_list = NULL;
+          gln_pending_paint_count = 0;
+          gln_pending_paint_index = 0;
+          gln_pending_paint_pending = FALSE;
+          gln_pending_paint_background_done = FALSE;
+
+          gln_graphics_hold_active = TRUE;
+          gln_graphics_hold_start = gln_graphics_get_millisecs ();
+        }
+
+      /* Treat an expired hold as inactive even if no timer event has cleared
+       * the flag yet (timer events only fire from glk_select callers, and
+       * between text-only commits we may not hit one for many seconds). */
+      int hold_in_effect = gln_graphics_hold_active
+        && gln_graphics_get_millisecs () - gln_graphics_hold_start
+           < GLN_GRAPHICS_TITLE_WAIT_MS;
+      if (!hold_in_effect)
+        gln_graphics_hold_active = FALSE;
+
+      if (hold_in_effect && was_back_to_back)
+        {
+          /* Path 1: defer.  Take ownership of pixels_to_draw plus the picture
+           * dimensions and palette.  Reset the live pixels_to_draw to NULL
+           * so the next picture's absrunsub(0) starts with a fresh buffer.
+           * gln_graphics_timeout will commit this snapshot once the held
+           * picture's hold expires. */
+          gln_pending_paint_list = pixels_to_draw;
+          gln_pending_paint_count = total_draw_instructions;
+          gln_pending_paint_index = 0;
+          gln_pending_paint_background_done = FALSE;
+          gln_pending_paint_width = gln_graphics_width;
+          gln_pending_paint_height = gln_graphics_height;
+          memcpy (gln_pending_paint_palette, gln_graphics_palette,
+                  sizeof (gln_graphics_palette));
+          gln_pending_paint_x_offset = x_offset;
+          gln_pending_paint_y_offset = y_offset;
+          gln_pending_paint_pending = TRUE;
+
+          /* Detach the live pixels_to_draw without freeing it — we now own
+           * those pixels via gln_pending_paint_list. */
+          pixels_to_draw = NULL;
+          total_draw_instructions = 0;
+          current_draw_instruction = 0;
+          draw_ops_capacity = 100;
+          vector_background_painted = FALSE;
+
+          /* Ensure timer events drive gln_graphics_timeout, which will fire
+           * the deferred paint once gln_graphics_hold_active clears. */
+          gln_graphics_start ();
+        }
+      else if (gli_slowdraw && was_back_to_back)
+        {
+          /* Path 2: synchronous slow-draw for the first intro commit (no
+           * prior hold to wait out).  Setting new_picture lets
+           * gln_graphics_timeout() do its full setup including the
+           * clear_and_border that draws the black frame around the picture
+           * area. */
+          current_draw_instruction = 0;
+          gln_graphics_new_picture = TRUE;
+          gln_graphics_start ();
+          while (gln_graphics_active)
+            {
+              gln_event_wait (evtype_Timer, &event);
+            }
+
+          /* Arm hold for this picture so the next os_cleargraphics defers. */
+          gln_graphics_hold_active = TRUE;
+          gln_graphics_hold_start = gln_graphics_get_millisecs ();
+        }
+      else
+        {
+          /* Path 3: fast-paint the buffered pixels directly.  Used for the
+           * first intro commit when gli_slowdraw is off, and for non-intro
+           * (gameplay) commits.  We continue from current_draw_instruction
+           * rather than resetting to 0 so we don't re-plot pixels the async
+           * slow-draw already pushed. */
+          if (!vector_background_painted)
+            {
+              glk_window_fill_rect (gln_graphics_window, palette[0],
+                                    x_offset, y_offset,
+                                    gln_graphics_width * GLN_GRAPHICS_PIXEL,
+                                    gln_graphics_height * GLN_GRAPHICS_PIXEL);
+              vector_background_painted = TRUE;
+            }
+          for (int i = current_draw_instruction;
+               i < total_draw_instructions; i++)
+            {
+              const pixel_to_draw *p = pixels_to_draw[i];
+              glk_window_fill_rect (gln_graphics_window,
+                                    palette[p->colour],
+                                    p->x * GLN_GRAPHICS_PIXEL + x_offset,
+                                    p->y * GLN_GRAPHICS_PIXEL + y_offset,
+                                    GLN_GRAPHICS_PIXEL,
+                                    GLN_GRAPHICS_PIXEL);
+            }
+          FreePixels ();
+          gln_graphics_stop ();
+
+          /* Arm hold only for intro commits.  was_back_to_back is the right
+           * gate: the splash-dismissal keypress at game start clears
+           * gln_pre_input_phase before the title even appears, but Adrian
+           * Mole's text-paging polls between intro pictures short-circuit
+           * in os_readchar without going through the event loop, so
+           * gln_picture_dwell_pending stays TRUE across them.  Gameplay
+           * input (LineInput / real CharInput) clears it via
+           * gln_event_wait_2, keeping per-command transitions snappy. */
+          if (was_back_to_back)
+            {
+              gln_graphics_hold_active = TRUE;
+              gln_graphics_hold_start = gln_graphics_get_millisecs ();
+            }
+        }
     }
+
+  /*
+   * Always mark dwell_pending — even when we had nothing to commit (the
+   * very first os_cleargraphics of a session, before any picture's pixels
+   * have been generated).  This way, when the next os_cleargraphics arrives
+   * to commit the picture that absrunsub() is about to populate, it sees
+   * dwell_pending = TRUE and routes to the synchronous slow-draw branch
+   * instead of fast-paint.  That gives the first picture in a back-to-back
+   * sequence (e.g. The Secret Diary of Adrian Mole's title image, which
+   * arrives BEFORE any prior dwell flag has been set) the same gradual
+   * visible reveal as the rest of the intro.  Real input (LineInput/
+   * CharInput) clears the flag from gln_event_wait_2, so normal gameplay
+   * still falls into the fast-paint branch.
+   */
+  gln_picture_dwell_pending = TRUE;
 
   gln_linegraphics_clear_context ();
 
@@ -3975,87 +4303,6 @@ os_fill (int x, int y, int colour1, int colour2)
     gln_linegraphics_fill_4way_if (x, y, colour1, colour2);
 }
 
-// gln_wait_for_slow_draw() is essentially the title‑picture wait, repurposed:
-
-static void
-gln_wait_for_slow_draw (void)
-{
-  gln_bool finished = TRUE;
-  event_t event;
-  glk_request_char_event (gln_main_window);
-  do
-  {
-    gln_event_wait_2 (evtype_CharInput, evtype_Timer, &event);
-
-    if (event.type == evtype_CharInput)
-    {
-      /* User skip: flush the remainder of pixels_to_draw at once. */
-      int x_offset, y_offset;
-      gln_graphics_position_picture (gln_graphics_window,
-                                     GLN_GRAPHICS_PIXEL,
-                                     gln_graphics_width, gln_graphics_height,
-                                     &x_offset, &y_offset);
-      static glui32 palette[GLN_PALETTE_SIZE];
-      gln_graphics_convert_palette (gln_graphics_palette, palette);
-      gln_graphics_paint_everything(gln_graphics_window,
-                                    palette, gln_graphics_off_screen,
-                                    x_offset, y_offset,
-                                    gln_graphics_width,
-                                    gln_graphics_height);
-      /*
-       * Finalize the reveal exactly as DrawSomeL9VectorPixels() does when it
-       * completes naturally: empty the buffer and stop the timer.  Otherwise
-       * the timer keeps firing and, once os_cleargraphics() returns and the
-       * next picture's frame pixels start accumulating, a background timeout
-       * reveals that frame on its own - before its detail pixels have been
-       * pumped - leaving a blank framed picture.
-       */
-      VectorState = SHOWING_VECTOR_IMAGE;
-      FreePixels ();
-      current_draw_instruction = 0;
-      gln_graphics_stop ();
-      finished = FALSE;
-      break;
-    }
-  }
-  while (gln_graphics_active);
-
-  glk_cancel_char_event (gln_main_window);
-
-  /*
-   * The picture is now fully on screen.  Flush any game text buffered since the
-   * previous picture so it appears alongside this one, matching the original's
-   * picture-then-text-then-picture interleaving.  Without this, os_cleargraphics
-   * holds each picture but leaves the text buffered until the next input call,
-   * which would then dump every picture's text at once.
-   */
-  gln_output_flush ();
-
-  /*
-   * Now wait the title pause, or until a keypress.  We do this in graphics
-   * timeout chunks, so that if graphics restarts while we're delaying, and it
-   * requests timer events and overwrites ours, we wind up with the identical
-   * timer event period to the one we're expecting anyway.  We stop once
-   * GLN_GRAPHICS_TITLE_WAIT_MS of real time has passed, so the pause is the
-   * same length whatever the timer period.
-   */
-  if (finished == TRUE) {
-    glk_request_char_event (gln_main_window);
-    glk_request_timer_events (GLN_GRAPHICS_TIMEOUT);
-    glui32 start_millisecs = gln_graphics_get_millisecs ();
-    while (gln_graphics_get_millisecs () - start_millisecs
-           < GLN_GRAPHICS_TITLE_WAIT_MS)
-    {
-      gln_event_wait_2 (evtype_CharInput, evtype_Timer, &event);
-
-      if (event.type == evtype_CharInput)
-        break;
-    }
-    glk_cancel_char_event (gln_main_window);
-  }
-}
-
-
 #pragma mark gln_linegraphics_process
 
 /*
@@ -4076,9 +4323,13 @@ gln_linegraphics_process (void)
       int opcodes_count;
 
       /* Run all the available graphics opcodes, accumulating the picture's
-       * pixels.  Revealing a finished picture and holding it before the next
-       * one is handled by os_cleargraphics() at the next clear; the final
-       * picture is revealed by the after-loop start below. */
+       * pixels.  We do NOT FreePixels() here even when new opcodes are
+       * pending, because the absrunsub(0) frame for this picture has just
+       * added its border pixels to pixels_to_draw and clearing them would
+       * lose the border.  os_cleargraphics() drains the previous picture
+       * synchronously, so by the time we arrive here pixels_to_draw holds
+       * only this picture's frame pixels — to which we now append the
+       * detail. */
       for (opcodes_count = 0; RunGraphics (); )
         {
           opcodes_count++;
@@ -6216,8 +6467,23 @@ os_input (char *buffer, int size)
   /*
    * No input log being read, or we just hit the end of file on one.  Revert
    * to normal line input; start by getting a new line from Glk.
+   *
+   * If the player (or command script) cancelled an os_cleargraphics
+   * picture-pause with a keystroke, seed the input line with that
+   * (printable) character so it isn't lost — the next character they type
+   * continues the same input line.  Non-printable cancellers are dropped.
    */
-  glk_request_line_event (gln_main_window, buffer, size - 1, 0);
+  glui32 initlen = 0;
+  if (gln_buffered_skip_char)
+    {
+      if (gln_buffered_skip_char >= 32 && gln_buffered_skip_char < UCHAR_MAX)
+        {
+          buffer[0] = (char)gln_buffered_skip_char;
+          initlen = 1;
+        }
+      gln_buffered_skip_char = 0;
+    }
+  glk_request_line_event (gln_main_window, buffer, size - 1, initlen);
   gln_event_wait (evtype_LineInput, &event);
 
   /* Terminate the input line with a NUL. */
@@ -6373,6 +6639,19 @@ os_readchar (int millis)
 
   /* If doing linemode graphics, run all graphic opcodes available. */
   gln_linegraphics_process ();
+
+  /*
+   * If the player (or command script) hit a key during the os_cleargraphics
+   * picture-pause, that keystroke was consumed there to cancel the wait.
+   * Return it now instead of asking for a fresh one, so it isn't lost.
+   */
+  if (gln_buffered_skip_char)
+    {
+      glui32 c = gln_buffered_skip_char;
+      gln_buffered_skip_char = 0;
+      gln_watchdog_tick ();
+      return c == keycode_Return ? '\n' : (char)c;
+    }
 
   /*
    * Here's the way we try to emulate keyboard polling for the case of no Glk
@@ -6668,9 +6947,25 @@ gln_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
 
         case evtype_CharInput:
         case evtype_LineInput:
-          /* Player input cuts short any pending picture hold, so the next
-           * picture appears at once rather than after the remaining delay. */
-          gln_graphics_hold_active = FALSE;
+          /* Real input has been delivered: glk_select has flushed Glk's
+           * buffer, so the previously drawn picture is safely on screen and
+           * the next os_cleargraphics does not need to dwell before
+           * clobbering the bitmap. */
+          gln_picture_dwell_pending = FALSE;
+          /* Exit the intro/pre-input phase: subsequent back-to-back picture
+           * transitions during gameplay no longer get the visibility dwell,
+           * so per-command picture changes stay snappy. */
+          gln_pre_input_phase = FALSE;
+          /* Cut a picture hold short on player input ONLY if the hold has
+           * already been on screen for a minimum dwell — otherwise games like
+           * The Secret Diary of Adrian Mole, which use char input almost
+           * exclusively, would never let the just-drawn picture be seen at
+           * all: each prompt's keypress would clear the hold the moment it
+           * was armed, and the next picture would render immediately on top. */
+          if (gln_graphics_hold_active
+              && gln_graphics_get_millisecs () - gln_graphics_hold_start
+                 >= 2000)
+            gln_graphics_hold_active = FALSE;
           break;
         }
     }
