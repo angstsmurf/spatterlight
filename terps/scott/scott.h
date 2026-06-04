@@ -194,6 +194,7 @@ extern int should_restart;
 GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void);
 int MatchUpItem(int noun, int loc);
 int YesOrNo(void);
+int SelectGameFromMenu(const char *intro, const char **titles, int count);
 void RestartGame(void);
 void LoadGame(void);
 

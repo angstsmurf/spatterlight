@@ -357,6 +357,54 @@ int YesOrNo(void)
     return (result == 1);
 }
 
+/* Present a numbered menu — an intro line followed by the given titles — for a
+   compilation (disk or tape) that holds several games, and return the
+   zero-based index the player chooses. Entries are keyed 1-9, then A.. for any
+   beyond nine. Mirrors YesOrNo's single-character input handling, and clears
+   the window afterwards so the game starts on a clean screen. */
+int SelectGameFromMenu(const char *intro, const char **titles, int count)
+{
+    if (count <= 1)
+        return 0;
+    if (count > 35) /* 1-9 then A-Z */
+        count = 35;
+
+    if (intro != NULL) {
+        Output(intro);
+        Output("\n");
+    }
+    for (int i = 0; i < count; i++) {
+        char label = (i < 9) ? (char)('1' + i) : (char)('A' + (i - 9));
+        Display(Bottom, "\n%c. %s", label, titles[i]);
+    }
+
+    glk_request_char_event_uni(Bottom);
+
+    event_t ev;
+    int choice = -1;
+    do {
+        glk_select(&ev);
+        if (ev.type == evtype_CharInput) {
+            glui32 c = ev.val1;
+            int idx = -1;
+            if (c >= '1' && c <= '9')
+                idx = (int)(c - '1');
+            else if (c >= 'A' && c <= 'Z')
+                idx = (int)(c - 'A' + 9);
+            else if (c >= 'a' && c <= 'z')
+                idx = (int)(c - 'a' + 9);
+            if (idx >= 0 && idx < count)
+                choice = idx;
+            else
+                glk_request_char_event_uni(Bottom);
+        } else
+            Updates(ev);
+    } while (choice < 0);
+
+    glk_window_clear(Bottom);
+    return choice;
+}
+
 void HitEnter(void)
 {
     glk_request_char_event(Bottom);
