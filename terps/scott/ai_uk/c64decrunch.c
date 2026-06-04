@@ -210,25 +210,9 @@ size_t save_island_appendix_2_length = 0;
    and its associated picture files, then decompresses. */
 static GameIDType savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
 {
-    Output("This disk image contains two games. Select one.\n\n1. Savage Island "
-           "part I\n2. Savage Island part II");
-
-    glk_request_char_event(Bottom);
-
-    event_t ev;
-    int result = 0;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            if (ev.val1 == '1' || ev.val1 == '2') {
-                result = ev.val1 - '0';
-            } else {
-                glk_request_char_event(Bottom);
-            }
-        }
-    } while (result == 0);
-
-    glk_window_clear(Bottom);
+    static const char *titles[] = { "Savage Island part I", "Savage Island part II" };
+    int result = SelectGameFromMenu(
+        "This disk image contains two games. Select one.", titles, 2) + 1;
 
     recindex += result - 1;
 
@@ -293,24 +277,11 @@ static GameIDType mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
 {
     recindex = 0;
 
-    Output("This disk image contains six games. Select one.\n\n1. The Golden Baton\n2. The Time Machine\n3. Arrow of Death part 1\n4. Arrow of Death part 2\n5. Escape from Pulsar 7\n6. Circus");
-
-    glk_request_char_event(Bottom);
-
-    event_t ev;
-    int result = 0;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            if (ev.val1 >= '1' && ev.val1 <= '6') {
-                result = ev.val1 - '0';
-            } else {
-                glk_request_char_event(Bottom);
-            }
-        }
-    } while (result == 0);
-
-    glk_window_clear(Bottom);
+    static const char *titles[] = { "The Golden Baton", "The Time Machine",
+        "Arrow of Death part 1", "Arrow of Death part 2",
+        "Escape from Pulsar 7", "Circus" };
+    int result = SelectGameFromMenu(
+        "This disk image contains six games. Select one.", titles, 6) + 1;
 
     const char *filename = NULL;
     switch (result) {
@@ -358,24 +329,10 @@ static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
 {
     recindex = 6;
 
-    Output("This disk image contains five games. Select one.\n\n1. Feasibility Experiment\n2. The Wizard of Akyrz\n3. Perseus and Andromeda\n4. Ten Little Indians\n5. Waxworks");
-
-    glk_request_char_event(Bottom);
-
-    event_t ev;
-    int result = 0;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            if (ev.val1 >= '1' && ev.val1 <= '5') {
-                result = ev.val1 - '0';
-            } else {
-                glk_request_char_event(Bottom);
-            }
-        }
-    } while (result == 0);
-
-    glk_window_clear(Bottom);
+    static const char *titles[] = { "Feasibility Experiment", "The Wizard of Akyrz",
+        "Perseus and Andromeda", "Ten Little Indians", "Waxworks" };
+    int result = SelectGameFromMenu(
+        "This disk image contains five games. Select one.", titles, 5) + 1;
 
     const char *filename = NULL;
     switch (result) {
@@ -419,28 +376,12 @@ static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
    separate ADVn.OBJ file on the disk image. */
 static GameIDType adventure_pack_menu(uint8_t **sf, size_t *extent)
 {
-    Output("This disk image contains 12 games. Select one.\n\n1. Adventureland\n2. Pirate Adventure\n3. Mission Impossible\n4. Voodoo Castle\n5. The Count\n6. Strange Odyssey\n7. Fun House\n8. Pyramid of Doom\n9. Ghost Town\nA. Savage Island\nB. Savage Island Part 2\nC. The Golden Voyage");
-
-    glk_request_char_event(Bottom);
-
-    event_t ev;
-    int result = 0;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            if (ev.val1 >= '1' && ev.val1 <= '9') {
-                result = ev.val1 - '0';
-            } else if (ev.val1 >= 'A' && ev.val1 <= 'C') {
-                result = ev.val1 - 'A' + 10;
-            } else if (ev.val1 >= 'a' && ev.val1 <= 'c') {
-                result = ev.val1 - 'a' + 10;
-            } else {
-                glk_request_char_event(Bottom);
-            }
-        }
-    } while (result < 1 || result > 12);
-
-    glk_window_clear(Bottom);
+    static const char *titles[] = { "Adventureland", "Pirate Adventure",
+        "Mission Impossible", "Voodoo Castle", "The Count", "Strange Odyssey",
+        "Fun House", "Pyramid of Doom", "Ghost Town", "Savage Island",
+        "Savage Island Part 2", "The Golden Voyage" };
+    int result = SelectGameFromMenu(
+        "This disk image contains 12 games. Select one.", titles, 12) + 1;
 
     char filename[100];
     snprintf(filename, 100, "ADV%d.OBJ", result);
