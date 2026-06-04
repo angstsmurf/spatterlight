@@ -698,6 +698,7 @@
 		C372B2562F7D5CF900331461 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
 		C3FACE0100000000DEAD0001 /* loading_screen.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0100000000DEAD0002 /* loading_screen.c */; };
+		C3FACE0100000000DEAD0005 /* alkatraz_screen.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0100000000DEAD0006 /* alkatraz_screen.c */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
 		C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C374D1C226EE4E75006F430E /* SoundHandler.m */; };
@@ -3052,6 +3053,8 @@
 		C3FACE0100000000DEAD0002 /* loading_screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = loading_screen.c; sourceTree = "<group>"; };
 		C3FACE0100000000DEAD0003 /* loading_screen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = loading_screen.h; sourceTree = "<group>"; };
 		C3FACE0100000000DEAD0004 /* kayleth_loadscreen_data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kayleth_loadscreen_data.h; sourceTree = "<group>"; };
+		C3FACE0100000000DEAD0006 /* alkatraz_screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = alkatraz_screen.c; sourceTree = "<group>"; };
+		C3FACE0100000000DEAD0007 /* alkatraz_screen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = alkatraz_screen.h; sourceTree = "<group>"; };
 		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
 		C37391D927A25D03009147EF /* game_specific.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_specific.h; sourceTree = "<group>"; usesTabs = 0; };
 		C37391DA27A25D04009147EF /* game_specific.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_specific.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -6170,6 +6173,8 @@
 				C3FACE0100000000DEAD0002 /* loading_screen.c */,
 				C3FACE0100000000DEAD0003 /* loading_screen.h */,
 				C3FACE0100000000DEAD0004 /* kayleth_loadscreen_data.h */,
+				C3FACE0100000000DEAD0006 /* alkatraz_screen.c */,
+				C3FACE0100000000DEAD0007 /* alkatraz_screen.h */,
 				C3CED4452810190E0040252F /* decrypttotloader.h */,
 				C3CED4422810190E0040252F /* decrypttotloader.c */,
 				C3CED4442810190E0040252F /* loadtotpicture.h */,
@@ -8456,6 +8461,7 @@
 				C349B4DC28803A7C00D99943 /* parseinput.c in Sources */,
 				C37344632804673F00D8AE01 /* extracttape.c in Sources */,
 				C3FACE0100000000DEAD0001 /* loading_screen.c in Sources */,
+				C3FACE0100000000DEAD0005 /* alkatraz_screen.c in Sources */,
 				C3590C722EF1494100F02FE7 /* read_le16.c in Sources */,
 				C3CED4472810190E0040252F /* decrypttotloader.c in Sources */,
 				C3D571B827D8F652008FB786 /* ui.c in Sources */,
