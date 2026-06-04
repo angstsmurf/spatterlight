@@ -957,6 +957,44 @@ uint8_t *ReadImageFromNib(size_t offset, size_t size, uint8_t *data, size_t data
 }
 
 /*
+ * Decode an entire nibble disk image into a standard 143360-byte
+ * DOS 3.3 ordered .dsk image (35 tracks * 16 sectors * 256 bytes).
+ *
+ * Unlike ReadImageFromNib(), this is tolerant of unreadable sectors:
+ * sectors that fail to decode (e.g. unformatted or copy-protected tracks)
+ * are left zero-filled instead of aborting the whole conversion.  This is
+ * what we want when reconstructing a raw disk image from a WOZ dump, where
+ * spare/unused tracks need not decode cleanly.
+ *
+ * The caller must free the returned buffer.
+ */
+uint8_t *ReadFullImageFromNib(uint8_t *data, size_t datasize)
+{
+    InitNibImage(data, datasize);
+
+    size_t imagesize = kNumTracks * kNumSectPerTrack * kSectorSize;
+    uint8_t *result = MemAlloc(imagesize);
+    memset(result, 0, imagesize);
+
+    uint8_t buf[kSectorSize];
+
+    for (int track = 0; track < kNumTracks; track++) {
+        for (int sector = 0; sector < kNumSectPerTrack; sector++) {
+            size_t pOffset;
+            int pNewSector;
+            if (CalcSectorAndOffset(track, sector, kSectorOrderPhysical,
+                    kSectorOrderDOS, &pOffset, &pNewSector) != kDIErrNone)
+                continue;
+            if (ReadNibbleSector(track, pNewSector, buf) == kDIErrNone)
+                memcpy(result + (track * kNumSectPerTrack + sector) * kSectorSize,
+                    buf, kSectorSize);
+        }
+    }
+
+    return result;
+}
+
+/*
  * Read the specified track and sector, adjusting for sector ordering as
  * appropriate.
  *
