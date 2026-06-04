@@ -1136,6 +1136,126 @@ uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr)
     return dataptr;
 }
 
+/* ---------------------------------------------------------------------------
+   Alkatraz tape decryption
+
+   Some commercial Scott Adams tapes (notably the U.S. Gold "Scott Adams
+   Scoops" compilation) are protected with the Appleby Associates "Alkatraz"
+   loader, which decrypts the game with a rolling-key XOR as it streams from
+   tape, so the raw .tzx contains no recognisable dictionary. We reverse the
+   final decryption pass here (the same scheme TaylorMade's extracttape.c
+   uses) to reconstruct the loaded Spectrum memory image, which the normal ZX
+   dictionary scan below can then identify.
+
+   The per-release parameters are recovered by tracing the loader in an
+   emulator: break on the store that writes a known decrypted byte, then read
+   the key seed (loacon), the destination/count and the source pointer.
+
+   The DeAlkatraz decryption primitive itself lives in the shared decompressz80
+   library (and is also used by the TaylorMade interpreter).
+   --------------------------------------------------------------------------- */
+
+/* One game on an Alkatraz compilation tape: its title (shown in the selection
+   menu) and the per-game key parameters. source_offset/target/size are shared
+   by every game on a tape, so they live in AlkatrazTape. */
+typedef struct {
+    const char *title;
+    int tzx_block;     /* GetTZXBlock index of this game's encrypted block */
+    uint8_t loacon;    /* initial rolling key */
+    uint8_t add1;      /* key-evolution constants */
+    uint8_t add2;
+} AlkatrazGame;
+
+/* One Alkatraz-protected release, identified by exact file length + checksum. */
+typedef struct {
+    int32_t file_length;   /* exact .tzx length identifying the release */
+    uint16_t file_chk;     /* sum-of-bytes checksum of the whole file */
+    size_t source_offset;  /* offset of the encrypted data within each block */
+    uint16_t target;       /* Spectrum address the decrypt writes to */
+    uint16_t size;         /* number of bytes to decrypt */
+    int num_games;         /* >1 ⇒ prompt the player to choose */
+    const AlkatrazGame *games;
+} AlkatrazTape;
+
+/* Scott Adams Scoops (1987)(U.S. Gold).tzx — four games behind one Alkatraz
+   loader (shared source offset 0x11, target 0x5B00, size 0x4500). Each game's
+   seed + key-evolution constants were recovered by tracing the loader and
+   verified against the reference snapshots: the decrypted dictionary lands at
+   the address each game's GameInfo expects (Pirate 0x869A, Voodoo 0x8752,
+   Strange Odyssey 0x899A, Buckaroo 0x8C54). */
+static const AlkatrazGame scoops_games[] = {
+    { "Pirate Adventure",  4, 0xad, 0xfd, 0xff },
+    { "Voodoo Castle",     8, 0x1e, 0xfe, 0xbe },
+    { "Strange Odyssey",  12, 0x5a, 0x9c, 0xdc },
+    { "Buckaroo Banzai",  16, 0xdb, 0xb3, 0x21 },
+};
+
+static const AlkatrazTape alkatraz_tapes[] = {
+    { 0x16644, 0x3982, 0x11, 0x5b00, 0x4500, 4, scoops_games },
+    { 0, 0, 0, 0, 0, 0, NULL }
+};
+
+/* If entire_file is a known Alkatraz-protected tape, let the player pick a
+   game (compilations carry several), decrypt it into a fresh Spectrum memory
+   image (offset 0 == address 0x4000, as DecompressZ80 produces) and adopt it
+   as entire_file. Returns 1 on success, leaving the ZX dictionary scan to
+   identify the chosen game. */
+static int DeAlkatrazTape(void)
+{
+    if (file_length < 16 || memcmp(entire_file, "ZXTape!\x1a", 8) != 0)
+        return 0;
+
+    uint16_t sum = 0;
+    for (size_t i = 0; i < file_length; i++)
+        sum += entire_file[i];
+
+    const AlkatrazTape *tape = NULL;
+    for (int i = 0; alkatraz_tapes[i].file_length != 0; i++) {
+        if ((int32_t)file_length == alkatraz_tapes[i].file_length
+            && sum == alkatraz_tapes[i].file_chk) {
+            tape = &alkatraz_tapes[i];
+            break;
+        }
+    }
+    if (tape == NULL)
+        return 0;
+
+    int choice = 0;
+    if (tape->num_games > 1) {
+        const char *titles[16];
+        int n = tape->num_games < 16 ? tape->num_games : 16;
+        for (int i = 0; i < n; i++)
+            titles[i] = tape->games[i].title;
+        choice = SelectGameFromMenu(
+            "This tape contains several games. Which would you like to play?",
+            titles, n);
+    }
+    const AlkatrazGame *game = &tape->games[choice];
+
+    size_t blocklen = file_length;
+    uint8_t *block = GetTZXBlock(game->tzx_block, entire_file, &blocklen);
+    if (block == NULL)
+        return 0;
+    if (tape->source_offset + tape->size > blocklen) {
+        free(block);
+        return 0;
+    }
+
+    uint8_t loacon = game->loacon;
+    uint8_t *mem = DeAlkatraz(block, NULL, tape->source_offset, tape->target,
+        tape->size, &loacon, game->add1, game->add2, 0);
+    free(block);
+
+    uint8_t *image = MemAlloc(0xc000);
+    memcpy(image, mem + ZX_RAM_BASE, 0xc000);
+    free(mem);
+
+    free(entire_file);
+    entire_file = image;
+    file_length = 0xc000;
+    return 1;
+}
+
 /* Detect and load a ZX Spectrum game file. Handles .z80 snapshot
    decompression, dictionary signature scanning, and Parsec RLE
    decompression (a two-pass scheme using Z80 register values
@@ -1154,7 +1274,12 @@ GameIDType DetectZXSpectrum(void)
     if (is_tzx || looks_like_tap)
         ZXLoadingScreen = FindTapeLoadingScreen(entire_file, file_length, is_tzx);
 
-    uint8_t *uncompressed = DecompressZ80(entire_file, &file_length);
+    /* Alkatraz-protected tapes carry no plaintext dictionary. If this is a
+       known one, decrypt the embedded game image now (replacing entire_file
+       with a 0x4000-based Spectrum image) and skip the .z80 path below. */
+    int decrypted = (is_tzx && DeAlkatrazTape());
+
+    uint8_t *uncompressed = decrypted ? NULL : DecompressZ80(entire_file, &file_length);
     if (uncompressed != NULL) {
         was_z80_snapshot = 1;
         free(entire_file);
