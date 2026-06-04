@@ -15,6 +15,9 @@
 #include "read_le16.h"
 #include "graphics.h"
 
+#include "woz2nib.h"
+#include "ciderpress.h"
+
 #include "apple2detect.h"
 
 typedef struct imglist {
@@ -232,9 +235,44 @@ static const struct imglist a2listBanzai[] = {
 
 uint8_t *new = NULL;
 
+// If the buffer is an Apple II WOZ disk image, convert it into a standard
+// 143360-byte DOS 3.3 ordered .dsk image (via the shared readwoz library) so
+// that the rest of this file can treat it exactly like a .dsk file.
+// Returns a newly allocated buffer (caller frees) and sets *outsize, or NULL
+// if the data is not WOZ or conversion fails.
+static uint8_t *ConvertWozToDsk(uint8_t *data, size_t datasize, size_t *outsize)
+{
+    if (data == NULL || datasize < 4 ||
+        data[0] != 'W' || data[1] != 'O' || data[2] != 'Z')
+        return NULL;
+
+    size_t nibsize = datasize;
+    uint8_t *nib = woz2nib(data, &nibsize);
+    if (nib == NULL)
+        return NULL;
+
+    uint8_t *dsk = ReadFullImageFromNib(nib, nibsize);
+    free(nib);
+    if (dsk == NULL)
+        return NULL;
+
+    *outsize = 35 * 16 * 256;
+    return dsk;
+}
+
 int DetectApple2(uint8_t **sf, size_t *extent)
 {
     const size_t dsk_image_size = 35 * 16 * 256;
+
+    // Accept WOZ images by converting them to a .dsk image up front.
+    size_t wozdsksize;
+    uint8_t *wozdsk = ConvertWozToDsk(*sf, *extent, &wozdsksize);
+    if (wozdsk != NULL) {
+        free(*sf);
+        *sf = wozdsk;
+        *extent = wozdsksize;
+    }
+
     if (*extent > MAX_LENGTH || *extent < dsk_image_size)
         return 0;
 
@@ -250,6 +288,17 @@ int DetectApple2(uint8_t **sf, size_t *extent)
     if (actionsize < 4000 || actionsize > 7000) {
         size_t companionsize;
         uint8_t *companionfile = GetCompanionFile(game_file, &companionsize);
+        // The companion side may itself be a WOZ image; convert it too.
+        if (companionfile != NULL) {
+            size_t companiondsksize;
+            uint8_t *companiondsk = ConvertWozToDsk(companionfile, companionsize,
+                &companiondsksize);
+            if (companiondsk != NULL) {
+                free(companionfile);
+                companionfile = companiondsk;
+                companionsize = companiondsksize;
+            }
+        }
         if (companionfile && companionsize >= dsk_image_size) {
             free(new);
             new = MemAlloc(companionsize);
