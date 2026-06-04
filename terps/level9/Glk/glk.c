@@ -2802,6 +2802,16 @@ gln_graphics_timeout (void)
 
       if (!gln_pending_paint_background_done)
         {
+          /* Draw the shaded border around the picture area before the first
+           * chunk, matching what gln_graphics_clear_and_border does for the
+           * regular new_picture setup path.  Without this the deferred
+           * pictures appear without their frame. */
+          gln_graphics_clear_and_border (gln_graphics_window,
+                                         gln_pending_paint_x_offset,
+                                         gln_pending_paint_y_offset,
+                                         GLN_GRAPHICS_PIXEL,
+                                         gln_pending_paint_width,
+                                         gln_pending_paint_height);
           glk_window_fill_rect (gln_graphics_window, pending_palette[0],
                                 gln_pending_paint_x_offset,
                                 gln_pending_paint_y_offset,
@@ -4121,6 +4131,12 @@ os_cleargraphics (void)
                                         prev_palette);
           if (!gln_pending_paint_background_done)
             {
+              gln_graphics_clear_and_border (gln_graphics_window,
+                                             gln_pending_paint_x_offset,
+                                             gln_pending_paint_y_offset,
+                                             GLN_GRAPHICS_PIXEL,
+                                             gln_pending_paint_width,
+                                             gln_pending_paint_height);
               glk_window_fill_rect (gln_graphics_window, prev_palette[0],
                                     gln_pending_paint_x_offset,
                                     gln_pending_paint_y_offset,
@@ -4217,7 +4233,21 @@ os_cleargraphics (void)
            * first intro commit when gli_slowdraw is off, and for non-intro
            * (gameplay) commits.  We continue from current_draw_instruction
            * rather than resetting to 0 so we don't re-plot pixels the async
-           * slow-draw already pushed. */
+           * slow-draw already pushed.
+           *
+           * Intro fast-paints additionally draw the shaded picture frame,
+           * matching the regular new_picture setup path; gameplay commits
+           * skip it, since the frame was drawn previously and the async
+           * slow-draw has already populated parts of the picture that we
+           * don't want to clear. */
+          if (was_back_to_back)
+            {
+              gln_graphics_clear_and_border (gln_graphics_window,
+                                             x_offset, y_offset,
+                                             GLN_GRAPHICS_PIXEL,
+                                             gln_graphics_width,
+                                             gln_graphics_height);
+            }
           if (!vector_background_painted)
             {
               glk_window_fill_rect (gln_graphics_window, palette[0],
