@@ -20,6 +20,8 @@
 #include "decompressz80.h"
 #include "decrypttotloader.h"
 #include "loading_screen.h"
+#include "kayleth_loadscreen_data.h"
+#include "terraquake_loadscreen_data.h"
 #include "taylor.h"
 #include "utility.h"
 
@@ -245,10 +247,14 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 break;
             case 0xcadc:  // Kayleth (TZX)
                 // The screen is drawn by the Alkatraz loader, not stored as a
-                // plain block, so reconstruct it from block 4 before extraction
-                // consumes the raw image.
+                // plain block, so reconstruct it from the tape before
+                // extraction consumes the raw image.
                 if (ZXLoadingScreen == NULL)
-                    ZXLoadingScreen = DecodeKaylethLoadingScreen(image, origlen);
+                    ZXLoadingScreen = DecodeAlkatrazLoadingScreen(image, origlen,
+                        kayleth_screen_descriptors, KAYLETH_SCREEN_WINDOWS,
+                        KAYLETH_SCREEN_BLOCK, KAYLETH_SCREEN_OFFSET,
+                        KAYLETH_SCREEN_LOACON, KAYLETH_SCREEN_ADD2,
+                        KAYLETH_SCREEN_ATTRFILL);
                 image = process_tzx_extract(image, length, &kayleth);
                 break;
             case 0xccca:  // Temple of Terror, Side A (TZX)
@@ -256,6 +262,12 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 break;
             case 0xcd15:  // Terraquake (TZX, variant 1)
             case 0xcd17:  // Terraquake (TZX, variant 2)
+                if (ZXLoadingScreen == NULL)
+                    ZXLoadingScreen = DecodeAlkatrazLoadingScreen(image, origlen,
+                        terraquake_screen_descriptors, TERRAQUAKE_SCREEN_WINDOWS,
+                        TERRAQUAKE_SCREEN_BLOCK, TERRAQUAKE_SCREEN_OFFSET,
+                        TERRAQUAKE_SCREEN_LOACON, TERRAQUAKE_SCREEN_ADD2,
+                        TERRAQUAKE_SCREEN_ATTRFILL);
                 image = process_tzx_extract(image, length, &terraquake);
                 break;
             case 0x10428: // Blizzard Pass (TZX)

@@ -67,13 +67,11 @@ int AlkatrazScreenOrder(const uint8_t *descriptors, int nwin,
 
     while (w < nwin && n < maxout) {
         const uint8_t *first = descriptors + w * 4;
-        int sim = ((first[3] >> 5) & 7) + 1;
-        if (sim > 4)
-            sim = 4;
+        int sim = ((first[3] >> 5) & 7) + 1;   /* 1..8 simultaneous windows */
         if (w + sim > nwin)
             sim = nwin - w;
 
-        AlkSlot slot[4];
+        AlkSlot slot[8];
         for (int s = 0; s < sim; s++) {
             const uint8_t *d = descriptors + (w + s) * 4;
             uint16_t addr = (uint16_t)(d[0] | (d[1] << 8));

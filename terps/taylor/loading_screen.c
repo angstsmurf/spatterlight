@@ -20,7 +20,6 @@
 
 #include "alkatraz_screen.h"
 #include "loading_screen.h"
-#include "kayleth_loadscreen_data.h"
 
 uint8_t *ZXLoadingScreen = NULL;
 
@@ -114,46 +113,49 @@ int ZXScreenIsBlackOnWhite(const uint8_t *scr)
     return 1;
 }
 
-/* Kayleth (TZX) hides its loading screen behind the Alkatraz turbo loader,
-   which draws the picture pixel-by-pixel in a scrambled order rather than
-   storing a plain SCREEN$ block. We expand the loader's window descriptors
-   into that draw order (AlkatrazScreenOrder), pull the pixel stream from tape
-   block 4, and decrypt each byte with the same rolling-key XOR the loader
-   uses, writing it to the screen address it draws next. Background bitmap is
-   black and the attributes are a uniform fill. See kayleth_loadscreen_data.h.
+/* Some Alkatraz-protected games (Kayleth, Terraquake) hide the loading screen
+   behind the turbo loader, which draws the picture pixel-by-pixel in a
+   scrambled order rather than storing a plain SCREEN$ block. We expand the
+   loader's window descriptors into that draw order (AlkatrazScreenOrder), pull
+   the pixel stream from the given tape block, and decrypt each byte with the
+   same rolling-key XOR the loader uses, writing it to the screen address it
+   draws next. Background bitmap is black and the attributes are a uniform
+   fill. The per-game descriptors and parameters live in the game's
+   *_loadscreen_data.h header.
 
    Returns a malloc'd 6912-byte SCREEN$ (caller frees) or NULL. */
-uint8_t *DecodeKaylethLoadingScreen(uint8_t *image, size_t length)
+uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
+    const uint8_t *descriptors, int nwin, int block_index, int offset,
+    uint8_t loacon0, uint8_t add2, uint8_t attrfill)
 {
     uint16_t order[ZX_SCREEN_SIZE];
-    int n = AlkatrazScreenOrder(kayleth_screen_descriptors,
-        KAYLETH_SCREEN_WINDOWS, order, ZX_SCREEN_SIZE);
+    int n = AlkatrazScreenOrder(descriptors, nwin, order, ZX_SCREEN_SIZE);
     if (n <= 0)
         return NULL;
 
     size_t blocklen = length;
-    uint8_t *block = GetTZXBlock(KAYLETH_SCREEN_BLOCK, image, &blocklen);
+    uint8_t *block = GetTZXBlock(block_index, image, &blocklen);
     if (block == NULL)
         return NULL;
-    if (blocklen < (size_t)(KAYLETH_SCREEN_OFFSET + n)) {
+    if (blocklen < (size_t)(offset + n)) {
         free(block);
         return NULL;
     }
 
     uint8_t *screen = MemAlloc(ZX_SCREEN_SIZE);
     memset(screen, 0x00, ZX_BITMAP_SIZE);                 /* black bitmap   */
-    memset(screen + ZX_BITMAP_SIZE, KAYLETH_SCREEN_ATTRFILL,
+    memset(screen + ZX_BITMAP_SIZE, attrfill,
         ZX_SCREEN_SIZE - ZX_BITMAP_SIZE);                 /* attribute fill */
 
-    uint8_t loacon = KAYLETH_SCREEN_LOACON;
+    uint8_t loacon = loacon0;
     for (int k = 0; k < n; k++) {
         uint16_t addr = order[k];
-        uint8_t enc = block[KAYLETH_SCREEN_OFFSET + k];
+        uint8_t enc = block[offset + k];
         /* addr is a Spectrum screen address (0x4000-0x5AFF); offset 0x4000
            maps to the start of our SCREEN$ buffer. */
         screen[addr - 0x4000] =
             enc ^ loacon ^ 1 ^ ((addr >> 8) & 0xff) ^ (addr & 0xff);
-        loacon += KAYLETH_SCREEN_ADD2;
+        loacon += add2;
     }
 
     free(block);
