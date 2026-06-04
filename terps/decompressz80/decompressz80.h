@@ -48,4 +48,18 @@ uint8_t *GetTZXBlock(int blockno, uint8_t *srcbuf, size_t *length);
 uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
     size_t *out_len, size_t *blk_off, size_t *blk_len, int *n_blk, int max_blk);
 
+/* --- Alkatraz copy-protection decryption (Appleby Associates) ---
+ * Shared by the ScottFree (scott) and TaylorMade (taylor) interpreters. See
+ * the implementations in decompressz80.c for details.
+ *
+ * ldir/lddr emulate the Z80 block-copy instructions on a memory image;
+ * DeAlkatraz reverses the rolling-key XOR (selfmodify!=0 for Temple of Terror);
+ * DeshuffleAlkatraz unscrambles the relocated blocks. */
+void ldir(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size);
+void lddr(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size);
+uint8_t *DeAlkatraz(uint8_t *src, uint8_t *dst, size_t src_offset,
+    uint16_t target, uint16_t count, uint8_t *loacon, uint8_t add1, uint8_t add2,
+    int selfmodify);
+void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t ix, uint16_t store);
+
 #endif /* decompressz80_h */

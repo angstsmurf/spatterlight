@@ -1765,3 +1765,84 @@ uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
     *out_len = olen;
     return out;
 }
+
+/* ---------------------------------------------------------------------------
+   Alkatraz copy-protection decryption (Appleby Associates)
+
+   Shared by the ScottFree (scott) and TaylorMade (taylor) interpreters, both
+   of which load Alkatraz-protected ZX Spectrum tapes. The loader decrypts the
+   game with a rolling-key XOR as it streams from cassette and then shuffles
+   memory blocks around; these helpers reverse those steps on a 64 KB in-memory
+   Spectrum image.
+   --------------------------------------------------------------------------- */
+
+/* Emulate the Z80 LDIR instruction: byte-at-a-time forward block copy. Source
+   and target may overlap (e.g. filling a region by copying N -> N+1). */
+void ldir(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size)
+{
+    for (int i = 0; i < size; i++)
+        mem[target++] = mem[source++];
+}
+
+/* Emulate the Z80 LDDR instruction: byte-at-a-time backward block copy, needed
+   when relocating data to higher, overlapping addresses. */
+void lddr(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size)
+{
+    for (int i = 0; i < size; i++)
+        mem[target--] = mem[source--];
+}
+
+/* Decrypt `count` bytes from src[src_offset..] into a 64 KB Spectrum memory
+   image at address `target`. Each output byte is the rolling key (*loacon)
+   XORed with the running count (D/E), the destination address and the encrypted
+   source byte; the key then evolves by add1/add2 exactly as the Z80 loader does.
+   When `selfmodify` is set, two decrypted bytes overwrite add1/add2 (the
+   original protection code is self-modifying — used by Temple of Terror).
+   Allocates the 64 KB image if dst is NULL; the caller frees the result. */
+uint8_t *DeAlkatraz(uint8_t *src, uint8_t *dst, size_t src_offset,
+    uint16_t target, uint16_t count, uint8_t *loacon, uint8_t add1, uint8_t add2,
+    int selfmodify)
+{
+    if (dst == NULL) {
+        dst = libspectrum_malloc(0x10000);
+        memset(dst, 0, 0x10000);
+    }
+    while (count != 0) {
+        uint8_t D = (count >> 8) & 0xff;
+        uint8_t E = count & 0xff;
+        uint8_t val = *loacon ^ D ^ E ^ ((target >> 8) & 0xff) ^ (target & 0xff)
+                      ^ src[src_offset];
+        dst[target] = val;
+        if (selfmodify) {
+            if (target == 0xe022)
+                add1 = val;
+            if (target == 0xe02f)
+                add2 = val;
+        }
+        if (E & 0x10)
+            *loacon = *loacon + add1 - D + E;
+        *loacon += add2;
+        src_offset++;
+        target++;
+        count--;
+    }
+    return dst;
+}
+
+/* Unscramble memory blocks shuffled by the Alkatraz loader. The relocation
+   table at `ix` is walked backwards (5 bytes per entry: 2 bytes destination,
+   2 bytes block-length-minus-1, 1 byte fill value): each entry shifts data up
+   via LDDR to make room, then fills the vacated gap via LDIR. */
+void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t ix, uint16_t store)
+{
+    uint16_t count, length;
+    for (int i = 0; i < repeats; i++) {
+        count = READ_LE_UINT16(mem + ix - 4);
+        length = READ_LE_UINT16(mem + ix - 2) + 1;
+        store += length;
+        lddr(mem, store, store - length, store - count + 1);
+        mem[count] = mem[ix];
+        ldir(mem, count + 1, count, length - 1);
+        ix -= 5;
+    }
+}
