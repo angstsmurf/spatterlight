@@ -134,30 +134,121 @@ int ZXScreenIsBlackOnWhite(const uint8_t *scr)
     return 1;
 }
 
+/* Draw the 8 pixels of one bitmap byte (display-file address bmaddr) using the
+   attribute currently in scr for that cell. */
+static void DrawZXByte(const uint8_t *scr, uint16_t bmaddr)
+{
+    int offset = bmaddr - 0x4000;
+    int col = offset & 0x1f;
+    int y = ((offset & 0x0700) >> 8) | ((offset & 0x00e0) >> 2) | ((offset & 0x1800) >> 5);
+
+    uint8_t bits = scr[offset];
+    uint8_t attr = scr[ZX_BITMAP_SIZE + (y >> 3) * 32 + col];
+    int bright = (attr & 0x40) ? 8 : 0;
+    int ink = (attr & 0x07) + bright;
+    int paper = ((attr >> 3) & 0x07) + bright;
+    /* The flash bit (0x80) is ignored for a static title image. */
+
+    for (int b = 0; b < 8; b++) {
+        int set = (bits >> (7 - b)) & 1;
+        PutPixel(col * 8 + b, y, set ? ink : paper);
+    }
+}
+
+/* Redraw the cell at a screen address: one bitmap byte, or (for an attribute
+   address) the whole 8x8 character it colours. */
+static void RedrawZXCell(const uint8_t *scr, uint16_t addr)
+{
+    if (addr < 0x5800) {
+        DrawZXByte(scr, addr);
+        return;
+    }
+    int cell = addr - 0x5800;
+    int crow = cell >> 5, ccol = cell & 0x1f;
+    for (int py = 0; py < 8; py++) {
+        int y = crow * 8 + py;
+        int offset = ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8) | ccol;
+        DrawZXByte(scr, (uint16_t)(0x4000 + offset));
+    }
+}
+
 static void DrawZXScreen(const uint8_t *scr)
 {
     if (!scr || !Graphics)
         return;
 
     for (int y = 0; y < ZX_SCREEN_HEIGHT; y++) {
-        /* Offset of the leftmost bitmap byte of pixel row y. */
         int bitmap_row = ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8);
-        const uint8_t *attr_row = scr + ZX_BITMAP_SIZE + (y >> 3) * 32;
-
-        for (int col = 0; col < 32; col++) {
-            uint8_t bits = scr[bitmap_row + col];
-            uint8_t attr = attr_row[col];
-            int bright = (attr & 0x40) ? 8 : 0;
-            int ink = (attr & 0x07) + bright;
-            int paper = ((attr >> 3) & 0x07) + bright;
-            /* The flash bit (0x80) is ignored for a static title image. */
-
-            for (int b = 0; b < 8; b++) {
-                int set = (bits >> (7 - b)) & 1;
-                PutPixel(col * 8 + b, y, set ? ink : paper);
-            }
-        }
+        for (int col = 0; col < 32; col++)
+            DrawZXByte(scr, (uint16_t)(0x4000 + bitmap_row + col));
     }
+}
+
+/* Reveal the screen progressively, in the linear order a real Spectrum loaded
+   it from tape (bitmap top-to-bottom, then the attributes), on a timer. A
+   keypress dismisses it. Scott Adams Spectrum games use ordinary loaders, so
+   the linear order is the authentic one. */
+#define ZX_REVEAL_TICK_MS 30
+#define ZX_REVEAL_TICKS   120
+
+static void ZXSlowReveal(void)
+{
+    if (!ZXLoadingScreen || !Graphics)
+        return;
+
+    /* Start from the unrevealed background: black bitmap, attributes at the
+       screen's uniform fill (its most common attribute byte). */
+    static uint8_t work[ZX_SCREEN_SIZE];
+    int counts[256] = { 0 };
+    for (int i = ZX_BITMAP_SIZE; i < ZX_SCREEN_SIZE; i++)
+        counts[ZXLoadingScreen[i]]++;
+    int fill = 0;
+    for (int v = 1; v < 256; v++)
+        if (counts[v] > counts[fill])
+            fill = v;
+    memset(work, 0x00, ZX_BITMAP_SIZE);
+    memset(work + ZX_BITMAP_SIZE, (uint8_t)fill, ZX_SCREEN_SIZE - ZX_BITMAP_SIZE);
+
+    glk_window_clear(Graphics);
+    DrawZXScreen(work);
+
+    int per_tick = ZX_SCREEN_SIZE / ZX_REVEAL_TICKS;
+    if (per_tick < 1)
+        per_tick = 1;
+    int pos = 0;
+
+    winid_t keywin = Graphics ? Graphics : Bottom;
+    if (keywin == NULL)
+        return;
+    glk_request_char_event(keywin);
+    glk_request_timer_events(ZX_REVEAL_TICK_MS);
+
+    event_t ev;
+    do {
+        glk_select(&ev);
+        if (ev.type == evtype_Timer) {
+            int end = pos + per_tick;
+            if (end > ZX_SCREEN_SIZE)
+                end = ZX_SCREEN_SIZE;
+            for (; pos < end; pos++) {
+                uint16_t a = (uint16_t)(0x4000 + pos);
+                work[pos] = ZXLoadingScreen[pos];
+                RedrawZXCell(work, a);
+            }
+            if (pos >= ZX_SCREEN_SIZE)
+                glk_request_timer_events(0);
+        } else if (ev.type == evtype_Arrange) {
+#ifdef SPATTERLIGHT
+            if (!gli_enable_graphics)
+                break;
+#endif
+            ResizeTitleImage();
+            glk_window_clear(Graphics);
+            DrawZXScreen(work);
+        }
+    } while (ev.type != evtype_CharInput);
+
+    glk_request_timer_events(0);
 }
 
 /* Wait for a keypress on the ZX loading-screen title. Unlike
@@ -259,8 +350,18 @@ void DrawZXTitleImage(void)
     ResizeTitleImage();
     glk_window_clear(Graphics);
 
-    DrawZXScreen(ZXLoadingScreen);
-    wait_for_key_on_zx_title();
+    /* Reveal the picture slowly (in tape-load order) when the slow-draw
+       setting is on; otherwise paint it at once. */
+    int slow = gli_slowdraw;
+#ifdef SPATTERLIGHT
+    slow = slow && !gli_determinism;
+#endif
+    if (slow) {
+        ZXSlowReveal();
+    } else {
+        DrawZXScreen(ZXLoadingScreen);
+        wait_for_key_on_zx_title();
+    }
 
     glk_window_close(Graphics, NULL);
     Graphics = NULL;
