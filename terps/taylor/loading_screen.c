@@ -19,6 +19,7 @@
 #include "utility.h"            /* MemAlloc, FindGlkWindowWithRock, rocks */
 
 #include "loading_screen.h"
+#include "kayleth_loadscreen_data.h"
 
 uint8_t *ZXLoadingScreen = NULL;
 
@@ -110,6 +111,48 @@ int ZXScreenIsBlackOnWhite(const uint8_t *scr)
         if ((scr[ZX_BITMAP_SIZE + i] & 0x3f) != 0x38)
             return 0;
     return 1;
+}
+
+/* Kayleth (TZX) hides its loading screen behind the Alkatraz turbo loader,
+   which draws the picture pixel-by-pixel in a scrambled order rather than
+   storing a plain SCREEN$ block. The byte stream lives in tape block 4 and
+   is decrypted with the same rolling-key XOR the loader uses; each decoded
+   byte is written to the screen address given (in load order) by the
+   recovered SCADDS draw-order table. Background bitmap is black and the
+   attributes are a uniform fill. See kayleth_loadscreen_data.h.
+
+   Returns a malloc'd 6912-byte SCREEN$ (caller frees) or NULL. */
+uint8_t *DecodeKaylethLoadingScreen(uint8_t *image, size_t length)
+{
+    size_t n = sizeof(kayleth_screen_draworder) / sizeof(kayleth_screen_draworder[0]);
+
+    size_t blocklen = length;
+    uint8_t *block = GetTZXBlock(KAYLETH_SCREEN_BLOCK, image, &blocklen);
+    if (block == NULL)
+        return NULL;
+    if (blocklen < KAYLETH_SCREEN_OFFSET + n) {
+        free(block);
+        return NULL;
+    }
+
+    uint8_t *screen = MemAlloc(ZX_SCREEN_SIZE);
+    memset(screen, 0x00, ZX_BITMAP_SIZE);                 /* black bitmap   */
+    memset(screen + ZX_BITMAP_SIZE, KAYLETH_SCREEN_ATTRFILL,
+        ZX_SCREEN_SIZE - ZX_BITMAP_SIZE);                 /* attribute fill */
+
+    uint8_t loacon = KAYLETH_SCREEN_LOACON;
+    for (size_t k = 0; k < n; k++) {
+        uint16_t addr = kayleth_screen_draworder[k];
+        uint8_t enc = block[KAYLETH_SCREEN_OFFSET + k];
+        /* addr is a Spectrum screen address (0x4000-0x5AFF); offset 0x4000
+           maps to the start of our SCREEN$ buffer. */
+        screen[addr - 0x4000] =
+            enc ^ loacon ^ 1 ^ ((addr >> 8) & 0xff) ^ (addr & 0xff);
+        loacon += KAYLETH_SCREEN_ADD2;
+    }
+
+    free(block);
+    return screen;
 }
 
 /* Wait for a keypress on the title, redrawing the screen on resize. */
