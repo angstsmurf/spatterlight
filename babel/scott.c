@@ -229,6 +229,8 @@ static const struct scottrec scott_registry[] = {
 
     { 0xbcd5, 0xae3f, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk.tzx
     { 0xbc1e, 0xb4b6, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk (Americana).tzx
+    { 0xbd72, 0xb8b3, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk - Alternate.tzx
+    { 0xbbf8, 0x68c7, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk (Americana) TAP image
     { 0xafba, 0xb69b, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80
     { 0x9f17, 0x4dae, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80 alt
     { 0x9ef5, 0x8082, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80 alt 2
@@ -294,6 +296,8 @@ static const struct scottrec scott_registry[] = {
     { 0x2adab, 0x04c5, PIRATE_ADVENTURE_IFID }, // Pirate Adventure C64 S.A.G.A version
     { 0x2ab00, 0xac87, PIRATE_ADVENTURE_IFID }, // Pirate Adventure C64 S.A.G.A version (tape)
     { 0x57c6, 0x82ab, PIRATE_ADVENTURE_IFID }, // Pirate Adventure C64 S.A.G.A version (tape)
+
+    { 0x16644, 0x3982, PIRATE_ADVENTURE_IFID }, // Scott Adams Scoops (1987)(U.S. Gold).tzx compilation (Pirate Adventure, Voodoo Castle, Strange Odyssey, Buckaroo Banzai; ScottFree plays the first, Pirate Adventure)
 
     { 0xbae1, 0x0ec0, SECRET_MISSION_IFID }, // Secret Mission.tzx
     { 0xbaa7, 0xfc85, SECRET_MISSION_IFID }, // Secret Mission TAP image
