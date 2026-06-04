@@ -34,6 +34,12 @@ uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
     const uint8_t *descriptors, int nwin, int block_index, int offset,
     uint8_t loacon0, uint8_t add2, uint8_t attrfill);
 
+/* Record the order the loader drew the screen in, so the title can be
+   revealed slowly in that same sequence (see DrawZXTitleImage). Callers that
+   decode the screen themselves (e.g. Temple of Terror) use this to pass the
+   order along. */
+void ZXSetDrawOrder(const uint16_t *order, int n);
+
 /* Show ZXLoadingScreen as a title image, wait for a keypress, then
    restore the normal game windows. Frees ZXLoadingScreen, sets it NULL. */
 void DrawZXTitleImage(void);

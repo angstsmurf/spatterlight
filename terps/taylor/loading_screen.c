@@ -37,6 +37,17 @@ static int AlkatrazDrawOrderLen = 0;
 #define ZX_REVEAL_TICK_MS 30
 #define ZX_REVEAL_TICKS   120
 
+void ZXSetDrawOrder(const uint16_t *order, int n)
+{
+    if (n > ZX_SCREEN_SIZE)
+        n = ZX_SCREEN_SIZE;
+    if (n < 0 || order == NULL)
+        n = 0;
+    if (n > 0)
+        memcpy(AlkatrazDrawOrder, order, n * sizeof AlkatrazDrawOrder[0]);
+    AlkatrazDrawOrderLen = n;
+}
+
 /* Draw the 6912-byte SCREEN$ into the (already open) Graphics window,
    scaled by the largest integer multiplier that fits and centred both
    ways. We fill rectangles directly rather than going through PutPixel,
@@ -178,8 +189,7 @@ uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
 
     /* Remember the draw order so the title can be revealed slowly, in the
        same scrambled sequence the loader used. */
-    memcpy(AlkatrazDrawOrder, order, n * sizeof order[0]);
-    AlkatrazDrawOrderLen = n;
+    ZXSetDrawOrder(order, n);
 
     size_t blocklen = length;
     uint8_t *block = GetTZXBlock(block_index, image, &blocklen);
