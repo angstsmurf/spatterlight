@@ -234,6 +234,13 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         switch (*length) {
             case 0xa000:  // Temple of Terror, Side B (text-only, TZX)
                 image = DecryptToTSideB(image, length);
+                // DecryptToTSideB draws the loading screen into the display
+                // file at 0x4000 (and uses it to decrypt the game); capture it
+                // as a title image before the buffer is shrunk.
+                if (image != NULL && ZXLoadingScreen == NULL) {
+                    ZXLoadingScreen = MemAlloc(ZX_SCREEN_SIZE);
+                    memcpy(ZXLoadingScreen, image + ZX_RAM_BASE, ZX_SCREEN_SIZE);
+                }
                 image = ShrinkToSnaSize(image, uncompressed, length);
                 break;
             case 0xcadc:  // Kayleth (TZX)
