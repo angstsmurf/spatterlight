@@ -22,6 +22,7 @@
 #include "decrypttotloader.h"
 #include "loading_screen.h"
 #include "kayleth_loadscreen_data.h"
+#include "templea_loadscreen_data.h"
 #include "terraquake_loadscreen_data.h"
 #include "taylor.h"
 #include "utility.h"
@@ -266,6 +267,12 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 image = process_tzx_extract(image, length, &kayleth);
                 break;
             case 0xccca:  // Temple of Terror, Side A (TZX)
+                if (ZXLoadingScreen == NULL)
+                    ZXLoadingScreen = DecodeAlkatrazLoadingScreen(image, origlen,
+                        templea_screen_descriptors, TEMPLEA_SCREEN_WINDOWS,
+                        TEMPLEA_SCREEN_BLOCK, TEMPLEA_SCREEN_OFFSET,
+                        TEMPLEA_SCREEN_LOACON, TEMPLEA_SCREEN_ADD2,
+                        TEMPLEA_SCREEN_ATTRFILL);
                 image = process_tzx_extract(image, length, &templeA);
                 break;
             case 0xcd15:  // Terraquake (TZX, variant 1)
