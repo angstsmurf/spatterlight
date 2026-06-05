@@ -79,6 +79,7 @@
 		6DB774D12458B9B300EDC671 /* unicode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774BC2458B9B300EDC671 /* unicode.cpp */; };
 		6DB774D22458B9B300EDC671 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774BD2458B9B300EDC671 /* util.cpp */; };
 		6DB774D42458B9B300EDC671 /* zterp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774BF2458B9B300EDC671 /* zterp.cpp */; };
+		2DD17473719D6C61EB223742 /* zoom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F67B5BB98C648FCD4036DFBF /* zoom.cpp */; };
 		6DB774D52458BAE000EDC671 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		6DB774D62458BAE400EDC671 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		6DB774D72458DD4900EDC671 /* bocfel in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 6DB774A22458B95E00EDC671 /* bocfel */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -1684,6 +1685,7 @@
 		6DB774BC2458B9B300EDC671 /* unicode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; indentWidth = 4; path = unicode.cpp; sourceTree = "<group>"; tabWidth = 4; };
 		6DB774BD2458B9B300EDC671 /* util.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; indentWidth = 4; path = util.cpp; sourceTree = "<group>"; tabWidth = 4; };
 		6DB774BF2458B9B300EDC671 /* zterp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; indentWidth = 4; path = zterp.cpp; sourceTree = "<group>"; tabWidth = 4; };
+		F67B5BB98C648FCD4036DFBF /* zoom.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; indentWidth = 4; path = zoom.cpp; sourceTree = "<group>"; tabWidth = 4; };
 		6DB8C1E724599DF8002CDCCB /* ZColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZColor.h; sourceTree = "<group>"; };
 		6DB8C1E824599DF8002CDCCB /* ZColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZColor.m; sourceTree = "<group>"; };
 		6DC144972215D3F6007C0A6B /* spatterstart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spatterstart.h; sourceTree = "<group>"; };
@@ -1723,6 +1725,7 @@
 		6DD3D27B2512C11300667CA6 /* unicode.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = unicode.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D27C2512C11300667CA6 /* util.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = util.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D27E2512C11300667CA6 /* zterp.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; name = zterp.h; path = terps/bocfel/zterp.h; sourceTree = SOURCE_ROOT; tabWidth = 4; };
+		198EF78EF2D09C69E82D3A7B /* zoom.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; name = zoom.h; path = terps/bocfel/zoom.h; sourceTree = SOURCE_ROOT; tabWidth = 4; };
 		6DD3D27F2512C18300667CA6 /* blorb.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = blorb.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D2802512C19200667CA6 /* branch.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = branch.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD7679A23E45FB7003B605C /* ThemeArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeArrayController.h; sourceTree = "<group>"; };
@@ -3980,6 +3983,8 @@
 				C3E934AC296D93C2000A0640 /* v1234.h */,
 				6DD3D27E2512C11300667CA6 /* zterp.h */,
 				6DB774BF2458B9B300EDC671 /* zterp.cpp */,
+				198EF78EF2D09C69E82D3A7B /* zoom.h */,
+				F67B5BB98C648FCD4036DFBF /* zoom.cpp */,
 			);
 			path = bocfel;
 			sourceTree = "<group>";
@@ -7649,6 +7654,7 @@
 				6DB774D22458B9B300EDC671 /* util.cpp in Sources */,
 				C319328327E338100054FE2C /* iff.cpp in Sources */,
 				6DB774D42458B9B300EDC671 /* zterp.cpp in Sources */,
+				2DD17473719D6C61EB223742 /* zoom.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9030,6 +9036,7 @@
 					SPATTERLIGHT,
 					ZTERP_GLK_BLORB,
 					ZTERP_GLK_UNIX,
+					ZTERP_ZOOM_OPCODES,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
