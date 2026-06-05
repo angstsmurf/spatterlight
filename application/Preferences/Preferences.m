@@ -7,6 +7,7 @@
 #import "CoreDataManager.h"
 #import "Game.h"
 #import "GlkController.h"
+#import "GlkTextBufferWindow.h"
 #import "GlkStyle.h"
 #import "Metadata.h"
 #import "NotificationBezel.h"
@@ -718,6 +719,11 @@ NSString *fontToString(NSFont *font) {
     _saveInGameDirCheckbox.state = [defaults boolForKey:@"SaveInGameDirectory"] ? NSOnState : NSOffState;
 
     _btnShowBezels.state = [defaults boolForKey:@"ShowBezels"] ? NSOnState : NSOffState;
+
+    NSInteger scrollbackLimit = (NSInteger)[GlkTextBufferWindow scrollbackLimit];
+    _scrollbackLimitTextField.integerValue = scrollbackLimit;
+    _scrollbackLimitStepper.integerValue = scrollbackLimit;
+    _scrollbackUnitLabel.stringValue = (scrollbackLimit == 0) ? @"= unlimited" : @"characters";
 
     if (theme.minTimer != 0) {
         if (_timerSlider.doubleValue != floor(1000.0 / theme.minTimer)) {
@@ -1979,6 +1985,26 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeSmoothScroll:(id)sender {
     [self changeBooleanAttribute:@"smoothScroll" fromButton:sender];
+}
+
+// The buffer scrollback limit is a global setting (applies to all themes),
+// stored in the BufferScrollbackLimit user default. Both the text field and
+// the stepper drive this. 0 means unlimited (never trim); any other value is
+// clamped to the supported range. Keep both controls and the unit label in
+// sync so the "= unlimited" affordance is visible.
+- (IBAction)changeScrollbackLimit:(id)sender {
+    NSInteger value = [sender integerValue];
+    if (value <= 0)
+        value = 0; // unlimited
+    else if (value < 2000)
+        value = 2000;
+    else if (value > 2000000)
+        value = 2000000;
+    [[NSUserDefaults standardUserDefaults] setInteger:value
+                                               forKey:@"BufferScrollbackLimit"];
+    _scrollbackLimitTextField.integerValue = value;
+    _scrollbackLimitStepper.integerValue = value;
+    _scrollbackUnitLabel.stringValue = (value == 0) ? @"= unlimited" : @"characters";
 }
 
 - (IBAction)changeAutosaveOnTimer:(id)sender {
