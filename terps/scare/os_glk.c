@@ -1761,6 +1761,56 @@ os_stop_sound (void)
     glk_schannel_stop(sound_channel);
   }
 }
+#elif defined(SPATTERLIGHT)
+/*
+ * Spatterlight resource handling.  Pre-load a chunk of the game file into
+ * the Spatterlight Glk image/sound cache via win_loadimage/win_loadsound
+ * and then dispatch through the standard Glk drawing/playing routines.
+ */
+extern char *gli_game_path;
+extern int  win_findimage (int resno);
+extern void win_loadimage (int resno, const char *filename, int offset, int reslen);
+extern int  win_findsound (int resno);
+extern void win_loadsound (int resno, char *filename, int offset, int reslen);
+
+static glui32
+gsc_resource_id (sc_int offset, sc_int length)
+{
+  /* Synthesize a stable id from offset and length so repeat calls for the
+   * same resource hit the cache instead of re-loading from disk. */
+  return (glui32) (((sc_uint) offset << 12) ^ (sc_uint) length);
+}
+
+static schanid_t sound_channel;
+
+void
+os_play_sound (const sc_char *filepath,
+               sc_int offset, sc_int length, sc_bool is_looping)
+{
+  glui32 id;
+  const sc_char *unused1;
+  unused1 = filepath;
+
+  if (length <= 0 || gli_game_path == NULL)
+    return;
+
+  if (sound_channel == NULL)
+    sound_channel = glk_schannel_create (0);
+  if (sound_channel == NULL)
+    return;
+
+  id = gsc_resource_id (offset, length);
+  if (!win_findsound ((int) id))
+    win_loadsound ((int) id, gli_game_path, (int) offset, (int) length);
+  glk_schannel_play_ext (sound_channel, id, is_looping ? 0xffffffff : 1, 0);
+}
+
+void
+os_stop_sound (void)
+{
+  if (sound_channel != NULL)
+    glk_schannel_stop (sound_channel);
+}
 #else
 /*
  * os_play_sound()
@@ -1801,6 +1851,28 @@ os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
   if (id != 0) {
     glk_image_draw(gsc_main_window, id, imagealign_InlineDown, 0);
   }
+}
+#elif defined(SPATTERLIGHT)
+/*
+ * os_show_graphic()
+ *
+ * Pre-load the requested image chunk from the game file into the
+ * Spatterlight Glk image cache and draw it inline in the main window.
+ */
+void
+os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
+{
+  glui32 id;
+  const sc_char *unused1;
+  unused1 = filepath;
+
+  if (length <= 0 || gsc_main_window == NULL || gli_game_path == NULL)
+    return;
+
+  id = gsc_resource_id (offset, length);
+  if (!win_findimage ((int) id))
+    win_loadimage ((int) id, gli_game_path, (int) offset, (int) length);
+  glk_image_draw (gsc_main_window, id, imagealign_InlineDown, 0);
 }
 #else
 /*
@@ -3637,6 +3709,7 @@ winglk_startup_code (const char *cmdline)
   winglk_window_set_title ("Scare Adrift Interpreter");
   winglk_set_about_text ("Windows Scare 1.3.10");
   winglk_set_gui (IDI_SCARE);
+  glk_stylehint_set (wintype_TextGrid, style_Normal, stylehint_ReverseColor, 1);
 
   /* Open a stream to the game. */
   filename = winglk_get_initial_filename (cmdline,
