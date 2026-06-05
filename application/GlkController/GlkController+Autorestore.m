@@ -120,8 +120,18 @@
     // Restore frame size
     self.gameView.frame = restoredControllerLate.storedGameViewFrame;
 
-    // Copy all views and GlkWindow objects from restored Controller
-    for (id key in restoredController.gwindows.allKeys) {
+    // Copy all views and GlkWindow objects from restored Controller.
+    // Re-add the subviews in ascending window-name order, which is the order
+    // the windows were originally created in (names are sequential creation
+    // tags). addSubview: stacks later views on top, so this reproduces the
+    // live creation z-order (flushDisplay adds _windowsToBeAdded in creation
+    // order). Iterating allKeys directly would use an undefined dictionary
+    // order, which can leave overlapping V6 windows mis-stacked -- e.g. the
+    // Zork Zero encyclopedia caption (windows[3], created after the foreground
+    // graphics window) ending up hidden behind graphics_fg_glk.
+    NSArray *orderedKeys = [restoredController.gwindows.allKeys
+                            sortedArrayUsingSelector:@selector(compare:)];
+    for (id key in orderedKeys) {
 
         win = self.gwindows[key];
 
