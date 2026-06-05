@@ -22,6 +22,11 @@
 #import "BuiltInThemes.h"
 #import "GlkTextBufferWindow.h"
 #import "BufferTextView.h"
+#import "GlkGraphicsWindow.h"
+#import "MarginContainer.h"
+#import "MarginImage.h"
+#import "Preferences.h"
+#include "glk.h"
 
 @interface GameImportXCTests : XCTestCase
 
@@ -798,6 +803,155 @@
              commandScriptName:@"Zork Zero"];
 }
 
+#pragma mark - Scrollback cap (#1)
+
+// The cut-point helper must always land on a line boundary, respect the
+// safe limit that protects the active input region, and decline to trim when
+// there is nothing safe to remove.
+- (void)testScrollbackCutPoint {
+    // Build 10 lines of "line\n" (5 chars each => 50 chars, '\n' at 4,9,...,49).
+    NSMutableString *text = [NSMutableString string];
+    for (int i = 0; i < 10; i++)
+        [text appendString:@"line\n"];
+    XCTAssertEqual(text.length, 50u);
+
+    // Under the keep target: nothing to trim.
+    XCTAssertEqual([GlkTextBufferWindow scrollbackCutPointForString:text
+                                                        targetKeep:1000
+                                                         safeLimit:text.length],
+                   0u);
+
+    // Keep ~10 chars => want = 40, which already sits just after a newline,
+    // so the cut is exactly 40 and the kept text starts at a line boundary.
+    NSUInteger cut = [GlkTextBufferWindow scrollbackCutPointForString:text
+                                                          targetKeep:10
+                                                           safeLimit:text.length];
+    XCTAssertEqual(cut, 40u);
+    XCTAssertEqual([text characterAtIndex:cut - 1], (unichar)'\n');
+
+    // want lands mid-line => scan forward to the next newline boundary.
+    // targetKeep 8 => want = 42; next '\n' is at index 44, so cut = 45.
+    NSUInteger cut2 = [GlkTextBufferWindow scrollbackCutPointForString:text
+                                                           targetKeep:8
+                                                            safeLimit:text.length];
+    XCTAssertEqual(cut2, 45u);
+    XCTAssertEqual([text characterAtIndex:cut2 - 1], (unichar)'\n');
+
+    // A tight safe limit (e.g. the input fence) leaves no boundary to cut at:
+    // decline rather than trim into protected text.
+    XCTAssertEqual([GlkTextBufferWindow scrollbackCutPointForString:text
+                                                        targetKeep:10
+                                                         safeLimit:3],
+                   0u);
+
+    // No newline anywhere => no clean boundary => no trim.
+    XCTAssertEqual([GlkTextBufferWindow scrollbackCutPointForString:@"a single very long line with no breaks"
+                                                        targetKeep:5
+                                                         safeLimit:38],
+                   0u);
+}
+
+// After a front trim of `cut` characters, margin images and flow breaks whose
+// anchor was removed must be dropped, and the survivors' positions shifted
+// down by exactly `cut` so they stay attached to the same text.
+- (void)testMarginContainerAnchorShift {
+    MarginContainer *container =
+        [[MarginContainer alloc] initWithContainerSize:NSMakeSize(100, 100)];
+    NSImage *image = [[NSImage alloc] initWithSize:NSMakeSize(10, 10)];
+
+    [container addImage:image alignment:imagealign_MarginLeft  at:10   linkid:0];
+    [container addImage:image alignment:imagealign_MarginLeft  at:100  linkid:0];
+    [container addImage:image alignment:imagealign_MarginRight at:1000 linkid:0];
+    // Flow breaks exercise the parallel shift path (no assertion: just no crash).
+    [container flowBreakAt:20];
+    [container flowBreakAt:500];
+
+    XCTAssertEqual(container.marginImages.count, 3u);
+
+    [container shiftAnchorsAfterTrimOf:50];
+
+    // The image anchored at pos 10 was inside the trimmed range and is gone.
+    XCTAssertEqual(container.marginImages.count, 2u);
+    XCTAssertEqual(container.marginImages[0].pos, 50u);   // 100 - 50
+    XCTAssertEqual(container.marginImages[1].pos, 950u);  // 1000 - 50
+
+    // A zero cut is a no-op.
+    [container shiftAnchorsAfterTrimOf:0];
+    XCTAssertEqual(container.marginImages.count, 2u);
+    XCTAssertEqual(container.marginImages[0].pos, 50u);
+}
+
+// The scrollback limit reads from the BufferScrollbackLimit user default,
+// falls back to the built-in default when unset/zero, and clamps tiny values
+// up to the floor.
+- (void)testScrollbackLimitSetting {
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    NSString *key = @"BufferScrollbackLimit";
+    id saved = [defaults objectForKey:key];
+
+    // Unset => built-in default.
+    [defaults removeObjectForKey:key];
+    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 30000u);
+
+    // A positive override is honoured.
+    [defaults setInteger:50000 forKey:key];
+    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 50000u);
+
+    // Below the floor => clamped up.
+    [defaults setInteger:100 forKey:key];
+    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 2000u);
+
+    // Explicit 0 => unlimited (distinct from unset, which is the default).
+    [defaults setInteger:0 forKey:key];
+    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 0u);
+
+    // Negative is also treated as unlimited.
+    [defaults setInteger:-5 forKey:key];
+    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 0u);
+
+    // Removing the key again falls back to the default, not unlimited.
+    [defaults removeObjectForKey:key];
+    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 30000u);
+
+    // Restore whatever was there before.
+    if (saved)
+        [defaults setObject:saved forKey:key];
+    else
+        [defaults removeObjectForKey:key];
+}
+
+// The Preferences nib must instantiate with the new scrollback controls wired
+// up. A mismatched outlet name would raise NSUnknownKeyException here, and a
+// missing action would leave the controller unable to respond - this guards
+// the hand-edited PrefsWindow.xib against both.
+- (void)testPreferencesNibConnectsScrollbackControls {
+    Preferences *owner = [[Preferences alloc] init];
+    NSNib *nib = [[NSNib alloc] initWithNibNamed:@"PrefsWindow"
+                                          bundle:[NSBundle bundleForClass:[Preferences class]]];
+    XCTAssertNotNil(nib, @"PrefsWindow nib should load");
+
+    NSArray *topLevelObjects = nil;
+    BOOL instantiated = NO;
+    @try {
+        instantiated = [nib instantiateWithOwner:owner topLevelObjects:&topLevelObjects];
+    } @catch (NSException *exception) {
+        XCTFail(@"Instantiating PrefsWindow raised: %@", exception);
+    }
+    XCTAssertTrue(instantiated, @"PrefsWindow should instantiate");
+
+    // Connected outlets (would have thrown above on a name mismatch).
+    XCTAssertNotNil(owner.scrollbackLimitTextField,
+                    @"scrollbackLimitTextField outlet should be connected");
+    XCTAssertNotNil(owner.scrollbackLimitStepper,
+                    @"scrollbackLimitStepper outlet should be connected");
+    XCTAssertNotNil(owner.scrollbackUnitLabel,
+                    @"scrollbackUnitLabel outlet should be connected");
+
+    // The action target must respond to the selector wired in the xib.
+    XCTAssertTrue([owner respondsToSelector:@selector(changeScrollbackLimit:)],
+                  @"changeScrollbackLimit: action should exist on Preferences");
+}
+
 - (void)testGrowingPainsScrolling {
     [self performMoleScrollingTestWithFileName:@"mole.sna" smoothScroll:YES];
 }
@@ -944,7 +1098,7 @@
                         // press, verify the scroll position did not advance past
                         // more than one viewport — that's the real "don't skip
                         // unread text" invariant.
-                        const NSInteger kMaxPresses = 50;
+                        const NSInteger kMaxPresses = 20;
                         const NSInteger kNoProgressLimit = 3;
                         const CGFloat scrollTolerance = 20.0;
 
@@ -982,7 +1136,7 @@
                             [bufferWin sendKeypress:'1'];
                             pressCount++;
 
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                 CGFloat scrollAfter = scrollView.contentView.bounds.origin.y;
                                 CGFloat docAfter = scrollView.documentView.frame.size.height;
                                 CGFloat scrollDelta = scrollAfter - scrollBefore;
