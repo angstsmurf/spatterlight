@@ -825,7 +825,23 @@ static void set_window_style(const Window *win)
 #endif
     // Colors are per-window in V6, but global in V5.
     if (zversion == 6) {
-        garglk_set_zcolors(gargoyle_color(win->fg_color), gargoyle_color(win->bg_color));
+        glui32 fg = gargoyle_color(win->fg_color);
+        glui32 bg = gargoyle_color(win->bg_color);
+#ifdef SPATTERLIGHT
+        // The Zork Zero encyclopedia caption (window 3 in slideshow mode) is
+        // coloured by its style hints, not by the per-window colours the game
+        // assigns -- the game sets those to values that clash with the
+        // parchment/black encyclopedia background (notably black text on the
+        // black Apple 2 background). Push zcolor_Default so coloredAttributes
+        // leaves the style hints alone; this also lets win_refresh recolour the
+        // text when the graphics type changes on the fly. See
+        // adjust_encyclopedia_text_window / V_REFRESH in zorkzero.cpp.
+        if (is_spatterlight_zork0 && screenmode == MODE_SLIDESHOW && win == &windows[3]) {
+            fg = zcolor_Default;
+            bg = zcolor_Default;
+        }
+#endif
+        garglk_set_zcolors(fg, bg);
     } else {
         garglk_set_zcolors_stream(glk_window_get_stream(mainwin->id), gargoyle_color(win->fg_color), gargoyle_color(win->bg_color));
         if (upperwin->id != nullptr) {
