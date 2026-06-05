@@ -100,8 +100,13 @@
             return NSZeroRect;
         }
 
-        /* get position of anchor glyph */
-        theline = [layout lineFragmentRectForGlyphAtIndex:_pos
+        /* get position of anchor glyph. _pos is a character index, so it must
+         * be converted to a glyph index first (mirroring FlowBreak): the two
+         * diverge as characters that produce no glyph accumulate above the
+         * anchor, which otherwise makes the image slip downward into the text. */
+        NSRange glyphRange = [layout glyphRangeForCharacterRange:NSMakeRange(_pos, 1)
+                                           actualCharacterRange:NULL];
+        theline = [layout lineFragmentRectForGlyphAtIndex:glyphRange.location
                                            effectiveRange:nil];
 
         NSParagraphStyle *para = [textview.textStorage attribute:NSParagraphStyleAttributeName atIndex:_pos effectiveRange:nil];
@@ -121,8 +126,15 @@
                 _bounds.origin.x = rightMargin - size.width;
             }
         } else {
+            // Anchor to the stable left content edge (mirroring the way the
+            // MarginRight branch anchors to the textview's right edge).  We
+            // must NOT use theline.origin.x here: lineFragmentRectForProposedRect:
+            // shrinks the anchor line's left edge by this image's own width, so
+            // reading it back when the fragment is already laid out shifts the
+            // image right by roughly its own width.  Only the vertical position
+            // is taken from the line fragment.
             _bounds =
-                NSMakeRect(theline.origin.x + _container.lineFragmentPadding,
+                NSMakeRect(_container.lineFragmentPadding,
                            theline.origin.y, size.width, size.height);
         }
     }
