@@ -659,8 +659,6 @@
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
-
     NSInteger result;
     GlkWindow *reqWin = nil;
     NSColor *bg = nil;
