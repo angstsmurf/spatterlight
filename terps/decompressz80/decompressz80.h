@@ -42,11 +42,13 @@ uint8_t *GetTZXBlock(int blockno, uint8_t *srcbuf, size_t *length);
  * failing the whole tape the way the full libspectrum parser can.
  *
  * Returns a malloc'd buffer (caller frees) and sets *out_len, or NULL on
- * error / no data blocks. If blk_off, blk_len and n_blk are non-NULL, the
- * offset and length of each emitted payload are recorded there (up to max_blk
- * entries) so callers can locate individual blocks within the result. */
+ * error / no data blocks. If block_offsets, block_lengths and num_blocks are
+ * non-NULL, the offset and length of each emitted payload are recorded there
+ * (up to max_blocks entries) so callers can locate individual blocks within
+ * the result. */
 uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
-    size_t *out_len, size_t *blk_off, size_t *blk_len, int *n_blk, int max_blk);
+    size_t *out_len, size_t *block_offsets, size_t *block_lengths,
+    int *num_blocks, int max_blocks);
 
 /* --- Alkatraz copy-protection decryption (Appleby Associates) ---
  * Shared by the ScottFree (scott) and TaylorMade (taylor) interpreters. See
@@ -58,8 +60,8 @@ uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
 void ldir(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size);
 void lddr(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size);
 uint8_t *DeAlkatraz(uint8_t *src, uint8_t *dst, size_t src_offset,
-    uint16_t target, uint16_t count, uint8_t *loacon, uint8_t add1, uint8_t add2,
-    int selfmodify);
+    uint16_t target, uint16_t count, uint8_t *key, uint8_t key_adjust,
+    uint8_t key_step, int selfmodify);
 void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t ix, uint16_t store);
 
 #endif /* decompressz80_h */

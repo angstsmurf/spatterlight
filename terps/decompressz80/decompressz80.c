@@ -1700,66 +1700,97 @@ uint8_t *GetTZXBlock(int blockno, uint8_t *srcbuf, size_t *length)
     return result;
 }
 
+/* TZX format constants (see the TZX spec). The 10-byte header is
+   "ZXTape!" + 0x1A + major/minor version bytes. */
+#define TZX_HEADER_SIZE         10
+#define TZX_ID_STANDARD_DATA    0x10
+#define TZX_ID_TURBO_DATA       0x11
+#define TZX_ID_PAUSE            0x20
+#define TZX_ID_GROUP_START      0x21
+#define TZX_ID_GROUP_END        0x22
+#define TZX_ID_TEXT_DESCRIPTION 0x30
+#define TZX_ID_ARCHIVE_INFO     0x32
+
+/* Standard data block: a 2-byte pause then a 2-byte length precede the data. */
+#define TZX_STD_LEN_OFFSET      2
+#define TZX_STD_DATA_HEADER     4
+/* Turbo data block: a 3-byte length sits 15 bytes into an 18-byte header. */
+#define TZX_TURBO_LEN_OFFSET    15
+#define TZX_TURBO_DATA_HEADER   18
+
+/* On tape each ROM block is a flag byte, the data, then a 1-byte XOR
+   checksum; a 0xFF flag marks a data (rather than header) block. */
+#define TAP_DATA_FLAG           0xff
+#define TAP_FLAG_CHECKSUM_BYTES 2
+
 uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
-    size_t *out_len, size_t *blk_off, size_t *blk_len, int *n_blk, int max_blk)
+    size_t *out_len, size_t *block_offsets, size_t *block_lengths,
+    int *num_blocks, int max_blocks)
 {
-    uint8_t *out = NULL;
-    size_t olen = 0, pos = is_tzx ? 10 : 0;
-    int nblk = 0;
+    uint8_t *payloads = NULL;
+    size_t payloads_len = 0, pos = is_tzx ? TZX_HEADER_SIZE : 0;
+    int block_count = 0;
 
     while (pos + (is_tzx ? 1u : 2u) <= raw_len) {
-        size_t blen;
+        size_t block_len;
         const uint8_t *payload;
 
         if (is_tzx) {
-            int id = raw[pos++];
-            if (id == 0x10) {            /* standard speed data block */
-                if (pos + 4 > raw_len) break;
-                blen = raw[pos+2] | (raw[pos+3] << 8); pos += 4;
-            } else if (id == 0x11) {     /* turbo speed data block */
-                if (pos + 18 > raw_len) break;
-                blen = raw[pos+15] | (raw[pos+16] << 8) | (raw[pos+17] << 16); pos += 18;
-            } else if (id == 0x30) {     /* text description */
+            int block_id = raw[pos++];
+            if (block_id == TZX_ID_STANDARD_DATA) {
+                if (pos + TZX_STD_DATA_HEADER > raw_len) break;
+                block_len = raw[pos+TZX_STD_LEN_OFFSET]
+                          | (raw[pos+TZX_STD_LEN_OFFSET+1] << 8);
+                pos += TZX_STD_DATA_HEADER;
+            } else if (block_id == TZX_ID_TURBO_DATA) {
+                if (pos + TZX_TURBO_DATA_HEADER > raw_len) break;
+                block_len = raw[pos+TZX_TURBO_LEN_OFFSET]
+                          | (raw[pos+TZX_TURBO_LEN_OFFSET+1] << 8)
+                          | (raw[pos+TZX_TURBO_LEN_OFFSET+2] << 16);
+                pos += TZX_TURBO_DATA_HEADER;
+            } else if (block_id == TZX_ID_TEXT_DESCRIPTION) {
                 if (pos >= raw_len) break;
                 pos += 1 + raw[pos]; continue;
-            } else if (id == 0x20) {     /* pause / stop the tape */
+            } else if (block_id == TZX_ID_PAUSE) {
                 pos += 2; continue;
-            } else if (id == 0x21) {     /* group start */
+            } else if (block_id == TZX_ID_GROUP_START) {
                 if (pos >= raw_len) break;
                 pos += 1 + raw[pos]; continue;
-            } else if (id == 0x22) {     /* group end */
+            } else if (block_id == TZX_ID_GROUP_END) {
                 continue;
-            } else if (id == 0x32) {     /* archive info */
+            } else if (block_id == TZX_ID_ARCHIVE_INFO) {
                 if (pos + 2 > raw_len) break;
                 pos += 2 + (raw[pos] | (raw[pos+1] << 8)); continue;
             } else {
                 break;                   /* unknown block: stop here */
             }
         } else {
-            blen = raw[pos] | (raw[pos+1] << 8); pos += 2;
-            if (blen == 0) break;
+            block_len = raw[pos] | (raw[pos+1] << 8); pos += 2;
+            if (block_len == 0) break;
         }
 
-        if (pos + blen > raw_len) break;
+        if (pos + block_len > raw_len) break;
         payload = raw + pos;
-        if (blen > 2 && payload[0] == 0xff) {    /* ROM data block */
-            uint8_t *grown = realloc(out, olen + (blen - 2));
-            if (!grown) { free(out); return NULL; }
-            out = grown;
-            if (nblk < max_blk) {
-                blk_off[nblk] = olen;
-                blk_len[nblk] = blen - 2;
-                nblk++;
+        if (block_len > TAP_FLAG_CHECKSUM_BYTES && payload[0] == TAP_DATA_FLAG) {
+            size_t payload_len = block_len - TAP_FLAG_CHECKSUM_BYTES;
+            uint8_t *grown = realloc(payloads, payloads_len + payload_len);
+            if (!grown) { free(payloads); return NULL; }
+            payloads = grown;
+            if (block_count < max_blocks) {
+                block_offsets[block_count] = payloads_len;
+                block_lengths[block_count] = payload_len;
+                block_count++;
             }
-            memcpy(out + olen, payload + 1, blen - 2);   /* strip flag + checksum */
-            olen += blen - 2;
+            /* strip the leading flag byte and trailing checksum */
+            memcpy(payloads + payloads_len, payload + 1, payload_len);
+            payloads_len += payload_len;
         }
-        pos += blen;
+        pos += block_len;
     }
 
-    *n_blk = nblk;
-    *out_len = olen;
-    return out;
+    *num_blocks = block_count;
+    *out_len = payloads_len;
+    return payloads;
 }
 
 /* ---------------------------------------------------------------------------
@@ -1788,36 +1819,52 @@ void lddr(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size)
         mem[target--] = mem[source--];
 }
 
+/* The Alkatraz loader runs inside a full 64 KB Spectrum address space. */
+#define ZX_MEMORY_SIZE 0x10000
+
+/* The key takes its extra key_adjust correction only on every 16th output
+   byte, i.e. when bit 4 of the low byte of the running count is set. */
+#define ALKATRAZ_KEY_ADJUST_BIT 0x10
+
+/* Temple of Terror's loader is self-modifying: as decryption proceeds, two
+   output bytes land on the loader's own key-evolution operands at these
+   addresses, changing key_adjust/key_step mid-stream. */
+#define TOT_KEY_ADJUST_ADDR 0xe022
+#define TOT_KEY_STEP_ADDR   0xe02f
+
 /* Decrypt `count` bytes from src[src_offset..] into a 64 KB Spectrum memory
-   image at address `target`. Each output byte is the rolling key (*loacon)
-   XORed with the running count (D/E), the destination address and the encrypted
-   source byte; the key then evolves by add1/add2 exactly as the Z80 loader does.
-   When 'selfmodify' is set, two decrypted bytes overwrite add1/add2 (the
-   original protection code is self-modifying — used by Temple of Terror).
+   image at address `target`. Each output byte is the rolling key (*key)
+   XORed with the running count (its high/low bytes), the destination address
+   and the encrypted source byte; the key then evolves by key_adjust/key_step
+   exactly as the Z80 loader does. When 'selfmodify' is set, two decrypted
+   bytes overwrite key_adjust/key_step (the original protection code is
+   self-modifying — used by Temple of Terror).
    Allocates the 64 KB image if dst is NULL; the caller frees the result. */
 uint8_t *DeAlkatraz(uint8_t *src, uint8_t *dst, size_t src_offset,
-    uint16_t target, uint16_t count, uint8_t *loacon, uint8_t add1, uint8_t add2,
-    int selfmodify)
+    uint16_t target, uint16_t count, uint8_t *key, uint8_t key_adjust,
+    uint8_t key_step, int selfmodify)
 {
     if (dst == NULL) {
-        dst = libspectrum_malloc(0x10000);
-        memset(dst, 0, 0x10000);
+        dst = libspectrum_malloc(ZX_MEMORY_SIZE);
+        memset(dst, 0, ZX_MEMORY_SIZE);
     }
     while (count != 0) {
-        uint8_t D = (count >> 8) & 0xff;
-        uint8_t E = count & 0xff;
-        uint8_t val = *loacon ^ D ^ E ^ ((target >> 8) & 0xff) ^ (target & 0xff)
-                      ^ src[src_offset];
-        dst[target] = val;
+        /* count mirrors the loader's DE register pair: high and low bytes. */
+        uint8_t count_hi = (count >> 8) & 0xff;
+        uint8_t count_lo = count & 0xff;
+        uint8_t decrypted = *key ^ count_hi ^ count_lo
+                            ^ ((target >> 8) & 0xff) ^ (target & 0xff)
+                            ^ src[src_offset];
+        dst[target] = decrypted;
         if (selfmodify) {
-            if (target == 0xe022)
-                add1 = val;
-            if (target == 0xe02f)
-                add2 = val;
+            if (target == TOT_KEY_ADJUST_ADDR)
+                key_adjust = decrypted;
+            if (target == TOT_KEY_STEP_ADDR)
+                key_step = decrypted;
         }
-        if (E & 0x10)
-            *loacon = *loacon + add1 - D + E;
-        *loacon += add2;
+        if (count_lo & ALKATRAZ_KEY_ADJUST_BIT)
+            *key = *key + key_adjust - count_hi + count_lo;
+        *key += key_step;
         src_offset++;
         target++;
         count--;
