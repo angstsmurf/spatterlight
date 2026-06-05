@@ -105,8 +105,7 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color);
 /* Test whether bit n (0 = LSB, 7 = MSB) of c is set. */
 int isNthBitSet(unsigned const char c, int n)
 {
-    static unsigned const char mask[] = { 1, 2, 4, 8, 16, 32, 64, 128 };
-    return ((c & mask[n]) != 0);
+    return (c >> n) & 1;
 }
 
 /* Flip a tile horizontally, i.e. mirror it */
@@ -190,7 +189,7 @@ static void Transform(uint8_t tile, uint8_t mode, int offset)
         Rot270(work);
     }
 
-    if ((mode & FLIP_BIT) == FLIP_BIT) {
+    if (mode & FLIP_BIT) {
         Flip(work);
     }
 
@@ -222,9 +221,9 @@ void FillBackground(int32_t x, int32_t y, int32_t color)
 void PlotTile(int32_t tile, int32_t x, int32_t y, int32_t fg,
               int32_t bg)
 {
-    if (fg > 15)
+    if (fg > IRMAK_MAX_COLOUR)
         fg = 0;
-    if (bg > 15)
+    if (bg > IRMAK_MAX_COLOUR)
         bg = 0;
     int32_t i, j;
     FillBackground(x, y, bg);
@@ -288,7 +287,7 @@ static void PerformTileTransformations(IrmakImgContext *ctx)
         } else {
             /* Command byte: may specify a repeated run and/or
                overlay tiles composited on top. */
-            if ((data & REPEAT_BIT) == REPEAT_BIT) {
+            if (data & REPEAT_BIT) {
                 if (DataExhausted(dataptr, origptr, ctx->datasize)) {
                     fprintf(stderr, "PerformTileTransformations: count byte out of range\n");
                     return;
@@ -304,7 +303,7 @@ static void PerformTileTransformations(IrmakImgContext *ctx)
             /* Get tile and plot it (count) times */
             tile = *dataptr++;
 
-            if ((data & ADD_128_BIT) == ADD_128_BIT && tile < 128)
+            if ((data & ADD_128_BIT) && tile < 128)
                 tile += 128;
 
             for (int i = 0; i < count; i++) {
@@ -332,7 +331,7 @@ static void PerformTileTransformations(IrmakImgContext *ctx)
                 while (1) {
                     if (data2 < COMMAND_BIT) {
                         /* Direct overlay: tile index without transformation */
-                        if (image_version == 4 && (previous & ADD_128_BIT) == ADD_128_BIT)
+                        if (image_version == 4 && (previous & ADD_128_BIT))
                             data2 += 128;
                         for (int i = 0; i < count; ++i)
                             Transform(data2, previous & OVERLAY_BITS, offset + i);
@@ -344,7 +343,7 @@ static void PerformTileTransformations(IrmakImgContext *ctx)
                         return;
                     }
                     tile = *dataptr++;
-                    if ((data2 & ADD_128_BIT) == ADD_128_BIT)
+                    if (data2 & ADD_128_BIT)
                         tile += 128;
 
                     for (int i = 0; i < count; i++)
@@ -448,7 +447,7 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
                 if (image_version > 2) {
                     ink[idx] = colour & INK_MASK;
                     paper[idx] = (colour & PAPER_MASK) >> 3;
-                    if ((colour & BRIGHT_FLAG) == BRIGHT_FLAG) {
+                    if (colour & BRIGHT_FLAG) {
                         paper[idx] += 8;
                         ink[idx] += 8;
                     }
@@ -456,7 +455,7 @@ static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
                     paper[idx] = colour & OLD_PAPER_MASK;
                     ink[idx] = ((colour & OLD_INK_MASK) >> 4);
                     /* Version 0 and 1 always use bright colours */
-                    if ((colour & V2_BRIGHT_FLAG) == V2_BRIGHT_FLAG || image_version < 2) {
+                    if ((colour & V2_BRIGHT_FLAG) || image_version < 2) {
                         paper[idx] += 8;
                         ink[idx] += 8;
                     }
@@ -522,7 +521,7 @@ static void DrawDecodedImage(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
    all attributes zeroed). Called before drawing a new frame. */
 void ClearGraphMem(void)
 {
-    memset(imagebuffer, 0, IRMAK_IMGSIZE * 9);
+    memset(imagebuffer, 0, sizeof(imagebuffer));
 }
 
 /* Decode and render a single image from its data stream. Runs all
@@ -535,6 +534,11 @@ void DrawIrmakPictureFromContext(IrmakImgContext ctx)
     if (!ctx.dataptr) return;
 
     ctx.imagesize = ctx.xsize * ctx.ysize;
+    /* Clamp to the capacity of layout[]/ink[]/paper[] so that the
+       per-cell bounds checks (all against imagesize) also protect the
+       real buffers against oversized or corrupt image dimensions. */
+    if (ctx.imagesize > IRMAK_IMGSIZE)
+        ctx.imagesize = IRMAK_IMGSIZE;
     ctx.origptr = ctx.dataptr;
 
     PerformTileTransformations(&ctx);
@@ -555,18 +559,18 @@ void DrawIrmakPictureFromContext(IrmakImgContext ctx)
    to avoid per-pixel overhead. */
 void DrawIrmakPictureFromBuffer(void)
 {
-    for (int line = 0; line < 12; line++) {
-        for (int col = 0; col < 32; col++) {
+    for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
+        for (int col = 0; col < IRMAK_IMGWIDTH; col++) {
             int index = col + line * IRMAK_IMGWIDTH;
 
             uint8_t colour = imagebuffer[index][8];
 
             int paper = (colour & PAPER_MASK) >> 3;
-            if ((colour & BRIGHT_FLAG) == BRIGHT_FLAG)
+            if (colour & BRIGHT_FLAG)
                 paper += 8;
             paper = Remap(paper);
             int ink = colour & INK_MASK;
-            if ((colour & BRIGHT_FLAG) == BRIGHT_FLAG)
+            if (colour & BRIGHT_FLAG)
                 ink += 8;
             ink = Remap(ink);
 
