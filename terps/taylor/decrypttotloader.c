@@ -15,6 +15,11 @@
 //  (HL, BC, DE, R, SP, etc.), preserving the structure of the original
 //  protection code.
 //
+//  It would be more effective and sane to implement this with
+//  a hard-coded "descriptors" array, the way it is done for
+//  other games, (see e.g. the kayleth_loadscreen_data.h header)
+//  but I spent a lot of work on this, and it is perfectly functional.
+//
 //  Created by Petter Sjölund on 2022-04-18.
 //
 
