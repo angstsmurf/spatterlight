@@ -33,19 +33,35 @@ static int AlkatrazDrawOrderLen = 0;
 #define ZX_SCREEN_WIDTH 256
 #define ZX_SCREEN_HEIGHT 192
 
+/* ZX Spectrum display-file addressing and 8x8 character cells. */
+#define ZX_SCREEN_BASE      0x4000  /* display file (bitmap) start address  */
+#define ZX_ATTR_BASE        0x5800  /* colour attribute area start address  */
+#define ZX_CELL             8       /* pixels per byte / character cell side */
+#define ZX_COLS             32      /* character columns per row            */
+#define ZX_COL_MASK         0x1f    /* column index within a row (ZX_COLS-1) */
+
+/* Attribute byte layout: FLASH(7) BRIGHT(6) PAPER(5-3) INK(2-0). */
+#define ZX_ATTR_INK         0x07    /* ink (and, once shifted, paper) bits  */
+#define ZX_ATTR_PAPER_SHIFT 3
+#define ZX_ATTR_BRIGHT      0x40
+#define ZX_ATTR_FLASH       0x80
+#define ZX_BRIGHT_OFFSET    8       /* palette index step for bright colours */
+#define ZX_ATTR_COLOUR_MASK 0x3f    /* ink + paper, ignoring bright/flash   */
+#define ZX_ATTR_BLACK_ON_WHITE 0x38 /* white paper, black ink, no bright    */
+
 /* Reveal timing: ~REVEAL_TICKS timer steps to paint the whole screen. */
 #define ZX_REVEAL_TICK_MS 30
 #define ZX_REVEAL_TICKS   120
 
-void ZXSetDrawOrder(const uint16_t *order, int n)
+void ZXSetDrawOrder(const uint16_t *order, int count)
 {
-    if (n > ZX_SCREEN_SIZE)
-        n = ZX_SCREEN_SIZE;
-    if (n < 0 || order == NULL)
-        n = 0;
-    if (n > 0)
-        memcpy(AlkatrazDrawOrder, order, n * sizeof AlkatrazDrawOrder[0]);
-    AlkatrazDrawOrderLen = n;
+    if (count > ZX_SCREEN_SIZE)
+        count = ZX_SCREEN_SIZE;
+    if (count < 0 || order == NULL)
+        count = 0;
+    if (count > 0)
+        memcpy(AlkatrazDrawOrder, order, count * sizeof AlkatrazDrawOrder[0]);
+    AlkatrazDrawOrderLen = count;
 }
 
 /* Draw the 6912-byte SCREEN$ into the (already open) Graphics window,
@@ -54,74 +70,77 @@ void ZXSetDrawOrder(const uint16_t *order, int n)
    which has no vertical offset and shares globals the game still needs. */
 /* Largest integer scale that fits 256x192 in the window, and the centring
    offsets. */
-static void zx_geometry(int *mult, int *ox, int *oy)
+static void zx_geometry(int *scale, int *origin_x, int *origin_y)
 {
-    glui32 gw, gh;
-    glk_window_get_size(Graphics, &gw, &gh);
+    glui32 win_w, win_h;
+    glk_window_get_size(Graphics, &win_w, &win_h);
 
-    int m = gh / ZX_SCREEN_HEIGHT;
-    if ((glui32)(ZX_SCREEN_WIDTH * m) > gw)
-        m = gw / ZX_SCREEN_WIDTH;
-    if (m < 1)
-        m = 1;
+    int s = win_h / ZX_SCREEN_HEIGHT;
+    if ((glui32)(ZX_SCREEN_WIDTH * s) > win_w)
+        s = win_w / ZX_SCREEN_WIDTH;
+    if (s < 1)
+        s = 1;
 
-    *mult = m;
-    *ox = ((int)gw - ZX_SCREEN_WIDTH * m) / 2;
-    *oy = ((int)gh - ZX_SCREEN_HEIGHT * m) / 2;
+    *scale = s;
+    *origin_x = ((int)win_w - ZX_SCREEN_WIDTH * s) / 2;
+    *origin_y = ((int)win_h - ZX_SCREEN_HEIGHT * s) / 2;
 }
 
 /* Draw the 8 pixels of one bitmap byte (display-file address bmaddr) using the
    attribute currently in scr for that cell. */
-static void DrawBitmapByte(const uint8_t *scr, uint16_t bmaddr,
-    int mult, int ox, int oy)
+static void DrawBitmapByte(const uint8_t *screen, uint16_t bitmap_addr,
+    int scale, int origin_x, int origin_y)
 {
-    int offset = bmaddr - 0x4000;
-    int col = offset & 0x1f;
-    int y = ((offset & 0x0700) >> 8) | ((offset & 0x00e0) >> 2) | ((offset & 0x1800) >> 5);
+    int byte_offset = bitmap_addr - ZX_SCREEN_BASE;
+    int char_col = byte_offset & ZX_COL_MASK;
+    int pixel_y = ((byte_offset & 0x0700) >> 8) | ((byte_offset & 0x00e0) >> 2) | ((byte_offset & 0x1800) >> 5);
 
-    uint8_t bits = scr[offset];
-    uint8_t attr = scr[ZX_BITMAP_SIZE + (y >> 3) * 32 + col];
-    int bright = (attr & 0x40) ? 8 : 0;
-    int ink = (attr & 0x07) + bright;
-    int paper = ((attr >> 3) & 0x07) + bright;
-    /* The flash bit (0x80) is ignored for a static title image. */
+    uint8_t row_bits = screen[byte_offset];
+    uint8_t attr = screen[ZX_BITMAP_SIZE + (pixel_y / ZX_CELL) * ZX_COLS + char_col];
+    int bright_offset = (attr & ZX_ATTR_BRIGHT) ? ZX_BRIGHT_OFFSET : 0;
+    int ink = (attr & ZX_ATTR_INK) + bright_offset;
+    int paper = ((attr >> ZX_ATTR_PAPER_SHIFT) & ZX_ATTR_INK) + bright_offset;
+    /* The flash bit (ZX_ATTR_FLASH) is ignored for a static title image. */
 
-    for (int b = 0; b < 8; b++) {
-        int set = (bits >> (7 - b)) & 1;
-        glk_window_fill_rect(Graphics, pal[set ? ink : paper],
-            ox + (col * 8 + b) * mult, oy + y * mult, mult, mult);
+    for (int bit = 0; bit < ZX_CELL; bit++) {
+        int pixel_on = (row_bits >> (ZX_CELL - 1 - bit)) & 1;
+        glk_window_fill_rect(Graphics, pal[pixel_on ? ink : paper],
+            origin_x + (char_col * ZX_CELL + bit) * scale,
+            origin_y + pixel_y * scale, scale, scale);
     }
 }
 
 /* Redraw the cell at a screen address: one bitmap byte, or (for an attribute
    address) the whole 8x8 character it colours. */
-static void RedrawCell(const uint8_t *scr, uint16_t addr, int mult, int ox, int oy)
+static void RedrawCell(const uint8_t *screen, uint16_t screen_addr,
+    int scale, int origin_x, int origin_y)
 {
-    if (addr < 0x5800) {
-        DrawBitmapByte(scr, addr, mult, ox, oy);
+    if (screen_addr < ZX_ATTR_BASE) {
+        DrawBitmapByte(screen, screen_addr, scale, origin_x, origin_y);
         return;
     }
-    int cell = addr - 0x5800;
-    int crow = cell >> 5, ccol = cell & 0x1f;
-    for (int py = 0; py < 8; py++) {
-        int y = crow * 8 + py;
-        int offset = ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8) | ccol;
-        DrawBitmapByte(scr, (uint16_t)(0x4000 + offset), mult, ox, oy);
+    int attr_index = screen_addr - ZX_ATTR_BASE;
+    int cell_row = attr_index / ZX_COLS, cell_col = attr_index & ZX_COL_MASK;
+    for (int pixel_row = 0; pixel_row < ZX_CELL; pixel_row++) {
+        int pixel_y = cell_row * ZX_CELL + pixel_row;
+        int bitmap_offset = ((pixel_y & 0xc0) << 5) | ((pixel_y & 0x38) << 2) | ((pixel_y & 0x07) << 8) | cell_col;
+        DrawBitmapByte(screen, (uint16_t)(ZX_SCREEN_BASE + bitmap_offset), scale, origin_x, origin_y);
     }
 }
 
-static void DrawZXScreen(const uint8_t *scr)
+static void DrawZXScreen(const uint8_t *screen)
 {
-    if (!scr || !Graphics)
+    if (!screen || !Graphics)
         return;
 
-    int mult, ox, oy;
-    zx_geometry(&mult, &ox, &oy);
+    int scale, origin_x, origin_y;
+    zx_geometry(&scale, &origin_x, &origin_y);
 
-    for (int y = 0; y < ZX_SCREEN_HEIGHT; y++) {
-        int bitmap_row = ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8);
-        for (int col = 0; col < 32; col++)
-            DrawBitmapByte(scr, (uint16_t)(0x4000 + bitmap_row + col), mult, ox, oy);
+    for (int pixel_y = 0; pixel_y < ZX_SCREEN_HEIGHT; pixel_y++) {
+        int row_offset = ((pixel_y & 0xc0) << 5) | ((pixel_y & 0x38) << 2) | ((pixel_y & 0x07) << 8);
+        for (int char_col = 0; char_col < ZX_COLS; char_col++)
+            DrawBitmapByte(screen, (uint16_t)(ZX_SCREEN_BASE + row_offset + char_col),
+                scale, origin_x, origin_y);
     }
 }
 
@@ -133,20 +152,20 @@ static void DrawZXScreen(const uint8_t *scr)
 uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx)
 {
 #define MAX_TAPE_BLOCKS 64
-    size_t out_len = 0;
-    size_t blk_off[MAX_TAPE_BLOCKS], blk_len[MAX_TAPE_BLOCKS];
-    int n_blk = 0;
+    size_t payloads_len = 0;
+    size_t block_offset[MAX_TAPE_BLOCKS], block_len[MAX_TAPE_BLOCKS];
+    int num_blocks = 0;
 
-    uint8_t *payloads = ExtractTapePayloads(raw, raw_len, is_tzx, &out_len,
-        blk_off, blk_len, &n_blk, MAX_TAPE_BLOCKS);
+    uint8_t *payloads = ExtractTapePayloads(raw, raw_len, is_tzx, &payloads_len,
+        block_offset, block_len, &num_blocks, MAX_TAPE_BLOCKS);
     if (!payloads)
         return NULL;
 
     uint8_t *screen = NULL;
-    for (int i = 0; i < n_blk; i++) {
-        if (blk_len[i] == ZX_SCREEN_SIZE) {
+    for (int i = 0; i < num_blocks; i++) {
+        if (block_len[i] == ZX_SCREEN_SIZE) {
             screen = MemAlloc(ZX_SCREEN_SIZE);
-            memcpy(screen, payloads + blk_off[i], ZX_SCREEN_SIZE);
+            memcpy(screen, payloads + block_offset[i], ZX_SCREEN_SIZE);
             break;
         }
     }
@@ -157,12 +176,12 @@ uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx)
 /* A snapshot captured at a BASIC/text prompt (e.g. "Resume a saved
    game?") has no picture: every attribute cell holds the default black
    ink on white paper (0x38, ignoring the bright and flash bits). */
-int ZXScreenIsBlackOnWhite(const uint8_t *scr)
+int ZXScreenIsBlackOnWhite(const uint8_t *screen)
 {
-    if (!scr)
+    if (!screen)
         return 1;
     for (int i = 0; i < ZX_SCREEN_SIZE - ZX_BITMAP_SIZE; i++)
-        if ((scr[ZX_BITMAP_SIZE + i] & 0x3f) != 0x38)
+        if ((screen[ZX_BITMAP_SIZE + i] & ZX_ATTR_COLOUR_MASK) != ZX_ATTR_BLACK_ON_WHITE)
             return 0;
     return 1;
 }
@@ -179,41 +198,43 @@ int ZXScreenIsBlackOnWhite(const uint8_t *scr)
 
    Returns a malloc'd 6912-byte SCREEN$ (caller frees) or NULL. */
 uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
-    const uint8_t *descriptors, int nwin, int block_index, int offset,
-    uint8_t loacon0, uint8_t add2, uint8_t attrfill)
+    const uint8_t *descriptors, int num_windows, int block_index, int offset,
+    uint8_t key_seed, uint8_t key_step, uint8_t attr_fill)
 {
     uint16_t order[ZX_SCREEN_SIZE];
-    int n = AlkatrazScreenOrder(descriptors, nwin, order, ZX_SCREEN_SIZE);
-    if (n <= 0)
+    int order_len = AlkatrazScreenOrder(descriptors, num_windows, order, ZX_SCREEN_SIZE);
+    if (order_len <= 0)
         return NULL;
 
     /* Remember the draw order so the title can be revealed slowly, in the
        same scrambled sequence the loader used. */
-    ZXSetDrawOrder(order, n);
+    ZXSetDrawOrder(order, order_len);
 
-    size_t blocklen = length;
-    uint8_t *block = GetTZXBlock(block_index, image, &blocklen);
+    size_t block_len = length;
+    uint8_t *block = GetTZXBlock(block_index, image, &block_len);
     if (block == NULL)
         return NULL;
-    if (blocklen < (size_t)(offset + n)) {
+    if (block_len < (size_t)(offset + order_len)) {
         free(block);
         return NULL;
     }
 
     uint8_t *screen = MemAlloc(ZX_SCREEN_SIZE);
     memset(screen, 0x00, ZX_BITMAP_SIZE);                 /* black bitmap   */
-    memset(screen + ZX_BITMAP_SIZE, attrfill,
+    memset(screen + ZX_BITMAP_SIZE, attr_fill,
         ZX_SCREEN_SIZE - ZX_BITMAP_SIZE);                 /* attribute fill */
 
-    uint8_t loacon = loacon0;
-    for (int k = 0; k < n; k++) {
-        uint16_t addr = order[k];
-        uint8_t enc = block[offset + k];
-        /* addr is a Spectrum screen address (0x4000-0x5AFF); offset 0x4000
+    /* key is the loader's rolling XOR key (its LOACON), advancing by
+       key_step (the loader's ADD2) after each decoded byte. */
+    uint8_t key = key_seed;
+    for (int i = 0; i < order_len; i++) {
+        uint16_t addr = order[i];
+        uint8_t encrypted = block[offset + i];
+        /* addr is a Spectrum screen address (0x4000-0x5AFF); ZX_SCREEN_BASE
            maps to the start of our SCREEN$ buffer. */
-        screen[addr - 0x4000] =
-            enc ^ loacon ^ 1 ^ ((addr >> 8) & 0xff) ^ (addr & 0xff);
-        loacon += add2;
+        screen[addr - ZX_SCREEN_BASE] =
+            encrypted ^ key ^ 1 ^ ((addr >> 8) & 0xff) ^ (addr & 0xff);
+        key += key_step;
     }
 
     free(block);
@@ -250,44 +271,45 @@ static void ZXSlowReveal(winid_t keywin)
         return;
 
     const uint16_t *order;
-    int n;
+    int order_len;
     static uint16_t linear[ZX_SCREEN_SIZE];
     if (AlkatrazDrawOrderLen > 0) {
         order = AlkatrazDrawOrder;
-        n = AlkatrazDrawOrderLen;
+        order_len = AlkatrazDrawOrderLen;
     } else {
         for (int i = 0; i < ZX_SCREEN_SIZE; i++)
-            linear[i] = (uint16_t)(0x4000 + i);
+            linear[i] = (uint16_t)(ZX_SCREEN_BASE + i);
         order = linear;
-        n = ZX_SCREEN_SIZE;
+        order_len = ZX_SCREEN_SIZE;
     }
 
     /* Start from the unrevealed background: copy the finished screen, then
        blank the cells we are about to draw (bitmap to black, attributes to the
        screen's uniform fill = its most common attribute byte). */
-    static uint8_t work[ZX_SCREEN_SIZE];
-    memcpy(work, ZXLoadingScreen, ZX_SCREEN_SIZE);
-    int counts[256] = { 0 };
+    static uint8_t work_screen[ZX_SCREEN_SIZE];
+    memcpy(work_screen, ZXLoadingScreen, ZX_SCREEN_SIZE);
+    int attr_counts[256] = { 0 };
     for (int i = ZX_BITMAP_SIZE; i < ZX_SCREEN_SIZE; i++)
-        counts[ZXLoadingScreen[i]]++;
-    int fill = 0;
-    for (int v = 1; v < 256; v++)
-        if (counts[v] > counts[fill])
-            fill = v;
-    for (int k = 0; k < n; k++) {
-        uint16_t a = order[k];
-        work[a - 0x4000] = (a < 0x5800) ? 0x00 : (uint8_t)fill;
+        attr_counts[ZXLoadingScreen[i]]++;
+    int fill_attr = 0;
+    for (int value = 1; value < 256; value++)
+        if (attr_counts[value] > attr_counts[fill_attr])
+            fill_attr = value;
+    for (int i = 0; i < order_len; i++) {
+        uint16_t addr = order[i];
+        work_screen[addr - ZX_SCREEN_BASE] =
+            (addr < ZX_ATTR_BASE) ? 0x00 : (uint8_t)fill_attr;
     }
 
-    int mult, ox, oy;
-    zx_geometry(&mult, &ox, &oy);
+    int scale, origin_x, origin_y;
+    zx_geometry(&scale, &origin_x, &origin_y);
     glk_window_clear(Graphics);
-    DrawZXScreen(work);
+    DrawZXScreen(work_screen);
 
-    int per_tick = n / ZX_REVEAL_TICKS;
-    if (per_tick < 1)
-        per_tick = 1;
-    int pos = 0;
+    int cells_per_tick = order_len / ZX_REVEAL_TICKS;
+    if (cells_per_tick < 1)
+        cells_per_tick = 1;
+    int reveal_pos = 0;
 
     glk_request_timer_events(ZX_REVEAL_TICK_MS);
     glk_request_char_event(keywin);
@@ -296,24 +318,24 @@ static void ZXSlowReveal(winid_t keywin)
     do {
         glk_select(&ev);
         if (ev.type == evtype_Timer) {
-            int end = pos + per_tick;
-            if (end > n)
-                end = n;
-            for (; pos < end; pos++) {
-                uint16_t a = order[pos];
-                work[a - 0x4000] = ZXLoadingScreen[a - 0x4000];
-                RedrawCell(work, a, mult, ox, oy);
+            int batch_end = reveal_pos + cells_per_tick;
+            if (batch_end > order_len)
+                batch_end = order_len;
+            for (; reveal_pos < batch_end; reveal_pos++) {
+                uint16_t addr = order[reveal_pos];
+                work_screen[addr - ZX_SCREEN_BASE] = ZXLoadingScreen[addr - ZX_SCREEN_BASE];
+                RedrawCell(work_screen, addr, scale, origin_x, origin_y);
             }
-            if (pos >= n)
+            if (reveal_pos >= order_len)
                 glk_request_timer_events(0);
         } else if (ev.type == evtype_Arrange) {
 #ifdef SPATTERLIGHT
             if (!gli_enable_graphics)
                 break;
 #endif
-            zx_geometry(&mult, &ox, &oy);
+            zx_geometry(&scale, &origin_x, &origin_y);
             glk_window_clear(Graphics);
-            DrawZXScreen(work);
+            DrawZXScreen(work_screen);
         }
     } while (ev.type != evtype_CharInput);
 

@@ -25,20 +25,20 @@ uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx);
 
 /* True if a 6912-byte SCREEN$ is just black text on a white background
    (a snapshot taken at a BASIC/text prompt), i.e. not worth showing. */
-int ZXScreenIsBlackOnWhite(const uint8_t *scr);
+int ZXScreenIsBlackOnWhite(const uint8_t *screen);
 
 /* Reconstruct an Alkatraz-drawn loading screen (e.g. Kayleth, Terraquake)
    from the raw TZX image, using the game's window descriptors and stream
    parameters. Returns a malloc'd 6912-byte SCREEN$ (caller frees) or NULL. */
 uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
-    const uint8_t *descriptors, int nwin, int block_index, int offset,
-    uint8_t loacon0, uint8_t add2, uint8_t attrfill);
+    const uint8_t *descriptors, int num_windows, int block_index, int offset,
+    uint8_t key_seed, uint8_t key_step, uint8_t attr_fill);
 
 /* Record the order the loader drew the screen in, so the title can be
    revealed slowly in that same sequence (see DrawZXTitleImage). Callers that
    decode the screen themselves (e.g. Temple of Terror) use this to pass the
    order along. */
-void ZXSetDrawOrder(const uint16_t *order, int n);
+void ZXSetDrawOrder(const uint16_t *order, int count);
 
 /* Show ZXLoadingScreen as a title image, wait for a keypress, then
    restore the normal game windows. Frees ZXLoadingScreen, sets it NULL. */
