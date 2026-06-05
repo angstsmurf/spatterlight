@@ -187,6 +187,13 @@ void V_REFRESH(void) {
     uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
     if (CURRENT_SPLIT == TEXT_WINDOW_PIC_LOC) {
         v6_delete_win(&windows[3]);
+        // Restore the normal text-buffer colour hints that
+        // adjust_encyclopedia_text_window overrode for the encyclopedia, so
+        // later text-buffer windows aren't created with the encyclopedia's
+        // colours. (z0_update_colors sets these same values during normal
+        // play.)
+        glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
+        glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
     }
 }
 
@@ -936,6 +943,27 @@ static glsi32 encyclopedia_background_color(void) {
     }
 }
 
+// Returns the foreground (text) color for the encyclopedia text window,
+// contrasting with encyclopedia_background_color(). Apple 2 has a fixed black
+// background so its text is white; the parchment modes use fixed black text.
+// Only the monochrome (CGA/MacBW) fallback pairs with the monochrome_white
+// background, so it uses monochrome_black -- the matching dark colour, which
+// (like monochrome_white) shifts when the "colorize 1-bit graphics" setting is
+// on. Don't use monochrome_white/black for the fixed-palette modes above: those
+// globals are only meaningfully white/black when colorize is off.
+static glsi32 encyclopedia_foreground_color(void) {
+    switch (graphics_type) {
+        case kGraphicsTypeApple2:
+            return 0xFFFFFF;
+        case kGraphicsTypeAmiga:
+        case kGraphicsTypeVGA:
+        case kGraphicsTypeBlorb:
+            return 0;
+        default:
+            return monochrome_black;
+    }
+}
+
 // Positions and sizes window 3 (text buffer) to overlay the encyclopedia
 // border's text area, using image metadata for placement. Sets the
 // background to the parchment color.
@@ -949,7 +977,23 @@ static void adjust_encyclopedia_text_window(void) {
     }
 
     glsi32 encycl_bgnd = encyclopedia_background_color();
+    glsi32 encycl_fgnd = encyclopedia_foreground_color();
 
+    // Drive the encyclopedia text entirely from the style_Normal hints rather
+    // than per-glyph Glk zcolors. Whenever text is printed, set_window_style()
+    // pushes the window's fg_color/bg_color as the active zcolor, and
+    // Spatterlight's coloredAttributes then overrides each glyph cell's colours
+    // with those concrete values -- which would repaint the background instead
+    // of the parchment and, in Apple 2 mode, leave black text on the black
+    // background. The game keeps re-setting windows[3]'s colours up to the moment
+    // it prints, so resetting them here doesn't stick; instead set_window_style()
+    // is taught to push zcolor_Default for this window (see screen.cpp), which
+    // leaves the hints below in charge. Because the colours come from the hints,
+    // not a baked-in per-run zcolor, win_refresh re-applies them to the
+    // already-printed text too -- so a graphics-type change on the fly
+    // (e.g. Apple 2 -> EGA) recolours the existing text. V_REFRESH restores the
+    // normal hints when the screen is dismissed.
+    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, encycl_fgnd);
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, encycl_bgnd);
     v6_define_window(&windows[3], x * imagescalex, y * imagescaley, width * imagescalex,
                      height * imagescaley);
@@ -2426,13 +2470,27 @@ void z0_update_after_restore(void) {
     after_V_COLOR();
 }
 
-// Called after an automatic restore. If we were in Peggleboz with a peg
-// selected, the C++ static selected_peg has been reset to 0 by the process
-// restart, so the resize handler no longer knows to restart the blink
-// timer. Recover selected_peg_pos by matching the BLINK-TBL coordinates
-// (preserved as Z-machine state) against the BOARD-TABLE peg positions,
-// then restart the blink timer.
+// Called after an automatic restore. Handles two cases:
+//
+// 1. Encyclopedia: the background graphics window (graphics_bg_glk) has the
+//    normal-mode room graphic restored from the autosave, which shows around
+//    and below the foreground encyclopedia window. The live entry path blanks
+//    it in z0_display_picture, but autorestore doesn't go through there, so
+//    blank it here. A restored caption window (windows[3]) in slideshow mode
+//    uniquely identifies the encyclopedia (title/rebus never create it).
+//
+// 2. Peggleboz: if we were in Peggleboz with a peg selected, the C++ static
+//    selected_peg has been reset to 0 by the process restart, so the resize
+//    handler no longer knows to restart the blink timer. Recover
+//    selected_peg_pos by matching the BLINK-TBL coordinates (preserved as
+//    Z-machine state) against the BOARD-TABLE peg positions, then restart the
+//    blink timer.
 void z0_update_after_autorestore(void) {
+    if (screenmode == MODE_SLIDESHOW && windows[3].id != nullptr) {
+        glk_window_clear(graphics_bg_glk);
+        return;
+    }
+
     if ((screenmode != MODE_NORMAL && screenmode != MODE_Z0_GAME)
         || get_global(zg.CURRENT_SPLIT) != PBOZ_SPLIT)
         return;
@@ -2511,6 +2569,17 @@ bool z0_display_picture(int x, int y, Window *win) {
         screenmode = MODE_SLIDESHOW;
 
         if (current_picture == zorkzero_encyclopedia_border) {
+            // The encyclopedia is drawn into the floating foreground graphics
+            // window (and caption window 3), which sit on top of the
+            // full-screen background graphics window holding the normal-mode
+            // room graphic (e.g. the underground pillars). With a non-zero
+            // window border the floating windows are inset, so a frame of that
+            // background peeks through -- most visibly along the bottom, and
+            // intermittently while resizing. Blank it once here: it is not
+            // redrawn while the encyclopedia is up, so it stays clear across
+            // resizes, and the room is redrawn normally when V_REFRESH tears
+            // the encyclopedia down on exit.
+            glk_window_clear(graphics_bg_glk);
             windows[3].id = gli_new_window(wintype_TextBuffer, 0);
             draw_to_pixmap_unscaled(zorkzero_encyclopedia_border, 0, 0);
             image_needs_redraw = true;
