@@ -47,6 +47,10 @@ void InitIrmak(int numimg, int imgver);
 #define PAPER_MASK       0x38
 #define BRIGHT_FLAG      0x40
 
+/* Highest valid colour index: 8 normal + 8 bright Spectrum colours.
+   Out-of-range colours fall back to 0 (black). */
+#define IRMAK_MAX_COLOUR 15
+
 /* The image area consists of 12 rows
    of 32 tile cells each
    (for a total of 384 tiles) */
