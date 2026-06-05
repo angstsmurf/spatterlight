@@ -591,8 +591,8 @@ static int FindNibbleSectorStart(ringbuf_handle_t ringbuffer, int track,
                 if (access_ringbuf(ringbuffer, i + j) == fpNibbleDescr->dataProlog[0] && access_ringbuf(ringbuffer, i + j + 1) == fpNibbleDescr->dataProlog[1] && access_ringbuf(ringbuffer, i + j + 2) == fpNibbleDescr->dataProlog[2]) {
                     *pVol = hdrVol;
                     int idx = i + j + 3;
-                    while (idx >= ringbuffer->size)
-                        idx -= ringbuffer->size;
+                    while (idx >= (int)ringbuffer->size)
+                        idx -= (int)ringbuffer->size;
                     return idx;
                 }
             }
@@ -715,8 +715,6 @@ static DIError CalcSectorAndOffset(long track, int sector, SectorOrder imageOrde
         sector -= 16;
     }
     assert(sector >= 0 && sector < 16);
-
-    /* convert request to "raw" sector number */
 
     /* convert request to "raw" sector number */
     switch (fsOrder) {
@@ -1444,7 +1442,6 @@ static DIError ReadBlockSwapped(long block, void* buf, SectorOrder imageOrder,
         dierr = kDIErrInternal;
     }
 
-bail:
     return dierr;
 }
 
@@ -1678,10 +1675,6 @@ static DIError LoadBlockList(A2File *pFile, int storageType, uint16_t keyBlock,
     if (count == 0)
         count = 1;
     list = MemAlloc(sizeof(uint16_t) * (count + 1));
-    if (list == NULL) {
-        dierr = kDIErrMalloc;
-        goto bail;
-    }
 
     if (pIndexBlockList != NULL) {
         assert(pIndexBlockCount != NULL);
@@ -2182,10 +2175,6 @@ static DIError SlurpEntries(A2File* pParent, const DirHeader* pHeader,
         }
 
         pFile = MemAlloc(sizeof(A2File));
-        if (pFile == NULL) {
-            dierr = kDIErrMalloc;
-            goto bail;
-        }
         memset(pFile, 0, sizeof(A2File));
         pFile->tsList = NULL;
 
@@ -2353,10 +2342,6 @@ static DIError LoadVolHeaderProDOS(void)
      * directory.  Here, we synthesize them from the volume dir header.
      */
     pFile = MemAlloc(sizeof(A2File));
-    if (pFile == NULL) {
-        dierr = kDIErrMalloc;
-        goto bail;
-    }
     memset(pFile, 0, sizeof(A2File));
     pFile->tsList = NULL;
 
