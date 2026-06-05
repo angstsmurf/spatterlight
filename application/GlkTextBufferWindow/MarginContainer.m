@@ -377,6 +377,35 @@
     return nil;
 }
 
+- (void)shiftAnchorsAfterTrimOf:(NSUInteger)cut {
+    if (cut == 0)
+        return;
+
+    NSMutableArray<MarginImage *> *keptImages =
+        [NSMutableArray arrayWithCapacity:_marginImages.count];
+    for (MarginImage *img in _marginImages) {
+        if (img.pos < cut)
+            continue; // anchor character was trimmed away
+        img.pos -= cut;
+        [img uncacheBounds];
+        [keptImages addObject:img];
+    }
+    _marginImages = keptImages;
+
+    NSMutableArray<FlowBreak *> *keptBreaks =
+        [NSMutableArray arrayWithCapacity:flowbreaks.count];
+    for (FlowBreak *f in flowbreaks) {
+        if (f.pos < cut)
+            continue;
+        f.pos -= cut;
+        [f uncacheBounds];
+        [keptBreaks addObject:f];
+    }
+    flowbreaks = keptBreaks;
+
+    [self.layoutManager textContainerChangedGeometry:self];
+}
+
 - (BOOL)hasMarginImages {
     return (_marginImages.count > 0);
 }

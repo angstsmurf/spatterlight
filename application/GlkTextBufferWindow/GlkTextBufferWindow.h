@@ -50,6 +50,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)restoreScroll:(nullable id)sender;
 - (void)forceLayout;
 
+// Compute a front-trim cut point at a paragraph boundary for capping the
+// scrollback. Returns the number of leading characters that may be deleted
+// (always at a line boundary, never past safeLimit), or 0 if no trim should
+// happen. Exposed for unit testing.
++ (NSUInteger)scrollbackCutPointForString:(NSString *)string
+                               targetKeep:(NSUInteger)targetKeep
+                                safeLimit:(NSUInteger)safeLimit;
+
+// The scrollback character limit, read from the "BufferScrollbackLimit" user
+// default (clamped to a sensible floor), or a built-in default when unset.
++ (NSUInteger)scrollbackLimit;
+
 - (void)padWithNewlines:(NSUInteger)lines;
 
 - (void)scrollWheelchanged:(NSEvent *)event;
