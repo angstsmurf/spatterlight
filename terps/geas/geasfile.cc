@@ -68,14 +68,17 @@ const GeasBlock *GeasFile::find_by_name (const string &type, const string &name)
 const GeasBlock &GeasFile::block (const std::string &type, size_t index) const { 
   std::map<std::string, std::vector<size_t> >::const_iterator iter;
   iter = type_indecies.find(type);
-  if (!(iter != type_indecies.end() && index < (*iter).second.size()))
-    {
-      cerr << "Unable to find type " << type << "\n";
-    }
-      
-  assert (iter != type_indecies.end() && index < (*iter).second.size());
-  //assert (index >= 0 && index < size(type));
-  return blocks[(*iter).second[index]]; 
+  if (iter != type_indecies.end() && index < (*iter).second.size())
+    return blocks[(*iter).second[index]];
+
+  // Was assert(...) here, which aborts the interpreter whenever a game refers
+  // to a block that wasn't parsed (the common geas crash). Return a shared
+  // empty block instead: callers either compare .name (which won't match) or
+  // iterate .data (which is empty), so they degrade gracefully. The reference
+  // stays valid because the sentinel is static.
+  static const GeasBlock empty_block;
+  cerr << "Unable to find type " << type << " at index " << index << "\n";
+  return empty_block;
 }
 
 /*
@@ -302,8 +305,11 @@ bool GeasFile::get_obj_property (const string &objname, const string &propname, 
 
   string not_prop = "not " + propname;
   std::string::size_type c1, c2;
-  assert (block != NULL);
-  //assert (block->data != NULL);
+  if (block == NULL)
+    {
+      gi->debug_print ("get_obj_property: no block for object '" + objname + "'");
+      return false;
+    }
   for (const string &line: block->data)
     {
       //cerr << "  g_o_p: Handling line <" << line << ">\n";
@@ -448,7 +454,11 @@ bool GeasFile::obj_of_type (const string &objname, const string &typenamex) cons
   const GeasBlock *block = find_by_name (objtype, objname);
 
   std::string::size_type c1=0, c2;
-  assert (block != NULL);
+  if (block == NULL)
+    {
+      gi->debug_print ("obj_of_type: no block for object '" + objname + "'");
+      return false;
+    }
   for (const string &line: block->data)
     {
       string tok = first_token (line, c1, c2);

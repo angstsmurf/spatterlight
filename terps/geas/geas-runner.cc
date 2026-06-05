@@ -433,7 +433,11 @@ void geas_implementation::display_error (string errorname, string obj)
     }
 
   const GeasBlock *game = gf.find_by_name ("game", "game");
-  assert (game != NULL);
+  if (game == NULL)
+    {
+      gi->debug_print ("display_error: no 'game' block found");
+      return;
+    }
   std::string::size_type c1, c2;
   for (const string &line: game->data)
     {
@@ -600,7 +604,7 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
 	  if (!is_param(tok))
 	    continue;
 	  tok = next_token (line, c1, c2);
-	  assert (is_param(tok));
+	  if (!is_param (tok)) { report_unsupported ("malformed exit definition: " + line); continue; }
 	  tok = param_contents(tok);
 	  vector<string> args = split_param (tok);
 	  if (args.size() != 2)
@@ -608,7 +612,7 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
 	      gi->debug_print ("Expected two arguments in " + tok);
 	      continue;
 	    }
-	  assert (args[0] == room);
+	  if (args[0] != room) { report_unsupported ("exit source '" + args[0] + "' does not match room '" + room + "'"); continue; }
 	  vector<string> tmp;
 	  string displayed = displayed_name (args[1]);
 	  tmp.push_back ("|b" + displayed + "|xb");
@@ -620,7 +624,7 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
       else if (tok == "destroy")
 	{
 	  tok = next_token (line, c1, c2);
-	  assert (tok == "exit");
+	  if (tok != "exit") { report_unsupported ("expected 'exit' after 'destroy' in: " + line); continue; }
 	  tok = next_token (line, c1, c2);
 
 	  for (v2string::iterator j = rv.begin(); j != rv.end(); j ++)
@@ -660,10 +664,10 @@ string geas_implementation::exit_dest (const string &room, const string &dir, bo
 	  continue;
 	tok = next_token (line, c1, c2);
 	cerr << "   third tok is " << tok << " (expecting parameter)\n";
-	assert (is_param (tok));
+	if (!is_param (tok)) { report_unsupported ("malformed exit destination: " + line); continue; }
 	vector<string> p = split_param (param_contents(tok));
-	assert (p.size() == 2);
-	assert (ci_equal (p[0], room));
+	if (p.size() != 2) { report_unsupported ("unexpected exit parameters in: " + line); continue; }
+	if (!ci_equal (p[0], room)) { report_unsupported ("exit source mismatch in: " + line); continue; }
 	return p[1];
       }
   /*
@@ -1935,7 +1939,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 		{
 		  tmp = line.substr (c1, c2-c1+1);
 		  //gi->debug_print ("tmp2 == {" + tmp + "}");
-		  assert (is_param(tmp));
+		  if (!is_param (tmp)) report_unsupported ("expected parameter in goto: " + line);
 		  tmp = param_contents (tmp);
 		  c1 = tmp.find (';');
 		  if (c1 == string::npos)
@@ -1977,7 +1981,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
   if ((match = match_command (cmd, "go to #@room#")) ||
       (match = match_command (cmd, "go #@room#")))
     {
-      assert (match.bindings.size() == 1);
+      if (match.bindings.size() != 1) { report_unsupported ("unexpected binding count for 'go to' command"); return true; }
       string destination = match.bindings[0].var_text;
       for (size_t i = 0; i < current_places.size(); i ++) {
 	if (ci_equal(destination, current_places[i][1]) ||

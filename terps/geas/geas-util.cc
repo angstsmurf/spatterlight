@@ -115,7 +115,13 @@ bool is_param (const string &s)
 string param_contents (const string &s)
 {
   //cerr << "param_contents (" << s << ")" << endl;
-  assert (is_param(s));
+  if (!is_param (s))
+    {
+      // No GeasInterface here to notify the player; log and return the string
+      // unchanged so a malformed token degrades instead of crashing.
+      cerr << "param_contents: not a parameter: " << s << endl;
+      return s;
+    }
   return s.substr (1, s.length() - 2);
 }
 

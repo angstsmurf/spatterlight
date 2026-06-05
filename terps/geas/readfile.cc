@@ -233,7 +233,10 @@ void GeasFile::read_into (const vector<string> &in_data,
   string line = in_data[cur_line];
   // SENSITIVE?
   string token = first_token (line, t1, t2);
-  assert (token == "define");
+  // Was assert(token == "define"); a malformed file would abort the whole
+  // interpreter. Log and proceed so loading degrades rather than crashing.
+  if (token != "define")
+    cerr << "readfile: expected 'define' but got '" << token << "' in: " << line << endl;
   string blocktype = out_block.blocktype = next_token (line, t1, t2); // "object", or the like
   //cerr << "r_i: Pushing back block of type " << blocktype << "\n";
   type_indecies[blocktype].push_back (blocknum);

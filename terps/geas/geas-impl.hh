@@ -173,6 +173,17 @@ public:
   inline void print_normal (const std::string &s) const { if (outputting) gi->print_normal(s); }
   inline void print_newline () const { if (outputting) gi->print_newline(); }
 
+  // Report an unsupported or malformed-game-data condition without aborting.
+  // These sites used to be assert()s, which crash the interpreter (asserts are
+  // live even in release builds here). We always log on the debug channel, and
+  // surface a notice to the player when we are in an output phase, so a stuck
+  // game is at least explicable rather than a hard crash.
+  inline void report_unsupported (const std::string &msg) const {
+    gi->debug_print (msg);
+    if (outputting)
+      gi->print_normal ("\n[geas: " + msg + "]\n");
+  }
+
   /*
   inline void print_formatted (std::string s) const {
     if (outputting)
