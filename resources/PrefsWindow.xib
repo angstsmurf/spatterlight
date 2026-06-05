@@ -15,6 +15,9 @@
                 <outlet property="bZArrowsMenu" destination="fOb-mm-Uja" id="0JJ-3g-PtT"/>
                 <outlet property="bZVerticalStepper" destination="JdQ-li-puR" id="jdi-QV-1t3"/>
                 <outlet property="bZVerticalTextField" destination="gPR-Kk-wPd" id="pdX-dK-6si"/>
+                <outlet property="scrollbackLimitStepper" destination="Sc3-St-ep3" id="Sc8-Ou-st8"/>
+                <outlet property="scrollbackLimitTextField" destination="Sc2-Tf-ie2" id="Sc7-Ou-tf7"/>
+                <outlet property="scrollbackUnitLabel" destination="Sc4-La-su4" id="Sc9-Ou-ul9"/>
                 <outlet property="beepHighMenu" destination="ZgZ-KI-sE8" id="IlL-jy-IKA"/>
                 <outlet property="beepLowMenu" destination="q2A-r7-Oue" id="ZGg-Xk-Tnu"/>
                 <outlet property="belowHeightConstraint" destination="Ld5-bC-cw3" id="N3g-xB-d6T"/>
@@ -1049,6 +1052,48 @@
                         <action selector="changeSmoothScroll:" target="-2" id="hDJ-JB-eY1"/>
                     </connections>
                 </button>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sc1-La-be1">
+                    <rect key="frame" x="24" y="18" width="170" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Scrollback limit:" id="Sc1-La-cel">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField toolTip="Maximum number of characters kept in each scrolling text window before the oldest text is trimmed. Applies to all themes. Set to 0 for unlimited scrollback (no trimming)." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sc2-Tf-ie2">
+                    <rect key="frame" x="200" y="15" width="72" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="30 000" drawsBackground="YES" id="Sc2-Tf-cel">
+                        <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="Scb-Nf-mt9">
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="2000000"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="changeScrollbackLimit:" target="-2" id="Sc5-Ac-tf5"/>
+                    </connections>
+                </textField>
+                <stepper toolTip="Step down to 0 for unlimited scrollback (no trimming)." horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sc3-St-ep3">
+                    <rect key="frame" x="276" y="13" width="19" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" continuous="YES" alignment="left" minValue="0.0" maxValue="2000000" doubleValue="30000" increment="5000" id="Sc3-St-cel"/>
+                    <connections>
+                        <action selector="changeScrollbackLimit:" target="-2" id="Sc6-Ac-st6"/>
+                    </connections>
+                </stepper>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sc4-La-su4">
+                    <rect key="frame" x="300" y="18" width="110" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="characters" id="Sc4-La-cel">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="-106" y="902"/>
         </customView>

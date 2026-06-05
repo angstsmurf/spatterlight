@@ -124,6 +124,10 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (weak) IBOutlet NSButton *btnSmoothScroll;
 @property (weak) IBOutlet NSButton *btnAutosaveOnTimer;
 
+@property (weak) IBOutlet NSTextField *scrollbackLimitTextField;
+@property (weak) IBOutlet NSStepper *scrollbackLimitStepper;
+@property (weak) IBOutlet NSTextField *scrollbackUnitLabel;
+
 @property (weak) IBOutlet NSSlider *timerSlider;
 @property (weak) IBOutlet NSTextField *timerTextField;
 
