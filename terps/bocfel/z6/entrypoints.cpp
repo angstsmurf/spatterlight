@@ -1147,11 +1147,19 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "CENTER-1",
-        { 0x87, 0x00, 0x03, 0xbe, 0x13, 0x5f, 0x00, 0x03, 0x00, 0x57, 0x00, 0x02},
-        -3,
+        // Anchor on CENTER-1's entry the same way CENTER-2/3 do: the
+        // leading 0x05 is the routine's locals-count header byte, and
+        // 0xa0 0x02 is its first instruction (jz BOLD). The +1 offset
+        // lands found_at_address on that first instruction so the hook
+        // fires at the routine entry (with the string arg already in
+        // local 1) and can do_return cleanly. The previous pattern was
+        // anchored on a print_addr that doesn't exist in CENTER-1, so it
+        // matched nothing in this release and the hook never fired.
+        { 0x05, 0xa0, 0x02, 0xc8, 0xe8, 0x7f },
+        1,
         0,
         false,
-        CENTER
+        CENTER_1
     },
 
     {
@@ -1161,7 +1169,7 @@ static std::vector<EntryPoint> entrypoints = {
         -7,
         0,
         false,
-        CENTER
+        CENTER_1
     },
 
     {
@@ -1171,7 +1179,7 @@ static std::vector<EntryPoint> entrypoints = {
         1,
         0,
         false,
-        CENTER
+        CENTER_2
     },
 
     {
@@ -1181,7 +1189,7 @@ static std::vector<EntryPoint> entrypoints = {
         1,
         0,
         false,
-        CENTER
+        CENTER_3
     },
 
     {
@@ -2194,20 +2202,28 @@ static void find_shogun_globals(void) {
                     credits_return_address = start;
             }
 
-            start = find_pattern_in_mem({ 0xf1, 0x7f, 0x02 }, entrypoint.found_at_address, 100);
-            if (start != -1) {
-                // Patch <HLIGHT ,H-BOLD> to bold fixed-width, which we have
-                // mapped to style_User1, (set to bold, centered text) which
-                // matches the style of the original centered "THE END" text.
-                memory[start + 2] = 0x0a;
-                start = find_pattern_in_mem({ 0xf1, 0x7f, 0x00 }, start, 100);
+            // Shogun's V-CREDITS prints the credits inline, bracketed by
+            // <HLIGHT ,H-BOLD> ... <HLIGHT ,H-NORMAL> (@set_text_style 2 /
+            // @set_text_style 0). Route that text through the centered
+            // styles by adding the fixed-width bit (bold+fixed ->
+            // style_User1, bold+italic+fixed -> style_Note). Zork Zero's
+            // V-CREDITS has no inline styling -- it calls CENTER-1/2/3,
+            // which are reimplemented directly (see CENTER_1/2/3, which
+            // print centered and then do_return out of the original) --
+            // so this pattern isn't present there and the patch is skipped.
+            if (!is_spatterlight_zork0) {
+                start = find_pattern_in_mem({ 0xf1, 0x7f, 0x02 }, entrypoint.found_at_address, 100);
                 if (start != -1) {
-                    memory[start + 2] = 0x0e;
+                    memory[start + 2] = 0x0a;
+                    start = find_pattern_in_mem({ 0xf1, 0x7f, 0x00 }, start, 100);
+                    if (start != -1) {
+                        memory[start + 2] = 0x0e;
+                    } else {
+                        fprintf(stderr, "Error 2!\n");
+                    }
                 } else {
-                    fprintf(stderr, "Error 2!\n");
+                    fprintf(stderr, "Error!\n");
                 }
-            } else {
-                fprintf(stderr, "Error!\n");
             }
 
         } else if (entrypoint.fn == after_V_CREDITS && credits_return_address != 0) {

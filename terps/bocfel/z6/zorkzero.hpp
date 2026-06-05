@@ -17,7 +17,9 @@ extern "C" {
 #include "screen.h"
 
 void after_SPLIT_BY_PICTURE(void);
-void CENTER(void);
+void CENTER_1(void);
+void CENTER_2(void);
+void CENTER_3(void);
 void V_REFRESH(void);
 void V_MODE(void);
 void V_DEFINE(void);

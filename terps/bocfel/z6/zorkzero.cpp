@@ -31,10 +31,13 @@
 // The status line is split into left (room name + moves) and right
 // (region + score) text grid windows positioned over the border graphics.
 
+#include <initializer_list>
+
 #include "memory.h"
 #include "objects.h"
 #include "options.h"
 #include "screen.h"
+#include "stack.h"
 #include "unicode.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
@@ -187,9 +190,78 @@ void V_REFRESH(void) {
     }
 }
 
-// Z-machine entry point: enables centered text output (for credits display).
-void CENTER(void) {
-    V_CREDITS();
+// Output callback used by the CENTER-n reimplementations: routes each
+// character straight to the current Glk window under whatever Glk style
+// we have set, bypassing the Z-machine style machinery (which would
+// otherwise reset the style on every character).
+static void center_put_char(uint8_t c) {
+    glk_put_char(c);
+}
+
+// Shared body for the reimplemented CENTER-1/2/3 credit routines.
+//
+// The original game centers each line by measuring its width with
+// output-stream 3 and then issuing @set_cursor (CURSET) to a pixel X in
+// the main window (see CENTER-LINE/JUSTIFIED-LINE in the ZIL). Glk
+// text-buffer windows ignore cursor positioning, so that approach leaves
+// the text left-aligned. Instead we print each line through style_User1,
+// which is hinted just_Centered during V6 init (screen.cpp), letting Glk
+// do the centering. The multi-column variants (CENTER-2/3) put their
+// strings on a single centered line separated by a few spaces, which is
+// a reasonable rendering when per-column cursor positioning isn't
+// available.
+//
+// These reimplementations are the sole output path for the credit lines,
+// so each is responsible for the trailing newline the original printed.
+//
+// In the original, section headlines and the title are bold while the
+// names are roman. Both centered styles are set up during V6 init:
+// style_User1 is bold+fixed+centered and style_Note is roman+fixed+
+// centered, so we pick between them with the `bold` flag.
+static void center_credit_line(bool bold, std::initializer_list<uint16_t> strings) {
+    set_current_window(&V6_TEXT_BUFFER_WINDOW);
+    glk_set_style(bold ? style_User1 : style_Note);
+    bool first = true;
+    for (uint16_t str : strings) {
+        if (str == 0)
+            continue;
+        if (!first) {
+            glk_put_char(' ');
+            glk_put_char(' ');
+            glk_put_char(' ');
+        }
+        print_handler(unpack_string(str), center_put_char);
+        first = false;
+    }
+    glk_put_char('\n');
+    glk_set_style(style_Normal);
+}
+
+// Z-machine entry points replacing CENTER-1/2/3. These hooks fire at the
+// routine's entry (before its first instruction executes), so the
+// string arguments are already in the routine's locals. We print the
+// centered version ourselves and then do_return() out of the routine so
+// the original left-aligning body (which centers via @set_cursor, a
+// no-op in a Glk text-buffer window) never runs. do_return is used
+// rather than stubbing the routine's first byte with rtrue because the
+// CENTER-2/3 anchor patterns are short and could match elsewhere;
+// overwriting that byte would corrupt unrelated code.
+void CENTER_1(void) {
+    // CENTER-1(STR, BOLD): local 1 is the string, local 2 is the bold
+    // flag (T for headlines/title, absent -> 0 for single names).
+    center_credit_line(variable(2) != 0, { variable(1) });
+    do_return(1);
+}
+
+void CENTER_2(void) {
+    // CENTER-2/3 are always name rows, so they're roman (not bold).
+    center_credit_line(false, { variable(1), variable(2) });
+    do_return(1);
+}
+
+void CENTER_3(void) {
+    center_credit_line(false, { variable(1), variable(2), variable(3) });
+    do_return(1);
 }
 
 
@@ -621,6 +693,13 @@ void z0_display_hint_border(void) {
     int width, height;
     get_image_size(Z0_HINT_BORDER, &width, &height);
 
+    // draw_border_common draws the main border with the current palette
+    // (it does not load the image's own palette), so load it here. Shogun
+    // does the equivalent in shogun_display_border. Without this the hint
+    // border is drawn with a stale palette in the per-image-palette
+    // formats (Amiga and Mac color), giving the wrong colors.
+    extract_palette_from_picnum(Z0_HINT_BORDER);
+
     int border_top = 0;
     int pillar_top = 0;
     if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
@@ -861,12 +940,13 @@ static void adjust_encyclopedia_text_window(void) {
         height -= 10;
     }
 
-    v6_define_window(&windows[3], x * imagescalex, y * imagescaley, width * imagescalex, height * imagescaley);
-
     glsi32 encycl_bgnd = encyclopedia_background_color();
-    win_setbgnd(windows[3].id->peer, encycl_bgnd);
+
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, encycl_bgnd);
-//    win_refresh(windows[3].id->peer, 0, 0);
+    v6_define_window(&windows[3], x * imagescalex, y * imagescaley, width * imagescalex,
+                     height * imagescaley);
+    win_setbgnd(windows[3].id->peer, encycl_bgnd);
+    win_refresh(windows[3].id->peer, 0, 0);
 }
 
 // Draws the encyclopedia display: border frame, illustration at the

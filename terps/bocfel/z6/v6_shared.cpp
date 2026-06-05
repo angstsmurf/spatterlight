@@ -25,6 +25,7 @@
 #include "draw_image.hpp"
 #include "memory.h"
 #include "objects.h"
+#include "process.h"
 #include "screen.h"
 #include "stack.h"
 #include "unicode.h"
@@ -1590,30 +1591,32 @@ void DO_HINTS(void) {
 
 // Z-machine entry point: called before credits text is printed.
 // Ensures output goes to the main text buffer window.
+//
+// Shogun prints its credits inline, bracketed by HLIGHT BOLD / HLIGHT
+// NORMAL; those @set_text_style operands are rewritten to bold+fixed /
+// bold+italic+fixed during entrypoint resolution so the text routes
+// through the centered styles style_User1 / style_Note. Zork Zero prints
+// its credits via the CENTER-1/2/3 routines instead, which are
+// reimplemented directly (see CENTER_1/2/3 in zorkzero.cpp) to print
+// each line through style_User1, so nothing release-specific is needed
+// here for it.
 void V_CREDITS(void) {
-    if (is_spatterlight_zork0) {
-//        if (!centeredText) {
-//            centeredText = true;
-//            set_current_style();
-//        }
-    } else {
-        glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-    }
+    glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
 // Z-machine entry point: called after credits text. Resets bold, italic,
 // and fixed-width text styles that may have been set during credit display.
+// For Zork Zero, also restores the default (proportional) hint on
+// style_User1 and style_Note that V_CREDITS overrode.
 void after_V_CREDITS(void) {
     if (is_spatterlight_zork0) {
-//            if (centeredText) {
-//                centeredText = false;
-//                set_current_style();
-//            }
-    } else {
-        V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_BOLD);
-        V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_ITALIC);
-        V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_FIXED);
+        glk_stylehint_clear(wintype_TextBuffer, style_User1, stylehint_Proportional);
+        glk_stylehint_clear(wintype_TextBuffer, style_Note, stylehint_Proportional);
+        win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
     }
+    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_BOLD);
+    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_ITALIC);
+    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_FIXED);
 }
 
 // Z-machine entry point: called after the game's V-COLOR routine changes
