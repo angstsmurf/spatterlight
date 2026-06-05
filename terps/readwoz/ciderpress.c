@@ -450,10 +450,10 @@ static uint8_t access_ringbuf(ringbuf_handle_t ringbuf, int index)
         return -1;
     }
 
-    if (index >= ringbuf->size)
-        index -= ringbuf->size;
+    if (index >= (int)ringbuf->size)
+        index -= (int)ringbuf->size;
     if (index < 0)
-        index = (int)ringbuf->size - index;
+        index += (int)ringbuf->size;
     uint8_t *buffer = *(ringbuf->buffer);
 
     return buffer[index];
@@ -1077,12 +1077,10 @@ static void TrimTrailingSpaces(uint8_t filename[kFileNameBufLen])
 
     assert(*lastspc == '\0');
 
-    while (--lastspc) {
-        if (*lastspc != ' ')
-            break;
-    }
+    while (lastspc > filename && *(lastspc - 1) == ' ')
+        lastspc--;
 
-    *(lastspc + 1) = '\0';
+    *lastspc = '\0';
 }
 
 /*
@@ -1548,11 +1546,7 @@ static DIError LoadDirectoryBlockList(A2File *pFile, uint16_t keyBlock,
     count = (pFile->fDirEntry.eof + kBlkSize -1) / kBlkSize;
     if (count == 0)
         count = 1;
-    list = MemAlloc(sizeof(uint16_t) * count+1);
-    if (list == NULL) {
-        dierr = kDIErrMalloc;
-        goto bail;
-    }
+    list = MemAlloc(sizeof(uint16_t) * (count + 1));
 
     /* this should take care of trailing sparse entries */
     memset(list, 0, sizeof(uint16_t) * count);
@@ -2146,7 +2140,7 @@ static void SetPathName(A2File *pFile, const char* basePath, const char* fileNam
         *(pFile->pathName + baseLen) = kFssep;
         baseLen++;
     }
-    strncpy(pFile->pathName + baseLen, fileName, baseLen + 1 + fileNameLen + 1);
+    strncpy(pFile->pathName + baseLen, fileName, fileNameLen + 1);
 }
 
 
@@ -2593,11 +2587,11 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
         Read(file, inventemp, (file->fLengthInSectors - 1) * kSectorSize, invimglen);
         debug_print("*invimglen is %zu\n", *invimglen);
         debug_print("*invimglen - 4 is %zu\n", *invimglen);
-        *invimg = MemAlloc(*invimglen);
         if (*invimglen < 4 || *invimglen > 100000) {
             *invimglen = 0;
             *invimg = NULL;
         } else {
+            *invimg = MemAlloc(*invimglen);
             memcpy(*invimg, inventemp + 4, *invimglen - 4);
         }
         free(inventemp);
