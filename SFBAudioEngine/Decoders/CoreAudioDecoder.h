@@ -38,6 +38,12 @@ namespace SFB {
 
 		private:
 
+			// Optional AudioFileTypeID hint passed to AudioFileOpenWithCallbacks.
+			// Useful when the input source is a CFData buffer whose format would
+			// otherwise need to be sniffed and may fail (e.g. ID3-prefixed MP3).
+			virtual void _SetFileTypeHint(uint32_t typeHint) override { mFileTypeHint = (AudioFileTypeID)typeHint; }
+
+
 			// Audio access
 			virtual bool _Open(CFErrorRef *error);
 			virtual bool _Close(CFErrorRef *error);
@@ -59,6 +65,7 @@ namespace SFB {
 			// Data members
 			AudioFileID			mAudioFile;
 			ExtAudioFileRef		mExtAudioFile;
+			AudioFileTypeID		mFileTypeHint = 0;
 		};
 
 	}

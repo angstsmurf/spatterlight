@@ -162,7 +162,7 @@ SFB::Audio::CoreAudioDecoder::~CoreAudioDecoder()
 bool SFB::Audio::CoreAudioDecoder::_Open(CFErrorRef *error)
 {
 	// Open the input file
-	OSStatus result = AudioFileOpenWithCallbacks(this, myAudioFile_ReadProc, nullptr, myAudioFile_GetSizeProc, nullptr, 0, &mAudioFile);
+	OSStatus result = AudioFileOpenWithCallbacks(this, myAudioFile_ReadProc, nullptr, myAudioFile_GetSizeProc, nullptr, mFileTypeHint, &mAudioFile);
 
 	if(noErr != result) {
 		fprintf(stderr, "AudioFileOpenWithCallbacks failed: %d\n", result);
