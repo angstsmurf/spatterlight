@@ -1707,9 +1707,6 @@ uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
     size_t olen = 0, pos = is_tzx ? 10 : 0;
     int nblk = 0;
 
-    if (n_blk)
-        *n_blk = 0;
-
     while (pos + (is_tzx ? 1u : 2u) <= raw_len) {
         size_t blen;
         const uint8_t *payload;
@@ -1749,7 +1746,7 @@ uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
             uint8_t *grown = realloc(out, olen + (blen - 2));
             if (!grown) { free(out); return NULL; }
             out = grown;
-            if (blk_off && blk_len && nblk < max_blk) {
+            if (nblk < max_blk) {
                 blk_off[nblk] = olen;
                 blk_len[nblk] = blen - 2;
                 nblk++;
@@ -1760,8 +1757,7 @@ uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
         pos += blen;
     }
 
-    if (n_blk)
-        *n_blk = nblk;
+    *n_blk = nblk;
     *out_len = olen;
     return out;
 }
@@ -1796,7 +1792,7 @@ void lddr(uint8_t *mem, uint16_t target, uint16_t source, uint16_t size)
    image at address `target`. Each output byte is the rolling key (*loacon)
    XORed with the running count (D/E), the destination address and the encrypted
    source byte; the key then evolves by add1/add2 exactly as the Z80 loader does.
-   When `selfmodify` is set, two decrypted bytes overwrite add1/add2 (the
+   When 'selfmodify' is set, two decrypted bytes overwrite add1/add2 (the
    original protection code is self-modifying — used by Temple of Terror).
    Allocates the 64 KB image if dst is NULL; the caller frees the result. */
 uint8_t *DeAlkatraz(uint8_t *src, uint8_t *dst, size_t src_offset,
@@ -1830,7 +1826,7 @@ uint8_t *DeAlkatraz(uint8_t *src, uint8_t *dst, size_t src_offset,
 }
 
 /* Unscramble memory blocks shuffled by the Alkatraz loader. The relocation
-   table at `ix` is walked backwards (5 bytes per entry: 2 bytes destination,
+   table at 'ix' is walked backwards (5 bytes per entry: 2 bytes destination,
    2 bytes block-length-minus-1, 1 byte fill value): each entry shifts data up
    via LDDR to make room, then fills the vacated gap via LDIR. */
 void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t ix, uint16_t store)
