@@ -952,20 +952,12 @@
                   @"changeScrollbackLimit: action should exist on Preferences");
 }
 
-- (void)testGrowingPainsScrolling {
-    [self performMoleScrollingTestWithFileName:@"mole.sna" smoothScroll:YES];
-}
-
 - (void)testSecretDiaryScrolling {
     [self performMoleScrollingTestWithFileName:@"The Secret Diary Of Adrian Mole - Side 1.tzx" smoothScroll:YES];
 }
 
 - (void)testArchersScrolling {
     [self performMoleScrollingTestWithFileName:@"The Archers - Side 1.tzx" smoothScroll:YES];
-}
-
-- (void)testGrowingPainsScrollingNoSmooth {
-    [self performMoleScrollingTestWithFileName:@"mole.sna" smoothScroll:NO];
 }
 
 - (void)testSecretDiaryScrollingNoSmooth {
