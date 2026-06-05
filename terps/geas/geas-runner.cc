@@ -603,8 +603,12 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
 	  tok = next_token (line, c1, c2);
 	  if (!is_param(tok))
 	    continue;
-	  tok = next_token (line, c1, c2);
-	  if (!is_param (tok)) { report_unsupported ("malformed exit definition: " + line); continue; }
+	  /* A directionless "place" exit is stored as "exit <src;dest>", so the
+	   * token after "exit" is already the src;dest parameter.  (Directional
+	   * dynamic exits, "exit <dir> <src;dest>", have a non-param direction
+	   * token and were skipped by the !is_param check above.)  The previous
+	   * code unconditionally consumed another token here, which mis-flagged
+	   * every place exit as malformed. */
 	  tok = param_contents(tok);
 	  vector<string> args = split_param (tok);
 	  if (args.size() != 2)
@@ -1684,12 +1688,38 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       return true;
     }
   
+  if ((match = match_command (cmd, "read #@object#")))
+    {
+      if (!dereference_vars (match.bindings, is_internal))
+	return true;
+
+      string object = match.bindings[0].var_text;
+      /* "read" dispatches to the object's read action/property if defined,
+       * otherwise it behaves like examine and falls back to look.  Many Quest
+       * games gate content (and progress flags) behind action <read>. */
+      if (get_obj_action (object, "read", tok))
+	run_script_as (object, tok);
+      else if (get_obj_property (object, "read", tok))
+	print_formatted (tok);
+      else if (get_obj_action (object, "examine", tok))
+	run_script_as (object, tok);
+      else if (get_obj_property (object, "examine", tok))
+	print_formatted (tok);
+      else if (get_obj_action (object, "look", tok))
+	run_script_as (object, tok);
+      else if (get_obj_property (object, "look", tok))
+	print_formatted (tok);
+      else
+	display_error ("defaultexamine", object);
+      return true;
+    }
+
   if ((match = match_command (cmd, "look")))
     {
       look();
       return true;
     }
-  
+
   if ((match = match_command (cmd, "give #@first# to #@second#")))
     {
       if (!dereference_vars (match.bindings, is_internal))
@@ -1698,8 +1728,10 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       if (! ci_equal (get_obj_parent (first), "inventory"))
 	display_error ("noitem", first);
       else if (get_obj_action (second, "give " + first, script))
-	run_script (second, script);
-      //run_script (script);
+	run_script_as (second, script);  /* run the action in the recipient's
+	  context; the old run_script(second, script) wrongly executed the
+	  object name "second" as the script (two-arg overload), so giving any
+	  item to an NPC with a give <item> action did nothing. */
       else if (get_obj_action (first, "give to " + second, script))
 	run_script_as (first, script);
 	//run_script (script);
@@ -1752,8 +1784,8 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       else if (get_obj_action (second, "use anything", script))
 	{
 	  set_svar ("quest.use.object", first);
-	  run_script (second, script);
-	  //run_script (script);
+	  run_script_as (second, script);  /* was run_script(second, script),
+	    which executed the object name instead of the action. */
 	}
       else if (get_obj_action (first, "use on anything", script))
 	{
@@ -3200,7 +3232,15 @@ bool geas_implementation::eval_cond (const string &s)
       //args[0] = lcase (args[0]);
       for (uint i = 0; i < state.objs.size(); i ++)
 	if (ci_equal (state.objs[i].name, args[0]))
-	  return state.objs[i].parent != "";
+	  /* An object "exists" (in the Quest sense the games rely on) only if it
+	   * is placed AND not hidden.  A statically-defined object can sit in a
+	   * room while flagged hidden until a show command reveals it; checking
+	   * parent alone made such reveals dead code.  Note: only "hidden" is
+	   * toggled by show/hide -- "invisible" (which merely suppresses room
+	   * listing) must NOT gate existence, or objects revealed via show while
+	   * still flagged invisible would wrongly read as nonexistent. */
+	  return state.objs[i].parent != ""
+	    && !has_obj_property (state.objs[i].name, "hidden");
       if (do_report)
 	gi->debug_print ("exists " + args[0] + " failed due to nonexistence");
       return false;
