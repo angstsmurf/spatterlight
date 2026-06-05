@@ -224,6 +224,17 @@ namespace SFB {
 			/*! @brief Query the decoder's \c InputSource to determine if it is open */
 			inline bool IsOpen() const									{ return mIsOpen; }
 
+			/*!
+			 * @brief Provide a file-type hint to the underlying decoder
+			 * @discussion Some backends (notably CoreAudio) cannot reliably sniff
+			 * the format of an audio stream provided through a memory-backed input
+			 * source. Callers that already know the type can pass a backend-specific
+			 * hint here (e.g. an \c AudioFileTypeID like \c kAudioFileMP3Type for
+			 * the CoreAudio backend). A value of \c 0 means "no hint". Decoders that
+			 * do not use a hint silently ignore this call.
+			 */
+			inline void SetFileTypeHint(uint32_t typeHint)				{ _SetFileTypeHint(typeHint); }
+
 			//@}
 
 
@@ -331,6 +342,9 @@ namespace SFB {
 			// Optional seeking support
 			virtual bool _SupportsSeeking() const						{ return false; }
 			virtual SInt64 _SeekToFrame(SInt64 /*frame*/)				{ return -1; }
+
+			// Optional file-type hint (no-op by default)
+			virtual void _SetFileTypeHint(uint32_t /*typeHint*/)		{ }
 
 			// Data members
 			void							*mRepresentedObject;
