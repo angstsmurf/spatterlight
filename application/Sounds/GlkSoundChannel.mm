@@ -5,6 +5,7 @@
 #include <SFBAudioEngine/AudioDecoder.h>
 #include <SFBAudioEngine/LoopableRegionDecoder.h>
 #include <SFBAudioEngine/CoreAudioOutput.h>
+#include <AudioToolbox/AudioToolbox.h>
 
 class CFDataInputSource final: public SFB::InputSource {
 public:
@@ -123,6 +124,25 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     }
 
     auto decoder = SFB::Audio::Decoder::CreateForInputSource(CreateWithCFData((__bridge CFDataRef)buf, false), (__bridge CFStringRef)mimeString);
+
+    // CoreAudio's AudioFileOpenWithCallbacks autosniff can fail on streams
+    // supplied via callbacks (e.g. ID3-prefixed MP3) because there is no
+    // file extension to consult. Hand the decoder an explicit AudioFileTypeID
+    // hint derived from the format we already detected.
+    if (decoder) {
+        AudioFileTypeID hint = 0;
+        switch (type) {
+            case GlkSoundBlorbFormatMP3:  hint = kAudioFileMP3Type;  break;
+            case GlkSoundBlorbFormatWave: hint = kAudioFileWAVEType; break;
+            case GlkSoundBlorbFormatAIFF: hint = kAudioFileAIFFType; break;
+            case GlkSoundBlorbFormatFORM: hint = kAudioFileAIFCType; break;
+            // kAudioFileMIDIType doesn't exist; MIDI handled by separate decoder
+            case GlkSoundBlorbFormatMIDI: break;
+            default: break;
+        }
+        if (hint)
+            decoder->SetFileTypeHint(hint);
+    }
 
     if (!_player) {
         _player = new SFB::Audio::Player();
