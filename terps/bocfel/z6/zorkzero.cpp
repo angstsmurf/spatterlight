@@ -327,6 +327,14 @@ void DISPLAY_BORDER(BorderType border) {
         win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
         glk_cancel_char_event(graphics_fg_glk);
         current_graphics_buf_win = graphics_bg_glk;
+
+        // Drawing a normal room border means we've left the fullscreen
+        // map/slideshow. screenmode is C++-only state that those paths set
+        // but never clear, so reconcile it here too; otherwise a later
+        // resize (or restore) would take the stale fullscreen redraw path.
+        // (z0_update_after_restore has the same guard for the restore case.)
+        if (screenmode == MODE_MAP || screenmode == MODE_SLIDESHOW)
+            screenmode = MODE_NORMAL;
     }
     current_graphics_buf_win = graphics_bg_glk;
     glk_request_mouse_event(current_graphics_buf_win);
@@ -2396,6 +2404,20 @@ void z0_update_on_resize(void) {
 // Called after a manual restore. Applies the color configuration
 // in the save file.
 void z0_update_after_restore(void) {
+    // screenmode is C++ state that is NOT part of the saved game. A manual
+    // @restore can only be issued from a normal command prompt, never from
+    // a modal screen (map, slideshow, hints, definitions, ...). If a modal
+    // mode lingers from before the restore -- e.g. MODE_MAP after the player
+    // opened the MAP, since exiting it doesn't reset screenmode -- the
+    // z0_update_on_resize() reached via after_V_COLOR() below would take
+    // that mode's redraw path (for MODE_MAP: internal_call MAP_X/MAP_Y with
+    // BLINK-TBL/P_MAP_LOC state from the restored, non-map game), which
+    // diverges and crashes. Reconcile to a resting gameplay mode first.
+    if (screenmode != MODE_NORMAL && screenmode != MODE_Z0_GAME &&
+        screenmode != MODE_NO_GRAPHICS) {
+        screenmode = MODE_NORMAL;
+    }
+
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
     z0_update_colors();
