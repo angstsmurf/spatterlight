@@ -30,6 +30,17 @@
 #define NSLog(...)
 #endif // DEBUG
 
+// Rolling scrollback cap. When the live text storage grows past the limit
+// (the "BufferScrollbackLimit" user default, or kScrollbackTrimDefault when
+// unset) the oldest committed text is trimmed back to two thirds of the limit
+// at a paragraph boundary, so layout, margin-image anchoring, and scrolling
+// stay bounded over very long sessions. The active input region is never
+// trimmed, and trimming only happens while the view is scrolled to the bottom.
+static const NSUInteger kScrollbackTrimDefault = 30000;
+// Floor for the user setting, so the keep math stays meaningful and paging
+// still works even if someone sets a tiny value.
+static const NSUInteger kScrollbackTrimMinimum = 2000;
+
 /*
  * GlkTextBufferWindow is the Glk text buffer window type — a scrollable,
  * styled text view used for the main game text. It manages the full
@@ -82,6 +93,12 @@
     // --- VoiceOver speech tracking ---
     NSRange lastSpokenRange;           // Range of text last spoken to avoid repeating
     NSString *lastSpokenString;        // Text content last spoken
+
+    // --- Background layout ---
+    BOOL backgroundLayoutInProgress;   // YES while a background layout pass is running
+    NSUInteger backgroundLayoutGeneration; // Incremented when text changes, to discard stale results
+
+    // --- Margin image layout coalescing ---
 }
 @end
 
@@ -275,6 +292,12 @@
     if (!bufferTextstorage)
         bufferTextstorage = [[NSMutableAttributedString alloc] init];
 
+    // Capture whether the user is following output at the bottom *before* we
+    // append new text (which would grow the document and make the check read
+    // false). Used to gate scrollback trimming, which must not run while the
+    // user has paged or scrolled up to read.
+    BOOL wasAtBottom = self.scrolledToBottom;
+
     if (self.framePending) {
         self.framePending = NO;
         if (!NSEqualRects(self.pendingFrame, self.frame)) {
@@ -293,11 +316,15 @@
     if (_pendingClear) {
         [self reallyClear];
         [textstorage setAttributedString:bufferTextstorage];
+        backgroundLayoutGeneration++;
     } else if (bufferTextstorage.length) {
         [textstorage appendAttributedString:bufferTextstorage];
+        backgroundLayoutGeneration++;
     }
 
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
+
+    [self trimScrollbackIfNeeded:wasAtBottom];
 
     if (_pendingScroll) {
         if (glkctl.commandScriptRunning) {
@@ -1811,6 +1838,12 @@ replacementString:(id)repl {
 
         if (container.marginImages.count > 10) {
             [container.marginImages removeObject:container.marginImages.firstObject];
+            // Removing the oldest image deletes its margin float, so the text
+            // that wrapped beside it reclaims the full width and reflows
+            // upward. Uncache the surviving images' bounds so they track the
+            // new layout instead of lagging at their stale (lower) cached
+            // positions, which otherwise makes them drift down into the text.
+            [container invalidateLayout:nil];
         }
 
         [container addImage:image alignment:alignment at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
@@ -2027,6 +2060,367 @@ replacementString:(id)repl {
 - (void)forceLayout{
     if (textstorage.length < 50000)
         [layoutmanager glyphRangeForTextContainer:container];
+}
+
+// Compute a front-trim cut point at a paragraph boundary. Starting from
+// (length - targetKeep), scan forward to the next line boundary so the kept
+// text always starts at the beginning of a line; never cut past safeLimit
+// (which protects the active input region). Returns 0 when no clean trim is
+// available. Pure and side-effect free so it can be unit tested.
++ (NSUInteger)scrollbackCutPointForString:(NSString *)string
+                               targetKeep:(NSUInteger)targetKeep
+                                safeLimit:(NSUInteger)safeLimit {
+    NSUInteger length = string.length;
+    if (length <= targetKeep)
+        return 0;
+
+    NSUInteger want = length - targetKeep;
+    if (want > safeLimit)
+        want = safeLimit;
+    if (want == 0)
+        return 0;
+
+    NSUInteger cut = want;
+    while (cut < safeLimit) {
+        unichar c = [string characterAtIndex:cut - 1];
+        if (c == '\n' || c == '\r')
+            break;
+        cut++;
+    }
+
+    // No paragraph boundary available below the safe limit: skip this round.
+    if (cut >= safeLimit)
+        return 0;
+
+    return cut;
+}
+
+// The scrollback character limit. Power users can override it with
+//   defaults write net.ccxvii.spatterlight BufferScrollbackLimit <chars>
+// When the key is absent, the built-in default applies. An explicit value of
+// 0 (or negative) means unlimited - the scrollback is never trimmed. Any other
+// positive value is clamped up to a sensible floor.
++ (NSUInteger)scrollbackLimit {
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    // Distinguish "never set" (use the default) from an explicit 0 (unlimited).
+    if ([defaults objectForKey:@"BufferScrollbackLimit"] == nil)
+        return kScrollbackTrimDefault;
+    NSInteger pref = [defaults integerForKey:@"BufferScrollbackLimit"];
+    if (pref <= 0)
+        return 0; // unlimited - no trimming
+    if ((NSUInteger)pref < kScrollbackTrimMinimum)
+        return kScrollbackTrimMinimum;
+    return (NSUInteger)pref;
+}
+
+// Enforce the rolling scrollback cap: when the buffer grows past the limit,
+// delete the oldest text down to the target size and fix up every absolute
+// offset we cache (fence, paging markers, VoiceOver move ranges, attachment
+// cells, and margin-image / flow-break anchors).
+//
+// Trim only while the user is following output at the bottom, or while a
+// command script is replaying. A front trim deletes from the start of the text
+// storage, which shifts every glyph below it and so invalidates the whole
+// document's layout; the next height query then forces a full synchronous
+// re-layout. That is cheap for a small buffer but can stall for seconds on a
+// large one with many margin images - so we must not do it underneath a user
+// who has paged or scrolled up to read, where it would blank the view mid-read.
+// While following at the bottom the auto-scroll repositions to the bottom
+// afterwards, and a script is an automated playthrough, so neither disturbs a
+// reader.
+- (void)trimScrollbackIfNeeded:(BOOL)wasAtBottom {
+    if (!wasAtBottom && !self.glkctl.commandScriptRunning) {
+        // Scrolled up / paging: a synchronous front trim would force an O(N)
+        // relayout and blank the view mid-read. When opted in, and once the
+        // buffer has grown well past the limit, hand off to a background trim
+        // that rebuilds a trimmed, pre-laid-out text system off the main thread
+        // and swaps it in with the scroll position preserved.
+        NSUInteger limit = [GlkTextBufferWindow scrollbackLimit];
+        if (limit != 0 && textstorage.length > limit * 2)
+            [self scheduleBackgroundTrimToLimit:limit];
+        return;
+    }
+
+    NSUInteger limit = [GlkTextBufferWindow scrollbackLimit];
+    if (limit == 0)
+        return; // unlimited scrollback
+    if (textstorage.length <= limit)
+        return;
+
+    // During a line request, never trim into the editable input region.
+    NSUInteger safeLimit = line_request ? fence : textstorage.length;
+
+    NSUInteger cut = [GlkTextBufferWindow scrollbackCutPointForString:textstorage.string
+                                                          targetKeep:(limit * 2 / 3)
+                                                           safeLimit:safeLimit];
+    if (cut == 0)
+        return;
+
+    // Measure the removed height (the y at which the first kept line currently
+    // sits) so we can shift _lastseen, which is a y-coordinate, correctly.
+    NSUInteger keptGlyph = [layoutmanager glyphRangeForCharacterRange:NSMakeRange(cut, 1)
+                                                actualCharacterRange:NULL].location;
+    NSRect keptLineRect = [layoutmanager lineFragmentRectForGlyphAtIndex:keptGlyph
+                                                         effectiveRange:NULL];
+    CGFloat removedHeight = keptLineRect.origin.y;
+
+    // Capture the current scroll origin so we can shift it up by the removed
+    // height after the trim. Without this, the clip origin stays in the old
+    // coordinate system while _lastseen and the document height move to the new
+    // one; reallyPerformScroll's one-viewport cap is then computed against a
+    // stale position and over-advances, scrolling unread text off the top.
+    NSClipView *clipView = scrollview.contentView;
+    NSPoint scrollOrigin = clipView.bounds.origin;
+
+    [textstorage deleteCharactersInRange:NSMakeRange(0, cut)];
+
+    // Re-anchor every attachment cell to its new character position.
+    [textstorage enumerateAttribute:NSAttachmentAttributeName
+                            inRange:NSMakeRange(0, textstorage.length)
+                            options:0
+                         usingBlock:^(NSTextAttachment *attachment, NSRange range, BOOL *stop) {
+        MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
+        if (cell)
+            cell.pos = range.location;
+    }];
+
+    // Drop margin images / flow breaks whose anchor was trimmed, shift the rest.
+    [container shiftAnchorsAfterTrimOf:cut];
+
+    [self shiftCachedOffsetsAfterTrimOf:cut removedHeight:removedHeight];
+
+    [container invalidateLayout:nil];
+
+    // Hold the visible content in place: everything moved up by removedHeight,
+    // so move the scroll origin up by the same amount. This keeps currentPos
+    // consistent with the shifted _lastseen and document height, so the
+    // subsequent auto-scroll still advances by at most one viewport. Skipped
+    // during a command script, where there is no reader to disturb and the
+    // auto-scroll repositions anyway - the extra redraw just slows replay.
+    if (!self.glkctl.commandScriptRunning) {
+        scrollOrigin.y -= removedHeight;
+        if (scrollOrigin.y < 0)
+            scrollOrigin.y = 0;
+        [clipView setBoundsOrigin:scrollOrigin];
+        [scrollview reflectScrolledClipView:clipView];
+    }
+}
+
+// Shift every cached absolute offset to account for a front trim of `cut`
+// characters (which removed `removedHeight` points of laid-out text). fence,
+// lastVisible and printPositionOnInput are character indices; _lastseen is a
+// y-coordinate; moveRanges are character ranges (dropped if fully trimmed,
+// clamped if they straddle the cut). Shared by the inline and background trims.
+- (void)shiftCachedOffsetsAfterTrimOf:(NSUInteger)cut removedHeight:(CGFloat)removedHeight {
+    fence = (fence > cut) ? fence - cut : 0;
+    lastVisible = (lastVisible > cut) ? lastVisible - cut : 0;
+    _printPositionOnInput = (_printPositionOnInput > cut) ? _printPositionOnInput - cut : 0;
+    _lastseen = ((CGFloat)_lastseen > removedHeight) ? _lastseen - (NSInteger)removedHeight : 0;
+
+    NSMutableArray<NSValue *> *shifted =
+        [NSMutableArray arrayWithCapacity:self.moveRanges.count];
+    for (NSValue *value in self.moveRanges) {
+        NSRange r = value.rangeValue;
+        if (NSMaxRange(r) <= cut)
+            continue; // entirely within the trimmed region
+        if (r.location >= cut) {
+            r.location -= cut;
+        } else {
+            // Straddles the cut: keep the surviving tail.
+            r.length = NSMaxRange(r) - cut;
+            r.location = 0;
+        }
+        [shifted addObject:[NSValue valueWithRange:r]];
+    }
+    self.moveRanges = shifted;
+    moveRangeIndex = shifted.count;
+}
+
+// Trim the scrollback without blocking the main thread, so it can run while the
+// user has paged or scrolled up to read. We build a trimmed, fully-laid-out
+// text system on a background thread and swap it in instantly, then restore the
+// scroll position by character anchor (cheap, since the new system is already
+// laid out). The live view keeps showing the old content until the swap, so
+// there is no blank. Opt-in (BufferBackgroundTrim) and conservatively gated; it
+// degrades gracefully - if it can't run, the buffer simply stays large.
+- (void)scheduleBackgroundTrimToLimit:(NSUInteger)limit {
+    if (backgroundLayoutInProgress)
+        return;
+    if (![NSUserDefaults.standardUserDefaults boolForKey:@"BufferBackgroundTrim"])
+        return;
+
+    // Choose the cut on the main thread, bounded so the removed region is
+    // entirely above the visible area (never trim what the user can see).
+    NSUInteger safeLimit = line_request ? fence : textstorage.length;
+    NSRect visibleRect = scrollview.documentVisibleRect;
+    if (NSHeight(visibleRect) >= 1) {
+        NSUInteger firstVisibleChar =
+            [layoutmanager characterIndexForPoint:NSMakePoint(NSMinX(visibleRect), NSMinY(visibleRect))
+                                  inTextContainer:container
+         fractionOfDistanceBetweenInsertionPoints:nil];
+        if (firstVisibleChar < safeLimit)
+            safeLimit = firstVisibleChar;
+    }
+    NSUInteger cut = [GlkTextBufferWindow scrollbackCutPointForString:textstorage.string
+                                                          targetKeep:(limit * 2 / 3)
+                                                           safeLimit:safeLimit];
+    if (cut == 0)
+        return;
+
+    // Record the scroll anchor (bottom-of-viewport character + sub-line offset)
+    // so we can restore the exact position in the trimmed system after the swap.
+    [self storeScrollOffset];
+    if (lastAtBottom || lastAtTop)
+        return; // not actually parked in the middle; let the inline path handle it
+
+    NSUInteger keptGlyph = [layoutmanager glyphRangeForCharacterRange:NSMakeRange(cut, 1)
+                                                actualCharacterRange:NULL].location;
+    CGFloat removedHeight = [layoutmanager lineFragmentRectForGlyphAtIndex:keptGlyph
+                                                           effectiveRange:NULL].origin.y;
+    CGFloat anchorOffset = lastScrollOffset;
+
+    backgroundLayoutInProgress = YES;
+    NSUInteger generation = ++backgroundLayoutGeneration;
+
+    // Snapshot the *trimmed* text and the container to lay out off-thread.
+    NSMutableAttributedString *trimmedText = [textstorage mutableCopy];
+    [trimmedText deleteCharactersInRange:NSMakeRange(0, cut)];
+    NSData *containerArchive =
+        [NSKeyedArchiver archivedDataWithRootObject:container
+                              requiringSecureCoding:YES
+                                              error:nil];
+    NSSize containerSize = container.size;
+    CGFloat lineFragmentPadding = container.lineFragmentPadding;
+
+    NSSize   inset           = _textview.textContainerInset;
+    BOOL     isEditable      = _textview.editable;
+    NSRange  selection       = _textview.selectedRange;
+    NSColor *bgColor         = _textview.backgroundColor;
+    NSColor *cursorColor     = _textview.insertionPointColor;
+    NSDictionary *linkAttrs  = [_textview.linkTextAttributes copy];
+    BOOL     shouldDrawCaret = _textview.shouldDrawCaret;
+    CGFloat  bottomPadding   = _textview.bottomPadding;
+
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        @autoreleasepool {
+            NSTextStorage *bgStorage =
+                [[NSTextStorage alloc] initWithAttributedString:trimmedText];
+
+            NSLayoutManager *bgLayoutManager = [[NSLayoutManager alloc] init];
+            bgLayoutManager.allowsNonContiguousLayout = NO;
+            bgLayoutManager.backgroundLayoutEnabled = NO; // synchronous layout
+            [bgStorage addLayoutManager:bgLayoutManager];
+
+            NSError *error = nil;
+            MarginContainer *bgContainer =
+                [NSKeyedUnarchiver unarchivedObjectOfClass:[MarginContainer class]
+                                                  fromData:containerArchive
+                                                     error:&error];
+            if (!bgContainer)
+                bgContainer = [[MarginContainer alloc] initWithContainerSize:containerSize];
+            bgContainer.size = containerSize;
+            bgContainer.lineFragmentPadding = lineFragmentPadding;
+            bgContainer.widthTracksTextView  = YES;
+            bgContainer.heightTracksTextView = NO;
+            [bgLayoutManager addTextContainer:bgContainer];
+
+            // Match the container's images/breaks to the trimmed text.
+            [bgContainer shiftAnchorsAfterTrimOf:cut];
+
+            [bgLayoutManager ensureLayoutForTextContainer:bgContainer];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (generation != self->backgroundLayoutGeneration) {
+                    self->backgroundLayoutInProgress = NO;
+                    return; // text changed while we worked; discard
+                }
+
+                BufferTextView *newTextView =
+                    [[BufferTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000)
+                                            textContainer:bgContainer];
+                newTextView.minSize = NSMakeSize(1, 10000000);
+                newTextView.maxSize = NSMakeSize(10000000, 10000000);
+                newTextView.horizontallyResizable = NO;
+                newTextView.verticallyResizable   = YES;
+                newTextView.autoresizingMask      = NSViewWidthSizable;
+                newTextView.allowsImageEditing    = NO;
+                newTextView.allowsUndo            = NO;
+                newTextView.usesFontPanel         = NO;
+                newTextView.usesFindBar           = YES;
+                newTextView.incrementalSearchingEnabled = YES;
+                newTextView.smartInsertDeleteEnabled    = NO;
+                newTextView.textContainerInset  = inset;
+                newTextView.backgroundColor     = bgColor;
+                newTextView.insertionPointColor = cursorColor;
+                newTextView.linkTextAttributes  = linkAttrs;
+                newTextView.shouldDrawCaret     = shouldDrawCaret;
+                newTextView.bottomPadding       = bottomPadding;
+                newTextView.editable            = isEditable;
+                newTextView.delegate = self;
+                bgStorage.delegate   = self;
+                bgLayoutManager.delegate = self;
+                bgContainer.textView = newTextView;
+
+                // Reconnect margin-image attachment cells to the (unarchived,
+                // trimmed) MarginImage objects, re-deriving positions from the
+                // trimmed text.
+                NSMutableDictionary<NSString *, MarginImage *> *imgsByUUID =
+                    [[NSMutableDictionary alloc] initWithCapacity:bgContainer.marginImages.count];
+                for (MarginImage *img in bgContainer.marginImages) {
+                    img.container = bgContainer;
+                    img.accessibilityParent = newTextView;
+                    if (img.uuid)
+                        imgsByUUID[img.uuid] = img;
+                }
+                [bgStorage enumerateAttribute:NSAttachmentAttributeName
+                                      inRange:NSMakeRange(0, bgStorage.length)
+                                      options:0
+                                   usingBlock:^(NSTextAttachment *att, NSRange range, BOOL *stop) {
+                    MyAttachmentCell *cell = (MyAttachmentCell *)att.attachmentCell;
+                    if (!cell) return;
+                    cell.pos = range.location;
+                    if (cell.marginImgUUID) {
+                        MarginImage *img = imgsByUUID[cell.marginImgUUID];
+                        if (img) {
+                            cell.marginImage = img;
+                            img.pos = range.location;
+                            img.bounds = [img boundsWithLayout:bgLayoutManager];
+                            cell.accessibilityLabel = cell.customA11yLabel;
+                        }
+                    }
+                }];
+
+                BOOL wasFirstResponder = (self.window.firstResponder == self.textview);
+
+                self->scrollview.documentView = newTextView;
+                self->textstorage   = bgStorage;
+                self->layoutmanager = bgLayoutManager;
+                self->container     = bgContainer;
+                self.textview       = newTextView;
+
+                // Shift every cached offset to account for the trim.
+                [self shiftCachedOffsetsAfterTrimOf:cut removedHeight:removedHeight];
+
+                // Shift and restore the text selection.
+                NSUInteger selLoc = (selection.location > cut) ? selection.location - cut : 0;
+                if (selLoc + selection.length <= bgStorage.length)
+                    newTextView.selectedRange = NSMakeRange(selLoc, selection.length);
+
+                [newTextView enableCaret:nil];
+                if (wasFirstResponder)
+                    [self.window makeFirstResponder:newTextView];
+
+                // Restore the scroll position by character anchor in the
+                // already-laid-out new system (lastVisible was shifted above).
+                BOOL savedPause = self->pauseScrolling;
+                self->pauseScrolling = NO;
+                [self scrollToCharacter:self->lastVisible withOffset:anchorOffset animate:NO];
+                self->pauseScrolling = savedPause;
+
+                self->backgroundLayoutInProgress = NO;
+            });
+        }
+    });
 }
 
 // Record the Y-coordinate of the last visible line of text. This is
