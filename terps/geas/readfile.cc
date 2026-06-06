@@ -24,8 +24,6 @@
 #include <map>
 #include <string>
 #include <iostream>
-//#include <fstream>
-#include <sstream>
 #include "readfile.hh"
 #include "geas-util.hh"
 #include "reserved_words.hh"
@@ -64,12 +62,6 @@ string next_token (const string &full, std::string::size_type &tok_start, std::s
   else if (cvt_paren && full[tok_start] == '(')
     {
       uint depth = 1;
-      /*
-      while (tok_end < full.length() && full [tok_end] != ')')
-	++ tok_end;
-      if (full[tok_end] == ')')
-	++ tok_end;
-      */
       do {
 	if (full[tok_end] == '(')
 	  {
@@ -169,49 +161,7 @@ static bool is_end_define (const string &s)
 
 static vector<string> split_lines (const string &data);
 
-/*
-GeasBlock::GeasBlock (const vector<string> &in_data, string in_parent, 
-		      uint i, bool recurse)
-{
-  //cerr << "GeasBlock (...) processing line #" << i << ": " << in_data[i] << endl;
-  parent = in_parent;
-  uint t1, t2; 
-  first_token (in_data[i], t1, t2); // "define"
-  blocktype = next_token (in_data[i], t1, t2); // "object", or the like
-  name = next_token (in_data[i], t1, t2); // "<itemname>", or the like
-  if (is_param (name))
-    name = param_contents(name);
-  else if (name != "")
-    throw string ("Expected parameter; " + name + " found instead.");
-  i ++;
-  uint depth = 1;
-  while (i < in_data.size() && depth > 0)
-    {
-      if (recurse && is_define (in_data[i]))
-	++ depth;
-      else if (is_end_define (in_data[i]))
-	-- depth;
-      else if (depth == 1)
-	data.push_back (in_data[i]);
-      ++ i;
-    }
-}
-*/
 
-/*
-template <class T> ostream &operator << (ostream &o, vector<T> v)
-{
-  o << "{ '";
-  for (uint i = 0; i < v.size(); i ++)
-    {
-      o << v[i];
-      if (i + 1 < v.size())
-	o << "', '";
-    }
-  o << "' }";
-  return o;
-}
-*/
 
 static reserved_words dir_tag_property ("north", "south", "east", "west", "northwest", "northeast", "southeast", "southwest", "up", "down", "out", (char *) NULL);
 
@@ -220,7 +170,6 @@ void GeasFile::read_into (const vector<string> &in_data,
 			  const reserved_words &props, 
 			  const reserved_words &actions)
 {
-  //cerr << "r_i: Reading in from" << cur_line << ": " << in_data[cur_line] << endl;
   //output.push_back (GeasBlock());
   //GeasBlock &out_block = output[output.size() - 1];
   size_t blocknum = blocks.size();
@@ -236,9 +185,8 @@ void GeasFile::read_into (const vector<string> &in_data,
   // Was assert(token == "define"); a malformed file would abort the whole
   // interpreter. Log and proceed so loading degrades rather than crashing.
   if (token != "define")
-    cerr << "readfile: expected 'define' but got '" << token << "' in: " << line << endl;
+    GEAS_DBG << "readfile: expected 'define' but got '" << token << "' in: " << line << endl;
   string blocktype = out_block.blocktype = next_token (line, t1, t2); // "object", or the like
-  //cerr << "r_i: Pushing back block of type " << blocktype << "\n";
   type_indecies[blocktype].push_back (blocknum);
   string name = next_token (line, t1, t2); // "<itemname>", or the like
 
@@ -269,7 +217,11 @@ void GeasFile::read_into (const vector<string> &in_data,
     {
       register_block (out_block.name, blocktype);
     }
-  //register_block (out_block.lname, blocktype);
+
+  /* Index this block by (type, name) for fast find_by_name lookups.  Done in
+   * lockstep with type_indecies above so find_by_name sees exactly the same
+   * (incrementally growing) set of blocks it did when it scanned linearly. */
+  name_index[name_key (blocktype, out_block.name)].push_back (blocknum);
 
   // SENSITIVE?
   if (blocktype == "room" && find_by_name ("type", "defaultroom"))
@@ -297,13 +249,9 @@ void GeasFile::read_into (const vector<string> &in_data,
 	}
       else if (depth == 1)
 	{
-	  //cerr << "r_i: Processing line #" << cur_line << ": " << line << endl;
-	  //string dup_data = "";
 	  string tok = first_token (line, t1, t2);
 	  string rest = next_token (line, t1, t2);
 
-	  //cerr << "r_i: tok == '" << tok << "', props[tok] == " << props[tok]
-	  //     << ", actions[tok] == " << actions[tok] << "\n";
 
 	  if (props[tok] && dir_tag_property[tok])
 	    {
@@ -312,22 +260,18 @@ void GeasFile::read_into (const vector<string> &in_data,
 
 	  if (props[tok] && rest == "")
 	    {
-	      //cerr << "r_i: Handling as props <tok>\n";
 	      line = "properties <" + tok + ">";
 	    }
 	  else if (props[tok] && is_param(rest))
 	    {
-	      //cerr << "r_i: Handling as props <tok = ...>\n";
 	      line = "properties <" + tok + "=" + param_contents(rest) + ">";
 	    }
 	  else if (actions[tok] && 
 		   (tok == "use" || tok == "give" || !is_param(rest)))
 	    {
-	      //cerr << "r_i: Handling as action '" << tok << "'\n";
 	      // SENSITIVE?
 	      if (tok == "use")
 		{
-		  //cerr << "r_i: ********** Use line: <" + line + "> ---> ";
 		  string lhs = "action <use ";
 		  // SENSITIVE?
 		  if (rest == "on")
@@ -346,7 +290,6 @@ void GeasFile::read_into (const vector<string> &in_data,
 			}
 		      else
 			{
-			  //cerr << "r_i: Error handling '" << line << "'" << endl;
 			  line = "ERROR: " + line;
 			}
 		    }
@@ -363,7 +306,6 @@ void GeasFile::read_into (const vector<string> &in_data,
 		    {
 		      line = "action <use> " + line.substr (t1);
 		    }
-		  //cerr << "r_i: <" << line << ">\n";
 		}
 	      // SENSITIVE?
 	      else if (tok == "give")
@@ -381,7 +323,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 			line = lhs + "to " + param_contents(rest) + "> " + rhs;
 		      else
 			{
-			  cerr << "Error handling '" << line << "'" << endl;
+			  GEAS_DBG << "Error handling '" << line << "'" << endl;
 			  line = "ERROR: " + line;
 			}
 		    }
@@ -405,7 +347,6 @@ void GeasFile::read_into (const vector<string> &in_data,
 		}
 	    }
 	  //else
-	  //  cerr << "Handling as ordinary line\n";
 
 	  // recalculating tok because it might have changed
 	  /* TODO: Make sure this only happens on object-type blocks */
@@ -529,19 +470,19 @@ GeasFile read_geas_file (GeasInterface *gi, const string &filename)
   vector<string> data;
   bool success;
 
-  cerr << "Header is '" << file_contents.substr (0, 7) << "'.\n";
+  GEAS_DBG << "Header is '" << file_contents.substr (0, 7) << "'.\n";
   if (file_contents.size() > 8 && file_contents.substr (0, 7) == "QCGF002")
     {
-      cerr << "Decompiling\n";
+      GEAS_DBG << "Decompiling\n";
       success = decompile (file_contents, data);
     }
   else
     {
-      cerr << "Preprocessing\n";
+      GEAS_DBG << "Preprocessing\n";
       success = preprocess (split_lines (file_contents), filename, data, gi);
     }
 
-  cerr << "File load was " << (success ? "success" : "failure") << endl;
+  GEAS_DBG << "File load was " << (success ? "success" : "failure") << endl;
 
   if (success)
     {
@@ -582,14 +523,6 @@ void print_vblock (ostream &o, string blockname, const vector<GeasBlock> &blocks
 
 ostream &operator << (ostream &o, const GeasFile &gf)
 {
-  /*
-  o << "Geas File\nThing-type blocks:\n";
-  for (uint i = 0; i < gf.things.size(); i ++)
-    o << gf.things[i];
-  o << "\nOther-type blocks:\n";
-  for (uint i = 0; i < gf.others.size(); i ++)
-    o << gf.others[i];
-  */
   o << "Geas File\n";
   for (map<string, vector<size_t> >::const_iterator i = gf.type_indecies.begin();
        i != gf.type_indecies.end(); i ++)
@@ -602,20 +535,6 @@ ostream &operator << (ostream &o, const GeasFile &gf)
       o << "\n";
     }
 
-  /*
-  o << "Geas File\n";
-  print_vblock (o, "game",        gf.game);
-  print_vblock (o, "rooms",       gf.rooms);
-  print_vblock (o, "objects",     gf.objects);
-  print_vblock (o, "text blocks", gf.textblocks);
-  print_vblock (o, "functions",   gf.functions);
-  print_vblock (o, "procedures",  gf.procedures);
-  print_vblock (o, "types",       gf.types);
-  print_vblock (o, "synonyms",    gf.synonyms);
-  print_vblock (o, "timers",      gf.timers);
-  print_vblock (o, "variables",   gf.variables);
-  print_vblock (o, "choices",     gf.choices);
-  */
   o << endl;
   return o;
 }
@@ -735,7 +654,7 @@ bool decompile (const string &s, vector<string> &rv)
 
   for (size_t i = 0; i < rv.size(); i ++)
   {
-    cerr << "rv[" << i << "]: " << rv[i] << "\n";
+    GEAS_DBG << "rv[" << i << "]: " << rv[i] << "\n";
   }
 
   return true;
@@ -761,8 +680,7 @@ vector<string> tokenize (const string &s)
 
 void report_error (const string &s)
 {
-  //cerr << s << endl; 
-  cerr << s << endl; 
+  GEAS_DBG << s << endl; 
   throw s;
 }
 
@@ -773,36 +691,26 @@ vector<string> split_lines (const string &data)
   uint i = 0;
   while (i < data.length())
     {
-      //cerr << "data[" << i << "] == " << int(data[i]) << '\n';
 
       if (data[i] == '\n' || data[i] == '\r')
 	{
-	  /*
-	  if (data[i] == '\n' && i < data.length() && data[i+1] == '\r')
- 	    ++ i;
-	  */
 	  if (tmp.size() > 0 && tmp[tmp.size() - 1] == '_')
 	    {
-	      //cerr << "Line with trailing underscores: " << tmp << '\n';
 	      tmp.erase (tmp.size() - 1);
 	      if (tmp[tmp.size() - 1] == '_')
 		tmp.erase (tmp.size() - 1);
 	      if (i < data.length() && data[i] == '\r' && data[i+1] == '\n')
 		++ i;
 	      ++ i;
-	      //cerr << "   WSK: data[" << i<< "] == " << int(data[i]) << '\n';
 	      while (i < data.length() && data[i] != '\r' && 
 		     data[i] != '\n' && isspace(data[i]))
 		{
-		  //cerr << "   WS: data[" << i<< "] = " << int(data[i]) << '\n';
 		  ++ i;
 		}
-	      //cerr << "   WS: data[" << i<< "] == " << int(data[i]) << '\n';
 	      -- i;
 	    }
 	  else
 	    {
-	      //cerr << "Pushing back {<{" << tmp << "}>}\n";
 	      rv.push_back (tmp);
 	      tmp = "";
 	      if (i < data.length() && data[i] == '\r' && data[i+1] == '\n')
@@ -820,12 +728,10 @@ vector<string> split_lines (const string &data)
 
 void show_tokenize (string s)
 {
-  //cerr << "s_t: Tokenizing '" << s << "' --> " << tokenize(s) << endl;
 }
 
 void say_push (const vector<string> &v)
 {
-  //cerr << "s_p: Pushing '" << v[v.size() - 1] << "'" << endl;
 }
 	  
 
@@ -838,12 +744,6 @@ void say_push (const vector<string> &v)
 string trim (const string &s, trim_modes trim_mode)
 {
   std::string::size_type i, j;
-  /*
-  cerr << "Trimming (" << s << "): [";
-  for (i = 0; i < s.length(); i ++)
-    cerr << int (s[i]) << "(" << s[i] << "), ";
-  cerr << "]\n";
-  */
   for (i = 0; i < s.length() && isspace (s[i]); i ++)
     ;
   if (i == s.length()) return "";
@@ -934,13 +834,6 @@ static void handle_includes (const vector<string> &in_data, const string &filena
 bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 		 GeasInterface *gi)
 {
-  //cerr << "Before preprocessing:\n" << v << "\n\n" << endl;
-  /*
-    cerr << "Before preprocessing:\n";
-  for (uint i = 0; i < v.size(); i ++)
-    cerr << i << ": " << v[i] << "\n";
-  cerr << "\n\n";
-  */
 
   // TODO: Is it "!=" or "<>" or both, and if both, which has priority?
   static string comps[][2] = 
@@ -960,7 +853,6 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
   map <string, vector<string> > addtos;
   for (uint line = 0; line < v2.size(); line ++)
     {
-      //cerr << "Line #" << line << ", looking for addtos: " << v2[line] << endl;
       tok = first_token (v2[line], tok_start, tok_end);
       if (tok == "!addto")
 	{
@@ -1018,7 +910,6 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	    }
 	}
     }
-  //cerr << "Done looking for addtos" << endl;
   v2.clear();
 
   for (map<string, vector<string> >::iterator i = addtos.begin();
@@ -1029,32 +920,6 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	v.push_back (i->second[j]);
       v.push_back ("end define");
     }
-  /*
-  if (addtos.find("<default>") != addtos.end())
-    {
-      vector<string> &lines = addtos ["<default>"];
-      v.push_back ("define type <default>");
-      for (uint i = 0; i < lines.size(); i ++)
-	v.push_back (lines[i]);
-      v.push_back ("end define");
-    }
-
-  if (addtos.find("<defaultroom>") != addtos.end())
-    {
-      vector<string> &lines = addtos ["<defaultroom>"];
-      v.push_back ("define type <defaultroom>");
-      for (uint i = 0; i < lines.size(); i ++)
-	v.push_back (lines[i]);
-      v.push_back ("end define");
-    }
-  */
-  /*
-  cerr << "Done special-pushing <default> and <defaultroom>\n";
-  cerr << "After includes & addtos:\n";
-  for (uint i = 0; i < v.size(); i ++)
-    cerr << i << ": " << v[i] << "\n";
-  cerr << "\n\n";
-  */
 
   // Preprocessing step 1:
   // Loop through the lines.  Look for "if/and/or (.. <.. )" or the like
@@ -1070,11 +935,9 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	      tok == "and" || tok == "or")
 	    {
 	      tok = next_token (v[line], tok_start, tok_end, true);
-	      //cerr << "Checking for comparison {" << tok << "}\n";
 	      if (tok.length() > 2 && tok[0] == '(' && 
 		  tok [tok.length() - 1] == ')')
 		{
-		  //cerr << "   IT IS!\n";
 		  tok = tok.substr (1, tok.length() - 2);
 		  string str = v[line];
 		  std::string::size_type cmp_start;
@@ -1082,13 +945,11 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 		    if ((cmp_start = tok.find(comps[cmp][0])) != string::npos)
 		      {
 			std::string::size_type cmp_end = cmp_start + comps[cmp][0].length();
-			//cerr << "Changed str from {" << str << "} to {";
 			str = str.substr(0, tok_start) + 
 			  "is <" + trim (tok.substr(0, cmp_start)) + ";" + 
 			  comps[cmp][1] + 
 			  trim (tok.substr(cmp_end)) + ">" + 
 			    str.substr(tok_end);
-			//cerr << str << "}\n";
 			cmp = ARRAYSIZE(comps);
 			v[line] = str;
 			tok_end = tok_start; // old value of tok_end invalid
@@ -1097,31 +958,26 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	    }
 	}
     }
-  //cerr << "Done with pass 1!" << endl;
 
   // Pass 2:  Extract comments from non-text blocks
   bool in_text_block = false;
   for (uint line = 0; line < v.size(); line ++)
     {
-      //cerr << "Checking line '" << v[line] << "' for comments\n"; 
       if (!in_text_block && is_start_textmode (v[line]))
 	in_text_block = true;
       else if (in_text_block && is_end_define (v[line]))
 	in_text_block = false;
       else if (!in_text_block)
 	{
-	  //cerr << "  checking...\n";
 	  std::string::size_type start_ch = 0, end_ch = 0;
 	  while (start_ch < v[line].length())
 	    if (next_token (v[line], start_ch, end_ch)[0] == '\'')
 	      {
 		v[line] = v[line].substr (0, start_ch);
-		//cerr << "  abbreviating to '" << v[line] << "'\n";
 		break;
 	      }
 	}
     }
-  //cerr << "Done with pass 2!" << endl;
 
   /* There should be a pass 2.5: check that lbraces count equals
    * rbrace count, but I'm skipping that
@@ -1132,7 +988,6 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
   int int_proc_count = 0;
   for (uint line = 0; line < v.size(); line ++)
     {
-      //cerr << "Pass 3, line #" << line << endl;
       string str = v[line];
       if (!in_text_block && is_start_textmode (str))
 	in_text_block = true;
@@ -1199,10 +1054,8 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	  // The continue is to avoid the v2.push_back(...);
 	  // this block pushes stuff onto v2 on its own.
 	}
-      //cerr << "Done with '" << str << "'" << endl;
       v2.push_back (str);
     }
-  //cerr << "Done with pass 3!" << endl;
 
   /* Pass 4:  trim lines, drop blank lines, combine elses */
   
@@ -1211,7 +1064,6 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
   for (uint line = 0; line < v2.size(); line ++)
     {
       string str = v2[line];
-      //cerr << "Pass 4, line #" << line << ", " << in_text_block << ": '" << str << "'\n";
       if (!in_text_block && is_start_textmode (str))
 	in_text_block = true;
       else if (in_text_block && is_end_define (str))
@@ -1219,7 +1071,6 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
       else if (rv.size() > 0 && !in_text_block && get_token (str) == "else")
 	{
 	  rv[rv.size() - 1] = rv[rv.size() - 1] + " " + trim (str);
-	  //cerr << "  Replacing else: " << rv[rv.size() - 1] << "\n";
 	  continue;
 	}
       if (!in_text_block)
@@ -1227,22 +1078,10 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
       if (in_text_block || str != "")
 	rv.push_back (str);
       //if (rv.size() > 0)
-      //  cerr << "  Result: " << rv[rv.size() - 1] << "\n";
     }
 
-  /*
-  cerr << "At end of procedure, v == " << v << "\n";
-  cerr << "and v2 == " << v2 << "\n";
-  cerr << "and rv == " << rv << "\n";
-  */
   //rv = v2;
 
-  /*
-  cerr << "After all preprocessing\n";
-  for (uint i = 0; i < rv.size(); i ++)
-    cerr << i << ": " << rv[i] << "\n";
-  cerr << "\n\n";
-  */
 
   return true;
   //return v2;
@@ -1251,16 +1090,15 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 
 void show_find (string s, char ch)
 {
-  cerr << "Finding '" << ch << "' in '" << s << "': " << s.find(ch)+1 << endl;
+  GEAS_DBG << "Finding '" << ch << "' in '" << s << "': " << s.find(ch)+1 << endl;
 }
 
 void show_trim (string s)
 {
-  cerr << "Trimming '" << s << "': spaces (" << trim (s)
+  GEAS_DBG << "Trimming '" << s << "': spaces (" << trim (s)
        << "), underscores (" << trim (s, TRIM_UNDERSCORE)
        << "), braces (" << trim (s, TRIM_BRACE) << ").\n";
   
-  //cerr << "Trimming '" << s << "': '" << trim (s) << "'\n";
 }
 
 template<class T> vector<T> &operator<< (vector<T> &v, T val) 
@@ -1281,7 +1119,6 @@ vector <string> split (string s, char ch) {
   vector<string> rv;
   do
     {
-      //cerr << "split (" << s << "): i == " << i << ", j == " << j << endl;
       j = s.find (ch, i);
       if (i != j)
 	rv.push_back (s.substr (i, j-i));
@@ -1289,7 +1126,6 @@ vector <string> split (string s, char ch) {
     }
   while (j < s.length());
 
-  //cerr << rv << endl;
   return rv;
 }
 

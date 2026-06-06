@@ -72,7 +72,7 @@ public:
       throw string ("Unable to open \"" + savename + "\"");
     string data = contents (gamename);
     ofs.write (data.data(), data.size());
-    cerr << "Done writing save game\n";
+    GEAS_DBG << "Done writing save game\n";
   }
 };
 
@@ -238,11 +238,10 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 {
   running = false;
 
-  cerr << "GeasState::GeasState()" << endl;
+  GEAS_DBG << "GeasState::GeasState()" << endl;
   for (size_t i = 0; i < gf.size ("game"); i ++)
     {
       //const GeasBlock &go = gf.game[i];
-      //register_block ("game", "game");
       ObjectRecord data;
       data.name = "game";
       data.parent = "";
@@ -251,7 +250,7 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       objs.push_back (data);
     }
 
-  cerr << "GeasState::GeasState() done setting game" << endl;
+  GEAS_DBG << "GeasState::GeasState() done setting game" << endl;
   for (size_t i = 0; i < gf.size ("room"); i ++)
     {
       const GeasBlock &go = gf.block ("room", i);
@@ -260,11 +259,10 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       data.name = go.name;
       data.parent = "";
       data.hidden = data.invisible = true;
-      //register_block (data.name, "room");
       objs.push_back (data);
     }
 
-  cerr << "GeasState::GeasState() done setting rooms" << endl;
+  GEAS_DBG << "GeasState::GeasState() done setting rooms" << endl;
   for (size_t i = 0; i < gf.size ("object"); i++)
     {
       const GeasBlock &go = gf.block ("object", i);
@@ -289,12 +287,11 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 	      break;
 	    }
 	}
-      //register_block (data.name, "object");
       data.hidden = data.invisible = false;
       objs.push_back (data);
     }
 
-  cerr << "GeasState::GeasState() done setting objects" << endl;
+  GEAS_DBG << "GeasState::GeasState() done setting objects" << endl;
   /* Characters (Quest "define character") are placed in the world like
    * objects so they can be looked at, spoken to, etc. */
   for (size_t i = 0; i < gf.size ("character"); i++)
@@ -310,11 +307,10 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       objs.push_back (data);
     }
 
-  cerr << "GeasState::GeasState() done setting characters" << endl;
+  GEAS_DBG << "GeasState::GeasState() done setting characters" << endl;
   for (size_t i = 0; i < gf.size("timer"); i ++)
     {
       const GeasBlock &go = gf.block("timer", i);
-      //cerr << "GS::GS: Handling timer " << go << "\n";
       TimerRecord tr;
       string interval = "", status = "";
       for (uint j = 0; j < go.data.size(); j ++)
@@ -349,21 +345,20 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       tr.name = go.name;
       tr.is_running = (status == "enabled");
       tr.interval = tr.timeleft = parse_int (interval);
-      //register_block (tr.name, "timer");
       timers.push_back (tr);
     }
 
-  cerr << "GeasState::GeasState() done with timers" << endl;
+  GEAS_DBG << "GeasState::GeasState() done with timers" << endl;
   for (size_t i = 0; i < gf.size("variable"); i ++)
     {
       const GeasBlock &go (gf.block("variable", i));
-      cerr << "GS::GS: Handling variable #" << i << ": " << go << endl;
+      GEAS_DBG << "GS::GS: Handling variable #" << i << ": " << go << endl;
       string vartype;
       string value;
       for (size_t j = 0; j < go.data.size(); j ++)
 	{
 	  string line = go.data[j];
-	  cerr << "   Line #" << j << " of var: \"" << line << "\"" << endl;
+	  GEAS_DBG << "   Line #" << j << " of var: \"" << line << "\"" << endl;
 	  std::string::size_type c1, c2;
 	  string tok = first_token (line, c1, c2);
 	  if (tok == "type")
@@ -403,7 +398,6 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 	  ivr.name = go.name;
 	  ivr.set (0, parse_int (value));
 	  ivars.push_back (ivr);
-	  //register_block (ivr.name, "numeric");
 	}
       else
 	{
@@ -412,11 +406,9 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 	  svr.name = go.name;
 	  svr.set (0, value);
 	  svars.push_back (svr);
-	  //register_block (svr.name, "string");
 	}
     }
-  //cerr << obj_types << endl;
-  cerr << "GeasState::GeasState() done with variables" << endl;
+  GEAS_DBG << "GeasState::GeasState() done with variables" << endl;
 }
 
 ostream &operator<< (ostream &o, const PropertyRecord &pr) 

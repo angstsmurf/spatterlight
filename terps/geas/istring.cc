@@ -1,7 +1,7 @@
 #include "istring.hh"
+#include "general.hh"
 #include <cstring>
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 
@@ -38,36 +38,6 @@ size_t ci_find(const string& str1, const string& str2)
     return pos - str1.begin ();
 }
 
-/*
-uint ci_diff (const string &str1, const string &str2)
-{
-  if (str1.length() > str2.length()) return ci_diff (str2, str1);
-  uint rv;
-  for (rv = 0; rv < str1.length() && ci_equal (str1[rv], str2[rv]); rv ++)
-    ;
-  return rv;
-}
-
-bool cis_equal (const string &str1, const string &str2)
-{
-  uint pos = ci_diff (str1, str2);
-  return pos == str1.length() && pos == str2.length();
-}
-
-bool cis_less_eq (const string &str1, const string &str2)
-{
-  uint pos = ci_diff (str1, str2);  
-  return pos == str1.length() || ci_less (str1[pos], str2[pos]);
-}
-
-bool cis_less (const string &str1, const string &str2)
-{
-  uint pos = ci_diff (str1, str2);  
-
-  return (pos < str1.length() && ci_less (str1[pos], str2[pos])) ||
-    (pos == str1.length() && pos < str2.length());
-}
-*/
 
 
 bool ci_equal(const string &str1, const string &str2) {
@@ -80,7 +50,7 @@ bool ci_less(const string &str1, const string &str2) {
   return strcasecmp (str1.c_str(), str2.c_str()) < 0;
 }
 bool ci_notequal(const string &str1, const string &str2) {
-  std::cerr << "ci_notequal ('" << str1 << "', '" << str2 << "') -> " 
+  GEAS_DBG << "ci_notequal ('" << str1 << "', '" << str2 << "') -> " 
 	    << ( strcasecmp (str1.c_str(), str2.c_str()) != 0) << "\n";
   return strcasecmp (str1.c_str(), str2.c_str()) != 0; }
 bool ci_gt_eq(const string &str1, const string &str2) {

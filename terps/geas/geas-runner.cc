@@ -25,7 +25,6 @@
 #include "geas-state.hh"
 #include "geas-util.hh"
 #include <set>
-#include "reserved_words.hh"
 #include "geas-impl.hh"
 #include <sstream>
 #include <cstdlib>
@@ -44,8 +43,6 @@ static const string short_dir_names[] = {"n", "s", "e", "w", "ne", "nw", "se", "
 //{
 //  for (const auto &i : v)
 //    if (ci_equal (i.name, name))
-//      return &i;
-//  return NULL;
 //}
 
 
@@ -67,7 +64,6 @@ bool geas_implementation::find_ivar (const string &name, size_t &rv) const
 
 bool geas_implementation::find_svar (const string &name, size_t &rv) const
 {
-  //name = lcase (name);
   for (size_t n = 0; n < state.svars.size(); n ++)
     if (ci_equal (state.svars[n].name, name))
       {
@@ -79,7 +75,7 @@ bool geas_implementation::find_svar (const string &name, size_t &rv) const
 
 void geas_implementation::set_svar (const string &varname, const string &varval)
 {
-  cerr << "set_svar (" << varname << ", " << varval << ")\n";
+  GEAS_DBG << "set_svar (" << varname << ", " << varval << ")\n";
   std::string::size_type i1 = varname.find ('[');
   if (i1 == string::npos)
     return set_svar (varname, 0, varval); 
@@ -90,7 +86,7 @@ void geas_implementation::set_svar (const string &varname, const string &varval)
     }
   string arrayname = varname.substr (0, i1);
   string indextext = varname.substr (i1+1, varname.length() - i1 - 2);
-  cerr << "set_svar(" << varname << ") --> set_svar (" << arrayname << ", " << indextext << ")\n";
+  GEAS_DBG << "set_svar(" << varname << ") --> set_svar (" << arrayname << ", " << indextext << ")\n";
   for (uint c3 = 0; c3 < indextext.size(); c3 ++)
     if (indextext[c3] < '0' || indextext[c3] > '9')
       {
@@ -149,7 +145,7 @@ string geas_implementation::get_svar (const string &varname) const
     }
   string arrayname = varname.substr (0, i1);
   string indextext = varname.substr (i1+1, varname.length() - i1 - 2);
-  cerr << "get_svar(" << varname << ") --> get_svar (" << arrayname << ", " << indextext << ")\n";
+  GEAS_DBG << "get_svar(" << varname << ") --> get_svar (" << arrayname << ", " << indextext << ")\n";
   for (size_t c3 = 0; c3 < indextext.size(); c3 ++)
     if (indextext[c3] < '0' || indextext[c3] > '9')
       return get_svar (arrayname, get_ivar (indextext));
@@ -179,7 +175,7 @@ int geas_implementation::get_ivar (const string &varname) const
     }
   string arrayname = varname.substr (0, i1);
   string indextext = varname.substr (i1+1, varname.length() - i1 - 2);
-  cerr << "get_ivar(" << varname << ") --> get_ivar (" << arrayname << ", " << indextext << ")\n";
+  GEAS_DBG << "get_ivar(" << varname << ") --> get_ivar (" << arrayname << ", " << indextext << ")\n";
   for (uint c3 = 0; c3 < indextext.size(); c3 ++)
     if (indextext[c3] < '0' || indextext[c3] > '9')
       return get_ivar (arrayname, get_ivar (indextext));
@@ -209,7 +205,7 @@ void geas_implementation::set_ivar (const string &varname, int varval)
     }
   string arrayname = varname.substr (0, i1);
   string indextext = varname.substr (i1+1, varname.length() - i1 - 2);
-  cerr << "set_svar(" << varname << ") --> set_svar (" << arrayname << ", " << indextext << ")\n";
+  GEAS_DBG << "set_svar(" << varname << ") --> set_svar (" << arrayname << ", " << indextext << ")\n";
   for (size_t c3 = 0; c3 < indextext.size(); c3 ++)
     if (indextext[c3] < '0' || indextext[c3] > '9')
       {
@@ -295,10 +291,8 @@ bool geas_implementation::has_obj_action (const string &obj, const string &prop)
 bool geas_implementation::get_obj_action (const string &objname, const string &actname,
 					  string &rv) const
 {
-  //string backup_object = this_object;
-  //this_object = objname;
 
-  cerr << "get_obj_action (" << objname << ", " << actname << ")\n";
+  GEAS_DBG << "get_obj_action (" << objname << ", " << actname << ")\n";
   string tok;
   std::string::size_type c1, c2;
   for (auto i = state.props.rbegin(); i != state.props.rend(); ++i)
@@ -314,15 +308,12 @@ bool geas_implementation::get_obj_action (const string &objname, const string &a
 	if (!is_param(tok) || !ci_equal (param_contents(tok), actname))
 	  continue;
 	rv = trim (line.substr (c2));
-	cerr << "  g_o_a: returning true, \"" << rv << "\".";
+	GEAS_DBG << "  g_o_a: returning true, \"" << rv << "\".";
 	return true;
       }
   /* Prefer the block defined in the current room, so same-named objects in
    * different rooms keep their own actions. */
   return gf.get_obj_action (objname, actname, rv, state.location);
-  //bool bool_rv = gf.get_obj_action (objname, actname, rv);
-  //this_object = backup_object;
-  //return bool_rv;
 }
 
 bool geas_implementation::has_obj_property (const string &obj, const string &prop) const
@@ -340,17 +331,13 @@ bool geas_implementation::get_obj_property(const string &obj, const string &prop
     if (ci_equal (i->name, obj))
       {
 	const string &dat = i->data;
-	//cerr << "In looking for " << obj << ":" << prop << ", got line "
-	//     << dat << endl;
 	if (ci_equal (dat, not_prop))
 	  {
-	    //cerr << "   not_prop, returning false\n";
 	    string_rv = "!";
 	    return false;
 	  }
 	if (ci_equal (dat, is_prop))
 	  {
-	    //cerr << "   is_prop, returning true\n";
 	    string_rv = "";
 	    return true;
 	  }
@@ -506,13 +493,12 @@ void geas_implementation::goto_room (string room)
   string scr;
   if (get_obj_action (room, "script", scr))
     run_script_as (room, scr);
-  //run_script (scr);
   look();
 }
 
 void geas_implementation::display_error (string errorname, string obj)
 {
-  cerr << "display_error (" << errorname << ", " << obj << ")\n";
+  GEAS_DBG << "display_error (" << errorname << ", " << obj << ")\n";
   if (obj != "")
     {
       string tmp;
@@ -524,7 +510,7 @@ void geas_implementation::display_error (string errorname, string obj)
 	tmp = "it";
       set_svar ("quest.error.article", tmp);
      
-      cerr << "In erroring " << errorname << " / " << obj << ", qeg == "
+      GEAS_DBG << "In erroring " << errorname << " / " << obj << ", qeg == "
 	   << get_svar ("quest.error.gender") << ", qea == "
 	   << get_svar ("quest.error.article") << endl;
       // TODO quest.error.charactername 
@@ -560,7 +546,6 @@ void geas_implementation::display_error (string errorname, string obj)
 	    gi->debug_print ("Bad error line: " + line);
 	}
     }
-  //print_formatted ("Default error " + errorname);
   
   // ARE THESE SENSITIVE?
   if (errorname == "badcommand")
@@ -742,7 +727,7 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
       
     }
 
-  cerr << "get_places (" << room << ") -> " << rv << "\n";
+  GEAS_DBG << "get_places (" << room << ") -> " << rv << "\n";
   return rv;
 }
 
@@ -756,9 +741,9 @@ string geas_implementation::exit_dest (const string &room, const string &dir, bo
     if (i->src == room)
       {
 	const string &line = i->dest;
-	cerr << "Processing exit line '" << i->dest << "'\n";
+	GEAS_DBG << "Processing exit line '" << i->dest << "'\n";
 	tok = first_token (line, c1, c2);
-	cerr << "   first tok is " << tok << " (vs. exit)\n";
+	GEAS_DBG << "   first tok is " << tok << " (vs. exit)\n";
 	// SENSITIVE?
 	/* A "noexit <dir>" record (pushed by disconnect) removes that exit;
 	 * the latest record for the direction wins over an earlier create-exit
@@ -772,29 +757,17 @@ string geas_implementation::exit_dest (const string &room, const string &dir, bo
 	if (tok != "exit")
 	  continue;
 	tok = next_token (line, c1, c2);
-	cerr << "   second tok is " << tok << " (vs. " << dir << ")\n";
+	GEAS_DBG << "   second tok is " << tok << " (vs. " << dir << ")\n";
 	if (tok != dir)
 	  continue;
 	tok = next_token (line, c1, c2);
-	cerr << "   third tok is " << tok << " (expecting parameter)\n";
+	GEAS_DBG << "   third tok is " << tok << " (expecting parameter)\n";
 	if (!is_param (tok)) { report_unsupported ("malformed exit destination: " + line); continue; }
 	vector<string> p = split_param (param_contents(tok));
 	if (p.size() != 2) { report_unsupported ("unexpected exit parameters in: " + line); continue; }
 	if (!ci_equal (p[0], room)) { report_unsupported ("exit source mismatch in: " + line); continue; }
 	return p[1];
       }
-  /*
-  if (gf.get_obj_action (room, dir, tok))
-    {
-      if (is_script != NULL)
-	*is_script = true;
-      return tok;
-    }
-  if (gf.get_obj_property (room, dir, tok))
-    return tok;
-  else
-    return "";
-  */
 
   const GeasBlock *gb = gf.find_by_name ("room", room);
   if (gb == NULL)
@@ -868,7 +841,6 @@ void geas_implementation::look()
       if ((tmp = get_svar ("quest.doorways.out")) != "")
 	print_formatted ("You can go out to " + tmp + ".");
       if ((tmp = get_svar ("quest.doorways.dirs")) != "")
-	//print_formatted ("You can go " + tmp + ".");
 	print_eval ("You can go #quest.doorways.dirs#.");
       if ((tmp = get_svar ("quest.doorways.places")) != "")
 	print_formatted ("You can go to " + tmp + ".");
@@ -962,7 +934,7 @@ bool geas_implementation::load_state (const string &data)
 
 void geas_implementation::set_game (const string &s)
 {
-  cerr << "set_game (...)\n";
+  GEAS_DBG << "set_game (...)\n";
   story_filename = s;
   /* Seed the RNG once per game.  Real Quest randomises every run; geas used to
    * leave rand() unseeded, so any random fight played out identically each time
@@ -979,8 +951,6 @@ void geas_implementation::set_game (const string &s)
         is_running_ = false;
 	return;
       }
-      //print_formatted ("Ready...|n|cbblack|crred|clblue|cggreen|cyyellow|n|uunderlined: |cbblack|crred|clblue|cggreen|cyyellow|xu|n");
-      //cerr << "Read game " << gf << endl;
       std::string::size_type tok_start, tok_end;
       outputting = true;
 
@@ -1079,8 +1049,7 @@ void geas_implementation::set_game (const string &s)
 	}      
 
       const GeasBlock &game = gf.block ("game", 0);
-      cerr << gf << endl;
-      //print_formatted ("Done loading " + game.name);
+      GEAS_DBG << gf << endl;
       std::string::size_type c1, c2;
       string tok;
       
@@ -1104,7 +1073,6 @@ void geas_implementation::set_game (const string &s)
 	if (first_token (i, c1, c2) == "startscript")
 	  {
 	    run_script_as ("game", i.substr (c2 + 1));
-	    //run_script (game.data[i].substr (c2 + 1));
 	    break;
 	  }
       
@@ -1121,11 +1089,10 @@ void geas_implementation::set_game (const string &s)
     }
   catch (string s)
     {
-      cerr << s << endl;
+      GEAS_DBG << s << endl;
       gi->debug_print (s);
     }
-  //cerr << gf;
-  cerr << "s_g: done with set_game (...)\n\n";
+  GEAS_DBG << "s_g: done with set_game (...)\n\n";
 }
 
 void geas_implementation::regen_var_objects ()
@@ -1134,7 +1101,6 @@ void geas_implementation::regen_var_objects ()
   vector <string> objs;
   for (const auto &i: state.objs)
     {
-      //cerr << "r_v_o: Checking '" << state.objs[i].name << "' (" << state.objs[i].parent << "): " << ((state.objs[i].parent == state.location) ? "YES" : "NO") << endl;
       if (ci_equal (i.parent, state.location) &&
 	  !get_obj_property (i.name, "hidden", tmp) &&
 	  !get_obj_property (i.name, "invisible", tmp))
@@ -1190,49 +1156,8 @@ void geas_implementation::regen_var_room ()
     formatroom = tmp + " " + formatroom;
   if (get_obj_property (state.location, "suffix", tmp))
     formatroom = formatroom + " " + tmp;  
-  //set_svar ("quest.formatroom", displayed_name (state.location));
   set_svar ("quest.formatroom", formatroom);
 
-  // regen_var_objects();
-  /*
-  string out_dest = exit_dest (state.location, "out");
-  if (out_dest == "")
-    {
-      set_svar ("quest.doorways.out", "");
-      set_svar ("quest.doorways.out.display", "");
-    }
-  else
-    {
-      cerr << "Updating quest.doorways.out; out_dest == {" << out_dest << "}";
-      uint i = out_dest.find (';');
-      cerr << ", i == " << i;
-      string prefix = "";
-      if (i != string::npos) 
-	{
-	  prefix = trim (out_dest.substr (0, i-1));
-	  out_dest = trim (out_dest.substr (i + 1));
-	  cerr << "; prefix == {" << prefix << "}, out_dest == {" << out_dest << "}";
-	}
-      cerr << "  quest.doorways.out == {" << out_dest << "}";
-      set_svar ("quest.doorways.out", out_dest);
-      cerr << endl;
-
-      string tmp = displayed_name (out_dest);
-
-      cerr << ", tmp == {" << tmp << "}";
-
-      if (tmp != "")
-	tmp = "|b" + tmp + "|xb";
-      else if (prefix != "")
-	tmp = prefix + " |b" + out_dest + "|xb";
-      else
-	tmp = "|b" + out_dest + "|xb";
-
-      cerr << ",    final value {" << tmp << "}" << endl;
-
-      set_svar ("quest.doorways.out.display", tmp);
-    }
-  */
 }
 
 
@@ -1268,13 +1193,6 @@ void geas_implementation::regen_var_dirs()
     }
   set_svar ("quest.doorways.dirs", exits);
 
-  /*
-  string tmp;
-  if ((tmp = exit_dest (state.location, "out")) != "")
-    set_svar ("quest.doorways.out", displayed_name (tmp));
-  else
-    set_svar ("quest.doorways.out", "");
-  */
 
    string out_dest = exit_dest (state.location, "out");
   if (out_dest == "")
@@ -1284,23 +1202,23 @@ void geas_implementation::regen_var_dirs()
     }
   else
     {
-      cerr << "Updating quest.doorways.out; out_dest == {" << out_dest << "}";
+      GEAS_DBG << "Updating quest.doorways.out; out_dest == {" << out_dest << "}";
       std::string::size_type i = out_dest.find (';');
-      cerr << ", i == " << i;
+      GEAS_DBG << ", i == " << i;
       string prefix = "";
       if (i != string::npos) 
 	{
 	  prefix = trim (out_dest.substr (0, i-1));
 	  out_dest = trim (out_dest.substr (i + 1));
-	  cerr << "; prefix == {" << prefix << "}, out_dest == {" << out_dest << "}";
+	  GEAS_DBG << "; prefix == {" << prefix << "}, out_dest == {" << out_dest << "}";
 	}
-      cerr << "  quest.doorways.out == {" << out_dest << "}";
+      GEAS_DBG << "  quest.doorways.out == {" << out_dest << "}";
       set_svar ("quest.doorways.out", out_dest);
-      cerr << endl;
+      GEAS_DBG << endl;
 
       string tmp = displayed_name (out_dest);
 
-      cerr << ", tmp == {" << tmp << "}";
+      GEAS_DBG << ", tmp == {" << tmp << "}";
 
       if (tmp != "")
 	tmp = "|b" + tmp + "|xb";
@@ -1309,13 +1227,11 @@ void geas_implementation::regen_var_dirs()
       else
 	tmp = "|b" + out_dest + "|xb";
 
-      cerr << ",    final value {" << tmp << "}" << endl;
+      GEAS_DBG << ",    final value {" << tmp << "}" << endl;
 
       set_svar ("quest.doorways.out.display", tmp);
     }
    
-  /* TODO handle this */
-  //set_svar ("quest.doorways.places", "");
   current_places = get_places (state.location);
   string printed_places = "";
   for (size_t i = 0; i < current_places.size(); i ++)
@@ -1338,7 +1254,7 @@ void geas_implementation::regen_var_dirs()
 string geas_implementation::substitute_synonyms (string s) const
 {
   string orig = s;
-  cerr << "substitute_synonyms (" << s << ")\n";
+  GEAS_DBG << "substitute_synonyms (" << s << ")\n";
   /* A bare movement command takes priority over any game synonym, so the
    * direction abbreviations (n, s, e, ...) always work even when a game maps
    * one of those letters to something else (World's End maps "s" to "space
@@ -1410,7 +1326,7 @@ string geas_implementation::substitute_synonyms (string s) const
 	    }
 	}
     }
-  cerr << "substitute_synonyms (" << orig << ") -> '" << s << "'\n";
+  GEAS_DBG << "substitute_synonyms (" << orig << ") -> '" << s << "'\n";
   return s;
 }
  
@@ -1474,7 +1390,6 @@ void geas_implementation::run_command (const string &s1)
 
   if (s == "dump status")
     {
-      //cerr << state << endl;
       ostringstream oss;
       oss << state;
       print_normal (oss.str());
@@ -1518,7 +1433,6 @@ void geas_implementation::run_command (const string &s1)
 		}
 	      string scr = line.substr (scr_starts);
 	      run_script_as (state.location, scr);
-	      //run_script (scr);
 	    }
 	}
     }
@@ -1546,7 +1460,6 @@ void geas_implementation::run_command (const string &s1)
 		  }
 		string scr = line.substr (scr_starts);
 		run_script_as ("game", scr);
-		//run_script (scr);
 	      }
 	  }
       }
@@ -1587,7 +1500,6 @@ void geas_implementation::run_command (const string &s1)
 		}
 	      string scr = line.substr (scr_starts);
 	      run_script_as (state.location, scr);
-	      //run_script (scr);
 	    }
 	}
     }
@@ -1612,7 +1524,6 @@ void geas_implementation::run_command (const string &s1)
 		  }
 		string scr = line.substr (scr_starts);
 		run_script_as ("game", scr);
-		//run_script (scr);
 	      }
 	  }
       }
@@ -1628,7 +1539,6 @@ ostream &operator<< (ostream &o, const match_rv &rv)
   o << "match_rv {" << (rv.success ? "TRUE" : "FALSE") << ": [";
   //o << rv.bindings.size();
   o << rv.bindings;
-  //for (uint i = 0; i < rv.bindings.size(); i ++)
   //  o << rv.bindings[i] << ", ";
   o << "]}"; 
   return o; 
@@ -1636,7 +1546,6 @@ ostream &operator<< (ostream &o, const match_rv &rv)
 
 match_rv geas_implementation::match_command (string input, string action) const
 {
-  //cerr << "match_command (\"" << input << "\", \"" << action << "\")" << endl;
   /* A command pattern with an unpaired '#' (a typo in the game's own source,
    * which Quest tolerates) makes the recursive matcher throw.  Treat such a
    * pattern as simply not matching rather than letting the exception abort the
@@ -1654,12 +1563,10 @@ match_rv geas_implementation::match_command (string input, string action) const
 
 match_rv geas_implementation::match_command (string input, uint ichar, string action, uint achar, match_rv rv) const
 {
-  //cerr << "match_command (\"" << input << "\", " << ichar << ", \"" << action << "\", " << achar << ", " << rv << ")" << endl;
   for (;;)
     {
       if (achar == action.length())
 	{
-	  //cerr << "End of action, returning " << (ichar == input.length()) << "\n";
 	  return match_rv (ichar == input.length(), rv);
 	}
       if (action[achar] == '#') 
@@ -1674,12 +1581,10 @@ match_rv geas_implementation::match_command (string input, uint ichar, string ac
 	    }
 	  if (achar == action.length())
 	    throw string ("Unpaired hashes in command string " + action);
-	  //rv.bindings.push_back (varname);
 	  size_t index = rv.bindings.size();
 	  rv.bindings.push_back (match_binding (varname, ichar));
 	  achar ++;
 	  varname = "";
-	  //rv.bindings.push_back (varname);
 	  rv.bindings[index].set (varname, ichar);
 	  while (ichar < input.length())
 	    {
@@ -1688,7 +1593,6 @@ match_rv geas_implementation::match_command (string input, uint ichar, string ac
 		return tmp;
 	      varname += input[ichar];
 	      ichar ++;
-	      //rv.bindings[index] = varname;
 	      rv.bindings[index].set (varname, ichar);
 	    }
 	  return match_rv (achar == action.length(), rv);
@@ -1696,7 +1600,6 @@ match_rv geas_implementation::match_command (string input, uint ichar, string ac
       // SENSITIVE?
       if (ichar == input.length() || !c_equal_i (input[ichar], action[achar]))
 	return match_rv ();
-      //cerr << "Matched " << input[ichar] << " to " << action[achar] << endl;
       ++ achar;
       ++ ichar;
     }
@@ -1727,7 +1630,7 @@ static bool match_object_alts (string text, const vector<string> &alts, bool is_
 {
   for (const string &i: alts)
     {
-      cerr << "m_o_a: Checking '" << text << "' v. alt '" << i << "'.\n";
+      GEAS_DBG << "m_o_a: Checking '" << text << "' v. alt '" << i << "'.\n";
       if (starts_with (text, i))
 	{
 	  std::string::size_type len = i.length();
@@ -1744,7 +1647,7 @@ static bool match_object_alts (string text, const vector<string> &alts, bool is_
 
 bool geas_implementation::match_object (const string &text, const string &name, bool is_internal, bool allow_partial) const
 {
-  cerr << "* * * match_object (" << text << ", " << name << ", "
+  GEAS_DBG << "* * * match_object (" << text << ", " << name << ", "
        << (is_internal ? "true" : "false") << ")\n";
 
   string alias, alt_list, prefix, suffix;
@@ -1787,7 +1690,7 @@ bool geas_implementation::match_object (const string &text, const string &name, 
 	      else
 		{
 		  vector<string> alts = split_param (param_contents(tok));
-		  cerr << "  m_o: alt == " << alts << "\n";
+		  GEAS_DBG << "  m_o: alt == " << alts << "\n";
 		  if (match_object_alts (text, alts, is_internal))
 		    return true;
 		  if (allow_partial)
@@ -1883,7 +1786,7 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
 	    }
 	}
     }
-  cerr << "objs == " << objs << ", printed_objs == " << printed_objs << "\n";
+  GEAS_DBG << "objs == " << objs << ", printed_objs == " << printed_objs << "\n";
   if (objs.size() > 1)
     {
       //bindings[i].var_name = bindings[i].var_name.substr(1);
@@ -1943,19 +1846,8 @@ bool geas_implementation::run_commands (string cmd, const GeasBlock *room, bool 
 			  return false;
 			set_vars (match.bindings);
 			run_script_as (state.location, line.substr (c2+1));
-			//run_script (line.substr (c2+1));
 			return true;
 		      }
-		  /*
-		    if (match = match_command (cmd, param_contents(tok)))
-		    {
-		    if (!dereference_vars (match.bindings))
-		    return false;
-		    set_vars (match.bindings);
-		    run_script (line.substr (c2+1));
-		    return true;
-		    }
-		  */
 		}
 	      else
 		{
@@ -1972,7 +1864,6 @@ bool geas_implementation::run_commands (string cmd, const GeasBlock *room, bool 
 
 bool geas_implementation::try_match (string cmd, bool is_internal, bool is_normal)
 {
-  //print_formatted ("geas_impl registers " + cmd);
 
   string tok;
   match_rv match;
@@ -2054,7 +1945,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 
       if (get_obj_action (object, "look", tok))
 	run_script_as (object, tok);
-      //run_script (tok);
       else if (get_obj_property (object, "look", tok))
 	print_formatted (tok);
       else
@@ -2072,12 +1962,10 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       string object = match.bindings[0].var_text;
       if (get_obj_action (object, "examine", tok))
 	run_script_as (object, tok);
-      //run_script (tok);
       else if (get_obj_property (object, "examine", tok))
 	print_formatted (tok);
       else if (get_obj_action (object, "look", tok))
 	run_script_as (object, tok);
-      //run_script (tok);
       else if (get_obj_property (object, "look", tok))
 	print_formatted (tok);
       else
@@ -2131,18 +2019,15 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  item to an NPC with a give <item> action did nothing. */
       else if (get_obj_action (first, "give to " + second, script))
 	run_script_as (first, script);
-	//run_script (script);
       else if (get_obj_action (second, "give anything", script))
 	{
 	  set_svar ("quest.give.object.name", first);
 	  run_script_as (second, script);
-	  //run_script (script);
 	}
       else if (get_obj_action (first, "give to anything", script))
 	{
 	  set_svar ("quest.give.object.name", second);
 	  run_script_as (first, script);
-	  //run_script (script);
 	}
       else
 	{
@@ -2205,15 +2090,11 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	display_error ("noitem", first);
       else if (get_obj_action (second, "use " + first, script))
 	{
-	  //set_svar ("quest.use.object", first);
 	  run_script_as (second, script);
-	  //run_script (script);
 	}
       else if (get_obj_action (first, "use on " + second, script))
 	{
-	  //set_svar ("quest.use.object", second);
 	  run_script_as (first, script);
-	  //run_script (script);
 	}
       else if (get_obj_action (second, "use anything", script))
 	{
@@ -2225,7 +2106,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	{
 	  set_svar ("quest.use.object", second);
 	  run_script_as (first, script);
-	  //run_script (script);
 	}
       else
 	display_error ("defaultuse");
@@ -2249,7 +2129,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	run_script_as (state.location, tmp);
       else if (get_obj_action (obj, "use", tmp))
 	run_script_as (obj, tmp);
-      //run_script (tmp);
       else if (get_obj_property (obj, "use", tmp))
 	print_formatted (tmp);
       else
@@ -2274,13 +2153,12 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	}
       if (get_obj_action (object, "take", tok))
 	{
-	  cerr << "Running script '" << tok << "' for take " << object << endl;
+	  GEAS_DBG << "Running script '" << tok << "' for take " << object << endl;
 	  run_script_as (object, tok);
-	  //run_script (tok);
 	}
       else if (get_obj_property (object, "take", tok))
 	{
-	  cerr << "Found property '" << tok << "' for take " << object << endl;
+	  GEAS_DBG << "Found property '" << tok << "' for take " << object << endl;
 	  if (tok != "")
 	    print_formatted (tok);
 	  else
@@ -2292,13 +2170,12 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  set_obj_property (object, "not hidden");
 	  if (get_obj_action (object, "gain", tmp))
 	    run_script (object, tmp);
-	  //run_script (tmp);
 	  else if (get_obj_property (object, "gain", tmp))
 	    print_formatted (tmp);
 	}
       else
 	{
-	  cerr << "No match found for take " << object << endl;
+	  GEAS_DBG << "No match found for take " << object << endl;
 	  // TODO set variable with object name
 	  display_error ("badtake", object);
 	}
@@ -2314,7 +2191,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       if (get_obj_action (obj, "drop", scr))
 	{
 	  run_script_as (obj, scr);
-	  //run_script (scr);
 	  return true;
 	}
 	  
@@ -2353,7 +2229,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 		      return true;
 		    }
 		  run_script_as (obj, line.substr (script_begins));
-		  //run_script (line.substr (script_begins));
 		  return true;
 		}
 	    }
@@ -2368,17 +2243,14 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       (match = match_command (cmd, "talk to #@object#")) ||
       (match = match_command (cmd, "talk #@object#")))
     {
-      //print_formatted ("Talk to <" + string (match.bindings[0]) + ">");
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
       string obj = match.bindings[0].var_text;
       string script;
       if (get_obj_action (obj, "speak", script))
 	run_script_as (obj, script);
-      //run_script (script);
       else
 	display_error ("defaultspeak", obj);
-      //print_formatted ("Talk to <" + string (match.bindings[0]) + ">");
       return true;
     }
         
@@ -2417,7 +2289,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	      //gi->debug_print ("tmp1 == {" + tmp + "}");
 	      if (tmp != "")
 		run_script_as (state.location, tmp);
-	      //run_script (tmp);
 	      else
 		{
 		  tmp = line.substr (c1, c2-c1+1);
@@ -2440,7 +2311,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	cmd == short_dir_names[i] || cmd == "go " + short_dir_names[i])
       {
 	bool is_script = false;
-	//print_formatted ("Trying to go " + dir_names[i]);
 	if ((tok = exit_dest (state.location, dir_names[i], &is_script)) == "")
 	  {
 	    // TODO Which display_error do I use? 
@@ -2449,7 +2319,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  }
 	if (is_script)
 	  run_script_as (state.location, tok);
-	//run_script (tok);
 	else 
 	  {
 	    std::string::size_type index = tok.find (';');
@@ -2477,7 +2346,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 		string scr = current_places[i][4];
 		run_script_as (state.location, scr);
 	      }
-	      //run_script (current_places[i][4]);
 	    else
 	      goto_room (current_places[i][3]);
 	    return true;
@@ -2513,10 +2381,9 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       const GeasBlock *gb = gf.find_by_name ("game", "game");
       if (gb == NULL)
 	return true;
-      cerr << *gb << endl;
+      GEAS_DBG << *gb << endl;
       string line, tok;
       std::string::size_type c1, c2;
-      //print_formatted ("Game name: ");
       line = gb->data[0];
       tok = first_token (line, c1, c2); // game
       tok = next_token (line, c1, c2); // name
@@ -2643,8 +2510,7 @@ void geas_implementation::run_script (const string &s)
 
 void geas_implementation::run_script (const string &s, string &rv)
 {
-  //print_formatted ("     Running script " + s + ".");
-  cerr << "Script line '" << s << "'\n";
+  GEAS_DBG << "Script line '" << s << "'\n";
   string tok;
   std::string::size_type c1, c2;
 
@@ -2934,7 +2800,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       this_object = obj;
       if (get_obj_action (obj, act, tok))
 	run_script_as (obj, tok);
-      //run_script (tok);
       else
 	gi->debug_print ("No action defined for " + obj + " // " + act);
       this_object = old_object;
@@ -3044,7 +2909,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 		  // Start at 1 to skip game
 		  for (const auto &i: state.objs)
 		    {
-		      cerr << "  quest.thing -> " + i.name + "\n";
+		      GEAS_DBG << "  quest.thing -> " + i.name + "\n";
 		      set_svar ("quest.thing", i.name);
 		      run_script (script);
 		    }
@@ -3193,7 +3058,6 @@ void geas_implementation::run_script (const string &s, string &rv)
   // SENSITIVE?
   else if (tok == "if")
     {
-      /* TODO TODO */
       std::string::size_type begin_cond = c2 + 1, end_cond, begin_then, end_then;
 
       do {
@@ -3263,7 +3127,6 @@ void geas_implementation::run_script (const string &s, string &rv)
   // SENSITIVE?
   else if (tok == "lose")
     {
-      /* TODO TODO */
       tok = next_token (s, c1, c2);
       if (!is_param (tok))
 	{
@@ -3289,7 +3152,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  string tmp;
 	  if (get_obj_action (tok, "lose", tmp))
 	    run_script_as (tok, tmp);
-	  //run_script (tmp);
 	  else if (get_obj_property (tok, "lose", tmp))
 	    print_formatted (tmp);
 	}
@@ -3342,7 +3204,6 @@ void geas_implementation::run_script (const string &s, string &rv)
   // SENSITIVE?
   else if (tok == "outputoff")
     {
-      //print_formatted ("<<");
       outputting = false;
       return;
     }
@@ -3350,7 +3211,6 @@ void geas_implementation::run_script (const string &s, string &rv)
   else if (tok == "outputon")
     {
       outputting = true;
-      //print_formatted (">>");
       return;
     }
   // SENSITIVE?
@@ -3440,11 +3300,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       for (size_t i = 1; i < args.size(); i ++)
 	{
 	  string val = args[i];
-	  /*
-	  if (val[0] == '[' && val[val.length() - 1] == ']')
-	    val = val.substr (1, val.length() - 2);
-	  //state.props.push_back (PropertyRecord (args[0], val));
-	  */
 	  val = trim_braces(val);
 	  set_obj_property (args[0], val);
 	}
@@ -3479,7 +3334,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       string cond = trim (s.substr (start_cond, end_cond - start_cond));
       string script = trim (s.substr (end_cond));
-      cerr << "Interpreting '" << s << "' as (" 
+      GEAS_DBG << "Interpreting '" << s << "' as (" 
 	   << (is_while ? "WHILE" : "UNTIL") << ") (" 
 	   << cond << ") {" << script << "}\n";
       while (eval_conds (cond) == is_while)
@@ -3550,7 +3405,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	      gi->debug_print ("No semicolon in param in " + s);
 	      return;
 	    }
-	  //string timer_name = lcase (trim (tok.substr (0, index)));
 	  string timer_name = trim (tok.substr (0, index));
 	  uint time_val = parse_int (trim (tok.substr (index+1)));
 
@@ -3581,7 +3435,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       tok = eval_param (tok);
       std::string::size_type index = tok.find (';');
-      //string varname = lcase (trim (tok.substr (0, index)));
       string varname = trim (tok.substr (0, index));
       if (vartype == "")
 	{
@@ -3741,7 +3594,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 
 bool geas_implementation::eval_conds (const string &s)
 {
-  cerr << "if (" + s + ")" << endl;
+  GEAS_DBG << "if (" + s + ")" << endl;
 
   std::string::size_type c1, c2;
   string tok = first_token (s, c1, c2);
@@ -3764,7 +3617,7 @@ bool geas_implementation::eval_conds (const string &s)
 	rv = rv || eval_conds (s.substr (c2));
     }
 
-  cerr << "if (" << s << ") --> " << (rv ? "true" : "false") << endl;
+  GEAS_DBG << "if (" << s << ") --> " << (rv ? "true" : "false") << endl;
   return rv;
 }
 
@@ -3914,7 +3767,7 @@ bool geas_implementation::eval_cond (const string &s)
 	      -- index1;
 	    } while (index1 > 0 && tok[index1] != ';');
 
-	  cerr << "Comparing <" << trim_braces (trim (tok.substr (0, index1))) 
+	  GEAS_DBG << "Comparing <" << trim_braces (trim (tok.substr (0, index1))) 
 	       << "> != <" << trim_braces (trim (tok.substr (index + 3)))
 	       << ">\n";
 	  return ci_notequal (trim_braces (trim (tok.substr (0, index - 1))),
@@ -3922,7 +3775,7 @@ bool geas_implementation::eval_cond (const string &s)
 	}
       if ((index = tok.find ("lt=;")) != string::npos)
 	{
-	  cerr << "Comparing <" << trim_braces (trim (tok.substr (0, index))) 
+	  GEAS_DBG << "Comparing <" << trim_braces (trim (tok.substr (0, index))) 
 	       << "> < <" << trim_braces (trim (tok.substr (index + 4)))
 	       << ">\n";
 	  return eval_int (tok.substr (0, index - 1))
@@ -3939,7 +3792,7 @@ bool geas_implementation::eval_cond (const string &s)
 	  > eval_int (tok.substr (index + 3));
       if ((index = tok.find (";")) != string::npos)
 	{
-	  cerr << "Comparing <" << trim_braces (trim (tok.substr (0, index)))
+	  GEAS_DBG << "Comparing <" << trim_braces (trim (tok.substr (0, index)))
 	       << "> == <" << trim_braces (trim (tok.substr (index + 1))) 
 	       << ">\n";
 	  return ci_equal (trim_braces (trim (tok.substr (0, index))),
@@ -4017,7 +3870,7 @@ bool geas_implementation::eval_cond (const string &s)
 
 void geas_implementation::run_procedure (const string &pname, vector<string> args)
 {
-  cerr << "run_procedure " << pname << " (" << args << ")\n";
+  GEAS_DBG << "run_procedure " << pname << " (" << args << ")\n";
   vector<string> backup = function_args;
   function_args = args;
   run_procedure (pname);
@@ -4030,10 +3883,8 @@ void geas_implementation::run_procedure (const string &pname)
     if (ci_equal (gf.block ("procedure", i).name, pname))
       {
 	const GeasBlock &proc = gf.block ("procedure", i);
-	//cerr << "Running procedure " << proc << endl;
 	for (uint j = 0; j < proc.data.size(); j ++)
 	  {
-	    //cerr << "  Running line #" << j << ": " << proc.data[j] << endl;
 	    run_script(proc.data[j]);
 	  }
 	return;
@@ -4043,7 +3894,7 @@ void geas_implementation::run_procedure (const string &pname)
 
 string geas_implementation::run_function (const string &pname, vector<string> args)
 {
-  cerr << "run_function (w/ args) " << pname << " (" << args << ")\n";
+  GEAS_DBG << "run_function (w/ args) " << pname << " (" << args << ")\n";
   /* Parameter is handled specially because it can't change the stack */
   // SENSITIVE?
   if (pname == "parameter")
@@ -4057,10 +3908,10 @@ string geas_implementation::run_function (const string &pname, vector<string> ar
       uint num = parse_int (args[0]);
       if (0 < num && num <= function_args.size())
 	{
-	  cerr << "   --> " << function_args[num-1] << "\n";
+	  GEAS_DBG << "   --> " << function_args[num-1] << "\n";
 	  return function_args[num-1];
 	}
-      cerr << "   --> too many arguments\n";
+      GEAS_DBG << "   --> too many arguments\n";
       return "";
     }
   vector<string> backup = function_args;
@@ -4083,7 +3934,7 @@ string geas_implementation::bad_arg_count (const string &fname)
 
 string geas_implementation::run_function (const string &pname)
 {
-  cerr << "geas_implementation::run_function (" << pname << ", " << function_args << ")\n";
+  GEAS_DBG << "geas_implementation::run_function (" << pname << ", " << function_args << ")\n";
   //pname = lcase (pname);
   // SENSITIVE?
   if (pname == "getobjectname") 
@@ -4135,7 +3986,6 @@ string geas_implementation::run_function (const string &pname)
       if (function_args.size() != 1)
 	return bad_arg_count(pname);
 
-      //string timername = lcase (function_args[0]);
       string timername = function_args[0];
       for (const auto &timer: state.timers)
 	if (timer.name == timername)
@@ -4309,10 +4159,10 @@ string geas_implementation::run_function (const string &pname)
     if (ci_equal (gf.block ("function", i).name, pname))
       {
 	const GeasBlock &proc = gf.block ("function", i);
-	cerr << "Running function " << proc << endl;
+	GEAS_DBG << "Running function " << proc << endl;
 	for (uint j = 0; j < proc.data.size(); j ++)
 	  {
-	    cerr << "  Running line #" << j << ": " << proc.data[j] << endl;
+	    GEAS_DBG << "  Running line #" << j << ": " << proc.data[j] << endl;
 	    run_script(proc.data[j], rv);
 	  }
 	return rv;
@@ -4370,12 +4220,6 @@ v2string geas_implementation::get_room_contents (const string &room)
 	    string print_name, temp_str;
 	    if (!get_obj_property (objname, "alias", print_name))
 	      print_name = objname;
-	    /*
-	    if (get_obj_property (objname, "prefix", temp_str))
-	      print_name = temp_str + " " + print_name;
-	    if (get_obj_property (objname, "suffix", temp_str))
-	      print_name = print_name + " " + temp_str;
-	    */
 	    tmp.push_back (print_name);
 
 	    string otype;
@@ -4433,11 +4277,11 @@ vstring geas_implementation::get_status_vars ()
       string disp;
       bool is_numeric = true;
 
-      cerr << "g_s_v: " << gb << endl;
+      GEAS_DBG << "g_s_v: " << gb << endl;
 
       for (const string &line: gb.data)
 	{
-	  cerr << "  g_s_v:  " << line << endl;
+	  GEAS_DBG << "  g_s_v:  " << line << endl;
 	  tok = first_token (line, c1, c2);
 	  // SENSITIVE?
 	  if (tok == "display")
@@ -4465,7 +4309,7 @@ vstring geas_implementation::get_status_vars ()
 	    }
 	}
 
-      cerr << "  g_s_v, block 2, tok == '" << tok << "'" << endl; 
+      GEAS_DBG << "  g_s_v, block 2, tok == '" << tok << "'" << endl; 
       if (! (is_numeric && nozero && get_ivar (gb.name) == 0) && disp != "")
 	{
 	  disp = param_contents (disp);
@@ -4501,7 +4345,7 @@ vstring geas_implementation::get_status_vars ()
 vector<bool> geas_implementation::get_valid_exits()
 {
   vector<bool> rv;
-  cerr << "Getting valid exits\n";
+  GEAS_DBG << "Getting valid exits\n";
   rv.push_back (exit_dest (state.location, "northwest") != "");
   rv.push_back (exit_dest (state.location, "north") != "");
   rv.push_back (exit_dest (state.location, "northeast") != "");
@@ -4513,7 +4357,7 @@ vector<bool> geas_implementation::get_valid_exits()
   rv.push_back (exit_dest (state.location, "southeast") != "");
   rv.push_back (exit_dest (state.location, "up") != "");
   rv.push_back (exit_dest (state.location, "down") != "");
-  cerr << "Done getting valid exits\n";
+  GEAS_DBG << "Done getting valid exits\n";
 
   return rv;
 }
@@ -4529,10 +4373,10 @@ string geas_implementation::eval_string (const string &s)
   string rv;
   std::string::size_type i, j;
   bool do_print = (s.find('$') != string::npos);
-  if (do_print) cerr << "eval_string (" << s << ")\n";
+  if (do_print) GEAS_DBG << "eval_string (" << s << ")\n";
   for (i = 0; i < s.length(); i ++)
     {
-      //if (do_print) cerr << "e_s: i == " << i << ", s[i] == '" << s[i] << "'\n";
+      //if (do_print) GEAS_DBG << "e_s: i == " << i << ", s[i] == '" << s[i] << "'\n";
       if (i + 1 < s.length() && s[i] == '#' && s[i+1] == '@')
 	{
 	  for (j = i + 1; j < s.length() && s[j] != '#'; j ++)
@@ -4542,7 +4386,6 @@ string geas_implementation::eval_string (const string &s)
 	      gi->debug_print ("eval_string: Unmatched hash in " + s);
 	      break;
 	    }
-	  //cerr << "dereferencing " + s.substr (i+2, j-i-2) << endl;
 	  rv = rv + displayed_name (get_svar (s.substr (i+2, j-i-2)));
 	  i = j;
 	}
@@ -4575,11 +4418,6 @@ string geas_implementation::eval_string (const string &s)
 		    }
 		  string objvar = s.substr (i+2, k-i-3);
 		  string objname = get_svar (objvar);
-		  /*
-		  cerr << "e_s: Getting prop [(" << objvar << ")] --> [" 
-		       << objname 
-		       << "]:[" << propname << "] for " << s << endl;
-		  */
 		  string tmp;
 		  if (get_obj_property (objname, propname, tmp))
 		    rv += tmp;
@@ -4590,10 +4428,6 @@ string geas_implementation::eval_string (const string &s)
 	      else
 		{
 		  string objname = s.substr (i+1, k-i-1);
-		  /*
-		  cerr << "e_s: Getting prop [" << objname << "]:[" 
-		       << propname << "] for " << s << endl;
-		  */
 		  string tmp;
 		  if (get_obj_property (objname, propname, tmp))
 		    rv += tmp;
@@ -4612,7 +4446,6 @@ string geas_implementation::eval_string (const string &s)
 	      gi->debug_print ("e_s: Unmatched %s in " + s);
 	      break;
 	    }
-	  //cerr << "e_s: Getting ivar [" << s.substr (i+1, j-i-1) << "] for " << s << endl;
 	  if (j == i + 1)
 	    rv += "%";
 	  else
@@ -4622,14 +4455,6 @@ string geas_implementation::eval_string (const string &s)
       else if (s[i] == '$')
 	{
 	  std::string::size_type j = s.find ('$', i + 1);
-	  /*
-	  for (j = i + 1; j < s.length() && s[j] != '$'; j ++)
-	    {
-	      cerr << "  In searching for partner, j == " << j 
-		   << ", s[j] == '" << s[j] << "', (s[j] == '$') == "
-		   << ((s[j] == '$') ? "true" : "false") << "\n";
-	    }
-	  */
 	  //if (j == rv.size())
 	  if (j == string::npos)
 	    {
@@ -4637,11 +4462,9 @@ string geas_implementation::eval_string (const string &s)
 	      return rv + s.substr (i);
 	    }
 	  string tmp1 = s.substr (i + 1, j - i - 1);
-	  cerr << "e_s: first substr was '" << tmp1 << "'\n";
+	  GEAS_DBG << "e_s: first substr was '" << tmp1 << "'\n";
 	  string tmp = eval_string (tmp1);
-	  //string tmp = eval_string (s.substr (i + 1, j - i - 2));
-	  //cerr << "Taking substring of '" + s + "': '" + tmp + "'\n"; 
-	  cerr << "e_s: eval substr " + s + "': '" + tmp + "'\n"; 
+	  GEAS_DBG << "e_s: eval substr " + s + "': '" + tmp + "'\n"; 
 
 	  string func_eval;
 
@@ -4669,7 +4492,6 @@ string geas_implementation::eval_string (const string &s)
     }
 
 
-  //cerr << "eval_string (" << s << ") -> <" << rv << ">\n";
   return rv;
 }
 
@@ -4677,15 +4499,11 @@ void geas_implementation::tick_timers()
 {
   if (!state.running) 
     return;
-  //cerr << "tick_timers()\n";
   for (size_t i = 0; i < state.timers.size(); i ++)
     {
       TimerRecord &tr = state.timers[i];
-      //cerr << "  Examining " << tr << "\n";
       if (tr.is_running)
 	{
-	  //cerr << "    Advancing " << tr.name << ": " << tr.timeleft 
-	  //     << " / " << tr.interval << "\n";
 	  if (tr.timeleft != 0)
 	    tr.timeleft --;
 	  else
@@ -4728,11 +4546,9 @@ GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
 {
   std::string::size_type i, j;
 
-  //cerr << "print_formatted (" << s << ", " << with_newline << ")" << endl;
 
   for (i = 0; i < s.length(); i ++)
     {
-      //std::cerr << "i == " << i << std::endl;
       if (s[i] == '|')
         {
           // changed indicated whether cur_style has been changed
@@ -4821,7 +4637,7 @@ GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
               break;
 
             default:
-              std::cerr << "p_f: Fallthrough " << s[i] << std::endl;
+              GEAS_DBG << "p_f: Fallthrough " << s[i] << std::endl;
               changed = false;
             }
           if (changed)
