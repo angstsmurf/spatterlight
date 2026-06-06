@@ -830,6 +830,36 @@ void geas_implementation::restart ()
   is_running_ = (gf.blocks.size() != 0);
 }
 
+bool geas_implementation::undo ()
+{
+  if (is_running_)
+    {
+      /* Normal undo: the last command pushed its state, so drop it and
+       * restore the one before. */
+      if (undo_buffer.size() < 2)
+	return false;
+      undo_buffer.pop();
+    }
+  else
+    {
+      /* After the game ended (death/win): the fatal turn was never pushed, so
+       * the top of the buffer is already the last good state.  Resume play. */
+      if (undo_buffer.is_empty())
+	return false;
+      is_running_ = true;
+    }
+  state = undo_buffer.peek();
+  state.running = true;
+  print_formatted ("Undone.");
+  /* Rebuild the cached views of the restored state and redescribe the room. */
+  regen_var_room ();
+  regen_var_dirs ();
+  regen_var_look ();
+  regen_var_objects ();
+  look ();
+  return true;
+}
+
 std::string geas_implementation::get_location ()
 {
   string name;
@@ -1384,21 +1414,8 @@ void geas_implementation::run_command (const string &s1)
 
   if (s == "undo")
     {
-      if (undo_buffer.size() < 2)
-	{
-	  print_formatted ("(No more undo information available!)");
-	  return;
-	}
-      undo_buffer.pop();
-      state = undo_buffer.peek();
-      print_formatted ("Undone.");
-      /* Rebuild the cached views of the restored state and redescribe the
-       * room, so the player can see where the undo put them. */
-      regen_var_room ();
-      regen_var_dirs ();
-      regen_var_look ();
-      regen_var_objects ();
-      look ();
+      if (!undo())
+	print_formatted ("(No more undo information available!)");
       return;
     }
 

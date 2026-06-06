@@ -93,6 +93,7 @@ public:
   bool load_state (const std::string &data);
   std::string get_location ();
   void restart ();
+  bool undo ();
   bool timer_will_fire ();
 
   bool is_running () const;

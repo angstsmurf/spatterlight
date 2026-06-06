@@ -254,6 +254,39 @@ handle_restart_command(const std::string &raw, GeasRunner *gr)
     return true;
 }
 
+/* After the game ends, ask the player what to do.  Returns 1 = undo,
+ * 2 = restart, 3 = quit.  Accepts the number or the word. */
+static int
+post_game_menu()
+{
+    glk_put_cstring("\nThe story has ended.  You can:\n");
+    glk_put_cstring("  1. UNDO the last turn\n");
+    glk_put_cstring("  2. RESTART\n");
+    glk_put_cstring("  3. QUIT\n");
+    if (g_manual_echo)
+        glk_set_echo_line_event(inputwin, 1);   /* auto-echo the choice */
+    char b[64];
+    for (;;) {
+        glk_put_string_stream(inputwinstream, (char *) "> ");
+        glk_request_line_event(inputwin, b, (sizeof b) - 1, 0);
+        event_t ev;
+        do {
+            glk_select(&ev);
+            if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
+                draw_banner();
+                fill_divider();
+            }
+        } while (!(ev.type == evtype_LineInput && ev.win == inputwin));
+        std::string ln(b, ev.val1);
+        std::string::size_type a = ln.find_first_not_of(" \t\r\n");
+        char c = (a == std::string::npos) ? '\0' : tolower((unsigned char) ln[a]);
+        if (c == '1' || c == 'u') return 1;
+        if (c == '2' || c == 'r') return 2;
+        if (c == '3' || c == 'q') return 3;
+        glk_put_cstring("Please type 1, 2 or 3 (or undo / restart / quit).\n");
+    }
+}
+
 void glk_main(void)
 {
     char err_buf[1024];
@@ -332,6 +365,7 @@ void glk_main(void)
     char buf[200];
     bool quitting = false;
 
+    while(!quitting) {
     while(gr->is_running() && !quitting) {
 	strncpy(cur_buf, "> ", sizeof(cur_buf));
         if (inputwin != mainglkwin)
@@ -427,6 +461,34 @@ void glk_main(void)
          * and the room-objects pane. */
         draw_banner();
         update_objwin(gr);
+    }
+
+    if (quitting)
+        break;
+
+    /* The game has ended (death or win); offer undo / restart / quit
+     * instead of just closing the session. */
+    for (;;) {
+        int c = post_game_menu();
+        if (c == 1) {
+            if (gr->undo())
+                break;                  /* resurrected; resume play */
+            glk_put_cstring("There is nothing to undo.\n");
+        } else if (c == 2) {
+            glk_window_clear(mainglkwin);
+            gr->restart();
+            break;
+        } else {
+            glk_put_cstring("\nThanks for playing. Goodbye!\n");
+            quitting = true;
+            break;
+        }
+    }
+    if (gr->is_running()) {
+        draw_banner();
+        update_objwin(gr);
+        fill_divider();
+    }
     }
 }
 
