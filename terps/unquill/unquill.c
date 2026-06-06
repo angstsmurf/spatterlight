@@ -121,6 +121,7 @@ extern glui32 gli_determinism;
 #ifdef SPATTERLIGHT
 extern int gli_enable_graphics;
 extern int gli_slowdraw;
+extern int gli_sa_delays;
 #endif
 
 static ushort ucptr;
@@ -1245,10 +1246,35 @@ void opch32(char ch)
 #endif
 }
 
+/* Pause for the given number of milliseconds, yielding to the Glk event loop
+ * so the display keeps updating, instead of busy-waiting on the system clock.
+ * Mirrors the Delay() helper used by the Scott and Taylor interpreters: it
+ * honours the user's "delays" preference, and libraries without timer support
+ * (such as the stdio CLI harness) simply return at once. */
+void do_pause(glui32 millisecs)
+{
+    event_t ev;
+
+    if (millisecs == 0)
+	return;
+#ifdef SPATTERLIGHT
+    if (!gli_sa_delays)
+	return;
+#endif
+    if (!glk_gestalt(gestalt_Timer, 0))
+	return;
+
+    glk_request_timer_events(millisecs);
+    do {
+	glk_select(&ev);
+    } while (ev.type != evtype_Timer);
+    glk_request_timer_events(0);
+}
+
 int getch(void)
 {
     event_t event;
-    
+
     glk_request_char_event(mainwin);
 
     while (1)

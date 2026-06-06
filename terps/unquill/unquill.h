@@ -69,6 +69,7 @@ void put_ch(char);
 void put_str(char *);
 void status_begin(void);
 void status_end(void);
+void do_pause(glui32 millisecs);
 void opcact(char,char *);
 void expch (uchar, ushort *);
 void expdict (uchar, ushort *);

@@ -24,7 +24,6 @@ uchar runact(ushort ccond,uchar noun)
 /* WARNING: This procedure contains goto statements - take care! */
 
     uchar cact, cdone=0, cobj, nout,n;
-    time_t wait1;
 
     cact=zmem(ccond);  /* Action byte */
 
@@ -226,12 +225,7 @@ uchar runact(ushort ccond,uchar noun)
           if (n>0) n--;
           n=n/50;
           n++;
-          wait1=time(NULL);
-          while (time(NULL)<(wait1+n))
-#ifdef YES_GETCH		  /* In case the clock is nonexistent */
-          	if(kbhit()) break  /* (as on some CP/M boxes) */
-#endif
-          	;
+          do_pause((glui32)n * 1000);
           break;
 	case 19:	/* INK */
 	  if (arch == ARCH_CPC) ++ccond;	/* On CPCs, INK has 2 parameters */
@@ -344,13 +338,8 @@ rem0001:  cdone=1;
           if (n>0) n--;
           n=n/100;
           n++;
-          wait1=time(NULL);
-          while (time(NULL)<(wait1+n))
-#ifdef YES_GETCH			/* In case the clock is non- */
-          	if(kbhit()) break       /* existent, as it might be on */
-#endif					/* some CP/M boxes */
-          	;
           fflush(stderr);
+          do_pause((glui32)n * 1000);
           break;
         default:
           fprintf(stderr,"Invalid action %d\n",cact);
