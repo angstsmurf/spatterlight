@@ -1,0 +1,4681 @@
+=== Spatterlight Interpreter Log ===
+Game: Gatheredindarkness.cas
+Interpreter: geas
+
+[MSG] cmd=HELLO a1=0 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=1 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=10 a3=9 len=0
+[MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=STYLEHINT a1=4 a2=9 a3=9 len=0
+[MSG] cmd=NEWWIN a1=4 a2=1 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=NEWWIN a1=3 a2=2 a3=0 len=0
+[REPLY] cmd=1 a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=NEWWIN a1=5 a2=3 a3=0 len=0
+[REPLY] cmd=1 a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=3 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=520
+[TEXT] 
+
+Please Select One Of The Following Options:
+(type in the number and press enter)
+
+
+1.  Important Note To IF-Comp Judges
+2.  How to Play This Game  (First time players should read this)
+3.  About "Gathered In Darkness"
+4.  About the Author
+5.  Play the game
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] GAME START
+
+[MSG] cmd=TIMER a1=1000 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] 5
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3442
+[TEXT] 
+Prolog
+Later on, you will look back upon this moment as the turning point in your life.  The fulcrum point on which the balance is swayed one direction or the other, that magical moment when everything that already has or will happen to you is divided into either occurring before or after this event.  For now, however,  you can only categorize what is happening as one of the worst ways someone can be awakened.
+
+
+
+You try hard to focus, the sharp pain in your arm wrestling you from the deep sleep that the luxurious guest bed had been granting you till now.  Blinking, trying to force your eyes to adjust to the darkness quicker than they want to, you survey your guest room at the Domou Island Resort.  Moonlight bathes the room in a soft glow and instinctively you stare down at your left arm.  The pain is subsiding now, but a few droplets of blood can be seen speckled across your skin.  It is then, as you try to decipher exactly what has happened to you, that a tightness in your gut and something from the primal parts of your brain alert you to a terrifying truth...You are not alone in the bedroom.
+
+
+
+The figure is tall and menacing, dressed in a black cloak with a purple velvet lining that almost touches the floor.  An overly large hood has been pulled over his head, making his face appear to be nothing but a deep, black hole.  His gloved hand holds what appears to be a syringe of some kind.  The figure regards you silently for just a moment more before bolting from the door of your bedroom with blinding speed and heading east into the foyer.  You shake off the last of the sleep, letting anger and a deep need for answers replace your fear, and leap from your bed to give chase to the intruder.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Prolog Bedroom
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] East
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4080
+[TEXT] 
+Foyer
+You hurl yourself through the open door of your bedroom and into the foyer in what you hope will be enough time to get some answers from the man in black.  In the pale night light filtering in from the windows you are able to make out his shadowy outline from across the room.  You screech to a halt as he turns to face you, the foyer couch the only thing between the two of you.  Time seems to slow down, you can almost feel his muscles tense along with yours as you silently face off from only a few yards away.  And then it happens, the figure in black turns and runs for the stairway down to the lower floors of the resort.  You react quicker than you thought you were capable of, springing forward and leaping the couch but almost tripping on the edge of the rug on the other side.  Regaining your balance you sprint the final distance across the foyer to the stairwell only to witness your adversary pull down a heavy iron gate and lock it into place moments before you reach it.
+
+
+
+For the first time since the beginning of this you come face to face with your enemy.  He is only inches from you, standing still, watching you triumphantly.  The bars of the barrier are too close together to reach your arm through or you would try to get your hands on him, gate or not.  Staring into the hood you can see nothing.  It is empty, like a deep, seething wound of the soul.  The figure nods in a curiously respectful manner and then slowly turns and walks down the stairs, leaving you alone in the foyer.
+
+
+
+You want to yell at him to come back, to give you answers to what is going on.  But instead you are suddenly overcome with a horrible nausea.  It feels like you could lose consciousness at any moment.  You call out for help but no one seems to come to your aid.  Where is Billy the Nightkeep, Brenda, Kitty, or any of the other guests.  All that sounds good to you at this point is sleep.  You need to lie down in your bed and get a hold of yourself.  Maybe you can put this all together in the morning and get help then.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Foyer
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=574
+[TEXT] 
+Your Room
+You barely make it back into your room before falling down.  The intense drowsiness that is washing over you with every passing second makes the absurdity of what just happened to you almost seem like not much of a problem right now.  Your bed looks inviting, you need sleep.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Prolog Bedroom
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] East
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] sleep
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=754
+[TEXT] 
+You crash...hard.  The soft blankets almost seem to fold themselves around you and instantly a groggy, drug-induced sleep takes you under.  When you finally awaken in the morning it seems like no time has passed at all and your only clue to how long you have been out is the morning sunlight pouring in from the window.  Time to go get some answers.
+press any key to continue
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=216
+[TEXT] Welcome to:
+G A T H E R E D   I N   D A R K N E S S
+by Michael "Dr.Froth" Millsap
+press any key to continue
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1166
+[TEXT] Chapter 1:
+Piercing The Darkness
+Your Room
+The wallpaper here in the guest bedroom brings back the popular tastes of decades prior, being a yellowish flower print that somehow complements the thick brown carpeting.  The wooden door leading into the closet where you have stored your suitcase is to the south.  An older, well worn desk rests between the bed and an average sized window with a great view of a large portion of the resort grounds.  Your bathroom is to the west and the foyer is east.  You see a piece of paper on the desk that you are certain was not there last night.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Your Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
+[TEXT] Strange Note
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=32
+[TEXT] South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] read note
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2356
+[TEXT] 
+You look down at the red scrawl on the parchment paper and begin to read.  The penmanship is remarkable and the message could not be any clearer.
+"Greetings,
+
+It is funny how some things do not quite turn out the way you think they will.  As precise and meticulous as we try to be there is always a small percent chance of human error causing us to make a mistake.  Unfortunately in your case, the mistake we made with your identity has put us both in an uncomfortable position.  I apologize for the inconvenience of having to lock you up here on the third floor of our resort.  Do not despair, however, for you will not be stuck here long.  In fact, the poison you have been injected with should kill you in 24-36 hours.  Have fun in the afterlife.
+
+Dr. Skinn"
+Enraged you tear the note up into the smallest shreds of paper you can muster and allow them to scatter to the floor.  Everything begins to make a little more sense now.  The black robed visitor you had last night was more than just an intruder... he was your murderer.  There must be an antidote of some kind somewhere, and you must figure out a way off the third floor to find it.
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Your Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=32
+[TEXT] South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=902
+[TEXT] 
+Foyer
+The foyer is more of an antechamber to connect the guest rooms here on the third floor with the rest of the resort.  There is a long, expensive looking couch bordered by two matching chairs on an ornate rug in the rooms center.  A dark, wooden coffee table rests between you and the couch.  Doors lead off to the north, south and also to the east.  Your bedroom is west from here and some stairs lead down but are blocked by a large iron gate.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Foyer
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+East
+West
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=896
+[TEXT] 
+Upper Office
+The mahogany desk with the computer on it at the rooms back, along with the lack of any bedroom furniture, gives you the impression that this office was converted to such from one of the guest bedrooms.  A picture, displaying the resort at a different time period when it was still open to the public, rests on the wall near a filing cabinet.  Interestingly, this room is without a window.  The only exit is north, back to the foyer.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Upper Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] Memo
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] examine desk
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=374
+[TEXT] 
+The mahogany desk sports a very tasteful black cherry wood stain.  A single unlocked drawer is in the desks center.  On the desk, next to the computer, is a small battery powered radio.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Upper Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Memo
+Radio
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] take radio
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=48
+[TEXT] 
+You pick up the radio.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Upper Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] Memo
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=364
+[TEXT] 
+Foyer
+You step again into the third floor foyer.  Your room is west and other doors lead off to the north, south, and east.  A large iron gate blocks the staircase that leads down.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Foyer
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+East
+West
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=734
+[TEXT] 
+3rd Floor Hallway
+The hallway is dimly lit by an overhead fixture swinging on a chain.  The light, which apparently must have a short in it, flickers on and off at random intervals, lending a sinister quality to the already dark ambiance.  There are bedrooms to the north and south. The foyer is west and the nightdesk, where you would normally find Billy, is east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=36
+[TEXT] 3rd Floor Hallway
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=380
+[TEXT] 
+As you open the door to the guest room that belongs to Kitty a gust of her perfume vapors floats past your nose and takes you back to earlier yesterday evening...
+press any key to continue
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3818
+[TEXT] ...She looks at you and smiles seductively.  "So tell me," she asks "what does Domou Island hold for a professor of history anyway.  You do know that this resort has not been open to the public for many years."  She had been strangely inquisitive since you met her at the dinner gathering downstairs.  Polite conversation had lead to a more detailed verbal exchange which had in turn led to you being invited here, to her room.  She said she was a doctor of anthropology named Kitty Donovon, and had been hired here by the current owner of the property to do something that she had been very vague about.  "I'd assume that I was brought here because of my history background," you reply "But to be honest, no one has asked me any questions yet."
+
+"I have a question for you," her eyes flutter as the words ease out like breath, "are you going to insist on wearing that dinner jacket for the entire evening."
+
+Her boldness makes an impression on you, and so you obey, laying your jacket across the dresser before turning to face her.  She is crossing the room toward you, when suddenly she drops to the ground in a fashion similar to cutting the strings on a marionette.  Rushing to her, you crouch next to her crumpled form and begin to shake her and ask if she is alright.  Relief fills you as you realize that she is still breathing and does not seem to be in any immediate danger.  She, however, is out like a light and nothing you try seems to rouse her.  Perhaps she has narcolepsy, you wonder, or perhaps a mixture of the excitement and wine was a little to much for her.  Being the gentleman that you are, you place her in bed and turn off her light.  So much for a first date you think as you close the door gently behind you..
+
+
+
+You force the memories of last night, the final good ones that you can recall before waking up to the intruder, and focus on the task at hand.
+
+press any key to continue
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1232
+[TEXT] Kitty's Room
+You are disappointed though not surprised to discover Kitty's room to be empty.  Fear for her safety creeps into your gut as you realize that her passing out might be a side effect of the exact same poison that is working on killing you right now.  Though the curtains on her window are closed, the sunlight is still strong enough to shine through and coat the room in a soft greenish glow.  Her bed is not made, perhaps the maid has disappeared as well.  You feel a small amount of hope when you notice that your coat is still laying on her dresser where you left it last night.  The hallway is north.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Kitty's Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=64
+[TEXT] Dinner Jacket
+Kitty's Notebook
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=28
+[TEXT] examine jacket
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=670
+[TEXT] 
+This is your dinner jacket.  You have always found that a black, sporty, light coat was definitely the way to go in semi-formal settings.  The inside pocket has come in handy many times as well.  You are pleased to discover that your closet key is still safe inside the pocket.  You take the key and transfer it to your pants pocket.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Kitty's Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=36
+[TEXT] Kitty's Notebook
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=312
+[TEXT] 
+3rd Floor Hallway
+The hallway is illuminated by the flickering overhead light.  The foyer is west, the nightdesk is east, and bedroom are north and south.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=36
+[TEXT] 3rd Floor Hallway
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=364
+[TEXT] 
+Foyer
+You step again into the third floor foyer.  Your room is west and other doors lead off to the north, south, and east.  A large iron gate blocks the staircase that leads down.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Foyer
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+East
+West
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=290
+[TEXT] 
+Your Room
+You find yourself back inside your guest room here at the resort.  Your bathroom is west, the closet is south, and the foyer is east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Your Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=32
+[TEXT] South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] unlock door
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1190
+[TEXT] 
+You insert the small brass key into the lock and give it a turn.  The closet door opens with a creak and grants you access.
+Your Closet
+The guest closet is decent sized, though you would have preferred it to be larger.  You are disturbed as you look around the floor of the closet and realize that your suitcase is missing.  You wonder if this could have been done by the mysterious black cloaked figure.  There is a flashlight on the shelf, just underneath the bar that you would have hung your garments on...if you had any.  The only exit is the doorway north, leading back into the bedroom.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Your Closet
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Flashlight
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
+[TEXT] take flashlight
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=52
+[TEXT] 
+You take the flashlight.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Your Closet
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] open radio
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=300
+[TEXT] 
+You open up the battery compartment in the back and find two D cell batteries.  Thinking that they might come in handy, you put them in your pocket.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Your Closet
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=54
+[TEXT] put batteries in flashlight
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=244
+[TEXT] 
+You unscrew the bottom of the flashlight and put the batteries inside of it.  Everything should be in working order now.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Your Closet
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=36
+[TEXT] turn on flashlight
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=206
+[TEXT] 
+You push the button on the handle of the flashlight and watch as a strong beam of light bursts forth.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Your Closet
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=290
+[TEXT] 
+Your Room
+You find yourself back inside your guest room here at the resort.  Your bathroom is west, the closet is south, and the foyer is east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Your Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=32
+[TEXT] South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=364
+[TEXT] 
+Foyer
+You step again into the third floor foyer.  Your room is west and other doors lead off to the north, south, and east.  A large iron gate blocks the staircase that leads down.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Foyer
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+East
+West
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=312
+[TEXT] 
+3rd Floor Hallway
+The hallway is illuminated by the flickering overhead light.  The foyer is west, the nightdesk is east, and bedroom are north and south.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=36
+[TEXT] 3rd Floor Hallway
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1106
+[TEXT] 
+Night Desk
+The end of the hallway takes you to the night desk.  This is where normally you would find Billy the nightkeep, usually cheery, waiting to assist you with any of your guest room needs.  Not surprisingly, he is no where to be found.  The desk, though it is more of a barrier than a desk, is tall enough for you to comfortably rest your arms upon, and a shiny golden bell is placed near the corner.  You can go behind the desk to search for clues, enter Billy's quarters to the north, or take one of the hallways that go both west and south. 
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Night Desk
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=66
+[TEXT] North
+South
+West
+Behind The Desk
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3538
+[TEXT] 
+Billy's Room
+The beam of the flashlight splits the darkness and brings clarity to a small portion of the room at a time.  You find it difficult to hold the flashlight steady as you slowly move it across the walls and floor, the uneasy feeling within you growing stronger with every passing second.  You are about to give up and decide that when Billy gets back he needs to change his lightbulb when your notice it.  As the beam from your flashlight falls upon the far corner of the room it brings into focus several clear trash bags.  A scream rises from deep within you but it is murdered by your fear and dies long before it can escape your lips, leaving you standing at the room entrance, mouth agape, and trembling in horror at what you see.  Apparently you are not the only one looking for Billy the nightkeep, and whoever else was has beat you to him.  The trash bag closest to you contains Billy's head.  The beam of your flashlight catches the bag just in time for you to see his eyes, like boiled eggs, droop casually from their sockets and begin to float like little clipper ships in the pool of blood that has been steadily collecting in the bottom of the sack. The rest of his dismembered corpse seems to placed in the other bags and stacked neatly in the corner behind the one with his head in it.  Vomit rises up from within, but you choke it back down and turn away from the gruesome scene.  Your light passes over his dresser as you face the door back toward the night desk and something glimmers in the light.  You realize that it is Billy's keys and you grab them before running out of his room in terror.
+
+Night Desk
+Billy's nightdesk is still deserted.  His quarters are north and hallways go both west and south.  You can also go behind the desk.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Night Desk
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=98
+[TEXT] North
+South
+West
+Behind The Desk
+Behind the Desk
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=312
+[TEXT] 
+3rd Floor Hallway
+The hallway is illuminated by the flickering overhead light.  The foyer is west, the nightdesk is east, and bedroom are north and south.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=36
+[TEXT] 3rd Floor Hallway
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=364
+[TEXT] 
+Foyer
+You step again into the third floor foyer.  Your room is west and other doors lead off to the north, south, and east.  A large iron gate blocks the staircase that leads down.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Foyer
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+East
+West
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] open gate
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=500
+[TEXT] 
+You unlock the gate and slide it into a recess in the wall.  It goes in far enough that you are unable to get it back out again without a tool of some kind.  That does not really bother you, however, because you now have access to the lower floors.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Foyer
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+East
+West
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] down
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1266
+[TEXT] 
+Chapter 2:
+The Ivory Keys
+Central Hub
+The central hub of the second floor is almost two stories tall itself and is not as warm and inviting as the one above.  It is very obvious that Dr. Skinn has gone to great lengths to renovate the resort into his own compound.  There are a few black sofas around an end table with some magazines on it, but everything else is purely industrial in appearance.  Black tile covers the floor, gray material hugs the walls, the entire place looks like a large open area that you might see in a bank building.  There is a directory on the wall that gives you an idea about the locations around you.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Central Hub
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=120
+[TEXT] North
+South
+Northeast
+Northwest
+Southeast
+Southwest
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] northeast
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=5088
+[TEXT] 
+As your footsteps echo on the marble floor with much more volume than you would like, you become aware of another sound closing in on your position.  You strain your ears and are positive that you can hear voices approaching from the stairwell leading to the first floor.  Trying not to panic, you look around for a dark place to hide and choose a shadowy area in the corner by the restrooms and hope that you are not noticed.  Moments later two figures, dressed in black robes similar to the one your intruder wore last night, cross the floor of the central hub and head towards the northwest door.  The robes do not have the purple velvet lining and you are certain that neither one of these people is your attacker.  As they pass by your place of concealment you pick up on part of their conversation...
+
+"Why are we having to check the lab again, the gathering will be starting in a few hours"  whines a male voice.
+
+"There has been a problem with another defector, this time Dr. Funderburk himself.  We have to make sure that nothing has been sabotaged" replies a female.
+
+"Dr. Funderburk has defected?  But that makes no sense... are we to deal with him as well?  I do not even have a lab passcode... I do not know how we can check the lab without one." The male responds as he fumbles for a key to the northwest door.
+
+The female turns to him, and if you could see her face you are sure that she would be wearing an annoyed expression on it as she speaks.
+
+"Look" she says "If you need a code you can get one from the upstairs office computer, but that is unnecessary because I have one.  You are here because you can play the piano and get past the music lock.  As for Dr. Funderburk, another team has been dispatched to the facility to take care of him.  Now shut up and lets finish this and make sure we are back in time for the gathering."
+
+The two continue on in silence into the hallway northwest, closing the door behind them.  You wait several minutes to make sure that they do not return before you caustily move out of your hiding spot and examine the door to the northwest.  It seems the black robed duo has locked it behind them.  Hmmm... a lab.  That sounds like the perfect place for you to begin searching for an antidote.  It looks like you are going to have to find a way to unlock this door, get a passcode, and bypass a musical lock of some kind.  At least you have some direction now.  You look around the central hub and try to remember what you were doing before the interruption.
+
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Central Hub
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=120
+[TEXT] North
+South
+Northeast
+Northwest
+Southeast
+Southwest
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] northeast
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1206
+[TEXT] 
+Server Room
+You can almost feel the electricity humming through this place and your first thought is that you are glad you are not responsible for the bill.  A central terminal is directly in front of you that could be accessed, and you notice that someone has taped a set of instructions on to the corner of the monitor.  Behind the terminal is several rows of what appear to be bookshelves, but instead of books they seem to contain a variety of rack mounted electronic equipment.  You can only begin to guess at their functions.  The central hub is southwest, and a door marked maintenance is east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Server Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] East
+Southwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1318
+[TEXT] 
+Server Maintenance
+Maybe it was someone's idea of a great joke to remove the "Danger: High Voltage" sign from the door of this place, but the minute you enter you get the feeling that now would be a great time to be careful.  The door to what appears to be the largest circuit box you have ever seen is wide open and exposed.  You get the impression that someone was working on this and has yet to finish the job.  You look around the closet sized room but the only other furnishings is a shelf with a rusty pair of pliers on it.  A note can be seen underneath the pliers, maybe someone left a message for the maintenance man.  The main server room is west.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=38
+[TEXT] Server Maintenance
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
+[TEXT] Rusty Pliers
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] take pliers
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=56
+[TEXT] 
+You take the rusty pliers.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=38
+[TEXT] Server Maintenance
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] read note
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=860
+[TEXT] 
+The note is to the maintenance man from his supervisor.  It reads:
+
+"Look Jim, sorry about the mixup but somehow your employee login number has been deleted.  I do not have time to come down and make you a new one tomorrow so what I need you to do is go into the central terminal, follow the directions and make yourself a new one.  Just use my number for the supervisors number.  My number is:  7593421-43.
+Thanks buddy,
+Steve"
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=38
+[TEXT] Server Maintenance
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=268
+[TEXT] 
+Server Room
+The sounds of electronic equipment humming fill the air.  The central hub is southwest and the maintenance room is east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Server Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] East
+Southwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] use terminal
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=860
+[TEXT] 
+You press a random key at the central terminal to bring up the screen asking for a supervisors access code.  You quickly input the number from the note you found in the maintenance room and press enter.  Almost instantly a new number flashes across the screen and you commit it to memory immediately.  Now that you have an employee login number you can access the computer in the office upstairs.
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Server Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] East
+Southwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] southwest
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=332
+[TEXT] 
+Central Hub
+Locations stretch off in many directions from this central location.  Their destinations are explained by a large directory on the wall in front of you.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Central Hub
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=120
+[TEXT] North
+South
+Northeast
+Northwest
+Southeast
+Southwest
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] up
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=364
+[TEXT] 
+Foyer
+You step again into the third floor foyer.  Your room is west and other doors lead off to the north, south, and east.  A large iron gate blocks the staircase that leads down.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Foyer
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+East
+West
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=238
+[TEXT] 
+Upper Office
+The computer and files here in the upper office seem to have remained undisturbed since your last visit.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Upper Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] Memo
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] use computer
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=658
+[TEXT] 
+You enter the employee login number at the prompt that you got from the server room and are granted access into the computer.
+What do you wish to do?
+1: Generate Lab Passcode
+2: Attempt To Send An Email
+3: Read Archived Messages
+4: Make The Computer Self-Destruct
+5: Punch Yourself In The Crotch...HARD
+6: Log Out
+Choose [1-6]> 
+[MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=706
+[TEXT] 
+The following words flicker across the screen:
+...Important.  This passcode for entry into Lab A-1 will only be good for 24 hours.  After that time period, return here to get a new passcode.  If you are working after hours and can not open the music lock, page Barry Danvers for assistance...
+
+(your journal has been updated)
+press any key to continue
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=404
+[TEXT] What do you wish to do?
+1: Generate Lab Passcode
+2: Attempt To Send An Email
+3: Read Archived Messages
+4: Make The Computer Self-Destruct
+5: Punch Yourself In The Crotch...HARD
+6: Log Out
+Choose [1-6]> 
+[MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Upper Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] Memo
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=364
+[TEXT] 
+Foyer
+You step again into the third floor foyer.  Your room is west and other doors lead off to the north, south, and east.  A large iron gate blocks the staircase that leads down.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Foyer
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+East
+West
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] down
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=332
+[TEXT] 
+Central Hub
+Locations stretch off in many directions from this central location.  Their destinations are explained by a large directory on the wall in front of you.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Central Hub
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=120
+[TEXT] North
+South
+Northeast
+Northwest
+Southeast
+Southwest
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] southeast
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1786
+[TEXT] 
+Museum
+The only source of illumination in this strange museum is its crimson accent track lighting and the eerie glow cast from the lights on the three exhibits on display in this main room.  A menacing statue, hand carved from amber stands taller than you in the center of the room, silently guarding whatever secrets may linger here still.  The black tile floor has been buffed to a mirror polish and must have been recently moped because it reflects brightly the small pinpoints of light and adds to the dark ambiance already running strong.  As you look around it becomes apparent that all the displays in this room deal with the achievements of Dr. Skinn before his public disgrace and removal from Northgate Labs.  A door north reads "Curator's Office."  Hallways that apparently lead to more exhibits lay to both the east and south.  The passage back to the central hub is northwest.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[TEXT] Museum
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+East
+Northwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=966
+[TEXT] 
+Curator's Office
+This small office, though not very spacious, probably serves the needs of the museum curator well.  A dusty wooden shelf, protruding from the back wall, has some various items on it that might be worth further investigation.  A picture of several scientists is on the wall above a simple metal desk with a single drawer.  The brown carpet is rather worn, probably a remnant from the third floor guest area.  A door marked "Storage" is west and the museum is south.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[TEXT] Curator's Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=60
+[TEXT] Dim Hall Key
+Curator's Notes
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] South
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
+[TEXT] examine shelves
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=554
+[TEXT] 
+You get close enough to the shelf to see that someone has placed many strange things upon them.  There is a jar with something floating in it, some sheet music, and what can only be described as a human brain.  The brain is not even in a jar, it is just sitting on the shelf.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[TEXT] Curator's Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=106
+[TEXT] Sheet Music (lft.half)
+Dim Hall Key
+Curator's Notes
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] South
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] take music
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=140
+[TEXT] 
+You take the left half of the music.
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[TEXT] Curator's Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=60
+[TEXT] Dim Hall Key
+Curator's Notes
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] South
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=16
+[TEXT] take key
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=56
+[TEXT] 
+You take the key with you.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[TEXT] Curator's Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=34
+[TEXT] Curator's Notes
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] South
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=340
+[TEXT] 
+Museum
+The red light gives a fearsome glow to the exhibits in here.  The office is north, more themed museum rooms are south and east, and the central hub is northwest.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[TEXT] Museum
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+East
+Northwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] northwest
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=332
+[TEXT] 
+Central Hub
+Locations stretch off in many directions from this central location.  Their destinations are explained by a large directory on the wall in front of you.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Central Hub
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=120
+[TEXT] North
+South
+Northeast
+Northwest
+Southeast
+Southwest
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] down
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1358
+[TEXT] 
+Great Hall
+You step into the impressive great hall, and are instantly overcome with fear. There are two creatures that are far to big to be dogs sleeping on the immaculate marble floor.  They are snoring loudly, and you can catch a glimpse of what can only be tusks protruding slightly from their slobber coated jaws.  You can take the great staircase back up to the second floor or safely tip toe over to the Dining Room on the west side. You are doubtful you can make the other exits without alerting the beasts but there is the main resort entrance to the south, doors to the east and southeast, and some stairs that lead somewhere below you.
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Great Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Hellhounds
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=68
+[TEXT] South
+East
+West
+Southeast
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=902
+[TEXT] 
+Dinning Hall
+Elegance and class do not even begin to describe the ambiance of this dining room. The long, rectangular table would seat at least twenty guests along its mirror polished seats.  There are assorted candles, cornucopias and bowls of various fruits and nuts all along the table top.  There is an open passage to a sitting room to the southwest and a door to the alcove to the south.  The kitchen is west and the great hall is to the east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Dinning Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=52
+[TEXT] South
+East
+West
+Southeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] examine bowl
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=452
+[TEXT] 
+You search among the bowls of nuts and fruits and the cornucopias too.  All you manage to come up with is a rotten piece of fruit that might only appeal to somebody that was starving.  Even then, it would probably kill them.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Dinning Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
+[TEXT] Rotten Fruit
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=52
+[TEXT] South
+East
+West
+Southeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] take fruit
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=56
+[TEXT] 
+You take the rotten apple.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Dinning Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=52
+[TEXT] South
+East
+West
+Southeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1206
+[TEXT] 
+Kitchen
+This professional, restaurant sized kitchen would be the ideal place to prepare meals for a vast group of people.  There are racks of stainless steel pots and pans hanging from the ceiling all above a long center island.  A massive fryer and oven line the wall right next to a three bay industrial sized sink.  As with most of the rest of the resort this place is also deserted and you wonder where everyone could be.  A walk-in freezer fills up a corner of the room, keeping anything inside of it nice and cool.  A pantry door for dry goods and utensils is south and the dinning room is east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Kitchen
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] South
+East
+Walk-In Freezer
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=964
+[TEXT] 
+Pantry
+The pantry that your are now standing in is lit by a single naked bulb at ceiling center.  You would think that a fancy resort would have a more sophisticated setup in the dry storage for food...but than again, who is going to see this anyway.  It is a good thing that you are not that hungry because the cupboard is certainly bare.  There are a few odds and ends on the shelfs and some cooking implements in a tray.  The only exit is the door north, back into the kitchen.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[TEXT] Pantry
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] examine tray
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=206
+[TEXT] 
+Rummaging around in the tray you find a steel, heavy duty cheese grader.  This thing might be useful.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[TEXT] Pantry
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] Cheese Grader
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] take grater
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=114
+[TEXT] 
+You grab the cheese grader and vow to take it with you.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[TEXT] Pantry
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=390
+[TEXT] 
+Kitchen
+The massive resort kitchen remains deserted, though in truth you are not upset by this.  The pantry is south and the dinning room is east.  A walk-in freezer fills a corner of the room.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Kitchen
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] South
+East
+Walk-In Freezer
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=244
+[TEXT] 
+Dinning Hall
+The dinning room could easily facilitate twenty or more guests.  Exits are east, west, south and southeast.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Dinning Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=52
+[TEXT] South
+East
+West
+Southeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1456
+[TEXT] 
+Alcove
+This Alcove is essentially an interior porch with one major difference from most of the other places like this that you have seen before.  That major difference is the body of a man sprawled out at your feet, his arms outstretched towards the door south that leads outside.  He does not appear to have been dead longer than twelve hours or so.  You feel nervous just looking at him and something gives you the impression that all is not as it seems.  There is a wallet on the floor by the body...did somebody rob him.  By the door is a large planter filled with strange plants that have odd shaped red berries on them.  The door to the dining room is north, and the sitting room is east.
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[TEXT] Alcove
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] Corpse
+Wallet
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=34
+[TEXT] North
+South
+East
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] open wallet
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=356
+[TEXT] 
+An I.D. card inside the wallet identifies the owner as "David Sanders."  You are somewhat disappointed to find that there is no money inside.  You do find a small key and note.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[TEXT] Alcove
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=16
+[TEXT] Corpse
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=34
+[TEXT] North
+South
+East
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=842
+[TEXT] 
+Breakfast Room
+The smaller table here in the breakfast room could seat about eight to ten people and provides an elevated feeling of intimacy.  Sunlight pours in through the window, despite the gathering stormclouds, and reflects off the metal fruit bowl on the tables center.  An upright piano is against the back wall with a stack of music on top.  The dining room is northwest from here and an alcove is to the west.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Breakfast Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] West
+Northwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
+[TEXT] examine stack
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=422
+[TEXT] 
+As you flip through the music you can only find one that is scored for piano.  Everything else is either for voice or trumpet and is not useful to you.  Unfortunately, the piano music is missing the left half.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Breakfast Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=46
+[TEXT] Sheet Music (rt.half)
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] West
+Northwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] take music
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=150
+[TEXT] 
+Which music do you mean?
+1: The left half
+2: The right half
+Choose [1-2]> 
+[MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=142
+[TEXT] 
+You take the right half of the music.
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Breakfast Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] West
+Northwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
+[TEXT] combine music
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=484
+[TEXT] 
+You use the tape residue to attach the two halves to Bach's "Contrapunctus I."  The music is now complete and all you need is a functional piano and you will be able to try it out.  It is a good thing you took two years of piano in college.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Breakfast Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] West
+Northwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] examine bowl
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=330
+[TEXT] 
+The bowl seems to be very expensive and made out of ornate metal.  The bowl contains several tasty looking apples that seem to be ready to satisfy anyone's hunger.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Breakfast Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
+[TEXT] Golden Apple
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] West
+Northwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=34
+[TEXT] take golden apple
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=56
+[TEXT] 
+You take the golden apple.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Breakfast Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
+[TEXT] West
+Northwest
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] northwest
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=244
+[TEXT] 
+Dinning Hall
+The dinning room could easily facilitate twenty or more guests.  Exits are east, west, south and southeast.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Dinning Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=52
+[TEXT] South
+East
+West
+Southeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=200
+[TEXT] 
+Great Hall
+The great beasts continue in their unholy slumber.  You can safely go upstairs or west.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Great Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Hellhounds
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=68
+[TEXT] South
+East
+West
+Southeast
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] up
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=332
+[TEXT] 
+Central Hub
+Locations stretch off in many directions from this central location.  Their destinations are explained by a large directory on the wall in front of you.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Central Hub
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=120
+[TEXT] North
+South
+Northeast
+Northwest
+Southeast
+Southwest
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=14
+[TEXT] use key
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=152
+[TEXT] 
+Which key do you mean?
+1: Dim Hall Key
+2: small handcuff key
+Choose [1-2]> 
+[MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
+[TEXT] 
+The key fits perfectly into the northwest door and unlocks it.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Central Hub
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=120
+[TEXT] North
+South
+Northeast
+Northwest
+Southeast
+Southwest
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] northwest
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=930
+[TEXT] 
+Dim Hall
+Cautiously, you meander into the dim hallway.  This small corridor is lit only by a small lamp with a red shade that casts about it a mild dread, a sensation just as deep as the feeble crimson illumination will allow you to see.  Even the plain white walls look foreboding in the reddish glow.  Big heavy double doors west of you are marked "Library,"  a room that appears to be dedicated to music is south, and other exits go to the north and southeast.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=18
+[TEXT] Dim Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+West
+Southeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1562
+[TEXT] 
+Music Room
+The typical carpet and black tile found in most of the resort has been replaced here in the music room with a spectacular marble floor.  Golden flakes and cracks spread across the grayish-white blocks which is so well polished that you can see the reflection of everything in the room on it.  A luxurious, glossy black grand piano takes up the center of the room, sharing its center stage with only a pedestal made of the same material as the floor.  Upon the stool sits a bust of Bach, also of marble, who seems to be staring down the piano directly at you.  A single black couch rests against the wall at the back of the room and seems a little out of place.  Leaning on the base of the pedestal of Bach is a small golden harp.  The doorway to the dim hall is north.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Music Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] Harp
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] play piano
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1170
+[TEXT] 
+You place "Contrapunctus I" on the holder in front of the keys, nod respectfully to the bust of Bach, and begin to play.  Though it has been a few years since you have worked with a piano everything comes back.  You create a flawless performance that would have even made Mrs. Worther, your old teacher, very proud.  After the conclusion of the last note, you hear a sound coming from the side of the room.  You turn in time to see a portion of the wall, no bigger than a greeting card, slide up to reveal a hidden keypad.  This must have been the music lock, you think as you stand.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Music Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] Harp
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] enter code
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1366
+[TEXT] 
+You put in the code that you generated in the office on the third floor and the green light that begins flashing upon completion of the entry lets you know that you have succeeded in doing something.  A few moments later the black couch that had seemed out of place to you at first suddenly flips into the wall.  The couch had been attached to the section of floor that it rested on, so when it flipped upwards into the wall it took that part of the floor with it revealing a set of steps that lead downwards.  This must be the hidden entrance to the lab, perhaps you can find an antidote down there.  With curiosity and hope you descend the steps to see.
+press any key to continue
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1084
+[TEXT] Chapter 3:
+The Great Skin Hunt
+Lab Entry
+White tile spreads out across the floor of this small entry area like a giant sterile welcoming mat.  Despite your doubts on any recent attempts at buffing, the floor is still quite shiny and does not seem to be as old as the rest of the resort.  Two large glass doors lead off to the east and to what you assume is deeper into the hidden lab.  A gray sign, etched into the glass itself reads "A-1."  The stairs hug the north wall and lead up to the music room, back to the familiarity of the resort.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Lab Entry
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=16
+[TEXT] East
+Up
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=862
+[TEXT] 
+Lab Corridor
+You footfalls echo through the long, enclosed hallway and you catch yourself trying to subconsciously step softer and quieter.  The same aura of bland sterilely is prevalent throughout the tight corridor, evidenced by the lack of decor of any kind.  Two closed doors lead off to rooms on the north and south and another pair of glass doors at the east end of the hall lead to the lab itself.  The lab entry is west.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Lab Corridor
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2480
+[TEXT] 
+Lab A-1
+The doors to Lab A-1 open before you and you step into what you feel might be the heart of the strange and evil things here at the resort.  You secretly harbor the hope that a cure might be found here...you are running out of time. The lab gives you a feeling of horror that you cannot seem to push away.  In the center of the room is a large steel slab on a pedestal.  It reminds you of the type of table one might lay a body on to perform an autopsy, except on this particular table you can several leather straps with buckles...the kind that might be used to hold someone down that did not wish to be on the slab.  Shelves line the wall of the room sporting several different devices, including a centrifuge, microscope, and racks of electronic equipment .  The corridor is west of you while a door that reads "Dr. Skinn" is to the east.  North is a storage area that appears to hold a variety of chemicals.  A large door, one that appears to have been taken from a submarine is south.  A large window is next to the southern door, allowing a view into what lays beyond.  Below the window is a closed metal drawer that appears to make up a device to transfer items into the room to the south.  You wonder at the purpose of it.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Lab A-1
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2362
+[TEXT] 
+Penthouse
+As you step into the office of Dr. Skinn you realize that this is not at all what you had expected to find when you opened the door.  In fact this is not much like an office at all, it is more like a luxury penthouse suite.  Thick burgundy carpets silence your footsteps as you turn in a wide circle and take it all in.  There is no desk at all, instead you find a computer sitting atop a low marble pedestal in front of black, suede couch in the chambers center.  Four large black cauldrons descend roughly a foot down from the ceiling, held in place by chains and each containing lights designed to simulate burning fire.  The reddish illumination of the manmade fire flickering casts a horrid glow about the room and creates a fearful ambiance.  An expansive fishtank, built into the wall across from the door to the lab is alive with a wide variety of different specimens. In the center of the north wall, framed by two deep dugout shelfs built into the brick, is a large steel plate.  The plate is flush with the painted bricks and is slightly larger than a door.  There is a feeling in the air in here that makes you shudder.  The door back into the lab is west.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=48
+[TEXT] Dr.Skinn's Small Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] North
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] use computer
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=404
+[TEXT] 
+What information would you like to look up?
+1: Try for an internet connection
+2: The FALON-6 Project
+3: NASSIC
+4: Geneology of the "Line of Six"
+5: Unlock the Containment Room
+6: Log Off
+Choose [1-6]> 
+[MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1036
+[TEXT] 
+NASSIC is the compound that we devised here in the lab as a failsafe for our gene splicing experiments.  Though the powers of darkness want very much to enter the world, I am not entirely nieve to the possibility of betrayal.  NASSIC can be administered at any point during the lifecycle of the beast to dissolve its genes at the cellular level.  Currently the NASSIC that remains here is in storage off the room close to the Tower.  The access code is 5827.
+(your journal has been updated)
+press any key to continue
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=402
+[TEXT] What information would you like to look up?
+1: Try for an internet connection
+2: The FALON-6 Project
+3: NASSIC
+4: Geneology of the "Line of Six"
+5: Unlock the Containment Room
+6: Log Off
+Choose [1-6]> 
+[MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=314
+[TEXT] 
+You press the selection and the computer indicates that the electronic locks on the containment room door have now been released.
+press any key to continue
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=402
+[TEXT] What information would you like to look up?
+1: Try for an internet connection
+2: The FALON-6 Project
+3: NASSIC
+4: Geneology of the "Line of Six"
+5: Unlock the Containment Room
+6: Log Off
+Choose [1-6]> 
+[MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=48
+[TEXT] Dr.Skinn's Small Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] North
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
+[TEXT] examine shelves
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2660
+[TEXT] 
+You begin to cross the elaborate office of Dr. Skinn to check out the items he has stored in the curious compartments by the large steel plate when you hear it.  Pausing, you tilt your head slightly and hold your breath...could it be...yes, you hear it again and this time you are positive.  There are the muffled sounds of voices and footsteps coming from what seems to be behind the metal plate.  The sounds are growing louder and you are sure that the source of the noise will be upon you in mere moments.  Franticly you begin to search the room for a place to hide but the wide open space of the large office does not lend you many options for concealment.  A brightly striped, exotic fish watches you with mild disinterest as you run and leap over the couch, landing behind the only obstruction in the entire office just as the metal plate begins to rise upwards.  You hope that the noise of the opening plate covers up any of the racket you might have made in obtaining your position, a position that in truth you find to be very weak.  It will not take much of a search to find you, but despite the danger you still can not seem to resist peeking around the very bottom of the couch to see exactly who or what comes through the opening in the wall where the plate used to be.
+
+What will happen? Press any key to find out.
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=5156
+[TEXT] You think that you can actually hear your own heartbeat throbbing in your ears as you watch the opening intently.  Moments later you see two people enter the office from the opening in the wall.  They are dressed in black hooded robes, very similar to the ones worn by the other people you have encountered today.  In fact, as you hear them speak you are positive that they are the ones that you saw in the central hub earlier.  You concentrate on their conversation.
+
+"So, now that they have Dr. Funderburk cornered in the facility I thought we would be finished with our tasks." the man's voice is gruff but not deep.  The reply you hear seems to come from a woman.
+
+"The majority of them are but FALON-6 is still a factor and Lector wants to make sure that he is fed until we can find a suitable vessel to transfer the uhhh..guest..too."
+
+"But we are no longer importing...victims..I mean volunteers.  I was under the impression that only those of a certain blood type will work."  The gruff voiced man sounded confused "This is stupid, we need to return to the place of gathering.  I do not want to miss the main event."
+
+"You will do as you are told" now the woman sounded irritated "All we need to do is get the employee scientist manifest from the office here and take it to Lector.  It seems one of our brothers has turned from the faith and has been taken prisoner.  If his blood type is correct than he will be the volunteer...I mean victim, ha ha.  This will take all of two seconds, look here are the records.  Yes, it seems that Heath's bloodtype is perfect and he can be FALON-6's next meal."
+
+"Great" mumbles the gruff voice "can we get out of here now."
+
+"Lets go" she answers "Lector is waiting."
+
+You here the footsteps head off away from your position and then the steel plate close down tightly.  You pause for several moments before moving from your place of concealment.  You cross the room and examine the plate in the wall but still can not seem to find anyway to open it.  You wonder who Lector is and what role he plays in all of this but the main thing your mind is focusing on is the imprisoned scientist.  If you could get to him before this Lector person does, perhaps you can persuade him to help you with an antidote to the poison that is rapidly killing you.  Quickly you turn your attention to the task you had set out to do before your interruption and you begin searching the compartments by the steel plate.  Amongst stacks of reports you find a ring of keys and a memo that appear to be of interest to you.
+
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=48
+[TEXT] Dr.Skinn's Small Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=46
+[TEXT] Tower Keys
+Tower Memo
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] North
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] take keys
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=60
+[TEXT] 
+You take the black key ring.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=48
+[TEXT] Dr.Skinn's Small Office
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Tower Memo
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] North
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=358
+[TEXT] 
+Lab A-1
+The lab remains unchanged from your last visit.  The corridor is west and the office is east.  The chemical storage is north of you and the strange locked door is south.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Lab A-1
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=414
+[TEXT] 
+Lab Corridor
+Something about this long, deserted corridor makes the small hairs on the back of your neck stand up.  Doors lead off to the north and south.  Lab A-1 is to the east and the entry way is west.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Lab Corridor
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=326
+[TEXT] 
+Lab Entry
+The entrance to lab is quiet, like a sterile tomb.  The corridor is through the glass doors to the east and the stairs lead up, back to the music room.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Lab Entry
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=16
+[TEXT] East
+Up
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] up
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=478
+[TEXT] 
+Music Room
+You enter the music room and discover that the piano and the bust of Bach have not moved from their places...but then again, did you really expect them too.  The exit to the hallway is north and the steps down lead to the lab.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Music Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] Harp
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] North
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=300
+[TEXT] 
+Dim Hall
+This hall is not very well lit at all.  You can see a Library to the west, the music room is south, and other exits go north and southeast.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=18
+[TEXT] Dim Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+West
+Southeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] southeast
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=332
+[TEXT] 
+Central Hub
+Locations stretch off in many directions from this central location.  Their destinations are explained by a large directory on the wall in front of you.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Central Hub
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=120
+[TEXT] North
+South
+Northeast
+Northwest
+Southeast
+Southwest
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] southwest
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=990
+[TEXT] 
+Bright Hall
+Twelve large skylights pour in the reminding light from the graying sky overhead into this bright hallway.  The familiar carpet that you have seen in many of the rooms is not present here, being replaced by beautiful, ornate marble tile with a diamond pattern of emerald greens and burgundy.  To the west of you is a storage area with a keypad lock and the central hub is northeast from here.  To the south is a large, steel plated door with a small arched opening covered in bars.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Bright Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=42
+[TEXT] South
+West
+Northeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=28
+[TEXT] use tower keys
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=70
+[TEXT] 
+You unlock the door to the tower.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Bright Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=42
+[TEXT] South
+West
+Northeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1062
+[TEXT] 
+The Tower is locked
+Tower Entrance
+The blackish green brick that composes the dank tower entrance appears to be quite moist and clammy.  The musty air makes you cough as you peer about the mostly empty room.  A marvelous stone staircase spirals toward the tower top, hugging the sides of the circular room tightly.  An archway, grotesquely inlaid with human skulls,  leads deeper into the dim blackness to the south and the resort hallway is north.  You think you can see several things stored in an area underneath the stairway.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Tower Entrance
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=64
+[TEXT] North
+South
+Up
+Under The Stairs
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=44
+[TEXT] go to under the stairs
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=850
+[TEXT] 
+Under The Stairs
+Old boxes with collapsing dust covered cardboard walls stand stacked underneath the stairs.  You begin going through them hoping to find something useful but are instantly discouraged.  You find several old newspapers, replacement parts and components for computers that have been outdated for over a decade, three canning jars whose contents are probably not safe for consumption and some surgical tubing.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[TEXT] Under The Stairs
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=34
+[TEXT] Surgical Tubing
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] Out to Tower Entrance
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] take tubing
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
+[TEXT] 
+You take the tubing.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[TEXT] Under The Stairs
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] Out to Tower Entrance
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=6
+[TEXT] out
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=380
+[TEXT] 
+Tower Entrance
+Again you find yourself in the moist, musty tower entrance.  The resort hall is north, the archway is south, stairs go up and you can explore the area underneath the stairs.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Tower Entrance
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=64
+[TEXT] North
+South
+Up
+Under The Stairs
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=4
+[TEXT] up
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1182
+[TEXT] 
+Cell Block
+Your first thought as you enter the cell block is that there is no way that this can be legal.  The room is built out of the same moist brick that comprised the tower entrance and staircase and bears a striking resemblance to the old storybook illustrations of the castle prisons of fantasy.  You shudder at the thought of the resort having a facility like this.  There is a single desk with a backlit control panel and some monitors on it in the center of the room and a heavy steel door that opens to the east, toward the actual cells.  Stairs lead down to the tower entrance.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Cell Block
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=38
+[TEXT] Prisoner Manifest
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] East
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] flip switch
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=112
+[TEXT] 
+You flip the switch and unlock the doors to the cells.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Cell Block
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=38
+[TEXT] Prisoner Manifest
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] East
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=534
+[TEXT] 
+Stone Corridor
+The stone corridor that you find yourself in leads only to three cells.  The silence in here is so deep that you can almost hear the water dripping from the damp walls to the stone floor.  Windowless doors lead to cells to the north, south, and east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Stone Corridor
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=354
+[TEXT] 
+Empty Cell
+This cell is empty and immaculate.  You are sure that it has not been used in quite some time.  Even the waste bucket seems empty and clean.  The corridor is north.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Empty Cell
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=16
+[TEXT] Bucket
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] take bucket
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
+[TEXT] 
+You take the bucket.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Empty Cell
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] North
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=534
+[TEXT] 
+Stone Corridor
+The stone corridor that you find yourself in leads only to three cells.  The silence in here is so deep that you can almost hear the water dripping from the damp walls to the stone floor.  Windowless doors lead to cells to the north, south, and east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Stone Corridor
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=906
+[TEXT] 
+Heath's Cell
+The cell is small and made out of the same dank brick as the rest of the tower.  It's only occupant holds a tired vigil, his waste bucket his only friend.  He is sitting on a bench, one of his arms chained to the soggy brick, the dim light from the solitary window reflecting in his eyes as he watches you intently.  
+"My name is Heath" his voice is weak as he asks "are you here to free me...or kill me."
+
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Heath's Cell
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
+[TEXT] Heath
+Bucket
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] free heath
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1950
+[TEXT] 
+"I'm sorry that David did not make it" you say as you produce the key that you took from the corpse in the Alcove.  "But he did manage to get this key and I think that it will unlock your chain."  Heath nods intently as you insert the key into the lock and feel it turn.  The clasp releases and Heath falls to the ground, rubbing his wrist.  "Oh thank you, thank you so much" he says "I am too weak to go with you right now, can you find me something to eat?  If I were to eat something I would be strong enough to go with you and show you where the skin samples are so that we can kill FALON-6."  You nod and tell him that you will find him something to eat and then leave his cell to search for some food.
+Stone Corridor
+The stone corridor that you find yourself in leads only to three cells.  The silence in here is so deep that you can almost hear the water dripping from the damp walls to the stone floor.  Windowless doors lead to cells to the north, south, and east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Stone Corridor
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=296
+[TEXT] 
+Heath's Cell
+Heath sits on the bench as you enter the cell.  "I'm starving, were you able to find anything to eat" he asks.  The corridor is west.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Heath's Cell
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
+[TEXT] Bucket
+Heath
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] feed heath
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1216
+[TEXT] 
+You hold the golden apple in your hands and watch the expression on Heath's face as you pass it towards him.
+"Thank you friend...Thank you so much" he says as he takes the fruit and consumes it vigorously.  When he has finished his snack, he sits on the bench for a few moments, apparently composing himself.  After a long silence he looks up to you and shakes his head.
+"Okay" he says "come with me and I will get you the skin samples.  You have saved me and the least I can do is try to help you save yourself."  You thank him and both of you exit his cell into the stone corridor.
+press any key to go on
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2998
+[TEXT] You step into the corridor with Heath when suddenly he begins walking toward the northern cell.  "They took some stuff from me when they incarcerated me.  I'm going to see if they stored it in one of these other cells."  You try to yell at him to stop but it is already to late.  He throws open the door to the north cell and all hell breaks loose.  Your scream joins in with the one that Heath just let loose as a small three foot monster with red, leathery skin and wearing nothing but a furry loincloth leaps from the cell and grapples onto the stunned scientist.  You watch in horror as it smiles devilishly before sinking its teeth into Heath's throat and ripping it free.  A rapid spray of blood spews from the gaping wound in Heath's neck, drenching the cackling beast as the mortality wounded man sinks to the floor of the stone corridor and dies.  The demonic imp regards you with a mild bit of interest for a moment more until it grunts and flees east into the cell that used to house Heath.  Amazingly, the devil bashes through the brick wall in the back of cell, causing it to cave in on itself, and dives outside.   As the smoke and dust clears...you stand there dumfounded.
+
+Stone Corridor
+The corridor is in disarray.  The mauled body of Heath lays dead next to the south door that leads to the empty cell.  The north cell is now open and the east cell, the one that used to be Heaths, is destroyed.  The cell block is west and an empty cell is south.
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Stone Corridor
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=32
+[TEXT] Heath's Corpse
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] skin corpse
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1100
+[TEXT] 
+You turn Heath's body to where the his back is facing you and raise up the cheese grater in your other hand.  With one, soft, sickening movement of the grater, the lush pink flesh is rolled away revealing gleaming bone in the feeble light generated by the window.  You gather a few more strips of the skin ribbons and make a neat little pile on the floor and decide that you are going to need a bucket or something to carry them around in.  If you combine the skin strips with some NASSIC, you should have exactly what you need to take out FALON-6.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Stone Corridor
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=60
+[TEXT] Skin Shavings
+Heath's Corpse
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] use bucket
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=178
+[TEXT] 
+You scoop up the shavings and put them in the bucket.  Now all you need is some NASSIC.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Stone Corridor
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=32
+[TEXT] Heath's Corpse
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=410
+[TEXT] 
+Cell Block
+Stepping into the cell block still gives you the same feeling of dread and disgust that it did the first time you were here.  The cells are east and the stairs lead down to the tower entrance.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Cell Block
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=38
+[TEXT] Prisoner Manifest
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] East
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] down
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=380
+[TEXT] 
+Tower Entrance
+Again you find yourself in the moist, musty tower entrance.  The resort hall is north, the archway is south, stairs go up and you can explore the area underneath the stairs.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[TEXT] Tower Entrance
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=64
+[TEXT] North
+South
+Up
+Under The Stairs
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] north
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=194
+[TEXT] 
+Bright Hall
+The bright hall is indeed well lit.  There are exits to the north, south, and east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Bright Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=42
+[TEXT] South
+West
+Northeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
+[TEXT] use keypad
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=292
+[TEXT] 
+You input the code and watch as green lights flash to signal that you have unlocked the door.  You can enter the storage room whenever you wish.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Bright Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=42
+[TEXT] South
+West
+Northeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] west
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=820
+[TEXT] 
+Dry Storage
+This room is a storage area for non-perishable goods.  The floor is bare concrete and no one has gotten around to painting in here yet, though you doubt it was on anyones "to do list."   You can see a tall stack of crates by the back wall that, judging from the thick layers of dust, have not been disturbed in quite some time.  A tall wicker basket stands by a black trunk.  The hallway is east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Dry Storage
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=32
+[TEXT] NASSIC Syringe
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] East
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] take syringe
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=148
+[TEXT] 
+You take the syringe filled with NASSIC.
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Dry Storage
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] East
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=42
+[TEXT] use syringe on bucket
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=544
+[TEXT] 
+You empty the syringe of NASSIC into the bucket full of skin shavings.  The purple liquid soaks into the shaved flesh, tinting it a faint violet color.  You shake the bucket well, making sure that everything gets an even coat.  You are now ready to take this to FALON-6.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Dry Storage
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
+[TEXT] East
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=194
+[TEXT] 
+Bright Hall
+The bright hall is indeed well lit.  There are exits to the north, south, and east.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Bright Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=42
+[TEXT] South
+West
+Northeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] northeast
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=332
+[TEXT] 
+Central Hub
+Locations stretch off in many directions from this central location.  Their destinations are explained by a large directory on the wall in front of you.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[TEXT] Central Hub
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=120
+[TEXT] North
+South
+Northeast
+Northwest
+Southeast
+Southwest
+Up
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
+[TEXT] northwest
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=300
+[TEXT] 
+Dim Hall
+This hall is not very well lit at all.  You can see a Library to the west, the music room is south, and other exits go north and southeast.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=18
+[TEXT] Dim Hall
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=54
+[TEXT] North
+South
+West
+Southeast
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=478
+[TEXT] 
+Music Room
+You enter the music room and discover that the piano and the bust of Bach have not moved from their places...but then again, did you really expect them too.  The exit to the hallway is north and the steps down lead to the lab.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[TEXT] Music Room
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
+[TEXT] Harp
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] North
+Down
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] down
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=326
+[TEXT] 
+Lab Entry
+The entrance to lab is quiet, like a sterile tomb.  The corridor is through the glass doors to the east and the stairs lead up, back to the music room.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Lab Entry
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=16
+[TEXT] East
+Up
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=414
+[TEXT] 
+Lab Corridor
+Something about this long, deserted corridor makes the small hairs on the back of your neck stand up.  Doors lead off to the north and south.  Lab A-1 is to the east and the entry way is west.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[TEXT] Lab Corridor
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
+[TEXT] east
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=358
+[TEXT] 
+Lab A-1
+The lab remains unchanged from your last visit.  The corridor is west and the office is east.  The chemical storage is north of you and the strange locked door is south.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Lab A-1
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=40
+[TEXT] put bucket in drawer
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=416
+[TEXT] 
+You place the bucket full of treated skin into the sliding tray and close the door on your side.  All that remains for you to do is press the button that will send it into the containment room for FALON-6.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Lab A-1
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
+[TEXT] press button
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1284
+[TEXT] 
+With everything in place you press the red button next to the sliding tray and hope for the best.  You stand up and look into the containment window just in time to see the beast dive in a devour the contents of the bucket.  FALON-6 looks up at you and begins to snarl, but only briefly as he is suddenly begat with spasms that cause him to drop to the floor.  He continues to writhe uncontrollably until his body begins to liquefy.  His growls and whines begin to take on a gurgling sound as he is reduced to a bloody puddle on the floor.  FALON-6 is no more, you can safely enter the containment room now.
+
+(your journal has been updated)
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Lab A-1
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
+[TEXT] south
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2662
+[TEXT] 
+No longer fearing the brutal retribution of the demonic entity FALON-6 you burst into the containment chamber, hoping that you are in time to save Dr. Jones.  The scientest has not moved from the spot on the floor but as you kneel beside him you can tell that he is still breathing...barly breathing...but breathing none the less.
+
+
+
+"Dr. Jones" you call to him, reaching a hand to his sholder "Dr. Jones, you do not know me but I have been poisioned by one of your toxins...please you must help me cure this.  Dr. Jones?"
+
+He seems un responsive.
+
+"Dr. Jones...wake up...neither one of us have much time here...Dr. Jones."
+
+
+
+After a few moments of shaking the battered man opens his eyes and looks at you.  His gurggled voice comes out in fragments, a faint, raspy, broken whisper.
+
+
+
+"Lector...deranged...you must stop them...there is a way to....erradicate the toxins...all you need to do is...."
+
+His voice trails off and his eyes close.
+
+
+
+"All I need to do is WHAT" you shout as you begin to shake him violently.  Suddenly both eyes open and he gasps deeply of air, but only for a moment and then he is gone.  You stare at the body for a short time, feeling defeated and frustrated.  But he did allude to a way to reverse the effects of the poision...and you know that you must find it...or die.
+
+press any key to continue
+
+[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=500
+[TEXT] Thanks for playing this introductory segment to "Gathered in Darkness."  The entire portion of the game (all nine chapters) will be uploaded to the archive the day the contest has ended.  Come back and have all your questions answered....
+Congrats.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Lab A-1
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[TEXT] Exits
+
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] North
+South
+East
+West
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=210
+[TEXT] 
+The story has ended.  You can:
+  1. UNDO the last turn
+  2. RESTORE a saved game
+  3. RESTART
+  4. QUIT
+
+[MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] > 
+[MSG] cmd=INITLINE a1=0 a2=63 a3=0 len=0
+
+=== Session ended ===
