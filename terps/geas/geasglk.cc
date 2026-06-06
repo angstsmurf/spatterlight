@@ -693,11 +693,9 @@ GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string
 	choice = (int)n;
       }
 
-    std::stringstream u;
-    u << choice;
-    u >> s;
-    s1 = "Chosen: " +  s + "\n";
-    glk_put_cstring(s1.c_str());
+    /* The chosen line was already echoed by get_string; just leave a blank
+     * line after the menu. */
+    glk_put_cstring("\n");
 
     return choice - 1;
 }
