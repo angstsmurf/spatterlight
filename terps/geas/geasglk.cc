@@ -81,7 +81,6 @@ winid_t objwin;                          /* right-hand pane: room objects + menu
 winid_t gfxwin;                          /* thin divider between main and objwin */
 strid_t inputwinstream;
 static strid_t transcriptstr = nullptr;  /* open transcript file, or null */
-static GeasRunner *g_runner = nullptr;   /* for draw_banner's location readout */
 static bool g_manual_echo = false;       /* Glk line echo off; we echo input ourselves */
 static bool g_output_seen = false;       /* set when print_* actually writes to the window */
 
@@ -323,7 +322,6 @@ void glk_main(void)
     }
 
     GeasRunner *gr = GeasRunner::get_runner(new GeasGlkInterface());
-    g_runner = gr;
     gr->set_game(storyfilename);
     banner = gr->get_banner();
     draw_banner();
@@ -450,24 +448,11 @@ draw_banner()
       for (index = 0; index < (int) width; index++)
         glk_put_char_stream (stream, ' ');
 
-      /* Left: the game title. */
+      /* The game title.  (The current room name is shown as the objects-pane
+       * header, not here.) */
       std::string title = banner.empty() ? std::string("Geas 0.4") : banner;
       glk_window_move_cursor(bannerwin, 1, 0);
       glk_put_string_stream(stream, (char*) title.c_str());
-
-      /* Right: the current location, right-aligned (if it fits). */
-      std::string loc = g_runner ? g_runner->get_location() : std::string();
-      if (!loc.empty())
-        {
-          loc[0] = toupper((unsigned char) loc[0]);
-          int start = (int) width - (int) loc.size() - 1;
-          int title_end = 1 + (int) title.size() + 1;   /* leave a gap */
-          if (start >= title_end)
-            {
-              glk_window_move_cursor(bannerwin, (glui32) start, 0);
-              glk_put_string_stream(stream, (char*) loc.c_str());
-            }
-        }
     }
 }
 
@@ -481,8 +466,13 @@ update_objwin(GeasRunner *gr)
         return;
     glk_window_clear(objwin);
     strid_t s = glk_window_get_stream(objwin);
+
+    /* The room name is the pane's header (shown even when the room is empty). */
+    std::string room = gr->get_location();
+    if (!room.empty())
+        room[0] = toupper((unsigned char) room[0]);
     glk_set_style_stream(s, style_Subheader);
-    glk_put_string_stream(s, (char *) "In this room\n");
+    glk_put_string_stream(s, (char *) (room + "\n").c_str());
     glk_set_style_stream(s, style_Normal);
 
     v2string contents = gr->get_room_contents();
@@ -499,12 +489,13 @@ update_objwin(GeasRunner *gr)
     if (contents.empty())
         glk_put_string_stream(s, (char *) "(nothing)\n");
 
-    if (transcriptstr && flat != g_last_objlist) {
-        std::string line = "[ In this room: " +
-            (flat.empty() ? std::string("nothing") : flat) + " ]\n";
+    std::string key = room + "\x01" + flat;
+    if (transcriptstr && key != g_last_objlist) {
+        std::string line = "[ " + (room.empty() ? std::string("Here") : room) +
+            ": " + (flat.empty() ? std::string("nothing") : flat) + " ]\n";
         glk_put_string_stream(transcriptstr, (char *) line.c_str());
     }
-    g_last_objlist = flat;
+    g_last_objlist = key;
 }
 
 bool
