@@ -176,7 +176,11 @@ public:
    * listings.
    */
   virtual void update_sidebars() { }
-};  
+
+  /* True if the host shows the room's objects in its own window/pane, so the
+   * core should not also list them in the main text. */
+  virtual bool has_objects_window() { return false; }
+};
 
 
 /* Callback for passing information from the UI to the execution core
@@ -214,6 +218,9 @@ public:
 
   /* Throw away all progress and begin the game again from the start. */
   virtual void restart() {}
+
+  /* True if a running timer will fire (run its action) on the next tick. */
+  virtual bool timer_will_fire() { return false; }
   static GeasRunner* get_runner(GeasInterface *gi);
 };
 

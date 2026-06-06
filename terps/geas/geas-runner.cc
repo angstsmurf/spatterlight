@@ -768,17 +768,17 @@ string geas_implementation::exit_dest (const string &room, const string &dir, bo
 void geas_implementation::look()
 {
   string tmp;
+  bool described = false;
   if (get_obj_action (state.location, "description", tmp))
-    run_script_as (state.location, tmp);
-  //run_script(tmp);
+    { run_script_as (state.location, tmp); described = true; }
   else if (get_obj_property (state.location, "description", tmp))
-    print_formatted (tmp);
+    { print_formatted (tmp); described = true; }
   else if (get_obj_action ("game", "description", tmp))
-    run_script_as ("game", tmp);
-  //run_script (tmp);
+    { run_script_as ("game", tmp); described = true; }
   else if (get_obj_property ("game", "description", tmp))
-    print_formatted (tmp);
-  else
+    { print_formatted (tmp); described = true; }
+
+  if (!described)
     {
       string in_desc;
       if (get_obj_property (state.location, "indescription", tmp))
@@ -786,10 +786,20 @@ void geas_implementation::look()
       else
 	in_desc = "You are in";
       print_formatted (in_desc + " " + get_svar ("quest.formatroom"));
+    }
 
-      if ((tmp = get_svar ("quest.formatobjects")) != "")
-	//print_formatted ("There is " + tmp + " here.");
-	print_eval ("There is #quest.formatobjects# here.");
+  /* List the objects and characters present.  The default room display
+   * always did this; do it after a custom description too -- otherwise a
+   * character such as World's End's snowville "woman" is never mentioned and
+   * the player has no way to know it is there (Quest shows these in its
+   * objects pane, which this interface doesn't have). */
+  regen_var_objects ();
+  if (!gi->has_objects_window() &&
+      (tmp = get_svar ("quest.formatobjects")) != "")
+    print_eval ("There is #quest.formatobjects# here.");
+
+  if (!described)
+    {
       if ((tmp = get_svar ("quest.doorways.out")) != "")
 	print_formatted ("You can go out to " + tmp + ".");
       if ((tmp = get_svar ("quest.doorways.dirs")) != "")
@@ -801,6 +811,16 @@ void geas_implementation::look()
 	print_formatted (tmp);
     }
 }      
+
+bool geas_implementation::timer_will_fire ()
+{
+  /* tick_timers() runs a timer's action on the tick where its countdown has
+   * already reached zero. */
+  for (const auto &t: state.timers)
+    if (t.is_running && t.timeleft == 0)
+      return true;
+  return false;
+}
 
 void geas_implementation::restart ()
 {
@@ -1215,6 +1235,17 @@ string geas_implementation::substitute_synonyms (string s) const
 {
   string orig = s;
   cerr << "substitute_synonyms (" << s << ")\n";
+  /* A bare movement command takes priority over any game synonym, so the
+   * direction abbreviations (n, s, e, ...) always work even when a game maps
+   * one of those letters to something else (World's End maps "s" to "space
+   * suit"). */
+  {
+    string t = trim (s);
+    for (size_t i = 0; i < ARRAYSIZE (dir_names); i ++)
+      if (t == dir_names[i] || t == short_dir_names[i] ||
+	  t == "go " + dir_names[i] || t == "go " + short_dir_names[i])
+	return s;
+  }
   const GeasBlock *gb = gf.find_by_name ("synonyms", "");
   if (gb != NULL)
     {

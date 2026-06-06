@@ -60,6 +60,7 @@ protected:
     virtual std::string get_string ();
     virtual uint make_choice (const std::string &, std::vector<std::string>);
     virtual GeasResult play_sound (const std::string &filename, bool looped, bool sync);
+    virtual bool has_objects_window ();
 
   virtual std::string absolute_name (const std::string &, const std::string &) const;
 public:
@@ -76,9 +77,13 @@ extern "C" {
 winid_t mainglkwin;
 winid_t inputwin;
 winid_t bannerwin;
+winid_t objwin;                          /* right-hand pane: room objects + menus */
+winid_t gfxwin;                          /* thin divider between main and objwin */
 strid_t inputwinstream;
 static strid_t transcriptstr = nullptr;  /* open transcript file, or null */
 static GeasRunner *g_runner = nullptr;   /* for draw_banner's location readout */
+static bool g_manual_echo = false;       /* Glk line echo off; we echo input ourselves */
+static bool g_output_seen = false;       /* set when print_* actually writes to the window */
 
 extern const char *storyfilename;  /* defined in geasglkterm.c */
 extern int use_inputwindow;
@@ -87,6 +92,9 @@ static int ignore_lines = 0;  /* count of lines to ignore in game output */
 
 static std::string banner;
 static void draw_banner();
+static void update_objwin(GeasRunner *gr);
+static void fill_divider();
+static std::string g_last_objlist;   /* last room-object list echoed to a transcript */
 
 /* Handle the transcript metaverb ("transcript"/"script" on/off).  Returns true
  * if the command was a transcript command (and should not reach the game).  A
@@ -285,6 +293,28 @@ void glk_main(void)
 
     inputwinstream = glk_window_get_stream(inputwin);
 
+    /* A right-hand pane listing the objects/characters in the current room
+     * (and, later, menus).  If it can't be opened we fall back to listing
+     * objects in the main text (see GeasGlkInterface::has_objects_window). */
+    objwin = glk_window_open(mainglkwin,
+                             winmethod_Right | winmethod_Proportional,
+                             20, wintype_TextBuffer, 0);
+
+    /* A thin graphics window between the main text and the pane, drawn in the
+     * text colour, as a divider. */
+    if (objwin && glk_gestalt(gestalt_Graphics, 0))
+        gfxwin = glk_window_open(objwin, winmethod_Left | winmethod_Fixed,
+                                 2, wintype_Graphics, 0);
+    fill_divider();
+
+    /* We can turn off Glk's automatic line-input echo and echo entered text
+     * ourselves; this is used for the command loop so that a timer cancelling
+     * the input doesn't leave a stray newline and partial line on screen.
+     * (get_string keeps auto-echo on -- it never cancels for a timer -- so its
+     * input echoes inline at the prompt.)  echo is toggled per request. */
+    g_manual_echo = (inputwin == mainglkwin) &&
+                    glk_gestalt(gestalt_LineInputEcho, 0);
+
     if (!glk_gestalt(gestalt_Timer, 0)) {
 	snprintf(err_buf, sizeof(err_buf),"\nNote -- The underlying Glk library does not support"
                          " timers.  If this game tries to use timers, then some"
@@ -297,6 +327,7 @@ void glk_main(void)
     gr->set_game(storyfilename);
     banner = gr->get_banner();
     draw_banner();
+    update_objwin(gr);
 
     glk_request_timer_events(1000);
 
@@ -304,13 +335,16 @@ void glk_main(void)
     bool quitting = false;
 
     while(gr->is_running() && !quitting) {
+	strncpy(cur_buf, "> ", sizeof(cur_buf));
         if (inputwin != mainglkwin)
             glk_window_clear(inputwin);
         else
             glk_put_cstring("\n");
-	strncpy(cur_buf, "> ", sizeof(cur_buf));
         glk_put_string_stream(inputwinstream, cur_buf);
 
+        /* Echo off for the command line, so a timer cancelling it is clean. */
+        if (g_manual_echo)
+            glk_set_echo_line_event(inputwin, 0);
         glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
 
         event_t ev;
@@ -323,6 +357,15 @@ void glk_main(void)
             case evtype_LineInput:
                 if(ev.win == inputwin) {
                     std::string cmd = std::string(buf, ev.val1);
+                    /* Auto-echo is off, so echo the entered command ourselves at
+                     * the prompt (which was already printed above), so every
+                     * command -- including the metaverbs below -- shows up. */
+                    if (g_manual_echo) {
+                        glk_set_style(style_Input);
+                        glk_put_cstring(cmd.c_str());
+                        glk_set_style(style_Normal);
+                        glk_put_char('\n');
+                    }
                     if(!handle_transcript_command(cmd) &&
                        !handle_saverestore_command(cmd, gr) &&
                        !handle_restart_command(cmd, gr) &&
@@ -335,17 +378,57 @@ void glk_main(void)
                 break;
 
             case evtype_Timer:
-                gr->tick_timers();
+                if (gr->timer_will_fire()) {
+                    /* A timer fires (and may print or end the game) on this
+                     * tick.  Cancel the pending input first -- glk forbids
+                     * printing to a window with a live line-input request.
+                     * With echo off the cancel prints nothing and leaves the
+                     * "> " prompt in place (it is before the input fence). */
+                    event_t ce;
+                    glk_cancel_line_event(inputwin, &ce);
+                    g_output_seen = false;
+                    gr->tick_timers();
+                    draw_banner();
+                    if (gr->is_running()) {
+                        /* If the timer printed something (e.g. surviving the
+                         * dynamite), the old prompt now has text after it, so
+                         * show a fresh prompt.  A silent timer (the interval-0
+                         * mayor-door check) leaves the existing prompt alone. */
+                        if (g_output_seen) {
+                            if (inputwin != mainglkwin)
+                                glk_window_clear(inputwin);
+                            else
+                                glk_put_cstring("\n");
+                            glk_put_string_stream(inputwinstream, (char *) "> ");
+                        }
+                        glk_request_line_event(inputwin, buf,
+                                               (sizeof buf) - 1, ce.val1);
+                    }
+                } else {
+                    /* Just counting down: no output, so the live input is fine. */
+                    gr->tick_timers();
+                }
                 break;
 
             case evtype_Arrange:
             case evtype_Redraw:
                 draw_banner();
+                update_objwin(gr);
+                fill_divider();
                 break;
             }
+
+            /* A timer (e.g. World's End's dynamite) may have ended the game
+             * while we were waiting at the prompt.  Stop now and show the
+             * ending, rather than leaving the prompt up.  (The Timer case has
+             * already cancelled the line request in that case.) */
+            if (!gr->is_running())
+                break;
         }
-        /* The command (or a timer) may have changed room; refresh the bar. */
+        /* The command (or a timer) may have changed room; refresh the bar
+         * and the room-objects pane. */
         draw_banner();
+        update_objwin(gr);
     }
 }
 
@@ -388,6 +471,63 @@ draw_banner()
     }
 }
 
+/* Redraw the right-hand pane with the objects/characters in the current room.
+ * If a transcript is running, also echo the list to it (the pane is not part
+ * of the main window's echo stream), but only when it changes. */
+static void
+update_objwin(GeasRunner *gr)
+{
+    if (!objwin)
+        return;
+    glk_window_clear(objwin);
+    strid_t s = glk_window_get_stream(objwin);
+    glk_set_style_stream(s, style_Subheader);
+    glk_put_string_stream(s, (char *) "In this room\n");
+    glk_set_style_stream(s, style_Normal);
+
+    v2string contents = gr->get_room_contents();
+    std::string flat;
+    for (std::vector<std::string> &item : contents) {
+        if (item.empty())
+            continue;
+        glk_put_string_stream(s, (char *) item[0].c_str());
+        glk_put_char_stream(s, '\n');
+        if (!flat.empty())
+            flat += ", ";
+        flat += item[0];
+    }
+    if (contents.empty())
+        glk_put_string_stream(s, (char *) "(nothing)\n");
+
+    if (transcriptstr && flat != g_last_objlist) {
+        std::string line = "[ In this room: " +
+            (flat.empty() ? std::string("nothing") : flat) + " ]\n";
+        glk_put_string_stream(transcriptstr, (char *) line.c_str());
+    }
+    g_last_objlist = flat;
+}
+
+bool
+GeasGlkInterface::has_objects_window ()
+{
+    return objwin != nullptr;
+}
+
+/* Paint the divider window in the current text colour.  Graphics windows are
+ * blanked on resize, so this is also called on Arrange/Redraw. */
+static void
+fill_divider()
+{
+    if (!gfxwin)
+        return;
+    glui32 color;
+    if (!glk_style_measure(mainglkwin, style_Normal, stylehint_TextColor, &color))
+        color = 0;   /* fall back to black */
+    glui32 w = 0, h = 0;
+    glk_window_get_size(gfxwin, &w, &h);
+    glk_window_fill_rect(gfxwin, color, 0, 0, w, h);
+}
+
 void
 glk_put_cstring(const char *s)
 {
@@ -403,6 +543,7 @@ GeasGlkInterface::print_normal (const std::string &s)
     if(!ignore_lines)
       {
 	glk_put_cstring(s.c_str());
+	g_output_seen = true;
       }
     return r_success;
 }
@@ -413,6 +554,7 @@ GeasGlkInterface::print_newline ()
     if (!ignore_lines)
       {
 	glk_put_cstring("\n");
+	g_output_seen = true;
       }
     else
       {
@@ -500,6 +642,10 @@ std::string
 GeasGlkInterface::get_string ()
 {
   char buf[200];
+  /* Use Glk's own echo here: get_string ignores timers, so it never cancels
+   * its input, and auto-echo places the entry inline at the prompt. */
+  if (g_manual_echo)
+      glk_set_echo_line_event(inputwin, 1);
   glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
   while(1) {
     event_t ev;
@@ -520,7 +666,10 @@ GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string
 {
     size_t n;
 
-    glk_window_clear(inputwin);
+    /* Only clear a *separate* input window; if input shares the main window
+     * this would wipe the whole screen before every menu. */
+    if (inputwin != mainglkwin)
+        glk_window_clear(inputwin);
 
     glk_put_cstring(label.c_str());
     glk_put_char(0x0a);
