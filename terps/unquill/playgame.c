@@ -172,11 +172,16 @@ void playgame(ushort zxptr)
 	lbstart = linebuf;
 	while(1) /* Main loop */
 	{
-		if (desc) 
+		if (desc)
 		{
-			clrscr();
+			/* The location description and the objects present are drawn
+			 * into the text-grid status window above the main buffer,
+			 * Scott-style; command input and responses keep scrolling
+			 * below. status_begin()/status_end() capture and lay out the
+			 * text produced in between. */
+			status_begin();
 			/* 0.7.5: Darkness */
-			if (flags[0] && (!present(0))) 
+			if (flags[0] && (!present(0)))
 			{
 				sysmess(0);
 				opch32('\n');
@@ -184,12 +189,13 @@ void playgame(ushort zxptr)
 			else
 			{
 			    /* draw graphics for location ... ? */
-			    
-				oneitem(loctab,CURLOC); 
+
+				oneitem(loctab,CURLOC);
 				opch32('\n');
 				listat(CURLOC);  /* List objects present */
-				glk_put_char('\n');
+				put_ch('\n');
 			}
+			status_end();
 			desc = 0;
 
 		/* Decrement flags depending on location descriptions */
@@ -365,15 +371,15 @@ void listat(uchar locno)
 		if (any==0)
 		{
 			any = 1;
-			if (locno < 253) 
+			if (locno < 253)
                   	{
 				sysmess(alsosee);
-				glk_put_char('\n');
-			} 
+				put_ch('\n');
+			}
 		}
-		glk_put_string("    ");
+		put_str("    ");
 		oneitem(objtab,n);
-		glk_put_char('\n');
+		put_ch('\n');
 	}
 }
 

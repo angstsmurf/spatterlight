@@ -929,6 +929,237 @@ void dec32(ushort v)
 }
 
 
+/* --- Scott-style status window ------------------------------------------- *
+ * The location description and the list of objects present are drawn into a
+ * text-grid window above the main buffer, ScottFree-style. Quill location
+ * texts are full prose paragraphs of varying length, so the grid cannot be a
+ * fixed height: each turn we capture the description text, word-wrap it to the
+ * grid width to learn how many rows it needs, resize the grid to fit, and then
+ * print the wrapped lines into it. Command input and responses keep scrolling
+ * in the main buffer below. */
+
+static winid_t statuswin = NULL;
+
+/* While capturing, description output produced through put_ch()/put_str() (and
+ * therefore through opch32(), oneitem() and listat()) is collected into capbuf
+ * instead of being sent to a window, ready to be laid out in the grid. */
+static int    status_capture = 0;
+static char  *capbuf = NULL;
+static size_t caplen = 0, capcap = 0;
+
+static void cap_putc(char c)
+{
+    if (caplen + 1 >= capcap)
+    {
+	size_t ncap = capcap ? capcap * 2 : 256;
+	char *nb = realloc(capbuf, ncap);
+	if (!nb)
+	    return;
+	capbuf = nb;
+	capcap = ncap;
+    }
+    capbuf[caplen++] = c;
+}
+
+/* Routed output primitives: when capturing, divert to capbuf; otherwise behave
+ * exactly like the underlying Glk calls. opch32() and listat() use these so
+ * that normal (non-description) output is unaffected. */
+void put_ch(char c)
+{
+    if (status_capture)
+	cap_putc(c);
+    else
+	glk_put_char(c);
+}
+
+void put_str(char *s)
+{
+    if (status_capture)
+	while (*s)
+	    cap_putc(*s++);
+    else
+	glk_put_string(s);
+}
+
+void status_begin(void)
+{
+    caplen = 0;
+    status_capture = 1;
+}
+
+/* Greedy word-wrap of text[0..len) to `width` columns, returning a malloc'd
+ * array of malloc'd line strings (count in *out_n). Explicit newlines force a
+ * break; leading spaces of a logical line are preserved so the indented object
+ * list keeps its indentation. */
+static char **push_line(char **lines, int *n, int *cap, char *cur, int col)
+{
+    char *copy = malloc((size_t)col + 1);
+    if (copy)
+    {
+	memcpy(copy, cur, (size_t)col);
+	copy[col] = '\0';
+    }
+    if (*n >= *cap)
+    {
+	*cap = *cap ? *cap * 2 : 8;
+	lines = realloc(lines, (size_t)*cap * sizeof(char *));
+    }
+    lines[(*n)++] = copy;
+    return lines;
+}
+
+#define PUSH() do { lines = push_line(lines, &nlines, &caplines, cur, col); \
+		    col = 0; } while (0)
+
+static char **wrap_text(const char *text, size_t len, int width, int *out_n)
+{
+    char **lines = NULL;
+    int    nlines = 0, caplines = 0;
+    char  *cur = malloc((size_t)width + 1);
+    int    col = 0;
+    size_t i = 0, j;
+    int    wl;
+
+    if (!cur)
+    {
+	*out_n = 0;
+	return NULL;
+    }
+
+    while (i < len)
+    {
+	char c = text[i];
+
+	if (c == '\n')
+	{
+	    PUSH();
+	    i++;
+	    continue;
+	}
+
+	if (c == ' ')
+	{
+	    /* Leading spaces (indentation) are emitted directly; spaces inside
+	     * a line become candidate break points handled with the next word. */
+	    if (col == 0)
+	    {
+		if (col < width)
+		    cur[col++] = ' ';
+		i++;
+		continue;
+	    }
+	    /* collapse runs of spaces to a single pending separator */
+	    while (i < len && text[i] == ' ')
+		i++;
+	    /* measure the following word */
+	    j = i;
+	    wl = 0;
+	    while (j < len && text[j] != ' ' && text[j] != '\n')
+	    {
+		wl++;
+		j++;
+	    }
+	    if (wl == 0)
+		continue;
+	    if (col + 1 + wl > width)
+		PUSH();		/* word won't fit after a space: wrap */
+	    else if (col < width)
+		cur[col++] = ' ';
+	    continue;
+	}
+
+	/* a word character: copy the whole word, hard-splitting if it alone is
+	 * wider than the grid */
+	j = i;
+	wl = 0;
+	while (j < len && text[j] != ' ' && text[j] != '\n')
+	{
+	    wl++;
+	    j++;
+	}
+	if (wl > width && col == 0)
+	{
+	    while (i < j)
+	    {
+		if (col == width)
+		    PUSH();
+		cur[col++] = text[i++];
+	    }
+	    continue;
+	}
+	if (col + wl > width && col > 0)
+	    PUSH();
+	while (i < j && col < width)
+	    cur[col++] = text[i++];
+	i = j;		/* in case the word was clipped at width */
+    }
+    if (col > 0)
+	PUSH();
+
+    free(cur);
+    *out_n = nlines;
+    return lines;
+}
+
+#undef PUSH
+
+void status_end(void)
+{
+    glui32 width = 0, height = 0;
+    char **lines;
+    int    nlines = 0, row;
+
+    status_capture = 0;
+    xpos = 0;		/* buffer output that follows starts at column 0 */
+
+    /* Open the grid lazily, split above the main buffer. */
+    if (!statuswin && mainwin)
+	statuswin = glk_window_open(mainwin, winmethod_Above | winmethod_Fixed,
+				    1, wintype_TextGrid, 0);
+
+    if (statuswin)
+	glk_window_get_size(statuswin, &width, &height);
+
+    /* No usable grid (e.g. the stdio CLI harness reports width 0): fall back to
+     * printing the description inline in the buffer, as before. */
+    if (!statuswin || width == 0)
+    {
+	if (capbuf && caplen)
+	{
+	    cap_putc('\0');
+	    glk_put_string(capbuf);
+	    glk_put_char('\n');
+	}
+	return;
+    }
+
+    lines = wrap_text(capbuf, caplen, (int)width, &nlines);
+    if (nlines < 1)
+	nlines = 1;
+
+    /* Reserve one extra row at the bottom for a TaylorMade-style underline
+     * separating the room description from the scrolling buffer below. */
+    glk_window_set_arrangement(glk_window_get_parent(statuswin),
+			       winmethod_Above | winmethod_Fixed,
+			       (glui32)(nlines + 1), statuswin);
+
+    glk_window_clear(statuswin);
+    glk_set_window(statuswin);
+    for (row = 0; row < nlines; row++)
+    {
+	glk_window_move_cursor(statuswin, 0, (glui32)row);
+	glk_put_string(lines[row]);
+	free(lines[row]);
+    }
+    free(lines);
+
+    glk_window_move_cursor(statuswin, 0, (glui32)nlines);
+    for (row = 0; row < (int)width; row++)
+	glk_put_char('_');
+
+    glk_set_window(mainwin);
+}
+
 /* Output a character, assuming 32-column screen */
 void opch32(char ch)
 {
@@ -944,12 +1175,12 @@ void opch32(char ch)
 	    if (xpos > 0) xpos--;
 	    return;
 	}
-	glk_put_char(ch);
+	put_ch(ch);
 	if (ch == '\n')
 	    xpos = 0;
 	else if (xpos >= 39)
 	{
-	    glk_put_char('\n');
+	    put_ch('\n');
 	    xpos = 0;
 	}
 	else
@@ -972,7 +1203,7 @@ void opch32(char ch)
     
     /* inhibit multiple spaces and linefeeds and spaces at the beginning of a line */
     if (!(space && ch == ' ') && !(linefeed && ch == '\n') && !(xpos == 0 && ch == ' '))
-	glk_put_char(ch);
+	put_ch(ch);
     
     /* count spaces */
     if (ch == ' ')
@@ -983,9 +1214,9 @@ void opch32(char ch)
     if (ch == '\n')
     {
 	if (linefeed == 0)
-	    glk_put_char('\n'); // an extra paragraph breaking space
+	    put_ch('\n'); // an extra paragraph breaking space
 	if (linefeed == 5)
-	    glk_put_char('\n'); // a clear screen really ... just add some more space
+	    put_ch('\n'); // a clear screen really ... just add some more space
 	linefeed ++;
 	xpos = 0;
     }
@@ -1001,7 +1232,7 @@ void opch32(char ch)
     {
 	/* ended line directly after a word, so we need an extra space */
 	if (!space)
-	    glk_put_char(' ');
+	    put_ch(' ');
 	xpos = 0;
     }
     
