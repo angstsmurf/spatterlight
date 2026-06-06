@@ -25,9 +25,9 @@
 #include "reserved_words.hh"
 #include "readfile.hh"
 #include "geas-util.hh"
-#include "geas-impl.hh"
 #include "general.hh"
 #include "istring.hh"
+#include "geas-impl.hh"  // completes GeasInterface, used here via gi->
 
 using namespace std;
 
@@ -566,7 +566,6 @@ string GeasFile::static_svar_lookup (const string &varname) const
 {
   //varname = lcase (varname);
   for (size_t i = 0; i < size("variable"); i ++)
-    //if (blocks[i].lname == varname)
     if (ci_equal (blocks[i].name, varname))
       {
 	string rv;
@@ -613,7 +612,6 @@ string GeasFile::static_ivar_lookup (const string &varname) const
   //varname = lcase (varname);
   for (size_t i = 0; i < size("variable"); i ++)
     {
-      //if (blocks[i].lname == varname)
       if (ci_equal (blocks[i].name, varname))
 	{
 	  string rv;
