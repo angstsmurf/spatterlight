@@ -70,6 +70,13 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     NSUInteger fence;                   // Character index marking the start of editable input.
                                         // Text before the fence is game output and cannot be edited.
 
+    NSRange pendingEchoDeleteRange;     // When echo is off and the player submits a line, the
+                                        // typed text is left in place and this range records what
+                                        // to delete. The deletion is then coalesced with the next
+                                        // output append into a single NSTextStorage edit pass so
+                                        // there is no intermediate paint where the input has
+                                        // vanished but the game's reprint hasn't arrived yet.
+
     CGFloat lastLineheight;             // Used to restore scroll position with sub-line precision
 
     NSAttributedString *storedNewline;  // Deferred trailing newline to avoid blank lines at bottom
@@ -87,6 +94,14 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     BOOL scrollToBottomPending;        // YES when a scrollToBottomAnimated callback is queued
     NSDate *scrollAdjustTimeStamp;
     CGFloat preScrollPosition;
+    CGFloat docHeightAtLastSeen;       // NSHeight(_textview.frame) at the moment markLastSeen
+                                       // was last called. When the whole doc fit in the viewport
+                                       // at the keypress, the auto-scroll caps target
+                                       // (docHeightAtLastSeen - lineHeight) — i.e. the last line
+                                       // of the on-screen content sits at the top of the new
+                                       // viewport, with the game's response stacked below. 0
+                                       // means "not captured" (auto-scroll falls back to the
+                                       // existing scroll-to-bottom behavior).
 
     NSMutableArray<NSEvent *> *bufferedEvents; // Key events received when no input request is active
 
@@ -318,7 +333,19 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         [textstorage setAttributedString:bufferTextstorage];
         backgroundLayoutGeneration++;
     } else if (bufferTextstorage.length) {
-        [textstorage appendAttributedString:bufferTextstorage];
+        // Coalesce a deferred echo-off delete with the new append into a single
+        // text storage edit pass so the input replacement is one paint, not two.
+        if (pendingEchoDeleteRange.length
+            && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
+            [textstorage beginEditing];
+            [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
+            [textstorage appendAttributedString:bufferTextstorage];
+            [textstorage endEditing];
+            pendingEchoDeleteRange = NSMakeRange(0, 0);
+            fence = textstorage.length;
+        } else {
+            [textstorage appendAttributedString:bufferTextstorage];
+        }
         backgroundLayoutGeneration++;
     }
 
@@ -455,6 +482,8 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         echo = [decoder decodeBoolForKey:@"echo"];
 
         fence = (NSUInteger)[decoder decodeIntegerForKey:@"fence"];
+        pendingEchoDeleteRange.location = (NSUInteger)[decoder decodeIntegerForKey:@"pendingEchoDeleteLocation"];
+        pendingEchoDeleteRange.length = (NSUInteger)[decoder decodeIntegerForKey:@"pendingEchoDeleteLength"];
         _printPositionOnInput = (NSUInteger)[decoder decodeIntegerForKey:@"printPositionOnInput"];
         _lastchar = (unichar)[decoder decodeIntegerForKey:@"lastchar"];
         _lastseen = [decoder decodeIntegerForKey:@"lastseen"];
@@ -506,6 +535,8 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     [encoder encodeBool:echo_toggle_pending forKey:@"echo_toggle_pending"];
     [encoder encodeBool:echo forKey:@"echo"];
     [encoder encodeInteger:(NSInteger)fence forKey:@"fence"];
+    [encoder encodeInteger:(NSInteger)pendingEchoDeleteRange.location forKey:@"pendingEchoDeleteLocation"];
+    [encoder encodeInteger:(NSInteger)pendingEchoDeleteRange.length forKey:@"pendingEchoDeleteLength"];
     [encoder encodeInteger:(NSInteger)_printPositionOnInput forKey:@"printPositionOnInput"];
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
@@ -906,7 +937,9 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
 - (void)reallyClear {
     [_textview resetTextFinder];
     fence = 0;
+    pendingEchoDeleteRange = NSMakeRange(0, 0);
     _lastseen = 0;
+    docHeightAtLastSeen = 0;
     _lastchar = '\n';
     lastAtBottom = NO;
     lastAtTop = NO;
@@ -969,6 +1002,7 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     [textstorage deleteCharactersInRange:NSMakeRange(0, length - prompt)];
 
     _lastseen = 0;
+    docHeightAtLastSeen = 0;
     _lastchar = '\n';
     _printPositionOnInput = 0;
     if (textstorage.length < charsAfterFence)
@@ -1068,7 +1102,20 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     [bufferTextstorage appendAttributedString:attstr];
     dirty = YES;
     if (!_pendingClear && textstorage.length && bufferTextstorage.length) {
-        [textstorage appendAttributedString:bufferTextstorage];
+        // Same coalescing as in flushDisplay: if echo-off left a deferred delete
+        // pending, do the delete + append in one edit so the input is replaced
+        // in a single paint.
+        if (pendingEchoDeleteRange.length
+            && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
+            [textstorage beginEditing];
+            [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
+            [textstorage appendAttributedString:bufferTextstorage];
+            [textstorage endEditing];
+            pendingEchoDeleteRange = NSMakeRange(0, 0);
+            fence = textstorage.length;
+        } else {
+            [textstorage appendAttributedString:bufferTextstorage];
+        }
         bufferTextstorage = [[NSMutableAttributedString alloc] init];
     }
 }
@@ -1078,6 +1125,14 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
 // number of characters actually removed.
 - (NSUInteger)unputString:(NSString *)buf {
     [self flushDisplay];
+    // The ghost from a deferred echo-off delete must not be examined by the
+    // tail match below, or unputString would either match against the player's
+    // input or fail because the tail is the wrong style.
+    if (pendingEchoDeleteRange.length
+        && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
+        [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
+    }
+    pendingEchoDeleteRange = NSMakeRange(0, 0);
     NSUInteger result = 0;
     NSUInteger initialLength = textstorage.length;
     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
@@ -1192,7 +1247,16 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
                 return;
             default:
                 if (line_request && !flags) {
-                    [self scrollToBottomAnimated:NO];
+                    // Capture the viewport snapshot before the scroll so
+                    // the doc-fit anchor inside
+                    // scrollToBottomAnimated:respectCaps: kicks in. The
+                    // unconditional uncapped scroll-to-bottom otherwise
+                    // jumps to (newDoc - V + inset), which loses just
+                    // (newDoc - V) lines off the top — the "5 lines too
+                    // far" symptom when the doc was only a few lines
+                    // taller than the viewport at the time of typing.
+                    [self markLastSeen];
+                    [self scrollToBottomAnimated:NO respectCaps:YES];
                 } else
                     [self performScroll];
                 break;
@@ -1281,10 +1345,13 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
                       style:style_Normal]; // XXX arranger lastchar needs to be set
         _lastchar = '\n';
     } else {
-        [textstorage
-         deleteCharactersInRange:NSMakeRange(fence,
-                                             textstorage.length -
-                                             fence)]; // Don't echo
+        // Defer the deletion until the next output arrives, so the on-screen
+        // input stays put until it can be atomically replaced by the game's
+        // reprint. Eliminates the flicker that comes from deleting now and
+        // appending milliseconds later.
+        if (textstorage.length > fence) {
+            pendingEchoDeleteRange = NSMakeRange(fence, textstorage.length - fence);
+        }
     }
     // input line
 
@@ -1306,7 +1373,10 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     GlkEvent *gev = [[GlkEvent alloc] initLineEvent:line forWindow:self.name terminator:(NSInteger)terminator];
     [self.glkctl queueEvent:gev];
 
-    fence = textstorage.length;
+    // When the echo-off branch deferred the deletion, leave fence at the start
+    // of the ghost text so the next flush can delete from there and reset fence.
+    if (pendingEchoDeleteRange.length == 0)
+        fence = textstorage.length;
     line_request = NO;
     [self hideInsertionPoint];
     _textview.editable = NO;
@@ -1357,6 +1427,16 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         echo = !echo;
     }
 
+    // If the previous line was submitted with echo off and no output has
+    // arrived since, the typed text is still on screen. Clear it now so the
+    // new prompt and fence don't sit after the ghost.
+    if (pendingEchoDeleteRange.length
+        && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
+        [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
+        _lastchar = textstorage.length ? [textstorage.string characterAtIndex:textstorage.length - 1] : '\n';
+    }
+    pendingEchoDeleteRange = NSMakeRange(0, 0);
+
     if (_lastchar == '>' && self.theme.spaceFormat) {
         [self printToWindow:@" " style:style_Normal];
         _lastchar = ' ';
@@ -1395,6 +1475,14 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
 - (NSString *)cancelLine {
     [self flushDisplay];
     [_textview resetTextFinder];
+
+    // A pending echo-off delete from an earlier submission would shift the
+    // meaning of fence; apply it before reading the input.
+    if (pendingEchoDeleteRange.length
+        && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
+        [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
+    }
+    pendingEchoDeleteRange = NSMakeRange(0, 0);
 
     NSString *str = textstorage.string;
     str = [str substringFromIndex:fence];
@@ -2217,6 +2305,18 @@ replacementString:(id)repl {
     _printPositionOnInput = (_printPositionOnInput > cut) ? _printPositionOnInput - cut : 0;
     _lastseen = ((CGFloat)_lastseen > removedHeight) ? _lastseen - (NSInteger)removedHeight : 0;
 
+    if (pendingEchoDeleteRange.length) {
+        if (NSMaxRange(pendingEchoDeleteRange) <= cut) {
+            // Ghost was entirely within the trimmed region.
+            pendingEchoDeleteRange = NSMakeRange(0, 0);
+        } else if (pendingEchoDeleteRange.location >= cut) {
+            pendingEchoDeleteRange.location -= cut;
+        } else {
+            pendingEchoDeleteRange.length = NSMaxRange(pendingEchoDeleteRange) - cut;
+            pendingEchoDeleteRange.location = 0;
+        }
+    }
+
     NSMutableArray<NSValue *> *shifted =
         [NSMutableArray arrayWithCapacity:self.moveRanges.count];
     for (NSValue *value in self.moveRanges) {
@@ -2435,6 +2535,7 @@ replacementString:(id)repl {
 
     if (textstorage.length == 0) {
         _lastseen = 0;
+        docHeightAtLastSeen = 0;
         return;
     }
     // Clamp _lastseen to the actual document height: if the current
@@ -2450,8 +2551,27 @@ replacementString:(id)repl {
     NSInteger viewportBottom =
         (NSInteger)(NSMaxY(scrollview.contentView.bounds)
                     - 2.0 * _textview.textContainerInset.height);
-    NSInteger docBottom = (NSInteger)NSHeight(_textview.frame);
+    // Use the layout-manager's last-line rect for docBottom rather than
+    // NSHeight(_textview.frame). The textview is verticallyResizable with
+    // minSize.height = 10000000, so its frame size is unreliable until a
+    // layout pass nails it down — we'd otherwise snapshot ~10M and the
+    // "doc fit in viewport" gate below would never trigger.
+    NSRange glyphs = [layoutmanager glyphRangeForTextContainer:container];
+    NSInteger docBottom = 0;
+    if (glyphs.length) {
+        NSRect lastLine = [layoutmanager
+                           lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
+                           effectiveRange:nil];
+        docBottom = (NSInteger)ceil(NSMaxY(lastLine));
+    }
     _lastseen = MIN(viewportBottom, docBottom);
+    // Snapshot the (true) document height so the auto-scroll caps can
+    // use (docHeightAtLastSeen - lineHeight) as the target: the last
+    // line of the on-screen content at keypress time lands at the top
+    // of the new viewport, with the game's response stacked below —
+    // the classic "more"-page anchor applied to a doc that hadn't
+    // overflowed yet.
+    docHeightAtLastSeen = (CGFloat)docBottom;
 }
 
 // Capture the current scroll position for later restoration (e.g. after
@@ -2616,6 +2736,7 @@ replacementString:(id)repl {
     // longer exists; treat it as 0 so the player's fresh viewport is held.
     if ((CGFloat)_lastseen > bottom) {
         _lastseen = 0;
+        docHeightAtLastSeen = 0;
     }
 
     BOOL animate = !self.glkctl.commandScriptRunning;
@@ -2638,6 +2759,21 @@ replacementString:(id)repl {
         CGFloat target = (CGFloat)_lastseen;
         if (target - currentPos > advance) {
             target = currentPos + advance;
+        }
+        // Anchor to "last on-screen line at top, with one line of
+        // overlap": when the doc fit fully in the viewport at the
+        // keypress, the natural page-down target is one lineHeight
+        // above the doc-as-of-keypress, so the last pre-response line
+        // sits at the top of the new viewport with the response stacked
+        // below it. Gated on docHAL <= viewportHeight so it only
+        // applies in the doc-fit case; when the doc already overflowed
+        // ("more"-prompt mode) the page-down advance above is right.
+        if (docHeightAtLastSeen > 0
+            && docHeightAtLastSeen <= viewportHeight) {
+            CGFloat anchored = docHeightAtLastSeen - lineHeight;
+            if (anchored > currentPos && target > anchored) {
+                target = anchored;
+            }
         }
         [self scrollToPosition:target animate:animate];
     } else {
@@ -2739,6 +2875,27 @@ replacementString:(id)repl {
             }
             if (bottom > lastseenCap) {
                 bottom = lastseenCap;
+            }
+
+            // Anchor to "last on-screen line at top, with one line of
+            // overlap": when the doc fit fully in the viewport at the
+            // keypress (docHAL <= V), the natural scroll target is one
+            // lineHeight above the doc-as-of-keypress, so the last
+            // pre-response line sits at the top of the new viewport
+            // with the response stacked below. The standard
+            // scroll-to-bottom target (newDocBottom - V + inset) doesn't
+            // know about the keypress-time content boundary, and
+            // typically lands further down — leaving the prior content
+            // tightly cropped at the top instead of cleanly anchored.
+            // Gated on docHAL <= viewportHeight so it only applies in
+            // the doc-fit case; in "more"-prompt mode the unmodified
+            // scroll-to-bottom is right.
+            CGFloat docHAL = self->docHeightAtLastSeen;
+            if (docHAL > 0 && docHAL <= viewportHeight) {
+                CGFloat anchored = docHAL - lineHeight;
+                if (anchored > currentPosition && bottom > anchored) {
+                    bottom = anchored;
+                }
             }
         }
 
