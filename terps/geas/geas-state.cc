@@ -178,12 +178,41 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       else
 	//data.parent = lcase (param_contents (go.parent));
 	data.parent = param_contents (go.parent);
+      /* An explicit "parent <X>" line puts the object inside container X rather
+       * than in the room it is defined in. */
+      for (const auto &line: go.data)
+	{
+	  std::string::size_type c1, c2;
+	  if (first_token (line, c1, c2) == "parent")
+	    {
+	      std::string p = next_token (line, c1, c2);
+	      if (is_param (p))
+		data.parent = param_contents (p);
+	      break;
+	    }
+	}
       //register_block (data.name, "object");
       data.hidden = data.invisible = false;
       objs.push_back (data);
     }
 
   cerr << "GeasState::GeasState() done setting objects" << endl;
+  /* Characters (Quest "define character") are placed in the world like
+   * objects so they can be looked at, spoken to, etc. */
+  for (size_t i = 0; i < gf.size ("character"); i++)
+    {
+      const GeasBlock &go = gf.block ("character", i);
+      ObjectRecord data;
+      data.name = go.name;
+      if (go.parent == "")
+	data.parent = "";
+      else
+	data.parent = param_contents (go.parent);
+      data.hidden = data.invisible = false;
+      objs.push_back (data);
+    }
+
+  cerr << "GeasState::GeasState() done setting characters" << endl;
   for (size_t i = 0; i < gf.size("timer"); i ++)
     {
       const GeasBlock &go = gf.block("timer", i);

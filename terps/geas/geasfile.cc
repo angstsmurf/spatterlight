@@ -49,20 +49,30 @@ void GeasFile::debug_print (const string &s) const
     }
 }
 
-const GeasBlock *GeasFile::find_by_name (const string &type, const string &name) const
+const GeasBlock *GeasFile::find_by_name (const string &type, const string &name,
+					 const string &preferred_parent) const
 {
   //name = lcase (name);
+  const GeasBlock *first = NULL;
   for (size_t i = 0; i < size(type); i ++)
     {
-      //cerr << "find_by_name (" << type << ", " << name << "), vs. '" 
+      //cerr << "find_by_name (" << type << ", " << name << "), vs. '"
       //     << block(type, i).name << "'\n";
       //if (block(type, i).lname == name)
       if (ci_equal (block(type, i).name, name))
 	{
-	  return &block(type, i);
+	  const GeasBlock *b = &block(type, i);
+	  if (first == NULL)
+	    first = b;
+	  /* When several blocks share this name, prefer the one defined in the
+	   * preferred room (so same-named objects in different rooms behave
+	   * per-room). */
+	  if (preferred_parent != "" && is_param (b->parent) &&
+	      ci_equal (param_contents (b->parent), preferred_parent))
+	    return b;
 	}
     }
-  return NULL;
+  return first;
 }
 
 const GeasBlock &GeasFile::block (const std::string &type, size_t index) const { 
@@ -265,7 +275,7 @@ void GeasFile::get_type_keys (const string &typen, set<string> &rv) const
   cerr << "Returning (" << rv << ")\n";
 }
 
-bool GeasFile::get_obj_property (const string &objname, const string &propname, string &string_rv) const
+bool GeasFile::get_obj_property (const string &objname, const string &propname, string &string_rv, const string &preferred_parent) const
 {
   cerr << "g_o_p: Getting prop <" << propname << "> of obj <" << objname << ">\n";
   string_rv = "!";
@@ -301,7 +311,7 @@ bool GeasFile::get_obj_property (const string &objname, const string &propname, 
     }
   string objtype = (*obj_types.find(objname)).second;
 
-  const GeasBlock *block = find_by_name (objtype, objname);
+  const GeasBlock *block = find_by_name (objtype, objname, preferred_parent);
 
   string not_prop = "not " + propname;
   std::string::size_type c1, c2;
@@ -512,7 +522,7 @@ bool GeasFile::type_of_type (const string &subtype, const string &supertype) con
 
 
 
-bool GeasFile::get_obj_action (const string &objname, const string &propname, string &string_rv) const
+bool GeasFile::get_obj_action (const string &objname, const string &propname, string &string_rv, const string &preferred_parent) const
 {
   cerr << "g_o_a: Getting action <" << propname << "> of object <" << objname << ">\n";
   string_rv = "!";
@@ -535,7 +545,7 @@ bool GeasFile::get_obj_action (const string &objname, const string &propname, st
 
   //reserved_words *rw;
 
-  const GeasBlock *block = find_by_name (objtype, objname);
+  const GeasBlock *block = find_by_name (objtype, objname, preferred_parent);
   string not_prop = "not " + propname;
   std::string::size_type c1, c2;
   for (const string &line: block->data)
@@ -591,6 +601,33 @@ bool GeasFile::get_obj_action (const string &objname, const string &propname, st
   return bool_rv;
 }
 
+bool GeasFile::get_obj_default_action (const string &objname, string &string_rv) const
+{
+  if (!has (obj_types, objname))
+    {
+      debug_print ("Checking nonexistent object <" + objname + "> for default action.");
+      return false;
+    }
+  const GeasBlock *block = find_by_name ((*obj_types.find(objname)).second, objname);
+  if (block == NULL)
+    return false;
+  std::string::size_type c1, c2;
+  /* Every line in a parsed object block is prefixed with a keyword
+   * (alt/alias/properties/action/type/drop, plus a possible leading
+   * "type <default>").  The one line with no such prefix is the anonymous
+   * default-action script, e.g. "do <open the box>" or "msg <...>". */
+  for (const string &line: block->data)
+    {
+      string tok = first_token (line, c1, c2);
+      if (tok == "" || tok == "alt" || tok == "alias" || tok == "properties" ||
+	  tok == "action" || tok == "type" || tok == "drop")
+	continue;
+      string_rv = trim (line);
+      return true;
+    }
+  return false;
+}
+
 void GeasFile::get_type_action (const string &typenamex, const string &actname, bool &bool_rv, string &string_rv) const
 {
   //cerr << "  Checking type <" << typenamex << "> for action <" << actname << ">\n";
@@ -632,11 +669,13 @@ void GeasFile::register_block (const string &blockname, const string &blocktype)
   cerr << "registering block " << blockname << " / " << blocktype << endl;
   if (has (obj_types, blockname))
     {
-      string errdesc = "Trying to register block of named <" + blockname +
-	"> of type <" + blocktype + "> when there is already one, of type <" +
-	obj_types[blockname] + ">";
-      debug_print (errdesc);
-      throw errdesc;
+      /* Quest allows the same object name in several rooms (e.g. a "Colony
+       * Ship" object defined in three space rooms).  Don't abort the whole
+       * game over it -- warn and keep the first registration. */
+      debug_print ("Duplicate block name <" + blockname + "> of type <" +
+		   blocktype + ">; keeping the existing <" +
+		   obj_types[blockname] + ">.");
+      return;
     }
   obj_types[blockname] = blocktype;
 }

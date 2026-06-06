@@ -41,6 +41,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <map>
 #include <cstdlib>
 
 #include "GeasRunner.hh"
@@ -58,6 +59,7 @@ protected:
 
     virtual std::string get_string ();
     virtual uint make_choice (const std::string &, std::vector<std::string>);
+    virtual GeasResult play_sound (const std::string &filename, bool looped, bool sync);
 
   virtual std::string absolute_name (const std::string &, const std::string &) const;
 public:
@@ -435,6 +437,69 @@ std::string GeasGlkInterface::absolute_name (const std::string &rel_name, const 
     }
   std::cerr << " ---> " << rv << "\n";
   return rv;
+}
+
+/* glkimp helpers (declared in glkimp.h, which we don't include here).  Quest/
+ * Geas reference audio by file name (e.g. "die.wav"), not by numbered Blorb
+ * resource, so we pre-register each file under a synthetic resource number
+ * with win_loadsound().  glk_schannel_play_ext() then short-circuits its
+ * SND<n> lookup because win_findsound() reports the number already loaded. */
+extern "C" int  win_findsound (int resno);
+extern "C" void win_loadsound (int resno, char *filename, int offset, int reslen);
+
+static schanid_t geas_soundchannel = NULL;
+
+GeasResult
+GeasGlkInterface::play_sound (const std::string &filename, bool looped, bool /*sync*/)
+{
+  /* Quest's "sync" flag blocks until the sound finishes; we play
+   * asynchronously to avoid stalling the turn loop. */
+
+  /* An empty filename is Geas's request to stop all sound. */
+  if (filename.empty())
+    {
+      if (geas_soundchannel)
+	glk_schannel_stop (geas_soundchannel);
+      return r_success;
+    }
+
+  if (!geas_soundchannel)
+    {
+      geas_soundchannel = glk_schannel_create (0);
+      if (!geas_soundchannel)
+	return r_not_supported;   /* sound disabled or unsupported */
+    }
+
+  /* Quest plays one sound at a time; a new sound replaces the previous one. */
+  glk_schannel_stop (geas_soundchannel);
+
+  std::string parent = storyfilename ? storyfilename : "";
+  std::string path = absolute_name (filename, parent);
+
+  /* Assign each distinct file a stable resource number and load it once. */
+  static std::map<std::string, int> sound_ids;
+  auto it = sound_ids.find (path);
+  int resno;
+  if (it == sound_ids.end())
+    resno = sound_ids[path] = (int) sound_ids.size() + 1;
+  else
+    resno = it->second;
+
+  if (!win_findsound (resno))
+    {
+      std::ifstream f (path.c_str(), std::ios::binary | std::ios::ate);
+      if (!f.is_open())
+	{
+	  std::cerr << "play_sound: cannot open " << path << "\n";
+	  return r_not_supported;
+	}
+      int len = (int) f.tellg();
+      win_loadsound (resno, (char *) path.c_str(), 0, len);
+    }
+
+  glui32 repeats = looped ? 0xffffffffu : 1u;   /* 0xffffffff == loop forever */
+  glk_schannel_play_ext (geas_soundchannel, (glui32) resno, repeats, 0);
+  return r_success;
 }
 
 

@@ -307,13 +307,17 @@ bool geas_implementation::get_obj_action (const string &objname, const string &a
 	if (first_token (line, c1, c2) != "action")
 	  continue;
 	tok = next_token (line, c1, c2);
-	if (!is_param(tok) || ci_equal (param_contents(tok), actname))
+	/* Skip unless this runtime-set action's name matches the one requested.
+	 * (The condition was inverted, returning a non-matching action.) */
+	if (!is_param(tok) || !ci_equal (param_contents(tok), actname))
 	  continue;
 	rv = trim (line.substr (c2));
 	cerr << "  g_o_a: returning true, \"" << rv << "\".";
 	return true;
       }
-  return gf.get_obj_action (objname, actname, rv);
+  /* Prefer the block defined in the current room, so same-named objects in
+   * different rooms keep their own actions. */
+  return gf.get_obj_action (objname, actname, rv, state.location);
   //bool bool_rv = gf.get_obj_action (objname, actname, rv);
   //this_object = backup_object;
   //return bool_rv;
@@ -355,7 +359,7 @@ bool geas_implementation::get_obj_property(const string &obj, const string &prop
 	    return true;
 	  }
       }
-  return gf.get_obj_property (obj, prop, string_rv);
+  return gf.get_obj_property (obj, prop, string_rv, state.location);
 }
 
 void geas_implementation::set_obj_property (const string &obj, const string &prop)
@@ -398,7 +402,50 @@ string geas_implementation::get_obj_parent (const string &obj)
   return "";
 }
 
-void geas_implementation::goto_room (const string &room)
+bool geas_implementation::is_held (const string &name) const
+{
+  for (const auto &o: state.objs)
+    if (ci_equal (o.name, name) && ci_equal (o.parent, "inventory"))
+      return true;
+  for (const string &it: state.items)
+    if (ci_equal (it, name))
+      return true;
+  return false;
+}
+
+bool geas_implementation::names_object_in_scope (const string &word) const
+{
+  for (const auto &o: state.objs)
+    {
+      if (!(ci_equal (o.parent, state.location) || ci_equal (o.parent, "inventory")))
+	continue;
+      if (has_obj_property (o.name, "hidden"))
+	continue;
+      /* exact match only (no partial), so we only protect a true object name */
+      if (match_object (word, o.name, false, false))
+	return true;
+    }
+  return false;
+}
+
+bool geas_implementation::container_in_scope (const string &name, const vector<string> &where) const
+{
+  for (const auto &o: state.objs)
+    {
+      if (!ci_equal (o.name, name))
+	continue;
+      if (!has_obj_property (o.name, "container") || has_obj_property (o.name, "hidden"))
+	return false;
+      for (const auto &loc: where)
+	if (loc == "game" || ci_equal (o.parent, loc))
+	  return true;
+      /* the container may itself sit inside another open container */
+      return container_in_scope (o.parent, where);
+    }
+  return false;
+}
+
+void geas_implementation::goto_room (string room)
 {
   state.location = room;
   regen_var_room();
@@ -493,6 +540,8 @@ void geas_implementation::display_error (string errorname, string obj)
     print_eval ("You didn't say what you wanted to use that on.");
   else if (errorname == "defaultuse")
     print_eval ("You can't use that here.");
+  else if (errorname == "defaultverb")
+    print_eval ("You can't do that.");
   else if (errorname == "defaultout")
     print_eval ("There's nowhere you can go out to around here.");
   else if (errorname == "badplace")
@@ -866,6 +915,18 @@ void geas_implementation::set_game (const string &s)
       std::string::size_type c1, c2;
       string tok;
       
+      /* Quest "startitems <a; b; ...>": the player's initial inventory. */
+      for (const auto &i: game.data)
+	if (first_token (i, c1, c2) == "startitems")
+	  {
+	    tok = next_token (i, c1, c2);
+	    if (is_param (tok))
+	      for (const string &it: split_param (param_contents (tok)))
+		if (trim (it) != "")
+		  run_script ("give <" + trim (it) + ">");
+	    break;
+	  }
+
       /* TODO do I run the startscript or print the opening text first? */
       run_script ("displaytext <intro>");
 
@@ -1123,6 +1184,12 @@ string geas_implementation::substitute_synonyms (string s) const
 	    {
 	      string lhs = words[j];
 	      if (lhs == "")
+		continue;
+	      /* Don't let a synonym shadow a real object: if the word exactly
+	       * names an object currently in scope, leave it alone.  (E.g. the
+	       * synonym "pole = flag pole" must not rewrite "pole" once a "pole"
+	       * object is present.) */
+	      if (names_object_in_scope (lhs))
 		continue;
 	      std::string::size_type k = 0;
 	      while ((k = s.find (lhs, k)) != string::npos)
@@ -1429,6 +1496,27 @@ match_rv geas_implementation::match_command (string input, uint ichar, string ac
     }
 }
 
+/* True if "text" occurs in "target" as a run of whole words, so a player can
+ * name an object by part of its name: "rose" matches "Red Rose", "tondy"
+ * matches "Head General Tondy", "board" matches "Notice board". */
+static bool word_match (const string &text, const string &target)
+{
+  string x = lcase (trim (text)), t = lcase (target);
+  if (x.empty())
+    return false;
+  std::string::size_type pos = 0;
+  while ((pos = t.find (x, pos)) != string::npos)
+    {
+      bool left_ok = (pos == 0) || t[pos - 1] == ' ';
+      std::string::size_type end = pos + x.length();
+      bool right_ok = (end == t.length()) || t[end] == ' ';
+      if (left_ok && right_ok)
+	return true;
+      ++ pos;
+    }
+  return false;
+}
+
 static bool match_object_alts (string text, const vector<string> &alts, bool is_internal)
 {
   for (const string &i: alts)
@@ -1448,30 +1536,35 @@ static bool match_object_alts (string text, const vector<string> &alts, bool is_
 }
 
 
-bool geas_implementation::match_object (const string &text, const string &name, bool is_internal) const
+bool geas_implementation::match_object (const string &text, const string &name, bool is_internal, bool allow_partial) const
 {
-  cerr << "* * * match_object (" << text << ", " << name << ", " 
+  cerr << "* * * match_object (" << text << ", " << name << ", "
        << (is_internal ? "true" : "false") << ")\n";
-  
+
   string alias, alt_list, prefix, suffix;
 
   if (is_internal && ci_equal (text, name)) return true;
 
   if (get_obj_property (name, "prefix", prefix) &&
-      starts_with (text, prefix + " ") && 
-      match_object (text.substr (prefix.length() + 1), name, false))
+      starts_with (text, prefix + " ") &&
+      match_object (text.substr (prefix.length() + 1), name, false, allow_partial))
     return true;
 
   if (get_obj_property (name, "suffix", suffix) &&
       ends_with (text, " " + suffix) &&
-      match_object (text.substr (0, text.length() - suffix.length() - 1), name, false))
+      match_object (text.substr (0, text.length() - suffix.length() - 1), name, false, allow_partial))
     return true;
 
   if (!get_obj_property (name, "alias", alias))
     alias = name;
   if (ci_equal (text, alias))
     return true;
-  
+  /* Partial matching: accept any whole-word run of the alias or name, so the
+   * player can refer to an object by part of its name ("rose" -> "Red Rose").
+   * Only used as a fallback (see get_obj_name) so exact matches win. */
+  if (allow_partial && (word_match (text, alias) || word_match (text, name)))
+    return true;
+
   const GeasBlock *gb = gf.find_by_name ("object", name);
   if (gb != NULL)
     {
@@ -1489,7 +1582,13 @@ bool geas_implementation::match_object (const string &text, const string &name, 
 		{
 		  vector<string> alts = split_param (param_contents(tok));
 		  cerr << "  m_o: alt == " << alts << "\n";
-		  return match_object_alts (text, alts, is_internal);
+		  if (match_object_alts (text, alts, is_internal))
+		    return true;
+		  if (allow_partial)
+		    for (const string &a: alts)
+		      if (word_match (text, a))
+			return true;
+		  return false;
 		}
 	    }
 	}
@@ -1514,7 +1613,15 @@ bool geas_implementation::dereference_vars (vector<match_binding> &bindings, con
   for (auto &binding: bindings)
     if (binding.var_name[0] == '@')
       {
-	string obj_name = get_obj_name (binding.var_text, where, is_internal);
+	/* Resolve pronouns ("it", "them", ...) to the last object referenced. */
+	string lc = lcase (trim (binding.var_text));
+	string obj_name;
+	if (last_object != "" &&
+	    (lc == "it" || lc == "them" || lc == "they" ||
+	     lc == "him" || lc == "her"))
+	  obj_name = last_object;
+	else
+	  obj_name = get_obj_name (binding.var_text, where, is_internal);
 	if (obj_name == "!")
 	  {
 	    print_formatted ("You don't see any " + binding.var_text + ".");
@@ -1524,6 +1631,7 @@ bool geas_implementation::dereference_vars (vector<match_binding> &bindings, con
 	  {
 	    binding.var_text = obj_name;
 	    binding.var_name = binding.var_name.substr (1);
+	    last_object = obj_name;   /* remember for a later pronoun */
 	  }
       }
   return rv;
@@ -1532,28 +1640,41 @@ bool geas_implementation::dereference_vars (vector<match_binding> &bindings, con
 string geas_implementation::get_obj_name (const string &name, const vector<string> &where, bool is_internal) const
 {
   vector<string> objs, printed_objs;
-  for (size_t objnum = 0; objnum < state.objs.size(); objnum ++)
+  /* Collect objects in scope whose name matches.  Two passes: first exact
+   * (name/alias/alt), and only if nothing matches exactly do we allow partial
+   * whole-word matches.  This keeps exact names unambiguous ("ice" matching an
+   * alt "ice") while still letting "rose" find "Red Rose" when nothing else
+   * matches. */
+  for (int pass = 0; pass < 2 && objs.empty(); pass ++)
     {
-      bool is_used = false;
-      for (auto &loc: where)
+      bool allow_partial = (pass == 1);
+      for (size_t objnum = 0; objnum < state.objs.size(); objnum ++)
 	{
-	  cerr << "Object #" << objnum << ": " << state.objs[objnum].name
-	       << "@" << state.objs[objnum].parent << " vs. " 
-	       << loc << endl;
-	  // SENSITIVE?
-	  if (loc == "game" || state.objs[objnum].parent == loc)
-	    is_used = true;
-	}
-      if (is_used && !has_obj_property (state.objs[objnum].name, "hidden") && 
-	  match_object (name, state.objs[objnum].name, is_internal))
-	{
-	  string printed_name, tmp, oname = state.objs[objnum].name;
-	  objs.push_back (oname);
-	  if (!get_obj_property (oname, "alias", printed_name))
-	    printed_name = oname;
-	  if (get_obj_property (oname, "detail", tmp))
-	    printed_name = tmp;
-	  printed_objs.push_back (printed_name);
+	  bool is_used = false;
+	  for (auto &loc: where)
+	    {
+	      // SENSITIVE?
+	      if (loc == "game" || state.objs[objnum].parent == loc)
+		is_used = true;
+	    }
+	  /* An object inside a reachable, open container is reachable too; its own
+	   * "hidden" flag (meaning "inside the container") is then ignored. */
+	  bool via_container = false;
+	  if (!is_used &&
+	      container_in_scope (state.objs[objnum].parent, where))
+	    is_used = via_container = true;
+	  if (is_used &&
+	      (via_container || !has_obj_property (state.objs[objnum].name, "hidden")) &&
+	      match_object (name, state.objs[objnum].name, is_internal, allow_partial))
+	    {
+	      string printed_name, tmp, oname = state.objs[objnum].name;
+	      objs.push_back (oname);
+	      if (!get_obj_property (oname, "alias", printed_name))
+		printed_name = oname;
+	      if (get_obj_property (oname, "detail", tmp))
+		printed_name = tmp;
+	      printed_objs.push_back (printed_name);
+	    }
 	}
     }
   cerr << "objs == " << objs << ", printed_objs == " << printed_objs << "\n";
@@ -1569,6 +1690,11 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
     }
   if (objs.size() == 1)
     return objs[0];
+  /* Quest 2.x items have no world object; resolve a held item by name so it can
+   * be used in commands ("give milk to zeke", "use pitchfork on haystack"). */
+  for (const string &it: state.items)
+    if (ci_equal (it, name) || word_match (name, it))
+      return it;
   return "!";
 }
 
@@ -1591,6 +1717,11 @@ bool geas_implementation::run_commands (string cmd, const GeasBlock *room, bool 
       for (const string &line: room->data)
 	{
 	  tok = first_token (line, c1, c2);
+	  /* "lib command <...>" is a command supplied by a (built-in) library;
+	   * treat it like a normal command.  Game-defined commands appear before
+	   * the appended lib commands, so they keep priority by file order. */
+	  if (tok == "lib")
+	    tok = next_token (line, c1, c2);
 	  // SENSITIVE?
 	  if (tok == "command")
 	    {
@@ -1646,6 +1777,64 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  run_commands (cmd, gf.find_by_name ("game", "game")))
 	return true;
     }
+
+  /* ---- Generic verb dispatch ---------------------------------------------
+   * Quest games attach most verbs to objects through `action <verb>`,
+   * `properties <verb=text>`, or (for opening things) the object's anonymous
+   * default action.  geas previously hard-coded only look/examine/take/use/
+   * give/drop/etc., so common verbs such as open/move/eat/drink/smell fell
+   * through to "I don't understand your command".  This table maps the surface
+   * phrases a player may type to the canonical key stored in the game file.
+   * It is tried after explicit `command` definitions but before the bare
+   * "look #@object#" handler below, so multi-word verbs like "look under" are
+   * matched before "look" would swallow them. */
+  {
+    struct verb_def { const char *key; std::vector<const char *> phrases; bool use_default; };
+    static const std::vector<verb_def> verb_table =
+      {
+	{ "open",       { "open" },                                   true  },
+	{ "close",      { "close", "shut" },                          false },
+	{ "move",       { "move", "push", "pull", "slide", "shove" }, false },
+	{ "eat",        { "eat", "chew", "taste", "bite" },           false },
+	{ "drink",      { "drink", "sip" },                           false },
+	{ "smell",      { "smell", "sniff" },                         false },
+	{ "touch",      { "touch", "feel", "rub" },                   false },
+	{ "listen to",  { "listen to", "listen" },                    false },
+	{ "look under", { "look under", "look beneath" },             false },
+	{ "look in",    { "look in", "look inside", "search" },       false },
+	{ "sit on",     { "sit on", "sit in", "sit" },                false },
+	{ "hit",        { "hit", "kick", "punch", "break", "smash" }, false },
+	{ "kiss",       { "kiss" },                                   false },
+	{ "burn",       { "burn" },                                   false },
+	{ "kill",       { "kill" },                                   false },
+	{ "wear",       { "wear", "put on", "don" },                  false },
+	{ "turn on",    { "turn on", "switch on" },                   false },
+	{ "turn off",   { "turn off", "switch off" },                 false },
+      };
+
+    for (const verb_def &v: verb_table)
+      for (const char *phrase: v.phrases)
+	if ((match = match_command (cmd, string (phrase) + " #@object#")))
+	  {
+	    if (!dereference_vars (match.bindings, is_internal))
+	      return true;
+	    string obj = match.bindings[0].var_text, script;
+	    string ph = phrase;   /* the actual verb the player typed */
+	    /* Prefer an action/property named by the typed verb (objects define
+	     * e.g. action <search>, action <wear>), then the canonical key. */
+	    if (get_obj_action (obj, ph, script) ||
+		get_obj_action (obj, v.key, script))
+	      run_script_as (obj, script);
+	    else if (get_obj_property (obj, ph, script) ||
+		     get_obj_property (obj, v.key, script))
+	      print_formatted (script);
+	    else if (v.use_default && gf.get_obj_default_action (obj, script))
+	      run_script_as (obj, script);
+	    else
+	      display_error ("defaultverb", obj);
+	    return true;
+	  }
+  }
 
   if ((match = match_command (cmd, "look at #@object#")) ||
       (match = match_command (cmd, "look #@object#")))
@@ -1725,7 +1914,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
       string script, first = match.bindings[0].var_text, second = match.bindings[1].var_text;
-      if (! ci_equal (get_obj_parent (first), "inventory"))
+      if (!is_held (first))
 	display_error ("noitem", first);
       else if (get_obj_action (second, "give " + first, script))
 	run_script_as (second, script);  /* run the action in the recipient's
@@ -1767,7 +1956,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
       string script, first = match.bindings[0].var_text, second = match.bindings[1].var_text;
-      if (! ci_equal (get_obj_parent (first), "inventory"))
+      if (!is_held (first))
 	display_error ("noitem", first);
       else if (get_obj_action (second, "use " + first, script))
 	{
@@ -1804,7 +1993,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
       string tmp, obj = match.bindings[0].var_text;
-      if (!ci_equal (get_obj_parent (obj), "inventory"))
+      if (!is_held (obj))
 	display_error ("noitem", obj);
       else if (get_obj_action (obj, "use", tmp))
 	run_script_as (obj, tmp);
@@ -1839,6 +2028,9 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	    display_error ("defaulttake", object);
 	  string tmp;
 	  move (object, "inventory");
+	  /* A taken object is now in hand, so it's no longer hidden (it may have
+	   * been a hidden item inside a container). */
+	  set_obj_property (object, "not hidden");
 	  if (get_obj_action (object, "gain", tmp))
 	    run_script (object, tmp);
 	  //run_script (tmp);
@@ -2020,7 +2212,12 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	    ci_equal(destination, current_places[i][2]))
 	  {
 	    if (current_places[i].size() == 5)
-	      run_script_as (state.location, current_places[i][4]);
+	      {
+		/* Copy first: the script may goto, which reallocates
+		 * current_places out from under us. */
+		string scr = current_places[i][4];
+		run_script_as (state.location, scr);
+	      }
 	      //run_script (current_places[i][4]);
 	    else
 	      goto_room (current_places[i][3]);
@@ -2113,6 +2310,59 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       is_running_ = false;
       return true;
     }
+
+  /* Game-scope verb declarations.  Quest writes these as either
+   *   verb <name[;synonym;...]> <default script>     (asl source) or
+   *   <name[;synonym;...]> <default script>           (compiled form),
+   * optionally prefixed with "lib" for a library-supplied verb.  They
+   * register custom verbs (e.g. "destroy", "mount") with a default response;
+   * an object overrides via action <name> or properties <name=...>.  Checked
+   * last, so the built-in verbs above keep their normal behaviour and this
+   * only handles otherwise-unrecognised verbs. */
+  {
+    const GeasBlock *game = gf.find_by_name ("game", "game");
+    if (game != NULL)
+      for (const string &line: game->data)
+	{
+	  std::string::size_type d1, d2;
+	  string tok = first_token (line, d1, d2);
+	  if (tok == "lib")                  /* optional library-verb prefix */
+	    tok = next_token (line, d1, d2);
+	  string names_tok;
+	  if (tok == "verb")
+	    names_tok = next_token (line, d1, d2);
+	  else if (is_param (tok))           /* bare "<name> <script>" form */
+	    names_tok = tok;
+	  else
+	    continue;
+	  if (!is_param (names_tok))
+	    continue;
+	  string deflt = trim (line.substr (d2));        /* default script */
+	  vector<string> names = split_param (param_contents (names_tok));
+	  if (names.empty() || trim (names[0]) == "")
+	    continue;
+	  string key = trim (names[0]);   /* property/action key (first name) */
+	  for (const string &nm: names)
+	    {
+	      string verbname = trim (nm);
+	      if (verbname == "")
+		continue;
+	      if ((match = match_command (cmd, verbname + " #@object#")))
+		{
+		  if (!dereference_vars (match.bindings, is_internal))
+		    return true;
+		  string obj = match.bindings[0].var_text, script;
+		  if (get_obj_action (obj, key, script))
+		    run_script_as (obj, script);
+		  else if (get_obj_property (obj, key, script))
+		    print_formatted (script);
+		  else if (deflt != "")
+		    run_script_as (obj, deflt);
+		  return true;
+		}
+	    }
+	}
+  }
 
   return false;
 }
@@ -2575,13 +2825,29 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  return;
 	}
       tok = eval_param (tok);
-      move (tok, "inventory");
-      string tmp;
-      if (get_obj_action (tok, "gain", tmp))
-	run_script_as (tok, tmp);
-      //run_script (tmp);
-      else if (get_obj_property (tok, "gain", tmp))
-	print_formatted (tmp);
+      /* Add to the Quest 2.x item inventory (deduplicated).  A game may give an
+       * item and then hide the like-named room object, so items are tracked
+       * separately from objects. */
+      bool have_item = false;
+      for (const string &it: state.items)
+	if (ci_equal (it, tok)) { have_item = true; break; }
+      if (!have_item)
+	state.items.push_back (tok);
+      /* If a real object of this name exists, also move it to the inventory
+       * (3.x-style give) and run its gain action. */
+      bool is_object = false;
+      for (const auto &o: state.objs)
+	if (ci_equal (o.name, tok)) { is_object = true; break; }
+      if (is_object)
+	{
+	  move (tok, "inventory");
+	  string tmp;
+	  if (get_obj_action (tok, "gain", tmp))
+	    run_script_as (tok, tmp);
+	  else if (get_obj_property (tok, "gain", tmp))
+	    print_formatted (tmp);
+	}
+      gi->update_sidebars();
       return;
     }
   // SENSITIVE?
@@ -2611,7 +2877,8 @@ void geas_implementation::run_script (const string &s, string &rv)
     {
     }
   // SENSITIVE?
-  else if (tok == "hide")
+  /* "hideobject"/"hidechar" are the Quest 2.x spellings of "hide". */
+  else if (tok == "hide" || tok == "hideobject" || tok == "hidechar")
     {
       tok = next_token (s, c1, c2);
       if (is_param(tok))
@@ -2621,7 +2888,8 @@ void geas_implementation::run_script (const string &s, string &rv)
       return;
     }
   // SENSITIVE?
-  else if (tok == "show")
+  /* "showobject"/"showchar" are the Quest 2.x spellings of "show". */
+  else if (tok == "show" || tok == "showobject" || tok == "showchar")
     {
       tok = next_token (s, c1, c2);
       if (is_param(tok))
@@ -2712,11 +2980,18 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       tok = eval_param (tok);
 
-      /* TODO: is the object always moved to location, or only
-       * when it had been in the inventory ?
-       */
-      bool was_lost = (ci_equal (get_obj_parent (tok), "inventory"));
-      if (was_lost)
+      /* Remove from the Quest 2.x item inventory. */
+      for (auto it = state.items.begin(); it != state.items.end(); )
+	if (ci_equal (*it, tok))
+	  it = state.items.erase (it);
+	else
+	  ++ it;
+
+      /* If a real object of this name was being carried, drop it to the room. */
+      bool is_object = false;
+      for (const auto &o: state.objs)
+	if (ci_equal (o.name, tok)) { is_object = true; break; }
+      if (is_object && ci_equal (get_obj_parent (tok), "inventory"))
 	{
 	  move (tok, state.location);
 	  string tmp;
@@ -2726,6 +3001,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  else if (get_obj_property (tok, "lose", tmp))
 	    print_formatted (tmp);
 	}
+      gi->update_sidebars();
       return;
     }
   // SENSITIVE?
@@ -2737,7 +3013,8 @@ void geas_implementation::run_script (const string &s, string &rv)
     {
     }
   // SENSITIVE?
-  else if (tok == "move")
+  /* "movechar" is the Quest 2.x spelling of "move". */
+  else if (tok == "move" || tok == "movechar")
     {
       tok = next_token (s, c1, c2);
       if (!is_param(tok))
@@ -2811,6 +3088,7 @@ void geas_implementation::run_script (const string &s, string &rv)
     {
       run_script ("displaytext <lose>");
       state.running = false;
+      is_running_ = false;   /* end the game so the host stops prompting */
       return;
     }
   // SENSITIVE?
@@ -2818,6 +3096,7 @@ void geas_implementation::run_script (const string &s, string &rv)
     {
       run_script ("displaytext <win>");
       state.running = false;
+      is_running_ = false;   /* end the game so the host stops prompting */
       return;
     }
   // SENSITIVE?
@@ -2831,6 +3110,30 @@ void geas_implementation::run_script (const string &s, string &rv)
   // SENSITIVE?
   else if (tok == "playwav")
     {
+      /* playwav <file>             -- play a sound once
+       * playwav <file; loop>       -- play it looped
+       * playwav <file; sync>       -- play it (synchronously, in Quest)
+       * playwav <>                 -- stop all sounds
+       * The filename is resolved relative to the game file by the interface. */
+      tok = next_token (s, c1, c2);
+      if (!is_param (tok))
+	{
+	  gi->debug_print ("Expected parameter in '" + s + "'");
+	  return;
+	}
+      vector<string> args = split_param (param_contents (tok));
+      string fname = args.empty() ? "" : trim (args[0]);
+      bool looped = false, sync = false;
+      for (size_t i = 1; i < args.size(); i ++)
+	{
+	  string flag = lcase (trim (args[i]));
+	  if (flag == "loop")
+	    looped = true;
+	  else if (flag == "sync")
+	    sync = true;
+	}
+      gi->play_sound (fname, looped, sync);
+      return;
     }
   // SENSITIVE?
   else if (tok == "property")
@@ -3268,6 +3571,10 @@ bool geas_implementation::eval_cond (const string &s)
 	}
       //tok = lcase (trim (eval_param (tok)));
       tok = trim (eval_param (tok));
+      /* Quest 2.x item inventory. */
+      for (const string &it: state.items)
+	if (ci_equal (it, tok))
+	  return true;
       for (uint i = 0; i < state.objs.size(); i ++)
 	if (ci_equal (state.objs[i].name, tok))
 	  return ci_equal (state.objs[i].parent, "inventory");
@@ -3718,9 +4025,28 @@ string geas_implementation::run_function (const string &pname)
 
 
 
-v2string geas_implementation::get_inventory () 
+v2string geas_implementation::get_inventory ()
 {
-  return get_room_contents ("inventory");
+  v2string rv = get_room_contents ("inventory");
+  /* Append Quest 2.x items not already shown as a visible in-inventory object
+   * (a game may give an item while hiding the like-named room object). */
+  for (const string &it: state.items)
+    {
+      bool shown = false;
+      for (const auto &o: state.objs)
+	if (ci_equal (o.name, it) && ci_equal (o.parent, "inventory") &&
+	    !has_obj_property (o.name, "hidden") &&
+	    !has_obj_property (o.name, "invisible"))
+	  { shown = true; break; }
+      if (!shown)
+	{
+	  vstring tmp;
+	  tmp.push_back (it);
+	  tmp.push_back ("object");
+	  rv.push_back (tmp);
+	}
+    }
+  return rv;
 }
 
 v2string geas_implementation::get_room_contents ()
