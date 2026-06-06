@@ -219,6 +219,11 @@ public:
   /* Throw away all progress and begin the game again from the start. */
   virtual void restart() {}
 
+  /* Take back the last turn.  Works even after the game has ended (e.g. on
+   * death), restoring the last good state and resuming play.  Returns false if
+   * there is nothing to undo. */
+  virtual bool undo() { return false; }
+
   /* True if a running timer will fire (run its action) on the next tick. */
   virtual bool timer_will_fire() { return false; }
   static GeasRunner* get_runner(GeasInterface *gi);
