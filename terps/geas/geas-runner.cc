@@ -447,6 +447,55 @@ bool geas_implementation::container_in_scope (const string &name, const vector<s
   return false;
 }
 
+bool geas_implementation::open_container (const string &name)
+{
+  /* A Quest object declares it sits inside a container with a bare
+   * "<container>" line in its definition.  Per the Quest container model a
+   * container hides its children until it is opened, then reveals them -- but
+   * geas otherwise ignores that line, leaving such objects permanently hidden.
+   * Collect everything declared inside `name`, un-hide it, and list it. */
+  vector<string> contents, shown_names;
+  for (const auto &o: state.objs)
+    {
+      const GeasBlock *gb = gf.find_by_name ("object", o.name);
+      if (gb == NULL)
+	continue;
+      for (const string &line: gb->data)
+	{
+	  std::string::size_type c1, c2;
+	  string tok = first_token (line, c1, c2);
+	  /* a bare "<container>" line, with nothing after it */
+	  if (is_param (tok) && next_token (line, c1, c2) == "" &&
+	      ci_equal (trim (param_contents (tok)), name))
+	    {
+	      contents.push_back (o.name);
+	      break;
+	    }
+	}
+    }
+  if (contents.empty ())
+    return false;   /* not a container: caller falls back to "can't do that" */
+
+  for (const string &c: contents)
+    {
+      if (has_obj_property (c, "hidden"))
+	set_obj_property (c, "not hidden");
+      string disp;
+      if (!get_obj_property (c, "alias", disp))
+	disp = c;
+      shown_names.push_back (disp);
+    }
+
+  string msg = "You open the " + name + ".";
+  for (size_t i = 0; i < shown_names.size (); i++)
+    msg += (i == 0 ? "  Inside you see " :
+	    (i + 1 == shown_names.size () ? " and " : ", ")) + shown_names[i];
+  if (!shown_names.empty ())
+    msg += ".";
+  print_formatted (msg);
+  return true;
+}
+
 void geas_implementation::goto_room (string room)
 {
   state.location = room;
@@ -711,6 +760,15 @@ string geas_implementation::exit_dest (const string &room, const string &dir, bo
 	tok = first_token (line, c1, c2);
 	cerr << "   first tok is " << tok << " (vs. exit)\n";
 	// SENSITIVE?
+	/* A "noexit <dir>" record (pushed by disconnect) removes that exit;
+	 * the latest record for the direction wins over an earlier create-exit
+	 * or the static room exit below. */
+	if (tok == "noexit")
+	  {
+	    if (next_token (line, c1, c2) == dir)
+	      return "";
+	    continue;
+	  }
 	if (tok != "exit")
 	  continue;
 	tok = next_token (line, c1, c2);
@@ -1448,7 +1506,7 @@ void geas_implementation::run_command (const string &s1)
 		  scr_starts = c2;
 		}
 	      string scr = line.substr (scr_starts);
-	      run_script (state.location, scr);
+	      run_script_as (state.location, scr);
 	      //run_script (scr);
 	    }
 	}
@@ -1568,10 +1626,19 @@ ostream &operator<< (ostream &o, const match_rv &rv)
 match_rv geas_implementation::match_command (string input, string action) const
 {
   //cerr << "match_command (\"" << input << "\", \"" << action << "\")" << endl;
-  match_rv rv = match_command (input, 0, action, 0, match_rv ());
-  cerr << "match_command (\"" << input << "\", \"" << action << "\") -> " << rv << endl;
-  return rv;
-  //return match_command (input, 0, action, 0, match_rv ());
+  /* A command pattern with an unpaired '#' (a typo in the game's own source,
+   * which Quest tolerates) makes the recursive matcher throw.  Treat such a
+   * pattern as simply not matching rather than letting the exception abort the
+   * whole interpreter. */
+  try
+    {
+      return match_command (input, 0, action, 0, match_rv ());
+    }
+  catch (const string &err)
+    {
+      gi->debug_print ("Skipping malformed command pattern: " + err);
+      return match_rv ();
+    }
 }
 
 match_rv geas_implementation::match_command (string input, uint ichar, string action, uint achar, match_rv rv) const
@@ -1958,6 +2025,8 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	      print_formatted (script);
 	    else if (v.use_default && gf.get_obj_default_action (obj, script))
 	      run_script_as (obj, script);
+	    else if (string (v.key) == "open" && open_container (obj))
+	      ;   /* default container open: revealed its contents */
 	    else
 	      display_error ("defaultverb", obj);
 	    return true;
@@ -2078,6 +2147,43 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       return true;
     }
    
+  /* Quest's standard "remove" verb, e.g. "remove book of keys from odd book
+   * shelf".  Run the named object's "remove" action/property; for the
+   * "X from Y" form the message is usually attached to the container Y (where
+   * the game hangs it), so fall back to Y when X has no "remove" of its own. */
+  if ((match = match_command (cmd, "remove #@first# from #@second#")))
+    {
+      if (!dereference_vars (match.bindings, is_internal))
+	return true;
+      string script, first = match.bindings[0].var_text,
+	second = match.bindings[1].var_text;
+      if (get_obj_action (first, "remove", script))
+	run_script_as (first, script);
+      else if (get_obj_property (first, "remove", script))
+	print_formatted (script);
+      else if (get_obj_action (second, "remove", script))
+	run_script_as (second, script);
+      else if (get_obj_property (second, "remove", script))
+	print_formatted (script);
+      else
+	display_error ("defaultverb", first);
+      return true;
+    }
+  if ((match = match_command (cmd, "remove from #@object#")) ||
+      (match = match_command (cmd, "remove #@object#")))
+    {
+      if (!dereference_vars (match.bindings, is_internal))
+	return true;
+      string script, obj = match.bindings[0].var_text;
+      if (get_obj_action (obj, "remove", script))
+	run_script_as (obj, script);
+      else if (get_obj_property (obj, "remove", script))
+	print_formatted (script);
+      else
+	display_error ("defaultverb", obj);
+      return true;
+    }
+
   if ((match = match_command (cmd, "use #@first# on #@second#")) ||
       (match = match_command (cmd, "use #@first# with #@second#")))
     {
@@ -2123,6 +2229,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       string tmp, obj = match.bindings[0].var_text;
       if (!is_held (obj))
 	display_error ("noitem", obj);
+      /* A "use <obj>" handler on the current room overrides the object's own
+       * use action (Quest semantics): e.g. a key whose generic use says "no
+       * door" still unlocks the door in the room that defines use <key>.
+       * Mirror the "use X on Y" path, which already checks the target's
+       * "use X" action. */
+      else if (get_obj_action (state.location, "use " + obj, tmp))
+	run_script_as (state.location, tmp);
       else if (get_obj_action (obj, "use", tmp))
 	run_script_as (obj, tmp);
       //run_script (tmp);
@@ -2729,7 +2842,24 @@ void geas_implementation::run_script (const string &s, string &rv)
   // SENSITIVE?
   else if (tok == "disconnect")
     {
-      /* QNSO */
+      /* disconnect <room; direction> -- remove that exit (the inverse of
+       * create exit <direction> <room; dest>).  Recorded as a "noexit" so it
+       * overrides the static room exit and any earlier dynamic create-exit. */
+      tok = next_token (s, c1, c2);
+      if (!is_param (tok))
+        {
+          gi->debug_print ("Expected param after disconnect in " + s);
+          return;
+        }
+      vector<string> args = split_param (eval_param (tok));
+      if (args.size () != 2)
+        {
+          gi->debug_print ("Expected <room; direction> after disconnect in " + s);
+          return;
+        }
+      state.exits.push_back (ExitRecord (args[0], "noexit " + args[1]));
+      regen_var_dirs ();
+      return;
     }
   // SENSITIVE?
   else if (tok == "displaytext")
@@ -3017,7 +3147,23 @@ void geas_implementation::run_script (const string &s, string &rv)
     {
       tok = next_token (s, c1, c2);
       if (is_param(tok))
-	set_obj_property (eval_param (tok), "hidden");
+	{
+	  string name = eval_param (tok);
+	  set_obj_property (name, "hidden");
+	  /* Hiding a *held* object removes it for good (e.g. a vase that
+	   * "smashes" on drop, or a key consumed by a use action): also drop it
+	   * from the Quest-2.x item list, so it stops counting as held and the
+	   * item-name fallback in dereference_vars no longer resolves it for
+	   * take/examine.  A hidden *room* object keeps its item (the
+	   * give-an-item-then-hide-the-like-named-room-object case). */
+	  for (const auto &o: state.objs)
+	    if (ci_equal (o.name, name) && ci_equal (o.parent, "inventory"))
+	      {
+		for (auto i = state.items.begin (); i != state.items.end (); )
+		  if (ci_equal (*i, name)) i = state.items.erase (i); else ++ i;
+		break;
+	      }
+	}
       else
 	gi->debug_print ("Expected param after conceal in " + s);
       return;
@@ -3729,12 +3875,11 @@ bool geas_implementation::eval_cond (const string &s)
       tok = trim (eval_param (tok));
       for (uint i = 0; i < state.objs.size(); i ++)
 	if (ci_equal (state.objs[i].name, tok))
-	  {
-	    //return (ci_equal (state.objs[i].parent, state.location) &&
-	    //	  !has_obj_property (tok, "invisible"));
-	    return (ci_equal (state.objs[i].parent, state.location));
-	  }
-      /* TODO: is it invisible or hidden? */
+	  /* "here" means present in this room AND not hidden: an object removed
+	   * with "hide" (e.g. a creature that has run off) is no longer here,
+	   * even though its parent still names the room. */
+	  return (ci_equal (state.objs[i].parent, state.location) &&
+		  !has_obj_property (state.objs[i].name, "hidden"));
       gi->debug_print ("No object " + tok + " found while evaling " + s);
       return false;
     }
@@ -4005,7 +4150,6 @@ string geas_implementation::run_function (const string &pname)
   // SENSITIVE?
   else if (pname == "instr")
     {
-      /* TODO What if it's not present? */
       if (function_args.size() != 2 && function_args.size() != 3)
 	return bad_arg_count(pname);
 
@@ -4013,13 +4157,21 @@ string geas_implementation::run_function (const string &pname)
       if (function_args.size() == 2)
 	rv = function_args[0].find (function_args[1]);
       else
-	rv = function_args[1].find (function_args[2], 
-				    parse_int (function_args[0]));
-				    
+	{
+	  /* 3-arg form is instr(start, text, search); Quest's start is
+	   * 1-based. */
+	  int start = parse_int (function_args[0]);
+	  if (start < 1)
+	    start = 1;
+	  rv = function_args[1].find (function_args[2], start - 1);
+	}
+
+      /* Quest's Instr is 1-based and returns 0 when the search string is not
+       * found (it was returning npos, i.e. a huge bogus position). */
       if (rv == string::npos)
-	return string_int(rv); // TODO What goes here?
+	return "0";
       else
-	return string_int(rv);
+	return string_int (rv + 1);
     }
   // SENSITIVE?
   else if (pname == "lcase")
@@ -4163,15 +4315,17 @@ string geas_implementation::run_function (const string &pname)
 v2string geas_implementation::get_inventory ()
 {
   v2string rv = get_room_contents ("inventory");
-  /* Append Quest 2.x items not already shown as a visible in-inventory object
-   * (a game may give an item while hiding the like-named room object). */
+  /* Append Quest 2.x items that have no real object of that name in the
+   * inventory (a game may give a bare item, or give an item while hiding the
+   * like-named *room* object).  If a matching inventory object exists we let it
+   * speak for itself: a visible one is already in rv, and a hidden one means
+   * the item was destroyed/removed (e.g. dropping a vase that "smashes" via
+   * hide <Vase>), so the bare item must not linger. */
   for (const string &it: state.items)
     {
       bool shown = false;
       for (const auto &o: state.objs)
-	if (ci_equal (o.name, it) && ci_equal (o.parent, "inventory") &&
-	    !has_obj_property (o.name, "hidden") &&
-	    !has_obj_property (o.name, "invisible"))
+	if (ci_equal (o.name, it) && ci_equal (o.parent, "inventory"))
 	  { shown = true; break; }
       if (!shown)
 	{
