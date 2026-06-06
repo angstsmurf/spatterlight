@@ -30,45 +30,40 @@ using namespace std;
 
 int eval_int (const string &s)
 {
-  cerr << "eval_int (" << s << ")" << endl;
+  GEAS_DBG << "eval_int (" << s << ")" << endl;
 
   uint index = 0, index2;
   string tmp;
   while (index < s.length() && isspace (s[index]))
     {
-      cerr << "  index == " << index << endl;
+      GEAS_DBG << "  index == " << index << endl;
       index ++;
     }
   if (index == s.length() || !isdigit (s[index]))
     {
-      cerr << "Failed to match, returning 0" << endl;
+      GEAS_DBG << "Failed to match, returning 0" << endl;
       return 0;
     }
   for (index2 = index; index2 < s.length() && isdigit (s[index2]); index2 ++)
     {
-      cerr << "  index2 == " << index2 << endl;
+      GEAS_DBG << "  index2 == " << index2 << endl;
     }
   //;
   tmp = s.substr (index, index2 - index);
-  cerr << "tmp == < " << tmp << ">" << endl;
+  GEAS_DBG << "tmp == < " << tmp << ">" << endl;
 
-  //cerr << "index == " << index << ", index2 == " << index2 
-  //     << ", tmp == " << tmp << endl;
 
   int arg1 = atoi (tmp.c_str());
-  cerr << "arg1 == " << arg1 << endl;
+  GEAS_DBG << "arg1 == " << arg1 << endl;
   index = index2;
   while (index < s.length() && isspace (s[index]))
     ++ index;
   if (index == s.length())
     return arg1;
 
-  //cerr << "index == " << index << ", s.length() == " << s.length() << endl;
 
   char symbol = s[index];
 
-  //cerr << "symbol == " << symbol << "; find --> " 
-  //     << string("+-*/").find (symbol) << endl;
 
   if (string ("+-*/").find (symbol) == string::npos)
     return arg1;
@@ -114,12 +109,11 @@ bool is_param (const string &s)
 
 string param_contents (const string &s)
 {
-  //cerr << "param_contents (" << s << ")" << endl;
   if (!is_param (s))
     {
       // No GeasInterface here to notify the player; log and return the string
       // unchanged so a malformed token degrades instead of crashing.
-      cerr << "param_contents: not a parameter: " << s << endl;
+      GEAS_DBG << "param_contents: not a parameter: " << s << endl;
       return s;
     }
   return s.substr (1, s.length() - 2);
@@ -136,7 +130,7 @@ string nonparam (const string &type, const string &var)
 std::string string_geas_block (const GeasBlock &gb)
 {
   ostringstream oss;
-  oss << gb;  // temporary removed TODO
+  oss << gb;
   return oss.str();
 }
 
@@ -232,10 +226,10 @@ vector<string> split_f_args (const string &s)
 void show_split (const string &s)
 {
   vector<string> tmp = split_param (s);
-  cerr << "Splitting <" << s << ">: ";
+  GEAS_DBG << "Splitting <" << s << ">: ";
   for (const auto &i: tmp)
-    cerr << "<" << i << ">, ";
-  cerr << "\n";
+    GEAS_DBG << "<" << i << ">, ";
+  GEAS_DBG << "\n";
 }
 
 Logger::Nullstreambuf Logger::cnull;

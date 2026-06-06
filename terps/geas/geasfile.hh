@@ -62,6 +62,13 @@ struct GeasFile
   std::map <std::string, std::string> obj_types;
   std::map <std::string, std::vector<size_t> > type_indecies;
 
+  /* Fast lookup for find_by_name: maps "<blocktype>\1<lowercased name>" to the
+   * indices (into blocks) of every block with that type and name, in definition
+   * order.  Populated alongside type_indecies as blocks are parsed, so
+   * find_by_name no longer has to scan every block of a type. */
+  std::map <std::string, std::vector<size_t> > name_index;
+  static std::string name_key (const std::string &type, const std::string &name);
+
   void register_block (const std::string &blockname, const std::string &blocktype);
 
   const GeasBlock &block (const std::string &type, size_t index) const;
