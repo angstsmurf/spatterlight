@@ -160,6 +160,32 @@ handle_transcript_command(const std::string &raw)
 /* Handle the SAVE / RESTORE metaverbs.  Returns true if the command was one of
  * them (and should not reach the game).  The whole game state goes through a
  * single Glk file; geas does the (de)serialising. */
+
+/* Prompt for a save file and restore it.  Returns true if the game state was
+ * successfully restored (and is now running). */
+static bool
+do_restore(GeasRunner *gr)
+{
+    glui32 usage = fileusage_SavedGame | fileusage_BinaryMode;
+    frefid_t fref = glk_fileref_create_by_prompt(usage, filemode_Read, 0);
+    if (!fref) { glk_put_string((char *) "Restore cancelled.\n"); return false; }
+    strid_t str = glk_stream_open_file(fref, filemode_Read, 0);
+    glk_fileref_destroy(fref);
+    if (!str) { glk_put_string((char *) "Could not open the save file.\n"); return false; }
+    std::string data;
+    char buf[4096];
+    glui32 n;
+    while ((n = glk_get_buffer_stream(str, buf, sizeof buf)) > 0)
+        data.append(buf, n);
+    glk_stream_close(str, nullptr);
+    if (gr->load_state(data)) {
+        glk_put_string((char *) "\nGame restored.\n");
+        return true;
+    }
+    glk_put_string((char *) "Sorry, that does not look like a saved game for this story.\n");
+    return false;
+}
+
 static bool
 handle_saverestore_command(const std::string &raw, GeasRunner *gr)
 {
@@ -193,21 +219,7 @@ handle_saverestore_command(const std::string &raw, GeasRunner *gr)
       }
     else
       {
-        frefid_t fref = glk_fileref_create_by_prompt(usage, filemode_Read, 0);
-        if (!fref) { glk_put_string((char *) "Restore cancelled.\n"); return true; }
-        strid_t str = glk_stream_open_file(fref, filemode_Read, 0);
-        glk_fileref_destroy(fref);
-        if (!str) { glk_put_string((char *) "Could not open the save file.\n"); return true; }
-        std::string data;
-        char buf[4096];
-        glui32 n;
-        while ((n = glk_get_buffer_stream(str, buf, sizeof buf)) > 0)
-            data.append(buf, n);
-        glk_stream_close(str, nullptr);
-        if (gr->load_state(data))
-            glk_put_string((char *) "\nGame restored.\n");
-        else
-            glk_put_string((char *) "Sorry, that does not look like a saved game for this story.\n");
+        do_restore(gr);
       }
     return true;
 }
@@ -256,14 +268,15 @@ handle_restart_command(const std::string &raw, GeasRunner *gr)
 }
 
 /* After the game ends, ask the player what to do.  Returns 1 = undo,
- * 2 = restart, 3 = quit.  Accepts the number or the word. */
+ * 2 = restore, 3 = restart, 4 = quit.  Accepts the number or the word. */
 static int
 post_game_menu()
 {
     glk_put_cstring("\nThe story has ended.  You can:\n");
     glk_put_cstring("  1. UNDO the last turn\n");
-    glk_put_cstring("  2. RESTART\n");
-    glk_put_cstring("  3. QUIT\n");
+    glk_put_cstring("  2. RESTORE a saved game\n");
+    glk_put_cstring("  3. RESTART\n");
+    glk_put_cstring("  4. QUIT\n");
     if (g_manual_echo)
         glk_set_echo_line_event(inputwin, 1);   /* auto-echo the choice */
     char b[64];
@@ -278,13 +291,19 @@ post_game_menu()
                 fill_divider();
             }
         } while (!(ev.type == evtype_LineInput && ev.win == inputwin));
-        std::string ln(b, ev.val1);
-        std::string::size_type a = ln.find_first_not_of(" \t\r\n");
-        char c = (a == std::string::npos) ? '\0' : tolower((unsigned char) ln[a]);
-        if (c == '1' || c == 'u') return 1;
-        if (c == '2' || c == 'r') return 2;
-        if (c == '3' || c == 'q') return 3;
-        glk_put_cstring("Please type 1, 2 or 3 (or undo / restart / quit).\n");
+        /* lower-case, trimmed word (restart vs restore both start with 'r',
+         * so match the whole word, not just the first letter) */
+        std::string w;
+        for (int i = 0; i < (int) ev.val1; i++)
+            w += tolower((unsigned char) b[i]);
+        std::string::size_type p = w.find_first_not_of(" \t\r\n");
+        std::string::size_type q = w.find_last_not_of(" \t\r\n");
+        w = (p == std::string::npos) ? std::string() : w.substr(p, q - p + 1);
+        if (w == "1" || w == "u" || w == "undo")    return 1;
+        if (w == "2" || w == "restore" || w == "load") return 2;
+        if (w == "3" || w == "restart")             return 3;
+        if (w == "4" || w == "q" || w == "quit")    return 4;
+        glk_put_cstring("Please type 1, 2, 3 or 4 (or undo / restore / restart / quit).\n");
     }
 }
 
@@ -471,15 +490,18 @@ void glk_main(void)
      * instead of just closing the session. */
     for (;;) {
         int c = post_game_menu();
-        if (c == 1) {
+        if (c == 1) {                       /* UNDO */
             if (gr->undo())
-                break;                  /* resurrected; resume play */
+                break;                      /* resurrected; resume play */
             glk_put_cstring("There is nothing to undo.\n");
-        } else if (c == 2) {
+        } else if (c == 2) {                /* RESTORE */
+            if (do_restore(gr))
+                break;                      /* restored; resume play */
+        } else if (c == 3) {                /* RESTART */
             glk_window_clear(mainglkwin);
             gr->restart();
             break;
-        } else {
+        } else {                            /* QUIT */
             glk_put_cstring("\nThanks for playing. Goodbye!\n");
             quitting = true;
             break;
