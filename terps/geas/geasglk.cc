@@ -60,6 +60,7 @@ protected:
     virtual std::string get_string ();
     virtual uint make_choice (const std::string &, std::vector<std::string>);
     virtual GeasResult play_sound (const std::string &filename, bool looped, bool sync);
+    virtual GeasResult wait_keypress (const std::string &);
     virtual bool has_objects_window ();
 
   virtual std::string absolute_name (const std::string &, const std::string &) const;
@@ -687,6 +688,32 @@ GeasGlkInterface::get_file (const std::string &fname) const
       ifs.get(ch);
     } 
   return rv;
+}
+
+/* Show the message (if any) and wait for a single keypress.  Used for the
+ * intro's "|w" and the game's "wait <...>" pauses. */
+GeasResult
+GeasGlkInterface::wait_keypress (const std::string &msg)
+{
+  if (!msg.empty())
+    {
+      glk_put_cstring(msg.c_str());
+      glk_put_char('\n');
+    }
+  glk_request_char_event(mainglkwin);
+  event_t ev;
+  do
+    {
+      glk_select(&ev);
+      if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+        {
+          draw_banner();
+          fill_divider();
+        }
+      /* timers deliberately ignored: the game is paused for the keypress */
+    }
+  while (!(ev.type == evtype_CharInput && ev.win == mainglkwin));
+  return r_success;
 }
 
 std::string
