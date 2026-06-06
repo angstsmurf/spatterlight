@@ -81,13 +81,18 @@ class geas_implementation : public GeasRunner
   mutable std::string last_object;
   v2string current_places;
   bool is_running_;
+  std::string story_filename;   /* used as the save-file's game tag */
   Logger logger;
-  
+
 public:
   geas_implementation (GeasInterface *in_gi)
      : GeasRunner (in_gi), undo_buffer (20), is_running_(true) {}
   //void set_game (std::string s);
   void set_game (const std::string &s);
+  std::string save_state ();
+  bool load_state (const std::string &data);
+  std::string get_location ();
+  void restart ();
 
   bool is_running () const;
   std::string get_banner ();

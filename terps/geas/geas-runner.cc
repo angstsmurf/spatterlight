@@ -28,6 +28,8 @@
 #include "reserved_words.hh"
 #include "geas-impl.hh"
 #include <sstream>
+#include <cstdlib>
+#include <ctime>
 #include "general.hh"
 #include "istring.hh"
 
@@ -800,10 +802,58 @@ void geas_implementation::look()
     }
 }      
 
+void geas_implementation::restart ()
+{
+  /* set_game re-reads and re-initialises everything from scratch (fresh
+   * state, start room, intro, startscript). */
+  set_game (story_filename);
+  is_running_ = (gf.blocks.size() != 0);
+}
+
+std::string geas_implementation::get_location ()
+{
+  string name;
+  if (!get_obj_property (state.location, "alias", name))
+    name = state.location;
+  return name;
+}
+
+std::string geas_implementation::save_state ()
+{
+  state.running = is_running_;
+  return serialize_game (story_filename, state);
+}
+
+bool geas_implementation::load_state (const string &data)
+{
+  GeasState newstate;
+  string gamename;
+  if (!deserialize_game (data, gamename, newstate))
+    return false;
+  state = newstate;
+  is_running_ = state.running = true;
+  /* Rebuild the cached views of the (now restored) current room. */
+  regen_var_room ();
+  regen_var_dirs ();
+  regen_var_look ();
+  regen_var_objects ();
+  look ();
+  return true;
+}
+
 void geas_implementation::set_game (const string &s)
 {
   cerr << "set_game (...)\n";
-  try 
+  story_filename = s;
+  /* Seed the RNG once per game.  Real Quest randomises every run; geas used to
+   * leave rand() unseeded, so any random fight played out identically each time
+   * -- which left World's End's final fight permanently unwinnable.  GEAS_SEED
+   * overrides the seed for reproducible testing. */
+  {
+    const char *envseed = getenv ("GEAS_SEED");
+    srand (envseed ? (unsigned) atoi (envseed) : (unsigned) time (nullptr));
+  }
+  try
     {
       gf = read_geas_file (gi, s);
       if (gf.blocks.size() == 0) {
@@ -1198,6 +1248,24 @@ string geas_implementation::substitute_synonyms (string s) const
 		  if ((k == 0 || s[k-1] == ' ') &&
 		      (end_index == s.length() || s[end_index] == ' '))
 		    {
+		      /* Don't expand the word if it's already part of a complete,
+		       * word-bounded occurrence of its own expansion -- otherwise
+		       * "flag pole" (pole = flag pole) becomes "flag flag pole". */
+		      bool already = false;
+		      for (std::string::size_type p = 0;
+			   (p = s.find (rhs, p)) != string::npos; p ++)
+			{
+			  std::string::size_type pe = p + rhs.length();
+			  if ((p == 0 || s[p-1] == ' ') &&
+			      (pe == s.length() || s[pe] == ' ') &&
+			      p <= k && end_index <= pe)
+			    { already = true; break; }
+			}
+		      if (already)
+			{
+			  k = end_index;
+			  continue;
+			}
 		      s = s.substr (0, k) + rhs + s.substr (k + lhs.length());
 		      k = k + rhs.length();
 		    }
@@ -2013,6 +2081,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	return true;
 
       string object = match.bindings[0].var_text;
+      /* Already carrying it? (Some objects are placed straight into the
+       * inventory by other actions, so a later "take" should not fail.) */
+      if (is_held (object))
+	{
+	  print_formatted ("You already have it.");
+	  return true;
+	}
       if (get_obj_action (object, "take", tok))
 	{
 	  cerr << "Running script '" << tok << "' for take " << object << endl;

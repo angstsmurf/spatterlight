@@ -77,6 +77,8 @@ winid_t mainglkwin;
 winid_t inputwin;
 winid_t bannerwin;
 strid_t inputwinstream;
+static strid_t transcriptstr = nullptr;  /* open transcript file, or null */
+static GeasRunner *g_runner = nullptr;   /* for draw_banner's location readout */
 
 extern const char *storyfilename;  /* defined in geasglkterm.c */
 extern int use_inputwindow;
@@ -85,6 +87,165 @@ static int ignore_lines = 0;  /* count of lines to ignore in game output */
 
 static std::string banner;
 static void draw_banner();
+
+/* Handle the transcript metaverb ("transcript"/"script" on/off).  Returns true
+ * if the command was a transcript command (and should not reach the game).  A
+ * running transcript echoes every line printed to the main window to the file. */
+static bool
+handle_transcript_command(const std::string &raw)
+{
+    std::string c;
+    for (char ch : raw)
+        c += tolower((unsigned char) ch);
+    std::string::size_type a = c.find_first_not_of(" \t\r\n");
+    if (a == std::string::npos)
+        return false;
+    std::string::size_type b = c.find_last_not_of(" \t\r\n");
+    c = c.substr(a, b - a + 1);
+
+    bool on  = (c == "transcript" || c == "transcript on" ||
+                c == "script" || c == "script on");
+    bool off = (c == "transcript off" || c == "script off" ||
+                c == "notranscript" || c == "noscript");
+    if (!on && !off)
+        return false;
+
+    if (on)
+      {
+        if (transcriptstr)
+          {
+            glk_put_string((char *) "A transcript is already being recorded.\n");
+            return true;
+          }
+        frefid_t fref = glk_fileref_create_by_prompt(
+            fileusage_Transcript | fileusage_TextMode, filemode_Write, 0);
+        if (!fref)
+          {
+            glk_put_string((char *) "Transcript cancelled.\n");
+            return true;
+          }
+        transcriptstr = glk_stream_open_file(fref, filemode_Write, 0);
+        glk_fileref_destroy(fref);
+        if (!transcriptstr)
+          {
+            glk_put_string((char *) "Could not open the transcript file.\n");
+            return true;
+          }
+        glk_window_set_echo_stream(mainglkwin, transcriptstr);
+        glk_put_string((char *) "Transcript on: game text is now being saved to a file.\n");
+      }
+    else
+      {
+        if (!transcriptstr)
+          {
+            glk_put_string((char *) "No transcript is being recorded.\n");
+            return true;
+          }
+        glk_put_string((char *) "Transcript off.\n");
+        glk_window_set_echo_stream(mainglkwin, nullptr);
+        glk_stream_close(transcriptstr, nullptr);
+        transcriptstr = nullptr;
+      }
+    return true;
+}
+
+/* Handle the SAVE / RESTORE metaverbs.  Returns true if the command was one of
+ * them (and should not reach the game).  The whole game state goes through a
+ * single Glk file; geas does the (de)serialising. */
+static bool
+handle_saverestore_command(const std::string &raw, GeasRunner *gr)
+{
+    std::string c;
+    for (char ch : raw)
+        c += tolower((unsigned char) ch);
+    std::string::size_type a = c.find_first_not_of(" \t\r\n");
+    if (a == std::string::npos)
+        return false;
+    std::string::size_type b = c.find_last_not_of(" \t\r\n");
+    c = c.substr(a, b - a + 1);
+
+    bool save = (c == "save" || c == "save game");
+    bool restore = (c == "restore" || c == "restore game" ||
+                    c == "load" || c == "load game");
+    if (!save && !restore)
+        return false;
+
+    glui32 usage = fileusage_SavedGame | fileusage_BinaryMode;
+    if (save)
+      {
+        frefid_t fref = glk_fileref_create_by_prompt(usage, filemode_Write, 0);
+        if (!fref) { glk_put_string((char *) "Save cancelled.\n"); return true; }
+        strid_t str = glk_stream_open_file(fref, filemode_Write, 0);
+        glk_fileref_destroy(fref);
+        if (!str) { glk_put_string((char *) "Could not open the save file.\n"); return true; }
+        std::string data = gr->save_state();
+        glk_put_buffer_stream(str, (char *) data.data(), (glui32) data.size());
+        glk_stream_close(str, nullptr);
+        glk_put_string((char *) "Game saved.\n");
+      }
+    else
+      {
+        frefid_t fref = glk_fileref_create_by_prompt(usage, filemode_Read, 0);
+        if (!fref) { glk_put_string((char *) "Restore cancelled.\n"); return true; }
+        strid_t str = glk_stream_open_file(fref, filemode_Read, 0);
+        glk_fileref_destroy(fref);
+        if (!str) { glk_put_string((char *) "Could not open the save file.\n"); return true; }
+        std::string data;
+        char buf[4096];
+        glui32 n;
+        while ((n = glk_get_buffer_stream(str, buf, sizeof buf)) > 0)
+            data.append(buf, n);
+        glk_stream_close(str, nullptr);
+        if (gr->load_state(data))
+            glk_put_string((char *) "\nGame restored.\n");
+        else
+            glk_put_string((char *) "Sorry, that does not look like a saved game for this story.\n");
+      }
+    return true;
+}
+
+/* Handle the QUIT metaverb: print a farewell and ask the loop to stop, rather
+ * than letting the game end the session silently. */
+static bool
+handle_quit_command(const std::string &raw, bool &quitting)
+{
+    std::string c;
+    for (char ch : raw)
+        c += tolower((unsigned char) ch);
+    std::string::size_type a = c.find_first_not_of(" \t\r\n");
+    if (a == std::string::npos)
+        return false;
+    std::string::size_type b = c.find_last_not_of(" \t\r\n");
+    c = c.substr(a, b - a + 1);
+
+    if (c != "quit" && c != "q" && c != "quit game")
+        return false;
+
+    glk_put_string((char *) "\nThanks for playing. Goodbye!\n");
+    quitting = true;
+    return true;
+}
+
+/* Handle the RESTART metaverb: clear the screen and start the game over. */
+static bool
+handle_restart_command(const std::string &raw, GeasRunner *gr)
+{
+    std::string c;
+    for (char ch : raw)
+        c += tolower((unsigned char) ch);
+    std::string::size_type a = c.find_first_not_of(" \t\r\n");
+    if (a == std::string::npos)
+        return false;
+    std::string::size_type b = c.find_last_not_of(" \t\r\n");
+    c = c.substr(a, b - a + 1);
+
+    if (c != "restart" && c != "restart game")
+        return false;
+
+    glk_window_clear(mainglkwin);
+    gr->restart();
+    return true;
+}
 
 void glk_main(void)
 {
@@ -132,6 +293,7 @@ void glk_main(void)
     }
 
     GeasRunner *gr = GeasRunner::get_runner(new GeasGlkInterface());
+    g_runner = gr;
     gr->set_game(storyfilename);
     banner = gr->get_banner();
     draw_banner();
@@ -139,8 +301,9 @@ void glk_main(void)
     glk_request_timer_events(1000);
 
     char buf[200];
+    bool quitting = false;
 
-    while(gr->is_running()) {
+    while(gr->is_running() && !quitting) {
         if (inputwin != mainglkwin)
             glk_window_clear(inputwin);
         else
@@ -160,9 +323,14 @@ void glk_main(void)
             case evtype_LineInput:
                 if(ev.win == inputwin) {
                     std::string cmd = std::string(buf, ev.val1);
-                    if(inputwin == mainglkwin)
-                        ignore_lines = 2;
-                    gr->run_command(cmd);
+                    if(!handle_transcript_command(cmd) &&
+                       !handle_saverestore_command(cmd, gr) &&
+                       !handle_restart_command(cmd, gr) &&
+                       !handle_quit_command(cmd, quitting)) {
+                        if(inputwin == mainglkwin)
+                            ignore_lines = 2;
+                        gr->run_command(cmd);
+                    }
                 }
                 break;
 
@@ -176,6 +344,8 @@ void glk_main(void)
                 break;
             }
         }
+        /* The command (or a timer) may have changed room; refresh the bar. */
+        draw_banner();
     }
 }
 
@@ -194,14 +364,27 @@ draw_banner()
 
       glk_set_style_stream(stream, style_User1);
       glk_window_get_size (bannerwin, &width, NULL);
-      for (index = 0; index < width; index++)
+      for (index = 0; index < (int) width; index++)
         glk_put_char_stream (stream, ' ');
-      glk_window_move_cursor(bannerwin, 1, 0);
 
-      if (banner.empty())
-        glk_put_string_stream(stream, (char*)"Geas 0.4");
-      else
-        glk_put_string_stream(stream, (char*)banner.c_str());
+      /* Left: the game title. */
+      std::string title = banner.empty() ? std::string("Geas 0.4") : banner;
+      glk_window_move_cursor(bannerwin, 1, 0);
+      glk_put_string_stream(stream, (char*) title.c_str());
+
+      /* Right: the current location, right-aligned (if it fits). */
+      std::string loc = g_runner ? g_runner->get_location() : std::string();
+      if (!loc.empty())
+        {
+          loc[0] = toupper((unsigned char) loc[0]);
+          int start = (int) width - (int) loc.size() - 1;
+          int title_end = 1 + (int) title.size() + 1;   /* leave a gap */
+          if (start >= title_end)
+            {
+              glk_window_move_cursor(bannerwin, (glui32) start, 0);
+              glk_put_string_stream(stream, (char*) loc.c_str());
+            }
+        }
     }
 }
 

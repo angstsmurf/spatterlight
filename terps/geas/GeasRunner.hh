@@ -202,6 +202,18 @@ public:
 
   virtual ~GeasRunner() {  }
   virtual void set_game(const std::string &s) = 0;
+
+  /* Save the whole game state to a self-contained string, or restore it from
+   * one (the host performs the actual file I/O).  load_state returns false if
+   * the data is not a usable save. */
+  virtual std::string save_state() { return std::string(); }
+  virtual bool load_state(const std::string &data) { return false; }
+
+  /* Display name of the current room (its alias, or its internal name). */
+  virtual std::string get_location() { return std::string(); }
+
+  /* Throw away all progress and begin the game again from the start. */
+  virtual void restart() {}
   static GeasRunner* get_runner(GeasInterface *gi);
 };
 
