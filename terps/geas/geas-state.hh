@@ -107,6 +107,10 @@ public:
   std::vector<TimerRecord> timers;
   std::vector<SVarRecord> svars;
   std::vector<IVarRecord> ivars;
+  /* Quest 2.x "items": inventory entries managed by give/lose/got that are
+   * separate from world objects (a game may both give an item and hide the
+   * like-named room object).  Held by display name. */
+  std::vector<std::string> items;
   //std::map <std::string, std::string> obj_types;
 
   //void register_block (std::string blockname, std::string blocktype);

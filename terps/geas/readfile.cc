@@ -260,7 +260,8 @@ void GeasFile::read_into (const vector<string> &in_data,
 
   // apparently not all block types are unique ... TODO which?
   // SENSITIVE?
-  if (blocktype == "room" || blocktype == "object" || blocktype == "game")
+  if (blocktype == "room" || blocktype == "object" || blocktype == "game" ||
+      blocktype == "character")
     {
       register_block (out_block.name, blocktype);
     }
@@ -441,8 +442,8 @@ GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
 
   string parentname, parenttype;
 
-  static string pass_names[] = 
-    {"game", "type", "room", "variable", "object", "procedure", 
+  static string pass_names[] =
+    {"game", "type", "room", "variable", "object", "character", "procedure",
      "function", "selection", "synonyms", "text", "timer"};
 
   reserved_words recursive_passes ("game", "room", (char*) NULL),
@@ -465,10 +466,10 @@ GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
 	  actions = reserved_words ("description", "script", "north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "out", "up", "down", (char *) NULL);
 	}
       // SENSITIVE?
-      else if (this_pass == "object")
+      else if (this_pass == "object" || this_pass == "character")
 	{
-	  props = reserved_words ("look", "examine", "speak", "take", "alias", "prefix", "suffix", "detail", "displaytype", "gender", "article", "hidden", "invisible", (char *) NULL);
-	  actions = reserved_words ("look", "examine", "speak", "take", "gain", "lose", "use", "give", (char *) NULL);
+	  props = reserved_words ("look", "examine", "speak", "take", "alias", "prefix", "suffix", "detail", "displaytype", "gender", "article", "hidden", "invisible", "container", (char *) NULL);
+	  actions = reserved_words ("look", "examine", "speak", "take", "gain", "lose", "use", "give", "open", "close", (char *) NULL);
 	}
 	  
       depth = 0;
@@ -490,7 +491,8 @@ GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
 	      else if (depth == 2 && blocktype == this_pass)
 		{
 		  // SENSITIVE?
-		  if (this_pass == "object" && parenttype == "room")
+		  if ((this_pass == "object" || this_pass == "character") &&
+		      parenttype == "room")
 		    read_into (v, parentname, i, false, props, actions);
 		  // SENSITIVE?
 		  else if (this_pass == "variable" && parenttype == "game")
@@ -874,23 +876,20 @@ bool is_balanced (string str)
   return depth == 0;
 }
 
-static int count_depth (const string &str, int count)
+/* The standard Quest libraries ship with Quest itself, not with the games.
+ * stdverbs.lib only supplies the standard verbs/commands that Geas already
+ * implements natively, and net.lib is the multiplayer/networking library which
+ * is irrelevant to single-player play.  Recognise them by name so we don't
+ * fruitlessly look for a file (which would print a "Couldn't open ..." error)
+ * when a game !includes one. */
+static bool is_builtin_quest_library (const string &name)
 {
-  //cerr << "count_depth (" << str << ", " << count << ")" << endl;
-  std::string::size_type index = 0;
-  if (count == 0)
-    index = str.find ('{');
-  while (index < str.length())
-    {
-      if (str[index] == '{')
-	++ count;
-      else if (str[index] == '}')
-	-- count;
-      //cerr << "    After char #" << index << ", count is " << count << endl;
-      ++ index;
-    }
-  //cerr << "returning " << count << endl;
-  return count;
+  string base = name;
+  std::string::size_type slash = base.find_last_of ("/\\");
+  if (slash != string::npos)
+    base = base.substr (slash + 1);
+  base = lcase (base);
+  return base == "stdverbs.lib" || base == "net.lib";
 }
 
 static void handle_includes (const vector<string> &in_data, const string &filename, vector<string> &out_data, GeasInterface *gi)
@@ -909,6 +908,10 @@ static void handle_includes (const vector<string> &in_data, const string &filena
 	      gi->debug_print ("Expected parameter after !include");
 	      continue;
 	    }
+	  /* The standard Quest verb libraries are built into Geas; don't try to
+	   * load them from disk. */
+	  if (is_builtin_quest_library (param_contents (tok)))
+	    continue;
 	  //handle_includes (split_lines (gi->get_file (param_contents (tok))), out_data, gi);
 	  string newname = gi->absolute_name (param_contents(tok), filename);
 	  handle_includes (split_lines (gi->get_file (newname)), newname, out_data, gi);
@@ -1133,69 +1136,60 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	in_text_block = false;
       else if (!is_balanced (str))
 	{
-	  //cerr << "...Special line!" << endl;
+	  /* This line opens a brace block that does not close on the same line.
+	   * Extract the block into a procedure and replace it with a call.  The
+	   * body runs from just after the first '{' up to the matching '}', which
+	   * may sit mid-line (as in "...} else {").  Anything after that '}' is
+	   * left in place to be processed normally, so that "} else {" and
+	   * "} else msg <...>" split into separate statements rather than being
+	   * miscounted as a balanced pair. */
 	  std::string::size_type init_size = v.size();
-	  v.push_back ("define procedure <!intproc" + 
-		       string_int(++int_proc_count) + ">");
-	  //cerr << "Pushing back on v: '" << v[v.size()-1] << "'" << endl;
-
+	  int procnum = ++int_proc_count;
+	  v.push_back ("define procedure <!intproc" + string_int (procnum) + ">");
 
 	  std::string::size_type tmp_index = str.find ('{');
-	  v2.push_back (trim (str.substr (0, tmp_index)) + 
-			" do <!intproc" + string_int (int_proc_count) + "> ");
-	  //cerr << "Done with '" << v2[v2.size()-1] << "'" << endl;
+	  v2.push_back (trim (str.substr (0, tmp_index)) +
+			" do <!intproc" + string_int (procnum) + "> ");
 
-	  {
-	    /*
-	    string tmp_str = trim (str.substr (tmp_index + 1));
-	    if (tmp_str != "")
-	      {
-		v.push_back (tmp_str);
-		cerr << "Pushing back on v: '" << v[v.size()-1] << "'" << endl;
-	      }
-	    */
-	    v.push_back (str.substr (tmp_index + 1));
-	    //cerr << "Pushing back on v: '" << v[v.size()-1] << "'" << endl;
-	  }
-
-	  int count = count_depth (str, 0);
-	  while (++ line < init_size && count != 0)
+	  int depth = 1;
+	  string rest = str.substr (tmp_index + 1);
+	  uint cur = line;
+	  bool closed = false;
+	  string remainder;
+	  for (;;)
 	    {
-	      str = v[line];
-	      count = count_depth (str, count);
-	      if (count != 0)
+	      std::string::size_type p = 0;
+	      while (p < rest.length())
 		{
-		  /*
-		  str = trim(str);
-		  if (str != "")
-		    {
-		      v.push_back (str);
-		      cerr << "Pushing back on v: '" << str << "'" << endl;
-		    }
-		  */
-		  v.push_back (str);
-		  //cerr << "Pushing back on v: '" << str << "'" << endl;
+		  if (rest[p] == '{')
+		    ++ depth;
+		  else if (rest[p] == '}' && -- depth == 0)
+		    break;
+		  ++ p;
 		}
+	      if (depth == 0 && p < rest.length())
+		{
+		  v.push_back (rest.substr (0, p));   /* body up to closing '}' */
+		  remainder = rest.substr (p + 1);    /* e.g. " else { ... }"   */
+		  closed = true;
+		  break;
+		}
+	      v.push_back (rest);                     /* whole line is body     */
+	      if (++ cur >= init_size)
+		break;
+	      rest = v[cur];
 	    }
-	  if (count != 0)
+	  if (!closed)
 	    {
 	      report_error ("Braces Unbalanced");
 	      return false;
 	    }
-	  tmp_index = str.rfind ('}');
-	  {
-	    /*
-	    string tmp2 = trim (str.substr (0, tmp_index));
-	    if (tmp2 != "")
-	      v.push_back (tmp2);
-	    */
-	    v.push_back (str.substr (0, tmp_index));
-	    //cerr << "Pushing back on v: '" << v[v.size()-1] << "'" << endl;
-	  }
-
 	  v.push_back ("end define");
-	  //cerr << "Pushing back on v: '" << v[v.size()-1] << "'" << endl;
-	  //cerr << "Done with special line" << endl;
+
+	  /* Reprocess the closing line in place, now holding only the remainder
+	   * (often empty, or an "else ..." clause), and skip the consumed body. */
+	  line = cur;
+	  v[line] = remainder;
 	  line --;
 	  continue;
 	  // The continue is to avoid the v2.push_back(...);

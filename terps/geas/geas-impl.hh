@@ -76,6 +76,9 @@ class geas_implementation : public GeasRunner
   LimitStack <GeasState> undo_buffer;
   std::vector <std::string> function_args;
   std::string this_object;
+  /* Most recently referenced object, used to resolve pronouns ("it", etc.).
+   * Mutable because object resolution happens in const helpers. */
+  mutable std::string last_object;
   v2string current_places;
   bool is_running_;
   Logger logger;
@@ -95,7 +98,7 @@ public:
 			  std::string action, uint achar, match_rv rv) const;
   bool dereference_vars (std::vector<match_binding> &bindings, bool is_internal) const;
   bool dereference_vars (std::vector<match_binding>&, const std::vector<std::string>&, bool is_internal) const;
-  bool match_object (const std::string &text, const std::string &name, bool is_internal = false) const;
+  bool match_object (const std::string &text, const std::string &name, bool is_internal = false, bool allow_partial = true) const;
   void set_vars (const std::vector<match_binding> &v);
   bool run_commands (std::string, const GeasBlock *, bool is_internal = false);
 
@@ -139,9 +142,20 @@ public:
   void set_obj_property (const std::string &obj, const std::string &prop);
   void set_obj_action (const std::string &obj, const std::string &act);
   void move (const std::string &obj, const std::string &dest);
-  void goto_room (const std::string &room);
+  /* Takes room by value on purpose: a caller may pass a reference into
+   * current_places, which regen_var_dirs() reallocates partway through. */
+  void goto_room (std::string room);
   std::string get_obj_parent (const std::string &obj);
-  
+  /* True if the player is carrying this -- either an object in the inventory or
+   * a Quest 2.x item (which has no world object). */
+  bool is_held (const std::string &name) const;
+  /* True if some non-hidden object in scope is named exactly by this word
+   * (used so a synonym doesn't shadow a real object of that name). */
+  bool names_object_in_scope (const std::string &word) const;
+  /* True if "name" is a reachable, non-hidden container object (so its
+   * contents are reachable too). */
+  bool container_in_scope (const std::string &name, const std::vector<std::string> &where) const;
+
   void print_eval (const std::string &);
   void print_eval_p (const std::string &);
   std::string eval_string (const std::string &s);

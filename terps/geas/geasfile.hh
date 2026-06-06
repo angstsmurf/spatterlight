@@ -76,8 +76,11 @@ struct GeasFile
 		     GeasInterface *gi);
 
   bool obj_has_property (const std::string &objname, const std::string &propname) const;
+  /* preferred_parent: when several blocks share this object name (Quest allows
+   * the same name in different rooms), prefer the one defined in that room. */
   bool get_obj_property (const std::string &objname, const std::string &propname,
-			 std::string &rv) const;
+			 std::string &rv,
+			 const std::string &preferred_parent = "") const;
 
   void get_type_property (const std::string &typenamex, const std::string &propname,
 			  bool &, std::string &) const;
@@ -90,14 +93,20 @@ struct GeasFile
 
   bool obj_has_action (const std::string &objname, const std::string &propname) const;
   bool get_obj_action (const std::string &objname, const std::string &propname,
-		       std::string &rv) const;
+		       std::string &rv,
+		       const std::string &preferred_parent = "") const;
+  /* Returns the object's anonymous "default action" (the unlabelled script
+   * block in the object definition), which Quest runs for the OPEN verb when
+   * no explicit action/property handles it. */
+  bool get_obj_default_action (const std::string &objname, std::string &rv) const;
   void get_type_action (const std::string &typenamex, const std::string &propname,
 			bool &, std::string &) const;
   std::string static_eval (const std::string &) const;
   std::string static_ivar_lookup (const std::string &varname) const;
   std::string static_svar_lookup (const std::string &varname) const;
 
-  const GeasBlock *find_by_name (const std::string &type, const std::string &name) const;
+  const GeasBlock *find_by_name (const std::string &type, const std::string &name,
+				 const std::string &preferred_parent = "") const;
 };
 
 extern std::ostream &operator << (std::ostream &, const GeasBlock &);
