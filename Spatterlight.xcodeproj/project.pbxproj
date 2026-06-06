@@ -604,6 +604,7 @@
 		C3484A7C2F105FF1003D6B4C /* writetiff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C384A6812C6EB06C0081FC50 /* writetiff.cpp */; };
 		C349856C2FD095B7005ABD84 /* libdecompressz80.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */; };
 		C3C3792A2FD0DA290006039B /* libdecompressz80.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */; };
+		C3C3792B2FD0DA290006039B /* libunp64.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; };
 		C349B4DC28803A7C00D99943 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C349B4DA28803A7C00D99943 /* parseinput.c */; };
 		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		C34E570F2CF3941200A8DC2B /* OpenGameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */; };
@@ -1438,6 +1439,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = C36797BA2EF02497008A6A0D;
 			remoteInfo = decompressz80;
+		};
+		C3C3792D2FD0DA290006039B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3F09D7E288892BD0035DAC2;
+			remoteInfo = unp64;
 		};
 		C3D571AA27D8F5EA008FB786 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3596,6 +3604,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3C3792A2FD0DA290006039B /* libdecompressz80.dylib in Frameworks */,
+				C3C3792B2FD0DA290006039B /* libunp64.dylib in Frameworks */,
 				9650380B09F2A4430083E64E /* libglkimp.dylib in Frameworks */,
 				9650380C09F2A4430083E64E /* libglkmain.a in Frameworks */,
 			);
@@ -6728,6 +6737,7 @@
 			);
 			dependencies = (
 				C3C379282FD0DA290006039B /* PBXTargetDependency */,
+				C3C3792E2FD0DA290006039B /* PBXTargetDependency */,
 				965037F209F2A4430083E64E /* PBXTargetDependency */,
 				965037F409F2A4430083E64E /* PBXTargetDependency */,
 			);
@@ -8889,6 +8899,11 @@
 			isa = PBXTargetDependency;
 			target = C36797BA2EF02497008A6A0D /* decompressz80 */;
 			targetProxy = C3C379292FD0DA290006039B /* PBXContainerItemProxy */;
+		};
+		C3C3792E2FD0DA290006039B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3F09D7E288892BD0035DAC2 /* unp64 */;
+			targetProxy = C3C3792D2FD0DA290006039B /* PBXContainerItemProxy */;
 		};
 		C3CEC2BC26A6D0A200120469 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

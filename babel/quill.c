@@ -14,7 +14,7 @@
 
 #define FORMAT quill
 #define HOME_PAGE "http://ifarchive.org/if-archive/programming/quill/"
-#define FORMAT_EXT ".quill,.sna,.s64,.z80"
+#define FORMAT_EXT ".quill,.sna,.s64,.z80,.t64"
 #define NO_METADATA
 #define NO_COVER
 
@@ -169,6 +169,21 @@ static int32 claim_story_file(void *storyvp, int32 extent)
      
      if (extent < 20)
 	 return INVALID_STORY_FILE_RV;
+
+     /* Crunched C64 .t64 tape images can't be recognised structurally (the
+      * Quill database only appears after the game decompresses itself), so
+      * known images are identified by size + a 16-bit additive checksum, as
+      * the scott/taylor modules do for their C64 games. */
+     if (extent >= 96 && !memcmp(zxmemory, "C64", 3))
+     {
+	 unsigned int sum = 0;
+	 int i;
+	 for (i = 0; i < extent; i++)
+	     sum += (unsigned char)zxmemory[i];
+	 sum &= 0xFFFF;
+	 if (extent == 0xbee9 && sum == 0xc404)  /* Blizzard Pass (C64) */
+	     return VALID_STORY_FILE_RV;
+     }
 
      /* A compressed .z80 snapshot won't expose the Quill colour table in its
       * raw bytes (and is usually shorter than the .SNA length check below), so
