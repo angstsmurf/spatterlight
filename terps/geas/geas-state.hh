@@ -132,6 +132,10 @@ public:
 };
 
 extern void save_game_to (const std::string &gamename, const std::string &savename, const GeasState &gs);
+/* Serialize/parse the full game state to/from a self-contained string, leaving
+ * the actual file I/O to the host (Glk). */
+extern std::string serialize_game (const std::string &gamename, const GeasState &gs);
+extern bool deserialize_game (const std::string &filedata, std::string &gamename, GeasState &gs);
 
 extern std::ostream &operator<< (std::ostream &o, const std::map <std::string, std::string> &m);
 extern std::ostream &operator<< (std::ostream &o, const PropertyRecord &pr);

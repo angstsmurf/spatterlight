@@ -30,6 +30,7 @@
 #include <ostream>
 #include <fstream>
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -52,18 +53,49 @@ public:
   GeasOutputStream &put (unsigned long long i) { o << i; o.put (char (0)); return *this; }
   
 
+  /* The full save as a self-contained string: a literal "QUEST300\0game\0"
+   * header followed by the obfuscated body. */
+  string contents (const string &gamename)
+  {
+    string out = string ("QUEST300") + char (0) + gamename + char (0);
+    string tmp = o.str();
+    for (uint i = 0; i < tmp.size(); i ++)
+      out += char ((unsigned char) (255 - (unsigned char) tmp[i]));
+    return out;
+  }
+
   void write_out (const string &gamename, const string &savename)
   {
     ofstream ofs;
-    ofs.open (savename.c_str());
+    ofs.open (savename.c_str(), std::ios::binary);
     if (!ofs.is_open())
       throw string ("Unable to open \"" + savename + "\"");
-    ofs << "QUEST300" << char(0) << gamename << char(0);
-    string tmp = o.str();
-    for (uint i = 0; i < tmp.size(); i ++)
-      ofs << char (255 - tmp[i]);
+    string data = contents (gamename);
+    ofs.write (data.data(), data.size());
     cerr << "Done writing save game\n";
   }
+};
+
+/* Reads back what GeasOutputStream::put() wrote: \0-terminated fields for
+ * strings/ints and single raw bytes for chars. */
+class GeasInputStream {
+  string data;
+  size_t pos;
+public:
+  GeasInputStream (const string &d) : data (d), pos (0) {}
+  bool eof () const { return pos >= data.size(); }
+  char get_char () { return pos < data.size() ? data[pos++] : char (0); }
+  string get_str ()
+  {
+    string s;
+    while (pos < data.size() && data[pos] != 0)
+      s += data[pos++];
+    if (pos < data.size())
+      pos ++;   // skip the terminating null
+    return s;
+  }
+  int get_int () { return atoi (get_str().c_str()); }
+  uint get_uint () { return (uint) strtoul (get_str().c_str(), nullptr, 10); }
 };
 
 template <class T> void write_to (GeasOutputStream &gos, const vector<T> &v) 
@@ -75,6 +107,11 @@ template <class T> void write_to (GeasOutputStream &gos, const vector<T> &v)
     }
 }
   
+void write_to (GeasOutputStream &gos, const string &s)
+{
+  gos.put (s);
+}
+
 void write_to (GeasOutputStream &gos, const PropertyRecord &pr)
 {
   gos.put (pr.name).put (pr.data);
@@ -127,6 +164,7 @@ void write_to (GeasOutputStream &gos, const GeasState &gs)
   write_to (gos, gs.timers);
   write_to (gos, gs.svars);
   write_to (gos, gs.ivars);
+  write_to (gos, gs.items);
 }
 
 void save_game_to (const std::string &gamename, const std::string &savename, const GeasState &gs)
@@ -134,6 +172,66 @@ void save_game_to (const std::string &gamename, const std::string &savename, con
   GeasOutputStream gos;
   write_to (gos, gs);
   gos.write_out (gamename, savename);
+}
+
+std::string serialize_game (const std::string &gamename, const GeasState &gs)
+{
+  GeasOutputStream gos;
+  write_to (gos, gs);
+  return gos.contents (gamename);
+}
+
+/* Parse a save produced by serialize_game()/save_game_to() into gs.  Returns
+ * false if the data is not a recognisable Geas save. */
+bool deserialize_game (const std::string &filedata, std::string &gamename, GeasState &gs)
+{
+  const string magic = "QUEST300";
+  if (filedata.size() < magic.size() + 2) return false;
+  if (filedata.compare (0, magic.size(), magic) != 0) return false;
+  size_t p = magic.size();
+  if (filedata[p] != 0) return false;
+  p ++;
+  gamename.clear();
+  while (p < filedata.size() && filedata[p] != 0) gamename += filedata[p++];
+  if (p >= filedata.size()) return false;
+  p ++;   // skip the null after the game name
+
+  string body;
+  body.reserve (filedata.size() - p);
+  for (size_t i = p; i < filedata.size(); i ++)
+    body += char ((unsigned char) (255 - (unsigned char) filedata[i]));
+  GeasInputStream gis (body);
+
+  gs = GeasState();
+  gs.running = true;
+  gs.location = gis.get_str();
+
+  uint n;
+  n = gis.get_uint();
+  for (uint i = 0; i < n; i ++)
+    { string nm = gis.get_str(), d = gis.get_str(); gs.props.push_back (PropertyRecord (nm, d)); }
+  n = gis.get_uint();
+  for (uint i = 0; i < n; i ++)
+    { ObjectRecord o; o.name = gis.get_str(); o.hidden = (gis.get_char() == 0);
+      o.invisible = (gis.get_char() == 0); o.parent = gis.get_str(); gs.objs.push_back (o); }
+  n = gis.get_uint();
+  for (uint i = 0; i < n; i ++)
+    { string s = gis.get_str(), d = gis.get_str(); gs.exits.push_back (ExitRecord (s, d)); }
+  n = gis.get_uint();
+  for (uint i = 0; i < n; i ++)
+    { TimerRecord t; t.name = gis.get_str(); t.is_running = (gis.get_int() == 0);
+      t.interval = gis.get_uint(); t.timeleft = gis.get_uint(); gs.timers.push_back (t); }
+  n = gis.get_uint();
+  for (uint i = 0; i < n; i ++)
+    { SVarRecord v; v.name = gis.get_str(); uint mx = gis.get_uint();
+      for (uint j = 0; j <= mx; j ++) v.set (j, gis.get_str()); gs.svars.push_back (v); }
+  n = gis.get_uint();
+  for (uint i = 0; i < n; i ++)
+    { IVarRecord v; v.name = gis.get_str(); uint mx = gis.get_uint();
+      for (uint j = 0; j <= mx; j ++) v.set (j, gis.get_int()); gs.ivars.push_back (v); }
+  if (!gis.eof())   // items were appended by our serializer
+    { n = gis.get_uint(); for (uint i = 0; i < n; i ++) gs.items.push_back (gis.get_str()); }
+  return true;
 }
 
 GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
