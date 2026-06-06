@@ -889,17 +889,21 @@ void glk_main(void)
 */
 uchar zmem(ushort addr)
 {
-    if (addr < mem_base || (arch != ARCH_SPECTRUM && 
+    if (addr < mem_base || (arch != ARCH_SPECTRUM &&
 			    (addr >= (mem_base + mem_size))))
     {
-	glk_printf("\n\n*** Invalid address %4.4x requested ***\n\n", addr);
+	/* On the Spectrum this is normally just the early-format (dbver 0)
+	 * database probe overrunning; we longjmp back and retry as a later
+	 * game, so stay silent here. The alarming diagnostic is only useful
+	 * for the non-recoverable cases (other architectures, or a Spectrum
+	 * game that has already failed the retry, handled at the setjmp). */
 	if (arch != ARCH_SPECTRUM)
-	    glk_put_string("Probably not a Quilled game.\n");
-	else
 	{
-	    longjmp(myenv, 1);
+	    glk_printf("\n\n*** Invalid address %4.4x requested ***\n\n", addr);
+	    glk_put_string("Probably not a Quilled game.\n");
+	    glk_exit();
 	}
-        glk_exit();
+	longjmp(myenv, 1);
     }
     
     return zxmemory[addr - mem_base];
