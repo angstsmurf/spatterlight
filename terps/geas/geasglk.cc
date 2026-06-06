@@ -486,8 +486,6 @@ update_objwin(GeasRunner *gr)
             flat += ", ";
         flat += item[0];
     }
-    if (contents.empty())
-        glk_put_string_stream(s, (char *) "(nothing)\n");
 
     std::string key = room + "\x01" + flat;
     if (transcriptstr && key != g_last_objlist) {
