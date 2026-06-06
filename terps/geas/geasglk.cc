@@ -572,10 +572,33 @@ update_objwin(GeasRunner *gr)
         flat += item[0];
     }
 
-    std::string key = room + "\x01" + flat;
+    /* List the room's exits below the objects, under their own subheader (the
+     * original Quest runner showed exits in a separate pane).  Echo them to the
+     * transcript alongside the object list. */
+    vstring exits = gr->get_room_exits();
+    std::string flatexits;
+    if (!exits.empty()) {
+        glk_put_char_stream(s, '\n');
+        glk_set_style_stream(s, style_Subheader);
+        glk_put_string_stream(s, (char *) "Exits\n");
+        glk_set_style_stream(s, style_Normal);
+        for (std::string &exit : exits) {
+            if (exit.empty())
+                continue;
+            glk_put_string_stream(s, (char *) exit.c_str());
+            glk_put_char_stream(s, '\n');
+            if (!flatexits.empty())
+                flatexits += ", ";
+            flatexits += exit;
+        }
+    }
+
+    std::string key = room + "\x01" + flat + "\x01" + flatexits;
     if (transcriptstr && key != g_last_objlist) {
         std::string line = "[ " + (room.empty() ? std::string("Here") : room) +
-            ": " + (flat.empty() ? std::string("nothing") : flat) + " ]\n";
+            ": " + (flat.empty() ? std::string("nothing") : flat) +
+            (flatexits.empty() ? std::string("") : "; exits: " + flatexits) +
+            " ]\n";
         glk_put_string_stream(transcriptstr, (char *) line.c_str());
     }
     g_last_objlist = key;

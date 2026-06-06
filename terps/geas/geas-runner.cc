@@ -856,7 +856,14 @@ void geas_implementation::look()
       (tmp = get_svar ("quest.formatobjects")) != "")
     print_eval ("There is #quest.formatobjects# here.");
 
-  if (!described)
+  /* List the available exits, after the objects.  The original Quest runner
+   * showed these in a separate exits/compass pane; a host that provides a
+   * room-objects pane (see has_objects_window) lists them there instead via
+   * get_room_exits, so only print them in the main window when there is no such
+   * pane.  Do this whether or not the room has a custom description -- otherwise
+   * the player has no way to know which way to go out of a custom-described
+   * room. */
+  if (!gi->has_objects_window())
     {
       if ((tmp = get_svar ("quest.doorways.out")) != "")
 	print_formatted ("You can go out to " + tmp + ".");
@@ -865,10 +872,14 @@ void geas_implementation::look()
 	print_eval ("You can go #quest.doorways.dirs#.");
       if ((tmp = get_svar ("quest.doorways.places")) != "")
 	print_formatted ("You can go to " + tmp + ".");
+    }
+
+  if (!described)
+    {
       if ((tmp = get_svar ("quest.lookdesc")) != "")
 	print_formatted (tmp);
     }
-}      
+}
 
 bool geas_implementation::timer_will_fire ()
 {
@@ -4374,6 +4385,36 @@ v2string geas_implementation::get_room_contents (const string &room)
 	    rv.push_back (tmp);
 	  }
       }
+  return rv;
+}
+
+vstring geas_implementation::get_room_exits ()
+{
+  vstring rv;
+
+  /* Directional exits, in the canonical order, skipping the trailing "out"
+   * (handled separately below so it can show its destination place). */
+  for (size_t i = 0; i + 1 < ARRAYSIZE (dir_names); i ++)
+    if (exit_dest (state.location, dir_names[i]) != "")
+      {
+	string label = dir_names[i];
+	if (!label.empty())
+	  label[0] = toupper ((unsigned char) label[0]);
+	rv.push_back (label);
+      }
+
+  /* The "out" exit, with the place it leads to when one is named. */
+  if (exit_dest (state.location, "out") != "")
+    {
+      string out = get_svar ("quest.doorways.out");
+      rv.push_back (out != "" ? "Out to " + out : string ("Out"));
+    }
+
+  /* Named "place" exits, listed by their displayed destination name. */
+  for (const auto &place: get_places (state.location))
+    if (place.size() > 2 && place[2] != "")
+      rv.push_back (place[2]);
+
   return rv;
 }
 
