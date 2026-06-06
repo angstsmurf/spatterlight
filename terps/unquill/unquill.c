@@ -1138,6 +1138,26 @@ void status_end(void)
     if (nlines < 1)
 	nlines = 1;
 
+    /* The captured description ends with paragraph-break newlines, which
+     * wrap into trailing blank lines; drop them so the delimiter sits flush
+     * against the actual text rather than a row below it. */
+    while (nlines > 1)
+    {
+	char *ln = lines[nlines - 1];
+	int   blank = 1;
+	if (ln)
+	    for (char *p = ln; *p; p++)
+		if (*p != ' ')
+		{
+		    blank = 0;
+		    break;
+		}
+	if (!blank)
+	    break;
+	free(lines[nlines - 1]);
+	nlines--;
+    }
+
     /* Reserve one extra row at the bottom for a TaylorMade-style underline
      * separating the room description from the scrolling buffer below. */
     glk_window_set_arrangement(glk_window_get_parent(statuswin),
