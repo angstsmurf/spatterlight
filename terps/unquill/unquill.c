@@ -112,9 +112,28 @@ in the snapshots I have examined.
 
 #include "decompressz80.h"
 
+/* unp64 (terps/unp64) C interface: decompress a crunched C64 program image.
+ * Used to unpack the self-extracting program inside a .T64 tape image. */
+extern int unp64(uchar *compressed, size_t length, uchar *destinationBuffer,
+		 size_t *finalLength, const char *settings);
+
 extern glui32 gli_determinism;
+#ifdef SPATTERLIGHT
+extern int gli_enable_graphics;
+extern int gli_slowdraw;
+#endif
 
 static ushort ucptr;
+
+/* A ZX Spectrum loading screen (SCREEN$) is a 6912-byte dump of the display
+ * file: 6144 bytes of bitmap followed by 768 bytes of colour attributes (one
+ * byte per 8x8 cell). When we load a .z80 snapshot we keep a copy here so it
+ * can be shown as a title image before the game starts. NULL when absent. */
+#define ZX_SCREEN_SIZE   6912
+#define ZX_BITMAP_SIZE   6144
+#define ZX_SCREEN_WIDTH  256
+#define ZX_SCREEN_HEIGHT 192
+static uchar *zxloadscreen = NULL;
 
 void die(char *fmt, ...)
 {
@@ -224,9 +243,426 @@ static void load_z80(void)
     }
 
     memcpy(zxmemory, uncompressed + (mem_base - 0x4000), mem_size);
+
+    /* Keep the SCREEN$ (display file at 0x4000, i.e. the first 6912 bytes of
+     * the decompressed image) so it can be shown as a loading-screen title. */
+    zxloadscreen = malloc(ZX_SCREEN_SIZE);
+    if (zxloadscreen)
+	memcpy(zxloadscreen, uncompressed, ZX_SCREEN_SIZE);
+
     free(uncompressed);
 
     glk_put_string(".z80 snapshot loaded.\n");
+}
+
+/* --- ZX Spectrum loading-screen (SCREEN$) display ----------------------- *
+ * Ported from the scott interpreter's title_image.c. scott draws into its
+ * saga graphics buffer with PutPixel(); here we render straight into a Glk
+ * graphics window with glk_window_fill_rect() instead. */
+
+/* Standard ZX Spectrum palette: 8 normal colours then their 8 bright variants. */
+static const glui32 zxpalette[16] = {
+    0x000000, 0x0000D7, 0xD70000, 0xD700D7, 0x00D700, 0x00D7D7, 0xD7D700, 0xD7D7D7,
+    0x000000, 0x0000FF, 0xFF0000, 0xFF00FF, 0x00FF00, 0x00FFFF, 0xFFFF00, 0xFFFFFF
+};
+
+static winid_t zx_gw = NULL;            /* The title graphics window */
+static int zx_scale = 1, zx_xoff = 0, zx_yoff = 0;
+
+/* A snapshot captured at a text prompt has no picture: every attribute cell
+ * holds the default black ink on white paper (0x38, ignoring bright/flash).
+ * Such a screen isn't worth showing as a title. */
+static int zx_screen_blank(const uchar *scr)
+{
+    int i;
+    if (!scr)
+	return 1;
+    for (i = ZX_BITMAP_SIZE; i < ZX_SCREEN_SIZE; i++)
+	if ((scr[i] & 0x3f) != 0x38)
+	    return 0;
+    return 1;
+}
+
+/* Recompute scaling and centring for the current graphics window size. */
+static void zx_layout(void)
+{
+    glui32 w, h;
+    int sx, sy;
+    glk_window_get_size(zx_gw, &w, &h);
+    sx = (int)w / ZX_SCREEN_WIDTH;
+    sy = (int)h / ZX_SCREEN_HEIGHT;
+    zx_scale = (sx < sy) ? sx : sy;
+    if (zx_scale < 1)
+	zx_scale = 1;
+    zx_xoff = ((int)w - ZX_SCREEN_WIDTH  * zx_scale) / 2;
+    zx_yoff = ((int)h - ZX_SCREEN_HEIGHT * zx_scale) / 3;
+    if (zx_xoff < 0) zx_xoff = 0;
+    if (zx_yoff < 0) zx_yoff = 0;
+    glk_window_clear(zx_gw);
+}
+
+/* Draw the 8 pixels of one bitmap byte (display-file address bmaddr) using the
+ * attribute currently in scr for that cell. The display file is non-linear, so
+ * the pixel row is recovered from the address bits exactly as on hardware. */
+static void draw_zx_byte(const uchar *scr, int bmaddr)
+{
+    int offset = bmaddr - 0x4000;
+    int col = offset & 0x1f;
+    int y = ((offset & 0x0700) >> 8) | ((offset & 0x00e0) >> 2) | ((offset & 0x1800) >> 5);
+    uchar bits = scr[offset];
+    uchar attr = scr[ZX_BITMAP_SIZE + (y >> 3) * 32 + col];
+    int bright = (attr & 0x40) ? 8 : 0;
+    glui32 ink   = zxpalette[(attr & 0x07) + bright];
+    glui32 paper = zxpalette[((attr >> 3) & 0x07) + bright];
+    /* The flash bit (0x80) is ignored for a static title image. */
+    int b = 0;
+    while (b < 8)
+    {
+	int set = (bits >> (7 - b)) & 1;
+	int start = b;
+	while (b < 8 && (((bits >> (7 - b)) & 1) == set))
+	    b++;
+	glk_window_fill_rect(zx_gw, set ? ink : paper,
+	    zx_xoff + (col * 8 + start) * zx_scale, zx_yoff + y * zx_scale,
+	    (b - start) * zx_scale, zx_scale);
+    }
+}
+
+/* Redraw the cell at a screen address: one bitmap byte, or (for an attribute
+ * address) the whole 8x8 character it colours. */
+static void redraw_zx_cell(const uchar *scr, int addr)
+{
+    if (addr < 0x5800)
+    {
+	draw_zx_byte(scr, addr);
+	return;
+    }
+    int cell = addr - 0x5800;
+    int crow = cell >> 5, ccol = cell & 0x1f;
+    int py;
+    for (py = 0; py < 8; py++)
+    {
+	int y = crow * 8 + py;
+	int offset = ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8) | ccol;
+	draw_zx_byte(scr, 0x4000 + offset);
+    }
+}
+
+static void draw_zx_screen(const uchar *scr)
+{
+    int y, col;
+    if (!scr || !zx_gw)
+	return;
+    for (y = 0; y < ZX_SCREEN_HEIGHT; y++)
+    {
+	int bitmap_row = ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8);
+	for (col = 0; col < 32; col++)
+	    draw_zx_byte(scr, 0x4000 + bitmap_row + col);
+    }
+}
+
+/* Reveal the screen progressively, in the linear order a real Spectrum loaded
+ * it from tape (bitmap top-to-bottom, then the attributes), on a timer. A
+ * keypress dismisses it. */
+#define ZX_REVEAL_TICK_MS 30
+#define ZX_REVEAL_TICKS   120
+
+static void zx_slow_reveal(winid_t keywin)
+{
+    static uchar work[ZX_SCREEN_SIZE];
+    int counts[256] = { 0 };
+    int i, fill = 0, per_tick, pos = 0;
+    event_t ev;
+
+    /* Start from the unrevealed background: black bitmap, attributes set to
+     * the screen's most common fill byte. */
+    for (i = ZX_BITMAP_SIZE; i < ZX_SCREEN_SIZE; i++)
+	counts[zxloadscreen[i]]++;
+    for (i = 1; i < 256; i++)
+	if (counts[i] > counts[fill])
+	    fill = i;
+    memset(work, 0x00, ZX_BITMAP_SIZE);
+    memset(work + ZX_BITMAP_SIZE, (uchar)fill, ZX_SCREEN_SIZE - ZX_BITMAP_SIZE);
+
+    draw_zx_screen(work);
+
+    per_tick = ZX_SCREEN_SIZE / ZX_REVEAL_TICKS;
+    if (per_tick < 1)
+	per_tick = 1;
+
+    glk_request_char_event(keywin);
+    glk_request_timer_events(ZX_REVEAL_TICK_MS);
+
+    do {
+	glk_select(&ev);
+	if (ev.type == evtype_Timer)
+	{
+	    int end = pos + per_tick;
+	    if (end > ZX_SCREEN_SIZE)
+		end = ZX_SCREEN_SIZE;
+	    for (; pos < end; pos++)
+	    {
+		work[pos] = zxloadscreen[pos];
+		redraw_zx_cell(work, 0x4000 + pos);
+	    }
+	    if (pos >= ZX_SCREEN_SIZE)
+		glk_request_timer_events(0);
+	}
+	else if (ev.type == evtype_Arrange)
+	{
+	    zx_layout();
+	    draw_zx_screen(work);
+	}
+    } while (ev.type != evtype_CharInput);
+
+    glk_request_timer_events(0);
+}
+
+/* If a usable loading screen was captured from the snapshot, show it in a
+ * graphics window and wait for a keypress before starting the game. Replaces
+ * mainwin for the duration and opens a fresh text window afterwards. */
+static void show_zx_loadscreen(void)
+{
+    winid_t keywin;
+    event_t ev;
+    int slow = 0;
+
+    if (!zxloadscreen)
+	return;
+#ifdef SPATTERLIGHT
+    if (!gli_enable_graphics)
+    {
+	free(zxloadscreen);
+	zxloadscreen = NULL;
+	return;
+    }
+#endif
+    if (!glk_gestalt(gestalt_Graphics, 0) || zx_screen_blank(zxloadscreen))
+    {
+	free(zxloadscreen);
+	zxloadscreen = NULL;
+	return;
+    }
+
+    if (mainwin)
+    {
+	glk_window_close(mainwin, NULL);
+	mainwin = NULL;
+    }
+
+    zx_gw = glk_window_open(0, 0, 0, wintype_Graphics, 0);
+    if (zx_gw)
+    {
+	glk_window_set_background_color(zx_gw, 0x000000);
+	zx_layout();
+
+	/* Graphics windows can take key input directly on some libraries;
+	 * otherwise borrow a one-line text window below for the keypress. */
+	if (glk_gestalt(gestalt_GraphicsCharInput, 0))
+	{
+	    keywin = zx_gw;
+	}
+	else
+	{
+	    keywin = glk_window_open(zx_gw, winmethod_Below | winmethod_Fixed, 1,
+				     wintype_TextBuffer, 0);
+	    if (!keywin)
+		keywin = zx_gw;
+	}
+
+#ifdef SPATTERLIGHT
+	slow = gli_slowdraw && !gli_determinism;
+#endif
+	if (slow)
+	{
+	    zx_slow_reveal(keywin);
+	}
+	else
+	{
+	    draw_zx_screen(zxloadscreen);
+	    glk_request_char_event(keywin);
+	    do {
+		glk_select(&ev);
+		if (ev.type == evtype_Arrange)
+		{
+		    zx_layout();
+		    draw_zx_screen(zxloadscreen);
+		}
+	    } while (ev.type != evtype_CharInput);
+	}
+
+	if (keywin != zx_gw)
+	    glk_window_close(keywin, NULL);
+	glk_window_close(zx_gw, NULL);
+	zx_gw = NULL;
+    }
+
+    /* Back to a fresh text window for the game itself. */
+    mainwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 0);
+    if (!mainwin)
+    {
+	fprintf(stderr, "could not create glk window!\n");
+	exit(1);
+    }
+    glk_set_window(mainwin);
+
+    free(zxloadscreen);
+    zxloadscreen = NULL;
+}
+
+/* --- C64 .T64 (crunched Quill tape image) loading ---------------------- *
+ * A .T64 holds a crunched, self-extracting C64 program. We extract the first
+ * file, decompress it with the shared unp64 library, then locate the Quill
+ * database and shift the image so its header sits at 0x804 (where the running
+ * C64 Quill engine keeps it, and where our C64 reader expects it). The
+ * decompressed image's pointer tables already contain final runtime
+ * addresses, so the game's own startup copy-up is reproduced by the shift. */
+
+static long safe_word(uchar *img, long size, long idx)
+{
+    if (idx < 0 || idx + 1 >= size)
+	return -1;
+    return img[idx] | (img[idx + 1] << 8);
+}
+
+/* Decode the C64 Quill text record at image offset idx (bytes complemented,
+ * terminated by the byte that decodes to zero) and return the percentage of
+ * printable characters in [0,100], or -1 if it never terminates / is out of
+ * range. */
+static int c64_text_clean(uchar *img, long size, long idx)
+{
+    int len = 0, good = 0;
+    if (idx < 0)
+	return -1;
+    while (idx < size && len < 1000)
+    {
+	uchar cch = (0xFF - img[idx++]) & 0xFF;
+	if (cch == 0)
+	    return len ? (good * 100 / len) : 100;
+	cch &= 0x7F;
+	if (cch == ' ' || (cch >= 9 && cch <= 13) || (cch >= 32 && cch < 127))
+	    good++;
+	len++;
+    }
+    return -1;
+}
+
+/* Scan a decompressed C64 image for the Quill database header. The header is
+ * not necessarily at 0x804 in the freshly-decompressed image (the game copies
+ * itself up at runtime), so we find the offset H whose header decodes valid
+ * system messages and locations, and return the shift S = 0x804 - H that puts
+ * the database at 0x804. Returns 1 and sets *shift on success. */
+static int c64_find_db_shift(uchar *img, long size, long *shift)
+{
+    long H;
+    for (H = 0; H < 0x2000; H++)
+    {
+	uchar car = img[H], nloc = img[H + 2], nmsg = img[H + 3], nsys = img[H + 4];
+	long S = 0x804 - H;
+	long loctop, msgtop, sysbase;
+	int i, total, ok;
+
+	if (!(car >= 1 && car <= 40 && nloc >= 8 && nmsg >= 8 &&
+	      nsys >= 8 && nsys <= 64))
+	    continue;
+	loctop  = safe_word(img, size, H + 11);
+	msgtop  = safe_word(img, size, H + 13);
+	sysbase = safe_word(img, size, H + 15);
+	if (loctop < 0x801 || msgtop < 0x801 || sysbase < 0x801)
+	    continue;
+
+	/* System messages 1..4 are fixed Quill strings; they must decode. */
+	ok = 1;
+	for (i = 1; i <= 4 && ok; i++)
+	{
+	    long ptr = safe_word(img, size, (sysbase - S) + 2 * i);
+	    if (ptr < 0 || c64_text_clean(img, size, ptr - S) < 90)
+		ok = 0;
+	}
+	if (!ok)
+	    continue;
+
+	/* Nearly all locations must decode cleanly (allow a few oddities). */
+	total = 0;
+	for (i = 0; i < nloc; i++)
+	{
+	    long ptr = safe_word(img, size, (loctop - S) + 2 * i);
+	    if (ptr >= 0 && c64_text_clean(img, size, ptr - S) >= 90)
+		total++;
+	}
+	if (total < nloc - nloc / 20)
+	    continue;
+
+	*shift = S;
+	return 1;
+    }
+    return 0;
+}
+
+static void load_t64(void)
+{
+    long filelen, dataoff, datalen, addr, shift;
+    ushort start;
+    uchar *raw, *prg, *img;
+    size_t outlen = 0;
+
+    if (fseek(infile, 0, SEEK_END) || (filelen = ftell(infile)) < 0)
+	die("Cannot read .t64 file '%s'.", inname);
+    rewind(infile);
+
+    raw = malloc(filelen);
+    if (!raw || fread(raw, filelen, 1, infile) != 1)
+	die("Cannot read .t64 file '%s'.", inname);
+    if (filelen < 96 || memcmp(raw, "C64", 3) != 0)
+	die("'%s' is not a C64 .t64 tape image.", inname);
+
+    /* First directory entry is at offset 64: load address at +2, file data
+     * offset (32-bit) at +8. */
+    start   = raw[64 + 2] | (raw[64 + 3] << 8);
+    dataoff = raw[64 + 8] | (raw[64 + 9] << 8) |
+	      ((long)raw[64 + 10] << 16) | ((long)raw[64 + 11] << 24);
+    if (dataoff < 96 || dataoff >= filelen)
+	die("Bad file record in '%s'.", inname);
+    datalen = filelen - dataoff;
+
+    /* Rebuild a .PRG (2-byte load address + data) for unp64. */
+    prg = malloc(datalen + 2);
+    prg[0] = start & 0xFF;
+    prg[1] = (start >> 8) & 0xFF;
+    memcpy(prg + 2, raw + dataoff, datalen);
+    free(raw);
+
+    img = malloc(0x10000);
+    memset(img, 0, 0x10000);
+    if (!unp64(prg, datalen + 2, img, &outlen, NULL))
+    {
+	free(prg);
+	free(img);
+	die("Could not decompress the C64 program in '%s'.", inname);
+    }
+    free(prg);
+
+    if (!c64_find_db_shift(img, 0x10000, &shift))
+    {
+	free(img);
+	die("No C64 Quill database found in '%s'.", inname);
+    }
+
+    /* Lay the image down as C64 memory, shifted so the database is at 0x804. */
+    arch     = ARCH_C64;
+    mem_base = 0;
+    mem_size = 0xFFFF;   /* mem_size is 16-bit; covers all RAM we touch (<0xD000) */
+    dbver    = 5;
+    memset(zxmemory, 0, sizeof(zxmemory));
+    for (addr = 0x800; addr < 0x10000; addr++)
+    {
+	long si = addr - shift;
+	if (si >= 0 && si < 0x10000)
+	    zxmemory[addr] = img[si];
+    }
+    free(img);
+
+    glk_put_string(".t64 C64 Quill game loaded.\n");
 }
 
 void glk_main(void)
@@ -261,6 +697,10 @@ void glk_main(void)
 	if (namelen >= 4 && !strcasecmp(inname + namelen - 4, ".z80"))
 	{
 	    load_z80();
+	}
+	else if (namelen >= 4 && !strcasecmp(inname + namelen - 4, ".t64"))
+	{
+	    load_t64();
 	}
 	else
 	{
@@ -401,9 +841,13 @@ void glk_main(void)
     conntab            = zword(zxptr + 14 + ( dbver ? 2 : 0));
     if(dbver) objmap   = zword(zxptr + 22);
     postab             = zword(zxptr + 18 + ( dbver ? 2 : 0 ));
-    
+
+    /* Show the loading-screen picture (from a .z80 snapshot), if any, before
+     * the game text starts. */
+    show_zx_loadscreen();
+
     /* Run the game */
-    
+
     glk_put_string("\n");
     
     outfile = stderr;
@@ -484,6 +928,31 @@ void dec32(ushort v)
 /* Output a character, assuming 32-column screen */
 void opch32(char ch)
 {
+    /* C64 Quill games lay their text out as hard 40-column lines padded with
+     * spaces (there are no newline codes in the text), so the line breaks come
+     * from the screen wrapping at column 40. Reproduce that column layout
+     * rather than reflowing into paragraphs, which would run every line
+     * together. */
+    if (arch == ARCH_C64)
+    {
+	if (ch == 8)
+	{
+	    if (xpos > 0) xpos--;
+	    return;
+	}
+	glk_put_char(ch);
+	if (ch == '\n')
+	    xpos = 0;
+	else if (xpos >= 39)
+	{
+	    glk_put_char('\n');
+	    xpos = 0;
+	}
+	else
+	    xpos++;
+	return;
+    }
+
 #if 0 // original 32/40 column screen exact replica output
     glk_put_char(ch);
     if (ch == '\n') xpos = 0;

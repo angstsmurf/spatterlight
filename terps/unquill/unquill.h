@@ -100,8 +100,11 @@ void zcode_binary(void);
 
 winid_t mainwin = 0;
 
-uchar zxmemory[0xA500];    /* Spectrum memory from 0x5C00 up 
-			    * In CPC mode, CPC memory from 0x1B00 to 0xBFFF */
+uchar zxmemory[0x10000];   /* Spectrum memory from 0x5C00 up
+			    * In CPC mode, CPC memory from 0x1B00 to 0xBFFF.
+			    * Full 64K so the C64 path (mem_base 0) can hold a
+			    * whole RAM image; larger C64 Quill games such as
+			    * Blizzard Pass use memory up past 0xC000. */
 
 char arch = ARCH_SPECTRUM;		  /* Architecture */
 char copt=0;		  /* -C option */
@@ -160,7 +163,7 @@ char snapid[20];
 
 extern winid_t mainwin;
 
-extern uchar zxmemory[0xA400];
+extern uchar zxmemory[0x10000];
 
 extern char copt, gopt, mopt;
 extern char oopt, xpos, dbver,verbose,nobeep,running,indent,*inname;
