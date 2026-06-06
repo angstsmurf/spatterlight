@@ -1266,16 +1266,22 @@ void opch32(char ch)
 #endif
 }
 
+/* Set once the player has pressed a key during a pause, to skip the rest of a
+ * pause sequence (such as a long scripted intro) up to the next command
+ * prompt. Reset by myreadline() at the start of each turn. */
+static int skip_pauses = 0;
+
 /* Pause for the given number of milliseconds, yielding to the Glk event loop
  * so the display keeps updating, instead of busy-waiting on the system clock.
- * Mirrors the Delay() helper used by the Scott and Taylor interpreters: it
- * honours the user's "delays" preference, and libraries without timer support
- * (such as the stdio CLI harness) simply return at once. */
+ * Like the Delay() helper used by the Scott and Taylor interpreters it honours
+ * the user's "delays" preference and libraries without timer support (such as
+ * the stdio CLI harness) return at once; in addition a keypress cuts the pause
+ * short and skips any remaining pauses until the next command is entered. */
 void do_pause(glui32 millisecs)
 {
     event_t ev;
 
-    if (millisecs == 0)
+    if (millisecs == 0 || skip_pauses)
 	return;
 #ifdef SPATTERLIGHT
     if (!gli_sa_delays)
@@ -1285,10 +1291,15 @@ void do_pause(glui32 millisecs)
 	return;
 
     glk_request_timer_events(millisecs);
+    glk_request_char_event(mainwin);
     do {
 	glk_select(&ev);
-    } while (ev.type != evtype_Timer);
+    } while (ev.type != evtype_Timer && ev.type != evtype_CharInput);
     glk_request_timer_events(0);
+    if (ev.type == evtype_CharInput)
+	skip_pauses = 1;	/* skip the rest of this pause sequence */
+    else
+	glk_cancel_char_event(mainwin);
 }
 
 int getch(void)
@@ -1310,7 +1321,9 @@ int getch(void)
 void myreadline(char *buf, int cap)
 {
     event_t ev;
-    
+
+    skip_pauses = 0;	/* a new turn re-enables scripted pauses */
+
     if (xpos == 0)
 	glk_put_string("> ");
     
