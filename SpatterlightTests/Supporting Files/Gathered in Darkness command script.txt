@@ -1,0 +1,141 @@
+5
+east
+west
+sleep
+
+
+read note
+east
+south
+examine desk
+take radio
+north
+east
+south
+
+
+examine jacket
+north
+west
+west
+unlock door
+take flashlight
+open radio
+put batteries in flashlight
+turn on flashlight
+north
+east
+east
+east
+north
+west
+west
+open gate
+down
+northeast
+northeast
+east
+take pliers
+read note
+west
+use terminal
+southwest
+up
+south
+use computer
+1
+
+6
+north
+down
+southeast
+north
+examine shelves
+take music
+take key
+south
+northwest
+down
+west
+examine bowl
+take fruit
+west
+south
+examine tray
+take grater
+north
+east
+south
+open wallet
+east
+examine stack
+take music
+2
+combine music
+examine bowl
+take golden apple
+northwest
+east
+up
+use key
+1
+northwest
+south
+play piano
+enter code
+
+east
+east
+east
+use computer
+3
+
+5
+
+6
+examine shelves
+
+take keys
+west
+west
+west
+up
+north
+southeast
+southwest
+use tower keys
+south
+go to under the stairs
+take tubing
+out
+up
+flip switch
+east
+south
+take bucket
+north
+east
+free heath
+east
+feed heath
+
+skin corpse
+use bucket
+west
+down
+north
+use keypad
+west
+take syringe
+use syringe on bucket
+east
+northeast
+northwest
+south
+down
+east
+east
+put bucket in drawer
+press button
+south
+

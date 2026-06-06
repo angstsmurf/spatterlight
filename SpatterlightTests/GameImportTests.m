@@ -733,6 +733,11 @@
              commandScriptName:@"Czech"];
 }
 
+- (void)testGeas {
+    [self importAndRunGameFile:@"Gatheredindarkness.cas"
+             commandScriptName:@"Gathered in Darkness"];
+}
+
 - (void)testHugo {
     [self importAndRunGameFile:@"guilty.hex"
              commandScriptName:@"Guilty Bastards"];
