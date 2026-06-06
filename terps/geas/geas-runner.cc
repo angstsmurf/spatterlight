@@ -39,11 +39,6 @@ using namespace std;
 static const string dir_names[] = {"north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "up", "down", "out"};
 static const string short_dir_names[] = {"n", "s", "e", "w", "ne", "nw", "se", "sw", "u", "d", "out"};
 
-//static const ObjectRecord *get_obj_record (const vector<ObjectRecord> &v, const string &name)
-//{
-//  for (const auto &i : v)
-//    if (ci_equal (i.name, name))
-//}
 
 
 
@@ -236,7 +231,6 @@ void geas_implementation::set_ivar (const string &varname, size_t index, int var
       for (size_t varn = 0; varn < gf.size("variable"); varn ++)
 	{
 	  const GeasBlock &go (gf.block ("variable", varn));
-	  //if (go.lname == varname)
 	  if (ci_equal (go.name, varname))
 	    {
 	      string script = "";
@@ -1535,11 +1529,8 @@ void geas_implementation::run_command (const string &s1)
 
 ostream &operator<< (ostream &o, const match_rv &rv) 
 {
-  //o << "match_rv {" << (rv.success ? "TRUE" : "FALSE") << ": " << rv.bindings << "}"; 
   o << "match_rv {" << (rv.success ? "TRUE" : "FALSE") << ": [";
-  //o << rv.bindings.size();
   o << rv.bindings;
-  //  o << rv.bindings[i] << ", ";
   o << "]}"; 
   return o; 
 }
@@ -1789,12 +1780,9 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
   GEAS_DBG << "objs == " << objs << ", printed_objs == " << printed_objs << "\n";
   if (objs.size() > 1)
     {
-      //bindings[i].var_name = bindings[i].var_name.substr(1);
       uint num = 0;
-      //if (objs.size() > 1)
       num = gi->make_choice ("Which " + name + " do you mean?", printed_objs);
 			     
-      //bindings[i].var_text = objs[num];	      
       return objs[num];
     }
   if (objs.size() == 1)
@@ -2271,7 +2259,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	    line = gb->data[i];
 	}
 
-      //gi->debug_print ("COMMAND " + cmd + ": line == " + line);
 
       if (line == "")
 	display_error ("defaultout");
@@ -2286,13 +2273,11 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  else
 	    {
 	      string tmp = trim (line.substr (c2 + 1));
-	      //gi->debug_print ("tmp1 == {" + tmp + "}");
 	      if (tmp != "")
 		run_script_as (state.location, tmp);
 	      else
 		{
 		  tmp = line.substr (c1, c2-c1+1);
-		  //gi->debug_print ("tmp2 == {" + tmp + "}");
 		  if (!is_param (tmp)) report_unsupported ("expected parameter in goto: " + line);
 		  tmp = param_contents (tmp);
 		  c1 = tmp.find (';');
@@ -2611,7 +2596,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	    gi->debug_print ("Bad line " + line + " in selection");
 	}
       if (choices.size() == 0)
-	//gi->debug_print ("No choices in selection " + gb->lname);
 	gi->debug_print ("No choices in selection " + gb->name);
       else
 	run_script (actions[gi->make_choice (question, choices)]);
@@ -2661,7 +2645,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 					       "exit "+dir+" <"+tok+">"));
 	  else
 	    state.exits.push_back (ExitRecord (args[0], "exit <" + tok + ">"));
-	    //gi->debug_print ("Not yet able to create place type exits");
 	  regen_var_dirs();
 	  return;
 	}
@@ -2711,7 +2694,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  gi->debug_print ("Expected two arguments in " + s);
 	  return;
 	}
-      //state.exits.push_back (ExitRecord (args[0], "destroy exit <" + tok + ">"));
       state.exits.push_back (ExitRecord (args[0], "destroy exit " + args[1]));
       regen_var_dirs();
       return;
@@ -2780,7 +2762,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       else
 	run_procedure (fname);
 	  
-      //run_procedure (fname);
       return;
     }
   // SENSITIVE?
@@ -2841,19 +2822,16 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  // SENSITIVE?
 	  if (tmp == "normal")
 	    {
-	      //run_command (trim (tok.substr (0, index)), true, true);
 	      try_match (trim (tok.substr (0, index)), true, true);
 	    }
 	  else
 	    {
 	      gi->debug_print ("Bad " + tmp + " in exec in " + s);
-	      //run_command (trim (tok.substr (0, index)), true, false);
 	      try_match (trim (tok.substr (0, index)), true, false);
 	    }
 	}
       else
 	{
-	  //run_command (trim (tok.substr (0, index)), true, false);
 	  try_match (trim (tok.substr (0, index)), true, false);
 	}
       return;
@@ -3941,7 +3919,6 @@ string geas_implementation::run_function (const string &pname)
     {
       if (function_args.size() == 0)
 	return bad_arg_count (pname);
-      //return get_obj_name (function_args);
       vector<string> where;
       for (size_t i = 1; i < function_args.size(); i ++)
 	{
@@ -4319,17 +4296,14 @@ vstring geas_implementation::get_status_vars ()
 	      {
 		if (is_numeric)
 		  outval = outval + string_int (get_ivar (gb.name));
-		//outval = outval + string_int (get_ivar (gb.lname));
 		else
 		  outval = outval + get_svar (gb.name);
-		//outval = outval + get_svar (gb.lname);
 	      }
 	    else if (disp[j] == '*')
 	      {
 		size_t k;
 		for (k = j + 1; k < disp.length() && disp[k] != '*'; k ++)
 		  ;
-		//if (!is_numeric || get_ivar (gb.lname) != 1)
 		if (!is_numeric || get_ivar (gb.name) != 1)
 		  outval = outval + disp.substr (j+1, k - j - 1);
 		j = k;
@@ -4376,7 +4350,6 @@ string geas_implementation::eval_string (const string &s)
   if (do_print) GEAS_DBG << "eval_string (" << s << ")\n";
   for (i = 0; i < s.length(); i ++)
     {
-      //if (do_print) GEAS_DBG << "e_s: i == " << i << ", s[i] == '" << s[i] << "'\n";
       if (i + 1 < s.length() && s[i] == '#' && s[i+1] == '@')
 	{
 	  for (j = i + 1; j < s.length() && s[j] != '#'; j ++)
@@ -4455,7 +4428,6 @@ string geas_implementation::eval_string (const string &s)
       else if (s[i] == '$')
 	{
 	  std::string::size_type j = s.find ('$', i + 1);
-	  //if (j == rv.size())
 	  if (j == string::npos)
 	    {
 	      gi->debug_print ("Unmatched $s in " + s);
@@ -4513,7 +4485,6 @@ void geas_implementation::tick_timers()
 	      const GeasBlock *gb = gf.find_by_name ("timer", tr.name);
 	      if (gb != NULL)
 		{
-		  //cout << "Running it!\n";
 		  std::string::size_type c1, c2;
 		  for (const auto &line: gb->data)
 		    {

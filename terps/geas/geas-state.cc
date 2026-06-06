@@ -255,7 +255,6 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
     {
       const GeasBlock &go = gf.block ("room", i);
       ObjectRecord data;
-      //data.name = go.lname;
       data.name = go.name;
       data.parent = "";
       data.hidden = data.invisible = true;
@@ -267,7 +266,6 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
     {
       const GeasBlock &go = gf.block ("object", i);
       ObjectRecord data;
-      //data.name = go.lname;
       data.name = go.name;
       if (go.parent == "")
 	data.parent = "";
@@ -341,7 +339,6 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 	      gi.debug_print ("Bad timer line " + line);
 	    }
 	}
-      //tr.name = go.lname;
       tr.name = go.name;
       tr.is_running = (status == "enabled");
       tr.interval = tr.timeleft = parse_int (interval);
@@ -394,7 +391,6 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       if (vartype == "" || vartype == "numeric")
 	{
 	  IVarRecord ivr;
-	  //ivr.name = go.lname;
 	  ivr.name = go.name;
 	  ivr.set (0, parse_int (value));
 	  ivars.push_back (ivr);
@@ -402,7 +398,6 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       else
 	{
 	  SVarRecord svr;
-	  //svr.name = go.lname;
 	  svr.name = go.name;
 	  svr.set (0, value);
 	  svars.push_back (svr);

@@ -44,7 +44,6 @@ string next_token (const string &full, std::string::size_type &tok_start, std::s
   if (tok_start >= full.length())
     {
       tok_start = tok_end = full.length();
-      //tok_start = tok_end = string::npos;
       return "";
     }
   tok_end = tok_start + 1;
@@ -133,12 +132,6 @@ static bool is_define (const string &s)
   return get_token(s) == "define";
 }
 
-//static bool is_define (const string &s, const string &t)
-//{
-//  std::string::size_type t1, t2 = 0;
-//  return next_token (s, t1, t2) == "define" &&
-//    next_token (s, t1, t2) == t;
-//}
 
 static bool is_start_textmode (const string &s)
 {
@@ -374,7 +367,6 @@ void GeasFile::read_into (const vector<string> &in_data,
 	      out_data.push_back(line);
 	    }
 
-	  //if (dup_data != "")
 	  //  out_data.push_back (dup_data);
 	}
       cur_line ++;
@@ -459,7 +451,6 @@ static bool preprocess (vector<string> v, const string &fname, vector<string> &r
 
 GeasFile read_geas_file (GeasInterface *gi, const string &filename)
 {
-  //return GeasFile (split_lines(gi->get_file(s)), gi);
   string file_contents = gi->get_file (filename);
 
   if (file_contents == "")
@@ -496,7 +487,6 @@ GeasFile read_geas_file (GeasInterface *gi, const string &filename)
 
 ostream &operator << (ostream &o, const GeasBlock &gb)
 {
-  //o << "Block " << gb.blocktype << " '" << gb.nname;
   o << "Block " << gb.blocktype << " '" << gb.name;
   if (gb.parent != "")
     {
@@ -1060,7 +1050,6 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
   /* Pass 4:  trim lines, drop blank lines, combine elses */
   
   in_text_block = false;
-//  int_proc_count = 0;
   for (uint line = 0; line < v2.size(); line ++)
     {
       string str = v2[line];
@@ -1077,14 +1066,11 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	str = trim (str);
       if (in_text_block || str != "")
 	rv.push_back (str);
-      //if (rv.size() > 0)
     }
 
-  //rv = v2;
 
 
   return true;
-  //return v2;
 }
 
 
