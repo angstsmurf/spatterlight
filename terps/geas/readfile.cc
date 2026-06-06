@@ -250,7 +250,11 @@ void GeasFile::read_into (const vector<string> &in_data,
     }
   else if (is_param(name))
     {
-      out_block.name = param_contents(name);
+      /* Trim the name: a stray space in "define room <Foo >" would otherwise
+       * leave the block registered as "Foo " while every exit destination is
+       * trimmed to "Foo" (see geas-runner.cc), so find_by_name never matches
+       * and the room becomes an exit-less dead-end. */
+      out_block.name = trim (param_contents(name));
     }
   else if (name != "")
     {
@@ -463,13 +467,13 @@ GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
       if (this_pass == "room")
 	{
 	  props = reserved_words ("look", "alias", "prefix", "indescription", "description", "north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "out", "up", "down", (char *) NULL);
-	  actions = reserved_words ("description", "script", "north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "out", "up", "down", (char *) NULL);
+	  actions = reserved_words ("use", "description", "script", "north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "out", "up", "down", (char *) NULL);
 	}
       // SENSITIVE?
       else if (this_pass == "object" || this_pass == "character")
 	{
-	  props = reserved_words ("look", "examine", "speak", "take", "alias", "prefix", "suffix", "detail", "displaytype", "gender", "article", "hidden", "invisible", "container", (char *) NULL);
-	  actions = reserved_words ("look", "examine", "speak", "take", "gain", "lose", "use", "give", "open", "close", (char *) NULL);
+	  props = reserved_words ("look", "examine", "speak", "take", "alias", "prefix", "suffix", "detail", "displaytype", "gender", "article", "hidden", "invisible", "container", "remove", (char *) NULL);
+	  actions = reserved_words ("look", "examine", "speak", "take", "gain", "lose", "use", "give", "open", "close", "remove", (char *) NULL);
 	}
 	  
       depth = 0;

@@ -162,6 +162,11 @@ public:
   /* True if "name" is a reachable, non-hidden container object (so its
    * contents are reachable too). */
   bool container_in_scope (const std::string &name, const std::vector<std::string> &where) const;
+  /* Default "open <container>" behaviour: a Quest object can declare itself
+   * inside another with a bare "<container>" line, and opening the container
+   * reveals (un-hides) and lists those contents.  Returns false if the named
+   * object holds nothing, so the caller can fall back to "You can't do that". */
+  bool open_container (const std::string &name);
 
   void print_eval (const std::string &);
   void print_eval_p (const std::string &);

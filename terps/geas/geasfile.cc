@@ -666,7 +666,6 @@ void GeasFile::get_type_action (const string &typenamex, const string &actname, 
  
 void GeasFile::register_block (const string &blockname, const string &blocktype)
 {
-  cerr << "registering block " << blockname << " / " << blocktype << endl;
   if (has (obj_types, blockname))
     {
       /* Quest allows the same object name in several rooms (e.g. a "Colony
@@ -682,7 +681,6 @@ void GeasFile::register_block (const string &blockname, const string &blocktype)
 
 string GeasFile::static_svar_lookup (const string &varname) const
 {
-  cerr << "static_svar_lookup(" << varname << ")" << endl;
   //varname = lcase (varname);
   for (size_t i = 0; i < size("variable"); i ++)
     //if (blocks[i].lname == varname)
