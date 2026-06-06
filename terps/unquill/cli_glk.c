@@ -54,6 +54,14 @@ winid_t glk_window_open(winid_t split, glui32 method, glui32 size,
 void glk_window_get_size(winid_t win, glui32 *widthptr, glui32 *heightptr)
 { (void)win; if (widthptr) *widthptr = 0; if (heightptr) *heightptr = 0; }
 
+/* The status grid is unused in the CLI harness (glk_window_get_size reports
+ * width 0, so the description falls back to inline buffer output). */
+winid_t glk_window_get_parent(winid_t win) { (void)win; return WIN; }
+void glk_window_set_arrangement(winid_t win, glui32 method, glui32 size, winid_t keywin)
+{ (void)win; (void)method; (void)size; (void)keywin; }
+void glk_window_move_cursor(winid_t win, glui32 xpos, glui32 ypos)
+{ (void)win; (void)xpos; (void)ypos; }
+
 void glk_window_fill_rect(winid_t win, glui32 color, glsi32 left, glsi32 top,
 			  glui32 width, glui32 height)
 { (void)win; (void)color; (void)left; (void)top; (void)width; (void)height; }
