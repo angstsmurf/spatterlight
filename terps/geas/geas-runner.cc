@@ -1014,7 +1014,12 @@ void geas_implementation::set_game (const string &s)
       regen_var_dirs ();
       regen_var_look ();
       look();
-    } 
+      /* Start a fresh undo history (RESTART reuses this object) and seed it
+       * with the opening state so the first command can be undone too. */
+      undo_buffer = LimitStack<GeasState> (20);
+      if (state.running)
+	undo_buffer.push (state);
+    }
   catch (string s)
     {
       cerr << s << endl;
@@ -1387,6 +1392,13 @@ void geas_implementation::run_command (const string &s1)
       undo_buffer.pop();
       state = undo_buffer.peek();
       print_formatted ("Undone.");
+      /* Rebuild the cached views of the restored state and redescribe the
+       * room, so the player can see where the undo put them. */
+      regen_var_room ();
+      regen_var_dirs ();
+      regen_var_look ();
+      regen_var_objects ();
+      look ();
       return;
     }
 
