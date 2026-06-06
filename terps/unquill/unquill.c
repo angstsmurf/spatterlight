@@ -108,6 +108,9 @@ in the snapshots I have examined.
 
 #include <setjmp.h>
 #include <getopt.h>
+#include <strings.h>
+
+#include "decompressz80.h"
 
 extern glui32 gli_determinism;
 
@@ -184,6 +187,48 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
 static jmp_buf myenv;
 
+/* Load a .z80 snapshot (the common Spectrum emulator format, which the
+ * plain .SNA reader below cannot handle because it is usually compressed).
+ * We decompress the whole 48K image with the shared decompressz80 library
+ * and copy the part the Quill engine cares about (0x5C00 upwards) into
+ * zxmemory, exactly as the .SNA path does. */
+static void load_z80(void)
+{
+    long filelen;
+    uchar *raw;
+    uchar *uncompressed;
+    size_t len;
+
+    if (fseek(infile, 0, SEEK_END) || (filelen = ftell(infile)) < 0)
+    {
+	die("Cannot read .z80 file '%s'.", inname);
+    }
+    rewind(infile);
+
+    raw = malloc(filelen);
+    if (!raw || fread(raw, filelen, 1, infile) != 1)
+    {
+	die("Cannot read .z80 file '%s'.", inname);
+    }
+
+    len = (size_t)filelen;
+    uncompressed = DecompressZ80(raw, &len);
+    free(raw);
+
+    /* DecompressZ80 returns the RAM image starting at 0x4000 (0xC000 bytes
+     * for a 48K snapshot, more for 128K). We need everything from 0x5C00. */
+    if (!uncompressed || len < (size_t)((mem_base - 0x4000) + mem_size))
+    {
+	free(uncompressed);
+	die("'%s' is not a usable Spectrum .z80 snapshot.", inname);
+    }
+
+    memcpy(zxmemory, uncompressed + (mem_base - 0x4000), mem_size);
+    free(uncompressed);
+
+    glk_put_string(".z80 snapshot loaded.\n");
+}
+
 void glk_main(void)
 {
     ushort n, seekpos;
@@ -201,64 +246,77 @@ void glk_main(void)
     
     /* Load the snapshot. To save space, we ignore the printer
     buffer and the screen, which can contain nothing of value. */
-    
-    /* << v0.7: Check for CPC6128 format */
-    
-    if (fread(snapid, sizeof(snapid), 1, infile) != 1)
-    {
-	die("Not in Spectrum, CPC or C64 snapshot format.");
-    }
-    
+
     arch       = ARCH_SPECTRUM;
     seekpos    = 0x1C1B;	/* Number of bytes to skip in the file */
     mem_base   = 0x5C00;	/* First address loaded */
     mem_size   = 0xA400;	/* Number of bytes to load from it */
     mem_offset = 0x3FE5;	/* Load address of snapshot in host system memory */
-    
-    /* CPCEMU snapshot */
-    if (!memcmp(snapid, "MV - SNA", 9))
+
+    /* .z80 snapshots are a different (and usually compressed) format, so
+    they get their own loader. Everything else is a raw .SNA-style dump. */
     {
-	arch = ARCH_CPC;
-	
-	seekpos    = 0x1C00;
-	mem_base   = 0x1B00;
-	mem_size   = 0xA500;
-	mem_offset = -0x100;
-	dbver = 10;	/* CPC engine is equivalent to the "later" Spectrum one. */
-	
-	glk_put_string("CPC snapshot signature found.\n");
-    }
-    
-    /* VICE snapshot */
-    if (!memcmp(snapid, "VICE Snapshot File\032", 19))
-    {
-	arch = ARCH_C64;
-	
-	seekpos    =  0x874;
-	mem_base   =  0x800;
-	mem_size   = 0xA500;
-	mem_offset =  -0x74;
-	dbver = 5;	/* C64 engine is between the two Spectrum ones. */
-	
-	glk_put_string("C64 snapshot signature found.\n");
-    }
-    
-    /* >> v0.7 */
-    
-    /* Skip screen/printer buffer/registers and load the rest */
-    
-    if (fseek(infile,seekpos,SEEK_SET))
-    {
-	perror(inname);
-	exit(1);
-    }
-    
-    /* Load file */
-    
-    if (fread(zxmemory, mem_size, 1, infile) != 1)
-    {
-	perror (inname);
-	exit(1);
+	size_t namelen = strlen(inname);
+
+	if (namelen >= 4 && !strcasecmp(inname + namelen - 4, ".z80"))
+	{
+	    load_z80();
+	}
+	else
+	{
+	    /* << v0.7: Check for CPC6128 format */
+
+	    if (fread(snapid, sizeof(snapid), 1, infile) != 1)
+	    {
+		die("Not in Spectrum, CPC or C64 snapshot format.");
+	    }
+
+	    /* CPCEMU snapshot */
+	    if (!memcmp(snapid, "MV - SNA", 9))
+	    {
+		arch = ARCH_CPC;
+
+		seekpos    = 0x1C00;
+		mem_base   = 0x1B00;
+		mem_size   = 0xA500;
+		mem_offset = -0x100;
+		dbver = 10;	/* CPC engine is equivalent to the "later" Spectrum one. */
+
+		glk_put_string("CPC snapshot signature found.\n");
+	    }
+
+	    /* VICE snapshot */
+	    if (!memcmp(snapid, "VICE Snapshot File\032", 19))
+	    {
+		arch = ARCH_C64;
+
+		seekpos    =  0x874;
+		mem_base   =  0x800;
+		mem_size   = 0xA500;
+		mem_offset =  -0x74;
+		dbver = 5;	/* C64 engine is between the two Spectrum ones. */
+
+		glk_put_string("C64 snapshot signature found.\n");
+	    }
+
+	    /* >> v0.7 */
+
+	    /* Skip screen/printer buffer/registers and load the rest */
+
+	    if (fseek(infile,seekpos,SEEK_SET))
+	    {
+		perror(inname);
+		exit(1);
+	    }
+
+	    /* Load file */
+
+	    if (fread(zxmemory, mem_size, 1, infile) != 1)
+	    {
+		perror (inname);
+		exit(1);
+	    }
+	}
     }
     
     /* .SNA read ok. Find a Quill signature */
