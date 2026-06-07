@@ -188,7 +188,8 @@ void playgame(ushort zxptr)
 			}
 			else
 			{
-			    /* draw graphics for location ... ? */
+				/* Draw the location's Illustrator picture, if any. */
+				draw_location_graphic(CURLOC);
 
 				oneitem(loctab,CURLOC);
 				opch32('\n');

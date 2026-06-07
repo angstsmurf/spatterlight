@@ -69,6 +69,7 @@ void put_ch(char);
 void put_str(char *);
 void status_begin(void);
 void status_end(void);
+void draw_location_graphic(uchar loc);
 void do_pause(glui32 millisecs);
 #ifdef SPATTERLIGHT
 void win_beep_spectrum(int pitch, int duration);
