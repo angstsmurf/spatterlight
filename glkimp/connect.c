@@ -1,6 +1,8 @@
 #include "glkimp.h"
 #include "protocol.h"
 
+#include <math.h>
+
 //#define DEBUG
 
 #define PBUFSIZE (GLKBUFSIZE / sizeof(unsigned short))
@@ -402,6 +404,22 @@ void win_beep(int type)
 {
     win_flush();
     sendmsg(BEEP, type, 0, 0, 0, 0, 0, NULL);
+}
+
+/* Play an accurate ZX Spectrum BEEP tone, given the raw (pitch, duration)
+ * bytes from a Quill/PAW BEEP. The pitch byte is mapped through an equal-
+ * tempered semitone table (byte 128 -> A4, 440 Hz) and the duration byte is
+ * taken to be centiseconds, matching the original Quill timing. The frequency
+ * (Hz) and length (ms) are sent to the app, which synthesises a square wave;
+ * a1 == 0 distinguishes this from the canned win_beep() sounds (a1 == 1/2).
+ * Shared by the unquill and Taylor interpreters so both sound identical. */
+void win_beep_spectrum(int pitch, int duration)
+{
+    int frequency = (int)(440.0 * pow(2.0, (pitch - 128) / 12.0) + 0.5);
+    int millisecs = duration * 10;
+
+    win_flush();
+    sendmsg(BEEP, 0, frequency, millisecs, 0, 0, 0, NULL);
 }
 
 

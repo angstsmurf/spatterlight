@@ -87,6 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
                duration:(glui32)duration
                  notify:(glui32)notify;
 
+- (void)playSpectrumBeepFrequency:(int)frequency duration:(int)millisecs;
+
 - (void)handlePlaySoundOnChannel:(int)channel repeats:(glsi32)repeats notify:(glui32)notify;
 - (void)handleStopSoundOnChannel:(int)channel;
 - (void)handlePauseOnChannel:(int)channel;

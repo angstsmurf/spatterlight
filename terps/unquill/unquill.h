@@ -70,6 +70,9 @@ void put_str(char *);
 void status_begin(void);
 void status_end(void);
 void do_pause(glui32 millisecs);
+#ifdef SPATTERLIGHT
+void win_beep_spectrum(int pitch, int duration);
+#endif
 void opcact(char,char *);
 void expch (uchar, ushort *);
 void expdict (uchar, ushort *);

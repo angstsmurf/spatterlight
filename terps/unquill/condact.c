@@ -332,15 +332,26 @@ rem0001:  cdone=1;
           flags[n]=zmem(++ccond);
           break;
 	case 36: /* BEEP */
-          if (!nobeep) fputc(7,stderr);
-          n=zmem(++ccond);
-	  ccond++;
-          if (n>0) n--;
-          n=n/100;
-          n++;
-          fflush(stderr);
-          do_pause((glui32)n * 1000);
+        {
+          uchar bdur = zmem(++ccond);	/* note duration, in centiseconds */
+          uchar bpitch = zmem(++ccond);	/* note pitch */
+          if (!nobeep)
+          {
+#ifdef SPATTERLIGHT
+            /* Play the actual ZX Spectrum tone. */
+            win_beep_spectrum(bpitch, bdur);
+#else
+            fputc(7, stderr);
+            fflush(stderr);
+#endif
+          }
+          /* Hold for the note's real length so a tune keeps its rhythm (and the
+           * synthesised tone has time to play). The old code rounded every note
+           * up to a whole second, so the 15-note intro tune in Bored of the
+           * Rings dragged on for 15s instead of ~2.4s. */
+          do_pause((glui32)bdur * 10);
           break;
+        }
         default:
           fprintf(stderr,"Invalid action %d\n",cact);
         }
