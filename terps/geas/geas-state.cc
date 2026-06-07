@@ -311,6 +311,20 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 	      break;
 	    }
 	}
+      /* "startin <room>": for a top-level object with no room from nesting or
+       * an explicit parent, place it in the named room (Quest's startin). */
+      if (data.parent == "")
+	for (const auto &line: go.data)
+	  {
+	    std::string::size_type c1, c2;
+	    if (first_token (line, c1, c2) == "startin")
+	      {
+		std::string p = next_token (line, c1, c2);
+		if (is_param (p))
+		  data.parent = param_contents (p);
+		break;
+	      }
+	  }
       data.hidden = data.invisible = false;
       objs.push_back (data);
     }

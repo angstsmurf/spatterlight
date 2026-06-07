@@ -356,9 +356,12 @@ bool geas_implementation::get_obj_property(const string &obj, const string &prop
 	    return true;
 	  }
 	std::string::size_type index = dat.find ('=');
-	if (index != string::npos && ci_equal (dat.substr (0, index), is_prop))
+	if (index != string::npos && ci_equal (trim (dat.substr (0, index)), is_prop))
 	  {
-	    string_rv = dat.substr (index+1);
+	    /* Trim so "prop = val" (spaces around '=', as some games write) reads
+	     * back the same as "prop=val"; otherwise the name carries a trailing
+	     * space and never matches, and the value carries a leading one. */
+	    string_rv = trim (dat.substr (index+1));
 	    return true;
 	  }
       }
@@ -368,8 +371,17 @@ bool geas_implementation::get_obj_property(const string &obj, const string &prop
 void geas_implementation::set_obj_property (const string &obj, const string &prop)
 {
   state.add_prop (obj, "properties " + prop);
-  if (ci_equal (prop, "hidden") || ci_equal (prop, "not hidden") ||
-      ci_equal (prop, "invisible") || ci_equal (prop, "not invisible"))
+  /* Recompute the pane (and container visibility) when something that affects
+   * what is in scope changes: an object's own visibility, or a container's
+   * open/closed/seen/transparency that governs its contents. */
+  string base = prop;
+  if (base.compare (0, 4, "not ") == 0)
+    base = base.substr (4);
+  if (ci_equal (base, "hidden")    || ci_equal (base, "invisible")  ||
+      ci_equal (base, "open")      || ci_equal (base, "closed")     ||
+      ci_equal (base, "opened")    || ci_equal (base, "seen")       ||
+      ci_equal (base, "transparent") || ci_equal (base, "container") ||
+      ci_equal (base, "surface"))
     {
       gi->update_sidebars();
       regen_var_objects();
@@ -431,14 +443,40 @@ bool geas_implementation::names_object_in_scope (const string &word) const
   return false;
 }
 
+bool geas_implementation::container_is_open (const string &name) const
+{
+  /* Honour an explicit open/closed state -- set by the open/close verbs, or
+   * declared with "opened"/"closed".  A container with no stated state defaults
+   * to closed, as in Quest.  (The state flag is "opened" -- Quest's name --
+   * rather than "open", so it does not collide with the "open" verb's own
+   * action/property lookup.) */
+  if (has_obj_property (name, "opened")) return true;
+  if (has_obj_property (name, "closed")) return false;
+  return false;
+}
+
 bool geas_implementation::container_in_scope (const string &name, const vector<string> &where) const
 {
   for (const auto &o: state.objs)
     {
       if (!ci_equal (o.name, name))
 	continue;
-      if (!has_obj_property (o.name, "container") || has_obj_property (o.name, "hidden"))
+      bool is_surface = has_obj_property (o.name, "surface");
+      if ((!has_obj_property (o.name, "container") && !is_surface) ||
+	  has_obj_property (o.name, "hidden"))
 	return false;
+      /* Reachability of the contents (Quest's rule): a surface's are always
+       * reachable; a container's only when it is open or transparent (you can
+       * see through a transparent container even while shut) AND it has been
+       * "seen" -- discovered by looking at, opening, or putting into it -- so
+       * the contents of an as-yet-undiscovered container are out of scope. */
+      if (!is_surface)
+	{
+	  if (!container_is_open (o.name) && !has_obj_property (o.name, "transparent"))
+	    return false;
+	  if (!has_obj_property (o.name, "seen"))
+	    return false;
+	}
       for (const auto &loc: where)
 	if (loc == "game" || ci_equal (o.parent, loc))
 	  return true;
@@ -448,44 +486,131 @@ bool geas_implementation::container_in_scope (const string &name, const vector<s
   return false;
 }
 
-bool geas_implementation::open_container (const string &name)
+string geas_implementation::obj_parent (const string &obj) const
 {
-  /* A Quest object declares it sits inside a container with a bare
-   * "<container>" line in its definition.  Per the Quest container model a
-   * container hides its children until it is opened, then reveals them -- but
-   * geas otherwise ignores that line, leaving such objects permanently hidden.
-   * Collect everything declared inside `name`, un-hide it, and list it. */
-  vector<string> contents, shown_names;
+  for (const auto &o: state.objs)
+    if (ci_equal (o.name, obj))
+      return o.parent;
+  return "";
+}
+
+string geas_implementation::room_of (const string &obj) const
+{
+  string p = obj_parent (obj);
+  for (int guard = 0; guard < 64 && p != ""; guard++)
+    {
+      if (!has_obj_property (p, "container") && !has_obj_property (p, "surface"))
+	return p;            /* p is a room/inventory, not a container */
+      p = obj_parent (p);    /* p is a container -> keep walking up */
+    }
+  return p;
+}
+
+bool geas_implementation::content_available (const string &P) const
+{
+  bool surf = has_obj_property (P, "surface");
+  if (!surf && !has_obj_property (P, "container"))
+    return false;
+  if (!surf)
+    {
+      if (!container_is_open (P) && !has_obj_property (P, "transparent"))
+	return false;
+      if (!has_obj_property (P, "seen"))
+	return false;
+    }
+  /* Is P itself reachable?  If it sits directly in a room/inventory, it is
+   * available unless it has been (authored-)hidden.  If it is nested inside
+   * another container, its availability is that container's.  We deliberately
+   * read the parent chain's *state* (not the sweep-managed hidden flags) so the
+   * result is independent of the order objects are swept. */
+  string pp = obj_parent (P);
+  if (pp == "" || (!has_obj_property (pp, "container") && !has_obj_property (pp, "surface")))
+    return !has_obj_property (P, "hidden");
+  return content_available (pp);
+}
+
+void geas_implementation::update_container_visibility ()
+{
+  if (sweeping)
+    return;
+  sweeping = true;
   for (const auto &o: state.objs)
     {
-      const GeasBlock *gb = gf.find_by_name ("object", o.name);
-      if (gb == NULL)
-	continue;
-      for (const string &line: gb->data)
-	{
-	  std::string::size_type c1, c2;
-	  string tok = first_token (line, c1, c2);
-	  /* a bare "<container>" line, with nothing after it */
-	  if (is_param (tok) && next_token (line, c1, c2) == "" &&
-	      ci_equal (trim (param_contents (tok)), name))
-	    {
-	      contents.push_back (o.name);
-	      break;
-	    }
-	}
+      const string &p = o.parent;
+      if (p == "" ||
+	  (!has_obj_property (p, "container") && !has_obj_property (p, "surface")))
+	continue;   /* only objects inside a container/surface are swept */
+      bool avail = content_available (p);
+      bool hidden = has_obj_property (o.name, "hidden");
+      /* Toggle via add_prop (not set_obj_property) so we don't recurse through
+       * regen; only when it actually changes, to bound state.props growth. */
+      if (avail && hidden)
+	state.add_prop (o.name, "properties not hidden");
+      else if (!avail && !hidden)
+	state.add_prop (o.name, "properties hidden");
     }
-  if (contents.empty ())
-    return false;   /* not a container: caller falls back to "can't do that" */
+  sweeping = false;
+}
 
-  for (const string &c: contents)
+/* True if object `obj` is declared inside container `name` with a bare
+ * "<name>" line (the line is a lone parameter and nothing else). */
+bool geas_implementation::declared_inside (const string &obj, const string &name) const
+{
+  const GeasBlock *gb = gf.find_by_name ("object", obj);
+  if (gb == NULL)
+    return false;
+  for (const string &line: gb->data)
     {
-      if (has_obj_property (c, "hidden"))
-	set_obj_property (c, "not hidden");
+      std::string::size_type c1, c2;
+      string tok = first_token (line, c1, c2);
+      if (is_param (tok) && next_token (line, c1, c2) == "" &&
+	  ci_equal (trim (param_contents (tok)), name))
+	return true;
+    }
+  return false;
+}
+
+vector<string> geas_implementation::container_contents (const string &name) const
+{
+  vector<string> rv;
+  for (const auto &o: state.objs)
+    if (ci_equal (o.parent, name) || declared_inside (o.name, name))
+      {
+	string disp;
+	if (!get_obj_property (o.name, "alias", disp))
+	  disp = o.name;
+	rv.push_back (disp);
+      }
+  return rv;
+}
+
+bool geas_implementation::open_container (const string &name)
+{
+  /* A container's contents are either parented to it (the container_in_scope
+   * model) or declared inside it with a bare "<container>" line (which we
+   * un-hide).  Mark the container open so its contents come into scope, then
+   * reveal/list both kinds. */
+  bool is_container = has_obj_property (name, "container");
+  vector<string> shown_names;
+  for (const auto &o: state.objs)
+    {
+      bool inside = ci_equal (o.parent, name) || declared_inside (o.name, name);
+      if (!inside)
+	continue;
+      is_container = true;
+      if (has_obj_property (o.name, "hidden"))
+	set_obj_property (o.name, "not hidden");
       string disp;
-      if (!get_obj_property (c, "alias", disp))
-	disp = c;
+      if (!get_obj_property (o.name, "alias", disp))
+	disp = o.name;
       shown_names.push_back (disp);
     }
+  if (!is_container)
+    return false;   /* not a container: caller falls back to "can't do that" */
+
+  set_obj_property (name, "not closed");
+  set_obj_property (name, "opened");
+  set_obj_property (name, "seen");   /* opening it discovers it (seen gate) */
 
   string msg = "You open the " + name + ".";
   for (size_t i = 0; i < shown_names.size (); i++)
@@ -497,6 +622,32 @@ bool geas_implementation::open_container (const string &name)
   return true;
 }
 
+bool geas_implementation::close_container (const string &name)
+{
+  /* Mark the container closed -- its parent-based contents leave scope via
+   * container_in_scope -- and re-hide any bare-line contents still inside (not
+   * carried off by the player). */
+  bool is_container = has_obj_property (name, "container");
+  vector<string> bareline;
+  for (const auto &o: state.objs)
+    {
+      if (ci_equal (o.parent, name))
+	is_container = true;
+      else if (declared_inside (o.name, name))
+	{ is_container = true; bareline.push_back (o.name); }
+    }
+  if (!is_container)
+    return false;
+
+  set_obj_property (name, "not opened");
+  set_obj_property (name, "closed");
+  for (const string &c: bareline)
+    if (!is_held (c))
+      set_obj_property (c, "hidden");
+  print_formatted ("You close the " + name + ".");
+  return true;
+}
+
 void geas_implementation::goto_room (string room)
 {
   state.location = room;
@@ -504,10 +655,14 @@ void geas_implementation::goto_room (string room)
   regen_var_dirs();
   regen_var_look();
   regen_var_objects();
+  /* Quest's order (PlayGame): describe the room first, then run its entry
+   * script.  If that script gotos another room, the nested goto describes the
+   * destination -- so, unlike the old script-then-look order, there is no
+   * trailing look() here to redescribe after a redirect. */
+  look();
   string scr;
   if (get_obj_action (room, "script", scr))
     run_script_as (room, scr);
-  look();
 }
 
 void geas_implementation::display_error (string errorname, string obj)
@@ -596,6 +751,14 @@ void geas_implementation::display_error (string errorname, string obj)
     print_eval ("Time passes...");
   else if (errorname == "defaultverb")
     print_eval ("You can't do that.");
+  else if (errorname == "alreadyopen")
+    print_eval ("It is already open.");
+  else if (errorname == "alreadyclosed")
+    print_eval ("It is already closed.");
+  else if (errorname == "cantopen")
+    print_eval ("You can't open that.");
+  else if (errorname == "cantclose")
+    print_eval ("You can't close that.");
   else if (errorname == "defaultout")
     print_eval ("There's nowhere you can go out to around here.");
   else if (errorname == "badplace")
@@ -1119,7 +1282,16 @@ void geas_implementation::set_game (const string &s)
       regen_var_objects ();
       regen_var_dirs ();
       regen_var_look ();
+      /* Quest enters the start room like any other (PlayGame): describe it,
+       * then run its entry script -- which may immediately goto the real first
+       * room (a "please wait" start room).  That nested goto describes the
+       * destination, so there is no second describe here. */
       look();
+      {
+	string start_scr;
+	if (get_obj_action (state.location, "script", start_scr))
+	  run_script_as (state.location, start_scr);
+      }
       /* Start a fresh undo history (RESTART reuses this object) and seed it
        * with the opening state so the first command can be undone too. */
       undo_buffer = LimitStack<GeasState> (20);
@@ -1136,11 +1308,17 @@ void geas_implementation::set_game (const string &s)
 
 void geas_implementation::regen_var_objects ()
 {
+  /* Bring container contents' hidden flags up to date first, so the pane (and
+   * everything else that reads hidden) reflects open/closed/seen state. */
+  update_container_visibility ();
+
   string tmp;
   vector <string> objs;
   for (const auto &i: state.objs)
     {
-      if (ci_equal (i.parent, state.location) &&
+      /* List things in this room -- directly, or inside an open container/
+       * surface here (room_of walks up the container chain). */
+      if (ci_equal (room_of (i.name), state.location) &&
 	  !get_obj_property (i.name, "hidden", tmp) &&
 	  !get_obj_property (i.name, "invisible", tmp))
 	  //!state.objs[i].hidden &&
@@ -1448,6 +1626,32 @@ void geas_implementation::run_command (const string &s1)
   set_svar ("quest.originalcommand", s);
   s = substitute_synonyms (lcase(s));
   set_svar ("quest.command", s);
+
+  /* "oops <correction>" (and the lenient "the <correction>") re-runs the last
+   * command that failed on an unrecognised object word, with that word replaced
+   * by the correction -- Quest's OOPS. */
+  {
+    string corr;
+    bool is_oops = false;
+    if (s.compare (0, 5, "oops ") == 0)
+      { corr = trim (s.substr (5)); is_oops = true; }
+    else if (oops_ready && s.compare (0, 4, "the ") == 0)
+      { corr = trim (s.substr (4)); is_oops = true; }
+    if (is_oops)
+      {
+	if (oops_ready && corr != "")
+	  run_command (oops_before + corr + oops_after);
+	else
+	  print_formatted ("I don't understand your command. "
+			   "Type HELP for a list of valid commands.");
+	return;
+      }
+  }
+  /* A fresh command: remember it for oops context, and clear any stale oops
+   * state -- dereference_vars sets it again if this command fails on an
+   * object word. */
+  current_command = s;
+  oops_ready = false;
 
   bool overridden = false;
   dont_process = false;
@@ -1770,6 +1974,19 @@ bool geas_implementation::dereference_vars (vector<match_binding> &bindings, con
 	if (obj_name == "!")
 	  {
 	    print_formatted ("You don't see any " + binding.var_text + ".");
+	    /* Record the first unrecognised object word (its position in the
+	     * command) so a following "oops <correction>" can rebuild and re-run
+	     * the command with the word replaced. */
+	    if (!is_internal && !oops_ready)
+	      {
+		size_t b = binding.start < current_command.size () ? binding.start
+		                                                   : current_command.size ();
+		size_t e = binding.end < current_command.size () ? binding.end
+		                                                 : current_command.size ();
+		oops_before = current_command.substr (0, b);
+		oops_after = current_command.substr (e);
+		oops_ready = true;
+	      }
 	    rv = false;
 	  }
 	else
@@ -1957,6 +2174,10 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	      return true;
 	    string obj = match.bindings[0].var_text, script;
 	    string ph = phrase;   /* the actual verb the player typed */
+	    /* Opening or closing a container discovers it (seen gate), even when
+	     * the game scripts its own open/close action. */
+	    if (string (v.key) == "open" || string (v.key) == "close")
+	      set_obj_property (obj, "seen");
 	    /* Prefer an action/property named by the typed verb (objects define
 	     * e.g. action <search>, action <wear>), then the canonical key. */
 	    if (get_obj_action (obj, ph, script) ||
@@ -1967,10 +2188,61 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	      print_formatted (script);
 	    else if (v.use_default && gf.get_obj_default_action (obj, script))
 	      run_script_as (obj, script);
-	    else if (string (v.key) == "open" && open_container (obj))
-	      ;   /* default container open: revealed its contents */
+	    else if (string (v.key) == "open")
+	      {
+		/* Validate as Quest does: already-open / can't-open. */
+		if (has_obj_property (obj, "opened"))
+		  display_error ("alreadyopen", obj);
+		else if (open_container (obj))
+		  ;   /* opened: state set + contents revealed */
+		else
+		  display_error ("cantopen", obj);
+	      }
+	    else if (string (v.key) == "close")
+	      {
+		if (has_obj_property (obj, "closed"))
+		  display_error ("alreadyclosed", obj);
+		else if (close_container (obj))
+		  ;   /* closed: state set + contents re-hidden */
+		else
+		  display_error ("cantclose", obj);
+	      }
+	    else if (string (v.key) == "look in" &&
+		     (has_obj_property (obj, "container") ||
+		      has_obj_property (obj, "surface")))
+	      {
+		/* Look inside a container/surface with no custom handler: list its
+		 * contents if reachable, else its "list closed" text.  Looking in
+		 * discovers it (seen gate). */
+		set_obj_property (obj, "seen");
+		bool open_ = has_obj_property (obj, "surface") ||
+		  container_is_open (obj) || has_obj_property (obj, "transparent");
+		string lc;
+		if (!open_ && get_obj_property (obj, "list closed", lc))
+		  print_formatted (lc);
+		else if (!open_)
+		  print_formatted ("It is closed.");
+		else
+		  {
+		    vector<string> c = container_contents (obj);
+		    string m;
+		    for (size_t i = 0; i < c.size (); i++)
+		      m += (i == 0 ? "Inside you see " :
+			    (i + 1 == c.size () ? " and " : ", ")) + c[i];
+		    print_formatted (c.empty () ? "It is empty." : m + ".");
+		  }
+	      }
 	    else
 	      display_error ("defaultverb", obj);
+	    /* Opening/closing a container records its state even when a custom
+	     * action handled the verb, so a scripted "open <msg>" still updates
+	     * availability of the contents. */
+	    if (string (v.key) == "open" && has_obj_property (obj, "container") &&
+		!has_obj_property (obj, "opened"))
+	      { set_obj_property (obj, "not closed"); set_obj_property (obj, "opened"); }
+	    else if (string (v.key) == "close" && has_obj_property (obj, "container") &&
+		     !has_obj_property (obj, "closed"))
+	      { set_obj_property (obj, "not opened"); set_obj_property (obj, "closed"); }
 	    return true;
 	  }
   }
@@ -1983,6 +2255,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 
       string object = match.bindings[0].var_text;
 
+      set_obj_property (object, "seen");   /* discovered: gates container contents */
       if (!dispatch_obj_verb (object, "look"))
 	display_error ("defaultlook", object);
 
@@ -1996,6 +2269,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	return true;
 
       string object = match.bindings[0].var_text;
+      set_obj_property (object, "seen");
       /* examine, falling back to look. */
       if (!dispatch_obj_verb (object, "examine") &&
 	  !dispatch_obj_verb (object, "look"))
@@ -2009,6 +2283,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	return true;
 
       string object = match.bindings[0].var_text;
+      set_obj_property (object, "seen");
       /* "read" dispatches to the object's read action/property if defined,
        * otherwise it behaves like examine and falls back to look.  Many Quest
        * games gate content (and progress flags) behind action <read>. */
@@ -2144,33 +2419,53 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
     }
 
   /* Quest's standard "put #object# in/on #object#" (place into a container or
-   * onto a surface).  Modelled on "use X on Y": the target receives the action
-   * `put <item>` (or a catch-all `put anything`).  The held-item check and the
-   * defaultput fallback mirror Quest; games that need richer container logic
-   * define their own `command <put ...>`, which is tried before this. */
-  if ((match = match_command (cmd, "put #@first# on #@second#"))   ||
-      (match = match_command (cmd, "put #@first# onto #@second#")) ||
-      (match = match_command (cmd, "put #@first# in #@second#"))   ||
-      (match = match_command (cmd, "put #@first# into #@second#")) ||
-      (match = match_command (cmd, "put #@first# inside #@second#")))
-    {
-      if (!dereference_vars (match.bindings, is_internal))
-	return true;
-      string script, first = match.bindings[0].var_text,
-	second = match.bindings[1].var_text;
-      if (!is_held (first))
-	display_error ("noitem", first);
-      else if (get_obj_action (second, "put " + first, script))
-	run_script_as (second, script);
-      else if (get_obj_action (second, "put anything", script))
-	{
-	  set_svar ("quest.put.object", first);
+   * onto a surface).  A target object can intercept with a `put <item>` (or a
+   * catch-all `put anything`) action; otherwise, if it is a container/surface,
+   * the item is actually moved into it (its parent becomes the target), so the
+   * closed-container scope rules then apply.  Games with richer logic define
+   * their own `command <put ...>`, tried before this. */
+  {
+    bool put_matched = false, put_on = false;
+    if ((match = match_command (cmd, "put #@first# on #@second#")) ||
+	(match = match_command (cmd, "put #@first# onto #@second#")))
+      put_matched = put_on = true;
+    else if ((match = match_command (cmd, "put #@first# in #@second#"))   ||
+	     (match = match_command (cmd, "put #@first# into #@second#")) ||
+	     (match = match_command (cmd, "put #@first# inside #@second#")))
+      put_matched = true;
+    if (put_matched)
+      {
+	if (!dereference_vars (match.bindings, is_internal))
+	  return true;
+	string script, first = match.bindings[0].var_text,
+	  second = match.bindings[1].var_text;
+	if (!is_held (first))
+	  display_error ("noitem", first);
+	else if (get_obj_action (second, "put " + first, script))
 	  run_script_as (second, script);
-	}
-      else
-	display_error ("defaultput", first);
-      return true;
-    }
+	else if (get_obj_action (second, "put anything", script))
+	  {
+	    set_svar ("quest.put.object", first);
+	    run_script_as (second, script);
+	  }
+	else if (has_obj_property (second, "surface") ||
+		 (has_obj_property (second, "container") && container_is_open (second)))
+	  {
+	    /* Default: relocate the item into/onto the target (real
+	     * containment), then report it.  Mark the target seen so the item
+	     * just placed in it is immediately referenceable (the seen gate). */
+	    move (first, second);
+	    set_obj_property (second, "seen");
+	    string fdisp, sdisp;
+	    if (!get_obj_property (first, "alias", fdisp))  fdisp = first;
+	    if (!get_obj_property (second, "alias", sdisp)) sdisp = second;
+	    print_formatted ("You put " + fdisp + (put_on ? " on " : " in ") + sdisp + ".");
+	  }
+	else
+	  display_error ("defaultput", first);
+	return true;
+      }
+  }
 
 
   if ((match = match_command (cmd, "take #@object#")) ||
@@ -2225,6 +2520,20 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
       string scr, obj = match.bindings[0].var_text;
+      /* If the object is inside a container/surface, take it out first -- Quest
+       * does this implicitly when you drop something still in a container. */
+      {
+	string p = obj_parent (obj);
+	if (p != "" && !ci_equal (p, state.location) && !ci_equal (p, "inventory") &&
+	    (has_obj_property (p, "container") || has_obj_property (p, "surface")))
+	  {
+	    string odisp, pdisp;
+	    if (!get_obj_property (obj, "article", odisp)) odisp = obj;
+	    if (!get_obj_property (p, "alias", pdisp)) pdisp = p;
+	    print_formatted ("(first removing " + odisp + " from " + pdisp + ")");
+	    move (obj, "inventory");
+	  }
+      }
       if (get_obj_action (obj, "drop", scr))
 	{
 	  run_script_as (obj, scr);
@@ -2370,8 +2679,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       if (match.bindings.size() != 1) { report_unsupported ("unexpected binding count for 'go to' command"); return true; }
       string destination = match.bindings[0].var_text;
       for (size_t i = 0; i < current_places.size(); i ++) {
+	/* Match the place's "prefix displayed" form, its bare displayed name,
+	 * or the destination room name itself.  Games commonly drive entry via
+	 * `exec <go to ROOMNAME>`, where ROOMNAME is the raw destination room
+	 * ([3]) rather than its display alias, so that form must match too. */
 	if (ci_equal(destination, current_places[i][1]) ||
-	    ci_equal(destination, current_places[i][2]))
+	    ci_equal(destination, current_places[i][2]) ||
+	    ci_equal(destination, current_places[i][3]))
 	  {
 	    if (current_places[i].size() == 5)
 	      {
@@ -3760,10 +4074,11 @@ bool geas_implementation::eval_cond (const string &s)
       tok = trim (eval_param (tok));
       for (uint i = 0; i < state.objs.size(); i ++)
 	if (ci_equal (state.objs[i].name, tok))
-	  /* "here" means present in this room AND not hidden: an object removed
-	   * with "hide" (e.g. a creature that has run off) is no longer here,
-	   * even though its parent still names the room. */
-	  return (ci_equal (state.objs[i].parent, state.location) &&
+	  /* "here" means present in this room AND not hidden -- present either
+	   * directly or inside an open container/surface here (room_of walks the
+	   * container chain).  An object removed with "hide" (e.g. a creature
+	   * that has run off) is no longer here, even though its parent stands. */
+	  return (ci_equal (room_of (state.objs[i].name), state.location) &&
 		  !has_obj_property (state.objs[i].name, "hidden"));
       gi->debug_print ("No object " + tok + " found while evaling " + s);
       return false;
@@ -4115,8 +4430,15 @@ string geas_implementation::run_function (const string &pname)
       if (function_args.size() != 1)
 	return bad_arg_count(pname);
 
-      /* TODO TODO */
-      return "";
+      /* Highest defined index of an array variable (string or numeric).
+       * Records carry index 0 plus every set index, so max() == size()-1. */
+      for (const auto &i: state.svars)
+	if (ci_equal (i.name, function_args[0]))
+	  return string_int (i.max());
+      for (const auto &i: state.ivars)
+	if (ci_equal (i.name, function_args[0]))
+	  return string_int (i.max());
+      return "0";
     }
   // SENSITIVE?
   else if (pname == "ucase")
@@ -4229,7 +4551,10 @@ v2string geas_implementation::get_room_contents (const string &room)
   v2string rv;
   string objname;
   for (const auto &i: state.objs)
-    if (i.parent == room)
+    /* Things in this room -- directly or inside an open container/surface here
+     * (room_of walks the container chain); the hidden check, kept current by
+     * the visibility sweep, drops the contents of closed containers. */
+    if (ci_equal (room_of (i.name), room))
       {
 	objname = i.name;
 	if (!has_obj_property (objname, "invisible") &&
@@ -4485,7 +4810,22 @@ string geas_implementation::eval_string (const string &s)
 
 	  std::string::size_type paren_open, paren_close;
 	  if ((paren_open = tmp.find ('(')) == string::npos)
-	    func_eval = run_function (tmp);
+	    {
+	      /* A bare $name$ user-function call takes no arguments, so reset
+	       * function_args -- otherwise it inherits the leftover args of the
+	       * previously evaluated function (e.g. $desertroom$ seeing the args
+	       * of a prior $desertroom(x;y)$ and mis-reading $numberparameters$).
+	       * Builtins like numberparameters/parameter instead inspect the
+	       * enclosing procedure's args, so leave function_args intact. */
+	      bool is_user_func = false;
+	      for (uint k = 0; k < gf.size ("function"); k ++)
+		if (ci_equal (gf.block ("function", k).name, tmp))
+		  { is_user_func = true; break; }
+	      if (is_user_func)
+		func_eval = run_function (tmp, vector<string> ());
+	      else
+		func_eval = run_function (tmp);
+	    }
 	  else
 	    {
 	      paren_close = tmp.find (')', paren_open);

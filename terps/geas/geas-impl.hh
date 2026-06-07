@@ -79,6 +79,13 @@ class geas_implementation : public GeasRunner
   /* Most recently referenced object, used to resolve pronouns ("it", etc.).
    * Mutable because object resolution happens in const helpers. */
   mutable std::string last_object;
+  /* Support for the "oops <correction>" command: the command currently being
+   * processed, and the split of the last command that failed on an unrecognised
+   * object word (the parts before/after that word), set in the const
+   * dereference_vars -- hence mutable. */
+  std::string current_command;
+  mutable std::string oops_before, oops_after;
+  mutable bool oops_ready = false;
   v2string current_places;
   bool is_running_;
   std::string story_filename;   /* used as the save-file's game tag */
@@ -166,14 +173,37 @@ public:
   /* True if some non-hidden object in scope is named exactly by this word
    * (used so a synonym doesn't shadow a real object of that name). */
   bool names_object_in_scope (const std::string &word) const;
-  /* True if "name" is a reachable, non-hidden container object (so its
+  /* True if "name" is a reachable, non-hidden, *open* container object (so its
    * contents are reachable too). */
   bool container_in_scope (const std::string &name, const std::vector<std::string> &where) const;
-  /* Default "open <container>" behaviour: a Quest object can declare itself
-   * inside another with a bare "<container>" line, and opening the container
-   * reveals (un-hides) and lists those contents.  Returns false if the named
-   * object holds nothing, so the caller can fall back to "You can't do that". */
+  /* A container's open/closed state: open if opened at runtime or declared
+   * "opened", closed if closed at runtime, and (per Quest) closed by default. */
+  bool container_is_open (const std::string &name) const;
+  /* True if object `obj` is declared inside container `name` (bare "<name>"). */
+  bool declared_inside (const std::string &obj, const std::string &name) const;
+  /* Display names of the objects currently inside container/surface `name`. */
+  std::vector<std::string> container_contents (const std::string &name) const;
+  /* Parent object name of `obj` ("" if unplaced). */
+  std::string obj_parent (const std::string &obj) const;
+  /* The room/inventory an object ultimately sits in, walking up through any
+   * containers/surfaces it is nested in. */
+  std::string room_of (const std::string &obj) const;
+  /* Whether the interior of container/surface P currently makes its contents
+   * available (open|transparent & seen, or a surface; and P itself reachable). */
+  bool content_available (const std::string &P) const;
+  /* Quest's UpdateVisibilityInContainers: set each contained object's hidden
+   * flag from its container's state, so pane/here/exists/resolution agree. */
+  void update_container_visibility ();
+  bool sweeping = false;   /* re-entry guard for update_container_visibility */
+  /* Default "open <container>" behaviour: mark the container open and reveal/
+   * list its contents -- both objects declared inside with a bare "<container>"
+   * line (which we un-hide) and objects parented to it.  Returns false if the
+   * object is neither a container nor holds anything, so the caller can fall
+   * back to "You can't do that". */
   bool open_container (const std::string &name);
+  /* "close <container>": mark it closed (its contents leave scope) and re-hide
+   * any bare-line contents still inside.  Returns false if not a container. */
+  bool close_container (const std::string &name);
 
   void print_eval (const std::string &);
   void print_eval_p (const std::string &);
