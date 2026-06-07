@@ -570,6 +570,10 @@ void geas_implementation::display_error (string errorname, string obj)
     print_eval ("You didn't say what you wanted to use that on.");
   else if (errorname == "defaultuse")
     print_eval ("You can't use that here.");
+  else if (errorname == "defaultput")
+    print_eval_p ("You can't put #quest.error.article# there.");
+  else if (errorname == "defaultwait")
+    print_eval ("Time passes...");
   else if (errorname == "defaultverb")
     print_eval ("You can't do that.");
   else if (errorname == "defaultout")
@@ -1863,6 +1867,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	return true;
     }
 
+  /* Quest treats LEAVE (and the informal LOOK OUT) as synonyms for OUT/EXIT,
+   * i.e. leaving the current place -- the HELP text already advertises LEAVE.
+   * Normalise to "out" here, after any game-defined command has had priority
+   * and before the "look #@object#" handler below would swallow "look out". */
+  if (cmd == "leave" || cmd == "look out")
+    cmd = "out";
+
   /* ---- Generic verb dispatch ---------------------------------------------
    * Quest games attach most verbs to objects through `action <verb>`,
    * `properties <verb=text>`, or (for opening things) the object's anonymous
@@ -2124,9 +2135,39 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       return true;
     }
 
-  
+  /* Quest's standard "put #object# in/on #object#" (place into a container or
+   * onto a surface).  Modelled on "use X on Y": the target receives the action
+   * `put <item>` (or a catch-all `put anything`).  The held-item check and the
+   * defaultput fallback mirror Quest; games that need richer container logic
+   * define their own `command <put ...>`, which is tried before this. */
+  if ((match = match_command (cmd, "put #@first# on #@second#"))   ||
+      (match = match_command (cmd, "put #@first# onto #@second#")) ||
+      (match = match_command (cmd, "put #@first# in #@second#"))   ||
+      (match = match_command (cmd, "put #@first# into #@second#")) ||
+      (match = match_command (cmd, "put #@first# inside #@second#")))
+    {
+      if (!dereference_vars (match.bindings, is_internal))
+	return true;
+      string script, first = match.bindings[0].var_text,
+	second = match.bindings[1].var_text;
+      if (!is_held (first))
+	display_error ("noitem", first);
+      else if (get_obj_action (second, "put " + first, script))
+	run_script_as (second, script);
+      else if (get_obj_action (second, "put anything", script))
+	{
+	  set_svar ("quest.put.object", first);
+	  run_script_as (second, script);
+	}
+      else
+	display_error ("defaultput", first);
+      return true;
+    }
+
+
   if ((match = match_command (cmd, "take #@object#")) ||
-      (match = match_command (cmd, "get #@object#")))
+      (match = match_command (cmd, "get #@object#")) ||
+      (match = match_command (cmd, "pick up #@object#")))
     {
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
@@ -2352,6 +2393,14 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  print_normal (i[0]);
 	  print_newline();
 	}
+      return true;
+    }
+
+  /* Quest's built-in "wait" -- pass a turn.  Games that want a custom message
+   * define `command <wait>` (tried earlier); this is the engine default. */
+  if (ci_equal (cmd, "wait"))
+    {
+      display_error ("defaultwait");
       return true;
     }
 
