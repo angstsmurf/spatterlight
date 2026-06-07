@@ -7,6 +7,8 @@
 
 #import "SoundHandler.h"
 
+#import <AppKit/AppKit.h>
+
 #import "GlkSoundChannel.h"
 #import "MIDIChannel.h"
 #import "GlkController.h"
@@ -197,6 +199,11 @@
     return [[self class] detectSoundFormatFromData:_data];
 }
 
+@end
+
+@interface SoundHandler () <NSSoundDelegate>
+/* Synthesised ZX Spectrum BEEP tones, held strongly while they play. */
+@property (strong, nullable) NSMutableArray<NSSound *> *beepSounds;
 @end
 
 @implementation SoundHandler
@@ -455,6 +462,61 @@
     }
 
     return type;
+}
+
+#pragma mark ZX Spectrum BEEP synthesis
+
+/* Synthesise a square wave at the given frequency for the given number of
+ * milliseconds and play it. ZX Spectrum BEEPs are raw square waves, so this
+ * reproduces their characteristic timbre. The little PCM buffer is wrapped in
+ * a WAV header and handed to an NSSound, which is retained until it finishes
+ * so it is not deallocated mid-note. (Both x86_64 and arm64 macOS are
+ * little-endian, so the 16-bit samples are written in native byte order.) */
+- (void)playSpectrumBeepFrequency:(int)frequency duration:(int)millisecs {
+    if (frequency <= 0 || millisecs <= 0)
+        return;
+
+    const uint32_t sampleRate = 44100;
+    const int16_t amplitude = 7000;
+    uint32_t nSamples = (uint32_t)((uint64_t)sampleRate * (uint32_t)millisecs / 1000);
+    if (nSamples == 0)
+        return;
+    uint32_t dataBytes = nSamples * sizeof(int16_t);
+
+    NSMutableData *wav = [NSMutableData dataWithLength:44 + dataBytes];
+    uint8_t *p = wav.mutableBytes;
+
+    uint32_t riffSize = 36 + dataBytes, fmtSize = 16, byteRate = sampleRate * 2;
+    uint16_t pcm = 1, channels = 1, blockAlign = 2, bits = 16;
+    memcpy(p,      "RIFF", 4);  memcpy(p + 4,  &riffSize, 4);
+    memcpy(p + 8,  "WAVE", 4);  memcpy(p + 12, "fmt ", 4);
+    memcpy(p + 16, &fmtSize, 4);
+    memcpy(p + 20, &pcm, 2);    memcpy(p + 22, &channels, 2);
+    memcpy(p + 24, &sampleRate, 4);
+    memcpy(p + 28, &byteRate, 4);
+    memcpy(p + 32, &blockAlign, 2);
+    memcpy(p + 34, &bits, 2);
+    memcpy(p + 36, "data", 4);  memcpy(p + 40, &dataBytes, 4);
+
+    int16_t *samples = (int16_t *)(p + 44);
+    uint32_t halfPeriod = sampleRate / (uint32_t)(frequency * 2);
+    if (halfPeriod < 1)
+        halfPeriod = 1;
+    for (uint32_t i = 0; i < nSamples; i++)
+        samples[i] = ((i / halfPeriod) & 1) ? -amplitude : amplitude;
+
+    NSSound *sound = [[NSSound alloc] initWithData:wav];
+    if (!sound)
+        return;
+    sound.delegate = self;
+    if (!self.beepSounds)
+        self.beepSounds = [NSMutableArray new];
+    [self.beepSounds addObject:sound];
+    [sound play];
+}
+
+- (void)sound:(NSSound *)sound didFinishPlaying:(BOOL)finished {
+    [self.beepSounds removeObject:sound];
 }
 
 @end

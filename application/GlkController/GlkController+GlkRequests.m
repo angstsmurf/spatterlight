@@ -902,6 +902,12 @@
 
         case BEEP:
             if (theme.doSound) {
+                if (req->a1 == 0) {
+                    // Accurate ZX Spectrum tone: a2 = frequency (Hz),
+                    // a3 = duration (ms). Synthesised as a square wave.
+                    [self.soundHandler playSpectrumBeepFrequency:req->a2
+                                                        duration:req->a3];
+                }
                 if (req->a1 == 1 && theme.beepHigh) {
                     NSSound *sound = [NSSound soundNamed:theme.beepHigh];
                     if (sound) {
