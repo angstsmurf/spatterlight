@@ -595,11 +595,33 @@ update_objwin(GeasRunner *gr)
         }
     }
 
-    std::string key = room + "\x01" + flat + "\x01" + flatexits;
+    /* Status variables (Quest's "collectables": money/health/score etc.,
+     * defined via `define variable ... display <...>`).  The core formats each
+     * line; show them under their own subheader, like the exits. */
+    vstring status = gr->get_status_vars();
+    std::string flatstatus;
+    if (!status.empty()) {
+        glk_put_char_stream(s, '\n');
+        glk_set_style_stream(s, style_Subheader);
+        glk_put_string_stream(s, (char *) "Status\n");
+        glk_set_style_stream(s, style_Normal);
+        for (std::string &var : status) {
+            if (var.empty())
+                continue;
+            glk_put_string_stream(s, (char *) var.c_str());
+            glk_put_char_stream(s, '\n');
+            if (!flatstatus.empty())
+                flatstatus += ", ";
+            flatstatus += var;
+        }
+    }
+
+    std::string key = room + "\x01" + flat + "\x01" + flatexits + "\x01" + flatstatus;
     if (transcriptstr && key != g_last_objlist) {
         std::string line = "[ " + (room.empty() ? std::string("Here") : room) +
             ": " + (flat.empty() ? std::string("nothing") : flat) +
             (flatexits.empty() ? std::string("") : "; exits: " + flatexits) +
+            (flatstatus.empty() ? std::string("") : "; status: " + flatstatus) +
             " ]\n";
         glk_put_string_stream(transcriptstr, (char *) line.c_str());
     }
