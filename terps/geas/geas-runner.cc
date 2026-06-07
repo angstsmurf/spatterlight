@@ -3276,13 +3276,17 @@ void geas_implementation::run_script (const string &s, string &rv)
   // SENSITIVE?
   else if (tok == "playwav" || tok == "playmidi" || tok == "playmod")
     {
-      /* play{wav,midi,mod} <file>        -- play once
-       *                    <file; loop>  -- play it looped
+      /* play{wav,midi,mod} <file>        -- play (music loops by default)
+       *                    <file; loop>  -- force looping
+       *                    <file; noloop>-- force play-once
        *                    <file; sync>  -- play it (synchronously, in Quest)
        *                    <>            -- stop all sounds
        * The host backend decodes wav/midi/mod transparently, so all three
        * route through the same play_sound path.  The filename is resolved
-       * relative to the game file by the interface. */
+       * relative to the game file by the interface.  midi/mod are background
+       * music and loop by default; wav plays once. */
+      bool looped = (tok != "playwav");
+      bool sync = false;
       tok = next_token (s, c1, c2);
       if (!is_param (tok))
 	{
@@ -3291,12 +3295,13 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       vector<string> args = split_param (param_contents (tok));
       string fname = args.empty() ? "" : trim (args[0]);
-      bool looped = false, sync = false;
       for (size_t i = 1; i < args.size(); i ++)
 	{
 	  string flag = lcase (trim (args[i]));
 	  if (flag == "loop")
 	    looped = true;
+	  else if (flag == "noloop")
+	    looped = false;
 	  else if (flag == "sync")
 	    sync = true;
 	}
