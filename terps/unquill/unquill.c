@@ -535,6 +535,7 @@ static void show_zx_loadscreen(void)
  * same memory. The blit composes bitmap and attributes like the hardware: a set
  * bit shows ink, a clear bit shows paper. */
 static winid_t picwin = NULL;
+static winid_t statuswin = NULL;	/* the Scott-style description grid */
 static uchar  *picscr = NULL;	/* ZX_SCREEN_SIZE display file (bitmap + attrs) */
 static int     pic_scale = 1, pic_xoff = 0, pic_yoff = 0;
 
@@ -960,7 +961,13 @@ void draw_location_graphic(uchar loc)
     }
     if (!picwin)
     {
-	picwin = glk_window_open(mainwin,
+	/* Put the picture at the very top, above the description grid (Scott /
+	 * TaylorMade style): split the status window's parent so the picture
+	 * sits over the whole [description grid + text buffer] stack rather
+	 * than between them. */
+	winid_t split = (statuswin && glk_window_get_parent(statuswin))
+		      ? glk_window_get_parent(statuswin) : mainwin;
+	picwin = glk_window_open(split,
 		winmethod_Above | winmethod_Proportional, 55,
 		wintype_Graphics, 0);
 	if (!picwin)
@@ -1422,7 +1429,6 @@ void dec32(ushort v)
  * print the wrapped lines into it. Command input and responses keep scrolling
  * in the main buffer below. */
 
-static winid_t statuswin = NULL;
 
 /* While capturing, description output produced through put_ch()/put_str() (and
  * therefore through opch32(), oneitem() and listat()) is collected into capbuf
