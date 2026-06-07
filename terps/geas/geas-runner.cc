@@ -927,13 +927,29 @@ std::string geas_implementation::get_location ()
   return name;
 }
 
-std::string geas_implementation::save_state ()
+void geas_implementation::run_game_event (const string &keyword)
 {
+  const GeasBlock *gb = gf.find_by_name ("game", "game");
+  if (gb == NULL)
+    return;
+  std::string::size_type c1, c2;
+  for (const string &line: gb->data)
+    if (first_token (line, c1, c2) == keyword)
+      run_script_as ("game", line.substr (c2));
+}
+
+std::string geas_implementation::save_state (bool run_hooks)
+{
+  /* Quest's "beforesave" runs just before the state is written, letting the
+   * game stash data (e.g. the player's location) into saved variables/objects.
+   * Skipped for transparent internal snapshots (run_hooks == false). */
+  if (run_hooks)
+    run_game_event ("beforesave");
   state.running = is_running_;
   return serialize_game (story_filename, state);
 }
 
-bool geas_implementation::load_state (const string &data)
+bool geas_implementation::load_state (const string &data, bool run_hooks)
 {
   GeasState newstate;
   string gamename;
@@ -946,6 +962,11 @@ bool geas_implementation::load_state (const string &data)
   regen_var_dirs ();
   regen_var_look ();
   regen_var_objects ();
+  /* Quest's "onload" runs after the state is restored, letting the game rebuild
+   * whatever it stashed in beforesave (it may even goto the saved room).
+   * Skipped for transparent internal snapshots (run_hooks == false). */
+  if (run_hooks)
+    run_game_event ("onload");
   look ();
   return true;
 }
@@ -3229,6 +3250,11 @@ void geas_implementation::run_script (const string &s, string &rv)
   // SENSITIVE?
   else if (tok == "picture")
     {
+      /* picture <file>  -- display an image (the host loads the file itself). */
+      tok = next_token (s, c1, c2);
+      if (is_param (tok))
+	gi->show_image (eval_param (tok), "", "");
+      return;
     }
   // SENSITIVE?
   else if (tok == "playerlose")

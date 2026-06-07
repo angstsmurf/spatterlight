@@ -89,8 +89,11 @@ public:
      : GeasRunner (in_gi), undo_buffer (20), is_running_(true) {}
   //void set_game (std::string s);
   void set_game (const std::string &s);
-  std::string save_state ();
-  bool load_state (const std::string &data);
+  std::string save_state (bool run_hooks = true);
+  bool load_state (const std::string &data, bool run_hooks = true);
+  /* Run every "<keyword> <script>" line in the game block (e.g. beforesave /
+   * onload) in file order, in the game's context. */
+  void run_game_event (const std::string &keyword);
   std::string get_location ();
   void restart ();
   bool undo ();

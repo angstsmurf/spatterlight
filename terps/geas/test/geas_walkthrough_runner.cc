@@ -205,7 +205,10 @@ runturn (const std::string &cmd)
 void
 scummed (const std::string &cmd, const std::string &win_marker, bool do_scum)
 {
-  std::string snap = gr->save_state ();
+  /* Transparent snapshots (run_hooks=false): these are checkpoints, not player
+     saves, so they must not fire the game's beforesave/onload scripts (e.g.
+     World's End's onload gotos the saved room, which would reset a fight). */
+  std::string snap = gr->save_state (false);
   std::deque<std::string> q = g_queue;
   runturn (cmd);
   if (!do_scum || win_marker.empty ())
@@ -213,7 +216,7 @@ scummed (const std::string &cmd, const std::string &win_marker, bool do_scum)
   for (int r = 0; !gr->is_running () && !seen (win_marker)
 		  && r < opt_max_reloads; r++)
     {
-      gr->load_state (snap);
+      gr->load_state (snap, false);
       g_queue = q;
       runturn (cmd);
     }
