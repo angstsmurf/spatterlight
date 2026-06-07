@@ -3273,21 +3273,16 @@ void geas_implementation::run_script (const string &s, string &rv)
       return;
     }
   // SENSITIVE?
-  else if (tok == "playmidi")
-    {
-    }
   // SENSITIVE?
-  else if (tok == "playmod")
+  else if (tok == "playwav" || tok == "playmidi" || tok == "playmod")
     {
-    }
-  // SENSITIVE?
-  else if (tok == "playwav")
-    {
-      /* playwav <file>             -- play a sound once
-       * playwav <file; loop>       -- play it looped
-       * playwav <file; sync>       -- play it (synchronously, in Quest)
-       * playwav <>                 -- stop all sounds
-       * The filename is resolved relative to the game file by the interface. */
+      /* play{wav,midi,mod} <file>        -- play once
+       *                    <file; loop>  -- play it looped
+       *                    <file; sync>  -- play it (synchronously, in Quest)
+       *                    <>            -- stop all sounds
+       * The host backend decodes wav/midi/mod transparently, so all three
+       * route through the same play_sound path.  The filename is resolved
+       * relative to the game file by the interface. */
       tok = next_token (s, c1, c2);
       if (!is_param (tok))
 	{
