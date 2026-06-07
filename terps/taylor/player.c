@@ -2064,11 +2064,12 @@ static void ExecuteLineCode(unsigned char *code, int *done)
             Put(arg1, ObjectLoc[arg2]);
             break;
         case BEEP:
-            /* Quill-derived BEEP: arg1 = duration (centiseconds), arg2 = pitch. */
+            /* The interpreter's BEEP routine calls the ROM beeper (0x03B5) with
+             * HL = arg1 (pitch) and DE = arg2 * 4 (cycles); reproduce the tone. */
 #if defined(GLK_MODULE_GARGLKBLEEP)
             garglk_zbleep(1 + (arg1 == 250));
 #elif defined(SPATTERLIGHT)
-            win_beep_spectrum(arg2, arg1);
+            win_beep_zx(arg1, arg2 * 4);
 #else
             putchar('\007');
             fflush(stdout);

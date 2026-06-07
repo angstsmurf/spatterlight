@@ -406,17 +406,32 @@ void win_beep(int type)
     sendmsg(BEEP, type, 0, 0, 0, 0, 0, NULL);
 }
 
-/* Play an accurate ZX Spectrum BEEP tone, given the raw (pitch, duration)
- * bytes from a Quill/PAW BEEP. The pitch byte is mapped through an equal-
- * tempered semitone table (byte 128 -> A4, 440 Hz) and the duration byte is
- * taken to be centiseconds, matching the original Quill timing. The frequency
- * (Hz) and length (ms) are sent to the app, which synthesises a square wave;
- * a1 == 0 distinguishes this from the canned win_beep() sounds (a1 == 1/2).
- * Shared by the unquill and Taylor interpreters so both sound identical. */
+/* Play a ZX Spectrum BEEP tone from the raw (pitch, duration) bytes of an
+ * unquill (Quill) BEEP. The pitch byte is mapped through an equal-tempered
+ * semitone table (byte 128 -> A4, 440 Hz) and the duration byte is taken to be
+ * centiseconds. The frequency (Hz) and length (ms) are sent to the app, which
+ * synthesises a square wave; a1 == 0 distinguishes this from the canned
+ * win_beep() sounds (a1 == 1/2). */
 void win_beep_spectrum(int pitch, int duration)
 {
     int frequency = (int)(440.0 * pow(2.0, (pitch - 128) / 12.0) + 0.5);
     int millisecs = duration * 10;
+
+    win_flush();
+    sendmsg(BEEP, 0, frequency, millisecs, 0, 0, 0, NULL);
+}
+
+/* Play an accurate ZX Spectrum BEEP, given the values the ROM beeper routine
+ * (at 0x03B5) is called with: HL = the pitch constant and DE = the number of
+ * cycles. The Spectrum produces f = 437500 / (HL + 30.125) Hz held for DE
+ * cycles (DE / f seconds), so the resulting frequency (Hz) and length (ms) are
+ * sent to the app to synthesise. Verified by disassembling the Rebel Planet
+ * BEEP routine in Ghidra: HL = first operand, DE = second operand * 4. */
+void win_beep_zx(int pitch, int cycles)
+{
+    double freq = 437500.0 / (pitch + 30.125);
+    int frequency = (int)(freq + 0.5);
+    int millisecs = (int)(1000.0 * cycles / freq + 0.5);
 
     win_flush();
     sendmsg(BEEP, 0, frequency, millisecs, 0, 0, 0, NULL);
