@@ -128,8 +128,10 @@ void win_moveto(int name, int x, int y);
 
 // Infocom beep 1 or 2
 void win_beep(int type);
-// Accurate ZX Spectrum BEEP from raw (pitch, duration) bytes
+// ZX Spectrum BEEP from raw Quill (pitch, duration) bytes (unquill)
 void win_beep_spectrum(int pitch, int duration);
+// Accurate ZX Spectrum BEEP from ROM-beeper (pitch=HL, cycles=DE) values (Taylor)
+void win_beep_zx(int pitch, int cycles);
 void win_timer(int millisecs);
 void win_select(event_t *event, int block);
 void win_flush(void);
