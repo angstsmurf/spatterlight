@@ -209,7 +209,7 @@ bool deserialize_game (const std::string &filedata, std::string &gamename, GeasS
   uint n;
   n = gis.get_uint();
   for (uint i = 0; i < n; i ++)
-    { string nm = gis.get_str(), d = gis.get_str(); gs.props.push_back (PropertyRecord (nm, d)); }
+    { string nm = gis.get_str(), d = gis.get_str(); gs.add_prop (nm, d); }
   n = gis.get_uint();
   for (uint i = 0; i < n; i ++)
     { ObjectRecord o; o.name = gis.get_str(); o.hidden = (gis.get_char() == 0);
@@ -232,6 +232,32 @@ bool deserialize_game (const std::string &filedata, std::string &gamename, GeasS
   if (!gis.eof())   // items were appended by our serializer
     { n = gis.get_uint(); for (uint i = 0; i < n; i ++) gs.items.push_back (gis.get_str()); }
   return true;
+}
+
+void GeasState::add_prop (const string &name, const string &data)
+{
+  /* Maintain the index incrementally only while it is valid; otherwise leave
+     it to be rebuilt lazily on the next lookup (e.g. right after a load). */
+  if (props_index.valid)
+    props_index.map[lcase (name)].push_back (props.size ());
+  props.push_back (PropertyRecord (name, data));
+}
+
+void GeasState::ensure_props_index () const
+{
+  if (props_index.valid)
+    return;
+  props_index.map.clear ();
+  for (size_t i = 0; i < props.size (); i++)
+    props_index.map[lcase (props[i].name)].push_back (i);
+  props_index.valid = true;
+}
+
+const vector<size_t> *GeasState::prop_records (const string &name) const
+{
+  ensure_props_index ();
+  auto it = props_index.map.find (lcase (name));
+  return it == props_index.map.end () ? nullptr : &it->second;
 }
 
 GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)

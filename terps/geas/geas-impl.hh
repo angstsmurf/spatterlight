@@ -143,6 +143,10 @@ public:
   bool has_obj_action (const std::string &obj, const std::string &prop) const;
   bool get_obj_action (const std::string &objname, const std::string &actname,
 		       std::string &rv) const;
+  /* Run obj's `action <key>` (as a script) or, failing that, print its
+     `properties <key=...>`; returns true if either existed.  Captures the
+     action-then-property idiom the look/examine/read/remove handlers share. */
+  bool dispatch_obj_verb (const std::string &obj, const std::string &key);
   std::string exit_dest (const std::string &room, const std::string &dir, bool *is_act = NULL) const;
   std::vector<std::vector<std::string> > get_places (const std::string &room);
 

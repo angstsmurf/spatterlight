@@ -289,10 +289,12 @@ bool geas_implementation::get_obj_action (const string &objname, const string &a
   GEAS_DBG << "get_obj_action (" << objname << ", " << actname << ")\n";
   string tok;
   std::string::size_type c1, c2;
-  for (auto i = state.props.rbegin(); i != state.props.rend(); ++i)
-    if (i->name == objname)
+  const vector<size_t> *recs = state.prop_records (objname);
+  if (recs)
+    /* Most-recently-set action wins: walk this object's records newest first. */
+    for (auto ri = recs->rbegin (); ri != recs->rend (); ++ri)
       {
-	const string &line = i->data;
+	const string &line = state.props[*ri].data;
 	// SENSITIVE?
 	if (first_token (line, c1, c2) != "action")
 	  continue;
@@ -316,15 +318,33 @@ bool geas_implementation::has_obj_property (const string &obj, const string &pro
   return get_obj_property (obj, prop, tmp);
 }
 
+bool geas_implementation::dispatch_obj_verb (const string &obj, const string &key)
+{
+  string script;
+  if (get_obj_action (obj, key, script))
+    {
+      run_script_as (obj, script);
+      return true;
+    }
+  if (get_obj_property (obj, key, script))
+    {
+      print_formatted (script);
+      return true;
+    }
+  return false;
+}
+
 bool geas_implementation::get_obj_property(const string &obj, const string &prop,
 					   string &string_rv) const
 {
   string is_prop = "properties " + prop;
   string not_prop = "properties not " + prop;
-  for (auto i = state.props.rbegin(); i != state.props.rend(); ++i)
-    if (ci_equal (i->name, obj))
+  const vector<size_t> *recs = state.prop_records (obj);
+  if (recs)
+    /* Most-recently-set value wins: walk this object's records newest first. */
+    for (auto ri = recs->rbegin (); ri != recs->rend (); ++ri)
       {
-	const string &dat = i->data;
+	const string &dat = state.props[*ri].data;
 	if (ci_equal (dat, not_prop))
 	  {
 	    string_rv = "!";
@@ -347,8 +367,8 @@ bool geas_implementation::get_obj_property(const string &obj, const string &prop
 
 void geas_implementation::set_obj_property (const string &obj, const string &prop)
 {
-  state.props.push_back (PropertyRecord (obj, "properties " + prop));
-  if (ci_equal (prop, "hidden") || ci_equal (prop, "not hidden") || 
+  state.add_prop (obj, "properties " + prop);
+  if (ci_equal (prop, "hidden") || ci_equal (prop, "not hidden") ||
       ci_equal (prop, "invisible") || ci_equal (prop, "not invisible"))
     {
       gi->update_sidebars();
@@ -358,7 +378,7 @@ void geas_implementation::set_obj_property (const string &obj, const string &pro
 
 void geas_implementation::set_obj_action (const string &obj, const string &act)
 {
-  state.props.push_back (PropertyRecord (obj, "action " + act));
+  state.add_prop (obj, "action " + act);
 }
 
 void geas_implementation::move (const string &obj, const string &dest)
@@ -1942,16 +1962,12 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 
       string object = match.bindings[0].var_text;
 
-      if (get_obj_action (object, "look", tok))
-	run_script_as (object, tok);
-      else if (get_obj_property (object, "look", tok))
-	print_formatted (tok);
-      else
+      if (!dispatch_obj_verb (object, "look"))
 	display_error ("defaultlook", object);
 
       return true;
     }
-  
+
   if ((match = match_command (cmd, "examine #@object#")) ||
       (match = match_command (cmd, "x #@object#")))
     {
@@ -1959,19 +1975,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	return true;
 
       string object = match.bindings[0].var_text;
-      if (get_obj_action (object, "examine", tok))
-	run_script_as (object, tok);
-      else if (get_obj_property (object, "examine", tok))
-	print_formatted (tok);
-      else if (get_obj_action (object, "look", tok))
-	run_script_as (object, tok);
-      else if (get_obj_property (object, "look", tok))
-	print_formatted (tok);
-      else
+      /* examine, falling back to look. */
+      if (!dispatch_obj_verb (object, "examine") &&
+	  !dispatch_obj_verb (object, "look"))
 	display_error ("defaultexamine", object);
       return true;
     }
-  
+
   if ((match = match_command (cmd, "read #@object#")))
     {
       if (!dereference_vars (match.bindings, is_internal))
@@ -1981,19 +1991,9 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       /* "read" dispatches to the object's read action/property if defined,
        * otherwise it behaves like examine and falls back to look.  Many Quest
        * games gate content (and progress flags) behind action <read>. */
-      if (get_obj_action (object, "read", tok))
-	run_script_as (object, tok);
-      else if (get_obj_property (object, "read", tok))
-	print_formatted (tok);
-      else if (get_obj_action (object, "examine", tok))
-	run_script_as (object, tok);
-      else if (get_obj_property (object, "examine", tok))
-	print_formatted (tok);
-      else if (get_obj_action (object, "look", tok))
-	run_script_as (object, tok);
-      else if (get_obj_property (object, "look", tok))
-	print_formatted (tok);
-      else
+      if (!dispatch_obj_verb (object, "read") &&
+	  !dispatch_obj_verb (object, "examine") &&
+	  !dispatch_obj_verb (object, "look"))
 	display_error ("defaultexamine", object);
       return true;
     }
@@ -2050,17 +2050,12 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
     {
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
-      string script, first = match.bindings[0].var_text,
+      string first = match.bindings[0].var_text,
 	second = match.bindings[1].var_text;
-      if (get_obj_action (first, "remove", script))
-	run_script_as (first, script);
-      else if (get_obj_property (first, "remove", script))
-	print_formatted (script);
-      else if (get_obj_action (second, "remove", script))
-	run_script_as (second, script);
-      else if (get_obj_property (second, "remove", script))
-	print_formatted (script);
-      else
+      /* The "remove" message usually hangs on the container Y, so fall back
+       * to it when the named item X has no "remove" of its own. */
+      if (!dispatch_obj_verb (first, "remove") &&
+	  !dispatch_obj_verb (second, "remove"))
 	display_error ("defaultverb", first);
       return true;
     }
@@ -2069,12 +2064,8 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
     {
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
-      string script, obj = match.bindings[0].var_text;
-      if (get_obj_action (obj, "remove", script))
-	run_script_as (obj, script);
-      else if (get_obj_property (obj, "remove", script))
-	print_formatted (script);
-      else
+      string obj = match.bindings[0].var_text;
+      if (!dispatch_obj_verb (obj, "remove"))
 	display_error ("defaultverb", obj);
       return true;
     }
@@ -2126,11 +2117,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
        * "use X" action. */
       else if (get_obj_action (state.location, "use " + obj, tmp))
 	run_script_as (state.location, tmp);
-      else if (get_obj_action (obj, "use", tmp))
-	run_script_as (obj, tmp);
-      else if (get_obj_property (obj, "use", tmp))
-	print_formatted (tmp);
-      else
+      else if (!dispatch_obj_verb (obj, "use"))
 	display_error ("defaultuse", obj);
       return true;
     }
@@ -2424,43 +2411,24 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       tok = next_token (line, c1, c2); // <whatever>
       if (is_param (tok))
 	print_formatted ("Game name: " + eval_param (tok));
-	  
 
-      for (const string &line: gb->data)
-	{
+      /* Print each "game <key> <param>" line under its label.  Kept as one
+       * helper instead of four near-identical loops; the fixed call order
+       * preserves the original Version/Author/Copyright/Info output order. */
+      auto emit = [&] (const char *key, const string &label) {
+	std::string::size_type d1, d2;
+	string t;
+	for (const string &line: gb->data)
 	  // SENSITIVE?
-	  if (first_token (line, c1, c2) == "game" &&
-	      next_token (line, c1, c2) == "version" &&
-	      is_param (tok = next_token (line, c1, c2)))
-	    print_formatted ("Version " + eval_param (tok));
-	}
-      
-      for (const string &line: gb->data)
-	{
-	  // SENSITIVE?
-	  if (first_token (line, c1, c2) == "game" &&
-	      next_token (line, c1, c2) == "author" &&
-	      is_param (tok = next_token (line, c1, c2)))
-	    print_formatted ("Author: " + eval_param (tok));
-	}
-
-      for (const string &line: gb->data)
-	{
-	  // SENSITIVE?
-	  if (first_token (line, c1, c2) == "game" &&
-	      next_token (line, c1, c2) == "copyright" &&
-	      is_param (tok = next_token (line, c1, c2)))
-	    print_formatted ("Copyright: " + eval_param (tok));
-	}
-
-      for (const string &line: gb->data)
-	{
-	  // SENSITIVE?
-	  if (first_token (line, c1, c2) == "game" &&
-	      next_token (line, c1, c2) == "info" &&
-	      is_param (tok = next_token (line, c1, c2)))
-	    print_formatted (eval_param (tok));
-	}
+	  if (first_token (line, d1, d2) == "game" &&
+	      next_token (line, d1, d2) == key &&
+	      is_param (t = next_token (line, d1, d2)))
+	    print_formatted (label + eval_param (t));
+      };
+      emit ("version",   "Version ");
+      emit ("author",    "Author: ");
+      emit ("copyright", "Copyright: ");
+      emit ("info",      "");
 
       return true;
     }
