@@ -83,6 +83,7 @@ static char *line_buf = NULL;
 static glui32 line_cap = 0;
 
 void glk_request_char_event(winid_t win) { (void)win; pending_char = 1; }
+void glk_cancel_char_event(winid_t win) { (void)win; pending_char = 0; }
 void glk_request_line_event(winid_t win, char *buf, glui32 maxlen, glui32 initlen)
 { (void)win; (void)initlen; pending_line = 1; line_buf = buf; line_cap = maxlen; }
 
