@@ -787,21 +787,15 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 		 * rows numbered top-down as on the Spectrum's attribute file). */
 		int bh = zmem(gptr + 1), bw = zmem(gptr + 2);
 		int bcol = zmem(gptr + 3), brow = zmem(gptr + 4);
-		int row, col, dx, dy;
+		int row, col;
 		nargs = 4;
+		/* BLOCK writes only the attribute file (the ROM's 0xfd1a never
+		 * touches the bitmap), so ink already plotted survives - the death
+		 * screen washes the picture red over the ringwraith, which stays
+		 * black on the new red paper. */
 		for (row = brow; row <= brow + bh; row++)
 		    for (col = bcol; col <= bcol + bw; col++)
-			for (dy = 0; dy < 8; dy++)
-			    for (dx = 0; dx < 8; dx++)
-			    {
-				int x  = col * 8 + dx;
-				int py = 175 - (row * 8 + dy);	/* cell rows are top-down */
-				if (x >= 0 && x < ILL_W && py >= 0 && py < ILL_H)
-				{
-				    ill_putpix(x, py, 0);
-				    ill_setcell(x, py);
-				}
-			    }
+			ill_setcell(col * 8, 175 - row * 8);
 		break;
 	    }
 	    default:	/* SHADE / BSHADE: dither at pen + (dx,dy), again without
