@@ -563,10 +563,8 @@ static uchar *ill_attrp(int x, int y)
     return &picscr[ZX_BITMAP_SIZE + (sy >> 3) * 32 + (x >> 3)];
 }
 
-/* Pen / attribute state while drawing one picture. ill_drawn becomes true once
- * anything has been plotted, so a PAPER/BRIGHT change before then can re-tint
- * the background (pictures routinely set their paper colour up front). */
-static int pen_x, pen_y, pen_ink, pen_paper, pen_bright, ill_drawn;
+/* Pen / attribute state while drawing one picture. */
+static int pen_x, pen_y, pen_ink, pen_paper, pen_bright;
 
 /* Per-component "transparent" flags, mirroring the Spectrum's MASK_T: INK/PAPER/
  * BRIGHT 8 means "leave this component of the cell unchanged". When a flag is
@@ -608,7 +606,6 @@ static void ill_setcell(int x, int y)
 /* Set (ink) or clear (paper) one pixel and stamp its cell's attribute. */
 static void ill_plot(int x, int y, int set)
 {
-    ill_drawn = 1;
     if (x < 0 || x >= ILL_W || y < 0 || y >= ILL_H)
 	return;
     ill_putpix(x, y, set);
@@ -652,8 +649,6 @@ static void ill_line(int x0, int y0, int x1, int y1)
     }
 }
 
-static int pic_pixel(int x, int y);
-
 /* Flood the connected region of clear pixels reachable from the seed, collecting
  * it into ill_region. Bounded only by set (ink) pixels - exactly as the ROM fill
  * (0xfc6c), which scans the bitmap and stops at set bits. Returns 0 (nothing to
@@ -693,7 +688,6 @@ static int ill_flood(int x, int y)
 static void ill_fill(int x, int y)
 {
     int i;
-    ill_drawn = 1;
     if (!ill_flood(x, y))
 	return;
     for (i = 0; i < ILL_W * ILL_H; i++)
@@ -711,7 +705,6 @@ static void ill_fill(int x, int y)
 static void ill_shade(int x, int y, int pattern)
 {
     int i;
-    ill_drawn = 1;
     if (!ill_flood(x, y))
 	return;
     for (i = 0; i < ILL_W * ILL_H; i++)
@@ -729,7 +722,6 @@ static void ill_shade(int x, int y, int pattern)
  * `depth` guards against runaway GOSUB recursion. */
 static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 {
-    ushort base = gfx_ptrs;
     uchar gflag;
     int op, value, nargs, a0, a1;
 
@@ -742,7 +734,6 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 	op    = gflag & 7;
 	value = gflag >> 3;
 	nargs = 0;
-
 
 	switch (op)
 	{
@@ -779,10 +770,11 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 		a1 = ill_scaled(zmem(gptr + 2)) * ((gflag & 0x80) ? -1 : 1);
 		ill_fill(pen_x + a0, pen_y + a1);
 		break;
-	    case 0x10:	/* BLOCK: stamp a rectangle of attribute cells with the
-			 * current colour and clear their pixels, so the cells read
-			 * as paper (the standard way pictures lay down skies and
-			 * solid backgrounds). */
+	    case 0x10:	/* BLOCK: recolour a rectangle of attribute cells. The ROM's
+			 * handler (0xfd1a) writes only the attribute file, never the
+			 * bitmap, so ink already plotted survives - e.g. the death
+			 * screen washes the picture red over the ringwraith, which
+			 * stays black on the new red paper. */
 	    {
 		/* args: height, width, start col, start row (all in 8x8 cells,
 		 * rows numbered top-down as on the Spectrum's attribute file). */
@@ -790,10 +782,6 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 		int bcol = zmem(gptr + 3), brow = zmem(gptr + 4);
 		int row, col;
 		nargs = 4;
-		/* BLOCK writes only the attribute file (the ROM's 0xfd1a never
-		 * touches the bitmap), so ink already plotted survives - the death
-		 * screen washes the picture red over the ringwraith, which stays
-		 * black on the new red paper. */
 		for (row = brow; row <= brow + bh; row++)
 		    for (col = bcol; col <= bcol + bw; col++)
 			ill_setcell(col * 8, 175 - row * 8);
@@ -817,7 +805,7 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 	    int sub = zmem(gptr + 1), old_sc = ill_sc;
 	    nargs = 1;
 	    ill_sc = value & 7;
-	    ill_render(base, zword(base + 2 * sub), depth + 1);
+	    ill_render(gfx_ptrs, zword(gfx_ptrs + 2 * sub), depth + 1);
 	    ill_sc = old_sc;
 	    break;
 	}
@@ -974,20 +962,16 @@ void draw_location_graphic(uchar loc)
 	    return;
     }
 
-    /* Initial colours come from the location's graphics attribute byte (a
-     * standard ZX attribute: ink, paper, bright); the picture may then change
-     * them with INK/PAPER/BRIGHT commands as it draws. */
-    /* The picture starts from the location's ink and paper; bright and flash
-     * are not taken from the flag (the engine renders pictures without bright,
-     * and BRIGHT commands can still turn it on). */
+    /* The picture starts from the location's flag attribute: ink and paper come
+     * from it, but not bright (pictures render without bright unless a BRIGHT
+     * command turns it on). INK/PAPER/BRIGHT commands change these as it draws. */
     gflag = zmem(gfx_flags + loc);
     pen_ink    = gflag & 7;
     pen_paper  = (gflag >> 3) & 7;
     pen_bright = 0;
-    pen_x = 0; pen_y = 0;
-    ill_drawn = 0;
-    ill_sc = 0;
     pen_ink_t = pen_paper_t = pen_bright_t = 0;
+    pen_x = 0; pen_y = 0;
+    ill_sc = 0;
 
     /* Clear the bitmap and set every cell to the location's initial attribute,
      * so the picture starts as a blank field of its paper colour. */
