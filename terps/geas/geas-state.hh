@@ -93,6 +93,23 @@ public:
 class GeasFile;
 class GeasInterface;
 
+/* Index of GeasState::props by lower-cased object name (built lazily).
+ * A *copy* deliberately starts empty and invalid: GeasState is snapshotted
+ * every turn for the undo stack, and deep-copying this map there is the bulk
+ * of the index's cost.  A restored snapshot rebuilds the index on first use
+ * (undos are rare).  A *move* keeps the built index. */
+struct PropsIndex
+{
+  std::map<std::string, std::vector<size_t> > map;
+  bool valid = false;
+
+  PropsIndex () = default;
+  PropsIndex (const PropsIndex &) {}
+  PropsIndex &operator= (const PropsIndex &) { map.clear (); valid = false; return *this; }
+  PropsIndex (PropsIndex &&) = default;
+  PropsIndex &operator= (PropsIndex &&) = default;
+};
+
 struct GeasState
 {
   //private:
@@ -102,6 +119,11 @@ public:
   bool running;
   std::string location;
   std::vector<PropertyRecord> props;
+  /* Index of `props` by lower-cased object name so the runtime get_obj_property
+   * / get_obj_action scans visit only one object's records.  Derived data, not
+   * serialized; mutable so the const lookups can rebuild it lazily.  Kept in
+   * sync with `props` by add_prop (). */
+  mutable PropsIndex props_index;
   std::vector<ObjectRecord> objs;
   std::vector<ExitRecord> exits;
   std::vector<TimerRecord> timers;
@@ -118,6 +140,14 @@ public:
   GeasState () {}
   //GeasState (GeasRunner &, const GeasFile &);
   GeasState (GeasInterface &, const GeasFile &);
+
+  /* Append a runtime property/action record (the only way props grows during
+   * play), keeping props_index in sync if it is currently built. */
+  void add_prop (const std::string &name, const std::string &data);
+  /* (Re)build props_index if it is not valid (e.g. after a copy/load). */
+  void ensure_props_index () const;
+  /* The props records for `name` (newest last), or nullptr if it has none. */
+  const std::vector<size_t> *prop_records (const std::string &name) const;
   /*
   bool has_svar (string s) { for (uint i = 0; i < svars.size(); i ++) if (svars[i].name == s) return true; }
   uint find_svar (string s) { for (uint i = 0; i < svars.size(); i ++) if (svars[i].name == s) return i; svars.push_back (SVarRecord (s)); return svars.size() - 1;}

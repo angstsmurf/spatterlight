@@ -603,8 +603,6 @@
 		C344B2CD26E4DA87004B0A8F /* SFBAudioEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3484A7C2F105FF1003D6B4C /* writetiff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C384A6812C6EB06C0081FC50 /* writetiff.cpp */; };
 		C349856C2FD095B7005ABD84 /* libdecompressz80.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */; };
-		C3C3792A2FD0DA290006039B /* libdecompressz80.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */; };
-		C3C3792B2FD0DA290006039B /* libunp64.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; };
 		C349B4DC28803A7C00D99943 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C349B4DA28803A7C00D99943 /* parseinput.c */; };
 		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		C34E570F2CF3941200A8DC2B /* OpenGameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */; };
@@ -831,6 +829,8 @@
 		C3C2053D268D304500DB7AE0 /* BezelWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C20539268D304500DB7AE0 /* BezelWindow.m */; };
 		C3C2053E268D304500DB7AE0 /* BezelContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C2053B268D304500DB7AE0 /* BezelContentView.m */; };
 		C3C2863D26596A9400D83926 /* spat-mg1.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C2863B26596A9400D83926 /* spat-mg1.c */; };
+		C3C3792A2FD0DA290006039B /* libdecompressz80.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */; };
+		C3C3792B2FD0DA290006039B /* libunp64.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; };
 		C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C506E426590E4B00763D3E /* MissingFilesFinder.m */; };
 		C3C5926826A81AE200DFB49B /* autosavetest.gblorb in Resources */ = {isa = PBXBuildFile; fileRef = C3C5926726A8185700DFB49B /* autosavetest.gblorb */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
@@ -3840,22 +3840,22 @@
 			isa = PBXGroup;
 			children = (
 				55368B6E272BF24700740A0A /* geas-impl.hh */,
+				55368B64272BF24700740A0A /* GeasRunner.hh */,
 				55368B70272BF24700740A0A /* geas-runner.cc */,
-				55368B5E272BF24700740A0A /* geas-state.cc */,
 				55368B67272BF24700740A0A /* geas-state.hh */,
-				55368B5D272BF24700740A0A /* geas-util.cc */,
+				55368B5E272BF24700740A0A /* geas-state.cc */,
 				55368B66272BF24700740A0A /* geas-util.hh */,
-				55368B6B272BF24700740A0A /* geasfile.cc */,
+				55368B5D272BF24700740A0A /* geas-util.cc */,
 				55368B6C272BF24700740A0A /* geasfile.hh */,
+				55368B6B272BF24700740A0A /* geasfile.cc */,
 				55368B60272BF24700740A0A /* geasglk.cc */,
 				55368B6A272BF24700740A0A /* geasglkterm.c */,
-				55368B64272BF24700740A0A /* GeasRunner.hh */,
 				55368B62272BF24700740A0A /* general.hh */,
 				55368B61272BF24700740A0A /* istring.cc */,
 				55368B63272BF24700740A0A /* istring.hh */,
 				55368B6D272BF24700740A0A /* LimitStack.hh */,
-				55368B5F272BF24700740A0A /* readfile.cc */,
 				55368B69272BF24700740A0A /* readfile.hh */,
+				55368B5F272BF24700740A0A /* readfile.cc */,
 				55368B6F272BF24700740A0A /* reserved_words.hh */,
 				55368B68272BF24700740A0A /* uncas.pl */,
 			);
