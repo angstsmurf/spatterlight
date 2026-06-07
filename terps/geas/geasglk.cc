@@ -60,6 +60,8 @@ protected:
     virtual std::string get_string ();
     virtual uint make_choice (const std::string &, std::vector<std::string>);
     virtual GeasResult play_sound (const std::string &filename, bool looped, bool sync);
+    virtual GeasResult show_image (const std::string &filename, const std::string &resolution,
+				   const std::string &caption, ...);
     virtual GeasResult wait_keypress (const std::string &);
     virtual bool has_objects_window ();
 
@@ -952,6 +954,53 @@ GeasGlkInterface::play_sound (const std::string &filename, bool looped, bool /*s
 
   glui32 repeats = looped ? 0xffffffffu : 1u;   /* 0xffffffff == loop forever */
   glk_schannel_play_ext (geas_soundchannel, (glui32) resno, repeats, 0);
+  return r_success;
+}
+
+/* Like the sound case: Quest's image files are external and arbitrarily named,
+ * so register each with the backend under a stable resource number and let
+ * glk_image_draw () short-circuit its PIC<n>/blorb lookup via win_findimage (). */
+extern "C" int  win_findimage (int resno);
+extern "C" void win_loadimage (int resno, const char *filename, int offset, int reslen);
+
+GeasResult
+GeasGlkInterface::show_image (const std::string &filename, const std::string & /*resolution*/,
+			     const std::string & /*caption*/, ...)
+{
+  if (filename.empty())
+    return r_not_supported;
+  /* Need a Glk that can draw images inline in the text-buffer window. */
+  if (!glk_gestalt (gestalt_Graphics, 0) ||
+      !glk_gestalt (gestalt_DrawImage, wintype_TextBuffer))
+    return r_not_supported;
+
+  std::string parent = storyfilename ? storyfilename : "";
+  std::string path = absolute_name (filename, parent);
+
+  static std::map<std::string, int> image_ids;
+  auto it = image_ids.find (path);
+  int resno;
+  if (it == image_ids.end())
+    resno = image_ids[path] = (int) image_ids.size() + 1;
+  else
+    resno = it->second;
+
+  if (!win_findimage (resno))
+    {
+      std::ifstream f (path.c_str(), std::ios::binary | std::ios::ate);
+      if (!f.is_open())
+	{
+	  std::cerr << "show_image: cannot open " << path << "\n";
+	  return r_not_supported;
+	}
+      int len = (int) f.tellg();
+      win_loadimage (resno, path.c_str(), 0, len);
+    }
+
+  /* Draw on its own line in the main window. */
+  glk_put_char (0x0a);
+  glk_image_draw (mainglkwin, (glui32) resno, imagealign_InlineCenter, 0);
+  glk_put_char (0x0a);
   return r_success;
 }
 

@@ -213,8 +213,10 @@ public:
   /* Save the whole game state to a self-contained string, or restore it from
    * one (the host performs the actual file I/O).  load_state returns false if
    * the data is not a usable save. */
-  virtual std::string save_state() { return std::string(); }
-  virtual bool load_state(const std::string &data) { return false; }
+  /* run_hooks runs the game's beforesave/onload scripts (a real player save or
+   * restore); pass false for a transparent, side-effect-free state snapshot. */
+  virtual std::string save_state(bool run_hooks = true) { (void) run_hooks; return std::string(); }
+  virtual bool load_state(const std::string &data, bool run_hooks = true) { (void) run_hooks; return false; }
 
   /* Display name of the current room (its alias, or its internal name). */
   virtual std::string get_location() { return std::string(); }
