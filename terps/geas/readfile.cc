@@ -405,7 +405,7 @@ GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
       // SENSITIVE?
       else if (this_pass == "object" || this_pass == "character")
 	{
-	  props = reserved_words ("look", "examine", "speak", "take", "alias", "prefix", "suffix", "detail", "displaytype", "gender", "article", "hidden", "invisible", "container", "remove", (char *) NULL);
+	  props = reserved_words ("look", "examine", "speak", "take", "alias", "prefix", "suffix", "detail", "displaytype", "gender", "article", "hidden", "invisible", "container", "surface", "transparent", "seen", "opened", "closed", "remove", (char *) NULL);
 	  actions = reserved_words ("look", "examine", "speak", "take", "gain", "lose", "use", "give", "open", "close", "remove", (char *) NULL);
 	}
 	  
