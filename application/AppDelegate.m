@@ -128,6 +128,7 @@ PasteboardFilePasteLocation;
                    @"advsys" : @"advsys",
                    @"agt" : @"agility",
                    @"archetype" : @"archetype",
+                   @"comprehend" : @"comprehend",
                    @"glulx" : @"glulxe",
                    @"hugo" : @"hugo",
                    @"level9" : @"level9",

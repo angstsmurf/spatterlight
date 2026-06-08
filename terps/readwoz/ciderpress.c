@@ -395,6 +395,15 @@ typedef enum {              // main filesystem format (based on NuFX enum)
 
 PhysicalFormat  fPhysical = kPhysicalFormatNib525_6656;
 
+/*
+ * Sector ordering of the underlying image when reading a ProDOS filesystem.
+ * Apple II disks that store a ProDOS volume in DOS sector order (e.g. the
+ * Penguin/Polarware Comprehend games) need kSectorOrderDOS here; the default
+ * kSectorOrderPhysical matches ProDOS-order images such as the Infocom V6
+ * disks. Set via SetProDOSImageOrder().
+ */
+static SectorOrder fProDOSImageOrder = kSectorOrderPhysical;
+
 static int fHasSectors;    // image is sector-addressable
 static int fHasBlocks;     // image is block-addressable
 static int fHasNibbles;    // image is nibble-addressable
@@ -536,7 +545,11 @@ static int FindNibbleSectorStart(ringbuf_handle_t ringbuffer, int track,
     for (i = 0; i < trackLen; i++) {
         int foundAddr = 0;
 
-        if (access_ringbuf(ringbuffer, i) == fpNibbleDescr->addrProlog[0] && access_ringbuf(ringbuffer, i + 1) == fpNibbleDescr->addrProlog[1] && access_ringbuf(ringbuffer, i + 2) == fpNibbleDescr->addrProlog[2]) {
+        uint8_t b0 = access_ringbuf(ringbuffer, i);
+        /* Some Penguin/Polarware "Comprehend" disks (e.g. the Apple II
+         * Talisman) write a D4 address prolog on odd tracks instead of the
+         * standard D5; accept either. */
+        if ((b0 == fpNibbleDescr->addrProlog[0] || b0 == 0xd4) && access_ringbuf(ringbuffer, i + 1) == fpNibbleDescr->addrProlog[1] && access_ringbuf(ringbuffer, i + 2) == fpNibbleDescr->addrProlog[2]) {
             foundAddr = 1;
         }
 
@@ -554,24 +567,30 @@ static int FindNibbleSectorStart(ringbuf_handle_t ringbuffer, int track,
                 continue;
             }
 
-            if (fpNibbleDescr->addrVerifyChecksum) {
-                if ((fpNibbleDescr->addrChecksumSeed ^ hdrVol ^ hdrTrack ^ hdrSector ^ hdrChksum) != 0) {
-                    debug_print("   Addr checksum mismatch (want T=%d,S=%d, got T=%d,S=%d)", track, sector, hdrTrack, hdrSector);
-                    continue;
-                }
+            /* DOS 3.3 address checksum: chk == vol ^ track ^ sector. */
+            int checksumOk = ((fpNibbleDescr->addrChecksumSeed ^ hdrVol ^
+                               hdrTrack ^ hdrSector ^ hdrChksum) == 0);
+
+            if (fpNibbleDescr->addrVerifyChecksum && !checksumOk) {
+                debug_print("   Addr checksum mismatch (want T=%d,S=%d, got T=%d,S=%d)", track, sector, hdrTrack, hdrSector);
+                continue;
             }
 
             i += 3;
 
             int j;
+            int epilogOk = 1;
             for (j = 0; j < fpNibbleDescr->addrEpilogVerifyCount; j++) {
                 if (access_ringbuf(ringbuffer, i + 8 + j) != fpNibbleDescr->addrEpilog[j]) {
-                    //debug_print("   Bad epilog byte %d (%02x vs %02x)",
-                    //    j, buffer[i+8+j], pNibbleDescr->addrEpilog[j]);
+                    epilogOk = 0;
                     break;
                 }
             }
-            if (j != fpNibbleDescr->addrEpilogVerifyCount)
+            /* Standard disks pass the epilog check. Some Penguin/Polarware
+             * "Comprehend" disks (Apple II Talisman) use a non-standard address
+             * epilog but keep a valid checksum, so accept the field if either
+             * the epilog matches or the checksum is good. */
+            if (!epilogOk && !checksumOk)
                 continue;
 
 #ifdef NIB_VERBOSE_DEBUG
@@ -689,6 +708,10 @@ static DIError CalcSectorAndOffset(long track, int sector, SectorOrder imageOrde
     static const int raw2prodos[16] = {
         0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7, 15
     };
+    /* inverse of dos2raw; lets us map a raw sector into a DOS-ordered image */
+    static const int raw2dos[16] = {
+        0, 7, 14, 6, 13, 5, 12, 4, 11, 3, 10, 2, 9, 1, 8, 15
+    };
     static const int prodos2raw[16] = {
         0, 2, 4, 6, 8, 10, 12, 14, 1, 3, 5, 7, 9, 11, 13, 15
     };
@@ -738,6 +761,9 @@ static DIError CalcSectorAndOffset(long track, int sector, SectorOrder imageOrde
     switch (imageOrder) {
         case kSectorOrderProDOS:
             newSector = raw2prodos[newSector];
+            break;
+        case kSectorOrderDOS:
+            newSector = raw2dos[newSector];
             break;
         case kSectorOrderPhysical:
             break;
@@ -1480,7 +1506,7 @@ static DIError ProDOSRead(A2File *pFile, void* buf, size_t len, size_t* pActual)
 
     while (len) {
         dierr = ReadBlockSwapped(pFile->fBlockList[blockIndex],
-                                 blkBuf, kSectorOrderPhysical,
+                                 blkBuf, fProDOSImageOrder,
                                  kSectorOrderProDOS);
         if (dierr != kDIErrNone) {
             debug_print(" ProDOS error reading block [%ld]=%d of '%s'",
@@ -1563,8 +1589,7 @@ static DIError LoadDirectoryBlockList(A2File *pFile, uint16_t keyBlock,
 
         *listPtr++ = keyBlock;
 
-        dierr = ReadBlockSwapped(keyBlock, blkBuf,kSectorOrderPhysical,
-                                 kSectorOrderProDOS);
+        dierr = ReadBlockSwapped(keyBlock, blkBuf, fProDOSImageOrder, kSectorOrderProDOS);
         if (dierr != kDIErrNone)
             goto bail;
 
@@ -1603,7 +1628,7 @@ static DIError LoadIndexBlock(uint16_t block, uint16_t* list,
     if (maxCount > kMaxBlocksPerIndex)
         maxCount = kMaxBlocksPerIndex;
 
-    dierr = ReadBlockSwapped(block, blkBuf, kSectorOrderPhysical, kSectorOrderProDOS);
+    dierr = ReadBlockSwapped(block, blkBuf, fProDOSImageOrder, kSectorOrderProDOS);
     if (dierr != kDIErrNone)
         goto bail;
 
@@ -1709,7 +1734,7 @@ static DIError LoadBlockList(A2File *pFile, int storageType, uint16_t keyBlock,
         long countDown = count;
         int idx = 0;
 
-        dierr = ReadBlockSwapped(keyBlock, blkBuf, kSectorOrderPhysical, kSectorOrderProDOS);
+        dierr = ReadBlockSwapped(keyBlock, blkBuf, fProDOSImageOrder, kSectorOrderProDOS);
         if (dierr != kDIErrNone)
             goto bail;
 
@@ -1997,7 +2022,7 @@ static DIError RecursiveDirAdd(A2File* pParent, uint16_t dirBlock,
     first = 1;
 
     while (dirBlock && iterations < kMaxCatalogIterations) {
-        dierr = ReadBlockSwapped(dirBlock, blkBuf, kSectorOrderPhysical, kSectorOrderProDOS);
+        dierr = ReadBlockSwapped(dirBlock, blkBuf, fProDOSImageOrder, kSectorOrderProDOS);
         if (dierr != kDIErrNone)
             goto bail;
 
@@ -2234,7 +2259,7 @@ static DIError DetermineVolDirLen(uint16_t nextBlock, uint16_t* pBlocksUsed) {
             dierr = kDIErrInvalidBlock;
             goto bail;
         }
-        dierr = ReadBlockSwapped(nextBlock, blkBuf, kSectorOrderPhysical, kSectorOrderProDOS);
+        dierr = ReadBlockSwapped(nextBlock, blkBuf, fProDOSImageOrder, kSectorOrderProDOS);
         if (dierr != kDIErrNone) {
             goto bail;
         }
@@ -2270,7 +2295,7 @@ static DIError LoadVolHeaderProDOS(void)
 
     A2File* pFile = NULL;
 
-    dierr = ReadBlockSwapped(kVolHeaderBlock, blkBuf, kSectorOrderPhysical, kSectorOrderProDOS);
+    dierr = ReadBlockSwapped(kVolHeaderBlock, blkBuf, fProDOSImageOrder, kSectorOrderProDOS);
     if (dierr != kDIErrNone)
         goto bail;
 
@@ -2677,6 +2702,120 @@ A2FileRec *GetAllApple2DOSFiles(uint8_t *data, size_t len, size_t *number_of_fil
 }
 
 /*
+ * Select the sector ordering used when reading ProDOS blocks.
+ * Pass nonzero to read a ProDOS volume stored in DOS sector order.
+ */
+void SetProDOSImageOrder(int isDOSOrder)
+{
+    fProDOSImageOrder = isDOSOrder ? kSectorOrderDOS : kSectorOrderPhysical;
+}
+
+/*
+ * Extract every ProDOS binary game file from a disk image by brute force.
+ *
+ * The Apple II Comprehend games (Penguin/Polarware "RUNCOMP" loader) store
+ * their data in a ProDOS volume whose game-file directory is deliberately
+ * unlinked from the volume root, so a normal directory walk misses it. We
+ * instead scan every block of the disk for valid ProDOS file entries of type
+ * $06 (BIN) and read each one. The images are stored in DOS sector order.
+ *
+ * Each returned record holds the (upper-case) filename and raw file data.
+ * The caller must free each record's filename and data, then the array.
+ */
+A2FileRec *GetAllProDOSFiles(uint8_t *data, size_t len, size_t *number_of_files)
+{
+    rawdata = data;
+    rawdatalen = len;
+    fPhysical = kPhysicalFormatSectors;
+    fHasNibbles = 0;
+    fHasSectors = 1;
+    fHasBlocks = 1;
+    fNumTracks = kTrackCount525;
+    fNumSectPerTrack = 16;
+    fNumBlocks = (fNumTracks * fNumSectPerTrack) / 2;
+    fProDOSImageOrder = kSectorOrderDOS;
+
+    A2FileRec *recs = NULL;
+    int filecount = 0;
+    char seen[64][kFileNameBufLen];
+    uint8_t blkBuf[kBlkSize];
+
+    for (long blk = kVolHeaderBlock; blk < fNumBlocks; blk++) {
+        if (ReadBlockSwapped(blk, blkBuf, fProDOSImageOrder,
+                kSectorOrderProDOS) != kDIErrNone)
+            continue;
+
+        for (int i = 0; i < 13; i++) {
+            const uint8_t *e = &blkBuf[0x04 + i * 0x27];
+            int st = e[0x00] >> 4;
+            int nl = e[0x00] & 0x0f;
+
+            /* seedling/sapling/tree only, with a plausible name length */
+            if (st < kStorageSeedling || st > kStorageTree || nl < 1 || nl > 15)
+                continue;
+            /* only ProDOS BIN files hold Comprehend game data */
+            if (e[0x10] != 0x06)
+                continue;
+
+            int printable = 1;
+            for (int c = 0; c < nl; c++)
+                if (e[0x01 + c] < 33 || e[0x01 + c] >= 127) { printable = 0; break; }
+            if (!printable)
+                continue;
+
+            uint32_t eof = e[0x15] | (e[0x16] << 8) | (e[0x17] << 16);
+            uint16_t key = GetShortLE(&e[0x11]);
+            if (eof == 0 || eof > 150000 || key < kVolHeaderBlock || key >= fNumBlocks)
+                continue;
+
+            char name[kFileNameBufLen];
+            memcpy(name, &e[0x01], nl);
+            name[nl] = '\0';
+
+            int dup = 0;
+            for (int s = 0; s < filecount && s < 64; s++)
+                if (strcmp(seen[s], name) == 0) { dup = 1; break; }
+            if (dup)
+                continue;
+
+            A2File f;
+            memset(&f, 0, sizeof(f));
+            f.fDirEntry.storageType = st;
+            f.fDirEntry.fileType = 0x06;
+            f.fDirEntry.keyPointer = key;
+            f.fDirEntry.eof = eof;
+
+            if (ProDOSOpen(&f) != kDIErrNone) {
+                free(f.fBlockList);
+                continue;
+            }
+            uint8_t *buf = MemAlloc(eof + 1);
+            size_t actual = 0;
+            ProDOSRead(&f, buf, eof, &actual);
+            free(f.fBlockList);
+
+            if (filecount < 64)
+                strncpy(seen[filecount], name, kFileNameBufLen - 1);
+
+            recs = MemRealloc(recs, sizeof(A2FileRec) * (filecount + 1));
+            recs[filecount].index = filecount;
+            recs[filecount].filename = MemAlloc(strlen(name) + 1);
+            strcpy(recs[filecount].filename, name);
+            recs[filecount].data = buf;
+            recs[filecount].datasize = actual;
+            filecount++;
+        }
+    }
+
+    *number_of_files = filecount;
+    if (filecount == 0) {
+        free(recs);
+        recs = NULL;
+    }
+    return recs;
+}
+
+/*
  * Get things rolling.
  *
  * Since we're assured that this is a valid disk, errors encountered from here
@@ -2740,6 +2879,9 @@ uint8_t *ReadInfocomV6File(uint8_t *data, size_t *len, int *game, int *diskindex
 {
     rawdata = data;
     rawdatalen = *len;
+
+    /* The Infocom V6 disks are ProDOS-order images. */
+    fProDOSImageOrder = kSectorOrderPhysical;
 
     uint8_t *buf = NULL;
 

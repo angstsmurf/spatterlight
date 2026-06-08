@@ -278,6 +278,7 @@
                                      @"advsys" : @"AdvSys",
                                      @"agt"    : @"AGiliTy",
                                      @"archetype" : @"Archetype",
+                                     @"comprehend" : @"Comprehend",
                                      @"glulx"  : @"Glulxe",
                                      @"hugo"   : @"Hugo",
                                      @"level9" : @"Level 9",

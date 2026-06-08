@@ -157,111 +157,6 @@ static void *MemAlloc(size_t size)
     return (t);
 }
 
-/* Rotate a byte left by one bit, shifting in the carry from a previous rotation */
-static int rotate_left_with_carry(uint8_t *byte, int last_carry)
-{
-    int carry = ((*byte & 0x80) > 0);
-    *byte = *byte << 1;
-    if (last_carry)
-        *byte |= 0x1;
-    return carry;
-}
-
-/*
- * Extract the next nibble byte from a bitstream.
- *
- * Scans forward from *pos, skipping zero bits until a '1' bit is found,
- * then collects that bit plus the next 7 to form an 8-bit nibble.
- * The consumed bits are zeroed out in the bitstream. Advances *pos.
- */
-static uint8_t extract_nibble(uint8_t *bitstream, int total_bits, int *pos)
-{
-    int total_bytes = total_bits / 8 + (total_bits % 8 != 0);
-    // skip any initial '0'.
-    while (*pos < total_bytes && bitstream[*pos] == 0) {
-        (*pos)++;
-    }
-
-    if (*pos >= total_bits / 8) {
-        // bitstream contained only zeros until no full byte left.
-        return 0;
-    }
-
-    int carry = 0;
-    int shift_count = 0;
-    while ((bitstream[*pos] & 0x80) == 0) {
-        carry = rotate_left_with_carry(&bitstream[*pos + 1], carry);
-        carry = rotate_left_with_carry(&bitstream[*pos], carry);
-        shift_count++;
-    }
-    uint8_t nibble = bitstream[*pos];
-    bitstream[*pos] = 0;
-    bitstream[*pos + 1] = bitstream[*pos + 1] >> shift_count;
-    return nibble;
-}
-
-/*
- * Rotate a bitstream by moving 'head_bits' bits from the front to the end.
- *
- * Used to align the track bitstream so that it starts at a sector boundary
- * (just after sync bytes). This is a circular rotation at the bit level,
- * handling non-byte-aligned boundaries.
- */
-static uint8_t *swap_head_and_tail(uint8_t *bitstream, int head_bits, int total_bits)
-{
-
-    int trailing_bits = total_bits % 8;
-    int has_trailing_bits = (trailing_bits != 0);
-    int total_bytes = total_bits / 8 + has_trailing_bits;
-    int head_trailing = head_bits % 8;
-    int has_head_trailing = (head_trailing != 0);
-    int tail_bits = total_bits - head_bits;
-    int tail_trailing = tail_bits % 8;
-    int head_bytes = head_bits / 8 + has_head_trailing;
-
-    uint8_t last_byte = bitstream[total_bytes - 1];
-
-    if (has_trailing_bits)
-        last_byte = (bitstream[total_bytes - 2] << trailing_bits) | (last_byte >> (8 - trailing_bits));
-
-    int tail_bytes = tail_bits / 8 + 2;
-
-    // if there are spillover head bits, the tail copy must
-    // include the last head byte,
-    // then be left shifted (head_trailing) times
-
-    uint8_t *tail = MemAlloc(tail_bytes);
-
-    if (!has_head_trailing) {
-        // If the number of head bits are cleanly divisible by 8 we don't need to do any shifting
-        memcpy(tail, bitstream + head_bytes, tail_bytes - 1);
-    } else {
-        for (int i = 0; i < tail_bytes && head_bytes + i < total_bytes; i++) {
-            tail[i] = (bitstream[head_bytes - 1 + i] << head_trailing) | (bitstream[head_bytes + i] >> (8 - head_trailing));
-        }
-    }
-
-    // if there are spillover tail bits, the head copy must
-    // then be right shifted (tail_trailing) times,
-    // while shifting in the original last tail bits
-    // we calculated as last_byte above
-
-    uint8_t *head = MemAlloc(head_bytes + 1);
-
-    head[0] = (bitstream[0] >> tail_trailing) | (last_byte << (8 - tail_trailing));
-    for (int i = 1; i <= head_bytes; i++) {
-        head[i] = (bitstream[i] >> tail_trailing) | (bitstream[i - 1] << (8 - tail_trailing));
-    }
-
-    memcpy(bitstream, tail, tail_bytes);
-    memcpy(bitstream + tail_bits / 8, head, head_bytes + 1);
-
-    free(head);
-    free(tail);
-
-    return bitstream;
-}
-
 /* Result of searching for sector sync byte patterns */
 typedef enum {
     FOUND_NONE,
@@ -598,12 +493,10 @@ uint8_t *woz2nib(uint8_t *woz_data, size_t *data_size)
 
         trksdata *trk = &trks[trks_index];
         int bit_count = trk->bit_count;
-        int total_bytes = bit_count / 8;
         size_t stream_bytes = (bit_count + 7) / 8;  // bytes spanned by the valid bits
 
         /* A track too short to hold even the sync pattern can't yield sectors,
-         * and the rotation maths below assume a non-trivial bit count, so treat
-         * it (and any unmapped/zero TRKS entry) as an empty track. */
+         * so treat it (and any unmapped/zero TRKS entry) as an empty track. */
         if (bit_count <= SYNC13_BIT_LENGTH) {
             debug_print("T[%02x]: track %d too short (%d bits)\n", track, trks_index, bit_count);
             memset(outfile + output_pos, 0, NIBBLES_PER_TRACK);
@@ -618,54 +511,48 @@ uint8_t *woz2nib(uint8_t *woz_data, size_t *data_size)
             return NULL;
         }
 
-        /* Copy the track into a private buffer so the destructive bit-rotation
-         * and extraction below operate on our own scratch space and never touch
-         * the caller's WOZ data. The +2 zeroed trailing bytes let the bit
-         * scanners safely read one byte past the last valid byte. */
-        uint8_t *bitstream = MemAlloc(stream_bytes + 2);
-        memcpy(bitstream, woz_data + trk->data_offset, stream_bytes);
-        bitstream[stream_bytes] = 0;
-        bitstream[stream_bytes + 1] = 0;
+        /* Locate a sync gap so decoding begins at a sector boundary, which
+         * keeps marginal first sectors readable. find_syncbytes only reads the
+         * bitstream, so hand it a padded read-only copy. */
+        uint8_t *scan = MemAlloc(stream_bytes + 2);
+        memcpy(scan, woz_data + trk->data_offset, stream_bytes);
+        scan[stream_bytes] = 0;
+        scan[stream_bytes + 1] = 0;
 
-        /* Find sync bytes and rotate bitstream so extraction starts at a sector boundary */
         int found_bit_pos = -1;
-        SearchResultType result = find_syncbytes(bitstream, trk->bit_count, &found_bit_pos);
-        if (result == FOUND_NONE) {
-            /* Try again after rotating to expose a different part of the circular track */
-            bitstream = swap_head_and_tail(bitstream, bit_count - SYNC13_BIT_LENGTH, bit_count);
-            result = find_syncbytes(bitstream, trk->bit_count, &found_bit_pos);
-        }
+        SearchResultType result = find_syncbytes(scan, bit_count, &found_bit_pos);
+        free(scan);
 
-        switch (result) {
-        case FOUND16:
-            /* Rotate past the 16-sector sync pattern */
-            bitstream = swap_head_and_tail(bitstream, found_bit_pos + SYNC16_BIT_LENGTH, bit_count);
-            break;
-        case FOUND13:
-            /* Rotate past the 13-sector sync pattern */
-            bitstream = swap_head_and_tail(bitstream, found_bit_pos + SYNC13_BIT_LENGTH, bit_count);
-            break;
-        default:
-            debug_print("Found no sync bytes in track %d bitstream\n", track);
-            break;
-        }
+        int start_bit = 0;
+        if (result == FOUND16)
+            start_bit = (found_bit_pos + SYNC16_BIT_LENGTH) % bit_count;
+        else if (result == FOUND13)
+            start_bit = (found_bit_pos + SYNC13_BIT_LENGTH) % bit_count;
 
-        /* Extract nibble bytes from the aligned bitstream straight into the output */
+        /* Decode with a soft data latch (Apple II controller model): shift bits
+         * into an 8-bit register, emitting a nibble when the high bit is set.
+         * The bitstream is read as a true circle starting at the sync gap, so
+         * the final sector is never split or zero-padded at the track boundary
+         * -- which is what ailed tightly-formatted disks such as Talisman. When
+         * no sync is found, decoding from bit 0 still recovers the track because
+         * the latch self-syncs at the first gap it meets. */
+        const uint8_t *src = woz_data + trk->data_offset;
         uint8_t *track_out = outfile + output_pos;
-        int extract_pos = 0;
-        int nibble_count = 0;
-        do {
-            track_out[nibble_count++] = extract_nibble(bitstream, bit_count, &extract_pos);
-        } while (extract_pos < total_bytes && nibble_count < NIBBLES_PER_TRACK);
-
-        if (nibble_count < NIBBLES_PER_TRACK) {
-            memset(track_out + nibble_count, 0, NIBBLES_PER_TRACK - nibble_count);
-            debug_print("padded to %d nibbles\n", NIBBLES_PER_TRACK);
-        } else {
-            debug_print("(just made!)\n");
+        int reg = 0, nibble_count = 0, p = start_bit, guard = 0;
+        int guard_limit = bit_count * 3;
+        while (nibble_count < NIBBLES_PER_TRACK && guard < guard_limit) {
+            int bit = (src[p >> 3] >> (7 - (p & 7))) & 1;
+            reg = ((reg << 1) | bit) & 0xff;
+            if (reg & 0x80) {
+                track_out[nibble_count++] = (uint8_t)reg;
+                reg = 0;
+            }
+            if (++p >= bit_count)
+                p = 0;
+            guard++;
         }
-
-        free(bitstream);
+        while (nibble_count < NIBBLES_PER_TRACK)
+            track_out[nibble_count++] = 0;
         output_pos += NIBBLES_PER_TRACK;
     }
 
