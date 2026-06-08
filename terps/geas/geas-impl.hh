@@ -73,7 +73,14 @@ class geas_implementation : public GeasRunner
   GeasFile gf;
   //bool running;
   bool dont_process, outputting;
-  LimitStack <GeasState> undo_buffer;
+  /* Depth of the undo history.  GeasState snapshots are large (a full copy of
+   * the world is taken every turn), so this is a deliberately modest fixed cap
+   * rather than unlimited undo.  LimitStack is a ring buffer holding this many
+   * slots, one of which is the sentinel, so the player gets kUndoLevels - 1
+   * actual undos.  Defined once here and used at both the initial-construction
+   * and RESTART sites so the two cannot drift apart. */
+  static constexpr unsigned kUndoLevels = 20;
+  LimitStack <UndoState> undo_buffer;
   std::vector <std::string> function_args;
   std::string this_object;
   /* Most recently referenced object, used to resolve pronouns ("it", etc.).
@@ -89,11 +96,15 @@ class geas_implementation : public GeasRunner
   v2string current_places;
   bool is_running_;
   std::string story_filename;   /* used as the save-file's game tag */
+  /* How this session started, for Quest's $loadmethod$: "normal" for a fresh
+   * game, "loaded" once a saved game has been restored.  A session property
+   * (not part of GeasState), so undo does not change it. */
+  std::string load_method_ = "normal";
   Logger logger;
 
 public:
   geas_implementation (GeasInterface *in_gi)
-     : GeasRunner (in_gi), undo_buffer (20), is_running_(true) {}
+     : GeasRunner (in_gi), undo_buffer (kUndoLevels), is_running_(true) {}
   //void set_game (std::string s);
   void set_game (const std::string &s);
   std::string save_state (bool run_hooks = true);
@@ -110,9 +121,9 @@ public:
   std::string get_banner ();
   void run_command (const std::string &);
   bool try_match (std::string s, bool, bool);
-  match_rv match_command (std::string input, std::string action) const;
-  match_rv match_command (std::string input, uint ichar,
-			  std::string action, uint achar, match_rv rv) const;
+  match_rv match_command (const std::string &input, const std::string &action) const;
+  match_rv match_command (const std::string &input, uint ichar,
+			  const std::string &action, uint achar, match_rv rv) const;
   bool dereference_vars (std::vector<match_binding> &bindings, bool is_internal) const;
   bool dereference_vars (std::vector<match_binding>&, const std::vector<std::string>&, bool is_internal) const;
   bool match_object (const std::string &text, const std::string &name, bool is_internal = false, bool allow_partial = true) const;
@@ -126,12 +137,16 @@ public:
   void set_svar (const std::string &, const std::string &);
   void set_svar (const std::string &, size_t, const std::string &);
   void set_ivar (const std::string &, int);
-  void set_ivar (const std::string &, size_t, int);
+  void set_ivar (const std::string &, double);
+  void set_ivar (const std::string &, size_t, double);
 
   std::string get_svar (const std::string &) const;
   std::string get_svar (const std::string &, size_t) const;
   int get_ivar (const std::string &) const;
   int get_ivar (const std::string &, size_t) const;
+  /* Raw double value of a numeric variable (get_ivar rounds to int). */
+  double get_dvar (const std::string &) const;
+  double get_dvar (const std::string &, size_t) const;
 
   bool find_ivar (const std::string &, size_t &) const;
   bool find_svar (const std::string &, size_t &) const;
@@ -158,6 +173,16 @@ public:
      action-then-property idiom the look/examine/read/remove handlers share. */
   bool dispatch_obj_verb (const std::string &obj, const std::string &key);
   std::string exit_dest (const std::string &room, const std::string &dir, bool *is_act = NULL) const;
+  /* Quest locked exits ("<dir> locked <dest; lockmessage>", plus lock/unlock
+   * commands).  exit_lock_message returns the declared message (or "").  An
+   * exit is locked if explicitly toggled (a property on the synthetic
+   * "!exitlock" object) or, absent that, declared locked in the room data. */
+  bool exit_locked (const std::string &room, const std::string &dir);
+  std::string exit_lock_message (const std::string &room, const std::string &dir) const;
+  /* True if the room statically declares "<dir> locked <dest; msg>"; sets
+   * message to that (possibly empty) lockmessage.  Shared by the two above. */
+  bool exit_declared_locked (const std::string &room, const std::string &dir,
+			     std::string &message) const;
   std::vector<std::vector<std::string> > get_places (const std::string &room);
 
   void set_obj_property (const std::string &obj, const std::string &prop);

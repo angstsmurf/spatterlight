@@ -256,8 +256,54 @@ void GeasState::ensure_props_index () const
 const vector<size_t> *GeasState::prop_records (const string &name) const
 {
   ensure_props_index ();
-  auto it = props_index.map.find (lcase (name));
+  /* Build the lowercased key into a reused buffer rather than allocating an
+   * lcase() temporary on every lookup (this is on the get_obj_property /
+   * get_obj_action runtime path). */
+  string &key = props_index.key_scratch;
+  size_t nn = name.size ();
+  key.resize (nn);
+  for (size_t i = 0; i < nn; i++)
+    {
+      unsigned char c = (unsigned char) name[i];
+      key[i] = (c >= 'A' && c <= 'Z') ? c + 32 : c;
+    }
+  auto it = props_index.map.find (key);
   return it == props_index.map.end () ? nullptr : &it->second;
+}
+
+UndoState GeasState::save_undo () const
+{
+  UndoState u;
+  u.running = running;
+  u.location = location;
+  u.props_len = props.size ();   /* props is append-only: store length, not data */
+  u.objs = objs;
+  u.exits = exits;
+  u.timers = timers;
+  u.svars = svars;
+  u.ivars = ivars;
+  u.items = items;
+  return u;
+}
+
+void GeasState::restore_undo (const UndoState &u)
+{
+  running = u.running;
+  location = u.location;
+  /* props only ever grows, so a snapshot's length is <= the live log and the
+   * records below it are unchanged: truncate back to recover the old state.
+   * The < guard is belt-and-suspenders (a snapshot can't out-length the live
+   * log in normal play); we can't fabricate appended records, so leave props
+   * untouched in that impossible case. */
+  if (u.props_len <= props.size ())
+    props.erase (props.begin () + u.props_len, props.end ());
+  objs = u.objs;
+  exits = u.exits;
+  timers = u.timers;
+  svars = u.svars;
+  ivars = u.ivars;
+  items = u.items;
+  props_index.valid = false;   /* derived index no longer matches props */
 }
 
 GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)

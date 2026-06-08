@@ -29,6 +29,8 @@
 #include <sstream>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
+#include <cstdio>
 #include "general.hh"
 #include "istring.hh"
 
@@ -185,7 +187,33 @@ int geas_implementation::get_ivar (const string &varname, size_t index) const
 		   "' [" + string_int(index) + "]");
   return -32767;
 }
+double geas_implementation::get_dvar (const string &varname) const
+{
+  std::string::size_type i1 = varname.find ('[');
+  if (i1 == string::npos)
+    return get_dvar (varname, 0);
+  if (varname[varname.length() - 1] != ']')
+    return -32767.0;
+  string arrayname = varname.substr (0, i1);
+  string indextext = varname.substr (i1+1, varname.length() - i1 - 2);
+  for (uint c3 = 0; c3 < indextext.size(); c3 ++)
+    if (indextext[c3] < '0' || indextext[c3] > '9')
+      return get_dvar (arrayname, get_ivar (indextext));
+  return get_dvar (arrayname, parse_int (indextext));
+}
+double geas_implementation::get_dvar (const string &varname, size_t index) const
+{
+  for (const auto &i: state.ivars)
+    if (ci_equal (i.name, varname))
+      return i.getd(index);
+  return -32767.0;
+}
 void geas_implementation::set_ivar (const string &varname, int varval)
+{
+  set_ivar (varname, (double) varval);
+}
+
+void geas_implementation::set_ivar (const string &varname, double varval)
 {
   std::string::size_type i1 = varname.find ('[');
   if (i1 == string::npos)
@@ -210,7 +238,7 @@ void geas_implementation::set_ivar (const string &varname, int varval)
   set_ivar (arrayname, parse_int (indextext), varval);
 }
 
-void geas_implementation::set_ivar (const string &varname, size_t index, int varval)
+void geas_implementation::set_ivar (const string &varname, size_t index, double varval)
 {
   size_t n, m;
   if (!find_ivar (varname, n))
@@ -963,6 +991,18 @@ string geas_implementation::exit_dest (const string &room, const string &dir, bo
     if (tok == dir) {
       std::string::size_type line_start = c2;
       tok = next_token (line, c1, c2);
+      /* "<dir> locked <dest; lockmessage>": a (initially locked) exit whose
+       * destination is the first ;-separated field.  Locking only gates
+       * traversal (handled by the caller), so return the destination here. */
+      if (ci_equal (tok, "locked")) {
+	tok = next_token (line, c1, c2);
+	if (is_param (tok)) {
+	  vector<string> p = split_param (param_contents (tok));
+	  if (!p.empty ())
+	    return trim (p[0]);
+	}
+	return "";
+      }
       if (is_param (tok))
 	return param_contents(tok);
       if (tok != "")
@@ -975,6 +1015,51 @@ string geas_implementation::exit_dest (const string &room, const string &dir, bo
     }
   }
   return "";
+}
+
+/* The lockmessage declared in "<dir> locked <dest; lockmessage>", or "". */
+bool geas_implementation::exit_declared_locked (const string &room, const string &dir,
+						string &message) const
+{
+  message = "";
+  const GeasBlock *gb = gf.find_by_name ("room", room);
+  if (gb == NULL)
+    return false;
+  std::string::size_type c1, c2;
+  for (const string &line: gb->data) {
+    if (first_token (line, c1, c2) != dir)
+      continue;
+    if (!ci_equal (next_token (line, c1, c2), "locked"))
+      return false;
+    string tok = next_token (line, c1, c2);
+    if (is_param (tok)) {
+      vector<string> p = split_param (param_contents (tok));
+      if (p.size () >= 2)
+	message = trim (p[1]);
+    }
+    return true;
+  }
+  return false;
+}
+
+/* The lockmessage declared in "<dir> locked <dest; lockmessage>", or "". */
+string geas_implementation::exit_lock_message (const string &room, const string &dir) const
+{
+  string message;
+  exit_declared_locked (room, dir, message);
+  return message;
+}
+
+/* Is the (room, dir) exit currently locked?  An explicit lock/unlock wins
+ * (stored as a "<room>;<dir>=locked|open" property on "!exitlock"); otherwise
+ * it is locked iff the room declares it with the "locked" keyword. */
+bool geas_implementation::exit_locked (const string &room, const string &dir)
+{
+  string val;
+  if (get_obj_property ("!exitlock", lcase (room) + ";" + lcase (dir), val))
+    return ci_equal (val, "locked");
+  string message;
+  return exit_declared_locked (room, dir, message);
 }
 
 void geas_implementation::look()
@@ -1070,7 +1155,7 @@ bool geas_implementation::undo ()
 	return false;
       is_running_ = true;
     }
-  state = undo_buffer.peek();
+  state.restore_undo (undo_buffer.peek());
   state.running = true;
   print_formatted ("Undone.");
   /* Rebuild the cached views of the restored state and redescribe the room. */
@@ -1120,6 +1205,8 @@ bool geas_implementation::load_state (const string &data, bool run_hooks)
     return false;
   state = newstate;
   is_running_ = state.running = true;
+  if (run_hooks)
+    load_method_ = "loaded";   /* a real restore -> $loadmethod$ = "loaded" */
   /* Rebuild the cached views of the (now restored) current room. */
   regen_var_room ();
   regen_var_dirs ();
@@ -1138,6 +1225,7 @@ void geas_implementation::set_game (const string &s)
 {
   GEAS_DBG << "set_game (...)\n";
   story_filename = s;
+  load_method_ = "normal";   /* a fresh game (reset on restart) */
   /* Seed the RNG once per game.  Real Quest randomises every run; geas used to
    * leave rand() unseeded, so any random fight played out identically each time
    * -- which left World's End's final fight permanently unwinnable.  GEAS_SEED
@@ -1294,9 +1382,9 @@ void geas_implementation::set_game (const string &s)
       }
       /* Start a fresh undo history (RESTART reuses this object) and seed it
        * with the opening state so the first command can be undone too. */
-      undo_buffer = LimitStack<GeasState> (20);
+      undo_buffer = LimitStack<UndoState> (kUndoLevels);
       if (state.running)
-	undo_buffer.push (state);
+	{ UndoState u = state.save_undo (); undo_buffer.push (u); }
     }
   catch (string s)
     {
@@ -1656,27 +1744,17 @@ void geas_implementation::run_command (const string &s1)
   bool overridden = false;
   dont_process = false;
 
+  /* beforeturn/afterturn hooks are pre-parsed per block (see GeasBlock); a room
+   * override suppresses the game block's hooks (matching the original scans). */
   const GeasBlock *gb = gf.find_by_name ("room", state.location);
   if (gb != NULL)
     {
-      std::string::size_type c1=0, c2;
-      for (const string &line: gb->data)
+      gf.ensure_cached (*gb);
+      for (const GeasBlock::hook_entry &h : gb->beforeturns)
 	{
-	  string tok = first_token (line, c1, c2);
-	  // SENSITIVE?
-	  if (tok == "beforeturn")
-	    {
-	      std::string::size_type scr_starts = c2;
-	      tok = next_token (line, c1, c2);
-	      // SENSITIVE?
-	      if (tok == "override")
-		{
-		  overridden = true;
-		  scr_starts = c2;
-		}
-	      string scr = line.substr (scr_starts);
-	      run_script_as (state.location, scr);
-	    }
+	  if (h.is_override)
+	    overridden = true;
+	  run_script_as (state.location, h.script);
 	}
     }
   else
@@ -1686,25 +1764,9 @@ void geas_implementation::run_command (const string &s1)
     gb = gf.find_by_name ("game", "game");
     if (gb != NULL)
       {
-	std::string::size_type c1=0, c2;
-	for (const string &line: gb->data)
-	  {
-	    string tok = first_token (line, c1, c2);
-	    // SENSITIVE?
-	    if (tok == "beforeturn")
-	      {
-		std::string::size_type scr_starts = c2;
-		tok = next_token (line, c1, c2);
-		// SENSITIVE?
-		if (tok == "override")
-		  {
-//		    overridden = true;
-		    scr_starts = c2;
-		  }
-		string scr = line.substr (scr_starts);
-		run_script_as ("game", scr);
-	      }
-	  }
+	gf.ensure_cached (*gb);
+	for (const GeasBlock::hook_entry &h : gb->beforeturns)
+	  run_script_as ("game", h.script);   /* game override does not suppress */
       }
     else
       gi->debug_print ("Unable to find block game.\n");
@@ -1726,57 +1788,29 @@ void geas_implementation::run_command (const string &s1)
   gb = gf.find_by_name ("room", state.location);
   if (gb != NULL)
     {
-      std::string::size_type c1=0, c2;
-      for (const string &line: gb->data)
+      gf.ensure_cached (*gb);
+      for (const GeasBlock::hook_entry &h : gb->afterturns)
 	{
-	  string tok = first_token (line, c1, c2);
-	  // SENSITIVE?
-	  if (tok == "afterturn")
-	    {
-	      std::string::size_type scr_starts = c2;
-	      tok = next_token (line, c1, c2);
-	      // SENSITIVE?
-	      if (tok == "override")
-		{
-		  overridden = true;
-		  scr_starts = c2;
-		}
-	      string scr = line.substr (scr_starts);
-	      run_script_as (state.location, scr);
-	    }
+	  if (h.is_override)
+	    overridden = true;
+	  run_script_as (state.location, h.script);
 	}
     }
   if (!overridden) {
     gb = gf.find_by_name ("game", "game");
     if (gb != NULL)
       {
-	std::string::size_type c1=0, c2;
-	for (const string &line: gb->data)
-	  {
-	    string tok = first_token (line, c1, c2);
-	    // SENSITIVE?
-	    if (tok == "afterturn")
-	      {
-		std::string::size_type scr_starts = c2;
-		tok = next_token (line, c1, c2);
-		// SENSITIVE?
-		if (tok == "override")
-		  {
-//		    overridden = true;
-		    scr_starts = c2;
-		  }
-		string scr = line.substr (scr_starts);
-		run_script_as ("game", scr);
-	      }
-	  }
+	gf.ensure_cached (*gb);
+	for (const GeasBlock::hook_entry &h : gb->afterturns)
+	  run_script_as ("game", h.script);   /* game override does not suppress */
       }
   }
 
   if (state.running)
-    undo_buffer.push (state);
+    { UndoState u = state.save_undo (); undo_buffer.push (u); }
 }
 
-ostream &operator<< (ostream &o, const match_rv &rv) 
+ostream &operator<< (ostream &o, const match_rv &rv)
 {
   o << "match_rv {" << (rv.success ? "TRUE" : "FALSE") << ": [";
   o << rv.bindings;
@@ -1784,7 +1818,7 @@ ostream &operator<< (ostream &o, const match_rv &rv)
   return o; 
 }
 
-match_rv geas_implementation::match_command (string input, string action) const
+match_rv geas_implementation::match_command (const string &input, const string &action) const
 {
   /* A command pattern with an unpaired '#' (a typo in the game's own source,
    * which Quest tolerates) makes the recursive matcher throw.  Treat such a
@@ -1801,7 +1835,7 @@ match_rv geas_implementation::match_command (string input, string action) const
     }
 }
 
-match_rv geas_implementation::match_command (string input, uint ichar, string action, uint achar, match_rv rv) const
+match_rv geas_implementation::match_command (const string &input, uint ichar, const string &action, uint achar, match_rv rv) const
 {
   for (;;)
     {
@@ -2067,47 +2101,29 @@ void geas_implementation::set_vars (const vector<match_binding> &v)
 
 bool geas_implementation::run_commands (string cmd, const GeasBlock *room, bool is_internal)
 {
-  std::string::size_type c1, c2;
-  string tok;
   match_rv match;
-  
-  if (room != NULL)
-    {
-      for (const string &line: room->data)
-	{
-	  tok = first_token (line, c1, c2);
-	  /* "lib command <...>" is a command supplied by a (built-in) library;
-	   * treat it like a normal command.  Game-defined commands appear before
-	   * the appended lib commands, so they keep priority by file order. */
-	  if (tok == "lib")
-	    tok = next_token (line, c1, c2);
-	  // SENSITIVE?
-	  if (tok == "command")
-	    {
-	      tok = next_token (line, c1, c2);
-	      if (is_param (tok))
-		{
-		  vector<string> tmp = split_param (param_contents(tok));
 
-		  for (const string &tmpi: tmp)
-		    if ((match = match_command (cmd, tmpi)))
-		      {
-			if (!dereference_vars (match.bindings, is_internal))
-			  return false;
-			set_vars (match.bindings);
-			run_script_as (state.location, line.substr (c2+1));
-			return true;
-		      }
-		}
-	      else
-		{
-		  gi->debug_print ("Bad command line: " + line);
-		}
-	    }
-	}
+  if (room == NULL)
+    {
+      gi->debug_print ("room is null\n");
+      return false;
     }
-  else
-    gi->debug_print ("room is null\n");
+
+  /* Commands and their split patterns are pre-parsed once (see GeasBlock /
+   * ensure_cached); we no longer re-tokenize every line of the block each turn.
+   * Order is preserved, so file-order priority (game commands before appended
+   * lib commands) is unchanged. */
+  gf.ensure_cached (*room);
+  for (const GeasBlock::cmd_entry &e : room->commands)
+    for (const string &pat : e.patterns)
+      if ((match = match_command (cmd, pat)))
+	{
+	  if (!dereference_vars (match.bindings, is_internal))
+	    return false;
+	  set_vars (match.bindings);
+	  run_script_as (state.location, e.script);
+	  return true;
+	}
 
   return false;
 }
@@ -2231,6 +2247,21 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 			    (i + 1 == c.size () ? " and " : ", ")) + c[i];
 		    print_formatted (c.empty () ? "It is empty." : m + ".");
 		  }
+	      }
+	    else if (string (v.key) == "wear")
+	      {
+		/* Quest's built-in clothing: wearing sets the "worn" property
+		 * (games test `property <obj; worn>`) and holds the item.  geas
+		 * has no clothing library and the type's action <wear> may live
+		 * in an unavailable .qlb, so apply the effect here and print the
+		 * object's wearmessage. */
+		set_obj_property (obj, "worn");
+		move (obj, "inventory");
+		string wm;
+		if (get_obj_property (obj, "wearmessage", wm) && wm != "")
+		  print_formatted (wm);
+		else
+		  print_formatted ("You put it on.");
 	      }
 	    else
 	      display_error ("defaultverb", obj);
@@ -2656,8 +2687,14 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	bool is_script = false;
 	if ((tok = exit_dest (state.location, dir_names[i], &is_script)) == "")
 	  {
-	    // TODO Which display_error do I use? 
+	    // TODO Which display_error do I use?
 	    print_formatted ("You can't go that way.");
+	    return true;
+	  }
+	if (!is_script && exit_locked (state.location, dir_names[i]))
+	  {
+	    string lm = exit_lock_message (state.location, dir_names[i]);
+	    print_formatted (lm != "" ? lm : "The way is locked.");
 	    return true;
 	  }
 	if (is_script)
@@ -2678,27 +2715,32 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
     {
       if (match.bindings.size() != 1) { report_unsupported ("unexpected binding count for 'go to' command"); return true; }
       string destination = match.bindings[0].var_text;
-      for (size_t i = 0; i < current_places.size(); i ++) {
-	/* Match the place's "prefix displayed" form, its bare displayed name,
-	 * or the destination room name itself.  Games commonly drive entry via
-	 * `exec <go to ROOMNAME>`, where ROOMNAME is the raw destination room
-	 * ([3]) rather than its display alias, so that form must match too. */
-	if (ci_equal(destination, current_places[i][1]) ||
-	    ci_equal(destination, current_places[i][2]) ||
-	    ci_equal(destination, current_places[i][3]))
-	  {
-	    if (current_places[i].size() == 5)
-	      {
-		/* Copy first: the script may goto, which reallocates
-		 * current_places out from under us. */
-		string scr = current_places[i][4];
-		run_script_as (state.location, scr);
-	      }
-	    else
-	      goto_room (current_places[i][3]);
-	    return true;
-	  }
-      }
+      /* Quest also strips a leading "the " and retries (GoToPlace). */
+      string alt = destination;
+      if (lcase (destination).rfind ("the ", 0) == 0)
+	alt = trim (destination.substr (4));
+      for (size_t i = 0; i < current_places.size (); i ++)
+	{
+	  bool scripted = (current_places[i].size () == 5);
+	  /* Quest's PlaceExist compares against one target: the destination
+	   * room name for a scripted place (e.g. `exec <go to ROOMNAME>`), or
+	   * the room's display alias for a plain place. */
+	  const string &target = scripted ? current_places[i][3]
+					   : current_places[i][2];
+	  if (ci_equal (destination, target) || ci_equal (alt, target))
+	    {
+	      if (scripted)
+		{
+		  /* Copy first: the script may goto, which reallocates
+		   * current_places out from under us. */
+		  string scr = current_places[i][4];
+		  run_script_as (state.location, scr);
+		}
+	      else
+		goto_room (current_places[i][3]);
+	      return true;
+	    }
+	}
       display_error ("badplace", destination);
       return true;
     }
@@ -2899,6 +2941,93 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->set_background (eval_param (tok));
       else
 	gi->debug_print ("Expected parameter after foreground in " + s);
+      return;
+    }
+  // SENSITIVE?
+  else if (tok == "lock" || tok == "unlock")
+    {
+      /* Quest "lock <room; dir>" / "unlock <room; dir>": toggle an exit's
+       * locked state.  Recorded as a property on the synthetic "!exitlock"
+       * object so it persists with state/undo; exit_locked() consults it. */
+      bool locking = (tok == "lock");
+      tok = next_token (s, c1, c2);
+      if (!is_param (tok))
+	{
+	  gi->debug_print ("Expected <room; direction> after " +
+			   string (locking ? "lock" : "unlock") + " in " + s);
+	  return;
+	}
+      vector<string> p = split_param (eval_param (tok));
+      if (p.size () < 2 || trim (p[0]) == "" || trim (p[1]) == "")
+	{
+	  gi->debug_print ("Malformed exit in " + s);
+	  return;
+	}
+      string key = lcase (trim (p[0])) + ";" + lcase (trim (p[1]));
+      set_obj_property ("!exitlock", key + (locking ? "=locked" : "=open"));
+      return;
+    }
+  // SENSITIVE?
+  else if (tok == "select")
+    {
+      /* Quest "select case <expr> do <!intproc>": the reader deinlines the
+       * select-case block into a procedure whose lines are
+       *   case <v1;v2;...> <script>     (script may itself be "do <!intproc>")
+       *   case else <script>
+       * Run the script of the first case whose (semicolon-separated) value
+       * equals the selector; "case else" matches anything. */
+      tok = next_token (s, c1, c2);
+      if (tok != "case")
+	{
+	  gi->debug_print ("Expected 'case' after 'select' in " + s);
+	  return;
+	}
+      tok = next_token (s, c1, c2);
+      if (!is_param (tok))
+	{
+	  gi->debug_print ("Expected selector parameter in " + s);
+	  return;
+	}
+      string selector = eval_param (tok);
+      tok = next_token (s, c1, c2);          // "do"
+      tok = next_token (s, c1, c2);          // <!intproc>
+      if (!is_param (tok))
+	{
+	  gi->debug_print ("Expected case block in " + s);
+	  return;
+	}
+      string procname = param_contents (tok);
+      for (uint i = 0; i < gf.size ("procedure"); i ++)
+	if (ci_equal (gf.block ("procedure", i).name, procname))
+	  {
+	    const GeasBlock &proc = gf.block ("procedure", i);
+	    for (uint j = 0; j < proc.data.size (); j ++)
+	      {
+		std::string::size_type d1, d2;
+		string line = proc.data[j];
+		if (first_token (line, d1, d2) != "case")
+		  continue;
+		string t2 = next_token (line, d1, d2);
+		if (ci_equal (t2, "else"))
+		  {
+		    run_script (trim (line.substr (d2)));
+		    return;
+		  }
+		if (!is_param (t2))
+		  continue;
+		bool matched = false;
+		for (const string &val : split_param (param_contents (t2)))
+		  if (ci_equal (trim (val), selector))
+		    { matched = true; break; }
+		if (matched)
+		  {
+		    run_script (trim (line.substr (d2)));
+		    return;
+		  }
+	      }
+	    return;
+	  }
+      gi->debug_print ("No case block " + procname + " found");
       return;
     }
   // SENSITIVE?
@@ -3435,7 +3564,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  return;
 	}
       tok = eval_param (tok);
-      int diff;
+      double diff;
       std::string::size_type index = tok.find (';');
       string varname;
       if (index == string::npos)
@@ -3446,12 +3575,12 @@ void geas_implementation::run_script (const string &s, string &rv)
       else
 	{
 	  varname = trim (tok.substr (0, index));
-	  diff = eval_int (tok.substr (index+1));
+	  diff = eval_double (tok.substr (index+1));
 	}
       if (is_dec)
-	set_ivar (varname, get_ivar (varname) - diff);
+	set_ivar (varname, get_dvar (varname) - diff);
       else
-	set_ivar (varname, get_ivar (varname) + diff);
+	set_ivar (varname, get_dvar (varname) + diff);
       return;
     }
   // SENSITIVE?
@@ -3557,7 +3686,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  gi->debug_print ("Expected parameter after pause in " + s);;
 	  return;
 	}
-      int i = eval_int (param_contents(tok));
+      int i = (int) eval_double (param_contents(tok));
       gi->pause (i);
       return;
     }
@@ -3804,7 +3933,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       else
 	{
-	  set_ivar (varname, eval_int(tok.substr (index+1)));
+	  set_ivar (varname, eval_double(tok.substr (index+1)));
 	}
       return;
     }
@@ -3845,7 +3974,7 @@ void geas_implementation::run_script (const string &s, string &rv)
       tok = eval_param (tok);
       std::string::size_type index = tok.find (';');
       string varname = trim (tok.substr (0, index));
-      set_ivar (varname, eval_int(tok.substr (index+1)));
+      set_ivar (varname, eval_double(tok.substr (index+1)));
       return;
     }
   // SENSITIVE?
@@ -4114,18 +4243,18 @@ bool geas_implementation::eval_cond (const string &s)
 	  GEAS_DBG << "Comparing <" << trim_braces (trim (tok.substr (0, index))) 
 	       << "> < <" << trim_braces (trim (tok.substr (index + 4)))
 	       << ">\n";
-	  return eval_int (tok.substr (0, index - 1))
-	    <= eval_int (tok.substr (index + 4));
+	  return eval_double (tok.substr (0, index - 1))
+	    <= eval_double (tok.substr (index + 4));
 	}
       if ((index = tok.find ("gt=;")) != string::npos)
-	return eval_int (tok.substr (0, index)) 
-	  >= eval_int (tok.substr (index + 4));
+	return eval_double (tok.substr (0, index))
+	  >= eval_double (tok.substr (index + 4));
       if ((index = tok.find ("lt;")) != string::npos)
-	return eval_int (tok.substr (0, index)) 
-	  < eval_int (tok.substr (index + 3));
+	return eval_double (tok.substr (0, index))
+	  < eval_double (tok.substr (index + 3));
       if ((index = tok.find ("gt;")) != string::npos)
-	return eval_int (tok.substr (0, index)) 
-	  > eval_int (tok.substr (index + 3));
+	return eval_double (tok.substr (0, index))
+	  > eval_double (tok.substr (index + 3));
       if ((index = tok.find (";")) != string::npos)
 	{
 	  GEAS_DBG << "Comparing <" << trim_braces (trim (tok.substr (0, index)))
@@ -4293,9 +4422,8 @@ string geas_implementation::run_function (const string &pname)
   // SENSITIVE?
   else if (pname == "loadmethod")
     {
-      /* TODO TODO */
-      return "normal";
-      // "loaded" on restore from qsg
+      /* "normal" for a fresh game, "loaded" once a save has been restored. */
+      return load_method_;
     }
   // SENSITIVE?
   else if (pname == "locationof")
@@ -4439,6 +4567,32 @@ string geas_implementation::run_function (const string &pname)
 	if (ci_equal (i.name, function_args[0]))
 	  return string_int (i.max());
       return "0";
+    }
+  // SENSITIVE?
+  else if (pname == "round")
+    {
+      /* Quest "$round(<expr>; <decimals>)$": evaluate the (double) expression
+       * and round to the given number of decimal places (default 0).  Format
+       * without trailing zeros, matching .NET's double-to-string. */
+      if (function_args.size () < 1)
+	return bad_arg_count (pname);
+      double v = eval_double (function_args[0]);
+      int dec = (function_args.size () >= 2) ? parse_int (function_args[1]) : 0;
+      if (dec < 0)
+	dec = 0;
+      double p = pow (10.0, dec);
+      double r = (v < 0 ? -1.0 : 1.0) * floor (fabs (v) * p + 0.5) / p;
+      char buf[64];
+      snprintf (buf, sizeof buf, "%.*f", dec, r);
+      string out = buf;
+      if (dec > 0)
+	{
+	  std::string::size_type last = out.find_last_not_of ('0');
+	  if (last != string::npos && out[last] == '.')
+	    last--;
+	  out = out.substr (0, last + 1);
+	}
+      return out;
     }
   // SENSITIVE?
   else if (pname == "ucase")
@@ -4790,7 +4944,7 @@ string geas_implementation::eval_string (const string &s)
 	  if (j == i + 1)
 	    rv += "%";
 	  else
-	    rv += string_int (get_ivar (s.substr (i+1, j-i-1)));
+	    rv += fmt_double (get_dvar (s.substr (i+1, j-i-1)));
 	  i = j;
 	}
       else if (s[i] == '$')
@@ -4833,7 +4987,8 @@ string geas_implementation::eval_string (const string &s)
 		gi->debug_print ("No matching right paren in " + tmp);
 	      else
 		{
-		  string f_name = tmp.substr (0, paren_open);
+		  /* Trim so "$round (...)$" (space before the paren) dispatches. */
+		  string f_name = trim (tmp.substr (0, paren_open));
 		  string f_args = tmp.substr (paren_open + 1,
 					      paren_close - paren_open - 1);
 		  func_eval = run_function (f_name, split_f_args (f_args));
@@ -4863,7 +5018,11 @@ void geas_implementation::tick_timers()
 	    tr.timeleft --;
 	  else
 	    {
-	      tr.is_running = false;
+	      /* Quest timers repeat every `interval` ticks until explicitly
+	       * timeroff'd (a one-shot timer calls timeroff in its own action,
+	       * directly or via a variable onchange).  Re-arm and keep running
+	       * rather than stopping after the first firing -- otherwise
+	       * counter timers (interval 1, action `dec <x>`) only fire once. */
 	      tr.timeleft = tr.interval;
 	      const GeasBlock *gb = gf.find_by_name ("timer", tr.name);
 	      if (gb != NULL)

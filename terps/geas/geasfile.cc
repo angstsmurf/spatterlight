@@ -21,6 +21,7 @@
  ***************************************************************************/
 
 #include <set>
+#include <cstring>
 #include "geasfile.hh"
 #include "reserved_words.hh"
 #include "readfile.hh"
@@ -49,9 +50,32 @@ void GeasFile::debug_print (const string &s) const
     }
 }
 
+void GeasFile::build_name_key (std::string &out, const string &type,
+			      const string &name)
+{
+  /* One sized write into the reused buffer rather than reserve + push_back per
+   * char (which was a profile hotspot): resize once, then fill directly. */
+  size_t tn = type.size (), nn = name.size ();
+  out.resize (tn + 1 + nn);
+  char *p = &out[0];
+  std::memcpy (p, type.data (), tn);
+  p[tn] = '\1';
+  char *q = p + tn + 1;
+  for (size_t i = 0; i < nn; i++)
+    {
+      unsigned char c = (unsigned char) name[i];
+      q[i] = (c >= 'A' && c <= 'Z') ? c + 32 : c;
+    }
+}
+
 std::string GeasFile::name_key (const string &type, const string &name)
 {
-  return type + '\1' + lcase (name);
+  /* Keep the same key bytes as build_name_key so load-time keys (readfile) and
+   * lookup-time keys agree.  ASCII fold matches the old lcase() under C
+   * locale. */
+  std::string out;
+  build_name_key (out, type, name);
+  return out;
 }
 
 const GeasBlock *GeasFile::find_by_name (const string &type, const string &name,
@@ -60,8 +84,8 @@ const GeasBlock *GeasFile::find_by_name (const string &type, const string &name,
   /* O(1) lookup via name_index instead of scanning every block of the type.
    * The candidate list is in definition order, so the first-match fallback and
    * the preferred-parent tie-break behave exactly as the old linear scan. */
-  std::map<std::string, std::vector<size_t> >::const_iterator it =
-    name_index.find (name_key (type, name));
+  build_name_key (name_key_scratch, type, name);
+  auto it = name_index.find (name_key_scratch);
   if (it == name_index.end ())
     return NULL;
 
@@ -111,6 +135,123 @@ size_t GeasFile::size (const std::string &type) const {
   return (*iter).second.size(); 
 }
 
+
+void GeasFile::ensure_cached (const GeasBlock &b) const
+{
+  if (b.cache_built)
+    return;
+  b.cache_built = true;
+
+  std::string::size_type c1, c2;
+  for (const string &line : b.data)
+    {
+      string tok = first_token (line, c1, c2);
+
+      if (tok == "type")
+	{
+	  string p = next_token (line, c1, c2);
+	  if (is_param (p))
+	    {
+	      string tn = param_contents (p);
+	      b.parent_types.push_back (tn);
+	      /* A `type` line means "inherit": object/type property and action
+	       * lookups both recurse into the named type at this position. */
+	      b.obj_prop.push_back  ({true, tn, "", false});
+	      b.obj_act.push_back   ({true, tn, "", false});
+	      b.type_prop.push_back ({true, tn, "", false});
+	      b.type_act.push_back  ({true, tn, "", false});
+	    }
+	  /* Mirrors get_type_property/get_obj_property: a `type` first-token line
+	   * never also contributes a bare/assigned property, so fall through. */
+	  continue;
+	}
+
+      /* Per-turn block directives (room & game blocks).  These never overlap
+       * with property/action/type lines, so handle and skip the rest. */
+      if (tok == "command" || tok == "lib")
+	{
+	  string htok = tok;
+	  if (htok == "lib")   /* "lib command <...>": a library-supplied command */
+	    htok = next_token (line, c1, c2);
+	  if (htok == "command")
+	    {
+	      string p = next_token (line, c1, c2);
+	      if (is_param (p))
+		{
+		  GeasBlock::cmd_entry e;
+		  e.patterns = split_param (param_contents (p));
+		  e.script = (c2 + 1 < line.length ()) ? line.substr (c2 + 1) : "";
+		  b.commands.push_back (std::move (e));
+		}
+	      else
+		debug_print ("Bad command line: " + line);
+	    }
+	  continue;
+	}
+      if (tok == "beforeturn" || tok == "afterturn")
+	{
+	  /* Script starts after the keyword, or after a following "override". */
+	  std::string::size_type scr_starts = c2;
+	  bool ov = (next_token (line, c1, c2) == "override");
+	  if (ov)
+	    scr_starts = c2;
+	  GeasBlock::hook_entry h {ov, line.substr (scr_starts)};
+	  if (tok == "beforeturn")
+	    b.beforeturns.push_back (std::move (h));
+	  else
+	    b.afterturns.push_back (std::move (h));
+	  continue;
+	}
+
+      /* Object-style property lines: `properties <a;b;c>` (read_into already
+       * splits these one-per-line, but split_param keeps multi-item lines safe).
+       * Each item is bare ("foo" -> true/""), negated ("not foo" -> false/"!"),
+       * or assigned ("foo=bar" -> true/"bar").  We pre-classify here; the rare
+       * pathological item (e.g. a literal property named "not foo") that the
+       * original's query-dependent compares treated differently never occurs as
+       * a real lookup. */
+      if (tok == "properties")
+	{
+	  string p = next_token (line, c1, c2);
+	  if (is_param (p))
+	    for (const string &j : split_param (param_contents (p)))
+	      {
+		std::string::size_type idx;
+		if (starts_with (j, "not "))
+		  b.obj_prop.push_back ({false, trim (j.substr (4)), "!", false});
+		else if ((idx = j.find ('=')) != string::npos)
+		  b.obj_prop.push_back ({false, trim (j.substr (0, idx)),
+					 j.substr (idx + 1), true});
+		else
+		  b.obj_prop.push_back ({false, j, "", true});
+	      }
+	}
+      /* Action lines: object-style keeps the script after "<name> " (substr
+       * c2+1); type-style keeps it from c2 -- matching the two original loops. */
+      else if (tok == "action")
+	{
+	  string p = next_token (line, c1, c2);
+	  if (is_param (p))
+	    {
+	      string name = param_contents (p);
+	      b.obj_act.push_back ({false, name,
+				    (c2 + 1 < line.length ()) ? line.substr (c2 + 1) : "",
+				    true});
+	      b.type_act.push_back ({false, name, line.substr (c2), true});
+	    }
+	}
+
+      /* Type-style property lines: a bare line is a flag named by the whole
+       * line; a `name = value` line assigns.  (Only ever walked for blocks that
+       * are actually `type`s; harmless extra entries on object blocks.) */
+      std::string::size_type eq = line.find ('=');
+      if (eq != string::npos)
+	b.type_prop.push_back ({false, trim (line.substr (0, eq)),
+				trim (line.substr (eq + 1)), true});
+      else
+	b.type_prop.push_back ({false, line, "", true});
+    }
+}
 
 bool GeasFile::obj_has_property (const string &objname, const string &propname) const
 {
@@ -256,66 +397,30 @@ bool GeasFile::get_obj_property (const string &objname, const string &propname, 
 
 
 
-  if (!has (obj_types, objname))
+  auto oti = obj_types.find (objname);
+  if (oti == obj_types.end ())
     {
       debug_print ("Checking nonexistent object <" + objname + "> for property <" + propname + ">");
       return false;
     }
-  string objtype = (*obj_types.find(objname)).second;
+  const string &objtype = oti->second;
 
   const GeasBlock *block = find_by_name (objtype, objname, preferred_parent);
 
-  string not_prop = "not " + propname;
-  std::string::size_type c1, c2;
   if (block == NULL)
     {
       gi->debug_print ("get_obj_property: no block for object '" + objname + "'");
       return false;
     }
-  for (const string &line: block->data)
+  ensure_cached (*block);
+  for (const GeasBlock::dir &d: block->obj_prop)
     {
-      string tok = first_token (line, c1, c2);
-      // SENSITIVE?
-      if (tok == "type")
+      if (d.is_type)
+	get_type_property (d.a, propname, bool_rv, string_rv);
+      else if (d.a == propname)
 	{
-	  tok = next_token (line, c1, c2);
-	  if (is_param (tok))
-	    get_type_property (param_contents(tok), propname, bool_rv, string_rv);
-	  else
-	    {
-	      debug_print ("Expected parameter for type in " + line);
-	    }
-	}
-      // SENSITIVE?
-      else if (tok == "properties")
-	{
-	  tok = next_token (line, c1, c2);
-	  if (!is_param(tok))
-	    {
-	      debug_print ("Expected param on line " + line);
-	      continue;
-	    }
-	  vector<string> props = split_param (param_contents (tok));
-	  for (const string &j: props)
-	    {
-	      std::string::size_type index;
-	      if (j == propname)
-		{
-		  string_rv = "";
-		  bool_rv = true;
-		}
-	      else if (j == not_prop)
-		{
-		  string_rv = "!";
-		  bool_rv = false;
-		}
-	      else if ((index = j.find ('=')) != string::npos &&
-		       (trim (j.substr (0, index)) == propname))
-		{
-		  string_rv = j.substr (index+1);
-		  bool_rv = true;
-		}
-	    }
+	  string_rv = d.b;
+	  bool_rv = d.bv;
 	}
     }
   GEAS_DBG << "g_o_p: Ultimately returning " << (bool_rv ? "true" : "false")
@@ -331,35 +436,15 @@ void GeasFile::get_type_property (const string &typenamex, const string &propnam
       debug_print ("Object of nonexistent type " + typenamex);
       return;
     }
-  for (const string &line: block->data)
+  ensure_cached (*block);
+  for (const GeasBlock::dir &d: block->type_prop)
     {
-      std::string::size_type c1, c2;
-      string tok = first_token (line, c1, c2);
-
-      // SENSITIVE?
-      if (tok == "type")
+      if (d.is_type)
+	get_type_property (d.a, propname, bool_rv, string_rv);
+      else if (d.a == propname)
 	{
-	  tok = next_token (line, c1, c2);
-	  if (is_param (tok))
-	    get_type_property (param_contents(tok), propname, bool_rv, string_rv);
-	}
-      else if (line == propname)
-	{
-	  bool_rv = true;
-	  string_rv = "";
-	}
-      else
-	{
-	  c1 = line.find ('=');
-	  if (c1 != string::npos)
-	    {
-	      tok = trim (line.substr (0, c1));
-	      if (tok == propname)
-		{
-		  string_rv = trim (line.substr (c1 + 1));
-		  bool_rv = true;
-		}
-	    }
+	  bool_rv = d.bv;
+	  string_rv = d.b;
 	}
     }
 }
@@ -368,40 +453,26 @@ void GeasFile::get_type_property (const string &typenamex, const string &propnam
 
 bool GeasFile::obj_of_type (const string &objname, const string &typenamex) const
 {
-  if (!has (obj_types, objname))
+  auto oti = obj_types.find (objname);
+  if (oti == obj_types.end ())
     {
       debug_print ("Checking nonexistent obj <" + objname + "> for type <" +
 		   typenamex + ">");
       return false;
     }
-  string objtype = (*obj_types.find(objname)).second;
+  const string &objtype = oti->second;
 
   const GeasBlock *block = find_by_name (objtype, objname);
 
-  std::string::size_type c1=0, c2;
   if (block == NULL)
     {
       gi->debug_print ("obj_of_type: no block for object '" + objname + "'");
       return false;
     }
-  for (const string &line: block->data)
-    {
-      string tok = first_token (line, c1, c2);
-      // SENSITIVE?
-      if (tok == "type")
-	{
-	  tok = next_token (line, c1, c2);
-	  if (is_param (tok))
-	    {
-	      if (type_of_type (param_contents(tok), typenamex))
-		return true;
-	    }
-	  else
-	    {
-	      debug_print ("Eg_o_p: xpected parameter for type in " + line);
-	    }
-	}
-    }
+  ensure_cached (*block);
+  for (const string &tn: block->parent_types)
+    if (type_of_type (tn, typenamex))
+      return true;
   return false;
 }
 
@@ -418,18 +489,10 @@ bool GeasFile::type_of_type (const string &subtype, const string &supertype) con
       debug_print ("t_o_t: Nonexistent type " + subtype);
       return false;
     }
-  for (const string &line: block->data)
-    {
-      std::string::size_type c1=0, c2;
-      string tok = first_token (line, c1, c2);
-      // SENSITIVE?
-      if (tok == "type")
-	{
-	  tok = next_token (line, c1, c2);
-	  if (is_param (tok) && type_of_type (param_contents(tok), supertype))
-	    return true;
-	}
-    }
+  ensure_cached (*block);
+  for (const string &tn: block->parent_types)
+    if (type_of_type (tn, supertype))
+      return true;
   return false;
 }
 
@@ -441,45 +504,31 @@ bool GeasFile::get_obj_action (const string &objname, const string &propname, st
   string_rv = "!";
   bool bool_rv = false;
 
-  if (!has (obj_types, objname))
+  auto oti = obj_types.find (objname);
+  if (oti == obj_types.end ())
     {
       debug_print ("Checking nonexistent object <" + objname + "> for action <" + propname + ">.");
       return false;
     }
-  string objtype = (*obj_types.find(objname)).second;
+  const string &objtype = oti->second;
 
   //reserved_words *rw;
 
   const GeasBlock *block = find_by_name (objtype, objname, preferred_parent);
-  string not_prop = "not " + propname;
-  std::string::size_type c1, c2;
-  for (const string &line: block->data)
+  if (block == NULL)
     {
-      string tok = first_token (line, c1, c2);
-      // SENSITIVE?
-      if (tok == "type")
+      gi->debug_print ("get_obj_action: no block for object '" + objname + "'");
+      return false;
+    }
+  ensure_cached (*block);
+  for (const GeasBlock::dir &d: block->obj_act)
+    {
+      if (d.is_type)
+	get_type_action (d.a, propname, bool_rv, string_rv);
+      else if (d.a == propname)
 	{
-	  tok = next_token (line, c1, c2);
-	  if (is_param (tok))
-	    get_type_action (param_contents(tok), propname, bool_rv, string_rv);
-	  else
-	    {
-	      gi->debug_print ("Expected parameter for type in " + line);
-	    }
-	}
-      // SENSITIVE?
-      else if (tok == "action")
-	{
-	  tok = next_token (line, c1, c2);
-	  if (is_param(tok) && param_contents(tok) == propname)
-	    {
-	      if (c2 + 1 < line.length())
-		string_rv = line.substr (c2 + 1);
-	      else
-		string_rv = "";
-	      bool_rv = true;
-	      GEAS_DBG << "   Action line, string_rv now <" << string_rv << ">\n";
-	    }
+	  string_rv = d.b;
+	  bool_rv = true;
 	}
     }
 
@@ -490,12 +539,13 @@ bool GeasFile::get_obj_action (const string &objname, const string &propname, st
 
 bool GeasFile::get_obj_default_action (const string &objname, string &string_rv) const
 {
-  if (!has (obj_types, objname))
+  auto oti = obj_types.find (objname);
+  if (oti == obj_types.end ())
     {
       debug_print ("Checking nonexistent object <" + objname + "> for default action.");
       return false;
     }
-  const GeasBlock *block = find_by_name ((*obj_types.find(objname)).second, objname);
+  const GeasBlock *block = find_by_name (oti->second, objname);
   if (block == NULL)
     return false;
   std::string::size_type c1, c2;
@@ -523,40 +573,30 @@ void GeasFile::get_type_action (const string &typenamex, const string &actname, 
       debug_print ("Object of nonexistent type " + typenamex);
       return;
     }
-  for (const string &line: block->data)
+  ensure_cached (*block);
+  for (const GeasBlock::dir &d: block->type_act)
     {
-      std::string::size_type c1, c2;
-      string tok = first_token (line, c1, c2);
-      // SENSITIVE?
-      if (tok == "action")
+      if (d.is_type)
+	get_type_action (d.a, actname, bool_rv, string_rv);
+      else if (d.a == actname)
 	{
-	  tok = next_token (line, c1, c2);
-	  if (is_param (tok) && param_contents(tok) == actname)
-	    {
-	      bool_rv = true;
-	      string_rv = line.substr (c2);
-	    }
-	}
-      // SENSITIVE?
-      else if (tok == "type")
-	{
-	  tok = next_token (line, c1, c2);
-	  if (is_param (tok))
-	    get_type_action (param_contents(tok), actname, bool_rv, string_rv);
+	  bool_rv = true;
+	  string_rv = d.b;
 	}
     }
 }
  
 void GeasFile::register_block (const string &blockname, const string &blocktype)
 {
-  if (has (obj_types, blockname))
+  auto it = obj_types.find (blockname);
+  if (it != obj_types.end ())
     {
       /* Quest allows the same object name in several rooms (e.g. a "Colony
        * Ship" object defined in three space rooms).  Don't abort the whole
        * game over it -- warn and keep the first registration. */
       debug_print ("Duplicate block name <" + blockname + "> of type <" +
 		   blocktype + ">; keeping the existing <" +
-		   obj_types[blockname] + ">.");
+		   it->second + ">.");
       return;
     }
   obj_types[blockname] = blocktype;
