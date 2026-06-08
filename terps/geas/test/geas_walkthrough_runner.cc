@@ -208,11 +208,17 @@ scummed (const std::string &cmd, const std::string &win_marker, bool do_scum)
   /* Transparent snapshots (run_hooks=false): these are checkpoints, not player
      saves, so they must not fire the game's beforesave/onload scripts (e.g.
      World's End's onload gotos the saved room, which would reset a fight). */
+  /* Snapshotting is only needed to rewind a fatal turn when save-scumming.
+     Skipping it otherwise avoids a full state serialization (and command-queue
+     copy) on every single turn. */
+  if (!do_scum || win_marker.empty ())
+    {
+      runturn (cmd);
+      return;
+    }
   std::string snap = gr->save_state (false);
   std::deque<std::string> q = g_queue;
   runturn (cmd);
-  if (!do_scum || win_marker.empty ())
-    return;
   for (int r = 0; !gr->is_running () && !seen (win_marker)
 		  && r < opt_max_reloads; r++)
     {
@@ -361,7 +367,11 @@ main (int argc, char **argv)
       std::string t = trim (raw[i]);
       if (t.empty ())
 	continue;
-      std::string::size_type p = t.find (" (");
+      /* Strip a trailing "  (note)" walkthrough annotation.  Require TWO+ spaces
+	 before the "(" (the alignment-padding convention): a single space can be
+	 part of a real token, e.g. the Quest place "cottage (inside)" in sirloin3,
+	 which "go to" must match exactly. */
+      std::string::size_type p = t.find ("  (");
       if (p != std::string::npos)
 	t = trim (t.substr (0, p));
       if (!t.empty ())

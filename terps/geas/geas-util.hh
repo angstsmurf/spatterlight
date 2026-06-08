@@ -66,7 +66,14 @@ std::string string_int (T i)
 
 extern std::string trim_braces (const std::string &s);
 
-extern int eval_int (const std::string &s);
+/* Evaluate a numeric expression in double precision: signed decimal literals
+ * joined by + - * / with the usual precedence (* and / before + and -), left
+ * to right.  Used by Quest's $round(...)$ and other floating-point math. */
+extern double eval_double (const std::string &s);
+/* Format a numeric value the way Quest displays one: an integral value prints
+ * with no decimal point ("37", "-5"), otherwise with trailing zeros trimmed
+ * ("0.498", "14.8"). */
+extern std::string fmt_double (double d);
 
 extern std::string pcase (std::string s);
 extern std::string ucase (std::string s);
@@ -102,7 +109,11 @@ template<class T> std::ostream &operator << (std::ostream &o, std::vector<T> v)
   return o;
 }
 
-template <class KEYTYPE, class VALTYPE> bool has (std::map<KEYTYPE, VALTYPE> m, KEYTYPE key) { return m.find (key) != m.end(); };
+/* Take the map and key by const reference: passing the map by value (as this
+ * did originally) deep-copied the entire red-black tree on every call just to
+ * do one lookup, which dominated the runtime profile because obj_types is
+ * probed on every property/action lookup inside the per-object scope loops. */
+template <class KEYTYPE, class VALTYPE> bool has (const std::map<KEYTYPE, VALTYPE> &m, const KEYTYPE &key) { return m.find (key) != m.end(); };
 
 class Logger
 {

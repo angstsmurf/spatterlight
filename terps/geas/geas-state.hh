@@ -26,6 +26,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include "general.hh"
 
 struct PropertyRecord
@@ -76,21 +77,30 @@ public:
 struct IVarRecord
 {
 private:
-  std::vector<int> data;
+  /* Quest numeric variables are doubles; we store them as such so fractional
+   * results (e.g. probabilities) survive.  get()/get(i) round to int for the
+   * many callers that need an integer (array indices, loop bounds); getd()
+   * exposes the raw double for formatting and float math. */
+  std::vector<double> data;
+  static int as_int (double d) { return (int) (d < 0 ? d - 0.5 : d + 0.5); }
 public:
   std::string name;
 
   IVarRecord () {}
-  IVarRecord (const std::string &in_name) : name (in_name) { set (0, 0); }
+  IVarRecord (const std::string &in_name) : name (in_name) { set (0, 0.0); }
   size_t size() const { return data.size(); }
   size_t max() const { return size() - 1; }
-  void set (size_t i, int val) { if (i >= size()) data.resize(i+1); data[i] = val; }
-  int get (size_t i) const { if (i < size()) return data[i]; else return -32767;}
-  void set(int val) { data[0] = val; }
-  int get() const { return data[0]; }
+  void set (size_t i, double val) { if (i >= size()) data.resize(i+1); data[i] = val; }
+  void set (size_t i, int val) { set (i, (double) val); }
+  int get (size_t i) const { if (i < size()) return as_int (data[i]); else return -32767;}
+  double getd (size_t i) const { if (i < size()) return data[i]; else return -32767.0;}
+  void set(double val) { data[0] = val; }
+  void set(int val) { data[0] = (double) val; }
+  int get() const { return as_int (data[0]); }
+  double getd() const { return data[0]; }
 };
 
-class GeasFile;
+struct GeasFile;
 class GeasInterface;
 
 /* Index of GeasState::props by lower-cased object name (built lazily).
@@ -100,14 +110,38 @@ class GeasInterface;
  * (undos are rare).  A *move* keeps the built index. */
 struct PropsIndex
 {
-  std::map<std::string, std::vector<size_t> > map;
+  /* Probed only by find/[]/clear (never iterated in order), so unordered. */
+  std::unordered_map<std::string, std::vector<size_t> > map;
   bool valid = false;
+  std::string key_scratch;   /* reused buffer for lowercased lookup keys */
 
   PropsIndex () = default;
   PropsIndex (const PropsIndex &) {}
   PropsIndex &operator= (const PropsIndex &) { map.clear (); valid = false; return *this; }
   PropsIndex (PropsIndex &&) = default;
   PropsIndex &operator= (PropsIndex &&) = default;
+};
+
+/* A turn snapshot for the undo ring.  GeasState::props is an append-only log
+ * (records are only ever pushed and then shadowed by later ones with the same
+ * name -- never modified or removed during play), so we do not copy the whole
+ * log every turn: we record only its length and truncate back to it on undo.
+ * That keeps per-turn undo cost flat no matter how long the game has run,
+ * instead of growing with the property history.  Everything else here is small
+ * and bounded (the object list is fixed at load; vars/exits/items grow only
+ * slowly), so those are copied normally.  props_index is derived and rebuilt
+ * lazily, so it is not stored. */
+struct UndoState
+{
+  bool running = false;
+  std::string location;
+  size_t props_len = 0;
+  std::vector<ObjectRecord> objs;
+  std::vector<ExitRecord> exits;
+  std::vector<TimerRecord> timers;
+  std::vector<SVarRecord> svars;
+  std::vector<IVarRecord> ivars;
+  std::vector<std::string> items;
 };
 
 struct GeasState
@@ -148,6 +182,12 @@ public:
   void ensure_props_index () const;
   /* The props records for `name` (newest last), or nullptr if it has none. */
   const std::vector<size_t> *prop_records (const std::string &name) const;
+
+  /* Capture this state into an undo snapshot (records props by length only),
+   * and restore from one (truncating props back to that length).  See
+   * UndoState. */
+  UndoState save_undo () const;
+  void restore_undo (const UndoState &u);
   /*
   bool has_svar (string s) { for (uint i = 0; i < svars.size(); i ++) if (svars[i].name == s) return true; }
   uint find_svar (string s) { for (uint i = 0; i < svars.size(); i ++) if (svars[i].name == s) return i; svars.push_back (SVarRecord (s)); return svars.size() - 1;}
