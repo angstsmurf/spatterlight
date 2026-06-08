@@ -204,6 +204,10 @@
 @interface SoundHandler () <NSSoundDelegate>
 /* Synthesised ZX Spectrum BEEP tones, held strongly while they play. */
 @property (strong, nullable) NSMutableArray<NSSound *> *beepSounds;
+/* Absolute time (NSDate referenceDate epoch, in seconds) at which the next
+ * queued BEEP should start. Used to chain a tune's notes back-to-back without
+ * blocking the interpreter. */
+@property (nonatomic) NSTimeInterval nextBeepTime;
 @end
 
 @implementation SoundHandler
@@ -467,11 +471,15 @@
 #pragma mark ZX Spectrum BEEP synthesis
 
 /* Synthesise a square wave at the given frequency for the given number of
- * milliseconds and play it. ZX Spectrum BEEPs are raw square waves, so this
- * reproduces their characteristic timbre. The little PCM buffer is wrapped in
- * a WAV header and handed to an NSSound, which is retained until it finishes
- * so it is not deallocated mid-note. (Both x86_64 and arm64 macOS are
- * little-endian, so the 16-bit samples are written in native byte order.) */
+ * milliseconds and queue it for playback. ZX Spectrum BEEPs are raw square
+ * waves, so this reproduces their characteristic timbre. The little PCM buffer
+ * is wrapped in a WAV header and handed to an NSSound, which is retained until
+ * it finishes so it is not deallocated mid-note. (Both x86_64 and arm64 macOS
+ * are little-endian, so the 16-bit samples are written in native byte order.)
+ *
+ * Playback is non-blocking: successive notes are scheduled to start when the
+ * previous one ends, so a tune plays in rhythm while the interpreter continues
+ * to print text and accept input. */
 - (void)playSpectrumBeepFrequency:(int)frequency duration:(int)millisecs {
     if (frequency <= 0 || millisecs <= 0)
         return;
@@ -512,7 +520,22 @@
     if (!self.beepSounds)
         self.beepSounds = [NSMutableArray new];
     [self.beepSounds addObject:sound];
-    [sound play];
+
+    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+    NSTimeInterval startTime = MAX(now, self.nextBeepTime);
+    NSTimeInterval delay = startTime - now;
+    self.nextBeepTime = startTime + millisecs / 1000.0;
+
+    if (delay < 0.001) {
+        [sound play];
+    } else {
+        __weak SoundHandler *weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(), ^{
+            if (weakSelf)
+                [sound play];
+        });
+    }
 }
 
 - (void)sound:(NSSound *)sound didFinishPlaying:(BOOL)finished {

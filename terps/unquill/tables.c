@@ -112,7 +112,16 @@ void expch(uchar cch, ushort *n)
     if      ((cch > 31) && (cch < 127)) opch32(cch);
     else if (cch > 164)  expdict(cch, n);
     else if (cch > 126)  opch32('?');
-    else if (cch == 6)   for (opch32(' ');(xpos%16);opch32(' '));
+    else if (cch == 6)
+    {
+	/* On the title screen, the original layout uses 0x06 as a paragraph
+	 * break rather than a horizontal pad; emit a newline so the line
+	 * structure survives into capbuf for centred rendering. */
+	if (title_capture)
+	    opch32('\n');
+	else
+	    for (opch32(' ');(xpos%16);opch32(' '));
+    }
     else if (cch == 8)   opch32(8);
     else if (cch ==0x0D) opch32('\n');
     else if (cch == 0x17)

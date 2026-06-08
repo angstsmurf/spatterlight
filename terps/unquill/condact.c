@@ -338,18 +338,22 @@ rem0001:  cdone=1;
           if (!nobeep)
           {
 #ifdef SPATTERLIGHT
-            /* Play the actual ZX Spectrum tone. */
+            /* Play the actual ZX Spectrum tone. The sound system queues each
+             * note to start when the previous one ends, so the interpreter
+             * does not have to block to preserve a tune's rhythm. */
             win_beep_spectrum(bpitch, bdur);
 #else
             fputc(7, stderr);
             fflush(stderr);
 #endif
           }
+#ifndef SPATTERLIGHT
           /* Hold for the note's real length so a tune keeps its rhythm (and the
            * synthesised tone has time to play). The old code rounded every note
            * up to a whole second, so the 15-note intro tune in Bored of the
            * Rings dragged on for 15s instead of ~2.4s. */
           do_pause((glui32)bdur * 10);
+#endif
           break;
         }
         default:

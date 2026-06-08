@@ -850,21 +850,64 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
     while (op != 7);
 }
 
-/* Recompute scaling/centring of the picture window. */
+/* Recompute scaling/centring of the picture window, and crop the window's
+ * height so the image fills it exactly (no empty vertical band above or below
+ * the picture). */
 static void pic_layout(void)
 {
     glui32 w = 0, h = 0;
-    int sx, sy;
+    int sx, sy, target_h;
+    winid_t parent;
+
     glk_window_get_size(picwin, &w, &h);
     sx = (int)w / ILL_W;
     sy = (int)h / ILL_H;
     pic_scale = (sx < sy) ? sx : sy;
     if (pic_scale < 1)
 	pic_scale = 1;
+
+    /* Resize the window's height to the picture's exact rendered height. */
+    target_h = ILL_H * pic_scale;
+    parent = glk_window_get_parent(picwin);
+    if (parent && target_h > 0 && (int)h != target_h)
+    {
+	glk_window_set_arrangement(parent,
+	    winmethod_Above | winmethod_Fixed, (glui32)target_h, picwin);
+	glk_window_get_size(picwin, &w, &h);
+	/* The arrangement may have been clamped; honour the actual size. */
+	sx = (int)w / ILL_W;
+	sy = (int)h / ILL_H;
+	pic_scale = (sx < sy) ? sx : sy;
+	if (pic_scale < 1)
+	    pic_scale = 1;
+    }
+
     pic_xoff = ((int)w - ILL_W * pic_scale) / 2;
     pic_yoff = ((int)h - ILL_H * pic_scale) / 2;
     if (pic_xoff < 0) pic_xoff = 0;
     if (pic_yoff < 0) pic_yoff = 0;
+}
+
+/* Repaint the picture after a window resize (evtype_Arrange) or a redraw
+ * request (evtype_Redraw). The Fixed cropping we leave behind on pic_layout
+ * makes the window stop growing when the parent does, so we first reset the
+ * arrangement to the proportional default to let the layout pick up the
+ * parent's new available space, then re-layout (which crops down) and re-blit
+ * from the stored bitmap. Mirrors the Updates() / Look() flow used by the
+ * Scott, Taylor and Plus interpreters. */
+static void pic_blit(void);
+
+static void pic_relayout(void)
+{
+    winid_t parent;
+    if (!picwin || !picscr)
+	return;
+    parent = glk_window_get_parent(picwin);
+    if (parent)
+	glk_window_set_arrangement(parent,
+	    winmethod_Above | winmethod_Proportional, 55, picwin);
+    pic_layout();
+    pic_blit();
 }
 
 /* Resolve one pixel to a palette index by combining its bit with its cell's
@@ -932,12 +975,16 @@ void draw_location_graphic(uchar loc)
 
     gptr = zword(gfx_ptrs + 2 * loc);
 
-    /* A location with no picture has a record that is just END; show nothing
-     * (and blank any window left from a previous location). */
+    /* A location with no picture has a record that is just END; tear down any
+     * window left from a previous location so the text reclaims that space and
+     * a subsequent resize cannot redraw the stale bitmap. */
     if ((zmem(gptr) & 7) == 7)
     {
 	if (picwin)
-	    glk_window_clear(picwin);
+	{
+	    glk_window_close(picwin, NULL);
+	    picwin = NULL;
+	}
 	return;
     }
 
@@ -1137,7 +1184,7 @@ static void load_t64(void)
     }
     free(img);
 
-    glk_put_string(".t64 C64 Quill game loaded.\n");
+    fprintf(stderr, ".t64 C64 Quill game loaded.\n");
 }
 
 void glk_main(void)
@@ -1250,7 +1297,7 @@ void glk_main(void)
 		    (zmem(n+4) == 0x12) && (zmem(n+6) == 0x13) && 
 		    (zmem(n+8) == 0x14) && (zmem(n+10) == 0x15))
 		{
-		    glk_put_string("Quill signature found.\n");
+		    fprintf(stderr, "Quill signature found.\n");
 		    found = 1;
 		    zxptr = n + 13;
 		    break;
@@ -1285,7 +1332,7 @@ void glk_main(void)
 	}
 	else
 	{
-	    glk_put_string("Retrying as a later version game.\n");
+	    fprintf(stderr, "Retrying as a later version game.\n");
 	    dbver = 10;
 	}
     }
@@ -1418,6 +1465,11 @@ void dec32(ushort v)
  * therefore through opch32(), oneitem() and listat()) is collected into capbuf
  * instead of being sent to a window, ready to be laid out in the grid. */
 static int    status_capture = 0;
+/* Set during status_begin/status_end while at the title screen (CURLOC==0).
+ * In this mode put_ch / opch32 bypass the line-reformatter (no leading-space
+ * collapse, no auto-wrap at column 31), and expch maps 0x06 to '\n' instead
+ * of padding spaces, so capbuf preserves the original line layout. */
+int           title_capture = 0;
 static char  *capbuf = NULL;
 static size_t caplen = 0, capcap = 0;
 
@@ -1459,6 +1511,10 @@ void status_begin(void)
 {
     caplen = 0;
     status_capture = 1;
+    /* Location 0 holds the title screen on most Quill games; capture it with
+     * line breaks and indentation preserved so status_render can centre each
+     * line rather than reflowing it as a paragraph. */
+    title_capture = (CURLOC == 0);
 }
 
 /* Greedy word-wrap of text[0..len) to `width` columns, returning a malloc'd
@@ -1577,37 +1633,70 @@ static char **wrap_text(const char *text, size_t len, int width, int *out_n)
 
 #undef PUSH
 
-void status_end(void)
+/* Word-wrap the currently-captured description in capbuf to the status grid's
+ * current width and print it. Factored out of status_end so the same code can
+ * reflow the description on a window resize (status_relayout). Returns 0 if
+ * the grid is unusable (no width); the caller can then decide whether to fall
+ * back to inline printing. */
+/* Split capbuf on '\n' into one malloc'd string per line, preserving leading
+ * and trailing whitespace. Used by status_render's title-screen path so the
+ * original line layout survives into rendering without word-wrap. */
+static char **split_capbuf_lines(int *out_n)
+{
+    int    nlines = 1;
+    size_t i, start;
+    char **lines;
+    int    li;
+
+    for (i = 0; i < caplen; i++)
+	if (capbuf[i] == '\n')
+	    nlines++;
+
+    lines = malloc((size_t)nlines * sizeof(char *));
+    if (!lines)
+    {
+	*out_n = 0;
+	return NULL;
+    }
+    li = 0;
+    start = 0;
+    for (i = 0; i <= caplen; i++)
+    {
+	if (i == caplen || capbuf[i] == '\n')
+	{
+	    size_t len = i - start;
+	    char  *ln  = malloc(len + 1);
+	    if (ln)
+	    {
+		memcpy(ln, capbuf + start, len);
+		ln[len] = '\0';
+	    }
+	    lines[li++] = ln;
+	    start = i + 1;
+	}
+    }
+    *out_n = nlines;
+    return lines;
+}
+
+static int status_render(void)
 {
     glui32 width = 0, height = 0;
     char **lines;
     int    nlines = 0, row;
+    int    title_mode = (CURLOC == 0);
 
-    status_capture = 0;
-    xpos = 0;		/* buffer output that follows starts at column 0 */
+    if (!statuswin || !capbuf || caplen == 0)
+	return 0;
 
-    /* Open the grid lazily, split above the main buffer. */
-    if (!statuswin && mainwin)
-	statuswin = glk_window_open(mainwin, winmethod_Above | winmethod_Fixed,
-				    1, wintype_TextGrid, 0);
+    glk_window_get_size(statuswin, &width, &height);
+    if (width == 0)
+	return 0;
 
-    if (statuswin)
-	glk_window_get_size(statuswin, &width, &height);
-
-    /* No usable grid (e.g. the stdio CLI harness reports width 0): fall back to
-     * printing the description inline in the buffer, as before. */
-    if (!statuswin || width == 0)
-    {
-	if (capbuf && caplen)
-	{
-	    cap_putc('\0');
-	    glk_put_string(capbuf);
-	    glk_put_char('\n');
-	}
-	return;
-    }
-
-    lines = wrap_text(capbuf, caplen, (int)width, &nlines);
+    if (title_mode)
+	lines = split_capbuf_lines(&nlines);
+    else
+	lines = wrap_text(capbuf, caplen, (int)width, &nlines);
     if (nlines < 1)
 	nlines = 1;
 
@@ -1639,11 +1728,39 @@ void status_end(void)
 
     glk_window_clear(statuswin);
     glk_set_window(statuswin);
+    /* The arrangement change may have nudged the grid's width; query again so
+     * the title-screen centring (and the underline below) uses the actual
+     * width of the grid we ended up with. */
+    glk_window_get_size(statuswin, &width, &height);
     for (row = 0; row < nlines; row++)
     {
-	glk_window_move_cursor(statuswin, 0, (glui32)row);
-	glk_put_string(lines[row]);
-	free(lines[row]);
+	char *ln = lines[row];
+	if (title_mode && ln)
+	{
+	    /* Centre the line by stripping its existing leading/trailing
+	     * spaces and computing a left margin against the current grid
+	     * width. Preserves the original line breaks (no word-wrap). */
+	    size_t ln_len = strlen(ln);
+	    size_t lead   = 0;
+	    while (lead < ln_len && ln[lead] == ' ')
+		lead++;
+	    while (ln_len > lead && ln[ln_len - 1] == ' ')
+		ln_len--;
+	    size_t content = ln_len - lead;
+	    int col = ((int)width - (int)content) / 2;
+	    if (col < 0)
+		col = 0;
+	    glk_window_move_cursor(statuswin, (glui32)col, (glui32)row);
+	    for (size_t j = 0; j < content; j++)
+		glk_put_char(ln[lead + j]);
+	}
+	else
+	{
+	    glk_window_move_cursor(statuswin, 0, (glui32)row);
+	    if (ln)
+		glk_put_string(ln);
+	}
+	free(ln);
     }
     free(lines);
 
@@ -1652,33 +1769,79 @@ void status_end(void)
 	glk_put_char('_');
 
     glk_set_window(mainwin);
+    return 1;
+}
+
+void status_end(void)
+{
+    glui32 width = 0, height = 0;
+
+    status_capture = 0;
+    xpos = 0;		/* buffer output that follows starts at column 0 */
+
+    /* Open the grid lazily, split above the main buffer. */
+    if (!statuswin && mainwin)
+	statuswin = glk_window_open(mainwin, winmethod_Above | winmethod_Fixed,
+				    1, wintype_TextGrid, 0);
+
+    if (statuswin)
+	glk_window_get_size(statuswin, &width, &height);
+
+    /* No usable grid (e.g. the stdio CLI harness reports width 0): fall back to
+     * printing the description inline in the buffer, as before. */
+    if (!statuswin || width == 0)
+    {
+	if (capbuf && caplen)
+	{
+	    cap_putc('\0');
+	    glk_put_string(capbuf);
+	    glk_put_char('\n');
+	}
+	return;
+    }
+
+    status_render();
+}
+
+/* Reflow the previously-captured room description into the status grid after a
+ * window resize. capbuf/caplen still hold the last description (status_begin
+ * only resets caplen at the start of a turn), so a fresh word-wrap at the new
+ * grid width reproduces the layout. */
+static void status_relayout(void)
+{
+    status_render();
 }
 
 /* Output a character, assuming 32-column screen */
 void opch32(char ch)
 {
-    /* C64 Quill games lay their text out as hard 40-column lines padded with
-     * spaces (there are no newline codes in the text), so the line breaks come
-     * from the screen wrapping at column 40. Reproduce that column layout
-     * rather than reflowing into paragraphs, which would run every line
-     * together. */
-    if (arch == ARCH_C64)
+    /* Title screen (location 0): pass characters through to capbuf unchanged
+     * so the original line layout and indentation are preserved. On Spectrum
+     * expch maps 0x06 to '\n', so each source paragraph already becomes one
+     * line in capbuf. C64 titles have no newline codes at all (the text is
+     * padded out to fill each 40-column row), so we emit a '\n' once xpos
+     * reaches 40 to reproduce the original C64 screen's row breaks. */
+    if (title_capture && status_capture)
     {
-	if (ch == 8)
-	{
-	    if (xpos > 0) xpos--;
-	    return;
-	}
-	put_ch(ch);
 	if (ch == '\n')
-	    xpos = 0;
-	else if (xpos >= 39)
 	{
 	    put_ch('\n');
 	    xpos = 0;
 	}
+	else if (ch == 8)
+	{
+	    if (xpos > 0) xpos--;
+	}
 	else
+	{
+	    put_ch(ch);
 	    xpos++;
+	}
+	if (arch == ARCH_C64 && xpos >= 40)
+	{
+	    put_ch('\n');
+	    xpos = 0;
+	}
 	return;
     }
 
@@ -1767,6 +1930,11 @@ void do_pause(glui32 millisecs)
     glk_request_char_event(mainwin);
     do {
 	glk_select(&ev);
+	if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+	{
+	    pic_relayout();
+	    status_relayout();
+	}
     } while (ev.type != evtype_Timer && ev.type != evtype_CharInput);
     glk_request_timer_events(0);
     if (ev.type == evtype_CharInput)
@@ -1784,10 +1952,15 @@ int getch(void)
     while (1)
     {
 	glk_select(&event);
+	if (event.type == evtype_Arrange || event.type == evtype_Redraw)
+	{
+	    pic_relayout();
+	    status_relayout();
+	}
 	if (event.type == evtype_CharInput)
 	    break;
     }
-    
+
     return event.val1;
 }
 
@@ -1799,16 +1972,21 @@ void myreadline(char *buf, int cap)
 
     if (xpos == 0)
 	glk_put_string("> ");
-    
+
     glk_request_line_event(mainwin, buf, cap, 0);
 
     while (1)
     {
 	glk_select(&ev);
+	if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+	{
+	    pic_relayout();
+	    status_relayout();
+	}
 	if (ev.type == evtype_LineInput)
 	    break;
     }
-    
+
     /* The line we have received in commandbuf is not null-terminated */
     buf[ev.val1] = '\0';	/* i.e., the length */
 }
