@@ -473,6 +473,30 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
+				<string>acx</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>Archetype Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.acx</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
 				<string>iFiction</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
@@ -1695,6 +1719,35 @@
 				<array>
 					<string>cas</string>
 					<string>asl</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Archetype Story</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>A</string>
+				<key>UTTypeIconText</key>
+				<string>ARCHTYP</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.acx</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>acx</string>
 				</array>
 			</dict>
 		</dict>

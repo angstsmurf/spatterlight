@@ -277,6 +277,7 @@
         NSDictionary *gFolderMap = @{@"adrift" : @"SCARE",
                                      @"advsys" : @"AdvSys",
                                      @"agt"    : @"AGiliTy",
+                                     @"archetype" : @"Archetype",
                                      @"glulx"  : @"Glulxe",
                                      @"hugo"   : @"Hugo",
                                      @"level9" : @"Level 9",
