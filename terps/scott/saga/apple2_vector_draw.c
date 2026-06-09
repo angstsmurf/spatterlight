@@ -545,65 +545,40 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t color)
 
 #pragma mark SHAPE DRAWING
 
-static void rotate_brush_bits(uint8_t shape_bits, uint8_t num_bits, uint8_t *out_a, uint8_t *out_b)
-{
-    /* shift once to get high bit out of the way */
-    uint16_t bits_to_draw = (uint8_t)(shape_bits << 1);
-
-    bits_to_draw <<= num_bits;
-    *out_a = bits_to_draw >> 1 | 0x80;
-    *out_b = bits_to_draw >> 8 | 0x80;
-}
-
+/* One 8-row brush quadrant, faithful to the Apple II standard-hires routine
+   FUN_102e ($102e): for each row, spread the brush byte across two adjacent
+   hi-res bytes by a 7-bit rotate (collecting bit 6 into the right byte), then
+   blend it into the screen using the current fill colour pattern. */
 static void draw_bitmap(a2_fill_ctx *ctx)
 {
     for (int row = 0; row < 8; row++) {
-        /* calculate row base address */
         uint16_t address = CALC_APPLE2_ADDRESS(ctx->scanline) + ctx->seed_column;
-        /* add byte offset to address. Now address points to
-         the first byte we want to change */
-        if (!is_valid_screen_offset(address))
-            continue;
-        if ((ctx->bitmap_index + row) > sizeof(brush_bitmaps))
-            return;
-        /* get a byte from the bitmap */
-        uint8_t brush_bitmap = brush_bitmaps[ctx->bitmap_index + row];
-
-        uint8_t mask_a, mask_b;
-        rotate_brush_bits(brush_bitmap, ctx->pixel_offset, &mask_a, &mask_b);
-
-        select_pattern_for_scanline(ctx);
-
-        uint8_t mask_c = mask_a;
-        uint8_t mask_d = mask_b;
-
-        /* Iterate twice to write the low and then the high pattern byte */
-        for (int col_offset = 0; col_offset <= 1; col_offset++) {
-            // reduce the byte offset to 0-3 */
-            int pattern_offset = ctx->pattern_base + ((ctx->seed_column + col_offset) & 3);
-            if (pattern_offset >= 120)
-                return;
-
-            uint8_t pattern = pattern_data[pattern_offset];
-
-            if (col_offset == 0) {
-                /* mask off whatever isn't in the color pattern */
-                mask_a &= pattern;
-                if (mask_c != 0x80) {
-                    /* write the low pattern byte */
-                    write_to_screenmem(address, ((mask_c | screenmem[address]) ^ mask_c) | mask_a, false);
+        int idx = ctx->bitmap_index + row;
+        if (idx < (int)sizeof(brush_bitmaps) && is_valid_screen_offset(address)) {
+            uint8_t b = brush_bitmaps[idx];
+            if (b != 0) {
+                /* 7-bit spread by the pixel offset within the column. */
+                uint8_t carry = 0;
+                for (uint8_t n = ctx->pixel_offset; n != 0; n--) {
+                    carry = (uint8_t)((carry << 1) | ((b & 0x7f) >> 6));
+                    b = (uint8_t)(b << 1);
                 }
-            } else {
-                /* mask off whatever isn't in the color pattern */
-                mask_b &= pattern;
+                uint8_t mask_a = b & 0x7f;   /* bits painted into column `col` */
+                uint8_t mask_b = carry;      /* bits carried into column `col+1` */
+
+                uint8_t pat_base = ((ctx->scanline & 1) ? ctx->pattern_odd
+                                                       : ctx->pattern_even) * 4;
+                uint8_t pat0 = pattern_data[(ctx->seed_column & 3) | pat_base];
+                uint8_t pat1 = pattern_data[((ctx->seed_column + 1) & 3) | pat_base];
+
+                if (mask_a != 0)
+                    write_to_screenmem(address,
+                        ((mask_a ^ 0x7f) & screenmem[address]) | ((mask_a | 0x80) & pat0), false);
+                if (mask_b != 0 && is_valid_screen_offset(address + 1))
+                    write_to_screenmem(address + 1,
+                        ((mask_b ^ 0x7f) & screenmem[address + 1]) | ((mask_b | 0x80) & pat1), false);
             }
         }
-
-        if (mask_d != 0x80) {
-            /* write the high byte */
-            write_to_screenmem(address + 1, ((mask_d | screenmem[address + 1]) ^ mask_d) | mask_b, false);
-        }
-        /* move down a line and loop */
         ctx->scanline++;
     }
 }
