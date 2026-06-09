@@ -252,10 +252,20 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 		break;
 
 	case OPCODE_SET_STRING_REPLACEMENT1:
-		_currentReplaceWord = (instr->_operand[0] & 0x80) - 1;
+		// The high bit of the operand selects number mode: the '@' marker then
+		// renders variable (operand & 0x7f) as a decimal number instead of a
+		// replacement word. This is how Talisman shows e.g. bazaar prices.
+		if (instr->_operand[0] & 0x80) {
+			_replaceWordIsNumber = true;
+			_replaceNumberVar = instr->_operand[0] & 0x7f;
+		} else {
+			_replaceWordIsNumber = false;
+			_currentReplaceWord = instr->_operand[0] - 1;
+		}
 		break;
 
 	case OPCODE_SET_STRING_REPLACEMENT2:
+		_replaceWordIsNumber = false;
 		_currentReplaceWord = instr->_operand[0] - 1;
 		break;
 
@@ -488,6 +498,7 @@ void ComprehendGameV1::execute_opcode(const Instruction *instr, const Sentence *
 		break;
 
 	case OPCODE_SET_STRING_REPLACEMENT3:
+		_replaceWordIsNumber = false;
 		_currentReplaceWord = instr->_operand[0] - 1;
 		break;
 
