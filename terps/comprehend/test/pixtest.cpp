@@ -29,6 +29,7 @@ void talismanDrawImage(const uint8_t *data, size_t size);
 const uint8_t *talismanPagePtr();
 void talismanSetPage(const uint8_t *p);
 void talismanBlitToSurface(uint32_t *out, int w, int h);
+bool talismanInstallDrawingTables(const uint8_t *t2, size_t size);
 extern void (*g_talismanWriteLog)(uint16_t, uint8_t, char);
 extern void (*g_talismanOnOp)(int pos, int op, int b1, int b2, int x, int y);
 }}
@@ -123,13 +124,31 @@ int main(int argc, char **argv) {
 	if (!files || numFiles == 0) { fprintf(stderr, "no files extracted\n"); return 1; }
 
 	A2FileRec *pic = nullptr;
-	for (size_t i = 0; i < numFiles; i++)
-		if (strcasecmp(files[i].filename, wantName) == 0) { pic = &files[i]; break; }
+	A2FileRec *t2 = nullptr;
+	for (size_t i = 0; i < numFiles; i++) {
+		if (strcasecmp(files[i].filename, wantName) == 0) pic = &files[i];
+		if (strcasecmp(files[i].filename, "T2") == 0)     t2  = &files[i];
+	}
 	if (!pic) {
 		fprintf(stderr, "file '%s' not on disk. Available:", wantName);
 		for (size_t i = 0; i < numFiles; i++) fprintf(stderr, " %s", files[i].filename);
 		fprintf(stderr, "\n");
 		return 1;
+	}
+	if (t2) {
+		talismanInstallDrawingTables(t2->data, t2->datasize);
+	} else {
+		// Side 2/3 don't carry T2; fall back to the captured fixture so the
+		// renderer still has its drawing tables.
+		size_t fxSz = 0;
+		uint8_t *fx = readFile("test/talisman/t2.bin", &fxSz);
+		if (!fx) fx = readFile("terps/comprehend/test/talisman/t2.bin", &fxSz);
+		if (fx && talismanInstallDrawingTables(fx, fxSz)) {
+			fprintf(stderr, "loaded drawing tables from test/talisman/t2.bin\n");
+		} else {
+			fprintf(stderr, "warning: 'T2' not on this disk and no t2.bin fixture; drawing tables left zero\n");
+		}
+		free(fx);
 	}
 
 	// Parse the image-offset table exactly like Pics::ImageFile.

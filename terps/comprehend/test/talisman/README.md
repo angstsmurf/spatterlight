@@ -12,6 +12,12 @@ the resulting hi-res page matches the golden `.page` byte-for-byte over the
 picture rows (Apple rows 0..159; rows 160..191 hold the game's text overlay,
 which the Glk port draws separately).
 
+The renderer's drawing tables (pattern data, fill-colour subindices, brush
+bitmaps) are extracted at runtime from the boot disk's `T2` file (Graphics
+Magician code, loads at `$0800`). `test/talisman/t2.bin` is a captured copy of
+that file; `test_talisman_pics` and `pixtest` install it via
+`talismanInstallDrawingTables()` before drawing.
+
 Run with:
 
     make -C terps/comprehend test
