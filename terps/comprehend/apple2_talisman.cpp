@@ -196,326 +196,289 @@ static void x_to_column_and_pixel(a2_brush_ctx *ctx, uint16_t x) {
 	ctx->pixel_offset = x % COL_BITS;
 }
 
-// ---- Flood fill: byte-faithful port of the Apple II standard-hires Graphics
-//      Magician fill (op14 -> $0cca). It is a queue-based span fill (32-entry
-//      circular queue at $0F3B/$0F5B/$0F7B/$0F9B/$0FBB/$0FDB) with a span-merge
-//      optimisation. The whole machine is transliterated 1:1 from the 6502 (via
-//      Ghidra on the MAME RAM dump) because painting clears bits that later
-//      boundary tests read, so the exact traversal/merge order is observable in
-//      the output. The fill REPLACES connected "set" (white) pixels with the
-//      current fill-colour dither pattern, bounded by clear (black) pixels.
+// ---- Flood fill ---------------------------------------------------------------
 //
-// Zero-page mirror: f2=$02 scratch/existing, f3=$03 left-edge bit, f4=$04 queue
-// head, f5=$05 pattern base, fa=$0a row, fb=$0b col, fc=$0c bit, fd=$0d scratch,
-// fe=$0e left-edge col, ff=$0f queue tail, f10..f13 clip L/R/T/B, f14 row addr,
-// f8/f9 even/odd fill sub-index. Tables: BIT=$0c69, LMASK=$10b6, RMASK=$10bd.
+// op14 (FUN_0cca in the original Graphics Magician code) fills the connected
+// region of "set" (white) pixels reachable from a seed, replacing them with the
+// current fill-colour dither pattern and stopping at clear (black) pixels and
+// the clip rectangle.
+//
+// It is a queue-based span fill: painting one horizontal run of pixels spawns
+// child runs on the rows immediately above and below it, which are processed in
+// turn from a 32-entry circular queue. A merge step folds together runs that an
+// opposite-direction span has already claimed so no pixel is painted twice.
+// Painting modifies the very screen bits that later boundary tests read, so the
+// traversal/merge order is part of the algorithm and is preserved here.
+//
+// A pixel position is its horizontal coordinate, column*7 + bit, where `column`
+// selects the hi-res byte (each byte holds 7 visible pixels) and `bit` is 0..6
+// within it. Positions are therefore ordinary integers: comparisons are <, == and
+// stepping one pixel is ++/--. Stepping left of column 0 yields a negative index,
+// which correctly sorts below every on-screen pixel (matching the signed-byte
+// boundary tests of the 6502 original) and is never used to address the screen.
 
-static uint8_t f2, f3, f4, f5, fa, fb, fc, fd, fe, ff, f10, f11, f12, f13, f8, f9;
-static uint16_t f14;
-static uint8_t Qcol[32], Qbit[32], Qcol2[32], Qbit2[32], Qy[32], Qdir[32];
+#define QUEUE_SIZE   32
+#define QUEUE_MASK   0x1f
+#define DIR_UP       0     // child run continues onto the row above
+#define DIR_DOWN     1     // child run continues onto the row below
+#define DIR_DISABLED 0xff  // span was absorbed by a merge; skip it
 
-static const uint8_t gmBIT[7] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40};
+struct Span {
+	uint8_t row;
+	int     left, right;   // inclusive pixel-coordinate edges
+	uint8_t dir;
+};
+
+static Span    g_queue[QUEUE_SIZE];
+static uint8_t g_head, g_tail;          // circular-queue head / tail indices
+
+static uint8_t  g_row;                  // current row
+static int      g_pos;                  // current pixel position (column*7 + bit)
+static int      g_edge;                 // left edge produced by paint_span()
+static uint8_t  g_bit, g_edge_bit;      // paint_span / edge-mask scratch
+static uint16_t g_row_addr;             // hi-res base address of row g_row
+static uint8_t  g_pat_base;             // fill-pattern table base for row g_row
+static uint8_t  g_pat_even, g_pat_odd;  // fill-pattern sub-indices (even/odd row)
+static uint8_t  g_clip_left, g_clip_right, g_clip_top, g_clip_bottom;
+
+static const uint8_t gmBIT[7]   = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40};
 static const uint8_t gmLMASK[7] = {0x80, 0x81, 0x83, 0x87, 0x8f, 0x9f, 0xbf};
 static const uint8_t gmRMASK[7] = {0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80};
 
-static inline uint8_t neg(uint8_t a) { return a & 0x80; } // bit7 set after CMP => reg < op
+static inline int col_of(int pos) { return pos / COL_BITS; }
+static inline int bit_of(int pos) { return pos % COL_BITS; }
+static inline int to_pos(int col, int bit) { return col * COL_BITS + bit; }
 
-// FUN_0c38: compute the hi-res base address of the current row (fa) and the
-// pattern base index for that row (odd rows select f9, even rows f8).
-static void gm_setaddr() {
-	f14 = CALC_APPLE2_ADDRESS(fa);
-	f5 = static_cast<uint8_t>(((fa & 1) ? f9 : f8) << 2);
+// Compute the base address and pattern base for the current row (g_row); odd
+// rows draw with the odd fill sub-index, even rows with the even one.
+static void set_row_address() {
+	g_row_addr = CALC_APPLE2_ADDRESS(g_row);
+	g_pat_base = static_cast<uint8_t>(((g_row & 1) ? g_pat_odd : g_pat_even) << 2);
 }
 
-// FUN_0c70: test the pixel at the current column/bit (fb,fc); non-zero if set.
-static uint8_t gm_pix() {
-	return static_cast<uint8_t>(gmBIT[fc] & s_screenmem[static_cast<uint16_t>(f14 + fb)]);
+// Is the pixel at the current position set?
+static bool pixel_is_set() {
+	return (gmBIT[bit_of(g_pos)] & s_screenmem[g_row_addr + col_of(g_pos)]) != 0;
 }
 
-// FUN_0ca2: find the right edge of a run of set bits in byte p, returning the
-// paint mask and storing the boundary bit index in f3. When all seven bits are
-// set the run continues past this byte (no edge here), so return 0xff.
-static uint8_t gm_rmask(uint8_t p) {
+// Locate the right / left edge of a run of set bits within byte `p`, returning
+// the paint mask and storing the boundary bit index (right_edge_mask -> g_edge_bit,
+// left_edge_mask -> g_bit). When all seven bits are set the run continues past
+// this byte (no edge here): return 0xff.
+static uint8_t right_edge_mask(uint8_t p) {
 	if ((p & 0x7f) == 0x7f)
 		return 0xff;
-	f3 = 7;
+	g_edge_bit = 7;
 	uint8_t bit;
 	do {
-		f3--;
+		g_edge_bit--;
 		bit = static_cast<uint8_t>(p & 0x7f);
 		p = static_cast<uint8_t>(p << 1);
 	} while (bit >> 6);
-	return gmRMASK[f3];
+	return gmRMASK[g_edge_bit];
 }
-
-// FUN_0cb8: find the left edge of a run of set bits in byte p, returning the
-// paint mask and storing the boundary bit index in fc. When all seven bits are
-// set the run continues past this byte (no edge here), so return 0xff.
-static uint8_t gm_lmask(uint8_t p) {
+static uint8_t left_edge_mask(uint8_t p) {
 	p &= 0x7f;
 	if (p == 0x7f)
 		return 0xff;
-	fc = 0xff;
+	g_bit = 0xff;
 	uint8_t bit;
 	do {
-		fc++;
+		g_bit++;
 		bit = static_cast<uint8_t>(p & 1);
 		p = static_cast<uint8_t>(p >> 1);
 	} while (bit);
-	return gmLMASK[fc];
+	return gmLMASK[g_bit];
 }
 
-// FUN_0c7a: paint `mask` worth of pixels into screen column `col`, blending the
-// current fill pattern (selected by f5 and the column's low bits) over the bits
-// the mask covers and keeping the screen's existing bits elsewhere.
-static void gm_write(uint8_t mask, uint8_t col) {
-	f2 = static_cast<uint8_t>((mask ^ f2) & 0x7f);
-	fd = mask;
-	uint8_t pattern = kPatternData[(col & 3) | f5];
-	write_screen(static_cast<uint16_t>(f14 + col),
-		static_cast<uint8_t>((pattern & mask) | f2));
+// Blend `mask` worth of the current fill pattern into screen column `col`,
+// keeping the screen's existing pixels wherever the mask is clear.
+static void blend_byte(uint8_t mask, int col) {
+	uint16_t addr = static_cast<uint16_t>(g_row_addr + col);
+	uint8_t kept = static_cast<uint8_t>((mask ^ s_screenmem[addr]) & 0x7f);
+	uint8_t pattern = kPatternData[(col & 3) | g_pat_base];
+	write_screen(addr, static_cast<uint8_t>((pattern & mask) | kept));
 }
 
-// FUN_0ebd: step one pixel left, borrowing into the previous column when the
-// bit index underflows past 0.
-static void gm_ebd() {
-	fc--;
-	if (fc & 0x80) {
-		fc = 6;
-		fb--;
-	}
-}
+// Paint the maximal run of set pixels through the seed g_pos on row g_row,
+// bounded by clear pixels or the clip edges. Leaves the run's left edge in
+// g_edge and its right edge in g_pos.
+static void paint_span() {
+	int col = col_of(g_pos);
+	g_bit = bit_of(g_pos);
 
-// FUN_0e80: enqueue the just-scanned span for the adjacent row in direction
-// `dir` (0 = up toward f12, non-zero = down toward f13), unless that row is the
-// clip edge. The span is stored as its left edge (fe,f3), right edge (fb,fc),
-// source row (fa) and direction.
-static void gm_enq(uint8_t dir) {
-	uint8_t clip_row = (dir == 0) ? f12 : f13;
-	if (fa == clip_row)
-		return;
+	// Seed byte: intersect the right-edge and left-edge masks so we paint only
+	// the run that actually touches the seed bit.
+	g_edge_bit = 0xff;
+	uint8_t existing = s_screenmem[g_row_addr + col];
+	uint8_t right_mask = right_edge_mask(static_cast<uint8_t>(existing | gmRMASK[g_bit]));
+	uint8_t left_input = static_cast<uint8_t>(gmLMASK[g_bit] | existing);
+	g_bit = 7;
+	uint8_t mask = static_cast<uint8_t>(left_edge_mask(left_input) & right_mask);
 
-	uint8_t tail = ff;
-	Qy[tail]    = fa;
-	Qcol[tail]  = fe;
-	Qbit[tail]  = f3;
-	Qbit2[tail] = fc;
-	Qcol2[tail] = fb;
-	Qdir[tail]  = dir;
-	ff = static_cast<uint8_t>((ff + 1) & 0x1f);   // queue assumed never to overflow 32 spans
-}
-
-// FUN_0ec8: scan the maximal span containing (fb,fc) on row fa, painting it;
-// returns its left edge in (fe,f3) and right edge in (fb,fc).
-static void gm_scan() {
-	// Paint the seed byte: mask off the run of set bits bounded on the right by
-	// the seed bit (gm_rmask, into f3) and on the left by it (gm_lmask, into fc),
-	// then intersect the two masks.
-	uint8_t col = fb;
-	f3 = 0xff;
-	f2 = s_screenmem[static_cast<uint16_t>(f14 + col)];
-	uint8_t mask = gm_rmask(static_cast<uint8_t>(f2 | gmRMASK[fc]));   // sets f3
-	fd = mask;
-	mask = static_cast<uint8_t>(gmLMASK[fc] | f2);
-	fc = 7;
-	mask = gm_lmask(mask);                                  // sets fc
-	mask = static_cast<uint8_t>(mask & fd);
-
-	// Walk left across whole columns until a right-edge boundary or the clip
-	// edge (f10) is hit, painting each column as we go.
+	// Walk left across whole columns, painting each, until a right-edge boundary
+	// turns up or we reach the clip edge.
 	uint8_t left_bit;
-	for (;;) {                                              // LAB_0eec
-		gm_write(mask, col);
-		if (f3 != 0xff) { left_bit = f3; break; }
-		col = static_cast<uint8_t>(col - 1);
-		if (neg(static_cast<uint8_t>(col - f10))) {
-			col = static_cast<uint8_t>(col + 1);
-			left_bit = 0xff;
-			break;
-		}
-		f2 = s_screenmem[static_cast<uint16_t>(f14 + col)];
-		mask = gm_rmask(f2);                               // sets f3
+	for (;;) {
+		blend_byte(mask, col);
+		if (g_edge_bit != 0xff) { left_bit = g_edge_bit; break; }
+		if (--col < g_clip_left) { col++; left_bit = 0xff; break; }
+		mask = right_edge_mask(s_screenmem[g_row_addr + col]);
 	}
 
-	// Record the span's left edge in (fe,f3), advancing past the boundary bit.
-	uint8_t bit = static_cast<uint8_t>(left_bit + 1);      // LAB_0f07
-	if (bit == 7) { bit = 0; col = static_cast<uint8_t>(col + 1); }
-	fe = col; f3 = bit;
+	// The left edge sits one pixel past the boundary bit.
+	uint8_t edge_bit = left_bit + 1;
+	if (edge_bit == 7) { edge_bit = 0; col++; }
+	g_edge = to_pos(col, edge_bit);
 
-	// Walk right from the seed, painting whole columns, until the bit index
-	// runs off the left of a column with no continuation (or the clip edge f11).
-	col = fb;                                              // LAB_0f16 (right scan)
+	// Walk right from the seed, painting whole columns, until the run ends (the
+	// bit index runs off the left of a column with no continuation) or we reach
+	// the clip edge.
+	col = col_of(g_pos);
 	for (;;) {
-		if (fc == 7 && col != f11) {
-			col = static_cast<uint8_t>(col + 1);
-			f2 = s_screenmem[static_cast<uint16_t>(f14 + col)];
-			mask = gm_lmask(f2);                           // sets fc
-			gm_write(mask, col);
+		if (g_bit == 7 && col != g_clip_right) {
+			col++;
+			blend_byte(left_edge_mask(s_screenmem[g_row_addr + col]), col);
 			continue;
 		}
-		fc = static_cast<uint8_t>(fc - 1);                 // LAB_0f2e
-		if (fc & 0x80) { fc = 6; col = static_cast<uint8_t>(col - 1); }
-		fb = col;
+		g_bit--;
+		if (g_bit & 0x80) { g_bit = 6; col--; }
+		g_pos = to_pos(col, g_bit);
 		return;
 	}
 }
 
-static void gm_fill_run() {           // op14_floodfill @ $0cca
-	gm_setaddr();
-	if (gm_pix() == 0) return;
-	gm_scan();
-	f4 = 0; ff = 0;
-	gm_enq(0);
-	gm_enq(1);
+// Append a span (edges, row, direction) to the work queue, unless its row is the
+// clip edge in that direction.
+static void enqueue_span(uint8_t row, int left, int right, uint8_t dir) {
+	uint8_t clip_row = (dir == DIR_UP) ? g_clip_top : g_clip_bottom;
+	if (row == clip_row)
+		return;
 
-	long guard = 0;
-	for (;;) {                                             // L_0ce7 (keyboard abort ignored)
-		if (++guard > 2000000) return;                     // safety net against bugs
-		uint8_t X = f4;
-		if (X == ff) return;
-		uint8_t Y = Qy[X];
-		uint8_t d = Qdir[X];
-		if (d == 0) Y = (uint8_t)(Y - 1);
-		else if (d & 0x80) goto L_0d3e;
-		else Y = (uint8_t)(Y + 1);
-		fa = Y; fb = Qcol[X]; fc = Qbit[X];
+	Span &s = g_queue[g_tail];
+	s.row = row;
+	s.left = left;
+	s.right = right;
+	s.dir = dir;
+	g_tail = (g_tail + 1) & QUEUE_MASK;   // never expected to overflow 32 spans
+}
 
-		gm_setaddr();                                      // L_0d16
-	L_0d19:
-		if (gm_pix() != 0) goto L_0d49;
-	L_0d1e:   // advance across the parent span looking for a set pixel
-		{
-			uint8_t XX = f4;
-			if (fb == Qcol2[XX] && fc == Qbit2[XX]) goto L_0d3e;
-			fc = (uint8_t)(fc + 1);
-			if (fc != 7) goto L_0d19;
-			fc = 0; fb = (uint8_t)(fb + 1);
-			goto L_0d19;
+enum WalkAction {
+	WALK_ADVANCE,   // keep walking the parent span for more runs
+	WALK_DONE       // this entry is finished
+};
+
+// Paint the run at the current position and queue its follow-ups: a same-
+// direction continuation covering the whole run, plus opposite-direction spans
+// for any part of the run overhanging the parent span on the left or right.
+static WalkAction paint_run(const Span &parent) {
+	paint_span();
+	enqueue_span(g_row, g_edge, g_pos, parent.dir);
+	int run_right = g_pos;
+
+	// Left overhang: the part of the run reaching left of the parent's left edge
+	// is re-scanned in the opposite vertical direction.
+	if (g_edge < parent.left - 1)
+		enqueue_span(g_row, g_edge, parent.left - 2, parent.dir ^ 1);
+
+	// Right overhang, likewise. If there is one we are finished with this run; if
+	// the run ended inside the parent we keep walking from its right edge.
+	if (parent.right + 1 < run_right) {
+		enqueue_span(g_row, parent.right + 2, run_right, parent.dir ^ 1);
+		return WALK_DONE;
+	}
+	if (parent.right + 1 == run_right)
+		return WALK_DONE;
+
+	g_pos = run_right;
+	return WALK_ADVANCE;
+}
+
+// Handle a set pixel found while walking the parent span. If an opposite-
+// direction span already queued covers this run, merge with it instead of
+// painting twice; otherwise paint the run.
+static WalkAction handle_run(const Span &parent) {
+	for (uint8_t i = (g_head + 1) & QUEUE_MASK; i != g_tail; i = (i + 1) & QUEUE_MASK) {
+		Span &other = g_queue[i];
+		if (other.row != g_row)      continue;
+		if (other.dir == parent.dir) continue;
+		if (g_pos < other.left || g_pos > other.right)
+			continue;                              // run not inside `other`'s extent
+
+		// Extend `other` left to cover the parent run reaching past its left edge.
+		if (g_pos != other.left && other.left < parent.left - 1)
+			enqueue_span(g_row, other.left, parent.left - 2, other.dir);
+
+		if (other.right <= parent.right) {
+			// `other` lies entirely within the parent run: absorb it and keep
+			// walking from its right edge.
+			other.dir = DIR_DISABLED;
+			g_pos = other.right;
+			return WALK_ADVANCE;
 		}
 
-	L_0d49:
-		{
-			uint8_t XX = f4;                               // search the queue for an overlapping span
-			for (;;) {
-				XX = (uint8_t)(XX + 1);
-				uint8_t idx = (uint8_t)(XX & 0x1f);
-				if (idx == ff) goto L_0dfc;
-				XX = idx;
-				if (fa != Qy[XX]) continue;
-				if (Qdir[f4] == Qdir[XX]) continue;
-				if (neg((uint8_t)(fb - Qcol2[XX]))) goto L_0d7a;
-				if (fb != Qcol2[XX]) continue;
-				if (neg((uint8_t)(Qbit2[XX] - fc))) continue;
-			L_0d7a:
-				if (neg((uint8_t)(fb - Qcol[XX]))) continue;
-				if (fb != Qcol[XX]) goto L_0d8a;
-				if (neg((uint8_t)(fc - Qbit[XX]))) continue;
-				if (fc == Qbit[XX]) goto L_0dc0;
-			L_0d8a:
-				fc = Qbit[f4]; fb = Qcol[f4];
-				gm_ebd();
-				if (neg((uint8_t)(fb - Qcol[XX]))) goto L_0dc0;
-				if (fb != Qcol[XX]) goto L_0da7;
-				if (!neg((uint8_t)(Qbit[XX] - fc))) goto L_0dc0;
-			L_0da7:
-				fe = Qcol[XX]; f3 = Qbit[XX];
-				gm_ebd();
-				{
-					uint8_t dY = Qdir[XX];
-					fd = XX;
-					gm_enq(dY);
-					XX = fd;
-				}
-			L_0dc0:
-				fb = Qcol2[XX];
-				if (neg((uint8_t)(Qcol2[XX] - Qcol2[f4]))) goto L_0dd4;
-				if (Qcol2[XX] != Qcol2[f4]) goto L_0de1;
-				if (neg((uint8_t)(Qbit2[f4] - Qbit2[XX]))) goto L_0de1;
-			L_0dd4:
-				Qdir[XX] = 0xff;
-				fc = Qbit2[XX];
-				goto L_0d1e_jump;
-			L_0de1:
-				Qcol[XX] = Qcol2[f4];
-				{
-					uint8_t b = (uint8_t)(Qbit2[f4] + 1);
-					if (b == 7) { b = 0; Qcol[XX] = (uint8_t)(Qcol[XX] + 1); }
-					Qbit[XX] = b;
-				}
-				goto L_0d3e;
-			}
-		}
+		// `other` extends past the parent run: trim its left edge to just past
+		// the parent's right edge and stop (it will be painted on its own turn).
+		other.left = parent.right + 1;
+		return WALK_DONE;
+	}
 
-	L_0dfc:
-		gm_scan();
-		{
-			uint8_t dY = Qdir[f4];
-			gm_enq(dY);
-		}
-		f2 = fb;        // save sub-span right col
-		fd = fc;        // save sub-span right bit
-		fb = Qcol[f4]; fc = Qbit[f4];
-		gm_ebd();
-		if (neg((uint8_t)(fb - fe))) goto L_0e39;
-		if (fb != fe) goto L_0e2d;
-		if (!neg((uint8_t)(f3 - fc))) goto L_0e39;
-	L_0e2d:
-		gm_ebd();
-		gm_enq((uint8_t)(Qdir[f4] ^ 1));
-	L_0e39:
-		fc = fd;
-		fb = f2;
-		{
-			fe = Qcol2[f4];
-			uint8_t b = (uint8_t)(Qbit2[f4] + 1);
-			if (b == 7) { fe = (uint8_t)(fe + 1); b = 0; }
-			f3 = b;
-		}
-		if (neg((uint8_t)(fe - fb))) goto L_0e66;
-		if (fe != fb) goto L_0d1e_jump;
-		if (fc == f3) goto L_0d3e;
-		if (neg((uint8_t)(fc - f3))) goto L_0d1e_jump;
-	L_0e66:
-		{
-			uint8_t b = (uint8_t)(f3 + 1);
-			if (b == 7) { fe = (uint8_t)(fe + 1); b = 0; }
-			f3 = b;
-			gm_enq((uint8_t)(Qdir[f4] ^ 1));
-		}
-		goto L_0d3e;
+	return paint_run(parent);
+}
 
-	L_0d1e_jump:
-		// JMP $0d1e: re-enter the parent-span walk on the same row (f14 still
-		// valid), which checks the right edge, advances, then re-tests.
-		goto L_0d1e;
+// Process one queued span: walk the parent span on the adjacent row, painting
+// (or merging) every connected run of set pixels it overlaps.
+static void process_queue_head() {
+	Span parent = g_queue[g_head];
+	if (parent.dir == DIR_DISABLED)    // absorbed by an earlier merge
+		return;
 
-	L_0d3e:
-		f4 = (uint8_t)((f4 + 1) & 0x1f);
-		continue;
+	g_row = (parent.dir == DIR_UP) ? parent.row - 1 : parent.row + 1;
+	g_pos = parent.left;
+	set_row_address();
+
+	for (;;) {
+		if (pixel_is_set() && handle_run(parent) == WALK_DONE)
+			return;
+		if (g_pos == parent.right)
+			return;
+		g_pos++;
 	}
 }
 
-// Public flood-fill entry point. Loads the seed point, fill patterns and clip
-// rectangle into the engine's register file (the f-prefixed globals that mirror
-// the Apple II zero page), then runs the span-fill loop.
+// op14 flood-fill driver: paint the seed run, queue its up/down children, then
+// drain the queue.
+static void run_fill() {
+	set_row_address();
+	if (!pixel_is_set())
+		return;
+	paint_span();
+
+	g_head = g_tail = 0;
+	enqueue_span(g_row, g_edge, g_pos, DIR_UP);
+	enqueue_span(g_row, g_edge, g_pos, DIR_DOWN);
+
+	long guard = 0;
+	while (g_head != g_tail) {
+		if (++guard > 2000000)         // safety net against pathological input
+			return;
+		process_queue_head();
+		g_head = (g_head + 1) & QUEUE_MASK;
+	}
+}
+
+// Public flood-fill entry point: seed point (x,y), even/odd fill patterns and
+// the clip rectangle (left/right columns, top/bottom rows).
 static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t pat_even, uint8_t pat_odd,
 		uint8_t left, uint8_t right, uint8_t top, uint8_t bottom) {
-	// Even/odd fill patterns, selected per scanline by the engine.
-	f8 = pat_even;
-	f9 = pat_odd;
+	g_pat_even = pat_even;
+	g_pat_odd  = pat_odd;
+	g_clip_left = left;  g_clip_right  = right;
+	g_clip_top  = top;   g_clip_bottom = bottom;
 
-	// Clip rectangle: left/right columns, top/bottom rows.
-	f10 = left;
-	f11 = right;
-	f12 = top;
-	f13 = bottom;
-
-	// Seed point: row, then column and bit within the 7-pixel hi-res byte.
-	fa = y;
-	fb = static_cast<uint8_t>(x / COL_BITS);
-	fc = static_cast<uint8_t>(x % COL_BITS);
-
-	gm_fill_run();
+	g_row = y;
+	g_pos = x;   // pixel coordinate == column*7 + bit
+	run_fill();
 }
 
 // ---- Shape / brush drawing (ported) -------------------------------------------
