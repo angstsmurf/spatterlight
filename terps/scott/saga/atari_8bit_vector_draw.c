@@ -196,7 +196,7 @@ static void move_right(a8_draw_ctx *ctx) {
     }
 }
 
-static void move_left_or_right( bool right_and_down, a8_draw_ctx *ctx) {
+static void move_left_or_right(bool right_and_down, a8_draw_ctx *ctx) {
     if (right_and_down) {
         move_right(ctx);
     } else {
@@ -390,6 +390,8 @@ static void create_patterns(uint8_t pattern, uint8_t op_arg_a, uint8_t op_arg_b,
     ctx->plane90_pattern_odd  = ctx->pattern_byte[3];
 }
 
+// Extract the 2-bit pixel in `slot` (0..3) from a screen byte; slot 0 is the
+// most significant pair, slot 3 the least.
 inline static uint8_t color_at_byte_slot(uint8_t value, uint8_t slot) {
     return (value >> (6 - 2 * slot)) & 3;
 }
@@ -407,8 +409,10 @@ static bool at_edge(a8_draw_ctx *ctx) {
     return color != ctx->fill_background_color;
 }
 
+// Scan straight up (one full row of pixels per step) until the border above the
+// region is reached, or the top of the screen is passed (pixel_offset is signed
+// so it goes negative there). Leaves pixel_offset on the topmost fillable row.
 static void scan_up(a8_draw_ctx *ctx) {
-    /* Move up to find top of contiguous region */
     for (;;) {
         ctx->pixel_offset -= A8_SCREEN_WIDTH;
         if (ctx->pixel_offset < 0) return;
@@ -418,8 +422,12 @@ static void scan_up(a8_draw_ctx *ctx) {
     }
 }
 
+// From an edge pixel, scan right looking for a gap to continue the fill through.
+// Returns false (and stops on it) as soon as a fillable pixel is found; returns
+// true if the row stays blocked all the way to the screen edge or back to the
+// column the segment above started at (scan_saved_xpos), meaning there is nothing
+// more to fill below and the sweep should stop.
 static bool scan_right(a8_draw_ctx *ctx) {
-    /* Move right to find right boundary of contiguous region */
     for (;;) {
         move_right(ctx);
         if (ctx->xpos == A8_SCREEN_WIDTH || ctx->xpos == ctx->scan_saved_xpos)
@@ -444,6 +452,16 @@ static uint8_t build_plane_byte(uint8_t target_val) {
     return color_nibble << 4 | color_nibble;
 }
 
+/* Fill the region around the seed pixel with the current dither pattern,
+   following the Graphics Magician scheme: scan straight up to the top border,
+   then sweep downward one scanline at a time, filling the connected segment
+   beneath the seed and dropping from its start column to the next line.
+
+   A pixel is "fillable" until at_edge() says otherwise: normally that means
+   anything still the background colour, or in erase mode anything that is not
+   the contour (edge) colour. The screen is two bit-planes ($9000/$A000) of four
+   2-bit pixels per byte, so positions are tracked redundantly as a pixel offset,
+   a byte offset + remainder, and x/y, kept in sync by the move_* helpers. */
 static void flood_fill(a8_draw_ctx *ctx) {
     ctx->pixel_offset = ctx->pattern_start_pixel;
     byte_offset_from_pixel_offset(ctx);
