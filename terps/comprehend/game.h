@@ -116,6 +116,17 @@ protected:
 	void move_object(Item *item, int new_room);
 
 	/*
+	 * V2 interpreters (e.g. Talisman) reserve variable 0 as the input-number
+	 * register: read_sentence_format zeroes it each turn and a numeric token
+	 * fills it, and the VAR_*1 opcodes compare against it. V1 interpreters
+	 * instead use variable 0 as the persisted inventory weight. The two uses
+	 * collide, so number-register handling (the per-turn reset and numeric
+	 * token capture in read_sentence, and suppressing the move_object weight
+	 * write) is gated on this predicate.
+	 */
+	virtual bool hasNumberRegister() const { return false; }
+
+	/*
 	 * Comprehend functions consist of test and command instructions (if the MSB
 	 * of the opcode is set then it is a command). Functions are parsed by
 	 * evaluating each test until a command instruction is encountered. If the

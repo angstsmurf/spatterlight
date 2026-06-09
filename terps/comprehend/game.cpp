@@ -514,13 +514,20 @@ void ComprehendGame::move_object(Item *item, int new_room) {
 	if (item->_room == new_room)
 		return;
 
-	if (item->_room == ROOM_INVENTORY) {
-		/* Removed from player's inventory */
-		_variables[VAR_INVENTORY_WEIGHT] -= obj_weight;
-	}
-	if (new_room == ROOM_INVENTORY) {
-		/* Moving to the player's inventory */
-		_variables[VAR_INVENTORY_WEIGHT] += obj_weight;
+	// On V1 interpreters variable 0 is the persisted inventory weight; keep it
+	// in sync here. V2 interpreters instead reserve variable 0 as the input-
+	// number register (see hasNumberRegister) and recompute inventory weight on
+	// demand via weighInventory(), so writing weight here would corrupt the
+	// number register.
+	if (!hasNumberRegister()) {
+		if (item->_room == ROOM_INVENTORY) {
+			/* Removed from player's inventory */
+			_variables[VAR_INVENTORY_WEIGHT] -= obj_weight;
+		}
+		if (new_room == ROOM_INVENTORY) {
+			/* Moving to the player's inventory */
+			_variables[VAR_INVENTORY_WEIGHT] += obj_weight;
+		}
 	}
 
 	if (item->_room == _currentRoom) {
@@ -754,6 +761,16 @@ void ComprehendGame::read_sentence(Sentence *sentence) {
 	Word *word;
 
 	sentence->clear();
+
+	// V2 interpreters zero the input-number register (variable 0) at the start
+	// of each sentence parse (NOVEL.EXE read_sentence_format writes 0x34bb = 0).
+	// A subsequent numeric token fills it; otherwise it stays 0. This matters
+	// for e.g. the curio dealer's yes/no haggling, whose accept test compares
+	// variable 0 against 0. (V1 instead uses variable 0 as the persisted
+	// inventory weight, so it must not be cleared.)
+	if (hasNumberRegister())
+		_variables[0] = 0;
+
 	for (;;) {
 		// Get the next word
 		skip_whitespace(&p);
@@ -767,7 +784,7 @@ void ComprehendGame::read_sentence(Sentence *sentence) {
 		// it into variable 0 -- its input-number register -- rather than
 		// treating it as a dictionary word. Game logic and the number-mode '@'
 		// string marker then read the value back from the variables array.
-		bool allDigits = !wordStr.empty();
+		bool allDigits = hasNumberRegister() && !wordStr.empty();
 		for (uint di = 0; di < wordStr.size(); ++di) {
 			if (wordStr[di] < '0' || wordStr[di] > '9') {
 				allDigits = false;
