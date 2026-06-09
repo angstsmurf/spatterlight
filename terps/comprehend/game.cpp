@@ -230,7 +230,17 @@ void ComprehendGame::console_println(const char *text) {
 
 		case '@':
 			/* Replace word */
-			if (_currentReplaceWord >= _replaceWords.size()) {
+			if (_replaceWordIsNumber) {
+				/*
+				 * Number mode: render a variable's value as a decimal
+				 * number (e.g. Talisman's bazaar prices). Mirrors the
+				 * original interpreter's capital-space number branch,
+				 * which formats variables[index] as decimal.
+				 */
+				snprintf(bad_word, sizeof(bad_word), "%u",
+				         _variables[_replaceNumberVar]);
+				word = bad_word;
+			} else if (_currentReplaceWord >= _replaceWords.size()) {
 				snprintf(bad_word, sizeof(bad_word),
 				         "[BAD_REPLACE_WORD(%.2x)]",
 				         _currentReplaceWord);
@@ -751,6 +761,25 @@ void ComprehendGame::read_sentence(Sentence *sentence) {
 		skip_non_whitespace(&p);
 
 		Common::String wordStr(word_string, p);
+
+		// A purely numeric token is the player entering a number (e.g. a price
+		// when haggling in Talisman's bazaar). The original interpreter parses
+		// it into variable 0 -- its input-number register -- rather than
+		// treating it as a dictionary word. Game logic and the number-mode '@'
+		// string marker then read the value back from the variables array.
+		bool allDigits = !wordStr.empty();
+		for (uint di = 0; di < wordStr.size(); ++di) {
+			if (wordStr[di] < '0' || wordStr[di] > '9') {
+				allDigits = false;
+				break;
+			}
+		}
+		if (allDigits) {
+			uint value = 0;
+			for (uint di = 0; di < wordStr.size() && di < 5; ++di)
+				value = value * 10 + (wordStr[di] - '0');
+			_variables[0] = (uint16)value;
+		}
 
 		// Check for end of sentence
 		// FIXME: The below is a hacked simplified version of how the

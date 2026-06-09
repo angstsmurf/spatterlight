@@ -397,6 +397,8 @@ public:
 	uint16 _variables[MAX_VARIABLES];
 
 	uint8 _currentReplaceWord;
+	bool _replaceWordIsNumber;	// '@' renders a number instead of a word
+	uint8 _replaceNumberVar;	// variable index whose value is rendered
 	uint8 _wordFlags;
 	uint _updateFlags;
 

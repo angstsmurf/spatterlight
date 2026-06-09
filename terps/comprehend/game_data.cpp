@@ -166,6 +166,8 @@ void GameData::clearGame() {
 	_startRoom = 0;
 	_currentRoom = 0;
 	_currentReplaceWord = 0;
+	_replaceWordIsNumber = false;
+	_replaceNumberVar = 0;
 	_wordFlags = 0;
 	_updateFlags = 0;
 	_colorTable = 0;
@@ -630,6 +632,13 @@ void GameData::parse_header(FileBuffer *fb) {
 	parse_header_le16(fb, &dummy);
 	parse_header_le16(fb, &header->addr_strings_end);
 
+	// The initial game state follows the header. In the original interpreter
+	// the header (30 LE16 pointers) plus this block are loaded contiguously
+	// into RAM, so the current-room global sits at the second byte of the
+	// block (the byte right after the first header marker), and the LE16
+	// variables[] array starts two bytes later. For Talisman this byte is 5
+	// (the prison cell, string id 55); reading the *third* byte instead lands
+	// the player in the bazaar (room 4), which is wrong.
 	fb->skip(1);
 	_startRoom = fb->readByte();
 	fb->skip(1);
