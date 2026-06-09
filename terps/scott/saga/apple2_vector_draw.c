@@ -443,26 +443,36 @@ static uint8_t fill_span_left(a2_fill_ctx *ctx, uint8_t left_edge, bool has_more
     return left_edge;
 }
 
-/* Compute the midpoint of the filled span and set ctx->seed_column and
-   ctx->pixel_offset for the next scanline. The midpoint is calculated from
-   the leftmost/rightmost painted columns and their edge pixel counts,
-   providing better handling of concave shapes. */
+/* Re-seed at the horizontal midpoint of the span just filled, so the next
+   scanline drops from its centre (this is what gives the fill its better
+   handling of concave shapes). The span runs from ctx->column (the leftmost
+   painted column) to rightmost_column, with left_edge_pixels / right_edge_pixels
+   left unfilled at the two ends.
+
+   The arithmetic is deliberately 8-bit to match the original 6502 routine,
+   including the explicit borrow when right_edge_pixels exceeds the running
+   value. */
 static void advance_seed_to_midpoint(a2_fill_ctx *ctx,
                                      uint8_t rightmost_column,
                                      uint8_t right_edge_pixels,
                                      uint8_t left_edge_pixels)
 {
+    /* Total span width in pixels: the two partial end columns plus the fully
+       painted columns between them. */
     int8_t filled_columns = rightmost_column - ctx->column - 1;
-    uint8_t midpoint = (filled_columns < 0) ? COL_BITS : (filled_columns * COL_BITS + 2 * COL_BITS);
+    uint8_t span_pixels = (filled_columns < 0) ? COL_BITS
+                                               : (filled_columns + 2) * COL_BITS;
 
-    midpoint = (uint8_t)(midpoint - right_edge_pixels) - (right_edge_pixels > midpoint);
-    midpoint = (uint8_t)(midpoint - left_edge_pixels) / 2;
+    /* Trim the unfilled pixels at each end, then halve: the offset of the
+       midpoint from the span's left edge. */
+    uint8_t half = (uint8_t)(span_pixels - right_edge_pixels) - (right_edge_pixels > span_pixels);
+    half = (uint8_t)(half - left_edge_pixels) / 2;
 
-    ctx->seed_column = ctx->column + (midpoint / COL_BITS);
-    uint8_t remainder = midpoint % COL_BITS;
-
-    ctx->pixel_offset = (left_edge_pixels + remainder) % COL_BITS;
-    ctx->seed_column += (left_edge_pixels + remainder) / COL_BITS;
+    /* The left edge itself sits left_edge_pixels into ctx->column, so add that
+       back when turning the midpoint offset into a column + pixel position. */
+    uint8_t offset = left_edge_pixels + (half % COL_BITS);
+    ctx->seed_column = ctx->column + (half / COL_BITS) + (offset / COL_BITS);
+    ctx->pixel_offset = offset % COL_BITS;
 }
 
 /*
