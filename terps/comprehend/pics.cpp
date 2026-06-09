@@ -95,9 +95,10 @@ Pics::ImageFile::ImageFile(const Common::String &filename, bool isSingleImage) :
 
 	if (isSingleImage) {
 		// It's a title image file, which has only a single image with no
-		// table of image offsets
+		// table of image offsets. The DOS title file (t0) has a 4-byte header
+		// before the vector stream; the Apple II title (T0) starts at byte 0.
 		_imageOffsets.resize(1);
-		_imageOffsets[0] = 4;
+		_imageOffsets[0] = Common::DiskImageFS::active() ? 0 : 4;
 		return;
 	}
 
@@ -450,8 +451,11 @@ void Pics::drawPicture(int pictureNum) const {
 		} else if (pictureNum == BRIGHT_ROOM) {
 			talismanResetScreen(true);
 		} else if (pictureNum == TITLE_IMAGE) {
-			// The Apple II release has no vector title image.
+			// The Apple II title (T0) is a Graphics Magician vector image drawn
+			// on a white background, exactly like a bright room picture.
 			talismanResetScreen(true);
+			if (_title.isLoaded())
+				_title.renderApple(0);
 		} else if (pictureNum >= ITEMS_OFFSET) {
 			// Item overlay: draw on top of the existing room page.
 			int n = pictureNum - ITEMS_OFFSET;

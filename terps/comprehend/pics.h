@@ -95,7 +95,7 @@ private:
 		ImageFile(const Common::String &filename, bool isSingleImage = false);
 
 		// False when no image file was loaded (e.g. games whose title screen
-		// is not a Comprehend vector image, such as the Apple II releases).
+		// is not a vector image, or releases that ship no title file at all).
 		bool isLoaded() const { return !_imageOffsets.empty(); }
 
 		void draw(uint index, ImageContext *ctx) const;

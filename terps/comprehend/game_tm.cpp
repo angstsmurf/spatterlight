@@ -48,9 +48,9 @@ TalismanGame::TalismanGame() : ComprehendGameV2() {
 		// Apple II: the game starts on the "Empire" disk (g0 magic 0xa429).
 		// Graphics span all three disks (RA-RD + OA/OB on the Empire disk,
 		// RE-RG + OE/OF on the Lands Beyond disk) and resolve through the
-		// active-disk-then-fallback VFS. The title is a raw hi-res screen.
+		// active-disk-then-fallback VFS. The title (T0, on the boot disk) is a
+		// Graphics Magician vector image like the rooms, not a raw hi-res screen.
 		Common::DiskImageFS::selectDiskByGameMagic(0xa429);
-		_titleGraphicFile = "";
 	}
 }
 
