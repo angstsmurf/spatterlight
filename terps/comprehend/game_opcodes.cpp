@@ -252,16 +252,16 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 		break;
 
 	case OPCODE_SET_STRING_REPLACEMENT1:
-		// The high bit of the operand selects number mode: the '@' marker then
-		// renders variable (operand & 0x7f) as a decimal number instead of a
-		// replacement word. This is how Talisman shows e.g. bazaar prices.
-		if (instr->_operand[0] & 0x80) {
-			_replaceWordIsNumber = true;
-			_replaceNumberVar = instr->_operand[0] & 0x7f;
-		} else {
-			_replaceWordIsNumber = false;
-			_currentReplaceWord = instr->_operand[0] - 1;
-		}
+		// Opcode 0xc9 in the original (NOVEL.EXE 1000:0f74) does
+		// `OR AL, 0x80` on the selector unconditionally, i.e. it ALWAYS
+		// selects number mode: the '@' marker renders variable[operand] as a
+		// decimal number (this is how Talisman shows e.g. bazaar prices).
+		// The data operand is a plain 0..127 variable index -- the high bit is
+		// added in code, never stored -- so a `operand & 0x80` test here would
+		// never fire. The print routine reads variable[(selector<<1 & 0xff)/2]
+		// = variable[operand & 0x7f].
+		_replaceWordIsNumber = true;
+		_replaceNumberVar = instr->_operand[0] & 0x7f;
 		break;
 
 	case OPCODE_SET_STRING_REPLACEMENT2:
