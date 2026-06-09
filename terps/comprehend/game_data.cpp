@@ -521,6 +521,27 @@ void GameData::parse_replace_words(FileBuffer *fb) {
 	/* FIXME - Rename addr_strings_end */
 	fb->seek(_header.addr_strings_end);
 
+	if (g_comprehend->getGameID() == "talisman") {
+		// Talisman keeps its strings in separate files, so this header field
+		// is repurposed to point straight at the replace-word table. The
+		// engine indexes the table from zero (entry 0 is "empty"), but the
+		// bytecode operand is consumed as (operand - 1) here just like every
+		// other game, so drop that leading entry to line the two up. Unlike
+		// the other games the table also contains empty slots that are real
+		// indices (e.g. between the pronoun responses and the rod colours),
+		// so read every entry through to the end of the data rather than
+		// stopping at the first empty string.
+		len = fb->strlen(&eof);
+		fb->skip(len + (eof ? 0 : 1));
+
+		while (!eof && fb->pos() < fb->size()) {
+			len = fb->strlen(&eof);
+			_replaceWords.push_back(Common::String((const char *)fb->dataPtr(), len));
+			fb->skip(len + (eof ? 0 : 1));
+		}
+		return;
+	}
+
 	/* FIXME - what is this for */
 	fb->skip(2);
 
