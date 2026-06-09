@@ -706,7 +706,7 @@ static void move_up_or_down(bool down, a2_vector_ctx *ctx) {
     } else {
         ctx->HGR_Y--;
         // Wrap around if top reached
-        if (ctx->HGR_Y < 0) ctx->HGR_Y = 191;
+        if (ctx->HGR_Y > 191) ctx->HGR_Y = 191;
     }
     ctx->HBAS = CALC_APPLE2_ADDRESS(ctx->HGR_Y);
 }
