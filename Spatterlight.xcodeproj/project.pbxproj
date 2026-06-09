@@ -711,6 +711,7 @@
 		C36797E22EF0B43A008A6A0D /* c64a8scott.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797E12EF0B43A008A6A0D /* c64a8scott.c */; };
 		C36797E62EF0B884008A6A0D /* sagadraw_glue.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797E52EF0B884008A6A0D /* sagadraw_glue.c */; };
 		C36797E92EF0DA04008A6A0D /* read_le16.h in Headers */ = {isa = PBXBuildFile; fileRef = C36797E82EF0D9FD008A6A0D /* read_le16.h */; };
+		C369CC9F2FD781D80057CB21 /* apple2_talisman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C369CC9E2FD781D80057CB21 /* apple2_talisman.cpp */; };
 		C36AD5672F89371F00E65111 /* glkautosave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C36AD5662F89371F00E65111 /* glkautosave.cpp */; };
 		C36AD5692F89378C00E65111 /* arthur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3824B792CAEF0A800D58EFC /* arthur.cpp */; };
 		C36AD56A2F89378C00E65111 /* journey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED635F2C6E1293000F90A8 /* journey.cpp */; };
@@ -3281,6 +3282,8 @@
 		C36797E42EF0B884008A6A0D /* sagadraw_glue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sagadraw_glue.h; sourceTree = "<group>"; };
 		C36797E52EF0B884008A6A0D /* sagadraw_glue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sagadraw_glue.c; sourceTree = "<group>"; };
 		C36797E82EF0D9FD008A6A0D /* read_le16.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = read_le16.h; sourceTree = "<group>"; };
+		C369CC9E2FD781D80057CB21 /* apple2_talisman.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = apple2_talisman.cpp; sourceTree = "<group>"; };
+		C369CCA12FD781EC0057CB21 /* apple2_talisman.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apple2_talisman.h; sourceTree = "<group>"; };
 		C36AD5662F89371F00E65111 /* glkautosave.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = glkautosave.cpp; sourceTree = "<group>"; };
 		C36B3890271F710200756D94 /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoView.h; sourceTree = "<group>"; };
 		C36B3891271F710200756D94 /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
@@ -6029,6 +6032,8 @@
 			isa = PBXGroup;
 			children = (
 				C39D257B2FD700710015252F /* apple2.cpp */,
+				C369CCA12FD781EC0057CB21 /* apple2_talisman.h */,
+				C369CC9E2FD781D80057CB21 /* apple2_talisman.cpp */,
 				C314D7DB2FD6D1BA00EABA28 /* charset.h */,
 				C314D7DC2FD6D1BA00EABA28 /* charset.cpp */,
 				C314D7DE2FD6D1BA00EABA28 /* comprehend.h */,
@@ -8781,6 +8786,7 @@
 				C314D8232FD6D2F100EABA28 /* game_data.cpp in Sources */,
 				C39D257C2FD700710015252F /* apple2.cpp in Sources */,
 				C314D8242FD6D2F100EABA28 /* game_oo.cpp in Sources */,
+				C369CC9F2FD781D80057CB21 /* apple2_talisman.cpp in Sources */,
 				C314D8252FD6D2F100EABA28 /* game_opcodes.cpp in Sources */,
 				C314D8262FD6D2F100EABA28 /* game_tm.cpp in Sources */,
 				C314D8272FD6D2F100EABA28 /* game_tr1.cpp in Sources */,

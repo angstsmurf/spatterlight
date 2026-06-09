@@ -99,6 +99,11 @@ private:
 		bool isLoaded() const { return !_imageOffsets.empty(); }
 
 		void draw(uint index, ImageContext *ctx) const;
+
+		// Apple II Talisman only: decode image `index`'s vector stream onto the
+		// persistent Apple hi-res page via the standard hi-res renderer
+		// (apple2_talisman.cpp), instead of the generic DrawSurface path.
+		void renderApple(uint index) const;
 	};
 
 private:
