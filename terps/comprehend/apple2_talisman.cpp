@@ -220,87 +220,142 @@ static const uint8_t gmRMASK[7] = {0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80};
 
 static inline uint8_t neg(uint8_t a) { return a & 0x80; } // bit7 set after CMP => reg < op
 
-static void gm_setaddr() {            // FUN_0c38
+// FUN_0c38: compute the hi-res base address of the current row (fa) and the
+// pattern base index for that row (odd rows select f9, even rows f8).
+static void gm_setaddr() {
 	f14 = CALC_APPLE2_ADDRESS(fa);
-	f5 = (uint8_t)(((fa & 1) ? f9 : f8) << 2);
+	f5 = static_cast<uint8_t>(((fa & 1) ? f9 : f8) << 2);
 }
-static uint8_t gm_pix() {             // FUN_0c70
-	return (uint8_t)(gmBIT[fc] & s_screenmem[(uint16_t)(f14 + fb)]);
+
+// FUN_0c70: test the pixel at the current column/bit (fb,fc); non-zero if set.
+static uint8_t gm_pix() {
+	return static_cast<uint8_t>(gmBIT[fc] & s_screenmem[static_cast<uint16_t>(f14 + fb)]);
 }
-static uint8_t gm_rmask(uint8_t p) {  // FUN_0ca2 (sets f3)
-	if ((p & 0x7f) == 0x7f) return 0xff;
+
+// FUN_0ca2: find the right edge of a run of set bits in byte p, returning the
+// paint mask and storing the boundary bit index in f3. When all seven bits are
+// set the run continues past this byte (no edge here), so return 0xff.
+static uint8_t gm_rmask(uint8_t p) {
+	if ((p & 0x7f) == 0x7f)
+		return 0xff;
 	f3 = 7;
-	uint8_t b;
-	do { f3--; b = (uint8_t)(p & 0x7f); p = (uint8_t)(p << 1); } while (b >> 6);
+	uint8_t bit;
+	do {
+		f3--;
+		bit = static_cast<uint8_t>(p & 0x7f);
+		p = static_cast<uint8_t>(p << 1);
+	} while (bit >> 6);
 	return gmRMASK[f3];
 }
-static uint8_t gm_lmask(uint8_t p) {  // FUN_0cb8 (sets fc)
+
+// FUN_0cb8: find the left edge of a run of set bits in byte p, returning the
+// paint mask and storing the boundary bit index in fc. When all seven bits are
+// set the run continues past this byte (no edge here), so return 0xff.
+static uint8_t gm_lmask(uint8_t p) {
 	p &= 0x7f;
-	if (p != 0x7f) {
-		fc = 0xff;
-		uint8_t c;
-		do { fc++; c = (uint8_t)(p & 1); p = (uint8_t)(p >> 1); } while (c);
-		return gmLMASK[fc];
-	}
-	return 0xff;
+	if (p == 0x7f)
+		return 0xff;
+	fc = 0xff;
+	uint8_t bit;
+	do {
+		fc++;
+		bit = static_cast<uint8_t>(p & 1);
+		p = static_cast<uint8_t>(p >> 1);
+	} while (bit);
+	return gmLMASK[fc];
 }
-static void gm_write(uint8_t mask, uint8_t col) {  // FUN_0c7a
-	f2 = (uint8_t)((mask ^ f2) & 0x7f);
+
+// FUN_0c7a: paint `mask` worth of pixels into screen column `col`, blending the
+// current fill pattern (selected by f5 and the column's low bits) over the bits
+// the mask covers and keeping the screen's existing bits elsewhere.
+static void gm_write(uint8_t mask, uint8_t col) {
+	f2 = static_cast<uint8_t>((mask ^ f2) & 0x7f);
 	fd = mask;
-	write_screen((uint16_t)(f14 + col),
-		(uint8_t)((kPatternData[(col & 3) | f5] & mask) | f2));
+	uint8_t pattern = kPatternData[(col & 3) | f5];
+	write_screen(static_cast<uint16_t>(f14 + col),
+		static_cast<uint8_t>((pattern & mask) | f2));
 }
-static void gm_ebd() {                // FUN_0ebd
+
+// FUN_0ebd: step one pixel left, borrowing into the previous column when the
+// bit index underflows past 0.
+static void gm_ebd() {
 	fc--;
-	if (fc & 0x80) { fc = 6; fb--; }
+	if (fc & 0x80) {
+		fc = 6;
+		fb--;
+	}
 }
-static void gm_enq(uint8_t dir) {     // FUN_0e80
-	if (dir == 0) { if (fa == f12) return; }
-	else { if (fa == f13) return; }
-	uint8_t t = ff;
-	Qy[t] = fa; Qcol[t] = fe; Qbit[t] = f3; Qbit2[t] = fc; Qcol2[t] = fb; Qdir[t] = dir;
-	ff = (uint8_t)((ff + 1) & 0x1f);   // queue assumed never to overflow 32 spans
+
+// FUN_0e80: enqueue the just-scanned span for the adjacent row in direction
+// `dir` (0 = up toward f12, non-zero = down toward f13), unless that row is the
+// clip edge. The span is stored as its left edge (fe,f3), right edge (fb,fc),
+// source row (fa) and direction.
+static void gm_enq(uint8_t dir) {
+	uint8_t clip_row = (dir == 0) ? f12 : f13;
+	if (fa == clip_row)
+		return;
+
+	uint8_t tail = ff;
+	Qy[tail]    = fa;
+	Qcol[tail]  = fe;
+	Qbit[tail]  = f3;
+	Qbit2[tail] = fc;
+	Qcol2[tail] = fb;
+	Qdir[tail]  = dir;
+	ff = static_cast<uint8_t>((ff + 1) & 0x1f);   // queue assumed never to overflow 32 spans
 }
 
 // FUN_0ec8: scan the maximal span containing (fb,fc) on row fa, painting it;
 // returns its left edge in (fe,f3) and right edge in (fb,fc).
 static void gm_scan() {
-	uint8_t Y = fb;
+	// Paint the seed byte: mask off the run of set bits bounded on the right by
+	// the seed bit (gm_rmask, into f3) and on the left by it (gm_lmask, into fc),
+	// then intersect the two masks.
+	uint8_t col = fb;
 	f3 = 0xff;
-	f2 = s_screenmem[(uint16_t)(f14 + Y)];
-	uint8_t mask = gm_rmask((uint8_t)(f2 | gmRMASK[fc]));   // sets f3
+	f2 = s_screenmem[static_cast<uint16_t>(f14 + col)];
+	uint8_t mask = gm_rmask(static_cast<uint8_t>(f2 | gmRMASK[fc]));   // sets f3
 	fd = mask;
-	mask = (uint8_t)(gmLMASK[fc] | f2);
+	mask = static_cast<uint8_t>(gmLMASK[fc] | f2);
 	fc = 7;
 	mask = gm_lmask(mask);                                  // sets fc
-	mask = (uint8_t)(mask & fd);
+	mask = static_cast<uint8_t>(mask & fd);
 
-	uint8_t rv;
+	// Walk left across whole columns until a right-edge boundary or the clip
+	// edge (f10) is hit, painting each column as we go.
+	uint8_t left_bit;
 	for (;;) {                                              // LAB_0eec
-		gm_write(mask, Y);
-		if (f3 != 0xff) { rv = f3; break; }
-		Y = (uint8_t)(Y - 1);
-		if (neg((uint8_t)(Y - f10))) { Y = (uint8_t)(Y + 1); rv = 0xff; break; }
-		f2 = s_screenmem[(uint16_t)(f14 + Y)];
+		gm_write(mask, col);
+		if (f3 != 0xff) { left_bit = f3; break; }
+		col = static_cast<uint8_t>(col - 1);
+		if (neg(static_cast<uint8_t>(col - f10))) {
+			col = static_cast<uint8_t>(col + 1);
+			left_bit = 0xff;
+			break;
+		}
+		f2 = s_screenmem[static_cast<uint16_t>(f14 + col)];
 		mask = gm_rmask(f2);                               // sets f3
 	}
 
-	uint8_t X = (uint8_t)(rv + 1);                         // LAB_0f07
-	if (X == 7) { X = 0; Y = (uint8_t)(Y + 1); }
-	fe = Y; f3 = X;
+	// Record the span's left edge in (fe,f3), advancing past the boundary bit.
+	uint8_t bit = static_cast<uint8_t>(left_bit + 1);      // LAB_0f07
+	if (bit == 7) { bit = 0; col = static_cast<uint8_t>(col + 1); }
+	fe = col; f3 = bit;
 
-	Y = fb;                                                // LAB_0f16 (right scan)
+	// Walk right from the seed, painting whole columns, until the bit index
+	// runs off the left of a column with no continuation (or the clip edge f11).
+	col = fb;                                              // LAB_0f16 (right scan)
 	for (;;) {
-		if (fc == 7 && Y != f11) {
-			Y = (uint8_t)(Y + 1);
-			f2 = s_screenmem[(uint16_t)(f14 + Y)];
-			uint8_t M = gm_lmask(f2);                      // sets fc
-			gm_write(M, Y);
+		if (fc == 7 && col != f11) {
+			col = static_cast<uint8_t>(col + 1);
+			f2 = s_screenmem[static_cast<uint16_t>(f14 + col)];
+			mask = gm_lmask(f2);                           // sets fc
+			gm_write(mask, col);
 			continue;
 		}
-		fc = (uint8_t)(fc - 1);                            // LAB_0f2e
-		if (fc & 0x80) { fc = 6; Y = (uint8_t)(Y - 1); }
-		fb = Y;
+		fc = static_cast<uint8_t>(fc - 1);                 // LAB_0f2e
+		if (fc & 0x80) { fc = 6; col = static_cast<uint8_t>(col - 1); }
+		fb = col;
 		return;
 	}
 }
@@ -440,13 +495,26 @@ static void gm_fill_run() {           // op14_floodfill @ $0cca
 	}
 }
 
+// Public flood-fill entry point. Loads the seed point, fill patterns and clip
+// rectangle into the engine's register file (the f-prefixed globals that mirror
+// the Apple II zero page), then runs the span-fill loop.
 static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t pat_even, uint8_t pat_odd,
 		uint8_t left, uint8_t right, uint8_t top, uint8_t bottom) {
-	f8 = pat_even; f9 = pat_odd;
-	f10 = left; f11 = right; f12 = top; f13 = bottom;
-	fa = (uint8_t)y;
-	fb = (uint8_t)(x / COL_BITS);   // FUN_0c52: col = x/7
-	fc = (uint8_t)(x % COL_BITS);   //           bit = x%7
+	// Even/odd fill patterns, selected per scanline by the engine.
+	f8 = pat_even;
+	f9 = pat_odd;
+
+	// Clip rectangle: left/right columns, top/bottom rows.
+	f10 = left;
+	f11 = right;
+	f12 = top;
+	f13 = bottom;
+
+	// Seed point: row, then column and bit within the 7-pixel hi-res byte.
+	fa = y;
+	fb = static_cast<uint8_t>(x / COL_BITS);
+	fc = static_cast<uint8_t>(x % COL_BITS);
+
 	gm_fill_run();
 }
 
