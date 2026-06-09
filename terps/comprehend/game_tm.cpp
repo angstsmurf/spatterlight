@@ -75,8 +75,14 @@ void TalismanGame::loadStringsApple() {
 	for (int bank = 0; bank < BANKS_COUNT; ++bank) {
 		StringTable &table = (bank < 8) ? _strings : _strings2;
 
+		// Each Apple II string file uses the same layout as one novel.exe
+		// bank: a table of LE16 string offsets (relative to the start of the
+		// file) followed by the 5-bit-encoded string data. The index begins
+		// at the very start of the file, so the first two entries are the two
+		// standard parser messages ("Ye cannot travel in that direction.",
+		// "I understand thee not."), exactly matching the DOS bank.
 		FileBuffer fb(BANKS[bank]);
-		fb.seek(4);
+		fb.seek(0);
 		uint fileSize = fb.size();
 
 		uint16 index[STRINGS_PER_BANK];
