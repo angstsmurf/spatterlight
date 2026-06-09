@@ -118,8 +118,12 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 		for (uint i = 0; i < _items.size(); i++) {
 			item = &_items[i];
 			if (item->_room == ROOM_INVENTORY)
-				g_comprehend->print("%s\n",
-					stringLookup(item->_stringDesc).c_str());
+				// Route through console_println (not a raw print) so that an
+				// item description carrying the '@' replacement marker is
+				// rendered: Talisman's gold item is "@ glittering gold coins",
+				// where the inventory verb has just set number mode + var 34
+				// so '@' becomes the current coin count.
+				console_println(stringLookup(item->_stringDesc).c_str());
 		}
 		break;
 	}
