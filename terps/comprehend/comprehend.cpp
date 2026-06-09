@@ -116,7 +116,31 @@ void Comprehend::printRoomDesc(const Common::String &desc) {
     }
 }
 
+static FILE *scriptFile() {
+    static FILE *f = nullptr;
+    static bool tried = false;
+    if (!tried) {
+        tried = true;
+        const char *p = getenv("COMPREHEND_SCRIPT");
+        if (p) f = fopen(p, "r");
+    }
+    return f;
+}
+
 void Comprehend::readLine(char *buffer, size_t maxLen) {
+    if (scriptFile()) {
+        if (!fgets(buffer, (int)maxLen, scriptFile())) {
+            strncpy(buffer, "quit", maxLen);
+            buffer[maxLen - 1] = 0;
+        } else {
+            size_t n = strlen(buffer);
+            while (n && (buffer[n - 1] == '\n' || buffer[n - 1] == '\r'))
+                buffer[--n] = 0;
+        }
+        glk_put_string(buffer);
+        glk_put_char('\n');
+        return;
+    }
     event_t ev;
     glk_request_line_event(_bottomWindow, buffer, (glui32)(maxLen - 1), 0);
     for (;;) {
@@ -127,6 +151,8 @@ void Comprehend::readLine(char *buffer, size_t maxLen) {
 }
 
 int Comprehend::readChar() {
+    if (scriptFile())
+        return ' ';
     glk_request_char_event(_bottomWindow);
     setDisableSaves(true);
     event_t ev;
