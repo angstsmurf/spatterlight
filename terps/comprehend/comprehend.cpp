@@ -130,13 +130,16 @@ static FILE *scriptFile() {
 void Comprehend::readLine(char *buffer, size_t maxLen) {
     if (scriptFile()) {
         if (!fgets(buffer, (int)maxLen, scriptFile())) {
-            strncpy(buffer, "quit", maxLen);
-            buffer[maxLen - 1] = 0;
-        } else {
-            size_t n = strlen(buffer);
-            while (n && (buffer[n - 1] == '\n' || buffer[n - 1] == '\r'))
-                buffer[--n] = 0;
+            // End of transcript: terminate the process outright. Feeding "quit"
+            // here is not safe -- some games (e.g. Talisman) answer "quit" with
+            // a Y/N confirmation read through readChar(), which in script mode
+            // returns a space, declining the quit. The turn loop would then ask
+            // for another line, hit EOF again, and spin forever emitting output.
+            glk_exit();
         }
+        size_t n = strlen(buffer);
+        while (n && (buffer[n - 1] == '\n' || buffer[n - 1] == '\r'))
+            buffer[--n] = 0;
         glk_put_string(buffer);
         glk_put_char('\n');
         return;
