@@ -73,6 +73,7 @@ public:
 
 	byte getOpcode(const Instruction *instr) override;
 	void func_set_test_result(FunctionState *func_state, bool value) override;
+	bool hasNumberRegister() const override { return true; }
 };
 
 } // namespace Comprehend
