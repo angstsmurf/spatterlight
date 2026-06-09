@@ -32,7 +32,9 @@ static bool word_match(Word *word, const char *string) {
 	if (strlen(word->_word) < 6 && strlen(string) != strlen(word->_word))
 		return false;
 
-	return strncmp(word->_word, string, strlen(word->_word)) == 0;
+	/* Dictionary words are stored lower-case; match the player's input
+	 * case-insensitively so e.g. "BOW" and "bow" both parse. */
+	return strncasecmp(word->_word, string, strlen(word->_word)) == 0;
 }
 
 Word *dict_find_word_by_string(ComprehendGame *game,

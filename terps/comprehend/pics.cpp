@@ -20,8 +20,10 @@
  */
 
 #include "pics.h"
+#include "apple2_talisman.h"
 #include "comprehend_compat.h"
 #include "charset.h"
+#include <vector>
 #include "comprehend.h"
 #include "draw_surface.h"
 #include "file_buf.h"
@@ -33,24 +35,7 @@ namespace Comprehend {
 
 #define IMAGES_PER_FILE 16
 
-enum Opcode {
-	OPCODE_END = 0,
-	OPCODE_SET_TEXT_POS = 1,
-	OPCODE_SET_PEN_COLOR = 2,
-	OPCODE_TEXT_CHAR = 3,
-	OPCODE_SET_SHAPE = 4,
-	OPCODE_TEXT_OUTLINE = 5,
-	OPCODE_SET_FILL_COLOR = 6,
-	OPCODE_END2 = 7,
-	OPCODE_MOVE_TO = 8,
-	OPCODE_DRAW_BOX = 9,
-	OPCODE_DRAW_LINE = 10,
-	OPCODE_DRAW_CIRCLE = 11,
-	OPCODE_DRAW_SHAPE = 12,
-	OPCODE_DELAY = 13,
-	OPCODE_PAINT = 14,
-	OPCODE_RESET = 15
-};
+// Opcode enum is shared via apple2_talisman.h (included above).
 
 enum SpecialOpcode {
 	RESETOP_0 = 0,
@@ -152,9 +137,23 @@ bool Pics::ImageFile::doImageOp(Pics::ImageContext *ctx) const {
 	byte param = opcode & 0xf;
 	opcode >>= 4;
 
+	bool talisman = g_vm->getGameID() == "talisman";
+
 	switch (opcode) {
-	case OPCODE_END: // 0
 	case OPCODE_END2: // 7
+		if (talisman) {
+			// Talisman (and the Lands Beyond scenario) repurpose 0x7x: it is
+			// NOT an end-of-image marker (op0 alone terminates) but a 2-operand
+			// opcode that appears in the per-image preamble. Its exact effect is
+			// still being reverse-engineered; for now we consume its operands so
+			// the rest of the vector stream stays aligned and renders.
+			a = imageGetOperand(ctx) + (param & 1 ? 256 : 0);
+			b = imageGetOperand(ctx);
+			(void)a; (void)b;
+			break;
+		}
+		// fallthrough
+	case OPCODE_END: // 0
 		// End of the rendering
 		debugC(kDebugGraphics, "End of image");
 		return true;
@@ -188,8 +187,10 @@ bool Pics::ImageFile::doImageOp(Pics::ImageContext *ctx) const {
 		}
 
 		debugC(kDebugGraphics, "draw_char(%c)", a);
-		ctx->_font->drawChar(ctx->_drawSurface, a, ctx->_textX, ctx->_textY, ctx->getFillColor());
-		ctx->_textX += ctx->_font->getCharWidth(a);
+		if (ctx->_font) {
+			ctx->_font->drawChar(ctx->_drawSurface, a, ctx->_textX, ctx->_textY, ctx->getFillColor());
+			ctx->_textX += ctx->_font->getCharWidth(a);
+		}
 		break;
 
 	case OPCODE_SET_SHAPE: // 4
@@ -277,13 +278,14 @@ bool Pics::ImageFile::doImageOp(Pics::ImageContext *ctx) const {
 			ctx->_drawSurface->floodFill(a, b, ctx->_fillColor);
 		break;
 
-	#if 0
-	// FIXME: The reset case was causing room outside cell to be drawn all white
 	case OPCODE_RESET: // 15
-		a = imageGetOperand(ctx);
-		doResetOp(ctx, a);
+		if (talisman) {
+			a = imageGetOperand(ctx);
+			doResetOp(ctx, a);
+		}
+		// FIXME: The reset case was causing room outside cell to be drawn all
+		// white for the earlier (V1) games, so it stays disabled for them.
 		break;
-	#endif
 	}
 
 	//ctx->_drawSurface->dumpToScreen();
@@ -315,12 +317,35 @@ uint16 Pics::ImageFile::imageGetOperand(ImageContext *ctx) const {
 	return ctx->_file.readByte();
 }
 
+void Pics::ImageFile::renderApple(uint index) const {
+	Common::File f;
+	if (!f.open(_filename))
+		error("Opening image file");
+
+	int64 start = _imageOffsets[index];
+	int64 fsize = f.size();
+	if (start < 0 || start >= fsize)
+		return;
+
+	// The renderer stops at op0 (END); we hand it everything from the image's
+	// offset to end-of-file and let it terminate itself.
+	size_t len = (size_t)(fsize - start);
+	std::vector<byte> buf(len);
+	f.seek(start);
+	f.read(buf.data(), (uint32)len);
+
+	talismanDrawImage(buf.data(), len);
+}
+
 /*-------------------------------------------------------*/
 
 Pics::Pics() : _font(nullptr) {
 	if (Common::File::exists("charset.gda"))
 		_font = new CharSet();
-	else if (g_comprehend->getGameID() == "talisman")
+	else if (g_comprehend->getGameID() == "talisman" && !Common::DiskImageFS::active())
+		// The DOS release keeps the in-picture font inside novel.exe. The Apple II
+		// release has no novel.exe (and its room images don't draw text), so skip
+		// it rather than erroring out on a file that cannot exist.
 		_font = new TalismanFont();
 }
 
@@ -412,6 +437,37 @@ Common::SeekableReadStream *Pics::createReadStreamForMember(const Common::Path &
 
 void Pics::drawPicture(int pictureNum) const {
 	ImageContext ctx(g_comprehend->_drawSurface, _font, g_comprehend->_drawFlags, pictureNum);
+
+	// Apple II Talisman: route through the faithful standard hi-res renderer.
+	// Pictures are decoded onto a persistent Apple hi-res page (so item
+	// overlays compose onto the room already drawn there, exactly as the real
+	// interpreter does), then the whole page is converted to RGBA and blitted.
+	if (g_comprehend->getGameID() == "talisman" && Common::DiskImageFS::active()) {
+		DrawSurface *ds = ctx._drawSurface;
+
+		if (pictureNum == DARK_ROOM) {
+			talismanResetScreen(false);
+		} else if (pictureNum == BRIGHT_ROOM) {
+			talismanResetScreen(true);
+		} else if (pictureNum == TITLE_IMAGE) {
+			// The Apple II release has no vector title image.
+			talismanResetScreen(true);
+		} else if (pictureNum >= ITEMS_OFFSET) {
+			// Item overlay: draw on top of the existing room page.
+			int n = pictureNum - ITEMS_OFFSET;
+			_items[n / IMAGES_PER_FILE].renderApple(n % IMAGES_PER_FILE);
+		} else {
+			// Room picture. Background variants start from a fresh page; the
+			// no-background variant composes onto whatever is already shown.
+			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
+				talismanResetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
+			int n = pictureNum % 100;
+			_rooms[n / IMAGES_PER_FILE].renderApple(n % IMAGES_PER_FILE);
+		}
+
+		talismanBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+		return;
+	}
 
 	if (pictureNum == DARK_ROOM) {
 		ctx._drawSurface->clearScreen(G_COLOR_BLACK);
