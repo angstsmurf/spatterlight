@@ -53,6 +53,12 @@ void talismanBlitToSurface(uint32_t *out, int w, int h);
 const uint8_t *talismanPagePtr();
 void talismanSetPage(const uint8_t *page);
 
+// Install the Graphics Magician drawing tables (pattern data, fill-colour
+// subindices, brush bitmaps) from the boot disk's "T2" file. T2 is a headerless
+// ProDOS BIN that loads at $0800; the tables sit at fixed addresses inside it.
+// Returns false if the buffer is too short to contain all three tables.
+bool talismanInstallDrawingTables(const uint8_t *t2, size_t size);
+
 } // namespace Comprehend
 } // namespace Glk
 

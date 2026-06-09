@@ -68,6 +68,15 @@ int main(int argc, char **argv) {
 	// path prefix (argv[1]) so `make test` can pass the source dir.
 	std::string prefix = (argc > 1) ? std::string(argv[1]) + "/" : "";
 
+	// The renderer's drawing tables now come from the boot disk's T2 file;
+	// load the captured copy so the test stays self-contained.
+	std::vector<uint8_t> t2 = readFile(prefix + "test/talisman/t2.bin");
+	if (t2.empty() || !talismanInstallDrawingTables(t2.data(), t2.size())) {
+		fprintf(stderr, "FAIL: could not load test/talisman/t2.bin (size=%zu)\n",
+			t2.size());
+		return 1;
+	}
+
 	int failures = 0;
 	for (const Case &c : kCases) {
 		std::vector<uint8_t> img  = readFile(prefix + c.img);
