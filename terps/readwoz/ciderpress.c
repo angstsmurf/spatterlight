@@ -257,6 +257,7 @@ static uint8_t *kInvDiskBytes62 = NULL;
 
 static uint8_t *fNibbleTrackBuf = NULL;     // decoded nibble track cache
 static int fNibbleTrackLoaded = -1;         // which track is cached (-1 = none)
+static long fNibbleTrackLen = 0;            // trimmed ring length of cached track
 
 static uint8_t *rawdata = NULL;             // pointer to the loaded disk image
 static size_t rawdatalen = 0;
@@ -802,6 +803,7 @@ static DIError LoadNibbleTrack(long track, long *pTrackLen)
 #ifdef NIB_VERBOSE_DEBUG
         debug_print("  DI track %ld already loaded\n", track);
 #endif
+        *pTrackLen = fNibbleTrackLen;
         return kDIErrNone;
     } else {
         debug_print("  DI loading track %ld\n", track);
@@ -822,7 +824,39 @@ static DIError LoadNibbleTrack(long track, long *pTrackLen)
     if (dierr != kDIErrNone)
         return dierr;
 
+    /*
+     * woz2nib decodes the bitstream continuously, so when a physical track
+     * holds fewer than kTrackLenNib525 nibbles the buffer's tail simply repeats
+     * its head (the decode wrapped into a second revolution). Reading the track
+     * as a fixed-length ring then mis-joins the wrap, corrupting whichever
+     * sector's data field straddles the kTrackLenNib525 boundary -- e.g. the
+     * Talisman Empire disk's T3 S15, which backs the bazaar message-board
+     * picture (RA #6).
+     *
+     * Recover the true revolution length from that duplication: find the
+     * longest tail that equals the head (the repeated region of length L) and
+     * use M = kTrackLenNib525 - L as the ring length. Then the buffer holds
+     * exactly one continuous revolution and the wrap is a faithful circle, so
+     * every sector -- including one straddling the splice -- decodes. Require a
+     * substantial overlap so random data never triggers a false shortening; if
+     * none is found the length stays kTrackLenNib525 (the prior behaviour).
+     */
+    {
+        const int kFullLen = (int)*pTrackLen;
+        const int kMinOverlap = 64;          // long enough to rule out chance
+        const int kMaxOverlap = 1024;        // > slack for a 16-sector revolution
+        int limit = kMaxOverlap < kFullLen / 2 ? kMaxOverlap : kFullLen / 2;
+        for (int L = limit; L >= kMinOverlap; L--) {
+            if (memcmp(fNibbleTrackBuf, fNibbleTrackBuf + kFullLen - L,
+                       (size_t)L) == 0) {
+                *pTrackLen = kFullLen - L;
+                break;
+            }
+        }
+    }
+
     fNibbleTrackLoaded = (int)track;
+    fNibbleTrackLen = *pTrackLen;
 
     return dierr;
 }
