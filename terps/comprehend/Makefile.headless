@@ -1,0 +1,89 @@
+# Headless build of the Comprehend interpreter for automated/regression testing.
+#
+# Instead of linking against Spatterlight's glkimp (which speaks a binary
+# protocol to the Cocoa front-end and aborts with "protocol error" when run
+# from a plain shell), this links the interpreter against a vendored copy of
+# Andrew Plotkin's CheapGlk -- a stdio Glk library. The result, `comprehend_hl`,
+# runs entirely in the terminal.
+#
+# Graphics degrade gracefully: CheapGlk refuses the wintype_Graphics window, so
+# Comprehend::showGraphics() records _graphicsEnabled = false and the picture
+# blitter becomes a no-op. Text, parser and opcode behaviour are unaffected,
+# which is exactly what the Talisman / Apple-vs-DOS transcript diffs exercise.
+#
+# Usage:
+#   make -f Makefile.headless
+#   COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g talisman /path/to/G0
+#
+# where cmds.txt is one command per line (see comprehend.cpp readLine()).
+
+CHEAPGLK_DIR := cheapglk
+READWOZ_DIR  := ../readwoz
+COMMON_DIR   := ../common_utils
+OBJDIR       := headless_obj
+
+CXX ?= clang++
+CC  ?= clang
+
+# Note: -I$(CHEAPGLK_DIR) comes before everything so glk.h / glkstart.h resolve
+# to CheapGlk's headers rather than glkimp's.
+COMMON_INC := -I. -I$(CHEAPGLK_DIR) -I$(READWOZ_DIR) -I$(COMMON_DIR)
+CXXFLAGS   := -std=c++14 -O0 -g -Wall -Wno-unknown-pragmas \
+              -Wno-macro-redefined -Wno-format $(COMMON_INC) \
+              -DGARGLK -DSPATTERLIGHT
+CFLAGS     := -O0 -g -Wall -w $(COMMON_INC) -DGARGLK -DSPATTERLIGHT
+
+CXX_SRCS := \
+    apple2.cpp \
+    apple2_talisman.cpp \
+    charset.cpp \
+    comprehend.cpp \
+    comprehend_compat.cpp \
+    dictionary.cpp \
+    draw_surface.cpp \
+    file_buf.cpp \
+    game.cpp \
+    game_cc.cpp \
+    game_data.cpp \
+    game_oo.cpp \
+    game_opcodes.cpp \
+    game_tm.cpp \
+    game_tr1.cpp \
+    game_tr2.cpp \
+    glk_main.cpp \
+    pics.cpp
+
+C_SRCS := glkstart.c
+
+OBJS := $(addprefix $(OBJDIR)/,$(CXX_SRCS:.cpp=.o) $(C_SRCS:.c=.o) \
+        ciderpress.o woz2nib.o read_le16.o)
+
+CHEAPGLK_LIB := $(CHEAPGLK_DIR)/libcheapglk.a
+
+comprehend_hl: $(OBJS) $(CHEAPGLK_LIB)
+	$(CXX) -o $@ $(OBJS) $(CHEAPGLK_LIB)
+
+$(CHEAPGLK_LIB):
+	$(MAKE) -C $(CHEAPGLK_DIR)
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+$(OBJDIR)/%.o: %.cpp | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(OBJDIR)/%.o: %.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR)/ciderpress.o: $(READWOZ_DIR)/ciderpress.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)/woz2nib.o: $(READWOZ_DIR)/woz2nib.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)/read_le16.o: $(COMMON_DIR)/read_le16.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJDIR) comprehend_hl
+	$(MAKE) -C $(CHEAPGLK_DIR) clean
+
+.PHONY: clean
