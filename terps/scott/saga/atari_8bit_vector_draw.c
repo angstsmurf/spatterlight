@@ -54,10 +54,8 @@ typedef struct {
     bool erase_enabled; // flag: enable erase mode in flood fill, which means that anything that is not the edge color will be replaced by the fill color. Otherwise only the background color is replaced.
     bool lines_only_mode; // A special mode used to redraw the image lines on top in a second pass.
 
-    uint8_t scan_saved_xpos; // saved x position used during scanning / recursive fills
-    uint16_t scan_saved_pixoff; // saved pixel position used during scanning / recursive fills
-
-    int recursion_depth; // recursion counter used to limit recursive flood/scan depth
+    uint8_t scan_saved_xpos; // saved x position used while scanning the fill
+    uint16_t scan_saved_pixoff; // saved pixel position used while scanning the fill
 
     uint8_t start_x; // previously stored X position (for line drawing)
     uint8_t start_y; // previously stored Y position (for line drawing)
@@ -402,8 +400,6 @@ static uint8_t get_pixel_color(a8_draw_ctx *ctx) {
     return color_a0 << 2 | color_90;
 }
 
-#define RECURSION_LIMIT 500
-
 static bool at_edge(a8_draw_ctx *ctx) {
     uint8_t color = get_pixel_color(ctx);
     if (ctx->erase_enabled)
@@ -433,23 +429,6 @@ static bool scan_right(a8_draw_ctx *ctx) {
     }
 }
 
-static void flood_fill_scanline(a8_draw_ctx *ctx);
-
-static void scan_left_and_recurse(a8_draw_ctx *ctx) {
-    /* Move left to find left boundary of contiguous region */
-    for (;;) {
-        move_left(ctx);
-        if ((int8_t)ctx->xpos == -1) break;
-        if (at_edge(ctx))
-            break;
-    }
-    /* Position cursor on first pixel to fill, store pixel offset for scanning,
-     and recurse to continue fill on this scanline segment. */
-    move_right(ctx);
-    ctx->scan_saved_pixoff = ctx->pixel_offset;
-    flood_fill_scanline(ctx);
-}
-
 static void swap_even_and_odd_patterns(a8_draw_ctx *ctx) {
     uint8_t temp = ctx->plane90_pattern_odd;
     ctx->plane90_pattern_odd = ctx->plane90_pattern_even;
@@ -458,61 +437,6 @@ static void swap_even_and_odd_patterns(a8_draw_ctx *ctx) {
     temp = ctx->planeA0_pattern_odd;
     ctx->planeA0_pattern_odd = ctx->planeA0_pattern_even;
     ctx->planeA0_pattern_even = temp;
-}
-
-static void scanline_find_edge_and_recurse(a8_draw_ctx *ctx) {
-    ctx->recursion_depth++;
-    if (ctx->recursion_depth > RECURSION_LIMIT)
-        return;
-
-    swap_even_and_odd_patterns(ctx);
-
-    ctx->scan_saved_xpos = ctx->xpos;
-    ctx->pixel_offset = ctx->scan_saved_pixoff + A8_SCREEN_WIDTH;
-    byte_offset_from_pixel_offset(ctx);
-
-    if (ctx->ypos == A8_SCREEN_HEIGHT)
-        return;
-
-    coordinates_from_pixel_offset(ctx);
-
-    /* If at an edge, search right until we find another edge color
-       (or hit clip / saved_xpos limits). */
-    if (at_edge(ctx) && scan_right(ctx) == true)
-        return;
-
-    scan_left_and_recurse(ctx);
-}
-
-static void flood_fill_scanline(a8_draw_ctx *ctx) {
-    ctx->recursion_depth++;
-    if (ctx->recursion_depth > RECURSION_LIMIT)
-        return;
-
-    do {
-        if (ctx->screen_offset >= A8_IMAGE_SIZE) {
-            fprintf(stderr, "flood_fill_scanline: Address out of bounds!\n");
-            return;
-        }
-
-        /* If not aligned for fast path, draw a single pixel */
-        if (ctx->pixel_remainder != 0 || ctx->erase_enabled ||
-            a8_screenmem90[ctx->screen_offset] != ctx->last_plane90_byte ||
-            a8_screenmemA0[ctx->screen_offset] != ctx->last_planeA0_byte) {
-            if (at_edge(ctx))
-                break;
-            plot_pixel(ctx);
-            move_right(ctx);
-        } else {
-            /* Fast 4-pixel write path */
-            write_to_screenmem(ctx->screen_offset, ctx->plane90_pattern_even, ctx->planeA0_pattern_even, false, 0);
-            ctx->xpos += 4;
-            ctx->pixel_offset += 4;
-            ctx->screen_offset++;
-        }
-    } while (ctx->xpos != A8_SCREEN_WIDTH);
-
-    scanline_find_edge_and_recurse(ctx);
 }
 
 static uint8_t build_plane_byte(uint8_t target_val) {
@@ -553,10 +477,61 @@ static void flood_fill(a8_draw_ctx *ctx) {
     if (need_swap) {
         swap_even_and_odd_patterns(ctx);
     }
-    do {
-        ctx->recursion_depth = 0;
-        scan_left_and_recurse(ctx);
-    } while (ctx->recursion_depth > RECURSION_LIMIT);
+
+    /* Descend one scanline at a time, filling the connected segment beneath the
+       seed. This was originally a chain of mutually tail-recursive functions
+       (scan_left_and_recurse -> flood_fill_scanline ->
+       scanline_find_edge_and_recurse -> ...) capped at a fixed recursion depth
+       with a restart loop, purely to bound C-stack growth; expressed directly it
+       is a plain loop, with no depth limit. */
+    for (;;) {
+        /* Walk left to the segment's left border, then step back onto its first
+           fillable pixel and remember where the segment starts. */
+        for (;;) {
+            move_left(ctx);
+            if ((int8_t)ctx->xpos == -1)
+                break;
+            if (at_edge(ctx))
+                break;
+        }
+        move_right(ctx);
+        ctx->scan_saved_pixoff = ctx->pixel_offset;
+
+        /* Fill the segment left -> right: a fast whole-byte (4-pixel) write where
+           the column is aligned and still background, otherwise pixel by pixel. */
+        do {
+            if (ctx->screen_offset >= A8_IMAGE_SIZE) {
+                fprintf(stderr, "flood_fill: Address out of bounds!\n");
+                return;
+            }
+            if (ctx->pixel_remainder != 0 || ctx->erase_enabled ||
+                a8_screenmem90[ctx->screen_offset] != ctx->last_plane90_byte ||
+                a8_screenmemA0[ctx->screen_offset] != ctx->last_planeA0_byte) {
+                if (at_edge(ctx))
+                    break;
+                plot_pixel(ctx);
+                move_right(ctx);
+            } else {
+                write_to_screenmem(ctx->screen_offset, ctx->plane90_pattern_even, ctx->planeA0_pattern_even, false, 0);
+                ctx->xpos += 4;
+                ctx->pixel_offset += 4;
+                ctx->screen_offset++;
+            }
+        } while (ctx->xpos != A8_SCREEN_WIDTH);
+
+        /* Drop to the next line at the segment's start column, alternating the
+           dither patterns. Stop at the bottom of the screen, or when the line
+           below is blocked from the start column rightward. */
+        swap_even_and_odd_patterns(ctx);
+        ctx->scan_saved_xpos = ctx->xpos;
+        ctx->pixel_offset = ctx->scan_saved_pixoff + A8_SCREEN_WIDTH;
+        byte_offset_from_pixel_offset(ctx);
+        if (ctx->ypos == A8_SCREEN_HEIGHT)
+            return;
+        coordinates_from_pixel_offset(ctx);
+        if (at_edge(ctx) && scan_right(ctx) == true)
+            return;
+    }
 }
 
 static const uint32_t RGBpalette[16] = {
