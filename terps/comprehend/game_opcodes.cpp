@@ -204,7 +204,8 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 
 	case OPCODE_SET_CAN_TAKE:
 		item = get_item_by_noun(noun);
-		item->_flags |= ITEMF_CAN_TAKE;
+		if (item)
+			item->_flags |= ITEMF_CAN_TAKE;
 		break;
 
 	case OPCODE_SET_FLAG:
@@ -795,7 +796,8 @@ void ComprehendGameV2::execute_opcode(const Instruction *instr, const Sentence *
 		item = get_item_by_noun(noun);
 
 		weighInventory();
-		func_set_test_result(func_state, _totalInventoryWeight + (item->_flags & ITEMF_WEIGHT_MASK) >
+		func_set_test_result(func_state, _totalInventoryWeight +
+			(item ? (item->_flags & ITEMF_WEIGHT_MASK) : 0) >
 			_variables[VAR_INVENTORY_LIMIT]);
 		break;
 
@@ -803,7 +805,8 @@ void ComprehendGameV2::execute_opcode(const Instruction *instr, const Sentence *
 		item = get_item_by_noun(noun);
 
 		weighInventory();
-		func_set_test_result(func_state, _totalInventoryWeight + (item->_flags & ITEMF_WEIGHT_MASK) >
+		func_set_test_result(func_state, _totalInventoryWeight +
+			(item ? (item->_flags & ITEMF_WEIGHT_MASK) : 0) >
 			_variables[instr->_operand[1]]);
 		break;
 
