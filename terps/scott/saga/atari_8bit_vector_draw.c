@@ -94,7 +94,9 @@ typedef struct {
     uint8_t value90;
     uint8_t valueA0;
     bool fill_bg;
-    int delay;
+    // Frame count for OPCODE_DELAY ops; at most arg0(0..31) * 20 = 620, so a
+    // uint16_t holds it with room to spare and keeps the struct compact.
+    uint16_t delay;
 } a8_byte_to_write;
 
 static a8_byte_to_write *bytes_to_write = NULL;
