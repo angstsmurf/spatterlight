@@ -97,7 +97,7 @@ typedef struct {
     int delay;
 } a8_byte_to_write;
 
-static a8_byte_to_write **bytes_to_write = NULL;
+static a8_byte_to_write *bytes_to_write = NULL;
 static size_t write_ops_capacity = 100;
 
 static size_t total_write_ops = 0;
@@ -118,7 +118,7 @@ static void ensure_capacity(void) {
     // in screenmem, as many ops may write to the same offset
     if (total_write_ops >= write_ops_capacity) {
         write_ops_capacity = MAX(write_ops_capacity * 2, total_write_ops + 1);  // Double the capacity
-        a8_byte_to_write **new_ops = MemRealloc(bytes_to_write, write_ops_capacity * sizeof(a8_byte_to_write *));
+        a8_byte_to_write *new_ops = MemRealloc(bytes_to_write, write_ops_capacity * sizeof(a8_byte_to_write));
         bytes_to_write = new_ops;
     }
 }
@@ -127,9 +127,6 @@ static void FreeOps(void)
 {
     if (bytes_to_write == NULL)
         return;
-    for (int i = 0; i < total_write_ops; i++)
-        if (bytes_to_write[i] != NULL)
-            free(bytes_to_write[i]);
     free(bytes_to_write);
     bytes_to_write = NULL;
     write_ops_capacity = 100;
@@ -147,7 +144,7 @@ static void shrink_capacity(void) {
         write_ops_capacity = total_write_ops;
         // Our wrapper of realloc() will exit() on failure,
         // so no need to check the result here.
-        a8_byte_to_write **new_pixels = MemRealloc(bytes_to_write, write_ops_capacity * sizeof(a8_byte_to_write *));
+        a8_byte_to_write *new_pixels = MemRealloc(bytes_to_write, write_ops_capacity * sizeof(a8_byte_to_write));
         bytes_to_write = new_pixels;
     }
 }
@@ -166,14 +163,13 @@ static void write_to_screenmem(uint16_t offset, uint8_t value90, uint8_t valueA0
         a8_screenmemA0[offset] = valueA0;
     }
 
-    a8_byte_to_write *op = MemAlloc(sizeof(a8_byte_to_write));
+    ensure_capacity();
+    a8_byte_to_write *op = &bytes_to_write[total_write_ops++];
     op->offset = offset;
     op->value90 = value90;
     op->valueA0 = valueA0;
     op->fill_bg = fill;
     op->delay = delay;
-    ensure_capacity();
-    bytes_to_write[total_write_ops++] = op;
 }
 
 static void move_left(a8_draw_ctx *ctx) {
@@ -806,7 +802,7 @@ void DrawSomeAtari8VectorBytes(int from_start)
         size_t chunk_end = i + ATARI8_VECTOR_BYTES_PER_TICK;
 
         for (; i < total_write_ops && i < chunk_end; i++) {
-            const a8_byte_to_write *towrite = bytes_to_write[i];
+            const a8_byte_to_write *towrite = &bytes_to_write[i];
             if (towrite->delay > 0) {
                 delay_active = towrite->delay;
                 debug_print("DrawSomeAtari8VectorBytes: initiating a delay of %d\n", delay_active);
@@ -837,7 +833,7 @@ static void init_a8_vector_draw_session(USImage *img) {
     // Start with a small allocation for bytes_to_write.
     // write_to_screenmem() will grow this as needed.
     write_ops_capacity = 100;
-    bytes_to_write = MemAlloc(write_ops_capacity * sizeof(a8_byte_to_write *));
+    bytes_to_write = MemAlloc(write_ops_capacity * sizeof(a8_byte_to_write));
     total_write_ops = 0;
     current_write_op = 0;
     glk_request_timer_events(0);
