@@ -469,7 +469,13 @@ void Pics::drawPicture(int pictureNum) const {
 			_rooms[n / IMAGES_PER_FILE].renderApple(n % IMAGES_PER_FILE);
 		}
 
-		talismanBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+		// With slow-draw active the page is revealed a chunk at a time by the
+		// host (Comprehend::drawPicture); blit only what is on the visible page
+		// so far. Otherwise blit the finished page.
+		if (talismanSlowDrawActive())
+			talismanBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+		else
+			talismanBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
 		return;
 	}
 

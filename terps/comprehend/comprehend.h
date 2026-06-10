@@ -123,6 +123,14 @@ public:
     // Blits the current state of _drawSurface to the Glk graphics window,
     // pixel-by-pixel via glk_window_fill_rect. Called by drawPicture().
     void blitSurfaceToWindow();
+    // Blits only Apple rows [y0,y1] of _drawSurface (used by the slow-draw
+    // reveal to repaint just the band it changed this tick).
+    void blitSurfaceRowsToWindow(int y0, int y1);
+
+    // Drives the Apple II Talisman animated picture reveal to completion on a
+    // Glk timer. No-op unless renderPicture() queued a slow-draw. Called by
+    // drawPicture().
+    void runSlowDraw();
 
 private:
     void initialize();

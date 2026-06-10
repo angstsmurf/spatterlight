@@ -273,6 +273,13 @@ void glk_tick()
     /* Do nothing. */
 }
 
+/* Spatterlight user-setting globals. In the real Spatterlight build these live
+ * in glkimp; the headless CheapGlk build has no glkimp, so define them here so
+ * the Comprehend engine links. The headless build never animates, so 0 is the
+ * right value (slow-draw off, non-deterministic timing irrelevant). */
+int gli_slowdraw = 0;
+int gli_determinism = 0;
+
 void glk_request_timer_events(glui32 millisecs)
 {
     /* Don't make me laugh. */

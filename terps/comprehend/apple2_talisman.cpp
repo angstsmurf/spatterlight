@@ -38,6 +38,7 @@
 
 #include "apple2_talisman.h"
 #include <cstring>
+#include <vector>
 
 namespace Glk {
 namespace Comprehend {
@@ -111,6 +112,51 @@ static uint8_t s_screenmem[A2_SCREEN_MEM_SIZE];
 
 static inline bool valid_offset(uint16_t off) { return off <= MAX_SCREEN_ADDR; }
 
+// ---- Slow ("animated") draw -------------------------------------------------
+//
+// Like the Apple II Scott Adams and Level 9 renderers, the picture can be
+// revealed progressively in the order the interpreter actually plotted it,
+// imitating the few seconds the real Graphics Magician took to paint a hi-res
+// page. When recording is enabled (talismanSetSlowDraw(true)), every hi-res
+// byte written goes both into the final page (s_screenmem, as before) and onto
+// an ordered op list. The visible page (s_slowScreen) starts at the background
+// and the host re-applies the ops a chunk at a time on a Glk timer, re-blitting
+// after each chunk. Item overlays start from whatever is already on s_slowScreen
+// (the room just finished), so they compose exactly as on the real machine.
+
+struct WriteOp { uint16_t offset; uint8_t value; };
+
+static uint8_t s_slowScreen[A2_SCREEN_MEM_SIZE]; // progressively-revealed page
+static std::vector<WriteOp> s_ops;               // ordered byte writes of this image
+static size_t s_opsDrawn = 0;                    // how many ops are on s_slowScreen
+static bool s_recordOps = false;                 // record ops for slow reveal?
+
+// Bounding range of screen rows touched since the last blit, so the host can
+// repaint just the changed band instead of the whole window each tick.
+static int s_dirtyMin = 0x7fffffff, s_dirtyMax = -1;
+
+// offset -> screen row (0..191), or 0xff for the inter-row gaps in the hi-res
+// address space. Built once; lets a reveal map a byte write back to its row.
+static uint8_t s_rowOfOffset[A2_SCREEN_MEM_SIZE];
+static bool s_rowTableInit = false;
+
+static void mark_row_dirty(uint16_t offset) {
+	if (!s_rowTableInit) {
+		memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
+		for (int row = 0; row < 192; row++) {
+			uint16_t base = CALC_APPLE2_ADDRESS(row);
+			for (int col = 0; col < 40; col++)
+				s_rowOfOffset[base + col] = (uint8_t)row;
+		}
+		s_rowTableInit = true;
+	}
+	uint8_t r = s_rowOfOffset[offset];
+	if (r == 0xff)
+		return;
+	if (r < s_dirtyMin) s_dirtyMin = r;
+	if (r > s_dirtyMax) s_dirtyMax = r;
+}
+
 #ifdef TALISMAN_TRACE
 // Diagnostic hooks for the offline pixtest harness (built with -DTALISMAN_TRACE,
 // see test/pixtest.cpp). g_talismanWriteLog fires for every hi-res byte written,
@@ -126,6 +172,8 @@ static const uint8_t *g_imgBase = nullptr;
 static void write_screen(uint16_t offset, uint8_t value) {
 	if (valid_offset(offset)) {
 		s_screenmem[offset] = value;
+		if (s_recordOps)
+			s_ops.push_back({offset, value});
 #ifdef TALISMAN_TRACE
 		if (g_talismanWriteLog)
 			g_talismanWriteLog(offset, value, g_currentPrim);
@@ -925,12 +973,12 @@ static uint16_t Double7Bits(int i) {
 	return (i > 127) ? 0 : table[i];
 }
 
-// Convert s_screenmem -> RGBA into out[w*h] (0xRRGGBBAA). Renders Apple rows
+// Convert a hi-res page -> RGBA into out[w*h] (0xRRGGBBAA). Renders Apple rows
 // 0..h-1, sampling the 560-wide artifact colours down to w columns.
-static void screenmem_to_rgba(uint32_t *out, int w, int h) {
+static void screenmem_to_rgba(const uint8_t *src, uint32_t *out, int w, int h) {
 	for (int row = 0; row < h; row++) {
 		unsigned const address = (((row / 8) & 0x07) << 7) + (((row / 8) & 0x18) * 5) + ((row & 7) << 10);
-		const uint8_t *vram_row = s_screenmem + address;
+		const uint8_t *vram_row = src + address;
 		uint16_t words[40];
 		unsigned last_output_bit = 0;
 		for (int col = 0; col < 40; col++) {
@@ -953,6 +1001,65 @@ static void screenmem_to_rgba(uint32_t *out, int w, int h) {
 
 void talismanResetScreen(bool white) {
 	memset(s_screenmem, white ? 0xff : 0x00, A2_SCREEN_MEM_SIZE);
+	// A reset starts a fresh page: the background appears instantly on the
+	// visible page too, and any pending reveal is dropped.
+	memset(s_slowScreen, white ? 0xff : 0x00, A2_SCREEN_MEM_SIZE);
+	s_ops.clear();
+	s_opsDrawn = 0;
+}
+
+// ---- Slow-draw control (host-driven) ----------------------------------------
+
+void talismanSetSlowDraw(bool on) { s_recordOps = on; }
+
+// True while there are still recorded ops to reveal onto the visible page.
+bool talismanSlowDrawActive() { return s_recordOps && s_opsDrawn < s_ops.size(); }
+
+// Bytes whose offset is adjacent to, or whose value matches, the previous one
+// belong to the same visual run; revealing them together avoids seams.
+static bool ops_adjacent(const WriteOp &a, const WriteOp &b) {
+	return ((int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
+	       b.value == a.value;
+}
+
+// Apply up to `budget` recorded ops onto the visible page, extending the chunk
+// across adjacent runs. Returns true while more ops remain to be revealed.
+bool talismanAdvanceSlowDraw(int budget) {
+	size_t i = s_opsDrawn;
+	size_t chunk_end = i + (budget > 0 ? (size_t)budget : 1);
+	bool keep_going = false;
+	for (; i < s_ops.size() && (i < chunk_end || keep_going); i++) {
+		s_slowScreen[s_ops[i].offset] = s_ops[i].value;
+		mark_row_dirty(s_ops[i].offset);
+		keep_going = (i + 1 < s_ops.size()) && ops_adjacent(s_ops[i], s_ops[i + 1]);
+	}
+	s_opsDrawn = i;
+	return s_opsDrawn < s_ops.size();
+}
+
+// Reveal the rest of the image at once (e.g. on a window resize, or when the
+// reveal is cancelled). Leaves the visible page identical to the final page.
+void talismanFinishSlowDraw() {
+	for (; s_opsDrawn < s_ops.size(); s_opsDrawn++) {
+		s_slowScreen[s_ops[s_opsDrawn].offset] = s_ops[s_opsDrawn].value;
+		mark_row_dirty(s_ops[s_opsDrawn].offset);
+	}
+}
+
+// Hand back the row band touched since the last call (inclusive), and reset it.
+// Returns false if nothing changed.
+bool talismanSlowConsumeDirty(int *y0, int *y1) {
+	if (s_dirtyMax < 0)
+		return false;
+	*y0 = s_dirtyMin;
+	*y1 = s_dirtyMax;
+	s_dirtyMin = 0x7fffffff;
+	s_dirtyMax = -1;
+	return true;
+}
+
+void talismanBlitSlowToSurface(uint32_t *out, int w, int h) {
+	screenmem_to_rgba(s_slowScreen, out, w, h);
 }
 
 // Diagnostic accessor (offline pixel-diff harness): the raw 0x2000-byte page.
@@ -963,6 +1070,12 @@ void talismanDrawImage(const uint8_t *data, size_t size) {
 #ifdef TALISMAN_TRACE
 	g_imgBase = data;
 #endif
+	// Each image is its own reveal: drop the previous image's op list (a room
+	// reset already cleared it; an item overlay reaches here without one, and
+	// must record only its own bytes onto whatever the room left visible).
+	s_ops.clear();
+	s_opsDrawn = 0;
+
 	a2_ctx ctx = {};
 	set_color(4, &ctx);
 	set_draw_position(140, 96, &ctx);
@@ -979,10 +1092,15 @@ void talismanDrawImage(const uint8_t *data, size_t size) {
 	int guard = 0;
 	while (!done && ptr < end && guard++ < 100000)
 		done = doImageOp(&ptr, end, &ctx);
+
+	// When not animating, keep the visible page in step with the final page so a
+	// later slow-drawn overlay composes onto the right background.
+	if (!s_recordOps)
+		memcpy(s_slowScreen, s_screenmem, A2_SCREEN_MEM_SIZE);
 }
 
 void talismanBlitToSurface(uint32_t *out, int w, int h) {
-	screenmem_to_rgba(out, w, h);
+	screenmem_to_rgba(s_screenmem, out, w, h);
 }
 
 } // namespace Comprehend
