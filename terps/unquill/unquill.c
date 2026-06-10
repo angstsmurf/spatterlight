@@ -1187,6 +1187,272 @@ static void load_t64(void)
     fprintf(stderr, ".t64 C64 Quill game loaded.\n");
 }
 
+/* Scan an absolute 64K Spectrum image for the Quill database signature (the
+ * byte pairs 0x10,0x11,0x12,0x13,0x14,0x15 at even offsets). Returns its
+ * address, or 0 if absent. Matches the search range used by the main loader. */
+static ushort zx_img_signature(const uchar *img)
+{
+    ushort n;
+    for (n = 0x5C00; n < 0xFFF5; n++)
+        if (img[n  ] == 0x10 && img[n+2] == 0x11 &&
+            img[n+4] == 0x12 && img[n+6] == 0x13 &&
+            img[n+8] == 0x14 && img[n+10] == 0x15)
+            return n;
+    return 0;
+}
+
+/* Test whether a Quill database is self-consistent when the buffer 'buf'
+ * (length 'len', signature at byte offset 'sigoff') is loaded at absolute
+ * address 'base', interpreted with the early (late=0) or later (late=1) header
+ * layout. The header stores absolute addresses for its tables, so only the
+ * correct base makes every table pointer -- and every word-sized entry within
+ * the location, object, message and connection tables -- fall inside the loaded
+ * image. Returns 1 when all those pointers are in range. */
+static int zx_quill_consistent(const uchar *buf, size_t len, size_t sigoff,
+                               unsigned base, int late)
+{
+    unsigned end = base + (unsigned)len;
+    size_t   zp  = sigoff + 13 + (late ? 1 : 0);   /* buffer offset of zxptr */
+    unsigned nobj, nloc, nmsg, i;
+    unsigned resptab, proctab, objtab, loctab, msgtab, conntab, vocab;
+
+    #define W16(o)   ((unsigned)buf[(o)] | ((unsigned)buf[(o)+1] << 8))
+    #define INIMG(a) ((unsigned)(a) >= base && (unsigned)(a) < end)
+
+    if (sigoff + 34 >= len) return 0;              /* header must fit in buffer */
+
+    nobj = buf[sigoff + 14];
+    nloc = buf[sigoff + 15];
+    nmsg = buf[sigoff + 16];
+    if (!nobj || !nloc || !nmsg) return 0;
+
+    resptab = W16(zp + 4);
+    proctab = W16(zp + 6);
+    objtab  = W16(zp + 8);
+    loctab  = W16(zp + 10);
+    msgtab  = W16(zp + 12);
+    conntab = W16(zp + 14 + (late ? 2 : 0));
+    vocab   = late ? W16(zp + 18) : W16(zp + 16);
+
+    /* The header pointers, and the full extent of each word-pointer table,
+     * must lie within the loaded image. */
+    if (!INIMG(resptab) || !INIMG(proctab) || !INIMG(vocab))   return 0;
+    if (!INIMG(objtab)  || !INIMG(objtab  + 2*nobj))           return 0;
+    if (!INIMG(loctab)  || !INIMG(loctab  + 2*nloc))           return 0;
+    if (!INIMG(msgtab)  || !INIMG(msgtab  + 2*nmsg))           return 0;
+    if (!INIMG(conntab) || !INIMG(conntab + 2*nloc))           return 0;
+
+    /* Each entry of those tables is itself a pointer into the image. */
+    for (i = 0; i < nloc; i++) if (!INIMG(W16(loctab  - base + 2*i))) return 0;
+    for (i = 0; i < nobj; i++) if (!INIMG(W16(objtab  - base + 2*i))) return 0;
+    for (i = 0; i < nmsg; i++) if (!INIMG(W16(msgtab  - base + 2*i))) return 0;
+    for (i = 0; i < nloc; i++) if (!INIMG(W16(conntab - base + 2*i))) return 0;
+
+    return 1;
+
+    #undef W16
+    #undef INIMG
+}
+
+/* Reconstruct a Spectrum RAM image from the code blocks of a custom-loader tape
+ * (one whose game data rides in headerless blocks, so the standard-header pass
+ * placed nothing). The blocks are concatenated in tape order, then located by
+ * trying each base from the top of RAM downward and accepting the first at
+ * which the Quill database's own table pointers are self-consistent
+ * (zx_quill_consistent). Returns 1 and copies the blocks into the absolute 64K
+ * image 'img' on success. */
+static int tzx_rebuild_custom(uchar *img, uchar *codebuf, size_t codelen)
+{
+    size_t   sigoff;
+    unsigned base, top;
+    int      late;
+
+    if (codelen < 16 || codelen > 0xC000) return 0;  /* must fit RAM at 0x4000+ */
+
+    /* Find the Quill signature within the concatenated code image. */
+    for (sigoff = 0; sigoff + 11 < codelen; sigoff++)
+        if (codebuf[sigoff  ] == 0x10 && codebuf[sigoff+2] == 0x11 &&
+            codebuf[sigoff+4] == 0x12 && codebuf[sigoff+6] == 0x13 &&
+            codebuf[sigoff+8] == 0x14 && codebuf[sigoff+10] == 0x15)
+            break;
+    if (sigoff + 11 >= codelen) return 0;            /* no database here */
+
+    /* Highest base that still keeps the whole image inside the 64K address
+     * space; walk downward and take the first self-consistent placement. */
+    top = (unsigned)(0x10000 - codelen);
+    for (base = top; base >= 0x4000; base--)
+        for (late = 1; late >= 0; late--)
+            if (zx_quill_consistent(codebuf, codelen, sigoff, base, late))
+            {
+                memcpy(img + base, codebuf, codelen);
+                return 1;
+            }
+    return 0;
+}
+
+/* Load a ZX Spectrum .tzx tape image. Standard-loader games carry each CODE
+ * block behind a tape header giving its load address; those are copied straight
+ * into place, reconstructing the RAM image a real machine would hold after all
+ * LOAD "" CODE calls. Custom turbo-loader games (e.g. Bugsy) instead store the
+ * game as headerless blocks with a non-standard flag byte and no load address;
+ * when the standard pass yields no Quill database, we fall back to
+ * tzx_rebuild_custom, which self-locates the concatenated code blocks. A
+ * loading screen (a ~6912-byte block) is captured into zxloadscreen. */
+static void load_tzx(void)
+{
+    long filelen;
+    uchar *raw;
+    size_t pos;
+    int pending_code = 0;     /* preceded by a standard CODE header        */
+    int pending_basic = 0;    /* next data block is the BASIC loader        */
+    ushort pending_addr = 0;
+    uchar *img;               /* absolute 64K Spectrum image we assemble   */
+    uchar *codebuf;
+    size_t codelen = 0;
+
+    if (fseek(infile, 0, SEEK_END) || (filelen = ftell(infile)) < 0)
+        die("Cannot read .tzx file '%s'.", inname);
+    rewind(infile);
+
+    raw = malloc(filelen);
+    if (!raw || fread(raw, filelen, 1, infile) != 1)
+        die("Cannot read .tzx file '%s'.", inname);
+
+    if (filelen < 10 || memcmp(raw, "ZXTape!\x1a", 8) != 0)
+        die("'%s' is not a ZX Spectrum TZX tape image.", inname);
+
+    arch = ARCH_SPECTRUM;
+
+    img = calloc(0x10000, 1);
+    /* Worst case the whole file is one code image; +2 guards the W16 reads. */
+    codebuf = malloc((size_t)filelen + 2);
+    if (!img || !codebuf) die("Out of memory loading '%s'.", inname);
+
+    pos = 10; /* skip 10-byte TZX header */
+
+    while (pos < (size_t)filelen)
+    {
+        uchar id = raw[pos++];
+        size_t dlen = 0;
+        uchar *data = NULL;
+
+        switch (id)
+        {
+        case 0x10: /* Standard Speed Data Block: pause(2) + len(2) + data */
+            if (pos + 4 > (size_t)filelen) goto tzx_done;
+            dlen = raw[pos+2] | ((size_t)raw[pos+3] << 8);
+            data = raw + pos + 4;
+            pos += 4 + dlen;
+            if (pos > (size_t)filelen) goto tzx_done;
+            break;
+        case 0x11: /* Turbo Speed Data Block: 15 params + len(3) + data */
+            if (pos + 18 > (size_t)filelen) goto tzx_done;
+            dlen = raw[pos+15] | ((size_t)raw[pos+16] << 8) | ((size_t)raw[pos+17] << 16);
+            data = raw + pos + 18;
+            pos += 18 + dlen;
+            if (pos > (size_t)filelen) goto tzx_done;
+            break;
+        case 0x20: pos += 2;                           continue; /* Pause */
+        case 0x21: if (pos < (size_t)filelen) pos += 1 + raw[pos]; continue; /* Group Start */
+        case 0x22:                                     continue; /* Group End */
+        case 0x24: pos += 2;                           continue; /* Loop Start */
+        case 0x25:                                     continue; /* Loop End */
+        case 0x2A: pos += 4;                           continue; /* Stop if 48K mode */
+        case 0x2B: pos += 5;                           continue; /* Set Signal Level */
+        case 0x30: if (pos < (size_t)filelen) pos += 1 + raw[pos]; continue; /* Text Description */
+        case 0x31: if (pos + 1 < (size_t)filelen) pos += 2 + raw[pos+1]; continue; /* Message */
+        case 0x32: /* Archive Info: len(2) + data */
+            if (pos + 1 < (size_t)filelen) { size_t l = raw[pos] | ((size_t)raw[pos+1] << 8); pos += 2 + l; }
+            continue;
+        case 0x33: /* Hardware Type: count + count*3 bytes */
+            if (pos < (size_t)filelen) pos += 1 + (size_t)raw[pos] * 3;
+            continue;
+        case 0x35: /* Custom Info Block: id(16) + len(4) + data */
+            if (pos + 20 <= (size_t)filelen) {
+                size_t l = raw[pos+16] | ((size_t)raw[pos+17] << 8) |
+                           ((size_t)raw[pos+18] << 16) | ((size_t)raw[pos+19] << 24);
+                pos += 20 + l;
+            }
+            continue;
+        default:
+            goto tzx_done; /* unknown block type: stop walking */
+        }
+
+        if (dlen < 2 || !data) { pending_code = 0; pending_basic = 0; continue; }
+
+        if (data[0] == 0x00) /* flag 0x00 = standard header block */
+        {
+            /* Standard Spectrum tape header: flag(1) + type(1) + name(10) +
+             * datalen(2) + param1/load-addr(2) + param2(2) + checksum(1) = 19 bytes */
+            pending_code = pending_basic = 0;
+            if (dlen >= 19 && data[1] == 0x03)        /* type 3 = CODE    */
+            {
+                pending_addr = data[14] | ((ushort)data[15] << 8);
+                pending_code = 1;
+            }
+            else if (dlen >= 19 && data[1] == 0x00)   /* type 0 = PROGRAM */
+                pending_basic = 1;                    /* its data is the loader */
+        }
+        else
+        {
+            uchar *payload = data + 1;   /* strip leading flag byte */
+            size_t paylen  = dlen - 2;   /* strip trailing checksum */
+
+            /* Capture the ZX loading screen (a ~6912-byte block; custom loaders
+             * pad it slightly, so accept a small surplus). */
+            if (!zxloadscreen && paylen >= ZX_SCREEN_SIZE &&
+                paylen <= ZX_SCREEN_SIZE + 0x40)
+            {
+                zxloadscreen = malloc(ZX_SCREEN_SIZE);
+                if (zxloadscreen)
+                    memcpy(zxloadscreen, payload, ZX_SCREEN_SIZE);
+            }
+
+            if (data[0] == 0xFF && pending_code)      /* standard CODE data */
+            {
+                size_t n = paylen;
+                if (n > (size_t)(0x10000 - pending_addr))
+                    n = (size_t)(0x10000 - pending_addr);
+                memcpy(img + pending_addr, payload, n);
+            }
+            else if (!pending_basic &&                /* skip the BASIC loader */
+                     !(paylen >= ZX_SCREEN_SIZE && paylen <= ZX_SCREEN_SIZE + 0x40))
+            {
+                /* A headerless / non-standard data block: stash it as a
+                 * candidate piece of a custom-loader code image. */
+                memcpy(codebuf + codelen, payload, paylen);
+                codelen += paylen;
+            }
+            pending_code = pending_basic = 0;
+        }
+    }
+
+tzx_done:
+    /* Standard-loader game? The CODE blocks are already in place. Otherwise
+     * rebuild from the gathered custom-loader code blocks. */
+    if (!zx_img_signature(img) && !tzx_rebuild_custom(img, codebuf, codelen))
+    {
+        free(img);
+        free(codebuf);
+        free(raw);
+        die("No Quill database found in '%s' (unsupported tape loader?).",
+            inname);
+    }
+
+    /* Hand the running RAM window (0x5C00..0xFFFF) to the interpreter exactly
+     * as the .SNA path does, so the early/later database autodetection (which
+     * relies on out-of-range reads below mem_base triggering a retry) works. */
+    mem_base = 0x5C00;
+    mem_size = 0xA400;
+    memset(zxmemory, 0, sizeof(zxmemory));
+    memcpy(zxmemory, img + mem_base, mem_size);
+
+    free(img);
+    free(codebuf);
+    free(raw);
+    glk_put_string(".tzx tape image loaded.\n");
+}
+
 void glk_main(void)
 {
     ushort n, seekpos;
@@ -1223,6 +1489,10 @@ void glk_main(void)
 	else if (namelen >= 4 && !strcasecmp(inname + namelen - 4, ".t64"))
 	{
 	    load_t64();
+	}
+	else if (namelen >= 4 && !strcasecmp(inname + namelen - 4, ".tzx"))
+	{
+	    load_tzx();
 	}
 	else
 	{
