@@ -15,6 +15,11 @@ extern "C" {
 #include "glk.h"
 }
 
+// Window rock IDs — match the values used by scott and taylormade.
+#define GLK_BUFFER_ROCK   1
+#define GLK_STATUS_ROCK   1010
+#define GLK_GRAPHICS_ROCK 1020
+
 namespace Glk {
 namespace Comprehend {
 
@@ -37,9 +42,9 @@ private:
     Common::String _gameFile;
 
 public:
-    winid_t _topWindow;       // graphics window (or null if disabled)
-    winid_t _roomDescWindow;  // text grid window for room desc (when graphics off)
-    winid_t _bottomWindow;    // main text buffer
+    winid_t _topWindow;     // graphics window (or null if disabled)
+    winid_t _statusWindow;  // text grid showing current room description (always visible)
+    winid_t _bottomWindow;  // main text buffer
     DrawSurface *_drawSurface;
     ComprehendGame *_game;
     Pics *_pics;
@@ -106,6 +111,10 @@ public:
     void clearScreen(bool isBright);
     bool toggleGraphics();
     void showGraphics();
+    // Logical text/graphics-mode switch that keeps the picture window open
+    // (used by Talisman's mode-switch opcodes), unlike toggleGraphics() which
+    // genuinely opens/closes the window for the player's manual toggle.
+    void setGraphicsMode(bool graphicsMode);
     bool isGraphicsEnabled() const { return _graphicsEnabled; }
 
     ComprehendGame *getGame() const { return _game; }

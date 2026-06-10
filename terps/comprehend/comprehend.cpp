@@ -25,7 +25,7 @@ DebuggerStub *g_debugger = &s_debuggerStub;
 
 Comprehend::Comprehend() :
     _saveSlot(-1), _graphicsEnabled(true), _disableSaves(false), _shouldQuit(false),
-    _topWindow(nullptr), _roomDescWindow(nullptr), _bottomWindow(nullptr),
+    _topWindow(nullptr), _statusWindow(nullptr), _bottomWindow(nullptr),
     _drawSurface(nullptr), _game(nullptr), _pics(nullptr), _drawFlags(0),
     _pixelSize(SCALE_FACTOR) {
     g_comprehend = this;
@@ -49,10 +49,11 @@ void Comprehend::runGame() {
 }
 
 void Comprehend::initialize() {
-    _bottomWindow = glk_window_open(nullptr, 0, 0, wintype_TextBuffer, 1);
+    _bottomWindow = glk_window_open(nullptr, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     glk_set_window(_bottomWindow);
-
-    showGraphics();
+    _statusWindow = glk_window_open(_bottomWindow,
+        winmethod_Above | winmethod_Fixed, 1, wintype_TextGrid, GLK_STATUS_ROCK);
+    showGraphics();   // closes and reopens _statusWindow around the graphics window
 
     _drawSurface = new DrawSurface();
     _pics = new Pics();
@@ -60,8 +61,8 @@ void Comprehend::initialize() {
 
 void Comprehend::deinitialize() {
     if (_topWindow)      glk_window_close(_topWindow, nullptr);
+    if (_statusWindow)   glk_window_close(_statusWindow, nullptr);
     if (_bottomWindow)   glk_window_close(_bottomWindow, nullptr);
-    if (_roomDescWindow) glk_window_close(_roomDescWindow, nullptr);
 }
 
 void Comprehend::createGame() {
@@ -95,25 +96,43 @@ void Comprehend::print_u32_internal(const Common::U32String *fmt, ...) {
 }
 
 void Comprehend::printRoomDesc(const Common::String &desc) {
-    if (!_roomDescWindow) return;
-    glk_window_clear(_roomDescWindow);
+    if (!_statusWindow) return;
 
     glui32 width = 0;
-    glk_window_get_size(_roomDescWindow, &width, nullptr);
+    glk_window_get_size(_statusWindow, &width, nullptr);
     Common::String str = desc;
     if (width > 2)
         str.wordWrap(width - 2);
     str += '\n';
+
+    // Size the window to the wrapped text plus one blank line at the bottom,
+    // used as a delimiter (as UnQuill and others do), rather than leaving it at
+    // a fixed height with empty rows below the description.
+    int lines = 0;
+    for (uint i = 0; i < str.size(); ++i)
+        if (str[i] == '\n') ++lines;
+    winid_t parent = glk_window_get_parent(_statusWindow);
+    if (parent)
+        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                   (glui32)(lines + 1), _statusWindow);
+
+    glk_window_clear(_statusWindow);
 
     while (!str.empty()) {
         size_t idx = str.findFirstOf('\n');
         if (idx == std::string::npos) idx = str.size() - 1;
         Common::String line = Common::String::format(" %s",
             Common::String(str.c_str(), str.c_str() + idx + 1).c_str());
-        glk_put_string_stream(glk_window_get_stream(_roomDescWindow),
+        glk_put_string_stream(glk_window_get_stream(_statusWindow),
                               (char *)line.c_str());
         str = Common::String(str.c_str() + idx + 1);
     }
+
+    // Fill the bottom row with underscores as a delimiter (as UnQuill does).
+    glk_window_move_cursor(_statusWindow, 0, (glui32)lines);
+    strid_t stream = glk_window_get_stream(_statusWindow);
+    for (glui32 col = 0; col < width; ++col)
+        glk_put_char_stream(stream, '_');
 }
 
 static FILE *scriptFile() {
@@ -198,26 +217,46 @@ bool Comprehend::toggleGraphics() {
         glk_window_close(_topWindow, nullptr);
         _topWindow = nullptr;
         _graphicsEnabled = false;
-        _roomDescWindow = glk_window_open(_bottomWindow,
-            winmethod_Above | winmethod_Fixed, 5, wintype_TextGrid, 1);
         return false;
     } else {
-        if (_roomDescWindow) {
-            glk_window_close(_roomDescWindow, nullptr);
-            _roomDescWindow = nullptr;
-        }
         showGraphics();
         return true;
     }
 }
 
+void Comprehend::setGraphicsMode(bool graphicsMode) {
+    // Switch logical mode without destroying the picture window, so the layout
+    // doesn't reflow on every switch (Talisman flips modes several times during
+    // its intro). Turning graphics off just blanks the window; turning it back
+    // on lets the next update() redraw into the still-open window.
+    if (graphicsMode) {
+        // Only enter graphics mode if a picture window actually exists. When it
+        // doesn't (headless build, or the player hid it), stay in text mode so
+        // behaviour matches the old toggleGraphics()/showGraphics() path.
+        if (_topWindow)
+            _graphicsEnabled = true;
+    } else {
+        _graphicsEnabled = false;
+        if (_topWindow)
+            glk_window_clear(_topWindow);
+    }
+}
+
 void Comprehend::showGraphics() {
     if (_topWindow) return;
+    if (_statusWindow) {
+        glk_window_close(_statusWindow, nullptr);
+        _statusWindow = nullptr;
+    }
     _topWindow = glk_window_open(_bottomWindow,
         winmethod_Above | winmethod_Fixed,
         (glui32)(G_RENDER_HEIGHT * _pixelSize),
-        wintype_Graphics, 2);
+        wintype_Graphics, GLK_GRAPHICS_ROCK);
     _graphicsEnabled = (_topWindow != nullptr);
+    // Reopen status above _bottomWindow — inserts it between graphics and buffer.
+    // Height is set to fit the room description on the next printRoomDesc().
+    _statusWindow = glk_window_open(_bottomWindow,
+        winmethod_Above | winmethod_Fixed, 1, wintype_TextGrid, GLK_STATUS_ROCK);
 }
 
 void Comprehend::blitSurfaceToWindow() {

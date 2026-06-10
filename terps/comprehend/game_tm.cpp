@@ -223,12 +223,11 @@ void TalismanGame::handleAction(Sentence *sentence) {
 void TalismanGame::handleSpecialOpcode() {
 	switch (_specialOpcode) {
 	case 15:
-		// Switch to text screen mode
-		if (g_comprehend->isGraphicsEnabled()) {
-			g_comprehend->toggleGraphics();
-			updateRoomDesc();
-		}
-
+		// "Switch to text screen mode." We deliberately keep graphics on and
+		// leave the picture window visible: the game flips text/graphics mode
+		// several times during its intro, and since our text always renders in
+		// the scrolling buffer below the picture, blanking the picture just
+		// caused distracting churn. Only the function call below matters here.
 		_functionNum = 19;
 		handleAction(nullptr);
 		_redoLine = REDO_TURN;
@@ -237,7 +236,7 @@ void TalismanGame::handleSpecialOpcode() {
 	case 17:
 		// Switch to graphics mode
 		if (!g_comprehend->isGraphicsEnabled())
-			g_comprehend->toggleGraphics();
+			g_comprehend->setGraphicsMode(true);
 
 		_updateFlags |= UPDATE_ALL;
 		update();
