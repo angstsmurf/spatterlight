@@ -765,10 +765,7 @@ GeasResult
 GeasGlkInterface::wait_keypress (const std::string &msg)
 {
   if (!msg.empty())
-    {
-      glk_put_cstring(msg.c_str());
-      glk_put_char('\n');
-    }
+    print_formatted(msg);
   glk_request_char_event(mainglkwin);
   event_t ev;
   do
