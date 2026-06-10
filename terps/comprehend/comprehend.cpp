@@ -1,6 +1,7 @@
 /* Comprehend engine glue — Spatterlight port. */
 
 #include "comprehend.h"
+#include "apple2_talisman.h"
 #include "draw_surface.h"
 #include "game.h"
 #include "game_cc.h"
@@ -17,6 +18,18 @@ namespace Comprehend {
 // Same 2x scale as the ScummVM port: the engine renders at 280x160 and we
 // blit at 2x to give comfortable on-screen pictures.
 #define SCALE_FACTOR 2
+
+// Apple II Talisman slow-draw pacing. The byte count per tick pairs with the
+// tick interval — change them together. Matches the Apple II Scott Adams
+// renderer's feel (10 ms ticks, tens of bytes a tick).
+#define TALISMAN_SLOW_TICK_MS       10
+#define TALISMAN_SLOW_BYTES_PER_TICK 50
+
+// Spatterlight user settings, exported by glkimp (the headless build defines
+// them as 0 in cheapglk). gli_slowdraw enables the animated picture reveal;
+// gli_determinism (regression/replay mode) must suppress it for stable output.
+extern "C" int gli_slowdraw;
+extern "C" int gli_determinism;
 
 Comprehend *g_comprehend;
 
@@ -194,10 +207,58 @@ static uint32 surfaceColorAt(Glk::Comprehend::DrawSurface *ds, int x, int y);
 void Comprehend::drawPicture(uint pictureNum) {
     if (!_topWindow || !_pics || !_drawSurface) return;
 
+    // The Apple II Talisman renderer can reveal a picture progressively, the way
+    // the real Graphics Magician painted the hi-res page. Record the draw order
+    // when the user has slow-draw on (and we aren't replaying a transcript).
+    talismanSetSlowDraw(gli_slowdraw && !gli_determinism);
+
     // Render through the Pics opcode interpreter into the pixel buffer,
     // then blit the buffer to the Glk graphics window.
     _pics->renderPicture((int)pictureNum);
     blitSurfaceToWindow();
+
+    // If the render queued an animated reveal, drive it to completion here.
+    runSlowDraw();
+}
+
+// Reveal a recorded Apple II Talisman picture a chunk at a time on a Glk timer,
+// re-blitting after each chunk. Blocks until the picture is fully drawn (or a
+// resize forces it to finish at once) — matching the original, where the prompt
+// appeared only after the hi-res page had painted.
+void Comprehend::runSlowDraw() {
+    if (!talismanSlowDrawActive())
+        return;
+
+    glk_request_timer_events(TALISMAN_SLOW_TICK_MS);
+    event_t ev;
+    bool more = true;
+    while (more) {
+        glk_select(&ev);
+        bool fullRepaint = false;
+        if (ev.type == evtype_Timer) {
+            more = talismanAdvanceSlowDraw(TALISMAN_SLOW_BYTES_PER_TICK);
+        } else if (ev.type == evtype_Arrange) {
+            // The window changed size: stop animating and show the finished page.
+            talismanFinishSlowDraw();
+            more = false;
+            fullRepaint = true;
+        } else if (ev.type == evtype_Redraw) {
+            // The window needs repainting: redraw what we have so far, keep going.
+            fullRepaint = true;
+        } else {
+            continue; // ignore stray input events while drawing
+        }
+        // Re-render the page, then repaint only the rows that changed this tick
+        // (the whole window after a resize, since the layout moved).
+        talismanBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
+                                  _drawSurface->w, _drawSurface->h);
+        int y0, y1;
+        if (fullRepaint)
+            blitSurfaceToWindow();
+        else if (talismanSlowConsumeDirty(&y0, &y1))
+            blitSurfaceRowsToWindow(y0, y1);
+    }
+    glk_request_timer_events(0);
 }
 
 void Comprehend::drawLocationPicture(int pictureNum, bool clearBg) {
@@ -260,10 +321,21 @@ void Comprehend::showGraphics() {
 }
 
 void Comprehend::blitSurfaceToWindow() {
+    blitSurfaceRowsToWindow(0, G_RENDER_HEIGHT - 1);
+}
+
+// Blit Apple rows [y0,y1] (inclusive) of _drawSurface to the window. The slow
+// reveal calls this with just the band it changed this tick; a full picture
+// blit goes through blitSurfaceToWindow() above.
+void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
     if (!_topWindow || !_drawSurface) return;
     glui32 winW = 0, winH = 0;
     glk_window_get_size(_topWindow, &winW, &winH);
     if (winW == 0 || winH == 0) return;
+
+    if (y0 < 0) y0 = 0;
+    if (y1 > G_RENDER_HEIGHT - 1) y1 = G_RENDER_HEIGHT - 1;
+    if (y0 > y1) return;
 
     // Centre the render horizontally (matches ScummVM's 20*SCALE_FACTOR x offset).
     int xOff = ((int)winW - G_RENDER_WIDTH * _pixelSize) / 2;
@@ -278,7 +350,7 @@ void Comprehend::blitSurfaceToWindow() {
     // those runs so overlay images compose onto the room already shown in the
     // window instead of wiping it to black. Room images clear to an opaque
     // colour first, so every pixel is drawn.
-    for (int y = 0; y < G_RENDER_HEIGHT; ++y) {
+    for (int y = y0; y <= y1; ++y) {
         int x = 0;
         while (x < G_RENDER_WIDTH) {
             uint32 c = surfaceColorAt(_drawSurface, x, y);

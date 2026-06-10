@@ -48,6 +48,28 @@ void talismanDrawImage(const uint8_t *data, size_t size);
 // rendering Apple rows 0..h-1 sampled down to w columns.
 void talismanBlitToSurface(uint32_t *out, int w, int h);
 
+// ---- Slow ("animated") draw -------------------------------------------------
+// When enabled, talismanDrawImage records the order its bytes are plotted so the
+// picture can be revealed progressively (like the Apple II Scott Adams / Level 9
+// renderers). The host turns recording on/off per draw, then, while
+// talismanSlowDrawActive() is true, repeatedly advances the reveal on a timer
+// and blits the partially-revealed page with talismanBlitSlowToSurface().
+
+// Enable/disable op recording for the next image(s).
+void talismanSetSlowDraw(bool on);
+// True while recorded bytes are still waiting to be revealed.
+bool talismanSlowDrawActive();
+// Reveal up to `budget` more bytes (rounded up across adjacent runs); returns
+// true while more remain.
+bool talismanAdvanceSlowDraw(int budget);
+// Reveal everything left at once (resize / cancel).
+void talismanFinishSlowDraw();
+// Report the inclusive row band [*y0,*y1] changed since the last call (so the
+// host repaints just that band), and reset it. Returns false if unchanged.
+bool talismanSlowConsumeDirty(int *y0, int *y1);
+// Blit the partially-revealed page, same format as talismanBlitToSurface().
+void talismanBlitSlowToSurface(uint32_t *out, int w, int h);
+
 // Diagnostic access to the raw 0x2000-byte Apple hi-res page (used by the
 // regression test and the offline pixel-diff tool).
 const uint8_t *talismanPagePtr();
