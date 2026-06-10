@@ -882,11 +882,6 @@ turn:
 	if (_ended)
 		return;
 
-	// If we're in full screen text, we can afford a blank row between
-	// any game response and the next line of text
-	if (!g_comprehend->isGraphicsEnabled())
-		g_comprehend->print("\n");
-
 	beforePrompt();
 
 	for (;;) {
@@ -898,13 +893,13 @@ turn:
 
 		_inputLineIndex = 0;
 		if (strlen(_inputLine) == 0) {
-			// Empty line, so toggle picture window visibility
-			if (!g_comprehend->toggleGraphics())
-				updateRoomDesc();
-			g_comprehend->print(_("Picture window toggled\n"));
-
-			_updateFlags |= UPDATE_GRAPHICS;
-			update_graphics();
+//			// Empty line, so toggle picture window visibility
+//			g_comprehend->toggleGraphics();
+//			updateRoomDesc();
+//			g_comprehend->print(_("Picture window toggled\n"));
+//
+//			_updateFlags |= UPDATE_GRAPHICS;
+//			update_graphics();
 			continue;
 		}
 
