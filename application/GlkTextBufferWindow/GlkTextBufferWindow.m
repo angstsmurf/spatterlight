@@ -325,6 +325,26 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
             }
 
             super.frame = self.pendingFrame;
+
+            // If the viewport shrank while we were pinned to the bottom,
+            // re-pin immediately. Without this, a live-resize shrink leaves
+            // clipView.bounds.origin.y unchanged while the viewport height
+            // decreases, so NSMaxY(clipView.bounds) no longer reaches the
+            // document end and the last line disappears below the visible area.
+            // Growing works without intervention: the clip view extending
+            // downward already satisfies scrolledToBottom, so the existing
+            // restoreScroll / layoutComplete path is not needed there.
+            if (wasAtBottom && !self.scrolledToBottom) {
+                NSClipView *clipView = scrollview.contentView;
+                CGFloat viewportHeight = NSHeight(clipView.bounds);
+                CGFloat newBottom = NSMaxY(_textview.frame) - viewportHeight
+                                    + _textview.textContainerInset.height;
+                if (newBottom > clipView.bounds.origin.y) {
+                    [clipView scrollToPoint:NSMakePoint(clipView.bounds.origin.x, newBottom)];
+                    [scrollview reflectScrolledClipView:clipView];
+                }
+                lastAtBottom = YES;
+            }
         }
     }
 
@@ -2634,14 +2654,17 @@ replacementString:(id)repl {
     }
 
     if (lastAtBottom) {
-        // Respect caps here: if the doc grew while the viewport shrank
-        // (graphics window appeared above the text window), an uncapped
-        // jump to the new bottom would skip past unread content the
-        // player has not seen yet — including the very text the game just
-        // emitted in response to the keypress. The cap allows the auto-
-        // scroll to advance by at most one viewport, just like the normal
-        // performScroll path.
-        [self scrollToBottomAnimated:NO respectCaps:YES];
+        // Do NOT apply caps here. restoreScroll: is called during resize and
+        // theme-change scenarios (never during game output, which always goes
+        // through reallyPerformScroll with scrolling=YES, causing the layout-
+        // completion callback to take the reallyPerformScroll branch instead).
+        // The one-viewport advance cap in scrollToBottomAnimated:respectCaps:YES
+        // prevents reaching the true document bottom when the viewport shrank by
+        // more than one viewport-height — e.g. exiting fullscreen on a large
+        // monitor leaves clipView.bounds.origin.y at its fullscreen value while
+        // the windowed target is further down, and the cap stops it one line
+        // short of the actual bottom.
+        [self scrollToBottomAnimated:NO respectCaps:NO];
         return;
     }
 
