@@ -50,6 +50,7 @@ namespace Comprehend {
 static uint8_t s_patternData[120];              // 30 colour patterns x 4 bytes
 static uint8_t s_colorPatternSubindices[216];   // 108 fills x (even,odd) index
 static uint8_t s_brushBitmaps[256];             // 8 brushes x 4 quadrants x 8
+static uint8_t s_fontGlyphs[128 * 8];           // op3/op5 picture font, 8 bytes/char
 
 // T2 is a headerless ProDOS BIN that loads at $0800. The three drawing tables
 // live at fixed absolute addresses inside it (matches the MAME RAM dump):
@@ -77,6 +78,16 @@ bool talismanInstallDrawingTables(const uint8_t *t2, size_t size) {
     for (const auto &t : tables) {
         size_t off = (size_t)(t.addr - kT2LoadAddr);
         std::memcpy(t.dest, t2 + off, t.len);
+    }
+    // The op3/op5 picture font shares the brush table's base: glyph(ch) lives at
+    // $1282 + ch*8 (so the brush bitmaps double as the unused control-char glyphs
+    // $00..$1f, and the printable glyphs run from $1382 to ~$1682). Copy the whole
+    // 128-char range; leave it zero (blank text) if a T2 variant is too short
+    // rather than failing the critical tables above.
+    {
+        size_t off = (size_t)(0x1282 - kT2LoadAddr);
+        if (off + sizeof(s_fontGlyphs) <= size)
+            std::memcpy(s_fontGlyphs, t2 + off, sizeof(s_fontGlyphs));
     }
     return true;
 }
@@ -139,6 +150,9 @@ typedef struct {
 	uint8_t pat_even, pat_odd;
 	// op15 fill rectangle bounds (column 0..39, row 0..191)
 	uint8_t fill_left, fill_right, fill_top, fill_bottom;
+	// op1 text cursor; op3/op5 draw a glyph here and advance text_x by 7
+	uint16_t text_x;
+	uint8_t text_y;
 } a2_ctx;
 
 // State for the brush/shape blit (draw_brush -> draw_bitmap).
@@ -528,6 +542,59 @@ static void draw_brush(uint16_t x, uint8_t y, uint8_t brush, uint8_t pat_even, u
 	draw_brush_quadrant(&ctx, 1, BRUSH_PART_HEIGHT);
 }
 
+// ---- Text glyph drawing (op3 TEXT_CHAR / op5 TEXT_OUTLINE) ---------------------
+//
+// The picture interpreter draws characters through the same per-row blitter as
+// brushes (FUN_102e), reading an 8-byte hi-res glyph from the font table that
+// shares the brush table's base: glyph(ch) = $1282 + ch*8. The byte is spread
+// across two adjacent columns by the pixel offset within the column (bit 6
+// collected into the next column), exactly like a brush quadrant.
+//
+// op3 (TEXT_CHAR) sets the "normal" flag ($0839=1), so FUN_102e takes the $1099
+// path: the glyph is XOR-ed straight onto the screen, leaving bit 7 untouched,
+// which renders solid white text. op5 (TEXT_OUTLINE) leaves the flag clear and
+// takes the $1057 path: the glyph is colour-blended with the current fill
+// pattern, just like a brush.
+static void draw_text_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal,
+                            uint8_t pat_even, uint8_t pat_odd) {
+	const uint8_t *glyph = &s_fontGlyphs[(ch & 0x7f) * 8];
+	uint8_t col = (uint8_t)(x / COL_BITS);
+	uint8_t off = (uint8_t)(x % COL_BITS);
+	uint8_t scan = y;
+	for (int row = 0; row < 8; row++, scan++) {
+		uint8_t g = glyph[row];
+		if (g == 0)
+			continue;
+		uint8_t carry = 0, b = g;
+		for (uint8_t n = off; n != 0; n--) {
+			carry = (uint8_t)((carry << 1) | ((b & 0x7f) >> 6));
+			b = (uint8_t)(b << 1);
+		}
+		uint8_t mask_a = (uint8_t)(b & 0x7f);   // bits painted into column `col`
+		uint8_t mask_b = carry;                 // bits carried into column `col+1`
+		uint16_t addr = (uint16_t)(CALC_APPLE2_ADDRESS(scan) + col);
+		if (normal) {
+			// FUN_102e $1099: XOR plot. mask_a/mask_b are 7-bit, so bit 7 (the
+			// hi-res palette bit) is preserved and the text stays white.
+			if (mask_a && valid_offset(addr))
+				write_screen(addr, (uint8_t)(s_screenmem[addr] ^ mask_a));
+			if (mask_b && valid_offset(addr + 1))
+				write_screen(addr + 1, (uint8_t)(s_screenmem[addr + 1] ^ mask_b));
+		} else {
+			// FUN_102e $1057: blend with the current fill-colour pattern.
+			uint8_t pat_base = (uint8_t)(((scan & 1) ? pat_odd : pat_even) << 2);
+			if (mask_a && valid_offset(addr)) {
+				uint8_t pat = s_patternData[(col & 3) | pat_base];
+				write_screen(addr, (uint8_t)(((mask_a ^ 0x7f) & s_screenmem[addr]) | ((mask_a | 0x80) & pat)));
+			}
+			if (mask_b && valid_offset(addr + 1)) {
+				uint8_t pat = s_patternData[((col + 1) & 3) | pat_base];
+				write_screen(addr + 1, (uint8_t)(((mask_b ^ 0x7f) & s_screenmem[addr + 1]) | ((mask_b | 0x80) & pat)));
+			}
+		}
+	}
+}
+
 // ---- Line drawing (ported) ----------------------------------------------------
 
 static void move_left(a2_ctx *ctx) {
@@ -703,16 +770,22 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 		break;
 
 	case OPCODE_SET_TEXT_POS: // 1
-		ptr += 2;
+		ctx->text_x = (uint16_t)(*ptr++ + (param & 1 ? 256 : 0));
+		ctx->text_y = *ptr++;
 		break;
 
 	case OPCODE_SET_PEN_COLOR: // 2
 		set_color(param, ctx);
 		break;
 
-	case OPCODE_TEXT_OUTLINE: // 5
-	case OPCODE_TEXT_CHAR: // 3
-		ptr += 1;
+	case OPCODE_TEXT_CHAR: // 3 -- solid (XOR) text
+		draw_text_glyph(ctx->text_x, ctx->text_y, *ptr++, true, ctx->pat_even, ctx->pat_odd);
+		ctx->text_x += 7;
+		break;
+
+	case OPCODE_TEXT_OUTLINE: // 5 -- pattern-blended text
+		draw_text_glyph(ctx->text_x, ctx->text_y, *ptr++, false, ctx->pat_even, ctx->pat_odd);
+		ctx->text_x += 7;
 		break;
 
 	case OPCODE_SET_SHAPE: // 4
