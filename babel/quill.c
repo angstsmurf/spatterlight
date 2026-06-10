@@ -14,7 +14,7 @@
 
 #define FORMAT quill
 #define HOME_PAGE "http://ifarchive.org/if-archive/programming/quill/"
-#define FORMAT_EXT ".quill,.sna,.s64,.z80,.t64"
+#define FORMAT_EXT ".quill,.sna,.s64,.z80,.t64,.tzx"
 #define NO_METADATA
 #define NO_COVER
 
@@ -144,6 +144,62 @@ static int z80_image_is_quill(const unsigned char *img)
     return 0;
 }
 
+/* Walk a TZX tape image and scan every standard/turbo speed data block for the
+ * Quill colour-definition table. Commercial loaders often use non-standard flag
+ * bytes (e.g. 0xC7) rather than the ROM standard 0xFF, so we scan all block
+ * content. Metadata blocks are skipped by their known sizes. */
+static int tzx_is_quill(const unsigned char *sf, int32 extent)
+{
+    int32 pos = 10; /* skip 10-byte TZX header */
+
+    while (pos < extent) {
+        int id = sf[pos++];
+        int32 dlen = 0;
+        const unsigned char *data = NULL;
+
+        switch (id) {
+        case 0x10: /* Standard Speed Data Block */
+            if (pos + 4 > extent) return 0;
+            dlen = sf[pos+2] | (sf[pos+3] << 8);
+            data = sf + pos + 4;
+            pos += 4 + dlen;
+            break;
+        case 0x11: /* Turbo Speed Data Block */
+            if (pos + 18 > extent) return 0;
+            dlen = sf[pos+15] | (sf[pos+16] << 8) | (sf[pos+17] << 16);
+            data = sf + pos + 18;
+            pos += 18 + dlen;
+            break;
+        case 0x20: pos += 2;                       continue;
+        case 0x21: if (pos < extent) pos += 1 + sf[pos]; continue;
+        case 0x22:                                 continue;
+        case 0x24: pos += 2;                       continue;
+        case 0x25:                                 continue;
+        case 0x2A: pos += 4;                       continue;
+        case 0x2B: pos += 5;                       continue;
+        case 0x30: if (pos < extent) pos += 1 + sf[pos]; continue;
+        case 0x31: if (pos + 1 < extent) pos += 2 + sf[pos+1]; continue;
+        case 0x32: if (pos + 1 < extent) { int32 l = sf[pos] | (sf[pos+1]<<8); pos += 2 + l; } continue;
+        case 0x33: if (pos < extent) pos += 1 + sf[pos] * 3; continue;
+        case 0x35: if (pos + 20 <= extent) { int32 l = sf[pos+16]|(sf[pos+17]<<8)|(sf[pos+18]<<16)|(sf[pos+19]<<24); pos += 20 + l; } continue;
+        default: return 0;
+        }
+
+        if (pos > extent || dlen < 2 || !data) { continue; }
+
+        if (dlen >= 12) { /* scan entire block for Quill colour table */
+            int32 n;
+            for (n = 0; n + 10 <= dlen; n++) {
+                if (data[n]   == 0x10 && data[n+2]  == 0x11 &&
+                    data[n+4] == 0x12 && data[n+6]  == 0x13 &&
+                    data[n+8] == 0x14 && data[n+10] == 0x15)
+                    return 1;
+            }
+        }
+    }
+    return 0;
+}
+
 static int32 claim_story_file(void *storyvp, int32 extent)
 {
     char *zxmemory = storyvp;
@@ -155,20 +211,26 @@ static int32 claim_story_file(void *storyvp, int32 extent)
     int found;
 //    int dbver = 0;
     int arch;
-    
+
 #define zmem(addr) ( \
      (addr < mem_base || \
       (arch != ARCH_SPECTRUM && \
        (addr >= (mem_base + mem_size)))) ? -1 : zxmemory[addr - mem_base] )
-			 
+
      arch       = ARCH_SPECTRUM;
      seekpos    = 0x1C1B;	/* Number of bytes to skip in the file */
      mem_base   = 0x5C00;	/* First address loaded */
      mem_size   = 0xA400;	/* Number of bytes to load from it */
 //     mem_offset = 0x3FE5;	/* Load address of snapshot in host system memory */
-     
+
      if (extent < 20)
 	 return INVALID_STORY_FILE_RV;
+
+     /* TZX tape image: walk the block list and scan CODE data block payloads
+      * for the Quill colour-definition table. */
+     if (extent >= 10 && !memcmp(zxmemory, "ZXTape!\x1a", 8))
+         return tzx_is_quill((const unsigned char *)zxmemory, extent)
+                ? VALID_STORY_FILE_RV : INVALID_STORY_FILE_RV;
 
      /* Crunched C64 .t64 tape images can't be recognised structurally (the
       * Quill database only appears after the game decompresses itself), so
