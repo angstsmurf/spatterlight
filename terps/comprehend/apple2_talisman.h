@@ -81,6 +81,12 @@ void talismanSetPage(const uint8_t *page);
 // Returns false if the buffer is too short to contain all three tables.
 bool talismanInstallDrawingTables(const uint8_t *t2, size_t size);
 
+// Select the older Graphics Magician dialect used by the earlier Comprehend
+// titles (Transylvania, OO-Topos, Crimson Crown): op7 ends the image, op15 is
+// unused/ends, and fills paint against the full screen. Talisman (the default,
+// false) keeps its op7 no-op / op15 fill-bounds behaviour.
+void talismanSetLegacyFormat(bool on);
+
 } // namespace Comprehend
 } // namespace Glk
 

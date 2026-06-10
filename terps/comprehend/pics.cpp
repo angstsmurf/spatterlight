@@ -439,11 +439,13 @@ Common::SeekableReadStream *Pics::createReadStreamForMember(const Common::Path &
 void Pics::drawPicture(int pictureNum) const {
 	ImageContext ctx(g_comprehend->_drawSurface, _font, g_comprehend->_drawFlags, pictureNum);
 
-	// Apple II Talisman: route through the faithful standard hi-res renderer.
-	// Pictures are decoded onto a persistent Apple hi-res page (so item
-	// overlays compose onto the room already drawn there, exactly as the real
-	// interpreter does), then the whole page is converted to RGBA and blitted.
-	if (g_comprehend->getGameID() == "talisman" && Common::DiskImageFS::active()) {
+	// Apple II: route through the faithful standard hi-res renderer. Pictures are
+	// decoded onto a persistent Apple hi-res page (so item overlays compose onto
+	// the room already drawn there, exactly as the real interpreter does), then
+	// the whole page is converted to RGBA and blitted. All four Apple disk titles
+	// (Talisman, Transylvania, OO-Topos, Crimson Crown) are validated pixel-exact
+	// vs MAME; the dialect differences are handled by talismanSetLegacyFormat().
+	if (Common::DiskImageFS::active()) {
 		DrawSurface *ds = ctx._drawSurface;
 
 		if (pictureNum == DARK_ROOM) {

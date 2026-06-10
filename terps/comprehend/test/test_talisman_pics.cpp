@@ -53,14 +53,32 @@ static std::vector<uint8_t> readFile(const std::string &path) {
 	return v;
 }
 
-struct Case { const char *name; const char *img; const char *page; bool whiteBg; };
+struct Case {
+	const char *name;
+	const char *img;
+	const char *page;
+	bool whiteBg;
+	bool legacy;     // older Graphics Magician dialect (Transylvania et al.)
+	const char *t2;  // drawing-tables file; located by signature, layout differs
+};
 
 static const Case kCases[] = {
-	// All three are bright (white-background) Talisman rooms on the Empire disk.
-	// courtyard exercises the DRAW_BOX -> far-corner pen fix ($095b/$0990).
-	{ "courtyard (RA #1)",    "test/talisman/courtyard.img",    "test/talisman/courtyard.page",    true },
-	{ "executioner (RA #2)",  "test/talisman/executioner.img",  "test/talisman/executioner.page",  true },
-	{ "cell (RA #4)",         "test/talisman/cell.img",         "test/talisman/cell.page",         true },
+	// Talisman (Empire disk, bright rooms, newer dialect). courtyard exercises the
+	// DRAW_BOX -> far-corner pen fix ($095b/$0990).
+	{ "talisman courtyard",   "test/talisman/courtyard.img",   "test/talisman/courtyard.page",   true, false, "test/talisman/t2.bin" },
+	{ "talisman executioner", "test/talisman/executioner.img", "test/talisman/executioner.page", true, false, "test/talisman/t2.bin" },
+	{ "talisman cell",        "test/talisman/cell.img",        "test/talisman/cell.page",        true, false, "test/talisman/t2.bin" },
+	// Transylvania (older dialect: op7/op15 end, full-screen fill). Its T2 places
+	// the shared tables at a different offset, exercising the signature locator.
+	// stump is the start room (lines + flood fill); cave adds brushes.
+	{ "transylvania stump",   "test/transylvania/stump.img",   "test/transylvania/stump.page",   true, true,  "test/transylvania/t2.bin" },
+	{ "transylvania cave",    "test/transylvania/cave.img",    "test/transylvania/cave.page",    true, true,  "test/transylvania/t2.bin" },
+	// OO-Topos (newer dialect like Talisman: op15 sub-op 3 fills the background).
+	// cell is the start room (standard-hires "S" mode).
+	{ "ootopos cell",         "test/ootopos/cell.img",         "test/ootopos/cell.page",         true, false, "test/ootopos/t2.bin" },
+	// Crimson Crown (older dialect, full-screen fill). lakeshore + woods.
+	{ "crimsoncrown lakeshore","test/crimsoncrown/lakeshore.img","test/crimsoncrown/lakeshore.page",true, true,  "test/crimsoncrown/t2.bin" },
+	{ "crimsoncrown woods",   "test/crimsoncrown/woods.img",   "test/crimsoncrown/woods.page",   true, true,  "test/crimsoncrown/t2.bin" },
 };
 
 int main(int argc, char **argv) {
@@ -68,17 +86,18 @@ int main(int argc, char **argv) {
 	// path prefix (argv[1]) so `make test` can pass the source dir.
 	std::string prefix = (argc > 1) ? std::string(argv[1]) + "/" : "";
 
-	// The renderer's drawing tables now come from the boot disk's T2 file;
-	// load the captured copy so the test stays self-contained.
-	std::vector<uint8_t> t2 = readFile(prefix + "test/talisman/t2.bin");
-	if (t2.empty() || !talismanInstallDrawingTables(t2.data(), t2.size())) {
-		fprintf(stderr, "FAIL: could not load test/talisman/t2.bin (size=%zu)\n",
-			t2.size());
-		return 1;
-	}
-
 	int failures = 0;
 	for (const Case &c : kCases) {
+		// The drawing tables come from the game's own T2 file; the signature
+		// locator finds them wherever that release placed them.
+		std::vector<uint8_t> t2 = readFile(prefix + c.t2);
+		if (t2.empty() || !talismanInstallDrawingTables(t2.data(), t2.size())) {
+			fprintf(stderr, "FAIL %-22s : could not load %s (size=%zu)\n",
+				c.name, c.t2, t2.size());
+			failures++;
+			continue;
+		}
+
 		std::vector<uint8_t> img  = readFile(prefix + c.img);
 		std::vector<uint8_t> gold = readFile(prefix + c.page);
 		if (img.empty() || gold.size() != 0x2000) {
@@ -88,6 +107,7 @@ int main(int argc, char **argv) {
 			continue;
 		}
 
+		talismanSetLegacyFormat(c.legacy);
 		talismanResetScreen(c.whiteBg);
 		talismanDrawImage(img.data(), img.size());
 		const uint8_t *page = talismanPagePtr();
