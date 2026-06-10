@@ -279,6 +279,8 @@ void glk_tick()
  * right value (slow-draw off, non-deterministic timing irrelevant). */
 int gli_slowdraw = 0;
 int gli_determinism = 0;
+int gscreenw = 0;
+int gscreenh = 0;
 
 void glk_request_timer_events(glui32 millisecs)
 {

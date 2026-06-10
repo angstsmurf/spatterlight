@@ -40,6 +40,9 @@ private:
     bool _shouldQuit;
     Common::String _gameId;
     Common::String _gameFile;
+    // Last room description shown in the status grid, kept so we can re-wrap it
+    // to the new width when the window is resized.
+    Common::String _lastRoomDesc;
 
 public:
     winid_t _topWindow;     // graphics window (or null if disabled)
@@ -131,6 +134,15 @@ public:
     // Glk timer. No-op unless renderPicture() queued a slow-draw. Called by
     // drawPicture().
     void runSlowDraw();
+
+    // Window-resize / repaint handling (evtype_Arrange / evtype_Redraw), called
+    // from the input-wait loops: rescale the picture to the new window, repaint
+    // it, and re-wrap the status description.
+    void onArrange();
+    // Pick the largest integer pixel scale of the 280x160 render that fits the
+    // window (width, and up to ~60% of the screen height), resizing the graphics
+    // window to suit. Returns true if the scale changed.
+    bool recomputeGraphicsScale();
 
 private:
     void initialize();
