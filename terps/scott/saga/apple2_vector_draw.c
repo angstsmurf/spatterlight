@@ -545,8 +545,7 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t color)
 
 #pragma mark SHAPE DRAWING
 
-/* One 8-row brush quadrant, faithful to the Apple II standard-hires routine
-   FUN_102e ($102e): for each row, spread the brush byte across two adjacent
+/* One 8-row brush quadrant: for each row, spread the brush byte across two adjacent
    hi-res bytes by a 7-bit rotate (collecting bit 6 into the right byte), then
    blend it into the screen using the current fill colour pattern. */
 static void draw_bitmap(a2_fill_ctx *ctx)

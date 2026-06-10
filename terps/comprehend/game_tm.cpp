@@ -209,9 +209,9 @@ void TalismanGame::handleAction(Sentence *sentence) {
 	// a null sentence). In NOVEL.EXE the redirect lives in game_turn_loop
 	// solely between match_action_tables (1000:0665) and the verb execute
 	// (1000:0681 CALL 0x0693), gated by flag 62; the hooks are invoked
-	// separately via FUN_1000_0690 without it. Applying it to the hooks made
-	// the next turn's beforeTurn (func 17) jump straight to the answer handler
-	// (var126), firing the "no" outcome before the player could answer.
+	// separately via routine at 1000:0690 without it. Applying it to the hooks
+	// made the next turn's beforeTurn (func 17) jump straight to the answer
+	// handler (var126), firing the "no" outcome before the player could answer.
 	if (sentence && _flags[62] && _functionNum != _variables[125]) {
 		_variables[124] = _functionNum;
 		_functionNum = _variables[126];

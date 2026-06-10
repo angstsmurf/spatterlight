@@ -177,10 +177,9 @@ static void x_to_column_and_pixel(a2_brush_ctx *ctx, uint16_t x) {
 
 // ---- Flood fill ---------------------------------------------------------------
 //
-// op14 (FUN_0cca in the original Graphics Magician code) fills the connected
-// region of "set" (white) pixels reachable from a seed, replacing them with the
-// current fill-colour dither pattern and stopping at clear (black) pixels and
-// the clip rectangle.
+// op14 fills the connected region of "set" (white) pixels reachable from a seed,
+// replacing them with the current fill-colour dither pattern and stopping at clear
+// (black) pixels and the clip rectangle.
 //
 // It is a queue-based span fill: painting one horizontal run of pixels spawns
 // child runs on the rows immediately above and below it, which are processed in
@@ -462,8 +461,7 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t pat_even, uint8_t p
 
 // ---- Shape / brush drawing (ported) -------------------------------------------
 
-// One 8-row brush quadrant, faithful to the Apple II standard-hires routine
-// FUN_102e ($102e): for each row, spread the brush byte across two adjacent
+// One 8-row brush quadrant: for each row, spread the brush byte across two adjacent
 // hi-res bytes by a 7-bit rotate (collecting bit 6 into the right byte), then
 // blend it into the screen using the current fill colour pattern.
 static void draw_bitmap(a2_brush_ctx *ctx) {
@@ -611,14 +609,13 @@ static void draw_line(uint16_t target_x, uint8_t target_y, a2_ctx *ctx) {
 	ctx->HGR_X = target_x;
 }
 
-// ---- Circle (op11) -- faithful port of the Apple II routine $0ad3 -------------
+// ---- Circle (op11) ----
 // A midpoint circle plotting 8 symmetric points per step via HPLOT (HPOSN +
-// plot). The point clip matches FUN_0bf3 ($0bf3): only x in 0..279, y in 0..159.
-// The original saves/restores zero page around this ($0855/$0861); we use locals.
+// plot). Only x in 0..279, y in 0..159.
 
 static void plot_circle_point(int x, int y, a2_ctx *ctx) {
 	if (x < 0 || x >= 280 || y < 0 || y >= APPLE2_SCREEN_HEIGHT - 32)
-		return;                       // FUN_0bf3: x<280 (x-high 0, or 1 && low<0x18), y<0xA0
+		return;
 	set_draw_position((uint16_t)x, (uint8_t)y, ctx);
 	plot_pixel(ctx);
 }
@@ -626,13 +623,13 @@ static void plot_circle_point(int x, int y, a2_ctx *ctx) {
 static void draw_circle(uint16_t cx, uint8_t cy, uint8_t radius, a2_ctx *ctx) {
 	if (radius == 0)
 		return;
-	uint8_t r = radius;               // DAT_0002
-	uint8_t dvar = (uint8_t)(r >> 1); // DAT_0003 (decision variable)
-	uint8_t i = 0;                    // DAT_0004
-	int xa = cx, xb = cx;             // DAT_0010 (+1), DAT_0014 (-1)
-	int xr = (int)cx + r, xl = (int)cx - r;   // DAT_000e (-1), DAT_0012 (+1)
-	int yt = cy, yb = cy;             // DAT_0007 (+1), DAT_000b (-1)
-	int yp = (int)cy + r, ym = (int)cy - r;   // DAT_0005 (-1), DAT_0009 (+1)
+	uint8_t r = radius;
+	uint8_t dvar = (uint8_t)(r >> 1);
+	uint8_t i = 0;
+	int xa = cx, xb = cx;
+	int xr = (int)cx + r, xl = (int)cx - r;
+	int yt = cy, yb = cy;
+	int yp = (int)cy + r, ym = (int)cy - r;
 
 	for (;;) {
 		plot_circle_point(xb, ym, ctx);
@@ -791,7 +788,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 			ctx->fill_left = 0; ctx->fill_top = 0;
 			ctx->fill_right = 39; ctx->fill_bottom = 0x9f;
 			break;
-		case 2: // read 4 bytes of bounds ($0A56: $11,$10,$13,$12)
+		case 2: // read 4 bytes of bounds
 			ctx->fill_right = *ptr++;
 			ctx->fill_left = *ptr++;
 			ctx->fill_bottom = *ptr++;
@@ -807,7 +804,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 	return false;
 }
 
-// ---- Apple hi-res -> RGB (NTSC artifact colours, from apple2draw.c) -----------
+// ---- Apple hi-res -> RGB (NTSC artifact colours, from MAME) -----------
 
 static unsigned rotl4b(unsigned n, unsigned count) { return (n >> (-count & 3)) & 0x0f; }
 
