@@ -1002,10 +1002,14 @@
         [_bufferTextStorage
          replaceCharactersInRange:replaceRange withAttributedString:partString];
 
-        // Update the x position (and the y position if necessary)
+        // Update the x position (and the y position if necessary). Advance to
+        // the next row only once the cursor has actually filled the last column
+        // (xpos == cols); using cols - 1 here wrapped one column early, so a row
+        // exactly cols - 1 long was followed by a spurious blank row when the
+        // caller then printed a newline (e.g. Comprehend's room descriptions).
         xpos += amountToDraw;
         pos += amountToDraw;
-        if (xpos >= cols - 1) {
+        if (xpos >= cols) {
             xpos = 0;
             ypos++;
         }
