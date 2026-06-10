@@ -539,6 +539,25 @@ static winid_t statuswin = NULL;	/* the Scott-style description grid */
 static uchar  *picscr = NULL;	/* ZX_SCREEN_SIZE display file (bitmap + attrs) */
 static int     pic_scale = 1, pic_xoff = 0, pic_yoff = 0;
 
+/* Split-screen detection. Fullscreen Illustrator games paint the whole 176-pixel
+ * plot area; later "split screen" games (e.g. Bugsy) only draw into a fixed band
+ * at the top and leave the rest for text, which would otherwise render as a black
+ * lower half. We measure how deep each picture actually draws (ill_bot_sy, the
+ * lowest touched screen row of the current picture) and keep the session's
+ * running maximum, rounded up to a character cell, as the window height
+ * (ill_draw_h). It starts at 0 ("unknown" -> treat as full height) and only ever
+ * grows, so the graphics window settles at the game's true picture-area height
+ * without flicking shorter for sparsely drawn rooms. */
+static int     ill_bot_sy = -1;	/* deepest screen row drawn by current picture */
+static int     ill_draw_h = 0;	/* picture-area height in pixels (0 = unknown) */
+
+static void ill_track(int y)	/* y is a plot row (0 = bottom) */
+{
+    int sy = ILL_H - 1 - y;	/* convert to a top-down screen row */
+    if (sy >= 0 && sy < ILL_H && sy > ill_bot_sy)
+	ill_bot_sy = sy;
+}
+
 /* The Illustrator plots in a 256x176 area with y measured up from the bottom;
  * the Spectrum screen is addressed top-down. These map a plot coordinate to a
  * display-file bitmap byte/bit and to its attribute byte. */
@@ -556,6 +575,7 @@ static void ill_putpix(int x, int y, int set)
     int sy = ILL_H - 1 - y, off = ill_bmoff(x, sy), bit = 0x80 >> (x & 7);
     if (set) picscr[off] |= (uchar)bit;
     else     picscr[off] &= (uchar)~bit;
+    if (set) ill_track(y);
 }
 static uchar *ill_attrp(int x, int y)
 {
@@ -601,6 +621,7 @@ static void ill_setcell(int x, int y)
     if (!pen_paper_t)  v = (uchar)((v & ~0x38) | ((pen_paper & 7) << 3));
     if (!pen_bright_t) v = (uchar)((v & ~0x40) | (pen_bright << 6));
     *a = v;
+    ill_track(y);
 }
 
 /* Set (ink) or clear (paper) one pixel and stamp its cell's attribute. */
@@ -857,17 +878,19 @@ static void pic_layout(void)
 {
     glui32 w = 0, h = 0;
     int sx, sy, target_h;
+    int dh = (ill_draw_h > 0) ? ill_draw_h : ILL_H;	/* drawn picture height */
     winid_t parent;
 
     glk_window_get_size(picwin, &w, &h);
     sx = (int)w / ILL_W;
-    sy = (int)h / ILL_H;
+    sy = (int)h / dh;
     pic_scale = (sx < sy) ? sx : sy;
     if (pic_scale < 1)
 	pic_scale = 1;
 
-    /* Resize the window's height to the picture's exact rendered height. */
-    target_h = ILL_H * pic_scale;
+    /* Resize the window's height to the picture's exact rendered height (which,
+     * for a split-screen game, is only the top band it actually draws into). */
+    target_h = dh * pic_scale;
     parent = glk_window_get_parent(picwin);
     if (parent && target_h > 0 && (int)h != target_h)
     {
@@ -876,14 +899,14 @@ static void pic_layout(void)
 	glk_window_get_size(picwin, &w, &h);
 	/* The arrangement may have been clamped; honour the actual size. */
 	sx = (int)w / ILL_W;
-	sy = (int)h / ILL_H;
+	sy = (int)h / dh;
 	pic_scale = (sx < sy) ? sx : sy;
 	if (pic_scale < 1)
 	    pic_scale = 1;
     }
 
     pic_xoff = ((int)w - ILL_W * pic_scale) / 2;
-    pic_yoff = ((int)h - ILL_H * pic_scale) / 2;
+    pic_yoff = ((int)h - dh * pic_scale) / 2;
     if (pic_xoff < 0) pic_xoff = 0;
     if (pic_yoff < 0) pic_yoff = 0;
 }
@@ -926,13 +949,14 @@ static int pic_pixel(int x, int y)
  * is flipped). */
 static void pic_blit(void)
 {
-    int y, x;
+    int sy, x;
+    int dh = (ill_draw_h > 0) ? ill_draw_h : ILL_H;	/* drawn picture height */
     if (!picwin || !picscr)
 	return;
     glk_window_clear(picwin);
-    for (y = 0; y < ILL_H; y++)
+    for (sy = 0; sy < dh; sy++)	/* only the band the picture draws into */
     {
-	int sy = ILL_H - 1 - y;
+	int y = ILL_H - 1 - sy;
 	x = 0;
 	while (x < ILL_W)
 	{
@@ -1026,7 +1050,18 @@ void draw_location_graphic(uchar loc)
     memset(picscr + ZX_BITMAP_SIZE,
 	   (uchar)(pen_ink | (pen_paper << 3) | (pen_bright << 6)),
 	   ZX_SCREEN_SIZE - ZX_BITMAP_SIZE);
+
+    ill_bot_sy = -1;			/* measure how deep this picture draws */
     ill_render(gfx_ptrs, gptr, 0);
+    if (ill_bot_sy >= 0)
+    {
+	/* Grow the picture-area height to the deepest row drawn so far, rounded
+	 * up to a character cell. Monotonic, so a split-screen game settles on
+	 * its fixed top band and a fullscreen game expands to the full height. */
+	int h = ((ill_bot_sy >> 3) + 1) << 3;
+	if (h > ILL_H) h = ILL_H;
+	if (h > ill_draw_h) ill_draw_h = h;
+    }
 
     pic_layout();
     pic_blit();
