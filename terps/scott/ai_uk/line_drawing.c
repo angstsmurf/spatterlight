@@ -31,7 +31,7 @@ typedef struct {
     uint8_t colour;
 } pixel_to_draw;
 
-static pixel_to_draw **pixels_to_draw = NULL;
+static pixel_to_draw *pixels_to_draw = NULL;
 static size_t draw_ops_capacity = 100;
 
 static int total_draw_instructions = 0;
@@ -65,9 +65,6 @@ static int bg_colour = 0;
 void FreePixels(void)
 {
     vector_background_painted = 0;
-    for (int i = 0; i < total_draw_instructions; i++)
-        if (pixels_to_draw[i] != NULL)
-            free(pixels_to_draw[i]);
     free(pixels_to_draw);
     pixels_to_draw = NULL;
     draw_ops_capacity = 100;
@@ -79,7 +76,7 @@ static void ensure_capacity(void) {
     // pixels in the bitmap, as lines may be overlapping.
     if (total_draw_instructions >= draw_ops_capacity) {
         draw_ops_capacity *= 2;  // Double the capacity
-        pixel_to_draw **new_pixels = MemRealloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw *));
+        pixel_to_draw *new_pixels = MemRealloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw));
         pixels_to_draw = new_pixels;
     }
 }
@@ -96,7 +93,7 @@ static void shrink_capacity(void) {
         draw_ops_capacity = total_draw_instructions;
         // Our wrapper of realloc() will exit() on failure,
         // so no need to check the result here.
-        pixel_to_draw **new_pixels = MemRealloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw *));
+        pixel_to_draw *new_pixels = MemRealloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw));
         pixels_to_draw = new_pixels;
     }
 }
@@ -110,12 +107,11 @@ scott_linegraphics_plot_clip(int x, int y, int colour)
      */
     if (x >= 0 && x <= MYSTERIOUS_WIDTH && y >= 0 && y < MYSTERIOUS_CLIPHEIGHT) {
         picture_bitmap[y * MYSTERIOUS_WIDTH + x] = colour;
-        pixel_to_draw *todraw = MemAlloc(sizeof(pixel_to_draw));
+        ensure_capacity();
+        pixel_to_draw *todraw = &pixels_to_draw[total_draw_instructions++];
         todraw->x = x;
         todraw->y = y;
         todraw->colour = colour;
-        ensure_capacity();
-        pixels_to_draw[total_draw_instructions++] = todraw;
     }
 }
 
@@ -147,7 +143,7 @@ void DrawSomeHowarthVectorPixels(int from_start)
      * that yields back to the timer loop. */
     int chunk_end = i + SCOTT_VECTOR_PIXELS_PER_TICK;
     for (; i < total_draw_instructions && (!gli_slowdraw || i < chunk_end); i++) {
-        const pixel_to_draw *todraw = pixels_to_draw[i];
+        const pixel_to_draw *todraw = &pixels_to_draw[i];
         PutPixel(todraw->x, todraw->y, Remap(todraw->colour));
     }
     current_draw_instruction = i;
@@ -277,7 +273,7 @@ void DrawHowarthVectorPicture(int image)
     // Start with a small allocation for pixels_to_draw.
     // scott_linegraphics_plot_clip() will grow this as needed.
     draw_ops_capacity = 100;  // Initial capacity 100 instructions.
-    pixels_to_draw = MemAlloc(draw_ops_capacity * sizeof(pixel_to_draw *));
+    pixels_to_draw = MemAlloc(draw_ops_capacity * sizeof(pixel_to_draw));
 
     total_draw_instructions = 0;
     current_draw_instruction = 0;

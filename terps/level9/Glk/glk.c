@@ -163,7 +163,7 @@ typedef struct {
   uint8_t colour;
 } pixel_to_draw;
 
-static pixel_to_draw **pixels_to_draw = NULL;
+static pixel_to_draw *pixels_to_draw = NULL;
 
 static size_t draw_ops_capacity = 100;
 
@@ -2425,9 +2425,6 @@ static void FreePixels(void)
   vector_background_painted = FALSE;
   if (pixels_to_draw == NULL)
     return;
-  for (int i = 0; i < total_draw_instructions; i++)
-    if (pixels_to_draw[i] != NULL)
-      free(pixels_to_draw[i]);
   free(pixels_to_draw);
   pixels_to_draw = NULL;
   total_draw_instructions = 0;
@@ -2440,12 +2437,12 @@ static void ensure_capacity(void) {
   // pixels in the bitmap, as lines may be overlapping.
 
   if (pixels_to_draw == NULL) {
-    pixels_to_draw = gln_malloc(draw_ops_capacity * sizeof(pixel_to_draw *));
+    pixels_to_draw = gln_malloc(draw_ops_capacity * sizeof(pixel_to_draw));
   }
 
   if (total_draw_instructions >= draw_ops_capacity) {
     draw_ops_capacity *= 2;  // Double the capacity
-    pixel_to_draw **new_pixels = gln_realloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw *));
+    pixel_to_draw *new_pixels = gln_realloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw));
     pixels_to_draw = new_pixels;
   }
 }
@@ -2462,7 +2459,7 @@ static void shrink_capacity(void) {
     draw_ops_capacity = total_draw_instructions;
     // Our wrapper of realloc() will exit() on failure,
     // so no need to check the result here.
-    pixel_to_draw **new_pixels = gln_realloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw *));
+    pixel_to_draw *new_pixels = gln_realloc(pixels_to_draw, draw_ops_capacity * sizeof(pixel_to_draw));
     pixels_to_draw = new_pixels;
   }
 }
@@ -2497,7 +2494,7 @@ static int gln_picture_dwell_pending = FALSE;
  * buffer is transferred here (the live pixels_to_draw is then reset to
  * NULL so absrunsub(0) for the next picture starts with a fresh buffer).
  */
-static pixel_to_draw **gln_pending_paint_list = NULL;
+static pixel_to_draw *gln_pending_paint_list = NULL;
 static int gln_pending_paint_count = 0;
 static int gln_pending_paint_index = 0;
 static gln_uint16 gln_pending_paint_width = 0;
@@ -2540,7 +2537,7 @@ void DrawSomeL9VectorPixels(glui32 bg_col, winid_t glk_window, int x_offset, int
    * that yields back to the timeout loop. */
   int chunk_end = i + GLN_VECTOR_PIXELS_PER_TICK;
   for (; i < total_draw_instructions && (!gli_slowdraw || i < chunk_end); i++) {
-    const pixel_to_draw *todraw = pixels_to_draw[i];
+    const pixel_to_draw *todraw = &pixels_to_draw[i];
     glk_plot_pixel(glk_window, todraw->x, todraw->y, todraw->colour, x_offset, y_offset, palette);
   }
   current_draw_instruction = i;
@@ -2808,7 +2805,7 @@ gln_graphics_timeout (void)
 
       for (int i = gln_pending_paint_index; i < chunk_end; i++)
         {
-          const pixel_to_draw *p = gln_pending_paint_list[i];
+          const pixel_to_draw *p = &gln_pending_paint_list[i];
           glk_window_fill_rect (gln_graphics_window,
                                 pending_palette[p->colour],
                                 p->x * GLN_GRAPHICS_PIXEL
@@ -2817,7 +2814,6 @@ gln_graphics_timeout (void)
                                   + gln_pending_paint_y_offset,
                                 GLN_GRAPHICS_PIXEL,
                                 GLN_GRAPHICS_PIXEL);
-          free (gln_pending_paint_list[i]);
         }
       gln_pending_paint_index = chunk_end;
 
@@ -3745,12 +3741,11 @@ gln_linegraphics_set_pixel (int x, int y, gln_byte color)
 
   gln_graphics_bitmap[y * gln_graphics_width + x] = color;
   if (gln_graphics_interpreter_state == GLN_GRAPHICS_LINE_MODE) {
-    pixel_to_draw *todraw = gln_malloc(sizeof(pixel_to_draw));
+    ensure_capacity();
+    pixel_to_draw *todraw = &pixels_to_draw[total_draw_instructions++];
     todraw->x = x;
     todraw->y = y;
     todraw->colour = color;
-    ensure_capacity();
-    pixels_to_draw[total_draw_instructions++] = todraw;
     //  fprintf(stderr, "gln_linegraphics_set_pixel: total_draw_instructions: %d\n", total_draw_instructions);
   }
 }
@@ -4126,7 +4121,7 @@ os_cleargraphics (void)
           for (int i = gln_pending_paint_index;
                i < gln_pending_paint_count; i++)
             {
-              const pixel_to_draw *p = gln_pending_paint_list[i];
+              const pixel_to_draw *p = &gln_pending_paint_list[i];
               glk_window_fill_rect (gln_graphics_window,
                                     prev_palette[p->colour],
                                     p->x * GLN_GRAPHICS_PIXEL
@@ -4135,7 +4130,6 @@ os_cleargraphics (void)
                                       + gln_pending_paint_y_offset,
                                     GLN_GRAPHICS_PIXEL,
                                     GLN_GRAPHICS_PIXEL);
-              free (gln_pending_paint_list[i]);
             }
           free (gln_pending_paint_list);
           gln_pending_paint_list = NULL;
@@ -4239,7 +4233,7 @@ os_cleargraphics (void)
           for (int i = current_draw_instruction;
                i < total_draw_instructions; i++)
             {
-              const pixel_to_draw *p = pixels_to_draw[i];
+              const pixel_to_draw *p = &pixels_to_draw[i];
               glk_window_fill_rect (gln_graphics_window,
                                     palette[p->colour],
                                     p->x * GLN_GRAPHICS_PIXEL + x_offset,
