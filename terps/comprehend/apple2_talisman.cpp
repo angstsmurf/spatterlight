@@ -61,35 +61,55 @@ static uint8_t s_fontGlyphs[128 * 8];           // op3/op5 picture font, 8 bytes
 bool talismanInstallDrawingTables(const uint8_t *t2, size_t size) {
     if (!t2)
         return false;
-    const uint16_t kT2LoadAddr = 0x0800;
-    const struct {
-        uint16_t addr;
-        size_t len;
-        uint8_t *dest;
-    } tables[] = {
-        { 0x1132, sizeof(s_colorPatternSubindices), s_colorPatternSubindices },
-        { 0x120a, sizeof(s_patternData),            s_patternData },
-        { 0x1282, sizeof(s_brushBitmaps),           s_brushBitmaps },
+
+    // The three drawing tables are byte-identical across every Graphics Magician
+    // title we support (Talisman, Transylvania, ...) and sit contiguously as
+    //   [ colour subindices : 216 ][ pattern data : 120 ][ brush bitmaps : 256 ]
+    // but at a load-address-dependent offset inside T2 (Talisman puts pattern
+    // data at $120a, Transylvania at $1278). Rather than hard-code per-game
+    // offsets, locate the pattern-data table by its unmistakable signature -- the
+    // Apple hi-res colour patterns black/green-violet/white/orange-blue -- and
+    // derive the neighbours from it. pattern_data[0..3] are zero, so the run that
+    // actually identifies it starts at byte 4.
+    static const uint8_t kPatternSig[] = {
+        0x55,0x2a,0x55,0x2a, 0x2a,0x55,0x2a,0x55, 0x7f,0x7f,0x7f,0x7f,
+        0x80,0x80,0x80,0x80, 0xd5,0xaa,0xd5,0xaa, 0xaa,0xd5,0xaa,0xd5,
+        0xff,0xff,0xff,0xff,
     };
-    for (const auto &t : tables) {
-        size_t off = (size_t)(t.addr - kT2LoadAddr);
-        if (off + t.len > size)
-            return false;
+    const size_t kSubLen   = sizeof(s_colorPatternSubindices); // 216
+    const size_t kPatLen   = sizeof(s_patternData);            // 120
+    const size_t kBrushLen = sizeof(s_brushBitmaps);           // 256
+
+    size_t sig = SIZE_MAX;
+    if (size >= sizeof(kPatternSig)) {
+        for (size_t i = 0; i + sizeof(kPatternSig) <= size; i++) {
+            if (std::memcmp(t2 + i, kPatternSig, sizeof(kPatternSig)) == 0) {
+                sig = i;
+                break;
+            }
+        }
     }
-    for (const auto &t : tables) {
-        size_t off = (size_t)(t.addr - kT2LoadAddr);
-        std::memcpy(t.dest, t2 + off, t.len);
-    }
+    if (sig == SIZE_MAX || sig < 4)
+        return false;
+    size_t patBase = sig - 4;          // pattern_data[0..3] == 0 precede the sig
+    if (patBase < kSubLen)             // need room for the subindices before it
+        return false;
+    size_t subBase   = patBase - kSubLen;
+    size_t brushBase = patBase + kPatLen;
+    if (brushBase + kBrushLen > size)
+        return false;
+
+    std::memcpy(s_colorPatternSubindices, t2 + subBase,   kSubLen);
+    std::memcpy(s_patternData,            t2 + patBase,   kPatLen);
+    std::memcpy(s_brushBitmaps,           t2 + brushBase, kBrushLen);
+
     // The op3/op5 picture font shares the brush table's base: glyph(ch) lives at
-    // $1282 + ch*8 (so the brush bitmaps double as the unused control-char glyphs
-    // $00..$1f, and the printable glyphs run from $1382 to ~$1682). Copy the whole
-    // 128-char range; leave it zero (blank text) if a T2 variant is too short
-    // rather than failing the critical tables above.
-    {
-        size_t off = (size_t)(0x1282 - kT2LoadAddr);
-        if (off + sizeof(s_fontGlyphs) <= size)
-            std::memcpy(s_fontGlyphs, t2 + off, sizeof(s_fontGlyphs));
-    }
+    // brushBase + ch*8 (so the brush bitmaps double as the unused control-char
+    // glyphs $00..$1f, and the printable glyphs follow). Copy the whole 128-char
+    // range; leave it zero (blank text) if T2 ends early rather than failing the
+    // critical tables above.
+    if (brushBase + sizeof(s_fontGlyphs) <= size)
+        std::memcpy(s_fontGlyphs, t2 + brushBase, sizeof(s_fontGlyphs));
     return true;
 }
 
@@ -126,10 +146,24 @@ static inline bool valid_offset(uint16_t off) { return off <= MAX_SCREEN_ADDR; }
 
 struct WriteOp { uint16_t offset; uint8_t value; };
 
+// A WriteOp with this (out-of-page) offset is not a byte write but a DELAY
+// marker: op13 emitted it, and value holds the delay's operand. The reveal
+// pauses when it reaches one (the original Graphics Magician paused mid-paint).
+#define DELAY_MARKER 0xffff
+// Wall-clock length of one delay unit, in slow-draw ticks. Measured from the
+// Graphics Magician op13 handler (the DELAY routine at $09bb in the Apple II
+// std-hires interpreter, byte-identical across all four titles): a 3-level
+// counting loop "LDX #$80; LDY #$A0; DEY/BNE; DEX/BNE; DEC operand; BNE" =
+// 128 * 160 inner iterations per unit = ~103,176 6502 cycles, which at the
+// Apple II's 1.0205 MHz is ~101 ms per unit. At the host's 10 ms slow-draw tick
+// (TALISMAN_SLOW_TICK_MS) that is ~10 ticks per unit.
+#define DELAY_TICKS_PER_UNIT 10
+
 static uint8_t s_slowScreen[A2_SCREEN_MEM_SIZE]; // progressively-revealed page
 static std::vector<WriteOp> s_ops;               // ordered byte writes of this image
 static size_t s_opsDrawn = 0;                    // how many ops are on s_slowScreen
 static bool s_recordOps = false;                 // record ops for slow reveal?
+static int s_pauseTicks = 0;                      // reveal ticks still owed to a DELAY
 
 // Bounding range of screen rows touched since the last blit, so the host can
 // repaint just the changed band instead of the whole window each tick.
@@ -784,7 +818,16 @@ static void fill_rect_pattern(a2_ctx *ctx, uint8_t pat_even, uint8_t pat_odd) {
 	}
 }
 
-// ---- Opcode interpreter (Talisman variant) ------------------------------------
+// ---- Opcode interpreter -------------------------------------------------------
+
+// The Graphics Magician vector format has two dialects sharing the same drawing
+// tables. Talisman (the default) repurposes op7 as a 2-operand no-op and op15 as
+// a fill-bounds sub-op, and sets its fill clip rectangle explicitly. The older
+// dialect used by the earlier Comprehend titles (Transylvania, OO-Topos, Crimson
+// Crown) ends an image on op7 as well as op0, never emits op15, and fills against
+// the full screen (its background PAINT seeds in the bottom text rows). Selected
+// per game via talismanSetLegacyFormat().
+static bool s_legacyFormat = false;
 
 static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 	const uint8_t *ptr = *outptr;
@@ -813,7 +856,11 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 		*outptr = ptr;
 		return true;
 
-	case OPCODE_END2: // 7 -- Talisman: 2-operand no-op (1984: end)
+	case OPCODE_END2: // 7 -- Talisman: 2-operand no-op; older dialect: end
+		if (s_legacyFormat) {
+			*outptr = ptr;
+			return true;
+		}
 		ptr += 2;
 		break;
 
@@ -892,9 +939,12 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 		draw_brush(a, b, ctx->BRUSH, ctx->pat_even, ctx->pat_odd);
 		break;
 
-	case OPCODE_DELAY: // 13
-		ptr += 1;
+	case OPCODE_DELAY: { // 13 -- pause (no effect on the final page; paces the reveal)
+		uint8_t units = *ptr++;
+		if (s_recordOps && units)
+			s_ops.push_back({ DELAY_MARKER, units });
 		break;
+	}
 
 	case OPCODE_PAINT: // 14
 		a = *ptr++ + (param & 1 ? 256 : 0);
@@ -903,7 +953,11 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 			ctx->fill_left, ctx->fill_right, ctx->fill_top, ctx->fill_bottom);
 		break;
 
-	case OPCODE_RESET: // 15 -- Talisman: sub-op in low nibble
+	case OPCODE_RESET: // 15 -- Talisman: sub-op in low nibble; older dialect: end
+		if (s_legacyFormat) {
+			*outptr = ptr;
+			return true;
+		}
 		switch (param) {
 		case 1: // bounds = full screen
 			ctx->fill_left = 0; ctx->fill_top = 0;
@@ -1006,14 +1060,18 @@ void talismanResetScreen(bool white) {
 	memset(s_slowScreen, white ? 0xff : 0x00, A2_SCREEN_MEM_SIZE);
 	s_ops.clear();
 	s_opsDrawn = 0;
+	s_pauseTicks = 0;
 }
 
 // ---- Slow-draw control (host-driven) ----------------------------------------
 
 void talismanSetSlowDraw(bool on) { s_recordOps = on; }
 
-// True while there are still recorded ops to reveal onto the visible page.
-bool talismanSlowDrawActive() { return s_recordOps && s_opsDrawn < s_ops.size(); }
+// True while there is reveal work left: recorded ops still to paint, or a DELAY
+// pause still owed.
+bool talismanSlowDrawActive() {
+	return s_recordOps && (s_opsDrawn < s_ops.size() || s_pauseTicks > 0);
+}
 
 // Bytes whose offset is adjacent to, or whose value matches, the previous one
 // belong to the same visual run; revealing them together avoids seams.
@@ -1023,15 +1081,27 @@ static bool ops_adjacent(const WriteOp &a, const WriteOp &b) {
 }
 
 // Apply up to `budget` recorded ops onto the visible page, extending the chunk
-// across adjacent runs. Returns true while more ops remain to be revealed.
+// across adjacent runs. A DELAY marker halts this tick's reveal and owes a run
+// of pause ticks (during which nothing is revealed). Returns true while any
+// reveal work -- ops or an outstanding pause -- remains.
 bool talismanAdvanceSlowDraw(int budget) {
+	if (s_pauseTicks > 0) {
+		s_pauseTicks--;
+		return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
+	}
 	size_t i = s_opsDrawn;
 	size_t chunk_end = i + (budget > 0 ? (size_t)budget : 1);
 	bool keep_going = false;
 	for (; i < s_ops.size() && (i < chunk_end || keep_going); i++) {
+		if (s_ops[i].offset == DELAY_MARKER) {
+			s_pauseTicks += s_ops[i].value * DELAY_TICKS_PER_UNIT;
+			s_opsDrawn = i + 1;             // consume the marker
+			return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
+		}
 		s_slowScreen[s_ops[i].offset] = s_ops[i].value;
 		mark_row_dirty(s_ops[i].offset);
-		keep_going = (i + 1 < s_ops.size()) && ops_adjacent(s_ops[i], s_ops[i + 1]);
+		keep_going = (i + 1 < s_ops.size()) && s_ops[i + 1].offset != DELAY_MARKER &&
+		             ops_adjacent(s_ops[i], s_ops[i + 1]);
 	}
 	s_opsDrawn = i;
 	return s_opsDrawn < s_ops.size();
@@ -1041,9 +1111,12 @@ bool talismanAdvanceSlowDraw(int budget) {
 // reveal is cancelled). Leaves the visible page identical to the final page.
 void talismanFinishSlowDraw() {
 	for (; s_opsDrawn < s_ops.size(); s_opsDrawn++) {
+		if (s_ops[s_opsDrawn].offset == DELAY_MARKER)
+			continue;                      // pauses collapse when finishing at once
 		s_slowScreen[s_ops[s_opsDrawn].offset] = s_ops[s_opsDrawn].value;
 		mark_row_dirty(s_ops[s_opsDrawn].offset);
 	}
+	s_pauseTicks = 0;
 }
 
 // Hand back the row band touched since the last call (inclusive), and reset it.
@@ -1075,6 +1148,7 @@ void talismanDrawImage(const uint8_t *data, size_t size) {
 	// must record only its own bytes onto whatever the room left visible).
 	s_ops.clear();
 	s_opsDrawn = 0;
+	s_pauseTicks = 0;
 
 	a2_ctx ctx = {};
 	set_color(4, &ctx);
@@ -1084,7 +1158,11 @@ void talismanDrawImage(const uint8_t *data, size_t size) {
 	ctx.pat_even = s_colorPatternSubindices[0x4d * 2];
 	ctx.pat_odd = s_colorPatternSubindices[0x4d * 2 + 1];
 	ctx.BRUSH = 5;
-	ctx.fill_left = 0; ctx.fill_top = 0; ctx.fill_right = 39; ctx.fill_bottom = 0x9f;
+	// Talisman clips fills to the picture rows (0..0x9f) and widens the rectangle
+	// via op15; the older dialect has no op15 and paints the whole screen, seeding
+	// its background fill in the bottom text rows (e.g. PAINT at y=191).
+	ctx.fill_left = 0; ctx.fill_top = 0; ctx.fill_right = 39;
+	ctx.fill_bottom = s_legacyFormat ? 0xbf : 0x9f;
 
 	const uint8_t *ptr = data;
 	const uint8_t *end = data + size;
@@ -1102,6 +1180,8 @@ void talismanDrawImage(const uint8_t *data, size_t size) {
 void talismanBlitToSurface(uint32_t *out, int w, int h) {
 	screenmem_to_rgba(s_screenmem, out, w, h);
 }
+
+void talismanSetLegacyFormat(bool on) { s_legacyFormat = on; }
 
 } // namespace Comprehend
 } // namespace Glk

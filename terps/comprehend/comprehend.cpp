@@ -89,6 +89,13 @@ void Comprehend::createGame() {
     else if (_gameId == "transylvania")   _game = new TransylvaniaGame1();
     else if (_gameId == "transylvaniav2") _game = new TransylvaniaGame2();
     else                                  error("Unknown game id '%s'", _gameId.c_str());
+
+    // The Apple II hi-res renderer (apple2_talisman.cpp) handles two Graphics
+    // Magician dialects, both validated pixel-exact vs MAME. Talisman and OO-Topos
+    // use op15 fill-bounds sub-ops (newer); Transylvania and Crimson Crown never
+    // emit op15, end images on op7, and seed background fills in the bottom text
+    // rows, so they need the full-screen fill clip (the legacy flag).
+    talismanSetLegacyFormat(_gameId == "transylvania" || _gameId == "crimsoncrown");
 }
 
 void Comprehend::print(const char *fmt, ...) {
