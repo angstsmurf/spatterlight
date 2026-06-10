@@ -10,8 +10,14 @@
  * by their length and a 16-bit additive checksum, the same way the scott
  * module recognises Apple II Scott Adams disks.
  *
+ * MS-DOS Comprehend games ship as a directory of files, with the game
+ * strings embedded in a standard MZ executable (NOVEL.EXE). We identify
+ * those executables by the MD5 of their first 1024 bytes, which is unique
+ * per known release. The caller passes NOVEL.EXE as the story file; the
+ * interpreter chdirs to the same directory and loads the data files by name.
+ *
  * Comprehend defines no embedded IFID, so the IFID is the MD5 of the
- * disk image, prefixed with "COMPREHEND-".
+ * story file, prefixed with "COMPREHEND-".
  *
  * This file depends on treaty_builder.h
  *
@@ -21,14 +27,16 @@
 
 #define FORMAT comprehend
 #define HOME_PAGE "https://ifarchive.org/indexes/if-archive/games/comprehend/"
-#define FORMAT_EXT ".dsk,.woz"
+#define FORMAT_EXT ".dsk,.woz,.exe"
 #define NO_METADATA
 #define NO_COVER
 
 #include "treaty_builder.h"
+#include "md5.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 
 struct comprehend_entry {
     int32 length;       /* exact size of the disk image */
@@ -69,6 +77,17 @@ static struct comprehend_entry comprehend_registry[] = {
     { 0, 0, NULL }
 };
 
+/* Known MS-DOS Comprehend executables, identified by MD5 of first 1024 bytes.
+ * This matches the same check the interpreter performs in game_tm.cpp. */
+static const char *comprehend_dos_exe_md5s[] = {
+    "881f6c504456a41a70f8fb515edd04cd",  /* Transylvania NOVEL.EXE */
+    "3fc2072f6996b17d2f21f0a92e53cdcc",  /* OO-Topos NOVEL.EXE */
+    "3d4f5d26c64aa5b403914be83f4e8d73",  /* Crimson Crown NOVEL.EXE */
+    "0e7f002971acdb055f439020363512ce",  /* Talisman NOVEL.EXE (original) */
+    "2e18c88ce352ebea3e14177703a0485f",  /* Talisman NOVEL1.EXE (later release) */
+    NULL
+};
+
 static uint16_t comprehend_checksum(unsigned char *sf, int32 extent)
 {
     uint16_t c = 0;
@@ -81,18 +100,40 @@ static uint16_t comprehend_checksum(unsigned char *sf, int32 extent)
 static int32 claim_story_file(void *story_file, int32 extent)
 {
     unsigned char *sf = (unsigned char *)story_file;
-    uint16_t chk = 0;
-    int calculated = 0;
     int i;
 
-    for (i = 0; comprehend_registry[i].length; i++) {
-        if (extent == comprehend_registry[i].length) {
-            if (!calculated) {
-                chk = comprehend_checksum(sf, extent);
-                calculated = 1;
-            }
-            if (chk == comprehend_registry[i].chk)
+    /* MS-DOS MZ executable: identify by MD5 of the first 1024 bytes. */
+    if (extent >= 1024 && sf[0] == 0x4d && sf[1] == 0x5a) {
+        md5_state_t state;
+        md5_byte_t digest[16];
+        char hexdigest[33];
+        md5_init(&state);
+        md5_append(&state, sf, 1024);
+        md5_finish(&state, digest);
+        for (i = 0; i < 16; i++)
+            sprintf(hexdigest + i * 2, "%02x", (unsigned int)digest[i]);
+        hexdigest[32] = '\0';
+        for (i = 0; comprehend_dos_exe_md5s[i]; i++) {
+            if (strcmp(hexdigest, comprehend_dos_exe_md5s[i]) == 0)
                 return VALID_STORY_FILE_RV;
+        }
+        fprintf(stderr, "hexdigest for this file: %s\n", hexdigest);
+        return INVALID_STORY_FILE_RV;
+    }
+
+    /* Apple II disk images: identify by file length and additive checksum. */
+    {
+        uint16_t chk = 0;
+        int calculated = 0;
+        for (i = 0; comprehend_registry[i].length; i++) {
+            if (extent == comprehend_registry[i].length) {
+                if (!calculated) {
+                    chk = comprehend_checksum(sf, extent);
+                    calculated = 1;
+                }
+                if (chk == comprehend_registry[i].chk)
+                    return VALID_STORY_FILE_RV;
+            }
         }
     }
     return INVALID_STORY_FILE_RV;
