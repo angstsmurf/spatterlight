@@ -97,6 +97,7 @@ static void draw_banner();
 static void update_objwin(GeasRunner *gr);
 static void fill_divider();
 static std::string g_last_objlist;   /* last room-object list echoed to a transcript */
+static std::string g_status_line;    /* status vars joined for the banner, rebuilt each turn */
 
 /* Handle the transcript metaverb ("transcript"/"script" on/off).  Returns true
  * if the command was a transcript command (and should not reach the game).  A
@@ -540,6 +541,17 @@ draw_banner()
       std::string title = banner.empty() ? std::string("Geas 0.4") : banner;
       glk_window_move_cursor(bannerwin, 1, 0);
       glk_put_string_stream(stream, (char*) title.c_str());
+
+      if (!g_status_line.empty()) {
+          glui32 slen = (glui32) g_status_line.size();
+          if (slen + 2 < width) {
+              glui32 col = width - slen - 1;
+              if (col > (glui32) title.size() + 2) {
+                  glk_window_move_cursor(bannerwin, col, 0);
+                  glk_put_string_stream(stream, (char*) g_status_line.c_str());
+              }
+          }
+      }
     }
 }
 
@@ -596,25 +608,22 @@ update_objwin(GeasRunner *gr)
     }
 
     /* Status variables (Quest's "collectables": money/health/score etc.,
-     * defined via `define variable ... display <...>`).  The core formats each
-     * line; show them under their own subheader, like the exits. */
+     * defined via `define variable ... display <...>`).  Show them right-aligned
+     * in the status bar instead of the object pane. */
     vstring status = gr->get_status_vars();
     std::string flatstatus;
-    if (!status.empty()) {
-        glk_put_char_stream(s, '\n');
-        glk_set_style_stream(s, style_Subheader);
-        glk_put_string_stream(s, (char *) "Status\n");
-        glk_set_style_stream(s, style_Normal);
-        for (std::string &var : status) {
-            if (var.empty())
-                continue;
-            glk_put_string_stream(s, (char *) var.c_str());
-            glk_put_char_stream(s, '\n');
-            if (!flatstatus.empty())
-                flatstatus += ", ";
-            flatstatus += var;
-        }
+    g_status_line.clear();
+    for (std::string &var : status) {
+        if (var.empty())
+            continue;
+        if (!flatstatus.empty())
+            flatstatus += ", ";
+        flatstatus += var;
+        if (!g_status_line.empty())
+            g_status_line += " | ";
+        g_status_line += var;
     }
+    draw_banner();
 
     std::string key = room + "\x01" + flat + "\x01" + flatexits + "\x01" + flatstatus;
     if (transcriptstr && key != g_last_objlist) {
