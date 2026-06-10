@@ -31,6 +31,10 @@ namespace Comprehend {
 extern "C" int gli_slowdraw;
 extern "C" int gli_determinism;
 
+// Total content area in pixels, exported by glkimp (0 in the headless build).
+// Used to keep a rescaled picture from eating the whole window vertically.
+extern "C" int gscreenh;
+
 Comprehend *g_comprehend;
 
 static DebuggerStub s_debuggerStub;
@@ -111,6 +115,9 @@ void Comprehend::print_u32_internal(const Common::U32String *fmt, ...) {
 void Comprehend::printRoomDesc(const Common::String &desc) {
     if (!_statusWindow) return;
 
+    // Remember it so onArrange() can re-wrap it after a resize.
+    _lastRoomDesc = desc;
+
     glui32 width = 0;
     glk_window_get_size(_statusWindow, &width, nullptr);
     Common::String str = desc;
@@ -181,6 +188,8 @@ void Comprehend::readLine(char *buffer, size_t maxLen) {
     for (;;) {
         glk_select(&ev);
         if (ev.type == evtype_LineInput) break;
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+            onArrange();
     }
     buffer[ev.val1] = 0;
 }
@@ -194,6 +203,8 @@ int Comprehend::readChar() {
     ev.type = evtype_None;
     while (ev.type != evtype_CharInput) {
         glk_select(&ev);
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+            onArrange();
     }
     setDisableSaves(false);
     return ev.val1;
@@ -238,10 +249,11 @@ void Comprehend::runSlowDraw() {
         if (ev.type == evtype_Timer) {
             more = talismanAdvanceSlowDraw(TALISMAN_SLOW_BYTES_PER_TICK);
         } else if (ev.type == evtype_Arrange) {
-            // The window changed size: stop animating and show the finished page.
+            // The window changed size: finish the page, rescale, repaint it whole.
             talismanFinishSlowDraw();
             more = false;
             fullRepaint = true;
+            recomputeGraphicsScale();
         } else if (ev.type == evtype_Redraw) {
             // The window needs repainting: redraw what we have so far, keep going.
             fullRepaint = true;
@@ -253,9 +265,10 @@ void Comprehend::runSlowDraw() {
         talismanBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
                                   _drawSurface->w, _drawSurface->h);
         int y0, y1;
-        if (fullRepaint)
+        if (fullRepaint) {
+            glk_window_clear(_topWindow);
             blitSurfaceToWindow();
-        else if (talismanSlowConsumeDirty(&y0, &y1))
+        } else if (talismanSlowConsumeDirty(&y0, &y1))
             blitSurfaceRowsToWindow(y0, y1);
     }
     glk_request_timer_events(0);
@@ -367,6 +380,45 @@ void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
                 _pixelSize);
         }
     }
+}
+
+bool Comprehend::recomputeGraphicsScale() {
+    if (!_topWindow) return false;
+    glui32 winW = 0, winH = 0;
+    glk_window_get_size(_topWindow, &winW, &winH);
+    if (winW == 0) return false;
+
+    // Largest integer multiple of the 280-wide render that fits the window...
+    int scale = (int)(winW / G_RENDER_WIDTH);
+    // ...but never let the picture take more than ~60% of the screen height.
+    if (gscreenh > 0) {
+        int scaleByHeight = (gscreenh * 3 / 5) / G_RENDER_HEIGHT;
+        if (scaleByHeight >= 1 && scale > scaleByHeight)
+            scale = scaleByHeight;
+    }
+    if (scale < 1) scale = 1;
+    if (scale == _pixelSize) return false;
+
+    _pixelSize = scale;
+    winid_t parent = glk_window_get_parent(_topWindow);
+    if (parent)
+        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                   (glui32)(G_RENDER_HEIGHT * _pixelSize), _topWindow);
+    return true;
+}
+
+// Repaint after a window resize / redraw request: rescale and re-blit the
+// current picture (the persistent surface still holds it — Talisman's full
+// hi-res page is opaque, so this restores it exactly), and re-wrap the status
+// description to the new width.
+void Comprehend::onArrange() {
+    if (_topWindow) {
+        recomputeGraphicsScale();
+        glk_window_clear(_topWindow);
+        blitSurfaceToWindow();
+    }
+    if (!_lastRoomDesc.empty())
+        printRoomDesc(_lastRoomDesc);
 }
 
 } // namespace Comprehend
