@@ -301,7 +301,9 @@ void freeContext(void **ctx) {
     }
 
     void *ctx = get_babel_ctx();
-    format = babel_init_ctx((char*)path.fileSystemRepresentation, ctx);
+    char pathBuf[PATH_MAX];
+    strlcpy(pathBuf, path.fileSystemRepresentation, sizeof(pathBuf));
+    format = babel_init_ctx(pathBuf, ctx);
     if (!format || !babel_get_authoritative_ctx(ctx)) {
         freeContext(&ctx);
         if (report) {
@@ -361,6 +363,7 @@ void freeContext(void **ctx) {
             @"d64": [NSSet setWithObjects:@"scott", @"taylor", @"sagaplus", @"level9", nil],
             @"dsk": [NSSet setWithObjects:@"scott", @"taylor", @"sagaplus", @"level9", @"comprehend", nil],
             @"woz": [NSSet setWithObjects:@"scott", @"sagaplus", @"comprehend", nil],
+            @"exe": [NSSet setWithObjects:@"comprehend", nil],
         };
     });
 
