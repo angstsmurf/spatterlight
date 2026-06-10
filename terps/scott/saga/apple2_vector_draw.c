@@ -880,7 +880,13 @@ static int write_pixel(const byte_to_write *towrite, int current_op_index) {
     DrawSingleApple2ImageByte(slow_vector_screenmem, towrite->offset);
     if (current_op_index + 1 < total_write_ops) {
         const byte_to_write *next_byte = &bytes_to_write[current_op_index + 1];
-        if ((next_byte->offset >= towrite->offset - 1 && next_byte->offset <= towrite->offset + 1) || next_byte->value == towrite->value) {
+        // Extend the chunk only across physically adjacent bytes, whose Apple II
+        // artifact colours depend on each other — stopping between them would
+        // flash a transient wrong colour at the seam. (A previous version also
+        // extended across any two ops sharing a value, which made large
+        // same-pattern fills snap in within a single tick instead of revealing
+        // gradually like the rest of the picture.)
+        if (next_byte->offset >= towrite->offset - 1 && next_byte->offset <= towrite->offset + 1) {
             return 1;
         }
     }
@@ -901,8 +907,8 @@ void DrawSomeApple2VectorBytes(int from_start)
         size_t i = current_write_op;
 
         /* keep_going extends the chunk past the normal cap when the next op
-         * is adjacent or shares a value — this avoids visible seams in runs
-         * of related writes. */
+         * writes an adjacent byte — this avoids visible seams in runs of
+         * neighbouring writes. */
         int keep_going = 0;
         size_t chunk_end = i + APPLE2_VECTOR_BYTES_PER_TICK;
 
