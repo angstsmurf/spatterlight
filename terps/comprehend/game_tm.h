@@ -52,6 +52,14 @@ public:
 	void afterPrompt() override;
 	void handleAction(Sentence *sentence) override;
 	void handleSpecialOpcode() override;
+	bool handle_restart() override;
+
+private:
+	/**
+	 * Present the death / game-over menu (special opcode 2): Quit, restart
+	 * ("a new adventure"), or restore a saved game.
+	 */
+	void deathMenu();
 };
 
 } // namespace Comprehend

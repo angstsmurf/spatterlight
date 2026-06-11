@@ -20,6 +20,7 @@
 CHEAPGLK_DIR := cheapglk
 READWOZ_DIR  := ../readwoz
 COMMON_DIR   := ../common_utils
+SAGADRAW_DIR := ../common_sagadraw
 OBJDIR       := headless_obj
 
 CXX ?= clang++
@@ -27,7 +28,7 @@ CC  ?= clang
 
 # Note: -I$(CHEAPGLK_DIR) comes before everything so glk.h / glkstart.h resolve
 # to CheapGlk's headers rather than glkimp's.
-COMMON_INC := -I. -I$(CHEAPGLK_DIR) -I$(READWOZ_DIR) -I$(COMMON_DIR)
+COMMON_INC := -I. -I$(CHEAPGLK_DIR) -I$(READWOZ_DIR) -I$(COMMON_DIR) -I$(SAGADRAW_DIR)
 CXXFLAGS   := -std=c++14 -O0 -g -Wall -Wno-unknown-pragmas \
               -Wno-macro-redefined -Wno-format $(COMMON_INC) \
               -DGARGLK -DSPATTERLIGHT
@@ -57,7 +58,7 @@ CXX_SRCS := \
 C_SRCS := glkstart.c
 
 OBJS := $(addprefix $(OBJDIR)/,$(CXX_SRCS:.cpp=.o) $(C_SRCS:.c=.o) \
-        ciderpress.o woz2nib.o read_le16.o)
+        ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o)
 
 CHEAPGLK_LIB := $(CHEAPGLK_DIR)/libcheapglk.a
 
@@ -81,6 +82,10 @@ $(OBJDIR)/ciderpress.o: $(READWOZ_DIR)/ciderpress.c | $(OBJDIR)
 $(OBJDIR)/woz2nib.o: $(READWOZ_DIR)/woz2nib.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 $(OBJDIR)/read_le16.o: $(COMMON_DIR)/read_le16.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)/gm_vector.o: $(SAGADRAW_DIR)/gm_vector.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)/gm_artifact.o: $(SAGADRAW_DIR)/gm_artifact.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

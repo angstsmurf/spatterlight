@@ -255,8 +255,21 @@ void ComprehendGame::console_println(const char *text) {
 		default:
 			/* Find next space */
 			word_len = strcspn(p, " \n");
-			if (word_len == 0)
+			if (word_len == 0) {
+				/*
+				 * A space at the start of a parse iteration -- e.g. the
+				 * indentation that follows a newline in a multi-line string
+				 * such as Talisman's death menu. ('\n' has its own case, so
+				 * strcspn can only be zero here for a space.) Emit one space
+				 * and advance past the run; otherwise p never moves and we
+				 * spin forever.
+				 */
+				g_comprehend->print(" ");
+				do {
+					p++;
+				} while (*p == ' ');
 				break;
+			}
 
 			/*
 			 * If this word contains a replacement symbol, then
