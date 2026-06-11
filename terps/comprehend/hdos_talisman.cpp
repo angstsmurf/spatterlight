@@ -10,8 +10,9 @@
  *
  *   PicInterpretImageOpcodes 1f56 -- dispatcher; 16-handler table at 0x9d5d,
  *       default brush 5, brush table pointer 0x9d81
- *   line = Bresenham, box = four chained lines, circle = 8-octant midpoint,
- *   brush/glyph = per-row bit blit, flood fill = queue-based span fill.
+ *   line = major-axis Bresenham, box = four chained lines, circle = 8-octant
+ *   midpoint, brush/glyph = per-row bit blit, flood fill = scanline fill with a
+ *   visited bitmap (boundary == black, matching the native per-pixel mask test).
  *
  * Pixel model:
  *   - 2 bpp, 4 pixels per byte, LSB-first (pixel p in bits (2p+1):(2p))
@@ -20,7 +21,7 @@
  *     (even_col / odd_col bytes, always equal in this release); entry i is
  *     the 4-pixel 2-bpp tile used when SET_FILL_COLOR (op6) byte = i.
  *   - Brush bitmaps (DS:0x9d81, file 0xcdf1): 8 × 32 bytes;
- *     quadrant order Q0..Q3 = upper-right, lower-right, upper-left, lower-left;
+ *     quadrant order Q0..Q3 = upper-left, lower-left, upper-right, lower-right;
  *     within each quadrant bit-7 = leftmost pixel.
  *   - Font glyphs (DS:0x9e81, file 0xcef1): 96 chars × 8 bytes;
  *     same encoding as the brush bytes (bit-7 = leftmost pixel).
@@ -94,9 +95,21 @@ bool hdosInstallDrawingTables(const uint8_t *exe, size_t size) {
 
     // Fill table: 76 entries × 2 bytes each (even_col, odd_col); even==odd for
     // every entry in this release, so keep just one byte per entry.
+    //
+    // The interpreter writes pixels MSB-first within a CGA byte (pixel 0 in bits
+    // 7:6, pixel 3 in bits 1:0 -- see PicPlotPixel2bpp at 0x2470, which shifts by
+    // ((x&3)^3)*2), so a stored fill byte's leftmost pixel is its top bit pair.
+    // This renderer keeps its framebuffer LSB-first (pixel 0 in bits 1:0), so
+    // mirror each entry's four 2-bit groups once here; afterwards every LSB-first
+    // sample -- including fill_hline's direct whole-byte store -- lands the
+    // pattern at the correct column phase.  Solid tiles (0x00/0x55/0xaa/0xff) are
+    // palindromic and unaffected; only true dithers change phase.
     const uint8_t *fill = exe + fillBase;
-    for (int i = 0; i < 76; i++)
-        s_fillTable[i] = fill[i * 2];
+    for (int i = 0; i < 76; i++) {
+        uint8_t b = fill[i * 2];
+        s_fillTable[i] = (uint8_t)(((b & 0x03) << 6) | ((b & 0x0c) << 2) |
+                                   ((b & 0x30) >> 2) | ((b & 0xc0) >> 6));
+    }
 
     // Fill-colour subindex table (DS:0x99ec): the SET_FILL_COLOR (op6) byte
     // indexes this for a pair of pattern-table indices, one per row parity.
@@ -239,64 +252,91 @@ static void fill_hline(int y, int l, int r, uint8_t sel) {
 
 // ---- Flood fill (op14 PAINT) -------------------------------------------------
 //
-// Queue-based scanline fill.  "White" (value 3) pixels are fillable; any
-// other value is a boundary.  Overhang runs (extending past the parent span
-// in either direction) are queued for traversal in the opposite direction,
-// preventing double-fill without requiring a visited-pixel map.
+// Pattern-aware scanline flood fill matching the native PicOp14Paint (0x2630).
+// The native boundary test (FUN_29a0 at 0x29a0) masks the screen word per
+// pixel and treats any pixel whose value is NOT 0 (i.e. not black) as fillable;
+// black is the only boundary -- black drawn lines hem the region in, but the
+// fill flows freely over any previously-drawn cyan / magenta / white detail.
+//
+// The fill lays down a row-parity dither (FUN_24a4: pattern selected by
+// (y + [0xb031]) & 1, with [0xb031] == 0, i.e. plain y&1), so the pixels it
+// writes are themselves a mix of colours including black.  The native code
+// avoids re-treating those freshly-painted black pixels as new boundaries via
+// its 32-entry span queue + per-entry "done" flags; the equivalent here is a
+// single visited bitmap.  Predicate: a pixel is fillable iff it is in bounds,
+// not yet visited, and currently non-black.  Because every pixel we paint is
+// marked visited in the same step, an unvisited pixel has never been touched by
+// this fill -- so its value still reflects the original picture, and "non-black"
+// means "not an original boundary line."  This is a faithful, leak-free port of
+// the native "boundary == black" semantics without the circular-queue
+// bookkeeping.
+
+static uint8_t s_fillVisited[HDOS_HEIGHT * HDOS_WIDTH];
 
 static void hdos_flood_fill(int seed_x, int seed_y, uint8_t fill_idx) {
-    if (read_2bpp(seed_x, seed_y) != 3) return;
-
-    struct Span { int16_t y; int16_t l, r; int8_t dir; };
-    std::vector<Span> queue;
-    queue.reserve(512);
-
-    // Find and fill the horizontal run containing (ry,rx); write extents to rl/rr.
-    auto seed_run = [&](int ry, int rx, int &rl, int &rr) {
-        rl = rx; rr = rx;
-        while (rl > 0 && read_2bpp(rl - 1, ry) == 3) rl--;
-        while (rr < HDOS_WIDTH - 1 && read_2bpp(rr + 1, ry) == 3) rr++;
-        fill_hline(ry, rl, rr, fill_idx);
+    auto fillable = [&](int x, int y) -> bool {
+        if ((unsigned)x >= HDOS_WIDTH || (unsigned)y >= HDOS_HEIGHT) return false;
+        if (s_fillVisited[y * HDOS_WIDTH + x]) return false;
+        return read_2bpp(x, y) != 0;       // black is the only boundary
     };
+    if (!fillable(seed_x, seed_y)) return;
 
-    int sl, sr;
-    seed_run(seed_y, seed_x, sl, sr);
-    queue.push_back({ (int16_t)seed_y, (int16_t)sl, (int16_t)sr, -1 });
-    queue.push_back({ (int16_t)seed_y, (int16_t)sl, (int16_t)sr, +1 });
+    memset(s_fillVisited, 0, sizeof(s_fillVisited));
+
+    struct Pt { int16_t x, y; };
+    std::vector<Pt> stack;
+    stack.reserve(1024);
+    stack.push_back({ (int16_t)seed_x, (int16_t)seed_y });
 
     long guard = 0;
-    while (!queue.empty() && ++guard < 2000000) {
-        Span s = queue.back(); queue.pop_back();
-        const int ny = s.y + s.dir;
-        if ((unsigned)ny >= HDOS_HEIGHT) continue;
+    while (!stack.empty() && ++guard < 4000000) {
+        Pt p = stack.back(); stack.pop_back();
+        if (!fillable(p.x, p.y)) continue;
 
-        int x = s.l;
-        while (x <= s.r) {
-            if (read_2bpp(x, ny) != 3) { x++; continue; }
-            int rl, rr;
-            seed_run(ny, x, rl, rr);
-            queue.push_back({ (int16_t)ny, (int16_t)rl, (int16_t)rr, s.dir });
-            if (rl < s.l)
-                queue.push_back({ (int16_t)ny, (int16_t)rl, (int16_t)(s.l - 1), (int8_t)(-s.dir) });
-            if (rr > s.r)
-                queue.push_back({ (int16_t)ny, (int16_t)(s.r + 1), (int16_t)rr, (int8_t)(-s.dir) });
-            x = rr + 1;
+        int l = p.x, r = p.x;
+        while (fillable(l - 1, p.y)) l--;
+        while (fillable(r + 1, p.y)) r++;
+
+        uint8_t *vis = &s_fillVisited[p.y * HDOS_WIDTH];
+        for (int x = l; x <= r; x++) vis[x] = 1;   // claim before painting
+        fill_hline(p.y, l, r, fill_idx);
+
+        for (int x = l; x <= r; x++) {
+            if (fillable(x, p.y - 1)) stack.push_back({ (int16_t)x, (int16_t)(p.y - 1) });
+            if (fillable(x, p.y + 1)) stack.push_back({ (int16_t)x, (int16_t)(p.y + 1) });
         }
     }
 }
 
 // ---- Line drawing (op10 DRAW_LINE / op9 DRAW_BOX) ----------------------------
 
+// Major-axis Bresenham, ported from PicDrawLineBresenham (0x2c00): the longer
+// axis is stepped every pixel; the error term (initialised to minor - major)
+// decides when the minor axis advances.  This exact formulation matters because
+// the symmetric two-axis variant tie-breaks the other way on 45deg-ish lines,
+// shifting a line -- and therefore the fill bounded by it -- by one pixel.
 static void draw_line(int x0, int y0, int x1, int y1, uint8_t pen_val) {
-    const int dx = abs(x1 - x0), sx = (x0 < x1) ? 1 : -1;
-    const int dy = -abs(y1 - y0), sy = (y0 < y1) ? 1 : -1;
-    int err = dx + dy;
-    for (;;) {
-        write_2bpp(x0, y0, pen_val);
-        if (x0 == x1 && y0 == y1) break;
-        const int e2 = 2 * err;
-        if (e2 >= dy) { err += dy; x0 += sx; }
-        if (e2 <= dx) { err += dx; y0 += sy; }
+    write_2bpp(x0, y0, pen_val);
+    const int dx = abs(x1 - x0), dy = abs(y1 - y0);
+    const int sx = (x0 < x1) ? 1 : -1;
+    const int sy = (y0 < y1) ? 1 : -1;
+    int x = x0, y = y0;
+    if (dx >= dy) {              // x is the major axis
+        int err = dy - dx;
+        for (int i = 0; i < dx; i++) {
+            x += sx;
+            if (err < 0) err += dy;
+            else { y += sy; err += dy - dx; }
+            write_2bpp(x, y, pen_val);
+        }
+    } else {                     // y is the major axis
+        int err = dx - dy;
+        for (int i = 0; i < dy; i++) {
+            y += sy;
+            if (err < 0) err += dx;
+            else { x += sx; err += dx - dy; }
+            write_2bpp(x, y, pen_val);
+        }
     }
 }
 
@@ -363,33 +403,41 @@ static void blit_col(const uint8_t *bytes8, int px, int py, uint8_t fill_sel) {
 // Each brush occupies 32 bytes in s_brushBitmaps.  The quadrant layout in
 // NOVEL.EXE (derived from comparing DOS and Apple brush 5 byte-by-byte):
 //
-//   bytes  0– 7: Q0 = upper-right  → rendered at (x+8, y+0)
-//   bytes  8–15: Q1 = lower-right  → rendered at (x+8, y+8)
-//   bytes 16–23: Q2 = upper-left   → rendered at (x+0, y+0)
-//   bytes 24–31: Q3 = lower-left   → rendered at (x+0, y+8)
+//   bytes  0– 7: Q0 = upper-left   → rendered at (x+0, y+0)
+//   bytes  8–15: Q1 = lower-left   → rendered at (x+0, y+8)
+//   bytes 16–23: Q2 = upper-right  → rendered at (x+8, y+0)
+//   bytes 24–31: Q3 = lower-right  → rendered at (x+8, y+8)
 //
-// This is column-major, right column first, compared to the Apple order
-// (row-major, upper-left first).  The 8-bit bytes cover 8 pixels; the Apple
-// 7-bit bytes covered 7 pixels, explaining the <<1 shift in the high quads.
+// Derived from PicStampBrushShape (0x2967): it blits four 8-row columns,
+// advancing the row by +8 between the first pair and the second, and the byte
+// column by [0x9d80] (two bytes = 8 px) before the second pair -- i.e. the left
+// column (bytes 0-15) is drawn before the right column (bytes 16-31), each top
+// half then bottom half.  The 8-bit glyph bytes are bit-doubled to 8 pixels.
 
 static void draw_brush(int x, int y, uint8_t brush, uint8_t fill_idx) {
     if (brush >= 8) return;
     const uint8_t *base = &s_brushBitmaps[brush * 32];
-    blit_col(base,      x + 8, y,     fill_idx); // Q0: upper-right
-    blit_col(base + 8,  x + 8, y + 8, fill_idx); // Q1: lower-right
-    blit_col(base + 16, x,     y,     fill_idx); // Q2: upper-left
-    blit_col(base + 24, x,     y + 8, fill_idx); // Q3: lower-left
+    blit_col(base,      x,     y,     fill_idx); // Q0: upper-left
+    blit_col(base + 8,  x,     y + 8, fill_idx); // Q1: lower-left
+    blit_col(base + 16, x + 8, y,     fill_idx); // Q2: upper-right
+    blit_col(base + 24, x + 8, y + 8, fill_idx); // Q3: lower-right
 }
 
 // ---- Text glyph (op3 TEXT_CHAR / op5 TEXT_OUTLINE) --------------------------
 //
-// op3 (normal): each set glyph bit → pen colour value directly.
-// op5 (outline): each set glyph bit → fill-pattern pixel at that position.
+// Both opcodes route through PicBlitBrushColumn2bpp (0x2a30), bit-doubling the
+// glyph into 2-bpp pixels.  They differ only by the [0x9d51] mode flag:
+//   op3 (TextChar, flag 1):  XOR branch -- each set glyph pixel inverts the
+//       background pixel (value ^= 0b11).  On the white (3) subtitle cloud this
+//       paints the letters black (3^3=0); the pen colour is NOT used.
+//   op5 (TextOutline, flag 0): fill branch -- each set glyph pixel takes the
+//       current fill-pattern pixel, like a brush stamp.
 // Glyph encoding matches the brush encoding (bit 7 = leftmost pixel).
 // Text cursor advances 8 pixels per character.
 
 static void draw_glyph(int x, int y, uint8_t ch, bool normal,
                         uint8_t pen_val, uint8_t fill_sel) {
+    (void)pen_val;
     if (ch < 32 || ch >= 128) return;
     const uint8_t *glyph = &s_fontGlyphs[(ch - 32) * 8];
     for (int row = 0; row < 8; row++) {
@@ -402,7 +450,8 @@ static void draw_glyph(int x, int y, uint8_t ch, bool normal,
             if (!((b >> (7 - p)) & 1)) continue;
             const int px = x + p;
             if ((unsigned)px >= HDOS_WIDTH) continue;
-            const uint8_t pix = normal ? pen_val : (fb >> ((px & 3) << 1)) & 0x3;
+            const uint8_t pix = normal ? (uint8_t)(read_2bpp(px, py) ^ 0x3)
+                                       : (fb >> ((px & 3) << 1)) & 0x3;
             write_2bpp(px, py, pix);
         }
     }
@@ -570,7 +619,8 @@ void hdosDrawImage(const uint8_t *data, size_t size) {
     HdosCtx ctx = {};
     ctx.pen_val  = 0;    // pen colour 4 (black) maps to 2-bpp 0
     ctx.brush    = 5;    // default brush matches Apple renderer init
-    ctx.fill_idx = 3;    // fill colour 3 = solid white (0xff)
+    ctx.fill_idx = 0;    // cold-start fill selector 0 -> solid white (0xff);
+                         // matches NOVEL.EXE's statically-zeroed [0x9d46]
     ctx.text_x   = 140; ctx.text_y = 96;
     s_fill_left = 0; s_fill_top = 0; s_fill_right = 39; s_fill_bottom = 159;
 
