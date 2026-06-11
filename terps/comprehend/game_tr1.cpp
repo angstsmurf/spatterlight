@@ -88,7 +88,10 @@ TransylvaniaGame1::TransylvaniaGame1() : ComprehendGameV1(),
 		_itemGraphicFiles.push_back("OB");
 		_itemGraphicFiles.push_back("OC");
 
-		_titleGraphicFile = "";
+		// The Apple II title (gothic "Transylvania" + castle) is a Graphics
+		// Magician vector image living inside T0, after the disk-protection /
+		// loader stub. Pics::ImageFile starts it at the right offset (0xFE).
+		_titleGraphicFile = "t0";
 	} else {
 		_gameDataFile = "tr.gda";
 
