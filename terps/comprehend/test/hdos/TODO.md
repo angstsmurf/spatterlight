@@ -29,13 +29,41 @@ renderer (scripts below):
 
 ## Remaining (optional polish)
 
-- [ ] §4 Palette: the real game is CGA palette 1 **low intensity**
-      (`00aaaa/aa00aa/aaaaaa`); `kHdosColor[]` uses high intensity.  Decide
-      whether Spatterlight should match the game or keep the brighter look.
-      Index-space tests are unaffected either way.
-- [ ] §5 Widen coverage: capture more goldens (item pics `OA`/`OB`/`OE`/`OF`,
-      remaining `RA`–`RG` rooms, both disks) with the same flow and add them at
-      ceiling 0.
+- [x] §4 Palette: **DONE (2026-06-11)** — matched the real game.  The DOSBox
+      goldens are unambiguously CGA palette 1 **low intensity**
+      (`00aaaa/aa00aa/aaaaaa`), so `kHdosColor[]` now uses those values (was
+      high intensity `55ffff/ff55ff/ffffff`).  Index-space tests are unaffected;
+      the RGB→index maps in `test_hdos_pics.cpp` / `diff_hdos.cpp` / the two
+      `*.py` helpers accept both intensities (or were updated to the new one).
+- [x] §5 Widen coverage: **DONE (2026-06-11)** — all 94 valid `RA`–`RG` room
+      pictures are captured from DOSBox and added as committed fixtures; **93 are
+      pixel-exact (ceiling 0)**, the 94th (`RG_07`) is within 98 px (a localised
+      magenta-vs-cyan fill band, rows 105–115 — see below).  Captured by driving
+      the *native* picture interpreter directly rather than playing the game:
+      `dosbox_capture_pics.py` boots NOVEL1 under the GDB stub, finds the code
+      base by the op14 signature, and at the input-wait loop patches a 5-byte
+      "marching" stub (`MOV AL,G; CALL 0x1cc5`) over the current IP to draw an
+      arbitrary picture, then de-interleaves CGA VRAM.  `gen_room_fixtures.py`
+      slices the streams + packs the 280×160 goldens (2 bpp) into
+      `rooms_streams.bin` / `rooms_goldens.bin` / `rooms.tsv`; `test_hdos_pics`
+      iterates them.  Two findings worth keeping:
+      - **Picture addressing** (NOVEL.EXE `1cc5`→`1d25`→`1e10`): for 1-based AL
+        `G`, `file_index = ((G-1)&0x7f)>>4` (→ `'A'`+idx) and `pic_index =
+        (G-1)&0xf`; stream = `file[off[pic]:off[pic+1]]`.  Rooms `CALL 0x1cc5`
+        ('R' prefix), objects `CALL 0x1cf5` ('O').
+      - **op14 PAINT is prior-page-dependent**: full-screen rooms reproduce the
+        renderer only when drawn over a **black** page (so the capture clears to
+        black first).  Object/overlay pics (`OA`/`OB`/`OE`/`OF`) are sprites
+        drawn over the live room and need their real in-game predecessor — they
+        are *not* captured this way; do those via natural play if wanted.
+      - **Stub re-execution**: a self-looping stub (JMP back) only draws once on
+        this GDB stub (it won't resume over a breakpoint on the loop JMP); the
+        marching stub (fresh location per picture) works.  Keep the march below
+        the first picture handler (Circle @`0x2330`) — 105 stubs fit from
+        `0x207F`.
+- [ ] §5b `RG_07` near-miss (98 px): the renderer paints magenta where the game
+      shows cyan in a rows-105–115 band (`RG`@0x32c5).  Likely an op6 fill-colour
+      / subindex edge case used only here; recorded at ceiling 98 in `rooms.tsv`.
 - [ ] op13 DELAY end-state: the final frame is pixel-exact on all fixtures, so
       the slow-draw path demonstrably doesn't perturb it; spot-check a scene
       with mid-picture delays if one turns up.
