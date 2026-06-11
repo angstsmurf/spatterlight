@@ -7,7 +7,7 @@ Each test case is a pair of files:
 | `<name>.img`  | the picture's raw vector-opcode stream, as the renderer consumes it   |
 | `<name>.page` | golden 0x2000-byte Apple II hi-res page ($2000..$3FFF) captured from MAME running the real game |
 
-`test_talisman_pics` renders each `.img` through `apple2_talisman.cpp` and asserts
+`test_talisman_pics` renders each `.img` through `graphics_magician.cpp` and asserts
 the resulting hi-res page matches the golden `.page` byte-for-byte over the
 picture rows (Apple rows 0..159; rows 160..191 hold the game's text overlay,
 which the Glk port draws separately).
@@ -16,7 +16,7 @@ The renderer's drawing tables (pattern data, fill-colour subindices, brush
 bitmaps) are extracted at runtime from the boot disk's `T2` file (Graphics
 Magician code, loads at `$0800`). `test/talisman/t2.bin` is a captured copy of
 that file; `test_talisman_pics` and `pixtest` install it via
-`talismanInstallDrawingTables()` before drawing.
+`gmInstallDrawingTables()` before drawing.
 
 Run with:
 

@@ -22,7 +22,7 @@ LDLIBS     := -lglkimp -lglkmain
 
 CXX_SRCS := \
     apple2.cpp \
-    apple2_talisman.cpp \
+    graphics_magician.cpp \
     charset.cpp \
     comprehend.cpp \
     comprehend_compat.cpp \
@@ -69,10 +69,10 @@ clean:
 	rm -f $(OBJS) comprehend test/test_talisman_pics test/pixtest
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
-# Self-contained: apple2_talisman.cpp has no Glk/disk dependencies, so the test
+# Self-contained: graphics_magician.cpp has no Glk/disk dependencies, so the test
 # links only it. Fixtures live in test/talisman/.
-test/test_talisman_pics: test/test_talisman_pics.cpp apple2_talisman.cpp apple2_talisman.h
-	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_talisman_pics.cpp apple2_talisman.cpp
+test/test_talisman_pics: test/test_talisman_pics.cpp graphics_magician.cpp graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_talisman_pics.cpp graphics_magician.cpp
 
 test: test/test_talisman_pics
 	./test/test_talisman_pics
@@ -80,8 +80,8 @@ test: test/test_talisman_pics
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
 # image and log its hi-res writes. Used to capture new regression fixtures.
 # See test/talisman/README.md.
-test/pixtest: test/pixtest.cpp apple2_talisman.cpp ciderpress.o woz2nib.o read_le16.o
-	$(CXX) -std=c++14 -O0 -g -DTALISMAN_TRACE -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
-	    test/pixtest.cpp apple2_talisman.cpp ciderpress.o woz2nib.o read_le16.o
+test/pixtest: test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o
+	$(CXX) -std=c++14 -O0 -g -DGM_TRACE -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
+	    test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o
 
 .PHONY: clean test

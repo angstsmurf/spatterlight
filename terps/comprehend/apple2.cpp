@@ -1,7 +1,7 @@
 /* apple2.cpp -- Apple II disk-image import for the Comprehend port. */
 
 #include "apple2.h"
-#include "apple2_talisman.h"
+#include "graphics_magician.h"
 #include "comprehend_compat.h"
 
 #include <cstdio>
@@ -156,11 +156,11 @@ int loadAppleDiskImage(const Common::String &path) {
 
     // The Talisman boot disk's "T2" file (Graphics Magician) carries the
     // drawing tables (pattern data, fill-colour subindices, brush bitmaps)
-    // used by apple2_talisman.cpp. Install them now that every side has been
+    // used by graphics_magician.cpp. Install them now that every side has been
     // loaded; the renderer is otherwise a no-op.
     const std::vector<byte> *t2 = Common::DiskImageFS::get("t2");
     if (t2)
-        talismanInstallDrawingTables(t2->data(), t2->size());
+        gmInstallDrawingTables(t2->data(), t2->size());
 
     return total;
 }

@@ -1,42 +1,45 @@
-/* apple2_talisman.cpp -- pixel-faithful renderer for the Apple II version of
- * Talisman (Polarware, 1987), STANDARD hi-res mode.
+/* graphics_magician.cpp -- pixel-faithful renderer for the Apple II Comprehend
+ * games (Transylvania, OO-Topos, Crimson Crown, Talisman), STANDARD hi-res mode.
  *
- * Talisman's room/item pictures are drawn with Penguin Software's "Graphics
+ * Their room/item/title pictures are drawn with Penguin Software's "Graphics
  * Magician" / "Picture Painter" vector format -- the SAME engine the Apple II
  * Scott Adams games use. The drawing primitives render into a real Apple hi-res
  * framebuffer (s_screenmem); a second pass converts that to RGBA using the
  * Apple NTSC artifact-colour algorithm (from terps/common_sagadraw/apple2draw.c).
  *
  * Each primitive here was transliterated from, and verified byte-for-byte
- * against, Talisman's own 6502 routines (Ghidra on a MAME RAM dump, plus running
+ * against, the games' own 6502 routines (Ghidra on a MAME RAM dump, plus running
  * the real ROM routines on identical inputs and diffing the resulting hi-res
  * page): line = Applesoft HLINE ($F53A); box = four HLINEs ($095B); circle =
  * midpoint circle ($0AD3); brush = $0FFB/$102E; flood fill = the queue-based
- * span fill ($0CCA); background fill = op15 sub-op3 ($0A2D). Output now matches
- * the hardware byte-exactly over every picture row in the regression set
- * (test/test_talisman_pics.cpp).
+ * span fill ($0CCA); background fill = op15 sub-op3 ($0A2D); delay = the $09BB
+ * counting loop. Output matches the hardware byte-exactly over every picture row
+ * in the regression set (test/test_talisman_pics.cpp).
  *
- * This is the STANDARD hi-res renderer (the game's <S> boot option); the
- * canonical double hi-res renderer (<D>) is a separate, much larger porting
- * effort and is not used here.
+ * This is the STANDARD hi-res renderer (the games' <S> boot option, where
+ * offered); the canonical double hi-res renderer (<D>) is a separate, much
+ * larger porting effort and is not used here.
  *
- * Talisman uses a LATER variant of the format that repurposes two opcodes the
- * 1984 Graphics Magician left unused (verified against MAME + the disassembly
- * at https://6502disassembly.com/a2-graphics-magician/PICDRAWH_1984.html):
- *   - op7 (0x7x): a 2-operand NO-OP (1984: end-of-image).
- *   - op15 (0xf, "RESET"): sub-op in the low nibble -- param1 sets the fill
- *     rectangle to full screen, param2 reads 4 bytes of bounds, param3 fills
- *     the rectangle with the current colour pattern (the per-image background).
+ * The four titles share one engine but in two dialects, selected by
+ * gmSetLegacyFormat() (verified against MAME + the disassembly at
+ * https://6502disassembly.com/a2-graphics-magician/PICDRAWH_1984.html):
+ *   - Talisman and OO-Topos use the later variant: op7 (0x7x) is a 2-operand
+ *     NO-OP and op15 (0xf, "RESET") is a low-nibble sub-op (param1 sets the fill
+ *     rectangle to full screen, param2 reads 4 bytes of bounds, param3 fills the
+ *     rectangle with the current colour pattern -- the per-image background).
+ *   - Transylvania and Crimson Crown use the older variant (the legacy flag):
+ *     op7 and op15 end the image, and fills clip to the full screen (their
+ *     background PAINT seeds in the bottom text rows).
  *
  * The colour/pattern tables (s_patternData, s_colorPatternSubindices,
  * s_brushBitmaps) are not hard-coded: they are pulled at runtime out of the
- * Graphics Magician code file "T2" on the boot disk by
- * talismanInstallDrawingTables() (see below). apple2.cpp calls it once the
- * disks are mounted; the regression test loads the captured fixture
- * test/talisman/t2.bin.
+ * Graphics Magician code file "T2" on the boot disk by gmInstallDrawingTables()
+ * (located by signature, since each release places them at a different offset).
+ * apple2.cpp calls it once the disks are mounted; the regression test loads each
+ * game's captured T2 fixture.
  */
 
-#include "apple2_talisman.h"
+#include "graphics_magician.h"
 #include <cstring>
 #include <vector>
 
@@ -44,7 +47,7 @@ namespace Glk {
 namespace Comprehend {
 
 // ---- Drawing tables ----------------------------------------------------------
-// Populated by talismanInstallDrawingTables() from the boot disk's T2 file.
+// Populated by gmInstallDrawingTables() from the boot disk's T2 file.
 // Until then they stay zero, which renders nothing (matches the behaviour of an
 // Apple II that hasn't loaded the Graphics Magician code yet).
 
@@ -58,7 +61,7 @@ static uint8_t s_fontGlyphs[128 * 8];           // op3/op5 picture font, 8 bytes
 //   $1132 -> s_colorPatternSubindices (216 bytes)
 //   $120A -> s_patternData            (120 bytes)
 //   $1282 -> s_brushBitmaps           (256 bytes)
-bool talismanInstallDrawingTables(const uint8_t *t2, size_t size) {
+bool gmInstallDrawingTables(const uint8_t *t2, size_t size) {
     if (!t2)
         return false;
 
@@ -127,7 +130,7 @@ bool talismanInstallDrawingTables(const uint8_t *t2, size_t size) {
 // Persistent across calls: item / overlay images are drawn straight on top of
 // the room already rendered into the Apple hi-res page (the real interpreter
 // never clears the screen for an item picture), so callers reset it explicitly
-// via talismanResetScreen() only when starting a fresh room.
+// via gmResetScreen() only when starting a fresh room.
 static uint8_t s_screenmem[A2_SCREEN_MEM_SIZE];
 
 static inline bool valid_offset(uint16_t off) { return off <= MAX_SCREEN_ADDR; }
@@ -137,7 +140,7 @@ static inline bool valid_offset(uint16_t off) { return off <= MAX_SCREEN_ADDR; }
 // Like the Apple II Scott Adams and Level 9 renderers, the picture can be
 // revealed progressively in the order the interpreter actually plotted it,
 // imitating the few seconds the real Graphics Magician took to paint a hi-res
-// page. When recording is enabled (talismanSetSlowDraw(true)), every hi-res
+// page. When recording is enabled (gmSetSlowDraw(true)), every hi-res
 // byte written goes both into the final page (s_screenmem, as before) and onto
 // an ordered op list. The visible page (s_slowScreen) starts at the background
 // and the host re-applies the ops a chunk at a time on a Glk timer, re-blitting
@@ -156,7 +159,7 @@ struct WriteOp { uint16_t offset; uint8_t value; };
 // counting loop "LDX #$80; LDY #$A0; DEY/BNE; DEX/BNE; DEC operand; BNE" =
 // 128 * 160 inner iterations per unit = ~103,176 6502 cycles, which at the
 // Apple II's 1.0205 MHz is ~101 ms per unit. At the host's 10 ms slow-draw tick
-// (TALISMAN_SLOW_TICK_MS) that is ~10 ticks per unit.
+// (GM_SLOW_TICK_MS) that is ~10 ticks per unit.
 #define DELAY_TICKS_PER_UNIT 10
 
 static uint8_t s_slowScreen[A2_SCREEN_MEM_SIZE]; // progressively-revealed page
@@ -191,14 +194,14 @@ static void mark_row_dirty(uint16_t offset) {
 	if (r > s_dirtyMax) s_dirtyMax = r;
 }
 
-#ifdef TALISMAN_TRACE
-// Diagnostic hooks for the offline pixtest harness (built with -DTALISMAN_TRACE,
-// see test/pixtest.cpp). g_talismanWriteLog fires for every hi-res byte written,
-// tagged with the current drawing primitive; g_talismanOnOp fires once per
+#ifdef GM_TRACE
+// Diagnostic hooks for the offline pixtest harness (built with -DGM_TRACE,
+// see test/pixtest.cpp). g_gmWriteLog fires for every hi-res byte written,
+// tagged with the current drawing primitive; g_gmOnOp fires once per
 // opcode, before it draws, with the opcode's stream position, raw bytes and pen.
 // These are absent from the normal (non-traced) interpreter build.
-void (*g_talismanWriteLog)(uint16_t, uint8_t, char) = nullptr;
-void (*g_talismanOnOp)(int pos, int op, int b1, int b2, int x, int y) = nullptr;
+void (*g_gmWriteLog)(uint16_t, uint8_t, char) = nullptr;
+void (*g_gmOnOp)(int pos, int op, int b1, int b2, int x, int y) = nullptr;
 static char g_currentPrim = '?';
 static const uint8_t *g_imgBase = nullptr;
 #endif
@@ -208,15 +211,15 @@ static void write_screen(uint16_t offset, uint8_t value) {
 		s_screenmem[offset] = value;
 		if (s_recordOps)
 			s_ops.push_back({offset, value});
-#ifdef TALISMAN_TRACE
-		if (g_talismanWriteLog)
-			g_talismanWriteLog(offset, value, g_currentPrim);
+#ifdef GM_TRACE
+		if (g_gmWriteLog)
+			g_gmWriteLog(offset, value, g_currentPrim);
 #endif
 	}
 }
 
 // ---- Drawing context ----------------------------------------------------------
-// (Opcode enum is shared via apple2_talisman.h.)
+// (Opcode enum is shared via graphics_magician.h.)
 
 typedef struct {
 	uint16_t HBAS;
@@ -826,22 +829,22 @@ static void fill_rect_pattern(a2_ctx *ctx, uint8_t pat_even, uint8_t pat_odd) {
 // dialect used by the earlier Comprehend titles (Transylvania, OO-Topos, Crimson
 // Crown) ends an image on op7 as well as op0, never emits op15, and fills against
 // the full screen (its background PAINT seeds in the bottom text rows). Selected
-// per game via talismanSetLegacyFormat().
+// per game via gmSetLegacyFormat().
 static bool s_legacyFormat = false;
 
 static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 	const uint8_t *ptr = *outptr;
 	if (ptr >= end) return true;
-#ifdef TALISMAN_TRACE
-	if (g_talismanOnOp)
-		g_talismanOnOp((int)(ptr - g_imgBase), ptr[0],
+#ifdef GM_TRACE
+	if (g_gmOnOp)
+		g_gmOnOp((int)(ptr - g_imgBase), ptr[0],
 			(ptr + 1 < end) ? ptr[1] : 0, (ptr + 2 < end) ? ptr[2] : 0,
 			ctx->HGR_X, ctx->HGR_Y);
 #endif
 	uint8_t opcode = *ptr++;
 	uint8_t param = opcode & 0xf;
 	opcode >>= 4;
-#ifdef TALISMAN_TRACE
+#ifdef GM_TRACE
 	{
 		// One tag per primitive (op >> 4), matching test/pixtest's opName order.
 		static const char kPrim[16] = {'.','t','p','c','s','o','f','.',
@@ -1053,7 +1056,7 @@ static void screenmem_to_rgba(const uint8_t *src, uint32_t *out, int w, int h) {
 
 // ---- Public entry -------------------------------------------------------------
 
-void talismanResetScreen(bool white) {
+void gmResetScreen(bool white) {
 	memset(s_screenmem, white ? 0xff : 0x00, A2_SCREEN_MEM_SIZE);
 	// A reset starts a fresh page: the background appears instantly on the
 	// visible page too, and any pending reveal is dropped.
@@ -1065,11 +1068,11 @@ void talismanResetScreen(bool white) {
 
 // ---- Slow-draw control (host-driven) ----------------------------------------
 
-void talismanSetSlowDraw(bool on) { s_recordOps = on; }
+void gmSetSlowDraw(bool on) { s_recordOps = on; }
 
 // True while there is reveal work left: recorded ops still to paint, or a DELAY
 // pause still owed.
-bool talismanSlowDrawActive() {
+bool gmSlowDrawActive() {
 	return s_recordOps && (s_opsDrawn < s_ops.size() || s_pauseTicks > 0);
 }
 
@@ -1084,7 +1087,7 @@ static bool ops_adjacent(const WriteOp &a, const WriteOp &b) {
 // across adjacent runs. A DELAY marker halts this tick's reveal and owes a run
 // of pause ticks (during which nothing is revealed). Returns true while any
 // reveal work -- ops or an outstanding pause -- remains.
-bool talismanAdvanceSlowDraw(int budget) {
+bool gmAdvanceSlowDraw(int budget) {
 	if (s_pauseTicks > 0) {
 		s_pauseTicks--;
 		return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
@@ -1109,7 +1112,7 @@ bool talismanAdvanceSlowDraw(int budget) {
 
 // Reveal the rest of the image at once (e.g. on a window resize, or when the
 // reveal is cancelled). Leaves the visible page identical to the final page.
-void talismanFinishSlowDraw() {
+void gmFinishSlowDraw() {
 	for (; s_opsDrawn < s_ops.size(); s_opsDrawn++) {
 		if (s_ops[s_opsDrawn].offset == DELAY_MARKER)
 			continue;                      // pauses collapse when finishing at once
@@ -1121,7 +1124,7 @@ void talismanFinishSlowDraw() {
 
 // Hand back the row band touched since the last call (inclusive), and reset it.
 // Returns false if nothing changed.
-bool talismanSlowConsumeDirty(int *y0, int *y1) {
+bool gmSlowConsumeDirty(int *y0, int *y1) {
 	if (s_dirtyMax < 0)
 		return false;
 	*y0 = s_dirtyMin;
@@ -1131,16 +1134,16 @@ bool talismanSlowConsumeDirty(int *y0, int *y1) {
 	return true;
 }
 
-void talismanBlitSlowToSurface(uint32_t *out, int w, int h) {
+void gmBlitSlowToSurface(uint32_t *out, int w, int h) {
 	screenmem_to_rgba(s_slowScreen, out, w, h);
 }
 
 // Diagnostic accessor (offline pixel-diff harness): the raw 0x2000-byte page.
-const uint8_t *talismanPagePtr() { return s_screenmem; }
-void talismanSetPage(const uint8_t *p) { memcpy(s_screenmem, p, A2_SCREEN_MEM_SIZE); }
+const uint8_t *gmPagePtr() { return s_screenmem; }
+void gmSetPage(const uint8_t *p) { memcpy(s_screenmem, p, A2_SCREEN_MEM_SIZE); }
 
-void talismanDrawImage(const uint8_t *data, size_t size) {
-#ifdef TALISMAN_TRACE
+void gmDrawImage(const uint8_t *data, size_t size) {
+#ifdef GM_TRACE
 	g_imgBase = data;
 #endif
 	// Each image is its own reveal: drop the previous image's op list (a room
@@ -1177,11 +1180,11 @@ void talismanDrawImage(const uint8_t *data, size_t size) {
 		memcpy(s_slowScreen, s_screenmem, A2_SCREEN_MEM_SIZE);
 }
 
-void talismanBlitToSurface(uint32_t *out, int w, int h) {
+void gmBlitToSurface(uint32_t *out, int w, int h) {
 	screenmem_to_rgba(s_screenmem, out, w, h);
 }
 
-void talismanSetLegacyFormat(bool on) { s_legacyFormat = on; }
+void gmSetLegacyFormat(bool on) { s_legacyFormat = on; }
 
 } // namespace Comprehend
 } // namespace Glk

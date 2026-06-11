@@ -2,7 +2,7 @@
  *
  * Each case pairs a picture's raw vector-opcode stream (extracted from the game
  * disk) with a golden Apple II hi-res page captured from MAME running the real
- * game. The test renders the stream through apple2_talisman.cpp and asserts the
+ * game. The test renders the stream through graphics_magician.cpp and asserts the
  * resulting hi-res page matches MAME byte-for-byte over the picture rows.
  *
  * Self-contained: needs neither MAME nor the .woz disks at test time. To add a
@@ -16,7 +16,7 @@
  * hold the game's text overlay, which the Glk port renders separately.
  */
 
-#include "../apple2_talisman.h"
+#include "../graphics_magician.h"
 #include <cstdio>
 #include <cstdint>
 #include <cstdlib>
@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
 		// The drawing tables come from the game's own T2 file; the signature
 		// locator finds them wherever that release placed them.
 		std::vector<uint8_t> t2 = readFile(prefix + c.t2);
-		if (t2.empty() || !talismanInstallDrawingTables(t2.data(), t2.size())) {
+		if (t2.empty() || !gmInstallDrawingTables(t2.data(), t2.size())) {
 			fprintf(stderr, "FAIL %-22s : could not load %s (size=%zu)\n",
 				c.name, c.t2, t2.size());
 			failures++;
@@ -107,10 +107,10 @@ int main(int argc, char **argv) {
 			continue;
 		}
 
-		talismanSetLegacyFormat(c.legacy);
-		talismanResetScreen(c.whiteBg);
-		talismanDrawImage(img.data(), img.size());
-		const uint8_t *page = talismanPagePtr();
+		gmSetLegacyFormat(c.legacy);
+		gmResetScreen(c.whiteBg);
+		gmDrawImage(img.data(), img.size());
+		const uint8_t *page = gmPagePtr();
 
 		int diffs = 0, firstOff = -1;
 		for (int off = 0; off < 0x2000; off++) {

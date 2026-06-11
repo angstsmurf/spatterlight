@@ -24,14 +24,14 @@ extern "C" {
 }
 
 namespace Glk { namespace Comprehend {
-void talismanResetScreen(bool white);
-void talismanDrawImage(const uint8_t *data, size_t size);
-const uint8_t *talismanPagePtr();
-void talismanSetPage(const uint8_t *p);
-void talismanBlitToSurface(uint32_t *out, int w, int h);
-bool talismanInstallDrawingTables(const uint8_t *t2, size_t size);
-extern void (*g_talismanWriteLog)(uint16_t, uint8_t, char);
-extern void (*g_talismanOnOp)(int pos, int op, int b1, int b2, int x, int y);
+void gmResetScreen(bool white);
+void gmDrawImage(const uint8_t *data, size_t size);
+const uint8_t *gmPagePtr();
+void gmSetPage(const uint8_t *p);
+void gmBlitToSurface(uint32_t *out, int w, int h);
+bool gmInstallDrawingTables(const uint8_t *t2, size_t size);
+extern void (*g_gmWriteLog)(uint16_t, uint8_t, char);
+extern void (*g_gmOnOp)(int pos, int op, int b1, int b2, int x, int y);
 }}
 
 using namespace Glk::Comprehend;
@@ -86,10 +86,10 @@ static void renderPageToPPM(const char *pageIn, const char *ppmOut) {
 	uint8_t page[0x2000];
 	if (!f || fread(page, 1, 0x2000, f) != 0x2000) { fprintf(stderr, "bad page file\n"); return; }
 	fclose(f);
-	talismanSetPage(page);
+	gmSetPage(page);
 	int w = 280, h = 192;
 	uint32_t *rgba = (uint32_t *)malloc(w * h * 4);
-	talismanBlitToSurface(rgba, w, h);
+	gmBlitToSurface(rgba, w, h);
 	FILE *o = fopen(ppmOut, "wb");
 	fprintf(o, "P6\n%d %d\n255\n", w, h);
 	for (int i = 0; i < w * h; i++) {
@@ -136,14 +136,14 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 	if (t2) {
-		talismanInstallDrawingTables(t2->data, t2->datasize);
+		gmInstallDrawingTables(t2->data, t2->datasize);
 	} else {
 		// Side 2/3 don't carry T2; fall back to the captured fixture so the
 		// renderer still has its drawing tables.
 		size_t fxSz = 0;
 		uint8_t *fx = readFile("test/talisman/t2.bin", &fxSz);
 		if (!fx) fx = readFile("terps/comprehend/test/talisman/t2.bin", &fxSz);
-		if (fx && talismanInstallDrawingTables(fx, fxSz)) {
+		if (fx && gmInstallDrawingTables(fx, fxSz)) {
 			fprintf(stderr, "loaded drawing tables from test/talisman/t2.bin\n");
 		} else {
 			fprintf(stderr, "warning: 'T2' not on this disk and no t2.bin fixture; drawing tables left zero\n");
@@ -176,13 +176,13 @@ int main(int argc, char **argv) {
 	}
 
 	// Reset to a white page (room background) like drawPicture() for a fresh room.
-	talismanResetScreen(true);
+	gmResetScreen(true);
 	const char *otp = getenv("PIXTEST_OPTRACE");
-	if (otp) { g_optrace = fopen(otp, "w"); g_talismanOnOp = onOp; }
-	g_talismanWriteLog = logWrite;
-	talismanDrawImage(fb + start, flen - start);
-	g_talismanWriteLog = nullptr;
-	g_talismanOnOp = nullptr;
+	if (otp) { g_optrace = fopen(otp, "w"); g_gmOnOp = onOp; }
+	g_gmWriteLog = logWrite;
+	gmDrawImage(fb + start, flen - start);
+	g_gmWriteLog = nullptr;
+	g_gmOnOp = nullptr;
 	if (g_optrace) fclose(g_optrace);
 
 	if (g_out != stdout) fclose(g_out);
@@ -190,7 +190,7 @@ int main(int argc, char **argv) {
 	const char *pagePath = getenv("PIXTEST_PAGE");
 	if (pagePath) {
 		FILE *pf = fopen(pagePath, "wb");
-		if (pf) { fwrite(talismanPagePtr(), 1, 0x2000, pf); fclose(pf); }
+		if (pf) { fwrite(gmPagePtr(), 1, 0x2000, pf); fclose(pf); }
 	}
 	fprintf(stderr, "wrote %ld screen writes\n", g_count);
 	return 0;
