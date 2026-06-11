@@ -12,7 +12,8 @@
 
 #include "glk.h"
 #include "glkimp.h"
-#include "decompressz80.h"      /* ExtractTapePayloads */
+#include "decompressz80.h"      /* ExtractTapePayloads, SCREEN$ geometry/decode */
+#include "zx_title.h"           /* shared ZXTitle renderer */
 #include "palette.h"            /* pal[], palchosen, ZXOPT, DefinePalette */
 #include "taylor.h"
 #include "ui.h"                 /* Bottom, Top, Graphics, Open*Window */
@@ -29,17 +30,10 @@ uint8_t *ZXLoadingScreen = NULL;
 static uint16_t AlkatrazDrawOrder[6912];
 static int AlkatrazDrawOrderLen = 0;
 
-/* ZX Spectrum display-file addressing and 8x8 character cells. The format
-   geometry (ZX_SCREEN_SIZE, ZX_BITMAP_SIZE, ZX_SCREEN_WIDTH/HEIGHT,
-   ZX_SCREEN_COLS) and the bitmap/attribute decode come from decompressz80.h. */
-#define ZX_SCREEN_BASE      0x4000  /* display file (bitmap) start address  */
-#define ZX_ATTR_BASE        0x5800  /* colour attribute area start address  */
-#define ZX_CELL             8       /* pixels per byte / character cell side */
-#define ZX_COL_MASK         0x1f    /* column index within a row            */
-
-/* Reveal timing: ~REVEAL_TICKS timer steps to paint the whole screen. */
-#define ZX_REVEAL_TICK_MS 30
-#define ZX_REVEAL_TICKS   120
+/* Display-file (bitmap) start address; the SCREEN$ geometry and decode, and
+   the scaled/centred drawing itself, all come from the shared ZXTitle
+   renderer (zx_title.h) and decompressz80.h. */
+#define ZX_SCREEN_BASE      0x4000
 
 void ZXSetDrawOrder(const uint16_t *order, int count)
 {
@@ -50,83 +44,6 @@ void ZXSetDrawOrder(const uint16_t *order, int count)
     if (count > 0)
         memcpy(AlkatrazDrawOrder, order, count * sizeof AlkatrazDrawOrder[0]);
     AlkatrazDrawOrderLen = count;
-}
-
-/* Draw the 6912-byte SCREEN$ into the (already open) Graphics window,
-   scaled by the largest integer multiplier that fits and centred both
-   ways. We fill rectangles directly rather than going through PutPixel,
-   which has no vertical offset and shares globals the game still needs. */
-/* Largest integer scale that fits 256x192 in the window, and the centring
-   offsets. */
-static void zx_geometry(int *scale, int *origin_x, int *origin_y)
-{
-    glui32 win_w, win_h;
-    glk_window_get_size(Graphics, &win_w, &win_h);
-
-    int s = win_h / ZX_SCREEN_HEIGHT;
-    if ((glui32)(ZX_SCREEN_WIDTH * s) > win_w)
-        s = win_w / ZX_SCREEN_WIDTH;
-    if (s < 1)
-        s = 1;
-
-    *scale = s;
-    *origin_x = ((int)win_w - ZX_SCREEN_WIDTH * s) / 2;
-    *origin_y = ((int)win_h - ZX_SCREEN_HEIGHT * s) / 2;
-}
-
-/* Draw the 8 pixels of one bitmap byte (display-file address bmaddr) using the
-   attribute currently in scr for that cell. */
-static void DrawBitmapByte(const uint8_t *screen, uint16_t bitmap_addr,
-    int scale, int origin_x, int origin_y)
-{
-    int byte_offset = bitmap_addr - ZX_SCREEN_BASE;
-    int char_col = byte_offset & ZX_COL_MASK;
-    int pixel_y = ZXBitmapRow(byte_offset);
-
-    uint8_t row_bits = screen[byte_offset];
-    uint8_t attr = screen[ZX_BITMAP_SIZE + (pixel_y / ZX_CELL) * ZX_SCREEN_COLS + char_col];
-    int ink, paper;
-    ZXDecodeAttr(attr, &ink, &paper);
-    /* The flash bit is ignored for a static title image. */
-
-    for (int bit = 0; bit < ZX_CELL; bit++) {
-        int pixel_on = (row_bits >> (ZX_CELL - 1 - bit)) & 1;
-        glk_window_fill_rect(Graphics, pal[pixel_on ? ink : paper],
-            origin_x + (char_col * ZX_CELL + bit) * scale,
-            origin_y + pixel_y * scale, scale, scale);
-    }
-}
-
-/* Redraw the cell at a screen address: one bitmap byte, or (for an attribute
-   address) the whole 8x8 character it colours. */
-static void RedrawCell(const uint8_t *screen, uint16_t screen_addr,
-    int scale, int origin_x, int origin_y)
-{
-    if (screen_addr < ZX_ATTR_BASE) {
-        DrawBitmapByte(screen, screen_addr, scale, origin_x, origin_y);
-        return;
-    }
-    int attr_index = screen_addr - ZX_ATTR_BASE;
-    int cell_row = attr_index / ZX_SCREEN_COLS, cell_col = attr_index & ZX_COL_MASK;
-    for (int pixel_row = 0; pixel_row < ZX_CELL; pixel_row++) {
-        int pixel_y = cell_row * ZX_CELL + pixel_row;
-        DrawBitmapByte(screen, (uint16_t)(ZX_SCREEN_BASE + ZXBitmapOffset(pixel_y, cell_col)),
-            scale, origin_x, origin_y);
-    }
-}
-
-static void DrawZXScreen(const uint8_t *screen)
-{
-    if (!screen || !Graphics)
-        return;
-
-    int scale, origin_x, origin_y;
-    zx_geometry(&scale, &origin_x, &origin_y);
-
-    for (int pixel_y = 0; pixel_y < ZX_SCREEN_HEIGHT; pixel_y++)
-        for (int char_col = 0; char_col < ZX_SCREEN_COLS; char_col++)
-            DrawBitmapByte(screen, (uint16_t)(ZX_SCREEN_BASE + ZXBitmapOffset(pixel_y, char_col)),
-                scale, origin_x, origin_y);
 }
 
 /* The loading screen is, in practice, always the first standard-length
@@ -213,107 +130,6 @@ uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
     return screen;
 }
 
-/* Wait for a keypress on the title, redrawing the screen on resize. */
-static void WaitForKeyZX(winid_t keywin)
-{
-    if (keywin == NULL)
-        return;
-    glk_request_char_event(keywin);
-
-    event_t ev;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_Arrange) {
-#ifdef SPATTERLIGHT
-            if (!gli_enable_graphics)
-                break;
-#endif
-            glk_window_clear(Graphics);
-            DrawZXScreen(ZXLoadingScreen);
-        }
-    } while (ev.type != evtype_CharInput);
-}
-
-/* Reveal the title progressively, in the order the loader drew it (the
-   captured Alkatraz order, or a linear top-to-bottom sweep for plain loaders),
-   on a timer. A keypress dismisses it (skipping any remaining reveal). */
-static void ZXSlowReveal(winid_t keywin)
-{
-    if (keywin == NULL || !ZXLoadingScreen)
-        return;
-
-    const uint16_t *order;
-    int order_len;
-    static uint16_t linear[ZX_SCREEN_SIZE];
-    if (AlkatrazDrawOrderLen > 0) {
-        order = AlkatrazDrawOrder;
-        order_len = AlkatrazDrawOrderLen;
-    } else {
-        for (int i = 0; i < ZX_SCREEN_SIZE; i++)
-            linear[i] = (uint16_t)(ZX_SCREEN_BASE + i);
-        order = linear;
-        order_len = ZX_SCREEN_SIZE;
-    }
-
-    /* Start from the unrevealed background: copy the finished screen, then
-       blank the cells we are about to draw (bitmap to black, attributes to the
-       screen's uniform fill = its most common attribute byte). */
-    static uint8_t work_screen[ZX_SCREEN_SIZE];
-    memcpy(work_screen, ZXLoadingScreen, ZX_SCREEN_SIZE);
-    int attr_counts[256] = { 0 };
-    for (int i = ZX_BITMAP_SIZE; i < ZX_SCREEN_SIZE; i++)
-        attr_counts[ZXLoadingScreen[i]]++;
-    int fill_attr = 0;
-    for (int value = 1; value < 256; value++)
-        if (attr_counts[value] > attr_counts[fill_attr])
-            fill_attr = value;
-    for (int i = 0; i < order_len; i++) {
-        uint16_t addr = order[i];
-        work_screen[addr - ZX_SCREEN_BASE] =
-            (addr < ZX_ATTR_BASE) ? 0x00 : (uint8_t)fill_attr;
-    }
-
-    int scale, origin_x, origin_y;
-    zx_geometry(&scale, &origin_x, &origin_y);
-    glk_window_clear(Graphics);
-    DrawZXScreen(work_screen);
-
-    int cells_per_tick = order_len / ZX_REVEAL_TICKS;
-    if (cells_per_tick < 1)
-        cells_per_tick = 1;
-    int reveal_pos = 0;
-
-    glk_request_timer_events(ZX_REVEAL_TICK_MS);
-    glk_request_char_event(keywin);
-
-    event_t ev;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_Timer) {
-            int batch_end = reveal_pos + cells_per_tick;
-            if (batch_end > order_len)
-                batch_end = order_len;
-            for (; reveal_pos < batch_end; reveal_pos++) {
-                uint16_t addr = order[reveal_pos];
-                work_screen[addr - ZX_SCREEN_BASE] = ZXLoadingScreen[addr - ZX_SCREEN_BASE];
-                RedrawCell(work_screen, addr, scale, origin_x, origin_y);
-            }
-            if (reveal_pos >= order_len)
-                glk_request_timer_events(0);
-        } else if (ev.type == evtype_Arrange) {
-#ifdef SPATTERLIGHT
-            if (!gli_enable_graphics)
-                break;
-#endif
-            zx_geometry(&scale, &origin_x, &origin_y);
-            glk_window_clear(Graphics);
-            DrawZXScreen(work_screen);
-        }
-    } while (ev.type != evtype_CharInput);
-
-    glk_request_timer_events(0);
-}
-
 void DrawZXTitleImage(void)
 {
 #ifdef SPATTERLIGHT
@@ -370,18 +186,16 @@ void DrawZXTitleImage(void)
         keywin = Bottom;
     }
 
-    /* Reveal the picture slowly (in the loader's draw order) when the
-       slow-draw setting is on; otherwise paint it at once. */
+    /* Reveal the picture slowly (in the loader's draw order, when one was
+       captured) when the slow-draw setting is on; otherwise paint it at once.
+       taylor uses the brighter ZXOPT palette (pal[]) and centres vertically. */
     int slow = 1;
 #ifdef SPATTERLIGHT
     slow = gli_slowdraw && !gli_determinism;
 #endif
-    if (slow) {
-        ZXSlowReveal(keywin);
-    } else {
-        DrawZXScreen(ZXLoadingScreen);
-        WaitForKeyZX(keywin);
-    }
+    ZXTitle title = { Graphics, pal, 2, 0, 0, 0 };
+    ZXTitleShow(&title, ZXLoadingScreen, keywin, slow,
+        AlkatrazDrawOrderLen > 0 ? AlkatrazDrawOrder : NULL, AlkatrazDrawOrderLen);
 
     /* Tear the title down and rebuild the normal window stack. */
     glk_window_close(Graphics, NULL);
