@@ -20,7 +20,7 @@
  */
 
 #include "pics.h"
-#include "apple2_talisman.h"
+#include "graphics_magician.h"
 #include "comprehend_compat.h"
 #include "charset.h"
 #include <vector>
@@ -35,7 +35,7 @@ namespace Comprehend {
 
 #define IMAGES_PER_FILE 16
 
-// Opcode enum is shared via apple2_talisman.h (included above).
+// Opcode enum is shared via graphics_magician.h (included above).
 
 enum SpecialOpcode {
 	RESETOP_0 = 0,
@@ -335,7 +335,7 @@ void Pics::ImageFile::renderApple(uint index) const {
 	f.seek(start);
 	f.read(buf.data(), (uint32)len);
 
-	talismanDrawImage(buf.data(), len);
+	gmDrawImage(buf.data(), len);
 }
 
 /*-------------------------------------------------------*/
@@ -444,18 +444,18 @@ void Pics::drawPicture(int pictureNum) const {
 	// the room already drawn there, exactly as the real interpreter does), then
 	// the whole page is converted to RGBA and blitted. All four Apple disk titles
 	// (Talisman, Transylvania, OO-Topos, Crimson Crown) are validated pixel-exact
-	// vs MAME; the dialect differences are handled by talismanSetLegacyFormat().
+	// vs MAME; the dialect differences are handled by gmSetLegacyFormat().
 	if (Common::DiskImageFS::active()) {
 		DrawSurface *ds = ctx._drawSurface;
 
 		if (pictureNum == DARK_ROOM) {
-			talismanResetScreen(false);
+			gmResetScreen(false);
 		} else if (pictureNum == BRIGHT_ROOM) {
-			talismanResetScreen(true);
+			gmResetScreen(true);
 		} else if (pictureNum == TITLE_IMAGE) {
 			// The Apple II title (T0) is a Graphics Magician vector image drawn
 			// on a white background, exactly like a bright room picture.
-			talismanResetScreen(true);
+			gmResetScreen(true);
 			if (_title.isLoaded())
 				_title.renderApple(0);
 		} else if (pictureNum >= ITEMS_OFFSET) {
@@ -466,7 +466,7 @@ void Pics::drawPicture(int pictureNum) const {
 			// Room picture. Background variants start from a fresh page; the
 			// no-background variant composes onto whatever is already shown.
 			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
-				talismanResetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
+				gmResetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
 			int n = pictureNum % 100;
 			_rooms[n / IMAGES_PER_FILE].renderApple(n % IMAGES_PER_FILE);
 		}
@@ -474,10 +474,10 @@ void Pics::drawPicture(int pictureNum) const {
 		// With slow-draw active the page is revealed a chunk at a time by the
 		// host (Comprehend::drawPicture); blit only what is on the visible page
 		// so far. Otherwise blit the finished page.
-		if (talismanSlowDrawActive())
-			talismanBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+		if (gmSlowDrawActive())
+			gmBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
 		else
-			talismanBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+			gmBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
 		return;
 	}
 

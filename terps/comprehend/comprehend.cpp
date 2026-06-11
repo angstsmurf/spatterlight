@@ -1,7 +1,7 @@
 /* Comprehend engine glue — Spatterlight port. */
 
 #include "comprehend.h"
-#include "apple2_talisman.h"
+#include "graphics_magician.h"
 #include "draw_surface.h"
 #include "game.h"
 #include "game_cc.h"
@@ -22,8 +22,8 @@ namespace Comprehend {
 // Apple II Talisman slow-draw pacing. The byte count per tick pairs with the
 // tick interval — change them together. Matches the Apple II Scott Adams
 // renderer's feel (10 ms ticks, tens of bytes a tick).
-#define TALISMAN_SLOW_TICK_MS       10
-#define TALISMAN_SLOW_BYTES_PER_TICK 50
+#define GM_SLOW_TICK_MS       10
+#define GM_SLOW_BYTES_PER_TICK 50
 
 // Spatterlight user settings, exported by glkimp (the headless build defines
 // them as 0 in cheapglk). gli_slowdraw enables the animated picture reveal;
@@ -90,12 +90,12 @@ void Comprehend::createGame() {
     else if (_gameId == "transylvaniav2") _game = new TransylvaniaGame2();
     else                                  error("Unknown game id '%s'", _gameId.c_str());
 
-    // The Apple II hi-res renderer (apple2_talisman.cpp) handles two Graphics
+    // The Apple II hi-res renderer (graphics_magician.cpp) handles two Graphics
     // Magician dialects, both validated pixel-exact vs MAME. Talisman and OO-Topos
     // use op15 fill-bounds sub-ops (newer); Transylvania and Crimson Crown never
     // emit op15, end images on op7, and seed background fills in the bottom text
     // rows, so they need the full-screen fill clip (the legacy flag).
-    talismanSetLegacyFormat(_gameId == "transylvania" || _gameId == "crimsoncrown");
+    gmSetLegacyFormat(_gameId == "transylvania" || _gameId == "crimsoncrown");
 }
 
 void Comprehend::print(const char *fmt, ...) {
@@ -228,7 +228,7 @@ void Comprehend::drawPicture(uint pictureNum) {
     // The Apple II Talisman renderer can reveal a picture progressively, the way
     // the real Graphics Magician painted the hi-res page. Record the draw order
     // when the user has slow-draw on (and we aren't replaying a transcript).
-    talismanSetSlowDraw(gli_slowdraw && !gli_determinism);
+    gmSetSlowDraw(gli_slowdraw && !gli_determinism);
 
     // Render through the Pics opcode interpreter into the pixel buffer,
     // then blit the buffer to the Glk graphics window.
@@ -244,20 +244,20 @@ void Comprehend::drawPicture(uint pictureNum) {
 // resize forces it to finish at once) — matching the original, where the prompt
 // appeared only after the hi-res page had painted.
 void Comprehend::runSlowDraw() {
-    if (!talismanSlowDrawActive())
+    if (!gmSlowDrawActive())
         return;
 
-    glk_request_timer_events(TALISMAN_SLOW_TICK_MS);
+    glk_request_timer_events(GM_SLOW_TICK_MS);
     event_t ev;
     bool more = true;
     while (more) {
         glk_select(&ev);
         bool fullRepaint = false;
         if (ev.type == evtype_Timer) {
-            more = talismanAdvanceSlowDraw(TALISMAN_SLOW_BYTES_PER_TICK);
+            more = gmAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
         } else if (ev.type == evtype_Arrange) {
             // The window changed size: finish the page, rescale, repaint it whole.
-            talismanFinishSlowDraw();
+            gmFinishSlowDraw();
             more = false;
             fullRepaint = true;
             recomputeGraphicsScale();
@@ -269,13 +269,13 @@ void Comprehend::runSlowDraw() {
         }
         // Re-render the page, then repaint only the rows that changed this tick
         // (the whole window after a resize, since the layout moved).
-        talismanBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
+        gmBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
                                   _drawSurface->w, _drawSurface->h);
         int y0, y1;
         if (fullRepaint) {
             glk_window_clear(_topWindow);
             blitSurfaceToWindow();
-        } else if (talismanSlowConsumeDirty(&y0, &y1))
+        } else if (gmSlowConsumeDirty(&y0, &y1))
             blitSurfaceRowsToWindow(y0, y1);
     }
     glk_request_timer_events(0);
