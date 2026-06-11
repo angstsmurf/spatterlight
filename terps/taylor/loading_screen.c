@@ -29,25 +29,13 @@ uint8_t *ZXLoadingScreen = NULL;
 static uint16_t AlkatrazDrawOrder[6912];
 static int AlkatrazDrawOrderLen = 0;
 
-#define ZX_BITMAP_SIZE 6144
-#define ZX_SCREEN_WIDTH 256
-#define ZX_SCREEN_HEIGHT 192
-
-/* ZX Spectrum display-file addressing and 8x8 character cells. */
+/* ZX Spectrum display-file addressing and 8x8 character cells. The format
+   geometry (ZX_SCREEN_SIZE, ZX_BITMAP_SIZE, ZX_SCREEN_WIDTH/HEIGHT,
+   ZX_SCREEN_COLS) and the bitmap/attribute decode come from decompressz80.h. */
 #define ZX_SCREEN_BASE      0x4000  /* display file (bitmap) start address  */
 #define ZX_ATTR_BASE        0x5800  /* colour attribute area start address  */
 #define ZX_CELL             8       /* pixels per byte / character cell side */
-#define ZX_COLS             32      /* character columns per row            */
-#define ZX_COL_MASK         0x1f    /* column index within a row (ZX_COLS-1) */
-
-/* Attribute byte layout: FLASH(7) BRIGHT(6) PAPER(5-3) INK(2-0). */
-#define ZX_ATTR_INK         0x07    /* ink (and, once shifted, paper) bits  */
-#define ZX_ATTR_PAPER_SHIFT 3
-#define ZX_ATTR_BRIGHT      0x40
-#define ZX_ATTR_FLASH       0x80
-#define ZX_BRIGHT_OFFSET    8       /* palette index step for bright colours */
-#define ZX_ATTR_COLOUR_MASK 0x3f    /* ink + paper, ignoring bright/flash   */
-#define ZX_ATTR_BLACK_ON_WHITE 0x38 /* white paper, black ink, no bright    */
+#define ZX_COL_MASK         0x1f    /* column index within a row            */
 
 /* Reveal timing: ~REVEAL_TICKS timer steps to paint the whole screen. */
 #define ZX_REVEAL_TICK_MS 30
@@ -93,14 +81,13 @@ static void DrawBitmapByte(const uint8_t *screen, uint16_t bitmap_addr,
 {
     int byte_offset = bitmap_addr - ZX_SCREEN_BASE;
     int char_col = byte_offset & ZX_COL_MASK;
-    int pixel_y = ((byte_offset & 0x0700) >> 8) | ((byte_offset & 0x00e0) >> 2) | ((byte_offset & 0x1800) >> 5);
+    int pixel_y = ZXBitmapRow(byte_offset);
 
     uint8_t row_bits = screen[byte_offset];
-    uint8_t attr = screen[ZX_BITMAP_SIZE + (pixel_y / ZX_CELL) * ZX_COLS + char_col];
-    int bright_offset = (attr & ZX_ATTR_BRIGHT) ? ZX_BRIGHT_OFFSET : 0;
-    int ink = (attr & ZX_ATTR_INK) + bright_offset;
-    int paper = ((attr >> ZX_ATTR_PAPER_SHIFT) & ZX_ATTR_INK) + bright_offset;
-    /* The flash bit (ZX_ATTR_FLASH) is ignored for a static title image. */
+    uint8_t attr = screen[ZX_BITMAP_SIZE + (pixel_y / ZX_CELL) * ZX_SCREEN_COLS + char_col];
+    int ink, paper;
+    ZXDecodeAttr(attr, &ink, &paper);
+    /* The flash bit is ignored for a static title image. */
 
     for (int bit = 0; bit < ZX_CELL; bit++) {
         int pixel_on = (row_bits >> (ZX_CELL - 1 - bit)) & 1;
@@ -120,11 +107,11 @@ static void RedrawCell(const uint8_t *screen, uint16_t screen_addr,
         return;
     }
     int attr_index = screen_addr - ZX_ATTR_BASE;
-    int cell_row = attr_index / ZX_COLS, cell_col = attr_index & ZX_COL_MASK;
+    int cell_row = attr_index / ZX_SCREEN_COLS, cell_col = attr_index & ZX_COL_MASK;
     for (int pixel_row = 0; pixel_row < ZX_CELL; pixel_row++) {
         int pixel_y = cell_row * ZX_CELL + pixel_row;
-        int bitmap_offset = ((pixel_y & 0xc0) << 5) | ((pixel_y & 0x38) << 2) | ((pixel_y & 0x07) << 8) | cell_col;
-        DrawBitmapByte(screen, (uint16_t)(ZX_SCREEN_BASE + bitmap_offset), scale, origin_x, origin_y);
+        DrawBitmapByte(screen, (uint16_t)(ZX_SCREEN_BASE + ZXBitmapOffset(pixel_y, cell_col)),
+            scale, origin_x, origin_y);
     }
 }
 
@@ -136,12 +123,10 @@ static void DrawZXScreen(const uint8_t *screen)
     int scale, origin_x, origin_y;
     zx_geometry(&scale, &origin_x, &origin_y);
 
-    for (int pixel_y = 0; pixel_y < ZX_SCREEN_HEIGHT; pixel_y++) {
-        int row_offset = ((pixel_y & 0xc0) << 5) | ((pixel_y & 0x38) << 2) | ((pixel_y & 0x07) << 8);
-        for (int char_col = 0; char_col < ZX_COLS; char_col++)
-            DrawBitmapByte(screen, (uint16_t)(ZX_SCREEN_BASE + row_offset + char_col),
+    for (int pixel_y = 0; pixel_y < ZX_SCREEN_HEIGHT; pixel_y++)
+        for (int char_col = 0; char_col < ZX_SCREEN_COLS; char_col++)
+            DrawBitmapByte(screen, (uint16_t)(ZX_SCREEN_BASE + ZXBitmapOffset(pixel_y, char_col)),
                 scale, origin_x, origin_y);
-    }
 }
 
 /* The loading screen is, in practice, always the first standard-length
@@ -171,19 +156,6 @@ uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx)
     }
     free(payloads);
     return screen;
-}
-
-/* A snapshot captured at a BASIC/text prompt (e.g. "Resume a saved
-   game?") has no picture: every attribute cell holds the default black
-   ink on white paper (0x38, ignoring the bright and flash bits). */
-int ZXScreenIsBlackOnWhite(const uint8_t *screen)
-{
-    if (!screen)
-        return 1;
-    for (int i = 0; i < ZX_SCREEN_SIZE - ZX_BITMAP_SIZE; i++)
-        if ((screen[ZX_BITMAP_SIZE + i] & ZX_ATTR_COLOUR_MASK) != ZX_ATTR_BLACK_ON_WHITE)
-            return 0;
-    return 1;
 }
 
 /* Some Alkatraz-protected games (Kayleth, Terraquake) hide the loading screen

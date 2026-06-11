@@ -64,4 +64,39 @@ uint8_t *DeAlkatraz(uint8_t *src, uint8_t *dst, size_t src_offset,
     uint8_t key_step, int selfmodify);
 void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t ix, uint16_t store);
 
+/* --- ZX Spectrum loading screen (SCREEN$) geometry & decode ---
+ * A SCREEN$ is a 6912-byte dump of the Spectrum display file: 6144 bytes of
+ * bitmap in the hardware's characteristic non-linear layout, followed by 768
+ * bytes of 8x8 colour attributes (one byte per character cell). These helpers
+ * decode that format; how the pixels are drawn (palette choice, Glk window,
+ * scaling) is left to each interpreter. Shared by the ScottFree (scott),
+ * TaylorMade (taylor) and unquill interpreters. */
+#define ZX_SCREEN_SIZE   6912   /* full SCREEN$: bitmap + attributes        */
+#define ZX_BITMAP_SIZE   6144   /* bitmap portion only (192 * 256 / 8)      */
+#define ZX_SCREEN_WIDTH  256
+#define ZX_SCREEN_HEIGHT 192
+#define ZX_SCREEN_COLS   32     /* character cells across                   */
+
+/* Standard ZX Spectrum palette: 8 normal colours then their 8 bright
+ * variants, as 0x00RRGGBB. Indexed by the values ZXDecodeAttr() returns. */
+extern const uint32_t ZXPalette[16];
+
+/* Pixel row (0..191) of the display-file bitmap byte at 'bitmap_offset' (an
+ * offset from 0x4000, i.e. 0..6143). The display file is non-linear, so the
+ * row is recovered by unscrambling the address bits. */
+int ZXBitmapRow(int bitmap_offset);
+
+/* Inverse of ZXBitmapRow: the bitmap byte offset (from 0x4000) holding pixel
+ * row 'y' (0..191) in character column 'col' (0..31). */
+int ZXBitmapOffset(int y, int col);
+
+/* Decode an attribute byte into ink/paper palette indices (0..15), applying
+ * the bright bit. The flash bit is ignored (static title images don't flash). */
+void ZXDecodeAttr(uint8_t attr, int *ink, int *paper);
+
+/* TRUE if every attribute cell is the default black ink on white paper (0x38,
+ * ignoring bright/flash) — i.e. a blank text-prompt snapshot with no picture,
+ * not worth showing as a title. A NULL screen counts as blank. */
+int ZXScreenIsBlackOnWhite(const uint8_t *screen);
+
 #endif /* decompressz80_h */

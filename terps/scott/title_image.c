@@ -111,28 +111,11 @@ void wait_for_key_on_title_screen(void) {
     } while (ev.type != evtype_CharInput);
 }
 
-/* A ZX Spectrum loading screen (SCREEN$) is a 6912-byte dump of the
-   Spectrum display file: 6144 bytes of bitmap followed by 768 bytes of
-   colour attributes (one byte per 8x8 cell). The bitmap is laid out in
-   the Spectrum's characteristic non-linear order, so the byte holding a
-   given pixel row is found via the address scramble below. */
-#define ZX_BITMAP_SIZE 6144
-#define ZX_SCREEN_WIDTH 256
-#define ZX_SCREEN_HEIGHT 192
-
-/* A snapshot captured at a BASIC/text prompt (e.g. "Resume a saved
-   game?") has no picture: every attribute cell holds the default black
-   ink on white paper (0x38, ignoring the bright and flash bits). Such a
-   screen isn't worth showing as a title, so callers discard it. */
-int ZXScreenIsBlackOnWhite(const uint8_t *scr)
-{
-    if (!scr)
-        return 1;
-    for (int i = 0; i < ZX_SCREEN_SIZE - ZX_BITMAP_SIZE; i++)
-        if ((scr[ZX_BITMAP_SIZE + i] & 0x3f) != 0x38)
-            return 0;
-    return 1;
-}
+/* A ZX Spectrum loading screen (SCREEN$) is a 6912-byte dump of the Spectrum
+   display file; its geometry and the bitmap address scramble are decoded by
+   the shared helpers in decompressz80.h. Here we paint each byte into scott's
+   saga graphics buffer with PutPixel(), letting the ZXOPT palette (selected in
+   DrawZXTitleImage) map the ink/paper indices to colours. */
 
 /* Draw the 8 pixels of one bitmap byte (display-file address bmaddr) using the
    attribute currently in scr for that cell. */
@@ -140,14 +123,12 @@ static void DrawZXByte(const uint8_t *scr, uint16_t bmaddr)
 {
     int offset = bmaddr - 0x4000;
     int col = offset & 0x1f;
-    int y = ((offset & 0x0700) >> 8) | ((offset & 0x00e0) >> 2) | ((offset & 0x1800) >> 5);
+    int y = ZXBitmapRow(offset);
 
     uint8_t bits = scr[offset];
-    uint8_t attr = scr[ZX_BITMAP_SIZE + (y >> 3) * 32 + col];
-    int bright = (attr & 0x40) ? 8 : 0;
-    int ink = (attr & 0x07) + bright;
-    int paper = ((attr >> 3) & 0x07) + bright;
-    /* The flash bit (0x80) is ignored for a static title image. */
+    uint8_t attr = scr[ZX_BITMAP_SIZE + (y >> 3) * ZX_SCREEN_COLS + col];
+    int ink, paper;
+    ZXDecodeAttr(attr, &ink, &paper);
 
     for (int b = 0; b < 8; b++) {
         int set = (bits >> (7 - b)) & 1;
@@ -167,8 +148,7 @@ static void RedrawZXCell(const uint8_t *scr, uint16_t addr)
     int crow = cell >> 5, ccol = cell & 0x1f;
     for (int py = 0; py < 8; py++) {
         int y = crow * 8 + py;
-        int offset = ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8) | ccol;
-        DrawZXByte(scr, (uint16_t)(0x4000 + offset));
+        DrawZXByte(scr, (uint16_t)(0x4000 + ZXBitmapOffset(y, ccol)));
     }
 }
 
@@ -177,11 +157,9 @@ static void DrawZXScreen(const uint8_t *scr)
     if (!scr || !Graphics)
         return;
 
-    for (int y = 0; y < ZX_SCREEN_HEIGHT; y++) {
-        int bitmap_row = ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8);
-        for (int col = 0; col < 32; col++)
-            DrawZXByte(scr, (uint16_t)(0x4000 + bitmap_row + col));
-    }
+    for (int y = 0; y < ZX_SCREEN_HEIGHT; y++)
+        for (int col = 0; col < ZX_SCREEN_COLS; col++)
+            DrawZXByte(scr, (uint16_t)(0x4000 + ZXBitmapOffset(y, col)));
 }
 
 /* Reveal the screen progressively, in the linear order a real Spectrum loaded
