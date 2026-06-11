@@ -11,8 +11,8 @@
  *   PicInterpretImageOpcodes 1f56 -- dispatcher; 16-handler table at 0x9d5d,
  *       default brush 5, brush table pointer 0x9d81
  *   line = major-axis Bresenham, box = four chained lines, circle = 8-octant
- *   midpoint, brush/glyph = per-row bit blit, flood fill = scanline fill with a
- *   visited bitmap (boundary == black, matching the native per-pixel mask test).
+ *   midpoint, brush/glyph = per-row bit blit, flood fill = mechanical port of
+ *   the native word-granular span-queue fill (PicOp14Paint 0x2630; see below).
  *
  * Pixel model:
  *   - 2 bpp, 4 pixels per byte, LSB-first (pixel p in bits (2p+1):(2p))
@@ -36,6 +36,7 @@
 
 #include "hdos_talisman.h"
 #include "graphics_magician.h"  // Opcode enum
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <vector>
@@ -45,7 +46,8 @@ namespace Comprehend {
 
 // ---- Drawing tables -----------------------------------------------------------
 
-static uint8_t s_fillTable[76];       // pattern[idx] = 2-bpp byte (4-pixel tile)
+static uint8_t s_fillTable[76];       // pattern[idx] = 2-bpp byte (4-pixel tile), LSB-first
+static uint8_t s_fillTableRaw[76];    // same, in the native MSB-first bit order
 static uint8_t s_fillSubindex[512];   // SET_FILL_COLOR byte -> (even,odd) pattern idx
 static uint8_t s_brushBitmaps[256];   // 8 brushes × 32 bytes
 static uint8_t s_fontGlyphs[96 * 8];  // chars 32-127, 8 bytes each
@@ -107,6 +109,7 @@ bool hdosInstallDrawingTables(const uint8_t *exe, size_t size) {
     const uint8_t *fill = exe + fillBase;
     for (int i = 0; i < 76; i++) {
         uint8_t b = fill[i * 2];
+        s_fillTableRaw[i] = b;
         s_fillTable[i] = (uint8_t)(((b & 0x03) << 6) | ((b & 0x0c) << 2) |
                                    ((b & 0x30) >> 2) | ((b & 0xc0) >> 6));
     }
@@ -252,59 +255,362 @@ static void fill_hline(int y, int l, int r, uint8_t sel) {
 
 // ---- Flood fill (op14 PAINT) -------------------------------------------------
 //
-// Pattern-aware scanline flood fill matching the native PicOp14Paint (0x2630).
-// The native boundary test (FUN_29a0 at 0x29a0) masks the screen word per
-// pixel and treats any pixel whose value is NOT 0 (i.e. not black) as fillable;
-// black is the only boundary -- black drawn lines hem the region in, but the
-// fill flows freely over any previously-drawn cyan / magenta / white detail.
+// Mechanical port of the native PicOp14Paint (0x2630) and its helpers, from the
+// Ghidra disassembly of NOVEL.EXE.  The native fill is NOT a per-pixel flood:
 //
-// The fill lays down a row-parity dither (FUN_24a4: pattern selected by
-// (y + [0xb031]) & 1, with [0xb031] == 0, i.e. plain y&1), so the pixels it
-// writes are themselves a mix of colours including black.  The native code
-// avoids re-treating those freshly-painted black pixels as new boundaries via
-// its 32-entry span queue + per-entry "done" flags; the equivalent here is a
-// single visited bitmap.  Predicate: a pixel is fillable iff it is in bounds,
-// not yet visited, and currently non-black.  Because every pixel we paint is
-// marked visited in the same step, an unvisited pixel has never been touched by
-// this fill -- so its value still reflects the original picture, and "non-black"
-// means "not an original boundary line."  This is a faithful, leak-free port of
-// the native "boundary == black" semantics without the circular-queue
-// bookkeeping.
+//   * The cursor is a (byte, pixel) pair: an even byte offset into the 80-byte
+//     CGA row plus a pixel index 0-7 across that 16-bit word.  Byte offsets are
+//     GLOBAL screen bytes -- the picture window occupies bytes 5..74 (x+20
+//     pixels, [0xb02d]); the margins outside it are never written and read
+//     back as black.
+//   * The fillable predicate is "pixel == white (3)" (FUN_29a0 compares the
+//     masked word with the full per-pixel mask); ANY non-white pixel is a
+//     boundary.
+//   * Painting happens one 16-bit word at a time (FUN_29be):
+//         screen = (pattern & M) | (screen ^ M)
+//     where M is the mask of the white run found in that word (the boundary
+//     scanners FUN_29e1 / FUN_2a07 return it); white == all 1s makes the XOR
+//     preserve every pixel outside M exactly.
+//   * A row span is grown by FUN_2cd0: paint the seed word's white run, extend
+//     left word by word until a word contains a non-white pixel at/before the
+//     seed column, then extend right (bounded by [0x9d58] == 0x4a) while words
+//     are entirely white; boundary words get their white run painted up to the
+//     boundary.
+//   * Propagation uses a 32-entry circular FIFO of spans (head 0xb0d1, tail
+//     0xb0d2; arrays LB/LP/RB/RP/Y/DIR at 0xb0d3/0xb0f3/0xb113/0xb133/0xb153/
+//     0xb173).  Each entry re-scans its parent extent one row up (dir 0) or
+//     down (dir 1), with overlap-merge logic against other queued spans on the
+//     same row (the 0x2700-0x2808 block) and turn-around pushes for span
+//     overhang (0x2848-0x28ee).  Because spans re-read the screen as they scan,
+//     freshly painted dither-black pixels self-limit later spans; reproducing
+//     that traversal order exactly is what makes the fill pixel-exact.
+//
+// Labels in the code below are the CS-relative addresses of the corresponding
+// native instructions.
 
-static uint8_t s_fillVisited[HDOS_HEIGHT * HDOS_WIDTH];
+// Per-pixel 2-bit masks over the byteswapped (MSB-first) screen word, and the
+// "everything right of pixel i" / "everything left of pixel i" masks used to
+// blank out the far side of the seed during the in-word boundary scans.
+// (DS:0xb1a0 / 0xb1b0 / 0xb1c0.)
+static const uint16_t kPfPixMask[8] = {
+    0xC000, 0x3000, 0x0C00, 0x0300, 0x00C0, 0x0030, 0x000C, 0x0003
+};
+static const uint16_t kPfRightOf[8] = {
+    0x3FFF, 0x0FFF, 0x03FF, 0x00FF, 0x003F, 0x000F, 0x0003, 0x0000
+};
+static const uint16_t kPfLeftOf[8] = {
+    0x0000, 0xC000, 0xF000, 0xFC00, 0xFF00, 0xFFC0, 0xFFF0, 0xFFFC
+};
 
-static void hdos_flood_fill(int seed_x, int seed_y, uint8_t fill_idx) {
-    auto fillable = [&](int x, int y) -> bool {
-        if ((unsigned)x >= HDOS_WIDTH || (unsigned)y >= HDOS_HEIGHT) return false;
-        if (s_fillVisited[y * HDOS_WIDTH + x]) return false;
-        return read_2bpp(x, y) != 0;       // black is the only boundary
+// Window bounds, set before every picture by FUN_2556 (called from the picture
+// entry FUN_1f40): rows 0..0x9f, global bytes 5..0x4a (CGA branch, [0xabd6]=0).
+#define PF_RIGHT_BYTE 0x4a
+#define PF_BOTTOM_ROW 0x9f
+
+static inline uint8_t mirror_2bpp_byte(uint8_t b) {
+    return (uint8_t)(((b & 0x03) << 6) | ((b & 0x0c) << 2) |
+                     ((b & 0x30) >> 2) | ((b & 0xc0) >> 6));
+}
+
+// Read / write the logical screen word at global byte offset `gb` (even) of row
+// `y`: pixel k (0..7, left to right) sits in bits (15-2k):(14-2k), matching the
+// native's MOV AX,ES:[BX+SI] / XCHG AH,AL.  Bytes outside the picture window
+// read as black and ignore writes, like the untouched CGA margins.
+static uint16_t pf_get_word(int y, int gb) {
+    uint16_t w = 0;
+    if ((unsigned)y < HDOS_HEIGHT) {
+        for (int i = 0; i < 2; i++) {
+            const int b = gb + i;
+            if (b >= 5 && b <= 74)
+                w |= (uint16_t)mirror_2bpp_byte(s_screenmem[y * HDOS_STRIDE + (b - 5)])
+                     << (8 - 8 * i);
+        }
+    }
+    return w;
+}
+
+static void pf_put_word(int y, int gb, uint16_t w) {
+    if ((unsigned)y >= HDOS_HEIGHT) return;
+    for (int i = 0; i < 2; i++) {
+        const int b = gb + i;
+        if (b >= 5 && b <= 74)
+            store_byte(y * HDOS_STRIDE + (b - 5),
+                       mirror_2bpp_byte((uint8_t)(w >> (8 - 8 * i))));
+    }
+}
+
+// FUN_29a0: is the pixel at (byte `B`, pixel `P`) of row `y` white?
+static inline bool pf_white(int y, uint8_t B, uint8_t P) {
+    const uint16_t w = pf_get_word(y, B);
+    return (w & kPfPixMask[P]) == kPfPixMask[P];
+}
+
+// FUN_24a4 pattern fetch: the fill-pattern word for row `y` under selector
+// `sel`, in the same byteswapped bit order as pf_get_word.  Row parity picks
+// the even/odd subindex ([0xb031] == 0); both bytes of every pattern entry are
+// equal in this release, so the word is just the byte doubled.
+static inline uint16_t pf_pattern_word(uint8_t sel, int y) {
+    const uint8_t sub = s_fillSubindex[(unsigned)sel * 2 + (y & 1)];
+    const uint8_t m = (sub < 76) ? s_fillTableRaw[sub] : 0x00;
+    return (uint16_t)((m << 8) | m);
+}
+
+// Fill cursor / span state ("registers" of the native fill).
+struct PfState {
+    int     y;        // 0x9d36 -- current row (transiently -1 / >159 at edges)
+    uint8_t B, P;     // 0x9d52 / 0x9d53 -- cursor byte (even) + pixel 0-7
+    uint8_t lB, lP;   // 0xb0d0 / 0xb1d4 -- span left edge during scan / push
+};
+
+// FUN_2df7: step the cursor one pixel left.
+static inline void pf_dec(PfState &s) {
+    if (s.P == 0) { s.P = 7; s.B = (uint8_t)(s.B - 2); }
+    else s.P--;
+}
+
+// Lexicographic compare of two (byte, pixel) positions.
+static inline int pf_cmp(uint8_t b1, uint8_t p1, uint8_t b2, uint8_t p2) {
+    if (b1 != b2) return b1 < b2 ? -1 : 1;
+    if (p1 != p2) return p1 < p2 ? -1 : 1;
+    return 0;
+}
+
+// FUN_29e1: scan the word in `A` from pixel 7 leftward for the first non-white
+// pixel.  On a hit, records its index in `*edge` and returns the "pixels right
+// of it" mask; if `A` is all white it is returned unchanged (and *edge keeps
+// its previous value -- the native leaves [0xb1d4] alone too).
+static inline uint16_t pf_scan_l(uint16_t A, uint8_t *edge) {
+    if (A != 0xffff)
+        for (int i = 7; i >= 0; i--)
+            if ((A & kPfPixMask[i]) != kPfPixMask[i]) {
+                *edge = (uint8_t)i;
+                return kPfRightOf[i];
+            }
+    return A;
+}
+
+// FUN_2a07: mirror image of pf_scan_l -- scan from pixel 0 rightward, return
+// the "pixels left of the boundary" mask.
+static inline uint16_t pf_scan_r(uint16_t A, uint8_t *edge) {
+    if (A != 0xffff)
+        for (int i = 0; i < 8; i++)
+            if ((A & kPfPixMask[i]) != kPfPixMask[i]) {
+                *edge = (uint8_t)i;
+                return kPfLeftOf[i];
+            }
+    return A;
+}
+
+// FUN_29be: paint the word at (row `y`, byte `gb`): every pixel selected by
+// mask `M` -- always a run of white pixels -- takes the pattern, the rest of
+// the word is preserved ((pat & M) | (S ^ M), exploiting white == all 1s).
+static inline void pf_paint_word(int y, int gb, uint16_t pat, uint16_t S, uint16_t M) {
+    pf_put_word(y, gb, (uint16_t)((pat & M) | (S ^ M)));
+}
+
+// FUN_2cd0: grow and paint the span around the seed in s.B/s.P on row s.y.
+// On return s.lB/s.lP hold the left edge and s.B/s.P the right edge (both
+// inclusive, first/last white pixel).  Painting is word-at-a-time, masked to
+// the white run found in each word.
+static void pf_scan_paint(PfState &s, uint8_t sel) {
+    const uint16_t pat = pf_pattern_word(sel, s.y);
+    int si = s.B;
+    s.lP = 0xff;                                         // 0xff = no left edge yet
+    uint16_t S = pf_get_word(s.y, si);
+
+    // Seed word: find the nearest boundary on each side of the seed pixel (the
+    // far side blanked to white for each scan) and paint the run between them.
+    const uint8_t seedP = s.P;
+    const uint16_t mL = pf_scan_l((uint16_t)(S | kPfRightOf[seedP]), &s.lP); // [0xb1d0]
+    s.P = 8;                                             // 8 = open to the right
+    const uint16_t mR = pf_scan_r((uint16_t)(kPfLeftOf[seedP] | S), &s.P);
+    pf_paint_word(s.y, si, pat, S, (uint16_t)(mR & mL)); // 29be
+
+    while (s.lP == 0xff) {                               // 2d1d: extend left
+        si -= 2;
+        S = pf_get_word(s.y, si);
+        const uint16_t M = pf_scan_l(S, &s.lP);
+        pf_paint_word(s.y, si, pat, S, M);
+    }
+    {                                                    // 2d43: finalise left edge
+        int p = s.lP + 1;
+        if (p == 8) { p = 0; si += 2; }
+        s.lB = (uint8_t)si;
+        s.lP = (uint8_t)p;
+    }
+
+    si = s.B;                                            // 2d5e: extend right
+    while (s.P == 8 && si < PF_RIGHT_BYTE) {
+        si += 2;
+        S = pf_get_word(s.y, si);
+        const uint16_t M = pf_scan_r(S, &s.P);
+        pf_paint_word(s.y, si, pat, S, M);
+    }
+    if (s.P == 0) { s.P = 7; si -= 2; }                  // 2d88: last white pixel
+    else s.P--;
+    s.B = (uint8_t)si;
+}
+
+static bool s_pfTrace = false;  // debug: log queue pushes (HDOS_TRACE_FILL)
+
+static void hdos_flood_fill(int seed_x, int seed_y, uint8_t sel) {
+    if ((uint8_t)seed_y > PF_BOTTOM_ROW)                 // 263b
+        return;
+
+    PfState s;
+    s.y = seed_y;
+    const int gx = seed_x + 20;                          // 24d1: + [0xb02d]
+    s.B = (uint8_t)(gx >> 2);
+    s.P = (uint8_t)(gx & 3);
+    if (s.B & 1) { s.P += 4; s.B--; }                    // 264b: word-align
+    s.lB = s.lP = 0;
+
+    if (!pf_white(s.y, s.B, s.P))                        // 265b: seed must be white
+        return;
+
+    // 32-entry circular span queue (LB/LP/RB/RP/Y/DIR arrays at 0xb0d3..0xb173).
+    uint8_t q_lb[32], q_lp[32], q_rb[32], q_rp[32], q_y[32], q_d[32];
+    uint8_t head = 0, tail = 0;                          // 0xb0d1 / 0xb0d2
+    bool overflow = false;                               // 0xb193
+
+    // FUN_2da0: append the current span going `dir` (0 = up, 1 = down).  The
+    // up-push bound ([0x9d59] == 0, unsigned compare) never rejects, so spans on
+    // row 0 do push an up entry; its (clamped) target row reads black here and
+    // the entry retires without effect, as on hardware.
+    auto push = [&](uint8_t dir) {
+        const uint8_t yb = (uint8_t)s.y;
+        if (s_pfTrace)
+            fprintf(stderr, "PUSH y=%d l=%d.%d r=%d.%d d=%d h=%d t=%d\n",
+                    yb, s.lB, s.lP, s.B, s.P, dir, head, tail);
+        if (dir != 0 && yb >= PF_BOTTOM_ROW)
+            return;
+        q_y[tail] = yb;
+        q_lb[tail] = s.lB; q_lp[tail] = s.lP;
+        q_rb[tail] = s.B;  q_rp[tail] = s.P;
+        q_d[tail] = dir;
+        tail = (uint8_t)((tail + 1) & 0x1f);
+        if (tail == head)
+            overflow = true;                             // fill aborts
     };
-    if (!fillable(seed_x, seed_y)) return;
 
-    memset(s_fillVisited, 0, sizeof(s_fillVisited));
-
-    struct Pt { int16_t x, y; };
-    std::vector<Pt> stack;
-    stack.reserve(1024);
-    stack.push_back({ (int16_t)seed_x, (int16_t)seed_y });
+    pf_scan_paint(s, sel);                               // 266e: seed row
+    push(0);                                             // 2675
+    push(1);                                             // 2679
 
     long guard = 0;
-    while (!stack.empty() && ++guard < 4000000) {
-        Pt p = stack.back(); stack.pop_back();
-        if (!fillable(p.x, p.y)) continue;
-
-        int l = p.x, r = p.x;
-        while (fillable(l - 1, p.y)) l--;
-        while (fillable(r + 1, p.y)) r++;
-
-        uint8_t *vis = &s_fillVisited[p.y * HDOS_WIDTH];
-        for (int x = l; x <= r; x++) vis[x] = 1;   // claim before painting
-        fill_hline(p.y, l, r, fill_idx);
-
-        for (int x = l; x <= r; x++) {
-            if (fillable(x, p.y - 1)) stack.push_back({ (int16_t)x, (int16_t)(p.y - 1) });
-            if (fillable(x, p.y + 1)) stack.push_back({ (int16_t)x, (int16_t)(p.y + 1) });
+    for (;;) {                                           // 267c: main queue loop
+        if (head == tail || ++guard > 1000000)
+            return;
+        {
+            const uint8_t d = q_d[head];
+            if (d == 0xff) {                             // 2699: dead entry
+                head = (uint8_t)((head + 1) & 0x1f);
+                continue;
+            }
+            // 269e/269b: target row above or below the parent span's row.
+            s.y = (int)q_y[head] + (d == 0 ? -1 : 1);
+            s.B = q_lb[head];                            // 26a3: start at parent left
+            s.P = q_lp[head];
         }
+
+    scan_26ba: // hunt for a white seed within the parent extent
+        if (pf_white(s.y, s.B, s.P))
+            goto found_2700;
+    advance_26bf:
+        if (s.B == q_rb[head] && s.P == q_rp[head])      // parent extent exhausted
+            goto retire_26ee;
+        s.P++;
+        if (s.P == 8) { s.P = 0; s.B = (uint8_t)(s.B + 2); }
+        goto scan_26ba;
+
+    found_2700: // before scanning, reconcile with other queued spans on this row
+        {
+            uint8_t E = head;
+            for (;;) {
+                E = (uint8_t)((E + 1) & 0x1f);           // 2706
+                if (E == tail)
+                    goto newspan_2808;                   // nothing overlaps
+                if (q_y[E] != (uint8_t)s.y)              // 271a
+                    continue;
+                if (q_d[E] == q_d[head])                 // 272a: opposite dir only
+                    continue;
+                if (pf_cmp(s.B, s.P, q_rb[E], q_rp[E]) > 0)  // 2730: seed right of E
+                    continue;
+                const int c = pf_cmp(s.B, s.P, q_lb[E], q_lp[E]); // 2748
+                if (c < 0)                               // seed left of E
+                    continue;
+                if (c > 0) {
+                    // 275b: seed strictly inside E.  If E sticks out left of the
+                    // parent extent, requeue that remainder under E's direction.
+                    s.B = q_lb[head]; s.P = q_lp[head];
+                    pf_dec(s);                           // 2769: parent.left - 1
+                    if (pf_cmp(s.B, s.P, q_lb[E], q_lp[E]) > 0) {
+                        s.lB = q_lb[E]; s.lP = q_lp[E];  // 2781
+                        pf_dec(s);                       // 278f: parent.left - 2
+                        push(q_d[E]);                    // 279e
+                        if (overflow)
+                            return;                      // 27a8
+                    }
+                }
+                // 27b9: resume after E's right edge, or split E around the parent.
+                s.B = q_rb[E];
+                if (pf_cmp(q_rb[E], q_rp[E], q_rb[head], q_rp[head]) <= 0) {
+                    q_d[E] = 0xff;                       // 27d2: E fully shadowed
+                    s.P = q_rp[E];
+                    goto advance_26bf;
+                }
+                q_lb[E] = q_rb[head];                    // 27e2: clip E to start
+                {                                        //  after the parent extent
+                    uint8_t p = (uint8_t)(q_rp[head] + 1);
+                    if (p == 8) { p = 0; q_lb[E] = (uint8_t)(q_lb[E] + 2); }
+                    q_lp[E] = p;
+                }
+                goto retire_26ee;
+            }
+        }
+
+    newspan_2808: // grow + paint a fresh span around the seed
+        {
+            pf_scan_paint(s, sel);
+            push(q_d[head]);                             // 2819: keep propagating
+            if (overflow)
+                return;                                  // 2823
+            const uint8_t savB = s.B, savP = s.P;        // 2828: save right edge
+
+            // 2834: left overhang -- if the new span reaches 2+ pixels left of
+            // the parent extent, push the overhang back the way we came.
+            s.B = q_lb[head]; s.P = q_lp[head];
+            pf_dec(s);                                   // 2848: parent.left - 1
+            if (pf_cmp(s.B, s.P, s.lB, s.lP) > 0) {
+                pf_dec(s);                               // 285f: parent.left - 2
+                push((uint8_t)(q_d[head] ^ 1));          // 286c
+                if (overflow)
+                    return;
+            }
+            s.B = savB; s.P = savP;                      // 287b: restore right edge
+
+            // 288d: right overhang vs parent.right + 1.
+            s.lB = q_rb[head];
+            uint8_t p = (uint8_t)(q_rp[head] + 1);
+            if (p == 8) { p = 0; s.lB = (uint8_t)(s.lB + 2); }
+            s.lP = p;
+            const int c = pf_cmp(s.lB, s.lP, s.B, s.P);
+            if (c < 0) {                                 // 28c3: 2+ pixel overhang
+                p++;
+                if (p == 8) { p = 0; s.lB = (uint8_t)(s.lB + 2); }
+                s.lP = p;
+                push((uint8_t)(q_d[head] ^ 1));          // 28e0
+                if (overflow)
+                    return;
+                goto retire_26ee;                        // 28ef
+            }
+            if (c == 0)                                  // ends exactly at +1
+                goto retire_26ee;
+            goto advance_26bf;                           // 28f2: keep hunting
+        }
+
+    retire_26ee:
+        head = (uint8_t)((head + 1) & 0x1f);
     }
 }
 
@@ -342,36 +648,35 @@ static void draw_line(int x0, int y0, int x1, int y1, uint8_t pen_val) {
 
 // ---- Circle (op11 DRAW_CIRCLE) -----------------------------------------------
 //
-// Midpoint (Bresenham) circle algorithm, 8-octant, identical to the Apple
-// renderer's draw_circle (graphics_magician.cpp) -- the Ghidra disassembly
-// of PicDrawCircleBresenham 2b10 matches the same loop structure.
+// Mechanical port of PicDrawCircleBresenham (0x2b10).  NOT the Apple
+// renderer's variant: here the error term starts at -r, the radius itself
+// shrinks as the arc closes, and -- a genuine quirk -- the "error went
+// non-negative" test is TEST [d],0x80, i.e. bit 7 of the 16-bit error word,
+// not its sign.  This rounds the diagonal steps one pixel wider than the
+// textbook midpoint circle (verified against a DOSBox VRAM trace of the
+// title's lamp-knob circle).
 
 static void draw_circle(int cx, int cy, int radius, uint8_t pen_val) {
-    if (radius == 0) return;
-    uint8_t r = (uint8_t)radius;
-    uint8_t dvar = r >> 1, i = 0;
-    int xa = cx, xb = cx;
-    int xr = cx + r, xl = cx - r;
-    int yt = cy, yb = cy;
-    int yp = cy + r, ym = cy - r;
-
+    uint16_t d = (uint16_t)(0 - radius);                 // [0xb1f2] = -r
+    int i = 0;                                           // [0xb1f0]
+    int r = radius;                                      // [0x9d39], mutated
     for (;;) {
-        write_2bpp(xb, ym, pen_val); write_2bpp(xa, ym, pen_val);
-        write_2bpp(xa, yp, pen_val); write_2bpp(xb, yp, pen_val);
-        write_2bpp(xr, yb, pen_val); write_2bpp(xl, yb, pen_val);
-        write_2bpp(xl, yt, pen_val); write_2bpp(xr, yt, pen_val);
-
+        write_2bpp(cx - i, cy - r, pen_val);
+        write_2bpp(cx + i, cy - r, pen_val);
+        write_2bpp(cx + i, cy + r, pen_val);
+        write_2bpp(cx - i, cy + r, pen_val);
+        write_2bpp(cx + r, cy - i, pen_val);
+        write_2bpp(cx - r, cy - i, pen_val);
+        write_2bpp(cx - r, cy + i, pen_val);
+        write_2bpp(cx + r, cy + i, pen_val);
+        d = (uint16_t)(d + 2 * i + 1);                   // 2bae
         i++;
-        const uint8_t a = (uint8_t)(dvar - i);
-        if (dvar >= i) {
-            dvar = a;
-            if (r < i) break;
-        } else {
-            r--; dvar = (uint8_t)(a + r);
-            if (r < i) break;
-            yp--; ym++; xr--; xl++;
+        if (!(d & 0x80)) {                               // 2bbd: TEST d,0x80
+            d = (uint16_t)(d + 2 - 2 * r);
+            r--;
         }
-        xa++; xb--; yt++; yb--;
+        if (r < i)                                       // 2be0: JL -> done
+            break;
     }
 }
 
@@ -571,7 +876,9 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, HdosCtx *ctx) {
     case OPCODE_DRAW_SHAPE: // op12
         a = *(*ptr)++ + (param & 1 ? 256 : 0);
         b = *(*ptr)++;
-        draw_brush((int)a, (int)b, ctx->brush, ctx->fill_idx);
+        // PicStampBrushShape (0x2967) starts with DEC AX: brushes stamp one
+        // pixel left of the stream coordinate (text glyphs do not).
+        draw_brush((int)a - 1, (int)b, ctx->brush, ctx->fill_idx);
         break;
 
     case OPCODE_DELAY: { // op13 -- pacing hint; no effect on the final page
@@ -584,6 +891,22 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, HdosCtx *ctx) {
     case OPCODE_PAINT: // op14 -- flood fill from seed point
         a = *(*ptr)++ + (param & 1 ? 256 : 0);
         b = *(*ptr)++;
+        // Debug aid: dump the framebuffer before each fill for comparison
+        // against a DOSBox trace of the native interpreter.
+        {
+            static int n = 0;
+            n++;
+            if (const char *td = getenv("HDOS_TRACE_DIR")) {
+                char p[512];
+                snprintf(p, sizeof(p), "%s/fill_%03d.raw", td, n);
+                if (FILE *f = fopen(p, "wb")) {
+                    fwrite(s_screenmem, 1, sizeof(s_screenmem), f);
+                    fclose(f);
+                }
+            }
+            const char *tf = getenv("HDOS_TRACE_FILL");
+            s_pfTrace = tf && atoi(tf) == n;
+        }
         hdos_flood_fill((int)a, (int)b, ctx->fill_idx);
         break;
 
