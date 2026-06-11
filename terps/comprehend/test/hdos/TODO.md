@@ -3,9 +3,41 @@
 Goal: `hdos_talisman.cpp` renders every DOS picture **byte-for-byte identical**
 to `NOVEL1.EXE` over the 280×160 window, i.e. `0 diffs` for every fixture.
 
-Current state (2026-06-11): **1.6 %–4.7 % mismatch**, down from 67–80 %.  Sections
-0–3 below are essentially done (see README "Status" for the four fixes); the only
-material work left is the fill-edge long tail (§2 boundary test).
+Current state (2026-06-11): **throne 0, cell 73, title 371, courtyard 1017**
+(0 % / 0.16 % / 0.83 % / 2.27 %), down from 1285 / 1385 / 705 / 2113.  The big
+remaining wins came from two primitive ports:
+
+- **draw_line**: was the symmetric two-axis Bresenham; replaced with the native
+  major-axis form (PicDrawLineBresenham 0x2c00, error init = minor - major).
+  The two variants tie-break opposite ways on ~45deg lines, shifting a line --
+  and the fill it bounds -- by 1 px.  This alone took throne to 0 and roughly
+  halved the others.
+- **hdos_flood_fill**: was white-only (== 3); replaced with a scanline fill
+  over a visited bitmap, boundary == black (!= 0), matching FUN_29a0.
+
+Diagnostics confirmed (via test/diff_hdos, which prints a rendered->golden
+transition histogram, per-row bands, a spatial diff PPM, and a raw index dump;
+plus a one-off per-pixel last-writer-opcode trace built by temporarily tagging
+write_2bpp/fill_hline with the current opcode):
+- The residual is **op12 BRUSH** (cell 36 / title 269 / courtyard 622) then
+  **op14 PAINT** (36 / 89 / 347), with a few LINE/CIRCLE.
+- It is **not** a dither phase/parity bug: throne uses 10 dither selectors and
+  is pixel-exact, and the even->low / odd->high subindex mapping matches
+  FUN_23dd + FUN_24a4 exactly.  b02d (x-offset) = 20 = the window origin and is
+  a multiple of 4, so it adds no sub-byte phase.  Brush params verified:
+  stride 9d80 = 2 (8 px), parity b031 = 0, y-transform 9d3b = 0.
+- The title is a ~988-stamp pixel spray of brush 0 (one set bit, byte 23 ->
+  one pixel at (+8,+7)); sweeping that offset doesn't change the diff count, so
+  the surviving-brush positions are right -- the residual is at the **edges**
+  of dithered fills and in dense foliage stipple (courtyard), where which exact
+  pixel ends up in a region depends on the native fill's span-queue traversal
+  *order* (it reads the screen mid-fill, so painted dither-black pixels can
+  self-limit later spans).
+
+Reaching 0 on title/courtyard needs a faithful port of PicOp14Paint's 32-entry
+circular-queue traversal (decompiled; see project memory), which is high-risk
+for the ~1-2 % gain.  Deferred.  No scene uses op15 param 1/2, so flood-fill
+clip-rect handling is moot for the current fixtures.
 
 ## 0. Lock down the harness first — DONE
 - [x] `test_hdos_pics.cpp` renders each scene from its committed `.img` stream and
@@ -28,14 +60,16 @@ material work left is the fill-edge long tail (§2 boundary test).
 - [x] Row-parity matches (`[0xb031]`=0, renderer uses `y&1`).
 - [x] 2-bpp **bit order**: interpreter is MSB-first; the renderer is LSB-first, so
       fill-table bytes are now reversed at load (this was the dominant ~30 % bug).
-- [ ] **Flood-fill boundary test** — the remaining long tail.  Native predicate is
-      "pixel != 0 (black)" (`FUN_29a0` masks the screen word per pixel), but the
-      renderer's simplified queue relies on "== 3 (white)" to avoid double-fill;
-      switching to `!=0` over-fills.  A faithful port of `PicOp14Paint` @0x2630
-      (32-entry circular queue + merge) is needed to reach 0 diffs at fill edges.
+- [x] **Flood-fill boundary test** — DONE for the predicate: now "pixel != 0
+      (black)" (`FUN_29a0`) over a visited bitmap (the visited map plays the role
+      of the native done-flags, so `!=0` no longer over-fills).  Reproducing the
+      native span-queue *traversal order* (which self-limits via mid-fill screen
+      reads) to nail the last edge pixels in complex regions is the remaining
+      long tail; deferred (see top of file).
 
 ## 3. Per-primitive opcode audit vs Ghidra
-- [x] Line / box — match (throne is pure lines+fills at 3.1 %).
+- [x] Line / box — now the native major-axis Bresenham; throne (pure lines+fills,
+      incl. 10 dither fills) is pixel-exact.
 - [x] Brush plot: quadrant order was L/R-swapped; corrected to bytes 0-7=upper-
       left, 8-15=lower-left, 16-23=upper-right, 24-31=lower-right
       (`PicStampBrushShape` @0x2967).
