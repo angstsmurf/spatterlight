@@ -36,6 +36,7 @@ CFLAGS     := -O0 -g -Wall -w $(COMMON_INC) -DGARGLK -DSPATTERLIGHT
 CXX_SRCS := \
     apple2.cpp \
     graphics_magician.cpp \
+    hdos_talisman.cpp \
     charset.cpp \
     comprehend.cpp \
     comprehend_compat.cpp \
