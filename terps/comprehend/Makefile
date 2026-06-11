@@ -9,12 +9,13 @@ CC         ?= clang
 
 READWOZ_DIR := ../readwoz
 COMMON_DIR  := ../common_utils
+SAGADRAW_DIR := ../common_sagadraw
 
 CXXFLAGS   := -std=c++14 -O0 -g -Wall -Wno-unknown-pragmas \
               -Wno-macro-redefined -Wno-format \
-              -I. -I$(GLKIMP_DIR) -I$(READWOZ_DIR) -I$(COMMON_DIR) \
+              -I. -I$(GLKIMP_DIR) -I$(READWOZ_DIR) -I$(COMMON_DIR) -I$(SAGADRAW_DIR) \
               -DGARGLK -DSPATTERLIGHT
-CFLAGS     := -O0 -g -Wall -w -I. -I$(GLKIMP_DIR) -I$(READWOZ_DIR) -I$(COMMON_DIR) \
+CFLAGS     := -O0 -g -Wall -w -I. -I$(GLKIMP_DIR) -I$(READWOZ_DIR) -I$(COMMON_DIR) -I$(SAGADRAW_DIR) \
               -DGARGLK -DSPATTERLIGHT
 
 LDFLAGS    := -L$(BUILD_DIR)
@@ -48,7 +49,7 @@ READWOZ_SRCS := $(READWOZ_DIR)/ciderpress.c $(READWOZ_DIR)/woz2nib.c \
                 $(COMMON_DIR)/read_le16.c
 
 OBJS := $(CXX_SRCS:.cpp=.o) $(C_SRCS:.c=.o) \
-        ciderpress.o woz2nib.o read_le16.o
+        ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
 
 comprehend: $(OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
@@ -65,15 +66,28 @@ woz2nib.o: $(READWOZ_DIR)/woz2nib.c
 	$(CC) $(CFLAGS) -c $< -o $@
 read_le16.o: $(COMMON_DIR)/read_le16.c
 	$(CC) $(CFLAGS) -c $< -o $@
+gm_vector.o: $(SAGADRAW_DIR)/gm_vector.c $(SAGADRAW_DIR)/gm_vector.h
+	$(CC) $(CFLAGS) -c $< -o $@
+gm_artifact.o: $(SAGADRAW_DIR)/gm_artifact.c $(SAGADRAW_DIR)/gm_artifact.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Shared Apple II renderer sources, compiled into the self-contained test tools.
+SAGADRAW_SRCS := $(SAGADRAW_DIR)/gm_vector.c $(SAGADRAW_DIR)/gm_artifact.c
 
 clean:
-	rm -f $(OBJS) comprehend test/test_talisman_pics test/test_hdos_pics test/pixtest test/op5scan test/hdostest test/diff_hdos
+	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_hdos_pics test/pixtest test/op5scan test/hdostest test/diff_hdos test/rgbacrc
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
 # Self-contained: graphics_magician.cpp has no Glk/disk dependencies, so the test
 # links only it. Fixtures live in test/talisman/.
-test/test_talisman_pics: test/test_talisman_pics.cpp graphics_magician.cpp graphics_magician.h
-	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_talisman_pics.cpp graphics_magician.cpp
+test/test_talisman_pics: test/test_talisman_pics.cpp graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/test_talisman_pics.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
+
+# --- Regression anchor: Apple II hi-res -> RGBA artifact renderer ---
+# No byte-exact page corpus covers the colour kernel (gm_artifact), so this
+# checksums the RGBA output of a synthetic page against a captured golden.
+test/rgbacrc: test/rgbacrc.cpp graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/rgbacrc.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
 # --- Regression test: DOS Talisman CGA renderer vs golden DOSBox framebuffers ---
 # Self-contained: hdos_talisman.cpp has no Glk/disk dependencies, and the drawing
@@ -81,16 +95,17 @@ test/test_talisman_pics: test/test_talisman_pics.cpp graphics_magician.cpp graph
 test/test_hdos_pics: test/test_hdos_pics.cpp hdos_talisman.cpp hdos_talisman.h graphics_magician.h
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_hdos_pics.cpp hdos_talisman.cpp
 
-test: test/test_talisman_pics test/test_hdos_pics
+test: test/test_talisman_pics test/test_hdos_pics test/rgbacrc
 	./test/test_talisman_pics
 	./test/test_hdos_pics
+	./test/rgbacrc
 
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
 # image and log its hi-res writes. Used to capture new regression fixtures.
 # See test/talisman/README.md.
-test/pixtest: test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o
-	$(CXX) -std=c++14 -O0 -g -DGM_TRACE -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
-	    test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o
+test/pixtest: test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+	$(CXX) -std=c++14 -O0 -g -DGM_TRACE -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -I$(SAGADRAW_DIR) -o $@ \
+	    test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
 
 # Developer tool: render one DOS Talisman (CGA) picture and write it as a PPM,
 # to eyeball against a DOSBox capture. Self-contained: hdos_talisman.cpp has no

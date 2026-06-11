@@ -31,6 +31,7 @@
 #include "ciderpress.h"
 #include "common_file_utils.h"
 #include "vector_common.h"
+#include "gm_vector.h"
 
 #define APPLE2_SCREEN_HEIGHT 192
 #define APPLE2_SCREEN_COLS 40
@@ -69,14 +70,8 @@ typedef enum {
 } Brush;
 
 typedef struct {
-    uint16_t HBAS;
-    uint16_t HGR_X;
-    uint8_t HGR_Y;
-    uint8_t HMASK; // mask to apply to screen address when plotting pixel.masktable[xpos % 7]
-    uint8_t HGR_BITS; // mask to apply to screen address when drawing color
-    uint8_t HGR_HORIZ; // column position
-    uint8_t HGR_COLOR; // current pen color
-    Brush BRUSH; // current shape type
+    gm_vector_ctx gv;   // shared cursor/colour + line-drawing state
+    Brush BRUSH;        // current shape type
     uint8_t FILL_COLOR; // current fill
 } a2_vector_ctx;
 
@@ -157,31 +152,7 @@ static int gli_slowdraw = 0;
 #endif
 
 
-static void set_color(uint8_t color_index, a2_vector_ctx *ctx) {
-    const uint8_t COLORTBL[8] = {0x00, 0x2a, 0x55, 0x7f, 0x80, 0xaa, 0xd5, 0xff};
-    if (color_index < 8) {
-        ctx->HGR_COLOR = COLORTBL[color_index];
-    } else {
-        fprintf(stderr, "SET_COLOR called with illegal color index %d\n", color_index);
-    }
-}
-
-static void set_draw_position(uint16_t xpos, uint8_t ypos, a2_vector_ctx *ctx)
-{
-    ctx->HGR_X = xpos;
-    ctx->HGR_Y = ypos;
-
-    ctx->HBAS = CALC_APPLE2_ADDRESS(ypos);
-    ctx->HGR_HORIZ = xpos / COL_BITS;
-    const uint8_t masktable[COL_BITS] = {0x81,0x82,0x84,0x88,0x90,0xa0,0xc0};
-    ctx->HMASK = masktable[xpos % COL_BITS];
-    ctx->HGR_BITS = ctx->HGR_COLOR;
-    // If odd column, rotate bits
-    if ((ctx->HGR_HORIZ & 1) == 1 && ((ctx->HGR_COLOR * 2 + 0x40) & 0x80)) {
-        ctx->HGR_BITS = ctx->HGR_COLOR ^ 0x7f;
-    }
-    return;
-}
+// set_color / set_draw_position now live in common_sagadraw/gm_vector.c.
 
 static inline bool is_valid_screen_offset(uint16_t offset) {
     return offset <= MAX_SCREEN_ADDR;
@@ -242,6 +213,12 @@ static void write_to_screenmem(uint16_t offset, uint8_t value, bool fill) {
     op->offset = offset;
     op->value = value;
     op->fill_bg = fill;
+}
+
+// Write hook handed to the shared gm_vector line primitives.
+static void scott_gm_write(uint16_t offset, uint8_t value, void *user) {
+    (void)user;
+    write_to_screenmem(offset, value, false);
 }
 
 #pragma mark FLOOD FILL
@@ -543,228 +520,6 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t color)
     }
 }
 
-#pragma mark SHAPE DRAWING
-
-/* One 8-row brush quadrant: for each row, spread the brush byte across two adjacent
-   hi-res bytes by a 7-bit rotate (collecting bit 6 into the right byte), then
-   blend it into the screen using the current fill colour pattern. */
-static void draw_bitmap(a2_fill_ctx *ctx)
-{
-    for (int row = 0; row < 8; row++) {
-        uint16_t address = CALC_APPLE2_ADDRESS(ctx->scanline) + ctx->seed_column;
-        int idx = ctx->bitmap_index + row;
-        if (idx < (int)sizeof(brush_bitmaps) && is_valid_screen_offset(address)) {
-            uint8_t b = brush_bitmaps[idx];
-            if (b != 0) {
-                /* 7-bit spread by the pixel offset within the column. */
-                uint8_t carry = 0;
-                for (uint8_t n = ctx->pixel_offset; n != 0; n--) {
-                    carry = (uint8_t)((carry << 1) | ((b & 0x7f) >> 6));
-                    b = (uint8_t)(b << 1);
-                }
-                uint8_t mask_a = b & 0x7f;   /* bits painted into column `col` */
-                uint8_t mask_b = carry;      /* bits carried into column `col+1` */
-
-                uint8_t pat_base = ((ctx->scanline & 1) ? ctx->pattern_odd
-                                                       : ctx->pattern_even) * 4;
-                uint8_t pat0 = pattern_data[(ctx->seed_column & 3) | pat_base];
-                uint8_t pat1 = pattern_data[((ctx->seed_column + 1) & 3) | pat_base];
-
-                if (mask_a != 0)
-                    write_to_screenmem(address,
-                        ((mask_a ^ 0x7f) & screenmem[address]) | ((mask_a | 0x80) & pat0), false);
-                if (mask_b != 0 && is_valid_screen_offset(address + 1))
-                    write_to_screenmem(address + 1,
-                        ((mask_b ^ 0x7f) & screenmem[address + 1]) | ((mask_b | 0x80) & pat1), false);
-            }
-        }
-        ctx->scanline++;
-    }
-}
-
-/* Draws a brush as a series of four bitmaps.
-
-   The four parts of the brush appear in the order top-left, top-right,
-   bottom-left, bottom-right.  The current X,Y position determines the
-   top-left corner, not the center.
- */
-
-#define BRUSH_PART_SIZE 8
-#define BRUSH_TOTAL_PARTS 4
-#define BRUSH__PART_HEIGHT 8
-
-static void draw_brush_quadrant(a2_fill_ctx *ctx, int column_offset, int line_offset) {
-    ctx->seed_column += column_offset;
-    ctx->scanline += line_offset;
-
-    draw_bitmap(ctx);
-
-    /* Restore original column and line after drawing */
-    ctx->seed_column -= column_offset;
-    /* The draw_bitmap() call added 8 lines */
-    ctx->scanline -= line_offset + BRUSH__PART_HEIGHT;
-}
-
-static void draw_brush(uint16_t x, uint8_t y, Brush brush, uint8_t color) {
-    a2_fill_ctx ctx = {};
-
-    /* Initialize the context */
-    ctx.scanline = y;
-    ctx.brush_type = brush;
-    ctx.fill_color = color;
-    ctx.pattern_even = color_pattern_subindices[ctx.fill_color * 2];
-    ctx.pattern_odd = color_pattern_subindices[ctx.fill_color * 2 + 1];
-
-    /* Split X coordinate into byte/pixel */
-    x_to_column_and_pixel(&ctx, x);
-    ctx.bitmap_index = ctx.brush_type * BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS;
-
-    if (ctx.bitmap_index + BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS > sizeof(brush_bitmaps)) {
-        fprintf(stderr, "Error: Brush bitmap index out of bounds!\n");
-        return;
-    }
-
-    /* Draw each quadrant of the brush */
-    draw_brush_quadrant(&ctx, 0, 0);                   // Top-left
-    ctx.bitmap_index += BRUSH_PART_SIZE;
-    draw_brush_quadrant(&ctx, 1, 0);                   // Top-right
-    ctx.bitmap_index += BRUSH_PART_SIZE;
-    draw_brush_quadrant(&ctx, 0, BRUSH__PART_HEIGHT);  // Bottom-left
-    ctx.bitmap_index += BRUSH_PART_SIZE;
-    draw_brush_quadrant(&ctx, 1, BRUSH__PART_HEIGHT);  // Bottom-right
-}
-
-#pragma mark LINE DRAWING
-
-static void move_left(a2_vector_ctx *ctx) {
-    if ((ctx->HMASK & 1) == 0) {
-        /* Shift mask right, moves dot left. */
-        /* Move sign bit back where it was. */
-        ctx->HMASK = ctx->HMASK >> 1 ^ 0xc0;
-        return;
-    }
-    /* moved to next byte, so decrease index */
-    ctx->HGR_HORIZ--;
-    if ((int8_t)ctx->HGR_HORIZ < 0) {
-        /* we went off the left edge,
-         so wrap around to the right edge */
-        ctx->HGR_HORIZ = 39;
-    }
-    /* new HMASK, rightmost bit on screen */
-    ctx->HMASK = 0xc0;
-    if ((ctx->HGR_BITS * 2 + 0x40) & 0x80) {
-        /* rotate low-order 7 bits
-           of HGR_BITS one bit position */
-        ctx->HGR_BITS ^= 0x7f;
-    }
-}
-
-static void move_right(a2_vector_ctx *ctx) {
-    /* shifting byte left moves pixel right */
-    ctx->HMASK = ctx->HMASK << 1 ^ 0x80;
-    if ((int8_t)ctx->HMASK < 0) {
-        return;
-    }
-    /* new mask value */
-    ctx->HMASK = 0x81;
-    ctx->HGR_HORIZ++;
-    /* move to the next byte to the right */
-    if (ctx->HGR_HORIZ >= 40) {
-        /* we went off the right edge,
-         so wrap around to the left edge */
-        ctx->HGR_HORIZ = 0;
-    }
-
-    if ((ctx->HGR_BITS * 2 + 0x40) & 0x80) {
-        /* rotate low-order 7 bits
-         of HGR_BITS one bit position */
-        ctx->HGR_BITS ^= 0x7f;
-    }
-}
-
-static void move_up_or_down(bool down, a2_vector_ctx *ctx) {
-    if (down) {
-        ctx->HGR_Y++;
-        // Wrap around if bottom reached
-        if (ctx->HGR_Y > 191) ctx->HGR_Y = 0;
-    } else {
-        ctx->HGR_Y--;
-        // Wrap around if top reached
-        if (ctx->HGR_Y > 191) ctx->HGR_Y = 191;
-    }
-    ctx->HBAS = CALC_APPLE2_ADDRESS(ctx->HGR_Y);
-}
-
-static void move_left_or_right(bool left, a2_vector_ctx *ctx) {
-    if (left)
-        move_left(ctx);
-    else
-        move_right(ctx);
-}
-
-bool stepping = false;
-
-static void plot_a2_vector_pixel(a2_vector_ctx *ctx) {
-    uint16_t offset = ctx->HBAS + ctx->HGR_HORIZ;
-    if (offset > MAX_SCREEN_ADDR)
-        return;
-    write_to_screenmem(offset, ((screenmem[offset] ^ ctx->HGR_BITS) & ctx->HMASK) ^ screenmem[offset], false);
-}
-
-#define CARRY_THRESHOLD 0x100
-
-static void draw_apple2_line(const uint16_t target_x, const uint8_t target_y, a2_vector_ctx *ctx)
-{
-    /* Determine movement direction */
-    const bool move_down = target_y > ctx->HGR_Y;
-    const bool move_left = target_x < ctx->HGR_X;
-
-    /* Calculate deltas */
-    const uint16_t delta_x = (target_x > ctx->HGR_X) ? (target_x - ctx->HGR_X) : (ctx->HGR_X - target_x);
-    const uint8_t delta_y = (target_y > ctx->HGR_Y) ? (target_y - ctx->HGR_Y) : (ctx->HGR_Y - target_y);
-
-    /* Plot the initial pixel */
-    plot_a2_vector_pixel(ctx);
-
-    const int total_steps = delta_x + delta_y; // Total iterations of the loop
-    if (total_steps == 0) return; // Single pixel, no line to draw
-
-    /* The original 6502 assembly code sets HGR_DY to -delta_y - 1,
-       but a carry of 1 is added every time it is used in calculations.
-       Note that this is not the same as (uint8_t)(-delta_y), as the
-       result may overflow 8 bits. */
-    const int minus_delta_y = (uint8_t)(~delta_y) + 1;
-
-    bool carry = (uint8_t)delta_x + minus_delta_y < CARRY_THRESHOLD;
-    /* The moving_vertically bool represents the value of the carry
-       flag at the end of each iteration in the original 6502 code. */
-    bool moving_vertically = (delta_x >> 8) < carry;
-
-    uint16_t error_term = delta_x + minus_delta_y - CARRY_THRESHOLD;
-
-    for (int i = 0; i < total_steps; i++) {
-        if (moving_vertically) {
-            move_up_or_down(move_down, ctx);
-            /* We switch to horizontal movement if the most significant byte of
-               error_term + delta_x overflows 8 bits */
-            moving_vertically = error_term + delta_x < CARRY_THRESHOLD << 8;
-            error_term += delta_x;
-        } else {
-            move_left_or_right(move_left, ctx);
-            /* We switch to vertical movement if the least significant byte
-               of error_term - delta_y does not overflow 8 bits.
-               (In the original, carry set means move horizontally.) */
-            uint16_t nocarry = ((uint8_t)error_term + minus_delta_y < CARRY_THRESHOLD) << 8;
-            moving_vertically = error_term < nocarry;
-            uint8_t e_low = (uint8_t)error_term + minus_delta_y;
-            error_term = ((error_term - nocarry) & 0xff00) | e_low;
-        }
-        plot_a2_vector_pixel(ctx);
-    }
-    /* HGR_Y is already set (in move_up_or_down()), but not HGR_X. */
-    ctx->HGR_X = target_x;
-}
-
 #pragma mark Main draw routine
 
 static bool doImageOp(uint8_t **outptr, a2_vector_ctx *ctx) {
@@ -792,7 +547,7 @@ static bool doImageOp(uint8_t **outptr, a2_vector_ctx *ctx) {
             return true;
 
         case OPCODE_SET_PEN_COLOR: // 2
-            set_color(param, ctx);
+            gm_set_color(param, &ctx->gv);
             break;
 
         case OPCODE_SET_SHAPE: // 4
@@ -807,20 +562,23 @@ static bool doImageOp(uint8_t **outptr, a2_vector_ctx *ctx) {
         case OPCODE_MOVE_TO: // 8
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
-            set_draw_position(a, b, ctx);
+            gm_set_draw_position(a, b, &ctx->gv);
             break;
 
         case OPCODE_DRAW_LINE: // 10
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
 
-            draw_apple2_line(a, b, ctx);
+            gm_draw_line(a, b, &ctx->gv);
             break;
 
         case OPCODE_DRAW_SHAPE: // 12
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
-            draw_brush(a, b, ctx->BRUSH, ctx->FILL_COLOR);
+            gm_draw_brush(a, b, ctx->BRUSH,
+                          color_pattern_subindices[(uint8_t)(ctx->FILL_COLOR * 2)],
+                          color_pattern_subindices[(uint8_t)(ctx->FILL_COLOR * 2 + 1)],
+                          &ctx->gv);
             break;
 
         case OPCODE_PAINT: // 14
@@ -947,8 +705,14 @@ int DrawApple2VectorImage(USImage *img) {
         init_a2_vector_draw_session(img);
     }
 
-    set_color(4, &ctx);
-    set_draw_position(140,96, &ctx);
+    ctx.gv.screenmem = screenmem;
+    ctx.gv.write = scott_gm_write;
+    ctx.gv.user = NULL;
+    ctx.gv.pattern_data = pattern_data;
+    ctx.gv.brush_bitmaps = brush_bitmaps;
+
+    gm_set_color(4, &ctx.gv);
+    gm_set_draw_position(140, 96, &ctx.gv);
     ctx.FILL_COLOR = 0;
     ctx.BRUSH = BRUSH_CIRCLE_LARGE;
 
