@@ -66,7 +66,7 @@ read_le16.o: $(COMMON_DIR)/read_le16.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) comprehend test/test_talisman_pics test/pixtest
+	rm -f $(OBJS) comprehend test/test_talisman_pics test/pixtest test/op5scan
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
 # Self-contained: graphics_magician.cpp has no Glk/disk dependencies, so the test
@@ -83,5 +83,14 @@ test: test/test_talisman_pics
 test/pixtest: test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o
 	$(CXX) -std=c++14 -O0 -g -DGM_TRACE -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
 	    test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o
+
+# Developer tool: scan every image in an Apple II Comprehend disk's graphics
+# files and report which ones use a given drawing opcode (op5/TEXT_OUTLINE).
+# Self-contained: replicates the graphics_magician opcode walker, so it only
+# needs the disk-image readers. Handles both the 1985 16-image collection format
+# and the older single-picture-per-file DOS 3.3 releases (via OP5_SINGLE).
+test/op5scan: test/op5scan.c ciderpress.o woz2nib.o read_le16.o
+	$(CC) -O2 -w -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
+	    test/op5scan.c ciderpress.o woz2nib.o read_le16.o
 
 .PHONY: clean test
