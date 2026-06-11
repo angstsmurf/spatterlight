@@ -40,6 +40,8 @@
  */
 
 #include "graphics_magician.h"
+#include "gm_vector.h"
+#include "gm_artifact.h"
 #include <cstring>
 #include <vector>
 
@@ -218,17 +220,17 @@ static void write_screen(uint16_t offset, uint8_t value) {
 	}
 }
 
+// Write hook handed to the shared gm_vector line primitives.
+static void gm_write_adapter(uint16_t offset, uint8_t value, void *user) {
+	(void)user;
+	write_screen(offset, value);
+}
+
 // ---- Drawing context ----------------------------------------------------------
 // (Opcode enum is shared via graphics_magician.h.)
 
 typedef struct {
-	uint16_t HBAS;
-	uint16_t HGR_X;
-	uint8_t HGR_Y;
-	uint8_t HMASK;
-	uint8_t HGR_BITS;
-	uint8_t HGR_HORIZ;
-	uint8_t HGR_COLOR;     // current pen colour (hi-res byte)
+	gm_vector_ctx gv;      // shared cursor/colour + line-drawing state
 	uint8_t BRUSH;         // current shape/brush type
 	// current fill colour as even/odd-row pattern sub-indices ($08/$09),
 	// set by op6 SET_FILL_COLOR; default (3,3) = white.
@@ -240,39 +242,8 @@ typedef struct {
 	uint8_t text_y;
 } a2_ctx;
 
-// State for the brush/shape blit (draw_brush -> draw_bitmap).
-typedef struct {
-	uint8_t scanline;
-	uint8_t pattern_even;
-	uint8_t pattern_odd;
-	uint8_t seed_column;
-	uint8_t pixel_offset;
-	uint8_t bitmap_index;
-	uint8_t brush_type;
-} a2_brush_ctx;
-
-static void set_color(uint8_t color_index, a2_ctx *ctx) {
-	static const uint8_t COLORTBL[8] = {0x00, 0x2a, 0x55, 0x7f, 0x80, 0xaa, 0xd5, 0xff};
-	if (color_index < 8)
-		ctx->HGR_COLOR = COLORTBL[color_index];
-}
-
-static void set_draw_position(uint16_t xpos, uint8_t ypos, a2_ctx *ctx) {
-	ctx->HGR_X = xpos;
-	ctx->HGR_Y = ypos;
-	ctx->HBAS = CALC_APPLE2_ADDRESS(ypos);
-	ctx->HGR_HORIZ = xpos / COL_BITS;
-	static const uint8_t masktable[COL_BITS] = {0x81, 0x82, 0x84, 0x88, 0x90, 0xa0, 0xc0};
-	ctx->HMASK = masktable[xpos % COL_BITS];
-	ctx->HGR_BITS = ctx->HGR_COLOR;
-	if ((ctx->HGR_HORIZ & 1) == 1 && ((ctx->HGR_COLOR * 2 + 0x40) & 0x80))
-		ctx->HGR_BITS = ctx->HGR_COLOR ^ 0x7f;
-}
-
-static void x_to_column_and_pixel(a2_brush_ctx *ctx, uint16_t x) {
-	ctx->seed_column = x / COL_BITS;
-	ctx->pixel_offset = x % COL_BITS;
-}
+// set_color / set_draw_position / draw_brush now live in
+// common_sagadraw/gm_vector.c.
 
 // ---- Flood fill ---------------------------------------------------------------
 //
@@ -558,75 +529,6 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t pat_even, uint8_t p
 	run_fill();
 }
 
-// ---- Shape / brush drawing (ported) -------------------------------------------
-
-// One 8-row brush quadrant: for each row, spread the brush byte across two adjacent
-// hi-res bytes by a 7-bit rotate (collecting bit 6 into the right byte), then
-// blend it into the screen using the current fill colour pattern.
-static void draw_bitmap(a2_brush_ctx *ctx) {
-	for (int row = 0; row < 8; row++) {
-		uint16_t address = CALC_APPLE2_ADDRESS(ctx->scanline) + ctx->seed_column;
-		int idx = ctx->bitmap_index + row;
-		if (idx < (int)sizeof(s_brushBitmaps) && valid_offset(address)) {
-			uint8_t b = s_brushBitmaps[idx];
-			if (b != 0) {
-				// 7-bit spread by the pixel offset within the column.
-				uint8_t carry = 0;
-				for (uint8_t n = ctx->pixel_offset; n != 0; n--) {
-					carry = (uint8_t)((carry << 1) | ((b & 0x7f) >> 6));
-					b = (uint8_t)(b << 1);
-				}
-				uint8_t mask_a = b & 0x7f;   // bits painted into column `col`
-				uint8_t mask_b = carry;      // bits carried into column `col+1`
-
-				uint8_t pat_base = ((ctx->scanline & 1) ? ctx->pattern_odd
-				                                        : ctx->pattern_even) * 4;
-				uint8_t pat0 = s_patternData[(ctx->seed_column & 3) | pat_base];
-				uint8_t pat1 = s_patternData[((ctx->seed_column + 1) & 3) | pat_base];
-
-				if (mask_a != 0)
-					write_screen(address,
-						((mask_a ^ 0x7f) & s_screenmem[address]) | ((mask_a | 0x80) & pat0));
-				if (mask_b != 0 && valid_offset(address + 1))
-					write_screen(address + 1,
-						((mask_b ^ 0x7f) & s_screenmem[address + 1]) | ((mask_b | 0x80) & pat1));
-			}
-		}
-		ctx->scanline++;
-	}
-}
-
-#define BRUSH_PART_SIZE 8
-#define BRUSH_TOTAL_PARTS 4
-#define BRUSH_PART_HEIGHT 8
-
-static void draw_brush_quadrant(a2_brush_ctx *ctx, int column_offset, int line_offset) {
-	ctx->seed_column += column_offset;
-	ctx->scanline += line_offset;
-	draw_bitmap(ctx);
-	ctx->seed_column -= column_offset;
-	ctx->scanline -= line_offset + BRUSH_PART_HEIGHT;
-}
-
-static void draw_brush(uint16_t x, uint8_t y, uint8_t brush, uint8_t pat_even, uint8_t pat_odd) {
-	a2_brush_ctx ctx = {};
-	ctx.scanline = y;
-	ctx.brush_type = brush;
-	ctx.pattern_even = pat_even;
-	ctx.pattern_odd = pat_odd;
-	x_to_column_and_pixel(&ctx, x);
-	ctx.bitmap_index = ctx.brush_type * BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS;
-	if (ctx.bitmap_index + BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS > (int)sizeof(s_brushBitmaps))
-		return;
-	draw_brush_quadrant(&ctx, 0, 0);
-	ctx.bitmap_index += BRUSH_PART_SIZE;
-	draw_brush_quadrant(&ctx, 1, 0);
-	ctx.bitmap_index += BRUSH_PART_SIZE;
-	draw_brush_quadrant(&ctx, 0, BRUSH_PART_HEIGHT);
-	ctx.bitmap_index += BRUSH_PART_SIZE;
-	draw_brush_quadrant(&ctx, 1, BRUSH_PART_HEIGHT);
-}
-
 // ---- Text glyph drawing (op3 TEXT_CHAR / op5 TEXT_OUTLINE) ---------------------
 //
 // The picture interpreter draws characters through the same per-row blitter as
@@ -650,13 +552,8 @@ static void draw_text_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal,
 		uint8_t g = glyph[row];
 		if (g == 0)
 			continue;
-		uint8_t carry = 0, b = g;
-		for (uint8_t n = off; n != 0; n--) {
-			carry = (uint8_t)((carry << 1) | ((b & 0x7f) >> 6));
-			b = (uint8_t)(b << 1);
-		}
-		uint8_t mask_a = (uint8_t)(b & 0x7f);   // bits painted into column `col`
-		uint8_t mask_b = carry;                 // bits carried into column `col+1`
+		uint8_t mask_a, mask_b;                 // mask_a -> col, mask_b -> col+1
+		gm_spread7(g, off, &mask_a, &mask_b);
 		uint16_t addr = (uint16_t)(CALC_APPLE2_ADDRESS(scan) + col);
 		if (normal) {
 			// FUN_102e $1099: XOR plot. mask_a/mask_b are 7-bit, so bit 7 (the
@@ -680,87 +577,6 @@ static void draw_text_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal,
 	}
 }
 
-// ---- Line drawing (ported) ----------------------------------------------------
-
-static void move_left(a2_ctx *ctx) {
-	if ((ctx->HMASK & 1) == 0) {
-		ctx->HMASK = ctx->HMASK >> 1 ^ 0xc0;
-		return;
-	}
-	ctx->HGR_HORIZ--;
-	if ((int8_t)ctx->HGR_HORIZ < 0)
-		ctx->HGR_HORIZ = 39;
-	ctx->HMASK = 0xc0;
-	if ((ctx->HGR_BITS * 2 + 0x40) & 0x80)
-		ctx->HGR_BITS ^= 0x7f;
-}
-
-static void move_right(a2_ctx *ctx) {
-	ctx->HMASK = ctx->HMASK << 1 ^ 0x80;
-	if ((int8_t)ctx->HMASK < 0)
-		return;
-	ctx->HMASK = 0x81;
-	ctx->HGR_HORIZ++;
-	if (ctx->HGR_HORIZ >= 40)
-		ctx->HGR_HORIZ = 0;
-	if ((ctx->HGR_BITS * 2 + 0x40) & 0x80)
-		ctx->HGR_BITS ^= 0x7f;
-}
-
-static void move_up_or_down(bool down, a2_ctx *ctx) {
-	if (down) {
-		ctx->HGR_Y++;
-		if (ctx->HGR_Y > 191) ctx->HGR_Y = 0;
-	} else {
-		ctx->HGR_Y--;
-		// Note:`(int8_t)HGR_Y < 0 will wrongly fire for every valid row 128..191.
-		if (ctx->HGR_Y > 191) ctx->HGR_Y = 191;
-	}
-	ctx->HBAS = CALC_APPLE2_ADDRESS(ctx->HGR_Y);
-}
-
-static void move_left_or_right(bool left, a2_ctx *ctx) {
-	if (left) move_left(ctx); else move_right(ctx);
-}
-
-static void plot_pixel(a2_ctx *ctx) {
-	uint16_t offset = ctx->HBAS + ctx->HGR_HORIZ;
-	if (offset > MAX_SCREEN_ADDR)
-		return;
-	write_screen(offset, ((s_screenmem[offset] ^ ctx->HGR_BITS) & ctx->HMASK) ^ s_screenmem[offset]);
-}
-
-#define CARRY_THRESHOLD 0x100
-
-static void draw_line(uint16_t target_x, uint8_t target_y, a2_ctx *ctx) {
-	const bool move_down = target_y > ctx->HGR_Y;
-	const bool mleft = target_x < ctx->HGR_X;
-	const uint16_t delta_x = (target_x > ctx->HGR_X) ? (target_x - ctx->HGR_X) : (ctx->HGR_X - target_x);
-	const uint8_t delta_y = (target_y > ctx->HGR_Y) ? (target_y - ctx->HGR_Y) : (ctx->HGR_Y - target_y);
-	plot_pixel(ctx);
-	const int total_steps = delta_x + delta_y;
-	if (total_steps == 0) return;
-	const int minus_delta_y = (uint8_t)(~delta_y) + 1;
-	bool carry = (uint8_t)delta_x + minus_delta_y < CARRY_THRESHOLD;
-	bool moving_vertically = (delta_x >> 8) < carry;
-	uint16_t error_term = delta_x + minus_delta_y - CARRY_THRESHOLD;
-	for (int i = 0; i < total_steps; i++) {
-		if (moving_vertically) {
-			move_up_or_down(move_down, ctx);
-			moving_vertically = error_term + delta_x < CARRY_THRESHOLD << 8;
-			error_term += delta_x;
-		} else {
-			move_left_or_right(mleft, ctx);
-			uint16_t nocarry = ((uint8_t)error_term + minus_delta_y < CARRY_THRESHOLD) << 8;
-			moving_vertically = error_term < nocarry;
-			uint8_t e_low = (uint8_t)error_term + minus_delta_y;
-			error_term = ((error_term - nocarry) & 0xff00) | e_low;
-		}
-		plot_pixel(ctx);
-	}
-	ctx->HGR_X = target_x;
-}
-
 // ---- Circle (op11) ----
 // A midpoint circle plotting 8 symmetric points per step via HPLOT (HPOSN +
 // plot). Only x in 0..279, y in 0..159.
@@ -768,8 +584,8 @@ static void draw_line(uint16_t target_x, uint8_t target_y, a2_ctx *ctx) {
 static void plot_circle_point(int x, int y, a2_ctx *ctx) {
 	if (x < 0 || x >= 280 || y < 0 || y >= APPLE2_SCREEN_HEIGHT - 32)
 		return;
-	set_draw_position((uint16_t)x, (uint8_t)y, ctx);
-	plot_pixel(ctx);
+	gm_set_draw_position((uint16_t)x, (uint8_t)y, &ctx->gv);
+	gm_plot_pixel(&ctx->gv);
 }
 
 static void draw_circle(uint16_t cx, uint8_t cy, uint8_t radius, a2_ctx *ctx) {
@@ -839,7 +655,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 	if (g_gmOnOp)
 		g_gmOnOp((int)(ptr - g_imgBase), ptr[0],
 			(ptr + 1 < end) ? ptr[1] : 0, (ptr + 2 < end) ? ptr[2] : 0,
-			ctx->HGR_X, ctx->HGR_Y);
+			ctx->gv.HGR_X, ctx->gv.HGR_Y);
 #endif
 	uint8_t opcode = *ptr++;
 	uint8_t param = opcode & 0xf;
@@ -873,7 +689,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 		break;
 
 	case OPCODE_SET_PEN_COLOR: // 2
-		set_color(param, ctx);
+		gm_set_color(param, &ctx->gv);
 		break;
 
 	case OPCODE_TEXT_CHAR: // 3 -- solid (XOR) text
@@ -900,46 +716,46 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 	case OPCODE_MOVE_TO: // 8
 		a = *ptr++ + (param & 1 ? 256 : 0);
 		b = *ptr++;
-		set_draw_position(a, b, ctx);
+		gm_set_draw_position(a, b, &ctx->gv);
 		break;
 
 	case OPCODE_DRAW_BOX: { // 9 -- rectangle, byte-faithful to op9 ($095b)
 		a = *ptr++ + (param & 1 ? 256 : 0);
 		b = *ptr++;
-		uint16_t x0 = ctx->HGR_X;
-		uint8_t y0 = ctx->HGR_Y;
+		uint16_t x0 = ctx->gv.HGR_X;
+		uint8_t y0 = ctx->gv.HGR_Y;
 		// Four chained HLINEs around the rectangle (the four JSR $F53A calls).
-		draw_line(x0, b, ctx);   // left edge   (x0,y0)->(x0,b)
-		draw_line(a, b, ctx);    // bottom edge ->(a,b)
-		draw_line(a, y0, ctx);   // right edge  ->(a,y0)
-		draw_line(x0, y0, ctx);  // top edge    ->(x0,y0)
+		gm_draw_line(x0, b, &ctx->gv);   // left edge   (x0,y0)->(x0,b)
+		gm_draw_line(a, b, &ctx->gv);    // bottom edge ->(a,b)
+		gm_draw_line(a, y0, &ctx->gv);   // right edge  ->(a,y0)
+		gm_draw_line(x0, y0, &ctx->gv);  // top edge    ->(x0,y0)
 		// op9 then falls through to $0990, which HPOSNs to the far corner, so the
 		// pen is left at (a,b) -- NOT the start corner. A following DRAW_LINE
 		// continues from there; omitting this shifted the next line by a few
 		// pixels (e.g. Talisman RA #1: 11 wrong bytes along one diagonal edge).
-		set_draw_position(a, b, ctx);
+		gm_set_draw_position(a, b, &ctx->gv);
 		break;
 	}
 
 	case OPCODE_DRAW_LINE: // 10
 		a = *ptr++ + (param & 1 ? 256 : 0);
 		b = *ptr++;
-		draw_line(a, b, ctx);
+		gm_draw_line(a, b, &ctx->gv);
 		break;
 
 	case OPCODE_DRAW_CIRCLE: { // 11 -- circle centred on the current pen position
 		uint8_t radius = *ptr++;
-		uint16_t ccx = ctx->HGR_X;
-		uint8_t ccy = ctx->HGR_Y;
+		uint16_t ccx = ctx->gv.HGR_X;
+		uint8_t ccy = ctx->gv.HGR_Y;
 		draw_circle(ccx, ccy, radius, ctx);
-		set_draw_position(ccx, ccy, ctx);   // op11 restores the centre ($0944->$0990)
+		gm_set_draw_position(ccx, ccy, &ctx->gv);   // op11 restores the centre ($0944->$0990)
 		break;
 	}
 
 	case OPCODE_DRAW_SHAPE: // 12
 		a = *ptr++ + (param & 1 ? 256 : 0);
 		b = *ptr++;
-		draw_brush(a, b, ctx->BRUSH, ctx->pat_even, ctx->pat_odd);
+		gm_draw_brush(a, b, ctx->BRUSH, ctx->pat_even, ctx->pat_odd, &ctx->gv);
 		break;
 
 	case OPCODE_DELAY: { // 13 -- pause (no effect on the final page; paces the reveal)
@@ -982,53 +798,10 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 	return false;
 }
 
-// ---- Apple hi-res -> RGB (NTSC artifact colours, from MAME) -----------
-
-static unsigned rotl4b(unsigned n, unsigned count) { return (n >> (-count & 3)) & 0x0f; }
-
-static const uint8_t artifact_color_lut[128] = {
-	0x00,0x00,0x00,0x00,0x88,0x00,0xcc,0x00,0x11,0x11,0x55,0x11,0x99,0x99,0xdd,0xff,
-	0x22,0x22,0x66,0x66,0xaa,0xaa,0xee,0xee,0x33,0x33,0x33,0x33,0xbb,0xBB,0xff,0xff,
-	0x00,0x00,0x44,0x44,0xcc,0xcc,0xcc,0xcc,0x55,0x55,0x55,0x55,0x99,0x99,0xdd,0xff,
-	0x66,0x22,0x66,0x66,0xee,0xaa,0xee,0xee,0x77,0x77,0x77,0x77,0xff,0xFF,0xff,0xff,
-	0x00,0x00,0x00,0x00,0x88,0x88,0x88,0x88,0x11,0x11,0x55,0x11,0x99,0x99,0xdd,0x99,
-	0x00,0x22,0x66,0x66,0xaa,0xaa,0xaa,0xaa,0x33,0x33,0x33,0x33,0xbb,0xBB,0xff,0xff,
-	0x00,0x00,0x44,0x44,0xcc,0xcc,0xcc,0xcc,0x11,0x11,0x55,0x55,0x99,0x99,0xdd,0xdd,
-	0x00,0x22,0x66,0x66,0xee,0xaa,0xee,0xee,0xff,0x33,0xff,0x77,0xff,0xFF,0xff,0xff,
-};
-
-static const uint32_t apple2_palette[16] = {
-	0x000000, 0xa70b40, 0x401cf7, 0xe628ff, 0x007440, 0x808080, 0x1990ff, 0xbf9cff,
-	0x406300, 0xe66f00, 0x808080, 0xff8bbf, 0x19d700, 0xbfe308, 0x58f4bf, 0xffffff,
-};
-
-#define CONTEXTBITS 3
-
-// Render one Apple scanline into colors560[0..559] (4-bit palette indices).
-static void render_line_colors(const uint16_t *in, uint8_t *colors560) {
-	uint32_t w = 0;
-	w += in[0] << CONTEXTBITS;
-	for (int col = 0; col < 40; col++) {
-		if (col < 39)
-			w += in[col + 1] << (14 + CONTEXTBITS);
-		for (int b = 0; b < 14; b++) {
-			uint8_t color = (uint8_t)rotl4b(artifact_color_lut[w & 0x7f], col * 14 + b);
-			colors560[col * 14 + b] = color;
-			w >>= 1;
-		}
-	}
-}
-
-static uint16_t Double7Bits(int i) {
-	static uint16_t table[128];
-	static bool init = false;
-	if (!init) {
-		for (unsigned k = 1; k < 128; k++)
-			table[k] = table[k >> 1] * 4 + (k & 1) * 3;
-		init = true;
-	}
-	return (i > 127) ? 0 : table[i];
-}
+// ---- Apple hi-res -> RGB --------------------------------------------------
+// The NTSC artifact-colour kernel (rotl4b / artifact_color_lut / apple2_palette
+// / Double7Bits / per-row word + colour expansion) now lives in
+// common_sagadraw/gm_artifact.c, shared with apple2draw.c.
 
 // Convert a hi-res page -> RGBA into out[w*h] (0xRRGGBBAA). Renders Apple rows
 // 0..h-1, sampling the 560-wide artifact colours down to w columns.
@@ -1037,18 +810,11 @@ static void screenmem_to_rgba(const uint8_t *src, uint32_t *out, int w, int h) {
 		unsigned const address = (((row / 8) & 0x07) << 7) + (((row / 8) & 0x18) * 5) + ((row & 7) << 10);
 		const uint8_t *vram_row = src + address;
 		uint16_t words[40];
-		unsigned last_output_bit = 0;
-		for (int col = 0; col < 40; col++) {
-			unsigned word = Double7Bits(vram_row[col] & 0x7f);
-			if (vram_row[col] & 0x80)
-				word = (word * 2 + last_output_bit) & 0x3fff;
-			words[col] = word;
-			last_output_bit = word >> 13;
-		}
+		gm_compute_row_words(vram_row, words);
 		uint8_t colors560[560];
-		render_line_colors(words, colors560);
+		gm_render_line_colors(words, colors560);
 		for (int x = 0; x < w; x++) {
-			uint32_t rgb = apple2_palette[colors560[(2 * x < 560) ? 2 * x : 559] & 0x0f];
+			uint32_t rgb = gm_apple2_palette[colors560[(2 * x < 560) ? 2 * x : 559] & 0x0f];
 			out[row * w + x] = (rgb << 8) | 0xff;
 		}
 	}
@@ -1154,8 +920,13 @@ void gmDrawImage(const uint8_t *data, size_t size) {
 	s_pauseTicks = 0;
 
 	a2_ctx ctx = {};
-	set_color(4, &ctx);
-	set_draw_position(140, 96, &ctx);
+	ctx.gv.screenmem = s_screenmem;
+	ctx.gv.write = gm_write_adapter;
+	ctx.gv.user = nullptr;
+	ctx.gv.pattern_data = s_patternData;
+	ctx.gv.brush_bitmaps = s_brushBitmaps;
+	gm_set_color(4, &ctx.gv);
+	gm_set_draw_position(140, 96, &ctx.gv);
 	// Default fill colour = idx $4d (the picture interpreter's init at $08a6),
 	// which FUN_0c92 maps to the $1132 even/odd sub-index pair.
 	ctx.pat_even = s_colorPatternSubindices[0x4d * 2];

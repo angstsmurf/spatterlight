@@ -706,6 +706,10 @@
 		C36797D72EF0415B008A6A0D /* c64a8draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797D12EF0415B008A6A0D /* c64a8draw.c */; };
 		C36797D82EF0415B008A6A0D /* pcdraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797D32EF0415B008A6A0D /* pcdraw.c */; };
 		C36797D92EF0415B008A6A0D /* apple2draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797CF2EF0415B008A6A0D /* apple2draw.c */; };
+		C3CA11ECC0DE000000000003 /* gm_vector.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CA11ECC0DE000000000001 /* gm_vector.c */; };
+		C3CA11ECC0DE000000000004 /* gm_vector.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CA11ECC0DE000000000001 /* gm_vector.c */; };
+		C3CA11ECC0DE000000000007 /* gm_artifact.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CA11ECC0DE000000000005 /* gm_artifact.c */; };
+		C3CA11ECC0DE000000000008 /* gm_artifact.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CA11ECC0DE000000000005 /* gm_artifact.c */; };
 		C36797DA2EF0515E008A6A0D /* libsagagraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C36797CA2EF040F7008A6A0D /* libsagagraphics.a */; };
 		C36797DD2EF0516A008A6A0D /* libsagagraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C36797CA2EF040F7008A6A0D /* libsagagraphics.a */; };
 		C36797E22EF0B43A008A6A0D /* c64a8scott.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797E12EF0B43A008A6A0D /* c64a8scott.c */; };
@@ -3275,6 +3279,10 @@
 		C36797CA2EF040F7008A6A0D /* libsagagraphics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsagagraphics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C36797CE2EF0415B008A6A0D /* apple2draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apple2draw.h; sourceTree = "<group>"; };
 		C36797CF2EF0415B008A6A0D /* apple2draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = apple2draw.c; sourceTree = "<group>"; };
+		C3CA11ECC0DE000000000001 /* gm_vector.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gm_vector.c; sourceTree = "<group>"; };
+		C3CA11ECC0DE000000000002 /* gm_vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gm_vector.h; sourceTree = "<group>"; };
+		C3CA11ECC0DE000000000005 /* gm_artifact.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gm_artifact.c; sourceTree = "<group>"; };
+		C3CA11ECC0DE000000000006 /* gm_artifact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gm_artifact.h; sourceTree = "<group>"; };
 		C36797D02EF0415B008A6A0D /* c64a8draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64a8draw.h; sourceTree = "<group>"; };
 		C36797D12EF0415B008A6A0D /* c64a8draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c64a8draw.c; sourceTree = "<group>"; };
 		C36797D32EF0415B008A6A0D /* pcdraw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pcdraw.c; sourceTree = "<group>"; };
@@ -6332,6 +6340,10 @@
 			children = (
 				C36797CE2EF0415B008A6A0D /* apple2draw.h */,
 				C36797CF2EF0415B008A6A0D /* apple2draw.c */,
+				C3CA11ECC0DE000000000002 /* gm_vector.h */,
+				C3CA11ECC0DE000000000001 /* gm_vector.c */,
+				C3CA11ECC0DE000000000006 /* gm_artifact.h */,
+				C3CA11ECC0DE000000000005 /* gm_artifact.c */,
 				C36797D02EF0415B008A6A0D /* c64a8draw.h */,
 				C36797D12EF0415B008A6A0D /* c64a8draw.c */,
 				C3F27EF02EF6037B00B7D716 /* pcdraw.h */,
@@ -8783,6 +8795,8 @@
 				C314D81B2FD6D2F100EABA28 /* charset.cpp in Sources */,
 				C314D81C2FD6D2F100EABA28 /* comprehend.cpp in Sources */,
 				C3A3F3012FDA410900FB7D3C /* graphics_magician.cpp in Sources */,
+				C3CA11ECC0DE000000000003 /* gm_vector.c in Sources */,
+				C3CA11ECC0DE000000000008 /* gm_artifact.c in Sources */,
 				C314D81D2FD6D2F100EABA28 /* comprehend_compat.cpp in Sources */,
 				C3A3F4A62FDAACED00FB7D3C /* hdos_talisman.cpp in Sources */,
 				C314D81E2FD6D2F100EABA28 /* dictionary.cpp in Sources */,
@@ -8848,6 +8862,7 @@
 				C30CAD072FAFD61400A90820 /* scott_meta.c in Sources */,
 				C3C72B6F278CB0F900E095A6 /* detect_game.c in Sources */,
 				C3E144E72F0209670068F099 /* apple2_vector_draw.c in Sources */,
+				C3CA11ECC0DE000000000004 /* gm_vector.c in Sources */,
 				C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */,
 				C37391DB27A25D04009147EF /* game_specific.c in Sources */,
 				C32B472B2F1700CA002AD28F /* atari_8bit_vector_draw.c in Sources */,
@@ -8911,6 +8926,7 @@
 				C36797D72EF0415B008A6A0D /* c64a8draw.c in Sources */,
 				C36797D82EF0415B008A6A0D /* pcdraw.c in Sources */,
 				C36797D92EF0415B008A6A0D /* apple2draw.c in Sources */,
+				C3CA11ECC0DE000000000007 /* gm_artifact.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

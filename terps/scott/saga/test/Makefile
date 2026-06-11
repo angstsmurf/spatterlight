@@ -17,6 +17,7 @@ CFLAGS  := -std=c11 -g -O0 -w -DSPATTERLIGHT \
 
 SRCS := filltest.c \
         $(SCOTT)/saga/apple2_vector_draw.c \
+        $(TERPS)/common_sagadraw/gm_vector.c \
         $(SCOTT)/saga/atari_8bit_vector_draw.c \
         $(SCOTT)/saga/vector_common.c \
         $(SCOTT)/saga/apple2detect.c \

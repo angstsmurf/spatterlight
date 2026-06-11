@@ -16,6 +16,7 @@
 #include "memory_allocation.h"
 
 #include "apple2draw.h"
+#include "gm_artifact.h"
 
 extern winid_t Graphics;
 
@@ -240,71 +241,31 @@ static void PutApplePixelFlippable(glsi32 xpos, glsi32 ypos, glui32 color, int w
     }
 }
 
-/* The code below is borrowed from the MAME Apple 2 driver. */
+/* The NTSC artifact-colour kernel (artifact LUT, palette, Double7Bits, per-row
+   word + colour expansion) lives in common_sagadraw/gm_artifact.c, shared with
+   the Comprehend renderer. This file keeps only the Glk plotting on top of it. */
 
 extern int ImageHeight;
 
-// 4-bit left rotate. Bits 4-6 of n must be a copy of bits 0-2.
-static unsigned rotl4b(unsigned n, unsigned count) { return (n >> (-count & 3)) & 0x0f; }
-
-static uint8_t const artifact_color_lut[128] =
-{
-    0x00,0x00,0x00,0x00,0x88,0x00,0xcc,0x00,0x11,0x11,0x55,0x11,0x99,0x99,0xdd,0xff,
-    0x22,0x22,0x66,0x66,0xaa,0xaa,0xee,0xee,0x33,0x33,0x33,0x33,0xbb,0xbB,0xff,0xff,
-    0x00,0x00,0x44,0x44,0xcc,0xcc,0xcc,0xcc,0x55,0x55,0x55,0x55,0x99,0x99,0xdd,0xff,
-    0x66,0x22,0x66,0x66,0xee,0xaa,0xee,0xee,0x77,0x77,0x77,0x77,0xff,0xfF,0xff,0xff,
-    0x00,0x00,0x00,0x00,0x88,0x88,0x88,0x88,0x11,0x11,0x55,0x11,0x99,0x99,0xdd,0x99,
-    0x00,0x22,0x66,0x66,0xaa,0xaa,0xaa,0xaa,0x33,0x33,0x33,0x33,0xbb,0xbB,0xff,0xff,
-    0x00,0x00,0x44,0x44,0xcc,0xcc,0xcc,0xcc,0x11,0x11,0x55,0x55,0x99,0x99,0xdd,0xdd,
-    0x00,0x22,0x66,0x66,0xee,0xaa,0xee,0xee,0xff,0x33,0xff,0x77,0xff,0xfF,0xff,0xff,
-};
-
-static const glui32 apple2_palette[16] =
-{
-    0x000000, /* Black */
-    0xa70b40, /* Dark Red */
-    0x401cf7, /* Dark Blue */
-    0xe628ff, /* Purple */
-    0x007440, /* Dark Green */
-    0x808080, /* Dark Gray */
-    0x1990ff, /* Medium Blue */
-    0xbf9cff, /* Light Blue */
-    0x406300, /* Brown */
-    0xe66f00, /* Orange */
-    0x808080, /* Light Grey */
-    0xff8bbf, /* Pink */
-    0x19d700, /* Light Green */
-    0xbfe308, /* Yellow */
-    0x58f4bf, /* Aquamarine */
-    0xffffff  /* White */
-};
-
-#define CONTEXTBITS 3
-
 static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int row, int upside_down)
 {
-    // w holds 3 bits of the previous 14-pixel group and the current and next groups.
-    uint32_t w = 0;
-    w += in[0] << CONTEXTBITS;
+    uint8_t colors560[560];
+    gm_render_line_colors(in, colors560);
 
     uint8_t lastcolor = 0xff;
     int runlength = 0;
 
     for (int col = 0; col < 40; col++)
     {
-        if (col < 39)
-            w += in[col + 1] << (14 + CONTEXTBITS);
-
         for (int b = 0; b < 14; b++)
         {
             // color is an index value between 0 (black) and 15 (white).
-            // See apple2_palette[16] above.
-            uint8_t color = (uint8_t)rotl4b(artifact_color_lut[w & 0x7f], col * 14 + b);
+            uint8_t color = colors560[col * 14 + b];
             // We optimize runs of the same color by only drawing
             // when the color changes or we are at the last pixel of the line.
             int at_last_pixel = (b == 13 && col == 39);
             if (at_last_pixel || (color != lastcolor && runlength > 0)) {
-                glui32 glkcolor = apple2_palette[lastcolor];
+                glui32 glkcolor = gm_apple2_palette[lastcolor];
                 PutApplePixelFlippable(col * 14 + b - runlength, row * 2, glkcolor, runlength + 1, upside_down);
                 // The code above only draws the *previous* pixel(s),
                 // (except we always have to add 1 pixel of overlap to
@@ -312,7 +273,7 @@ static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int row, int ups
                 // of a line has a different color to the one on its
                 // we have to handle it separately.
                 if (at_last_pixel && color != lastcolor) {
-                    glui32 glkcolor = apple2_palette[color];
+                    glui32 glkcolor = gm_apple2_palette[color];
                     PutApplePixelFlippable(col * 14 + b, row * 2, glkcolor, 1, upside_down);
                 }
                 runlength = 0;
@@ -320,23 +281,8 @@ static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int row, int ups
                 runlength++;
             }
             lastcolor = color;
-            w >>= 1;
         }
     }
-}
-
-static uint16_t *d7b_lookup_table = NULL;
-
-static uint16_t Double7Bits(int i) {
-    if (d7b_lookup_table == NULL) {
-        d7b_lookup_table = MemCalloc(128 * 2);
-        for (unsigned i = 1; i < 128; i++) {
-            d7b_lookup_table[i] = d7b_lookup_table[i >> 1] * 4 + (i & 1) * 3;
-        }
-    }
-    if (i > 127)
-        return 0;
-    return d7b_lookup_table[i];
 }
 
 void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
@@ -351,16 +297,7 @@ void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
         unsigned const address = (((row / 8) & 0x07) << 7) + (((row / 8) & 0x18) * 5) + ((row & 7) << 10);
         uint8_t const *const vram_row = screenmem + address;
         uint16_t words[40];
-
-        unsigned last_output_bit = 0;
-
-        for (int col = 0; col < 40; col++) {
-            unsigned word = Double7Bits(vram_row[col] & 0x7f);
-            if (vram_row[col] & 0x80)
-                word = (word * 2 + last_output_bit) & 0x3fff;
-            words[col] = word;
-            last_output_bit = word >> 13;
-        }
+        gm_compute_row_words(vram_row, words);
         RenderLineWithA2ArtifactColors(words, row, upside_down);
     }
 }
@@ -369,7 +306,7 @@ void DrawSingleApple2ImageByte(uint8_t *mem, size_t offset)
 {
     if (mem == NULL)
         return;
-    
+
     int row = ((offset & 0x7f) / 40) * 64 + ((offset >> 7) & 7) * 8 + ((offset >> 10) & 7);
     int col = (offset & 0x7f) % 40;
 
@@ -377,15 +314,7 @@ void DrawSingleApple2ImageByte(uint8_t *mem, size_t offset)
     uint8_t const *const vram_row = mem + row_offset;
 
     uint16_t words[40];
-    unsigned last_output_bit = 0;
-
-    for (int col = 0; col < 40; col++) {
-        unsigned word = Double7Bits(vram_row[col] & 0x7f);
-        if (vram_row[col] & 0x80)
-            word = (word * 2 + last_output_bit) & 0x3fff;
-        words[col] = word;
-        last_output_bit = word >> 13;
-    }
+    gm_compute_row_words(vram_row, words);
     RenderLineWithA2ArtifactColors(words, row, 0);
 }
 
