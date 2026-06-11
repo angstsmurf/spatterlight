@@ -129,11 +129,9 @@ static ushort ucptr;
 /* A ZX Spectrum loading screen (SCREEN$) is a 6912-byte dump of the display
  * file: 6144 bytes of bitmap followed by 768 bytes of colour attributes (one
  * byte per 8x8 cell). When we load a .z80 snapshot we keep a copy here so it
- * can be shown as a title image before the game starts. NULL when absent. */
-#define ZX_SCREEN_SIZE   6912
-#define ZX_BITMAP_SIZE   6144
-#define ZX_SCREEN_WIDTH  256
-#define ZX_SCREEN_HEIGHT 192
+ * can be shown as a title image before the game starts. NULL when absent.
+ * The format geometry (ZX_SCREEN_SIZE, ZX_BITMAP_SIZE, ZX_SCREEN_WIDTH/HEIGHT,
+ * ZX_SCREEN_COLS) and the decode helpers come from decompressz80.h. */
 static uchar *zxloadscreen = NULL;
 
 void die(char *fmt, ...)
@@ -261,28 +259,8 @@ static void load_z80(void)
  * saga graphics buffer with PutPixel(); here we render straight into a Glk
  * graphics window with glk_window_fill_rect() instead. */
 
-/* Standard ZX Spectrum palette: 8 normal colours then their 8 bright variants. */
-static const glui32 zxpalette[16] = {
-    0x000000, 0x0000D7, 0xD70000, 0xD700D7, 0x00D700, 0x00D7D7, 0xD7D700, 0xD7D7D7,
-    0x000000, 0x0000FF, 0xFF0000, 0xFF00FF, 0x00FF00, 0x00FFFF, 0xFFFF00, 0xFFFFFF
-};
-
 static winid_t zx_gw = NULL;            /* The title graphics window */
 static int zx_scale = 1, zx_xoff = 0, zx_yoff = 0;
-
-/* A snapshot captured at a text prompt has no picture: every attribute cell
- * holds the default black ink on white paper (0x38, ignoring bright/flash).
- * Such a screen isn't worth showing as a title. */
-static int zx_screen_blank(const uchar *scr)
-{
-    int i;
-    if (!scr)
-	return 1;
-    for (i = ZX_BITMAP_SIZE; i < ZX_SCREEN_SIZE; i++)
-	if ((scr[i] & 0x3f) != 0x38)
-	    return 0;
-    return 1;
-}
 
 /* Recompute scaling and centring for the current graphics window size. */
 static void zx_layout(void)
@@ -309,12 +287,13 @@ static void draw_zx_byte(const uchar *scr, int bmaddr)
 {
     int offset = bmaddr - 0x4000;
     int col = offset & 0x1f;
-    int y = ((offset & 0x0700) >> 8) | ((offset & 0x00e0) >> 2) | ((offset & 0x1800) >> 5);
+    int y = ZXBitmapRow(offset);
     uchar bits = scr[offset];
-    uchar attr = scr[ZX_BITMAP_SIZE + (y >> 3) * 32 + col];
-    int bright = (attr & 0x40) ? 8 : 0;
-    glui32 ink   = zxpalette[(attr & 0x07) + bright];
-    glui32 paper = zxpalette[((attr >> 3) & 0x07) + bright];
+    uchar attr = scr[ZX_BITMAP_SIZE + (y >> 3) * ZX_SCREEN_COLS + col];
+    int ink_index, paper_index;
+    ZXDecodeAttr(attr, &ink_index, &paper_index);
+    glui32 ink   = ZXPalette[ink_index];
+    glui32 paper = ZXPalette[paper_index];
     /* The flash bit (0x80) is ignored for a static title image. */
     int b = 0;
     while (b < 8)
@@ -344,8 +323,7 @@ static void redraw_zx_cell(const uchar *scr, int addr)
     for (py = 0; py < 8; py++)
     {
 	int y = crow * 8 + py;
-	int offset = ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8) | ccol;
-	draw_zx_byte(scr, 0x4000 + offset);
+	draw_zx_byte(scr, 0x4000 + ZXBitmapOffset(y, ccol));
     }
 }
 
@@ -355,11 +333,8 @@ static void draw_zx_screen(const uchar *scr)
     if (!scr || !zx_gw)
 	return;
     for (y = 0; y < ZX_SCREEN_HEIGHT; y++)
-    {
-	int bitmap_row = ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8);
-	for (col = 0; col < 32; col++)
-	    draw_zx_byte(scr, 0x4000 + bitmap_row + col);
-    }
+	for (col = 0; col < ZX_SCREEN_COLS; col++)
+	    draw_zx_byte(scr, 0x4000 + ZXBitmapOffset(y, col));
 }
 
 /* Reveal the screen progressively, in the linear order a real Spectrum loaded
@@ -438,7 +413,7 @@ static void show_zx_loadscreen(void)
 	return;
     }
 #endif
-    if (!glk_gestalt(gestalt_Graphics, 0) || zx_screen_blank(zxloadscreen))
+    if (!glk_gestalt(gestalt_Graphics, 0) || ZXScreenIsBlackOnWhite(zxloadscreen))
     {
 	free(zxloadscreen);
 	zxloadscreen = NULL;
@@ -563,7 +538,7 @@ static void ill_track(int y)	/* y is a plot row (0 = bottom) */
  * display-file bitmap byte/bit and to its attribute byte. */
 static int ill_bmoff(int x, int y)	/* y is a top-down screen row 0..191 */
 {
-    return ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 7) << 8) | (x >> 3);
+    return ZXBitmapOffset(y, x >> 3);
 }
 static int ill_getpix(int x, int y)	/* y is a plot row (0 = bottom) */
 {
@@ -580,7 +555,7 @@ static void ill_putpix(int x, int y, int set)
 static uchar *ill_attrp(int x, int y)
 {
     int sy = ILL_H - 1 - y;
-    return &picscr[ZX_BITMAP_SIZE + (sy >> 3) * 32 + (x >> 3)];
+    return &picscr[ZX_BITMAP_SIZE + (sy >> 3) * ZX_SCREEN_COLS + (x >> 3)];
 }
 
 /* Pen / attribute state while drawing one picture. */
@@ -964,7 +939,7 @@ static void pic_blit(void)
 	    int start = x;
 	    while (x < ILL_W && pic_pixel(x, y) == c)
 		x++;
-	    glk_window_fill_rect(picwin, zxpalette[c],
+	    glk_window_fill_rect(picwin, ZXPalette[c],
 		pic_xoff + start * pic_scale, pic_yoff + sy * pic_scale,
 		(x - start) * pic_scale, pic_scale);
 	}

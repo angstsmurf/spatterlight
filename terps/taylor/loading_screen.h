@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define ZX_SCREEN_SIZE 6912
+#include "decompressz80.h"  /* ZX_SCREEN_SIZE and the SCREEN$ decode helpers */
 
 /* Owns a malloc'd 6912-byte SCREEN$, or NULL. Captured by ProcessFile()
    during loading, consumed (and freed) by DrawZXTitleImage(). */
@@ -22,10 +22,6 @@ extern uint8_t *ZXLoadingScreen;
    or .tzx (is_tzx != 0) image. Returns a malloc'd 6912-byte buffer
    (caller frees) or NULL if none is found. */
 uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx);
-
-/* True if a 6912-byte SCREEN$ is just black text on a white background
-   (a snapshot taken at a BASIC/text prompt), i.e. not worth showing. */
-int ZXScreenIsBlackOnWhite(const uint8_t *screen);
 
 /* Reconstruct an Alkatraz-drawn loading screen (e.g. Kayleth, Terraquake)
    from the raw TZX image, using the game's window descriptors and stream

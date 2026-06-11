@@ -42,6 +42,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "decompressz80.h"
+
 /* Sizes of some of the arrays in the snap structure */
 #define SNAPSHOT_RAM_PAGES 16
 
@@ -1888,4 +1890,42 @@ void DeshuffleAlkatraz(uint8_t *mem, uint8_t repeats, uint16_t ix, uint16_t stor
         ldir(mem, count + 1, count, length - 1);
         ix -= 5;
     }
+}
+
+/* --- ZX Spectrum loading screen (SCREEN$) geometry & decode --- */
+
+const uint32_t ZXPalette[16] = {
+    0x000000, 0x0000D7, 0xD70000, 0xD700D7, 0x00D700, 0x00D7D7, 0xD7D700, 0xD7D7D7,
+    0x000000, 0x0000FF, 0xFF0000, 0xFF00FF, 0x00FF00, 0x00FFFF, 0xFFFF00, 0xFFFFFF
+};
+
+int ZXBitmapRow(int bitmap_offset)
+{
+    return ((bitmap_offset & 0x0700) >> 8)
+         | ((bitmap_offset & 0x00e0) >> 2)
+         | ((bitmap_offset & 0x1800) >> 5);
+}
+
+int ZXBitmapOffset(int y, int col)
+{
+    return ((y & 0xc0) << 5) | ((y & 0x38) << 2) | ((y & 0x07) << 8) | col;
+}
+
+void ZXDecodeAttr(uint8_t attr, int *ink, int *paper)
+{
+    int bright = (attr & 0x40) ? 8 : 0;
+    if (ink)
+        *ink = (attr & 0x07) + bright;
+    if (paper)
+        *paper = ((attr >> 3) & 0x07) + bright;
+}
+
+int ZXScreenIsBlackOnWhite(const uint8_t *screen)
+{
+    if (!screen)
+        return 1;
+    for (int i = ZX_BITMAP_SIZE; i < ZX_SCREEN_SIZE; i++)
+        if ((screen[i] & 0x3f) != 0x38)
+            return 0;
+    return 1;
 }
