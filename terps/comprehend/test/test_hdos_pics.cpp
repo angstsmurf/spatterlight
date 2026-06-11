@@ -16,10 +16,8 @@
  *
  * Build/run:  make -C terps/comprehend test
  *
- * The renderer is not yet pixel-exact (the flood-fill boundary handling differs
- * from the native interpreter at fill edges), so each case asserts the mismatch
- * count is at or below a recorded ceiling rather than zero: improvements pass,
- * regressions fail.  Lower the ceilings as the renderer gets closer.
+ * The renderer is pixel-exact on every fixture, so every ceiling is 0: the
+ * golden set is locked and any renderer change must keep this at 0 diffs.
  */
 
 #include "../hdos_talisman.h"
@@ -46,13 +44,11 @@ struct Case {
     int         ceil;  // max tolerated mismatching pixels (current baseline)
 };
 
-// Ceilings are the mismatch counts at the time of writing (out of 44800 px);
-// they are an upper bound -- the test fails only on a regression past them.
 static const Case kCases[] = {
-    { "title",     "test/hdos/title.img",     "test/hdos/title.fb",      371 },
-    { "throne",    "test/hdos/throne.img",    "test/hdos/throne.fb",       0 },
-    { "cell",      "test/hdos/cell.img",      "test/hdos/cell.fb",        73 },
-    { "courtyard", "test/hdos/courtyard.img", "test/hdos/courtyard.fb", 1017 },
+    { "title",     "test/hdos/title.img",     "test/hdos/title.fb",     0 },
+    { "throne",    "test/hdos/throne.img",    "test/hdos/throne.fb",    0 },
+    { "cell",      "test/hdos/cell.img",      "test/hdos/cell.fb",      0 },
+    { "courtyard", "test/hdos/courtyard.img", "test/hdos/courtyard.fb", 0 },
 };
 
 static std::vector<uint8_t> readFile(const std::string &path) {
