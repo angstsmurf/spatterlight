@@ -67,7 +67,7 @@ read_le16.o: $(COMMON_DIR)/read_le16.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) comprehend test/test_talisman_pics test/test_hdos_pics test/pixtest test/op5scan test/hdostest
+	rm -f $(OBJS) comprehend test/test_talisman_pics test/test_hdos_pics test/pixtest test/op5scan test/hdostest test/diff_hdos
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
 # Self-contained: graphics_magician.cpp has no Glk/disk dependencies, so the test
@@ -98,6 +98,13 @@ test/pixtest: test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read
 #   ./test/hdostest NOVEL1.EXE T0 4 title.ppm white
 test/hdostest: test/hdostest.cpp hdos_talisman.cpp hdos_talisman.h graphics_magician.h
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/hdostest.cpp hdos_talisman.cpp
+
+# Developer tool: re-render every committed DOS Talisman fixture and report, per
+# scene, the rendered->golden colour-transition histogram, per-row diff bands, a
+# spatial diff PPM (/tmp/diff_<scene>.ppm), and raw index dumps -- the analysis
+# used to drive the renderer toward pixel-exactness. Self-contained.
+test/diff_hdos: test/diff_hdos.cpp hdos_talisman.cpp hdos_talisman.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/diff_hdos.cpp hdos_talisman.cpp
 
 # Developer tool: scan every image in an Apple II Comprehend disk's graphics
 # files and report which ones use a given drawing opcode (op5/TEXT_OUTLINE).
