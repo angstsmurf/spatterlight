@@ -58,7 +58,10 @@ void CrimsonCrownGame::setupDisk(uint diskNum) {
 		_itemGraphicFiles.push_back("OB");
 
 		_gameStrings = (diskNum == 1) ? &CC1_STRINGS : nullptr;
-		_titleGraphicFile = "";
+		// The Apple II title ("Crimson Crown" + sun) is a Graphics Magician
+		// vector image inside T0, after the disk-protection / loader stub;
+		// Pics::ImageFile starts it at the right offset (0x100).
+		_titleGraphicFile = "t0";
 		_diskNum = diskNum;
 		return;
 	}

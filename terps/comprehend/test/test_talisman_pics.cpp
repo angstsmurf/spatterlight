@@ -76,6 +76,10 @@ static const Case kCases[] = {
 	// OO-Topos (newer dialect like Talisman: op15 sub-op 3 fills the background).
 	// cell is the start room (standard-hires "S" mode).
 	{ "ootopos cell",         "test/ootopos/cell.img",         "test/ootopos/cell.page",         true, false, "test/ootopos/t2.bin" },
+	// OO-Topos title (spaceship + planet), a single vector image inside T0 past
+	// the disk-protection stub. Unlike the rooms it starts from a BLACK page (it
+	// fills its own background; a white start corrupts the "OO-TOPOS" lettering).
+	{ "ootopos title",        "test/ootopos/title.img",        "test/ootopos/title.page",        false, false, "test/ootopos/t2.bin" },
 	// Crimson Crown (older dialect, full-screen fill). lakeshore + woods.
 	{ "crimsoncrown lakeshore","test/crimsoncrown/lakeshore.img","test/crimsoncrown/lakeshore.page",true, true,  "test/crimsoncrown/t2.bin" },
 	{ "crimsoncrown woods",   "test/crimsoncrown/woods.img",   "test/crimsoncrown/woods.page",   true, true,  "test/crimsoncrown/t2.bin" },

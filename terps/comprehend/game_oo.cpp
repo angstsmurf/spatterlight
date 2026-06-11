@@ -114,7 +114,10 @@ OOToposGame::OOToposGame() : ComprehendGameV2(), _restartMode(RESTART_IMMEDIATE)
 
 	_colorTable = 1;
 	_gameStrings = &OO_STRINGS;
-	_titleGraphicFile = Common::DiskImageFS::active() ? "" : "t0";
+	// Both releases keep the title in T0. On Apple II it is a Graphics Magician
+	// vector image after the disk-protection / loader stub (Pics::ImageFile
+	// starts it at offset 0x100); on DOS it is a plain vector image.
+	_titleGraphicFile = "t0";
 }
 
 void OOToposGame::beforeGame() {

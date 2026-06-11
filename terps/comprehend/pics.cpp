@@ -95,10 +95,24 @@ Pics::ImageFile::ImageFile(const Common::String &filename, bool isSingleImage) :
 
 	if (isSingleImage) {
 		// It's a title image file, which has only a single image with no
-		// table of image offsets. The DOS title file (t0) has a 4-byte header
-		// before the vector stream; the Apple II title (T0) starts at byte 0.
+		// table of image offsets.
 		_imageOffsets.resize(1);
-		_imageOffsets[0] = Common::DiskImageFS::active() ? 0 : 4;
+		if (Common::DiskImageFS::active()) {
+			// Apple II title (T0). Talisman's T0 is a pure Graphics Magician
+			// vector image (offset 0). For the other three the T0 file opens
+			// with a disk copy-protection + loader stub, and the title vector
+			// image starts just past it, at a fixed (game-specific) offset.
+			const Common::String &id = g_comprehend->getGameID();
+			if (id == "transylvania")
+				_imageOffsets[0] = 0xFE;
+			else if (id == "crimsoncrown" || id == "ootopos")
+				_imageOffsets[0] = 0x100;
+			else
+				_imageOffsets[0] = 0; // talisman
+		} else {
+			// The DOS title file (t0) has a 4-byte header before the stream.
+			_imageOffsets[0] = 4;
+		}
 		return;
 	}
 
@@ -453,9 +467,12 @@ void Pics::drawPicture(int pictureNum) const {
 		} else if (pictureNum == BRIGHT_ROOM) {
 			gmResetScreen(true);
 		} else if (pictureNum == TITLE_IMAGE) {
-			// The Apple II title (T0) is a Graphics Magician vector image drawn
-			// on a white background, exactly like a bright room picture.
-			gmResetScreen(true);
+			// The Apple II title (T0) is a Graphics Magician vector image. The
+			// legacy titles (Talisman/Transylvania/Crimson Crown) are drawn on a
+			// white background like a bright room; OO-Topos starts from black (it
+			// fills its own background with op15, and its lettering blends with
+			// the page, so a white start corrupts it).
+			gmResetScreen(g_comprehend->getGameID() != "ootopos");
 			if (_title.isLoaded())
 				_title.renderApple(0);
 		} else if (pictureNum >= ITEMS_OFFSET) {
