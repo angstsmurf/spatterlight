@@ -33,7 +33,11 @@ build/filltest: $(SRCS) filltest.c
 test: build/filltest
 	./build/filltest "$(FIXTURES)"
 
+# Same as `test`, plus the 315-image Apple II ground-truth corpus.
+groundtruth: build/filltest
+	./build/filltest "$(FIXTURES)" ./groundtruth
+
 clean:
 	rm -rf build
 
-.PHONY: test clean
+.PHONY: test groundtruth clean

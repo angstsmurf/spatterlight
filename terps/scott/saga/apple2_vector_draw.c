@@ -42,23 +42,19 @@ extern uint8_t *screenmem;
 
 #define CALC_APPLE2_ADDRESS(y) ((((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10))
 
+// The ROM dispatcher (DRAW_OPCODE @ $8E30) selects on `byte & 0xe0`: a 3-bit
+// opcode in the top bits, with the low nibble as the parameter and bit 4
+// ignored. So only the even values below ever occur; doImageOp folds bit 4 out
+// before switching. (The odd values are not real opcodes.)
 enum Opcode {
     OPCODE_END = 0,
-    OPCODE_SET_TEXT_POS = 1,
     OPCODE_SET_PEN_COLOR = 2,
-    OPCODE_TEXT_CHAR = 3,
     OPCODE_SET_SHAPE = 4,
-    OPCODE_TEXT_OUTLINE = 5,
     OPCODE_SET_FILL_COLOR = 6,
-    OPCODE_END2 = 7,
     OPCODE_MOVE_TO = 8,
-    OPCODE_DRAW_BOX = 9,
     OPCODE_DRAW_LINE = 10,
-    OPCODE_DRAW_CIRCLE = 11,
     OPCODE_DRAW_SHAPE = 12,
-    OPCODE_DELAY = 13,
-    OPCODE_PAINT = 14,
-    OPCODE_RESET = 15
+    OPCODE_PAINT = 14
 };
 
 typedef enum {
@@ -498,8 +494,16 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t color)
     /* Get col/pixel for this X position */
     x_to_column_and_pixel(&ctx, x);
 
-    /* Find the topmost seed row to start fill from. */
-    if (scan_up_to_border(&ctx)) {
+    if (y == 0) {
+        /* 6502 quirk: when the seed is already on row 0, FLOOD_FILL skips the
+         * scan-up entirely (`goto FoundTop`) with the A register still holding
+         * MODULO_AND_DIVIDE's result — the X remainder, i.e. pixel_offset. So a
+         * row-0 seed begins filling at scanline = pixel_offset, leaving rows
+         * 0..pixel_offset-1 untouched. (This differs from a seed started below
+         * row 0 that scans all the way up to a white row 0, which does fill
+         * from row 0.) */
+        ctx.scanline = ctx.pixel_offset;
+    } else if (scan_up_to_border(&ctx)) {
         /* Move back down to the last white pixel we saw.
          * (Unless we are at row 0 and it is white) */
         ctx.scanline++;
@@ -771,35 +775,24 @@ static bool doImageOp(uint8_t **outptr, a2_vector_ctx *ctx) {
     opcode = *ptr++;
 
     uint8_t param = opcode & 0xf;
-    opcode >>= 4;
+    /* The ROM dispatcher (DRAW_OPCODE @ $8E30) selects the opcode with
+       `byte & 0xe0` — a 3-bit selector in which bit 4 (0x10) is ignored. So an
+       odd top-nibble aliases to the even opcode below it (e.g. 0x5x is
+       SET_SHAPE, not a distinct "text outline" op that swallows an argument
+       byte). Fold bit 4 out to match, which keeps the opcode stream in sync. */
+    opcode = (opcode & 0xe0) >> 4;
 
 //    fprintf(stderr, "doImageOp: opcode %d. param %d\n", opcode, param);
 
+    // After folding bit 4 out above, `opcode` is always even, so only these
+    // eight cases are reachable — exactly the ROM dispatcher's branches.
     switch (opcode) {
         case OPCODE_END: // 0
-        case OPCODE_END2: // 7
             *outptr = ptr;
             return true;
 
-        case OPCODE_SET_TEXT_POS: // 1, unused
-            a = *ptr++ + (param & 1 ? 256 : 0);
-            b = *ptr++;
-            fprintf(stderr, "set_text_pos(%d, %d)\n", a, b);
-            break;
-
         case OPCODE_SET_PEN_COLOR: // 2
             set_color(param, ctx);
-            break;
-
-        case OPCODE_TEXT_OUTLINE: // 5, unused
-            fprintf(stderr, "OPCODE_TEXT_OUTLINE\n");
-        case OPCODE_TEXT_CHAR: // 3, unused
-            a = *ptr++;
-            if (a < 0x20 || a >= 0x7f) {
-                fprintf(stderr, "Invalid character - %c\n", a);
-                a = '?';
-            }
-            fprintf(stderr, "draw_char(%c)\n", a);
             break;
 
         case OPCODE_SET_SHAPE: // 4
@@ -817,24 +810,11 @@ static bool doImageOp(uint8_t **outptr, a2_vector_ctx *ctx) {
             set_draw_position(a, b, ctx);
             break;
 
-        case OPCODE_DRAW_BOX: // 9, unused
-            a = *ptr++ + (param & 1 ? 256 : 0);
-            b = *ptr++;
-            fprintf(stderr,  "draw_box (%d, %d) - (%d, %d)\n",
-                    ctx->HGR_X, ctx->HGR_Y, a, b);
-            break;
-
         case OPCODE_DRAW_LINE: // 10
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
 
             draw_apple2_line(a, b, ctx);
-            break;
-
-        case OPCODE_DRAW_CIRCLE: // 11, unused
-            a = *ptr++;
-            fprintf(stderr,  "draw_circle (%d, %d) diameter=%d\n",
-                    ctx->HGR_X, ctx->HGR_Y, a);
             break;
 
         case OPCODE_DRAW_SHAPE: // 12
@@ -843,22 +823,11 @@ static bool doImageOp(uint8_t **outptr, a2_vector_ctx *ctx) {
             draw_brush(a, b, ctx->BRUSH, ctx->FILL_COLOR);
             break;
 
-        case OPCODE_DELAY: // 13, unused
-            fprintf(stderr,   "OPCODE_DELAY: 0x%x\n", *ptr++);
-            break;
-
         case OPCODE_PAINT: // 14
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
-            if (opcode & 0x1)
-                a += 255;
             apple2_flood_fill(a, b, ctx->FILL_COLOR);
             break;
-
-        case OPCODE_RESET: // 15, unused
-            a = *ptr++;
-            fprintf(stderr, "OPCODE_RESET: %x\n", a);
-            return true;
     }
 
     *outptr = ptr;

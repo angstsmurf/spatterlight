@@ -14,13 +14,17 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
 
 #include "glk.h"
 #include "sagagraphics.h"
+#include "scott_defines.h"
 
 // Defined in the linked modules.
 int TestApple2ImageWithName(const char *name, const char *supportpath);
 int TestAtari8ImageWithName(const char *name, const char *supportpath);
+int DrawApple2VectorImage(USImage *img);
 uint8_t *ReadTestDataFromFile(const char *filename, const char *supportpath, size_t *size);
 void InitDskImage(uint8_t *data, size_t datasize);
 int LoadDrawingDataFromDisk(uint8_t *data, size_t datasize);
@@ -68,9 +72,136 @@ void RectFill(int32_t x, int32_t y, int32_t w, int32_t h, int32_t color) { (void
 void SetColor(int32_t index, glui32 color) { (void)index;(void)color; unreached("SetColor"); }
 void glk_request_timer_events(glui32 millisecs) { (void)millisecs; }
 
+// ---- ground-truth corpus driver ---------------------------------------------
+// Walk groundtruth/<game>/*.dat (315 MAME-captured Apple II vector pictures),
+// render each straight from its raw opcode stream, and byte-compare the resulting
+// $2000 hi-res page against the matching golden <name>.page. Every .dat — room
+// (R*) and object overlay (B*) alike — is rendered with usage IMG_ROOM, because
+// the goldens were captured by the real interpreter's DRAW_OPCODE, which always
+// clears the page to white first (see groundtruth/README.md).
+
+#define A2_PAGE_SIZE 0x2000
+
+static uint8_t *read_whole_file(const char *path, size_t *size) {
+	FILE *f = fopen(path, "rb");
+	if (!f) return NULL;
+	fseek(f, 0, SEEK_END);
+	long n = ftell(f);
+	fseek(f, 0, SEEK_SET);
+	if (n <= 0) { fclose(f); return NULL; }
+	uint8_t *buf = malloc((size_t)n);
+	if (buf && fread(buf, 1, (size_t)n, f) != (size_t)n) { free(buf); buf = NULL; }
+	fclose(f);
+	if (buf && size) *size = (size_t)n;
+	return buf;
+}
+
+static int cmp_str(const void *a, const void *b) {
+	return strcmp(*(const char *const *)a, *(const char *const *)b);
+}
+
+// Render one .dat and compare against its .page. Returns 1 on a byte-exact match.
+static int compare_one_image(const char *dir, const char *datname) {
+	char base[64];
+	snprintf(base, sizeof base, "%.*s", (int)(strlen(datname) - 4), datname); // strip ".dat"
+
+	char datpath[1024], pagepath[1024];
+	snprintf(datpath, sizeof datpath, "%s/%s", dir, datname);
+	snprintf(pagepath, sizeof pagepath, "%s/%s.page", dir, base);
+
+	size_t datsize = 0;
+	uint8_t *datbuf = read_whole_file(datpath, &datsize);
+	if (!datbuf || datsize < 5) {
+		fprintf(stderr, "  %s: cannot read .dat\n", base);
+		free(datbuf);
+		return 0;
+	}
+
+	USImage *img = NewImage();
+	img->imagedata = datbuf;
+	img->datasize = datsize;
+	img->usage = IMG_ROOM;
+	DrawApple2VectorImage(img);
+	free(datbuf);
+	free(img);
+
+	size_t pagesize = 0;
+	uint8_t *page = read_whole_file(pagepath, &pagesize);
+	if (!page || pagesize < A2_PAGE_SIZE) {
+		fprintf(stderr, "  %s: cannot read .page golden\n", base);
+		free(page);
+		return 0;
+	}
+
+	int firstdiff = -1, ndiff = 0;
+	uint8_t goldbyte = 0;
+	int verbose = getenv("GTVERBOSE") != NULL;
+	for (int i = 0; i < A2_PAGE_SIZE; i++) {
+		if (page[i] != screenmem[i]) {
+			if (firstdiff < 0) { firstdiff = i; goldbyte = page[i]; }
+			ndiff++;
+			if (verbose)
+				fprintf(stderr, "    %s diff @0x%04x: golden 0x%02x got 0x%02x\n",
+				        base, i, page[i], screenmem[i]);
+		}
+	}
+	free(page);
+
+	if (ndiff) {
+		fprintf(stderr, "  FAIL %s: %d byte(s) differ, first at 0x%x (golden 0x%02x, got 0x%02x)\n",
+		        base, ndiff, firstdiff, goldbyte, screenmem[firstdiff]);
+		return 0;
+	}
+	return 1;
+}
+
+static int run_groundtruth_corpus(const char *root) {
+	static const char *games[] = { "adventureland", "mission", "pirate", "strange" };
+	int total = 0, passed = 0;
+
+	for (int g = 0; g < (int)(sizeof games / sizeof games[0]); g++) {
+		char dir[1024];
+		snprintf(dir, sizeof dir, "%s/%s", root, games[g]);
+
+		DIR *d = opendir(dir);
+		if (!d) {
+			fprintf(stderr, "warning: cannot open %s\n", dir);
+			continue;
+		}
+
+		// Collect the .dat names so the run order is stable and readable.
+		char **names = NULL;
+		int count = 0, cap = 0;
+		struct dirent *ent;
+		while ((ent = readdir(d)) != NULL) {
+			size_t len = strlen(ent->d_name);
+			if (len > 4 && strcmp(ent->d_name + len - 4, ".dat") == 0) {
+				if (count == cap) { cap = cap ? cap * 2 : 64; names = realloc(names, cap * sizeof *names); }
+				names[count++] = strdup(ent->d_name);
+			}
+		}
+		closedir(d);
+		qsort(names, count, sizeof *names, cmp_str);
+
+		int gpass = 0;
+		for (int i = 0; i < count; i++) {
+			gpass += compare_one_image(dir, names[i]);
+			free(names[i]);
+		}
+		free(names);
+
+		printf("%-14s : %3d/%3d pages match\n", games[g], gpass, count);
+		passed += gpass;
+		total += count;
+	}
+
+	printf("\nground truth: %d/%d pages byte-exact\n", passed, total);
+	return passed == total;
+}
+
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		fprintf(stderr, "usage: %s <supportpath>\n", argv[0]);
+		fprintf(stderr, "usage: %s <supportpath> [groundtruth_root]\n", argv[0]);
 		return 2;
 	}
 	const char *support = argv[1];
@@ -105,5 +236,16 @@ int main(int argc, char **argv) {
 		passed += ok;
 	}
 	printf("\n%d/%d cases passed\n", passed, n);
-	return passed == n ? 0 : 1;
+	int fixtures_ok = (passed == n);
+
+	// Optional second argument: run the full Apple II ground-truth corpus
+	// (groundtruth/<game>/*.dat vs *.page). The drawing tables loaded above
+	// from MI.dsk cover all four games.
+	int corpus_ok = 1;
+	if (argc >= 3) {
+		printf("\n--- Apple II ground-truth corpus ---\n");
+		corpus_ok = run_groundtruth_corpus(argv[2]);
+	}
+
+	return (fixtures_ok && corpus_ok) ? 0 : 1;
 }
