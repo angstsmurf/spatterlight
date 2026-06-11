@@ -23,6 +23,7 @@ LDLIBS     := -lglkimp -lglkmain
 CXX_SRCS := \
     apple2.cpp \
     graphics_magician.cpp \
+    hdos_talisman.cpp \
     charset.cpp \
     comprehend.cpp \
     comprehend_compat.cpp \
@@ -66,7 +67,7 @@ read_le16.o: $(COMMON_DIR)/read_le16.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) comprehend test/test_talisman_pics test/pixtest test/op5scan
+	rm -f $(OBJS) comprehend test/test_talisman_pics test/pixtest test/op5scan test/hdostest
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
 # Self-contained: graphics_magician.cpp has no Glk/disk dependencies, so the test
@@ -83,6 +84,13 @@ test: test/test_talisman_pics
 test/pixtest: test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o
 	$(CXX) -std=c++14 -O0 -g -DGM_TRACE -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
 	    test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o
+
+# Developer tool: render one DOS Talisman (CGA) picture and write it as a PPM,
+# to eyeball against a DOSBox capture. Self-contained: hdos_talisman.cpp has no
+# Glk/disk dependencies, so it links only that.
+#   ./test/hdostest NOVEL1.EXE T0 4 title.ppm white
+test/hdostest: test/hdostest.cpp hdos_talisman.cpp hdos_talisman.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/hdostest.cpp hdos_talisman.cpp
 
 # Developer tool: scan every image in an Apple II Comprehend disk's graphics
 # files and report which ones use a given drawing opcode (op5/TEXT_OUTLINE).

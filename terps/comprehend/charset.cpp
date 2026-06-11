@@ -72,10 +72,18 @@ TalismanFont::TalismanFont() : FixedFont() {
 	Common::String md5 = Common::computeStreamMD5AsString(f, 1024);
 
 	if (md5 == "0e7f002971acdb055f439020363512ce" || md5 == "2e18c88ce352ebea3e14177703a0485f") {
+		// Original rips: font begins at current stream position (after the 1024-byte hash read).
+		for (int idx = 0; idx < 128 - 32; ++idx)
+			f.read(&_data[idx][0], 8);
+	} else if (md5 == "7b9ac058b8d3dc80c3491cd8346e9cd8" || md5 == "8b28dbf2034b79448863a2b68e745536") {
+		// Hercules release (NOVEL.EXE or NOVEL1.EXE): font at DS:0x9e81 = file 0xcef1.
+		f.seek(0xcef1);
 		for (int idx = 0; idx < 128 - 32; ++idx)
 			f.read(&_data[idx][0], 8);
 	} else {
-		error("Unrecognised novel.exe encountered");
+		// Unknown release: leave font zeroed rather than crashing; in-picture text
+		// will be blank but the game remains playable.
+		warning("Unrecognised novel.exe encountered; in-picture text will be blank");
 	}
 
 	f.close();

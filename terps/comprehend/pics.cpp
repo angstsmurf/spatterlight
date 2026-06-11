@@ -21,6 +21,7 @@
 
 #include "pics.h"
 #include "graphics_magician.h"
+#include "hdos_talisman.h"
 #include "comprehend_compat.h"
 #include "charset.h"
 #include <vector>
@@ -367,16 +368,47 @@ void Pics::ImageFile::renderApple(uint index) const {
 	gmDrawImage(buf.data(), len);
 }
 
+void Pics::ImageFile::renderHdos(uint index) const {
+	Common::File f;
+	if (!f.open(_filename))
+		error("Opening image file");
+
+	int64 start = _imageOffsets[index];
+	int64 fsize = f.size();
+	if (start < 0 || start >= fsize)
+		return;
+
+	size_t len = (size_t)(fsize - start);
+	std::vector<byte> buf(len);
+	f.seek(start);
+	f.read(buf.data(), (uint32)len);
+
+	hdosDrawImage(buf.data(), len);
+}
+
 /*-------------------------------------------------------*/
 
 Pics::Pics() : _font(nullptr) {
 	if (Common::File::exists("charset.gda"))
 		_font = new CharSet();
-	else if (g_comprehend->getGameID() == "talisman" && !Common::DiskImageFS::active())
+	else if (g_comprehend->getGameID() == "talisman" && !Common::DiskImageFS::active()) {
 		// The DOS release keeps the in-picture font inside novel.exe. The Apple II
 		// release has no novel.exe (and its room images don't draw text), so skip
 		// it rather than erroring out on a file that cannot exist.
 		_font = new TalismanFont();
+		// Load the CGA drawing tables (fill patterns, brushes, font) out of the
+		// DOS interpreter image. Read the whole file and let hdos_talisman locate
+		// the tables by signature; silently no-ops for DOS rips that lack them.
+		Common::File exe;
+		if (exe.open("novel.exe")) {
+			int64 sz = exe.size();
+			if (sz > 0) {
+				std::vector<byte> buf((size_t)sz);
+				if (exe.read(buf.data(), (uint32)sz) == (uint32)sz)
+					hdosInstallDrawingTables(buf.data(), (size_t)sz);
+			}
+		}
+	}
 }
 
 Pics::~Pics() {
@@ -510,6 +542,38 @@ void Pics::drawPicture(int pictureNum) const {
 			gmBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
 		else
 			gmBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+		return;
+	}
+
+	// DOS Talisman — Hercules release: route through the 2-bpp Hercules renderer
+	// when the drawing tables were successfully loaded from NOVEL.EXE.
+	if (g_comprehend->getGameID() == "talisman" && hdosHaveDrawingTables()) {
+		DrawSurface *ds = ctx._drawSurface;
+
+		if (pictureNum == DARK_ROOM) {
+			hdosResetScreen(false);
+		} else if (pictureNum == BRIGHT_ROOM) {
+			hdosResetScreen(true);
+		} else if (pictureNum == TITLE_IMAGE) {
+			hdosResetScreen(true);
+			if (_title.isLoaded())
+				_title.renderHdos(0);
+		} else if (pictureNum >= ITEMS_OFFSET) {
+			int n = pictureNum - ITEMS_OFFSET;
+			_items[n / IMAGES_PER_FILE].renderHdos(n % IMAGES_PER_FILE);
+		} else {
+			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
+				hdosResetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
+			int n = pictureNum % 100;
+			_rooms[n / IMAGES_PER_FILE].renderHdos(n % IMAGES_PER_FILE);
+		}
+
+		// As with the Apple path: while a reveal is queued, blit only what is on
+		// the visible page so far; the host drives the rest on a timer.
+		if (hdosSlowDrawActive())
+			hdosBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+		else
+			hdosBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
 		return;
 	}
 

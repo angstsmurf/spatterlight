@@ -104,6 +104,10 @@ private:
 		// persistent Apple hi-res page via the standard hi-res renderer
 		// (graphics_magician.cpp), instead of the generic DrawSurface path.
 		void renderApple(uint index) const;
+
+		// DOS Talisman Hercules only: decode image `index`'s vector stream onto
+		// the 2-bpp logical framebuffer managed by hdos_talisman.cpp.
+		void renderHdos(uint index) const;
 	};
 
 private:

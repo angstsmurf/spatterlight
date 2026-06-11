@@ -2,6 +2,7 @@
 
 #include "comprehend.h"
 #include "graphics_magician.h"
+#include "hdos_talisman.h"
 #include "draw_surface.h"
 #include "game.h"
 #include "game_cc.h"
@@ -225,10 +226,13 @@ static uint32 surfaceColorAt(Glk::Comprehend::DrawSurface *ds, int x, int y);
 void Comprehend::drawPicture(uint pictureNum) {
     if (!_topWindow || !_pics || !_drawSurface) return;
 
-    // The Apple II Talisman renderer can reveal a picture progressively, the way
-    // the real Graphics Magician painted the hi-res page. Record the draw order
-    // when the user has slow-draw on (and we aren't replaying a transcript).
-    gmSetSlowDraw(gli_slowdraw && !gli_determinism);
+    // Both Talisman renderers (Apple II hi-res and DOS CGA) can reveal a picture
+    // progressively, the way the original painted the page. Record the draw
+    // order when the user has slow-draw on (and we aren't replaying a
+    // transcript). Only the renderer that actually runs records anything.
+    bool slow = gli_slowdraw && !gli_determinism;
+    gmSetSlowDraw(slow);
+    hdosSetSlowDraw(slow);
 
     // Render through the Pics opcode interpreter into the pixel buffer,
     // then blit the buffer to the Glk graphics window.
@@ -244,7 +248,11 @@ void Comprehend::drawPicture(uint pictureNum) {
 // resize forces it to finish at once) — matching the original, where the prompt
 // appeared only after the hi-res page had painted.
 void Comprehend::runSlowDraw() {
-    if (!gmSlowDrawActive())
+    // Pick whichever Talisman renderer queued a reveal (Apple II hi-res or DOS
+    // CGA); they expose the same slow-draw contract, so drive it through one set
+    // of calls.
+    const bool hdos = hdosSlowDrawActive();
+    if (!hdos && !gmSlowDrawActive())
         return;
 
     glk_request_timer_events(GM_SLOW_TICK_MS);
@@ -254,10 +262,11 @@ void Comprehend::runSlowDraw() {
         glk_select(&ev);
         bool fullRepaint = false;
         if (ev.type == evtype_Timer) {
-            more = gmAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
+            more = hdos ? hdosAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK)
+                        : gmAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
         } else if (ev.type == evtype_Arrange) {
             // The window changed size: finish the page, rescale, repaint it whole.
-            gmFinishSlowDraw();
+            if (hdos) hdosFinishSlowDraw(); else gmFinishSlowDraw();
             more = false;
             fullRepaint = true;
             recomputeGraphicsScale();
@@ -269,13 +278,19 @@ void Comprehend::runSlowDraw() {
         }
         // Re-render the page, then repaint only the rows that changed this tick
         // (the whole window after a resize, since the layout moved).
-        gmBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
+        if (hdos)
+            hdosBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
                                   _drawSurface->w, _drawSurface->h);
+        else
+            gmBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
+                                _drawSurface->w, _drawSurface->h);
         int y0, y1;
+        bool dirty = hdos ? hdosSlowConsumeDirty(&y0, &y1)
+                          : gmSlowConsumeDirty(&y0, &y1);
         if (fullRepaint) {
             glk_window_clear(_topWindow);
             blitSurfaceToWindow();
-        } else if (gmSlowConsumeDirty(&y0, &y1))
+        } else if (dirty)
             blitSurfaceRowsToWindow(y0, y1);
     }
     glk_request_timer_events(0);
