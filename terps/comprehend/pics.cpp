@@ -295,8 +295,23 @@ bool Pics::ImageFile::doImageOp(Pics::ImageContext *ctx) const {
 
 	case OPCODE_RESET: // 15
 		if (talisman) {
-			a = imageGetOperand(ctx);
-			doResetOp(ctx, a);
+			// The reset sub-opcode is the low nibble (param), exactly as the
+			// pixel-validated Apple renderer (graphics_magician OPCODE_RESET)
+			// reads it. The operand count MUST match that renderer or the rest
+			// of the vector stream desyncs: only sub-op 2 carries operands (four
+			// bytes of fill bounds); every other sub-op (0/1/3) has none. The
+			// earlier code read one operand for *every* op15, which shifted the
+			// whole stream -- Talisman rooms begin with op15, so they desynced
+			// from the first opcode.
+			if (param == 2) {
+				// Fill bounds (right, left, bottom, top). Consumed to stay in
+				// sync; the DOS draw surface does not yet clip fills to them.
+				imageGetOperand(ctx);
+				imageGetOperand(ctx);
+				imageGetOperand(ctx);
+				imageGetOperand(ctx);
+			}
+			doResetOp(ctx, param);
 		}
 		// FIXME: The reset case was causing room outside cell to be drawn all
 		// white for the earlier (V1) games, so it stays disabled for them.

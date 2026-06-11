@@ -1,4 +1,5 @@
 # Built test binaries / tools (produced by `make test` and `make test/pixtest`)
 pixtest
 test_talisman_pics
+op5scan
 *.dSYM/
