@@ -1024,6 +1024,8 @@
 		C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8892675FCF70076EAFB /* OSImageHashing.m */; };
 		C3FACE010000000000000001 /* libreadwoz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3ED63132C6E0E64000F90A8 /* libreadwoz.dylib */; };
 		C3FACE0100000000DEAD0001 /* loading_screen.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0100000000DEAD0002 /* loading_screen.c */; };
+		C3FACE0200000000DEAD0001 /* zx_title.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0200000000DEAD0010 /* zx_title.c */; };
+		C3FACE0200000000DEAD0002 /* zx_title.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0200000000DEAD0010 /* zx_title.c */; };
 		C3FACE0100000000DEAD0005 /* alkatraz_screen.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0100000000DEAD0006 /* alkatraz_screen.c */; };
 		C3FB3287269F5BEE00A1B09C /* stash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3286269F5BEE00A1B09C /* stash.cpp */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
@@ -3693,6 +3695,8 @@
 		C3F9D88A2675FCF70076EAFB /* OSImageHashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSImageHashing.h; sourceTree = "<group>"; };
 		C3FACE0100000000DEAD0002 /* loading_screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = loading_screen.c; sourceTree = "<group>"; };
 		C3FACE0100000000DEAD0003 /* loading_screen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = loading_screen.h; sourceTree = "<group>"; };
+		C3FACE0200000000DEAD0010 /* zx_title.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = zx_title.c; path = terps/common_zxscreen/zx_title.c; sourceTree = SOURCE_ROOT; };
+		C3FACE0200000000DEAD0011 /* zx_title.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = zx_title.h; path = terps/common_zxscreen/zx_title.h; sourceTree = SOURCE_ROOT; };
 		C3FACE0100000000DEAD0004 /* kayleth_loadscreen_data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kayleth_loadscreen_data.h; sourceTree = "<group>"; };
 		C3FACE0100000000DEAD0006 /* alkatraz_screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = alkatraz_screen.c; sourceTree = "<group>"; };
 		C3FACE0100000000DEAD0007 /* alkatraz_screen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = alkatraz_screen.h; sourceTree = "<group>"; };
@@ -6556,6 +6560,8 @@
 				C37344622804673F00D8AE01 /* extracttape.c */,
 				C3FACE0100000000DEAD0002 /* loading_screen.c */,
 				C3FACE0100000000DEAD0003 /* loading_screen.h */,
+				C3FACE0200000000DEAD0010 /* zx_title.c */,
+				C3FACE0200000000DEAD0011 /* zx_title.h */,
 				C3FACE0100000000DEAD0004 /* kayleth_loadscreen_data.h */,
 				C3FACE0100000000DEAD0008 /* terraquake_loadscreen_data.h */,
 				C3FACE0100000000DEAD0009 /* templea_loadscreen_data.h */,
@@ -8347,6 +8353,7 @@
 				966EFA3B09F62D0D00FA7F19 /* playgame.c in Sources */,
 				966EFA3C09F62D0D00FA7F19 /* tables.c in Sources */,
 				966EFA3D09F62D0D00FA7F19 /* unquill.c in Sources */,
+				C3FACE0200000000DEAD0002 /* zx_title.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8994,6 +9001,7 @@
 				C349B4DC28803A7C00D99943 /* parseinput.c in Sources */,
 				C37344632804673F00D8AE01 /* extracttape.c in Sources */,
 				C3FACE0100000000DEAD0001 /* loading_screen.c in Sources */,
+				C3FACE0200000000DEAD0001 /* zx_title.c in Sources */,
 				C3FACE0100000000DEAD0005 /* alkatraz_screen.c in Sources */,
 				C3590C722EF1494100F02FE7 /* read_le16.c in Sources */,
 				C3CED4472810190E0040252F /* decrypttotloader.c in Sources */,

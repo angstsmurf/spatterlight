@@ -111,6 +111,7 @@ in the snapshots I have examined.
 #include <strings.h>
 
 #include "decompressz80.h"
+#include "zx_title.h"   /* shared ZX loading-screen title renderer */
 
 /* unp64 (terps/unp64) C interface: decompress a crunched C64 program image.
  * Used to unpack the self-extracting program inside a .T64 tape image. */
@@ -255,152 +256,16 @@ static void load_z80(void)
 }
 
 /* --- ZX Spectrum loading-screen (SCREEN$) display ----------------------- *
- * Ported from the scott interpreter's title_image.c. scott draws into its
- * saga graphics buffer with PutPixel(); here we render straight into a Glk
- * graphics window with glk_window_fill_rect() instead. */
-
-static winid_t zx_gw = NULL;            /* The title graphics window */
-static int zx_scale = 1, zx_xoff = 0, zx_yoff = 0;
-
-/* Recompute scaling and centring for the current graphics window size. */
-static void zx_layout(void)
-{
-    glui32 w, h;
-    int sx, sy;
-    glk_window_get_size(zx_gw, &w, &h);
-    sx = (int)w / ZX_SCREEN_WIDTH;
-    sy = (int)h / ZX_SCREEN_HEIGHT;
-    zx_scale = (sx < sy) ? sx : sy;
-    if (zx_scale < 1)
-	zx_scale = 1;
-    zx_xoff = ((int)w - ZX_SCREEN_WIDTH  * zx_scale) / 2;
-    zx_yoff = ((int)h - ZX_SCREEN_HEIGHT * zx_scale) / 3;
-    if (zx_xoff < 0) zx_xoff = 0;
-    if (zx_yoff < 0) zx_yoff = 0;
-    glk_window_clear(zx_gw);
-}
-
-/* Draw the 8 pixels of one bitmap byte (display-file address bmaddr) using the
- * attribute currently in scr for that cell. The display file is non-linear, so
- * the pixel row is recovered from the address bits exactly as on hardware. */
-static void draw_zx_byte(const uchar *scr, int bmaddr)
-{
-    int offset = bmaddr - 0x4000;
-    int col = offset & 0x1f;
-    int y = ZXBitmapRow(offset);
-    uchar bits = scr[offset];
-    uchar attr = scr[ZX_BITMAP_SIZE + (y >> 3) * ZX_SCREEN_COLS + col];
-    int ink_index, paper_index;
-    ZXDecodeAttr(attr, &ink_index, &paper_index);
-    glui32 ink   = ZXPalette[ink_index];
-    glui32 paper = ZXPalette[paper_index];
-    /* The flash bit (0x80) is ignored for a static title image. */
-    int b = 0;
-    while (b < 8)
-    {
-	int set = (bits >> (7 - b)) & 1;
-	int start = b;
-	while (b < 8 && (((bits >> (7 - b)) & 1) == set))
-	    b++;
-	glk_window_fill_rect(zx_gw, set ? ink : paper,
-	    zx_xoff + (col * 8 + start) * zx_scale, zx_yoff + y * zx_scale,
-	    (b - start) * zx_scale, zx_scale);
-    }
-}
-
-/* Redraw the cell at a screen address: one bitmap byte, or (for an attribute
- * address) the whole 8x8 character it colours. */
-static void redraw_zx_cell(const uchar *scr, int addr)
-{
-    if (addr < 0x5800)
-    {
-	draw_zx_byte(scr, addr);
-	return;
-    }
-    int cell = addr - 0x5800;
-    int crow = cell >> 5, ccol = cell & 0x1f;
-    int py;
-    for (py = 0; py < 8; py++)
-    {
-	int y = crow * 8 + py;
-	draw_zx_byte(scr, 0x4000 + ZXBitmapOffset(y, ccol));
-    }
-}
-
-static void draw_zx_screen(const uchar *scr)
-{
-    int y, col;
-    if (!scr || !zx_gw)
-	return;
-    for (y = 0; y < ZX_SCREEN_HEIGHT; y++)
-	for (col = 0; col < ZX_SCREEN_COLS; col++)
-	    draw_zx_byte(scr, 0x4000 + ZXBitmapOffset(y, col));
-}
-
-/* Reveal the screen progressively, in the linear order a real Spectrum loaded
- * it from tape (bitmap top-to-bottom, then the attributes), on a timer. A
- * keypress dismisses it. */
-#define ZX_REVEAL_TICK_MS 30
-#define ZX_REVEAL_TICKS   120
-
-static void zx_slow_reveal(winid_t keywin)
-{
-    static uchar work[ZX_SCREEN_SIZE];
-    int counts[256] = { 0 };
-    int i, fill = 0, per_tick, pos = 0;
-    event_t ev;
-
-    /* Start from the unrevealed background: black bitmap, attributes set to
-     * the screen's most common fill byte. */
-    for (i = ZX_BITMAP_SIZE; i < ZX_SCREEN_SIZE; i++)
-	counts[zxloadscreen[i]]++;
-    for (i = 1; i < 256; i++)
-	if (counts[i] > counts[fill])
-	    fill = i;
-    memset(work, 0x00, ZX_BITMAP_SIZE);
-    memset(work + ZX_BITMAP_SIZE, (uchar)fill, ZX_SCREEN_SIZE - ZX_BITMAP_SIZE);
-
-    draw_zx_screen(work);
-
-    per_tick = ZX_SCREEN_SIZE / ZX_REVEAL_TICKS;
-    if (per_tick < 1)
-	per_tick = 1;
-
-    glk_request_char_event(keywin);
-    glk_request_timer_events(ZX_REVEAL_TICK_MS);
-
-    do {
-	glk_select(&ev);
-	if (ev.type == evtype_Timer)
-	{
-	    int end = pos + per_tick;
-	    if (end > ZX_SCREEN_SIZE)
-		end = ZX_SCREEN_SIZE;
-	    for (; pos < end; pos++)
-	    {
-		work[pos] = zxloadscreen[pos];
-		redraw_zx_cell(work, 0x4000 + pos);
-	    }
-	    if (pos >= ZX_SCREEN_SIZE)
-		glk_request_timer_events(0);
-	}
-	else if (ev.type == evtype_Arrange)
-	{
-	    zx_layout();
-	    draw_zx_screen(work);
-	}
-    } while (ev.type != evtype_CharInput);
-
-    glk_request_timer_events(0);
-}
+ * The scaled/centred drawing and the slow reveal live in the shared ZXTitle
+ * renderer (zx_title.h); here we just set up the window, hand it the captured
+ * SCREEN$ with unquill's palette, and tear the window down afterward. */
 
 /* If a usable loading screen was captured from the snapshot, show it in a
  * graphics window and wait for a keypress before starting the game. Replaces
  * mainwin for the duration and opens a fresh text window afterwards. */
 static void show_zx_loadscreen(void)
 {
-    winid_t keywin;
-    event_t ev;
+    winid_t zx_gw, keywin;
     int slow = 0;
 
     if (!zxloadscreen)
@@ -430,7 +295,7 @@ static void show_zx_loadscreen(void)
     if (zx_gw)
     {
 	glk_window_set_background_color(zx_gw, 0x000000);
-	zx_layout();
+	glk_window_clear(zx_gw);
 
 	/* Graphics windows can take key input directly on some libraries;
 	 * otherwise borrow a one-line text window below for the keypress. */
@@ -449,23 +314,11 @@ static void show_zx_loadscreen(void)
 #ifdef SPATTERLIGHT
 	slow = gli_slowdraw && !gli_determinism;
 #endif
-	if (slow)
-	{
-	    zx_slow_reveal(keywin);
-	}
-	else
-	{
-	    draw_zx_screen(zxloadscreen);
-	    glk_request_char_event(keywin);
-	    do {
-		glk_select(&ev);
-		if (ev.type == evtype_Arrange)
-		{
-		    zx_layout();
-		    draw_zx_screen(zxloadscreen);
-		}
-	    } while (ev.type != evtype_CharInput);
-	}
+	/* unquill uses the authentic ZX RGB palette and sits the picture a
+	 * little above centre (vcentre divisor 3); a NULL order reveals it
+	 * linearly, top to bottom, as a real Spectrum loaded from tape. */
+	ZXTitle title = { zx_gw, ZXPalette, 3, 0, 0, 0 };
+	ZXTitleShow(&title, zxloadscreen, keywin, slow, NULL, 0);
 
 	if (keywin != zx_gw)
 	    glk_window_close(keywin, NULL);
