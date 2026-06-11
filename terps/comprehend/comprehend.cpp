@@ -45,7 +45,7 @@ Comprehend::Comprehend() :
     _saveSlot(-1), _graphicsEnabled(true), _disableSaves(false), _shouldQuit(false),
     _topWindow(nullptr), _statusWindow(nullptr), _bottomWindow(nullptr),
     _drawSurface(nullptr), _game(nullptr), _pics(nullptr), _drawFlags(0),
-    _pixelSize(SCALE_FACTOR) {
+    _pixelSize(SCALE_FACTOR), _slowDrawActive(false) {
     g_comprehend = this;
 }
 
@@ -54,6 +54,88 @@ Comprehend::~Comprehend() {
     delete _game;
     delete _pics;
     g_comprehend = nullptr;
+}
+
+// Thin wrappers so the Serializer can drive a GLK file stream directly.
+struct GlkWriteStream : public Common::WriteStream {
+    strid_t _str;
+    explicit GlkWriteStream(strid_t str) : _str(str) {}
+    void writeByte(byte b) override { glk_put_char_stream(_str, (unsigned char)b); }
+    uint32 write(const void *p, uint32 n) override {
+        glk_put_buffer_stream(_str, (char *)p, n);
+        return n;
+    }
+};
+
+struct GlkReadStream : public Common::SeekableReadStream {
+    strid_t _str;
+    int64 _size;
+    bool _eos = false;
+    GlkReadStream(strid_t str, int64 size) : _str(str), _size(size) {}
+    byte readByte() override {
+        glsi32 c = glk_get_char_stream(_str);
+        if (c < 0) { _eos = true; return 0; }
+        return (byte)c;
+    }
+    uint32 read(void *p, uint32 n) override {
+        glui32 got = glk_get_buffer_stream(_str, (char *)p, n);
+        if (got < n) _eos = true;
+        return got;
+    }
+    bool eos() const override { return _eos; }
+    int64 pos() const override { return (int64)glk_stream_get_position(_str); }
+    int64 size() const override { return _size; }
+    bool seek(int64 o, int w) override {
+        glk_stream_set_position(_str, (glsi32)o, (glui32)w);
+        _eos = false;
+        return true;
+    }
+};
+
+Common::Error Comprehend::saveGameState(int slot, const Common::String & /*desc*/) {
+    Common::String name = Common::String::format("%s_save_%d", _gameId.c_str(), slot);
+    frefid_t fref = glk_fileref_create_by_name(
+        fileusage_SavedGame | fileusage_BinaryMode, (char *)name.c_str(), 0);
+    if (!fref) return Common::Error(Common::kNoGameDataFoundError);
+
+    strid_t str = glk_stream_open_file(fref, filemode_Write, 0);
+    glk_fileref_destroy(fref);
+    if (!str) return Common::Error(Common::kNoGameDataFoundError);
+
+    GlkWriteStream ws(str);
+    Common::Serializer s(nullptr, &ws);
+    _game->synchronizeSave(s);
+
+    glk_stream_close(str, nullptr);
+    return Common::Error(Common::kNoError);
+}
+
+Common::Error Comprehend::loadGameState(int slot) {
+    Common::String name = Common::String::format("%s_save_%d", _gameId.c_str(), slot);
+    frefid_t fref = glk_fileref_create_by_name(
+        fileusage_SavedGame | fileusage_BinaryMode, (char *)name.c_str(), 0);
+    if (!fref) return Common::Error(Common::kNoGameDataFoundError);
+
+    if (!glk_fileref_does_file_exist(fref)) {
+        glk_fileref_destroy(fref);
+        return Common::Error(Common::kNoGameDataFoundError);
+    }
+
+    strid_t str = glk_stream_open_file(fref, filemode_Read, 0);
+    glk_fileref_destroy(fref);
+    if (!str) return Common::Error(Common::kNoGameDataFoundError);
+
+    // Seek to end to determine file size, then rewind.
+    glk_stream_set_position(str, 0, seekmode_End);
+    int64 size = (int64)glk_stream_get_position(str);
+    glk_stream_set_position(str, 0, seekmode_Start);
+
+    GlkReadStream rs(str, size);
+    Common::Serializer s(&rs, nullptr);
+    _game->synchronizeSave(s);
+
+    glk_stream_close(str, nullptr);
+    return Common::Error(Common::kNoError);
 }
 
 void Comprehend::runGame() {
@@ -196,7 +278,9 @@ void Comprehend::readLine(char *buffer, size_t maxLen) {
     for (;;) {
         glk_select(&ev);
         if (ev.type == evtype_LineInput) break;
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+        if (ev.type == evtype_Timer && _slowDrawActive)
+            tickSlowDraw();
+        else if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
             onArrange();
     }
     buffer[ev.val1] = 0;
@@ -211,7 +295,9 @@ int Comprehend::readChar() {
     ev.type = evtype_None;
     while (ev.type != evtype_CharInput) {
         glk_select(&ev);
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+        if (ev.type == evtype_Timer && _slowDrawActive)
+            tickSlowDraw();
+        else if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
             onArrange();
     }
     setDisableSaves(false);
@@ -226,6 +312,19 @@ static uint32 surfaceColorAt(Glk::Comprehend::DrawSurface *ds, int x, int y);
 void Comprehend::drawPicture(uint pictureNum) {
     if (!_topWindow || !_pics || !_drawSurface) return;
 
+    // Ensure the pixel scale matches the actual window width before drawing.
+    // recomputeGraphicsScale() is normally called from onArrange() on resize
+    // events, but the first drawPicture() call (the title screen) runs before
+    // any such event fires, leaving _pixelSize at the initial SCALE_FACTOR=2
+    // which can make the image wider than the window and clip it on the right.
+    recomputeGraphicsScale();
+
+    // If a background reveal from the previous picture is still running
+    // (e.g. the player moved before it finished), complete it instantly.
+    // Must happen before gmSetSlowDraw/hdosSetSlowDraw, which would clear
+    // s_recordOps and break the active-renderer check inside finishSlowDraw().
+    finishSlowDraw();
+
     // Both Talisman renderers (Apple II hi-res and DOS CGA) can reveal a picture
     // progressively, the way the original painted the page. Record the draw
     // order when the user has slow-draw on (and we aren't replaying a
@@ -235,65 +334,59 @@ void Comprehend::drawPicture(uint pictureNum) {
     hdosSetSlowDraw(slow);
 
     // Render through the Pics opcode interpreter into the pixel buffer,
-    // then blit the buffer to the Glk graphics window.
+    // then blit the initial (blank or reset) state to the Glk window.
     _pics->renderPicture((int)pictureNum);
     blitSurfaceToWindow();
 
-    // If the render queued an animated reveal, drive it to completion here.
-    runSlowDraw();
+    // If the render queued a slow-draw reveal, start a Glk timer and let the
+    // input loops (readLine / readChar) advance it tick by tick in the
+    // background. The game proceeds immediately: room description is shown
+    // and the prompt appears while the picture is still being revealed.
+    if (hdosSlowDrawActive() || gmSlowDrawActive()) {
+        glk_request_timer_events(GM_SLOW_TICK_MS);
+        _slowDrawActive = true;
+    }
 }
 
-// Reveal a recorded Apple II Talisman picture a chunk at a time on a Glk timer,
-// re-blitting after each chunk. Blocks until the picture is fully drawn (or a
-// resize forces it to finish at once) — matching the original, where the prompt
-// appeared only after the hi-res page had painted.
-void Comprehend::runSlowDraw() {
-    // Pick whichever Talisman renderer queued a reveal (Apple II hi-res or DOS
-    // CGA); they expose the same slow-draw contract, so drive it through one set
-    // of calls.
+// Advance one timer tick of the background slow-draw reveal.
+void Comprehend::tickSlowDraw() {
     const bool hdos = hdosSlowDrawActive();
-    if (!hdos && !gmSlowDrawActive())
-        return;
-
-    glk_request_timer_events(GM_SLOW_TICK_MS);
-    event_t ev;
-    bool more = true;
-    while (more) {
-        glk_select(&ev);
-        bool fullRepaint = false;
-        if (ev.type == evtype_Timer) {
-            more = hdos ? hdosAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK)
-                        : gmAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
-        } else if (ev.type == evtype_Arrange) {
-            // The window changed size: finish the page, rescale, repaint it whole.
-            if (hdos) hdosFinishSlowDraw(); else gmFinishSlowDraw();
-            more = false;
-            fullRepaint = true;
-            recomputeGraphicsScale();
-        } else if (ev.type == evtype_Redraw) {
-            // The window needs repainting: redraw what we have so far, keep going.
-            fullRepaint = true;
-        } else {
-            continue; // ignore stray input events while drawing
-        }
-        // Re-render the page, then repaint only the rows that changed this tick
-        // (the whole window after a resize, since the layout moved).
-        if (hdos)
-            hdosBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
-                                  _drawSurface->w, _drawSurface->h);
-        else
-            gmBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
-                                _drawSurface->w, _drawSurface->h);
+    bool more;
+    if (hdos) {
+        more = hdosAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
+        hdosBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
+                              _drawSurface->w, _drawSurface->h);
         int y0, y1;
-        bool dirty = hdos ? hdosSlowConsumeDirty(&y0, &y1)
-                          : gmSlowConsumeDirty(&y0, &y1);
-        if (fullRepaint) {
-            glk_window_clear(_topWindow);
-            blitSurfaceToWindow();
-        } else if (dirty)
+        if (hdosSlowConsumeDirty(&y0, &y1))
+            blitSurfaceRowsToWindow(y0, y1);
+    } else {
+        more = gmAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
+        gmBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
+                            _drawSurface->w, _drawSurface->h);
+        int y0, y1;
+        if (gmSlowConsumeDirty(&y0, &y1))
             blitSurfaceRowsToWindow(y0, y1);
     }
+    if (!more) {
+        glk_request_timer_events(0);
+        _slowDrawActive = false;
+    }
+}
+
+// Complete the slow-draw reveal instantly and sync _drawSurface to the final
+// fully-drawn page. The caller is responsible for blitting to the window.
+void Comprehend::finishSlowDraw() {
+    if (!_slowDrawActive) return;
     glk_request_timer_events(0);
+    _slowDrawActive = false;
+    const bool hdos = hdosSlowDrawActive();
+    if (hdos) hdosFinishSlowDraw(); else gmFinishSlowDraw();
+    if (hdos)
+        hdosBlitToSurface((uint32 *)_drawSurface->getPixels(),
+                          _drawSurface->w, _drawSurface->h);
+    else
+        gmBlitToSurface((uint32 *)_drawSurface->getPixels(),
+                        _drawSurface->w, _drawSurface->h);
 }
 
 void Comprehend::drawLocationPicture(int pictureNum, bool clearBg) {
@@ -434,6 +527,8 @@ bool Comprehend::recomputeGraphicsScale() {
 // hi-res page is opaque, so this restores it exactly), and re-wrap the status
 // description to the new width.
 void Comprehend::onArrange() {
+    // Complete any background reveal so the final image is what gets rescaled.
+    finishSlowDraw();
     if (_topWindow) {
         recomputeGraphicsScale();
         glk_window_clear(_topWindow);
