@@ -16,7 +16,8 @@ W, H = 320, 200
 PW, PH = 280, 160
 OX, OY = 20, 0
 
-# renderer PPM palette (hdos_talisman kHdosColor, high intensity) -> index
+# renderer PPM palette (hdos_talisman kHdosColor) -> index; both CGA palette-1
+# intensities are accepted (the game uses low intensity: 00aaaa/aa00aa/aaaaaa)
 RGB2IDX = {
     (0, 0, 0): 0,
     (0x55, 0xff, 0xff): 1, (0x00, 0xaa, 0xaa): 1,

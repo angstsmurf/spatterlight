@@ -3,8 +3,8 @@
  * Renders the Penguin Graphics Magician vector stream into a 280×160, 2-bpp
  * (4-colour) logical raster that matches the native picture interpreter in the
  * DOS release NOVEL.EXE / NOVEL1.EXE.  On a colour adapter the interpreter
- * drives CGA 320×200 4-colour mode and selects palette 1, high intensity
- * (black / cyan / magenta / white) -- see the picture init at 0x22ff (INT 10h
+ * drives CGA 320×200 4-colour mode and selects palette 1, low intensity
+ * (black / cyan / magenta / grey) -- see the picture init at 0x22ff (INT 10h
  * AH=0Bh).  Each primitive here was derived from, and cross-checked against,
  * the Ghidra disassembly of NOVEL1.EXE (analysis in the project memory notes):
  *
@@ -16,7 +16,7 @@
  *
  * Pixel model:
  *   - 2 bpp, 4 pixels per byte, LSB-first (pixel p in bits (2p+1):(2p))
- *   - Values are CGA palette-1 colour indices: 0=black, 1=cyan, 2=magenta, 3=white
+ *   - Values are CGA palette-1 colour indices: 0=black, 1=cyan, 2=magenta, 3=grey
  *   - Fill table (DS:0x9860, file 0xc8d0): 76 entries × 2 bytes each
  *     (even_col / odd_col bytes, always equal in this release); entry i is
  *     the 4-pixel 2-bpp tile used when SET_FILL_COLOR (op6) byte = i.
@@ -66,7 +66,7 @@ bool hdosInstallDrawingTables(const uint8_t *exe, size_t size) {
     // 0x9e81, i.e. file offsets 0xc8d0 / 0xcdf1 / 0xcef1.  Rather than hash the
     // whole binary -- which breaks on every re-release -- identify the fill
     // table by its unmistakable signature (the first eight 2-bpp CGA fill
-    // patterns: black / cyan / magenta / white / and the four single-bit
+    // patterns: black / cyan / magenta / grey / and the four single-bit
     // dithers) and derive the brush and font tables from it.  These offsets
     // were cross-checked against the binary loaded in Ghidra (fill table at
     // DS:0x9860, brush pointer 0x9d81 in the picture dispatcher at 0x1f56).
@@ -131,8 +131,8 @@ bool hdosInstallDrawingTables(const uint8_t *exe, size_t size) {
 //
 // 280 pixels wide × 160 rows.  Each byte holds 4 pixels in two-bit pairs,
 // LSB-first: pixel p occupies bits (2p+1):(2p) of byte (x>>2) in row y.
-// Values are CGA colour indices in palette 1, high intensity:
-//   0 = black, 1 = cyan, 2 = magenta, 3 = white.
+// Values are CGA colour indices in palette 1, low intensity:
+//   0 = black, 1 = cyan, 2 = magenta, 3 = grey.
 
 #define HDOS_WIDTH   280
 #define HDOS_HEIGHT  160
@@ -961,17 +961,19 @@ void hdosDrawImage(const uint8_t *data, size_t size) {
 
 // ---- 2-bpp → RGBA conversion -------------------------------------------------
 //
-// The four pixel values are CGA palette 1 (high intensity) colour indices, the
+// The four pixel values are CGA palette 1 (low intensity) colour indices, the
 // palette NOVEL1.EXE selects on a colour adapter (INT 10h AH=0Bh in the picture
-// init at 0x22ff): black / cyan / magenta / white.  The 280×160 DrawSurface
-// matches the logical raster exactly, so no scaling is needed in the common
-// case.
+// init at 0x22ff): black / cyan / magenta / grey.  These are the exact RGB
+// values DOSBox emits for the game (verified against the test/hdos goldens);
+// the original ran in low intensity, not the brighter 55ffff/ff55ff/ffffff.
+// The 280×160 DrawSurface matches the logical raster exactly, so no scaling is
+// needed in the common case.
 
 static const uint32_t kHdosColor[4] = {
     0x000000ffu, // 0: black
-    0x55ffffffu, // 1: cyan
-    0xff55ffffu, // 2: magenta
-    0xffffffffu, // 3: white
+    0x00aaaaffu, // 1: cyan
+    0xaa00aaffu, // 2: magenta
+    0xaaaaaaffu, // 3: grey (CGA "white" at low intensity)
 };
 
 static void blit_page(const uint8_t *page, uint32_t *out, int w, int h) {

@@ -5,8 +5,9 @@
  * ground-truth framebuffer captured from DOSBox-X.  The test renders the stream
  * through hdos_talisman.cpp and compares the 280x160 picture window, at screen
  * origin (20, 0), against the golden in CGA palette-index space (0=black,
- * 1=cyan, 2=magenta, 3=white) -- so the high/low intensity palette choice does
- * not matter.
+ * 1=cyan, 2=magenta, 3=grey) -- so the high/low intensity palette choice does
+ * not matter (rgbaToIndex below maps whatever RGB kHdosColor uses back to the
+ * index, and the .fb goldens already store indices).
  *
  * Self-contained: needs neither DOSBox nor the copyrighted NOVEL1.EXE at test
  * time.  The drawing tables (fill / subindex / brush / font) are committed as a
@@ -71,11 +72,64 @@ static std::vector<uint8_t> readFile(const std::string &path) {
 static int rgbaToIndex(uint32_t p) {
     switch (p >> 8) {  // drop alpha
     case 0x000000: return 0; // black
-    case 0x55ffff: return 1; // cyan  (high intensity)
-    case 0xff55ff: return 2; // magenta
-    case 0xffffff: return 3; // white
+    case 0x00aaaa: return 1; // cyan    (low intensity)
+    case 0xaa00aa: return 2; // magenta (low intensity)
+    case 0xaaaaaa: return 3; // grey    (low intensity "white")
     default:       return 0;
     }
+}
+
+// Room-fixture pass: every Talisman DOS room picture (RA..RG) captured from
+// DOSBox by test/hdos/dosbox_capture_pics.py and validated pixel-exact over the
+// 280x160 window.  Streams (Graphics-Magician vector data sliced from the game
+// RA..RG files) and goldens (the window packed 2 bits/pixel, MSB-first) are
+// committed as two blobs plus a manifest, so this needs no game files at test
+// time.  See test/hdos/gen_room_fixtures.py.
+static int runRoomFixtures() {
+    FILE *mf = fopen("test/hdos/rooms.tsv", "r");
+    if (!mf)
+        return 0;                       // optional: skip if not generated
+    std::vector<uint8_t> streams = readFile("test/hdos/rooms_streams.bin");
+    std::vector<uint8_t> goldens = readFile("test/hdos/rooms_goldens.bin");
+    if (streams.empty() || goldens.empty()) {
+        fprintf(stderr, "FAIL: rooms.tsv present but blobs missing/empty\n");
+        fclose(mf);
+        return 1;
+    }
+    char line[256];
+    if (!fgets(line, sizeof line, mf)) { fclose(mf); return 1; }   // header
+    int fails = 0, n = 0, exact = 0;
+    char name[32];
+    long so, sl, go;
+    int ceil;
+    while (fgets(line, sizeof line, mf)) {
+        if (sscanf(line, "%31s %ld %ld %ld %d", name, &so, &sl, &go, &ceil) != 5)
+            continue;
+        hdosResetScreen(true);          // white cold page
+        hdosDrawImage(streams.data() + so, (size_t)sl);
+        std::vector<uint32_t> rgba((size_t)PIC_W * PIC_H);
+        hdosBlitToSurface(rgba.data(), PIC_W, PIC_H);
+        int diffs = 0;
+        for (int i = 0; i < PIC_W * PIC_H; i++) {
+            int rv = rgbaToIndex(rgba[i]);
+            uint8_t pb = goldens[(size_t)go + (i >> 2)];   // 4 px/byte, MSB-first
+            int gv = (pb >> ((3 - (i & 3)) * 2)) & 3;
+            if (rv != gv)
+                diffs++;
+        }
+        n++;
+        if (diffs <= ceil) {
+            if (diffs == 0) exact++;
+        } else {
+            fprintf(stderr, "ROOM %-8s %5d diffs (ceiling %d)  REGRESSED\n",
+                    name, diffs, ceil);
+            fails++;
+        }
+    }
+    fclose(mf);
+    printf("HDOS rooms: %d/%d pixel-exact, %d within ceiling, %d failed\n",
+           exact, n, n - fails, fails);
+    return fails;
 }
 
 int main() {
@@ -118,11 +172,13 @@ int main() {
             failures++;
     }
 
+    failures += runRoomFixtures();
+
     if (failures) {
         printf("HDOS picture regression: %d case(s) failed\n", failures);
         return 1;
     }
-    printf("HDOS picture regression: all %zu cases within ceiling\n",
+    printf("HDOS picture regression: all %zu scene cases + room fixtures within ceiling\n",
            sizeof(kCases) / sizeof(kCases[0]));
     return 0;
 }

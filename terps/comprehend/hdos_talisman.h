@@ -13,7 +13,7 @@
  * are identical to the Apple II renderer in graphics_magician.cpp.  The key
  * differences are all in the pixel model:
  *   - 2 bits per pixel; values 0-3 are CGA palette-1 colour indices
- *     (black / cyan / magenta / white)
+ *     (black / cyan / magenta / grey), rendered at low intensity
  *   - 4 pixels per byte, LSB-first (pixel 0 in bits 1:0)
  *   - Fill patterns: 76-entry LUT indexed directly by op6 fill-colour byte;
  *     each entry is one 2-bpp byte (4-pixel tile, uniform across all columns)

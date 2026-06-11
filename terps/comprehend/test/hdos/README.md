@@ -34,11 +34,11 @@ game text below.  This matches `HDOS_WIDTH`×`HDOS_HEIGHT` in `hdos_talisman.h`.
 ## Palette
 
 The real game runs CGA **palette 1, low intensity**: black `000000`, cyan
-`00aaaa`, magenta `aa00aa`, white `aaaaaa`.  (The renderer's `kHdosColor[]` uses
-the *high*-intensity variants `55ffff / ff55ff / ffffff`.)  Both decode to the
-same indices, so comparison is done in **index space** and the intensity choice
-is cosmetic.  Index convention, matching the renderer: `0=black 1=cyan 2=magenta
-3=white`.
+`00aaaa`, magenta `aa00aa`, grey `aaaaaa`.  The renderer's `kHdosColor[]` now
+matches these exactly (it used the *high*-intensity `55ffff / ff55ff / ffffff`
+before 2026-06-11).  Comparison is done in **index space**, so the intensity
+choice is cosmetic.  Index convention, matching the renderer: `0=black 1=cyan
+2=magenta 3=grey`.
 
 ## Scenes captured
 
@@ -90,6 +90,26 @@ is at or below a recorded ceiling; lower the ceilings as the renderer improves.
 
 Scene → picture mapping: `title` = `T0`@4, `throne` = `RA`@0x22 (pic #0),
 `courtyard` = `RA`@0x8c1 (#1), `cell` = `RA`@0x2128 (#4).
+
+### Room fixtures (all RA–RG)
+
+Beyond the four hand-picked scenes, every Talisman room picture (`RA`–`RG`, 94
+streams) is committed as a regression fixture: 93 are pixel-exact and `RG_07` is
+within 98 px.  These were captured by driving the native interpreter directly —
+see `dosbox_capture_pics.py` (boots NOVEL1 under the GDB stub and patches a stub
+to draw each picture, dumping CGA VRAM) and `gen_room_fixtures.py` (slices the
+streams and packs the 280×160 goldens).  `test_hdos_pics` loads them from:
+
+| file                 | what                                                       |
+|----------------------|------------------------------------------------------------|
+| `rooms_streams.bin`  | concatenated `RA`–`RG` vector streams                       |
+| `rooms_goldens.bin`  | concatenated 280×160 goldens, packed 2 bpp (MSB-first)      |
+| `rooms.tsv`          | `name  stream_off  stream_len  golden_off  ceil`            |
+
+Object/overlay pictures (`OA`/`OB`/`OE`/`OF`) are sprites drawn over the live
+room — capturing them this way needs their real in-game predecessor, so they are
+left for a natural-play pass.  See `TODO.md` §5 for the addressing and op14
+prior-page details.
 
 ## Status (2026-06-11)
 

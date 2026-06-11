@@ -31,9 +31,14 @@ static std::vector<uint8_t> readFile(const std::string &p) {
     fclose(f); return v;
 }
 static int rgbaToIndex(uint32_t p) {
+    // Accept both CGA palette-1 intensities so the diagnostic survives a
+    // kHdosColor palette change (the game uses low intensity).
     switch (p >> 8) {
-    case 0x000000: return 0; case 0x55ffff: return 1;
-    case 0xff55ff: return 2; case 0xffffff: return 3; default: return 0; }
+    case 0x000000: return 0;
+    case 0x55ffff: case 0x00aaaa: return 1;
+    case 0xff55ff: case 0xaa00aa: return 2;
+    case 0xffffff: case 0xaaaaaa: return 3;
+    default: return 0; }
 }
 
 int main() {
