@@ -67,7 +67,7 @@ read_le16.o: $(COMMON_DIR)/read_le16.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) comprehend test/test_talisman_pics test/pixtest test/op5scan test/hdostest
+	rm -f $(OBJS) comprehend test/test_talisman_pics test/test_hdos_pics test/pixtest test/op5scan test/hdostest
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
 # Self-contained: graphics_magician.cpp has no Glk/disk dependencies, so the test
@@ -75,8 +75,15 @@ clean:
 test/test_talisman_pics: test/test_talisman_pics.cpp graphics_magician.cpp graphics_magician.h
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_talisman_pics.cpp graphics_magician.cpp
 
-test: test/test_talisman_pics
+# --- Regression test: DOS Talisman CGA renderer vs golden DOSBox framebuffers ---
+# Self-contained: hdos_talisman.cpp has no Glk/disk dependencies, and the drawing
+# tables / vector streams / goldens are committed in test/hdos/.
+test/test_hdos_pics: test/test_hdos_pics.cpp hdos_talisman.cpp hdos_talisman.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_hdos_pics.cpp hdos_talisman.cpp
+
+test: test/test_talisman_pics test/test_hdos_pics
 	./test/test_talisman_pics
+	./test/test_hdos_pics
 
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
 # image and log its hi-res writes. Used to capture new regression fixtures.
