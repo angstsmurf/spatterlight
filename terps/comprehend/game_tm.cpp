@@ -222,6 +222,18 @@ void TalismanGame::handleAction(Sentence *sentence) {
 
 void TalismanGame::handleSpecialOpcode() {
 	switch (_specialOpcode) {
+	case 2:
+		deathMenu();
+		break;
+
+	case 6:
+		game_save();
+		break;
+
+	case 7:
+		game_restore();
+		break;
+
 	case 15:
 		// "Switch to text screen mode." We deliberately keep graphics on and
 		// leave the picture window visible: the game flips text/graphics mode
@@ -244,8 +256,58 @@ void TalismanGame::handleSpecialOpcode() {
 		break;
 
 	default:
+		if (_specialOpcode != 0)
+			warning("TalismanGame: unhandled special opcode %d", _specialOpcode);
 		break;
 	}
+}
+
+void TalismanGame::deathMenu() {
+	// Death / game-over menu (NOVEL.EXE special opcode 2, FUN_1000_06f0 case 2).
+	// By the time this fires the bytecode has already narrated the death and
+	// printed "THE END." The interpreter then switches to a text screen, waits
+	// for a keypress, and loops showing the menu string (main string table
+	// entry 8, right after the save/restore prompts) until the player chooses:
+	//   '1' Quit, '2' "embark upon a new adventure" (restart), '3' Restore.
+	// Without this the per-turn death just keeps re-firing, replaying the last
+	// dying turn forever.
+	g_comprehend->readChar();
+	console_println(_strings[8].c_str());
+
+	int c = console_get_key();
+	if (g_comprehend->shouldQuit())
+		return;
+
+	if (c == '2') {
+		// Reload the initial game state. handle_restart() does the reload
+		// without the generic restart prompt, since the menu above has
+		// already taken the player's choice.
+		game_restart();
+	} else if (c == '3') {
+		// FUN_1000_0785: same prompt and slot handling as RESTORE, then
+		// resume play with the loaded state.
+		game_restore();
+	} else {
+		// '1', or anything else. The original re-reads until 1/2/3, but a
+		// single read matches the rest of this engine's menus (game_save /
+		// game_restore / handle_restart) and stays safe under transcript
+		// replay, where readChar() always returns a blank.
+		g_comprehend->quitGame();
+	}
+}
+
+bool TalismanGame::handle_restart() {
+	// Reached only from the death menu's "new adventure" choice, which has
+	// already prompted the player, so reload silently instead of asking again.
+	_ended = false;
+	loadGame();
+	// loadGame() repopulates _strings from the G0 game-data file, but
+	// Talisman's strings actually live in novel.exe / the MA-MO bank files, so
+	// reload them the same way playGame() does -- otherwise every message after
+	// a restart decodes to BAD_STRING.
+	loadStrings();
+	_updateFlags = UPDATE_ALL;
+	return true;
 }
 
 } // namespace Comprehend
