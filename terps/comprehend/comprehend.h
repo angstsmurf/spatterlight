@@ -77,15 +77,9 @@ public:
     Common::Error readSaveData(Common::SeekableReadStream *) { return Common::Error(Common::kNoGameDataFoundError); }
     Common::Error writeGameData(Common::WriteStream *) { return Common::Error(Common::kNoGameDataFoundError); }
 
-    // ScummVM's launcher passes save slots to/from games via these; we
-    // don't have a launcher, but the engine references them when the
-    // player runs SAVE / RESTORE. Both fail silently for now.
-    Common::Error saveGameState(int /*slot*/, const Common::String & /*desc*/) {
-        return Common::Error(Common::kNoGameDataFoundError);
-    }
-    Common::Error loadGameState(int /*slot*/) {
-        return Common::Error(Common::kNoGameDataFoundError);
-    }
+    // Called by game_save() / game_restore() when the player types SAVE/RESTORE.
+    Common::Error saveGameState(int slot, const Common::String &desc);
+    Common::Error loadGameState(int slot);
 
     bool shouldQuit() const { return _shouldQuit; }
     void quitGame() { _shouldQuit = true; }
@@ -94,8 +88,8 @@ public:
         return std::rand() % (maxVal + 1);
     }
 
-    bool canLoadGameStateCurrently(Common::U32String * = nullptr) { return false; }
-    bool canSaveGameStateCurrently(Common::U32String * = nullptr) { return false; }
+    bool canLoadGameStateCurrently(Common::U32String * = nullptr) { return _game != nullptr; }
+    bool canSaveGameStateCurrently(Common::U32String * = nullptr) { return !_disableSaves && _game != nullptr; }
     void setDisableSaves(bool flag) { _disableSaves = flag; }
 
     // Output (mirrors GlkAPI's print/printRoomDesc/readLine API).
@@ -130,11 +124,6 @@ public:
     // reveal to repaint just the band it changed this tick).
     void blitSurfaceRowsToWindow(int y0, int y1);
 
-    // Drives the Apple II Talisman animated picture reveal to completion on a
-    // Glk timer. No-op unless renderPicture() queued a slow-draw. Called by
-    // drawPicture().
-    void runSlowDraw();
-
     // Window-resize / repaint handling (evtype_Arrange / evtype_Redraw), called
     // from the input-wait loops: rescale the picture to the new window, repaint
     // it, and re-wrap the status description.
@@ -145,6 +134,18 @@ public:
     bool recomputeGraphicsScale();
 
 private:
+    // True while a slow-draw reveal is running in the background (timer events
+    // are active and the input loops are advancing it tick by tick).
+    bool _slowDrawActive;
+
+    // Advance one timer tick of the background slow-draw reveal and blit the
+    // changed rows. Cancels the timer and clears _slowDrawActive when done.
+    void tickSlowDraw();
+    // Complete the slow-draw reveal immediately (called before starting a new
+    // picture or when the window is resized). Updates _drawSurface to the final
+    // fully-drawn page; the caller is responsible for blitting to the window.
+    void finishSlowDraw();
+
     void initialize();
     void deinitialize();
     void createGame();
