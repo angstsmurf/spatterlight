@@ -782,11 +782,14 @@ static void fill_rect(uint8_t fill_idx) {
 // ---- Pen colour mapping ------------------------------------------------------
 //
 // SET_PEN_COLOR (op2) carries a colour index in its low nibble; the DOS
-// interpreter stores it as the pen colour (0x9d38).  Map the 8 indices the
-// picture data uses to the 4 CGA palette values for lines / solid text -- the
-// values the title actually uses (2, 4, 6) agree with a plain index & 3.
+// interpreter stores it as the pen colour (0x9d38) and draws lines/solid text in
+// it as a plain index & 3 (the CGA palette has only four colours).  Verified
+// against the title (uses 2, 4, 6) and room RG_07, whose pen-colour-5 (-> cyan)
+// strokes over a magenta fill band were the last non-exact room: an earlier
+// guess mapped 5 -> magenta, which left those strokes invisible and exposed the
+// fill beneath.
 
-static const uint8_t kPenTo2bpp[8] = { 0, 1, 2, 3, 0, 2, 2, 3 };
+static const uint8_t kPenTo2bpp[8] = { 0, 1, 2, 3, 0, 1, 2, 3 };
 
 // ---- Drawing context ---------------------------------------------------------
 
