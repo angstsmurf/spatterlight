@@ -94,8 +94,9 @@ typedef struct {
     uint8_t value90;
     uint8_t valueA0;
     bool fill_bg;
-    // Frame count for OPCODE_DELAY ops; at most arg0(0..31) * 20 = 620, so a
-    // uint16_t holds it with room to spare and keeps the struct compact.
+    // Slow-draw timer ticks to pause for an OPCODE_DELAY op (see
+    // atari8_delay_ticks()). Worst case is a few thousand ticks, so a uint16_t
+    // holds it with room to spare and keeps the struct compact.
     uint16_t delay;
 } a8_byte_to_write;
 
@@ -633,6 +634,41 @@ typedef enum  {
     OPCODE_FLOOD_FILL = 7,
 } Opcode;
 
+/* OPCODE_DELAY (2) faithful timing.
+ *
+ * On the Atari the delay opcode is a triple-nested 6502 busy-wait in MAIN_DRAW
+ * ($86DB): DEC arg_a / DEC arg_b / DEC arg0 act as the inner / middle / outer
+ * loop counters (~9 cycles per inner pass: DEC abs 6 + BNE taken 3), and the
+ * whole thing is skipped in lines-only mode. With the 6502 "0 means 256" wrap,
+ * the number of inner iterations is
+ *
+ *     inner = cA + (cB - 1) * 256 + (cO - 1) * 65536
+ *
+ * where cA = arg_a?:256, cB = arg_b?:256, cO = arg0?:256. Every shipped image
+ * uses arg_a == arg_b == 0, so this reduces to arg0 * 65536 (~0.34 s per arg0
+ * unit), but we honour all three operands regardless.
+ *
+ * We convert that cycle count into slow-draw timer ticks so the pause lasts the
+ * same real time the hardware waited. The busy-wait runs at ~1.74 MHz (1.79 MHz
+ * NTSC minus ANTIC DMA; measured in MAME across several images), and the
+ * graphics timer fires every TimerDelay() ms, hence
+ *
+ *     ticks = inner * 9 / (1740 * TimerDelay_ms).
+ */
+#define A8_DELAY_CYCLES_PER_INNER 9
+#define A8_DELAY_CYCLES_PER_MS    1740 /* effective 6502 rate during the wait */
+
+static uint16_t atari8_delay_ticks(uint8_t arg0, uint8_t arg_a, uint8_t arg_b) {
+    uint32_t cA = arg_a ? arg_a : 256;
+    uint32_t cB = arg_b ? arg_b : 256;
+    uint32_t cO = arg0  ? arg0  : 256;
+    uint32_t inner = cA + (cB - 1) * 256 + (cO - 1) * 65536;
+    uint32_t cycles = inner * A8_DELAY_CYCLES_PER_INNER;
+    uint32_t divisor = (uint32_t)A8_DELAY_CYCLES_PER_MS * (uint32_t)TimerDelay();
+    uint32_t ticks = (cycles + divisor / 2) / divisor; /* round to nearest tick */
+    return ticks > UINT16_MAX ? UINT16_MAX : (uint16_t)ticks;
+}
+
 static void handle_draw_line(a8_draw_ctx *ctx) {
     /* Set up two pattern bytes derived from color_array,
      then set plane90/planeA0 pattern even bytes and draw the line. */
@@ -734,8 +770,10 @@ static bool process_opcode(a8_draw_ctx *ctx, Opcode opcode, uint8_t arg0, uint8_
             break;
         case OPCODE_DELAY:
             if (ctx->lines_only_mode == false) {
-                debug_print("Delay %d\n", arg0);
-                write_to_screenmem(0, 0, 0, 0, arg0 * 20);
+                uint16_t ticks = atari8_delay_ticks(arg0, arg_a, arg_b);
+                debug_print("Delay arg0=%d arg_a=%d arg_b=%d -> %d ticks\n",
+                            arg0, arg_a, arg_b, ticks);
+                write_to_screenmem(0, 0, 0, 0, ticks);
             }
             break;
         case OPCODE_DRAW_LINE:
