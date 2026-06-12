@@ -66,6 +66,13 @@ static struct comprehend_entry comprehend_registry[] = {
     { 0x3951a, 0x994b, "Oo-Topos side A (WOZ)" },
     { 0x3951a, 0x9a1e, "Oo-Topos side B (WOZ)" },
 
+    /* The Coveted Mirror 2.0 (Polarware, Comprehend re-release). The original
+     * 1.0 release uses Penguin's earlier engine and is not a Comprehend game. */
+    { 0x23000, 0xb0b2, "The Coveted Mirror disk 1 (DSK)" },
+    { 0x23000, 0xd9dd, "The Coveted Mirror disk 2 (DSK)" },
+    { 0x3957e, 0x695f, "The Coveted Mirror 2.0 side A (WOZ)" },
+    { 0x3957e, 0x41c6, "The Coveted Mirror 2.0 side B - boot (WOZ)" },
+
     /* Talisman: Challenging the Sands of Time (Polarware, 1987) */
     { 0x23000, 0x7467, "Talisman disk 1 - Boot (DSK, 4am crack)" },
     { 0x23000, 0x5398, "Talisman disk 2 - Empire (DSK, 4am crack)" },
@@ -81,6 +88,7 @@ static struct comprehend_entry comprehend_registry[] = {
  * This matches the same check the interpreter performs in game_tm.cpp. */
 static const char *comprehend_dos_exe_md5s[] = {
     "881f6c504456a41a70f8fb515edd04cd",  /* Transylvania NOVEL.EXE */
+    "e708b5f744e1f9b59354722ab55added",  /* Transylvania v2 NOVEL.EXE (g0 release) */
     "3fc2072f6996b17d2f21f0a92e53cdcc",  /* OO-Topos NOVEL.EXE */
     "3d4f5d26c64aa5b403914be83f4e8d73",  /* Crimson Crown NOVEL.EXE */
     "0e7f002971acdb055f439020363512ce",  /* Talisman NOVEL.EXE (original release) */

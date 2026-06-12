@@ -33,6 +33,11 @@ int loadAppleDiskImage(const Common::String &path);
 // "ootopos", ...) from the extracted files. Empty string if undetermined.
 Common::String guessAppleGameId();
 
+// Guess the game id for a DOS/PC release by reading the "g0" main-data file's
+// magic word from the current directory. Empty string if undetermined (e.g. the
+// v1 games, which ship tr.gda/cc1.gda rather than g0).
+Common::String guessDosGameId();
+
 } // namespace Comprehend
 } // namespace Glk
 

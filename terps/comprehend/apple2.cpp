@@ -165,16 +165,9 @@ int loadAppleDiskImage(const Common::String &path) {
     return total;
 }
 
-// Read the little-endian magic word from the extracted main game-data file.
-static uint16 mainDataMagic() {
-    const std::vector<byte> *g0 = Common::DiskImageFS::get("g0");
-    if (!g0 || g0->size() < 2) return 0;
-    return (uint16)((*g0)[0] | ((*g0)[1] << 8));
-}
-
-Common::String guessAppleGameId() {
-    uint16 magic = mainDataMagic();
-
+// Map a main-data-file magic word to a Comprehend game id. Returns an empty
+// string for magics we don't recognise (callers then fall back to other cues).
+static Common::String gameIdForMagic(uint16 magic) {
     switch (magic) {
     case 0xa429:            // Talisman "Empire" disk (matches the DOS magic)
     case 0x94c6:            // Talisman "Lands Beyond" disk
@@ -185,13 +178,28 @@ Common::String guessAppleGameId() {
         return Common::String("transylvania");
     case 0x8bc3:            // Transylvania v2 (DOS)
         return Common::String("transylvaniav2");
+    case 0x9f8b:            // The Coveted Mirror (Apple II)
+        return Common::String("covetedmirror");
     case 0x2000:            // Crimson Crown / Transylvania v1 disk one
     case 0x84fe:            // Crimson Crown (Apple) disk one
     case 0x7dec:            // Crimson Crown (Apple) disk two
         return Common::String("crimsoncrown");
     default:
-        break;
+        return Common::String();
     }
+}
+
+// Read the little-endian magic word from the extracted main game-data file.
+static uint16 mainDataMagic() {
+    const std::vector<byte> *g0 = Common::DiskImageFS::get("g0");
+    if (!g0 || g0->size() < 2) return 0;
+    return (uint16)((*g0)[0] | ((*g0)[1] << 8));
+}
+
+Common::String guessAppleGameId() {
+    Common::String id = gameIdForMagic(mainDataMagic());
+    if (!id.empty())
+        return id;
 
     // Fall back to filename heuristics.
     if (Common::DiskImageFS::has("ps") && Common::DiskImageFS::has("mn"))
@@ -200,6 +208,27 @@ Common::String guessAppleGameId() {
         return Common::String("transylvaniav2");
 
     return Common::String();
+}
+
+Common::String guessDosGameId() {
+    // DOS/PC releases keep their files on the real filesystem (we have already
+    // chdir'd into the game directory), so the engine never builds a DiskImageFS.
+    // Read the magic word straight out of the "g0" main-data file -- this is what
+    // distinguishes, e.g., the v2 Transylvania (g0, 0x8bc3) from the v1 release
+    // (which ships tr.gda and has no g0, so the read fails and we return empty).
+    uint16 magic = 0;
+    const char *names[] = { "g0", "G0", nullptr };
+    for (int i = 0; names[i]; i++) {
+        if (FILE *f = std::fopen(names[i], "rb")) {
+            uint8_t hdr[2];
+            if (std::fread(hdr, 1, 2, f) == 2)
+                magic = (uint16)(hdr[0] | (hdr[1] << 8));
+            std::fclose(f);
+            if (magic)
+                break;
+        }
+    }
+    return gameIdForMagic(magic);
 }
 
 } // namespace Comprehend

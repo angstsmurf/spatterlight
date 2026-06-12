@@ -10,7 +10,7 @@ const char *comprehend_storyfile = NULL;
 const char *comprehend_gameid = NULL;
 
 glkunix_argumentlist_t glkunix_arguments[] = {
-    { "-g", glkunix_arg_ValueFollows, "-g gameid: One of transylvania, crimsoncrown, ootopos, talisman, transylvaniav2 (default: transylvania)" },
+    { "-g", glkunix_arg_ValueFollows, "-g gameid: One of transylvania, crimsoncrown, ootopos, talisman, transylvaniav2, covetedmirror (default: transylvania)" },
     { "", glkunix_arg_ValueFollows, "filename: The game data file (tr.gda / cc1.gda / g0)." },
     { NULL, glkunix_arg_End, NULL }
 };
