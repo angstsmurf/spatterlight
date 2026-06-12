@@ -74,5 +74,40 @@ CovetedMirrorGame::CovetedMirrorGame() : ComprehendGameV2() {
 	_titleGraphicFile = "t0";
 }
 
+// The Coveted Mirror's interpreter hard-codes a throne-room guard that no G0
+// bytecode can express: while the player is in the throne room (room 0x12) with
+// flag 5 clear, any command is discarded and King Voar imprisons the player.
+// This is why nothing in G0 calls FUNC 000a -- it is reachable only from the
+// engine. Reverse-engineered from the Apple II interpreter (cm_ram_raw $4092):
+//
+//     LDA $5a3d        ; current room
+//     CMP #$12         ; throne?
+//     BNE normal
+//     LDA #$05         ; flag 5
+//     JSR test_flag
+//     BNE normal       ; flag 5 set -> ordinary play
+//     LDA #$0a         ; else force FUNC 000a (imprisonment)...
+//     STA func_lo
+//     JMP run          ; ...bypassing the normal action dispatch entirely
+//
+// FUNC 000a prints the insolence line and moves the player to the prison
+// (room 1); flag 5 is later set by FUNC 0028 once the player has progressed,
+// after which the throne can be revisited freely. The flag is read live, so we
+// mirror it here against the same _flags[5] the bytecode maintains.
+void CovetedMirrorGame::handleAction(Sentence *sentence) {
+	if (_currentRoom == 0x12 && !_flags[5]) {
+		// The typed command is discarded entirely (the engine bypasses its
+		// normal action dispatch), so run FUNC 000a with no sentence in scope.
+		_specialOpcode = 0;
+		eval_function(0x0a, nullptr);
+		_functionNum = 0;
+		eval_function(0, nullptr);
+		handleSpecialOpcode();
+		return;
+	}
+
+	ComprehendGameV2::handleAction(sentence);
+}
+
 } // namespace Comprehend
 } // namespace Glk

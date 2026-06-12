@@ -790,8 +790,21 @@ void ComprehendGameV2::execute_opcode(const Instruction *instr, const Sentence *
 
 	switch (_opcodeMap[getOpcode(instr)]) {
 	case OPCODE_CLEAR_INVISIBLE:
-		item = get_item_by_noun(noun);
+		// The item is the operand, not the raw sentence noun. For the
+		// noun-substituted forms ((opcode & 0x30) == 0x30) the dispatcher has
+		// already written the player's noun into operand[0] above, so getItem()
+		// resolves both. Using the sentence noun directly crashes when a daemon
+		// toggles items by literal index with no noun in scope -- e.g. The
+		// Coveted Mirror's per-turn FUNC 017f (a9 0e, a9 13, ...) and its forced
+		// throne-room imprisonment chain.
+		item = getItem(instr);
 		item->_flags &= ~ITEMF_INVISIBLE;
+		break;
+
+	case OPCODE_SET_INVISIBLE:
+		// See OPCODE_CLEAR_INVISIBLE.
+		item = getItem(instr);
+		item->_flags |= ITEMF_INVISIBLE;
 		break;
 
 	case OPCODE_DRAW_OBJECT:
