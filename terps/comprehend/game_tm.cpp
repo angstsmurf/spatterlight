@@ -169,10 +169,14 @@ void TalismanGame::beforeGame() {
 	// Draw the title
 	g_comprehend->drawPicture(TITLE_IMAGE);
 
-	// Print game information
-	console_println("Story by Bruce X.Hoffman. Graphics by Ray Redlich and Brian Poff");
-	console_println("Project managed and IBM version by Jeffrey A. Jay. "
-		"Copyright 1987 POLARWARE Inc.");
+	// Print game information, centred as on the original title screen.
+	g_comprehend->setCentered(true);
+	console_println("Story by Bruce X. Hoffman");
+	console_println("Graphics by Ray Redlich and Brian Poff");
+	console_println("Project managed and IBM version by");
+	console_println("Jeffrey A. Jay");
+	console_println("Copyright 1987  POLARWARE, Inc.");
+	g_comprehend->setCentered(false);
 	g_comprehend->readChar();
 
 	glk_window_clear(g_comprehend->_bottomWindow);
