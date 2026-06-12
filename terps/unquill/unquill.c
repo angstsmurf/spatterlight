@@ -440,9 +440,14 @@ static int ill_scaled(int v) { return ill_sc ? (v * ill_sc) >> 3 : v; }
 static int ill_wrapx(int x) { return x & (ILL_W - 1); }		/* ILL_W is 256 */
 static int ill_wrapy(int y) { y %= ILL_H; if (y < 0) y += ILL_H; return y; }
 
-/* Unit moves for RPLOT, indexed by bits 5-7 of the command byte. */
+/* Unit moves for RPLOT, indexed by bits 5-7 of the command byte (dx, dy with
+ * dy measured up). The ROM's RPLOT handler (0xfd9f) reads a {ymove, dx} table
+ * at 0xfddf in this order - direction 0 is straight up, then clockwise: N, NE,
+ * E, SE, S, SW, W, NW. (An earlier table here started at E and ran the wrong
+ * way round, which made every RPLOT step a step off, drifting figures by one
+ * pixel and breaking flood-fill seals - e.g. Bugsy's "rough part of town".) */
 static const int ill_rmoves[8][2] = {
-    {1,0}, {1,1}, {0,1}, {-1,1}, {-1,0}, {-1,-1}, {0,-1}, {1,-1}
+    {0,1}, {1,1}, {1,0}, {1,-1}, {0,-1}, {-1,-1}, {-1,0}, {-1,1}
 };
 
 /* Stamp the current pen attribute onto the cell containing pixel (x,y), leaving
