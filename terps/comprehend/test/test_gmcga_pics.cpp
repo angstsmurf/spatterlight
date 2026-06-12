@@ -50,6 +50,11 @@ static const Case kCases[] = {
     { "throne",    "test/gmcga/throne.img",    "test/gmcga/throne.fb",    0 },
     { "cell",      "test/gmcga/cell.img",      "test/gmcga/cell.fb",      0 },
     { "courtyard", "test/gmcga/courtyard.img", "test/gmcga/courtyard.fb", 0 },
+    // Title screens of the other v2 DOS releases (same drawing tables as
+    // Talisman, byte-identical in their NOVEL.EXEs). The .img files are the
+    // complete T0 -- a raw vector stream from byte 0, with no header.
+    { "oo_title",  "test/gmcga/oo_title.img",  "test/gmcga/oo_title.fb",  0 },
+    { "tr_title",  "test/gmcga/tr_title.img",  "test/gmcga/tr_title.fb",  0 },
 };
 
 static std::vector<uint8_t> readFile(const std::string &path) {

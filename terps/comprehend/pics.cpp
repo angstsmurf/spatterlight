@@ -111,8 +111,17 @@ Pics::ImageFile::ImageFile(const Common::String &filename, bool isSingleImage) :
 			else
 				_imageOffsets[0] = 0; // talisman
 		} else {
-			// The DOS title file (t0) has a 4-byte header before the stream.
-			_imageOffsets[0] = 4;
+			// DOS title files. The v1 releases (TRTITLE.MS1 / CCTITLE.MS1)
+			// carry a 4-byte header (00 63 xx xx) before the vector stream.
+			// The v2 T0 files are a raw stream from byte 0: they open with
+			// op15/3 (fill the whole picture with the startup pattern, i.e.
+			// the white background) followed by a MOVE_TO -- skipping those
+			// 4 bytes loses the background fill and the initial pen position
+			// (it broke the OO-Topos and Transylvania titles; Talisman only
+			// survived because its first 4 bytes happen to be op15/3 plus a
+			// no-op op7). Sniff the first byte: a leading 0x00 would be op0
+			// (END), which no real stream starts with, so it must be a header.
+			_imageOffsets[0] = (f.readByte() == 0) ? 4 : 0;
 		}
 		return;
 	}
@@ -565,9 +574,10 @@ void Pics::drawPicture(int pictureNum) const {
 		} else if (pictureNum == BRIGHT_ROOM) {
 			gmcgaResetScreen(true);
 		} else if (pictureNum == TITLE_IMAGE) {
-			// White title background for all but OO-Topos, which fills its own
-			// black background (mirrors the Apple II title handling above).
-			gmcgaResetScreen(g_comprehend->getGameID() != "ootopos");
+			// The v2 title streams open with op15/3, which paints the whole
+			// picture with the startup fill (white), so the reset value is
+			// cosmetic; white matches the native interpreter's text page.
+			gmcgaResetScreen(true);
 			if (_title.isLoaded())
 				_title.renderGmcga(0);
 		} else if (pictureNum >= ITEMS_OFFSET) {
