@@ -247,6 +247,12 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 			error("Bad string desc %.2x:%.2x\n", instr->_operand[1], instr->_operand[2]);
 			break;
 		}
+		// Re-render if the current room's description was swapped (e.g. OO-Topos
+		// rewrites the prison cell text as the player removes the bottle and
+		// food), mirroring SET_ROOM_GRAPHIC below. The room description is
+		// persistent in the status window, so without this it stays stale.
+		if (instr->_operand[0] == _currentRoom)
+			_updateFlags |= UPDATE_ROOM_DESC;
 		break;
 
 	case OPCODE_SET_ROOM_GRAPHIC:
