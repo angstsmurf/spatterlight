@@ -6,6 +6,7 @@
 #include "draw_surface.h"
 #include "game.h"
 #include "game_cc.h"
+#include "game_cm.h"
 #include "game_data.h"
 #include "game_oo.h"
 #include "game_tm.h"
@@ -221,6 +222,7 @@ void Comprehend::createGame() {
     else if (_gameId == "talisman")       _game = new TalismanGame();
     else if (_gameId == "transylvania")   _game = new TransylvaniaGame1();
     else if (_gameId == "transylvaniav2") _game = new TransylvaniaGame2();
+    else if (_gameId == "covetedmirror")  _game = new CovetedMirrorGame();
     else                                  error("Unknown game id '%s'", _gameId.c_str());
 
     // The Apple II hi-res renderer (graphics_magician.cpp) handles two Graphics

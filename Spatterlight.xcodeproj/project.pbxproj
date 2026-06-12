@@ -539,6 +539,7 @@
 		C314D8222FD6D2F100EABA28 /* game_cc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C314D7F22FD6D1BA00EABA28 /* game_cc.cpp */; };
 		C314D8232FD6D2F100EABA28 /* game_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C314D7F52FD6D1BA00EABA28 /* game_data.cpp */; };
 		C314D8242FD6D2F100EABA28 /* game_oo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C314D7F82FD6D1BA00EABA28 /* game_oo.cpp */; };
+		CADE0001CADE0001CADE0001 /* game_cm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CADE0003CADE0003CADE0003 /* game_cm.cpp */; };
 		C314D8252FD6D2F100EABA28 /* game_opcodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C314D7FB2FD6D1BA00EABA28 /* game_opcodes.cpp */; };
 		C314D8262FD6D2F100EABA28 /* game_tm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C314D7FE2FD6D1BA00EABA28 /* game_tm.cpp */; };
 		C314D8272FD6D2F100EABA28 /* game_tr1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C314D8012FD6D1BA00EABA28 /* game_tr1.cpp */; };
@@ -3118,6 +3119,8 @@
 		C314D7F52FD6D1BA00EABA28 /* game_data.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game_data.cpp; sourceTree = "<group>"; };
 		C314D7F72FD6D1BA00EABA28 /* game_oo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_oo.h; sourceTree = "<group>"; };
 		C314D7F82FD6D1BA00EABA28 /* game_oo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game_oo.cpp; sourceTree = "<group>"; };
+		CADE0002CADE0002CADE0002 /* game_cm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_cm.h; sourceTree = "<group>"; };
+		CADE0003CADE0003CADE0003 /* game_cm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game_cm.cpp; sourceTree = "<group>"; };
 		C314D7FA2FD6D1BA00EABA28 /* game_opcodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_opcodes.h; sourceTree = "<group>"; };
 		C314D7FB2FD6D1BA00EABA28 /* game_opcodes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game_opcodes.cpp; sourceTree = "<group>"; };
 		C314D7FD2FD6D1BA00EABA28 /* game_tm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_tm.h; sourceTree = "<group>"; };
@@ -6067,6 +6070,8 @@
 				C314D7F52FD6D1BA00EABA28 /* game_data.cpp */,
 				C314D7F72FD6D1BA00EABA28 /* game_oo.h */,
 				C314D7F82FD6D1BA00EABA28 /* game_oo.cpp */,
+				CADE0002CADE0002CADE0002 /* game_cm.h */,
+				CADE0003CADE0003CADE0003 /* game_cm.cpp */,
 				C314D7FA2FD6D1BA00EABA28 /* game_opcodes.h */,
 				C314D7FB2FD6D1BA00EABA28 /* game_opcodes.cpp */,
 				C314D7FD2FD6D1BA00EABA28 /* game_tm.h */,
@@ -8814,6 +8819,7 @@
 				C314D8232FD6D2F100EABA28 /* game_data.cpp in Sources */,
 				C39D257C2FD700710015252F /* apple2.cpp in Sources */,
 				C314D8242FD6D2F100EABA28 /* game_oo.cpp in Sources */,
+				CADE0001CADE0001CADE0001 /* game_cm.cpp in Sources */,
 				C314D8252FD6D2F100EABA28 /* game_opcodes.cpp in Sources */,
 				C314D8262FD6D2F100EABA28 /* game_tm.cpp in Sources */,
 				C314D8272FD6D2F100EABA28 /* game_tr1.cpp in Sources */,

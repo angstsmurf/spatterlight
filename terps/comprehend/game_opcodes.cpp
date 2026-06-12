@@ -89,6 +89,15 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 		func_set_test_result(func_state, item != nullptr);
 		break;
 
+	case OPCODE_DESCRIBE_CURRENT_OBJECT:
+		// Examine the object the player named: print its long description.
+		// Only used by version 2 games (e.g. The Coveted Mirror). The single
+		// operand's purpose is unknown; the original keys off the noun.
+		item = get_item_by_noun(noun);
+		if (item)
+			g_comprehend->print("%s\n", stringLookup(item->_longString).c_str());
+		break;
+
 	case OPCODE_ELSE:
 		func_state->_testResult = func_state->_elseResult;
 		break;
@@ -535,15 +544,6 @@ void ComprehendGameV1::execute_opcode(const Instruction *instr, const Sentence *
 		func_set_test_result(func_state, !item || item->_room != _currentRoom);
 		break;
 
-	case OPCODE_DESCRIBE_CURRENT_OBJECT:
-		/*
-		 * This opcode is only used in version 2
-		 * FIXME - unsure what the single operand is for.
-		 */
-		item = get_item_by_noun(noun);
-		g_comprehend->print("%s\n", stringLookup(item->_longString).c_str());
-		break;
-
 	case OPCODE_CURRENT_OBJECT_IN_ROOM: {
 		/* FIXME - use common code for these two ops */
 		bool test = false;
@@ -740,6 +740,7 @@ ComprehendGameV2::ComprehendGameV2() {
 	_opcodeMap[0xa1] = OPCODE_CLEAR_FLAG40;
 	_opcodeMap[0xa2] = OPCODE_MOVE_OBJECT_TO_ROOM;
 	_opcodeMap[0xa5] = OPCODE_SET_FLAG40;
+	_opcodeMap[0xa6] = OPCODE_DESCRIBE_CURRENT_OBJECT;
 	_opcodeMap[0xa9] = OPCODE_CLEAR_INVISIBLE;
 	_opcodeMap[0xad] = OPCODE_SET_INVISIBLE;
 	_opcodeMap[0xc1] = OPCODE_VAR_DEC;

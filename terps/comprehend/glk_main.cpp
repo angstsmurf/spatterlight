@@ -22,6 +22,7 @@ static Common::String guessGameId(const char *path) {
     if (lower.contains("cc1") || lower.contains("crimson"))     return Common::String("crimsoncrown");
     if (lower.contains("ootopos") || lower.contains("oo-topos")) return Common::String("ootopos");
     if (lower.contains("talisman"))                              return Common::String("talisman");
+    if (lower.contains("mirror") || lower.contains("coveted"))   return Common::String("covetedmirror");
     if (lower.contains("trv2") || lower.contains("transv2") || lower.contains("transylvaniav2"))
         return Common::String("transylvaniav2");
     return Common::String("transylvania");
@@ -58,6 +59,7 @@ void glk_main(void) {
     Common::String gid;
     if (comprehend_gameid && *comprehend_gameid) gid = comprehend_gameid;
     else if (fromDisk)                           gid = Glk::Comprehend::guessAppleGameId();
+    else                                         gid = Glk::Comprehend::guessDosGameId();
     if (gid.empty())                             gid = guessGameId(comprehend_storyfile);
     vm->setGameId(gid);
     vm->setGameFile(comprehend_storyfile);

@@ -46,6 +46,7 @@ CXX_SRCS := \
     file_buf.cpp \
     game.cpp \
     game_cc.cpp \
+    game_cm.cpp \
     game_data.cpp \
     game_oo.cpp \
     game_opcodes.cpp \
