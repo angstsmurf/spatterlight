@@ -144,6 +144,22 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       against MAME for the authoritative wording.
   - Banks fully decoded to plain text in this session (standalone ciderpress extractor over
       MIRROR2.DSK): MA-ML, 64 entries each, index read from byte 0. Handy for the diff.
+  - **STRING-CONTENT half DONE offline (2026-06-13).** Rather than wait on the MAME replay,
+      dumped the terp's *actual* runtime `_strings`/`_strings2` (via a temp env-gated hook in
+      `loadGame`, since reverted/uncommitted) and auto-scanned every entry for control bytes,
+      high bytes and consonant-cluster garbage. **All reachable CM strings are clean** -- no
+      remaining garble like the fish bug. The only junk is the **unreachable ML bank tail
+      S2[745..767]**: bank ML holds just 41 real strings (S2[704..744], last = "There isn't a
+      window to look out of here."), and the loader's fixed 64-entry-per-bank read overruns the
+      offset table into the string blob, so those surplus offsets decode to fragments of real
+      strings (e.g. " in the wall." is a slice of S2[742]). Max item/room reference is S2[736]
+      ("Oink!") and no instruction can reference a string past the bank's real count, so the
+      tail is never shown. `S2[516]`="zzzzzzzzzz" is a *legit* snore SFX (follows "Don't let the
+      bedbugs bite."). Ran the same scan on OO-Topos/Crimson/Talisman/Transylvania: 0 real hits
+      (all flags were onomatopoeia -- "Hmmm", "Rrrrrr", "Grrrrrr", "Phhffffff"). So string
+      *content* is validated across all five games; what still needs MAME is the **runtime
+      rendering** -- the `@` count/noun substitution and template assembly, which a content scan
+      can't see.
 - [~] **Text regression harness ADDED (2026-06-13): `test/walkthrough/`** (geas-style:
       `run_walkthrough.sh` plays a raw command script through `comprehend_hl` and greps the
       transcript for a win marker; `run_walkthroughs.sh` prints a PASS/FAIL table; games stay
