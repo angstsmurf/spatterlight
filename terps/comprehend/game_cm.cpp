@@ -109,5 +109,26 @@ void CovetedMirrorGame::handleAction(Sentence *sentence) {
 	ComprehendGameV2::handleAction(sentence);
 }
 
+// The Coveted Mirror's main command loop (RE'd from the live Apple II RAM dump at
+// cm_main_command_loop $404c) runs the each-turn function chain -- function 0,
+// the daemon -- exactly ONCE per turn, inside the dispatch after the matched
+// action (cm_vm_dispatch_thunk $4f80 evaluates the matched function, then
+// function 0). There is no daemon pass before the parser; the pre-prompt work in
+// the original is only the room/item describe (FUN_4dc1) and graphics.
+//
+// The base ComprehendGame::beforeTurn() runs function 0 a second time before the
+// prompt, which doubles every per-turn daemon effect. For most of that chain it
+// is invisible, but the hourglass is decremented inside it (variable 0x11),
+// so the double pass made the sand drain at 2/turn: the jailer caught the player
+// after ~37 turns instead of the authentic ~74 (start value 74, -1/turn). That
+// halved budget is why a faithful walkthrough's bribe cadence didn't fit.
+//
+// Override to suppress the extra pre-prompt daemon pass so function 0 runs once
+// per turn, as the original does. (Scoped to CM: the other games override
+// beforeTurn with their own per-turn logic and their loops aren't RE-verified
+// here.)
+void CovetedMirrorGame::beforeTurn() {
+}
+
 } // namespace Comprehend
 } // namespace Glk
