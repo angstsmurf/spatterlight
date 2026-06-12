@@ -1018,7 +1018,22 @@ turn:
 		_nounState = NOUNSTATE_STANDARD;
 
 		read_sentence(&tempSentence);
-		_sentence.copyFrom(tempSentence, tempSentence._formattedWords[0] || prevNounState != NOUNSTATE_STANDARD);
+
+		// Carry the previous turn's verb over only when the new input is a bare
+		// noun (the "reuse the last verb" feature). If it parsed to no recognised
+		// words at all, replace the sentence wholesale instead of keeping the old
+		// verb -- otherwise an unintelligible command silently re-runs the last
+		// one (e.g. repeating "Ye cannot travel..." ) rather than reporting that
+		// it was not understood.
+		bool newHasWords = false;
+		for (uint fw = 0; fw < ARRAY_SIZE(tempSentence._formattedWords); ++fw)
+			if (tempSentence._formattedWords[fw]) {
+				newHasWords = true;
+				break;
+			}
+
+		_sentence.copyFrom(tempSentence, tempSentence._formattedWords[0] ||
+			prevNounState != NOUNSTATE_STANDARD || !newHasWords);
 
 		handled = handle_sentence(&_sentence);
 		handleAction(&_sentence);
