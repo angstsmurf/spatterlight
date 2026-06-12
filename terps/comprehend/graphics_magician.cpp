@@ -778,6 +778,45 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 			return true;
 		}
 		switch (param) {
+		case 0: { // RLE-compressed bitmap rectangle (The Coveted Mirror; $0a3f)
+			// Reads 4 bounds bytes exactly like sub-op 2, then streams raw
+			// hi-res page bytes column-major (top->bottom within a column,
+			// then the next column). A 0x80 byte escapes a run: the next two
+			// bytes are count and value, written count+1 times. The handler
+			// returns the moment the bottom-right cell is written, even
+			// mid-run ($0a6e).
+			uint8_t right  = *ptr++;
+			uint8_t left   = *ptr++;
+			uint8_t bottom = *ptr++;
+			uint8_t top    = *ptr++;
+			ctx->fill_right = right; ctx->fill_left = left;
+			ctx->fill_bottom = bottom; ctx->fill_top = top;
+			int col = left, row = top;
+			bool done = false;
+			while (!done && ptr < end) {
+				uint8_t b = *ptr++;
+				int reps = 1;
+				if (b == 0x80) {
+					if (ptr + 2 > end) break;
+					reps = *ptr++ + 1;
+					b = *ptr++;
+				}
+				while (reps--) {
+					if (row < APPLE2_SCREEN_HEIGHT && col < APPLE2_SCREEN_COLS)
+						write_screen(CALC_APPLE2_ADDRESS(row) + col, b);
+					if (row != bottom) {
+						row++;
+					} else if (col == right) {
+						done = true;
+						break;
+					} else {
+						col++;
+						row = top;
+					}
+				}
+			}
+			break;
+		}
 		case 1: // bounds = full screen
 			ctx->fill_left = 0; ctx->fill_top = 0;
 			ctx->fill_right = 39; ctx->fill_bottom = 0x9f;
@@ -788,7 +827,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 			ctx->fill_bottom = *ptr++;
 			ctx->fill_top = *ptr++;
 			break;
-		default: // param 3 (and 0): fill the rectangle with the current pattern
+		default: // param 3: fill the rectangle with the current pattern
 			fill_rect_pattern(ctx, ctx->pat_even, ctx->pat_odd);
 			break;
 		}
