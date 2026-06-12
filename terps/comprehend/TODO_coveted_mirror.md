@@ -122,6 +122,15 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       and parse clean (OO-Topos/Talisman/Transylvania keep `seek(4)` via the gameid guard).
       Cross-checked the bank decode with a standalone ciderpress-based extractor over the
       same DSK, which is byte-identical to MAME's source data.
+  - **Full blast radius measured**: reconstructed the entire `_strings2` array under both the
+      old (seek 4 + 2 pad) and new (seek 0 + no pad) schemes and diffed all 768 entries.
+      Exactly **24 strings changed = the 12 banks x their 2 leading entries** (global index
+      N where `N%64 ∈ {0,1}`); **0 mid-bank strings changed**. Every old value was garbage or
+      an empty pad; every new value is coherent. So the fix also repaired other reachable
+      bank-leading messages, e.g. the game-over line ML[1] (G=705) "ENOUGH OF THIS! THY QUESTS
+      SHALL CEASE! THE GAME IS OVER." (was `<no-string>`) and the death line MH[0] (G=448)
+      "No coat! You sink into a frozen slumber...". The fish was just the one we happened to
+      notice.
 - [ ] **Full-transcript diff vs MAME.** Play a scripted walkthrough in both and diff every
       response line. Catch any remaining off-by-N, wrong-table, or `@`-replacement
       (count/noun substitution) mismatches.
