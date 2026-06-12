@@ -107,6 +107,17 @@ inline int scumm_stricmp(const char *a, const char *b) {
          - (int)(unsigned char)std::tolower((unsigned char)*b);
 }
 
+// ScummVM provides scumm_strnicmp; case-insensitive compare of the first n chars.
+inline int scumm_strnicmp(const char *a, const char *b, size_t n) {
+    for (size_t i = 0; i < n; ++i) {
+        int da = std::tolower((unsigned char)a[i]);
+        int db = std::tolower((unsigned char)b[i]);
+        if (da != db) return da - db;
+        if (!a[i]) break;
+    }
+    return 0;
+}
+
 namespace Common {
 
 class String : public std::string {
