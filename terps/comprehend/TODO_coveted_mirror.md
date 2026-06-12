@@ -131,9 +131,42 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       SHALL CEASE! THE GAME IS OVER." (was `<no-string>`) and the death line MH[0] (G=448)
       "No coat! You sink into a frozen slumber...". The fish was just the one we happened to
       notice.
-- [ ] **Full-transcript diff vs MAME.** Play a scripted walkthrough in both and diff every
+- [~] **Full-transcript diff vs MAME.** Play a scripted walkthrough in both and diff every
       response line. Catch any remaining off-by-N, wrong-table, or `@`-replacement
       (count/noun substitution) mismatches.
+  - **`@`-SUBSTITUTION half DONE (2026-06-13) -- verified faithful against the live Apple II
+      RAM dump in Ghidra (`cm_ram_raw.bin`), not just MAME screen-reading.** CM has exactly
+      **three** templates containing `@` (confirmed by scanning the decoded string tables):
+      `S1[25]`="@ here.", `S1[55]`="@ not yours to take.", `S2[312]`= the throne insolence
+      count line. The marker is filled from a **replace-word table** the engine parses from the
+      game data; dumped it live and found the meaningful entries are RW[0..12]:
+      `[0..3]` negative-existence ("She's not"/"He's not"/"There isn't one"/"There aren't any"),
+      `[4..7]` subject pronouns ("She's"/"He's"/"It's"/"They're"), `[8..11]` object pronouns
+      ("her"/"him"/"it"/"them"), `[12]`="i". Located the SAME table verbatim in RAM at **$b9da**
+      (a second copy at $ba84) -- byte-for-byte match, so the table load is faithful.
+  - Mechanism confirmed correct: `OPCODE_SET_STRING_REPLACEMENT3` computes `articleNum` (0..3 =
+      female/male/neuter/plural) from the noun's `_wordFlags` gender bits and sets
+      `_currentReplaceWord = operand[0] + articleNum - 1`; `operand[0]` selects the set base
+      (1 -> negatives, 5 -> subject pronouns). So `@ here.` -> "There isn't one here." (neuter,
+      RW[2]) and `@ not yours to take.` -> "It's/He's/She's/They're not yours to take." by
+      gender. `@`-as-number (`SET_STRING_REPLACEMENT1`) handles the throne count.
+  - **Status of the 3 templates**: `S1[25]` both modes confirmed live (renders "There isn't one
+      here.", no stale number-mode leak); `S2[312]` count was MAME-confirmed earlier (the
+      doubled "only...only" is genuine). `S1[55]` shares the exact REPLACEMENT3 path as the
+      confirmed `S1[25]` (operand base 4 vs 0) -- couldn't trigger it live (it's a take-handler
+      for items owned/fixed deeper than the smoke-prefix-accessible area; `GET <npc>` gives the
+      generic "Sorry, that won't work." instead), but the mechanism is identical and verified.
+  - **Dead end ruled out**: `OPCODE_SET_CURRENT_NOUN_STRING_REPLACEMENT` is an `error("TODO")`
+      stub, but it is **never mapped to any bytecode byte** in either V1/V2 opcode map -- it is
+      unreachable dead code, so it is NOT a latent crash. (error() is non-fatal anyway.)
+  - **Minor benign note**: the non-Talisman replace-word parser reads past RW[12] into a
+      near-duplicate pronoun block + a few high-bit/binary bytes (RW[13..~45]); CM's table has
+      no empty-string terminator before the duplicate. Harmless -- the gender/article path only
+      ever indexes RW[0..11]; left as-is to avoid regressing the other games' terminator-based
+      parse.
+  - STILL TODO for full closure: a real end-to-end transcript replay vs MAME to catch any
+      *room/message off-by-N* beyond the (now-cleared) string content and `@` rendering -- needs
+      the jailer-bribe cadence to get a deep walkthrough past the throne loop.
   - Walkthrough: `/Users/administrator/Desktop/Comprehend walkthroughs/Mirror.txt`
       (Ambrosine, Classic Adventures Solution Archive).
   - The hourglass timer **does tick per turn even headless** (`>>>SAND'S RUNNING LOW<<<` ->
