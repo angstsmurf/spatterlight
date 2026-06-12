@@ -45,6 +45,7 @@ private:
 
 protected:
 	bool handle_restart() override;
+	void restartGame() override;
 public:
 	CrimsonCrownGame();
 	~CrimsonCrownGame() override {}

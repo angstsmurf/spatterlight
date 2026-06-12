@@ -364,6 +364,16 @@ void ComprehendGame::game_restore() {
 	(void)g_comprehend->loadGameState(c - '0');
 }
 
+void ComprehendGame::restartGame() {
+	// Reload the game from the start, bypassing the in-game restart prompt.
+	// Subclasses override to redo any extra reload work (e.g. Talisman's
+	// strings, Crimson Crown's disk reset).
+	_ended = false;
+	loadGame();
+	g_comprehend->clearUndo();  // can't undo across a restart
+	_updateFlags = UPDATE_ALL;
+}
+
 bool ComprehendGame::handle_restart() {
 	console_println(stringLookup(_gameStrings->game_restart).c_str());
 	_ended = false;
@@ -972,6 +982,15 @@ turn:
 				g_comprehend->print("You can't undo any further.\n");
 			}
 			continue;
+		}
+
+		// #restart: reload the game from the start, bypassing the in-game
+		// restart prompt (Talisman, for one, won't let the player restart
+		// normally). Clear the buffer for a clean slate and re-run the turn.
+		if (scumm_stricmp(_inputLine, "#restart") == 0) {
+			restartGame();
+			glk_window_clear(g_comprehend->_bottomWindow);
+			goto turn;
 		}
 
 		_inputLineIndex = 0;
