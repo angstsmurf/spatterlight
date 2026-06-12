@@ -128,9 +128,14 @@ void OOToposGame::beforeGame() {
 	// Draw the title
 	g_comprehend->drawPicture(TITLE_IMAGE);
 
-	// Print game information
-	console_println("Story by Michael and Muffy Berlyn, graphics by Raim und Redlich and Brian Poff");
-	console_println("IBM version by Jeffrey A. Jay. Copyright 1987  POLARWARE, Inc.");
+	// Print game information, centred as on the original title screen.
+	g_comprehend->setCentered(true);
+	console_println("Story by Michael and Muffy Berlyn");
+	console_println("graphics by Raimund Redlich");
+	console_println("and Brian Poff");
+	console_println("IBM version by Jeffrey A. Jay");
+	console_println("Copyright 1987  POLARWARE, Inc.");
+	g_comprehend->setCentered(false);
 	g_comprehend->readChar();
 
 	glk_window_clear(g_comprehend->_bottomWindow);
