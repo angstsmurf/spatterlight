@@ -424,6 +424,7 @@ public:
         _buf.insert(_buf.end(), bp, bp + n);
         return n;
     }
+    const byte *getData() const { return _buf.data(); }
 private:
     std::vector<byte> _buf;
     int64 _pos = 0;

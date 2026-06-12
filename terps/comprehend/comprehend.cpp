@@ -135,7 +135,49 @@ Common::Error Comprehend::loadGameState(int slot) {
     _game->synchronizeSave(s);
 
     glk_stream_close(str, nullptr);
+    clearUndo();  // can't undo across a restore
     return Common::Error(Common::kNoError);
+}
+
+bool Comprehend::serializeGameState(std::vector<byte> &out) {
+    if (!_game) return false;
+    Common::MemoryReadWriteStream mem(Common::YES);
+    Common::Serializer s(nullptr, &mem);
+    _game->synchronizeSave(s);
+    out.assign(mem.getData(), mem.getData() + (size_t)mem.size());
+    return true;
+}
+
+void Comprehend::deserializeGameState(const std::vector<byte> &in) {
+    if (!_game) return;
+    Common::MemoryReadWriteStream mem(Common::YES);
+    mem.write(in.data(), (uint32)in.size());
+    mem.seek(0, SEEK_SET);
+    Common::Serializer s(&mem, nullptr);
+    _game->synchronizeSave(s);
+}
+
+void Comprehend::pushUndo() {
+    std::vector<byte> snapshot;
+    if (!serializeGameState(snapshot))
+        return;
+    // Don't record an identical, back-to-back snapshot (e.g. when a turn is
+    // re-run via REDO_TURN), so each entry is a distinct turn boundary.
+    if (!_undoStack.empty() && _undoStack.back() == snapshot)
+        return;
+    _undoStack.push_back(snapshot);
+    if (_undoStack.size() > kMaxUndo)
+        _undoStack.erase(_undoStack.begin());
+}
+
+bool Comprehend::undo() {
+    // back() mirrors the current state; we need at least one earlier state to
+    // revert to.
+    if (_undoStack.size() < 2)
+        return false;
+    _undoStack.pop_back();
+    deserializeGameState(_undoStack.back());
+    return true;
 }
 
 void Comprehend::runGame() {

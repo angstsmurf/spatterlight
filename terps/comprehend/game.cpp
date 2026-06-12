@@ -370,6 +370,7 @@ bool ComprehendGame::handle_restart() {
 
 	if (tolower(console_get_key()) == 'r') {
 		loadGame();
+		g_comprehend->clearUndo();  // can't undo across a restart
 		_updateFlags = UPDATE_ALL;
 		return true;
 	} else {
@@ -933,6 +934,10 @@ turn:
 
 	beforePrompt();
 
+	// Snapshot the state the player is about to act from, as a turn boundary
+	// for #undo. (Deduplicated, so re-running the turn doesn't add a level.)
+	g_comprehend->pushUndo();
+
 	for (;;) {
 		_redoLine = REDO_NONE;
 		g_comprehend->print("> ");
@@ -951,6 +956,21 @@ turn:
 		if (scumm_strnicmp(_inputLine, "#transcript", 11) == 0 &&
 			(_inputLine[11] == '\0' || _inputLine[11] == ' ')) {
 			g_comprehend->transcript(_inputLine + 11);
+			continue;
+		}
+
+		// #undo (or plain "undo"): revert to the previous turn's state. The
+		// undo snapshot taken above mirrors the current state, so this re-prompts
+		// without advancing time; refresh the room display afterwards.
+		if (scumm_stricmp(_inputLine, "#undo") == 0 ||
+			scumm_stricmp(_inputLine, "undo") == 0) {
+			if (g_comprehend->undo()) {
+				g_comprehend->print("Move undone.\n");
+				_updateFlags = (uint)(UPDATE_ROOM_DESC | UPDATE_GRAPHICS);
+				update();
+			} else {
+				g_comprehend->print("You can't undo any further.\n");
+			}
 			continue;
 		}
 

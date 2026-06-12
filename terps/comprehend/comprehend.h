@@ -63,6 +63,14 @@ private:
     // doesn't clobber the buffer window's collapse state.
     int _transcriptTrailingNewlines = 2;
 
+    // Undo history: serialized game-state snapshots, one per turn (oldest
+    // first). The back() entry mirrors the current state; #undo drops it and
+    // restores the entry below. Capped at kMaxUndo to bound memory.
+    static const size_t kMaxUndo = 100;
+    std::vector<std::vector<byte> > _undoStack;
+    bool serializeGameState(std::vector<byte> &out);
+    void deserializeGameState(const std::vector<byte> &in);
+
 public:
     winid_t _topWindow;     // graphics window (or null if disabled)
     winid_t _statusWindow;  // text grid showing current room description (always visible)
@@ -208,6 +216,14 @@ public:
     // Route subsequent print() output to the transcript only (true) or back to
     // the buffer window (false). See _redirectToTranscript.
     void redirectOutputToTranscript(bool on) { _redirectToTranscript = on; }
+
+    // #undo support. pushUndo() records the current state as a turn boundary
+    // (deduplicated against the last snapshot); undo() reverts to the previous
+    // turn's state, returning false (with no change) if there is nothing to
+    // undo.
+    void pushUndo();
+    bool undo();
+    void clearUndo() { _undoStack.clear(); }
 };
 
 template<class... TParam>
