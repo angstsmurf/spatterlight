@@ -505,7 +505,17 @@ void ComprehendGame::update() {
 
 	if (_updateFlags & UPDATE_ROOM_DESC) {
 		Common::String desc = stringLookup(room_desc_string);
-		console_println(desc.c_str());
+		// When the room description is shown in the status grid (printRoomDesc),
+		// don't duplicate it into the scroll-back buffer -- but still record it
+		// in the transcript, which has no status grid. If there is no grid, fall
+		// back to printing it in the buffer as before.
+		if (g_comprehend->_statusWindow) {
+			g_comprehend->redirectOutputToTranscript(true);
+			console_println(desc.c_str());
+			g_comprehend->redirectOutputToTranscript(false);
+		} else {
+			console_println(desc.c_str());
+		}
 		g_comprehend->printRoomDesc(desc.c_str());
 	}
 

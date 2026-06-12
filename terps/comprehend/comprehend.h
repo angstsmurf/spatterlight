@@ -55,6 +55,14 @@ private:
     // by the #transcript metacommand.
     strid_t _transcript = nullptr;
 
+    // When set, print() output is sent to the transcript only, bypassing the
+    // buffer window. Used for room descriptions, which are shown in the status
+    // grid rather than the scroll-back buffer but still belong in a log.
+    bool _redirectToTranscript = false;
+    // Separate trailing-newline counter for the transcript-redirect path, so it
+    // doesn't clobber the buffer window's collapse state.
+    int _transcriptTrailingNewlines = 2;
+
 public:
     winid_t _topWindow;     // graphics window (or null if disabled)
     winid_t _statusWindow;  // text grid showing current room description (always visible)
@@ -196,6 +204,10 @@ public:
     void transcript(const char *arg);
     void transcriptOn();
     void transcriptOff();
+
+    // Route subsequent print() output to the transcript only (true) or back to
+    // the buffer window (false). See _redirectToTranscript.
+    void redirectOutputToTranscript(bool on) { _redirectToTranscript = on; }
 };
 
 template<class... TParam>
