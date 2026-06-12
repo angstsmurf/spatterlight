@@ -83,8 +83,9 @@ static const char *comprehend_dos_exe_md5s[] = {
     "881f6c504456a41a70f8fb515edd04cd",  /* Transylvania NOVEL.EXE */
     "3fc2072f6996b17d2f21f0a92e53cdcc",  /* OO-Topos NOVEL.EXE */
     "3d4f5d26c64aa5b403914be83f4e8d73",  /* Crimson Crown NOVEL.EXE */
-    "0e7f002971acdb055f439020363512ce",  /* Talisman NOVEL.EXE (original) */
-    "2e18c88ce352ebea3e14177703a0485f",  /* Talisman NOVEL1.EXE (later release) */
+    "0e7f002971acdb055f439020363512ce",  /* Talisman NOVEL.EXE (original release) */
+    "2e18c88ce352ebea3e14177703a0485f",  /* Talisman NOVEL.EXE (later release) */
+    "15cd75f98788071aee2af1f63893f613",  /* Talisman NOVEL1.EXE (later release) */
     NULL
 };
 
