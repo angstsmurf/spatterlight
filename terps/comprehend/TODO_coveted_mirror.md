@@ -175,6 +175,33 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       bounces throne<->prison to the 15-strike "THE GAME IS OVER". The non-deterministic
       "keep going S until the barrel" steps also need their counts pinned. Easiest to mirror
       against MAME for the authoritative wording.
+  - **JAILER-BRIBE CADENCE worked out (2026-06-13).** Mechanic, fully measured:
+      - The hourglass is **variable 0x11** (17). It starts at **74** and the daemon (function
+        0) decrements it by 1 each turn. `>>>SAND'S RUNNING LOW<<<` prints at ~27 left; at 0 the
+        jailer teleports you to the throne (a "strike", variable 6++). 15 strikes -> game over.
+      - **Budget ~= 74 ticking turns** between bribes (measured: warning at turn 47, caught at
+        71, plus the 3 escape moves ~= 74). Every recognised command ticks (moves, WAIT, GET,
+        LOOK, I); only *unparsed* garbage ticks irregularly.
+      - **Bribe** = be at the barrel hub, then `GO BARREL, E, WAIT, GIVE <item>` (jailer Boris
+        accepts: "Ye can stay out of prison 'til the hourglass runs empty."), which **resets the
+        sand to 74**. Exit back to the world with `MOVE BED, GO HOLE, GO BARREL`. The timer is
+        **paused** while inside the barrel/cell bribe scene (those turns don't tick).
+      - Bribe items (any one): **BROOM, PICTURE, COOKIE, FLOWER, TELESCOPE, AX, JUG**.
+  - **PREREQUISITE FIX (committed 845e9d5d).** The budget was only ~37, not ~74: CM's daemon
+      ran **twice per turn** (`ComprehendGame::beforeTurn` + `handleAction`), so the sand drained
+      at 2/turn. RE of `cm_main_command_loop` $404c shows the original runs function 0 exactly
+      once per turn (in the post-action dispatch `cm_vm_dispatch_thunk` $4f80), with no pre-parser
+      daemon pass. Fixed with a CM-only empty `beforeTurn()` override. Now ~74, faithful.
+  - **Cadence consequence (measured against Ambrosine):** even at the corrected 74-turn budget,
+      Ambrosine's collection loop between the explicit `GIVE AX` and `GIVE TELESCOPE` bribes is
+      **>74 ticking turns**, so a non-stop replay is caught ~74 turns after GIVE AX (confirmed:
+      first catch at route command #101, ~74 ticks past the bribe -- pure timer, not a nav
+      desync). Ambrosine's walkthrough relies on the human "keep an eye on the hourglass" note to
+      insert *extra* opportunistic bribes. So a deterministic completion script must **add
+      intermediate barrel detours/bribes** wherever a loop would exceed ~70 turns (stay ~5 turns
+      under for safety), and pin the non-deterministic steps (MERMAID/Starina/man-appears WAITs,
+      "keep going S until the barrel" counts). That scripting is the remaining authoring work --
+      now unblocked by the timer fix.
   - Banks fully decoded to plain text in this session (standalone ciderpress extractor over
       MIRROR2.DSK): MA-ML, 64 entries each, index read from byte 0. Handy for the diff.
   - **STRING-CONTENT half DONE offline (2026-06-13).** Rather than wait on the MAME replay,
