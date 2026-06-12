@@ -270,6 +270,11 @@ void Comprehend::transcriptOn() {
     _transcriptTrailingNewlines = 2;  // header ended with a blank line
     print("Transcript is now on.\n");
     glk_window_set_echo_stream(_bottomWindow, _transcript);
+
+    // Record the room the player is currently standing in, so the transcript
+    // doesn't begin mid-room with no description (matches scott's behaviour).
+    if (_game)
+        _game->transcribeCurrentRoom();
 }
 
 void Comprehend::transcriptOff() {

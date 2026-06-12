@@ -199,6 +199,7 @@ public:
 	Room *get_room(uint16 index);
 	Item *get_item(uint16 index);
 	void updateRoomDesc();
+	void transcribeCurrentRoom();
 	void update();
 	void update_graphics();
 

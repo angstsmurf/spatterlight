@@ -493,6 +493,19 @@ void ComprehendGame::updateRoomDesc() {
 	g_comprehend->printRoomDesc(desc);
 }
 
+void ComprehendGame::transcribeCurrentRoom() {
+	// Log the current room description to the transcript (used when a transcript
+	// is turned on mid-game, so it captures the room the player is standing in).
+	Room *room = get_room(_currentRoom);
+	uint room_desc_string = room->_stringDesc;
+	roomIsSpecial(_currentRoom, &room_desc_string);
+
+	Common::String desc = stringLookup(room_desc_string);
+	g_comprehend->redirectOutputToTranscript(true);
+	console_println(desc.c_str());
+	g_comprehend->redirectOutputToTranscript(false);
+}
+
 void ComprehendGame::update() {
 	Room *room = get_room(_currentRoom);
 	uint room_type, room_desc_string;
