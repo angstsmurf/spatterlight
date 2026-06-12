@@ -42,6 +42,7 @@ public:
 	~CovetedMirrorGame() override {}
 
 	void handleAction(Sentence *sentence) override;
+	void beforeTurn() override;
 };
 
 } // namespace Comprehend
