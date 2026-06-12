@@ -230,3 +230,5 @@ fastlane/screenshots
 #
 
 .gdb_history
+
+terps/comprehend/test/rgbacrc
