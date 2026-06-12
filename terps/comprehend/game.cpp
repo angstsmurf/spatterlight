@@ -917,6 +917,13 @@ turn:
 		if (g_comprehend->shouldQuit())
 			return;
 
+		// #quit metacommand: force-quit regardless of the game's own quit
+		// handling (Talisman, for one, won't let the player quit normally).
+		if (scumm_stricmp(_inputLine, "#quit") == 0) {
+			g_comprehend->quitGame();
+			return;
+		}
+
 		_inputLineIndex = 0;
 		if (strlen(_inputLine) == 0) {
 //			// Empty line, so toggle picture window visibility
