@@ -396,16 +396,61 @@ void Comprehend::finishSlowDraw() {
                         _drawSurface->w, _drawSurface->h);
 }
 
+// Paint a scene that replaces the whole screen. If the requested set of
+// pictures matches what is already composited, suppress the slow-draw reveal so
+// an unchanged repaint (e.g. the room redrawn each turn, or Talisman's
+// OPCODE_DRAW_ROOM after a speech) appears instantly instead of re-animating.
+void Comprehend::paintBackground(const Common::Array<uint> &pics) {
+    if (pics.empty())
+        return;
+    _suppressSlowDraw = (pics == _screenComposition);
+    _screenComposition = pics;
+    for (uint i = 0; i < pics.size(); i++)
+        drawPicture(pics[i]);
+    _suppressSlowDraw = false;
+}
+
+// Layer pictures on top of the current screen without clearing it. Pictures
+// already present are repainted, but only the reveal animation is skipped when
+// nothing new is added (so an already-visible object isn't re-animated).
+void Comprehend::paintOverlay(const Common::Array<uint> &pics) {
+    if (pics.empty())
+        return;
+    bool allPresent = true;
+    for (uint i = 0; i < pics.size(); i++) {
+        bool present = false;
+        for (uint j = 0; j < _screenComposition.size(); j++)
+            if (_screenComposition[j] == pics[i]) { present = true; break; }
+        if (!present) {
+            allPresent = false;
+            _screenComposition.push_back(pics[i]);
+        }
+    }
+    _suppressSlowDraw = allPresent;
+    for (uint i = 0; i < pics.size(); i++)
+        drawPicture(pics[i]);
+    _suppressSlowDraw = false;
+}
+
 void Comprehend::drawLocationPicture(int pictureNum, bool clearBg) {
-    drawPicture((uint)(pictureNum + (clearBg ? LOCATIONS_OFFSET : LOCATIONS_NO_BG_OFFSET)));
+    Common::Array<uint> pics;
+    pics.push_back((uint)(pictureNum + (clearBg ? LOCATIONS_OFFSET : LOCATIONS_NO_BG_OFFSET)));
+    if (clearBg)
+        paintBackground(pics);
+    else
+        paintOverlay(pics);
 }
 
 void Comprehend::drawItemPicture(int pictureNum) {
-    drawPicture((uint)(pictureNum + ITEMS_OFFSET));
+    Common::Array<uint> pics;
+    pics.push_back((uint)(pictureNum + ITEMS_OFFSET));
+    paintOverlay(pics);
 }
 
 void Comprehend::clearScreen(bool isBright) {
-    drawPicture(isBright ? BRIGHT_ROOM : DARK_ROOM);
+    Common::Array<uint> pics;
+    pics.push_back((uint)(isBright ? BRIGHT_ROOM : DARK_ROOM));
+    paintBackground(pics);
 }
 
 bool Comprehend::toggleGraphics() {
