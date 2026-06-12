@@ -106,9 +106,14 @@ public:
     void drawLocationPicture(int pictureNum, bool clearBg = true);
     void drawItemPicture(int pictureNum);
     void clearScreen(bool isBright);
-    // Suppress the animated slow-draw reveal for the next drawPicture() calls
-    // (used when repainting an unchanged scene — see _suppressSlowDraw).
-    void setSuppressSlowDraw(bool suppress) { _suppressSlowDraw = suppress; }
+    // Paint a whole scene that replaces the screen (a background-clearing
+    // location plus any item pictures layered on top). If the requested set of
+    // pictures is identical to what is already composited, the reveal is skipped
+    // and the scene is painted instantly — see _screenComposition.
+    void paintBackground(const Common::Array<uint> &pics);
+    // Layer pictures on top of the current screen without clearing it. Pictures
+    // already present are repainted instantly rather than re-animated.
+    void paintOverlay(const Common::Array<uint> &pics);
     bool toggleGraphics();
     void showGraphics();
     // Logical text/graphics-mode switch that keeps the picture window open
@@ -141,11 +146,20 @@ private:
     // are active and the input loops are advancing it tick by tick).
     bool _slowDrawActive;
 
-    // When set, the next drawPicture() paints instantly even if slow-draw is on.
-    // update_graphics() sets this while repainting a scene identical to the one
-    // already on screen (common: an action redraws the room without changing it)
-    // so we don't re-animate the same image, which just looks like a stutter.
+    // When set, drawPicture() paints instantly even if slow-draw is on. The
+    // paintBackground()/paintOverlay() scene helpers set this while repainting a
+    // scene identical to the one already on screen (common: an action redraws
+    // the room without changing it, or Talisman's OPCODE_DRAW_ROOM repaints the
+    // current room after a speech) so we don't re-animate the same image, which
+    // just looks like a stutter.
     bool _suppressSlowDraw;
+
+    // The pictures currently composited on screen, in paint order: a background
+    // (location / dark / bright) followed by any item pictures layered on top.
+    // Used by paintBackground()/paintOverlay() to detect repaints that change
+    // nothing. Maintained across every draw path (per-turn refresh, explicit
+    // draw opcodes, scripted cutscenes) so they share one notion of the screen.
+    Common::Array<uint> _screenComposition;
 
     // Advance one timer tick of the background slow-draw reveal and blit the
     // changed rows. Cancels the timer and clears _slowDrawActive when done.

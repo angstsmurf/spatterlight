@@ -415,51 +415,47 @@ void ComprehendGame::update_graphics() {
 
 	type = roomIsSpecial(_currentRoomCopy, nullptr);
 
-	// First work out the list of pictures this refresh will paint, expressed as
-	// the picture numbers drawPicture() ultimately receives. Comparing it with
-	// the previous pass lets us tell when we are about to repaint the exact same
-	// scene (e.g. an action redrew the room without changing it). In that case
-	// we skip the animated slow-draw reveal and paint instantly — re-animating
-	// the identical image just looks like a stutter.
-	Common::Array<uint> frame;
+	// A full repaint (UPDATE_GRAPHICS) clears the background and redraws the
+	// location plus its items; an items-only refresh (UPDATE_GRAPHICS_ITEMS,
+	// e.g. an object moved into the room) just layers items on the existing
+	// screen. Either way we hand the list of pictures to the host, which knows
+	// what is already on screen and paints unchanged repaints instantly instead
+	// of re-running the slow-draw reveal.
+	bool fullRepaint = (_updateFlags & UPDATE_GRAPHICS) != 0;
 
 	switch (type) {
 	case ROOM_IS_DARK:
-		if (_updateFlags & UPDATE_GRAPHICS)
-			frame.push_back(DARK_ROOM);
+		if (fullRepaint)
+			g_comprehend->clearScreen(false);
 		break;
 
 	case ROOM_IS_TOO_BRIGHT:
-		if (_updateFlags & UPDATE_GRAPHICS)
-			frame.push_back(BRIGHT_ROOM);
+		if (fullRepaint)
+			g_comprehend->clearScreen(true);
 		break;
 
 	default:
-		if (_updateFlags & UPDATE_GRAPHICS) {
-			room = get_room(_currentRoom);
-			frame.push_back((uint)(room->_graphic - 1) + LOCATIONS_OFFSET);
-		}
-
-		if ((_updateFlags & UPDATE_GRAPHICS) ||
+		if (fullRepaint ||
 		        (_updateFlags & UPDATE_GRAPHICS_ITEMS)) {
+			Common::Array<uint> pics;
+			if (fullRepaint) {
+				room = get_room(_currentRoom);
+				pics.push_back((uint)(room->_graphic - 1) + LOCATIONS_OFFSET);
+			}
 			for (i = 0; i < _items.size(); i++) {
 				item = &_items[i];
 
 				if (item->_room == _currentRoom &&
 				        item->_graphic != 0)
-					frame.push_back((uint)(item->_graphic - 1) + ITEMS_OFFSET);
+					pics.push_back((uint)(item->_graphic - 1) + ITEMS_OFFSET);
 			}
+			if (fullRepaint)
+				g_comprehend->paintBackground(pics);
+			else
+				g_comprehend->paintOverlay(pics);
 		}
 		break;
 	}
-
-	bool sameScene = !frame.empty() && frame == _lastGraphicsFrame;
-	_lastGraphicsFrame = frame;
-
-	g_comprehend->setSuppressSlowDraw(sameScene);
-	for (i = 0; i < frame.size(); i++)
-		g_comprehend->drawPicture(frame[i]);
-	g_comprehend->setSuppressSlowDraw(false);
 }
 
 void ComprehendGame::describe_objects_in_current_room() {
