@@ -1,15 +1,15 @@
-/* hdostest.cpp -- offline harness for the DOS Talisman CGA renderer.
+/* gmcgatest.cpp -- offline harness for the DOS Talisman CGA renderer.
  *
  * Loads the drawing tables out of a NOVEL.EXE / NOVEL1.EXE image, renders one
  * Graphics Magician vector image, and writes the result as a binary PPM (P6)
  * so it can be eyeballed against a DOSBox capture.
  *
- * Usage: hdostest <NOVEL.EXE> <image-file> <data-offset> <out.ppm> [white|black]
+ * Usage: gmcgatest <NOVEL.EXE> <image-file> <data-offset> <out.ppm> [white|black]
  *   image-file  = T0 (title), RA.. (room), OA.. (item) ...
  *   data-offset = byte offset of the vector stream in image-file (T0 = 4)
  */
 
-#include "../hdos_talisman.h"
+#include "../graphics_magician_cga.h"
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
     }
     std::vector<uint8_t> exe = readFile(argv[1]);
     if (exe.empty()) { fprintf(stderr, "cannot read %s\n", argv[1]); return 1; }
-    if (!hdosInstallDrawingTables(exe.data(), exe.size())) {
+    if (!gmcgaInstallDrawingTables(exe.data(), exe.size())) {
         fprintf(stderr, "drawing tables not found in %s\n", argv[1]); return 1;
     }
 
@@ -45,12 +45,12 @@ int main(int argc, char **argv) {
     if (off >= img.size()) { fprintf(stderr, "offset past end\n"); return 1; }
 
     bool white = !(argc >= 6 && strcmp(argv[5], "black") == 0);
-    hdosResetScreen(white);
-    hdosDrawImage(img.data() + off, img.size() - off);
+    gmcgaResetScreen(white);
+    gmcgaDrawImage(img.data() + off, img.size() - off);
 
     const int W = 280, H = 160;
     std::vector<uint32_t> rgba((size_t)W * H);
-    hdosBlitToSurface(rgba.data(), W, H);
+    gmcgaBlitToSurface(rgba.data(), W, H);
 
     FILE *o = fopen(argv[4], "wb");
     if (!o) { fprintf(stderr, "cannot write %s\n", argv[4]); return 1; }

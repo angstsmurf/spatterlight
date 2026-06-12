@@ -3,9 +3,9 @@
 
 Reads the DOSBox capture (manifest + per-room .fb goldens) produced by
 dosbox_capture_pics.py, renders each room's vector stream with the offline
-renderer (hdostest), and keeps only the rooms that reproduce the DOSBox golden
+renderer (gmcgatest), and keeps only the rooms that reproduce the DOSBox golden
 pixel-exactly over the 280x160 window (plus any within a small ceiling).  For
-each kept room it emits, into test/hdos/:
+each kept room it emits, into test/gmcga/:
 
   rooms_streams.bin  -- concatenated Graphics-Magician vector streams (sliced
                         from the game RA..RG files, like the existing *.img)
@@ -13,7 +13,7 @@ each kept room it emits, into test/hdos/:
                         pixel, MSB-first (4 px/byte) -- 11200 bytes each
   rooms.tsv          -- name, stream_off, stream_len, golden_off, ceil
 
-test_hdos_pics.cpp reads these and renders each stream through hdos_talisman,
+test_gmcga_pics.cpp reads these and renders each stream through graphics_magician_cga,
 comparing to the unpacked golden in CGA palette-index space.  Self-contained:
 no game files or NOVEL.EXE are needed at test time (streams are committed here).
 """
@@ -23,7 +23,7 @@ GAME = "/Users/administrator/Downloads/comprehend games/talisman-challenging-the
 HERE = os.path.dirname(os.path.abspath(__file__))
 COMP = os.path.dirname(os.path.dirname(HERE))           # terps/comprehend
 TABLES = os.path.join(HERE, "novel_tables.bin")
-HDOSTEST = os.path.join(COMP, "test", "hdostest")
+GMCGATEST = os.path.join(COMP, "test", "gmcgatest")
 CAP = "/tmp/talcap"
 CEIL_MAX = 100      # keep near-exact rooms too, recording their actual ceiling
 
@@ -56,7 +56,7 @@ man = ["name\tstream_off\tstream_len\tgolden_off\tceil"]
 kept = dropped = 0
 for name, kind, fil, pic, off, length, G in rows:
     off, length = int(off), int(length)
-    subprocess.run([HDOSTEST, TABLES, os.path.join(GAME, fil), str(off),
+    subprocess.run([GMCGATEST, TABLES, os.path.join(GAME, fil), str(off),
                     "/tmp/_g.ppm", "white"], capture_output=True)
     win = fb_window(f"{CAP}/{name}.fb")
     diffs = sum(1 for a, b in zip(ppm_idx("/tmp/_g.ppm"), win) if a != b)

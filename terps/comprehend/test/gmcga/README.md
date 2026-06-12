@@ -3,7 +3,7 @@
 Byte-exact framebuffer captures of the real **IBM PC / DOS** release of
 *Talisman — Challenging the Sands of Time* (`NOVEL1.EXE`, Polarware 1987),
 recorded from DOSBox-X, for regression-testing the DOS CGA picture renderer
-(`hdos_talisman.cpp`, exercised by `test/hdostest`).
+(`graphics_magician_cga.cpp`, exercised by `test/gmcgatest`).
 
 These are the DOS counterpart to the Apple II golden pages in `test/talisman/`
 (which validate `graphics_magician.cpp`).  The Apple and DOS releases share the
@@ -27,14 +27,14 @@ four palette colours ever appear), so collapsing 2→1 is lossless.
 
 The Graphics Magician **picture window is 280×160 at screen origin (20, 0)** —
 i.e. a 20-px left/right margin inside the 320-wide screen, picture rows 0..159,
-game text below.  This matches `HDOS_WIDTH`×`HDOS_HEIGHT` in `hdos_talisman.h`.
-`hdostest` emits exactly that 280×160 window, so the comparison crops the golden
+game text below.  This matches `GMCGA_WIDTH`×`GMCGA_HEIGHT` in `graphics_magician_cga.h`.
+`gmcgatest` emits exactly that 280×160 window, so the comparison crops the golden
 `.fb` at (20, 0).
 
 ## Palette
 
 The real game runs CGA **palette 1, low intensity**: black `000000`, cyan
-`00aaaa`, magenta `aa00aa`, grey `aaaaaa`.  The renderer's `kHdosColor[]` now
+`00aaaa`, magenta `aa00aa`, grey `aaaaaa`.  The renderer's `kGmcgaColor[]` now
 matches these exactly (it used the *high*-intensity `55ffff / ff55ff / ffffff`
 before 2026-06-11).  Comparison is done in **index space**, so the intensity
 choice is cosmetic.  Index convention, matching the renderer: `0=black 1=cyan
@@ -67,7 +67,7 @@ Apple `RA #N` numbering in `../talisman/README.md`.
 ## Compare the renderer against a golden
 
 ```
-hdostest <NOVEL1.EXE> <picture-file> <offset> /tmp/r.ppm [white|black]
+gmcgatest <NOVEL1.EXE> <picture-file> <offset> /tmp/r.ppm [white|black]
 python3 compare_fb.py /tmp/r.ppm <scene>.fb /tmp/diff.png
 ```
 
@@ -76,8 +76,8 @@ percentage, and (with a 3rd arg) writes a diff image (red = mismatched pixel).
 
 ## Automated regression test
 
-`make -C terps/comprehend test` runs `test_hdos_pics`, which renders each scene
-from its committed vector stream (`<scene>.img`) through `hdos_talisman.cpp` and
+`make -C terps/comprehend test` runs `test_gmcga_pics`, which renders each scene
+from its committed vector stream (`<scene>.img`) through `graphics_magician_cga.cpp` and
 compares the 280×160 window to `<scene>.fb` in index space.  It is self-contained
 — the drawing tables are a small slice of NOVEL1.EXE in `novel_tables.bin`, so no
 copyrighted binary is needed at test time.  Each case asserts its mismatch count
@@ -98,7 +98,7 @@ streams) is committed as a regression fixture: 93 are pixel-exact and `RG_07` is
 within 98 px.  These were captured by driving the native interpreter directly —
 see `dosbox_capture_pics.py` (boots NOVEL1 under the GDB stub and patches a stub
 to draw each picture, dumping CGA VRAM) and `gen_room_fixtures.py` (slices the
-streams and packs the 280×160 goldens).  `test_hdos_pics` loads them from:
+streams and packs the 280×160 goldens).  `test_gmcga_pics` loads them from:
 
 | file                 | what                                                       |
 |----------------------|------------------------------------------------------------|
@@ -133,4 +133,4 @@ mismatch, down from 67–80 %.  Four bugs were found and fixed:
 Remaining diffs are thin **fill/brush edge pixels**: the renderer's simplified
 queue flood-fill diverges by ~1 px at boundaries from the native 32-entry
 circular-queue fill (`PicOp14Paint` @0x2630).  Closing that needs a faithful port
-of that routine; the ceilings in `test_hdos_pics` hold the line meanwhile.
+of that routine; the ceilings in `test_gmcga_pics` hold the line meanwhile.

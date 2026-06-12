@@ -2,7 +2,7 @@
 
 #include "comprehend.h"
 #include "graphics_magician.h"
-#include "hdos_talisman.h"
+#include "graphics_magician_cga.h"
 #include "draw_surface.h"
 #include "game.h"
 #include "game_cc.h"
@@ -490,7 +490,7 @@ void Comprehend::drawPicture(uint pictureNum) {
 
     // If a background reveal from the previous picture is still running
     // (e.g. the player moved before it finished), complete it instantly.
-    // Must happen before gmSetSlowDraw/hdosSetSlowDraw, which would clear
+    // Must happen before gmSetSlowDraw/gmcgaSetSlowDraw, which would clear
     // s_recordOps and break the active-renderer check inside finishSlowDraw().
     finishSlowDraw();
 
@@ -504,7 +504,7 @@ void Comprehend::drawPicture(uint pictureNum) {
     // paint instantly rather than re-animate the same image (looks like a stutter).
     bool slow = gli_slowdraw && !gli_determinism && !_suppressSlowDraw;
     gmSetSlowDraw(slow);
-    hdosSetSlowDraw(slow);
+    gmcgaSetSlowDraw(slow);
 
     // Render through the Pics opcode interpreter into the pixel buffer,
     // then blit the initial (blank or reset) state to the Glk window.
@@ -515,7 +515,7 @@ void Comprehend::drawPicture(uint pictureNum) {
     // input loops (readLine / readChar) advance it tick by tick in the
     // background. The game proceeds immediately: room description is shown
     // and the prompt appears while the picture is still being revealed.
-    if (hdosSlowDrawActive() || gmSlowDrawActive()) {
+    if (gmcgaSlowDrawActive() || gmSlowDrawActive()) {
         glk_request_timer_events(GM_SLOW_TICK_MS);
         _slowDrawActive = true;
     }
@@ -523,14 +523,14 @@ void Comprehend::drawPicture(uint pictureNum) {
 
 // Advance one timer tick of the background slow-draw reveal.
 void Comprehend::tickSlowDraw() {
-    const bool hdos = hdosSlowDrawActive();
+    const bool cga = gmcgaSlowDrawActive();
     bool more;
-    if (hdos) {
-        more = hdosAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
-        hdosBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
+    if (cga) {
+        more = gmcgaAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
+        gmcgaBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
                               _drawSurface->w, _drawSurface->h);
         int y0, y1;
-        if (hdosSlowConsumeDirty(&y0, &y1))
+        if (gmcgaSlowConsumeDirty(&y0, &y1))
             blitSurfaceRowsToWindow(y0, y1);
     } else {
         more = gmAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
@@ -552,10 +552,10 @@ void Comprehend::finishSlowDraw() {
     if (!_slowDrawActive) return;
     glk_request_timer_events(0);
     _slowDrawActive = false;
-    const bool hdos = hdosSlowDrawActive();
-    if (hdos) hdosFinishSlowDraw(); else gmFinishSlowDraw();
-    if (hdos)
-        hdosBlitToSurface((uint32 *)_drawSurface->getPixels(),
+    const bool cga = gmcgaSlowDrawActive();
+    if (cga) gmcgaFinishSlowDraw(); else gmFinishSlowDraw();
+    if (cga)
+        gmcgaBlitToSurface((uint32 *)_drawSurface->getPixels(),
                           _drawSurface->w, _drawSurface->h);
     else
         gmBlitToSurface((uint32 *)_drawSurface->getPixels(),

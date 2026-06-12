@@ -1,7 +1,7 @@
-/* diff_hdos.cpp -- diagnostic: categorize DOS Talisman renderer diffs.
+/* diff_gmcga.cpp -- diagnostic: categorize DOS Talisman renderer diffs.
  * Throwaway tool: per-scene transition histogram + spatial diff PPM.
  */
-#include "../hdos_talisman.h"
+#include "../graphics_magician_cga.h"
 #include <cstdio>
 #include <cstdint>
 #include <cstring>
@@ -18,10 +18,10 @@ using namespace Glk::Comprehend;
 
 struct Case { const char *name; const char *img; const char *fb; };
 static const Case kCases[] = {
-    { "title",     "test/hdos/title.img",     "test/hdos/title.fb" },
-    { "throne",    "test/hdos/throne.img",    "test/hdos/throne.fb" },
-    { "cell",      "test/hdos/cell.img",      "test/hdos/cell.fb" },
-    { "courtyard", "test/hdos/courtyard.img", "test/hdos/courtyard.fb" },
+    { "title",     "test/gmcga/title.img",     "test/gmcga/title.fb" },
+    { "throne",    "test/gmcga/throne.img",    "test/gmcga/throne.fb" },
+    { "cell",      "test/gmcga/cell.img",      "test/gmcga/cell.fb" },
+    { "courtyard", "test/gmcga/courtyard.img", "test/gmcga/courtyard.fb" },
 };
 
 static std::vector<uint8_t> readFile(const std::string &p) {
@@ -32,7 +32,7 @@ static std::vector<uint8_t> readFile(const std::string &p) {
 }
 static int rgbaToIndex(uint32_t p) {
     // Accept both CGA palette-1 intensities so the diagnostic survives a
-    // kHdosColor palette change (the game uses low intensity).
+    // kGmcgaColor palette change (the game uses low intensity).
     switch (p >> 8) {
     case 0x000000: return 0;
     case 0x55ffff: case 0x00aaaa: return 1;
@@ -42,17 +42,17 @@ static int rgbaToIndex(uint32_t p) {
 }
 
 int main() {
-    auto tables = readFile("test/hdos/novel_tables.bin");
-    if (tables.empty() || !hdosInstallDrawingTables(tables.data(), tables.size())) {
+    auto tables = readFile("test/gmcga/novel_tables.bin");
+    if (tables.empty() || !gmcgaInstallDrawingTables(tables.data(), tables.size())) {
         fprintf(stderr, "cannot load tables\n"); return 1; }
 
     for (const Case &c : kCases) {
         auto img = readFile(c.img), fb = readFile(c.fb);
         if (img.empty() || fb.size() != (size_t)SCREEN_W * 200) { fprintf(stderr, "skip %s\n", c.name); continue; }
-        hdosResetScreen(true);
-        hdosDrawImage(img.data(), img.size());
+        gmcgaResetScreen(true);
+        gmcgaDrawImage(img.data(), img.size());
         std::vector<uint32_t> rgba((size_t)PIC_W * PIC_H);
-        hdosBlitToSurface(rgba.data(), PIC_W, PIC_H);
+        gmcgaBlitToSurface(rgba.data(), PIC_W, PIC_H);
 
         int trans[4][4] = {{0}};
         int diffs = 0;
