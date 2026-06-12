@@ -150,8 +150,17 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       external). Committed a deterministic, timeout-free CM smoke script
       (`scripts/covetedmirror.txt`) that plays out of the cell, through town, and solves the
       astrologer's constellation puzzle (marker "My horoscope was horrible.") -- exercises
-      string-bank decoding, the parser, NPC dialogue and the throne override. STILL TODO:
-      full-completion scripts for CM (timed) + OO-Topos/Crimson/Talisman/Transylvania.
+      string-bank decoding, the parser, NPC dialogue and the throne override.
+  - **OO-Topos smoke prefix ADDED (2026-06-13): `scripts/ootopos.txt`** (marker "Pushing the
+      green button causes the panel to swing open."). Plays out of the prison cell through the
+      3-stage BREAK LOCK counter, the OPEN DOOR siren event and the scripted stun-capture that
+      drags you to the guard post, then arms up at the button panel. Verified deterministic
+      (identical transcript across runs) and wired into `run_walkthroughs.sh` (CM+OO both PASS).
+      Stops at the panel **on purpose**: stepping E out of the guard post triggers the alien
+      stun that strips every item, and surviving OO-Topos's pursuit needs a turn-by-turn
+      cadence still to be pinned against MAME.
+  - STILL TODO: full-completion scripts for CM (timed) + OO-Topos (pursuit cadence) +
+      Crimson/Talisman/Transylvania.
 
 ---
 

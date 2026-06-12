@@ -55,6 +55,12 @@ dialogue and the throne-room override -- all well before the sand runs out.
 
 To add a game, write `scripts/<gameid>.txt` (drive it to a distinctive line),
 add a `play` entry to `run_walkthroughs.sh`, and pick that line as the marker.
-Full-completion scripts for OO-Topos, Crimson Crown, Talisman and Transylvania
-are still to be authored -- their prose walkthroughs need route counts pinned
-down and, where a game is timed or has random hazards, the cadence worked out.
+
+The Coveted Mirror and Oo-Topos both ship a deterministic smoke prefix here.
+Oo-Topos is a pursuit game: once you step east out of the guard post the alien
+stuns you and strips every item, so its prefix stops at the guard-post panel,
+before that hazard. Full-completion scripts for Oo-Topos, Crimson Crown,
+Talisman and Transylvania are still to be authored -- their prose walkthroughs
+need route counts pinned down and, where a game is timed or has random hazards,
+the cadence worked out (Oo-Topos in particular needs the alien-pursuit cadence
+pinned against MAME).

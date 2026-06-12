@@ -51,6 +51,11 @@ play CovetedMirror covetedmirror \
     covetedmirror.txt \
     "My horoscope was horrible."
 
+play OoTopos ootopos \
+    "Oo-Topos (woz-a-day collection)/Oo-Topos side B.woz" \
+    ootopos.txt \
+    "Pushing the green button causes the panel to swing open."
+
 echo "----"
 echo "pass=$pass fail=$fail skip=$skip"
 [ "$fail" -eq 0 ]
