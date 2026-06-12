@@ -1,0 +1,61 @@
+# The Coveted Mirror -- deterministic smoke script.
+#
+# Plays from the throne (forced imprisonment) out into the town and through the
+# astrologer's constellation puzzle. This prefix is timeout-free: the hourglass
+# timer ticks per turn even headless, and a full walkthrough has to bribe the
+# jailer on a tight cadence, but everything here finishes long before the sand
+# runs out -- so it is a stable regression check for string-bank decoding, the
+# parser, NPC dialogue and the throne-room override.
+#
+# Win marker (see run_walkthroughs.sh): "My horoscope was horrible."
+# One input per line; blank lines and #-comments are ignored.
+
+BOW
+MOVE BED
+GO HOLE
+W
+READ BOOK
+S
+S
+OPEN WINDOW
+E
+E
+S
+S
+S
+UP
+GET AX
+DOWN
+S
+S
+S
+S
+S
+OPEN BARREL
+GO BARREL
+E
+WAIT
+GIVE AX
+MOVE BED
+GO HOLE
+GO BARREL
+N
+N
+W
+GET BALL
+UNCLE
+GET BALL
+N
+TALK
+E
+N
+TALK
+W
+GET LOCKPICK
+E
+E
+GET TELESCOPE
+ORION
+SCORPIO
+GEMINI
+GET TELESCOPE

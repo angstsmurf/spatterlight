@@ -136,15 +136,22 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       (count/noun substitution) mismatches.
   - Walkthrough: `/Users/administrator/Desktop/Comprehend walkthroughs/Mirror.txt`
       (Ambrosine, Classic Adventures Solution Archive).
-  - **Must run in MAME, not the headless harness.** The headless replay desyncs at once:
-      the timed jailer/hourglass and the non-deterministic "keep going S until the barrel"
-      steps aren't reproducible without real-time play, so a 375-command replay just bounces
-      throne<->prison to the 15-strike "THE GAME IS OVER". Drive MAME and mirror inputs.
+  - The hourglass timer **does tick per turn even headless** (`>>>SAND'S RUNNING LOW<<<` ->
+      `Time's up! You've been caught!` teleports to the throne). So a headless replay is
+      possible but only with a strict jailer-bribe cadence; a naive 375-command replay just
+      bounces throne<->prison to the 15-strike "THE GAME IS OVER". The non-deterministic
+      "keep going S until the barrel" steps also need their counts pinned. Easiest to mirror
+      against MAME for the authoritative wording.
   - Banks fully decoded to plain text in this session (standalone ciderpress extractor over
       MIRROR2.DSK): MA-ML, 64 entries each, index read from byte 0. Handy for the diff.
-- [ ] **Add CM to a regression fixture** once a known-good transcript exists (the existing
-      `test/` targets are graphics-only; there's no text-transcript harness yet — consider
-      adding one).
+- [~] **Text regression harness ADDED (2026-06-13): `test/walkthrough/`** (geas-style:
+      `run_walkthrough.sh` plays a raw command script through `comprehend_hl` and greps the
+      transcript for a win marker; `run_walkthroughs.sh` prints a PASS/FAIL table; games stay
+      external). Committed a deterministic, timeout-free CM smoke script
+      (`scripts/covetedmirror.txt`) that plays out of the cell, through town, and solves the
+      astrologer's constellation puzzle (marker "My horoscope was horrible.") -- exercises
+      string-bank decoding, the parser, NPC dialogue and the throne override. STILL TODO:
+      full-completion scripts for CM (timed) + OO-Topos/Crimson/Talisman/Transylvania.
 
 ---
 
