@@ -28,12 +28,23 @@ namespace Comprehend {
 FileBuffer::FileBuffer(const Common::String &filename) : _pos(0) {
 	// Open the file
 	Common::File f;
-	if (!f.open(Common::Path(filename)))
+	if (!f.open(Common::Path(filename))) {
+		// error() is expected to abort, but in the headless harness it returns,
+		// so bail out before f.size() returns -1 and resize() throws
+		// std::length_error (hit when a companion disk side is missing).
 		error("Could not open - %s", filename.c_str());
+		return;
+	}
 
-	_data.resize(f.size());
-	_readBytes.resize(f.size());
-	f.read(&_data[0], f.size());
+	int64 size = f.size();
+	if (size < 0) {
+		error("Could not determine size of - %s", filename.c_str());
+		return;
+	}
+
+	_data.resize(size);
+	_readBytes.resize(size);
+	f.read(&_data[0], size);
 }
 
 FileBuffer::FileBuffer(Common::ReadStream *stream, size_t size) : _pos(0) {
