@@ -185,28 +185,49 @@ void Comprehend::createGame() {
 }
 
 void Comprehend::putBottom(const char *s) {
-    strid_t stream = glk_window_get_stream(_bottomWindow);
+    // In redirect mode, send the text to the transcript only (or nowhere, if no
+    // transcript is open); otherwise to the buffer window. Each destination has
+    // its own trailing-newline counter so their collapse states stay separate.
+    strid_t stream;
+    int *trailing;
+    if (_redirectToTranscript) {
+        if (!_transcript) return;
+        stream = _transcript;
+        trailing = &_transcriptTrailingNewlines;
+    } else {
+        stream = glk_window_get_stream(_bottomWindow);
+        trailing = &_trailingNewlines;
+    }
     for (; *s; ++s) {
         if (*s == '\n') {
-            if (_trailingNewlines >= 2)
+            if (*trailing >= 2)
                 continue;  // already a blank line; collapse further newlines
-            ++_trailingNewlines;
+            ++*trailing;
         } else {
-            _trailingNewlines = 0;
+            *trailing = 0;
         }
         glk_put_char_stream(stream, (unsigned char)*s);
     }
 }
 
 void Comprehend::putBottomUni(const glui32 *s) {
-    strid_t stream = glk_window_get_stream(_bottomWindow);
+    strid_t stream;
+    int *trailing;
+    if (_redirectToTranscript) {
+        if (!_transcript) return;
+        stream = _transcript;
+        trailing = &_transcriptTrailingNewlines;
+    } else {
+        stream = glk_window_get_stream(_bottomWindow);
+        trailing = &_trailingNewlines;
+    }
     for (; *s; ++s) {
         if (*s == '\n') {
-            if (_trailingNewlines >= 2)
+            if (*trailing >= 2)
                 continue;  // already a blank line; collapse further newlines
-            ++_trailingNewlines;
+            ++*trailing;
         } else {
-            _trailingNewlines = 0;
+            *trailing = 0;
         }
         glk_put_char_stream_uni(stream, *s);
     }
@@ -246,6 +267,7 @@ void Comprehend::transcriptOn() {
     }
 
     glk_put_string_stream(_transcript, (char *)"Start of transcript\n\n");
+    _transcriptTrailingNewlines = 2;  // header ended with a blank line
     print("Transcript is now on.\n");
     glk_window_set_echo_stream(_bottomWindow, _transcript);
 }
