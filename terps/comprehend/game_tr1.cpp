@@ -288,9 +288,11 @@ void TransylvaniaGame1::beforeGame() {
 	// Draw the title
 	g_comprehend->drawPicture(TITLE_IMAGE);
 
-	// Print game information
+	// Print game information, centred to match the other Comprehend titles.
+	g_comprehend->setCentered(true);
 	console_println("Story and graphics by Antonio Antiochia.");
 	console_println("IBM version by Jeffrey A. Jay. Copyright 1987  POLARWARE, Inc.");
+	g_comprehend->setCentered(false);
 	g_comprehend->readChar();
 
 	// Welcome to Transylvania - sign your name
