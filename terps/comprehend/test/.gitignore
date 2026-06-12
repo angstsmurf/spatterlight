@@ -1,9 +1,9 @@
 # Built test binaries / tools (produced by `make test` and `make test/pixtest`)
 pixtest
 test_talisman_pics
-test_hdos_pics
+test_gmcga_pics
 op5scan
-hdostest
+gmcgatest
 *.dSYM/
 *.ppm
-diff_hdos
+diff_gmcga

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""compare_fb.py -- diff a hdostest render against a DOSBox ground-truth .fb.
+"""compare_fb.py -- diff a gmcgatest render against a DOSBox ground-truth .fb.
 
-The renderer (hdostest) emits a 280x160 PPM in the renderer's index->RGB
+The renderer (gmcgatest) emits a 280x160 PPM in the renderer's index->RGB
 palette.  The ground-truth .fb is the full 320x200 DOS framebuffer (one index
 0-3 per pixel); the picture window sits at screen origin (20, 0), 280x160.
 
@@ -16,7 +16,7 @@ W, H = 320, 200
 PW, PH = 280, 160
 OX, OY = 20, 0
 
-# renderer PPM palette (hdos_talisman kHdosColor) -> index; both CGA palette-1
+# renderer PPM palette (graphics_magician_cga kGmcgaColor) -> index; both CGA palette-1
 # intensities are accepted (the game uses low intensity: 00aaaa/aa00aa/aaaaaa)
 RGB2IDX = {
     (0, 0, 0): 0,

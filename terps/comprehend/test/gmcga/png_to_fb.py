@@ -5,7 +5,7 @@ framebuffer dump for the DOS Talisman CGA renderer regression tests.
 DOSBox captures CGA mode 4 (320x200, 2bpp) as a 640x400 PNG: an exact 2x
 nearest-neighbour blow-up, so only four distinct colours ever appear -- CGA
 palette 1.  We collapse the 2x scale and map each colour to the renderer's own
-palette index (see hdos_talisman.cpp kHdosColor / the "0=black 1=cyan 2=magenta
+palette index (see graphics_magician_cga.cpp kGmcgaColor / the "0=black 1=cyan 2=magenta
 3=white" convention):
 
     000000 -> 0 (black)

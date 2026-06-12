@@ -1,4 +1,12 @@
-/* hdos_talisman.cpp -- DOS Talisman CGA picture renderer.
+/* graphics_magician_cga.cpp -- DOS (CGA) Graphics Magician picture renderer.
+ *
+ * The DOS/CGA counterpart of graphics_magician.cpp (the Apple II renderer):
+ * both decode the same Penguin Graphics Magician vector stream.  This one is
+ * shared by every Comprehend v2 DOS release -- Talisman, OO-Topos,
+ * Transylvania (v2) and The Coveted Mirror -- whose NOVEL.EXE images all carry
+ * the byte-identical CGA drawing tables this renderer loads (the offsets quoted
+ * below were first measured in Talisman's NOVEL1.EXE; gmcgaInstallDrawingTables
+ * locates them by signature so they resolve in every v2 release).
  *
  * Renders the Penguin Graphics Magician vector stream into a 280×160, 2-bpp
  * (4-colour) logical raster that matches the native picture interpreter in the
@@ -31,10 +39,10 @@
  * Like graphics_magician.cpp (the Apple II equivalent, which shares the opcode
  * format) this file is self-contained -- no Common::/Graphics:: dependencies --
  * so it can be exercised by an offline harness; the host loads NOVEL.EXE and
- * hands the bytes to hdosInstallDrawingTables().
+ * hands the bytes to gmcgaInstallDrawingTables().
  */
 
-#include "hdos_talisman.h"
+#include "graphics_magician_cga.h"
 #include "graphics_magician.h"  // Opcode enum
 #include <cstdio>
 #include <cstdlib>
@@ -54,9 +62,9 @@ static uint8_t s_fontGlyphs[96 * 8];  // chars 32-127, 8 bytes each
 
 static bool s_haveDrawingTables = false;
 
-bool hdosHaveDrawingTables() { return s_haveDrawingTables; }
+bool gmcgaHaveDrawingTables() { return s_haveDrawingTables; }
 
-bool hdosInstallDrawingTables(const uint8_t *exe, size_t size) {
+bool gmcgaInstallDrawingTables(const uint8_t *exe, size_t size) {
     if (!exe)
         return false;
 
@@ -134,15 +142,15 @@ bool hdosInstallDrawingTables(const uint8_t *exe, size_t size) {
 // Values are CGA colour indices in palette 1, low intensity:
 //   0 = black, 1 = cyan, 2 = magenta, 3 = grey.
 
-#define HDOS_WIDTH   280
-#define HDOS_HEIGHT  160
-#define HDOS_STRIDE  70   // 280 × 2 bpp / 8 = 70 bytes/row
+#define GMCGA_WIDTH   280
+#define GMCGA_HEIGHT  160
+#define GMCGA_STRIDE  70   // 280 × 2 bpp / 8 = 70 bytes/row
 
-static uint8_t s_screenmem[HDOS_HEIGHT * HDOS_STRIDE];
+static uint8_t s_screenmem[GMCGA_HEIGHT * GMCGA_STRIDE];
 
 // ---- Slow ("animated") draw -------------------------------------------------
 //
-// Mirrors graphics_magician.cpp: when recording is on (hdosSetSlowDraw(true)),
+// Mirrors graphics_magician.cpp: when recording is on (gmcgaSetSlowDraw(true)),
 // every framebuffer byte mutation is appended to an ordered op list as well as
 // applied to the final page.  The host re-applies those ops onto a separate
 // visible page (s_slowScreen) a chunk at a time on a Glk timer, re-blitting
@@ -161,7 +169,7 @@ struct WriteOp { uint16_t offset; uint8_t value; };
 // the host's 10 ms tick (GM_SLOW_TICK_MS).
 #define DELAY_TICKS_PER_UNIT 10
 
-static uint8_t s_slowScreen[HDOS_HEIGHT * HDOS_STRIDE]; // progressively revealed
+static uint8_t s_slowScreen[GMCGA_HEIGHT * GMCGA_STRIDE]; // progressively revealed
 static std::vector<WriteOp> s_ops;        // ordered byte writes of this image
 static size_t s_opsDrawn = 0;             // how many ops are on s_slowScreen
 static bool s_recordOps = false;          // record ops for slow reveal?
@@ -176,18 +184,18 @@ static inline void store_byte(int off, uint8_t value) {
 }
 
 static inline void write_2bpp(int x, int y, uint8_t val) {
-    if ((unsigned)x >= HDOS_WIDTH || (unsigned)y >= HDOS_HEIGHT) return;
-    int off = y * HDOS_STRIDE + (x >> 2);
+    if ((unsigned)x >= GMCGA_WIDTH || (unsigned)y >= GMCGA_HEIGHT) return;
+    int off = y * GMCGA_STRIDE + (x >> 2);
     int shift = (x & 3) << 1;
     store_byte(off, (uint8_t)((s_screenmem[off] & ~(0x3u << shift)) | ((val & 0x3u) << shift)));
 }
 
 static inline uint8_t read_2bpp(int x, int y) {
-    if ((unsigned)x >= HDOS_WIDTH || (unsigned)y >= HDOS_HEIGHT) return 0;
-    return (s_screenmem[y * HDOS_STRIDE + (x >> 2)] >> ((x & 3) << 1)) & 0x3;
+    if ((unsigned)x >= GMCGA_WIDTH || (unsigned)y >= GMCGA_HEIGHT) return 0;
+    return (s_screenmem[y * GMCGA_STRIDE + (x >> 2)] >> ((x & 3) << 1)) & 0x3;
 }
 
-void hdosResetScreen(bool white) {
+void gmcgaResetScreen(bool white) {
     memset(s_screenmem, white ? 0xff : 0x00, sizeof(s_screenmem));
     // A reset starts a fresh page: it appears instantly on the visible page too,
     // and any pending reveal is dropped.
@@ -213,13 +221,13 @@ static inline uint8_t fill_pattern(uint8_t sel, int y) {
 // The pattern tile covers 4 pixels and is aligned to the byte grid by absolute
 // x phase (x & 3), so adjacent fills tile seamlessly.
 static void fill_hline(int y, int l, int r, uint8_t sel) {
-    if ((unsigned)y >= HDOS_HEIGHT) return;
+    if ((unsigned)y >= GMCGA_HEIGHT) return;
     if (l < 0) l = 0;
-    if (r >= HDOS_WIDTH) r = HDOS_WIDTH - 1;
+    if (r >= GMCGA_WIDTH) r = GMCGA_WIDTH - 1;
     if (l > r) return;
 
     const uint8_t fb = fill_pattern(sel, y);
-    const int base = y * HDOS_STRIDE;
+    const int base = y * GMCGA_STRIDE;
     int bl = l >> 2, br = r >> 2;
 
     if (bl == br) {
@@ -318,11 +326,11 @@ static inline uint8_t mirror_2bpp_byte(uint8_t b) {
 // read as black and ignore writes, like the untouched CGA margins.
 static uint16_t pf_get_word(int y, int gb) {
     uint16_t w = 0;
-    if ((unsigned)y < HDOS_HEIGHT) {
+    if ((unsigned)y < GMCGA_HEIGHT) {
         for (int i = 0; i < 2; i++) {
             const int b = gb + i;
             if (b >= 5 && b <= 74)
-                w |= (uint16_t)mirror_2bpp_byte(s_screenmem[y * HDOS_STRIDE + (b - 5)])
+                w |= (uint16_t)mirror_2bpp_byte(s_screenmem[y * GMCGA_STRIDE + (b - 5)])
                      << (8 - 8 * i);
         }
     }
@@ -330,11 +338,11 @@ static uint16_t pf_get_word(int y, int gb) {
 }
 
 static void pf_put_word(int y, int gb, uint16_t w) {
-    if ((unsigned)y >= HDOS_HEIGHT) return;
+    if ((unsigned)y >= GMCGA_HEIGHT) return;
     for (int i = 0; i < 2; i++) {
         const int b = gb + i;
         if (b >= 5 && b <= 74)
-            store_byte(y * HDOS_STRIDE + (b - 5),
+            store_byte(y * GMCGA_STRIDE + (b - 5),
                        mirror_2bpp_byte((uint8_t)(w >> (8 - 8 * i))));
     }
 }
@@ -451,9 +459,9 @@ static void pf_scan_paint(PfState &s, uint8_t sel) {
     s.B = (uint8_t)si;
 }
 
-static bool s_pfTrace = false;  // debug: log queue pushes (HDOS_TRACE_FILL)
+static bool s_pfTrace = false;  // debug: log queue pushes (GMCGA_TRACE_FILL)
 
-static void hdos_flood_fill(int seed_x, int seed_y, uint8_t sel) {
+static void gmcga_flood_fill(int seed_x, int seed_y, uint8_t sel) {
     if ((uint8_t)seed_y > PF_BOTTOM_ROW)                 // 263b
         return;
 
@@ -689,14 +697,14 @@ static void draw_circle(int cx, int cy, int radius, uint8_t pen_val) {
 
 static void blit_col(const uint8_t *bytes8, int px, int py, uint8_t fill_sel) {
     for (int row = 0; row < 8; row++, py++) {
-        if ((unsigned)py >= HDOS_HEIGHT) continue;
+        if ((unsigned)py >= GMCGA_HEIGHT) continue;
         const uint8_t b = bytes8[row];
         if (!b) continue;
         const uint8_t fb = fill_pattern(fill_sel, py);
         for (int p = 0; p < 8; p++) {
             if (!((b >> (7 - p)) & 1)) continue;
             const int x = px + p;
-            if ((unsigned)x >= HDOS_WIDTH) continue;
+            if ((unsigned)x >= GMCGA_WIDTH) continue;
             const uint8_t pix = (fb >> ((x & 3) << 1)) & 0x3;
             write_2bpp(x, py, pix);
         }
@@ -749,12 +757,12 @@ static void draw_glyph(int x, int y, uint8_t ch, bool normal,
         const uint8_t b = glyph[row];
         if (!b) continue;
         const int py = y + row;
-        if ((unsigned)py >= HDOS_HEIGHT) continue;
+        if ((unsigned)py >= GMCGA_HEIGHT) continue;
         const uint8_t fb = normal ? 0 : fill_pattern(fill_sel, py);
         for (int p = 0; p < 8; p++) {
             if (!((b >> (7 - p)) & 1)) continue;
             const int px = x + p;
-            if ((unsigned)px >= HDOS_WIDTH) continue;
+            if ((unsigned)px >= GMCGA_WIDTH) continue;
             const uint8_t pix = normal ? (uint8_t)(read_2bpp(px, py) ^ 0x3)
                                        : (fb >> ((px & 3) << 1)) & 0x3;
             write_2bpp(px, py, pix);
@@ -775,7 +783,7 @@ static uint8_t s_fill_top = 0, s_fill_bottom = 159;
 static void fill_rect(uint8_t fill_idx) {
     const int lp = s_fill_left * 7;
     const int rp = (s_fill_right + 1) * 7 - 1;
-    for (int y = s_fill_top; y <= s_fill_bottom && y < HDOS_HEIGHT; y++)
+    for (int y = s_fill_top; y <= s_fill_bottom && y < GMCGA_HEIGHT; y++)
         fill_hline(y, lp, rp, fill_idx);
 }
 
@@ -793,7 +801,7 @@ static const uint8_t kPenTo2bpp[8] = { 0, 1, 2, 3, 0, 1, 2, 3 };
 
 // ---- Drawing context ---------------------------------------------------------
 
-struct HdosCtx {
+struct GmcgaCtx {
     int16_t  pen_x, pen_y;
     uint8_t  pen_val;   // 2-bpp pixel value (0–3) for lines / op3 text
     uint8_t  brush;     // brush index 0–7
@@ -804,7 +812,7 @@ struct HdosCtx {
 
 // ---- Opcode interpreter ------------------------------------------------------
 
-static bool doImageOp(const uint8_t **ptr, const uint8_t *end, HdosCtx *ctx) {
+static bool doImageOp(const uint8_t **ptr, const uint8_t *end, GmcgaCtx *ctx) {
     if (*ptr >= end) return true;
     const uint8_t op_byte = *(*ptr)++;
     const uint8_t param   = op_byte & 0xf;
@@ -899,7 +907,7 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, HdosCtx *ctx) {
         {
             static int n = 0;
             n++;
-            if (const char *td = getenv("HDOS_TRACE_DIR")) {
+            if (const char *td = getenv("GMCGA_TRACE_DIR")) {
                 char p[512];
                 snprintf(p, sizeof(p), "%s/fill_%03d.raw", td, n);
                 if (FILE *f = fopen(p, "wb")) {
@@ -907,10 +915,10 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, HdosCtx *ctx) {
                     fclose(f);
                 }
             }
-            const char *tf = getenv("HDOS_TRACE_FILL");
+            const char *tf = getenv("GMCGA_TRACE_FILL");
             s_pfTrace = tf && atoi(tf) == n;
         }
-        hdos_flood_fill((int)a, (int)b, ctx->fill_idx);
+        gmcga_flood_fill((int)a, (int)b, ctx->fill_idx);
         break;
 
     case OPCODE_RESET: // op15 -- fill-rect sub-ops (same as Apple Talisman)
@@ -934,7 +942,7 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, HdosCtx *ctx) {
     return false;
 }
 
-void hdosDrawImage(const uint8_t *data, size_t size) {
+void gmcgaDrawImage(const uint8_t *data, size_t size) {
     // Each image is its own reveal: drop the previous image's op list (a room
     // reset already cleared it; an item overlay reaches here without one and
     // records only its own bytes onto whatever the room left visible).
@@ -942,7 +950,7 @@ void hdosDrawImage(const uint8_t *data, size_t size) {
     s_opsDrawn = 0;
     s_pauseTicks = 0;
 
-    HdosCtx ctx = {};
+    GmcgaCtx ctx = {};
     ctx.pen_val  = 0;    // pen colour 4 (black) maps to 2-bpp 0
     ctx.brush    = 5;    // default brush matches Apple renderer init
     ctx.fill_idx = 0;    // cold-start fill selector 0 -> solid white (0xff);
@@ -967,12 +975,12 @@ void hdosDrawImage(const uint8_t *data, size_t size) {
 // The four pixel values are CGA palette 1 (low intensity) colour indices, the
 // palette NOVEL1.EXE selects on a colour adapter (INT 10h AH=0Bh in the picture
 // init at 0x22ff): black / cyan / magenta / grey.  These are the exact RGB
-// values DOSBox emits for the game (verified against the test/hdos goldens);
+// values DOSBox emits for the game (verified against the test/gmcga goldens);
 // the original ran in low intensity, not the brighter 55ffff/ff55ff/ffffff.
 // The 280×160 DrawSurface matches the logical raster exactly, so no scaling is
 // needed in the common case.
 
-static const uint32_t kHdosColor[4] = {
+static const uint32_t kGmcgaColor[4] = {
     0x000000ffu, // 0: black
     0x00aaaaffu, // 1: cyan
     0xaa00aaffu, // 2: magenta
@@ -981,16 +989,16 @@ static const uint32_t kHdosColor[4] = {
 
 static void blit_page(const uint8_t *page, uint32_t *out, int w, int h) {
     for (int y = 0; y < h; y++) {
-        const int sy = (y * HDOS_HEIGHT) / h;
-        const uint8_t *row = &page[sy * HDOS_STRIDE];
+        const int sy = (y * GMCGA_HEIGHT) / h;
+        const uint8_t *row = &page[sy * GMCGA_STRIDE];
         for (int x = 0; x < w; x++) {
-            const int sx = (x * HDOS_WIDTH) / w;
-            out[y * w + x] = kHdosColor[(row[sx >> 2] >> ((sx & 3) << 1)) & 0x3];
+            const int sx = (x * GMCGA_WIDTH) / w;
+            out[y * w + x] = kGmcgaColor[(row[sx >> 2] >> ((sx & 3) << 1)) & 0x3];
         }
     }
 }
 
-void hdosBlitToSurface(uint32_t *out, int w, int h) {
+void gmcgaBlitToSurface(uint32_t *out, int w, int h) {
     blit_page(s_screenmem, out, w, h);
 }
 
@@ -999,11 +1007,11 @@ void hdosBlitToSurface(uint32_t *out, int w, int h) {
 // host (Comprehend::drawPicture / runSlowDraw) drives whichever renderer is
 // active with the same logic.
 
-void hdosSetSlowDraw(bool on) { s_recordOps = on; }
+void gmcgaSetSlowDraw(bool on) { s_recordOps = on; }
 
 // True while there is reveal work left: recorded ops still to paint, or a DELAY
 // pause still owed.
-bool hdosSlowDrawActive() {
+bool gmcgaSlowDrawActive() {
     return s_recordOps && (s_opsDrawn < s_ops.size() || s_pauseTicks > 0);
 }
 
@@ -1015,7 +1023,7 @@ static bool ops_adjacent(const WriteOp &a, const WriteOp &b) {
 }
 
 static void mark_row_dirty(uint16_t offset) {
-    int r = offset / HDOS_STRIDE;
+    int r = offset / GMCGA_STRIDE;
     if (r < s_dirtyMin) s_dirtyMin = r;
     if (r > s_dirtyMax) s_dirtyMax = r;
 }
@@ -1024,7 +1032,7 @@ static void mark_row_dirty(uint16_t offset) {
 // across adjacent runs.  A DELAY marker halts this tick's reveal and owes a run
 // of pause ticks.  Returns true while any reveal work -- ops or an outstanding
 // pause -- remains.
-bool hdosAdvanceSlowDraw(int budget) {
+bool gmcgaAdvanceSlowDraw(int budget) {
     if (s_pauseTicks > 0) {
         s_pauseTicks--;
         return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
@@ -1049,7 +1057,7 @@ bool hdosAdvanceSlowDraw(int budget) {
 
 // Reveal everything left at once (resize / cancel).  Leaves the visible page
 // identical to the final page.
-void hdosFinishSlowDraw() {
+void gmcgaFinishSlowDraw() {
     for (; s_opsDrawn < s_ops.size(); s_opsDrawn++) {
         if (s_ops[s_opsDrawn].offset == DELAY_MARKER)
             continue;                     // pauses collapse when finishing at once
@@ -1061,7 +1069,7 @@ void hdosFinishSlowDraw() {
 
 // Hand back the row band touched since the last call (inclusive) and reset it.
 // Returns false if nothing changed.
-bool hdosSlowConsumeDirty(int *y0, int *y1) {
+bool gmcgaSlowConsumeDirty(int *y0, int *y1) {
     if (s_dirtyMax < 0)
         return false;
     *y0 = s_dirtyMin;
@@ -1071,7 +1079,7 @@ bool hdosSlowConsumeDirty(int *y0, int *y1) {
     return true;
 }
 
-void hdosBlitSlowToSurface(uint32_t *out, int w, int h) {
+void gmcgaBlitSlowToSurface(uint32_t *out, int w, int h) {
     blit_page(s_slowScreen, out, w, h);
 }
 

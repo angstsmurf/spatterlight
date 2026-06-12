@@ -1,19 +1,19 @@
-/* test_hdos_pics.cpp -- regression test for the DOS Talisman CGA renderer.
+/* test_gmcga_pics.cpp -- regression test for the DOS Talisman CGA renderer.
  *
  * Each case pairs a picture's raw Graphics-Magician vector stream (extracted
  * from the DOS release of Talisman, NOVEL1.EXE / RA / T0) with a byte-exact
  * ground-truth framebuffer captured from DOSBox-X.  The test renders the stream
- * through hdos_talisman.cpp and compares the 280x160 picture window, at screen
+ * through graphics_magician_cga.cpp and compares the 280x160 picture window, at screen
  * origin (20, 0), against the golden in CGA palette-index space (0=black,
  * 1=cyan, 2=magenta, 3=grey) -- so the high/low intensity palette choice does
- * not matter (rgbaToIndex below maps whatever RGB kHdosColor uses back to the
+ * not matter (rgbaToIndex below maps whatever RGB kGmcgaColor uses back to the
  * index, and the .fb goldens already store indices).
  *
  * Self-contained: needs neither DOSBox nor the copyrighted NOVEL1.EXE at test
  * time.  The drawing tables (fill / subindex / brush / font) are committed as a
- * small slice of NOVEL1.EXE in test/hdos/novel_tables.bin; each scene's vector
- * stream is test/hdos/<scene>.img; each golden 320x200 framebuffer is
- * test/hdos/<scene>.fb.  See test/hdos/README.md for how the goldens were made.
+ * small slice of NOVEL1.EXE in test/gmcga/novel_tables.bin; each scene's vector
+ * stream is test/gmcga/<scene>.img; each golden 320x200 framebuffer is
+ * test/gmcga/<scene>.fb.  See test/gmcga/README.md for how the goldens were made.
  *
  * Build/run:  make -C terps/comprehend test
  *
@@ -21,7 +21,7 @@
  * golden set is locked and any renderer change must keep this at 0 diffs.
  */
 
-#include "../hdos_talisman.h"
+#include "../graphics_magician_cga.h"
 #include <cstdio>
 #include <cstdint>
 #include <cstring>
@@ -46,10 +46,10 @@ struct Case {
 };
 
 static const Case kCases[] = {
-    { "title",     "test/hdos/title.img",     "test/hdos/title.fb",     0 },
-    { "throne",    "test/hdos/throne.img",    "test/hdos/throne.fb",    0 },
-    { "cell",      "test/hdos/cell.img",      "test/hdos/cell.fb",      0 },
-    { "courtyard", "test/hdos/courtyard.img", "test/hdos/courtyard.fb", 0 },
+    { "title",     "test/gmcga/title.img",     "test/gmcga/title.fb",     0 },
+    { "throne",    "test/gmcga/throne.img",    "test/gmcga/throne.fb",    0 },
+    { "cell",      "test/gmcga/cell.img",      "test/gmcga/cell.fb",      0 },
+    { "courtyard", "test/gmcga/courtyard.img", "test/gmcga/courtyard.fb", 0 },
 };
 
 static std::vector<uint8_t> readFile(const std::string &path) {
@@ -68,7 +68,7 @@ static std::vector<uint8_t> readFile(const std::string &path) {
     return v;
 }
 
-// Map a renderer RGBA pixel (0xRRGGBBAA, kHdosColor) to its CGA palette index.
+// Map a renderer RGBA pixel (0xRRGGBBAA, kGmcgaColor) to its CGA palette index.
 static int rgbaToIndex(uint32_t p) {
     switch (p >> 8) {  // drop alpha
     case 0x000000: return 0; // black
@@ -80,17 +80,17 @@ static int rgbaToIndex(uint32_t p) {
 }
 
 // Room-fixture pass: every Talisman DOS room picture (RA..RG) captured from
-// DOSBox by test/hdos/dosbox_capture_pics.py and validated pixel-exact over the
+// DOSBox by test/gmcga/dosbox_capture_pics.py and validated pixel-exact over the
 // 280x160 window.  Streams (Graphics-Magician vector data sliced from the game
 // RA..RG files) and goldens (the window packed 2 bits/pixel, MSB-first) are
 // committed as two blobs plus a manifest, so this needs no game files at test
-// time.  See test/hdos/gen_room_fixtures.py.
+// time.  See test/gmcga/gen_room_fixtures.py.
 static int runRoomFixtures() {
-    FILE *mf = fopen("test/hdos/rooms.tsv", "r");
+    FILE *mf = fopen("test/gmcga/rooms.tsv", "r");
     if (!mf)
         return 0;                       // optional: skip if not generated
-    std::vector<uint8_t> streams = readFile("test/hdos/rooms_streams.bin");
-    std::vector<uint8_t> goldens = readFile("test/hdos/rooms_goldens.bin");
+    std::vector<uint8_t> streams = readFile("test/gmcga/rooms_streams.bin");
+    std::vector<uint8_t> goldens = readFile("test/gmcga/rooms_goldens.bin");
     if (streams.empty() || goldens.empty()) {
         fprintf(stderr, "FAIL: rooms.tsv present but blobs missing/empty\n");
         fclose(mf);
@@ -105,10 +105,10 @@ static int runRoomFixtures() {
     while (fgets(line, sizeof line, mf)) {
         if (sscanf(line, "%31s %ld %ld %ld %d", name, &so, &sl, &go, &ceil) != 5)
             continue;
-        hdosResetScreen(true);          // white cold page
-        hdosDrawImage(streams.data() + so, (size_t)sl);
+        gmcgaResetScreen(true);          // white cold page
+        gmcgaDrawImage(streams.data() + so, (size_t)sl);
         std::vector<uint32_t> rgba((size_t)PIC_W * PIC_H);
-        hdosBlitToSurface(rgba.data(), PIC_W, PIC_H);
+        gmcgaBlitToSurface(rgba.data(), PIC_W, PIC_H);
         int diffs = 0;
         for (int i = 0; i < PIC_W * PIC_H; i++) {
             int rv = rgbaToIndex(rgba[i]);
@@ -127,15 +127,15 @@ static int runRoomFixtures() {
         }
     }
     fclose(mf);
-    printf("HDOS rooms: %d/%d pixel-exact, %d within ceiling, %d failed\n",
+    printf("GMCGA rooms: %d/%d pixel-exact, %d within ceiling, %d failed\n",
            exact, n, n - fails, fails);
     return fails;
 }
 
 int main() {
-    std::vector<uint8_t> tables = readFile("test/hdos/novel_tables.bin");
-    if (tables.empty() || !hdosInstallDrawingTables(tables.data(), tables.size())) {
-        fprintf(stderr, "FAIL: cannot load drawing tables from test/hdos/novel_tables.bin\n");
+    std::vector<uint8_t> tables = readFile("test/gmcga/novel_tables.bin");
+    if (tables.empty() || !gmcgaInstallDrawingTables(tables.data(), tables.size())) {
+        fprintf(stderr, "FAIL: cannot load drawing tables from test/gmcga/novel_tables.bin\n");
         return 1;
     }
 
@@ -150,11 +150,11 @@ int main() {
             continue;
         }
 
-        hdosResetScreen(true);          // cold page: solid white
-        hdosDrawImage(img.data(), img.size());
+        gmcgaResetScreen(true);          // cold page: solid white
+        gmcgaDrawImage(img.data(), img.size());
 
         std::vector<uint32_t> rgba((size_t)PIC_W * PIC_H);
-        hdosBlitToSurface(rgba.data(), PIC_W, PIC_H);
+        gmcgaBlitToSurface(rgba.data(), PIC_W, PIC_H);
 
         int diffs = 0;
         for (int y = 0; y < PIC_H; y++)
@@ -175,10 +175,10 @@ int main() {
     failures += runRoomFixtures();
 
     if (failures) {
-        printf("HDOS picture regression: %d case(s) failed\n", failures);
+        printf("GMCGA picture regression: %d case(s) failed\n", failures);
         return 1;
     }
-    printf("HDOS picture regression: all %zu scene cases + room fixtures within ceiling\n",
+    printf("GMCGA picture regression: all %zu scene cases + room fixtures within ceiling\n",
            sizeof(kCases) / sizeof(kCases[0]));
     return 0;
 }

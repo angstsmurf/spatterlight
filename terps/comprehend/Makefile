@@ -24,7 +24,7 @@ LDLIBS     := -lglkimp -lglkmain
 CXX_SRCS := \
     apple2.cpp \
     graphics_magician.cpp \
-    hdos_talisman.cpp \
+    graphics_magician_cga.cpp \
     charset.cpp \
     comprehend.cpp \
     comprehend_compat.cpp \
@@ -76,7 +76,7 @@ gm_artifact.o: $(SAGADRAW_DIR)/gm_artifact.c $(SAGADRAW_DIR)/gm_artifact.h
 SAGADRAW_SRCS := $(SAGADRAW_DIR)/gm_vector.c $(SAGADRAW_DIR)/gm_artifact.c
 
 clean:
-	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_hdos_pics test/pixtest test/op5scan test/hdostest test/diff_hdos test/rgbacrc
+	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_gmcga_pics test/pixtest test/op5scan test/gmcgatest test/diff_gmcga test/rgbacrc
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
 # Self-contained: graphics_magician.cpp has no Glk/disk dependencies, so the test
@@ -91,14 +91,14 @@ test/rgbacrc: test/rgbacrc.cpp graphics_magician.cpp graphics_magician.h $(SAGAD
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/rgbacrc.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
 # --- Regression test: DOS Talisman CGA renderer vs golden DOSBox framebuffers ---
-# Self-contained: hdos_talisman.cpp has no Glk/disk dependencies, and the drawing
-# tables / vector streams / goldens are committed in test/hdos/.
-test/test_hdos_pics: test/test_hdos_pics.cpp hdos_talisman.cpp hdos_talisman.h graphics_magician.h
-	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_hdos_pics.cpp hdos_talisman.cpp
+# Self-contained: graphics_magician_cga.cpp has no Glk/disk dependencies, and the drawing
+# tables / vector streams / goldens are committed in test/gmcga/.
+test/test_gmcga_pics: test/test_gmcga_pics.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_gmcga_pics.cpp graphics_magician_cga.cpp
 
-test: test/test_talisman_pics test/test_hdos_pics test/rgbacrc
+test: test/test_talisman_pics test/test_gmcga_pics test/rgbacrc
 	./test/test_talisman_pics
-	./test/test_hdos_pics
+	./test/test_gmcga_pics
 	./test/rgbacrc
 
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
@@ -109,18 +109,18 @@ test/pixtest: test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read
 	    test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
 
 # Developer tool: render one DOS Talisman (CGA) picture and write it as a PPM,
-# to eyeball against a DOSBox capture. Self-contained: hdos_talisman.cpp has no
+# to eyeball against a DOSBox capture. Self-contained: graphics_magician_cga.cpp has no
 # Glk/disk dependencies, so it links only that.
-#   ./test/hdostest NOVEL1.EXE T0 4 title.ppm white
-test/hdostest: test/hdostest.cpp hdos_talisman.cpp hdos_talisman.h graphics_magician.h
-	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/hdostest.cpp hdos_talisman.cpp
+#   ./test/gmcgatest NOVEL1.EXE T0 4 title.ppm white
+test/gmcgatest: test/gmcgatest.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/gmcgatest.cpp graphics_magician_cga.cpp
 
 # Developer tool: re-render every committed DOS Talisman fixture and report, per
 # scene, the rendered->golden colour-transition histogram, per-row diff bands, a
 # spatial diff PPM (/tmp/diff_<scene>.ppm), and raw index dumps -- the analysis
 # used to drive the renderer toward pixel-exactness. Self-contained.
-test/diff_hdos: test/diff_hdos.cpp hdos_talisman.cpp hdos_talisman.h graphics_magician.h
-	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/diff_hdos.cpp hdos_talisman.cpp
+test/diff_gmcga: test/diff_gmcga.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/diff_gmcga.cpp graphics_magician_cga.cpp
 
 # Developer tool: scan every image in an Apple II Comprehend disk's graphics
 # files and report which ones use a given drawing opcode (op5/TEXT_OUTLINE).

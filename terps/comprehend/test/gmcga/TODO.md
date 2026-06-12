@@ -1,10 +1,10 @@
 # Making the DOS Talisman CGA renderer 100% pixel-perfect
 
-Goal: `hdos_talisman.cpp` renders every DOS picture **byte-for-byte identical**
+Goal: `graphics_magician_cga.cpp` renders every DOS picture **byte-for-byte identical**
 to `NOVEL1.EXE` over the 280×160 window, i.e. `0 diffs` for every fixture.
 
 **Status (2026-06-11): ACHIEVED — all four fixtures (title / throne / cell /
-courtyard) are 0 / 44800, and `test_hdos_pics` ceilings are locked at 0.**
+courtyard) are 0 / 44800, and `test_gmcga_pics` ceilings are locked at 0.**
 
 The last three bugs, found by diffing per-fill DOSBox VRAM traces against the
 renderer (scripts below):
@@ -31,9 +31,9 @@ renderer (scripts below):
 
 - [x] §4 Palette: **DONE (2026-06-11)** — matched the real game.  The DOSBox
       goldens are unambiguously CGA palette 1 **low intensity**
-      (`00aaaa/aa00aa/aaaaaa`), so `kHdosColor[]` now uses those values (was
+      (`00aaaa/aa00aa/aaaaaa`), so `kGmcgaColor[]` now uses those values (was
       high intensity `55ffff/ff55ff/ffffff`).  Index-space tests are unaffected;
-      the RGB→index maps in `test_hdos_pics.cpp` / `diff_hdos.cpp` / the two
+      the RGB→index maps in `test_gmcga_pics.cpp` / `diff_gmcga.cpp` / the two
       `*.py` helpers accept both intensities (or were updated to the new one).
 - [x] §5 Widen coverage: **DONE (2026-06-11)** — all 94 valid `RA`–`RG` room
       pictures are captured from DOSBox and added as committed fixtures; **93 are
@@ -45,7 +45,7 @@ renderer (scripts below):
       "marching" stub (`MOV AL,G; CALL 0x1cc5`) over the current IP to draw an
       arbitrary picture, then de-interleaves CGA VRAM.  `gen_room_fixtures.py`
       slices the streams + packs the 280×160 goldens (2 bpp) into
-      `rooms_streams.bin` / `rooms_goldens.bin` / `rooms.tsv`; `test_hdos_pics`
+      `rooms_streams.bin` / `rooms_goldens.bin` / `rooms.tsv`; `test_gmcga_pics`
       iterates them.  Two findings worth keeping:
       - **Picture addressing** (NOVEL.EXE `1cc5`→`1d25`→`1e10`): for 1-based AL
         `G`, `file_index = ((G-1)&0x7f)>>4` (→ `'A'`+idx) and `pic_index =
@@ -72,9 +72,9 @@ renderer (scripts below):
 
 ```
 # render one DOS picture and diff against a golden
-hdostest <NOVEL1.EXE|novel_tables.bin> <stream.img> <offset> /tmp/r.ppm [white|black]
+gmcgatest <NOVEL1.EXE|novel_tables.bin> <stream.img> <offset> /tmp/r.ppm [white|black]
 python3 compare_fb.py /tmp/r.ppm <scene>.fb /tmp/diff.png   # red = mismatch
-make -C terps/comprehend test/diff_hdos && ./test/diff_hdos  # histogram + PPM + raw dumps
+make -C terps/comprehend test/diff_gmcga && ./test/diff_gmcga  # histogram + PPM + raw dumps
 
 # (re)capture a scene from DOSBox
 python3 png_to_fb.py <scene>.png <scene>.fb
@@ -88,8 +88,8 @@ finds the interpreter by byte signature, breakpoints `PicOp14Paint` (CS:2630)
 and dumps 16 KB of CGA VRAM *before every fill* to `/tmp/nativetrace/`.
 `dosbox_trace_pushes.py` additionally breakpoints the span push (CS:2da0) for
 one chosen fill and logs every push.  The renderer mirrors both: set
-`HDOS_TRACE_DIR=<dir>` to dump the framebuffer before each op14, and
-`HDOS_TRACE_FILL=<n>` to log fill *n*'s queue pushes to stderr — then diff the
+`GMCGA_TRACE_DIR=<dir>` to dump the framebuffer before each op14, and
+`GMCGA_TRACE_FILL=<n>` to log fill *n*'s queue pushes to stderr — then diff the
 two traces to find the first divergent operation.  Mount the game folder as
 floppy A: (see the conf in the scripts) to skip the master-disk prompt.
 
