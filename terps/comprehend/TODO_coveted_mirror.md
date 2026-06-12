@@ -151,10 +151,15 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
 
 ## 4. Robustness / housekeeping
 
-- [ ] **Side-A-only crash**: opening `side A.woz` without side B in the same dir throws
-      `std::length_error` (`FileBuffer` ctor `resize(f.size())` with size -1 when `g0` is
-      absent — `error()` doesn't abort in headless). Guard `FileBuffer` against a failed
-      open. Low risk in practice (the loader auto-scans the directory for companion sides).
+- [x] **Side-A-only crash — FIXED (2026-06-13).** Two parts: (a) `FileBuffer` ctor threw
+      `std::length_error` on `resize(f.size()==-1)` — fixed by commit `0cb1e697` (guards the
+      failed open + negative size). (b) That left a *second* crash: with `g0` absent the
+      empty FileBuffer flowed on through `parse_header` (magic 0000), every non-fatal
+      `error()` soft-returned, and parsing empty data tripped `assert(...)` in
+      `parse_function` (SIGABRT). Fixed by guarding `loadGameData`: if the main data file is
+      `< 4` bytes, print a clear error and `glk_exit()` instead of parsing garbage. Verified:
+      isolated `side A.woz` now exits cleanly (code 0, "No usable game data in 'g0' -- is a
+      disk side missing?") instead of aborting; CM/OO-Topos with both sides still boot.
 - [ ] **DOS NOVEL.EXE registry entries** for CM — none yet (Apple-only so far).
 
 ---

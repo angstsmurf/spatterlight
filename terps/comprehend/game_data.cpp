@@ -764,6 +764,19 @@ void GameData::loadGameData() {
 
 	clearGame();
 
+	// A usable main data file needs at least a header (magic + address table).
+	// If it is missing or empty -- e.g. only one disk side was supplied, so the
+	// loader never extracted "g0" -- bail out cleanly. Otherwise parse_header
+	// reads a 0000 magic, every downstream error() (which is non-fatal here)
+	// soft-returns, and parsing empty data eventually trips the assert in
+	// parse_function. FileBuffer's ctor already reports the failed open.
+	if (fb.size() < 4) {
+		error("No usable game data in '%s' -- is a disk side missing?",
+		      _gameDataFile.c_str());
+		glk_exit();
+		return;
+	}
+
 	parse_header(&fb);
 	parse_rooms(&fb);
 	parse_items(&fb);
