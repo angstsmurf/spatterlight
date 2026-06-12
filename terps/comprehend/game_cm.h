@@ -40,6 +40,8 @@ class CovetedMirrorGame : public ComprehendGameV2 {
 public:
 	CovetedMirrorGame();
 	~CovetedMirrorGame() override {}
+
+	void handleAction(Sentence *sentence) override;
 };
 
 } // namespace Comprehend
