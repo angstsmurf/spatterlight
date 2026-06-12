@@ -430,6 +430,16 @@ static int pen_ink_t, pen_paper_t, pen_bright_t;
 static int ill_sc = 0;
 static int ill_scaled(int v) { return ill_sc ? (v * ill_sc) >> 3 : v; }
 
+/* The Illustrator keeps the pen position as a byte pair and the screen-address
+ * arithmetic wraps it: x is taken modulo 256 and y modulo the 176-row plot area
+ * (ILL_H). Relative moves therefore wrap rather than running off the edge - e.g.
+ * Bugsy's title draws five bullets by repeatedly GOSUBbing one sub-picture whose
+ * first move is +160 in y; without the wrap each bullet climbs another ~161 rows
+ * and only the first lands on screen, but mod-176 brings them back into a tidy
+ * descending diagonal exactly as the Spectrum does. */
+static int ill_wrapx(int x) { return x & (ILL_W - 1); }		/* ILL_W is 256 */
+static int ill_wrapy(int y) { y %= ILL_H; if (y < 0) y += ILL_H; return y; }
+
 /* Unit moves for RPLOT, indexed by bits 5-7 of the command byte. */
 static const int ill_rmoves[8][2] = {
     {1,0}, {1,1}, {0,1}, {-1,1}, {-1,0}, {-1,-1}, {0,-1}, {1,-1}
@@ -441,8 +451,7 @@ static const int ill_rmoves[8][2] = {
 static void ill_setcell(int x, int y)
 {
     uchar *a, v;
-    if (x < 0 || x >= ILL_W || y < 0 || y >= ILL_H)
-	return;
+    x = ill_wrapx(x); y = ill_wrapy(y);
     a = ill_attrp(x, y);
     v = *a;
     if (!pen_ink_t)    v = (uchar)((v & ~0x07) | (pen_ink & 7));
@@ -455,8 +464,7 @@ static void ill_setcell(int x, int y)
 /* Set (ink) or clear (paper) one pixel and stamp its cell's attribute. */
 static void ill_plot(int x, int y, int set)
 {
-    if (x < 0 || x >= ILL_W || y < 0 || y >= ILL_H)
-	return;
+    x = ill_wrapx(x); y = ill_wrapy(y);
     ill_putpix(x, y, set);
     ill_setcell(x, y);
 }
@@ -588,8 +596,8 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 	{
 	case 0:	/* PLOT x,y  (over+inverse => AMOVE, absolute move only) */
 	    nargs = 2;
-	    pen_x = zmem(gptr + 1);
-	    pen_y = zmem(gptr + 2);
+	    pen_x = ill_wrapx(zmem(gptr + 1));
+	    pen_y = ill_wrapy(zmem(gptr + 2));
 	    if (!((gflag & 0x08) && (gflag & 0x10)))
 		ill_plot(pen_x, pen_y, 1);
 	    break;
@@ -607,6 +615,7 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 		ill_line(pen_x, pen_y, pen_x + a0, pen_y + a1);
 		pen_x += a0; pen_y += a1;
 	    }
+	    pen_x = ill_wrapx(pen_x); pen_y = ill_wrapy(pen_y);
 	    break;
 
 	case 2:	/* FILL / BLOCK / SHADE / BSHADE */
@@ -617,7 +626,7 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 		nargs = 2;
 		a0 = ill_scaled(zmem(gptr + 1)) * ((gflag & 0x40) ? -1 : 1);
 		a1 = ill_scaled(zmem(gptr + 2)) * ((gflag & 0x80) ? -1 : 1);
-		ill_fill(pen_x + a0, pen_y + a1);
+		ill_fill(ill_wrapx(pen_x + a0), ill_wrapy(pen_y + a1));
 		break;
 	    case 0x10:	/* BLOCK: recolour a rectangle of attribute cells. The ROM's
 			 * handler (0xfd1a) writes only the attribute file, never the
@@ -642,7 +651,7 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 		nargs = 3;
 		a0 = ill_scaled(zmem(gptr + 1)) * ((gflag & 0x40) ? -1 : 1);
 		a1 = ill_scaled(zmem(gptr + 2)) * ((gflag & 0x80) ? -1 : 1);
-		ill_shade(pen_x + a0, pen_y + a1, zmem(gptr + 3));
+		ill_shade(ill_wrapx(pen_x + a0), ill_wrapy(pen_y + a1), zmem(gptr + 3));
 		break;
 	    }
 	    break;
@@ -661,8 +670,8 @@ static void ill_render(ushort gfx_ptrs, ushort gptr, int depth)
 
 	case 4:	/* RPLOT: plot one step in a direction */
 	    nargs = 0;
-	    pen_x += ill_rmoves[(value >> 2) & 7][0];
-	    pen_y += ill_rmoves[(value >> 2) & 7][1];
+	    pen_x = ill_wrapx(pen_x + ill_rmoves[(value >> 2) & 7][0]);
+	    pen_y = ill_wrapy(pen_y + ill_rmoves[(value >> 2) & 7][1]);
 	    if (!((gflag & 0x08) && (gflag & 0x10)))
 		ill_plot(pen_x, pen_y, 1);
 	    break;
