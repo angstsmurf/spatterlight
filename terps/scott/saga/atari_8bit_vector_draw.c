@@ -963,6 +963,9 @@ int TestAtari8ImageWithName(const char *name, const char *supportpath) {
     return result;
 }
 
+const uint8_t *GetAtari8Screenmem90(void) { return a8_screenmem90; }
+const uint8_t *GetAtari8ScreenmemA0(void) { return a8_screenmemA0; }
+
 int RunAtari8bitVectorTests(const char *supportpath) {
 
     gli_slowdraw = 0;

@@ -34,9 +34,9 @@ build/filltest: $(SRCS) filltest.c
 test: build/filltest
 	./build/filltest "$(FIXTURES)"
 
-# Same as `test`, plus the 315-image Apple II ground-truth corpus.
+# Same as `test`, plus the Apple II and Atari 8-bit ground-truth corpora.
 groundtruth: build/filltest
-	./build/filltest "$(FIXTURES)" ./groundtruth
+	./build/filltest "$(FIXTURES)" ./groundtruth ./groundtruth_atari
 
 clean:
 	rm -rf build
