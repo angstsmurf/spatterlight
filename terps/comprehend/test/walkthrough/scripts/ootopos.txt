@@ -1,0 +1,29 @@
+# Oo-Topos -- deterministic smoke prefix.
+#
+# Plays out of the prison cell, through the scripted stun-capture that drags you
+# to the guard post, and arms up at the button panel. The headless terp has no
+# real clock, so this is fully reproducible (verified identical across runs)
+# even though Oo-Topos is otherwise a pursuit game: once you step EAST out of
+# the guard post the alien stuns you and strips every item, and surviving that
+# chase needs a turn-by-turn cadence still to be pinned against MAME. Everything
+# here is before that hazard, so it is a stable regression check for the prison
+# room/items, the three-stage BREAK LOCK counter, the OPEN DOOR siren event, the
+# stun-transport cutscene, the button-panel logic and item pickup.
+#
+# Win marker (see run_walkthroughs.sh): "Pushing the green button causes the panel to swing open."
+# One input per line; blank lines and #-comments are ignored.
+
+# Prison cell: grab the bottle, batter the lock open, leave.
+GET BOTTLE
+BREAK LOCK
+BREAK LOCK
+BREAK LOCK
+OPEN DOOR
+W
+N
+# Guard post (reached via the stun-capture): silence the siren, open the panel,
+# take the laser and goggles.
+PUSH RED
+PUSH GREEN
+GET LASER
+GET GOGGLES
