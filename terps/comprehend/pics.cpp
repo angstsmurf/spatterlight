@@ -106,7 +106,8 @@ Pics::ImageFile::ImageFile(const Common::String &filename, bool isSingleImage) :
 			const Common::String &id = g_comprehend->getGameID();
 			if (id == "transylvania")
 				_imageOffsets[0] = 0xFE;
-			else if (id == "crimsoncrown" || id == "ootopos")
+			else if (id == "crimsoncrown" || id == "ootopos" ||
+			         id == "covetedmirror")
 				_imageOffsets[0] = 0x100;
 			else
 				_imageOffsets[0] = 0; // talisman
