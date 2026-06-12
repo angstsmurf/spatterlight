@@ -83,6 +83,10 @@ protected:
 	int _functionNum;
 	int _specialOpcode;
 	RedoLine _redoLine;
+	// The list of pictures painted by the previous update_graphics() pass, used
+	// to detect when a refresh would repaint the identical scene (so it can be
+	// drawn instantly instead of re-running the animated slow-draw reveal).
+	Common::Array<uint> _lastGraphicsFrame;
 public:
 	const GameStrings *_gameStrings;
 

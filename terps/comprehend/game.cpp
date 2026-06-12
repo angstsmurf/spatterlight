@@ -26,6 +26,7 @@
 #include "dictionary.h"
 #include "draw_surface.h"
 #include "game_data.h"
+#include "pics.h"
 
 namespace Glk {
 namespace Comprehend {
@@ -414,21 +415,29 @@ void ComprehendGame::update_graphics() {
 
 	type = roomIsSpecial(_currentRoomCopy, nullptr);
 
+	// First work out the list of pictures this refresh will paint, expressed as
+	// the picture numbers drawPicture() ultimately receives. Comparing it with
+	// the previous pass lets us tell when we are about to repaint the exact same
+	// scene (e.g. an action redrew the room without changing it). In that case
+	// we skip the animated slow-draw reveal and paint instantly — re-animating
+	// the identical image just looks like a stutter.
+	Common::Array<uint> frame;
+
 	switch (type) {
 	case ROOM_IS_DARK:
 		if (_updateFlags & UPDATE_GRAPHICS)
-			g_comprehend->clearScreen(false);
+			frame.push_back(DARK_ROOM);
 		break;
 
 	case ROOM_IS_TOO_BRIGHT:
 		if (_updateFlags & UPDATE_GRAPHICS)
-			g_comprehend->clearScreen(true);
+			frame.push_back(BRIGHT_ROOM);
 		break;
 
 	default:
 		if (_updateFlags & UPDATE_GRAPHICS) {
 			room = get_room(_currentRoom);
-			g_comprehend->drawLocationPicture(room->_graphic - 1);
+			frame.push_back((uint)(room->_graphic - 1) + LOCATIONS_OFFSET);
 		}
 
 		if ((_updateFlags & UPDATE_GRAPHICS) ||
@@ -438,11 +447,19 @@ void ComprehendGame::update_graphics() {
 
 				if (item->_room == _currentRoom &&
 				        item->_graphic != 0)
-					g_comprehend->drawItemPicture(item->_graphic - 1);
+					frame.push_back((uint)(item->_graphic - 1) + ITEMS_OFFSET);
 			}
 		}
 		break;
 	}
+
+	bool sameScene = !frame.empty() && frame == _lastGraphicsFrame;
+	_lastGraphicsFrame = frame;
+
+	g_comprehend->setSuppressSlowDraw(sameScene);
+	for (i = 0; i < frame.size(); i++)
+		g_comprehend->drawPicture(frame[i]);
+	g_comprehend->setSuppressSlowDraw(false);
 }
 
 void ComprehendGame::describe_objects_in_current_room() {
