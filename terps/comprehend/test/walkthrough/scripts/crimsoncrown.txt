@@ -1,0 +1,15 @@
+# The Crimson Crown -- deterministic smoke prefix.
+#
+# Plays the party from the lake shore through the woods, falls through the
+# scripted trap door into the crypt (which introduces Sabrina), and reaches the
+# crystal-ball cave. The headless terp has no real clock, so this is fully
+# reproducible (verified identical across runs); it is a stable regression check
+# for movement, the multi-character party, the trap-door event and room/object
+# description decoding, all before the game's sand timer would matter.
+#
+# Win marker (see run_walkthroughs.sh): "On a stalagmite rests a pulsating crystal ball."
+# One input per line; blank lines and #-comments are ignored.
+
+E
+N
+E

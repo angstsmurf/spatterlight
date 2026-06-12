@@ -1,0 +1,22 @@
+# Transylvania (1985) -- deterministic smoke prefix.
+#
+# Boots with the gameid "transylvania" off the 1985 woz-a-day side A. The game
+# opens with a guest-register prompt that consumes two free-text inputs (a name
+# and next-of-kin) before normal play begins; the first two lines below answer
+# it. From the stump the player heads to the dark forest, picks up the note and
+# reads the series' iconic warning. The headless terp has no real clock, so this
+# is fully reproducible (verified identical across runs) and stays clear of the
+# werewolf, which only appears further north -- a stable check for the register
+# prompt, movement, item pickup and string decoding.
+#
+# Win marker (see run_walkthroughs.sh): Sabrina dies at dawn!
+# One input per line; blank lines and #-comments are ignored.
+
+# Guest register: any name / next-of-kin.
+ADVENTURER
+NOBODY
+# Stump -> rock slide -> dark forest; grab and read the note.
+N
+W
+GET NOTE
+READ NOTE
