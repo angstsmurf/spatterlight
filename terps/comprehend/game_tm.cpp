@@ -296,17 +296,19 @@ void TalismanGame::deathMenu() {
 	}
 }
 
-bool TalismanGame::handle_restart() {
-	// Reached only from the death menu's "new adventure" choice, which has
-	// already prompted the player, so reload silently instead of asking again.
-	_ended = false;
-	loadGame();
+void TalismanGame::restartGame() {
+	ComprehendGame::restartGame();
 	// loadGame() repopulates _strings from the G0 game-data file, but
 	// Talisman's strings actually live in novel.exe / the MA-MO bank files, so
 	// reload them the same way playGame() does -- otherwise every message after
 	// a restart decodes to BAD_STRING.
 	loadStrings();
-	_updateFlags = UPDATE_ALL;
+}
+
+bool TalismanGame::handle_restart() {
+	// Reached only from the death menu's "new adventure" choice, which has
+	// already prompted the player, so reload silently instead of asking again.
+	restartGame();
 	return true;
 }
 

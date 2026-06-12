@@ -107,6 +107,9 @@ protected:
 		_ended = true;
 	}
 	virtual bool handle_restart();
+	// Forced restart used by the #restart metacommand: reload from the start
+	// without the in-game RESTART/RESTORE/QUIT prompt.
+	virtual void restartGame();
 
 	virtual void execute_opcode(const Instruction *instr, const Sentence *sentence,
 		FunctionState *func_state) = 0;

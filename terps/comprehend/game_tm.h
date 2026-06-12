@@ -53,6 +53,7 @@ public:
 	void handleAction(Sentence *sentence) override;
 	void handleSpecialOpcode() override;
 	bool handle_restart() override;
+	void restartGame() override;
 
 private:
 	/**

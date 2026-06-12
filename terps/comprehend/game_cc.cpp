@@ -207,5 +207,14 @@ bool CrimsonCrownGame::handle_restart() {
 	return ComprehendGame::handle_restart();
 }
 
+void CrimsonCrownGame::restartGame() {
+	// The game spans multiple disks; a restart must return to disk 1 first.
+	if (_diskNum != 1) {
+		setupDisk(1);
+		loadGame();
+	}
+	ComprehendGame::restartGame();
+}
+
 } // namespace Comprehend
 } // namespace Glk
