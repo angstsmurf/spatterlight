@@ -49,7 +49,7 @@ play() {
 play CovetedMirror covetedmirror \
     "The Coveted Mirror 2.0 (woz-a-day collection)/The Coveted Mirror 2.0 side B (boot).woz" \
     covetedmirror.txt \
-    "My horoscope was horrible."
+    "Ah, thou hast made a friend for life!"
 
 play OoTopos ootopos \
     "Oo-Topos (woz-a-day collection)/Oo-Topos side B.woz" \

@@ -46,22 +46,30 @@ Coveted Mirror hourglass runs down per turn and, when it expires, the jailer
 teleports you back to the throne -- so a full Coveted Mirror walkthrough only
 completes if the script bribes the jailer on a strict cadence (the geas runner
 solves the same class of problem with `--tick`). The committed
-`scripts/covetedmirror.txt` is therefore a **timeout-free smoke prefix**: it
-plays out of the cell, through the town, and solves the astrologer's
-constellation puzzle -- exercising string-bank decoding, the parser, NPC
-dialogue and the throne-room override -- all well before the sand runs out.
+`scripts/covetedmirror.txt` **manages that cadence**: the hourglass is variable
+`0x11` (starts 74, -1 per recognised turn); the script reaches the barrel hub
+("Outskirts of town", the south end of the town spine) and bribes jailer Boris
+twice (`GO BARREL, E, WAIT, GIVE <item>, MOVE BED, GO HOLE, GO BARREL`), which
+resets the sand to 74 -- once with the axe, once with the telescope -- so it
+plays the whole early/mid game (out of the cell, through town, the astrologer's
+constellation puzzle, the eastern collection loop) without ever being caught.
+This exercises string-bank decoding, the parser, NPC dialogue, the throne-room
+override **and** the daemon's once-per-turn sand drain together.
 
 ## Extending
 
 To add a game, write `scripts/<gameid>.txt` (drive it to a distinctive line),
 add a `play` entry to `run_walkthroughs.sh`, and pick that line as the marker.
 
-All five Polarware/Penguin games ship a deterministic smoke prefix here
-(verified identical across runs). Each stops before the game's first real
-hazard or timer:
+All five Polarware/Penguin games ship a deterministic prefix here (verified
+identical across runs). Most stop before the game's first real hazard or timer;
+the Coveted Mirror one goes further and rides the hourglass cadence:
 
-  * **Coveted Mirror** -- out of the cell, through town, solves the astrologer's
-    constellation puzzle. Stops before the hourglass cadence matters.
+  * **Coveted Mirror** -- out of the cell, through town, the astrologer's
+    constellation puzzle and the eastern collection loop (axe, ball, lockpick,
+    telescope, candlestick, bellows, shovel, jug, ladder, grain). Bribes the
+    jailer twice to outlast the hourglass; stops before the maze/spell endgame,
+    which needs the non-deterministic NPC waits and extra bribes pinned to MAME.
   * **Oo-Topos** -- out of the prison, through the scripted stun-capture, arms up
     at the guard-post panel. Stops there because stepping east next triggers the
     alien stun that strips every item.
@@ -75,5 +83,6 @@ hazard or timer:
 
 Full-completion scripts are still to be authored -- the prose walkthroughs need
 route counts pinned down and, where a game is timed or has random hazards, the
-cadence worked out (Oo-Topos in particular needs the alien-pursuit cadence and
-the Coveted Mirror the jailer-bribe cadence pinned against MAME).
+cadence worked out (Oo-Topos in particular needs the alien-pursuit cadence; the
+Coveted Mirror has its jailer-bribe cadence worked out through the mid-game but
+still needs the maze/spell endgame's random NPC waits pinned against MAME).

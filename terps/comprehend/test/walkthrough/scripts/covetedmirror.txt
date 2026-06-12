@@ -1,13 +1,23 @@
-# The Coveted Mirror -- deterministic smoke script.
+# The Coveted Mirror -- deterministic mid-game script.
 #
-# Plays from the throne (forced imprisonment) out into the town and through the
-# astrologer's constellation puzzle. This prefix is timeout-free: the hourglass
-# timer ticks per turn even headless, and a full walkthrough has to bribe the
-# jailer on a tight cadence, but everything here finishes long before the sand
-# runs out -- so it is a stable regression check for string-bank decoding, the
-# parser, NPC dialogue and the throne-room override.
+# Plays from the throne (forced imprisonment) out into the town, collects the
+# early items (axe, crystal ball, lockpick, telescope, candlestick, bellows,
+# shovel, jug, ladder) and befriends the innkeeper with the grain. Crucially it
+# also exercises the HOURGLASS CADENCE: the sand timer (variable 0x11, starts 74,
+# -1 per recognised turn) ticks even headless, so the route bribes jailer Boris
+# twice at the barrel hub ("Outskirts of town") to stay out of prison -- once
+# with the axe, once with the telescope. A bribe resets the sand to 74; the
+# barrel scene itself is paused. This makes the script a regression check for the
+# throne-room override, the daemon's once-per-turn sand drain, the bribe handler,
+# the string banks, the parser and NPC dialogue, all at once.
 #
-# Win marker (see run_walkthroughs.sh): "My horoscope was horrible."
+# The riddle at Winder's is fixed in this build (answer UNCLE -- the kinship
+# variant; the prose walkthroughs that print MERMAID hit a different random
+# variant that does not occur here). The PICTURE/BEAR side-treasure and the
+# deeper maze/spell/endgame are deliberately left out -- they need the
+# non-deterministic NPC waits and extra bribe detours pinned against MAME first.
+#
+# Win marker (see run_walkthroughs.sh): "Ah, thou hast made a friend for life!"
 # One input per line; blank lines and #-comments are ignored.
 
 BOW
@@ -59,3 +69,73 @@ ORION
 SCORPIO
 GEMINI
 GET TELESCOPE
+E
+TALK
+GIVE BALL
+W
+W
+S
+S
+S
+S
+S
+TALK
+USE LOCKPICK
+OPEN STOCKS
+N
+N
+N
+E
+OPEN DOOR
+E
+GET CANDLESTICK
+W
+W
+S
+W
+TALK
+GIVE CANDLESTICK
+GET BELLOWS
+E
+N
+N
+W
+GIVE BELLOWS
+GET SHOVEL
+E
+S
+S
+S
+GO BARREL
+E
+WAIT
+GIVE TELESCOPE
+MOVE BED
+GO HOLE
+GO BARREL
+S
+E
+N
+E
+N
+GET JUG
+W
+S
+E
+E
+E
+GET GRAIN
+N
+DOWN
+TALK
+MOVE GLASSES
+UP
+GET LADDER
+S
+W
+W
+W
+N
+OPEN DOOR
+N
+GIVE GRAIN
