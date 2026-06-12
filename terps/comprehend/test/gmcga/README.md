@@ -48,6 +48,16 @@ choice is cosmetic.  Index convention, matching the renderer: `0=black 1=cyan
 | `cell`      | opening prison cell (RA)                  | start of game                     |
 | `throne`    | King Darius on his throne — `RA` pic0 @0x22 | WAIT×4, BOW, advance cutscene    |
 | `courtyard` | palace courtyard (RA)                     | from throne room, BOW, then WEST  |
+| `oo_title`  | OO-Topos DOS `T0` (complete file)         | program start (oo-topos NOVEL.EXE) |
+| `tr_title`  | Transylvania v2 DOS `T0` (complete file)  | program start (TransylvaniaPC Novel.exe) |
+
+The two non-Talisman titles use the same committed `novel_tables.bin`: the
+fill/subindex/brush/font tables are byte-identical in all three interpreters
+(verified against the fill-table signature in each EXE). Unlike the Talisman
+`title.img` (a slice of `T0` starting at offset 4), the `oo_title.img` /
+`tr_title.img` fixtures are the **whole `T0` file**: v2 `T0` is a raw vector
+stream from byte 0 — `f3` (op15/3, fill the picture with the startup pattern =
+the white background) then `8x x y` (MOVE_TO) — there is no 4-byte header.
 
 `RA` is an offset-table file: a 2-byte LE table (`RA[0]` = table length in bytes
 = 34 → 17 entries) of picture stream offsets `0x22, 0x8c1, 0x1061, 0x195d, …`.

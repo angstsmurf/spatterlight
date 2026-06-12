@@ -952,6 +952,11 @@ void gmcgaDrawImage(const uint8_t *data, size_t size) {
 
     GmcgaCtx ctx = {};
     ctx.pen_val  = 0;    // pen colour 4 (black) maps to 2-bpp 0
+    // The dispatcher init (NOVEL.EXE 0x1f56 / Transylvania 0x1e46) seeds the
+    // pen position with 0x8c,6; Transylvania's title stream draws its first
+    // line before any MOVE_TO, so this matters.
+    ctx.pen_x    = 140;
+    ctx.pen_y    = 6;
     ctx.brush    = 5;    // default brush matches Apple renderer init
     ctx.fill_idx = 0;    // cold-start fill selector 0 -> solid white (0xff);
                          // matches NOVEL.EXE's statically-zeroed [0x9d46]
