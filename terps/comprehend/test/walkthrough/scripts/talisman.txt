@@ -1,0 +1,17 @@
+# Talisman: Challenging the Sands of Time -- deterministic smoke prefix.
+#
+# The game opens in the executioner's cell; waiting four turns and then bowing
+# triggers the scripted last-second reprieve that drags the player up to King
+# Darius's audience chamber (see the talisman-game-start memory note). The
+# headless terp has no real clock, so this is fully reproducible (verified
+# identical across runs) and exercises the WAIT daemon, the special-opcode
+# cutscene and room-string decoding well before any disk swap is needed.
+#
+# Win marker (see run_walkthroughs.sh): "Ye art a guest in the King's audience chamber."
+# One input per line; blank lines and #-comments are ignored.
+
+WAIT
+WAIT
+WAIT
+WAIT
+BOW

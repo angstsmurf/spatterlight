@@ -159,8 +159,21 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       Stops at the panel **on purpose**: stepping E out of the guard post triggers the alien
       stun that strips every item, and surviving OO-Topos's pursuit needs a turn-by-turn
       cadence still to be pinned against MAME.
-  - STILL TODO: full-completion scripts for CM (timed) + OO-Topos (pursuit cadence) +
-      Crimson/Talisman/Transylvania.
+  - **Crimson/Talisman/Transylvania smoke prefixes ADDED (2026-06-13).** All three boot and
+      parse as Apple woz-a-day disks via the existing gameids:
+      - `scripts/crimsoncrown.txt` (`crimsoncrown`, side A) -- party falls through the trap
+        door into the crypt and reaches the crystal-ball cave (marker "On a stalagmite rests
+        a pulsating crystal ball.").
+      - `scripts/talisman.txt` (`talisman`, side 1 Boot) -- WAIT x4 + BOW reprieve cutscene to
+        the King's audience chamber (marker "Ye art a guest in the King's audience chamber.").
+      - `scripts/transylvania.txt` (`transylvania`, 1985 side A) -- answers the guest register,
+        walks to the dark forest, reads the note (marker "Sabrina dies at dawn!"). NOTE: the
+        1982/1984 woz and bare gameid otherwise fall through to DOS tr.gda/novel.exe loading;
+        1985 side A is the clean Apple boot.
+      All verified deterministic (identical transcripts across runs) and wired into
+      `run_walkthroughs.sh` -- **the whole table is now 5/5 PASS** (CM, OO, CC, Talisman, Trans).
+  - STILL TODO: full-completion scripts for CM (jailer-bribe cadence) + OO-Topos (alien-pursuit
+      cadence) + Crimson/Talisman/Transylvania (route counts + werewolf/eagle hazard handling).
 
 ---
 
