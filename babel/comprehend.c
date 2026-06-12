@@ -72,6 +72,8 @@ static struct comprehend_entry comprehend_registry[] = {
     { 0x23000, 0xd9dd, "The Coveted Mirror disk 2 (DSK)" },
     { 0x3957e, 0x695f, "The Coveted Mirror 2.0 side A (WOZ)" },
     { 0x3957e, 0x41c6, "The Coveted Mirror 2.0 side B - boot (WOZ)" },
+    { 0x39539, 0xb77b, "The Coveted Mirror 2.0 side A (WOZ, woz-a-day)" },
+    { 0x39539, 0x530d, "The Coveted Mirror 2.0 side B - boot (WOZ, woz-a-day)" },
 
     /* Talisman: Challenging the Sands of Time (Polarware, 1987) */
     { 0x23000, 0x7467, "Talisman disk 1 - Boot (DSK, 4am crack)" },
