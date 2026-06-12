@@ -189,16 +189,20 @@ Common::String ComprehendGame::stringLookup(uint16 index) {
 			return _strings[string];
 		break;
 
+	case 0x04:
 	case 0x84:
 		// The Coveted Mirror has twelve extra-string banks (MA-ML, up to 768
 		// strings), so it indexes a third sub-table the other games never use.
 		string += 0x100;
 	/* Fall-through */
+	case 0x03:
 	case 0x83:
 		string += 0x100;
 	/* Fall-through */
 	case 0x02:
 	case 0x82:
+		// Item long/short descriptions store the table byte without the high
+		// bit set (0x02/0x03/0x04), the same way instructions use 0x82/0x83/0x84.
 		if (string < _strings2.size())
 			return _strings2[string];
 		break;
