@@ -44,6 +44,13 @@ private:
     // to the new width when the window is resized.
     Common::String _lastRoomDesc;
 
+    // Count of consecutive newlines just written to the bottom buffer window.
+    // Used to collapse runs of newlines so the engine (which is liberal with
+    // '\n') never emits more than two in a row -- i.e. at most one blank line.
+    // Starts at 2 so any leading newlines before the first real output are
+    // suppressed entirely.
+    int _trailingNewlines = 2;
+
 public:
     winid_t _topWindow;     // graphics window (or null if disabled)
     winid_t _statusWindow;  // text grid showing current room description (always visible)
@@ -173,6 +180,11 @@ private:
     void deinitialize();
     void createGame();
     void print_u32_internal(const Common::U32String *fmt, ...);
+
+    // Write to the bottom window stream, collapsing consecutive newlines into
+    // a single one (tracking state across calls via _lastBottomChar).
+    void putBottom(const char *s);
+    void putBottomUni(const glui32 *s);
 };
 
 template<class... TParam>
