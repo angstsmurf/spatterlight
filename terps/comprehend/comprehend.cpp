@@ -184,12 +184,40 @@ void Comprehend::createGame() {
     gmSetLegacyFormat(_gameId == "transylvania" || _gameId == "crimsoncrown");
 }
 
+void Comprehend::putBottom(const char *s) {
+    strid_t stream = glk_window_get_stream(_bottomWindow);
+    for (; *s; ++s) {
+        if (*s == '\n') {
+            if (_trailingNewlines >= 2)
+                continue;  // already a blank line; collapse further newlines
+            ++_trailingNewlines;
+        } else {
+            _trailingNewlines = 0;
+        }
+        glk_put_char_stream(stream, (unsigned char)*s);
+    }
+}
+
+void Comprehend::putBottomUni(const glui32 *s) {
+    strid_t stream = glk_window_get_stream(_bottomWindow);
+    for (; *s; ++s) {
+        if (*s == '\n') {
+            if (_trailingNewlines >= 2)
+                continue;  // already a blank line; collapse further newlines
+            ++_trailingNewlines;
+        } else {
+            _trailingNewlines = 0;
+        }
+        glk_put_char_stream_uni(stream, *s);
+    }
+}
+
 void Comprehend::print(const char *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
     Common::String msg = Common::String::vformat(fmt, argp);
     va_end(argp);
-    glk_put_string_stream(glk_window_get_stream(_bottomWindow), (char *)msg.c_str());
+    putBottom(msg.c_str());
 }
 
 void Comprehend::print_u32_internal(const Common::U32String *fmt, ...) {
@@ -201,8 +229,7 @@ void Comprehend::print_u32_internal(const Common::U32String *fmt, ...) {
 
     // Spatterlight's Glk supports glk_put_string_stream_uni; output 32-bit
     // codepoints directly.
-    glk_put_string_stream_uni(glk_window_get_stream(_bottomWindow),
-                              (glui32 *)out.u32_str());
+    putBottomUni((glui32 *)out.u32_str());
 }
 
 void Comprehend::printRoomDesc(const Common::String &desc) {
@@ -274,6 +301,7 @@ void Comprehend::readLine(char *buffer, size_t maxLen) {
             buffer[--n] = 0;
         glk_put_string(buffer);
         glk_put_char('\n');
+        _trailingNewlines = 1;
         return;
     }
     event_t ev;
@@ -287,6 +315,9 @@ void Comprehend::readLine(char *buffer, size_t maxLen) {
             onArrange();
     }
     buffer[ev.val1] = 0;
+    // Glk echoes the typed line plus a single newline to the buffer; reflect
+    // that one trailing newline so the count stays accurate across the input.
+    _trailingNewlines = 1;
 }
 
 int Comprehend::readChar() {
