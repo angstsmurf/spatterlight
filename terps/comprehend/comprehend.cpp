@@ -212,6 +212,57 @@ void Comprehend::putBottomUni(const glui32 *s) {
     }
 }
 
+void Comprehend::transcript(const char *arg) {
+    // "#transcript off" stops; "#transcript [on]" starts; bare "#transcript"
+    // toggles. (Mirrors the scott/taylor/plus metacommand behaviour.)
+    while (*arg == ' ') ++arg;
+    if (scumm_stricmp(arg, "off") == 0)
+        transcriptOff();
+    else if (scumm_stricmp(arg, "on") == 0)
+        transcriptOn();
+    else if (_transcript)
+        transcriptOff();
+    else
+        transcriptOn();
+}
+
+void Comprehend::transcriptOn() {
+    if (_transcript) {
+        print("A transcript is already active.\n");
+        return;
+    }
+
+    frefid_t ref = glk_fileref_create_by_prompt(
+        fileusage_TextMode | fileusage_Transcript, filemode_Write, 0);
+    if (!ref)
+        return;
+
+    _transcript = glk_stream_open_file_uni(ref, filemode_Write, 0);
+    glk_fileref_destroy(ref);
+
+    if (!_transcript) {
+        print("Failed to create transcript file.\n");
+        return;
+    }
+
+    glk_put_string_stream(_transcript, (char *)"Start of transcript\n\n");
+    print("Transcript is now on.\n");
+    glk_window_set_echo_stream(_bottomWindow, _transcript);
+}
+
+void Comprehend::transcriptOff() {
+    if (!_transcript) {
+        print("No transcript is currently running.\n");
+        return;
+    }
+
+    glk_window_set_echo_stream(_bottomWindow, nullptr);
+    glk_put_string_stream(_transcript, (char *)"\n\nEnd of transcript\n");
+    glk_stream_close(_transcript, nullptr);
+    _transcript = nullptr;
+    print("Transcript is now off.\n");
+}
+
 void Comprehend::print(const char *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);

@@ -924,6 +924,13 @@ turn:
 			return;
 		}
 
+		// #transcript [on|off]: echo game output to a text file.
+		if (scumm_strnicmp(_inputLine, "#transcript", 11) == 0 &&
+			(_inputLine[11] == '\0' || _inputLine[11] == ' ')) {
+			g_comprehend->transcript(_inputLine + 11);
+			continue;
+		}
+
 		_inputLineIndex = 0;
 		if (strlen(_inputLine) == 0) {
 //			// Empty line, so toggle picture window visibility

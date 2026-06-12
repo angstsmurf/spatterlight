@@ -51,6 +51,10 @@ private:
     // suppressed entirely.
     int _trailingNewlines = 2;
 
+    // Open transcript file stream (echo of the bottom window), or null. Driven
+    // by the #transcript metacommand.
+    strid_t _transcript = nullptr;
+
 public:
     winid_t _topWindow;     // graphics window (or null if disabled)
     winid_t _statusWindow;  // text grid showing current room description (always visible)
@@ -185,6 +189,13 @@ private:
     // a single one (tracking state across calls via _lastBottomChar).
     void putBottom(const char *s);
     void putBottomUni(const glui32 *s);
+
+public:
+    // #transcript metacommand: echo the bottom-window output to a text file.
+    // transcript() toggles (or follows an explicit "on"/"off" argument).
+    void transcript(const char *arg);
+    void transcriptOn();
+    void transcriptOff();
 };
 
 template<class... TParam>
