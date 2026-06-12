@@ -689,8 +689,18 @@ void GameData::load_extra_string_file(const StringFile &stringFile) {
 		parse_string_table(&fb, stringFile._baseOffset, endOffset, &_strings2);
 	} else {
 		// Standard strings file. Has a 4-byte header we can ignore,
-		// followed by 64 2-byte string offsets
-		fb.seek(4);
+		// followed by 64 2-byte string offsets.
+		//
+		// The Coveted Mirror's MA-ML banks are the exception: they have NO
+		// header, so the index already starts at byte 0 (verified against the
+		// disk image -- e.g. MJ begins 82 00 84 00 ..., an ascending offset
+		// table from byte 0). Seeking past a non-existent header would read two
+		// real index entries as garbage at each bank's tail, corrupting the
+		// first two strings of the *next* bank (the "examine fish" -> "thvg"
+		// bug: the fish is MJ[1], which fell on MI's out-of-range slot 0x00c8).
+		const bool noHeader = Common::DiskImageFS::active() &&
+		                      g_comprehend->getGameID() == "covetedmirror";
+		fb.seek(noHeader ? 0 : 4);
 		uint fileSize = fb.size();
 
 		// Read in the index
@@ -731,15 +741,12 @@ void GameData::load_extra_string_files() {
 	if (Common::DiskImageFS::active() && g_comprehend->getGameID() == "ootopos")
 		_strings2.push_back("");
 
-	// The Coveted Mirror's MA-ML banks load two entries early relative to the
-	// indices its game data uses (verified against MAME: e.g. the king's
-	// imprisonment message is referenced as 0x83/0x38 -> 312 but decodes at
-	// 310, and the crown/robe long descriptions line up only with this shift),
-	// so prime the array with two leading placeholders.
-	if (Common::DiskImageFS::active() && g_comprehend->getGameID() == "covetedmirror") {
-		_strings2.push_back("");
-		_strings2.push_back("");
-	}
+	// The Coveted Mirror used to load two entries early, which we compensated
+	// for with two leading placeholders. That was masking the real cause: its
+	// MA-ML banks have no 4-byte header, so the old seek(4) dropped the first
+	// two index entries of every bank. load_extra_string_file now reads the CM
+	// index from byte 0, so no placeholder shift is needed (and the per-bank
+	// leading strings, e.g. the fish line MJ[1], now resolve correctly).
 
 	for (uint i = 0; i < _stringFiles.size(); i++) {
 		// OO-Topos pads two banks so its string indices line up; other v2
