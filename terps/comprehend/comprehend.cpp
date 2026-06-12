@@ -160,9 +160,12 @@ void Comprehend::initialize() {
 }
 
 void Comprehend::deinitialize() {
-    if (_topWindow)      glk_window_close(_topWindow, nullptr);
-    if (_statusWindow)   glk_window_close(_statusWindow, nullptr);
-    if (_bottomWindow)   glk_window_close(_bottomWindow, nullptr);
+    // Deliberately do NOT close the windows here. runGame() calls this once,
+    // right before the process exits, so closing every window only wipes the
+    // final screen (e.g. Talisman's "THE END" / death-menu text and picture)
+    // before the player can read it. Leaving the windows open lets Glk's
+    // implicit exit keep the last frame on screen until the player dismisses
+    // it -- the normal Glk convention. The OS reclaims the windows on exit.
 }
 
 void Comprehend::createGame() {
