@@ -248,8 +248,37 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
         1985 side A is the clean Apple boot.
       All verified deterministic (identical transcripts across runs) and wired into
       `run_walkthroughs.sh` -- **the whole table is now 5/5 PASS** (CM, OO, CC, Talisman, Trans).
-  - STILL TODO: full-completion scripts for CM (jailer-bribe cadence) + OO-Topos (alien-pursuit
-      cadence) + Crimson/Talisman/Transylvania (route counts + werewolf/eagle hazard handling).
+  - **CM script EXTENDED through the mid-game with the bribe cadence (2026-06-13).**
+      `scripts/covetedmirror.txt` no longer stops at the constellation puzzle; it now plays the
+      whole early/mid game and **rides the hourglass** -- marker moved to
+      `"Ah, thou hast made a friend for life!"` (the innkeeper's grain reward, deep in the
+      eastern map). New facts pinned while authoring it:
+      - **Barrel hub = "Outskirts of town"** (the south end of the N/S town spine: Northgate ->
+        North Castle St -> Town Square -> South Castle St -> Outskirts -> [S] stockade).
+        `GO BARREL` only works there. The bribe macro from the hub is
+        `GO BARREL, E, WAIT, GIVE <item>, MOVE BED, GO HOLE, GO BARREL` and **returns you to
+        the hub**; it resets sand (var 0x11) to 74 and the barrel scene itself is paused.
+      - The eastern collection loop **passes back through the hub** (3rd `S` from the
+        blacksmith), so a bribe inserts inline without a detour. The committed script bribes
+        twice -- `GIVE AX` early, `GIVE TELESCOPE` before the eastern loop -- and never drops
+        below a healthy margin (measured: sand stays >=40 the whole run).
+      - **Riddle at Winder's is FIXED in this build -> answer `UNCLE`** (the Henry/Margot/Alice
+        kinship variant: "Henry is Adam's uncle"). Ambrosine's `MERMAID` is a *different random
+        variant* that doesn't occur in the deterministic headless run -- don't copy it verbatim.
+      - **Cadence-authoring tool:** drop `if (getenv("CM_DEBUG_SAND")) fprintf(stderr,
+        "[SAND=%d room=%02x]\n", _variables[0x11], _currentRoom);` into
+        `CovetedMirrorGame::beforeTurn()` for a per-turn sand/room trace (used to author the
+        cadence; reverted before commit). `_variables[0x11]` is the live hourglass.
+  - **NEW benign finding: unhandled CM command opcode `0xc6`** fires once, at the **Color Fairy**
+      `MOVE GLASSES` spell grant (room 0x26). The text outcome ("...I'll make thee a color spell")
+      is correct, so it is a no-text engine effect (likely a graphics/spell-register primitive)
+      that `game_opcodes.cpp`'s V2 dispatcher doesn't implement (`warning()` is non-fatal). Worth
+      RE'ing if the color-spell visuals are ever wanted; harmless for text play.
+  - STILL TODO: finish CM past the grain (PICTURE/BEAR side-treasure, the maze, bones/shadow
+      spell, horseshoe/fish/coat, the final mirror pieces) -- needs the random NPC waits
+      (MERMAID/Starina/man-appears) and the `keep going S until the barrel` counts pinned against
+      MAME, plus ~4 more bribes (JUG/PICTURE/BROOM/COOKIE/FLOWER). Also full scripts for OO-Topos
+      (alien-pursuit cadence) + Crimson/Talisman/Transylvania (route counts + hazard handling).
 
 ---
 
