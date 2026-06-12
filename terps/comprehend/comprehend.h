@@ -106,6 +106,9 @@ public:
     void drawLocationPicture(int pictureNum, bool clearBg = true);
     void drawItemPicture(int pictureNum);
     void clearScreen(bool isBright);
+    // Suppress the animated slow-draw reveal for the next drawPicture() calls
+    // (used when repainting an unchanged scene — see _suppressSlowDraw).
+    void setSuppressSlowDraw(bool suppress) { _suppressSlowDraw = suppress; }
     bool toggleGraphics();
     void showGraphics();
     // Logical text/graphics-mode switch that keeps the picture window open
@@ -137,6 +140,12 @@ private:
     // True while a slow-draw reveal is running in the background (timer events
     // are active and the input loops are advancing it tick by tick).
     bool _slowDrawActive;
+
+    // When set, the next drawPicture() paints instantly even if slow-draw is on.
+    // update_graphics() sets this while repainting a scene identical to the one
+    // already on screen (common: an action redraws the room without changing it)
+    // so we don't re-animate the same image, which just looks like a stutter.
+    bool _suppressSlowDraw;
 
     // Advance one timer tick of the background slow-draw reveal and blit the
     // changed rows. Cancels the timer and clears _slowDrawActive when done.

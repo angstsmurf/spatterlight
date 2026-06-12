@@ -45,7 +45,7 @@ Comprehend::Comprehend() :
     _saveSlot(-1), _graphicsEnabled(true), _disableSaves(false), _shouldQuit(false),
     _topWindow(nullptr), _statusWindow(nullptr), _bottomWindow(nullptr),
     _drawSurface(nullptr), _game(nullptr), _pics(nullptr), _drawFlags(0),
-    _pixelSize(SCALE_FACTOR), _slowDrawActive(false) {
+    _pixelSize(SCALE_FACTOR), _slowDrawActive(false), _suppressSlowDraw(false) {
     g_comprehend = this;
 }
 
@@ -332,7 +332,11 @@ void Comprehend::drawPicture(uint pictureNum) {
     // progressively, the way the original painted the page. Record the draw
     // order when the user has slow-draw on (and we aren't replaying a
     // transcript). Only the renderer that actually runs records anything.
-    bool slow = gli_slowdraw && !gli_determinism;
+    //
+    // _suppressSlowDraw is set by update_graphics() when it repaints a scene
+    // identical to the one already on screen: there is nothing new to reveal, so
+    // paint instantly rather than re-animate the same image (looks like a stutter).
+    bool slow = gli_slowdraw && !gli_determinism && !_suppressSlowDraw;
     gmSetSlowDraw(slow);
     hdosSetSlowDraw(slow);
 
