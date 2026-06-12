@@ -191,6 +191,11 @@ void Comprehend::runGame() {
 }
 
 void Comprehend::initialize() {
+    // Centred style for text the original interpreter centres on screen (e.g.
+    // the OO-Topos title credits). Hints must be set before the window opens.
+    glk_stylehint_set(wintype_TextBuffer, style_User1,
+                      stylehint_Justification, stylehint_just_Centered);
+
     _bottomWindow = glk_window_open(nullptr, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     glk_set_window(_bottomWindow);
     _statusWindow = glk_window_open(_bottomWindow,
@@ -330,6 +335,14 @@ void Comprehend::transcriptOff() {
     glk_stream_close(_transcript, nullptr);
     _transcript = nullptr;
     print("Transcript is now off.\n");
+}
+
+void Comprehend::setCentered(bool on) {
+    // Toggle the centred justification style on the buffer window (used for the
+    // title credits). Routed through the same stream putBottom() writes to, so
+    // subsequent console_println() output is centred until switched back.
+    glk_set_style_stream(glk_window_get_stream(_bottomWindow),
+                         on ? style_User1 : style_Normal);
 }
 
 void Comprehend::print(const char *fmt, ...) {

@@ -125,6 +125,7 @@ public:
     void print(const Common::U32String &fmt, TParam... param);
 
     void printRoomDesc(const Common::String &desc);
+    void setCentered(bool on);
     void readLine(char *buffer, size_t maxLen);
     int readChar();
 
