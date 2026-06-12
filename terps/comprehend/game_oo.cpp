@@ -83,8 +83,12 @@ OOToposGame::OOToposGame() : ComprehendGameV2(), _restartMode(RESTART_IMMEDIATE)
 		Common::String md5 = Common::computeStreamMD5AsString(f, 1024);
 		f.close();
 
-		if (md5 == "3fc2072f6996b17d2f21f0a92e53cdcc") {
-			// DOS version from if-archive
+		if (md5 == "3fc2072f6996b17d2f21f0a92e53cdcc" ||
+		    md5 == "5732b346183f85fdd51eb5a75d02196e") {
+			// DOS version from if-archive. The second hash is the same release
+			// with the copy-protection cracked: only five bytes in the loader
+			// header differ, so the string segments are byte-identical and use
+			// the same offsets.
 			_stringFiles.push_back(StringFile("NOVEL.EXE", 0x16564, 0x17640));
 			_stringFiles.push_back(StringFile("NOVEL.EXE", 0x17702, 0x18600));
 			_stringFiles.push_back(StringFile("NOVEL.EXE", 0x186b2, 0x19b80));
