@@ -70,10 +70,13 @@ static struct comprehend_entry comprehend_registry[] = {
      * 1.0 release uses Penguin's earlier engine and is not a Comprehend game. */
     { 0x23000, 0xb0b2, "The Coveted Mirror disk 1 (DSK)" },
     { 0x23000, 0xd9dd, "The Coveted Mirror disk 2 (DSK)" },
-    { 0x3957e, 0x695f, "The Coveted Mirror 2.0 side A (WOZ)" },
-    { 0x3957e, 0x41c6, "The Coveted Mirror 2.0 side B - boot (WOZ)" },
-    { 0x39539, 0xb77b, "The Coveted Mirror 2.0 side A (WOZ, woz-a-day)" },
-    { 0x39539, 0x530d, "The Coveted Mirror 2.0 side B - boot (WOZ, woz-a-day)" },
+    { 0x3957e, 0x695f, "The Coveted Mirror 2.0 side A (WOZ / woz-a-day)" },
+    { 0x3957e, 0x41c6, "The Coveted Mirror 2.0 side B - boot (WOZ / woz-a-day)" },
+    /* NOTE: the "The Coveted Mirror (woz-a-day collection)" images without
+     * the 2.0 tag (0x39539 bytes, chk 0xb77b / 0x530d) are the 1983 original:
+     * a DOS 3.3 disk running Penguin's earlier animated engine (CM.ACTIONS0-3,
+     * CM.MESSAGES, JOUST/FISHGAME/SIGNGAME minigames, .ANM animations), so
+     * they must not be registered here. */
 
     /* Talisman: Challenging the Sands of Time (Polarware, 1987) */
     { 0x23000, 0x7467, "Talisman disk 1 - Boot (DSK, 4am crack)" },
