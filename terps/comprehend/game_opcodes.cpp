@@ -860,6 +860,13 @@ void ComprehendGameV2::execute_opcode(const Instruction *instr, const Sentence *
 		if (articleNum == -1)
 			articleNum = 2;
 
+		// Selecting a word replacement: clear number mode (the original writes
+		// a fresh selector byte with the high bit clear). Without this, a stale
+		// number-mode flag left over from a prior OPCODE_SET_STRING_REPLACEMENT1
+		// makes the '@' marker render as a decimal variable instead of the word
+		// -- e.g. "examine <absent noun>" printed "1 here." instead of
+		// "There isn't one here." after the throne-room insolence message.
+		_replaceWordIsNumber = false;
 		_currentReplaceWord = instr->_operand[0] + articleNum - 1;
 		break;
 	}
