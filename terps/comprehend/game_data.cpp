@@ -731,6 +731,16 @@ void GameData::load_extra_string_files() {
 	if (Common::DiskImageFS::active() && g_comprehend->getGameID() == "ootopos")
 		_strings2.push_back("");
 
+	// The Coveted Mirror's MA-ML banks load two entries early relative to the
+	// indices its game data uses (verified against MAME: e.g. the king's
+	// imprisonment message is referenced as 0x83/0x38 -> 312 but decodes at
+	// 310, and the crown/robe long descriptions line up only with this shift),
+	// so prime the array with two leading placeholders.
+	if (Common::DiskImageFS::active() && g_comprehend->getGameID() == "covetedmirror") {
+		_strings2.push_back("");
+		_strings2.push_back("");
+	}
+
 	for (uint i = 0; i < _stringFiles.size(); i++) {
 		// OO-Topos pads two banks so its string indices line up; other v2
 		// games (e.g. the Apple II Transylvania) must not get that padding.
