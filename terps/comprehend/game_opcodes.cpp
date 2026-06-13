@@ -760,10 +760,10 @@ ComprehendGameV2::ComprehendGameV2() {
 	_opcodeMap[0xe5] = OPCODE_SET_CAN_TAKE;
 	_opcodeMap[0xe9] = OPCODE_CLEAR_CAN_TAKE;
 	_opcodeMap[0xed] = OPCODE_REMOVE_OBJECT;
+	_opcodeMap[0xc6] = OPCODE_SET_OBJECT_GRAPHIC;
 
 #if 0
 	_opcodeMap[0x9e] = OPCODE_INVENTORY_ROOM;
-	_opcodeMap[0xc6] = OPCODE_SET_OBJECT_GRAPHIC;
 	_opcodeMap[0xf0] = OPCODE_DROP_CURRENT_OBJECT;
 	_opcodeMap[0xfc] = OPCODE_REMOVE_CURRENT_OBJECT;
 #endif

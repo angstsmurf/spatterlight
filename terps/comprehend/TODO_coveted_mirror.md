@@ -152,10 +152,16 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       gender. `@`-as-number (`SET_STRING_REPLACEMENT1`) handles the throne count.
   - **Status of the 3 templates**: `S1[25]` both modes confirmed live (renders "There isn't one
       here.", no stale number-mode leak); `S2[312]` count was MAME-confirmed earlier (the
-      doubled "only...only" is genuine). `S1[55]` shares the exact REPLACEMENT3 path as the
-      confirmed `S1[25]` (operand base 4 vs 0) -- couldn't trigger it live (it's a take-handler
-      for items owned/fixed deeper than the smoke-prefix-accessible area; `GET <npc>` gives the
-      generic "Sorry, that won't work." instead), but the mechanism is identical and verified.
+      doubled "only...only" is genuine). **`S1[55]` NOW CONFIRMED LIVE END-TO-END (2026-06-13).**
+      Found the real triggers via a static bytecode scan: five take-handler functions (FUNC
+      62/88/238/264/373) print `_strings[55]` with a preceding `c5 05` (REPLACEMENT3 **base 5** =
+      subject pronouns), reached by verb "take/get" (dict idx 52) + nouns pitcher/book/bottle/
+      stick/necklace. FUNC 88 (book) gates on room **0x2e** (the Abbott's); injecting `GET BOOK`
+      there in the full walkthrough renders **"It's not yours to take."** -- the neuter article
+      (RW[6]="It's", base 5 + articleNum 2). This exercises the base-5 branch that `S1[25]`
+      (base-0 negatives) couldn't, so the whole REPLACEMENT3 gender/article path is now verified
+      at runtime, not just by inspection. No MAME navigation needed (template text + RW table
+      were already byte-matched against the live RAM dump at $b9da).
   - **Dead end ruled out**: `OPCODE_SET_CURRENT_NOUN_STRING_REPLACEMENT` is an `error("TODO")`
       stub, but it is **never mapped to any bytecode byte** in either V1/V2 opcode map -- it is
       unreachable dead code, so it is NOT a latent crash. (error() is non-fatal anyway.)
@@ -269,11 +275,13 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
         "[SAND=%d room=%02x]\n", _variables[0x11], _currentRoom);` into
         `CovetedMirrorGame::beforeTurn()` for a per-turn sand/room trace (used to author the
         cadence; reverted before commit). `_variables[0x11]` is the live hourglass.
-  - **NEW benign finding: unhandled CM command opcode `0xc6`** fires once, at the **Color Fairy**
-      `MOVE GLASSES` spell grant (room 0x26). The text outcome ("...I'll make thee a color spell")
-      is correct, so it is a no-text engine effect (likely a graphics/spell-register primitive)
-      that `game_opcodes.cpp`'s V2 dispatcher doesn't implement (`warning()` is non-fatal). Worth
-      RE'ing if the color-spell visuals are ever wanted; harmless for text play.
+  - **CM command opcode `0xc6` NOW ENABLED (2026-06-13).** It fires at the **Color Fairy**
+      `MOVE GLASSES` spell grant (room 0x26). It is `OPCODE_SET_OBJECT_GRAPHIC` (item->_graphic =
+      operand[1]; flags UPDATE_GRAPHICS) -- the handler already existed in the shared opcode
+      switch but the V2 map left it in an `#if 0` block, so it warned "Unhandled command opcode
+      c6". Mapped it in `ComprehendGameV2::ComprehendGameV2()` (one line; left 0x9e/0xf0/0xfc
+      `#if 0` since those are unverified for V2). Text play is unchanged (graphic-only); the
+      warning is gone; 5/5 walkthroughs still PASS.
   - [x] **CM COMPLETED END-TO-END (2026-06-13).** `scripts/covetedmirror.txt` now plays from the
       throne to **"Congratulations!!"** on the Peak of Shards (the runner's win marker). Required
       RE'ing and implementing three missing ENGINE systems (see section 5 below) plus fixing two
@@ -332,7 +340,11 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       `< 4` bytes, print a clear error and `glk_exit()` instead of parsing garbage. Verified:
       isolated `side A.woz` now exits cleanly (code 0, "No usable game data in 'g0' -- is a
       disk side missing?") instead of aborting; CM/OO-Topos with both sides still boot.
-- [ ] **DOS NOVEL.EXE registry entries** for CM — none yet (Apple-only so far).
+- [N/A] **DOS NOVEL.EXE registry entries** for CM — confirmed not applicable (2026-06-13). No
+      DOS/PC release of The Coveted Mirror exists (checked the local game corpus; only OO-Topos,
+      Transylvania and Talisman ship a DOS `g0`+NOVEL.EXE). `gameIdForMagic`/`guessDosGameId` in
+      `apple2.cpp` already map magic 0x9f8b -> "covetedmirror", so if a DOS CM g0 ever surfaces
+      with the same magic it is auto-detected with no code change; nothing to add.
 
 ---
 
