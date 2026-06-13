@@ -661,25 +661,6 @@ void ComprehendGameV1::execute_opcode(const Instruction *instr, const Sentence *
 		func_set_test_result(func_state, false);
 		break;
 
-	case OPCODE_SET_CURRENT_NOUN_STRING_REPLACEMENT:
-#if 1
-		error("TODO: OPCODE_SET_CURRENT_NOUN_STRING_REPLACEMENT");
-#else
-		/*
-		 * FIXME - Not sure what the operand is for,
-		 * maybe capitalisation?
-		 */
-		if (noun && (noun->_type & WORD_TYPE_NOUN_PLURAL))
-			_currentReplaceWord = 3;
-		else if (noun && (noun->_type & WORD_TYPE_FEMALE))
-			_currentReplaceWord = 0;
-		else if (noun && (noun->_type & WORD_TYPE_MALE))
-			_currentReplaceWord = 1;
-		else
-			_currentReplaceWord = 2;
-#endif
-		break;
-
 	case OPCODE_MOVE_DIR:
 		doMovementVerb(instr->_operand[0]);
 		break;
@@ -876,12 +857,23 @@ void ComprehendGameV2::execute_opcode(const Instruction *instr, const Sentence *
 		break;
 
 	case OPCODE_SET_STRING_REPLACEMENT3: {
-		int articleNum, bits = _wordFlags;
-		for (articleNum = 3; articleNum >= 0; --articleNum, bits <<= 1) {
-			if (bits >= 0x100)
-				break;
-		}
-		if (articleNum == -1)
+		// Pick the article-agreeing replacement word from the current noun's
+		// gender/number flags.  Faithful to the Apple II interpreter's
+		// cm_op_set_replace_word_by_article ($5466): it ASLs cm_current_noun_flags
+		// ($5b6a) up to four times and takes the first carry-out, so the highest
+		// set bit among 7..4 maps to articleNum 3..0, with 2 as the default when
+		// none of those bits is set.  _wordFlags is that nibble (_type & 0xf0) of
+		// the command's first noun, latched in ComprehendGame::read_sentence.
+		int articleNum;
+		if (_wordFlags & 0x80)
+			articleNum = 3;
+		else if (_wordFlags & 0x40)
+			articleNum = 2;
+		else if (_wordFlags & 0x20)
+			articleNum = 1;
+		else if (_wordFlags & 0x10)
+			articleNum = 0;
+		else
 			articleNum = 2;
 
 		// Selecting a word replacement: clear number mode (the original writes
