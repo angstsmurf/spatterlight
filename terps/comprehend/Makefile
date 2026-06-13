@@ -76,7 +76,7 @@ gm_artifact.o: $(SAGADRAW_DIR)/gm_artifact.c $(SAGADRAW_DIR)/gm_artifact.h
 SAGADRAW_SRCS := $(SAGADRAW_DIR)/gm_vector.c $(SAGADRAW_DIR)/gm_artifact.c
 
 clean:
-	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_gmcga_pics test/pixtest test/op5scan test/gmcgatest test/diff_gmcga test/rgbacrc
+	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/gmcgav1test test/pixtest test/op5scan test/gmcgatest test/diff_gmcga test/rgbacrc
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
 # Self-contained: graphics_magician.cpp has no Glk/disk dependencies, so the test
@@ -96,9 +96,16 @@ test/rgbacrc: test/rgbacrc.cpp graphics_magician.cpp graphics_magician.h $(SAGAD
 test/test_gmcga_pics: test/test_gmcga_pics.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_gmcga_pics.cpp graphics_magician_cga.cpp
 
-test: test/test_talisman_pics test/test_gmcga_pics test/rgbacrc
+# --- Regression test: v1 DOS CGA renderer (Crimson Crown / Transylvania v1) ---
+# Same renderer, v1 table-load path: fill tables from PC_GRAPH.OVR, brushes from
+# NOVEL.EXE. Committed slices + DOSBox goldens in test/gmcgav1/.
+test/test_gmcgav1_pics: test/test_gmcgav1_pics.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_gmcgav1_pics.cpp graphics_magician_cga.cpp
+
+test: test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/rgbacrc
 	./test/test_talisman_pics
 	./test/test_gmcga_pics
+	./test/test_gmcgav1_pics
 	./test/rgbacrc
 
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
@@ -114,6 +121,13 @@ test/pixtest: test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read
 #   ./test/gmcgatest NOVEL1.EXE T0 4 title.ppm white
 test/gmcgatest: test/gmcgatest.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/gmcgatest.cpp graphics_magician_cga.cpp
+
+# Developer tool: render one v1 (Crimson Crown / Transylvania v1) picture from a
+# .MS1 file, loading the split v1 tables from PC_GRAPH.OVR + NOVEL.EXE; writes a
+# PPM and optionally pixel-compares against a DOSBox CGA VRAM golden.
+#   ./test/gmcgav1test PC_GRAPH.OVR NOVEL.EXE RA.MS1 0 out.ppm [golden.fb]
+test/gmcgav1test: test/gmcgav1test.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/gmcgav1test.cpp graphics_magician_cga.cpp
 
 # Developer tool: re-render every committed DOS Talisman fixture and report, per
 # scene, the rendered->golden colour-transition histogram, per-row diff bands, a

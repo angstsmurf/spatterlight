@@ -412,17 +412,36 @@ Pics::Pics() : _font(nullptr) {
 	// out of the Penguin Graphics Magician interpreter image (NOVEL.EXE). The
 	// loader locates the tables by signature, so it succeeds for every Comprehend
 	// v2 game that shares the CGA interpreter (Talisman, OO-Topos, Transylvania
-	// v2, The Coveted Mirror) and silently no-ops for the older v1 releases
-	// (Crimson Crown, Transylvania v1) and for any rip that lacks the file.
-	// Pictures route through graphics_magician_cga whenever the tables loaded.
+	// v2, The Coveted Mirror) and silently no-ops for any rip that lacks the file.
+	// The older v1 releases (Crimson Crown, Transylvania v1) split the Graphics
+	// Magician across NOVEL.EXE and PC_GRAPH.OVR: their fill pattern + subindex
+	// tables live in the overlay (not in NOVEL.EXE, where they are BSS built at
+	// overlay load), so the v2 signature scan misses them -- fall back to the v1
+	// loader, which reads the fill tables from PC_GRAPH.OVR and the brushes from
+	// NOVEL.EXE.  Pictures route through graphics_magician_cga whenever the tables
+	// loaded, regardless of which path filled them.
 	if (!Common::DiskImageFS::active()) {
+		std::vector<byte> exeBuf;
 		Common::File exe;
 		if (exe.open("novel.exe") || exe.open("NOVEL.EXE")) {
 			int64 sz = exe.size();
 			if (sz > 0) {
-				std::vector<byte> buf((size_t)sz);
-				if (exe.read(buf.data(), (uint32)sz) == (uint32)sz)
-					gmcgaInstallDrawingTables(buf.data(), (size_t)sz);
+				exeBuf.resize((size_t)sz);
+				if (exe.read(exeBuf.data(), (uint32)sz) != (uint32)sz)
+					exeBuf.clear();
+			}
+		}
+		if (!exeBuf.empty() && !gmcgaInstallDrawingTables(exeBuf.data(), exeBuf.size())) {
+			// v2 tables absent -> try the v1 split layout (needs PC_GRAPH.OVR).
+			Common::File ovr;
+			if (ovr.open("pc_graph.ovr") || ovr.open("PC_GRAPH.OVR")) {
+				int64 osz = ovr.size();
+				if (osz > 0) {
+					std::vector<byte> ovrBuf((size_t)osz);
+					if (ovr.read(ovrBuf.data(), (uint32)osz) == (uint32)osz)
+						gmcgaInstallV1DrawingTables(ovrBuf.data(), ovrBuf.size(),
+													exeBuf.data(), exeBuf.size());
+				}
 			}
 		}
 	}

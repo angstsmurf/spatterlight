@@ -2,7 +2,11 @@
  *
  * DOS/CGA counterpart of graphics_magician.cpp (Apple II); shared by every
  * Comprehend v2 DOS release (Talisman, OO-Topos, Transylvania v2, Coveted
- * Mirror), whose NOVEL.EXE images carry byte-identical CGA drawing tables.
+ * Mirror), whose NOVEL.EXE images carry byte-identical CGA drawing tables, and
+ * by the v1 releases (Crimson Crown, Transylvania v1) via the separate
+ * gmcgaInstallV1DrawingTables() loader -- v1 splits the tables across NOVEL.EXE
+ * (brushes) and PC_GRAPH.OVR (fill pattern + subindex) and uses a 4-phase-byte
+ * fill pattern format, but the opcode interpreter and pixel model are identical.
  *
  * Renders the shared Graphics Magician vector stream into a 280×160, 2-bpp
  * (4-colour) logical framebuffer matching the native picture interpreter in the
@@ -42,7 +46,16 @@ namespace Comprehend {
 // success; sets gmcgaHaveDrawingTables().
 bool gmcgaInstallDrawingTables(const uint8_t *exe, size_t size);
 
-// True after a successful gmcgaInstallDrawingTables() call.
+// Load the drawing tables for the v1 Comprehend DOS releases (Crimson Crown,
+// Transylvania v1).  Their fill pattern + subindex tables live in the
+// PC_GRAPH.OVR overlay (copied to NOVEL.EXE's DGROUP at load), and the brushes
+// in NOVEL.EXE.  Pass both files; each table is located by signature.  Returns
+// true on success; sets gmcgaHaveDrawingTables().  (v1 fill patterns use four
+// explicit column-phase bytes per entry, unlike the v2 period-4 single byte.)
+bool gmcgaInstallV1DrawingTables(const uint8_t *ovr, size_t ovrSize,
+                                 const uint8_t *exe, size_t exeSize);
+
+// True after a successful gmcgaInstall*DrawingTables() call.
 bool gmcgaHaveDrawingTables();
 
 // Clear the 280×160 2-bpp framebuffer.  Pass white=true for a room reset

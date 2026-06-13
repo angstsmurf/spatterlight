@@ -60,9 +60,29 @@ static uint8_t s_fillSubindex[512];   // SET_FILL_COLOR byte -> (even,odd) patte
 static uint8_t s_brushBitmaps[256];   // 8 brushes × 32 bytes
 static uint8_t s_fontGlyphs[96 * 8];  // chars 32-127, 8 bytes each
 
+// v1 (Crimson Crown / Transylvania v1) fill patterns.  Unlike v2 -- where each
+// fill pattern is one period-4 byte the renderer phase-mirrors -- v1 stores 30
+// patterns of FOUR explicit column-phase bytes (period 16 px), indexed by the
+// global CGA byte column mod 4.  s_v1PatRaw keeps the native MSB-first bytes
+// (used by the word-based flood fill, which works in global byte coords);
+// s_v1PatLsb is the mirrored copy the LSB-first framebuffer stores directly.
+// When s_v1 is set, fill_pattern() / pf_pattern_word() use these instead.  The
+// subindex (s_fillSubindex) format is identical to v2 (low=even row, high=odd).
+static uint8_t s_v1PatRaw[30][4];
+static uint8_t s_v1PatLsb[30][4];
+static bool    s_v1 = false;
+
+static inline uint8_t mirror_2bpp_byte(uint8_t b);  // defined below
+
 static bool s_haveDrawingTables = false;
 
 bool gmcgaHaveDrawingTables() { return s_haveDrawingTables; }
+
+// The picture window sits at global CGA byte 5 (x + 20 px); a framebuffer byte
+// at logical column `lb` is global byte lb + 5, so its v1 pattern phase is
+// (lb + 5) & 3 == (lb + 1) & 3.  The flood fill already works in global bytes,
+// so it phases by (global byte) & 3 directly.
+#define V1_LOG_TO_PHASE(lb) (((lb) + 1) & 3)
 
 bool gmcgaInstallDrawingTables(const uint8_t *exe, size_t size) {
     if (!exe)
@@ -131,6 +151,89 @@ bool gmcgaInstallDrawingTables(const uint8_t *exe, size_t size) {
     std::memcpy(s_brushBitmaps, exe + fillBase + kFillToBrush, sizeof(s_brushBitmaps));
     std::memcpy(s_fontGlyphs,   exe + fillBase + kFillToFont,  sizeof(s_fontGlyphs));
 
+    s_v1 = false;
+    s_haveDrawingTables = true;
+    return true;
+}
+
+// Install the drawing tables for the v1 Comprehend DOS releases (Crimson Crown,
+// Transylvania v1).  v1 splits the Graphics Magician across NOVEL.EXE (game
+// logic + the static brush bitmaps) and the PC_GRAPH.OVR overlay (the picture
+// primitives + the fill pattern and subindex tables).  Unlike v2 -- where the
+// whole interpreter and its tables live in NOVEL.EXE and are signature-located
+// there -- v1's fill pattern table is BSS in NOVEL.EXE (built at overlay load by
+// copying it out of PC_GRAPH.OVR), so it is *only* present in the OVR file.  We
+// therefore read the fill tables from the OVR and the brushes from the EXE,
+// each by signature so the offsets resolve across the v1 releases.  (Verified
+// by live DOSBox dump of NOVEL1.EXE + Ghidra; the OVR bytes are byte-identical
+// to the DGROUP copy the engine reads.)
+//
+//   OVR fill pattern table: 30 entries x 4 column-phase bytes, found by the
+//     unmistakable first four entries 00.. aa.. 55.. ff.. (each byte x4).
+//   OVR subindex table:     immediately follows, 109 words (selector -> idx pair).
+//   EXE brushes:            8+ x 32 bytes, located via brush 5 (the filled-circle
+//     default), then backed up 5*32 bytes to brush 0.
+bool gmcgaInstallV1DrawingTables(const uint8_t *ovr, size_t ovrSize,
+                                 const uint8_t *exe, size_t exeSize) {
+    if (!ovr || !exe)
+        return false;
+
+    // Fill pattern table signature: the first four patterns are solid black /
+    // magenta-ish (aa) / cyan-ish (55) / white (ff), each replicated across all
+    // four phase bytes.
+    static const uint8_t kPatSig[] = {
+        0x00,0x00,0x00,0x00, 0xaa,0xaa,0xaa,0xaa,
+        0x55,0x55,0x55,0x55, 0xff,0xff,0xff,0xff,
+    };
+    size_t patBase = SIZE_MAX;
+    for (size_t i = 0; i + sizeof(kPatSig) <= ovrSize; i++) {
+        if (std::memcmp(ovr + i, kPatSig, sizeof(kPatSig)) == 0) {
+            patBase = i;
+            break;
+        }
+    }
+    if (patBase == SIZE_MAX)
+        return false;
+    const size_t kPatBytes = 30 * 4;             // 120
+    const size_t kSubBytes = 109 * 2;            // 218 (selectors 0..108)
+    if (patBase + kPatBytes + kSubBytes > ovrSize)
+        return false;
+
+    for (int idx = 0; idx < 30; idx++) {
+        for (int ph = 0; ph < 4; ph++) {
+            const uint8_t b = ovr[patBase + idx * 4 + ph];
+            s_v1PatRaw[idx][ph] = b;
+            s_v1PatLsb[idx][ph] = mirror_2bpp_byte(b);
+        }
+    }
+    std::memset(s_fillSubindex, 0, sizeof(s_fillSubindex));
+    std::memcpy(s_fillSubindex, ovr + patBase + kPatBytes, kSubBytes);
+
+    // Brush table in NOVEL.EXE: locate brush 5 (filled circle), whose left
+    // column (bytes 0-7) is a distinctive run, then step back to brush 0.
+    static const uint8_t kBrush5Sig[] = {
+        0x00,0x03,0x1f,0x3f,0x3f,0x3f,0x7f,0x7f,
+        0x7f,0x7f,0x3f,0x3f,0x3f,0x1f,0x03,0x00,
+    };
+    size_t b5 = SIZE_MAX;
+    for (size_t i = 0; i + sizeof(kBrush5Sig) <= exeSize; i++) {
+        if (std::memcmp(exe + i, kBrush5Sig, sizeof(kBrush5Sig)) == 0) {
+            b5 = i;
+            break;
+        }
+    }
+    if (b5 == SIZE_MAX || b5 < 5 * 32)
+        return false;
+    const size_t brushBase = b5 - 5 * 32;
+    if (brushBase + sizeof(s_brushBitmaps) > exeSize)
+        return false;
+    std::memcpy(s_brushBitmaps, exe + brushBase, sizeof(s_brushBitmaps));
+
+    // v1 in-picture text comes from CHARSET.GDA (handled by the CharSet path),
+    // not an embedded font, so leave s_fontGlyphs zeroed.
+    std::memset(s_fontGlyphs, 0, sizeof(s_fontGlyphs));
+
+    s_v1 = true;
     s_haveDrawingTables = true;
     return true;
 }
@@ -212,8 +315,14 @@ void gmcgaResetScreen(bool white) {
 // indices; even and odd rows use different ones, which is what makes the
 // two-row CGA dithers (e.g. the cyan/black checkerboard background).  This
 // mirrors FUN_23dd + the per-row pattern fetch in the DOS interpreter.
-static inline uint8_t fill_pattern(uint8_t sel, int y) {
+// `logByte` is the logical framebuffer byte column (x >> 2, 0-based in the 280-px
+// window).  v2 patterns are period-4, so the byte is the same for every column
+// and logByte is ignored; v1 patterns are period-16, so logByte (mapped to its
+// global CGA phase) selects one of the four stored phase bytes.
+static inline uint8_t fill_pattern(uint8_t sel, int y, int logByte) {
     uint8_t sub = s_fillSubindex[(unsigned)sel * 2 + (y & 1)];
+    if (s_v1)
+        return (sub < 30) ? s_v1PatLsb[sub][V1_LOG_TO_PHASE(logByte)] : 0x00;
     return (sub < 76) ? s_fillTable[sub] : 0x00;
 }
 
@@ -226,11 +335,11 @@ static void fill_hline(int y, int l, int r, uint8_t sel) {
     if (r >= GMCGA_WIDTH) r = GMCGA_WIDTH - 1;
     if (l > r) return;
 
-    const uint8_t fb = fill_pattern(sel, y);
     const int base = y * GMCGA_STRIDE;
     int bl = l >> 2, br = r >> 2;
 
     if (bl == br) {
+        const uint8_t fb = fill_pattern(sel, y, bl);
         uint8_t v = s_screenmem[base + bl];
         for (int x = l; x <= r; x++) {
             int shift = (x & 3) << 1;
@@ -241,6 +350,7 @@ static void fill_hline(int y, int l, int r, uint8_t sel) {
     }
     // Left partial byte
     {
+        const uint8_t fb = fill_pattern(sel, y, bl);
         uint8_t v = s_screenmem[base + bl];
         for (int x = l, xe = (bl + 1) << 2; x < xe; x++) {
             int shift = (x & 3) << 1;
@@ -248,10 +358,11 @@ static void fill_hline(int y, int l, int r, uint8_t sel) {
         }
         store_byte(base + bl, v);
     }
-    // Whole bytes in the middle
-    for (int b = bl + 1; b < br; b++) store_byte(base + b, fb);
+    // Whole bytes in the middle (pattern byte may vary per column under v1)
+    for (int b = bl + 1; b < br; b++) store_byte(base + b, fill_pattern(sel, y, b));
     // Right partial byte
     {
+        const uint8_t fb = fill_pattern(sel, y, br);
         uint8_t v = s_screenmem[base + br];
         for (int x = br << 2; x <= r; x++) {
             int shift = (x & 3) << 1;
@@ -357,8 +468,18 @@ static inline bool pf_white(int y, uint8_t B, uint8_t P) {
 // `sel`, in the same byteswapped bit order as pf_get_word.  Row parity picks
 // the even/odd subindex ([0xb031] == 0); both bytes of every pattern entry are
 // equal in this release, so the word is just the byte doubled.
-static inline uint16_t pf_pattern_word(uint8_t sel, int y) {
+// `gb` is the (even) global CGA byte column of the word being painted.  For v2
+// (period-4 patterns) every column is the same byte, so gb is irrelevant; for
+// v1 (period-16) the high byte uses phase gb&3 and the low byte phase (gb+1)&3,
+// matching the global byte column each half of the word lands at.
+static inline uint16_t pf_pattern_word(uint8_t sel, int y, int gb) {
     const uint8_t sub = s_fillSubindex[(unsigned)sel * 2 + (y & 1)];
+    if (s_v1) {
+        if (sub >= 30) return 0;
+        const uint8_t hi = s_v1PatRaw[sub][gb & 3];
+        const uint8_t lo = s_v1PatRaw[sub][(gb + 1) & 3];
+        return (uint16_t)((hi << 8) | lo);
+    }
     const uint8_t m = (sub < 76) ? s_fillTableRaw[sub] : 0x00;
     return (uint16_t)((m << 8) | m);
 }
@@ -412,7 +533,8 @@ static inline uint16_t pf_scan_r(uint16_t A, uint8_t *edge) {
 // FUN_29be: paint the word at (row `y`, byte `gb`): every pixel selected by
 // mask `M` -- always a run of white pixels -- takes the pattern, the rest of
 // the word is preserved ((pat & M) | (S ^ M), exploiting white == all 1s).
-static inline void pf_paint_word(int y, int gb, uint16_t pat, uint16_t S, uint16_t M) {
+static inline void pf_paint_word(int y, int gb, uint8_t sel, uint16_t S, uint16_t M) {
+    const uint16_t pat = pf_pattern_word(sel, y, gb);
     pf_put_word(y, gb, (uint16_t)((pat & M) | (S ^ M)));
 }
 
@@ -421,7 +543,6 @@ static inline void pf_paint_word(int y, int gb, uint16_t pat, uint16_t S, uint16
 // inclusive, first/last white pixel).  Painting is word-at-a-time, masked to
 // the white run found in each word.
 static void pf_scan_paint(PfState &s, uint8_t sel) {
-    const uint16_t pat = pf_pattern_word(sel, s.y);
     int si = s.B;
     s.lP = 0xff;                                         // 0xff = no left edge yet
     uint16_t S = pf_get_word(s.y, si);
@@ -432,13 +553,13 @@ static void pf_scan_paint(PfState &s, uint8_t sel) {
     const uint16_t mL = pf_scan_l((uint16_t)(S | kPfRightOf[seedP]), &s.lP); // [0xb1d0]
     s.P = 8;                                             // 8 = open to the right
     const uint16_t mR = pf_scan_r((uint16_t)(kPfLeftOf[seedP] | S), &s.P);
-    pf_paint_word(s.y, si, pat, S, (uint16_t)(mR & mL)); // 29be
+    pf_paint_word(s.y, si, sel, S, (uint16_t)(mR & mL)); // 29be
 
     while (s.lP == 0xff) {                               // 2d1d: extend left
         si -= 2;
         S = pf_get_word(s.y, si);
         const uint16_t M = pf_scan_l(S, &s.lP);
-        pf_paint_word(s.y, si, pat, S, M);
+        pf_paint_word(s.y, si, sel, S, M);
     }
     {                                                    // 2d43: finalise left edge
         int p = s.lP + 1;
@@ -452,7 +573,7 @@ static void pf_scan_paint(PfState &s, uint8_t sel) {
         si += 2;
         S = pf_get_word(s.y, si);
         const uint16_t M = pf_scan_r(S, &s.P);
-        pf_paint_word(s.y, si, pat, S, M);
+        pf_paint_word(s.y, si, sel, S, M);
     }
     if (s.P == 0) { s.P = 7; si -= 2; }                  // 2d88: last white pixel
     else s.P--;
@@ -700,11 +821,11 @@ static void blit_col(const uint8_t *bytes8, int px, int py, uint8_t fill_sel) {
         if ((unsigned)py >= GMCGA_HEIGHT) continue;
         const uint8_t b = bytes8[row];
         if (!b) continue;
-        const uint8_t fb = fill_pattern(fill_sel, py);
         for (int p = 0; p < 8; p++) {
             if (!((b >> (7 - p)) & 1)) continue;
             const int x = px + p;
             if ((unsigned)x >= GMCGA_WIDTH) continue;
+            const uint8_t fb = fill_pattern(fill_sel, py, x >> 2);
             const uint8_t pix = (fb >> ((x & 3) << 1)) & 0x3;
             write_2bpp(x, py, pix);
         }
@@ -758,11 +879,11 @@ static void draw_glyph(int x, int y, uint8_t ch, bool normal,
         if (!b) continue;
         const int py = y + row;
         if ((unsigned)py >= GMCGA_HEIGHT) continue;
-        const uint8_t fb = normal ? 0 : fill_pattern(fill_sel, py);
         for (int p = 0; p < 8; p++) {
             if (!((b >> (7 - p)) & 1)) continue;
             const int px = x + p;
             if ((unsigned)px >= GMCGA_WIDTH) continue;
+            const uint8_t fb = normal ? 0 : fill_pattern(fill_sel, py, px >> 2);
             const uint8_t pix = normal ? (uint8_t)(read_2bpp(px, py) ^ 0x3)
                                        : (fb >> ((px & 3) << 1)) & 0x3;
             write_2bpp(px, py, pix);
