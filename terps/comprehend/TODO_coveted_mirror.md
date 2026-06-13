@@ -338,17 +338,33 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
         `gmOverlayCMPanel()` re-composites them on top of every in-game picture (not the
         title). Verified rendering on rooms; 5/5 walkthroughs still PASS. RG also holds
         img1 "The End", img2 King Voar, img3 Starina, img4 jouster, img5/6 dice/constellation.
-  - [ ] **Hourglass — REMAINING (user chose pixel-exact port).** NOT a packed image: frame is
-        line-drawn, sand is grain-drawn. Per-turn updater `cm_per_turn_graphics_step` $42f8
-        (reads sand var **0x11 @ $5a61**); grain draw $4347 (ported: xcol=92−⌊i/2⌋ in bands of
-        25, yacc zigzags about 12; addr16=0xc0e9+yacc). Each grain = a GM brush **mini-image**
-        at $439d (`40 60 [mode] [addrhi] [addrlo] [xcol] 00`). **Approach proven:** feeding that
-        stream to our `gmDrawImage` draws a grain at the ported position — BUT the grains render
-        as invisible 0x80 because the real brush relies on the GM engine state ($0876 copies
-        $842 `1c 1d 13 07 07 65 23 03 08 00 00 f1 ff 00 27 00 bf` into zero page before
-        interpreting). REMAINING: replicate that brush setup in `graphics_magician.cpp` so grains
-        stamp the orange pattern, draw grains 1..sand for var 0x11 each turn, plus the static
-        frame. See memory `comprehend-cm-panel`.
+  - [~] **Hourglass GRAINS DONE (2026-06-13); frame + MAME validation open.** The "invisible
+        0x80" was a red herring — not a ZP-state issue, just the ERASE colour. The grain
+        mini-image at $439d (`40 60 [col] [c0/c1] [xlo] [y] 00`) is SET_SHAPE 0 / SET_FILL_COLOR
+        col / DRAW_SHAPE(x,y) / END — a plain op12 brush stamp our renderer already handles.
+        Brush 0 = a single dot ($131d bitmap is all-zero but byte 15). Grain colour = byte $439f:
+        **0x34 → pattern 7 = 0xff = WHITE (draw); 0x35 → pattern 4 = 0x80 = BLACK (erase)**.
+        Tables in cm_ram_raw are at subidx $11cd / patterns $12a5 / brushes $131d.
+        - [x] **`gmDrawCMHourglass(int sand)`** in `graphics_magician.cpp` stamps `sand` white
+              grains; `cmHourglassGrainPos()` is a byte-faithful port of `cm_draw_hourglass_grain`
+              ($4347): scan=92, −25/band, half=(idx mod 25)>>1, even x=245+half / odd x=245−half,
+              y=scan−half. `pics.cpp` calls it after `gmOverlayCMPanel()` with `_variables[0x11]`.
+              Builds clean, 5/5 walkthroughs PASS, grains render white (pixtest `CM_HOURGLASS` env).
+              Ghidra funcs renamed + plate-commented (see memory `comprehend-cm-panel`).
+        - [x] **MAME ground truth CAPTURED (2026-06-13)** — fixtures in `test/cm/`
+              (throne_sand60.page/.png, prison_displayed60.page, hourglass_anatomy.txt, README).
+              Our renderer reproduces the captured page pixel-faithfully. Live MAME addrs match
+              cm_ram_raw: sand var 0x11 @ $5a61, displayed counter @ $42f7; video = hi-res page 1.
+  - [x] **Hourglass DONE — pixel-exact (2026-06-13).** MAME boot trace (watchpoint on mound
+        pixel $2874 + image-index reg $4539) revealed the panel is two GM images: RG image 0 =
+        logo, **OG image 0 = the hourglass** (orange frame posts/bars/bowtie + static bottom
+        mound + neck stream dots). OG0 disk bytes == the live $1700 buffer; our renderer draws
+        all 54 ops cleanly. The draining top-bulb sand is the grain animation
+        (`cm_draw_hourglass_grain` $4347 → `gmDrawCMHourglass`), NOT part of OG0. No baking / no
+        line-draw port needed. `pics.cpp` now composites RG0 + OG0 before capture, then stamps
+        top-bulb grains for var 0x11. VERIFIED pixel-exact vs `test/cm/throne_sand60.page`
+        (0 lit-pixel diffs, cols 24-39 rows 0-146). 5/5 walkthroughs PASS. Optional future
+        polish: animate the per-turn fall (currently the whole top bulb is redrawn each picture).
 - [ ] **King's face animation** — event-driven engine effect (the colour-flash XOR at $4284/
       $428e), not in pic streams. Out of scope unless a faithful idle screen is wanted.
 

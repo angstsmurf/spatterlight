@@ -979,6 +979,70 @@ void gmOverlayCMPanel() {
 	}
 }
 
+// Per-grain position, ported byte-faithfully from cm_draw_hourglass_grain
+// ($4347). `idx` is the grain index (0-based); the original treats idx 0 as a
+// no-op. Returns false for grains that stamp nothing. Apple hi-res x (0..279),
+// y (0..191). The pile is centred at x=245 (column ~35): even grains step right
+// (245+half), odd grains step left (245-half); the grain falls one "band" of 25
+// lower (y -= 1 per band, then y -= half within the band).
+static bool cmHourglassGrainPos(uint8_t idx, uint16_t *outX, uint8_t *outY) {
+	if (idx == 0)
+		return false;
+	uint8_t scan = 0x5c;              // DAT_43a2, the descending y cursor
+	uint8_t b = idx;                  // bVar1
+	while (b >= 0x1a) {               // do { if (b<0x1a) break; b-=0x19; scan--; } while (scan)
+		b -= 0x19;
+		scan--;
+		if (scan == 0)
+			break;
+	}
+	uint8_t half = (uint8_t)(b >> 1); // DAT_00fa
+	uint8_t col;                      // DAT_42f6
+	if (b & 1)
+		col = (uint8_t)(0x0c - half); // odd grain: left of centre
+	else
+		col = (uint8_t)(half + 0x0c); // even grain: right of centre
+	scan = (uint8_t)(scan - half);    // DAT_43a2 -= half
+	uint16_t x = (uint8_t)(col - 0x17);
+	if (col > 0x16)                   // DAT_43a0 = 0xc1: x >= 256
+		x += 256;
+	*outX = x;
+	*outY = scan;
+	return true;
+}
+
+void gmDrawCMHourglass(int sand) {
+	if (sand <= 0)
+		return;
+
+	gm_vector_ctx gv = {};
+	gv.screenmem = s_screenmem;
+	gv.write = gm_write_adapter;
+	gv.user = nullptr;
+	gv.pattern_data = s_patternData;
+	gv.brush_bitmaps = s_brushBitmaps;
+
+	// White grains: the engine's refill path sets SET_FILL_COLOR 0x34, which
+	// maps to pattern sub-index (7,7) = the 0xff (all-pixels-white) pattern. (The
+	// drain path instead uses 0x35 -> pattern 4 = 0x80 = black, to erase the top
+	// grain; we redraw the whole pile each turn, so we only ever paint white.)
+	uint8_t pat_even = s_colorPatternSubindices[0x34 * 2];
+	uint8_t pat_odd = s_colorPatternSubindices[0x34 * 2 + 1];
+
+	// The original draws grains 0..sand-1 (grain 0 is a no-op).
+	for (int idx = 0; idx < sand && idx < 256; idx++) {
+		uint16_t x;
+		uint8_t y;
+		if (!cmHourglassGrainPos((uint8_t)idx, &x, &y))
+			continue;
+		gm_draw_brush(x, y, 0, pat_even, pat_odd, &gv);
+	}
+
+	// Keep the progressively-revealed page in step so either blit path shows the
+	// finished pile (the hourglass is not part of the slow reveal).
+	memcpy(s_slowScreen, s_screenmem, A2_SCREEN_MEM_SIZE);
+}
+
 void gmDrawImage(const uint8_t *data, size_t size) {
 #ifdef GM_TRACE
 	g_imgBase = data;
