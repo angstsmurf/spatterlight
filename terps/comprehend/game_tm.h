@@ -30,6 +30,10 @@ namespace Comprehend {
 class TalismanGame : public ComprehendGameV2 {
 private:
 	Common::String _savedAction;
+
+	// Saved room for the special-opcode 3/4 save/restore pair (NOVEL.EXE
+	// 0x9591). Special 3 stores the current room here; special 4 returns to it.
+	uint8 _savedRoom = 0;
 private:
 	/**
 	 * Load strings from the executable
