@@ -258,9 +258,14 @@ void OOToposGame::handleSpecialOpcode() {
 	case 10:
 		// Checks whether the ship is working
 		checkShipWorking();
+		randomizeGuardLocation();
 		break;
 
 	default:
+		// The original interpreter rolls the guard location for any
+		// special opcode it doesn't otherwise handle (the bytecode only
+		// ever emits 1-10, so this branch is normally unreached).
+		randomizeGuardLocation();
 		break;
 	}
 }
