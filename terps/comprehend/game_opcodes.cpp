@@ -703,7 +703,11 @@ ComprehendGameV2::ComprehendGameV2() {
 	_opcodeMap[0x0a] = OPCODE_VAR_GTE2;
 	_opcodeMap[0x0c] = OPCODE_ELSE;
 	_opcodeMap[0x0d] = OPCODE_VAR_EQ1;
-	_opcodeMap[0x11] = OPCODE_OBJECT_IS_NOWHERE;
+	// 0x11 tests "object is NOT nowhere" (the Apple II Coveted Mirror
+	// interpreter's handler at $51d9 does CMP #$ff / BNE true), so the negated
+	// form 0x51 is "object IS nowhere". ScummVM had this inverted, which (via
+	// 51 35 in FUNC 0002) kept Brother Jon's tavern visit from ever firing.
+	_opcodeMap[0x11] = OPCODE_OBJECT_IS_NOT_NOWHERE;
 	_opcodeMap[0x14] = OPCODE_CURRENT_OBJECT_NOT_VALID;
 	_opcodeMap[0x15] = OPCODE_INVENTORY_FULL_X;
 	_opcodeMap[0x19] = OPCODE_TEST_FLAG;
@@ -789,6 +793,11 @@ void ComprehendGameV2::execute_opcode(const Instruction *instr, const Sentence *
 	func_state->_notComparison = (instr->_opcode & 0x40) != 0;
 
 	switch (_opcodeMap[getOpcode(instr)]) {
+	case OPCODE_OBJECT_IS_NOT_NOWHERE:
+		item = getItem(instr);
+		func_set_test_result(func_state, item->_room != ROOM_NOWHERE);
+		break;
+
 	case OPCODE_CLEAR_INVISIBLE:
 		// The item is the operand, not the raw sentence noun. For the
 		// noun-substituted forms ((opcode & 0x30) == 0x30) the dispatcher has
@@ -826,12 +835,14 @@ void ComprehendGameV2::execute_opcode(const Instruction *instr, const Sentence *
 		break;
 
 	case OPCODE_INVENTORY_FULL_X:
-		item = get_item_by_noun(noun);
-
+		// "Inventory weight exceeds variables[operand 0]" -- a bare weight
+		// limit test with no noun involved. The Coveted Mirror's Apple II
+		// handler ($5265) weighs the inventory and compares it against the
+		// 16-bit variable indexed by the single operand (vars at $5a3f);
+		// e.g. the Perilous Pass squeeze is "15 09": weight > variables[9].
 		weighInventory();
-		func_set_test_result(func_state, _totalInventoryWeight +
-			(item ? (item->_flags & ITEMF_WEIGHT_MASK) : 0) >
-			_variables[instr->_operand[1]]);
+		func_set_test_result(func_state,
+			_totalInventoryWeight > _variables[instr->_operand[0]]);
 		break;
 
 	case OPCODE_MOVE_DIR:
