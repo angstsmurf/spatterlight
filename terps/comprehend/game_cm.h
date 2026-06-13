@@ -43,6 +43,16 @@ public:
 
 	void handleAction(Sentence *sentence) override;
 	void beforeTurn() override;
+	void handleSpecialOpcode() override;
+	bool handle_restart() override;
+
+private:
+	// Last room for which the engine's wandering-NPC spawn was rolled (the
+	// original keeps this in $4037 and only re-rolls on entering a new room).
+	uint8 _lastSpawnRoom = 0;
+
+	void spawnWanderingNPCs();
+	void moveCarriedItemsTo(uint8 room);
 };
 
 } // namespace Comprehend
