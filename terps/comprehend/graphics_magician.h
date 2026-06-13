@@ -91,6 +91,22 @@ bool gmCMPanelValid();
 // interpreter's cm_draw_hourglass_grain ($4347) / cm_per_turn_graphics_step.
 void gmDrawCMHourglass(int sand);
 
+// Per-turn grain-fall animation (The Coveted Mirror). gmDrawCMHourglass() always
+// renders the resting pile at the correct level and, on a single-grain drop,
+// flags that a grain just drained; gmCMHourglassConsumeFallArmed() reports that
+// once the turn's graphics have settled. The host then runs the embellishment --
+// a single freed grain falling down the neck over a few timer frames -- via
+// gmCMHourglassFallBegin() + repeated gmCMHourglassFallStep() (which returns the
+// dirty row band and false when the last frame has cleared the grain).
+// gmCMHourglassFallAbort() snaps to the clean resting state; gmCMHourglassReset()
+// forgets the displayed level so the next draw snaps (after restore/undo/restart).
+void gmCMHourglassReset();
+bool gmCMHourglassConsumeFallArmed();
+void gmCMHourglassFallBegin();
+bool gmCMHourglassFallActive();
+bool gmCMHourglassFallStep(int *y0, int *y1);
+void gmCMHourglassFallAbort();
+
 // Install the Graphics Magician drawing tables (pattern data, fill-colour
 // subindices, brush bitmaps) from the boot disk's "T2" file. T2 is a headerless
 // ProDOS BIN that loads at $0800; the tables sit at fixed addresses inside it.

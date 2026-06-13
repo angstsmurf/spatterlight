@@ -27,6 +27,11 @@ namespace Comprehend {
 #define GM_SLOW_TICK_MS       10
 #define GM_SLOW_BYTES_PER_TICK 50
 
+// The Coveted Mirror grain fall is paced down from the slow-draw tick: one grain
+// step every HG_TICKS_PER_FRAME ticks (~70 ms), so the freed grain takes about
+// half a second to fall through the neck.
+#define HG_TICKS_PER_FRAME    7
+
 // Spatterlight user settings, exported by glkimp (the headless build defines
 // them as 0 in cheapglk). gli_slowdraw enables the animated picture reveal;
 // gli_determinism (regression/replay mode) must suppress it for stable output.
@@ -137,6 +142,7 @@ Common::Error Comprehend::loadGameState(int slot) {
 
     glk_stream_close(str, nullptr);
     clearUndo();  // can't undo across a restore
+    gmCMHourglassReset();  // sand jumps; the next repaint snaps, doesn't animate
     return Common::Error(Common::kNoError);
 }
 
@@ -156,6 +162,7 @@ void Comprehend::deserializeGameState(const std::vector<byte> &in) {
     mem.seek(0, SEEK_SET);
     Common::Serializer s(&mem, nullptr);
     _game->synchronizeSave(s);
+    gmCMHourglassReset();  // undo jumps the sand back; snap, don't animate
 }
 
 void Comprehend::pushUndo() {
@@ -439,14 +446,16 @@ void Comprehend::readLine(char *buffer, size_t maxLen) {
         _trailingNewlines = 1;
         return;
     }
+    maybeStartHourglassFall();
     event_t ev;
     glk_request_line_event(_bottomWindow, buffer, (glui32)(maxLen - 1), 0);
     for (;;) {
         glk_select(&ev);
         if (ev.type == evtype_LineInput) break;
-        if (ev.type == evtype_Timer && _slowDrawActive)
-            tickSlowDraw();
-        else if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+        if (ev.type == evtype_Timer) {
+            if (_slowDrawActive) tickSlowDraw();
+            if (_hourglassFalling) tickHourglass();
+        } else if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
             onArrange();
     }
     buffer[ev.val1] = 0;
@@ -458,15 +467,17 @@ void Comprehend::readLine(char *buffer, size_t maxLen) {
 int Comprehend::readChar() {
     if (scriptFile())
         return ' ';
+    maybeStartHourglassFall();
     glk_request_char_event(_bottomWindow);
     setDisableSaves(true);
     event_t ev;
     ev.type = evtype_None;
     while (ev.type != evtype_CharInput) {
         glk_select(&ev);
-        if (ev.type == evtype_Timer && _slowDrawActive)
-            tickSlowDraw();
-        else if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+        if (ev.type == evtype_Timer) {
+            if (_slowDrawActive) tickSlowDraw();
+            if (_hourglassFalling) tickHourglass();
+        } else if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
             onArrange();
     }
     setDisableSaves(false);
@@ -493,6 +504,15 @@ void Comprehend::drawPicture(uint pictureNum) {
     // Must happen before gmSetSlowDraw/gmcgaSetSlowDraw, which would clear
     // s_recordOps and break the active-renderer check inside finishSlowDraw().
     finishSlowDraw();
+
+    // Likewise snap any in-flight grain fall before repainting -- the new picture
+    // restamps the pile at the current level, so a lingering falling grain from
+    // the previous turn would be drawn over stale geometry.
+    if (_hourglassFalling) {
+        gmCMHourglassFallAbort();
+        _hourglassFalling = false;
+        updateTimerRequest();
+    }
 
     // Both Talisman renderers (Apple II hi-res and DOS CGA) can reveal a picture
     // progressively, the way the original painted the page. Record the draw
@@ -541,8 +561,54 @@ void Comprehend::tickSlowDraw() {
             blitSurfaceRowsToWindow(y0, y1);
     }
     if (!more) {
-        glk_request_timer_events(0);
         _slowDrawActive = false;
+        updateTimerRequest();
+    }
+}
+
+// Request the Glk timer iff some background animation still needs ticking.
+// Both the slow-draw reveal and the grain fall share the one timer, so the last
+// one to finish turns it off.
+void Comprehend::updateTimerRequest() {
+    glk_request_timer_events((_slowDrawActive || _hourglassFalling)
+                             ? GM_SLOW_TICK_MS : 0);
+}
+
+// Start The Coveted Mirror's per-turn grain fall once the turn's graphics have
+// settled (called as input is about to be read). gmDrawCMHourglass() flags a
+// single-grain drop; we animate it only with the picture window open and
+// slow-draw enabled, and only when no room reveal is already running (the room
+// paint-in owns the timer then and the hourglass just snaps, matching the
+// original's behaviour on a room change). The armed flag is consumed either way.
+void Comprehend::maybeStartHourglassFall() {
+    if (!gmCMHourglassConsumeFallArmed())
+        return;
+    if (_hourglassFalling || _slowDrawActive)
+        return;
+    if (!_topWindow || !gli_slowdraw || gli_determinism)
+        return;
+    gmCMHourglassFallBegin();
+    _hourglassFalling = true;
+    _hgTickAccum = 0;
+    updateTimerRequest();
+}
+
+// Advance the grain fall, paced down from the fast slow-draw tick, and blit just
+// the neck band it changed.
+void Comprehend::tickHourglass() {
+    if (++_hgTickAccum < HG_TICKS_PER_FRAME)
+        return;
+    _hgTickAccum = 0;
+
+    int y0, y1;
+    bool more = gmCMHourglassFallStep(&y0, &y1);
+    gmBlitToSurface((uint32 *)_drawSurface->getPixels(),
+                    _drawSurface->w, _drawSurface->h);
+    blitSurfaceRowsToWindow(y0, y1);
+
+    if (!more) {
+        _hourglassFalling = false;
+        updateTimerRequest();
     }
 }
 
@@ -550,8 +616,8 @@ void Comprehend::tickSlowDraw() {
 // fully-drawn page. The caller is responsible for blitting to the window.
 void Comprehend::finishSlowDraw() {
     if (!_slowDrawActive) return;
-    glk_request_timer_events(0);
     _slowDrawActive = false;
+    updateTimerRequest();
     const bool cga = gmcgaSlowDrawActive();
     if (cga) gmcgaFinishSlowDraw(); else gmFinishSlowDraw();
     if (cga)

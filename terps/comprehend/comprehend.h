@@ -189,9 +189,26 @@ private:
     // draw opcodes, scripted cutscenes) so they share one notion of the screen.
     Common::Array<uint> _screenComposition;
 
+    // True while The Coveted Mirror's per-turn grain-fall animation is running.
+    // Shares the same Glk timer as the slow-draw reveal; the input loops advance
+    // whichever is active. _hgTickAccum subdivides the fast slow-draw tick so the
+    // grain steps at a visible pace.
+    bool _hourglassFalling = false;
+    int _hgTickAccum = 0;
+
     // Advance one timer tick of the background slow-draw reveal and blit the
     // changed rows. Cancels the timer and clears _slowDrawActive when done.
     void tickSlowDraw();
+    // Advance the grain-fall animation (paced down from the timer tick) and blit
+    // its dirty band. Clears _hourglassFalling when the fall completes.
+    void tickHourglass();
+    // Start the grain-fall animation if gmDrawCMHourglass() flagged a single-grain
+    // drop this turn -- but only with the picture window open, slow-draw enabled,
+    // and no room reveal already running (the room paint-in owns the timer then,
+    // and the hourglass just snaps, as the original does on a room change).
+    void maybeStartHourglassFall();
+    // Request the Glk timer iff either background animation needs it.
+    void updateTimerRequest();
     // Complete the slow-draw reveal immediately (called before starting a new
     // picture or when the window is resized). Updates _drawSurface to the final
     // fully-drawn page; the caller is responsible for blitting to the window.
