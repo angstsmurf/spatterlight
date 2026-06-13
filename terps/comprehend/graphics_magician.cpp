@@ -958,6 +958,33 @@ static uint8_t s_cmPanel[A2_SCREEN_MEM_SIZE];
 static bool s_cmPanelValid = false;
 static int s_cmPanelCol0 = 24, s_cmPanelCol1 = 39;
 
+// Per-turn grain-fall animation state. The original interpreter
+// (cm_per_turn_graphics_step $42f8) tracks the displayed grain count separately
+// from the live sand variable and, on a normal turn, erases just the one top
+// grain. We mirror that "displayed" counter so we can tell a single-grain
+// per-turn drop (animate the freed grain through the neck) from a big jump
+// (bribe refill to 74, catch, save/restore -> snap to the new level).
+static int s_cmDisplayedSand = -1;   // grains currently shown; -1 = not yet drawn
+static bool s_cmFallArmed = false;   // a single-grain drop is waiting to animate
+static int s_cmFallFrame = -1;       // active fall frame (0..kCMFallFrames); -1 idle
+
+// The freed grain falls down the hourglass neck. gm_draw_brush stamps brush 0
+// (a single dot) with its top-left at (x,y) but the lit pixel lands ~7 px down
+// and right, so a grain queued at (kCMNeckX, plotY) shows at screen
+// (kCMNeckX+7, plotY+7). The resting pile's lowest visible grain is screen row
+// ~99; the neck waist is rows ~100-101; the central sand stream (visible black
+// channel with sparse orange/blue dots) runs ~102-123; the static bottom mound
+// begins ~row 124. We drop the freed grain down that stream over a few frames --
+// an embellishment (the original simply deletes the top grain). The erase band
+// must stay BELOW the pile (top >= 100) so re-overlaying the clean panel each
+// frame never wipes the resting pile above the waist.
+static const int kCMNeckTop = 95;    // first plot y -> screen row ~102 (below waist)
+static const int kCMNeckStep = 4;    // plot-y advance per frame (~4 screen rows)
+static const int kCMFallFrames = 6;  // grain positions; one extra clear frame follows
+static const int kCMNeckX = 245;     // queued x -> screen x 252, the stream centre
+static const int kCMBandTop = 100;   // erase band: waist down to the mound top,
+static const int kCMBandBot = 125;   // clear of the pile (which ends at row ~99)
+
 void gmCaptureCMPanel(int col0, int col1) {
 	memcpy(s_cmPanel, s_screenmem, A2_SCREEN_MEM_SIZE);
 	s_cmPanelCol0 = col0;
@@ -1011,25 +1038,27 @@ static bool cmHourglassGrainPos(uint8_t idx, uint16_t *outX, uint8_t *outY) {
 	return true;
 }
 
-void gmDrawCMHourglass(int sand) {
-	if (sand <= 0)
-		return;
+// White grains use SET_FILL_COLOR 0x34, which maps to pattern sub-index (7,7) =
+// the 0xff (all-pixels-white) pattern. (The original's drain path instead uses
+// 0x35 -> pattern 4 = 0x80 = black, to erase the top grain; we redraw the whole
+// pile each turn, so we only ever paint white.)
+static void cm_grain_brush_ctx(gm_vector_ctx *gv, uint8_t *patEven, uint8_t *patOdd) {
+	*gv = gm_vector_ctx{};
+	gv->screenmem = s_screenmem;
+	gv->write = gm_write_adapter;
+	gv->user = nullptr;
+	gv->pattern_data = s_patternData;
+	gv->brush_bitmaps = s_brushBitmaps;
+	*patEven = s_colorPatternSubindices[0x34 * 2];
+	*patOdd = s_colorPatternSubindices[0x34 * 2 + 1];
+}
 
-	gm_vector_ctx gv = {};
-	gv.screenmem = s_screenmem;
-	gv.write = gm_write_adapter;
-	gv.user = nullptr;
-	gv.pattern_data = s_patternData;
-	gv.brush_bitmaps = s_brushBitmaps;
-
-	// White grains: the engine's refill path sets SET_FILL_COLOR 0x34, which
-	// maps to pattern sub-index (7,7) = the 0xff (all-pixels-white) pattern. (The
-	// drain path instead uses 0x35 -> pattern 4 = 0x80 = black, to erase the top
-	// grain; we redraw the whole pile each turn, so we only ever paint white.)
-	uint8_t pat_even = s_colorPatternSubindices[0x34 * 2];
-	uint8_t pat_odd = s_colorPatternSubindices[0x34 * 2 + 1];
-
-	// The original draws grains 0..sand-1 (grain 0 is a no-op).
+// Stamp the resting pile of `sand` grains onto the current page (the original
+// draws grains 0..sand-1; grain 0 is a no-op).
+static void cm_stamp_hourglass_pile(int sand) {
+	gm_vector_ctx gv;
+	uint8_t pat_even, pat_odd;
+	cm_grain_brush_ctx(&gv, &pat_even, &pat_odd);
 	for (int idx = 0; idx < sand && idx < 256; idx++) {
 		uint16_t x;
 		uint8_t y;
@@ -1037,10 +1066,115 @@ void gmDrawCMHourglass(int sand) {
 			continue;
 		gm_draw_brush(x, y, 0, pat_even, pat_odd, &gv);
 	}
+}
+
+// Restore columns [col0,col1] of the saved static panel (logo + hourglass frame
+// + bottom mound, with NO grains) for rows [y0,y1] onto both pages. Used to wipe
+// the previous animation frame's falling grain before drawing the next.
+static void cmOverlayPanelBand(int y0, int y1) {
+	if (!s_cmPanelValid)
+		return;
+	if (y0 < 0)
+		y0 = 0;
+	if (y1 > APPLE2_SCREEN_HEIGHT - 1)
+		y1 = APPLE2_SCREEN_HEIGHT - 1;
+	for (int row = y0; row <= y1; row++) {
+		uint16_t base = CALC_APPLE2_ADDRESS(row);
+		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
+			s_screenmem[base + col] = s_cmPanel[base + col];
+			s_slowScreen[base + col] = s_cmPanel[base + col];
+		}
+	}
+}
+
+void gmDrawCMHourglass(int sand) {
+	if (sand < 0)
+		sand = 0;
+
+	// Track the displayed level so the host can tell a per-turn single-grain
+	// drop (animate) from a snap (first draw, bribe refill, catch, restore). A
+	// same-level repaint (item overlays redraw the panel mid-turn) leaves the
+	// armed flag alone so a fall queued on the room repaint survives.
+	int prev = s_cmDisplayedSand;
+	if (prev < 0)
+		s_cmFallArmed = false;            // first draw: snap
+	else if (sand == prev - 1)
+		s_cmFallArmed = true;             // normal per-turn drop: animate
+	else if (sand != prev)
+		s_cmFallArmed = false;            // big jump: snap
+	s_cmDisplayedSand = sand;
+
+	cm_stamp_hourglass_pile(sand);
 
 	// Keep the progressively-revealed page in step so either blit path shows the
 	// finished pile (the hourglass is not part of the slow reveal).
 	memcpy(s_slowScreen, s_screenmem, A2_SCREEN_MEM_SIZE);
+}
+
+// Forget the displayed level so the next gmDrawCMHourglass() snaps instead of
+// animating. Called after a restore / undo / restart, where the sand jumps to
+// an unrelated value, and on a fresh panel build.
+void gmCMHourglassReset() {
+	s_cmDisplayedSand = -1;
+	s_cmFallArmed = false;
+	s_cmFallFrame = -1;
+}
+
+// Consume the "a single grain just drained" flag set by gmDrawCMHourglass().
+// The host checks this once the turn's graphics have settled to decide whether
+// to run the falling-grain animation.
+bool gmCMHourglassConsumeFallArmed() {
+	bool armed = s_cmFallArmed;
+	s_cmFallArmed = false;
+	return armed;
+}
+
+// Begin / advance / abort the falling-grain animation. The resting pile is
+// already at the post-drop level (gmDrawCMHourglass stamped it); these only
+// paint the single freed grain travelling down the neck, confined to the band
+// [kCMBandTop,kCMBandBot] so the pile above is never touched.
+void gmCMHourglassFallBegin() {
+	s_cmFallFrame = 0;
+}
+
+bool gmCMHourglassFallActive() {
+	return s_cmFallFrame >= 0;
+}
+
+// Render the current fall frame and advance. Sets *y0/*y1 to the dirty row band.
+// Returns true while more frames remain; the final frame paints no grain (just
+// restores the clean neck) so nothing lingers.
+bool gmCMHourglassFallStep(int *y0, int *y1) {
+	if (s_cmFallFrame < 0) {
+		*y0 = *y1 = 0;
+		return false;
+	}
+	cmOverlayPanelBand(kCMBandTop, kCMBandBot);
+	if (s_cmFallFrame < kCMFallFrames) {
+		gm_vector_ctx gv;
+		uint8_t pat_even, pat_odd;
+		cm_grain_brush_ctx(&gv, &pat_even, &pat_odd);
+		int gy = kCMNeckTop + s_cmFallFrame * kCMNeckStep;
+		if (gy > kCMBandBot)
+			gy = kCMBandBot;
+		gm_draw_brush((uint16_t)kCMNeckX, (uint8_t)gy, 0, pat_even, pat_odd, &gv);
+	}
+	*y0 = kCMBandTop;
+	*y1 = kCMBandBot;
+
+	s_cmFallFrame++;
+	bool more = s_cmFallFrame <= kCMFallFrames;
+	if (!more)
+		s_cmFallFrame = -1;
+	return more;
+}
+
+void gmCMHourglassFallAbort() {
+	if (s_cmFallFrame < 0)
+		return;
+	// Snap to the clean resting state (no falling grain).
+	cmOverlayPanelBand(kCMBandTop, kCMBandBot);
+	s_cmFallFrame = -1;
 }
 
 void gmDrawImage(const uint8_t *data, size_t size) {

@@ -31,6 +31,12 @@ void gmSetPage(const uint8_t *p);
 void gmBlitToSurface(uint32_t *out, int w, int h);
 bool gmInstallDrawingTables(const uint8_t *t2, size_t size);
 void gmDrawCMHourglass(int sand);
+void gmCaptureCMPanel(int col0, int col1);
+void gmOverlayCMPanel();
+bool gmCMHourglassConsumeFallArmed();
+void gmCMHourglassFallBegin();
+bool gmCMHourglassFallActive();
+bool gmCMHourglassFallStep(int *y0, int *y1);
 extern void (*g_gmWriteLog)(uint16_t, uint8_t, char);
 extern void (*g_gmOnOp)(int pos, int op, int b1, int b2, int x, int y);
 }}
@@ -193,8 +199,29 @@ int main(int argc, char **argv) {
 	// Hourglass overlay (CM): after rendering the panel logo (RG index 0), stamp
 	// the sand pile for CM_HOURGLASS grains so it can be dumped/eyeballed.
 	const char *hg = getenv("CM_HOURGLASS");
-	if (hg)
-		gmDrawCMHourglass((int)strtol(hg, nullptr, 0));
+	if (hg) {
+		int sand = (int)strtol(hg, nullptr, 0);
+		// CM_HOURGLASS_FALL=N dumps the Nth grain-fall frame (a debugging aid for
+		// the per-turn animation), faithfully mirroring pics.cpp: the freshly
+		// drawn OG0 (clean hourglass frame, no grains) is captured as the panel,
+		// then the pile is stamped on a clean overlay at the post-drop level, a
+		// single-grain drop is armed, and the fall stepped to frame N. (N >=
+		// kCMFallFrames is the final clear frame, which must leave the neck clean.)
+		const char *fall = getenv("CM_HOURGLASS_FALL");
+		if (fall) {
+			gmCaptureCMPanel(24, 39);          // clean OG0 frame, no grains
+			gmDrawCMHourglass(sand);           // first draw: displayed=sand, no arm
+			gmOverlayCMPanel();                // restore clean, as a new turn does
+			gmDrawCMHourglass(sand - 1);       // drop one grain -> arms the fall
+			gmCMHourglassConsumeFallArmed();
+			gmCMHourglassFallBegin();
+			int want = (int)strtol(fall, nullptr, 0), y0, y1;
+			for (int f = 0; f <= want && gmCMHourglassFallActive(); f++)
+				gmCMHourglassFallStep(&y0, &y1);
+		} else {
+			gmDrawCMHourglass(sand);
+		}
+	}
 
 	if (g_out != stdout) fclose(g_out);
 
