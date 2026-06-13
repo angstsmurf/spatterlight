@@ -25,8 +25,8 @@
 namespace Glk {
 namespace Comprehend {
 
-// TODO: the restart-prompt string index is a placeholder; verify the real
-// value (and the rest of the extra-string banks) once the game is play-tested.
+// The banks contain no restart-prompt string (the original halts on THE END);
+// handle_restart() below prints a literal instead, so this entry is unused.
 static const GameStrings CM_STRINGS = {
 	EXTRA_STRING_TABLE(0)
 };
@@ -128,6 +128,143 @@ void CovetedMirrorGame::handleAction(Sentence *sentence) {
 // beforeTurn with their own per-turn logic and their loops aren't RE-verified
 // here.)
 void CovetedMirrorGame::beforeTurn() {
+}
+
+// The string banks have no restart-prompt text: on THE END (win, or the 15th
+// imprisonment) the original interpreter just freezes the machine. Keep the
+// terp's restart/quit choice, but supply the prompt as a literal instead of
+// printing a bogus bank string.
+bool CovetedMirrorGame::handle_restart() {
+	console_println("Press 'R' to play again, any other key to quit.");
+	_ended = false;
+
+	if (tolower(console_get_key()) == 'r') {
+		loadGame();
+		g_comprehend->clearUndo();
+		_updateFlags = UPDATE_ALL;
+		return true;
+	}
+	g_comprehend->quitGame();
+	return false;
+}
+
+// The Coveted Mirror's wandering NPCs and objects -- Starina, Pete Starnum, the
+// witch outside the castle, the deaf mute, the catchable shadow on the lane by
+// Sue Sew-&-Tuck's, and friends -- are spawned by ENGINE code, not bytecode.
+// RE'd from the live Apple II RAM dump (inside cm_handle_special_opcode, the
+// block at $4150-$4283): each turn, if the player has entered a new room (last
+// spawn room is kept at $4037), the engine removes that room's wanderers and
+// re-rolls one random byte ($5b69) to decide which (if any) reappears:
+//
+//   room 0x2b: items 0x16/0x4f/0x18, each with chance 0x40/0x100; else none
+//   room 0x34: items 0x1f/0x20/0x22 likewise (0x22 = the catchable shadow)
+//   room 0x35: items 0x23/0x24
+//   room 0x38: items 0x27/0x46
+//   room 0x3b: items 0x2b/0x2c
+//   else, a 9-entry room table ($4254: rooms, $425d: 1-based items, $4266:
+//   thresholds): the item appears when random > threshold.
+//
+// This is why walkthroughs say "if Starina is not there, just go N,S,N,S until
+// she shows up": leaving and re-entering re-rolls the spawn. GET SHADOW is
+// gated on item 0x22 being present (FUNC 0ce), so without this engine system
+// the shadow never appears and the witch's brew cannot be completed.
+static const uint8 kWanderRooms[9]  = {0x11, 0x28, 0x22, 0x31, 0x39, 0x49, 0x4d, 0x42, 0x0d};
+static const uint8 kWanderItems[9]  = {0x0a, 0x13, 0x0e, 0x1d, 0x29, 0x36, 0x37, 0x31, 0x4d};
+static const uint8 kWanderThresh[9] = {0x80, 0x4d, 0x4d, 0x4d, 0x4d, 0x4d, 0x80, 0x80, 0x80};
+
+void CovetedMirrorGame::spawnWanderingNPCs() {
+	if (_currentRoom == _lastSpawnRoom)
+		return;
+	_lastSpawnRoom = _currentRoom;
+
+	uint8 r = g_comprehend->getRandomNumber(255);
+
+	// Operands are 1-based item numbers, like the bytecode's.
+	auto vanish = [&](uint8 num) { move_object(get_item(num - 1), ROOM_NOWHERE); };
+	auto appear = [&](uint8 num) { move_object(get_item(num - 1), _currentRoom); };
+
+	switch (_currentRoom) {
+	case 0x2b:
+		vanish(0x16); vanish(0x4f); vanish(0x18);
+		if (r < 0x40) appear(0x16);
+		else if (r < 0x80) appear(0x4f);
+		else if (r < 0xc0) appear(0x18);
+		break;
+	case 0x34:
+		vanish(0x1f); vanish(0x20); vanish(0x22);
+		if (r < 0x40) appear(0x1f);
+		else if (r < 0x80) appear(0x20);
+		else if (r < 0xc0) appear(0x22);
+		break;
+	case 0x35:
+		vanish(0x23); vanish(0x24);
+		if (r < 0x40) appear(0x23);
+		else if (r < 0x80) appear(0x24);
+		break;
+	case 0x38:
+		vanish(0x27); vanish(0x46);
+		if (r < 0x40) appear(0x27);
+		else if (r < 0x80) appear(0x46);
+		break;
+	case 0x3b:
+		vanish(0x2b); vanish(0x2c);
+		if (r < 0x40) appear(0x2b);
+		else if (r < 0x80) appear(0x2c);
+		break;
+	default:
+		for (int i = 0; i < 9; i++)
+			if (kWanderRooms[i] == _currentRoom) {
+				vanish(kWanderItems[i]);
+				if (r > kWanderThresh[i])
+					appear(kWanderItems[i]);
+				break;
+			}
+		break;
+	}
+}
+
+// The original's FUN_426f: walk the whole item table and relocate everything
+// the player carries. Used by special opcode 8 (the tavern pickpockets stash
+// your inventory in room 0x1d) and 0x0c (Voar confiscates your booty to the
+// treasure room 0x5e when you are caught -- see the magician's diary).
+void CovetedMirrorGame::moveCarriedItemsTo(uint8 room) {
+	for (uint i = 0; i < _items.size(); i++)
+		if (_items[i]._room == ROOM_INVENTORY)
+			move_object(&_items[i], room);
+}
+
+// Special opcodes, RE'd from cm_handle_special_opcode ($4140):
+//   1: THE END (win; bytecode has just printed "Congratulations!!")
+//   2: game over (15 strikes: "...THE GAME IS OVER.")
+//   6/7: the jousting/fishing animated side-shows (graphics-only; the
+//        walkthroughs save+restore around them, no game state worth keeping)
+//   8: tavern pickpockets steal the inventory into room 0x1d
+//   9: the colour-spell screen flash (graphics only)
+//   c: confiscate carried items to the treasure room 0x5e
+// The wandering-NPC re-roll runs every turn, special or not, because the
+// original's handler falls through to it unconditionally.
+void CovetedMirrorGame::handleSpecialOpcode() {
+	switch (_specialOpcode) {
+	case 0x01:
+	case 0x02:
+		// Win/lose: both end play; handle_restart offers RESTART/RESTORE/QUIT.
+		game_restart();
+		break;
+
+	case 0x08:
+		moveCarriedItemsTo(0x1d);
+		break;
+
+	case 0x0c:
+		moveCarriedItemsTo(0x5e);
+		break;
+
+	default:
+		break;
+	}
+	_specialOpcode = 0;
+
+	spawnWanderingNPCs();
 }
 
 } // namespace Comprehend
