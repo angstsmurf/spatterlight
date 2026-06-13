@@ -947,6 +947,38 @@ void gmBlitSlowToSurface(uint32_t *out, int w, int h) {
 const uint8_t *gmPagePtr() { return s_screenmem; }
 void gmSetPage(const uint8_t *p) { memcpy(s_screenmem, p, A2_SCREEN_MEM_SIZE); }
 
+// --- The Coveted Mirror persistent right-hand panel ----------------------
+// CM draws a fixed right-hand panel -- the "The Coveted Mirror" logo above an
+// hourglass timer -- into screen columns 24..39 once at boot, then every room
+// picture is drawn into the left columns only, leaving the panel untouched.
+// Our room images are decoded straight from the disk and span the full width,
+// so after each in-game picture we re-composite the saved panel columns on top,
+// reproducing the original's always-present panel.
+static uint8_t s_cmPanel[A2_SCREEN_MEM_SIZE];
+static bool s_cmPanelValid = false;
+static int s_cmPanelCol0 = 24, s_cmPanelCol1 = 39;
+
+void gmCaptureCMPanel(int col0, int col1) {
+	memcpy(s_cmPanel, s_screenmem, A2_SCREEN_MEM_SIZE);
+	s_cmPanelCol0 = col0;
+	s_cmPanelCol1 = col1;
+	s_cmPanelValid = true;
+}
+
+bool gmCMPanelValid() { return s_cmPanelValid; }
+
+void gmOverlayCMPanel() {
+	if (!s_cmPanelValid)
+		return;
+	for (int row = 0; row < APPLE2_SCREEN_HEIGHT; row++) {
+		uint16_t base = CALC_APPLE2_ADDRESS(row);
+		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
+			s_screenmem[base + col] = s_cmPanel[base + col];
+			s_slowScreen[base + col] = s_cmPanel[base + col];
+		}
+	}
+}
+
 void gmDrawImage(const uint8_t *data, size_t size) {
 #ifdef GM_TRACE
 	g_imgBase = data;

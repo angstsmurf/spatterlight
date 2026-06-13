@@ -321,11 +321,36 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
 
 ## 3. LOW — graphics / presentation
 
-- [ ] **Right panel**: the logo + hourglass are engine-drawn (not in pic data) and not
-      implemented in the terp. Decide whether to render or leave blank.
-- [ ] **King's face animation / hourglass tick** — event-driven engine effects (brush
-      blitter $0FFF, XOR mode $1024 in CM's T2), not in pic streams. Out of scope unless
-      a faithful idle screen is wanted.
+- [x] **Title image — FIXED (not committed at time of writing).** CM had no `beforeGame()`
+      override (every sibling game has one), so the T0 title was never drawn — it booted
+      straight into the throne room. Added `CovetedMirrorGame::beforeGame()` (draws
+      TITLE_IMAGE via the existing renderer + centred credits "by Eagle Berns and Holly
+      Thomason" / "Copyright 1986  Polarware/Penguin Software"). The T0 renderer + offset
+      0x100 were already correct. USER-CONFIRMED working in the app.
+- [~] **Right panel** — the persistent right-hand panel (logo above an hourglass) lives in
+      hi-res **columns 24..39**; the engine draws it once at boot and room pictures fill only
+      the left columns. RE'd the CM packed-image format (Graphics Magician op15/0 RLE blit:
+      4 bounds bytes endcol,startcol,endrow,startrow then column-major RLE 0x80,count,value →
+      value×(count+1)); `graphics_magician.cpp` already implements it.
+  - [x] **Logo DONE (from-source).** The logo is **RG image 0** (side-A file RG). `pics.cpp`
+        builds the panel once (renders RG image 0, which clears the page black + blits the
+        logo) and captures columns 24..39 via new `gmCaptureCMPanel(24,39)`, then
+        `gmOverlayCMPanel()` re-composites them on top of every in-game picture (not the
+        title). Verified rendering on rooms; 5/5 walkthroughs still PASS. RG also holds
+        img1 "The End", img2 King Voar, img3 Starina, img4 jouster, img5/6 dice/constellation.
+  - [ ] **Hourglass — REMAINING (user chose pixel-exact port).** NOT a packed image: frame is
+        line-drawn, sand is grain-drawn. Per-turn updater `cm_per_turn_graphics_step` $42f8
+        (reads sand var **0x11 @ $5a61**); grain draw $4347 (ported: xcol=92−⌊i/2⌋ in bands of
+        25, yacc zigzags about 12; addr16=0xc0e9+yacc). Each grain = a GM brush **mini-image**
+        at $439d (`40 60 [mode] [addrhi] [addrlo] [xcol] 00`). **Approach proven:** feeding that
+        stream to our `gmDrawImage` draws a grain at the ported position — BUT the grains render
+        as invisible 0x80 because the real brush relies on the GM engine state ($0876 copies
+        $842 `1c 1d 13 07 07 65 23 03 08 00 00 f1 ff 00 27 00 bf` into zero page before
+        interpreting). REMAINING: replicate that brush setup in `graphics_magician.cpp` so grains
+        stamp the orange pattern, draw grains 1..sand for var 0x11 each turn, plus the static
+        frame. See memory `comprehend-cm-panel`.
+- [ ] **King's face animation** — event-driven engine effect (the colour-flash XOR at $4284/
+      $428e), not in pic streams. Out of scope unless a faithful idle screen is wanted.
 
 ---
 

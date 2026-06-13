@@ -76,6 +76,13 @@ void gmBlitSlowToSurface(uint32_t *out, int w, int h);
 const uint8_t *gmPagePtr();
 void gmSetPage(const uint8_t *page);
 
+// The Coveted Mirror persistent right-hand panel (logo + hourglass). Capture
+// saves columns [col0,col1] of the current page; overlay re-applies them on top
+// of the current page. See gmCaptureCMPanel/gmOverlayCMPanel in the .cpp.
+void gmCaptureCMPanel(int col0, int col1);
+void gmOverlayCMPanel();
+bool gmCMPanelValid();
+
 // Install the Graphics Magician drawing tables (pattern data, fill-colour
 // subindices, brush bitmaps) from the boot disk's "T2" file. T2 is a headerless
 // ProDOS BIN that loads at $0800; the tables sit at fixed addresses inside it.
