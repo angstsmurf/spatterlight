@@ -62,6 +62,27 @@ static uint8_t rgbaToIndex(uint32_t c) {
     return 0;
 }
 
+// Draw picture `pic` out of an already-loaded .MS1 onto the current canvas
+// (no screen reset -- so a second call composites, as the engine does when it
+// stamps an object over a room).  Returns false on a bad index.
+static bool drawMs1Pic(const std::vector<uint8_t> &ms1, int pic) {
+    if (ms1.size() < 4) return false;
+    uint16_t version = (uint16_t)(ms1[0] | (ms1[1] << 8));
+    size_t tableAt = (version == 0x1000) ? 4 : 0;
+    uint16_t off[16];
+    for (int i = 0; i < 16; i++) {
+        size_t p = tableAt + i * 2;
+        off[i] = (uint16_t)(ms1[p] | (ms1[p + 1] << 8));
+        if (version == 0x1000) off[i] += 4;
+    }
+    if (pic < 0 || pic >= 16 || off[pic] >= ms1.size()) {
+        fprintf(stderr, "bad pic index %d (offset %u, size %zu)\n", pic, off[pic], ms1.size());
+        return false;
+    }
+    gmcgaDrawImage(ms1.data() + off[pic], ms1.size() - off[pic]);
+    return true;
+}
+
 int main(int argc, char **argv) {
     if (argc < 6) {
         fprintf(stderr, "usage: %s PC_GRAPH.OVR NOVEL.EXE file.MS1 picIndex out.ppm [golden.fb]\n", argv[0]);
@@ -77,23 +98,33 @@ int main(int argc, char **argv) {
         fprintf(stderr, "gmcgaInstallV1DrawingTables failed\n");
         return 1;
     }
-
-    // Parse the .MS1 offset table.
-    uint16_t version = (uint16_t)(ms1[0] | (ms1[1] << 8));
-    size_t tableAt = (version == 0x1000) ? 4 : 0;
-    uint16_t off[16];
-    for (int i = 0; i < 16; i++) {
-        size_t p = tableAt + i * 2;
-        off[i] = (uint16_t)(ms1[p] | (ms1[p + 1] << 8));
-        if (version == 0x1000) off[i] += 4;
-    }
-    if (pic < 0 || pic >= 16 || off[pic] >= ms1.size()) {
-        fprintf(stderr, "bad pic index %d (offset %u, size %zu)\n", pic, off[pic], ms1.size());
-        return 1;
+    // Optional: load the in-picture font for op3/op5 text (maps) from CHARSET.GDA
+    // passed via the GMCGA_CHARSET env var.
+    if (const char *cs = getenv("GMCGA_CHARSET")) {
+        std::vector<uint8_t> charset = readFile(cs);
+        if (!gmcgaSetV1Font(charset.data(), charset.size()))
+            fprintf(stderr, "gmcgaSetV1Font(%s) failed\n", cs);
+        else
+            fprintf(stderr, "loaded font from %s\n", cs);
     }
 
     gmcgaResetScreen(true); // white cold page, as on a room change
-    gmcgaDrawImage(ms1.data() + off[pic], ms1.size() - off[pic]);
+
+    // Optional base layer: render a room picture first, then composite the
+    // target picture on top of it (no reset between) -- this is how object
+    // pictures are drawn over their room in the engine, and their flood fills
+    // are bounded by the room's geometry.  Set GMCGA_BASE_MS1 + GMCGA_BASE_PIC.
+    if (const char *bms1 = getenv("GMCGA_BASE_MS1")) {
+        std::vector<uint8_t> base = readFile(bms1);
+        int bpic = getenv("GMCGA_BASE_PIC") ? atoi(getenv("GMCGA_BASE_PIC")) : 0;
+        if (base.empty() || !drawMs1Pic(base, bpic)) {
+            fprintf(stderr, "base layer %s pic %d failed\n", bms1, bpic);
+            return 1;
+        }
+        fprintf(stderr, "base layer: %s pic %d\n", bms1, bpic);
+    }
+
+    if (!drawMs1Pic(ms1, pic)) return 1;
 
     std::vector<uint32_t> rgba(PIC_W * PIC_H);
     gmcgaBlitToSurface(rgba.data(), PIC_W, PIC_H);
@@ -126,6 +157,17 @@ int main(int argc, char **argv) {
             printf("compare: %d / %d mismatches%s\n", mism, PIC_W * PIC_H,
                    mism == 0 ? "  PIXEL-EXACT" : "");
             if (mism) printf("  first mismatch at x=%d y=%d\n", first % PIC_W, first / PIC_W);
+            if (mism && getenv("GMCGA_DIFF")) {
+                const char *nm = "kcmw";
+                for (int y = 0; y < PIC_H; y++)
+                    for (int x = 0; x < PIC_W; x++) {
+                        uint8_t got = rgbaToIndex(rgba[y * PIC_W + x]);
+                        uint8_t exp = golden[y * 320 + (x + 20)];
+                        if (got != exp)
+                            printf("    x=%d y=%d gx=%d byte=%d ph=%d render=%c golden=%c\n",
+                                   x, y, x + 20, (x + 20) >> 2, (x + 20) & 3, nm[got], nm[exp]);
+                    }
+            }
         }
     }
     return 0;

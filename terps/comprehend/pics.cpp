@@ -438,9 +438,21 @@ Pics::Pics() : _font(nullptr) {
 				int64 osz = ovr.size();
 				if (osz > 0) {
 					std::vector<byte> ovrBuf((size_t)osz);
-					if (ovr.read(ovrBuf.data(), (uint32)osz) == (uint32)osz)
+					if (ovr.read(ovrBuf.data(), (uint32)osz) == (uint32)osz &&
 						gmcgaInstallV1DrawingTables(ovrBuf.data(), ovrBuf.size(),
-													exeBuf.data(), exeBuf.size());
+													exeBuf.data(), exeBuf.size())) {
+						// v1 NOVEL.EXE has no embedded picture font; its op3/op5
+						// glyphs (map labels) come from CHARSET.GDA.
+						Common::File cs;
+						if (cs.open("charset.gda") || cs.open("CHARSET.GDA")) {
+							int64 csz = cs.size();
+							if (csz > 0) {
+								std::vector<byte> csBuf((size_t)csz);
+								if (cs.read(csBuf.data(), (uint32)csz) == (uint32)csz)
+									gmcgaSetV1Font(csBuf.data(), csBuf.size());
+							}
+						}
+					}
 				}
 			}
 		}

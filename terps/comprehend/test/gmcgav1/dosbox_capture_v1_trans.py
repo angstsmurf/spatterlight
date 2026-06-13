@@ -9,16 +9,14 @@ de-interleaves the .fb to 320x200 indices and compares the 280x160 window.
 import sys, os, time
 sys.path.insert(0, "/Users/administrator/dosbox-x-remotedebug/tests/integration")
 
-GAME = "/Users/administrator/Downloads/comprehend games/crimson-crown"
+GAME = "/Users/administrator/Downloads/comprehend games/transylvania"
 OUT  = os.path.dirname(os.path.abspath(__file__))
 CONF = "/tmp/cc_v1_capture.conf"
 
 # (name, [commands to reach it from the start room], settle seconds)
 ROOMS = [
-    ("lakeshore", [],            4),   # start room (after title)
-    ("woods",     ["go east\r"], 4),
-    ("crypt",     ["go east\rgo north\n"], 4),
-    ("cave",    ["go east\rgo north\ngo west\n"], 4),
+    ("trans1", [],            4),   # start room (after title)
+    ("trans2",     ["Petter\rSanna\r"], 4),
 ]
 
 
