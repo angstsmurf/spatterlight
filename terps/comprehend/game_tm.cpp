@@ -230,12 +230,41 @@ void TalismanGame::handleSpecialOpcode() {
 		deathMenu();
 		break;
 
+	case 3:
+		// Save the current room (NOVEL.EXE FUN_1000_06f0 case 3:
+		// [0x9591] = [0x9592], where 0x9592 mirrors the start-of-turn room).
+		// Paired with special 4, this lets the game whisk the player away for a
+		// scripted scene and then return them to where they were.
+		_savedRoom = _currentRoomCopy;
+		break;
+
+	case 4:
+		// Return to the room saved by special 3 (NOVEL.EXE case 4:
+		// currentRoom = [0x9591]).
+		_currentRoom = _savedRoom;
+		_updateFlags |= UPDATE_GRAPHICS | UPDATE_ROOM_DESC;
+		break;
+
+	case 5:
+		// NOVEL.EXE's dispatcher has no case 5; the bytecode emits it but the
+		// original interpreter does nothing, so this is a faithful no-op (it is
+		// listed explicitly only to suppress the unhandled-opcode warning).
+		break;
+
 	case 6:
 		game_save();
 		break;
 
 	case 7:
 		game_restore();
+		break;
+
+	case 9:
+		// NOVEL.EXE case 9 toggles bit 0 of an interpreter-internal byte
+		// (0x9d5b) that is read only by the DOS picture interpreter
+		// (1000:2e25) to pick a drawing parameter. It has no analogue in our
+		// renderer, so this is a deliberate no-op (handled to avoid the
+		// unhandled-opcode warning).
 		break;
 
 	case 15:
@@ -249,6 +278,18 @@ void TalismanGame::handleSpecialOpcode() {
 		_redoLine = REDO_TURN;
 		break;
 
+	case 16:
+		// Scripted scene (NOVEL.EXE case 16): move to room 0x33 (51), make sure
+		// graphics are on, then run function 44 in that room and redo the turn,
+		// the same shape as the text/graphics-mode specials above.
+		_currentRoom = 51;
+		if (!g_comprehend->isGraphicsEnabled())
+			g_comprehend->setGraphicsMode(true);
+		_functionNum = 44;
+		handleAction(nullptr);
+		_redoLine = REDO_TURN;
+		break;
+
 	case 17:
 		// Switch to graphics mode
 		if (!g_comprehend->isGraphicsEnabled())
@@ -257,6 +298,16 @@ void TalismanGame::handleSpecialOpcode() {
 		_updateFlags |= UPDATE_ALL;
 		update();
 		_redoLine = REDO_TURN;
+		break;
+
+	case 20:
+		// NOVEL.EXE case 20 runs function 16 when the interpreter is in normal
+		// turn mode ([0x35e7] == 2, which is the case whenever a special opcode
+		// fires during play); the surrounding 0x9593/0x35db bookkeeping is
+		// interpreter scratch that no bytecode reads, so only the function call
+		// is observable.
+		_functionNum = 16;
+		handleAction(nullptr);
 		break;
 
 	default:
