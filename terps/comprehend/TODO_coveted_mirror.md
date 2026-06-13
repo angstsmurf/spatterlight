@@ -274,11 +274,40 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       is correct, so it is a no-text engine effect (likely a graphics/spell-register primitive)
       that `game_opcodes.cpp`'s V2 dispatcher doesn't implement (`warning()` is non-fatal). Worth
       RE'ing if the color-spell visuals are ever wanted; harmless for text play.
-  - STILL TODO: finish CM past the grain (PICTURE/BEAR side-treasure, the maze, bones/shadow
-      spell, horseshoe/fish/coat, the final mirror pieces) -- needs the random NPC waits
-      (MERMAID/Starina/man-appears) and the `keep going S until the barrel` counts pinned against
-      MAME, plus ~4 more bribes (JUG/PICTURE/BROOM/COOKIE/FLOWER). Also full scripts for OO-Topos
-      (alien-pursuit cadence) + Crimson/Talisman/Transylvania (route counts + hazard handling).
+  - [x] **CM COMPLETED END-TO-END (2026-06-13).** `scripts/covetedmirror.txt` now plays from the
+      throne to **"Congratulations!!"** on the Peak of Shards (the runner's win marker). Required
+      RE'ing and implementing three missing ENGINE systems (see section 5 below) plus fixing two
+      V2 opcode-fidelity bugs. The 5-game PASS table still holds. Remaining script work is only
+      the other games' full completions (OO alien-pursuit cadence, CC/Talisman/Trans routes).
+  - Full-game mechanics, all RE'd from cm_ram_raw + the parsed bytecode (operands are 1-BASED
+      item numbers; PRINT string refs are `(idx, 8x)` with 0x82→S2[idx], 0x83→S2[idx+0x100],
+      0x84→S2[idx+0x200]):
+      - **Mirror pieces**: var 7 counts them, 4 needed (var 8). Rooms: maze treasure area 0x57
+        (GET MIRROR), colorful art room 0x16 (USE COLOR SPELL, FUNC 151), prison cell 0x01
+        (EXAMINE MIRROR; needs flag 0x15 from GIVE HORSESHOE to the WAIT-summoned man in castle
+        room 0x0d -- the "piece is right in thy room" riddle), castle chapel 0x0b (EXAMINE
+        MIRROR; needs flag 2 from READ BOOK at the Abbott's 0x2e, which needs **WEAR MEDALLION**
+        (flag 0x1b) -- the alcove medallion's whole purpose; the Abbott "recognizes your
+        medallion and leaves quietly").
+      - **Brother Jon**: when var7==var8(4), FUNC 0002 moves him into the tavern 0x24 and removes
+        the pickpocket trio; TALK (medallion OFF -- it makes townsfolk avoid you) = the sign
+        class + the RING (sets flag 9, thieves return).
+      - **Deaf mute**: WAIT at the Forest of No Return's edge 0x42 (E of the well) summons him;
+        WEAR RING (flag 0x26, FUNC 147) then TALK sets flag 4; the Impenetrable Mist (0x46,
+        FUNC 00f movement handler) then auto-guides you to the bridge.
+      - **Endgame**: drop to weight <= var[9] for the Perilous Pass squeeze 0x4c, WEAR COAT
+        (from Sue's, GIVE FISH) for the freezing summit, plateau 0x51: WAIT x7 cycles var 0x18
+        through the shard slots, GET MIRROR wins when var18==var1b(7) -> "Congratulations!!" +
+        SPECIAL 1; a wrong GET = eagle alarm, teleport to Voar, var18=0.
+      - **Sand economy**: catch at sand==0 (not 14), warning at 24 (var 0x0b). Bribe values are
+        per-item vars (ax 74, telescope 124, jug/picture ~96, broom only ~21, cookies ~72).
+        WAIT in the cell summons Boris and ZEROES the sand; two WAITs make him doze off
+        ("As the day waxeth late") for a no-item 35-sand refill (var 0x64). **Bernt's cookies
+        (GIVE MOOSE at the bakery 0x32, E of South Castle St) are infinitely refillable**
+        ("just help thyself") -- the renewable bribe that funds the endgame.
+      - **PICTURE "puzzle" is a red herring**: GET PICTURE at Lady Vainly's (0x3c) ALWAYS
+        succeeds (FUNC 115 takes it, then prints the "Admire it well" flavor line). Ambrosine's
+        "BEAR" step is noise/another variant. Verified in MAME, identical behaviour.
 
 ---
 
@@ -304,6 +333,40 @@ Headless harness: `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "
       isolated `side A.woz` now exits cleanly (code 0, "No usable game data in 'g0' -- is a
       disk side missing?") instead of aborting; CM/OO-Topos with both sides still boot.
 - [ ] **DOS NOVEL.EXE registry entries** for CM — none yet (Apple-only so far).
+
+---
+
+## 5. Engine systems implemented & opcode fixes (2026-06-13)
+
+- [x] **Wandering-NPC spawn engine** (`game_cm.cpp:spawnWanderingNPCs`, RE'd from the room-entry
+      block inside `cm_handle_special_opcode` $4150-$4283): on entering a NEW room (last spawn
+      room = $4037) the engine removes that room's wanderers and rolls $5b69 to respawn one.
+      Hardcoded: room 0x2b {witch et al 0x16/0x4f/0x18}, **0x34 {0x1f/0x20/0x22 -- 0x22 is the
+      catchable SHADOW** (GET SHADOW = FUNC 0ce: needs it present + the vase; "sealed in the
+      vase")}, 0x35 {0x23/0x24}, 0x38 {0x27/0x46}, 0x3b {0x2b/0x2c}, else a 9-room table
+      ($4254/$425d/$4266: rooms/items/thresholds, appear when rand > threshold). This is the
+      "go N,S,N,S until Starina shows up" mechanic; without it the shadow NEVER appears and the
+      witch's brew (bones + shadow -> in/visibility spells) is unobtainable.
+- [x] **Special opcodes** (`game_cm.cpp:handleSpecialOpcode`, from $4140): 1 = THE END win,
+      2 = 15-strike game over (both -> restart/quit prompt; the banks have NO restart string --
+      the original freezes -- so `handle_restart` prints a literal), 8 = tavern pickpockets move
+      ALL carried items to room 0x1d, 0xc = Voar confiscates carried items to the treasure room
+      0x5e (= the maze treasure room; matches the magician's diary), 6/7 = jousting/fishing
+      animated side-shows (graphics-only, not implemented), 9 = colour-spell flash (graphics).
+- [x] **V2 opcode 0x11 was INVERTED** (upstream ScummVM bug): the original handler ($51d9,
+      dispatch table $5021/handlers $4f93) is `CMP #$ff / BNE -> true` = OBJECT_IS_**NOT**_NOWHERE;
+      0x51 (|0x40) is the nowhere test. ScummVM's V2 map had OBJECT_IS_NOWHERE (and no V2
+      executor case at all, so it errored). Fixed; this is what gates Brother Jon's arrival
+      (`51 35` = "Jon is nowhere" in FUNC 0002).
+- [x] **V2 opcode 0x15 (INVENTORY_FULL_X) fixed**: the original ($5265) is "total inventory
+      weight > variables[operand0]" (vars at $5a3f, 2 bytes each) -- no noun weight, limit from
+      operand 0 (the Perilous Pass squeeze is `15 09`). ScummVM added the noun's weight and read
+      the limit from operand[1] (always 0 here), which blocked the pass with ANY item carried.
+- [x] Misc RE anchors: VM variables base **$5a3f** (16-bit each); VAR_EQ2/VAR_ADD etc. are
+      var-vs-VAR (the engine stores constants in variables: var8=4 pieces, var9=squeeze limit,
+      var 0x0b=24 warning, var 0x0e=0 catch, var 0x64=35 doze refill, var1b=7 winning shard).
+      FUNC 066 = the giant TALK/examine dispatcher; FUNC 00f = the per-room movement overrides
+      (mist guide gate, cold rooms 0x4d/0x4e -> throne traps, squeeze, peak exits).
 
 ---
 

@@ -13,10 +13,10 @@
 # script has driven the game to that point -- exactly as the geas runner's
 # --win does. Exit status is 0 only if every present game passes.
 #
-# NOTE on coverage: the Coveted Mirror entry is a timeout-free *smoke* prefix
-# (its hourglass ticks per turn even headless, so a full run must bribe the
-# jailer on a strict cadence). Fleshing the other games out to full-completion
-# scripts is follow-up work; add entries here as those scripts are written.
+# NOTE on coverage: the Coveted Mirror entry is a FULL playthrough to the win
+# ("Congratulations!!"), riding the hourglass bribe cadence the whole way. The
+# other games are smoke prefixes; fleshing them out to full-completion scripts
+# is follow-up work.
 set -u
 
 here=$(cd "$(dirname "$0")" && pwd)
@@ -49,7 +49,7 @@ play() {
 play CovetedMirror covetedmirror \
     "The Coveted Mirror 2.0 (woz-a-day collection)/The Coveted Mirror 2.0 side B (boot).woz" \
     covetedmirror.txt \
-    "Ah, thou hast made a friend for life!"
+    "Congratulations!!"
 
 play OoTopos ootopos \
     "Oo-Topos (woz-a-day collection)/Oo-Topos side B.woz" \
