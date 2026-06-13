@@ -83,6 +83,14 @@ void gmCaptureCMPanel(int col0, int col1);
 void gmOverlayCMPanel();
 bool gmCMPanelValid();
 
+// Stamp the hourglass sand pile for The Coveted Mirror. `sand` is the live VM
+// hourglass variable (0x11): the engine shows that many grains, draining one per
+// turn. Each grain is a single-dot brush (brush 0) painted white at the position
+// the original computes per grain index; call after gmOverlayCMPanel() so the
+// pile sits on top of the static panel. Ported byte-faithfully from the Apple II
+// interpreter's cm_draw_hourglass_grain ($4347) / cm_per_turn_graphics_step.
+void gmDrawCMHourglass(int sand);
+
 // Install the Graphics Magician drawing tables (pattern data, fill-colour
 // subindices, brush bitmaps) from the boot disk's "T2" file. T2 is a headerless
 // ProDOS BIN that loads at $0800; the tables sit at fixed addresses inside it.

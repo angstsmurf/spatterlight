@@ -530,13 +530,23 @@ void Pics::drawPicture(int pictureNum) const {
 		// logo above an hourglass) in screen columns 24..39, drawn once at boot
 		// while room pictures fill only the left columns. Our room images span
 		// the full width, so we save the panel columns the first time we need
-		// them (from RG image 0, which clears the page and blits the logo) and
-		// re-composite them on top of every in-game picture below.
+		// them and re-composite them on top of every in-game picture below.
+		//
+		// The original boot draws the panel as two Graphics Magician images, in
+		// order (confirmed by tracing the real Apple II in MAME): RG image 0 is
+		// the "The Coveted Mirror" logo, then OG image 0 is the hourglass frame
+		// (posts, bars, bowtie glass + the static bottom-bulb mound). The
+		// draining top-bulb sand is NOT part of OG0 -- it is grain-drawn each turn
+		// by gmDrawCMHourglass() on top. Compositing RG0 + OG0 here reproduces the
+		// static panel pixel-exactly (verified byte-for-byte vs the MAME capture
+		// in test/cm/throne_sand60.page).
 		static bool s_cmPanelBuilt = false;
 		bool isCM = g_comprehend->getGameID() == "covetedmirror";
-		if (isCM && !s_cmPanelBuilt && pictureNum != TITLE_IMAGE && !_rooms.empty()) {
+		if (isCM && !s_cmPanelBuilt && pictureNum != TITLE_IMAGE &&
+		    !_rooms.empty() && !_items.empty()) {
 			gmResetScreen(false);
-			_rooms[_rooms.size() - 1].renderApple(0); // RG = last location file
+			_rooms[_rooms.size() - 1].renderApple(0); // RG = last location file: logo
+			_items[_items.size() - 1].renderApple(0); // OG = last item file: hourglass
 			gmCaptureCMPanel(24, 39);
 			s_cmPanelBuilt = true;
 		}
@@ -568,9 +578,14 @@ void Pics::drawPicture(int pictureNum) const {
 		}
 
 		// Re-apply The Coveted Mirror's persistent panel on top of the room/item
-		// just drawn (the title screen has no panel).
-		if (isCM && pictureNum != TITLE_IMAGE)
+		// just drawn (the title screen has no panel), then stamp the hourglass
+		// sand pile for the current sand level (VM variable 0x11): the engine
+		// shows that many grains and drains one per turn.
+		if (isCM && pictureNum != TITLE_IMAGE) {
 			gmOverlayCMPanel();
+			if (ComprehendGame *game = g_comprehend->getGame())
+				gmDrawCMHourglass(game->_variables[0x11]);
+		}
 
 		// With slow-draw active the page is revealed a chunk at a time by the
 		// host (Comprehend::drawPicture); blit only what is on the visible page

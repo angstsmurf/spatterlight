@@ -30,6 +30,7 @@ const uint8_t *gmPagePtr();
 void gmSetPage(const uint8_t *p);
 void gmBlitToSurface(uint32_t *out, int w, int h);
 bool gmInstallDrawingTables(const uint8_t *t2, size_t size);
+void gmDrawCMHourglass(int sand);
 extern void (*g_gmWriteLog)(uint16_t, uint8_t, char);
 extern void (*g_gmOnOp)(int pos, int op, int b1, int b2, int x, int y);
 }}
@@ -178,7 +179,9 @@ int main(int argc, char **argv) {
 	}
 
 	// Reset to a white page (room background) like drawPicture() for a fresh room.
-	gmResetScreen(true);
+	// PIXTEST_BLACK=1 starts from black instead (the CM panel background), so
+	// white-on-white sand stays visible.
+	gmResetScreen(getenv("PIXTEST_BLACK") == nullptr);
 	const char *otp = getenv("PIXTEST_OPTRACE");
 	if (otp) { g_optrace = fopen(otp, "w"); g_gmOnOp = onOp; }
 	g_gmWriteLog = logWrite;
@@ -186,6 +189,12 @@ int main(int argc, char **argv) {
 	g_gmWriteLog = nullptr;
 	g_gmOnOp = nullptr;
 	if (g_optrace) fclose(g_optrace);
+
+	// Hourglass overlay (CM): after rendering the panel logo (RG index 0), stamp
+	// the sand pile for CM_HOURGLASS grains so it can be dumped/eyeballed.
+	const char *hg = getenv("CM_HOURGLASS");
+	if (hg)
+		gmDrawCMHourglass((int)strtol(hg, nullptr, 0));
 
 	if (g_out != stdout) fclose(g_out);
 
