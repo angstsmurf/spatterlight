@@ -39,6 +39,7 @@ void Sentence::clear() {
 
 	_nr_words = 0;
 	_specialOpcodeVal2 = 0;
+	_wordFlags = 0;
 }
 
 void Sentence::copyFrom(const Sentence &src, bool copyNoun) {
@@ -49,6 +50,7 @@ void Sentence::copyFrom(const Sentence &src, bool copyNoun) {
 void Sentence::format() {
 	for (uint idx = 0; idx < 6; ++idx)
 		_formattedWords[idx] = 0;
+	_wordFlags = 0;
 	byte wordTypes[5] = { 0, 0, 0, 0, 0 };
 
 	for (uint idx = 0; idx < _nr_words; ++idx) {
@@ -109,6 +111,11 @@ void Sentence::format() {
 			}
 		}
 	}
+
+	// The first noun slot's gender/number nibble drives article agreement for
+	// the @-replacement words (OPCODE_SET_STRING_REPLACEMENT3).  Mirrors the
+	// Apple II cm_format_sentence_words setting cm_current_noun_flags ($5b6a).
+	_wordFlags = wordTypes[2];
 }
 
 /*-------------------------------------------------------*/
@@ -894,6 +901,11 @@ void ComprehendGame::read_sentence(Sentence *sentence) {
 
 	parse_sentence_word_pairs(sentence);
 	sentence->format();
+
+	// Latch the command's first-noun flags so they persist through this turn's
+	// function/daemon opcode execution (the article picker runs later, and may
+	// run with a null sentence).  Faithful to the Apple II global $5b6a.
+	_wordFlags = sentence->_wordFlags;
 
 	_inputLineIndex = p - _inputLine;
 }

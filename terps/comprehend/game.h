@@ -45,6 +45,11 @@ struct Sentence {
 	size_t _nr_words;
 	byte _formattedWords[6];
 	byte _specialOpcodeVal2;
+	// Gender/number nibble (_type & 0xf0) of the first noun, captured by
+	// format().  Copied into GameData::_wordFlags so OPCODE_SET_STRING_REPLACEMENT3
+	// can pick the article-agreeing @-replacement word (matches the Apple II
+	// interpreter's cm_current_noun_flags / $5b6a, set by cm_format_sentence_words).
+	byte _wordFlags;
 
 	Sentence() {
 		clear();
