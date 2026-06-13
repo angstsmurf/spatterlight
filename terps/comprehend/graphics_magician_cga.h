@@ -55,6 +55,15 @@ bool gmcgaInstallDrawingTables(const uint8_t *exe, size_t size);
 bool gmcgaInstallV1DrawingTables(const uint8_t *ovr, size_t ovrSize,
                                  const uint8_t *exe, size_t exeSize);
 
+// Load the in-picture op3/op5 font for the v1 releases from a CHARSET.GDA image
+// already read into memory.  v1 NOVEL.EXE has no embedded picture font (unlike
+// v2); its op3/op5 glyphs (e.g. the map-screen labels) come from CHARSET.GDA --
+// version word 0x1100, then 96 glyphs (chars 32-127) of 8 bytes each at offset
+// 4, stored LSB-first (bit 0 = leftmost pixel).  This reverses each byte into
+// the MSB-first order draw_glyph expects.  Call after gmcgaInstallV1DrawingTables.
+// Returns true on success.
+bool gmcgaSetV1Font(const uint8_t *charsetGda, size_t size);
+
 // True after a successful gmcgaInstall*DrawingTables() call.
 bool gmcgaHaveDrawingTables();
 

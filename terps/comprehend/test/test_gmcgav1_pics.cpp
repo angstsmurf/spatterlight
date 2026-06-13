@@ -20,8 +20,13 @@
  *
  * Build/run:  make -C terps/comprehend test
  *
- * The renderer is pixel-exact on both fixtures, so the ceiling is 0: any change
- * must keep this at 0 diffs.
+ * Fixtures: lakeshore (RA pic 0), woods (RA pic 2) and cave (RA pic 6) render
+ * pixel-exact (ceiling 0).  crypt (RA pic 3) is the only fixture with two-colour
+ * flood-fill dithers and so guards the v1 fill: per-column pattern indexing swaps
+ * its cyan/magenta dither (2827 diffs); it has a 3-pixel residual from an op12
+ * BRUSH spill-byte phase (the flood fill itself is exact -- see the kCases note).
+ * rb_03 (RB pic 3) guards the brush/
+ * text/rect pattern-PHASE fix.  Any change must stay within these.
  */
 
 #include "../graphics_magician_cga.h"
@@ -80,9 +85,29 @@ int main() {
         return 1;
     }
 
-    static const struct { const char *name, *img, *fb; } kCases[] = {
-        { "lakeshore", "test/gmcgav1/lakeshore.img", "test/gmcgav1/lakeshore.fb" },
-        { "woods",     "test/gmcgav1/woods.img",     "test/gmcgav1/woods.fb"     },
+    // `ceil` is the maximum tolerated mismatch -- now 0 for every fixture.  The
+    // crypt (RA pic 3) is the only fixture with two-colour dithers, so it guards
+    // the v1 period-4 fill fix (per-column indexing balloons it to 2827) AND the
+    // brush blitter's painted-byte dither-phase walk: its former 3 residual px at
+    // x=188 were an op12 BRUSH spill byte whose dither phase the native advances
+    // per painted byte (spill helper 0x94c skips inc DI on a blank byte), not per
+    // column -- so the off-grid spill lands on phase 3 (magenta), not phase 0
+    // (cyan).  blit_col now replicates that walk.  See TODO_v1_cga_graphics.
+    static const struct { const char *name, *img, *fb; int ceil; } kCases[] = {
+        { "lakeshore", "test/gmcgav1/lakeshore.img", "test/gmcgav1/lakeshore.fb", 0 },
+        { "woods",     "test/gmcgav1/woods.img",     "test/gmcgav1/woods.fb",     0 },
+        { "cave",      "test/gmcgav1/cave.img",      "test/gmcgav1/cave.fb",      0 },
+        { "crypt",     "test/gmcgav1/crypt.img",     "test/gmcgav1/crypt.fb",     0 },
+        // RB pic 3: an op12 brush stamps the [40 80 40 80] dither over a flood
+        // fill.  Guards the brush/text/rect fill-pattern PHASE fix -- the per-
+        // pixel blitters index the pattern by the GLOBAL CGA byte ((x+20)>>2)&3,
+        // not entry[0]; collapsing to entry[0] left 51 px wrong here.  Pixel-
+        // exact after the fix (see TODO_v1_cga_graphics "MOSTLY FIXED").
+        { "rb_03",     "test/gmcgav1/rb_03.img",     "test/gmcgav1/rb_03.fb",     0 },
+        // Transylvania v1 start room (RA pic 0).  Its fill/subindex/brush tables
+        // are byte-identical to Crimson Crown's, so the same installed tables
+        // render it -- this guards that the v1 path generalises across both games.
+        { "tr_start",  "test/gmcgav1/tr_start.img",  "test/gmcgav1/tr_start.fb",  0 },
     };
 
     int failures = 0;
@@ -102,12 +127,13 @@ int main() {
             for (int x = 0; x < PIC_W; x++)
                 if (rgbaToIndex(rgba[y * PIC_W + x]) != golden[y * 320 + (x + 20)])
                     mism++;
-        printf("%-12s %d / %d mismatches (ceiling 0)  %s\n",
-               c.name, mism, PIC_W * PIC_H, mism == 0 ? "ok" : "FAIL");
-        if (mism) failures++;
+        bool ok = mism <= c.ceil;
+        printf("%-12s %d / %d mismatches (ceiling %d)  %s\n",
+               c.name, mism, PIC_W * PIC_H, c.ceil, ok ? "ok" : "FAIL");
+        if (!ok) failures++;
     }
 
     if (failures) { printf("GMCGA v1 picture regression: %d case(s) FAILED\n", failures); return 1; }
-    printf("GMCGA v1 picture regression: all cases pixel-exact\n");
+    printf("GMCGA v1 picture regression: all cases within ceiling\n");
     return 0;
 }

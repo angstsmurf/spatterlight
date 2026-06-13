@@ -2,8 +2,11 @@
 pixtest
 test_talisman_pics
 test_gmcga_pics
+test_gmcgav1_pics
 op5scan
 gmcgatest
+gmcgav1test
+gmcgav1/trace_crypt
 *.dSYM/
 *.ppm
 diff_gmcga

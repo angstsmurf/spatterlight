@@ -60,29 +60,41 @@ static uint8_t s_fillSubindex[512];   // SET_FILL_COLOR byte -> (even,odd) patte
 static uint8_t s_brushBitmaps[256];   // 8 brushes × 32 bytes
 static uint8_t s_fontGlyphs[96 * 8];  // chars 32-127, 8 bytes each
 
-// v1 (Crimson Crown / Transylvania v1) fill patterns.  Unlike v2 -- where each
-// fill pattern is one period-4 byte the renderer phase-mirrors -- v1 stores 30
-// patterns of FOUR explicit column-phase bytes (period 16 px), indexed by the
-// global CGA byte column mod 4.  s_v1PatRaw keeps the native MSB-first bytes
-// (used by the word-based flood fill, which works in global byte coords);
-// s_v1PatLsb is the mirrored copy the LSB-first framebuffer stores directly.
-// When s_v1 is set, fill_pattern() / pf_pattern_word() use these instead.  The
-// subindex (s_fillSubindex) format is identical to v2 (low=even row, high=odd).
+// v1 (Crimson Crown / Transylvania v1) fill patterns.  Each of the 30 table
+// entries holds FOUR bytes.  The native word painter (PC_GRAPH.OVR FUN_0461)
+// fetches pattern[idx*4 + (CGA_byte_column & 3)] -- it *is* indexed by byte
+// column (a period-16 model) -- BUT the fill always paints a word at a time at an
+// EVEN byte offset, so the phase is only ever 0 or 2, and the >4-px dithers are
+// shipped so that phase 0 == phase 2 (e.g. idx13 "40 80 40 80", idx16
+// "20 10 20 10"): the off-phase (1/3) bytes are never reached by the fill.  The
+// two-colour dithers that need a half-byte shift ship as *separate* indices
+// (12 "80 40.." / 13 "40 80..", 16/17, 20/21) and the subindex picks the aligned
+// one.  Net effect: reading entry[0] is exactly what the native computes here, so
+// that is what fill_pattern()/pf_pattern_word() do.  (Re-confirmed 2026-06-13:
+// forcing true per-column phasing regresses crypt to ~2824 px at every offset 0-3;
+// see TODO_v1_cga_graphics.md for the full OVR disassembly.)  s_v1PatRaw keeps
+// the native MSB-first byte (used by the word-based flood fill, which works in
+// global byte coords); s_v1PatLsb is the mirrored copy the LSB-first framebuffer
+// stores directly.  The subindex (s_fillSubindex) format is identical to v2
+// (low=even row, high=odd).
 static uint8_t s_v1PatRaw[30][4];
 static uint8_t s_v1PatLsb[30][4];
 static bool    s_v1 = false;
 
 static inline uint8_t mirror_2bpp_byte(uint8_t b);  // defined below
 
+// Reverse the 8 bits of a byte (bit 0 <-> bit 7): converts an LSB-first glyph
+// row (charset.gda) to the MSB-first order draw_glyph expects.
+static inline uint8_t mirror_byte(uint8_t b) {
+    b = (uint8_t)((b >> 4) | (b << 4));
+    b = (uint8_t)(((b & 0xcc) >> 2) | ((b & 0x33) << 2));
+    b = (uint8_t)(((b & 0xaa) >> 1) | ((b & 0x55) << 1));
+    return b;
+}
+
 static bool s_haveDrawingTables = false;
 
 bool gmcgaHaveDrawingTables() { return s_haveDrawingTables; }
-
-// The picture window sits at global CGA byte 5 (x + 20 px); a framebuffer byte
-// at logical column `lb` is global byte lb + 5, so its v1 pattern phase is
-// (lb + 5) & 3 == (lb + 1) & 3.  The flood fill already works in global bytes,
-// so it phases by (global byte) & 3 directly.
-#define V1_LOG_TO_PHASE(lb) (((lb) + 1) & 3)
 
 bool gmcgaInstallDrawingTables(const uint8_t *exe, size_t size) {
     if (!exe)
@@ -229,12 +241,27 @@ bool gmcgaInstallV1DrawingTables(const uint8_t *ovr, size_t ovrSize,
         return false;
     std::memcpy(s_brushBitmaps, exe + brushBase, sizeof(s_brushBitmaps));
 
-    // v1 in-picture text comes from CHARSET.GDA (handled by the CharSet path),
-    // not an embedded font, so leave s_fontGlyphs zeroed.
+    // v1 NOVEL.EXE has no embedded picture font; its op3/op5 glyphs come from
+    // CHARSET.GDA, loaded separately via gmcgaSetV1Font().  Leave zeroed until
+    // then (in-picture text stays blank, as it would without the file).
     std::memset(s_fontGlyphs, 0, sizeof(s_fontGlyphs));
 
     s_v1 = true;
     s_haveDrawingTables = true;
+    return true;
+}
+
+bool gmcgaSetV1Font(const uint8_t *charsetGda, size_t size) {
+    if (!charsetGda || size < 4 + 96 * 8)
+        return false;
+    const uint16_t version = (uint16_t)(charsetGda[0] | (charsetGda[1] << 8));
+    if (version != 0x1100)
+        return false;
+    // charset.gda is LSB-first (bit 0 = leftmost); draw_glyph reads MSB-first,
+    // so reverse each glyph byte as we copy it in.
+    for (int idx = 0; idx < 96; idx++)
+        for (int row = 0; row < 8; row++)
+            s_fontGlyphs[idx * 8 + row] = mirror_byte(charsetGda[4 + idx * 8 + row]);
     return true;
 }
 
@@ -311,18 +338,25 @@ void gmcgaResetScreen(bool white) {
 // ---- Fill helpers ------------------------------------------------------------
 
 // Resolve a SET_FILL_COLOR (op6) selector byte to the 4-pixel pattern tile for
-// row `y`.  The selector indexes the subindex table for a pair of pattern-table
-// indices; even and odd rows use different ones, which is what makes the
-// two-row CGA dithers (e.g. the cyan/black checkerboard background).  This
-// mirrors FUN_23dd + the per-row pattern fetch in the DOS interpreter.
-// `logByte` is the logical framebuffer byte column (x >> 2, 0-based in the 280-px
-// window).  v2 patterns are period-4, so the byte is the same for every column
-// and logByte is ignored; v1 patterns are period-16, so logByte (mapped to its
-// global CGA phase) selects one of the four stored phase bytes.
+// row `y` at logical byte column `logByte`.  The selector indexes the subindex
+// table for a pair of pattern-table indices; even and odd rows use different
+// ones, which is what makes the two-row CGA dithers (e.g. the cyan/black
+// checkerboard background).  This mirrors FUN_23dd + the per-row pattern fetch
+// in the DOS interpreter.
+//
+// v1 pattern entries hold all four column-phase bytes.  The per-pixel blitters
+// (brush op12, fill-pattern text op5, fill-rect op15) stamp at ARBITRARY byte
+// columns, so the phase = the GLOBAL CGA screen byte & 3 matters: PC_GRAPH.OVR's
+// brush blitter (0x88c) indexes `pattern[idx*4 + ([0x9382] & 3)]` where [0x9382]
+// = (x+20)>>2 is the global byte, advancing one phase per byte written (0x94c).
+// The picture window is offset +20 px = +5 bytes ≡ +1 (mod 4), so the global
+// byte phase = (logByte + 1) & 3.  (The flood fill is a separate path,
+// pf_pattern_word, which paints even-byte-aligned words; this function is only
+// the brush/glyph/rect path.)
 static inline uint8_t fill_pattern(uint8_t sel, int y, int logByte) {
     uint8_t sub = s_fillSubindex[(unsigned)sel * 2 + (y & 1)];
     if (s_v1)
-        return (sub < 30) ? s_v1PatLsb[sub][V1_LOG_TO_PHASE(logByte)] : 0x00;
+        return (sub < 30) ? s_v1PatLsb[sub][(logByte + 1) & 3] : 0x00;
     return (sub < 76) ? s_fillTable[sub] : 0x00;
 }
 
@@ -358,7 +392,7 @@ static void fill_hline(int y, int l, int r, uint8_t sel) {
         }
         store_byte(base + bl, v);
     }
-    // Whole bytes in the middle (pattern byte may vary per column under v1)
+    // Whole bytes in the middle (period-4: same pattern byte every column)
     for (int b = bl + 1; b < br; b++) store_byte(base + b, fill_pattern(sel, y, b));
     // Right partial byte
     {
@@ -426,6 +460,16 @@ static const uint16_t kPfLeftOf[8] = {
 #define PF_RIGHT_BYTE 0x4a
 #define PF_BOTTOM_ROW 0x9f
 
+// Flood-fill clip rectangle (native [0x9387]=left byte, [0x9388]=right byte,
+// [0x9389]=top row, [0x938a]=bottom row).  In the v1 games op15 (RESET) sets
+// these -- it is fill-clip setup, NOT a rectangle paint (PC_GRAPH.OVR 0x2de).
+// They default to the picture window so the flood fill is unbounded within it
+// even when op15 is never emitted (which is the case for the whole v1 corpus).
+static int s_pfLeftByte   = 5;
+static int s_pfRightByte  = PF_RIGHT_BYTE;
+static int s_pfTopRow     = 0;
+static int s_pfBottomRow  = PF_BOTTOM_ROW;
+
 static inline uint8_t mirror_2bpp_byte(uint8_t b) {
     return (uint8_t)(((b & 0x03) << 6) | ((b & 0x0c) << 2) |
                      ((b & 0x30) >> 2) | ((b & 0xc0) >> 6));
@@ -476,9 +520,8 @@ static inline uint16_t pf_pattern_word(uint8_t sel, int y, int gb) {
     const uint8_t sub = s_fillSubindex[(unsigned)sel * 2 + (y & 1)];
     if (s_v1) {
         if (sub >= 30) return 0;
-        const uint8_t hi = s_v1PatRaw[sub][gb & 3];
-        const uint8_t lo = s_v1PatRaw[sub][(gb + 1) & 3];
-        return (uint16_t)((hi << 8) | lo);
+        const uint8_t b = s_v1PatRaw[sub][0];   // period-4: entry[0] both halves
+        return (uint16_t)((b << 8) | b);
     }
     const uint8_t m = (sub < 76) ? s_fillTableRaw[sub] : 0x00;
     return (uint16_t)((m << 8) | m);
@@ -530,11 +573,19 @@ static inline uint16_t pf_scan_r(uint16_t A, uint8_t *edge) {
     return A;
 }
 
+static bool s_pfTrace = false;  // debug: log queue pushes (GMCGA_TRACE_FILL)
+static int  s_pfWordSeq = 0;    // debug: per-fill word-paint sequence counter
+
 // FUN_29be: paint the word at (row `y`, byte `gb`): every pixel selected by
 // mask `M` -- always a run of white pixels -- takes the pattern, the rest of
 // the word is preserved ((pat & M) | (S ^ M), exploiting white == all 1s).
 static inline void pf_paint_word(int y, int gb, uint8_t sel, uint16_t S, uint16_t M) {
     const uint16_t pat = pf_pattern_word(sel, y, gb);
+    if (s_pfTrace) {
+        const uint8_t sub = s_fillSubindex[(unsigned)sel * 2 + (y & 1)];
+        fprintf(stderr, "WORD seq=%d row=%d gb=%d sub=%d pat=%04x M=%04x\n",
+                ++s_pfWordSeq, y, gb, sub, pat, M);
+    }
     pf_put_word(y, gb, (uint16_t)((pat & M) | (S ^ M)));
 }
 
@@ -569,7 +620,7 @@ static void pf_scan_paint(PfState &s, uint8_t sel) {
     }
 
     si = s.B;                                            // 2d5e: extend right
-    while (s.P == 8 && si < PF_RIGHT_BYTE) {
+    while (s.P == 8 && si < s_pfRightByte) {
         si += 2;
         S = pf_get_word(s.y, si);
         const uint16_t M = pf_scan_r(S, &s.P);
@@ -580,10 +631,8 @@ static void pf_scan_paint(PfState &s, uint8_t sel) {
     s.B = (uint8_t)si;
 }
 
-static bool s_pfTrace = false;  // debug: log queue pushes (GMCGA_TRACE_FILL)
-
 static void gmcga_flood_fill(int seed_x, int seed_y, uint8_t sel) {
-    if ((uint8_t)seed_y > PF_BOTTOM_ROW)                 // 263b
+    if ((uint8_t)seed_y > s_pfBottomRow)                 // 263b
         return;
 
     PfState s;
@@ -611,7 +660,7 @@ static void gmcga_flood_fill(int seed_x, int seed_y, uint8_t sel) {
         if (s_pfTrace)
             fprintf(stderr, "PUSH y=%d l=%d.%d r=%d.%d d=%d h=%d t=%d\n",
                     yb, s.lB, s.lP, s.B, s.P, dir, head, tail);
-        if (dir != 0 && yb >= PF_BOTTOM_ROW)
+        if (dir != 0 && yb >= s_pfBottomRow)
             return;
         q_y[tail] = yb;
         q_lb[tail] = s.lB; q_lp[tail] = s.lP;
@@ -817,17 +866,51 @@ static void draw_circle(int cx, int cy, int radius, uint8_t pen_val) {
 // clear bit leaves the background unchanged.
 
 static void blit_col(const uint8_t *bytes8, int px, int py, uint8_t fill_sel) {
+    // Faithful port of PC_GRAPH.OVR's brush blitter (0x88c + spill helper 0x94c).
+    // The native bit-doubles each 8-px row to a 16-bit 2-bpp mask (pixel 0 in
+    // bits 15:14, MSB-first), shifts it right by the sub-pixel offset so it
+    // spills across up to THREE output bytes, then paints the fill pattern
+    // through the mask one output byte at a time.
+    //
+    // The fill-pattern dither PHASE does NOT track the byte column: the spill
+    // helper increments the pattern index only for bytes it actually paints
+    // (its `cmp dl,0; je` returns before `inc di`), while the byte cursor
+    // advances unconditionally.  So a brush whose first/middle output byte is
+    // blank lands its spill byte one phase earlier than its column would imply
+    // -- which is what colours the off-grid Crimson Crown crypt spill byte
+    // magenta (phase 3) instead of cyan (phase 0).  Replicate the painted-byte
+    // walk so the dithered spill matches the interpreter.
+    const int lb0 = px >> 2;          // logical byte column of the brush anchor
+    const int sub = px & 3;           // sub-pixel offset (== (px+20) & 3)
+    const int p0  = (lb0 + 1) & 3;    // global byte phase of the first output byte
     for (int row = 0; row < 8; row++, py++) {
         if ((unsigned)py >= GMCGA_HEIGHT) continue;
         const uint8_t b = bytes8[row];
         if (!b) continue;
-        for (int p = 0; p < 8; p++) {
-            if (!((b >> (7 - p)) & 1)) continue;
-            const int x = px + p;
-            if ((unsigned)x >= GMCGA_WIDTH) continue;
-            const uint8_t fb = fill_pattern(fill_sel, py, x >> 2);
-            const uint8_t pix = (fb >> ((x & 3) << 1)) & 0x3;
-            write_2bpp(x, py, pix);
+        uint16_t mask16 = 0;
+        for (int p = 0; p < 8; p++)
+            mask16 = (uint16_t)((mask16 << 2) | (((b >> (7 - p)) & 1) ? 0x3 : 0x0));
+        const uint32_t vs = ((uint32_t)mask16 << 8) >> (sub << 1);
+        const uint8_t m[3] = { (uint8_t)(vs >> 16), (uint8_t)(vs >> 8), (uint8_t)vs };
+        int phase = p0;
+        for (int k = 0; k < 3; k++) {
+            if (k == 0) {
+                if (!m[0]) continue;          // first byte uses p0 directly
+            } else {
+                if (!m[k]) continue;          // blank byte: cursor moves, phase does not
+                phase = (phase + 1) & 3;       // painted byte: advance the dither phase
+            }
+            const int lb = lb0 + k;
+            // Feed fill_pattern a synthetic column so its (logByte+1)&3 yields
+            // `phase`; for v2 the pattern is phase-independent, so this is inert.
+            const uint8_t fb = fill_pattern(fill_sel, py, (phase + 3) & 3);
+            for (int pos = 0; pos < 4; pos++) {
+                if (((m[k] >> ((3 - pos) << 1)) & 0x3) == 0) continue;
+                const int x = (lb << 2) + pos;
+                if ((unsigned)x >= GMCGA_WIDTH) continue;
+                const uint8_t pix = (fb >> ((x & 3) << 1)) & 0x3;
+                write_2bpp(x, py, pix);
+            }
         }
     }
 }
@@ -940,6 +1023,15 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, GmcgaCtx *ctx) {
     const uint8_t op      = op_byte >> 4;
     uint16_t a, b;
 
+    if (getenv("GMCGA_OPLOG")) {
+        static int oc = 0;
+        fprintf(stderr, "OP #%d op=%u param=%u nextbytes=%02x %02x %02x\n",
+                ++oc, op, param,
+                (*ptr < end) ? (*ptr)[0] : 0,
+                (*ptr + 1 < end) ? (*ptr)[1] : 0,
+                (*ptr + 2 < end) ? (*ptr)[2] : 0);
+    }
+
     switch (op) {
     case OPCODE_END:  // op0: end of image
         return true;
@@ -1023,12 +1115,16 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, GmcgaCtx *ctx) {
     case OPCODE_PAINT: // op14 -- flood fill from seed point
         a = *(*ptr)++ + (param & 1 ? 256 : 0);
         b = *(*ptr)++;
-        // Debug aid: dump the framebuffer before each fill for comparison
-        // against a DOSBox trace of the native interpreter.
+        // Debug aid: dump the framebuffer before AND after each fill for
+        // comparison against a DOSBox trace of the native interpreter.  The
+        // before-dumps confirm the canvas going into a fill matches; the
+        // after-dumps isolate whether a divergence is the fill itself (vs a
+        // later primitive).  See test/gmcgav1/compare_op14.py.
         {
             static int n = 0;
             n++;
-            if (const char *td = getenv("GMCGA_TRACE_DIR")) {
+            const char *td = getenv("GMCGA_TRACE_DIR");
+            if (td) {
                 char p[512];
                 snprintf(p, sizeof(p), "%s/fill_%03d.raw", td, n);
                 if (FILE *f = fopen(p, "wb")) {
@@ -1038,11 +1134,45 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, GmcgaCtx *ctx) {
             }
             const char *tf = getenv("GMCGA_TRACE_FILL");
             s_pfTrace = tf && atoi(tf) == n;
+            s_pfWordSeq = 0;
+            gmcga_flood_fill((int)a, (int)b, ctx->fill_idx);
+            if (td) {
+                char p[512];
+                snprintf(p, sizeof(p), "%s/fill_%03d_after.raw", td, n);
+                if (FILE *f = fopen(p, "wb")) {
+                    fwrite(s_screenmem, 1, sizeof(s_screenmem), f);
+                    fclose(f);
+                }
+            }
         }
-        gmcga_flood_fill((int)a, (int)b, ctx->fill_idx);
         break;
 
-    case OPCODE_RESET: // op15 -- fill-rect sub-ops (same as Apple Talisman)
+    case OPCODE_RESET: // op15
+        if (s_v1) {
+            // v1 (PC_GRAPH.OVR 0x2de): op15 is flood-fill CLIP-RECT setup, not a
+            // rectangle paint.  param 0 = no-op; param 1 = reset the clip to the
+            // window defaults; param >=2 = read 4 bytes into the clip rectangle
+            // ([0x9388] right byte, [0x9387] left byte, [0x938a] bottom row,
+            // [0x9389] top row).  No v1 picture in the corpus emits it, so this
+            // is faithful-but-inert today; the 4-byte consume keeps the stream
+            // pointer aligned for any picture that ever does.
+            switch (param) {
+            case 1:
+                s_pfLeftByte = 4; s_pfRightByte = PF_RIGHT_BYTE;
+                s_pfTopRow = 0;   s_pfBottomRow = PF_BOTTOM_ROW;
+                break;
+            default:
+                if (param >= 2) {
+                    s_pfRightByte  = *(*ptr)++;
+                    s_pfLeftByte   = *(*ptr)++;
+                    s_pfBottomRow  = *(*ptr)++;
+                    s_pfTopRow     = *(*ptr)++;
+                }
+                break; // param 0: nothing
+            }
+            break;
+        }
+        // v2 / Apple Talisman: op15 is the fill-rectangle opcode.
         switch (param) {
         case 1: // set rect to full picture area
             s_fill_left = 0; s_fill_top = 0;
@@ -1059,6 +1189,25 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, GmcgaCtx *ctx) {
             break;
         }
         break;
+    }
+
+    // Debug: report which op first writes a watched pixel (GMCGA_WATCH="x,y").
+    {
+        static int opn = 0;
+        opn++;
+        if (const char *w = getenv("GMCGA_WATCH")) {
+            int wx, wy;
+            if (sscanf(w, "%d,%d", &wx, &wy) == 2) {
+                static int last = -2;
+                int cur = read_2bpp(wx, wy);
+                if (cur != last) {
+                    fprintf(stderr, "WATCH op#%d op=%u param=%u fill_idx=%u "
+                            "-> pixel(%d,%d) %d->%d\n",
+                            opn, op, param, ctx->fill_idx, wx, wy, last, cur);
+                    last = cur;
+                }
+            }
+        }
     }
     return false;
 }
@@ -1083,6 +1232,10 @@ void gmcgaDrawImage(const uint8_t *data, size_t size) {
                          // matches NOVEL.EXE's statically-zeroed [0x9d46]
     ctx.text_x   = 140; ctx.text_y = 96;
     s_fill_left = 0; s_fill_top = 0; s_fill_right = 39; s_fill_bottom = 159;
+    // Flood-fill clip rectangle resets to the picture window before each image
+    // (native FUN_2556); op15 may then narrow it (v1 only).
+    s_pfLeftByte = 4; s_pfRightByte = PF_RIGHT_BYTE;
+    s_pfTopRow = 0;   s_pfBottomRow = PF_BOTTOM_ROW;
 
     const uint8_t *ptr = data;
     const uint8_t *end = data + size;
