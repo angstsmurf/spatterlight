@@ -1,5 +1,12 @@
 # v1 Comprehend DOS (CGA) graphics
 
+**STATUS: COMPLETE (2026-06-13).** The v1 renderer is byte-exact over the whole corpus —
+**Crimson Crown 71/71, Transylvania 81/81** pictures pixel-exact at ceiling 0, with v2 still
+**94/94**. Every fixture in `make test` is at ceiling 0 (the crypt brush-phase residual is fixed).
+All RE/validation tooling is committed. Only the two regression-coverage follow-ups under "Other
+remaining follow-ups" are open, and both are validated at runtime today (just not yet promoted to
+self-contained `make test` fixtures). The sections below are the RE record, kept for reference.
+
 Crimson Crown and Transylvania v1 render through `graphics_magician_cga.cpp` (the v2 renderer)
 via `gmcgaInstallV1DrawingTables` — fill pattern + subindex tables from `PC_GRAPH.OVR`, brushes
 from `NOVEL.EXE`. Full RE record: memory `comprehend-v1-cga-graphics`.
@@ -14,12 +21,13 @@ earlier "4 explicit column-phase bytes, indexed by byte column" model was wrong:
 cyan↔magenta across every dither (Crimson Crown crypt: 2827 px). Fixed in
 `fill_pattern()` / `pf_pattern_word()`; validated against a DOSBox CGA capture.
 
-## Regression set (`make test`, `test/test_gmcgav1_pics`)
+## Regression set (`make test`, `test/test_gmcgav1_pics`) — all ceiling 0
 - Crimson Crown: lakeshore (RA pic 0), woods (RA pic 2), cave (RA pic 6): pixel-exact, ceiling 0.
-- crypt (RA pic 3): the only dithered fixture, so it guards the fill-pattern path. Ceiling 3: an
-  **op12 brush** spill-byte phase residual at x=188 (cyan vs magenta on 3 odd rows). The flood fill
-  itself is pixel-exact — proven by the live capture; the 3 px are a later brush stamp, same as
-  residual #2 (see "OPEN" below). Capture with `test/gmcgav1/find_magenta_op.py`.
+- crypt (RA pic 3): the only flood-fill-dither fixture, so it guards the fill-pattern path AND the
+  brush blitter's painted-byte dither phase. Its former 3-px op12-brush residual at x=188 (cyan vs
+  magenta on 3 odd rows) is **fixed** — ceiling 0. Capture with `test/gmcgav1/find_magenta_op.py`.
+- rb_03 (RB pic 3): guards the brush/text/rect fill-pattern PHASE fix (an op12 brush stamps the
+  `[40 80 40 80]` dither over a flood fill). Pixel-exact, ceiling 0.
 - Transylvania v1: tr_start (RA pic 0), pixel-exact, ceiling 0 — its fill/subindex/brush tables
   are byte-identical to Crimson Crown's, so the same committed table slices render both games.
 
@@ -158,7 +166,7 @@ gap — `GMCGA_BLITLOG` confirmed it paints there) but uses pattern phase `(x>>2
 =magenta** (verified live: `STORE@spill TGT 0x40->0x80 DI=55 pat=0x80`). So the spill byte takes phase
 3, not 0.
 
-**Two OPEN sub-problems before this can be ported safely:**
+**Two sub-problems that had to be solved before porting safely — BOTH NOW RESOLVED:**
 1. **The DI-walk has a byte-cursor off-by-one the static disasm read doesn't reproduce.** From `0x88c`/
    `0x94c` the walk should put byte `gb+2` (=byte52) at `DI = idx4 + ((gb&3 + 2)&3) = 52` (phase 0,
    cyan) — yet the live store shows byte52 painted at `DI=55` (phase 3), i.e. it was the **2nd** output
@@ -177,8 +185,10 @@ the DI-walk actually produces (per #1), via `fill_pattern` so v2 is unaffected (
 (crypt→**0**, rb_03 stays 0, v2 94/94) + `validate_dump.py 0` on `/tmp/v1cap/{cc,tr}` (hold CC 65/71,
 TR 70/81). Re-test RB_12 brush 7 (x=-1, left spill) and the crypt brush (x=181, right spill).
 
-### NEXT STEP — single-step trace of one `0x88c` row to pin the DI/BX off-by-one (blocker #1)
-The goal is one table: for the crypt painter brush, on **row 25**, the ordered sequence of
+### DONE — single-step trace of one `0x88c` row pinned the DI/BX off-by-one (blocker #1, RESOLVED)
+This was carried out (`trace_blit_row.py`) and produced the fix in `blit_col`; the procedure below
+is kept as the RE method that resolved it. The goal was one table: for the crypt painter brush, on
+**row 25**, the ordered sequence of
 `(store address → VRAM byte, DI, pattern[DI], BX)` for the 1st store (`0x90b`) and each spill store
 (`0x96a`), so the `[0x9382]→BX` and `DI` start/increment/wrap are nailed exactly. Build on
 `find_magenta_op.py` (it already boots NOVEL1.EXE → crypt RA3, locates `code_lin`, arms the stores at
@@ -228,11 +238,16 @@ brush hit 256, and reaches the painter stamp #257 = gb 50, sub 2, rows 18–25).
   every flood fill exact.
 - `trace_crypt.cpp` — single-picture local driver (`GMCGA_OPLOG`/`GMCGA_WATCH`/`GMCGA_TRACE_FILL`).
 
-## Other remaining follow-ups
+## Other remaining follow-ups (the only open items)
+These are regression-*coverage* gaps, not renderer bugs: the renderer already reproduces all of
+these byte-exactly at runtime (`validate_dump.py` over `/tmp/v1cap/{cc,tr}` = TR 81/81, CC 71/71,
+which includes the OA/OB object overlays). What's missing is promoting them into the self-contained
+`make test` set (which deliberately ships no game files), plus a full-frame compare path.
+
 - [ ] Lock a **map** golden (Transylvania MA.MS1 — version 0x2000 composite, drawn cumulatively
       across fragments) so the CHARSET.GDA text path is regression-tested pixel-exact, not just
       eyeballed. (MA–ME load via FUN_1000_0c9f, the 'm'-prefix path — not covered by the room/object
       sweep, which only drives 0b9f/0bc3.)
-- [ ] Object (`OA`/`OB`) and title images. The title (`CCTITLE.MS1`) is a **full-screen** 320×200
-      image (art extends outside the 280×160 picture window), so it needs a full-frame compare,
-      not the windowed one the room test uses.
+- [ ] Object (`OA`/`OB`) and title images as committed fixtures. Object overlays already validate at
+      runtime; the title (`CCTITLE.MS1`) is a **full-screen** 320×200 image (art extends outside the
+      280×160 picture window), so it needs a full-frame compare, not the windowed one the room test uses.
