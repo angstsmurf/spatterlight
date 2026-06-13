@@ -164,6 +164,8 @@ int main(int argc, char **argv) {
 	}
 	if (index < 0 || index > 15) { fprintf(stderr, "index out of range\n"); return 1; }
 	uint16_t start = offsets[index];
+	const char *startEnv = getenv("PIXTEST_START");
+	if (startEnv) start = (uint16_t)strtol(startEnv, nullptr, 0);
 	if (start >= flen) { fprintf(stderr, "offset %u >= file size %zu\n", start, flen); return 1; }
 
 	fprintf(stderr, "file=%s size=%zu version=%04x index=%d start=%u\n",

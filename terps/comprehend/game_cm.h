@@ -41,6 +41,7 @@ public:
 	CovetedMirrorGame();
 	~CovetedMirrorGame() override {}
 
+	void beforeGame() override;
 	void handleAction(Sentence *sentence) override;
 	void beforeTurn() override;
 	void handleSpecialOpcode() override;

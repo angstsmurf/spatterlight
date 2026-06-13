@@ -526,6 +526,21 @@ void Pics::drawPicture(int pictureNum) const {
 	if (Common::DiskImageFS::active()) {
 		DrawSurface *ds = ctx._drawSurface;
 
+		// The Coveted Mirror keeps a persistent right-hand panel (the game's
+		// logo above an hourglass) in screen columns 24..39, drawn once at boot
+		// while room pictures fill only the left columns. Our room images span
+		// the full width, so we save the panel columns the first time we need
+		// them (from RG image 0, which clears the page and blits the logo) and
+		// re-composite them on top of every in-game picture below.
+		static bool s_cmPanelBuilt = false;
+		bool isCM = g_comprehend->getGameID() == "covetedmirror";
+		if (isCM && !s_cmPanelBuilt && pictureNum != TITLE_IMAGE && !_rooms.empty()) {
+			gmResetScreen(false);
+			_rooms[_rooms.size() - 1].renderApple(0); // RG = last location file
+			gmCaptureCMPanel(24, 39);
+			s_cmPanelBuilt = true;
+		}
+
 		if (pictureNum == DARK_ROOM) {
 			gmResetScreen(false);
 		} else if (pictureNum == BRIGHT_ROOM) {
@@ -551,6 +566,11 @@ void Pics::drawPicture(int pictureNum) const {
 			int n = pictureNum % 100;
 			_rooms[n / IMAGES_PER_FILE].renderApple(n % IMAGES_PER_FILE);
 		}
+
+		// Re-apply The Coveted Mirror's persistent panel on top of the room/item
+		// just drawn (the title screen has no panel).
+		if (isCM && pictureNum != TITLE_IMAGE)
+			gmOverlayCMPanel();
 
 		// With slow-draw active the page is revealed a chunk at a time by the
 		// host (Comprehend::drawPicture); blit only what is on the visible page

@@ -21,6 +21,7 @@
 
 #include "game_cm.h"
 #include "comprehend.h"
+#include "pics.h"
 
 namespace Glk {
 namespace Comprehend {
@@ -72,6 +73,24 @@ CovetedMirrorGame::CovetedMirrorGame() : ComprehendGameV2() {
 
 	// The title is a Graphics Magician vector image in T0 (like OO-Topos).
 	_titleGraphicFile = "t0";
+}
+
+// Show the title screen before the first room. CM ships its title as a T0
+// vector image (rendered at offset 0x100, past the disk-protection stub) exactly
+// like OO-Topos; without this override the base no-op beforeGame() left the game
+// booting straight into the throne room with no title. The author/copyright
+// credits printed below the picture on the original Apple title screen are drawn
+// here as centred text, matching the other Comprehend titles (OO-Topos, etc.).
+void CovetedMirrorGame::beforeGame() {
+	g_comprehend->drawPicture(TITLE_IMAGE);
+
+	g_comprehend->setCentered(true);
+	console_println("by Eagle Berns and Holly Thomason");
+	console_println("Copyright 1986  Polarware/Penguin Software");
+	g_comprehend->setCentered(false);
+	g_comprehend->readChar();
+
+	glk_window_clear(g_comprehend->_bottomWindow);
 }
 
 // The Coveted Mirror's interpreter hard-codes a throne-room guard that no G0
