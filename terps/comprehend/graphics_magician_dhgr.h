@@ -36,6 +36,29 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size);
 // The native 560 DHGR columns are sampled to the surface width w (1:1 at w>=560).
 void gmDhgrBlitToSurface(uint32_t *out, int w, int h);
 
+// ---- Slow ("animated") draw -------------------------------------------------
+// As in the standard-hi-res renderer (graphics_magician.h): when enabled,
+// gmDhgrDrawImage records the order its bytes are plotted (and op13 DELAY
+// markers) so the picture can be revealed progressively. The host turns
+// recording on/off per draw, then, while gmDhgrSlowDrawActive() is true,
+// repeatedly advances the reveal on a timer and blits the partially-revealed
+// pages with gmDhgrBlitSlowToSurface().
+
+// Enable/disable op recording for the next image(s).
+void gmDhgrSetSlowDraw(bool on);
+// True while recorded bytes (or a DELAY pause) are still waiting to be revealed.
+bool gmDhgrSlowDrawActive();
+// Reveal up to `budget` more bytes (rounded up across adjacent runs); returns
+// true while more remain.
+bool gmDhgrAdvanceSlowDraw(int budget);
+// Reveal everything left at once (resize / cancel).
+void gmDhgrFinishSlowDraw();
+// Report the inclusive row band [*y0,*y1] changed since the last call (so the
+// host repaints just that band), and reset it. Returns false if unchanged.
+bool gmDhgrSlowConsumeDirty(int *y0, int *y1);
+// Blit the partially-revealed pages, same format as gmDhgrBlitToSurface().
+void gmDhgrBlitSlowToSurface(uint32_t *out, int w, int h);
+
 // Diagnostic access to the raw main/aux pages (used by the regression test).
 const uint8_t *gmDhgrMainPtr();
 const uint8_t *gmDhgrAuxPtr();

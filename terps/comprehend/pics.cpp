@@ -653,11 +653,16 @@ void Pics::drawPicture(int pictureNum) const {
 				gmDrawCMHourglass(game->_variables[0x11]);
 		}
 
-		// Double hi-res has no incremental slow-draw path yet; blit the finished
-		// 560-wide page in one shot. (The surface was widened to 560 by
-		// setDhgrMode(); ds->w matches the DHGR converter's expectation.)
+		// Double hi-res blits the 560-wide page(s). (The surface was widened to
+		// 560 by setDhgrMode(); ds->w matches the DHGR converter's expectation.)
+		// With slow-draw active the host reveals the pages a chunk at a time, so
+		// blit only what is on the visible pages so far; otherwise blit the
+		// finished pages in one shot.
 		if (dhgr) {
-			gmDhgrBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+			if (gmDhgrSlowDrawActive())
+				gmDhgrBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+			else
+				gmDhgrBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
 			return;
 		}
 
