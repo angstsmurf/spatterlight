@@ -3,6 +3,7 @@
 #include "comprehend.h"
 #include "graphics_magician.h"
 #include "graphics_magician_cga.h"
+#include "graphics_magician_dhgr.h"
 #include "draw_surface.h"
 #include "game.h"
 #include "game_cc.h"
@@ -514,10 +515,11 @@ void Comprehend::drawPicture(uint pictureNum) {
         updateTimerRequest();
     }
 
-    // Both Talisman renderers (Apple II hi-res and DOS CGA) can reveal a picture
-    // progressively, the way the original painted the page. Record the draw
-    // order when the user has slow-draw on (and we aren't replaying a
-    // transcript). Only the renderer that actually runs records anything.
+    // All three Talisman renderers (Apple II hi-res, Apple II double hi-res and
+    // DOS CGA) can reveal a picture progressively, the way the original painted
+    // the page. Record the draw order when the user has slow-draw on (and we
+    // aren't replaying a transcript). Only the renderer that actually runs
+    // records anything.
     //
     // _suppressSlowDraw is set by update_graphics() when it repaints a scene
     // identical to the one already on screen: there is nothing new to reveal, so
@@ -525,6 +527,7 @@ void Comprehend::drawPicture(uint pictureNum) {
     bool slow = gli_slowdraw && !gli_determinism && !_suppressSlowDraw;
     gmSetSlowDraw(slow);
     gmcgaSetSlowDraw(slow);
+    gmDhgrSetSlowDraw(slow);
 
     // Render through the Pics opcode interpreter into the pixel buffer,
     // then blit the initial (blank or reset) state to the Glk window.
@@ -535,7 +538,7 @@ void Comprehend::drawPicture(uint pictureNum) {
     // input loops (readLine / readChar) advance it tick by tick in the
     // background. The game proceeds immediately: room description is shown
     // and the prompt appears while the picture is still being revealed.
-    if (gmcgaSlowDrawActive() || gmSlowDrawActive()) {
+    if (gmcgaSlowDrawActive() || gmSlowDrawActive() || gmDhgrSlowDrawActive()) {
         glk_request_timer_events(GM_SLOW_TICK_MS);
         _slowDrawActive = true;
     }
@@ -543,20 +546,24 @@ void Comprehend::drawPicture(uint pictureNum) {
 
 // Advance one timer tick of the background slow-draw reveal.
 void Comprehend::tickSlowDraw() {
-    const bool cga = gmcgaSlowDrawActive();
     bool more;
-    if (cga) {
+    int y0, y1;
+    if (gmDhgrSlowDrawActive()) {
+        more = gmDhgrAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
+        gmDhgrBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
+                                _drawSurface->w, _drawSurface->h);
+        if (gmDhgrSlowConsumeDirty(&y0, &y1))
+            blitSurfaceRowsToWindow(y0, y1);
+    } else if (gmcgaSlowDrawActive()) {
         more = gmcgaAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
         gmcgaBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
                               _drawSurface->w, _drawSurface->h);
-        int y0, y1;
         if (gmcgaSlowConsumeDirty(&y0, &y1))
             blitSurfaceRowsToWindow(y0, y1);
     } else {
         more = gmAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
         gmBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
                             _drawSurface->w, _drawSurface->h);
-        int y0, y1;
         if (gmSlowConsumeDirty(&y0, &y1))
             blitSurfaceRowsToWindow(y0, y1);
     }
@@ -618,14 +625,19 @@ void Comprehend::finishSlowDraw() {
     if (!_slowDrawActive) return;
     _slowDrawActive = false;
     updateTimerRequest();
-    const bool cga = gmcgaSlowDrawActive();
-    if (cga) gmcgaFinishSlowDraw(); else gmFinishSlowDraw();
-    if (cga)
+    if (gmDhgrSlowDrawActive()) {
+        gmDhgrFinishSlowDraw();
+        gmDhgrBlitToSurface((uint32 *)_drawSurface->getPixels(),
+                            _drawSurface->w, _drawSurface->h);
+    } else if (gmcgaSlowDrawActive()) {
+        gmcgaFinishSlowDraw();
         gmcgaBlitToSurface((uint32 *)_drawSurface->getPixels(),
                           _drawSurface->w, _drawSurface->h);
-    else
+    } else {
+        gmFinishSlowDraw();
         gmBlitToSurface((uint32 *)_drawSurface->getPixels(),
                         _drawSurface->w, _drawSurface->h);
+    }
 }
 
 // Paint a scene that replaces the whole screen. If the requested set of

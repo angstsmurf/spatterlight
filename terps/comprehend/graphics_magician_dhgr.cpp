@@ -28,6 +28,7 @@
 #include "graphics_magician_dhgr.h"
 #include "gm_artifact.h"
 #include <cstring>
+#include <vector>
 
 namespace Glk {
 namespace Comprehend {
@@ -42,6 +43,69 @@ static uint8_t s_main[A2_PAGE_SIZE];
 static uint8_t s_aux[A2_PAGE_SIZE];
 
 #define CALC(y) ((((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10))
+
+// ---- Slow ("animated") draw ---------------------------------------------------
+//
+// Mirrors the standard-hi-res renderer (graphics_magician.cpp): when recording
+// is enabled (gmDhgrSetSlowDraw(true)), every byte the interpreter plots goes
+// both into the final pages (s_main/s_aux, as before) and onto an ordered op
+// list, with op13 DELAY operands recorded as pause markers. The visible pages
+// (s_slowMain/s_slowAux) start at the background and the host re-applies the ops
+// a chunk at a time on a Glk timer, re-blitting after each chunk. Item overlays
+// start from whatever is already on the slow pages (the room just finished), so
+// they compose exactly as on the real machine.
+
+// A WriteOp with this (out-of-page) offset is a DELAY marker rather than a byte
+// write: op13 emitted it, and value holds the delay's operand. The reveal pauses
+// when it reaches one.
+#define DELAY_MARKER 0xffff
+// Wall-clock length of one delay unit, in slow-draw ticks. Matched to the
+// standard-hi-res renderer's op13 timing (~10 host ticks per unit).
+#define DELAY_TICKS_PER_UNIT 10
+
+struct WriteOp { uint16_t offset; uint8_t page; uint8_t value; }; // page: 1=main, 0=aux
+
+static uint8_t s_slowMain[A2_PAGE_SIZE]; // progressively-revealed pages
+static uint8_t s_slowAux[A2_PAGE_SIZE];
+static std::vector<WriteOp> s_ops;       // ordered byte writes of this image
+static size_t s_opsDrawn = 0;            // how many ops are on the slow pages
+static bool s_recordOps = false;         // record ops for slow reveal?
+static int s_pauseTicks = 0;             // reveal ticks still owed to a DELAY
+
+// Bounding range of screen rows touched since the last blit, so the host can
+// repaint just the changed band instead of the whole window each tick.
+static int s_dirtyMin = 0x7fffffff, s_dirtyMax = -1;
+
+// offset -> screen row (0..191), or 0xff for the inter-row gaps in the page
+// address space. Built once; lets a reveal map a byte write back to its row.
+static uint8_t s_rowOfOffset[A2_PAGE_SIZE];
+static bool s_rowTableInit = false;
+
+static void mark_row_dirty(uint16_t offset) {
+	if (!s_rowTableInit) {
+		std::memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
+		for (int row = 0; row < 192; row++) {
+			uint16_t base = CALC(row);
+			for (int col = 0; col < 40; col++)
+				s_rowOfOffset[base + col] = (uint8_t)row;
+		}
+		s_rowTableInit = true;
+	}
+	uint8_t r = s_rowOfOffset[offset];
+	if (r == 0xff)
+		return;
+	if (r < s_dirtyMin) s_dirtyMin = r;
+	if (r > s_dirtyMax) s_dirtyMax = r;
+}
+
+// Every plotted byte funnels through here: write the final page and, when
+// recording, append the op for the progressive reveal. `page` is s_main or
+// s_aux; the recorded op tags which so the reveal targets the matching slow page.
+static inline void dhgr_put(uint8_t *page, uint16_t off, uint8_t value) {
+	page[off] = value;
+	if (s_recordOps)
+		s_ops.push_back({off, (uint8_t)(page == s_main ? 1 : 0), value});
+}
 
 // ---- drawing tables (loaded at runtime from T5) -------------------------------
 // T5 is the boot disk's headerless double-hi-res interpreter file; it loads at
@@ -105,7 +169,7 @@ static void posn(uint16_t xd, uint8_t y) {
 static void plot() {
 	uint8_t col = Z0b >> 1; uint8_t *p = (Z0b & 1) ? s_main : s_aux; uint16_t a = rowbase + col;
 	if (a >= A2_PAGE_SIZE) return;
-	if (Z1446) p[a] |= setmask[Z0c]; else p[a] &= clrmask[Z0c];
+	dhgr_put(p, a, Z1446 ? (uint8_t)(p[a] | setmask[Z0c]) : (uint8_t)(p[a] & clrmask[Z0c]));
 }
 static void plotColor() {
 	uint8_t sb = Z0b, sc = Z0c;
@@ -194,7 +258,7 @@ static void brush_blit_col(int row, int col, uint8_t bits) {
 	uint8_t mask = (uint8_t)(bits ^ 0x7f);
 	int a = base + (col >> 1); if (a < 0 || a >= A2_PAGE_SIZE) return;
 	uint8_t *pg = (col & 1) ? s_main : s_aux;
-	pg[a] = (uint8_t)((pg[a] & mask) | v3);
+	dhgr_put(pg, (uint16_t)a, (uint8_t)((pg[a] & mask) | v3));
 }
 static void brush_quadrant(int col0, int row0, int bit, int brushbase) {
 	for (int r = 0; r < 8; r++) {
@@ -244,7 +308,7 @@ static inline int col_of(int pos) { return pos / COL_BITS; }
 static inline int bit_of(int pos) { return pos % COL_BITS; }
 static inline int to_pos(int col, int bit) { return col * COL_BITS + bit; }
 static inline uint8_t fb_read(int col) { return (col & 1 ? s_main : s_aux)[g_row_addr + (col >> 1)]; }
-static inline void fb_write(int col, uint8_t v) { (col & 1 ? s_main : s_aux)[g_row_addr + (col >> 1)] = v; }
+static inline void fb_write(int col, uint8_t v) { dhgr_put(col & 1 ? s_main : s_aux, (uint16_t)(g_row_addr + (col >> 1)), v); }
 
 static void set_row_address() { g_row_addr = CALC(g_row); g_parity = (uint8_t)((g_row & 1) << 3); }
 static bool pixel_is_set() { return (gmBIT[bit_of(g_pos)] & fb_read(col_of(g_pos))) != 0; }
@@ -380,14 +444,22 @@ static void fill_rect() {
 		uint16_t base = CALC(row);
 		const uint8_t *pat = (row & 1) ? curOdd : curEven;
 		for (int col = 0; col <= 0x4f; col++)
-			(col & 1 ? s_main : s_aux)[base + (col >> 1)] = pat[col & 7];
+			dhgr_put(col & 1 ? s_main : s_aux, (uint16_t)(base + (col >> 1)), pat[col & 7]);
 	}
 }
 
 // ---- public API ---------------------------------------------------------------
 void gmDhgrResetScreen(bool white) {
-	std::memset(s_main, white ? 0x7f : 0x00, A2_PAGE_SIZE);
-	std::memset(s_aux,  white ? 0x7f : 0x00, A2_PAGE_SIZE);
+	uint8_t bg = white ? 0x7f : 0x00;
+	std::memset(s_main, bg, A2_PAGE_SIZE);
+	std::memset(s_aux,  bg, A2_PAGE_SIZE);
+	// A reset starts a fresh page: the background appears instantly on the
+	// visible pages too, and any pending reveal is dropped.
+	std::memset(s_slowMain, bg, A2_PAGE_SIZE);
+	std::memset(s_slowAux,  bg, A2_PAGE_SIZE);
+	s_ops.clear();
+	s_opsDrawn = 0;
+	s_pauseTicks = 0;
 }
 
 void gmDhgrDrawImage(const uint8_t *data, size_t size) {
@@ -423,7 +495,8 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 		case 10: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; line(x << 1, y); } break;  // DRAW_LINE
 		case 11: p += 1; break;                           // DRAW_CIRCLE
 		case 12: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; draw_brush(x << 1, y, g_brush); } break; // DRAW_SHAPE
-		case 13: p += 1; break;                           // DELAY
+		case 13: { uint8_t units = *p++;                  // DELAY
+			if (s_recordOps) s_ops.push_back({DELAY_MARKER, 0, units}); } break;
 		case 14: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; flood_fill(x << 1, y); } break; // PAINT
 		case 15: if (par == 3) fill_rect(); else if (par == 2) p += 4; break; // RESET
 		}
@@ -431,12 +504,12 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 	}
 }
 
-void gmDhgrBlitToSurface(uint32_t *out, int w, int h) {
+static void blit_pages(const uint8_t *aux, const uint8_t *main, uint32_t *out, int w, int h) {
 	for (int row = 0; row < h; row++) {
 		unsigned base = CALC(row);
 		uint16_t words[40];
 		uint8_t colors560[560];
-		gm_compute_dhgr_row_words(s_aux + base, s_main + base, words);
+		gm_compute_dhgr_row_words(aux + base, main + base, words);
 		gm_render_dhgr_line_colors(words, colors560);
 		// 560 native DHGR columns sampled down to the surface width w.
 		for (int xx = 0; xx < w; xx++) {
@@ -446,6 +519,86 @@ void gmDhgrBlitToSurface(uint32_t *out, int w, int h) {
 			out[row * w + xx] = (rgb << 8) | 0xff;
 		}
 	}
+}
+
+void gmDhgrBlitToSurface(uint32_t *out, int w, int h) {
+	blit_pages(s_aux, s_main, out, w, h);
+}
+
+// ---- Slow-draw control (host-driven) ------------------------------------------
+
+void gmDhgrSetSlowDraw(bool on) { s_recordOps = on; }
+
+// True while there is reveal work left: recorded ops still to paint, or a DELAY
+// pause still owed.
+bool gmDhgrSlowDrawActive() {
+	return s_recordOps && (s_opsDrawn < s_ops.size() || s_pauseTicks > 0);
+}
+
+// Bytes whose offset is adjacent to, or whose value matches, the previous one
+// belong to the same visual run; revealing them together avoids seams.
+static bool ops_adjacent(const WriteOp &a, const WriteOp &b) {
+	return (a.page == b.page &&
+	        (int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
+	       b.value == a.value;
+}
+
+static inline void apply_op(const WriteOp &op) {
+	(op.page ? s_slowMain : s_slowAux)[op.offset] = op.value;
+	mark_row_dirty(op.offset);
+}
+
+// Apply up to `budget` recorded ops onto the visible pages, extending the chunk
+// across adjacent runs. A DELAY marker halts this tick's reveal and owes a run
+// of pause ticks (during which nothing is revealed). Returns true while any
+// reveal work -- ops or an outstanding pause -- remains.
+bool gmDhgrAdvanceSlowDraw(int budget) {
+	if (s_pauseTicks > 0) {
+		s_pauseTicks--;
+		return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
+	}
+	size_t i = s_opsDrawn;
+	size_t chunk_end = i + (budget > 0 ? (size_t)budget : 1);
+	bool keep_going = false;
+	for (; i < s_ops.size() && (i < chunk_end || keep_going); i++) {
+		if (s_ops[i].offset == DELAY_MARKER) {
+			s_pauseTicks += s_ops[i].value * DELAY_TICKS_PER_UNIT;
+			s_opsDrawn = i + 1;             // consume the marker
+			return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
+		}
+		apply_op(s_ops[i]);
+		keep_going = (i + 1 < s_ops.size()) && s_ops[i + 1].offset != DELAY_MARKER &&
+		             ops_adjacent(s_ops[i], s_ops[i + 1]);
+	}
+	s_opsDrawn = i;
+	return s_opsDrawn < s_ops.size();
+}
+
+// Reveal the rest of the image at once (e.g. on a window resize, or when the
+// reveal is cancelled). Leaves the visible pages identical to the final pages.
+void gmDhgrFinishSlowDraw() {
+	for (; s_opsDrawn < s_ops.size(); s_opsDrawn++) {
+		if (s_ops[s_opsDrawn].offset == DELAY_MARKER)
+			continue;                      // pauses collapse when finishing at once
+		apply_op(s_ops[s_opsDrawn]);
+	}
+	s_pauseTicks = 0;
+}
+
+// Hand back the row band touched since the last call (inclusive), and reset it.
+// Returns false if nothing changed.
+bool gmDhgrSlowConsumeDirty(int *y0, int *y1) {
+	if (s_dirtyMax < 0)
+		return false;
+	*y0 = s_dirtyMin;
+	*y1 = s_dirtyMax;
+	s_dirtyMin = 0x7fffffff;
+	s_dirtyMax = -1;
+	return true;
+}
+
+void gmDhgrBlitSlowToSurface(uint32_t *out, int w, int h) {
+	blit_pages(s_slowAux, s_slowMain, out, w, h);
 }
 
 const uint8_t *gmDhgrMainPtr() { return s_main; }
