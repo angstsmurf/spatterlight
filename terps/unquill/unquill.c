@@ -478,36 +478,31 @@ static void ill_plot(int x, int y, int set)
  * that is what The Illustrator calls: step the major axis every pixel, step the
  * minor axis when an error accumulator (initialised to major/2) overflows. This
  * reproduces the ROM's pixel choices so flood fills bound identically to the
- * original. The start point is assumed already plotted (as on the Spectrum). */
+ * original. The start point is assumed already plotted (as on the Spectrum).
+ *
+ * The two axes are symmetric, so rather than duplicate the loop we swap x<->y
+ * for steep lines and run a single x-major loop, swapping back at the plot.
+ * After the swap adx/ix/a are the major axis and ady/iy/b the minor; `steep`
+ * keeps the tie-break (adx == ady -> not steep -> x-major) and makes the
+ * adx == 0 test fire only on a true zero-length segment. */
 static void ill_line(int x0, int y0, int x1, int y1)
 {
     int adx = abs(x1 - x0), ady = abs(y1 - y0);
     int ix = (x1 > x0) ? 1 : -1, iy = (y1 > y0) ? 1 : -1;
-    int major, minor, err, k, x = x0, y = y0;
+    int t, err, k, a, b;
 
-    if (adx == 0 && ady == 0)
+    int steep = ady > adx;		/* y is the major axis */
+    if (steep) { t = x0; x0 = y0; y0 = t;  t = adx; adx = ady; ady = t;  t = ix; ix = iy; iy = t; }
+    if (adx == 0)			/* adx == ady == 0: plot nothing */
 	return;
-    if (adx >= ady)		/* x is the major axis */
+    err = adx >> 1; a = x0; b = y0;
+    for (k = 0; k < adx; k++)
     {
-	major = adx; minor = ady; err = major >> 1;
-	for (k = 0; k < major; k++)
-	{
-	    err += minor;
-	    if (err >= major) { err -= major; y += iy; }
-	    x += ix;
-	    ill_plot(x, y, 1);
-	}
-    }
-    else			/* y is the major axis */
-    {
-	major = ady; minor = adx; err = major >> 1;
-	for (k = 0; k < major; k++)
-	{
-	    err += minor;
-	    if (err >= major) { err -= major; x += ix; }
-	    y += iy;
-	    ill_plot(x, y, 1);
-	}
+	err += ady;
+	a += ix;
+	if (err >= adx) { err -= adx; b += iy; }
+	if (steep) ill_plot(b, a, 1);
+	else       ill_plot(a, b, 1);
     }
 }
 
