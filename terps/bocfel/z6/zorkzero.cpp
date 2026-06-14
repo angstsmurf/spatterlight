@@ -2488,6 +2488,17 @@ void z0_update_after_restore(void) {
 void z0_update_after_autorestore(void) {
     if (screenmode == MODE_SLIDESHOW && windows[3].id != nullptr) {
         glk_window_clear(graphics_bg_glk);
+        // Re-run the encyclopedia text-window setup the live entry path
+        // performs (z0_display_picture -> adjust_encyclopedia_text_window).
+        // It repositions/sizes windows[3] for the current screen and, more
+        // importantly, re-establishes the process-global wintype_TextBuffer
+        // style_Normal background hint (the parchment colour). That hint is
+        // not part of the autosave, so without this the encyclopedia's
+        // background bleeds into the main text window. Restoring it here puts
+        // the hint in the same "encyclopedia is up" state as live play, so
+        // V_REFRESH tears it back down to user_selected_background when the
+        // player dismisses the entry.
+        adjust_encyclopedia_text_window();
         return;
     }
 
