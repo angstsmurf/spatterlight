@@ -6473,7 +6473,12 @@ void init_screen(bool first_run)
             window.style.reset();
 
             window.fg_color = fgcolor;
-            window.bg_color = bgcolor;
+            // The status window keeps a transparent (default) background so
+            // the main-window background shows through, matching
+            // after_V_COLOR() and z0_update_after_autorestore(). Without this,
+            // restarting after a restore that selected non-default colours
+            // leaves a grey background behind the status text.
+            window.bg_color = (&window == &V6_STATUS_WINDOW) ? Color() : bgcolor;
 
             window.y = 1;
             window.x = 1;
