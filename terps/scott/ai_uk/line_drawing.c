@@ -181,39 +181,36 @@ scott_linegraphics_draw_line(int x1, int y1, int x2, int y2,
      * iteration is invariant under that negation, so the placement matches
      * pixel-for-pixel. Verified byte-identical to the ROM over Golden Baton's
      * room 0 (1740/1740 line pixels land on the real Spectrum bitmap).
+     *
+     * The two axes are symmetric, so rather than duplicate the loop we swap
+     * x<->y for steep lines and run a single x-major loop, swapping back at the
+     * plot. After the swap dx/sx/a are the major axis and dy/sy/b the minor;
+     * `steep` keeps the tie-break (dx == dy -> not steep -> x-major) and makes
+     * the dx == 0 test fire only on a true zero-length segment.
      */
-    int dx, dy, sx, sy, x, y, acc, i, major, minor, step;
+    int dx, dy, sx, sy, t, acc, a, b, i;
 
     if (x2 >= x1) { sx = 1;  dx = x2 - x1; } else { sx = -1; dx = x1 - x2; }
     if (y2 >= y1) { sy = 1;  dy = y2 - y1; } else { sy = -1; dy = y1 - y2; }
 
-    x = x1;
-    y = y1;
+    int steep = dy > dx;       /* y is the major axis */
+    if (steep) {
+        t = x1; x1 = y1; y1 = t;
+        t = sx; sx = sy; sy = t;
+        t = dx; dx = dy; dy = t;
+    }
+    if (dx == 0)               /* dx == dy == 0: degenerate, plot nothing */
+        return;
 
-    if (dx >= dy) {
-        if (dx == 0)            /* dx == dy == 0: degenerate, plot nothing */
-            return;
-        major = dx; minor = dy;
-        acc = major >> 1;
-        for (i = 0; i < major; i++) {
-            acc += minor;
-            step = 0;
-            if (acc >= major) { acc -= major; step = sy; }
-            x += sx;
-            y += step;
-            scott_linegraphics_plot_clip(x, y, colour);
-        }
-    } else {
-        major = dy; minor = dx;
-        acc = major >> 1;
-        for (i = 0; i < major; i++) {
-            acc += minor;
-            step = 0;
-            if (acc >= major) { acc -= major; step = sx; }
-            y += sy;
-            x += step;
-            scott_linegraphics_plot_clip(x, y, colour);
-        }
+    acc = dx >> 1;
+    a = x1;
+    b = y1;
+    for (i = 0; i < dx; i++) {
+        acc += dy;
+        a += sx;
+        if (acc >= dx) { acc -= dx; b += sy; }
+        if (steep) scott_linegraphics_plot_clip(b, a, colour);
+        else       scott_linegraphics_plot_clip(a, b, colour);
     }
 }
 
