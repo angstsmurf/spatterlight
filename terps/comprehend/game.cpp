@@ -473,8 +473,22 @@ void ComprehendGame::update_graphics() {
 			for (i = 0; i < _items.size(); i++) {
 				item = &_items[i];
 
+				// Skip items whose picture the bytecode has suppressed via
+				// flag bit 0x40 (ITEMF_NO_PICTURE). The original interpreter's
+				// per-turn presentation draws an item's picture only when this
+				// bit is clear (cm_describe_room_and_items $4dc1: object picture
+				// drawn iff (item_flags & 0x40) == 0); there is no dark-room
+				// test in the draw path. This is a *separate* flag from the
+				// 0x80 ITEMF_INVISIBLE the text listing uses: e.g. in The
+				// Coveted Mirror the medallion in the unlit room behind the
+				// prison tower's hole has 0x40 set (not drawn over the black
+				// dark-room screen), while the moved-bed item has only 0x80 set
+				// -- hidden from the text listing but its picture (the shifted
+				// bed and the hole behind it) must still be drawn. Gating on
+				// 0x80 wrongly hid the bed picture.
 				if (item->_room == _currentRoom &&
-				        item->_graphic != 0)
+				        item->_graphic != 0 &&
+				        !(item->_flags & ITEMF_NO_PICTURE))
 					pics.push_back((uint)(item->_graphic - 1) + ITEMS_OFFSET);
 			}
 			if (fullRepaint)
