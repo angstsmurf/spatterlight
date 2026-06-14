@@ -34,6 +34,9 @@ private:
 	static const TransylvaniaMonster WEREWOLF;
 	static const TransylvaniaMonster VAMPIRE;
 	bool _miceReleased;
+	// When a restart is pending, distinguishes the RESTART verb (silent,
+	// immediate reload) from a game over (prints the restart prompt and waits).
+	bool _restartImmediate;
 
 	bool updateMonster(const TransylvaniaMonster *monsterInfo);
 	bool isMonsterInRoom(const TransylvaniaMonster *monsterInfo);
@@ -46,6 +49,7 @@ public:
 	void synchronizeSave(Common::Serializer &s) override;
 	int roomIsSpecial(uint room_index, uint *roomDescString) override;
 	void handleSpecialOpcode() override;
+	bool handle_restart() override;
 };
 
 } // namespace Comprehend
