@@ -27,6 +27,7 @@
 #include "draw_surface.h"
 #include "game_data.h"
 #include "pics.h"
+#include "graphics_magician_dhgr.h"
 
 namespace Glk {
 namespace Comprehend {
@@ -1012,6 +1013,34 @@ turn:
 			restartGame();
 			glk_window_clear(g_comprehend->_bottomWindow);
 			goto turn;
+		}
+
+		// #dhgr [on|off]: toggle the Apple II double hi-res ("<D>") renderer,
+		// mirroring the original's Standard/Double hi-res prompt. Available only
+		// on an Apple disk whose boot disk shipped a <D> interpreter (T5 drawing
+		// tables installed); reports unavailable otherwise. On a switch we redraw
+		// the current picture so the change shows immediately.
+		if (scumm_strnicmp(_inputLine, "#dhgr", 5) == 0 &&
+			(_inputLine[5] == '\0' || _inputLine[5] == ' ')) {
+			if (!Common::DiskImageFS::active() || !gmDhgrHaveDrawingTables()) {
+				g_comprehend->print("Double hi-res is not available for this game.\n");
+				continue;
+			}
+			const char *arg = _inputLine + 5;
+			while (*arg == ' ') ++arg;
+			bool on;
+			if (scumm_stricmp(arg, "on") == 0 || scumm_stricmp(arg, "double") == 0)
+				on = true;
+			else if (scumm_stricmp(arg, "off") == 0 || scumm_stricmp(arg, "standard") == 0)
+				on = false;
+			else
+				on = !g_comprehend->dhgrMode();
+			g_comprehend->setDhgrMode(on);
+			g_comprehend->print(on ? "Double hi-res graphics on.\n"
+			                       : "Standard hi-res graphics on.\n");
+			_updateFlags = (uint)UPDATE_GRAPHICS;
+			update();
+			continue;
 		}
 
 		_inputLineIndex = 0;

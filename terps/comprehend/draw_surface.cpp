@@ -210,6 +210,11 @@ void Surface::reset() {
 	       Graphics::PixelFormat(4, 8, 8, 8, 8, 24, 16, 8, 0));
 }
 
+void Surface::setRenderWidth(int width) {
+	create(width, G_RENDER_HEIGHT,
+	       Graphics::PixelFormat(4, 8, 8, 8, 8, 24, 16, 8, 0));
+}
+
 void Surface::setColorTable(uint index) {
 	if (index >= ARRAY_SIZE(COLOR_TABLES)) {
 		warning("Bad color table %d - using default", index);

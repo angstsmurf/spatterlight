@@ -38,6 +38,20 @@ void gm_compute_row_words(const uint8_t *vram_row, uint16_t *words);
 // colors560[] must hold 560 entries.
 void gm_render_line_colors(const uint16_t *words, uint8_t *colors560);
 
+// --- Double hi-res (DHGR) variants -------------------------------------------
+// DHGR already supplies 560 real pixels per row (no 7->14 doubling): each of the
+// 40 columns carries 14 bits = the aux byte's low 7 pixels (leftmost) followed
+// by the main byte's low 7 pixels. Build those words from a scanline's aux/main
+// bytes (aux_row[0..39], main_row[0..39]). words[] must hold 40 entries.
+void gm_compute_dhgr_row_words(const uint8_t *aux_row, const uint8_t *main_row,
+                               uint16_t *words);
+
+// Expand one DHGR scanline's 40 words into 560 4-bit NTSC-artifact colour
+// indices. Identical pixel-run colour kernel as gm_render_line_colors(), but at
+// the 80-column chroma phase (MAME's is_80_column rotation offset). colors560[]
+// must hold 560 entries.
+void gm_render_dhgr_line_colors(const uint16_t *words, uint8_t *colors560);
+
 #ifdef __cplusplus
 }
 #endif

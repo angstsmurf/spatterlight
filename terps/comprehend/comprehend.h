@@ -81,8 +81,14 @@ public:
     uint _drawFlags;
 
     // Pixel scale used when blitting our 280x160 render buffer to the Glk
-    // graphics window. Matches scott's PutPixel-style approach.
+    // graphics window. Matches scott's PutPixel-style approach. In double
+    // hi-res mode this is the vertical pixel height; the horizontal column step
+    // is halved (560 columns over the same physical width) -- see pixelStepX().
     int _pixelSize;
+
+    // Apple II double hi-res ("<D>") mode. When true the draw surface is 560
+    // wide and the DHGR renderer is used; otherwise standard 280-wide hi-res.
+    bool _useDhgr = false;
 
 public:
     Comprehend();
@@ -144,6 +150,16 @@ public:
     void paintOverlay(const Common::Array<uint> &pics);
     bool toggleGraphics();
     void showGraphics();
+
+    // Apple II double hi-res mode. on==true widens the draw surface to 560 and
+    // routes pictures through the DHGR renderer; on==false restores standard
+    // 280-wide hi-res. Resizes the surface and repaints the current picture.
+    void setDhgrMode(bool on);
+    bool dhgrMode() const { return _useDhgr; }
+    // Horizontal width (in window pixels) of one render column: full _pixelSize
+    // for standard hi-res, half for the 560-wide DHGR surface so the picture
+    // keeps the same physical size/aspect.
+    int pixelStepX() const { return _useDhgr ? (_pixelSize > 1 ? _pixelSize / 2 : 1) : _pixelSize; }
     // Logical text/graphics-mode switch that keeps the picture window open
     // (used by Talisman's mode-switch opcodes), unlike toggleGraphics() which
     // genuinely opens/closes the window for the player's manual toggle.
