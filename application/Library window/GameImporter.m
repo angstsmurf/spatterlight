@@ -362,7 +362,7 @@ void freeContext(void **ctx) {
             @"st":  [NSSet setWithObjects:@"sagaplus", nil],
             @"d64": [NSSet setWithObjects:@"scott", @"taylor", @"sagaplus", @"level9", nil],
             @"dsk": [NSSet setWithObjects:@"scott", @"taylor", @"sagaplus", @"level9", @"comprehend", nil],
-            @"woz": [NSSet setWithObjects:@"scott", @"sagaplus", @"comprehend", nil],
+            @"woz": [NSSet setWithObjects:@"scott", @"sagaplus", @"comprehend", @"zcode", nil],
             @"exe": [NSSet setWithObjects:@"comprehend", nil],
         };
     });
