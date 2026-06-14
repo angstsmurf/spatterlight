@@ -164,7 +164,22 @@ int OOToposGame::roomIsSpecial(uint room_index, uint *roomDescString) {
 }
 
 void OOToposGame::beforeTurn() {
-	ComprehendGameV2::beforeTurn();
+	// Do NOT run the each-turn daemon (function 0) here. Oo-Topos shares The
+	// Coveted Mirror's V2 command loop, RE'd from the live Apple II RAM dump
+	// (cm_main_command_loop $404c / cm_dispatch_action_and_daemon $4f80): the
+	// original evaluates function 0 exactly ONCE per turn, inside the dispatch
+	// after the matched action -- there is no daemon pass before the parser. The
+	// pre-prompt work is only the room/item describe plus the graphics setup
+	// below. Calling ComprehendGameV2::beforeTurn() (which chains to
+	// ComprehendGame::beforeTurn() -> eval_function(0)) ran the daemon a second
+	// time before the prompt, right before this turn's update(). That desynced
+	// the redraw from the original: when the guard's daemon drags you back to
+	// the cell (it fires in the post-command dispatch), the cell picture only
+	// appeared a turn late, and the capture message printed twice. Dropping the
+	// extra pass restores the original's once-per-turn cadence -- the dragged-to
+	// room now redraws at the top of the next turn, before the prompt, the way
+	// the original does. (Same fix as CovetedMirrorGame::beforeTurn(); see git
+	// 845e9d5d, which fixed CM's hourglass draining 2/turn from this same cause.)
 
 	if (_flags[OO_FLAG_TOO_DARK]) {
 		// Show placeholder room if room is too dark
