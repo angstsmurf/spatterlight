@@ -474,6 +474,13 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 	std::memcpy(s_subidx, s_subidxDefault, sizeof(s_subidx));
 	Z1447 = 4; posn(140 * 2, 96);     // per-image draw init (pen colour 4, centre)
 	set_fill_color(0x4d);             // default fill colour
+	g_brush = 5;                      // default shape; reset per image (matches the
+	                                  // std-hires init ctx.BRUSH=5). Without this an
+	                                  // item overlay inherits the room's last op4
+	                                  // SET_SHAPE, drawing its brushes with the wrong
+	                                  // shape so the fills find no seed (e.g. the
+	                                  // OO-Topos prison-cell bottle/food went the
+	                                  // colour of the floor/table beneath them).
 	const uint8_t *p = data, *e = data + size;
 	int guard = 0;
 	while (p < e && guard++ < 100000) {
