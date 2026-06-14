@@ -47,6 +47,7 @@ static uint8_t s_aux[A2_PAGE_SIZE];
 // T5 is the boot disk's headerless double-hi-res interpreter file; it loads at
 // $4000, so file_offset = RAM_addr - $4000. The four tables sit at fixed offsets.
 static uint8_t s_subidx[256];     // $41B2 colour subindex (patched per-image by op7)
+static uint8_t s_subidxDefault[256]; // pristine T5 copy, restored at each image's start
 static uint8_t s_subtbl[512];     // $421E sub-table (idx -> two pattern rows)
 static uint8_t s_pattern[2048];   // $441E pattern rows (8 bytes each)
 static uint8_t s_brush[256];      // $4B2E brush bitmaps (8 brushes x 4 quad x 8)
@@ -57,6 +58,7 @@ bool gmDhgrInstallDrawingTables(const uint8_t *t5, size_t size) {
 	if (size < 0xC2E)
 		return false;
 	std::memcpy(s_subidx,  t5 + 0x1B2, sizeof(s_subidx));
+	std::memcpy(s_subidxDefault, s_subidx, sizeof(s_subidx));
 	std::memcpy(s_subtbl,  t5 + 0x21E, 500);
 	std::memcpy(s_pattern, t5 + 0x41E, 1808);
 	std::memcpy(s_brush,   t5 + 0xB2E, sizeof(s_brush));
@@ -390,6 +392,14 @@ void gmDhgrResetScreen(bool white) {
 
 void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 	hung = 0;
+	// Restore the T5 default colour subindex FIRST, so the per-image init below
+	// (and the image's own op7 SET_PALETTE_SUBINDEX commands) start from a clean
+	// baseline. op7 overrides are per-image: the same streams render self-coloured
+	// under std-hires, where op7 is a no-op. Order matters -- set_fill_color(0x4d)
+	// reads s_subidx to build the default fill pattern used by fill_rect (the
+	// full-screen background many rooms paint), so it must see the defaults, not a
+	// previous room's patches (which turned e.g. the hill pink after the bazaar).
+	std::memcpy(s_subidx, s_subidxDefault, sizeof(s_subidx));
 	Z1447 = 4; posn(140 * 2, 96);     // per-image draw init (pen colour 4, centre)
 	set_fill_color(0x4d);             // default fill colour
 	const uint8_t *p = data, *e = data + size;
