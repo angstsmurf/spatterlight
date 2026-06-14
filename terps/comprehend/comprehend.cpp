@@ -738,6 +738,21 @@ void Comprehend::showGraphics() {
         (glui32)(G_RENDER_HEIGHT * _pixelSize),
         wintype_Graphics, GLK_GRAPHICS_ROCK);
     _graphicsEnabled = (_topWindow != nullptr);
+    // Graphics windows default to a white background (glkimp window.c), which
+    // shows through in the centring margins and as thin slivers where the scaled
+    // fill-rects don't perfectly tile. Match it to the buffer's Normal-style
+    // background instead, so the picture window blends with the rest of the
+    // screen (as the Level9 and Magnetic interpreters do). Glk offers no direct
+    // way to read a window's background, so probe the style hint and fall back to
+    // white if the front-end can't report it.
+    if (_topWindow) {
+        glui32 background;
+        if (!glk_style_measure(_bottomWindow, style_Normal,
+                               stylehint_BackColor, &background))
+            background = 0x00ffffff;
+        glk_window_set_background_color(_topWindow, background);
+        glk_window_clear(_topWindow);
+    }
     // Reopen status above _bottomWindow — inserts it between graphics and buffer.
     // Height is set to fit the room description on the next printRoomDesc().
     _statusWindow = glk_window_open(_bottomWindow,
@@ -811,6 +826,24 @@ void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
                 (x - x0) * stepX,
                 _pixelSize);
         }
+    }
+
+    // The Coveted Mirror's room (a bright wall) butts directly against the black
+    // hourglass panel at column 24. The Apple II NTSC artifact renderer extends a
+    // white run one pixel past its last column, so the wall's white bleeds into
+    // the panel's leftmost pixel — a stray white fringe down the panel's left
+    // edge. The page is correct (the panel byte is black); only the rendered
+    // colour bleeds, so we can't fix it on the page. Repaint the panel's two
+    // leftmost (always-black, logo starts at column 26) columns in black on top.
+    // CM standard hi-res only; DHGR has no panel. gmCMPanelValid() gates this to
+    // when the panel is actually present (false on the title screen, whose
+    // columns 24-25 are real picture content, not panel).
+    if (!_useDhgr && getGameID() == "covetedmirror" && gmCMPanelValid()) {
+        const int kCMPanelCol = 24;            // pics.cpp gmCaptureCMPanel(24, 39)
+        int px0 = xOff + (kCMPanelCol * 7) * stepX;
+        int w = 2 * 7 * stepX;                 // columns 24-25
+        glk_window_fill_rect(_topWindow, 0x000000,
+            px0, y0 * _pixelSize, w, (y1 - y0 + 1) * _pixelSize);
     }
 }
 
