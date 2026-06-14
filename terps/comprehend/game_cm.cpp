@@ -255,8 +255,8 @@ void CovetedMirrorGame::moveCarriedItemsTo(uint8 room) {
 // Special opcodes, RE'd from cm_handle_special_opcode ($4140):
 //   1: THE END (win; bytecode has just printed "Congratulations!!")
 //   2: game over (15 strikes: "...THE GAME IS OVER.")
-//   6/7: the jousting/fishing animated side-shows (graphics-only; the
-//        walkthroughs save+restore around them, no game state worth keeping)
+//   6: SAVE verb (the bytecode's save function ends in OPCODE_SPECIAL 6)
+//   7: RESTORE verb
 //   8: tavern pickpockets steal the inventory into room 0x1d
 //   9: the colour-spell screen flash (graphics only)
 //   c: confiscate carried items to the treasure room 0x5e
@@ -268,6 +268,16 @@ void CovetedMirrorGame::handleSpecialOpcode() {
 	case 0x02:
 		// Win/lose: both end play; handle_restart offers RESTART/RESTORE/QUIT.
 		game_restart();
+		break;
+
+	case 0x06:
+		// Save game (same special opcode the other Comprehend games use).
+		game_save();
+		break;
+
+	case 0x07:
+		// Restore game.
+		game_restore();
 		break;
 
 	case 0x08:

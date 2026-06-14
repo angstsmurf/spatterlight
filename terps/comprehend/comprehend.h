@@ -110,9 +110,23 @@ public:
     Common::Error readSaveData(Common::SeekableReadStream *) { return Common::Error(Common::kNoGameDataFoundError); }
     Common::Error writeGameData(Common::WriteStream *) { return Common::Error(Common::kNoGameDataFoundError); }
 
-    // Called by game_save() / game_restore() when the player types SAVE/RESTORE.
+    // Slot-based save/load (used by Spatterlight's autosave/launcher hooks).
     Common::Error saveGameState(int slot, const Common::String &desc);
     Common::Error loadGameState(int slot);
+
+    // Called by game_save() / game_restore() when the player types SAVE/RESTORE.
+    // Both prompt the player for a file via the standard Glk save/restore dialog.
+    Common::Error saveGamePrompt();
+    Common::Error loadGamePrompt();
+
+private:
+    // Save/restore live game state to/from an already-created fileref (shared
+    // by the slot-based and prompt-based paths). The file carries a small
+    // header so a wrong/corrupt file is rejected instead of crashing the game.
+    Common::Error saveToFileref(frefid_t fref);
+    Common::Error loadFromFileref(frefid_t fref);
+
+public:
 
     bool shouldQuit() const { return _shouldQuit; }
     void quitGame() { _shouldQuit = true; }

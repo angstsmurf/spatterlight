@@ -768,13 +768,16 @@
             return YES; /* stop reading ... terp is waiting for reply */
 
         case PROMPTOPEN:
-            [self handleOpenPrompt:req->a1];
+            // Flush first so any text the game printed immediately before the
+            // prompt (e.g. a "Restore which game?" message) is on screen before
+            // the file panel appears, not after it is dismissed.
             [self flushDisplay];
+            [self handleOpenPrompt:req->a1];
             return YES; /* stop reading ... terp is waiting for reply */
 
         case PROMPTSAVE:
-            [self handleSavePrompt:req->a1];
             [self flushDisplay];
+            [self handleSavePrompt:req->a1];
             return YES; /* stop reading ... terp is waiting for reply */
 
         case STYLEHINT:

@@ -196,6 +196,13 @@ public:
 
 	virtual void synchronizeSave(Common::Serializer &s);
 
+	// True if the just-restored state is self-consistent enough to keep playing
+	// (mainly: the current room is in range). Used to reject a corrupt restore
+	// before the bad state crashes the renderer.
+	bool saveStateLooksValid() const {
+		return _currentRoom >= 1 && _currentRoom < _rooms.size();
+	}
+
 	virtual ScriptOpcode getScriptOpcode(const Instruction *instr) = 0;
 
 	Common::String stringLookup(uint16 index);
