@@ -448,6 +448,55 @@ static void fill_rect() {
 	}
 }
 
+// op15 sub-op 0: RLE-compressed bitmap rectangle (The Coveted Mirror). Mirrors
+// the standard-mode drawer in graphics_magician.cpp exactly -- 4 bounds bytes
+// (right/left/bottom/top), then raw page bytes streamed column-major
+// (top->bottom within a column, then the next column), with a 0x80 byte escaping
+// a run (next two bytes are count and value, written count+1 times); it stops
+// the moment the bottom-right cell is written. The one difference is the write:
+// the 6502 <D> routine ($0a7b) splits each source byte through the nibble-
+// doubling table (DHGR_DBL) into a main + aux byte and stores both at the same
+// page offset (logical DHGR columns 2*col / 2*col+1) -- the same expansion the
+// brush blitter above performs. Without this, op15/0 used to fall through doing
+// nothing AND consuming no operand bytes, so the bounds+RLE stream was misparsed
+// as opcodes and the picture collapsed to the white reset page.
+static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
+	const uint8_t *p = *pp;
+	if (p + 4 > end) { *pp = end; return; }
+	uint8_t right = *p++, left = *p++, bottom = *p++, top = *p++;
+	int col = left, row = top;
+	bool done = false;
+	while (!done && p < end) {
+		uint8_t b = *p++;
+		int reps = 1;
+		if (b == 0x80) {
+			if (p + 2 > end) break;
+			reps = *p++ + 1;
+			b = *p++;
+		}
+		while (reps--) {
+			uint16_t off = (uint16_t)(CALC(row) + col);
+			if (row <= 0x9f && col < 40 && off < A2_PAGE_SIZE) {
+				uint8_t hi = DHGR_DBL[b >> 4], lo = DHGR_DBL[b & 0xf];
+				uint8_t mainByte = (uint8_t)((hi << 1) | (lo >> 7));
+				uint8_t auxByte = (uint8_t)(lo & 0x7f);
+				dhgr_put(s_aux, off, auxByte);
+				dhgr_put(s_main, off, mainByte);
+			}
+			if (row != bottom) {
+				row++;
+			} else if (col == right) {
+				done = true;
+				break;
+			} else {
+				col++;
+				row = top;
+			}
+		}
+	}
+	*pp = p;
+}
+
 // ---- public API ---------------------------------------------------------------
 void gmDhgrResetScreen(bool white) {
 	uint8_t bg = white ? 0x7f : 0x00;
@@ -505,7 +554,11 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 		case 13: { uint8_t units = *p++;                  // DELAY
 			if (s_recordOps) s_ops.push_back({DELAY_MARKER, 0, units}); } break;
 		case 14: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; flood_fill(x << 1, y); } break; // PAINT
-		case 15: if (par == 3) fill_rect(); else if (par == 2) p += 4; break; // RESET
+		case 15: // RESET (sub-op in low nibble)
+			if (par == 0) rle_bitmap_dhgr(&p, e);   // RLE bitmap (Coveted Mirror)
+			else if (par == 2) p += 4;              // read 4 bounds bytes
+			else if (par == 3) fill_rect();         // fill background with pattern
+			break;                                  // par == 1: full-screen bounds, no operands
 		}
 		if (hung) return;
 	}
