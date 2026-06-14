@@ -25,6 +25,7 @@ CXX_SRCS := \
     apple2.cpp \
     graphics_magician.cpp \
     graphics_magician_cga.cpp \
+    graphics_magician_dhgr.cpp \
     charset.cpp \
     comprehend.cpp \
     comprehend_compat.cpp \
@@ -102,11 +103,19 @@ test/test_gmcga_pics: test/test_gmcga_pics.cpp graphics_magician_cga.cpp graphic
 test/test_gmcgav1_pics: test/test_gmcgav1_pics.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_gmcgav1_pics.cpp graphics_magician_cga.cpp
 
-test: test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/rgbacrc
+# --- Regression test: Apple II DHGR ("<D>") renderer, op15/0 RLE bitmap ---
+# Renders The Coveted Mirror's throne room and asserts the double hi-res pages
+# are byte-exact vs the MAME ground truth. Self-contained: graphics_magician_dhgr.cpp
+# has no Glk/disk dependencies; fixtures are committed in test/cm_dhgr/.
+test/cmdhgrtest: test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h $(SAGADRAW_SRCS)
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/cmdhgrtest.cpp graphics_magician_dhgr.cpp $(SAGADRAW_SRCS)
+
+test: test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/rgbacrc test/cmdhgrtest
 	./test/test_talisman_pics
 	./test/test_gmcga_pics
 	./test/test_gmcgav1_pics
 	./test/rgbacrc
+	./test/cmdhgrtest
 
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
 # image and log its hi-res writes. Used to capture new regression fixtures.
@@ -144,5 +153,13 @@ test/diff_gmcga: test/diff_gmcga.cpp graphics_magician_cga.cpp graphics_magician
 test/op5scan: test/op5scan.c ciderpress.o woz2nib.o read_le16.o
 	$(CC) -O2 -w -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
 	    test/op5scan.c ciderpress.o woz2nib.o read_le16.o
+
+# Developer tool: list/extract files from a Comprehend Apple II .woz/.dsk disk,
+# used to pull the G-files and capture the DHGR fixtures in test/cm_dhgr/.
+#   ./test/cmextract disk.woz --list
+#   ./test/cmextract disk.woz T5 out.bin
+test/cmextract: test/cmextract.cpp ciderpress.o woz2nib.o read_le16.o
+	$(CXX) -std=c++14 -O0 -g -w -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
+	    test/cmextract.cpp ciderpress.o woz2nib.o read_le16.o
 
 .PHONY: clean test

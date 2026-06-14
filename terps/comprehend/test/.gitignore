@@ -5,6 +5,8 @@ test_gmcga_pics
 test_gmcgav1_pics
 test_dhgr_pics
 test_dhgr_determinism
+cmdhgrtest
+cmextract
 op5scan
 gmcgatest
 gmcgav1test
