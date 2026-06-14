@@ -210,7 +210,19 @@ void TransylvaniaGame1::beforeTurn() {
 	}
 
 done:
-	ComprehendGameV1::beforeTurn();
+	// Do NOT run the each-turn daemon (function 0) here. RE-verified against the
+	// V1 DOS interpreter (crimson-crown/NOVEL.EXE, same V1 engine): the main loop
+	// FUN_1000_0455 displays the room (FUN_1000_0680) at the top, then parses and
+	// dispatches; the dispatch FUN_1000_0e73 evaluates the matched action and then
+	// function 0 -- the daemon -- exactly ONCE (it sets the function index to 0 and
+	// calls the evaluator FUN_1000_0eb4 a second time; FUN_0eb4 has no other
+	// caller). There is no daemon pass before the parser. Calling
+	// ComprehendGameV1::beforeTurn() (-> ComprehendGame::beforeTurn() ->
+	// eval_function(0)) ran the daemon a second time, doubling every per-turn
+	// function-0 effect. The monster movement above is our native per-turn routine
+	// and runs once on its own; only the spurious second function-0 pass is removed.
+	// (Same fix as the V2 games; see git 845e9d5d / 2da5bb81 / dad6272a.)
+	;
 }
 
 void TransylvaniaGame1::synchronizeSave(Common::Serializer &s) {
