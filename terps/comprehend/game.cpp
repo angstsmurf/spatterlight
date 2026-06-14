@@ -339,46 +339,84 @@ Item *ComprehendGame::get_item(uint16 index) {
 	return &_items[index];
 }
 
-void ComprehendGame::game_save() {
-	int c;
+// Match a "1, 2, or 3"-style numbered slot list starting at s[i], tolerating
+// any spacing/punctuation between the digits ("1, 2, or 3", "1,2,or 3", ...).
+// Returns the length of the matched run, or 0 if s[i] doesn't begin one. A run
+// must ascend strictly 1 -> 2 -> 3 with only separators (spaces, commas, the
+// words "or"/"and") in between.
+static size_t matchSlotList(const Common::String &s, size_t i) {
+	if (i >= s.size() || s[i] != '1')
+		return 0;
 
-	console_println(_strings[STRING_SAVE_GAME].c_str());
+	int last = 1;
+	size_t j = i + 1;
+	while (j < s.size()) {
+		char c = s[j];
+		if (c >= '1' && c <= '3') {
+			if (c - '0' != last + 1)
+				return 0;                 // not a strict 1->2->3 ascent
+			last = c - '0';
+			j++;
+			if (last == 3)
+				return j - i;             // matched the whole list
+		} else if (c == ',' || c == ' ') {
+			j++;
+		} else if ((c == 'o' || c == 'O') && j + 1 < s.size() &&
+		           (s[j + 1] == 'r' || s[j + 1] == 'R')) {
+			j += 2;
+		} else if ((c == 'a' || c == 'A') && j + 2 < s.size() &&
+		           s[j + 1] == 'n' && s[j + 2] == 'd') {
+			j += 3;
+		} else {
+			return 0;                     // stray text: not a slot list
+		}
+	}
+	return 0;
+}
 
-	c = console_get_key();
-	if (g_comprehend->shouldQuit())
-		return;
-
-	if (c < '1' || c > '3') {
-		/*
-		 * The original Comprehend games just silently ignore any
-		 * invalid selection.
-		 */
-		console_println("Invalid save game number");
-		return;
+// The original games' SAVE/RESTORE prompts instruct the player to pick a
+// numbered slot, but we now route to Spatterlight's file dialog. Keep the
+// games' flavour text but rewrite the slot reference so it reads naturally.
+// The phrasing differs per game, e.g.
+//   "Emergency Saving Procedure:\nChoose 1, 2, or 3"  (Oo-Topos)
+//   "...Ghost of Transylvania Future. Save 1,2,or 3?" (Transylvania)
+//   "Which game do you want to save (1-3)?"           (Crimson Crown)
+//   "...whispering \"Saveth which game? (1-8)\""      (Talisman)
+static Common::String rewriteSlotPrompt(Common::String s) {
+	// "Choose 1, 2, or 3" -> "Choose a game" (any spacing of the list).
+	for (size_t i = 0; i < s.size(); i++) {
+		size_t len = matchSlotList(s, i);
+		if (len) {
+			s.replace(i, len, "a game");
+			i += 5;  // length of "a game" - 1
+		}
 	}
 
-	g_comprehend->saveGameState(c - '0', _("Savegame"));
+	// Strip any "(1-N)" parenthetical (e.g. "(1-3)", "(1-8)"), along with a
+	// single space in front of it, so "...save (1-3)?" -> "...save?".
+	size_t open;
+	while ((open = s.find("(1-")) != std::string::npos) {
+		size_t close = s.find(')', open);
+		if (close == std::string::npos)
+			break;
+		size_t start = (open > 0 && s[open - 1] == ' ') ? open - 1 : open;
+		s.erase(start, close - start + 1);
+	}
+
+	return s;
+}
+
+void ComprehendGame::game_save() {
+	// Show the game's own save message (slot reference rewritten), then route
+	// to the standard Spatterlight save-file prompt rather than the original
+	// numbered-slot menu.
+	console_println(rewriteSlotPrompt(_strings[STRING_SAVE_GAME]).c_str());
+	(void)g_comprehend->saveGamePrompt();
 }
 
 void ComprehendGame::game_restore() {
-	int c;
-
-	console_println(_strings[STRING_RESTORE_GAME].c_str());
-
-	c = console_get_key();
-	if (g_comprehend->shouldQuit())
-		return;
-
-	if (c < '1' || c > '3') {
-		/*
-		 * The original Comprehend games just silently ignore any
-		 * invalid selection.
-		 */
-		console_println("Invalid save game number");
-		return;
-	}
-
-	(void)g_comprehend->loadGameState(c - '0');
+	console_println(rewriteSlotPrompt(_strings[STRING_RESTORE_GAME]).c_str());
+	(void)g_comprehend->loadGamePrompt();
 }
 
 void ComprehendGame::restartGame() {

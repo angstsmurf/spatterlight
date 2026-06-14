@@ -99,22 +99,109 @@ struct GlkReadStream : public Common::SeekableReadStream {
     }
 };
 
-Common::Error Comprehend::saveGameState(int slot, const Common::String & /*desc*/) {
-    Common::String name = Common::String::format("%s_save_%d", _gameId.c_str(), slot);
-    frefid_t fref = glk_fileref_create_by_name(
-        fileusage_SavedGame | fileusage_BinaryMode, (char *)name.c_str(), 0);
+// Saved-game file header. Lets a restore reject a file that isn't one of this
+// story's saves, instead of feeding garbage into the live game state (which
+// then crashes when an out-of-range room/object is dereferenced).
+static const char kSaveMagic[4] = { 'C', 'M', 'S', 'V' };
+static const byte kSaveVersion = 1;
+
+// Serialize the live game state out to an already-created fileref. Shared by
+// the slot-based save (autosave/launcher) and the SAVE-verb prompt path.
+Common::Error Comprehend::saveToFileref(frefid_t fref) {
     if (!fref) return Common::Error(Common::kNoGameDataFoundError);
 
     strid_t str = glk_stream_open_file(fref, filemode_Write, 0);
-    glk_fileref_destroy(fref);
     if (!str) return Common::Error(Common::kNoGameDataFoundError);
 
     GlkWriteStream ws(str);
+    // Header: magic, version, then the game id (length-prefixed) so a restore
+    // can confirm the file belongs to the running story.
+    ws.write(kSaveMagic, sizeof(kSaveMagic));
+    ws.writeByte(kSaveVersion);
+    byte idLen = (byte)MIN(_gameId.size(), (size_t)255);
+    ws.writeByte(idLen);
+    ws.write(_gameId.c_str(), idLen);
+
     Common::Serializer s(nullptr, &ws);
     _game->synchronizeSave(s);
 
     glk_stream_close(str, nullptr);
     return Common::Error(Common::kNoError);
+}
+
+// Restore live game state from an already-created fileref. Validates the header
+// and rolls back to the pre-restore state if the payload turns out to be bad,
+// so a wrong or truncated file can never leave the game in a crashing state.
+Common::Error Comprehend::loadFromFileref(frefid_t fref) {
+    if (!fref) return Common::Error(Common::kNoGameDataFoundError);
+
+    strid_t str = glk_stream_open_file(fref, filemode_Read, 0);
+    if (!str) return Common::Error(Common::kNoGameDataFoundError);
+
+    // Seek to end to determine file size, then rewind.
+    glk_stream_set_position(str, 0, seekmode_End);
+    int64 size = (int64)glk_stream_get_position(str);
+    glk_stream_set_position(str, 0, seekmode_Start);
+
+    GlkReadStream rs(str, size);
+
+    // Validate the header before touching live state.
+    char magic[4] = { 0 };
+    rs.read(magic, sizeof(magic));
+    byte ver = rs.readByte();
+    byte idLen = rs.readByte();
+    char idBuf[256] = { 0 };
+    if (idLen)
+        rs.read(idBuf, idLen);
+    bool headerOk = !rs.eos() &&
+                    memcmp(magic, kSaveMagic, sizeof(kSaveMagic)) == 0 &&
+                    ver == kSaveVersion &&
+                    _gameId == Common::String(idBuf, idLen);
+    if (!headerOk) {
+        glk_stream_close(str, nullptr);
+        print("That is not a saved game for this story.\n");
+        return Common::Error(Common::kNoGameDataFoundError);
+    }
+
+    // Read the remaining bytes as the state payload.
+    int64 payloadLen = size - (int64)(sizeof(magic) + 2 + idLen);
+    std::vector<byte> payload(payloadLen > 0 ? (size_t)payloadLen : 0);
+    if (!payload.empty())
+        rs.read(payload.data(), (uint32)payload.size());
+    glk_stream_close(str, nullptr);
+
+    // The state layout is fixed-size for a given story, so the live state's
+    // serialized length is exactly how long a genuine save's payload must be.
+    // A truncated or otherwise wrong-sized file is rejected here, before it can
+    // reach synchronizeSave() (which asserts on a mismatched room/item count).
+    std::vector<byte> snapshot;
+    bool haveSnapshot = serializeGameState(snapshot);
+    if (!haveSnapshot || payload.size() != snapshot.size()) {
+        print("That saved game appears to be damaged.\n");
+        return Common::Error(Common::kNoGameDataFoundError);
+    }
+
+    deserializeGameState(payload);
+
+    // A right-sized but internally inconsistent payload still shouldn't be able
+    // to strand the player in a non-existent room: roll back if so.
+    if (!_game->saveStateLooksValid()) {
+        deserializeGameState(snapshot);
+        print("That saved game appears to be damaged.\n");
+        return Common::Error(Common::kNoGameDataFoundError);
+    }
+
+    clearUndo();  // can't undo across a restore
+    return Common::Error(Common::kNoError);
+}
+
+Common::Error Comprehend::saveGameState(int slot, const Common::String & /*desc*/) {
+    Common::String name = Common::String::format("%s_save_%d", _gameId.c_str(), slot);
+    frefid_t fref = glk_fileref_create_by_name(
+        fileusage_SavedGame | fileusage_BinaryMode, (char *)name.c_str(), 0);
+    Common::Error err = saveToFileref(fref);
+    if (fref) glk_fileref_destroy(fref);
+    return err;
 }
 
 Common::Error Comprehend::loadGameState(int slot) {
@@ -128,23 +215,31 @@ Common::Error Comprehend::loadGameState(int slot) {
         return Common::Error(Common::kNoGameDataFoundError);
     }
 
-    strid_t str = glk_stream_open_file(fref, filemode_Read, 0);
+    Common::Error err = loadFromFileref(fref);
     glk_fileref_destroy(fref);
-    if (!str) return Common::Error(Common::kNoGameDataFoundError);
+    return err;
+}
 
-    // Seek to end to determine file size, then rewind.
-    glk_stream_set_position(str, 0, seekmode_End);
-    int64 size = (int64)glk_stream_get_position(str);
-    glk_stream_set_position(str, 0, seekmode_Start);
+// SAVE verb: prompt the player for a file via the standard Glk save dialog.
+Common::Error Comprehend::saveGamePrompt() {
+    frefid_t fref = glk_fileref_create_by_prompt(
+        fileusage_SavedGame | fileusage_BinaryMode, filemode_Write, 0);
+    if (!fref) return Common::Error(Common::kNoGameDataFoundError);
 
-    GlkReadStream rs(str, size);
-    Common::Serializer s(&rs, nullptr);
-    _game->synchronizeSave(s);
+    Common::Error err = saveToFileref(fref);
+    glk_fileref_destroy(fref);
+    return err;
+}
 
-    glk_stream_close(str, nullptr);
-    clearUndo();  // can't undo across a restore
-    gmCMHourglassReset();  // sand jumps; the next repaint snaps, doesn't animate
-    return Common::Error(Common::kNoError);
+// RESTORE verb: prompt the player for a file via the standard Glk restore dialog.
+Common::Error Comprehend::loadGamePrompt() {
+    frefid_t fref = glk_fileref_create_by_prompt(
+        fileusage_SavedGame | fileusage_BinaryMode, filemode_Read, 0);
+    if (!fref) return Common::Error(Common::kNoGameDataFoundError);
+
+    Common::Error err = loadFromFileref(fref);
+    glk_fileref_destroy(fref);
+    return err;
 }
 
 bool Comprehend::serializeGameState(std::vector<byte> &out) {
