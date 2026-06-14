@@ -37,7 +37,7 @@ static const spritelist sprites[] = {
     {42, 104,  62}, // Bottle of salt water
     {44, 86,   62}, // sneakers
     {46, 152,  46}, // shovel
-    {60, 185,  62}, // sack of crackers
+    {60, 184,  62}, // sack of crackers
     {8,  152,  46}, // torch
     {63, 152,  46}, // burnt-out torch
     {9,  152,  46}, // lit torch
