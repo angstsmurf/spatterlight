@@ -38,6 +38,7 @@ CXX_SRCS := \
     apple2.cpp \
     graphics_magician.cpp \
     graphics_magician_cga.cpp \
+    graphics_magician_dhgr.cpp \
     charset.cpp \
     comprehend.cpp \
     comprehend_compat.cpp \

@@ -732,6 +732,22 @@ void Comprehend::showGraphics() {
         winmethod_Above | winmethod_Fixed, 1, wintype_TextGrid, GLK_STATUS_ROCK);
 }
 
+void Comprehend::setDhgrMode(bool on) {
+    if (on == _useDhgr)
+        return;
+    _useDhgr = on;
+    // Widen/narrow the persistent render surface. This clears it; the caller
+    // (the toggle / picture code) redraws the current picture afterwards.
+    if (_drawSurface)
+        _drawSurface->setRenderWidth(on ? G_RENDER_WIDTH_DHGR : G_RENDER_WIDTH);
+    // The horizontal step changed, so the integer scale may need to (re)round to
+    // even; repaint whatever is currently shown.
+    if (_topWindow) {
+        recomputeGraphicsScale();
+        glk_window_clear(_topWindow);
+    }
+}
+
 void Comprehend::blitSurfaceToWindow() {
     blitSurfaceRowsToWindow(0, G_RENDER_HEIGHT - 1);
 }
@@ -750,8 +766,13 @@ void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
     if (y0 > y1) return;
 
     // Centre the render horizontally (matches ScummVM's 20*SCALE_FACTOR x offset).
+    // The physical width is the same in both hi-res modes: standard is
+    // G_RENDER_WIDTH*_pixelSize; DHGR is its 560 columns at half-width
+    // (560 * _pixelSize/2 == 280 * _pixelSize), so the 280-unit centring holds.
     int xOff = ((int)winW - G_RENDER_WIDTH * _pixelSize) / 2;
     if (xOff < 0) xOff = 0;
+    const int surfaceW = _drawSurface->w;   // 280 (std) or 560 (DHGR)
+    const int stepX = pixelStepX();          // _pixelSize (std) or _pixelSize/2 (DHGR)
 
     // Run-length encode along each row so we issue one glk_window_fill_rect
     // per same-coloured horizontal run instead of one per pixel — about 30x
@@ -764,18 +785,18 @@ void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
     // colour first, so every pixel is drawn.
     for (int y = y0; y <= y1; ++y) {
         int x = 0;
-        while (x < G_RENDER_WIDTH) {
+        while (x < surfaceW) {
             uint32 c = surfaceColorAt(_drawSurface, x, y);
             int x0 = x;
-            do { ++x; } while (x < G_RENDER_WIDTH && surfaceColorAt(_drawSurface, x, y) == c);
+            do { ++x; } while (x < surfaceW && surfaceColorAt(_drawSurface, x, y) == c);
             if ((c & 0xff) == 0)
                 continue;   // transparent — leave the background untouched
             // Strip alpha and map to Glk's 0xRRGGBB.
             glui32 rgb = (glui32)((c >> 8) & 0xffffff);
             glk_window_fill_rect(_topWindow, rgb,
-                xOff + x0 * _pixelSize,
+                xOff + x0 * stepX,
                 y * _pixelSize,
-                (x - x0) * _pixelSize,
+                (x - x0) * stepX,
                 _pixelSize);
         }
     }
@@ -796,6 +817,13 @@ bool Comprehend::recomputeGraphicsScale() {
             scale = scaleByHeight;
     }
     if (scale < 1) scale = 1;
+    // Double hi-res halves the horizontal step (pixelStepX == scale/2), so the
+    // vertical scale must be even (and >= 2) for the 560 columns to land on
+    // whole window pixels.
+    if (_useDhgr) {
+        if (scale < 2) scale = 2;
+        scale &= ~1;
+    }
     if (scale == _pixelSize) return false;
 
     _pixelSize = scale;

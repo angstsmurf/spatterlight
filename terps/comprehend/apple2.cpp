@@ -2,6 +2,7 @@
 
 #include "apple2.h"
 #include "graphics_magician.h"
+#include "graphics_magician_dhgr.h"
 #include "comprehend_compat.h"
 
 #include <cstdio>
@@ -161,6 +162,15 @@ int loadAppleDiskImage(const Common::String &path) {
     const std::vector<byte> *t2 = Common::DiskImageFS::get("t2");
     if (t2)
         gmInstallDrawingTables(t2->data(), t2->size());
+
+    // The "T5" file is the boot disk's double-hi-res ("<D>" mode) interpreter;
+    // its drawing tables sit at fixed offsets inside the headerless $4000 image.
+    // Install them so the DHGR renderer (graphics_magician_dhgr.cpp) can run when
+    // the player toggles double hi-res. Absent on games that ship no <D> mode,
+    // in which case the toggle stays unavailable.
+    const std::vector<byte> *t5 = Common::DiskImageFS::get("t5");
+    if (t5)
+        gmDhgrInstallDrawingTables(t5->data(), t5->size());
 
     return total;
 }

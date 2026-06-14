@@ -70,7 +70,9 @@ void gm_compute_row_words(const uint8_t *vram_row, uint16_t *words) {
     }
 }
 
-void gm_render_line_colors(const uint16_t *in, uint8_t *colors560) {
+// The pixel-run colour kernel. `phase` is MAME's `is_80_column` rotation offset:
+// 0 for standard hi-res (40-column chroma phase), 1 for DHGR (80-column phase).
+static void render_line_colors_phase(const uint16_t *in, uint8_t *colors560, int phase) {
     // w holds 3 bits of the previous 14-pixel group and the current and next groups.
     uint32_t w = 0;
     w += in[0] << CONTEXTBITS;
@@ -79,8 +81,22 @@ void gm_render_line_colors(const uint16_t *in, uint8_t *colors560) {
             w += in[col + 1] << (14 + CONTEXTBITS);
         for (int b = 0; b < 14; b++) {
             // colour is an index 0 (black)..15 (white) into gm_apple2_palette.
-            colors560[col * 14 + b] = (uint8_t)rotl4b(artifact_color_lut[w & 0x7f], col * 14 + b);
+            colors560[col * 14 + b] = (uint8_t)rotl4b(artifact_color_lut[w & 0x7f], col * 14 + b + phase);
             w >>= 1;
         }
     }
+}
+
+void gm_render_line_colors(const uint16_t *in, uint8_t *colors560) {
+    render_line_colors_phase(in, colors560, 0);
+}
+
+void gm_compute_dhgr_row_words(const uint8_t *aux_row, const uint8_t *main_row,
+                               uint16_t *words) {
+    for (int col = 0; col < 40; col++)
+        words[col] = (uint16_t)((aux_row[col] & 0x7f) | ((main_row[col] & 0x7f) << 7));
+}
+
+void gm_render_dhgr_line_colors(const uint16_t *in, uint8_t *colors560) {
+    render_line_colors_phase(in, colors560, 1);
 }

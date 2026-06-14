@@ -22,6 +22,7 @@
 #include "pics.h"
 #include "graphics_magician.h"
 #include "graphics_magician_cga.h"
+#include "graphics_magician_dhgr.h"
 #include "comprehend_compat.h"
 #include "charset.h"
 #include <vector>
@@ -378,6 +379,24 @@ void Pics::ImageFile::renderApple(uint index) const {
 	gmDrawImage(buf.data(), len);
 }
 
+void Pics::ImageFile::renderAppleDhgr(uint index) const {
+	Common::File f;
+	if (!f.open(_filename))
+		error("Opening image file");
+
+	int64 start = _imageOffsets[index];
+	int64 fsize = f.size();
+	if (start < 0 || start >= fsize)
+		return;
+
+	size_t len = (size_t)(fsize - start);
+	std::vector<byte> buf(len);
+	f.seek(start);
+	f.read(buf.data(), (uint32)len);
+
+	gmDhgrDrawImage(buf.data(), len);
+}
+
 void Pics::ImageFile::renderGmcga(uint index) const {
 	Common::File f;
 	if (!f.open(_filename))
@@ -557,6 +576,19 @@ void Pics::drawPicture(int pictureNum) const {
 	if (Common::DiskImageFS::active()) {
 		DrawSurface *ds = ctx._drawSurface;
 
+		// Apple II double hi-res ("<D>") mode: same Graphics Magician vector
+		// streams and image offsets, but rasterised onto the 560-wide DHGR
+		// aux/main pages and NTSC-converted. Only engages when the player has
+		// toggled it on AND the boot disk shipped a <D> interpreter (T5 tables
+		// installed); otherwise everything stays on the standard hi-res path.
+		const bool dhgr = g_comprehend->_useDhgr && gmDhgrHaveDrawingTables();
+		auto resetScreen = [dhgr](bool white) {
+			if (dhgr) gmDhgrResetScreen(white); else gmResetScreen(white);
+		};
+		auto render = [dhgr](const ImageFile &img, uint idx) {
+			if (dhgr) img.renderAppleDhgr(idx); else img.renderApple(idx);
+		};
+
 		// The Coveted Mirror keeps a persistent right-hand panel (the game's
 		// logo above an hourglass) in screen columns 24..39, drawn once at boot
 		// while room pictures fill only the left columns. Our room images span
@@ -572,7 +604,10 @@ void Pics::drawPicture(int pictureNum) const {
 		// static panel pixel-exactly (verified byte-for-byte vs the MAME capture
 		// in test/cm/throne_sand60.page).
 		static bool s_cmPanelBuilt = false;
-		bool isCM = g_comprehend->getGameID() == "covetedmirror";
+		// The CM panel compositing (gmCaptureCMPanel/gmOverlayCMPanel) works on
+		// the standard hi-res page only, so the panel is a standard-hi-res-only
+		// feature; skip it entirely while double hi-res is active.
+		bool isCM = !dhgr && g_comprehend->getGameID() == "covetedmirror";
 		if (isCM && !s_cmPanelBuilt && pictureNum != TITLE_IMAGE &&
 		    !_rooms.empty() && !_items.empty()) {
 			gmResetScreen(false);
@@ -583,29 +618,29 @@ void Pics::drawPicture(int pictureNum) const {
 		}
 
 		if (pictureNum == DARK_ROOM) {
-			gmResetScreen(false);
+			resetScreen(false);
 		} else if (pictureNum == BRIGHT_ROOM) {
-			gmResetScreen(true);
+			resetScreen(true);
 		} else if (pictureNum == TITLE_IMAGE) {
 			// The Apple II title (T0) is a Graphics Magician vector image. The
 			// legacy titles (Talisman/Transylvania/Crimson Crown) are drawn on a
 			// white background like a bright room; OO-Topos starts from black (it
 			// fills its own background with op15, and its lettering blends with
 			// the page, so a white start corrupts it).
-			gmResetScreen(g_comprehend->getGameID() != "ootopos");
+			resetScreen(g_comprehend->getGameID() != "ootopos");
 			if (_title.isLoaded())
-				_title.renderApple(0);
+				render(_title, 0);
 		} else if (pictureNum >= ITEMS_OFFSET) {
 			// Item overlay: draw on top of the existing room page.
 			int n = pictureNum - ITEMS_OFFSET;
-			_items[n / IMAGES_PER_FILE].renderApple(n % IMAGES_PER_FILE);
+			render(_items[n / IMAGES_PER_FILE], n % IMAGES_PER_FILE);
 		} else {
 			// Room picture. Background variants start from a fresh page; the
 			// no-background variant composes onto whatever is already shown.
 			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
-				gmResetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
+				resetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
 			int n = pictureNum % 100;
-			_rooms[n / IMAGES_PER_FILE].renderApple(n % IMAGES_PER_FILE);
+			render(_rooms[n / IMAGES_PER_FILE], n % IMAGES_PER_FILE);
 		}
 
 		// Re-apply The Coveted Mirror's persistent panel on top of the room/item
@@ -616,6 +651,14 @@ void Pics::drawPicture(int pictureNum) const {
 			gmOverlayCMPanel();
 			if (ComprehendGame *game = g_comprehend->getGame())
 				gmDrawCMHourglass(game->_variables[0x11]);
+		}
+
+		// Double hi-res has no incremental slow-draw path yet; blit the finished
+		// 560-wide page in one shot. (The surface was widened to 560 by
+		// setDhgrMode(); ds->w matches the DHGR converter's expectation.)
+		if (dhgr) {
+			gmDhgrBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+			return;
 		}
 
 		// With slow-draw active the page is revealed a chunk at a time by the

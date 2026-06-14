@@ -105,6 +105,12 @@ private:
 		// (graphics_magician.cpp), instead of the generic DrawSurface path.
 		void renderApple(uint index) const;
 
+		// Apple II double hi-res ("<D>") mode: decode image `index`'s vector
+		// stream onto the persistent DHGR aux/main pages via the double-hi-res
+		// renderer (graphics_magician_dhgr.cpp). Same vector stream / offset as
+		// renderApple(); only the rasteriser differs.
+		void renderAppleDhgr(uint index) const;
+
 		// DOS Talisman Hercules only: decode image `index`'s vector stream onto
 		// the 2-bpp logical framebuffer managed by graphics_magician_cga.cpp.
 		void renderGmcga(uint index) const;

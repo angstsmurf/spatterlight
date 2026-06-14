@@ -30,6 +30,11 @@ namespace Comprehend {
 #define G_RENDER_WIDTH  280
 #define G_RENDER_HEIGHT 160
 
+// Double hi-res ("<D>" mode) renders 560 native columns over the same 160 rows.
+// The surface is widened to this; the window blit halves the horizontal pixel
+// step so the picture keeps the standard physical size and aspect ratio.
+#define G_RENDER_WIDTH_DHGR 560
+
 #define RGB(r, g, b)        (uint32)(((r) << 24) | ((g) << 16) | ((b) << 8) | 0xff)
 
 #define G_COLOR_BLACK  0x000000ff
@@ -90,6 +95,13 @@ public:
 	 * Sets up the surface to the correct size and pixel format
 	 */
 	void reset();
+
+	/**
+	 * Re-create the surface at a given render width (G_RENDER_WIDTH for standard
+	 * hi-res, G_RENDER_WIDTH_DHGR for double hi-res), keeping the picture height
+	 * and pixel format. Used when toggling the Apple II <D> double hi-res mode.
+	 */
+	void setRenderWidth(int width);
 
 	void setColorTable(uint index);
 	uint getPenColor(uint8 param) const;
