@@ -1,95 +1,79 @@
-# TODO: make the Howarth (Mysterious Adventures) vector graphics more accurate
+# Howarth (Mysterious Adventures) vector graphics — accuracy notes
 
-Renderer: `ai_uk/line_drawing.c` (`DrawHowarthVectorPicture`), shared plumbing
-in `saga/vector_common.c`. Format is Brian Howarth / Digital Fantasia
-"Mysterious Adventures" line-drawing vectors (`HOWARTH_FORMAT`, picture format
-99): a stream of MOVE_TO / draw-line / FILL / END opcodes over a 255×96-ish
-coordinate space.
+Renderer: `ai_uk/line_drawing.c` (`DrawHowarthVectorPicture`). Format is Brian
+Howarth / Digital Fantasia "Mysterious Adventures" line-drawing vectors
+(`HOWARTH_FORMAT`, picture format 99): a stream of MOVE_TO / draw-line / FILL /
+END opcodes over a 256×96 region (the top 12 character rows of a ZX `SCREEN$`).
 
-## Where we stand (measured)
+## Status — line rasterizer and fill are now ROM-exact (resolved 2026-06)
 
-The harness exists (`saga/test/zxvectortest.c` + `.zxvec` goldens; `zxextract`
-dumps the `LineImages[]` streams) but the renderer is **not** byte-exact:
+Reverse-engineered the original Digital Fantasia ROM from the ZX Spectrum
+*Golden Baton* `.z80` snapshot in Ghidra (loaded as a raw 64K Z80 image; the
+interpreter's picture engine lives at `ram:0x6be2`). The two routines that
+governed accuracy were re-implemented to match the ROM pixel-for-pixel:
 
-- Golden Baton opening room: **94.11%** overall.
-- **Fill** pixels: 95.6% match — close.
-- **Thin line** pixels: only **38%** match.
+1. **Line rasterizer** `scott_linegraphics_draw_line()` (ROM `0x6c06..0x6ca3`).
+   The old code was a generic Level9-derived Bresenham; the ROM uses a *centred*
+   Bresenham that differs in three ways that each move pixels by ~1px:
+   - error initialised to `major/2` (round-to-nearest), not `2*minor-major`;
+   - the loop runs exactly `major` times, stepping the major axis every
+     iteration and plotting the **new** position, so the **start point is not
+     plotted** (the previous segment's end already covers it) and the end is;
+   - a zero-length segment (`dx==dy==0`) plots nothing; ties (`dx==dy`) are
+     x-major.
+   Verified **byte-identical to a 1:1 asm translation** of the ROM, and
+   **1740/1740 (100%)** of the drawn line pixels land on the real Spectrum
+   bitmap for Golden Baton's opening room (was ~99% / 17 stray px before).
 
-So the dominant error is the line rasterizer, not the fills.
+2. **Fill clamp** `diamond_fill()` (ROM `0x6cee/0x6cf9/0x6d04/0x6d0f`). The ROM
+   flood (a 4-connected, double-buffered BFS "plot-if-clear", `0x6d20`) never
+   grows into the top screen row or the extreme edge columns — the picture
+   border is an implicit wall. The ROM-exact lines correctly plot nothing in
+   row 0, so a naïve flood **escaped along the top edge and flooded the whole
+   image** (the old Bresenham only stayed contained because its misplaced pixels
+   happened to seal row 0). Clamping the flood to the ROM interior
+   (`x∈[1,253], y∈[1,CLIPHEIGHT)`) fixes the leak and lifts the fill match from
+   95.6% → **99.0%**.
 
-## Root cause
+End-to-end colour match vs a real Spectrum `SCREEN$` (ZXOPT palette): **95.26%**
+(was 94.11%). See ground-truth method and the remaining ceiling below.
 
-`scott_linegraphics_draw_line()` is a generic Bresenham inherited from the
-Level9 interpreter, not the original Digital Fantasia ROM line routine. It
-places interior pixels ~1px off the original because the decision/rounding and
-the choice of major axis differ. Lines are 1px wide, so a 1px lateral shift
-misses most line pixels even though the shape looks right — hence 38%.
+## Remaining ceiling: ZX attribute clash (inherent, ~5%)
 
-## Plan
+The residual mismatch is **not** a rasterizer bug — it is the ZX Spectrum's 8×8
+attribute model. A white outline crossing a red-filled cell displays as **red**
+on real hardware (one ink per 8×8 cell), but this per-pixel renderer draws it
+white. Of Golden Baton room 0's ~1148 mismatched pixels, ~1072 are correctly
+*placed* line pixels that simply clash to the cell's fill colour. Reproducing
+clash would require an 8×8 attribute pass and would make Spatterlight's output
+*worse* (clashy) for users, so it is deliberately not done — this is the same
+kind of inherent ceiling as the C64 colour-RAM tests, not a defect to chase.
 
-### 1. Reverse-engineer the original line routine (the big win)
-Disassemble the original AIUK / Digital Fantasia interpreter's line-draw
-subroutine and capture its exact per-pixel output, then replicate it. Use the
-same MAME ground-truth method already proven elsewhere in this tree:
+## Ground-truth method (for re-verification / new rooms)
 
-- See the **`unquill-illustrator-renderer`** memory note (RPLOT direction-table
-  RE: dispatch/line/fill addresses + MAME pixel ground-truth) and the
-  **`saga-apple2-groundtruth` / `saga-atari8-groundtruth`** notes (MAME
-  op-snapshot capture) for the established recipe.
-- Pin down: octant selection (which axis is "major"), the balance/error
-  initialisation, the tie-break direction when `balance == 0`, and whether both
-  endpoints are plotted. Those three details are what move pixels by 1.
-- The format shipped on ZX Spectrum, C64 and Atari 8-bit. Capture the ROM
-  routine on whichever platform is easiest to single-step; confirm the others
-  match (the *data* is the same vector stream, so one correct rasterizer should
-  satisfy all platforms).
+1. Decode the `.z80` to a raw 64K image (Z80 v2/v3 RLE) and import as
+   `z80:LE:16:default` in Ghidra; the engine dispatcher is at `ram:0x6be2`.
+2. `build/zxextract <game.z80> <dir> <picnum>` dumps the `LineImages[]` vector
+   stream (`pic<NNN>.dat` + `meta.txt`).
+3. `mame spectrum -snapshot <game.z80>`, press a key to leave the title, then
+   dump `SCREEN$` (`0x4000..0x5aff`) over the Lua bridge; decode with the ZXOPT
+   palette to a `C64C2` golden (256×96).
+4. `build/zxvectortest grid|cmp <dir> …`. For a *geometry* check (clash-immune),
+   compare the renderer's plotted pixels to the real bitmap's set bits — the
+   lines should be 100%.
 
-### 2. Replace the Bresenham with the RE'd algorithm
-Rewrite `scott_linegraphics_draw_line()` to match the original's pixel
-placement exactly. Re-run `zxvectortest`; target byte-exact on Golden Baton
-room 0, then widen the corpus.
-
-### 3. Re-check the fill once lines are exact
-`diamond_fill()` is a 4-connected flood into `bg_colour` only. At 95.6% it's
-nearly right, and some of its misses are almost certainly *line* pixels (the
-fill stops against lines, so a 1px-shifted line leaks/clips the fill by a row).
-Re-measure after step 2 before touching it. If a real gap remains, RE the
-original fill's seed order and boundary test (fill-to-set-pixel vs
-fill-bg-only), and note the **2048-byte ring buffer** in `diamond_fill()` can
-silently drop coordinates on very large areas → holes; size it to the bitmap.
-
-### 4. Confirm the line/background colour rule
-`DrawHowarthVectorPicture()` picks the ink heuristically:
-`line_colour = (bg_colour == 0) ? 7 : 0`. Verify against the original — the real
-interpreter may store an ink per image or use a fixed platform ink, and "7" is
-platform-dependent (and runs through `Remap()`/`Game->palette`). Getting this
-wrong is a whole-image colour error, not a 1px one.
-
-### 5. Fix the clip off-by-one
-`scott_linegraphics_plot_clip()` accepts `x <= MYSTERIOUS_WIDTH` (255) but
-`picture_bitmap` rows are only `MYSTERIOUS_WIDTH` (255) wide, so `x == 255`
-writes into the next row (`y*255 + 255` == `(y+1)*255 + 0`) and `PutPixel`
-plots one column past the intended edge. Decide whether the display is 255 or
-256 wide; either widen the buffer/`MYSTERIOUS_WIDTH` to 256 or clip with `x <
-MYSTERIOUS_WIDTH`. Re-verify after — this can account for a column of edge
-mismatches.
-
-### 6. Coordinate space / aspect sanity
-Confirm `MYSTERIOUS_WIDTH 255`, `MYSTERIOUS_CLIPHEIGHT 95`, and
-`ConvertY = 191 - y` map onto the original display region, and that on-screen
-scaling (double-width? aspect) matches the source platform rather than just
-filling the Glk graphics window.
-
-### 7. Commit the golden and grow coverage
-Once Golden Baton room 0 is byte-exact, commit its `.zxvec` golden and wire
-`zxvectortest` into the test target (see `saga/test/TODO.md`, currently marked
-`[~]`). Then add more Mysterious Adventures rooms, and ideally a C64 and an
-Atari capture, so the rasterizer is proven across platforms.
+## Not committed
+No `.zxvec` golden is committed: an exact-colour golden can't reach 100% because
+of attribute clash, and `make zxtest` hard-fails below 100%. The harness
+(`zxvectortest`) and this capture recipe stay for future investigation. If a
+regression guard is wanted, add a *set-bit geometry* assertion (lines == 100%)
+rather than an exact-colour golden.
 
 ## Pointers
 - Renderer: `ai_uk/line_drawing.c`; opcodes `MOVE_TO 0xc0`, `FILL 0xc1`,
-  `END 0xff`, anything else = draw-line-to.
-- Harness: `saga/test/zxvectortest.c`, `saga/test/zxextract.c`,
-  `saga/test/TODO.md` (ZX Howarth/vector entry).
+  `END 0xff`, anything else = draw-line-to (the opcode byte is the Y).
+- ROM anchors (Golden Baton): dispatcher `0x6be2`, line `0x6c06`, fill driver
+  `0x6ca6`, fill BFS/plot-if-clear `0x6cdd`/`0x6d20`, end `0x6d79`.
+- Harness: `saga/test/zxvectortest.c`, `saga/test/zxextract.c`.
 - Method memory notes: `unquill-illustrator-renderer`,
-  `saga-apple2-groundtruth`, `saga-atari8-groundtruth`.
+  `saga-apple2-groundtruth`, `saga-atari8-groundtruth`, `scott-howarth-vector-re`.

@@ -161,62 +161,59 @@ static void
 scott_linegraphics_draw_line(int x1, int y1, int x2, int y2,
     int colour)
 {
-    int x, y, dx, dy, incx, incy, balance;
+    /*
+     * Byte-exact reimplementation of the original Digital Fantasia /
+     * Mysterious Adventures ROM line routine (Golden Baton ram:0x6c06..0x6ca3,
+     * reverse-engineered from the ZX Spectrum snapshot in Ghidra). It is a
+     * centred Bresenham distinct from the generic Level9-derived one this file
+     * used to carry:
+     *
+     *   - error is initialised to major/2 (round-to-nearest), not 2*minor-major;
+     *   - the major axis steps every iteration and the loop runs exactly
+     *     `major` times, plotting the NEW position each step, so the START
+     *     point is NOT plotted (the previous segment's end already covers it)
+     *     and the END point IS;
+     *   - a zero-length segment (dx == dy == 0) plots nothing;
+     *   - ties (dx == dy) take the x-major branch.
+     *
+     * The original works in raw coordinates (y up) and plots at screen row
+     * 191-y; the caller here has already converted y to screen space, and the
+     * iteration is invariant under that negation, so the placement matches
+     * pixel-for-pixel. Verified byte-identical to the ROM over Golden Baton's
+     * room 0 (1740/1740 line pixels land on the real Spectrum bitmap).
+     */
+    int dx, dy, sx, sy, x, y, acc, i, major, minor, step;
 
-    /* Normalize the line into deltas and increments. */
-    if (x2 >= x1) {
-        dx = x2 - x1;
-        incx = 1;
-    } else {
-        dx = x1 - x2;
-        incx = -1;
-    }
+    if (x2 >= x1) { sx = 1;  dx = x2 - x1; } else { sx = -1; dx = x1 - x2; }
+    if (y2 >= y1) { sy = 1;  dy = y2 - y1; } else { sy = -1; dy = y1 - y2; }
 
-    if (y2 >= y1) {
-        dy = y2 - y1;
-        incy = 1;
-    } else {
-        dy = y1 - y2;
-        incy = -1;
-    }
-
-    /* Start at x1,y1. */
     x = x1;
     y = y1;
 
-    /* Decide on a direction to progress in. */
     if (dx >= dy) {
-        dy *= 2;
-        balance = dy - dx;
-        dx *= 2;
-
-        /* Loop until we reach the end point of the line. */
-        while (x != x2) {
+        if (dx == 0)            /* dx == dy == 0: degenerate, plot nothing */
+            return;
+        major = dx; minor = dy;
+        acc = major >> 1;
+        for (i = 0; i < major; i++) {
+            acc += minor;
+            step = 0;
+            if (acc >= major) { acc -= major; step = sy; }
+            x += sx;
+            y += step;
             scott_linegraphics_plot_clip(x, y, colour);
-            if (balance >= 0) {
-                y += incy;
-                balance -= dx;
-            }
-            balance += dy;
-            x += incx;
         }
-        scott_linegraphics_plot_clip(x, y, colour);
     } else {
-        dx *= 2;
-        balance = dx - dy;
-        dy *= 2;
-
-        /* Loop until we reach the end point of the line. */
-        while (y != y2) {
+        major = dy; minor = dx;
+        acc = major >> 1;
+        for (i = 0; i < major; i++) {
+            acc += minor;
+            step = 0;
+            if (acc >= major) { acc -= major; step = sx; }
+            y += sy;
+            x += step;
             scott_linegraphics_plot_clip(x, y, colour);
-            if (balance >= 0) {
-                x += incx;
-                balance -= dy;
-            }
-            balance += dx;
-            y += incy;
         }
-        scott_linegraphics_plot_clip(x, y, colour);
     }
 }
 
@@ -232,7 +229,14 @@ static void diamond_fill(uint8_t x, uint8_t y, int colour)
     circular_buf_putXY(ringbuf, x, y);
     while (!circular_buf_empty(ringbuf)) {
         circular_buf_getXY(ringbuf, &x, &y);
-        if (x >= 0 && x < MYSTERIOUS_WIDTH && y >= 0 && y < MYSTERIOUS_CLIPHEIGHT && linegraphics_get_pixel(x, y) == bg_colour) {
+        /* Match the original ROM fill's interior clamp (Golden Baton
+         * ram:0x6cee/0x6cf9/0x6d04/0x6d0f): it never grows into the top screen
+         * row or the extreme edge columns, so the picture border acts as an
+         * implicit wall. The ROM-exact line rasterizer plots no pixel in row 0,
+         * so without this clamp a 4-connected flood escapes along the top edge
+         * and floods the whole image (the previous Level9 Bresenham only stayed
+         * contained because its ~1px-wide misplacement happened to seal row 0). */
+        if (x >= 1 && x < MYSTERIOUS_WIDTH - 1 && y >= 1 && y < MYSTERIOUS_CLIPHEIGHT && linegraphics_get_pixel(x, y) == bg_colour) {
             scott_linegraphics_plot_clip(x, y, colour);
             circular_buf_putXY(ringbuf, x, y + 1);
             circular_buf_putXY(ringbuf, x, y - 1);
