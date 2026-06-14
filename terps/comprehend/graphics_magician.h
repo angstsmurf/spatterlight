@@ -91,6 +91,12 @@ bool gmCMPanelValid();
 // interpreter's cm_draw_hourglass_grain ($4347) / cm_per_turn_graphics_step.
 void gmDrawCMHourglass(int sand);
 
+// Position of hourglass grain `idx` (0-based; idx 0 is a no-op). Fills the Apple
+// hi-res coordinate (x 0..279, y 0..191) and returns false for grains that stamp
+// nothing. Shared with the double-hi-res renderer, which doubles x onto its
+// 560-wide pages. Ported from cm_draw_hourglass_grain ($4347).
+bool gmCMHourglassGrainPos(uint8_t idx, uint16_t *outX, uint8_t *outY);
+
 // Per-turn grain-fall animation (The Coveted Mirror). gmDrawCMHourglass() always
 // renders the resting pile at the correct level and, on a single-grain drop,
 // flags that a grain just drained; gmCMHourglassConsumeFallArmed() reports that

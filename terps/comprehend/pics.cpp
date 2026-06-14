@@ -603,18 +603,24 @@ void Pics::drawPicture(int pictureNum) const {
 		// by gmDrawCMHourglass() on top. Compositing RG0 + OG0 here reproduces the
 		// static panel pixel-exactly (verified byte-for-byte vs the MAME capture
 		// in test/cm/throne_sand60.page).
-		static bool s_cmPanelBuilt = false;
-		// The CM panel compositing (gmCaptureCMPanel/gmOverlayCMPanel) works on
-		// the standard hi-res page only, so the panel is a standard-hi-res-only
-		// feature; skip it entirely while double hi-res is active.
-		bool isCM = !dhgr && g_comprehend->getGameID() == "covetedmirror";
-		if (isCM && !s_cmPanelBuilt && pictureNum != TITLE_IMAGE &&
+		// The panel lives on whichever pages are active, so it is built once per
+		// hi-res mode (the standard single page and the double-hi-res aux+main
+		// pages are independent buffers).
+		static bool s_cmPanelBuiltStd = false, s_cmPanelBuiltDhgr = false;
+		bool isCM = g_comprehend->getGameID() == "covetedmirror";
+		bool panelBuilt = dhgr ? s_cmPanelBuiltDhgr : s_cmPanelBuiltStd;
+		if (isCM && !panelBuilt && pictureNum != TITLE_IMAGE &&
 		    !_rooms.empty() && !_items.empty()) {
-			gmResetScreen(false);
-			_rooms[_rooms.size() - 1].renderApple(0); // RG = last location file: logo
-			_items[_items.size() - 1].renderApple(0); // OG = last item file: hourglass
-			gmCaptureCMPanel(24, 39);
-			s_cmPanelBuilt = true;
+			resetScreen(false);
+			render(_rooms[_rooms.size() - 1], 0); // RG = last location file: logo
+			render(_items[_items.size() - 1], 0); // OG = last item file: hourglass
+			if (dhgr) {
+				gmDhgrCaptureCMPanel(24, 39);
+				s_cmPanelBuiltDhgr = true;
+			} else {
+				gmCaptureCMPanel(24, 39);
+				s_cmPanelBuiltStd = true;
+			}
 		}
 
 		if (pictureNum == DARK_ROOM) {
@@ -648,9 +654,16 @@ void Pics::drawPicture(int pictureNum) const {
 		// sand pile for the current sand level (VM variable 0x11): the engine
 		// shows that many grains and drains one per turn.
 		if (isCM && pictureNum != TITLE_IMAGE) {
-			gmOverlayCMPanel();
+			int sand = 0;
 			if (ComprehendGame *game = g_comprehend->getGame())
-				gmDrawCMHourglass(game->_variables[0x11]);
+				sand = game->_variables[0x11];
+			if (dhgr) {
+				gmDhgrOverlayCMPanel();
+				gmDhgrDrawCMHourglass(sand);
+			} else {
+				gmOverlayCMPanel();
+				gmDrawCMHourglass(sand);
+			}
 		}
 
 		// Double hi-res blits the 560-wide page(s). (The surface was widened to

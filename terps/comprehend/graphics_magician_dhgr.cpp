@@ -26,6 +26,7 @@
  */
 
 #include "graphics_magician_dhgr.h"
+#include "graphics_magician.h"
 #include "gm_artifact.h"
 #include <cstring>
 #include <vector>
@@ -77,20 +78,30 @@ static int s_pauseTicks = 0;             // reveal ticks still owed to a DELAY
 static int s_dirtyMin = 0x7fffffff, s_dirtyMax = -1;
 
 // offset -> screen row (0..191), or 0xff for the inter-row gaps in the page
-// address space. Built once; lets a reveal map a byte write back to its row.
+// address space; offset -> byte column (0..39), or 0xff in the gaps. Built once;
+// lets a reveal map a byte write back to its row (dirty band) and column (so the
+// CM panel columns can be excluded from the reveal -- see apply_op).
 static uint8_t s_rowOfOffset[A2_PAGE_SIZE];
+static uint8_t s_colOfOffset[A2_PAGE_SIZE];
 static bool s_rowTableInit = false;
 
-static void mark_row_dirty(uint16_t offset) {
-	if (!s_rowTableInit) {
-		std::memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
-		for (int row = 0; row < 192; row++) {
-			uint16_t base = CALC(row);
-			for (int col = 0; col < 40; col++)
-				s_rowOfOffset[base + col] = (uint8_t)row;
+static void init_offset_tables() {
+	if (s_rowTableInit)
+		return;
+	std::memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
+	std::memset(s_colOfOffset, 0xff, sizeof(s_colOfOffset));
+	for (int row = 0; row < 192; row++) {
+		uint16_t base = CALC(row);
+		for (int col = 0; col < 40; col++) {
+			s_rowOfOffset[base + col] = (uint8_t)row;
+			s_colOfOffset[base + col] = (uint8_t)col;
 		}
-		s_rowTableInit = true;
 	}
+	s_rowTableInit = true;
+}
+
+static void mark_row_dirty(uint16_t offset) {
+	init_offset_tables();
 	uint8_t r = s_rowOfOffset[offset];
 	if (r == 0xff)
 		return;
@@ -300,6 +311,13 @@ static uint16_t g_row_addr;
 static uint8_t g_parity;
 static uint8_t g_clip_left, g_clip_right, g_clip_top, g_clip_bottom;
 
+// op15 fill-bounds rectangle, in source byte columns (0..39) and rows (0..0x9f),
+// set by op15/1 (full screen) and op15/2 (4 explicit bounds). op14 PAINT clips
+// the flood fill to this rectangle, exactly as the standard renderer does
+// (ctx->fill_*): without it a room whose floor opens toward the right edge -- the
+// Coveted Mirror prison tower -- leaks the fill up and over the whole picture.
+static uint8_t g_fillLeft, g_fillRight, g_fillTop, g_fillBottom;
+
 static const uint8_t gmBIT[7]   = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40};
 static const uint8_t gmLMASK[7] = {0x80, 0x81, 0x83, 0x87, 0x8f, 0x9f, 0xbf};
 static const uint8_t gmRMASK[7] = {0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80};
@@ -433,7 +451,14 @@ static void run_fill() {
 	}
 }
 static void flood_fill(uint16_t x, uint8_t y) {
-	g_clip_left = 0; g_clip_right = 0x4f; g_clip_top = 0; g_clip_bottom = 0x9f;
+	// Clip to the op15 fill-bounds rectangle. The fill runs in DHGR columns
+	// (0..0x4f); a source byte column B spans DHGR columns 2B and 2B+1, so the
+	// byte-column bounds double (left -> 2*left, right -> 2*right+1). Rows are not
+	// doubled. Matches the standard renderer, which clips PAINT to ctx->fill_*.
+	g_clip_left   = (uint8_t)(2 * g_fillLeft);
+	g_clip_right  = (uint8_t)(2 * g_fillRight + 1);
+	g_clip_top    = g_fillTop;
+	g_clip_bottom = g_fillBottom;
 	g_row = y; g_pos = x;
 	run_fill();
 }
@@ -498,6 +523,80 @@ static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
 }
 
 // ---- public API ---------------------------------------------------------------
+// ---- The Coveted Mirror persistent right-hand panel ---------------------------
+// Double-hi-res analogue of the standard-hi-res panel (graphics_magician.cpp).
+// The panel (logo + hourglass frame + static bottom mound) is drawn once into the
+// pages by the caller, captured here by byte-column, and re-composited on top of
+// every in-game picture; the draining top-bulb grains are stamped per turn. The
+// source column indices match the standard page: the DHGR renderer doubles each
+// Apple column into the matching aux+main byte (logical cols 2c / 2c+1), so the
+// panel occupies the same byte columns 24..39 in both pages as it does standard.
+static uint8_t s_cmPanelAux[A2_PAGE_SIZE];
+static uint8_t s_cmPanelMain[A2_PAGE_SIZE];
+static bool s_cmPanelValid = false;
+static int s_cmPanelCol0 = 24, s_cmPanelCol1 = 39;
+
+void gmDhgrCaptureCMPanel(int col0, int col1) {
+	std::memcpy(s_cmPanelAux,  s_aux,  A2_PAGE_SIZE);
+	std::memcpy(s_cmPanelMain, s_main, A2_PAGE_SIZE);
+	s_cmPanelCol0 = col0;
+	s_cmPanelCol1 = col1;
+	s_cmPanelValid = true;
+}
+
+bool gmDhgrCMPanelValid() { return s_cmPanelValid; }
+
+// Copy the saved panel byte-columns onto both the final and the
+// progressively-revealed pages, so the panel is present immediately even while a
+// room's slow-draw reveal is still running (mirrors the standard renderer, which
+// writes the panel to s_screenmem and s_slowScreen alike).
+void gmDhgrOverlayCMPanel() {
+	if (!s_cmPanelValid)
+		return;
+	for (int row = 0; row < DHGR_HEIGHT; row++) {
+		uint16_t base = CALC(row);
+		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
+			uint16_t a = (uint16_t)(base + col);
+			if (a >= A2_PAGE_SIZE) continue;
+			s_aux[a]  = s_slowAux[a]  = s_cmPanelAux[a];
+			s_main[a] = s_slowMain[a] = s_cmPanelMain[a];
+		}
+	}
+}
+
+// Stamp the resting pile of `sand` white grains on top of the panel, at the same
+// per-grain positions the standard renderer uses (gmCMHourglassGrainPos), the
+// Apple x doubled onto the 560-wide pages. Call after gmDhgrOverlayCMPanel().
+void gmDhgrDrawCMHourglass(int sand) {
+	if (!s_cmPanelValid)
+		return;
+	// White grains use the same SET_FILL_COLOR 0x34 the original paints them with.
+	// Stamp straight onto the final pages with op recording suppressed, so the
+	// grains are not deferred to the slow-draw reveal.
+	bool savedRecord = s_recordOps;
+	s_recordOps = false;
+	set_fill_color(0x34);
+	for (int idx = 0; idx < sand && idx < 256; idx++) {
+		uint16_t x;
+		uint8_t y;
+		if (!gmCMHourglassGrainPos((uint8_t)idx, &x, &y))
+			continue;
+		draw_brush((uint16_t)(x << 1), y, 0);
+	}
+	s_recordOps = savedRecord;
+	// Mirror the panel columns (now including the freshly stamped grains) onto the
+	// slow pages, so they are visible during a reveal too.
+	for (int row = 0; row < DHGR_HEIGHT; row++) {
+		uint16_t base = CALC(row);
+		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
+			uint16_t a = (uint16_t)(base + col);
+			if (a >= A2_PAGE_SIZE) continue;
+			s_slowAux[a]  = s_aux[a];
+			s_slowMain[a] = s_main[a];
+		}
+	}
+}
+
 void gmDhgrResetScreen(bool white) {
 	uint8_t bg = white ? 0x7f : 0x00;
 	std::memset(s_main, bg, A2_PAGE_SIZE);
@@ -523,6 +622,9 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 	std::memcpy(s_subidx, s_subidxDefault, sizeof(s_subidx));
 	Z1447 = 4; posn(140 * 2, 96);     // per-image draw init (pen colour 4, centre)
 	set_fill_color(0x4d);             // default fill colour
+	// Default PAINT clip = full screen, until an op15/1 or op15/2 narrows it
+	// (matches the standard renderer's ctx->fill_* defaults).
+	g_fillLeft = 0; g_fillTop = 0; g_fillRight = 39; g_fillBottom = 0x9f;
 	g_brush = 5;                      // default shape; reset per image (matches the
 	                                  // std-hires init ctx.BRUSH=5). Without this an
 	                                  // item overlay inherits the room's last op4
@@ -556,9 +658,12 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 		case 14: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; flood_fill(x << 1, y); } break; // PAINT
 		case 15: // RESET (sub-op in low nibble)
 			if (par == 0) rle_bitmap_dhgr(&p, e);   // RLE bitmap (Coveted Mirror)
-			else if (par == 2) p += 4;              // read 4 bounds bytes
-			else if (par == 3) fill_rect();         // fill background with pattern
-			break;                                  // par == 1: full-screen bounds, no operands
+			else if (par == 1) {                    // bounds = full screen
+				g_fillLeft = 0; g_fillTop = 0; g_fillRight = 39; g_fillBottom = 0x9f;
+			} else if (par == 2) {                  // read 4 bounds bytes
+				g_fillRight = *p++; g_fillLeft = *p++; g_fillBottom = *p++; g_fillTop = *p++;
+			} else if (par == 3) fill_rect();       // fill background with pattern
+			break;
 		}
 		if (hung) return;
 	}
@@ -604,6 +709,18 @@ static bool ops_adjacent(const WriteOp &a, const WriteOp &b) {
 }
 
 static inline void apply_op(const WriteOp &op) {
+	// The Coveted Mirror's panel occupies columns [col0,col1] and is composited on
+	// top of every finished picture (gmDhgrOverlayCMPanel writes it to the slow
+	// pages directly). A room drawn with a full-width op15/0 RLE bitmap, however,
+	// records writes across those columns too; replaying them during the reveal
+	// would wipe the panel off the slow pages. Skip panel-column ops so the
+	// overlaid panel survives the reveal (it is already correct on the final pages).
+	if (s_cmPanelValid) {
+		init_offset_tables();
+		uint8_t c = s_colOfOffset[op.offset];
+		if (c >= s_cmPanelCol0 && c <= s_cmPanelCol1)
+			return;
+	}
 	(op.page ? s_slowMain : s_slowAux)[op.offset] = op.value;
 	mark_row_dirty(op.offset);
 }

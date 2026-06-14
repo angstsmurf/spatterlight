@@ -33,10 +33,28 @@ bool gmInstallDrawingTables(const uint8_t *t2, size_t size);
 void gmDrawCMHourglass(int sand);
 void gmCaptureCMPanel(int col0, int col1);
 void gmOverlayCMPanel();
+void gmSetSlowDraw(bool on);
+bool gmSlowDrawActive();
+bool gmAdvanceSlowDraw(int budget);
+void gmFinishSlowDraw();
+void gmBlitSlowToSurface(uint32_t *out, int w, int h);
 bool gmCMHourglassConsumeFallArmed();
 void gmCMHourglassFallBegin();
 bool gmCMHourglassFallActive();
 bool gmCMHourglassFallStep(int *y0, int *y1);
+// Double hi-res ("<D>") renderer + Coveted Mirror panel.
+bool gmDhgrInstallDrawingTables(const uint8_t *t5, size_t size);
+void gmDhgrResetScreen(bool white);
+void gmDhgrDrawImage(const uint8_t *data, size_t size);
+void gmDhgrBlitToSurface(uint32_t *out, int w, int h);
+void gmDhgrCaptureCMPanel(int col0, int col1);
+void gmDhgrOverlayCMPanel();
+void gmDhgrDrawCMHourglass(int sand);
+void gmDhgrSetSlowDraw(bool on);
+bool gmDhgrSlowDrawActive();
+bool gmDhgrAdvanceSlowDraw(int budget);
+void gmDhgrFinishSlowDraw();
+void gmDhgrBlitSlowToSurface(uint32_t *out, int w, int h);
 extern void (*g_gmWriteLog)(uint16_t, uint8_t, char);
 extern void (*g_gmOnOp)(int pos, int op, int b1, int b2, int x, int y);
 }}
@@ -156,6 +174,141 @@ int main(int argc, char **argv) {
 			fprintf(stderr, "warning: 'T2' not on this disk and no t2.bin fixture; drawing tables left zero\n");
 		}
 		free(fx);
+	}
+
+	// CM_LIVE=<roomFile>:<idx>:<sand>[:slow] -- replicate pics.cpp's Coveted
+	// Mirror branch exactly (lazy panel build = RG0 logo + OG0 frame captured at
+	// cols 24-39, then room render, then overlay panel, then stamp the pile),
+	// optionally driving the slow-draw reveal to completion, and dump the final
+	// page to PIXTEST_PAGE. Used to reproduce the live composite offline.
+	const char *live = getenv("CM_LIVE");
+	if (live) {
+		auto findFile = [&](const char *nm) -> A2FileRec * {
+			for (size_t i = 0; i < numFiles; i++)
+				if (strcasecmp(files[i].filename, nm) == 0) return &files[i];
+			return nullptr;
+		};
+		auto renderImg = [&](A2FileRec *f, int idx) {
+			const uint8_t *b = f->data;
+			uint16_t ver = b[0] | (b[1] << 8);
+			size_t bs = (ver == 0x1000) ? 4 : 0;
+			size_t p = bs + idx * 2;
+			uint16_t st = b[p] | (b[p + 1] << 8);
+			if (ver == 0x1000) st += 4;
+			gmDrawImage(b + st, f->datasize - st);
+		};
+		char buf[64]; strncpy(buf, live, sizeof(buf) - 1); buf[63] = 0;
+		char *roomNm = strtok(buf, ":");
+		int roomIdx = atoi(strtok(nullptr, ":") ?: "0");
+		const char *sandS = strtok(nullptr, ":"); int sand = sandS ? atoi(sandS) : 74;
+		const char *slowS = strtok(nullptr, ":"); bool slow = slowS && atoi(slowS);
+		A2FileRec *RG = findFile("RG"), *OG = findFile("OG"), *RM = findFile(roomNm);
+		if (!RG || !OG || !RM) { fprintf(stderr, "CM_LIVE: missing RG/OG/%s\n", roomNm); return 1; }
+		gmSetSlowDraw(slow);
+		// lazy panel build (pics.cpp ~611-617)
+		gmResetScreen(false);
+		renderImg(RG, 0);
+		renderImg(OG, 0);
+		gmCaptureCMPanel(24, 39);
+		// actual room (clearBg => white reset), then overlay + hourglass
+		gmResetScreen(true);
+		renderImg(RM, roomIdx);
+		gmOverlayCMPanel();
+		gmDrawCMHourglass(sand);
+		if (slow) { while (gmSlowDrawActive()) gmAdvanceSlowDraw(64); gmFinishSlowDraw(); }
+		// CM_LIVE_FALL=N: arm a one-grain drop and step the fall to frame N, the
+		// way tickHourglass() does each per-turn drop, to dump the falling grain
+		// composited over the real room.
+		const char *fallN = getenv("CM_LIVE_FALL");
+		if (fallN) {
+			gmOverlayCMPanel();
+			gmDrawCMHourglass(sand - 1);   // drop one -> arms the fall
+			gmCMHourglassConsumeFallArmed();
+			gmCMHourglassFallBegin();
+			int want = atoi(fallN), y0, y1;
+			for (int f = 0; f <= want && gmCMHourglassFallActive(); f++)
+				gmCMHourglassFallStep(&y0, &y1);
+		}
+		const char *pp = getenv("PIXTEST_PAGE");
+		if (pp) { FILE *pf = fopen(pp, "wb"); if (pf) { fwrite(gmPagePtr(), 1, 0x2000, pf); fclose(pf); } }
+		fprintf(stderr, "CM_LIVE %s idx%d sand%d slow%d done\n", roomNm, roomIdx, sand, slow);
+		return 0;
+	}
+
+	// CM_LIVE_DHGR=<roomFile>:<idx>:<sand> -- the double-hi-res counterpart of
+	// CM_LIVE: build the DHGR panel (RG0 logo + OG0 frame, captured cols 24-39 on
+	// the aux+main pages), render the room, overlay the panel + stamp the pile,
+	// then write the 560-wide NTSC composite to PIXTEST_PPM. Confirms the panel
+	// shows in double hi-res. Needs the boot disk's T5 tables (file or fixture).
+	const char *liveD = getenv("CM_LIVE_DHGR");
+	if (liveD) {
+		A2FileRec *t5 = nullptr;
+		for (size_t i = 0; i < numFiles; i++)
+			if (strcasecmp(files[i].filename, "T5") == 0) t5 = &files[i];
+		bool haveT5 = t5 && gmDhgrInstallDrawingTables(t5->data, t5->datasize);
+		if (!haveT5) {
+			size_t fxSz = 0;
+			uint8_t *fx = readFile("test/cm_dhgr/T5.bin", &fxSz);
+			if (!fx) fx = readFile("terps/comprehend/test/cm_dhgr/T5.bin", &fxSz);
+			haveT5 = fx && gmDhgrInstallDrawingTables(fx, fxSz);
+			free(fx);
+		}
+		if (!haveT5) { fprintf(stderr, "CM_LIVE_DHGR: no T5 tables\n"); return 1; }
+
+		auto findFile = [&](const char *nm) -> A2FileRec * {
+			for (size_t i = 0; i < numFiles; i++)
+				if (strcasecmp(files[i].filename, nm) == 0) return &files[i];
+			return nullptr;
+		};
+		auto renderImgD = [&](A2FileRec *f, int idx) {
+			const uint8_t *b = f->data;
+			uint16_t ver = b[0] | (b[1] << 8);
+			size_t bs = (ver == 0x1000) ? 4 : 0;
+			size_t p = bs + idx * 2;
+			uint16_t st = b[p] | (b[p + 1] << 8);
+			if (ver == 0x1000) st += 4;
+			gmDhgrDrawImage(b + st, f->datasize - st);
+		};
+		char buf[64]; strncpy(buf, liveD, sizeof(buf) - 1); buf[63] = 0;
+		char *roomNm = strtok(buf, ":");
+		int roomIdx = atoi(strtok(nullptr, ":") ?: "0");
+		const char *sandS = strtok(nullptr, ":"); int sand = sandS ? atoi(sandS) : 74;
+		const char *slowS = strtok(nullptr, ":"); bool slow = slowS && atoi(slowS);
+		A2FileRec *RG = findFile("RG"), *OG = findFile("OG"), *RM = findFile(roomNm);
+		if (!RG || !OG || !RM) { fprintf(stderr, "CM_LIVE_DHGR: missing RG/OG/%s\n", roomNm); return 1; }
+		// lazy panel build (pics.cpp): logo RG0 + hourglass OG0, captured cols 24-39
+		gmDhgrSetSlowDraw(slow);
+		gmDhgrResetScreen(false);
+		renderImgD(RG, 0);
+		renderImgD(OG, 0);
+		gmDhgrCaptureCMPanel(24, 39);
+		// the actual room, then overlay panel + stamp the pile
+		gmDhgrResetScreen(true);
+		renderImgD(RM, roomIdx);
+		gmDhgrOverlayCMPanel();
+		gmDhgrDrawCMHourglass(sand);
+		// Drive the reveal to completion and dump the SLOW (progressively revealed)
+		// pages: this is what the host blits during a room change, where the panel
+		// must survive the full-width op15/0 reveal.
+		bool dumpSlow = slow;
+		if (slow) { while (gmDhgrSlowDrawActive()) gmDhgrAdvanceSlowDraw(64); gmDhgrFinishSlowDraw(); }
+		const char *ppm = getenv("PIXTEST_PPM");
+		if (ppm) {
+			int w = 560, h = 192;
+			uint32_t *rgba = (uint32_t *)malloc(w * h * 4);
+			if (dumpSlow) gmDhgrBlitSlowToSurface(rgba, w, h);
+			else gmDhgrBlitToSurface(rgba, w, h);
+			FILE *o = fopen(ppm, "wb");
+			fprintf(o, "P6\n%d %d\n255\n", w, h);
+			for (int i = 0; i < w * h; i++) {
+				uint32_t px = rgba[i];
+				uint8_t rgb[3] = { (uint8_t)(px >> 24), (uint8_t)(px >> 16), (uint8_t)(px >> 8) };
+				fwrite(rgb, 1, 3, o);
+			}
+			fclose(o); free(rgba);
+		}
+		fprintf(stderr, "CM_LIVE_DHGR %s idx%d sand%d done\n", roomNm, roomIdx, sand);
+		return 0;
 	}
 
 	// Parse the image-offset table exactly like Pics::ImageFile.
