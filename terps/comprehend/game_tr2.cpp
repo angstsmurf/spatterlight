@@ -224,9 +224,16 @@ void TransylvaniaGame2::synchronizeSave(Common::Serializer &s) {
 	ComprehendGame::synchronizeSave(s);
 	s.syncAsByte(_miceReleased);
 
-	// As a post-step, ensure the vampire and werewolf aren't present
-	get_item(ITEM_WEREWOLF)->_room = 0xff;
-	get_item(ITEM_VAMPIRE)->_room = 0xff;
+	// On restore, make sure the player doesn't come back to a stuck werewolf or
+	// vampire in the room (they are placed afresh each turn by beforeTurn). This
+	// must only run when *loading*: synchronizeSave also drives the per-turn #undo
+	// snapshot (Comprehend::pushUndo -> serializeGameState), and mutating the live
+	// item rooms there would wipe the monster the moment it appears -- before the
+	// player could ever LOOK at, shoot or be threatened by it.
+	if (s.isLoading()) {
+		get_item(ITEM_WEREWOLF)->_room = 0xff;
+		get_item(ITEM_VAMPIRE)->_room = 0xff;
+	}
 }
 
 void TransylvaniaGame2::handleSpecialOpcode() {
