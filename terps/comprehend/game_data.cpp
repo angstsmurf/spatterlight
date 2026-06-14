@@ -700,7 +700,11 @@ void GameData::load_extra_string_file(const StringFile &stringFile) {
 		// bug: the fish is MJ[1], which fell on MI's out-of-range slot 0x00c8).
 		const bool noHeader = Common::DiskImageFS::active() &&
 		                      g_comprehend->getGameID() == "covetedmirror";
-		fb.seek(noHeader ? 0 : 4);
+		// For an embedded structured segment the whole layout (header, index and
+		// the string offsets) is shifted to _structOffset within the file; for a
+		// standalone string file this is 0 and nothing changes.
+		const uint hdr = stringFile._structOffset;
+		fb.seek(hdr + (noHeader ? 0 : 4));
 		uint fileSize = fb.size();
 
 		// Read in the index
@@ -722,7 +726,7 @@ void GameData::load_extra_string_file(const StringFile &stringFile) {
 		// Iterate through parsing the strings
 		for (int i = 0; i < STRING_FILE_COUNT; ++i) {
 			if (index[i]) {
-				fb.seek(index[i] + stringBase);
+				fb.seek(hdr + index[i] + stringBase);
 				_strings2.push_back(parseString(&fb));
 			} else {
 				_strings2.push_back("");

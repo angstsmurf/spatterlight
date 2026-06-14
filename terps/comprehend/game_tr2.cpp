@@ -67,7 +67,7 @@ static const GameStrings TR_STRINGS = {
 };
 
 TransylvaniaGame2::TransylvaniaGame2() : ComprehendGameV2(),
-		_miceReleased(false) {
+		_miceReleased(false), _restartImmediate(false) {
 	_gameDataFile = "g0";
 
 	_locationGraphicFiles.push_back("RA");
@@ -78,7 +78,34 @@ TransylvaniaGame2::TransylvaniaGame2() : ComprehendGameV2(),
 	_itemGraphicFiles.push_back("OC");
 
 	_titleGraphicFile = "t0";
+
 	_gameStrings = &TR_STRINGS;
+
+	// Like Oo-Topos, the DOS Transylvania v2 stores its extra (_strings2) string
+	// bank inside novel.exe rather than in separate files. It is five standard
+	// structured segments (4-byte header + 64-entry index + data), giving the
+	// 5 x 64 = 320 strings the bytecode addresses through table 0x82 (e.g. the
+	// WAIT response 0x825d, OPEN COFFIN 0x824c and the restart prompt 0x828a).
+	// Without this the engine printed BAD_STRING(82xx) for all of them.
+	if (!Common::DiskImageFS::active()) {
+		Common::File f;
+		if (f.open("novel.exe")) {
+			Common::String md5 = Common::computeStreamMD5AsString(f, 1024);
+			f.close();
+
+			if (md5 == "e708b5f744e1f9b59354722ab55added") {
+				static const uint32 segHeaders[5] = {
+					0x1636c, 0x1726c, 0x17c6c, 0x1846c, 0x18d6c
+				};
+				for (int i = 0; i < 5; i++)
+					_stringFiles.push_back(
+						StringFile::structuredSegment("novel.exe", segHeaders[i]));
+			} else {
+				warning("Unrecognised Transylvania novel.exe (md5 head %s); "
+				        "extra strings unavailable", md5.c_str());
+			}
+		}
+	}
 }
 
 bool TransylvaniaGame2::updateMonster(const TransylvaniaMonster *monsterInfo) {
@@ -217,8 +244,10 @@ void TransylvaniaGame2::handleSpecialOpcode() {
 
 	case 3:
 	case 4:
-		// Game over - failure
-		console_println(_strings2[138].c_str());
+		// Game over - failure. The bytecode has already printed the cause
+		// (e.g. "Too late! The furry fiend just had you for dinner...");
+		// handle_restart() shows the "Press 'R'..." prompt and waits.
+		_restartImmediate = false;
 		game_restart();
 		break;
 
@@ -226,6 +255,7 @@ void TransylvaniaGame2::handleSpecialOpcode() {
 		// Won the game
 		g_comprehend->showGraphics();
 		g_comprehend->drawLocationPicture(40);
+		_restartImmediate = false;
 		game_restart();
 		break;
 
@@ -238,7 +268,9 @@ void TransylvaniaGame2::handleSpecialOpcode() {
 		break;
 
 	case 8:
-		// Restart game
+		// The RESTART verb: the original reloads at once, with no prompt
+		// and no keypress (verified against novel.exe in DOSBox)
+		_restartImmediate = true;
 		game_restart();
 		break;
 
@@ -254,6 +286,27 @@ void TransylvaniaGame2::handleSpecialOpcode() {
 	default:
 		break;
 	}
+}
+
+bool TransylvaniaGame2::handle_restart() {
+	_ended = false;
+
+	// The RESTART verb reloads silently; a game over (win or death) shows the
+	// restart prompt ("Press 'R' if you would like to restart the novel.",
+	// _strings2 0x828a) and waits for the player.
+	if (!_restartImmediate) {
+		console_println(stringLookup(_gameStrings->game_restart).c_str());
+
+		if (tolower(console_get_key()) != 'r') {
+			g_comprehend->quitGame();
+			return false;
+		}
+	}
+
+	loadGame();
+	g_comprehend->clearUndo();  // can't undo across a restart
+	_updateFlags = UPDATE_ALL;
+	return true;
 }
 
 #define READ_LINE do { \

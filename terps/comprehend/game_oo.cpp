@@ -229,16 +229,21 @@ void OOToposGame::handleSpecialOpcode() {
 		break;
 
 	case 2:
+		// Internal restart (no prompt, no keypress)
 		_restartMode = RESTART_IMMEDIATE;
 		game_restart();
 		break;
 
 	case 3:
+		// Game over: show the "Press 'R' to restart the novel." prompt
+		// and wait for the player's choice
 		_restartMode = RESTART_WITH_MSG;
 		game_restart();
 		break;
 
 	case 4:
+		// The RESTART verb: the original reloads at once, with no prompt
+		// and no keypress (verified against novel.exe in DOSBox)
 		_restartMode = RESTART_WITHOUT_MSG;
 		game_restart();
 		break;
@@ -288,9 +293,11 @@ void OOToposGame::handleSpecialOpcode() {
 bool OOToposGame::handle_restart() {
 	_ended = false;
 
-	if (_restartMode != RESTART_IMMEDIATE) {
-		if (_restartMode == RESTART_WITH_MSG)
-			console_println(stringLookup(_gameStrings->game_restart).c_str());
+	// Only the game-over path (RESTART_WITH_MSG) prompts and waits for a key.
+	// The RESTART verb (RESTART_WITHOUT_MSG) and internal restarts
+	// (RESTART_IMMEDIATE) reload silently, the way the original does.
+	if (_restartMode == RESTART_WITH_MSG) {
+		console_println(stringLookup(_gameStrings->game_restart).c_str());
 
 		if (tolower(console_get_key()) != 'r') {
 			g_comprehend->quitGame();

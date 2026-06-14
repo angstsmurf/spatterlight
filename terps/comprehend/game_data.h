@@ -321,11 +321,23 @@ struct StringFile {
 	Common::String _filename;
 	uint32 _baseOffset;
 	uint32 _endOffset;
+	// For extra-string banks that are an embedded *structured* segment (a
+	// 4-byte header + 64-entry uint16 index + data, the same layout as a
+	// standalone Apple/DOS string file) located partway into a larger file
+	// such as a DOS novel.exe. 0 means "not a structured segment"; use
+	// _baseOffset for the raw-sequential variant instead.
+	uint32 _structOffset;
 
-	StringFile() : _baseOffset(0), _endOffset(0) {
+	StringFile() : _baseOffset(0), _endOffset(0), _structOffset(0) {
 	}
 	StringFile(const char *fname, uint32 baseOfs = 0, uint32 endO = 0) :
-		_filename(fname), _baseOffset(baseOfs), _endOffset(endO) {
+		_filename(fname), _baseOffset(baseOfs), _endOffset(endO), _structOffset(0) {
+	}
+	// Named constructor for an embedded structured segment at headerOfs.
+	static StringFile structuredSegment(const char *fname, uint32 headerOfs) {
+		StringFile sf(fname);
+		sf._structOffset = headerOfs;
+		return sf;
 	}
 };
 
