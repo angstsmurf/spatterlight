@@ -179,7 +179,11 @@ enum {
 enum ItemFlag {
 	ITEMF_WEIGHT_MASK = 0x7,
 	ITEMF_CAN_TAKE    = 1 << 3,
-	ITEMF_UNKNOWN     = 1 << 6,
+	// Bit 6: suppress this item's picture. The per-turn presentation draws an
+	// item's picture only when this bit is clear (set/cleared by the
+	// SET_FLAG40/CLEAR_FLAG40 opcodes). Distinct from ITEMF_INVISIBLE, which
+	// only hides the item from the text listing.
+	ITEMF_NO_PICTURE  = 1 << 6,
 	ITEMF_INVISIBLE   = 1 << 7
 };
 

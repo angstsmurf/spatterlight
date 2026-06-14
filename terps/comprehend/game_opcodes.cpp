@@ -67,7 +67,7 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 
 	case OPCODE_CLEAR_FLAG40:
 		item = getItem(instr);
-		item->_flags &= ~ITEMF_UNKNOWN;
+		item->_flags &= ~ITEMF_NO_PICTURE;
 		break;
 
 	case OPCODE_CLEAR_INVISIBLE:
@@ -227,7 +227,7 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 
 	case OPCODE_SET_FLAG40:
 		item = getItem(instr);
-		item->_flags |= ITEMF_UNKNOWN;
+		item->_flags |= ITEMF_NO_PICTURE;
 		break;
 
 	case OPCODE_SET_INVISIBLE:
