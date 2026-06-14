@@ -177,7 +177,20 @@ void TransylvaniaGame2::beforeTurn() {
 	}
 
 done:
-	ComprehendGameV2::beforeTurn();
+	// Do NOT run the each-turn daemon (function 0) here. Transylvania v2 shares
+	// the V2 command loop, RE-verified against the DOS interpreter
+	// (TransylvaniaPC/Novel.exe main loop FUN_1000_05a0, dispatch FUN_1000_0a90):
+	// the dispatch evaluates the matched action and then function 0 -- the daemon
+	// -- exactly ONCE per turn (FUN_0a90 sets the function index to 0 and calls the
+	// evaluator a second time), and the room/graphics display (FUN_16e9) sits at
+	// the top of the loop, before the parser. There is no daemon pass before the
+	// parser. Calling ComprehendGameV2::beforeTurn() (-> ComprehendGame::beforeTurn()
+	// -> eval_function(0)) ran the daemon a second time, doubling every per-turn
+	// function-0 effect. The monster movement above is our native port of the
+	// original's special-default routine (FUN_1000_0710) and runs once per turn on
+	// its own; only the spurious second function-0 pass is removed here. (Same fix
+	// as CovetedMirrorGame / OOToposGame::beforeTurn(); see git 845e9d5d.)
+	;
 }
 
 void TransylvaniaGame2::synchronizeSave(Common::Serializer &s) {
