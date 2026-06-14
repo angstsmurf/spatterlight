@@ -31,6 +31,7 @@
 // The status line is split into left (room name + moves) and right
 // (region + score) text grid windows positioned over the border graphics.
 
+#include <cmath>
 #include <initializer_list>
 
 #include "memory.h"
@@ -2345,6 +2346,40 @@ static bool redraw_minigame_on_resize(uint16_t current_split) {
     return false;
 }
 
+// Rebuild SL-LOC-TBL, the table of (scaled) status/compass element metrics
+// that DRAW-NEW-COMP reads to position the compass arrow overlays (and that
+// DRAW-NEW-HERE uses for the room/region text). Each two-word entry mirrors
+// the game's PICINF-PLUS-ONE: round(dim * scale) + 1, height then width.
+//
+// This must be redone whenever the image scale changes. Later releases
+// (r392/r393) fill this table inside SETUP-SCREEN, which we already re-invoke
+// on a resize, so for them this is just a harmless idempotent rewrite. But
+// r383/r387 fill it only once, in their Main/init routine, which we never
+// re-run -- so without this their compass arrows keep their startup-scale
+// coordinates after an on-the-fly graphics-format switch and drift off the
+// freshly redrawn rose. The Apple II release ("...side 1.woz") is r383.
+static void z0_refresh_sl_loc_tbl(void) {
+    if (zt.SL_LOC_TBL == 0)
+        return;
+
+    static const struct { int picnum; int byte_offset; } entries[] = {
+        { HERE_LOC,        0  },
+        { REGION_LOC,      4  },
+        { COMPASS_PIC_LOC, 8  },
+        { U_BOX_LOC,       12 },
+        { D_BOX_LOC,       16 },
+        { ICON_OFFSET,     20 },
+    };
+
+    for (const auto &e : entries) {
+        int width = 0, height = 0;
+        if (!get_image_size(e.picnum, &width, &height))
+            continue;
+        store_word(zt.SL_LOC_TBL + e.byte_offset,     std::lround(height * imagescaley) + 1);
+        store_word(zt.SL_LOC_TBL + e.byte_offset + 2, std::lround(width  * imagescalex) + 1);
+    }
+}
+
 void z0_update_on_resize(void) {
     int MACHINE = byte(0x1e);
 
@@ -2361,6 +2396,10 @@ void z0_update_on_resize(void) {
     // into the SL-LOC-TBL.
     if (zr.SETUP_SCREEN != 0)
         internal_call(pack_routine(zr.SETUP_SCREEN));
+
+    // SETUP-SCREEN only refills the compass position table in later releases;
+    // do it ourselves so r383/r387 also pick up the new scale (see above).
+    z0_refresh_sl_loc_tbl();
 
     switch (screenmode) {
         case MODE_DEFINE:

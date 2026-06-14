@@ -74,6 +74,13 @@ enum BorderType {
 #define TEXT_WINDOW_PIC_LOC 0x183
 #define COMPASS_PIC_LOC 381
 
+// The remaining "location" marker pictures whose (scaled) dimensions seed the
+// status/compass position table (SL-LOC-TBL). See z0_refresh_sl_loc_tbl().
+#define REGION_LOC 383      // 0x17f
+#define U_BOX_LOC 482       // 0x1e2 (compass up arrow)
+#define D_BOX_LOC 483       // 0x1e3 (compass down arrow)
+#define ICON_OFFSET 478     // 0x1de
+
 #define CASTLE_BORDER_L 0x1f1
 #define CASTLE_BORDER_R 0x1f2
 
@@ -232,6 +239,7 @@ typedef struct ZorkTables {
     uint16_t B_Y_TBL;
     uint16_t F_CARD_TABLE;
     uint16_t PICINF_TBL;
+    uint16_t SL_LOC_TBL;
 } ZorkTables;
 
 extern ZorkTables zt;

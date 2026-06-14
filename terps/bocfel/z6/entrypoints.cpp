@@ -2526,6 +2526,16 @@ static void find_zork0_globals(void) {
         } else if (entrypoint.fn == DRAW_NEW_COMP && entrypoint.found_at_address != 0) {
             zr.DRAW_NEW_COMP = entrypoint.found_at_address;
             fprintf(stderr, "zr.DRAW_NEW_COMP at address 0x%x\n", entrypoint.found_at_address);
+            // DRAW-NEW-COMP reads the compass-element positions out of
+            // SL-LOC-TBL; its first access is LOADW SL_LOC,#06 -> L01
+            // (cf 1f <addr> 06 02), stable across r383..r393. We need the
+            // table address so z0_refresh_sl_loc_tbl() can refill it on a
+            // graphics-format switch (see zorkzero.cpp).
+            start = find_16_bit_values_in_pattern({ 0xcf, 0x1f, WILDCARD, WILDCARD, 0x06, 0x02 }, { &zt.SL_LOC_TBL }, entrypoint.found_at_address, 200);
+            if (start == -1)
+                fprintf(stderr, "zt.SL_LOC_TBL not found!\n");
+            else
+                fprintf(stderr, "zt.SL_LOC_TBL at address 0x%x\n", zt.SL_LOC_TBL);
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == SETUP_SCREEN && entrypoint.found_at_address != 0) {
             zr.SETUP_SCREEN = entrypoint.found_at_address;
