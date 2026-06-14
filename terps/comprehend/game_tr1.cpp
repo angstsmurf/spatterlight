@@ -256,8 +256,11 @@ void TransylvaniaGame1::handleSpecialOpcode() {
 
 	case 3:
 	case 4:
-		// Game over - failure
-		console_println(_strings2[138].c_str());
+		// Game over - failure. The bytecode has already printed the cause
+		// (e.g. "Too late! The furry fiend just had you for dinner..."); the
+		// restart prompt is printed once by handle_restart(). Printing
+		// _strings2[138] here too just duplicated that prompt (it is 0x828a,
+		// the same string handle_restart() shows via _gameStrings->game_restart).
 		game_restart();
 		break;
 
