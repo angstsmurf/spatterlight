@@ -3923,12 +3923,34 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
 
                 uint8_t clicktype;
 
-                if (curwin->last_click_x == ev.val1 && curwin->last_click_y == ev.val2)
-                    clicktype = ZSCII_CLICK_DOUBLE;
-                else
-                    clicktype = ZSCII_CLICK_SINGLE;
-                curwin->last_click_x = ev.val1;
-                curwin->last_click_y = ev.val2;
+                // A double-click is two clicks at the same spot *in quick
+                // succession*. Without the time gate, last_click_x/y would
+                // simply remember the previous click forever, so repeatedly
+                // clicking the same target (e.g. a Zork Zero compass arrow)
+                // reported every click after the first as a double-click,
+                // which the game ignores -- making the compass appear to
+                // stop working. Only the menu mini-games (Fanucci/Peggleboz)
+                // actually want double-click, and those clicks are genuinely
+                // rapid. (Scoped in a block so the locals don't trip the
+                // switch's jump-crosses-initialization rule.)
+                {
+                    constexpr auto double_click_interval = std::chrono::milliseconds(500);
+                    auto now = std::chrono::steady_clock::now();
+
+                    if (curwin->last_click_x == ev.val1 && curwin->last_click_y == ev.val2 &&
+                        now - curwin->last_click_time < double_click_interval) {
+                        clicktype = ZSCII_CLICK_DOUBLE;
+                        // Reset so a third rapid click doesn't chain into yet
+                        // another double-click.
+                        curwin->last_click_x = UINT16_MAX;
+                        curwin->last_click_y = UINT16_MAX;
+                    } else {
+                        clicktype = ZSCII_CLICK_SINGLE;
+                        curwin->last_click_x = ev.val1;
+                        curwin->last_click_y = ev.val2;
+                    }
+                    curwin->last_click_time = now;
+                }
 #endif
             status = InputStatus::Received;
 

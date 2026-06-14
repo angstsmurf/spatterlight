@@ -4,6 +4,7 @@
 #define ZTERP_SCREEN_H
 
 #include <bitset>
+#include <chrono>
 #include <string>
 
 #ifdef ZTERP_GLK
@@ -194,6 +195,7 @@ struct Window {
     uint16_t index;
     uint16_t last_click_x;
     uint16_t last_click_y;
+    std::chrono::steady_clock::time_point last_click_time;
     uint16_t attribute;
 };
 
