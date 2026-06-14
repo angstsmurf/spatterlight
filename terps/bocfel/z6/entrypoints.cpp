@@ -1107,8 +1107,21 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "DEFAULT-COLORS",
-        { 0x7b, WILDCARD, WILDCARD, 0xeb, 0x7f, 0x07, 0x7b, WILDCARD, WILDCARD, 0xeb, 0x7f, 0x00, 0xb0 },
-        -6,
+        // Match the routine's two leading stores -- FG-COLOR <- DEFAULT-FG and
+        // BG-COLOR <- DEFAULT-BG -- which is what find_zork0_globals() reads to
+        // recover fg_global_idx/DEFAULT_FG/bg_global_idx/DEFAULT_BG. The old
+        // signature instead keyed off the trailing SET_COLOUR/SET_WINDOW pair,
+        // which only exists in r392/r393; r383 and r387 guard that set with a
+        // JZ, so DEFAULT-COLORS was never located there and zg.DEFAULT_BG was
+        // left at 0 (its only finder lives in this branch). That made
+        // z0_update_colors() write the default background into global 0 and
+        // never initialise the real DEFAULT-BG global, so those releases opened
+        // with the wrong text-window background until a resize/autorestore
+        // repainted it. The store prefix {2d 2c 5f 2d ? ?} is byte-identical and
+        // unique across r383..r393, and points at the routine start (matching
+        // the old -6 offset result on r392/r393).
+        { 0x2d, 0x2c, 0x5f, 0x2d, WILDCARD, WILDCARD },
+        0,
         0,
         false,
         DEFAULT_COLORS
