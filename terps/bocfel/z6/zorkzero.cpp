@@ -2491,6 +2491,32 @@ void z0_update_after_autorestore(void) {
         return;
     }
 
+    // Per-window text/background colours live in C++ Window state that is
+    // not part of the autosave, so a process restart resets them to the
+    // default (ANSI 1). The Z-machine colour globals *are* restored, so the
+    // restored snapshot still looks right -- but the next status-line redraw
+    // (z0_UPDATE_STATUS_LINE -> set_current_window -> set_window_style) would
+    // reapply the stale default colours, giving the wrong status-window
+    // colours. Repopulate the window colours from the restored globals,
+    // matching the struct assignment after_V_COLOR() performs on a manual
+    // restore (including the status window's default background), as
+    // arthur_update_after_autorestore()/shogun_update_after_autorestore() do
+    // for their games. We deliberately do not call after_V_COLOR() /
+    // z0_update_on_resize() here: those take mode-specific redraw paths that
+    // can crash during autorestore (see the screenmode guard in
+    // z0_update_after_restore).
+    update_user_defined_colours();
+    uint8_t fg = get_global(fg_global_idx);
+    uint8_t bg = get_global(bg_global_idx);
+    for (auto &window : windows) {
+        window.fg_color = Color(Color::Mode::ANSI, fg);
+        if (&window == &V6_STATUS_WINDOW) {
+            window.bg_color = Color();
+        } else {
+            window.bg_color = Color(Color::Mode::ANSI, bg);
+        }
+    }
+
     if ((screenmode != MODE_NORMAL && screenmode != MODE_Z0_GAME)
         || get_global(zg.CURRENT_SPLIT) != PBOZ_SPLIT)
         return;
