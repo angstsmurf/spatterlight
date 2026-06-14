@@ -1011,8 +1011,9 @@ void gmOverlayCMPanel() {
 // no-op. Returns false for grains that stamp nothing. Apple hi-res x (0..279),
 // y (0..191). The pile is centred at x=245 (column ~35): even grains step right
 // (245+half), odd grains step left (245-half); the grain falls one "band" of 25
-// lower (y -= 1 per band, then y -= half within the band).
-static bool cmHourglassGrainPos(uint8_t idx, uint16_t *outX, uint8_t *outY) {
+// lower (y -= 1 per band, then y -= half within the band). Exposed (non-static)
+// so the double-hi-res renderer can place the same grains on its own pages.
+bool gmCMHourglassGrainPos(uint8_t idx, uint16_t *outX, uint8_t *outY) {
 	if (idx == 0)
 		return false;
 	uint8_t scan = 0x5c;              // DAT_43a2, the descending y cursor
@@ -1062,7 +1063,7 @@ static void cm_stamp_hourglass_pile(int sand) {
 	for (int idx = 0; idx < sand && idx < 256; idx++) {
 		uint16_t x;
 		uint8_t y;
-		if (!cmHourglassGrainPos((uint8_t)idx, &x, &y))
+		if (!gmCMHourglassGrainPos((uint8_t)idx, &x, &y))
 			continue;
 		gm_draw_brush(x, y, 0, pat_even, pat_odd, &gv);
 	}

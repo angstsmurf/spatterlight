@@ -59,6 +59,19 @@ bool gmDhgrSlowConsumeDirty(int *y0, int *y1);
 // Blit the partially-revealed pages, same format as gmDhgrBlitToSurface().
 void gmDhgrBlitSlowToSurface(uint32_t *out, int w, int h);
 
+// ---- The Coveted Mirror persistent right-hand panel (double hi-res) ----------
+// Double-hi-res counterparts of gmCaptureCMPanel / gmOverlayCMPanel /
+// gmDrawCMHourglass (graphics_magician.h), operating on the aux+main pages
+// instead of the single standard-hi-res page. The panel (logo + hourglass) is
+// built once into the pages, captured by byte-column [col0,col1] (same column
+// indices as standard: the renderer doubles each source column into the matching
+// aux+main byte), and re-composited on top of every in-game picture; the
+// hourglass grains for the current sand level are stamped on top.
+void gmDhgrCaptureCMPanel(int col0, int col1);
+void gmDhgrOverlayCMPanel();
+bool gmDhgrCMPanelValid();
+void gmDhgrDrawCMHourglass(int sand);
+
 // Diagnostic access to the raw main/aux pages (used by the regression test).
 const uint8_t *gmDhgrMainPtr();
 const uint8_t *gmDhgrAuxPtr();

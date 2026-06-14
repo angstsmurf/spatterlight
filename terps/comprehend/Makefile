@@ -107,8 +107,10 @@ test/test_gmcgav1_pics: test/test_gmcgav1_pics.cpp graphics_magician_cga.cpp gra
 # Renders The Coveted Mirror's throne room and asserts the double hi-res pages
 # are byte-exact vs the MAME ground truth. Self-contained: graphics_magician_dhgr.cpp
 # has no Glk/disk dependencies; fixtures are committed in test/cm_dhgr/.
-test/cmdhgrtest: test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h $(SAGADRAW_SRCS)
-	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/cmdhgrtest.cpp graphics_magician_dhgr.cpp $(SAGADRAW_SRCS)
+# Links graphics_magician.cpp too: the DHGR hourglass shares its grain-position
+# helper (gmCMHourglassGrainPos) with the standard renderer.
+test/cmdhgrtest: test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
 test: test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/rgbacrc test/cmdhgrtest
 	./test/test_talisman_pics
@@ -120,9 +122,9 @@ test: test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/r
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
 # image and log its hi-res writes. Used to capture new regression fixtures.
 # See test/talisman/README.md.
-test/pixtest: test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+test/pixtest: test/pixtest.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
 	$(CXX) -std=c++14 -O0 -g -DGM_TRACE -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -I$(SAGADRAW_DIR) -o $@ \
-	    test/pixtest.cpp graphics_magician.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+	    test/pixtest.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
 
 # Developer tool: render one DOS Talisman (CGA) picture and write it as a PPM,
 # to eyeball against a DOSBox capture. Self-contained: graphics_magician_cga.cpp has no
