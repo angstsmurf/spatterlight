@@ -195,7 +195,16 @@ void CrimsonCrownGame::beforeTurn() {
 		move_to(_currentRoom);
 	}
 
-	ComprehendGameV1::beforeTurn();
+	// Do NOT run the each-turn daemon (function 0) here. RE-verified against the
+	// V1 DOS interpreter (crimson-crown/NOVEL.EXE): the main loop FUN_1000_0455
+	// displays the room at the top, then parses and dispatches; the dispatch
+	// FUN_1000_0e73 evaluates the matched action and then function 0 -- the daemon
+	// -- exactly ONCE (index set to 0, evaluator FUN_1000_0eb4 called again; that
+	// evaluator has no other caller), with no daemon pass before the parser.
+	// Calling ComprehendGameV1::beforeTurn() (-> ComprehendGame::beforeTurn() ->
+	// eval_function(0)) ran the daemon a second time, doubling every per-turn
+	// function-0 effect. (Same fix as the V2 games; see git 845e9d5d / 2da5bb81 /
+	// dad6272a.)
 }
 
 bool CrimsonCrownGame::handle_restart() {
