@@ -66,6 +66,14 @@ glui32 z0_right_status_width;
 static bool shown_rebus_hint_message = false;
 static bool should_show_rebus_hint_message = false;
 
+// Image scale (x and y) in effect when the map was last composited. The
+// pre-release revisions (r242/r296/r66, r366 demo) don't recomposite the map on
+// resize, so the live-redrawn
+// you-are-here marker is drawn at this scale to stay aligned with the rest of
+// the (GUI-rescaled) map. 0 means "no map drawn yet".
+static float map_entry_imagescalex = 0;
+static float map_entry_imagescaley = 0;
+
 // Tracks how many times z0_update_colors has been called (used to detect
 // first call for initial color setup)
 static int number_of_update_color_calls = 0;
@@ -2360,14 +2368,30 @@ void B_MOUSE_WEIGHT_PICK(void) {
 // and the local variables used by the BLINK routine. Also flushes the
 // image buffer and restarts the timer to trigger the next blink cycle.
 static void update_blink_coordinates(uint16_t x, uint16_t y) {
-    store_word(get_global(zg.BLINK_TBL) + 3 * 2, y);
-    store_word(get_global(zg.BLINK_TBL) + 4 * 2, x);
+    // The release blink mechanism -- a timer-driven BLINK routine that reads the
+    // marker coordinates from BLINK-TBL -- is absent in the pre-release
+    // revisions (r242/r296/r66, r366 demo).
+    // They blink the marker via an INPUT timeout + TYPED? flag and have no
+    // BLINK-TBL, so zg.BLINK_TBL is 0. Writing to get_global(0) + offset there
+    // scribbles over arbitrary memory, which knocks the map loop out of its read
+    // and drops back to normal play -- both on a live resize and on autorestore
+    // (screenmode == MODE_MAP is restored, so both reach here via the MODE_MAP
+    // path). The betas also drive their own input timer, so we must not
+    // commandeer it. Only touch BLINK-TBL and the timer when the release
+    // mechanism is actually present; the store_variable() updates below target
+    // the BLINK frame's Y/X locals and are correct either way.
+    if (zg.BLINK_TBL != 0) {
+        store_word(get_global(zg.BLINK_TBL) + 3 * 2, y);
+        store_word(get_global(zg.BLINK_TBL) + 4 * 2, x);
+    }
 
     store_variable(3, y);
     store_variable(4, x);
 
     flush_image_buffer();
-    glk_request_timer_events(1);
+
+    if (zg.BLINK_TBL != 0)
+        glk_request_timer_events(1);
 }
 
 // Z-machine entry point: called each iteration of the map interaction loop.
@@ -2390,8 +2414,17 @@ void V_MAP_LOOP(void) {
     uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
     uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
 
-    store_variable(4, CX);
-    store_variable(5, CY);
+    // Store into the local slots the game reads when it calls
+    // BLINK-WHILE-AWAITING-INPUT. The slot numbers are revision-dependent
+    // (recorded when the V-MAP-LOOP entrypoint was located); fall back to the
+    // release layout if they weren't set. Using the wrong slots leaves the
+    // marker's X holding the Y coordinate, so it draws too far left (the r242
+    // beta inlines the loop into V-MAP and uses 5/6; r296/r66/r366 also inline
+    // it but use the release 4/5 layout).
+    uint8_t cx_var = zr.MAP_CX_VAR != 0 ? zr.MAP_CX_VAR : 4;
+    uint8_t cy_var = zr.MAP_CY_VAR != 0 ? zr.MAP_CY_VAR : 5;
+    store_variable(cx_var, CX);
+    store_variable(cy_var, CY);
 }
 
 #pragma mark - Resize Handling
@@ -2475,6 +2508,36 @@ static void z0_refresh_sl_loc_tbl(void) {
     }
 }
 
+// Recomposite the Zork Zero map for the pre-release revisions (r242/r296/r66,
+// r366 demo), which lack a map-aware
+// V-$REFRESH. We re-invoke the game's own V-MAP routine with its trailing
+// BLINK-WHILE-AWAITING-INPUT call temporarily patched to rtrue, so it redraws
+// the whole map (border, room icons, connections, compass) at the *current*
+// image scale and then returns -- instead of entering the blink/input loop (and
+// its exit-to-normal V-$REFRESH). The still-suspended blink loop keeps drawing
+// the marker, now onto a freshly composited map, so resize rescales correctly
+// and autorestore repopulates the empty pixmap rather than erasing the map.
+//
+// No-op (caller falls back to leaving the GUI-rescaled image in place) when the
+// routine wasn't located. On a redraw the map's "ready? (y/n)" / jester prompts
+// are already past, so V-MAP runs straight through to the drawing.
+static void z0_redraw_map(void) {
+    if (zr.V_MAP == 0 || zr.V_MAP_BLINK_CALL == 0)
+        return;
+
+    uint8_t saved = byte(zr.V_MAP_BLINK_CALL);
+    store_byte(zr.V_MAP_BLINK_CALL, 0xb0); // rtrue: draw the map, then return
+    internal_call(pack_routine(zr.V_MAP), {});
+    store_byte(zr.V_MAP_BLINK_CALL, saved);
+
+    flush_image_buffer();
+
+    // The map is now composited at the live scale, so the marker (drawn live by
+    // the blink loop) lands correctly without the map_entry_imagescale override.
+    map_entry_imagescalex = imagescalex;
+    map_entry_imagescaley = imagescaley;
+}
+
 void z0_update_on_resize(void) {
     int MACHINE = byte(0x1e);
 
@@ -2507,6 +2570,36 @@ void z0_update_on_resize(void) {
 
         case MODE_MAP: {
             z0_hide_right_status();
+
+            // The releases redraw the map through V-$REFRESH, which is
+            // map-aware (it drives the map via the BLINK-TBL mechanism). The
+            // pre-release revisions (r242/r296/r66, r366 demo) have no BLINK
+            // routine/BLINK-TBL (zg.BLINK_TBL ==
+            // 0) and a V-$REFRESH that only knows how to redraw the *normal*
+            // screen -- calling it here drops out of the map (see z0_redraw_map).
+            // Instead re-invoke the game's own V-MAP to recomposite the map at
+            // the new scale, then re-arm the input timer that the
+            // glk_request_timer_events(0) at the top of this function cancelled
+            // so the still-suspended blink loop resumes.
+            if (zg.BLINK_TBL == 0) {
+                z0_redraw_map();
+
+                // MAP-X/MAP-Y return *scaled* coordinates (picture_data scales by
+                // imagescale), and z0_redraw_map recomposited the map at the live
+                // scale -- so the entry-scale marker coordinates still sitting in
+                // the suspended BLINK-WHILE-AWAITING-INPUT frame we're nested in
+                // are now stale. Recompute them and write them into that frame's
+                // Y/X locals (vars 3/4) so the resumed blink lands on its room.
+                if (zr.MAP_X != 0 && zr.MAP_Y != 0 && zp.P_MAP_LOC != 0) {
+                    uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
+                    uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)});
+                    uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)});
+                    update_blink_coordinates(CX, CY);
+                }
+
+                glk_request_timer_events(1);
+                return;
+            }
 
             // Redraw the map. Skip when the routines weren't located (e.g.
             // r366, where the V-REFRESH/MAP-X/MAP-Y patterns don't match):
@@ -2758,6 +2851,13 @@ bool z0_display_picture(int x, int y, Window *win) {
 
         if (current_picture == zorkzero_map_border) {
             screenmode = MODE_MAP;
+            // Remember the scale the map is composited at. The pre-release
+            // revisions (r242/r296/r66, r366 demo) don't recomposite the map on
+            // resize (the GUI rescales the rendered
+            // image), so the live-redrawn you-are-here marker must use this same
+            // scale to stay on its room icon -- see the default path below.
+            map_entry_imagescalex = imagescalex;
+            map_entry_imagescaley = imagescaley;
             draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
             flush_bitmap(current_graphics_buf_win);
             return true;
@@ -2819,6 +2919,25 @@ bool z0_display_picture(int x, int y, Window *win) {
     // Default: composite into the current background graphics buffer.
     if (current_graphics_buf_win == nullptr)
         current_graphics_buf_win = graphics_bg_glk;
+
+    // On the pre-release revisions (r242/r296/r66, r366 demo) the map isn't
+    // recomposited on resize -- the GUI
+    // rescales the already-rendered map image -- but the game redraws the
+    // blinking you-are-here marker live, and draw_to_buffer would place it at
+    // the current (resized) scale, off its room icon. Composite it at the scale
+    // the map was drawn with so it stays put. At map entry the two scales are
+    // equal, so this only differs once the window has actually been resized.
+    if (screenmode == MODE_MAP && zg.BLINK_TBL == 0 && map_entry_imagescalex != 0 &&
+        (imagescalex != map_entry_imagescalex || imagescaley != map_entry_imagescaley)) {
+        float saved_x = imagescalex, saved_y = imagescaley;
+        imagescalex = map_entry_imagescalex;
+        imagescaley = map_entry_imagescaley;
+        draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
+        imagescalex = saved_x;
+        imagescaley = saved_y;
+        return true;
+    }
+
     draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
     return true;
 }

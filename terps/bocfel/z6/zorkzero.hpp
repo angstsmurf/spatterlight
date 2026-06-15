@@ -215,6 +215,20 @@ typedef struct ZorkRoutines {
     uint32_t DRAW_COMPASS_ROSE;
     uint32_t MAP_X;
     uint32_t MAP_Y;
+    // Local-variable numbers that hold the "you are here" CX/CY coordinates
+    // in the V-MAP-LOOP frame our hook fires in. These differ by revision
+    // (the releases use 4/5; the r242/r296 betas inline the loop into V-MAP
+    // and use 5/6), so they're recorded when the entrypoint is located.
+    // 0 means "not set" -> V_MAP_LOOP falls back to the release layout.
+    uint8_t MAP_CX_VAR;
+    uint8_t MAP_CY_VAR;
+    // The r242/r296 betas have no map-aware refresh, so to redraw the map on
+    // resize/autorestore we re-invoke the game's own V-MAP routine with its
+    // BLINK-WHILE-AWAITING-INPUT call patched to rtrue (so it draws the map and
+    // returns instead of looping/exiting). V_MAP is the routine's byte address;
+    // V_MAP_BLINK_CALL is the byte address of that call to patch. 0 = not found.
+    uint32_t V_MAP;
+    uint32_t V_MAP_BLINK_CALL;
     uint32_t J_PLAY;
     uint32_t SCORE_CHECK;
     uint32_t DRAW_PEGS;

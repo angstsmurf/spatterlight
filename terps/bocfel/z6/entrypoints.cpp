@@ -1071,6 +1071,16 @@ static std::vector<EntryPoint> entrypoints = {
         V_DEFINE
     },
 
+    // BLINK-WHILE-AWAITING-INPUT: SET_WINDOW L04; DRAW_PICTURE L01 L02 L03;
+    // SET_WINDOW #00. Its handler reads zg.BLINK_TBL from the STOREW that
+    // immediately follows (the release/r366 map drives the blinking marker via
+    // that table; the r242/r296/r66 betas store the icon in a frame local
+    // instead, so the BLINK_TBL search there simply finds nothing and the beta
+    // redraw path is used). global_search because the routine sits at a low
+    // address in some revisions (r366: 0x130f5) and the forward cursor overshoots
+    // it, leaving zg.BLINK_TBL unset so the wrong (beta) resize path is taken and
+    // the you-are-here marker is never repositioned. The pattern is globally
+    // unique in every revision that has it (and absent in the true betas).
     {
         Game::ZorkZero,
         "BLINK",
@@ -1078,7 +1088,8 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         0,
         false,
-        BLINK
+        BLINK,
+        true,
     },
 
     {
@@ -1321,6 +1332,39 @@ static std::vector<EntryPoint> entrypoints = {
         V_MAP_LOOP
     },
 
+    // The r296/r66 betas (and the r366 demo) also inline the map loop into
+    // V-MAP, but their BLINK-WHILE-AWAITING-INPUT call is a CALL_VS2 (it stores
+    // the input result into a local) rather than the r242 "alt" CALL_VN2, with
+    // the you-are-here CX/CY in vars 4/5 (the release layout) instead of 5/6:
+    //   ec 26 9f <blink-rtn> 00 cc 05 04 07 06
+    //   = CALL_VS2 BLINK ((SP)+,#cc,L04,L03,#07) -> L05
+    // This exact call also appears in the releases, but there it lives in a
+    // standalone V-MAP-LOOP routine claimed first by the "V-MAP-LOOP" row above;
+    // the V_MAP_LOOP dedup in find_entrypoints() keeps this global match from
+    // shadowing it. So this row only ever wins on the inline-map betas, which
+    // match neither of the rows above. global_search because, like the betas'
+    // other map routines, its position relative to its neighbours varies.
+    {
+        Game::ZorkZero,
+        "V-MAP-LOOP inline",
+        { 0xec, 0x26, 0x9f, WILDCARD, WILDCARD, 0x00, 0xcc, 0x05, 0x04, 0x07, 0x06 },
+        0,
+        0,
+        false,
+        V_MAP_LOOP,
+        true,
+    },
+
+    // MAP-X (and the near-identical MAP-Y right after it, derived in the
+    // handler) sit at ~0x16xxx-0x17xxx, but in the pre-release revisions the
+    // CENTER-n credit routines -- which precede this row in the table -- live
+    // *after* the status block (r296: ~0x1d779), so the forward cursor overshoots
+    // MAP-X and it was never found (no resize map-coordinate recompute -> the
+    // marker stayed at its stale entry scale). Both patterns are globally unique
+    // (only the two adjacent MAP-X/MAP-Y routines match, no false hits), so scan
+    // the whole story. Same overshoot fix as INIT-STATUS-LINE/SET-BORDER below;
+    // a release uses the non-alt JE branch (4c), the r242/r296/r66 betas the alt
+    // one (4e da). Only one pattern matches per revision, so no dedup is needed.
     {
         Game::ZorkZero,
         "MAP-X",
@@ -1328,7 +1372,8 @@ static std::vector<EntryPoint> entrypoints = {
         -1,
         0,
         false,
-        MAP_X
+        MAP_X,
+        true,
     },
 
     {
@@ -1338,7 +1383,8 @@ static std::vector<EntryPoint> entrypoints = {
         -1,
         0,
         false,
-        MAP_X
+        MAP_X,
+        true,
     },
 
     {
@@ -2646,6 +2692,31 @@ static void find_shogun_globals(void) {
     }
 }
 
+// Scan backward from a Zork Zero BLINK-WHILE-AWAITING-INPUT call site for the
+// head of the V-MAP routine the call is inlined into, so z0_redraw_map() can
+// re-invoke it. V-MAP either opens with the held-item GET_CHILD preamble
+// (r66/r242/r343/releases: <hdr> A0 .. .. 82 .. .. .. C2) or goes straight to the
+// map-mode guard (r296/r366: <hdr> A0 .. .. 8F .. .. 9B 02 = JZ MAP-MODE; CALL_1N
+// ..; RET #02). Prefer the GET_CHILD head: the guard shape also occurs
+// mid-routine in the revisions that have the preamble, so matching it first there
+// would latch onto a false (interior) header. Returns 0 if no head is found.
+static uint32_t find_zork0_v_map_head(uint32_t blink_call) {
+    uint32_t lo = blink_call > 0x120 ? blink_call - 0x120 : 0;
+    for (uint32_t a = blink_call; a > lo; a--) {
+        if (memory[a] <= 15 && memory[a + 1] == 0xA0 &&
+            memory[a + 4] == 0x82 && memory[a + 8] == 0xC2) {
+            return a;
+        }
+    }
+    for (uint32_t a = blink_call; a > lo; a--) {
+        if (memory[a] <= 15 && memory[a + 1] == 0xA0 &&
+            memory[a + 4] == 0x8F && memory[a + 7] == 0x9B && memory[a + 8] == 0x02) {
+            return a;
+        }
+    }
+    return 0;
+}
+
 // Second-pass scanner for Zork Zero. Locates routine addresses for the
 // minigames (Tower of Bozbar, Peggleboz, Snarfem, Double Fanucci) and
 // the map/compass system, plus their backing tables and the BLINK_TBL
@@ -3115,6 +3186,79 @@ static void find_zork0_globals(void) {
             }
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == V_MAP_LOOP && entrypoint.found_at_address != 0) {
+            // Record which local slots hold the you-are-here CX/CY in the frame
+            // our V_MAP_LOOP hook runs in. On the releases V-MAP-LOOP is its own
+            // routine with CX in var 4 and CY in var 5. On the r242/r296 betas the
+            // loop is inlined into V-MAP (locals TBL MAP-NUM RM RM-ICON CX CY), so
+            // CX is var 5 and CY is var 6 -- the "alt" BLINK-WHILE-AWAITING-INPUT
+            // call we anchor on reads X from var 5, Y from var 6 (operand bytes
+            // ...cc 06 05 07). Storing into the wrong slots leaves the marker's X
+            // holding the Y coordinate, drawing it too far left.
+            if (entrypoint.title == "V-MAP-LOOP alt") {
+                zr.MAP_CX_VAR = 5;
+                zr.MAP_CY_VAR = 6;
+
+                // The "alt" anchor is the BLINK-WHILE-AWAITING-INPUT call inside
+                // the betas' monolithic V-MAP. Record it (to patch to rtrue) and
+                // scan back for V-MAP's start so z0_redraw_map() can re-invoke the
+                // game's own map drawing on resize/autorestore. V-MAP opens with
+                // "<n locals> JZ DEBUG[..] GET_CHILD ROOMS -> L2 [..]", i.e.
+                // (hdr<=15) A0 .. .. 82 .. .. 03 C2 -- distinctive enough to find
+                // the header by scanning back a few hundred bytes.
+                zr.V_MAP_BLINK_CALL = entrypoint.found_at_address;
+                uint32_t lo = entrypoint.found_at_address > 0x400 ?
+                              entrypoint.found_at_address - 0x400 : 0;
+                for (uint32_t a = entrypoint.found_at_address & ~3u; a > lo; a -= 4) {
+                    if (memory[a] <= 15 && memory[a + 1] == 0xA0 && memory[a + 4] == 0x82 &&
+                        memory[a + 7] == 0x03 && memory[a + 8] == 0xC2) {
+                        zr.V_MAP = a;
+                        break;
+                    }
+                }
+                fprintf(stderr, "zr.V_MAP: 0x%x (BLINK call 0x%x)\n", zr.V_MAP, zr.V_MAP_BLINK_CALL);
+            } else if (entrypoint.title == "V-MAP-LOOP inline") {
+                // r296/r66/r366 inline the loop into V-MAP too, but unlike r242
+                // their CALL_VS2 reads X from var 4 and Y from var 5 (operand
+                // bytes ...cc 05 04 07), the same as the release V-MAP-LOOP.
+                zr.MAP_CX_VAR = 4;
+                zr.MAP_CY_VAR = 5;
+
+                // The anchor IS the BLINK-WHILE-AWAITING-INPUT call. Record it so
+                // z0_redraw_map() can patch it to rtrue, and scan back for V-MAP's
+                // start so it can re-invoke the game's own map drawing on
+                // resize/autorestore (these revisions have no map-aware V-$REFRESH
+                // and no BLINK-TBL, so without this the empty pixmap is never
+                // repainted and the map shows as black).
+                zr.V_MAP_BLINK_CALL = entrypoint.found_at_address;
+                zr.V_MAP = find_zork0_v_map_head(entrypoint.found_at_address);
+                fprintf(stderr, "zr.V_MAP: 0x%x (BLINK call 0x%x)\n", zr.V_MAP, zr.V_MAP_BLINK_CALL);
+            } else {
+                // "V-MAP-LOOP" (non-alt): the anchor is the post-blink
+                // `CALL_1S <handle-click>; JZ` (88 1e .. 00 a0 00 f3), not the
+                // blink call itself. CX/CY are in vars 4/5 as for the inline case.
+                zr.MAP_CX_VAR = 4;
+                zr.MAP_CY_VAR = 5;
+
+                // The release-style revisions (BLINK-TBL present) redraw the map
+                // on resize via V-$REFRESH and never use zr.V_MAP, but the
+                // beta-style r343 (frame-local marker, BLINK-TBL absent) also
+                // matches this row and DOES need z0_redraw_map(), so resolve
+                // zr.V_MAP/V_MAP_BLINK_CALL here too. Back up from the anchor to
+                // the CALL_VS2 blink call (ec 26 9f .. .. 00 cc 05 04 07 06) that
+                // precedes it within ~0x20 bytes, then scan back for V-MAP's head.
+                uint32_t a = entrypoint.found_at_address;
+                uint32_t lo = a > 0x20 ? a - 0x20 : 0;
+                for (; a > lo; a--) {
+                    if (memory[a] == 0xec && memory[a + 1] == 0x26 && memory[a + 2] == 0x9f &&
+                        memory[a + 5] == 0x00 && memory[a + 6] == 0xcc && memory[a + 7] == 0x05 &&
+                        memory[a + 8] == 0x04 && memory[a + 9] == 0x07 && memory[a + 10] == 0x06) {
+                        zr.V_MAP_BLINK_CALL = a;
+                        zr.V_MAP = find_zork0_v_map_head(a);
+                        break;
+                    }
+                }
+                fprintf(stderr, "zr.V_MAP: 0x%x (BLINK call 0x%x)\n", zr.V_MAP, zr.V_MAP_BLINK_CALL);
+            }
             // P-MAP-LOC is the room property holding the map-coordinate table:
             // `GETP HERE,P?MAP-LOC >TBL` == GET_PROP HERE,#prop -> L00 then
             // LOADW L00 (51 .. .. 01 4f). On the releases the V-MAP-LOOP anchor
@@ -3235,10 +3379,22 @@ void find_entrypoints(void) {
     // table, so once any z0_UPDATE_STATUS_LINE has matched, skip the rest.
     bool found_z0_update_status_line = false;
 
+    // Zork Zero registers V-MAP-LOOP with three patterns: the release standalone
+    // routine ("V-MAP-LOOP"), the r242 inline CALL_VN2 ("V-MAP-LOOP alt"), and
+    // the r296/r66/r366 inline CALL_VS2 ("V-MAP-LOOP inline"). Exactly one is the
+    // real loop in any given revision, but the inline-CALL_VS2 call also exists
+    // verbatim inside the releases' standalone routine, so the "inline" row would
+    // double-match there. The rows are ordered release / r242 / inline, so once
+    // any V_MAP_LOOP has matched, skip the rest.
+    bool found_v_map_loop = false;
+
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game)) {
 //            fprintf(stderr, "Looking for entrypoint %s (starting at 0x%x)\n", entrypoint.title.c_str(), start);
             if (entrypoint.fn == z0_UPDATE_STATUS_LINE && found_z0_update_status_line) {
+                continue;
+            }
+            if (entrypoint.fn == V_MAP_LOOP && found_v_map_loop) {
                 continue;
             }
             if (entrypoint.pattern.size()) {
@@ -3275,6 +3431,9 @@ void find_entrypoints(void) {
                     fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), entrypoint.found_at_address);
                     if (entrypoint.fn == z0_UPDATE_STATUS_LINE) {
                         found_z0_update_status_line = true;
+                    }
+                    if (entrypoint.fn == V_MAP_LOOP) {
+                        found_v_map_loop = true;
                     }
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;
