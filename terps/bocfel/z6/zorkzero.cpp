@@ -2565,6 +2565,18 @@ void z0_update_after_autorestore(void) {
         } else {
             window.bg_color = Color(Color::Mode::ANSI, bg);
         }
+
+        // The Glk window backgrounds are not part of the autosave either, so
+        // the text-buffer window keeps the host theme's default (e.g. black
+        // under Lectrote Dark) unless we repaint it, as after_V_COLOR() does
+        // on a manual restore. Normal output stays readable because each glyph
+        // carries the game's background as a per-glyph zcolor, but echoed input
+        // text uses the window background, so without this it renders in the
+        // game's foreground on the theme background (black on black).
+        winid_t glkwin = window.id;
+        if (glkwin != nullptr && glkwin->type == wintype_TextBuffer) {
+            win_setbgnd(glkwin->peer, user_selected_background);
+        }
     }
 
     if ((screenmode != MODE_NORMAL && screenmode != MODE_Z0_GAME)
