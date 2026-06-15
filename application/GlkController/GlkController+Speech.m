@@ -142,6 +142,34 @@
 
 #pragma mark Speak new text
 
+// How long (seconds) the UI must be free of layout churn before we let a
+// VoiceOver announcement fire. A full-screen graphic dismissal triggers a
+// border/status redraw (several window resizes) right after the new text is
+// printed; each frame change makes AppKit re-read the focused window, which
+// interrupts the announcement. Waiting for the churn to settle avoids that.
+static const NSTimeInterval kLayoutSettleInterval = 0.45;
+
+// (Re)schedule the new-text announcement. Called from flushDisplay; cancels any
+// previously scheduled announcement so repeated flushes coalesce into one. The
+// initial delay is computed by the caller (which has the journey-dialog ivar).
+- (void)scheduleSpeakNewTextAfterDelay:(CGFloat)delay {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fireSpeakNewText) object:nil];
+    [self performSelector:@selector(fireSpeakNewText) withObject:nil afterDelay:delay];
+}
+
+// Fire the announcement, but if the UI is still churning (a window resized
+// within the last kLayoutSettleInterval) keep deferring until it settles, so
+// VoiceOver isn't interrupted mid-sentence.
+- (void)fireSpeakNewText {
+    NSTimeInterval sinceChurn = NSProcessInfo.processInfo.systemUptime - self.lastLayoutChurnTimestamp;
+    if (sinceChurn < kLayoutSettleInterval) {
+        [self performSelector:@selector(fireSpeakNewText) withObject:nil afterDelay:kLayoutSettleInterval - sinceChurn + 0.02];
+        return;
+    }
+    [self forceSpeech];
+    [self speakNewText];
+}
+
 - (void)speakNewText {
     // Find a "main text window"
     NSMutableArray *windowsWithText = self.gwindows.allValues.mutableCopy;
@@ -345,6 +373,17 @@
     unichar nc = '\0';
     NSString *nullChar = [NSString stringWithCharacters:&nc length:1];
     newString = [newString stringByReplacingOccurrencesOfString:nullChar withString:@""];
+
+    // VoiceOver silently drops an entire announcement that contains a
+    // U+FFFC OBJECT REPLACEMENT CHARACTER. These come from inline images
+    // (margin images, decorative drop-caps, illustrations) embedded in the
+    // accessibility text -- stringFromRangeVal inserts a "(description)"
+    // label next to each attachment but leaves the U+FFFC itself in place.
+    // Trimming above only removes them from the ends, so any image in the
+    // middle of a move (common on intro/rebus/graphics screens) silences the
+    // whole announcement. Replace every occurrence with a space (so an image
+    // sitting between two words can't fuse them) and the text is spoken.
+    newString = [newString stringByReplacingOccurrencesOfString:@"\uFFFC" withString:@" "];
 
     if (newString.length == 0)
         newString = string;

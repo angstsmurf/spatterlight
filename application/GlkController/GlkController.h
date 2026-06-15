@@ -164,6 +164,13 @@ typedef enum kGameIdentity : NSUInteger {
 @property NSDate *lastResetTimestamp;
 @property NSString *lastSpokenString;
 
+// systemUptime of the most recent window-layout change (window resize, etc.).
+// Used to debounce VoiceOver announcements so they fire only after the UI has
+// stopped churning (e.g. after a full-screen graphic is dismissed and the
+// border/status windows are redrawn), preventing the announcement from being
+// interrupted by AppKit re-reading the focused window on each frame change.
+@property NSTimeInterval lastLayoutChurnTimestamp;
+
 @property BureaucracyForm *form;
 
 @property BOOL shouldShowAutorestoreAlert;

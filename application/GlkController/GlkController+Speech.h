@@ -16,6 +16,11 @@
 - (void)speakLargest:(NSArray *)array;
 - (void)speakOnBecomingKey;
 
+// (Re)schedule the new-text announcement, debounced against layout churn so
+// it fires only once the UI has settled (see lastLayoutChurnTimestamp).
+- (void)scheduleSpeakNewTextAfterDelay:(CGFloat)delay;
+- (void)fireSpeakNewText;
+
 // Speak previous moves
 - (IBAction)speakMostRecent:(id)sender;
 - (void)speakMostRecentAfterDelay;

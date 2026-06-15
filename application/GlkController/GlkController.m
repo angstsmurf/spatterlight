@@ -1373,10 +1373,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
                 // We need a longer delay if we just closed a dialog
                 if (_journeyMenuHandler && [_journeyMenuHandler.journeyDialogClosedTimestamp timeIntervalSinceNow] > -1)
                     delay = 1;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self forceSpeech];
-                    [self speakNewText];
-                });
+                [self scheduleSpeakNewTextAfterDelay:delay];
             }
             _shouldSpeakNewText = NO;
         }
