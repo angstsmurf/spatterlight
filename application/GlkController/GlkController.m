@@ -409,6 +409,17 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     // (kUserOverride) or automatically derived from the buffer background.
     _borderView.wantsLayer = YES;
     _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
+
+    // Clip the game view to its bounds so no Glk window can draw into the
+    // border margin. Glk windows are top-pinned with a fixed height (see the
+    // SIZWIN handler), so when the window is shrunk vertically faster than the
+    // interpreter re-sends frames -- e.g. while live-resizing Zork Zero's MAP
+    // screen -- a full-size graphics window momentarily overhangs the bottom
+    // edge, leaking content (Zork Zero's pillars) into the border. The game
+    // view already has a backing layer because borderView is layer-backed.
+    _gameView.wantsLayer = YES;
+    _gameView.layer.masksToBounds = YES;
+
     _lastAutoBGColor = _theme.bufferBackground;
     if (_theme.borderBehavior == kUserOverride)
         [self setBorderColor:_theme.borderColor];

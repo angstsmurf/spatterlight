@@ -115,6 +115,24 @@ static void erase_lines_in_bitmap(int y, int height) {
     memset(pixmap + startpos, 0, size);
 }
 
+// Clip the composited pixmap to exactly `desired_height` rows. The tiling
+// routines below extend the pillars down to `desired_height`, but the last
+// tile is always stamped whole, so it overshoots, and some extenders draw a
+// foot just above the bottom without erasing what the overshoot left below it.
+// flush_bitmap() scales the entire `pixlength`-tall pixmap into the Glk window,
+// so those extra rows spill past the bottom of the screen and into the window
+// border -- e.g. the foot of Zork Zero's pillars showing in the bottom-left
+// border on the MAP screen after a resize. Trimming pixlength keeps the
+// flushed image flush with the screen's bottom edge. (The pixmap buffer itself
+// is left allocated; only the logical length used by flush_bitmap shrinks.)
+static void clip_pixmap_to_height(int desired_height) {
+    if (desired_height <= 0 || pixmap == nullptr)
+        return;
+    const long target = (long)desired_height * hw_screenwidth * kBytesPerPixel;
+    if (target < pixlength)
+        pixlength = (int)target;
+}
+
 // Tile a strip copied from rows `top_cut..top_cut+pillar_height` of the
 // current pixmap downward, stamping it every `pillar_height - overlap`
 // rows starting at `start_y`, until `desired_height` is reached. If `flip`
@@ -351,6 +369,8 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
         draw_bitmap_on_bitmap(foot, footsize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, foot_top, false);
     }
     free(foot);
+
+    clip_pixmap_to_height(desired_height);
 }
 
 // Vertically extend the Zork Zero "underground" castle pillars to fill a
@@ -409,6 +429,8 @@ void extend_underground_pillars(int top_cut, int foot_height, int total_height,
     // Draw the foot
         draw_bitmap_on_bitmap(foot, footsize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
     free(foot);
+
+    clip_pixmap_to_height(desired_height);
 }
 
 #define kZ0MacTopCut 65
@@ -473,6 +495,8 @@ void extend_mac_bw_castle_pillars(void) {
     erase_lines_in_bitmap(ypos, desired_height - ypos + 2);
     draw_bitmap_on_bitmap(foot, footsize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
     free(foot);
+
+    clip_pixmap_to_height(desired_height);
 }
 
 // Simple vertical tiler for the Zork Zero jungle border: copy a strip
@@ -490,6 +514,8 @@ void extend_jungle_pillars(int top_cut, int total_height,
     tile_strip_down(top_cut, pillar_height, overlap,
                     total_height - overlap, desired_height,
                     /*initial_parity=*/false, /*flip=*/false);
+
+    clip_pixmap_to_height(desired_height);
 }
 
 
