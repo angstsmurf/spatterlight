@@ -456,6 +456,46 @@ void DISPLAY_BORDER(BorderType border) {
 void z0_autorestore_internal_read_char_hacks(void) {
 }
 
+// Called when line input is requested at the command prompt. The on-screen map
+// is a full-screen modal view driven entirely by @read_char; its blinking
+// marker loop reads a char with mouse events armed on the foreground graphics
+// window. After an autorestore onto the map, resuming mid-loop and leaving it
+// (e.g. clicking to move out) can leave a char-input request stranded on a
+// window whose curwin moved underneath it (the blink-timeout routine flips
+// SET_WINDOW), so it is never cancelled by the read's own cleanup. glkimp then
+// routes the next keypress to that still-armed char window instead of the
+// prompt's line field, which arrives as a spurious evtype_CharInput and -- once
+// that request is also gone -- leaves the line read with no window holding
+// input focus, so the prompt accepts nothing from the keyboard.
+//
+// Clear any lingering char-input request on every window the map could have
+// armed before the line read is established, so the line field is the only
+// thing holding input and keystrokes reach it. Cancelling char input on a
+// window that has none is a harmless no-op. Also tear down the foreground
+// graphics window if it is still covering the screen (screenmode left at
+// MODE_MAP), mirroring DISPLAY_BORDER's exit.
+void z0_leave_stale_map_for_line_input(void) {
+    if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
+        glk_cancel_char_event(V6_TEXT_BUFFER_WINDOW.id);
+    if (graphics_fg_glk != nullptr)
+        glk_cancel_char_event(graphics_fg_glk);
+    if (graphics_bg_glk != nullptr)
+        glk_cancel_char_event(graphics_bg_glk);
+    for (auto &window : windows) {
+        if (window.id != nullptr)
+            glk_cancel_char_event(window.id);
+    }
+
+    if (screenmode == MODE_MAP) {
+        if (current_graphics_buf_win == graphics_fg_glk && graphics_fg_glk != nullptr) {
+            win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
+            glk_cancel_mouse_event(graphics_fg_glk);
+            current_graphics_buf_win = graphics_bg_glk;
+        }
+        screenmode = MODE_NORMAL;
+    }
+}
+
 // Initializes the status line layout. Splits the screen by the current split
 // picture, sets up border display (if borders are on), positions the status
 // windows, and configures text styles for the status area.
