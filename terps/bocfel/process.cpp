@@ -262,7 +262,18 @@ void setup_opcodes()
     setup_single_opcode(5, 6, Opcount::Ext, 0x04, zset_font);
 #ifndef ZTERP_NO_V6
     setup_single_opcode(6, 6, Opcount::Ext, 0x05, zdraw_picture);
+#ifdef SPATTERLIGHT
+    // picture_data is officially V6-only, but the pre-release V5 builds of Zork
+    // Zero (e.g. r74-s880114, r96-s880224) already emit it — and crucially with
+    // a *branch*. Unregistered EXT opcodes default to znop (see setup_opcodes),
+    // and znop does not consume the branch byte, so the decoder desyncs and dies
+    // on the next "instruction" (the dropped branch byte). Registering the real
+    // branching handler for V5 too lets those builds run. Standard V5 games never
+    // emit EXT:6, so this is inert for them.
+    setup_single_opcode(5, 6, Opcount::Ext, 0x06, zpicture_data);
+#else
     setup_single_opcode(6, 6, Opcount::Ext, 0x06, zpicture_data);
+#endif
     setup_single_opcode(6, 6, Opcount::Ext, 0x07, znop); // XXX erase_picture
     setup_single_opcode(6, 6, Opcount::Ext, 0x08, znop); // XXX set_margins
 #endif
