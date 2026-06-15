@@ -2355,6 +2355,7 @@ void zerase_window()
 #ifdef SPATTERLIGHT
     int32_t arg0 = as_signed(zargs[0]);
     arthur_erase_window(zargs[0]);
+    z0_erase_window(zargs[0]);
 #endif
 #ifdef ZTERP_GLK
     switch (as_signed(zargs[0])) {

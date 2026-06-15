@@ -32,7 +32,10 @@ extern "C" {
 
 #ifdef SPATTERLIGHT
 #include "spatterlight-autosave.h"
+#endif
+#if defined(SPATTERLIGHT) || defined(HEADLESS_V6)
 #include "entrypoints.hpp"
+#include "v6_specific.h"
 #endif
 
 unsigned long pc;
@@ -262,7 +265,7 @@ void setup_opcodes()
     setup_single_opcode(5, 6, Opcount::Ext, 0x04, zset_font);
 #ifndef ZTERP_NO_V6
     setup_single_opcode(6, 6, Opcount::Ext, 0x05, zdraw_picture);
-#ifdef SPATTERLIGHT
+#if defined(SPATTERLIGHT) || defined(HEADLESS_V6)
     // picture_data is officially V6-only, but the pre-release V5 builds of Zork
     // Zero (e.g. r74-s880114, r96-s880224) already emit it — and crucially with
     // a *branch*. Unregistered EXT opcodes default to znop (see setup_opcodes),
@@ -346,7 +349,7 @@ void process_instructions()
 #endif
 
         current_instruction = pc;
-#ifdef SPATTERLIGHT
+#if defined(SPATTERLIGHT) || defined(HEADLESS_V6)
 //        fprintf(stderr, "pc == 0x%04lx\n", pc);
         if (is_spatterlight_v6) {
             check_entrypoints(pc);

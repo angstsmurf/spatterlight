@@ -98,6 +98,17 @@ void user_store_byte(uint16_t addr, uint8_t v)
 
         bool fixed_set = (v & FLAGS2_FIXED) == FLAGS2_FIXED;
         screen_set_header_bit(fixed_set);
+#if defined(SPATTERLIGHT) || defined(HEADLESS_V6)
+    } else if (addr >= 0x30 && addr <= 0x33) {
+        // The pre-release V5 builds of Zork Zero (e.g. r74-s880114,
+        // r96-s880224) write words to the interpreter-owned header fields at
+        // 0x30 (stream-3 pixel width) and 0x32 (standard revision number) — see
+        // routine 0x15E14, which stores there right after laying out a picture.
+        // Both fields predate Standard 1.0's read-only rules, are pure
+        // scratch as far as the VM is concerned, and clobbering them has no
+        // effect on execution, so permit the writes rather than aborting.
+        // Compliant games never write to this range, so this is inert for them.
+#endif
     } else {
         ZASSERT(addr >= 0x40 && addr < header.static_start, "attempt to write to read-only address 0x%lx", static_cast<unsigned long>(addr));
     }
