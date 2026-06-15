@@ -502,9 +502,13 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
         if (zg.CURRENT_BORDER != 0) {
             set_global(zg.CURRENT_BORDER, internal_call(pack_routine(zr.SET_BORDER)));
             DISPLAY_BORDER((BorderType)get_global(zg.CURRENT_BORDER));
-        } else {
+        } else if (zr.SET_BORDER != 0) {
             DISPLAY_BORDER((BorderType)internal_call(pack_routine(zr.SET_BORDER)));
         }
+        // If neither the CURRENT-BORDER global nor a detected SET-BORDER routine
+        // is available (the release-tuned patterns don't match the pre-release
+        // r296/r66 layouts), skip the border draw rather than calling
+        // pack_routine(0) into a garbage routine.
         for (int i = 1; i < 14; i++) {
             internal_clear_attr(0x166, i);
         }
@@ -607,16 +611,25 @@ static void z0_resize_status_windows(void) {
             win_maketransparent(z0_left_status_window->peer);
     }
 
-    int16_t CURRENT_BORDER;
+    // CURRENT_BORDER is only used for the diagnostic below, but resolve it the
+    // same way the original does: from the cached global if present, else by
+    // calling SET-BORDER. Both can be *undetected* in the pre-release revisions
+    // -- r296 does have a SET-BORDER routine and a CURRENT-BORDER global, but
+    // the release-tuned entrypoint patterns don't match them there, so zr.SET_BORDER
+    // and zg.CURRENT_BORDER stay 0. Calling pack_routine(0) then packs to a 16-bit
+    // address that unpacks to a garbage routine (0x40000 in r296 -> "too many (79)
+    // locals" abort), so guard on having a real target first.
+    int16_t CURRENT_BORDER = 0;
     if (zg.CURRENT_BORDER != 0)
         CURRENT_BORDER = get_global(zg.CURRENT_BORDER);
-    else
+    else if (zr.SET_BORDER != 0)
         CURRENT_BORDER = internal_call(pack_routine(zr.SET_BORDER));
 
-    int imgwidth, imgheight;
-    get_image_size(CURRENT_BORDER, &imgwidth, &imgheight);
-
-    fprintf(stderr, "z0_resize_status_windows: image width of CURRENT_BORDER (%d) is %d\n", CURRENT_BORDER, imgwidth);
+    if (CURRENT_BORDER != 0) {
+        int imgwidth, imgheight;
+        get_image_size(CURRENT_BORDER, &imgwidth, &imgheight);
+        fprintf(stderr, "z0_resize_status_windows: image width of CURRENT_BORDER (%d) is %d\n", CURRENT_BORDER, imgwidth);
+    }
 
     int x, y, width, height;
 
@@ -767,7 +780,14 @@ void z0_UPDATE_STATUS_LINE(void) {
 //        if (COMPASS_CHANGED) {
             if (zr.DRAW_NEW_COMP != 0) {
                 internal_call(pack_routine(zr.DRAW_NEW_COMP));
-            } else {
+            } else if (zr.DRAW_COMPASS_ROSE != 0 && zt.PICINF_TBL != 0) {
+                // Legacy fallback for the early releases (r242/beta) that have
+                // DRAW-COMPASS-ROSE + PICINF-TBL but no DRAW-NEW-COMP. Guard on
+                // both being detected: on the middle releases (r296/r343/r366)
+                // none of the three is found, and running this unguarded wrote
+                // to PICINF_TBL==0 (corrupting the header at address 0) and
+                // called pack_routine(0) eight times -- which blanked the whole
+                // bordered status line (no pillars, no compass).
 //                set_global(zg.COMPASS_CHANGED, 0);
                 int width, height;
                 get_image_size(COMPASS_PIC_LOC, &width, &height);
@@ -1100,6 +1120,7 @@ static void fanucci_window(int index, int x, int y, int num_chars) {
     win->y = 1;
     if (win->id != nullptr && win->id->type != wintype_TextGrid) {
         gli_delete_window(win->id);
+        win->id = nullptr;
     }
 
     if (win->id == nullptr) {
@@ -1425,6 +1446,65 @@ void FANUCCI(void) {
         v6_delete_win(&windows[i]);
     screenmode = MODE_NORMAL;
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+}
+
+// Demo-only window cleanup, called from zerase_window() on @erase_window.
+//
+// The demo's SLIDE-SHOW (prologue.zil) displays each sample screen --
+// encyclopedia, map, Double Fanucci -- and separates them with @erase_window
+// -1, ending with one more before it hands off to the interactive section.
+// Unlike normal play it only *sets up* the mini-games (e.g. SETUP-FANUCCI,
+// never the FANUCCI play loop above that tears its windows down at the end), so
+// the Glk windows they create are never destroyed and linger on top of the
+// following sample -- and into the interactive part. Mirror
+// arthur_erase_window() and tear those leftovers down on the fullscreen clear.
+//
+// This is gated on the slideshow/mini-game screen modes, so it is inert during
+// normal play: there @erase_window -1 is issued when *entering* the
+// encyclopedia/map (PICTURED-ENTRY / DO-MAP) or toggling borders (V-MODE),
+// while still in MODE_NORMAL, and the mini-games run their own C++ teardown
+// (which resets screenmode to MODE_NORMAL) before any clear.
+void z0_erase_window(int16_t index) {
+    if (!is_spatterlight_zork0 || index != -1)
+        return;
+
+    switch (screenmode) {
+    case MODE_SLIDESHOW: // title / rebus / encyclopedia sample
+    case MODE_MAP:       // map sample
+        // Encyclopedia caption window (only created for the encyclopedia
+        // sample; a no-op for the others). Restore the text-buffer colour
+        // hints it overrode, exactly as V_REFRESH does on a normal exit.
+        if (windows[3].id != nullptr) {
+            v6_delete_win(&windows[3]);
+            glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
+            glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
+        }
+        // Hide the fullscreen foreground graphics window the sample took over
+        // and switch drawing back to the background window (cf. DISPLAY_BORDER).
+        if (current_graphics_buf_win == graphics_fg_glk) {
+            win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
+            glk_cancel_char_event(graphics_fg_glk);
+            current_graphics_buf_win = graphics_bg_glk;
+        }
+        screenmode = MODE_NORMAL;
+        break;
+
+    case MODE_Z0_GAME: // Double Fanucci sample (SETUP-FANUCCI only)
+        // fanucci_command_grid is the unique marker that Fanucci is set up;
+        // tear it and the card-label grids (windows[2..6]) down exactly as the
+        // FANUCCI play loop does on a normal exit.
+        if (fanucci_command_grid != nullptr) {
+            gli_delete_window(fanucci_command_grid);
+            fanucci_command_grid = nullptr;
+            for (int i = 2; i < 7; i++)
+                v6_delete_win(&windows[i]);
+            screenmode = MODE_NORMAL;
+        }
+        break;
+
+    default:
+        break;
+    }
 }
 
 // Tests whether the last mouse click position falls within the rectangle
@@ -2296,6 +2376,14 @@ static void update_blink_coordinates(uint16_t x, uint16_t y) {
 // coordinates. We recalculate the current room's map position and update
 // the local variables every iteration.
 void V_MAP_LOOP(void) {
+    // Bail if the map plumbing wasn't located for this revision: P_MAP_LOC == 0
+    // would make internal_get_prop abort ("invalid property: 0"), and
+    // MAP_X/MAP_Y == 0 would pack_routine(0) into a garbage routine. Without the
+    // "you are here" coordinates the map still draws (sans marker) rather than
+    // crashing.
+    if (zp.P_MAP_LOC == 0 || zr.MAP_X == 0 || zr.MAP_Y == 0)
+        return;
+
     // Get the map location table of current room
     uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
     // Get the coordinates of the map representation of current room
@@ -2420,18 +2508,27 @@ void z0_update_on_resize(void) {
         case MODE_MAP: {
             z0_hide_right_status();
 
-            // Redraw the map.
-            internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
+            // Redraw the map. Skip when the routines weren't located (e.g.
+            // r366, where the V-REFRESH/MAP-X/MAP-Y patterns don't match):
+            // pack_routine(0) underflows to a bogus packed address that
+            // unpacks into string space, so calling it crashes. Likewise skip
+            // when P-MAP-LOC wasn't found (e.g. r66, which locates MAP-X/MAP-Y
+            // but not V-MAP-LOOP): internal_get_prop(HERE, 0) below would abort
+            // with "invalid property: 0". Refreshing is optional here; not
+            // crashing is not.
+            if (zr.V_REFRESH != 0 && zr.MAP_X != 0 && zr.MAP_Y != 0 && zp.P_MAP_LOC != 0) {
+                internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
 
-            // We are in a loop inside the BLINK routine and need to
-            // update coordinates in the BLINK-TBL (which will be read by
-            // the TYPED? routine) as well as the local Y and X variables
-            // (which are used to redraw/unhighlight the previous
-            // location icon when we move away).
-            uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
-            uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)});
-            uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)});
-            update_blink_coordinates(CX, CY);
+                // We are in a loop inside the BLINK routine and need to
+                // update coordinates in the BLINK-TBL (which will be read by
+                // the TYPED? routine) as well as the local Y and X variables
+                // (which are used to redraw/unhighlight the previous
+                // location icon when we move away).
+                uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
+                uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)});
+                uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)});
+                update_blink_coordinates(CX, CY);
+            }
             return;
         }
 
@@ -2440,7 +2537,12 @@ void z0_update_on_resize(void) {
             if (redraw_minigame_on_resize(get_global(zg.CURRENT_SPLIT)))
                 return;
 
-            internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
+            // Skip when V-REFRESH wasn't located (e.g. r366): pack_routine(0)
+            // underflows to a bogus packed address that unpacks into string
+            // space, and calling it crashes (most visibly on autorestore,
+            // which reaches here via after_V_COLOR()).
+            if (zr.V_REFRESH != 0)
+                internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
             if (V6_TEXT_BUFFER_WINDOW.id) {
                 if (graphics_type_changed) {
                     refresh_margin_images();
