@@ -3706,7 +3706,24 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             break;
 
         case evtype_CharInput:
-            ZASSERT(input.type == Input::Type::Char, "got unexpected evtype_CharInput");
+            // A char-input request can linger on a now-inactive window across a
+            // screen-mode change and then fire as a spurious event while we are
+            // waiting for a different kind of input. This happens with the Zork
+            // Zero on-screen map: its blinking marker loop reads a char with the
+            // graphics window still armed, and after an autorestore (which resumes
+            // mid-loop) exiting the map with the mouse can leave that request
+            // pending, so the next keypress at the command prompt arrives here as
+            // an unexpected evtype_CharInput and aborts the interpreter. Rather
+            // than treating it as a fatal desync, cancel the stray request on the
+            // window it came from and keep waiting -- mirroring the tolerance for
+            // spurious timer events above. (The line request on the real input
+            // window is untouched, so the next keypress is read normally.)
+            if (input.type != Input::Type::Char) {
+                if (ev.win != nullptr) {
+                    glk_cancel_char_event(ev.win);
+                }
+                break;
+            }
 
                 /*if (ev.win != curwin->id) {
                     bool found = false;
