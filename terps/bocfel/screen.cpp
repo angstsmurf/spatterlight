@@ -3640,6 +3640,17 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
         request_char();
         break;
     case Input::Type::Line:
+#ifdef SPATTERLIGHT
+        // The Zork Zero on-screen map is a full-screen modal driven entirely by
+        // @read_char. After an autorestore onto the map, leaving it can strand a
+        // char-input request on a now-inactive window, which then steals this
+        // line read's keystrokes and leaves the prompt unable to accept input.
+        // Clear any such stale request (and tear the map view down) before the
+        // line read is established so the prompt's line field gets the input.
+        if (is_spatterlight_zork0) {
+            z0_leave_stale_map_for_line_input();
+        }
+#endif
 #ifdef ZTERP_GLK_GRAPHICS
         // When in borderless mode, there’s no direct way to detect when
         // the game is finished with a 320x200/Game window, so infer
