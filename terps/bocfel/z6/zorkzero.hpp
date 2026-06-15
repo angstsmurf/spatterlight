@@ -21,6 +21,7 @@ void CENTER_1(void);
 void CENTER_2(void);
 void CENTER_3(void);
 void V_REFRESH(void);
+void z0_erase_window(int16_t index);
 void V_MODE(void);
 void V_DEFINE(void);
 void DEFAULT_COLORS(void);

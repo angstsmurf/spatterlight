@@ -39,11 +39,13 @@
 #include "unicode.h"
 #include "util.h"
 
-#ifdef SPATTERLIGHT
+#if defined(SPATTERLIGHT) || defined(HEADLESS_V6)
 #include "entrypoints.hpp"
+#include "v6_specific.h"
+#endif
+#ifdef SPATTERLIGHT
 #include "extract_apple_2.h"
 #include "find_graphics_files.hpp"
-#include "v6_specific.h"
 #endif
 
 #ifdef ZTERP_GLK
@@ -148,7 +150,7 @@ static void initialize_games()
 
     static const std::vector<std::pair<Game, std::set<std::string>>> gamemap = {
         { Game::Infocom1234, infocom1234 },
-#ifndef SPATTERLIGHT
+#if !defined(SPATTERLIGHT) && !defined(HEADLESS_V6)
         { Game::Arthur, { "54-890606", "63-890622", "74-890714" } },
         { Game::Journey, { "26-890316", "30-890322", "77-890616", "83-890706" } },
 #else
@@ -158,16 +160,18 @@ static void initialize_games()
 #endif
         { Game::LurkingHorror, { "203-870506", "219-870912", "221-870918" } },
         { Game::Planetfall, { "1-830517", "20-830708", "26-831014", "29-840118", "37-851003", "39-880501" } },
-#ifndef SPATTERLIGHT
+#if !defined(SPATTERLIGHT) && !defined(HEADLESS_V6)
         { Game::Shogun, { "292-890314", "295-890321", "311-890510", "322-890706" } },
 #else
         { Game::Shogun, { "278-890209", "278-890211", "279-890217", "280-890217", "281-890222", "282-890224", "283-890228", "284-890302", "286-890306", "288-890308", "289-890309", "290-890311", "291-890313", "292-890314", "295-890321", "311-890510", "320-890627", "321-890629", "322-890706" } },
 #endif
         { Game::Stationfall, { "1-861017", "63-870218", "87-870326", "107-870430" } },
+#if defined(SPATTERLIGHT) || defined(HEADLESS_V6)
 #ifdef SPATTERLIGHT
         { Game::BeyondZork, { "1-870412", "1-870715", "47-870915", "49-870917", "51-870923", "57-871221", "60-880610" } },
         { Game::MadBomber, { "3-971123-caad" } },
-        { Game::ZorkZero, { "242-880830", "242-880901", "296-88101", "66-890111", "343-890217", "366-890323", "383-890602", "387-890612", "392-890714", "393-890714" } },
+#endif
+        { Game::ZorkZero, { "242-880830", "242-880901", "296-881019", "66-890111", "343-890217", "366-890323", "383-890602", "387-890612", "392-890714", "393-890714" } },
 #else
         { Game::ZorkZero, { "296-881019", "366-890323", "383-890602", "393-890714" } },
 #endif
@@ -683,7 +687,7 @@ static void process_story(IO &io, long offset)
         apply_v6_patches();
     }
 
-#ifdef SPATTERLIGHT
+#if defined(SPATTERLIGHT) || defined(HEADLESS_V6)
     if (is_game(Game::Journey)) {
         is_spatterlight_journey = true;
     } else if (is_game(Game::Arthur)) {
