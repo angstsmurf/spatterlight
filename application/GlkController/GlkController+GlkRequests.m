@@ -976,6 +976,10 @@
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
+                // Record layout churn so VoiceOver announcements wait until the
+                // UI settles (see scheduleSpeakNewTextAfterDelay / fireSpeakNewText).
+                if (!NSEqualRects(reqWin.frame, rect))
+                    self.lastLayoutChurnTimestamp = NSProcessInfo.processInfo.systemUptime;
                 reqWin.frame = rect;
 
                 NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
