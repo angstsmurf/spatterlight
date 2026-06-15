@@ -2891,6 +2891,15 @@ bool z0_display_picture(int x, int y, Window *win) {
 
         if (current_picture == zorkzero_map_border) {
             screenmode = MODE_MAP;
+            // The map takes over the floating foreground graphics window, but
+            // the full-screen background window still holds the normal-mode
+            // room graphic (e.g. the underground pillars). With a non-zero
+            // window border the foreground window is inset, so a frame of those
+            // pillars peeks through -- most visibly while resizing. Blank the
+            // background once here; the map is not drawn into it, so it stays
+            // clear, and the room is redrawn normally when map mode is torn
+            // down. Mirrors the encyclopedia path below.
+            glk_window_clear(graphics_bg_glk);
             // Remember the scale the map is composited at. The pre-release
             // revisions (r242/r296/r66, r366 demo) don't recomposite the map on
             // resize (the GUI rescales the rendered
