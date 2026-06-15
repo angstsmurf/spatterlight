@@ -464,7 +464,7 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
             glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
             if (should_show_rebus_hint_message) {
                 glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-                transcribe_and_print_string("\n[If the rebus images are causing you trouble, don't hesitate to consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA > reading the rebus.]\n");
+                transcribe_and_print_string("\n[If the rebus images are causing you trouble, don't hesitate to consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA – reading the rebus.]\n");
                 should_show_rebus_hint_message = false;
                 shown_rebus_hint_message = true;
                 glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
