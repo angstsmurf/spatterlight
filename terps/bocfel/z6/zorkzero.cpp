@@ -874,8 +874,15 @@ void z0_update_colors(void) {
     if (default_bg == 0)
         default_bg = 1;
 
-    set_global(zg.DEFAULT_FG, default_fg);
-    set_global(zg.DEFAULT_BG, default_bg);
+    // DEFAULT-FG/DEFAULT-BG (and their DEFAULT-COLORS routine) do not exist in
+    // early revisions such as r343; their finder leaves the indices at 0. Guard
+    // the writes so we don't clobber global 0 every time colours update. The
+    // computed default_fg/default_bg are still applied to the current colours
+    // below, so the screen still gets the right defaults.
+    if (zg.DEFAULT_FG != 0)
+        set_global(zg.DEFAULT_FG, default_fg);
+    if (zg.DEFAULT_BG != 0)
+        set_global(zg.DEFAULT_BG, default_bg);
 
     if (graphics_type == kGraphicsTypeApple2) { // Only default colors are allowed with Apple 2 graphics
         current_fg = WHITE_COLOUR;

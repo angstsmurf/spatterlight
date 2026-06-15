@@ -1318,8 +1318,17 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-NEW-COMP",
-        { 0x0d, 0x69, 0x00, 0xf9, 0x15, WILDCARD, WILDCARD, 0x3f, 0x09, 0x11 },
-        -1,
+        // Anchor on the first compass-element CALL_VN (...,#3f,#09,#11), which is
+        // stable across revisions, instead of the routine head. The old head
+        // pattern { 0d 69 00 f9 15 .. .. 3f 09 11 } hardcoded COMPASS-CHANGED's
+        // global (G59) and assumed the STORE was immediately followed by the
+        // CALL_VN loop; r343/r366 number COMPASS-CHANGED differently and insert
+        // an extra CALL_2N before the loop, so it matched only r383..r393. The
+        // handler back-scans from here to the routine head (needed for
+        // pack_routine, and to avoid the broken PICINF_TBL/DRAW-COMPASS-ROSE
+        // fallback in z0_update_status_line on those releases).
+        { 0xf9, 0x15, WILDCARD, WILDCARD, 0x3f, 0x09, 0x11 },
+        0,
         0,
         false,
         DRAW_NEW_COMP
@@ -1449,7 +1458,19 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "FANUCCI",
-        { 0xda, 0x4f, WILDCARD, 0x01, 0x80, 0xcf, 0x1f },
+        // The short signature (CALL_2N <PICINF-PLUS-ONE> ,F-MENU-LOC ; LOADW)
+        // is not unique: in r343 and the r366 demo the same bytes occur
+        // several times before the real routine, so a first-match search
+        // landed mid-code (corrupting it via stub_original and putting the
+        // global search >300 bytes off target). Extend through the routine's
+        // distinctive prologue -- two LOADWs from the F-MENU table (column
+        // #01 then #00) followed by STORE PTR,#00 -- which is unique in every
+        // revision that has this routine, and resolves to the very same
+        // address as before in r383..r393.
+        { 0xda, 0x4f, WILDCARD, 0x01, 0x80,
+          0xcf, 0x1f, WILDCARD, WILDCARD, 0x01, 0x01,
+          0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x02,
+          0x0d, 0x03, 0x00 },
         0,
         0,
         true,
@@ -1499,7 +1520,14 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "TOWER-MODE",
-        { 0xa0, 0xe1, 0x80, 0x70  },
+        // Was { 0xa0, 0xe1, 0x80, 0x70 }, which hardcoded TOWER-CHANGED's global
+        // number (Gd1) and a branch offset, so it only matched r392/r393. The
+        // routine always opens JZ <TOWER-CHANGED> [TRUE] ; JZ L04 [FALSE] ;
+        // CALL_1S TOWER-WIN-CHECK -- anchor on that shape so it resolves to the
+        // routine's first instruction across revisions (same address in
+        // r392/r393; also fixes r343/r366/r383/r387, where TOWER-CHANGED is
+        // Gca..Gd0). The TOWER_CHANGED extraction below reads it from there.
+        { 0xa0, WILDCARD, WILDCARD, WILDCARD, 0xa0, 0x05, 0x00, WILDCARD, 0x88 },
         0,
         0,
         false,
@@ -1573,9 +1601,16 @@ static std::vector<EntryPoint> entrypoints = {
         Game::ZorkZero,
         "SETUP-SN",
         { 0xeb, 0x7f, 0x07, WILDCARD, 0x05, 0x57, 0x49, 0x01, 0x01},
-        43,
+        // Was offset 43 (the routine's final RTRUE in r383..r393), but r343's
+        // SETUP-SN is 41 bytes and ends in RET_POPPED, so +43 overshot onto the
+        // next routine's header and the dispatch never fired. Stub at offset 0
+        // instead: SETUP_SN() already does the full setup via draw_snarfem()
+        // (which is reused on every redraw), so the original routine is
+        // redundant. Revision-independent; resolves to the routine's first
+        // instruction in every revision.
         0,
-        false,
+        0,
+        true,
         SETUP_SN
     },
 
@@ -1592,7 +1627,9 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-PILE",
-        { 0xeb, 0x7f, 0x01, 0xcf, 0x2f, 0x73, WILDCARD, 0x01, 0x02 },
+        // 6th byte was 0x73, the high byte of PILE_TABLE's address (#73f9 in
+        // r383..r393); r343 has it at #726d, so wildcard the table address.
+        { 0xeb, 0x7f, 0x01, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x01, 0x02 },
         0,
         0,
         true,
@@ -1602,7 +1639,9 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-FLOWERS",
-        { 0x0d, 0x01, 0x01, 0x0d, 0x02, 0x01, 0xd9, 0x0f, WILDCARD, WILDCARD, 0x73, WILDCARD, 0x00, 0xa0 },
+        // 11th byte was 0x73, again the high byte of PILE_TABLE (#726d in r343);
+        // wildcard it so the CALL_2S ... ,PILE_TABLE matches across revisions.
+        { 0x0d, 0x01, 0x01, 0x0d, 0x02, 0x01, 0xd9, 0x0f, WILDCARD, WILDCARD, WILDCARD, WILDCARD, 0x00, 0xa0 },
         0,
         0,
         true,
@@ -1612,7 +1651,9 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "SNARFEM",
-        { 0xa0, 0x04, 0x41, 0xa0, 0x03, 0x81, 0x75 },
+        // Last byte was 0x75, the low byte of the JZ L02 branch offset, which
+        // differs per revision (0x35 in r343); wildcard it.
+        { 0xa0, 0x04, 0x41, 0xa0, 0x03, 0x81, WILDCARD },
         0,
         0,
         false,
@@ -1622,7 +1663,10 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "SN-CLICK",
-        { 0x0d, 0x08, 0x01, 0xbe, 0x06, 0x0f, 0x01, 0xbd, 0x6e, WILDCARD, 0xc2 },
+        // 9th byte was 0x6e, the high byte of the picinf table in PICTURE_DATA
+        // #01bd,<table> (#6e3b in r383..r393); r343 uses #6cdb, so wildcard the
+        // table address. The picture number (#01bd) is stable across revisions.
+        { 0x0d, 0x08, 0x01, 0xbe, 0x06, 0x0f, 0x01, 0xbd, WILDCARD, WILDCARD, 0xc2 },
         0,
         0,
         false,
@@ -1658,7 +1702,18 @@ static std::vector<EntryPoint> entrypoints = {
 // for the given pattern. WILDCARD bytes in the pattern match anything.
 // Returns the absolute address of the first match, or -1 if not found.
 static int32_t find_pattern_in_mem(std::vector<uint8_t> pattern, uint32_t startpos, uint32_t length_to_search) {
-    int32_t end = startpos + length_to_search - pattern.size();
+    // Chained searches sometimes feed the -1 of a previous failed search
+    // back in as startpos, which wraps to a huge unsigned value. Bail out
+    // rather than reading out of bounds, and clamp the search window so we
+    // never index past the end of story memory.
+    if (startpos >= memory_size || pattern.size() > memory_size) {
+        return -1;
+    }
+    uint32_t window_end = startpos + length_to_search;
+    if (window_end > memory_size || window_end < startpos) { // also catches overflow
+        window_end = memory_size;
+    }
+    int32_t end = static_cast<int32_t>(window_end) - static_cast<int32_t>(pattern.size());
     for (int32_t i = startpos; i < end; i++) {
         bool found = true;
         for (int j = 0; j < pattern.size(); j++) {
@@ -2524,8 +2579,23 @@ static void find_zork0_globals(void) {
             fprintf(stderr, "zr.SET_BORDER at address 0x%x\n", entrypoint.found_at_address);
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == DRAW_NEW_COMP && entrypoint.found_at_address != 0) {
-            zr.DRAW_NEW_COMP = entrypoint.found_at_address;
-            fprintf(stderr, "zr.DRAW_NEW_COMP at address 0x%x\n", entrypoint.found_at_address);
+            // found_at_address is the first compass-element CALL_VN; recover the
+            // routine address (for pack_routine) by scanning back to its opening
+            // STORE COMPASS-CHANGED,#00 (0d <g> 00). The byte before that STORE
+            // is the locals-count header. The intervening prologue is just the
+            // STORE (+ an optional CALL_2N on r343/r366), neither of which
+            // contains a 0d ?? 00, so the first match going back is the head.
+            uint32_t comp_call = entrypoint.found_at_address;
+            zr.DRAW_NEW_COMP = comp_call;
+            for (uint32_t back = 3; back <= 16 && back < comp_call; back++) {
+                uint32_t a = comp_call - back;
+                if (memory[a] == 0x0d && memory[a + 2] == 0x00) {
+                    zr.DRAW_NEW_COMP = a - 1;
+                    break;
+                }
+            }
+            entrypoint.found_at_address = zr.DRAW_NEW_COMP;
+            fprintf(stderr, "zr.DRAW_NEW_COMP at address 0x%x\n", zr.DRAW_NEW_COMP);
             // DRAW-NEW-COMP reads the compass-element positions out of
             // SL-LOC-TBL; its first access is LOADW SL_LOC,#06 -> L01
             // (cf 1f <addr> 06 02), stable across r383..r393. We need the
@@ -2763,6 +2833,10 @@ static void find_zork0_globals(void) {
 //            }
         } else if (entrypoint.fn == FANUCCI && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0x41, WILDCARD, 0x03, WILDCARD, 0xd4, 0x8f, WILDCARD, 0x03, 0xe8, WILDCARD }, { &zg.F_WIN_COUNT, &zg.YOUR_SCORE, &zg.YOUR_SCORE, &zg.YOUR_SCORE, &zg.YOUR_SCORE }, entrypoint.found_at_address, 300);
+            if (start == -1) {
+                fprintf(stderr, "Did not find zg.F_WIN_COUNT / zg.YOUR_SCORE!\n");
+                start = entrypoint.found_at_address;
+            }
             start = find_globals_in_pattern({ 0xeb, 0x7f, 0x01, 0x8f, WILDCARD, WILDCARD, 0x95, WILDCARD }, { &zg.F_PLAYS, &zg.F_PLAYS, &zg.F_PLAYS }, start, 300);
             if (start == -1) {
                 fprintf(stderr, "Did not find zg.F_PLAYS!\n");
@@ -2850,6 +2924,25 @@ static void find_zork0_globals(void) {
                 fprintf(stderr, "zt.PICINF_TBL not found!\n");
             }
             entrypoint.found_at_address = 0;
+        }
+    }
+
+    // PEG_MOVE_NUMBER fallback. The DISPLAY-MOVES entrypoint above anchors on an
+    // OUTPUT_STREAM hook used by the scrollable move-list in r383..r393, which
+    // does not exist in earlier revisions (r343, r366), so PEG_MOVE_NUMBER was
+    // left unresolved (== 0) there -- and SETUP_PBOZ() would then write global 0.
+    // The routine's move-coordinate math (SET_FONT #04; MOD/DIV/ADD ...) is
+    // identical across revisions and sits a fixed 24 bytes after the
+    // ED 7F 00 / A0 <PEG-MOVE-NUMBER> 54 prologue, so anchor on it and read the
+    // global out of the prologue. r383..r393 already found it via the hook, so
+    // this only runs on the revisions that need it.
+    if (zg.PEG_MOVE_NUMBER == 0) {
+        int32_t m = find_pattern_in_mem({ 0xbe, 0x04, 0x7f, 0x04, 0x00, 0x58, 0x03, 0x0a, 0x00, 0x57, 0x00, 0x02, 0x00, 0x54, 0x00, 0x01, 0x02, 0x57, 0x03, 0x0a, 0x00, 0x56, 0x00, 0x0c, 0x00, 0x54, 0x00, 0x01, 0x01 },
+                                         header.static_start, memory_size - header.static_start);
+        if (m != -1 && find_globals_in_pattern({ 0xed, 0x7f, 0x00, 0xa0, WILDCARD, 0x54 }, { &zg.PEG_MOVE_NUMBER }, m - 24, 8) != -1) {
+            fprintf(stderr, "zg.PEG_MOVE_NUMBER (fallback) is global 0x%x\n", zg.PEG_MOVE_NUMBER);
+        } else {
+            fprintf(stderr, "zg.PEG_MOVE_NUMBER fallback not found!\n");
         }
     }
 }
