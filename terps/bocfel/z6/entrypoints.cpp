@@ -103,6 +103,13 @@ static void RT_TH_EXCALIBUR(void) {}
 //                      leaving the C++ `fn` as the sole implementation
 //   fn:                C++ replacement (or stub) invoked when PC reaches
 //                      the found address
+//   global_search:     when true, search the whole story (from static_start)
+//                      instead of continuing from the previous match. Use only
+//                      for entries whose pattern is globally unique but whose
+//                      position relative to neighbouring routines varies across
+//                      revisions, so the normal forward-only search would skip
+//                      it (e.g. Zork Zero V-REFRESH, which precedes V-DEFINE in
+//                      r366 but follows it in r393).
 struct EntryPoint {
     Game game;
     std::string title;
@@ -111,6 +118,7 @@ struct EntryPoint {
     uint32_t found_at_address;
     bool stub_original;
     void (*fn)();
+    bool global_search = false;
 };
 
 // Sentinel value in a pattern that matches any byte. Chosen so it's
@@ -1076,11 +1084,45 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "V_REFRESH",
-        { 0x00, 0x00, 0x46, 0x4f, 0x05, 0x04, 0x04, 0x2d },
-        14,
+        // Anchor on V-REFRESH's own prologue -- locals-count 01, then the
+        // routine's first two instructions, whose shape (41 xx 02 48 8f) is
+        // stable across revisions; only the second byte (a global number)
+        // varies. The previous signature keyed off the *preceding* routine's
+        // tail, which is not stable: it false-matched a different routine in
+        // r296 and r343 (and matched nothing for the correct routine there).
+        // offset 1 -> found_at_address = routine + 1 (zr.V_REFRESH = found-1).
+        { 0x01, 0x41, WILDCARD, 0x02, 0x48, 0x8f },
+        1,
         0,
         false,
-        V_REFRESH
+        V_REFRESH,
+        // V-REFRESH sits before V-DEFINE in r366 (and after it in r393), so a
+        // forward-only search from the V-DEFINE match would skip it. The
+        // pattern is globally unique, so scan the whole story instead.
+        true,
+    },
+
+    {
+        Game::ZorkZero,
+        // The r242 beta variant. The release V-$REFRESH opens with
+        // `JE P-CAN-UNDO,#02` (the pattern above), but r242 reorders the body
+        // so the routine instead opens with its DONT-CLEAR handling:
+        // `JZ DONT-CLEAR; JZ BORDER-ON; CALL_1N CLEAR-BORDER`
+        // (01 a0 01 .. a0 .. .. 8f .. ..). Without this the encyclopedia's
+        // parchment text-window background never gets torn down on refresh
+        // (adjust_encyclopedia_text_window runs -- the encyclopedia pictures
+        // 25/26-33 are the same numbers in r242 -- but V_REFRESH is its only
+        // cleanup), so it would bleed into the main text window. This alt
+        // pattern matches ONLY r242/beta (head 0x14f9c); every other revision
+        // matches the release pattern above, and neither pattern matches both,
+        // so no dedup is needed. global_search for the usual cursor reasons.
+        "V-REFRESH alt",
+        { 0x01, 0xa0, 0x01, WILDCARD, 0xa0, WILDCARD, WILDCARD, 0x8f, WILDCARD, WILDCARD },
+        1,
+        0,
+        false,
+        V_REFRESH,
+        true,
     },
 
     // Shared with Arthur and Shogun
@@ -1116,11 +1158,18 @@ static std::vector<EntryPoint> entrypoints = {
         // left at 0 (its only finder lives in this branch). That made
         // z0_update_colors() write the default background into global 0 and
         // never initialise the real DEFAULT-BG global, so those releases opened
-        // with the wrong text-window background until a resize/autorestore
-        // repainted it. The store prefix {2d 2c 5f 2d ? ?} is byte-identical and
-        // unique across r383..r393, and points at the routine start (matching
-        // the old -6 offset result on r392/r393).
-        { 0x2d, 0x2c, 0x5f, 0x2d, WILDCARD, WILDCARD },
+        // with the wrong text-window background -- the text buffer was the
+        // default grey while the pillar/border graphics stayed black -- until a
+        // resize/autorestore repainted it.
+        //
+        // Match just the two stores (0x2d), wildcarding the four global-number
+        // operands: in r383..r393 they are fixed (FG-COLOR=Gc2/0x2c,
+        // DEFAULT-FG=0x5f) but they differ in the older r296/r343/r366 (where
+        // the old hard-coded prefix matched nothing, so the Amiga demo opened
+        // with black border graphics under the grey text). The first such store
+        // pair after V-COLOR is the routine start in every revision, giving the
+        // same address as before on r383..r393 and now locating it on r366 too.
+        { 0x2d, WILDCARD, WILDCARD, 0x2d, WILDCARD, WILDCARD },
         0,
         0,
         false,
@@ -1212,7 +1261,17 @@ static std::vector<EntryPoint> entrypoints = {
         -3,
         0,
         false,
-        V_MODE
+        V_MODE,
+        // This pattern is not globally unique -- besides the real V-MODE routine
+        // it false-matches an unrelated word-parsing routine late in the file
+        // (e.g. 0x33cd1 in r343). Because the real V-MODE sits *before* the
+        // (global_search) V-REFRESH match, the forward cursor is already past it
+        // by the time this row is reached, so a forward search would lock onto
+        // the late false positive and skip ~40 later routines (status line,
+        // mini-games, borders) -- which left INIT-STATUS-LINE un-stubbed and
+        // crashed r343 with "invalid attribute: 63". Scan from the start so the
+        // first (real, or harmlessly routine-adjacent) match wins instead.
+        true,
     },
 
     {
@@ -1232,7 +1291,14 @@ static std::vector<EntryPoint> entrypoints = {
         1,
         0,
         false,
-        V_MODE
+        V_MODE,
+        // The real V-MODE routine can precede the (global_search) V-REFRESH match
+        // (it does in r343, r296, ...), so a forward-only search from the
+        // V-REFRESH cursor would skip it. This pattern is globally unique in
+        // every revision that has it (absent only in the r242 betas, which rely
+        // on "V-MODE alt"), so scanning the whole story always lands on the
+        // correct routine.
+        true,
     },
 
     {
@@ -1292,7 +1358,14 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         0,
         true,
-        INIT_STATUS_LINE
+        INIT_STATUS_LINE,
+        // global_search: the pre-release revisions move the CENTER-n credit
+        // routines *after* the status-line block in memory (r296 has them at
+        // ~0x1d71d, past INIT-STATUS-LINE at 0x1cca0), but they come earlier in
+        // this table and so advance the forward cursor past INIT-STATUS-LINE.
+        // The pattern is globally unique in every revision, so scan the whole
+        // story. (A behind-cursor global match doesn't rewind the cursor.)
+        true,
     },
 
     {
@@ -1302,7 +1375,12 @@ static std::vector<EntryPoint> entrypoints = {
         -1,
         0,
         false,
-        SET_BORDER
+        SET_BORDER,
+        // global_search for the same reason as INIT-STATUS-LINE above: the
+        // pattern is globally unique in every revision but the forward cursor
+        // overshoots it in r296 (SET-BORDER is at 0x1cd8c, behind the cursor
+        // after the CENTER-n routines).
+        true,
     },
 
     {
@@ -1346,22 +1424,45 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::ZorkZero,
+        // The 2-locals variant of UPDATE-STATUS-LINE, used by the pre-release
+        // revisions r242 and r296 (the releases/r343/r66 use the 3-locals
+        // pattern above, where the real routine is a low-address 3-locals one).
+        // In r242 the routine sits at 0x1c3b4 and in r296 at 0x1cdc4 -- *before*
+        // SET-BORDER/DRAW-NEW-COMP, which are earlier in this table but later in
+        // memory -- so a forward-only search can never reach it. The pattern is
+        // globally unique in those revisions, so scan the whole story. It is
+        // guarded against double-matching in find_entrypoints(): once any
+        // z0_UPDATE_STATUS_LINE has matched, this row is skipped. (The 3-locals
+        // row's own false-interior matches in r296 are rejected before they can
+        // set the dedup flag -- see the 0xda check in find_entrypoints -- so the
+        // dedup never lets the false 3-locals match shadow this real 2-locals one.)
         "UPDATE-STATUS-LINE alt",
         { 0x02, 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7f, 0x04, 0x00 },
         1,
         0,
         true,
-        z0_UPDATE_STATUS_LINE
+        z0_UPDATE_STATUS_LINE,
+        true,
     },
 
     {
         Game::ZorkZero,
         "DRAW-COMPASS-ROSE",
-        { 0xe0, 0x29, 0x35, 0x6f, WILDCARD, 0x01, 0x00, 0x00, 0xa0 },
+        // Head shape: [N locals] CALL_VS SHOW-DIRECTION?(HERE, .DIR) -> ...;
+        // JZ ... The old pattern hardcoded SHOW-DIRECTION?'s packed address
+        // (35 6f) and the HERE-global slot, so it only matched the r242 beta.
+        // Wildcard the packed callee (bytes 2-3) and the HERE global (byte 4):
+        // { e0 29 .. .. .. 01 00 00 a0 } is globally unique in EVERY revision
+        // and resolves the real DRAW-COMPASS-ROSE (r242 0x1c5f0, r296 0x1d088,
+        // and the releases too -- harmless there since z0_UPDATE_STATUS_LINE
+        // prefers DRAW-NEW-COMP and never reads the DRAW-COMPASS-ROSE fallback).
+        // global_search because the forward cursor overshoots it in r296.
+        { 0xe0, 0x29, WILDCARD, WILDCARD, WILDCARD, 0x01, 0x00, 0x00, 0xa0 },
         -1,
         0,
         false,
-        DRAW_COMPASS_ROSE
+        DRAW_COMPASS_ROSE,
+        true,
     },
 
     {
@@ -2586,27 +2687,46 @@ static void find_zork0_globals(void) {
             // STORE (+ an optional CALL_2N on r343/r366), neither of which
             // contains a 0d ?? 00, so the first match going back is the head.
             uint32_t comp_call = entrypoint.found_at_address;
-            zr.DRAW_NEW_COMP = comp_call;
+            uint32_t head = 0;
             for (uint32_t back = 3; back <= 16 && back < comp_call; back++) {
                 uint32_t a = comp_call - back;
                 if (memory[a] == 0x0d && memory[a + 2] == 0x00) {
-                    zr.DRAW_NEW_COMP = a - 1;
+                    head = a - 1;
                     break;
                 }
             }
-            entrypoint.found_at_address = zr.DRAW_NEW_COMP;
-            fprintf(stderr, "zr.DRAW_NEW_COMP at address 0x%x\n", zr.DRAW_NEW_COMP);
-            // DRAW-NEW-COMP reads the compass-element positions out of
-            // SL-LOC-TBL; its first access is LOADW SL_LOC,#06 -> L01
-            // (cf 1f <addr> 06 02), stable across r383..r393. We need the
-            // table address so z0_refresh_sl_loc_tbl() can refill it on a
-            // graphics-format switch (see zorkzero.cpp).
-            start = find_16_bit_values_in_pattern({ 0xcf, 0x1f, WILDCARD, WILDCARD, 0x06, 0x02 }, { &zt.SL_LOC_TBL }, entrypoint.found_at_address, 200);
-            if (start == -1)
-                fprintf(stderr, "zt.SL_LOC_TBL not found!\n");
-            else
-                fprintf(stderr, "zt.SL_LOC_TBL at address 0x%x\n", zt.SL_LOC_TBL);
-            entrypoint.found_at_address = 0;
+            // Validate that the candidate is a real routine header: a V6
+            // routine begins with a locals-count byte (0..15). In the early
+            // betas (r242) the compass loop lives *inside* UPDATE-STATUS-LINE
+            // (routine 0x1c3b4) rather than in a dedicated DRAW-NEW-COMP, so
+            // the back-scan can't reach the routine head (it's ~500 bytes
+            // back) and instead latches onto a mid-routine STORE; the byte it
+            // computes as the "header" is really a branch offset (0x43 in
+            // r242 -> 67 locals, impossible). Reject such matches and leave
+            // zr.DRAW_NEW_COMP = 0 so z0_UPDATE_STATUS_LINE falls back to
+            // calling DRAW-COMPASS-ROSE directly -- the path those revisions
+            // are designed to use (see zorkzero.cpp).
+            if (head == 0 || memory[head] > 15) {
+                zr.DRAW_NEW_COMP = 0;
+                fprintf(stderr, "DRAW-NEW-COMP match at 0x%x has no standalone routine (header byte 0x%x); using DRAW-COMPASS-ROSE fallback\n",
+                        comp_call, head ? memory[head] : 0);
+                entrypoint.found_at_address = 0;
+            } else {
+                zr.DRAW_NEW_COMP = head;
+                entrypoint.found_at_address = head;
+                fprintf(stderr, "zr.DRAW_NEW_COMP at address 0x%x\n", zr.DRAW_NEW_COMP);
+                // DRAW-NEW-COMP reads the compass-element positions out of
+                // SL-LOC-TBL; its first access is LOADW SL_LOC,#06 -> L01
+                // (cf 1f <addr> 06 02), stable across r383..r393. We need the
+                // table address so z0_refresh_sl_loc_tbl() can refill it on a
+                // graphics-format switch (see zorkzero.cpp).
+                start = find_16_bit_values_in_pattern({ 0xcf, 0x1f, WILDCARD, WILDCARD, 0x06, 0x02 }, { &zt.SL_LOC_TBL }, entrypoint.found_at_address, 200);
+                if (start == -1)
+                    fprintf(stderr, "zt.SL_LOC_TBL not found!\n");
+                else
+                    fprintf(stderr, "zt.SL_LOC_TBL at address 0x%x\n", zt.SL_LOC_TBL);
+                entrypoint.found_at_address = 0;
+            }
         } else if (entrypoint.fn == SETUP_SCREEN && entrypoint.found_at_address != 0) {
             zr.SETUP_SCREEN = entrypoint.found_at_address;
             fprintf(stderr, "zr.SETUP_SCREEN at address 0x%x\n", entrypoint.found_at_address);
@@ -2810,14 +2930,77 @@ static void find_zork0_globals(void) {
                         fprintf(stderr, "zg.BORDER_ON = 0x%x\n", zg.BORDER_ON);
                     }
                 }
+
+                // The pre-release revisions special-case the status-line room
+                // names *inline* in UPDATE-STATUS-LINE (the releases use a
+                // separate DRAW-NEW-HERE routine, wired up in its own handler;
+                // its pattern doesn't match here). After the room-name
+                // SET_CURSOR the routine runs a short series of `JE HERE,#room`
+                // tests printing an abbreviated label ("Great Undergd. Mountain"
+                // etc.) instead of the longer object DESC ("Great Underground
+                // Mountain"). Anchor on `SET_CURSOR L01,(SP)+; JE HERE,#room`
+                // (ef af 02 00 41 <here> .. 54) and collect the run: the last
+                // three are always the Great Underground Mountain/Savannah/
+                // Highway trio, and a fourth-from-start (r296+, not r242) is
+                // Philharmonic Hall. draw_new_here() only reads these to pick the
+                // abbreviation, so the releases leaving them to DRAW-NEW-HERE --
+                // and r242 having no PHIL-HALL -- are both fine. The anchor does
+                // not occur in the release UPDATE-STATUS-LINE routines, so this
+                // is inert there.
+                if (zg.HERE != 0 && zo.G_U_MOUNTAIN == 0) {
+                    uint8_t here_op = (uint8_t)(zg.HERE + 0x10);
+                    int32_t anchor = find_pattern_in_mem({ 0xef, 0xaf, 0x02, 0x00, 0x41, here_op, WILDCARD, 0x54 }, entrypoint.found_at_address, 0x300);
+                    if (anchor != -1) {
+                        uint8_t rooms[4];
+                        int nrooms = 0;
+                        for (uint32_t i = anchor + 4; i < anchor + 4 + 0x50 && nrooms < 4; i++) {
+                            if (memory[i] == 0x41 && memory[i + 1] == here_op && memory[i + 3] == 0x54) {
+                                rooms[nrooms++] = memory[i + 2];
+                                i += 3;
+                            }
+                        }
+                        if (nrooms >= 3) {
+                            zo.G_U_HIGHWAY  = rooms[nrooms - 1];
+                            zo.G_U_SAVANNAH = rooms[nrooms - 2];
+                            zo.G_U_MOUNTAIN = rooms[nrooms - 3];
+                            if (nrooms >= 4)
+                                zo.PHIL_HALL = rooms[nrooms - 4];
+                            fprintf(stderr, "zo.PHIL_HALL = 0x%x zo.G_U_MOUNTAIN = 0x%x zo.G_U_SAVANNAH = 0x%x zo.G_U_HIGHWAY = 0x%x (inline)\n",
+                                    zo.PHIL_HALL, zo.G_U_MOUNTAIN, zo.G_U_SAVANNAH, zo.G_U_HIGHWAY);
+                        }
+                    }
+                }
             } else {
                 fprintf(stderr, "Could not find zg.DEFAULT_FG!\n");
                 fprintf(stderr, "Could not find zg.HERE!\n");
             }
         } else if (entrypoint.fn == DEFAULT_COLORS && entrypoint.found_at_address != 0) {
-            start = find_globals_in_pattern({ 0x2d, WILDCARD, WILDCARD, 0x2d, WILDCARD, WILDCARD }, { &fg_global_idx, &zg.DEFAULT_FG, &bg_global_idx, &zg.DEFAULT_BG }, entrypoint.found_at_address, 30);
-            if (start != -1) {
+            // The DEFAULT-COLORS routine opens with two stores into globals --
+            // FG-COLOR <- DEFAULT-FG and BG-COLOR <- DEFAULT-BG -- but the
+            // signature { 2d ?? ?? 2d ?? ?? } is just "two adjacent STOREs" and
+            // is not unique. The routine only exists from r366 on; in r296/r343
+            // (which lack it) it false-matches an unrelated variable-swap idiom
+            // whose store targets are *locals/stack* (e.g. r343 0x14423:
+            // STORE L00,Gaa / STORE Gaa,G43). Accepting that wrote garbage into
+            // fg_global_idx/bg_global_idx/DEFAULT_FG/DEFAULT_BG and -- since
+            // DEFAULT_COLORS() is a live hook, not a stub -- corrupted two
+            // globals every time the swap routine ran. Validate that all four
+            // captured operands are real globals (a local/stack operand decodes
+            // to an index >= 0xf0); if not, treat the routine as absent so the
+            // hook never registers and the colour guards in z0_update_colors()
+            // keep DEFAULT_FG/DEFAULT_BG at 0. (Pre-fix this was masked because
+            // the cursor-poisoning bug skipped DEFAULT-COLORS entirely in r343.)
+            uint8_t t_fg = 0, t_dfg = 0, t_bg = 0, t_dbg = 0;
+            start = find_globals_in_pattern({ 0x2d, WILDCARD, WILDCARD, 0x2d, WILDCARD, WILDCARD }, { &t_fg, &t_dfg, &t_bg, &t_dbg }, entrypoint.found_at_address, 30);
+            if (start != -1 && t_fg < 0xf0 && t_dfg < 0xf0 && t_bg < 0xf0 && t_dbg < 0xf0) {
+                fg_global_idx = t_fg;
+                zg.DEFAULT_FG = t_dfg;
+                bg_global_idx = t_bg;
+                zg.DEFAULT_BG = t_dbg;
                 fprintf(stderr, "zg.DEFAULT_FG = 0x%x zg.DEFAULT_BG = 0x%x\n", zg.DEFAULT_FG, zg.DEFAULT_BG);
+            } else {
+                fprintf(stderr, "DEFAULT-COLORS false match at 0x%x rejected (no such routine in this revision)\n", entrypoint.found_at_address);
+                entrypoint.found_at_address = 0;
             }
         } else if (entrypoint.fn == INIT_STATUS_LINE && entrypoint.found_at_address != 0) {
 //            start = find_globals_in_pattern({  0x00, 0xcd, 0x4f, WILDCARD, 0xff, 0xff, 0x0d }, { &zg.COMPASS_CHANGED, }, entrypoint.found_at_address, 300);
@@ -2831,6 +3014,25 @@ static void find_zork0_globals(void) {
                     fprintf(stderr, "zg.CURRENT_BORDER = 0x%x\n", zg.CURRENT_BORDER);
                 }
 //            }
+
+            // CURRENT-SPLIT fallback. The V_REFRESH-anchored patterns above
+            // don't match the middle releases (r296/r343/r366), leaving
+            // zg.CURRENT_SPLIT == 0; z0_init_status_line then reads global 0,
+            // fails its TEXT-WINDOW/F-SPLIT checks and returns *before* drawing
+            // the border -- so no pillars, and the compass has no background
+            // graphics window to draw into either (one missing global takes out
+            // both). INIT-STATUS-LINE compares CURRENT-SPLIT against F-SPLIT
+            // (#01a6) ~80 bytes in on every release (G1d on r343/r366, G1e on
+            // r383/r393), so anchor here. Guarded so we don't override a good
+            // detection from the V_REFRESH handler.
+            if (zg.CURRENT_SPLIT == 0) {
+                start = find_globals_in_pattern({ 0xc1, 0x8f, WILDCARD, 0x01, 0xa6 }, { &zg.CURRENT_SPLIT }, entrypoint.found_at_address, 200);
+                if (start == -1) {
+                    fprintf(stderr, "Could not find zg.CURRENT_SPLIT (INIT-STATUS-LINE fallback)!\n");
+                } else {
+                    fprintf(stderr, "zg.CURRENT_SPLIT = 0x%x (INIT-STATUS-LINE fallback)\n", zg.CURRENT_SPLIT);
+                }
+            }
         } else if (entrypoint.fn == FANUCCI && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0x41, WILDCARD, 0x03, WILDCARD, 0xd4, 0x8f, WILDCARD, 0x03, 0xe8, WILDCARD }, { &zg.F_WIN_COUNT, &zg.YOUR_SCORE, &zg.YOUR_SCORE, &zg.YOUR_SCORE, &zg.YOUR_SCORE }, entrypoint.found_at_address, 300);
             if (start == -1) {
@@ -2913,15 +3115,42 @@ static void find_zork0_globals(void) {
             }
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == V_MAP_LOOP && entrypoint.found_at_address != 0) {
+            // P-MAP-LOC is the room property holding the map-coordinate table:
+            // `GETP HERE,P?MAP-LOC >TBL` == GET_PROP HERE,#prop -> L00 then
+            // LOADW L00 (51 .. .. 01 4f). On the releases the V-MAP-LOOP anchor
+            // sits at/just before this; on the r242 "alt" the anchor is the
+            // BLINK-WHILE-AWAITING-INPUT call at the END of the loop, ~0x28 bytes
+            // *after* the GET_PROP, so the forward search misses it. Fall back to
+            // a short backward scan. Without P-MAP-LOC, V_MAP_LOOP does
+            // internal_get_prop(HERE, 0) -> "invalid property: 0" abort on MAP.
             start = find_values_in_pattern({0x51, WILDCARD, WILDCARD, 0x01, 0x4f}, {&zp.P_MAP_LOC, &zp.P_MAP_LOC}, entrypoint.found_at_address, 50);
+            if (start == -1) {
+                uint32_t back = entrypoint.found_at_address > 0x40 ? entrypoint.found_at_address - 0x40 : 0;
+                start = find_values_in_pattern({0x51, WILDCARD, WILDCARD, 0x01, 0x4f}, {&zp.P_MAP_LOC, &zp.P_MAP_LOC}, back, 0x40);
+            }
             if (start != -1) {
                 fprintf(stderr, "zp.P_MAP_LOC: 0x%x\n", zp.P_MAP_LOC);
+            } else {
+                fprintf(stderr, "Could not find zp.P_MAP_LOC!\n");
             }
         } else if (entrypoint.fn == DRAW_COMPASS_ROSE && entrypoint.found_at_address != 0) {
-            zr.DRAW_COMPASS_ROSE = entrypoint.found_at_address;
-            start = find_16_bit_values_in_pattern({0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x04 }, {&zt.PICINF_TBL}, entrypoint.found_at_address, 32);
-            if (start == -1) {
-                fprintf(stderr, "zt.PICINF_TBL not found!\n");
+            // zr.DRAW_COMPASS_ROSE + zt.PICINF_TBL drive the *fallback* compass
+            // path in z0_UPDATE_STATUS_LINE, used only by the pre-release
+            // revisions (r242/r296) that lack a standalone DRAW-NEW-COMP. The
+            // releases (incl. r343/r66) drive the compass through DRAW-NEW-COMP
+            // (zr.DRAW_NEW_COMP != 0) and never read this fallback; their
+            // DRAW-COMPASS-ROSE also reads SL-LOC-TBL rather than PICINF-TBL, so
+            // the sub-search wouldn't find a table anyway. The DRAW-NEW-COMP row
+            // precedes this one in the table (so zr.DRAW_NEW_COMP is already
+            // resolved here), so skip the fallback wiring when it's set.
+            if (zr.DRAW_NEW_COMP == 0) {
+                zr.DRAW_COMPASS_ROSE = entrypoint.found_at_address;
+                start = find_16_bit_values_in_pattern({0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x04 }, {&zt.PICINF_TBL}, entrypoint.found_at_address, 32);
+                if (start == -1) {
+                    fprintf(stderr, "zt.PICINF_TBL not found!\n");
+                } else {
+                    fprintf(stderr, "zr.DRAW_COMPASS_ROSE at address 0x%x zt.PICINF_TBL at address 0x%x\n", zr.DRAW_COMPASS_ROSE, zt.PICINF_TBL);
+                }
             }
             entrypoint.found_at_address = 0;
         }
@@ -2943,6 +3172,36 @@ static void find_zork0_globals(void) {
             fprintf(stderr, "zg.PEG_MOVE_NUMBER (fallback) is global 0x%x\n", zg.PEG_MOVE_NUMBER);
         } else {
             fprintf(stderr, "zg.PEG_MOVE_NUMBER fallback not found!\n");
+        }
+    }
+
+    // FG-COLOR/BG-COLOR fallback for revisions with no detectable V-COLOR
+    // routine (r66/r296/r343). Without it fg_global_idx/bg_global_idx stay 0,
+    // so z0_update_colors() reads/writes global 0 and z0_update_after_autorestore
+    // restores garbage colours (the reported r343 "cyan on yellow on reopen").
+    // The COLOR command's "<fg> text on a <bg> background" confirmation loads
+    // both colour-name strings from one table indexed by FG-COLOR then BG-COLOR:
+    //   cf 2f <tbl-hi> <tbl-lo> <FG> 00  ...  cf 2f <tbl-hi> <tbl-lo> <BG> 00
+    // The first such pair (same table, two *distinct global* indices) pins both
+    // globals directly. Verified against the recurring SET_COLOUR <FG>,<BG> in
+    // r66/r296/r343 (and it reproduces the V-COLOR-derived values on r366..r393,
+    // though those already detect them so this never runs there). The r242 betas
+    // have no such message and only yield fg==bg, which the distinct-index guard
+    // rejects, leaving them as before.
+    if (fg_global_idx == 0) {
+        int32_t p = header.static_start;
+        while ((p = find_pattern_in_mem({ 0xcf, 0x2f, WILDCARD, WILDCARD, WILDCARD, 0x00 },
+                                        p, memory_size - p)) != -1) {
+            uint8_t tbl_hi = memory[p + 2], tbl_lo = memory[p + 3], fg = memory[p + 4];
+            int32_t q = find_pattern_in_mem({ 0xcf, 0x2f, tbl_hi, tbl_lo, WILDCARD, 0x00 }, p + 6, 40);
+            if (q != -1 && fg >= 0x10 && memory[q + 4] >= 0x10 && fg != memory[q + 4]) {
+                fg_global_idx = fg - 0x10;
+                bg_global_idx = memory[q + 4] - 0x10;
+                fprintf(stderr, "fg/bg fallback: fg_global_idx = 0x%x bg_global_idx = 0x%x\n",
+                        fg_global_idx, bg_global_idx);
+                break;
+            }
+            p += 1;
         }
     }
 }
@@ -2969,15 +3228,54 @@ void find_entrypoints(void) {
     int start = header.static_start;
     int end = memory_size - 12;
 
+    // Zork Zero registers UPDATE-STATUS-LINE with two patterns (3-locals for
+    // the releases, 2-locals for the r242 beta). Only one is the real routine
+    // in any given revision; the 2-locals pattern additionally hits a
+    // mid-routine false match in r296. The 3-locals row comes first in the
+    // table, so once any z0_UPDATE_STATUS_LINE has matched, skip the rest.
+    bool found_z0_update_status_line = false;
+
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game)) {
 //            fprintf(stderr, "Looking for entrypoint %s (starting at 0x%x)\n", entrypoint.title.c_str(), start);
+            if (entrypoint.fn == z0_UPDATE_STATUS_LINE && found_z0_update_status_line) {
+                continue;
+            }
             if (entrypoint.pattern.size()) {
-                int32_t offset = find_pattern_in_mem(entrypoint.pattern, start, end - start);
+                // Most entries search forward from the previous match (the
+                // table is kept in roughly-ascending file order). A
+                // global_search entry instead scans the whole story, for
+                // routines whose order relative to their neighbours isn't
+                // stable across revisions; its match must not rewind the
+                // cursor, so the surrounding forward search is unaffected.
+                int search_start = entrypoint.global_search ? header.static_start : start;
+                int32_t offset = find_pattern_in_mem(entrypoint.pattern, search_start, end - search_start);
+                // The 3-locals UPDATE-STATUS-LINE pattern (03 eb 7f 01 .. 04 7f
+                // 04 00 = [3 locals] SET_WINDOW #1; SET_FONT #4) can false-match
+                // the same SCREEN/FONT sequence buried inside INIT-STATUS-LINE in
+                // the pre-release revisions, where the real UPDATE-STATUS-LINE is
+                // a *2-locals* routine matched by the "alt" pattern instead (r296:
+                // false hit at 0x1cd06, mid INIT-STATUS-LINE 0x1cca0; the real
+                // routine is 0x1cdc4). A genuine routine head continues with
+                // LOADB/JZ (10/a0); the interior copy continues with a CALL_2N to
+                // PICINF-PLUS-ONE (da .. .. 01 7e). Skip such matches so the dedup
+                // flag below stays clear and the 2-locals alt can claim the real
+                // routine. (In the releases/r343/r366/r66 the real 3-locals routine
+                // matches first, so this never rejects a wanted match.)
+                while (offset != -1 && entrypoint.fn == z0_UPDATE_STATUS_LINE &&
+                       entrypoint.pattern.size() >= 9 && entrypoint.pattern[0] == 0x03 &&
+                       (uint32_t)(offset + 9) < memory_size && memory[offset + 9] == 0xda) {
+                    offset = find_pattern_in_mem(entrypoint.pattern, offset + 1, end - (offset + 1));
+                }
                 if (offset != -1) {
                     entrypoint.found_at_address = offset + entrypoint.offset;
-                    start = entrypoint.found_at_address;
-                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), start);
+                    if (!entrypoint.global_search || entrypoint.found_at_address > (uint32_t)start) {
+                        start = entrypoint.found_at_address;
+                    }
+                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), entrypoint.found_at_address);
+                    if (entrypoint.fn == z0_UPDATE_STATUS_LINE) {
+                        found_z0_update_status_line = true;
+                    }
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;
                         store_byte(entrypoint.found_at_address, 0xb0);
