@@ -1037,6 +1037,29 @@ turn:
 			return;
 		}
 
+		// #help: list and explain the # metacommands the interpreter handles
+		// itself, on top of the game's own verbs. The graphics toggles depend on
+		// the game, so only advertise them when this game actually supports them.
+		if (scumm_stricmp(_inputLine, "#help") == 0) {
+			g_comprehend->print(
+				"\nThese commands are handled by the interpreter, not the game:\n"
+				"\n"
+				"  #undo (or UNDO)       Take back the last turn.\n"
+				"  #restart              Start the game over from the beginning.\n"
+				"  #quit                 Stop playing and leave.\n"
+				"  #transcript [on|off]  Record the game text to a file.\n");
+			if (Common::DiskImageFS::active() && gmDhgrHaveDrawingTables())
+				g_comprehend->print(
+					"  #dhgr [on|off]        Switch between standard and double "
+					"hi-res Apple II graphics.\n");
+			if (gmpcjrHaveDrawingTables())
+				g_comprehend->print(
+					"  #pcjr [on|off]        Switch between CGA and PCjr "
+					"16-colour graphics.\n");
+			g_comprehend->print("  #help                 Show this list.\n");
+			continue;
+		}
+
 		// #transcript [on|off]: echo game output to a text file.
 		if (scumm_strnicmp(_inputLine, "#transcript", 11) == 0 &&
 			(_inputLine[11] == '\0' || _inputLine[11] == ' ')) {
