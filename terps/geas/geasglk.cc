@@ -992,7 +992,7 @@ extern "C" int  win_findimage (int resno);
 extern "C" void win_loadimage (int resno, const char *filename, int offset, int reslen);
 
 GeasResult
-GeasGlkInterface::show_image (const std::string &filename, const std::string & /*resolution*/,
+GeasGlkInterface::show_image (const std::string &filename, const std::string &resolution,
 			     const std::string & /*caption*/, ...)
 {
   if (filename.empty())
@@ -1025,9 +1025,21 @@ GeasGlkInterface::show_image (const std::string &filename, const std::string & /
       win_loadimage (resno, path.c_str(), 0, len);
     }
 
-  /* Draw on its own line in the main window. */
+  /* Draw on its own line in the main window.  Honour the optional "<W>x<H>"
+   * display size Quest attaches to a picture ("file@523x348"); fall back to the
+   * image's native size when it is absent or unparseable. */
   glk_put_char (0x0a);
-  glk_image_draw (mainglkwin, (glui32) resno, imagealign_InlineCenter, 0);
+  glui32 w = 0, h = 0;
+  std::string::size_type x = resolution.find_first_of ("xX");
+  if (x != std::string::npos)
+    {
+      w = (glui32) strtoul (resolution.c_str(), nullptr, 10);
+      h = (glui32) strtoul (resolution.c_str() + x + 1, nullptr, 10);
+    }
+  if (w > 0 && h > 0)
+    glk_image_draw_scaled (mainglkwin, (glui32) resno, imagealign_InlineCenter, 0, w, h);
+  else
+    glk_image_draw (mainglkwin, (glui32) resno, imagealign_InlineCenter, 0);
   glk_put_char (0x0a);
   return r_success;
 }

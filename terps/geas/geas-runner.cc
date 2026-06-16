@@ -3817,10 +3817,22 @@ void geas_implementation::run_script (const string &s, string &rv)
   // SENSITIVE?
   else if (tok == "picture")
     {
-      /* picture <file>  -- display an image (the host loads the file itself). */
+      /* picture <file[@WxH]>  -- display an image (the host loads the file
+       * itself).  Quest allows an optional "@<width>x<height>" suffix giving
+       * the display size; split it off so the host opens the real filename and
+       * receives the requested resolution separately. */
       tok = next_token (s, c1, c2);
       if (is_param (tok))
-	gi->show_image (eval_param (tok), "", "");
+	{
+	  string spec = eval_param (tok), file = spec, res;
+	  std::string::size_type at = spec.find ('@');
+	  if (at != string::npos)
+	    {
+	      file = trim (spec.substr (0, at));
+	      res = trim (spec.substr (at + 1));
+	    }
+	  gi->show_image (file, res, "");
+	}
       return;
     }
   // SENSITIVE?
