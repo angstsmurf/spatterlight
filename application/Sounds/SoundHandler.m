@@ -521,10 +521,20 @@
         self.beepSounds = [NSMutableArray new];
     [self.beepSounds addObject:sound];
 
+    /* On real hardware the Quill engine spends a near-constant ~27 ms between
+     * consecutive notes (bytecode dispatch + the ROM floating-point calculator
+     * setting up the next BEEP before the beeper loop starts), so a tune is
+     * audibly more spaced out than gapless playback. Reproduce that gap so the
+     * rhythm matches the Spectrum. Measured in MAME from the Bored of the Rings
+     * intro tune: 14 inter-note gaps, 26.2-29.8 ms, mean 27.4 ms. The gap is
+     * only added to nextBeepTime, so it spaces out queued notes without delaying
+     * the first note or notes separated by a real pause (MAX(now, ...) below). */
+    const NSTimeInterval interNoteGap = 0.027;
+
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval startTime = MAX(now, self.nextBeepTime);
     NSTimeInterval delay = startTime - now;
-    self.nextBeepTime = startTime + millisecs / 1000.0;
+    self.nextBeepTime = startTime + millisecs / 1000.0 + interNoteGap;
 
     if (delay < 0.001) {
         [sound play];

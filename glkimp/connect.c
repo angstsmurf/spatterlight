@@ -407,14 +407,21 @@ void win_beep(int type)
 }
 
 /* Play a ZX Spectrum BEEP tone from the raw (pitch, duration) bytes of an
- * unquill (Quill) BEEP. The pitch byte is mapped through an equal-tempered
- * semitone table (byte 128 -> A4, 440 Hz) and the duration byte is taken to be
- * centiseconds. The frequency (Hz) and length (ms) are sent to the app, which
- * synthesises a square wave; a1 == 0 distinguishes this from the canned
- * win_beep() sounds (a1 == 1/2). */
+ * unquill (Quill) BEEP. This mirrors what the Quill engine's BEEP handler does
+ * before calling the ROM BASIC BEEP routine (0x03F8): the pitch byte is turned
+ * into semitones above middle C as (pitch * 0.5 - 60) == (pitch - 120) / 2
+ * (byte 120 == middle C, two byte-units per semitone, so it can also go below
+ * middle C), and the duration byte is centiseconds. The ROM then plays
+ * f = 261.6256 * 2^(semitones/12). Reverse-engineered from the Bored of the
+ * Rings BEEP handler in MAME: the beeper HL constants match these frequencies
+ * to the Hz (e.g. byte 120 -> 261.6 Hz C4, 134 -> 392 Hz G4, 144 -> 523 Hz C5).
+ * The frequency (Hz) and length (ms) are sent to the app, which synthesises a
+ * square wave; a1 == 0 distinguishes this from the canned win_beep() sounds
+ * (a1 == 1/2). */
 void win_beep_spectrum(int pitch, int duration)
 {
-    int frequency = (int)(440.0 * pow(2.0, (pitch - 128) / 12.0) + 0.5);
+    double semitones = (pitch - 120) / 2.0;
+    int frequency = (int)(261.6256 * pow(2.0, semitones / 12.0) + 0.5);
     int millisecs = duration * 10;
 
     win_flush();
