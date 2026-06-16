@@ -874,9 +874,11 @@ GeasGlkInterface::get_file (const std::string &fname) const
   ifs.open(fname.c_str(), std::ios::in | std::ios::binary);
   if (! ifs.is_open())
     {
-      glk_put_cstring("Couldn't open ");
-      glk_put_cstring(fname.c_str());
-      glk_put_char(0x0a);
+      /* Report to the log, not the game window: a missing file is usually a
+       * standard Quest library the game !includes (e.g. Typelib.qlb) that Geas
+       * either implements natively or doesn't need, so the player should never
+       * see a raw "Couldn't open <path>" line. */
+      std::cerr << "Couldn't open " << fname << "\n";
       return "";
     }
   std::string rv;
