@@ -130,15 +130,68 @@ static unsigned char *z80_to_image(const unsigned char *sf, int32 extent, int32 
     }
 }
 
+/* Gilsoft's Professional Adventure Writer (PAW), the Quill's successor, shares
+ * the Quill-style colour-control byte run that the scans here key on, so a PAW
+ * image can be misclaimed as Quill (and then crashes UnQuill, which only reads
+ * Quill databases). A PAW *development* snapshot carries the PAW editor's menu
+ * text verbatim, and these phrases are unique to PAW: the Quill has no adverbs
+ * and no high/low-priority condition tables. (Shipped PAW games tokenise their
+ * text and carry no such plain marker, so this only rejects editor snapshots
+ * like "A Shadow on Glass".) Scanning for any one of these is enough; they
+ * never occur in a genuine Quill game. */
+static int buffer_is_paw(const unsigned char *buf, int32 extent)
+{
+    static const char *const markers[] = {
+        "priority condition",   /* "High/Low priority conditions" */
+        "EDIT ADVERBS",
+    };
+    size_t m;
+    for (m = 0; m < sizeof markers / sizeof markers[0]; m++) {
+        int32 ml = (int32)strlen(markers[m]);
+        int32 i;
+        for (i = 0; i + ml <= extent; i++)
+            if (buf[i] == (unsigned char)markers[m][0] &&
+                !memcmp(buf + i, markers[m], ml))
+                return 1;
+    }
+    return 0;
+}
+
+/* A genuine Quill database, located 13 bytes after the colour-definition table,
+ * holds six core table pointers — responses, process, objects, locations,
+ * messages and connections, at zxptr+4,+6,+8,+10,+12,+14 — and none of them can
+ * be null (every Quill game has all six tables). Some non-Quill snapshots match
+ * the loose colour-table pattern by coincidence but yield a "header" with null
+ * core pointers, and UnQuill then crashes following them ("Invalid address").
+ * Reject those. `buf` maps Spectrum address `a` to buf[a - base]; the six words
+ * are non-null pointers in both the early and later Quill database formats, so
+ * this check is independent of which the game uses. */
+static int quill_header_plausible(const unsigned char *buf, int32 buflen,
+                                  int32 base, int32 zxptr)
+{
+    int off;
+    for (off = 4; off <= 14; off += 2) {
+        int32 i = zxptr + off - base;
+        if (i < 0 || i + 1 >= buflen)
+            return 0;
+        if ((buf[i] | (buf[i+1] << 8)) == 0)
+            return 0;
+    }
+    return 1;
+}
+
 /* Scan a decoded 48K Spectrum image (base address 0x4000) for the Quill
- * colour-definition table, the same magic number used on the raw buffer. */
-static int z80_image_is_quill(const unsigned char *img)
+ * colour-definition table, then confirm a plausible database header follows
+ * (skipping coincidental colour-table matches). */
+static int z80_image_is_quill(const unsigned char *img, int32 len)
 {
     int n;
     for (n = 0x5C00; n < 0xFFF5; n++) {
         int o = n - 0x4000;
+        if (o + 10 >= len) break;
         if (img[o] == 0x10 && img[o+2] == 0x11 && img[o+4] == 0x12 &&
-            img[o+6] == 0x13 && img[o+8] == 0x14 && img[o+10] == 0x15)
+            img[o+6] == 0x13 && img[o+8] == 0x14 && img[o+10] == 0x15 &&
+            quill_header_plausible(img, len, 0x4000, n + 13))
             return 1;
     }
     return 0;
@@ -255,8 +308,13 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 	 unsigned char *img = z80_to_image((const unsigned char *)zxmemory, extent, &dlen);
 	 if (img)
 	 {
-	     int ok = z80_image_is_quill(img);
+	     /* A PAW development snapshot can carry the Quill colour-table
+	      * pattern by coincidence; reject it before claiming it as Quill. */
+	     int paw = buffer_is_paw(img, dlen);
+	     int ok = !paw && z80_image_is_quill(img, dlen);
 	     free(img);
+	     if (paw)
+		 return INVALID_STORY_FILE_RV;
 	     if (ok)
 		 return VALID_STORY_FILE_RV;
 	 }
@@ -284,7 +342,12 @@ static int32 claim_story_file(void *storyvp, int32 extent)
      
      if (extent < seekpos + mem_size)
 	 return INVALID_STORY_FILE_RV;
-     
+
+     /* An uncompressed PAW snapshot exposes the editor text directly; reject
+      * it before the (loose) colour-table scan can misclaim it as Quill. */
+     if (arch == ARCH_SPECTRUM && buffer_is_paw((const unsigned char *)zxmemory, extent))
+	 return INVALID_STORY_FILE_RV;
+
      found = 0;
      
      switch (arch)
@@ -297,9 +360,11 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 	     
 	     for (n = 0x5C00; n < 0xFFF5; n++)
 	     {
-		 if ((zmem(n  ) == 0x10) && (zmem(n+2) == 0x11) && 
-		     (zmem(n+4) == 0x12) && (zmem(n+6) == 0x13) && 
-		     (zmem(n+8) == 0x14) && (zmem(n+10) == 0x15))
+		 if ((zmem(n  ) == 0x10) && (zmem(n+2) == 0x11) &&
+		     (zmem(n+4) == 0x12) && (zmem(n+6) == 0x13) &&
+		     (zmem(n+8) == 0x14) && (zmem(n+10) == 0x15) &&
+		     quill_header_plausible((const unsigned char *)zxmemory,
+					    extent, mem_base, n + 13))
 		 {
 		     found = 1;
 //		     zxptr = n + 13;
