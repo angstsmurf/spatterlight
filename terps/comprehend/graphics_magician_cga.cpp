@@ -44,10 +44,10 @@
 
 #include "graphics_magician_cga.h"
 #include "graphics_magician.h"  // Opcode enum
+#include "slow_draw_page.h"     // shared progressive-reveal helper
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <vector>
 
 namespace Glk {
 namespace Comprehend {
@@ -289,28 +289,17 @@ static uint8_t s_screenmem[GMCGA_HEIGHT * GMCGA_STRIDE];
 // DELAY marker that pauses the reveal.  See the gm* counterparts for the host
 // driver; the two renderers expose the same slow-draw contract.
 
-struct WriteOp { uint16_t offset; uint8_t value; };
-
-// A WriteOp with this (out-of-page) offset is a DELAY marker rather than a byte
-// write: op13 emitted it and value holds the delay's operand.
-#define DELAY_MARKER 0xffff
-// Wall-clock length of one op13 delay unit, in slow-draw ticks.  Kept equal to
-// the Apple renderer's pacing so both titles animate at a comparable speed at
-// the host's 10 ms tick (GM_SLOW_TICK_MS).
-#define DELAY_TICKS_PER_UNIT 10
-
+// The reveal state machine, op list and dirty band live in the shared
+// SlowDrawPage helper (slow_draw_page.h).  s_screenmem is the fully-drawn page;
+// s_slowScreen is the page the host progressively reveals.
 static uint8_t s_slowScreen[GMCGA_HEIGHT * GMCGA_STRIDE]; // progressively revealed
-static std::vector<WriteOp> s_ops;        // ordered byte writes of this image
-static size_t s_opsDrawn = 0;             // how many ops are on s_slowScreen
-static bool s_recordOps = false;          // record ops for slow reveal?
-static int s_pauseTicks = 0;              // reveal ticks still owed to a DELAY
-static int s_dirtyMin = 0x7fffffff, s_dirtyMax = -1; // changed row band
+static SlowDrawPage s_slow(s_screenmem, s_slowScreen, sizeof(s_screenmem),
+                           GMCGA_STRIDE);
 
 // Apply one byte to the final page and, while recording, log it for the reveal.
 static inline void store_byte(int off, uint8_t value) {
     s_screenmem[off] = value;
-    if (s_recordOps)
-        s_ops.push_back({ (uint16_t)off, value });
+    s_slow.record(off, value);
 }
 
 static inline void write_2bpp(int x, int y, uint8_t val) {
@@ -330,9 +319,7 @@ void gmcgaResetScreen(bool white) {
     // A reset starts a fresh page: it appears instantly on the visible page too,
     // and any pending reveal is dropped.
     memset(s_slowScreen, white ? 0xff : 0x00, sizeof(s_slowScreen));
-    s_ops.clear();
-    s_opsDrawn = 0;
-    s_pauseTicks = 0;
+    s_slow.clear();
 }
 
 // ---- Fill helpers ------------------------------------------------------------
@@ -1107,8 +1094,7 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, GmcgaCtx *ctx) {
 
     case OPCODE_DELAY: { // op13 -- pacing hint; no effect on the final page
         uint8_t units = *(*ptr)++;
-        if (s_recordOps && units)
-            s_ops.push_back({ DELAY_MARKER, units });
+        s_slow.recordDelay(units);
         break;
     }
 
@@ -1216,9 +1202,7 @@ void gmcgaDrawImage(const uint8_t *data, size_t size) {
     // Each image is its own reveal: drop the previous image's op list (a room
     // reset already cleared it; an item overlay reaches here without one and
     // records only its own bytes onto whatever the room left visible).
-    s_ops.clear();
-    s_opsDrawn = 0;
-    s_pauseTicks = 0;
+    s_slow.clear();
 
     GmcgaCtx ctx = {};
     ctx.pen_val  = 0;    // pen colour 4 (black) maps to 2-bpp 0
@@ -1245,8 +1229,7 @@ void gmcgaDrawImage(const uint8_t *data, size_t size) {
 
     // When not animating, keep the visible page in step with the final page so a
     // later slow-drawn overlay composes onto the right background.
-    if (!s_recordOps)
-        memcpy(s_slowScreen, s_screenmem, sizeof(s_slowScreen));
+    s_slow.syncIfNotRecording();
 }
 
 // ---- 2-bpp → RGBA conversion -------------------------------------------------
@@ -1284,79 +1267,13 @@ void gmcgaBlitToSurface(uint32_t *out, int w, int h) {
 // ---- Slow-draw control (host-driven) ----------------------------------------
 // These mirror the gm* entry points in graphics_magician.h one-for-one, so the
 // host (Comprehend::drawPicture / runSlowDraw) drives whichever renderer is
-// active with the same logic.
+// active with the same logic.  The machinery lives in the shared SlowDrawPage.
 
-void gmcgaSetSlowDraw(bool on) { s_recordOps = on; }
-
-// True while there is reveal work left: recorded ops still to paint, or a DELAY
-// pause still owed.
-bool gmcgaSlowDrawActive() {
-    return s_recordOps && (s_opsDrawn < s_ops.size() || s_pauseTicks > 0);
-}
-
-// Bytes whose offset is adjacent to, or whose value matches, the previous one
-// belong to the same visual run; revealing them together avoids seams.
-static bool ops_adjacent(const WriteOp &a, const WriteOp &b) {
-    return ((int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
-           b.value == a.value;
-}
-
-static void mark_row_dirty(uint16_t offset) {
-    int r = offset / GMCGA_STRIDE;
-    if (r < s_dirtyMin) s_dirtyMin = r;
-    if (r > s_dirtyMax) s_dirtyMax = r;
-}
-
-// Apply up to `budget` recorded ops onto the visible page, extending the chunk
-// across adjacent runs.  A DELAY marker halts this tick's reveal and owes a run
-// of pause ticks.  Returns true while any reveal work -- ops or an outstanding
-// pause -- remains.
-bool gmcgaAdvanceSlowDraw(int budget) {
-    if (s_pauseTicks > 0) {
-        s_pauseTicks--;
-        return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
-    }
-    size_t i = s_opsDrawn;
-    size_t chunk_end = i + (budget > 0 ? (size_t)budget : 1);
-    bool keep_going = false;
-    for (; i < s_ops.size() && (i < chunk_end || keep_going); i++) {
-        if (s_ops[i].offset == DELAY_MARKER) {
-            s_pauseTicks += s_ops[i].value * DELAY_TICKS_PER_UNIT;
-            s_opsDrawn = i + 1;            // consume the marker
-            return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
-        }
-        s_slowScreen[s_ops[i].offset] = s_ops[i].value;
-        mark_row_dirty(s_ops[i].offset);
-        keep_going = (i + 1 < s_ops.size()) && s_ops[i + 1].offset != DELAY_MARKER &&
-                     ops_adjacent(s_ops[i], s_ops[i + 1]);
-    }
-    s_opsDrawn = i;
-    return s_opsDrawn < s_ops.size();
-}
-
-// Reveal everything left at once (resize / cancel).  Leaves the visible page
-// identical to the final page.
-void gmcgaFinishSlowDraw() {
-    for (; s_opsDrawn < s_ops.size(); s_opsDrawn++) {
-        if (s_ops[s_opsDrawn].offset == DELAY_MARKER)
-            continue;                     // pauses collapse when finishing at once
-        s_slowScreen[s_ops[s_opsDrawn].offset] = s_ops[s_opsDrawn].value;
-        mark_row_dirty(s_ops[s_opsDrawn].offset);
-    }
-    s_pauseTicks = 0;
-}
-
-// Hand back the row band touched since the last call (inclusive) and reset it.
-// Returns false if nothing changed.
-bool gmcgaSlowConsumeDirty(int *y0, int *y1) {
-    if (s_dirtyMax < 0)
-        return false;
-    *y0 = s_dirtyMin;
-    *y1 = s_dirtyMax;
-    s_dirtyMin = 0x7fffffff;
-    s_dirtyMax = -1;
-    return true;
-}
+void gmcgaSetSlowDraw(bool on) { s_slow.setRecording(on); }
+bool gmcgaSlowDrawActive() { return s_slow.active(); }
+bool gmcgaAdvanceSlowDraw(int budget) { return s_slow.advance(budget); }
+void gmcgaFinishSlowDraw() { s_slow.finish(); }
+bool gmcgaSlowConsumeDirty(int *y0, int *y1) { return s_slow.consumeDirty(y0, y1); }
 
 void gmcgaBlitSlowToSurface(uint32_t *out, int w, int h) {
     blit_page(s_slowScreen, out, w, h);

@@ -29,10 +29,11 @@
 
 #include "graphics_magician_pcjr.h"
 #include "graphics_magician.h"  // Opcode enum
+#include "slow_draw_page.h"     // shared progressive-reveal helper
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <vector>
+#include <vector>               // gmpcjr_flood_fill's scanline stack
 
 namespace Glk {
 namespace Comprehend {
@@ -152,23 +153,16 @@ bool gmpcjrSetFont(const uint8_t *charsetGda, size_t size) {
 
 static uint8_t s_screen[PCJR_ROWS * PCJR_BYTES_PER_ROW];
 
-// ---- Slow ("animated") draw -- mirrors graphics_magician_cga.cpp -------------
-
-struct WriteOp { uint16_t offset; uint8_t value; };
-#define DELAY_MARKER 0xffff
-#define DELAY_TICKS_PER_UNIT 10
+// ---- Slow ("animated") draw -- shared SlowDrawPage helper --------------------
+// s_screen is the fully-drawn page; s_slowScreen is the page the host reveals.
 
 static uint8_t s_slowScreen[PCJR_ROWS * PCJR_BYTES_PER_ROW];
-static std::vector<WriteOp> s_ops;
-static size_t s_opsDrawn = 0;
-static bool s_recordOps = false;
-static int s_pauseTicks = 0;
-static int s_dirtyMin = 0x7fffffff, s_dirtyMax = -1;
+static SlowDrawPage s_slow(s_screen, s_slowScreen, sizeof(s_screen),
+                           PCJR_BYTES_PER_ROW);
 
 static inline void store_byte(int off, uint8_t value) {
     s_screen[off] = value;
-    if (s_recordOps)
-        s_ops.push_back({ (uint16_t)off, value });
+    s_slow.record(off, value);
 }
 
 // Read the colour index (0-15) of the pixel at logical picture (x,y).
@@ -208,9 +202,7 @@ static inline void plot_pen(int x, int y, uint8_t pen) {
 void gmpcjrResetScreen(bool white) {
     memset(s_screen,     white ? 0xff : 0x00, sizeof(s_screen));
     memset(s_slowScreen, white ? 0xff : 0x00, sizeof(s_slowScreen));
-    s_ops.clear();
-    s_opsDrawn = 0;
-    s_pauseTicks = 0;
+    s_slow.clear();
 }
 
 // ---- Fill pattern ------------------------------------------------------------
@@ -479,8 +471,7 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, PcjrCtx *ctx) {
 
     case OPCODE_DELAY: { // op13 -- pacing hint
         uint8_t units = *(*ptr)++;
-        if (s_recordOps && units)
-            s_ops.push_back({ DELAY_MARKER, units });
+        s_slow.recordDelay(units);
         break;
     }
 
@@ -499,9 +490,7 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, PcjrCtx *ctx) {
 }
 
 void gmpcjrDrawImage(const uint8_t *data, size_t size) {
-    s_ops.clear();
-    s_opsDrawn = 0;
-    s_pauseTicks = 0;
+    s_slow.clear();
 
     PcjrCtx ctx = {};
     ctx.pen      = 0;
@@ -517,8 +506,7 @@ void gmpcjrDrawImage(const uint8_t *data, size_t size) {
     while (ptr < end && ++guard < 100000)
         if (doImageOp(&ptr, end, &ctx)) break;
 
-    if (!s_recordOps)
-        memcpy(s_slowScreen, s_screen, sizeof(s_slowScreen));
+    s_slow.syncIfNotRecording();
 }
 
 // ---- 16-colour -> RGBA conversion --------------------------------------------
@@ -563,67 +551,13 @@ void gmpcjrBlitToSurface(uint32_t *out, int w, int h) {
     blit_page(s_screen, out, w, h);
 }
 
-// ---- Slow-draw control (host-driven) -- mirrors gmcga* ----------------------
+// ---- Slow-draw control (host-driven) -- delegate to the shared helper -------
 
-void gmpcjrSetSlowDraw(bool on) { s_recordOps = on; }
-
-bool gmpcjrSlowDrawActive() {
-    return s_recordOps && (s_opsDrawn < s_ops.size() || s_pauseTicks > 0);
-}
-
-static bool ops_adjacent(const WriteOp &a, const WriteOp &b) {
-    return ((int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
-           b.value == a.value;
-}
-
-static void mark_row_dirty(uint16_t offset) {
-    int r = offset / PCJR_BYTES_PER_ROW;
-    if (r < s_dirtyMin) s_dirtyMin = r;
-    if (r > s_dirtyMax) s_dirtyMax = r;
-}
-
-bool gmpcjrAdvanceSlowDraw(int budget) {
-    if (s_pauseTicks > 0) {
-        s_pauseTicks--;
-        return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
-    }
-    size_t i = s_opsDrawn;
-    size_t chunk_end = i + (budget > 0 ? (size_t)budget : 1);
-    bool keep_going = false;
-    for (; i < s_ops.size() && (i < chunk_end || keep_going); i++) {
-        if (s_ops[i].offset == DELAY_MARKER) {
-            s_pauseTicks += s_ops[i].value * DELAY_TICKS_PER_UNIT;
-            s_opsDrawn = i + 1;
-            return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
-        }
-        s_slowScreen[s_ops[i].offset] = s_ops[i].value;
-        mark_row_dirty(s_ops[i].offset);
-        keep_going = (i + 1 < s_ops.size()) && s_ops[i + 1].offset != DELAY_MARKER &&
-                     ops_adjacent(s_ops[i], s_ops[i + 1]);
-    }
-    s_opsDrawn = i;
-    return s_opsDrawn < s_ops.size();
-}
-
-void gmpcjrFinishSlowDraw() {
-    for (; s_opsDrawn < s_ops.size(); s_opsDrawn++) {
-        if (s_ops[s_opsDrawn].offset == DELAY_MARKER)
-            continue;
-        s_slowScreen[s_ops[s_opsDrawn].offset] = s_ops[s_opsDrawn].value;
-        mark_row_dirty(s_ops[s_opsDrawn].offset);
-    }
-    s_pauseTicks = 0;
-}
-
-bool gmpcjrSlowConsumeDirty(int *y0, int *y1) {
-    if (s_dirtyMax < 0)
-        return false;
-    *y0 = s_dirtyMin;
-    *y1 = s_dirtyMax;
-    s_dirtyMin = 0x7fffffff;
-    s_dirtyMax = -1;
-    return true;
-}
+void gmpcjrSetSlowDraw(bool on) { s_slow.setRecording(on); }
+bool gmpcjrSlowDrawActive() { return s_slow.active(); }
+bool gmpcjrAdvanceSlowDraw(int budget) { return s_slow.advance(budget); }
+void gmpcjrFinishSlowDraw() { s_slow.finish(); }
+bool gmpcjrSlowConsumeDirty(int *y0, int *y1) { return s_slow.consumeDirty(y0, y1); }
 
 void gmpcjrBlitSlowToSurface(uint32_t *out, int w, int h) {
     blit_page(s_slowScreen, out, w, h);

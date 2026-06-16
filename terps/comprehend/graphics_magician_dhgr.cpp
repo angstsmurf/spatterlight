@@ -28,8 +28,8 @@
 #include "graphics_magician_dhgr.h"
 #include "graphics_magician.h"
 #include "gm_artifact.h"
+#include "slow_draw_page.h"     // shared progressive-reveal helper
 #include <cstring>
-#include <vector>
 
 namespace Glk {
 namespace Comprehend {
@@ -56,31 +56,17 @@ static uint8_t s_aux[A2_PAGE_SIZE];
 // start from whatever is already on the slow pages (the room just finished), so
 // they compose exactly as on the real machine.
 
-// A WriteOp with this (out-of-page) offset is a DELAY marker rather than a byte
-// write: op13 emitted it, and value holds the delay's operand. The reveal pauses
-// when it reaches one.
-#define DELAY_MARKER 0xffff
-// Wall-clock length of one delay unit, in slow-draw ticks. Matched to the
-// standard-hi-res renderer's op13 timing (~10 host ticks per unit).
-#define DELAY_TICKS_PER_UNIT 10
-
-struct WriteOp { uint16_t offset; uint8_t page; uint8_t value; }; // page: 1=main, 0=aux
-
+// The reveal state machine, op list and dirty band live in the shared
+// SlowDrawEngine (slow_draw_page.h); the DHGR policy below supplies the
+// renderer-specific behaviour: dual main/aux pages, a page-aware run test, and
+// the Coveted-Mirror panel-column exclusion during a reveal.
 static uint8_t s_slowMain[A2_PAGE_SIZE]; // progressively-revealed pages
 static uint8_t s_slowAux[A2_PAGE_SIZE];
-static std::vector<WriteOp> s_ops;       // ordered byte writes of this image
-static size_t s_opsDrawn = 0;            // how many ops are on the slow pages
-static bool s_recordOps = false;         // record ops for slow reveal?
-static int s_pauseTicks = 0;             // reveal ticks still owed to a DELAY
-
-// Bounding range of screen rows touched since the last blit, so the host can
-// repaint just the changed band instead of the whole window each tick.
-static int s_dirtyMin = 0x7fffffff, s_dirtyMax = -1;
 
 // offset -> screen row (0..191), or 0xff for the inter-row gaps in the page
 // address space; offset -> byte column (0..39), or 0xff in the gaps. Built once;
 // lets a reveal map a byte write back to its row (dirty band) and column (so the
-// CM panel columns can be excluded from the reveal -- see apply_op).
+// CM panel columns can be excluded from the reveal -- see dhgr_apply_slow).
 static uint8_t s_rowOfOffset[A2_PAGE_SIZE];
 static uint8_t s_colOfOffset[A2_PAGE_SIZE];
 static bool s_rowTableInit = false;
@@ -100,22 +86,49 @@ static void init_offset_tables() {
 	s_rowTableInit = true;
 }
 
-static void mark_row_dirty(uint16_t offset) {
+static int dhgr_row_of(uint16_t offset) {
 	init_offset_tables();
 	uint8_t r = s_rowOfOffset[offset];
-	if (r == 0xff)
-		return;
-	if (r < s_dirtyMin) s_dirtyMin = r;
-	if (r > s_dirtyMax) s_dirtyMax = r;
+	return (r == 0xff) ? -1 : (int)r;        // -1 = inter-row gap, skip
 }
+
+// Apply one recorded byte to the matching slow page; defined after the CM-panel
+// state it consults (forward-declared here for the policy).
+static bool dhgr_apply_slow(const SlowWriteOp &op);
+
+// DHGR page: a main/aux pair (op.page picks which), so the run test also keys on
+// page, and panel columns are skipped during the reveal.
+struct DhgrSlowPolicy {
+	bool apply(const SlowWriteOp &op) { return dhgr_apply_slow(op); }
+	int rowOf(const SlowWriteOp &op) const { return dhgr_row_of(op.offset); }
+	bool adjacent(const SlowWriteOp &a, const SlowWriteOp &b) const {
+		return (a.page == b.page &&
+		        (int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
+		       b.value == a.value;
+	}
+	void sync() {
+		std::memcpy(s_slowMain, s_main, A2_PAGE_SIZE);
+		std::memcpy(s_slowAux,  s_aux,  A2_PAGE_SIZE);
+	}
+};
+static DhgrSlowPolicy s_slowPolicy;
+static SlowDrawEngine<DhgrSlowPolicy> s_slow(s_slowPolicy);
 
 // Every plotted byte funnels through here: write the final page and, when
 // recording, append the op for the progressive reveal. `page` is s_main or
 // s_aux; the recorded op tags which so the reveal targets the matching slow page.
+#ifdef DHGR_WATCH
+static int s_dhgrWatchOff = -1, s_dhgrWatchPage = 1, s_dhgrOpTag = -1;
+void gmDhgrSetWatch(int off, int page) { s_dhgrWatchOff = off; s_dhgrWatchPage = page; }
+#endif
 static inline void dhgr_put(uint8_t *page, uint16_t off, uint8_t value) {
+#ifdef DHGR_WATCH
+	if ((int)off == s_dhgrWatchOff && (page==s_main?1:0)==s_dhgrWatchPage)
+		fprintf(stderr, "WATCH op=%d off=%04x page=%s %02x->%02x\n", s_dhgrOpTag,
+			off, page==s_main?"main":"aux", page[off]&0x7f, value&0x7f);
+#endif
 	page[off] = value;
-	if (s_recordOps)
-		s_ops.push_back({off, (uint8_t)(page == s_main ? 1 : 0), value});
+	s_slow.record(off, (uint8_t)(page == s_main ? 1 : 0), value);
 }
 
 // ---- drawing tables (loaded at runtime from T5) -------------------------------
@@ -382,8 +395,15 @@ static void paint_span() {
 	}
 }
 static void enqueue_span(uint8_t row, int left, int right, uint8_t dir) {
-	// Real $0F50 drops a single-pixel span (left == right); without it 1-px spans
-	// leak the flood through 1-cell gaps in a boundary.
+	// Drop a single-pixel span (left == right): the real CM <D> span fill ($0F50)
+	// rejects it, and without it a flood leaks through the 1-cell gaps that the
+	// doubled DHGR boundaries leave in a drawn outline. This matters whenever the
+	// fill bounds are full-screen so only the drawn boundary contains the flood --
+	// e.g. the prison-tower floor (RA idx0), whose op15/0 RLE bounds are re-opened
+	// to full by a following op15/2, so the floor fill leaks up over the whole
+	// picture without this guard. It is merely redundant (not wrong) for scenes
+	// like the cupboard door (OE idx0), where the op15/0 RLE bounds persist and
+	// already clip the fill; that scene stays byte-exact with the guard in place.
 	if (left == right) return;
 	uint8_t clip_row = (dir == DIR_UP) ? g_clip_top : g_clip_bottom;
 	if (row == clip_row) return;
@@ -489,6 +509,14 @@ static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
 	const uint8_t *p = *pp;
 	if (p + 4 > end) { *pp = end; return; }
 	uint8_t right = *p++, left = *p++, bottom = *p++, top = *p++;
+	// The real CM op15/0 reads these four bytes through gm_op15_read_bounds
+	// (cm_ram_raw.bin @0x0a17), which is the SAME routine op15/2 uses: it stores
+	// them as the fill-clip rectangle (left/right/top/bottom). A later PAINT flood
+	// is clipped to this rectangle. The cupboard-door overlay (OE idx0) relies on
+	// this -- its only op15 is this RLE bitmap (rows 97..135), and the following
+	// fill=62 PAINT must not leak below row 135 onto the floor. (Rooms like RA idx2
+	// re-open the bounds with an explicit op15/2 after their RLE, so this is safe.)
+	g_fillRight = right; g_fillLeft = left; g_fillBottom = bottom; g_fillTop = top;
 	int col = left, row = top;
 	bool done = false;
 	while (!done && p < end) {
@@ -573,8 +601,8 @@ void gmDhgrDrawCMHourglass(int sand) {
 	// White grains use the same SET_FILL_COLOR 0x34 the original paints them with.
 	// Stamp straight onto the final pages with op recording suppressed, so the
 	// grains are not deferred to the slow-draw reveal.
-	bool savedRecord = s_recordOps;
-	s_recordOps = false;
+	bool savedRecord = s_slow.recording();
+	s_slow.setRecording(false);
 	set_fill_color(0x34);
 	for (int idx = 0; idx < sand && idx < 256; idx++) {
 		uint16_t x;
@@ -583,7 +611,7 @@ void gmDhgrDrawCMHourglass(int sand) {
 			continue;
 		draw_brush((uint16_t)(x << 1), y, 0);
 	}
-	s_recordOps = savedRecord;
+	s_slow.setRecording(savedRecord);
 	// Mirror the panel columns (now including the freshly stamped grains) onto the
 	// slow pages, so they are visible during a reveal too.
 	for (int row = 0; row < DHGR_HEIGHT; row++) {
@@ -605,13 +633,19 @@ void gmDhgrResetScreen(bool white) {
 	// visible pages too, and any pending reveal is dropped.
 	std::memset(s_slowMain, bg, A2_PAGE_SIZE);
 	std::memset(s_slowAux,  bg, A2_PAGE_SIZE);
-	s_ops.clear();
-	s_opsDrawn = 0;
-	s_pauseTicks = 0;
+	s_slow.clear();
 }
 
 void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 	hung = 0;
+	// When not animating, keep the visible pages in step with the final pages so a
+	// later slow-drawn overlay (e.g. a moved object) composes onto the right
+	// background instead of a stale/blank page -- exactly what the standard hi-res
+	// renderer does at the end of gmDrawImage. A scope guard so it runs on every
+	// exit path, including the op0 END and `hung` early returns below.
+	struct SyncOnExit {
+		~SyncOnExit() { s_slow.syncIfNotRecording(); }
+	} syncOnExit;
 	// Restore the T5 default colour subindex FIRST, so the per-image init below
 	// (and the image's own op7 SET_PALETTE_SUBINDEX commands) start from a clean
 	// baseline. op7 overrides are per-image: the same streams render self-coloured
@@ -635,6 +669,9 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 	const uint8_t *p = data, *e = data + size;
 	int guard = 0;
 	while (p < e && guard++ < 100000) {
+#ifdef DHGR_WATCH
+		s_dhgrOpTag = (int)(p - data);
+#endif
 		uint8_t op = *p++; uint8_t par = op & 0xf; op >>= 4; uint16_t x;
 		switch (op) {
 		case 0: return;                                   // END
@@ -654,7 +691,7 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 		case 11: p += 1; break;                           // DRAW_CIRCLE
 		case 12: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; draw_brush(x << 1, y, g_brush); } break; // DRAW_SHAPE
 		case 13: { uint8_t units = *p++;                  // DELAY
-			if (s_recordOps) s_ops.push_back({DELAY_MARKER, 0, units}); } break;
+			s_slow.recordDelay(units); } break;
 		case 14: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; flood_fill(x << 1, y); } break; // PAINT
 		case 15: // RESET (sub-op in low nibble)
 			if (par == 0) rle_bitmap_dhgr(&p, e);   // RLE bitmap (Coveted Mirror)
@@ -691,88 +728,34 @@ void gmDhgrBlitToSurface(uint32_t *out, int w, int h) {
 }
 
 // ---- Slow-draw control (host-driven) ------------------------------------------
+// The machinery lives in the shared SlowDrawEngine (slow_draw_page.h); the DHGR
+// policy's apply hook is dhgr_apply_slow below.
 
-void gmDhgrSetSlowDraw(bool on) { s_recordOps = on; }
-
-// True while there is reveal work left: recorded ops still to paint, or a DELAY
-// pause still owed.
-bool gmDhgrSlowDrawActive() {
-	return s_recordOps && (s_opsDrawn < s_ops.size() || s_pauseTicks > 0);
-}
-
-// Bytes whose offset is adjacent to, or whose value matches, the previous one
-// belong to the same visual run; revealing them together avoids seams.
-static bool ops_adjacent(const WriteOp &a, const WriteOp &b) {
-	return (a.page == b.page &&
-	        (int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
-	       b.value == a.value;
-}
-
-static inline void apply_op(const WriteOp &op) {
-	// The Coveted Mirror's panel occupies columns [col0,col1] and is composited on
-	// top of every finished picture (gmDhgrOverlayCMPanel writes it to the slow
-	// pages directly). A room drawn with a full-width op15/0 RLE bitmap, however,
-	// records writes across those columns too; replaying them during the reveal
-	// would wipe the panel off the slow pages. Skip panel-column ops so the
-	// overlaid panel survives the reveal (it is already correct on the final pages).
+// Apply one recorded byte to the matching slow page, skipping the CM panel.
+// Returns false (suppressing dirty marking) when the byte is skipped.
+//
+// The Coveted Mirror's panel occupies columns [col0,col1] and is composited on
+// top of every finished picture (gmDhgrOverlayCMPanel writes it to the slow pages
+// directly). A room drawn with a full-width op15/0 RLE bitmap, however, records
+// writes across those columns too; replaying them during the reveal would wipe
+// the panel off the slow pages. Skip panel-column ops so the overlaid panel
+// survives the reveal (it is already correct on the final pages).
+static bool dhgr_apply_slow(const SlowWriteOp &op) {
 	if (s_cmPanelValid) {
 		init_offset_tables();
 		uint8_t c = s_colOfOffset[op.offset];
 		if (c >= s_cmPanelCol0 && c <= s_cmPanelCol1)
-			return;
+			return false;
 	}
 	(op.page ? s_slowMain : s_slowAux)[op.offset] = op.value;
-	mark_row_dirty(op.offset);
-}
-
-// Apply up to `budget` recorded ops onto the visible pages, extending the chunk
-// across adjacent runs. A DELAY marker halts this tick's reveal and owes a run
-// of pause ticks (during which nothing is revealed). Returns true while any
-// reveal work -- ops or an outstanding pause -- remains.
-bool gmDhgrAdvanceSlowDraw(int budget) {
-	if (s_pauseTicks > 0) {
-		s_pauseTicks--;
-		return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
-	}
-	size_t i = s_opsDrawn;
-	size_t chunk_end = i + (budget > 0 ? (size_t)budget : 1);
-	bool keep_going = false;
-	for (; i < s_ops.size() && (i < chunk_end || keep_going); i++) {
-		if (s_ops[i].offset == DELAY_MARKER) {
-			s_pauseTicks += s_ops[i].value * DELAY_TICKS_PER_UNIT;
-			s_opsDrawn = i + 1;             // consume the marker
-			return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
-		}
-		apply_op(s_ops[i]);
-		keep_going = (i + 1 < s_ops.size()) && s_ops[i + 1].offset != DELAY_MARKER &&
-		             ops_adjacent(s_ops[i], s_ops[i + 1]);
-	}
-	s_opsDrawn = i;
-	return s_opsDrawn < s_ops.size();
-}
-
-// Reveal the rest of the image at once (e.g. on a window resize, or when the
-// reveal is cancelled). Leaves the visible pages identical to the final pages.
-void gmDhgrFinishSlowDraw() {
-	for (; s_opsDrawn < s_ops.size(); s_opsDrawn++) {
-		if (s_ops[s_opsDrawn].offset == DELAY_MARKER)
-			continue;                      // pauses collapse when finishing at once
-		apply_op(s_ops[s_opsDrawn]);
-	}
-	s_pauseTicks = 0;
-}
-
-// Hand back the row band touched since the last call (inclusive), and reset it.
-// Returns false if nothing changed.
-bool gmDhgrSlowConsumeDirty(int *y0, int *y1) {
-	if (s_dirtyMax < 0)
-		return false;
-	*y0 = s_dirtyMin;
-	*y1 = s_dirtyMax;
-	s_dirtyMin = 0x7fffffff;
-	s_dirtyMax = -1;
 	return true;
 }
+
+void gmDhgrSetSlowDraw(bool on) { s_slow.setRecording(on); }
+bool gmDhgrSlowDrawActive() { return s_slow.active(); }
+bool gmDhgrAdvanceSlowDraw(int budget) { return s_slow.advance(budget); }
+void gmDhgrFinishSlowDraw() { s_slow.finish(); }
+bool gmDhgrSlowConsumeDirty(int *y0, int *y1) { return s_slow.consumeDirty(y0, y1); }
 
 void gmDhgrBlitSlowToSurface(uint32_t *out, int w, int h) {
 	blit_pages(s_slowAux, s_slowMain, out, w, h);

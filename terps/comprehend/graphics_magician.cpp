@@ -42,8 +42,8 @@
 #include "graphics_magician.h"
 #include "gm_vector.h"
 #include "gm_artifact.h"
+#include "slow_draw_page.h"     // shared progressive-reveal helper
 #include <cstring>
-#include <vector>
 
 namespace Glk {
 namespace Comprehend {
@@ -149,37 +149,19 @@ static inline bool valid_offset(uint16_t off) { return off <= MAX_SCREEN_ADDR; }
 // after each chunk. Item overlays start from whatever is already on s_slowScreen
 // (the room just finished), so they compose exactly as on the real machine.
 
-struct WriteOp { uint16_t offset; uint8_t value; };
-
-// A WriteOp with this (out-of-page) offset is not a byte write but a DELAY
-// marker: op13 emitted it, and value holds the delay's operand. The reveal
-// pauses when it reaches one (the original Graphics Magician paused mid-paint).
-#define DELAY_MARKER 0xffff
-// Wall-clock length of one delay unit, in slow-draw ticks. Measured from the
-// Graphics Magician op13 handler (the DELAY routine at $09bb in the Apple II
-// std-hires interpreter, byte-identical across all four titles): a 3-level
-// counting loop "LDX #$80; LDY #$A0; DEY/BNE; DEX/BNE; DEC operand; BNE" =
-// 128 * 160 inner iterations per unit = ~103,176 6502 cycles, which at the
-// Apple II's 1.0205 MHz is ~101 ms per unit. At the host's 10 ms slow-draw tick
-// (GM_SLOW_TICK_MS) that is ~10 ticks per unit.
-#define DELAY_TICKS_PER_UNIT 10
-
+// The reveal state machine, op list and dirty band live in the shared
+// SlowDrawEngine (slow_draw_page.h); the Apple II policy below supplies the only
+// renderer-specific behaviour -- the hi-res offset -> row mapping for the dirty
+// band.  s_screenmem is the fully-drawn page; s_slowScreen is the page the host
+// progressively reveals (and onto which CM-panel overlays composite directly).
 static uint8_t s_slowScreen[A2_SCREEN_MEM_SIZE]; // progressively-revealed page
-static std::vector<WriteOp> s_ops;               // ordered byte writes of this image
-static size_t s_opsDrawn = 0;                    // how many ops are on s_slowScreen
-static bool s_recordOps = false;                 // record ops for slow reveal?
-static int s_pauseTicks = 0;                      // reveal ticks still owed to a DELAY
-
-// Bounding range of screen rows touched since the last blit, so the host can
-// repaint just the changed band instead of the whole window each tick.
-static int s_dirtyMin = 0x7fffffff, s_dirtyMax = -1;
 
 // offset -> screen row (0..191), or 0xff for the inter-row gaps in the hi-res
 // address space. Built once; lets a reveal map a byte write back to its row.
 static uint8_t s_rowOfOffset[A2_SCREEN_MEM_SIZE];
 static bool s_rowTableInit = false;
 
-static void mark_row_dirty(uint16_t offset) {
+static int row_of_offset(uint16_t offset) {
 	if (!s_rowTableInit) {
 		memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
 		for (int row = 0; row < 192; row++) {
@@ -190,11 +172,22 @@ static void mark_row_dirty(uint16_t offset) {
 		s_rowTableInit = true;
 	}
 	uint8_t r = s_rowOfOffset[offset];
-	if (r == 0xff)
-		return;
-	if (r < s_dirtyMin) s_dirtyMin = r;
-	if (r > s_dirtyMax) s_dirtyMax = r;
+	return (r == 0xff) ? -1 : (int)r;        // -1 = inter-row gap, skip
 }
+
+// Apple II hi-res page: one flat buffer, but rows are address-interleaved, so
+// the dirty band maps offsets through row_of_offset (not offset/stride).
+struct AppleSlowPolicy {
+	bool apply(const SlowWriteOp &op) { s_slowScreen[op.offset] = op.value; return true; }
+	int rowOf(const SlowWriteOp &op) const { return row_of_offset(op.offset); }
+	bool adjacent(const SlowWriteOp &a, const SlowWriteOp &b) const {
+		return ((int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
+		       b.value == a.value;
+	}
+	void sync() { memcpy(s_slowScreen, s_screenmem, A2_SCREEN_MEM_SIZE); }
+};
+static AppleSlowPolicy s_slowPolicy;
+static SlowDrawEngine<AppleSlowPolicy> s_slow(s_slowPolicy);
 
 #ifdef GM_TRACE
 // Diagnostic hooks for the offline pixtest harness (built with -DGM_TRACE,
@@ -211,8 +204,7 @@ static const uint8_t *g_imgBase = nullptr;
 static void write_screen(uint16_t offset, uint8_t value) {
 	if (valid_offset(offset)) {
 		s_screenmem[offset] = value;
-		if (s_recordOps)
-			s_ops.push_back({offset, value});
+		s_slow.record(offset, 0, value);
 #ifdef GM_TRACE
 		if (g_gmWriteLog)
 			g_gmWriteLog(offset, value, g_currentPrim);
@@ -760,8 +752,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 
 	case OPCODE_DELAY: { // 13 -- pause (no effect on the final page; paces the reveal)
 		uint8_t units = *ptr++;
-		if (s_recordOps && units)
-			s_ops.push_back({ DELAY_MARKER, units });
+		s_slow.recordDelay(units);
 		break;
 	}
 
@@ -866,78 +857,17 @@ void gmResetScreen(bool white) {
 	// A reset starts a fresh page: the background appears instantly on the
 	// visible page too, and any pending reveal is dropped.
 	memset(s_slowScreen, white ? 0xff : 0x00, A2_SCREEN_MEM_SIZE);
-	s_ops.clear();
-	s_opsDrawn = 0;
-	s_pauseTicks = 0;
+	s_slow.clear();
 }
 
 // ---- Slow-draw control (host-driven) ----------------------------------------
+// The machinery lives in the shared SlowDrawEngine (slow_draw_page.h).
 
-void gmSetSlowDraw(bool on) { s_recordOps = on; }
-
-// True while there is reveal work left: recorded ops still to paint, or a DELAY
-// pause still owed.
-bool gmSlowDrawActive() {
-	return s_recordOps && (s_opsDrawn < s_ops.size() || s_pauseTicks > 0);
-}
-
-// Bytes whose offset is adjacent to, or whose value matches, the previous one
-// belong to the same visual run; revealing them together avoids seams.
-static bool ops_adjacent(const WriteOp &a, const WriteOp &b) {
-	return ((int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
-	       b.value == a.value;
-}
-
-// Apply up to `budget` recorded ops onto the visible page, extending the chunk
-// across adjacent runs. A DELAY marker halts this tick's reveal and owes a run
-// of pause ticks (during which nothing is revealed). Returns true while any
-// reveal work -- ops or an outstanding pause -- remains.
-bool gmAdvanceSlowDraw(int budget) {
-	if (s_pauseTicks > 0) {
-		s_pauseTicks--;
-		return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
-	}
-	size_t i = s_opsDrawn;
-	size_t chunk_end = i + (budget > 0 ? (size_t)budget : 1);
-	bool keep_going = false;
-	for (; i < s_ops.size() && (i < chunk_end || keep_going); i++) {
-		if (s_ops[i].offset == DELAY_MARKER) {
-			s_pauseTicks += s_ops[i].value * DELAY_TICKS_PER_UNIT;
-			s_opsDrawn = i + 1;             // consume the marker
-			return s_opsDrawn < s_ops.size() || s_pauseTicks > 0;
-		}
-		s_slowScreen[s_ops[i].offset] = s_ops[i].value;
-		mark_row_dirty(s_ops[i].offset);
-		keep_going = (i + 1 < s_ops.size()) && s_ops[i + 1].offset != DELAY_MARKER &&
-		             ops_adjacent(s_ops[i], s_ops[i + 1]);
-	}
-	s_opsDrawn = i;
-	return s_opsDrawn < s_ops.size();
-}
-
-// Reveal the rest of the image at once (e.g. on a window resize, or when the
-// reveal is cancelled). Leaves the visible page identical to the final page.
-void gmFinishSlowDraw() {
-	for (; s_opsDrawn < s_ops.size(); s_opsDrawn++) {
-		if (s_ops[s_opsDrawn].offset == DELAY_MARKER)
-			continue;                      // pauses collapse when finishing at once
-		s_slowScreen[s_ops[s_opsDrawn].offset] = s_ops[s_opsDrawn].value;
-		mark_row_dirty(s_ops[s_opsDrawn].offset);
-	}
-	s_pauseTicks = 0;
-}
-
-// Hand back the row band touched since the last call (inclusive), and reset it.
-// Returns false if nothing changed.
-bool gmSlowConsumeDirty(int *y0, int *y1) {
-	if (s_dirtyMax < 0)
-		return false;
-	*y0 = s_dirtyMin;
-	*y1 = s_dirtyMax;
-	s_dirtyMin = 0x7fffffff;
-	s_dirtyMax = -1;
-	return true;
-}
+void gmSetSlowDraw(bool on) { s_slow.setRecording(on); }
+bool gmSlowDrawActive() { return s_slow.active(); }
+bool gmAdvanceSlowDraw(int budget) { return s_slow.advance(budget); }
+void gmFinishSlowDraw() { s_slow.finish(); }
+bool gmSlowConsumeDirty(int *y0, int *y1) { return s_slow.consumeDirty(y0, y1); }
 
 void gmBlitSlowToSurface(uint32_t *out, int w, int h) {
 	screenmem_to_rgba(s_slowScreen, out, w, h);
@@ -1185,9 +1115,7 @@ void gmDrawImage(const uint8_t *data, size_t size) {
 	// Each image is its own reveal: drop the previous image's op list (a room
 	// reset already cleared it; an item overlay reaches here without one, and
 	// must record only its own bytes onto whatever the room left visible).
-	s_ops.clear();
-	s_opsDrawn = 0;
-	s_pauseTicks = 0;
+	s_slow.clear();
 
 	a2_ctx ctx = {};
 	ctx.gv.screenmem = s_screenmem;
@@ -1217,8 +1145,7 @@ void gmDrawImage(const uint8_t *data, size_t size) {
 
 	// When not animating, keep the visible page in step with the final page so a
 	// later slow-drawn overlay composes onto the right background.
-	if (!s_recordOps)
-		memcpy(s_slowScreen, s_screenmem, A2_SCREEN_MEM_SIZE);
+	s_slow.syncIfNotRecording();
 }
 
 void gmBlitToSurface(uint32_t *out, int w, int h) {

@@ -148,6 +148,17 @@ test/gmcgav1test: test/gmcgav1test.cpp graphics_magician_cga.cpp graphics_magici
 test/gmpcjr/pcjrtest: test/gmpcjr/pcjrtest.cpp graphics_magician_pcjr.cpp graphics_magician_pcjr.h graphics_magician.h
 	$(CXX) -std=c++17 -O0 -g -Wall -I. -o $@ test/gmpcjr/pcjrtest.cpp graphics_magician_pcjr.cpp
 
+# Developer tool: render Coveted Mirror pictures through BOTH the Apple II double
+# hi-res (<D>) and standard hi-res renderers, and disassemble / dump an op15/0 RLE
+# bitmap stream. Used to localise DHGR overlay bugs (the cupboard-door black bar).
+#   ./test/dhgrtrace <sideA.woz> <bootB.woz> render RA 0 /tmp/ra
+#   ./test/dhgrtrace <sideA.woz> <bootB.woz> overlay RA 0 OE 0 /tmp/door
+#   ./test/dhgrtrace <sideA.woz> <bootB.woz> disasm OE 0
+#   ./test/dhgrtrace <sideA.woz> <bootB.woz> dumprle OE 0
+test/dhgrtrace: test/dhgrtrace.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+	$(CXX) -std=c++17 -O0 -g -w -I. -I$(SAGADRAW_DIR) -o $@ test/dhgrtrace.cpp \
+	    graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+
 # Developer tool: re-render every committed DOS Talisman fixture and report, per
 # scene, the rendered->golden colour-transition histogram, per-row diff bands, a
 # spatial diff PPM (/tmp/diff_<scene>.ppm), and raw index dumps -- the analysis
