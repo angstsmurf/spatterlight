@@ -98,6 +98,12 @@ uchar runact(ushort ccond,uchar noun)
         case 9: /* TURNS */
 	  sysmess(17);
 	  dec32(TURNLO+(256*TURNHI));
+	  /* Separate the count from the " turn(s)" message. In dbver>0 games
+	   * that message is printed via oneitem(), which resets xpos to 0, so
+	   * its own leading space is swallowed by the reformatter's "no space at
+	   * the start of a line" rule; emit one explicitly. Duplicate spaces are
+	   * collapsed, so this is harmless when the message has its own. */
+	  opch32(' ');
 	  sysmess(18);
 	  if (TURNLO+(256*TURNHI) !=1)
 	  {
@@ -113,6 +119,7 @@ uchar runact(ushort ccond,uchar noun)
 	case 10: /* SCORE */
   	  sysmess(19+ (dbver ? 2 : 0));
   	  dec32(flags[30]);
+	  opch32(' ');	/* separator before " point(s)" - see TURNS above */
   	  if(dbver > 0)
   	        sysmess(22);
   	  else	opch32('.');
