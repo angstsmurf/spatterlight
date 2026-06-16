@@ -28,8 +28,9 @@
  */
 
 #include "graphics_magician_pcjr.h"
-#include "graphics_magician.h"  // Opcode enum
-#include "slow_draw_page.h"     // shared progressive-reveal helper
+#include "graphics_magician.h"         // Opcode enum
+#include "graphics_magician_vector.h"  // shared line/circle rasterizers
+#include "slow_draw_page.h"            // shared progressive-reveal helper
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -275,57 +276,19 @@ static void gmpcjr_flood_fill(int seedx, int seedy, uint8_t sel) {
 }
 
 // ---- Line (op10) / box (op9) -------------------------------------------------
-// Major-axis Bresenham, identical to the CGA renderer's draw_line.
+// Geometry lives in gmvDrawLine (shared with the CGA renderer); here we bind it
+// to the 4-bpp pen writer (white-bleed and all).
 static void draw_line(int x0, int y0, int x1, int y1, uint8_t pen) {
-    plot_pen(x0, y0, pen);
-    const int dx = abs(x1 - x0), dy = abs(y1 - y0);
-    const int sx = (x0 < x1) ? 1 : -1;
-    const int sy = (y0 < y1) ? 1 : -1;
-    int x = x0, y = y0;
-    if (dx >= dy) {
-        int err = dy - dx;
-        for (int i = 0; i < dx; i++) {
-            x += sx;
-            if (err < 0) err += dy;
-            else { y += sy; err += dy - dx; }
-            plot_pen(x, y, pen);
-        }
-    } else {
-        int err = dx - dy;
-        for (int i = 0; i < dy; i++) {
-            y += sy;
-            if (err < 0) err += dx;
-            else { x += sx; err += dx - dy; }
-            plot_pen(x, y, pen);
-        }
-    }
+    gmvDrawLine(x0, y0, x1, y1,
+                [pen](int x, int y) { plot_pen(x, y, pen); });
 }
 
 // ---- Circle (op11) -----------------------------------------------------------
-// Same midpoint variant as the CGA renderer (draw_circle @ JR_GRAPH 0x1c6):
-// error starts at -r, radius shrinks, the step test is bit 7 of the error word.
+// Geometry lives in gmvDrawCircle (shared with the CGA renderer; draw_circle @
+// JR_GRAPH 0x1c6 is identical), bound to the 4-bpp pen writer.
 static void draw_circle(int cx, int cy, int radius, uint8_t pen) {
-    uint16_t d = (uint16_t)(0 - radius);
-    int i = 0;
-    int r = radius;
-    for (;;) {
-        plot_pen(cx - i, cy - r, pen);
-        plot_pen(cx + i, cy - r, pen);
-        plot_pen(cx + i, cy + r, pen);
-        plot_pen(cx - i, cy + r, pen);
-        plot_pen(cx + r, cy - i, pen);
-        plot_pen(cx - r, cy - i, pen);
-        plot_pen(cx - r, cy + i, pen);
-        plot_pen(cx + r, cy + i, pen);
-        d = (uint16_t)(d + 2 * i + 1);
-        i++;
-        if (!(d & 0x80)) {
-            d = (uint16_t)(d + 2 - 2 * r);
-            r--;
-        }
-        if (r < i)
-            break;
-    }
+    gmvDrawCircle(cx, cy, radius,
+                  [pen](int x, int y) { plot_pen(x, y, pen); });
 }
 
 // ---- Brush stamp (op12) ------------------------------------------------------

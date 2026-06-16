@@ -43,8 +43,9 @@
  */
 
 #include "graphics_magician_cga.h"
-#include "graphics_magician.h"  // Opcode enum
-#include "slow_draw_page.h"     // shared progressive-reveal helper
+#include "graphics_magician.h"         // Opcode enum
+#include "graphics_magician_vector.h"  // shared line/circle rasterizers
+#include "slow_draw_page.h"            // shared progressive-reveal helper
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -780,69 +781,20 @@ static void gmcga_flood_fill(int seed_x, int seed_y, uint8_t sel) {
 }
 
 // ---- Line drawing (op10 DRAW_LINE / op9 DRAW_BOX) ----------------------------
-
-// Major-axis Bresenham, ported from PicDrawLineBresenham (0x2c00): the longer
-// axis is stepped every pixel; the error term (initialised to minor - major)
-// decides when the minor axis advances.  This exact formulation matters because
-// the symmetric two-axis variant tie-breaks the other way on 45deg-ish lines,
-// shifting a line -- and therefore the fill bounded by it -- by one pixel.
+// Geometry lives in gmvDrawLine (shared with the PCjr renderer); here we bind it
+// to the 2-bpp pixel writer.
 static void draw_line(int x0, int y0, int x1, int y1, uint8_t pen_val) {
-    write_2bpp(x0, y0, pen_val);
-    const int dx = abs(x1 - x0), dy = abs(y1 - y0);
-    const int sx = (x0 < x1) ? 1 : -1;
-    const int sy = (y0 < y1) ? 1 : -1;
-    int x = x0, y = y0;
-    if (dx >= dy) {              // x is the major axis
-        int err = dy - dx;
-        for (int i = 0; i < dx; i++) {
-            x += sx;
-            if (err < 0) err += dy;
-            else { y += sy; err += dy - dx; }
-            write_2bpp(x, y, pen_val);
-        }
-    } else {                     // y is the major axis
-        int err = dx - dy;
-        for (int i = 0; i < dy; i++) {
-            y += sy;
-            if (err < 0) err += dx;
-            else { x += sx; err += dx - dy; }
-            write_2bpp(x, y, pen_val);
-        }
-    }
+    gmvDrawLine(x0, y0, x1, y1,
+                [pen_val](int x, int y) { write_2bpp(x, y, pen_val); });
 }
 
 // ---- Circle (op11 DRAW_CIRCLE) -----------------------------------------------
-//
-// Mechanical port of PicDrawCircleBresenham (0x2b10).  NOT the Apple
-// renderer's variant: here the error term starts at -r, the radius itself
-// shrinks as the arc closes, and -- a genuine quirk -- the "error went
-// non-negative" test is TEST [d],0x80, i.e. bit 7 of the 16-bit error word,
-// not its sign.  This rounds the diagonal steps one pixel wider than the
-// textbook midpoint circle (verified against a DOSBox VRAM trace of the
-// title's lamp-knob circle).
-
+// Geometry lives in gmvDrawCircle (shared with the PCjr renderer); bound to the
+// 2-bpp pixel writer.  (Verified against a DOSBox VRAM trace of the title's
+// lamp-knob circle.)
 static void draw_circle(int cx, int cy, int radius, uint8_t pen_val) {
-    uint16_t d = (uint16_t)(0 - radius);                 // [0xb1f2] = -r
-    int i = 0;                                           // [0xb1f0]
-    int r = radius;                                      // [0x9d39], mutated
-    for (;;) {
-        write_2bpp(cx - i, cy - r, pen_val);
-        write_2bpp(cx + i, cy - r, pen_val);
-        write_2bpp(cx + i, cy + r, pen_val);
-        write_2bpp(cx - i, cy + r, pen_val);
-        write_2bpp(cx + r, cy - i, pen_val);
-        write_2bpp(cx - r, cy - i, pen_val);
-        write_2bpp(cx - r, cy + i, pen_val);
-        write_2bpp(cx + r, cy + i, pen_val);
-        d = (uint16_t)(d + 2 * i + 1);                   // 2bae
-        i++;
-        if (!(d & 0x80)) {                               // 2bbd: TEST d,0x80
-            d = (uint16_t)(d + 2 - 2 * r);
-            r--;
-        }
-        if (r < i)                                       // 2be0: JL -> done
-            break;
-    }
+    gmvDrawCircle(cx, cy, radius,
+                  [pen_val](int x, int y) { write_2bpp(x, y, pen_val); });
 }
 
 // ---- Brush / glyph column blitter --------------------------------------------
