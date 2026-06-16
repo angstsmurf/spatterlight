@@ -387,7 +387,7 @@ NSString *fontToString(NSFont *font) {
         currentPanel = _belowView.subviews[0];
     }
 
-    defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]);
+    defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]));
 
     if (!_previewShown) {
         _previewHeightConstraint.constant = 0;
@@ -892,6 +892,8 @@ NSString *fontToString(NSFont *font) {
     BOOL shouldHideOnCompletion = (height == defaultWindowHeight);
 
     if (ceil(height) == ceil(oldheight)) {
+        if (shouldHideOnCompletion)
+            _previewController.view.hidden = YES;
         return;
     }
 
@@ -923,6 +925,8 @@ NSString *fontToString(NSFont *font) {
         _previewHeightConstraint.constant = newPrevHeightConstant;
         _previewController.textHeight.constant = newTextHeightConstant;
         [self.window setFrame:winrect display:YES];
+        if (shouldHideOnCompletion)
+            _previewController.view.hidden = YES;
     } else {
         [NSAnimationContext
          runAnimationGroup:^(NSAnimationContext *context) {
@@ -1151,7 +1155,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     if (restoredItem || previewHeightNumber) {
         currentPanel = itemIdentifierToViewDict[toolbarItemIdentifier];
-        defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]);
+        defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]));
         CGFloat blockHeight = defaultWindowHeight;
         [self switchToPanel:restoredItem resizePreview:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
@@ -2579,7 +2583,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     CGFloat currentPanelHeight = NSHeight(currentPanel.frame);
 
-    defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, currentPanelHeight)]);
+    defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, currentPanelHeight)]));
     self.window.minSize = NSMakeSize(kDefaultPrefWindowWidth, currentPanelHeight);
 
     NSWindow *window = self.window;
