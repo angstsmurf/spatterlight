@@ -69,7 +69,9 @@ void put_ch(char);
 void put_str(char *);
 void status_begin(void);
 void status_end(void);
-void draw_location_graphic(uchar loc);
+extern winid_t statuswin;		/* defined in unquill.c, used by illustrator.c */
+void draw_location_graphic(uchar loc);	/* illustrator.c */
+void pic_relayout(void);		/* illustrator.c */
 void do_pause(glui32 millisecs);
 #ifdef SPATTERLIGHT
 void win_beep_spectrum(int pitch, int duration);

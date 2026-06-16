@@ -315,6 +315,7 @@
 		966EFA3A09F62D0D00FA7F19 /* condact.c in Sources */ = {isa = PBXBuildFile; fileRef = 965036F609F29EE60083E64E /* condact.c */; };
 		966EFA3B09F62D0D00FA7F19 /* playgame.c in Sources */ = {isa = PBXBuildFile; fileRef = 965036F809F29EE60083E64E /* playgame.c */; };
 		966EFA3C09F62D0D00FA7F19 /* tables.c in Sources */ = {isa = PBXBuildFile; fileRef = 965036FA09F29EE60083E64E /* tables.c */; };
+		AA11US7B09F62D0D00FA7F19 /* illustrator.c in Sources */ = {isa = PBXBuildFile; fileRef = AA11US7A09F29EE60083E64E /* illustrator.c */; };
 		966EFA3D09F62D0D00FA7F19 /* unquill.c in Sources */ = {isa = PBXBuildFile; fileRef = 965036FB09F29EE60083E64E /* unquill.c */; };
 		966EFA4C09F62D7600FA7F19 /* unquill in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 9650381009F2A4430083E64E /* unquill */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		966EFA7809F635D400FA7F19 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 966EFA7709F635D400FA7F19 /* Defaults.plist */; };
@@ -2914,6 +2915,7 @@
 		965036F809F29EE60083E64E /* playgame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = playgame.c; sourceTree = "<group>"; };
 		965036F909F29EE60083E64E /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		965036FA09F29EE60083E64E /* tables.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tables.c; sourceTree = "<group>"; };
+		AA11US7A09F29EE60083E64E /* illustrator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = illustrator.c; sourceTree = "<group>"; };
 		965036FB09F29EE60083E64E /* unquill.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unquill.c; sourceTree = "<group>"; };
 		965036FC09F29EE60083E64E /* unquill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unquill.h; sourceTree = "<group>"; };
 		9650378509F2A2CE0083E64E /* scare */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = scare; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5844,6 +5846,7 @@
 				965036F609F29EE60083E64E /* condact.c */,
 				965036F809F29EE60083E64E /* playgame.c */,
 				965036FA09F29EE60083E64E /* tables.c */,
+				AA11US7A09F29EE60083E64E /* illustrator.c */,
 				965036FB09F29EE60083E64E /* unquill.c */,
 			);
 			path = unquill;
@@ -8367,6 +8370,7 @@
 				966EFA3A09F62D0D00FA7F19 /* condact.c in Sources */,
 				966EFA3B09F62D0D00FA7F19 /* playgame.c in Sources */,
 				966EFA3C09F62D0D00FA7F19 /* tables.c in Sources */,
+				AA11US7B09F62D0D00FA7F19 /* illustrator.c in Sources */,
 				966EFA3D09F62D0D00FA7F19 /* unquill.c in Sources */,
 				C3FACE0200000000DEAD0002 /* zx_title.c in Sources */,
 			);
