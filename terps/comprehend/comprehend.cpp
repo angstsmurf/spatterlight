@@ -260,6 +260,7 @@ void Comprehend::deserializeGameState(const std::vector<byte> &in) {
     Common::Serializer s(&mem, nullptr);
     _game->synchronizeSave(s);
     gmCMHourglassReset();  // undo jumps the sand back; snap, don't animate
+    _hourglassFallPending = false;
 }
 
 void Comprehend::pushUndo() {
@@ -606,10 +607,16 @@ void Comprehend::drawPicture(uint pictureNum) {
     // restamps the pile at the current level, so a lingering falling grain from
     // the previous turn would be drawn over stale geometry.
     if (_hourglassFalling) {
-        gmCMHourglassFallAbort();
+        if (_useDhgr)
+            gmDhgrCMHourglassFallAbort();
+        else
+            gmCMHourglassFallAbort();
         _hourglassFalling = false;
         updateTimerRequest();
     }
+    // A fall deferred behind the previous reveal is stale once a new picture is
+    // drawn (this picture re-arms its own); drop it so it can't fire late.
+    _hourglassFallPending = false;
 
     // All three Talisman renderers (Apple II hi-res, Apple II double hi-res and
     // DOS CGA) can reveal a picture progressively, the way the original painted
@@ -673,6 +680,10 @@ void Comprehend::tickSlowDraw() {
     }
     if (!more) {
         _slowDrawActive = false;
+        // The reveal that was holding back a move-turn grain fall has finished:
+        // start it now so the freed grain drops in over the freshly painted room.
+        if (_hourglassFallPending && !_hourglassFalling)
+            beginHourglassFall();
         updateTimerRequest();
     }
 }
@@ -694,11 +705,27 @@ void Comprehend::updateTimerRequest() {
 void Comprehend::maybeStartHourglassFall() {
     if (!gmCMHourglassConsumeFallArmed())
         return;
-    if (_hourglassFalling || _slowDrawActive)
+    if (_hourglassFalling)
         return;
     if (!_topWindow || !gli_slowdraw || gli_determinism)
         return;
-    gmCMHourglassFallBegin();
+    // A move repaints the room with a slow-draw reveal that owns the timer and
+    // redraws the panel band each frame; running the fall at the same time would
+    // fight it. Defer the fall until the reveal finishes (tickSlowDraw) so the
+    // grain still drops on a move, just after the new room has painted in.
+    if (_slowDrawActive) {
+        _hourglassFallPending = true;
+        return;
+    }
+    beginHourglassFall();
+}
+
+void Comprehend::beginHourglassFall() {
+    _hourglassFallPending = false;
+    if (_useDhgr)
+        gmDhgrCMHourglassFallBegin();
+    else
+        gmCMHourglassFallBegin();
     _hourglassFalling = true;
     _hgTickAccum = 0;
     updateTimerRequest();
@@ -712,15 +739,75 @@ void Comprehend::tickHourglass() {
     _hgTickAccum = 0;
 
     int y0, y1;
-    bool more = gmCMHourglassFallStep(&y0, &y1);
-    gmBlitToSurface((uint32 *)_drawSurface->getPixels(),
-                    _drawSurface->w, _drawSurface->h);
+    bool more;
+    if (_useDhgr) {
+        more = gmDhgrCMHourglassFallStep(&y0, &y1);
+        gmDhgrBlitToSurface((uint32 *)_drawSurface->getPixels(),
+                            _drawSurface->w, _drawSurface->h);
+    } else {
+        more = gmCMHourglassFallStep(&y0, &y1);
+        gmBlitToSurface((uint32 *)_drawSurface->getPixels(),
+                        _drawSurface->w, _drawSurface->h);
+    }
     blitSurfaceRowsToWindow(y0, y1);
 
     if (!more) {
         _hourglassFalling = false;
         updateTimerRequest();
     }
+}
+
+// Redraw The Coveted Mirror's hourglass panel for the current sand level without
+// repainting the room. update_graphics() only repaints when the room or its
+// items change, so on a turn where the player stays put nothing redrew the
+// draining sand -- the pile never visibly fell and the freed-grain animation was
+// never armed. The original interpreter's per-turn step (cm_per_turn_graphics_step
+// $42f8) updates the hourglass every turn regardless; this is the host-side
+// equivalent. Re-stamping the pile via gmDrawCMHourglass() arms the fall when the
+// level dropped by one (the normal per-turn drain), which the next readLine()
+// animates through maybeStartHourglassFall(). The caller skips this on full-
+// repaint turns, where drawPicture() already draws the hourglass (snapped).
+void Comprehend::refreshCMHourglass() {
+    if (!_topWindow || !_pics || !_drawSurface || !_graphicsEnabled)
+        return;
+    if (getGameID() != "covetedmirror")
+        return;
+
+    int sand = 0;
+    if (_game)
+        sand = _game->_variables[0x11];
+
+    // Snap any still-in-flight fall from the previous turn before re-stamping the
+    // pile, exactly as drawPicture() does, so a lingering grain isn't left drawn
+    // over the freshly stamped geometry.
+    if (_hourglassFalling) {
+        if (_useDhgr)
+            gmDhgrCMHourglassFallAbort();
+        else
+            gmCMHourglassFallAbort();
+        _hourglassFalling = false;
+        updateTimerRequest();
+    }
+
+    if (_useDhgr) {
+        if (!gmDhgrCMPanelValid())
+            return;
+        gmDhgrOverlayCMPanel();
+        gmDhgrDrawCMHourglass(sand);
+        gmDhgrBlitToSurface((uint32 *)_drawSurface->getPixels(),
+                            _drawSurface->w, _drawSurface->h);
+    } else {
+        if (!gmCMPanelValid())
+            return;
+        gmOverlayCMPanel();
+        gmDrawCMHourglass(sand);
+        gmBlitToSurface((uint32 *)_drawSurface->getPixels(),
+                        _drawSurface->w, _drawSurface->h);
+    }
+    // Only the panel columns changed on the surface (the room columns still hold
+    // the last-drawn room), so a full-height blit just repaints the room as-is
+    // plus the updated hourglass -- simplest and cheap enough for one turn.
+    blitSurfaceRowsToWindow(0, G_RENDER_HEIGHT - 1);
 }
 
 // Complete the slow-draw reveal instantly and sync _drawSurface to the final

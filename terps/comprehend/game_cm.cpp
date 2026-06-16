@@ -146,7 +146,19 @@ void CovetedMirrorGame::handleAction(Sentence *sentence) {
 // per turn, as the original does. (Scoped to CM: the other games override
 // beforeTurn with their own per-turn logic and their loops aren't RE-verified
 // here.)
+//
+// The daemon (run later, in the dispatch) drains one grain of sand per turn, but
+// the room picture -- which is what redraws the hourglass -- only repaints when
+// the room or its items change. So on a turn where the player stays put nothing
+// redrew the draining sand, and the freed-grain fall was never armed. Give the
+// hourglass its own per-turn refresh here, mirroring the original's per-turn
+// step. Skip it when a full room repaint is already queued for this turn (set by
+// last turn's move/item change): that path draws the hourglass itself and snaps,
+// as the original does on a room change. _updateFlags still holds last turn's
+// flags here -- update() consumes them moments later.
 void CovetedMirrorGame::beforeTurn() {
+	if (!(_updateFlags & (UPDATE_GRAPHICS | UPDATE_GRAPHICS_ITEMS)))
+		g_comprehend->refreshCMHourglass();
 }
 
 // The string banks have no restart-prompt text: on THE END (win, or the 15th

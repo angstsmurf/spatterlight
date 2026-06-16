@@ -106,6 +106,9 @@ bool gmCMHourglassGrainPos(uint8_t idx, uint16_t *outX, uint8_t *outY);
 // dirty row band and false when the last frame has cleared the grain).
 // gmCMHourglassFallAbort() snaps to the clean resting state; gmCMHourglassReset()
 // forgets the displayed level so the next draw snaps (after restore/undo/restart).
+// Arm the per-turn fall from the current sand level (shared by the standard and
+// DHGR hourglass draw paths). Sets the flag gmCMHourglassConsumeFallArmed() reads.
+void gmCMHourglassArm(int sand);
 void gmCMHourglassReset();
 bool gmCMHourglassConsumeFallArmed();
 void gmCMHourglassFallBegin();

@@ -598,6 +598,11 @@ void gmDhgrOverlayCMPanel() {
 void gmDhgrDrawCMHourglass(int sand) {
 	if (!s_cmPanelValid)
 		return;
+	if (sand < 0)
+		sand = 0;
+	// Arm the per-turn fall the same way the standard renderer does (shared state),
+	// so gmCMHourglassConsumeFallArmed() reports a single-grain drop in DHGR too.
+	gmCMHourglassArm(sand);
 	// White grains use the same SET_FILL_COLOR 0x34 the original paints them with.
 	// Stamp straight onto the final pages with op recording suppressed, so the
 	// grains are not deferred to the slow-draw reveal.
@@ -623,6 +628,93 @@ void gmDhgrDrawCMHourglass(int sand) {
 			s_slowMain[a] = s_main[a];
 		}
 	}
+}
+
+// --- The Coveted Mirror per-turn grain fall (double hi-res) -------------------
+// Double-hi-res counterpart of the standard fall (gmCMHourglassFall* in
+// graphics_magician.cpp). The resting pile is already stamped at the post-drop
+// level by gmDhgrDrawCMHourglass(); these paint the single freed grain travelling
+// down the neck, confined to the band [kDhgrBandTop,kDhgrBandBot] so the pile
+// above is never touched. Geometry matches the standard renderer exactly; the
+// grain x is doubled onto the 560-wide pages (draw_brush(x<<1,...)), the same way
+// gmDhgrDrawCMHourglass stamps the pile.
+static int s_dhgrCmFallFrame = -1;     // active fall frame (0..kDhgrFallFrames); -1 idle
+
+static const int kDhgrNeckTop   = 95;  // first plot y -> screen row ~102 (below waist)
+static const int kDhgrNeckStep  = 4;   // plot-y advance per frame
+static const int kDhgrFallFrames = 6;  // grain positions; one extra clear frame follows
+static const int kDhgrNeckX     = 245; // Apple x of the stream centre (doubled to 490)
+static const int kDhgrBandTop   = 100; // erase band: waist down to the mound top,
+static const int kDhgrBandBot   = 125; // clear of the resting pile (ends at row ~99)
+
+// Restore the saved static panel (no grains) for rows [y0,y1] onto both the final
+// and slow pages, wiping the previous frame's falling grain before the next.
+static void cmDhgrOverlayPanelBand(int y0, int y1) {
+	if (!s_cmPanelValid)
+		return;
+	if (y0 < 0)
+		y0 = 0;
+	if (y1 > DHGR_HEIGHT - 1)
+		y1 = DHGR_HEIGHT - 1;
+	for (int row = y0; row <= y1; row++) {
+		uint16_t base = CALC(row);
+		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
+			uint16_t a = (uint16_t)(base + col);
+			if (a >= A2_PAGE_SIZE) continue;
+			s_aux[a]  = s_slowAux[a]  = s_cmPanelAux[a];
+			s_main[a] = s_slowMain[a] = s_cmPanelMain[a];
+		}
+	}
+}
+
+void gmDhgrCMHourglassFallBegin() { s_dhgrCmFallFrame = 0; }
+bool gmDhgrCMHourglassFallActive() { return s_dhgrCmFallFrame >= 0; }
+
+// Render the current fall frame and advance. Sets *y0/*y1 to the dirty row band.
+// Returns true while more frames remain; the final frame paints no grain (just
+// restores the clean neck) so nothing lingers.
+bool gmDhgrCMHourglassFallStep(int *y0, int *y1) {
+	if (s_dhgrCmFallFrame < 0) {
+		*y0 = *y1 = 0;
+		return false;
+	}
+	cmDhgrOverlayPanelBand(kDhgrBandTop, kDhgrBandBot);
+	if (s_dhgrCmFallFrame < kDhgrFallFrames) {
+		bool savedRecord = s_slow.recording();
+		s_slow.setRecording(false);
+		set_fill_color(0x34);                 // white, as the pile grains
+		int gy = kDhgrNeckTop + s_dhgrCmFallFrame * kDhgrNeckStep;
+		if (gy > kDhgrBandBot)
+			gy = kDhgrBandBot;
+		draw_brush((uint16_t)(kDhgrNeckX << 1), (uint8_t)gy, 0);
+		s_slow.setRecording(savedRecord);
+		// Mirror the band's panel columns (with the grain) onto the slow pages so a
+		// blit reading either page shows it.
+		for (int row = kDhgrBandTop; row <= kDhgrBandBot; row++) {
+			uint16_t base = CALC(row);
+			for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
+				uint16_t a = (uint16_t)(base + col);
+				if (a >= A2_PAGE_SIZE) continue;
+				s_slowAux[a]  = s_aux[a];
+				s_slowMain[a] = s_main[a];
+			}
+		}
+	}
+	*y0 = kDhgrBandTop;
+	*y1 = kDhgrBandBot;
+
+	s_dhgrCmFallFrame++;
+	bool more = s_dhgrCmFallFrame <= kDhgrFallFrames;
+	if (!more)
+		s_dhgrCmFallFrame = -1;
+	return more;
+}
+
+void gmDhgrCMHourglassFallAbort() {
+	if (s_dhgrCmFallFrame < 0)
+		return;
+	cmDhgrOverlayPanelBand(kDhgrBandTop, kDhgrBandBot);
+	s_dhgrCmFallFrame = -1;
 }
 
 void gmDhgrResetScreen(bool white) {

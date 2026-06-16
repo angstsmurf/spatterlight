@@ -160,6 +160,15 @@ public:
     void drawLocationPicture(int pictureNum, bool clearBg = true);
     void drawItemPicture(int pictureNum);
     void clearScreen(bool isBright);
+    // Redraw just The Coveted Mirror's right-hand hourglass panel at the current
+    // sand level (VM variable 0x11), without touching the room picture, and arm
+    // the freed-grain fall. The room only repaints when it changes, so this gives
+    // the hourglass its own per-turn update -- the draining sand (and the grain
+    // fall) is then visible on turns where the player stays put, matching the
+    // original's per-turn hourglass step. A no-op outside CM / before the panel
+    // is built. Call only on turns with no full room repaint queued (that path
+    // draws the hourglass itself, snapping on the room change).
+    void refreshCMHourglass();
     // Paint a whole scene that replaces the screen (a background-clearing
     // location plus any item pictures layered on top). If the requested set of
     // pictures is identical to what is already composited, the reveal is skipped
@@ -236,6 +245,11 @@ private:
     // grain steps at a visible pace.
     bool _hourglassFalling = false;
     int _hgTickAccum = 0;
+    // Set when a grain fall is armed during a room reveal (a move): the reveal
+    // owns the timer and the panel band, so the fall is held until the reveal
+    // finishes (tickSlowDraw) and then started -- this is what makes the grain
+    // drop visible on move turns too, not only when the player stays put.
+    bool _hourglassFallPending = false;
 
     // Advance one timer tick of the background slow-draw reveal and blit the
     // changed rows. Cancels the timer and clears _slowDrawActive when done.
@@ -244,10 +258,13 @@ private:
     // its dirty band. Clears _hourglassFalling when the fall completes.
     void tickHourglass();
     // Start the grain-fall animation if gmDrawCMHourglass() flagged a single-grain
-    // drop this turn -- but only with the picture window open, slow-draw enabled,
-    // and no room reveal already running (the room paint-in owns the timer then,
-    // and the hourglass just snaps, as the original does on a room change).
+    // drop this turn -- with the picture window open and slow-draw enabled. If a
+    // room reveal is running (a move), defer it via _hourglassFallPending until
+    // the reveal finishes rather than dropping it, so the grain falls every turn.
     void maybeStartHourglassFall();
+    // Actually kick off the grain fall (shared by the immediate and deferred
+    // paths). Assumes the preconditions in maybeStartHourglassFall() are met.
+    void beginHourglassFall();
     // Request the Glk timer iff either background animation needs it.
     void updateTimerRequest();
     // Complete the slow-draw reveal immediately (called before starting a new

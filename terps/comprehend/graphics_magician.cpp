@@ -1018,14 +1018,15 @@ static void cmOverlayPanelBand(int y0, int y1) {
 	}
 }
 
-void gmDrawCMHourglass(int sand) {
+// Renderer-independent arm bookkeeping: track the displayed sand level so the
+// host can tell a per-turn single-grain drop (animate) from a snap (first draw,
+// bribe refill, catch, restore). A same-level repaint (item overlays redraw the
+// panel mid-turn) leaves the armed flag alone so a fall queued on the room repaint
+// survives. Shared by the standard gmDrawCMHourglass() and the DHGR
+// gmDhgrDrawCMHourglass() so the armed flag is set whichever renderer is active.
+void gmCMHourglassArm(int sand) {
 	if (sand < 0)
 		sand = 0;
-
-	// Track the displayed level so the host can tell a per-turn single-grain
-	// drop (animate) from a snap (first draw, bribe refill, catch, restore). A
-	// same-level repaint (item overlays redraw the panel mid-turn) leaves the
-	// armed flag alone so a fall queued on the room repaint survives.
 	int prev = s_cmDisplayedSand;
 	if (prev < 0)
 		s_cmFallArmed = false;            // first draw: snap
@@ -1034,6 +1035,13 @@ void gmDrawCMHourglass(int sand) {
 	else if (sand != prev)
 		s_cmFallArmed = false;            // big jump: snap
 	s_cmDisplayedSand = sand;
+}
+
+void gmDrawCMHourglass(int sand) {
+	if (sand < 0)
+		sand = 0;
+
+	gmCMHourglassArm(sand);
 
 	cm_stamp_hourglass_pile(sand);
 

@@ -72,6 +72,15 @@ void gmDhgrOverlayCMPanel();
 bool gmDhgrCMPanelValid();
 void gmDhgrDrawCMHourglass(int sand);
 
+// Double-hi-res counterpart of the standard per-turn grain fall
+// (gmCMHourglassFallBegin/Step/Abort in graphics_magician.h): animates the freed
+// grain down the neck on the aux+main pages. Arming is shared (gmCMHourglassArm /
+// gmCMHourglassConsumeFallArmed), so the host drives whichever renderer is active.
+void gmDhgrCMHourglassFallBegin();
+bool gmDhgrCMHourglassFallActive();
+bool gmDhgrCMHourglassFallStep(int *y0, int *y1);
+void gmDhgrCMHourglassFallAbort();
+
 // Diagnostic access to the raw main/aux pages (used by the regression test).
 const uint8_t *gmDhgrMainPtr();
 const uint8_t *gmDhgrAuxPtr();
