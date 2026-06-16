@@ -23,6 +23,7 @@
 #include "graphics_magician.h"
 #include "graphics_magician_cga.h"
 #include "graphics_magician_dhgr.h"
+#include "graphics_magician_pcjr.h"
 #include "comprehend_compat.h"
 #include "charset.h"
 #include <vector>
@@ -415,6 +416,24 @@ void Pics::ImageFile::renderGmcga(uint index) const {
 	gmcgaDrawImage(buf.data(), len);
 }
 
+void Pics::ImageFile::renderPcjr(uint index) const {
+	Common::File f;
+	if (!f.open(_filename))
+		error("Opening image file");
+
+	int64 start = _imageOffsets[index];
+	int64 fsize = f.size();
+	if (start < 0 || start >= fsize)
+		return;
+
+	size_t len = (size_t)(fsize - start);
+	std::vector<byte> buf(len);
+	f.seek(start);
+	f.read(buf.data(), (uint32)len);
+
+	gmpcjrDrawImage(buf.data(), len);
+}
+
 /*-------------------------------------------------------*/
 
 Pics::Pics() : _font(nullptr) {
@@ -469,6 +488,36 @@ Pics::Pics() : _font(nullptr) {
 								std::vector<byte> csBuf((size_t)csz);
 								if (cs.read(csBuf.data(), (uint32)csz) == (uint32)csz)
 									gmcgaSetV1Font(csBuf.data(), csBuf.size());
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// IBM PCjr / Tandy 16-colour mode (DOS v1 games, opt-in via #pcjr).
+		// The PCjr release ships JR_GRAPH.OVR alongside PC_GRAPH.OVR; its 4bpp
+		// drawing tables (pen colours, fill dithers, subindex) are installed
+		// here from the overlay + NOVEL.EXE brushes, in parallel with the CGA
+		// tables above. The renderer is selected per-picture by _usePcjr.
+		if (!exeBuf.empty()) {
+			Common::File jr;
+			if (jr.open("jr_graph.ovr") || jr.open("JR_GRAPH.OVR")) {
+				int64 jsz = jr.size();
+				if (jsz > 0) {
+					std::vector<byte> jrBuf((size_t)jsz);
+					if (jr.read(jrBuf.data(), (uint32)jsz) == (uint32)jsz &&
+						gmpcjrInstallDrawingTables(jrBuf.data(), jrBuf.size(),
+												   exeBuf.data(), exeBuf.size())) {
+						// As with the CGA v1 path, the in-picture font comes from
+						// CHARSET.GDA (the PCjr NOVEL.EXE has no embedded font).
+						Common::File cs;
+						if (cs.open("charset.gda") || cs.open("CHARSET.GDA")) {
+							int64 csz = cs.size();
+							if (csz > 0) {
+								std::vector<byte> csBuf((size_t)csz);
+								if (cs.read(csBuf.data(), (uint32)csz) == (uint32)csz)
+									gmpcjrSetFont(csBuf.data(), csBuf.size());
 							}
 						}
 					}
@@ -686,6 +735,38 @@ void Pics::drawPicture(int pictureNum) const {
 			gmBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
 		else
 			gmBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+		return;
+	}
+
+	// DOS v1 PCjr mode (Transylvania v1 / Crimson Crown), opt-in via #pcjr: route
+	// through the 16-colour PCjr renderer when its JR_GRAPH.OVR tables loaded.
+	// Same vector streams, image offsets and 280x160 surface as the CGA path, so
+	// the structure below mirrors it exactly -- only the rasteriser differs.
+	if (g_comprehend->_usePcjr && gmpcjrHaveDrawingTables()) {
+		DrawSurface *ds = ctx._drawSurface;
+
+		if (pictureNum == DARK_ROOM) {
+			gmpcjrResetScreen(false);
+		} else if (pictureNum == BRIGHT_ROOM) {
+			gmpcjrResetScreen(true);
+		} else if (pictureNum == TITLE_IMAGE) {
+			gmpcjrResetScreen(true);
+			if (_title.isLoaded())
+				_title.renderPcjr(0);
+		} else if (pictureNum >= ITEMS_OFFSET) {
+			int n = pictureNum - ITEMS_OFFSET;
+			_items[n / IMAGES_PER_FILE].renderPcjr(n % IMAGES_PER_FILE);
+		} else {
+			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
+				gmpcjrResetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
+			int n = pictureNum % 100;
+			_rooms[n / IMAGES_PER_FILE].renderPcjr(n % IMAGES_PER_FILE);
+		}
+
+		if (gmpcjrSlowDrawActive())
+			gmpcjrBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
+		else
+			gmpcjrBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
 		return;
 	}
 

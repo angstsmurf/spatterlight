@@ -839,6 +839,7 @@
 		C3A3F3012FDA410900FB7D3C /* graphics_magician.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3A3F3002FDA410900FB7D3C /* graphics_magician.cpp */; };
 		C3A3F4A62FDAACED00FB7D3C /* graphics_magician_cga.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3A3F4A52FDAACED00FB7D3C /* graphics_magician_cga.cpp */; };
 		C3DA60010000000000FB7D3C /* graphics_magician_dhgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DA60000000000000FB7D3C /* graphics_magician_dhgr.cpp */; };
+		C3DA60040000000000FB7D3C /* graphics_magician_pcjr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DA60030000000000FB7D3C /* graphics_magician_pcjr.cpp */; };
 		C3A72FDA2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
 		C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3027A676630032C068 /* c64decrunch.c */; };
 		C3A9FD3327A6E56C0032C068 /* scott_game_info.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scott_game_info.c */; };
@@ -3428,6 +3429,8 @@
 		C3A3F4A82FDAACF800FB7D3C /* graphics_magician_cga.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics_magician_cga.h; sourceTree = "<group>"; };
 		C3DA60000000000000FB7D3C /* graphics_magician_dhgr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_dhgr.cpp; sourceTree = "<group>"; };
 		C3DA60020000000000FB7D3C /* graphics_magician_dhgr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics_magician_dhgr.h; sourceTree = "<group>"; };
+		C3DA60030000000000FB7D3C /* graphics_magician_pcjr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_pcjr.cpp; sourceTree = "<group>"; };
+		C3DA60050000000000FB7D3C /* graphics_magician_pcjr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics_magician_pcjr.h; sourceTree = "<group>"; };
 		C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 15.xcdatamodel"; sourceTree = "<group>"; };
 		C3A72FD82E8281FA00A840EC /* IfidToHashMigrationPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfidToHashMigrationPolicy.h; sourceTree = "<group>"; };
 		C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfidToHashMigrationPolicy.m; sourceTree = "<group>"; };
@@ -6091,6 +6094,8 @@
 				C3A3F4A52FDAACED00FB7D3C /* graphics_magician_cga.cpp */,
 				C3DA60020000000000FB7D3C /* graphics_magician_dhgr.h */,
 				C3DA60000000000000FB7D3C /* graphics_magician_dhgr.cpp */,
+				C3DA60050000000000FB7D3C /* graphics_magician_pcjr.h */,
+				C3DA60030000000000FB7D3C /* graphics_magician_pcjr.cpp */,
 				C314D80A2FD6D1BA00EABA28 /* Makefile */,
 				C314D80B2FD6D1BA00EABA28 /* pics.h */,
 				C314D80C2FD6D1BA00EABA28 /* pics.cpp */,
@@ -8817,6 +8822,7 @@
 				C314D81D2FD6D2F100EABA28 /* comprehend_compat.cpp in Sources */,
 				C3A3F4A62FDAACED00FB7D3C /* graphics_magician_cga.cpp in Sources */,
 				C3DA60010000000000FB7D3C /* graphics_magician_dhgr.cpp in Sources */,
+				C3DA60040000000000FB7D3C /* graphics_magician_pcjr.cpp in Sources */,
 				C314D81E2FD6D2F100EABA28 /* dictionary.cpp in Sources */,
 				C314D81F2FD6D2F100EABA28 /* draw_surface.cpp in Sources */,
 				C314D8202FD6D2F100EABA28 /* file_buf.cpp in Sources */,

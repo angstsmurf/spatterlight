@@ -28,6 +28,7 @@
 #include "game_data.h"
 #include "pics.h"
 #include "graphics_magician_dhgr.h"
+#include "graphics_magician_pcjr.h"
 
 namespace Glk {
 namespace Comprehend {
@@ -1090,6 +1091,33 @@ turn:
 			g_comprehend->setDhgrMode(on);
 			g_comprehend->print(on ? "Double hi-res graphics on.\n"
 			                       : "Standard hi-res graphics on.\n");
+			_updateFlags = (uint)UPDATE_GRAPHICS;
+			update();
+			continue;
+		}
+
+		// #pcjr [on|off]: toggle the IBM PCjr 16-colour renderer for the DOS v1
+		// games (Transylvania v1 / Crimson Crown), mirroring the original
+		// NOVEL.EXE's PCjr branch (BIOS mode 9). Available only when the
+		// JR_GRAPH.OVR drawing tables loaded; reports unavailable otherwise.
+		if (scumm_strnicmp(_inputLine, "#pcjr", 5) == 0 &&
+			(_inputLine[5] == '\0' || _inputLine[5] == ' ')) {
+			if (!gmpcjrHaveDrawingTables()) {
+				g_comprehend->print("PCjr graphics are not available for this game.\n");
+				continue;
+			}
+			const char *arg = _inputLine + 5;
+			while (*arg == ' ') ++arg;
+			bool on;
+			if (scumm_stricmp(arg, "on") == 0)
+				on = true;
+			else if (scumm_stricmp(arg, "off") == 0 || scumm_stricmp(arg, "cga") == 0)
+				on = false;
+			else
+				on = !g_comprehend->pcjrMode();
+			g_comprehend->setPcjrMode(on);
+			g_comprehend->print(on ? "PCjr 16-colour graphics on.\n"
+			                       : "CGA graphics on.\n");
 			_updateFlags = (uint)UPDATE_GRAPHICS;
 			update();
 			continue;

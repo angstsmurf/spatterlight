@@ -26,6 +26,7 @@ CXX_SRCS := \
     graphics_magician.cpp \
     graphics_magician_cga.cpp \
     graphics_magician_dhgr.cpp \
+    graphics_magician_pcjr.cpp \
     charset.cpp \
     comprehend.cpp \
     comprehend_compat.cpp \
@@ -139,6 +140,13 @@ test/gmcgatest: test/gmcgatest.cpp graphics_magician_cga.cpp graphics_magician_c
 #   ./test/gmcgav1test PC_GRAPH.OVR NOVEL.EXE RA.MS1 0 out.ppm [golden.fb]
 test/gmcgav1test: test/gmcgav1test.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/gmcgav1test.cpp graphics_magician_cga.cpp
+
+# Developer tool: render one PCjr 16-colour picture from a .MS1 file, loading the
+# JR_GRAPH.OVR tables + NOVEL.EXE brushes; writes a 280x160 PPM. Self-contained:
+# graphics_magician_pcjr.cpp has no Glk/disk dependencies.
+#   ./test/gmpcjr/pcjrtest <gamedir> RA.MS1 0 out.ppm   (index -1 = title file)
+test/gmpcjr/pcjrtest: test/gmpcjr/pcjrtest.cpp graphics_magician_pcjr.cpp graphics_magician_pcjr.h graphics_magician.h
+	$(CXX) -std=c++17 -O0 -g -Wall -I. -o $@ test/gmpcjr/pcjrtest.cpp graphics_magician_pcjr.cpp
 
 # Developer tool: re-render every committed DOS Talisman fixture and report, per
 # scene, the rendered->golden colour-transition histogram, per-row diff bands, a

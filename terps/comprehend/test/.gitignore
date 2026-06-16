@@ -10,6 +10,7 @@ cmextract
 op5scan
 gmcgatest
 gmcgav1test
+gmpcjr/pcjrtest
 gmcgav1/trace_crypt
 *.dSYM/
 *.ppm

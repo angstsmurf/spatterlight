@@ -4,6 +4,7 @@
 #include "graphics_magician.h"
 #include "graphics_magician_cga.h"
 #include "graphics_magician_dhgr.h"
+#include "graphics_magician_pcjr.h"
 #include "draw_surface.h"
 #include "game.h"
 #include "game_cc.h"
@@ -623,6 +624,7 @@ void Comprehend::drawPicture(uint pictureNum) {
     gmSetSlowDraw(slow);
     gmcgaSetSlowDraw(slow);
     gmDhgrSetSlowDraw(slow);
+    gmpcjrSetSlowDraw(slow);
 
     // Render through the Pics opcode interpreter into the pixel buffer,
     // then blit the initial (blank or reset) state to the Glk window.
@@ -633,7 +635,8 @@ void Comprehend::drawPicture(uint pictureNum) {
     // input loops (readLine / readChar) advance it tick by tick in the
     // background. The game proceeds immediately: room description is shown
     // and the prompt appears while the picture is still being revealed.
-    if (gmcgaSlowDrawActive() || gmSlowDrawActive() || gmDhgrSlowDrawActive()) {
+    if (gmcgaSlowDrawActive() || gmSlowDrawActive() || gmDhgrSlowDrawActive() ||
+        gmpcjrSlowDrawActive()) {
         glk_request_timer_events(GM_SLOW_TICK_MS);
         _slowDrawActive = true;
     }
@@ -654,6 +657,12 @@ void Comprehend::tickSlowDraw() {
         gmcgaBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
                               _drawSurface->w, _drawSurface->h);
         if (gmcgaSlowConsumeDirty(&y0, &y1))
+            blitSurfaceRowsToWindow(y0, y1);
+    } else if (gmpcjrSlowDrawActive()) {
+        more = gmpcjrAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
+        gmpcjrBlitSlowToSurface((uint32 *)_drawSurface->getPixels(),
+                                _drawSurface->w, _drawSurface->h);
+        if (gmpcjrSlowConsumeDirty(&y0, &y1))
             blitSurfaceRowsToWindow(y0, y1);
     } else {
         more = gmAdvanceSlowDraw(GM_SLOW_BYTES_PER_TICK);
@@ -728,6 +737,10 @@ void Comprehend::finishSlowDraw() {
         gmcgaFinishSlowDraw();
         gmcgaBlitToSurface((uint32 *)_drawSurface->getPixels(),
                           _drawSurface->w, _drawSurface->h);
+    } else if (gmpcjrSlowDrawActive()) {
+        gmpcjrFinishSlowDraw();
+        gmpcjrBlitToSurface((uint32 *)_drawSurface->getPixels(),
+                            _drawSurface->w, _drawSurface->h);
     } else {
         gmFinishSlowDraw();
         gmBlitToSurface((uint32 *)_drawSurface->getPixels(),
@@ -868,6 +881,16 @@ void Comprehend::setDhgrMode(bool on) {
         recomputeGraphicsScale();
         glk_window_clear(_topWindow);
     }
+}
+
+void Comprehend::setPcjrMode(bool on) {
+    if (on == _usePcjr)
+        return;
+    _usePcjr = on;
+    // Same 280x160 logical surface as the CGA renderer, so no resize is needed;
+    // just clear the window so the toggle/picture code repaints in the new mode.
+    if (_topWindow)
+        glk_window_clear(_topWindow);
 }
 
 void Comprehend::blitSurfaceToWindow() {

@@ -90,6 +90,12 @@ public:
     // wide and the DHGR renderer is used; otherwise standard 280-wide hi-res.
     bool _useDhgr = false;
 
+    // IBM PCjr / Tandy 16-colour mode. When true (and the JR_GRAPH.OVR drawing
+    // tables loaded) DOS v1 pictures route through graphics_magician_pcjr.cpp
+    // (BIOS mode 9, 320x200x16) instead of the 4-colour CGA renderer, mirroring
+    // the original NOVEL.EXE's PCjr branch. Opt-in via the #pcjr command.
+    bool _usePcjr = false;
+
 public:
     Comprehend();
     ~Comprehend();
@@ -170,6 +176,11 @@ public:
     // 280-wide hi-res. Resizes the surface and repaints the current picture.
     void setDhgrMode(bool on);
     bool dhgrMode() const { return _useDhgr; }
+    // IBM PCjr 16-colour mode (DOS v1 games). on==true routes pictures through
+    // the PCjr renderer (graphics_magician_pcjr.cpp); on==false restores the
+    // 4-colour CGA renderer. Repaints the current picture.
+    void setPcjrMode(bool on);
+    bool pcjrMode() const { return _usePcjr; }
     // Horizontal width (in window pixels) of one render column: full _pixelSize
     // for standard hi-res, half for the 560-wide DHGR surface so the picture
     // keeps the same physical size/aspect.

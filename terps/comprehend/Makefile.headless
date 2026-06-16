@@ -39,6 +39,7 @@ CXX_SRCS := \
     graphics_magician.cpp \
     graphics_magician_cga.cpp \
     graphics_magician_dhgr.cpp \
+    graphics_magician_pcjr.cpp \
     charset.cpp \
     comprehend.cpp \
     comprehend_compat.cpp \

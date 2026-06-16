@@ -114,6 +114,11 @@ private:
 		// DOS Talisman Hercules only: decode image `index`'s vector stream onto
 		// the 2-bpp logical framebuffer managed by graphics_magician_cga.cpp.
 		void renderGmcga(uint index) const;
+
+		// DOS PCjr 16-colour mode: decode image `index`'s vector stream onto the
+		// 4bpp mode-9 framebuffer managed by graphics_magician_pcjr.cpp. Same
+		// vector stream / offset as renderGmcga(); only the rasteriser differs.
+		void renderPcjr(uint index) const;
 	};
 
 private:
