@@ -1227,8 +1227,20 @@ static std::vector<Patch> v6_patches = {
     // 2. Zork Zero only allows the compass to be clicked for certain
     // machine types (interpreter numbers). But the mouse works under
     // Glk regardless (if the Glk implementation supports mouse clicks).
-    // This bypasses the mouse check, allowing the compass rose to be
-    // clicked no matter which interpreter number is selected.
+    // This bypasses the machine-type check, allowing the compass rose
+    // to be clicked no matter which interpreter number is selected.
+    //
+    // Only release 296 actually needs this: its native check accepts
+    // the Macintosh interpreter (number 3) only, so the default
+    // (Amiga) is rejected. From release 343 onwards the game accepts
+    // Macintosh, Amiga, MS-DOS and Apple natively, and Spatterlight
+    // always clamps the V6 interpreter number into that set via
+    // v6_switch_to_allowed_interpreter_number() (see zterp.cpp), so the
+    // compass works without any patch. The compass replacements for
+    // 366/383/393 were therefore no-ops and have been dropped; only the
+    // Fanucci replacement remains for those. If that clamping is ever
+    // relaxed to allow a non-accepted interpreter number through, those
+    // builds would need the bypass restored.
     {
         "Zork Zero", "881019", 296, 0x8c61,
         {
@@ -1245,9 +1257,6 @@ static std::vector<Patch> v6_patches = {
         {
             // Fanucci.
             { 0x2964c, 3, {0xef, 0xaf, 0x02}, {0x8c, 0x00, 0x3e} },
-
-            // Compass rose.
-            { 0x1baee, 3, {0xa0, 0x00, 0xce}, {0xb4, 0xb4, 0xb4} },
         },
     },
 
@@ -1256,9 +1265,6 @@ static std::vector<Patch> v6_patches = {
         {
             // Fanucci.
             { 0x29e87, 3, {0xef, 0xaf, 0x03}, {0x8c, 0x00, 0x3e} },
-
-            // Compass rose.
-            { 0x1bfa1, 3, {0xa0, 0x00, 0xce}, {0xb4, 0xb4, 0xb4} },
         },
     },
 
@@ -1267,9 +1273,6 @@ static std::vector<Patch> v6_patches = {
         {
             // Fanucci.
             { 0x2a127, 3, {0xef, 0xaf, 0x03}, {0x8c, 0x00, 0x3e} },
-
-            // Compass rose.
-            { 0x1c20d, 3, {0xa0, 0x00, 0xce}, {0xb4, 0xb4, 0xb4} },
         },
     },
 #endif
