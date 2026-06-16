@@ -382,6 +382,19 @@ void glk_main(void)
     GeasRunner *gr = GeasRunner::get_runner(new GeasGlkInterface());
     gr->set_game(storyfilename);
     banner = gr->get_banner();
+
+    /* Tell the host UI the game's title.  get_banner() returns
+     * "<name>, v<version> | <author>"; pass just the leading name part. */
+    std::string title = banner;
+    std::string::size_type cut = title.find(", v");
+    std::string::size_type bar = title.find(" | ");
+    if (bar != std::string::npos && (cut == std::string::npos || bar < cut))
+        cut = bar;
+    if (cut != std::string::npos)
+        title.erase(cut);
+    if (!title.empty())
+        garglk_set_story_title(title.c_str());
+
     draw_banner();
     update_objwin(gr);
 
