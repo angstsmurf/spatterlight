@@ -325,7 +325,15 @@
         if (event.type == NSEventTypeLeftMouseUp) {
             *stop = YES;
             if (mouseTime.timeIntervalSinceNow > -0.5) {
-                if (mouse_request && theEvent.clickCount == 1) {
+                // Forward every click, not just clickCount == 1. macOS
+                // coalesces two quick clicks at the same spot into a
+                // double-click and reports clickCount == 2 on the second
+                // press; filtering on == 1 silently dropped it, so rapid
+                // same-target clicks (e.g. navigating the Zork Zero compass
+                // rose) were randomly lost. The interpreter classifies
+                // single vs. double clicks itself from event timing, so we
+                // just deliver each click.
+                if (mouse_request) {
                     [self.glkctl markLastSeen];
                     location.y = self.frame.size.height - location.y;
                     GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:location forWindow:self.name];
