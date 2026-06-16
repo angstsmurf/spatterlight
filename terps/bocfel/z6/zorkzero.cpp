@@ -796,6 +796,8 @@ void z0_display_hint_border(void) {
 }
 
 
+static void z0_refresh_sl_loc_tbl(void);
+
 // Z-machine entry point: updates the full status line display.
 // Resizes status windows, prints room name and move count in the left
 // window, draws the compass rose (when borders are on), and prints
@@ -825,6 +827,17 @@ void z0_UPDATE_STATUS_LINE(void) {
     print_number(get_global(zg.MOVES));
 
     if (BORDER_ON) {
+            // Keep SL-LOC-TBL's compass metrics in sync with the *current* image
+            // scale before drawing (and therefore before the next click reads the
+            // table for hit-testing). r383/r387 fill these only once in Main and
+            // never re-derive them on a normal turn, so after the intro->game
+            // transition -- or any scale change that didn't go through an arrange
+            // event -- the table is left at a stale scale and the compass rose is
+            // both drawn and hit-tested in the wrong place (the reported r383
+            // west->south / dead-arrow bug). Refreshing here makes draw and
+            // hit-test always agree at the live scale. Harmless on the later
+            // releases, whose SETUP-SCREEN already refills the table.
+            z0_refresh_sl_loc_tbl();
 //        if (COMPASS_CHANGED) {
             if (zr.DRAW_NEW_COMP != 0) {
                 internal_call(pack_routine(zr.DRAW_NEW_COMP));
@@ -2530,13 +2543,21 @@ static void z0_refresh_sl_loc_tbl(void) {
     if (zt.SL_LOC_TBL == 0)
         return;
 
+    // NB: the ICON entry (word offset 20, i.e. word[10]) is deliberately NOT
+    // refreshed. It is not a scalable dimension: the compass hit-test reads
+    // word[10] as a *flag* (routine 0x14318) to choose between the angle-based
+    // classifier 0x1c17c (when 0) and the Macintosh fixed-rectangle classifier
+    // 0x1bfec (when non-zero). 0x1c17c adapts to the picture size and scale and
+    // is the one that matches our scaled graphics; 0x1bfec's hard-coded native
+    // pixel rects do not, so they misfire at scale > 1 (north read as east,
+    // etc.). ICON's image size is (0,0), so the old generic dim*scale+1 rewrite
+    // turned the flag into 1 and forced the broken path. Leave it untouched.
     static const struct { int picnum; int byte_offset; } entries[] = {
         { HERE_LOC,        0  },
         { REGION_LOC,      4  },
         { COMPASS_PIC_LOC, 8  },
         { U_BOX_LOC,       12 },
         { D_BOX_LOC,       16 },
-        { ICON_OFFSET,     20 },
     };
 
     for (const auto &e : entries) {
