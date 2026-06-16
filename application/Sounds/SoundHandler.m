@@ -208,6 +208,10 @@
  * queued BEEP should start. Used to chain a tune's notes back-to-back without
  * blocking the interpreter. */
 @property (nonatomic) NSTimeInterval nextBeepTime;
+/* A short silent sound played at game launch to warm up the CoreAudio output
+ * device ahead of the first real tone, held strongly while it plays. See
+ * primeBeepAudio. */
+@property (strong, nullable) NSSound *beepPrimeSound;
 @end
 
 @implementation SoundHandler
@@ -546,6 +550,50 @@
                 [sound play];
         });
     }
+}
+
+/* Warm up the CoreAudio output device ahead of the first real BEEP.
+ *
+ * The first NSSound played in an app session has to spin up the output device,
+ * and that warm-up latency (longer than a couple of hundred ms) clips the onset
+ * of whatever plays first — for a Quill game that is the very first note of the
+ * intro tune, so it comes out garbled. Once the device has been used it stays
+ * warm for the rest of the process lifetime, which is why closing the game and
+ * relaunching it sounds fine. We reproduce that here by playing a short silent
+ * sound when the game launches: the device warms up during the game's boot and
+ * intro text, well before the tune, so the first note plays on a warm device.
+ *
+ * Called from -[GlkController runTerp...]; harmless for games that never beep. */
+- (void)primeBeepAudio {
+    if (self.beepPrimeSound)
+        return;
+
+    const uint32_t sampleRate = 44100;
+    const uint32_t millisecs = 300;
+    uint32_t nSamples = sampleRate * millisecs / 1000;
+    uint32_t dataBytes = nSamples * sizeof(int16_t);
+
+    NSMutableData *wav = [NSMutableData dataWithLength:44 + dataBytes];
+    uint8_t *p = wav.mutableBytes;
+
+    uint32_t riffSize = 36 + dataBytes, fmtSize = 16, byteRate = sampleRate * 2;
+    uint16_t pcm = 1, channels = 1, blockAlign = 2, bits = 16;
+    memcpy(p,      "RIFF", 4);  memcpy(p + 4,  &riffSize, 4);
+    memcpy(p + 8,  "WAVE", 4);  memcpy(p + 12, "fmt ", 4);
+    memcpy(p + 16, &fmtSize, 4);
+    memcpy(p + 20, &pcm, 2);    memcpy(p + 22, &channels, 2);
+    memcpy(p + 24, &sampleRate, 4);
+    memcpy(p + 28, &byteRate, 4);
+    memcpy(p + 32, &blockAlign, 2);
+    memcpy(p + 34, &bits, 2);
+    memcpy(p + 36, "data", 4);  memcpy(p + 40, &dataBytes, 4);
+    /* sample data left as zeroes: silence */
+
+    NSSound *sound = [[NSSound alloc] initWithData:wav];
+    if (!sound)
+        return;
+    self.beepPrimeSound = sound;
+    [sound play];
 }
 
 - (void)sound:(NSSound *)sound didFinishPlaying:(BOOL)finished {

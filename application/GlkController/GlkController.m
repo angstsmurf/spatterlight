@@ -201,6 +201,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     // for the game session. These are created fresh on each run.
     _soundHandler = [SoundHandler new];
     _soundHandler.glkctl = self;
+    // Warm up the audio output device now, while the game is still booting, so
+    // the first synthesised ZX Spectrum BEEP (e.g. a Quill game's intro tune)
+    // plays on an already-running device instead of being clipped by CoreAudio
+    // cold-start latency.
+    [_soundHandler primeBeepAudio];
     _imageHandler = [ImageHandler new];
     _infocomV6MenuHandler = nil;
 
