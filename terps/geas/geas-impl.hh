@@ -172,6 +172,12 @@ public:
      `properties <key=...>`; returns true if either existed.  Captures the
      action-then-property idiom the look/examine/read/remove handlers share. */
   bool dispatch_obj_verb (const std::string &obj, const std::string &key);
+  /* Collect, in display order and de-duplicated, the verbs that mean something
+     for this object: the universal engine verbs, the built-in multi-synonym
+     verbs it responds to, its own `action <verb>` definitions, and any global
+     `verb` declaration it handles.  Backs the "verbs <object>" command, which
+     mirrors Quest 4's right-click verb context menu. */
+  std::vector<std::string> object_verbs (const std::string &obj) const;
   std::string exit_dest (const std::string &room, const std::string &dir, bool *is_act = NULL) const;
   /* Quest locked exits ("<dir> locked <dest; lockmessage>", plus lock/unlock
    * commands).  exit_lock_message returns the declared message (or "").  An

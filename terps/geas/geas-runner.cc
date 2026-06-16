@@ -362,6 +362,110 @@ bool geas_implementation::dispatch_obj_verb (const string &obj, const string &ke
   return false;
 }
 
+vector<string> geas_implementation::object_verbs (const string &obj) const
+{
+  vector<string> out;
+  /* Capitalise the first letter so a stored key ("destroy", "listen to")
+     reads as a menu label ("Destroy", "Listen to"), matching Quest. */
+  auto label_of = [] (const string &s) {
+    string t = trim (s);
+    if (!t.empty ()) t[0] = std::toupper ((unsigned char) t[0]);
+    return t;
+  };
+  auto add = [&] (const string &label) {
+    string t = trim (label);
+    if (t == "")
+      return;
+    for (const string &e: out)
+      if (ci_equal (e, t))
+	return;
+    out.push_back (t);
+  };
+  /* Does the object define its own handler (action or property) for this key? */
+  auto responds = [&] (const string &key) {
+    string s;
+    return get_obj_action (obj, key, s) || get_obj_property (obj, key, s);
+  };
+
+  /* Universal verbs the engine always handles for any object in scope. */
+  add ("Look at");
+  add ("Examine");
+  add (is_held (obj) ? "Drop" : "Take");
+  if (responds ("speak")) add ("Speak to");
+  if (responds ("use"))   add ("Use");
+  if (responds ("read"))  add ("Read");
+
+  /* Built-in multi-synonym verbs (the dispatch table in run_commands): list one
+     when the object defines a matching action/property.  The container verbs
+     also apply to any container/surface, as the engine handles those itself. */
+  static const struct { const char *key; const char *label; } builtin[] = {
+    { "open", "Open" },       { "close", "Close" },   { "move", "Move" },
+    { "eat", "Eat" },         { "drink", "Drink" },   { "smell", "Smell" },
+    { "touch", "Touch" },     { "listen to", "Listen to" },
+    { "look under", "Look under" }, { "look in", "Look in" },
+    { "sit on", "Sit on" },   { "hit", "Hit" },       { "kiss", "Kiss" },
+    { "burn", "Burn" },       { "kill", "Kill" },     { "wear", "Wear" },
+    { "turn on", "Turn on" }, { "turn off", "Turn off" },
+  };
+  for (const auto &v: builtin)
+    if (responds (v.key))
+      add (v.label);
+  if (has_obj_property (obj, "container") || has_obj_property (obj, "surface"))
+    { add ("Open"); add ("Close"); add ("Look in"); }
+
+  /* The object's own explicit `action <verb>` definitions carry custom verbs
+     the tables above don't know about.  Skip the engine-internal action keys
+     that are never player-typed menu verbs. */
+  auto is_skipped = [] (const string &key) {
+    static const char *skip[] = { "gain", "lose", "description", "script" };
+    for (const char *s: skip)
+      if (ci_equal (key, s))
+	return true;
+    return false;
+  };
+  const GeasBlock *ob = gf.find_by_name ("object", obj);
+  if (ob != NULL)
+    for (const string &line: ob->data)
+      {
+	std::string::size_type c1, c2;
+	if (first_token (line, c1, c2) != "action")
+	  continue;
+	string nm = next_token (line, c1, c2);
+	if (!is_param (nm))
+	  continue;
+	for (const string &v: split_param (param_contents (nm)))
+	  if (!is_skipped (trim (v)))
+	    add (label_of (v));
+      }
+
+  /* Global `verb <name[;syn]> ...` declarations the object responds to. */
+  const GeasBlock *game = gf.find_by_name ("game", "game");
+  if (game != NULL)
+    for (const string &line: game->data)
+      {
+	std::string::size_type d1, d2;
+	string tok = first_token (line, d1, d2);
+	if (tok == "lib")                       /* optional library-verb prefix */
+	  tok = next_token (line, d1, d2);
+	string names_tok;
+	if (tok == "verb")
+	  names_tok = next_token (line, d1, d2);
+	else if (is_param (tok))                /* bare "<name> <script>" form */
+	  names_tok = tok;
+	else
+	  continue;
+	if (!is_param (names_tok))
+	  continue;
+	vector<string> names = split_param (param_contents (names_tok));
+	if (names.empty () || trim (names[0]) == "")
+	  continue;
+	if (responds (trim (names[0])))
+	  add (label_of (names[0]));
+      }
+
+  return out;
+}
+
 bool geas_implementation::get_obj_property(const string &obj, const string &prop,
 					   string &string_rv) const
 {
@@ -2765,6 +2869,26 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
   if (ci_equal (cmd, "wait"))
     {
       display_error ("defaultwait");
+      return true;
+    }
+
+  /* "verbs <object>" -- list the verbs available for an object, mirroring the
+   * right-click verb context menu in the original Windows Quest 4.  ASL4 has no
+   * single per-object verb list, so object_verbs() synthesises one from the
+   * sources the engine actually dispatches through: the universal verbs, the
+   * built-in multi-synonym verbs the object responds to, its own action
+   * definitions, and any global `verb` declaration it handles. */
+  if ((match = match_command (cmd, "verbs #@object#")))
+    {
+      if (!dereference_vars (match.bindings, is_internal))
+	return true;
+      vector<string> verbs = object_verbs (match.bindings[0].var_text);
+      print_formatted ("You can:");
+      for (const string &v: verbs)
+	{
+	  print_normal (v);
+	  print_newline();
+	}
       return true;
     }
 
