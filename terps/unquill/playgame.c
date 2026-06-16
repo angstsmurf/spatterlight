@@ -177,6 +177,27 @@ static uchar is_script_command(const char *line)
 	return (*rest == '\0');
 }
 
+/* True if the player's line is the interpreter "#restore" meta-command, a
+ * synonym for the game's own LOAD verb. Same surface syntax as the commands
+ * above: leading/trailing whitespace ignored, case-insensitive, and the '#'
+ * prefix is required during play so it can never clash with a game's
+ * vocabulary. */
+static uchar is_restore_command(const char *line)
+{
+	const char *rest;
+
+	while (*line == ' ' || *line == '\t') line++;
+	if (*line != '#') return 0;
+	line++;
+
+	if (!(rest = match_word(line, "restore")))
+		return 0;
+
+	while (*rest == ' ' || *rest == '\t'
+	|| *rest == '\r' || *rest == '\n') rest++;
+	return (*rest == '\0');
+}
+
 /* Discard the entire undo history. Called when a genuinely new game begins (a
  * first launch, a "play again" after the end, or a game-driven RESTART) so
  * that undo never reaches back into a previous life. The undo-after-death
@@ -483,6 +504,16 @@ void playgame(ushort zxptr)
 			if (is_script_command(linebuf))
 			{
 				script_toggle();
+				continue;
+			}
+
+			/* "#restore" is a synonym for the game's LOAD verb: it
+			 * restores a saved state and redescribes the location,
+			 * and like LOAD it does not count as a turn. */
+			if (is_restore_command(linebuf))
+			{
+				loadgame();
+				desc = 1;
 				continue;
 			}
 
