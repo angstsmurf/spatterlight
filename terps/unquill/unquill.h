@@ -98,6 +98,13 @@ char yesno(void);
 void savegame(void);
 void loadgame(void);
 
+/* End-of-game prompt outcomes (playgame.c) */
+#define END_QUIT  0	/* stop playing */
+#define END_AGAIN 1	/* start a new game */
+#define END_UNDO  2	/* undo the fatal move and resume the same game */
+int end_game_prompt(void);
+void undo_reset(void);
+
 void inform_src(ushort);
 void zcode_binary(void);
 

@@ -967,8 +967,10 @@ void glk_main(void)
     else
         srand(1234);
 	oopt  = 'T';        /* Outputs in plain text */
+	undo_reset();	/* a brand-new game has no undo history */
 	initgame(zxptr); /* Initialise the game */
-	playgame(zxptr); /* Play it */ 
+resume:
+	playgame(zxptr); /* Play it */
 	if (estop)
 	{
 	    estop=0;	/* Emergency stop operation, game restarts */
@@ -976,10 +978,21 @@ void glk_main(void)
 	}
 	sysmess(13);
 	opch32('\n');
-	if (yesno()=='N')
+	/* The game's "would you like to play again?" message is the first prompt
+	 * after death; besides yes/no it also accepts "#undo", which rolls back
+	 * to the move before the game ended and resumes the same game without
+	 * re-initialising (and so without replaying any intro). */
+	switch (end_game_prompt())
 	{
-	    running=0;
+	case END_UNDO:
+	    goto resume;
+	case END_QUIT:
+	    running = 0;
 	    sysmess(14);
+	    break;
+	case END_AGAIN:
+	default:
+	    break;	/* loop round and start a fresh game */
 	}
     }
     

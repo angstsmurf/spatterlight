@@ -20,6 +20,187 @@
 #include "unquill.h"
 
 
+/* --- Interpreter-level UNDO ------------------------------------------------
+ *
+ * The Quill database itself has no notion of undo, so this is provided by the
+ * interpreter as a convenience, in the same spirit as the Scott and Taylor
+ * interpreters in this tree. The complete mutable game state is small (the 37
+ * flags and the object-position table, plus a few runtime variables that
+ * later games can change on the fly), so we keep a bounded stack of snapshots
+ * and let "#undo" walk back through it one move at a time.
+ *
+ * A snapshot is captured once per real command prompt, immediately before the
+ * player's line is read, mirroring the state shown to the player. */
+
+#define MAX_UNDOS 64
+
+typedef struct UndoState {
+	uchar flags[37];
+	uchar objpos[255];
+	uchar maxcar1;
+	uchar alsosee;
+	uchar fileid;
+	struct UndoState *prev;
+} UndoState;
+
+static UndoState *undo_top = NULL;	/* most recent snapshot */
+static int undo_count = 0;
+static int just_undid = 0;		/* suppress the snapshot after an undo */
+
+static void capture_undo(UndoState *s)
+{
+	memcpy(s->flags,  flags,  37);
+	memcpy(s->objpos, objpos, 255);
+	s->maxcar1 = maxcar1;
+	s->alsosee = alsosee;
+	s->fileid  = fileid;
+}
+
+static void apply_undo(const UndoState *s)
+{
+	memcpy(flags,  s->flags,  37);
+	memcpy(objpos, s->objpos, 255);
+	maxcar1 = s->maxcar1;
+	alsosee = s->alsosee;
+	fileid  = s->fileid;
+}
+
+/* Push the current state onto the undo stack, capping its depth. Called once
+ * per prompt; skipped on the turn immediately following an undo so that a
+ * second "#undo" steps back a further move rather than re-saving. */
+static void save_undo(void)
+{
+	UndoState *s;
+
+	if (just_undid)
+	{
+		just_undid = 0;
+		return;
+	}
+
+	s = malloc(sizeof(UndoState));
+	if (!s) return;			/* out of memory: silently skip */
+	capture_undo(s);
+	s->prev = undo_top;
+	undo_top = s;
+	undo_count++;
+
+	/* Drop the oldest snapshot once we exceed the cap. */
+	if (undo_count > MAX_UNDOS)
+	{
+		UndoState *p = undo_top;
+		while (p->prev && p->prev->prev) p = p->prev;
+		free(p->prev);
+		p->prev = NULL;
+		undo_count--;
+	}
+}
+
+/* Restore the state from before the previous command. Returns 1 if a move was
+ * undone (caller should redescribe), 0 if there was nothing to undo. */
+static uchar restore_undo(void)
+{
+	UndoState *current;
+
+	/* undo_top holds the snapshot taken at this prompt (the live state);
+	 * its predecessor is the state to roll back to. */
+	if (!undo_top || !undo_top->prev)
+	{
+		glk_printf("\nYou can't undo any further.\n");
+		return 0;
+	}
+
+	current = undo_top;
+	undo_top = current->prev;
+	free(current);
+	undo_count--;
+
+	apply_undo(undo_top);
+	just_undid = 1;
+	glk_printf("\nMove undone.\n");
+	return 1;
+}
+
+/* True if the player's line is the interpreter UNDO meta-command. Leading and
+ * trailing whitespace is ignored and the match is case-insensitive. During
+ * normal play we require the '#' prefix so it can't clash with any UNDO word
+ * in a game's own vocabulary; at the end-of-game prompt (allow_bare) a plain
+ * "undo" is accepted too, as the game's parser is not involved there. */
+static uchar is_undo_command(const char *line, uchar allow_bare)
+{
+	while (*line == ' ' || *line == '\t') line++;
+	if (*line == '#') line++;
+	else if (!allow_bare) return 0;
+	if (tolower((uchar)line[0]) != 'u'
+	||  tolower((uchar)line[1]) != 'n'
+	||  tolower((uchar)line[2]) != 'd'
+	||  tolower((uchar)line[3]) != 'o')
+		return 0;
+	line += 4;
+	while (*line == ' ' || *line == '\t'
+	|| *line == '\r' || *line == '\n') line++;
+	return (*line == '\0');
+}
+
+/* Discard the entire undo history. Called when a genuinely new game begins (a
+ * first launch, a "play again" after the end, or a game-driven RESTART) so
+ * that undo never reaches back into a previous life. The undo-after-death
+ * resume path deliberately does *not* call this. */
+void undo_reset(void)
+{
+	while (undo_top)
+	{
+		UndoState *p = undo_top;
+		undo_top = p->prev;
+		free(p);
+	}
+	undo_count = 0;
+	just_undid = 0;
+}
+
+/* Handle the prompt shown after the game ends (death or victory), once the
+ * game's own "would you like to play again?" message has been printed. Reads
+ * a line and recognises three answers:
+ *   - "#undo" / "undo": roll back to the move before the game ended and resume
+ *     the same game (returns END_UNDO; the caller re-enters playgame without
+ *     re-initialising). No snapshot was taken for the fatal move, so the top
+ *     of the stack already holds the pre-fatal-move state: restore it in place.
+ *   - yes: start a new game            (returns END_AGAIN)
+ *   - no:  stop playing                (returns END_QUIT)
+ * The game's *F / *O diagnostics work here too. */
+int end_game_prompt(void)
+{
+	char line[255];
+
+	while (1)
+	{
+		myreadline(line, 254);
+		while (line[0] == '*')		/* diagnostics */
+			myreadline(line, 254);
+
+		if (is_undo_command(line, 1))
+		{
+			if (!undo_top)
+			{
+				glk_printf("There is nothing to undo.\n");
+				continue;
+			}
+			apply_undo(undo_top);
+			just_undid = 1;		/* keep this snapshot for next turn */
+			glk_printf("Move undone.\n");
+			return END_UNDO;
+		}
+
+		{
+			char *p = line;
+			while (*p == ' ' || *p == '\t') p++;
+			if (*p == 'y' || *p == 'Y') return END_AGAIN;
+			if (*p == 'n' || *p == 'N') return END_QUIT;
+		}
+		/* Anything else: ask again. */
+	}
+}
+
 void initgame(ushort zxptr)
 {
 	uchar  n; 
@@ -169,6 +350,11 @@ void playgame(ushort zxptr)
 	ushort connbase;
 	char linebuf[255];
 
+	/* The undo stack is *not* cleared here. playgame() is re-entered to
+	 * resume the same game after an undo-after-death (see end_game_prompt),
+	 * and that path must keep its history. A genuinely new game clears it via
+	 * undo_reset() in the caller's play loop. */
+
 	lbstart = linebuf;
 	while(1) /* Main loop */
 	{
@@ -216,7 +402,7 @@ void playgame(ushort zxptr)
 		r = doproc(zword(zxptr + 6), verb, noun);  /* The Process Table */
 		if      (r == 2) desc = 1;      /* DESC */
 		else if (r == 3) break;  	/* END  */
-		else 
+		else
 		{ 
                    /* Decrement flags not depending on location descriptions */
 
@@ -227,14 +413,18 @@ void playgame(ushort zxptr)
        	        	if (flags[0] && flags[9]) flags[9]--;
 	                if (flags[0] && (!present(0)) && flags[10]) flags[10]--;
  
-			/* Print the prompt */ 
+			/* Snapshot the state shown to the player so that a later
+			 * "#undo" can roll this move back. */
+			save_undo();
+
+			/* Print the prompt */
 
 			pn = (rand() & 3);
 			sysmess(pn + 2);
 			opch32('\n');
 			if (dbver == 0) sysmess(28);
 			myreadline(linebuf, 254);
-			
+
 			while (linebuf[0] == '*')  /* Diagnostics: */
 			{
 				if (linebuf[1]=='F')  /* *F: dump flags */
@@ -243,6 +433,16 @@ void playgame(ushort zxptr)
 					for (n=0; n<255; n++) glk_printf(" O%3.3d:%3.3d ",n,objpos[n]);
 				myreadline(linebuf,254);
 			}
+
+			/* Interpreter-level UNDO. Like LOAD it restores a saved
+			 * state and redescribes the location, and it does not
+			 * count as a turn. */
+			if (is_undo_command(linebuf, 0))
+			{
+				if (restore_undo()) desc = 1;
+				continue;
+			}
+
     			TURNLO++;
 			if (TURNLO == 0) TURNHI++;
 
@@ -277,7 +477,7 @@ void playgame(ushort zxptr)
     	 			if (r == 0)
 				{
 			        /* Process "response" conditions */
-                                	r = doproc(zword(zxptr+4),verb,noun); 
+                                	r = doproc(zword(zxptr+4),verb,noun);
                                 	if      (r == 2) desc=1;        /* DESC */
                                 	else if (r == 3) break;         /* END  */
 				}
