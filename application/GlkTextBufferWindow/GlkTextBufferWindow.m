@@ -636,6 +636,10 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     lastAtBottom = _restoredAtBottom;
 
     self.moveRanges = restoredWin.moveRanges;
+    // An in-game restore in the saved session can bake misaligned (mid-word)
+    // move boundaries into the autosave; setLastMove's snap only fixes moves
+    // recorded live, not these. Realign them against the reconstructed text.
+    [self repairRestoredMoveRanges];
 
     _pendingScrollRestore = YES;
     _pendingScroll = NO;
@@ -3019,8 +3023,30 @@ replacementString:(id)repl {
                 [self.moveRanges removeLastObject];
                 currentMove = NSMakeRange(_printPositionOnInput, maxlength);
             } else {
-                currentMove = NSMakeRange(NSMaxRange(lastMove),
-                                          maxlength);
+                NSUInteger chainedStart = NSMaxRange(lastMove);
+                // A restore (and other full-screen reprints) dumps a block of
+                // text that belongs to no command, sometimes spread over several
+                // flushes. If a setLastMove fired mid-flush, the previous move's
+                // end — and thus this chained start — can land in the middle of a
+                // word, which puts every following command "out of phase". A move
+                // never legitimately begins mid-word (commands start just after a
+                // "> " prompt), so when we detect that, snap forward to the next
+                // prompt and extend the previous move to absorb the reprint.
+                NSString *text = textstorage.string;
+                if (chainedStart > 0 && chainedStart < maxlength &&
+                    [[NSCharacterSet alphanumericCharacterSet]
+                        characterIsMember:[text characterAtIndex:chainedStart - 1]]) {
+                    NSUInteger snapped = [self commandStartForwardFrom:chainedStart
+                                                                  upTo:maxlength
+                                                              inString:text];
+                    if (snapped != NSNotFound && snapped > chainedStart) {
+                        self.moveRanges[self.moveRanges.count - 1] =
+                            [NSValue valueWithRange:NSMakeRange(lastMove.location,
+                                                               snapped - lastMove.location)];
+                        chainedStart = snapped;
+                    }
+                }
+                currentMove = NSMakeRange(chainedStart, maxlength);
             }
         }
     }
@@ -3035,7 +3061,77 @@ replacementString:(id)repl {
     moveRangeIndex = self.moveRanges.count;
     [self.moveRanges addObject:[NSValue valueWithRange:currentMove]];
     _lastNewTextOnTurn = self.glkctl.turns;
+
     return YES;
+}
+
+// Scan forward from `from` (up to `limit`) for the next prompt — a '>' at the
+// start of a line — and return the index where the typed command begins (just
+// past the '>' and an optional single space). Returns NSNotFound if there is no
+// prompt in range. Used by setLastMove to re-anchor a move boundary that landed
+// mid-reprint after a restore onto the next real command.
+- (NSUInteger)commandStartForwardFrom:(NSUInteger)from upTo:(NSUInteger)limit inString:(NSString *)s {
+    for (NSUInteger i = from; i < limit; i++) {
+        if ([s characterAtIndex:i] == '>' && (i == 0 || [s characterAtIndex:i - 1] == '\n')) {
+            NSUInteger cmd = i + 1;
+            if (cmd < limit && [s characterAtIndex:cmd] == ' ')
+                cmd++;
+            if (cmd < limit)
+                return cmd;
+        }
+    }
+    return NSNotFound;
+}
+
+// Realign restored move ranges after an autorestore. An in-game restore in the
+// saved session can leave a move boundary in the middle of a word (a partial
+// reprint length captured mid-flush), and that gets persisted into the autosave.
+// If we spot such a boundary, rebuild the whole list from the reconstructed
+// text's prompt boundaries (a '>' at a line start), so the command-history rotor
+// and spoken move navigation realign. Clean autosaves (no mid-word boundary) and
+// games with no detectable prompts are left untouched.
+- (void)repairRestoredMoveRanges {
+    NSString *text = textstorage.string;
+    NSUInteger length = text.length;
+    if (length == 0 || self.moveRanges.count == 0)
+        return;
+
+    NSCharacterSet *alnum = [NSCharacterSet alphanumericCharacterSet];
+    BOOL misaligned = NO;
+    for (NSValue *v in self.moveRanges) {
+        NSUInteger start = v.rangeValue.location;
+        if (start > 0 && start < length &&
+            [alnum characterIsMember:[text characterAtIndex:start - 1]]) {
+            misaligned = YES;
+            break;
+        }
+    }
+    if (!misaligned)
+        return;
+
+    NSMutableArray<NSValue *> *rebuilt = [[NSMutableArray alloc] init];
+    NSUInteger moveStart = 0;
+    for (NSUInteger i = 0; i < length; i++) {
+        if ([text characterAtIndex:i] == '>' && (i == 0 || [text characterAtIndex:i - 1] == '\n')) {
+            NSUInteger cmd = i + 1;
+            if (cmd < length && [text characterAtIndex:cmd] == ' ')
+                cmd++;
+            // Stop at the live input prompt (its command begins at fence): the
+            // most recent move runs through it to the end, as in live play.
+            if (line_request && fence > 0 && cmd >= fence)
+                break;
+            if (cmd > moveStart && cmd < length) {
+                [rebuilt addObject:[NSValue valueWithRange:NSMakeRange(moveStart, cmd - moveStart)]];
+                moveStart = cmd;
+            }
+        }
+    }
+    if (rebuilt.count == 0)
+        return; // No prompts found; keep restored ranges rather than collapse.
+    [rebuilt addObject:[NSValue valueWithRange:NSMakeRange(moveStart, length - moveStart)]];
+
+    self.moveRanges = rebuilt;
+    moveRangeIndex = rebuilt.count;
 }
 
 // Convert a move range to a speakable string. Retrieves the
