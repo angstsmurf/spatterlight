@@ -102,6 +102,7 @@ static void ensure_objwin_open();
 static void close_objwin();
 static std::string g_last_objlist;   /* last room-object list echoed to a transcript */
 static std::string g_status_line;    /* status vars joined for the banner, rebuilt each turn */
+static std::string g_room_name;      /* current room name, shown left-aligned in the banner */
 
 /* Handle the transcript metaverb ("transcript"/"script" on/off).  Returns true
  * if the command was a transcript command (and should not reach the game).  A
@@ -274,6 +275,45 @@ handle_restart_command(const std::string &raw, GeasRunner *gr)
     return true;
 }
 
+/* Handle the #HELP metaverb: list and explain the engine-level metaverbs this
+ * port adds on top of the game's own commands.  Kept distinct from the game's
+ * plain HELP (which prints Quest's in-game quick help) so it never shadows it. */
+static bool
+handle_help_command(const std::string &raw)
+{
+    std::string c;
+    for (char ch : raw)
+        c += tolower((unsigned char) ch);
+    std::string::size_type a = c.find_first_not_of(" \t\r\n");
+    if (a == std::string::npos)
+        return false;
+    std::string::size_type b = c.find_last_not_of(" \t\r\n");
+    c = c.substr(a, b - a + 1);
+
+    if (c != "#help" && c != "#commands" && c != "metaverbs")
+        return false;
+
+    glk_put_string((char *)
+        "\nThese system commands are handled by the interpreter, outside the game:\n"
+        "\n"
+        "  SAVE              Save the whole game to a file.\n"
+        "  RESTORE  (LOAD)   Restore a previously saved game.\n"
+        "  RESTART           Start the game over from the beginning.\n"
+        "  UNDO              Take back the last turn.\n"
+        "  QUIT     (Q)      Stop playing and leave Geas.\n"
+        "\n"
+        "  SCRIPT   (TRANSCRIPT)       Start recording the game text to a file.\n"
+        "  SCRIPT OFF  (UNSCRIPT)      Stop recording the transcript.\n"
+        "\n"
+        "  OOPS <word>       Re-run your last command with a mistyped object\n"
+        "                    word replaced by <word>.\n"
+        "  VERBS <object>    List the actions available for an object.\n"
+        "  ABOUT             Show the game's title, author, version and info.\n"
+        "  HELP              Show the game's basic in-game help.\n"
+        "  #HELP             Show this list of system commands.\n");
+    return true;
+}
+
 /* After the game ends, ask the player what to do.  Returns 1 = undo,
  * 2 = restore, 3 = restart, 4 = quit.  Accepts the number or the word. */
 static int
@@ -395,6 +435,10 @@ void glk_main(void)
     if (!title.empty())
         garglk_set_story_title(title.c_str());
 
+    /* The game's title/version/author banner is printed once into the main
+     * window by the runner (set_game), before the game's own opening text --
+     * the status bar is reserved for the current room name (left) and any
+     * status vars (right). */
     draw_banner();
     update_objwin(gr);
 
@@ -439,6 +483,7 @@ void glk_main(void)
                     if(!handle_transcript_command(cmd) &&
                        !handle_saverestore_command(cmd, gr) &&
                        !handle_restart_command(cmd, gr) &&
+                       !handle_help_command(cmd) &&
                        !handle_quit_command(cmd, quitting)) {
                         if(inputwin == mainglkwin)
                             ignore_lines = 2;
@@ -551,9 +596,9 @@ draw_banner()
       for (index = 0; index < (int) width; index++)
         glk_put_char_stream (stream, ' ');
 
-      /* The game title.  (The current room name is shown as the objects-pane
-       * header, not here.) */
-      std::string title = banner.empty() ? std::string("Geas 0.4") : banner;
+      /* The current room name, left-aligned.  (The game's title/version/author
+       * banner is shown once at startup in the main window, not here.) */
+      std::string title = g_room_name;
       glk_window_move_cursor(bannerwin, 1, 0);
       glk_put_string_stream(stream, (char*) title.c_str());
 
@@ -611,6 +656,7 @@ update_objwin(GeasRunner *gr)
     std::string room = gr->get_location();
     if (!room.empty())
         room[0] = toupper((unsigned char) room[0]);
+    g_room_name = room;
 
     v2string contents = gr->get_room_contents();
     std::string flat;
@@ -663,9 +709,13 @@ update_objwin(GeasRunner *gr)
         glk_window_clear(objwin);
         strid_t s = glk_window_get_stream(objwin);
 
-        glk_set_style_stream(s, style_Subheader);
-        glk_put_string_stream(s, (char *) (room + "\n").c_str());
-        glk_set_style_stream(s, style_Normal);
+        /* The room name is now shown in the status bar, so the pane lists just
+         * the room's objects (under their own subheader) and exits. */
+        if (!flat.empty()) {
+            glk_set_style_stream(s, style_Subheader);
+            glk_put_string_stream(s, (char *) "Objects\n");
+            glk_set_style_stream(s, style_Normal);
+        }
 
         for (std::vector<std::string> &item : contents) {
             if (item.empty())
@@ -677,7 +727,10 @@ update_objwin(GeasRunner *gr)
         /* List the room's exits below the objects, under their own subheader
          * (the original Quest runner showed exits in a separate pane). */
         if (!exits.empty()) {
-            glk_put_char_stream(s, '\n');
+            /* Separate exits from the objects above, but only when there are
+             * objects -- with none, "Exits" sits at the very top of the pane. */
+            if (!flat.empty())
+                glk_put_char_stream(s, '\n');
             glk_set_style_stream(s, style_Subheader);
             glk_put_string_stream(s, (char *) "Exits\n");
             glk_set_style_stream(s, style_Normal);

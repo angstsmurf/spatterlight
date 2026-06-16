@@ -1352,6 +1352,16 @@ void geas_implementation::set_game (const string &s)
 
       state.running = true;
 
+      /* Print the game's title/version/author banner once, here at the very
+       * start, so it appears before the game's own opening output (intro text,
+       * a start-room "please select an option" menu, etc.).  Bold renders as a
+       * subheader in the Glk host. */
+      {
+        string banner = get_banner ();
+        if (!banner.empty ())
+          print_formatted ("|n|b" + banner + "|xb|n");
+      }
+
       auto gfData = gf.block("game", 0).data;
       for (auto &gline: gfData)
 	{
@@ -2894,7 +2904,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 
   if (ci_equal (cmd, "help"))
     {
-      print_formatted ("|b|cl|s14Quest Quick Help|xb|cb|s00|n|n|cl|bMoving|xb|cb Press the direction buttons in the 'Compass' pane, or type |bGO NORTH|xb, |bSOUTH|xb, |bE|xb, etc. |xnTo go into a place, type |bGO TO ...|xb . To leave a place, type |bOUT, EXIT|xb or |bLEAVE|xb, or press the '|crOUT|cb' button.|n|cl|bObjects and Characters|xb|cb Use |bTAKE ...|xb, |bGIVE ... TO ...|xb, |bTALK|xb/|bSPEAK TO ...|xb, |bUSE ... ON|xb/|bWITH ...|xb, |bLOOK AT ...|xb, etc.|n|cl|bExit Quest|xb|cb Type |bQUIT|xb to leave Quest.|n|cl|bMisc|xb|cb Type |bABOUT|xb to get information on the current game.");
+      print_formatted ("|b|cl|s14Quest Quick Help|xb|cb|s00|n|n|cl|bMoving|xb|cb Press the direction buttons in the 'Compass' pane, or type |bGO NORTH|xb, |bSOUTH|xb, |bE|xb, etc. |xnTo go into a place, type |bGO TO ...|xb . To leave a place, type |bOUT, EXIT|xb or |bLEAVE|xb, or press the '|crOUT|cb' button.|n|cl|bObjects and Characters|xb|cb Use |bTAKE ...|xb, |bGIVE ... TO ...|xb, |bTALK|xb/|bSPEAK TO ...|xb, |bUSE ... ON|xb/|bWITH ...|xb, |bLOOK AT ...|xb, etc.|n|cl|bExit Quest|xb|cb Type |bQUIT|xb to leave Quest.|n|cl|bMisc|xb|cb Type |bABOUT|xb to get information on the current game. Type |b#HELP|xb to list the SAVE, RESTORE, UNDO and other system commands.");
       return true;
     }
 
