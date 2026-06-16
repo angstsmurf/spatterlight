@@ -479,8 +479,16 @@ static void pic_blit(void)
 {
     int sy, x;
     int dh = (ill_draw_h > 0) ? ill_draw_h : ILL_H;	/* drawn picture height */
+    glui32 bg;
     if (!picwin || !picscr)
 	return;
+    /* The area outside the picture (margins and any band the image does not
+     * fill) should match the text window's Normal background rather than a
+     * fixed colour, as the Scott, Level9 and Magnetic interpreters do. Re-measure
+     * on every blit so it tracks light/dark theme changes (a Redraw event comes
+     * through pic_relayout -> pic_blit). */
+    if (mainwin && glk_style_measure(mainwin, style_Normal, stylehint_BackColor, &bg))
+	glk_window_set_background_color(picwin, bg);
     glk_window_clear(picwin);
     for (sy = 0; sy < dh; sy++)	/* only the band the picture draws into */
     {

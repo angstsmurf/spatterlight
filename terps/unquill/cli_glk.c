@@ -69,6 +69,9 @@ void glk_window_fill_rect(winid_t win, glui32 color, glsi32 left, glsi32 top,
 void glk_window_set_background_color(winid_t win, glui32 color)
 { (void)win; (void)color; }
 
+glui32 glk_style_measure(winid_t win, glui32 styl, glui32 hint, glui32 *result)
+{ (void)win; (void)styl; (void)hint; (void)result; return 0; }
+
 glui32 glk_gestalt(glui32 sel, glui32 val) { (void)sel; (void)val; return 0; }
 glui32 glk_gestalt_ext(glui32 sel, glui32 val, glui32 *arr, glui32 len)
 { (void)sel; (void)val; (void)arr; (void)len; return 0; }
