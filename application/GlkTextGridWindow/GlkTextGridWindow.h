@@ -31,6 +31,9 @@
 @property NSSize quoteboxSize;
 @property NSInteger quoteboxAddedOnPAC;
 @property NSUInteger quoteboxVerticalOffset;
+// The grid column where this quote box began, used to lay out two
+// side-by-side boxes (e.g. Trinity's Clarke/Lebling pair) into one wide box.
+@property NSUInteger quoteboxColumn;
 @property (weak) NSScrollView *quoteboxParent;
 
 - (void)quotebox:(NSUInteger)linesToSkip;

@@ -54,6 +54,13 @@
     BOOL transparent;
     NSInteger terminator;
 }
+- (void)mergeSideBySideQuoteBoxAtColumn:(NSUInteger)otherColumn
+                                  width:(NSUInteger)otherWidth
+                                 height:(NSUInteger)otherHeight
+                                content:(NSAttributedString *)otherContent
+                          gapAttributes:(NSDictionary *)gapAttrs;
+- (NSArray<NSAttributedString *> *)quoteBoxRowsOfString:(NSAttributedString *)string;
+- (NSAttributedString *)quoteBoxSpaces:(NSUInteger)count attributes:(NSDictionary *)attributes;
 @end
 
 @implementation GlkTextGridWindow
@@ -1536,34 +1543,83 @@
 
 - (void)quotebox:(NSUInteger)linesToSkip {
     NSUInteger charactersToSkip = (linesToSkip + 1) * (cols + 1);
-    NSUInteger __block changes = 0;
-    NSUInteger __block width;
-    NSUInteger __block height = 0;
-    NSAttributedString __block *blockTextStorage = _bufferTextStorage;
+    NSUInteger width = 0;
+    NSUInteger height = 0;
+    NSAttributedString *blockTextStorage = _bufferTextStorage;
     if (blockTextStorage.length < charactersToSkip)
         blockTextStorage = textstorage;
     if (blockTextStorage.length < charactersToSkip)
         return;
 
-    NSRange quoteBoxRange = NSMakeRange(charactersToSkip, blockTextStorage.length - charactersToSkip);
+    NSUInteger rowStride = cols + 1;
 
-    NSMutableAttributedString __block *quoteAttStr = [[NSMutableAttributedString alloc] init];
+    // The "normal" (transparent) background is whatever the left margin uses.
+    // Any cell whose background differs from it belongs to a quote box. We work
+    // row by row rather than by background-colour runs so that two side-by-side
+    // boxes — as Trinity draws for the Clarke/Lebling "magic/technology" pair
+    // (PLTABLE 22 at left margins 9 and 49) — collapse into a single wide box
+    // with a transparent gap in the middle, instead of being mistaken for two
+    // stacked rows.
+    id normalBg = [blockTextStorage attribute:NSBackgroundColorAttributeName
+                                      atIndex:charactersToSkip
+                               effectiveRange:NULL];
 
-    [blockTextStorage
-     enumerateAttribute:NSBackgroundColorAttributeName
-     inRange:quoteBoxRange
-     options:0
-     usingBlock:^(id value, NSRange range, BOOL *stop) {
-        changes++;
-        // Add string between every other background change
-        if (changes % 2 == 0) {
-            [quoteAttStr appendAttributedString:[blockTextStorage attributedSubstringFromRange:range]];
-            NSAttributedString *newline = [[NSAttributedString alloc] initWithString:@"\n"];
-            [quoteAttStr appendAttributedString:newline];
-            height++;
-            width = range.length;
+    BOOL (^isBoxCell)(NSUInteger) = ^BOOL(NSUInteger idx) {
+        id bg = [blockTextStorage attribute:NSBackgroundColorAttributeName
+                                    atIndex:idx
+                             effectiveRange:NULL];
+        if (!bg)
+            return (normalBg != nil);
+        return ![bg isEqual:normalBg];
+    };
+
+    // First pass: find the horizontal extent of the box cells across every row,
+    // so all rows stay left-aligned to the same column and any inter-box gap is
+    // included in the span.
+    NSUInteger globalFirst = NSUIntegerMax;
+    NSUInteger globalLast = 0;
+    for (NSUInteger rowStart = charactersToSkip;
+         rowStart + cols <= blockTextStorage.length;
+         rowStart += rowStride) {
+        for (NSUInteger col = 0; col < cols; col++) {
+            if (isBoxCell(rowStart + col)) {
+                if (col < globalFirst)
+                    globalFirst = col;
+                if (col > globalLast)
+                    globalLast = col;
+            }
         }
-    }];
+    }
+
+    if (globalFirst == NSUIntegerMax)
+        return; // No quote box present.
+
+    width = globalLast - globalFirst + 1;
+
+    NSMutableAttributedString *quoteAttStr = [[NSMutableAttributedString alloc] init];
+    NSAttributedString *newline = [[NSAttributedString alloc] initWithString:@"\n"];
+
+    // Second pass: emit every row that contains box cells, copying the full
+    // span (including any transparent gap between two boxes) with its original
+    // attributes, so the inverse-video backgrounds and the transparent gap are
+    // both preserved.
+    for (NSUInteger rowStart = charactersToSkip;
+         rowStart + cols <= blockTextStorage.length;
+         rowStart += rowStride) {
+        BOOL hasBox = NO;
+        for (NSUInteger col = globalFirst; col <= globalLast; col++) {
+            if (isBoxCell(rowStart + col)) {
+                hasBox = YES;
+                break;
+            }
+        }
+        if (!hasBox)
+            continue;
+        NSRange r = NSMakeRange(rowStart + globalFirst, width);
+        [quoteAttStr appendAttributedString:[blockTextStorage attributedSubstringFromRange:r]];
+        [quoteAttStr appendAttributedString:newline];
+        height++;
+    }
 
     GlkController *glkctl = self.glkctl;
 
@@ -1584,8 +1640,31 @@
         if (!glkctl.quoteBoxes)
             glkctl.quoteBoxes = [[NSMutableArray alloc] init];
 
+        // A box whose quoteboxAddedOnPAC is still 0 was created during this same
+        // turn and not yet committed at the turn boundary. Trinity draws two
+        // boxes side by side (the Clarke/Lebling "magic/technology" pair) with
+        // two back-to-back SPLIT cycles, producing two quotebox: calls in one
+        // request batch. Merge the second into the first as a single wide box
+        // with a transparent gap in the middle, so they appear side by side
+        // rather than the second replacing the first.
+        GlkTextGridWindow *previous = glkctl.quoteBoxes.lastObject;
+        if (previous && previous.quoteboxAddedOnPAC == 0) {
+            // Transparent template for the gap and any padding cells: the grid's
+            // normal style minus its background colour.
+            NSMutableDictionary *gapAttrs = [[blockTextStorage attributesAtIndex:charactersToSkip effectiveRange:NULL] mutableCopy];
+            [gapAttrs removeObjectForKey:NSBackgroundColorAttributeName];
+            [previous mergeSideBySideQuoteBoxAtColumn:globalFirst
+                                                width:width
+                                               height:height
+                                              content:quoteAttStr
+                                        gapAttributes:gapAttrs];
+            glkctl.numberOfPrintsAndClears = 0;
+            return;
+        }
+
         GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:glkctl name:-1];
         box.quoteboxSize = NSMakeSize((CGFloat)width, (CGFloat)height);
+        box.quoteboxColumn = globalFirst;
         [box makeTransparent];
 
         [box.textview.textStorage setAttributedString:quoteAttStr];
@@ -1600,6 +1679,88 @@
         box.quoteboxParent = superView.enclosingScrollView;
         [box performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
     }
+}
+
+// Lay this (already-pending) quote box and a second same-turn box out side by
+// side into one wide box, preserving each box's grid column so the gap between
+// them stays transparent. The box already has a quoteboxAdjustSize: scheduled,
+// which will pick up the new size and content.
+- (void)mergeSideBySideQuoteBoxAtColumn:(NSUInteger)otherColumn
+                                  width:(NSUInteger)otherWidth
+                                 height:(NSUInteger)otherHeight
+                                content:(NSAttributedString *)otherContent
+                          gapAttributes:(NSDictionary *)gapAttrs {
+    NSUInteger selfColumn = self.quoteboxColumn;
+    NSUInteger selfWidth = (NSUInteger)self.quoteboxSize.width;
+    NSUInteger selfHeight = (NSUInteger)self.quoteboxSize.height;
+    NSAttributedString *selfContent = self.textview.textStorage;
+
+    // Order the two boxes left-to-right.
+    NSUInteger leftColumn, leftWidth, leftHeight, rightColumn, rightWidth, rightHeight;
+    NSAttributedString *leftContent, *rightContent;
+    if (selfColumn <= otherColumn) {
+        leftColumn = selfColumn; leftWidth = selfWidth; leftHeight = selfHeight; leftContent = selfContent;
+        rightColumn = otherColumn; rightWidth = otherWidth; rightHeight = otherHeight; rightContent = otherContent;
+    } else {
+        leftColumn = otherColumn; leftWidth = otherWidth; leftHeight = otherHeight; leftContent = otherContent;
+        rightColumn = selfColumn; rightWidth = selfWidth; rightHeight = selfHeight; rightContent = selfContent;
+    }
+
+    NSArray<NSAttributedString *> *leftRows = [self quoteBoxRowsOfString:leftContent];
+    NSArray<NSAttributedString *> *rightRows = [self quoteBoxRowsOfString:rightContent];
+
+    NSUInteger gap = (rightColumn > leftColumn + leftWidth) ? rightColumn - (leftColumn + leftWidth) : 0;
+    NSUInteger combinedWidth = (rightColumn + rightWidth) - leftColumn;
+    NSUInteger combinedHeight = MAX(leftHeight, rightHeight);
+
+    NSMutableAttributedString *combined = [[NSMutableAttributedString alloc] init];
+    NSAttributedString *newline = [[NSAttributedString alloc] initWithString:@"\n" attributes:gapAttrs];
+
+    for (NSUInteger row = 0; row < combinedHeight; row++) {
+        NSAttributedString *leftRow = (row < leftRows.count) ? leftRows[row] : nil;
+        if (leftRow)
+            [combined appendAttributedString:leftRow];
+        NSUInteger leftLen = leftRow ? leftRow.length : 0;
+        if (leftLen < leftWidth)
+            [combined appendAttributedString:[self quoteBoxSpaces:leftWidth - leftLen attributes:gapAttrs]];
+
+        [combined appendAttributedString:[self quoteBoxSpaces:gap attributes:gapAttrs]];
+
+        NSAttributedString *rightRow = (row < rightRows.count) ? rightRows[row] : nil;
+        if (rightRow)
+            [combined appendAttributedString:rightRow];
+
+        [combined appendAttributedString:newline];
+    }
+
+    self.quoteboxColumn = leftColumn;
+    self.quoteboxSize = NSMakeSize((CGFloat)combinedWidth, (CGFloat)combinedHeight);
+    [self.textview.textStorage setAttributedString:combined];
+}
+
+// Split a quote box's attributed string (rows separated by newlines) into one
+// attributed string per row, dropping the newlines.
+- (NSArray<NSAttributedString *> *)quoteBoxRowsOfString:(NSAttributedString *)string {
+    NSMutableArray<NSAttributedString *> *rows = [[NSMutableArray alloc] init];
+    NSString *str = string.string;
+    NSUInteger length = str.length;
+    NSUInteger start = 0;
+    for (NSUInteger i = 0; i < length; i++) {
+        if ([str characterAtIndex:i] == '\n') {
+            [rows addObject:[string attributedSubstringFromRange:NSMakeRange(start, i - start)]];
+            start = i + 1;
+        }
+    }
+    if (start < length)
+        [rows addObject:[string attributedSubstringFromRange:NSMakeRange(start, length - start)]];
+    return rows;
+}
+
+- (NSAttributedString *)quoteBoxSpaces:(NSUInteger)count attributes:(NSDictionary *)attributes {
+    if (count == 0)
+        return [[NSAttributedString alloc] initWithString:@"" attributes:attributes];
+    NSString *spaces = [@"" stringByPaddingToLength:count withString:@" " startingAtIndex:0];
+    return [[NSAttributedString alloc] initWithString:spaces attributes:attributes];
 }
 
 - (void)quoteboxAdjustSize:(id)sender {
