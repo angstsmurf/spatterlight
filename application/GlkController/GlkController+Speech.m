@@ -227,7 +227,10 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         if ([largest isKindOfClass:[GlkTextGridWindow class]] && self.quoteBoxes.count) {
             GlkTextGridWindow *box = self.quoteBoxes.lastObject;
 
-            NSString *str = box.textview.string;
+            // A merged side-by-side box stores its text interleaved row by row
+            // (see mergeSideBySideQuoteBoxAtColumn:); speak the two columns one
+            // after the other instead of alternating between them.
+            NSString *str = box.quoteboxColumns.count ? box.deinterleavedQuoteboxString : box.textview.string;
             if (str.length) {
                 str = [@"QUOTE: \n\n" stringByAppendingString:str];
                 [self speakString:str];

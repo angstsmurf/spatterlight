@@ -3115,7 +3115,11 @@ replacementString:(id)repl {
     if (glkctl.quoteBoxes.count) {
         GlkTextGridWindow *box = glkctl.quoteBoxes.lastObject;
 
-        str = [box.textview.string stringByAppendingString:str];
+        // A merged side-by-side box stores its text interleaved row by row (see
+        // mergeSideBySideQuoteBoxAtColumn:); use the de-interleaved columns so
+        // the two are read one after the other rather than alternating.
+        NSString *boxStr = box.quoteboxColumns.count ? box.deinterleavedQuoteboxString : box.textview.string;
+        str = [boxStr stringByAppendingString:str];
         str = [@"QUOTE: \n\n" stringByAppendingString:str];
     }
 

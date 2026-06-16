@@ -52,7 +52,43 @@
    return [((GlkTextGridWindow *)self.delegate).glkctl createCustomRotors];
 }
 
+// A merged side-by-side quote box (e.g. Trinity's Clarke/Lebling pair) lays its
+// two columns out interleaved in a single text view. Expose each column as its
+// own AXStaticText child so VoiceOver reads them as two separate blocks rather
+// than alternating line by line. Built lazily and cached on the delegate.
+- (NSArray *)buildQuoteboxAXChildren {
+    GlkTextGridWindow *delegate = (GlkTextGridWindow *)self.delegate;
+    Theme *theme = delegate.theme;
+    CGFloat cellW = theme.cellWidth;
+    CGFloat cellH = theme.cellHeight;
+    CGFloat marginX = theme.gridMarginX;
+    CGFloat marginY = theme.gridMarginY;
+    CGFloat height = delegate.quoteboxSize.height * cellH;
+
+    NSMutableArray *children = [[NSMutableArray alloc] init];
+    for (NSDictionary *col in delegate.quoteboxColumns) {
+        NSUInteger offset = [col[@"offset"] unsignedIntegerValue];
+        NSUInteger width = [col[@"width"] unsignedIntegerValue];
+        NSAccessibilityElement *el =
+            [NSAccessibilityElement accessibilityElementWithRole:NSAccessibilityStaticTextRole
+                                                           frame:NSZeroRect
+                                                           label:nil
+                                                          parent:self];
+        el.accessibilityValue = col[@"value"];
+        el.accessibilityFrameInParentSpace =
+            NSMakeRect(marginX + offset * cellW, marginY, width * cellW, height);
+        [children addObject:el];
+    }
+    return children;
+}
+
  - (NSArray *)accessibilityChildren {
+    GlkTextGridWindow *delegate = (GlkTextGridWindow *)self.delegate;
+    if (delegate.quoteboxColumns.count) {
+        if (!delegate.quoteboxAXChildren)
+            delegate.quoteboxAXChildren = [self buildQuoteboxAXChildren];
+        return delegate.quoteboxAXChildren;
+    }
     NSArray *children = super.accessibilityChildren;
     InputTextField *input = ((GlkTextGridWindow *)self.delegate).input;
     if (input) {
@@ -83,6 +119,21 @@
     GlkTextGridWindow *delegate = (GlkTextGridWindow *)self.delegate;
     NSArray *actions = delegate.glkctl.accessibilityCustomActions;
     return actions;
+}
+
+// For a merged side-by-side quote box, present this view as a plain group whose
+// children (the two columns) carry the text, so VoiceOver doesn't also read the
+// interleaved text-area value.
+- (NSAccessibilityRole)accessibilityRole {
+    if (((GlkTextGridWindow *)self.delegate).quoteboxColumns.count)
+        return NSAccessibilityGroupRole;
+    return super.accessibilityRole;
+}
+
+- (id)accessibilityValue {
+    if (((GlkTextGridWindow *)self.delegate).quoteboxColumns.count)
+        return nil;
+    return super.accessibilityValue;
 }
 
 @end

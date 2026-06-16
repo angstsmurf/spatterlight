@@ -216,6 +216,11 @@
         _quoteboxSize = ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"quoteboxSize"]).sizeValue;
         _quoteboxAddedOnPAC = [decoder decodeIntegerForKey:@"quoteboxAddedOnTurn"];
         _quoteboxVerticalOffset = (NSUInteger)[decoder decodeIntegerForKey:@"quoteboxVerticalOffset"];
+        // De-interleaved columns of a merged side-by-side quote box, so a
+        // restored box still reads as two separate blocks in VoiceOver rather
+        // than interleaving the two columns line by line.
+        NSSet *columnClasses = [NSSet setWithObjects:[NSArray class], [NSDictionary class], [NSString class], [NSNumber class], nil];
+        _quoteboxColumns = [decoder decodeObjectOfClasses:columnClasses forKey:@"quoteboxColumns"];
     }
     return self;
 }
@@ -251,6 +256,7 @@
     [encoder encodeObject:@(_quoteboxSize) forKey:@"quoteboxSize"];
     [encoder encodeInteger:_quoteboxAddedOnPAC forKey:@"quoteboxAddedOnTurn"];
     [encoder encodeInteger:(NSInteger)_quoteboxVerticalOffset forKey:@"quoteboxVerticalOffset"];
+    [encoder encodeObject:_quoteboxColumns forKey:@"quoteboxColumns"];
 }
 
 - (BOOL)wantsFocus {
@@ -1736,6 +1742,46 @@
     self.quoteboxColumn = leftColumn;
     self.quoteboxSize = NSMakeSize((CGFloat)combinedWidth, (CGFloat)combinedHeight);
     [self.textview.textStorage setAttributedString:combined];
+
+    // Keep each column's text separate for accessibility. The on-screen storage
+    // above interleaves them (every line is leftRow + gap + rightRow), which
+    // makes VoiceOver read the two poems alternating line by line. offset/width
+    // are in cells from the merged box's left edge (which is leftColumn).
+    self.quoteboxColumns = @[
+        @{ @"value": [self quoteBoxColumnTextFromRows:leftRows],
+           @"offset": @(0),
+           @"width": @(leftWidth) },
+        @{ @"value": [self quoteBoxColumnTextFromRows:rightRows],
+           @"offset": @(rightColumn - leftColumn),
+           @"width": @(rightWidth) }
+    ];
+    self.quoteboxAXChildren = nil;
+}
+
+// Join a column's rows into one plain string, trimming trailing whitespace from
+// each line (the rows may carry padding/centring spaces that VoiceOver would
+// otherwise read out).
+- (NSString *)quoteBoxColumnTextFromRows:(NSArray<NSAttributedString *> *)rows {
+    NSCharacterSet *whitespace = [NSCharacterSet whitespaceCharacterSet];
+    NSMutableArray<NSString *> *lines = [[NSMutableArray alloc] init];
+    for (NSAttributedString *row in rows) {
+        NSString *line = row.string;
+        NSUInteger end = line.length;
+        while (end > 0 && [whitespace characterIsMember:[line characterAtIndex:end - 1]])
+            end--;
+        [lines addObject:[line substringToIndex:end]];
+    }
+    return [lines componentsJoinedByString:@"\n"];
+}
+
+- (NSString *)deinterleavedQuoteboxString {
+    NSMutableArray<NSString *> *parts = [[NSMutableArray alloc] init];
+    for (NSDictionary *col in _quoteboxColumns) {
+        NSString *value = col[@"value"];
+        if (value.length)
+            [parts addObject:value];
+    }
+    return [parts componentsJoinedByString:@"\n\n"];
 }
 
 // Split a quote box's attributed string (rows separated by newlines) into one
@@ -1818,7 +1864,10 @@
         [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
     if (glkctl.form)
         [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
-    [glkctl speakStringNow:textstorage.string];
+    // A merged side-by-side quote box stores its text interleaved; speak the two
+    // columns one after the other instead.
+    NSString *status = _quoteboxColumns.count ? self.deinterleavedQuoteboxString : textstorage.string;
+    [glkctl speakStringNow:status];
 }
 
 - (BOOL)setLastMove {
