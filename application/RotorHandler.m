@@ -582,11 +582,13 @@
     NSAccessibilityCustomRotor *textSearchRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeAny itemSearchDelegate:self];
     [rotorsArray addObject:textSearchRotor];
 
-    // Create the command history rotor
-    if (glkctl.largestWithMoves) {
-        NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", nil) itemSearchDelegate:self];
-        [rotorsArray addObject:commandHistoryRotor];
-    }
+    // Create the command history rotor. Always offer it rather than gating on
+    // largestWithMoves: VoiceOver caches an element's rotor set at focus time
+    // and is not notified when moveRanges later become non-empty, so a rotor
+    // built before the first move would stay missing. commandHistoryRotor:…
+    // returns nil when there is nothing to show, so an empty rotor is harmless.
+    NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", nil) itemSearchDelegate:self];
+    [rotorsArray addObject:commandHistoryRotor];
 
     // Create the Glk windows rotor
     if (glkctl.gwindows.count) {

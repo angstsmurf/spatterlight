@@ -11,6 +11,7 @@
 #import "GlkTextGridWindow.h"
 #import "InputTextField.h"
 #import "GlkController.h"
+#import "GlkController+Speech.h"
 #import "CommandScriptHandler.h"
 
 @implementation MyFieldEditor
@@ -34,6 +35,18 @@
 
 - (BOOL)isAccessibilityElement {
     return YES;
+}
+
+// VoiceOver collects custom rotors from the focused element only, and does not
+// walk up accessibilityParent. While the player is at the command prompt this
+// field editor is the focused element, so without vending the rotors here the
+// player would see only the system rotors (Window spots, Misspelled words) and
+// lose the Command history / Game windows rotors. Reach the controller the same
+// way keyDown: does: our delegate is the InputTextField, whose delegate is the
+// GlkWindow.
+- (NSArray *)accessibilityCustomRotors {
+    GlkWindow *glkWin = (GlkWindow *)((NSTextField *)self.delegate).delegate;
+    return glkWin.glkctl.createCustomRotors;
 }
 
 - (void)paste:(id)sender {
