@@ -86,6 +86,8 @@ strid_t inputwinstream;
 static strid_t transcriptstr = nullptr;  /* open transcript file, or null */
 static bool g_manual_echo = false;       /* Glk line echo off; we echo input ourselves */
 static bool g_output_seen = false;       /* set when print_* actually writes to the window */
+static bool g_use_objpane = false;       /* host supports a side pane; objwin may be
+                                          * momentarily closed (when empty) yet still "in use" */
 
 extern const char *storyfilename;  /* defined in geasglkterm.c */
 extern int use_inputwindow;
@@ -96,6 +98,8 @@ static std::string banner;
 static void draw_banner();
 static void update_objwin(GeasRunner *gr);
 static void fill_divider();
+static void ensure_objwin_open();
+static void close_objwin();
 static std::string g_last_objlist;   /* last room-object list echoed to a transcript */
 static std::string g_status_line;    /* status vars joined for the banner, rebuilt each turn */
 
@@ -349,17 +353,13 @@ void glk_main(void)
     inputwinstream = glk_window_get_stream(inputwin);
 
     /* A right-hand pane listing the objects/characters in the current room
-     * (and, later, menus).  If it can't be opened we fall back to listing
-     * objects in the main text (see GeasGlkInterface::has_objects_window). */
-    objwin = glk_window_open(mainglkwin,
-                             winmethod_Right | winmethod_Proportional,
-                             20, wintype_TextBuffer, 0);
-
-    /* A thin graphics window between the main text and the pane, drawn in the
-     * text colour, as a divider. */
-    if (objwin && glk_gestalt(gestalt_Graphics, 0))
-        gfxwin = glk_window_open(objwin, winmethod_Left | winmethod_Fixed,
-                                 2, wintype_Graphics, 0);
+     * (and, later, menus).  Open it once to probe whether the host supports a
+     * side pane; if so we manage it dynamically, showing it only when it has
+     * something to list and closing it (reclaiming the width) when empty.  If
+     * it can't be opened we fall back to listing objects in the main text (see
+     * GeasGlkInterface::has_objects_window). */
+    ensure_objwin_open();
+    g_use_objpane = (objwin != nullptr);
     fill_divider();
 
     /* We can turn off Glk's automatic line-input echo and echo entered text
@@ -555,56 +555,66 @@ draw_banner()
     }
 }
 
+/* Open the right-hand pane (and its divider), if not already open and the host
+ * supports it.  Mirrors the startup arrangement so it can be reopened after the
+ * pane was closed for an empty room. */
+static void
+ensure_objwin_open()
+{
+    if (objwin)
+        return;
+    objwin = glk_window_open(mainglkwin,
+                             winmethod_Right | winmethod_Proportional,
+                             20, wintype_TextBuffer, 0);
+    /* A thin graphics window between the main text and the pane, drawn in the
+     * text colour, as a divider. */
+    if (objwin && glk_gestalt(gestalt_Graphics, 0))
+        gfxwin = glk_window_open(objwin, winmethod_Left | winmethod_Fixed,
+                                 2, wintype_Graphics, 0);
+}
+
+/* Close the pane and its divider so the main window reclaims the full width.
+ * The divider is a child split of objwin, so close it first. */
+static void
+close_objwin()
+{
+    if (gfxwin) { glk_window_close(gfxwin, nullptr); gfxwin = nullptr; }
+    if (objwin) { glk_window_close(objwin, nullptr); objwin = nullptr; }
+}
+
 /* Redraw the right-hand pane with the objects/characters in the current room.
+ * The pane (and its divider) is shown only when it has something to list --
+ * objects or exits; the room-name header alone does not justify it, so a room
+ * with neither closes the pane and gives the width back to the main text.
  * If a transcript is running, also echo the list to it (the pane is not part
  * of the main window's echo stream), but only when it changes. */
 static void
 update_objwin(GeasRunner *gr)
 {
-    if (!objwin)
-        return;
-    glk_window_clear(objwin);
-    strid_t s = glk_window_get_stream(objwin);
-
-    /* The room name is the pane's header (shown even when the room is empty). */
+    /* Gather everything first so we can decide whether the pane has any real
+     * content before opening or closing it. */
     std::string room = gr->get_location();
     if (!room.empty())
         room[0] = toupper((unsigned char) room[0]);
-    glk_set_style_stream(s, style_Subheader);
-    glk_put_string_stream(s, (char *) (room + "\n").c_str());
-    glk_set_style_stream(s, style_Normal);
 
     v2string contents = gr->get_room_contents();
     std::string flat;
     for (std::vector<std::string> &item : contents) {
         if (item.empty())
             continue;
-        glk_put_string_stream(s, (char *) item[0].c_str());
-        glk_put_char_stream(s, '\n');
         if (!flat.empty())
             flat += ", ";
         flat += item[0];
     }
 
-    /* List the room's exits below the objects, under their own subheader (the
-     * original Quest runner showed exits in a separate pane).  Echo them to the
-     * transcript alongside the object list. */
     vstring exits = gr->get_room_exits();
     std::string flatexits;
-    if (!exits.empty()) {
-        glk_put_char_stream(s, '\n');
-        glk_set_style_stream(s, style_Subheader);
-        glk_put_string_stream(s, (char *) "Exits\n");
-        glk_set_style_stream(s, style_Normal);
-        for (std::string &exit : exits) {
-            if (exit.empty())
-                continue;
-            glk_put_string_stream(s, (char *) exit.c_str());
-            glk_put_char_stream(s, '\n');
-            if (!flatexits.empty())
-                flatexits += ", ";
-            flatexits += exit;
-        }
+    for (std::string &exit : exits) {
+        if (exit.empty())
+            continue;
+        if (!flatexits.empty())
+            flatexits += ", ";
+        flatexits += exit;
     }
 
     /* Status variables (Quest's "collectables": money/health/score etc.,
@@ -625,6 +635,47 @@ update_objwin(GeasRunner *gr)
     }
     draw_banner();
 
+    /* Show the pane only when there are objects or exits to list. */
+    bool show = !flat.empty() || !flatexits.empty();
+    if (g_use_objpane) {
+        if (show)
+            ensure_objwin_open();
+        else
+            close_objwin();
+    }
+
+    if (objwin) {
+        glk_window_clear(objwin);
+        strid_t s = glk_window_get_stream(objwin);
+
+        glk_set_style_stream(s, style_Subheader);
+        glk_put_string_stream(s, (char *) (room + "\n").c_str());
+        glk_set_style_stream(s, style_Normal);
+
+        for (std::vector<std::string> &item : contents) {
+            if (item.empty())
+                continue;
+            glk_put_string_stream(s, (char *) item[0].c_str());
+            glk_put_char_stream(s, '\n');
+        }
+
+        /* List the room's exits below the objects, under their own subheader
+         * (the original Quest runner showed exits in a separate pane). */
+        if (!exits.empty()) {
+            glk_put_char_stream(s, '\n');
+            glk_set_style_stream(s, style_Subheader);
+            glk_put_string_stream(s, (char *) "Exits\n");
+            glk_set_style_stream(s, style_Normal);
+            for (std::string &exit : exits) {
+                if (exit.empty())
+                    continue;
+                glk_put_string_stream(s, (char *) exit.c_str());
+                glk_put_char_stream(s, '\n');
+            }
+        }
+        fill_divider();
+    }
+
     std::string key = room + "\x01" + flat + "\x01" + flatexits + "\x01" + flatstatus;
     if (transcriptstr && key != g_last_objlist) {
         std::string line = "[ " + (room.empty() ? std::string("Here") : room) +
@@ -640,7 +691,10 @@ update_objwin(GeasRunner *gr)
 bool
 GeasGlkInterface::has_objects_window ()
 {
-    return objwin != nullptr;
+    /* True whenever the host is using a side pane, even if it is momentarily
+     * closed for an empty room -- so the runner consistently routes object and
+     * exit listings to the pane rather than duplicating them in the main text. */
+    return g_use_objpane;
 }
 
 /* Paint the divider window in the current text colour.  Graphics windows are
