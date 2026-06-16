@@ -2988,18 +2988,41 @@ static void find_zork0_globals(void) {
 
                 start = find_values_in_pattern({ 0x51, WILDCARD, WILDCARD, 0x00, 0x61, 0x00}, { &zp.P_REGION, &zp.P_REGION }, start, 200);
 
-                start = find_globals_in_pattern({ 0xef, 0xaf, 0x02, WILDCARD, 0xe6, 0xbf, WILDCARD, 0x61, WILDCARD }, { &zg.MOVES, &zg.MOVES, &zg.SCORE }, start, 300);
-                if (start == -1) {
+                int32_t score_start = find_globals_in_pattern({ 0xef, 0xaf, 0x02, WILDCARD, 0xe6, 0xbf, WILDCARD, 0x61, WILDCARD }, { &zg.MOVES, &zg.MOVES, &zg.SCORE }, start, 300);
+                if (score_start == -1) {
+                    // r66 (pre-release) builds the score/moves line with the Y
+                    // coordinate in a different local, so SET_CURSOR encodes as
+                    // ef af 03 .. instead of ef af 02 .., and the P_REGION
+                    // anchor that seeds `start` above doesn't match either. The
+                    // PRINT_NUM <MOVES> / JE <SCORE> shape is otherwise the
+                    // same, so scan the whole UPDATE-STATUS-LINE routine for it.
+                    score_start = find_globals_in_pattern({ 0xef, 0xaf, 0x03, WILDCARD, 0xe6, 0xbf, WILDCARD, 0x61, WILDCARD }, { &zg.MOVES, &zg.MOVES, &zg.SCORE }, entrypoint.found_at_address, 0x400);
+                }
+                if (score_start == -1) {
                     fprintf(stderr, "Could not find zg.SCORE!\n");
                 } else {
                     fprintf(stderr, "zg.MOVES = 0x%x zg.SCORE = 0x%x\n", zg.MOVES, zg.SCORE);
+                }
 
-                    start = find_globals_in_pattern({ 0xa0, WILDCARD, 0x45, 0xf1, 0x7f, 0x00 }, { &zg.BORDER_ON }, start, 200);
-                    if (start == -1) {
-                        fprintf(stderr, "Could not find zg.BORDER_ON!\n");
-                    } else {
-                        fprintf(stderr, "zg.BORDER_ON = 0x%x\n", zg.BORDER_ON);
-                    }
+                // BORDER-ON gates the entire border + compass draw (border_on
+                // in zorkzero.cpp), so it must be located independently of
+                // SCORE. The pre-release r66 layout doesn't match the
+                // MOVES/SCORE idiom above; nesting the BORDER-ON search under
+                // SCORE's success therefore left zg.BORDER_ON == 0, so border_on
+                // read global 0, came out false, and r66 drew no pillars or
+                // compass at all. r66's BORDER-ON read (a0 af 45 f1 7f 00) does
+                // match the pattern -- it was just never searched for. When
+                // SCORE was found keep the original forward scan from there;
+                // otherwise scan the whole UPDATE-STATUS-LINE routine.
+                if (score_start != -1) {
+                    start = find_globals_in_pattern({ 0xa0, WILDCARD, 0x45, 0xf1, 0x7f, 0x00 }, { &zg.BORDER_ON }, score_start, 200);
+                } else {
+                    start = find_globals_in_pattern({ 0xa0, WILDCARD, 0x45, 0xf1, 0x7f, 0x00 }, { &zg.BORDER_ON }, entrypoint.found_at_address, 0x400);
+                }
+                if (start == -1) {
+                    fprintf(stderr, "Could not find zg.BORDER_ON!\n");
+                } else {
+                    fprintf(stderr, "zg.BORDER_ON = 0x%x\n", zg.BORDER_ON);
                 }
 
                 // The pre-release revisions special-case the status-line room
