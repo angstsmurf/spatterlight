@@ -142,6 +142,41 @@ static uchar is_undo_command(const char *line, uchar allow_bare)
 	return (*line == '\0');
 }
 
+/* True if the player's line is the interpreter "#transcript" meta-command (the
+ * shorter "#script" is accepted as a synonym). Same surface syntax as
+ * is_undo_command: leading/trailing whitespace ignored, case-insensitive, and
+ * the '#' prefix is required during play so it can never clash with a game's
+ * own vocabulary. */
+/* Case-insensitively match word (which must be lower-case) at the front of
+ * line; return the position just past it on success, or NULL. */
+static const char *match_word(const char *line, const char *word)
+{
+	while (*word)
+	{
+		if (tolower((uchar)*line) != *word) return NULL;
+		line++;
+		word++;
+	}
+	return line;
+}
+
+static uchar is_script_command(const char *line)
+{
+	const char *rest;
+
+	while (*line == ' ' || *line == '\t') line++;
+	if (*line != '#') return 0;
+	line++;
+
+	if (!(rest = match_word(line, "transcript"))
+	&&  !(rest = match_word(line, "script")))
+		return 0;
+
+	while (*rest == ' ' || *rest == '\t'
+	|| *rest == '\r' || *rest == '\n') rest++;
+	return (*rest == '\0');
+}
+
 /* Discard the entire undo history. Called when a genuinely new game begins (a
  * first launch, a "play again" after the end, or a game-driven RESTART) so
  * that undo never reaches back into a previous life. The undo-after-death
@@ -440,6 +475,14 @@ void playgame(ushort zxptr)
 			if (is_undo_command(linebuf, 0))
 			{
 				if (restore_undo()) desc = 1;
+				continue;
+			}
+
+			/* Interpreter-level transcript toggle. Does not count
+			 * as a turn and does not redescribe. */
+			if (is_script_command(linebuf))
+			{
+				script_toggle();
 				continue;
 			}
 

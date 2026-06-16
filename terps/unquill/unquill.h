@@ -105,6 +105,9 @@ void loadgame(void);
 int end_game_prompt(void);
 void undo_reset(void);
 
+/* "#transcript" meta-command: start/stop a transcript of the session (unquill.c) */
+void script_toggle(void);
+
 void inform_src(ushort);
 void zcode_binary(void);
 

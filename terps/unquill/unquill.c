@@ -154,7 +154,46 @@ void glk_printf(char *fmt, ...)
     va_start(ap, fmt);
     vsprintf(buf, fmt, ap);
     va_end(ap);
-    glk_put_string(buf);    
+    glk_put_string(buf);
+}
+
+/* --- Transcript (scripting) --------------------------------------------- *
+ * The "#transcript" meta-command toggles a running transcript of the session.
+ * We use mainwin's echo stream: while it is set, the Glk library copies
+ * everything printed to the window — and the echo of every command the player
+ * types — to the stream, which is all a transcript needs. mainwin is opened
+ * once (before the play loop) and never replaced during play, so the echo
+ * stream survives "play again" and undo-after-death without re-attaching. */
+static strid_t scriptstr = NULL;
+
+void script_toggle(void)
+{
+    frefid_t fref;
+
+    if (scriptstr)		/* currently scripting: stop */
+    {
+	/* Printed before detaching so it lands in the transcript itself. */
+	glk_put_string("\n[Transcript stopped.]\n");
+	glk_window_set_echo_stream(mainwin, NULL);
+	glk_stream_close(scriptstr, NULL);
+	scriptstr = NULL;
+	return;
+    }
+
+    fref = glk_fileref_create_by_prompt(fileusage_Transcript | fileusage_TextMode,
+					filemode_Write, 0);
+    if (!fref)			/* user cancelled the file prompt */
+	return;
+    scriptstr = glk_stream_open_file(fref, filemode_Write, 0);
+    glk_fileref_destroy(fref);
+    if (!scriptstr)
+    {
+	glk_put_string("\n[Could not start a transcript.]\n");
+	return;
+    }
+    glk_window_set_echo_stream(mainwin, scriptstr);
+    /* Printed after attaching so the transcript opens with this marker. */
+    glk_put_string("\n[Transcript started.]\n");
 }
 
 /* The only command-line argument is the filename. */
@@ -995,7 +1034,15 @@ resume:
 	    break;	/* loop round and start a fresh game */
 	}
     }
-    
+
+    /* Flush and close any open transcript before we leave. */
+    if (scriptstr)
+    {
+	glk_window_set_echo_stream(mainwin, NULL);
+	glk_stream_close(scriptstr, NULL);
+	scriptstr = NULL;
+    }
+
     glk_put_string("\n");
 }
 

@@ -134,6 +134,18 @@ void glk_fileref_destroy(frefid_t fref) { (void)fref; }
 char *glkunix_fileref_get_filename(frefid_t fref)
 { (void)fref; return "unquill-cli.sav"; }
 
+/* --- streams: only enough for the "#transcript" command to link ----------- *
+ * The CLI front end has no real Glk streams, so opening a transcript fails
+ * gracefully (script_toggle reports it could not start one); on a real Glk
+ * library the game is the one providing these. */
+
+strid_t glk_stream_open_file(frefid_t fileref, glui32 fmode, glui32 rock)
+{ (void)fileref; (void)fmode; (void)rock; return NULL; }
+void glk_window_set_echo_stream(winid_t win, strid_t str)
+{ (void)win; (void)str; }
+void glk_stream_close(strid_t str, stream_result_t *result)
+{ (void)str; if (result) { result->readcount = 0; result->writecount = 0; } }
+
 /* --- entry point --------------------------------------------------------- */
 
 int main(int argc, char **argv)
