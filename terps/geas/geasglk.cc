@@ -354,13 +354,15 @@ void glk_main(void)
 
     /* A right-hand pane listing the objects/characters in the current room
      * (and, later, menus).  Open it once to probe whether the host supports a
-     * side pane; if so we manage it dynamically, showing it only when it has
-     * something to list and closing it (reclaiming the width) when empty.  If
-     * it can't be opened we fall back to listing objects in the main text (see
-     * GeasGlkInterface::has_objects_window). */
+     * side pane, then close it again: update_objwin manages it dynamically,
+     * opening it only when it has something to list and closing it (reclaiming
+     * the width) when empty.  Probing-then-closing avoids leaving an empty pane
+     * on screen during the game's intro / name prompt, which runs (and renders)
+     * before the first update_objwin.  If it can't be opened we fall back to
+     * listing objects in the main text (see has_objects_window). */
     ensure_objwin_open();
     g_use_objpane = (objwin != nullptr);
-    fill_divider();
+    close_objwin();
 
     /* We can turn off Glk's automatic line-input echo and echo entered text
      * ourselves; this is used for the command loop so that a timer cancelling
