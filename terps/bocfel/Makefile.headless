@@ -1,0 +1,101 @@
+# Headless build of the Bocfel Z-machine interpreter for automated/regression
+# testing -- including the V6 games (Zork Zero, Arthur, Journey, Shogun).
+#
+# Bocfel has a built-in non-Glk "dumb terminal" front-end: when ZTERP_GLK is
+# *not* defined, zterp.cpp compiles a plain `int main()` that reads commands
+# from stdin and writes the game's output to stdout (see the #else branch at
+# the bottom of zterp.cpp). No Glk library is needed -- we just compile the
+# core engine and link a standalone binary, `bocfel_hl`.
+#
+# V6 SUPPORT
+# ----------
+# V6 is left *enabled* (we do NOT define ZTERP_NO_V6) so V6 game logic -- the
+# object tree, parser, turn loop, and the text-mode menu/dialog handlers -- runs
+# from the real engine sources. The actual graphics rendering (the z6/ image
+# sources) is excluded; it is guarded by ZTERP_GLK + SPATTERLIGHT and never
+# reaches a non-Glk build.
+#
+# V6 ENTRYPOINT SYSTEM (HEADLESS_V6)
+# ----------------------------------
+# We also compile and *run* the real z6/entrypoints.cpp. At startup
+# find_entrypoints() locates each V6 game's graphics/status routines in the
+# story file and, for `stub_original` rows, byte-patches their first byte to
+# `rtrue` (0xb0) so the original Z-code returns immediately; check_entrypoints()
+# then dispatches per instruction. This is what lets graphics-heavy V6 routines
+# be skipped cleanly instead of crashing the dumb terminal (e.g. Zork Zero
+# release r343-s890217 boots only with this enabled).
+#
+# entrypoints.cpp pulls in a large surface of per-game replacement functions and
+# global aggregates that normally live in the Glk/SPATTERLIGHT-only z6 sources;
+# headless_v6_stubs.cpp provides no-op definitions for all of them (the
+# behaviour that matters is the byte-patching, not the stubbed graphics fns).
+# The call sites in zterp.cpp/process.cpp and the V6 game-detection serial map
+# are gated by `#if defined(SPATTERLIGHT) || defined(HEADLESS_V6)`, so the real
+# Spatterlight build and the plain dumb-terminal build are both unaffected.
+#
+# Result: V6 games boot and play their text engine headless. Graphics simply
+# don't render. V1-V5 games run exactly as in a non-V6 build (they never set
+# is_spatterlight_v6, so the entrypoint hooks are inert for them).
+#
+# Usage:
+#   make -f Makefile.headless
+#   ./headless_obj/bocfel_hl story.z5                         # interactive on a tty
+#   printf 'all\n' | ./headless_obj/bocfel_hl praxix.z5       # scripted via stdin
+#   ./headless_obj/bocfel_hl zork0.z6                         # a V6 game
+#
+# find_entrypoints() prints "Found routine ... at offset 0x..." diagnostics to
+# stderr for V6 games; redirect 2>/dev/null to suppress them.
+#
+# Regression suites bundled in the repo:
+#   ./headless_obj/bocfel_hl  "../../UITests/Supporting Files/czech.z5"   # auto-runs
+#   printf 'all\n' | ./headless_obj/bocfel_hl "../../UITests/Supporting Files/praxix.z5"
+# V6 game blorbs live under ../../SpatterlightTests/Supporting Files/.
+#
+# See run_transcript.sh for a command-file / expected-output test driver.
+
+CXX      ?= clang++
+OBJDIR   := headless_obj
+BIN      := $(OBJDIR)/bocfel_hl
+
+# HEADLESS_V6 activates the entrypoint-system hooks. The z6/glkimp/bocfel-
+# spatterlight include dirs only matter for the TUs that include the z6 headers
+# (entrypoints.cpp, headless_v6_stubs.cpp) -- they provide glk.h/glkimp.h types;
+# the core engine never includes glk.h when ZTERP_GLK is undefined.
+# -include headless_compat.h makes the SPATTERLIGHT-guarded zwindow_style()
+# prototype (and a `struct Window` forward decl) visible to the non-Spatterlight,
+# V6-enabled build.
+CXXFLAGS := -std=c++17 -O2 -g -DHEADLESS_V6 \
+            -I. -Iz6 -I../../glkimp -Ibocfel-spatterlight \
+            -include headless_compat.h \
+            -Wall -Wno-unknown-pragmas -Wno-macro-redefined
+
+# Resolve z6/ sources by basename.
+vpath %.cpp z6
+
+# Core engine + headless stubs + the V6 entrypoint system. glkstart.cpp and
+# glkautosave.cpp are Glk front-end glue and are deliberately omitted.
+SRCS := \
+    blorb.cpp branch.cpp dict.cpp iff.cpp io.cpp mathop.cpp memory.cpp \
+    meta.cpp objects.cpp options.cpp osdep.cpp patches.cpp process.cpp \
+    random.cpp screen.cpp sound.cpp stack.cpp stash.cpp unicode.cpp \
+    util.cpp zoom.cpp zterp.cpp \
+    headless_stubs.cpp headless_v6_stubs.cpp \
+    entrypoints.cpp
+
+OBJS := $(addprefix $(OBJDIR)/,$(notdir $(SRCS:.cpp=.o)))
+
+all: $(BIN)
+
+$(BIN): $(OBJS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+$(OBJDIR)/%.o: %.cpp headless_compat.h | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+clean:
+	rm -rf $(OBJDIR)
+
+.PHONY: all clean
