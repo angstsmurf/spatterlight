@@ -142,11 +142,6 @@ static uchar is_undo_command(const char *line, uchar allow_bare)
 	return (*line == '\0');
 }
 
-/* True if the player's line is the interpreter "#transcript" meta-command (the
- * shorter "#script" is accepted as a synonym). Same surface syntax as
- * is_undo_command: leading/trailing whitespace ignored, case-insensitive, and
- * the '#' prefix is required during play so it can never clash with a game's
- * own vocabulary. */
 /* Case-insensitively match word (which must be lower-case) at the front of
  * line; return the position just past it on success, or NULL. */
 static const char *match_word(const char *line, const char *word)
@@ -160,42 +155,62 @@ static const char *match_word(const char *line, const char *word)
 	return line;
 }
 
-static uchar is_script_command(const char *line)
+/* The interpreter-level meta-commands. These are recognised during play by
+ * meta_command() below and acted on before the turn counter advances and before
+ * the game's own parser runs, so they never count as a turn or clash with a
+ * game's vocabulary. */
+enum { META_NONE, META_UNDO, META_RESTORE, META_SAVE,
+       META_RESTART, META_QUIT, META_TRANSCRIPT, META_HELP };
+
+/* Each meta-command word and the action it maps to (several words may share an
+ * action, e.g. "transcript"/"script"). This table also drives the #help
+ * listing, so the two can never drift apart. */
+static const struct { const char *name; int id; } meta_words[] = {
+	{ "undo",       META_UNDO },
+	{ "restore",    META_RESTORE },
+	{ "save",       META_SAVE },
+	{ "restart",    META_RESTART },
+	{ "quit",       META_QUIT },
+	{ "transcript", META_TRANSCRIPT },
+	{ "script",     META_TRANSCRIPT },
+	{ "help",       META_HELP },
+	{ "commands",   META_HELP },
+};
+
+/* If line is an interpreter meta-command, return its META_* id, else META_NONE.
+ * Same surface syntax as is_undo_command: leading/trailing whitespace ignored,
+ * case-insensitive, and the '#' prefix is required during play so a command can
+ * never clash with a word in the game's own vocabulary. */
+static int meta_command(const char *line)
 {
-	const char *rest;
+	size_t k;
 
 	while (*line == ' ' || *line == '\t') line++;
-	if (*line != '#') return 0;
+	if (*line != '#') return META_NONE;
 	line++;
 
-	if (!(rest = match_word(line, "transcript"))
-	&&  !(rest = match_word(line, "script")))
-		return 0;
-
-	while (*rest == ' ' || *rest == '\t'
-	|| *rest == '\r' || *rest == '\n') rest++;
-	return (*rest == '\0');
+	for (k = 0; k < sizeof meta_words / sizeof meta_words[0]; k++)
+	{
+		const char *rest = match_word(line, meta_words[k].name);
+		if (!rest) continue;
+		while (*rest == ' ' || *rest == '\t'
+		|| *rest == '\r' || *rest == '\n') rest++;
+		if (*rest == '\0') return meta_words[k].id;
+	}
+	return META_NONE;
 }
 
-/* True if the player's line is the interpreter "#restore" meta-command, a
- * synonym for the game's own LOAD verb. Same surface syntax as the commands
- * above: leading/trailing whitespace ignored, case-insensitive, and the '#'
- * prefix is required during play so it can never clash with a game's
- * vocabulary. */
-static uchar is_restore_command(const char *line)
+/* Print the list of available meta-commands (the #help command). */
+static void print_meta_help(void)
 {
-	const char *rest;
-
-	while (*line == ' ' || *line == '\t') line++;
-	if (*line != '#') return 0;
-	line++;
-
-	if (!(rest = match_word(line, "restore")))
-		return 0;
-
-	while (*rest == ' ' || *rest == '\t'
-	|| *rest == '\r' || *rest == '\n') rest++;
-	return (*rest == '\0');
+	glk_printf("\nInterpreter commands (type with the '#'):\n");
+	glk_printf("  #undo       undo the last move\n");
+	glk_printf("  #save       save your position to a file\n");
+	glk_printf("  #restore    restore a saved position\n");
+	glk_printf("  #restart    start the game again from the beginning\n");
+	glk_printf("  #quit       stop playing\n");
+	glk_printf("  #transcript start/stop recording a transcript (#script)\n");
+	glk_printf("  #help       show this list (#commands)\n");
 }
 
 /* Discard the entire undo history. Called when a genuinely new game begins (a
@@ -490,31 +505,49 @@ void playgame(ushort zxptr)
 				myreadline(linebuf,254);
 			}
 
-			/* Interpreter-level UNDO. Like LOAD it restores a saved
-			 * state and redescribes the location, and it does not
-			 * count as a turn. */
-			if (is_undo_command(linebuf, 0))
+			/* Interpreter-level meta-commands. None of these count as
+			 * a turn (handled before TURNLO++). #undo/#restore/#save
+			 * redescribe the location like the game's own verbs; the
+			 * destructive #restart/#quit confirm first. A 'continue'
+			 * inside the switch re-loops; to leave the play loop we set
+			 * `leave` and break the loop after the switch (a plain
+			 * `break` would only leave the switch). */
 			{
+			int leave = 0;
+			switch (meta_command(linebuf))
+			{
+			case META_UNDO:
 				if (restore_undo()) desc = 1;
 				continue;
-			}
-
-			/* Interpreter-level transcript toggle. Does not count
-			 * as a turn and does not redescribe. */
-			if (is_script_command(linebuf))
-			{
+			case META_TRANSCRIPT:
 				script_toggle();
 				continue;
-			}
-
-			/* "#restore" is a synonym for the game's LOAD verb: it
-			 * restores a saved state and redescribes the location,
-			 * and like LOAD it does not count as a turn. */
-			if (is_restore_command(linebuf))
-			{
+			case META_RESTORE:	/* synonym for the LOAD verb */
 				loadgame();
 				desc = 1;
 				continue;
+			case META_SAVE:		/* synonym for the SAVE verb */
+				savegame();
+				desc = 1;
+				continue;
+			case META_HELP:
+				print_meta_help();
+				continue;
+			case META_RESTART:
+				glk_printf("\nRestart from the beginning? ");
+				if (yesno() != 'Y') continue;
+				estop = 1;	/* glk_main restarts the game */
+				leave = 1;
+				break;
+			case META_QUIT:
+				glk_printf("\nStop playing this game? ");
+				if (yesno() != 'Y') continue;
+				leave = 1;	/* -> "play again?" prompt */
+				break;
+			default:
+				break;		/* not a meta-command: parse it */
+			}
+			if (leave) break;	/* exit the while(1) play loop */
 			}
 
     			TURNLO++;
