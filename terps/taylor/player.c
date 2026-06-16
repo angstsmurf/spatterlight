@@ -2064,12 +2064,26 @@ static void ExecuteLineCode(unsigned char *code, int *done)
             Put(arg1, ObjectLoc[arg2]);
             break;
         case BEEP:
-            /* The interpreter's BEEP routine calls the ROM beeper (0x03B5) with
-             * HL = arg1 (pitch) and DE = arg2 * 4 (cycles); reproduce the tone. */
+            /* The interpreter's Beep routine (Rebel Planet @0x6AD7) builds the
+             * ROM beeper (0x03B5) inputs from the two operands, then JP 0x03B5.
+             * arg1 is the duration operand, arg2 the pitch operand:
+             *   DE (cycles)      = (duration * 4) & 0x1FF
+             *   HL (half-period) = pitch * DE   (16x16 multiply at 0x30A9)
+             * The & 0x1FF is not a tidy-up: the routine forms duration*4 with
+             * two ADD A,A and a single RL D, so only bit 6 of the duration
+             * carries into the high byte (it keeps just the low 9 bits). Without
+             * it, durations >= 64 (e.g. 0xFF) overshoot badly. f = 437500 /
+             * (HL+30.125) Hz for DE cycles. Reverse-engineered in MAME: PRESS IH
+             * in Rebel Planet gives arg1=0xFF, arg2=2 -> DE=508, HL=1016
+             * (418 Hz) -> ~1.2 s, matching the original. (The old arg1-as-HL
+             * code made a ~3 ms click; a naive duration*4 made a ~4.8 s drone.) */
 #if defined(GLK_MODULE_GARGLKBLEEP)
             garglk_zbleep(1 + (arg1 == 250));
 #elif defined(SPATTERLIGHT)
-            win_beep_zx(arg1, arg2 * 4);
+            {
+                int de = (arg1 * 4) & 0x1FF;
+                win_beep_zx((arg2 * de) & 0xFFFF, de);
+            }
 #else
             putchar('\007');
             fflush(stdout);
