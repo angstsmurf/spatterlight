@@ -357,7 +357,7 @@ void GeasFile::get_type_keys (const string &typen, set<string> &rv) const
   for (const string &line: gb->data)
     {
       tok = first_token (line, c1, c2);
-      // SENSISTIVE?
+      // SENSITIVE?
       if (tok == "type")
 	{
 	  tok = next_token (line, c1, c2);

@@ -1366,7 +1366,8 @@ void geas_implementation::set_game (const string &s)
 	{
 	  const string &s = gline;
 	  string tok = first_token (s, tok_start, tok_end);
-	  // SENSITIVE?
+	  /* Game-block directive keywords are case-insensitive (see run_script). */
+	  tok = lcase (tok);
 	  if (tok == "asl-version")
 	    {
 	      string ver = next_token (s, tok_start, tok_end);
@@ -1381,7 +1382,6 @@ void geas_implementation::set_game (const string &s)
 		gi->debug_print ("Warning: Geas only supports ASL "
 				 " versions 3.11 to 3.53");
 	    }
-	  // SENSITIVE?
 	  else if (tok == "background")
 	    {
 	      tok = next_token (s, tok_start, tok_end);
@@ -1390,7 +1390,6 @@ void geas_implementation::set_game (const string &s)
 	      else
 		gi->set_background (param_contents(tok));
 	    }
-	  // SENSITIVE?
 	  else if (tok == "default")
 	    {
 	      tok = next_token (s, tok_start, tok_end);
@@ -1413,7 +1412,6 @@ void geas_implementation::set_game (const string &s)
 		    gi->set_default_font_size (param_contents(tok));
 		}
 	    }
-	  // SENSITIVE?
 	  else if (tok == "foreground")
 	    {
 	      tok = next_token (s, tok_start, tok_end);
@@ -1422,7 +1420,6 @@ void geas_implementation::set_game (const string &s)
 	      else
 		gi->set_foreground (param_contents(tok));
 	    }
-	  // SENSITIVE?
 	  else if (tok == "gametype")
 	    {
 	      tok = next_token (s, tok_start, tok_end);
@@ -1434,11 +1431,9 @@ void geas_implementation::set_game (const string &s)
 		throw string ("Error: geas is single player only.");
 	      gi->debug_print ("Unexpected game type " + s);
 	    }
-	  // SENSITIVE?
 	  else if (tok == "nodebug")
 	    {
 	    }
-	  // SENSITIVE?
 	  else if (tok == "start")
 	    {
  	      tok = next_token (s, tok_start, tok_end);
@@ -3119,7 +3114,12 @@ void geas_implementation::run_script (const string &s, string &rv)
       return;
     }
 
-  // SENSITIVE?
+  /* ASL statement keywords are case-insensitive.  Fold the dispatch token once
+   * so every top-level `tok == "..."` below matches regardless of case; branch
+   * arguments are re-read with next_token, and the unrecognised-statement path
+   * logs the original line, so only the keyword comparison is affected. */
+  tok = lcase (tok);
+
   if (tok == "action")
     {
       tok = next_token (s, c1, c2);
@@ -3139,11 +3139,9 @@ void geas_implementation::run_script (const string &s, string &rv)
 		      "<" + trim (tok.substr (index+1)) + "> " + s.substr (c2 + 1));
       return;
     }
-  // SENSITIVE?
   else if (tok == "animate")
     {
     }
-  // SENSITIVE?
   else if (tok == "background")
     {
       tok = next_token (s, c1, c2);
@@ -3153,7 +3151,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected parameter after foreground in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "lock" || tok == "unlock")
     {
       /* Quest "lock <room; dir>" / "unlock <room; dir>": toggle an exit's
@@ -3177,7 +3174,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       set_obj_property ("!exitlock", key + (locking ? "=locked" : "=open"));
       return;
     }
-  // SENSITIVE?
   else if (tok == "select")
     {
       /* Quest "select case <expr> do <!intproc>": the reader deinlines the
@@ -3240,7 +3236,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       gi->debug_print ("No case block " + procname + " found");
       return;
     }
-  // SENSITIVE?
   else if (tok == "choose")
     {
       tok = next_token (s, c1, c2);
@@ -3292,18 +3287,15 @@ void geas_implementation::run_script (const string &s, string &rv)
 	run_script (actions[gi->make_choice (question, choices)]);
       return;
     }
-  // SENSITIVE?
   else if (tok == "clear")
     {
       gi->clear_screen();
       return;
     }
-  // SENSITIVE?
   else if (tok == "clone")
     {
       /* TODO */
     }
-  // SENSITIVE?
   else if (tok == "create")
     {
       tok = next_token (s, c1, c2);
@@ -3353,7 +3345,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Bad create line " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "debug")
     {
       tok = next_token (s, c1, c2);
@@ -3363,7 +3354,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected param after debug in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "destroy")
     {
       tok = next_token (s, c1, c2);
@@ -3389,7 +3379,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       regen_var_dirs();
       return;
     }
-  // SENSITIVE?
   else if (tok == "disconnect")
     {
       /* disconnect <room; direction> -- remove that exit (the inverse of
@@ -3411,7 +3400,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       regen_var_dirs ();
       return;
     }
-  // SENSITIVE?
   else if (tok == "displaytext")
     {
       tok = next_token (s, c1, c2);
@@ -3433,7 +3421,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("No such text block " + tok);
       return;
     }
-  // SENSITIVE?
   else if (tok == "do")
     {
       tok = next_token (s, c1, c2);
@@ -3455,7 +3442,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  
       return;
     }
-  // SENSITIVE?
   else if (tok == "doaction")
     {
       tok = next_token (s, c1, c2);
@@ -3477,13 +3463,11 @@ void geas_implementation::run_script (const string &s, string &rv)
       this_object = old_object;
       return;
     }
-  // SENSITIVE?
   else if (tok == "dontprocess")
     {
       dont_process = true;
       return;
     }
-  // SENSITIVE?
   else if (tok == "enter")
     {
       tok = next_token (s, c1, c2);
@@ -3496,7 +3480,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       set_svar (tok, gi->get_string());
       return;
     }
-  // SENSITIVE?
   else if (tok == "exec")
     {
       tok = next_token (s, c1, c2);
@@ -3527,7 +3510,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       return;
     }
-  // SENSITIVE?
   else if (tok == "flag")
     {
       tok = next_token (s, c1, c2);
@@ -3552,12 +3534,10 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected param after flag " + onoff + " in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "font")
     {
       /* TODO */
     }
-  // SENSITIVE?
   else if (tok == "for")
     {
       tok = next_token (s, c1, c2);
@@ -3615,7 +3595,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       
     }
-  // SENSITIVE?
   else if (tok == "foreground")
     {
       tok = next_token (s, c1, c2);
@@ -3625,7 +3604,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected parameter after foreground in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "give")
     {
       tok = next_token (s, c1, c2);
@@ -3660,7 +3638,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       gi->update_sidebars();
       return;
     }
-  // SENSITIVE?
   else if (tok == "goto")
     {
       tok = next_token (s, c1, c2);
@@ -3670,19 +3647,15 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected parameter after goto in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "helpclear")
     {
     }
-  // SENSITIVE?
   else if (tok == "helpclose")
     {
     }
-  // SENSITIVE?
   else if (tok == "helpdisplaytext")
     {
     }
-  // SENSITIVE?
   else if (tok == "helpmsg")
     {
     }
@@ -3724,7 +3697,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected param after conceal in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "if")
     {
       std::string::size_type begin_cond = c2 + 1, end_cond, begin_then, end_then;
@@ -3762,7 +3734,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	run_script (s.substr (c2), rv);
       return;
     }
-  // SENSITIVE?
   else if (tok == "inc" || tok == "dec")
     {
       // SENSITIVE?
@@ -3793,7 +3764,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	set_ivar (varname, get_dvar (varname) + diff);
       return;
     }
-  // SENSITIVE?
   else if (tok == "lose")
     {
       tok = next_token (s, c1, c2);
@@ -3827,11 +3797,9 @@ void geas_implementation::run_script (const string &s, string &rv)
       gi->update_sidebars();
       return;
     }
-  // SENSITIVE?
   else if (tok == "mailto")
     {
     }
-  // SENSITIVE?
   else if (tok == "modvolume")
     {
     }
@@ -3855,7 +3823,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       move (trim (tok.substr (0, index)), trim (tok.substr (index + 1)));
       return;
     }
-  // SENSITIVE?
   else if (tok == "msg")
     {
       tok = next_token (s, c1, c2);
@@ -3865,29 +3832,24 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected parameter after msg in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "msgto")
     {
       /* QNSO */
     }
-  // SENSITIVE?
   else if (tok == "outputoff")
     {
       outputting = false;
       return;
     }
-  // SENSITIVE?
   else if (tok == "outputon")
     {
       outputting = true;
       return;
     }
-  // SENSITIVE?
   else if (tok == "panes")
     {
       /* TODO */
     }
-  // SENSITIVE?
   else if (tok == "pause")
     {
       tok = next_token (s, c1, c2);
@@ -3900,7 +3862,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       gi->pause (i);
       return;
     }
-  // SENSITIVE?
   else if (tok == "picture")
     {
       /* picture <file[@WxH]>  -- display an image (the host loads the file
@@ -3921,7 +3882,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       return;
     }
-  // SENSITIVE?
   else if (tok == "playerlose")
     {
       run_script ("displaytext <lose>");
@@ -3929,7 +3889,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       is_running_ = false;   /* end the game so the host stops prompting */
       return;
     }
-  // SENSITIVE?
   else if (tok == "playerwin")
     {
       run_script ("displaytext <win>");
@@ -3937,7 +3896,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       is_running_ = false;   /* end the game so the host stops prompting */
       return;
     }
-  // SENSITIVE?
   // SENSITIVE?
   else if (tok == "playwav" || tok == "playmidi" || tok == "playmod")
     {
@@ -3973,7 +3931,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       gi->play_sound (fname, looped, sync);
       return;
     }
-  // SENSITIVE?
   else if (tok == "property")
     {
       tok = next_token (s, c1, c2);
@@ -3991,7 +3948,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       return;
     }
-  // SENSITIVE?
   else if (tok == "repeat")
     {
       /* TODO TODO: assumes script is a "do ..." */
@@ -4027,7 +3983,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	run_script(script);
       return;
     }
-  // SENSITIVE?
   else if (tok == "return")
     {
       tok = next_token (s, c1, c2);
@@ -4037,7 +3992,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected parameter after return in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "reveal")
     {
       tok = next_token (s, c1, c2);
@@ -4047,7 +4001,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected param after reveal in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "conceal")
     {
       tok = next_token (s, c1, c2);
@@ -4057,7 +4010,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected param after conceal in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "say")
     {
       tok = next_token (s, c1, c2);
@@ -4070,7 +4022,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected param after say in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "set")
     {
       string vartype = "";
@@ -4159,7 +4110,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       return;
     }
-  // SENSITIVE?
   else if (tok == "setstring")
     {
       tok = next_token (s, c1, c2);
@@ -4179,7 +4129,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       set_svar (varname, trim_braces (trim (tok.substr (index+1))));
       return;
     }
-  // SENSITIVE?
   else if (tok == "setvar")
     {
       tok = next_token (s, c1, c2);
@@ -4199,16 +4148,13 @@ void geas_implementation::run_script (const string &s, string &rv)
       set_ivar (varname, eval_double(tok.substr (index+1)));
       return;
     }
-  // SENSITIVE?
   else if (tok == "shell")
     {
       
     }
-  // SENSITIVE?
   else if (tok == "shellexe")
     {
     }
-  // SENSITIVE?
   else if (tok == "speak")
     {
       tok = next_token (s, c1, c2);
@@ -4218,13 +4164,11 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected param after speak in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "stop")
     {
       state.running = false;
       return;
     }
-  // SENSITIVE?
   else if (tok == "timeron" || tok == "timeroff")
     {
       // SENSITIVE?
@@ -4249,12 +4193,10 @@ void geas_implementation::run_script (const string &s, string &rv)
 		       (running ? "on" : "off") + " in " + s);
       return;
     }
-  // SENSITIVE?
   else if (tok == "type")
     {
       /* TODO */
     }
-  // SENSITIVE?
   else if (tok == "wait")
     {
       tok = next_token (s, c1, c2);
@@ -4270,7 +4212,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       gi->wait_keypress (tok);
       return;
     }
-  // SENSITIVE?
   else if (tok == "with")
     {
       // QNSO
@@ -4311,10 +4252,11 @@ bool geas_implementation::eval_cond (const string &s)
 {
   std::string::size_type c1, c2;
   string tok = first_token (s, c1, c2);
-  // SENSITIVE?
+  /* Condition keywords (not/got/here/is/property/real/type/...) are
+   * case-insensitive; fold the dispatch token once (see run_script). */
+  tok = lcase (tok);
   if (tok == "not")
     return !eval_cond (s.substr (c2));
-  // SENSITIVE?
   else if (tok == "action")
     {
       tok = next_token (s, c1, c2);
@@ -4334,7 +4276,6 @@ bool geas_implementation::eval_cond (const string &s)
       string act = trim (tok.substr (index+1));
       return has_obj_action (obj, act);
     }
-  // SENSITIVE?
   else if (tok == "ask")
     {
       tok = next_token (s, c1, c2);
@@ -4346,7 +4287,6 @@ bool geas_implementation::eval_cond (const string &s)
       tok = eval_param (tok);
       return gi->choose_yes_no (tok);
     }
-  // SENSITIVE?
   else if (tok == "exists")
     {
       tok = next_token (s, c1, c2);
@@ -4379,7 +4319,6 @@ bool geas_implementation::eval_cond (const string &s)
 	gi->debug_print ("exists " + args[0] + " failed due to nonexistence");
       return false;
     }
-  // SENSITIVE?
   else if (tok == "flag")
     {
       tok = next_token (s, c1, c2);
@@ -4391,7 +4330,6 @@ bool geas_implementation::eval_cond (const string &s)
       tok = trim (eval_param (tok));
       return has_obj_property ("game", tok);
     }
-  // SENSITIVE?
   else if (tok == "got")
     {
       tok = next_token (s, c1, c2);
@@ -4412,7 +4350,6 @@ bool geas_implementation::eval_cond (const string &s)
       gi->debug_print ("No object " + tok + " found while evaling " + s);
       return false;
     }
-  // SENSITIVE?
   else if (tok == "here")
     {
       tok = next_token (s, c1, c2);
@@ -4434,7 +4371,6 @@ bool geas_implementation::eval_cond (const string &s)
       gi->debug_print ("No object " + tok + " found while evaling " + s);
       return false;
     }
-  // SENSITIVE?
   else if (tok == "is")
     {
       tok = next_token (s, c1, c2);
@@ -4488,7 +4424,6 @@ bool geas_implementation::eval_cond (const string &s)
       gi->debug_print ("Bad is condition " + tok + " in " + s);
       return false;
     }
-  // SENSITIVE?
   else if (tok == "property")
     {
       tok = next_token (s, c1, c2);
@@ -4508,7 +4443,6 @@ bool geas_implementation::eval_cond (const string &s)
       string prop = trim (tok.substr (index+1));
       return has_obj_property (obj, prop);
     }
-  // SENSITIVE?
   else if (tok == "real")
     {
       tok = next_token (s, c1, c2);
@@ -4533,7 +4467,6 @@ bool geas_implementation::eval_cond (const string &s)
 	gi->debug_print ("real " + args[0] + " failed due to nonexistence");
       return false;
     }
-  // SENSITIVE?
   else if (tok == "type")
     {
       tok = next_token (s, c1, c2);
