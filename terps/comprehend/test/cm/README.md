@@ -5,19 +5,21 @@ Boot side B, press **S** (standard hi-res), swap to side A at "turn thy
 diskette over", press a key. Active video = hi-res **page 1 ($2000)**.
 
 ## Files
-(The `.png` reference screenshots are kept local-only in `images/` — gitignored,
-for eyeballing; the byte-exact compare targets are the `.page` files.)
-- `throne_sand60.page` / `images/throne_sand60.png` — throne room (room 0x12) at
-  the game start, VM sand var 0x11 = 60. Full panel: logo + complete hourglass.
-- `prison_displayed60.page` / `images/prison_displayed60.png` — the prison (after
-  the throne-room imprisonment trap; imprisonment RESETS sand to 74, displayed
-  counter held 60).
+(Both the `.png` reference screenshots, in `images/`, and the `.page` golden
+compare targets, in `fixtures/`, are kept local-only — gitignored — as they
+derive from the copyrighted game.)
+- `fixtures/throne_sand60.page` / `images/throne_sand60.png` — throne room (room
+  0x12) at the game start, VM sand var 0x11 = 60. Full panel: logo + complete
+  hourglass.
+- `fixtures/prison_displayed60.page` / `images/prison_displayed60.png` — the
+  prison (after the throne-room imprisonment trap; imprisonment RESETS sand to
+  74, displayed counter held 60).
 - `images/hourglass_sand60_6x.png` — the throne hourglass cropped + scaled 6x.
 - `hourglass_anatomy.txt` — ASCII bit map of cols 22..39, rows 55..150
   (regenerate with /tmp/hgmap.py).
 
 `.page` files are the raw 0x2000-byte hi-res page; render with
-`test/pixtest --render <file.page> out.ppm`. Our renderer reproduces them
+`test/pixtest --render fixtures/<file.page> out.ppm`. Our renderer reproduces them
 pixel-faithfully (validates the NTSC artifact-colour algorithm).
 
 ## Hourglass = OG image 0 + top-bulb grains (SOLVED, pixel-exact)
@@ -32,7 +34,7 @@ it is grain-drawn by `cm_draw_hourglass_grain` ($4347), ported as
 `gmDrawCMHourglass(sand)`.
 
 `pics.cpp` now builds the panel as RG0 + OG0 and stamps the top-bulb grains for
-the live sand var (0x11). Verified PIXEL-EXACT vs `throne_sand60.page`: 0
+the live sand var (0x11). Verified PIXEL-EXACT vs `fixtures/throne_sand60.page`: 0
 lit-pixel diffs over cols 24-39, rows 0-146 (only the background palette bit
 0x80-vs-0x00 differs, which renders identically black). Render references:
 `images/hourglass_OG0_empty.png` (OG0 alone) and

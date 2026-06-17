@@ -651,7 +651,7 @@ void Pics::drawPicture(int pictureNum) const {
 		// draining top-bulb sand is NOT part of OG0 -- it is grain-drawn each turn
 		// by gmDrawCMHourglass() on top. Compositing RG0 + OG0 here reproduces the
 		// static panel pixel-exactly (verified byte-for-byte vs the MAME capture
-		// in test/cm/throne_sand60.page).
+		// in test/cm/fixtures/throne_sand60.page).
 		// The panel lives on whichever pages are active, so it is built once per
 		// hi-res mode (the standard single page and the double-hi-res aux+main
 		// pages are independent buffers).

@@ -107,7 +107,7 @@ test/test_gmcgav1_pics: test/test_gmcgav1_pics.cpp graphics_magician_cga.cpp gra
 # --- Regression test: Apple II DHGR ("<D>") renderer, op15/0 RLE bitmap ---
 # Renders The Coveted Mirror's throne room and asserts the double hi-res pages
 # are byte-exact vs the MAME ground truth. Self-contained: graphics_magician_dhgr.cpp
-# has no Glk/disk dependencies; fixtures are committed in test/cm_dhgr/.
+# has no Glk/disk dependencies; fixtures live local-only in test/cm_dhgr/fixtures/.
 # Links graphics_magician.cpp too: the DHGR hourglass shares its grain-position
 # helper (gmCMHourglassGrainPos) with the standard renderer.
 test/cmdhgrtest: test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
@@ -176,7 +176,7 @@ test/op5scan: test/op5scan.c ciderpress.o woz2nib.o read_le16.o
 	    test/op5scan.c ciderpress.o woz2nib.o read_le16.o
 
 # Developer tool: list/extract files from a Comprehend Apple II .woz/.dsk disk,
-# used to pull the G-files and capture the DHGR fixtures in test/cm_dhgr/.
+# used to pull the G-files and capture the DHGR fixtures in test/cm_dhgr/fixtures/.
 #   ./test/cmextract disk.woz --list
 #   ./test/cmextract disk.woz T5 out.bin
 test/cmextract: test/cmextract.cpp ciderpress.o woz2nib.o read_le16.o

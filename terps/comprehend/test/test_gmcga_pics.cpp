@@ -11,7 +11,7 @@
  *
  * Self-contained: needs neither DOSBox nor the copyrighted NOVEL1.EXE at test
  * time.  The drawing tables (fill / subindex / brush / font) are committed as a
- * small slice of NOVEL1.EXE in test/gmcga/novel_tables.bin; each scene's vector
+ * small slice of NOVEL1.EXE in test/gmcga/fixtures/novel_tables.bin; each scene's vector
  * stream is test/gmcga/<scene>.img; each golden 320x200 framebuffer is
  * test/gmcga/<scene>.fb.  See test/gmcga/README.md for how the goldens were made.
  *
@@ -46,15 +46,15 @@ struct Case {
 };
 
 static const Case kCases[] = {
-    { "title",     "test/gmcga/title.img",     "test/gmcga/title.fb",     0 },
-    { "throne",    "test/gmcga/throne.img",    "test/gmcga/throne.fb",    0 },
-    { "cell",      "test/gmcga/cell.img",      "test/gmcga/cell.fb",      0 },
-    { "courtyard", "test/gmcga/courtyard.img", "test/gmcga/courtyard.fb", 0 },
+    { "title",     "test/gmcga/fixtures/title.img",     "test/gmcga/fixtures/title.fb",     0 },
+    { "throne",    "test/gmcga/fixtures/throne.img",    "test/gmcga/fixtures/throne.fb",    0 },
+    { "cell",      "test/gmcga/fixtures/cell.img",      "test/gmcga/fixtures/cell.fb",      0 },
+    { "courtyard", "test/gmcga/fixtures/courtyard.img", "test/gmcga/fixtures/courtyard.fb", 0 },
     // Title screens of the other v2 DOS releases (same drawing tables as
     // Talisman, byte-identical in their NOVEL.EXEs). The .img files are the
     // complete T0 -- a raw vector stream from byte 0, with no header.
-    { "oo_title",  "test/gmcga/oo_title.img",  "test/gmcga/oo_title.fb",  0 },
-    { "tr_title",  "test/gmcga/tr_title.img",  "test/gmcga/tr_title.fb",  0 },
+    { "oo_title",  "test/gmcga/fixtures/oo_title.img",  "test/gmcga/fixtures/oo_title.fb",  0 },
+    { "tr_title",  "test/gmcga/fixtures/tr_title.img",  "test/gmcga/fixtures/tr_title.fb",  0 },
 };
 
 static std::vector<uint8_t> readFile(const std::string &path) {
@@ -94,8 +94,8 @@ static int runRoomFixtures() {
     FILE *mf = fopen("test/gmcga/rooms.tsv", "r");
     if (!mf)
         return 0;                       // optional: skip if not generated
-    std::vector<uint8_t> streams = readFile("test/gmcga/rooms_streams.bin");
-    std::vector<uint8_t> goldens = readFile("test/gmcga/rooms_goldens.bin");
+    std::vector<uint8_t> streams = readFile("test/gmcga/fixtures/rooms_streams.bin");
+    std::vector<uint8_t> goldens = readFile("test/gmcga/fixtures/rooms_goldens.bin");
     if (streams.empty() || goldens.empty()) {
         fprintf(stderr, "FAIL: rooms.tsv present but blobs missing/empty\n");
         fclose(mf);
@@ -138,9 +138,9 @@ static int runRoomFixtures() {
 }
 
 int main() {
-    std::vector<uint8_t> tables = readFile("test/gmcga/novel_tables.bin");
+    std::vector<uint8_t> tables = readFile("test/gmcga/fixtures/novel_tables.bin");
     if (tables.empty() || !gmcgaInstallDrawingTables(tables.data(), tables.size())) {
-        fprintf(stderr, "FAIL: cannot load drawing tables from test/gmcga/novel_tables.bin\n");
+        fprintf(stderr, "FAIL: cannot load drawing tables from test/gmcga/fixtures/novel_tables.bin\n");
         return 1;
     }
 

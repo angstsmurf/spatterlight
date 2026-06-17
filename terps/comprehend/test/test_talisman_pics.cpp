@@ -65,24 +65,24 @@ struct Case {
 static const Case kCases[] = {
 	// Talisman (Empire disk, bright rooms, newer dialect). courtyard exercises the
 	// DRAW_BOX -> far-corner pen fix ($095b/$0990).
-	{ "talisman courtyard",   "test/talisman/courtyard.img",   "test/talisman/courtyard.page",   true, false, "test/talisman/t2.bin" },
-	{ "talisman executioner", "test/talisman/executioner.img", "test/talisman/executioner.page", true, false, "test/talisman/t2.bin" },
-	{ "talisman cell",        "test/talisman/cell.img",        "test/talisman/cell.page",        true, false, "test/talisman/t2.bin" },
+	{ "talisman courtyard",   "test/talisman/fixtures/courtyard.img",   "test/talisman/fixtures/courtyard.page",   true, false, "test/talisman/fixtures/t2.bin" },
+	{ "talisman executioner", "test/talisman/fixtures/executioner.img", "test/talisman/fixtures/executioner.page", true, false, "test/talisman/fixtures/t2.bin" },
+	{ "talisman cell",        "test/talisman/fixtures/cell.img",        "test/talisman/fixtures/cell.page",        true, false, "test/talisman/fixtures/t2.bin" },
 	// Transylvania (older dialect: op7/op15 end, full-screen fill). Its T2 places
 	// the shared tables at a different offset, exercising the signature locator.
 	// stump is the start room (lines + flood fill); cave adds brushes.
-	{ "transylvania stump",   "test/transylvania/stump.img",   "test/transylvania/stump.page",   true, true,  "test/transylvania/t2.bin" },
-	{ "transylvania cave",    "test/transylvania/cave.img",    "test/transylvania/cave.page",    true, true,  "test/transylvania/t2.bin" },
+	{ "transylvania stump",   "test/transylvania/fixtures/stump.img",   "test/transylvania/fixtures/stump.page",   true, true,  "test/transylvania/fixtures/t2.bin" },
+	{ "transylvania cave",    "test/transylvania/fixtures/cave.img",    "test/transylvania/fixtures/cave.page",    true, true,  "test/transylvania/fixtures/t2.bin" },
 	// OO-Topos (newer dialect like Talisman: op15 sub-op 3 fills the background).
 	// cell is the start room (standard-hires "S" mode).
-	{ "ootopos cell",         "test/ootopos/cell.img",         "test/ootopos/cell.page",         true, false, "test/ootopos/t2.bin" },
+	{ "ootopos cell",         "test/ootopos/fixtures/cell.img",         "test/ootopos/fixtures/cell.page",         true, false, "test/ootopos/fixtures/t2.bin" },
 	// OO-Topos title (spaceship + planet), a single vector image inside T0 past
 	// the disk-protection stub. Unlike the rooms it starts from a BLACK page (it
 	// fills its own background; a white start corrupts the "OO-TOPOS" lettering).
-	{ "ootopos title",        "test/ootopos/title.img",        "test/ootopos/title.page",        false, false, "test/ootopos/t2.bin" },
+	{ "ootopos title",        "test/ootopos/fixtures/title.img",        "test/ootopos/fixtures/title.page",        false, false, "test/ootopos/fixtures/t2.bin" },
 	// Crimson Crown (older dialect, full-screen fill). lakeshore + woods.
-	{ "crimsoncrown lakeshore","test/crimsoncrown/lakeshore.img","test/crimsoncrown/lakeshore.page",true, true,  "test/crimsoncrown/t2.bin" },
-	{ "crimsoncrown woods",   "test/crimsoncrown/woods.img",   "test/crimsoncrown/woods.page",   true, true,  "test/crimsoncrown/t2.bin" },
+	{ "crimsoncrown lakeshore","test/crimsoncrown/fixtures/lakeshore.img","test/crimsoncrown/fixtures/lakeshore.page",true, true,  "test/crimsoncrown/fixtures/t2.bin" },
+	{ "crimsoncrown woods",   "test/crimsoncrown/fixtures/woods.img",   "test/crimsoncrown/fixtures/woods.page",   true, true,  "test/crimsoncrown/fixtures/t2.bin" },
 };
 
 int main(int argc, char **argv) {

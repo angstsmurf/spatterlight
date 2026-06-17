@@ -4,8 +4,8 @@ Each test case is a pair of files:
 
 | file          | contents                                                              |
 |---------------|-----------------------------------------------------------------------|
-| `<name>.img`  | the picture's raw vector-opcode stream, as the renderer consumes it   |
-| `<name>.page` | golden 0x2000-byte Apple II hi-res page ($2000..$3FFF) captured from MAME running the real game |
+| `fixtures/<name>.img` | the picture's raw vector-opcode stream, as the renderer consumes it (local-only, gitignored — derives from the copyrighted game) |
+| `fixtures/<name>.page` | golden 0x2000-byte Apple II hi-res page ($2000..$3FFF) captured from MAME running the real game (local-only, gitignored) |
 
 `test_talisman_pics` renders each `.img` through `graphics_magician.cpp` and asserts
 the resulting hi-res page matches the golden `.page` byte-for-byte over the
@@ -14,7 +14,7 @@ which the Glk port draws separately).
 
 The renderer's drawing tables (pattern data, fill-colour subindices, brush
 bitmaps) are extracted at runtime from the boot disk's `T2` file (Graphics
-Magician code, loads at `$0800`). `test/talisman/t2.bin` is a captured copy of
+Magician code, loads at `$0800`). `test/talisman/fixtures/t2.bin` is a captured copy of
 that file; `test_talisman_pics` and `pixtest` install it via
 `gmInstallDrawingTables()` before drawing.
 
@@ -55,9 +55,9 @@ All three are bright (white-background) rooms from the Empire disk of
 
 3. **Extract the renderer input** for that file/index:
 
-       PIXTEST_IMG=test/talisman/<name>.img test/pixtest <disk.woz> <FILE> <index> /dev/null
+       PIXTEST_IMG=test/talisman/fixtures/<name>.img test/pixtest <disk.woz> <FILE> <index> /dev/null
 
-4. **Copy the golden page** to `test/talisman/<name>.page`.
+4. **Copy the golden page** to `test/talisman/fixtures/<name>.page`.
 
 5. **Register the case** in the `kCases[]` table in `test/test_talisman_pics.cpp`.
 

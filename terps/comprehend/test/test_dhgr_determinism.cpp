@@ -28,7 +28,7 @@ static std::vector<uint8_t> readFile(const char *path) {
 }
 
 int main(int argc, char **argv) {
-	const char *dir = (argc > 1) ? argv[1] : "dhgr";
+	const char *dir = (argc > 1) ? argv[1] : "dhgr/fixtures";
 	char path[512];
 	auto load = [&](const char *name) { snprintf(path, sizeof path, "%s/%s", dir, name); return readFile(path); };
 

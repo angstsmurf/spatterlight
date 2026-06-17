@@ -166,10 +166,10 @@ int main(int argc, char **argv) {
 		// Side 2/3 don't carry T2; fall back to the captured fixture so the
 		// renderer still has its drawing tables.
 		size_t fxSz = 0;
-		uint8_t *fx = readFile("test/talisman/t2.bin", &fxSz);
-		if (!fx) fx = readFile("terps/comprehend/test/talisman/t2.bin", &fxSz);
+		uint8_t *fx = readFile("test/talisman/fixtures/t2.bin", &fxSz);
+		if (!fx) fx = readFile("terps/comprehend/test/talisman/fixtures/t2.bin", &fxSz);
 		if (fx && gmInstallDrawingTables(fx, fxSz)) {
-			fprintf(stderr, "loaded drawing tables from test/talisman/t2.bin\n");
+			fprintf(stderr, "loaded drawing tables from test/talisman/fixtures/t2.bin\n");
 		} else {
 			fprintf(stderr, "warning: 'T2' not on this disk and no t2.bin fixture; drawing tables left zero\n");
 		}
@@ -248,8 +248,8 @@ int main(int argc, char **argv) {
 		bool haveT5 = t5 && gmDhgrInstallDrawingTables(t5->data, t5->datasize);
 		if (!haveT5) {
 			size_t fxSz = 0;
-			uint8_t *fx = readFile("test/cm_dhgr/T5.bin", &fxSz);
-			if (!fx) fx = readFile("terps/comprehend/test/cm_dhgr/T5.bin", &fxSz);
+			uint8_t *fx = readFile("test/cm_dhgr/fixtures/T5.bin", &fxSz);
+			if (!fx) fx = readFile("terps/comprehend/test/cm_dhgr/fixtures/T5.bin", &fxSz);
 			haveT5 = fx && gmDhgrInstallDrawingTables(fx, fxSz);
 			free(fx);
 		}

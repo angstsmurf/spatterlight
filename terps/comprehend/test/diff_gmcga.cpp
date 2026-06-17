@@ -18,10 +18,10 @@ using namespace Glk::Comprehend;
 
 struct Case { const char *name; const char *img; const char *fb; };
 static const Case kCases[] = {
-    { "title",     "test/gmcga/title.img",     "test/gmcga/title.fb" },
-    { "throne",    "test/gmcga/throne.img",    "test/gmcga/throne.fb" },
-    { "cell",      "test/gmcga/cell.img",      "test/gmcga/cell.fb" },
-    { "courtyard", "test/gmcga/courtyard.img", "test/gmcga/courtyard.fb" },
+    { "title",     "test/gmcga/fixtures/title.img",     "test/gmcga/fixtures/title.fb" },
+    { "throne",    "test/gmcga/fixtures/throne.img",    "test/gmcga/fixtures/throne.fb" },
+    { "cell",      "test/gmcga/fixtures/cell.img",      "test/gmcga/fixtures/cell.fb" },
+    { "courtyard", "test/gmcga/fixtures/courtyard.img", "test/gmcga/fixtures/courtyard.fb" },
 };
 
 static std::vector<uint8_t> readFile(const std::string &p) {
@@ -42,7 +42,7 @@ static int rgbaToIndex(uint32_t p) {
 }
 
 int main() {
-    auto tables = readFile("test/gmcga/novel_tables.bin");
+    auto tables = readFile("test/gmcga/fixtures/novel_tables.bin");
     if (tables.empty() || !gmcgaInstallDrawingTables(tables.data(), tables.size())) {
         fprintf(stderr, "cannot load tables\n"); return 1; }
 

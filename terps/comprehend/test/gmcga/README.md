@@ -14,12 +14,13 @@ renderer must be checked against DOS output, not the Apple pages.
 
 | file            | what                                                                 |
 |-----------------|----------------------------------------------------------------------|
-| `images/<scene>.png` | raw DOSBox screenshot, 640×400 (exact 2× of CGA mode 4, 320×200) |
-| `<scene>.fb`    | golden framebuffer: 320×200 = 64000 bytes, one palette index 0-3/px  |
+| `images/<scene>.png`   | raw DOSBox screenshot, 640×400 (exact 2× of CGA mode 4, 320×200) |
+| `fixtures/<scene>.fb`  | golden framebuffer: 320×200 = 64000 bytes, one palette index 0-3/px |
 
 `.fb` is produced from `.png` by `png_to_fb.py` and is the byte-exact compare
-target; the `.png` screenshots are kept local-only in `images/` (gitignored) for
-eyeballing.
+target. The `.png` screenshots (in `images/`) and the `.img`/`.fb` fixtures (in
+`fixtures/`) are all kept local-only (gitignored), as they derive from
+copyrighted games; the harness reads the fixtures from `fixtures/`.
 
 ## Geometry
 
@@ -72,14 +73,14 @@ Apple `RA #N` numbering in `../talisman/README.md`.
    dungeon: type `WAIT` four times then `BOW`, then advance the cutscene with
    Space.
 2. At the scene, `dosbox_screenshot(path=…)` → save as `images/<scene>.png`.
-3. `python3 png_to_fb.py images/<scene>.png <scene>.fb` (asserts a 640×400 input and a
-   clean 4-colour palette).
+3. `python3 png_to_fb.py images/<scene>.png fixtures/<scene>.fb` (asserts a 640×400
+   input and a clean 4-colour palette).
 
 ## Compare the renderer against a golden
 
 ```
 gmcgatest <NOVEL1.EXE> <picture-file> <offset> /tmp/r.ppm [white|black]
-python3 compare_fb.py /tmp/r.ppm <scene>.fb /tmp/diff.png
+python3 compare_fb.py /tmp/r.ppm fixtures/<scene>.fb /tmp/diff.png
 ```
 
 `compare_fb.py` diffs the 280×160 window in index space, prints a mismatch
@@ -88,16 +89,16 @@ percentage, and (with a 3rd arg) writes a diff image (red = mismatched pixel).
 ## Automated regression test
 
 `make -C terps/comprehend test` runs `test_gmcga_pics`, which renders each scene
-from its committed vector stream (`<scene>.img`) through `graphics_magician_cga.cpp` and
-compares the 280×160 window to `<scene>.fb` in index space.  It is self-contained
+from its vector stream (`fixtures/<scene>.img`) through `graphics_magician_cga.cpp` and
+compares the 280×160 window to `fixtures/<scene>.fb` in index space.  It is self-contained
 — the drawing tables are a small slice of NOVEL1.EXE in `novel_tables.bin`, so no
 copyrighted binary is needed at test time.  Each case asserts its mismatch count
 is at or below a recorded ceiling; lower the ceilings as the renderer improves.
 
 | file                 | what                                                       |
 |----------------------|------------------------------------------------------------|
-| `novel_tables.bin`   | fill / subindex / brush / font tables sliced from NOVEL1.EXE |
-| `<scene>.img`        | the scene's raw Graphics-Magician vector stream            |
+| `fixtures/novel_tables.bin` | fill / subindex / brush / font tables sliced from NOVEL1.EXE |
+| `fixtures/<scene>.img` | the scene's raw Graphics-Magician vector stream (local-only) |
 
 Scene → picture mapping: `title` = `T0`@4, `throne` = `RA`@0x22 (pic #0),
 `courtyard` = `RA`@0x8c1 (#1), `cell` = `RA`@0x2128 (#4).
@@ -113,9 +114,9 @@ streams and packs the 280×160 goldens).  `test_gmcga_pics` loads them from:
 
 | file                 | what                                                       |
 |----------------------|------------------------------------------------------------|
-| `rooms_streams.bin`  | concatenated `RA`–`RG` vector streams                       |
-| `rooms_goldens.bin`  | concatenated 280×160 goldens, packed 2 bpp (MSB-first)      |
-| `rooms.tsv`          | `name  stream_off  stream_len  golden_off  ceil`            |
+| `fixtures/rooms_streams.bin` | concatenated `RA`–`RG` vector streams (local-only)  |
+| `fixtures/rooms_goldens.bin` | concatenated 280×160 goldens, packed 2 bpp (MSB-first), local-only |
+| `rooms.tsv`          | `name  stream_off  stream_len  golden_off  ceil` (offsets into the .bin) |
 
 Object/overlay pictures (`OA`/`OB`/`OE`/`OF`) are sprites drawn over the live
 room — capturing them this way needs their real in-game predecessor, so they are

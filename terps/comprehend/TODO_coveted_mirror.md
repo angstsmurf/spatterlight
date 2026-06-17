@@ -22,7 +22,7 @@ Highlights, with detail in the git log and the `comprehend-coveted-mirror` /
 - Walkthrough harness (`test/walkthrough/`) green 5/5 (CM, OO-Topos, Crimson, Talisman,
   Transylvania); CM script plays from the throne to "Congratulations!!".
 - Graphics: title image, right-panel logo (RG img0) + hourglass frame (OG img0), and the
-  per-turn grain fall animation — hourglass render is pixel-exact vs `test/cm/throne_sand60.page`.
+  per-turn grain fall animation — hourglass render is pixel-exact vs `test/cm/fixtures/throne_sand60.page`.
 
 ## Remaining open
 

@@ -17,7 +17,17 @@ gmcgav1/trace_crypt
 *.ppm
 diff_gmcga
 
-# Reference screenshots kept only for eyeballing (the byte-exact compare targets
-# are the .fb/.page files); moved into per-folder images/ subfolders, local-only.
+# Reference screenshots kept only for eyeballing; moved into per-folder images/
+# subfolders, local-only.
 *.png
 images/
+
+# Renderer fixtures derived from copyrighted games -- the .img vector streams, the
+# .fb/VRAM and .page (Apple II hi-res) goldens, and .bin slices / raw disk files
+# (e.g. dhgr/fixtures/RA, T5). Kept local-only in per-folder fixtures/ subfolders
+# (same policy as the saga groundtruth corpora); the harnesses read them from there.
+*.img
+*.fb
+*.page
+*.bin
+fixtures/

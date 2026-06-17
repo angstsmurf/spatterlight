@@ -15,7 +15,7 @@
  *             it and not leak onto the floor (DHGR col 25, rows 136..159). This
  *             guards the fill-leak fix in rle_bitmap_dhgr.
  *
- * Self-contained: all fixtures are committed in test/cm_dhgr/
+ * Self-contained: all fixtures live (local-only, gitignored) in test/cm_dhgr/fixtures/
  *   T5.bin              -- the boot disk's <D> drawing tables
  *   throne_rb_idx1.bin  -- the throne room image stream (RB image 1, off..EOF)
  *   throne_{main,aux}.page -- MAME DHGR main/aux page1 of the throne ($2000 each)
@@ -27,7 +27,7 @@
  * CM's right-hand panel composited over them, which the engine draws on a
  * separate pass (gmCaptureCMPanel/gmOverlayCMPanel), not part of the room image.
  *
- *   cmdhgrtest [fixture_dir]      (default: test/cm_dhgr)
+ *   cmdhgrtest [fixture_dir]      (default: test/cm_dhgr/fixtures)
  */
 #include "../graphics_magician_dhgr.h"
 #include <cstdint>
@@ -66,7 +66,7 @@ static int comparePages(const uint8_t *gm, const uint8_t *ga) {
 }
 
 int main(int argc, char **argv) {
-	const char *dir = (argc > 1) ? argv[1] : "test/cm_dhgr";
+	const char *dir = (argc > 1) ? argv[1] : "test/cm_dhgr/fixtures";
 	char path[512];
 	auto load = [&](const char *nm) { snprintf(path, sizeof path, "%s/%s", dir, nm); return rd(path); };
 

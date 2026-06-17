@@ -10,7 +10,8 @@ import sys, os, time
 sys.path.insert(0, "/Users/administrator/dosbox-x-remotedebug/tests/integration")
 
 GAME = "/Users/administrator/Downloads/comprehend games/crimson-crown"
-OUT  = os.path.dirname(os.path.abspath(__file__))
+OUT  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
+os.makedirs(OUT, exist_ok=True)
 CONF = "/tmp/cc_v1_capture.conf"
 
 # (name, [commands to reach it from the start room], settle seconds)

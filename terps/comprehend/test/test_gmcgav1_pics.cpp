@@ -74,8 +74,8 @@ static uint8_t rgbaToIndex(uint32_t c) {
 }
 
 int main() {
-    std::vector<uint8_t> ovr = readFile("test/gmcgav1/novel_ovr_tables.bin");
-    std::vector<uint8_t> exe = readFile("test/gmcgav1/novel_brushes.bin");
+    std::vector<uint8_t> ovr = readFile("test/gmcgav1/fixtures/novel_ovr_tables.bin");
+    std::vector<uint8_t> exe = readFile("test/gmcgav1/fixtures/novel_brushes.bin");
     if (ovr.empty() || exe.empty()) {
         fprintf(stderr, "missing v1 table fixtures\n");
         return 1;
@@ -94,20 +94,20 @@ int main() {
     // column -- so the off-grid spill lands on phase 3 (magenta), not phase 0
     // (cyan).  blit_col now replicates that walk.  See TODO_v1_cga_graphics.
     static const struct { const char *name, *img, *fb; int ceil; } kCases[] = {
-        { "lakeshore", "test/gmcgav1/lakeshore.img", "test/gmcgav1/lakeshore.fb", 0 },
-        { "woods",     "test/gmcgav1/woods.img",     "test/gmcgav1/woods.fb",     0 },
-        { "cave",      "test/gmcgav1/cave.img",      "test/gmcgav1/cave.fb",      0 },
-        { "crypt",     "test/gmcgav1/crypt.img",     "test/gmcgav1/crypt.fb",     0 },
+        { "lakeshore", "test/gmcgav1/fixtures/lakeshore.img", "test/gmcgav1/fixtures/lakeshore.fb", 0 },
+        { "woods",     "test/gmcgav1/fixtures/woods.img",     "test/gmcgav1/fixtures/woods.fb",     0 },
+        { "cave",      "test/gmcgav1/fixtures/cave.img",      "test/gmcgav1/fixtures/cave.fb",      0 },
+        { "crypt",     "test/gmcgav1/fixtures/crypt.img",     "test/gmcgav1/fixtures/crypt.fb",     0 },
         // RB pic 3: an op12 brush stamps the [40 80 40 80] dither over a flood
         // fill.  Guards the brush/text/rect fill-pattern PHASE fix -- the per-
         // pixel blitters index the pattern by the GLOBAL CGA byte ((x+20)>>2)&3,
         // not entry[0]; collapsing to entry[0] left 51 px wrong here.  Pixel-
         // exact after the fix (see TODO_v1_cga_graphics "MOSTLY FIXED").
-        { "rb_03",     "test/gmcgav1/rb_03.img",     "test/gmcgav1/rb_03.fb",     0 },
+        { "rb_03",     "test/gmcgav1/fixtures/rb_03.img",     "test/gmcgav1/fixtures/rb_03.fb",     0 },
         // Transylvania v1 start room (RA pic 0).  Its fill/subindex/brush tables
         // are byte-identical to Crimson Crown's, so the same installed tables
         // render it -- this guards that the v1 path generalises across both games.
-        { "tr_start",  "test/gmcgav1/tr_start.img",  "test/gmcgav1/tr_start.fb",  0 },
+        { "tr_start",  "test/gmcgav1/fixtures/tr_start.img",  "test/gmcgav1/fixtures/tr_start.fb",  0 },
     };
 
     int failures = 0;

@@ -22,7 +22,9 @@ import os, subprocess
 GAME = "/Users/administrator/Downloads/comprehend games/talisman-challenging-the-sands-of-time"
 HERE = os.path.dirname(os.path.abspath(__file__))
 COMP = os.path.dirname(os.path.dirname(HERE))           # terps/comprehend
-TABLES = os.path.join(HERE, "novel_tables.bin")
+FIX  = os.path.join(HERE, "fixtures")                   # local-only fixtures
+os.makedirs(FIX, exist_ok=True)
+TABLES = os.path.join(FIX, "novel_tables.bin")
 GMCGATEST = os.path.join(COMP, "test", "gmcgatest")
 CAP = "/tmp/talcap"
 CEIL_MAX = 100      # keep near-exact rooms too, recording their actual ceiling
@@ -69,8 +71,8 @@ for name, kind, fil, pic, off, length, G in rows:
     goldens += pack_window(win)
     kept += 1
 
-open(f"{HERE}/rooms_streams.bin", "wb").write(streams)
-open(f"{HERE}/rooms_goldens.bin", "wb").write(goldens)
+open(f"{FIX}/rooms_streams.bin", "wb").write(streams)
+open(f"{FIX}/rooms_goldens.bin", "wb").write(goldens)
 open(f"{HERE}/rooms.tsv", "w").write("\n".join(man) + "\n")
 print(f"kept {kept} rooms ({dropped} over ceiling {CEIL_MAX})")
 print(f"rooms_streams.bin {len(streams)} B, rooms_goldens.bin {len(goldens)} B")

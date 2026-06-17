@@ -44,10 +44,10 @@ static uint8_t rgbaToIndex(uint32_t c) {
 }
 
 int main() {
-    std::vector<uint8_t> ovr = readFile("test/gmcgav1/novel_ovr_tables.bin");
-    std::vector<uint8_t> exe = readFile("test/gmcgav1/novel_brushes.bin");
-    std::vector<uint8_t> img = readFile("test/gmcgav1/crypt.img");
-    std::vector<uint8_t> golden = vramToFb(readFile("test/gmcgav1/crypt.fb"));
+    std::vector<uint8_t> ovr = readFile("test/gmcgav1/fixtures/novel_ovr_tables.bin");
+    std::vector<uint8_t> exe = readFile("test/gmcgav1/fixtures/novel_brushes.bin");
+    std::vector<uint8_t> img = readFile("test/gmcgav1/fixtures/crypt.img");
+    std::vector<uint8_t> golden = vramToFb(readFile("test/gmcgav1/fixtures/crypt.fb"));
     if (ovr.empty() || exe.empty() || img.empty()) return 1;
     if (!gmcgaInstallV1DrawingTables(ovr.data(), ovr.size(), exe.data(), exe.size())) return 1;
     gmcgaResetScreen(true);

@@ -2,12 +2,18 @@
 
 Ground truth + inputs for `test/cmdhgrtest` (the op15/0 DHGR regression).
 
+All fixtures (the `.page` MAME goldens and the `.bin` inputs — all derived from
+the copyrighted game) are kept local-only in `fixtures/`, gitignored; `cmdhgrtest`
+reads them from there (its default fixture dir is `test/cm_dhgr/fixtures`).
+
 | file | what |
 |------|------|
-| `throne_main.page` | MAME DHGR main page1 (`$2000`) of the throne room, 8 KB |
-| `throne_aux.page`  | MAME DHGR aux  page1 (`$2000`) of the throne room, 8 KB |
-| `throne_rb_idx1.bin` | the throne's room image stream (side A `RB`, image 1, image-offset..EOF) |
-| `T5.bin` | the boot disk's `<D>` drawing tables (side B `T5`) |
+| `fixtures/throne_main.page` | MAME DHGR main page1 (`$2000`) of the throne room, 8 KB |
+| `fixtures/throne_aux.page`  | MAME DHGR aux  page1 (`$2000`) of the throne room, 8 KB |
+| `fixtures/door_{main,aux}.page` | MAME DHGR main/aux page1 of the composited door scene |
+| `fixtures/throne_rb_idx1.bin` | the throne's room image stream (side A `RB`, image 1, image-offset..EOF) |
+| `fixtures/door_{ra2,oe0}.bin` | the Magician's-Room (`RA` image 2) + open-cupboard overlay (`OE` image 0) streams |
+| `fixtures/T5.bin` | the boot disk's `<D>` drawing tables (side B `T5`) |
 
 ## How CM `<D>` room art actually works (resolved 2026-06-14)
 
