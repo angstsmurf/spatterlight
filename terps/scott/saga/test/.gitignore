@@ -4,7 +4,9 @@ __pycache__/
 # Goldens and original game image data — regenerated locally (see each
 # groundtruth_*/README.md and the harness/decoder sources). Not committed:
 # the goldens are large binaries and the blobs are copyrighted game data.
+groundtruth/
 groundtruth_apple2/
+groundtruth_atari/
 groundtruth_c64/
 groundtruth_c64a8/
 groundtruth_dos/
