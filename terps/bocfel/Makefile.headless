@@ -46,10 +46,11 @@
 # find_entrypoints() prints "Found routine ... at offset 0x..." diagnostics to
 # stderr for V6 games; redirect 2>/dev/null to suppress them.
 #
-# Regression suites bundled in the repo:
-#   ./headless_obj/bocfel_hl  "../../UITests/Supporting Files/czech.z5"   # auto-runs
-#   printf 'all\n' | ./headless_obj/bocfel_hl "../../UITests/Supporting Files/praxix.z5"
-# V6 game blorbs live under ../../SpatterlightTests/Supporting Files/.
+# Regression suites bundled in the repo (the .z5 game files are local-only,
+# under the gitignored Games/ subfolder -- see UITests/Supporting Files/.gitignore):
+#   ./headless_obj/bocfel_hl  "../../UITests/Supporting Files/Games/czech.z5"   # auto-runs
+#   printf 'all\n' | ./headless_obj/bocfel_hl "../../UITests/Supporting Files/Games/praxix.z5"
+# V6 game blorbs live under ../../SpatterlightTests/Supporting Files/Games/.
 #
 # See run_transcript.sh for a command-file / expected-output test driver.
 

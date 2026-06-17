@@ -1,0 +1,7 @@
+# Original game data used by the UI test suite — copyrighted, kept local-only
+# (same policy as SpatterlightTests/Supporting Files/Games and the saga
+# test/groundtruth_* corpora). These files are picked up automatically by the
+# "Games" synchronized folder group in the Xcode project (shared by the UITests
+# and SpatterlightTests targets) and flattened into each test bundle, so local
+# test runs are unaffected; a fresh clone simply won't have them until supplied.
+Games/
