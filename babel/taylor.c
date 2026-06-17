@@ -87,6 +87,7 @@ static const struct rec taylor_registry[] = {
 
     { 0x2ab00, 0xf3b4, TEMPLE_OF_TERROR_IFID }, // Temple_of_Terror_1987_U.S._Gold_cr_FBR.d64
     { 0x2ab00, 0x577e, TEMPLE_OF_TERROR_IFID }, // Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64
+    { 0x2ab00, 0x7bf2, TEMPLE_OF_TERROR_IFID }, // Temple of Terror (c64.com), Triad crack
     { 0x2ab00, 0x4661, TEMPLE_OF_TERROR_IFID }, // Temple_of_Terror_1987_U.S._Gold_cr_Trianon.d64
     { 0x2ab00, 0x7b2d, TEMPLE_OF_TERROR_IFID }, // Temple of Terror - Trianon.d64
     { 0x2ab00, 0x3ee3, TEMPLE_OF_TERROR_IFID }, // Temple_of_Terror_Graphic_Version_1987_U.S._Gold_cr_FLT.d64
@@ -102,6 +103,7 @@ static const struct rec taylor_registry[] = {
     { 0xfa17, 0xfbd2, TERRAQUAKE_IFID }, // Heman C64
     { 0x2ab00, 0x4625, TERRAQUAKE_IFID }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_TIA.d64
     { 0x2ab00, 0x78ba, TERRAQUAKE_IFID }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_Popeye.d64
+    { 0x2ab00, 0xbd68, TERRAQUAKE_IFID }, // He-Man and the Masters of the Universe in Terraquake (c64.com), WCC crack
 
     { 0xb4bb, 0x2f47, KAYLETH_IFID }, // Kayleth Z80 (Needs de-shuffling)
     { 0xa4f1, 0x8c14, KAYLETH_IFID }, // Kayleth Z80 alt

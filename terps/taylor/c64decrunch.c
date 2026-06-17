@@ -52,6 +52,7 @@ static const c64rec c64_registry[] = {
     { HEMAN_64, 0xfa17, 0xfbd2, TYPE_T64, 2, NULL, 0 }, // Terraquake C64 (T64) Super Compressor / Flexible -> ECA Compacker
     { HEMAN_64, 0x2ab00, 0x4625, TYPE_D64, 2, NULL, 0 }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_TIA.d64
     { HEMAN_64, 0x2ab00, 0x78ba, TYPE_D64, 4, "-e0xc400", 4 }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_Popeye.d64
+    { HEMAN_64, 0x2ab00, 0xbd68, TYPE_D64, 2, NULL, 0 }, // He-Man and the Masters of the Universe in Terraquake (c64.com), WCC crack: ECA Compacker -> Super Compressor / Flexible
 
     { TEMPLE_OF_TERROR_64, 0xf716, 0x2b54, TYPE_T64, 4, NULL, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
     { TOT_TEXT_ONLY_64, 0xf716, 0x2b54, TYPE_T64, 3, NULL, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
@@ -68,6 +69,9 @@ static const c64rec c64_registry[] = {
     { TEMPLE_OF_TERROR_64, 0x2ab00, 0x3ee3, TYPE_D64, 6, "-e0xc1ef", 4 }, // Temple_of_Terror_Graphic_Version_1987_U.S._Gold_cr_FLT.d64
     { TEMPLE_OF_TERROR_64, 0x2ab00, 0x5b97, TYPE_D64, 4, "-e0xc1ef", 2 }, // Temple_of_Terror_1987_U.S._Gold_h_FLT.d64
     { TEMPLE_OF_TERROR_64, 0x2ab00, 0x55a1, TYPE_D64, 4, "-e0xc1ef", 2 }, // Temple_of_Terror_1987_US_Gold_cr_FLT.d64
+
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x7bf2, TYPE_D64, 4, NULL, 0 }, // Temple of Terror (c64.com), Triad crack: 1001 CardCruncher New Packer -> ACM -> Triad-01 -> Mr.Z Packer
+    { TOT_TEXT_ONLY_64,    0x2ab00, 0x7bf2, TYPE_D64, 3, NULL, 0 }, // Temple of Terror (c64.com), text-only file: 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
 
     { KAYLETH_64, 0x2ab00, 0xc75f, TYPE_D64, 3, NULL, 0 }, // Kayleth D64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
     { KAYLETH_64, 0xb1f2, 0x7757, TYPE_T64, 3, NULL, 0 }, // Kayleth T64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
@@ -189,6 +193,10 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
             file2 = MemAlloc(size2 + 16);
             memcpy(file2 + 16, tempfile2, size2);
             size2 += 16;
+        } else if (rec.chk == 0x7bf2) {
+            /* c64.com Triad crack: graphics and text are separate named files */
+            file1 = di_get_file_named(*sf, *extent, &size1, "TEMPLE GRA/TRIAD");
+            file2 = di_get_file_named(*sf, *extent, &size2, "TEMPLE TEX/TRIAD");
         } else {
             file1 = di_get_file_named(*sf, *extent, &size1, "TEMPLE O.TERROR2");
             file2 = di_get_file_named(*sf, *extent, &size2, "TEMPLE O.TERROR1");
@@ -284,7 +292,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
         if (*extent == record.length && chksum == record.chk) {
             if (record.type == TYPE_D64) {
                 /* Temple of Terror D64 variants with two game files */
-                if (chksum == 0x577e || chksum == 0x4661 || chksum == 0x7b2d) {
+                if (chksum == 0x577e || chksum == 0x4661 || chksum == 0x7b2d || chksum == 0x7bf2) {
                     return terror_menu(sf, extent, i);
                 } else {
                     size_t newlength;
