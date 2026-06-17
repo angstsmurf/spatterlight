@@ -1471,13 +1471,15 @@ void geas_implementation::set_game (const string &s)
       /* TODO do I run the startscript or print the opening text first? */
       run_script ("displaytext <intro>");
 
+      /* Run every startscript in order, not just the first: a game block may
+	 carry more than one once a library has appended its own via `!addto game`
+	 (e.g. the bundled type library's TLPstartup runs ahead of the game's own
+	 startscript).  Stopping at the first would silently drop the game's
+	 initialisation -- or the library's. */
       for (const auto &i: game.data)
 	// SENSITIVE?
 	if (first_token (i, c1, c2) == "startscript")
-	  {
-	    run_script_as ("game", i.substr (c2 + 1));
-	    break;
-	  }
+	  run_script_as ("game", i.substr (c2 + 1));
       
       regen_var_room ();
       regen_var_objects ();
@@ -2653,7 +2655,15 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	{
 	  GEAS_DBG << "No match found for take " << object << endl;
 	  // TODO set variable with object name
-	  display_error ("badtake", object);
+	  /* An object that can't be taken may carry a custom refusal message in a
+	   * "noTake" property (the Quest type library sets one by default and lets
+	   * objects override it, e.g. scenery); honour it before the generic
+	   * badtake error. */
+	  string notake;
+	  if (get_obj_property (object, "noTake", notake) && notake != "")
+	    print_formatted (notake);
+	  else
+	    display_error ("badtake", object);
 	}
       return true;
     }

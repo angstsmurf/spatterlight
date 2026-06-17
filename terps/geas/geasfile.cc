@@ -413,16 +413,20 @@ bool GeasFile::get_obj_property (const string &objname, const string &propname, 
       return false;
     }
   ensure_cached (*block);
+  /* A property set directly on the object always wins over one it inherits from
+   * a type, as in Quest -- regardless of whether the `type <...>` line precedes
+   * or follows the property line in the source.  So resolve inherited types
+   * first, then let the object's own properties override.  (For the common
+   * type-first ordering this is identical to a single in-order pass.) */
   for (const GeasBlock::dir &d: block->obj_prop)
-    {
-      if (d.is_type)
-	get_type_property (d.a, propname, bool_rv, string_rv);
-      else if (d.a == propname)
-	{
-	  string_rv = d.b;
-	  bool_rv = d.bv;
-	}
-    }
+    if (d.is_type)
+      get_type_property (d.a, propname, bool_rv, string_rv);
+  for (const GeasBlock::dir &d: block->obj_prop)
+    if (!d.is_type && ci_equal (d.a, propname))
+      {
+	string_rv = d.b;
+	bool_rv = d.bv;
+      }
   GEAS_DBG << "g_o_p: Ultimately returning " << (bool_rv ? "true" : "false")
        << ", with string <" << string_rv << ">\n\n";
   return bool_rv;
@@ -441,7 +445,7 @@ void GeasFile::get_type_property (const string &typenamex, const string &propnam
     {
       if (d.is_type)
 	get_type_property (d.a, propname, bool_rv, string_rv);
-      else if (d.a == propname)
+      else if (ci_equal (d.a, propname))   /* Quest property names are case-insensitive */
 	{
 	  bool_rv = d.bv;
 	  string_rv = d.b;
@@ -521,16 +525,18 @@ bool GeasFile::get_obj_action (const string &objname, const string &propname, st
       return false;
     }
   ensure_cached (*block);
+  /* As with properties (see get_obj_property), an action defined directly on the
+   * object overrides one inherited from a type irrespective of source order:
+   * resolve inherited types first, then the object's own actions. */
   for (const GeasBlock::dir &d: block->obj_act)
-    {
-      if (d.is_type)
-	get_type_action (d.a, propname, bool_rv, string_rv);
-      else if (d.a == propname)
-	{
-	  string_rv = d.b;
-	  bool_rv = true;
-	}
-    }
+    if (d.is_type)
+      get_type_action (d.a, propname, bool_rv, string_rv);
+  for (const GeasBlock::dir &d: block->obj_act)
+    if (!d.is_type && ci_equal (d.a, propname))
+      {
+	string_rv = d.b;
+	bool_rv = true;
+      }
 
   GEAS_DBG << "g_o_a: Ultimately returning value " << (bool_rv ? "true" : "false")  << ", with string <" << string_rv << ">\n\n";
 
@@ -578,7 +584,7 @@ void GeasFile::get_type_action (const string &typenamex, const string &actname, 
     {
       if (d.is_type)
 	get_type_action (d.a, actname, bool_rv, string_rv);
-      else if (d.a == actname)
+      else if (ci_equal (d.a, actname))   /* Quest action names are case-insensitive */
 	{
 	  bool_rv = true;
 	  string_rv = d.b;

@@ -29,6 +29,7 @@
 #include "reserved_words.hh"
 #include "GeasRunner.hh"
 #include "general.hh"
+#include "typelib_builtin.hh"
 
 using namespace std;
 
@@ -786,6 +787,23 @@ static bool is_builtin_quest_library (const string &name)
   return base == "stdverbs.lib" || base == "net.lib";
 }
 
+/* MaDbRiT's Type Library (typelib.qlb / typelib.lib) is another standard Quest
+ * library that ships with Quest/QDK rather than with games, so it is never on
+ * disk for us to load.  Unlike stdverbs/net, it supplies content Geas does NOT
+ * implement natively -- a set of object types (TLTscenery, TLTactor, TLTobject,
+ * the clothing hierarchy, ...) with their default properties and action
+ * overrides -- so instead of skipping it we splice in a bundled copy (see
+ * geas_builtin_typelib in typelib_builtin.hh). */
+static bool is_typelib (const string &name)
+{
+  string base = name;
+  std::string::size_type slash = base.find_last_of ("/\\");
+  if (slash != string::npos)
+    base = base.substr (slash + 1);
+  base = lcase (base);
+  return base == "typelib.qlb" || base == "typelib.lib";
+}
+
 static void handle_includes (const vector<string> &in_data, const string &filename, vector<string> &out_data, GeasInterface *gi)
 {
   string line, tok;
@@ -806,6 +824,15 @@ static void handle_includes (const vector<string> &in_data, const string &filena
 	   * load them from disk. */
 	  if (is_builtin_quest_library (param_contents (tok)))
 	    continue;
+	  /* The type library isn't on disk either, but we do need its content:
+	   * splice in the bundled copy (run through the same include pipeline so
+	   * its own directives are processed normally). */
+	  if (is_typelib (param_contents (tok)))
+	    {
+	      handle_includes (split_lines (geas_builtin_typelib), "typelib.qlb",
+			       out_data, gi);
+	      continue;
+	    }
 	  //handle_includes (split_lines (gi->get_file (param_contents (tok))), out_data, gi);
 	  string newname = gi->absolute_name (param_contents(tok), filename);
 	  handle_includes (split_lines (gi->get_file (newname)), newname, out_data, gi);
