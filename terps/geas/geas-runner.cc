@@ -1670,6 +1670,23 @@ void geas_implementation::regen_var_dirs()
 
 
 
+/* "take off", "pick up", "look at", ... -- phrasal verbs whose leading word is a
+ * common synonym target.  A single-word synonym (e.g. KQ5's "take = get") must
+ * not rewrite the lead word of one of these, or "take off cloak" turns into
+ * "get off cloak" and never matches the take-off command/verb. */
+static bool is_phrasal_verb_lead (const string &phrase)
+{
+  static const char *phrasals[] =
+    { "take off", "put on", "put in", "put down", "pick up", "get off",
+      "look at", "look in", "look inside", "look under", "look behind",
+      "listen to", "sit on", "sit in", "turn on", "turn off",
+      "switch on", "switch off", "give to", "take from" };
+  for (const char *p : phrasals)
+    if (phrase == p)
+      return true;
+  return false;
+}
+
 // TODO:  SENSITIVE???
 string geas_implementation::substitute_synonyms (string s) const
 {
@@ -1719,6 +1736,17 @@ string geas_implementation::substitute_synonyms (string s) const
 		  if ((k == 0 || s[k-1] == ' ') &&
 		      (end_index == s.length() || s[end_index] == ' '))
 		    {
+		      /* Don't rewrite the lead word of a phrasal verb (e.g. "take" in
+		       * "take off"): it's a distinct verb matched whole downstream. */
+		      {
+			std::string::size_type ws = end_index;
+			while (ws < s.length() && s[ws] == ' ') ++ ws;
+			std::string::size_type we = ws;
+			while (we < s.length() && s[we] != ' ') ++ we;
+			if (we > ws &&
+			    is_phrasal_verb_lead (lhs + " " + s.substr (ws, we - ws)))
+			  { k = end_index; continue; }
+		      }
 		      /* Don't expand the word if it's already part of a complete,
 		       * word-bounded occurrence of its own expansion -- otherwise
 		       * "flag pole" (pole = flag pole) becomes "flag flag pole". */
@@ -2263,6 +2291,38 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
   if (cmd == "leave" || cmd == "look out")
     cmd = "out";
 
+  /* Take off / unwear a worn item.  Game-defined commands ran first (above), so
+   * a game that scripts its own removal -- e.g. KQ5 refuses to take off the
+   * cloak -- still wins; this is the fallback for clothing whose only handler is
+   * a type's action <unwear> (which prints the message and resets the alias but,
+   * like Quest's library, leaves clearing the worn flag to the command layer we
+   * don't bundle).  Placed before the wear/verb table so "take off X" isn't read
+   * as the verb "take". */
+  for (const char *phrase : { "take off", "unwear", "doff" })
+    if ((match = match_command (cmd, string (phrase) + " #@object#")))
+      {
+	if (!dereference_vars (match.bindings, is_internal))
+	  return true;
+	string obj = match.bindings[0].var_text, script;
+	if (!has_obj_property (obj, "worn"))
+	  print_formatted ("You aren't wearing it.");
+	else
+	  {
+	    if (get_obj_action (obj, "unwear", script))
+	      run_script_as (obj, script);   /* type action: message + alias reset */
+	    else
+	      {
+		string um;
+		if (get_obj_property (obj, "unwearmessage", um) && um != "")
+		  print_formatted (um);
+		else
+		  print_formatted ("You take it off.");
+	      }
+	    set_obj_property (obj, "not worn");
+	  }
+	return true;
+      }
+
   /* ---- Generic verb dispatch ---------------------------------------------
    * Quest games attach most verbs to objects through `action <verb>`,
    * `properties <verb=text>`, or (for opening things) the object's anonymous
@@ -2389,6 +2449,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	    else if (string (v.key) == "close" && has_obj_property (obj, "container") &&
 		     !has_obj_property (obj, "closed"))
 	      { set_obj_property (obj, "not opened"); set_obj_property (obj, "closed"); }
+	    /* Wearing -- through any handler, including a type's action <wear> that
+	     * geas ran above -- sets the "worn" property and holds the item, as in
+	     * Quest's clothing library.  The library's own command layer (which set
+	     * "worn") isn't bundled, so the type action alone wouldn't, yet games
+	     * test `property <obj; worn>` (e.g. KQ5's cloak/amulet). */
+	    if (string (v.key) == "wear")
+	      { set_obj_property (obj, "worn"); move (obj, "inventory"); }
 	    return true;
 	  }
   }
