@@ -15,7 +15,7 @@ CFLAGS  := -std=c11 -g -O0 -w -DSPATTERLIGHT \
            -I$(TERPS)/common_utils -I$(TERPS)/common_sagadraw \
            -I$(TERPS)/readwoz -I$(TERPS)/aiukgraphics -I$(TERPS)/../glkimp
 
-SRCS := filltest.c \
+SRCS := filltest.c headless_glk_stubs.c \
         $(SCOTT)/saga/apple2_vector_draw.c \
         $(TERPS)/common_sagadraw/gm_vector.c \
         $(SCOTT)/saga/atari_8bit_vector_draw.c \
@@ -73,7 +73,7 @@ build/c64extract: c64extract.c $(TERPS)/c64diskimage/c64diskimage.c
 # `screenmem` (the native $2000 hi-res page); compared byte-for-byte against a
 # golden $2000 dump captured under MAME (approach A, like the vector apple2
 # test). Inputs come from build/extract_images (see below).
-A2_SRCS := apple2test.c \
+A2_SRCS := apple2test.c headless_glk_stubs.c \
            $(SCOTT)/../common_sagadraw/apple2draw.c \
            $(SCOTT)/../common_sagadraw/gm_artifact.c \
            $(SCOTT)/../common_sagadraw/gm_vector.c \
@@ -181,18 +181,20 @@ titest: build/titest
 UNP64 := $(TERPS)/unp64
 UNP64_SRCS := $(wildcard $(UNP64)/*.cpp) $(wildcard $(UNP64)/scanners/*.cpp)
 # extract_images_c64: swap the DetectC64 stub for the real decrunch pipeline.
-C64X_CSRCS := extract_stubs_c64.c $(SCOTT)/ai_uk/c64decrunch.c \
+# extract_stubs.c is shared with the other dumpers; -DSAGA_REAL_C64_DECRUNCH
+# drops its DetectC64 stub so the real one (c64decrunch.c) links instead.
+C64X_CSRCS := $(SCOTT)/ai_uk/c64decrunch.c \
   $(TERPS)/c64diskimage/c64diskimage.c \
-  $(filter-out extract_stubs.c,$(EXTRACT_SRCS))
+  $(EXTRACT_SRCS)
 C64_GOLDENS := $(wildcard groundtruth_c64/*/*.c64)
 
-build/extract_images_c64: $(C64X_CSRCS) extract_stubs_c64.c $(UNP64_SRCS)
+build/extract_images_c64: $(C64X_CSRCS) $(UNP64_SRCS)
 	@mkdir -p build/unp64 build/c64obj
 	@echo "compiling unp64 (C++)..."; for f in $(UNP64_SRCS); do \
 	  c++ -std=c++14 -g -O0 -w -I$(UNP64) -c "$$f" -o "build/unp64/$$(basename $$f .cpp).o" || exit 1; done
 	@echo "compiling C64 loader (C)..."; objs=""; for f in $(C64X_CSRCS); do \
 	  o="build/c64obj/$$(echo $$f | tr '/.' '__').o"; \
-	  $(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -include stddef.h $(EXTRACT_INC) -I$(UNP64) -c "$$f" -o "$$o" || exit 1; \
+	  $(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -DSAGA_REAL_C64_DECRUNCH -include stddef.h $(EXTRACT_INC) -I$(UNP64) -c "$$f" -o "$$o" || exit 1; \
 	  objs="$$objs $$o"; done; \
 	c++ -g -O0 $$objs build/unp64/*.o $(CGOBJ) -lz -o $@
 
@@ -257,7 +259,7 @@ build/zxtest: $(ZX_SRCS)
 # Howarth / Mysterious Adventures vector renderer (ai_uk/line_drawing.c). Same
 # golden-dir scheme; goldens use the .zxvec extension to keep them on their own
 # harness. zxextract dumps the LineImages[] vector stream.
-ZXVEC_SRCS := zxvectortest.c $(TERPS)/aiukgraphics/palette.c \
+ZXVEC_SRCS := zxvectortest.c headless_glk_stubs.c $(TERPS)/aiukgraphics/palette.c \
               $(SCOTT)/ai_uk/ringbuffer.c $(TERPS)/common_utils/memory_allocation.c
 ZXVEC_GOLDENS := $(wildcard groundtruth_zx/*/*.zxvec)
 

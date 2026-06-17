@@ -14,10 +14,15 @@
 #include "detect_game.h"
 
 // --- C64 detection (pulls in the C++ unp64 depacker) — not needed here --------
+// The C64-blob dumper (extract_images_c64) links the real DetectC64 + decrunch
+// pipeline, so it builds this file with -DSAGA_REAL_C64_DECRUNCH to drop the
+// stub. Every other dumper (extract_images / zxextract / titest) takes the stub.
+#ifndef SAGA_REAL_C64_DECRUNCH
 GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename) {
     (void)sf; (void)extent; (void)filename;
     return UNKNOWN_GAME;
 }
+#endif
 
 // --- glkimp-specific globals (defined by the glkimp lib in the real build) -----
 // gli_slowdraw / gli_determinism are provided by cheapglk's cgmisc.o.

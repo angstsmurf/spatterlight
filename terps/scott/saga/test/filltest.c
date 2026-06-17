@@ -38,7 +38,6 @@ void FreeDiskImage(void);
 uint8_t *screenmem = NULL;       // common_sagadraw/apple2draw.c
 uint8_t *descrambletable = NULL; // common_sagadraw/apple2draw.c
 int vector_image_shown = -1;     // ai_uk/line_drawing.c
-int gli_slowdraw = 0;            // glkimp (extern under SPATTERLIGHT)
 const char *game_file = NULL;    // scott.c
 USImage *USImages = NULL;        // sagagraphics.c (image list head)
 int CurrentSys, ImageWidth, ImageHeight;
@@ -73,7 +72,6 @@ void DrawingHowarthVector(void) { unreached("DrawingHowarthVector"); }
 void PutDoublePixel(glsi32 x, glsi32 y, int32_t color) { (void)x;(void)y;(void)color; unreached("PutDoublePixel"); }
 void RectFill(int32_t x, int32_t y, int32_t w, int32_t h, int32_t color) { (void)x;(void)y;(void)w;(void)h;(void)color; unreached("RectFill"); }
 void SetColor(int32_t index, glui32 color) { (void)index;(void)color; unreached("SetColor"); }
-void glk_request_timer_events(glui32 millisecs) { (void)millisecs; }
 
 // ---- ground-truth corpus driver ---------------------------------------------
 // Walk groundtruth/<game>/*.dat (315 MAME-captured Apple II vector pictures),

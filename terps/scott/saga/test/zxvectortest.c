@@ -61,8 +61,6 @@ uint8_t *entire_file = NULL;
 size_t file_length = 0;
 GameInfo *Game = NULL;
 Header GameHeader;
-int gli_slowdraw = 0;        // emit all vector pixels in one DrawSome... call
-void glk_request_timer_events(glui32 ms) { (void)ms; }
 
 // VectorState normally lives in saga/vector_common.c, which drags in the whole
 // Apple/Atari vector subsystem; we only need this one global.

@@ -29,9 +29,6 @@ extern uint8_t *descrambletable;
 winid_t Graphics = NULL;
 int pixel_size = 1, x_offset = 0, y_offset = 0, ImageHeight = 320;
 void Fatal(const char *x) { fprintf(stderr, "Fatal: %s\n", x ? x : ""); exit(1); }
-void glk_window_fill_rect(winid_t w, glui32 c, glsi32 l, glsi32 t, glui32 ww, glui32 hh) {
-    (void)w;(void)c;(void)l;(void)t;(void)ww;(void)hh;
-}
 
 static uint8_t *read_file(const char *path, size_t *size) {
     FILE *f = fopen(path, "rb");
