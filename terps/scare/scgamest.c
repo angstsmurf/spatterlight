@@ -619,6 +619,20 @@ gs_playerstaminacounter (sc_gameref_t gs)
 }
 
 void
+gs_set_playerwield (sc_gameref_t gs, sc_int object)
+{
+  assert (gs_is_game_valid (gs));
+  gs->playerwield = object;
+}
+
+sc_int
+gs_playerwield (sc_gameref_t gs)
+{
+  assert (gs_is_game_valid (gs));
+  return gs->playerwield;
+}
+
+void
 gs_set_npc_stamina (sc_gameref_t gs, sc_int npc, sc_int stamina)
 {
   assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
@@ -658,6 +672,27 @@ gs_npc_attackcounter (sc_gameref_t gs, sc_int npc)
 {
   assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
   return gs->npcs[npc].attackcounter;
+}
+
+/*
+ * gs_player_battle()
+ * gs_npc_battle()
+ *
+ * Return a pointer to the mutable Battle System attributes of the player or
+ * of a given NPC, for the battle code to read and update in place.
+ */
+sc_battle_t *
+gs_player_battle (sc_gameref_t gs)
+{
+  assert (gs_is_game_valid (gs));
+  return &gs->playerbattle;
+}
+
+sc_battle_t *
+gs_npc_battle (sc_gameref_t gs, sc_int npc)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  return &gs->npcs[npc].battle;
 }
 
 sc_int
@@ -957,6 +992,7 @@ gs_create (sc_var_setref_t vars,
       game->npcs[index_].stamina = 0;
       game->npcs[index_].staminacounter = 0;
       game->npcs[index_].attackcounter = 0;
+      memset (&game->npcs[index_].battle, 0, sizeof (game->npcs[index_].battle));
 
       vt_key[1].integer = index_;
 
@@ -986,6 +1022,8 @@ gs_create (sc_var_setref_t vars,
   game->playerposition = prop_get_integer (bundle, "I<-ss", vt_key);
   game->playerstamina = 0;
   game->playerstaminacounter = 0;
+  game->playerwield = -1;
+  memset (&game->playerbattle, 0, sizeof (game->playerbattle));
 
   /* Initialize score notifications from game properties. */
   vt_key[0].string = "Globals";
@@ -1173,6 +1211,7 @@ gs_copy (sc_gameref_t to, sc_gameref_t from)
       to->npcs[npc].stamina = from->npcs[npc].stamina;
       to->npcs[npc].staminacounter = from->npcs[npc].staminacounter;
       to->npcs[npc].attackcounter = from->npcs[npc].attackcounter;
+      to->npcs[npc].battle = from->npcs[npc].battle;
       to->npcs[npc].walkstep_count = from->npcs[npc].walkstep_count;
 
       /* Copy over NPC walks information. */
@@ -1188,6 +1227,8 @@ gs_copy (sc_gameref_t to, sc_gameref_t from)
   to->playerparent = from->playerparent;
   to->playerstamina = from->playerstamina;
   to->playerstaminacounter = from->playerstaminacounter;
+  to->playerwield = from->playerwield;
+  to->playerbattle = from->playerbattle;
 
   /*
    * Copy over miscellaneous other details.  Specifically exclude bold rooms,

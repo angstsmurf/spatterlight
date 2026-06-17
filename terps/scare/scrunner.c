@@ -261,9 +261,18 @@ static sc_commands_t STANDARD_COMMANDS[] = {
 
   /* Selected NPC interactions and conversation. */
   {"ask %character% about %text%", lib_cmd_ask_npc_about},
-  {"[attack/hit/kick/slap/shoot/stab] %character% with %object%",
-   lib_cmd_attack_npc_with},
-  {"[attack/shoot] %character%", lib_cmd_attack_npc},
+  {"[attack/kick/slap] %character% with %object%", lib_cmd_attack_npc_with},
+  {"chop %character% with %object%", lib_cmd_chop_npc_with},
+  {"cut %character% with %object%", lib_cmd_cut_npc_with},
+  {"hit %character% with %object%", lib_cmd_hit_npc_with},
+  {"shoot %character% with %object%", lib_cmd_shoot_npc_with},
+  {"stab %character% with %object%", lib_cmd_stab_npc_with},
+  {"throw %object% at %character%", lib_cmd_throw_npc_with},
+  {"[attack/kick] %character%", lib_cmd_attack_npc},
+  {"chop %character%", lib_cmd_chop_npc},
+  {"cut %character%", lib_cmd_cut_npc},
+  {"shoot %character%", lib_cmd_shoot_npc},
+  {"stab %character%", lib_cmd_stab_npc},
 
   /* More movement, waiting, and miscellaneous administrative commands. */
   {"[goto/go {to}] %text%", lib_cmd_go_room},
@@ -311,6 +320,8 @@ static sc_commands_t STANDARD_COMMANDS[] = {
   {"statusline", lib_cmd_statusline},
   {"status %character%", lib_cmd_status_npc},
   {"[status/stats]", lib_cmd_status_player},
+  {"wield %object%", lib_cmd_wield},
+  {"[unwield/sheath/sheathe]", lib_cmd_unwield},
   {"version", lib_cmd_version},
 
   {"[locate/where {is/are}/find] %object%", lib_cmd_locate_object},
@@ -377,7 +388,7 @@ static sc_commands_t STANDARD_COMMANDS[] = {
   {"fix", lib_cmd_fix_what},
   {"fly *", lib_cmd_fly},
   {"hint *", lib_cmd_hint},
-  {"hit %character%", lib_cmd_attack_npc},
+  {"hit %character%", lib_cmd_hit_npc},
   {"hit %object% *", lib_cmd_hit_object},
   {"hit %text%", lib_cmd_hit_other},
   {"hit", lib_cmd_hit_what},

@@ -136,7 +136,7 @@ static const sc_parse_schema_t V400_PARSE_SCHEMA[] = {
    "#Type ?#Type=0:#Var1,#Var2,#Var3 ?#Type=1:#Var1,#Var2,#Var3"
    " ?#Type=2:#Var1,#Var2 ?#Type=3:#Var1,#Var2,#Var3,$Expr,#Var5"
    " ?#Type=4:#Var1 ?#Type=5:#Var1,#Var2 ?#Type=6:#Var1,#Var2,#Var3"
-   " ?#Type=7:iVar1,iVar2,iVar3"},
+   " ?#Type=7:#Var1,#Var2,#Var3"},
   {"ROOM_LIST0",
    "#Type {ROOM_LIST0}"},
   {"EVENT",
@@ -226,7 +226,7 @@ static const sc_parse_schema_t V390_PARSE_SCHEMA[] = {
    "#Type |V390_TASK_ACTION:Type>4?#Type++| ?#Type=0:#Var1,#Var2,#Var3"
    " ?#Type=1:#Var1,#Var2,#Var3 ?#Type=2:#Var1,#Var2"
    " ?#Type=3:#Var1,#Var2,#Var3,|V390_TASK_ACTION:$Expr_#Var5|"
-   " ?#Type=4:#Var1 ?#Type=6:#Var1,ZVar2,ZVar3 ?#Type=7:iVar1,iVar2,iVar3"},
+   " ?#Type=4:#Var1 ?#Type=6:#Var1,ZVar2,ZVar3 ?#Type=7:#Var1,#Var2,#Var3"},
   {"ROOM_LIST0",
    "#Type {ROOM_LIST0}"},
   {"EVENT",

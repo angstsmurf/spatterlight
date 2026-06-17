@@ -946,6 +946,51 @@ task_run_end_game_action (sc_gameref_t game, sc_int var1)
 
 
 /*
+ * task_run_change_battle_action()
+ *
+ * Battle System "Change battle attribute" task action (type 7).  var1 is the
+ * ADRIFT attribute index, var2 the target character, var3 the value (a signed
+ * delta, or an enum for attitude/speed).  Attitude (0) and Speed (0xB) apply to
+ * NPCs only, with target 0 = the referenced character and target N>=1 = NPC
+ * N-1.  The remaining attributes may also target the player: target 0 = player,
+ * 1 = referenced character, N>=2 = NPC N-2.  An unresolved or out-of-range
+ * target is silently ignored, as the Runner does.
+ */
+static void
+task_run_change_battle_action (sc_gameref_t game,
+                               sc_int var1, sc_int var2, sc_int var3)
+{
+  const sc_var_setref_t vars = gs_get_vars (game);
+  sc_int npc;
+
+  if (var1 == 0 || var1 == 0xB)
+    {
+      npc = (var2 == 0) ? var_get_ref_character (vars) : var2 - 1;
+      if (npc < 0 || npc >= gs_npc_count (game))
+        return;
+    }
+  else if (var2 == 0)
+    {
+      npc = -1;                        /* Player. */
+    }
+  else
+    {
+      npc = (var2 == 1) ? var_get_ref_character (vars) : var2 - 2;
+      if (npc < 0 || npc >= gs_npc_count (game))
+        return;
+    }
+
+  if (task_trace)
+    {
+      sc_trace ("Task: changing battle attribute %ld of %s by/to %ld\n",
+                var1, (npc < 0) ? "player" : "NPC", var3);
+    }
+
+  battle_change_attribute (game, npc, var1, var3);
+}
+
+
+/*
  * task_run_task_action()
  *
  * Demultiplexer for task actions.
@@ -1032,7 +1077,14 @@ task_run_task_action (sc_gameref_t game, sc_int task, sc_int action)
       status = task_run_end_game_action (game, var1);
       break;
 
-    case 7:                    /* Battle options, ignored for now... */
+    case 7:                    /* Change battle attribute. */
+      vt_key[4].string = "Var1";
+      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      vt_key[4].string = "Var2";
+      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      vt_key[4].string = "Var3";
+      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      task_run_change_battle_action (game, var1, var2, var3);
       break;
 
     default:

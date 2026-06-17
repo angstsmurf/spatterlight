@@ -1,5 +1,48 @@
 # Change log
 
+## Release 1.5.0
+### New game systems
+- A port of the ScummVM Comprehend interpreter, for the illustrated Penguin Software / Polarware adventures with The Graphics Magician pictures: *Transylvania*, *The Crimson Crown*, *Oo-Topos*, *The Coveted Mirror* and *Talisman: Challenging the Sands of Time*. The Apple II disk versions (.dsk and .woz) are supported, as well as the MS-DOS versions in both CGA and IBM PCjr 16-colour graphics. Pictures are revealed progressively, the way the original games drew them, and the Apple II games can be switched to double hi-res graphics. Title screens, *The Coveted Mirror*'s animated hourglass and side panel, and the games' end-of-game and death menus are all in place. Save and restore use the standard Spatterlight file dialog, and a set of meta-commands is available — type #help for the list (#undo, #restart, #transcript, #quit, and so on).
+- Quest 4 games are now playable in the Geas interpreter. Geas now shows pictures, plays MIDI and MOD music, lists room exits and objects in a side pane, displays status variables, and offers undo, restart, restore and quit when a game ends.
+- Also adds a port of the Archetype interpreter from ScummVM.
+
+### Scott Adams and SAGA
+- Adds the ZX Spectrum loading screens as title images. This includes the Alkatraz-protected *Scott Adams Scoops* tape.
+- Loads more Commodore 64 disk versions, including the c64.com SAGA disks, several *Hulk* cracks and the c64.com *Pirate Adventure*.
+- The Apple II, Atari 8-bit and ZX Spectrum vector renderers have a couple of bug fixes, mostly to do with the draw order of object images.
+- The Atari 8-bit slow-draw pauses now matches the real machine.
+
+### Taylor-made adventures
+- Adds the ZX Spectrum versions of the Taylor-made adventures (*Rebel Planet*, *Temple of Terror*, *Kayleth*, *Terraquake*), showing and slowly revealing their loading screens.
+- Loads more Commodore 64 disk versions, including *Masters of the Universe* (*He-Man*) and *Temple of Terror*.
+- ZX Spectrum BEEP sound is now reproduced at hardware-accurate pitch and tempo.
+
+### Quill / PAW (UnQuill)
+- Renders The Illustrator location graphics, placed above the room description like in the Scott Adams games. Split-screen games are detected and the picture window is cropped to match.
+- Loads Commodore 64 .t64 Quill games, ZX Spectrum .z80 snapshots, and custom turbo-loader .tzx tapes such as *Bugsy*, and shows the .z80 loading screens.
+- Adds interpreter-level UNDO and the #save, #restore, #restart, #quit, #transcript and #help meta-commands.
+- ZX Spectrum BEEP is now hardware-accurate, and sound no longer blocks the interpreter.
+
+### Level 9
+- Loads ZX Spectrum .z80 snapshots, .tzx tapes and .dsk disk images, including Amstrad CPC and +3 disks, together with their separate picture files.
+- Renders both monochrome and colour Spectrum +3 pictures, honouring the colorize preference.
+- Multi-part tape and disk games now advance across sides and disks automatically, and compilations get a part-selection menu (or you can pick a sub-game with #N).
+- Slow-draw picture timing was improved, and the reveal can be skipped with a keypress.
+
+### Z-code (Bocfel)
+- Updated to Bocfel 2.5.1.
+- Extensive work on the V6 graphical games. In *Zork Zero*, this fixes the on-screen MAP, the clickable compass rose, the encyclopedia, the status-window and text colours, and numerous glitches around autorestore, restart and window resizing; several pre-release and demo revisions are now supported.
+- *Trinity*'s side-by-side quote boxes are now drawn and spoken correctly by VoiceOver.
+
+### General
+- Adds a preference to cap the scrollback buffer length.
+- Graphics in *Magnetic* and Level 9 games are now resized automatically.
+- Fixes horizontal and vertical drift of margin images.
+- SCARE (Adrift) now displays images and plays sound, and implements the optional Adrift Battle System: real combat with stamina, weapons and armour, the `wield`, `unwield` and `status` commands, weapon attack-method verbs (`chop`, `cut`, `stab`, `shoot`, `throw`…), proper handling of a slain character's dropped belongings and of the player's own death, and preservation of live combat state across save and restore.
+- Several VoiceOver improvements: the custom rotors are reachable from the command prompt, side-by-side quote boxes are read as two separate blocks, and announcements are no longer dropped or cut off around graphics.
+- The library search bar is cleared when an added game would otherwise be hidden by it.
+- Fixes a one-pixel preview-colour line in Preferences after restart.
+
 ## Release 1.4.9
 - A hotfix for a crash that could happen when opening older library databases.
 

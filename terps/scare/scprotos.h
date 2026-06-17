@@ -338,6 +338,8 @@ extern void gs_set_playerstamina (sc_gameref_t gs, sc_int stamina);
 extern sc_int gs_playerstamina (sc_gameref_t gs);
 extern void gs_set_playerstaminacounter (sc_gameref_t gs, sc_int counter);
 extern sc_int gs_playerstaminacounter (sc_gameref_t gs);
+extern void gs_set_playerwield (sc_gameref_t gs, sc_int object);
+extern sc_int gs_playerwield (sc_gameref_t gs);
 extern void gs_set_npc_stamina (sc_gameref_t gs, sc_int npc, sc_int stamina);
 extern sc_int gs_npc_stamina (sc_gameref_t gs, sc_int npc);
 extern void gs_set_npc_staminacounter (sc_gameref_t gs, sc_int npc,
@@ -346,6 +348,8 @@ extern sc_int gs_npc_staminacounter (sc_gameref_t gs, sc_int npc);
 extern void gs_set_npc_attackcounter (sc_gameref_t gs, sc_int npc,
                                       sc_int counter);
 extern sc_int gs_npc_attackcounter (sc_gameref_t gs, sc_int npc);
+extern struct sc_battle_s *gs_player_battle (sc_gameref_t gs);
+extern struct sc_battle_s *gs_npc_battle (sc_gameref_t gs, sc_int npc);
 extern sc_int gs_npc_walkstep_count (sc_gameref_t gs, sc_int npc);
 extern void gs_set_npc_walkstep (sc_gameref_t gs, sc_int npc,
                                  sc_int walk, sc_int walkstep);
@@ -463,6 +467,19 @@ extern sc_bool lib_cmd_read_other (sc_gameref_t game);
 extern sc_bool lib_cmd_stand_on_object (sc_gameref_t game);
 extern sc_bool lib_cmd_stand_on_floor (sc_gameref_t game);
 extern sc_bool lib_cmd_attack_npc_with (sc_gameref_t game);
+extern sc_bool lib_cmd_chop_npc (sc_gameref_t game);
+extern sc_bool lib_cmd_chop_npc_with (sc_gameref_t game);
+extern sc_bool lib_cmd_cut_npc (sc_gameref_t game);
+extern sc_bool lib_cmd_cut_npc_with (sc_gameref_t game);
+extern sc_bool lib_cmd_hit_npc (sc_gameref_t game);
+extern sc_bool lib_cmd_hit_npc_with (sc_gameref_t game);
+extern sc_bool lib_cmd_shoot_npc (sc_gameref_t game);
+extern sc_bool lib_cmd_shoot_npc_with (sc_gameref_t game);
+extern sc_bool lib_cmd_stab_npc (sc_gameref_t game);
+extern sc_bool lib_cmd_stab_npc_with (sc_gameref_t game);
+extern sc_bool lib_cmd_throw_npc_with (sc_gameref_t game);
+extern sc_bool lib_cmd_wield (sc_gameref_t game);
+extern sc_bool lib_cmd_unwield (sc_gameref_t game);
 extern sc_bool lib_cmd_sit_on_object (sc_gameref_t game);
 extern sc_bool lib_cmd_sit_on_floor (sc_gameref_t game);
 extern sc_bool lib_cmd_lie_on_object (sc_gameref_t game);
@@ -717,6 +734,15 @@ extern sc_int battle_attribute (sc_gameref_t game, sc_int npc,
 extern sc_int battle_attribute_max (sc_gameref_t game, sc_int npc,
                                     const sc_char *base);
 extern void battle_start (sc_gameref_t game);
+extern void battle_change_attribute (sc_gameref_t game, sc_int npc,
+                                     sc_int attribute, sc_int value);
+extern sc_bool battle_is_weapon (sc_gameref_t game, sc_int object);
+extern sc_int battle_weapon_method (sc_gameref_t game, sc_int object);
+extern sc_int battle_player_default_weapon (sc_gameref_t game);
+extern sc_int battle_combatant_weapon (sc_gameref_t game, sc_int npc);
+extern void battle_attribute_report (sc_gameref_t game, sc_int npc,
+                                     const sc_char *base,
+                                     sc_int *lo, sc_int *hi, sc_int *current);
 extern void battle_player_attack (sc_gameref_t game, sc_int npc, sc_int weapon);
 extern void battle_tick (sc_gameref_t game);
 

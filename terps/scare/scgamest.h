@@ -75,6 +75,33 @@ typedef struct sc_eventstate_s
 } sc_eventstate_t;
 
 /*
+ * Mutable battle attributes.  Slots for the four ranged combat attributes,
+ * each carrying a current [lo,hi] roll range and a maximum cap.
+ */
+enum
+{ BATTLE_STRENGTH = 0, BATTLE_ACCURACY = 1,
+  BATTLE_DEFENSE = 2, BATTLE_AGILITY = 3, BATTLE_ATTR_COUNT = 4
+};
+
+/*
+ * Per-character mutable Battle System attributes.  Seeded from the game bundle
+ * by battle_start(), then alterable at runtime by "Change battle attribute"
+ * task actions (type 7).  Attitude and speed apply to NPCs only.  Live current
+ * stamina and the recovery/attack counters are held in the fields above and in
+ * the player block, not here.
+ */
+typedef struct sc_battle_s
+{
+  sc_bool seeded;
+  sc_int attitude;                     /* 0 = neutral, 1 = ally, 2 = enemy. */
+  sc_int maxstamina;
+  sc_int speed;                        /* 0..4 attack cadence. */
+  sc_int lo[BATTLE_ATTR_COUNT];
+  sc_int hi[BATTLE_ATTR_COUNT];
+  sc_int max[BATTLE_ATTR_COUNT];
+} sc_battle_t;
+
+/*
  * NPC state structure, tracks the NPC location and position, any parent
  * object, whether the NPC seen, and if the NPC walks, the count of walk
  * steps and a steps array sized to this count.
@@ -92,6 +119,9 @@ typedef struct sc_npcstate_s
   sc_int stamina;
   sc_int staminacounter;
   sc_int attackcounter;
+
+  /* Mutable battle attributes (attitude, ranges, max stamina, speed). */
+  sc_battle_t battle;
 } sc_npcstate_t;
 
 /*
@@ -142,9 +172,14 @@ typedef struct sc_game_s
   sc_int playerposition;
   sc_int playerparent;
 
-  /* Battle system state for the player -- current stamina and recovery. */
+  /* Battle system state for the player -- current stamina, recovery, and the
+   * object index of the weapon the player has wielded (-1 for none). */
   sc_int playerstamina;
   sc_int playerstaminacounter;
+  sc_int playerwield;
+
+  /* Mutable battle attributes for the player (no attitude/speed). */
+  sc_battle_t playerbattle;
 
   sc_int turns;
   sc_int score;

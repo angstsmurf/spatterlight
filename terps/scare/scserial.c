@@ -41,6 +41,37 @@ static const sc_char NEWLINE = '\n';
 static const sc_char CARRIAGE_RETURN = '\r';
 static const sc_char NUL = '\0';
 
+/*
+ * Sentinel that introduces SCARE's private Battle System state, written (for
+ * battle games only) as extra lines after the ADRIFT turns count.  Our loader
+ * uses its presence to tell a SCARE battle save from one without combat state;
+ * it is deliberately non-numeric so it can never be mistaken for a numeric
+ * ADRIFT field.
+ *
+ * Why a private trailing block rather than the Runner's own layout: the real
+ * ADRIFT .tas (reverse-engineered from run400.exe savegame @477318) interleaves
+ * battle data -- a 15-field block right after the player fields, and a 17-field
+ * block inside each NPC's record (after "seen", before the walk steps), both
+ * gated on the battle-system flag, with live stamina at sub-struct index 2 and
+ * the remaining fields the mutable Max/Hi/Lo attributes that the "Change
+ * <attribute>" task action can alter.  SCARE does not model those mutable
+ * attributes (it rolls them fresh from the bundle), and SCARE's stream already
+ * omits ADRIFT's leading "<chr 172>major.minor.rev" version line, so its saves
+ * are not byte-loadable by the Runner regardless.  Persisting the subset SCARE
+ * actually tracks (stamina, counters, wielded weapon -- the Runner itself does
+ * not save the weapon, resetting it on load) as a clearly-delimited trailing
+ * block is therefore both sufficient and the least invasive choice.
+ */
+/*
+ * Battle state block markers.  Version 2 adds the mutable per-character battle
+ * attributes (attitude, max stamina, speed, and the ranged-attribute lo/hi/max
+ * triples) after the version-1 stamina/counter/wield fields.  Version-1 saves
+ * are still read; their absent attributes stay at the values battle_start()
+ * seeded from the bundle.
+ */
+static const sc_char *const SER_BATTLE_MARKER = "ScareBattleState/2";
+static const sc_char *const SER_BATTLE_MARKER_V1 = "ScareBattleState/1";
+
 enum { BUFFER_SIZE = 4096 };
 
 /* Output buffer. */
@@ -258,6 +289,29 @@ ser_buffer_int_special (sc_int value)
   ser_buffer_string (buffer);
 }
 
+/*
+ * ser_save_battle_attributes()
+ *
+ * Buffer the mutable battle attributes of one character (player or NPC) as the
+ * version-2 battle-state extension: attitude, max stamina, speed, then each
+ * ranged attribute's lo, hi, and max.  See SER_BATTLE_MARKER.
+ */
+static void
+ser_save_battle_attributes (const sc_battle_t *battle)
+{
+  sc_int slot;
+
+  ser_buffer_int (battle->attitude);
+  ser_buffer_int (battle->maxstamina);
+  ser_buffer_int (battle->speed);
+  for (slot = 0; slot < BATTLE_ATTR_COUNT; slot++)
+    {
+      ser_buffer_int (battle->lo[slot]);
+      ser_buffer_int (battle->hi[slot]);
+      ser_buffer_int (battle->max[slot]);
+    }
+}
+
 static void
 ser_buffer_uint (sc_uint value)
 {
@@ -435,6 +489,28 @@ ser_save_game (sc_gameref_t game,
   ser_buffer_uint ((sc_uint) game->turns);
 
   /*
+   * Battle System extension -- persist the live combat state that the ADRIFT
+   * format does not carry, so mid-combat stamina (and the wielded weapon)
+   * survive save and restore.  Written only for battle games, as trailing
+   * lines introduced by a sentinel; see SER_BATTLE_MARKER.
+   */
+  if (battle_is_enabled (game))
+    {
+      ser_buffer_string (SER_BATTLE_MARKER);
+      ser_buffer_int (gs_playerstamina (game));
+      ser_buffer_int (gs_playerstaminacounter (game));
+      ser_buffer_int (gs_playerwield (game));
+      ser_save_battle_attributes (gs_player_battle (game));
+      for (index_ = 0; index_ < gs_npc_count (game); index_++)
+        {
+          ser_buffer_int (gs_npc_stamina (game, index_));
+          ser_buffer_int (gs_npc_staminacounter (game, index_));
+          ser_buffer_int (gs_npc_attackcounter (game, index_));
+          ser_save_battle_attributes (gs_npc_battle (game, index_));
+        }
+    }
+
+  /*
    * Flush the last buffer contents, and drop the callback and opaque
    * references.
    */
@@ -520,6 +596,29 @@ ser_get_int (void)
     }
 
   return value;
+}
+
+/*
+ * ser_restore_battle_attributes()
+ *
+ * Read back the version-2 mutable battle attributes of one character, in the
+ * order ser_save_battle_attributes() wrote them.
+ */
+static void
+ser_restore_battle_attributes (sc_battle_t *battle)
+{
+  sc_int slot;
+
+  battle->attitude = ser_get_int ();
+  battle->maxstamina = ser_get_int ();
+  battle->speed = ser_get_int ();
+  for (slot = 0; slot < BATTLE_ATTR_COUNT; slot++)
+    {
+      battle->lo[slot] = ser_get_int ();
+      battle->hi[slot] = ser_get_int ();
+      battle->max[slot] = ser_get_int ();
+    }
+  battle->seeded = TRUE;
 }
 
 static sc_uint
@@ -766,14 +865,49 @@ ser_load_game (sc_gameref_t game,
   new_game->turns = (sc_int) ser_get_uint ();
 
   /*
-   * Battle System tweak -- the ADRIFT-compatible save format read here does
-   * not (yet) carry the live battle stamina that SCARE tracks, so roll fresh
-   * starting stamina for the player and NPCs.  This keeps restored battle
-   * games in a valid state rather than leaving stamina at zero; precise
-   * preservation of mid-combat stamina across save/restore awaits reverse
-   * engineering of the battle fields in the .tas format.
+   * Battle System tweak -- first roll fresh starting stamina for the player
+   * and NPCs.  This keeps a restored battle game valid when the save carries no
+   * combat state of its own: an ADRIFT save (whose .tas battle-field positions
+   * are not yet reverse-engineered) or a SCARE save written before the battle
+   * extension below existed.
    */
   battle_start (new_game);
+
+  /*
+   * Then, if this is one of our own battle saves, restore the live combat
+   * state that the ADRIFT format does not carry.  The sentinel sits on the line
+   * after the turns count -- the Runner's last field -- so its absence (a real
+   * ADRIFT save, or an older SCARE save) simply leaves the re-rolled state in
+   * place.  taf_next_line returns NULL at end of data without faulting, so the
+   * peek is safe even when nothing follows the turns count.
+   */
+  if (battle_is_enabled (new_game))
+    {
+      const sc_char *marker = taf_next_line (ser_tas);
+      const sc_bool is_v2 = marker
+                            && strcmp (marker, SER_BATTLE_MARKER) == 0;
+      const sc_bool is_v1 = marker
+                            && strcmp (marker, SER_BATTLE_MARKER_V1) == 0;
+
+      if (is_v1 || is_v2)
+        {
+          ser_tasline++;
+          gs_set_playerstamina (new_game, ser_get_int ());
+          gs_set_playerstaminacounter (new_game, ser_get_int ());
+          gs_set_playerwield (new_game, ser_get_int ());
+          if (is_v2)
+            ser_restore_battle_attributes (gs_player_battle (new_game));
+          for (index_ = 0; index_ < gs_npc_count (new_game); index_++)
+            {
+              gs_set_npc_stamina (new_game, index_, ser_get_int ());
+              gs_set_npc_staminacounter (new_game, index_, ser_get_int ());
+              gs_set_npc_attackcounter (new_game, index_, ser_get_int ());
+              if (is_v2)
+                ser_restore_battle_attributes (gs_npc_battle (new_game,
+                                                              index_));
+            }
+        }
+    }
 
   /*
    * Resources tweak -- set requested to match those in the current game

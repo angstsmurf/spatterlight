@@ -8432,28 +8432,72 @@ lib_cmd_read_other (sc_gameref_t game)
 
 
 /*
- * lib_cmd_attack_npc()
- * lib_cmd_attack_npc_with()
+ * lib_battle_player_strike()
  *
- * Attempt to attack an NPC, with and without weaponry.
+ * Shared Battle System helper: resolve the weapon the player strikes the NPC
+ * with (the explicit object, else the player's default weapon), enforce a
+ * method verb's weapon-method requirement, then deliver the blow.  method is -1
+ * for a generic attack, or a method code 0..5 (chop/cut/hit/shoot/stab/throw)
+ * that the wielded weapon must match; verb names the action for the mismatch
+ * message.  No requirement is imposed when striking bare-handed.
  */
-sc_bool
-lib_cmd_attack_npc (sc_gameref_t game)
+static void
+lib_battle_player_strike (sc_gameref_t game, sc_int npc,
+                          const sc_char *verb, sc_int method, sc_int weapon)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+
+  if (weapon < 0)
+    weapon = battle_player_default_weapon (game);
+
+  if (method >= 0 && weapon >= 0
+      && battle_weapon_method (game, weapon) != method)
+    {
+      pf_buffer_string (filter, "You can't ");
+      pf_buffer_string (filter, verb);
+      pf_buffer_string (filter, " with ");
+      lib_print_object_np (game, weapon);
+      pf_buffer_string (filter, "!\n");
+      return;
+    }
+
+  battle_player_attack (game, npc, weapon);
+}
+
+/*
+ * lib_battle_attack_bare()
+ * lib_battle_attack_with()
+ *
+ * Cores for the player's attack commands, respectively without and with an
+ * explicit weapon.  verb names the action and method is its required weapon
+ * method (-1 for a generic attack).  With the Battle System enabled a real
+ * blow is resolved.  Otherwise: a "legacy" verb (one with a traditional combat
+ * grammar) prints the usual flavour response, while a verb introduced solely
+ * for the Battle System falls through, leaving non-battle games' behaviour for
+ * these words exactly as it was.
+ */
+static sc_bool
+lib_battle_attack_bare (sc_gameref_t game, const sc_char *verb,
+                        sc_int method, sc_bool legacy)
 {
   const sc_filterref_t filter = gs_get_filter (game);
   sc_int npc;
   sc_bool is_ambiguous;
 
+  /* A Battle-System-only verb defers to other grammar when battle is off. */
+  if (!battle_is_enabled (game) && !legacy)
+    return FALSE;
+
   /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, "attack", &is_ambiguous);
+  npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
   if (npc == -1)
     return is_ambiguous;
 
   /* With the Battle System enabled, resolve a real attack (bare-handed, or
-   * with the player's best carried weapon). */
+   * with the player's wielded or best carried weapon). */
   if (battle_is_enabled (game))
     {
-      battle_player_attack (game, npc, -1);
+      lib_battle_player_strike (game, npc, verb, method, -1);
       return TRUE;
     }
 
@@ -8468,8 +8512,9 @@ lib_cmd_attack_npc (sc_gameref_t game)
   return TRUE;
 }
 
-sc_bool
-lib_cmd_attack_npc_with (sc_gameref_t game)
+static sc_bool
+lib_battle_attack_with (sc_gameref_t game, const sc_char *verb,
+                        sc_int method, sc_bool legacy)
 {
   const sc_filterref_t filter = gs_get_filter (game);
   const sc_prop_setref_t bundle = gs_get_bundle (game);
@@ -8477,13 +8522,17 @@ lib_cmd_attack_npc_with (sc_gameref_t game)
   sc_vartype_t vt_key[3];
   sc_bool weapon, is_ambiguous;
 
+  /* A Battle-System-only verb defers to other grammar when battle is off. */
+  if (!battle_is_enabled (game) && !legacy)
+    return FALSE;
+
   /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, "attack", &is_ambiguous);
+  npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
   if (npc == -1)
     return is_ambiguous;
 
   /* Get the referenced object, and if none, consider complete. */
-  object = lib_disambiguate_object (game, "attack with", NULL);
+  object = lib_disambiguate_object (game, verb, NULL);
   if (object == -1)
     return TRUE;
 
@@ -8503,7 +8552,17 @@ lib_cmd_attack_npc_with (sc_gameref_t game)
   /* With the Battle System enabled, resolve a real attack with the weapon. */
   if (battle_is_enabled (game))
     {
-      battle_player_attack (game, npc, object);
+      /* The Runner rejects attacking with a non-weapon outright. */
+      if (!battle_is_weapon (game, object))
+        {
+          pf_new_sentence (filter);
+          lib_print_object_np (game, object);
+          pf_buffer_string (filter,
+                            lib_select_plurality (game, object, " is", " are"));
+          pf_buffer_string (filter, " not a weapon.\n");
+          return TRUE;
+        }
+      lib_battle_player_strike (game, npc, verb, method, object);
       return TRUE;
     }
 
@@ -8549,6 +8608,183 @@ lib_cmd_attack_npc_with (sc_gameref_t game)
       lib_print_object_np (game, object);
       pf_buffer_string (filter, " would be a very effective weapon.\n");
     }
+  return TRUE;
+}
+
+
+/*
+ * lib_cmd_attack_npc()
+ * lib_cmd_attack_npc_with()
+ * lib_cmd_*_npc(), lib_cmd_*_npc_with()
+ *
+ * Attack an NPC, with and without weaponry.  The generic verbs (attack, fight,
+ * kill, kick, slap) impose no weapon-method requirement; the remaining verbs
+ * require a wielded weapon whose method matches (chop 0, cut 1, hit 2,
+ * shoot 3, stab 4, throw 5) when the Battle System is enabled.
+ */
+sc_bool
+lib_cmd_attack_npc (sc_gameref_t game)
+{
+  return lib_battle_attack_bare (game, "attack", -1, TRUE);
+}
+
+sc_bool
+lib_cmd_attack_npc_with (sc_gameref_t game)
+{
+  return lib_battle_attack_with (game, "attack", -1, TRUE);
+}
+
+sc_bool
+lib_cmd_chop_npc (sc_gameref_t game)
+{
+  return lib_battle_attack_bare (game, "chop", 0, FALSE);
+}
+
+sc_bool
+lib_cmd_chop_npc_with (sc_gameref_t game)
+{
+  return lib_battle_attack_with (game, "chop", 0, FALSE);
+}
+
+sc_bool
+lib_cmd_cut_npc (sc_gameref_t game)
+{
+  return lib_battle_attack_bare (game, "cut", 1, FALSE);
+}
+
+sc_bool
+lib_cmd_cut_npc_with (sc_gameref_t game)
+{
+  return lib_battle_attack_with (game, "cut", 1, FALSE);
+}
+
+sc_bool
+lib_cmd_hit_npc (sc_gameref_t game)
+{
+  return lib_battle_attack_bare (game, "hit", 2, TRUE);
+}
+
+sc_bool
+lib_cmd_hit_npc_with (sc_gameref_t game)
+{
+  return lib_battle_attack_with (game, "hit", 2, TRUE);
+}
+
+sc_bool
+lib_cmd_shoot_npc (sc_gameref_t game)
+{
+  return lib_battle_attack_bare (game, "shoot", 3, TRUE);
+}
+
+sc_bool
+lib_cmd_shoot_npc_with (sc_gameref_t game)
+{
+  return lib_battle_attack_with (game, "shoot", 3, TRUE);
+}
+
+sc_bool
+lib_cmd_stab_npc (sc_gameref_t game)
+{
+  return lib_battle_attack_bare (game, "stab", 4, FALSE);
+}
+
+sc_bool
+lib_cmd_stab_npc_with (sc_gameref_t game)
+{
+  return lib_battle_attack_with (game, "stab", 4, TRUE);
+}
+
+sc_bool
+lib_cmd_throw_npc_with (sc_gameref_t game)
+{
+  return lib_battle_attack_with (game, "throw", 5, FALSE);
+}
+
+
+/*
+ * lib_cmd_wield()
+ * lib_cmd_unwield()
+ *
+ * Battle System weapon selection.  "wield <weapon>" remembers a held weapon as
+ * the player's default for combat; "unwield" forgets it, reverting to the best
+ * carried weapon.  Both fall through to other grammar when the Battle System is
+ * disabled, as plain wielding is not otherwise modelled.
+ */
+sc_bool
+lib_cmd_wield (sc_gameref_t game)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+  sc_int object;
+
+  if (!battle_is_enabled (game))
+    return FALSE;
+
+  /* Get the referenced object, and if none, consider complete. */
+  object = lib_disambiguate_object (game, "wield", NULL);
+  if (object == -1)
+    return TRUE;
+
+  /* The weapon must be held, and must actually be a weapon. */
+  if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
+    {
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You are not holding ",
+                                             "I am not holding ",
+                                             "%player% is not holding "));
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter, ".\n");
+      return TRUE;
+    }
+  if (!battle_is_weapon (game, object))
+    {
+      pf_new_sentence (filter);
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter,
+                        lib_select_plurality (game, object, " is", " are"));
+      pf_buffer_string (filter, " not a weapon.\n");
+      return TRUE;
+    }
+
+  gs_set_playerwield (game, object);
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         "You are now wielding ",
+                                         "I am now wielding ",
+                                         "%player% is now wielding "));
+  lib_print_object_np (game, object);
+  pf_buffer_string (filter, ".\n");
+  return TRUE;
+}
+
+sc_bool
+lib_cmd_unwield (sc_gameref_t game)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+  sc_int object;
+
+  if (!battle_is_enabled (game))
+    return FALSE;
+
+  object = gs_playerwield (game);
+  if (object < 0)
+    {
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You are not wielding anything.\n",
+                                             "I am not wielding anything.\n",
+                                          "%player% is not wielding anything.\n"));
+      return TRUE;
+    }
+
+  gs_set_playerwield (game, -1);
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         "You are no longer wielding ",
+                                         "I am no longer wielding ",
+                                         "%player% is no longer wielding "));
+  lib_print_object_np (game, object);
+  pf_buffer_string (filter, ".\n");
   return TRUE;
 }
 
@@ -9625,20 +9861,23 @@ lib_cmd_score (sc_gameref_t game)
  * lib_print_battle_status()
  *
  * Helpers for the Battle System "status" command.  Print one labelled
- * attribute value, and a full status report for the player (npc < 0) or a
- * given NPC.  Stamina is the live game state value; the remaining attributes
- * are reported at their configured maximum, as their in-combat values are
- * re-rolled within range on each use.
+ * attribute as "Lo-Hi   <current>", and a full status report for the player
+ * (npc < 0) or a given NPC.  Stamina is the live game state value; the other
+ * attributes show their configured [lo, hi] range alongside a fresh effective
+ * roll that folds in the combatant's wielded weapon and worn armour, as the
+ * Runner's status display does.  The wielded weapon, if any, is named last.
  */
 static void
-lib_print_battle_attribute (sc_gameref_t game,
-                            const sc_char *label, sc_int value)
+lib_print_battle_attribute (sc_gameref_t game, sc_int npc,
+                            const sc_char *label, const sc_char *base)
 {
   const sc_filterref_t filter = gs_get_filter (game);
-  sc_char buffer[32];
+  sc_char buffer[64];
+  sc_int lo, hi, current;
 
+  battle_attribute_report (game, npc, base, &lo, &hi, &current);
   pf_buffer_string (filter, label);
-  snprintf (buffer, sizeof (buffer), "%ld", value);
+  snprintf (buffer, sizeof (buffer), "%ld-%ld   %ld", lo, hi, current);
   pf_buffer_string (filter, buffer);
   pf_buffer_character (filter, '\n');
 }
@@ -9648,7 +9887,7 @@ lib_print_battle_status (sc_gameref_t game, sc_int npc)
 {
   const sc_filterref_t filter = gs_get_filter (game);
   sc_char buffer[32];
-  sc_int stamina, maxstamina;
+  sc_int stamina, maxstamina, weapon;
 
   maxstamina = battle_attribute_max (game, npc, "Stamina");
 
@@ -9683,14 +9922,30 @@ lib_print_battle_status (sc_gameref_t game, sc_int npc)
   pf_buffer_string (filter, buffer);
   pf_buffer_character (filter, '\n');
 
-  lib_print_battle_attribute (game, "   Strength: ",
-                              battle_attribute_max (game, npc, "Strength"));
-  lib_print_battle_attribute (game, "   Accuracy: ",
-                              battle_attribute_max (game, npc, "Accuracy"));
-  lib_print_battle_attribute (game, "   Defence:  ",
-                              battle_attribute_max (game, npc, "Defense"));
-  lib_print_battle_attribute (game, "   Agility:  ",
-                              battle_attribute_max (game, npc, "Agility"));
+  lib_print_battle_attribute (game, npc, "   Strength: ", "Strength");
+  lib_print_battle_attribute (game, npc, "   Accuracy: ", "Accuracy");
+  lib_print_battle_attribute (game, npc, "   Defence:  ", "Defense");
+  lib_print_battle_attribute (game, npc, "   Agility:  ", "Agility");
+
+  /* Name the weapon the combatant is wielding, if any. */
+  weapon = battle_combatant_weapon (game, npc);
+  if (weapon >= 0)
+    {
+      if (npc < 0)
+        pf_buffer_string (filter,
+                          lib_select_response (game,
+                                               "   You are wielding ",
+                                               "   I am wielding ",
+                                               "   %player% is wielding "));
+      else
+        {
+          pf_buffer_string (filter, "   ");
+          lib_print_npc_np (game, npc);
+          pf_buffer_string (filter, " is wielding ");
+        }
+      lib_print_object_np (game, weapon);
+      pf_buffer_string (filter, ".\n");
+    }
 }
 
 
