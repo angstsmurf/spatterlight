@@ -334,6 +334,18 @@ extern void gs_set_npc_parent (sc_gameref_t gs, sc_int npc, sc_int parent);
 extern sc_int gs_npc_parent (sc_gameref_t gs, sc_int npc);
 extern void gs_set_npc_seen (sc_gameref_t gs, sc_int npc, sc_bool seen);
 extern sc_bool gs_npc_seen (sc_gameref_t gs, sc_int npc);
+extern void gs_set_playerstamina (sc_gameref_t gs, sc_int stamina);
+extern sc_int gs_playerstamina (sc_gameref_t gs);
+extern void gs_set_playerstaminacounter (sc_gameref_t gs, sc_int counter);
+extern sc_int gs_playerstaminacounter (sc_gameref_t gs);
+extern void gs_set_npc_stamina (sc_gameref_t gs, sc_int npc, sc_int stamina);
+extern sc_int gs_npc_stamina (sc_gameref_t gs, sc_int npc);
+extern void gs_set_npc_staminacounter (sc_gameref_t gs, sc_int npc,
+                                       sc_int counter);
+extern sc_int gs_npc_staminacounter (sc_gameref_t gs, sc_int npc);
+extern void gs_set_npc_attackcounter (sc_gameref_t gs, sc_int npc,
+                                      sc_int counter);
+extern sc_int gs_npc_attackcounter (sc_gameref_t gs, sc_int npc);
 extern sc_int gs_npc_walkstep_count (sc_gameref_t gs, sc_int npc);
 extern void gs_set_npc_walkstep (sc_gameref_t gs, sc_int npc,
                                  sc_int walk, sc_int walkstep);
@@ -463,6 +475,8 @@ extern sc_bool lib_cmd_locate_object (sc_gameref_t game);
 extern sc_bool lib_cmd_locate_npc (sc_gameref_t game);
 extern sc_bool lib_cmd_turns (sc_gameref_t game);
 extern sc_bool lib_cmd_score (sc_gameref_t game);
+extern sc_bool lib_cmd_status_player (sc_gameref_t game);
+extern sc_bool lib_cmd_status_npc (sc_gameref_t game);
 extern sc_bool lib_cmd_get_what (sc_gameref_t game);
 extern sc_bool lib_cmd_open_what (sc_gameref_t game);
 extern sc_bool lib_cmd_close_other (sc_gameref_t game);
@@ -695,6 +709,16 @@ extern void npc_start_npc_walk (sc_gameref_t game, sc_int npc, sc_int walk);
 extern void npc_tick_npcs (sc_gameref_t game);
 extern void npc_turn_update (sc_gameref_t game);
 extern void npc_debug_trace (sc_bool flag);
+
+/* Battle system functions, in scnpcs.c. */
+extern sc_bool battle_is_enabled (sc_gameref_t game);
+extern sc_int battle_attribute (sc_gameref_t game, sc_int npc,
+                                const sc_char *base);
+extern sc_int battle_attribute_max (sc_gameref_t game, sc_int npc,
+                                    const sc_char *base);
+extern void battle_start (sc_gameref_t game);
+extern void battle_player_attack (sc_gameref_t game, sc_int npc, sc_int weapon);
+extern void battle_tick (sc_gameref_t game);
 
 /* Object open/closed state enumeration and functions. */
 enum

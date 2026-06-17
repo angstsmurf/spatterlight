@@ -160,6 +160,740 @@ npc_setup_initial (sc_gameref_t game)
 
 
 /*
+ * Battle system.
+ *
+ * ADRIFT's optional Battle System gives the player and characters combat
+ * attributes -- stamina, strength, accuracy, defence and agility -- and
+ * resolves fights when enemies share a room.  The system is enabled per game
+ * by the Globals.BattleSystem flag.  Attribute values are configured as [lo,
+ * hi] ranges (or single values in version 3.9 games), and, with the exception
+ * of stamina, are re-rolled randomly within their range each time they are
+ * needed.  Stamina is rolled once at game start and then tracked as mutable
+ * game state, as it is depleted by attacks and topped up by recovery.
+ *
+ * This first group of functions covers reading the configured attributes and
+ * initialising stamina; combat resolution builds on these.
+ */
+
+/*
+ * battle_is_enabled()
+ *
+ * Return TRUE if the game has the Battle System turned on.
+ */
+sc_bool
+battle_is_enabled (sc_gameref_t game)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[2];
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "BattleSystem";
+  return prop_get_boolean (bundle, "B<-ss", vt_key);
+}
+
+
+/*
+ * battle_get_property()
+ *
+ * Read a named integer from the Battle properties of the player (npc < 0) or
+ * of a given NPC.  Returns the supplied fallback if the property is absent.
+ */
+static sc_int
+battle_get_property (sc_gameref_t game, sc_int npc,
+                     const sc_char *name, sc_int fallback)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[4], vt_rvalue;
+
+  if (npc < 0)
+    {
+      vt_key[0].string = "Globals";
+      vt_key[1].string = "Battle";
+      vt_key[2].string = name;
+      if (prop_get (bundle, "I<-sss", &vt_rvalue, vt_key))
+        return vt_rvalue.integer;
+    }
+  else
+    {
+      vt_key[0].string = "NPCs";
+      vt_key[1].integer = npc;
+      vt_key[2].string = "Battle";
+      vt_key[3].string = name;
+      if (prop_get (bundle, "I<-siss", &vt_rvalue, vt_key))
+        return vt_rvalue.integer;
+    }
+  return fallback;
+}
+
+
+/*
+ * battle_attribute_range()
+ *
+ * Return the configured [lo,hi] range of a named attribute ("Stamina",
+ * "Strength", "Accuracy", "Defense", "Agility") for the player (npc < 0) or an
+ * NPC.  Version 4.0 games store separate <name>Lo and <name>Hi values;
+ * version 3.9 games store a single <name> value, which we treat as a degenerate
+ * range.  Character attributes are never negative, so a negative probe result
+ * unambiguously signals an absent Hi property.
+ */
+static void
+battle_attribute_range (sc_gameref_t game, sc_int npc,
+                        const sc_char *base, sc_int *lo, sc_int *hi)
+{
+  sc_char name[32];
+  sc_int high;
+
+  snprintf (name, sizeof (name), "%sHi", base);
+  high = battle_get_property (game, npc, name, -1);
+  if (high < 0)
+    {
+      /* No Lo/Hi split; fall back to a single version 3.9 value. */
+      *lo = *hi = battle_get_property (game, npc, base, 0);
+      return;
+    }
+
+  snprintf (name, sizeof (name), "%sLo", base);
+  *lo = battle_get_property (game, npc, name, 0);
+  *hi = (high < *lo) ? *lo : high;
+}
+
+
+/*
+ * battle_attribute()
+ * battle_attribute_max()
+ *
+ * Return respectively a fresh random roll of an attribute within its range,
+ * and the maximum (configured) value of the range.
+ */
+sc_int
+battle_attribute (sc_gameref_t game, sc_int npc, const sc_char *base)
+{
+  sc_int lo, hi;
+
+  battle_attribute_range (game, npc, base, &lo, &hi);
+  return sc_randomint (lo, hi);
+}
+
+sc_int
+battle_attribute_max (sc_gameref_t game, sc_int npc, const sc_char *base)
+{
+  sc_int lo, hi;
+
+  battle_attribute_range (game, npc, base, &lo, &hi);
+  return hi;
+}
+
+
+/* Forward declaration; defined with the combat helpers below. */
+static sc_int battle_speed_roll (sc_gameref_t game, sc_int npc);
+
+/*
+ * battle_start()
+ *
+ * Initialise battle state at game start.  Stamina is the one attribute that
+ * persists across turns, so roll a starting value within range for the player
+ * and for every NPC, and zero the recovery counters.  Each NPC's attack
+ * cadence counter is primed from its Speed setting.  A no-op when the Battle
+ * System is disabled.
+ */
+void
+battle_start (sc_gameref_t game)
+{
+  sc_int npc, lo, hi;
+
+  if (!battle_is_enabled (game))
+    return;
+
+  battle_attribute_range (game, -1, "Stamina", &lo, &hi);
+  gs_set_playerstamina (game, sc_randomint (lo, hi));
+  gs_set_playerstaminacounter (game, 0);
+
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      battle_attribute_range (game, npc, "Stamina", &lo, &hi);
+      gs_set_npc_stamina (game, npc, (hi > 0) ? sc_randomint (lo, hi) : 0);
+      gs_set_npc_staminacounter (game, npc, 0);
+      gs_set_npc_attackcounter (game, npc, battle_speed_roll (game, npc));
+    }
+}
+
+
+/*
+ * Battle system combat resolution.
+ *
+ * The combat model is reverse-engineered from the ADRIFT 4 Runner.  Each time
+ * an attribute is required it is freshly rolled within its [lo,hi] range as
+ * lo + Int(rnd * (hi - lo)) -- note that the high bound is exclusive.  An
+ * attack hits when the attacker's effective accuracy strictly exceeds the
+ * target's effective agility; a hit does (effective strength - effective
+ * defence) points of stamina damage, applied only when positive.  Strength
+ * and accuracy gain the wielded weapon's bonuses (a "shoot" weapon replaces
+ * base strength entirely); defence gains the protection of all worn armour.
+ */
+
+/* Target sentinels returned by battle_select_target(). */
+enum { BATTLE_PLAYER = -1, BATTLE_NONE = -2 };
+
+/*
+ * battle_roll()
+ *
+ * Roll an attribute value within [lo, hi), matching the Runner's
+ * lo + Int(rnd * (hi - lo)).  Degenerate ranges return their single value.
+ */
+static sc_int
+battle_roll (sc_int lo, sc_int hi)
+{
+  return (hi > lo) ? sc_randomint (lo, hi - 1) : lo;
+}
+
+/*
+ * battle_object_battle()
+ *
+ * Read a named integer from an object's OBJ_BATTLE properties (weapon hit and
+ * accuracy, armour protection, weapon method), or zero if absent.
+ */
+static sc_int
+battle_object_battle (sc_gameref_t game, sc_int object, const sc_char *name)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[4], vt_rvalue;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Battle";
+  vt_key[3].string = name;
+  if (prop_get (bundle, "I<-siss", &vt_rvalue, vt_key))
+    return vt_rvalue.integer;
+  return 0;
+}
+
+/*
+ * battle_object_is_weapon()
+ *
+ * Return TRUE if the object is flagged as a weapon.
+ */
+static sc_bool
+battle_object_is_weapon (sc_gameref_t game, sc_int object)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[3], vt_rvalue;
+
+  /* Static objects carry no Weapon property, so probe non-fatally. */
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Weapon";
+  if (prop_get (bundle, "B<-sis", &vt_rvalue, vt_key))
+    return vt_rvalue.boolean;
+  return FALSE;
+}
+
+/*
+ * battle_object_owned_by()
+ * battle_object_worn_by()
+ *
+ * Tests for an object held/worn (owned) or specifically worn by the player
+ * (npc < 0) or a given NPC.
+ */
+static sc_bool
+battle_object_owned_by (sc_gameref_t game, sc_int object, sc_int npc)
+{
+  const sc_int position = gs_object_position (game, object);
+
+  if (npc < 0)
+    return position == OBJ_HELD_PLAYER || position == OBJ_WORN_PLAYER;
+  return (position == OBJ_HELD_NPC || position == OBJ_WORN_NPC)
+         && gs_object_parent (game, object) == npc;
+}
+
+static sc_bool
+battle_object_worn_by (sc_gameref_t game, sc_int object, sc_int npc)
+{
+  const sc_int position = gs_object_position (game, object);
+
+  if (npc < 0)
+    return position == OBJ_WORN_PLAYER;
+  return position == OBJ_WORN_NPC && gs_object_parent (game, object) == npc;
+}
+
+/*
+ * battle_best_weapon()
+ *
+ * Return the object index of the best weapon wielded by the player (npc < 0)
+ * or an NPC -- the owned weapon with the highest hit value -- or -1 for none.
+ * Following the Runner, the player wields only carried (not worn) weapons.
+ */
+static sc_int
+battle_best_weapon (sc_gameref_t game, sc_int npc)
+{
+  sc_int object, best = -1, best_hit = 0;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      sc_int hit;
+
+      if (!battle_object_is_weapon (game, object))
+        continue;
+      if (npc < 0)
+        {
+          if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
+            continue;
+        }
+      else if (!battle_object_owned_by (game, object, npc))
+        continue;
+
+      hit = battle_object_battle (game, object, "HitValue");
+      if (best == -1 || hit > best_hit)
+        {
+          best = object;
+          best_hit = hit;
+        }
+    }
+  return best;
+}
+
+/*
+ * battle_eff_strength()
+ * battle_eff_accuracy()
+ * battle_eff_agility()
+ * battle_eff_defence()
+ *
+ * Compute a fresh roll of each effective combat attribute for the player
+ * (npc < 0) or an NPC, applying the bonuses of the supplied wielded weapon
+ * (-1 for none) and any worn armour.
+ */
+static sc_int
+battle_eff_strength (sc_gameref_t game, sc_int npc, sc_int weapon)
+{
+  sc_int lo, hi, value;
+
+  battle_attribute_range (game, npc, "Strength", &lo, &hi);
+  value = battle_roll (lo, hi);
+  if (weapon >= 0)
+    {
+      /* A "shoot" weapon (method 3) supplies all of the strength itself. */
+      if (battle_object_battle (game, weapon, "Method") == 3)
+        value = 0;
+      value += battle_object_battle (game, weapon, "HitValue");
+    }
+  return value;
+}
+
+static sc_int
+battle_eff_accuracy (sc_gameref_t game, sc_int npc, sc_int weapon)
+{
+  sc_int lo, hi, value;
+
+  battle_attribute_range (game, npc, "Accuracy", &lo, &hi);
+  value = battle_roll (lo, hi);
+  if (weapon >= 0)
+    value += battle_object_battle (game, weapon, "Accuracy");
+  return value;
+}
+
+static sc_int
+battle_eff_agility (sc_gameref_t game, sc_int npc)
+{
+  sc_int lo, hi;
+
+  battle_attribute_range (game, npc, "Agility", &lo, &hi);
+  return battle_roll (lo, hi);
+}
+
+static sc_int
+battle_eff_defence (sc_gameref_t game, sc_int npc)
+{
+  sc_int lo, hi, value, object;
+
+  battle_attribute_range (game, npc, "Defense", &lo, &hi);
+  value = battle_roll (lo, hi);
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (battle_object_worn_by (game, object, npc))
+        value += battle_object_battle (game, object, "ProtectionValue");
+    }
+  return value;
+}
+
+/*
+ * battle_attitude()
+ * battle_speed_roll()
+ *
+ * Read an NPC's configured attitude (0 = neutral, 1 = ally, 2 = enemy), and
+ * roll the number of turns until its next attack from its Speed setting
+ * (0 = every turn, 1 = most turns, 2/3/4 = every 2nd/3rd/4th turn).
+ */
+static sc_int
+battle_attitude (sc_gameref_t game, sc_int npc)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[4], vt_rvalue;
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Battle";
+  vt_key[3].string = "Attitude";
+  if (prop_get (bundle, "I<-siss", &vt_rvalue, vt_key))
+    return vt_rvalue.integer;
+  return 0;
+}
+
+static sc_int
+battle_speed_roll (sc_gameref_t game, sc_int npc)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[4], vt_rvalue;
+  sc_int speed = 0;
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Battle";
+  vt_key[3].string = "Speed";
+  if (prop_get (bundle, "I<-siss", &vt_rvalue, vt_key))
+    speed = vt_rvalue.integer;
+
+  switch (speed)
+    {
+    case 1:  return sc_randomint (1, 2);   /* Most turns. */
+    case 2:  return 2;                     /* Every second turn. */
+    case 3:  return 3;                     /* Every third turn. */
+    case 4:  return 4;                     /* Every fourth turn. */
+    default: return 1;                     /* Every turn. */
+    }
+}
+
+/*
+ * battle_print_combatant()
+ *
+ * Print the name of a combatant.  form selects the grammatical form: 0 for a
+ * capitalised subject ("You" / "Goblin"), 1 for an object/lowercase form
+ * ("you" / "Goblin"), 2 for a possessive ("your" / "Goblin's").
+ */
+static void
+battle_print_combatant (sc_gameref_t game, sc_int npc, sc_int form)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[3];
+  const sc_char *name;
+
+  if (npc < 0)
+    {
+      pf_buffer_string (filter, (form == 0) ? "You"
+                                : (form == 1) ? "you" : "your");
+      return;
+    }
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Name";
+  name = prop_get_string (bundle, "S<-sis", vt_key);
+  pf_buffer_string (filter, name);
+  if (form == 2)
+    pf_buffer_string (filter, "'s");
+}
+
+/*
+ * battle_npc_battle_task()
+ *
+ * Read an NPC's 1-based battle task reference (KilledTask or StaminaTask),
+ * returning the 0-based task index or -1 if none is set.
+ */
+static sc_int
+battle_npc_battle_task (sc_gameref_t game, sc_int npc, const sc_char *name)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[4], vt_rvalue;
+
+  if (npc < 0)
+    return -1;
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Battle";
+  vt_key[3].string = name;
+  if (prop_get (bundle, "I<-siss", &vt_rvalue, vt_key))
+    return vt_rvalue.integer - 1;
+  return -1;
+}
+
+/*
+ * battle_kill()
+ *
+ * Handle a combatant reaching zero stamina.  The player's death stops the
+ * game.  An NPC runs its KilledTask if set, otherwise a default death message
+ * is shown; the NPC is then removed from play.
+ */
+static void
+battle_kill (sc_gameref_t game, sc_int npc, sc_bool visible)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+  sc_int task;
+
+  if (npc < 0)
+    {
+      pf_buffer_string (filter, "\nYou are dead!\n");
+      game->is_running = FALSE;
+      return;
+    }
+
+  task = battle_npc_battle_task (game, npc, "KilledTask");
+  if (task >= 0)
+    task_run_task (game, task, TRUE);
+  else if (visible)
+    {
+      pf_buffer_character (filter, '\n');
+      battle_print_combatant (game, npc, 0);
+      pf_buffer_string (filter, " falls down, dead.\n");
+    }
+
+  /* Remove the dead NPC from play (location zero is "hidden"). */
+  gs_set_npc_location (game, npc, 0);
+}
+
+/*
+ * battle_apply_damage()
+ *
+ * Subtract stamina damage from a combatant, triggering death at zero or the
+ * NPC's low-stamina task when dropping below 10% of maximum stamina.
+ */
+static void
+battle_apply_damage (sc_gameref_t game, sc_int npc, sc_int damage,
+                     sc_bool visible)
+{
+  sc_int stamina, maximum, task;
+
+  stamina = (npc < 0) ? gs_playerstamina (game) : gs_npc_stamina (game, npc);
+  stamina -= damage;
+
+  if (stamina <= 0)
+    {
+      if (npc < 0)
+        gs_set_playerstamina (game, 0);
+      else
+        gs_set_npc_stamina (game, npc, 0);
+      battle_kill (game, npc, visible);
+      return;
+    }
+
+  if (npc < 0)
+    gs_set_playerstamina (game, stamina);
+  else
+    gs_set_npc_stamina (game, npc, stamina);
+
+  /* Run the NPC's low-stamina task when dropping below 10% of maximum. */
+  maximum = battle_attribute_max (game, npc, "Stamina");
+  if (maximum > 0 && stamina < maximum / 10)
+    {
+      task = battle_npc_battle_task (game, npc, "StaminaTask");
+      if (task >= 0)
+        task_run_task (game, task, TRUE);
+    }
+}
+
+/*
+ * battle_resolve()
+ *
+ * Resolve a single attack from attacker against target with the given wielded
+ * weapon (-1 for none).  Combat messages are printed only when visible.
+ */
+static void
+battle_resolve (sc_gameref_t game, sc_int attacker, sc_int target,
+                sc_int weapon, sc_bool visible)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+
+  if (battle_eff_accuracy (game, attacker, weapon)
+      > battle_eff_agility (game, target))
+    {
+      sc_int damage = battle_eff_strength (game, attacker, weapon)
+                      - battle_eff_defence (game, target);
+
+      if (visible)
+        {
+          battle_print_combatant (game, attacker, 0);
+          pf_buffer_string (filter, (attacker < 0) ? " hit " : " hits ");
+          battle_print_combatant (game, target, 1);
+        }
+      if (damage > 0)
+        {
+          if (visible)
+            pf_buffer_string (filter, ".\n");
+          battle_apply_damage (game, target, damage, visible);
+        }
+      else if (visible)
+        pf_buffer_string (filter,
+                          ", but it doesn't seem to do any damage.\n");
+    }
+  else if (visible)
+    {
+      battle_print_combatant (game, target, 0);
+      pf_buffer_string (filter, (target < 0) ? " manage to avoid "
+                                             : " manages to avoid ");
+      battle_print_combatant (game, attacker, 2);
+      pf_buffer_string (filter, " attack.\n");
+    }
+}
+
+/*
+ * battle_select_target()
+ *
+ * Choose a target for an attacking NPC, following the Runner: neutrals never
+ * attack; allies target enemies and vice versa (their attitudes summing to
+ * three), and enemies also target the player.  A uniformly random choice is
+ * made among the candidates sharing the NPC's room.  Returns an NPC index,
+ * BATTLE_PLAYER, or BATTLE_NONE.
+ */
+static sc_int
+battle_select_target (sc_gameref_t game, sc_int npc)
+{
+  const sc_int attitude = battle_attitude (game, npc);
+  const sc_int location = gs_npc_location (game, npc);
+  sc_int other, count, pick;
+
+  if (attitude == 0 || location <= 0)
+    return BATTLE_NONE;
+
+  /* Count candidate foes co-located with the NPC, plus the player. */
+  count = 0;
+  for (other = 0; other < gs_npc_count (game); other++)
+    {
+      if (other != npc
+          && gs_npc_location (game, other) == location
+          && gs_npc_stamina (game, other) > 0
+          && battle_attitude (game, other) == 3 - attitude)
+        count++;
+    }
+  if (attitude == 2 && location - 1 == gs_playerroom (game)
+      && gs_playerstamina (game) > 0)
+    count++;
+
+  if (count == 0)
+    return BATTLE_NONE;
+
+  /* Pick one candidate at random, re-walking the same candidate order. */
+  pick = sc_randomint (1, count);
+  for (other = 0; other < gs_npc_count (game); other++)
+    {
+      if (other != npc
+          && gs_npc_location (game, other) == location
+          && gs_npc_stamina (game, other) > 0
+          && battle_attitude (game, other) == 3 - attitude)
+        {
+          if (--pick == 0)
+            return other;
+        }
+    }
+  return BATTLE_PLAYER;
+}
+
+/*
+ * battle_recover()
+ *
+ * Apply automatic stamina recovery for the player (npc < 0) or an NPC: every
+ * Recovery turns, restore one point of stamina up to the maximum.
+ */
+static void
+battle_recover (sc_gameref_t game, sc_int npc)
+{
+  sc_int recovery, counter, stamina, maximum;
+
+  recovery = battle_get_property (game, npc, "Recovery", 0);
+  if (recovery <= 0)
+    return;
+
+  counter = (npc < 0)
+            ? gs_playerstaminacounter (game) : gs_npc_staminacounter (game, npc);
+  stamina = (npc < 0) ? gs_playerstamina (game) : gs_npc_stamina (game, npc);
+  maximum = battle_attribute_max (game, npc, "Stamina");
+
+  if (counter == 0)
+    {
+      counter = recovery;
+      if (stamina < maximum)
+        {
+          stamina++;
+          if (npc < 0)
+            gs_set_playerstamina (game, stamina);
+          else
+            gs_set_npc_stamina (game, npc, stamina);
+        }
+    }
+  counter--;
+
+  if (npc < 0)
+    gs_set_playerstaminacounter (game, counter);
+  else
+    gs_set_npc_staminacounter (game, npc, counter);
+}
+
+/*
+ * battle_player_attack()
+ *
+ * Resolve a player-initiated attack on an NPC.  When weapon is -1 the player's
+ * best carried weapon is wielded automatically (or bare hands if none).
+ */
+void
+battle_player_attack (sc_gameref_t game, sc_int npc, sc_int weapon)
+{
+  if (weapon < 0)
+    weapon = battle_best_weapon (game, -1);
+  battle_resolve (game, BATTLE_PLAYER, npc, weapon, TRUE);
+}
+
+/*
+ * battle_tick()
+ *
+ * Per-turn battle processing: every NPC that is due to attack selects a target
+ * and strikes, then automatic stamina recovery is applied to all combatants.
+ * A no-op when the Battle System is disabled.
+ */
+void
+battle_tick (sc_gameref_t game)
+{
+  sc_int npc;
+
+  if (!battle_is_enabled (game))
+    return;
+
+  /* NPC attacks, governed by attitude and per-NPC attack cadence. */
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      sc_int counter;
+
+      if (gs_npc_stamina (game, npc) <= 0 || battle_attitude (game, npc) == 0)
+        continue;
+
+      counter = gs_npc_attackcounter (game, npc) - 1;
+      if (counter <= 0)
+        {
+          sc_int target = battle_select_target (game, npc);
+
+          if (target != BATTLE_NONE)
+            {
+              sc_bool visible = (target == BATTLE_PLAYER)
+                  || (gs_npc_location (game, npc) - 1 == gs_playerroom (game));
+              battle_resolve (game, npc, target,
+                              battle_best_weapon (game, npc), visible);
+            }
+          counter = battle_speed_roll (game, npc);
+        }
+      gs_set_npc_attackcounter (game, npc, counter);
+
+      /* Stop processing if the player was killed mid-round. */
+      if (!game->is_running)
+        return;
+    }
+
+  /* Automatic stamina recovery for the player and all surviving NPCs. */
+  battle_recover (game, -1);
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      if (gs_npc_stamina (game, npc) > 0)
+        battle_recover (game, npc);
+    }
+}
+
+
+/*
  * npc_room_in_roomgroup()
  *
  * Return TRUE if a given room is in a given group.

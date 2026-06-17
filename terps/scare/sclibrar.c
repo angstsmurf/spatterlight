@@ -8449,6 +8449,14 @@ lib_cmd_attack_npc (sc_gameref_t game)
   if (npc == -1)
     return is_ambiguous;
 
+  /* With the Battle System enabled, resolve a real attack (bare-handed, or
+   * with the player's best carried weapon). */
+  if (battle_is_enabled (game))
+    {
+      battle_player_attack (game, npc, -1);
+      return TRUE;
+    }
+
   /* Print a standard response. */
   pf_new_sentence (filter);
   lib_print_npc_np (game, npc);
@@ -8489,6 +8497,13 @@ lib_cmd_attack_npc_with (sc_gameref_t game)
                                              "%player% is not holding "));
       lib_print_object_np (game, object);
       pf_buffer_string (filter, ".\n");
+      return TRUE;
+    }
+
+  /* With the Battle System enabled, resolve a real attack with the weapon. */
+  if (battle_is_enabled (game))
+    {
+      battle_player_attack (game, npc, object);
       return TRUE;
     }
 
@@ -9601,6 +9616,156 @@ lib_cmd_score (sc_gameref_t game)
   pf_buffer_string (filter, "%)\n");
 
   game->is_admin = TRUE;
+  return TRUE;
+}
+
+
+/*
+ * lib_print_battle_attribute()
+ * lib_print_battle_status()
+ *
+ * Helpers for the Battle System "status" command.  Print one labelled
+ * attribute value, and a full status report for the player (npc < 0) or a
+ * given NPC.  Stamina is the live game state value; the remaining attributes
+ * are reported at their configured maximum, as their in-combat values are
+ * re-rolled within range on each use.
+ */
+static void
+lib_print_battle_attribute (sc_gameref_t game,
+                            const sc_char *label, sc_int value)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+  sc_char buffer[32];
+
+  pf_buffer_string (filter, label);
+  snprintf (buffer, sizeof (buffer), "%ld", value);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_character (filter, '\n');
+}
+
+static void
+lib_print_battle_status (sc_gameref_t game, sc_int npc)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+  sc_char buffer[32];
+  sc_int stamina, maxstamina;
+
+  maxstamina = battle_attribute_max (game, npc, "Stamina");
+
+  /* Print the report header, naming the player or character. */
+  if (npc < 0)
+    pf_buffer_string (filter,
+                      lib_select_response (game,
+                                           "You have:\n",
+                                           "I have:\n",
+                                           "%player% has:\n"));
+  else
+    {
+      lib_print_npc_np (game, npc);
+      pf_buffer_string (filter, " has:\n");
+
+      /* A character with no stamina configured is not a combatant. */
+      if (maxstamina <= 0)
+        {
+          pf_buffer_string (filter, "   Nothing worth mentioning.\n");
+          return;
+        }
+    }
+
+  stamina = (npc < 0)
+            ? gs_playerstamina (game) : gs_npc_stamina (game, npc);
+
+  pf_buffer_string (filter, "   Stamina:  ");
+  snprintf (buffer, sizeof (buffer), "%ld", stamina);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_string (filter, " out of ");
+  snprintf (buffer, sizeof (buffer), "%ld", maxstamina);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_character (filter, '\n');
+
+  lib_print_battle_attribute (game, "   Strength: ",
+                              battle_attribute_max (game, npc, "Strength"));
+  lib_print_battle_attribute (game, "   Accuracy: ",
+                              battle_attribute_max (game, npc, "Accuracy"));
+  lib_print_battle_attribute (game, "   Defence:  ",
+                              battle_attribute_max (game, npc, "Defense"));
+  lib_print_battle_attribute (game, "   Agility:  ",
+                              battle_attribute_max (game, npc, "Agility"));
+}
+
+
+/*
+ * lib_cmd_status_player()
+ * lib_cmd_status_npc()
+ *
+ * The Battle System "status" and "status <character>" commands.  When the
+ * Battle System is disabled these fall back to the traditional behaviour of
+ * "status", which prints the game's status line.
+ */
+sc_bool
+lib_cmd_status_player (sc_gameref_t game)
+{
+  if (!battle_is_enabled (game))
+    return lib_cmd_statusline (game);
+
+  lib_print_battle_status (game, -1);
+  game->is_admin = TRUE;
+  return TRUE;
+}
+
+sc_bool
+lib_cmd_status_npc (sc_gameref_t game)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+  const sc_var_setref_t vars = gs_get_vars (game);
+  sc_int index_, count, npc;
+
+  if (!battle_is_enabled (game))
+    return lib_cmd_statusline (game);
+
+  game->is_admin = TRUE;
+
+  /* Count and identify the NPCs referenced by the command. */
+  count = 0;
+  npc = -1;
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      if (game->npc_references[index_])
+        {
+          count++;
+          npc = index_;
+        }
+    }
+
+  if (count == 0)
+    {
+      pf_buffer_string (filter, "I don't know who you mean.\n");
+      return TRUE;
+    }
+  else if (count > 1)
+    {
+      pf_buffer_string (filter,
+                        "Please be more clear about whose status you want.\n");
+      return TRUE;
+    }
+
+  /* Unambiguous reference; note it, as we bypassed disambiguation. */
+  var_set_ref_character (vars, npc);
+
+  /* Refuse to report on a character the player has not encountered. */
+  if (!gs_npc_seen (game, npc))
+    {
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You haven't seen ",
+                                             "I haven't seen ",
+                                             "%player% hasn't seen "));
+      lib_print_npc_np (game, npc);
+      pf_buffer_string (filter, " yet!\n");
+      return TRUE;
+    }
+
+  lib_print_battle_status (game, npc);
   return TRUE;
 }
 

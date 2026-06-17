@@ -766,6 +766,16 @@ ser_load_game (sc_gameref_t game,
   new_game->turns = (sc_int) ser_get_uint ();
 
   /*
+   * Battle System tweak -- the ADRIFT-compatible save format read here does
+   * not (yet) carry the live battle stamina that SCARE tracks, so roll fresh
+   * starting stamina for the player and NPCs.  This keeps restored battle
+   * games in a valid state rather than leaving stamina at zero; precise
+   * preservation of mid-combat stamina across save/restore awaits reverse
+   * engineering of the battle fields in the .tas format.
+   */
+  battle_start (new_game);
+
+  /*
    * Resources tweak -- set requested to match those in the current game
    * so that they remain unchanged by the gs_copy() of new_game onto
    * game.  This way, both the requested and the active resources in the

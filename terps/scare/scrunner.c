@@ -308,7 +308,9 @@ static sc_commands_t STANDARD_COMMANDS[] = {
   {"[gpl/license]", lib_cmd_license},
   {"[about/info/information/author]", lib_cmd_information},
   {"[clear/cls/clr]", lib_cmd_clear},
-  {"status{line}", lib_cmd_statusline},
+  {"statusline", lib_cmd_statusline},
+  {"status %character%", lib_cmd_status_npc},
+  {"[status/stats]", lib_cmd_status_player},
   {"version", lib_cmd_version},
 
   {"[locate/where {is/are}/find] %object%", lib_cmd_locate_object},
@@ -1336,17 +1338,7 @@ run_main_loop (sc_gameref_t game)
     {
       sc_vartype_t vt_key[2];
       const sc_char *gamename, *startuptext;
-      sc_bool disp_first_room, battle_system;
-
-      /* If battle system and no debugger display a warning. */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "BattleSystem";
-      battle_system = prop_get_boolean (bundle, "B<-ss", vt_key);
-      if (battle_system && !debug_get_enabled (game))
-        {
-          if_print_tag (SC_TAG_CLS, "");
-          lib_warn_battle_system ();
-        }
+      sc_bool disp_first_room;
 
       /* Initial clear screen. */
       pf_buffer_tag (filter, SC_TAG_CLS);
@@ -1380,6 +1372,9 @@ run_main_loop (sc_gameref_t game)
       /* Set initial values for NPC and object states. */
       npc_setup_initial (game);
       obj_setup_initial (game);
+
+      /* Roll initial battle stamina if the Battle System is enabled. */
+      battle_start (game);
 
       /* Nudge events and NPCs. */
       evt_tick_events (game);
@@ -1466,6 +1461,9 @@ run_main_loop (sc_gameref_t game)
               /* Nudge events and NPCs. */
               evt_tick_events (game);
               npc_tick_npcs (game);
+
+              /* Resolve Battle System combat and recovery for the turn. */
+              battle_tick (game);
 
               /* Update NPC and object states. */
               npc_turn_update (game);

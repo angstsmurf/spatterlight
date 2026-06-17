@@ -97,8 +97,8 @@ static const sc_parse_schema_t V400_PARSE_SCHEMA[] = {
    " BGraphics <RESOURCE>IntroRes <RESOURCE>WinRes BStatusBox $StatusBoxText"
    " iUnk1 iUnk2 BEmbedded"},
   {"BATTLE",
-   "iStaminaLo iStaminaHi iStrengthLo iStrengthHi iAccuracyLo iAccuracyHi"
-   " iDefenseLo iDefenseHi iAgilityLo iAgilityHi iRecovery"},
+   "#StaminaLo #StaminaHi #StrengthLo #StrengthHi #AccuracyLo #AccuracyHi"
+   " #DefenseLo #DefenseHi #AgilityLo #AgilityHi #Recovery"},
   {"ROOM",
    "$Short $Long ?GEightPointCompass:[12]<ROOM_EXIT>Exits"
    " ?!GEightPointCompass:[8]<ROOM_EXIT>Exits <RESOURCE>Res V<ROOM_ALT>Alts"
@@ -121,7 +121,7 @@ static const sc_parse_schema_t V400_PARSE_SCHEMA[] = {
    " BListFlag <RESOURCE>Res1 <RESOURCE>Res2 ?GBattleSystem:<OBJ_BATTLE>Battle"
    " $InRoomDesc #OnlyWhenNotMoved"},
   {"OBJ_BATTLE",
-   "iProtectionValue iHitValue iMethod iAccuracy"},
+   "#ProtectionValue #HitValue #Method #Accuracy"},
   {"ROOM_LIST1",
    "#Type {ROOM_LIST1}"},
   {"TASK",
@@ -151,9 +151,9 @@ static const sc_parse_schema_t V400_PARSE_SCHEMA[] = {
    " V<WALK>Walks BShowEnterExit ?BShowEnterExit:$EnterText,$ExitText"
    " $InRoomText #Gender [4]<RESOURCE>Res ?GBattleSystem:<NPC_BATTLE>Battle"},
   {"NPC_BATTLE",
-   "iAttitude iStaminaLo iStaminaHi iStrengthLo iStrengthHi iAccuracyLo"
-   " iAccuracyHi iDefenseLo iDefenseHi iAgilityLo iAgilityHi iSpeed"
-   " iKilledTask iRecovery iStaminaTask"},
+   "#Attitude #StaminaLo #StaminaHi #StrengthLo #StrengthHi #AccuracyLo"
+   " #AccuracyHi #DefenseLo #DefenseHi #AgilityLo #AgilityHi #Speed"
+   " #KilledTask #Recovery #StaminaTask"},
   {"TOPIC",
    "$Subject $Reply #Task $AltReply"},
   {"WALK",
@@ -188,7 +188,7 @@ static const sc_parse_schema_t V390_PARSE_SCHEMA[] = {
    " BSound BGraphics <RESOURCE>IntroRes <RESOURCE>WinRes FStatusBox"
    " EStatusBoxText iUnk1 iUnk2 FEmbedded"},
   {"BATTLE",
-   "iStamina iStrength iDefense"},
+   "#Stamina #Strength #Defense"},
   {"ROOM",
    "$Short $Long $LastDesc ?GEightPointCompass:[12]<ROOM_EXIT>Exits"
    " ?!GEightPointCompass:[8]<ROOM_EXIT>Exits $AddDesc1 #Task1 $AddDesc2 #Task2"
@@ -210,7 +210,7 @@ static const sc_parse_schema_t V390_PARSE_SCHEMA[] = {
    " <RESOURCE>Res1 <RESOURCE>Res2 ?GBattleSystem:<OBJ_BATTLE>Battle"
    " EInRoomDesc ZOnlyWhenNotMoved"},
   {"OBJ_BATTLE",
-   "iProtectionValue iHitValue iMethod"},
+   "#ProtectionValue #HitValue #Method"},
   {"ROOM_LIST1",
    "#Type {ROOM_LIST1}"},
   {"TASK",
@@ -241,7 +241,7 @@ static const sc_parse_schema_t V390_PARSE_SCHEMA[] = {
    " V<WALK>Walks BShowEnterExit ?BShowEnterExit:$EnterText,$ExitText"
    " $InRoomText #Gender [4]<RESOURCE>Res ?GBattleSystem:<NPC_BATTLE>Battle"},
   {"NPC_BATTLE",
-   "iAttitude iStamina iStrength iDefense iSpeed iKilledTask"},
+   "#Attitude #Stamina #Strength #Defense #Speed #KilledTask"},
   {"TOPIC",
    "$Subject $Reply #Task $AltReply"},
   {"WALK",

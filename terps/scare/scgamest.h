@@ -87,6 +87,11 @@ typedef struct sc_npcstate_s
   sc_int walkstep_count;
   sc_int *walksteps;
   sc_bool seen;
+
+  /* Battle system state -- current stamina, recovery and attack counters. */
+  sc_int stamina;
+  sc_int staminacounter;
+  sc_int attackcounter;
 } sc_npcstate_t;
 
 /*
@@ -136,6 +141,11 @@ typedef struct sc_game_s
   sc_int playerroom;
   sc_int playerposition;
   sc_int playerparent;
+
+  /* Battle system state for the player -- current stamina and recovery. */
+  sc_int playerstamina;
+  sc_int playerstaminacounter;
+
   sc_int turns;
   sc_int score;
   sc_bool bold_room_names;

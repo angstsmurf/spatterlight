@@ -589,6 +589,77 @@ gs_npc_seen (sc_gameref_t gs, sc_int npc)
   return gs->npcs[npc].seen;
 }
 
+/* Battle system accessors -- player and NPC current stamina and recovery. */
+void
+gs_set_playerstamina (sc_gameref_t gs, sc_int stamina)
+{
+  assert (gs_is_game_valid (gs));
+  gs->playerstamina = stamina;
+}
+
+sc_int
+gs_playerstamina (sc_gameref_t gs)
+{
+  assert (gs_is_game_valid (gs));
+  return gs->playerstamina;
+}
+
+void
+gs_set_playerstaminacounter (sc_gameref_t gs, sc_int counter)
+{
+  assert (gs_is_game_valid (gs));
+  gs->playerstaminacounter = counter;
+}
+
+sc_int
+gs_playerstaminacounter (sc_gameref_t gs)
+{
+  assert (gs_is_game_valid (gs));
+  return gs->playerstaminacounter;
+}
+
+void
+gs_set_npc_stamina (sc_gameref_t gs, sc_int npc, sc_int stamina)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  gs->npcs[npc].stamina = stamina;
+}
+
+sc_int
+gs_npc_stamina (sc_gameref_t gs, sc_int npc)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  return gs->npcs[npc].stamina;
+}
+
+void
+gs_set_npc_staminacounter (sc_gameref_t gs, sc_int npc, sc_int counter)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  gs->npcs[npc].staminacounter = counter;
+}
+
+sc_int
+gs_npc_staminacounter (sc_gameref_t gs, sc_int npc)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  return gs->npcs[npc].staminacounter;
+}
+
+void
+gs_set_npc_attackcounter (sc_gameref_t gs, sc_int npc, sc_int counter)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  gs->npcs[npc].attackcounter = counter;
+}
+
+sc_int
+gs_npc_attackcounter (sc_gameref_t gs, sc_int npc)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  return gs->npcs[npc].attackcounter;
+}
+
 sc_int
 gs_npc_walkstep_count (sc_gameref_t gs, sc_int npc)
 {
@@ -883,6 +954,9 @@ gs_create (sc_var_setref_t vars,
       gs_set_npc_position (game, index_, 0);
       gs_set_npc_parent (game, index_, -1);
       gs_set_npc_seen (game, index_, FALSE);
+      game->npcs[index_].stamina = 0;
+      game->npcs[index_].staminacounter = 0;
+      game->npcs[index_].attackcounter = 0;
 
       vt_key[1].integer = index_;
 
@@ -910,6 +984,8 @@ gs_create (sc_var_setref_t vars,
   game->playerparent = prop_get_integer (bundle, "I<-ss", vt_key) - 1;
   vt_key[1].string = "Position";
   game->playerposition = prop_get_integer (bundle, "I<-ss", vt_key);
+  game->playerstamina = 0;
+  game->playerstaminacounter = 0;
 
   /* Initialize score notifications from game properties. */
   vt_key[0].string = "Globals";
@@ -1094,6 +1170,9 @@ gs_copy (sc_gameref_t to, sc_gameref_t from)
       to->npcs[npc].position = from->npcs[npc].position;
       to->npcs[npc].parent = from->npcs[npc].parent;
       to->npcs[npc].seen = from->npcs[npc].seen;
+      to->npcs[npc].stamina = from->npcs[npc].stamina;
+      to->npcs[npc].staminacounter = from->npcs[npc].staminacounter;
+      to->npcs[npc].attackcounter = from->npcs[npc].attackcounter;
       to->npcs[npc].walkstep_count = from->npcs[npc].walkstep_count;
 
       /* Copy over NPC walks information. */
@@ -1107,6 +1186,8 @@ gs_copy (sc_gameref_t to, sc_gameref_t from)
   to->playerroom = from->playerroom;
   to->playerposition = from->playerposition;
   to->playerparent = from->playerparent;
+  to->playerstamina = from->playerstamina;
+  to->playerstaminacounter = from->playerstaminacounter;
 
   /*
    * Copy over miscellaneous other details.  Specifically exclude bold rooms,
