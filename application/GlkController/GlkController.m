@@ -1330,6 +1330,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     libcontroller = nil;
 }
 
+// YES while a repeating Glk timer is scheduled.
+- (BOOL)timerActive {
+    return timer != nil;
+}
+
 // Commit all pending display changes. Called after the interpreter finishes
 // processing a batch of commands and before waiting for the next event.
 // This is the main "render frame" method that:

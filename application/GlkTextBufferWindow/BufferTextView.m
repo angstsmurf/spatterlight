@@ -289,8 +289,11 @@
 
 - (void)scrollWheel:(NSEvent *)event {
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
-    [delegate scrollWheelchanged:(NSEvent *)event];
+    // Let the scroll happen first, then notify the delegate, so it can test
+    // the *updated* scroll position (e.g. to resume auto-scrolling once the
+    // user has reached the bottom).
     [super scrollWheel:event];
+    [delegate scrollWheelchanged:(NSEvent *)event];
 }
 
 - (void)changeAttributes:(id)sender {

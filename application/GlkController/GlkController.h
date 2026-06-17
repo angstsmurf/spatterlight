@@ -192,6 +192,11 @@ typedef enum kGameIdentity : NSUInteger {
 // border change
 @property BOOL movingBorder;
 
+// YES while a Glk timer is running, i.e. the game is producing unattended
+// timer-driven output (real-time/animated games). Used to pause auto-scroll
+// when the user scrolls up, the same way command-script playback does.
+@property(readonly) BOOL timerActive;
+
 // Command scripts
 @property CommandScriptHandler *commandScriptHandler;
 @property BOOL commandScriptRunning;

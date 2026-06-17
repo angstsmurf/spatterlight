@@ -374,6 +374,15 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     [self trimScrollbackIfNeeded:wasAtBottom];
 
     if (_pendingScroll) {
+        // Resume auto-scrolling once the user has scrolled back to the bottom.
+        // wasAtBottom was captured before the append above, so it reflects
+        // whether the user was following output rather than the just-grown
+        // document (which always reads as "not at bottom" until we scroll).
+        // This is the resume counterpart to scrollWheelchanged's pause and
+        // covers both command-script and timer-driven output.
+        if (pauseScrolling && wasAtBottom)
+            pauseScrolling = NO;
+
         if (glkctl.commandScriptRunning) {
             if (!commandScriptWasRunning) {
                 // A command script just started
@@ -396,22 +405,25 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     [NSUserDefaults.standardUserDefaults setValue:hyphenationLanguage forKey:@"NSHyphenationLanguage"];
 }
 
-// Track scroll wheel activity during command script playback. Scrolling up
-// pauses auto-scrolling so the user can read, scrolling back down to the
-// bottom resumes it.
+// Track scroll wheel activity while the game produces unattended output —
+// command-script playback or a timer-driven (real-time/animated) game.
+// Scrolling up pauses auto-scrolling so the user can read; scrolling back to
+// the bottom resumes it.
+//
+// Called from -[BufferTextView scrollWheel:] *after* the event has been
+// applied, so scrolledToBottom reflects the current position. Resume uses the
+// strict scrolledToBottom test (not the old "within one viewport of the
+// bottom" test), so the trackpad-momentum sub-events — whose deltas wobble in
+// both directions — can no longer cancel the pause the instant it is set,
+// which is what made scrolling up nearly impossible.
 - (void)scrollWheelchanged:(NSEvent *)event {
-    if (self.glkctl.commandScriptRunning) {
-        if (pauseScrolling && event.scrollingDeltaY < 0) {
-            if (NSHeight(_textview.bounds) - NSMaxY(scrollview.contentView.bounds) < NSHeight(scrollview.contentView.bounds)) {
-                // Scrollbar moved down close enough to bottom. Resume scrolling.
-                pauseScrolling = NO;
-                return;
-            }
-        }
-
-        if (event.scrollingDeltaY > 0 ) {
+    if (self.glkctl.commandScriptRunning || self.glkctl.timerActive) {
+        if (event.scrollingDeltaY > 0) {
             // Scrollbar moved up. Pause scrolling.
             pauseScrolling = YES;
+        } else if (pauseScrolling && self.scrolledToBottom) {
+            // Scrolled back to the very bottom. Resume scrolling.
+            pauseScrolling = NO;
         }
     }
 }
