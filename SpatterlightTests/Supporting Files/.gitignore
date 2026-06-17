@@ -1,0 +1,9 @@
+# Original game data (Games/) and Scott/Saga renderer image-data fixtures
+# (Image data/ — the apple2*/atari8* .dat picture streams and .result/.90/.A0
+# golden screen dumps), kept local-only — same policy as the saga
+# test/groundtruth_* corpora. The files are still picked up automatically by the
+# SpatterlightTests synchronized folder group and flattened into the test
+# bundle, so local test runs are unaffected; a fresh clone simply won't have
+# them until they are supplied locally.
+Games/
+Image data/

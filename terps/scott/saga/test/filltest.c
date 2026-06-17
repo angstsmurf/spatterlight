@@ -5,7 +5,9 @@
 // .dat opcode stream and compare the full screen buffer(s) against the saved
 // .result dumps. so_painting / so_console lean hard on the flood fills.
 //
-//   usage: filltest <supportpath>   (dir holding MI.dsk, apple2*.dat/.result …)
+//   usage: filltest <supportpath>   (renderer fixtures are read from
+//                                    <supportpath>/Image data/, the game disk
+//                                    from <supportpath>/Games/MI.dsk)
 //
 // It links only the vector-draw + disk-decode modules; symbols belonging to the
 // interpreter core / bitmap drawing are stubbed below and are never reached on
@@ -323,17 +325,27 @@ int main(int argc, char **argv) {
 	}
 	const char *support = argv[1];
 
+	// The image-data fixtures (apple2*/atari8* .dat picture streams and
+	// .result/.90/.A0 golden dumps) and the game disk are kept local-only in
+	// subfolders of the support root: "Games/" for the copyrighted MI.dsk and
+	// "Image data/" for the renderer fixtures (see "Supporting Files/.gitignore").
+	// In the Xcode test bundle the synchronized folder group flattens everything
+	// back to one directory, so the shared renderer reads plain filenames from
+	// supportpath there; here we point each reader at the right subfolder.
+	char imgsupport[strlen(support) + sizeof("Image data/")];
+	snprintf(imgsupport, sizeof imgsupport, "%sImage data/", support);
+
 	// Apple II rendering needs the per-game pattern/brush tables, which the real
 	// pipeline extracts from the game disk before drawing any picture.
 	size_t disksize;
-	uint8_t *disk = ReadTestDataFromFile("MI.dsk", support, &disksize);
+	uint8_t *disk = ReadTestDataFromFile("Games/MI.dsk", support, &disksize);
 	if (disk) {
 		InitDskImage(disk, disksize);
 		LoadDrawingDataFromDisk(disk, disksize);
 		FreeDiskImage();
 		free(disk);
 	} else {
-		fprintf(stderr, "warning: MI.dsk not found; Apple II cases will fail\n");
+		fprintf(stderr, "warning: Games/MI.dsk not found; Apple II cases will fail\n");
 	}
 
 	struct { const char *label, *name; int (*fn)(const char *, const char *); } cases[] = {
@@ -348,7 +360,7 @@ int main(int argc, char **argv) {
 
 	int passed = 0;
 	for (int i = 0; i < n; i++) {
-		int ok = cases[i].fn(cases[i].name, support);
+		int ok = cases[i].fn(cases[i].name, imgsupport);
 		printf("%-20s : %s\n", cases[i].label, ok ? "PASS" : "FAIL");
 		passed += ok;
 	}
