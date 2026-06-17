@@ -328,7 +328,9 @@
 				if (tempbufdatalen > buflen)
 					tempbufdatalen = buflen;
 				memcpy(buf, tempbufdata, tempbufdatalen);
+#ifdef DEBUG
                 NSLog(@"Copied data for stream %d with length %lu", _tag, (unsigned long)buflen);
+#endif
 				free(tempbufdata);
 				tempbufdata = nil;
 			}
@@ -346,7 +348,9 @@
 				if (tempbufdatalen > sizeof(glui32)*buflen)
 					tempbufdatalen = sizeof(glui32)*buflen;
 				memcpy(ubuf, tempbufdata, tempbufdatalen);
+#ifdef DEBUG
                 NSLog(@"Copied unicode data for stream %d with length %lu", _tag, (unsigned long)buflen);
+#endif
 				free(tempbufdata);
 				tempbufdata = nil;
 			}

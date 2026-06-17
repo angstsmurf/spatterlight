@@ -62,7 +62,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
                     _rootwintag = root->tag;
                     break;
                 }
-            } while ((root=glk_window_iterate(win, NULL)) != NULL);
+            } while ((root=glk_window_iterate(root, NULL)) != NULL);
             if (!root) {
                 NSLog(@"TempLibrary init: Error: no root window!");
             }

@@ -273,8 +273,7 @@
 
 
 - (NSString *)buildAppSupportDir {
-    {
-        NSDictionary *gFolderMap = @{@"adrift" : @"SCARE",
+    NSDictionary *gFolderMap = @{@"adrift" : @"SCARE",
                                      @"advsys" : @"AdvSys",
                                      @"agt"    : @"AGiliTy",
                                      @"archetype" : @"Archetype",
@@ -392,8 +391,6 @@
             }
         }
         return appSupportURL.path;
-    }
-    return nil;
 }
 
 // If there exists an autosave dir using the old hashing method,
@@ -451,17 +448,17 @@
                 }
 
                 // Copy the file from the old directory to the new, overwriting any older files there
-                BOOL result = NO;
                 if (overwrite) {
-                    result = [data writeToURL:newfileURL options:NSDataWritingAtomic error:&error];
-                    if (!result) {
+                    BOOL copied = [data writeToURL:newfileURL options:NSDataWritingAtomic error:&error];
+                    if (!copied) {
                         NSLog(@"GlkController: Failed to copy file %@ to new autosave directory. Error:%@", filename, error);
+                        continue; // Don't delete the original if the copy failed
                     }
                 }
 
                 // Delete the original file
-                result = [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
-                if (!result) {
+                BOOL deleted = [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+                if (!deleted) {
                     NSLog(@"GlkController: Failed to delete file %@ in old autosave directory. Error:%@", filename, error);
                 }
             }
@@ -713,7 +710,7 @@
         weakSelf.shouldShowAutorestoreAlert = NO;
 
         if (result == NSAlertSecondButtonReturn) {
-            [self reset:nil];
+            [weakSelf reset:nil];
             if (anAlert.suppressionButton.state == NSOnState) {
                 [defaults setBool:NO forKey:alwaysAutorestoreKey];
             }
@@ -727,7 +724,7 @@
         if (weakSelf.gameID == kGameIsJourney)
             [weakSelf.journeyMenuHandler recreateDialog];
 
-        [self forceSpeech];
+        [weakSelf forceSpeech];
     }];
 }
 

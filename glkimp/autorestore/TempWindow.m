@@ -181,6 +181,8 @@
 	line_request = [decoder decodeInt32ForKey:@"line_request"];
 	char_request_uni = [decoder decodeInt32ForKey:@"char_request_uni"];
 	line_request_uni = [decoder decodeInt32ForKey:@"line_request_uni"];
+    mouse_request = [decoder decodeInt32ForKey:@"mouse_request"];
+    hyper_request = [decoder decodeInt32ForKey:@"hyper_request"];
 
     background = [decoder decodeInt32ForKey:@"background"];
 
@@ -188,32 +190,18 @@
 	len = [decoder decodeInt32ForKey:@"len"];
 	if (cap) {
 		// the decoded "line_buffer" values are originally Glulx addresses (glui32), so stuffing them into a long is safe.
-		if (!line_request_uni) {
-			tempbufkey = (long)[decoder decodeInt64ForKey:@"line_buffer"];
-			uint8_t *rawdata;
-			NSUInteger rawdatalen;
-			rawdata = (uint8_t *)[decoder decodeBytesForKey:@"line_buffer_data" returnedLength:&rawdatalen];
-			if (rawdata && rawdatalen) {
-				tempbufdatalen = rawdatalen;
-				tempbufdata = malloc(rawdatalen);
-				memcpy(tempbufdata, rawdata, rawdatalen);
-			}
-		}
-		else {
-			tempbufkey = (long)[decoder decodeInt64ForKey:@"line_buffer"];
-			uint8_t *rawdata;
-			NSUInteger rawdatalen;
-			rawdata = (uint8_t *)[decoder decodeBytesForKey:@"line_buffer_data" returnedLength:&rawdatalen];
-			if (rawdata && rawdatalen) {
-				tempbufdatalen = rawdatalen;
-				tempbufdata = malloc(rawdatalen);
-				memcpy(tempbufdata, rawdata, rawdatalen);
-			}
+		tempbufkey = (long)[decoder decodeInt64ForKey:@"line_buffer"];
+		uint8_t *rawdata;
+		NSUInteger rawdatalen;
+		rawdata = (uint8_t *)[decoder decodeBytesForKey:@"line_buffer_data" returnedLength:&rawdatalen];
+		if (rawdata && rawdatalen) {
+			tempbufdatalen = rawdatalen;
+			tempbufdata = malloc(rawdatalen);
+			memcpy(tempbufdata, rawdata, rawdatalen);
 		}
 	}
 
 	echo_line_input = [decoder decodeIntForKey:@"echo_line_input"];
-	style = [decoder decodeInt32ForKey:@"style"];
     line_terminators = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"line_terminators"];
 
 	_streamtag = [decoder decodeInt32ForKey:@"streamtag"];
@@ -239,6 +227,8 @@
     [encoder encodeInt32:line_request forKey:@"line_request"];
     [encoder encodeInt32:char_request_uni forKey:@"char_request_uni"];
     [encoder encodeInt32:line_request_uni forKey:@"line_request_uni"];
+    [encoder encodeInt32:mouse_request forKey:@"mouse_request"];
+    [encoder encodeInt32:hyper_request forKey:@"hyper_request"];
 
     [encoder encodeInt32:background forKey:@"background"];
 
