@@ -87,6 +87,10 @@ enum  {
 }
 
 - (void)selectGamesWithHashes:(NSArray*)hashes scroll:(BOOL)shouldscroll {
+    [self selectGamesWithHashes:hashes scroll:shouldscroll clearSearchIfHidden:NO];
+}
+
+- (void)selectGamesWithHashes:(NSArray*)hashes scroll:(BOOL)shouldscroll clearSearchIfHidden:(BOOL)clearSearch {
     if (hashes.count) {
         NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:hashes.count];
         for (NSString *hashTag in hashes) {
@@ -97,6 +101,21 @@ enum  {
                 NSLog(@"No game with hash %@ in library, cannot restore selection", hashTag);
             }
         }
+
+        // If any of the games we want to select are filtered out by the
+        // current search string, clear the search bar so they become
+        // visible. This rebuilds gameTableModel synchronously, so the
+        // membership check below will then find them.
+        if (clearSearch && self.searchString.length) {
+            for (Game *game in newSelection) {
+                if (![self.gameTableModel containsObject:game]) {
+                    self.windowController.searchField.stringValue = @"";
+                    [self searchForGames:nil];
+                    break;
+                }
+            }
+        }
+
         NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
 
         for (Game *game in newSelection) {

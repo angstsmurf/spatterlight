@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateTableViews;
 - (void)selectGames:(NSSet *)games;
 - (void)selectGamesWithHashes:(NSArray *)hashes scroll:(BOOL)shouldscroll;
+- (void)selectGamesWithHashes:(NSArray *)hashes scroll:(BOOL)shouldscroll clearSearchIfHidden:(BOOL)clearSearch;
 - (NSRect)rectForLineWithHash:(NSString *)hashTag;
 
 - (nullable NSString *)imageNameForGame:(Game *)game description:(NSString * _Nullable __autoreleasing * _Nullable)description;
