@@ -76,6 +76,7 @@ static const c64rec c64_registry[] = {
     { ADVENTURELAND_US, 0x2ab00, 0x78fa, TYPE_D64, 0, NULL, NULL,    0,        0, 0, 0, 0 }, // Scott Adams Adventure Pack (1983)(Adventure International)
 
     { PIRATE_US, 0x2adab, 0x04c5, TYPE_US, 0, NULL, "PIRATE", 0, 0, 0, 0, 0x6d30 }, // Pirate Adventure S.A.G.A version
+    { PIRATE_US, 0x2adab, 0xbea0, TYPE_US, 0, NULL, "PIRATE", 0, 0, 0, 0, 0x6d30 }, // Pirate Adventure S.A.G.A version (c64.com)
     { PIRATE_US, 0x2ab00, 0xac87, TYPE_US, 1, NULL, "PIRATE ADVENTURE", 0, 0, 0, 0, 0x6d30 }, // Pirate Adventure S.A.G.A version
     { PIRATE_US, 0x57c6, 0x82ab, TYPE_T64_US, 1, NULL, "PIRATE ADVENTURE", 0, 0, 0, 0, 0x6d30 }, // Pirate Adventure S.A.G.A version
 
@@ -107,6 +108,11 @@ static const c64rec c64_registry[] = {
     { CLAYMORGUE_US, 0x2ab00, 0x0b54, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 },
 
     { HULK_C64,      0x2ab00, 0xcdd8, TYPE_D64, 0, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64)
+    { HULK_C64,      0x2ab00, 0x3d57, TYPE_D64, 1, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64) www.c64hq.com crack 1
+    { HULK_C64,      0x2ab00, 0x910b, TYPE_D64, 1, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64) www.c64hq.com crack 2 (TCS-Crunch)
+    { HULK_C64,      0x2ab00, 0xaadc, TYPE_D64, 2, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64) www.c64hq.com crack 3 (two compression layers)
+    { HULK_C64,      0x2ab00, 0x01c9, TYPE_D64, 1, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64) www.c64hq.com crack 4 (Pock&CPU)
+    { HULK_C64,      0x2ab00, 0x0332, TYPE_D64, 1, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64) www.c64hq.com crack 5 (Killersoft)
     { HULK_C64,      0x8534,  0x623a, TYPE_T64, 2, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64)
     { HULK_US,       0x2ab00,  0x2918, TYPE_US, 0, NULL, "SHULK.DB", 0, 0, 0, 0, 0 },  // Questprobe 1 - The Hulk C64 US (D64)
     { HULK_US,       0x2adab,  0x5eeb, TYPE_US, 0, NULL, "SHULK.DB", 0, 0, 0, 0, 0 },  // Questprobe 1 - The Hulk C64 US (D64) [cbm_1984]

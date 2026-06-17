@@ -44,6 +44,7 @@ namespace Unp64 {
 
 void scnAbuzeCrunch(UnpStr *unp);
 void scnActionPacker(UnpStr *unp);
+void scnAR(UnpStr *unp);
 void scnByteBoiler(UnpStr *unp);
 void scnCaution(UnpStr *unp);
 void scnCCS(UnpStr *unp);
@@ -69,6 +70,7 @@ Scnptr g_scanFunc[] = {
 	scnByteBoiler,
 	scnECA,
 	scnExpert,
+	scnAR,
 	scnFinalSuperComp,
 	scnIntros,
 	scnCruel,
