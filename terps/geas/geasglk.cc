@@ -709,14 +709,7 @@ update_objwin(GeasRunner *gr)
         glk_window_clear(objwin);
         strid_t s = glk_window_get_stream(objwin);
 
-        /* The room name is now shown in the status bar, so the pane lists just
-         * the room's objects (under their own subheader) and exits. */
-        if (!flat.empty()) {
-            glk_set_style_stream(s, style_Subheader);
-            glk_put_string_stream(s, (char *) "Objects\n");
-            glk_set_style_stream(s, style_Normal);
-        }
-
+        /* List the room's objects. */
         for (std::vector<std::string> &item : contents) {
             if (item.empty())
                 continue;

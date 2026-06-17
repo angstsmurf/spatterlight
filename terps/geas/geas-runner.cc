@@ -1354,12 +1354,11 @@ void geas_implementation::set_game (const string &s)
 
       /* Print the game's title/version/author banner once, here at the very
        * start, so it appears before the game's own opening output (intro text,
-       * a start-room "please select an option" menu, etc.).  Bold renders as a
-       * subheader in the Glk host. */
+       * a start-room "please select an option" menu, etc.). */
       {
         string banner = get_banner ();
         if (!banner.empty ())
-          print_formatted ("|n|b" + banner + "|xb|n");
+          print_formatted ("|n|i" + banner + "|xi|n");
       }
 
       auto gfData = gf.block("game", 0).data;
