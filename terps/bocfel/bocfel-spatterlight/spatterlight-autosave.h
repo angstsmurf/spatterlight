@@ -53,15 +53,11 @@ enum inputMode {
     INPUT_NAME,
 };
 
+#define BOCFEL_MAX_JOURNEY_WORDS 4
+#define BOCFEL_MAX_MARGIN_IMAGES 100
+
 typedef struct library_state_data_struct {
-    int wintag0;
-    int wintag1;
-    int wintag2;
-    int wintag3;
-    int wintag4;
-    int wintag5;
-    int wintag6;
-    int wintag7;
+    int wintag[8];
     int curwintag;
     int mainwintag;
     int statuswintag;
@@ -86,9 +82,9 @@ typedef struct library_state_data_struct {
     inputMode current_input_mode;
     int current_input_length;
     int number_of_journey_words;
-    struct JourneyWords journey_words[4];
+    struct JourneyWords journey_words[BOCFEL_MAX_JOURNEY_WORDS];
     int number_of_margin_images;
-    uint16_t margin_images[100];
+    uint16_t margin_images[BOCFEL_MAX_MARGIN_IMAGES];
 
     int current_graphics_win_tag;
     int graphics_fg_tag;

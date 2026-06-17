@@ -6737,22 +6737,9 @@ void init_screen(bool first_run)
 void stash_library_state(library_state_data *dat)
 {
     if (dat) {
-        if ( windows[0].id)
-            dat->wintag0 = windows[0].id->tag;
-        if ( windows[1].id)
-            dat->wintag1 = windows[1].id->tag;
-        if ( windows[2].id)
-            dat->wintag2 = windows[2].id->tag;
-        if ( windows[3].id)
-            dat->wintag3 = windows[3].id->tag;
-        if ( windows[4].id)
-            dat->wintag4 = windows[4].id->tag;
-        if ( windows[5].id)
-            dat->wintag5 = windows[5].id->tag;
-        if ( windows[6].id)
-            dat->wintag6 = windows[6].id->tag;
-        if ( windows[7].id)
-            dat->wintag7 = windows[7].id->tag;
+        for (int i = 0; i < 8; i++)
+            if (windows[i].id)
+                dat->wintag[i] = windows[i].id->tag;
 
         if (curwin->id)
             dat->curwintag = curwin->id->tag;
@@ -6810,14 +6797,8 @@ void stash_library_state(library_state_data *dat)
 void recover_library_state(library_state_data *dat)
 {
     if (dat) {
-        windows[0].id = gli_window_for_tag(dat->wintag0);
-        windows[1].id = gli_window_for_tag(dat->wintag1);
-        windows[2].id = gli_window_for_tag(dat->wintag2);
-        windows[3].id = gli_window_for_tag(dat->wintag3);
-        windows[4].id = gli_window_for_tag(dat->wintag4);
-        windows[5].id = gli_window_for_tag(dat->wintag5);
-        windows[6].id = gli_window_for_tag(dat->wintag6);
-        windows[7].id = gli_window_for_tag(dat->wintag7);
+        for (int i = 0; i < 8; i++)
+            windows[i].id = gli_window_for_tag(dat->wintag[i]);
         statuswin.id = gli_window_for_tag(dat->statuswintag);
         errorwin = gli_window_for_tag(dat->errorwintag);
         graphics_window.set_id(gli_window_for_tag(dat->graphicswintag));

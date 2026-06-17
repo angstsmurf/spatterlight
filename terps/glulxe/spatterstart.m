@@ -260,15 +260,24 @@ static void spatterglk_game_autorestore(void)
         }
 
 
-        [TempLibrary setExtraUnarchiveHook:spatterglk_library_unarchive];
-        @try {
-            newlib = [NSKeyedUnarchiver unarchiveObjectWithFile:libsavepath];
+        NSError *unarchiveError = nil;
+        NSData *libdata = [NSData dataWithContentsOfFile:libsavepath options:0 error:&unarchiveError];
+        if (libdata) {
+            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:libdata error:&unarchiveError];
+            if (unarchiver) {
+                unarchiver.requiresSecureCoding = NO;
+                [TempLibrary setExtraUnarchiveHook:spatterglk_library_unarchive];
+                newlib = (TempLibrary *)[unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:&unarchiveError];
+                [TempLibrary setExtraUnarchiveHook:nil];
+                [unarchiver finishDecoding];
+                if (!newlib)
+                    NSLog(@"Unable to restore autosave library: %@", unarchiveError);
+            } else {
+                NSLog(@"Unable to create unarchiver for autosave library: %@", unarchiveError);
+            }
+        } else {
+            NSLog(@"Unable to read autosave library file: %@", unarchiveError);
         }
-        @catch (NSException *ex) {
-            // leave newlib as nil
-            NSLog(@"Unable to restore autosave library: %@", ex);
-        }
-        [TempLibrary setExtraUnarchiveHook:nil];
 
         if (!newlib||!((LibraryState *)newlib.extraData).active) {
             /* Without a Glk state, there's no point in even trying the VM state. We reset the game */
@@ -510,11 +519,17 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
 
         NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
         [TempLibrary setExtraArchiveHook:spatterglk_library_archive];
-        res = [NSKeyedArchiver archiveRootObject:library toFile:tmplibpath];
+        NSError *archiveError = nil;
+        NSData *archiveData = [NSKeyedArchiver archivedDataWithRootObject:library requiringSecureCoding:NO error:&archiveError];
         [TempLibrary setExtraArchiveHook:nil];
 
-        if (!res) {
-            NSLog(@"library serialize failed!");
+        if (!archiveData) {
+            NSLog(@"library serialize failed: %@", archiveError);
+            return;
+        }
+
+        if (![archiveData writeToFile:tmplibpath options:NSDataWritingAtomic error:&archiveError]) {
+            NSLog(@"library serialize write failed: %@", archiveError);
             return;
         }
 
@@ -531,14 +546,14 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
         [[NSFileManager defaultManager] moveItemAtPath:finallibpath toPath:oldlibpath error:&error];
         [[NSFileManager defaultManager] moveItemAtPath:finalgamepath toPath:oldgamepath error:&error];
 
-        res = [[NSFileManager defaultManager] moveItemAtPath:tmpgamepath toPath:finalgamepath error:nil];
-        if (!res) {
-            NSLog(@"could not move game autosave to final position!");
+        error = nil;
+        if (![[NSFileManager defaultManager] moveItemAtPath:tmpgamepath toPath:finalgamepath error:&error]) {
+            NSLog(@"could not move game autosave to final position: %@", error);
             return;
         }
-        res = [[NSFileManager defaultManager] moveItemAtPath:tmplibpath toPath:finallibpath error:nil];
-        if (!res) {
-            NSLog(@"could not move library autosave to final position");
+        error = nil;
+        if (![[NSFileManager defaultManager] moveItemAtPath:tmplibpath toPath:finallibpath error:&error]) {
+            NSLog(@"could not move library autosave to final position: %@", error);
             return;
         }
 //        NSLog(@"Glulxe created an autosave with tag %u", library.autosaveTag);

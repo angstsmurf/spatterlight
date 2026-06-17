@@ -61,16 +61,11 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     }
 
     if (autosavedir == NULL) {
-        int len = game_file.size();
-        char *c = new char[len + 1];
-        std::copy(game_file.begin(), game_file.end(), c);
-        c[len] = '\0';
-        create_autosavedir(c);
-        delete[] c;
+        create_autosavedir(const_cast<char *>(game_file.c_str()));
     }
 
     if (autosavedir == NULL) {
-        win_showerror(@"Could not create autosave directory name.".UTF8String);
+        win_showerror("Could not create autosave directory name.");
         return;
     }
 
@@ -117,11 +112,17 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
         NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
 
         [TempLibrary setExtraArchiveHook:spatterlight_library_archive];
-        res = [NSKeyedArchiver archiveRootObject:library toFile:tmplibpath];
+        NSError *archiveError = nil;
+        NSData *archiveData = [NSKeyedArchiver archivedDataWithRootObject:library requiringSecureCoding:NO error:&archiveError];
         [TempLibrary setExtraArchiveHook:nil];
-        
-        if (!res) {
-            NSLog(@"library serialize failed!");
+
+        if (!archiveData) {
+            NSLog(@"library serialize failed: %@", archiveError);
+            return;
+        }
+
+        if (![archiveData writeToFile:tmplibpath options:NSDataWritingAtomic error:&archiveError]) {
+            NSLog(@"library serialize write failed: %@", archiveError);
             return;
         }
         
@@ -130,15 +131,16 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
 
 
         /* This is not really atomic, but we're already past the serious failure modes. */
+        error = nil;
         [fileManager removeItemAtPath:oldlibpath error:&error];
+        error = nil;
         [fileManager moveItemAtPath:finallibpath toPath:oldlibpath error:&error];
 
         error = nil;
-        res = [[NSFileManager defaultManager] moveItemAtPath:tmplibpath toPath:finallibpath error:nil];
-        if (!res) {
+        if (![[NSFileManager defaultManager] moveItemAtPath:tmplibpath toPath:finallibpath error:&error]) {
             /* We don't abort out in this case; we leave the game autosave in place by itself, which is not ideal but better than data loss. */
-            win_showerror(@"Could not move autosave plist to final position.".UTF8String);
-            NSLog(@"Could not move library autosave to final position (continuing)");
+            win_showerror("Could not move autosave plist to final position.");
+            NSLog(@"Could not move library autosave to final position (continuing): %@", error);
         }
         win_autosave(library.autosaveTag); // Call window server to do its own autosave
     }
@@ -153,17 +155,12 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
         return false;
     @autoreleasepool {
         if (autosavedir == NULL) {
-            int len = game_file.size();
-            char *c = new char[len + 1];
-            std::copy(game_file.begin(), game_file.end(), c);
-            c[len] = '\0';
-            getautosavedir(c);
-            delete[] c;
+            getautosavedir(const_cast<char *>(game_file.c_str()));
         }
-        
+
         NSString *dirname = @(autosavedir);
         if (!dirname.length) {
-            win_showerror(@"Could not create autosave directory name.".UTF8String);
+            win_showerror("Could not create autosave directory name.");
             return false;
         }
         NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
@@ -196,17 +193,24 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
             return 0;
         }
         
-        [TempLibrary setExtraUnarchiveHook:spatterlight_library_unarchive];
-        
-        @try {
-            newlib = [NSKeyedUnarchiver unarchiveObjectWithFile:libsavepath];
+        NSError *unarchiveError = nil;
+        NSData *libdata = [NSData dataWithContentsOfFile:libsavepath options:0 error:&unarchiveError];
+        if (libdata) {
+            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:libdata error:&unarchiveError];
+            if (unarchiver) {
+                unarchiver.requiresSecureCoding = NO;
+                [TempLibrary setExtraUnarchiveHook:spatterlight_library_unarchive];
+                newlib = (TempLibrary *)[unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:&unarchiveError];
+                [TempLibrary setExtraUnarchiveHook:nil];
+                [unarchiver finishDecoding];
+                if (!newlib)
+                    NSLog(@"Unable to restore autosave library: %@", unarchiveError);
+            } else {
+                NSLog(@"Unable to create unarchiver for autosave library: %@", unarchiveError);
+            }
+        } else {
+            NSLog(@"Unable to read autosave library file: %@", unarchiveError);
         }
-        @catch (NSException *ex) {
-            // leave newlib as nil
-            NSLog(@"Unable to restore autosave library: %@", ex);
-        }
-        
-        [TempLibrary setExtraUnarchiveHook:nil];
         
         if (newlib) {
             bool blorb_stream_was_active = (active_blorb_file_stream != nullptr);
@@ -252,15 +256,10 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
 }
 
 static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder) {
-    [encoder encodeInt32:library_state.wintag0 forKey:@"bocfel_win0"];
-    [encoder encodeInt32:library_state.wintag1 forKey:@"bocfel_win1"];
-    [encoder encodeInt32:library_state.wintag2 forKey:@"bocfel_win2"];
-    [encoder encodeInt32:library_state.wintag3 forKey:@"bocfel_win3"];
-    [encoder encodeInt32:library_state.wintag4 forKey:@"bocfel_win4"];
-    [encoder encodeInt32:library_state.wintag5 forKey:@"bocfel_win5"];
-    [encoder encodeInt32:library_state.wintag6 forKey:@"bocfel_win6"];
-    [encoder encodeInt32:library_state.wintag7 forKey:@"bocfel_win7"];
-    
+    for (int i = 0; i < 8; i++) {
+        [encoder encodeInt32:library_state.wintag[i] forKey:[NSString stringWithFormat:@"bocfel_win%d", i]];
+    }
+
     [encoder encodeInt32:library_state.curwintag forKey:@"bocfel_curwintag"];
     [encoder encodeInt32:library_state.mainwintag forKey:@"bocfel_mainwintag"];
     [encoder encodeInt32:library_state.statuswintag forKey:@"bocfel_statuswintag"];
@@ -273,6 +272,8 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:(int32_t)library_state.routine forKey:@"bocfel_routine"];
     [encoder encodeInt32:(int32_t)library_state.queued_sound forKey:@"bocfel_next_sample"];
     [encoder encodeInt32:(int32_t)library_state.sound_channel_tag forKey:@"bocfel_sound_channel_tag"];
+    [encoder encodeInt32:(int32_t)library_state.autosave_version forKey:@"bocfel_autosave_version"];
+    [encoder encodeInt32:(int32_t)library_state.queued_volume forKey:@"bocfel_queued_volume"];
     [encoder encodeInt64:(int64_t)library_state.last_random_seed forKey:@"bocfel_last_random_seed"];
     [encoder encodeInt32:(int32_t)library_state.random_calls_count forKey:@"bocfel_random_calls_count"];
 
@@ -319,15 +320,10 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
 }
 
 static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decoder) {
-    library_state.wintag0 = [decoder decodeInt32ForKey:@"bocfel_win0"];
-    library_state.wintag1 = [decoder decodeInt32ForKey:@"bocfel_win1"];
-    library_state.wintag2 = [decoder decodeInt32ForKey:@"bocfel_win2"];
-    library_state.wintag3 = [decoder decodeInt32ForKey:@"bocfel_win3"];
-    library_state.wintag4 = [decoder decodeInt32ForKey:@"bocfel_win4"];
-    library_state.wintag5 = [decoder decodeInt32ForKey:@"bocfel_win5"];
-    library_state.wintag6 = [decoder decodeInt32ForKey:@"bocfel_win6"];
-    library_state.wintag7 = [decoder decodeInt32ForKey:@"bocfel_win7"];
-    
+    for (int i = 0; i < 8; i++) {
+        library_state.wintag[i] = [decoder decodeInt32ForKey:[NSString stringWithFormat:@"bocfel_win%d", i]];
+    }
+
     library_state.curwintag = [decoder decodeInt32ForKey:@"bocfel_curwintag"];
     library_state.mainwintag = [decoder decodeInt32ForKey:@"bocfel_mainwintag"];
     library_state.statuswintag = [decoder decodeInt32ForKey:@"bocfel_statuswintag"];
@@ -340,6 +336,8 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.routine = [decoder decodeInt32ForKey:@"bocfel_routine"];
     library_state.queued_sound = [decoder decodeInt32ForKey:@"bocfel_next_sample"];
     library_state.sound_channel_tag = [decoder decodeInt32ForKey:@"bocfel_sound_channel_tag"];
+    library_state.autosave_version = [decoder decodeInt32ForKey:@"bocfel_autosave_version"];
+    library_state.queued_volume = [decoder decodeInt32ForKey:@"bocfel_queued_volume"];
     library_state.last_random_seed = [decoder decodeInt64ForKey:@"bocfel_last_random_seed"];
     library_state.random_calls_count = [decoder decodeInt32ForKey:@"bocfel_random_calls_count"];
 
@@ -363,9 +361,10 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.internal_read_char_hack = [decoder decodeInt32ForKey:@"internal_read_char_hack"];
 
     NSArray<NSArray *> *tempArray = [decoder decodeObjectOfClass:[NSArray class] forKey:@"bocfel_printed_journey_words"];
-    library_state.number_of_journey_words = tempArray.count;
+    library_state.number_of_journey_words = (int)MIN(tempArray.count, (NSUInteger)BOCFEL_MAX_JOURNEY_WORDS);
     NSUInteger i = 0;
     for (NSArray *array in tempArray) {
+        if (i >= (NSUInteger)BOCFEL_MAX_JOURNEY_WORDS) break;
         library_state.journey_words[i].str = ((NSNumber *)[array objectAtIndex:0]).intValue;
         library_state.journey_words[i].pcf = ((NSNumber *)[array objectAtIndex:1]).intValue;
         library_state.journey_words[i].pcm = ((NSNumber *)[array objectAtIndex:2]).intValue;
@@ -373,10 +372,11 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     }
 
     NSArray<NSNumber *> *tempArray2 = [decoder decodeObjectOfClass:[NSArray class] forKey:@"bocfel_margin_images"];
-    library_state.number_of_margin_images = tempArray2.count;
+    library_state.number_of_margin_images = (int)MIN(tempArray2.count, (NSUInteger)BOCFEL_MAX_MARGIN_IMAGES);
     i = 0;
 
     for (NSNumber *number in tempArray2) {
+        if (i >= (NSUInteger)BOCFEL_MAX_MARGIN_IMAGES) break;
         library_state.margin_images[i] = number.intValue;
         i++;
     }
