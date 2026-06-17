@@ -124,8 +124,6 @@ const GeasBlock &GeasFile::block (const std::string &type, size_t index) const {
 
 size_t GeasFile::size (const std::string &type) const {
 
-  // SENSITIVE?
-  //std::map<std::string, std::vector<int>, CI_LESS>::const_iterator iter;
   std::map<std::string, std::vector<size_t> >::const_iterator iter;
   iter = type_indecies.find(type);
   if (iter == type_indecies.end())
@@ -264,10 +262,8 @@ extern ostream &operator<< (ostream &, const set<string>&);
 /**
  * Currently only works for actual objects, not rooms or the game
  */
-//set<string, CI_LESS> GeasFile::get_obj_keys (string obj) const
 set<string> GeasFile::get_obj_keys (const string &obj) const
-{ 
-  //set<string, CI_LESS> rv;
+{
   set<string> rv;
   get_obj_keys (obj, rv);
   return rv;
@@ -610,7 +606,6 @@ void GeasFile::register_block (const string &blockname, const string &blocktype)
 
 string GeasFile::static_svar_lookup (const string &varname) const
 {
-  //varname = lcase (varname);
   for (size_t i = 0; i < size("variable"); i ++)
     if (ci_equal (blocks[i].name, varname))
       {
@@ -655,7 +650,6 @@ string GeasFile::static_svar_lookup (const string &varname) const
 
 string GeasFile::static_ivar_lookup (const string &varname) const
 {
-  //varname = lcase (varname);
   for (size_t i = 0; i < size("variable"); i ++)
     {
       if (ci_equal (blocks[i].name, varname))
