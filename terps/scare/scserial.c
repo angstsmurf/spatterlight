@@ -72,6 +72,25 @@ static const sc_char NUL = '\0';
 static const sc_char *const SER_BATTLE_MARKER = "ScareBattleState/2";
 static const sc_char *const SER_BATTLE_MARKER_V1 = "ScareBattleState/1";
 
+/*
+ * ADRIFT v4 leading version line.  The real Runner's saveg routine
+ * (run400.exe @477318) writes, as the very first .tas line,
+ *
+ *     Print 1, Chr(172) & CStr(App.Major) & Format(Minor,"000") & Format(Rev,"00")
+ *
+ * i.e. the byte 0xAC ('<not>', Chr(172)) followed by the Major version, the
+ * Minor zero-padded to three digits, and the Revision zero-padded to two.  For
+ * the shipped run400.exe, which reports file version 4.0.0.52, that is exactly
+ * "\xAC" "400052".  SCARE historically omitted this line entirely (its stream
+ * started at GameName), so a Runner save and a SCARE save were mutually
+ * unreadable.  We now emit the header so the Runner will accept our saves, and
+ * on read we treat the leading 0xAC byte as an unambiguous discriminator: a
+ * line beginning with it is a Runner/new-format save whose version line we skip;
+ * any other first line is a legacy SCARE save whose first line is the GameName.
+ */
+static const sc_byte SER_VERSION_LEAD = 0xAC;
+static const sc_char *const SER_VERSION_HEADER = "\xAC" "400052";
+
 enum { BUFFER_SIZE = 4096 };
 
 /* Output buffer. */
@@ -290,25 +309,136 @@ ser_buffer_int_special (sc_int value)
 }
 
 /*
- * ser_save_battle_attributes()
+ * The Runner stores the four ranged battle attributes in the save in the order
+ * Strength, Defence, Accuracy, Agility -- SCARE's sc_battle_t slots 0, 2, 1, 3
+ * (BATTLE_STRENGTH/ACCURACY/DEFENSE/AGILITY) -- and writes each as max, hi, lo.
+ * (Confirmed against real run400.exe saves; see TODO_save_compat.md.)
+ */
+static const sc_int SER_BATTLE_SLOTS[BATTLE_ATTR_COUNT] = {
+  BATTLE_STRENGTH, BATTLE_DEFENSE, BATTLE_ACCURACY, BATTLE_AGILITY
+};
+
+/*
+ * ser_save_battle_block()
  *
- * Buffer the mutable battle attributes of one character (player or NPC) as the
- * version-2 battle-state extension: attitude, max stamina, speed, then each
- * ranged attribute's lo, hi, and max.  See SER_BATTLE_MARKER.
+ * Buffer one character's interleaved ADRIFT battle block.  For an NPC (npc >= 0)
+ * this is 17 values: attitude, max stamina, live stamina, then each attribute's
+ * (max, hi, lo) in SER_BATTLE_SLOTS order, then speed and the attack counter.
+ * For the player (npc < 0) it is 15 values: the attitude and speed/attack-
+ * counter fields are absent, and the block ends with the wielded-weapon object
+ * (the Runner's player sub-struct index 38).  The Runner prints these with the
+ * raw VB Print numeric format, i.e. space-padded; ser_buffer_int_special matches
+ * it byte for byte.
  */
 static void
-ser_save_battle_attributes (const sc_battle_t *battle)
+ser_save_battle_block (sc_gameref_t game, sc_int npc)
 {
-  sc_int slot;
+  const sc_battle_t *battle = (npc < 0) ? gs_player_battle (game)
+                                        : gs_npc_battle (game, npc);
+  sc_int stamina = (npc < 0) ? gs_playerstamina (game)
+                             : gs_npc_stamina (game, npc);
+  sc_int index_;
 
-  ser_buffer_int (battle->attitude);
-  ser_buffer_int (battle->maxstamina);
-  ser_buffer_int (battle->speed);
-  for (slot = 0; slot < BATTLE_ATTR_COUNT; slot++)
+  if (npc >= 0)
+    ser_buffer_int_special (battle->attitude);
+  ser_buffer_int_special (battle->maxstamina);
+  ser_buffer_int_special (stamina);
+  for (index_ = 0; index_ < BATTLE_ATTR_COUNT; index_++)
     {
-      ser_buffer_int (battle->lo[slot]);
-      ser_buffer_int (battle->hi[slot]);
-      ser_buffer_int (battle->max[slot]);
+      const sc_int slot = SER_BATTLE_SLOTS[index_];
+      ser_buffer_int_special (battle->max[slot]);
+      ser_buffer_int_special (battle->hi[slot]);
+      ser_buffer_int_special (battle->lo[slot]);
+    }
+  if (npc < 0)
+    ser_buffer_int_special (gs_playerwield (game));
+  else
+    {
+      ser_buffer_int_special (battle->speed);
+      ser_buffer_int_special (gs_npc_attackcounter (game, npc));
+    }
+}
+
+/*
+ * ser_save_object_location()
+ *
+ * Buffer an object's location in ADRIFT layout.  A dynamic (movable) object is
+ * a single position integer (Format, bare).  A static object is a room list:
+ * a count followed by one 1-based room index per room it is present in (raw
+ * Print, space-padded).  An unmoved static object's list comes from its bundle
+ * "Where" room list; a static object relocated by an event is emitted from its
+ * current single-room position (or an empty list if held/elsewhere).
+ */
+static void
+ser_save_object_location (sc_gameref_t game, sc_int object)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[5];
+  sc_int type, count, room;
+
+  if (!obj_is_static (game, object))
+    {
+      ser_buffer_int (gs_object_position (game, object));
+      return;
+    }
+
+  if (!gs_object_static_unmoved (game, object))
+    {
+      /* Relocated static object: present in its current room, or nowhere. */
+      const sc_int position = gs_object_position (game, object);
+      if (position >= 1 && position <= gs_room_count (game))
+        {
+          ser_buffer_int_special (1);
+          ser_buffer_int_special (position);
+        }
+      else
+        ser_buffer_int_special (0);
+      return;
+    }
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Where";
+  vt_key[3].string = "Type";
+  type = prop_get_integer (bundle, "I<-siss", vt_key);
+  switch (type)
+    {
+    case ROOMLIST_ONE_ROOM:
+      vt_key[3].string = "Room";
+      room = prop_get_integer (bundle, "I<-siss", vt_key);
+      ser_buffer_int_special (1);
+      ser_buffer_int_special (room);
+      break;
+
+    case ROOMLIST_SOME_ROOMS:
+      vt_key[3].string = "Rooms";
+      count = 0;
+      for (room = 0; room < gs_room_count (game); room++)
+        {
+          vt_key[4].integer = room + 1;
+          if (prop_get_boolean (bundle, "B<-sissi", vt_key))
+            count++;
+        }
+      ser_buffer_int_special (count);
+      for (room = 0; room < gs_room_count (game); room++)
+        {
+          vt_key[4].integer = room + 1;
+          if (prop_get_boolean (bundle, "B<-sissi", vt_key))
+            ser_buffer_int_special (room + 1);
+        }
+      break;
+
+    case ROOMLIST_ALL_ROOMS:
+      ser_buffer_int_special (gs_room_count (game));
+      for (room = 0; room < gs_room_count (game); room++)
+        ser_buffer_int_special (room + 1);
+      break;
+
+    case ROOMLIST_NO_ROOMS:
+    case ROOMLIST_NPC_PART:
+    default:
+      ser_buffer_int_special (0);
+      break;
     }
 }
 
@@ -349,6 +479,12 @@ ser_save_game (sc_gameref_t game,
   ser_callback = callback;
   ser_opaque = opaque;
 
+  /*
+   * Write the ADRIFT v4 version line first, so the real Runner (and other v4
+   * interpreters) recognise the file as one of theirs.  See SER_VERSION_HEADER.
+   */
+  ser_buffer_string (SER_VERSION_HEADER);
+
   /* Write the game name. */
   vt_key[0].string = "Globals";
   vt_key[1].string = "GameName";
@@ -361,30 +497,41 @@ ser_save_game (sc_gameref_t game,
   ser_buffer_int (gs_event_count (game));
   ser_buffer_int (gs_npc_count (game));
 
-  /* Write the score and player information. */
+  /* Write the score. */
   ser_buffer_int (game->score);
+
+  /*
+   * Write the player block in ADRIFT layout: the player name (the Runner's
+   * first player field, which older SCARE saves omitted), then room, parent,
+   * position and gender.
+   */
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "PlayerName";
+  ser_buffer_string (prop_get_string (bundle, "S<-ss", vt_key));
   ser_buffer_int (gs_playerroom (game) + 1);
   ser_buffer_int (gs_playerparent (game));
   ser_buffer_int (gs_playerposition (game));
-
-  /* Write player gender. */
-  vt_key[0].string = "Globals";
   vt_key[1].string = "PlayerGender";
   ser_buffer_int (prop_get_integer (bundle, "I<-ss", vt_key));
 
   /*
-   * Write encumbrance details. The player limits are constant for a given
-   * game, and can be extracted from properties.  The current sizes and
-   * weights can also be recalculated from held objects, so we don't maintain
-   * them in the game.  We can write constants here, then, and ignore
-   * the values on restoring.  Note however that if the Adrift Runner is
-   * relying on these values, this may give it problems with one of our saved
-   * games.
+   * Write encumbrance details: the player's size and weight limits (constant
+   * for a game, the same converted values the Runner stores), then the current
+   * size and weight.  We don't maintain the current totals (they recompute from
+   * held objects), so we write zeros; the Runner stores live totals here but
+   * recomputes from inventory on load, so zeros are harmless.
    */
-  ser_buffer_int (90);
+  ser_buffer_int (obj_get_player_size_limit (game));
   ser_buffer_int (0);
-  ser_buffer_int (90);
+  ser_buffer_int (obj_get_player_weight_limit (game));
   ser_buffer_int (0);
+
+  /*
+   * Battle System: the player's interleaved battle block sits here, between the
+   * encumbrance fields and the room-seen flags, for battle games only.
+   */
+  if (battle_is_enabled (game))
+    ser_save_battle_block (game, -1);
 
   /* Save rooms information. */
   for (index_ = 0; index_ < gs_room_count (game); index_++)
@@ -393,7 +540,7 @@ ser_save_game (sc_gameref_t game,
   /* Save objects information. */
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
-      ser_buffer_int (gs_object_position (game, index_));
+      ser_save_object_location (game, index_);
       ser_buffer_boolean (gs_object_seen (game, index_));
       ser_buffer_int (gs_object_parent (game, index_));
       if (gs_object_openness (game, index_) != 0)
@@ -447,6 +594,11 @@ ser_save_game (sc_gameref_t game,
 
       ser_buffer_int (gs_npc_location (game, index_));
       ser_buffer_boolean (gs_npc_seen (game, index_));
+
+      /* The NPC's interleaved battle block sits after "seen", before walks. */
+      if (battle_is_enabled (game))
+        ser_save_battle_block (game, index_);
+
       for (walk = 0; walk < gs_npc_walkstep_count (game, index_); walk++)
         ser_buffer_int_special (gs_npc_walkstep (game, index_, walk));
     }
@@ -489,26 +641,11 @@ ser_save_game (sc_gameref_t game,
   ser_buffer_uint ((sc_uint) game->turns);
 
   /*
-   * Battle System extension -- persist the live combat state that the ADRIFT
-   * format does not carry, so mid-combat stamina (and the wielded weapon)
-   * survive save and restore.  Written only for battle games, as trailing
-   * lines introduced by a sentinel; see SER_BATTLE_MARKER.
+   * Note: the live Battle System state (stamina, attributes, attitudes, etc.)
+   * is now written inline, in the player and NPC blocks above, matching the
+   * Runner's layout.  We no longer append the private trailing SER_BATTLE_MARKER
+   * block; older SCARE saves that carry one are still read (see ser_load_game).
    */
-  if (battle_is_enabled (game))
-    {
-      ser_buffer_string (SER_BATTLE_MARKER);
-      ser_buffer_int (gs_playerstamina (game));
-      ser_buffer_int (gs_playerstaminacounter (game));
-      ser_buffer_int (gs_playerwield (game));
-      ser_save_battle_attributes (gs_player_battle (game));
-      for (index_ = 0; index_ < gs_npc_count (game); index_++)
-        {
-          ser_buffer_int (gs_npc_stamina (game, index_));
-          ser_buffer_int (gs_npc_staminacounter (game, index_));
-          ser_buffer_int (gs_npc_attackcounter (game, index_));
-          ser_save_battle_attributes (gs_npc_battle (game, index_));
-        }
-    }
 
   /*
    * Flush the last buffer contents, and drop the callback and opaque
@@ -621,6 +758,67 @@ ser_restore_battle_attributes (sc_battle_t *battle)
   battle->seeded = TRUE;
 }
 
+/*
+ * ser_restore_battle_block()
+ *
+ * Read back one character's interleaved ADRIFT battle block, in the order
+ * ser_save_battle_block() wrote it.  The stamina counter is not part of the
+ * Runner layout, so it keeps the value battle_start() seeded (0).
+ */
+static void
+ser_restore_battle_block (sc_gameref_t game, sc_int npc)
+{
+  sc_battle_t *battle = (npc < 0) ? gs_player_battle (game)
+                                  : gs_npc_battle (game, npc);
+  sc_int index_;
+
+  if (npc >= 0)
+    battle->attitude = ser_get_int ();
+  battle->maxstamina = ser_get_int ();
+  if (npc < 0)
+    gs_set_playerstamina (game, ser_get_int ());
+  else
+    gs_set_npc_stamina (game, npc, ser_get_int ());
+  for (index_ = 0; index_ < BATTLE_ATTR_COUNT; index_++)
+    {
+      const sc_int slot = SER_BATTLE_SLOTS[index_];
+      battle->max[slot] = ser_get_int ();
+      battle->hi[slot] = ser_get_int ();
+      battle->lo[slot] = ser_get_int ();
+    }
+  if (npc < 0)
+    gs_set_playerwield (game, ser_get_int ());
+  else
+    {
+      battle->speed = ser_get_int ();
+      gs_set_npc_attackcounter (game, npc, ser_get_int ());
+    }
+  battle->seeded = TRUE;
+}
+
+/*
+ * ser_restore_object_location()
+ *
+ * Read an object's location.  In Runner format a static object is a room list
+ * (count then that many room indices), whose values we discard -- a static
+ * object's location is taken from its bundle "Where" list, and relocated-static
+ * state is not separately persisted (as in legacy SCARE saves).  A dynamic
+ * object, or any object in a legacy save, is a single position integer.
+ */
+static void
+ser_restore_object_location (sc_gameref_t game, sc_int object,
+                             sc_bool runner_format)
+{
+  if (runner_format && obj_is_static (game, object))
+    {
+      sc_int count = ser_get_int (), index_;
+      for (index_ = 0; index_ < count; index_++)
+        (void) ser_get_int ();
+    }
+  else
+    game->objects[object].position = ser_get_int ();
+}
+
 static sc_uint
 ser_get_uint (void)
 {
@@ -684,6 +882,7 @@ ser_load_game (sc_gameref_t game,
   sc_vartype_t vt_key[3];
   sc_int index_, var_count;
   const sc_char *gamename;
+  sc_bool runner_format = FALSE;
 
   /* Create a TAF (TAS) reference from callbacks, for reader functions. */
   ser_tas = taf_create_tas (callback, opaque);
@@ -712,15 +911,28 @@ ser_load_game (sc_gameref_t game,
     }
 
   /*
-   * Read the game name, and compare with the one in the game.  Fail if
-   * they don't match exactly.  A tighter check than this would perhaps be
-   * preferable, say, something based on the TAF file header, but this isn't
-   * in the save file format.
+   * Read the first line.  If it begins with the ADRIFT v4 version-line lead
+   * byte (0xAC) it is a Runner/new-format save: skip the version line (we accept
+   * any version a v4 Runner wrote rather than insist on our own digits) and take
+   * the GameName from the next line.  Otherwise the file is a legacy SCARE save
+   * whose first line is already the GameName.  See SER_VERSION_HEADER.
+   */
+  gamename = ser_get_string ();
+  if ((sc_byte) gamename[0] == SER_VERSION_LEAD)
+    {
+      runner_format = TRUE;
+      gamename = ser_get_string ();
+    }
+
+  /*
+   * Compare the saved GameName with the one in the game.  Fail if they don't
+   * match exactly.  A tighter check than this would perhaps be preferable, say,
+   * something based on the TAF file header, but this isn't in the save file
+   * format.
    */
   vt_key[0].string = "Globals";
   vt_key[1].string = "GameName";
-  gamename = prop_get_string (bundle, "S<-ss", vt_key);
-  if (strcmp (ser_get_string (), gamename) != 0)
+  if (strcmp (gamename, prop_get_string (bundle, "S<-ss", vt_key)) != 0)
     longjmp (ser_tas_error, 1);
 
   /* Read and verify the counts in the saved game. */
@@ -738,8 +950,22 @@ ser_load_game (sc_gameref_t game,
 
   /* All set to load TAF (TAS) data into the new game. */
 
-  /* Restore the score and player information. */
+  /*
+   * Seed the Battle System state up front so that the interleaved battle blocks
+   * read below (Runner format) can overwrite it, and so that fields the Runner
+   * does not persist (the stamina counters) keep a sane zero.  A no-op for
+   * non-battle games.
+   */
+  battle_start (new_game);
+
+  /* Restore the score. */
   new_game->score = ser_get_int ();
+
+  /* Skip the player name (Runner format only; absent in legacy SCARE saves). */
+  if (runner_format)
+    (void) ser_get_string ();
+
+  /* Restore the rest of the player block. */
   gs_set_playerroom (new_game, ser_get_int () - 1);
   gs_set_playerparent (new_game, ser_get_int ());
   gs_set_playerposition (new_game, ser_get_int ());
@@ -753,6 +979,10 @@ ser_load_game (sc_gameref_t game,
   (void) ser_get_int ();
   (void) ser_get_int ();
 
+  /* Runner format: the player's interleaved battle block follows encumbrance. */
+  if (runner_format && battle_is_enabled (new_game))
+    ser_restore_battle_block (new_game, -1);
+
   /* Restore rooms information. */
   for (index_ = 0; index_ < gs_room_count (new_game); index_++)
     gs_set_room_seen (new_game, index_, ser_get_boolean ());
@@ -763,7 +993,7 @@ ser_load_game (sc_gameref_t game,
       sc_int openable, currentstate;
 
       /* Bypass mutators for position and parent.  Fix later? */
-      new_game->objects[index_].position = ser_get_int ();
+      ser_restore_object_location (new_game, index_, runner_format);
       gs_set_object_seen (new_game, index_, ser_get_boolean ());
       new_game->objects[index_].parent = ser_get_int ();
 
@@ -823,6 +1053,11 @@ ser_load_game (sc_gameref_t game,
 
       gs_set_npc_location (new_game, index_, ser_get_int ());
       gs_set_npc_seen (new_game, index_, ser_get_boolean ());
+
+      /* Runner format: the NPC's battle block follows "seen", before walks. */
+      if (runner_format && battle_is_enabled (new_game))
+        ser_restore_battle_block (new_game, index_);
+
       for (walk = 0; walk < gs_npc_walkstep_count (new_game, index_); walk++)
         gs_set_npc_walkstep (new_game, index_, walk, ser_get_int ());
     }
@@ -865,23 +1100,16 @@ ser_load_game (sc_gameref_t game,
   new_game->turns = (sc_int) ser_get_uint ();
 
   /*
-   * Battle System tweak -- first roll fresh starting stamina for the player
-   * and NPCs.  This keeps a restored battle game valid when the save carries no
-   * combat state of its own: an ADRIFT save (whose .tas battle-field positions
-   * are not yet reverse-engineered) or a SCARE save written before the battle
-   * extension below existed.
+   * Legacy battle saves (no version header) carry their combat state in a
+   * private trailing block introduced by a sentinel on the line after the turns
+   * count.  Runner-format saves carry it inline (read above), so we only look
+   * for the trailing block when reading a legacy save.  battle_start() seeded
+   * fresh state earlier, so a legacy save that predates the battle extension --
+   * or one with no trailing block -- simply keeps that re-rolled state.
+   * taf_next_line returns NULL at end of data without faulting, so the peek is
+   * safe even when nothing follows the turns count.
    */
-  battle_start (new_game);
-
-  /*
-   * Then, if this is one of our own battle saves, restore the live combat
-   * state that the ADRIFT format does not carry.  The sentinel sits on the line
-   * after the turns count -- the Runner's last field -- so its absence (a real
-   * ADRIFT save, or an older SCARE save) simply leaves the re-rolled state in
-   * place.  taf_next_line returns NULL at end of data without faulting, so the
-   * peek is safe even when nothing follows the turns count.
-   */
-  if (battle_is_enabled (new_game))
+  if (!runner_format && battle_is_enabled (new_game))
     {
       const sc_char *marker = taf_next_line (ser_tas);
       const sc_bool is_v2 = marker

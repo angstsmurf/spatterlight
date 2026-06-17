@@ -118,7 +118,11 @@ See `Battles.bas` analysis / formulas in the project memory
    "none" on load (`global_78 = &HFF`); SCARE's choice to persist it is a benign
    superset. Closing item 5 fully therefore means adding the version-line header
    and a mutable battle-attribute state (plus the Change-attribute task action),
-   a larger change than the live-state preservation this task delivered.
+   a larger change than the live-state preservation this task delivered. The
+   mutable battle-attribute half is now **done** (`TODO_battle_attributes.md`);
+   the remaining file-format work has its own plan in **`TODO_save_compat.md`**
+   (version header, interleaved battle blocks, field parity, bidirectional
+   Runner interop).
 
 8. **Mutable battle attributes (the "Change `<attribute>`" task action).**
    ADRIFT task action type 7 lets tasks change a character's Attitude / Stamina /
