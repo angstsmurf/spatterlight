@@ -12,28 +12,31 @@
   By the way, I can't write C++.  Sorry about that.
 
 
-  Glk Window arrangment.
+  Glk Window arrangement.
 
-    +---------+
-    |    B    |
-    +---------+
-    |    M    |
-    |         |
-    +---------+
-    |    I    |
-    +---------+
+    +-------------------+
+    |         B         |
+    +-----------+---+---+
+    |     M     | D | O |
+    |           |   |   |
+    +-----------+---+---+
+    |         I         |
+    +-------------------+
 
-  B is a one line "banner window", showing the game name and author.  Kept
-  in the global variable, it's optional, null if unavailable.
-  optional.
+  B is a one line status bar (a TextGrid), kept in the global bannerwin.  It
+  shows the current room name (left) and the game's status variables such as
+  score/health/money (right).  It's optional, null if unavailable.  The game's
+  title/author/version banner is printed once into the main window at startup,
+  not here.
   M is the main window where the text of the game appears.  Kept in the
   global variable mainglkwin.
   I is a one line "input window" where the user inputs their commands.
   Kept in the global variable inputwin, it's optional, and if not separate
   is set to mainglkwin.
-
-  Maybe in future revisions there will be a status window (including a
-  compass rose).
+  O is an optional right-hand pane (objwin) listing the current room's objects
+  and exits; it is opened only when there is something to list and closed
+  otherwise (see update_objwin).  D (gfxwin) is a thin graphics window drawn in
+  the text colour as a divider between M and O.
 */
 
 #include <iostream>
@@ -165,10 +168,6 @@ handle_transcript_command(const std::string &raw)
     return true;
 }
 
-/* Handle the SAVE / RESTORE metaverbs.  Returns true if the command was one of
- * them (and should not reach the game).  The whole game state goes through a
- * single Glk file; geas does the (de)serialising. */
-
 /* Prompt for a save file and restore it.  Returns true if the game state was
  * successfully restored (and is now running). */
 static bool
@@ -194,6 +193,9 @@ do_restore(GeasRunner *gr)
     return false;
 }
 
+/* Handle the SAVE / RESTORE metaverbs.  Returns true if the command was one of
+ * them (and should not reach the game).  The whole game state goes through a
+ * single Glk file; geas does the (de)serialising. */
 static bool
 handle_saverestore_command(const std::string &raw, GeasRunner *gr)
 {
