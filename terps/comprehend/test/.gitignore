@@ -16,3 +16,8 @@ gmcgav1/trace_crypt
 *.dSYM/
 *.ppm
 diff_gmcga
+
+# Reference screenshots kept only for eyeballing (the byte-exact compare targets
+# are the .fb/.page files); moved into per-folder images/ subfolders, local-only.
+*.png
+images/

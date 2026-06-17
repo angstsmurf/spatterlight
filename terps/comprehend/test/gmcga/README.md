@@ -14,11 +14,12 @@ renderer must be checked against DOS output, not the Apple pages.
 
 | file            | what                                                                 |
 |-----------------|----------------------------------------------------------------------|
-| `<scene>.png`   | raw DOSBox screenshot, 640×400 (exact 2× of CGA mode 4, 320×200)     |
+| `images/<scene>.png` | raw DOSBox screenshot, 640×400 (exact 2× of CGA mode 4, 320×200) |
 | `<scene>.fb`    | golden framebuffer: 320×200 = 64000 bytes, one palette index 0-3/px  |
 
 `.fb` is produced from `.png` by `png_to_fb.py` and is the byte-exact compare
-target; `.png` is kept for eyeballing.
+target; the `.png` screenshots are kept local-only in `images/` (gitignored) for
+eyeballing.
 
 ## Geometry
 
@@ -70,8 +71,8 @@ Apple `RA #N` numbering in `../talisman/README.md`.
    `NOVEL1.EXE`, answer the master-disk prompt with `A`.  To leave the opening
    dungeon: type `WAIT` four times then `BOW`, then advance the cutscene with
    Space.
-2. At the scene, `dosbox_screenshot(path=…)` → save as `<scene>.png`.
-3. `python3 png_to_fb.py <scene>.png <scene>.fb` (asserts a 640×400 input and a
+2. At the scene, `dosbox_screenshot(path=…)` → save as `images/<scene>.png`.
+3. `python3 png_to_fb.py images/<scene>.png <scene>.fb` (asserts a 640×400 input and a
    clean 4-colour palette).
 
 ## Compare the renderer against a golden

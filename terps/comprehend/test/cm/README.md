@@ -5,11 +5,14 @@ Boot side B, press **S** (standard hi-res), swap to side A at "turn thy
 diskette over", press a key. Active video = hi-res **page 1 ($2000)**.
 
 ## Files
-- `throne_sand60.page` / `.png` — throne room (room 0x12) at the game start,
-  VM sand var 0x11 = 60. Full panel: logo + complete hourglass.
-- `prison_displayed60.page` / `.png` — the prison (after the throne-room
-  imprisonment trap; imprisonment RESETS sand to 74, displayed counter held 60).
-- `hourglass_sand60_6x.png` — the throne hourglass cropped + scaled 6x.
+(The `.png` reference screenshots are kept local-only in `images/` — gitignored,
+for eyeballing; the byte-exact compare targets are the `.page` files.)
+- `throne_sand60.page` / `images/throne_sand60.png` — throne room (room 0x12) at
+  the game start, VM sand var 0x11 = 60. Full panel: logo + complete hourglass.
+- `prison_displayed60.page` / `images/prison_displayed60.png` — the prison (after
+  the throne-room imprisonment trap; imprisonment RESETS sand to 74, displayed
+  counter held 60).
+- `images/hourglass_sand60_6x.png` — the throne hourglass cropped + scaled 6x.
 - `hourglass_anatomy.txt` — ASCII bit map of cols 22..39, rows 55..150
   (regenerate with /tmp/hgmap.py).
 
@@ -32,7 +35,8 @@ it is grain-drawn by `cm_draw_hourglass_grain` ($4347), ported as
 the live sand var (0x11). Verified PIXEL-EXACT vs `throne_sand60.page`: 0
 lit-pixel diffs over cols 24-39, rows 0-146 (only the background palette bit
 0x80-vs-0x00 differs, which renders identically black). Render references:
-`hourglass_OG0_empty.png` (OG0 alone) and `hourglass_OG0_plus60grains_6x.png`.
+`images/hourglass_OG0_empty.png` (OG0 alone) and
+`images/hourglass_OG0_plus60grains_6x.png`.
 
 For reference, the original anatomy (cols ~33..39): top bar rows 64-65, bottom
 bar 137-138, posts 66-136, bowtie diagonals converge 86-100 / diverge 100-114;
