@@ -3,8 +3,3 @@
 comprehend
 comprehend_hl
 headless_obj/
-
-# CheapGlk headless-harness build products (sources under cheapglk/ are vendored)
-cheapglk/*.o
-cheapglk/libcheapglk.a
-cheapglk/Make.cheapglk

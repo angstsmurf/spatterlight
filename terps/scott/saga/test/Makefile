@@ -98,7 +98,7 @@ apple2test: build/apple2test
 # USImage->imagedata (+ the Apple II descramble table). Excludes the C64 unp64
 # (C++) depacker and uses cheapglk + a few glkimp stubs (extract_stubs.c). Build
 # on demand: `make build/extract_images`; run `./build/extract_images <game> <outdir>`.
-CG := $(TERPS)/comprehend/cheapglk
+CG := $(TERPS)/cheapglk
 CGOBJ := $(CG)/cgblorb.o $(CG)/cgdate.o $(CG)/cgfref.o $(CG)/cggestal.o $(CG)/cgmisc.o \
          $(CG)/cgschan.o $(CG)/cgstream.o $(CG)/cgstyle.o $(CG)/cgunicod.o $(CG)/cgwindow.o \
          $(CG)/gi_blorb.o $(CG)/gi_debug.o $(CG)/gi_dispa.o

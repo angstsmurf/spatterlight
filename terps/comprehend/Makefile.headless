@@ -17,7 +17,8 @@
 #
 # where cmds.txt is one command per line (see comprehend.cpp readLine()).
 
-CHEAPGLK_DIR := cheapglk
+# CheapGlk lives in terps/cheapglk (shared with the Saga image-dumper harness).
+CHEAPGLK_DIR := ../cheapglk
 READWOZ_DIR  := ../readwoz
 COMMON_DIR   := ../common_utils
 SAGADRAW_DIR := ../common_sagadraw
