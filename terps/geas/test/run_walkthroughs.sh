@@ -1,19 +1,20 @@
 #!/bin/sh
 # Play a collection of Quest games against their walkthroughs and print a
-# PASS/FAIL table.  The games and walkthroughs are not part of this repo; pass
-# the two directories on the command line.
+# PASS/FAIL table.  The games are copyrighted, so they are kept local-only in
+# ./games (gitignored, see .gitignore); the games dir defaults there but can be
+# overridden.  The walkthroughs are not in the repo -- pass that dir explicitly.
 #
-#   ./run_walkthroughs.sh "<games dir>" "<walkthroughs dir>"
+#   ./run_walkthroughs.sh [games dir] "<walkthroughs dir>"
 #
 # Builds the runner if needed.  Uses a fixed RNG seed for reproducibility;
 # World's End's two random fights are won by --save-scum regardless of seed.
 
 set -u
 here=$(cd "$(dirname "$0")" && pwd)
-G=${1:-}
+G=${1:-"$here/games"}
 W=${2:-}
-if [ -z "$G" ] || [ -z "$W" ]; then
-    echo "usage: $0 \"<games dir>\" \"<walkthroughs dir>\"" >&2
+if [ -z "$W" ]; then
+    echo "usage: $0 [games dir] \"<walkthroughs dir>\"   (games dir defaults to $here/games)" >&2
     exit 2
 fi
 

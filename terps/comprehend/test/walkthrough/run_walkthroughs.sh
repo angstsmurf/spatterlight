@@ -5,9 +5,9 @@
 #
 #   ./run_walkthroughs.sh [games-dir]
 #
-# The games are not in this repo (copyrighted). Point the script at a directory
-# holding the per-game data; it defaults to "~/Downloads/comprehend games".
-# Scripts live in ./scripts and are the "raw" form: one input per line.
+# The games are copyrighted, so they are kept local-only in ./games (gitignored,
+# see .gitignore); the games dir defaults there but can be overridden with an
+# argument. Scripts live in ./scripts and are the "raw" form: one input per line.
 #
 # Each entry names a win marker -- a line the interpreter only prints once the
 # script has driven the game to that point -- exactly as the geas runner's
@@ -20,7 +20,7 @@
 set -u
 
 here=$(cd "$(dirname "$0")" && pwd)
-G=${1:-"$HOME/Downloads/comprehend games"}
+G=${1:-"$here/games"}
 RUN="$here/run_walkthrough.sh"
 HL="$here/../../comprehend_hl"
 
