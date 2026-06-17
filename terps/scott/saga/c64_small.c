@@ -233,17 +233,35 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
 
     int outpic;
 
-    const imglist *list;
+    const imglist *list = NULL;
 
     switch (CurrentGame) {
         case PIRATE_US:
             list = listPirate;
             break;
         case VOODOO_CASTLE_US:
-            list = listVoodoo;
+            /* listVoodoo is calibrated for the canonical crack's memory layout
+               (object/room images in 0..0x6c30, database at imgoffset 0x6c30).
+               Other cracks relocate the S.A.G.A. image differently — e.g. the
+               c64.com release decompresses with its database at $4000 — so their
+               images would come out as garbage. Use the table only for the
+               layout it matches; load the rest text-only. */
+            if (cutoff == 0x6c30)
+                list = listVoodoo;
             break;
         default:
-            return 0;
+            /* COUNT_US and any other all-in-one game without an image table:
+               the database parsed fine above, so ship it playable as text. */
+            break;
+    }
+
+    if (list == NULL) {
+        /* Text-only: hand back just the database portion. */
+        free(*sf);
+        *sf = shorter;
+        *extent = smallsize;
+        CurrentSys = SYS_C64;
+        return CurrentGame;
     }
 
     USImages = NewImage();

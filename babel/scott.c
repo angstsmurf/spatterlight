@@ -299,6 +299,7 @@ static const struct scottrec scott_registry[] = {
     { 0x16810, 0x82c5, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v5.0-408 Atari 8 boot disk alt 2
 
     { 0x2adab, 0x04c5, PIRATE_ADVENTURE_IFID }, // Pirate Adventure C64 S.A.G.A version
+    { 0x2adab, 0xbea0, PIRATE_ADVENTURE_IFID }, // Pirate Adventure C64 S.A.G.A version (c64.com)
     { 0x2ab00, 0xac87, PIRATE_ADVENTURE_IFID }, // Pirate Adventure C64 S.A.G.A version (tape)
     { 0x57c6, 0x82ab, PIRATE_ADVENTURE_IFID }, // Pirate Adventure C64 S.A.G.A version (tape)
 
@@ -310,6 +311,7 @@ static const struct scottrec scott_registry[] = {
     { 0x88be, 0xa122, SECRET_MISSION_IFID }, // Secret Mission  C64 (T64)
    { 0x2ab00, 0x04d6, SECRET_MISSION_IFID }, // Secret Mission  C64 (D64)
    { 0x2adab, 0x3ca3, SECRET_MISSION_IFID }, // Secret Mission  C64 (D64) alt
+   { 0x2ab00, 0x167b, SECRET_MISSION_IFID }, // Secret Mission C64 (D64) (c64.com)
 
     { 0x23000, 0xc813, SECRET_MISSION_IFID }, // Secret Mission (DSK)
     { 0x23000, 0xa264, SECRET_MISSION_IFID }, // Secret Mission (DSK) alt
@@ -330,6 +332,7 @@ static const struct scottrec scott_registry[] = {
 
     { 0x16810, 0xc2f5, THE_COUNT_IFID }, // The Count US v5.1-115 Atari 8-bit boot disk
     { 0x16810, 0xa736, THE_COUNT_IFID }, // The Count US Atari 8-bit alt
+    { 0x2ab00, 0x2827, THE_COUNT_IFID }, // The Count US C64 (D64) (c64.com)
 
     { 0x39558, 0xff6a, VOODOO_CASTLE_IFID }, // Voodoo Castle US (WOZ)
     { 0x39558, 0x958f, VOODOO_CASTLE_IFID }, // Voodoo Castle US (WOZ) graphics disk
@@ -343,6 +346,7 @@ static const struct scottrec scott_registry[] = {
     { 0x2ab00, 0x8969, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed
     { 0x2ab00, 0x2682, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed 2
     { 0x2ab00, 0xac79, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed 3 (toko)
+    { 0x2ab00, 0x7822, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed 4 (c64.com)
     { 0x05f91, 0x04fc, VOODOO_CASTLE_IFID }, // Voodoo Castle US T64
 
     { 0x38f00, 0xf8eb, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ)
@@ -352,6 +356,7 @@ static const struct scottrec scott_registry[] = {
     { 0x23000, 0xd8ca, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US v2.1-119  (DSK)(4am crack) graphics
 
     { 0x16810, 0xdb2a, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US v5.0-119 Atari 8-bit boot disk
+    { 0x2ab00, 0x12d2, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US C64 (D64) (c64.com)
 
     { 0xbae1, 0x83e9, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle.tzx
     { 0xbc2e, 0x4d84, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle - Alternate.tzx

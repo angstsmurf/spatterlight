@@ -43,6 +43,20 @@ int main(int argc, char **argv) {
     GameIDType gt = DetectGame(game_file);
     fprintf(stderr, "DetectGame -> %d, CurrentSys=%d\n", (int)gt, CurrentSys);
 
+#ifdef DUMP_GAME_CONTENT
+    fprintf(stderr, "HDR rooms=%d items=%d actions=%d words=%d messages=%d\n",
+            GameHeader.NumRooms, GameHeader.NumItems, GameHeader.NumActions,
+            GameHeader.NumWords, GameHeader.NumMessages);
+    if (Rooms) {
+        for (int i = 0; i <= GameHeader.NumRooms && i < 5; i++)
+            fprintf(stderr, "  ROOM[%d]=\"%s\"\n", i, Rooms[i].Text ? Rooms[i].Text : "(null)");
+    }
+    if (Messages) {
+        for (int i = 0; i < 5 && i <= GameHeader.NumMessages; i++)
+            fprintf(stderr, "  MSG[%d]=\"%s\"\n", i, Messages[i] ? Messages[i] : "(null)");
+    }
+#endif
+
     // The Apple II bitmap renderer (DrawApple2ImageFromData) needs the per-game
     // descramble table (the disk's $2000 row-address LUT) when present; dump it
     // alongside the blobs so the render test can reproduce the scrambled path.

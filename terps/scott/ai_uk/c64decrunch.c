@@ -82,6 +82,7 @@ static const c64rec c64_registry[] = {
 
     { SECRET_MISSION_C64, 0x88be, 0xa122, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Secret Mission  C64 (T64) Section8 Packer
     { SECRET_MISSION_C64, 0x2ab00, 0x04d6, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, -0x1bff }, // Secret Mission  C64 (D64)
+    { SECRET_MISSION_C64, 0x2ab00, 0x167b, TYPE_D64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Secret Mission  C64 (D64) c64.com, Section8 packer
     { SECRET_MISSION_C64, 0x2adab, 0x3ca3, TYPE_D64, 0, NULL, "SAG3PIC", -0x83a, 0, 0, 0, 0x67c8 }, // Secret Mission  C64 (D64)
 
     { VOODOO_CASTLE_US, 0x2adab, 0xcb2b, TYPE_US, 0, NULL, "SAGA1", 0, 0, 0, 0, 0x6c30 }, // Voodoo Castle S.A.G.A version
@@ -90,6 +91,11 @@ static const c64rec c64_registry[] = {
     { VOODOO_CASTLE_US, 0x2ab00, 0xac79, TYPE_US, 0, NULL, "VOODOO CASTLE 2", 0, 0, 0, 0, 0x6c30 }, // Voodoo Castle S.A.G.A version "Cracked by Toko"
 
     { VOODOO_CASTLE_US, 0x5f91, 0x04fc, TYPE_T64_US, 1, NULL, "VOODOO CASTLE    ", 0, 0, 0, 0, 0x6c30 },
+
+    { STRANGE_ODYSSEY_US, 0x2ab00, 0x12d2, TYPE_US, 1, NULL, "STRANGE ODYSSEY", 0, 0, 0, 0, 0 }, // Strange Odyssey S.A.G.A version (c64.com), PUCrunch; DB starts at offset 0
+
+    { COUNT_US, 0x2ab00, 0x2827, TYPE_US, 1, "-d0x7f50", "THE COUNT", 1, 0, 0, 0, 0x3800 }, // The Count S.A.G.A version (c64.com); IRQ packer, depack-done $7f50; DB preamble at $4000 (text only)
+    { VOODOO_CASTLE_US, 0x2ab00, 0x7822, TYPE_US, 1, "-e0x840 -d0x7f50", "VOODOO CASTLE", 1, 0, 0, 0, 0x3800 }, // Voodoo Castle S.A.G.A version (c64.com); REM-before-SYS, depack-done $7f50; DB preamble at $4000 (text only)
 
     { CLAYMORGUE_C64, 0x6ff7,  0xe4ed, TYPE_T64, 3, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (T64), MasterCompressor / Relax
                                                                                              // -> ECA Compacker -> MegaByte Cruncher v1.x Missing 17 pictures
