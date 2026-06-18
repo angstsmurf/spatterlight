@@ -512,7 +512,7 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
             glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
             if (should_show_rebus_hint_message) {
                 glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-                transcribe_and_print_string("\n[If the rebus images are causing you trouble, don't hesitate to consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA – reading the rebus.]\n");
+                transcribe_and_print_string("\n[If the rebus images are causing you trouble, don't hesitate to consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA, reading the rebus.]\n");
                 should_show_rebus_hint_message = false;
                 shown_rebus_hint_message = true;
                 glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
@@ -2865,6 +2865,29 @@ extern bool pending_flowbreak;
 
 #pragma mark - Image Display Dispatch
 
+void z0_image_description(int picnum) {
+    if (gli_voiceover_on) {
+        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+        const char *message;
+        switch (picnum) {
+            case zorkzero_title_image:
+                message = "\n(Showing Zork Zero full-screen title image. ZORK ZERO written in stone masonry with the subtitle The Revenge of Mageboz on a banner below with a wizard's hat balanced on the edge of the banner.)\n";
+                break;
+            case zorkzero_map_border:
+                message = "\n(Showing a full screen graphical map where the locations are represented as interconnected boxes. There is a compass rose in the style of a sigil stamp at the top. Some of the room boxes have little icons and other decorations.)\n";
+                break;
+            default:
+                if (is_zorkzero_rebus_image(picnum))
+                    message = "\n(Showing a full screen rebus image, just as in the room description.)\n";
+                else
+                    message = "\n(Showing a full screen image.)\n";
+                break;
+        }
+        glk_put_string_stream(glk_window_get_stream(V6_TEXT_BUFFER_WINDOW.id), const_cast<char*>(message));
+    }
+
+}
+
 // Main image display handler for Zork Zero. Routes each picture to the
 // appropriate rendering path based on the image type and current screen mode:
 // - Tower/Peggleboz images: drawn directly to the offscreen pixmap
@@ -2901,6 +2924,7 @@ bool z0_display_picture(int x, int y, Window *win) {
         if (gli_voiceover_on && is_zorkzero_rebus_image(current_picture) && !shown_rebus_hint_message) {
             shown_rebus_hint_message = true;
             should_show_rebus_hint_message = true;
+            z0_image_description(current_picture);
         }
 
         z0_hide_right_status();
@@ -2930,6 +2954,7 @@ bool z0_display_picture(int x, int y, Window *win) {
             map_entry_imagescaley = imagescaley;
             draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
             flush_bitmap(current_graphics_buf_win);
+            z0_image_description(zorkzero_map_border);
             return true;
         }
 
@@ -2959,6 +2984,7 @@ bool z0_display_picture(int x, int y, Window *win) {
             glk_window_clear(current_graphics_buf_win);
             draw_centered_title_image(current_picture);
             glk_window_set_background_color(graphics_fg_glk, user_selected_background);
+            z0_image_description(zorkzero_title_image);
             return true;
         }
 
