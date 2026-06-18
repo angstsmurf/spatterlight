@@ -301,11 +301,17 @@ void TalismanGame::handleSpecialOpcode() {
 		break;
 
 	case 20:
-		// NOVEL.EXE case 20 runs function 16 when the interpreter is in normal
-		// turn mode ([0x35e7] == 2, which is the case whenever a special opcode
-		// fires during play); the surrounding 0x9593/0x35db bookkeeping is
-		// interpreter scratch that no bytecode reads, so only the function call
-		// is observable.
+		// NPC-conversation trigger (emitted by the abu/executioner/clerk verb
+		// handlers, funcs 37/114/261). NOVEL.EXE case 0x14 (FUN_1000_06f0) does
+		// two things: it always saves the current verb as a forced verb for the
+		// next parse (0x9593 = 0x35db), and -- only when that parse was the last
+		// token of the line ([0x35e7] == 2) -- it clears that forced verb and
+		// runs function 16 (the dialogue printer; via [0x34b4] = 16 +
+		// FUN_1000_1b20). A bare NPC command ends the line, so [0x35e7] == 2 and
+		// the function-16 path is what is observed in play; we take it directly.
+		// The forced-verb half only matters when more input follows the NPC verb
+		// on the same line (chained commands), which this fork's NOUNSTATE_QUERY
+		// verb re-use already covers, so it is intentionally not duplicated here.
 		_functionNum = 16;
 		handleAction(nullptr);
 		break;

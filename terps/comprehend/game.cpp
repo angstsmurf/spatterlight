@@ -1235,8 +1235,21 @@ turn:
 				break;
 			}
 
-		_sentence.copyFrom(tempSentence, tempSentence._formattedWords[0] ||
-			prevNounState != NOUNSTATE_STANDARD || !newHasWords);
+		// After OPCODE_SAVE_ACTION (NOUNSTATE_QUERY) the next input re-uses the
+		// previous command's verb, so a bare answer with no verb of its own is
+		// matched as "<saved verb> <answer>". This is how Talisman's shop clerk
+		// reads the 5-digit product code: the verb stays the product-prefix word
+		// the player gave (e.g. "cp"), and entering just "65013" re-runs that
+		// product's handler -- which, with its prompt flag now set, prints "A
+		// fine choice." rather than rejecting the input. Keep the new verb when
+		// the answer does carry one (e.g. a "yes"/"no" reply to a yes/no query).
+		bool copyNoun;
+		if (prevNounState == NOUNSTATE_QUERY)
+			copyNoun = tempSentence._formattedWords[0] != 0;
+		else
+			copyNoun = tempSentence._formattedWords[0] ||
+				prevNounState != NOUNSTATE_STANDARD || !newHasWords;
+		_sentence.copyFrom(tempSentence, copyNoun);
 
 		handled = handle_sentence(&_sentence);
 		handleAction(&_sentence);
