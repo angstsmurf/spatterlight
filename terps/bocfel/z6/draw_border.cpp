@@ -141,11 +141,15 @@ static void clip_pixmap_to_height(int desired_height) {
 // Returns the y-position immediately past the last tile drawn (i.e. where
 // the next tile would have started), which the caller can use to anchor
 // follow-up work below the tiled region.
-static int tile_strip_down(int top_cut, int pillar_height, int overlap,
-                           int start_y, int desired_height,
-                           bool initial_parity, bool flip) {
-    size_t linessize;
-    uint8_t *section_to_repeat = copy_lines_from_bitmap(top_cut, pillar_height, &linessize);
+// Tile an already-copied strip (`section_to_repeat`, `pillar_height` rows)
+// downward, stamping it every `pillar_height - overlap` rows starting at
+// `start_y` until `desired_height` is reached. Split out from
+// tile_strip_down() so callers that must snapshot the source rows *before*
+// erasing them (see extend_pillars) can copy first, then erase, then tile.
+static int tile_section_down(uint8_t *section_to_repeat, size_t linessize,
+                             int pillar_height, int overlap,
+                             int start_y, int desired_height,
+                             bool initial_parity, bool flip) {
     const int stride = pillar_height - overlap;
     bool parity = initial_parity;
     int ypos;
@@ -154,6 +158,16 @@ static int tile_strip_down(int top_cut, int pillar_height, int overlap,
         if (flip)
             parity = !parity;
     }
+    return ypos;
+}
+
+static int tile_strip_down(int top_cut, int pillar_height, int overlap,
+                           int start_y, int desired_height,
+                           bool initial_parity, bool flip) {
+    size_t linessize;
+    uint8_t *section_to_repeat = copy_lines_from_bitmap(top_cut, pillar_height, &linessize);
+    int ypos = tile_section_down(section_to_repeat, linessize, pillar_height, overlap,
+                                 start_y, desired_height, initial_parity, flip);
     free(section_to_repeat);
     return ypos;
 }
@@ -329,6 +343,13 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
     if (desired_height < total_height || (bw_hint_foot && desired_height - total_height < kBWHintStepHeight))
         return;
 
+    // Snapshot the pillar strip before erasing anything: for Arthur, top_cut
+    // equals total_height - foot_height, so the strip's source rows sit inside
+    // the foot region erased just below. Copying first preserves the live pole
+    // texture (otherwise the tiled extension comes out blank).
+    size_t linessize;
+    uint8_t *section_to_repeat = copy_lines_from_bitmap(top_cut, pillar_height, &linessize);
+
     // Copy the foot
     size_t footsize;
     uint8_t *foot = copy_lines_from_bitmap(total_height - foot_height, foot_height, &footsize);
@@ -349,9 +370,10 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
     if (is_spatterlight_zork0 && graphics_type == kGraphicsTypeEGA)
         initial_parity = true;
 
-    int ypos = tile_strip_down(top_cut, pillar_height, overlap,
-                               start_y, desired_height,
-                               initial_parity, flip);
+    int ypos = tile_section_down(section_to_repeat, linessize, pillar_height, overlap,
+                                 start_y, desired_height,
+                                 initial_parity, flip);
+    free(section_to_repeat);
 
     // Erase everything in the foot area and below
     const int bitmap_height = (pixlength / kBytesPerPixel) / hw_screenwidth;
