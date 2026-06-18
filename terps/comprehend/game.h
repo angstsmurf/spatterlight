@@ -100,6 +100,7 @@ private:
 	void skip_non_whitespace(const char **p);
 	bool handle_sentence(Sentence *sentence);
 	bool handle_sentence(uint tableNum, Sentence *sentence, Common::Array<byte> &words);
+	Common::String expandLetterShortcut(char letter);
 	void read_sentence(Sentence *sentence);
 	void parse_sentence_word_pairs(Sentence *sentence);
 	void read_input();
@@ -107,7 +108,7 @@ private:
 
 protected:
 	void game_save();
-	void game_restore();
+	bool game_restore();
 	void game_restart() {
 		_ended = true;
 	}

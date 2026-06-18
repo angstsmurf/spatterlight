@@ -327,27 +327,53 @@ void TalismanGame::deathMenu() {
 	// Without this the per-turn death just keeps re-firing, replaying the last
 	// dying turn forever.
 	g_comprehend->readChar();
-	console_println(_strings[8].c_str());
 
-	int c = console_get_key();
-	if (g_comprehend->shouldQuit())
-		return;
+	// The original loops on the menu string until the player makes a valid
+	// choice. We re-show it the same way after a failed RESTORE, so a cancelled
+	// or unreadable save drops back to the menu rather than silently resuming
+	// the just-dead game.
+	for (;;) {
+		console_println(_strings[8].c_str());
+		// The original menu only offers 1/2/3; 'U' is this interpreter's own
+		// undo, on top of the game, mirroring the in-game #undo metacommand.
+		// It steps back two turns: Talisman's deaths are delayed countdowns, so
+		// undoing only the fatal turn usually lands the player in a state that
+		// kills them again the moment they resume.
+		console_println("(Or press U to undo the last couple of moves.)");
 
-	if (c == '2') {
-		// Reload the initial game state. handle_restart() does the reload
-		// without the generic restart prompt, since the menu above has
-		// already taken the player's choice.
-		game_restart();
-	} else if (c == '3') {
-		// FUN_1000_0785: same prompt and slot handling as RESTORE, then
-		// resume play with the loaded state.
-		game_restore();
-	} else {
-		// '1', or anything else. The original re-reads until 1/2/3, but a
-		// single read matches the rest of this engine's menus (game_save /
-		// game_restore / handle_restart) and stays safe under transcript
-		// replay, where readChar() always returns a blank.
-		g_comprehend->quitGame();
+		int c = console_get_key();
+		if (g_comprehend->shouldQuit())
+			return;
+
+		if (c == '2') {
+			// Reload the initial game state. handle_restart() does the reload
+			// without the generic restart prompt, since the menu above has
+			// already taken the player's choice.
+			game_restart();
+			return;
+		} else if (c == '3') {
+			// FUN_1000_0785: same prompt and slot handling as RESTORE, then
+			// resume play with the loaded state. If the restore fails, fall
+			// through to re-show the menu instead of resuming the dead game.
+			if (game_restore())
+				return;
+		} else if (c == 'u' || c == 'U') {
+			// Take back the fatal move and the one before it (see undoTurn): two
+			// turns gives the slack a delayed-countdown death needs. Refresh the
+			// room and picture the way the #undo metacommand does. If there is
+			// nothing to undo, fall through to re-show the menu.
+			if (g_comprehend->undoTurn(2)) {
+				_updateFlags = (uint)UPDATE_ALL;
+				update();
+				return;
+			}
+		} else {
+			// '1', or anything else. Under transcript replay readChar()/
+			// console_get_key() always return a blank, which lands here and
+			// quits, so the loop can't spin.
+			g_comprehend->quitGame();
+			return;
+		}
 	}
 }
 

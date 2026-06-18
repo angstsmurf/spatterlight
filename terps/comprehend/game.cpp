@@ -415,9 +415,9 @@ void ComprehendGame::game_save() {
 	(void)g_comprehend->saveGamePrompt();
 }
 
-void ComprehendGame::game_restore() {
+bool ComprehendGame::game_restore() {
 	console_println(rewriteSlotPrompt(_strings[STRING_RESTORE_GAME]).c_str());
-	(void)g_comprehend->loadGamePrompt();
+	return g_comprehend->loadGamePrompt().getCode() == Common::kNoError;
 }
 
 void ComprehendGame::restartGame() {
@@ -885,6 +885,26 @@ void ComprehendGame::handleAction(Sentence *sentence) {
 	handleSpecialOpcode();
 }
 
+Common::String ComprehendGame::expandLetterShortcut(char letter) {
+	// Each shortcut maps to an ordered list of candidate full words; the first
+	// that resolves to a real dictionary entry wins, covering the differing
+	// truncations games store (e.g. "invent" vs "inv"). If none resolve, the
+	// original single letter is returned unchanged.
+	const char *candidates[3] = { nullptr, nullptr, nullptr };
+	switch (tolower((unsigned char)letter)) {
+	case 'i': candidates[0] = "inventory"; candidates[1] = "inv"; break;
+	case 'x': candidates[0] = "examine";   candidates[1] = "exam"; break;
+	case 'z': candidates[0] = "wait";      break;
+	default:  return Common::String(letter);
+	}
+
+	for (uint i = 0; i < ARRAY_SIZE(candidates); ++i)
+		if (candidates[i] && dict_find_word_by_string(this, candidates[i]))
+			return candidates[i];
+
+	return Common::String(letter);
+}
+
 void ComprehendGame::read_sentence(Sentence *sentence) {
 	bool sentence_end = false;
 	const char *word_string, *p = &_inputLine[_inputLineIndex];
@@ -938,6 +958,15 @@ void ComprehendGame::read_sentence(Sentence *sentence) {
 		} else if (*p == '\0') {
 			sentence_end = true;
 		}
+
+		// Single-letter shortcuts for modern-IF conventions. The Comprehend data
+		// makes a bare "I" a synonym for the "IN" direction, which surprises
+		// players who expect "I" = inventory; "X" and "Z" aren't dictionary words
+		// at all. Expand each to its full verb -- but only when this game's
+		// dictionary actually defines it, so the token is left untouched (and the
+		// original "IN" behaviour preserved) in any game that lacks the verb.
+		if (wordStr.size() == 1)
+			wordStr = expandLetterShortcut(wordStr[0]);
 
 		/* Find the dictionary word for this */
 		word = dict_find_word_by_string(this, wordStr.c_str());

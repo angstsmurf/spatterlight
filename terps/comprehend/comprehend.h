@@ -299,6 +299,14 @@ public:
     // undo.
     void pushUndo();
     bool undo();
+    // Step back `turns` turn boundaries, restoring that snapshot. Used to undo a
+    // death: by then the current state has advanced past the top snapshot (which
+    // is the start of the fatal turn, taken before the fatal command), so undoing
+    // one turn restores back() itself rather than popping to the previous turn.
+    // Talisman's deaths are delayed countdowns, so the death menu undoes two
+    // turns to give the player a turn of slack. Stops short if the history is
+    // shorter than requested, and returns false (with no change) if it is empty.
+    bool undoTurn(uint turns = 1);
     void clearUndo() { _undoStack.clear(); }
 };
 

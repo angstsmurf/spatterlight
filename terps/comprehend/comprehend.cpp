@@ -293,6 +293,21 @@ bool Comprehend::undo() {
     return true;
 }
 
+bool Comprehend::undoTurn(uint turns) {
+    if (_undoStack.empty())
+        return false;
+    // back() is the start of the fatal turn (one turn back). Each additional
+    // turn drops one more boundary off the top, but always keep one snapshot to
+    // restore. After restoring, back() mirrors the restored state, matching the
+    // invariant the rest of the undo machinery relies on.
+    while (turns > 1 && _undoStack.size() > 1) {
+        _undoStack.pop_back();
+        --turns;
+    }
+    deserializeGameState(_undoStack.back());
+    return true;
+}
+
 void Comprehend::runGame() {
     initialize();
     createGame();
