@@ -114,7 +114,10 @@ public:
   virtual void debug_print (const std::string &s) { std::cerr << s << std::endl; }
   virtual GeasResult wait_keypress (const std::string &) { return r_not_supported; }
   virtual GeasResult pause (int msec) { return r_not_supported; }
-  virtual GeasResult clear_screen () { return r_not_supported; }
+  /* Quest clears the screen here (e.g. after a "wait" keypress, or on the
+   * "clear"/"|c" commands).  A scrollback-based Glk window must not wipe the
+   * transcript, so emit a single blank line as a separator instead. */
+  virtual GeasResult clear_screen () { return print_newline (); }
 
   //virtual GeasResult set_foreground (string) { return r_not_supported; }
   //virtual GeasResult set_background (string) { return r_not_supported; }

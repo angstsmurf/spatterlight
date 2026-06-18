@@ -1183,10 +1183,21 @@ void geas_implementation::look()
     {
       string in_desc;
       if (get_obj_property (state.location, "indescription", tmp))
-	in_desc = tmp;
+	{
+	  /* Quest's indescription: a trailing colon is replaced by a space, the
+	   * room name and a full stop ("...west end of the:" becomes "...west
+	   * end of the Entrance Hall.").  Without a trailing colon the text is
+	   * printed verbatim, with no room name appended. */
+	  in_desc = tmp;
+	  if (!in_desc.empty () && in_desc[in_desc.size () - 1] == ':')
+	    print_formatted (in_desc.substr (0, in_desc.size () - 1) + " "
+			     + get_svar ("quest.formatroom") + ".");
+	  else
+	    print_formatted (in_desc);
+	}
       else
-	in_desc = "You are in";
-      print_formatted (in_desc + " " + get_svar ("quest.formatroom"));
+	print_formatted (string ("You are in") + " "
+			 + get_svar ("quest.formatroom"));
     }
 
   /* List the objects and characters present.  The default room display
@@ -1463,8 +1474,9 @@ void geas_implementation::set_game (const string &s)
 	    break;
 	  }
 
-      /* TODO do I run the startscript or print the opening text first? */
-      run_script ("displaytext <intro>");
+      /* Quest runs the startscript first and prints the intro text afterwards
+	 (e.g. Mansion's startscript pauses on "Press any key" before its
+	 "*** THE MANSION ***" intro is shown). */
 
       /* Run every startscript in order, not just the first: a game block may
 	 carry more than one once a library has appended its own via `!addto game`
@@ -1475,7 +1487,9 @@ void geas_implementation::set_game (const string &s)
 	// SENSITIVE?
 	if (first_token (i, c1, c2) == "startscript")
 	  run_script_as ("game", i.substr (c2 + 1));
-      
+
+      run_script ("displaytext <intro>");
+
       regen_var_room ();
       regen_var_objects ();
       regen_var_dirs ();
@@ -3411,11 +3425,15 @@ void geas_implementation::run_script (const string &s, string &rv)
       const GeasBlock *gb = gf.find_by_name ("text", param_contents(tok));
       if (gb != NULL)
 	{
+	  /* Quest prints each line of the block with a single newline, then
+	   * ends the displaytext with one trailing blank line.  (print_formatted
+	   * already appends a newline by default, so a second print_newline per
+	   * line would double-space the block -- e.g. Mansion's <intro> blanks.)
+	   * For a single-line block this is identical to the old two-newline
+	   * behaviour, so <win>/<lose> spacing is unchanged. */
 	  for (size_t i = 0; i < gb->data.size(); i ++)
-	    {
-	      print_formatted (gb->data[i]);
-	      print_newline();
-	    }
+	    print_formatted (gb->data[i]);
+	  print_newline();
 	}
       else
 	gi->debug_print ("No such text block " + tok);
@@ -4210,6 +4228,9 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  tok = eval_param (tok);
 	}
       gi->wait_keypress (tok);
+      /* Quest clears the screen once the player presses a key; clear_screen
+       * emits a blank-line separator (see GeasInterface::clear_screen). */
+      gi->clear_screen ();
       return;
     }
   else if (tok == "with")

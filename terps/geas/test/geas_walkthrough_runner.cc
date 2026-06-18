@@ -105,7 +105,8 @@ protected:
   void debug_print (const std::string &) override { }
   GeasResult wait_keypress (const std::string &) override { return r_success; }
   GeasResult pause (int) override { return r_success; }
-  GeasResult clear_screen () override { return r_success; }
+  /* Inherit GeasInterface::clear_screen (), which emits a blank-line separator
+   * in place of an actual screen wipe, so the transcript reflects it. */
 
   std::string get_string () override
   {
