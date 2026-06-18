@@ -64,7 +64,7 @@ play CrimsonCrown crimsoncrown \
 play Talisman talisman \
     "Talisman- Challenging the Sands of Time (woz-a-day collection)/Talisman- Challenging the Sands of Time side 1 - Boot.woz" \
     talisman.txt \
-    "Ye art a guest in the King's audience chamber."
+    "departing the Persian"
 
 play Transylvania transylvania \
     "Transylvania 1985 (woz-a-day collection)/Transylvania 1985 side A.woz" \

@@ -1,17 +1,206 @@
-# Talisman: Challenging the Sands of Time -- deterministic smoke prefix.
+# Talisman: Challenging the Sands of Time -- full first-part walkthrough.
 #
-# The game opens in the executioner's cell; waiting four turns and then bowing
-# triggers the scripted last-second reprieve that drags the player up to King
-# Darius's audience chamber (see the talisman-game-start memory note). The
-# headless terp has no real clock, so this is fully reproducible (verified
-# identical across runs) and exercises the WAIT daemon, the special-opcode
-# cutscene and room-string decoding well before any disk swap is needed.
+# Plays deterministically from the executioner's cell all the way to boarding
+# the ship that leaves the Persian Empire (the boundary between the game's two
+# halves). Based on Guido van Otterlo's walkthrough, with the corrections the
+# Comprehend port needs:
 #
-# Win marker (see run_walkthroughs.sh): "Ye art a guest in the King's audience chamber."
+#   * Two BOWs at the start: the first triggers the cell reprieve to King
+#     Darius, the second shows respect so he makes his speech and frees you
+#     (going anywhere before that gets you executed for disrespect).
+#   * The rope and flask are bought by "raising until it closes" -- the
+#     merchant's counter erodes toward the offer, so a rising OFFER ladder
+#     seals each deal (the source walkthrough's flat 10/13/16 never does).
+#   * The shop clerk's order is CP + 65013 (first two letters + 5-digit code),
+#     then a card number and its confirmation (rj8906 / ta3756 -- the game does
+#     not validate them).
+#   * The magic lamp ejects you after four WAITs; only then can you GET LAMP.
+#
+# Win marker (see run_walkthroughs.sh): "departing the Persian"
 # One input per line; blank lines and #-comments are ignored.
 
+# --- Cell: reprieve and King Darius's speech ---
 WAIT
 WAIT
 WAIT
 WAIT
 BOW
+BOW
+W
+W
+
+# --- Dungeon: the hidden mail-order catalog ---
+TELL EXECUTIONER TO OPEN CELL
+N
+EXAMINE WALL
+PUSH BRICK
+FEEL HOLE
+GET BOOKLET
+EXAMINE BOOKLET
+EXAMINE CATALOG
+S
+E
+
+# --- Bazaar: the curio dealer's ring ---
+S
+S
+E
+E
+BUY SWORD
+YES
+W
+
+# --- Forest, beaver dam, ruins: nectar, shield, rods, lamp ---
+S
+S
+W
+JUMP W
+JUMP W
+S
+E
+E
+D
+DRINK NECTAR
+GET SHIELD
+U
+U
+GET RODS
+D
+E
+E
+INSERT ONYX IN HOLE 1
+INSERT PEARL IN HOLE 2
+INSERT EMERALD IN HOLE 3
+INSERT NICKEL IN HOLE 4
+PRESS BUTTON
+E
+GET LAMP
+W
+W
+S
+E
+
+# --- The hare and the pit: coins and flint ---
+GIVE RING TO HARE
+GET HARE
+W
+N
+W
+W
+N
+JUMP E
+JUMP E
+E
+E
+THROW HARE IN PIT
+IN
+EXAMINE DEBRIS
+GET COINS
+WAIT
+GET FLINT
+U
+W
+N
+N
+W
+W
+
+# --- Provisions tent: rope and flask (raise until it closes) ---
+BUY ROPE
+OFFER 20
+OFFER 30
+OFFER 40
+OFFER 50
+OFFER 60
+BUY FLASK
+OFFER 20
+OFFER 30
+OFFER 40
+OFFER 50
+E
+N
+W
+S
+FILL FLASK
+DRINK
+WAIT
+LOOK UNDER BRIDGE
+GET BOTTLE
+S
+W
+
+# --- Muhammad's Market: mail-order the bridge-crushing log ---
+GIVE CARD
+CP
+65013
+rj8906
+ta3756
+E
+S
+S
+S
+GET LOG
+N
+N
+PUT LOG IN RIVER
+S
+S
+E
+
+# --- Bandits, gorge and the genie's lamp ---
+GET TORCH
+E
+E
+S
+S
+W
+KILL BANDITS
+W
+S
+THROW ROPE
+CLIMB ROPE
+GET ROPE
+JUMP
+E
+LIGHT LAMP
+RUB LAMP
+GET BOOK
+WAIT
+WAIT
+WAIT
+WAIT
+GET LAMP
+E
+RUB LAMP
+EXTINGUISH LAMP
+SPEAK TO WIZARD
+YES
+W
+W
+JUMP
+
+# --- Back across the empire to the waterfall and the ship ---
+N
+E
+E
+N
+N
+W
+W
+W
+W
+N
+N
+N
+N
+W
+W
+DRINK
+FILL FLASK
+SESAME OPEN
+ENTER WATERFALL
+W
+W
+TURN CORK
+FILL BOTTLE
+SAIL SHIP
