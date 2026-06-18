@@ -302,7 +302,15 @@ task_move_object (sc_gameref_t game, sc_int object, sc_int var2, sc_int var3)
       }
 
     default:
-      sc_fatal ("task_move_object: unknown move type, %ld\n", var2);
+      /*
+       * Unset (combo index -1) or unknown object move destination; ignored, as
+       * the Runner does, rather than treated as fatal.  See the matching note in
+       * task_run_move_npc_action.
+       */
+      if (task_trace)
+        sc_trace ("Task: ignoring move with unset/unknown"
+                  " object move type %ld\n", var2);
+      break;
     }
 }
 
@@ -450,8 +458,15 @@ task_run_move_npc_action (sc_gameref_t game,
           return;
 
         default:
-          sc_fatal ("task_run_move_npc_action:"
-                    " unknown player move type, %ld\n", var2);
+          /*
+           * ADRIFT stores a move destination as a combo-box index, and a value
+           * of -1 (and any other out-of-range value) means the game's author
+           * left the destination unset.  The Runner's Select Case silently
+           * ignores such an action, so we treat it as a no-op rather than fatal.
+           */
+          if (task_trace)
+            sc_trace ("Task: ignoring move with unset/unknown"
+                      " player move type %ld\n", var2);
           return;
         }
     }
@@ -534,8 +549,10 @@ task_run_move_npc_action (sc_gameref_t game,
           return;
 
         default:
-          sc_fatal ("task_run_move_npc_action:"
-                    " unknown NPC move type, %ld\n", var2);
+          /* Unset/unknown NPC move destination; ignored, as the Runner does. */
+          if (task_trace)
+            sc_trace ("Task: ignoring move with unset/unknown"
+                      " NPC move type %ld\n", var2);
           return;
         }
     }
