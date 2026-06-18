@@ -232,10 +232,14 @@ void TalismanGame::handleSpecialOpcode() {
 
 	case 3:
 		// Save the current room (NOVEL.EXE FUN_1000_06f0 case 3:
-		// [0x9591] = [0x9592], where 0x9592 mirrors the start-of-turn room).
-		// Paired with special 4, this lets the game whisk the player away for a
-		// scripted scene and then return them to where they were.
-		_savedRoom = _currentRoomCopy;
+		// [0x9591] = [0x9592], where 0x9592 mirrors the room the player started
+		// this turn in, before any move this turn). Paired with special 4, this
+		// lets the game whisk the player away for a scripted scene and then
+		// return them to where they were. It must be the *pre-move* room: the
+		// magic lamp moves the player into its interior and only then fires
+		// special 3, so saving the live room (or _currentRoomCopy, which move_to
+		// overwrites mid-turn) would trap the player inside the lamp forever.
+		_savedRoom = _roomBeforeTurn;
 		break;
 
 	case 4:

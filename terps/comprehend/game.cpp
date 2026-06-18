@@ -124,7 +124,7 @@ void Sentence::format() {
 
 ComprehendGame::ComprehendGame() : _gameStrings(nullptr), _ended(false),
 		_functionNum(0), _specialOpcode(0), _nounState(NOUNSTATE_INITIAL),
-		_inputLineIndex(0), _currentRoomCopy(-1), _redoLine(REDO_NONE) {
+		_inputLineIndex(0), _currentRoomCopy(-1), _roomBeforeTurn(-1), _redoLine(REDO_NONE) {
 	Common::fill(&_inputLine[0], &_inputLine[INPUT_LINE_SIZE], 0);
 }
 
@@ -1025,6 +1025,7 @@ void ComprehendGame::parse_sentence_word_pairs(Sentence *sentence) {
 void ComprehendGame::doBeforeTurn() {
 	// Make  a copy of the current room
 	_currentRoomCopy = _currentRoom;
+	_roomBeforeTurn = _currentRoom;
 
 	beforeTurn();
 

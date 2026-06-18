@@ -85,6 +85,12 @@ protected:
 	char _inputLine[INPUT_LINE_SIZE];
 	int _inputLineIndex;
 	int _currentRoomCopy;
+	// Room the player occupied at the start of the current turn, before any
+	// move this turn. Unlike _currentRoomCopy (which move_to() updates so the
+	// graphics path can draw the room just moved into), this is left alone by
+	// move_to, so Talisman's special-opcode 3 can remember where the player
+	// came from -- e.g. the tunnel the magic lamp whisks them out of.
+	int _roomBeforeTurn;
 	int _functionNum;
 	int _specialOpcode;
 	RedoLine _redoLine;
