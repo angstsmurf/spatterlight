@@ -1046,6 +1046,8 @@ turn:
 				"\n"
 				"  #undo (or UNDO)       Take back the last turn.\n"
 				"  #restart              Start the game over from the beginning.\n"
+				"  #save                 Save the game without taking a turn.\n"
+				"  #restore              Restore a saved game without taking a turn.\n"
 				"  #quit                 Stop playing and leave.\n"
 				"  #transcript [on|off]  Record the game text to a file.\n");
 			if (Common::DiskImageFS::active() && gmDhgrHaveDrawingTables())
@@ -1089,6 +1091,25 @@ turn:
 			restartGame();
 			glk_window_clear(g_comprehend->_bottomWindow);
 			goto turn;
+		}
+
+		// #save / #restore: save or restore via the standard Glk file prompt,
+		// bypassing the game's own SAVE/RESTORE verbs. The in-game verbs run as
+		// ordinary turns, so a per-turn function fires around them; in Coveted
+		// Mirror that function throws the player in jail at the start of the
+		// game, clobbering any restored state. These metacommands talk straight
+		// to the interpreter's save machinery, so no game turn elapses.
+		if (scumm_stricmp(_inputLine, "#save") == 0) {
+			(void)g_comprehend->saveGamePrompt();
+			continue;
+		}
+		if (scumm_stricmp(_inputLine, "#restore") == 0) {
+			if (g_comprehend->loadGamePrompt().getCode() == Common::kNoError) {
+				// loadFromFileref already set UPDATE_ALL; repaint so the
+				// restored room and picture show without waiting for a turn.
+				update();
+			}
+			continue;
 		}
 
 		// #dhgr [on|off]: toggle the Apple II double hi-res ("<D>") renderer,
