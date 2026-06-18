@@ -3309,9 +3309,10 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
   if (window)
     glk_window_close (window, NULL);
 
-  /* Set title of game */
+  /* Set title of game, and pass it to the host UI via wintitle(). */
 #ifdef GARGLK
     garglk_set_story_name(sc_get_game_name(gsc_game));
+    garglk_set_story_title(sc_get_game_name(gsc_game));
 #endif
 
   /* Game set up, perhaps successfully. */
