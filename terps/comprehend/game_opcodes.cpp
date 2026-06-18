@@ -348,15 +348,24 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 			_variables[instr->_operand[1]]);
 		break;
 
-	case OPCODE_VAR_GTE1:
+	// Despite the historical ScummVM name, this opcode is a strict LESS-THAN
+	// test, not greater-or-equal. The original Comprehend interpreter compares
+	// the two 16-bit variables (cm_ram_raw.bin compare helper $52e4: carry set
+	// iff vars[Y] >= vars[X]) and takes the test-true branch ($5204) on BCC,
+	// i.e. when carry is clear -- vars[operand0] < vars[operand1]. Our previous
+	// `>=` was the exact logical inverse, which (e.g.) let Talisman's loose
+	// brick be pushed before the king's speech and blocked it afterwards, the
+	// reverse of the original (FUNC 0x2d gate `var[0x21] < var[0x05]`: the
+	// executioner catches you while the turn counter var[0x21] is still below 5).
+	case OPCODE_VAR_LT1:
 		func_set_test_result(func_state,
-			_variables[0] >=
+			_variables[0] <
 			_variables[instr->_operand[0]]);
 		break;
 
-	case OPCODE_VAR_GTE2:
+	case OPCODE_VAR_LT2:
 		func_set_test_result(func_state,
-			_variables[instr->_operand[0]] >=
+			_variables[instr->_operand[0]] <
 			_variables[instr->_operand[1]]);
 		break;
 
@@ -424,7 +433,7 @@ ComprehendGameV1::ComprehendGameV1() {
 	_opcodeMap[0x06] = OPCODE_VAR_EQ2;
 	_opcodeMap[0x08] = OPCODE_CURRENT_IS_OBJECT;
 	_opcodeMap[0x09] = OPCODE_OBJECT_PRESENT;
-	_opcodeMap[0x0a] = OPCODE_VAR_GTE2;
+	_opcodeMap[0x0a] = OPCODE_VAR_LT2;
 	_opcodeMap[0x0c] = OPCODE_ELSE;
 	_opcodeMap[0x0e] = OPCODE_OBJECT_IN_ROOM;
 	_opcodeMap[0x14] = OPCODE_CURRENT_OBJECT_NOT_VALID;
@@ -436,7 +445,7 @@ ComprehendGameV1::ComprehendGameV1() {
 	_opcodeMap[0x24] = OPCODE_CURRENT_OBJECT_PRESENT;
 	_opcodeMap[0x25] = OPCODE_VAR_GT1;
 	_opcodeMap[0x29] = OPCODE_VAR_EQ1;
-	_opcodeMap[0x2d] = OPCODE_VAR_GTE1;
+	_opcodeMap[0x2d] = OPCODE_VAR_LT1;
 	_opcodeMap[0x31] = OPCODE_TEST_ROOM_FLAG;
 	_opcodeMap[0x41] = OPCODE_NOT_HAVE_OBJECT;
 	_opcodeMap[0x45] = OPCODE_NOT_IN_ROOM;
@@ -681,7 +690,7 @@ ComprehendGameV2::ComprehendGameV2() {
 	_opcodeMap[0x06] = OPCODE_VAR_EQ2;
 	_opcodeMap[0x08] = OPCODE_CURRENT_IS_OBJECT;
 	_opcodeMap[0x09] = OPCODE_VAR_GT1;
-	_opcodeMap[0x0a] = OPCODE_VAR_GTE2;
+	_opcodeMap[0x0a] = OPCODE_VAR_LT2;
 	_opcodeMap[0x0c] = OPCODE_ELSE;
 	_opcodeMap[0x0d] = OPCODE_VAR_EQ1;
 	// 0x11 tests "object is NOT nowhere" (the Apple II Coveted Mirror
