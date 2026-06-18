@@ -33,6 +33,8 @@ bool gmInstallDrawingTables(const uint8_t *t2, size_t size);
 void gmDrawCMHourglass(int sand);
 void gmCaptureCMPanel(int col0, int col1);
 void gmOverlayCMPanel();
+void gmBeginCMPanelRebuild();
+void gmEndCMPanelRebuild();
 void gmSetSlowDraw(bool on);
 bool gmSlowDrawActive();
 bool gmAdvanceSlowDraw(int budget);
@@ -205,17 +207,33 @@ int main(int argc, char **argv) {
 		A2FileRec *RG = findFile("RG"), *OG = findFile("OG"), *RM = findFile(roomNm);
 		if (!RG || !OG || !RM) { fprintf(stderr, "CM_LIVE: missing RG/OG/%s\n", roomNm); return 1; }
 		gmSetSlowDraw(slow);
-		// lazy panel build (pics.cpp ~611-617)
-		gmResetScreen(false);
+		// Panel build, mirroring pics.cpp: logo (RG0) + hourglass frame (OG0), plus
+		// any collected mirror pieces (CM_PIECES = bitmask over {86,75,84,79}),
+		// captured as the persistent snapshot via the rebuild bracket.
+		int pieceMask = 0;
+		const char *pm = getenv("CM_PIECES"); if (pm) pieceMask = (int)strtol(pm, nullptr, 0);
+		static const int kPiecePics[4] = {86, 75, 84, 79};
+		A2FileRec *OE = findFile("OE"), *OF = findFile("OF");
+		gmBeginCMPanelRebuild();
 		renderImg(RG, 0);
 		renderImg(OG, 0);
-		gmCaptureCMPanel(24, 39);
+		for (int i = 0; i < 4; i++) {
+			if (!(pieceMask & (1 << i))) continue;
+			int p = kPiecePics[i];
+			A2FileRec *f = (p / 16 == 4) ? OE : OF;   // 4=OE, 5=OF
+			if (f) renderImg(f, p % 16);
+		}
+		gmEndCMPanelRebuild();
 		// actual room (clearBg => white reset), then overlay + hourglass
 		gmResetScreen(true);
 		renderImg(RM, roomIdx);
 		gmOverlayCMPanel();
 		gmDrawCMHourglass(sand);
 		if (slow) { while (gmSlowDrawActive()) gmAdvanceSlowDraw(64); gmFinishSlowDraw(); }
+		// Simulate the NEXT turn's per-turn panel re-composite (refreshCMHourglass /
+		// the room repaint): overlay the snapshot + restamp the pile again. The
+		// pieces must survive this -- that is the bug being fixed.
+		if (getenv("CM_NEXT_TURN")) { gmOverlayCMPanel(); gmDrawCMHourglass(sand - 1); }
 		// CM_LIVE_FALL=N: arm a one-grain drop and step the fall to frame N, the
 		// way tickHourglass() does each per-turn drop, to dump the falling grain
 		// composited over the real room.

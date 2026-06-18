@@ -72,6 +72,12 @@ void gmDhgrOverlayCMPanel();
 bool gmDhgrCMPanelValid();
 void gmDhgrDrawCMHourglass(int sand);
 
+// Double-hi-res counterpart of gmBeginCMPanelRebuild()/gmEndCMPanelRebuild():
+// rebuild the panel snapshot (logo + frame + collected mirror pieces) off to the
+// side without disturbing the live aux/main pages or recording any of it.
+void gmDhgrBeginCMPanelRebuild();
+void gmDhgrEndCMPanelRebuild();
+
 // Double-hi-res counterpart of the standard per-turn grain fall
 // (gmCMHourglassFallBegin/Step/Abort in graphics_magician.h): animates the freed
 // grain down the neck on the aux+main pages. Arming is shared (gmCMHourglassArm /

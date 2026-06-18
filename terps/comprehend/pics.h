@@ -34,10 +34,18 @@ enum ImageFlag {
 	IMAGEF_NO_FILL = IMAGEF_REVERSE | IMAGEF_NO_PAINTING
 };
 
+// Picture numbers are packed into a single int across several bands. The bands
+// must be spaced wider than the largest possible image index (7 graphic files x
+// IMAGES_PER_FILE = 112): The Coveted Mirror's astrologer constellations live at
+// room-graphic indices 101 and 102, so the old 100-wide spacing made a with-
+// background location >= 100 alias the no-background band (drawn as the wrong
+// room, without clearing) -- e.g. TAKE TELESCOPE showed RA images 1/2 (a black
+// page and the laboratory) instead of RG images 5/6. A 256 stride keeps every
+// band disjoint.
 enum {
 	LOCATIONS_OFFSET = 0,
-	LOCATIONS_NO_BG_OFFSET = 100,
-	ITEMS_OFFSET = 200,
+	LOCATIONS_NO_BG_OFFSET = 256,
+	ITEMS_OFFSET = 512,
 	DARK_ROOM = 1000,
 	BRIGHT_ROOM = 1001,
 	TITLE_IMAGE = 9999

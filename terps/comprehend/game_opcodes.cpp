@@ -798,12 +798,26 @@ void ComprehendGameV2::execute_opcode(const Instruction *instr, const Sentence *
 		break;
 
 	case OPCODE_DRAW_OBJECT:
+		// Let the game note which item picture was drawn before we draw it: The
+		// Coveted Mirror records its collected mirror pieces this way so they stay
+		// in the right-hand panel (see CovetedMirrorGame::recordItemPictureDrawn).
+		recordItemPictureDrawn(instr->_operand[0] - 1);
 		g_comprehend->drawItemPicture(instr->_operand[0] - 1);
 		break;
 
 	case OPCODE_DRAW_ROOM:
+		// Draw the picture only. This opcode does not wait: when the bytecode
+		// wants to pause it emits a separate OPCODE_WAIT_KEY (0x90) of its own --
+		// e.g. The Coveted Mirror's astrologer constellation sequence is three
+		// DRAW_ROOM/WAIT_KEY pairs, so a readChar() here made every picture need
+		// two keypresses to advance. (Talisman's lone DRAW_ROOM is followed by a
+		// room move, not a wait, and behaves correctly without one too.)
 		g_comprehend->drawLocationPicture(instr->_operand[0] - 1);
-		g_comprehend->readChar();
+		// These are transient full-screen pictures drawn over the room; force a
+		// room repaint at end of turn so the actual location picture (e.g. the
+		// astrologer) is restored once the sequence finishes, the way the
+		// original interpreter redraws the room after the action.
+		_updateFlags |= UPDATE_GRAPHICS;
 		break;
 
 	case OPCODE_INVENTORY_FULL:

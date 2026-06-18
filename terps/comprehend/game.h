@@ -196,6 +196,17 @@ public:
 
 	virtual void synchronizeSave(Common::Serializer &s);
 
+	// Called for every OPCODE_DRAW_OBJECT, with the 0-based item-picture number
+	// just drawn. The Coveted Mirror uses it to remember which mirror pieces have
+	// been collected so its persistent right-hand panel can keep showing them
+	// (the originals are drawn once and never repainted); other games ignore it.
+	virtual void recordItemPictureDrawn(int /*itemPic*/) {}
+
+	// Bitmask of The Coveted Mirror's collected mirror pieces, in panel bit order
+	// (see CM_PIECE_PICS). 0 for every other game; the graphics layer composites
+	// the set pieces into the panel snapshot.
+	virtual uint8 cmMirrorPieceMask() const { return 0; }
+
 	// True if the just-restored state is self-consistent enough to keep playing
 	// (mainly: the current room is in range). Used to reject a corrupt restore
 	// before the bad state crashes the renderer.

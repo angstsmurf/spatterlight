@@ -179,6 +179,32 @@ bool CovetedMirrorGame::handle_restart() {
 	return false;
 }
 
+// Remember a found mirror piece. The bytecode draws each piece's picture once,
+// with OPCODE_DRAW_OBJECT, when it is collected (EXAMINE/GET/USE at its room);
+// after that nothing redraws it, because the original never repaints the panel
+// band the pieces live in. Our renderer re-composites the panel over every
+// in-game picture (to keep the logo/hourglass and because our room images span
+// the full width), so without remembering the pieces they would be wiped. The
+// graphics layer reads cmMirrorPieceMask() and folds the set pieces into the
+// persistent panel snapshot (see pics.cpp).
+void CovetedMirrorGame::recordItemPictureDrawn(int itemPic) {
+	for (int i = 0; i < 4; i++)
+		if (CM_PIECE_PICS[i] == itemPic) {
+			_mirrorPieceMask |= (uint8)(1 << i);
+			break;
+		}
+}
+
+void CovetedMirrorGame::synchronizeSave(Common::Serializer &s) {
+	ComprehendGameV2::synchronizeSave(s);
+	// One trailing byte: the collected-mirror-piece set (graphics-only state the
+	// VM data above doesn't carry). The original Apple II save snapshots the hi-res
+	// page, so its restored panel shows the pieces too; we reconstruct them from
+	// this mask instead. The per-turn #undo runs synchronizeSave both ways, so the
+	// field is symmetric there; note it does grow CM's on-disk save format by a byte.
+	s.syncAsByte(_mirrorPieceMask);
+}
+
 // The Coveted Mirror's wandering NPCs and objects -- Starina, Pete Starnum, the
 // witch outside the castle, the deaf mute, the catchable shadow on the lane by
 // Sue Sew-&-Tuck's, and friends -- are spawned by ENGINE code, not bytecode.

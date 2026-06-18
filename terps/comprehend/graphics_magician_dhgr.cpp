@@ -574,6 +574,31 @@ void gmDhgrCaptureCMPanel(int col0, int col1) {
 
 bool gmDhgrCMPanelValid() { return s_cmPanelValid; }
 
+// Scratch state for gmDhgrBeginCMPanelRebuild()/gmDhgrEndCMPanelRebuild().
+static uint8_t s_cmRebuildSaveAux[A2_PAGE_SIZE], s_cmRebuildSaveMain[A2_PAGE_SIZE];
+static uint8_t s_cmRebuildSaveSlowAux[A2_PAGE_SIZE], s_cmRebuildSaveSlowMain[A2_PAGE_SIZE];
+static bool s_cmRebuildRecording = false;
+
+void gmDhgrBeginCMPanelRebuild() {
+	std::memcpy(s_cmRebuildSaveAux,  s_aux,  A2_PAGE_SIZE);
+	std::memcpy(s_cmRebuildSaveMain, s_main, A2_PAGE_SIZE);
+	std::memcpy(s_cmRebuildSaveSlowAux,  s_slowAux,  A2_PAGE_SIZE);
+	std::memcpy(s_cmRebuildSaveSlowMain, s_slowMain, A2_PAGE_SIZE);
+	s_cmRebuildRecording = s_slow.recording();
+	s_slow.setRecording(false);
+	std::memset(s_main, 0x00, A2_PAGE_SIZE);   // black panel background
+	std::memset(s_aux,  0x00, A2_PAGE_SIZE);
+}
+
+void gmDhgrEndCMPanelRebuild() {
+	gmDhgrCaptureCMPanel(24, 39);
+	std::memcpy(s_aux,  s_cmRebuildSaveAux,  A2_PAGE_SIZE);
+	std::memcpy(s_main, s_cmRebuildSaveMain, A2_PAGE_SIZE);
+	std::memcpy(s_slowAux,  s_cmRebuildSaveSlowAux,  A2_PAGE_SIZE);
+	std::memcpy(s_slowMain, s_cmRebuildSaveSlowMain, A2_PAGE_SIZE);
+	s_slow.setRecording(s_cmRebuildRecording);
+}
+
 // Copy the saved panel byte-columns onto both the final and the
 // progressively-revealed pages, so the panel is present immediately even while a
 // room's slow-draw reveal is still running (mirrors the standard renderer, which

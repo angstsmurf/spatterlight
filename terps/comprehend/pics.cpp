@@ -31,6 +31,7 @@
 #include "draw_surface.h"
 #include "file_buf.h"
 #include "game.h"
+#include "game_cm.h"   // CM_PIECE_PICS: mirror-piece item pictures folded into the panel
 #include "game_data.h"
 
 namespace Glk {
@@ -574,8 +575,11 @@ bool Pics::hasFile(const Common::Path &path) const {
 		return true;
 	if (num >= ITEMS_OFFSET && num < (int)(ITEMS_OFFSET + _items.size() * IMAGES_PER_FILE))
 		return true;
-	if (num < ITEMS_OFFSET && (num % 100) < (int)(_rooms.size() * IMAGES_PER_FILE))
-		return true;
+	if (num < ITEMS_OFFSET) {
+		int loc = (num >= LOCATIONS_NO_BG_OFFSET) ? num - LOCATIONS_NO_BG_OFFSET : num;
+		if (loc >= 0 && loc < (int)(_rooms.size() * IMAGES_PER_FILE))
+			return true;
+	}
 
 	return false;
 }
@@ -655,20 +659,41 @@ void Pics::drawPicture(int pictureNum) const {
 		// The panel lives on whichever pages are active, so it is built once per
 		// hi-res mode (the standard single page and the double-hi-res aux+main
 		// pages are independent buffers).
+		// The snapshot also folds in the mirror pieces the player has collected
+		// (see CovetedMirrorGame): each is a fixed item picture drawn once into the
+		// black band left of the hourglass, which the original never repaints. We
+		// rebuild the snapshot whenever a piece has just been found (the mask
+		// changed) so gmOverlayCMPanel() keeps painting the assembled pieces on
+		// every picture; the hourglass grains are still stamped fresh on top.
 		static bool s_cmPanelBuiltStd = false, s_cmPanelBuiltDhgr = false;
+		static uint8 s_cmPanelMaskStd = 0, s_cmPanelMaskDhgr = 0;
 		bool isCM = g_comprehend->getGameID() == "covetedmirror";
 		bool panelBuilt = dhgr ? s_cmPanelBuiltDhgr : s_cmPanelBuiltStd;
-		if (isCM && !panelBuilt && pictureNum != TITLE_IMAGE &&
-		    !_rooms.empty() && !_items.empty()) {
-			resetScreen(false);
+		uint8 pieceMask = 0;
+		if (isCM)
+			if (ComprehendGame *game = g_comprehend->getGame())
+				pieceMask = game->cmMirrorPieceMask();
+		uint8 builtMask = dhgr ? s_cmPanelMaskDhgr : s_cmPanelMaskStd;
+		if (isCM && pictureNum != TITLE_IMAGE && !_rooms.empty() && !_items.empty() &&
+		    (!panelBuilt || builtMask != pieceMask)) {
+			if (dhgr) gmDhgrBeginCMPanelRebuild(); else gmBeginCMPanelRebuild();
 			render(_rooms[_rooms.size() - 1], 0); // RG = last location file: logo
-			render(_items[_items.size() - 1], 0); // OG = last item file: hourglass
+			render(_items[_items.size() - 1], 0); // OG = last item file: hourglass frame
+			for (int i = 0; i < 4; i++) {
+				if (!(pieceMask & (1 << i)))
+					continue;
+				int p = CM_PIECE_PICS[i];
+				if (p / IMAGES_PER_FILE < (int)_items.size())
+					render(_items[p / IMAGES_PER_FILE], p % IMAGES_PER_FILE);
+			}
 			if (dhgr) {
-				gmDhgrCaptureCMPanel(24, 39);
+				gmDhgrEndCMPanelRebuild();
 				s_cmPanelBuiltDhgr = true;
+				s_cmPanelMaskDhgr = pieceMask;
 			} else {
-				gmCaptureCMPanel(24, 39);
+				gmEndCMPanelRebuild();
 				s_cmPanelBuiltStd = true;
+				s_cmPanelMaskStd = pieceMask;
 			}
 		}
 
@@ -694,7 +719,8 @@ void Pics::drawPicture(int pictureNum) const {
 			// no-background variant composes onto whatever is already shown.
 			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
 				resetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
-			int n = pictureNum % 100;
+			int n = pictureNum < LOCATIONS_NO_BG_OFFSET
+			            ? pictureNum : pictureNum - LOCATIONS_NO_BG_OFFSET;
 			render(_rooms[n / IMAGES_PER_FILE], n % IMAGES_PER_FILE);
 		}
 
@@ -759,7 +785,8 @@ void Pics::drawPicture(int pictureNum) const {
 		} else {
 			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
 				gmpcjrResetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
-			int n = pictureNum % 100;
+			int n = pictureNum < LOCATIONS_NO_BG_OFFSET
+			            ? pictureNum : pictureNum - LOCATIONS_NO_BG_OFFSET;
 			_rooms[n / IMAGES_PER_FILE].renderPcjr(n % IMAGES_PER_FILE);
 		}
 
@@ -795,7 +822,8 @@ void Pics::drawPicture(int pictureNum) const {
 		} else {
 			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
 				gmcgaResetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
-			int n = pictureNum % 100;
+			int n = pictureNum < LOCATIONS_NO_BG_OFFSET
+			            ? pictureNum : pictureNum - LOCATIONS_NO_BG_OFFSET;
 			_rooms[n / IMAGES_PER_FILE].renderGmcga(n % IMAGES_PER_FILE);
 		}
 
@@ -834,7 +862,8 @@ void Pics::drawPicture(int pictureNum) const {
 		} else {
 			ctx._drawSurface->clear(0);
 		}
-		pictureNum %= 100;
+		if (pictureNum >= LOCATIONS_NO_BG_OFFSET)
+			pictureNum -= LOCATIONS_NO_BG_OFFSET;
 		_rooms[pictureNum / IMAGES_PER_FILE].draw(
 		    pictureNum % IMAGES_PER_FILE, &ctx);
 	}

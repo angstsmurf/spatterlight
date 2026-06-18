@@ -193,6 +193,13 @@ Common::Error Comprehend::loadFromFileref(frefid_t fref) {
     }
 
     clearUndo();  // can't undo across a restore
+
+    // Repaint the room description, item list and picture for the restored
+    // state. Without this the screen keeps showing the room the player restored
+    // *from* until something else happens to dirty the graphics: the in-game
+    // RESTORE verb (and the slot-based loadGameState) otherwise leave the flags
+    // untouched. The launcher autorestore path already forces this in playGame().
+    _game->_updateFlags = UPDATE_ALL;
     return Common::Error(Common::kNoError);
 }
 

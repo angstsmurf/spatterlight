@@ -924,6 +924,28 @@ void gmCaptureCMPanel(int col0, int col1) {
 
 bool gmCMPanelValid() { return s_cmPanelValid; }
 
+// Scratch state for gmBeginCMPanelRebuild()/gmEndCMPanelRebuild(): the live
+// pages and recording flag are stashed across the rebuild so it is invisible to
+// the picture currently being drawn.
+static uint8_t s_cmRebuildSaveScreen[A2_SCREEN_MEM_SIZE];
+static uint8_t s_cmRebuildSaveSlow[A2_SCREEN_MEM_SIZE];
+static bool s_cmRebuildRecording = false;
+
+void gmBeginCMPanelRebuild() {
+	memcpy(s_cmRebuildSaveScreen, s_screenmem, A2_SCREEN_MEM_SIZE);
+	memcpy(s_cmRebuildSaveSlow, s_slowScreen, A2_SCREEN_MEM_SIZE);
+	s_cmRebuildRecording = s_slow.recording();
+	s_slow.setRecording(false);
+	memset(s_screenmem, 0x00, A2_SCREEN_MEM_SIZE);   // black panel background
+}
+
+void gmEndCMPanelRebuild() {
+	gmCaptureCMPanel(24, 39);
+	memcpy(s_screenmem, s_cmRebuildSaveScreen, A2_SCREEN_MEM_SIZE);
+	memcpy(s_slowScreen, s_cmRebuildSaveSlow, A2_SCREEN_MEM_SIZE);
+	s_slow.setRecording(s_cmRebuildRecording);
+}
+
 void gmOverlayCMPanel() {
 	if (!s_cmPanelValid)
 		return;

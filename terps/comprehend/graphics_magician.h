@@ -83,6 +83,17 @@ void gmCaptureCMPanel(int col0, int col1);
 void gmOverlayCMPanel();
 bool gmCMPanelValid();
 
+// Rebuild the panel snapshot off to the side. The caller renders the logo, the
+// hourglass frame and any collected mirror pieces between Begin and End; we save
+// and restore both hi-res pages and the slow-draw recording flag so the rebuild
+// neither disturbs the live picture being drawn nor records the panel draws into
+// an in-flight reveal (the panel is always painted instantly). End captures
+// columns 24..39 (logo + frame + pieces, with no hourglass grains) as the new
+// persistent snapshot. Used by The Coveted Mirror to fold a newly found mirror
+// piece into the panel so gmOverlayCMPanel() keeps showing it every turn.
+void gmBeginCMPanelRebuild();
+void gmEndCMPanelRebuild();
+
 // Stamp the hourglass sand pile for The Coveted Mirror. `sand` is the live VM
 // hourglass variable (0x11): the engine shows that many grains, draining one per
 // turn. Each grain is a single-dot brush (brush 0) painted white at the position
