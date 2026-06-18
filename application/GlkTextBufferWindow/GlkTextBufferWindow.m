@@ -416,14 +416,22 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
 // bottom" test), so the trackpad-momentum sub-events — whose deltas wobble in
 // both directions — can no longer cancel the pause the instant it is set,
 // which is what made scrolling up nearly impossible.
+//
+// The at-bottom test takes priority over the upward-delta pause: once the user
+// has scrolled back down to the bottom, a trackpad rubber-band/momentum bounce
+// emits a spurious upward delta there, which would otherwise re-arm the pause
+// while the view is sitting on the input prompt — leaving auto-scroll stuck off
+// after the next command. Being at the bottom always resumes (and never
+// pauses).
 - (void)scrollWheelchanged:(NSEvent *)event {
     if (self.glkctl.commandScriptRunning || self.glkctl.timerActive) {
-        if (event.scrollingDeltaY > 0) {
-            // Scrollbar moved up. Pause scrolling.
-            pauseScrolling = YES;
-        } else if (pauseScrolling && self.scrolledToBottom) {
-            // Scrolled back to the very bottom. Resume scrolling.
+        if (self.scrolledToBottom) {
+            // At the very bottom. Resume scrolling, and never let a momentum
+            // bounce's upward delta re-pause us here.
             pauseScrolling = NO;
+        } else if (event.scrollingDeltaY > 0) {
+            // Scrollbar moved up, away from the bottom. Pause scrolling.
+            pauseScrolling = YES;
         }
     }
 }
