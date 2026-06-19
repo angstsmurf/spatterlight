@@ -113,12 +113,20 @@ test/test_gmcgav1_pics: test/test_gmcgav1_pics.cpp graphics_magician_cga.cpp gra
 test/cmdhgrtest: test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
-test: test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/rgbacrc test/cmdhgrtest
+# --- Regression test: Apple II DHGR ("<D>") Talisman TITLE (t0) ---
+# Byte-exact vs MAME over the whole picture; guards the op1/3/5 text glyphs, the
+# op11 DRAW_CIRCLE (its absence let the lamp fill leak into the sky), and the full
+# 512-byte op6 sub-table. Fixtures live local-only in test/title_dhgr/fixtures/.
+test/titledhgrtest: test/titledhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/titledhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
+
+test: test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/rgbacrc test/cmdhgrtest test/titledhgrtest
 	./test/test_talisman_pics
 	./test/test_gmcga_pics
 	./test/test_gmcgav1_pics
 	./test/rgbacrc
 	./test/cmdhgrtest
+	./test/titledhgrtest
 
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
 # image and log its hi-res writes. Used to capture new regression fixtures.

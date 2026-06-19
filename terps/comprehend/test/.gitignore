@@ -6,6 +6,7 @@ test_gmcgav1_pics
 test_dhgr_pics
 test_dhgr_determinism
 cmdhgrtest
+titledhgrtest
 dhgrtrace
 cmextract
 op5scan

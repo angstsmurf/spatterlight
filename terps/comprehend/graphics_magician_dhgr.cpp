@@ -139,6 +139,12 @@ static uint8_t s_subidxDefault[256]; // pristine T5 copy, restored at each image
 static uint8_t s_subtbl[512];     // $421E sub-table (idx -> two pattern rows)
 static uint8_t s_pattern[2048];   // $441E pattern rows (8 bytes each)
 static uint8_t s_brush[256];      // $4B2E brush bitmaps (8 brushes x 4 quad x 8)
+// op3/op5 picture font: 128 chars x 8 rows, sharing the brush table's base
+// ($4B2E -> file 0xB2E). The 6502 glyph handler ($0c60) computes the glyph
+// pointer as $4B2E + ch*8, so the 8 brush bitmaps (256 bytes) double as the
+// control-char glyphs $00..$1f and the printable glyphs follow -- exactly the
+// standard-hi-res renderer's layout (graphics_magician.cpp s_fontGlyphs).
+static uint8_t s_fontGlyphs[128 * 8];
 static bool s_tablesInstalled = false;
 
 bool gmDhgrInstallDrawingTables(const uint8_t *t5, size_t size) {
@@ -147,9 +153,20 @@ bool gmDhgrInstallDrawingTables(const uint8_t *t5, size_t size) {
 		return false;
 	std::memcpy(s_subidx,  t5 + 0x1B2, sizeof(s_subidx));
 	std::memcpy(s_subidxDefault, s_subidx, sizeof(s_subidx));
-	std::memcpy(s_subtbl,  t5 + 0x21E, 500);
+	// Full 512-byte sub-table ($421E..$441E): a colour's subindex can be up to 255,
+	// so the builder reads subtbl[2*idx{,+1}] up to index 510/511. Copying only 500
+	// left those high entries zero, so high-subindex fills (e.g. Talisman's lamp
+	// body, fill colour 60 -> idx 255 -> subtbl[510]=0x0a) resolved to pattern row 0
+	// (black) instead of their real grey dither.
+	std::memcpy(s_subtbl,  t5 + 0x21E, 512);
 	std::memcpy(s_pattern, t5 + 0x41E, 1808);
 	std::memcpy(s_brush,   t5 + 0xB2E, sizeof(s_brush));
+	// The font occupies 0xB2E..0xF2E (128*8). Copy what fits; leave the tail zero
+	// (blank glyphs) rather than failing the critical tables above if T5 ends early.
+	std::memset(s_fontGlyphs, 0, sizeof(s_fontGlyphs));
+	size_t fontEnd = 0xB2E + sizeof(s_fontGlyphs);
+	std::memcpy(s_fontGlyphs, t5 + 0xB2E,
+	            (fontEnd <= size) ? sizeof(s_fontGlyphs) : (size - 0xB2E));
 	s_tablesInstalled = true;
 	return true;
 }
@@ -305,6 +322,123 @@ static void draw_brush(uint16_t x16, uint8_t y, uint8_t brush) {
 	brush_quadrant(col + 2, y,     bit, bb + 8);
 	brush_quadrant(col,     y + 8, bit, bb + 16);
 	brush_quadrant(col + 2, y + 8, bit, bb + 24);
+}
+
+// ---- op11 DRAW_CIRCLE ---------------------------------------------------------
+//
+// Faithful port of the <D> circle (FUN_0aeb + plot8 FUN_0bcb + steps FUN_0b95/
+// FUN_0ba5). The centre is the current pen position (ZE0/ZE1 doubled x, ZE2 y).
+// The x extents run to +-2*radius and x is advanced at DOUBLE resolution (a plot
+// between two single x steps) while y advances at single resolution, so the
+// outline is round on the 560-wide raster AND gap-free. This matters for fill
+// containment: the Talisman title's lamp-knob circle (op DRAW_CIRCLE r=4 @135,90)
+// must close, or the following fill=62 PAINT leaks out of the lamp into the sky.
+static int cir_xRi, cir_xLi, cir_xRo, cir_xLo; // inner/outer x right/left (doubled)
+static int cir_yBi, cir_yTi, cir_yBo, cir_yTo; // inner/outer y bottom/top
+static int cir_d;                              // half-step parity counter ($000d)
+
+static void circle_point(int x, int y) {
+	if (y < 0 || y > 0x9f || x < 0 || x >= 0x230) return;  // FUN_0c35 bounds
+	posn((uint16_t)x, (uint8_t)y);
+	doplot();
+}
+static void circle_plot8() {
+	cir_d++;                                   // FUN_0bcb increments $000d first
+	circle_point(cir_xLi, cir_yTo);
+	circle_point(cir_xRi, cir_yTo);
+	circle_point(cir_xRi, cir_yBo);
+	circle_point(cir_xLi, cir_yBo);
+	circle_point(cir_xRo, cir_yTi);
+	circle_point(cir_xLo, cir_yTi);
+	circle_point(cir_xLo, cir_yBi);
+	circle_point(cir_xRo, cir_yBi);
+}
+static void circle_stepB() {                   // FUN_0b95: outer + inner x, maybe inner y
+	cir_xRo--; cir_xLo++;
+	cir_xRi++; cir_xLi--;
+	if (!(cir_d & 1)) { cir_yBi++; cir_yTi--; }
+}
+static void circle_stepBA() {                  // FUN_0ba5: inner x only, maybe inner y
+	cir_xRi++; cir_xLi--;
+	if (!(cir_d & 1)) { cir_yBi++; cir_yTi--; }
+}
+static void draw_circle(uint8_t radius) {
+	if (radius == 0) return;
+	int sZE0 = ZE0, sZE1 = ZE1, sZE2 = ZE2;    // preserve pen position (real circle
+	int C = (ZE1 << 8) | ZE0;                  // saves zero-page $05..$17 around itself)
+	int cy = ZE2;
+	usecolor = (Z1447 != 4 && Z1447 != 7) ? 1 : 0;
+	Z1446 = Z1447 & 1;
+	int r = radius, dvar = r >> 1, i = 0;
+	cir_d = 0;
+	cir_xRi = cir_xLi = C;
+	cir_xRo = C + 2 * r; cir_xLo = C - 2 * r;
+	cir_yTi = cy; cir_yBi = cy;
+	cir_yBo = cy + r; cir_yTo = cy - r;
+	for (int guard = 0; guard < 4000; guard++) {
+		circle_plot8();
+		if (r < i) break;
+		i++;
+		int tmp = dvar - i;
+		if (dvar >= i) {                       // no borrow: inner extents only
+			dvar = tmp;
+			circle_stepBA(); circle_plot8(); circle_stepBA();
+		} else {                               // borrow: step radius + outer extents in
+			r--;
+			dvar = tmp + r;
+			cir_yBo--; cir_yTo++;
+			circle_stepB(); circle_plot8(); circle_stepB();
+		}
+	}
+	posn((uint16_t)((sZE1 << 8) | sZE0), (uint8_t)sZE2);  // restore pen position
+}
+
+// ---- op1/op3/op5 text glyphs --------------------------------------------------
+//
+// Text cursor (op1 SET_TEXT_POS). x is kept in 560-wide DHGR pixels: the 6502
+// handler ($09e6 -> $09f9) doubles the operand x exactly like MOVE_TO, then op3/
+// op5 advance it by 14 (= 7 source px doubled) per character ($093d ADC #$0e).
+static uint16_t s_textX = 0;
+static uint8_t  s_textY = 0;
+
+// op3 TEXT_CHAR plot: XOR the 7-bit glyph bits onto the page byte. Because `bits`
+// is 7-bit, bit 7 is preserved -- on the white subtitle cloud this paints the
+// letters in the contrasting artifact colour, leaving solid text. (FUN_108e
+// $1111 branch, taken when the mode flag $0839 == 1.)
+static void glyph_xor_col(int row, int col, uint8_t bits) {
+	if (!bits) return;
+	uint16_t base = CALC(row);
+	int a = base + (col >> 1); if (a < 0 || a >= A2_PAGE_SIZE) return;
+	uint8_t *pg = (col & 1) ? s_main : s_aux;
+	dhgr_put(pg, (uint16_t)a, (uint8_t)(pg[a] ^ bits));
+}
+
+// Draw one glyph at DHGR pixel x (0..559) / screen row y. A byte-faithful port of
+// the 6502 glyph blitter (FUN_0c60 -> FUN_108e), identical in structure to a
+// brush quadrant above: each row's 8-bit glyph is nibble-doubled into a 14-bit
+// DHGR pattern -- two 7-bit bytes cbf (left half) and cc0 (right half, +carry) via
+// DHGR_DBL (FUN_0c8d) -- shifted right by the sub-column bit offset (spilling into
+// the next column), then blitted across up to three columns. `normal` picks op3's
+// XOR plot vs op5's fill-pattern blend (brush_blit_col), matching the $0839 flag.
+static void dhgr_draw_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal) {
+	const uint8_t *glyph = &s_fontGlyphs[(ch & 0x7f) * 8];
+	int col = x / 7, bit = x % 7;
+	for (int r = 0; r < 8; r++) {
+		int row = y + r; if (row < 0 || row > 0xbf) continue;
+		uint8_t g = glyph[r];
+		if (!g) continue;
+		uint8_t cc0 = DHGR_DBL[g >> 4], lo = DHGR_DBL[g & 0xf];
+		uint8_t cy = (uint8_t)(lo >> 7); lo = (uint8_t)(lo << 1); cc0 = (uint8_t)((cc0 << 1) | cy); lo >>= 1;
+		uint8_t cbf = lo;
+		if (cbf) { uint8_t A = (uint8_t)(cbf << 1), e = 0;
+			for (int s = bit; s > 0; s--) { uint8_t c = (uint8_t)(A >> 7); A = (uint8_t)(A << 1); e = (uint8_t)((e << 1) | c); }
+			if (normal) { glyph_xor_col(row, col, (uint8_t)(A >> 1)); glyph_xor_col(row, col + 1, e); }
+			else        { brush_blit_col(row, col, (uint8_t)(A >> 1)); brush_blit_col(row, col + 1, e); } }
+		if (cc0) { uint8_t A = (uint8_t)(cc0 << 1), e = 0;
+			for (int s = bit; s > 0; s--) { uint8_t c = (uint8_t)(A >> 7); A = (uint8_t)(A << 1); e = (uint8_t)((e << 1) | c); }
+			if (normal) { glyph_xor_col(row, col + 1, (uint8_t)(A >> 1)); glyph_xor_col(row, col + 2, e); }
+			else        { brush_blit_col(row, col + 1, (uint8_t)(A >> 1)); brush_blit_col(row, col + 2, e); } }
+	}
 }
 
 // ---- op14 flood fill ----------------------------------------------------------
@@ -792,11 +926,12 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 		uint8_t op = *p++; uint8_t par = op & 0xf; op >>= 4; uint16_t x;
 		switch (op) {
 		case 0: return;                                   // END
-		case 1: p += 2; break;                            // SET_TEXT_POS
+		case 1: { x = *p++ + (par & 1 ? 256 : 0);         // SET_TEXT_POS
+			s_textX = (uint16_t)(x << 1); s_textY = *p++; } break;
 		case 2: Z1447 = par; break;                       // SET_PEN_COLOR
-		case 3: p += 1; break;                            // TEXT_CHAR
+		case 3: dhgr_draw_glyph(s_textX, s_textY, *p++, true);  s_textX += 14; break;  // TEXT_CHAR
 		case 4: g_brush = par; break;                     // SET_SHAPE
-		case 5: p += 1; break;                            // TEXT_OUTLINE
+		case 5: dhgr_draw_glyph(s_textX, s_textY, *p++, false); s_textX += 14; break;  // TEXT_OUTLINE
 		case 6: set_fill_color(*p++); break;              // SET_FILL_COLOR
 		case 7: { uint8_t i = *p++; uint8_t v = *p++; s_subidx[i] = v; } break; // SET_PALETTE_SUBINDEX
 		case 8: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; posn(x << 1, y); } break;  // MOVE_TO
@@ -805,7 +940,7 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 			line(x0, (uint8_t)b); line(a, (uint8_t)b); line(a, y0); line(x0, y0);
 			posn(a, (uint8_t)b); } break;
 		case 10: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; line(x << 1, y); } break;  // DRAW_LINE
-		case 11: p += 1; break;                           // DRAW_CIRCLE
+		case 11: draw_circle(*p++); break;                // DRAW_CIRCLE
 		case 12: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; draw_brush(x << 1, y, g_brush); } break; // DRAW_SHAPE
 		case 13: { uint8_t units = *p++;                  // DELAY
 			s_slow.recordDelay(units); } break;
