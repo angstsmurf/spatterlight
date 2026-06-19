@@ -423,6 +423,26 @@ vector<string> geas_implementation::object_verbs (const string &obj) const
 	return true;
     return false;
   };
+  /* Returns true when a verb phrase names a specific second object, e.g.
+     "break with fire-axe" or "use fire ax".  Such entries are spoilery
+     and omitted; plain "Use" (no noun) is still shown when applicable. */
+  auto has_indirect_object = [] (const string &v) {
+    static const char *preps[] = { " with ", " using ", nullptr };
+    for (const char **p = preps; *p; ++p)
+      {
+	string::size_type pos = v.find (*p);
+	if (pos != string::npos && pos + strlen (*p) < v.size ())
+	  return true;
+      }
+    /* "use <noun>" — bare USE followed directly by a noun, no preposition */
+    if (v.size () > 4 &&
+	(std::tolower ((unsigned char) v[0]) == 'u') &&
+	(std::tolower ((unsigned char) v[1]) == 's') &&
+	(std::tolower ((unsigned char) v[2]) == 'e') &&
+	v[3] == ' ')
+      return true;
+    return false;
+  };
   const GeasBlock *ob = gf.find_by_name ("object", obj);
   if (ob != NULL)
     for (const string &line: ob->data)
@@ -434,7 +454,7 @@ vector<string> geas_implementation::object_verbs (const string &obj) const
 	if (!is_param (nm))
 	  continue;
 	for (const string &v: split_param (param_contents (nm)))
-	  if (!is_skipped (trim (v)))
+	  if (!is_skipped (trim (v)) && !has_indirect_object (trim (v)))
 	    add (label_of (v));
       }
 
@@ -459,7 +479,7 @@ vector<string> geas_implementation::object_verbs (const string &obj) const
 	vector<string> names = split_param (param_contents (names_tok));
 	if (names.empty () || trim (names[0]) == "")
 	  continue;
-	if (responds (trim (names[0])))
+	if (responds (trim (names[0])) && !has_indirect_object (trim (names[0])))
 	  add (label_of (names[0]));
       }
 
