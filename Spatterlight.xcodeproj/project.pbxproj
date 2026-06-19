@@ -3351,6 +3351,7 @@
 		C3A3F4A52FDAACED00FB7D3C /* graphics_magician_cga.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_cga.cpp; sourceTree = "<group>"; };
 		C3A3F4A82FDAACF800FB7D3C /* graphics_magician_cga.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics_magician_cga.h; sourceTree = "<group>"; };
 		C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 15.xcdatamodel"; sourceTree = "<group>"; };
+		C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 16.xcdatamodel"; sourceTree = "<group>"; };
 		C3A72FD82E8281FA00A840EC /* IfidToHashMigrationPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfidToHashMigrationPolicy.h; sourceTree = "<group>"; };
 		C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfidToHashMigrationPolicy.m; sourceTree = "<group>"; };
 		C3A9FD2F27A676630032C068 /* c64decrunch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; usesTabs = 0; };
@@ -12568,6 +12569,7 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */,
 				C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */,
 				C300775E2E869FA900C32069 /* Spatterlight 14_ 2.xcdatamodel */,
 				C300775C2E869F9300C32069 /* Spatterlight 14_1.xcdatamodel */,
@@ -12587,7 +12589,7 @@
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */;
+			currentVersion = C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
