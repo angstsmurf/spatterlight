@@ -167,6 +167,7 @@ public:
 
     void printRoomDesc(const Common::String &desc);
     void setCentered(bool on);
+    void setPreformatted(bool on);
     void readLine(char *buffer, size_t maxLen);
     int readChar();
 

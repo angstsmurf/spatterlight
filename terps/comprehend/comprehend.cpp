@@ -543,6 +543,15 @@ void Comprehend::setCentered(bool on) {
                          on ? style_User1 : style_Normal);
 }
 
+void Comprehend::setPreformatted(bool on) {
+    // Toggle a fixed-width (monospace) style on the buffer window. Used for the
+    // few game strings that are hand-drawn ASCII boxes (e.g. Talisman's
+    // "departing the Persian Empire" sign): only a monospace font with the
+    // original spacing preserved keeps their dash rules and '!' borders aligned.
+    glk_set_style_stream(glk_window_get_stream(_bottomWindow),
+                         on ? style_Preformatted : style_Normal);
+}
+
 void Comprehend::print(const char *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);

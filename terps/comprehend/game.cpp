@@ -235,12 +235,51 @@ int ComprehendGame::console_get_key() {
 	return g_comprehend->readChar();
 }
 
+// A handful of game strings are hand-drawn ASCII boxes -- a horizontal rule of
+// dashes, then text bracketed by '!' side borders, then another rule (Talisman's
+// "departing the Persian Empire" sign is the example). The normal word printer
+// collapses the runs of padding spaces that hold the right border in place, and
+// the buffer window's proportional font would misalign the columns anyway. Detect
+// such a string by its rule line -- one made up solely of spaces and a run of at
+// least four dashes -- so it can be printed verbatim in a monospace style.
+static bool looksLikeAsciiSign(const char *text) {
+	const char *lineStart = text;
+	for (const char *p = text;; ++p) {
+		if (*p == '\n' || *p == '\0') {
+			int dashes = 0;
+			bool onlyRuleChars = true;
+			for (const char *q = lineStart; q < p; ++q) {
+				if (*q == '-')
+					++dashes;
+				else if (*q != ' ')
+					onlyRuleChars = false;
+			}
+			if (onlyRuleChars && dashes >= 4)
+				return true;
+			if (*p == '\0')
+				return false;
+			lineStart = p + 1;
+		}
+	}
+}
+
 void ComprehendGame::console_println(const char *text) {
 	const char *replace, *word = nullptr, *p = text;
 	char bad_word[64];
 	int word_len = 0;
 
 	if (!text) {
+		g_comprehend->print("\n");
+		return;
+	}
+
+	// ASCII-box signs are printed verbatim (no space collapsing) in a fixed-width
+	// style so their dash rules and '!' borders line up the way they did on the
+	// original 8-bit displays.
+	if (looksLikeAsciiSign(text)) {
+		g_comprehend->setPreformatted(true);
+		g_comprehend->print("%s", text);
+		g_comprehend->setPreformatted(false);
 		g_comprehend->print("\n");
 		return;
 	}
