@@ -66,28 +66,32 @@ extern NSArray *gSaveFileTypes;
 }
 
 - (nullable NSString *)nextCommandScriptLine {
-    if (_commandIndex >= _commandArray.count) {
-        // At last command
-        _commandString = nil;
-        _commandArray = nil;
-        _glkctl.commandScriptRunning = NO;
-        
-        // Post notification that command script has completed
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"GlkCommandScriptDidComplete"
-                                                            object:self
-                                                          userInfo:nil];
+    for (;;) {
+        if (_commandIndex >= _commandArray.count) {
+            // At last command
+            _commandString = nil;
+            _commandArray = nil;
+            _glkctl.commandScriptRunning = NO;
+
+            // Post notification that command script has completed
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"GlkCommandScriptDidComplete"
+                                                                object:self
+                                                              userInfo:nil];
+        }
+        if (!_commandString)
+            return nil;
+        NSString *command = [_commandString substringWithRange:_commandArray[_commandIndex].rangeValue];
+        command = [command stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        _commandIndex++;
+        if (command.length > 10000) {
+            NSLog(@"Command with %ld characters too long, bailing!", command.length);
+            _commandString = nil;
+            return nil;
+        }
+        if ([command hasPrefix:@"# "])
+            continue;
+        return command;
     }
-    if (!_commandString)
-        return nil;
-    NSString *command = [_commandString substringWithRange:_commandArray[_commandIndex].rangeValue];
-    command = [command stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-    _commandIndex++;
-    if (command.length > 10000) {
-        NSLog(@"Command with %ld characters too long, bailing!", command.length);
-        _commandString = nil;
-        return nil;
-    }
-    return command;
 }
 
 - (void)sendCommandLineToWindow:(GlkWindow *)win {
