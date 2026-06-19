@@ -334,9 +334,8 @@ enum  {
         return [a compare:b];
     }];
 
-    [self.gameTableModel sortUsingDescriptors:@[sort, fallback]];
-
     dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.gameTableModel sortUsingDescriptors:@[sort, fallback]];
         weakSelf.gameTableDirty = NO;
         [weakSelf.gameTableView reloadData];
         [weakSelf selectGames:[NSSet setWithArray:weakSelf.selectedGames]];
