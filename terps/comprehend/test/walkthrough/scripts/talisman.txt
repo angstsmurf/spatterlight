@@ -204,3 +204,112 @@ W
 TURN CORK
 FILL BOTTLE
 SAIL SHIP
+
+# === PART 2: the desert (separate game database, Lands Beyond disk) ===
+# SAIL SHIP fires SPECIAL 16 -> enterPart2(): the part-2 database is swapped in
+# (87 rooms / 67 items / its own functions+strings), the end-of-part-1 inventory
+# carries over (scimitar, coins, flask, torch, jade rod, flint, rope, shield,
+# wet book), and the player wakes on the ship. The desert (rooms 53-86) is a
+# var72 "scramble hub": a turn-counter state machine, not a normal room graph,
+# so every leg below was found by BFS over (room,var72) with the headless
+# harness and is *prefix-specific* -- editing any earlier line re-rolls it.
+
+# --- Crow's nest, the storm, and the desert beach (room 55) ---
+# Climb to the nest, take the parrot, then ride out the RNG-timed storm. The
+# mast knocks Abu out on the ~13th WAIT and he wakes on the beach on the ~17th;
+# over-waiting on the beach is harmless (you stay in room 55), so wait 20.
+U
+U
+GET PARROT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+
+# --- Beach -> oasis (room 63): the figs and the snake ---
+# GET FIGS twice: the first attempt only triggers the snake; Abu beheads it.
+N
+W
+EXAMINE TREE
+GET FIGS
+ABU, KILL SNAKE
+GET FIGS
+
+# --- Oasis -> camel (room 61): feed it, open the cylinder, lose the carpet ---
+# GIVE FIGS first (sets the fed flag) or the camel bolts. The roc swoops in,
+# drops a note (auto-kept) and steals the carpet -- by design.
+N
+W
+E
+GIVE FIGS
+OPEN CYLINDER
+GET CARPET
+
+# --- Camel -> statue base (room 62) -> enter (room 73) ---
+# GIVE WATER TO PARROT knocks the staff down; insert it to open the pedestal.
+E
+N
+E
+N
+N
+N
+N
+N
+E
+E
+GIVE WATER TO PARROT
+GET STAFF
+INSERT STAFF IN HOLE
+IN
+
+# --- The statue maze entrance (the torch gate) ---
+# LIGHT TORCH (carried torch + flint) sets the "lit" flag; only then will Abu
+# venture N into the moving-wall maze (room 69).
+LIGHT TORCH
+N
+
+# === Step 5: the moving-wall maze -> the secret demon room (room 72) ===
+# The network rooms (64-75) have walls gated by flags 80-83 (N=80,S=82,E=81,W=83;
+# a SET flag = wall present). Those are recomputed every turn, per room, from the
+# lever-config flags 73,74,75,79 -- and flag 73 toggles on every third turn
+# (var33 % 3 == 0), which is the "moving wall". The secret room 72 is entered only
+# by 68 -> S, which func 137 opens only when flag 79 is CLEAR. Flag 79 starts set
+# and the ONLY thing that clears it is TELL ABU TO PULL LEVER in the single-lever
+# room reached below (the player's own pull cannot; Abu's handler takes a
+# different branch). After the pull, U climbs back to the network and the
+# phase-timed walk S W W W S threads the cycling walls into room 68 and then 72.
+# Found by heuristic search over (room, var33 % 3, flags); prefix-specific.
+N
+E
+E
+N
+D
+S
+W
+W
+TELL ABU TO PULL LEVER
+N
+E
+E
+U
+S
+W
+W
+W
+S

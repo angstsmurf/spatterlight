@@ -125,6 +125,13 @@ public:
     Common::Error saveGamePrompt();
     Common::Error loadGamePrompt();
 
+    // Debug helpers (#savestate/#loadstate): serialize/deserialize the live game
+    // state straight to/from a host path via stdio, bypassing Glk filerefs. Used
+    // by the headless regression harness to checkpoint a scene (e.g. the Talisman
+    // maze entrance) so a search can branch from it without replaying the prefix.
+    bool saveStateToPath(const char *path);
+    bool loadStateFromPath(const char *path);
+
 private:
     // Save/restore live game state to/from an already-created fileref (shared
     // by the slot-based and prompt-based paths). The file carries a small
@@ -138,8 +145,16 @@ public:
     void quitGame() { _shouldQuit = true; }
     int getRandomNumber(int maxVal) {
         if (maxVal <= 0) return 0;
+        ++_randCalls;
         return std::rand() % (maxVal + 1);
     }
+
+    // Number of std::rand() draws so far. The engine never calls srand(), so the
+    // live PRNG stream is exactly the default srand(1) sequence and this counter
+    // is the position in it. #savestate/#loadstate record/restore it (srand(1)
+    // then burn _randCalls draws) so a checkpoint replays the same rand stream as
+    // the uninterrupted run -- essential for the rand-gated Talisman maze walls.
+    unsigned long _randCalls = 0;
 
     bool canLoadGameStateCurrently(Common::U32String * = nullptr) { return _game != nullptr; }
     bool canSaveGameStateCurrently(Common::U32String * = nullptr) { return !_disableSaves && _game != nullptr; }

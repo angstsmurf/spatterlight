@@ -1149,6 +1149,30 @@ turn:
 			continue;
 		}
 
+		// #savestate <path> / #loadstate <path>: checkpoint live game state to a
+		// host file path (debug/regression harness only). No game turn elapses.
+		if (scumm_strnicmp(_inputLine, "#savestate", 10) == 0 &&
+			(_inputLine[10] == '\0' || _inputLine[10] == ' ')) {
+			const char *path = _inputLine + 10;
+			while (*path == ' ') ++path;
+			if (*path && g_comprehend->saveStateToPath(path))
+				g_comprehend->print("State saved.\n");
+			else
+				g_comprehend->print("Save failed.\n");
+			continue;
+		}
+		if (scumm_strnicmp(_inputLine, "#loadstate", 10) == 0 &&
+			(_inputLine[10] == '\0' || _inputLine[10] == ' ')) {
+			const char *path = _inputLine + 10;
+			while (*path == ' ') ++path;
+			if (*path && g_comprehend->loadStateFromPath(path)) {
+				update();
+			} else {
+				g_comprehend->print("Load failed.\n");
+			}
+			continue;
+		}
+
 		// #dhgr [on|off]: toggle the Apple II double hi-res ("<D>") renderer,
 		// mirroring the original's Standard/Double hi-res prompt. Available only
 		// on an Apple disk whose boot disk shipped a <D> interpreter (T5 drawing

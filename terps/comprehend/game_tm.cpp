@@ -268,6 +268,63 @@ void TalismanGame::enterPart2() {
 	// Drop the player onto the ship's deck (part-2 room 51), the same room
 	// NOVEL.EXE's special-opcode 16 selects (0x34b9 = 0x33).
 	_currentRoom = 51;
+
+	if (getenv("TM_DUMP")) {
+		FILE *f = fopen("/tmp/tm_part2_dump.txt", "w");
+		static const char *dn[] = {"N","S","E","W","U","D","IN","OUT"};
+		fprintf(f, "=== ROOMS (%u) ===\n", (uint)_rooms.size());
+		for (uint i = 0; i < _rooms.size(); ++i) {
+			const Room &r = _rooms[i];
+			fprintf(f, "room %u flags=0x%02x gfx=%u exits[", i, r._flags, r._graphic);
+			for (int d = 0; d < NR_DIRECTIONS; ++d)
+				if (r._direction[d]) fprintf(f, "%s=%u ", dn[d], r._direction[d]);
+			fprintf(f, "] desc=\"%s\"\n", stringLookup(r._stringDesc).c_str());
+		}
+		fprintf(f, "\n=== ITEMS (%u) ===\n", (uint)_items.size());
+		for (uint i = 0; i < _items.size(); ++i) {
+			const Item &it = _items[i];
+			fprintf(f, "item %u room=%u word=%u flags=0x%02x desc=\"%s\"\n",
+				i, it._room, it._word, it._flags, stringLookup(it._stringDesc).c_str());
+		}
+		fprintf(f, "\n=== FUNCTIONS (%u) ===\n", (uint)_functions.size());
+		for (uint fi = 0; fi < _functions.size(); ++fi) {
+			const Function &fn = _functions[fi];
+			fprintf(f, "func %u:\n", fi);
+			for (uint ii = 0; ii < fn.size(); ++ii) {
+				const Instruction &in = fn[ii];
+				uint8 norm = getScriptOpcode(&in);
+				fprintf(f, "  %s op=0x%02x norm=0x%02x", in._isCommand ? "CMD " : "TEST", in._opcode, norm);
+				for (uint oi = 0; oi < in._nr_operands; ++oi)
+					fprintf(f, " %u", in._operand[oi]);
+				fprintf(f, "\n");
+			}
+		}
+		fprintf(f, "\n=== STRINGS table0 (%u) ===\n", (uint)_strings.size());
+		for (uint i = 0; i < _strings.size(); ++i)
+			fprintf(f, "[s0:%u] %s\n", i, _strings[i].c_str());
+		fprintf(f, "\n=== STRINGS2 (%u) ===\n", (uint)_strings2.size());
+		for (uint i = 0; i < _strings2.size(); ++i)
+			fprintf(f, "[s2:%u] %s\n", i, _strings2[i].c_str());
+		fprintf(f, "\n=== DICTIONARY (%u) ===\n", (uint)_words.size());
+		for (uint i = 0; i < _words.size(); ++i)
+			fprintf(f, "word idx=%u type=%u \"%s\"\n", _words[i]._index, _words[i]._type, _words[i]._word);
+		fprintf(f, "\n=== ACTIONS ===\n");
+		for (uint t = 0; t < _actions.size(); ++t) {
+			for (uint a = 0; a < _actions[t].size(); ++a) {
+				const Action &ac = _actions[t][a];
+				fprintf(f, "table %u action %u func=%u words[", t, a, ac._function);
+				for (uint w = 0; w < ac._nr_words; ++w) {
+					const char *txt = "?";
+					for (uint k = 0; k < _words.size(); ++k)
+						if (_words[k]._index == ac._words[w]) { txt = _words[k]._word; break; }
+					fprintf(f, "%u(%s) ", ac._words[w], txt);
+				}
+				fprintf(f, "]\n");
+			}
+		}
+		fclose(f);
+		fprintf(stderr, "[TM_DUMP] wrote /tmp/tm_part2_dump.txt\n");
+	}
 }
 
 void TalismanGame::playGame() {
@@ -302,6 +359,21 @@ void TalismanGame::beforeTurn() {
 void TalismanGame::beforePrompt() {
 	_functionNum = 14;
 	handleAction(nullptr);
+
+	if (getenv("TM_TRACE")) {
+		Common::String held;
+		for (uint i = 0; i < _items.size(); ++i)
+			if (_items[i]._room == ROOM_INVENTORY)
+				held += Common::String::format("%u ", i);
+		Common::String vars;
+		for (uint i = 0; i < MAX_VARIABLES; ++i)
+			if (_variables[i]) vars += Common::String::format("%u:%u ", i, _variables[i]);
+		Common::String flags;
+		for (uint i = 0; i < MAX_FLAGS; ++i)
+			if (_flags[i]) flags += Common::String::format("%u ", i);
+		fprintf(stderr, "[TM_TRACE] room=%u var72=%u var98=%u held={ %s} vars={ %s} flags={ %s}\n",
+			_currentRoom, _variables[72], _variables[0x62], held.c_str(), vars.c_str(), flags.c_str());
+	}
 }
 
 void TalismanGame::afterPrompt() {

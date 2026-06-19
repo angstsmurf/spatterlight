@@ -252,6 +252,61 @@ Common::Error Comprehend::loadGamePrompt() {
     return err;
 }
 
+bool Comprehend::saveStateToPath(const char *path) {
+    std::vector<byte> snapshot;
+    if (!serializeGameState(snapshot))
+        return false;
+    FILE *f = fopen(path, "wb");
+    if (!f)
+        return false;
+    // Trailer: the PRNG call count, so a restore can fast-forward the std::rand()
+    // stream to the exact same position (some game logic is rand-gated).
+    unsigned long rc = _randCalls;
+    size_t n = snapshot.empty() ? 0 : fwrite(snapshot.data(), 1, snapshot.size(), f);
+    n += fwrite(&rc, 1, sizeof(rc), f);
+    fclose(f);
+    return n == snapshot.size() + sizeof(rc);
+}
+
+bool Comprehend::loadStateFromPath(const char *path) {
+    FILE *f = fopen(path, "rb");
+    if (!f)
+        return false;
+    std::vector<byte> payload;
+    byte buf[4096];
+    size_t n;
+    while ((n = fread(buf, 1, sizeof(buf), f)) > 0)
+        payload.insert(payload.end(), buf, buf + n);
+    fclose(f);
+
+    // Split off the PRNG-count trailer.
+    unsigned long rc = 0;
+    if (payload.size() < sizeof(rc))
+        return false;
+    memcpy(&rc, payload.data() + payload.size() - sizeof(rc), sizeof(rc));
+    payload.resize(payload.size() - sizeof(rc));
+
+    std::vector<byte> snapshot;
+    if (!serializeGameState(snapshot) || payload.size() != snapshot.size())
+        return false;
+    deserializeGameState(payload);
+    if (_game && !_game->saveStateLooksValid()) {
+        deserializeGameState(snapshot);
+        return false;
+    }
+
+    // Reproduce the live rand() position: the engine never seeds, so the stream
+    // is the default srand(1) sequence; reset and burn rc draws to realign it.
+    std::srand(1);
+    for (unsigned long i = 0; i < rc; ++i)
+        (void)std::rand();
+    _randCalls = rc;
+    clearUndo();
+    if (_game)
+        _game->_updateFlags = UPDATE_ALL;
+    return true;
+}
+
 bool Comprehend::serializeGameState(std::vector<byte> &out) {
     if (!_game) return false;
     Common::MemoryReadWriteStream mem(Common::YES);
