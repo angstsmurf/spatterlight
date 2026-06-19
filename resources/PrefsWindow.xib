@@ -116,6 +116,7 @@
                 <outlet property="voiceOverView" destination="U1d-3r-zfM" id="1nI-uQ-hh8"/>
                 <outlet property="window" destination="407" id="765"/>
                 <outlet property="windowTypePopup" destination="Jxm-9E-Ync" id="Hv4-wg-XJ6"/>
+                <outlet property="comprehendGraphicsPopup" destination="cPR-Gx-j7K" id="zBp-5H-Lxm"/>
                 <outlet property="z6ColorizeCheckBox" destination="8fs-jm-Zp7" id="nYW-Hg-Ew1"/>
                 <outlet property="z6GraphicsPopup" destination="pp3-vl-ffV" id="uNl-l0-0M2"/>
                 <outlet property="zMachineNoErrWinCheckbox" destination="r1L-CL-umy" id="LDu-FV-P8y"/>
@@ -1099,7 +1100,7 @@
         </customView>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="8bM-HF-6YZ" userLabel="Format Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="543"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="603"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CYg-7T-XS8">
@@ -1575,6 +1576,41 @@
                         <action selector="changeScottAdamsFlicker:" target="-2" id="6XG-67-FQa"/>
                     </connections>
                 </button>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHC-7s-Yor">
+                    <rect key="frame" x="-2" y="66" width="564" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Specific to Comprehend games" id="pCq-4d-Rmw">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fAl-2N-kQb">
+                    <rect key="frame" x="102" y="39" width="135" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Preferred graphics:" id="qTs-9E-UVc">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton toolTip="Use more colours (PCjr or DHGR) or keep the original lower-colour renderer." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cPR-Gx-j7K">
+                    <rect key="frame" x="197" y="32" width="207" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="More colors" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wL9-Yt-fZm" id="mVf-5t-Xnq">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="message"/>
+                        <menu key="menu" id="rEJ-k2-PAh">
+                            <items>
+                                <menuItem title="More colors" state="on" id="wL9-Yt-fZm"/>
+                                <menuItem title="Less colors" tag="1" id="kXa-3P-bsd"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="changeComprehendGraphicsMenu:" target="-2" id="eLn-8G-Sqv"/>
+                    </connections>
+                </popUpButton>
             </subviews>
             <point key="canvasLocation" x="493" y="956.5"/>
         </customView>

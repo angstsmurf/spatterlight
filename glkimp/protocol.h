@@ -58,6 +58,7 @@ struct settings_struct
     int z6_colorize;
     int determinism;
     int error_handling;
+    int comprehend_graphics;
     int force_arrange;
 };
 

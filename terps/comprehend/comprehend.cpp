@@ -39,6 +39,8 @@ namespace Comprehend {
 // gli_determinism (regression/replay mode) must suppress it for stable output.
 extern "C" int gli_slowdraw;
 extern "C" int gli_determinism;
+// Comprehend preferred-graphics-mode: 0 = more colours (PCjr/DHGR), 1 = less.
+extern "C" int gli_comprehend_graphics;
 
 // Total content area in pixels, exported by glkimp (0 in the headless build).
 // Used to keep a rescaled picture from eating the whole window vertically.
@@ -308,11 +310,23 @@ bool Comprehend::undoTurn(uint turns) {
     return true;
 }
 
+void Comprehend::applyPreferredGraphicsMode() {
+    if (gli_comprehend_graphics == 0) {
+        // More colours: enable PCjr or DHGR when drawing tables are available.
+        if (gmpcjrHaveDrawingTables())
+            setPcjrMode(true);
+        else if (Common::DiskImageFS::active() && gmDhgrHaveDrawingTables())
+            setDhgrMode(true);
+    }
+    // Less colours (gli_comprehend_graphics == 1): leave defaults (CGA / hi-res).
+}
+
 void Comprehend::runGame() {
     initialize();
     createGame();
     if (_game) {
         _game->loadGame();
+        applyPreferredGraphicsMode();
         _game->playGame();
     }
     deinitialize();

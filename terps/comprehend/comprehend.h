@@ -180,6 +180,12 @@ public:
     bool toggleGraphics();
     void showGraphics();
 
+    // Apply the preferred-graphics-mode setting from the host (gli_comprehend_graphics):
+    // 0 = more colours (enable PCjr or DHGR if drawing tables are available),
+    // 1 = less colours (keep CGA / standard hi-res). Called after loadGame() so
+    // the drawing tables are already installed.
+    void applyPreferredGraphicsMode();
+
     // Apple II double hi-res mode. on==true widens the draw surface to 560 and
     // routes pictures through the DHGR renderer; on==false restores standard
     // 280-wide hi-res. Resizes the surface and repaints the current picture.

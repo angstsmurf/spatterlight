@@ -58,6 +58,7 @@ extern int gli_flicker;
 extern int gli_zmachine_terp;
 extern int gli_z6_graphics;
 extern int gli_z6_colorize;
+extern int gli_comprehend_graphics;
 extern int gli_zmachine_no_err_win;
 extern int gli_voiceover_on;
 

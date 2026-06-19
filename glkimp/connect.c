@@ -67,6 +67,7 @@ int gli_zmachine_no_err_win = 0;
 int gli_voiceover_on = 0;
 int gli_z6_graphics = 0;
 int gli_z6_colorize = 0;
+int gli_comprehend_graphics = 0;
 
 int gli_block_rearrange = 0;
 
@@ -908,6 +909,7 @@ again:
                 gli_zmachine_terp == settings->zmachine_terp &&
                 gli_z6_graphics == settings->z6_graphics &&
                 gli_z6_colorize == settings->z6_colorize &&
+                gli_comprehend_graphics == settings->comprehend_graphics &&
                 gli_zmachine_no_err_win == settings->zmachine_no_err_win &&
                 gli_voiceover_on == settings->voiceover_on &&
                 gli_determinism == settings->determinism &&
@@ -947,6 +949,7 @@ again:
             gli_sa_palette = settings->sa_palette;
             gli_z6_graphics = settings->z6_graphics;
             gli_z6_colorize = settings->z6_colorize;
+            gli_comprehend_graphics = settings->comprehend_graphics;
             if (!gli_block_rearrange)
                 gli_windows_rearrange();
             break;

@@ -698,6 +698,7 @@ NSString *fontToString(NSFont *font) {
     _bZVerticalTextField.integerValue = theme.bZAdjustment;
     _bZVerticalStepper.integerValue = theme.bZAdjustment;
 
+    [_comprehendGraphicsPopup selectItemWithTag:theme.comprehendGraphicsType];
     [_z6GraphicsPopup selectItemWithTag:theme.z6GraphicsType];
     _z6ColorizeCheckBox.state = theme.z6Colorize1Bit ? NSOnState : NSOffState;
 
@@ -1937,6 +1938,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeNoErrWinCheckBox:(id)sender {
     [self changeBooleanAttribute:@"zMachineNoErrWin" fromButton:sender];
+}
+
+#pragma mark Comprehend
+
+- (IBAction)changeComprehendGraphicsMenu:(id)sender {
+    [self changeMenuAttribute:@"comprehendGraphicsType" fromPopUp:sender];
 }
 
 #pragma mark Z Machine version 6 stuff

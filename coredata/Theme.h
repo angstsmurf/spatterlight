@@ -58,6 +58,11 @@ typedef NS_ENUM(int32_t, kZ6GraphicsPrefsType) {
     kZ6Blorb
 };
 
+typedef NS_ENUM(int32_t, kComprehendGraphicsPrefsType) {
+    kComprehendGraphicsMoreColors,  // PCjr (DOS v1) or DHGR (Apple II) — default
+    kComprehendGraphicsLessColors,  // CGA (DOS v1) or standard hi-res (Apple II)
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Theme : NSManagedObject
@@ -82,6 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) kBZArrowsPrefsType bZTerminator;
 @property (nonatomic) double cellHeight;
 @property (nonatomic) double cellWidth;
+@property (nonatomic) kComprehendGraphicsPrefsType comprehendGraphicsType;
 @property (nonatomic) kCoverImagePrefsType coverArtStyle;
 @property (nonatomic) int32_t dashes;
 @property (nonatomic) int32_t defaultCols;

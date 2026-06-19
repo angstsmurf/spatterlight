@@ -40,6 +40,7 @@
 @dynamic bZTerminator;
 @dynamic cellHeight;
 @dynamic cellWidth;
+@dynamic comprehendGraphicsType;
 @dynamic coverArtStyle;
 @dynamic dashes;
 @dynamic defaultCols;
