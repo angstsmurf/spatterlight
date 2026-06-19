@@ -523,6 +523,13 @@ void TalismanGame::handleSpecialOpcode() {
 			enterPart2();
 		}
 		_flags[45] = false;
+		// enterPart2() sets _currentRoom directly (not via move_to), so nothing
+		// has armed the update flags for the new location. Without this the first
+		// part-2 turn keeps the old room's status-window description and picture
+		// until the player next moves. Repaint the ship's deck now, the way
+		// NOVEL.EXE's case 16 falls into a fresh main loop that redraws on entry.
+		_updateFlags |= UPDATE_ALL;
+		update();
 		_redoLine = REDO_TURN;
 		break;
 
