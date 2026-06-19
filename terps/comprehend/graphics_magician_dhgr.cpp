@@ -301,20 +301,14 @@ static void brush_blit_col(int row, int col, uint8_t bits) {
 	uint8_t *pg = (col & 1) ? s_main : s_aux;
 	dhgr_put(pg, (uint16_t)a, (uint8_t)((pg[a] & mask) | v3));
 }
+// Expand one source byte through the DHGR nibble-doubling table and blit it across
+// three columns at (row, col0..col0+2). The shared core of the brush and glyph
+// blitters; defined with the glyph code below.
+static void dhgr_blit_byte(int row, int col, uint8_t b, int bit, bool normal);
+
 static void brush_quadrant(int col0, int row0, int bit, int brushbase) {
-	for (int r = 0; r < 8; r++) {
-		int row = row0 + r; if (row < 0 || row > 0xbf) continue;
-		uint8_t bb = s_brush[(brushbase + r) & 0xff];
-		uint8_t cc0 = DHGR_DBL[bb >> 4], lo = DHGR_DBL[bb & 0xf];
-		uint8_t cy = (uint8_t)(lo >> 7); lo = (uint8_t)(lo << 1); cc0 = (uint8_t)((cc0 << 1) | cy); lo >>= 1;
-		uint8_t cbf = lo;
-		if (cbf) { uint8_t A = (uint8_t)(cbf << 1), e = 0;
-			for (int y = bit; y > 0; y--) { uint8_t c = (uint8_t)(A >> 7); A = (uint8_t)(A << 1); e = (uint8_t)((e << 1) | c); }
-			brush_blit_col(row, col0, (uint8_t)(A >> 1)); brush_blit_col(row, col0 + 1, e); }
-		if (cc0) { uint8_t A = (uint8_t)(cc0 << 1), e = 0;
-			for (int y = bit; y > 0; y--) { uint8_t c = (uint8_t)(A >> 7); A = (uint8_t)(A << 1); e = (uint8_t)((e << 1) | c); }
-			brush_blit_col(row, col0 + 1, (uint8_t)(A >> 1)); brush_blit_col(row, col0 + 2, e); }
-	}
+	for (int r = 0; r < 8; r++)
+		dhgr_blit_byte(row0 + r, col0, s_brush[(brushbase + r) & 0xff], bit, false);
 }
 static void draw_brush(uint16_t x16, uint8_t y, uint8_t brush) {
 	int col = x16 / 7, bit = x16 % 7, bb = brush * 32;
@@ -353,20 +347,21 @@ static void circle_plot8() {
 	circle_point(cir_xLo, cir_yBi);
 	circle_point(cir_xRo, cir_yBi);
 }
-static void circle_stepB() {                   // FUN_0b95: outer + inner x, maybe inner y
-	cir_xRo--; cir_xLo++;
-	cir_xRi++; cir_xLi--;
-	if (!(cir_d & 1)) { cir_yBi++; cir_yTi--; }
-}
 static void circle_stepBA() {                  // FUN_0ba5: inner x only, maybe inner y
 	cir_xRi++; cir_xLi--;
 	if (!(cir_d & 1)) { cir_yBi++; cir_yTi--; }
 }
+static void circle_stepB() {                   // FUN_0b95: outer x, then FUN_0ba5
+	cir_xRo--; cir_xLo++;
+	circle_stepBA();
+}
 static void draw_circle(uint8_t radius) {
 	if (radius == 0) return;
-	int sZE0 = ZE0, sZE1 = ZE1, sZE2 = ZE2;    // preserve pen position (real circle
-	int C = (ZE1 << 8) | ZE0;                  // saves zero-page $05..$17 around itself)
-	int cy = ZE2;
+	int C = (ZE1 << 8) | ZE0;                  // center x/y = pen position. The real
+	int cy = ZE2;                              // circle saves/restores zero-page
+	                                           // $05..$17 around itself; here neither
+	                                           // C nor cy is mutated, so they double
+	                                           // as the saved position to restore.
 	usecolor = (Z1447 != 4 && Z1447 != 7) ? 1 : 0;
 	Z1446 = Z1447 & 1;
 	int r = radius, dvar = r >> 1, i = 0;
@@ -375,7 +370,9 @@ static void draw_circle(uint8_t radius) {
 	cir_xRo = C + 2 * r; cir_xLo = C - 2 * r;
 	cir_yTi = cy; cir_yBi = cy;
 	cir_yBo = cy + r; cir_yTo = cy - r;
-	for (int guard = 0; guard < 4000; guard++) {
+	// Loop provably terminates: r only decreases (borrow case) and i only increases
+	// until r < i. radius is a uint8_t, so this runs well under 256 iterations.
+	for (;;) {
 		circle_plot8();
 		if (r < i) break;
 		i++;
@@ -390,7 +387,7 @@ static void draw_circle(uint8_t radius) {
 			circle_stepB(); circle_plot8(); circle_stepB();
 		}
 	}
-	posn((uint16_t)((sZE1 << 8) | sZE0), (uint8_t)sZE2);  // restore pen position
+	posn((uint16_t)C, (uint8_t)cy);            // restore pen position
 }
 
 // ---- op1/op3/op5 text glyphs --------------------------------------------------
@@ -413,32 +410,39 @@ static void glyph_xor_col(int row, int col, uint8_t bits) {
 	dhgr_put(pg, (uint16_t)a, (uint8_t)(pg[a] ^ bits));
 }
 
-// Draw one glyph at DHGR pixel x (0..559) / screen row y. A byte-faithful port of
-// the 6502 glyph blitter (FUN_0c60 -> FUN_108e), identical in structure to a
-// brush quadrant above: each row's 8-bit glyph is nibble-doubled into a 14-bit
-// DHGR pattern -- two 7-bit bytes cbf (left half) and cc0 (right half, +carry) via
-// DHGR_DBL (FUN_0c8d) -- shifted right by the sub-column bit offset (spilling into
-// the next column), then blitted across up to three columns. `normal` picks op3's
-// XOR plot vs op5's fill-pattern blend (brush_blit_col), matching the $0839 flag.
+// Blit one 7-bit glyph half: shift it right by `bit` (spilling the high bits into
+// `e`, the next column), then plot the two resulting bytes into col / col+1. op3
+// XORs (glyph_xor_col); op5 -- and the brush blitter -- blend through the fill
+// pattern (brush_blit_col). Matches the $0839 flag.
+static void glyph_blit_half(int row, int col, uint8_t half, int bit, bool normal) {
+	if (!half) return;
+	uint8_t A = (uint8_t)(half << 1), e = 0;
+	for (int s = bit; s > 0; s--) { uint8_t c = (uint8_t)(A >> 7); A = (uint8_t)(A << 1); e = (uint8_t)((e << 1) | c); }
+	if (normal) { glyph_xor_col(row, col, (uint8_t)(A >> 1)); glyph_xor_col(row, col + 1, e); }
+	else        { brush_blit_col(row, col, (uint8_t)(A >> 1)); brush_blit_col(row, col + 1, e); }
+}
+
+// Expand one source byte into its DHGR nibble-doubled 14-bit pattern -- two 7-bit
+// halves (left = cbf, right = cc0 with carry) via DHGR_DBL (FUN_0c8d) -- and blit
+// both across three columns at (row, col..col+2). The shared core of the op12 brush
+// blitter (normal=false) and the op3/op5 glyph blitter (FUN_0c60 -> FUN_108e). A
+// zero byte expands to two empty halves, i.e. a no-op.
+static void dhgr_blit_byte(int row, int col, uint8_t b, int bit, bool normal) {
+	if (row < 0 || row > 0xbf) return;
+	uint8_t cc0 = DHGR_DBL[b >> 4], lo = DHGR_DBL[b & 0xf];
+	uint8_t cy = (uint8_t)(lo >> 7); lo = (uint8_t)(lo << 1); cc0 = (uint8_t)((cc0 << 1) | cy); lo >>= 1;
+	glyph_blit_half(row, col,     lo,  bit, normal);   // left half (cbf)
+	glyph_blit_half(row, col + 1, cc0, bit, normal);   // right half (+carry)
+}
+
+// Draw one glyph at DHGR pixel x (0..559) / screen row y: each of the 8 glyph rows
+// is expanded and blitted exactly like a brush row. `normal` picks op3's XOR plot
+// vs op5's fill-pattern blend.
 static void dhgr_draw_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal) {
 	const uint8_t *glyph = &s_fontGlyphs[(ch & 0x7f) * 8];
 	int col = x / 7, bit = x % 7;
-	for (int r = 0; r < 8; r++) {
-		int row = y + r; if (row < 0 || row > 0xbf) continue;
-		uint8_t g = glyph[r];
-		if (!g) continue;
-		uint8_t cc0 = DHGR_DBL[g >> 4], lo = DHGR_DBL[g & 0xf];
-		uint8_t cy = (uint8_t)(lo >> 7); lo = (uint8_t)(lo << 1); cc0 = (uint8_t)((cc0 << 1) | cy); lo >>= 1;
-		uint8_t cbf = lo;
-		if (cbf) { uint8_t A = (uint8_t)(cbf << 1), e = 0;
-			for (int s = bit; s > 0; s--) { uint8_t c = (uint8_t)(A >> 7); A = (uint8_t)(A << 1); e = (uint8_t)((e << 1) | c); }
-			if (normal) { glyph_xor_col(row, col, (uint8_t)(A >> 1)); glyph_xor_col(row, col + 1, e); }
-			else        { brush_blit_col(row, col, (uint8_t)(A >> 1)); brush_blit_col(row, col + 1, e); } }
-		if (cc0) { uint8_t A = (uint8_t)(cc0 << 1), e = 0;
-			for (int s = bit; s > 0; s--) { uint8_t c = (uint8_t)(A >> 7); A = (uint8_t)(A << 1); e = (uint8_t)((e << 1) | c); }
-			if (normal) { glyph_xor_col(row, col + 1, (uint8_t)(A >> 1)); glyph_xor_col(row, col + 2, e); }
-			else        { brush_blit_col(row, col + 1, (uint8_t)(A >> 1)); brush_blit_col(row, col + 2, e); } }
-	}
+	for (int r = 0; r < 8; r++)
+		dhgr_blit_byte(y + r, col, glyph[r], bit, normal);
 }
 
 // ---- op14 flood fill ----------------------------------------------------------
@@ -733,14 +737,12 @@ void gmDhgrEndCMPanelRebuild() {
 	s_slow.setRecording(s_cmRebuildRecording);
 }
 
-// Copy the saved panel byte-columns onto both the final and the
-// progressively-revealed pages, so the panel is present immediately even while a
-// room's slow-draw reveal is still running (mirrors the standard renderer, which
-// writes the panel to s_screenmem and s_slowScreen alike).
-void gmDhgrOverlayCMPanel() {
-	if (!s_cmPanelValid)
-		return;
-	for (int row = 0; row < DHGR_HEIGHT; row++) {
+// Panel-column helpers shared by the overlay / band-restore / grain-mirror paths.
+// cm_panel_to_pages copies the saved static panel onto BOTH the final and the slow
+// pages (rows y0..y1); cm_panel_final_to_slow mirrors the final pages' panel columns
+// (e.g. with freshly stamped grains) onto the slow pages only.
+static void cm_panel_to_pages(int y0, int y1) {
+	for (int row = y0; row <= y1; row++) {
 		uint16_t base = CALC(row);
 		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
 			uint16_t a = (uint16_t)(base + col);
@@ -749,6 +751,27 @@ void gmDhgrOverlayCMPanel() {
 			s_main[a] = s_slowMain[a] = s_cmPanelMain[a];
 		}
 	}
+}
+static void cm_panel_final_to_slow(int y0, int y1) {
+	for (int row = y0; row <= y1; row++) {
+		uint16_t base = CALC(row);
+		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
+			uint16_t a = (uint16_t)(base + col);
+			if (a >= A2_PAGE_SIZE) continue;
+			s_slowAux[a]  = s_aux[a];
+			s_slowMain[a] = s_main[a];
+		}
+	}
+}
+
+// Copy the saved panel byte-columns onto both the final and the
+// progressively-revealed pages, so the panel is present immediately even while a
+// room's slow-draw reveal is still running (mirrors the standard renderer, which
+// writes the panel to s_screenmem and s_slowScreen alike).
+void gmDhgrOverlayCMPanel() {
+	if (!s_cmPanelValid)
+		return;
+	cm_panel_to_pages(0, DHGR_HEIGHT - 1);
 }
 
 // Stamp the resting pile of `sand` white grains on top of the panel, at the same
@@ -778,15 +801,7 @@ void gmDhgrDrawCMHourglass(int sand) {
 	s_slow.setRecording(savedRecord);
 	// Mirror the panel columns (now including the freshly stamped grains) onto the
 	// slow pages, so they are visible during a reveal too.
-	for (int row = 0; row < DHGR_HEIGHT; row++) {
-		uint16_t base = CALC(row);
-		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
-			uint16_t a = (uint16_t)(base + col);
-			if (a >= A2_PAGE_SIZE) continue;
-			s_slowAux[a]  = s_aux[a];
-			s_slowMain[a] = s_main[a];
-		}
-	}
+	cm_panel_final_to_slow(0, DHGR_HEIGHT - 1);
 }
 
 // --- The Coveted Mirror per-turn grain fall (double hi-res) -------------------
@@ -815,15 +830,7 @@ static void cmDhgrOverlayPanelBand(int y0, int y1) {
 		y0 = 0;
 	if (y1 > DHGR_HEIGHT - 1)
 		y1 = DHGR_HEIGHT - 1;
-	for (int row = y0; row <= y1; row++) {
-		uint16_t base = CALC(row);
-		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
-			uint16_t a = (uint16_t)(base + col);
-			if (a >= A2_PAGE_SIZE) continue;
-			s_aux[a]  = s_slowAux[a]  = s_cmPanelAux[a];
-			s_main[a] = s_slowMain[a] = s_cmPanelMain[a];
-		}
-	}
+	cm_panel_to_pages(y0, y1);
 }
 
 void gmDhgrCMHourglassFallBegin() { s_dhgrCmFallFrame = 0; }
@@ -849,15 +856,7 @@ bool gmDhgrCMHourglassFallStep(int *y0, int *y1) {
 		s_slow.setRecording(savedRecord);
 		// Mirror the band's panel columns (with the grain) onto the slow pages so a
 		// blit reading either page shows it.
-		for (int row = kDhgrBandTop; row <= kDhgrBandBot; row++) {
-			uint16_t base = CALC(row);
-			for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
-				uint16_t a = (uint16_t)(base + col);
-				if (a >= A2_PAGE_SIZE) continue;
-				s_slowAux[a]  = s_aux[a];
-				s_slowMain[a] = s_main[a];
-			}
-		}
+		cm_panel_final_to_slow(kDhgrBandTop, kDhgrBandBot);
 	}
 	*y0 = kDhgrBandTop;
 	*y1 = kDhgrBandBot;

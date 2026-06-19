@@ -78,7 +78,7 @@ gm_artifact.o: $(SAGADRAW_DIR)/gm_artifact.c $(SAGADRAW_DIR)/gm_artifact.h
 SAGADRAW_SRCS := $(SAGADRAW_DIR)/gm_vector.c $(SAGADRAW_DIR)/gm_artifact.c
 
 clean:
-	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/gmcgav1test test/pixtest test/op5scan test/gmcgatest test/diff_gmcga test/rgbacrc
+	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/gmcgav1test test/pixtest test/op5scan test/gmcgatest test/diff_gmcga test/rgbacrc test/cmdhgrtest test/titledhgrtest test/cmhourglasstest
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
 # Self-contained: graphics_magician.cpp has no Glk/disk dependencies, so the test
@@ -120,13 +120,21 @@ test/cmdhgrtest: test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magicia
 test/titledhgrtest: test/titledhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/titledhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
-test: test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/rgbacrc test/cmdhgrtest test/titledhgrtest
+# --- Regression test: The Coveted Mirror hourglass logic (renderer-shared) ---
+# Pure-logic, fixture-free: freezes the per-grain pile geometry (validated
+# pixel-exact vs MAME, see test/cm/README.md) and exercises the per-turn
+# drain arm / fall state machine that both renderers drive.
+test/cmhourglasstest: test/cmhourglasstest.cpp graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/cmhourglasstest.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
+
+test: test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/rgbacrc test/cmdhgrtest test/titledhgrtest test/cmhourglasstest
 	./test/test_talisman_pics
 	./test/test_gmcga_pics
 	./test/test_gmcgav1_pics
 	./test/rgbacrc
 	./test/cmdhgrtest
 	./test/titledhgrtest
+	./test/cmhourglasstest
 
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
 # image and log its hi-res writes. Used to capture new regression fixtures.

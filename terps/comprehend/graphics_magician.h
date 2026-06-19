@@ -75,6 +75,8 @@ void gmBlitSlowToSurface(uint32_t *out, int w, int h);
 // regression test and the offline pixel-diff tool).
 const uint8_t *gmPagePtr();
 void gmSetPage(const uint8_t *page);
+// Diagnostic access to the progressively-revealed (slow-draw) page.
+const uint8_t *gmSlowPagePtr();
 
 // The Coveted Mirror persistent right-hand panel (logo + hourglass). Capture
 // saves columns [col0,col1] of the current page; overlay re-applies them on top

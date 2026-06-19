@@ -157,28 +157,48 @@ static inline bool valid_offset(uint16_t off) { return off <= MAX_SCREEN_ADDR; }
 static uint8_t s_slowScreen[A2_SCREEN_MEM_SIZE]; // progressively-revealed page
 
 // offset -> screen row (0..191), or 0xff for the inter-row gaps in the hi-res
-// address space. Built once; lets a reveal map a byte write back to its row.
+// address space; offset -> byte column (0..39), or 0xff in the gaps. Built once;
+// lets a reveal map a byte write back to its row (dirty band) and column (so the
+// CM panel columns can be excluded from the reveal -- see apple_apply_slow).
 static uint8_t s_rowOfOffset[A2_SCREEN_MEM_SIZE];
+static uint8_t s_colOfOffset[A2_SCREEN_MEM_SIZE];
 static bool s_rowTableInit = false;
 
-static int row_of_offset(uint16_t offset) {
-	if (!s_rowTableInit) {
-		memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
-		for (int row = 0; row < 192; row++) {
-			uint16_t base = CALC_APPLE2_ADDRESS(row);
-			for (int col = 0; col < 40; col++)
-				s_rowOfOffset[base + col] = (uint8_t)row;
+static void init_offset_tables() {
+	if (s_rowTableInit)
+		return;
+	memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
+	memset(s_colOfOffset, 0xff, sizeof(s_colOfOffset));
+	for (int row = 0; row < 192; row++) {
+		uint16_t base = CALC_APPLE2_ADDRESS(row);
+		for (int col = 0; col < 40; col++) {
+			s_rowOfOffset[base + col] = (uint8_t)row;
+			s_colOfOffset[base + col] = (uint8_t)col;
 		}
-		s_rowTableInit = true;
 	}
+	s_rowTableInit = true;
+}
+
+static int row_of_offset(uint16_t offset) {
+	init_offset_tables();
 	uint8_t r = s_rowOfOffset[offset];
 	return (r == 0xff) ? -1 : (int)r;        // -1 = inter-row gap, skip
 }
 
+static int col_of_offset(uint16_t offset) {
+	init_offset_tables();
+	uint8_t c = s_colOfOffset[offset];
+	return (c == 0xff) ? -1 : (int)c;        // -1 = inter-row gap, skip
+}
+
+// Apply one recorded byte to the slow page; defined after the CM-panel state it
+// consults (forward-declared here for the policy).
+static bool apple_apply_slow(const SlowWriteOp &op);
+
 // Apple II hi-res page: one flat buffer, but rows are address-interleaved, so
 // the dirty band maps offsets through row_of_offset (not offset/stride).
 struct AppleSlowPolicy {
-	bool apply(const SlowWriteOp &op) { s_slowScreen[op.offset] = op.value; return true; }
+	bool apply(const SlowWriteOp &op) { return apple_apply_slow(op); }
 	int rowOf(const SlowWriteOp &op) const { return row_of_offset(op.offset); }
 	bool adjacent(const SlowWriteOp &a, const SlowWriteOp &b) const {
 		return ((int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
@@ -534,6 +554,20 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t pat_even, uint8_t p
 // which renders solid white text. op5 (TEXT_OUTLINE) leaves the flag clear and
 // takes the $1057 path: the glyph is colour-blended with the current fill
 // pattern, just like a brush.
+// Blit one 7-bit glyph half (`mask`) into screen byte `addr` / column `col`.
+// normal (op3, FUN_102e $1099) XORs it on, preserving bit 7 (the hi-res palette
+// bit) so the text stays white; op5 ($1057) blends it through the fill pattern,
+// just like a brush quadrant.
+static void glyph_blit_half(uint16_t addr, int col, uint8_t mask, bool normal, uint8_t pat_base) {
+	if (!mask || !valid_offset(addr))
+		return;
+	if (normal) {
+		write_screen(addr, (uint8_t)(s_screenmem[addr] ^ mask));
+	} else {
+		uint8_t pat = s_patternData[(col & 3) | pat_base];
+		write_screen(addr, (uint8_t)(((mask ^ 0x7f) & s_screenmem[addr]) | ((mask | 0x80) & pat)));
+	}
+}
 static void draw_text_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal,
                             uint8_t pat_even, uint8_t pat_odd) {
 	const uint8_t *glyph = &s_fontGlyphs[(ch & 0x7f) * 8];
@@ -547,25 +581,9 @@ static void draw_text_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal,
 		uint8_t mask_a, mask_b;                 // mask_a -> col, mask_b -> col+1
 		gm_spread7(g, off, &mask_a, &mask_b);
 		uint16_t addr = (uint16_t)(CALC_APPLE2_ADDRESS(scan) + col);
-		if (normal) {
-			// FUN_102e $1099: XOR plot. mask_a/mask_b are 7-bit, so bit 7 (the
-			// hi-res palette bit) is preserved and the text stays white.
-			if (mask_a && valid_offset(addr))
-				write_screen(addr, (uint8_t)(s_screenmem[addr] ^ mask_a));
-			if (mask_b && valid_offset(addr + 1))
-				write_screen(addr + 1, (uint8_t)(s_screenmem[addr + 1] ^ mask_b));
-		} else {
-			// FUN_102e $1057: blend with the current fill-colour pattern.
-			uint8_t pat_base = (uint8_t)(((scan & 1) ? pat_odd : pat_even) << 2);
-			if (mask_a && valid_offset(addr)) {
-				uint8_t pat = s_patternData[(col & 3) | pat_base];
-				write_screen(addr, (uint8_t)(((mask_a ^ 0x7f) & s_screenmem[addr]) | ((mask_a | 0x80) & pat)));
-			}
-			if (mask_b && valid_offset(addr + 1)) {
-				uint8_t pat = s_patternData[((col + 1) & 3) | pat_base];
-				write_screen(addr + 1, (uint8_t)(((mask_b ^ 0x7f) & s_screenmem[addr + 1]) | ((mask_b | 0x80) & pat)));
-			}
-		}
+		uint8_t pat_base = (uint8_t)(((scan & 1) ? pat_odd : pat_even) << 2);
+		glyph_blit_half(addr,     col,     mask_a, normal, pat_base);
+		glyph_blit_half(addr + 1, col + 1, mask_b, normal, pat_base);
 	}
 }
 
@@ -837,7 +855,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 // 0..h-1, sampling the 560-wide artifact colours down to w columns.
 static void screenmem_to_rgba(const uint8_t *src, uint32_t *out, int w, int h) {
 	for (int row = 0; row < h; row++) {
-		unsigned const address = (((row / 8) & 0x07) << 7) + (((row / 8) & 0x18) * 5) + ((row & 7) << 10);
+		unsigned const address = CALC_APPLE2_ADDRESS(row);
 		const uint8_t *vram_row = src + address;
 		uint16_t words[40];
 		gm_compute_row_words(vram_row, words);
@@ -876,6 +894,8 @@ void gmBlitSlowToSurface(uint32_t *out, int w, int h) {
 // Diagnostic accessor (offline pixel-diff harness): the raw 0x2000-byte page.
 const uint8_t *gmPagePtr() { return s_screenmem; }
 void gmSetPage(const uint8_t *p) { memcpy(s_screenmem, p, A2_SCREEN_MEM_SIZE); }
+// Diagnostic accessor: the progressively-revealed (slow-draw) page.
+const uint8_t *gmSlowPagePtr() { return s_slowScreen; }
 
 // --- The Coveted Mirror persistent right-hand panel ----------------------
 // CM draws a fixed right-hand panel -- the "The Coveted Mirror" logo above an
@@ -946,16 +966,41 @@ void gmEndCMPanelRebuild() {
 	s_slow.setRecording(s_cmRebuildRecording);
 }
 
-void gmOverlayCMPanel() {
-	if (!s_cmPanelValid)
-		return;
-	for (int row = 0; row < APPLE2_SCREEN_HEIGHT; row++) {
+// Copy the saved static panel columns onto rows [y0,y1] of both the final page
+// (s_screenmem) and the progressively-revealed page (s_slowScreen).
+static void cm_panel_to_pages(int y0, int y1) {
+	for (int row = y0; row <= y1; row++) {
 		uint16_t base = CALC_APPLE2_ADDRESS(row);
 		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
-			s_screenmem[base + col] = s_cmPanel[base + col];
+			s_screenmem[base + col]  = s_cmPanel[base + col];
 			s_slowScreen[base + col] = s_cmPanel[base + col];
 		}
 	}
+}
+
+void gmOverlayCMPanel() {
+	if (!s_cmPanelValid)
+		return;
+	cm_panel_to_pages(0, APPLE2_SCREEN_HEIGHT - 1);
+}
+
+// Apply one recorded byte to the slow page, skipping the CM panel columns.
+// Returns false (suppressing dirty marking) when the byte is skipped.
+//
+// The Coveted Mirror's panel occupies columns [col0,col1] and is composited on
+// top of every finished picture (gmOverlayCMPanel writes it to both pages). A
+// room drawn with a full-width op15/0 RLE bitmap, however, records writes across
+// those columns too; replaying them during the reveal would wipe the panel off
+// s_slowScreen. Skip panel-column ops so the overlaid panel survives the reveal
+// (it is already correct on the final page). Mirrors DHGR's dhgr_apply_slow.
+static bool apple_apply_slow(const SlowWriteOp &op) {
+	if (s_cmPanelValid) {
+		int c = col_of_offset(op.offset);
+		if (c >= s_cmPanelCol0 && c <= s_cmPanelCol1)
+			return false;
+	}
+	s_slowScreen[op.offset] = op.value;
+	return true;
 }
 
 // Per-grain position, ported byte-faithfully from cm_draw_hourglass_grain
@@ -1031,13 +1076,7 @@ static void cmOverlayPanelBand(int y0, int y1) {
 		y0 = 0;
 	if (y1 > APPLE2_SCREEN_HEIGHT - 1)
 		y1 = APPLE2_SCREEN_HEIGHT - 1;
-	for (int row = y0; row <= y1; row++) {
-		uint16_t base = CALC_APPLE2_ADDRESS(row);
-		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
-			s_screenmem[base + col] = s_cmPanel[base + col];
-			s_slowScreen[base + col] = s_cmPanel[base + col];
-		}
-	}
+	cm_panel_to_pages(y0, y1);
 }
 
 // Renderer-independent arm bookkeeping: track the displayed sand level so the
