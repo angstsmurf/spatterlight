@@ -219,6 +219,12 @@ public:
 
 	virtual void synchronizeSave(Common::Serializer &s);
 
+	// Hook run just before a saved game's payload is deserialized over the live
+	// state, given the raw payload bytes. Lets a game swap in a different static
+	// database first (Talisman uses it to load its part-2 desert database when
+	// restoring a desert save while part 1 is loaded). Default: nothing to do.
+	virtual void prepareRestore(const std::vector<byte> &payload) { (void)payload; }
+
 	// Called for every OPCODE_DRAW_OBJECT, with the 0-based item-picture number
 	// just drawn. The Coveted Mirror uses it to remember which mirror pieces have
 	// been collected so its persistent right-hand panel can keep showing them

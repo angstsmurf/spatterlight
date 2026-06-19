@@ -318,6 +318,10 @@ bool Comprehend::serializeGameState(std::vector<byte> &out) {
 
 void Comprehend::deserializeGameState(const std::vector<byte> &in) {
     if (!_game) return;
+    // Let the game swap in a different static database before the payload is
+    // applied (Talisman loads its part-2 desert tables when restoring a desert
+    // save). Must run before synchronizeSave reads the rooms/items into them.
+    _game->prepareRestore(in);
     Common::MemoryReadWriteStream mem(Common::YES);
     mem.write(in.data(), (uint32)in.size());
     mem.seek(0, SEEK_SET);
