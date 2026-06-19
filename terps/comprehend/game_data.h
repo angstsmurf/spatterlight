@@ -134,7 +134,13 @@ enum ScriptOpcode {
 	OPCODE_SET_FLAG40,
 	OPCODE_RANDOM_MSG,
 	OPCODE_SET_WORD,
-	OPCODE_CLEAR_WORD
+	OPCODE_CLEAR_WORD,
+	// V2-only: add/subtract the input-number register (variable 0) to/from a
+	// variable. Used by Talisman's counterweight bowl (funcs 170/173) to deposit
+	// or remove an exact "PUT/TAKE n COINS" count. Mirror of the VAR_GT1/EQ1
+	// family that takes variable 0 as the implicit second operand.
+	OPCODE_VAR_ADD1,
+	OPCODE_VAR_SUB1
 };
 
 /* Game state update flags */

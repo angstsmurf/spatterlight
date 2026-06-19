@@ -66,13 +66,15 @@ CharSet::CharSet() : FixedFont() {
 TalismanFont::TalismanFont() : FixedFont() {
 	// Extra strings are (annoyingly) stored in the game binary
 	Common::File f;
-	if (!f.open("novel.exe"))
+	if (!f.open("novel.exe") && !f.open("novel1.exe"))
 		error("novel.exe is a required file");
 
 	Common::String md5 = Common::computeStreamMD5AsString(f, 1024);
 
-	if (md5 == "0e7f002971acdb055f439020363512ce" || md5 == "2e18c88ce352ebea3e14177703a0485f") {
-		// Original rips: font begins at current stream position (after the 1024-byte hash read).
+	if (md5 == "0e7f002971acdb055f439020363512ce" || md5 == "2e18c88ce352ebea3e14177703a0485f" ||
+		md5 == "15cd75f98788071aee2af1f63893f613") {
+		// Original rips (incl. NOVEL1.EXE 15cd75f9, identical to 2e18c88c from 0x400):
+		// font begins at current stream position (after the 1024-byte hash read).
 		for (int idx = 0; idx < 128 - 32; ++idx)
 			f.read(&_data[idx][0], 8);
 	} else if (md5 == "7b9ac058b8d3dc80c3491cd8346e9cd8" || md5 == "8b28dbf2034b79448863a2b68e745536") {

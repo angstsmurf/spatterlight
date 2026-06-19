@@ -383,6 +383,17 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 		_variables[instr->_operand[0]] -= _variables[instr->_operand[1]];
 		break;
 
+	// Add/subtract the input-number register (variable 0) -- the count the player
+	// typed, e.g. "PUT 42 COINS". Talisman's bowl uses these to move an exact
+	// number of coins (func 173: var34 -= n; var36 += n; var123 += n).
+	case OPCODE_VAR_ADD1:
+		_variables[instr->_operand[0]] += _variables[0];
+		break;
+
+	case OPCODE_VAR_SUB1:
+		_variables[instr->_operand[0]] -= _variables[0];
+		break;
+
 	default:
 		if (instr->_opcode & 0x80) {
 			warning("Unhandled command opcode %.2x", opcode);
@@ -751,6 +762,10 @@ ComprehendGameV2::ComprehendGameV2() {
 	_opcodeMap[0xe9] = OPCODE_CLEAR_CAN_TAKE;
 	_opcodeMap[0xed] = OPCODE_REMOVE_OBJECT;
 	_opcodeMap[0xc6] = OPCODE_SET_OBJECT_GRAPHIC;
+	// var[op0] += variable 0 (the entered number) / var[op0] -= variable 0.
+	// Talisman's bowl handlers use these for partial coin deposits/withdrawals.
+	_opcodeMap[0x8d] = OPCODE_VAR_ADD1;
+	_opcodeMap[0x91] = OPCODE_VAR_SUB1;
 
 #if 0
 	_opcodeMap[0x9e] = OPCODE_INVENTORY_ROOM;

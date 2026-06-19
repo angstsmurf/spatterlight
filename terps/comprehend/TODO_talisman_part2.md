@@ -6,21 +6,94 @@ marker in `test/walkthrough/run_walkthroughs.sh` (replacing the part-1 marker
 `"departing the Persian"`). Done when `sh test/walkthrough/run_walkthroughs.sh`
 shows all 5 games PASS on the new marker.
 
-## Current status (working tree)
+## Current status (working tree) — COMPLETE ✅
 
-**Steps 0–5 are DONE and in the script.** `talisman.txt` now drives
-deterministically from `SAIL SHIP` through the desert, the torch-gated statue
-maze, AND the moving-wall lever maze into the **secret demon room (room 72)**.
-The interim marker is set to
-`"A horrific figure of a demon is embedded within the room's southern wall"` —
-all 5 games PASS. This validates the entire part-2 pipeline plus the fully-RE'd
-maze (see step 5). The remaining work is **step 6 onward** (the counterweight
-puzzle → amulet → carpet flight → genie/wizard → palace `BOW`); when that is
-finished, replace the interim marker with the real victory string.
+**The full game is won, deterministically.** `talisman.txt` now drives all the
+way from the executioner's cell to the winning `BOW` before King Darius. The win
+marker is `"the Empire shalt flourish through eternity"` (King Darius's victory
+speech) — all 5 walkthroughs PASS, and the Talisman win replays identically
+across runs (the engine's `std::rand` is unseeded, so a fixed command prefix is
+byte-reproducible).
 
-All step-0–4 routes below were found by BFS over `(room, var72)` with the
-headless harness and pinned into the script. They are **prefix-specific**:
-editing any earlier line re-rolls the whole desert, so never edit upstream.
+Two root-cause bugs blocked the finale; both are fixed:
+
+1. **The flying carpet was lost forever (roc steal).** `GET CARPET` (func 119)
+   keeps the carpet only when **flag 40** is set; otherwise the roc snatches it
+   and nothing ever returns it from limbo, so the carpet flight — and the whole
+   ending — was unwinnable. Flag 40 is a *carried part-1* flag, set by the
+   mail-order **order-confirmation** function (func 12) which fires only when the
+   two Arabian-Express card codes are typed **together** on one line
+   (`rj8906 ta3756`). The committed script had split them across two lines, which
+   completes the order via the ordinary path (sets only flag 39). **Fix: one
+   line `rj8906 ta3756`** — no engine change. (The card form still delivers the
+   bridge log, so part 1 is unaffected.)
+2. **The genie's lamp never appeared in room 39 (step 8 dead end).** The part-2
+   initialiser **func 44** (→ func 45 → func 160: endgame room graphics, item
+   long-descriptions, **lamp → room 39**, and arming the maze via flag 79) has no
+   in-bytecode caller — NOVEL.EXE runs it from special-opcode 16. `enterPart2()`
+   had dropped that call, so the red-hot lamp was missing and the genie could
+   never be summoned. **Fix: `eval_function(44, nullptr)` at the end of
+   `enterPart2()`** (game_tm.cpp). Verified safe: the maze still reaches room 72
+   (the entry lever puzzle re-clears flag 79), and the lamp is now present.
+
+### Steps 7–9 solution (now in the script)
+- **7. Maze exit + carpet flight.** Taking the amulet starts a collapse timer
+  (the throb; statue buries you if you dawdle). Escape: `N E E E N D W W S`
+  to the single-lever room (the only one whose `TELL ABU TO PULL LEVER` sets the
+  maze wall-flag 79 *with the talisman held*), arm flag 79, then reset the lever
+  bank to the one wall configuration that opens the walk back to the statue
+  interior (room 73) — `E E, PULL LONG LEVER, N, PULL LEVER, W, PULL LEVER` →
+  `E U S W W S OUT` — and the statue collapses, dropping you on the open desert
+  (room 54) with the carpet still in hand. Then `DROP RUG, SIT CARPET, FLY`,
+  ride it (`WAIT`×3) to the cliff lip, `GET UP, E, E` into the magician's cave.
+- **8. The genie defeats Schazabe.** `DOUSE LAMP` (twice — his talisman-grab eats
+  the first turn), `GET LAMP, RUB LAMP` (the genie erupts and stalls his spell),
+  `GENIE, KILL WIZARD`, `YES`. (Needs water in the flask — filled at the oasis.)
+- **9. Palace + bow.** `W W, SIT CARPET, FLY`, `WAIT`×2 to the gates,
+  `GET UP, N, E, BOW` → victory.
+
+---
+
+## Historical RE notes (the path to the solution — superseded by the above)
+
+**Steps 0–6** drive deterministically from `SAIL SHIP` through the desert, both
+mazes, into the secret demon room (room 72), and solve the counterweight bowl to
+escape.
+
+### Step 6 breakthrough — the bowl, and the part-1 economy fix it forced
+
+The escape was gated on TWO bugs, both now fixed:
+
+1. **Missing opcodes 0x8d / 0x91.** These V2 opcodes were unmapped
+   (`OPCODE_UNKNOWN`, silent no-ops). They are `var[op0] += var[0]` and
+   `var[op0] -= var[0]`, where var 0 is the input-number register (the count the
+   player typed). Confirmed byte-exact against the **original DOS interpreter**
+   (NOVEL1.EXE in Ghidra: dispatcher `tm_dispatch_opcode` @1000:0c77; opcode table
+   @12e7:013e, handler table @12e7:00b0; handlers `tm_op_var_add_input` @1000:0ec2
+   and `tm_op_var_sub_input` @1000:0ee5, both `xor si,si` then the shared
+   add/sub core @0ed5/0ef7 over var base 0x34bb). Now mapped + implemented
+   (`OPCODE_VAR_ADD1`/`OPCODE_VAR_SUB1`, game_data.h + game_opcodes.cpp). With them,
+   **`PUT 42 COINS IN BOWL`** deposits exactly 42 (Talisman bowl funcs 170/173).
+2. **Part-1 coins were never spent.** The bazaar haggle (Hosni) uses 0x8d/0x91 to
+   record the bid and subtract it from the coin pile (var34). With the opcodes
+   no-op, the committed part-1 script could overpay for free (rope 60 + flask 50).
+   Once the opcodes work, the **ship fare check is real**: `SAIL SHIP` (func 128)
+   refuses if `var34 < var31` and **var31 = 42**. And the bowl itself needs 42
+   coins. So Abu must reach the boat holding ≥ 42 of his 137. The haggle now bids
+   modestly (rope closes at 45, flask at 43 → ~49 left). **Haggle model:** ask
+   erodes ~3/offer, Hosni accepts once `offer ≥ ask − 5`, charging your bid;
+   min total spend ≈ `130 − 3·(total offers)`. The desert proved **robust** to the
+   changed part-1 turn count (the `WAIT`×20 buffer at part-2 start absorbs the
+   rand-stream shift) — room 72 still reached, contradicting the old "never edit
+   upstream" fear for this magnitude of change.
+
+**Escape recipe (in the script):** `GET AMULET` (lifts the talisman out of the
+bowl; bowl arm rises 42 lighter → `var122` 128→86; wall seals) then
+`PUT 42 COINS IN BOWL` (`var122` 86→128, balanced → wall reopens). Then `N` exits
+room 72 into the moving-wall network (rooms 64–81).
+
+The step-0–4 desert routes were found by BFS over `(room, var72)`; they are
+prefix-specific, but tolerant of small part-1 perturbations (see above).
 
 ## What is already done (committed: 74ee92c7, claudeslop; +steps 0–4 in tree)
 
@@ -208,36 +281,47 @@ short front), E, S E, N, U S W W W S → secret room`. Re-reading this — the
 
 </details>
 
-### 6. Secret room → amulet (the counterweight puzzle) — **MOSTLY DONE; escape OPEN**
-A statue with a **bowl + dome counterweight** (`[s2:543]`). Confirmed live in room 72:
-- **`PUT COINS IN BOWL`** drops *all* carried coins into the bowl at once (no count
-  form — `PUT 50 COINS` is a no-op, `FILL BOWL` "I understand thee not"). The bowl
-  arm lowers / dome rises (`[s2:672]`), **and a wall slides shut sealing the only
-  exit** (the demon's expression flips to "jeering / trapped"; `func 11` sets room
-  graphic via flag 205 while `var123` = coins-in-bowl > 0).
-- **`GET AMULET`** then succeeds → **"a throbbing talisman"** enters inventory
-  ("As ye take the talisman … it is a bit warm"); the coins leave inventory.
-- `TAKE COINS FROM BOWL` empties the bowl (`var123 → 0`, `[s2:673]`, "the two arms
-  slowly pass the point of equivalence").
-- **`WEAR AMULET`** → "THUMP! THUMP! (THROB! THROB!)" — activates the throb (flag
-  111 / `func 16`).
+### 6. Secret room → amulet (the counterweight puzzle) — **DONE (in the script)**
+A statue with a **bowl + dome counterweight** (`[s2:543]`). The talisman sits in
+the bowl; the arms balance at level 128 (`var120` = dome reference, `var122` = bowl
+arm = `128 + coins_in_bowl − amulet_weight_removed`). The N exit (`func 21`,
+room-72 branch) is blocked while `var120 != var122`.
 
-**OPEN — escaping room 72.** After `GET AMULET` the exit `N` stays blocked even
-after emptying the bowl. The counterweight vars: `var121` (= bowl-arm level) tracks
-`128 + coins_in_bowl − amulet_weight`; it always equals `var122`, so "balance" must
-be `var121 == var120 (128)`. 137 coins → 265; 0 coins (after taking the amulet) →
-86; so the new balance needs ~`amulet_weight` (≈42?) coins left in the bowl — but
-there's no count form yet. Decode `func 11`/`func 12` and the wall object (item 28,
-`CLEAR_INVISIBLE 28` / room-graphic 205) to find what re-opens N: likely *exact*
-re-balance, or the throb/amulet itself. Brute-force from the step-5 endpoint.
+**Solution (pinned):** `GET AMULET`, `PUT 42 COINS IN BOWL`.
+- `GET AMULET` lifts the talisman out (`func 176`: `var36 += var31`(=42), then
+  `func 175`: `var122 -= var36` → 86); the wall slams shut (`[s2:674]`, room flag
+  205) and **without 42 the player is trapped**.
+- `PUT 42 COINS IN BOWL` (`func 173`) deposits exactly the talisman's weight back:
+  `var34 -= 42; var36 += 42; var123 += 42`, then `func 171`: `var122 += var36` →
+  128. Balanced → `[s2:…]` "the wall behind ye hath slid back, opening the exit!".
+  `var36` is a per-turn scratch (reset between prompts), so the +42 lands cleanly.
+- The **count form needed opcodes 0x8d/0x91** (see Current status) — previously
+  unmapped, so `PUT 42 COINS` was a silent no-op. Fixed.
 
-### 7. Maze exit → carpet flight (rooms 83–86)
-The rideable rug for the endgame is **not** the stolen camel carpet — work out
-where it comes from (the secret room is the likely source; check what the amulet
-/ secret room yields). Then the flight: `DROP RUG`, `SIT`, `FLY RUG`, `WAIT`,
-`GET UP`, navigate (rooms 27–30 / 83–86 are the flight scenes).
-- Open work: identify the rug item + where you obtain it; confirm the flight
-  command cadence.
+(`TAKE COINS FROM BOWL` = `func 173`'s all-path; `WEAR AMULET` activates the throb,
+flag 111 / `func 16` — flavour, not needed.)
+
+### 7. Maze exit → carpet flight (rooms 83–86) — **OPEN (next)**
+After the bowl, `N` drops back into the moving-wall network (rooms 64–81). The
+source walkthrough's exit moves (`N E E E N D W W S`, `TELL ABU TO PULL LEVER`,
+`N E S E N`, `U S W W S S S`) **do not transfer** (different RNG; tried live —
+stalls at room 67, "exit only through the pit"). So the maze exit needs the same
+`(room, var33 % 3, flags)` heuristic BFS as step 5 (entry), driven forward from
+the post-`PUT 42 COINS` endpoint.
+
+Findings so far (this session):
+- **The rug is not in inventory and the Persian carpet (item 21) is in limbo
+  (`room=255`)** — the roc stole it in step 2. So the flying rug must be obtained
+  somewhere on the way out (roc's nest?) or is a different item; `func 119`
+  (`carpet` handler), `func 256` (`carpet`+`bird`/`huff` — the roc), and
+  `func 270` (`EXAMINE carpet`) are the leads.
+- The flight rooms **27–30** (mirror **83–86**) carry the "soaring upon thy magic
+  carpet" descriptions but have **no static exits** — they're a scripted state
+  machine (`func 10` / `func 15`, the `FLY`/ride handler). `DROP RUG`, `SIT`,
+  `FLY RUG`, `WAIT`, `GET UP` is the cadence to confirm once the rug is in hand.
+- Endgame room map (from the dump): `31` = green-glow cave with the magician;
+  `32` = magician + genie over the lantern; `33`/`35` cave→`34` palace gates→
+  `36` = King Darius's audience chamber (the winning `BOW`).
 
 ### 8. Genie / wizard / palace ending → BOW
 Roughly (from the source walkthrough, to be verified line-by-line):
@@ -352,13 +436,26 @@ drive idle. (See [[mame-mcp-savestate-bridge-freeze]].)
 - **Carried flags.** `enterPart2()` copies *all* part-1 flags into part 2. Only
   the coin variable is known-required; a stale part-1 flag could mean something
   different in part 2. If a later puzzle misbehaves, suspect a carried flag.
-- **DOS build.** The part-2 disk swap is gated on the Apple disk-image VFS; the
-  DOS `novel.exe` build would need its own part-2 path (its strings are two
-  embedded segments). Out of scope for the Apple walkthrough.
-- **Cosmetic.** After `INVENTORY`, the next room redraw leaks the coin count into
-  an `@` placeholder ("span the 137ern horizon") — a pre-existing string-
-  replacement slot collision, unrelated to the part-2 work. Worth a separate fix
-  but doesn't block the (text-marker) regression.
+- **DOS build — DONE.** The same walkthrough now also wins on the DOS data set
+  (G0 = part 1, magic 0xa429; **H0 = part 2, magic 0x94c6**; strings in
+  `novel.exe`/`NOVEL1.EXE`). `enterPart2()` points the loader at `H0` when not on
+  the Apple disk-image VFS, `loadStrings()` reads novel.exe's **second** string
+  segment (0x22fa0) into the same gapped layout as the Apple Lands Beyond banks,
+  and the special-opcode-16 handler no longer gates on `DiskImageFS::active()`.
+  `NOVEL1.EXE` (head md5 `15cd75f9…`) is byte-identical to the recognised
+  `NOVEL.EXE` (`2e18c88c…`) from 0x400 on, so it is now accepted (with a
+  `novel1.exe` filename fallback). Verified: deterministic win on
+  `comprehend games/talisman-challenging-the-sands-of-time` and on `TalismanPC`,
+  part-2 text byte-for-byte matching the Apple transcript.
+- **Cosmetic `@`-leak — no longer reproduces.** The old report (after `INVENTORY`
+  the next room redraw showed "span the 137ern horizon", the coin count leaking
+  into the beach's `@` direction slot) does not occur in the current build. The
+  inventory verb still leaves the shared `@` replacement in number mode (var 34 =
+  coins, so the gold item prints "49 glittering gold coins"), but every desert
+  room description re-establishes word mode before substituting `@`, so a redraw
+  right after `INVENTORY` correctly renders "span the western horizon" on both the
+  Apple and DOS data. Verified directly (INVENTORY → beach `N`) and across a wide
+  desert wander; no numeric leak in any `@` room.
 - **Pictures** (lower priority): part-2 room/item art is RE–RG / OE–OF on the
   Lands Beyond disk and resolves through the active-disk VFS, so it should "just
   work"; spot-check against MAME, treat mismatches as a separate graphics task.

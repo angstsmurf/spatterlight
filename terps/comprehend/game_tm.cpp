@@ -186,44 +186,62 @@ void TalismanGame::loadStrings() {
 	_strings2.clear();
 
 	Common::File f;
-	if (!f.open("novel.exe"))
+	if (!f.open("novel.exe") && !f.open("novel1.exe"))
 		error("novel.exe is a required file");
 
 	Common::String md5 = Common::computeStreamMD5AsString(f, 1024);
-	if (md5 != "0e7f002971acdb055f439020363512ce" && md5 != "2e18c88ce352ebea3e14177703a0485f")
+	// 15cd75f9... = NOVEL1.EXE, byte-identical to the 2e18c88c NOVEL.EXE from 0x400
+	// on (only one header byte differs), so the string offsets below are the same.
+	if (md5 != "0e7f002971acdb055f439020363512ce" && md5 != "2e18c88ce352ebea3e14177703a0485f" &&
+		md5 != "15cd75f98788071aee2af1f63893f613")
 		warning("Unrecognised novel.exe encountered; strings may be incorrect");
 
-	const int STRING_SEGMENTS[2] = { STRINGS_SEGMENT1, STRINGS_SEGMENT2 };
+	// Part 1 reads novel.exe's first string segment as a contiguous run of 15
+	// banks (banks 0-7 -> _strings, 8+ -> _strings2). Part 2 (the desert) reads
+	// the second segment, whose 9 banks are NOT contiguous: the bytecode
+	// addresses them in the same gapped layout as the Apple Lands Beyond banks
+	// (see loadStringsApplePart2) -- banks 0,1 -> _strings 0x000,0x040 and banks
+	// 2-8 -> _strings2 0x200,0x240,...,0x380, leaving the other slots empty.
+	const int segment = _inPart2 ? STRINGS_SEGMENT2 : STRINGS_SEGMENT1;
 
-	// TODO: Figure out use of string segment 2
-	for (int strings = 0; strings < 1; ++strings) {
-		f.seek(STRING_SEGMENTS[strings]);
-		for (int bank = 0; bank < BANKS_COUNT; ++bank)
-			bankOffsets[bank] = f.readUint16LE();
+	if (_inPart2) {
+		_strings.assign(0x200, "");
+		_strings2.assign(0x400, "");
+	}
 
-		// Iterate through the banks loading the strings
-		for (int bank = 0; bank < BANKS_COUNT; ++bank) {
-			if (!bankOffsets[bank])
-				continue;
+	f.seek(segment);
+	for (int bank = 0; bank < BANKS_COUNT; ++bank)
+		bankOffsets[bank] = f.readUint16LE();
 
-			f.seek(STRING_SEGMENTS[strings] + bankOffsets[bank]);
-			for (int strNum = 0; strNum <= STRINGS_PER_BANK; ++strNum)
-				stringOffsets[strNum] = f.readUint16LE();
+	// Iterate through the banks loading the strings
+	for (int bank = 0; bank < BANKS_COUNT; ++bank) {
+		if (!bankOffsets[bank])
+			continue;
 
-			for (int strNum = 0; strNum < STRINGS_PER_BANK; ++strNum) {
-				int size = stringOffsets[strNum + 1] - stringOffsets[strNum];
-				if (size < 0)
-					size = 0xfff;
+		// Where this bank's strings land. Part 1 appends; part 2 places them at
+		// the fixed gapped offset the bytecode references.
+		StringTable &table = _inPart2 ? (bank < 2 ? _strings : _strings2)
+		                              : (bank < 8 ? _strings : _strings2);
+		const int base = _inPart2 ? (bank < 2 ? bank * 0x40 : 0x200 + (bank - 2) * 0x40)
+		                          : -1;
 
-				f.seek(STRING_SEGMENTS[strings] + bankOffsets[bank] + stringOffsets[strNum]);
-				FileBuffer fb(&f, size);
-				Common::String str = parseString(&fb);
+		f.seek(segment + bankOffsets[bank]);
+		for (int strNum = 0; strNum <= STRINGS_PER_BANK; ++strNum)
+			stringOffsets[strNum] = f.readUint16LE();
 
-				if (bank < 8)
-					_strings.push_back(str);
-				else
-					_strings2.push_back(str);
-			}
+		for (int strNum = 0; strNum < STRINGS_PER_BANK; ++strNum) {
+			int size = stringOffsets[strNum + 1] - stringOffsets[strNum];
+			if (size < 0)
+				size = 0xfff;
+
+			f.seek(segment + bankOffsets[bank] + stringOffsets[strNum]);
+			FileBuffer fb(&f, size);
+			Common::String str = parseString(&fb);
+
+			if (_inPart2)
+				table[base + strNum] = str;
+			else
+				table.push_back(str);
 		}
 	}
 }
@@ -254,7 +272,17 @@ void TalismanGame::enterPart2() {
 			carried.push_back(i);
 
 	_inPart2 = true;
-	Common::DiskImageFS::selectDiskByGameMagic(0x94c6);
+	if (Common::DiskImageFS::active()) {
+		// Apple II: the part-2 database is the "g0" on the Lands Beyond disk;
+		// switch the active disk so loadGame() resolves "G0" to it.
+		Common::DiskImageFS::selectDiskByGameMagic(0x94c6);
+	} else {
+		// DOS: part 1 and part 2 ship as two separate data files in the same
+		// directory -- G0 (magic 0xa429) and H0 (magic 0x94c6). Point the loader
+		// at H0 for the desert half. (NOVEL.EXE's special-opcode 16 does the same
+		// file switch; the part-2 strings come from novel.exe's second segment.)
+		_gameDataFile = "H0";
+	}
 	loadGame();      // reloads part-2 rooms/items/functions/dictionary/...
 	loadStrings();   // reloads strings from the part-2 banks (MA,MB,MQ-MW)
 
@@ -268,6 +296,13 @@ void TalismanGame::enterPart2() {
 	// Drop the player onto the ship's deck (part-2 room 51), the same room
 	// NOVEL.EXE's special-opcode 16 selects (0x34b9 = 0x33).
 	_currentRoom = 51;
+
+	// Run the part-2 initialiser (func 44 -> func 45 -> func 160): it sets the
+	// endgame room graphics, places the genie's bronze lamp in room 39, sets the
+	// item long-descriptions and arms the moving-wall maze (flag 79). NOVEL.EXE's
+	// special-opcode 16 runs this; it has no in-bytecode caller, so without this
+	// the lamp never appears for the genie/wizard finale.
+	eval_function(44, nullptr);
 
 	if (getenv("TM_DUMP")) {
 		FILE *f = fopen("/tmp/tm_part2_dump.txt", "w");
@@ -479,11 +514,10 @@ void TalismanGame::handleSpecialOpcode() {
 		// the departure would re-narrate forever; flag 45 is tested *only* by this
 		// block, so clearing it makes the scene self-limiting like the reprieve.
 		//
-		// The database swap is only wired up for the Apple II build (the part-2
-		// data is a separate disk's g0); the DOS novel.exe build keeps its strings
-		// in two embedded segments and would need its own part-2 path, so guard on
-		// the disk-image VFS to avoid reloading the part-1 g0 there.
-		if (!_inPart2 && Common::DiskImageFS::active()) {
+		// enterPart2() swaps in the desert database: the Lands Beyond disk's g0 on
+		// the Apple II, or the H0 data file plus novel.exe's second string segment
+		// on DOS (see enterPart2()/loadStrings()).
+		if (!_inPart2) {
 			if (!g_comprehend->isGraphicsEnabled())
 				g_comprehend->setGraphicsMode(true);
 			enterPart2();

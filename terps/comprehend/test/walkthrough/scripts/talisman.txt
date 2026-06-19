@@ -1,9 +1,11 @@
-# Talisman: Challenging the Sands of Time -- full first-part walkthrough.
+# Talisman: Challenging the Sands of Time -- full winning walkthrough.
 #
-# Plays deterministically from the executioner's cell all the way to boarding
-# the ship that leaves the Persian Empire (the boundary between the game's two
-# halves). Based on Guido van Otterlo's walkthrough, with the corrections the
-# Comprehend port needs:
+# Plays deterministically from the executioner's cell to the final bow before
+# King Darius: through the Persian Empire (part 1), across the desert and its
+# moving-wall statue maze (part 2, a separate database on the Lands Beyond
+# disk), and home on the flying carpet to defeat the magician Schazabe. Based
+# on Guido van Otterlo's walkthrough, with the corrections the Comprehend port
+# needs:
 #
 #   * Two BOWs at the start: the first triggers the cell reprieve to King
 #     Darius, the second shows respect so he makes his speech and frees you
@@ -16,7 +18,7 @@
 #     not validate them).
 #   * The magic lamp ejects you after four WAITs; only then can you GET LAMP.
 #
-# Win marker (see run_walkthroughs.sh): "departing the Persian"
+# Win marker (see run_walkthroughs.sh): "the Empire shalt flourish through eternity"
 # One input per line; blank lines and #-comments are ignored.
 
 # --- Cell: reprieve and King Darius's speech ---
@@ -106,17 +108,23 @@ W
 W
 
 # --- Provisions tent: rope and flask (raise until it closes) ---
+# Hosni's asking price erodes a few coins each OFFER and he accepts once your bid
+# comes within a few of it, charging your bid. These bids are deliberately modest
+# (rope closes at 45, flask at 43) -- the coins are REAL money now (see the part-2
+# note below): the ship to the lands beyond costs 42, and the desert's bowl puzzle
+# needs another 42, so Abu must reach the boat still holding ~49 of his 137.
 BUY ROPE
-OFFER 20
+OFFER 18
+OFFER 24
 OFFER 30
-OFFER 40
-OFFER 50
-OFFER 60
+OFFER 36
+OFFER 42
+OFFER 45
 BUY FLASK
 OFFER 20
 OFFER 30
-OFFER 40
-OFFER 50
+OFFER 38
+OFFER 43
 E
 N
 W
@@ -130,11 +138,17 @@ S
 W
 
 # --- Muhammad's Market: mail-order the bridge-crushing log ---
+# The two card-payment codes MUST be entered together on one line ("rj8906
+# ta3756"). Typing them on separate lines completes the order through the
+# ordinary state machine (which sets only the order-placed flag 39), but the
+# both-codes-at-once form fires the order-confirmation function that also sets
+# flag 40. That flag carries into part 2, where it is the difference between
+# Abu keeping the flying carpet at the camel and the roc snatching it away --
+# without it the desert carpet is lost for good and the finale is unwinnable.
 GIVE CARD
 CP
 65013
-rj8906
-ta3756
+rj8906 ta3756
 E
 S
 S
@@ -313,3 +327,97 @@ W
 W
 W
 S
+
+# === Step 6: the counterweight bowl -- take the talisman, escape room 72 ===
+# The demon statue balances a silver BOWL against a silver DOME (both arms level
+# at "128"). The talisman sits in the bowl; GET AMULET lifts it out, the bowl arm
+# rises 42 lighter, and a wall slams shut sealing the room. Rebalancing reopens it:
+# PUT 42 COINS adds exactly the talisman's weight back into the bowl (the count
+# form needs interpreter opcodes 0x8d/0x91 = "var += / -= the typed number", which
+# this fork was missing -- coins were never even spent in part 1 before). With the
+# arms level again the wall slides back and N leads out into the moving-wall maze.
+GET AMULET
+PUT 42 COINS IN BOWL
+
+# === Step 7: escape the maze -> the carpet flight ===
+# Taking the amulet starts a collapse timer (the statue grinds itself apart;
+# linger too long and it buries you). The only way out of the demon room runs
+# back N into the moving-wall network and out through the statue's interior
+# (room 73), but that south wall opens only with lever flag 79 set -- and the
+# ONLY room whose "Abu, pull the lever" sets flag 79 while the talisman is in
+# hand is the single-lever room reached by N E E E N D W W S. So: go there,
+# have Abu throw the lever (arming flag 79 AND the throb timer), then quickly
+# reset the lever bank to the one wall configuration that threads a walk back
+# to the statue -- long lever down in the two-lever room, then clear the two
+# single levers -- and sprint OUT before the throb peaks. The statue crumbles
+# behind ye and drops Abu on the open desert (room 54), carpet still in hand.
+N
+E
+E
+E
+N
+D
+W
+W
+S
+TELL ABU TO PULL LEVER
+E
+E
+PULL LONG LEVER
+N
+PULL LEVER
+W
+PULL LEVER
+E
+U
+S
+W
+W
+S
+OUT
+
+# On the open sands the carpet finally has room to fly. Drop it, sit, and the
+# magic carpet lifts off (the parrot is left behind in the dust). Ride it until
+# it sets down on the cliff lip outside the magician's cave, then dismount and
+# walk in to the east.
+DROP RUG
+SIT CARPET
+FLY
+WAIT
+WAIT
+WAIT
+GET UP
+E
+E
+
+# === Step 8: the genie defeats the magician Schazabe ===
+# Schazabe snatches the talisman and begins an incantation that will kill thee
+# in a handful of turns. His bronze lamp -- the one Abu's old genie was sealed
+# into -- sits here still glowing red-hot. DOUSE it with the flask's water to
+# cool it (the magician's first grab eats one turn, so the second douse is the
+# one that lands), take it, and RUB it: the genie erupts, unnerving Schazabe
+# long enough to stall his spell. Command the genie to kill the wizard and
+# grant it freedom, and it drags Schazabe into the lamp -- returning thy
+# treasures. (Filling the flask at the desert oasis earlier provides the water.)
+DOUSE LAMP
+DOUSE LAMP
+GET LAMP
+RUB LAMP
+GENIE, KILL WIZARD
+YES
+
+# === Step 9: home to the palace, and the winning bow ===
+# West twice back to the cave mouth, mount the carpet once more, and it flies
+# thee home -- pitching the magician's lamp into the ocean on the way. It lands
+# at the palace gates; walk in to the courtyard and east into the throne room,
+# then BOW before King Darius to claim thy reward and end the tale.
+W
+W
+SIT CARPET
+FLY
+WAIT
+WAIT
+GET UP
+N
+E
+BOW

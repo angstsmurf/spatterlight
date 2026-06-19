@@ -64,7 +64,7 @@ play CrimsonCrown crimsoncrown \
 play Talisman talisman \
     "Talisman- Challenging the Sands of Time (woz-a-day collection)/Talisman- Challenging the Sands of Time side 1 - Boot.woz" \
     talisman.txt \
-    "A horrific figure of a demon is embedded within the room's southern wall"
+    "the Empire shalt flourish through eternity"
 
 play Transylvania transylvania \
     "Transylvania 1985 (woz-a-day collection)/Transylvania 1985 side A.woz" \
