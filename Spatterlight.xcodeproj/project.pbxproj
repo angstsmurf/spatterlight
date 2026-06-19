@@ -217,6 +217,7 @@
 		9650378E09F2A2F20083E64E /* scinterf.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032D709F29EE20083E64E /* scinterf.c */; };
 		9650378F09F2A2F20083E64E /* sclibrar.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032D809F29EE20083E64E /* sclibrar.c */; };
 		9650379009F2A2F20083E64E /* scnpcs.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032D909F29EE20083E64E /* scnpcs.c */; };
+		C3DA001820260619006D0E18 /* scbattle.c in Sources */ = {isa = PBXBuildFile; fileRef = C3DA001720260619006D0E17 /* scbattle.c */; };
 		9650379109F2A2F20083E64E /* scobjcts.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032DA09F29EE20083E64E /* scobjcts.c */; };
 		9650379209F2A2F20083E64E /* scparser.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032DB09F29EE20083E64E /* scparser.c */; };
 		9650379309F2A2F20083E64E /* scprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032DC09F29EE20083E64E /* scprintf.c */; };
@@ -2406,6 +2407,7 @@
 		965032D709F29EE20083E64E /* scinterf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scinterf.c; sourceTree = "<group>"; };
 		965032D809F29EE20083E64E /* sclibrar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sclibrar.c; sourceTree = "<group>"; };
 		965032D909F29EE20083E64E /* scnpcs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scnpcs.c; sourceTree = "<group>"; };
+		C3DA001720260619006D0E17 /* scbattle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scbattle.c; sourceTree = "<group>"; };
 		965032DA09F29EE20083E64E /* scobjcts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scobjcts.c; sourceTree = "<group>"; };
 		965032DB09F29EE20083E64E /* scparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scparser.c; sourceTree = "<group>"; };
 		965032DC09F29EE20083E64E /* scprintf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scprintf.c; sourceTree = "<group>"; };
@@ -5144,6 +5146,7 @@
 				96BE643E0E0AEAA40050667D /* sclocale.c */,
 				967C41D20B7A124B008A2D2F /* scmemos.c */,
 				965032D909F29EE20083E64E /* scnpcs.c */,
+				C3DA001720260619006D0E17 /* scbattle.c */,
 				965032DA09F29EE20083E64E /* scobjcts.c */,
 				965032DB09F29EE20083E64E /* scparser.c */,
 				965032DC09F29EE20083E64E /* scprintf.c */,
@@ -8178,6 +8181,7 @@
 				9650378E09F2A2F20083E64E /* scinterf.c in Sources */,
 				9650378F09F2A2F20083E64E /* sclibrar.c in Sources */,
 				9650379009F2A2F20083E64E /* scnpcs.c in Sources */,
+				C3DA001820260619006D0E18 /* scbattle.c in Sources */,
 				9650379109F2A2F20083E64E /* scobjcts.c in Sources */,
 				9650379209F2A2F20083E64E /* scparser.c in Sources */,
 				9650379309F2A2F20083E64E /* scprintf.c in Sources */,

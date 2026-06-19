@@ -86,7 +86,7 @@ TEST	= test
 # SCARE objects and headers.
 OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
 	  scinterf.o scparser.o sclibrar.o scrunner.o scevents.o	\
-	  scnpcs.o scobjcts.o sctasks.o screstrs.o scgamest.o scserial.o\
+	  scnpcs.o scbattle.o scobjcts.o sctasks.o screstrs.o scgamest.o scserial.o\
 	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o
 HEADERS	= scare.h scprotos.h scgamest.h
 
