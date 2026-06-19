@@ -167,9 +167,13 @@ void CovetedMirrorGame::beforeTurn() {
 // printing a bogus bank string.
 bool CovetedMirrorGame::handle_restart() {
 	console_println("Press 'R' to play again, any other key to quit.");
+	printUndoAfterDeathHint();
 	_ended = false;
 
-	if (tolower(console_get_key()) == 'r') {
+	int c = console_get_key();
+	if (undoAfterDeath(c))
+		return true;
+	if (tolower(c) == 'r') {
 		loadGame();
 		g_comprehend->clearUndo();
 		_updateFlags = UPDATE_ALL;

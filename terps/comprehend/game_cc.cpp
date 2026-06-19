@@ -208,12 +208,27 @@ void CrimsonCrownGame::beforeTurn() {
 }
 
 bool CrimsonCrownGame::handle_restart() {
-	if (_diskNum != 1) {
-		setupDisk(1);
-		loadGame();
-	}
+	// Offer undo before touching the disk: undo restores an in-play snapshot onto
+	// the data currently in memory, whereas resetting to disk 1 + reloading is
+	// only meaningful for an actual restart and would clobber the state to undo to.
+	console_println(stringLookup(_gameStrings->game_restart).c_str());
+	printUndoAfterDeathHint();
+	_ended = false;
 
-	return ComprehendGame::handle_restart();
+	int c = console_get_key();
+	if (undoAfterDeath(c))
+		return true;
+	if (tolower(c) == 'r') {
+		// The game spans multiple disks; a restart must return to disk 1 first.
+		if (_diskNum != 1)
+			setupDisk(1);
+		loadGame();
+		g_comprehend->clearUndo();  // can't undo across a restart
+		_updateFlags = UPDATE_ALL;
+		return true;
+	}
+	g_comprehend->quitGame();
+	return false;
 }
 
 void CrimsonCrownGame::restartGame() {

@@ -476,11 +476,30 @@ void ComprehendGame::restartGame() {
 	_updateFlags = UPDATE_ALL;
 }
 
+bool ComprehendGame::undoAfterDeath(int key) {
+	if (key != 'u' && key != 'U')
+		return false;
+	if (!g_comprehend->undoTurn(1))
+		return false;
+	_ended = false;
+	_updateFlags = (uint)UPDATE_ALL;
+	update();
+	return true;
+}
+
+void ComprehendGame::printUndoAfterDeathHint() {
+	console_println("(Or press U to undo the last move.)");
+}
+
 bool ComprehendGame::handle_restart() {
 	console_println(stringLookup(_gameStrings->game_restart).c_str());
+	printUndoAfterDeathHint();
 	_ended = false;
 
-	if (tolower(console_get_key()) == 'r') {
+	int c = console_get_key();
+	if (undoAfterDeath(c))
+		return true;
+	if (tolower(c) == 'r') {
 		loadGame();
 		g_comprehend->clearUndo();  // can't undo across a restart
 		_updateFlags = UPDATE_ALL;

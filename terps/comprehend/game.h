@@ -123,6 +123,17 @@ protected:
 	// without the in-game RESTART/RESTORE/QUIT prompt.
 	virtual void restartGame();
 
+	// Shared "U to undo" handling for a game-over / restart prompt. Call with the
+	// key the player pressed at the prompt: if it is the undo key and there is a
+	// turn to step back to, restores that turn, clears the ended state, refreshes
+	// the display and returns true (the caller should resume play). Steps back a
+	// single turn -- these games' deaths are immediate, unlike Talisman's delayed
+	// countdowns (which undo two; see TalismanGame::deathMenu). Returns false
+	// otherwise, leaving restart/quit to the caller.
+	bool undoAfterDeath(int key);
+	// Advertises the undo key on its own line, alongside the game's restart prompt.
+	void printUndoAfterDeathHint();
+
 	virtual void execute_opcode(const Instruction *instr, const Sentence *sentence,
 		FunctionState *func_state) = 0;
 

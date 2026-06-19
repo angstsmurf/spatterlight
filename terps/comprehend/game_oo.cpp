@@ -298,8 +298,12 @@ bool OOToposGame::handle_restart() {
 	// (RESTART_IMMEDIATE) reload silently, the way the original does.
 	if (_restartMode == RESTART_WITH_MSG) {
 		console_println(stringLookup(_gameStrings->game_restart).c_str());
+		printUndoAfterDeathHint();
 
-		if (tolower(console_get_key()) != 'r') {
+		int c = console_get_key();
+		if (undoAfterDeath(c))
+			return true;
+		if (tolower(c) != 'r') {
 			g_comprehend->quitGame();
 			return false;
 		}

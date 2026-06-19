@@ -303,8 +303,12 @@ bool TransylvaniaGame2::handle_restart() {
 	// _strings2 0x828a) and waits for the player.
 	if (!_restartImmediate) {
 		console_println(stringLookup(_gameStrings->game_restart).c_str());
+		printUndoAfterDeathHint();
 
-		if (tolower(console_get_key()) != 'r') {
+		int c = console_get_key();
+		if (undoAfterDeath(c))
+			return true;
+		if (tolower(c) != 'r') {
 			g_comprehend->quitGame();
 			return false;
 		}
