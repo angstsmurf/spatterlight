@@ -167,6 +167,17 @@ void ComprehendGame::synchronizeSave(Common::Serializer &s) {
 	for (i = 0; i < _items.size(); ++i)
 		_items[i].synchronize(s);
 
+	// The current '@'-replacement selector. This is live per-turn state set by
+	// the OPCODE_SET_STRING_REPLACEMENT* opcodes, not derivable from the rooms
+	// and items, so persist it -- otherwise a restored room whose description
+	// ends in "@ern horizon" shows a stale direction word until the next turn
+	// re-derives it (most visible restoring into Talisman's desert maze).
+	s.syncAsByte(_currentReplaceWord);
+	byte replaceIsNumber = _replaceWordIsNumber ? 1 : 0;
+	s.syncAsByte(replaceIsNumber);
+	_replaceWordIsNumber = replaceIsNumber != 0;
+	s.syncAsByte(_replaceNumberVar);
+
 	_redoLine = REDO_NONE;
 }
 

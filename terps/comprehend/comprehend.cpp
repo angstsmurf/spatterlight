@@ -106,7 +106,9 @@ struct GlkReadStream : public Common::SeekableReadStream {
 // story's saves, instead of feeding garbage into the live game state (which
 // then crashes when an out-of-range room/object is dereferenced).
 static const char kSaveMagic[4] = { 'C', 'M', 'S', 'V' };
-static const byte kSaveVersion = 1;
+// v2 added the live '@'-replacement selector (_currentReplaceWord and friends)
+// to the payload; v1 saves are rejected (the layout is otherwise unchanged).
+static const byte kSaveVersion = 2;
 
 // Serialize the live game state out to an already-created fileref. Shared by
 // the slot-based save (autosave/launcher) and the SAVE-verb prompt path.

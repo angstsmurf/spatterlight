@@ -379,11 +379,6 @@ void TalismanGame::prepareRestore(const std::vector<byte> &payload) {
 	// flag 79 set can only be from the desert. Swap in the whole part-2 database
 	// before the saved state is deserialized over it.
 	//
-	// (One cosmetic limitation remains: the current '@'-replacement word index
-	// is live, per-turn state that the save format doesn't store, so a desert
-	// room whose description ends in "@ern horizon" shows a stale word on the
-	// very first frame after a restore until the next turn re-derives it.)
-	//
 	// Payload layout (see ComprehendGame::synchronizeSave): currentRoom (2) +
 	// variables (MAX_VARIABLES * 2) + flags (MAX_FLAGS), so flag N is at
 	// 2 + MAX_VARIABLES * 2 + N.
