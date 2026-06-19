@@ -139,6 +139,11 @@ protected:
 
 	int console_get_key();
 	void console_println(const char *text);
+	// Expand '@' string-replacement markers (the current replacement word or
+	// number) the same way console_println does, but return the result rather
+	// than printing it -- used so the room-description status window shows the
+	// substituted text instead of a literal '@'.
+	Common::String expandReplacementWords(const Common::String &text);
 	void move_object(Item *item, int new_room);
 
 	/*

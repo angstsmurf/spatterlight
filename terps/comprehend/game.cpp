@@ -368,6 +368,36 @@ void ComprehendGame::console_println(const char *text) {
 	g_comprehend->print("\n");
 }
 
+Common::String ComprehendGame::expandReplacementWords(const Common::String &text) {
+	Common::String out;
+	char bad_word[64];
+
+	for (uint i = 0; i < text.size(); i++) {
+		if (text[i] != '@') {
+			out += text[i];
+			continue;
+		}
+
+		// Mirror the '@' branch of console_println so the substitution stays
+		// identical between the scroll-back buffer and the status window.
+		const char *word;
+		if (_replaceWordIsNumber) {
+			snprintf(bad_word, sizeof(bad_word), "%u",
+			         _variables[_replaceNumberVar]);
+			word = bad_word;
+		} else if (_currentReplaceWord >= _replaceWords.size()) {
+			snprintf(bad_word, sizeof(bad_word),
+			         "[BAD_REPLACE_WORD(%.2x)]", _currentReplaceWord);
+			word = bad_word;
+		} else {
+			word = _replaceWords[_currentReplaceWord].c_str();
+		}
+		out += word;
+	}
+
+	return out;
+}
+
 Room *ComprehendGame::get_room(uint16 index) {
 	/* Room zero is reserved for the players inventory */
 	if (index == 0)
@@ -636,7 +666,7 @@ void ComprehendGame::updateRoomDesc() {
 	roomIsSpecial(_currentRoom, &room_desc_string);
 
 	Common::String desc = stringLookup(room_desc_string);
-	g_comprehend->printRoomDesc(desc);
+	g_comprehend->printRoomDesc(expandReplacementWords(desc));
 }
 
 void ComprehendGame::transcribeCurrentRoom() {
@@ -675,7 +705,7 @@ void ComprehendGame::update() {
 		} else {
 			console_println(desc.c_str());
 		}
-		g_comprehend->printRoomDesc(desc.c_str());
+		g_comprehend->printRoomDesc(expandReplacementWords(desc));
 	}
 
 	if ((_updateFlags & UPDATE_ITEM_LIST) && room_type == ROOM_IS_NORMAL)

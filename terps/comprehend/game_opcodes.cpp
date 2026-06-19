@@ -95,7 +95,11 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 		// operand's purpose is unknown; the original keys off the noun.
 		item = get_item_by_noun(noun);
 		if (item)
-			g_comprehend->print("%s\n", stringLookup(item->_longString).c_str());
+			// Route through console_println (not a raw print) so a long
+			// description carrying the '@' replacement marker is rendered --
+			// e.g. examining Talisman's pharaoh statue, whose description
+			// begins "@From the top..." with '@' = a direction word.
+			console_println(stringLookup(item->_longString).c_str());
 		break;
 
 	case OPCODE_ELSE:
@@ -644,8 +648,10 @@ void ComprehendGameV1::execute_opcode(const Instruction *instr, const Sentence *
 		for (uint i = 0; i < _items.size(); i++) {
 			item = &_items[i];
 			if (item->_room == instr->_operand[0])
-				g_comprehend->print("%s\n",
-					stringLookup(item->_stringDesc).c_str());
+				// console_println (not a raw print) so an item description
+				// carrying the '@' replacement marker is rendered, matching
+				// the OPCODE_INVENTORY listing above.
+				console_println(stringLookup(item->_stringDesc).c_str());
 		}
 		break;
 
