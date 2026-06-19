@@ -795,17 +795,37 @@ void GameData::loadGameData() {
 	parse_replace_words(&fb);
 }
 
+bool GameData::hasAnyGraphicsFile() const {
+	for (uint i = 0; i < _locationGraphicFiles.size(); ++i)
+		if (FileBuffer::exists(_locationGraphicFiles[i]))
+			return true;
+	for (uint i = 0; i < _itemGraphicFiles.size(); ++i)
+		if (FileBuffer::exists(_itemGraphicFiles[i]))
+			return true;
+	if (!_titleGraphicFile.empty() && FileBuffer::exists(_titleGraphicFile))
+		return true;
+	return false;
+}
+
 void GameData::loadGame() {
 	/* Load the main game data file */
 	loadGameData();
 
 	if (g_comprehend->isGraphicsEnabled()) {
-		// Set up the picture archive
-		g_comprehend->_pics->load(_locationGraphicFiles,
-		                          _itemGraphicFiles, _titleGraphicFile);
+		// A game may be supplied without its graphics archives (only the main
+		// data file). Rather than open an empty picture window and print a
+		// "Could not open" error for every missing file, detect that none of the
+		// graphics files are present and fall back to a plain text-only layout.
+		if (hasAnyGraphicsFile()) {
+			// Set up the picture archive
+			g_comprehend->_pics->load(_locationGraphicFiles,
+			                          _itemGraphicFiles, _titleGraphicFile);
 
-		if (_colorTable)
-			g_comprehend->_drawSurface->setColorTable(_colorTable);
+			if (_colorTable)
+				g_comprehend->_drawSurface->setColorTable(_colorTable);
+		} else {
+			g_comprehend->hideGraphics();
+		}
 	}
 
 	// FIXME: This can be merged, don't need to keep start room around

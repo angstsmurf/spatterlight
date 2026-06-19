@@ -556,7 +556,10 @@ void Pics::load(const Common::StringArray &roomFiles,
 		_items.push_back(Common::File::exists(itemFiles[idx])
 		                 ? ImageFile(itemFiles[idx]) : ImageFile());
 
-	if (!titleFile.empty())
+	// Guard the title exactly like the room/item files above: a game may ship
+	// its room art but no separate title image (or no graphics at all), and the
+	// ImageFile ctor error()s on a failed open. Leave _title empty if absent.
+	if (!titleFile.empty() && Common::File::exists(titleFile))
 		_title = ImageFile(titleFile, true);
 }
 

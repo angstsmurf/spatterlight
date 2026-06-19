@@ -195,6 +195,10 @@ public:
     void paintOverlay(const Common::Array<uint> &pics);
     bool toggleGraphics();
     void showGraphics();
+    // Close the picture window and fall back to a text-only layout, keeping the
+    // status window. Used when a game ships without any graphics files, so the
+    // player gets a plain text game instead of an empty picture pane.
+    void hideGraphics();
 
     // Apply the preferred-graphics-mode setting from the host (gli_comprehend_graphics):
     // 0 = more colours (enable PCjr or DHGR if drawing tables are available),

@@ -992,6 +992,17 @@ void Comprehend::clearScreen(bool isBright) {
     paintBackground(pics);
 }
 
+void Comprehend::hideGraphics() {
+    // The status window stays where showGraphics() reopened it (between the
+    // picture and the buffer); only the picture window goes away, leaving a
+    // text+status layout.
+    if (_topWindow) {
+        glk_window_close(_topWindow, nullptr);
+        _topWindow = nullptr;
+    }
+    _graphicsEnabled = false;
+}
+
 bool Comprehend::toggleGraphics() {
     if (_topWindow) {
         glk_window_close(_topWindow, nullptr);

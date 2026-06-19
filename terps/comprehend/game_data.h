@@ -461,6 +461,10 @@ private:
 
 	void loadGameData();
 
+	// True if at least one of the game's graphics files (room, item or title)
+	// is actually present, so it is worth opening the picture window.
+	bool hasAnyGraphicsFile() const;
+
 protected:
 	/**
 	 * Game strings are stored using 5-bit characters. By default a character
