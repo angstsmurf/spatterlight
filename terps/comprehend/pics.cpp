@@ -542,10 +542,19 @@ void Pics::load(const Common::StringArray &roomFiles,
 				const Common::String &titleFile) {
 	clear();
 
+	// Picture numbers select a file by its position in the list ((graphic-1) /
+	// IMAGES_PER_FILE), so a file that doesn't exist on the current disk must
+	// still occupy its slot or every later file shifts down and the index runs
+	// off the end of the array. Talisman is the case in point: its item art is
+	// numbered against the full OA..OF sequence, but only OA, OB, OE and OF ship
+	// (OC/OD are absent), so OE/OF must stay at slots 4/5. Push an empty
+	// placeholder ImageFile for any missing entry instead of erroring out.
 	for (uint idx = 0; idx < roomFiles.size(); ++idx)
-		_rooms.push_back(ImageFile(roomFiles[idx]));
+		_rooms.push_back(Common::File::exists(roomFiles[idx])
+		                 ? ImageFile(roomFiles[idx]) : ImageFile());
 	for (uint idx = 0; idx < itemFiles.size(); ++idx)
-		_items.push_back(ImageFile(itemFiles[idx]));
+		_items.push_back(Common::File::exists(itemFiles[idx])
+		                 ? ImageFile(itemFiles[idx]) : ImageFile());
 
 	if (!titleFile.empty())
 		_title = ImageFile(titleFile, true);

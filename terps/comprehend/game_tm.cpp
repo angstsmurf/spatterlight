@@ -37,8 +37,16 @@ TalismanGame::TalismanGame() : ComprehendGameV2() {
 	_locationGraphicFiles.push_back("RE");
 	_locationGraphicFiles.push_back("RF");
 	_locationGraphicFiles.push_back("RG");
+	// Item art is numbered against the full OA..OF sequence ((graphic-1) / 16
+	// picks the file), but only OA, OB, OE and OF ship -- OC and OD are absent.
+	// They must still occupy slots 2 and 3 so OE/OF stay at slots 4/5, otherwise
+	// part 2's item pictures (e.g. the crow's-nest parrot, graphic 70 -> OE) run
+	// off the end of the array. Pics::load() substitutes an empty placeholder for
+	// the missing OC/OD.
 	_itemGraphicFiles.push_back("OA");
 	_itemGraphicFiles.push_back("OB");
+	_itemGraphicFiles.push_back("OC");
+	_itemGraphicFiles.push_back("OD");
 	_itemGraphicFiles.push_back("OE");
 	_itemGraphicFiles.push_back("OF");
 
@@ -60,19 +68,30 @@ TalismanGame::TalismanGame() : ComprehendGameV2() {
 #define STRINGS_PER_BANK 64
 
 void TalismanGame::loadStringsApple() {
-	// On the Apple II the strings live in 15 standard string-table files
-	// (MA-MO) instead of being embedded in novel.exe; MA-MN are on the boot
-	// disk and MO on the Empire disk. Banks 0-7 fill _strings, 8-14 _strings2,
-	// matching the novel.exe layout the bytecode references.
-	static const char *const BANKS[BANKS_COUNT] = {
+	// On the Apple II the strings live in standard string-table files instead
+	// of being embedded in novel.exe. Part 1 uses 15 banks MA-MO (MA-MN on the
+	// boot disk, MO on the Empire disk); part 2 (the desert, on the Lands Beyond
+	// disk) uses its own 9 banks MA,MB,MQ-MW -- the Apple equivalent of the DOS
+	// novel.exe's second string segment. Banks 0-7 fill _strings, 8+ _strings2,
+	// matching the layout the bytecode references. The Lands Beyond disk carries
+	// its own MA/MB, and is the active disk in part 2, so those resolve to the
+	// part-2 versions.
+	static const char *const BANKS_PART1[] = {
 		"MA", "MB", "MC", "MD", "ME", "MF", "MG", "MH",
 		"MI", "MJ", "MK", "ML", "MM", "MN", "MO"
 	};
+	const char *const *BANKS = BANKS_PART1;
+	const int bankCount = (int)(sizeof(BANKS_PART1) / sizeof(BANKS_PART1[0]));
 
 	_strings.clear();
 	_strings2.clear();
 
-	for (int bank = 0; bank < BANKS_COUNT; ++bank) {
+	if (_inPart2) {
+		loadStringsApplePart2();
+		return;
+	}
+
+	for (int bank = 0; bank < bankCount; ++bank) {
 		StringTable &table = (bank < 8) ? _strings : _strings2;
 
 		// Each Apple II string file uses the same layout as one novel.exe
@@ -100,6 +119,55 @@ void TalismanGame::loadStringsApple() {
 				table.push_back(parseString(&fb));
 			} else {
 				table.push_back("");
+			}
+		}
+	}
+}
+
+void TalismanGame::loadStringsApplePart2() {
+	// Part 2 (the desert) keeps its strings in 9 bank files on the Lands Beyond
+	// disk, but the bytecode does NOT reference them as a contiguous run. As in
+	// the DOS novel.exe's second string segment, the room/scene descriptions sit
+	// in the first table (MA,MB -> _strings banks 0,1, reached via string tables
+	// 0x80/0x81), while every message bank (MQ-MW) is addressed through the high
+	// _strings2 tables 0x84/0x85 -- i.e. _strings2 offset 0x200 onwards. So MQ
+	// must land at _strings2[0x200], MR at [0x240], and so on, leaving the lower
+	// _strings/_strings2 slots empty. (Verified against the live game: the
+	// per-turn ocean messages decode as table-0x85 references, e.g. 0x8563 ->
+	// _strings2[0x363] == MV string 35, "The ship slices through the waves".)
+	struct Placement { const char *file; bool strings2; int offset; };
+	static const Placement P2[] = {
+		{ "MA", false, 0x000 }, { "MB", false, 0x040 },
+		{ "MQ", true,  0x200 }, { "MR", true,  0x240 }, { "MS", true,  0x280 },
+		{ "MT", true,  0x2c0 }, { "MU", true,  0x300 }, { "MV", true,  0x340 },
+		{ "MW", true,  0x380 }
+	};
+
+	// Size the tables to cover the highest offset any string table can address
+	// (0x80/0x81 -> _strings up to 0x200; 0x82-0x85 -> _strings2 up to 0x400).
+	_strings.assign(0x200, "");
+	_strings2.assign(0x400, "");
+
+	for (const Placement &p : P2) {
+		StringTable &table = p.strings2 ? _strings2 : _strings;
+
+		FileBuffer fb(p.file);
+		fb.seek(0);
+		uint fileSize = fb.size();
+
+		uint16 index[STRINGS_PER_BANK];
+		Common::fill(&index[0], &index[STRINGS_PER_BANK], 0);
+		for (int i = 0; i < STRINGS_PER_BANK; ++i) {
+			uint v = fb.readUint16LE();
+			if (v > fileSize)
+				break;
+			index[i] = v;
+		}
+
+		for (int i = 0; i < STRINGS_PER_BANK; ++i) {
+			if (index[i]) {
+				fb.seek(index[i]);
+				table[p.offset + i] = parseString(&fb);
 			}
 		}
 	}
@@ -158,6 +226,48 @@ void TalismanGame::loadStrings() {
 			}
 		}
 	}
+}
+
+void TalismanGame::enterPart2() {
+	// Part 2 is a separate game database on the Lands Beyond disk. Reloading it
+	// (clearGame) wipes the rooms, items, functions and -- crucially -- the
+	// flags and variables, so snapshot the player's progress and restore it
+	// afterwards.
+	bool savedFlags[MAX_FLAGS];
+	uint16 savedVars[MAX_VARIABLES];
+	Common::copy(&_flags[0], &_flags[MAX_FLAGS], savedFlags);
+	Common::copy(&_variables[0], &_variables[MAX_VARIABLES], savedVars);
+
+	// Abu walks ashore still carrying everything he held at the end of part 1
+	// (verified against the Apple II original: the desert inventory is the
+	// scimitar, coins, flask, torch, jade rod, flint, rope, shield and book).
+	// Reloading the part-2 database resets every item to its static part-2
+	// placement, which would strand the carried objects -- in particular the
+	// torch (part-2 room 22) and flint (room 21), which are mandatory to enter
+	// the statue maze and never appear anywhere reachable in the desert. Part 1
+	// and part 2 share item indices for these objects, so the player's inventory
+	// carries over faithfully by index: snapshot which items are held now, then
+	// re-place them in the inventory after the part-2 item table is loaded.
+	Common::Array<uint> carried;
+	for (uint i = 0; i < _items.size(); ++i)
+		if (_items[i]._room == ROOM_INVENTORY)
+			carried.push_back(i);
+
+	_inPart2 = true;
+	Common::DiskImageFS::selectDiskByGameMagic(0x94c6);
+	loadGame();      // reloads part-2 rooms/items/functions/dictionary/...
+	loadStrings();   // reloads strings from the part-2 banks (MA,MB,MQ-MW)
+
+	Common::copy(&savedFlags[0], &savedFlags[MAX_FLAGS], _flags);
+	Common::copy(&savedVars[0], &savedVars[MAX_VARIABLES], _variables);
+
+	for (uint i = 0; i < carried.size(); ++i)
+		if (carried[i] < _items.size())
+			_items[carried[i]]._room = ROOM_INVENTORY;
+
+	// Drop the player onto the ship's deck (part-2 room 51), the same room
+	// NOVEL.EXE's special-opcode 16 selects (0x34b9 = 0x33).
+	_currentRoom = 51;
 }
 
 void TalismanGame::playGame() {
@@ -283,14 +393,30 @@ void TalismanGame::handleSpecialOpcode() {
 		break;
 
 	case 16:
-		// Scripted scene (NOVEL.EXE case 16): move to room 0x33 (51), make sure
-		// graphics are on, then run function 44 in that room and redo the turn,
-		// the same shape as the text/graphics-mode specials above.
-		_currentRoom = 51;
-		if (!g_comprehend->isGraphicsEnabled())
-			g_comprehend->setGraphicsMode(true);
-		_functionNum = 44;
-		handleAction(nullptr);
+		// Boat departure: the player sails out of the Persian Empire and the game
+		// crosses into part 2 (the desert). NOVEL.EXE case 16 (FUN_1000_06f0)
+		// switches to graphics, sets the room to 0x33 (51), runs a function, then
+		// falls through into a fresh copy of the main command loop -- the part-2
+		// game loop. On the Apple II that loop runs against a wholly separate game
+		// database loaded from the Lands Beyond disk, so we swap it in here.
+		//
+		// The departure daemon (func 20, offsets 23-25) emits this every turn via
+		//   TEST flag45 -> PRINT(103,130) "splash on board" -> SPECIAL 16
+		// and never clears flag 45 (unlike the intro-reprieve block in the same
+		// function, offsets 5-17, which clears its own gate flag 116). Left as-is
+		// the departure would re-narrate forever; flag 45 is tested *only* by this
+		// block, so clearing it makes the scene self-limiting like the reprieve.
+		//
+		// The database swap is only wired up for the Apple II build (the part-2
+		// data is a separate disk's g0); the DOS novel.exe build keeps its strings
+		// in two embedded segments and would need its own part-2 path, so guard on
+		// the disk-image VFS to avoid reloading the part-1 g0 there.
+		if (!_inPart2 && Common::DiskImageFS::active()) {
+			if (!g_comprehend->isGraphicsEnabled())
+				g_comprehend->setGraphicsMode(true);
+			enterPart2();
+		}
+		_flags[45] = false;
 		_redoLine = REDO_TURN;
 		break;
 

@@ -198,6 +198,13 @@ Common::String ComprehendGame::stringLookup(uint16 index) {
 			return _strings[string];
 		break;
 
+	case 0x05:
+	case 0x85:
+		// Talisman's part 2 (the desert) addresses its message banks through a
+		// fourth sub-table (0x85 -> _strings2 + 0x300); see
+		// TalismanGame::loadStringsApplePart2.
+		string += 0x100;
+	/* Fall-through */
 	case 0x04:
 	case 0x84:
 		// The Coveted Mirror has twelve extra-string banks (MA-ML, up to 768

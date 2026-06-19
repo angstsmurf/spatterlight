@@ -586,7 +586,8 @@ void GameData::parse_header(FileBuffer *fb) {
 
 	case 0x8bc3: /* Transylvania v2 */
 	case 0x93f0: /* OO-Topos */
-	case 0xa429: /* Talisman */
+	case 0xa429: /* Talisman (part 1: Boot disk g0) */
+	case 0x94c6: /* Talisman (part 2: Lands Beyond disk g0) */
 	case 0x9f8b: /* The Coveted Mirror */
 		_comprehendVersion = 2;
 		_magicWord = (uint16)-0x5a00;

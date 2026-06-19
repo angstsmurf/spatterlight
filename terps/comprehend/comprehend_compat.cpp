@@ -9,6 +9,10 @@ extern "C" {
 #include "glk.h"
 }
 
+/* Host-provided graphics-mode preference (defined in glkimp/connect.c in the
+ * full build). The headless harness has no host, so stub it here. */
+extern "C" int gli_comprehend_graphics = 0;
+
 namespace Common {
 
 ConfigManager ConfMan;
