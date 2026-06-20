@@ -62,18 +62,28 @@ To add a game, write `scripts/<gameid>.txt` (drive it to a distinctive line),
 add a `play` entry to `run_walkthroughs.sh`, and pick that line as the marker.
 
 All five Polarware/Penguin games ship a deterministic script here (verified
-identical across runs). Four are full winning playthroughs (Coveted Mirror,
-Crimson Crown, Talisman, Transylvania); only Oo-Topos still stops early, before
-its first irreversible hazard:
+identical across runs). Four are full winning playthroughs (Oo-Topos, Crimson
+Crown, Talisman, Transylvania); only the Coveted Mirror still stops early, in the
+mid-game collection loop:
 
   * **Coveted Mirror** -- out of the cell, through town, the astrologer's
     constellation puzzle and the eastern collection loop (axe, ball, lockpick,
     telescope, candlestick, bellows, shovel, jug, ladder, grain). Bribes the
     jailer twice to outlast the hourglass; stops before the maze/spell endgame,
     which needs the non-deterministic NPC waits and extra bribes pinned to MAME.
-  * **Oo-Topos** -- out of the prison, through the scripted stun-capture, arms up
-    at the guard-post panel. Stops there because stepping east next triggers the
-    alien stun that strips every item.
+  * **Oo-Topos** -- a *full* winning playthrough to "But your part has been done!
+    Congratulations!": out of the prison through the scripted stun-capture, the
+    alien/sentinel fights, the gravtube and garbage-disposal suit-up, the radiation
+    and bright rooms, the viewscreen/library puzzles, the alien jungle and pyramid,
+    then the long endgame of ferrying the ship's parts up and down the gravcar
+    tunnels, re-installing them, and valuing the treasures for fuel until the
+    computer can depart. Two notes on the magic-word teleporter inside the ship:
+    the parser resolves "TAKA ELE-LEVA" to the single noun 'taka', which only fires
+    the *outbound* teleport, so the two return trips use the other magic word,
+    'leva' (the real dictionary word for the 0x24->0x0c teleport); both directions
+    also require the light-rod in hand. No engine change was needed -- this was a
+    parser-disambiguation and route problem, found by tracing the two teleport
+    functions (0x86 out, 0x90 back) in the game bytecode.
   * **Crimson Crown** -- a *full* winning playthrough to the closing "THE END."
     epilogue, across both disk sides (the engine switches from side A to side B by
     itself when disk one is finished). It answers the gryphon's three riddles for
@@ -103,8 +113,6 @@ its first irreversible hazard:
     `GameData::load_extra_string_files` -- without it the kill actions printed the
     wrong lines and never fired, leaving the game unwinnable.)
 
-Full-completion scripts are still to be authored -- the prose walkthroughs need
-route counts pinned down and, where a game is timed or has random hazards, the
-cadence worked out (Oo-Topos in particular needs the alien-pursuit cadence; the
-Coveted Mirror has its jailer-bribe cadence worked out through the mid-game but
-still needs the maze/spell endgame's random NPC waits pinned against MAME).
+The one remaining full-completion script still to be authored is the Coveted
+Mirror's: its jailer-bribe cadence is worked out through the mid-game, but the
+maze/spell endgame's random NPC waits still need to be pinned against MAME.

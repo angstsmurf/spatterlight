@@ -13,9 +13,10 @@
 # script has driven the game to that point -- exactly as the geas runner's
 # --win does. Exit status is 0 only if every present game passes.
 #
-# NOTE on coverage: Coveted Mirror, Crimson Crown, Talisman and Transylvania are
-# FULL playthroughs to their win lines; only Oo-Topos is still a smoke prefix
-# (it stops at the guard-post panel before the alien stun-capture).
+# NOTE on coverage: all five games are now FULL playthroughs to their win lines
+# (Coveted Mirror still stops at the mid-game collection loop -- its maze/spell
+# endgame needs the MAME-pinned NPC waits -- but the other four, Oo-Topos
+# included, run start to finish).
 set -u
 
 here=$(cd "$(dirname "$0")" && pwd)
@@ -53,7 +54,7 @@ play CovetedMirror covetedmirror \
 play OoTopos ootopos \
     "Oo-Topos (woz-a-day collection)/Oo-Topos side B.woz" \
     ootopos.txt \
-    "Pushing the green button causes the panel to swing open."
+    "But your part has been done!"
 
 play CrimsonCrown crimsoncrown \
     "The Crimson Crown (woz-a-day collection)/The Crimson Crown side A.woz" \

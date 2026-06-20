@@ -1,19 +1,29 @@
-# Oo-Topos -- deterministic smoke prefix.
+# Oo-Topos -- full winning walkthrough.
 #
-# Plays out of the prison cell, through the scripted stun-capture that drags you
-# to the guard post, and arms up at the button panel. The headless terp has no
-# real clock, so this is fully reproducible (verified identical across runs)
-# even though Oo-Topos is otherwise a pursuit game: once you step EAST out of
-# the guard post the alien stuns you and strips every item, and surviving that
-# chase needs a turn-by-turn cadence still to be pinned against MAME. Everything
-# here is before that hazard, so it is a stable regression check for the prison
-# room/items, the three-stage BREAK LOCK counter, the OPEN DOOR siren event, the
-# stun-transport cutscene, the button-panel logic and item pickup.
+# A complete deterministic playthrough to the closing "But your part has been
+# done! Congratulations!" victory, from the prison cell to the fuelled departure
+# from Oo-Topos. The headless terp has no real clock, so this is fully
+# reproducible (verified identical across runs) even though Oo-Topos is otherwise
+# a pursuit game -- nothing here is rand-gated.
 #
-# Win marker (see run_walkthroughs.sh): "Pushing the green button causes the panel to swing open."
+# Two things in this script are not literal transcriptions of the prose
+# walkthrough on the Classic Adventures Solution Archive, because of how this
+# engine's parser resolves the teleporter's magic words:
+#
+#   * The Oo-Topan teleporter is a one-way pair of rooms linked by two magic
+#     words. The writing in the inner room reads "taka ele leva"; the parser
+#     resolves "TAKA ELE-LEVA" to the single noun 'taka', which only ever fires
+#     the OUTBOUND teleport (room 0x0c -> 0x24). The RETURN teleport (0x24 ->
+#     0x0c) is the other magic word, 'leva' (a real dictionary word), so the two
+#     return trips below say LEVA, not "TAKA ELE-LEVA". Both teleports also
+#     require the light-rod in hand (object 0x0b).
+#   * The prose drops the goggles twice; we only carry one pair, so the second
+#     drop is omitted.
+#
+# Win marker (see run_walkthroughs.sh): "But your part has been done!"
 # One input per line; blank lines and #-comments are ignored.
 
-# Prison cell: grab the bottle, batter the lock open, leave.
+# Prison Cell
 GET BOTTLE
 BREAK LOCK
 BREAK LOCK
@@ -21,9 +31,457 @@ BREAK LOCK
 OPEN DOOR
 W
 N
-# Guard post (reached via the stun-capture): silence the siren, open the panel,
-# take the laser and goggles.
+# Guard Post
 PUSH RED
 PUSH GREEN
 GET LASER
 GET GOGGLES
+E
+# Hall Intersection
+SHOOT ALIEN
+N
+N
+N
+E
+N
+N
+# On Podium
+GET ROD
+S
+S
+W
+S
+S
+S
+W
+S
+S
+# Medical Lab
+PUSH SWITCH
+GET FLASK
+GET BOX
+PUSH SWITCH
+N
+N
+W
+W
+# Chemistry Lab
+PUSH SWITCH
+PUT FLASK IN SINK
+PULL HANDLE
+GET FLASK
+PUSH SWITCH
+E
+E
+S
+W
+# Small Room
+THROW ACID ON SENTINEL
+SHOOT SENTINEL
+GET TRANSLATOR
+E
+N
+E
+N
+N
+N
+E
+# Main Gravtube Room
+PUSH BUTTON
+ENTER TUBE
+# Inside Tube
+PUSH BLUE
+EXIT
+# Solarium
+GET SNARL
+S
+W
+DOWN
+DOWN
+# Near Stage
+OPEN BOX
+GET CONVERTER
+GET SNARL
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+DROP BOX
+E
+ENTER TUBE
+PUSH RED
+PUSH RED
+EXIT
+# Garbage Disposal
+WEAR GOGGLES
+PUSH BUTTON
+SEARCH GARBAGE
+GET HELMET
+WEAR HELMET
+GET SUIT
+WEAR SUIT
+GET GLOVES
+WEAR GLOVES
+REMOVE GOGGLES
+EXIT
+PUSH BLUE
+PUSH BLUE
+EXIT
+E
+# Radiation Room
+PUT CONVERTER IN BEAM
+GET NAVCHIP
+GET CONVERTER
+E
+# Bright Room
+WEAR GOGGLES
+GET SPHERE
+DROP GOGGLES
+W
+W
+W
+S
+S
+S
+W
+W
+N
+# Top Of Tunnel (the goggles were already left in the bright room, so only the
+# converter and sphere are dropped here)
+DROP CONVERTER
+DROP SPHERE
+S
+E
+E
+N
+N
+N
+E
+E
+N
+# Mirror Room
+LOOK 4-D MIRROR
+N
+# Viewscreen
+PUSH SWITCH
+GET CARD
+PUSH BLUE
+PUSH RED
+PUSH BLUE
+PUSH BLUE
+PUSH BLUE
+PUSH RED
+PUSH SWITCH
+S
+LOOK 4-D MIRROR
+W
+S
+W
+W
+W
+# Library
+PUSH SWITCH
+GET CRYSTAL
+PUT CRYSTAL IN PROJECTOR
+PUSH BUTTON
+GET CRYSTAL
+OPEN DOOR
+N
+# Musty Room
+GET BOOK
+READ BOOK
+DROP BOOK
+PUSH SWITCH
+S
+E
+E
+S
+S
+S
+W
+W
+N
+# Top Of Tunnel
+DROP CRYSTAL
+DROP CARD
+S
+E
+E
+N
+N
+N
+E
+ENTER TUBE
+PUSH BLUE
+EXIT
+# Solarium
+OPEN AIRLOCK
+E
+# Roof
+GET RING
+N
+YES
+E
+UP
+# Top Of Pyramid
+GET JEWEL
+DOWN
+E
+N
+# Jungle Clearing
+GET REED
+N
+# Dense Jungle
+TOUCH FLOWER
+GET EMERALD
+S
+# Jungle (with Huja)
+WAVE REED
+GET GYRO
+E
+# Beach (with Robot)
+THROW REED IN SEA
+GET SHIELD
+E
+# Beach (with Crab)
+SHOOT CRAB
+DROP LASER
+DROP BOTTLE
+GET SHELL
+N
+N
+N
+# Cargo Bay
+DROP SHELL
+DROP EMERALD
+DROP GYRO
+DROP JEWEL
+DROP RING
+DROP TRANSLATOR
+S
+OPEN AIRLOCK
+S
+S
+E
+N
+S
+# Pyramid
+ENTER PYRAMID
+PUSH SWITCH
+GET CUBE
+PUSH SWITCH
+S
+N
+W
+S
+# Tunnel Bottom
+GET IN CAR
+PUSH UP BUTTON
+PUSH UP BUTTON
+GET NAVCHIP
+GET CONVERTER
+GET CRYSTAL
+GET CARD
+DROP SHIELD
+DROP ROD
+GET SPHERE
+PUSH DOWN BUTTON
+PUSH DOWN BUTTON
+N
+E
+E
+W
+N
+N
+N
+# Cargo Bay
+DROP NAVCHIP
+DROP CONVERTER
+DROP CRYSTAL
+DROP CARD
+DROP CUBE
+DROP SPHERE
+GET TRANSLATOR
+S
+S
+S
+E
+N
+W
+S
+GET IN CAR
+PUSH UP
+PUSH UP
+GET ROD
+GET SHIELD
+S
+E
+E
+S
+# Narrow Room -- TAKA ELE-LEVA teleports out (parser resolves the magic phrase to
+# the single noun 'taka' = the outbound teleporter; needs the light-rod in hand).
+PUSH SWITCH
+READ WRITING
+TAKA ELE-LEVA
+PUSH SWITCH
+E
+E
+# Storage Room
+PUSH SWITCH
+GET CYLINDER
+GET PURIFIER
+PUSH SWITCH
+W
+DOWN
+OPEN DOOR
+S
+# Cold Room
+PUSH SWITCH
+GET VIAL
+PUSH SWITCH
+N
+UP
+W
+# The return teleporter is triggered by the OTHER magic word, 'leva' (word 0x68 ->
+# the 0x24->0x0c teleport func); "TAKA ELE-LEVA" would re-match 'taka' and fail here.
+LEVA
+DROP ROD
+DROP SHIELD
+DROP TRANSLATOR
+N
+W
+W
+# Lounge Area
+PULL LEVER
+GET BLOCK
+N
+GET IN CAR
+PUSH DOWN
+PUSH DOWN
+N
+E
+E
+W
+N
+N
+N
+# Cargo Bay
+DROP CYLINDER
+DROP PURIFIER
+DROP SILVER
+DROP VIAL
+S
+S
+S
+E
+N
+W
+S
+GET IN CAR
+PUSH UP
+PUSH UP
+S
+E
+E
+S
+# Narrow Room
+GET ROD
+GET TRANSLATOR
+GET SHIELD
+TAKA ELE-LEVA
+E
+DOWN
+N
+# Food Processing Room
+PUSH SWITCH
+GET RECIRCULATOR
+PUSH SWITCH
+S
+UP
+W
+LEVA
+N
+W
+W
+N
+GET IN CAR
+PUSH DOWN
+PUSH DOWN
+N
+E
+E
+W
+N
+N
+# Inside Airlock
+CLOSE AIRLOCK
+N
+# Cargo Bay
+DROP TRANSLATOR
+DROP SUIT
+DROP HELMET
+DROP GLOVES
+GET CYLINDER
+S
+W
+# Computer Room
+VUG957A
+N
+# Life Support
+INSTALL ROD
+INSTALL RECIRCULATOR
+E
+# Starboard Engine
+INSTALL SHIELD
+S
+# Port Engine
+INSTALL CYLINDER
+W
+N
+# Cargo Bay
+GET PURIFIER
+GET CONVERTER
+GET GYRO
+GET NAVCHIP
+S
+E
+# Port Engine
+INSTALL PURIFIER
+INSTALL CONVERTER
+W
+W
+W
+# Bridge
+INSTALL GYRO
+INSTALL NAVCHIP
+E
+# Computer
+E
+N
+# Cargo Bay
+GET CARD
+GET CRYSTAL
+GET RING
+GET SHELL
+GET EMERALD
+GET SPHERE
+GET SILVER
+GET JEWEL
+GET CUBE
+GET VIAL
+S
+W
+# Install Card
+INSTALL CARD
+VALUE CRYSTAL
+VALUE RING
+VALUE SHELL
+VALUE EMERALD
+VALUE SPHERE
+VALUE SILVER
+VALUE JEWEL
+VALUE CUBE
+VALUE VIAL
+W
+# Bridge -- finale
