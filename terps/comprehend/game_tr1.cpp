@@ -298,7 +298,11 @@ void TransylvaniaGame1::handleSpecialOpcode() {
 	}
 }
 
+// Read the player's reply at a "> " prompt on the line below the question,
+// matching the original's guest-register input rather than echoing the typed
+// name straight after the question mark.
 #define READ_LINE do { \
+	g_comprehend->print("> "); \
 	g_comprehend->readLine(buffer, sizeof(buffer)); \
 	if (g_comprehend->shouldQuit()) return; \
 	} while (strlen(buffer) == 0)
