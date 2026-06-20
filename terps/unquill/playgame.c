@@ -314,7 +314,8 @@ void savegame(void)
 	fref = glk_fileref_create_by_prompt(fileusage_SavedGame, filemode_Write, 0);
 	if (fref == NULL)
 	    return;
-	strcpy(filename, glkunix_fileref_get_filename(fref));
+	strncpy(filename, glkunix_fileref_get_filename(fref), sizeof(filename) - 1);
+	filename[sizeof(filename) - 1] = '\0';
 	glk_fileref_destroy(fref);
 #endif
 
@@ -373,10 +374,11 @@ void loadgame(void)
 	fref = glk_fileref_create_by_prompt(fileusage_SavedGame, filemode_Read, 0);
 	if (fref == NULL)
 	    return;
-	strcpy(filename, glkunix_fileref_get_filename(fref));
+	strncpy(filename, glkunix_fileref_get_filename(fref), sizeof(filename) - 1);
+	filename[sizeof(filename) - 1] = '\0';
 	glk_fileref_destroy(fref);
 #endif
-	
+
 	loadfp = fopen(filename,"rb");
 	if (!loadfp)
 	{
