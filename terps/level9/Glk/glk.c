@@ -3087,7 +3087,8 @@ gln_extract_disk_pictures (const char *gamefile)
   ctx.dir = NULL;
   if (!gamefile || strlen (gamefile) + 1 > sizeof name)
     return NULL;
-  strcpy (name, gamefile);
+  strncpy (name, gamefile, sizeof name - 1);
+  name[sizeof name - 1] = '\0';
 
   /* Drop any "#N" multi-part selector so we have a real filename. */
   base = strrchr (name, GLN_FILE_DELIM);
@@ -7179,21 +7180,24 @@ gln_advance_tape_file (char *name, int size)
 {
   char attempt[MAX_PATH];
 
-  (void) size;
   if (strlen (name) + 1 > sizeof attempt)
     return 0;
 
-  strcpy (attempt, name);
+  strncpy (attempt, name, sizeof attempt - 1);
+  attempt[sizeof attempt - 1] = '\0';
   if (gln_bump_marker (attempt, "tape") && gln_file_exists (attempt))
     {
-      strcpy (name, attempt);   /* length-preserving bump: fits `name` */
+      strncpy (name, attempt, size - 1);
+      name[size - 1] = '\0';
       return 1;
     }
 
-  strcpy (attempt, name);
+  strncpy (attempt, name, sizeof attempt - 1);
+  attempt[sizeof attempt - 1] = '\0';
   if (gln_bump_marker (attempt, "side") && gln_file_exists (attempt))
     {
-      strcpy (name, attempt);
+      strncpy (name, attempt, size - 1);
+      name[size - 1] = '\0';
       return 1;
     }
 
