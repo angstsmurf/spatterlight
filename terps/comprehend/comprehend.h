@@ -188,6 +188,12 @@ public:
 
     // Graphics — render to _drawSurface then blit to _topWindow.
     void drawPicture(uint pictureNum);
+    // Render a whole scene (a room picture plus any item overlays) as ONE
+    // slow-draw reveal: the pictures are recorded into a single op list and
+    // revealed in paint order. drawPicture() is the single-picture wrapper.
+    // Drawing the pictures with separate drawPicture() calls would make each
+    // one snap the previous picture's reveal (only the last would animate).
+    void drawPictureList(const Common::Array<uint> &pics);
     void drawLocationPicture(int pictureNum, bool clearBg = true);
     void drawItemPicture(int pictureNum);
     void clearScreen(bool isBright);

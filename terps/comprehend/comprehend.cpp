@@ -747,11 +747,13 @@ int Comprehend::readChar() {
 static uint32 surfaceColorAt(Glk::Comprehend::DrawSurface *ds, int x, int y);
 
 void Comprehend::drawPicture(uint pictureNum) {
-    if (!_topWindow || !_pics || !_drawSurface) return;
+    Common::Array<uint> pics;
+    pics.push_back(pictureNum);
+    drawPictureList(pics);
+}
 
-    // Remember it so repaintCurrentScene() can re-render it after a graphics-mode
-    // switch when there's no room scene to replay (e.g. the title screen).
-    _lastDrawnPicture = pictureNum;
+void Comprehend::drawPictureList(const Common::Array<uint> &pics) {
+    if (!_topWindow || !_pics || !_drawSurface || pics.empty()) return;
 
     // Ensure the pixel scale matches the actual window width before drawing.
     // recomputeGraphicsScale() is normally called from onArrange() on resize
@@ -760,7 +762,7 @@ void Comprehend::drawPicture(uint pictureNum) {
     // which can make the image wider than the window and clip it on the right.
     recomputeGraphicsScale();
 
-    // If a background reveal from the previous picture is still running
+    // If a background reveal from the previous scene is still running
     // (e.g. the player moved before it finished), complete it instantly.
     // Must happen before gmSetSlowDraw/gmcgaSetSlowDraw, which would clear
     // s_recordOps and break the active-renderer check inside finishSlowDraw().
@@ -795,9 +797,21 @@ void Comprehend::drawPicture(uint pictureNum) {
     gmDhgrSetSlowDraw(slow);
     gmpcjrSetSlowDraw(slow);
 
-    // Render through the Pics opcode interpreter into the pixel buffer,
-    // then blit the initial (blank or reset) state to the Glk window.
-    _pics->renderPicture((int)pictureNum);
+    // Render every picture of the scene through the Pics opcode interpreter into
+    // the pixel buffer. The first (room) picture clears the page and records its
+    // draw ops; each following item overlay appends its ops to the SAME reveal,
+    // so the whole composite is revealed in paint order. Rendering them as
+    // separate drawPicture() calls would make each one finishSlowDraw() (snap) the
+    // previous picture's reveal, leaving only the last picture animated -- the
+    // room would paint instantly and only the item overlay would slow-draw.
+    for (uint i = 0; i < pics.size(); i++) {
+        // Remember the last picture so repaintCurrentScene() can re-render it
+        // after a graphics-mode switch when there's no room scene to replay
+        // (e.g. the title screen).
+        _lastDrawnPicture = pics[i];
+        _pics->renderPicture((int)pics[i]);
+    }
+    // Blit the initial (blank or reset) state to the Glk window.
     blitSurfaceToWindow();
 
     // If the render queued a slow-draw reveal, start a Glk timer and let the
@@ -1006,8 +1020,7 @@ void Comprehend::paintBackground(const Common::Array<uint> &pics) {
         return;
     _suppressSlowDraw = (pics == _screenComposition);
     _screenComposition = pics;
-    for (uint i = 0; i < pics.size(); i++)
-        drawPicture(pics[i]);
+    drawPictureList(pics);
     _suppressSlowDraw = false;
 }
 
@@ -1028,8 +1041,7 @@ void Comprehend::paintOverlay(const Common::Array<uint> &pics) {
         }
     }
     _suppressSlowDraw = allPresent;
-    for (uint i = 0; i < pics.size(); i++)
-        drawPicture(pics[i]);
+    drawPictureList(pics);
     _suppressSlowDraw = false;
 }
 
