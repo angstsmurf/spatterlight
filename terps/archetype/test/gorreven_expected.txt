@@ -76,6 +76,9 @@ I don't see any ID card here.
 
 What should I do now? 
 I wait patiently.
+
+What should I do now? 
+I wait patiently.
 The guard looks out down the north hall.
 
 What should I do now? 
@@ -91,6 +94,9 @@ He snorts and returns his gun to its holster.  "You're barely important
 enough to be kept alive.  Forget the doctor."  I wonder what he has been
 told about me.  It is true that I am too dangerous to be kept alive at
 much expense.
+
+What should I do now? 
+I wait patiently.
 
 What should I do now? 
 I wait patiently.
@@ -243,6 +249,7 @@ What should I do now?
 I'm standing in a dingy hallway that smells somewhat of stale beer and sweat.  The dirty and worn carpet is peeling away from the floor in several places and one or two cockroaches regard me studiously.  The elevator is waiting directly to the south.  I can see an elevator call button.
 I can exit west, east, and south.
 -----------------------------------------------------------------------------
+Behind me there is a roaring sound as the elevator rushes away.
 
 What should I do now? 
 -----------------------------------------------------------------------------
@@ -263,7 +270,6 @@ I picked up the can of poison.
 
 What should I do now? 
 In the dingy hallway.
-Behind me there is a roaring sound as the elevator rushes away.
 
 What should I do now? 
 -----------------------------------------------------------------------------
@@ -316,6 +322,7 @@ I'm in a fresh-smelling, well-lit, carpeted hallway near the elevator.  The elev
 I can see an elevator call button.
 I can exit east and south.
 -----------------------------------------------------------------------------
+Behind me there is a roaring sound as the elevator rushes away.
 
 What should I do now? 
 -----------------------------------------------------------------------------
@@ -442,7 +449,6 @@ What should I do now?
 I'm standing in the top of a tall guard tower that overlooks the entire complex, at least the part that's above ground.  There are wide windows in all four directions.  The elevator is waiting directly to the south.  I can see a guard tower windows, a guard, a powerful searchlight, and an elevator call button.
 I can exit south.
 -----------------------------------------------------------------------------
-Behind me there is a roaring sound as the elevator rushes away.
 Looks like the guard isn't paying very close attention to my face.
 
 What should I do now? 
@@ -452,22 +458,6 @@ What should I do now?
 I fire at the searchlight with the gun.  The glass and the bulb shatter into fragments which go flying everywhere.  
 
 What should I do now? 
-I push the button and it becomes lit.
-
-What should I do now? 
-I wait patiently.
-There is a quiet bell sound and the elevator slides into view.  The light on the button goes off.
-
-What should I do now? 
-I wait patiently.
-
-What should I do now? 
-I wait patiently.
-
-What should I do now? 
-I wait patiently.
-
-What should I do now? 
 In the elevator.
 
 What should I do now? 
@@ -475,6 +465,7 @@ There is the sound of a mighty motor and the floor briefly drops out from under 
 
 What should I do now? 
 In the dingy hallway.
+Behind me there is a roaring sound as the elevator rushes away.
 
 What should I do now? 
 In the small warehouse.
@@ -516,3 +507,5 @@ What should I do now?
 I climb up the fence.  Nothing happens; the power is still off.  The north woods are just ahead and I slip away into their depths.  They will never catch me.  And I have the Gorreven Papers!  I've done it!  Escaped from their compound, taking the Papers right from out under their noses!  I have saved the free world... again, I might add.
 
 After I lose myself a little in the woods, I straighten up and walk more slowly, enjoying the smell of the pines and the feel of the Papers secure in my hand.  It is a wonderful night.
+
+Would you like to UNDO, RESTART or QUIT? 

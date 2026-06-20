@@ -82,7 +82,7 @@ bool load_game_state(Common::ReadStream *bfile, XArrayType &objects) {
 	// objects are a little different since they might vary between game states
 	for (i = 1; i < Dynamic; ++i) {
 		if (index_xarray(objects, i, p)) {
-			sentinel = (StatementKind)bfile->readByte();
+			bfile->readByte();
 			op = (ObjectPtr)p;
 			dispose_item_list(op->attributes, EXPR_LIST);
 			load_item_list(bfile, op->attributes, EXPR_LIST);

@@ -34,6 +34,8 @@ void heap_sort_init() {
 }
 
 static bool lighter(const Element one, const Element two) {
+	if (!one || !two)
+		return false;
 	return *static_cast<StringPtr>(one) < *static_cast<StringPtr>(two);
 }
 

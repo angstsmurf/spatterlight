@@ -228,7 +228,7 @@ void parse_sentence() {
 					else
 						far_match = np;
 				}
-			} while (iterate_list(g_vm->object_names, np) && (lchunk = (int)((ParsePtr)np->data)->word->size()) != 0);
+			} while (iterate_list(g_vm->object_names, np) && ((ParsePtr)np->data)->word->size() != 0);
 
 			if (near_match != nullptr)
 				parse_sentence_substitute(i, (ParsePtr)near_match->data, next_starting);
@@ -302,6 +302,34 @@ void clear_parse_list(ListType &the_list) {
 void new_parse_list() {
 	clear_parse_list(g_vm->verb_names);
 	clear_parse_list(g_vm->object_names);
+}
+
+// Drop every parse-word entry that names an object index above max_object.
+// Restoring an undo snapshot disposes the dynamic objects created since the
+// snapshot (notably the pronoun objects the story makes on the fly), but their
+// words still sit in the parser lists; left in place, find_object() would hand
+// back a now-dangling index and the interpreter would abort referencing it.
+static void prune_one_parse_list(ListType &the_list, int max_object) {
+	NodePtr prev = the_list;          // circular list with a sentinel head
+	NodePtr np = the_list->next;
+	while (np != the_list) {
+		ParsePtr pp = (ParsePtr)np->data;
+		NodePtr next = np->next;
+		if (pp && pp->object > max_object) {
+			prev->next = next;        // unlink
+			FreeConstStr(pp->word);
+			delete pp;
+			delete np;
+		} else {
+			prev = np;
+		}
+		np = next;
+	}
+}
+
+void prune_parse_lists(int max_object) {
+	prune_one_parse_list(g_vm->verb_names, max_object);
+	prune_one_parse_list(g_vm->object_names, max_object);
 }
 
 } // End of namespace Archetype

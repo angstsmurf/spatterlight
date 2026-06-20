@@ -1,0 +1,34 @@
+down
+look at trapdoor
+push trapdoor
+push trapdoor
+look at trapdoor
+get trapdoor
+south
+look
+look at bed
+get bed
+get in bed
+look at closet
+open closet
+look at closet
+look at books
+get books
+get coat
+look at chest
+open chest
+get necklace
+look at necklace
+put bed in closet
+put necklace in drawers
+open drawers
+get drawers
+put necklace in drawers
+inventory
+north
+down
+get rope
+throw rope up
+up
+quit
+yes

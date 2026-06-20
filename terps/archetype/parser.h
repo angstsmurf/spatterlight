@@ -82,6 +82,8 @@ extern int find_object(const String &s);
  */
 extern void new_parse_list();
 
+extern void prune_parse_lists(int max_object);
+
 } // End of namespace Archetype
 } // End of namespace Glk
 

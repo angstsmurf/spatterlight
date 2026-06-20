@@ -14,13 +14,14 @@
 # where commands.txt is one command per line.
 
 CHEAPGLK_DIR := ../cheapglk
+COMMON_DIR   := ../common_utils
 OBJDIR       := headless_obj
 
 CXX ?= clang++
 CC  ?= clang
 
 # -I$(CHEAPGLK_DIR) first so glk.h / glkstart.h resolve to CheapGlk's headers.
-COMMON_INC := -I. -I$(CHEAPGLK_DIR)
+COMMON_INC := -I. -I$(CHEAPGLK_DIR) -I$(COMMON_DIR)
 CXXFLAGS   := -std=c++14 -O0 -g -Wall -Wno-unknown-pragmas \
               -Wno-macro-redefined -Wno-format $(COMMON_INC) \
               -DGARGLK -DSPATTERLIGHT -DARCHETYPE_HEADLESS
@@ -51,7 +52,7 @@ CXX_SRCS := \
 
 C_SRCS := glkstart.c
 
-OBJS := $(addprefix $(OBJDIR)/,$(CXX_SRCS:.cpp=.o) $(C_SRCS:.c=.o))
+OBJS := $(addprefix $(OBJDIR)/,$(CXX_SRCS:.cpp=.o) $(C_SRCS:.c=.o) randomness.o)
 
 CHEAPGLK_LIB := $(CHEAPGLK_DIR)/libcheapglk.a
 
@@ -68,6 +69,9 @@ $(OBJDIR)/%.o: %.cpp | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR)/randomness.o: $(COMMON_DIR)/randomness.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
@@ -111,6 +115,52 @@ regress-starship: archetype_hl
 		echo "regress-starship: FAIL (transcript diverged):"; head -40 /tmp/starship_diff.txt; exit 1; \
 	fi
 
-regress-all: regress regress-starship
+# Regression test: replay a full walkthrough of "Bare Bones" (BARE), the
+# tutorial demo game from the Archetype distribution. It has no win condition,
+# so the walkthrough instead tours every feature (the gated trapdoor exit, the
+# openable furniture, the plural/indefinite naming, the custom 'put...in' verb,
+# falling into the rat-infested basement and escaping with the rope) and ends
+# on a clean quit. As before, the story file is not vendored; point BARE at a
+# copy of BARE.ACX from the Archetype 1.01 distribution.
+BARE ?= $(HOME)/Downloads/arch101/BARE.ACX
 
-.PHONY: clean regress regress-starship regress-all
+regress-bare: archetype_hl
+	@if [ ! -f "$(BARE)" ]; then \
+		echo "regress-bare: story file not found at $(BARE); set BARE=/path/to/BARE.ACX"; exit 2; fi
+	@./archetype_hl "$(BARE)" < test/bare_walkthrough.txt 2>&1 \
+		| sed '/Cheap Glk Implementation/d' > /tmp/bare_got.txt
+	@if diff -u test/bare_expected.txt /tmp/bare_got.txt > /tmp/bare_diff.txt; then \
+		grep -q "Goodbye; thanks for playing" /tmp/bare_got.txt \
+			&& echo "regress-bare: PASS (byte-exact, completed)" \
+			|| { echo "regress-bare: FAIL (transcript matched but no completion marker)"; exit 1; }; \
+	else \
+		echo "regress-bare: FAIL (transcript diverged):"; head -40 /tmp/bare_diff.txt; exit 1; \
+	fi
+
+# Regression test for the engine-level meta commands (transcript / undo /
+# restart), which the interpreter layers on top of any story since the Archetype
+# games themselves define none. The BARE walkthrough exercises an in-play UNDO
+# (revert a trapdoor push), a transcript on/off toggle, and -- the headline --
+# UNDO *after death*: it walks into the rat pit, gets killed, picks UNDO from the
+# end-of-game menu, and goes on to escape. ARCHETYPE_TRANSCRIPT points the
+# headless transcript at a throwaway file (no interactive file prompt); CheapGlk
+# sanitizes the name to a .txt in the CWD, which we remove afterwards.
+regress-meta: archetype_hl
+	@if [ ! -f "$(BARE)" ]; then \
+		echo "regress-meta: story file not found at $(BARE); set BARE=/path/to/BARE.ACX"; exit 2; fi
+	@ARCHETYPE_TRANSCRIPT=bare_meta_transcript ./archetype_hl "$(BARE)" \
+		< test/bare_meta_walkthrough.txt 2>&1 \
+		| sed '/Cheap Glk Implementation/d' > /tmp/bare_meta_got.txt
+	@rm -f bare_meta_transcript.txt
+	@if diff -u test/bare_meta_expected.txt /tmp/bare_meta_got.txt > /tmp/bare_meta_diff.txt; then \
+		grep -q "Goodbye; thanks for playing" /tmp/bare_meta_got.txt \
+			&& grep -q "chew me to pieces" /tmp/bare_meta_got.txt \
+			&& echo "regress-meta: PASS (byte-exact; undo/transcript/undo-after-death)" \
+			|| { echo "regress-meta: FAIL (transcript matched but markers missing)"; exit 1; }; \
+	else \
+		echo "regress-meta: FAIL (transcript diverged):"; head -40 /tmp/bare_meta_diff.txt; exit 1; \
+	fi
+
+regress-all: regress regress-starship regress-bare regress-meta
+
+.PHONY: clean regress regress-starship regress-bare regress-meta regress-all

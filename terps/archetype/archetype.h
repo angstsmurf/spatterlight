@@ -27,6 +27,8 @@
 #ifndef ARCHETYPE_ARCHETYPE
 #define ARCHETYPE_ARCHETYPE
 
+#include <string>
+
 #include "archetype_compat.h"
 #include "array.h"
 #include "interpreter.h"
@@ -36,6 +38,7 @@
 
 extern "C" {
 #include "glk.h"
+#include "randomness.h"
 }
 
 namespace Glk {
@@ -54,6 +57,23 @@ private:
     winid_t _mainWindow;
     String _lastOutputText;
     bool _shouldQuit;
+
+    // Engine-level meta commands (transcript / undo / restart). The story's own
+    // verb set (compiled into the .ACX) has none of these, so they are layered
+    // on in readLine(): the player's input is intercepted before it ever
+    // reaches the game's parser. undo/restart work by snapshotting the dynamic
+    // game state (the same serialization used by save/restore) and, on
+    // re-entry, replaying the story's START message with output silenced until
+    // the snapshot is reinstated at the first prompt.
+    enum ReentryMode { RM_NONE, RM_UNDO, RM_RESTART };
+    ReentryMode _reentry;          // pending re-entry into a fresh START run
+    bool _replaySilencing;         // gag output while replaying START to the loop
+    bool _explicitQuit;            // player used the 'quit' verb (skip end menu)
+    bool _undoAvailable;           // a usable undo snapshot exists
+    std::string _undoSnapshot;     // serialized state from before the last command
+    std::string _initialSnapshot;  // serialized state at the first prompt (RESTART)
+    strid_t _transcriptStream;
+    frefid_t _transcriptRef;
 
 public:
     // heapsort.cpp
@@ -112,11 +132,13 @@ public:
     bool shouldQuit() const { return _shouldQuit; }
     void quitGame() { _shouldQuit = true; }
 
-    // The interpreter uses this for `? n` and `? string`. ScummVM's
-    // getRandomNumber(n) returns a value in [0..n].
+    // The interpreter uses this for `? n` and `? string`. Returns a value in
+    // [0..maxVal]. Like the other Spatterlight terps (Scott, TaylorMade, Plus,
+    // Comprehend) this draws from the shared erkyrath_random() so a fixed seed
+    // makes the regression walkthroughs replay identically on every host.
     int getRandomNumber(int maxVal) {
         if (maxVal < 0) return 0;
-        return std::rand() % (maxVal + 1);
+        return (int)(erkyrath_random() % (glui32)(maxVal + 1));
     }
 
     template<class... TParam>
@@ -132,6 +154,14 @@ public:
 private:
     void write_internal(const String *fmt, ...);
     void writeln_internal(const String *fmt, ...);
+
+    // Meta-command helpers (see the ReentryMode block above).
+    String rawReadLine();
+    bool handleMetaCommand(const String &cmd);
+    void toggleTranscript(bool on);
+    void captureSnapshot(std::string &out);
+    bool restoreSnapshot(const std::string &in);
+    int postGameMenu();
 };
 
 template<class... TParam>

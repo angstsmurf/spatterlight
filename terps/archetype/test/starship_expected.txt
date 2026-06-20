@@ -108,7 +108,7 @@ What should I do now?
 Aha!  I find and pick up a single page.
 
 What should I do now? 
-Near the bottom are the digits 58-63-59.
+Near the bottom are the digits 39-73-89.
 
 What should I do now? 
 I picked up the bicycle repair kit.
@@ -662,3 +662,5 @@ three years ago that has been steadily getting worse.  Deftly I make the correct
 
 You have succeeded!  The ship is fueled and headed the right way.
 Congratulations!
+
+Would you like to UNDO, RESTART or QUIT? 

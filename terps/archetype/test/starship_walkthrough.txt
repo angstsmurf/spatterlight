@@ -19,7 +19,7 @@ look at bench
 drink gunk
 leave
 open locker
-58-63-59
+39-73-89
 get coveralls
 port
 port
@@ -138,3 +138,4 @@ enter console
 push green button
 leave
 enter pilot's console
+quit

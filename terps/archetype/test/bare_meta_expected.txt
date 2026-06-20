@@ -1,0 +1,58 @@
+
+Assembling vocabulary...done.  65535 bytes available.
+-----------------------------------------------------------------------------
+Welcome to the demonstration adventure!  What you are seeing here is the 'FIRSTDESC' method.  Although in this case there is only some writing, there is no problem with putting other executable statements here as well.
+I'm standing in a room that has the word 'START' painted on the ceiling in neon pink.  The room is fairly bare otherwise.
+I can see a trapdoor.
+I can exit south.
+-----------------------------------------------------------------------------
+
+What should I do now? Transcript started.
+
+I push the trapdoor and it swings downward and out, leaving a hole in the floor.
+
+What should I do now? [Undone.]
+
+It is closed but it looks like a slight push would make it open.
+
+What should I do now? Transcript stopped.
+
+I push the trapdoor and it swings downward and out, leaving a hole in the floor.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+AAAAAAAAAAAAAAaaaaa
+                   iiii
+                       eeee
+                           eey
+                              i
+                               i
+                                kes
+
+                                   THUMP!
+
+I've landed on my rear in the bottom of a dank and musty basement.  The smell of mildew is overpowering.  I look up but the ceiling is very high; the open trapdoor is a tiny square of light and I cannot reach it.  Oh boy.
+
+I'm standing in the bottom of a wet basement.  It is rather cold and gloomy down here.
+I can see a pack of rats and a coil of rope with a hook on the end.
+There are no visible exits.
+-----------------------------------------------------------------------------
+The rats seem to be regarding me with some interest.
+
+What should I do now? 
+I reach out towards them but that was a bad move; they come swarming over me and chew me to pieces.
+
+Would you like to UNDO, RESTART or QUIT? [Undone.]
+
+I picked up the coil of rope with a hook on the end.
+The rats are moving forward slowly, overcoming their shyness.
+
+What should I do now? 
+I throw the rope up in the air; the hook catches on the side of the trapdoor above and holds.
+The rats are advancing; the floor is full of them!  They're starting to hiss and snarl!
+
+What should I do now? 
+In the starting room.
+
+What should I do now? 
+Are you sure you want to quit now? Goodbye; thanks for playing.

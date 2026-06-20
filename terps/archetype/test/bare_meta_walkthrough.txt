@@ -1,0 +1,14 @@
+transcript on
+push trapdoor
+undo
+look at trapdoor
+transcript off
+push trapdoor
+down
+get rats
+undo
+get rope
+throw rope up
+up
+quit
+yes

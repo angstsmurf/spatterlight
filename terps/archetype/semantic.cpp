@@ -38,12 +38,9 @@ int classify_as(progfile &f, int id_number, ClassifyType interpretation, void *p
 		error_message(f, "Attempt to classify unencountered identifier");
 	} else {
 		//with the_id_ptr^ do begin
-		if (the_id_ptr->id_kind == interpretation)
-			result = the_id_ptr->id_integer;
-
 		// If the existing id_kind is the DefaultClassification, we're allowed to
 		// change it; otherwise there's a conflict
-		else if (the_id_ptr->id_kind == DefaultClassification) {
+		if (the_id_ptr->id_kind == DefaultClassification) {
 			the_id_ptr->id_kind    = interpretation;
 			the_id_ptr->id_integer = the_id_ptr->id_index;
 
@@ -77,7 +74,7 @@ int classify_as(progfile &f, int id_number, ClassifyType interpretation, void *p
 			default:
 				break;
 			}
-		} else {
+		} else if (the_id_ptr->id_kind != interpretation) {
 			error_string = String::format("Identifier type conflict: \"%s\" already declared as ",
 				the_id_ptr->id_name->c_str());
 

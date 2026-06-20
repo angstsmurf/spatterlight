@@ -19,11 +19,14 @@
  *
  */
 
+#include <cstring>
+
 #include "archetype.h"
 #include "crypt.h"
 #include "expression.h"
 #include "heap_sort.h"
 #include "misc.h"
+#include "parser.h"
 #include "saveload.h"
 #include "sys_object.h"
 #include "timestamp.h"
@@ -33,6 +36,15 @@ namespace Glk {
 namespace Archetype {
 
 #define MAX_INPUT_LINE 100
+
+// Seed for the reproducible RNG, shared with the other Spatterlight terps.
+#define ARCHETYPE_DETERMINISTIC_SEED 1234
+
+// gli_determinism selects the reproducible RNG (the user's testing-mode theme
+// option). It is populated by the front-end during window setup; in the
+// headless regression harness CheapGlk leaves it 0, so we force determinism
+// there instead (see initialize()).
+extern "C" int gli_determinism;
 
 // Adapters that let save_game_state()/load_game_state() drive a Glk strid_t
 // through the existing Common::ReadStream / Common::WriteStream interface.
@@ -79,12 +91,59 @@ private:
     strid_t _stream;
 };
 
+// Memory-backed counterparts used for in-RAM state snapshots (undo / restart).
+// These let save_game_state()/load_game_state() serialize to and from a
+// std::string instead of a Glk file.
+class MemWriteStream : public Common::WriteStream {
+public:
+    void writeByte(byte b) override { _buf.push_back((char)b); }
+    uint32 write(const void *buf, uint32 size) override {
+        _buf.append((const char *)buf, size);
+        return size;
+    }
+    const std::string &data() const { return _buf; }
+
+private:
+    std::string _buf;
+};
+
+class MemReadStream : public Common::ReadStream {
+public:
+    explicit MemReadStream(const std::string &buf) : _buf(buf), _pos(0), _eos(false) {}
+    byte readByte() override {
+        if (_pos >= _buf.size()) {
+            _eos = true;
+            return 0;
+        }
+        return (byte)(unsigned char)_buf[_pos++];
+    }
+    uint32 read(void *buf, uint32 size) override {
+        uint32 avail = (uint32)(_buf.size() - _pos);
+        uint32 n = size < avail ? size : avail;
+        if (n)
+            memcpy(buf, _buf.data() + _pos, n);
+        _pos += n;
+        if (n < size)
+            _eos = true;
+        return n;
+    }
+    bool eos() const override { return _eos; }
+
+private:
+    const std::string &_buf;
+    size_t _pos;
+    bool _eos;
+};
+
 } // anonymous namespace
 
 Archetype *g_vm;
 
 Archetype::Archetype() :
     _saveSlot(-1), _mainWindow(nullptr), _shouldQuit(false),
+    _reentry(RM_NONE), _replaySilencing(false),
+    _explicitQuit(false), _undoAvailable(false),
+    _transcriptStream(nullptr), _transcriptRef(nullptr),
     Abbreviate(0x7fffffff), NullStr(nullptr), Translating(false) {
     g_vm = this;
 }
@@ -124,6 +183,18 @@ bool Archetype::initialize() {
     if (!_mainWindow)
         return false;
     glk_set_window(_mainWindow);
+
+    // Pick the RNG now that the window (and thus gli_determinism) is set up.
+    // A fixed seed makes the committed walkthroughs replay identically; seed 0
+    // selects the platform-native RNG for normal play.
+    bool deterministic = gli_determinism;
+#ifdef ARCHETYPE_HEADLESS
+    // The headless harness drives the game from a stdin script and never
+    // arranges a window, so gli_determinism stays 0 -- force the reproducible
+    // RNG whenever a transcript is being replayed.
+    deterministic = true;
+#endif
+    set_erkyrath_random(deterministic ? ARCHETYPE_DETERMINISTIC_SEED : 0);
 
     return true;
 }
@@ -171,6 +242,116 @@ Common::Error Archetype::loadGame() {
     return Common::Error(ok ? Common::kNoError : Common::kNoGameDataFoundError);
 }
 
+void Archetype::captureSnapshot(std::string &out) {
+    MemWriteStream ws;
+    save_game_state(&ws, Object_List);
+    out = ws.data();
+}
+
+bool Archetype::restoreSnapshot(const std::string &in) {
+    if (in.empty())
+        return false;
+    MemReadStream rs(in);
+    bool ok = load_game_state(&rs, Object_List);
+    // load_game_state shrinks Object_List back to the snapshot; purge any parser
+    // words left pointing past the end (pronoun objects created since then).
+    prune_parse_lists((int)Object_List.size());
+    return ok;
+}
+
+void Archetype::toggleTranscript(bool on) {
+    if (on) {
+        if (_transcriptStream) {
+            writeln("Transcript is already on.");
+            return;
+        }
+#ifdef ARCHETYPE_HEADLESS
+        // The headless harness has no interactive file prompt; honor an
+        // override path so regression runs are deterministic and silent.
+        const char *path = getenv("ARCHETYPE_TRANSCRIPT");
+        char name[256];
+        snprintf(name, sizeof(name), "%s", path ? path : "archetype_transcript.txt");
+        _transcriptRef = glk_fileref_create_by_name(fileusage_Transcript | fileusage_TextMode,
+            name, 0);
+#else
+        _transcriptRef = glk_fileref_create_by_prompt(
+            fileusage_Transcript | fileusage_TextMode, filemode_WriteAppend, 0);
+#endif
+        if (!_transcriptRef) {
+            writeln("Could not start a transcript.");
+            return;
+        }
+        _transcriptStream = glk_stream_open_file(_transcriptRef, filemode_WriteAppend, 0);
+        if (!_transcriptStream) {
+            glk_fileref_destroy(_transcriptRef);
+            _transcriptRef = nullptr;
+            writeln("Could not start a transcript.");
+            return;
+        }
+        glk_window_set_echo_stream(_mainWindow, _transcriptStream);
+        writeln("Transcript started.");
+    } else {
+        if (!_transcriptStream) {
+            writeln("No transcript is running.");
+            return;
+        }
+        writeln("Transcript stopped.");
+        glk_window_set_echo_stream(_mainWindow, nullptr);
+        glk_stream_close(_transcriptStream, nullptr);
+        glk_fileref_destroy(_transcriptRef);
+        _transcriptStream = nullptr;
+        _transcriptRef = nullptr;
+    }
+}
+
+// Recognize and act on engine-level meta commands that the story's own parser
+// knows nothing about. Returns true if the line was a meta command (consumed
+// without becoming a game turn); false if it should be handed to the game.
+bool Archetype::handleMetaCommand(const String &cmd) {
+    String low = cmd;
+    low.trim();
+    low.toLowercase();
+
+    if (low == "transcript" || low == "transcript on" || low == "script") {
+        toggleTranscript(true);
+        return true;
+    }
+    if (low == "transcript off" || low == "unscript" || low == "noscript") {
+        toggleTranscript(false);
+        return true;
+    }
+    return false;
+}
+
+// Shown when the story stops other than via the 'quit' verb (i.e. on a death
+// or other `stop`). Returns RM_UNDO, RM_RESTART or RM_NONE (meaning quit).
+int Archetype::postGameMenu() {
+    for (;;) {
+        writeln();
+        bool canUndo = _undoAvailable && !_undoSnapshot.empty();
+        bool canRestart = !_initialSnapshot.empty();
+        if (canUndo)
+            write("Would you like to UNDO, RESTART or QUIT? ");
+        else if (canRestart)
+            write("Would you like to RESTART or QUIT? ");
+        else
+            return RM_NONE;
+
+        String ans = rawReadLine();
+        ans.trim();
+        ans.toLowercase();
+        char c = ans.firstChar();
+
+        if (c == 'u' && canUndo)
+            return RM_UNDO;
+        if (c == 'r' && canRestart)
+            return RM_RESTART;
+        if (c == 'q')
+            return RM_NONE;
+        writeln("Please type UNDO, RESTART or QUIT.");
+    }
+}
+
 void Archetype::interpret() {
     Translating = false;
     bool success = load_game(&_gameFile);
@@ -183,13 +364,45 @@ void Archetype::interpret() {
 
     ContextType context;
     ResultType result;
+    int startMsg = find_message("START");
 
-    undefine(result);
+    // A snapshot of the freshly-loaded, static-only object set (no dynamic
+    // objects, no parser words yet) -- the exact state the first START run
+    // begins from. Replaying START to re-enter the command loop only works from
+    // here: rerunning its one-time setup over the dynamic objects a played game
+    // has accumulated spins the vocabulary-assembly loop forever.
+    std::string pristine;
+    captureSnapshot(pristine);
 
-    if (!send_message(OP_SEND, find_message("START"), MainObject, result, context))
-        error("Cannot execute; no ''START'' message for main object.");
+    // Outer loop so the game can be re-entered after it stops. The story's own
+    // command loop lives inside the START message; once it ends (a death or
+    // other `stop`) we offer UNDO / RESTART / QUIT and, for the first two,
+    // replay START. Before replaying we reset to the pristine state; readLine()
+    // then reinstates the chosen snapshot at the first prompt and silences the
+    // intervening setup, so play resumes exactly where intended. (A mid-play
+    // UNDO does its own in-place restore and never reaches here.)
+    for (;;) {
+        undefine(result);
+        _shouldQuit = false;
 
-    cleanup(result);
+        if (_reentry != RM_NONE)
+            restoreSnapshot(pristine);
+
+        if (!send_message(OP_SEND, startMsg, MainObject, result, context))
+            error("Cannot execute; no ''START'' message for main object.");
+        cleanup(result);
+
+        // The 'quit' verb is an intentional exit; don't second-guess it.
+        if (_explicitQuit)
+            break;
+
+        int choice = postGameMenu();
+        if (choice == RM_NONE)
+            break;
+
+        _reentry = (ReentryMode)choice;
+        _replaySilencing = true;  // hush the replayed setup until the first read
+    }
 }
 
 void Archetype::write_internal(const String *fmt, ...) {
@@ -200,7 +413,7 @@ void Archetype::write_internal(const String *fmt, ...) {
 
     _lastOutputText = s;
 
-    if (!loadingSavegame())
+    if (!loadingSavegame() && !_replaySilencing)
         glk_put_buffer((char *)s.c_str(), (glui32)s.size());
 }
 
@@ -213,26 +426,13 @@ void Archetype::writeln_internal(const String *fmt, ...) {
     s += '\n';
     _lastOutputText = s;
 
-    if (!loadingSavegame())
+    if (!loadingSavegame() && !_replaySilencing)
         glk_put_buffer((char *)s.c_str(), (glui32)s.size());
 }
 
-String Archetype::readLine() {
-    // WORKAROUND inherited from ScummVM: the original Archetype games prompt
-    // for save-file names from the game script before calling save/load. We
-    // detect "save"/"load" in the preceding output and skip waiting for input.
-    String text = _lastOutputText;
-    text.toLowercase();
-    if (text.contains("save") || text.contains("load")) {
-        writeln();
-        return "";
-    } else if (loadingSavegame()) {
-        return String("load");
-    } else if (_saveSlot == -2) {
-        _saveSlot = -1;
-        return String("look");
-    }
-
+// The unadorned Glk line read. readLine() layers the save/load workaround,
+// the meta commands and the undo/restart bookkeeping on top of this.
+String Archetype::rawReadLine() {
     event_t ev;
     char buffer[MAX_INPUT_LINE + 1];
 
@@ -246,6 +446,84 @@ String Archetype::readLine() {
 
     buffer[ev.val1] = 0;
     return String(buffer);
+}
+
+String Archetype::readLine() {
+    // Re-entry: START has been replayed silently up to its first prompt. Undo
+    // the INITIAL/ASSEMBLE clobber with a second restore, lift the gag, and
+    // fall through to read the player's next command on that state. We do NOT
+    // inject a turn of our own (no auto-"look"): the story runs its after-events
+    // every turn, and spending one here could, e.g., re-kill the player one
+    // rat-bite past the move they just undid.
+    bool justRestored = false;
+    if (_reentry != RM_NONE) {
+        ReentryMode mode = _reentry;
+        _reentry = RM_NONE;
+        _replaySilencing = false;
+        restoreSnapshot(mode == RM_RESTART ? _initialSnapshot : _undoSnapshot);
+        _undoAvailable = false;
+        writeln(mode == RM_RESTART ? "[Restarted.]" : "[Undone.]");
+        justRestored = true;
+    }
+
+    // WORKAROUND inherited from ScummVM: the original Archetype games prompt
+    // for save-file names from the game script before calling save/load. We
+    // detect "save"/"load" in the preceding output and skip waiting for input.
+    // (Skipped right after a restore: there is no such stale prompt then.)
+    String text = _lastOutputText;
+    text.toLowercase();
+    if (!justRestored) {
+        if (text.contains("save") || text.contains("load")) {
+            writeln();
+            return "";
+        } else if (loadingSavegame()) {
+            return String("load");
+        } else if (_saveSlot == -2) {
+            _saveSlot = -1;
+            return String("look");
+        }
+    }
+
+    // The 'quit' verb confirms with a y/n read of its own; note an affirmative
+    // answer so the end-of-game menu knows this exit was intentional. This read
+    // is the bytecode's, not a fresh turn, so skip meta handling and snapshots.
+    bool quitConfirm = !justRestored && text.contains("quit now");
+
+    for (;;) {
+        String line = rawReadLine();
+
+        if (quitConfirm) {
+            char c = line.firstChar();
+            if (c == 'y' || c == 'Y')
+                _explicitQuit = true;
+            return line;
+        }
+
+        // Engine-level meta commands consume no game turn: act and re-prompt.
+        if (handleMetaCommand(line))
+            continue;
+
+        String low = line;
+        low.trim();
+        low.toLowercase();
+        if (low == "undo") {
+            if (_undoAvailable && restoreSnapshot(_undoSnapshot)) {
+                _undoAvailable = false;
+                writeln("[Undone.]");
+            } else {
+                writeln("[You can't undo right now.]");
+            }
+            continue;  // no turn consumed; read the next command
+        }
+
+        // A real command: snapshot the pre-command state for a future undo,
+        // and remember the very first turn's state for RESTART.
+        captureSnapshot(_undoSnapshot);
+        _undoAvailable = true;
+        if (_initialSnapshot.empty())
+            _initialSnapshot = _undoSnapshot;
+        return line;
+    }
 }
 
 char Archetype::readKey() {
