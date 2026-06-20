@@ -135,7 +135,7 @@ static ushort ucptr;
  * ZX_SCREEN_COLS) and the decode helpers come from decompressz80.h. */
 static uchar *zxloadscreen = NULL;
 
-void die(char *fmt, ...)
+__attribute__((noreturn)) void die(char *fmt, ...)
 {
     char buf[256];
     va_list ap;
@@ -257,11 +257,9 @@ static void load_z80(void)
     uchar *uncompressed;
     size_t len;
 
-    if (fseek(infile, 0, SEEK_END) || (filelen = ftell(infile)) < 0)
-    {
-	die("Cannot read .z80 file '%s'.", inname);
-    }
-    rewind(infile);
+    if (fseek(infile, 0, SEEK_END) || (filelen = ftell(infile)) < 0 ||
+        fseek(infile, 0, SEEK_SET))
+        die("Cannot read .z80 file '%s'.", inname);
 
     raw = malloc(filelen);
     if (!raw || fread(raw, filelen, 1, infile) != 1)
