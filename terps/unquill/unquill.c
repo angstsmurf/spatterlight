@@ -107,6 +107,7 @@ in the snapshots I have examined.
 #include "unquill.h"    /* Function prototypes */
 
 #include <setjmp.h>
+#include <sys/stat.h>
 #include <getopt.h>
 #include <strings.h>
 
@@ -257,9 +258,12 @@ static void load_z80(void)
     uchar *uncompressed;
     size_t len;
 
-    if (fseek(infile, 0, SEEK_END) || (filelen = ftell(infile)) < 0 ||
-        fseek(infile, 0, SEEK_SET))
-        die("Cannot read .z80 file '%s'.", inname);
+    {
+        struct stat st;
+        if (fstat(fileno(infile), &st) != 0)
+            die("Cannot read .z80 file '%s'.", inname);
+        filelen = st.st_size;
+    }
 
     raw = malloc(filelen);
     if (!raw || fread(raw, filelen, 1, infile) != 1)
@@ -477,9 +481,12 @@ static void load_t64(void)
     uchar *raw, *prg, *img;
     size_t outlen = 0;
 
-    if (fseek(infile, 0, SEEK_END) || (filelen = ftell(infile)) < 0)
-	die("Cannot read .t64 file '%s'.", inname);
-    rewind(infile);
+    {
+	struct stat st;
+	if (fstat(fileno(infile), &st) != 0)
+	    die("Cannot read .t64 file '%s'.", inname);
+	filelen = st.st_size;
+    }
 
     raw = malloc(filelen);
     if (!raw || fread(raw, filelen, 1, infile) != 1)
@@ -498,13 +505,19 @@ static void load_t64(void)
 
     /* Rebuild a .PRG (2-byte load address + data) for unp64. */
     prg = malloc(datalen + 2);
+    if (!prg)
+	die("Cannot read .t64 file '%s'.", inname);
     prg[0] = start & 0xFF;
     prg[1] = (start >> 8) & 0xFF;
     memcpy(prg + 2, raw + dataoff, datalen);
     free(raw);
 
-    img = malloc(0x10000);
-    memset(img, 0, 0x10000);
+    img = calloc(0x10000, 1);
+    if (!img)
+    {
+	free(prg);
+	die("Cannot read .t64 file '%s'.", inname);
+    }
     if (!unp64(prg, datalen + 2, img, &outlen, NULL))
     {
 	free(prg);
@@ -659,9 +672,12 @@ static void load_tzx(void)
     uchar *codebuf;
     size_t codelen = 0;
 
-    if (fseek(infile, 0, SEEK_END) || (filelen = ftell(infile)) < 0)
-        die("Cannot read .tzx file '%s'.", inname);
-    rewind(infile);
+    {
+        struct stat st;
+        if (fstat(fileno(infile), &st) != 0)
+            die("Cannot read .tzx file '%s'.", inname);
+        filelen = st.st_size;
+    }
 
     raw = malloc(filelen);
     if (!raw || fread(raw, filelen, 1, infile) != 1)
