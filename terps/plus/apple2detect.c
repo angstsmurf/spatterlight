@@ -273,7 +273,7 @@ int DetectApple2(uint8_t **sf, size_t *extent)
         *extent = wozdsksize;
     }
 
-    if (*extent > MAX_LENGTH || *extent < dsk_image_size)
+    if (*sf == NULL || *extent > MAX_LENGTH || *extent < dsk_image_size)
         return 0;
 
     new = MemAlloc(dsk_image_size);

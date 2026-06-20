@@ -441,6 +441,8 @@ void extend_underground_pillars(int top_cut, int foot_height, int total_height,
     }
 
     free(section_to_repeat);
+    free(left_section);
+    free(right_section);
 
     //  Erase a single "stone" at the bottom to reduce the off-screen part of the foot
     if (ypos + foot_height > desired_height && ypos - stone_height + foot_height > desired_height) {

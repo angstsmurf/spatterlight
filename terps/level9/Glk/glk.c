@@ -3018,7 +3018,7 @@ gln_write_pic_file (const char *name8, L9BYTE *data, L9UINT32 len, void *vctx)
       if (!made)
         return;
       ctx->dir = gln_malloc (strlen (made) + 2);
-      strcpy (ctx->dir, made);
+      strlcpy (ctx->dir, made, strlen (made) + 2);
       bl = strlen (ctx->dir);
       ctx->dir[bl] = GLN_FILE_DELIM;
       ctx->dir[bl + 1] = '\0';

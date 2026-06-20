@@ -306,6 +306,7 @@ void TalismanGame::enterPart2() {
 
 	if (getenv("TM_DUMP")) {
 		FILE *f = fopen("/tmp/tm_part2_dump.txt", "w");
+		if (!f) return;
 		static const char *dn[] = {"N","S","E","W","U","D","IN","OUT"};
 		fprintf(f, "=== ROOMS (%u) ===\n", (uint)_rooms.size());
 		for (uint i = 0; i < _rooms.size(); ++i) {

@@ -319,7 +319,10 @@ bool Comprehend::loadStateFromPath(const char *path) {
     size_t n;
     while ((n = fread(buf, 1, sizeof(buf), f)) > 0)
         payload.insert(payload.end(), buf, buf + n);
+    bool readError = ferror(f);
     fclose(f);
+    if (readError)
+        return false;
 
     // Split off the RNG-state trailer.
     if (payload.size() < RNG_TRAILER_SIZE)

@@ -383,13 +383,13 @@ void loadgame(void)
 		glk_printf("Could not open %s\n",filename);
 		return;
 	}
-	if ((fread(savefile,1,0x104,loadfp) < 0x104)
-	|| (fclose(loadfp)))
+	if (fread(savefile,1,0x104,loadfp) < 0x104)
 	{
 		fclose(loadfp);
 		glk_printf("Read error on %s\n",filename);
 		return;
 	}
+	fclose(loadfp);
 	for (n = 2; n < 0x103; n++) xor ^= savefile[n];
 	if ((xor !=savefile[0x103])
 	||  (savefile[0] != 2)

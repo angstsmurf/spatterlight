@@ -1292,7 +1292,7 @@ static int dsk_dir_entry(L9BYTE *lf, L9UINT32 base, int e, char *nm2)
 {
 	L9BYTE *ent = lf + base + e * 32;
 	int k;
-	if (ent[0] == 0xe5 || ent[0] > 15) return 0;
+	if (ent[0] > 15) return 0;
 	for (k = 0; k < 11; k++) {
 		char ch = ent[1 + k] & 0x7f;
 		if ((L9BYTE)ch < 32) return 0;
