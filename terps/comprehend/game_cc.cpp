@@ -57,7 +57,11 @@ void CrimsonCrownGame::setupDisk(uint diskNum) {
 		_itemGraphicFiles.push_back("OA");
 		_itemGraphicFiles.push_back("OB");
 
-		_gameStrings = (diskNum == 1) ? &CC1_STRINGS : nullptr;
+		// Both disks share the same restart-prompt string index (0x9), so keep
+		// _gameStrings valid on disk two as well -- leaving it null crashed
+		// handle_restart() on any disk-two death (e.g. losing the endgame
+		// battle of wills with the vampire).
+		_gameStrings = &CC1_STRINGS;
 		// The Apple II title ("Crimson Crown" + sun) is a Graphics Magician
 		// vector image inside T0, after the disk-protection / loader stub;
 		// Pics::ImageFile starts it at the right offset (0x100).
@@ -81,10 +85,9 @@ void CrimsonCrownGame::setupDisk(uint diskNum) {
 	_itemGraphicFiles.push_back(Common::String::format("oa.ms%u", diskNum));
 	_itemGraphicFiles.push_back(Common::String::format("ob.ms%u", diskNum));
 
-	if (diskNum == 1)
-		_gameStrings = &CC1_STRINGS;
-	else
-		_gameStrings = nullptr;
+	// Valid on both disks (see the Apple II branch above): the restart prompt
+	// must resolve on disk two or handle_restart() dereferences null on death.
+	_gameStrings = &CC1_STRINGS;
 
 	_titleGraphicFile = "cctitle.ms1";
 	_diskNum = diskNum;
@@ -138,11 +141,26 @@ void CrimsonCrownGame::handleSpecialOpcode() {
 			console_println(_strings[407].c_str());
 
 		} else {
-			// Won the game
+			// Won the game: the merchant ship plucks the party off the beach
+			// (0x21a), then the rescue/collapse epilogue that ends "...THE END."
+			// (0x21b, a multi-paragraph string). The old 0x21c/0x21d were off by
+			// two and printed the troll/mud daemon lines instead -- never noticed
+			// because no walkthrough drove the game to the win.
+			//
+			// The original Apple II game stops right here, on "THE END." It does
+			// NOT print the adjacent string 0x219 ("...Your completion code is
+			// @."): verified on the real woz in MAME -- the win hangs on the THE
+			// END screen and the "Congratulations" screen never appears. (The '@'
+			// there is a string-replacement marker that would render blank anyway:
+			// RE of the DOS interpreter NOVEL.EXE -- dispatch FUN_1000_0e73 ->
+			// evaluator 1000:0eb4 -> SPECIAL handler 1000:1244 -> win branch in
+			// 1000:0528 -- shows the win path never sets the replacement selector,
+			// and no SET_STRING_REPLACEMENT opcode 0xb5/0xb9/0xc5 fires, so the
+			// "completion code" was a dead contest stub.)
 			g_comprehend->drawLocationPicture(29, false);
 			g_comprehend->drawItemPicture(20);
-			console_println(stringLookup(0x21c).c_str());
-			console_println(stringLookup(0x21d).c_str());
+			console_println(stringLookup(0x21a).c_str());
+			console_println(stringLookup(0x21b).c_str());
 
 			g_comprehend->readChar();
 			g_comprehend->quitGame();

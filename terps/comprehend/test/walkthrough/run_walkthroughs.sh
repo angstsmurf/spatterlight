@@ -13,10 +13,9 @@
 # script has driven the game to that point -- exactly as the geas runner's
 # --win does. Exit status is 0 only if every present game passes.
 #
-# NOTE on coverage: the Coveted Mirror entry is a FULL playthrough to the win
-# ("Congratulations!!"), riding the hourglass bribe cadence the whole way. The
-# other games are smoke prefixes; fleshing them out to full-completion scripts
-# is follow-up work.
+# NOTE on coverage: Coveted Mirror, Crimson Crown, Talisman and Transylvania are
+# FULL playthroughs to their win lines; only Oo-Topos is still a smoke prefix
+# (it stops at the guard-post panel before the alien stun-capture).
 set -u
 
 here=$(cd "$(dirname "$0")" && pwd)
@@ -59,7 +58,7 @@ play OoTopos ootopos \
 play CrimsonCrown crimsoncrown \
     "The Crimson Crown (woz-a-day collection)/The Crimson Crown side A.woz" \
     crimsoncrown.txt \
-    "On a stalagmite rests a pulsating crystal ball."
+    "THE END."
 
 play Talisman talisman \
     "Talisman- Challenging the Sands of Time (woz-a-day collection)/Talisman- Challenging the Sands of Time side 1 - Boot.woz" \
@@ -69,7 +68,12 @@ play Talisman talisman \
 play Transylvania transylvania \
     "Transylvania 1985 (woz-a-day collection)/Transylvania 1985 side A.woz" \
     transylvania.txt \
-    "Sabrina dies at dawn!"
+    "Well Done!!!"
+
+play TransylvaniaV2 transylvaniav2 \
+    "TransylvaniaPC/G0" \
+    transylvania.txt \
+    "Well Done!!!"
 
 echo "----"
 echo "pass=$pass fail=$fail skip=$skip"

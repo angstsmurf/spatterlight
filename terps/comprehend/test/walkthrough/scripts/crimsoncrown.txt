@@ -1,15 +1,330 @@
-# The Crimson Crown -- deterministic smoke prefix.
+# The Crimson Crown -- full winning walkthrough (Penguin/Polarware, 1985 Apple II).
 #
-# Plays the party from the lake shore through the woods, falls through the
-# scripted trap door into the crypt (which introduces Sabrina), and reaches the
-# crystal-ball cave. The headless terp has no real clock, so this is fully
-# reproducible (verified identical across runs); it is a stable regression check
-# for movement, the multi-character party, the trap-door event and room/object
-# description decoding, all before the game's sand timer would matter.
+# Drives the two-disk game from the lake shore all the way to the win -- the
+# merchant-ship rescue and the closing "THE END." epilogue, exactly where the
+# real Apple II game stops (verified on the woz in MAME). The party (you, Erik
+# and the sorceress Sabrina) recovers the regalia, frees the dragon Fury, and
+# destroys the vampire to restore the crown. The interpreter switches from side A
+# to side B by itself when disk one is finished (selectDiskByGameMagic), so only
+# the side A .woz needs to be named on the command line.
 #
-# Win marker (see run_walkthroughs.sh): "On a stalagmite rests a pulsating crystal ball."
+# The whole run is deterministic: the engine never seeds rand(), so it rides the
+# default srand(1) stream and is reproducible across runs (verified identical).
+# That matters here because the endgame is a timed escape with a per-turn random
+# element (Erik shaking off the vampire's spell), so the exact move sequence is
+# what lands the win -- see the endgame notes at the bottom.
+#
+# Two engine bugs on the disk-two endgame path were fixed to reach this win (both
+# only reachable once a walkthrough drives the game this far):
+#   * setupDisk() left _gameStrings null on disk two, so any disk-two death (e.g.
+#     losing the vampire's battle of wills) crashed handle_restart() on a null
+#     deref. Disk two shares the restart-prompt index, so it now stays valid.
+#   * The win path printed strings 0x21c/0x21d, two off from the real victory text
+#     -- it showed the troll/mud daemon lines instead of the merchant-ship rescue
+#     (0x21a) and the closing epilogue that ends "THE END." (0x21b). Corrected.
+#     (The original game stops on "THE END." -- confirmed on the woz in MAME; the
+#     adjacent "...completion code is @." string is a dead contest stub the real
+#     game never prints, with the '@' replacement marker left unset/blank.)
+#
+# Win marker (see run_walkthroughs.sh): "THE END."
 # One input per line; blank lines and #-comments are ignored.
 
+# --- The crypt: a vision in the crystal ball, then SAY WINDMILL (the teleport
+#     word) opens the inner doors; Erik claims his sword ---
 E
 N
 E
+LOOK IN CRYSTAL BALL
+READ SIGN
+SAY WINDMILL
+N
+ERIK, TAKE SWORD
+S
+PRESS BUTTON
+W
+DOWN
+DOWN
+
+# --- The gryphon's three riddles (FEAR / CLOUD / DREAM) win the jeweled scepter ---
+N
+TALK TO GRYPHON
+YES
+FEAR
+CLOUD
+DREAM
+GET SCEPTER
+S
+S
+W
+N
+E
+
+# --- The abandoned house: fetch the candle from the attic ---
+ENTER HOUSE
+UP
+GET CANDLE
+DOWN
+LEAVE HOUSE
+W
+S
+E
+N
+LIGHT CANDLE
+S
+W
+N
+E
+
+# --- Back at the house, open the crate, burn the zombie out, take the mouse and
+#     the burlap sack (it holds the ring and the flute) ---
+ENTER HOUSE
+OPEN CRATE
+BURN ZOMBIE
+DROP CANDLE
+GET MOUSE
+GET SACK
+LOOK IN SACK
+LEAVE HOUSE
+W
+S
+W
+
+# --- The witch's clearing: Sabrina shoos the magical cat, Erik drinks the potion
+#     (he turns into a frog, then back) ---
+SABRINA, CAST SPELL
+W
+ERIK, DRINK POTION
+E
+E
+S
+S
+GET FROG
+W
+DROP FROG
+CLIMB TREE
+GIVE MOUSE TO OWL
+D
+GET COIN
+E
+N
+N
+N
+N
+E
+
+# --- The cemetery grate drops you into the annex; stow the loot in the sack, take
+#     the censer, SAY WINDMILL back to the caverns and light it ---
+ERIK, PRY GRATE WITH SWORD
+DOWN
+PUT SCEPTER IN SACK
+PUT COIN IN SACK
+GET CENSER
+SAY WINDMILL
+W
+DOWN
+DOWN
+LIGHT CENSER
+
+# --- The castle: wave the lit censer past the howling guardian to reach Zin, and
+#     fetch the laughter scroll from the vault ---
+S
+W
+N
+W
+N
+N
+N
+UP
+WAVE CENSER
+N
+TALK TO ZIN
+S
+DOWN
+DOWN
+DOWN
+SABRINA, GET SCROLL
+SABRINA, READ SCROLL
+UP
+UP
+S
+S
+S
+E
+S
+W
+W
+
+# --- Cast the scroll's laughter spell on the witch, take her stone tablet ---
+SABRINA, CAST SPELL
+DROP CENSER
+GET TABLET
+E
+E
+N
+W
+N
+GET FROG
+N
+N
+UP
+N
+
+# --- Give the tablet to Zin; he yields the password LORELEI ---
+GIVE TABLET TO ZIN
+S
+DOWN
+S
+S
+S
+E
+N
+PUT SCROLL IN SACK
+GET FLUTE
+N
+N
+
+# --- The cobra cave: the flute hypnotises the snake; buy the sphere from Fair
+#     Deal Sam with the silver coin; SAY LORELEI to cross to the vampire's reach ---
+PLAY FLUTE
+W
+GET COIN
+TALK TO SAM
+GIVE COIN
+LOOK SPHERE
+N
+DROP FLUTE
+SAY LORELEI
+
+# --- Thrown into the flooding pit: plug the drain with the beehive (Sabrina
+#     whistles the owl down with a branch) and float out on the rising water,
+#     then revive the unconscious Erik. This finishes disk one. ---
+EXAMINE PIT
+EXAMINE WATER
+SPLASH WATER
+LOOK GROUND
+SABRINA, WHISTLE
+GET BRANCH AND BEEHIVE
+PUT BEEHIVE IN HOLE
+HOLD BRANCH
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+SPLASH WATER ON ERIK
+
+# --- Disk two: gather the regalia scattered through the sea caverns ---
+N
+W
+ERIK, GET SWORD
+N
+N
+GET SCEPTER
+N
+N
+GET SPHERE
+S
+E
+
+# --- The troll's lever cage (he wanders in and brains himself on the gate); the
+#     scepter ends up in his den either way ---
+PULL LEVER
+ERIK, ATTACK TROLL
+PUSH LEVER
+W
+S
+W
+W
+N
+GET SCEPTER
+S
+E
+E
+E
+
+# --- The ring of protection ---
+GET RING
+WEAR RING
+N
+E
+E
+W
+
+# --- The centaur guard: stun it with the glowing sphere, take its bow and arrow ---
+THROW SPHERE AT CENTAUR
+GET BOW AND ARROW
+E
+E
+WAVE SCEPTER
+DROP SCEPTER
+
+# --- Dip the arrow in the enchanted water, then shoot the black sentinel that
+#     bars the throne antechamber ---
+W
+S
+W
+N
+DIP ARROW IN WATER
+S
+E
+E
+N
+LOAD BOW
+SHOOT SENTINEL
+DROP BOW
+
+# --- The beach: dig up the shell; listening turns it into the shield that wards
+#     off the vampire's fire ---
+S
+S
+W
+S
+W
+S
+E
+DIG IN SAND
+GET SHELL
+EXAMINE SHELL
+LISTEN TO SHELL
+
+# --- To the dragon's den and the throne antechamber, then CALL FURY: the dragon
+#     bursts in and knocks the crown from the vampire's grasp (the shield blocks
+#     the answering fire). ---
+W
+N
+E
+N
+E
+E
+N
+CALL FURY
+
+# --- Endgame escape. From here the mountain is collapsing, so it is a race:
+#     Erik dons the crown to break the vampire's spell (a per-turn random check,
+#     not the WEAR command, so it resolves a few turns into the flight), and
+#     "GET ERIK" only succeeds once you have fled far enough from the vampire's
+#     gaze. Run for the open beach; the merchant ship plucks you off it just as
+#     the fortress falls. ---
+N
+ERIK, GET CROWN
+ERIK, WEAR CROWN
+GET ERIK
+S
+S
+S
+W
+S
+W
+S
+E
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT

@@ -61,9 +61,10 @@ override **and** the daemon's once-per-turn sand drain together.
 To add a game, write `scripts/<gameid>.txt` (drive it to a distinctive line),
 add a `play` entry to `run_walkthroughs.sh`, and pick that line as the marker.
 
-All five Polarware/Penguin games ship a deterministic prefix here (verified
-identical across runs). Most stop before the game's first real hazard or timer;
-the Coveted Mirror one goes further and rides the hourglass cadence:
+All five Polarware/Penguin games ship a deterministic script here (verified
+identical across runs). Four are full winning playthroughs (Coveted Mirror,
+Crimson Crown, Talisman, Transylvania); only Oo-Topos still stops early, before
+its first irreversible hazard:
 
   * **Coveted Mirror** -- out of the cell, through town, the astrologer's
     constellation puzzle and the eastern collection loop (axe, ball, lockpick,
@@ -73,13 +74,34 @@ the Coveted Mirror one goes further and rides the hourglass cadence:
   * **Oo-Topos** -- out of the prison, through the scripted stun-capture, arms up
     at the guard-post panel. Stops there because stepping east next triggers the
     alien stun that strips every item.
-  * **Crimson Crown** -- the party falls through the trap door into the crypt and
-    reaches the crystal-ball cave, before the sand timer matters.
-  * **Talisman** -- WAIT x4 then BOW triggers the reprieve cutscene to the King's
-    audience chamber, before any disk swap is needed.
-  * **Transylvania** (gameid `transylvania`, 1985 side A) -- answers the guest
-    register, walks to the dark forest and reads the "Sabrina dies at dawn!"
-    note, clear of the werewolf further north.
+  * **Crimson Crown** -- a *full* winning playthrough to the closing "THE END."
+    epilogue, across both disk sides (the engine switches from side A to side B by
+    itself when disk one is finished). It answers the gryphon's three riddles for
+    the scepter, threads the censer/Zin/tablet chain for the LORELEI password,
+    floats the party out of the flooding pit on the beehive, and rides the timed
+    disk-two endgame: free the dragon Fury, ward off the vampire's fire with the
+    shell-shield, and flee the collapsing fortress to the beach while Erik shakes
+    off the spell and dons the crown. (Two disk-two endgame bugs had to be fixed
+    first: handle_restart() dereferenced a null _gameStrings on any disk-two
+    death, and the win printed strings 0x21c/0x21d -- two off from the real
+    victory text, the merchant-ship rescue 0x21a and the "THE END." epilogue
+    0x21b. The original stops on "THE END." -- confirmed on the woz in MAME; the
+    adjacent "...completion code is @." string is a dead contest stub the game
+    never prints.)
+  * **Talisman** -- a *full* winning playthrough to "the Empire shalt flourish
+    through eternity": WAIT x5 in the cell until the reprieve cutscene delivers
+    Abu to the King's audience chamber, a single BOW frees him, and the run goes
+    on through the Persian Empire and the Lands Beyond desert (a second disk side)
+    home to the final bow before King Darius.
+  * **Transylvania** -- a *full* winning playthrough to "Well Done!!!", and the
+    one script (`scripts/transylvania.txt`) wins both releases: the 1985 Penguin
+    Apple II original (gameid `transylvania`) and the 1987 Polarware DOS re-release
+    (gameid `transylvaniav2`, the TransylvaniaPC files). It kills the werewolf and
+    vampire, threads the deterministic werewolf coffin-window, frees the statue
+    djinn for the ring, and waits out the dawn flying saucer to wake Sabrina. (The
+    Apple original needed a two-slot `_strings2` alignment fix in
+    `GameData::load_extra_string_files` -- without it the kill actions printed the
+    wrong lines and never fired, leaving the game unwinnable.)
 
 Full-completion scripts are still to be authored -- the prose walkthroughs need
 route counts pinned down and, where a game is timed or has random hazards, the
