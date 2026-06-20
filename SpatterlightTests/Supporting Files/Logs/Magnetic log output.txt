@@ -52,6 +52,9 @@ You are on a gravel path leading north to two snow capped mountains. To the west
 >
 [MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
 [REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0

@@ -26,11 +26,23 @@ Interpreter: geas
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=3 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
-[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=520
+[MSG] cmd=DELWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=DELWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] 
+
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=106
+[TEXT] Gathered In Darkness, v1.0 Michael "Dr.Froth" Millsap
+[MSG] cmd=SETTITLE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=524
+[TEXT] 
+
+
 
 Please Select One Of The Following Options:
 (type in the number and press enter)
@@ -48,12 +60,16 @@ Please Select One Of The Following Options:
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] GAME START
-
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 0
 [MSG] cmd=TIMER a1=1000 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
@@ -65,16 +81,13 @@ Please Select One Of The Following Options:
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
 [TEXT] 5
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3442
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3436
 [TEXT] 
+
 Prolog
 Later on, you will look back upon this moment as the turning point in your life.  The fulcrum point on which the balance is swayed one direction or the other, that magical moment when everything that already has or will happen to you is divided into either occurring before or after this event.  For now, however,  you can only categorize what is happening as one of the worst ways someone can be awakened.
 
-
-
 You try hard to focus, the sharp pain in your arm wrestling you from the deep sleep that the luxurious guest bed had been granting you till now.  Blinking, trying to force your eyes to adjust to the darkness quicker than they want to, you survey your guest room at the Domou Island Resort.  Moonlight bathes the room in a soft glow and instinctively you stare down at your left arm.  The pain is subsiding now, but a few droplets of blood can be seen speckled across your skin.  It is then, as you try to decipher exactly what has happened to you, that a tightness in your gut and something from the primal parts of your brain alert you to a terrifying truth...You are not alone in the bedroom.
-
-
 
 The figure is tall and menacing, dressed in a black cloak with a purple velvet lining that almost touches the floor.  An overly large hood has been pulled over his head, making his face appear to be nothing but a deep, black hole.  His gloved hand holds what appears to be a syringe of some kind.  The figure regards you silently for just a moment more before bolting from the door of your bedroom with blinding speed and heading east into the foyer.  You shake off the last of the sleep, letting anger and a deep need for answers replace your fear, and leap from your bed to give chase to the intruder.
 
@@ -84,21 +97,42 @@ The figure is tall and menacing, dressed in a black cloak with a purple velvet l
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] GAME START
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 0
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Prolog Bedroom
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 0
+[MSG] cmd=NEWWIN a1=3 a2=2 a3=0 len=0
+[REPLY] cmd=1 a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=NEWWIN a1=5 a2=3 a3=0 len=0
+[REPLY] cmd=1 a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=3 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] East
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -107,16 +141,12 @@ The figure is tall and menacing, dressed in a black cloak with a purple velvet l
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
 [TEXT] east
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4080
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4072
 [TEXT] 
 Foyer
 You hurl yourself through the open door of your bedroom and into the foyer in what you hope will be enough time to get some answers from the man in black.  In the pale night light filtering in from the windows you are able to make out his shadowy outline from across the room.  You screech to a halt as he turns to face you, the foyer couch the only thing between the two of you.  Time seems to slow down, you can almost feel his muscles tense along with yours as you silently face off from only a few yards away.  And then it happens, the figure in black turns and runs for the stairway down to the lower floors of the resort.  You react quicker than you thought you were capable of, springing forward and leaping the couch but almost tripping on the edge of the rug on the other side.  Regaining your balance you sprint the final distance across the foyer to the stairwell only to witness your adversary pull down a heavy iron gate and lock it into place moments before you reach it.
 
-
-
 For the first time since the beginning of this you come face to face with your enemy.  He is only inches from you, standing still, watching you triumphantly.  The bars of the barrier are too close together to reach your arm through or you would try to get your hands on him, gate or not.  Staring into the hood you can see nothing.  It is empty, like a deep, seething wound of the soul.  The figure nods in a curiously respectful manner and then slowly turns and walks down the stairs, leaving you alone in the foyer.
-
-
 
 You want to yell at him to come back, to give you answers to what is going on.  But instead you are suddenly overcome with a horrible nausea.  It feels like you could lose consciousness at any moment.  You call out for help but no one seems to come to your aid.  Where is Billy the Nightkeep, Brenda, Kitty, or any of the other guests.  All that sounds good to you at this point is sleep.  You need to lie down in your bed and get a hold of yourself.  Maybe you can put this all together in the morning and get help then.
 
@@ -126,21 +156,31 @@ You want to yell at him to come back, to give you answers to what is going on.  
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Prolog Bedroom
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 0
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
 [TEXT] Foyer
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 0
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -159,21 +199,31 @@ You barely make it back into your room before falling down.  The intense drowsin
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
+[TEXT] Foyer
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 0
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Prolog Bedroom
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 1
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] East
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -189,16 +239,20 @@ press any key to continue
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=216
-[TEXT] Welcome to:
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=220
+[TEXT] 
+
+Welcome to:
 G A T H E R E D   I N   D A R K N E S S
 by Michael "Dr.Froth" Millsap
 press any key to continue
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1166
-[TEXT] Chapter 1:
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1170
+[TEXT] 
+
+Chapter 1:
 Piercing The Darkness
 Your Room
 The wallpaper here in the guest bedroom brings back the popular tastes of decades prior, being a yellowish flower print that somehow complements the thick brown carpeting.  The wooden door leading into the closet where you have stored your suitcase is to the south.  An older, well worn desk rests between the bed and an average sized window with a great view of a large portion of the resort grounds.  Your bathroom is to the west and the foyer is east.  You see a piece of paper on the desk that you are certain was not there last night.
@@ -208,12 +262,22 @@ The wallpaper here in the guest bedroom brings back the popular tastes of decade
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Prolog Bedroom
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Moves: 1
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Your Room
-
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 2
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
 [TEXT] Strange Note
 
@@ -226,6 +290,9 @@ The wallpaper here in the guest bedroom brings back the popular tastes of decade
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -250,15 +317,22 @@ Enraged you tear the note up into the smallest shreds of paper you can muster an
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Your Room
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 2
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Your Room
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 3
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -267,6 +341,9 @@ Enraged you tear the note up into the smallest shreds of paper you can muster an
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -285,15 +362,22 @@ The foyer is more of an antechamber to connect the guest rooms here on the third
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Your Room
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 3
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
 [TEXT] Foyer
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 4
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -304,6 +388,9 @@ East
 West
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -322,12 +409,22 @@ The mahogany desk with the computer on it at the rooms back, along with the lack
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
+[TEXT] Foyer
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 4
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Upper Office
-
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 5
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] Memo
 
@@ -338,6 +435,9 @@ The mahogany desk with the computer on it at the rooms back, along with the lack
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -355,12 +455,22 @@ The mahogany desk sports a very tasteful black cherry wood stain.  A single unlo
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Upper Office
-
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 5
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Upper Office
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 6
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
 [TEXT] Memo
 Radio
@@ -372,6 +482,9 @@ Radio
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -389,12 +502,22 @@ You pick up the radio.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Upper Office
-
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 6
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Upper Office
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 7
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] Memo
 
@@ -405,6 +528,9 @@ You pick up the radio.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -423,15 +549,22 @@ You step again into the third floor foyer.  Your room is west and other doors le
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Upper Office
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 7
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
 [TEXT] Foyer
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 8
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -442,6 +575,9 @@ East
 West
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -460,15 +596,22 @@ The hallway is dimly lit by an overhead fixture swinging on a chain.  The light,
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=36
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
+[TEXT] Foyer
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 8
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] 3rd Floor Hallway
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 9
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -478,6 +621,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -493,14 +639,11 @@ press any key to continue
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3818
-[TEXT] ...She looks at you and smiles seductively.  "So tell me," she asks "what does Domou Island hold for a professor of history anyway.  You do know that this resort has not been open to the public for many years."  She had been strangely inquisitive since you met her at the dinner gathering downstairs.  Polite conversation had lead to a more detailed verbal exchange which had in turn led to you being invited here, to her room.  She said she was a doctor of anthropology named Kitty Donovon, and had been hired here by the current owner of the property to do something that she had been very vague about.  "I'd assume that I was brought here because of my history background," you reply "But to be honest, no one has asked me any questions yet."
-
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3812
+[TEXT] 
+...She looks at you and smiles seductively.  "So tell me," she asks "what does Domou Island hold for a professor of history anyway.  You do know that this resort has not been open to the public for many years."  She had been strangely inquisitive since you met her at the dinner gathering downstairs.  Polite conversation had lead to a more detailed verbal exchange which had in turn led to you being invited here, to her room.  She said she was a doctor of anthropology named Kitty Donovon, and had been hired here by the current owner of the property to do something that she had been very vague about.  "I'd assume that I was brought here because of my history background," you reply "But to be honest, no one has asked me any questions yet."
 "I have a question for you," her eyes flutter as the words ease out like breath, "are you going to insist on wearing that dinner jacket for the entire evening."
-
 Her boldness makes an impression on you, and so you obey, laying your jacket across the dresser before turning to face her.  She is crossing the room toward you, when suddenly she drops to the ground in a fashion similar to cutting the strings on a marionette.  Rushing to her, you crouch next to her crumpled form and begin to shake her and ask if she is alright.  Relief fills you as you realize that she is still breathing and does not seem to be in any immediate danger.  She, however, is out like a light and nothing you try seems to rouse her.  Perhaps she has narcolepsy, you wonder, or perhaps a mixture of the excitement and wine was a little to much for her.  Being the gentleman that you are, you place her in bed and turn off her light.  So much for a first date you think as you close the door gently behind you..
-
-
 
 You force the memories of last night, the final good ones that you can recall before waking up to the intruder, and focus on the task at hand.
 
@@ -508,8 +651,9 @@ press any key to continue
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1232
-[TEXT] Kitty's Room
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1234
+[TEXT] 
+Kitty's Room
 You are disappointed though not surprised to discover Kitty's room to be empty.  Fear for her safety creeps into your gut as you realize that her passing out might be a side effect of the exact same poison that is working on killing you right now.  Though the curtains on her window are closed, the sunlight is still strong enough to shine through and coat the room in a soft greenish glow.  Her bed is not made, perhaps the maid has disappeared as well.  You feel a small amount of hope when you notice that your coat is still laying on her dresser where you left it last night.  The hallway is north.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -517,12 +661,22 @@ You are disappointed though not surprised to discover Kitty's room to be empty. 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
+[TEXT] 3rd Floor Hallway
+[MSG] cmd=MOVETO a1=1 a2=59 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=40
+[TEXT] Chapter 1 | Moves: 9
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Kitty's Room
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 10
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=64
 [TEXT] Dinner Jacket
 Kitty's Notebook
@@ -534,6 +688,9 @@ Kitty's Notebook
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -551,12 +708,22 @@ This is your dinner jacket.  You have always found that a black, sporty, light c
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Kitty's Room
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 10
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Kitty's Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 11
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=36
 [TEXT] Kitty's Notebook
 
@@ -567,6 +734,9 @@ This is your dinner jacket.  You have always found that a black, sporty, light c
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -585,15 +755,22 @@ The hallway is illuminated by the flickering overhead light.  The foyer is west,
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=36
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Kitty's Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 11
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] 3rd Floor Hallway
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 12
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -603,6 +780,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -621,15 +801,22 @@ You step again into the third floor foyer.  Your room is west and other doors le
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
+[TEXT] 3rd Floor Hallway
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 12
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
 [TEXT] Foyer
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 13
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -640,6 +827,9 @@ East
 West
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -658,15 +848,22 @@ You find yourself back inside your guest room here at the resort.  Your bathroom
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
+[TEXT] Foyer
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 13
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Your Room
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 14
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -675,6 +872,9 @@ You find yourself back inside your guest room here at the resort.  Your bathroom
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -694,12 +894,22 @@ The guest closet is decent sized, though you would have preferred it to be large
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Your Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 14
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Your Closet
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 15
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
 [TEXT] Flashlight
 
@@ -710,6 +920,9 @@ The guest closet is decent sized, though you would have preferred it to be large
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -727,21 +940,31 @@ You take the flashlight.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Your Closet
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 15
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Your Closet
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 16
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -759,21 +982,31 @@ You open up the battery compartment in the back and find two D cell batteries.  
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Your Closet
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 16
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Your Closet
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 17
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -791,21 +1024,31 @@ You unscrew the bottom of the flashlight and put the batteries inside of it.  Ev
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Your Closet
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 17
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Your Closet
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 18
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -823,21 +1066,31 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Your Closet
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 18
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Your Closet
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 19
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -856,15 +1109,22 @@ You find yourself back inside your guest room here at the resort.  Your bathroom
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Your Closet
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 19
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Your Room
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 20
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -873,6 +1133,9 @@ You find yourself back inside your guest room here at the resort.  Your bathroom
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -891,15 +1154,22 @@ You step again into the third floor foyer.  Your room is west and other doors le
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Your Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 20
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
 [TEXT] Foyer
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 21
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -910,6 +1180,9 @@ East
 West
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -928,15 +1201,22 @@ The hallway is illuminated by the flickering overhead light.  The foyer is west,
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=36
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
+[TEXT] Foyer
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 21
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] 3rd Floor Hallway
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 22
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -946,6 +1226,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -964,15 +1247,22 @@ The end of the hallway takes you to the night desk.  This is where normally you 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
+[TEXT] 3rd Floor Hallway
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 22
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Night Desk
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 23
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -982,6 +1272,9 @@ South
 West
 Behind The Desk
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1003,15 +1296,22 @@ Billy's nightdesk is still deserted.  His quarters are north and hallways go bot
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Night Desk
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 23
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Night Desk
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 24
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1022,6 +1322,9 @@ West
 Behind The Desk
 Behind the Desk
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1040,15 +1343,22 @@ The hallway is illuminated by the flickering overhead light.  The foyer is west,
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=36
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Night Desk
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 24
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
 [TEXT] 3rd Floor Hallway
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 25
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1058,6 +1368,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1076,15 +1389,22 @@ You step again into the third floor foyer.  Your room is west and other doors le
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=34
+[TEXT] 3rd Floor Hallway
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 25
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
 [TEXT] Foyer
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 26
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1095,6 +1415,9 @@ East
 West
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1112,15 +1435,22 @@ You unlock the gate and slide it into a recess in the wall.  It goes in far enou
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
 [TEXT] Foyer
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 26
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
+[TEXT] Foyer
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 27
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1131,6 +1461,9 @@ East
 West
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1139,8 +1472,9 @@ Down
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=8
 [TEXT] down
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1266
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1268
 [TEXT] 
+
 Chapter 2:
 The Ivory Keys
 Central Hub
@@ -1152,15 +1486,22 @@ The central hub of the second floor is almost two stories tall itself and is not
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
+[TEXT] Foyer
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 1 | Moves: 27
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Central Hub
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 28
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1174,6 +1515,9 @@ Southwest
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1182,20 +1526,14 @@ Down
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
 [TEXT] northeast
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=5088
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=5076
 [TEXT] 
 As your footsteps echo on the marble floor with much more volume than you would like, you become aware of another sound closing in on your position.  You strain your ears and are positive that you can hear voices approaching from the stairwell leading to the first floor.  Trying not to panic, you look around for a dark place to hide and choose a shadowy area in the corner by the restrooms and hope that you are not noticed.  Moments later two figures, dressed in black robes similar to the one your intruder wore last night, cross the floor of the central hub and head towards the northwest door.  The robes do not have the purple velvet lining and you are certain that neither one of these people is your attacker.  As they pass by your place of concealment you pick up on part of their conversation...
-
 "Why are we having to check the lab again, the gathering will be starting in a few hours"  whines a male voice.
-
 "There has been a problem with another defector, this time Dr. Funderburk himself.  We have to make sure that nothing has been sabotaged" replies a female.
-
 "Dr. Funderburk has defected?  But that makes no sense... are we to deal with him as well?  I do not even have a lab passcode... I do not know how we can check the lab without one." The male responds as he fumbles for a key to the northwest door.
-
 The female turns to him, and if you could see her face you are sure that she would be wearing an annoyed expression on it as she speaks.
-
 "Look" she says "If you need a code you can get one from the upstairs office computer, but that is unnecessary because I have one.  You are here because you can play the piano and get past the music lock.  As for Dr. Funderburk, another team has been dispatched to the facility to take care of him.  Now shut up and lets finish this and make sure we are back in time for the gathering."
-
 The two continue on in silence into the hallway northwest, closing the door behind them.  You wait several minutes to make sure that they do not return before you caustily move out of your hiding spot and examine the door to the northwest.  It seems the black robed duo has locked it behind them.  Hmmm... a lab.  That sounds like the perfect place for you to begin searching for an antidote.  It looks like you are going to have to find a way to unlock this door, get a passcode, and bypass a musical lock of some kind.  At least you have some direction now.  You look around the central hub and try to remember what you were doing before the interruption.
 
 (your journal has been updated)
@@ -1205,15 +1543,22 @@ The two continue on in silence into the hallway northwest, closing the door behi
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Central Hub
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 28
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Central Hub
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 29
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1227,6 +1572,9 @@ Southwest
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1245,15 +1593,22 @@ You can almost feel the electricity humming through this place and your first th
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Central Hub
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 29
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Server Room
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 30
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1261,6 +1616,9 @@ You can almost feel the electricity humming through this place and your first th
 [TEXT] East
 Southwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1279,12 +1637,22 @@ Maybe it was someone's idea of a great joke to remove the "Danger: High Voltage"
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=38
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Server Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 30
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Server Maintenance
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 31
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
 [TEXT] Rusty Pliers
 
@@ -1295,6 +1663,9 @@ Maybe it was someone's idea of a great joke to remove the "Danger: High Voltage"
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1312,21 +1683,31 @@ You take the rusty pliers.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=38
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Server Maintenance
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 31
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
+[TEXT] Server Maintenance
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 32
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1348,21 +1729,31 @@ Steve"
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=38
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
 [TEXT] Server Maintenance
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 32
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
+[TEXT] Server Maintenance
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 33
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1381,15 +1772,22 @@ The sounds of electronic equipment humming fill the air.  The central hub is sou
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=36
+[TEXT] Server Maintenance
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 33
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Server Room
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 34
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1397,6 +1795,9 @@ The sounds of electronic equipment humming fill the air.  The central hub is sou
 [TEXT] East
 Southwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1415,15 +1816,22 @@ You press a random key at the central terminal to bring up the screen asking for
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Server Room
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 34
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Server Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 35
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1431,6 +1839,9 @@ You press a random key at the central terminal to bring up the screen asking for
 [TEXT] East
 Southwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1449,15 +1860,22 @@ Locations stretch off in many directions from this central location.  Their dest
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Server Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 35
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Central Hub
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 36
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1471,6 +1889,9 @@ Southwest
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1489,15 +1910,22 @@ You step again into the third floor foyer.  Your room is west and other doors le
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Central Hub
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 36
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
 [TEXT] Foyer
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 37
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1508,6 +1936,9 @@ East
 West
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1526,12 +1957,22 @@ The computer and files here in the upper office seem to have remained undisturbe
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
+[TEXT] Foyer
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 37
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Upper Office
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 38
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] Memo
 
@@ -1542,6 +1983,9 @@ The computer and files here in the upper office seem to have remained undisturbe
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1574,8 +2018,9 @@ press any key to continue
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=404
-[TEXT] What do you wish to do?
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=406
+[TEXT] 
+What do you wish to do?
 1: Generate Lab Passcode
 2: Attempt To Send An Email
 3: Read Archived Messages
@@ -1595,12 +2040,22 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Upper Office
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 38
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Upper Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 39
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] Memo
 
@@ -1611,6 +2066,9 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1629,15 +2087,22 @@ You step again into the third floor foyer.  Your room is west and other doors le
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Upper Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 39
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
 [TEXT] Foyer
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 40
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1648,6 +2113,9 @@ East
 West
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1666,15 +2134,22 @@ Locations stretch off in many directions from this central location.  Their dest
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=10
+[TEXT] Foyer
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 40
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Central Hub
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 41
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1688,6 +2163,9 @@ Southwest
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1707,15 +2185,22 @@ The only source of illumination in this strange museum is its crimson accent tra
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Central Hub
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 41
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Museum
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 42
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1725,6 +2210,9 @@ South
 East
 Northwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1743,12 +2231,22 @@ This small office, though not very spacious, probably serves the needs of the mu
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
+[TEXT] Museum
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 42
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] Curator's Office
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 43
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=60
 [TEXT] Dim Hall Key
 Curator's Notes
@@ -1761,6 +2259,9 @@ Curator's Notes
 [TEXT] South
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1778,12 +2279,22 @@ You get close enough to the shelf to see that someone has placed many strange th
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] Curator's Office
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 43
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Curator's Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 44
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=106
 [TEXT] Sheet Music (lft.half)
 Dim Hall Key
@@ -1797,6 +2308,9 @@ Curator's Notes
 [TEXT] South
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1815,12 +2329,22 @@ You take the left half of the music.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] Curator's Office
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 44
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Curator's Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 45
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=60
 [TEXT] Dim Hall Key
 Curator's Notes
@@ -1833,6 +2357,9 @@ Curator's Notes
 [TEXT] South
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1850,12 +2377,22 @@ You take the key with you.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] Curator's Office
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 45
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Curator's Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 46
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=34
 [TEXT] Curator's Notes
 
@@ -1867,6 +2404,9 @@ You take the key with you.
 [TEXT] South
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1885,15 +2425,22 @@ The red light gives a fearsome glow to the exhibits in here.  The office is nort
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Curator's Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 46
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Museum
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 47
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1903,6 +2450,9 @@ South
 East
 Northwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1921,15 +2471,22 @@ Locations stretch off in many directions from this central location.  Their dest
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
+[TEXT] Museum
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 47
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Central Hub
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 48
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -1943,6 +2500,9 @@ Southwest
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -1962,12 +2522,22 @@ You step into the impressive great hall, and are instantly overcome with fear. T
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Central Hub
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 48
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Great Hall
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 49
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
 [TEXT] Hellhounds
 
@@ -1983,6 +2553,9 @@ Southeast
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2001,15 +2574,22 @@ Elegance and class do not even begin to describe the ambiance of this dining roo
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Great Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 49
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Dinning Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 50
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2019,6 +2599,9 @@ East
 West
 Southeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2036,12 +2619,22 @@ You search among the bowls of nuts and fruits and the cornucopias too.  All you 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Dinning Hall
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 50
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Dinning Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 51
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
 [TEXT] Rotten Fruit
 
@@ -2055,6 +2648,9 @@ East
 West
 Southeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2072,15 +2668,22 @@ You take the rotten apple.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Dinning Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 51
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Dinning Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 52
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2090,6 +2693,9 @@ East
 West
 Southeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2108,15 +2714,22 @@ This professional, restaurant sized kitchen would be the ideal place to prepare 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Dinning Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 52
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] Kitchen
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 52
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2125,6 +2738,9 @@ This professional, restaurant sized kitchen would be the ideal place to prepare 
 East
 Walk-In Freezer
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2143,21 +2759,31 @@ The pantry that your are now standing in is lit by a single naked bulb at ceilin
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 52
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Pantry
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 53
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2175,12 +2801,22 @@ Rummaging around in the tray you find a steel, heavy duty cheese grader.  This t
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Pantry
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 53
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
+[TEXT] Pantry
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 54
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
 [TEXT] Cheese Grader
 
@@ -2191,6 +2827,9 @@ Rummaging around in the tray you find a steel, heavy duty cheese grader.  This t
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2208,21 +2847,31 @@ You grab the cheese grader and vow to take it with you.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Pantry
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 54
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
+[TEXT] Pantry
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 55
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2241,15 +2890,22 @@ The massive resort kitchen remains deserted, though in truth you are not upset b
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
+[TEXT] Pantry
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 55
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] Kitchen
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 55
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2258,6 +2914,9 @@ The massive resort kitchen remains deserted, though in truth you are not upset b
 East
 Walk-In Freezer
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2276,15 +2935,22 @@ The dinning room could easily facilitate twenty or more guests.  Exits are east,
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 55
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Dinning Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 56
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2294,6 +2960,9 @@ East
 West
 Southeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2313,12 +2982,22 @@ This Alcove is essentially an interior porch with one major difference from most
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Dinning Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 56
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Alcove
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 57
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=30
 [TEXT] Corpse
 Wallet
@@ -2332,6 +3011,9 @@ Wallet
 South
 East
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2349,12 +3031,22 @@ An I.D. card inside the wallet identifies the owner as "David Sanders."  You are
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=14
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
 [TEXT] Alcove
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 57
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
+[TEXT] Alcove
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 58
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=16
 [TEXT] Corpse
 
@@ -2367,6 +3059,9 @@ An I.D. card inside the wallet identifies the owner as "David Sanders."  You are
 South
 East
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2385,15 +3080,22 @@ The smaller table here in the breakfast room could seat about eight to ten peopl
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
+[TEXT] Alcove
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 58
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Breakfast Room
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 59
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2401,6 +3103,9 @@ The smaller table here in the breakfast room could seat about eight to ten peopl
 [TEXT] West
 Northwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2418,12 +3123,22 @@ As you flip through the music you can only find one that is scored for piano.  E
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Breakfast Room
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 59
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Breakfast Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 60
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=46
 [TEXT] Sheet Music (rt.half)
 
@@ -2435,6 +3150,9 @@ As you flip through the music you can only find one that is scored for piano.  E
 [TEXT] West
 Northwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2462,15 +3180,22 @@ You take the right half of the music.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Breakfast Room
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 60
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Breakfast Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 61
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2478,6 +3203,9 @@ You take the right half of the music.
 [TEXT] West
 Northwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2495,15 +3223,22 @@ You use the tape residue to attach the two halves to Bach's "Contrapunctus I."  
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Breakfast Room
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 61
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Breakfast Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 62
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2511,6 +3246,9 @@ You use the tape residue to attach the two halves to Bach's "Contrapunctus I."  
 [TEXT] West
 Northwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2528,12 +3266,22 @@ The bowl seems to be very expensive and made out of ornate metal.  The bowl cont
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Breakfast Room
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 62
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Breakfast Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 63
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
 [TEXT] Golden Apple
 
@@ -2545,6 +3293,9 @@ The bowl seems to be very expensive and made out of ornate metal.  The bowl cont
 [TEXT] West
 Northwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2562,15 +3313,22 @@ You take the golden apple.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Breakfast Room
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 63
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Breakfast Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 64
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2578,6 +3336,9 @@ You take the golden apple.
 [TEXT] West
 Northwest
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2596,15 +3357,22 @@ The dinning room could easily facilitate twenty or more guests.  Exits are east,
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Breakfast Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 64
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Dinning Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 65
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2614,6 +3382,9 @@ East
 West
 Southeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2632,12 +3403,22 @@ The great beasts continue in their unholy slumber.  You can safely go upstairs o
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Dinning Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 65
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Great Hall
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 66
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
 [TEXT] Hellhounds
 
@@ -2653,6 +3434,9 @@ Southeast
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2671,15 +3455,22 @@ Locations stretch off in many directions from this central location.  Their dest
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Great Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 66
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Central Hub
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 67
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2693,6 +3484,9 @@ Southwest
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2719,15 +3513,22 @@ The key fits perfectly into the northwest door and unlocks it.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Central Hub
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 67
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Central Hub
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 68
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2741,6 +3542,9 @@ Southwest
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2759,15 +3563,22 @@ Cautiously, you meander into the dim hallway.  This small corridor is lit only b
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=18
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Central Hub
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 68
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Dim Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 69
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2777,6 +3588,9 @@ South
 West
 Southeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2795,12 +3609,22 @@ The typical carpet and black tile found in most of the resort has been replaced 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Dim Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 69
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Music Room
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 70
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] Harp
 
@@ -2811,6 +3635,9 @@ The typical carpet and black tile found in most of the resort has been replaced 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2828,12 +3655,22 @@ You place "Contrapunctus I" on the holder in front of the keys, nod respectfully
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Music Room
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 70
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Music Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 71
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] Harp
 
@@ -2844,6 +3681,9 @@ You place "Contrapunctus I" on the holder in front of the keys, nod respectfully
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2859,8 +3699,10 @@ press any key to continue
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1084
-[TEXT] Chapter 3:
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1088
+[TEXT] 
+
+Chapter 3:
 The Great Skin Hunt
 Lab Entry
 White tile spreads out across the floor of this small entry area like a giant sterile welcoming mat.  Despite your doubts on any recent attempts at buffing, the floor is still quite shiny and does not seem to be as old as the rest of the resort.  Two large glass doors lead off to the east and to what you assume is deeper into the hidden lab.  A gray sign, etched into the glass itself reads "A-1."  The stairs hug the north wall and lead up to the music room, back to the familiarity of the resort.
@@ -2870,15 +3712,22 @@ White tile spreads out across the floor of this small entry area like a giant st
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Music Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 71
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Lab Entry
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 72
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2886,6 +3735,9 @@ White tile spreads out across the floor of this small entry area like a giant st
 [TEXT] East
 Up
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2905,15 +3757,22 @@ You footfalls echo through the long, enclosed hallway and you catch yourself try
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Lab Entry
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 72
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Lab Corridor
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 73
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2923,6 +3782,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2942,15 +3804,22 @@ The doors to Lab A-1 open before you and you step into what you feel might be th
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Lab Corridor
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 73
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] Lab A-1
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 74
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2960,6 +3829,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -2979,15 +3851,22 @@ As you step into the office of Dr. Skinn you realize that this is not at all wha
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=48
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
+[TEXT] Lab A-1
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 74
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
 [TEXT] Dr.Skinn's Small Office
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 75
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -2995,6 +3874,9 @@ As you step into the office of Dr. Skinn you realize that this is not at all wha
 [TEXT] North
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3024,8 +3906,9 @@ press any key to continue
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=402
-[TEXT] What information would you like to look up?
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=404
+[TEXT] 
+What information would you like to look up?
 1: Try for an internet connection
 2: The FALON-6 Project
 3: NASSIC
@@ -3043,8 +3926,9 @@ press any key to continue
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=402
-[TEXT] What information would you like to look up?
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=404
+[TEXT] 
+What information would you like to look up?
 1: Try for an internet connection
 2: The FALON-6 Project
 3: NASSIC
@@ -3064,15 +3948,22 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=48
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
 [TEXT] Dr.Skinn's Small Office
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 75
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Dr.Skinn's Small Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 76
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3080,6 +3971,9 @@ Choose [1-6]>
 [TEXT] North
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3096,21 +3990,15 @@ What will happen? Press any key to find out.
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=5156
-[TEXT] You think that you can actually hear your own heartbeat throbbing in your ears as you watch the opening intently.  Moments later you see two people enter the office from the opening in the wall.  They are dressed in black hooded robes, very similar to the ones worn by the other people you have encountered today.  In fact, as you hear them speak you are positive that they are the ones that you saw in the central hub earlier.  You concentrate on their conversation.
-
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=5144
+[TEXT] 
+You think that you can actually hear your own heartbeat throbbing in your ears as you watch the opening intently.  Moments later you see two people enter the office from the opening in the wall.  They are dressed in black hooded robes, very similar to the ones worn by the other people you have encountered today.  In fact, as you hear them speak you are positive that they are the ones that you saw in the central hub earlier.  You concentrate on their conversation.
 "So, now that they have Dr. Funderburk cornered in the facility I thought we would be finished with our tasks." the man's voice is gruff but not deep.  The reply you hear seems to come from a woman.
-
 "The majority of them are but FALON-6 is still a factor and Lector wants to make sure that he is fed until we can find a suitable vessel to transfer the uhhh..guest..too."
-
 "But we are no longer importing...victims..I mean volunteers.  I was under the impression that only those of a certain blood type will work."  The gruff voiced man sounded confused "This is stupid, we need to return to the place of gathering.  I do not want to miss the main event."
-
 "You will do as you are told" now the woman sounded irritated "All we need to do is get the employee scientist manifest from the office here and take it to Lector.  It seems one of our brothers has turned from the faith and has been taken prisoner.  If his blood type is correct than he will be the volunteer...I mean victim, ha ha.  This will take all of two seconds, look here are the records.  Yes, it seems that Heath's bloodtype is perfect and he can be FALON-6's next meal."
-
 "Great" mumbles the gruff voice "can we get out of here now."
-
 "Lets go" she answers "Lector is waiting."
-
 You here the footsteps head off away from your position and then the steel plate close down tightly.  You pause for several moments before moving from your place of concealment.  You cross the room and examine the plate in the wall but still can not seem to find anyway to open it.  You wonder who Lector is and what role he plays in all of this but the main thing your mind is focusing on is the imprisoned scientist.  If you could get to him before this Lector person does, perhaps you can persuade him to help you with an antidote to the poison that is rapidly killing you.  Quickly you turn your attention to the task you had set out to do before your interruption and you begin searching the compartments by the steel plate.  Amongst stacks of reports you find a ring of keys and a memo that appear to be of interest to you.
 
 (your journal has been updated)
@@ -3120,12 +4008,22 @@ You here the footsteps head off away from your position and then the steel plate
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=48
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
 [TEXT] Dr.Skinn's Small Office
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 76
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Dr.Skinn's Small Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 77
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=46
 [TEXT] Tower Keys
 Tower Memo
@@ -3138,6 +4036,9 @@ Tower Memo
 [TEXT] North
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3155,12 +4056,22 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=48
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
 [TEXT] Dr.Skinn's Small Office
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 77
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Dr.Skinn's Small Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 78
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
 [TEXT] Tower Memo
 
@@ -3172,6 +4083,9 @@ You take the black key ring.
 [TEXT] North
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3190,15 +4104,22 @@ The lab remains unchanged from your last visit.  The corridor is west and the of
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=46
+[TEXT] Dr.Skinn's Small Office
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 78
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] Lab A-1
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 79
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3208,6 +4129,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3226,15 +4150,22 @@ Something about this long, deserted corridor makes the small hairs on the back o
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
+[TEXT] Lab A-1
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 79
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Lab Corridor
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 80
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3244,6 +4175,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3262,15 +4196,22 @@ The entrance to lab is quiet, like a sterile tomb.  The corridor is through the 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Lab Corridor
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 80
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Lab Entry
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 81
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3278,6 +4219,9 @@ The entrance to lab is quiet, like a sterile tomb.  The corridor is through the 
 [TEXT] East
 Up
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3296,12 +4240,22 @@ You enter the music room and discover that the piano and the bust of Bach have n
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Lab Entry
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 81
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Music Room
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 82
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] Harp
 
@@ -3313,6 +4267,9 @@ You enter the music room and discover that the piano and the bust of Bach have n
 [TEXT] North
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3331,15 +4288,22 @@ This hall is not very well lit at all.  You can see a Library to the west, the m
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=18
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Music Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 82
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Dim Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 83
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3349,6 +4313,9 @@ South
 West
 Southeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3367,15 +4334,22 @@ Locations stretch off in many directions from this central location.  Their dest
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Dim Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 83
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Central Hub
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 84
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3389,6 +4363,9 @@ Southwest
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3407,15 +4384,22 @@ Twelve large skylights pour in the reminding light from the graying sky overhead
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Central Hub
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 84
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Bright Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 85
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3424,6 +4408,9 @@ Twelve large skylights pour in the reminding light from the graying sky overhead
 West
 Northeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3441,15 +4428,22 @@ You unlock the door to the tower.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Bright Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 85
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Bright Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 86
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3458,6 +4452,9 @@ You unlock the door to the tower.
 West
 Northeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3477,15 +4474,22 @@ The blackish green brick that composes the dank tower entrance appears to be qui
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Bright Hall
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 86
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Tower Entrance
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 86
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3495,6 +4499,9 @@ South
 Up
 Under The Stairs
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3513,12 +4520,22 @@ Old boxes with collapsing dust covered cardboard walls stand stacked underneath 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Tower Entrance
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 86
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] Under The Stairs
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 87
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=34
 [TEXT] Surgical Tubing
 
@@ -3529,6 +4546,9 @@ Old boxes with collapsing dust covered cardboard walls stand stacked underneath 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
 [TEXT] Out to Tower Entrance
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3546,21 +4566,31 @@ You take the tubing.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=34
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
 [TEXT] Under The Stairs
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 87
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Under The Stairs
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 88
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
 [TEXT] Out to Tower Entrance
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3579,15 +4609,22 @@ Again you find yourself in the moist, musty tower entrance.  The resort hall is 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=32
+[TEXT] Under The Stairs
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 88
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Tower Entrance
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 88
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3597,6 +4634,9 @@ South
 Up
 Under The Stairs
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3615,12 +4655,22 @@ Your first thought as you enter the cell block is that there is no way that this
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Tower Entrance
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 88
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Cell Block
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 89
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=38
 [TEXT] Prisoner Manifest
 
@@ -3632,6 +4682,9 @@ Your first thought as you enter the cell block is that there is no way that this
 [TEXT] East
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3649,12 +4702,22 @@ You flip the switch and unlock the doors to the cells.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Cell Block
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 89
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Cell Block
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 90
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=38
 [TEXT] Prisoner Manifest
 
@@ -3666,6 +4729,9 @@ You flip the switch and unlock the doors to the cells.
 [TEXT] East
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3684,15 +4750,22 @@ The stone corridor that you find yourself in leads only to three cells.  The sil
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Cell Block
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 90
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Stone Corridor
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 91
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3702,6 +4775,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3720,12 +4796,22 @@ This cell is empty and immaculate.  You are sure that it has not been used in qu
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Stone Corridor
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 91
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Empty Cell
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 92
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=16
 [TEXT] Bucket
 
@@ -3736,6 +4822,9 @@ This cell is empty and immaculate.  You are sure that it has not been used in qu
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3753,21 +4842,31 @@ You take the bucket.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Empty Cell
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 92
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Empty Cell
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 93
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] North
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3786,15 +4885,22 @@ The stone corridor that you find yourself in leads only to three cells.  The sil
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Empty Cell
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 93
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Stone Corridor
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 94
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3804,6 +4910,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3825,12 +4934,22 @@ The cell is small and made out of the same dank brick as the rest of the tower. 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Stone Corridor
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 94
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Heath's Cell
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 95
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
 [TEXT] Heath
 Bucket
@@ -3842,6 +4961,9 @@ Bucket
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3861,15 +4983,22 @@ The stone corridor that you find yourself in leads only to three cells.  The sil
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Heath's Cell
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 95
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Stone Corridor
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 96
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -3879,6 +5008,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3897,12 +5029,22 @@ Heath sits on the bench as you enter the cell.  "I'm starving, were you able to 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Stone Corridor
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 96
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Heath's Cell
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 97
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=28
 [TEXT] Bucket
 Heath
@@ -3914,6 +5056,9 @@ Heath
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3931,8 +5076,9 @@ press any key to go on
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2998
-[TEXT] You step into the corridor with Heath when suddenly he begins walking toward the northern cell.  "They took some stuff from me when they incarcerated me.  I'm going to see if they stored it in one of these other cells."  You try to yell at him to stop but it is already to late.  He throws open the door to the north cell and all hell breaks loose.  Your scream joins in with the one that Heath just let loose as a small three foot monster with red, leathery skin and wearing nothing but a furry loincloth leaps from the cell and grapples onto the stunned scientist.  You watch in horror as it smiles devilishly before sinking its teeth into Heath's throat and ripping it free.  A rapid spray of blood spews from the gaping wound in Heath's neck, drenching the cackling beast as the mortality wounded man sinks to the floor of the stone corridor and dies.  The demonic imp regards you with a mild bit of interest for a moment more until it grunts and flees east into the cell that used to house Heath.  Amazingly, the devil bashes through the brick wall in the back of cell, causing it to cave in on itself, and dives outside.   As the smoke and dust clears...you stand there dumfounded.
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=3000
+[TEXT] 
+You step into the corridor with Heath when suddenly he begins walking toward the northern cell.  "They took some stuff from me when they incarcerated me.  I'm going to see if they stored it in one of these other cells."  You try to yell at him to stop but it is already to late.  He throws open the door to the north cell and all hell breaks loose.  Your scream joins in with the one that Heath just let loose as a small three foot monster with red, leathery skin and wearing nothing but a furry loincloth leaps from the cell and grapples onto the stunned scientist.  You watch in horror as it smiles devilishly before sinking its teeth into Heath's throat and ripping it free.  A rapid spray of blood spews from the gaping wound in Heath's neck, drenching the cackling beast as the mortality wounded man sinks to the floor of the stone corridor and dies.  The demonic imp regards you with a mild bit of interest for a moment more until it grunts and flees east into the cell that used to house Heath.  Amazingly, the devil bashes through the brick wall in the back of cell, causing it to cave in on itself, and dives outside.   As the smoke and dust clears...you stand there dumfounded.
 
 Stone Corridor
 The corridor is in disarray.  The mauled body of Heath lays dead next to the south door that leads to the empty cell.  The north cell is now open and the east cell, the one that used to be Heaths, is destroyed.  The cell block is west and an empty cell is south.
@@ -3943,12 +5089,22 @@ The corridor is in disarray.  The mauled body of Heath lays dead next to the sou
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Heath's Cell
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 97
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Stone Corridor
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 98
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=32
 [TEXT] Heath's Corpse
 
@@ -3962,6 +5118,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -3979,12 +5138,22 @@ You turn Heath's body to where the his back is facing you and raise up the chees
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Stone Corridor
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 98
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Stone Corridor
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 99
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=60
 [TEXT] Skin Shavings
 Heath's Corpse
@@ -3999,6 +5168,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4016,12 +5188,22 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Stone Corridor
-
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 3 | Moves: 99
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Stone Corridor
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 100
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=32
 [TEXT] Heath's Corpse
 
@@ -4035,6 +5217,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4053,12 +5238,22 @@ Stepping into the cell block still gives you the same feeling of dread and disgu
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Stone Corridor
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 100
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Cell Block
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 101
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=38
 [TEXT] Prisoner Manifest
 
@@ -4070,6 +5265,9 @@ Stepping into the cell block still gives you the same feeling of dread and disgu
 [TEXT] East
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4088,15 +5286,22 @@ Again you find yourself in the moist, musty tower entrance.  The resort hall is 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=30
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Cell Block
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 101
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Tower Entrance
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 101
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4106,6 +5311,9 @@ South
 Up
 Under The Stairs
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4124,15 +5332,22 @@ The bright hall is indeed well lit.  There are exits to the north, south, and ea
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Tower Entrance
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 101
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Bright Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 102
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4141,6 +5356,9 @@ The bright hall is indeed well lit.  There are exits to the north, south, and ea
 West
 Northeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4158,15 +5376,22 @@ You input the code and watch as green lights flash to signal that you have unloc
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Bright Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 102
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Bright Hall
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 103
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4175,6 +5400,9 @@ You input the code and watch as green lights flash to signal that you have unloc
 West
 Northeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4193,12 +5421,22 @@ This room is a storage area for non-perishable goods.  The floor is bare concret
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Bright Hall
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 103
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Dry Storage
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 104
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=32
 [TEXT] NASSIC Syringe
 
@@ -4209,6 +5447,9 @@ This room is a storage area for non-perishable goods.  The floor is bare concret
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] East
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4227,21 +5468,31 @@ You take the syringe filled with NASSIC.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Dry Storage
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 104
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Dry Storage
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 105
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] East
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4259,21 +5510,31 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Dry Storage
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 105
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Dry Storage
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 106
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=10
 [TEXT] East
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4292,15 +5553,22 @@ The bright hall is indeed well lit.  There are exits to the north, south, and ea
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Dry Storage
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 106
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Bright Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 107
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4309,6 +5577,9 @@ The bright hall is indeed well lit.  There are exits to the north, south, and ea
 West
 Northeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4327,15 +5598,22 @@ Locations stretch off in many directions from this central location.  Their dest
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=24
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Bright Hall
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 107
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] Central Hub
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 108
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4349,6 +5627,9 @@ Southwest
 Up
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4367,15 +5648,22 @@ This hall is not very well lit at all.  You can see a Library to the west, the m
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=18
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Central Hub
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 108
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Dim Hall
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 109
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4385,6 +5673,9 @@ South
 West
 Southeast
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4403,12 +5694,22 @@ You enter the music room and discover that the piano and the bust of Bach have n
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=22
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Dim Hall
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 109
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] Music Room
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 110
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=12
 [TEXT] Harp
 
@@ -4420,6 +5721,9 @@ You enter the music room and discover that the piano and the bust of Bach have n
 [TEXT] North
 Down
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4438,15 +5742,22 @@ The entrance to lab is quiet, like a sterile tomb.  The corridor is through the 
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
+[TEXT] Music Room
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 110
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Lab Entry
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 111
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4454,6 +5765,9 @@ The entrance to lab is quiet, like a sterile tomb.  The corridor is through the 
 [TEXT] East
 Up
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4472,15 +5786,22 @@ Something about this long, deserted corridor makes the small hairs on the back o
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=26
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Lab Entry
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 111
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Lab Corridor
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 112
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4490,6 +5811,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4508,15 +5832,22 @@ The lab remains unchanged from your last visit.  The corridor is west and the of
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
+[TEXT] Lab Corridor
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 112
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] Lab A-1
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 113
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4526,6 +5857,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4544,15 +5878,22 @@ You place the bucket full of treated skin into the sliding tray and close the do
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] Lab A-1
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 113
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
+[TEXT] Lab A-1
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 114
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4562,6 +5903,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4581,15 +5925,22 @@ With everything in place you press the red button next to the sliding tray and h
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] Lab A-1
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 114
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
+[TEXT] Lab A-1
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 115
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4599,6 +5950,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -4607,29 +5961,18 @@ West
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
 [TEXT] south
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2662
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2640
 [TEXT] 
 No longer fearing the brutal retribution of the demonic entity FALON-6 you burst into the containment chamber, hoping that you are in time to save Dr. Jones.  The scientest has not moved from the spot on the floor but as you kneel beside him you can tell that he is still breathing...barly breathing...but breathing none the less.
 
-
-
 "Dr. Jones" you call to him, reaching a hand to his sholder "Dr. Jones, you do not know me but I have been poisioned by one of your toxins...please you must help me cure this.  Dr. Jones?"
-
 He seems un responsive.
-
 "Dr. Jones...wake up...neither one of us have much time here...Dr. Jones."
-
-
 
 After a few moments of shaking the battered man opens his eyes and looks at you.  His gurggled voice comes out in fragments, a faint, raspy, broken whisper.
 
-
-
 "Lector...deranged...you must stop them...there is a way to....erradicate the toxins...all you need to do is...."
-
 His voice trails off and his eyes close.
-
-
 
 "All I need to do is WHAT" you shout as you begin to shake him violently.  Suddenly both eyes open and he gasps deeply of air, but only for a moment and then he is gone.  You stare at the body for a short time, feeling defeated and frustrated.  But he did allude to a way to reverse the effects of the poision...and you know that you must find it...or die.
 
@@ -4637,8 +5980,9 @@ press any key to continue
 
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=500
-[TEXT] Thanks for playing this introductory segment to "Gathered in Darkness."  The entire portion of the game (all nine chapters) will be uploaded to the archive the day the contest has ended.  Come back and have all your questions answered....
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=502
+[TEXT] 
+Thanks for playing this introductory segment to "Gathered in Darkness."  The entire portion of the game (all nine chapters) will be uploaded to the archive the day the contest has ended.  Come back and have all your questions answered....
 Congrats.
 
 
@@ -4647,15 +5991,22 @@ Congrats.
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
-[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
-[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
 [TEXT] Lab A-1
-
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
-[TEXT] 
-
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 115
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=14
+[TEXT] Lab A-1
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 116
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=12
 [TEXT] Exits
 
@@ -4665,6 +6016,9 @@ South
 East
 West
 
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=210
 [TEXT] 
 The story has ended.  You can:
