@@ -669,6 +669,8 @@
 		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		C34E570F2CF3941200A8DC2B /* OpenGameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */; };
 		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; };
+		C3AD0E5F2FD6C1B600EABA28 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3AD0E602FD6C1B600EABA28 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C35032EF2F37EF0900BD32A6 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C35032F02F37EF0900BD32A6 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C35032F12F37EF0900BD32A6 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
@@ -8646,6 +8648,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C314D6E82FD6C1B600EABA28 /* archetype.cpp in Sources */,
+				C3AD0E5F2FD6C1B600EABA28 /* randomness.c in Sources */,
 				C314D6E92FD6C1B600EABA28 /* archetype_compat.cpp in Sources */,
 				C314D6EA2FD6C1B600EABA28 /* archetype_string.cpp in Sources */,
 				C314D6EB2FD6C1B600EABA28 /* array.cpp in Sources */,
@@ -8699,6 +8702,7 @@
 				C314D8292FD6D2F100EABA28 /* glk_main.cpp in Sources */,
 				C314D82A2FD6D2F100EABA28 /* glkstart.c in Sources */,
 				C314D82B2FD6D2F100EABA28 /* pics.cpp in Sources */,
+				C3AD0E602FD6C1B600EABA28 /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
