@@ -1,0 +1,664 @@
+
+Assembling vocabulary...done.  65535 bytes available.
+-----------------------------------------------------------------------------
+I am awake.
+
+There is nothing to see; my eyes cannot focus on anything.
+Something is happening around me - happening to me.  I feel sharp,
+prickling pains along my arms and in my neck, and the sound of tiny
+motors, a sense of something withdrawing from my body.
+
+The ceiling is too near to be a ceiling; the walls too close to be
+walls. My breath comes faster and makes a mist on the glass cover
+close to my face. What is this?  I feel it pressing against my back,
+my sides, my feet. I can barely move.  I cannot remember anything.
+The tiny space is filled with the smell of my own perspiration.
+
+Who am I...?
+
+                       Derek Jones Presents
+
+                      an Archetype Adventure
+
+                       STARSHIP  SOLITAIRE
+
+
+I'm in some kind of glass coffin.  Along the inner walls are dozens of
+tiny, motor-driven needles and catheters which seem to be presently
+withdrawn.
+I can see a glass cover.
+There are no visible exits.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I push on the cover but it won't budge.  It rattles but won't give.
+Like it's latched or something.
+
+What should I do now? 
+I opened the simple latch.
+
+What should I do now? 
+I push on the cover and open it.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I step shakily onto the floor, which feels very cold.  My feet are
+tender and weak.
+
+The air is very still; I can smell the old dust.  The light is dim.
+In the ceiling above, the main lights are out and so the only light
+comes from little strips along the junctions between the walls and
+floor.
+
+I am standing in the middle of a cavernous cryogenic freezer. There
+are other glass coffins coming up out of the floor, just like mine.
+From what I can tell by the tiny indicator lights along the sides, the
+coffins are operating normally.  Inside each one is a naked human
+form, the skin alabaster white and hairy with ice crystals.
+I can see a glass coffin.
+I can exit fore.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in a small windowless anteroom that has very airtight doors and a
+number of vents along the sides.  It is about as big as a shower.  In
+faded letters along one wall it reads "DECONTAMINATION".
+I can see a turbolift elevator and a big red button.
+I can exit aft.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+With a loud hissing roar steam and antiseptic-smelling gases come
+pouring out of the vents in the walls, scouring me off.  When it
+finishes I feel distinctly cleaner and fresher.
+I hear a quiet clicking sound, and the display above the elevator
+changes from "LOCKED" to "UNLOCKED".
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I step into the turbolift elevator.
+The doors swish shut.  A polite automated voice says, "Please announce
+destination level one through six."
+There are no visible controls or buttons of any kind.
+There is nothing of interest in the turbolift elevator.
+There are no visible exits.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+There is a lurch and short whooshing sound.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in a small alcove by the elevator.  A large number "5"
+is stenciled by the doors.  The lighting here, as elsewhere, is minimal.
+I can see a turbolift elevator.
+I can exit starboard and aft.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in the doctor's quarters, if the nameplate on the door is
+correct.  Dust covers everything.
+I can see a closet and a bed.
+I can exit port.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+Aha!  I find and pick up a single page.
+
+What should I do now? 
+Near the bottom are the digits 58-63-59.
+
+What should I do now? 
+I picked up the bicycle repair kit.
+
+What should I do now? 
+In the elevator alcove on level five.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in an L-shaped hallway.  It is fairly narrow, made more
+so by a number of half-buried pipes running along the aft side.
+There is nothing of interest here.
+I can exit starboard and fore.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I find myself in Sickbay.  Yellowed anatomy charts are hanging on the
+wall as well as some better-preserved med school diplomas behind
+glass.  But the most prominent feature is the couch in the middle of
+the room.
+I can see an automated medical couch.
+I can exit starboard and port.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I am standing in what appears to be the medical laboratory, in an
+adjoining room off of Sickbay.
+I can see a locker and a laboratory bench.
+I can exit port.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I walk up to it to get a closer look.
+-----------------------------------------------------------------------------
+I am at the laboratory bench.
+I can see some scribbled notes and a beaker of gunk.
+I can exit port.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I drink down the gunk... Hm... OUCH!  OW!  AAAaaaarrgghh... I feel like
+my body is exploding... oof... urgh... every muscle in my body feels
+like it's on fire...
+The sensation subsides.
+Suddenly I feel about three times stronger...
+
+What should I do now? 
+In the medical laboratory.
+
+What should I do now? 
+It has a combination lock.  What's the combination? That did it!
+I opened the locker.
+
+What should I do now? 
+I picked up the pair of lead-lined coveralls.
+
+What should I do now? 
+In the Sickbay.
+
+What should I do now? 
+In an L-shaped hallway.
+
+What should I do now? 
+In the elevator alcove on level five.
+
+What should I do now? 
+The doors swish shut.  A polite automated voice says, "Please announce
+destination level one through six."
+
+What should I do now? 
+There is a lurch and short whooshing sound.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in the briefing room.
+I can see a turbolift elevator.
+I can exit aft and fore.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in the observation deck.
+I can see a gravlifter.
+I can exit aft.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I picked up the gravlifter.
+
+What should I do now? 
+In the briefing room.
+
+What should I do now? 
+The doors swish shut.  A polite automated voice says, "Please announce
+destination level one through six."
+
+What should I do now? 
+There is a lurch and short whooshing sound.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I am standing in a very dusty L-shaped hallway; the number "4" is
+stenciled just outside the doors.
+I can see a turbolift elevator.
+I can exit starboard and aft.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in the middle of a hallway that is hexagonal in shape except that
+it is stretched vertically.  The walls, ceiling and floor are made out
+of a metal grid whose holes are loose enough for me to hook my fingers
+into. Beyond the grid I can see that this hallway is enclosed in a
+larger circular tube; thick bundled wires run lengthwise through the
+spaces between the tube and the grid.  The lighting, which comes from
+bright flourescent tubes beneath the floor of the grid, is harsh and
+casts a wobbly shadow above me.
+There is nothing of interest here.
+I can exit starboard, aft, and fore.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I put on the pair of lead-lined coveralls.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in a small storage room.  The lighting is red and there are wide yellow and black stripes painted all over the walls.
+I can see some large sheets of metal, a Phillips screwdriver, a huge block of uranium, and a sign.
+I can exit port.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I picked up the Phillips screwdriver.
+
+What should I do now? 
+In the long, tall hexagonal hallway.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in what appears to be the engine room.  Complicated tangles of
+wires and gauges cover the wall; the only thing that looks simple
+enough for me is a panel mounted on the far wall.
+I can see a reactor chamber, a control panel, and a hand held blaster.
+I can exit fore.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I opened the hand held blaster.
+
+What should I do now? 
+I opened the gravlifter.
+
+What should I do now? 
+I put the small antimatter cell into the gravlifter.
+
+What should I do now? 
+I closed the gravlifter.
+
+What should I do now? 
+I opened the reactor chamber.
+
+What should I do now? 
+In the long, tall hexagonal hallway.
+
+What should I do now? 
+In the storage room.
+
+What should I do now? 
+I plugged the gravlifter into the huge block of uranium.
+Lights around the tray on the bottom light up.
+
+What should I do now? 
+I picked up the huge block of uranium.
+
+What should I do now? 
+In the long, tall hexagonal hallway.
+
+What should I do now? 
+In the engine room.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in the small reactor chamber.  Huge lenses, vents, and rods cover the walls.  The room is hexagonal and barely large enough to stand in.
+I can see an enormous block of lead.
+There are no visible exits.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I unplugged the gravlifter from the huge block of uranium.
+Oof!  Suddenly the huge block of uranium regains all of its previous weight and crashes to the floor!
+
+What should I do now? 
+In the engine room.
+
+What should I do now? 
+I closed the reactor chamber.
+
+What should I do now? 
+There is a shuddering roar that I can feel through the floor and walls; the lights brighten visibly.  The initial roar dies away but a persistent thrumming remains.
+
+What should I do now? 
+I take off the pair of lead-lined coveralls.
+I put down the pair of lead-lined coveralls.
+
+What should I do now? 
+I put down the single page.
+
+What should I do now? 
+I put down the gravlifter.
+
+What should I do now? 
+I picked up the hand held blaster.
+
+What should I do now? 
+In the long, tall hexagonal hallway.
+
+What should I do now? 
+In the storage room.
+
+What should I do now? 
+I picked up the large sheets of metal.
+
+What should I do now? 
+In the long, tall hexagonal hallway.
+
+What should I do now? 
+I'm in the L-shaped elevator alcove on level four.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I am halfway through a narrow, circular hallway that reminds me of a
+hamster tube.  There are rungs on the side which are inconveniently
+placed at the present but which could be useful during zero gravity.
+There is nothing of interest here.
+I can exit port and aft.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in a small antechamber about the size of a walk-in closet.  There
+is some graffitti on the wall, barely readable:  "I've started
+breathing and I can't stop!"
+I can see an airlock, a viewport, a spacesuit, and a space helmet.
+I can exit fore.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I put down the large sheets of metal.
+
+What should I do now? 
+I put down the hand held blaster.
+
+What should I do now? 
+I put down the bicycle repair kit.
+
+What should I do now? 
+I put down the Phillips screwdriver.
+
+What should I do now? 
+In the narrow circular curving hallway.
+
+What should I do now? 
+I'm in the L-shaped elevator alcove on level four.
+
+What should I do now? 
+The doors swish shut.  A polite automated voice says, "Please announce
+destination level one through six."
+
+What should I do now? 
+There is a lurch and short whooshing sound.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in the L-shaped elevator alcove on level three.
+I can tell it's level three because of the enormous numeral "3" painted
+just outside the elevator doors.
+I can see a turbolift elevator.
+I can exit starboard and aft.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in the captain's quarters.
+I can see a captain's bed and a desk.
+I can exit fore.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I'm looking... The following objects fall out:
+a quarter
+some keys
+a wallet
+
+What should I do now? 
+I picked up the quarter.
+
+What should I do now? 
+I picked up the keys.
+
+What should I do now? 
+I wedge the coin into the thin slot, twist, and... the back pops off.
+
+What should I do now? 
+I picked up the nine-volt battery.
+
+What should I do now? 
+In the L-shaped elevator alcove on level three.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in the small kitchenette.
+I can see a janitor's closet, a vending machine, and a small table.
+I can exit port and aft.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I opened the janitor's closet.
+
+What should I do now? 
+I put down the keys.
+
+What should I do now? 
+I picked up the can of gas.
+
+What should I do now? 
+I picked up the Windex.
+
+What should I do now? 
+Balunga-CLUNK!  A can pops out of the machine.
+
+What should I do now? 
+I picked up the can of Gatorade.
+
+What should I do now? 
+I gulp down the contents of the can.  The fog in my head seems to
+clear... WHOA!  My memory is coming back, pieces falling into place...
+I know who it is I am!  What I'm supposed to do!
+
+I'm the pilot, and I was to be awakened in the event of a serious course deviation.  I have to get to the pilot's console on the bridge on level one RIGHT AWAY!
+
+What should I do now? 
+I put down the empty can.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in the recreation room.
+I can see an air compressor and some scuba tanks.
+I can exit port and fore.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I fill the compressor with gasoline.
+
+What should I do now? 
+I put down the empty can.
+
+What should I do now? 
+I give the compressor a brisk kick.  It sounds like something inside just fell into place.
+
+What should I do now? 
+It starts with a roar!
+
+What should I do now? 
+I fill up the scuba tanks with 30 minutes of air.
+
+What should I do now? 
+A gauge on the tanks says there are 30 minutes remaining.
+
+What should I do now? 
+I picked up the scuba tanks.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in the swimming pool.
+I can see some very dark sunglasses and a towel.
+I can exit up.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I picked up the towel.
+
+What should I do now? 
+I picked up the very dark sunglasses.
+
+What should I do now? 
+In the recreation room.
+
+What should I do now? 
+In the small kitchenette.
+
+What should I do now? 
+In the L-shaped elevator alcove on level three.
+
+What should I do now? 
+The doors swish shut.  A polite automated voice says, "Please announce
+destination level one through six."
+
+What should I do now? 
+There is a lurch and short whooshing sound.
+
+What should I do now? 
+I'm in the L-shaped elevator alcove on level four.
+
+What should I do now? 
+In the narrow circular curving hallway.
+
+What should I do now? 
+In the small antechamber.
+
+What should I do now? 
+I put the nine-volt battery into the hand held blaster.
+
+What should I do now? 
+I closed the hand held blaster.
+
+What should I do now? 
+I put a sturdy patch over the hole in the knee; it seems to fit well.
+
+What should I do now? 
+I spray the space helmet with the Windex.  Now there's just a muddy mixture of dirt and windex on it... I could use a towel.
+
+What should I do now? 
+I clean off the Windex.  Wow!  What a shine on that faceplate!
+
+What should I do now? 
+I put down the Windex.
+
+What should I do now? 
+I put down the towel.
+
+What should I do now? 
+I put on the very dark sunglasses.
+
+What should I do now? 
+I picked up the space helmet.
+
+What should I do now? 
+I put on the space helmet.
+
+What should I do now? 
+I picked up the spacesuit.
+
+What should I do now? 
+I put on the spacesuit.
+
+What should I do now? 
+I put on the scuba tanks.
+
+What should I do now? 
+I picked up the large sheets of metal.
+
+What should I do now? 
+I picked up the hand held blaster.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I am in the airlock.
+I can see a large two-handed lever.
+There are no visible exits.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I closed the airlock.
+
+What should I do now? 
+There is a thrumming noise; the air evacuates from the chamber.  I hear
+heavy bolts slam shut within the inner door.
+Cautiously I take a few experimental breaths.  The only sound I hear is
+the puttering of the air regulator on the scuba tanks.  The patch on
+the knee of the spacesuit seems to be holding.
+Silently the outer door of the airlock opens.
+
+What should I do now? 
+I leave through the outer airlock door.
+-----------------------------------------------------------------------------
+I'm standing outside the starship on a metal ledge.  The airlock is to
+port. There are metal rungs set into the hull of the ship.  The words
+"LEVEL FOUR" are painted on the hull; they are somewhat scarred by
+meteorites.  The rungs extend upward and downward.
+I can see an airlock.
+I can exit up and port.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm clinging to the metal rungs set into the hull; to my left I can
+see the letters "LEVEL THREE" painted on the outside.  There is no
+entrance into the ship here.
+There is nothing of interest here.
+I can exit down and up.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm outside the hull at level two.  There is an enormous quartz plate
+here; I can see through it to the observation lounge on the inside of
+the starship.
+There is nothing of interest here.
+I can exit down and up.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm at the very top of the starship; I can look over the top of the
+bridge. Not that there is much to see except stars.  I can go no
+higher.
+I can see a ragged gaping hole.
+I can exit down.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I step through the gaping hole to the bridge.
+-----------------------------------------------------------------------------
+I'm standing on the bridge of the starship.  A fine thin coating of
+meteor dust covers everything.  The room is small and simple.
+I can see stars though the ragged hole at the front of the bridge.
+I can see a ragged gaping hole, a pilot's console, a computer console, and a captain's chair.
+There are no visible exits.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I patch the hole securely with the sheet metal, using the altered
+hand blaster as an arc welder.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I am at the computer console.
+I can see a flat purple switch, a small green button, a big blue button, a small red button, and a wide yellow button.
+There are no visible exits.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+There is a hissing sound; the lights brighten and my suit goes limp.
+
+What should I do now? 
+In the bridge.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I am at the pilot's console.
+There is nothing of interest at the pilot's console.
+There are no visible exits.
+-----------------------------------------------------------------------------
+Ah!  This is familiar territory.  Standard Meinsch controls and a full
+navigational array.  Looks like there was a slight course deviation
+three years ago that has been steadily getting worse.  Deftly I make the corrections, feeling the floor vibrate with the exertion.  The ship is back on course.
+
+                            *    *    *
+
+You have succeeded!  The ship is fueled and headed the right way.
+Congratulations!

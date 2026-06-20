@@ -92,4 +92,25 @@ regress: archetype_hl
 		echo "regress: FAIL (transcript diverged):"; head -40 /tmp/gorreven_diff.txt; exit 1; \
 	fi
 
-.PHONY: clean regress
+# Regression test: replay a full winning walkthrough of "Starship Solitaire"
+# and diff the transcript against the committed ground truth. As with Gorreven,
+# the story file is not vendored; point STARSHIP at a copy of STARSHIP.ACX (it
+# ships with the Archetype 1.01 distribution).
+STARSHIP ?= $(HOME)/Downloads/arch101/STARSHIP.ACX
+
+regress-starship: archetype_hl
+	@if [ ! -f "$(STARSHIP)" ]; then \
+		echo "regress-starship: story file not found at $(STARSHIP); set STARSHIP=/path/to/STARSHIP.ACX"; exit 2; fi
+	@./archetype_hl "$(STARSHIP)" < test/starship_walkthrough.txt 2>&1 \
+		| sed '/Cheap Glk Implementation/d' > /tmp/starship_got.txt
+	@if diff -u test/starship_expected.txt /tmp/starship_got.txt > /tmp/starship_diff.txt; then \
+		grep -q "You have succeeded" /tmp/starship_got.txt \
+			&& echo "regress-starship: PASS (byte-exact, game won)" \
+			|| { echo "regress-starship: FAIL (transcript matched but no win marker)"; exit 1; }; \
+	else \
+		echo "regress-starship: FAIL (transcript diverged):"; head -40 /tmp/starship_diff.txt; exit 1; \
+	fi
+
+regress-all: regress regress-starship
+
+.PHONY: clean regress regress-starship regress-all

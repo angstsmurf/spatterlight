@@ -1,0 +1,140 @@
+open coffin
+open latch
+open cover
+get out
+fore
+push button
+enter elevator
+say five
+get out
+starboard
+look under bed
+read page
+get kit
+port
+aft
+starboard
+starboard
+look at bench
+drink gunk
+leave
+open locker
+58-63-59
+get coveralls
+port
+port
+fore
+enter elevator
+say two
+get out
+fore
+get gravlifter
+aft
+enter elevator
+say four
+get out
+aft
+wear coveralls
+starboard
+get screwdriver
+port
+aft
+open blaster with screwdriver
+open gravlifter
+put cell in gravlifter
+close gravlifter
+open reactor
+fore
+starboard
+plug gravlifter into uranium
+get uranium
+port
+aft
+enter reactor
+unplug gravlifter
+leave
+close reactor
+push green button
+drop coveralls
+drop page
+drop gravlifter
+get blaster
+fore
+starboard
+get metal
+port
+fore
+starboard
+aft
+drop metal
+drop blaster
+drop kit
+drop screwdriver
+fore
+port
+enter elevator
+say three
+get out
+aft
+look in pants
+get quarter
+get keys
+open calculator with quarter
+get battery
+fore
+starboard
+open closet with keys
+drop keys
+get gas
+get windex
+put quarter in machine
+get gatorade
+drink gatorade
+drop gatorade
+aft
+fill compressor with gas
+drop gas
+kick compressor
+start compressor
+fill tanks with compressor
+look at tanks
+get tanks
+port
+get towel
+get sunglasses
+up
+fore
+port
+enter elevator
+say four
+get out
+starboard
+aft
+put battery in blaster
+close blaster with screwdriver
+patch suit with kit
+clean helmet with windex
+clean helmet with towel
+drop windex
+drop towel
+wear sunglasses
+get helmet
+wear helmet
+get suit
+wear suit
+wear tanks
+get metal
+get blaster
+enter airlock
+close airlock
+pull lever down
+leave
+up
+up
+up
+enter hole
+patch hole with metal
+enter console
+push green button
+leave
+enter pilot's console

@@ -39,7 +39,12 @@ typedef ParseType *ParsePtr;
  * Is a word character
  */
 static bool isWordChar(char c) {
-	return Common::isAlnum(c) || c == '-' || c == '\"';
+	// The original Pascal Word_Chars set is ['A'..'Z','a'..'z','0'..'9','-',chr(39)];
+	// chr(39) is the apostrophe, which keeps possessive names such as
+	// "pilot's console" intact so they match the vocabulary generated from
+	// the object's description. (The port had mis-transcribed chr(39) as the
+	// double-quote character, chr(34).)
+	return Common::isAlnum(c) || c == '-' || c == '\'';
 }
 
 /**
