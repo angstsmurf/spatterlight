@@ -16,8 +16,9 @@
  * per known release. The caller passes NOVEL.EXE as the story file; the
  * interpreter chdirs to the same directory and loads the data files by name.
  *
- * Comprehend defines no embedded IFID, so the IFID is the MD5 of the
- * story file, prefixed with "COMPREHEND-".
+ * Comprehend defines no embedded IFID and has no scheme of its own in the
+ * Treaty of Babel, so the IFID is just the MD5 of the story file (the
+ * default for "other legacy file formats", Treaty section 2.2.5.12).
  *
  * This file depends on treaty_builder.h
  *
@@ -153,14 +154,14 @@ static int32 claim_story_file(void *story_file, int32 extent)
     return INVALID_STORY_FILE_RV;
 }
 
-/* IFIDs for Comprehend are formed by prepending COMPREHEND- to the default
- * MD5 ifid.
+/* The IFID for Comprehend is simply the MD5 of the story file. Leaving the
+ * output empty makes the handler fill in the bare MD5 checksum.
  */
 static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, int32 output_extent)
 {
     if (claim_story_file(story_file, extent) != VALID_STORY_FILE_RV)
         return INVALID_STORY_FILE_RV;
-    ASSERT_OUTPUT_SIZE(12);
-    strcpy(output, "COMPREHEND-");
+    ASSERT_OUTPUT_SIZE(33);
+    output[0] = '\0';
     return INCOMPLETE_REPLY_RV;
 }

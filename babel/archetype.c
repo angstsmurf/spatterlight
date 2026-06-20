@@ -6,8 +6,9 @@
  * Its translator (CREATE.EXE) emits a binary .ACX file which is run by
  * the interpreter (PERFORM.EXE).
  *
- * Archetype defines no embedded IFID, so the IFID is the MD5 of the
- * story file, prefixed with "ARCHETYPE-".
+ * Archetype defines no embedded IFID and has no scheme of its own in the
+ * Treaty of Babel, so the IFID is just the MD5 of the story file (the
+ * default for "other legacy file formats", Treaty section 2.2.5.12).
  *
  * This file depends on treaty_builder.h
  *
@@ -46,14 +47,14 @@ static int32 claim_story_file(void *story_file, int32 extent)
     return VALID_STORY_FILE_RV;
 }
 
-/* IFIDs for Archetype are formed by prepending ARCHETYPE- to the default
- * MD5 ifid.
+/* The IFID for Archetype is simply the MD5 of the story file. Leaving the
+ * output empty makes the handler fill in the bare MD5 checksum.
  */
 static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, int32 output_extent)
 {
     if (claim_story_file(story_file, extent) != VALID_STORY_FILE_RV)
         return INVALID_STORY_FILE_RV;
-    ASSERT_OUTPUT_SIZE(11);
-    strcpy(output, "ARCHETYPE-");
+    ASSERT_OUTPUT_SIZE(33);
+    output[0] = '\0';
     return INCOMPLETE_REPLY_RV;
 }
