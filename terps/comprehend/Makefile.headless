@@ -32,8 +32,8 @@ CC  ?= clang
 COMMON_INC := -I. -I$(CHEAPGLK_DIR) -I$(READWOZ_DIR) -I$(COMMON_DIR) -I$(SAGADRAW_DIR)
 CXXFLAGS   := -std=c++14 -O0 -g -Wall -Wno-unknown-pragmas \
               -Wno-macro-redefined -Wno-format $(COMMON_INC) \
-              -DGARGLK -DSPATTERLIGHT
-CFLAGS     := -O0 -g -Wall -w $(COMMON_INC) -DGARGLK -DSPATTERLIGHT
+              -DGARGLK -DSPATTERLIGHT -DCOMPREHEND_HEADLESS
+CFLAGS     := -O0 -g -Wall -w $(COMMON_INC) -DGARGLK -DSPATTERLIGHT -DCOMPREHEND_HEADLESS
 
 CXX_SRCS := \
     apple2.cpp \

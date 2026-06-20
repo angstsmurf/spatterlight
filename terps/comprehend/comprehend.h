@@ -96,6 +96,21 @@ public:
     // the original NOVEL.EXE's PCjr branch. Opt-in via the #pcjr command.
     bool _usePcjr = false;
 
+    // Last value of gli_comprehend_graphics that applyPreferredGraphicsMode()
+    // acted on. Lets onArrange() re-read the preference on every arrange (the
+    // way Bocfel and Scott do) and react only when it actually changes -- so a
+    // plain window resize doesn't clobber a manual #dhgr/#pcjr override, while a
+    // genuine preference change (or the corrected theme that arrives in a
+    // post-handshake arrange) does switch the renderer. -1 = not yet applied.
+    int _appliedComprehendGraphics = -1;
+
+    // Last single picture handed to drawPicture(). repaintCurrentScene() uses it
+    // to re-render after a graphics-mode switch when there is no room scene to
+    // replay -- notably the title screen, which beforeGame() draws via
+    // drawPicture() directly rather than through paintBackground(). (uint)-1
+    // means nothing has been drawn yet.
+    uint _lastDrawnPicture = (uint)-1;
+
 public:
     Comprehend();
     ~Comprehend();
@@ -203,8 +218,17 @@ public:
     // Apply the preferred-graphics-mode setting from the host (gli_comprehend_graphics):
     // 0 = more colours (enable PCjr or DHGR if drawing tables are available),
     // 1 = less colours (keep CGA / standard hi-res). Called after loadGame() so
-    // the drawing tables are already installed.
-    void applyPreferredGraphicsMode();
+    // the drawing tables are already installed, and again from onArrange() so a
+    // mid-game change of the preference (or the real theme arriving in a later
+    // arrange) takes effect. Idempotent: re-applies only when the value changed
+    // since last time. Returns true if it switched the active renderer.
+    bool applyPreferredGraphicsMode();
+
+    // Re-render the scene currently composited (the last room + its items)
+    // through the active renderer. Used after an on-the-fly graphics-mode switch,
+    // when the persistent surface still holds the picture drawn by the previous
+    // renderer, so a plain re-blit would show the old mode.
+    void repaintCurrentScene();
 
     // Apple II double hi-res mode. on==true widens the draw surface to 560 and
     // routes pictures through the DHGR renderer; on==false restores standard

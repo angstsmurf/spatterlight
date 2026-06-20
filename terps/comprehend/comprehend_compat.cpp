@@ -9,9 +9,17 @@ extern "C" {
 #include "glk.h"
 }
 
-/* Host-provided graphics-mode preference (defined in glkimp/connect.c in the
- * full build). The headless harness has no host, so stub it here. */
+/* Host-provided graphics-mode preference. In the full Spatterlight build this
+ * lives in glkimp/connect.c (compiled into libglkimp.dylib) and is updated from
+ * the user's theme; the interpreter must read THAT copy. Defining it here too
+ * would, under macOS two-level namespacing, give the executable its own private
+ * copy that connect.c never writes to -- so the setting would appear stuck at 0
+ * (more colours / DHGR-PCjr). Therefore only provide the stub for the headless
+ * harness, which links no host glkimp and has nowhere else for the symbol to
+ * come from. */
+#ifdef COMPREHEND_HEADLESS
 extern "C" int gli_comprehend_graphics = 0;
+#endif
 
 namespace Common {
 

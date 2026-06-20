@@ -39,8 +39,12 @@ namespace Comprehend {
 // gli_determinism (regression/replay mode) must suppress it for stable output.
 extern "C" int gli_slowdraw;
 extern "C" int gli_determinism;
+#ifdef SPATTERLIGHT
 // Comprehend preferred-graphics-mode: 0 = more colours (PCjr/DHGR), 1 = less.
+// Spatterlight-only host preference; other Glk back-ends use the #dhgr / #pcjr
+// commands instead (see game.cpp).
 extern "C" int gli_comprehend_graphics;
+#endif
 
 // Total content area in pixels, exported by glkimp (0 in the headless build).
 // Used to keep a rescaled picture from eating the whole window vertically.
@@ -371,15 +375,66 @@ bool Comprehend::undoTurn(uint turns) {
     return true;
 }
 
-void Comprehend::applyPreferredGraphicsMode() {
-    if (gli_comprehend_graphics == 0) {
-        // More colours: enable PCjr or DHGR when drawing tables are available.
-        if (gmpcjrHaveDrawingTables())
-            setPcjrMode(true);
-        else if (Common::DiskImageFS::active() && gmDhgrHaveDrawingTables())
-            setDhgrMode(true);
+bool Comprehend::applyPreferredGraphicsMode() {
+#ifdef SPATTERLIGHT
+    // Re-applied on every arrange (see onArrange), so guard against doing work
+    // when the preference hasn't actually changed: a window resize lands here
+    // too. -1 is the initial "never applied" sentinel, so the first call runs.
+    if (gli_comprehend_graphics == _appliedComprehendGraphics)
+        return false;
+    _appliedComprehendGraphics = gli_comprehend_graphics;
+
+    // More colours (0): PCjr on DOS v1, double hi-res on Apple II. Fewer colours
+    // (1): the 4-colour CGA / standard hi-res renderers, which are the defaults.
+    // Switch in whichever direction is needed; games without the higher-colour
+    // tables have nothing to toggle and stay on the (fewer-colour) default.
+    bool more = (gli_comprehend_graphics == 0);
+    if (gmpcjrHaveDrawingTables()) {
+        if (more == _usePcjr)
+            return false;
+        setPcjrMode(more);
+        return true;
     }
-    // Less colours (gli_comprehend_graphics == 1): leave defaults (CGA / hi-res).
+    if (Common::DiskImageFS::active() && gmDhgrHaveDrawingTables()) {
+        if (more == _useDhgr)
+            return false;
+        setDhgrMode(more);
+        return true;
+    }
+    return false;
+#else
+    // No host graphics-quality preference on other Glk back-ends; the mode is
+    // controlled by the #dhgr / #pcjr commands (see game.cpp). Nothing to do.
+    return false;
+#endif
+}
+
+void Comprehend::repaintCurrentScene() {
+    if (!_topWindow)
+        return;
+    // A room scene (location + items): the picture numbers in _screenComposition
+    // encode their own clear/overlay semantics, so replaying them via
+    // paintBackground re-renders the scene through the now-active renderer.
+    // Passing the same list makes paintBackground suppress the slow-draw reveal,
+    // so the mode switch repaints in one step.
+    if (!_screenComposition.empty()) {
+        Common::Array<uint> pics = _screenComposition;
+        paintBackground(pics);
+        return;
+    }
+    // No room scene -- e.g. the title screen, which beforeGame() draws via
+    // drawPicture() directly. Re-render that last single picture through the new
+    // renderer (instantly), so a mode switch on the title screen redraws it
+    // rather than leaving it cleared (DHGR) or stale (PCjr).
+    if (_lastDrawnPicture != (uint)-1) {
+        bool wasSuppressed = _suppressSlowDraw;
+        _suppressSlowDraw = true;
+        drawPicture(_lastDrawnPicture);
+        _suppressSlowDraw = wasSuppressed;
+        return;
+    }
+    // Nothing drawn yet: just refresh whatever the surface holds.
+    blitSurfaceToWindow();
 }
 
 void Comprehend::runGame() {
@@ -695,6 +750,10 @@ static uint32 surfaceColorAt(Glk::Comprehend::DrawSurface *ds, int x, int y);
 
 void Comprehend::drawPicture(uint pictureNum) {
     if (!_topWindow || !_pics || !_drawSurface) return;
+
+    // Remember it so repaintCurrentScene() can re-render it after a graphics-mode
+    // switch when there's no room scene to replay (e.g. the title screen).
+    _lastDrawnPicture = pictureNum;
 
     // Ensure the pixel scale matches the actual window width before drawing.
     // recomputeGraphicsScale() is normally called from onArrange() on resize
@@ -1208,10 +1267,20 @@ bool Comprehend::recomputeGraphicsScale() {
 void Comprehend::onArrange() {
     // Complete any background reveal so the final image is what gets rescaled.
     finishSlowDraw();
+    // Re-read the host's graphics-quality preference. This is what makes the
+    // setting take effect (the real theme can arrive in an arrange after
+    // loadGame()) and what makes a mid-game change switch the renderer live --
+    // mirroring Bocfel's window_change() and Scott's UpdateSettings().
+    bool modeChanged = applyPreferredGraphicsMode();
     if (_topWindow) {
         recomputeGraphicsScale();
         glk_window_clear(_topWindow);
-        blitSurfaceToWindow();
+        // On a mode switch the surface still holds the previous renderer's
+        // output, so re-render the scene instead of re-blitting stale pixels.
+        if (modeChanged)
+            repaintCurrentScene();
+        else
+            blitSurfaceToWindow();
     }
     if (!_lastRoomDesc.empty())
         printRoomDesc(_lastRoomDesc);

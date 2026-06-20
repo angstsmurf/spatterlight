@@ -1186,6 +1186,11 @@ turn:
 				"  #restore              Restore a saved game without taking a turn.\n"
 				"  #quit                 Stop playing and leave.\n"
 				"  #transcript [on|off]  Record the game text to a file.\n");
+#ifndef SPATTERLIGHT
+			// The graphics-quality toggles are only offered on Glk back-ends
+			// without a host preference; under Spatterlight the renderer follows
+			// the "Comprehend graphics" theme setting instead (see
+			// applyPreferredGraphicsMode), so they are disabled and unlisted.
 			if (Common::DiskImageFS::active() && gmDhgrHaveDrawingTables())
 				g_comprehend->print(
 					"  #dhgr [on|off]        Switch between standard and double "
@@ -1194,6 +1199,7 @@ turn:
 				g_comprehend->print(
 					"  #pcjr [on|off]        Switch between CGA and PCjr "
 					"16-colour graphics.\n");
+#endif
 			g_comprehend->print("  #help                 Show this list.\n");
 			continue;
 		}
@@ -1279,6 +1285,7 @@ turn:
 		// the current picture so the change shows immediately.
 		if (scumm_strnicmp(_inputLine, "#dhgr", 5) == 0 &&
 			(_inputLine[5] == '\0' || _inputLine[5] == ' ')) {
+#ifndef SPATTERLIGHT
 			if (!Common::DiskImageFS::active() || !gmDhgrHaveDrawingTables()) {
 				g_comprehend->print("Double hi-res is not available for this game.\n");
 				continue;
@@ -1297,6 +1304,11 @@ turn:
 			                       : "Standard hi-res graphics on.\n");
 			_updateFlags = (uint)UPDATE_GRAPHICS;
 			update();
+#endif
+			// Under Spatterlight this is a no-op: the renderer follows the
+			// "Comprehend graphics" theme preference, so the manual toggle is
+			// disabled to avoid fighting it. Consume the command either way so it
+			// isn't parsed as a game verb.
 			continue;
 		}
 
@@ -1306,6 +1318,7 @@ turn:
 		// JR_GRAPH.OVR drawing tables loaded; reports unavailable otherwise.
 		if (scumm_strnicmp(_inputLine, "#pcjr", 5) == 0 &&
 			(_inputLine[5] == '\0' || _inputLine[5] == ' ')) {
+#ifndef SPATTERLIGHT
 			if (!gmpcjrHaveDrawingTables()) {
 				g_comprehend->print("PCjr graphics are not available for this game.\n");
 				continue;
@@ -1324,6 +1337,10 @@ turn:
 			                       : "CGA graphics on.\n");
 			_updateFlags = (uint)UPDATE_GRAPHICS;
 			update();
+#endif
+			// No-op under Spatterlight (see the #dhgr handler above): graphics
+			// quality follows the theme preference. Consume the command so it
+			// isn't parsed as a game verb.
 			continue;
 		}
 
