@@ -30,6 +30,7 @@
 
 #include "glk.h"
 #include "glkstart.h"
+#include "randomness.h"
 
 #define VERSION "0.8.5/tor"
 #define BUILDDATE "2005-09-06"

@@ -45,6 +45,7 @@
 
 #include "level9.h"
 #include "decompressz80.h"
+#include "randomness.h"
 
 #ifdef SPATTERLIGHT
 extern int gli_determinism;
@@ -2850,7 +2851,7 @@ void randomnumber(L9BYTE* a6)
 #ifdef L9DEBUG
 	printf("driver - randomnumber");
 #endif
-	L9SETWORD(a6,rand());
+	L9SETWORD(a6,erkyrath_random());
 }
 
 void driverclg(L9BYTE* a6)

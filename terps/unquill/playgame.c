@@ -492,7 +492,7 @@ void playgame(ushort zxptr)
 
 			/* Print the prompt */
 
-			pn = (rand() & 3);
+			pn = (erkyrath_random() & 3);
 			sysmess(pn + 2);
 			opch32('\n');
 			if (dbver == 0) sysmess(28);

@@ -415,7 +415,7 @@ uchar condtrue(ushort ccond)
           ctrue=(objpos[zmem(++ccond)]!=254);
           break;                      
         case 10:  /* CHANCE */
-          ctrue=((rand () % 100) < (zmem(++ccond)));
+          ctrue=((erkyrath_random () % 100) < (zmem(++ccond)));
           break;                      
         case 11:  /* ZERO */
           ctrue=(flags[zmem(++ccond)]==0);

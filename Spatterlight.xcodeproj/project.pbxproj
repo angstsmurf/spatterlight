@@ -674,6 +674,9 @@
 		C35032EF2F37EF0900BD32A6 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C35032F02F37EF0900BD32A6 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C35032F12F37EF0900BD32A6 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3FACE0300000000DEAD0011 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3FACE0300000000DEAD0012 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3FACE0300000000DEAD0013 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C353F04626264242006D17E3 /* SubImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C353EFAD26263D85006D17E3 /* SubImage.m */; };
 		C354AA6A274CD8EF00C8D01D /* ScottFree command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */; };
 		C354AA6E274D05D800C8D01D /* Transcript of Unholy Grail.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA6B274D05D800C8D01D /* Transcript of Unholy Grail.txt */; };
@@ -7938,6 +7941,7 @@
 				55368B75272BF24700740A0A /* istring.cc in Sources */,
 				55368B73272BF24700740A0A /* readfile.cc in Sources */,
 				55368B72272BF24700740A0A /* geas-state.cc in Sources */,
+				C3FACE0300000000DEAD0011 /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8209,6 +8213,7 @@
 				C39DE2621ECB76C400CE5B70 /* bitmap.c in Sources */,
 				C39DE2601ECB76A100CE5B70 /* glk.c in Sources */,
 				9650381309F2A4870083E64E /* level9.c in Sources */,
+				C3FACE0300000000DEAD0012 /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8231,6 +8236,7 @@
 				AA11US7B09F62D0D00FA7F19 /* illustrator.c in Sources */,
 				966EFA3D09F62D0D00FA7F19 /* unquill.c in Sources */,
 				C3FACE0200000000DEAD0002 /* zx_title.c in Sources */,
+				C3FACE0300000000DEAD0013 /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

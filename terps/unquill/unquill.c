@@ -1016,9 +1016,9 @@ void glk_main(void)
     {
 	estop = 0;
     if (!gli_determinism)
-        srand(time(NULL));
+        set_erkyrath_random(0);
     else
-        srand(1234);
+        set_erkyrath_random(1234);
 	oopt  = 'T';        /* Outputs in plain text */
 	undo_reset();	/* a brand-new game has no undo history */
 	initgame(zxptr); /* Initialise the game */

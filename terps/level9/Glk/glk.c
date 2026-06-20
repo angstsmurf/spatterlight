@@ -49,6 +49,7 @@
 #include "level9.h"
 
 #include "glk.h"
+#include "randomness.h"
 
 #ifdef SPATTERLIGHT
 L9UINT16 random_array[100];
@@ -7942,10 +7943,10 @@ gln_main (void)
    */
 #ifdef SPATTERLIGHT
   if (!gli_determinism)
-      srand (time (NULL));
+      set_erkyrath_random (0);
   else {
       /* When implementing predictable random number generation, I found that at least The Growing Pains of Adrian Mole breaks if a) the randomseed global never changes and b) it is set to certain values. So we generate a set array of 100  values here that are known to work */
-      srand (1234);
+      set_erkyrath_random (1234);
       L9UINT16 seed = 2;
       for (int i = 0; i < 99; i++) {
           seed=(((seed<<8) + 0x0a - seed) <<2) + seed + 1;
@@ -7953,7 +7954,7 @@ gln_main (void)
       }
   }
 #else
-  srand (time (NULL));
+  set_erkyrath_random (0);
 #endif
   /* Repeat this game until no more restarts requested. */
   do

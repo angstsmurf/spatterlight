@@ -34,6 +34,16 @@
 #include "general.hh"
 #include "istring.hh"
 
+#ifdef SPATTERLIGHT
+/* Use the shared erkyrath_random() RNG (xoshiro128** when seeded, native
+   otherwise), like scott/comprehend/plus/taylor.  The headless walkthrough
+   runner has no Glk, so it keeps the C library rand() below. */
+extern "C" {
+#include "randomness.h"
+}
+extern "C" int gli_determinism;
+#endif
+
 class GeasInterface;
 
 using namespace std;
@@ -1367,7 +1377,16 @@ void geas_implementation::set_game (const string &s)
    * overrides the seed for reproducible testing. */
   {
     const char *envseed = getenv ("GEAS_SEED");
+#ifdef SPATTERLIGHT
+    if (envseed)
+      set_erkyrath_random ((glui32) atoi (envseed));
+    else if (gli_determinism)
+      set_erkyrath_random (1234);
+    else
+      set_erkyrath_random (0);
+#else
     srand (envseed ? (unsigned) atoi (envseed) : (unsigned) time (nullptr));
+#endif
   }
   try
     {
@@ -4810,7 +4829,11 @@ string geas_implementation::run_function (const string &pname)
 	upper = parse_int (function_args[1]);
       
       // TODO: change this to use the high order bits of the random # instead
+#ifdef SPATTERLIGHT
+      return string_int (lower + (erkyrath_random() % (upper + 1 - lower)));
+#else
       return string_int (lower + (rand() % (upper + 1 - lower)));
+#endif
     }
   // SENSITIVE?
   else if (pname == "speechenabled")
