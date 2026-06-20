@@ -1,0 +1,95 @@
+# Headless build of the Archetype interpreter for automated/regression testing.
+#
+# Instead of linking against Spatterlight's glkimp (which speaks a binary
+# protocol to the Cocoa front-end and aborts when run from a plain shell),
+# this links the interpreter against Andrew Plotkin's CheapGlk -- a stdio Glk
+# library shared with the Comprehend / Saga harnesses. The result,
+# `archetype_hl`, runs entirely in the terminal: it reads player commands from
+# stdin and writes the transcript to stdout.
+#
+# Usage:
+#   make -f Makefile.headless
+#   ./archetype_hl GORREVEN.ACX < commands.txt > transcript.txt
+#
+# where commands.txt is one command per line.
+
+CHEAPGLK_DIR := ../cheapglk
+OBJDIR       := headless_obj
+
+CXX ?= clang++
+CC  ?= clang
+
+# -I$(CHEAPGLK_DIR) first so glk.h / glkstart.h resolve to CheapGlk's headers.
+COMMON_INC := -I. -I$(CHEAPGLK_DIR)
+CXXFLAGS   := -std=c++14 -O0 -g -Wall -Wno-unknown-pragmas \
+              -Wno-macro-redefined -Wno-format $(COMMON_INC) \
+              -DGARGLK -DSPATTERLIGHT -DARCHETYPE_HEADLESS
+CFLAGS     := -O0 -g -Wall -w $(COMMON_INC) -DGARGLK -DSPATTERLIGHT -DARCHETYPE_HEADLESS
+
+CXX_SRCS := \
+    archetype_compat.cpp \
+    archetype.cpp \
+    archetype_string.cpp \
+    array.cpp \
+    crypt.cpp \
+    error.cpp \
+    expression.cpp \
+    game_stat.cpp \
+    glk_main.cpp \
+    heap_sort.cpp \
+    id_table.cpp \
+    interpreter.cpp \
+    keywords.cpp \
+    linked_list.cpp \
+    misc.cpp \
+    parser.cpp \
+    saveload.cpp \
+    semantic.cpp \
+    sys_object.cpp \
+    timestamp.cpp \
+    token.cpp
+
+C_SRCS := glkstart.c
+
+OBJS := $(addprefix $(OBJDIR)/,$(CXX_SRCS:.cpp=.o) $(C_SRCS:.c=.o))
+
+CHEAPGLK_LIB := $(CHEAPGLK_DIR)/libcheapglk.a
+
+archetype_hl: $(OBJS) $(CHEAPGLK_LIB)
+	$(CXX) -o $@ $(OBJS) $(CHEAPGLK_LIB)
+
+$(CHEAPGLK_LIB):
+	$(MAKE) -C $(CHEAPGLK_DIR)
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+$(OBJDIR)/%.o: %.cpp | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(OBJDIR)/%.o: %.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJDIR) archetype_hl
+
+# Regression test: replay a full winning walkthrough of "The Gorreven Papers"
+# and diff the transcript against the committed ground truth. The story file
+# is not vendored here; point GORREVEN at a copy of GORREVEN.ACX (it ships
+# with the Archetype 1.01 distribution).
+GORREVEN ?= $(HOME)/Downloads/arch101/GORREVEN.ACX
+
+regress: archetype_hl
+	@if [ ! -f "$(GORREVEN)" ]; then \
+		echo "regress: story file not found at $(GORREVEN); set GORREVEN=/path/to/GORREVEN.ACX"; exit 2; fi
+	@./archetype_hl "$(GORREVEN)" < test/gorreven_walkthrough.txt 2>&1 \
+		| sed '/Cheap Glk Implementation/d' > /tmp/gorreven_got.txt
+	@if diff -u test/gorreven_expected.txt /tmp/gorreven_got.txt > /tmp/gorreven_diff.txt; then \
+		grep -q "saved the free world" /tmp/gorreven_got.txt \
+			&& echo "regress: PASS (byte-exact, game won)" \
+			|| { echo "regress: FAIL (transcript matched but no win marker)"; exit 1; }; \
+	else \
+		echo "regress: FAIL (transcript diverged):"; head -40 /tmp/gorreven_diff.txt; exit 1; \
+	fi
+
+.PHONY: clean regress

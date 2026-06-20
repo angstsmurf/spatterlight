@@ -128,11 +128,16 @@ static void parse_sentence_substitute(int start, ParsePtr pp, int &next_starting
 
 	// WORKAROUND: Original encoded object number as two bytes. ScummVM strings don't like
 	// 0 bytes in the middle of the string, so we encode it as plain text
+	String marker = String::format(" %%%d^", pp->object);
 	g_vm->Command = g_vm->Command.left(start)
-		+ String::format(" %%%d^", pp->object)
+		+ marker
 		+ g_vm->Command.mid(start + sublen + 1);
 
-	next_starting = next_starting - sublen + 4;
+	// Advance past the inserted marker. The original used a fixed 2-byte
+	// object encoding (marker length 5, hence the historical "+4"); this port
+	// uses a variable-length decimal marker, so the shift must use its actual
+	// length or chunks following a 1- or 3-digit object number desync.
+	next_starting = next_starting - sublen - 1 + (int)marker.size();
 }
 
 static bool parse_sentence_next_chunk(int &start_at, String &the_chunk, int &next_starting) {
@@ -149,7 +154,10 @@ static bool parse_sentence_next_chunk(int &start_at, String &the_chunk, int &nex
 			if (i == -1) {
 				next_starting = -1;
 			} else {
-				next_starting = the_chunk.indexOf("^", i) + 1;
+				// indexOf() is relative to the_chunk, which starts at
+				// start_at within Command; convert back to an absolute
+				// Command offset (cf. PARSER.PAS: next_starting + i + 3).
+				next_starting = start_at + the_chunk.indexOf("^", i) + 1;
 				assert(next_starting != 0);
 
 				the_chunk = the_chunk.left(i);

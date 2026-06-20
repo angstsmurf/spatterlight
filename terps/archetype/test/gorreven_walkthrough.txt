@@ -1,0 +1,99 @@
+examine uniform
+inventory
+examine cot
+examine metal
+examine guard
+examine uniform
+examine card
+examine card
+
+break off metal
+
+
+
+
+kill guard with metal
+take uniform off guard
+take off coveralls
+wear uniform
+drop coveralls
+take card
+take gun
+n
+n
+d
+d
+e
+e
+w
+s
+w
+open door with card
+s
+push 3
+n
+w
+open panel
+take trap
+take can
+e
+e
+e
+put poison in food
+push button
+w
+w
+push button
+
+s
+push 2
+n
+e
+n
+kill Velchny
+kill Velchny
+look
+
+search desk
+take keys
+s
+open closet with keys
+s
+drop metal
+drop can
+take mop
+take dustpan
+push broom
+s
+examine moat
+put dustpan on mop
+get papers with mop
+n
+n
+w
+push button
+
+
+
+
+s
+push 4
+n
+kill guard
+smash searchlight with gun
+push button
+
+
+
+
+s
+push 3
+n
+w
+turn off switches
+e
+e
+n
+n
+look
+climb fence

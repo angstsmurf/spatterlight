@@ -1,0 +1,518 @@
+
+Assembling vocabulary...done.  65535 bytes available.
+-----------------------------------------------------------------------------
+This should never have happened.
+
+I've told myself that a thousand times.  I am our most intrepid agent.
+If anyone could retrieve the Gorreven Papers, I could.
+
+What other precautions could have I taken?  Some places just aren't built
+to be broken into.
+
+Or out of.
+
+I have become intimately familiar with the four bare walls of my cell and
+the dirty yellow light bulb that glares down from the ceiling.  My cell
+has no door, but an alert guard blocks the doorway twenty-four hours a
+day - or at least as far as I can tell.  I have to sleep sometimes.  They
+leave the guard in a doorless doorway so that he will constantly remain
+alert.  No napping on the other side of a supposedly secure steel door.
+It doesn't surprise me; if I wanted to keep myself prisoner I would have
+done the same.
+
+I was brought in here blindfolded after a good beating.  It gives me
+headaches just trying to remember any of the turns I took on the way in.
+But now I'm on the inside of this complex.  On the same side of those
+electric fences as the Gorreven Papers.  The Gorreven Papers!  To
+think of them was unspeakable; to speak of them was unthinkable.  If I
+can't get out of here with the papers, I'm not going out at all, because
+my life won't be worth a fake dollar bill.  None of our lives will.
+
+
+                         Derek Jones Presents...
+
+                        an Archetype Adventure
+
+                         "The Gorreven Papers"
+
+
+I'm standing in a small bare cell with four bare walls.
+I can see an alert guard and a dingy cot.
+I can exit north.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I don't see any guard's uniform here.
+
+What should I do now? 
+I am carrying prison coveralls (which I'm wearing).
+
+What should I do now? 
+I get closer for a more thorough look.
+-----------------------------------------------------------------------------
+I am on the dingy cot.
+I can see a sharp piece of metal.
+I can exit north.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+It is a piece of the cot's frame, about the length of my hand, sticking
+off to the side a little.  The cot is not in good shape and this is one
+reason.  It is already almost completely broken off and is only barely
+connected to the cot at one end.  One side of it is very sharp and
+dangerous.
+
+What should I do now? 
+He is blocking the doorway to the north.  He is staring coldly back at me.  "What are you looking at?" he snarls.  "Face the other wall."
+
+What should I do now? 
+I don't see any guard's uniform here.
+
+What should I do now? 
+I don't see any ID card here.
+
+What should I do now? 
+I don't see any ID card here.
+
+What should I do now? 
+I wait patiently.
+The guard looks out down the north hall.
+
+What should I do now? 
+I give the piece of metal a hard yank and twist and it breaks off suddenly with a soft popping sound.  Immediately I palm the incriminating evidence in my other hand.  However, the sound alerts the guard, who whirls around with his gun drawn.  "What was that noise?" he demands.
+
+"I hurt my hand on the cot," I grumble, holding up the hand I
+just used.  Fortunately it is sporting a small trickle of blood, incurred
+when the metal came loose.  "I wanna doctor."  It is of course the very
+last thing I want but it is important that I project an image of whining
+helplessness.
+
+He snorts and returns his gun to its holster.  "You're barely important
+enough to be kept alive.  Forget the doctor."  I wonder what he has been
+told about me.  It is true that I am too dangerous to be kept alive at
+much expense.
+
+What should I do now? 
+I wait patiently.
+
+What should I do now? 
+I wait patiently.
+
+What should I do now? 
+I wait patiently.
+
+What should I do now? 
+I wait patiently.
+The guard looks out down the north hall.
+
+What should I do now? 
+I come up swiftly behind him and plunge the sharp metal into the
+back of his neck, through his carotid artery and out the front of his
+throat.  This prevents him from screaming but not from fighting back.
+I hang onto his back like a pit bull, waiting for him to expend his
+last few seconds of life; he fires his gun twice but both shots are
+wild.  I am safe.  In a moment more he is growing cold in a pool of
+his own blood.
+
+What should I do now? 
+Struggling, I manage to get the guard's uniform off of his fat, sweaty -
+and increasingly cold - body.
+I picked up the guard's uniform.
+
+What should I do now? 
+I take off the prison coveralls.
+
+What should I do now? 
+I put on the guard's uniform.
+We are roughly the same height.  He was considerably larger at the middle,
+so the uniform bags somewhat, but by tightening the belt, I look passable.
+It is unfortunate for the guard that it had to come to this but that is
+what happens to obstacles.  I can still smell his odor on the collar and
+armpits.  Blood is spattered down the front which is very annoying but
+there isn't much I can do about that.
+
+What should I do now? 
+I put down the prison coveralls.
+
+What should I do now? 
+I picked up the ID card.
+
+What should I do now? 
+I picked up the guard's gun.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I am in a long, dark hallway.  The lighting is minimal; there is only
+one dull blue light recessed into the wall midway down its length.  There
+is a wet odor and I can see a few dark puddles gleaming randomly on the
+floor.
+There is nothing of interest here.
+I can exit south and north.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm at the top of a stairwell containing a spiral staircase.  The stairs
+are metal with a little peeling grip tape at the edges.  It is rather dark
+at the top; a harshly buzzing blue light burns away fiercely about halfway
+down.  There are pipes nearby and one of them is dripping steadily.
+There is a damp metal smell everywhere.
+There is nothing of interest here.
+I can exit down and south.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I am halfway down a spiral staircase.  There is a bright blue light set
+into the wall next to me.  I can see a littering of dead bugs on the
+stairs below.
+There is nothing of interest here.
+I can exit down and up.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I am standing at the bottom of a spiral staircase.  Halfway up, the blue
+light burns and buzzes.  It is fairly dark here but I can see the outline
+of a doorway to the east.
+There is nothing of interest here.
+I can exit up and east.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I have to stop a moment and let my eyes adjust to the darkness.
+I'm standing in a rather dark hallway, but I can see in the darkness
+that a wide corridor extends to the south, with some light coming from its
+far end.  To the west is the stairwell.  There is a bad smell coming from
+a narrower passage that continues to the east.
+There is nothing of interest here.
+I can exit west, east, and south.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+As I enter the narrower passage, I have to stop and adjust to the rank
+smell... something is rotting or decaying.
+I find myself in a filthy corridor that runs through what appears to be
+a number of jail cells.  They lack the individual light bulb that my cell
+had.  I suppose I should consider myself honored.
+I am standing between cells on both sides.  A flickering flourescent
+light with a broken cover illuminates the area in a way that seems
+surreal.
+I can see a long lumpy shape and rows of cells.
+I can exit west.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+In the dark hallway.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in an L-shaped hallway that inclines gently to the west.
+There is nothing of interest here.
+I can exit west and north.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in a wide corridor, well lit by recessed flourescent lighting.  To
+the south is an enormous vault door.
+I can see a guard and an enormous vault door.
+I can exit east.
+-----------------------------------------------------------------------------
+Looks like the guard isn't paying very close attention to my face.
+
+What should I do now? 
+There is a clicking sound within the door and then the loud sound of huge steel bolts being drawn back.  It takes a good five seconds for the monster to open.  The door swings wide, opening to the south.
+The disguise seems to be holding; the guard doesn't seem suspicious yet.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+The enormous vault door grinds shut behind me.
+I'm standing in what looks like a stainless steel elevator.  To say that it looks "heavy-duty" is an understatement.  There is a panel of buttons on the wall labeled 1 through 4.  Button number one is currently lit.
+There is nothing of interest here.
+I can exit north.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+There is the sound of a mighty motor and my knees buckle with the force of the lift.  To my shock, there is no inner door to this elevator.  The concrete bricks of the elevator shaft go hurtling by in a blur.  I don't like to think about what might have happened if I had chosen to lean against that wall.  Finally, with a bone-jarring, sudden stop, the ride comes to an end.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in a dingy hallway that smells somewhat of stale beer and sweat.  The dirty and worn carpet is peeling away from the floor in several places and one or two cockroaches regard me studiously.  The elevator is waiting directly to the south.  I can see an elevator call button.
+I can exit west, east, and south.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in a small warehouse that smells of various chemicals.  I can also smell rusty metal and oil.  As I look around I see that this is a warehouse of torture implements.
+I can see a wall panel, an early American bear trap, an Iron Maiden, an electric cattle prod, some barbed wire, thumbscrews, and a can of poison.
+I can exit east.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I opened the wall panel.
+Behind the panel is a row of circuit breaker switches.
+
+What should I do now? 
+I picked up the early American bear trap.
+
+What should I do now? 
+I picked up the can of poison.
+
+What should I do now? 
+In the dingy hallway.
+Behind me there is a roaring sound as the elevator rushes away.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in what looks like the guards' barracks.  It smells even more strongly of beer and sweat.  Several guards are sleeping on their cots - I'm gratified to see that their cots are not much more luxurious than the one I had in my cell.  Periodically a guard enters or leaves.  The light is low; in one corner I can hear a couple of guards gambling.
+I can see an idle guard.
+I can exit west, east, and north.
+-----------------------------------------------------------------------------
+Looks like the idle guard isn't paying very close attention to my face.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+As I enter the room I have to duck because the ceiling is only five and a half feet tall.  Clearly this is an area not often entered by humans.  All around me hideous demonic dogs - Rottweilers, Dobermans, pit bulls, and German Sheperds - are snarling and biting the bars of their cages.  They're looking at me with bloodlust in their eyes; they already know there's something wrong about me.  Maybe they've already been taught my scent.
+
+I'm crouching within the low-roofed attack dog kennels.  Down the north side of the kennels are rows of cages containing vicious dogs.  The dogs are all fed automatically; ducts extend from the big hopper on the east side of the kennels into each dog's dish in its cage.  The cages all have doors on the north side, leading out into the courtyard.  Presumably this is for quickly releasing the demonic dogs if an intruder gets in.
+
+Or gets out.  Something to think about when I'm trying to escape.
+I can see a dog food hopper and the rows of cages.
+I can exit west.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I dump the poison into the dog food hopper.
+
+What should I do now? 
+There is a clanking sound of machinery; the level of dog food in the hopper drops as the dog food pours into the individual dishes in the kennels.  The dogs forget me and start eating ravenously.  It's pretty potent poison; within minutes they are all dead.  All of them.
+
+What should I do now? 
+In the guards' barracks.
+The disguise seems to be holding; the idle guard doesn't seem suspicious yet.
+
+What should I do now? 
+In the dingy hallway.
+
+What should I do now? 
+I push the button and it becomes lit.
+
+What should I do now? 
+I wait patiently.
+There is a quiet bell sound and the elevator slides into view.  The light on the button goes off.
+
+What should I do now? 
+In the elevator.
+
+What should I do now? 
+There is the sound of a mighty motor and the floor briefly drops out from under me.  Finally, with a bone-jarring, sudden stop, the ride comes to an end.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm in a fresh-smelling, well-lit, carpeted hallway near the elevator.  The elevator is waiting directly to the south.  
+I can see an elevator call button.
+I can exit east and south.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in a carpeted hallway that has a broom closet to the south
+and a wide office door to the north, with the name "Commandant Velchny"
+stenciled on the door.  
+I can see a broom closet door.
+I can exit west and north.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in a comfortable, well-furnished office, tastefully decorated with creeping green plants, exotic wall hangings, and portraits of Hitler, Stalin, and Idi Amin.
+I can see a filing cabinet, a large mahogany desk, an executive chair, and Commandant Velchny.
+I can exit south.
+-----------------------------------------------------------------------------
+Velchny is sitting at his desk and glances up, annoyed.  "How many times," he begins, "must I tell you drooling Neanderthal peons to KNOCK before..."  He suddenly sees my face.  "You - you - " he chokes, groping for his weapon.
+
+What should I do now? 
+I use my gun.  He isn't ready and I am; I shoot him through the upper right part of his chest.  He spins around, clutching the wound, and then falls to his knees.  "Though you kill me, spy," he manages, "you'll never get... the Gorreven Papers!"  But his eyes flicker toward the filing cabinet.  He groans once more and then crashes to the ground.
+
+What should I do now? 
+I use my gun.  Just for insurance, I plug him again, this time with a little more accuracy:  directly through the heart.  He utters one final scream of despair, convulses, and lies still.  I wait patiently for all signs of life to cease before I am satisfied that he is dead.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in a comfortable, well-furnished office, tastefully decorated with creeping green plants, exotic wall hangings, and portraits of Hitler, Stalin, and Idi Amin.
+I can see a filing cabinet, a large mahogany desk, an executive chair, and the late Commandant Velchny.
+I can exit south.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I wait patiently.
+
+What should I do now? 
+I get closer for a more thorough look.
+-----------------------------------------------------------------------------
+I am at the large mahogany desk.
+I can see a ring of keys.
+I can exit south.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I picked up the ring of keys.
+
+What should I do now? 
+Back near Velchny's office and the broom closet.
+
+What should I do now? 
+The keys seem to do the trick.  I opened the broom closet door.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I enter the broom closet and close the door carefully behind me.  It is pitch dark for a moment; after a moment of fumbling, I turn on the light.  One dull yellow light bulb illuminates the cramped confines of the closet.  A cockroach scuttles by on the floor.  The broom catches my eye; there's something unusual about it.
+
+I'm standing awkwardly in the broom closet, blinking in the dull yellow light.  I can see a broom, a dustpan, some dirty rags, a vacuum cleaner, a mop, and a pail.
+I can exit north.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I put down the sharp piece of metal.
+
+What should I do now? 
+I put down the empty can.
+
+What should I do now? 
+I picked up the mop.
+
+What should I do now? 
+I picked up the dustpan.
+
+What should I do now? 
+I give the broom a push, expecting it to fall over into a corner like the others.  Instead it moves smoothly toward the west wall.  I hear a loud clicking noise and the broom closet's rear wall drops into the floor, leaving a new exit to the south.  I gape, amazed, into the chamber beyond.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in a enormous octagonal chamber, floodlit with half a dozen halogen lights, in contrast to the dingy broom closet.  The walls are smooth; there seems to be no exit besides back through the closet.  The primary feature is the huge pedestal in the center of the room, surrounded by a moat filled with a pungent, steaming liquid of some kind.
+I can see a moat and a steel pedestal.
+I can exit north.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+It's almost certainly filled with sulfuric acid.  It's about six feet wide and completely surrounds the pedestal.
+
+What should I do now? 
+I twist it snugly onto the end of the mop.
+
+What should I do now? 
+Pretty clever if I do say so myself.  The dustpan-mop combination, looking like a long-handled shovel, works like a charm, and in moments I hold in my hands the glorious Gorreven Papers.
+
+What should I do now? 
+Back in the cramped broom closet.
+
+What should I do now? 
+Back near Velchny's office and the broom closet.
+
+What should I do now? 
+In the hallway near the elevator.
+
+What should I do now? 
+I push the button and it becomes lit.
+
+What should I do now? 
+I wait patiently.
+
+What should I do now? 
+I wait patiently.
+
+What should I do now? 
+I wait patiently.
+There is a quiet bell sound and the elevator slides into view.  The light on the button goes off.
+
+What should I do now? 
+I wait patiently.
+
+What should I do now? 
+In the elevator.
+
+What should I do now? 
+There is the sound of a mighty motor and my knees buckle with the force of the lift.  The ride seems to be taking quite some time.  Finally, with a bone-jarring, sudden stop, the ride comes to an end.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing in the top of a tall guard tower that overlooks the entire complex, at least the part that's above ground.  There are wide windows in all four directions.  The elevator is waiting directly to the south.  I can see a guard tower windows, a guard, a powerful searchlight, and an elevator call button.
+I can exit south.
+-----------------------------------------------------------------------------
+Behind me there is a roaring sound as the elevator rushes away.
+Looks like the guard isn't paying very close attention to my face.
+
+What should I do now? 
+I use my gun.  I fire, point blank; he was not ready and I was.  He is thrown against the far wall by the impact and slumps to the ground, painting a bloody stripe down the wall behind him, his face frozen in a death mask of bewilderment.
+
+What should I do now? 
+I fire at the searchlight with the gun.  The glass and the bulb shatter into fragments which go flying everywhere.  
+
+What should I do now? 
+I push the button and it becomes lit.
+
+What should I do now? 
+I wait patiently.
+There is a quiet bell sound and the elevator slides into view.  The light on the button goes off.
+
+What should I do now? 
+I wait patiently.
+
+What should I do now? 
+I wait patiently.
+
+What should I do now? 
+I wait patiently.
+
+What should I do now? 
+In the elevator.
+
+What should I do now? 
+There is the sound of a mighty motor and the floor briefly drops out from under me.  Finally, with a bone-jarring, sudden stop, the ride comes to an end.
+
+What should I do now? 
+In the dingy hallway.
+
+What should I do now? 
+In the small warehouse.
+
+What should I do now? 
+With a sweep of my hand I turn all of the switches off.  There is pitch darkness; then a few feeble emergency lights flicker on.  "Where's the power?" roars a distant voice.  "The spy's escaping!" shrieks another.  "Release the hounds!" bellows a commanding voice.
+
+What should I do now? 
+In the dingy hallway.
+
+What should I do now? 
+In the guards' barracks.
+The guard is on edge in the wake of the power outage I caused.  He is nervous and trigger happy and staring wide-eyed into the dark.  Fortunately he can't see my face yet and he simply acknowledges me with a nod.
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm outside, standing under a starry night lit only by a thin crescent moon.  It takes a moment for my eyes to adjust to the thin light, but I can see by it.
+
+I'm standing outside of the barracks.  With the searchlight in the guard tower broken, the night is likely to remain as dark as it is.  A good cover for me.  Far away I can see the chain-link fence glinting in the moonlight.
+There is nothing of interest here.
+I can exit west, east, south, and north.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing by the north fence.  Beyond is a thick woods.  If I can just get over this fence I can hide myself in those woods so they'll never find me.  I'll be home free.
+I can see a chain-link fence.
+I can exit south.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+-----------------------------------------------------------------------------
+I'm standing by the north fence.  Beyond is a thick woods.  If I can just get over this fence I can hide myself in those woods so they'll never find me.  I'll be home free.
+I can see a chain-link fence.
+I can exit south.
+-----------------------------------------------------------------------------
+
+What should I do now? 
+I climb up the fence.  Nothing happens; the power is still off.  The north woods are just ahead and I slip away into their depths.  They will never catch me.  And I have the Gorreven Papers!  I've done it!  Escaped from their compound, taking the Papers right from out under their noses!  I have saved the free world... again, I might add.
+
+After I lose myself a little in the woods, I straighten up and walk more slowly, enjoying the smell of the pines and the feel of the Papers secure in my hand.  It is a wonderful night.

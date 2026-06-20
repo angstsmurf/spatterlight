@@ -1,0 +1,3 @@
+# Headless regression-test build (Makefile.headless)
+archetype_hl
+headless_obj/

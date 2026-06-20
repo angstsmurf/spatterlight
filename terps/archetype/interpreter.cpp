@@ -188,7 +188,12 @@ bool convert_to(AclType target_type, ResultType &the_scalar) {
 		case 'B':
 			the_scalar._kind = NUMERIC;
 			the_scalar._data._numeric.acl_int = boolval ? 1 : 0;
-			break;
+			// Must report success: the operand has been converted in place.
+			// Falling through to `return false` (the old behaviour) left the
+			// caller with a mutated-but-"failed" value, so comparisons like
+			// `attr = TRUE` would then mis-convert TRUE to the string "1" and
+			// compare unequal. (cf. boolean handling in MISC.PAS convert_to.)
+			return true;
 
 		case  'S':
 			s1.trim();
