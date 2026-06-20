@@ -7,9 +7,10 @@
 # on Guido van Otterlo's walkthrough, with the corrections the Comprehend port
 # needs:
 #
-#   * Two BOWs at the start: the first triggers the cell reprieve to King
-#     Darius, the second shows respect so he makes his speech and frees you
-#     (going anywhere before that gets you executed for disrespect).
+#   * WAIT in the cell until the reprieve plays out (the executioner's stroke,
+#     then the King's herald drags you up to the audience chamber), then a
+#     single BOW shows respect so Darius makes his speech and frees you (going
+#     anywhere, or bowing before the reprieve, gets you executed for disrespect).
 #   * The rope and flask are bought by "raising until it closes" -- the
 #     merchant's counter erodes toward the offer, so a rising OFFER ladder
 #     seals each deal (the source walkthrough's flat 10/13/16 never does).
