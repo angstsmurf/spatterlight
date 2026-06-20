@@ -35,10 +35,8 @@ namespace Comprehend {
 #define HG_TICKS_PER_FRAME    7
 
 // Spatterlight user settings, exported by glkimp (the headless build defines
-// them as 0 in cheapglk). gli_slowdraw enables the animated picture reveal;
-// gli_determinism (regression/replay mode) must suppress it for stable output.
+// them as 0 in cheapglk). gli_slowdraw enables the animated picture reveal.
 extern "C" int gli_slowdraw;
-extern "C" int gli_determinism;
 #ifdef SPATTERLIGHT
 // Comprehend preferred-graphics-mode: 0 = more colours (PCjr/DHGR), 1 = less.
 // Spatterlight-only host preference; other Glk back-ends use the #dhgr / #pcjr
@@ -785,14 +783,13 @@ void Comprehend::drawPicture(uint pictureNum) {
 
     // All three Talisman renderers (Apple II hi-res, Apple II double hi-res and
     // DOS CGA) can reveal a picture progressively, the way the original painted
-    // the page. Record the draw order when the user has slow-draw on (and we
-    // aren't replaying a transcript). Only the renderer that actually runs
-    // records anything.
+    // the page. Record the draw order when the user has slow-draw on. Only the
+    // renderer that actually runs records anything.
     //
     // _suppressSlowDraw is set by update_graphics() when it repaints a scene
     // identical to the one already on screen: there is nothing new to reveal, so
     // paint instantly rather than re-animate the same image (looks like a stutter).
-    bool slow = gli_slowdraw && !gli_determinism && !_suppressSlowDraw;
+    bool slow = gli_slowdraw && !_suppressSlowDraw;
     gmSetSlowDraw(slow);
     gmcgaSetSlowDraw(slow);
     gmDhgrSetSlowDraw(slow);
@@ -872,7 +869,7 @@ void Comprehend::maybeStartHourglassFall() {
         return;
     if (_hourglassFalling)
         return;
-    if (!_topWindow || !gli_slowdraw || gli_determinism)
+    if (!_topWindow || !gli_slowdraw)
         return;
     // A move repaints the room with a slow-draw reveal that owns the timer and
     // redraws the panel band each frame; running the fall at the same time would

@@ -331,9 +331,6 @@ void DrawZXTitleImage(void)
     /* Reveal the picture slowly (in tape-load order) when the slow-draw
        setting is on; otherwise paint it at once. */
     int slow = gli_slowdraw;
-#ifdef SPATTERLIGHT
-    slow = slow && !gli_determinism;
-#endif
     if (slow) {
         ZXSlowReveal();
     } else {
