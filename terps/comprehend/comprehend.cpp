@@ -34,9 +34,14 @@ namespace Comprehend {
 // half a second to fall through the neck.
 #define HG_TICKS_PER_FRAME    7
 
+// Fixed RNG seed used in determinism (testing) mode, matching scott/plus/taylor.
+#define COMPREHEND_DETERMINISTIC_SEED 1234
+
 // Spatterlight user settings, exported by glkimp (the headless build defines
-// them as 0 in cheapglk). gli_slowdraw enables the animated picture reveal.
+// them as 0 in cheapglk). gli_slowdraw enables the animated picture reveal;
+// gli_determinism selects the reproducible RNG (and suppresses slow-draw).
 extern "C" int gli_slowdraw;
+extern "C" int gli_determinism;
 #ifdef SPATTERLIGHT
 // Comprehend preferred-graphics-mode: 0 = more colours (PCjr/DHGR), 1 = less.
 // Spatterlight-only host preference; other Glk back-ends use the #dhgr / #pcjr
@@ -256,6 +261,37 @@ Common::Error Comprehend::loadGamePrompt() {
     return err;
 }
 
+// #savestate/#loadstate RNG trailer: 1 byte use-native flag + 4 little-endian
+// 32-bit words of the xoshiro128** table (see common_utils/randomness.c).
+#define RNG_TRAILER_SIZE (1 + 4 * 4)
+
+static void serializeRngState(byte *out) {
+    int usenative = 0;
+    glui32 *table = nullptr;
+    int count = 0;
+    erkyrath_random_get_detstate(&usenative, &table, &count);
+    out[0] = (byte)(usenative ? 1 : 0);
+    for (int i = 0; i < 4; ++i) {
+        glui32 w = (i < count && table) ? table[i] : 0;
+        out[1 + i * 4 + 0] = (byte)(w & 0xff);
+        out[1 + i * 4 + 1] = (byte)((w >> 8) & 0xff);
+        out[1 + i * 4 + 2] = (byte)((w >> 16) & 0xff);
+        out[1 + i * 4 + 3] = (byte)((w >> 24) & 0xff);
+    }
+}
+
+static void deserializeRngState(const byte *in) {
+    int usenative = in[0] ? 1 : 0;
+    glui32 table[4];
+    for (int i = 0; i < 4; ++i) {
+        table[i] = (glui32)in[1 + i * 4 + 0]
+                 | ((glui32)in[1 + i * 4 + 1] << 8)
+                 | ((glui32)in[1 + i * 4 + 2] << 16)
+                 | ((glui32)in[1 + i * 4 + 3] << 24);
+    }
+    erkyrath_random_set_detstate(usenative, table, 4);
+}
+
 bool Comprehend::saveStateToPath(const char *path) {
     std::vector<byte> snapshot;
     if (!serializeGameState(snapshot))
@@ -263,13 +299,15 @@ bool Comprehend::saveStateToPath(const char *path) {
     FILE *f = fopen(path, "wb");
     if (!f)
         return false;
-    // Trailer: the PRNG call count, so a restore can fast-forward the std::rand()
-    // stream to the exact same position (some game logic is rand-gated).
-    unsigned long rc = _randCalls;
+    // Trailer: a full snapshot of the shared erkyrath RNG state (the use-native
+    // flag plus the xoshiro128** table), so a restore resumes the exact same
+    // stream position -- some game logic is rand-gated (e.g. Talisman maze walls).
+    byte rng[RNG_TRAILER_SIZE];
+    serializeRngState(rng);
     size_t n = snapshot.empty() ? 0 : fwrite(snapshot.data(), 1, snapshot.size(), f);
-    n += fwrite(&rc, 1, sizeof(rc), f);
+    n += fwrite(rng, 1, sizeof(rng), f);
     fclose(f);
-    return n == snapshot.size() + sizeof(rc);
+    return n == snapshot.size() + sizeof(rng);
 }
 
 bool Comprehend::loadStateFromPath(const char *path) {
@@ -283,12 +321,12 @@ bool Comprehend::loadStateFromPath(const char *path) {
         payload.insert(payload.end(), buf, buf + n);
     fclose(f);
 
-    // Split off the PRNG-count trailer.
-    unsigned long rc = 0;
-    if (payload.size() < sizeof(rc))
+    // Split off the RNG-state trailer.
+    if (payload.size() < RNG_TRAILER_SIZE)
         return false;
-    memcpy(&rc, payload.data() + payload.size() - sizeof(rc), sizeof(rc));
-    payload.resize(payload.size() - sizeof(rc));
+    byte rng[RNG_TRAILER_SIZE];
+    memcpy(rng, payload.data() + payload.size() - RNG_TRAILER_SIZE, RNG_TRAILER_SIZE);
+    payload.resize(payload.size() - RNG_TRAILER_SIZE);
 
     std::vector<byte> snapshot;
     if (!serializeGameState(snapshot) || payload.size() != snapshot.size())
@@ -299,12 +337,8 @@ bool Comprehend::loadStateFromPath(const char *path) {
         return false;
     }
 
-    // Reproduce the live rand() position: the engine never seeds, so the stream
-    // is the default srand(1) sequence; reset and burn rc draws to realign it.
-    std::srand(1);
-    for (unsigned long i = 0; i < rc; ++i)
-        (void)std::rand();
-    _randCalls = rc;
+    // Restore the exact RNG stream position captured at #savestate time.
+    deserializeRngState(rng);
     clearUndo();
     if (_game)
         _game->_updateFlags = UPDATE_ALL;
@@ -437,6 +471,26 @@ void Comprehend::repaintCurrentScene() {
 
 void Comprehend::runGame() {
     initialize();
+    // Seed the shared erkyrath RNG, exactly like scott/taylormade/plus. In
+    // determinism mode (the user's testing-mode theme option, and the headless
+    // regression harness) use a fixed seed so the committed walkthroughs replay
+    // identically on every host; otherwise seed 0 = the platform-native RNG.
+    // gli_determinism is populated by the front-end during initialize()'s window
+    // setup, so it is valid here.
+    {
+        bool deterministic = false;
+#ifdef SPATTERLIGHT
+        deterministic = gli_determinism;
+#endif
+#ifdef COMPREHEND_HEADLESS
+        // The headless harness drives the game from a script file and never
+        // arranges a window, so gli_determinism stays 0 there -- force the
+        // reproducible RNG whenever a transcript is being replayed.
+        if (getenv("COMPREHEND_SCRIPT"))
+            deterministic = true;
+#endif
+        set_erkyrath_random(deterministic ? COMPREHEND_DETERMINISTIC_SEED : 0);
+    }
     createGame();
     if (_game) {
         _game->loadGame();

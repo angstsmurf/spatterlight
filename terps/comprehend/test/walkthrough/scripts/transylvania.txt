@@ -27,8 +27,11 @@
 # the wizard's duet for the cross, the vampire at the entranceway, the mice that
 # ground the eagle, the flying saucer at dawn) are inline below.
 #
-# The whole run is deterministic (the engine never seeds rand(), so it rides the
-# default srand(1) stream) and verified byte-identical across runs, on each game.
+# The whole run is deterministic: in determinism (testing) mode the engine seeds
+# the shared erkyrath_random RNG with a fixed seed (1234), so the rand-gated
+# werewolf/vampire dice fall the same way every run. Verified byte-identical
+# across runs, on each game. (The headless harness forces determinism whenever a
+# COMPREHEND_SCRIPT transcript is being replayed.)
 #
 # Win marker (see run_walkthroughs.sh): "Well Done!!!"
 # One input per line; blank lines and #-comments are ignored.
@@ -67,7 +70,57 @@ W
 S
 
 # --- The coffin: shift the deterministic werewolf dice to a cold window, then
-#     crack the coffin for the mouse + silver bullet and load the flintlock ---
+#     crack the coffin for the mouse + silver bullet and load the flintlock.
+#     The enter/leave-wagon cycles burn rand() draws to steer the werewolf's
+#     beforeTurn roll: it must be absent here (the gun is dropped to free an
+#     inventory slot for the bullet) but present later at the cabin so SHOOT
+#     WEREWOLF connects. The 26-cycle count is tuned to the erkyrath_random
+#     determinism-mode stream (seed 1234); the old four-cycle count rode the
+#     libc srand(1) stream. ---
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
 ENTER WAGON
 LEAVE WAGON
 ENTER WAGON
@@ -110,11 +163,15 @@ GET BROOM
 LEAVE HUT
 
 # --- The castle: destroy the vampire with the cross (then drop the spent cross),
-#     and take the ring from the vault ---
+#     and take the ring from the vault. The lone LOOK at the entranceway burns
+#     one more rand() draw so the vampire's beforeTurn roll lands him here for
+#     SHOW CROSS to hit -- the second half of the same determinism-mode tuning
+#     as the wagon cycles above. ---
 N
 W
 N
 N
+LOOK
 SHOW CROSS
 DROP CROSS
 E

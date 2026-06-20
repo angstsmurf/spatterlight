@@ -13,6 +13,7 @@
 
 extern "C" {
 #include "glk.h"
+#include "randomness.h"
 }
 
 // Window rock IDs — match the values used by scott and taylormade.
@@ -160,16 +161,8 @@ public:
     void quitGame() { _shouldQuit = true; }
     int getRandomNumber(int maxVal) {
         if (maxVal <= 0) return 0;
-        ++_randCalls;
-        return std::rand() % (maxVal + 1);
+        return erkyrath_random() % (maxVal + 1);
     }
-
-    // Number of std::rand() draws so far. The engine never calls srand(), so the
-    // live PRNG stream is exactly the default srand(1) sequence and this counter
-    // is the position in it. #savestate/#loadstate record/restore it (srand(1)
-    // then burn _randCalls draws) so a checkpoint replays the same rand stream as
-    // the uninterrupted run -- essential for the rand-gated Talisman maze walls.
-    unsigned long _randCalls = 0;
 
     bool canLoadGameStateCurrently(Common::U32String * = nullptr) { return _game != nullptr; }
     bool canSaveGameStateCurrently(Common::U32String * = nullptr) { return !_disableSaves && _game != nullptr; }
