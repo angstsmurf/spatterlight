@@ -746,6 +746,18 @@ void GameData::load_extra_string_files() {
 	if (Common::DiskImageFS::active() && g_comprehend->getGameID() == "ootopos")
 		_strings2.push_back("");
 
+	// The Apple II Transylvania (v1) string files MA-ME are two entries "short"
+	// at the front relative to the indices its instructions use: without this
+	// padding "shoot werewolf", "sing" and "show cross" print the strings two
+	// slots later (the broom flight, "the window is shut", "a bottle of clear
+	// liquid") -- and, more than cosmetically, the off-by-two desynchronises the
+	// kill actions' messages from their effect. Two leading placeholders line
+	// _strings2 back up (cf. the OO-Topos shim above).
+	if (Common::DiskImageFS::active() && g_comprehend->getGameID() == "transylvania") {
+		_strings2.push_back("");
+		_strings2.push_back("");
+	}
+
 	// The Coveted Mirror used to load two entries early, which we compensated
 	// for with two leading placeholders. That was masking the real cause: its
 	// MA-ML banks have no 4-byte header, so the old seek(4) dropped the first

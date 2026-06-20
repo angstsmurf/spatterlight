@@ -1,22 +1,229 @@
-# Transylvania (1985) -- deterministic smoke prefix.
+# Transylvania -- full winning walkthrough (works on BOTH releases).
 #
-# Boots with the gameid "transylvania" off the 1985 woz-a-day side A. The game
-# opens with a guest-register prompt that consumes two free-text inputs (a name
-# and next-of-kin) before normal play begins; the first two lines below answer
-# it. From the stump the player heads to the dark forest, picks up the note and
-# reads the series' iconic warning. The headless terp has no real clock, so this
-# is fully reproducible (verified identical across runs) and stays clear of the
-# werewolf, which only appears further north -- a stable check for the register
-# prompt, movement, item pickup and string decoding.
+# One script, two games:
+#   * gameid "transylvania"   -- Penguin Software's original (1985 Apple II woz)
+#   * gameid "transylvaniav2" -- Polarware's IBM/PC re-release (1987, the
+#                                TransylvaniaPC DOS files)
+# They share their map, story and parser, so the same inputs win both. This
+# script is run against each in run_walkthroughs.sh.
 #
-# Win marker (see run_walkthroughs.sh): Sabrina dies at dawn!
+# Two notes that matter on the 1985 Apple game specifically (both harmless on the
+# DOS re-release, which is why the one file covers both):
+#
+#   * DROP CROSS once the vampire is destroyed. The 1985 inventory limit is one
+#     slot tighter, so the spent cross has to go or GET RING (in the vault) is
+#     refused with "You are carrying too much." (On v2 the cross can be kept;
+#     dropping it is just tidy.)
+#   * The Apple v1 game depends on the _strings2 alignment fix in
+#     GameData::load_extra_string_files (two leading placeholders for gameid
+#     "transylvania"). Without it the 1985 disk's MA-ME string files sit two
+#     slots off, so "shoot werewolf", "sing" and "show cross" not only printed
+#     the wrong lines (the broom flight, "the window is shut", "a bottle of
+#     clear liquid") but their kill/idle effects desynced -- the werewolf and
+#     vampire could never be killed and the ring stayed barred (the game was
+#     unwinnable). With the shim the deterministic run below reaches "Well Done!!!".
+#
+# Puzzle notes (the dark-cellar bar, the deterministic werewolf coffin-window,
+# the wizard's duet for the cross, the vampire at the entranceway, the mice that
+# ground the eagle, the flying saucer at dawn) are inline below.
+#
+# The whole run is deterministic (the engine never seeds rand(), so it rides the
+# default srand(1) stream) and verified byte-identical across runs, on each game.
+#
+# Win marker (see run_walkthroughs.sh): "Well Done!!!"
 # One input per line; blank lines and #-comments are ignored.
 
-# Guest register: any name / next-of-kin.
+# --- Guest register: any name / next of kin ---
 ADVENTURER
 NOBODY
-# Stump -> rock slide -> dark forest; grab and read the note.
+
+# --- Stump -> dark forest -> the frame house attic for the pistol ---
 N
 W
-GET NOTE
-READ NOTE
+N
+N
+N
+N
+E
+ENTER HOUSE
+UP
+GET PISTOL
+DOWN
+LEAVE HOUSE
+
+# --- The cellar behind the house: knock the iron bar loose and climb out ---
+N
+OPEN DOOR
+DOWN
+FEEL WALL
+FEEL FLOOR
+GET BAR
+UP
+
+# --- To the broken wagon ---
+S
+W
+W
+S
+
+# --- The coffin: shift the deterministic werewolf dice to a cold window, then
+#     crack the coffin for the mouse + silver bullet and load the flintlock ---
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+DROP GUN
+OPEN COFFIN WITH BAR
+GET MOUSE
+DROP BAR
+GET BULLET
+GET GUN
+LOAD GUN
+
+# --- The log cabin: shoot the werewolf for good, then the cloak and the cross ---
+LEAVE WAGON
+S
+ENTER CABIN
+SHOOT WEREWOLF
+DROP GUN
+PULL ANTLER
+GET CLOAK
+WEAR CLOAK
+SING SOME ENCHANTED EVENING
+PULL ANTLER
+LEAVE CABIN
+
+# --- The clay hut: free the mice (grounds the eagle), take the acid and broom ---
+N
+E
+E
+S
+ENTER HUT
+DROP MOUSE
+GET ACID
+GET BROOM
+LEAVE HUT
+
+# --- The castle: destroy the vampire with the cross (then drop the spent cross),
+#     and take the ring from the vault ---
+N
+W
+N
+N
+SHOW CROSS
+DROP CROSS
+E
+GET FLYPAPER
+W
+N
+DOWN
+DOWN
+DOWN
+OPEN COFFER
+GET RING
+
+# --- Back to the stump: acid reveals the writing, knock through to the cave ---
+UP
+UP
+UP
+S
+S
+S
+W
+S
+S
+E
+S
+POUR ACID
+READ WRITING
+KNOCK ON STUMP
+GET FLIES
+READ BOOK
+SEARCH CLOAK
+GET PICK
+UNLOCK DOOR
+DROP PICK
+ENTER ROOM
+LOOK BALL
+RIDE BROOM
+READ SIGN
+D
+GIVE FLIES TO FROG
+
+# --- The goblin's key, then free the genie/alien from the statue with the ring ---
+E
+N
+N
+E
+E
+E
+SAY IJNID
+GET KEY
+N
+W
+W
+W
+N
+WEAR RING
+WAVE HAND
+
+# --- The cemetery grate: the vial of elixir ---
+E
+MOVE TOMBSTONE
+UNLOCK GRATE
+DOWN
+GET ELIXIR
+UP
+DROP KEY
+W
+
+# --- Wait at the clearing until the flying saucer lands at dawn, then ride it ---
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+WAIT
+ENTER SAUCER
+
+# --- The tower: wake Sabrina with the box and the elixir ritual ---
+EXAMINE BOX
+S
+E
+E
+N
+N
+N
+UP
+CLIMB LADDER
+MOVE VINES
+PUSH BUTTON
+WAVE ELIXIR
+POUR ELIXIR
+CLAP HANDS
+
+# --- Down and south to the lake, aboard the Humbolt, and home ---
+DOWN
+DOWN
+S
+S
+S
+W
+S
+S
+S
+ENTER BOAT
+SAIL HUMBOLT

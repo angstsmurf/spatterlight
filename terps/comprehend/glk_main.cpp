@@ -34,6 +34,21 @@ void glk_main(void) {
         return;
     }
 
+    // If the storyfile is an Apple II disk image, extract its files (and any
+    // companion disk sides) into the in-memory VFS so the engine can open
+    // them by name, just as it would the DOS/PC files on disk. This must run
+    // before the chdir below: loadAppleDiskImage() resolves the image and its
+    // companion sides relative to the storyfile path, which no longer points at
+    // the file once we have cd'd into its directory (a relative path would then
+    // fail to open, silently dropping us into the DOS loader path).
+    bool fromDisk = false;
+    if (Glk::Comprehend::isAppleDiskImage(comprehend_storyfile)) {
+        if (Glk::Comprehend::loadAppleDiskImage(comprehend_storyfile) > 0)
+            fromDisk = true;
+        else
+            glk_put_string((char *)"Comprehend: could not read Apple II disk image.\n");
+    }
+
     // Comprehend's game classes open their data file by basename
     // (tr.gda / cc1.gda / g0), so we cd into the directory of the
     // storyfile first. This matches how ScummVM's SearchMan picks up
@@ -42,17 +57,6 @@ void glk_main(void) {
     size_t slash = path.find_last_of('/');
     if (slash != std::string::npos)
         chdir(Common::String(path.c_str(), slash).c_str());
-
-    // If the storyfile is an Apple II disk image, extract its files (and any
-    // companion disk sides) into the in-memory VFS so the engine can open
-    // them by name, just as it would the DOS/PC files on disk.
-    bool fromDisk = false;
-    if (Glk::Comprehend::isAppleDiskImage(comprehend_storyfile)) {
-        if (Glk::Comprehend::loadAppleDiskImage(comprehend_storyfile) > 0)
-            fromDisk = true;
-        else
-            glk_put_string((char *)"Comprehend: could not read Apple II disk image.\n");
-    }
 
     Glk::Comprehend::Comprehend *vm = new Glk::Comprehend::Comprehend();
 
