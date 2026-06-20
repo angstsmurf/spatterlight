@@ -453,8 +453,9 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, PcjrCtx *ctx) {
 }
 
 void gmpcjrDrawImage(const uint8_t *data, size_t size) {
-    s_slow.clear();
-
+    // The op list is dropped by gmpcjrResetScreen() when a new page starts, NOT
+    // here: item overlays must APPEND to the room's still-pending reveal so the
+    // whole scene reveals in paint order (see gmDrawImage for the full rationale).
     PcjrCtx ctx = {};
     ctx.pen      = 0;
     ctx.pen_x    = 140;   // per-image init (JR_GRAPH 0xa33): pen (140,6), brush 5

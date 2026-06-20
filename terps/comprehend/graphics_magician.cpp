@@ -1181,11 +1181,12 @@ void gmDrawImage(const uint8_t *data, size_t size) {
 #ifdef GM_TRACE
 	g_imgBase = data;
 #endif
-	// Each image is its own reveal: drop the previous image's op list (a room
-	// reset already cleared it; an item overlay reaches here without one, and
-	// must record only its own bytes onto whatever the room left visible).
-	s_slow.clear();
-
+	// The op list is dropped by gmResetScreen() when a new page starts (room /
+	// dark / bright / title), NOT here: a scene is a room picture plus any item
+	// overlays, and the overlays must APPEND their bytes to the room's still-
+	// pending reveal so the whole composite is revealed in paint order. Clearing
+	// here would discard the room's not-yet-revealed bytes the moment the first
+	// item draws, leaving only the last picture animated on a blank page.
 	a2_ctx ctx = {};
 	ctx.gv.screenmem = s_screenmem;
 	ctx.gv.write = gm_write_adapter;
