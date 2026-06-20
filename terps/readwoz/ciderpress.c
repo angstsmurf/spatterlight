@@ -2834,7 +2834,7 @@ A2FileRec *GetAllProDOSFiles(uint8_t *data, size_t len, size_t *number_of_files)
             recs = MemRealloc(recs, sizeof(A2FileRec) * (filecount + 1));
             recs[filecount].index = filecount;
             recs[filecount].filename = MemAlloc(strlen(name) + 1);
-            strcpy(recs[filecount].filename, name);
+            strlcpy(recs[filecount].filename, name, strlen(name) + 1);
             recs[filecount].data = buf;
             recs[filecount].datasize = actual;
             filecount++;
