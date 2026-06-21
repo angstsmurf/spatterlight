@@ -1506,12 +1506,13 @@ void CTPNStmTry::gen_jsr_finally()
         G_cg->note_push();
         G_cg->note_pop();
 
-        /* 
+        /*
          *   whatever follows the LJSR is logically at the end of the
-         *   'finally' block 
+         *   'finally' block
          */
-        add_debug_line_rec(finally_stm_->get_end_desc(),
-                           finally_stm_->get_end_linenum());
+        if (finally_stm_ != 0)
+            add_debug_line_rec(finally_stm_->get_end_desc(),
+                               finally_stm_->get_end_linenum());
     }
 }
 

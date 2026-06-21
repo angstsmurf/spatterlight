@@ -64,7 +64,8 @@ public:
         char full_name[OSFNMAX];
 
         /* add a default "tl" extension to the library name */
-        strcpy(full_name, lib_name);
+        strncpy(full_name, lib_name, sizeof(full_name) - 1);
+        full_name[sizeof(full_name) - 1] = '\0';
         os_defext(full_name, "tl");
 
         /* extract the path name from the library's name */
@@ -1401,7 +1402,8 @@ parse_options:
                  *   module's extension to "t3" (or adding the "t3"
                  *   extension if the module didn't have one to begin with) 
                  */
-                strcpy(buf, p);
+                strncpy(buf, p, sizeof(buf) - 1);
+                buf[sizeof(buf) - 1] = '\0';
                 os_remext(buf);
                 os_addext(buf, "t3");
 
@@ -1421,11 +1423,13 @@ parse_options:
             int nodef;
 
             /* add a default "tl" extension */
-            strcpy(fname, p);
+            strncpy(fname, p, sizeof(fname) - 1);
+            fname[sizeof(fname) - 1] = '\0';
             os_defext(fname, "tl");
 
             /* likewise, add a default "tl" extension to the original name */
-            strcpy(orig_fname, argv[curarg]);
+            strncpy(orig_fname, argv[curarg], sizeof(orig_fname) - 1);
+            orig_fname[sizeof(orig_fname) - 1] = '\0';
             os_defext(orig_fname, "tl");
 
             /* 
@@ -1585,7 +1589,8 @@ parse_options:
         /* if the options file doesn't exist, try adding the suffix 't3m' */
         if (osfacc(opt_file))
         {
-            strcpy(new_opt_file, opt_file);
+            strncpy(new_opt_file, opt_file, sizeof(new_opt_file) - 1);
+        new_opt_file[sizeof(new_opt_file) - 1] = '\0';
             os_defext(new_opt_file, "t3m");
             opt_file = new_opt_file;
         }

@@ -127,20 +127,24 @@ struct vm_meta_entry_t
      */
     void add_prop_xlat(vm_prop_id_t prop, ushort func_idx)
     {
-        /* 
+        /*
          *   Add the translation entry from property ID to function index
          *   - note that we store this as a 1-based function table index
          *   value, because we reserve function index 0 to indicate that
-         *   the property is invalid and has no function translation 
+         *   the property is invalid and has no function translation
          */
-        prop_xlat_[prop - min_prop_] = func_idx;
-        
-        /* 
+        if (prop_xlat_ != 0
+            && prop >= min_prop_
+            && prop < min_prop_ + prop_xlat_cnt_)
+            prop_xlat_[prop - min_prop_] = func_idx;
+
+        /*
          *   Add the translation entry from function index to property ID.
          *   Note that we must adjust the 1-based function index down one
          *   to get the index into our internal array.
          */
-        func_xlat_[func_idx - 1] = prop;
+        if (func_xlat_ != 0)
+            func_xlat_[func_idx - 1] = prop;
     }
 
     /*

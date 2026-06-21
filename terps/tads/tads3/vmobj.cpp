@@ -1618,7 +1618,11 @@ void CVmObjTable::delete_obj_table(VMG0_)
      *   chance, so clean them up manually) 
      */
     while (global_var_head_ != 0)
-        delete_global_var(global_var_head_);
+    {
+        vm_globalvar_t *var = global_var_head_;
+        global_var_head_ = var->nxt;
+        delete var;
+    }
 
     /* delete the post-load initialization table */
     delete post_load_init_table_;
@@ -2573,22 +2577,28 @@ CVmObjFixup::CVmObjFixup(ulong entry_cnt)
     
     /* allocate the necessary number of subarrays */
     arr_ = (obj_fixup_entry **)t3malloc(pages_ * sizeof(arr_[0]));
-    
-    /* allocate the subarrays */
-    for (i = 0 ; i < pages_ ; ++i)
+
+    if (arr_ != 0)
     {
-        size_t cur_cnt;
-        
-        /* 
-         *   allocate a full page, except for the last page, which might be
-         *   only partially used 
-         */
-        cur_cnt = VMOBJFIXUP_SUB_SIZE;
-        if (i + 1 == pages_)
-            cur_cnt = ((entry_cnt - 1) % VMOBJFIXUP_SUB_SIZE) + 1;
-        
-        /* allocate it */
-        arr_[i] = (obj_fixup_entry *)t3malloc(cur_cnt * sizeof(arr_[i][i]));
+        /* zero-initialize so subarray pointers are null rather than garbage */
+        memset(arr_, 0, pages_ * sizeof(arr_[0]));
+
+        /* allocate the subarrays */
+        for (i = 0 ; i < pages_ ; ++i)
+        {
+            size_t cur_cnt;
+
+            /*
+             *   allocate a full page, except for the last page, which might be
+             *   only partially used
+             */
+            cur_cnt = VMOBJFIXUP_SUB_SIZE;
+            if (i + 1 == pages_)
+                cur_cnt = ((entry_cnt - 1) % VMOBJFIXUP_SUB_SIZE) + 1;
+
+            /* allocate it */
+            arr_[i] = (obj_fixup_entry *)t3malloc(cur_cnt * sizeof(arr_[i][i]));
+        }
     }
 }
 
@@ -2655,8 +2665,12 @@ vm_obj_id_t CVmObjFixup::get_new_id(VMG_ vm_obj_id_t old_id)
  */
 obj_fixup_entry *CVmObjFixup::find_entry(vm_obj_id_t old_id)
 {
+    /* nothing to search if the table is empty or not yet allocated */
+    if (cnt_ == 0 || arr_ == 0)
+        return 0;
+
     /* do a binary search for the entry */
-    ulong cur;
+    ulong cur = 0;
     ulong lo = 0;
     ulong hi = cnt_ - 1;
     while (lo <= hi)
@@ -3507,14 +3521,18 @@ CVmVarHeapHybrid_hdr *CVmVarHeapHybrid_head::alloc(size_t)
         }
     }
     
+    /* if the free list is still empty (page_count_ == 0), nothing to alloc */
+    if (first_free_ == 0)
+        err_throw(VMERR_OUT_OF_MEMORY);
+
     /* remember the return value */
     CVmVarHeapHybrid_hdr *ret = (CVmVarHeapHybrid_hdr *)first_free_;
 
-    /* 
+    /*
      *   when we initialized or last freed this entry, we stored a pointer
      *   to the next item in the free list in the object's data - retrieve
      *   this pointer now, and update our free list head to point to the
-     *   next item 
+     *   next item
      */
     first_free_ = *(void **)first_free_;
 

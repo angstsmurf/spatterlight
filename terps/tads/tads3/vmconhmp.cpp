@@ -94,31 +94,24 @@ public:
         CVmFmtTabStop *entry = 0;
         err_try
         {
-            /* do the folding if applicable */
             if (fid != 0)
             {
                 fold_case(fid, id);
                 id = fid;
             }
-
-            /* get the folded ID length in characters and bytes */
             size_t id_chars = wcslen(id);
             size_t id_bytes = id_chars * sizeof(wchar_t);
-            
-            /* look for an existing tab-stop entry with the same ID */
             entry = (CVmFmtTabStop *)hashtab->find((char *)id, id_bytes);
-            
-            /* if we didn't find it, and they want to create it, do so */
             if (entry == 0 && create)
                 hashtab->add(entry = new CVmFmtTabStop((char *)id, id_bytes));
         }
-        err_finally
+        err_catch_disc
         {
-            /* if we allocated the ID string, release it */
-            if (fid != 0)
-                delete [] fid;
+            delete [] fid;
+            err_rethrow();
         }
         err_end;
+        delete [] fid;
 
         /* return what we found */
         return entry;
@@ -1406,7 +1399,7 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
     if (c == '<')
     {
         const size_t MAX_TAG_SIZE = 50;
-        wchar_t tagbuf[MAX_TAG_SIZE];
+        wchar_t tagbuf[MAX_TAG_SIZE] = {};
         wchar_t *dst;
         int is_end_tag;
         
@@ -1466,7 +1459,7 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
                 /* check to see if this is a start or end tag */
                 if (!is_end_tag)
                 {
-                    int attr;
+                    int attr = 0;
 
                     /* it's a start tag - push the current attributes */
                     push_color();
@@ -1899,7 +1892,7 @@ wchar_t CVmFormatter::parse_entity(VMG_ wchar_t *ent, const char **sp,
         /* found the name - skip its exact length */
         skipcnt = strlen(ampptr->cname);
         for (*sp = orig_s, *slenp = orig_slen ; skipcnt != 0 ;
-             c = next_wchar(sp, slenp), --skipcnt) ;
+             next_wchar(sp, slenp), --skipcnt) ;
 
         /* 
          *   that positions us on the last character of the entity name; skip

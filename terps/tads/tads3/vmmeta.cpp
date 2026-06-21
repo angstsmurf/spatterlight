@@ -132,8 +132,9 @@ void CVmMetaTable::ensure_space(size_t entries, size_t increment)
     /* if we don't have enough space, allocate more */
     if (entries >= alloc_)
     {
+        size_t old_alloc = alloc_;
         size_t new_size;
-        
+
         /* increase the allocation size by the given increment */
         alloc_ += increment;
 
@@ -143,15 +144,25 @@ void CVmMetaTable::ensure_space(size_t entries, size_t increment)
 
         /* compute the new size */
         new_size = alloc_ * sizeof(table_[0]);
-        
-        /* 
+
+        /*
          *   if we have a table already, reallocate it at the larger size;
-         *   otherwise, allocate a new table 
+         *   otherwise, allocate a new table.  Zero-initialize new entries so
+         *   pointer fields are null rather than garbage.
          */
         if (table_ != 0)
+        {
             table_ = (vm_meta_entry_t *)t3realloc(table_, new_size);
+            if (table_ != 0)
+                memset(table_ + old_alloc, 0,
+                       (alloc_ - old_alloc) * sizeof(table_[0]));
+        }
         else
+        {
             table_ = (vm_meta_entry_t *)t3malloc(new_size);
+            if (table_ != 0)
+                memset(table_, 0, new_size);
+        }
     }
 }
 
@@ -566,8 +577,9 @@ int CVmMetaTable::read_from_file(CVmFile *fp)
         /* get the new entry's record */
         entry = get_entry(i);
 
-        /* set the class ID */
+        /* set the class ID and ensure min_prop_ is visible to the analyzer */
         entry->class_obj_ = class_obj;
+        entry->min_prop_ = min_prop;
 
         /* 
          *   Read the property mappings.  We stored the function table

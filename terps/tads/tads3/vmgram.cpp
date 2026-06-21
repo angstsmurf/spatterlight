@@ -1378,7 +1378,6 @@ int CVmObjGramProd::getp_parse(VMG_ vm_obj_id_t self,
         vm_val_t ele_val;
         vm_val_t tok_typ_val;
         vm_val_t tok_str_val;
-        int subcnt;
         const char *tokstrp;
 
         /* presume we won't have any vocabulary properties for the word */
@@ -1390,7 +1389,7 @@ int CVmObjGramProd::getp_parse(VMG_ vm_obj_id_t self,
 
         /* make sure the sub-val is a list */
         if (!ele_val.is_listlike(vmg0_)
-            || (subcnt = ele_val.ll_length(vmg0_)) < 0)
+            || ele_val.ll_length(vmg0_) < 0)
             err_throw(VMERR_BAD_TYPE_BIF);
 
         /* 
@@ -1743,6 +1742,11 @@ void CVmObjGramProd::build_match_tree(VMG_ const CVmGramProdMatch *match,
          */
         if (!match->matched_star_)
             *first_tok = *last_tok = match->tok_pos_;
+        else
+        {
+            *first_tok = match->tok_pos_ + 1;
+            *last_tok = match->tok_pos_;
+        }
     }
 }
 
@@ -1860,7 +1864,7 @@ void CVmObjGramProd::process_work_queue_head(VMG_ CVmGramProdMem *mem,
     /* process the remaining items in the entry */
     while (state->alt_pos_ < state->altp_->tok_cnt)
     {
-        int match;
+        int match = FALSE;
         vm_val_t match_result;
 
         /* presume we won't find a match */

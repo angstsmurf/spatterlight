@@ -427,6 +427,8 @@ CVmPackType::CVmPackType(const CVmPackGroup *g)
     count = ITER_NONE;
     count_as_type = 0;
     count_in_bytes = FALSE;
+    up_to_count = FALSE;
+    fmtidx = 0;
     bang = FALSE;
     qu = FALSE;
     null_term = FALSE;
@@ -1269,9 +1271,6 @@ public:
          *   to hold the input. 
          */
         wchar_t *wbuf = new wchar_t[cnt];
-        if (wbuf == 0)
-            err_throw(VMERR_OUT_OF_MEMORY);
-
         err_try
         {
             /* read the data */
@@ -1283,11 +1282,13 @@ public:
             /* create the string */
             val->set_obj(CVmObjString::create(vmg_ FALSE, wbuf, cnt));
         }
-        err_finally
+        err_catch_disc
         {
             delete [] wbuf;
+            err_rethrow();
         }
         err_end;
+        delete [] wbuf;
     }
 
     /* unpack file data for a varying-length field with null termination */
@@ -2203,12 +2204,13 @@ void CVmPack::pack_one_item(VMG_ CVmPackGroup *group, CVmPackArgs *args,
             /* discard the gc protection */
             G_stk->discard();
         }
-        err_finally
+        err_catch_disc
         {
-            /* delete the field data source object */
             delete src;
+            err_rethrow();
         }
         err_end;
+        delete src;
 
         /* done */
         return;

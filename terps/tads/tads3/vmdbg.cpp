@@ -735,7 +735,8 @@ struct named_arg_stack_ctx
         }
         else if (rem > 3)
         {
-            strcpy(p, "...");
+            strncpy(p, "...", 3);
+            p[3] = '\0';
             rem = 0;
         }
         else
@@ -969,7 +970,8 @@ void CVmDebug::build_stack_listing(VMG_
             else if (self_obj_sym != 0)
             {
                 /* 'self' has a name, so show that */
-                strcpy(buf, self_obj_sym);
+                strncpy(buf, self_obj_sym, sizeof(buf) - 1);
+                buf[sizeof(buf) - 1] = '\0';
             }
             else if (def_obj_sym != 0)
             {
@@ -1041,7 +1043,8 @@ void CVmDebug::build_stack_listing(VMG_
              */
             if (rem <= 10)
             {
-                strcpy(p, " ...");
+                strncpy(p, " ...", 4);
+                p[4] = '\0';
                 p += 4;
                 rem -= 4;
                 break;
@@ -2278,11 +2281,13 @@ void CVmDebug::format_special(VMG_ char *buf, size_t buflen,
     switch (val->typ)
     {
     case VM_NIL:
-        strcpy(buf, "nil");
+        strncpy(buf, "nil", buflen - 1);
+        buf[buflen - 1] = '\0';
         return;
 
     case VM_TRUE:
-        strcpy(buf, "true");
+        strncpy(buf, "true", buflen - 1);
+        buf[buflen - 1] = '\0';
         return;
 
     case VM_OBJ:
@@ -2319,7 +2324,8 @@ void CVmDebug::format_special(VMG_ char *buf, size_t buflen,
         return;
 
     default:
-        strcpy(buf, "#__invalid");
+        strncpy(buf, "#__invalid", buflen - 1);
+        buf[buflen - 1] = '\0';
         return;
     }
 }

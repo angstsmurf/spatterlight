@@ -688,9 +688,8 @@ void CVmObjLookupTable::load_image_data(VMG_ const char *ptr, size_t siz)
     ext->default_value.set_nil();
     if (ibp + VMB_DATAHOLDER <= ptr + siz)
     {
-        /* read the default value and skip it in the source data */
+        /* read the default value */
         vmb_get_dh(ibp, &ext->default_value);
-        ibp += VMB_DATAHOLDER;
     }
 }
 

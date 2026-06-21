@@ -454,8 +454,10 @@ void CVmImageLoader::load_ext_resfiles(VMG0_)
     char suffix_uc[4];
 
     /* set up the templates for the resource file suffix */
-    strcpy(suffix_lc, "3r0");
-    strcpy(suffix_uc, "3R0");
+    strncpy(suffix_lc, "3r0", sizeof(suffix_lc) - 1);
+    suffix_lc[sizeof(suffix_lc) - 1] = '\0';
+    strncpy(suffix_uc, "3R0", sizeof(suffix_uc) - 1);
+    suffix_uc[sizeof(suffix_uc) - 1] = '\0';
     
     /* 
      *   Search for resource files with the same name as the image file, but
@@ -491,7 +493,8 @@ void CVmImageLoader::load_ext_resfiles(VMG0_)
              *   there's no resoruce path - use the image file full name,
              *   including any directory path information 
              */
-            strcpy(resfile, fname_);
+            strncpy(resfile, fname_, sizeof(resfile) - 1);
+            resfile[sizeof(resfile) - 1] = '\0';
         }
 
         /* replace the old image file extension with the resource suffix */
@@ -510,19 +513,19 @@ void CVmImageLoader::load_ext_resfiles(VMG0_)
         if (!osfacc(resfile))
         {
             int fileno;
-            CVmFile *fp;
+            CVmFile *volatile fp = 0;
             CVmImageFile *volatile imagefp = 0;
             CVmImageLoader *volatile loader = 0;
-            
+
             /* ask the host system to assign a file number */
             fileno = G_host_ifc->add_resfile(resfile);
-
-            /* create a file object for reading the file */
-            fp = new CVmFile();
 
             err_try
             {
                 CVmImageLoaderMres_std res_ifc(fileno, G_host_ifc);
+
+                /* create a file object for reading the file */
+                fp = new CVmFile();
 
                 /* open the file */
                 fp->open_read(resfile, OSFTT3IMG);
@@ -541,7 +544,8 @@ void CVmImageLoader::load_ext_resfiles(VMG0_)
                     delete loader;
                 if (imagefp != 0)
                     delete imagefp;
-                delete fp;
+                if (fp != 0)
+                    delete fp;
             }
             err_end;
         }
@@ -584,41 +588,40 @@ void CVmImageLoader::load_resources_from_fp(osfildef *fp,
                                             const char *fname,
                                             CVmImageLoaderMres *res_ifc)
 {
-    CVmFile *file;
     CVmImageFile *volatile imagefp = 0;
     CVmImageLoader *volatile loader = 0;
 
     /* create a file object for reading the file */
-    file = new CVmFile();
-
-    /* set up the file with our file handler */
+    CVmFile *file = new CVmFile();
     file->set_file(fp, 0);
-    
+
     err_try
     {
-        /* set up the loader */
         imagefp = new CVmImageFileExt(file);
         loader = new CVmImageLoader(imagefp, fname, 0);
-
-        /* load the resource-only file */
         loader->load_resource_file(res_ifc);
     }
-    err_finally
+    err_catch_disc
     {
-        /* 
-         *   detach our CVmFile object from the caller's file handle,
-         *   since we want to leave the caller's file handle open 
-         */
+        /* detach the caller's file handle and delete what we created */
         file->detach_file();
-        
-        /* delete the objects we created */
         if (loader != 0)
             delete loader;
         if (imagefp != 0)
             delete imagefp;
         delete file;
+        err_rethrow();
     }
     err_end;
+
+    /*
+     *   detach our CVmFile object from the caller's file handle, since we want
+     *   to leave the caller's file handle open, then delete what we created
+     */
+    file->detach_file();
+    delete loader;
+    delete imagefp;
+    delete file;
 }
 
 
@@ -844,7 +847,10 @@ void CVmImageLoader::run(VMG_ const char *const *argv, int argc,
              */
             char argcs[40];
             if (G_net_config != 0)
-                strcpy(argcs, "utf8");
+            {
+                strncpy(argcs, "utf8", sizeof(argcs) - 1);
+                argcs[sizeof(argcs) - 1] = '\0';
+            }
             else
                 os_get_charmap(argcs, OS_CHARMAP_CMDLINE);
 

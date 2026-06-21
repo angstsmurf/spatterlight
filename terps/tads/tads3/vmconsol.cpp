@@ -73,6 +73,7 @@ int CVmFormatterLog::open_log_file(VMG_ const char *fname)
     }
     err_catch_disc
     {
+        if (nf != 0) { nf->abandon(vmg0_); }
         nf = 0;
     }
     err_end;
@@ -2211,6 +2212,7 @@ int CVmConsole::open_script_file(VMG_ const char *fname,
     err_catch_disc
     {
         /* failed - no network file */
+        if (nf != 0) { nf->abandon(vmg0_); }
         nf = 0;
     }
     err_end;
@@ -2430,6 +2432,7 @@ int CVmConsole::open_command_log(VMG_ const char *fname, int event_script)
     err_catch_disc
     {
         /* failed - no network file */
+        if (nf != 0) { nf->abandon(vmg0_); }
         nf = 0;
     }
     err_end;
@@ -3168,11 +3171,20 @@ int CVmConsole::read_event_script(VMG_ int *evt, char *buf, size_t buflen,
             if (*evt == OS_EVT_KEY)
             {
                 if (strcmp(buf, "[enter]") == 0)
-                    strcpy(buf, "\n");
+                {
+                    strncpy(buf, "\n", buflen - 1);
+                    buf[buflen - 1] = '\0';
+                }
                 else if (strcmp(buf, "[tab]") == 0)
-                    strcpy(buf, "\t");
+                {
+                    strncpy(buf, "\t", buflen - 1);
+                    buf[buflen - 1] = '\0';
+                }
                 else if (strcmp(buf, "[space]") == 0)
-                    strcpy(buf, " ");
+                {
+                    strncpy(buf, " ", buflen - 1);
+                    buf[buflen - 1] = '\0';
+                }
             }
         }
         else

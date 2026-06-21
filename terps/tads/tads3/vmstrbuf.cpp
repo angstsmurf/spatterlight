@@ -1009,7 +1009,8 @@ void CVmObjStringBuffer::splice_text(VMG_ vm_obj_id_t self,
     splice_move(vmg_ idx, del_chars, ins_chars);
 
     /* copy in the characters */
-    memcpy(get_ext()->buf + idx, src, ins_chars * sizeof(get_ext()->buf[0]));
+    if (ins_chars > 0 && src != 0)
+        memcpy(get_ext()->buf + idx, src, ins_chars * sizeof(get_ext()->buf[0]));
 }
 
 /* 

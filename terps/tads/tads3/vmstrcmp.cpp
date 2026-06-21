@@ -848,7 +848,7 @@ unsigned int CVmObjStrComp::calc_str_hash(const char *strp, size_t len)
                 if (!ext->case_sensitive && (f = t3_to_fold(ch)) != 0)
                 {
                     /* add the folded expansion to the hash */
-                    for (const wchar_t *f = t3_to_fold(ch) ; *f != 0 ; ++f)
+                    for ( ; *f != 0 ; ++f)
                     {
                         if (!hash.add(*f))
                             return hash.hash;
@@ -872,7 +872,7 @@ unsigned int CVmObjStrComp::calc_str_hash(const char *strp, size_t len)
             if (!ext->case_sensitive && (f = t3_to_fold(ch)) != 0)
             {
                 /* add the folded expansion to the hash */
-                for (const wchar_t *f = t3_to_fold(ch) ; *f != 0 ; ++f)
+                for ( ; *f != 0 ; ++f)
                 {
                     if (!hash.add(*f))
                         return hash.hash;

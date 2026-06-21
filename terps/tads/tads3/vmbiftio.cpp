@@ -664,7 +664,11 @@ int CVmBifTIO::map_ext_key(VMG_ char *namebuf, int extc)
         && extc <= (int)sizeof(ext_key_names)/sizeof(ext_key_names[0]))
     {
         /* use the array name */
-        strcpy(namebuf, ext_key_names[extc - 1]);
+        {
+            size_t key_len = strlen(ext_key_names[extc - 1]);
+            strncpy(namebuf, ext_key_names[extc - 1], key_len);
+            namebuf[key_len] = '\0';
+        }
         return TRUE;
     }
 
@@ -672,13 +676,15 @@ int CVmBifTIO::map_ext_key(VMG_ char *namebuf, int extc)
     if ((unsigned char)extc >= CMD_ALT && (unsigned char)extc <= CMD_ALT + 25)
     {
         /* generate an ALT key name */
-        strcpy(namebuf, "[alt-?]");
+        strncpy(namebuf, "[alt-?]", 7);
+        namebuf[7] = '\0';
         namebuf[5] = (char)(extc - CMD_ALT + 'a');
         return TRUE;
     }
 
     /* it's not a valid key - use '[?]' as the name */
-    strcpy(namebuf, "[?]");
+    strncpy(namebuf, "[?]", 3);
+    namebuf[3] = '\0';
     return FALSE;
 }
 
@@ -718,17 +724,20 @@ int CVmBifTIO::map_raw_key(VMG_ char *namebuf, const char *c, size_t len)
         case 8:
         case 127:
             /* return '[bksp]' for backspace/del characters */
-            strcpy(namebuf, "[bksp]");
+            strncpy(namebuf, "[bksp]", 6);
+            namebuf[6] = '\0';
             return TRUE;
 
         case 27:
             /* return '[esc]' for the escape key */
-            strcpy(namebuf, "[esc]");
+            strncpy(namebuf, "[esc]", 5);
+            namebuf[5] = '\0';
             return TRUE;
 
         default:
             /* return '[ctrl-X]' for other control characters */
-            strcpy(namebuf, "[ctrl-?]");
+            strncpy(namebuf, "[ctrl-?]", 8);
+            namebuf[8] = '\0';
             namebuf[6] = (char)(c[0] + 'a' - 1);
             return TRUE;
         }
@@ -1263,7 +1272,7 @@ void CVmBifTIO::askfile(VMG_ uint argc)
              */
             if (from_ui)
             {
-                vm_objid_cast(CVmObjFileName, val.val.obj)->set_from_ui(
+                ((CVmObjFileName *)vm_objp(vmg_ val.val.obj))->set_from_ui(
                     dialog_type);
             }
         }
@@ -2443,7 +2452,8 @@ void CVmBifTIO::log_console_close(VMG_ uint argc)
 void CVmBifTIO::log_console_say(VMG_ uint argc)
 {
     int hdl;
-    CVmConsole *console;
+    CVmConsole *console = 0;
+    CVmConsole *own_console = 0;
 
     /* check arguments */
     check_argc_range(vmg_ argc, 1, 32767);
@@ -2451,17 +2461,12 @@ void CVmBifTIO::log_console_say(VMG_ uint argc)
     /* get the console handle */
     hdl = pop_int_val(vmg0_);
 
-    /* 
+    /*
      *   if it's the special value -1, it means that we want to write to the
      *   main console's log file; otherwise, it's a log console that we
      *   previously created explicitly via log_console_create()
      */
-    if (hdl == -1)
-    {
-        /* use the main log */
-        console = new CVmConsoleMainLog();
-    }
-    else
+    if (hdl != -1)
     {
         /* get the console by handle - if it's invalid, throw an error */
         console = G_console->get_log_console_manager()->get_console(hdl);
@@ -2472,19 +2477,26 @@ void CVmBifTIO::log_console_say(VMG_ uint argc)
     /*
      *   write the argument(s) to the console (note that the first argument,
      *   which we've already retrieved, is the console handle, so don't count
-     *   it among the arguments to display) 
+     *   it among the arguments to display)
      */
+    if (hdl == -1)
+    {
+        own_console = new CVmConsoleMainLog();
+        console = own_console;
+    }
     err_try
     {
         say_to_console(vmg_ console, argc - 1);
     }
-    err_finally
+    err_catch_disc
     {
-        /* if we created a "main console" object, we're done with it */
-        if (hdl == -1)
-            console->delete_obj(vmg0_);
+        if (own_console != 0)
+            own_console->delete_obj(vmg0_);
+        err_rethrow();
     }
     err_end;
+    if (own_console != 0)
+        own_console->delete_obj(vmg0_);
 }
 
 /* ------------------------------------------------------------------------ */

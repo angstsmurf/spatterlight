@@ -517,7 +517,8 @@ void CRcResList::add_file(const char *fname, const char *alias,
                     full_url[len++] = '/';
 
                 /* add this file name */
-                strcpy(full_url + len, search_file);
+                strncpy(full_url + len, search_file, sizeof(full_url) - len - 1);
+                full_url[sizeof(full_url) - 1] = '\0';
 
                 /* get the file mode */
                 if (!osfmode(fullname, TRUE, &fmode, &fattr))

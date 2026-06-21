@@ -350,7 +350,8 @@ void CVmObjTimeZone::restore_from_file(VMG_ vm_obj_id_t self,
 
     /* read the abbreviation */
     fp->read_str_byte_prefix(desc.std_abbr, sizeof(desc.std_abbr));
-    strcpy(desc.dst_abbr, desc.std_abbr);
+    strncpy(desc.dst_abbr, desc.std_abbr, sizeof(desc.dst_abbr) - 1);
+    desc.dst_abbr[sizeof(desc.dst_abbr) - 1] = '\0';
 
     /* read the length and name */
     char name[256];

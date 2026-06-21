@@ -355,17 +355,20 @@ static int s_readdir_local(VMG_ const char *lclfname,
                         && (fmode & OSFMODE_DIR) != 0)
                     {
                         /* get the combined path from the FileName object */
-                        const char *path = vm_objid_cast(CVmObjFileName, fnobj)
-                                           ->get_path_string();
-                
+                        CVmObjFileName *fn =
+                            vm_objid_cast(CVmObjFileName, fnobj);
+                        const char *path =
+                            fn != 0 ? fn->get_path_string() : 0;
+
                         /* build the actual combined path */
                         char subfname[OSFNMAX];
                         os_build_full_path(
                             subfname, sizeof(subfname), lclfname, curname);
-                
+
                         /* do the recursive listing */
-                        ok |= s_readdir_local(vmg_ subfname, path + VMB_LEN,
-                                              retval, rc, cb, TRUE);
+                        if (path != 0)
+                            ok |= s_readdir_local(vmg_ subfname, path + VMB_LEN,
+                                                  retval, rc, cb, TRUE);
                     }
                 }
             

@@ -3140,17 +3140,17 @@ int CVmObjString::specialsTo(VMG_ vm_val_t *retval,
     int qlevel = 0;
     char attrq = 0;
     int col = 0;
-    StringRef *tag = new StringRef(128);
+    StringRef *tag = 0;
+    StringRef *buf = 0;
 
     /* get the string length and buffer pointer */
     size_t len = vmb_get_len(str);
     str += VMB_LEN;
 
-    /* set up a buffer for the output - anticipate a little expansion */
-    StringRef *buf = new StringRef(len*5/4);
-
     err_try
     {
+        tag = new StringRef(128);
+        buf = new StringRef(len*5/4);
         /* get the state object, if present */
         vm_val_t stateobj;
         stateobj.set_nil();
@@ -3740,10 +3740,12 @@ int CVmObjString::specialsTo(VMG_ vm_val_t *retval,
     err_finally
     {
         /* release resources */
-        tag->release_ref();
-        buf->release_ref();
+        if (tag != 0) { tag->release_ref(); tag = 0; }
+        if (buf != 0) { buf->release_ref(); buf = 0; }
     }
     err_end;
+    if (tag != 0) tag->release_ref();
+    if (buf != 0) buf->release_ref();
 
     /* discard arguments and gc protection items */
     G_stk->discard(oargc); 
@@ -3989,10 +3991,12 @@ int CVmObjString::static_getp_packBytes(VMG_ vm_val_t *retval, uint *pargc)
         return TRUE;
 
     /* set up an in-memory data stream to receive the packed data */
-    CVmMemorySource *dst = new CVmMemorySource(0L);
+    CVmMemorySource *dst = 0;
 
     err_try
     {
+        dst = new CVmMemorySource(0L);
+
         /* do the packing */
         CVmPack::pack(vmg_ 0, argc, dst);
 

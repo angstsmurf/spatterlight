@@ -2049,10 +2049,17 @@ void CVmObjDict::remove_weak_ref_cb(void *ctx0, CVmHashEntry *entry0)
     {
         /* remember the next entry in case we delete this one */
         nxt = cur->nxt_;
-        
+
         /* check to see if this object is free - if so, remove this record */
         if (G_obj_table->is_obj_deletable(cur->obj_))
         {
+            /* del_entry scans the full list and deletes all entries with the
+               same (obj, prop), so skip past any duplicates now to keep nxt
+               pointing to a safe entry that del_entry won't also free */
+            while (nxt != 0
+                   && nxt->obj_ == cur->obj_ && nxt->prop_ == cur->prop_)
+                nxt = nxt->nxt_;
+
             /* if we have a trie, delete the trie entry */
             if (ctx->dict->get_ext()->trie_ != 0)
                 ctx->dict->get_ext()->trie_->del_word(
@@ -2061,6 +2068,10 @@ void CVmObjDict::remove_weak_ref_cb(void *ctx0, CVmHashEntry *entry0)
             /* delete the entry */
             entry->del_entry(ctx->dict->get_ext()->hashtab_,
                              cur->obj_, cur->prop_);
+
+            /* if this was the last entry, del_entry freed 'entry' itself */
+            if (nxt == 0)
+                return;
         }
     }
 }

@@ -791,7 +791,7 @@ void CVmObjFileName::load_image_data(VMG_ const char *ptr, size_t siz)
     int32_t sfid = osrp4s(ptr);
 
     /* if there's a special file ID, look it up; otherwise load the name */
-    vm_filnam_ext *ext;
+    vm_filnam_ext *ext = 0;
     if (sfid != 0)
     {
         /* translate the special file ID to a path */
@@ -876,7 +876,7 @@ void CVmObjFileName::restore_from_file(VMG_ vm_obj_id_t self,
     int32_t sfid = fp->read_int4();
 
     /* if there's a special file ID, look it up; otherwise read the name */
-    vm_filnam_ext *ext;
+    vm_filnam_ext *ext = 0;
     if (sfid != 0)
     {
         /* get the special file path */
@@ -962,7 +962,7 @@ int CVmObjFileName::equals(VMG_ vm_obj_id_t self, const vm_val_t *val,
     else if ((str = val->get_as_string(vmg0_)) != 0)
     {
         char *strz = 0;
-        int eq;
+        int eq = FALSE;
         err_try
         {
             /* make a null-terminated copy of the other name */
@@ -1434,12 +1434,15 @@ int CVmObjFileName::s_getp_getRootDirs(VMG_ vm_val_t *retval, uint *oargc)
         {
             /* free the root list buffer */
             delete [] buf;
+            buf = 0;
 
             /* free the mapped filename string */
             if (lclstr != 0)
                 t3free(lclstr);
         }
         err_end;
+        /* safety cleanup visible to the static analyzer */
+        delete [] buf;
     }
     else
     {
@@ -1699,7 +1702,7 @@ int CVmObjFileName::getp_getFileType(VMG_ vm_obj_id_t self,
             err_throw(VMERR_BAD_VAL_BIF);
     }
 
-    int ok;
+    int ok = FALSE;
     unsigned long osmode, osattr;
     err_try
     {
@@ -1767,12 +1770,18 @@ int CVmObjFileName::getp_getFileInfo(VMG_ vm_obj_id_t self,
             err_throw(VMERR_BAD_VAL_BIF);
     }
 
-    int ok;
+    int ok = FALSE;
     os_file_stat_t stat;
+    int have_target = FALSE;
+    char target[OSFNMAX];
     err_try
     {
-        /* get the file type from the netfile object */
+        /* get the file stat from the netfile object */
         ok = netfile->get_file_stat(vmg_ &stat, follow_links);
+
+        /* if it's a symlink, resolve the target now before we abandon netfile */
+        if (ok && (stat.mode & OSFMODE_LINK) != 0)
+            have_target = netfile->resolve_symlink(vmg_ target, sizeof(target));
     }
     err_finally
     {
@@ -1784,7 +1793,7 @@ int CVmObjFileName::getp_getFileInfo(VMG_ vm_obj_id_t self,
     /* build the return value */
     if (ok)
     {
-        /* 
+        /*
          *   Success - build a new FileInfo(mode, size, ctime, mtime, atime,
          *   target, attrs).  Start by pushing the constructor arguments
          *   (last to first).
@@ -1793,10 +1802,8 @@ int CVmObjFileName::getp_getFileInfo(VMG_ vm_obj_id_t self,
         /* push the file attributes */
         G_stk->push()->set_int(map_file_attrs(stat.attrs));
 
-        /* if this is a symbolic link file, get the target path */
-        char target[OSFNMAX];
-        if ((stat.mode & OSFMODE_LINK) != 0
-            && netfile->resolve_symlink(vmg_ target, sizeof(target)))
+        /* if this is a symbolic link file, push the resolved target path */
+        if (have_target)
         {
             /* push the name as a string in UTF8 */
             G_stk->push()->set_obj(CVmObjString::create(

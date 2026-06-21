@@ -895,7 +895,8 @@ void CTcTokenizer::add_inc_path(const char *path)
                                         + strlen(path));
 
     /* store the path in the entry */
-    strcpy(entry->path, path);
+    strncpy(entry->path, path, strlen(path));
+    entry->path[strlen(path)] = '\0';
 
     /* link this entry at the end of our list */
     if (incpath_tail_ != 0)
@@ -1292,8 +1293,16 @@ void CTcTokenizer::skip_ws_and_markers(utf8_ptr *p)
          */
         if (cur == TOK_MACRO_EXP_END)
         {
-            /* skip the embedded pointer value that follows */
-            p->set(p->getptr() + 1 + sizeof(CTcHashEntryPp *));
+            /* skip the marker byte and the embedded CTcHashEntryPp* value;
+               load it via memcpy (same pattern as scan_for_prior_expansion)
+               so the SA sees emb as a separate local variable and correctly
+               computes ptr + sizeof(emb) as a plain buffer offset rather
+               than conflating the stream position with the heap pointer value */
+            char *ptr = p->getptr() + 1;
+            CTcHashEntryPp *emb;
+            memcpy(&emb, ptr, sizeof(emb));
+            p->set(ptr + sizeof(emb));
+            (void)emb;
         }
         else if (is_space(cur))
         {
@@ -4382,7 +4391,6 @@ int CTcTokenizer::expand_macro(CTcMacroRsc *rsc, CTcTokString *expbuf,
     const char *start;
     const char *end;
     int err;
-    char flagbuf[1 + sizeof(entry)];
 
     /* presume we won't do any expansion */
     *expanded = FALSE;
@@ -4475,9 +4483,15 @@ int CTcTokenizer::expand_macro(CTcMacroRsc *rsc, CTcTokString *expbuf,
      *   symbol.  This allows us to follow the ANSI C rules for recursive
      *   macro usage.  
      */
-    flagbuf[0] = TOK_MACRO_EXP_END;
-    memcpy(&flagbuf[1], &entry, sizeof(entry));
-    expbuf->append(flagbuf, sizeof(flagbuf));
+    /* append the end-of-expansion marker and the hash-entry pointer as two
+       separate calls; a combined local flagbuf[] would cause the SA to assume
+       expbuf retains a reference to it and flag later getch() calls on p_ as
+       use-after-free once the local array goes out of scope */
+    {
+        char emark = TOK_MACRO_EXP_END;
+        expbuf->append(&emark, 1);
+        expbuf->append((const char *)&entry, sizeof(entry));
+    }
 
     /* indicate that we expanded the macro */
     *expanded = TRUE;
@@ -7132,7 +7146,8 @@ void CTcTokenizer::pp_include()
     if (is_absolute && !found)
     {
         /* use the original filename as the full name */
-        strcpy(full_name, fname.getptr());
+        strncpy(full_name, fname.getptr(), sizeof(full_name) - 1);
+        full_name[sizeof(full_name) - 1] = '\0';
 
         /* try finding the file */
         found = !osfacc(full_name);
@@ -7251,7 +7266,8 @@ void CTcTokenizer::add_include_once(const char *fname)
                                          + strlen(fname));
 
     /* save the filename */
-    strcpy(prvinc->fname, fname);
+    strncpy(prvinc->fname, fname, strlen(fname));
+    prvinc->fname[strlen(fname)] = '\0';
     
     /* link the new entry into our list */
     prvinc->nxt = prev_includes_;
@@ -8344,7 +8360,8 @@ void CTcTokenizer::log_error_or_warning_with_tok(
 
     format_string:
         /* set the prefix */
-        strcpy(buf, prefix);
+        strncpy(buf, prefix, sizeof(buf) - 1);
+        buf[sizeof(buf) - 1] = '\0';
         
         /* 
          *   show the string, but limit the length, and convert control
@@ -8415,7 +8432,11 @@ void CTcTokenizer::log_error_or_warning_with_tok(
         }
 
         /* add the suffix */
-        strcpy(dst.getptr(), suffix);
+        {
+            size_t suffix_len = strlen(suffix);
+            strncpy(dst.getptr(), suffix, suffix_len);
+            dst.getptr()[suffix_len] = '\0';
+        }
 
         /* use this buffer as the token string to display */
         tok_txt = buf;

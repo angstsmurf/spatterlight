@@ -325,7 +325,6 @@ CTcSrcFile *CTcSrcFile::open_source(const char *filename,
                             {
                                 /* skip the name and the quote */
                                 p += l + 2;
-                                rem -= l + 2;
 
                                 /* skip the source text to this point */
                                 skip = p - buf;

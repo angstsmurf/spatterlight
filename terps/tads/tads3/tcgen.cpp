@@ -788,9 +788,21 @@ void CTcCodeStream::alloc_line_pages(size_t number_to_add)
     /* create or expand the master page array */
     siz = (line_pages_alloc_ + number_to_add) * sizeof(tcgen_line_page_t *);
     if (line_pages_ == 0)
+    {
         line_pages_ = (tcgen_line_page_t **)t3malloc(siz);
+        if (line_pages_ == 0)
+            return;
+        memset(line_pages_, 0, siz);
+    }
     else
-        line_pages_ = (tcgen_line_page_t **)t3realloc(line_pages_, siz);
+    {
+        tcgen_line_page_t **np = (tcgen_line_page_t **)t3realloc(line_pages_, siz);
+        if (np == 0)
+            return;
+        line_pages_ = np;
+        memset(line_pages_ + line_pages_alloc_, 0,
+               number_to_add * sizeof(tcgen_line_page_t *));
+    }
 
     /* allocate the new pages */
     for (i = line_pages_alloc_ ; i < line_pages_alloc_ + number_to_add ; ++i)
@@ -1179,8 +1191,10 @@ void CTcCodeStream::add_line_rec(CTcTokFileDesc *file, long linenum)
  */
 tcgen_line_t *CTcCodeStream::get_line_rec(size_t n)
 {
-    return &(line_pages_[n / TCGEN_LINE_PAGE_SIZE]
-             ->lines[n % TCGEN_LINE_PAGE_SIZE]);
+    if (line_pages_ == 0)
+        return 0;
+    tcgen_line_page_t *page = line_pages_[n / TCGEN_LINE_PAGE_SIZE];
+    return (page != 0) ? &page->lines[n % TCGEN_LINE_PAGE_SIZE] : 0;
 }
 
 /*

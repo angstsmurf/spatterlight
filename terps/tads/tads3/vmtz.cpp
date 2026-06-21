@@ -957,7 +957,8 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
         /* try looking up the basic UTC zone */
         os_tzinfo_t desc;
         memset(&desc, 0, sizeof(desc));
-        strcpy(desc.std_abbr, "UTC");
+        strncpy(desc.std_abbr, "UTC", sizeof(desc.std_abbr) - 1);
+        desc.std_abbr[sizeof(desc.std_abbr) - 1] = '\0';
         local_zone_ = new CVmTimeZone(&desc);
     }
 
@@ -1326,7 +1327,6 @@ CVmTimeZone::CVmTimeZone(ZoneHashEntryDb *entry, const char *file_data,
         size_t dlen = osrp1(p);
         desc_ = new char[dlen + 1];
         lib_strcpy(desc_, dlen + 1, p+1, dlen);
-        p += dlen + 2;
     }
     else
     {
@@ -1434,10 +1434,12 @@ void CVmTimeZone::init(const os_tzinfo_t *desc)
     abbr_ = new char[std_abbr_len + dst_abbr_len + 2];
 
     char *std_abbr = abbr_;
-    strcpy(std_abbr, desc->std_abbr);
+    strncpy(std_abbr, desc->std_abbr, std_abbr_len);
+    std_abbr[std_abbr_len] = '\0';
 
     char *dst_abbr = abbr_ + std_abbr_len + 1;
-    strcpy(dst_abbr, desc->dst_abbr);
+    strncpy(dst_abbr, desc->dst_abbr, dst_abbr_len);
+    dst_abbr[dst_abbr_len] = '\0';
 
     /* if rules for the start/end dates are specified, use them */
     if ((desc->dst_start.jday != 0
@@ -1554,16 +1556,16 @@ CVmTimeZone *CVmTimeZone::load(VMG_ ZoneHashEntry *entry)
         /* read the file data */
         ok = buf != 0 && !osfrb(fp, buf, alo);
         
-        /* decode the header */
-        unsigned int trans_cnt = osrp2(buf);
-        unsigned int type_cnt = osrp2(buf+2);
-        unsigned int rule_cnt = osrp1(buf+4);
-        unsigned int abbr_bytes = osrp1(buf+5);
-        
         /* create the time zone object */
         CVmTimeZone *tz = 0;
         if (ok)
         {
+            /* decode the header */
+            unsigned int trans_cnt = osrp2(buf);
+            unsigned int type_cnt = osrp2(buf+2);
+            unsigned int rule_cnt = osrp1(buf+4);
+            unsigned int abbr_bytes = osrp1(buf+5);
+
             tz = new CVmTimeZone(
                 (ZoneHashEntryDb *)entry,
                 buf+6, trans_cnt, type_cnt, rule_cnt, abbr_bytes);

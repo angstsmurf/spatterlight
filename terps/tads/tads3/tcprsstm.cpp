@@ -5875,7 +5875,7 @@ void CTcParser::parse_obj_prop(
             }
 
             /* if we have a valid property and expression, add it */
-            if (prop_sym != 0)
+            if (prop_sym != 0 && objdef != 0)
             {
                 /* add the expression or code body, as appropriate */
                 if (code_body != 0)
@@ -5918,7 +5918,7 @@ void CTcParser::parse_obj_prop(
             is_dup = TRUE;
 
         /* if we didn't already find a duplicate, scan the existing list */
-        if (!is_dup)
+        if (!is_dup && objdef != 0)
         {
             /* scan the property list for this object */
             for (CTPNObjProp *obj_prop = objdef->get_first_prop() ;
@@ -6734,7 +6734,7 @@ void CTPNStmCompBase::gen_code(int, int)
     }
 
     /* restore the enclosing local frame */
-    old_frame = G_cs->set_local_frame(old_frame);
+    G_cs->set_local_frame(old_frame);
 }
 
 /*
@@ -8275,7 +8275,8 @@ public:
         cur_alt_ = sub_head_;
 
         /* initialize the first alternative for expansion */
-        cur_alt_->init_expansion();
+        if (cur_alt_ != 0)
+            cur_alt_->init_expansion();
 
         /* we didn't just do an 'or' */
         just_did_or_ = FALSE;
@@ -8319,7 +8320,7 @@ public:
     virtual CTcPrsGramNode *clone_expansion() const
     {
         /* return a replica of the current alternative being expanded */
-        return cur_alt_->clone_expansion();
+        return cur_alt_ != 0 ? cur_alt_->clone_expansion() : 0;
     }
 
     /* get the next token in a token expansion */

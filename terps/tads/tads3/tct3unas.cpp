@@ -324,7 +324,6 @@ void CTcT3Unasm::disasm_instr(CTcUnasSrc *src, CTcUnasOut *out, char ch_op)
     int i;
     ulong acc;
     char ch[10];
-    ulong prv_ofs = src->get_ofs();
     
     /* get the information on this instruction */
     info = &instr_info[(int)(uchar)ch_op];
@@ -355,7 +354,7 @@ void CTcT3Unasm::disasm_instr(CTcUnasSrc *src, CTcUnasOut *out, char ch_op)
             const char *val = valbuf;
 
             /* note the current offset */
-            prv_ofs = src->get_ofs();
+            ulong prv_ofs = src->get_ofs();
             
             /* read the DATAHOLDER value */
             src->next_byte(ch);

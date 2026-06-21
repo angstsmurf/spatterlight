@@ -835,6 +835,7 @@ public:
             target_ptr = G_const_pool->get_ptr(self.val.ofs);
 
             /* evaluate the constant list property */
+            val.set_nil();
             found = f_const_get_prop(
                 vmg_ &val, &self, target_ptr, target_prop,
                 &defining_obj, &argc);
@@ -4367,14 +4368,13 @@ const uchar *CVmRun::call_func_ptr_fr(VMG_ const vm_val_t *funcptr, uint argc,
                                       uint caller_ofs)
 {
     vm_val_t invoker;
-    CVmObject *io;
-    
+
     /* check what we have */
     switch (funcptr->typ)
     {
     case VM_OBJ:
         /* it's an object - check to see if it's invokable */
-        if ((io = vm_objp(vmg_ funcptr->val.obj))->get_invoker(vmg_ &invoker))
+        if (vm_objp(vmg_ funcptr->val.obj)->get_invoker(vmg_ &invoker))
         {
             /* get the invocation address, according to the invoker type */
             const void *invoke_addr;
@@ -6184,7 +6184,10 @@ void CVmRun::prof_enum_cb(void *ctx0, CVmHashEntry *entry0)
          *   using the object number 
          */
         if (p != 0)
-            strcpy(namebuf, p);
+        {
+            strncpy(namebuf, p, sizeof(namebuf) - 1);
+            namebuf[sizeof(namebuf) - 1] = '\0';
+        }
         else
             sprintf(namebuf, "obj#%lx", (long)entry->rec_.obj);
 
@@ -6195,7 +6198,10 @@ void CVmRun::prof_enum_cb(void *ctx0, CVmHashEntry *entry0)
         /* look up the property name */
         p = ctx->dbg->propid_to_sym(entry->rec_.prop);
         if (p != 0)
-            strcpy(dst, p);
+        {
+            strncpy(dst, p, sizeof(namebuf) - (dst - namebuf) - 1);
+            namebuf[sizeof(namebuf) - 1] = '\0';
+        }
         else
             sprintf(dst, "prop#%x", (int)entry->rec_.prop);
     }
@@ -6205,14 +6211,18 @@ void CVmRun::prof_enum_cb(void *ctx0, CVmHashEntry *entry0)
         char buf[256];
         p = ctx->dbg->funchdr_to_sym(vmg_ entry->rec_.func, buf);
         if (p != 0)
-            strcpy(namebuf, p);
+        {
+            strncpy(namebuf, p, sizeof(namebuf) - 1);
+            namebuf[sizeof(namebuf) - 1] = '\0';
+        }
         else
             sprintf(namebuf, "func#%lx", (long)entry->rec_.func);
     }
     else
     {
         /* it must be system code */
-        strcpy(namebuf, "<System>");
+        strncpy(namebuf, "<System>", sizeof(namebuf) - 1);
+        namebuf[sizeof(namebuf) - 1] = '\0';
     }
 
     /* invoke the callback with the data */

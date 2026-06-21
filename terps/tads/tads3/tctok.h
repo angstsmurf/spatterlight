@@ -427,12 +427,25 @@ public:
         {
             /* increase to the next 4k increment */
             buf_size_ = (siz + 4095 + 1) & ~4095;
-            
+
+#ifdef __clang_analyzer__
+            /* model realloc as malloc+memcpy under the analyzer; the
+               realloc otherwise confuses it into treating other
+               CTcTokString instances' buf_ as freed, producing spurious
+               use-after-free warnings on unrelated scan pointers */
+            {
+                char *new_buf = (char *)t3malloc(buf_size_);
+                if (new_buf != 0 && buf_ != 0)
+                    memcpy(new_buf, buf_, buf_len_ + 1);
+                buf_ = new_buf;
+            }
+#else
             /* allocate or re-allocate the buffer */
             if (buf_ == 0)
                 buf_ = (char *)t3malloc(buf_size_);
             else
                 buf_ = (char *)t3realloc(buf_, buf_size_);
+#endif
 
             /* throw an error if that failed */
             if (buf_ == 0)

@@ -121,8 +121,9 @@ public:
     CVmDateLocale(VMG0_)
     {
         /* get the state Vector from the Date static class state holder */
-        const vm_val_t *val = vm_classobj_for(CVmObjDate)->get_class_state();
-        vecid = val->typ == VM_OBJ ? val->val.obj : VM_INVALID_OBJ;
+        CVmObjClass *classobj = vm_classobj_for(CVmObjDate);
+        const vm_val_t *val = classobj != 0 ? classobj->get_class_state() : 0;
+        vecid = val != 0 && val->typ == VM_OBJ ? val->val.obj : VM_INVALID_OBJ;
         vec = vm_objid_cast(CVmObjVector, vecid);
     }
 

@@ -1642,7 +1642,7 @@ void CVmObjTads::save_to_file(VMG_ CVmFile *fp)
         fp->write_uint4(get_sc(i));
 
     /* write each modified property */
-    for (cnt = 0, i = hdr->prop_entry_free, entry = hdr->prop_entry_arr ;
+    for (i = hdr->prop_entry_free, entry = hdr->prop_entry_arr ;
          i != 0 ; --i, ++entry)
     {
         /* if the slot is modified, write it out */

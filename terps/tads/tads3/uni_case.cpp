@@ -241,8 +241,10 @@ struct chardef
 
     void set_name(const char *str)
     {
-        name = new char[strlen(str) + 1];
-        strcpy(name, str);
+        size_t slen = strlen(str);
+        name = new char[slen + 1];
+        strncpy(name, str, slen);
+        name[slen] = '\0';
     }
 
     int name_ends_with(const char *str)

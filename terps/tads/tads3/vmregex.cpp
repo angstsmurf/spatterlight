@@ -1565,10 +1565,6 @@ re_status_t CRegexParser::compile(const char *expr_str, size_t exprlen,
                         if (var_id >= pat->loop_var_cnt)
                             pat->loop_var_cnt = var_id + 1;
 
-                        /* presume neither min nor max will be specified */
-                        min_val = -1;
-                        max_val = -1;
-                        
                         /* skip the current character and the '{' */
                         expr.inc();
                         expr.inc();

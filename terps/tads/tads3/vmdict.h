@@ -571,8 +571,7 @@ public:
         int found;
 
         /* find the entry in our list */
-        for (found = FALSE, prv = 0, cur = list_ ; cur != 0 ;
-             prv = cur, cur = nxt)
+        for (found = FALSE, prv = 0, cur = list_ ; cur != 0 ; cur = nxt)
         {
             /* remember the next entry */
             nxt = cur->nxt_;
@@ -586,11 +585,16 @@ public:
                 else
                     list_ = nxt;
 
-                /* delete this entry */
+                /* delete this entry; don't advance prv past it */
                 delete cur;
 
                 /* note that we found at least one entry to delete */
                 found = TRUE;
+            }
+            else
+            {
+                /* only advance prv when we keep cur */
+                prv = cur;
             }
         }
 

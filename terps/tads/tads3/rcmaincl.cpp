@@ -179,7 +179,8 @@ int main(int argc, char **argv)
      */
     if (!create && osfacc(image_fname))
     {
-        strcpy(image_buf, image_fname);
+        strncpy(image_buf, image_fname, sizeof(image_buf) - 1);
+        image_buf[sizeof(image_buf) - 1] = '\0';
         os_defext(image_buf, "t3");                       /* formerly "t3x" */
         image_fname = image_buf;
     }

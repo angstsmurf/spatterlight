@@ -312,7 +312,8 @@ const char *CVmObjBigNum::cvt_to_string_gen(
 
     case VMBN_T_NAN:
         /* not a number - show "1.#NAN" */
-        strcpy(buf + VMB_LEN, "1.#NAN");
+        strncpy(buf + VMB_LEN, "1.#NAN", 6);
+        (buf + VMB_LEN)[6] = '\0';
         vmb_put_len(buf, 6);
         return buf;
 
@@ -2402,8 +2403,8 @@ void CVmObjBigNum::compute_quotient_into(char *new_ext,
     size_t quo_prec = get_prec(new_ext);
     size_t dvd_prec = get_prec(ext1);
     size_t dvs_prec = get_prec(ext2);
-    char *dvs_ext;
-    uint dvs_hdl;
+    char *dvs_ext = 0;
+    uint dvs_hdl = 0;
     char *dvs_ext2;
     uint dvs_hdl2;
     int lead_dig_set;
@@ -2478,6 +2479,12 @@ void CVmObjBigNum::compute_quotient_into(char *new_ext,
         err_rethrow();
     }
     err_end;
+
+    if (dvs_ext == 0)
+    {
+        release_temp_regs(3, rem_hdl, rem_hdl2, dvs_hdl2);
+        return;
+    }
 
     /* the dividend is the initial value of the running remainder */
     copy_val(rem_ext, ext1, TRUE);
@@ -3123,6 +3130,8 @@ void CVmObjBigNum::round_up_abs(char *ext, int keep_digits)
  */
 void CVmObjBigNum::copy_val(char *dst, const char *src, int round)
 {
+    if (dst == 0)
+        return;
     size_t src_prec = get_prec(src);
     size_t dst_prec = get_prec(dst);
 

@@ -2470,30 +2470,22 @@ int CVmObjByteArray::static_packBytes(VMG_ vm_val_t *retval, uint *oargc)
 
     /* set up an in-memory data stream to receive the packed data */
     CVmMemorySource *dst = new CVmMemorySource(0L);
-
     err_try
     {
-        /* do the packing */
         CVmPack::pack(vmg_ 0, argc, dst);
-
-        /* create a byte array to hold the packed data */
         long len = dst->get_size();
         retval->set_obj(create(vmg_ FALSE, len));
         CVmObjByteArray *arr = (CVmObjByteArray *)vm_objp(vmg_ retval->val.obj);
-
-        /* 
-         *   copy the bytes from the stream to the byte array; it's a new
-         *   object, so there's no undo to save 
-         */
         dst->seek(0, OSFSK_SET);
         arr->read_from_file(vmg_ retval->val.obj, dst, 1, len, FALSE);
     }
-    err_finally
+    err_catch_disc
     {
-        /* done with the data stream */
         delete dst;
+        err_rethrow();
     }
     err_end;
+    delete dst;
 
     /* discard the arguments */
     G_stk->discard(argc);

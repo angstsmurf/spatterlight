@@ -712,16 +712,17 @@ void CTcGenTarg::load_funcdep_from_object_file(class CVmFile *fp,
             if (vsn != 0 && ent_vsn != 0 && strcmp(vsn, ent_vsn) > 0
                 && strlen(vsn) <= strlen(ent_vsn))
             {
-                /* 
+                /*
                  *   the new version is newer than the version in the
                  *   table - overwrite the table version with the new
                  *   version, so that the table keeps the newest version
                  *   mentioned anywhere (newer versions are upwardly
                  *   compatible with older versions, so the code that uses
                  *   the older version will be equally happy with the
-                 *   newer version) 
+                 *   newer version)
                  */
-                strcpy(ent_vsn, vsn);
+                strncpy(ent_vsn, vsn, strlen(vsn));
+                ent_vsn[strlen(vsn)] = '\0';
             }
 
             /* move on to the next one */
@@ -803,18 +804,19 @@ void CTcGenTarg::load_metadep_from_object_file(class CVmFile *fp,
             if (vsn != 0 && ent_vsn != 0 && strcmp(vsn, ent_vsn) > 0
                 && strlen(vsn) <= strlen(ent_vsn))
             {
-                /* 
+                /*
                  *   the new version is newer than the version in the
                  *   table - overwrite the table version with the new
                  *   version, so that the table keeps the newest version
                  *   mentioned anywhere (newer versions are upwardly
                  *   compatible with older versions, so the code that uses
                  *   the older version will be equally happy with the
-                 *   newer version) 
+                 *   newer version)
                  */
-                strcpy(ent_vsn, vsn);
+                strncpy(ent_vsn, vsn, strlen(vsn));
+                ent_vsn[strlen(vsn)] = '\0';
             }
-                
+
             /* move on to the next one */
             cur = cur->nxt;
         }

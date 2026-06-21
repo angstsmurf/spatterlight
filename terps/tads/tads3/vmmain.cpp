@@ -674,7 +674,8 @@ int vm_run_image_main(CVmMainClientIfc *clientifc,
              && strcmp(argv[curarg], "-") != 0)
     {
         /* the last argument is the image file name */
-        strcpy(image_file_name, argv[curarg]);
+        strncpy(image_file_name, argv[curarg], sizeof(image_file_name) - 1);
+        image_file_name[sizeof(image_file_name) - 1] = '\0';
         found_image = TRUE;
 
         /* 
@@ -918,7 +919,8 @@ static int vm_get_game_file_from_savefile(const char *savefile,
              *   prefix.  Seek to the length prefix and read it.  
              */
             size_t len;
-            if (!osfseek(fp, 16, OSFSK_SET) && !osfrb(fp, buf, 2))
+            int stream_ok = (!osfseek(fp, 16, OSFSK_SET) && !osfrb(fp, buf, 2));
+            if (stream_ok)
                 len = osrp2(buf);
             else
                 len = 0;
@@ -926,9 +928,9 @@ static int vm_get_game_file_from_savefile(const char *savefile,
             /* limit the read length to our caller's available buffer */
             if (len > fnamelen - 1)
                 len = fnamelen - 1;
-            
+
             /* read the filename */
-            if (!osfrb(fp, fname, len))
+            if (stream_ok && len > 0 && !osfrb(fp, fname, len))
             {
                 /* null-terminate it */
                 fname[len] = '\0';
@@ -1329,7 +1331,8 @@ int vm_get_game_type(const char *filename,
          *   build the default filename from the given filename and the
          *   current default suffix 
          */
-        strcpy(cur_fname, filename);
+        strncpy(cur_fname, filename, sizeof(cur_fname) - 1);
+        cur_fname[sizeof(cur_fname) - 1] = '\0';
         os_defext(cur_fname, defexts[i]);
 
         /* get the version for this file */

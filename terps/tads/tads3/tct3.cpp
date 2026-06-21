@@ -5757,7 +5757,7 @@ int CTPNSubscript::gen_code_asi(int discard, int phase,
                                 CTcPrsNode *rhs,
                                 int, int xplicit, void **ctx)
 {
-    void *sctx;
+    void *sctx = 0;
 
     /* 
      *   An assignment to a subscript expression is not what it appears.

@@ -183,10 +183,10 @@ protected:
 
         /* copy the string */
         if (str != 0)
+        {
             memcpy(str, s, l);
-
-        /* null-terminate it */
-        str[l] = '\0';
+            str[l] = '\0';
+        }
 
         /* set the length */
         len = l;

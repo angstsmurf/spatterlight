@@ -378,7 +378,7 @@ public:
         }
 
         /* move the write pointer to the proper position */
-        for (wrt = head, rem = cnt ; rem != 0 ; wrt = wrt->getnxt(), --rem) ;
+        for (wrt = head, rem = cnt ; rem != 0 && wrt != 0 ; wrt = wrt->getnxt(), --rem) ;
     }
 
 protected:
@@ -1466,7 +1466,8 @@ const char *CTcConstVal::cvt_to_str(char *buf, size_t bufl,
         if (bufl < 4)
             return 0;
 
-        strcpy(buf, "nil");
+        strncpy(buf, "nil", bufl - 1);
+        buf[bufl - 1] = '\0';
         *result_len = 3;
         return buf;
 
@@ -1475,7 +1476,8 @@ const char *CTcConstVal::cvt_to_str(char *buf, size_t bufl,
         if (bufl < 5)
             return 0;
 
-        strcpy(buf, "true");
+        strncpy(buf, "true", bufl - 1);
+        buf[bufl - 1] = '\0';
         *result_len = 4;
         return buf;
 
@@ -3120,7 +3122,7 @@ CTcPrsNode *CTcPrsOpAdd::eval_constant(CTcPrsNode *left,
             char buf1[128];
             char buf2[128];
             const char *str1, *str2;
-            size_t len1, len2;
+            size_t len1 = 0, len2 = 0;
             char *new_str;
 
             /* if the second value is a list, we can't make a constant */

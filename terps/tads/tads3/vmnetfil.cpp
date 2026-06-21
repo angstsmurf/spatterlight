@@ -238,7 +238,10 @@ CVmNetFile *CVmNetFile::open(VMG_ const char *fname, int sfid,
              *   the status code with "OK".  
              */
             if (memcmp(stat, "FileNotFound ", 13) == 0)
-                strcpy(stat, "OK ");
+            {
+                strncpy(stat, "OK ", 3);
+                stat[3] = '\0';
+            }
 
             /* on failure, delete the temp file */
             if (memcmp(stat, "OK ", 3) != 0)

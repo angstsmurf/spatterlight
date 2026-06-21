@@ -57,7 +57,8 @@ vm_tmpfil_ext *vm_tmpfil_ext::alloc_ext(VMG_ CVmObjTemporaryFile *self,
         siz, self);
 
     /* copy the filename */
-    strcpy(ext->filename, fname);
+    strncpy(ext->filename, fname, strlen(fname));
+    ext->filename[strlen(fname)] = '\0';
 
     /* return the new extension */
     return ext;

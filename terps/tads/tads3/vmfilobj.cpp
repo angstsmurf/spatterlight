@@ -995,9 +995,14 @@ int CVmObjFile::s_getp_open_text(VMG_ vm_val_t *retval, uint *in_argc,
          *   to the File object, we're abandoning the object.  
          */
         if (netfile != 0)
+        {
             netfile->abandon(vmg0_);
+            netfile = 0;
+        }
     }
     err_end;
+    if (netfile != 0)
+        netfile->abandon(vmg0_);
 
     /* handled */
     return TRUE;
@@ -1165,9 +1170,14 @@ int CVmObjFile::open_binary(VMG_ vm_val_t *retval, uint *in_argc, int mode,
          *   to the new File object, we're abandoning it 
          */
         if (netfile != 0)
+        {
             netfile->abandon(vmg0_);
+            netfile = 0;
+        }
     }
     err_end;
+    if (netfile != 0)
+        netfile->abandon(vmg0_);
 
     /* discard arguments */
     G_stk->discard(argc);
