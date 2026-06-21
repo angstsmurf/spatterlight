@@ -16,38 +16,40 @@ x window
 x spectacles
 x eyes
  n
-take crowbar
-x crowbar
-x crates
+take club
+x club
+x cages
 s
 i
-attack mugger with crowbar
+attack gladiator with club
 look
-x knife
-x dollars
+x sword
+x coins
 take all
- s
- s
- s
- z
- s
- e
- s
- s
- s
- s
- howl
- i
- s
- untie parcel
+s
+z
+z
+z
+z
+z
+z
+z
+z
+s
+s
+s
+s
+untie parcel
 cut cord
-i
 n
 open chest
 e
-x scrip
+s
+s
+s
+s
+s
 open pouch
-x censure
 open vial
 tie rope to bucket
 fix bucket
@@ -61,65 +63,44 @@ x grave
 read stone
 x coffin
 cry
- n
- i
- w
+n
+w
 unlock chest with key
 read scroll
-e
-e
-e
-x jugglers
-x bear
-x people
-x tent
-read sign
-n
-read posters
-s
-s
-x headstones
-e
-x registry
-read registry
-talk to priest
-wait
-wait
-i
-wait
-i
-z
-z
-z
-z
-z
-z
-z
-i
+w
+w
+w
+w
+w
 w
 e
-z
-z
-z
-w
-n
-n
-s
- s
- e
- x book
- read book
-l
-x silver
-take it
-w
-n
 e
- washington
- october
- 1957
- austin
- garriot
+e
+s
+e
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+read book
+take silver
+w
+n
+open door
+washington
+october
+1957
+austin
+garriot
+open door
 talk to lady.
 ask lady about soul.
 ask lady about charm.
@@ -320,29 +301,37 @@ wait
 wait
 ne. ne. ne. e. e. n.
 take torch. w.
-put marion in cell.
+put nazir in cell.
 e. drop torch. s. w.
 dig hole
 put sticks in hole.
 put leaves on sticks.
 hide.
 wait.
+wait.
+wait.
 e. n. take torch. w.
-put nazir in cell
+put marion in cell
 e. drop torch. s. w.
 climb tree.
-wait.
-wait
-wait
-wait
-wait
-wait
-wait
-wait
-wait
 z
-wait
-wait
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
 z
 z
 z
@@ -422,6 +411,7 @@ give weapon to officer.
  take orchids. x orchids. ask Legba about orchids.
  nw. nw.
  s.
+s.
 x beauty. x carpet. read carpet
 ask Legba about Erzulie.
 give orchids to beauty.
@@ -470,11 +460,17 @@ ask Legba about entomologist
  
  
  i.
- 
- wait
- wait
- hail cab
+wait
+wait
+wait
+wait
+wait
+wait
+hail cab
  x cabbie. talk to cabbie.
+wait
+wait
+wait
  give dollars to cabbie.
  knock on door
  x Hilary. kiss Hilary. x briefcase. x telephone.
