@@ -88,6 +88,7 @@ int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern) {
 // (handle_all_in_one) and higher-level DrawMiniC64 are compiled but never run.
 GameInfo *Game = NULL;
 Header GameHeader;
+MachineType CurrentSys = SYS_UNKNOWN;
 USImage *USImages = NULL;
 int ImageWidth = 0, ImageHeight = 0;
 void *MemAlloc(size_t s) { return malloc(s); }
