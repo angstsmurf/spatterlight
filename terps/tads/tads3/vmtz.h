@@ -149,12 +149,18 @@ public:
     int is_local_zone(class CVmTimeZone *zone) const
         { return zone == local_zone_; }
 
+    /* set the local zone name, overriding the operating system defaults */
+    void set_local_zone(const char *name);
+
 protected:
     /* load the zoneinfo database index from the binary file */
     int load_db_index(VMG0_);
 
     /* get or load the CVmTimeZone object for a hash entry */
     CVmTimeZone *tz_from_hash(VMG_ class ZoneHashEntry *entry);
+
+    /* internal zone name parser */
+    class CVmTimeZone *parse_zone_2(VMG_ const char *name, size_t len);
 
     /* parse a "UTC+-h[:mm[:ss]]" offset string into a zone */
     CVmTimeZone *parse_zone_hhmmss(
@@ -186,6 +192,12 @@ protected:
      *   the first time. 
      */
     class CVmTimeZone *local_zone_;
+
+    /*
+     *   Local zone name, if explicitly set by the user.  If this isn't set,
+     *   we'll get the system local zone from the operating system.
+     */
+    char *local_zone_name_;
 
     /* zone name hash table for zones loaded from the zoneinfo database */
     class CVmHashTable *db_tab_;
@@ -401,6 +413,9 @@ public:
 
     /* load from the zoneinfo database file */
     static CVmTimeZone *load(VMG_ class ZoneHashEntry *entry);
+
+    /* reload from our hash entry */
+    CVmTimeZone *reload(VMG0_);
 
     /* get the primary name of the zone */
     const char *get_name(size_t &len) const;

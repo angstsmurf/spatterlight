@@ -299,7 +299,10 @@ CVmTimeZoneCache::CVmTimeZoneCache()
     abbr_tab_ = 0;
     abbr_bytes_ = 0;
     first_loaded_ = 0;
+
+    /* no local time zone established yet */
     local_zone_ = 0;
+    local_zone_name_ = 0;
 }
 
 /*
@@ -318,6 +321,10 @@ CVmTimeZoneCache::~CVmTimeZoneCache()
     /* if we have a local zone object, delete it */
     if (local_zone_ != 0)
         delete local_zone_;
+
+    /* delete the local zone name, if set */
+    if (local_zone_name_ != 0)
+        delete [] local_zone_name_;
 
     /* if we loaded the file data sections, delete them */
     if (zone_bytes_ != 0)
@@ -370,6 +377,12 @@ CVmTimeZone *CVmTimeZoneCache::parse_zone(VMG_ const char *name, size_t len)
         || (len == 6 && memcmp(name, ":local", 6) == 0))
         return get_local_zone(vmg0_);
 
+    /* look for all names other than the ":local" pseudo-name */
+    return parse_zone_2(vmg_ name, len);
+}
+
+CVmTimeZone *CVmTimeZoneCache::parse_zone_2(VMG_ const char *name, size_t len)
+{
     /* check for special zones: "Z", "UTC", "GMT" all mean UTC+0 */
     if (lib_stricmp(name, len, "z") == 0
         || lib_stricmp(name, len, "utc") == 0
@@ -759,6 +772,34 @@ done:
  *   load a separate copy of the database entry so that the local zone is a
  *   distinct object.
  */
+/* ------------------------------------------------------------------------ */
+/*
+ *   Set the local zone name.  This overrides the system-wide settings that
+ *   we'd normally take from the operating system.
+ */
+void CVmTimeZoneCache::set_local_zone(const char *name)
+{
+    /* delete any existing name */
+    if (local_zone_name_ != 0)
+        delete [] local_zone_name_;
+
+    /* save a copy of the new name */
+    size_t len = strlen(name) + 1;
+    local_zone_name_ = new char[len];
+    memcpy(local_zone_name_, name, len);
+
+    /* if we've previously loaded a local zone, delete it */
+    if (local_zone_ != 0)
+    {
+        delete local_zone_;
+        local_zone_ = 0;
+    }
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Get the system default local time zone.
+ */
 CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
 {
     /* if we have a cached local zone, return it */
@@ -767,10 +808,24 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
 
     /* we haven't found our zone entry yet */
     ZoneHashEntry *entry = 0;
+    os_tzinfo_t info;
+
+    /* if we have an explicit local zone name setting, try it first */
+    if (local_zone_name_ != 0)
+    {
+        /* try parsing the zone */
+        CVmTimeZone *tz = parse_zone_2(vmg_ local_zone_name_,
+                                       strlen(local_zone_name_));
+
+        /* if that worked, re-load a private copy */
+        if (tz != 0)
+            local_zone_ = tz->reload(vmg0_);
+    }
 
     /* see if we can get a zoneinfo database key from the operating system */
     char name[128];
-    if (os_get_zoneinfo_key(name, sizeof(name))
+    if (local_zone_ == 0
+        && os_get_zoneinfo_key(name, sizeof(name))
         && load_db_index(vmg0_)
         && (entry = (ZoneHashEntry *)db_tab_->find(name, strlen(name))) != 0)
     {
@@ -779,7 +834,6 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
     }
 
     /* if we didn't find it, try the lower-level timezone description */
-    os_tzinfo_t info;
     if (local_zone_ == 0 && os_get_timezone_info(&info))
     {
         /*
@@ -942,7 +996,7 @@ ZoneHashEntry *CVmTimeZoneCache::search(
         return 0;
 
     /* if we're searching just one list, this is easy... */
-    if (cnt == 1)
+    if (cnt == 1 || (cnt == 2 && specs[1].abbr[0] == '\0'))
     {
         /* look up this abbreviation */
         AbbrHashEntry *e = (AbbrHashEntry *)abbr_tab_->find(
@@ -1542,7 +1596,19 @@ CVmTimeZone *CVmTimeZone::load(VMG_ ZoneHashEntry *entry)
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Get the zone name 
+ *   Reload a private copy from our hash entry
+ */
+CVmTimeZone *CVmTimeZone::reload(VMG0_)
+{
+    if (hashentry_ != 0)
+        return CVmTimeZone::load(vmg_ hashentry_);
+    else
+        return 0;
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Get the zone name
  */
 const char *CVmTimeZone::get_name(size_t &len) const
 {
@@ -1744,7 +1810,7 @@ vm_obj_id_t CVmTimeZone::get_rule_list(VMG0_) const
             /* day of month past 31 -> it's actually a day of the year */
             t3sprintf(buf, sizeof(buf), "DOY %d", r->dd);
         }
-        else if (r->when >= 0 && r->when < countof(tpl)
+        else if (r->when >= 0 && (size_t)r->when < countof(tpl)
                  && r->weekday >= 1 && r->weekday <= 7)
         {
             /* valid 'when' code */

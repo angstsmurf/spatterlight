@@ -1189,13 +1189,14 @@ public:
          *   the list.  Otherwise, generate a character according to our
          *   character class code.  
          */
-        wchar_t outc;
+        wchar_t outc = L'\0';
         if (listChars != 0)
         {
             /* pick a random index in our range */
             wchar_t n = (wchar_t)rand_range(rng_next(vmg0_), listChars);
 
             /* find the range containing this character */
+            int picked = FALSE;
             for (RandStrNode *chi = firstChild ; chi != 0 ;
                  chi = chi->nextSibling)
             {
@@ -1206,12 +1207,20 @@ public:
                 if (n <= r->c2 - r->c1)
                 {
                     outc = r->c1 + n;
+                    picked = TRUE;
                     break;
                 }
 
                 /* deduct the size of this range from the index */
                 n -= (r->c2 - r->c1 + 1);
             }
+
+            /*
+             *   if we didn't pick a character, something's wrong - return
+             *   without generating anything
+             */
+            if (!picked)
+                return;
         }
         else if (isLit)
         {
@@ -3928,7 +3937,7 @@ struct bpwriter
              *   Roman numeral value from the remaining number balance until
              *   we reach zero
              */
-            for (int ri = 0 ; i != 0 && ri < countof(r) ; )
+            for (size_t ri = 0 ; i != 0 && ri < countof(r) ; )
             {
                 /* if this one fits, append this Roman numeral */
                 if (r[ri].val <= i)

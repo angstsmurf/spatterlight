@@ -466,15 +466,34 @@ void CVmSaveFile::reset(VMG0_)
     /* forget any IntrinsicClass instances we created at startup */
     G_meta_table->forget_intrinsic_class_instances(vmg0_);
 
-    /* reset all objects to initial image file load state */
-    G_obj_table->reset_to_image(vmg0_);
-
-    /* 
-     *   forget the previous dynamic linking information and relink to the
-     *   image file again - this will ensure that any objects created after
-     *   load are properly re-created now 
+    /*
+     *   Run GC explicitly to clear dead objects, then disable GC for the
+     *   duration of the reset.  The dynamic link step can trigger object
+     *   creation, which can trigger GC if it's enabled, but there are
+     *   assumptions (in CVmObjTADS and probably elsewhere) that GC can't
+     *   happen during image loading, and reset is a kind of loading.
      */
-    G_image_loader->do_dynamic_link(vmg0_);
+    G_obj_table->gc_full(vmg0_);
+    int gc_was_enabled = G_obj_table->enable_gc(vmg_ FALSE);
+
+    err_try
+    {
+        /* reset all objects to initial image file load state */
+        G_obj_table->reset_to_image(vmg0_);
+
+        /*
+         *   forget the previous dynamic linking information and relink to the
+         *   image file again - this will ensure that any objects created
+         *   after load are properly re-created now
+         */
+        G_image_loader->do_dynamic_link(vmg0_);
+    }
+    err_finally
+    {
+        /* restore previous gc-enabled state */
+        G_obj_table->enable_gc(vmg_ gc_was_enabled);
+    }
+    err_end;
 
     /* create any missing IntrinsicClass instances */
     G_meta_table->create_intrinsic_class_instances(vmg0_);

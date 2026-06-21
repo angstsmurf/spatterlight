@@ -796,13 +796,36 @@ unsigned int CVmObjStrComp::calc_str_hash(const char *strp, size_t len)
     StrCompHashAdder hash(ext->trunc_len);
     for ( ; len != 0 ; p.inc(&len))
     {
+        vmobj_strcmp_equiv **t1, *eq;
+
         /* get the current character */
         wchar_t ch = p.getch();
-        
-        /* check for a substitution mapping for this character */
-        vmobj_strcmp_equiv **t1, *eq;
-        if ((t1 = ext->equiv[(ch >> 8) & 0xFF]) != 0
-            && (eq = t1[ch & 0xFF]) != 0)
+
+        /*
+         *   If case folding is in effect, get the case-folded character to
+         *   check against the substitution mapping.  This only applies if
+         *   the case folding results in a single character, since the
+         *   reference character must always be a single character.
+         */
+        wchar_t fch = 0;
+        if (!ext->case_sensitive)
+        {
+            /* get the folding - if it's one character, get the character */
+            const wchar_t *f = t3_to_fold(ch);
+            if (f != 0 && f[1] == 0)
+                fch = f[0];
+        }
+
+        /*
+         *   Check for a substitution mapping for this character.  If we find
+         *   a mapping, use it.  If we don't find it, check for a mapping for
+         *   the case-folded version of the character, and use that if found.
+         */
+        if (((t1 = ext->equiv[(ch >> 8) & 0xFF]) != 0
+             && (eq = t1[ch & 0xFF]) != 0)
+            || (fch != 0
+                && (t1 = ext->equiv[(fch >> 8) & 0xFF]) != 0
+                && (eq = t1[fch & 0xFF]) != 0))
         {
             /* 
              *   This character has a mapping, so add the contribution from
