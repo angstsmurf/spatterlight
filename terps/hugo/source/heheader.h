@@ -365,8 +365,12 @@ void heglk_printfatalerror(char *err);
 #endif /* defined (GLK) */
 
 #if defined (SPATTERLIGHT)
+/* All randomness draws from the shared erkyrath_random() (terps/common_utils/
+   randomness.c), the same RNG used by the Scott, TaylorMade, Plus and
+   Comprehend ports, so a fixed seed replays identically. */
+#include "randomness.h"
 #define SRANDOM my_srandom
-#define RANDOM random
+#define RANDOM erkyrath_random
 
 extern void my_srandom(int);
 

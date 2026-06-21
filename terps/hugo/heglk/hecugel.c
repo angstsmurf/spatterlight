@@ -2908,9 +2908,13 @@ void PromptMore(void)
 
 void my_srandom(int seed)
 {
+    /* Seed the shared erkyrath_random() generator.  Under the determinism
+       testing theme always use the fixed seed 1234; otherwise honor Hugo's
+       requested seed (NORMALIZE_RANDOM passes 1 for a repeatable sequence,
+       INIT_RANDOM / startup pass a time-based seed). */
     if (gli_determinism) {
-        srandom(1234);
+        set_erkyrath_random(1234);
     } else {
-        srandom(seed);
+        set_erkyrath_random(seed);
     }
 }

@@ -341,26 +341,15 @@ agt_tone (int hz, int ms)
 /*
  * agt_rand()
  *
- * Return random number from a to b inclusive.  The random number generator
- * is seeded on the first call, to a reproducible sequence if stable_random,
- * otherwise using time().
+ * Return random number from a to b inclusive.  All randomness now flows
+ * through get_random() (token.c), which draws from the shared
+ * erkyrath_random() generator and handles deterministic seeding; agt_rand()
+ * remains only as the os-layer entry point declared by interp.h.
  */
 int
 agt_rand (int a, int b)
 {
-  static int is_initialized = FALSE;
-
-  int result;
-
-  if (!is_initialized)
-    {
-      srand ((stable_random || gli_determinism) ? 6 : time (0));
-
-      is_initialized = TRUE;
-      gagt_debug ("agt_rand", "[initialized]");
-    }
-
-  result = a + (rand () >> 2) % (b - a + 1);
+  int result = get_random (a, b);
   gagt_debug ("agt_rand", "a=%d, b=%d -> %d", a, b, result);
   return result;
 }

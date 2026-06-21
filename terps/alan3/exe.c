@@ -46,6 +46,12 @@ extern glui32 gli_determinism;
 #include "glkio.h"
 #endif
 
+#ifdef SPATTERLIGHT
+/* Draw randomness from the shared erkyrath_random() (terps/common_utils/
+   randomness.c), like the Scott, TaylorMade, Plus and Comprehend ports. */
+#include "randomness.h"
+#endif
+
 
 /* PUBLIC DATA */
 
@@ -663,10 +669,19 @@ int randomInteger(int from, int to)
     } else {
         if (to == from)
             return to;
+#ifdef SPATTERLIGHT
+        /* erkyrath_random() is already well-distributed, so (unlike C rand())
+           there is no need to discard its low-order bits with /10. */
+        else if (to > from)
+            return from + (int)(erkyrath_random()%(glui32)(to-from+1));
+        else
+            return to + (int)(erkyrath_random()%(glui32)(from-to+1));
+#else
         else if (to > from)
             return (rand()/10)%(to-from+1)+from;
         else
             return (rand()/10)%(from-to+1)+to;
+#endif
     }
 }
 

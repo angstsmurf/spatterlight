@@ -33,6 +33,13 @@
 #include "scare.h"
 #include "scprotos.h"
 
+#ifdef SPATTERLIGHT
+/* In the Spatterlight build all randomness draws from the shared
+   erkyrath_random() (terps/common_utils/randomness.c), the same RNG used by
+   the Scott, TaylorMade, Plus and Comprehend ports. */
+#include "randomness.h"
+#endif
+
 
 /*
  * sc_trace()
@@ -205,6 +212,58 @@ sc_strcasecmp (const sc_char *s1, const sc_char *s2)
  * to return the same sequence for all platforms.  The default is the first,
  * with the latter intended for predictability of game actions.
  */
+#ifdef SPATTERLIGHT
+
+/*
+ * In the Spatterlight build both handlers draw from the shared
+ * erkyrath_random().  That generator is itself portable and reproducible when
+ * seeded, so the two modes differ only in their default (unseeded) seed: the
+ * platform handler uses a native seed (0 -> erkyrath picks its own), while the
+ * congruential ("portable, predictable") handler defaults to the fixed seed 1.
+ * Keeping the two function bodies distinct also preserves the function-pointer
+ * identity that sc_is_congruential_random() relies on.  The low bit is dropped
+ * to map the unsigned 32-bit value to a positive signed result.
+ */
+static sc_int
+sc_platform_rand (sc_uint new_seed)
+{
+  static sc_bool is_seeded = FALSE;
+
+  if (new_seed > 0)
+    {
+      set_erkyrath_random (new_seed);
+      is_seeded = TRUE;
+      return 0;
+    }
+  if (!is_seeded)
+    {
+      set_erkyrath_random (0);
+      is_seeded = TRUE;
+    }
+  return (sc_int) (erkyrath_random () >> 1);
+}
+
+static sc_int
+sc_congruential_rand (sc_uint new_seed)
+{
+  static sc_bool is_seeded = FALSE;
+
+  if (new_seed > 0)
+    {
+      set_erkyrath_random (new_seed);
+      is_seeded = TRUE;
+      return 0;
+    }
+  if (!is_seeded)
+    {
+      set_erkyrath_random (1);
+      is_seeded = TRUE;
+    }
+  return (sc_int) (erkyrath_random () >> 1);
+}
+
+#else
+
 static sc_int
 sc_platform_rand (sc_uint new_seed)
 {
@@ -267,6 +326,8 @@ sc_congruential_rand (sc_uint new_seed)
       return rand_state >> 1;
     }
 }
+
+#endif
 
 
 /* Function pointer for the actual random number generator in use. */

@@ -9,6 +9,7 @@
 #include "types.h"
 
 #include "glk.h"
+#include "randomness.h"
 
 #ifdef USE_READLINE
 #include "readline.h"
@@ -1800,12 +1801,16 @@ Aword rnd(from, to)
      Aword from, to;
 #endif
 {
+  /* Draw from the shared erkyrath_random() (terps/common_utils/randomness.c),
+     the same RNG used by the Scott, TaylorMade, Plus and Comprehend ports, so
+     a fixed seed replays identically.  (The old rand()/10 discarded the weak
+     low-order bits of C rand(); erkyrath_random() is already well-distributed.) */
   if (to == from)
     return to;
   else if (to > from)
-    return (rand()/10)%(to-from+1)+from;
+    return erkyrath_random()%(to-from+1)+from;
   else
-    return (rand()/10)%(from-to+1)+to;
+    return erkyrath_random()%(from-to+1)+to;
 }
 
 

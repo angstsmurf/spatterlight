@@ -47,6 +47,7 @@
 
 #ifdef SPATTERLIGHT
 extern glui32 gli_determinism;
+#include "randomness.h"
 #endif
 
 #ifdef HAVE_WINGLK
@@ -440,13 +441,19 @@ static void checkDebug(void)
     }
 
 #ifdef SPATTERLIGHT
+    /* Seed the shared erkyrath_random() generator: a fixed seed (1234) for
+       debugging / regression testing / the determinism testing theme, else 0
+       to let it pick a platform-native seed. */
     if (debugOption || regressionTestOption || gli_determinism)
+        set_erkyrath_random(1234);
+    else
+        set_erkyrath_random(0);
 #else
     if (debugOption || regressionTestOption) /* If debugging or regression testing... */
-#endif
         srand(1);               /* ... use no randomization */
     else
         srand(time(0));         /* Else seed random generator */
+#endif
 }
 
 

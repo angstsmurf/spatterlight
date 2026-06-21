@@ -23,6 +23,21 @@
 #include "interp.h"
 #include "exec.h"
 
+#ifdef GLK
+/* In the Spatterlight (Glk) build all game randomness draws from the shared
+   erkyrath_random() (terps/common_utils/randomness.c), the same RNG used by
+   the Scott, TaylorMade, Plus and Comprehend ports. */
+#include "randomness.h"
+extern glui32 gli_determinism;
+#endif
+
+#ifdef AGT_HEADLESS
+/* Headless regression harness (Makefile.headless): use the same shared
+   erkyrath_random() as the Glk build so the deterministic seed-1234 sequence
+   matches Spatterlight exactly, letting us replay UITest command scripts. */
+#include "randomness.h"
+#endif
+
 
 
 
@@ -747,6 +762,63 @@ int exec_instr(op_rec *oprec)
     }
 }
 
+#ifdef GLK
+
+/* Fixed seed used whenever reproducible randomness is requested: the AGT
+   `stable_random' option (set in batch/test mode), or the user's Spatterlight
+   testing-mode theme (gli_determinism).  This matches the convention shared
+   with the Scott and Comprehend ports.  A zero seed instead lets
+   erkyrath_random() pick a platform-native seed. */
+#define AGILITY_DETERMINISTIC_SEED 1234
+
+static rbool random_seeded = 0;
+
+static void seed_random(void)
+{
+  rbool deterministic = stable_random || gli_determinism;
+  set_erkyrath_random(deterministic ? AGILITY_DETERMINISTIC_SEED : 0);
+  random_seeded = 1;
+}
+
+void reset_random(void)
+{
+  /* AGT resets the generator to a standard state on RESTART/RESTORE. */
+  seed_random();
+}
+
+int get_random(int a, int b)
+{
+  if (b <= a) return a;
+  if (!random_seeded) seed_random();
+  return a + (int)(erkyrath_random() % (glui32)(b - a + 1));
+}
+
+#elif defined(AGT_HEADLESS) /* headless harness: mirror the Glk erkyrath path */
+
+#define AGILITY_DETERMINISTIC_SEED 1234
+
+static rbool random_seeded = 0;
+
+static void seed_random(void)
+{
+  set_erkyrath_random(AGILITY_DETERMINISTIC_SEED);
+  random_seeded = 1;
+}
+
+void reset_random(void)
+{
+  seed_random();
+}
+
+int get_random(int a, int b)
+{
+  if (b <= a) return a;
+  if (!random_seeded) seed_random();
+  return a + (int)(erkyrath_random() % (glui32)(b - a + 1));
+}
+
+#else /* non-Glk builds keep the self-contained reproducible generator */
+
 static unsigned int rand_gen = 1234;
 
 void reset_random(void)
@@ -763,3 +835,5 @@ int get_random(int a, int b)
   } else
     return agt_rand(a,b);
 }
+
+#endif

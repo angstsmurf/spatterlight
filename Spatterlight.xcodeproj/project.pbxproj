@@ -985,6 +985,12 @@
 		C3FACE0300000000DEAD0011 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C3FACE0300000000DEAD0012 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C3FACE0300000000DEAD0013 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3FACE0300000000DEAD0014 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3FACE0300000000DEAD0015 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3FACE0300000000DEAD0016 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3FACE0300000000DEAD0017 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3FACE0300000000DEAD0018 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3FACE0300000000DEAD0019 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C3FB3287269F5BEE00A1B09C /* stash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3286269F5BEE00A1B09C /* stash.cpp */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
 		C3FEF0BA2E6B752600276383 /* Fetches.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FEF0B92E6B752600276383 /* Fetches.m */; };
@@ -8203,6 +8209,7 @@
 				967C41D40B7A124B008A2D2F /* scmemos.c in Sources */,
 				967C41D50B7A124B008A2D2F /* scrunner.c in Sources */,
 				96BE643F0E0AEAA40050667D /* sclocale.c in Sources */,
+				C3FACE0300000000DEAD0018 /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8286,6 +8293,7 @@
 				965038A009F2CD6D0083E64E /* object.c in Sources */,
 				965038B109F2CE1A0083E64E /* interface.c in Sources */,
 				965038A109F2CD6D0083E64E /* os_glk.c in Sources */,
+				C3FACE0300000000DEAD0014 /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8304,6 +8312,7 @@
 				965038D509F2D3300083E64E /* herun.c in Sources */,
 				965038D609F2D3300083E64E /* heset.c in Sources */,
 				965038D709F2D3300083E64E /* stringfn.c in Sources */,
+				C3FACE0300000000DEAD0017 /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8329,6 +8338,7 @@
 				9650390B09F2D4750083E64E /* stack.c in Sources */,
 				9650390C09F2D4750083E64E /* sysdep.c in Sources */,
 				9650390D09F2D4750083E64E /* term.c in Sources */,
+				C3FACE0300000000DEAD0015 /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8388,6 +8398,7 @@
 				6DE66A3A2500334400DDBDAA /* types.c in Sources */,
 				6DE66A3C2500334400DDBDAA /* utils.c in Sources */,
 				6DE66A3E2500334400DDBDAA /* word.c in Sources */,
+				C3FACE0300000000DEAD0016 /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8468,6 +8479,7 @@
 				C343E4931ECC6776000F15B6 /* osglk.c in Sources */,
 				C343E4941ECC6776000F15B6 /* osglkban.c in Sources */,
 				C343E4951ECC6776000F15B6 /* osmisc.c in Sources */,
+				C3FACE0300000000DEAD0019 /* randomness.c in Sources */,
 				C343E4961ECC6776000F15B6 /* osparse.c in Sources */,
 				C343E4861ECC5E81000F15B6 /* osportable.cc in Sources */,
 				C354C6DD275791C000EBB449 /* t23run.cpp in Sources */,
@@ -9485,6 +9497,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					ZTERP_GLK,
 					GARGLK,
@@ -9522,6 +9535,7 @@
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					ZTERP_GLK,
@@ -10775,6 +10789,7 @@
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					VMGLOB_STRUCT,
 					TC_TARGET_T3,
@@ -10818,6 +10833,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					VMGLOB_STRUCT,
 					TC_TARGET_T3,

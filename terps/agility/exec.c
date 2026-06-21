@@ -402,7 +402,7 @@ static int wordcode_match(const char **pvarname,char *fill_buff,
     if (match_str(pvarname,"THE_NAME$"))
       {theset(fill_buff,actor);return 1;}
     if (match_str(pvarname,"THE_C$"))
-      {theset(fill_buff,curr_creat_rec->obj); return 1;}
+      {theset(fill_buff,curr_creat_rec ? curr_creat_rec->obj : 0); return 1;}
     if (match_str(pvarname,"C_NAME$")) 
       num_name(curr_creat_rec,0); 
     if (match_str(pvarname,"TIME$")) 

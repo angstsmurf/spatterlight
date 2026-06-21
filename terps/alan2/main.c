@@ -40,6 +40,7 @@
 #ifdef GLK
 #include "glk.h"
 #include "glkio.h"
+#include "randomness.h"
 
 extern glui32 gli_determinism;
 #endif
@@ -1601,12 +1602,15 @@ static void checkdebug()
     stpflg = FALSE;
   }
 
-  if (dbgflg)			/* If debugging */
-    srand(0);			/* use no randomization */
-  else if (gli_determinism)
-    srand(1234);
+  /* Seed the shared erkyrath_random() generator (terps/common_utils/
+     randomness.c), as the Scott/TaylorMade/Plus/Comprehend ports do.  A
+     non-zero seed is reproducible; seed 0 lets it pick a platform-native one.
+     Debugging ("no randomization") and the user's determinism testing theme
+     both want a fixed, replayable sequence, so both use 1234. */
+  if (dbgflg || gli_determinism)
+    set_erkyrath_random(1234);
   else
-    srand(time(0));		/* seed random generator */
+    set_erkyrath_random(0);	/* platform-native seed */
 }
 
 

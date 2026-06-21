@@ -331,8 +331,10 @@
 #define BUFF_SIZE 0    
 #define CBUF_SIZE (5000L)
 #define INBUFF_SIZE (1024)     /* Used by Magx */
+#ifndef MAXSTRUC
 #define MAXSTRUC (32L*1024L) /* IIRC, 32K is the minimum required by
 				the ANSI standard */
+#endif
 #define PORTSTR "Pure ANSI C version"
 #endif
 
