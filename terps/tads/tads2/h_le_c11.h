@@ -57,6 +57,7 @@ static inline const void* osrndpt(const void* p)
 }
 
 /* Read an unaligned portable unsigned 2-byte value, returning int. */
+static inline int osrp2(const void* p) __attribute__((nonnull(1)));
 static inline int osrp2(const void* p)
 {
     uint16_t tmp;
@@ -65,6 +66,7 @@ static inline int osrp2(const void* p)
 }
 
 /* Read an unaligned portable signed 2-byte value, returning int. */
+static inline int osrp2s(const void* p) __attribute__((nonnull(1)));
 static inline int osrp2s(const void* p)
 {
     int16_t tmp;
@@ -73,6 +75,7 @@ static inline int osrp2s(const void* p)
 }
 
 /* Write unsigned int to unaligned portable 2-byte value. */
+static inline void oswp2(void* p, const unsigned i) __attribute__((nonnull(1)));
 static inline void oswp2(void* p, const unsigned i)
 {
     const uint16_t tmp = i;
@@ -80,6 +83,7 @@ static inline void oswp2(void* p, const unsigned i)
 }
 
 /* Write signed int to unaligned portable 2-byte value. */
+static inline void oswp2s(void* p, const int i) __attribute__((nonnull(1)));
 static inline void oswp2s(void* p, const int i)
 {
     const int16_t tmp = i;
@@ -87,6 +91,7 @@ static inline void oswp2s(void* p, const int i)
 }
 
 /* Read an unaligned unsigned portable 4-byte value, returning long. */
+static inline unsigned long osrp4(const void* p) __attribute__((nonnull(1)));
 static inline unsigned long osrp4(const void* p)
 {
     uint32_t tmp;
@@ -95,6 +100,7 @@ static inline unsigned long osrp4(const void* p)
 }
 
 /* Read an unaligned signed portable 4-byte value, returning long. */
+static inline long osrp4s(const void *p) __attribute__((nonnull(1)));
 static inline long osrp4s(const void *p)
 {
     int32_t tmp;
@@ -103,6 +109,7 @@ static inline long osrp4s(const void *p)
 }
 
 /* Write an unsigned long to an unaligned portable 4-byte value. */
+static inline void oswp4(void* p, const unsigned long l) __attribute__((nonnull(1)));
 static inline void oswp4(void* p, const unsigned long l)
 {
     const uint32_t tmp = l;
@@ -110,6 +117,7 @@ static inline void oswp4(void* p, const unsigned long l)
 }
 
 /* Write a signed long to an unaligned portable 4-byte value. */
+static inline void oswp4s(void* p, const long l) __attribute__((nonnull(1)));
 static inline void oswp4s(void* p, const long l)
 {
     const int32_t tmp = l;
