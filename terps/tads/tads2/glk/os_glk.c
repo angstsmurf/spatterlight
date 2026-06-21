@@ -366,7 +366,7 @@ void os_addext(char *fname, const char *ext)
         return;
     
     strncat(fname, ".", OSFNMAX - strlen(fname) - 1);                   /* Append a dot and the extension */
-    strncpy(buf, ext, sizeof(buf));           /* Make the extension lower-case by default */
+    snprintf(buf, sizeof(buf), "%s", ext);    /* Make the extension lower-case by default */
     os_strlwr(buf);
     strncat(fname, buf, OSFNMAX - strlen(fname) - 1);
 #endif /* GLKUNIX */

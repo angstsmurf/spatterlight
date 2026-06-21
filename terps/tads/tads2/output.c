@@ -1920,7 +1920,7 @@ static int outformatlen_stream(out_stream_info *stream,
                 }
 
                 /* convert the entire string to lower case for searching */
-                strncpy(fmsbuf_srch, fmsbuf, sizeof(fmsbuf_srch));
+                snprintf(fmsbuf_srch, sizeof(fmsbuf_srch), "%s", fmsbuf);
                 os_strlwr(fmsbuf_srch);
                 
                 /* find the string in the format string table */
@@ -3173,7 +3173,7 @@ int tiologopn(tiocxdef *ctx, char *fn)
         return 1;
 
     /* save the filename for later */
-    strncpy(logfname, fn, sizeof(logfname));
+    snprintf(logfname, sizeof(logfname), "%s", fn);
 
     /* open the new file */
     logfp = osfopwt(fn, OSFTLOG);

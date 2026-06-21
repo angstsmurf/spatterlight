@@ -766,7 +766,7 @@ int dbgbpset(dbgcxdef *ctx, char *addr, int *bpnum)
     tab = (toktdef *)ctx->dbgcxtab;
     if (ctx->dbgcxprs->prscxtok->tokcxflg & TOKCXCASEFOLD)
     {
-        strncpy(buf1, tok1, sizeof(buf1));
+        snprintf(buf1, sizeof(buf1), "%s", tok1);
         os_strlwr(buf1);
         tok1 = buf1;
     }
@@ -780,7 +780,7 @@ int dbgbpset(dbgcxdef *ctx, char *addr, int *bpnum)
         /* we have "object.property" */
         if (ctx->dbgcxprs->prscxtok->tokcxflg & TOKCXCASEFOLD)
         {
-            strncpy(buf2, tok2, sizeof(buf2));
+            snprintf(buf2, sizeof(buf2), "%s", tok2);
             os_strlwr(buf2);
             tok2 = buf2;
         }

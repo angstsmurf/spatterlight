@@ -92,11 +92,11 @@ static void openResourceFile(void) {
         resourceFileName = originalFileName;
 
     if (extension)
-        strncpy(extension, ".a3r", strlen(".a3r") + 1);
+        memcpy(extension, ".a3r", strlen(".a3r") + 1);
     else
         strncat(resourceFileName, ".a3r", strlen(".a3r"));
 #else
-    strncpy(extension, ".a3r", strlen(".a3r") + 1);
+    memcpy(extension, ".a3r", strlen(".a3r") + 1);
 #endif
 
 #ifdef HAVE_WINGLK

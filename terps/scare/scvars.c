@@ -337,7 +337,7 @@ var_put (sc_var_setref_t vars,
       /* Use mutable string instead of const string. */
       var->value.mutable_string = sc_realloc (var->value.mutable_string,
                                               strlen (vt_value.string) + 1);
-      strncpy (var->value.mutable_string, vt_value.string, strlen (vt_value.string) + 1);
+      memcpy (var->value.mutable_string, vt_value.string, strlen (vt_value.string) + 1);
       break;
 
     default:
@@ -384,7 +384,7 @@ var_append_temp (sc_var_setref_t vars, const sc_char *string)
       new_sentence = TRUE;
       noted = 0;
       vars->temporary = sc_malloc (strlen (string) + 1);
-      strncpy (vars->temporary, string, strlen (string) + 1);
+      memcpy (vars->temporary, string, strlen (string) + 1);
     }
   else
     {
@@ -952,7 +952,7 @@ var_get_system (sc_var_setref_t vars,
           prefix = prop_get_string (bundle, "S<-sis", vt_key);
 
           vars->temporary = sc_realloc (vars->temporary, strlen (prefix) + 1);
-          strncpy (vars->temporary, prefix, strlen (prefix) + 1);
+          memcpy (vars->temporary, prefix, strlen (prefix) + 1);
 
           vt_key[2].string = "Short";
           objname = prop_get_string (bundle, "S<-sis", vt_key);
@@ -1009,7 +1009,7 @@ var_get_system (sc_var_setref_t vars,
           return var_return_string ("[Obstate unknown]", type, vt_rvalue);
         }
       vars->temporary = sc_realloc (vars->temporary, strlen (state) + 1);
-      strncpy (vars->temporary, state, strlen (state) + 1);
+      memcpy (vars->temporary, state, strlen (state) + 1);
       sc_free (state);
 
       /* Return temporary. */
@@ -1206,7 +1206,7 @@ var_get_system (sc_var_setref_t vars,
           return var_return_string ("[State_ unknown]", type, vt_rvalue);
         }
       vars->temporary = sc_realloc (vars->temporary, strlen (state) + 1);
-      strncpy (vars->temporary, state, strlen (state) + 1);
+      memcpy (vars->temporary, state, strlen (state) + 1);
       sc_free (state);
 
       /* Restore saved referenced object and return. */
@@ -1764,7 +1764,7 @@ var_set_ref_text (sc_var_setref_t vars, const sc_char *text)
 
   /* Take a copy of the string, and retain it. */
   vars->referenced_text = sc_realloc (vars->referenced_text, strlen (text) + 1);
-  strncpy (vars->referenced_text, text, strlen (text) + 1);
+  memcpy (vars->referenced_text, text, strlen (text) + 1);
 }
 
 

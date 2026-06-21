@@ -1016,7 +1016,7 @@ gsc_status_print (void)
           glk_put_string (" ]\n");
 
           /* Save the details of the printed status buffer. */
-          strncpy (current_status, buffer, sizeof (current_status));
+          snprintf(current_status, sizeof(current_status), "%s", buffer);
         }
     }
 }
@@ -1249,7 +1249,7 @@ gsc_handle_font_tag (const sc_char *argument)
 
       /* Copy and convert argument to all lowercase. */
       lower = gsc_malloc (strlen (argument) + 1);
-      strncpy (lower, argument, strlen (argument) + 1);
+      memcpy (lower, argument, strlen (argument) + 1);
       for (index_ = 0; lower[index_] != '\0'; index_++)
         lower[index_] = glk_char_to_lower (lower[index_]);
 

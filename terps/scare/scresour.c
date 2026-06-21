@@ -305,7 +305,7 @@ res_sync_resources (sc_gameref_t game)
       is_looping = !strcmp (name + strlen (name) - 2, "##");
 
       clean_name = sc_malloc (strlen (name) + 1);
-      strncpy (clean_name, name, strlen (name) + 1);
+      memcpy (clean_name, name, strlen (name) + 1);
       if (is_looping)
         clean_name[strlen (clean_name) - 2] = NUL;
 

@@ -162,7 +162,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
         snprintf(buffer, 32, "ZCODE-%d-%s",i,ser);
 
     ASSERT_OUTPUT_SIZE((signed) strlen(buffer)+1);
-    strncpy((char *)output, buffer, sizeof(buffer));
+    memcpy((char *)output, buffer, strlen(buffer)+1);
     return 1;
 
 }

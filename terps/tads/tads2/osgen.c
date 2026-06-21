@@ -518,7 +518,7 @@ void os_strsc(const char *p)
      *   value 
      */
     if (p != 0)
-        strncpy(lastbuf, p, sizeof(lastbuf));
+        snprintf(lastbuf, sizeof(lastbuf), "%s", p);
     else
         p = lastbuf;
 
@@ -1493,7 +1493,7 @@ int osssbmode(int mode_line)
         /* display instructions if we have a status line */
         if (mode_line)
         {
-            strncpy(buf, OS_SBSTAT, sizeof(buf));
+            snprintf(buf, sizeof(buf), "%s", OS_SBSTAT);
             for (i = strlen(buf) ; i < max_column ; buf[i++] = ' ') ;
             buf[i] = '\0';
             ossdsp(sdesc_line, sdesc_column+1, sdesc_color, buf);

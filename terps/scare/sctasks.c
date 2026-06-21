@@ -764,7 +764,7 @@ task_run_change_variable_action (sc_gameref_t game,
               sc_error ("task_run_change_variable_action:"
                         " invalid string expression, %s\n", expr);
               mutable_string = sc_malloc (strlen ("[expr error]") + 1);
-              strncpy (mutable_string, "[expr error]", strlen ("[expr error]") + 1);
+              memcpy (mutable_string, "[expr error]", strlen ("[expr error]") + 1);
             }
           if (task_trace)
             {

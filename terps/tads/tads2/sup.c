@@ -246,7 +246,7 @@ static void supaddsym(toktdef *tab, char *txt, int styp, int sval,
 
     if (casefold)
     {
-        strncpy(buf, txt, sizeof(buf));
+        snprintf(buf, sizeof(buf), "%s", txt);
         os_strlwr(buf);
         txt = buf;
     }
@@ -308,7 +308,7 @@ void suprsrv(supcxdef *sup, void (*bif[])(bifcxdef *, int),
 
         if (casefold)
         {
-            strncpy(buf, kwname, sizeof(buf));
+            snprintf(buf, sizeof(buf), "%s", kwname);
             os_strlwr(buf);
             kwname = buf;
         }
@@ -387,7 +387,7 @@ static void supfind1(errcxdef *ec, toktdef *tab, char *nam, objnum *objp,
 
     if (casefold)
     {
-        strncpy(buf, nam, sizeof(buf));
+        snprintf(buf, sizeof(buf), "%s", nam);
         os_strlwr(buf);
         nam = buf;
     }

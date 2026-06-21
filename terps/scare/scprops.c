@@ -209,7 +209,7 @@ prop_dictionary_lookup (sc_prop_setref_t bundle, const sc_char *string)
 
   /* Not found, so copy the string for dictionary insertion. */
   dict_string = sc_malloc (strlen (string) + 1);
-  strncpy (dict_string, string, strlen (string) + 1);
+  memcpy (dict_string, string, strlen (string) + 1);
 
   /* Extend the dictionary if necessary. */
   bundle->dictionary = prop_ensure_capacity (bundle->dictionary,

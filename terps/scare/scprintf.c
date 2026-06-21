@@ -824,7 +824,7 @@ pf_filter (const sc_char *string,
   if (!current)
     {
       current = sc_malloc (strlen (string) + 1);
-      strncpy (current, string, strlen (string) + 1);
+      memcpy (current, string, strlen (string) + 1);
     }
 
   return current;
@@ -851,7 +851,7 @@ pf_filter_for_info (const sc_char *string, sc_var_setref_t vars)
   if (!current)
     {
       current = sc_malloc (strlen (string) + 1);
-      strncpy (current, string, strlen (string) + 1);
+      memcpy (current, string, strlen (string) + 1);
     }
 
   return current;

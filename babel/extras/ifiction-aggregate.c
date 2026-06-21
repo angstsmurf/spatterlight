@@ -97,7 +97,7 @@ void steal_story(struct XMLTag *xtg, void *ctx)
   n->ifid[sizeof(n->ifid) - 1] = '\0';
 /*  printf("created %s\n", current_ifid);*/
   n->story=(char *)my_malloc(strlen(xtg->begin)+16, "Story record");
-  strncpy(n->story, xtg->begin, strlen(xtg->begin) + 1);
+  memcpy(n->story, xtg->begin, strlen(xtg->begin) + 1);
   *(xtg->end)=c;
   current_ifid[0]=0;
 

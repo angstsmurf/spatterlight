@@ -327,6 +327,6 @@ void cmap_set_game_charset(errcxdef *ec,
      *   provide here.  Save the game's character set ldesc for that
      *   eventuality, since it describes exactly what the *game* wanted.  
      */
-    strncpy(G_cmap_ldesc, internal_ldesc, CMAP_LDESC_MAX_LEN);
+    snprintf(G_cmap_ldesc, sizeof(G_cmap_ldesc), "%s", internal_ldesc);
 }
 

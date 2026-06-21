@@ -282,7 +282,7 @@ startover:
         if (voc->voccxredo && voc->voccxredobuf[0] != '\0')
         {
             /* copy the redo buffer into our internal buffer */
-            strncpy(buf, voc->voccxredobuf, sizeof(buf));
+            snprintf(buf, sizeof(buf), "%s", voc->voccxredobuf);
 
             /* we've consumed it now, so clear it out */
             voc->voccxredobuf[0] = '\0';

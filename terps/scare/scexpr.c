@@ -532,7 +532,7 @@ expr_eval_push_string (const sc_char *value)
 
   /* Push a copy of value. */
   value_copy = sc_malloc (strlen (value) + 1);
-  strncpy (value_copy, value, strlen (value) + 1);
+  memcpy (value_copy, value, strlen (value) + 1);
   expr_eval_stack[expr_eval_stack_index].is_collectible = TRUE;
   expr_eval_stack[expr_eval_stack_index++].value.mutable_string = value_copy;
 }

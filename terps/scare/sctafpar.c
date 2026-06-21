@@ -979,7 +979,7 @@ parse_read_multiline (void)
   /* Take a simple copy of the first line. */
   line = parse_get_taf_string ();
   multiline = sc_malloc (strlen (line) + 1);
-  strncpy (multiline, line, strlen (line) + 1);
+  memcpy (multiline, line, strlen (line) + 1);
 
   /* Now concatenate until separator found. */
   line = parse_get_taf_string ();
@@ -1144,7 +1144,7 @@ parse_get_v400_resource_offset (const sc_char *name,
    * indicator flag.  Who thinks this junk up?
    */
   clean_name = sc_malloc (strlen (name) + 1);
-  strncpy (clean_name, name, strlen (name) + 1);
+  memcpy (clean_name, name, strlen (name) + 1);
   if (strcmp (clean_name + strlen (clean_name) - 2, "##") == 0)
     clean_name[strlen (clean_name) - 2] = NUL;
 

@@ -865,7 +865,7 @@ static opdef *rscproc(osfildef *fp, osfildef *fpout, opdef *oplist)
         /* construct the timestamp */
         timer = time(0);
         tblock = localtime(&timer);
-        strncpy(datebuf, asctime(tblock), sizeof(datebuf));
+        snprintf(datebuf, sizeof(datebuf), "%s", asctime(tblock));
     }
         
     if (fpout)
@@ -1196,9 +1196,9 @@ static opdef *addopdir(opdef *cur, char *nam, opctxdef *opctx)
                 newop->opflag = opctx->flag;
                 newop->oprestype = get_file_restype(opctx->restype, fname);
                 newop->opres = (char *)(newop + 1);
-                strncpy(newop->opres, fullurl, strlen(fullurl) + 1);
+                memcpy(newop->opres, fullurl, strlen(fullurl) + 1);
                 newop->opfile = newop->opres + strlen(newop->opres) + 1;
-                strncpy(newop->opfile, fullname, strlen(fullname) + 1);
+                memcpy(newop->opfile, fullname, strlen(fullname) + 1);
                 
                 /* it's the new head of the list */
                 cur = newop;
@@ -1352,9 +1352,9 @@ static opdef *addop(opdef *cur, char *nam, opctxdef *opctx)
     newop->opflag = opctx->flag;
     newop->opres  = (char *)(newop + 1);
     newop->oprestype = get_file_restype(opctx->restype, nam);
-    strncpy(newop->opres, p, strlen(p) + 1);
+    memcpy(newop->opres, p, strlen(p) + 1);
     newop->opfile = newop->opres + strlen(newop->opres) + 1;
-    strncpy(newop->opfile, nam, strlen(nam) + 1);
+    memcpy(newop->opfile, nam, strlen(nam) + 1);
 
     return(newop);
 }
@@ -1407,7 +1407,7 @@ int main(int argc, char **argv)
     
     /* get the file name */
     infile = argv[curarg++];
-    strncpy(inbuf, infile, sizeof(inbuf));
+    snprintf(inbuf, sizeof(inbuf), "%s", infile);
     os_defext(inbuf, "gam");
 
     /* open the file for reading, unless we're creating a new file */
@@ -1455,7 +1455,7 @@ int main(int argc, char **argv)
     else
     {
         /* generate a temporary filename */
-        strncpy(tmpfile, inbuf, sizeof(tmpfile));
+        snprintf(tmpfile, sizeof(tmpfile), "%s", inbuf);
         for (p = tmpfile + strlen(tmpfile) ; p > tmpfile &&
                  *(p-1) != ':' && *(p-1) != '\\' && *(p-1) != '/' ; --p);
         strncpy(p, "$TADSRSC.TMP", sizeof(tmpfile) - (p - tmpfile));

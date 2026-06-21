@@ -1667,7 +1667,7 @@ static void tcdlogerr(void *ectx0, char *fac, int err, int argc,
     case ERR_UNDEFO:
     case ERR_UNDEFF:
         /* these errors include the position as the second argument */
-        strncpy(buf, argv[1].errastr, sizeof(buf));
+        snprintf(buf, sizeof(buf), "%s", argv[1].errastr);
         break;
 
     default:

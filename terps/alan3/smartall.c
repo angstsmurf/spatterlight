@@ -235,7 +235,7 @@ void *sm_realloc(fname, lineno, ptr, size)
 
 char *sm_strdup(char *file, int line, char *str) {
 	char *new = smalloc(file, line, strlen(str)+1);
-	strncpy(new, str, strlen(str) + 1);
+	memcpy(new, str, strlen(str) + 1);
 	return new;
 }
 
