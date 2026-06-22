@@ -150,7 +150,7 @@ struct GeasState
   //std::auto_ptr<GeasFile> gf;
 
 public:
-  bool running;
+  bool running = false;
   std::string location;
   std::vector<PropertyRecord> props;
   /* Index of `props` by lower-cased object name so the runtime get_obj_property
