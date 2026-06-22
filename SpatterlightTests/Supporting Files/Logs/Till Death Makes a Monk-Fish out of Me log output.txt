@@ -1189,10 +1189,10 @@ The robot moves to the middle of the corridor.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Collapsed Corridor                                                             
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=198
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=210
 [TEXT] There's nothing under the panel.
 
-Rosalind tries to go southward, but is stopped by the ceiling.
+The robot moves on down the corridor, until it hits the fallen roof.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -1205,10 +1205,10 @@ Rosalind tries to go southward, but is stopped by the ceiling.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Collapsed Corridor                                                             
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=232
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=254
 [TEXT] further, then back until caught in the pinched walls by the airlock.
 
-Rosalind whirrs slowly across the corridor.
+The robot swivels round, and limps toward the airlock.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -1223,10 +1223,10 @@ Beyond is a dark hole in the flooring.  Who knows how far a drop it might be, ho
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Collapsed Corridor                                                             
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=158
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=124
 [TEXT] floor?
 
-The robot reaches the airlock, but cannot quite fit through the gap.
+Rosalind's way north is blocked by the close walls.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -1597,9 +1597,9 @@ Kathleen slips through the northern hatch and moments later exits to the south.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  By Airlock                                                                     
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=254
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=262
 [TEXT] 
-The norhern hatch flips open and out pops Victoria.  She slowly lumbers southward, disappearing through the southern hatch.
+Victoria emerges from the northern hatch and heads south.  With a swish-snap, the southern hatch opens and she lumbers through.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -1755,10 +1755,10 @@ The robot opens the hatch and rumbles through.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Computer Core And Coffin Room                                                  
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=244
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=228
 [TEXT] and waiting with a depressing certitude.
 
-From the corridor, you hear the sound of the robot hatch opening and closing.
+From the corridor outside you hear the swish-snap of the robot hatch.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -1821,10 +1821,10 @@ From the corridor, you hear the sound of the robot hatch opening and closing.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Computer Core And Coffin Room                                                  
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=304
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=320
 [TEXT] You made that mistake when you joined AtlantisLab.  You're not doing it again.
 
-From the corridor outside you hear the swish-snap of the robot hatch.
+From the corridor, you hear the sound of the robot hatch opening and closing.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -1896,7 +1896,7 @@ The computer heaves and splats.  You barely notice a squat oblong fire out from 
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=300
 [TEXT] Your palm contains a brand.  Beneath it is inscribed "Press for detonation."
 
-From the corridor outside you hear the swish-snap of the robot hatch.
+The familiar swish-snap sound of the robot hatch gets your attention.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -1937,10 +1937,8 @@ From the corridor outside you hear the swish-snap of the robot hatch.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Computer Core And Coffin Room                                                  
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=172
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=88
 [TEXT] You didn't think Dr. Kurner had any left.
-
-The red light on the black oblong winks.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -1977,7 +1975,7 @@ It's small, black, and judging by the way it slid across the floor, very heavy.
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=274
 [TEXT] There is a single red light on top which blinks intermittently.
 
-The familiar swish-snap sound of the robot hatch gets your attention.
+From the corridor outside you hear the swish-snap of the robot hatch.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -2312,10 +2310,10 @@ DOE, JOHN
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Computer Core And Coffin Room                                                  
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=302
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=318
 [TEXT] down.  The screen is displaying a list of names.  One - "JACK" - is flashing.
 
-The familiar swish-snap sound of the robot hatch gets your attention.
+From the corridor, you hear the sound of the robot hatch opening and closing.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -2350,8 +2348,10 @@ The familiar swish-snap sound of the robot hatch gets your attention.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Computer Core And Coffin Room                                                  
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=84
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=168
 [TEXT] The robot arm is already in the recess!
+
+The red light on the black oblong winks.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -2378,10 +2378,10 @@ The familiar swish-snap sound of the robot hatch gets your attention.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Computer Core And Coffin Room                                                  
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=226
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=242
 [TEXT] PROCESSING...  READY", then falls dark.
 
-From the corridor outside you hear the swish-snap of the robot hatch.
+From the corridor, you hear the sound of the robot hatch opening and closing.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -2532,10 +2532,10 @@ Kathleen turns tail and leaves the room, pushing its empty trolley before it.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Computer Core And Coffin Room                                                  
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=226
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=242
 [TEXT] PROCESSING...  READY", then falls dark.
 
-The familiar swish-snap sound of the robot hatch gets your attention.
+From the corridor, you hear the sound of the robot hatch opening and closing.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -2738,7 +2738,7 @@ The red light on the black oblong winks.
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=254
 [TEXT] The arm goes no further in, but it is free to rotate.
 
-From the corridor outside you hear the swish-snap of the robot hatch.
+The familiar swish-snap sound of the robot hatch gets your attention.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -2856,8 +2856,10 @@ The robot motors quietly out of the room westward, leaving the trolley behind, l
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Computer Core And Coffin Room                                                  
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=88
 [TEXT] 
+The red light on the black oblong winks.
+
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
@@ -3240,20 +3242,8 @@ From the floor one fragment of paper catches your eye.  It reads: "If you are re
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Dr. Kurner's Office                                                            
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=152
-[TEXT]    "When this note enters your possession, you are quite simply doomed!!"
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Dr. Kurner's Office                                                            
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Dr. Kurner's Office                                                            
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=108
-[TEXT]    "About to read this!  Ha!  Then you are doomed!"
+[TEXT]    "Read this!  Ha!  Then you're basically dead!!!"
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -3264,8 +3254,22 @@ From the floor one fragment of paper catches your eye.  It reads: "If you are re
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Dr. Kurner's Office                                                            
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=148
-[TEXT]    "When this note enters your possession, death is your only alibi!!!"
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=130
+[TEXT]    "When this note enters your possession, death is imminent!"
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Dr. Kurner's Office                                                            
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=144
+[TEXT]    "When finally your eyes skim the letters I have wrote, you must face 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Dr. Kurner's Office                                                            
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=22
+[TEXT] DOOM!?!"
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -3276,8 +3280,8 @@ From the floor one fragment of paper catches your eye.  It reads: "If you are re
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Dr. Kurner's Office                                                            
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=124
-[TEXT]    "About to read this!  Ha!  Then you're basically dead!!"
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=116
+[TEXT]    "By the time you read this, you are already dead!!!"
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -4679,17 +4683,10 @@ A school of fish swims past the window.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Machine Room                                                                   
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=108
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=62
 [TEXT] other.
 
-The school flicks about and swims northward.
-
-
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
-[TEXT] Blue
-
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=126
-[TEXT]    From way above trickles light.  To the south is the dome.
+An octopus swims by.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -4702,10 +4699,17 @@ The school flicks about and swims northward.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=154
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=146
 [TEXT] placed out.  We are fish.
 
-Floating through the blue comes a cuttlesprout.
+The school flicks about and swims southward.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
+[TEXT] Blue
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=134
+[TEXT]    To the south is the bulging dome.  All around us is the blue.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -4713,8 +4717,8 @@ Floating through the blue comes a cuttlesprout.
 [TEXT]  Blue                                                                           
 [MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=32
-[TEXT] We swim south.
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=54
+[TEXT] In a pulse we move south.
 
 
 [MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
@@ -4723,8 +4727,8 @@ Floating through the blue comes a cuttlesprout.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=120
-[TEXT] From way above trickles light.  To the south is the dome.
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=76
+[TEXT] The dome is south.  We are in blue.
 
 >
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -4744,215 +4748,10 @@ Floating through the blue comes a cuttlesprout.
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=112
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=152
 [TEXT] The dome blocks us swimming.
 
-An allamander swims by.
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=462
-[TEXT] The dome is a huge bulge of copper on the seabed.  We do not understand it, it is just rock, shape of land, movement of speed of water.  A metal corridor snakes out of it eastward toward a smaller dome, with a glass chimney at its 
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=256
-[TEXT] top.  It is the mortuary block and near it blackness moves.
-
-An octopus swims by.
-
-The school flicks about and swims westward.
-
-
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
-[TEXT] Blue
-
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=126
-[TEXT]    From way above trickles light.  To the south is the dome.
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=58
-[TEXT] The school trails eastward.
-
-
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
-[TEXT] Blue
-
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=160
-[TEXT] From way above trickles light.  To the south is the dome.  We are near a window 
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=86
-[TEXT] in a large metal dome just to the south.
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=62
-[TEXT] The dome blocks us swimming.
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=50
-[TEXT] We see our reflection.
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=30
-[TEXT] We swim east.
-
-
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
-[TEXT] Blue
-
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=156
-[TEXT] To the south is the bulging dome.  All around us is the blue.  We are above a 
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=190
-[TEXT] long corridor of metal leading toward the mortuary.
-
-Floating through the blue comes a finn.
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=462
-[TEXT] The dome is a huge bulge of copper on the seabed.  We do not understand it, it is just rock, shape of land, movement of speed of water.  A metal corridor snakes out of it eastward toward a smaller dome, with a glass chimney at its 
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=310
-[TEXT] top.  It is the mortuary block and near it blackness moves.
-
-Floating through the blue comes a snuttlenose.
-
-The school flicks about and swims northwest.
-
-
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
-[TEXT] Blue
-
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=76
-[TEXT] The dome is south.  We are in blue.
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=28
-[TEXT] We fin east.
-
-
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
-[TEXT] Blue
-
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=272
-[TEXT] From way above trickles light.  To the south is the dome.
-
-This is ridiculous.  We can't spend our life as a shoal of fish.  We need to 
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=116
-[TEXT] get back, and fast.
-
-A finn passes us in eerie silence.
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=58
-[TEXT] The school trails eastward.
-
-
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
-[TEXT] Blue
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=160
-[TEXT] From way above trickles light.  To the south is the dome.
-
-A shrake swims by.
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=150
-[TEXT] We are up and down as well.  We are a school, and wide, and shape changing 
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=110
-[TEXT] always.
-
-The school flicks about and swims northeast.
-
-
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
-[TEXT] Blue
-
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=126
-[TEXT]    From way above trickles light.  To the south is the dome.
-
->
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=148
-[TEXT] The Mortuary dome is broken, some walls have collapsed under a great dark 
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]  Blue                                                                           
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=308
-[TEXT] weight we cannot see clearly, with moving eyes and confusion.
-
-Floating through the blue comes an octopus.
-
-The school flicks about and swims southeast.
+The school flicks about and swims northward.
 
 
 [MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
@@ -4967,8 +4766,211 @@ The school flicks about and swims southeast.
 [TEXT]  Blue                                                                           
 [MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=32
-[TEXT] We swim south.
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=462
+[TEXT] The dome is a huge bulge of copper on the seabed.  We do not understand it, it is just rock, shape of land, movement of speed of water.  A metal corridor snakes out of it eastward toward a smaller dome, with a glass chimney at its 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=212
+[TEXT] top.  It is the mortuary block and near it blackness moves.
+
+The school flicks about and swims westward.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
+[TEXT] Blue
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=134
+[TEXT]    To the south is the bulging dome.  All around us is the blue.
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=30
+[TEXT] We swim east.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
+[TEXT] Blue
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=198
+[TEXT] From way above trickles light.  To the south is the dome.
+
+A forest of seaweed grows thick here.
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=60
+[TEXT] The school trails southward.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
+[TEXT] Blue
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=160
+[TEXT] From way above trickles light.  To the south is the dome.  We are near a window 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=186
+[TEXT] in a large metal dome just to the south.
+
+A craggy line of boulders breaks the sand below.
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=140
+[TEXT] We see our reflection.
+
+The school flicks about and swims northeast.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
+[TEXT] Blue
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=134
+[TEXT]    To the south is the bulging dome.  All around us is the blue.
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=52
+[TEXT] In a pulse we move east.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
+[TEXT] Blue
+
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=228
+[TEXT] The dome is south.  We are in blue.
+
+This is ridiculous.  We can't spend our life as a shoal of fish.  We need to 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=188
+[TEXT] get back, and fast.
+
+An octopus swims by.
+
+A craggy line of boulders breaks the sand below.
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=462
+[TEXT] The dome is a huge bulge of copper on the seabed.  We do not understand it, it is just rock, shape of land, movement of speed of water.  A metal corridor snakes out of it eastward toward a smaller dome, with a glass chimney at its 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=204
+[TEXT] top.  It is the mortuary block and near it blackness moves.
+
+An octopus passes us in eerie silence.
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=58
+[TEXT] The school trails eastward.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
+[TEXT] Blue
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=172
+[TEXT] The dome is south.  We are in blue.
+
+Floating through the blue comes a snuttlenose.
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=30
+[TEXT] We swim east.
+
+
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10
+[TEXT] Blue
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=160
+[TEXT] The dome is south.  We are in blue.
+
+Floating through the blue comes a squid.
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=150
+[TEXT] We are up and down as well.  We are a school, and wide, and shape changing 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=108
+[TEXT] always.
+
+A cuttlesprout passes us in eerie silence.
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=148
+[TEXT] The Mortuary dome is broken, some walls have collapsed under a great dark 
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
+[TEXT] weight we cannot see clearly, with moving eyes and confusion.
+
+>
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]  Blue                                                                           
+[MSG] cmd=INITLINE a1=0 a2=127 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=30
+[TEXT] We fin south.
 
 
 [MSG] cmd=PRINT a1=0 a2=4 a3=0 len=10

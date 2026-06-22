@@ -456,8 +456,8 @@ The clock chimes five times. 'CUCKOO! CUCKOO! CUCKOO! CUCKOO! CUCKOO!'
 [TEXT] >
 [MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=152
-[TEXT] I pick up the cuckoo clock. 'That doesn't belong to you!' exclaims Hubert.
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=136
+[TEXT] I pick up the cuckoo clock. 'Put that down at once!' cries Hubert.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -499,8 +499,8 @@ The balance between the weight of the balloon and the lift provided by the gas i
 [TEXT] >
 [MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=202
-[TEXT] I pick up the shapeless felt hat. 'If you damage that,' says Hubert, 'I shall tell my Aunt Gertie!'
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=164
+[TEXT] I pick up the shapeless felt hat. 'That doesn't belong to you!' exclaims Hubert.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -540,8 +540,8 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 [TEXT] >
 [MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=186
-[TEXT] I pick up the toy donkey. 'If you damage that,' says Hubert, 'I shall tell my Aunt Gertie!'
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=132
+[TEXT] I pick up the toy donkey. 'Put that down at once!' cries Hubert.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -581,8 +581,8 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 [TEXT] >
 [MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=208
-[TEXT] I pick up the large framed painting. 'If you damage that,' says Hubert, 'I shall tell my Aunt Gertie!'
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=170
+[TEXT] I pick up the large framed painting. 'That doesn't belong to you!' exclaims Hubert.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -1378,7 +1378,7 @@ The balance between the weight of the balloon and the lift provided by the gas i
 [TEXT] >
 [MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1856
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1806
 [TEXT] I hack through the anchor rope with the hatchet and watch as the anchor tumbles to earth.
 
 
@@ -1392,7 +1392,7 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 'Yes,' says Hubert, 'as a matter of fact I have. You didn't think I'd leave her at home all on her own, do you?' After much squirming and wriggling, a tiny little old lady emerges from the overcoat.
 
 'What is it, Hubert dear?' she asks...
-''Tain't right,' mutters Aunt Gertie distractedly, 'it oughtn't to be allowed!' She gives me a crack across the shins with her cane, just for the hell of it.
+'It's against nature!' mutters Aunt Gertie to herself. She gives me a crack across the shins with her cane, just for the hell of it.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0

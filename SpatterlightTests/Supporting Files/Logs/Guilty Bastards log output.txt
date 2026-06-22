@@ -8796,7 +8796,7 @@ The fire alarm keeps ringing.
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
-[TEXT] It reads:  "30-6-51".
+[TEXT] It reads:  "29-1-54".
 [MSG] cmd=PRINT a1=1 a2=1 a3=0 len=30
 [TEXT] 
 
@@ -8834,19 +8834,19 @@ The fire alarm keeps ringing.
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=96
-[TEXT] The dial spins smoothly as you turn it to 30.
+[TEXT] The dial spins smoothly as you turn it to 29.
 
 >
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=94
-[TEXT] The dial spins smoothly as you turn it to 6.
+[TEXT] The dial spins smoothly as you turn it to 1.
 
 >
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=96
-[TEXT] The dial spins smoothly as you turn it to 51.
+[TEXT] The dial spins smoothly as you turn it to 54.
 
 >
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
@@ -11612,12 +11612,8 @@ There is a basketball here.
 >
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=142
-[TEXT] You shoot, but you're a little wide and the basketball makes a rubbery 
-[MSG] cmd=PRINT a1=1 a2=1 a3=0 len=10
-[TEXT] thump
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=120
-[TEXT]  against the backboard before bouncing away from the basket.
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=238
+[TEXT] You shoot and watch hopefully as the ball bounces tantalizingly off the rim three or four times before falling outside.
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -13596,9 +13592,16 @@ Billy hangs around the door to the reception area.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
+[MSG] cmd=LOADSOUND a1=2 a2=1270125 a3=77306 len=204
+[MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
 [TEXT] 
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
+
 >
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
@@ -13630,19 +13633,6 @@ Billy hangs around the door to the reception area.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=LOADSOUND a1=2 a2=1270125 a3=77306 len=204
-[MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=240
-[TEXT] 
-The phone rings.  Anne answers it, listens briefly, then transfers the call.
-
-Do you want to keep waiting (YES or NO)? 
-[MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -13753,6 +13743,12 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=94
 [TEXT] 
 (Stuart has arrived.  It is now 12:34 p.m.)
+
+>
+[MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=56
+[TEXT] Better start with a verb.
 
 >
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
@@ -13878,9 +13874,16 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
+[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
+[MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
 [TEXT] 
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
+
 >
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
@@ -13916,16 +13919,9 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
-The phone rings.  Anne answers it, listens briefly, then transfers the call.
-
 >
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
@@ -13995,9 +13991,16 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
+[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
+[MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
 [TEXT] 
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
+
 >
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
@@ -14029,16 +14032,9 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=126
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
-The phone rings.  Anne answers it and takes down a message.
-
 >
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
@@ -14070,6 +14066,19 @@ The phone rings.  Anne answers it and takes down a message.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
+[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
+[MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=240
+[TEXT] 
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
+
+Do you want to keep waiting (YES or NO)? 
+[MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -14093,19 +14102,6 @@ The phone rings.  Anne answers it and takes down a message.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=206
-[TEXT] 
-The phone rings.  Anne answers it and takes down a message.
-
-Do you want to keep waiting (YES or NO)? 
-[MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -14129,9 +14125,16 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
+[MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
+[MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=378
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=534
 [TEXT] 
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
+
 Stuart looks at his watch.  "Oh, you know what?  I'm forgetting a meeting.  Would you excuse me?  Anne, let anyone who calls know I've gone out to a meeting."  He smiles and heads outside.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -17098,6 +17101,63 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
+[TEXT] 
+>
+[MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=28
+[TEXT] Time passes...
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=3 a2=127 a3=0 len=0
+[MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=3 a2=127 a3=0 len=0
+[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:07 p.m.
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=3 a2=127 a3=0 len=0
+[MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=3 a2=127 a3=0 len=0
+[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=54
+[TEXT] Cindy Painter's living room
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:08 p.m.
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1274
 [TEXT] 
 The apartment door opens.  You turn to look, expecting to see Billy standing there--
@@ -17123,7 +17183,7 @@ The apartment door opens.  You turn to look, expecting to see Billy standing the
 [TEXT] Kitchen
 [MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
 [MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
-[TEXT] 2:06 p.m.
+[TEXT] 2:08 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -17202,56 +17262,8 @@ Stuart shakes his head.  "You know," he says, "you're a real moron.  What, do yo
 [TEXT]  not a murderer, you moron."  He thinks about that for the briefest second.  "Well, maybe I did kill her, but I didn't 
 [MSG] cmd=PRINT a1=1 a2=1 a3=0 len=8
 [TEXT] plan
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=222
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=302
 [TEXT]  to.  And then I come here looking for that stupid note I gave her with the pictures, and who do I find...?"
-
->
-[MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=28
-[TEXT] Time passes...
-[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
-[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
-[MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
-[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
-[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
-[MSG] cmd=SETBGND a1=3 a2=127 a3=0 len=0
-[MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
-[MSG] cmd=SETBGND a1=3 a2=127 a3=0 len=0
-[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
-[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
-[TEXT] 
-
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
-[TEXT] Kitchen
-[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
-[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
-[TEXT] 2:07 p.m.
-[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
-[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
-[MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
-[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
-[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=322
-[TEXT] 
-Stuart wags the gun at you like he can't decide whether to shoot you with it, crack you on the skull with it, or just throw it down and walk away in disgust.  "
-[MSG] cmd=PRINT a1=1 a2=1 a3=0 len=26
-[TEXT] Cindy Painter
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=48
-[TEXT]  was the loose cannon.  
-[MSG] cmd=PRINT a1=1 a2=1 a3=0 len=6
-[TEXT] She
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=252
-[TEXT]  was supposed to kill that stupid musician!  That kinda sick publicity is about the only thing that would've made anybody see 
-[MSG] cmd=PRINT a1=1 a2=1 a3=0 len=30
-[TEXT] Hugs and Kisses
-[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=566
-[TEXT] --it was testing like a bowel movement.  I thought once I slipped her those photos, she'd flip right the hell out and waste him!  How the hell was I supposed to know she actually loved that idiot?  Or something.  Jesus, people piss me off."
 
 Do you want to keep waiting (YES or NO)? 
 [MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
@@ -17273,7 +17285,55 @@ Do you want to keep waiting (YES or NO)?
 [TEXT] Kitchen
 [MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
 [MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
-[TEXT] 2:08 p.m.
+[TEXT] 2:09 p.m.
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=322
+[TEXT] 
+Stuart wags the gun at you like he can't decide whether to shoot you with it, crack you on the skull with it, or just throw it down and walk away in disgust.  "
+[MSG] cmd=PRINT a1=1 a2=1 a3=0 len=26
+[TEXT] Cindy Painter
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=48
+[TEXT]  was the loose cannon.  
+[MSG] cmd=PRINT a1=1 a2=1 a3=0 len=6
+[TEXT] She
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=252
+[TEXT]  was supposed to kill that stupid musician!  That kinda sick publicity is about the only thing that would've made anybody see 
+[MSG] cmd=PRINT a1=1 a2=1 a3=0 len=30
+[TEXT] Hugs and Kisses
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=486
+[TEXT] --it was testing like a bowel movement.  I thought once I slipped her those photos, she'd flip right the hell out and waste him!  How the hell was I supposed to know she actually loved that idiot?  Or something.  Jesus, people piss me off."
+
+>
+[MSG] cmd=INITLINE a1=1 a2=1280 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=74
+[TEXT] Stuart stops you from going anywhere.
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=3 a2=127 a3=0 len=0
+[MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=3 a2=127 a3=0 len=0
+[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=16777215 a3=127 len=0
+[MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=14
+[TEXT] Kitchen
+[MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
+[MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
+[TEXT] 2:10 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -17311,7 +17371,7 @@ After you manage to pull yourself together and convince your legs to stop shakin
 [TEXT] Police station
 [MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
 [MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
-[TEXT] 2:08 p.m.
+[TEXT] 2:10 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
@@ -17374,7 +17434,7 @@ You leave the police station with a renewed sense of hope, that even just a litt
 [TEXT] Police station
 [MSG] cmd=MOVETO a1=3 a2=0 a3=1 len=0
 [MSG] cmd=PRINT a1=3 a2=2 a3=0 len=18
-[TEXT] 2:08 p.m.
+[TEXT] 2:10 p.m.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0

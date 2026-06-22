@@ -1,3 +1,4 @@
+glk delays off
 howl
 take nickel
 i
