@@ -319,8 +319,10 @@ const char *MapSynonym(int noun)
         tp = Nouns[n];
         if (*tp == '*')
             tp++;
-        else
-            strncpy(lastword, tp, GameHeader.WordLength + 1);
+        else {
+            strncpy(lastword, tp, sizeof(lastword) - 1);
+            lastword[sizeof(lastword) - 1] = '\0';
+        }
         if (n == noun)
             return (lastword);
         n++;
