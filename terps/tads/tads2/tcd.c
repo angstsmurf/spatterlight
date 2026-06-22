@@ -995,7 +995,7 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     if (i + 1 != argc) tcdusage(ec);
     
     /* add default .T extension to input file */
-    strncpy(inbuf, infile, OSFNMAX);
+    snprintf(inbuf, OSFNMAX, "%s", infile);
     os_defext(inbuf, "t");
 
     /*
@@ -1005,7 +1005,7 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     if (outfile)
     {
         /* use their name exactly as-is */
-        strncpy(outbuf, outfile, OSFNMAX);
+        snprintf(outbuf, OSFNMAX, "%s", outfile);
 
         /* if it's exactly the same as the input file, apply an extension */
         if (!strcmp(outfile, infile))
@@ -1017,7 +1017,7 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     else
     {
         /* get the input name minus the current extension */
-        strncpy(outbuf, infile, OSFNMAX);
+        snprintf(outbuf, OSFNMAX, "%s", infile);
         os_remext(outbuf);
 
         /* add .GAM extension */

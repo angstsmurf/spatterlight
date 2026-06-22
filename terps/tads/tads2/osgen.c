@@ -2441,7 +2441,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
              *   The timeout expired.  Copy the current input state into the
              *   save area so that we can resume the input later if desired.
              */
-            strncpy(S_gets_buf, (char *)buf, S_gets_buf_siz);
+            snprintf(S_gets_buf, S_gets_buf_siz, "%s", (char *)buf);
             S_gets_ofs = p - buf;
             S_gets_x = x;
             S_gets_y = y;

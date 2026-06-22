@@ -1120,7 +1120,7 @@ void fiord(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx, char *fname,
                  *   same directory that contains the .GAM file 
                  */
                 if (base_name != 0)
-                    strncpy(resname, base_name, OSFNMAX);
+                    snprintf(resname, OSFNMAX, "%s", base_name);
                 else
                     resname[0] = '\0';
             }

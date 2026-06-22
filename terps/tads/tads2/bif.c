@@ -2488,7 +2488,7 @@ void biffopen(bifcxdef *ctx, int argc)
                            ctx->bifcxrun->runcxgamepath, fname);
 
         /* replace the original filename with the full path */
-        strncpy(fname, newname, OSFNMAX);
+        snprintf(fname, OSFNMAX, "%s", newname);
     }
 
     /* get the mode string */

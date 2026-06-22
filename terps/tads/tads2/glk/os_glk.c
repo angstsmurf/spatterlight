@@ -316,7 +316,7 @@ void os_get_special_path(char *buf, size_t buflen, const char *argv0, int id)
 
 #ifndef DEFINEDIRS
     if (str == NULL) {
-        strncpy(buf, argv0, buflen);
+        snprintf(buf, buflen, "%s", argv0);
         p = buf + strlen(argv0) - 1;
                 /* Move backwards until we find a slash in argv0 or its beginning */
         while (p != buf && *p != '/') {
@@ -330,7 +330,7 @@ void os_get_special_path(char *buf, size_t buflen, const char *argv0, int id)
 
     if (strlen(str) >= buflen)
         assert(FALSE);
-    strncpy(buf, str, buflen);
+    snprintf(buf, buflen, "%s", str);
 #endif /* GLKUNIX */
 }
 

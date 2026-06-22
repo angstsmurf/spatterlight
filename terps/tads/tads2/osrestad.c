@@ -90,8 +90,9 @@ int os_get_str_rsc(int id, char *buf, size_t buflen)
     if (buflen < strlen(S_res_strings[id-1]) + 1)
         return 2;
 
-    /* copy the string */
-    strncpy(buf, S_res_strings[id-1], buflen);
+    /* copy the string (buflen >= strlen + 1 is guaranteed above) */
+    strncpy(buf, S_res_strings[id-1], buflen - 1);
+    buf[buflen - 1] = '\0';
 
     /* return success */
     return 0;

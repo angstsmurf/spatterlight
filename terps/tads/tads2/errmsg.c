@@ -524,7 +524,7 @@ void errmsg(errcxdef *ctx, char *outbuf, uint outbufl, uint err)
         cur = first + (last - first)/2;
         if (errlist[cur].errmerr == err)
         {
-            strncpy(outbuf, errlist[cur].errmtxt, outbufl);
+            snprintf(outbuf, outbufl, "%s", errlist[cur].errmtxt);
             return;
         }
         else if (errlist[cur].errmerr < err)

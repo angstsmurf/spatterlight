@@ -1829,7 +1829,7 @@ startover:
                      *   this must be a brand new command.  Replace the
                      *   original command with the new command.  
                      */
-                    strncpy(orgbuf, oopsbuf, VOCBUFSIZ);
+                    snprintf(orgbuf, VOCBUFSIZ, "%s", oopsbuf);
 
                     /* 
                      *   forget we had an unknown word so that we're sure
@@ -4242,7 +4242,7 @@ void voc_parse_disambig(voccxdef *ctx)
             ctx_copy.voccxredo = TRUE;
 
             /* copy the response into the command buffer */
-            strncpy(cmdbuf, oopsbuf, VOCBUFSIZ);
+            snprintf(cmdbuf, VOCBUFSIZ, "%s", oopsbuf);
         }
         else
         {
@@ -4292,7 +4292,7 @@ void voc_parse_disambig(voccxdef *ctx)
                 if (i == unk_idx)
                 {
                     /* insert the replacement text */
-                    strncpy(p, rpl_text, VOCBUFSIZ - (p - cmdbuf));
+                    snprintf(p, VOCBUFSIZ - (p - cmdbuf), "%s", rpl_text);
                 }
                 else if (*cmd[i] == '"')
                 {
@@ -4344,7 +4344,7 @@ void voc_parse_disambig(voccxdef *ctx)
                 else
                 {
                     /* copy this word */
-                    strncpy(p, cmd[i], VOCBUFSIZ - (p - cmdbuf));
+                    snprintf(p, VOCBUFSIZ - (p - cmdbuf), "%s", cmd[i]);
                 }
 
                 /* move past this token */
@@ -6704,7 +6704,7 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                                (int)VOCBUFSIZ, 2) == VOCREAD_REDO)
                 {
                     /* they want to treat the input as a new command */
-                    strncpy(cmdbuf, disnewbuf, VOCBUFSIZ);
+                    snprintf(cmdbuf, VOCBUFSIZ, "%s", disnewbuf);
                     ctx->voccxunknown = 0;
                     ctx->voccxredo = TRUE;
                     err = VOCERR(43);
@@ -6757,7 +6757,7 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                      *   there's an unknown word or other problem - retry
                      *   the input as an entirely new command 
                      */
-                    strncpy(cmdbuf, disnewbuf, VOCBUFSIZ);
+                    snprintf(cmdbuf, VOCBUFSIZ, "%s", disnewbuf);
                     ctx->voccxunknown = 0;
                     ctx->voccxredo = TRUE;
                     err = VOCERR(2);
@@ -7102,7 +7102,7 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                         }
                         
                         /* retry as an entire new command */
-                        strncpy(cmdbuf, disnewbuf, VOCBUFSIZ);
+                        snprintf(cmdbuf, VOCBUFSIZ, "%s", disnewbuf);
                         ctx->voccxunknown = 0;
                         ctx->voccxredo = TRUE;
                         err = VOCERR(43);
@@ -7920,7 +7920,7 @@ static int voc1cmd(voccxdef *ctx, char *cmd[], char *cmdbuf,
 done:
     /* copy back the command if we need to redo */
     if (ctx->voccxredo && cmdbuf != origcmdbuf)
-        strncpy(origcmdbuf, cmdbuf, VOCBUFSIZ);
+        snprintf(origcmdbuf, VOCBUFSIZ, "%s", cmdbuf);
                     
     /* return the status */
     VOC_RETVAL(ctx, save_sp, retval);

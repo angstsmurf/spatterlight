@@ -495,7 +495,7 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
          */
         if (osfacc(infile))
         {
-            strncpy(inbuf, infile, OSFNMAX);
+            snprintf(inbuf, OSFNMAX, "%s", infile);
             os_defext(inbuf, "gam");
             infile = inbuf;
         }

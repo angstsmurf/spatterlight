@@ -1669,7 +1669,7 @@ void os_get_tmp_path(char *buf)
             size_t  len;
 
             /* use this value */
-            strncpy(buf, val, OSFNMAX);
+            snprintf(buf, OSFNMAX, "%s", val);
 
             /* add a backslash if necessary */
             if ((len = strlen(buf)) != 0
@@ -2162,13 +2162,13 @@ void *os_find_first_file(const char *dir, const char *pattern, char *outbuf,
      *   segments, using "*" as the default wildcard pattern if no
      *   explicit pattern was provided 
      */
-    strncpy(realpat, dir, OSFNMAX);
+    snprintf(realpat, OSFNMAX, "%s", dir);
     if ((l = strlen(realpat)) != 0 && realpat[l - 1] != '\\')
         realpat[l++] = '\\';
     if (pattern == 0)
         strncpy(realpat + l, "*.*", OSFNMAX - l);
     else
-        strncpy(realpat + l, pattern, OSFNMAX - l);
+        snprintf(realpat + l, OSFNMAX - l, "%s", pattern);
 
     /* find the last separator in the original path */
     for (p = realpat, lastsep = 0 ; *p != '\0' ; ++p)
@@ -2530,13 +2530,13 @@ void *os_find_first_file(const char *dir, const char *pattern, char *outbuf,
      *   segments, using "*" as the default wildcard pattern if no
      *   explicit pattern was provided 
      */
-    strncpy(realpat, dir, OSFNMAX);
+    snprintf(realpat, OSFNMAX, "%s", dir);
     if ((l = strlen(realpat)) != 0 && realpat[l - 1] != '\\')
         realpat[l++] = '\\';
     if (pattern == 0)
         strncpy(realpat + l, "*", OSFNMAX - l);
     else
-        strncpy(realpat + l, pattern, OSFNMAX - l);
+        snprintf(realpat + l, OSFNMAX - l, "%s", pattern);
 
     /* find the last separator in the original path */
     for (p = realpat, lastsep = 0 ; *p != '\0' ; ++p)
@@ -3031,13 +3031,13 @@ void *os_find_first_file(const char *dir, const char *pattern, char *outbuf,
      *   segments, using "*" as the default wildcard pattern if no
      *   explicit pattern was provided 
      */
-    strncpy(realpat, dir, OSFNMAX);
+    snprintf(realpat, OSFNMAX, "%s", dir);
     if ((l = strlen(realpat)) != 0 && realpat[l - 1] != '\\')
         realpat[l++] = '\\';
     if (pattern == 0)
         strncpy(realpat + l, "*", OSFNMAX - l);
     else
-        strncpy(realpat + l, pattern, OSFNMAX - l);
+        snprintf(realpat + l, OSFNMAX - l, "%s", pattern);
 
     /* find the last separator in the original path */
     for (p = realpat, lastsep = 0 ; *p != '\0' ; ++p)

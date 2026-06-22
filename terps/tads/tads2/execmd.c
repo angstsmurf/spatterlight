@@ -3590,7 +3590,7 @@ int execmd(voccxdef *ctx, objnum actor, objnum prep,
                  *   new command line - copy the new text to the command
                  *   buffer, set the 'redo' flag, and give up 
                  */
-                strncpy(cmdbuf, exenewcmd, VOCBUFSIZ);
+                snprintf(cmdbuf, VOCBUFSIZ, "%s", exenewcmd);
                 ctx->voccxredo = TRUE;
                 VOC_RETVAL(ctx, save_sp, 1);
             }
@@ -3669,7 +3669,7 @@ int execmd(voccxdef *ctx, objnum actor, objnum prep,
                 || (exenewlist[next] && !vocspec(exenewlist[next], VOCW_THEN)
                     && *exenewlist[next] != '\0'))
             {
-                strncpy(cmdbuf, exenewcmd, VOCBUFSIZ);
+                snprintf(cmdbuf, VOCBUFSIZ, "%s", exenewcmd);
                 ctx->voccxredo = TRUE;
                 VOC_RETVAL(ctx, save_sp, 1);
             }
