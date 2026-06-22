@@ -44,12 +44,11 @@
 
 long dumb_resample(DUMB_RESAMPLER *resampler, sample_t *dst, long dst_size,
                    VOLUME_PARAMETERS, float delta) {
-    int dt, inv_dt;
+    int dt;
     float VOLUME_VARIABLES;
     long done;
     long todo;
     LONG_LONG todo64;
-    int quality;
 
     if (!resampler || resampler->dir == 0)
         return 0;
@@ -59,15 +58,12 @@ long dumb_resample(DUMB_RESAMPLER *resampler, sample_t *dst, long dst_size,
     dt = (int)(delta * 65536.0 + 0.5);
     if (dt == 0 || dt == (int)-0x80000000)
         return 0;
-    inv_dt = (int)(1.0 / delta * 65536.0 + 0.5);
     SET_VOLUME_VARIABLES;
 
     if (VOLUMES_ARE_ZERO)
         dst = NULL;
 
     _dumb_init_cubic();
-
-    quality = resampler->quality;
 
     while (done < dst_size) {
         if (process_pickup(resampler)) {
@@ -101,7 +97,6 @@ long dumb_resample(DUMB_RESAMPLER *resampler, sample_t *dst, long dst_size,
             long pos = resampler->pos;
             int subpos = resampler->subpos;
             long diff = pos;
-            long overshot;
             if (resampler->dir < 0) {
                 if (!dst) {
                     /* Silence or simulation */
@@ -116,7 +111,6 @@ long dumb_resample(DUMB_RESAMPLER *resampler, sample_t *dst, long dst_size,
                         resampler_set_rate(resampler->fir_resampler[1], delta);
                         resampler->fir_resampler_ratio = delta;
                     }
-                    x = &src[pos * SRC_CHANNELS];
                     while (todo) {
                         while ((resampler_get_free_count(
                                     resampler->fir_resampler[0]) ||
@@ -128,9 +122,9 @@ long dumb_resample(DUMB_RESAMPLER *resampler, sample_t *dst, long dst_size,
 #endif
                                      )) &&
                                pos >= resampler->start) {
+                            x = &src[pos * SRC_CHANNELS];
                             POKE_FIR(0);
                             pos--;
-                            x -= SRC_CHANNELS;
                         }
                         if (!resampler_get_sample_count(
                                 resampler->fir_resampler[0]))
@@ -142,19 +136,21 @@ long dumb_resample(DUMB_RESAMPLER *resampler, sample_t *dst, long dst_size,
                     done -= todo;
                 }
                 diff = diff - pos;
-                overshot = resampler->start - pos - 1;
-                if (diff >= 3) {
-                    COPYSRC2(resampler->X, 0, overshot < 3, src, pos + 3);
-                    COPYSRC2(resampler->X, 1, overshot < 2, src, pos + 2);
-                    COPYSRC2(resampler->X, 2, overshot < 1, src, pos + 1);
-                } else if (diff >= 2) {
-                    COPYSRC(resampler->X, 0, resampler->X, 2);
-                    COPYSRC2(resampler->X, 1, overshot < 2, src, pos + 2);
-                    COPYSRC2(resampler->X, 2, overshot < 1, src, pos + 1);
-                } else if (diff >= 1) {
-                    COPYSRC(resampler->X, 0, resampler->X, 1);
-                    COPYSRC(resampler->X, 1, resampler->X, 2);
-                    COPYSRC2(resampler->X, 2, overshot < 1, src, pos + 1);
+                if (diff >= 1) {
+                    long overshot = resampler->start - pos - 1;
+                    if (diff >= 3) {
+                        COPYSRC2(resampler->X, 0, overshot < 3, src, pos + 3);
+                        COPYSRC2(resampler->X, 1, overshot < 2, src, pos + 2);
+                        COPYSRC2(resampler->X, 2, overshot < 1, src, pos + 1);
+                    } else if (diff >= 2) {
+                        COPYSRC(resampler->X, 0, resampler->X, 2);
+                        COPYSRC2(resampler->X, 1, overshot < 2, src, pos + 2);
+                        COPYSRC2(resampler->X, 2, overshot < 1, src, pos + 1);
+                    } else {
+                        COPYSRC(resampler->X, 0, resampler->X, 1);
+                        COPYSRC(resampler->X, 1, resampler->X, 2);
+                        COPYSRC2(resampler->X, 2, overshot < 1, src, pos + 1);
+                    }
                 }
             } else {
                 if (!dst) {
@@ -170,7 +166,6 @@ long dumb_resample(DUMB_RESAMPLER *resampler, sample_t *dst, long dst_size,
                         resampler_set_rate(resampler->fir_resampler[1], delta);
                         resampler->fir_resampler_ratio = delta;
                     }
-                    x = &src[pos * SRC_CHANNELS];
                     while (todo) {
                         while ((resampler_get_free_count(
                                     resampler->fir_resampler[0]) ||
@@ -182,9 +177,9 @@ long dumb_resample(DUMB_RESAMPLER *resampler, sample_t *dst, long dst_size,
 #endif
                                      )) &&
                                pos < resampler->end) {
+                            x = &src[pos * SRC_CHANNELS];
                             POKE_FIR(0);
                             pos++;
-                            x += SRC_CHANNELS;
                         }
                         if (!resampler_get_sample_count(
                                 resampler->fir_resampler[0]))
@@ -196,19 +191,21 @@ long dumb_resample(DUMB_RESAMPLER *resampler, sample_t *dst, long dst_size,
                     done -= todo;
                 }
                 diff = pos - diff;
-                overshot = pos - resampler->end;
-                if (diff >= 3) {
-                    COPYSRC2(resampler->X, 0, overshot < 3, src, pos - 3);
-                    COPYSRC2(resampler->X, 1, overshot < 2, src, pos - 2);
-                    COPYSRC2(resampler->X, 2, overshot < 1, src, pos - 1);
-                } else if (diff >= 2) {
-                    COPYSRC(resampler->X, 0, resampler->X, 2);
-                    COPYSRC2(resampler->X, 1, overshot < 2, src, pos - 2);
-                    COPYSRC2(resampler->X, 2, overshot < 1, src, pos - 1);
-                } else if (diff >= 1) {
-                    COPYSRC(resampler->X, 0, resampler->X, 1);
-                    COPYSRC(resampler->X, 1, resampler->X, 2);
-                    COPYSRC2(resampler->X, 2, overshot < 1, src, pos - 1);
+                if (diff >= 1) {
+                    long overshot = pos - resampler->end;
+                    if (diff >= 3) {
+                        COPYSRC2(resampler->X, 0, overshot < 3, src, pos - 3);
+                        COPYSRC2(resampler->X, 1, overshot < 2, src, pos - 2);
+                        COPYSRC2(resampler->X, 2, overshot < 1, src, pos - 1);
+                    } else if (diff >= 2) {
+                        COPYSRC(resampler->X, 0, resampler->X, 2);
+                        COPYSRC2(resampler->X, 1, overshot < 2, src, pos - 2);
+                        COPYSRC2(resampler->X, 2, overshot < 1, src, pos - 1);
+                    } else {
+                        COPYSRC(resampler->X, 0, resampler->X, 1);
+                        COPYSRC(resampler->X, 1, resampler->X, 2);
+                        COPYSRC2(resampler->X, 2, overshot < 1, src, pos - 1);
+                    }
                 }
             }
             resampler->pos = pos;
@@ -223,11 +220,6 @@ long dumb_resample(DUMB_RESAMPLER *resampler, sample_t *dst, long dst_size,
 void dumb_resample_get_current_sample(DUMB_RESAMPLER *resampler,
                                       VOLUME_PARAMETERS, sample_t *dst) {
     float VOLUME_VARIABLES;
-    SRCTYPE *src;
-    long pos;
-    int subpos;
-    int quality;
-    SRCTYPE *x;
 
     if (!resampler || resampler->dir == 0) {
         MIX_ZEROS(=);
@@ -249,19 +241,12 @@ void dumb_resample_get_current_sample(DUMB_RESAMPLER *resampler,
 
     _dumb_init_cubic();
 
-    quality = resampler->quality;
-
-    src = resampler->src;
-    pos = resampler->pos;
-    subpos = resampler->subpos;
-    x = resampler->X;
-
     if (resampler->dir < 0) {
-        HEAVYASSERT(pos >= resampler->start);
+        HEAVYASSERT(resampler->pos >= resampler->start);
         /* FIR resampling, backwards */
         PEEK_FIR;
     } else {
-        HEAVYASSERT(pos < resampler->end);
+        HEAVYASSERT(resampler->pos < resampler->end);
         /* FIR resampling, forwards */
         PEEK_FIR;
     }

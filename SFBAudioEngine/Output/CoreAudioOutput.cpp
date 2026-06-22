@@ -3,6 +3,8 @@
  * See https://github.com/sbooth/SFBAudioEngine/blob/master/LICENSE.txt for license information
  */
 
+#include <vector>
+
 #include "AudioFormat.h"
 #include "AudioPlayer.h"
 #include "CoreAudioOutput.h"
@@ -273,9 +275,9 @@ bool SFB::Audio::CoreAudioOutput::AddEffect(OSType componentType, OSType subType
 		return false;
 	}
 
-	AUNodeInteraction interactions [numInteractions];
+	std::vector<AUNodeInteraction> interactions(numInteractions);
 
-	result = AUGraphGetNodeInteractions(mAUGraph, mOutputNode, &numInteractions, interactions);
+	result = AUGraphGetNodeInteractions(mAUGraph, mOutputNode, &numInteractions, interactions.data());
 	if(noErr != result) {
 		NSLog("AUGraphGetNodeInteractions failed: %d", result);
 		return false;
@@ -465,9 +467,9 @@ bool SFB::Audio::CoreAudioOutput::RemoveEffect(AudioUnit effectUnit)
 		return false;
 	}
 
-	AUNodeInteraction interactions [numInteractions];
+	std::vector<AUNodeInteraction> interactions(numInteractions);
 
-	result = AUGraphGetNodeInteractions(mAUGraph, effectNode, &numInteractions, interactions);
+	result = AUGraphGetNodeInteractions(mAUGraph, effectNode, &numInteractions, interactions.data());
 	if(noErr != result) {
 		NSLog("AUGraphGetNodeInteractions failed: %d", result);
 
@@ -1838,7 +1840,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 		return false;
 	}
 
-	AUNodeInteraction interactions [interactionCount];
+	std::vector<AUNodeInteraction> interactions(interactionCount);
 
 	for(UInt32 i = 0; i < interactionCount; ++i) {
 		result = AUGraphGetInteractionInfo(mAUGraph, i, &interactions[i]);
@@ -2231,9 +2233,7 @@ bool SFB::Audio::CoreAudioOutput::SetOutputUnitChannelMap(const ChannelLayout& c
 			return false;
 		}
 
-		SInt32 channelMap [ outputFormat.mChannelsPerFrame ];
-		for(UInt32 i = 0; i <  outputFormat.mChannelsPerFrame; ++i)
-			channelMap[i] = -1;
+		std::vector<SInt32> channelMap(outputFormat.mChannelsPerFrame, -1);
 
 		// TODO: Verify the following statement to be true
 		// preferredChannelsForStereo uses 1-based indices
@@ -2241,12 +2241,12 @@ bool SFB::Audio::CoreAudioOutput::SetOutputUnitChannelMap(const ChannelLayout& c
 		channelMap[preferredChannelsForStereo[1] - 1] = channelLayout == ChannelLayout::Mono ? 0 : 1;
 
 #ifdef DEBUG
-        const char *cs = CFStringGetCStringPtr(StringForChannelMap(channelMap, outputFormat.mChannelsPerFrame), kCFStringEncodingMacRoman) ;
+        const char *cs = CFStringGetCStringPtr(StringForChannelMap(channelMap.data(), outputFormat.mChannelsPerFrame), kCFStringEncodingMacRoman) ;
         NSLog("Using stereo channel map: %s", cs);
 #endif
 
 		// Set the channel map
-		result = AudioUnitSetProperty(outputUnit, kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input, 0, channelMap, (UInt32)sizeof(channelMap));
+		result = AudioUnitSetProperty(outputUnit, kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input, 0, channelMap.data(), (UInt32)(channelMap.size() * sizeof(SInt32)));
 		if(noErr != result) {
 			NSLog("AudioUnitSetProperty (kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input) failed: %d", result);
 			return false;
@@ -2291,15 +2291,15 @@ bool SFB::Audio::CoreAudioOutput::SetOutputUnitChannelMap(const ChannelLayout& c
 		}
 
 		// Create the channel map
-		SInt32 channelMap [ channelCount ];
-		dataSize = (UInt32)sizeof(channelMap);
+		std::vector<SInt32> channelMap(channelCount);
+		dataSize = (UInt32)(channelCount * sizeof(SInt32));
 
 		const AudioChannelLayout *channelLayouts [] = {
 			channelLayout,
 			devicePreferredChannelLayout
 		};
 
-		result = AudioFormatGetProperty(kAudioFormatProperty_ChannelMap, sizeof(channelLayouts), channelLayouts, &dataSize, channelMap);
+		result = AudioFormatGetProperty(kAudioFormatProperty_ChannelMap, sizeof(channelLayouts), channelLayouts, &dataSize, channelMap.data());
 
 		if(devicePreferredChannelLayout) {
 			free(devicePreferredChannelLayout);
@@ -2312,12 +2312,12 @@ bool SFB::Audio::CoreAudioOutput::SetOutputUnitChannelMap(const ChannelLayout& c
 		}
 
 #ifdef DEBUG
-        const char *cs = CFStringGetCStringPtr(StringForChannelMap(channelMap, channelCount), kCFStringEncodingMacRoman) ;
+        const char *cs = CFStringGetCStringPtr(StringForChannelMap(channelMap.data(), channelCount), kCFStringEncodingMacRoman) ;
 		NSLog("Using multichannel channel map: %s", cs);
 #endif
 
 		// Set the channel map
-		result = AudioUnitSetProperty(outputUnit, kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input, 0, channelMap, (UInt32)sizeof(channelMap));
+		result = AudioUnitSetProperty(outputUnit, kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input, 0, channelMap.data(), (UInt32)(channelMap.size() * sizeof(SInt32)));
 		if(noErr != result) {
 			NSLog("AudioUnitSetProperty (kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input) failed: %d", result);
 			return false;

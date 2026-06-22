@@ -39,6 +39,9 @@ static int it_old_psm_read_samples(IT_SAMPLE **sample, DUMBFILE *f, int *num) {
     const unsigned char *sdata;
     long sample_bytes;
 
+    if (count <= 0)
+        return 0;
+
     buffer = malloc(count * 64);
     if (!buffer)
         goto error;
@@ -56,7 +59,7 @@ static int it_old_psm_read_samples(IT_SAMPLE **sample, DUMBFILE *f, int *num) {
             true_num = snum;
     }
 
-    if (true_num > count) {
+    if (true_num > count && true_num > 0) {
         IT_SAMPLE *meh = realloc(*sample, true_num * sizeof(*meh));
         if (!meh)
             goto error_fb;

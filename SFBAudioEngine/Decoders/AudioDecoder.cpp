@@ -184,17 +184,12 @@ SFB::Audio::Decoder::unique_ptr SFB::Audio::Decoder::CreateForInputSource(InputS
 SFB::Audio::Decoder::Decoder()
 	: mInputSource(nullptr), mRepresentedObject(nullptr), mRepresentedObjectCleanupBlock(nullptr), mIsOpen(false)
 {
-	memset(&mFormat, 0, sizeof(mFormat));
-	memset(&mSourceFormat, 0, sizeof(mSourceFormat));
 }
 
 SFB::Audio::Decoder::Decoder(InputSource::unique_ptr inputSource)
 	: mInputSource(std::move(inputSource)), mRepresentedObject(nullptr), mRepresentedObjectCleanupBlock(nullptr), mIsOpen(false)
 {
 	assert(nullptr != mInputSource);
-
-	memset(&mFormat, 0, sizeof(mFormat));
-	memset(&mSourceFormat, 0, sizeof(mSourceFormat));
 }
 
 SFB::Audio::Decoder::~Decoder()

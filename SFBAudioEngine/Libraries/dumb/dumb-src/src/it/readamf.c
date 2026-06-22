@@ -352,8 +352,7 @@ static DUMB_IT_SIGDATA *it_amf_load_sigdata(DUMBFILE *f, int *version) {
     if (ver >= 11) {
         int nchannels = (ver >= 13) ? 32 : 16;
         for (i = 0; i < nchannels; i++) {
-            signed char panpos = dumbfile_getc(f);
-            int pan = (panpos + 64) / 2;
+            int pan = ((signed char)dumbfile_getc(f) + 64) / 2;
             if (pan < 0)
                 pan = 0;
             else if (pan > 64)

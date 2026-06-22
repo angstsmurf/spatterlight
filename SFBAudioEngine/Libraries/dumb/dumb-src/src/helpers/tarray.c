@@ -98,10 +98,15 @@ void timekeeping_array_reset(void *array, size_t loop_start) {
     size_t *size = (size_t *)array;
     DUMB_IT_ROW_TIME *s = (DUMB_IT_ROW_TIME *)(size + 1);
 
-    DUMB_IT_ROW_TIME *s_loop_start = s + loop_start;
+    DUMB_IT_ROW_TIME *s_loop_start;
     LONG_LONG loop_start_time;
 
-    if (loop_start >= *size || s_loop_start->count < 1)
+    if (loop_start >= *size)
+        return;
+
+    s_loop_start = s + loop_start;
+
+    if (s_loop_start->count < 1)
         return;
 
 #ifndef FULL_TIMEKEEPING

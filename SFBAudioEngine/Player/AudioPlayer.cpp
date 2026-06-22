@@ -581,8 +581,8 @@ bool SFB::Audio::Player::GetPlaybackTime(CFTimeInterval& currentTime, CFTimeInte
 	SInt64 currentFrame		= (-1 == frameToSeek ? framesRendered : frameToSeek);
 	SInt64 totalFrames		= currentDecoderState->mTotalFrames;
 	Float64 sampleRate		= currentDecoderState->mDecoder->GetFormat().mSampleRate;
-	currentTime				= currentFrame / sampleRate;
-	totalTime				= totalFrames / sampleRate;
+	currentTime				= (Float64)currentFrame / sampleRate;
+	totalTime				= (Float64)totalFrames / sampleRate;
 
 	return true;
 }
@@ -600,8 +600,8 @@ bool SFB::Audio::Player::GetPlaybackPositionAndTime(SInt64& currentFrame, SInt64
 	currentFrame		= (-1 == frameToSeek ? framesRendered : frameToSeek);
 	totalFrames			= currentDecoderState->mTotalFrames;
 	Float64 sampleRate	= currentDecoderState->mDecoder->GetFormat().mSampleRate;
-	currentTime			= currentFrame / sampleRate;
-	totalTime			= totalFrames / sampleRate;
+	currentTime			= (Float64)currentFrame / sampleRate;
+	totalTime			= (Float64)totalFrames / sampleRate;
 
 	return true;
 }
@@ -678,7 +678,7 @@ bool SFB::Audio::Player::SeekToPosition(float position)
 		return false;
 
 	SInt64 totalFrames		= currentDecoderState->mTotalFrames;
-	SInt64 desiredFrame		= (SInt64)(position * totalFrames);
+	SInt64 desiredFrame		= (SInt64)((double)position * (double)totalFrames);
 
 	return SeekToFrame(std::max(0LL, std::min(desiredFrame, totalFrames - 1)));
 }

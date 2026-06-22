@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <functional>
 #include <stdexcept>
+#include <vector>
 
 #include "AudioChannelLayout.h"
 
@@ -306,16 +307,15 @@ bool SFB::Audio::ChannelLayout::MapToLayout(const ChannelLayout& outputLayout, s
 	if(0 == outputChannelCount)
 		return false;
 
-	SInt32 rawChannelMap [outputChannelCount];
-	UInt32 propertySize = (UInt32)sizeof(rawChannelMap);
-	OSStatus result = AudioFormatGetProperty(kAudioFormatProperty_ChannelMap, sizeof(layouts), (void *)layouts, &propertySize, &rawChannelMap);
+	std::vector<SInt32> rawChannelMap(outputChannelCount);
+	UInt32 propertySize = (UInt32)(outputChannelCount * sizeof(SInt32));
+	OSStatus result = AudioFormatGetProperty(kAudioFormatProperty_ChannelMap, sizeof(layouts), (void *)layouts, &propertySize, rawChannelMap.data());
 
 	if(noErr != result)
 		return false;
 	//fprintf(stderr, "AudioFormatGetProperty (kAudioFormatProperty_ChannelMap) failed: %d\n", result);
 
-	auto start = (SInt32 *)rawChannelMap;
-	channelMap.assign(start, start + outputChannelCount);
+	channelMap.assign(rawChannelMap.begin(), rawChannelMap.end());
 
 	return true;
 }

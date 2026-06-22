@@ -128,13 +128,13 @@ static int decompress8(DUMBFILE *f, signed char *data, int len, int it215,
             val = (word)readbits(bitwidth, &crap);
             // Check for bit width change:
 
-            if (bitwidth < 7) { // Method 1:
+            if (bitwidth >= 1 && bitwidth < 7) { // Method 1:
                 if (val == (1 << (bitwidth - 1))) {
                     val = (word)readbits(3, &crap) + 1;
                     bitwidth = (val < bitwidth) ? val : val + 1;
                     continue;
                 }
-            } else if (bitwidth < 9) { // Method 2
+            } else if (bitwidth >= 1 && bitwidth < 9) { // Method 2
                 byte border = (0xFF >> (9 - bitwidth)) - 4;
 
                 if (val > border && val <= (border + 8)) {
@@ -211,7 +211,7 @@ static int decompress16(DUMBFILE *f, short *data, int len, int it215,
             val = readbits(bitwidth, &crap);
             // Check for bit width change:
 
-            if (bitwidth < 7) { // Method 1:
+            if (bitwidth >= 1 && bitwidth < 7) { // Method 1:
                 if (val == (1 << (bitwidth - 1))) {
                     val = readbits(4, &crap) + 1;
                     bitwidth = (val < bitwidth) ? val : val + 1;
@@ -644,7 +644,7 @@ static long it_read_sample_data(IT_SAMPLE *sample, unsigned char convert,
     if (sample->flags & IT_SAMPLE_STEREO)
         datasize <<= 1;
 
-    sample->data = malloc(datasize * (sample->flags & IT_SAMPLE_16BIT ? 2 : 1));
+    sample->data = calloc(datasize, (sample->flags & IT_SAMPLE_16BIT ? 2 : 1));
     if (!sample->data)
         return -1;
 
@@ -971,7 +971,7 @@ static int it_component_compare(const void *e1, const void *e2) {
 static sigdata_t *it_load_sigdata(DUMBFILE *f) {
     DUMB_IT_SIGDATA *sigdata;
 
-    int cwt, cmwt;
+    int cmwt;
     int special;
     int message_length, message_offset;
 
@@ -1014,7 +1014,7 @@ static sigdata_t *it_load_sigdata(DUMBFILE *f) {
     sigdata->n_samples = dumbfile_igetw(f);
     sigdata->n_patterns = dumbfile_igetw(f);
 
-    cwt = dumbfile_igetw(f);
+    dumbfile_skip(f, 2); /* cwt (tracker version) - not used */
     cmwt = dumbfile_igetw(f);
 
     sigdata->flags = dumbfile_igetw(f);

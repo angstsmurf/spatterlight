@@ -766,7 +766,7 @@ static void dradb4(int ido,int l1,float *cc,float *ch,float *wa1,
     ch[t5]=tr2+tr3;
     ch[t5+=t0]=tr1-tr4;
     ch[t5+=t0]=tr2-tr3;
-    ch[t5+=t0]=tr1+tr4;
+    ch[t5+t0]=tr1+tr4;
     t1+=ido;
     t3+=t2;
   }
@@ -828,7 +828,7 @@ static void dradb4(int ido,int l1,float *cc,float *ch,float *wa1,
     ch[t5]=tr2+tr2;
     ch[t5+=t0]=sqrt2*(tr1-ti1);
     ch[t5+=t0]=ti2+ti2;
-    ch[t5+=t0]=-sqrt2*(tr1+ti1);
+    ch[t5+t0]=-sqrt2*(tr1+ti1);
 
     t3+=ido;
     t1+=t2;

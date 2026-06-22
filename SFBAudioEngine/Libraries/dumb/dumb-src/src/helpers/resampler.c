@@ -33,15 +33,13 @@
 
 #include "internal/resampler.h"
 
-enum { RESAMPLER_SHIFT = 10 };
-enum { RESAMPLER_SHIFT_EXTRA = 8 };
-enum { RESAMPLER_RESOLUTION = 1 << RESAMPLER_SHIFT };
-enum {
-    RESAMPLER_RESOLUTION_EXTRA = 1 << (RESAMPLER_SHIFT + RESAMPLER_SHIFT_EXTRA)
-};
-enum { SINC_WIDTH = 16 };
-enum { SINC_SAMPLES = RESAMPLER_RESOLUTION * SINC_WIDTH };
-enum { CUBIC_SAMPLES = RESAMPLER_RESOLUTION * 4 };
+#define RESAMPLER_SHIFT 10
+#define RESAMPLER_SHIFT_EXTRA 8
+#define RESAMPLER_RESOLUTION (1 << RESAMPLER_SHIFT)
+#define RESAMPLER_RESOLUTION_EXTRA (1 << (RESAMPLER_SHIFT + RESAMPLER_SHIFT_EXTRA))
+#define SINC_WIDTH 16
+#define SINC_SAMPLES (RESAMPLER_RESOLUTION * SINC_WIDTH)
+#define CUBIC_SAMPLES (RESAMPLER_RESOLUTION * 4)
 
 static const float RESAMPLER_BLEP_CUTOFF = 0.90f;
 static const float RESAMPLER_BLAM_CUTOFF = 0.93f;
@@ -52,7 +50,7 @@ ALIGNED static float cubic_lut[CUBIC_SAMPLES];
 static float sinc_lut[SINC_SAMPLES + 1];
 static float window_lut[SINC_SAMPLES + 1];
 
-enum { resampler_buffer_size = SINC_WIDTH * 4 };
+#define resampler_buffer_size (SINC_WIDTH * 4)
 
 static int fEqual(const float b, const float a) { return fabs(a - b) < 1.0e-6; }
 
@@ -347,7 +345,8 @@ void resampler_write_sample_fixed(void *_r, int s, unsigned char depth) {
 
     if (r->write_filled < resampler_buffer_size) {
         float s32 = s;
-        s32 /= (double)(1 << (depth - 1));
+        if (depth >= 1)
+            s32 /= (double)(1 << (depth - 1));
 
         r->buffer_in[r->write_pos] = s32;
         r->buffer_in[r->write_pos + resampler_buffer_size] = s32;

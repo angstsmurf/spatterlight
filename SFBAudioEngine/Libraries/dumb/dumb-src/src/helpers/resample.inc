@@ -65,10 +65,14 @@ void dumb_reset_resampler(DUMB_RESAMPLER *resampler, SRCTYPE *src,
         resampler->X[i] = 0;
     resampler->overshot = -1;
     resampler->fir_resampler_ratio = 0;
-    resampler_clear(resampler->fir_resampler[0]);
-    resampler_clear(resampler->fir_resampler[1]);
-    resampler_set_quality(resampler->fir_resampler[0], resampler->quality);
-    resampler_set_quality(resampler->fir_resampler[1], resampler->quality);
+    if (resampler->fir_resampler[0])
+        resampler_clear(resampler->fir_resampler[0]);
+    if (resampler->fir_resampler[1])
+        resampler_clear(resampler->fir_resampler[1]);
+    if (resampler->fir_resampler[0])
+        resampler_set_quality(resampler->fir_resampler[0], resampler->quality);
+    if (resampler->fir_resampler[1])
+        resampler_set_quality(resampler->fir_resampler[1], resampler->quality);
 }
 
 DUMB_RESAMPLER *dumb_start_resampler(SRCTYPE *src, int src_channels, long pos,
@@ -76,6 +80,17 @@ DUMB_RESAMPLER *dumb_start_resampler(SRCTYPE *src, int src_channels, long pos,
     DUMB_RESAMPLER *resampler = malloc(sizeof(*resampler));
     if (!resampler)
         return NULL;
+    resampler->fir_resampler[0] = resampler_create();
+    if (!resampler->fir_resampler[0]) {
+        free(resampler);
+        return NULL;
+    }
+    resampler->fir_resampler[1] = resampler_create();
+    if (!resampler->fir_resampler[1]) {
+        resampler_delete(resampler->fir_resampler[0]);
+        free(resampler);
+        return NULL;
+    }
     dumb_reset_resampler(resampler, src, src_channels, pos, start, end,
                          quality);
     return resampler;
@@ -278,8 +293,11 @@ DUMB_RESAMPLER *dumb_start_resampler(SRCTYPE *src, int src_channels, long pos,
 #include "resamp2.inc"
 
 void dumb_end_resampler(DUMB_RESAMPLER *resampler) {
-    if (resampler)
+    if (resampler) {
+        resampler_delete(resampler->fir_resampler[1]);
+        resampler_delete(resampler->fir_resampler[0]);
         free(resampler);
+    }
 }
 
 #undef FIR

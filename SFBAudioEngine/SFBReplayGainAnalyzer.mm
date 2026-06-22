@@ -210,7 +210,7 @@ namespace {
 				break;
 		}
 
-		return (float)(PINK_REF - i / STEPS_per_dB);
+		return (float)(PINK_REF - (double)i / STEPS_per_dB);
 	}
 
 }
@@ -323,7 +323,7 @@ namespace {
 		return NO;
 	}
 
-	Float64 replayGainSampleRate = [SFBReplayGainAnalyzer bestReplayGainSampleRateForSampleRate:decoderSampleRate];
+	Float64 replayGainSampleRate = (Float64)[SFBReplayGainAnalyzer bestReplayGainSampleRateForSampleRate:decoderSampleRate];
 
 	if(!(1 == inputFormat.mChannelsPerFrame || 2 == inputFormat.mChannelsPerFrame)) {
 		if(error)
@@ -337,15 +337,15 @@ namespace {
 	}
 
 	AudioStreamBasicDescription outputFormat = {
+		.mSampleRate			= replayGainSampleRate,
 		.mFormatID				= kAudioFormatLinearPCM,
 		.mFormatFlags			= kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved,
-		.mReserved				= 0,
-		.mSampleRate			= replayGainSampleRate,
+		.mBytesPerPacket		= 4,
+		.mFramesPerPacket		= 1,
+		.mBytesPerFrame			= 4,
 		.mChannelsPerFrame		= inputFormat.mChannelsPerFrame,
 		.mBitsPerChannel		= 32,
-		.mBytesPerPacket		= 4,
-		.mBytesPerFrame			= 4,
-		.mFramesPerPacket		= 1
+		.mReserved				= 0
 	};
 
 	// Will NSAssert() if an invalid sample rate is passed
@@ -550,7 +550,7 @@ namespace {
 			NSAssert(0, @"Unsupported sample rate %ld", (long)sampleRate);
 	}
 
-	_sampleWindow		= (unsigned int)ceil(sampleRate * RMS_WINDOW_TIME);
+	_sampleWindow		= (unsigned int)ceil((double)sampleRate * RMS_WINDOW_TIME);
 
 	_lsum				= 0.;
 	_rsum				= 0.;
@@ -615,7 +615,7 @@ namespace {
 
 		/* Get the Root Mean Square (RMS) for this set of samples */
 		if(_totsamp == _sampleWindow) {
-			double  val  = STEPS_per_dB * 10. * log10((_lsum + _rsum) / _totsamp * 0.5 + 1.e-37);
+			double  val  = STEPS_per_dB * 10. * log10((_lsum + _rsum) / (double)_totsamp * 0.5 + 1.e-37);
 			int     ival = (int) val;
 			if(ival < 0)
 				ival = 0;

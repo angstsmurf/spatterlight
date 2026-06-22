@@ -705,6 +705,7 @@ void _vp_noisemask(vorbis_look_psy *p,
 
   int i,n=p->n;
   float *work=alloca(n*sizeof(*work));
+  memset(work, 0, n*sizeof(*work));
 
   bark_noise_hybridmp(n,p->bark,logmdct,logmask,
                       140.,-1);
@@ -1047,14 +1048,18 @@ void _vp_couple_quantize_normalize(int blobno,
 
   /* energy surplus/defecit tracking */
   float  *acc   = alloca((ch+vi->coupling_steps)*sizeof(*acc));
+  memset(acc, 0, (ch+vi->coupling_steps)*sizeof(*acc));
 
   /* The threshold of a stereo is changed with the size of n */
   if(n > 1000)
     postpoint=stereo_threshholds_limited[g->coupling_postpointamp[blobno]];
 
   raw[0]   = alloca(ch*partition*sizeof(**raw));
+  memset(raw[0],   0, ch*partition*sizeof(**raw));
   quant[0] = alloca(ch*partition*sizeof(**quant));
+  memset(quant[0], 0, ch*partition*sizeof(**quant));
   floor[0] = alloca(ch*partition*sizeof(**floor));
+  memset(floor[0], 0, ch*partition*sizeof(**floor));
   flag[0]  = alloca(ch*partition*sizeof(**flag));
 
   for(i=1;i<ch;i++){
@@ -1063,8 +1068,6 @@ void _vp_couple_quantize_normalize(int blobno,
     floor[i] = &floor[0][partition*i];
     flag[i]  = &flag[0][partition*i];
   }
-  for(i=0;i<ch+vi->coupling_steps;i++)
-    acc[i]=0.f;
 
   for(i=0;i<n;i+=partition){
     int k,j,jn = partition > n-i ? n-i : partition;

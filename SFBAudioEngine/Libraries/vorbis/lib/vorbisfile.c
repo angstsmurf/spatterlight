@@ -767,7 +767,6 @@ static int _fetch_and_process_packet(OggVorbis_File *vf,
     }
 
     if(vf->ready_state>=OPENED){
-      ogg_int64_t ret;
 
       while(1){
         /* the loop is not strictly necessary, but there's no sense in
@@ -777,7 +776,7 @@ static int _fetch_and_process_packet(OggVorbis_File *vf,
            we get one with the correct serialno */
 
         if(!readp)return(0);
-        if((ret=_get_next_page(vf,&og,-1))<0){
+        if(_get_next_page(vf,&og,-1)<0){
           return(OV_EOF); /* eof. leave unitialized */
         }
 
@@ -858,7 +857,6 @@ static int _fetch_and_process_packet(OggVorbis_File *vf,
           if(ret)return(ret);
           vf->current_serialno=vf->os.serialno;
           vf->current_link++;
-          link=0;
         }
       }
     }
@@ -1650,7 +1648,7 @@ int ov_pcm_seek_page(OggVorbis_File *vf,ogg_int64_t pos){
           vf->pcm_offset+=total;
           break;
         }else
-          result=ogg_stream_packetout(&vf->os,NULL);
+          (void)ogg_stream_packetout(&vf->os,NULL);
       }
     }
   }
@@ -2215,8 +2213,8 @@ static int _ov_initprime(OggVorbis_File *vf){
 /* grab enough data for lapping from vf; this may be in the form of
    unreturned, already-decoded pcm, remaining PCM we will need to
    decode, or synthetic postextrapolation from last packets. */
-static void _ov_getlap(OggVorbis_File *vf,vorbis_info *vi,vorbis_dsp_state *vd,
-                       float **lappcm,int lapsize){
+static void _ov_getlap(OggVorbis_File *vf,vorbis_dsp_state *vd,
+                       float **lappcm,int lapsize,int nchannels){
   int lapcount=0,i;
   float **pcm;
 
@@ -2225,7 +2223,7 @@ static void _ov_getlap(OggVorbis_File *vf,vorbis_info *vi,vorbis_dsp_state *vd,
     int samples=vorbis_synthesis_pcmout(vd,&pcm);
     if(samples){
       if(samples>lapsize-lapcount)samples=lapsize-lapcount;
-      for(i=0;i<vi->channels;i++)
+      for(i=0;i<nchannels;i++)
         memcpy(lappcm[i]+lapcount,pcm[i],sizeof(**pcm)*samples);
       lapcount+=samples;
       vorbis_synthesis_read(vd,samples);
@@ -2241,14 +2239,12 @@ static void _ov_getlap(OggVorbis_File *vf,vorbis_info *vi,vorbis_dsp_state *vd,
        from the last packet */
     int samples=vorbis_synthesis_lapout(&vf->vd,&pcm);
     if(samples==0){
-      for(i=0;i<vi->channels;i++)
-        memset(lappcm[i]+lapcount,0,sizeof(**pcm)*lapsize-lapcount);
-      lapcount=lapsize;
+      for(i=0;i<nchannels;i++)
+        memset(lappcm[i]+lapcount,0,sizeof(float)*(lapsize-lapcount));
     }else{
       if(samples>lapsize-lapcount)samples=lapsize-lapcount;
-      for(i=0;i<vi->channels;i++)
+      for(i=0;i<nchannels;i++)
         memcpy(lappcm[i]+lapcount,pcm[i],sizeof(**pcm)*samples);
-      lapcount+=samples;
     }
   }
 }
@@ -2260,7 +2256,7 @@ int ov_crosslap(OggVorbis_File *vf1, OggVorbis_File *vf2){
   float **lappcm;
   float **pcm;
   const float *w1,*w2;
-  int n1,n2,i,ret,hs1,hs2;
+  int n1,n2,ch1,i,ret,hs1,hs2;
 
   if(vf1==vf2)return(0); /* degenerate case */
   if(vf1->ready_state<OPENED)return(OV_EINVAL);
@@ -2278,18 +2274,21 @@ int ov_crosslap(OggVorbis_File *vf1, OggVorbis_File *vf2){
   vi1=ov_info(vf1,-1);
   vi2=ov_info(vf2,-1);
   hs1=ov_halfrate_p(vf1);
+  if(hs1<0)return(hs1);
   hs2=ov_halfrate_p(vf2);
+  if(hs2<0)return(hs2);
 
-  lappcm=alloca(sizeof(*lappcm)*vi1->channels);
+  ch1=vi1->channels;
+  lappcm=alloca(sizeof(*lappcm)*ch1);
   n1=vorbis_info_blocksize(vi1,0)>>(1+hs1);
   n2=vorbis_info_blocksize(vi2,0)>>(1+hs2);
   w1=vorbis_window(&vf1->vd,0);
   w2=vorbis_window(&vf2->vd,0);
 
-  for(i=0;i<vi1->channels;i++)
+  for(i=0;i<ch1;i++)
     lappcm[i]=alloca(sizeof(**lappcm)*n1);
 
-  _ov_getlap(vf1,vi1,&vf1->vd,lappcm,n1);
+  _ov_getlap(vf1,&vf1->vd,lappcm,n1,ch1);
 
   /* have a lapping buffer from vf1; now to splice it into the lapping
      buffer of vf2 */
@@ -2333,7 +2332,7 @@ static int _ov_64_seek_lap(OggVorbis_File *vf,ogg_int64_t pos,
   lappcm=alloca(sizeof(*lappcm)*ch1);
   for(i=0;i<ch1;i++)
     lappcm[i]=alloca(sizeof(**lappcm)*n1);
-  _ov_getlap(vf,vi,&vf->vd,lappcm,n1);
+  _ov_getlap(vf,&vf->vd,lappcm,n1,ch1);
 
   /* have lapping data; seek and prime the buffer */
   ret=localseek(vf,pos);
@@ -2394,7 +2393,7 @@ static int _ov_d_seek_lap(OggVorbis_File *vf,double pos,
   lappcm=alloca(sizeof(*lappcm)*ch1);
   for(i=0;i<ch1;i++)
     lappcm[i]=alloca(sizeof(**lappcm)*n1);
-  _ov_getlap(vf,vi,&vf->vd,lappcm,n1);
+  _ov_getlap(vf,&vf->vd,lappcm,n1,ch1);
 
   /* have lapping data; seek and prime the buffer */
   ret=localseek(vf,pos);

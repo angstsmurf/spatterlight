@@ -90,7 +90,6 @@
 		738836050B18FFF8005C7A69 /* registry.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8F65503389C830112CE8F /* registry.c */; };
 		738836060B18FFFD005C7A69 /* codebook.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8F62303389C830112CE8F /* codebook.c */; };
 		738836070B190001005C7A69 /* sharedbook.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8F65903389C830112CE8F /* sharedbook.c */; };
-		738836080B190008005C7A69 /* lookup.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8F62C03389C830112CE8F /* lookup.c */; };
 		738836090B19000B005C7A69 /* bitrate.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8F60D03389C830112CE8F /* bitrate.c */; };
 		738836140B1904A5005C7A69 /* vorbisenc.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8F65E03389C830112CE8F /* vorbisenc.c */; };
 		738836230B190601005C7A69 /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8F65F03389C830112CE8F /* vorbisfile.c */; };
@@ -617,7 +616,6 @@
 				738836050B18FFF8005C7A69 /* registry.c in Sources */,
 				738836060B18FFFD005C7A69 /* codebook.c in Sources */,
 				738836070B190001005C7A69 /* sharedbook.c in Sources */,
-				738836080B190008005C7A69 /* lookup.c in Sources */,
 				738836090B19000B005C7A69 /* bitrate.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

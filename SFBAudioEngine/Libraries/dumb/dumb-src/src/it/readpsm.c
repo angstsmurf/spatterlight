@@ -61,7 +61,6 @@ static int it_psm_process_sample(IT_SAMPLE *sample, const unsigned char *data,
     size_t length;
     int loopstart;
     int loopend;
-    int panpos;
     int defvol;
     int samplerate;
 
@@ -81,7 +80,6 @@ static int it_psm_process_sample(IT_SAMPLE *sample, const unsigned char *data,
                     (data[0x3D] << 24);
         loopend = data[0x3E] | (data[0x3F] << 8) | (data[0x40] << 16) |
                   (data[0x41] << 24);
-        panpos = data[0x43];
         defvol = data[0x44];
         samplerate = data[0x49] | (data[0x4A] << 8) | (data[0x4B] << 16) |
                      (data[0x4C] << 24);
@@ -96,7 +94,6 @@ static int it_psm_process_sample(IT_SAMPLE *sample, const unsigned char *data,
                     (data[0x41] << 24);
         loopend = data[0x42] | (data[0x43] << 8) | (data[0x44] << 16) |
                   (data[0x45] << 24);
-        panpos = data[0x48];
         defvol = data[0x49];
         samplerate = data[0x4E] | (data[0x4F] << 8) | (data[0x50] << 16) |
                      (data[0x51] << 24);
@@ -530,7 +527,6 @@ static DUMB_IT_SIGDATA *it_psm_load_sigdata(DUMBFILE *f, int *ver,
     int n_patterns = 0;
 
     long first_pattern_line = -1;
-    int first_pattern;
 
     int speed, bpm;
     unsigned char pan[64];
@@ -895,7 +891,6 @@ static DUMB_IT_SIGDATA *it_psm_load_sigdata(DUMBFILE *f, int *ver,
                                 goto error_ev;
                             if (first_pattern_line < 0) {
                                 first_pattern_line = n;
-                                first_pattern = o;
                             }
                             e->data[0] = n_patterns;
                             e->data[1] = n_patterns >> 8;
@@ -912,7 +907,6 @@ static DUMB_IT_SIGDATA *it_psm_load_sigdata(DUMBFILE *f, int *ver,
                                 goto error_ev;
                             if (first_pattern_line < 0) {
                                 first_pattern_line = n;
-                                first_pattern = o;
                             }
                             e->data[0] = n_patterns;
                             e->data[1] = n_patterns >> 8;

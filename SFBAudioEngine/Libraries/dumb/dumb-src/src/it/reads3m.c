@@ -246,7 +246,6 @@ static int it_s3m_read_pattern(IT_PATTERN *pattern, DUMBFILE *f,
 
 #if 1
         static const unsigned char used[8] = {0, 2, 1, 3, 2, 4, 3, 5};
-        channel = b & 31;
         b >>= 5;
         pattern->n_entries++;
         if (b) {
@@ -431,7 +430,7 @@ static int s3m_component_compare(const void *e1, const void *e2) {
 static DUMB_IT_SIGDATA *it_s3m_load_sigdata(DUMBFILE *f, int *cwtv) {
     DUMB_IT_SIGDATA *sigdata;
 
-    int flags, ffi;
+    int ffi;
     int default_pan_present;
 
     int master_volume;
@@ -513,7 +512,7 @@ static DUMB_IT_SIGDATA *it_s3m_load_sigdata(DUMBFILE *f, int *cwtv) {
             sigdata->pattern[n].entry = NULL;
     }
 
-    flags = dumbfile_igetw(f);
+    dumbfile_skip(f, 2);
 
     *cwtv = dumbfile_igetw(f);
 

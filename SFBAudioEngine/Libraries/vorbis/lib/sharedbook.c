@@ -364,7 +364,7 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
     qsort(codep,n,sizeof(*codep),sort32a);
 
     sortindex=alloca(n*sizeof(*sortindex));
-    c->codelist=_ogg_malloc(n*sizeof(*c->codelist));
+    c->codelist=_ogg_calloc(n,sizeof(*c->codelist));
     /* the index is a reverse index */
     for(i=0;i<n;i++){
       int position=codep[i]-codes;
@@ -382,7 +382,7 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
       if(s->lengthlist[i]>0)
         c->dec_index[sortindex[n++]]=i;
 
-    c->dec_codelengths=_ogg_malloc(n*sizeof(*c->dec_codelengths));
+    c->dec_codelengths=_ogg_calloc(n,sizeof(*c->dec_codelengths));
     c->dec_maxlength=0;
     for(n=0,i=0;i<s->entries;i++)
       if(s->lengthlist[i]>0){
@@ -424,15 +424,15 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
         for(i=0;i<tabn;i++){
           ogg_uint32_t word=(ogg_uint32_t)i<<(32-c->dec_firsttablen);
           if(c->dec_firsttable[bitreverse(word)]==0){
-            while((lo+1)<n && c->codelist[lo+1]<=word)lo++;
-            while(    hi<n && word>=(c->codelist[hi]&mask))hi++;
+            while((lo+1)<c->used_entries && c->codelist[lo+1]<=word)lo++;
+            while(    hi<c->used_entries && word>=(c->codelist[hi]&mask))hi++;
 
             /* we only actually have 15 bits per hint to play with here.
                In order to overflow gracefully (nothing breaks, efficiency
                just drops), encode as the difference from the extremes. */
             {
               unsigned long loval=lo;
-              unsigned long hival=n-hi;
+              unsigned long hival=c->used_entries-hi;
 
               if(loval>0x7fff)loval=0x7fff;
               if(hival>0x7fff)hival=0x7fff;

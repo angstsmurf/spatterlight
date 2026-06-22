@@ -171,7 +171,6 @@ static int it_ptm_read_pattern(IT_PATTERN *pattern, DUMBFILE *f,
 
 #if 1
         static const unsigned char used[8] = {0, 2, 2, 4, 1, 3, 3, 5};
-        channel = b & 31;
         b >>= 5;
         pattern->n_entries++;
         if (b) {

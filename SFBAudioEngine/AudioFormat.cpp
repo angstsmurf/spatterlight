@@ -30,12 +30,12 @@ namespace {
 
 SFB::Audio::AudioFormat::AudioFormat()
 {
-    memset(this, 0, sizeof(AudioStreamBasicDescription));
+    static_cast<AudioStreamBasicDescription&>(*this) = {};
 }
 
 SFB::Audio::AudioFormat::AudioFormat(const AudioStreamBasicDescription& format)
 {
-    memcpy(this, &format, sizeof(AudioStreamBasicDescription));
+    static_cast<AudioStreamBasicDescription&>(*this) = format;
 }
 
 SFB::Audio::AudioFormat::AudioFormat(CommonPCMFormat format, Float32 sampleRate, UInt32 channelsPerFrame, bool isInterleaved)
@@ -43,7 +43,7 @@ SFB::Audio::AudioFormat::AudioFormat(CommonPCMFormat format, Float32 sampleRate,
 	assert(0 < sampleRate);
 	assert(0 < channelsPerFrame);
 
-	memset(this, 0, sizeof(AudioStreamBasicDescription));
+	static_cast<AudioStreamBasicDescription&>(*this) = {};
 
 	switch(format) {
 		case kCommonPCMFormatFloat32:
@@ -63,12 +63,12 @@ SFB::Audio::AudioFormat::AudioFormat(CommonPCMFormat format, Float32 sampleRate,
 
 SFB::Audio::AudioFormat::AudioFormat(const AudioFormat& rhs)
 {
-	memcpy(this, &rhs, sizeof(AudioStreamBasicDescription));
+	static_cast<AudioStreamBasicDescription&>(*this) = rhs;
 }
 
 SFB::Audio::AudioFormat& SFB::Audio::AudioFormat::operator=(const AudioFormat& rhs)
 {
-	memcpy(this, &rhs, sizeof(AudioStreamBasicDescription));
+	static_cast<AudioStreamBasicDescription&>(*this) = rhs;
 	return *this;
 }
 
