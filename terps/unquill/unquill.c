@@ -1325,11 +1325,8 @@ static char **split_capbuf_lines(int *out_n)
 	{
 	    size_t len = i - start;
 	    char  *ln  = malloc(len + 1);
-	    if (ln)
-	    {
-		memcpy(ln, capbuf + start, len);
-		ln[len] = '\0';
-	    }
+	    memcpy(ln, capbuf + start, len);
+	    ln[len] = '\0';
 	    lines[li++] = ln;
 	    start = i + 1;
 	}
@@ -1405,13 +1402,18 @@ static int status_render(void)
 		lead++;
 	    while (ln_len > lead && ln[ln_len - 1] == ' ')
 		ln_len--;
-	    size_t content = ln_len - lead;
+	    size_t content = ln_len > lead ? ln_len - lead : 0;
 	    int col = ((int)width - (int)content) / 2;
 	    if (col < 0)
 		col = 0;
 	    glk_window_move_cursor(statuswin, (glui32)col, (glui32)row);
-	    for (size_t j = 0; j < content; j++)
-		glk_put_char(ln[lead + j]);
+	    if (content > 0)
+	    {
+		char saved = ln[ln_len];
+		ln[ln_len] = '\0';
+		glk_put_string(ln + lead);
+		ln[ln_len] = saved;
+	    }
 	}
 	else
 	{
