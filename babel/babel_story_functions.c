@@ -299,7 +299,7 @@ static char *get_biblio(void)
             sprintf(buffer, "\"%s\" ",t);
             *bibe='<';
         }
-        else strncpy(buffer, "<no title found> ", sizeof(buffer));
+        else snprintf(buffer, sizeof(buffer), "%s", "<no title found> ");
     }
     t=strstr(bibb,"<author>");
     if (t)
