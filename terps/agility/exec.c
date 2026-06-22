@@ -190,9 +190,9 @@ static word it_pronoun(int item, rbool ind_form)
 static void theset(char *buff, int item)
 {		   
   if (it_proper(item))
-    strcpy(buff,"");
-  else 
-    strcpy(buff,"the ");
+    strncpy(buff,"",FILL_SIZE);
+  else
+    strncpy(buff,"the ",FILL_SIZE);
 }
 
 
@@ -207,7 +207,7 @@ static void num_name_func(parse_rec *obj_rec,char *fill_buff, word prev_adj)
   word w;
 
   if (obj_rec==NULL) {
-    strcpy(fill_buff,"");
+    strncpy(fill_buff,"",FILL_SIZE);
     return;
   }
 
@@ -218,9 +218,9 @@ static void num_name_func(parse_rec *obj_rec,char *fill_buff, word prev_adj)
 
   if (w==0) {
     if (obj_rec->info==D_NUM) sprintf(fill_buff,"%ld",(long)obj_rec->num);
-    else strcpy(fill_buff,"");
+    else strncpy(fill_buff,"",FILL_SIZE);
 #if 0
-    strcpy(fill_buff,"that"); /* We can try and hope */
+    strncpy(fill_buff,"that",FILL_SIZE); /* We can try and hope */
 #endif
     return;
   }
@@ -241,7 +241,7 @@ static word get_adj( parse_rec *obj_rec, char *buff)
   if (obj_rec->adj!=0) w=obj_rec->adj;
   else w=it_adj(obj_rec->obj);
 
-  if (w==0) strcpy(buff,"");
+  if (w==0) strncpy(buff,"",FILL_SIZE);
   else {
     rstrncpy(buff,dict[w],FILL_SIZE);
     if (it_proper(obj_rec->obj)) buff[0]=toupper(buff[0]);
@@ -255,7 +255,7 @@ static word get_adj( parse_rec *obj_rec, char *buff)
 #define d2buff(i) {rstrncpy(fill_buff,dict[i],FILL_SIZE);return 1;}
 #define num_name(obj_rec,jsa)  {num_name_func(obj_rec,fill_buff,jsa);return 1;}
 /* jsa= Just seen adj */
-#define youme(mestr,youstr) {strcpy(fill_buff,irun_mode?mestr:youstr);\
+#define youme(mestr,youstr) {strncpy(fill_buff,irun_mode?mestr:youstr,FILL_SIZE);\
 			       return 1;}
 
 word just_seen_adj;  /* This determines if we just saw $adjective$; if so,
@@ -318,17 +318,17 @@ static int wordcode_match(const char **pvarname,char *fill_buff,
       return 1;
   } else if (match_str(pvarname,"OPEN")) {
     hold_val = extract_number(pvarname,maxnoun,'$');
-    strcpy(fill_buff,it_open(hold_val)? "open" : "closed");
+    strncpy(fill_buff,it_open(hold_val)? "open" : "closed",FILL_SIZE);
     return 1;
   } 
   else if (match_str(pvarname,"ON")) {
     hold_val = extract_number(pvarname,maxnoun,'$');
-    strcpy(fill_buff,it_on(hold_val)? "on" : "off");
+    strncpy(fill_buff,it_on(hold_val)? "on" : "off",FILL_SIZE);
     return 1;
   }
   else if (match_str(pvarname,"LOCKED")) {
     hold_val = extract_number(pvarname,maxnoun,'$');
-    strcpy(fill_buff,it_locked(hold_val,0) ? "locked" : "unlocked");
+    strncpy(fill_buff,it_locked(hold_val,0) ? "locked" : "unlocked",FILL_SIZE);
     return 1;
   }
 

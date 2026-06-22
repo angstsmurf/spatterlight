@@ -5151,7 +5151,8 @@ gagt_command_escape (const char *string)
 
   /* Take a copy of the string, without any leading space or introducer. */
   string_copy = gagt_malloc (strlen (string + posn) + 1 - strlen ("glk"));
-  strcpy (string_copy, string + posn + strlen ("glk"));
+  strncpy (string_copy, string + posn + strlen ("glk"),
+           strlen (string + posn) + 1 - strlen ("glk"));
 
   /*
    * Find the subcommand; the first word in the string copy.  Find its end,
@@ -5366,6 +5367,7 @@ agt_input (int in_type)
           memcpy(message, buffer, chars);
           message[chars] = '\0';
           gagt_styled_string(style_Input, message);
+          free(message);
 
           /*
            * Convert the string from Glk's ISO 8859 Latin-1 to IBM cp 437,
