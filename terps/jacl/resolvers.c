@@ -8,65 +8,34 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
+#include "interpreter.h"
+#include "encapsulate.h"
 #include <string.h>
 
-#ifdef GLK
-extern glui32 					status_width, status_height;
-extern winid_t 					statuswin;
-#endif
-
 #ifdef __NDS__
-extern int						screen_width;
-extern int						screen_depth;
+extern int					screen_width;
+extern int					screen_depth;
 #endif
-
-extern struct object_type		*object[];
-extern struct integer_type		*integer_table;
-extern struct integer_type		*integer[];
-extern struct cinteger_type		*cinteger_table;
-extern struct attribute_type	*attribute_table;
-extern struct string_type		*string_table;
-extern struct string_type		*cstring_table;
-extern struct function_type		*function_table;
-extern struct function_type		*executing_function;
-extern struct command_type		*completion_list;
-extern struct word_type			*grammar_table;
-extern struct synonym_type		*synonym_table;
-extern struct filter_type		*filter_table;
-
-extern char						function_name[81];
-extern char						temp_buffer[1024];
-extern char						error_buffer[1024];
-extern char  			        integer_buffer[16];
 
 #ifndef GLK
 #ifndef __NDS__
-extern char						game_url[];
-extern char						user_id[];
+extern char					game_url[];
+extern char					user_id[];
 #endif
 #endif
 
-extern int						noun[];
-extern int						quoted[];
-extern int						percented[];
-extern char						*word[];
+extern int					value_resolved;
 
-extern int						resolved_attribute;
+char 						macro_function[84];
+int							value_has_been_resolved;
 
-extern int						objects;
-extern int						integers;
-extern int						player;
-extern int						oec;
-extern int						*object_element_address;
-extern int						*object_backup_address;
-
-extern int						value_resolved;
-
-static char 					macro_function[84];
-static int						value_has_been_resolved;
+static int count_resolve(const char *testString);
+static const char* expand_function(const char *name);
+static int array_length_resolve(const char *testString);
+static char* macro_resolve(const char *testString);
 
 int            *
-container_resolve(char *container_name)
+container_resolve(const char *container_name)
 {
 	container_name = arg_text_of(container_name);
 
@@ -93,10 +62,10 @@ container_resolve(char *container_name)
 		return ((int *) NULL);
 }
 
-char		   *
+const char		   *
 var_text_of_word(int wordnumber)
 {
-    char *value;
+    const char *value;
 
 	if (percented[wordnumber] == FALSE) {
 		return (word[wordnumber]);
@@ -112,10 +81,10 @@ var_text_of_word(int wordnumber)
 	}
 }
 
-char		   *
+const char		   *
 arg_text_of_word(int wordnumber)
 {
-    char *value;
+    const char *value;
 
 	if (quoted[wordnumber] == 1) {
 		return (word[wordnumber]);
@@ -131,10 +100,10 @@ arg_text_of_word(int wordnumber)
 	}
 }
 
-char		   *
+const char		   *
 text_of_word(int wordnumber)
 {
-    char *value;
+    const char *value;
 
 	if (quoted[wordnumber] == 1) {
 		return (word[wordnumber]);
@@ -150,8 +119,8 @@ text_of_word(int wordnumber)
 	}
 }
 
-char           *
-text_of(char *string)
+const char           *
+text_of(const char *string)
 {
 	struct integer_type *resolved_integer;
 	struct cinteger_type *resolved_cinteger;
@@ -169,17 +138,17 @@ text_of(char *string)
 	} else if ((resolved_integer = integer_resolve(string)) != NULL) {
         value_has_been_resolved = FALSE;
 		integer_buffer[0] = 0;
-		snprintf(integer_buffer, sizeof(integer_buffer), "%d", resolved_integer->value);
+		sprintf(integer_buffer, "%d", resolved_integer->value);
 		return(integer_buffer);
 	} else if ((resolved_cinteger = cinteger_resolve(string)) != NULL) {
         value_has_been_resolved = FALSE;
 		integer_buffer[0] = 0;
-		snprintf(integer_buffer, sizeof(integer_buffer), "%d", resolved_cinteger->value);
+		sprintf(integer_buffer, "%d", resolved_cinteger->value);
 		return(integer_buffer);
 	} else if (object_element_resolve(string)) {
         value_has_been_resolved = FALSE;
 		integer_buffer[0] = 0;
-		snprintf(integer_buffer, sizeof(integer_buffer), "%d", oec);
+		sprintf(integer_buffer, "%d", oec);
 		return(integer_buffer);
 	} else if ((index = object_resolve(string)) != -1) {
         value_has_been_resolved = FALSE;
@@ -195,7 +164,7 @@ text_of(char *string)
 		return (resolved_cstring->value);
 	} else if (function_resolve(string) != NULL) {
         value_has_been_resolved = FALSE;
-		snprintf(integer_buffer, sizeof(integer_buffer), "%d", execute(string));
+		sprintf(integer_buffer, "%d", execute(string));
 		return(integer_buffer);
 #ifndef GLK
 #ifndef __NDS__
@@ -213,8 +182,8 @@ text_of(char *string)
 	}
 }
 
-char           *
-arg_text_of(char *string)
+const char           *
+arg_text_of(const char *string)
 {
 	struct string_type *resolved_string;
 	struct string_type *resolved_cstring;
@@ -237,7 +206,7 @@ arg_text_of(char *string)
 }
 
 int
-validate(char *string)
+validate(const char *string)
 {
 	int             index,
 	                count;
@@ -262,7 +231,7 @@ validate(char *string)
 }
 
 long
-value_of(char *value, int run_time)
+value_of(const char *value, int run_time)
 {
 	long            compare;
 
@@ -273,6 +242,7 @@ value_of(char *value, int run_time)
 	/* RETURN THE INTEGER VALUE OF A STRING */
 	struct integer_type *resolved_integer;
 	struct cinteger_type *resolved_cinteger;
+	struct string_type *resolved_string;
 
 	if (!strcmp(value, "**held")) {
 		return (FALSE);
@@ -306,18 +276,24 @@ value_of(char *value, int run_time)
 	} else if (!strcmp(value, "status_width")) {
 		return screen_width;
 #else
+	/* Web build: surface the virtual TextGrid dimensions so games that
+	 * use status_width / status_height for layout (e.g. centring
+	 * something via 'set left_edge = status_width - n / 2') get the
+	 * actual bar geometry instead of -1. */
 	} else if (!strcmp(value, "status_height")) {
-		value_resolved = FALSE;
-		return -1;
+		struct integer_type *sh = integer_resolve("status_window");
+		return (sh != NULL && sh->value > 0) ? sh->value : 1;
 	} else if (!strcmp(value, "status_width")) {
-		value_resolved = FALSE;
-		return -1;
+		struct integer_type *sw = integer_resolve("status_window_width");
+		return (sw != NULL && sw->value > 0) ? sw->value : 80;
 #endif
 #endif
 	} else if (!strcmp(value, "unixtime")) {
          return (time(NULL));
 	} else if (validate(value)) {
 		return (atoi(value));
+	} else if (((resolved_string = string_resolve(value)) != NULL) && validate(resolved_string->value)) {
+		return (atoi(resolved_string->value));
 	} else if ((resolved_cinteger = cinteger_resolve(value)) != NULL) {
 		return (resolved_cinteger->value);
 	} else if ((resolved_integer = integer_resolve(value)) != NULL) {
@@ -346,7 +322,7 @@ value_of(char *value, int run_time)
 }
 
 struct integer_type *
-integer_resolve(char *name)
+integer_resolve(const char *name)
 {
 	int             index,
 					iterator,
@@ -355,6 +331,7 @@ integer_resolve(char *name)
 	char            expression[84];
 
 	strncpy(expression, name, 80);
+	expression[80] = 0;	/* strncpy doesn't NUL-terminate when src >= 80 chars */
 
 	counter = strlen(expression);
 
@@ -409,7 +386,7 @@ integer_resolve(char *name)
 }
 
 struct integer_type *
-integer_resolve_indexed(char *name, int index)
+integer_resolve_indexed(const char *name, int index)
 {
 	struct integer_type *pointer = integer_table;
 
@@ -436,7 +413,7 @@ integer_resolve_indexed(char *name, int index)
 }
 
 struct cinteger_type *
-cinteger_resolve(char *name)
+cinteger_resolve(const char *name)
 {
 	int             index,
 					iterator,
@@ -445,6 +422,7 @@ cinteger_resolve(char *name)
 	char            expression[84];
 
 	strncpy(expression, name, 80);
+	expression[80] = 0;	/* strncpy doesn't NUL-terminate when src >= 80 chars */
 
 	counter = strlen(expression);
 
@@ -499,7 +477,7 @@ cinteger_resolve(char *name)
 }
 
 struct cinteger_type *
-cinteger_resolve_indexed(char *name, int index)
+cinteger_resolve_indexed(const char *name, int index)
 {
 	struct cinteger_type *pointer = cinteger_table;
 
@@ -526,7 +504,7 @@ cinteger_resolve_indexed(char *name, int index)
 }
 
 struct string_type *
-string_resolve(char *name)
+string_resolve(const char *name)
 {
 	int             index,
 					iterator,
@@ -535,6 +513,7 @@ string_resolve(char *name)
 	char            expression[84];
 
 	strncpy(expression, name, 80);
+	expression[80] = 0;	/* strncpy doesn't NUL-terminate when src >= 80 chars */
 
 	counter = strlen(expression);
 
@@ -580,7 +559,7 @@ string_resolve(char *name)
 }
 
 struct string_type *
-string_resolve_indexed(char *name, int index)
+string_resolve_indexed(const char *name, int index)
 {
 	struct string_type *pointer = string_table;
 
@@ -607,7 +586,7 @@ string_resolve_indexed(char *name, int index)
 }
 
 struct string_type *
-cstring_resolve(char *name)
+cstring_resolve(const char *name)
 {
 	int             index,
 					iterator,
@@ -616,6 +595,7 @@ cstring_resolve(char *name)
 	char            expression[84];
 
 	strncpy(expression, name, 80);
+	expression[80] = 0;	/* strncpy doesn't NUL-terminate when src >= 80 chars */
 
 	counter = strlen(expression);
 
@@ -661,7 +641,7 @@ cstring_resolve(char *name)
 }
 
 struct string_type *
-cstring_resolve_indexed(char *name, int index)
+cstring_resolve_indexed(const char *name, int index)
 {
 	struct string_type *pointer = cstring_table;
 
@@ -688,7 +668,7 @@ cstring_resolve_indexed(char *name, int index)
 }
 
 struct function_type *
-function_resolve(char *name)
+function_resolve(const char *name)
 {
 	char           *full_name;
 	char			core_name[84];
@@ -729,8 +709,8 @@ function_resolve(char *name)
 	return (NULL);
 }
 
-char *
-expand_function(char *name)
+const char *
+expand_function(const char *name)
 {
 	/* THIS FUNCTION TAKES A SCOPE FUNCTION CALL SUCH AS noun1.function
 	 * AND REOLVE THE ACTUAL FUNCTION NAME SUCH AS function_key */
@@ -739,7 +719,8 @@ expand_function(char *name)
 	int             delimiter = 0;
 	char            expression[84];
 
-	strncpy(expression, name, 80);
+	strncpy(expression, name, 83);
+	expression[83] = 0;
 
 	counter = strlen(expression);
 
@@ -770,9 +751,9 @@ expand_function(char *name)
 		object_element_resolve(&expression[delimiter])) {
 		/* THE DELIMETER RESOLVES TO A CONSTANT, VARIABLE OR OBJECT
 		 * ELEMENT, SO TAKE NOTE OF THAT */
-		snprintf(function_name, sizeof(function_name), "%ld", value_of(&expression[delimiter], TRUE));
+		sprintf(function_name, "%ld", value_of(&expression[delimiter], TRUE));
 	} else {
-		strncpy(function_name, &expression[delimiter], sizeof(function_name));
+		strcpy(function_name, &expression[delimiter]);
 	}
 	strcat(function_name, "_");
 	strcat(function_name, object[index]->label);
@@ -781,14 +762,18 @@ expand_function(char *name)
 }
 
 char *
-macro_resolve(char *testString)
+macro_resolve(const char *testString)
 {
 	int             index,
 	                counter;
 	int             delimiter = 0;
 	char            expression[84];
 
-	strncpy(expression, testString, 80);
+	/* strncpy(80) into [84] without explicit NUL would leave the
+	 * buffer unterminated when testString >= 80 chars, and the
+	 * following strlen would read past the buffer. */
+	strncpy(expression, testString, sizeof expression - 1);
+	expression[sizeof expression - 1] = 0;
 
 	counter = strlen(expression);
 
@@ -856,35 +841,35 @@ macro_resolve(char *testString)
 			badptrrun(expression, index);
 			return (NULL);
 		} else {
-			return (it_output(index, FALSE));
+			return (it_output(index));
 		}
 	} else if (!strcmp(&expression[delimiter], "doesnt")) {
 		if (index < 1 || index > objects) {
 			badptrrun(expression, index);
 			return (NULL);
 		} else {
-			return (doesnt_output(index, FALSE));
+			return (doesnt_output(index));
 		}
 	} else if (!strcmp(&expression[delimiter], "does")) {
 		if (index < 1 || index > objects) {
 			badptrrun(expression, index);
 			return (NULL);
 		} else {
-			return (does_output(index, FALSE));
+			return (does_output(index));
 		}
 	} else if (!strcmp(&expression[delimiter], "isnt")) {
 		if (index < 1 || index > objects) {
 			badptrrun(expression, index);
 			return (NULL);
 		} else {
-			return (isnt_output(index, FALSE));
+			return (isnt_output(index));
 		}
 	} else if (!strcmp(&expression[delimiter], "is")) {
 		if (index < 1 || index > objects) {
 			badptrrun(expression, index);
 			return (NULL);
 		} else {
-			return (is_output(index, FALSE));
+			return (is_output(index));
 		}
 	} else if (!strcmp(&expression[delimiter], "the")) {
 		if (index < 1 || index > objects) {
@@ -959,35 +944,35 @@ macro_resolve(char *testString)
 			badptrrun(expression, index);
 			return (NULL);
 		} else {
-			return (it_output(index, TRUE));
+			return (it_output(index));
 		}
 	} else if (!strcmp(&expression[delimiter], "Doesnt")) {
 		if (index < 1 || index > objects) {
 			badptrrun(expression, index);
 			return (NULL);
 		} else {
-			return (doesnt_output(index, TRUE));
+			return (doesnt_output(index));
 		}
 	} else if (!strcmp(&expression[delimiter], "Does")) {
 		if (index < 1 || index > objects) {
 			badptrrun(expression, index);
 			return (NULL);
 		} else {
-			return (does_output(index, TRUE));
+			return (does_output(index));
 		}
 	} else if (!strcmp(&expression[delimiter], "Isnt")) {
 		if (index < 1 || index > objects) {
 			badptrrun(expression, index);
 			return (NULL);
 		} else {
-			return (isnt_output(index, TRUE));
+			return (isnt_output(index));
 		}
 	} else if (!strcmp(&expression[delimiter], "Is")) {
 		if (index < 1 || index > objects) {
 			badptrrun(expression, index);
 			return (NULL);
 		} else {
-			return (is_output(index, TRUE));
+			return (is_output(index));
 		}
 	} else if (!strcmp(&expression[delimiter], "The")) {
 		if (index < 1 || index > objects) {
@@ -1000,7 +985,7 @@ macro_resolve(char *testString)
 		strcpy (macro_function, "+macro_");
 		strcat (macro_function, &expression[delimiter]);
 		strcat (macro_function, "<");
-		snprintf (temp_buffer, sizeof(temp_buffer), "%d", index);
+		sprintf (temp_buffer, "%d", index);
 		strcat (macro_function, temp_buffer);
 
 		// BUILD THE FUNCTION NAME AND PASS THE OBJECT AS 
@@ -1014,7 +999,7 @@ macro_resolve(char *testString)
 }
 
 int
-count_resolve(char *testString)
+count_resolve(const char *testString)
 {
 	struct function_type 	*resolved_function = NULL;
 
@@ -1030,10 +1015,10 @@ count_resolve(char *testString)
 }
 
 int
-array_length_resolve(char *testString)
+array_length_resolve(const char *testString)
 {
 	int             counter = 0;
-	char            *array_name = &testString[1];
+	const char      *array_name = &testString[1];
 
 	struct integer_type *integer_pointer = integer_table;
 	struct cinteger_type *cinteger_pointer = cinteger_table;
@@ -1105,7 +1090,7 @@ array_length_resolve(char *testString)
 }
 
 int
-object_element_resolve(char *testString)
+object_element_resolve(const char *testString)
 {
 	int             index,
 					iterator,
@@ -1116,7 +1101,9 @@ object_element_resolve(char *testString)
 	struct integer_type *resolved_integer;
 	struct cinteger_type *resolved_cinteger;
 
-	strncpy(expression, testString, 80);
+	/* Same NUL-termination guard as macro_resolve above. */
+	strncpy(expression, testString, sizeof expression - 1);
+	expression[sizeof expression - 1] = 0;
 
 	//sprintf(temp_buffer, "incoming = %s^", testString);
 	//write_text (temp_buffer);
@@ -1184,7 +1171,7 @@ object_element_resolve(char *testString)
 	counter = value_of(&expression[delimiter], TRUE);
 
 	if (counter < 0 || counter > 15) {
-		snprintf(error_buffer, sizeof(error_buffer),
+		sprintf(error_buffer,
 				"ERROR: In function \"%s\", element \"%s\" out of range (%d).^",
 				executing_function->name, &expression[delimiter], counter);
 		write_text(error_buffer);
@@ -1197,7 +1184,7 @@ object_element_resolve(char *testString)
 }
 
 int
-object_resolve(char object_string[])
+object_resolve(const char *object_string)
 {
 	int             index;
 
@@ -1215,13 +1202,22 @@ object_resolve(char object_string[])
 		return (HERE);
 	else if (!strcmp(object_string, "self") ||
 			 !strcmp(object_string, "this")) {
-		if (executing_function != NULL && executing_function->self == 0) {
-			snprintf(error_buffer, sizeof(error_buffer),
+		/* Three cases: no function, global function (self==0), or
+		 * method on a real object. Previously the chain dereferenced
+		 * executing_function->self even when executing_function was
+		 * NULL because the && short-circuited the first check. */
+		if (executing_function == NULL) {
+			sprintf(error_buffer,
+					"ERROR: Reference to 'self' outside any function.^");
+			write_text(error_buffer);
+		} else if (executing_function->self == 0) {
+			sprintf(error_buffer,
 					"ERROR: Reference to 'self' from global function \"%s\".^",
 					executing_function->name);
 			write_text(error_buffer);
-		} else
+		} else {
 			return (executing_function->self);
+		}
 	} else {
 		for (index = 1; index <= objects; index++) {
 			if (!strcmp(object_string, object[index]->label))
@@ -1233,9 +1229,9 @@ object_resolve(char object_string[])
 }
 
 long
-attribute_resolve(char *attribute)
+attribute_resolve(const char *attribute)
 {
-	long            bit_mask;
+	unsigned int            bit_mask;
 
 	if (!strcmp(attribute, "VISITED"))
 		return (VISITED);
@@ -1329,7 +1325,7 @@ attribute_resolve(char *attribute)
 	else if (!strcmp(attribute, "DONE"))
 		return (DONE);
 	else if (!strcmp(attribute, "GAS"))
-		return (MAPPED);
+		return (GAS);
 	else if (!strcmp(attribute, "NO_TAB"))
 		return (NO_TAB);
 	else if (!strcmp(attribute, "NOT_IMPORTANT"))
@@ -1339,7 +1335,7 @@ attribute_resolve(char *attribute)
 }
 
 long
-user_attribute_resolve(char *name)
+user_attribute_resolve(const char *name)
 {
 	struct attribute_type *pointer = attribute_table;
 

@@ -10,27 +10,11 @@
 #include "prototypes.h"
 #include <string.h>
 
-extern char						function_name[];
 
-extern struct object_type		*object[];
-extern struct variable_type		*variable[];
-
-extern int						objects;
-extern int						player;
-
-extern char						game_file[];
-extern char						game_path[];
-extern char						prefix[];
-extern char						blorb[81];
-extern char   			        bookmark[81];
-extern char            			walkthru[81];
-extern char						include_directory[];
-extern char            			temp_directory[];
-extern char            			data_directory[];
-extern char            			temp_buffer[1024];
+static int jacl_whitespace(int character);
 
 void
-eachturn(void)
+eachturn()
 {
 	/* INCREMENT THE TOTAL NUMBER OF MOVES MADE AND CALL THE 'EACHTURN'
 	 * FUNCTION FOR THE CURRENT LOCATION AND THE GLOBAL 'EACHTURN'
@@ -42,18 +26,32 @@ eachturn(void)
 	strcat(function_name, object[HERE]->label);
 	execute(function_name);
 	execute("+system_eachturn");
-	
+
+#ifndef GLK
+	/* Runtime guarantee for web/CGI: re-emit the status bar at the
+	 * end of every turn so the latest status_window_width (which the
+	 * frontend reports on every AJAX request via &status_cols=) is
+	 * reflected. verbs.library has done this since commit 248b2e9
+	 * (2026-05-04) via `if interpreter = CGI: updatestatus` inside
+	 * +system_eachturn, but a game running against an older library
+	 * copy -- or a game that overrides +system_eachturn -- would
+	 * otherwise keep an outdated bar. Re-emitting twice in the same
+	 * response is harmless: the JS extracts whichever <jacl-status>
+	 * marker arrives last and patches it into #statuswin. */
+	web_render_status_bar();
+#endif
+
 	/* SET TIME TO FALSE SO THAT NO MORE eachturn FUNCTIONS ARE EXECUTED
 	 * UNTIL EITHER THE COMMAND PROMPT IS RETURNED TO (AND TIME IS SET
 	 * TO TRUE AGAIN, OR IT IS MANUALLY SET TO TRUE BY A VERB THAT CALLS
-	 * MORE THAN ONE proxy COMMAND. THIS IS BECAUSE OTHERWISE A VERB THAT 
+	 * MORE THAN ONE proxy COMMAND. THIS IS BECAUSE OTHERWISE A VERB THAT
 	 * USES A proxy COMMAND TO TRANSLATE THE VERB IS RESULT IN TWO MOVES
 	 * (OR MORE) HAVING PASSED FOR THE ONE ACTION. */
 	TIME->value = FALSE;
 }
 
 int
-get_here(void)
+get_here()
 {
 	/* THIS FUNCTION RETURNS THE VALUE OF 'here' IN A SAFE, ERROR CHECKED
 	 * WAY */
@@ -87,11 +85,11 @@ strip_return (char *string)
 		}
 	}
 
-	return (char *) string;
+	return string;
 }
 
 int
-random_number(void)
+random_number()
 {
 	/* GENERATE A RANDOM NUMBER BETWEEN 0 AND THE CURRENT VALUE OF
 	 * THE JACL VARIABLE MAX_RAND */
@@ -116,7 +114,12 @@ create_paths(char *full_path)
 	/* GET A POINTER TO THE LAST SLASH IN THE FULL PATH */
 	last_slash = strrchr(full_path, DIR_SEPARATOR);
 
-	for (index = strlen(full_path); index >= 0; index--) {
+	/* Walk back from the last real character (not the NUL); the prior
+	 * `index = strlen(full_path)` started one past the end and on the
+	 * very first iteration read the NUL byte itself. Harmless because
+	 * NUL is neither '.' nor a separator, but a true out-of-bounds
+	 * read by one. */
+	for (index = (int) strlen(full_path) - 1; index >= 0; index--) {
 		if (full_path[index] == DIR_SEPARATOR){
 			/* NO '.' WAS FOUND BEFORE THE LAST SLASH WAS REACHED,
 			 * THERE IS NO FILE EXTENSION */
@@ -134,13 +137,17 @@ create_paths(char *full_path)
 		game_path[0] = 0;
 
 		/* THIS ADDITION OF ./ TO THE FRONT OF THE GAMEFILE IF IT IS IN THE
-		 * CURRENT DIRECTORY IS REQUIRED TO KEEP Gargoyle HAPPY. */
+		 * CURRENT DIRECTORY IS REQUIRED TO KEEP Gargoyle HAPPY.
+		 * temp_buffer is 1024; game_file is 256. snprintf into the
+		 * smaller of the two to avoid the legacy strcpy walking off
+		 * the end of game_file. */
 #ifdef __NDS__
-		snprintf (temp_buffer, sizeof(temp_buffer), "%c%s", DIR_SEPARATOR, game_file);
+		snprintf (temp_buffer, 256, "%c%s", DIR_SEPARATOR, game_file);
 #else
-		snprintf (temp_buffer, sizeof(temp_buffer), ".%c%s", DIR_SEPARATOR, game_file);
+		snprintf (temp_buffer, 256, ".%c%s", DIR_SEPARATOR, game_file);
 #endif
-		strcpy (game_file, temp_buffer);
+		strncpy (game_file, temp_buffer, 255);
+		game_file[255] = 0;
 	} else {
 		/* STORE THE DIRECTORY THE GAME FILE IS IN WITH THE TRAILING
 		 * SLASH IF THERE IS ONE */
@@ -151,30 +158,39 @@ create_paths(char *full_path)
 	}
 
 #ifdef GLK
-	/* SET DEFAULT WALKTHRU FILE NAME */
-	snprintf(walkthru, sizeof(walkthru), "%s.walkthru", prefix);
-
-	/* SET DEFAULT SAVED GAME FILE NAME */
-	snprintf(bookmark, sizeof(bookmark), "%s.bookmark", prefix);
-
-	/* SET DEFAULT BLORB FILE NAME */
-	snprintf(blorb, sizeof(blorb), "%s.blorb", prefix);
+	/* walkthru / bookmark / blorb are 81-84 bytes; prefix is 81.
+	 * Without the snprintf cap, a max-length prefix plus ".walkthru"
+	 * (9 bytes) would overflow. */
+	snprintf(walkthru, 81, "%s.walkthru", prefix);
+	snprintf(bookmark, 81, "%s.bookmark", prefix);
+#ifdef GARGLK
+	/* Gargoyle uses glkunix_stream_open_pathname to open the blorb,
+	 * which doesn't necessarily live in the cwd, so include the
+	 * full game_path. blorb is 81 bytes; game_path is 256, so this
+	 * is the buffer most likely to truncate. snprintf returns the
+	 * unbounded length, which we ignore -- truncation is the right
+	 * response for a path that wouldn't have fit anyway. */
+	snprintf(blorb, 81, "%s/%s.blorb", game_path, prefix);
+#else
+	snprintf(blorb, 81, "%s.blorb", prefix);
+#endif
 #endif
 
-	/* SET DEFAULT FILE LOCATIONS IF NOT SET BY THE USER IN CONFIG */
+	/* SET DEFAULT FILE LOCATIONS IF NOT SET BY THE USER IN CONFIG.
+	 * include / temp / data directories are 81 bytes; game_path is
+	 * 256. The legacy strcpy + strcat would overrun include_directory
+	 * any time game_path was longer than ~72 chars -- easy to hit
+	 * with a deeper install layout. snprintf truncates instead. */
 	if (include_directory[0] == 0) {
-		strcpy(include_directory, game_path);
-		strcat(include_directory, INCLUDE_DIR);
+		snprintf(include_directory, 512, "%s%s", game_path, INCLUDE_DIR);
 	}
 
 	if (temp_directory[0] == 0) {
-		strcpy(temp_directory, game_path);
-		strcat(temp_directory, TEMP_DIR);
+		snprintf(temp_directory, 512, "%s%s", game_path, TEMP_DIR);
 	}
 
 	if (data_directory[0] == 0) {
-		strcpy(data_directory, game_path);
-		strcat(data_directory, DATA_DIR);
+		snprintf(data_directory, 512, "%s%s", game_path, DATA_DIR);
 	}
 }
 
@@ -204,7 +220,7 @@ stripwhite (char *string)
 
 	while (i >= 0 && ((jacl_whitespace (*(string+ i))) || *(string + i) == '\n' || *(string + i) == '\r')) i--;
 
-#ifdef WIN32
+#ifdef _WIN32
     i++;
 	*(string + i) = '\r';
 #endif
@@ -216,13 +232,24 @@ stripwhite (char *string)
     return string;
 }
 
+/* XOR-with-0xFF obfuscation, NOT encryption. There is no key; anyone
+ * who notices the .j2 file starts with a "#encrypted" marker can
+ * recover the original source with a 5-line script. The historical
+ * names jacl_encrypt / jacl_decrypt overstated this -- "obfuscate"
+ * is honest. Both directions are the same transform because XOR is
+ * self-inverse; the two functions are kept distinct only for caller
+ * intent (jpp obfuscates on write; loader deobfuscates on read).
+ *
+ * Both stop at the first '\n' or '\r' so the line terminator is
+ * preserved verbatim in the obfuscated stream -- the loader still
+ * uses fgets-style line splits to walk the file. */
 void
-jacl_encrypt(char *string)
+jacl_obfuscate(char *string)
 {
 	int index, length;
 
 	length = strlen(string);
-	
+
 	for (index = 0; index < length; index++) {
 		if (string[index] == '\n' || string[index] == '\r') {
 			return;
@@ -231,18 +258,12 @@ jacl_encrypt(char *string)
 	}
 }
 
+/* XOR is self-inverse so deobfuscate is just obfuscate again; kept
+ * as a separate symbol so callers read intent-side, not transform-
+ * side. */
 void
-jacl_decrypt(char *string)
+jacl_deobfuscate(char *string)
 {
-	int index, length;
-
-	length = strlen(string);
-	
-	for (index = 0; index < length; index++) {
-		if (string[index] == '\n' || string[index] == '\r') {
-			return;
-		}
-		string[index] = string[index] ^ 255;
-	}
+	jacl_obfuscate(string);
 }
 

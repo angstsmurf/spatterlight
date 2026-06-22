@@ -8,30 +8,30 @@
 #include "prototypes.h"
 #include "language.h"
 
-extern char						user_id[];
-extern char						prefix[];
-
 #ifdef __NDS__
 void
-log_error(char *message, int console)
+log_error(const char *message, int console)
 {
+	/* consoleMessage is small (256B) but `message` is typically
+	 * error_buffer[1024], so the prior sprintf could overflow on a
+	 * long error string. snprintf truncates instead. */
 	char 			consoleMessage[256];
 
-	sprintf(consoleMessage, "ERROR: %s^", message);
+	snprintf(consoleMessage, sizeof(consoleMessage), "ERROR: %s^", message);
 
 	write_text(consoleMessage);
 }
 #endif
 #ifdef GLK
 void
-log_error(char *message, int console)
+log_error(const char *message, int console)
 {
 	/* LOG A MESSAGE TO THE CONSOLE */
 
 	char 			consoleMessage[256];
     event_t			event;
 
-	// BUILD A STRING SUITABLE FOR DISPLAY ON THE CONSOLE.
+	/* See __NDS__ branch above re: snprintf-vs-sprintf rationale. */
 	snprintf(consoleMessage, sizeof(consoleMessage), "ERROR: %s^", message);
 
 	glk_set_style(style_Alert);
@@ -48,7 +48,7 @@ extern char						error_log[];
 extern char						access_log[];
 
 void
-log_access(char *message)
+log_access(const char *message)
 {
 	/* LOG A MESSAGE TO THE ACCESS LOG */
 
@@ -62,28 +62,51 @@ log_access(char *message)
 }
 
 void
-log_error(message, console)
-	char        *message;
-	int			console;
+log_error(const char *message, int console)
 {
 	FILE           *errorLog = fopen(error_log, "a");
 	time_t          tnow;
+	struct tm       tm_local;
+	char            timebuf[32];
 	char 			consoleMessage[256];
 	char 			temp_buffer[256];
 
 	time(&tnow);
-	/* MAKE THE LOG MESSAGE WITH TIME, USER_ID AND GAME PREFIX */
-	sprintf(temp_buffer, "%s - %s - %s - %s\n", strip_return(ctime(&tnow)), user_id, prefix, message);
+	/* ctime() returns a pointer into a static internal buffer that
+	 * is shared with localtime/gmtime; under fcgijacl with multiple
+	 * workers (or any future threaded build) one worker's strip_
+	 * return on that pointer can corrupt another worker's read.
+	 * Use the reentrant localtime_r + strftime instead. */
+	if (localtime_r(&tnow, &tm_local) != NULL) {
+		strftime(timebuf, sizeof timebuf,
+			"%a %b %d %H:%M:%S %Y", &tm_local);
+	} else {
+		snprintf(timebuf, sizeof timebuf, "%ld", (long) tnow);
+	}
 
-	/* MAKE THE MESSAGE FOR STDERR AND STDOUT WITH ERROR PREFIX */
-	sprintf(consoleMessage, "%s: %s", prefix, message);
+	/* Both destinations are 256B but `message` is typically
+	 * error_buffer[1024] and user_id / prefix are each up to 80
+	 * chars. The prior sprintfs could blow the 256B stack buffers by
+	 * ~1100 bytes on a long error string. snprintf truncates. */
+	snprintf(temp_buffer, sizeof(temp_buffer), "%s - %s - %s - %s\n",
+		timebuf, user_id, prefix, message);
+
+	snprintf(consoleMessage, sizeof(consoleMessage), "%s: %s", prefix, message);
 
 	if (console < ONLY_STDERR) {
 		if (errorLog != NULL) {
 			fputs(temp_buffer, errorLog);
 			fflush(errorLog);
 			fclose(errorLog);
-		} 
+		} else {
+			/* If the configured error log can't be opened (bad
+			 * path, no write permission on the dir, full disk),
+			 * fall back to stderr so the operator notices.
+			 * Previously the message vanished silently. */
+			fprintf(stderr, "[log_error: cannot open %s] %s",
+				error_log, temp_buffer);
+			fflush(stderr);
+		}
 	}
 
 	/* SEND THE MESSAGE TO STANDARD ERROR OR STANDARD OUT AS REQUIRED */
@@ -98,36 +121,25 @@ log_error(message, console)
 }
 
 void
-log_debug(message, console)
+log_debug(const char *message, int console)
 {
 	log_message(message, console);
 }
 
 void
-log_message(char *message, int console)
+log_message(const char *message, int console)
 {
-	FILE           *errorLog = fopen(error_log, "a");
-	time_t          tnow;
-	char 			consoleMessage[256];
-	char 			temp_buffer[256];
+	/* Informational/debug messages are NOT written to error.log; that
+	 * file is reserved for critical errors raised via log_error(). On a
+	 * busy CGI host the per-request startup traffic was filling the disk.
+	 * Stderr/stdout output is still honoured so log_message() remains a
+	 * useful surface for interactive/console diagnostics. */
 
-	/* MAKE THE LOG MESSAGE WITH GAME PREFIX */
-	sprintf(temp_buffer, "%s - %s - %s\n", strip_return(ctime(&tnow)), prefix, message);
-
-	/* MAKE THE MESSAGE FOR STDERR AND STDOUT WITH ERROR PREFIX */
-	sprintf(consoleMessage, "%s: %s\n", prefix, message);
-
-	if (errorLog != NULL) {
-		fputs(temp_buffer, errorLog);
-		fflush(errorLog);
-		fclose(errorLog);
-	} 
-
-	/* SEND THE MESSAGE TO STANDARD ERROR OR STANDARD OUT AS REQUIRED */
 	if (console == 1) {
 		write_text(message);
+		write_text("^");
 	} else if (console == 2) {
-		fprintf(stderr, "%s", message);
+		fprintf(stderr, "%s\n", message);
 		fflush(stderr);
 	}
 }

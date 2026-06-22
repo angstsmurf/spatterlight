@@ -6,6 +6,7 @@
 #include "jacl.h"
 #include "types.h"
 #include "prototypes.h"
+#include "encapsulate.h"
 #include <string.h>
 
 extern struct synonym_type *synonym_table;
@@ -15,15 +16,15 @@ char            text_buffer[1024];
 
 /* THIS IS A STRING CONSTANT TO POINT TO WHENEVER A COMMA IS
  * USED IN THE PLAYER'S INPUT */
-char           *comma = "comma\0";
-char           *then = "then\0";
-char           *word[MAX_WORDS];
+const char     *comma = "comma\0";
+const char     *then = "then\0";
+const char     *word[MAX_WORDS];
 int				quoted[MAX_WORDS];
 int				percented[MAX_WORDS];
 int             wp;
 
 void
-encapsulate(void)
+encapsulate()
 {
 	int             index,
 	                length;
@@ -60,14 +61,13 @@ encapsulate(void)
 			break;
 		case '"':
 			index++;
-			/* NEED TO REMEMBER THAT THIS WORD WAS ENCLOSED IN QUOTES FOR 
-			 * THE COMMAND 'write'*/	
-			quoted[position] = 1;	
-
-			word[position] = &text_buffer[index];
-
-			if (position < MAX_WORDS)
+			/* NEED TO REMEMBER THAT THIS WORD WAS ENCLOSED IN QUOTES FOR
+			 * THE COMMAND 'write'*/
+			if (position < MAX_WORDS) {
+				quoted[position] = 1;
+				word[position] = &text_buffer[index];
 				position++;
+			}
 
 			/* IF A WORD IS ENCLOSED IN QUOTES, KEEP GOING UNTIL THE END
 			 * OF THE LINE OR A CLOSING QUOTE IS FOUND, NOT BREAKING AT
@@ -86,15 +86,17 @@ encapsulate(void)
 			break;
 		default:
 			if (new_word) {
-                if (text_buffer[index] == '%' && text_buffer[index+1] != ' ' && text_buffer[index+1] != '\t') {
+                if (position < MAX_WORDS && text_buffer[index] == '%' && text_buffer[index+1] != ' ' && text_buffer[index+1] != '\t') {
 					percented[position]++;
                     break;
 				}
-                if (position < MAX_WORDS) {
-                    word[position] = &text_buffer[index];
-                    position++;
-                }
-				new_word = FALSE;
+				if (position < MAX_WORDS) {
+					word[position] = &text_buffer[index];
+					new_word = FALSE;
+					position++;
+				} else {
+					new_word = FALSE;
+				}
 			}
 			break;
 		}
@@ -110,7 +112,7 @@ encapsulate(void)
 
 // THIS VERSION OF ENCAPSULATE DOESN'T LOOK FOR CERTAIN SPECIAL CHARACTERS
 void
-command_encapsulate(void)
+command_encapsulate()
 {
 	int             index,
 	                length;
@@ -121,8 +123,13 @@ command_encapsulate(void)
 
 	// QUOTED IS USED TO STORE WHETHER EACH WORD WAS ENCLOSED IN QUOTES
 	// IN THE PLAYERS COMMAND - RESET EACH WORD TO NO
+	// percented[] tracks the %-prefix repeat count used by macro
+	// resolution. encapsulate() also zeroes it but command_
+	// encapsulate() did not, so stale counts from the prior turn
+	// fired bogus value_of recursion on this turn.
     for (index = 0; index < MAX_WORDS; index++) {
 		quoted[index] = 0;
+		percented[index] = 0;
 	}
 
 	for (index = 0; index < length; index++) {
@@ -142,9 +149,10 @@ command_encapsulate(void)
 			// SET THIS WORD TO POINT TO A STRING CONSTANT OF 'comma' AS THE
 			// COMMA ITSELF WILL BE NULLED OUT TO TERMINATE THE PRECEEDING
 			// WORD IN THE COMMAND.
-			word[position] = comma;
-			if (position < MAX_WORDS)
+			if (position < MAX_WORDS) {
+				word[position] = comma;
 				position++;
+			}
 			new_word = TRUE;
 			break;
 		case '.':
@@ -152,9 +160,10 @@ command_encapsulate(void)
 			// SET THIS WORD TO POINT TO A STRING CONSTANT OF 'comma' AS THE
 			// COMMA ITSELF WILL BE NULLED OUT TO TERMINATE THE PRECEEDING
 			// WORD IN THE COMMAND
-			word[position] = then;
-			if (position < MAX_WORDS)
+			if (position < MAX_WORDS) {
+				word[position] = then;
 				position++;
+			}
 			new_word = TRUE;
 			break;
 		case ';':
@@ -167,14 +176,13 @@ command_encapsulate(void)
 			break;
 		case '"':
 			index++;
-			// NEED TO REMEMBER THAT THIS WORD WAS ENCLOSED IN QUOTES FOR 
-			// THE COMMAND 'write'	
-			quoted[position] = 1;	
-
-			word[position] = &text_buffer[index];
-
-			if (position < MAX_WORDS)
+			// NEED TO REMEMBER THAT THIS WORD WAS ENCLOSED IN QUOTES FOR
+			// THE COMMAND 'write'
+			if (position < MAX_WORDS) {
+				quoted[position] = 1;
+				word[position] = &text_buffer[index];
 				position++;
+			}
 
 			// IF A WORD IS ENCLOSED IN QUOTES, KEEP GOING UNTIL THE END
 			// OF THE LINE OR A CLOSING QUOTE IS FOUND, NOT BREAKING AT
@@ -193,10 +201,13 @@ command_encapsulate(void)
 			break;
 		default:
 			if (new_word) {
-				word[position] = &text_buffer[index];
-				new_word = FALSE;
-				if (position < MAX_WORDS)
+				if (position < MAX_WORDS) {
+					word[position] = &text_buffer[index];
+					new_word = FALSE;
 					position++;
+				} else {
+					new_word = FALSE;
+				}
 			}
 			break;
 		}
@@ -212,7 +223,7 @@ command_encapsulate(void)
 }
 
 void
-jacl_truncate(void)
+jacl_truncate()
 {
 	int             index,
 	                counter,

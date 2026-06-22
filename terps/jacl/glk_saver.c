@@ -9,29 +9,9 @@
 #include "types.h"
 #include "prototypes.h"
 
-extern struct object_type		*object[];
-extern struct integer_type		*integer_table;
-extern struct integer_type		*integer[];
-extern struct function_type		*function_table;
-extern struct string_type       *string_table;
-
-extern schanid_t				sound_channel[];
-
-extern char						temp_buffer[1024];
-
-extern int						objects;
-extern int						integers;
-extern int						functions;
-extern int						strings;
-extern int						player;
-
-extern int						it;
-extern int						them[];
-extern int						her;
-extern int						him;
-extern int						parent;
-
-extern int    			        noun[];
+static void write_integer(strid_t stream, int x);
+static void write_long(strid_t stream, long x);
+static int  read_integer(strid_t stream);
 
 int
 save_game(frefid_t saveref)
@@ -66,7 +46,12 @@ save_game(frefid_t saveref)
 	}
 
     while (current_function != NULL) {
-		write_integer (bookmark, current_function->call_count);
+		/* Filter by nosave so the format matches saver.c (CGI). The
+		 * previous unfiltered write made glk saves silently
+		 * incompatible with CGI saves of the same game. */
+		if (current_function->nosave == FALSE) {
+			write_integer (bookmark, current_function->call_count);
+		}
         current_function = current_function->next_function;
     }
 
@@ -84,23 +69,30 @@ save_game(frefid_t saveref)
 
 	/* WRITE OUT ALL THE CURRENT VALUES OF THE STRING VARIABLES */
     while (current_string != NULL) {
-		for (index = 0; index < 255; index++) {
+		for (index = 0; index < 1024; index++) {
     		glk_put_char_stream(bookmark, current_string->value[index]);
 		}
         current_string = current_string->next_string;
     }
+
+	/* Persist last_command so 'again' works after restore. saver.c
+	 * already did this; glk_saver previously dropped it, leaving
+	 * restored Glk saves with an empty or stale last-command slot. */
+	for (index = 0; index < 1024; index++) {
+		glk_put_char_stream(bookmark, last_command[index]);
+	}
 
 	write_integer (bookmark, player);
 	write_integer (bookmark, noun[3]);
 
 	/* SAVE THE CURRENT VOLUME OF EACH OF THE SOUND CHANNELS */
 	for (index = 0; index < 8; index++) {
-		snprintf(temp_buffer, sizeof(temp_buffer), "volume[%d]", index);
+		sprintf(temp_buffer, "volume[%d]", index);
 		write_integer (bookmark, cinteger_resolve(temp_buffer)->value);
 	}
 
 	/* SAVE THE CURRENT VALUE OF THE GLK TIMER */
-	write_integer (bookmark, cinteger_resolve("timer")->value);
+	write_integer (bookmark, cinteger_resolve("event_timer")->value);
 
 	/* CLOSE THE STREAM */
 	glk_stream_close(bookmark, NULL);
@@ -157,7 +149,12 @@ restore_game(frefid_t saveref, int warn)
 	}
 
 	while (current_function != NULL) {
-		current_function->call_count = read_integer (bookmark);
+		/* Matched filter from save_game above; must agree with the
+		 * write side or the byte stream shifts by 4 bytes per
+		 * non-nosave function and the rest of the read goes haywire. */
+		if (current_function->nosave == FALSE) {
+			current_function->call_count = read_integer (bookmark);
+		}
 		current_function = current_function->next_function;
 	}
 
@@ -174,18 +171,53 @@ restore_game(frefid_t saveref, int warn)
 	}
 
     while (current_string != NULL) {
-		for (index = 0; index < 255; index++) {
-    		current_string->value[index] = glk_get_char_stream(bookmark);
+		for (index = 0; index < 1024; index++) {
+			glsi32 c = glk_get_char_stream(bookmark);
+			/* Truncated save returns -1 on EOF; without this check
+			 * the value field gets filled with 0xFF for the whole
+			 * 1024 bytes and the rest of the read goes haywire. */
+			if (c < 0) c = 0;
+			current_string->value[index] = (char) c;
 		}
+		/* string_type::value is [1025]; defensively NUL-terminate so
+		 * subsequent strlen on a string whose last byte happens to
+		 * be non-zero doesn't walk past the buffer end. */
+		current_string->value[1024] = 0;
         current_string = current_string->next_string;
     }
 
-	player = read_integer(bookmark);
-	noun[3] = read_integer(bookmark);
+	/* Matches the save side: pull last_command back so 'again' still
+	 * has a target after the restore. */
+	for (index = 0; index < 1024; index++) {
+		glsi32 c = glk_get_char_stream(bookmark);
+		if (c < 0) c = 0;
+		last_command[index] = (char) c;
+	}
+
+	{
+		int saved_player = read_integer(bookmark);
+		int saved_noun3  = read_integer(bookmark);
+		/* Same defence as saver.c: refuse a player value past the
+		 * end of the object table. 0 is allowed (legitimate "no
+		 * player yet" state). noun[3] is unchecked because -1
+		 * ("no second noun") and 0 (FALSE) are both legal. */
+		if (saved_player < 0 || saved_player > objects) {
+			if (warn == FALSE) {
+				sprintf(error_buffer,
+				        "Saved file has out-of-range player (%d, objects=%d); refusing restore.",
+				        saved_player, objects);
+				log_error(error_buffer, PLUS_STDOUT);
+			}
+			glk_stream_close(bookmark, NULL);
+			return (FALSE);
+		}
+		player  = saved_player;
+		noun[3] = saved_noun3;
+	}
 
 	/* RESTORE THE CURRENT VOLUME OF EACH OF THE SOUND CHANNELS */
 	for (index = 0; index < 8; index++) {
-		snprintf(temp_buffer, sizeof(temp_buffer), "volume[%d]", index);
+		sprintf(temp_buffer, "volume[%d]", index);
 		counter = read_integer(bookmark);
 		cinteger_resolve(temp_buffer)->value = counter;
 
@@ -197,7 +229,7 @@ restore_game(frefid_t saveref, int warn)
 
 	/* RESTORE THE CURRENT VALUE OF THE GLK TIMER */
 	counter = read_integer(bookmark);
-	cinteger_resolve("timer")->value = counter;
+	cinteger_resolve("event_timer")->value = counter;
 
 	/* SET THE GLK TIMER */
 	glk_request_timer_events((glui32) counter);
@@ -250,13 +282,4 @@ write_long(strid_t stream, long x)
     glk_put_char_stream(stream, c);
 }
 
-long 
-read_long(strid_t stream)
-{
-    long a, b, c, d;
-    a = (long) glk_get_char_stream(stream);
-    b = (long) glk_get_char_stream(stream);
-    c = (long) glk_get_char_stream(stream);
-    d = (long) glk_get_char_stream(stream);
-    return a | (b << 8) | (c << 16) | (d << 24);
-}
+

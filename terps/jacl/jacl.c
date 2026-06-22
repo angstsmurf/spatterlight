@@ -18,7 +18,7 @@
 
 #include "csv.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 #ifndef GARGLK
 #include <windows.h>
 #include "glkterm/glk.h"
@@ -31,51 +31,47 @@
 #include "language.h"
 #include <string.h>
 #include "prototypes.h"
+#include "interpreter.h"
+#include "parser.h"
+#include "encapsulate.h"
 
-#if !(defined GARGLK || defined SPATTERLIGHT)
-#include "glkterm/gi_blorb.h"
-#include "glkterm/glk.h"
-#include "Gargoyle/garglk.h"
-#elif defined SPATTERLIGHT
-#include "glkimp.h"
+#ifdef GARGLK
+#include <glkstart.h>
 #endif
 
-int convert_to_utf32 (unsigned char *text);
+/* Spatterlight supplies Glk (and gi_blorb.h) through glkimp.h, included
+ * from jacl.h; it must not pull in the bundled glkterm headers. */
+#if !defined(GARGLK) && !defined(SPATTERLIGHT)
+#include "glkterm/gi_blorb.h"
+#include "glkterm/glk.h"
+#endif
 
 glui32 				status_width, status_height;
 
-schanid_t 			sound_channel[8] = { NULL, NULL, NULL, NULL, 
+schanid_t 			sound_channel[8] = { NULL, NULL, NULL, NULL,
 										 NULL, NULL, NULL, NULL };
 
-event_t				*cancelled_event;
+/* Secondary slot per logical channel, holding the previously-active
+ * sound while it fades out so a new sound can fade in on the primary
+ * slot at the same time. Glk's schanid_t can play one sound at a time,
+ * so cross-fade requires two physical channels per logical channel. */
+schanid_t 			fade_channel[8] = { NULL, NULL, NULL, NULL,
+										 NULL, NULL, NULL, NULL };
 
-extern struct csv_parser parser_csv;
-
-extern char			text_buffer[];
-extern char			*word[];
-extern short int	quoted[];
-extern short int	punctuated[];
-extern int			wp;
-
-extern int			custom_error;
-extern int			interrupted;
+static event_t		*cancelled_event;
 
 extern int			jpp_error;
-
-extern int			it;
-extern int			them[];
-extern int			her;
-extern int			him;
-
-extern int			oops_word;
 
 #ifdef WINGLK
 struct	string_type	*resolved_string;
 #endif
 
-char            include_directory[1024] = "\0";
-char            temp_directory[1024] = "\0";
-char            data_directory[1024] = "\0";
+/* 512, not 81: these are game_path (256) + a subdir suffix. On a sandboxed
+ * iOS install game_path alone is ~135 chars, so 81 truncated data_directory
+ * mid-path and CSV/data lookups (iterate "x.csv") failed to open. */
+char            include_directory[512] = "\0";
+char            temp_directory[512] = "\0";
+char            data_directory[512] = "\0";
 char            special_prompt[81] = "\n: \0";
 char            file_prompt[5] = ": \0";
 char            bookmark[81] = "\0";
@@ -83,25 +79,24 @@ char            walkthru[81] = "\0";
 
 char            function_name[81];
 
-char            default_function[81];
-char            override[81];
+char            override[256];
 
 char            temp_buffer[1024];
 char            error_buffer[1024];
-unsigned char   chunk_buffer[4096];
+static unsigned char chunk_buffer[4096];
 #ifndef NOUNICODE
-glui32          chunk_buffer_uni[4096];
+static glui32   chunk_buffer_uni[4096];
 #endif
 char            proxy_buffer[1024];
 
-char			oops_buffer[1024];
-char			oopsed_current[1024];
+static char		oops_buffer[1024];
+static char		oopsed_current[1024];
 char            last_command[1024];
 char			*blank_command = "blankjacl\0";
-char            *current_command = (char *) NULL;
-char			command_buffer[1024];
+static char            *current_command = NULL;
+static char		command_buffer[1024];
 #ifndef NOUNICODE
-glui32			command_buffer_uni[1024];
+static glui32	command_buffer_uni[1024];
 #endif
 char			players_command[1024];
 
@@ -116,7 +111,7 @@ int             objects, integers, functions, strings;
 strid_t         game_stream = NULL;
 
 /* THE STREAM FOR OPENING UP THE ARCHIVE CONTAINING GRAPHICS AND SOUND */
-strid_t				blorb_stream;
+extern strid_t	blorb_stream;
 
 /* A FILE REFERENCE FOR THE TRANSCRIPT FILE. */
 static frefid_t script_fref = NULL;
@@ -126,10 +121,10 @@ static strid_t script_stream = NULL;
 int             noun[4];
 int             player = 0;
 
-int             noun3_backup;
-int             player_backup = 0;
+static int      noun3_backup;
+static int      player_backup = 0;
 
-int             variable_contents;
+
 int             oec;
 int            *object_element_address,
 			   *object_backup_address;
@@ -157,7 +152,7 @@ strid_t inputstr = NULL;
 
 char            user_id[] = "local";
 char            prefix[81] = "\0";
-char            blorb[81] = "\0";
+char            blorb[256] = "\0";
 char            game_path[256] = "\0";
 char            game_file[256] = "\0";
 char            processed_file[256] = "\0";
@@ -176,6 +171,32 @@ struct word_type *grammar_table = NULL;
 struct synonym_type *synonym_table = NULL;
 struct filter_type *filter_table = NULL;
 
+static void version_info(void);
+static void jacl_set_window(winid_t new_window);
+static void walking_thru(void);
+static void scripting(void);
+static void save_game_state(void);
+static void restore_game_state(void);
+static void word_check(void);
+#ifdef READLINE
+static char* object_generator(const char* text, int state);
+static char* verb_generator(const char* text, int state);
+static void add_word(const char * word);
+#endif
+
+static void jacl_strict_warning(const char *msg)
+{
+	fprintf(stderr, "JACL error: %s\n", msg);
+}
+
+#ifdef JACL_IOS_EMBED
+/* Silent per-game autosave / resume, defined after restore_interaction below;
+ * forward-declared here because glk_main uses them. */
+extern volatile int jacl_autosave_suppressed;
+int jacl_autosave_save(void);
+int jacl_autosave_restore(void);
+#endif
+
 void
 glk_main(void)
 {
@@ -183,10 +204,16 @@ glk_main(void)
 
 	frefid_t 		blorb_file;
 
+#ifdef JACL_IOS_EMBED
+	/* TRUE when this launch resumed a per-game autosave (see below): +intro is
+	 * skipped and the room is shown with +look_around instead of a fresh turn. */
+	int             jacl_resumed = FALSE;
+#endif
+
 #ifdef SPATTERLIGHT
-    if (gli_determinism)
-        srand(1234);
-    else
+	if (gli_determinism)
+		srand(1234);
+	else
 #endif
 	srand((int) time(NULL));
 
@@ -232,10 +259,18 @@ glk_main(void)
 	}
 
 	/* OPEN THE BLORB FILE IF ONE EXISTS */
-#ifdef SPATTERLIGHT
-    blorb_file = garglk_fileref_create_in_game_dir(fileusage_BinaryMode, blorb, 0);
-#elif !(defined WINGLK)
+#ifndef WINGLK
+#ifdef GARGLK
+	// Per the Glk spec, Gargoyle appends ".glkdata" to files opened via the
+	// "normal" Glk routines (e.g. glk_fileref_create_by_name). JACL assumes
+	// that it can open arbitrary files, and for that,
+	// glkunix_stream_open_pathname is required.
+	blorb_stream = glkunix_stream_open_pathname(blorb, 0, 0);
+#elif defined SPATTERLIGHT
+	blorb_file = garglk_fileref_create_in_game_dir(fileusage_BinaryMode, blorb, 0);
+#else
 	blorb_file = glk_fileref_create_by_name(fileusage_BinaryMode, blorb, 0);
+#endif
 #else
 	strcpy(temp_buffer, game_path);
 	strcat(temp_buffer, blorb);
@@ -243,8 +278,13 @@ glk_main(void)
 	blorb_file = winglk_fileref_create_by_name(fileusage_BinaryMode, blorb, 0, 0);
 #endif
 
+	// glkunix_stream_open_pathname does all this already.
+#ifndef GARGLK
 	if (blorb_file != NULL && glk_fileref_does_file_exist(blorb_file)) {
 		blorb_stream = glk_stream_open_file(blorb_file, filemode_Read, 0);
+#else
+        {
+#endif
 
 		if (blorb_stream != NULL) {
 			/* IF THE FILE EXISTS, SET THE RESOURCE MAP */
@@ -256,7 +296,70 @@ glk_main(void)
 	csv_init(&parser_csv, CSV_APPEND_NULL);
   
 	/* NO PREPROCESSOR ERRORS, LOAD THE GAME FILE */
-	read_gamefile();
+	if (read_gamefile()) {
+		terminate(48);
+	}
+
+	/* APPLY ANY 'stylehint' DECLARATIONS FROM THE GAME FILE.
+	 * Glk only honours hints set BEFORE a window opens, so for each style
+	 * with a recorded hint we set it on both the TextBuffer (mainwin) and
+	 * TextGrid (statuswin) wintypes, then close and re-open mainwin so the
+	 * already-open buffer window picks up the new hints. statuswin opens
+	 * later in this function and inherits them automatically. */
+	if (jacl_stylehints_dirty) {
+		static const int hint_styles[] = {
+			BOLD, NOTE, INPUT, HEADER, SUBHEADER, REVERSE, PRE, ALERT, QUOTE, -1
+		};
+		static const glui32 glk_styles[] = {
+			style_Emphasized, style_Note, style_Input, style_Header,
+			style_Subheader, 0 /* REVERSE handled below */, style_Preformatted,
+			style_Alert, style_BlockQuote
+		};
+		int hi;
+		for (hi = 0; hint_styles[hi] >= 0; hi++) {
+			int sidx = hint_styles[hi];
+			stylehint_t *h = &jacl_stylehints[sidx];
+			glui32 buf_style = glk_styles[hi];
+			glui32 grid_style = glk_styles[hi];
+			if (sidx == REVERSE) {
+				/* The 'reverse' style maps to User2 in mainwin and User1
+				 * in statuswin -- mirror what the runtime style command
+				 * does in interpreter.c. */
+				buf_style = style_User2;
+				grid_style = style_User1;
+			}
+			if (h->has_text_color) {
+				glk_stylehint_set(wintype_TextBuffer, buf_style,
+						stylehint_TextColor, (glsi32) h->text_color);
+				glk_stylehint_set(wintype_TextGrid, grid_style,
+						stylehint_TextColor, (glsi32) h->text_color);
+			}
+			if (h->has_back_color) {
+				glk_stylehint_set(wintype_TextBuffer, buf_style,
+						stylehint_BackColor, (glsi32) h->back_color);
+				glk_stylehint_set(wintype_TextGrid, grid_style,
+						stylehint_BackColor, (glsi32) h->back_color);
+			}
+			if (h->has_reverse) {
+				glk_stylehint_set(wintype_TextBuffer, buf_style,
+						stylehint_ReverseColor, (glsi32) h->reverse_value);
+				glk_stylehint_set(wintype_TextGrid, grid_style,
+						stylehint_ReverseColor, (glsi32) h->reverse_value);
+			}
+		}
+
+		/* Re-open mainwin so the new hints take effect. mainwin has had no
+		 * game-visible output yet (read_gamefile only loads declarations),
+		 * so closing it discards nothing meaningful. */
+		glk_window_close(mainwin, NULL);
+		mainwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
+		if (!mainwin) {
+			return;
+		}
+		mainstr = glk_window_get_stream(mainwin);
+		jacl_set_window(mainwin);
+		inputwin = mainwin;
+	}
 
 	execute ("+bootstrap");
 
@@ -280,15 +383,36 @@ glk_main(void)
 #endif
 
 	if (SOUND_SUPPORTED->value) {
-		/* CREATE THE EIGHT SOUND CHANNELS */
+		/* CREATE THE EIGHT SOUND CHANNELS, PLUS A FADE SLOT EACH */
 		for (index = 0; index < 8; index++) {
 			sound_channel[index] = glk_schannel_create(0);
+			fade_channel[index] = glk_schannel_create(0);
 		}
+#ifdef JACL_IOS_EMBED
+		/* The console build asks the player whether to enable sound; the apps
+		 * skip that (ios flag) and instead gate playback app-side via a
+		 * persistent Sound setting. So keep the interpreter's sound_enabled ON
+		 * here -- it always emits the channel ops, and the app decides whether
+		 * to actually play them. (The in-game `sound off`/`on` verbs still
+		 * work.) Without this, sound_enabled defaults to 0 and no ops fire. */
+		SOUND_ENABLED->value = TRUE;
+#endif
 	}
 
 	jacl_set_window(mainwin);
 
+#ifdef JACL_IOS_EMBED
+	/* Fresh launch: allow the next exit to autosave. Then, if this game has a
+	 * per-game autosave slot, resume it instead of replaying the intro -- the
+	 * restored state already holds everything +intro would set up. */
+	jacl_autosave_suppressed = FALSE;
+	jacl_resumed = jacl_autosave_restore();
+	if (!jacl_resumed) {
+		execute("+intro");
+	}
+#else
 	execute("+intro");
+#endif
 
 	if (object[2] == NULL) {
 		log_error (CANT_RUN, PLUS_STDERR);
@@ -298,7 +422,17 @@ glk_main(void)
     /* DUMMY RETRIEVE OF 'HERE' FOR TESTING OF GAME STATE */
     get_here();
 
+#ifdef JACL_IOS_EMBED
+	if (jacl_resumed) {
+		/* Show where the player is, full description, no turn passing
+		 * (+look_around does `set time = false`). */
+		execute("+look_around");
+	} else {
+		eachturn();
+	}
+#else
 	eachturn();
+#endif
 
 	/* TOP OF COMMAND LOOP */
 	do {
@@ -359,7 +493,7 @@ glk_main(void)
 					/* A SOUND HAS FINISHED PLAYING CALL +sound_finished
 					 * WITH THE RESOUCE NUMBER AS THE FIRST ARGUMENT
 					 * AND THE CHANNEL NUMBER AS THE SECOND ARGUMENT */
-					snprintf(temp_buffer, sizeof(temp_buffer), "+sound_finished<%d<%d", (int) ev.val1, (int) ev.val2 - 1);
+					sprintf(temp_buffer, "+sound_finished<%d<%d", (int) ev.val1, (int) ev.val2 - 1);
 					execute(temp_buffer);
                     break;
 
@@ -384,6 +518,16 @@ glk_main(void)
 		// THE PLAYER'S INPUT WILL BE UTF-32. CONVERT IT TO UTF-8 AND NULL TERMINATE IT
 #ifndef NOUNICODE
 		convert_to_utf8(command_buffer_uni, ev.val1);
+#else
+		/* Glk does not NUL-terminate command_buffer after a byte-mode
+		 * line event. Without this terminator the read loop below
+		 * walks past ev.val1 bytes into stale data from a previous
+		 * turn (command_buffer is a file-scope static, so its tail
+		 * holds whatever the previous input wrote there). */
+		if (ev.val1 < (int) sizeof(command_buffer))
+			command_buffer[ev.val1] = 0;
+		else
+			command_buffer[sizeof(command_buffer) - 1] = 0;
 #endif
 
 		current_command = command_buffer;
@@ -403,7 +547,9 @@ glk_main(void)
 		index = 0;
 
 		if (*current_command) {
-			while (*(current_command + index) && index < 1024) {
+			/* Cap at 1023 so the trailing `text_buffer[index] = 0;`
+			 * below lands inside the buffer; text_buffer is 1024 bytes. */
+			while (*(current_command + index) && index < 1023) {
 				if (*(current_command + index) == '\r' || *(current_command + index) == '\n') {
 					break;
 				} else {
@@ -581,21 +727,20 @@ word_check()
 			TIME->value = FALSE;
 		}
 	} else if (!strcmp(word[wp], cstring_resolve("AGAIN_WORD")->value) || !strcmp(word[wp], "g")) {
-		if (TOTAL_MOVES->value == 0) {
-			write_text(cstring_resolve("NO_MOVES")->value);
-			TIME->value = FALSE;
-		} else if (last_command[0] == 0) {
-			write_text(cstring_resolve("NOT_CLEVER")->value);
-			TIME->value = FALSE;
-		} else {
-			strcpy(text_buffer, last_command);
-			current_command = last_command;
-			command_encapsulate();
-			jacl_truncate();
-			//printf("--- command started at %d\n", start_of_last_command);
-			wp = start_of_last_command;
-			word_check();
-		}
+                if (TOTAL_MOVES->value == 0) {
+                        write_text(cstring_resolve("NO_MOVES")->value);
+                        TIME->value = FALSE;
+                } else if (last_command[0] == 0) {
+                        write_text(cstring_resolve("NOT_CLEVER")->value);
+                        TIME->value = FALSE;
+                } else {
+                        strcpy(current_command, last_command);
+                        strcpy(text_buffer, last_command);
+                        command_encapsulate();
+                        jacl_truncate();
+                        wp = start_of_last_command;
+                        word_check();
+                }
 	} else if (!strcmp(word[wp], cstring_resolve("SCRIPT_WORD")->value) || !strcmp(word[wp], "transcript")) {
 		scripting();
 	} else if (!strcmp(word[wp], cstring_resolve("UNSCRIPT_WORD")->value)) {
@@ -625,7 +770,7 @@ word_check()
 		write_text("Public License along with this program; if not, write ");
 		write_text("to the Free Software Foundation, Inc., 675 Mass Ave, ");
 		write_text("Cambridge, MA 02139, USA.^^");
-        snprintf(temp_buffer, sizeof(temp_buffer), "OBJECTS DEFINED:   %d^", objects);
+		sprintf(temp_buffer, "OBJECTS DEFINED:   %d^", objects);
 		write_text(temp_buffer);
 		TIME->value = FALSE;
 	} else {
@@ -644,10 +789,10 @@ version_info()
 {
 	char            buffer[80];
 
-	snprintf(buffer, sizeof(buffer), "JACL Interpreter v%d.%d.%d ", J_VERSION, J_RELEASE,
+	sprintf(buffer, "JACL Interpreter v%d.%d.%d ", J_VERSION, J_RELEASE,
 			J_BUILD);
 	write_text(buffer);
-	snprintf(buffer, sizeof(buffer), "/ %d object.^", MAX_OBJECTS);
+	sprintf(buffer, "/ %d object.^", MAX_OBJECTS);
 	write_text(buffer);
 	write_text("Copyright (c) 1992-2010 Stuart Allen.^^");
 }
@@ -693,7 +838,7 @@ save_game_state()
 }
 
 int
-save_interaction(char *filename)
+save_interaction(const char *filename)
 {
 	frefid_t saveref;
 
@@ -707,7 +852,7 @@ save_interaction(char *filename)
 	if (filename == NULL) {
 		saveref = glk_fileref_create_by_prompt(fileusage_SavedGame | fileusage_BinaryMode, filemode_Write, 0);
 	} else {
-		saveref = glk_fileref_create_by_name(fileusage_SavedGame | fileusage_BinaryMode, filename, 0);
+		saveref = glk_fileref_create_by_name(fileusage_SavedGame | fileusage_BinaryMode, (char*)filename, 0);
 
 	}
 
@@ -774,7 +919,7 @@ restore_game_state()
 }
 
 void
-write_text(char *string_buffer)
+write_text(const char *string_buffer)
 {
 	int             index,
 					length;
@@ -848,11 +993,31 @@ status_line()
 	jacl_set_window(statuswin);
 	glk_window_clear(statuswin);
 
+	/* total_moves starts at -1 (loader: "time passes before the first
+	 * prompt") and eachturn() bumps it to 0. A status line drawn during
+	 * +intro -- before that first eachturn() -- would otherwise show
+	 * "Moves: -1". Clamp to >= 0 for the render and restore afterwards, so
+	 * the GLK status matches the web frontend (web_render_status_bar does
+	 * the same) while game code that tests total_moves = -1 (e.g. Eria)
+	 * keeps seeing the real value. */
+	int saved_total_moves = (TOTAL_MOVES != NULL) ? TOTAL_MOVES->value : 0;
+	if (TOTAL_MOVES != NULL && TOTAL_MOVES->value < 0) {
+		TOTAL_MOVES->value = 0;
+	}
+
 	if (execute("+update_status_window") == FALSE) {
 		glk_set_style(style_User1);
 
-		/* DISPLAY THE INVERSE STATUS LINE AT THE TOP OF THE SCREEN */
-		for (index = 0; index < status_width; index++) {
+		/* DISPLAY THE INVERSE STATUS LINE AT THE TOP OF THE SCREEN.
+		 * Clamp the fill width to temp_buffer's capacity: status_width
+		 * is a glui32 from Glk and on a very wide window (Gargoyle
+		 * resized full-screen on a hi-DPI display) it can exceed
+		 * 1024, overrunning temp_buffer. */
+		glui32 fill_width = status_width;
+		if (fill_width >= sizeof(temp_buffer)) {
+			fill_width = sizeof(temp_buffer) - 1;
+		}
+		for (index = 0; index < (int) fill_width; index++) {
 			temp_buffer[index] = ' ';
 		}
 		temp_buffer[index] = 0;
@@ -864,12 +1029,26 @@ status_line()
 
 		/* BUILD THE SCORE/ MOVES STRING */
 		temp_buffer[0] = 0;
-		snprintf (temp_buffer, sizeof(temp_buffer), "Score: %d  Moves: %d", SCORE->value, TOTAL_MOVES->value);
+		sprintf (temp_buffer, "Score: %d  Moves: %d", SCORE->value, TOTAL_MOVES->value);
 
-		cursor = status_width - strlen(temp_buffer);
-		cursor--;
+		/* Compute right-justified cursor; if the score/moves string
+		 * is wider than the window, fall back to column 0 rather
+		 * than letting (status_width - strlen) underflow into a
+		 * huge glui32. */
+		{
+			size_t tb_len = strlen(temp_buffer);
+			if (tb_len + 1 < status_width) {
+				cursor = status_width - tb_len - 1;
+			} else {
+				cursor = 0;
+			}
+		}
 		glk_window_move_cursor(statuswin, cursor, 0);
 		write_text(temp_buffer);
+	}
+
+	if (TOTAL_MOVES != NULL) {
+		TOTAL_MOVES->value = saved_total_moves;
 	}
 
     jacl_set_window(mainwin);
@@ -884,10 +1063,8 @@ newline()
 }
 
 void
-more(char* message)
+more(const char* message)
 {
-	int character;
-
 	jacl_set_window(inputwin);
 
 	if (inputwin == promptwin) {
@@ -899,7 +1076,7 @@ more(char* message)
 	write_text(message);
 	glk_set_style(style_Normal);
 
-	character = get_key();
+	get_key();
 
 	if (inputwin == mainwin) newline();
 }
@@ -937,7 +1114,7 @@ get_number(int insist, int low, int high)
 
     status_line();
 
-	snprintf(temp_buffer, sizeof(temp_buffer), cstring_resolve("TYPE_NUMBER")->value, low, high);
+	sprintf(temp_buffer, cstring_resolve("TYPE_NUMBER")->value, low, high);
 
     /* THIS LOOP IS IDENTICAL TO THE MAIN COMMAND LOOP IN glk_main(). */
 
@@ -989,11 +1166,12 @@ get_number(int insist, int low, int high)
 }
 
 void
-get_string(char *string_buffer)
+get_string(char *string_buffer, int size)
 {
     char *cx;
 	char commandbuf[256];
     int gotline;
+    int copy_cap;
     event_t ev;
 
     status_line();
@@ -1030,8 +1208,13 @@ get_string(char *string_buffer)
     commandbuf[ev.val1] = '\0';
     for (cx = commandbuf; *cx == ' '; cx++) { };
 
-	// COPY UP TO 255 BYTES OF THE ENTERED TEXT INTO THE SUPPLIED STRING
-	strncpy (string_buffer, cx, 255);
+	/* Copy up to size-1 bytes of the entered text into the caller's
+	 * buffer; the previous fixed 255+terminate-at-[255] wrote past the
+	 * end of any caller buffer smaller than 256 bytes. */
+	copy_cap = (size > 256) ? 255 : size - 1;
+	if (copy_cap < 0) copy_cap = 0;
+	strncpy (string_buffer, cx, copy_cap);
+	string_buffer[copy_cap] = 0;
 }
 
 int
@@ -1092,7 +1275,7 @@ get_yes_or_no(void)
 }
 
 char
-get_character(char *message)
+get_character(const char *message)
 {
     char *cx;
 	char commandbuf[256];
@@ -1139,16 +1322,13 @@ get_character(char *message)
 }
 
 strid_t
-open_glk_file (usage, mode, filename)
-	glui32 			usage;
-	glui32 			mode;
-	char *			filename;
+open_glk_file (glui32 usage, glui32 mode, const char *filename)
 {
 
 	frefid_t	file_reference;
 	strid_t		stream_reference;
 
-   	file_reference = glk_fileref_create_by_name(usage, filename, 0);
+   	file_reference = glk_fileref_create_by_name(usage, (char *)filename, 0);
 
 	if (file_reference) {
     	stream_reference = glk_stream_open_file(file_reference, mode, 0);
@@ -1306,7 +1486,7 @@ walking_thru()
 }
 
 int
-restore_interaction(char *filename)
+restore_interaction(const char *filename)
 {
 	frefid_t saveref;
 
@@ -1320,7 +1500,7 @@ restore_interaction(char *filename)
 	if (filename == NULL) {
 		saveref = glk_fileref_create_by_prompt(fileusage_SavedGame | fileusage_BinaryMode, filemode_Read, 0);
 	} else {
-		saveref = glk_fileref_create_by_name(fileusage_SavedGame | fileusage_BinaryMode, filename, 0);
+		saveref = glk_fileref_create_by_name(fileusage_SavedGame | fileusage_BinaryMode, (char*)filename, 0);
 	}
 
 	jacl_set_window(mainwin);
@@ -1338,11 +1518,76 @@ restore_interaction(char *filename)
 	}
 }
 
+#ifdef JACL_IOS_EMBED
+/* ---- Silent per-game autosave / resume (iOS + Android apps only) -----------
+ *
+ * Mirrors how the web build persists state between commands: leaving a game
+ * (the app closes the socket, so the terp's stdin hits EOF) writes the current
+ * state to a reserved per-game slot "<prefix>__auto.glksave"; reopening the
+ * game restores it in glk_main -- skipping +intro and showing the room via
+ * +look_around -- so the player resumes exactly where they left off with no
+ * turn passing. Named saves the player makes are untouched.
+ *
+ * The slot is per-game (keyed on `prefix`, the .j2 basename) because every
+ * game shares one sandbox directory. An explicit Restart in the app sets the
+ * suppress flag so the next exit doesn't re-autosave, then deletes the slot. */
+
+volatile int jacl_autosave_suppressed = FALSE;
+
+static frefid_t jacl_autosave_ref(void)
+{
+	char name[120];
+	snprintf(name, sizeof(name), "%s__auto", prefix);
+	return glk_fileref_create_by_name(fileusage_SavedGame | fileusage_BinaryMode,
+	                                  name, 0);
+}
+
+/* Save current state to the autosave slot. No-ops unless a game is loaded and
+ * at least one turn has passed (so merely opening and closing a game, or
+ * leaving at the start-up "restore?" prompt, doesn't create a resume point).
+ * Called from the terp thread at the stdin-EOF boundary (rgdata.c), where the
+ * game is parked at a command prompt and its state is consistent. */
+int jacl_autosave_save(void)
+{
+	frefid_t ref;
+
+	if (jacl_autosave_suppressed) return (FALSE);
+	if (objects <= 0) return (FALSE);                         /* no game loaded */
+	if (TOTAL_MOVES == NULL || TOTAL_MOVES->value <= 0) return (FALSE);
+
+	ref = jacl_autosave_ref();
+	if (!ref) return (FALSE);
+	/* save_game() destroys the fileref itself once its stream is open, like
+	 * save_interaction does -- we must NOT destroy it again (double free). */
+	return (save_game(ref));
+}
+
+/* Restore the autosave slot if it exists. Returns TRUE if a game was resumed.
+ * Called from glk_main before +intro. */
+int jacl_autosave_restore(void)
+{
+	frefid_t ref = jacl_autosave_ref();
+
+	if (!ref) return (FALSE);
+	if (!glk_fileref_does_file_exist(ref)) {
+		glk_fileref_destroy(ref);   /* not consumed by restore_game below */
+		return (FALSE);
+	}
+	/* restore_game() destroys the fileref itself once its stream is open. */
+	return (restore_game(ref, FALSE));
+}
+
+/* Set by the app's Restart before it closes the socket, so the imminent exit
+ * doesn't write a fresh autosave over the one being discarded. Reset at the
+ * top of each new game's glk_main. */
+void jacl_autosave_set_suppressed(int suppressed)
+{
+	jacl_autosave_suppressed = suppressed;
+}
+#endif /* JACL_IOS_EMBED */
+
 glui32
-glk_get_bin_line_stream(file_stream, buffer, max_length)
-	strid_t         file_stream;
-	char *			buffer;
-	glui32			max_length;
+glk_get_bin_line_stream(strid_t file_stream, char *buffer, glui32 max_length)
 {
 	glsi32 character = 0;
 
@@ -1365,7 +1610,7 @@ glk_get_bin_line_stream(file_stream, buffer, max_length)
 }
 
 void
-jacl_set_window(winid_t new_window)
+jacl_set_window(winid_t	new_window)
 {
 	current_window = new_window;
 	glk_set_window(new_window);
@@ -1373,10 +1618,7 @@ jacl_set_window(winid_t new_window)
 
 #ifdef READLINE
 char **
-command_completion(text, start, end)
-char* text;
-int start;
-int end;
+command_completion(char* text, int start, int end)
 {
     /* READLINE TAB COMPLETION CODE */
     char **options;
@@ -1390,7 +1632,6 @@ int end;
 
     return (options);
 }
-#endif
 
 char *
 object_generator(char* text, int state)
@@ -1483,7 +1724,7 @@ verb_generator(char* text, int state)
 /* ADD A COPY OF STRING TO A LIST OF STRINGS IF IT IS NOT
    ALREADY IN THE LIST. THIS IS FOR THE USE OF READLINE */
 void
-add_word(char *word)
+add_word(const char * word)
 {
     static struct command_type *current_word = NULL;
     struct command_type *previous_word = NULL;
@@ -1511,16 +1752,23 @@ add_word(char *word)
 		}
     }
 }
+#endif
 
 void 
 convert_to_utf8(glui32 *text, int len) {
 	int i, k;
+	/* command_buffer is 1024 bytes; a 4-byte UTF-8 sequence plus the
+	 * trailing NUL means we can't safely write past index
+	 * sizeof - 5. Without this cap, a long input of high-codepoint
+	 * characters would overflow (e.g. 256 emoji = 1024 output bytes
+	 * + NUL = one-byte overrun). */
+	const int cap = (int) sizeof(command_buffer) - 5;
 
 	i = 0;
 	k = 0;
 
 	/*convert UTF-32 to UTF-8 */
-	while (i < len) {
+	while (i < len && k < cap) {
 		if (text[i] < 0x80) {
 			command_buffer[k] = text[i];
 			k++;
@@ -1599,12 +1847,12 @@ parse_utf8(unsigned char *buf, glui32 buflen,
 
         if ((val0 & 0xe0) == 0xc0) {
             if (pos+1 > buflen) {
-                gli_strict_warning("incomplete two-byte character");
+                jacl_strict_warning("incomplete two-byte character");
                 break;
             }
             val1 = buf[pos++];
             if ((val1 & 0xc0) != 0x80) {
-                gli_strict_warning("malformed two-byte character");
+                jacl_strict_warning("malformed two-byte character");
                 break;
             }
             res = (val0 & 0x1f) << 6;
@@ -1615,17 +1863,17 @@ parse_utf8(unsigned char *buf, glui32 buflen,
 
         if ((val0 & 0xf0) == 0xe0) {
             if (pos+2 > buflen) {
-                gli_strict_warning("incomplete three-byte character");
+                jacl_strict_warning("incomplete three-byte character");
                 break;
             }
             val1 = buf[pos++];
             val2 = buf[pos++];
             if ((val1 & 0xc0) != 0x80) {
-                gli_strict_warning("malformed three-byte character");
+                jacl_strict_warning("malformed three-byte character");
                 break;
             }
             if ((val2 & 0xc0) != 0x80) {
-                gli_strict_warning("malformed three-byte character");
+                jacl_strict_warning("malformed three-byte character");
                 break;
             }
             res = (((val0 & 0xf)<<12)  & 0x0000f000);
@@ -1637,26 +1885,26 @@ parse_utf8(unsigned char *buf, glui32 buflen,
 
         if ((val0 & 0xf0) == 0xf0) {
             if ((val0 & 0xf8) != 0xf0) {
-                gli_strict_warning("malformed four-byte character");
+                jacl_strict_warning("malformed four-byte character");
                 break;        
             }
             if (pos+3 > buflen) {
-                gli_strict_warning("incomplete four-byte character");
+                jacl_strict_warning("incomplete four-byte character");
                 break;
             }
             val1 = buf[pos++];
             val2 = buf[pos++];
             val3 = buf[pos++];
             if ((val1 & 0xc0) != 0x80) {
-                gli_strict_warning("malformed four-byte character");
+                jacl_strict_warning("malformed four-byte character");
                 break;
             }
             if ((val2 & 0xc0) != 0x80) {
-                gli_strict_warning("malformed four-byte character");
+                jacl_strict_warning("malformed four-byte character");
                 break;
             }
             if ((val3 & 0xc0) != 0x80) {
-                gli_strict_warning("malformed four-byte character");
+                jacl_strict_warning("malformed four-byte character");
                 break;
             }
             res = (((val0 & 0x7)<<18)   & 0x1c0000);
@@ -1667,7 +1915,7 @@ parse_utf8(unsigned char *buf, glui32 buflen,
             continue;
         }
 
-        gli_strict_warning("malformed character");
+        jacl_strict_warning("malformed character");
     }
 
     return outpos;

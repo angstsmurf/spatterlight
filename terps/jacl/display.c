@@ -7,21 +7,42 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
+#include "encapsulate.h"
+#include "parser.h"
 
-extern char						temp_buffer[];
-extern char						function_name[];
+/* All the *_output helpers below share the global `temp_buffer`.
+ * That means a caller who tries to use two macro outputs in the
+ * same write expression (e.g. `write noun1{the} " sees " noun2{that}`)
+ * will see the second call overwrite the first before write_text
+ * gets to send them. The engine's write/print pipeline copies each
+ * argument as it streams output, so the common idiom is safe, but
+ * if you ever store the return value across another *_output call
+ * you must strdup or strcpy it first. */
 
-extern struct object_type		*object[];
-extern struct variable_type		*variable[];
+/* Look up a cstring by name and return its value, falling back to
+ * the supplied literal if the library doesn't define it. Every
+ * *_output below used `cstring_resolve("X")->value` directly, which
+ * segfaults if a stripped-down or in-progress library is missing
+ * X. The fallback keeps the engine alive and substitutes English
+ * defaults the player will recognise. */
+static const char *
+safe_cstr(const char *name, const char *fallback)
+{
+    struct string_type *s = cstring_resolve(name);
+    if (s == NULL) return fallback;
+    return s->value;
+}
 
-extern char						*word[];
-
-extern int						player;
-extern int						wp;
-extern int						objects;
-extern int						custom_error;
-
-extern int						spaced;
+/* Guard every *_output entry: many of them are called via macro_
+ * resolve(), which can hand us an integer that came from a game-
+ * side `noun3` pointer (zero / unset) or from a corrupted save.
+ * Without this check object[0] (a sentinel) or object[index] past
+ * the table both deref into garbage. */
+static int
+valid_object(int index)
+{
+    return (index >= 1 && index <= objects && object[index] != NULL);
+}
 
 int
 check_light(int where)
@@ -33,7 +54,7 @@ check_light(int where)
 	else {
 		for (index = 1; index <= objects; index++) {
 			if ((object[index]->attributes & LUMINOUS)
-				&& scope(index, "*present", 0))
+				&& scope(index, "*present", FALSE))
 				return (TRUE);
 		}
 	}
@@ -43,59 +64,84 @@ check_light(int where)
 char *
 sentence_output(int index, int capital)
 {
+	const char *def;
+	struct string_type *override;
+
+	if (!valid_object(index)) { temp_buffer[0] = 0; return temp_buffer; }
+	def = object[index]->definite;
+
+	/* If the object still has the loader default "the" and the game
+	 * has set a DEFAULT_DEFINITE constant (e.g. "none" in Indonesian),
+	 * use the game's value instead. This lets a single compiled
+	 * interpreter serve games in any language. */
+	if (!strcmp(def, "the")) {
+		override = cstring_resolve("DEFAULT_DEFINITE");
+		if (override != NULL) {
+			def = override->value;
+		}
+	}
+
 	if (!strcmp(object[index]->article, "name")) {
 		strcpy(temp_buffer, object[index]->inventory);
+	} else if (def[0] == '\0' || !strcmp(def, "none")) {
+		strcpy(temp_buffer, object[index]->inventory);
+	} else if (def[0] == '-') {
+		strcpy(temp_buffer, object[index]->inventory);
+		strcat(temp_buffer, &def[1]);
 	} else {
-		strcpy(temp_buffer, object[index]->definite);
+		strcpy(temp_buffer, def);
 		strcat(temp_buffer, " ");
 		strcat(temp_buffer, object[index]->inventory);
 	}
 
-	if (capital)
-		temp_buffer[0] = toupper(temp_buffer[0]);
+	if (capital && (unsigned char) temp_buffer[0] < 0x80)
+		temp_buffer[0] = toupper((unsigned char) temp_buffer[0]);
 
 	return (temp_buffer);
 }
 
 char *
-isnt_output(int index, int capital)
+isnt_output(int index)
 {
+	if (!valid_object(index)) return (char *) safe_cstr("ISNT", "isn't");
 	if (object[index]->attributes & PLURAL)
-		return (cstring_resolve("ARENT")->value);
+		return (char *) safe_cstr("ARENT", "aren't");
 	else
-		return (cstring_resolve("ISNT")->value);
+		return (char *) safe_cstr("ISNT", "isn't");
 }
 
 char *
-is_output(int index, int capital)
+is_output(int index)
 {
+	if (!valid_object(index)) return (char *) safe_cstr("IS", "is");
 	if (object[index]->attributes & PLURAL)
-		return (cstring_resolve("ARE")->value);
+		return (char *) safe_cstr("ARE", "are");
 	else
-		return (cstring_resolve("IS")->value);
+		return (char *) safe_cstr("IS", "is");
 }
 
 char *
 sub_output(int index, int capital)
 {
+	if (!valid_object(index)) { temp_buffer[0] = 0; return temp_buffer; }
 	if (object[index]->attributes & PLURAL) {
-		strcpy(temp_buffer, cstring_resolve("THEY_WORD")->value);
+		strcpy(temp_buffer, safe_cstr("THEY_WORD", "they"));
 	} else {
 		if (index == player) {
-			strcpy(temp_buffer, cstring_resolve("YOU_WORD")->value);
+			strcpy(temp_buffer, safe_cstr("YOU_WORD", "you"));
 		} else if (object[index]->attributes & ANIMATE) {
 			if (object[index]->attributes & FEMALE) {
-				strcpy(temp_buffer, cstring_resolve("SHE_WORD")->value);
+				strcpy(temp_buffer, safe_cstr("SHE_WORD", "she"));
 			} else {
-				strcpy(temp_buffer, cstring_resolve("HE_WORD")->value);
+				strcpy(temp_buffer, safe_cstr("HE_WORD", "he"));
 			}
 		} else {
-			strcpy(temp_buffer, cstring_resolve("IT_WORD")->value);
+			strcpy(temp_buffer, safe_cstr("IT_WORD", "it"));
 		}
 	}
 
-	if (capital)
-		temp_buffer[0] = toupper(temp_buffer[0]);
+	if (capital && (unsigned char) temp_buffer[0] < 0x80)
+		temp_buffer[0] = toupper((unsigned char) temp_buffer[0]);
 
 	return temp_buffer;
 }
@@ -103,78 +149,92 @@ sub_output(int index, int capital)
 char *
 obj_output(int index, int capital)
 {
+	if (!valid_object(index)) { temp_buffer[0] = 0; return temp_buffer; }
 	if (object[index]->attributes & PLURAL) {
-		strcpy(temp_buffer, cstring_resolve("THEM_WORD")->value);
+		strcpy(temp_buffer, safe_cstr("THEM_WORD", "them"));
 	} else {
 		if (index == player) {
-			strcpy(temp_buffer, cstring_resolve("YOURSELF_WORD")->value);
+			strcpy(temp_buffer, safe_cstr("YOURSELF_WORD", "yourself"));
 		} else if (object[index]->attributes & ANIMATE) {
 			if (object[index]->attributes & FEMALE) {
-				strcpy(temp_buffer, cstring_resolve("HER_WORD")->value);
+				strcpy(temp_buffer, safe_cstr("HER_WORD", "her"));
 			} else {
-				strcpy(temp_buffer, cstring_resolve("HIM_WORD")->value);
+				strcpy(temp_buffer, safe_cstr("HIM_WORD", "him"));
 			}
 		} else {
-			strcpy(temp_buffer, cstring_resolve("IT_WORD")->value);
+			strcpy(temp_buffer, safe_cstr("IT_WORD", "it"));
 		}
 	}
 
-	if (capital)
-		temp_buffer[0] = toupper(temp_buffer[0]);
+	if (capital && (unsigned char) temp_buffer[0] < 0x80)
+		temp_buffer[0] = toupper((unsigned char) temp_buffer[0]);
 
 	return temp_buffer;
 }
 
 char *
-it_output(int index, int capital)
+it_output(int index)
 {
-	if (object[index]->attributes & ANIMATE) {
-		return sentence_output(index, FALSE);
-	} else {
-		if (object[index]->attributes & PLURAL) {
-			return (cstring_resolve("THEM_WORD")->value);
+	/* {it} contract per the Author's Guide: prints "they" if PLURAL,
+	 * "he" if ANIMATE, "she" if ANIMATE+FEMALE, "it" otherwise.
+	 * Previously the ANIMATE branch called sentence_output(), which
+	 * returns the object's full noun phrase ("the man"), not a
+	 * pronoun -- a long-standing bug visible to every game that
+	 * used a `noun{it}` macro on an NPC. */
+	if (!valid_object(index)) return (char *) safe_cstr("IT_WORD", "it");
+	if (object[index]->attributes & PLURAL) {
+		return (char *) safe_cstr("THEY_WORD", "they");
+	} else if (object[index]->attributes & ANIMATE) {
+		if (object[index]->attributes & FEMALE) {
+			return (char *) safe_cstr("SHE_WORD", "she");
 		} else {
-			return (cstring_resolve("IT_WORD")->value);
+			return (char *) safe_cstr("HE_WORD", "he");
 		}
+	} else {
+		return (char *) safe_cstr("IT_WORD", "it");
 	}
 }
 
 char *
 that_output(int index, int capital)
 {
+	if (!valid_object(index)) { temp_buffer[0] = 0; return temp_buffer; }
 	if (object[index]->attributes & PLURAL) {
-		strcpy(temp_buffer, cstring_resolve("THOSE_WORD")->value);
+		strcpy(temp_buffer, safe_cstr("THOSE_WORD", "those"));
 	} else {
-		strcpy(temp_buffer, cstring_resolve("THAT_WORD")->value);
+		strcpy(temp_buffer, safe_cstr("THAT_WORD", "that"));
 	}
 
-	if (capital)
-		temp_buffer[0] = toupper(temp_buffer[0]);
+	if (capital && (unsigned char) temp_buffer[0] < 0x80)
+		temp_buffer[0] = toupper((unsigned char) temp_buffer[0]);
 
 	return temp_buffer;
 }
 
 char *
-doesnt_output(int index, int unused)
+doesnt_output(int index)
 {
+	if (!valid_object(index)) return (char *) safe_cstr("DOESNT", "doesn't");
 	if (object[index]->attributes & PLURAL)
-		return (cstring_resolve("DONT")->value);
+		return (char *) safe_cstr("DONT", "don't");
 	else
-		return (cstring_resolve("DOESNT")->value);
+		return (char *) safe_cstr("DOESNT", "doesn't");
 }
 
 char *
-does_output(int index, int capital)
+does_output(int index)
 {
+	if (!valid_object(index)) return (char *) safe_cstr("DOES", "does");
 	if (object[index]->attributes & PLURAL)
-		return (cstring_resolve("DO")->value);
+		return (char *) safe_cstr("DO", "do");
 	else
-		return (cstring_resolve("DOES")->value);
+		return (char *) safe_cstr("DOES", "does");
 }
 
 char *
 list_output(int index, int capital)
 {
+	if (!valid_object(index)) { temp_buffer[0] = 0; return temp_buffer; }
 	if (!strcmp(object[index]->article, "name")) {
 		strcpy(temp_buffer, object[index]->inventory);
 	} else {
@@ -183,8 +243,8 @@ list_output(int index, int capital)
 		strcat(temp_buffer, object[index]->inventory);
 	}
 
-	if (capital)
-		temp_buffer[0] = toupper(temp_buffer[0]);
+	if (capital && (unsigned char) temp_buffer[0] < 0x80)
+		temp_buffer[0] = toupper((unsigned char) temp_buffer[0]);
 
 	return (temp_buffer);
 }
@@ -192,10 +252,11 @@ list_output(int index, int capital)
 char *
 plain_output(int index, int capital)
 {
+	if (!valid_object(index)) { temp_buffer[0] = 0; return temp_buffer; }
 	strcpy(temp_buffer, object[index]->inventory);
 
-	if (capital)
-		temp_buffer[0] = toupper(temp_buffer[0]);
+	if (capital && (unsigned char) temp_buffer[0] < 0x80)
+		temp_buffer[0] = toupper((unsigned char) temp_buffer[0]);
 
 	return (temp_buffer);
 }
@@ -203,6 +264,7 @@ plain_output(int index, int capital)
 char *
 long_output(int index)
 {
+	if (!valid_object(index)) { temp_buffer[0] = 0; return temp_buffer; }
 	if (!strcmp(object[index]->described, "function")) {
 		strcpy(function_name, "long_");
 		strcat(function_name, object[index]->label);
@@ -222,14 +284,14 @@ long_output(int index)
 void
 no_it()
 {
-	write_text(cstring_resolve("NO_IT")->value);
+	write_text(safe_cstr("NO_IT", "I don't see "));
 	write_text(word[wp]);
-	write_text(cstring_resolve("NO_IT_END")->value);
+	write_text(safe_cstr("NO_IT_END", " here."));
 	custom_error = TRUE;
 }
 
 void
-look_around(void)
+look_around()
 {
 	/* THIS FUNCTION DISPLAYS THE DESCRIPTION OF THE CURRENT LOCATION ALONG
 	 * WITH ANY OBJECTS CURRENTLY IN IT */
@@ -270,4 +332,3 @@ look_around(void)
 
 	execute("+after_look");
 }
-

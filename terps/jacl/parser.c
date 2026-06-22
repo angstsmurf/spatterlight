@@ -7,13 +7,15 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
+#include "parser.h"
+#include "encapsulate.h"
 #include <string.h>
 
 #define FIRST_LIST		noun_number-2
 #define SECOND_LIST		noun_number
 
 int								object_list[4][MAX_OBJECTS];
-int								multiple_resolved[MAX_OBJECTS];
+static int						multiple_resolved[MAX_OBJECTS];
 
 // THIS IS THE NUMBER OF OBJECTS LEFT IN THE LIST
 int								list_size[4];
@@ -28,71 +30,99 @@ int								max_size[4];
  * noun2 EXCEPTIONS	: 3
  */
 
-int             				selection;
+#if defined(GLK) || defined(__NDS__)
+static int             			selection;
+#endif
 
-int				             	matches = 0;
-int            					highest_confidence = 0;
-int            				 	prime_suspect = 0;
-int             				done = 0;
-int             				backup_pointer = 0;
-int								everything = 0;
+static int				        matches = 0;
+static int            			highest_confidence = 0;
+static int            			prime_suspect = 0;
+static int             			done = 0;
+static int             			backup_pointer = 0;
+static int						everything = 0;
 
-int             				confidence[MAX_OBJECTS];
-int								possible_objects[MAX_OBJECTS];
+static int             			confidence[MAX_OBJECTS];
+#if defined(GLK) || defined(__NDS__)
+static int						possible_objects[MAX_OBJECTS];
+#endif
 
 int								it;
 int								them[MAX_OBJECTS];
 int								her;
 int								him;
-int								parent;
+static int						parent;
 
 int								custom_error;
 
 int								oops_word;
 int								last_exact;
 
-char							*expected_scope[3];
+static char						*expected_scope[3];
 
 // THIS ARRAY DEFINES THE OBJECTS THAT THE CURRENT OBJECTS ARE
 // SUPPOSED TO BE A CHILD OF
-int								from_objects[MAX_OBJECTS];
+static int						from_objects[MAX_OBJECTS];
 
 int								after_from;
-char							*from_word;
+static const char				*from_word;
 
-int								object_expected = FALSE;
+static int						object_expected = FALSE;
 
-extern char							default_function[84];
-char							object_name[84];
+char							default_function[256];
+/* Sized to fit any concatenation of words from the 1024-byte
+ * player command plus single-space separators (worst case ~1535
+ * for alternating 1-char words). The prior 84-byte sizing
+ * overflowed for long noun phrases like "get the small wooden
+ * crate from beneath the table". */
+static char						object_name[2048];
 
-char				            base_function[84];
-char            				before_function[84];
-char            				after_function[84];
-char            				local_after_function[84];
+/* Bounded append: copies as many bytes of src as fit in dst (which
+ * has total capacity max), always NUL-terminates, never overruns.
+ * Used in the noun-resolution loop where words from the player
+ * command get accumulated. */
+static void
+parser_strcat(char *dst, const char *src, size_t max)
+{
+	size_t used = strlen(dst);
+	size_t room = (used < max) ? (max - used - 1) : 0;
+	if (room == 0) return;
+	strncat(dst, src, room);
+}
 
-extern char						text_buffer[1024];
-extern char						function_name[81];
-extern char						temp_buffer[1024];
-extern char						error_buffer[1024];
-extern char						override[];
-extern char						*word[];
+/* Enlarged from 84 to 256 to accommodate worst-case 2-noun
+ * function names: prefix(80) + label(43) + "_" + label(43) +
+ * "override_"(9) leaves the old 84-byte buffer 90+ bytes short.
+ * 256 covers any realistic verb/noun combination. */
+static char				        base_function[256];
+static char            			before_function[256];
+static char            			after_function[256];
+static char            			local_after_function[256];
 
-extern int						quoted[];
 
-extern struct object_type		*object[];
-extern int						objects;
-
-extern int						noun[];
-extern int						wp;
-extern int						player;
-
-extern struct word_type			*grammar_table;
-extern struct function_type		*executing_function;
-extern struct object_type		*object[];
-extern struct variable_type		*variable[];
+static int find_parent(int index);
+static int find_parent_impl(int index, int depth);
+/* Recursion-depth ceiling for the parent-chain walkers. Object
+ * containment in a real game rarely exceeds a handful of levels;
+ * 200 is comfortably above legitimate use and well below stack-
+ * smash territory. Hitting it means a cycle (A->B->A) the
+ * single-step self-parent guard would miss. */
+#define MAX_PARENT_DEPTH 200
+static int build_object_list(struct word_type *scope_word, int noun_number);
+static void call_functions(const char *base_name);
+static void add_to_list(int noun_number, int resolved_object);
+static int noun_resolve(struct word_type *scope_word, int finding_from, int noun_number);
+static int get_from_object(struct word_type *scope_word, int noun_number);
+static int is_direct_child_of_from(int child);
+static int is_child_of_from(int child);
+static int verify_from_object(int from_object);
+static void add_all(struct word_type *scope_word, int noun_number);
+static struct word_type *exact_match(struct word_type *pointer);
+static struct word_type *object_match(struct word_type *iterator, int noun_number);
+static void set_them(int noun_number);
+static void diagnose(void);
 
 void
-parser(void)
+parser()
 {
 	// THIS FUNCTION COMPARES THE WORDS IN THE PLAYER'S COMMAND TO THE
 	// GRAMMAR TREE OF POSSIBLE COMMANDS
@@ -167,7 +197,7 @@ parser(void)
 					if (last_exact == -1) {
 						write_text (cstring_resolve("NO_MULTI_START")->value);
 					} else {
-						snprintf(error_buffer, sizeof(error_buffer), cstring_resolve("NO_MULTI_VERB")->value, word[last_exact]);
+						sprintf(error_buffer, cstring_resolve("NO_MULTI_VERB")->value, word[last_exact]);
 						write_text(error_buffer);
 					}
 
@@ -363,7 +393,7 @@ first_available(int list_number)
 }
 
 void
-call_functions(char *base_name)
+call_functions(const char *base_name)
 {
 	/* THIS FUNCTION CALLS ALL THE APPROPRIATE JACL FUNCTIONS TO RESPOND
 	 * TO A PLAYER'S COMMAND GIVEN A BASE FUNCTION NAME AND THE CURRENT
@@ -373,16 +403,14 @@ call_functions(char *base_name)
 	 * PASS. IF THE COMMAND FAILS, 'TIME' WILL BE SET TO FALSE */
 	TIME->value = TRUE;
 
-	strncpy(base_function, base_name + 1, 80);
-	strcat(base_function, "_");
-
-	strncpy(override, base_function, 80);
-
-	strcpy(before_function, "+before_");
-	strcat(before_function, base_name + 1);
-
-	strcpy(after_function, "+after_");
-	strcat(after_function, base_name + 1);
+	/* snprintf bounds the verb name copy and always NUL-terminates;
+	 * the prior strncpy(..., 80) into a 256-byte buffer would skip
+	 * the NUL when base_name was longer than the limit, leaving
+	 * subsequent strcat reading past the buffer. */
+	snprintf(base_function,   sizeof base_function,   "%s_", base_name + 1);
+	snprintf(override,        256,                    "%s",  base_function);
+	snprintf(before_function, sizeof before_function, "+before_%s", base_name + 1);
+	snprintf(after_function,  sizeof after_function,  "+after_%s",  base_name + 1);
 
 	strcpy(local_after_function, "after_");
 	strcat(local_after_function, base_name + 1);
@@ -604,9 +632,8 @@ exact_match(struct word_type *pointer)
 	return (NULL);
 }
 
-int
-is_terminator(scope_word)
-	struct word_type		*scope_word;
+static int
+is_terminator(struct word_type *scope_word)
 {
 	struct word_type *terminator = scope_word->first_child;
 
@@ -637,7 +664,7 @@ build_object_list(struct word_type *scope_word, int noun_number)
 
 	int				index, counter;
 	int				resolved_object;
-	char			*except_word;
+	const char		*except_word;
 
 	//printf("--- entering build object list starting at %s with a scope_word of %s\n", word[wp], scope_word->word);
 	/* LOOK AHEAD FOR A FROM CLAUSE AND STORE from_object IF SO */
@@ -684,7 +711,7 @@ build_object_list(struct word_type *scope_word, int noun_number)
 				 * RESOLVED LIST */
 				noun_number = noun_number + 2;
 			} else {
-				snprintf (error_buffer, sizeof(error_buffer), cstring_resolve("DOUBLE_EXCEPT")->value, except_word);	
+				sprintf (error_buffer, cstring_resolve("DOUBLE_EXCEPT")->value, except_word);	
 				write_text (error_buffer);
 				custom_error = TRUE;
 				return (FALSE);
@@ -838,10 +865,7 @@ set_them(int noun_number)
 void
 add_all(struct word_type *scope_word, int noun_number)
 {
-	int index, counter;
-
-	//printf("--- trying to add all\n");
-	counter = 0;
+	int index;
 
 	for (index = 1; index <= objects; index++) {
 		if ((object[index]->MASS < HEAVY) &&
@@ -1036,7 +1060,7 @@ verify_from_object(int from_object)
 	//if (!(object[from_object]->attributes & CONTAINER) &&
 	//	!(object[from_object]->attributes & SURFACE) &&
 	//	!(object[from_object]->attributes & ANIMATE)) {
-	//	snprintf (error_buffer, sizeof(error_buffer), FROM_NON_CONTAINER, from_word);	
+	//	sprintf (error_buffer, FROM_NON_CONTAINER, from_word);	
 	//	write_text (error_buffer);
 	//	custom_error = TRUE;
 	//	return (FALSE);
@@ -1044,9 +1068,9 @@ verify_from_object(int from_object)
 	if (object[from_object]->attributes & CONTAINER && object[from_object]->attributes & CLOSED) {
 		//printf("--- container is concealing\n");
         if (object[from_object]->attributes & FEMALE) {
-			snprintf (error_buffer, sizeof(error_buffer), cstring_resolve("CONTAINER_CLOSED_FEM")->value, sentence_output(from_object, TRUE));	
+			sprintf (error_buffer, cstring_resolve("CONTAINER_CLOSED_FEM")->value, sentence_output(from_object, TRUE));	
 		} else {
-			snprintf (error_buffer, sizeof(error_buffer), cstring_resolve("CONTAINER_CLOSED")->value, sentence_output(from_object, TRUE));	
+			sprintf (error_buffer, cstring_resolve("CONTAINER_CLOSED")->value, sentence_output(from_object, TRUE));	
 		}
 		write_text(error_buffer);
 		custom_error = TRUE;
@@ -1055,13 +1079,13 @@ verify_from_object(int from_object)
 	 * IF THE PERSON IS POSSESSIVE LET THE LIBRARY HANDLE THE RESPONSE
 	} else if (object[from_object]->attributes & POSSESSIVE) {
 		//printf("--- container is closed\n");
-		snprintf (error_buffer, sizeof(error_buffer), PERSON_POSSESSIVE, sentence_output(from_object, TRUE));	
+		sprintf (error_buffer, PERSON_POSSESSIVE, sentence_output(from_object, TRUE));	
 		write_text(error_buffer);
 		custom_error = TRUE;
 		return (FALSE);
 	} else if (object[from_object]->attributes & CONCEALING) {
 		//printf("--- container is closed\n");
-		snprintf (error_buffer, sizeof(error_buffer), PERSON_CONCEALING, sentence_output(from_object, TRUE));	
+		sprintf (error_buffer, PERSON_CONCEALING, sentence_output(from_object, TRUE));	
 		write_text(error_buffer);
 		custom_error = TRUE;
 		return (FALSE);*/
@@ -1144,10 +1168,12 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 				return_limit = 1;
 			}
 
-			object_expected = TRUE;	
-			strcpy(object_name, word[wp]);
-			strcat(object_name, " ");
-			strcat(object_name, cstring_resolve("OF_WORD")->value);
+			object_expected = TRUE;
+			object_name[0] = 0;
+			parser_strcat(object_name, word[wp], sizeof object_name);
+			parser_strcat(object_name, " ", sizeof object_name);
+			parser_strcat(object_name, cstring_resolve("OF_WORD")->value,
+			              sizeof object_name);
 
 			/* MOVE THE WORD POINTER TO AFTER THE 'OF' */
 			wp = wp + 2;
@@ -1163,10 +1189,10 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	while (word[wp] != NULL) {
 		// ADD THE WORDS USED TO error_buffer FOR POSSIBLE USE
 		// IN A DISABMIGUATE EMESSAGE
-		if (first_word == FALSE) {		
-			strcat(error_buffer, " ");
+		if (first_word == FALSE) {
+			parser_strcat(error_buffer, " ", 1024);
 		}
-		strcat(error_buffer, word[wp]);	
+		parser_strcat(error_buffer, word[wp], 1024);
 		first_word = FALSE;
 
 		/* LOOP THROUGH WORDS IN THE PLAYER'S INPUT */
@@ -1217,13 +1243,13 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 
 		//puts("--- passed checking for a terminator");
 
-		/* ADD THE CURRENT WORD TO THE NAME OF THE OBJECT THE PLAYER 
+		/* ADD THE CURRENT WORD TO THE NAME OF THE OBJECT THE PLAYER
 		 * IS TRYING TO REFER TO FOR USE IN AN ERROR MESSAGE IF
 		 * LATER REQUIRED */
 		if (object_name[0] != 0)
-			strcat(object_name, " ");
+			parser_strcat(object_name, " ", sizeof object_name);
 
-		strcat(object_name, word[wp]);
+		parser_strcat(object_name, word[wp], sizeof object_name);
 
 		if (!strcmp("everything", word[wp])) {
 			/* ALL THIS NEEDS TO SIGNIFY IS THAT IT IS OKAY TO RETURN MULTIPLE 
@@ -1494,7 +1520,14 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 				counter++;
 				current_name = current_name->next_name;
 			}
-			confidence[index] = ((confidence[index] - 1) * 100) / counter;
+			/* Guard against an object with no names (first_name == NULL):
+			 * dividing by counter would SIGFPE. Treat no-name objects as
+			 * having zero confidence so they can't win disambiguation. */
+			if (counter > 0) {
+				confidence[index] = ((confidence[index] - 1) * 100) / counter;
+			} else {
+				confidence[index] = 0;
+			}
 		}
 	}
 
@@ -1523,7 +1556,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 
 			if (finding_from) {
 				if (strcmp(scope_word->word, "*anywhere") && strcmp(scope_word->word, "**anywhere")) {
-					if (scope(index, "*present", 0) == FALSE) {
+					if (scope(index, "*present", TRUE) == FALSE) {
 						matches--;
 						confidence[index] = FALSE;
 						continue;
@@ -1633,13 +1666,13 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	/* AN AMBIGUOUS REFERENCE WAS MADE. ATTEMPT TO CALL ALL THE disambiguate
 	 * FUNCTIONS TO SEE IF ANY OF THE OBJECT WANTS TO TAKE PREFERENCE IN
 	 * THIS CIRCUMSTANCE */
+	/*
 	int situation = noun_number;
 
 	if (finding_from) {
 		situation += 4;
 	}
 
-	/* 
 	for (index = 1; index <= objects; index++) {
 		if (confidence[index] != FALSE) {
 			strcpy(function_name, "disambiguate");
@@ -1692,19 +1725,26 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	for (index = 1; index <= objects; index++) {
 		if (confidence[index] != FALSE) {
 			possible_objects[counter] = index;
-			snprintf(text_buffer, sizeof(text_buffer), "  [%d] ", counter);
+			sprintf(text_buffer, "  [%d] ", counter);
 			write_text(text_buffer);
 			sentence_output(index, 0);
 			write_text(temp_buffer);
 			matches--;
-			if (counter < 9)
-				counter++;
 			write_text("^");
+			if (counter >= 9) {
+				/* Cap displayed options at 9; without breaking out of
+				 * the loop, additional iterations would overwrite
+				 * possible_objects[9] and emit duplicate "[9] ..."
+				 * lines because the prior cap stopped incrementing
+				 * `counter` but did not stop the loop. */
+				break;
+			}
+			counter++;
 		}
 	}
 
 	/* GET A NUMBER: don't insist, low = 1, high = counter */
-	selection = get_number(FALSE, 1, counter - 1);
+	selection = get_number(FALSE, 1, counter);
 
 	if (selection == -1) {
 		write_text (cstring_resolve("INVALID_SELECTION")->value);
@@ -1742,7 +1782,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 }
 
 void
-diagnose(void)
+diagnose()
 {
 	if (custom_error) {
 		TIME->value = FALSE;
@@ -1763,7 +1803,7 @@ diagnose(void)
 }
 
 int
-scope(int index, char *expected, int restricted)
+scope(int index, const char *expected, int restricted)
 {
 	/* THIS FUNCTION DETERMINES IF THE SPECIFIED OBJECT IS IN THE SPECIFIED
 	 * SCOPE - IT RETURNS TRUE IF SO, FALSE IF NOT. */
@@ -1782,7 +1822,9 @@ scope(int index, char *expected, int restricted)
 			 * BEING HELD. IE, A LABEL ON A JAR CAN BE SHOWN BECAUSE
 			 * THE JAR IS BEING HELD. */
             temp = object[index]->PARENT;
-			if (temp > 0 && temp < objects) {
+			/* Valid object indices are 1..objects inclusive; the prior
+			 * `temp < objects` excluded the highest-numbered object. */
+			if (temp > 0 && temp <= objects) {
 				if (object[temp]->PARENT == HELD) {
 					return (TRUE);
 				}
@@ -1814,7 +1856,8 @@ scope(int index, char *expected, int restricted)
 	} else if (!strcmp(expected, "*anywhere") || !strcmp(expected, "**anywhere")) {
 		return (TRUE);
 	} else if (!strcmp(expected, "*inside") || !strcmp(expected, "**inside")) {
-		if (object_list[0][0] >0 && object_list[0][0] < objects) {
+		/* Valid object indices are 1..objects inclusive. */
+		if (object_list[0][0] > 0 && object_list[0][0] <= objects) {
 			return (parent_of(object_list[0][0], index, restricted));
 		} else {
 			// THERE IS NO PREVIOUS OBJECT SO TREAT THIS LIKE A *here 
@@ -1839,11 +1882,25 @@ scope(int index, char *expected, int restricted)
 int
 find_parent(int index)
 {
-	/* THIS FUNCTION WILL SET THE GLOBAL VARIABLE parent TO 
+	return find_parent_impl(index, 0);
+}
+
+static int
+find_parent_impl(int index, int depth)
+{
+	/* THIS FUNCTION WILL SET THE GLOBAL VARIABLE parent TO
 	 * THE OBJECT THAT IS AT THE TOP OF THE POSSESSION TREE.
 	 * IT WILL RETURN TRUE IF THE OBJECT IS VISIBLE TO THE
 	 * PLAYER */
 	//printf("--- find parent of %s\n", object[index]->label);
+
+	if (depth >= MAX_PARENT_DEPTH) {
+		sprintf(error_buffer,
+		        "Object parent chain exceeded depth %d starting at '%s'; possible cycle.",
+		        MAX_PARENT_DEPTH, object[index]->label);
+		log_error(error_buffer, PLUS_STDOUT);
+		return (FALSE);
+	}
 
 	if (!(object[index]->attributes & LOCATION) &&
 			object[index]->PARENT != NOWHERE) {
@@ -1853,7 +1910,7 @@ find_parent(int index)
 
 		if (index == parent) {
 			/* THIS OBJECT HAS ITS PARENT SET TO ITSELF */
-			snprintf(error_buffer, sizeof(error_buffer), SELF_REFERENCE, executing_function->name, object[index]->label);
+			sprintf(error_buffer, SELF_REFERENCE, executing_function->name, object[index]->label);
 			log_error(error_buffer, PLUS_STDOUT);
 			return (FALSE);
 		} else	if (!(object[parent]->attributes & LOCATION) 
@@ -1870,7 +1927,7 @@ find_parent(int index)
 				return (FALSE);
 			} else {
 				//printf("--- %s isnt a location, so recuse\n", object[parent]->label);
-				return (find_parent(parent));
+				return (find_parent_impl(parent, depth + 1));
 			}
 		}
 	} else {
@@ -1882,18 +1939,34 @@ find_parent(int index)
 	}
 }
 
+static int parent_of_impl(int parent, int child, int restricted, int depth);
+
 int
 parent_of(int parent, int child, int restricted)
+{
+	return parent_of_impl(parent, child, restricted, 0);
+}
+
+static int
+parent_of_impl(int parent, int child, int restricted, int depth)
 {
 	/* THIS FUNCTION WILL CLIMB THE OBJECT TREE STARTING AT 'CHILD' UNTIL
 	 * 'PARENT' IS REACHED (RETURN TRUE), OR THE TOP OF THE TREE OR A CLOSED
 	 * OR CONCEALING OBJECT IS REACHED (RETURN FALSE). */
-	
+
 	/* restricted ARGUMENT TELLS FUNCTION TO IGNORE OBJECT IF IT IS IN AN
-	 * OBJECT WITH A mass OF heavy OR LESS THAT IS NOT THE SUPPLIED 
+	 * OBJECT WITH A mass OF heavy OR LESS THAT IS NOT THE SUPPLIED
 	 * PARENT ie. DON'T ACCEPT OBJECTS IN SUB OBJECTS */
 
 	int             index;
+
+	if (depth >= MAX_PARENT_DEPTH) {
+		sprintf(error_buffer,
+		        "Object parent chain exceeded depth %d (parent=%d, child=%d); possible cycle.",
+		        MAX_PARENT_DEPTH, parent, child);
+		log_error(error_buffer, PLUS_STDOUT);
+		return (FALSE);
+	}
 
 	//printf("--- parent is %s, child is %s\n", object[parent]->label, object[child]->label);
 	if (child == parent) {
@@ -1906,7 +1979,7 @@ parent_of(int parent, int child, int restricted)
 
 		if (index == child) {
 			/* THIS CHILD HAS IT'S PARENT SET TO ITSELF */
-			snprintf(error_buffer, sizeof(error_buffer), SELF_REFERENCE, executing_function->name, object[index]->label);
+			sprintf(error_buffer, SELF_REFERENCE, executing_function->name, object[index]->label);
 			log_error(error_buffer, PLUS_STDOUT);
 			//printf("--- self parent.\n");
 			return (FALSE);
@@ -1929,7 +2002,7 @@ parent_of(int parent, int child, int restricted)
 			} else {
 				/* KEEP LOOKING UP THE TREE TILL THE CHILD HAS NO MORE
 				 * PARENTS */
-				return (parent_of(parent, index, restricted));
+				return (parent_of_impl(parent, index, restricted, depth + 1));
 			}
 		}
 	} else {

@@ -14,17 +14,15 @@
 #include "glk.h"
 #include "glkstart.h"
 #include "language.h"
-#include "types.h"
 #include "prototypes.h"
 #include <string.h>
 
 int					jpp_error = FALSE;
 
-extern strid_t 		game_stream;
-extern char			game_file[];
-extern char			temp_buffer[];
-extern char			error_buffer[1024];
-extern char			processed_file[];
+/* Renamed from 'encrypt' to avoid colliding with POSIX encrypt(3),
+ * which <unistd.h> declares on Spatterlight's platforms. This flag is
+ * only set by the -noencrypt argument and is otherwise unused in the
+ * Glk build (jpp.c uses its own do_encrypt). */
 #undef encrypt
 short int			doencrypt;
 extern short int	release;
@@ -32,10 +30,7 @@ extern short int	release;
 glkunix_startup_t *arguments;
 
 /* THE STREAM FOR OPENING UP THE ARCHIVE CONTAINING GRAPHICS AND SOUND */
-extern strid_t				blorb_stream;
-
-/* PROTOTYPE FOR NEEDED UTILITY FUNCTION */
-void create_paths();
+strid_t				blorb_stream;
 
 glkunix_argumentlist_t glkunix_arguments[] = {
     {"", glkunix_arg_ValueFollows, "filename: The game file to load." },
@@ -62,14 +57,17 @@ int glkunix_startup_code(glkunix_startup_t *data)
 	 * GENERALLY BE LIMITED TO FINDING AND OPENING DATA FILES.  */
 
 	if (arguments->argc == 1) {
-		snprintf (error_buffer, sizeof(error_buffer), "%s^", NO_GAME);
+		sprintf (error_buffer, "%s^", NO_GAME);
 		jpp_error = TRUE;
 
 		/* WE NEED TO RETURN TRUE HERE SO THE INTERPRETER WILL OPEN A
 		 * GLK WINDOWS TO DISPLAY THE ERROR MESSAGE IN */
 		return (TRUE);
 	} else {
-		strcpy(temp_buffer, arguments->argv[1]);
+		/* temp_buffer is 1024 bytes; argv[1] is a user-supplied path
+		 * that can easily exceed that on Linux (PATH_MAX is 4096).
+		 * Truncate cleanly instead of overflowing the global. */
+		snprintf(temp_buffer, 1024, "%s", arguments->argv[1]);
 
 		/* THERE IS AT LEAST ONE ARGUMENT, POSSIBLY JUST THE GAME FILE, BUT 
 		 * LOOK THROUGH THE LIST FOR ANYTHING THAT NEEDS ACTING ON */
