@@ -81,8 +81,10 @@ qPop(Queue *q, int *val, int *val2)
 {
 	//assert(q->head != NULL);
 
-	*val = q->head->val;
-	*val2 = q->head->val2;
+	QueueNode *node = q->head;
+
+	*val = node->val;
+	*val2 = node->val2;
 
 	if (q->head == q->tail)
 	{
@@ -90,19 +92,25 @@ qPop(Queue *q, int *val, int *val2)
 	}
 	else
 	{
-		q->head = q->head->next;
+		q->head = node->next;
 	}
+
+	free(node);
 }
 
 /**************************************/
 /* Set functions                      */
 /**************************************/
 
-/* linked list for hash table */
+/* linked list for hash table; all_next chains every allocation off
+ * `Set.all_nodes` so setDelete can free the whole set in one linear
+ * pass (the per-bucket sweep tripped the static analyzer's limited
+ * loop unrolling and produced a false-positive leak warning). */
 typedef struct SetNode
 {
 	int val;
 	struct SetNode *next;
+	struct SetNode *all_next;
 } SetNode;
 
 #define SET_HASHSIZE 101
@@ -110,6 +118,7 @@ typedef struct SetNode
 typedef struct
 {
 	SetNode *node[SET_HASHSIZE];
+	SetNode *all_nodes;
 } Set;
 
 static void
@@ -121,25 +130,21 @@ setInit(Set *set)
 	{
 		set->node[n] = NULL;
 	}
+	set->all_nodes = NULL;
 }
 
 static void
 setDelete(Set *set)
 {
-	int n;
+	SetNode *node, *next;
 
-	for (n = 0;n < SET_HASHSIZE;n++)
+	for (node = set->all_nodes;node != NULL;node = next)
 	{
-		SetNode *node, *next;
-
-		for (node = set->node[n];node != NULL;node = next)
-		{
-			next = node->next;
-			free(node);
-		}
-
-		set->node[n] = NULL;
+		next = node->all_next;
+		free(node);
 	}
+
+	set->all_nodes = NULL;
 }
 
 static int
@@ -167,6 +172,8 @@ setAdd(Set *set, int val)
 	node->val = val;
 	node->next = set->node[n];
 	set->node[n] = node;
+	node->all_next = set->all_nodes;
+	set->all_nodes = node;
 	return 0;
 }
 

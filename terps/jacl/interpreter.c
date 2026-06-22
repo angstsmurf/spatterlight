@@ -314,7 +314,7 @@ static int distance(double x1, double y1, double x2, double y2);
 static int strcondition(void);
 static void set_arguments(const char *function_call);
 
-void
+_Noreturn void
 terminate(int code)
 {
     // FREE ANY EXTRA RAM ALLOCATED BY THE CSV PARSER
@@ -376,7 +376,6 @@ build_proxy(void)
         strncat(proxy_buffer, piece, room);
         used += strlen(piece);
         if (used >= 1024 - 1) {
-            used = 1024 - 1;
             break;
         }
     }
@@ -2288,9 +2287,8 @@ execute(const char *funcname)
                         return (exit_function(TRUE));
                     } else {
                         *split_container = 0;
-                        match = source;        // THERE IS ALWAYS ONE MATCH, EVEN IF
-                                            // NO DELIMETERS ARE FOUND
 
+                        // THERE IS ALWAYS ONE MATCH, EVEN IF NO DELIMETERS ARE FOUND
                         while ((match = strstr(source, delimiter))) {
                             *match = 0;
                             strcpy(container_buffer, var_text_of_word(4));
@@ -4023,7 +4021,6 @@ inspect (int object_num)
         }
 
         write_text("^has user attributes: ");
-        attribute_value = 1;
     }
 
     if (pointer != NULL) {

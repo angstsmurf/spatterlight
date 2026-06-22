@@ -223,7 +223,7 @@ totalerrs(int errors)
 	log_error(error_buffer, PLUS_STDERR);
 }
 
-void
+_Noreturn void
 outofmem()
 {
 	log_error(OUT_OF_MEMORY, PLUS_STDERR);

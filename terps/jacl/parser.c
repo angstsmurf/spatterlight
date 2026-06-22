@@ -1132,7 +1132,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	int             counter;
 	int				first_word = TRUE;
 
-	struct word_type *terminator = scope_word->first_child;
+	struct word_type *terminator;
 	struct name_type *current_name;
 
 	matches = 0;

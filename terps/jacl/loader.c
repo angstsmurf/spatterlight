@@ -399,7 +399,7 @@ read_gamefile()
                          malloc(sizeof(struct synonym_type))) == NULL)
                         outofmem();
                     else {
-                        if (synonym_table == NULL) {
+                        if (current_synonym == NULL) {
                             synonym_table = new_synonym;
                         } else {
                             current_synonym->next_synonym = new_synonym;
@@ -590,7 +590,7 @@ read_gamefile()
                          malloc(sizeof(struct filter_type))) == NULL)
                         outofmem();
                     else {
-                        if (filter_table == NULL) {
+                        if (current_filter == NULL) {
                             filter_table = new_filter;
                         } else {
                             current_filter->next_filter = new_filter;
@@ -1178,7 +1178,7 @@ build_grammar_table(struct word_type *pointer)
                 pointer = pointer->next_sibling;
         }
     }
-    while (wp < MAX_WORDS && word[wp] != NULL);
+    while (pointer != NULL && wp < MAX_WORDS && word[wp] != NULL);
 }
 
 int

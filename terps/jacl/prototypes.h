@@ -98,7 +98,7 @@ char* doesnt_output(int index);
 char* does_output(int index);
 char* list_output(int index, int capital);
 char* long_output(int index);
-void terminate(int code);
+_Noreturn void terminate(int code);
 #ifdef GLK
 int  push_stack(glsi32 file_pointer);
 #else
@@ -144,7 +144,7 @@ void unkdirrun(int wordno);
 void unkscorun(const char *scope);
 void unkstrrun(const char *variable);
 void unkvarrun(const char *variable);
-void outofmem(void);
+_Noreturn void outofmem(void);
 void no_it(void);
 void clrscrn(void);
 void more(const char* message);
