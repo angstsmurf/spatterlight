@@ -1325,8 +1325,11 @@ static char **split_capbuf_lines(int *out_n)
 	{
 	    size_t len = i - start;
 	    char  *ln  = malloc(len + 1);
-	    memcpy(ln, capbuf + start, len);
-	    ln[len] = '\0';
+	    if (ln)
+	    {
+		memcpy(ln, capbuf + start, len);
+		ln[len] = '\0';
+	    }
 	    lines[li++] = ln;
 	    start = i + 1;
 	}
