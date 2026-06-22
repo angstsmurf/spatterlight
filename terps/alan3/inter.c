@@ -1240,8 +1240,10 @@ void interpret(Aaddr adr)
                 traceInstruction2("DIV", lh, rh);
                 if (rh == 0)
                     apperr("Division by zero");
-                push(stack, lh / rh);
-                traceIntegerTopValue();
+                else {
+                    push(stack, lh / rh);
+                    traceIntegerTopValue();
+                }
                 break;
             }
             case I_NOT: {

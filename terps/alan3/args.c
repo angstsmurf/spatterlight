@@ -43,7 +43,7 @@ char *gameName(char *fullPathName) {
     }
 
     if (foundGameName[0] == '.' && foundGameName[1] == '/')
-        strcpy(foundGameName, &foundGameName[2]);
+        strncpy(foundGameName, &foundGameName[2], strlen(foundGameName));
 
     return foundGameName;
 }
@@ -68,7 +68,7 @@ static char *addAcodeExtension(char *adventureFileName) {
     if (strlen(adventureFileName) < strlen(ACODEEXTENSION)
         || !equalStrings(&adventureFileName[strlen(adventureFileName)-4], ACODEEXTENSION)) {
         adventureFileName = realloc(adventureFileName, strlen(adventureFileName)+strlen(ACODEEXTENSION)+1);
-        strcat(adventureFileName, ACODEEXTENSION);
+        strncat(adventureFileName, ACODEEXTENSION, strlen(ACODEEXTENSION));
     }
     return adventureFileName;
 }
@@ -238,8 +238,8 @@ void args(int argc, char * argv[])
             FILE *adventureFile;
             adventureFileName = allocate(strlen(programName)
                                          +strlen(ACODEEXTENSION)+1);
-            strcpy(adventureFileName, programName);
-            strcat(adventureFileName, ACODEEXTENSION);
+            strncpy(adventureFileName, programName, strlen(programName) + strlen(ACODEEXTENSION));
+            strncat(adventureFileName, ACODEEXTENSION, strlen(ACODEEXTENSION));
             // TODO break out as utils::fileExists()
             if ((adventureFile = fopen(adventureFileName, "r")) == NULL) {
                 free(adventureFileName);

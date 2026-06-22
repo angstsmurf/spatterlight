@@ -15,6 +15,7 @@ void implementationOfSetEndOfArray(Aword *adr)
 
 bool implementationOfIsEndOfList(Aword *adr)
 {
+	if (adr == NULL) return true;
 	return *adr == EOF;
 }
 

@@ -32,8 +32,10 @@ Aword getAttribute(AttributeEntry *attributeTable, int attributeCode)
 {
     AttributeEntry *attribute = lookupAttribute(attributeTable, attributeCode);
 
-    if (attribute == NULL)
+    if (attribute == NULL) {
         syserr("Attribute not found.");
+        return 0;
+    }
 
     return attribute->value;
 }
@@ -44,8 +46,10 @@ void setAttribute(AttributeEntry *attributeTable, int attributeCode, Aptr newVal
 {
     AttributeEntry *attribute = lookupAttribute(attributeTable, attributeCode);
 
-    if (attribute == NULL)
+    if (attribute == NULL) {
         syserr("Attribute not found.");
+        return;
+    }
 
     attribute->value = newValue;
     gameStateChanged = true;

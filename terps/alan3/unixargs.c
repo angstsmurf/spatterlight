@@ -34,7 +34,7 @@ void args(int argc, char * argv[])
             && strstr(prgnam, PROGNAME) == 0) {
             adventureFileName = strdup(argv[0]);
             adventureName = strdup(argv[0]);
-            strcat(adventureFileName, ".a3c");
+            strncat(adventureFileName, ".a3c", strlen(".a3c"));
         }
     free(prgnam);
 }

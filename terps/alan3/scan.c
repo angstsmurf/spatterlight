@@ -116,10 +116,13 @@ static char *gettoken(char *buf) {
     static char *marker;
     static char oldch;
 
-    if (buf == NULL)
-        *marker = oldch;
-    else
+    if (buf == NULL) {
+        if (marker != NULL)
+            *marker = oldch;
+    } else
         marker = buf;
+    if (marker == NULL)
+        return NULL;
     while (*marker != '\0' && isSpace(*marker) && *marker != '\n')
         marker++;
     buf = marker;
@@ -267,9 +270,13 @@ static int handle_literal(int i) {
         createIntegerLiteral(number(token));
     } else {
         char *unquotedString = strdup(token);
-        unquotedString[strlen(token) - 1] = '\0';
-        createStringLiteral(&unquotedString[1]);
-        free(unquotedString);
+        if (unquotedString == NULL)
+            abortPlayerCommand();
+        else {
+            unquotedString[strlen(token) - 1] = '\0';
+            createStringLiteral(&unquotedString[1]);
+            free(unquotedString);
+        }
     }
     playerWords[i++].code = dictionarySize + litCount; /* Word outside dictionary = literal */
     return i;

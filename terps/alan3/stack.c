@@ -46,8 +46,10 @@ Stack createStack(int size)
 /*======================================================================*/
 void deleteStack(Stack theStack)
 {
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("deleting a NULL stack");
+    return;
+  }
 
   deallocate(theStack->stack);
   deallocate(theStack);
@@ -65,8 +67,10 @@ void dumpStack(Stack theStack)
 {
   int i;
 
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    return;
+  }
 
   printf("[");
   for (i = 0; i < theStack->stackp; i++)
@@ -80,11 +84,15 @@ void dumpStack(Stack theStack)
 /*======================================================================*/
 void push(Stack theStack, Aptr i)
 {
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    return;
+  }
 
-  if (theStack->stackp == theStack->stackSize)
+  if (theStack->stackp == theStack->stackSize) {
     syserr("Out of stack space.");
+    return;
+  }
   theStack->stack[(theStack->stackp)++] = i;
 }
 
@@ -92,11 +100,15 @@ void push(Stack theStack, Aptr i)
 /*======================================================================*/
 Aptr pop(Stack theStack)
 {
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    return (Aptr)0;
+  }
 
-  if (theStack->stackp == 0)
+  if (theStack->stackp == 0) {
     syserr("Stack underflow.");
+    return (Aptr)0;
+  }
   return theStack->stack[--(theStack->stackp)];
 }
 
@@ -104,8 +116,10 @@ Aptr pop(Stack theStack)
 /*======================================================================*/
 Aptr top(Stack theStack)
 {
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    return (Aptr)0;
+  }
 
   return theStack->stack[theStack->stackp-1];
 }
@@ -118,8 +132,10 @@ void newFrame(Stack theStack, Aint noOfLocals)
 {
   int n;
 
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    return;
+  }
 
   push(theStack, theStack->framePointer);
   theStack->framePointer = theStack->stackp;
@@ -135,11 +151,15 @@ Aptr getLocal(Stack theStack, Aint framesBelow, Aint variableNumber)
   int frame;
   int frameCount;
 
-  if (variableNumber < 1)
+  if (variableNumber < 1) {
     syserr("Reading a non-existing block-local variable.");
+    return (Aptr)0;
+  }
 
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    return (Aptr)0;
+  }
 
   frame = theStack->framePointer;
 
@@ -157,11 +177,15 @@ void setLocal(Stack theStack, Aint framesBelow, Aint variableNumber, Aptr value)
   int frame;
   int frameCount;
 
-  if (variableNumber < 1)
+  if (variableNumber < 1) {
     syserr("Writing a non-existing block-local variable.");
+    return;
+  }
 
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    return;
+  }
 
   frame = theStack->framePointer;
   if (framesBelow != 0)
@@ -174,8 +198,10 @@ void setLocal(Stack theStack, Aint framesBelow, Aint variableNumber, Aptr value)
 /*======================================================================*/
 void endFrame(Stack theStack)
 {
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    return;
+  }
 
   theStack->stackp = theStack->framePointer;
   theStack->framePointer = pop(theStack);

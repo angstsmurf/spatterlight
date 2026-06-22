@@ -356,8 +356,8 @@ Aptr concat(Aptr as1, Aptr as2)
     char *s1 = fromAptr(as1);
     char *s2 = fromAptr(as2);
     char *result = allocate(strlen((char*)s1)+strlen((char*)s2)+1);
-    strcpy(result, s1);
-    strcat(result, s2);
+    strncpy(result, s1, strlen(s1) + strlen(s2));
+    strncat(result, s2, strlen(s2));
     return toAptr(result);
 }
 

@@ -514,7 +514,8 @@ static void upArrow(char ch)
     histp = (histp+HISTORYLENGTH-1)%HISTORYLENGTH;
 
     /* Copy the history and write it */
-    strcpy((char *)buffer, (char *)history[histp]);
+    strncpy((char *)buffer, (char *)history[histp], LINELENGTH);
+    buffer[LINELENGTH] = '\0';
     bufidx = strlen((char *)buffer);
     rc = write(1, (void *)buffer, strlen((char *)buffer));
 }
@@ -539,7 +540,8 @@ static void downArrow(char ch)
     if (histp != histidx) {
         int rc;
         (void)rc;                   /* UNUSED */
-        strcpy((char *)buffer, (char *)history[histp]);
+        strncpy((char *)buffer, (char *)history[histp], LINELENGTH);
+        buffer[LINELENGTH] = '\0';
         bufidx = strlen((char *)buffer);
         rc = write(1, (void *)buffer, strlen((char *)buffer));
     } else {
@@ -709,7 +711,8 @@ static void newLine(char ch)
     if (commandLineChanged && strlen((char *)buffer) > 0) {
         if (history[histidx] == NULL)
             history[histidx] = (unsigned char *)allocate(LINELENGTH+1);
-        strcpy((char *)history[histidx], (char *)buffer);
+        strncpy((char *)history[histidx], (char *)buffer, LINELENGTH);
+        history[histidx][LINELENGTH] = '\0';
         histidx = (histidx+1)%HISTORYLENGTH;
     }
 }
@@ -938,7 +941,8 @@ bool readline(char usrbuf[])
         }
     }
     char *converted = ensureInternalEncoding(buffer);
-    strcpy(usrbuf, converted);
+    strncpy(usrbuf, converted, LINELENGTH);
+    usrbuf[LINELENGTH] = '\0';
     free(converted);
     return true;
 }

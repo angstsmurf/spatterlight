@@ -730,7 +730,7 @@ static void handleHelpCommand() {
     if (!regressionTestOption)
         output(alan.longHeader);
 
-    DebugParseEntry *entry = commandEntries;
+    DebugParseEntry *entry;
 
     int maxLength = 0;
     for (entry = commandEntries; entry->command != NULL; entry++) {

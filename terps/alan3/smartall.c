@@ -235,7 +235,7 @@ void *sm_realloc(fname, lineno, ptr, size)
 
 char *sm_strdup(char *file, int line, char *str) {
 	char *new = smalloc(file, line, strlen(str)+1);
-	strcpy(new, str);
+	strncpy(new, str, strlen(str) + 1);
 	return new;
 }
 
@@ -321,7 +321,7 @@ void sm_dump(bufdump)
 		 errmsg[0] = EOS;
 		 while (memsize) {
 		    if (llen >= 16) {
-                       V strcat(errmsg, "\n");
+                       V strncat(errmsg, "\n", sizeof(errmsg) - strlen(errmsg) - 1);
 		       llen = 0;
                        V fprintf(stderr, "%s", errmsg);
 		       errmsg[0] = EOS;

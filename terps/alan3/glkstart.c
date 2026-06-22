@@ -76,6 +76,8 @@ static void openGlkWindows(void) {
 /*----------------------------------------------------------------------*/
 static void openResourceFile(void) {
     char *originalFileName = strdup(adventureFileName);
+    if (!originalFileName)
+        return;
     char *resourceFileName = originalFileName;
     char *extension = strrchr(resourceFileName, '.');
     frefid_t resourceFileRef;
@@ -90,11 +92,11 @@ static void openResourceFile(void) {
         resourceFileName = originalFileName;
 
     if (extension)
-        strcpy(extension, ".a3r");
+        strncpy(extension, ".a3r", strlen(".a3r") + 1);
     else
-        strcat(resourceFileName, ".a3r");
+        strncat(resourceFileName, ".a3r", strlen(".a3r"));
 #else
-    strcpy(extension, ".a3r");
+    strncpy(extension, ".a3r", strlen(".a3r") + 1);
 #endif
 
 #ifdef HAVE_WINGLK

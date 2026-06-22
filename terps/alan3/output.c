@@ -406,7 +406,7 @@ static char *printSymbol(char str[]) /* IN - The string starting with '$' */
 
 /*----------------------------------------------------------------------*/
 static bool inhibitSpace(char *str) {
-    return str[0] != '\0' && str[0] == '$' && str[1] == '$';
+    return str[0] == '$' && str[1] == '$';
 }
 
 
