@@ -2744,6 +2744,49 @@ gagt_assign_paragraph_font_hints (const gagt_paragraphref_t paragraph)
     }
 
   /*
+   * Phase 4.5 -- preserve line breaks in indented lists.
+   *
+   * If any remaining line is indented more deeply than the paragraph's
+   * first line, then the paragraph isn't flowing prose; it's structured
+   * output such as an inventory or other nested list.  AGT hard-wraps real
+   * prose with uniform indentation, so a more deeply indented line is a
+   * reliable signal of a list rather than a wrapped paragraph.
+   *
+   * Phase 5 below only keeps the newline significant for the single line
+   * that returns to the first-line indentation after a nested block, so
+   * sibling list items at the first-line indentation that follow such a
+   * block get run together (for example the top-level inventory items
+   * "sharp switchblade" and "two dollars" after a containing item's
+   * contents).  Phase 8's "all lines short" safeguard doesn't rescue this
+   * when a deeper line happens to be long.  So when we recognize a list,
+   * honour every line's newline and return.
+   */
+  {
+    int is_list;
+
+    is_list = FALSE;
+    for (line = gagt_get_next_paragraph_line (first_line);
+         line; line = gagt_get_next_paragraph_line (line))
+      {
+        if (line->indent > first_line->indent)
+          {
+            is_list = TRUE;
+            break;
+          }
+      }
+
+    if (is_list)
+      {
+        for (line = first_line;
+             line; line = gagt_get_next_paragraph_line (line))
+          gagt_set_font_hint_proportional_newline (line);
+
+        /* Nothing more to do. */
+        return;
+      }
+  }
+
+  /*
    * Phase 5 -- try to identify lists by a simple initial look at line
    *            indentations.
    *
