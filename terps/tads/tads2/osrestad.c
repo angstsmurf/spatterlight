@@ -91,7 +91,7 @@ int os_get_str_rsc(int id, char *buf, size_t buflen)
         return 2;
 
     /* copy the string */
-    strcpy(buf, S_res_strings[id-1]);
+    strncpy(buf, S_res_strings[id-1], buflen);
 
     /* return success */
     return 0;

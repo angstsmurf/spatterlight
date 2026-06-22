@@ -316,7 +316,7 @@ void os_get_special_path(char *buf, size_t buflen, const char *argv0, int id)
 
 #ifndef DEFINEDIRS
     if (str == NULL) {
-        strcpy(buf, argv0);
+        strncpy(buf, argv0, buflen);
         p = buf + strlen(argv0) - 1;
                 /* Move backwards until we find a slash in argv0 or its beginning */
         while (p != buf && *p != '/') {
@@ -330,7 +330,7 @@ void os_get_special_path(char *buf, size_t buflen, const char *argv0, int id)
 
     if (strlen(str) >= buflen)
         assert(FALSE);
-    strcpy(buf, str);
+    strncpy(buf, str, buflen);
 #endif /* GLKUNIX */
 }
 
@@ -365,10 +365,10 @@ void os_addext(char *fname, const char *ext)
     if (*p == '.')
         return;
     
-    strcat(fname, ".");                   /* Append a dot and the extension */
-    strcpy(buf, ext);           /* Make the extension lower-case by default */
+    strncat(fname, ".", OSFNMAX - strlen(fname) - 1);                   /* Append a dot and the extension */
+    strncpy(buf, ext, sizeof(buf));           /* Make the extension lower-case by default */
     os_strlwr(buf);
-    strcat(fname, buf);
+    strncat(fname, buf, OSFNMAX - strlen(fname) - 1);
 #endif /* GLKUNIX */
 }
 
@@ -762,12 +762,12 @@ void os_xlat_html4(unsigned int html4_char, char *result, size_t result_len)
         case 132:                                      /* double back quote */
             result[0] = '\"'; break;
         case 153:                                             /* trade mark */
-            strcpy(result, "(tm)"); return;
+            strncpy(result, "(tm)", result_len); return;
         case 140:                                            /* OE ligature */
         case 338:                                            /* OE ligature */
-            strcpy(result, "OE"); return;
+            strncpy(result, "OE", result_len); return;
         case 339:                                            /* oe ligature */
-            strcpy(result, "oe"); return;
+            strncpy(result, "oe", result_len); return;
         case 159:                                                   /* Yuml */
             result[0] = 255;
         case 376:                                        /* Y with diaresis */
@@ -781,7 +781,7 @@ void os_xlat_html4(unsigned int html4_char, char *result, size_t result_len)
             result[0] = '-'; break;
         case 151:                                                /* em dash */
         case 8212:                                               /* em dash */
-            strcpy(result, "--"); return;
+            strncpy(result, "--", result_len); return;
         case 145:                                      /* left single quote */
         case 8216:                                     /* left single quote */
             result[0] = '`'; break;

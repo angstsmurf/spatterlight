@@ -44,7 +44,7 @@ Modified
 /* dummy setup function */
 void supgnam(char *buf, tokthdef *tab, objnum sc)
 {
-    strcpy(buf, "???");
+    strncpy(buf, "???", TOKNAMMAX + 1);
 }
 
 /* dummy file read functions */
@@ -495,7 +495,7 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
          */
         if (osfacc(infile))
         {
-            strcpy(inbuf, infile);
+            strncpy(inbuf, infile, OSFNMAX);
             os_defext(inbuf, "gam");
             infile = inbuf;
         }
@@ -515,6 +515,8 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
         cmap_override();
     else if (cmap_load(charmap))
         errsig(ec, ERR_INVCMAP);
+
+    runctx.runcxmem = (mcmcxdef *)0;
 
     ERRBEGIN(ec)
 
@@ -625,7 +627,7 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
     fiord(mctx, &vocctx, (struct tokcxdef *)0,
           infile, exefile, &fiolctx, &preinit, &flags,
           (struct tokpdef *)0, (uchar **)0, (uint *)0, (uint *)0,
-          (preload ? 2 : 0), appctx, argv[0]);
+          (preload ? 2 : 0), appctx, (argv != 0 && argv[0] != 0 ? argv[0] : (char *)0));
     loadopen = TRUE;
 
     /* turn off the "busy" cursor */
@@ -752,11 +754,17 @@ void trd_close_swapfile(runcxdef *runctx)
 
         /* get the run context */
         runctx = main_voc_ctx->voccxrun;
+        if (runctx == 0)
+            return;
     }
 
     /* get the other relevant contexts */
     mctx = runctx->runcxmem;
+    if (mctx == 0)
+        return;
     globalctx = mctx->mcmcxgl;
+    if (globalctx == 0)
+        return;
     mcsctx = &globalctx->mcmcxswc;
 
     /* if we have a swap file open, close it */

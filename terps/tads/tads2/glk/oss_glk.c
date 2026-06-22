@@ -97,7 +97,7 @@ frefid_t oss_convert_string_to_fileref(char *buffer, glui32 usage)
     if (oss_is_string_a_fileref(buffer)) {
     /* If so, we need only decode the string in the middle and return
        its value */
-    strcpy(temp_string, buffer + strlen(OSS_FILEREF_STRING_PREFIX));
+    strncpy(temp_string, buffer + strlen(OSS_FILEREF_STRING_PREFIX), sizeof(temp_string));
     i = strlen(temp_string) - strlen(OSS_FILEREF_STRING_SUFFIX);
     temp_string[i] = 0;
     while (i != 0) {

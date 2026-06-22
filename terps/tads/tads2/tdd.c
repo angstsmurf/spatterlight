@@ -342,7 +342,7 @@ static void tddmain1(errcxdef *ec, int argc, char **argv, appctxdef *appctx,
         /* if the original name exists, use it; otherwise, try adding .GAM */
         if (osfacc(infile))
         {
-            strcpy(inbuf, infile);
+            strncpy(inbuf, infile, OSFNMAX);
             os_defext(inbuf, "gam");
             infile = inbuf;
         }

@@ -55,11 +55,11 @@ void OS_LOADDS fioldobj(void *ctx0, mclhd handle, uchar *ptr, ushort siz)
     osfildef   *fp = ctx->fiolcxfp;
     char        buf[7];
     errcxdef   *ec = ctx->fiolcxerr;
-    uint        rdsiz;
-    
+    uint        rdsiz = 0;
+
     /* figure out what type of object is to be loaded */
     osfseek(fp, seekpos + ctx->fiolcxst, OSFSK_SET);
-    if (osfrb(fp, buf, 7)) errsig(ec, ERR_LDGAM);
+    if (osfrb(fp, buf, 7)) { errsig(ec, ERR_LDGAM); return; }
     switch(buf[0])
     {
     case TOKSTFUNC:
@@ -77,7 +77,7 @@ void OS_LOADDS fioldobj(void *ctx0, mclhd handle, uchar *ptr, ushort siz)
     }
     
     if (siz < rdsiz) errsig(ec, ERR_LDBIG);
-    if (osfrb(fp, ptr, rdsiz)) errsig(ec, ERR_LDGAM);
+    if (osfrb(fp, ptr, rdsiz)) { errsig(ec, ERR_LDGAM); return; }
     if (ctx->fiolcxflg & FIOFCRYPT)
         fioxor(ptr, rdsiz, ctx->fiolcxseed, ctx->fiolcxinc);
 }
@@ -112,34 +112,40 @@ static void fiordhtml(errcxdef *ec, osfildef *fp, appctxdef *appctx,
         ulong i;
         
         /* read the index table header */
-        if (osfrb(fp, buf, 8))
+        if (osfrb(fp, buf, 8)) {
             errsig1(ec, ERR_RDRSC, ERRTSTR,
                     errstr(ec, resfilename, strlen(resfilename)));
+            return;
+        }
 
         /* get the number of entries in the table */
         entry_cnt = osrp4(buf);
-        
+
         /* read the index entries */
         for (i = 0 ; i < entry_cnt ; ++i)
         {
             ulong res_ofs;
             ulong res_siz;
             ushort res_namsiz;
-            
+
             /* read this entry */
-            if (osfrb(fp, buf, 10))
+            if (osfrb(fp, buf, 10)) {
                 errsig1(ec, ERR_RDRSC, ERRTSTR,
                         errstr(ec, resfilename, strlen(resfilename)));
+                return;
+            }
 
             /* get the entry header */
             res_ofs = osrp4(buf);
             res_siz = osrp4(buf + 4);
             res_namsiz = osrp2(buf + 8);
-            
+
             /* read this entry's name */
-            if (osfrb(fp, buf, res_namsiz))
+            if (osfrb(fp, buf, res_namsiz)) {
                 errsig1(ec, ERR_RDRSC, ERRTSTR,
                         errstr(ec, resfilename, strlen(resfilename)));
+                return;
+            }
             
             /* tell the host system about this entry */
             if (appctx->add_resource)
@@ -176,9 +182,11 @@ static void fiordrscext(errcxdef *ec, osfildef *fp, appctxdef *appctx,
     startofs = osfpos(fp);
     
     /* check file and version headers, and get flags and timestamp */
-    if (osfrb(fp, buf, (int)(sizeof(FIOFILHDR) + sizeof(FIOVSNHDR) + 2)))
+    if (osfrb(fp, buf, (int)(sizeof(FIOFILHDR) + sizeof(FIOVSNHDR) + 2))) {
         errsig1(ec, ERR_RDRSC, ERRTSTR,
                 errstr(ec, resfilename, strlen(resfilename)));
+        return;
+    }
     if (memcmp(buf, FIOFILHDRRSC, (size_t)sizeof(FIOFILHDRRSC)))
         errsig1(ec, ERR_BADHDRRSC, ERRTSTR,
                 errstr(ec, resfilename, strlen(resfilename)));
@@ -189,18 +197,22 @@ static void fiordrscext(errcxdef *ec, osfildef *fp, appctxdef *appctx,
         && memcmp(buf + sizeof(FIOFILHDR), FIOVSNHDR3,
                   (size_t)sizeof(FIOVSNHDR3)))
         errsig(ec, ERR_BADVSN);
-    if (osfrb(fp, buf, (size_t)26))
+    if (osfrb(fp, buf, (size_t)26)) {
         errsig1(ec, ERR_RDRSC, ERRTSTR,
                 errstr(ec, resfilename, strlen(resfilename)));
+        return;
+    }
 
     /* now read resources from the file */
     for (;;)
     {
         /* read resource type and next-resource pointer */
         if (osfrb(fp, buf, 1)
-            || osfrb(fp, buf + 1, (int)(buf[0] + 4)))
+            || osfrb(fp, buf + 1, (int)(buf[0] + 4))) {
             errsig1(ec, ERR_RDRSC, ERRTSTR,
                     errstr(ec, resfilename, strlen(resfilename)));
+            return;
+        }
         endpos = osrp4(buf + 1 + buf[0]);
 
         /* check the resource type */
@@ -263,8 +275,10 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
     setupctx->fiolcxinc = xor_inc;
 
     /* check file and version headers, and get flags and timestamp */
-    if (osfrb(fp, buf, (int)(sizeof(FIOFILHDR) + sizeof(FIOVSNHDR) + 2)))
+    if (osfrb(fp, buf, (int)(sizeof(FIOFILHDR) + sizeof(FIOVSNHDR) + 2))) {
         errsig(ec, ERR_RDGAM);
+        return;
+    }
     if (memcmp(buf, FIOFILHDR, (size_t)sizeof(FIOFILHDR)))
          errsig(ec, ERR_BADHDR);
     if (memcmp(buf + sizeof(FIOFILHDR), FIOVSNHDR,
@@ -274,7 +288,7 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
         && memcmp(buf + sizeof(FIOFILHDR), FIOVSNHDR3,
                   (size_t)sizeof(FIOVSNHDR3)))
         errsig(ec, ERR_BADVSN);
-    if (osfrb(fp, vctx->voccxtim, (size_t)26)) errsig(ec, ERR_RDGAM);
+    if (osfrb(fp, vctx->voccxtim, (size_t)26)) { errsig(ec, ERR_RDGAM); return; }
 
     /* 
      *   if the game wasn't compiled with 2.2 or later, make a note,
@@ -295,10 +309,12 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
     {
         /* read resource type and next-resource pointer */
         if (osfrb(fp, buf, 1)
-            || osfrb(fp, buf + 1, (int)(buf[0] + 4)))
+            || osfrb(fp, buf + 1, (int)(buf[0] + 4))) {
             errsig(ec, ERR_RDGAM);
+            return;
+        }
         endpos = osrp4(buf + 1 + buf[0]);
-        
+
         if (fioisrsc(buf, "OBJ"))
         {
             /* skip regular objects if fast-load records are included */
@@ -312,14 +328,14 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
             while (curpos != endpos)
             {
                 /* read type and object number */
-                if (osfrb(fp, buf, 3)) errsig(ec, ERR_RDGAM);
+                if (osfrb(fp, buf, 3)) { errsig(ec, ERR_RDGAM); return; }
                 obj = osrp2(buf+1);
 
                 switch(buf[0])
                 {
                 case TOKSTFUNC:
                 case TOKSTOBJ:
-                    if (osfrb(fp, buf + 3, 4)) errsig(ec, ERR_RDGAM);
+                    if (osfrb(fp, buf + 3, 4)) { errsig(ec, ERR_RDGAM); return; }
                     mcmrsrv(mctx, (ushort)osrp2(buf + 3), (mcmon)obj,
                             (mclhd)curpos);
                     curpos += osrp2(buf + 5) + 7;
@@ -341,23 +357,27 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
                     ushort  siz;
                     uchar  *p;
                     
-                    if (osfrb(fp, buf+3, 2)) errsig(ec, ERR_RDGAM);
+                    if (osfrb(fp, buf+3, 2)) { errsig(ec, ERR_RDGAM); return; }
                     siz = osrp2(buf+3);
                     p = mcmalonum(mctx, siz, (mcmon)obj);
-                    if (osfrb(fp, p, siz)) errsig(ec, ERR_RDGAM);
+                    if (osfrb(fp, p, siz)) { errsig(ec, ERR_RDGAM); return; }
                     mcmunlck(mctx, (mcmon)obj);
                     curpos += 5 + siz;
                     break;
                 }
-                    
+
                 case TOKSTEXTERN:
-                    if (!vctx->voccxrun->runcxext)
+                    if (!vctx->voccxrun->runcxext) {
                         errsig(ec, ERR_UNXEXT);
+                        return;
+                    }
                     ex = &vctx->voccxrun->runcxext[obj];
 
                     if (osfrb(fp, buf + 3, 1)
-                        || osfrb(fp, ex->runxnam, (int)buf[3]))
+                        || osfrb(fp, ex->runxnam, (int)buf[3])) {
                         errsig(ec, ERR_RDGAM);
+                        return;
+                    }
                     ex->runxnam[buf[3]] = '\0';
                     curpos += buf[3] + 4;
                     break;
@@ -391,7 +411,7 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
                 for (p1 = p, siz2 = siz ; siz2 ; siz2 -= sizcur, p1 += sizcur)
                 {
                     sizcur = (siz2 > (uint)0xffff ? (uint)0xffff : siz2);
-                    if (osfrb(fp, p1, sizcur)) errsig(ec, ERR_RDGAM);
+                    if (osfrb(fp, p1, sizcur)) { errsig(ec, ERR_RDGAM); return; }
                 }
 
                 while (siz)
@@ -415,10 +435,12 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
                         break;
                         
                     case TOKSTEXTERN:
-                        if (!vctx->voccxrun->runcxext)
+                        if (!vctx->voccxrun->runcxext) {
                             errsig(ec, ERR_UNXEXT);
+                            return;
+                        }
                         ex = &vctx->voccxrun->runcxext[obj];
-                        
+
                         memcpy(ex->runxnam, p + 4, (size_t)p[3]);
                         ex->runxnam[p[3]] = '\0';
                         siz -= p[3] + 4;
@@ -438,13 +460,13 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
             {
                 while (curpos != endpos)
                 {
-                    if (osfrb(fp, buf, 3)) errsig(ec, ERR_RDGAM);
+                    if (osfrb(fp, buf, 3)) { errsig(ec, ERR_RDGAM); return; }
                     obj = osrp2(buf + 1);
                     switch(buf[0])
                     {
                     case TOKSTFUNC:
                     case TOKSTOBJ:
-                        if (osfrb(fp, buf + 3, 8)) errsig(ec, ERR_RDGAM);
+                        if (osfrb(fp, buf + 3, 8)) { errsig(ec, ERR_RDGAM); return; }
                         mcmrsrv(mctx, (ushort)osrp2(buf + 3), (mcmon)obj,
                                 (mclhd)osrp4(buf + 7));
                         curpos += 11;
@@ -459,17 +481,21 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
                         break;
                         
                     case TOKSTEXTERN:
-                        if (!vctx->voccxrun->runcxext)
+                        if (!vctx->voccxrun->runcxext) {
                             errsig(ec, ERR_UNXEXT);
+                            return;
+                        }
                         ex = &vctx->voccxrun->runcxext[obj];
-                        
+
                         if (osfrb(fp, buf + 3, 1)
-                            || osfrb(fp, ex->runxnam, (int)buf[3]))
+                            || osfrb(fp, ex->runxnam, (int)buf[3])) {
                             errsig(ec, ERR_RDGAM);
+                            return;
+                        }
                         ex->runxnam[buf[3]] = '\0';
                         curpos += buf[3] + 4;
                         break;
-                        
+
                     default:
                         errsig(ec, ERR_UNKOTYP);
                     }
@@ -488,9 +514,10 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
             if (!vctx->voccxrun->runcxext) errsig(ec, ERR_UNXEXT);
 
             /* read length and name of resource */
-            if (osfrb(fp, buf, 3) || osfrb(fp, buf + 3, (int)buf[2]))
+            if (osfrb(fp, buf, 3) || osfrb(fp, buf + 3, (int)buf[2])) {
                 errsig(ec, ERR_RDGAM);
-            siz = osrp2(buf);
+                return;
+            }
 
 #if 0
 /* 
@@ -552,7 +579,7 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
                 for (p1 = p, siz2 = siz ; siz2 ; siz2 -= sizcur, p1 += sizcur)
                 {
                     sizcur = (siz2 > (uint)0xffff ? (uint)0xffff : siz2);
-                    if (osfrb(fp, p1, sizcur)) errsig(ec, ERR_RDGAM);
+                    if (osfrb(fp, p1, sizcur)) { errsig(ec, ERR_RDGAM); return; }
                 }
 
                 while (siz)
@@ -575,10 +602,10 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
             {
                 while (curpos != endpos)
                 {
-                    if (osfrb(fp, buf, 9)) errsig(ec, ERR_RDGAM);
+                    if (osfrb(fp, buf, 9)) { errsig(ec, ERR_RDGAM); return; }
                     i = osrp2(buf + 7);       /* get number of superclasses */
                     obj = osrp2(buf + 1);              /* get object number */
-                    if (i && osfrb(fp, buf + 9, 2 * i)) errsig(ec, ERR_RDGAM);
+                    if (i && osfrb(fp, buf + 9, 2 * i)) { errsig(ec, ERR_RDGAM); return; }
                     
                     vociadd(vctx, (objnum)obj, (objnum)osrp2(buf+3),
                             i, (objnum *)(buf + 9), buf[0] | VOCIFXLAT);
@@ -593,7 +620,7 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
             curpos = osfpos(fp) - startofs;
             siz = endpos - curpos;
 
-            if (osfrb(fp, buf, (uint)siz)) errsig(ec, ERR_RDGAM);
+            if (osfrb(fp, buf, (uint)siz)) { errsig(ec, ERR_RDGAM); return; }
             vctx->voccxme  = vctx->voccxme_init = osrp2(buf);
             vctx->voccxvtk = osrp2(buf+2);
             vctx->voccxstr = osrp2(buf+4);
@@ -735,9 +762,9 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
                 for (p1 = p, siz2 = siz ; siz2 ; siz2 -= sizcur, p1 += sizcur)
                 {
                     sizcur = (siz2 > (uint)0xffff ? (uint)0xffff : siz2);
-                    if (osfrb(fp, p1, sizcur)) errsig(ec, ERR_RDGAM);
+                    if (osfrb(fp, p1, sizcur)) { errsig(ec, ERR_RDGAM); return; }
                 }
-                
+
                 while (siz)
                 {
                     len1 = osrp2(p);
@@ -763,8 +790,10 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
                 {
                     if (osfrb(fp, buf, 10)
                         || osfrb(fp, buf + 10,
-                               (len1 = osrp2(buf)) + (len2 = osrp2(buf + 2))))
+                               (len1 = osrp2(buf)) + (len2 = osrp2(buf + 2)))) {
                         errsig(ec, ERR_RDGAM);
+                        return;
+                    }
                 
                     if (*flagp & FIOFCRYPT)
                         fioxor(buf + 10, (uint)(len1 + len2),
@@ -781,10 +810,10 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
             uchar *fmts;
             uint   fmtl;
             
-            if (osfrb(fp, buf, 2)) errsig(ec, ERR_RDGAM);
+            if (osfrb(fp, buf, 2)) { errsig(ec, ERR_RDGAM); return; }
             fmtl = osrp2(buf);
             fmts = mchalo(vctx->voccxerr, fmtl, "fiord1");
-            if (osfrb(fp, fmts, fmtl)) errsig(ec, ERR_RDGAM);
+            if (osfrb(fp, fmts, fmtl)) { errsig(ec, ERR_RDGAM); return; }
             if (*flagp & FIOFCRYPT) fioxor(fmts, fmtl, xor_seed, xor_inc);
             tiosetfmt(vctx->voccxtio, vctx->voccxrun, fmts, fmtl);
             
@@ -793,24 +822,28 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
         }
         else if (fioisrsc(buf, "CMPD"))
         {
-            if (osfrb(fp, buf, 2)) errsig(ec, ERR_RDGAM);
+            if (osfrb(fp, buf, 2)) { errsig(ec, ERR_RDGAM); return; }
             vctx->voccxcpl = osrp2(buf);
             vctx->voccxcpp = (char *)mchalo(vctx->voccxerr,
                                             vctx->voccxcpl, "fiord1");
-            if (osfrb(fp, vctx->voccxcpp, (uint)vctx->voccxcpl))
+            if (osfrb(fp, vctx->voccxcpp, (uint)vctx->voccxcpl)) {
                 errsig(ec, ERR_RDGAM);
+                return;
+            }
             if (*flagp & FIOFCRYPT)
                 fioxor((uchar *)vctx->voccxcpp, (uint)vctx->voccxcpl,
                        xor_seed, xor_inc);
         }
         else if (fioisrsc(buf, "SPECWORD"))
         {
-            if (osfrb(fp, buf, 2)) errsig(ec, ERR_RDGAM);
+            if (osfrb(fp, buf, 2)) { errsig(ec, ERR_RDGAM); return; }
             vctx->voccxspl = osrp2(buf);
             vctx->voccxspp = (char *)mchalo(vctx->voccxerr,
                                             vctx->voccxspl, "fiord1");
-            if (osfrb(fp, vctx->voccxspp, (uint)vctx->voccxspl))
+            if (osfrb(fp, vctx->voccxspp, (uint)vctx->voccxspl)) {
                 errsig(ec, ERR_RDGAM);
+                return;
+            }
             if (*flagp & FIOFCRYPT)
                 fioxor((uchar *)vctx->voccxspp, (uint)vctx->voccxspl,
                        xor_seed, xor_inc);
@@ -839,9 +872,9 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
             {
                 int hash;
                 
-                if (osfrb(fp, buf, 4)) errsig(ec, ERR_RDGAM);
+                if (osfrb(fp, buf, 4)) { errsig(ec, ERR_RDGAM); return; }
                 if (buf[0] == 0) break;
-                if (osfrb(fp, buf + 4, (int)buf[0])) errsig(ec, ERR_RDGAM);
+                if (osfrb(fp, buf + 4, (int)buf[0])) { errsig(ec, ERR_RDGAM); return; }
                 buf[4 + buf[0]] = '\0';
                 hash = tokhsh((char *)buf + 4);
                 
@@ -882,7 +915,7 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
         }
         else if (fioisrsc(buf, "PREINIT"))
         {
-            if (osfrb(fp, buf, 2)) errsig(ec, ERR_RDGAM);
+            if (osfrb(fp, buf, 2)) { errsig(ec, ERR_RDGAM); return; }
             *preinit = osrp2(buf);
         }
         else if (fioisrsc(buf, "ERRMSG"))
@@ -898,7 +931,7 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
 
             curpos = osfpos(fp) - startofs;
             siz = endpos - curpos;
-            if (osfrb(fp, buf, 2)) errsig(ec, ERR_RDGAM);
+            if (osfrb(fp, buf, 2)) { errsig(ec, ERR_RDGAM); return; }
             i = osrp2(buf);
 
             len = i * sizeof(runxdef);
@@ -912,7 +945,7 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
             if (siz >= 6)
             {
                 /* get location of first XFCN, and seek there */
-                if (osfrb(fp, buf, 4)) errsig(ec, ERR_RDGAM);
+                if (osfrb(fp, buf, 4)) { errsig(ec, ERR_RDGAM); return; }
                 xfcn_pos = osrp4(buf);
             }
 
@@ -921,7 +954,7 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
         }
         else if (fioisrsc(buf, "PRPCNT"))
         {
-            if (osfrb(fp, buf, 2)) errsig(ec, ERR_RDGAM);
+            if (osfrb(fp, buf, 2)) { errsig(ec, ERR_RDGAM); return; }
             if (pcntptr) *pcntptr = osrp2(buf);
         }
         else if (fioisrsc(buf, "TADSPP") && tctx != 0)
@@ -930,7 +963,7 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
         }
         else if (fioisrsc(buf, "XSI"))
         {
-            if (osfrb(fp, buf, 2)) errsig(ec, ERR_RDGAM);
+            if (osfrb(fp, buf, 2)) { errsig(ec, ERR_RDGAM); return; }
             setupctx->fiolcxseed = xor_seed = buf[0];
             setupctx->fiolcxinc = xor_inc = buf[1];
             osfseek(fp, endpos + startofs, OSFSK_SET);
@@ -942,8 +975,10 @@ static void fiord1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx,
             /* read the character set ID and LDESC */
             if (osfrb(fp, buf, 6)
                 || (len = osrp2(buf+4)) > CMAP_LDESC_MAX_LEN
-                || osfrb(fp, buf+6, len))
+                || osfrb(fp, buf+6, len)) {
                 errsig(ec, ERR_RDGAM);
+                return;
+            }
 
             /* establish this character set mapping */
             buf[4] = '\0';
@@ -1005,8 +1040,10 @@ void fiord(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx, char *fname,
     /* open the file and read and check file header */
     fp = (fname != 0 ? osfoprb(fname, OSFTGAME)
                      : os_exeseek(exename, "TGAM"));
-    if (fp == 0)
+    if (fp == 0) {
         errsig(vctx->voccxerr, ERR_OPRGAM);
+        return;
+    }
 
     /* 
      *   we've identified the .GAM file source - tell the host system
@@ -1083,7 +1120,7 @@ void fiord(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tctx, char *fname,
                  *   same directory that contains the .GAM file 
                  */
                 if (base_name != 0)
-                    strcpy(resname, base_name);
+                    strncpy(resname, base_name, OSFNMAX);
                 else
                     resname[0] = '\0';
             }
@@ -1256,9 +1293,6 @@ int fiorso(voccxdef *vctx, char *fname)
     int         version = 0;            /* version ID - 0 = current version */
     int         result;
 
-    /* presume success */
-    result = FIORSO_SUCCESS;
-
     /* open the input file */
     if (!(fp = osfoprb(fname, OSFTSAVE)))
         return FIORSO_FILE_NOT_FOUND;
@@ -1361,7 +1395,7 @@ int fiorso(voccxdef *vctx, char *fname)
         if (buf[0] == 1)
         {
             int     sccnt;
-            objnum  sc;
+            objnum  sc = MCMONINV;
             
             /* create the object */
             mutsiz = osrp2(buf + 3);

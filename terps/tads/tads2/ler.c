@@ -46,6 +46,7 @@ int errfmt(char *outbuf, int outbufl, char *fmt, int argc, erradef *argv)
             {
             case '\0':
                 --fmt;
+                len = 0;
                 break;
             case '\n':
                 p = "\n";

@@ -139,8 +139,8 @@ void os_defext(char *fn, const char *ext)
     }
 
     /* we didn't find an extension - add the dot and the extension */
-    strcat(fn, ".");
-    strcat(fn, ext);
+    strncat(fn, ".", OSFNMAX - strlen(fn) - 1);
+    strncat(fn, ext, OSFNMAX - strlen(fn) - 1);
 }
 #endif
 
@@ -152,8 +152,8 @@ void os_addext(char *fn, const char *ext)
 {
     if (strlen(fn) + 1 + strlen(ext) + 1 < OSFNMAX)
     {
-        strcat(fn, ".");
-        strcat(fn, ext);
+        strncat(fn, ".", OSFNMAX - strlen(fn) - 1);
+        strncat(fn, ext, OSFNMAX - strlen(fn) - 1);
     }
 }
 #endif
@@ -906,7 +906,7 @@ int os_get_rel_path(char *result, size_t result_len,
 
     /* if the result is empty, return "." to represent the current dir */
     if (result[0] == '\0')
-        strcpy(rp, ".");
+        strncpy(rp, ".", 2);
 
     /* success */
     return TRUE;
@@ -1669,7 +1669,7 @@ void os_get_tmp_path(char *buf)
             size_t  len;
 
             /* use this value */
-            strcpy(buf, val);
+            strncpy(buf, val, OSFNMAX);
 
             /* add a backslash if necessary */
             if ((len = strlen(buf)) != 0
@@ -2162,13 +2162,13 @@ void *os_find_first_file(const char *dir, const char *pattern, char *outbuf,
      *   segments, using "*" as the default wildcard pattern if no
      *   explicit pattern was provided 
      */
-    strcpy(realpat, dir);
+    strncpy(realpat, dir, OSFNMAX);
     if ((l = strlen(realpat)) != 0 && realpat[l - 1] != '\\')
         realpat[l++] = '\\';
     if (pattern == 0)
-        strcpy(realpat + l, "*.*");
+        strncpy(realpat + l, "*.*", OSFNMAX - l);
     else
-        strcpy(realpat + l, pattern);
+        strncpy(realpat + l, pattern, OSFNMAX - l);
 
     /* find the last separator in the original path */
     for (p = realpat, lastsep = 0 ; *p != '\0' ; ++p)
@@ -2178,9 +2178,9 @@ void *os_find_first_file(const char *dir, const char *pattern, char *outbuf,
             lastsep = p;
     }
 
-    /* 
+    /*
      *   if we found a separator, the path prefix is everything up to and
-     *   including the separator; otherwise, there's no path prefix 
+     *   including the separator; otherwise, there's no path prefix
      */
     if (lastsep != 0)
     {
@@ -2530,13 +2530,13 @@ void *os_find_first_file(const char *dir, const char *pattern, char *outbuf,
      *   segments, using "*" as the default wildcard pattern if no
      *   explicit pattern was provided 
      */
-    strcpy(realpat, dir);
+    strncpy(realpat, dir, OSFNMAX);
     if ((l = strlen(realpat)) != 0 && realpat[l - 1] != '\\')
         realpat[l++] = '\\';
     if (pattern == 0)
-        strcpy(realpat + l, "*");
+        strncpy(realpat + l, "*", OSFNMAX - l);
     else
-        strcpy(realpat + l, pattern);
+        strncpy(realpat + l, pattern, OSFNMAX - l);
 
     /* find the last separator in the original path */
     for (p = realpat, lastsep = 0 ; *p != '\0' ; ++p)
@@ -3031,13 +3031,13 @@ void *os_find_first_file(const char *dir, const char *pattern, char *outbuf,
      *   segments, using "*" as the default wildcard pattern if no
      *   explicit pattern was provided 
      */
-    strcpy(realpat, dir);
+    strncpy(realpat, dir, OSFNMAX);
     if ((l = strlen(realpat)) != 0 && realpat[l - 1] != '\\')
         realpat[l++] = '\\';
     if (pattern == 0)
-        strcpy(realpat + l, "*");
+        strncpy(realpat + l, "*", OSFNMAX - l);
     else
-        strcpy(realpat + l, pattern);
+        strncpy(realpat + l, pattern, OSFNMAX - l);
 
     /* find the last separator in the original path */
     for (p = realpat, lastsep = 0 ; *p != '\0' ; ++p)

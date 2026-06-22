@@ -4497,7 +4497,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
                  *   know the result will fit, because we always limit the
                  *   editing process to the caller's buffer size.  
                  */
-                strcpy((char *)buf, S_gets_buf);
+                strncpy((char *)buf, S_gets_buf, bufl);
 
                 /* clear the input buffer */
                 S_gets_buf[0] = '\0';

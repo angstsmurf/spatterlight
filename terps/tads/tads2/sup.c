@@ -246,7 +246,7 @@ static void supaddsym(toktdef *tab, char *txt, int styp, int sval,
 
     if (casefold)
     {
-        strcpy(buf, txt);
+        strncpy(buf, txt, sizeof(buf));
         os_strlwr(buf);
         txt = buf;
     }
@@ -308,7 +308,7 @@ void suprsrv(supcxdef *sup, void (*bif[])(bifcxdef *, int),
 
         if (casefold)
         {
-            strcpy(buf, kwname);
+            strncpy(buf, kwname, sizeof(buf));
             os_strlwr(buf);
             kwname = buf;
         }
@@ -333,7 +333,7 @@ void supgnam(char *buf, tokthdef *tab, objnum objn)
     
     if (!tab)
     {
-        strcpy(buf, "<NO SYMBOL TABLE>");
+        strncpy(buf, "<NO SYMBOL TABLE>", TOKNAMMAX + 1);
         return;
     }
     
@@ -345,7 +345,7 @@ void supgnam(char *buf, tokthdef *tab, objnum objn)
         return;
     }
 
-    strcpy(buf, "<UNKNOWN>");
+    strncpy(buf, "<UNKNOWN>", TOKNAMMAX + 1);
 }
 
 /* set up inherited vocabulary */
@@ -387,7 +387,7 @@ static void supfind1(errcxdef *ec, toktdef *tab, char *nam, objnum *objp,
 
     if (casefold)
     {
-        strcpy(buf, nam);
+        strncpy(buf, nam, sizeof(buf));
         os_strlwr(buf);
         nam = buf;
     }

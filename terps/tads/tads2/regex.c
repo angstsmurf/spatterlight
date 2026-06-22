@@ -1335,8 +1335,9 @@ static int re_match(re_context *ctx, const char *entire_str,
                         return -1;
                     
                     /* see if we match */
-                    match = re_is_bit_set(tuple->char_range,
-                                          (int)(unsigned char)*p);
+                    match = (tuple->char_range != 0)
+                            && re_is_bit_set(tuple->char_range,
+                                             (int)(unsigned char)*p);
                     
                     /* make sure we got what we wanted */
                     if ((tuple->ch == RE_RANGE && !match)

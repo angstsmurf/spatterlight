@@ -754,9 +754,11 @@ void obj1undo(mcmcxdef *mctx, objucxdef *undoctx)
     case OBJUOVR:
         objdelp(mctx, objn, prop, FALSE);  /* delete the non-original value */
         pofs = objgetp(mctx, objn, prop, (dattyp *)0);  /* get ignored prop */
-        objptr = (objdef *)mcmlck(mctx, objn);           /* lock the object */
-        prpflg(objofsp(objptr, pofs)) &= ~PRPFIGN;     /* no longer ignored */
-        mcmunlck(mctx, objn);                          /* unlock the object */
+        if (pofs) {
+            objptr = (objdef *)mcmlck(mctx, objn);           /* lock the object */
+            prpflg(objofsp(objptr, pofs)) &= ~PRPFIGN;     /* no longer ignored */
+            mcmunlck(mctx, objn);                          /* unlock the object */
+        }
         break;
         
     case OBJUCHG:

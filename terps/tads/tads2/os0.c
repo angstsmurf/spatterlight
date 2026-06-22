@@ -90,7 +90,7 @@ static int os0main_internal(int oargc, char **oargv,
 
             /* save a copy of the extension */
             save_ext = (char *)osmalloc(len + 1);
-            strcpy(save_ext, buf);
+            strncpy(save_ext, buf, len + 1);
         }
 
         /* done with it */
@@ -108,7 +108,7 @@ static int os0main_internal(int oargc, char **oargv,
         (void)osfrb(fp, &fsiz, sizeof(fsiz));
     }
     else if (config != 0
-             && os_locate(config, (int)strlen(config), oargv[0], buf,
+             && os_locate(config, (int)strlen(config), (oargv != 0 ? oargv[0] : (char *)0), buf,
                        (size_t)sizeof(buf))
              && (fp = osfoprb(buf, OSFTTEXT)) != 0)
     {
@@ -123,7 +123,7 @@ static int os0main_internal(int oargc, char **oargv,
     }
 
     /* read the file if we found anything */
-    if (fsiz != 0)
+    if (fsiz > 0)
     {
         configbuf = (char *)osmalloc((size_t)(fsiz + 1));
         if (configbuf != 0)
@@ -147,12 +147,12 @@ static int os0main_internal(int oargc, char **oargv,
     argv = (char **)osmalloc((size_t)((oargc + fargc + 1) * sizeof(*argv)));
 
     /* first argument is always original argv[0] */
-    argv[argc++] = oargv[0];
+    argv[argc++] = (oargv != 0 ? oargv[0] : (char *)0);
 
     /* put all user -i flags next */
-    for (i = 0 ; i < oargc ; ++i)
+    for (i = 0 ; oargv != 0 && i < oargc ; ++i)
     {
-        if (oargv[i][0] == '-' && strchr(before, oargv[i][1]))
+        if (oargv[i] != 0 && oargv[i][0] == '-' && strchr(before, oargv[i][1]))
         {
             argv[argc++] = oargv[i];
             if (oargv[i][2] == '\0' && i+1 < oargc) argv[argc++] = oargv[++i];
@@ -176,9 +176,9 @@ static int os0main_internal(int oargc, char **oargv,
     }
 
     /* put all user parameters other than -i flags last */
-    for (i = 1 ; i < oargc ; ++i)
+    for (i = 1 ; oargv != 0 && i < oargc ; ++i)
     {
-        if (oargv[i][0] == '-' && strchr(before, oargv[i][1]))
+        if (oargv[i] != 0 && oargv[i][0] == '-' && strchr(before, oargv[i][1]))
         {
             if (oargv[i][2] == '\0' && i+1 < oargc) ++i;
         }

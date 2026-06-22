@@ -1920,7 +1920,7 @@ static int outformatlen_stream(out_stream_info *stream,
                 }
 
                 /* convert the entire string to lower case for searching */
-                strcpy(fmsbuf_srch, fmsbuf);
+                strncpy(fmsbuf_srch, fmsbuf, sizeof(fmsbuf_srch));
                 os_strlwr(fmsbuf_srch);
                 
                 /* find the string in the format string table */
@@ -2472,8 +2472,8 @@ static int outformatlen_stream(out_stream_info *stream,
                          || !stricmp(tagbuf, "em")
                          || !stricmp(tagbuf, "strong"))
                 {
-                    int attr;
-                    
+                    int attr = 0;
+
                     /* choose the attribute flag */
                     switch (tagbuf[0])
                     {
@@ -3173,7 +3173,7 @@ int tiologopn(tiocxdef *ctx, char *fn)
         return 1;
 
     /* save the filename for later */
-    strcpy(logfname, fn);
+    strncpy(logfname, fn, sizeof(logfname));
 
     /* open the new file */
     logfp = osfopwt(fn, OSFTLOG);

@@ -688,7 +688,7 @@ public:
 
 inline size_t get_strlen(const textchar_t *str) { return strlen(str); }
 inline void do_strcpy(textchar_t *dst, const textchar_t *src)
-    { strcpy(dst, src); }
+    { strlcpy(dst, src, strlen(src) + 1); }
 
 #endif /* T3_COMPILING_FOR_HTML */
 

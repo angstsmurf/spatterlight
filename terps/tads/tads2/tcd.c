@@ -995,7 +995,7 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     if (i + 1 != argc) tcdusage(ec);
     
     /* add default .T extension to input file */
-    strcpy(inbuf, infile);
+    strncpy(inbuf, infile, OSFNMAX);
     os_defext(inbuf, "t");
 
     /*
@@ -1005,7 +1005,7 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     if (outfile)
     {
         /* use their name exactly as-is */
-        strcpy(outbuf, outfile);
+        strncpy(outbuf, outfile, OSFNMAX);
 
         /* if it's exactly the same as the input file, apply an extension */
         if (!strcmp(outfile, infile))
@@ -1017,7 +1017,7 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     else
     {
         /* get the input name minus the current extension */
-        strcpy(outbuf, infile);
+        strncpy(outbuf, infile, OSFNMAX);
         os_remext(outbuf);
 
         /* add .GAM extension */
@@ -1667,7 +1667,7 @@ static void tcdlogerr(void *ectx0, char *fac, int err, int argc,
     case ERR_UNDEFO:
     case ERR_UNDEFF:
         /* these errors include the position as the second argument */
-        strcpy(buf, argv[1].errastr);
+        strncpy(buf, argv[1].errastr, sizeof(buf));
         break;
 
     default:

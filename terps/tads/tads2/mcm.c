@@ -154,9 +154,13 @@ mcmcx1def *mcmini(ulong max, uint pages, ulong swapsize,
     ERRCATCH(errctx, err)
         mcsclose(&ctx->mcmcxswc);
         mchfre(chunk);
+        chunk = NULL;
+        ctx = NULL;
         errsig(errctx, err);
     ERREND(errctx)
-    
+
+    if (!ctx) return NULL; /* errsig in ERRCATCH always re-signals; unreachable */
+
     chunk += sizeof(mcmcx1def);           /* rest of chunk is after context */
     rem -= sizeof(mcmcx1def);         /* remove from remaining size counter */
 
@@ -441,8 +445,8 @@ void mcmrsrv(mcmcxdef *cctx, ushort siz, mcmon clinum, mclhd loadhd)
     MCMGLBCTX(ctx);
     
     o = mcmoal(ctx, &glb);                       /* get a new object header */
-    if (!o) errsig(ctx->mcmcxerr, ERR_NOHDR);     /* can't get a new header */
-    
+    if (!o) { errsig(ctx->mcmcxerr, ERR_NOHDR); return; }  /* can't get a new header */
+
     o->mcmoldh = loadhd;
     o->mcmoflg = 0;
     o->mcmosiz = siz;
@@ -677,7 +681,6 @@ static mcmodef *mcmffb(mcmcx1def *ctx, ushort siz, mcmon *nump)
         {
             /* found exact match - use it immediately */
             minn = n;
-            min = siz;
             mino = o;
             break;
         }

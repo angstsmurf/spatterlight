@@ -1034,7 +1034,7 @@ void linfnam(lindef *lin, char *buf)
 {
 #   define  linf ((linfdef *)lin)
 
-    strcpy(buf, linf->linfnam);
+    strncpy(buf, linf->linfnam, OSFNMAX);
 
 #   undef linf
 }

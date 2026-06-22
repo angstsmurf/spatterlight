@@ -517,14 +517,14 @@ void errmsg(errcxdef *ctx, char *outbuf, uint outbufl, uint err)
     {
         if (first > last)
         {
-            strcpy(outbuf, "unknown error");
+            strncpy(outbuf, "unknown error", outbufl);
             return;
         }
 
         cur = first + (last - first)/2;
         if (errlist[cur].errmerr == err)
         {
-            strcpy(outbuf, errlist[cur].errmtxt);
+            strncpy(outbuf, errlist[cur].errmtxt, outbufl);
             return;
         }
         else if (errlist[cur].errmerr < err)
@@ -552,7 +552,7 @@ void errmsg(errcxdef *ctx, char *outbuf, uint outbufl, uint err)
     
     if (!errlist)
     {
-        strcpy(outbuf, "unknown: no error message file");
+        strncpy(outbuf, "unknown: no error message file", outbufl);
         return;
     }
 
@@ -563,7 +563,7 @@ void errmsg(errcxdef *ctx, char *outbuf, uint outbufl, uint err)
     {
         if (first > last)
         {
-            strcpy(outbuf, "error not found");
+            strncpy(outbuf, "error not found", outbufl);
             return;
         }
 

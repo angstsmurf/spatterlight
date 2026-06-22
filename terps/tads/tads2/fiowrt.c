@@ -294,7 +294,7 @@ static void fiowrt1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tokctx,
     /* write the timestamp */
     timer = time(NULL);
     tblock = localtime(&timer);
-    strcpy(vctx->voccxtim, asctime(tblock));
+    strncpy(vctx->voccxtim, asctime(tblock), 26);
     if (osfwb(fp, vctx->voccxtim, (size_t)26))
         errsig(ec, ERR_WRTGAM);
 

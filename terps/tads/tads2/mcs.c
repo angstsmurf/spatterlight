@@ -64,7 +64,7 @@ void mcsini(mcscxdef *ctx, mcmcx1def *gmemctx, ulong maxsiz,
         ctx->mcscxfname = (char *)mchalo(errctx,
                                          (strlen(swapfilename)+1),
                                          "mcsini");
-        strcpy(ctx->mcscxfname, swapfilename);
+        strncpy(ctx->mcscxfname, swapfilename, strlen(swapfilename) + 1);
     }
     else
         ctx->mcscxfname = 0;

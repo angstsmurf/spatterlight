@@ -915,7 +915,7 @@ void runpprop(runcxdef *ctx, uchar *noreg *codepp,
     objdef  *objptr;
     prpdef  *prpptr;
     uchar   *val;
-    int      typ;
+    int      typ = DAT_NIL;
     runsdef  sval;
     objnum   target;
     int      times_through = 0;
@@ -1108,7 +1108,7 @@ void runexe(runcxdef *ctx, uchar *p0, objnum self, objnum target,
     prpnum    prop;                         /* property number, when needed */
     objnum    obj;                            /* object number, when needed */
     runsdef  *noreg rstsp;        /* sp to reset to on DISCARD instructions */
-    uchar    *lstp;                                         /* list pointer */
+    uchar    *lstp = NULL;                                  /* list pointer */
     int       nargc;                   /* argument count of called function */
     runsdef  *valp;
     runsdef  *stkval;
@@ -1294,18 +1294,22 @@ resume_from_error:
             val.runsv.runsvnum = runpopnum(ctx);
             if (val.runsv.runsvnum == 0)
                 runsig(ctx, ERR_DIVZERO);
-            val.runsv.runsvnum = runpopnum(ctx) / val.runsv.runsvnum;
-            val.runstyp = DAT_NUMBER;
-            runrepush(ctx, &val);
+            else {
+                val.runsv.runsvnum = runpopnum(ctx) / val.runsv.runsvnum;
+                val.runstyp = DAT_NUMBER;
+                runrepush(ctx, &val);
+            }
             break;
 
         case OPCMOD:
             val.runsv.runsvnum = runpopnum(ctx);
             if (val.runsv.runsvnum == 0)
                 runsig(ctx, ERR_DIVZERO);
-            val.runsv.runsvnum = runpopnum(ctx) % val.runsv.runsvnum;
-            val.runstyp = DAT_NUMBER;
-            runrepush(ctx, &val);
+            else {
+                val.runsv.runsvnum = runpopnum(ctx) % val.runsv.runsvnum;
+                val.runstyp = DAT_NUMBER;
+                runrepush(ctx, &val);
+            }
             break;
             
 #ifdef NEVER
@@ -1932,7 +1936,7 @@ resume_from_error:
             p += osrp2(p);
             break;
             
-        case OPCASI_MASK | OPCASIDIR | OPCASILCL:
+        case OPCSETLCL:
             runpop(ctx, &val);
             OSCPYSTRUCT(*(ctx->runcxbp + runrp2s(p) - 1), val);
             stkval = &val;
@@ -2110,9 +2114,10 @@ resume_from_error:
                     if (val.runstyp != DAT_NUMBER
                         || val2.runstyp != DAT_NUMBER)
                         runsig(ctx, ERR_REQNUM);
-                    if (val2.runsv.runsvnum == 0)
+                    else if (val2.runsv.runsvnum == 0)
                         runsig(ctx, ERR_DIVZERO);
-                    val.runsv.runsvnum /= val2.runsv.runsvnum;
+                    else
+                        val.runsv.runsvnum /= val2.runsv.runsvnum;
                     break;
                     
                 case OPCASIINC:
@@ -2299,7 +2304,6 @@ resume_from_error:
 
                             /* update all of the pointers within lstp */
                             lstp = val3.runsv.runsvstr;
-                            delp = lstp + ofs;
                             remp = lstp + ofs + delsiz + 1;
                         }
                         memcpy(ctx->runcxhp + 2, lstp + 2, (size_t)(ofs - 2));

@@ -518,7 +518,7 @@ void os_strsc(const char *p)
      *   value 
      */
     if (p != 0)
-        strcpy(lastbuf, p);
+        strncpy(lastbuf, p, sizeof(lastbuf));
     else
         p = lastbuf;
 
@@ -1493,7 +1493,7 @@ int osssbmode(int mode_line)
         /* display instructions if we have a status line */
         if (mode_line)
         {
-            strcpy(buf, OS_SBSTAT);
+            strncpy(buf, OS_SBSTAT, sizeof(buf));
             for (i = strlen(buf) ; i < max_column ; buf[i++] = ' ') ;
             buf[i] = '\0';
             ossdsp(sdesc_line, sdesc_column+1, sdesc_color, buf);
@@ -2441,7 +2441,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
              *   The timeout expired.  Copy the current input state into the
              *   save area so that we can resume the input later if desired.
              */
-            strcpy(S_gets_buf, (char *)buf);
+            strncpy(S_gets_buf, (char *)buf, S_gets_buf_siz);
             S_gets_ofs = p - buf;
             S_gets_x = x;
             S_gets_y = y;

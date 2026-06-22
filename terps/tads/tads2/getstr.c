@@ -80,7 +80,7 @@ int getstring(char *prompt, char *buf, int bufl)
         int quiet = scrquiet;
         
         /* try reading from command input file */
-        if ((result = qasgets(buf, bufl)) == 0)
+        if (qasgets(buf, bufl) == 0)
         {
             /*
              *   End of command input file; return to reading the

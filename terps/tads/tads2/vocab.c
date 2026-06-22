@@ -860,19 +860,26 @@ static void vocerr_va_prep(voccxdef *ctx, struct vocerr_va_info *info,
              *   instead of the default message 
              */
             p = (char *)runpopstr(rcx);
-            len = osrp2(p) - 2;
-            p += 2;
-            if (len > sizeof(info->user_msg) - 1)
-                len = sizeof(info->user_msg) - 1;
-            memcpy(info->user_msg, p, len);
-            info->user_msg[len] = '\0';
+            if (p != 0)
+            {
+                len = osrp2(p) - 2;
+                p += 2;
+                if (len > sizeof(info->user_msg) - 1)
+                    len = sizeof(info->user_msg) - 1;
+                memcpy(info->user_msg, p, len);
+                info->user_msg[len] = '\0';
 
-            /* use the returned string as the message to display */
-            info->fmt = info->user_msg;
+                /* use the returned string as the message to display */
+                info->fmt = info->user_msg;
 
-            /* use the remainder of the buffer for the final formatting */
-            info->outp = info->user_msg + len + 1;
-            info->outsiz = sizeof(info->user_msg) - len - 1;
+                /* use the remainder of the buffer for the final formatting */
+                info->outp = info->user_msg + len + 1;
+                info->outsiz = sizeof(info->user_msg) - len - 1;
+            }
+            else
+            {
+                rundisc(rcx);
+            }
         }
         else
         {
@@ -1822,7 +1829,7 @@ startover:
                      *   this must be a brand new command.  Replace the
                      *   original command with the new command.  
                      */
-                    strcpy(orgbuf, oopsbuf);
+                    strncpy(orgbuf, oopsbuf, VOCBUFSIZ);
 
                     /* 
                      *   forget we had an unknown word so that we're sure
@@ -1874,7 +1881,7 @@ startover:
                 if (t & (1 << i))
                 {
                     if (cnt) *p++ = ',';
-                    strcpy(p, type_names[i]);
+                    strncpy(p, type_names[i], sizeof(buf) - 1 - (p - buf));
                     p += strlen(p);
                     ++cnt;
                 }
@@ -2224,7 +2231,7 @@ static void vocaddof(voccxdef *ctx, char *buf)
         buf[len + oldlen] = '\0';
     }
     else
-        strcat(buf, "of");
+        strncat(buf, "of", VOCBUFSIZ - strlen(buf) - 1);
 }
 
 /* ------------------------------------------------------------------------ */
@@ -2443,13 +2450,13 @@ void voc_make_obj_name(voccxdef *ctx, char *namebuf, char *cmd[],
         if (voc_check_special(ctx, cmd[i], VOCW_OF))
             vocaddof(ctx, namebuf);
         else
-            strcat(namebuf, cmd[i]);
-        
+            strncat(namebuf, cmd[i], VOCBUFSIZ - strlen(namebuf) - 1);
+
         if (cmd[i][strlen(cmd[i])-1] == '.' && i + 1 < lastwrd)
-            strcat(namebuf, "\\");
+            strncat(namebuf, "\\", VOCBUFSIZ - strlen(namebuf) - 1);
 
         if (i + 1 < lastwrd)
-            strcat(namebuf, " ");
+            strncat(namebuf, " ", VOCBUFSIZ - strlen(namebuf) - 1);
     }
 }
 
@@ -2780,7 +2787,7 @@ static int vocg1o(voccxdef *ctx, char *cmd[], int typelist[],
     firstwrd = cur;
 
     /* scan words for inclusion in this noun phrase */
-    for (found_plural = FALSE, unknown_count = 0, l1 = 0 ; ; )
+    for (found_plural = FALSE, unknown_count = 0 ; ; )
     {
         if (cmd[cur] == (char *)0)
             break;
@@ -3583,8 +3590,8 @@ void voc_parse_np(voccxdef *ctx)
         {
             uchar *sublstp;
             int j;
-            int firstidx;
-            int lastidx;
+            int firstidx = 0;
+            int lastidx = 0;
 
             /* store the list type prefix */
             *lstp++ = DAT_LIST;
@@ -4235,7 +4242,7 @@ void voc_parse_disambig(voccxdef *ctx)
             ctx_copy.voccxredo = TRUE;
 
             /* copy the response into the command buffer */
-            strcpy(cmdbuf, oopsbuf);
+            strncpy(cmdbuf, oopsbuf, VOCBUFSIZ);
         }
         else
         {
@@ -4285,7 +4292,7 @@ void voc_parse_disambig(voccxdef *ctx)
                 if (i == unk_idx)
                 {
                     /* insert the replacement text */
-                    strcpy(p, rpl_text);
+                    strncpy(p, rpl_text, VOCBUFSIZ - (p - cmdbuf));
                 }
                 else if (*cmd[i] == '"')
                 {
@@ -4337,7 +4344,7 @@ void voc_parse_disambig(voccxdef *ctx)
                 else
                 {
                     /* copy this word */
-                    strcpy(p, cmd[i]);
+                    strncpy(p, cmd[i], VOCBUFSIZ - (p - cmdbuf));
                 }
 
                 /* move past this token */
@@ -5278,7 +5285,7 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
     prpnum    listprop;
     uchar    *save_sp;
     int       old_unknown, old_lastunk;
-    int       err;
+    int       err = 0;
     int       still_ambig;
 
     voc_enter(ctx, &save_sp);
@@ -6007,17 +6014,17 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                     {
                         /* quote the space if the last word ended with '.' */
                         if (p[strlen(p)-1] == '.')
-                            strcat(usrobj, "\\");
+                            strncat(usrobj, "\\", VOCBUFSIZ - strlen(usrobj) - 1);
 
                         /* add the space */
-                        strcat(usrobj, " ");
+                        strncat(usrobj, " ", VOCBUFSIZ - strlen(usrobj) - 1);
                     }
 
                     /* add the current word, or "of" if it's "of" */
                     if (voc_check_special(ctx, p, VOCW_OF))
                         vocaddof(ctx, usrobj);
                     else
-                        strcat(usrobj, p);
+                        strncat(usrobj, p, VOCBUFSIZ - strlen(usrobj) - 1);
                 }
             }
 
@@ -6074,7 +6081,6 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                     /* there are visible items - complain about them */
                     cnt = cnt3;
                     cantreach_list = list3;
-                    noreach = TRUE;
 
                     /* give the cantReach message, even for multiple objects */
                     goto noreach1;
@@ -6698,7 +6704,7 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                                (int)VOCBUFSIZ, 2) == VOCREAD_REDO)
                 {
                     /* they want to treat the input as a new command */
-                    strcpy(cmdbuf, disnewbuf);
+                    strncpy(cmdbuf, disnewbuf, VOCBUFSIZ);
                     ctx->voccxunknown = 0;
                     ctx->voccxredo = TRUE;
                     err = VOCERR(43);
@@ -6706,7 +6712,7 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                 }
 
                 /*
-                 *   parse the response 
+                 *   parse the response
                  */
 
                 /* tokenize the list */
@@ -6751,7 +6757,7 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                      *   there's an unknown word or other problem - retry
                      *   the input as an entirely new command 
                      */
-                    strcpy(cmdbuf, disnewbuf);
+                    strncpy(cmdbuf, disnewbuf, VOCBUFSIZ);
                     ctx->voccxunknown = 0;
                     ctx->voccxredo = TRUE;
                     err = VOCERR(2);
@@ -7034,28 +7040,28 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                                          *   replace the entire adjective
                                          *   phrase with "such" 
                                          */
-                                        strcpy(newobj, "such");
+                                        strncpy(newobj, "such", VOCBUFSIZ);
 
-                                        /* 
+                                        /*
                                          *   stop here - don't add any
                                          *   more, since "such" is the
-                                         *   whole thing 
+                                         *   whole thing
                                          */
                                         break;
                                     }
                                     
                                     /* add a space if we have a prior word */
                                     if (newobj[0] != '\0')
-                                        strcat(newobj, " ");
+                                        strncat(newobj, " ", VOCBUFSIZ - strlen(newobj) - 1);
 
                                     /* add this word */
-                                    strcat(newobj, p);
+                                    strncat(newobj, p, VOCBUFSIZ - strlen(newobj) - 1);
                                 }
                             }
                             else
                             {
                                 /* no noun phrase found */
-                                strcpy(newobj, "such");
+                                strncpy(newobj, "such", VOCBUFSIZ);
                             }
 
                             /* didn't find anything - complain and give up */
@@ -7096,7 +7102,7 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                         }
                         
                         /* retry as an entire new command */
-                        strcpy(cmdbuf, disnewbuf);
+                        strncpy(cmdbuf, disnewbuf, VOCBUFSIZ);
                         ctx->voccxunknown = 0;
                         ctx->voccxredo = TRUE;
                         err = VOCERR(43);
@@ -7118,9 +7124,8 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
      */
     if (still_ambig)
         err = VOCERR(44);
-
-    /* no error */
-    err = 0;
+    else
+        err = 0;
 
 done:
     ERRCLEAN(ctx->voccxerr)
@@ -7915,7 +7920,7 @@ static int voc1cmd(voccxdef *ctx, char *cmd[], char *cmdbuf,
 done:
     /* copy back the command if we need to redo */
     if (ctx->voccxredo && cmdbuf != origcmdbuf)
-        strcpy(origcmdbuf, cmdbuf);
+        strncpy(origcmdbuf, cmdbuf, VOCBUFSIZ);
                     
     /* return the status */
     VOC_RETVAL(ctx, save_sp, retval);

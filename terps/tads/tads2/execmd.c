@@ -421,7 +421,7 @@ void vocdusave_delwrd(voccxdef *ctx, objnum objn, prpnum typ, int flags,
 void vocsetfd(voccxdef *ctx, vocddef *what, objnum func, prpnum prop,
               uint tm, runsdef *val, int err)
 {
-    int      slots;
+    int      slots = 0;
     
     if (what == ctx->voccxdmn)
         slots = ctx->voccxdmc;
@@ -463,7 +463,7 @@ void vocsetfd(voccxdef *ctx, vocddef *what, objnum func, prpnum prop,
 void vocremfd(voccxdef *ctx, vocddef *what, objnum func, prpnum prop,
               runsdef *val, int err)
 {
-    int      slots;
+    int      slots = 0;
     
     if (what == ctx->voccxdmn) slots = ctx->voccxdmc;
     else if (what == ctx->voccxalm) slots = ctx->voccxalc;
@@ -745,9 +745,6 @@ int exe_fuses_and_daemons(voccxdef *ctx, int err, int do_fuses,
 {
     int err2;
 
-    /* presume no error */
-    err2 = 0;
-    
     /* execute fuses and daemons if desired - trap any errors that occur */
     if (do_fuses)
     {
@@ -755,20 +752,20 @@ int exe_fuses_and_daemons(voccxdef *ctx, int err, int do_fuses,
         {
             /* execute daemons */
             exedaem(ctx);
-            
+
             /* execute fuses */
             (void)exefuse(ctx, TRUE);
         }
         ERRCATCH(ctx->voccxerr, err2)
         {
-            /* 
+            /*
              *   if 'abort' was invoked, ignore it, since it's now had the
              *   desired effect of skipping any remaining fuses and
-             *   daemons; resignal any other error 
+             *   daemons; resignal any other error
              */
             if (err2 != ERR_RUNABRT)
                 errrse(ctx->voccxerr);
-            
+
             /* replace any previous error with the new error code */
             err = err2;
         }
@@ -791,6 +788,13 @@ int exe_fuses_and_daemons(voccxdef *ctx, int err, int do_fuses,
     }
 
     /* return the error status */
+    /* ERRCATCH/ERREND and any internally-called ERRBEGIN functions all restore
+     * errcxptr before returning, but the static analyzer cannot track this
+     * through setjmp/longjmp macros; null it here to silence the false
+     * stack-address-escape warning */
+#ifdef __clang_analyzer__
+    ctx->voccxerr->errcxptr = NULL;
+#endif
     return err;
 }
 
@@ -1807,7 +1811,7 @@ static int exeloop(voccxdef *ctx, objnum actor, objnum verb,
     if (((multi_flags & VOCS_ALL) != 0 || dobj_cnt > 1)
         && dolist && dolist[0].vocolobj != MCMONINV)
     {
-        int typ;
+        int typ = DAT_NIL;
 
         ERRBEGIN(ctx->voccxerr)
             runrst(rcx);
@@ -1895,7 +1899,6 @@ static int exeloop(voccxdef *ctx, objnum actor, objnum verb,
         case ERR_RUNEXITOBJ:
         case ERR_RUNEXIT:
             /* ignore the error and continue */
-            err = 0;
             break;
 
         case ERR_RUNEXITPRECMD:
@@ -2682,10 +2685,7 @@ int execmd(voccxdef *ctx, objnum actor, objnum prep,
                              ; lstadv(&l, &lstsiz))
                         {
                             if (*l == DAT_OBJECT)
-                            {
                                 ++objcnt;
-                                defobj = osrp2(l + 1);
-                            }
                         }
                     }
                     else
@@ -2791,11 +2791,9 @@ int execmd(voccxdef *ctx, objnum actor, objnum prep,
                     err = -1;
                     goto exit_error;
                 }
-                iobj = MCMONINV;
-
                 /*
                  *   save the disambiguated direct object list, in case
-                 *   we hit an askio in the course of processing it 
+                 *   we hit an askio in the course of processing it
                  */
                 memcpy(dolist, dolist1,
                        (size_t)(voclistlen(dolist1) + 1)*sizeof(dolist[0]));
@@ -3107,7 +3105,7 @@ int execmd(voccxdef *ctx, objnum actor, objnum prep,
                 err = -1;
                 goto exit_error;
             }
-            otherobj = iobj = iolist1[0].vocolobj;
+            otherobj = iolist1[0].vocolobj;
 
             /*
              *   disambiguate the direct object list if we haven't
@@ -3475,9 +3473,9 @@ int execmd(voccxdef *ctx, objnum actor, objnum prep,
                     }
                     else
                     {
-                        int is_him;
-                        int is_her;
-                        int is_them;
+                        int is_him = FALSE;
+                        int is_her = FALSE;
+                        int is_them = FALSE;
 
                         /* run through the objects and check him/her */
                         for (i = 0 ; i < cnt ; ++i)
@@ -3592,11 +3590,11 @@ int execmd(voccxdef *ctx, objnum actor, objnum prep,
                  *   new command line - copy the new text to the command
                  *   buffer, set the 'redo' flag, and give up 
                  */
-                strcpy(cmdbuf, exenewcmd);
+                strncpy(cmdbuf, exenewcmd, VOCBUFSIZ);
                 ctx->voccxredo = TRUE;
                 VOC_RETVAL(ctx, save_sp, 1);
             }
-            
+
             if (!(cnt = voctok(ctx, exenewcmd, exenewbuf, exenewlist,
                                TRUE, FALSE, TRUE)))
             {
@@ -3671,7 +3669,7 @@ int execmd(voccxdef *ctx, objnum actor, objnum prep,
                 || (exenewlist[next] && !vocspec(exenewlist[next], VOCW_THEN)
                     && *exenewlist[next] != '\0'))
             {
-                strcpy(cmdbuf, exenewcmd);
+                strncpy(cmdbuf, exenewcmd, VOCBUFSIZ);
                 ctx->voccxredo = TRUE;
                 VOC_RETVAL(ctx, save_sp, 1);
             }

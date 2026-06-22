@@ -60,9 +60,9 @@ void bifyon(bifcxdef *ctx, int argc)
 
     /* load the "yes" and "no" reply patterns */
     if (os_get_str_rsc(RESID_YORN_YES, yesbuf, sizeof(yesbuf)))
-        strcpy(yesbuf, "[Yy].*");
+        strncpy(yesbuf, "[Yy].*", sizeof(yesbuf));
     if (os_get_str_rsc(RESID_YORN_NO, nobuf, sizeof(nobuf)))
-        strcpy(nobuf, "[Nn].*");
+        strncpy(nobuf, "[Nn].*", sizeof(nobuf));
 
     /* if we're in HTML mode, switch to input font */
     if (tio_is_html_mode())
@@ -631,7 +631,7 @@ void biflen(bifcxdef *ctx, int argc)
 {
     uchar   *p;
     runsdef  val;
-    long     len;
+    long     len = 0;
     int      l;
 
     bifcntargs(ctx, 1, argc);
@@ -639,7 +639,7 @@ void biflen(bifcxdef *ctx, int argc)
     {
     case DAT_SSTRING:
         p = (uchar *)runpopstr(ctx->bifcxrun);
-        len = osrp2(p) - 2;
+        len = (p != 0 ? osrp2(p) - 2 : 0);
         break;
 
     case DAT_LIST:
@@ -672,9 +672,9 @@ void biffnd(bifcxdef *ctx, int argc)
 {
     uchar   *p1, *p2;
     int      len1, len2;
-    int      outv;
+    int      outv = 0;
     runsdef  val;
-    int      typ;
+    int      typ = DAT_NIL;
     int      siz;
 
     bifcntargs(ctx, 2, argc);
@@ -873,9 +873,7 @@ void bifrnd(bifcxdef *ctx, int argc)
         randseed = ctx->bifcxrnd;
         randseed *= 1033;
         randseed += 5;
-        tmp = randseed / 16384;
         randseed %= 16384;
-        result = tmp / 7;
 
         /* adjust the result to be in the requested range */
         result = ( randseed % max ) + 1;
@@ -1176,8 +1174,8 @@ void bifsub(bifcxdef *ctx, int argc)
 /* cvtstr - convert value to a string */
 void bifcvs(bifcxdef *ctx, int argc)
 {
-    char *p;
-    int   len;
+    char *p = NULL;
+    int   len = 0;
     char  buf[30];
 
     bifcntargs(ctx, 1, argc);
@@ -1216,7 +1214,7 @@ void bifcvs(bifcxdef *ctx, int argc)
 /* cvtnum  - convert a value to a number */
 void bifcvn(bifcxdef *ctx, int argc)
 {
-    runsdef  val;
+    runsdef  val = { 0 };
     uchar   *p;
     int      len;
     int      typ;
@@ -1385,7 +1383,7 @@ void biffob(bifcxdef *ctx, int argc)
     objnum     obj;
     int        i;
     int        j;
-    objnum     cls;
+    objnum     cls = MCMONINV;
     voccxdef  *voc = ctx->bifcxrun->runcxvoc;
 
     /* get class to search for, if one is specified */
@@ -1424,7 +1422,7 @@ void bifnob(bifcxdef *ctx, int argc)
     objnum     obj;
     int        i;
     int        j;
-    objnum     cls;
+    objnum     cls = MCMONINV;
     voccxdef  *voc = ctx->bifcxrun->runcxvoc;
 
     /* get last position in search */
@@ -1522,7 +1520,7 @@ void bifund(bifcxdef *ctx, int argc)
     mcmcxdef  *mcx = ctx->bifcxrun->runcxmem;
     errcxdef  *ec  = ctx->bifcxerr;
     int        err;
-    int        undone;
+    int        undone = FALSE;
     runsdef    val;
 
     bifcntargs(ctx, 0, argc);                               /* no arguments */
@@ -2030,27 +2028,27 @@ static int get_ext_key_name(char *namebuf, int c, int extc)
         case 10:
         case 13:
             /* return '\n' for LF and CR characters */
-            strcpy(namebuf, "\\n");
+            strncpy(namebuf, "\\n", 20);
             return TRUE;
 
         case 9:
             /* return '\t' for TAB characters */
-            strcpy(namebuf, "\\t");
+            strncpy(namebuf, "\\t", 20);
             return TRUE;
 
         case 8:
             /* return '[bksp]' for backspace characters */
-            strcpy(namebuf, "[bksp]");
+            strncpy(namebuf, "[bksp]", 20);
             return TRUE;
 
         case 27:
             /* return '[esc]' for the escape key */
-            strcpy(namebuf, "[esc]");
+            strncpy(namebuf, "[esc]", 20);
             return TRUE;
 
         default:
             /* return '[ctrl-X]' for other control characters */
-            strcpy(namebuf, "[ctrl-X]");
+            strncpy(namebuf, "[ctrl-X]", 20);
             namebuf[6] = (char)(c + 'a' - 1);
             return TRUE;
         }
@@ -2069,7 +2067,7 @@ static int get_ext_key_name(char *namebuf, int c, int extc)
         && extc <= (int)(sizeof(ext_key_names)/sizeof(ext_key_names[0])))
     {
         /* use the array name */
-        strcpy(namebuf, ext_key_names[extc - 1]);
+        strncpy(namebuf, ext_key_names[extc - 1], 20);
         return TRUE;
     }
 
@@ -2077,13 +2075,13 @@ static int get_ext_key_name(char *namebuf, int c, int extc)
     if (extc >= CMD_ALT && extc <= CMD_ALT + 25)
     {
         /* generate an ALT key name */
-        strcpy(namebuf, "[alt-X]");
+        strncpy(namebuf, "[alt-X]", 20);
         namebuf[5] = (char)(extc - CMD_ALT + 'a');
         return TRUE;
     }
 
     /* it's not a valid key - use '[?]' as the name */
-    strcpy(namebuf, "[?]");
+    strncpy(namebuf, "[?]", 20);
     return FALSE;
 }
 
@@ -2157,7 +2155,7 @@ void bifwrd(bifcxdef *ctx, int argc)
             *dst++ = DAT_SSTRING;
             len = strlen((char *)src);
             oswp2(dst, len + 2);
-            strcpy((char *)dst + 2, (char *)src);
+            strncpy((char *)dst + 2, (char *)src, len + 1);
             dst += len + 2;
         }
     }
@@ -2392,7 +2390,7 @@ void bifvin(bifcxdef *ctx, int argc)
         p = bifvin_putprpn(p, prp_verdo);
         if (prep == MCMONINV)
         {
-            p = bifvin_putprpn(p, prp_do);
+            bifvin_putprpn(p, prp_do);
         }
         else
         {
@@ -2490,7 +2488,7 @@ void biffopen(bifcxdef *ctx, int argc)
                            ctx->bifcxrun->runcxgamepath, fname);
 
         /* replace the original filename with the full path */
-        strcpy(fname, newname);
+        strncpy(fname, newname, OSFNMAX);
     }
 
     /* get the mode string */
@@ -3571,14 +3569,14 @@ void bifregroup(bifcxdef *ctx, int argc)
  */
 void bifinpevt(bifcxdef *ctx, int argc)
 {
-    unsigned long timeout;
-    int use_timeout;
+    unsigned long timeout = 0;
+    int use_timeout = FALSE;
     os_event_info_t info;
     int evt;
     uchar *p;
     ushort lstsiz;
     runsdef val;
-    size_t paramlen;
+    size_t paramlen = 0;
     char keyname[20];
 
     /* check for a timeout value */
@@ -3625,8 +3623,6 @@ void bifinpevt(bifcxdef *ctx, int argc)
          *   type code, 2 for length prefix, and 1 or 2 for the string's
          *   contents
          */
-        paramlen = (info.key[0] == 0 ? 2 : 1);
-
         /* map the extended key */
         get_ext_key_name(keyname, info.key[0], info.key[1]);
 
@@ -3678,7 +3674,6 @@ void bifinpevt(bifcxdef *ctx, int argc)
 
         /* add the characters to the string */
         memcpy(p, keyname, paramlen);
-        p += paramlen;
         break;
 
     case OS_EVT_HREF:
@@ -3933,7 +3928,7 @@ void bifexec(bifcxdef *ctx, int argc)
 void bifgetobj(bifcxdef *ctx, int argc)
 {
     int id;
-    objnum obj;
+    objnum obj = MCMONINV;
     voccxdef *voc = ctx->bifcxrun->runcxvoc;
 
     /* check the argument count */

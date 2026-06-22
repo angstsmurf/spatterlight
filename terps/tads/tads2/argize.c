@@ -101,7 +101,7 @@ int argize(char *cmdline, int *const argc, char *argv[], const size_t argvlen)
         case 0:                                 /* skip leading white space */
 				while (isspace((unsigned char)*p)) p++; q++;
             if (!*p) break;            /* If there's nothing left, get out. */
-            state = 1;
+//            state = 1;
             /* fall through */;
 
         case 1:                                                /* begin arg */
