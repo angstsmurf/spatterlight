@@ -878,8 +878,17 @@ read_gamefile()
                 } else if (text_buffer[0] == '.') {
                     // NOW BACK OUT OF THE PRINT BLOCK AGAIN
                     in_print = FALSE;
-                } else if (in_print == FALSE && text_buffer[0] == '}') {
-		    in_print = FALSE;
+                }
+                /* A '}' in the first column always terminates the function
+                 * body, even inside a print block. The first pass skips
+                 * bodies the same way (it breaks on '}' unconditionally);
+                 * the two passes MUST agree on where a function ends. Some
+                 * games (e.g. The Unholy Grail's +dark_description) have a
+                 * print block with no closing '.', so honouring in_print
+                 * here would run past the '}' and silently swallow every
+                 * function defined after it. */
+                if (text_buffer[0] == '}') {
+                    in_print = FALSE;
                     break;
                 }
             }
