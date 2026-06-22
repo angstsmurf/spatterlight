@@ -86,6 +86,7 @@
 #include "glk.h"
 
 extern glui32 gli_determinism;
+extern int gli_sa_delays;
 
 /*
  * True and false definitions -- usually defined in glkstart.h, but we need
@@ -3985,6 +3986,112 @@ gagt_delay_resume (void)
 }
 
 
+/*
+ * Per-line pause, in milliseconds, used to reveal the title screen one line
+ * at a time, the way the original AGT runner does.  Kept short so the whole
+ * title appears briskly; halved again in DELAY_SHORT mode.
+ */
+static const glui32 GAGT_TITLE_REVEAL_MS = 120;
+
+/*
+ * gagt_title_reveal_wanted()
+ *
+ * Return TRUE if the title screen should be revealed line by line.  This
+ * requires the Spatterlight slow-draw/delays option (gli_sa_delays) to be
+ * enabled, and otherwise follows the same gating as agt_delay() -- a usable
+ * Glk timer, delays not turned off, and not replaying or batching.
+ */
+static int
+gagt_title_reveal_wanted (void)
+{
+  return gli_sa_delays
+         && glk_gestalt (gestalt_Timer, 0)
+         && gagt_delay_mode != DELAY_OFF
+         && !fast_replay && !BATCH_MODE;
+}
+
+/*
+ * gagt_title_delay()
+ *
+ * Pause for GAGT_TITLE_REVEAL_MS between title lines.  Like agt_delay(),
+ * the pause can be cut short by a keypress; the return value is TRUE if the
+ * pause ran to completion, or FALSE if the user pressed a key to skip it.
+ */
+static int
+gagt_title_delay (void)
+{
+  glui32 milliseconds, delayed;
+  int completed;
+
+  milliseconds = GAGT_TITLE_REVEAL_MS
+                 / (gagt_delay_mode == DELAY_SHORT ? 2 : 1);
+
+  glk_request_char_event (gagt_main_window);
+  glk_request_timer_events (GAGT_DELAY_TIMEOUT);
+
+  completed = TRUE;
+  for (delayed = 0; delayed < milliseconds; delayed += GAGT_DELAY_TIMEOUT)
+    {
+      event_t event;
+
+      gagt_event_wait_2 (evtype_CharInput, evtype_Timer, &event);
+      if (event.type == evtype_CharInput)
+        {
+          completed = FALSE;
+          break;
+        }
+    }
+
+  if (completed)
+    glk_cancel_char_event (gagt_main_window);
+  glk_request_timer_events (0);
+
+  return completed;
+}
+
+/*
+ * gagt_title_reveal_flush()
+ *
+ * Render the buffered title box to the main window one line at a time, with
+ * a short pause after each non-blank line, then empty the output buffers.
+ * The title box is fixed-width formatted, so each page buffer line is shown
+ * verbatim; this avoids the paragraph reflow used for ordinary text.  Once
+ * the player presses a key to skip a pause, the rest of the title is shown
+ * without further delay.
+ */
+static void
+gagt_title_reveal_flush (void)
+{
+  gagt_lineref_t line;
+  glui32 style;
+  int suspended;
+
+  gagt_status_in_delay (TRUE);
+
+  style = style_Preformatted;
+  glk_set_style (style);
+
+  suspended = FALSE;
+  for (line = gagt_get_first_page_line (); line;
+       line = gagt_get_next_page_line (line))
+    {
+      style = gagt_display_line (line, style, TRUE, FALSE, FALSE, FALSE);
+      glk_put_char ('\n');
+
+      /* Pause after each visible line, unless a keypress has skipped it. */
+      if (!suspended && !line->is_blank)
+        suspended = !gagt_title_delay ();
+    }
+
+  glk_set_style (style_Normal);
+
+  gagt_status_in_delay (FALSE);
+
+  /* The title has now been shown, so discard it from the buffers. */
+  gagt_output_delete ();
+}
+
+
 /*---------------------------------------------------------------------*/
 /*  Glk port box drawing functions                                     */
 /*---------------------------------------------------------------------*/
@@ -4139,6 +4246,16 @@ agt_endbox (void)
 
   /* Back to allowing proportional font output again. */
   gagt_coerce_fixed_font (FALSE);
+
+  /*
+   * For the title box, reveal it line by line with short pauses, matching
+   * the original AGT runner.  We flush it here, rather than leaving it for
+   * the deferred flush at the next input, so the reveal happens with just
+   * the title on screen and not run together with the text that follows it
+   * (for example the "Choose <I>nstructions..." prompt).
+   */
+  if ((gagt_box_flags & TB_TTL) && gagt_title_reveal_wanted ())
+    gagt_title_reveal_flush ();
 
   gagt_box_busy = FALSE;
   gagt_box_flags = gagt_box_width = gagt_box_startx = 0;
