@@ -5845,7 +5845,7 @@ gms_establish_filenames (char *name, char **text, char **graphics, char **hints)
 
   /* Take a destroyable copy of the input filename. */
   base = gms_malloc (strlen (name) + 1);
-  strcpy (base, name);
+  strncpy (base, name, strlen (name) + 1);
 
   /* If base has an extension .MAG, .GFX, or .HNT, remove it. */
   if (strlen (base) > strlen (".XXX"))
@@ -5860,14 +5860,14 @@ gms_establish_filenames (char *name, char **text, char **graphics, char **hints)
   text_file = gms_malloc (strlen (base) + strlen (".MAG") + 1);
 
   /* Form a candidate text file, by adding a .MAG extension. */
-  strcpy (text_file, base);
-  strcat (text_file, ".MAG");
+  strncpy (text_file, base, strlen (base) + 1);
+  strncat (text_file, ".MAG", 4);
   stream = fopen (text_file, "rb");
   if (!stream)
     {
       /* Retry, using a .mag extension instead. */
-      strcpy (text_file, base);
-      strcat (text_file, ".mag");
+      strncpy (text_file, base, strlen (base) + 1);
+      strncat (text_file, ".mag", 4);
       stream = fopen (text_file, "rb");
       if (!stream)
         {
@@ -5891,14 +5891,14 @@ gms_establish_filenames (char *name, char **text, char **graphics, char **hints)
   graphics_file = gms_malloc (strlen (base) + strlen (".GFX") + 1);
 
   /* As above, form a candidate graphics file, using a .GFX extension. */
-  strcpy (graphics_file, base);
-  strcat (graphics_file, ".GFX");
+  strncpy (graphics_file, base, strlen (base) + 1);
+  strncat (graphics_file, ".GFX", 4);
   stream = fopen (graphics_file, "rb");
   if (!stream)
     {
       /* Retry, using a .gfx extension instead. */
-      strcpy (graphics_file, base);
-      strcat (graphics_file, ".gfx");
+      strncpy (graphics_file, base, strlen (base) + 1);
+      strncat (graphics_file, ".gfx", 4);
       stream = fopen (graphics_file, "rb");
       if (!stream)
         {
@@ -5917,14 +5917,14 @@ gms_establish_filenames (char *name, char **text, char **graphics, char **hints)
   hints_file = gms_malloc (strlen (base) + strlen (".HNT") + 1);
 
   /* As above, form a candidate graphics file, using a .HNT extension. */
-  strcpy (hints_file, base);
-  strcat (hints_file, ".HNT");
+  strncpy (hints_file, base, strlen (base) + 1);
+  strncat (hints_file, ".HNT", 4);
   stream = fopen (hints_file, "rb");
   if (!stream)
     {
       /* Retry, using a .hnt extension instead. */
-      strcpy (hints_file, base);
-      strcat (hints_file, ".hnt");
+      strncpy (hints_file, base, strlen (base) + 1);
+      strncat (hints_file, ".hnt", 4);
       stream = fopen (hints_file, "rb");
       if (!stream)
         {
