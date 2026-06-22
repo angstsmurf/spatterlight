@@ -107,10 +107,10 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
         if ((sf[13]<3 && manifest[i].gv==sf[13]) || memcmp(manifest[i].header,sf+12,20)==0)
         {
             ASSERT_OUTPUT_SIZE(((int32) strlen(manifest[i].ifid)+1));
-            strcpy(output,manifest[i].ifid);
+            strncpy(output, manifest[i].ifid, strlen(manifest[i].ifid) + 1);
             return 1;
         }
-    strcpy(output,"MAGNETIC-");
+    strncpy(output, "MAGNETIC-", sizeof("MAGNETIC-"));
     return INCOMPLETE_REPLY_RV;
 }
 

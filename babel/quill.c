@@ -395,7 +395,7 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
     ASSERT_OUTPUT_SIZE(7);
     if (claim_story_file(storyvp, extent) == VALID_STORY_FILE_RV)
     {
-	strcpy(output, "QUILL-");
+	strncpy(output, "QUILL-", sizeof("QUILL-"));
 	return INCOMPLETE_REPLY_RV;
     }
     return INVALID_STORY_FILE_RV;

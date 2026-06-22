@@ -205,7 +205,7 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
 
     if (detect_verbs(storystring, extent) == VALID_STORY_FILE_RV)
     {
-        strcpy(output, "\0");
+        output[0] = '\0';
         return INCOMPLETE_REPLY_RV;
     }
 

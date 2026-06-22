@@ -313,9 +313,9 @@ static int32 generate_md5_ifid(void *story_file, int32 extent,
 
     /* the prefix is "TADS2-" or "TADS3-", depending on the format */
     if (tads_match_sig(story_file, extent, T2_SIGNATURE))
-        strcpy(output, "TADS2-");
+        strncpy(output, "TADS2-", sizeof("TADS2-"));
     else
-        strcpy(output, "TADS3-");
+        strncpy(output, "TADS3-", sizeof("TADS3-"));
 
     /* the rest is the MD5 hash of the file, as hex digits */
     for (i = 0, p = output + strlen(output) ; i < 16 ; p += 2, ++i)

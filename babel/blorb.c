@@ -166,7 +166,7 @@ static int32 get_story_format(void *blorb_file, int32 extent, char *output, int3
     o=blorb_get_story_format(blorb_file, extent);
     if (!o) return NO_REPLY_RV;
     ASSERT_OUTPUT_SIZE((signed) strlen(o)+1);
-    strcpy(output,o);
+    strncpy(output, o, strlen(o) + 1);
     return strlen(o)+1;
 }
 static int32 get_story_file_metadata_extent(void *blorb_file, int32 extent)

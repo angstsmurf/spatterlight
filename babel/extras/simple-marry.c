@@ -47,7 +47,8 @@ int main(int argc, char **argv)
       strstr(de->d_name, ".jpeg") ||
       strstr(de->d_name, ".txt"))
    continue;
-   strcpy(rfn,de->d_name);
+   strncpy(rfn, de->d_name, sizeof(rfn) - 1);
+   rfn[sizeof(rfn) - 1] = '\0';
    sp=strrchr(rfn,'.');
    if (sp) *sp=0;
    printf("%s: ",rfn);

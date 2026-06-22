@@ -40,7 +40,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
     if (!magic_word_found(story_file))
     {
         ASSERT_OUTPUT_SIZE(5);
-        strcpy(output,"ALAN-");
+        strncpy(output, "ALAN-", sizeof("ALAN-"));
         return INCOMPLETE_REPLY_RV;
     }
     else
@@ -68,7 +68,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
             }
         }
         ASSERT_OUTPUT_SIZE(5);
-        strcpy(output,"ALAN-");
+        strncpy(output, "ALAN-", sizeof("ALAN-"));
         return INCOMPLETE_REPLY_RV;
     }
 }

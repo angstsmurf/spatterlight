@@ -749,7 +749,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
     if (ifid)
     {
         ASSERT_OUTPUT_SIZE((signed) strlen(ifid)+1);
-        strcpy(output,ifid);
+        strncpy(output, ifid, strlen(ifid) + 1);
         return 1;
     }
     ASSERT_OUTPUT_SIZE(10);

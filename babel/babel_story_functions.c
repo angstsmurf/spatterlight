@@ -91,7 +91,8 @@ static void deep_babel_ifiction(char stopped)
         char epb[TREATY_MINIMUM_EXTENT+9];
         if (stopped!=2)
         {
-            strcpy(epb,ep);
+            strncpy(epb, ep, sizeof(epb) - 1);
+            epb[sizeof(epb) - 1] = '\0';
             strcat(epb, IFICTION_EXT);
 
             f=fopen(epb,"w");
@@ -240,7 +241,8 @@ static void deep_babel_cover(char stopped)
     while(ep)
     {
         char epb[TREATY_MINIMUM_EXTENT+9];
-        strcpy(epb,ep);
+        strncpy(epb, ep, sizeof(epb) - 1);
+        epb[sizeof(epb) - 1] = '\0';
         strcat(epb, ext);
 
         f=fopen(epb,"wb");
@@ -297,7 +299,7 @@ static char *get_biblio(void)
             sprintf(buffer, "\"%s\" ",t);
             *bibe='<';
         }
-        else strcpy(buffer,"<no title found> ");
+        else strncpy(buffer, "<no title found> ", sizeof(buffer));
     }
     t=strstr(bibb,"<author>");
     if (t)

@@ -143,7 +143,7 @@ void deep_ifiction_verify(char *md, int f)
     int i=0;
     ii.wmode=0;
     isok=1;
-    strcpy(ii.ifid,"UNKNOWN");
+    strncpy(ii.ifid, "UNKNOWN", sizeof(ii.ifid));
     ifiction_parse(md,examine_tag,&ii,verify_eh,&i);
     if (f&& isok) printf("Verified %s\n",ii.ifid);
 }
@@ -160,7 +160,7 @@ void babel_ifiction_lint(char *md)
     int i=1;
     ii.wmode=1;
     isok=1;
-    strcpy(ii.ifid,"UNKNOWN");
+    strncpy(ii.ifid, "UNKNOWN", sizeof(ii.ifid));
     ifiction_parse(md,examine_tag,&ii,verify_eh,&i);
     if (isok) printf("%s conforms to iFiction style guidelines\n",ii.ifid);
 }

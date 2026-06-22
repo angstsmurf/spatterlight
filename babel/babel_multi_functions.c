@@ -125,7 +125,7 @@ char *deep_complete_ifiction(char *fn, char *ifid, char *format)
     id=strstr(md,"<story>");
     id[0]=0;
     id+=7;
-    strcpy(idp,md);
+    strncpy(idp, md, strlen(md) + 1);
     strcat(idp,"<story>\n <identification>\n");
     strcat(idp,idb);
     free(idb);
@@ -186,7 +186,10 @@ static void _babel_multi_blorb(char *outfile, char **args, char *todir , int arg
     ep=strchr(buffer,',');
     if (ep) *ep=0;
     if (outfile)
-        strcpy(buffer,outfile);
+    {
+        strncpy(buffer, outfile, sizeof(buffer) - 1);
+        buffer[sizeof(buffer) - 1] = '\0';
+    }
     strcat(buffer,blorb_ext_for_name(b2));
     getcwd(cwd,512);
     chdir(todir);
@@ -326,7 +329,7 @@ void babel_multi_blorb1(char **args, char *todir , int argc)
     char *buf;
     char *bb;
     buf=(char *)my_malloc(strlen(args[0])+1,"blorb name buffer");
-    strcpy(buf,args[0]);
+    strncpy(buf, args[0], strlen(args[0]) + 1);
     bb=strrchr(buf,'.');
     if (bb) *bb=0;
     _babel_multi_blorb(buf,args,todir,argc);

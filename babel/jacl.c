@@ -104,7 +104,7 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
             return extract_ifid(story_file, j, extent, output, output_extent, encrypted);
         } else {
             ASSERT_OUTPUT_SIZE(1);
-            strcpy(output, "\0");
+            output[0] = '\0';
             return INCOMPLETE_REPLY_RV;
         }
     }

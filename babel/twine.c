@@ -70,7 +70,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
     /* This version of Twine is too old to include an IFID, so we'll
        generate one from the MD5. */
     ASSERT_OUTPUT_SIZE(8);
-    strcpy(output,"TWINE-");
+    strncpy(output, "TWINE-", sizeof("TWINE-"));
     return INCOMPLETE_REPLY_RV;
 }
 

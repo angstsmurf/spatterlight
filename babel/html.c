@@ -123,7 +123,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
 
     /* Generate IFID from MD5 */
     ASSERT_OUTPUT_SIZE(8);
-    strcpy(output,"HTML-");
+    strncpy(output, "HTML-", sizeof("HTML-"));
     return INCOMPLETE_REPLY_RV;
 }
 

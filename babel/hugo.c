@@ -138,7 +138,7 @@ static int32 get_story_file_IFID(void *s_file, int32 extent, char *output,
              story_file[2], ser);
 
     ASSERT_OUTPUT_SIZE((signed)strlen(buffer) + 1);
-    strcpy((char *)output, buffer);
+    strncpy((char *)output, buffer, sizeof(buffer));
     return 1;
 }
 

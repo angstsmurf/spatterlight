@@ -80,7 +80,8 @@ void steal_story(struct XMLTag *xtg, void *ctx)
   char c;
   c=*(xtg->end);
   *(xtg->end)=0;
-  strcpy(current_ifid,xtg->begin);
+  strncpy(current_ifid, xtg->begin, sizeof(current_ifid) - 1);
+  current_ifid[sizeof(current_ifid) - 1] = '\0';
   *(xtg->end)=c;
  }
  else if (strcmp(xtg->tag,"story")==0 && current_ifid[0])
@@ -92,10 +93,11 @@ void steal_story(struct XMLTag *xtg, void *ctx)
   n=(struct storyblock *)my_malloc(sizeof(struct storyblock), "story block");
   n->next=stories;
   stories=n;
-  strcpy(n->ifid,current_ifid);
+  strncpy(n->ifid, current_ifid, sizeof(n->ifid) - 1);
+  n->ifid[sizeof(n->ifid) - 1] = '\0';
 /*  printf("created %s\n", current_ifid);*/
   n->story=(char *)my_malloc(strlen(xtg->begin)+16, "Story record");
-  strcpy(n->story,xtg->begin);
+  strncpy(n->story, xtg->begin, strlen(xtg->begin) + 1);
   *(xtg->end)=c;
   current_ifid[0]=0;
 
