@@ -46,6 +46,10 @@
 #include "glkterm/glk.h"
 #endif
 
+#ifdef SPATTERLIGHT
+#include "randomness.h"
+#endif
+
 glui32 				status_width, status_height;
 
 schanid_t 			sound_channel[8] = { NULL, NULL, NULL, NULL,
@@ -211,11 +215,15 @@ glk_main(void)
 #endif
 
 #ifdef SPATTERLIGHT
-	if (gli_determinism)
-		srand(1234);
-	else
-#endif
+	/* Seed the shared erkyrath_random() generator (terps/common_utils/
+	   randomness.c), as the Alan/Hugo/Scott/TADS ports do, so the determinism
+	   testing theme replays an identical sequence on every platform (POSIX
+	   rand() is only reproducible per-libc).  Seed 1234 = fixed/replayable,
+	   seed 0 = platform-native. */
+	set_erkyrath_random(gli_determinism ? 1234 : 0);
+#else
 	srand((int) time(NULL));
+#endif
 
 	override[0] = 0;
 

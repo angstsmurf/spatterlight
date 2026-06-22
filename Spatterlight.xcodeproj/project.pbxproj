@@ -990,6 +990,7 @@
 		C3FACE0300000000DEAD0017 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C3FACE0300000000DEAD0018 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C3FACE0300000000DEAD0019 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
+		C3FACE0300000000DEAD001A /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C3FB3287269F5BEE00A1B09C /* stash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3286269F5BEE00A1B09C /* stash.cpp */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
 		C3FEF0BA2E6B752600276383 /* Fetches.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FEF0B92E6B752600276383 /* Fetches.m */; };
@@ -8696,6 +8697,7 @@
 				C318F7942741AA7B006D626A /* logging.c in Sources */,
 				C318F7922741AA7B006D626A /* parser.c in Sources */,
 				C318F7962741AA7B006D626A /* glk_startup.c in Sources */,
+				C3FACE0300000000DEAD001A /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

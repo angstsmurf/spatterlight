@@ -10,6 +10,10 @@
 #include "prototypes.h"
 #include <string.h>
 
+#ifdef SPATTERLIGHT
+#include "randomness.h"
+#endif
+
 
 static int jacl_whitespace(int character);
 
@@ -91,11 +95,20 @@ strip_return (char *string)
 int
 random_number()
 {
-	/* GENERATE A RANDOM NUMBER BETWEEN 0 AND THE CURRENT VALUE OF
+	/* GENERATE A RANDOM NUMBER BETWEEN 1 AND THE CURRENT VALUE OF
 	 * THE JACL VARIABLE MAX_RAND */
 
+#ifdef SPATTERLIGHT
+	/* Draw from the shared erkyrath_random() (terps/common_utils/
+	 * randomness.c) so the determinism testing theme is reproducible across
+	 * platforms.  erkyrath_random() spans the full 32-bit range and is
+	 * already well-distributed, so there is no leading discard draw. */
+	return (1 + (int) ((double) MAX_RAND->value * erkyrath_random()
+		/ (4294967295.0 + 1.0)));
+#else
 	rand();
 	return (1 + (int) ((float) MAX_RAND->value * rand() / (RAND_MAX + 1.0)));
+#endif
 }
 
 void
