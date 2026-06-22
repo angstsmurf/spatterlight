@@ -293,7 +293,6 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
               ival = cab->u.ch & 0xFF;
               if (!substring) {
                 push_callstub(0x11, 0);
-                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
@@ -307,11 +306,10 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
             case iosys_Glk:
               glkio_unichar_han_ptr(cab->u.uch);
               break;
-            case iosys_Filter: 
+            case iosys_Filter:
               ival = cab->u.uch;
               if (!substring) {
                 push_callstub(0x11, 0);
-                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
@@ -461,11 +459,10 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
             case iosys_Glk:
               glk_put_char(ch);
               break;
-            case iosys_Filter: 
+            case iosys_Filter:
               ival = ch & 0xFF;
               if (!substring) {
                 push_callstub(0x11, 0);
-                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
@@ -480,10 +477,9 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
             case iosys_Glk:
               glkio_unichar_han_ptr(ival);
               break;
-            case iosys_Filter: 
+            case iosys_Filter:
               if (!substring) {
                 push_callstub(0x11, 0);
-                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
