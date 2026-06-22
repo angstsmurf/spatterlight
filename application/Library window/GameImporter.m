@@ -246,38 +246,32 @@ void freeContext(void **ctx) {
 
     NSString *extension = path.pathExtension.lowercaseString;
 
-    // Option A: AGT games are played directly from their original .D$$/.DA1
-    // file set, with no AGX conversion. We identify the game in-process and,
-    // on success, leave the path pointing at the original .D$$ -- the agility
-    // terp loads the file set in place (its siblings are reachable through the
-    // folder-level sandbox access granted at launch). babel only understands
-    // AGX, so for the direct path we skip the babel identification below.
+    // AGT games are played directly from their original .D$$/.DA1 file set,
+    // with no AGX conversion. We identify the game in-process and leave the
+    // path pointing at the original .D$$ -- the agility terp loads the file
+    // set in place (its siblings are reachable through the folder-level
+    // sandbox access granted at launch). babel only understands AGX, so for
+    // the direct path we skip the babel identification below.
     BOOL directAGT = NO;
 
     if ([extension isEqualToString: @"d$$"]) {
         ifid = AGTIfidForPath(path);
-        if (ifid) {
-            formatStr = @"agt";
-            format = (char *)"agt";
-            directAGT = YES;
-        } else {
-            // Couldn't read the AGT game in-process; fall back to converting
-            // it to an AGX file kept in the app's container.
-            path = [self convertAGTFile:path];
-            if (!path) {
-                if (report) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSAlert *alert = [[NSAlert alloc] init];
-                        alert.messageText = NSLocalizedString(@"Conversion failed.", nil);
-                        alert.informativeText = NSLocalizedString(@"This old style AGT file could not be converted to the new AGX format.", nil);
-                        [alert runModal];
-                    });
-                } else {
-                    NSLog(@"This old style AGT file could not be converted to the new AGX format.");
-                }
-                return nil;
+        if (!ifid) {
+            if (report) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSAlert *alert = [[NSAlert alloc] init];
+                    alert.messageText = NSLocalizedString(@"Could not read game.", nil);
+                    alert.informativeText = NSLocalizedString(@"This file could not be read as an AGT game.", nil);
+                    [alert runModal];
+                });
+            } else {
+                NSLog(@"This file could not be read as an AGT game.");
             }
+            return nil;
         }
+        formatStr = @"agt";
+        format = (char *)"agt";
+        directAGT = YES;
     }
 
     if (![gGameFileTypes containsObject:extension])
@@ -862,203 +856,6 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     }
 
     [defaults setBool:YES forKey:@"AGTConvertedToDirectMigrationDone"];
-}
-
-// Converts AGT D$$ files to the AGX format that AGiliTy can play. The
-// resulting file is kept in a special Application Support directory, named
-// after the game's IFID. Also copies any icon files to the same directory
-// for the cover image importer to find.
-//
-// The IFID is computed in-process directly from the original .D$$/.DA1 data
-// files (agt_copy_ifid_for_file), so we no longer have to convert the game
-// into a throwaway temp .agx just to read its IFID back out with babel. Once
-// the IFID is known we convert straight to the final Converted/<IFID>.agx
-// location -- no temp directory, no move, no babel round-trip.
-//
-// If the in-process identification fails for any reason we fall back to the
-// original agt2agx + babel temp-file path (convertAGTFileViaTempAGX:).
-
-- (NSString *)convertAGTFile:(NSString *)origpath {
-
-    NSError *error = nil;
-    NSFileManager *filemanager = [NSFileManager defaultManager];
-    NSURL *gameFileURL = [NSURL fileURLWithPath:origpath isDirectory:NO];
-
-    [FolderAccess askForAccessToURL:gameFileURL andThenRunBlock:^{}];
-
-    // Identify the game in-process, directly from its data files.
-    NSString *ifid = nil;
-    char *rawifid = agt_copy_ifid_for_file(origpath.fileSystemRepresentation);
-    if (rawifid) {
-        ifid = @(rawifid);
-        free(rawifid);
-    }
-
-    if (!ifid.length) {
-        // Couldn't read the AGT game in-process; use the legacy path.
-        return [self convertAGTFileViaTempAGX:origpath];
-    }
-
-    NSString *exepath =
-    [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"agt2agx"];
-    if (!exepath.length)
-        return nil;
-
-    NSURL *dirURL =
-    [_tableViewController.homepath URLByAppendingPathComponent:@"Converted" isDirectory:YES];
-
-    [filemanager createDirectoryAtURL:dirURL
-          withIntermediateDirectories:YES
-                           attributes:nil
-                                error:&error];
-
-    NSURL *cvtURL =
-    [dirURL URLByAppendingPathComponent:
-     [ifid stringByAppendingPathExtension:@"agx"] isDirectory:NO];
-
-    [filemanager removeItemAtURL:cvtURL error:nil];
-
-    // Convert straight to the final location now that we know the IFID.
-    NSTask *task = [[NSTask alloc] init];
-    task.launchPath = exepath;
-    task.arguments = @[ @"-o", cvtURL.path, origpath ];
-
-    [task launch];
-    [task waitUntilExit];
-
-    if (task.terminationStatus != 0) {
-        NSLog(@"GameImporter: agt2agx failed");
-        return nil;
-    }
-
-    [self copyAGTIconForGameAtPath:origpath toConvertedURL:cvtURL];
-
-    return cvtURL.path;
-}
-
-// We copy any icon files as well, so that the cover image importer finds them.
-- (void)copyAGTIconForGameAtPath:(NSString *)origpath
-                  toConvertedURL:(NSURL *)cvtURL {
-    NSFileManager *filemanager = [NSFileManager defaultManager];
-    NSError *error = nil;
-
-    NSString *iconPath = [origpath.stringByDeletingPathExtension
-                          stringByAppendingPathExtension:@"ICO"];
-    NSString *icon2Path =
-    [[origpath.stringByDeletingPathExtension
-      stringByAppendingString:@"2"] stringByAppendingPathExtension:@"ICO"];
-
-    if ([filemanager fileExistsAtPath:icon2Path]) {
-        iconPath = icon2Path;
-    }
-
-    if ([filemanager fileExistsAtPath:iconPath]) {
-        NSLog(@"Found icon file at: %@", iconPath);
-        NSURL *oldIconURL = [NSURL fileURLWithPath:iconPath isDirectory:NO];
-        NSString *newIconPath = [cvtURL.path.stringByDeletingPathExtension stringByAppendingPathExtension:@"ico"];
-        NSURL *newIconURL = [NSURL fileURLWithPath:newIconPath isDirectory:NO];
-
-        [filemanager removeItemAtURL:newIconURL error:nil];
-
-        [filemanager
-         copyItemAtURL:oldIconURL
-         toURL:newIconURL
-         error:&error];
-    }
-}
-
-// Legacy fallback: convert via agt2agx into a temp .agx, read the IFID with
-// babel, then move it to Converted/<IFID>.agx. Kept for the rare case where
-// in-process identification fails.
-
-- (NSString *)convertAGTFileViaTempAGX:(NSString *)origpath {
-
-    NSError *error = nil;
-
-    NSFileManager *filemanager = [NSFileManager defaultManager];
-
-    NSURL *gameFileURL = [NSURL fileURLWithPath:origpath
-                                   isDirectory:NO];
-
-    NSURL *temporaryDirectoryURL = [filemanager
-                                    URLForDirectory:NSItemReplacementDirectory
-                                    inDomain:NSUserDomainMask
-                                    appropriateForURL:gameFileURL
-                                    create:YES
-                                    error:&error];
-
-    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[NSUUID UUID].UUIDString];
-
-    tempFilePath = [tempFilePath stringByAppendingPathExtension:@"agx"];
-
-    NSString *exepath =
-    [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"agt2agx"];
-    if (!exepath.length)
-        return nil;
-    NSURL *dirURL;
-    NSURL *cvtURL;
-
-    NSTask *task;
-    char *format;
-    int status;
-
-    task = [[NSTask alloc] init];
-    task.launchPath = exepath;
-    task.arguments = @[ @"-o", tempFilePath, origpath ];
-
-    [FolderAccess askForAccessToURL:gameFileURL andThenRunBlock:^{}];
-
-    [task launch];
-    [task waitUntilExit];
-    status = task.terminationStatus;
-
-    if (status != 0) {
-        NSLog(@"GameImporter: agt2agx failed");
-        return nil;
-    }
-
-    void *ctx = get_babel_ctx();
-
-    format = babel_init_ctx((char *)tempFilePath.fileSystemRepresentation, ctx);
-    if (!strcmp(format, "agt")) {
-        char buf[TREATY_MINIMUM_EXTENT];
-        int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
-        if (rv == 1) {
-            dirURL =
-            [_tableViewController.homepath URLByAppendingPathComponent:@"Converted" isDirectory:YES];
-
-            [filemanager createDirectoryAtURL:dirURL
-                  withIntermediateDirectories:YES
-                                   attributes:nil
-                                        error:&error];
-
-            cvtURL =
-            [dirURL URLByAppendingPathComponent:
-             [@(buf) stringByAppendingPathExtension:@"agx"] isDirectory:NO];
-
-            freeContext(&ctx);
-
-            [filemanager removeItemAtURL:cvtURL error:nil];
-
-            NSURL *tmp = [NSURL fileURLWithPath:tempFilePath isDirectory:NO];
-
-            error = nil;
-            status = [filemanager moveItemAtURL:tmp toURL:cvtURL error:&error];
-
-            if (!status) {
-                NSLog(@"GameImporter: could not move converted file: %@", error);
-                return nil;
-            }
-
-            [self copyAGTIconForGameAtPath:origpath toConvertedURL:cvtURL];
-
-            return cvtURL.path;
-        }
-    } else {
-        NSLog(@"GameImporter: babel did not like the converted file");
-    }
-    freeContext(&ctx);
-    return nil;
 }
 
 @end
