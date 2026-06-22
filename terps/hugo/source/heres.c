@@ -307,6 +307,10 @@ Identified:
 	if (!hugo_playvideo(resource_file, reslength, loop_flag, background, volume))
 		var[system_status] = STAT_LOADERROR;
 #else
+	(void)loop_flag;
+	(void)background;
+	(void)reslength;
+	(void)volume;
 	fclose(resource_file);
 	resource_file = NULL;
 #endif

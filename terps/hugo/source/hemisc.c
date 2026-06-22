@@ -555,7 +555,6 @@ AddFontCode:
 		linebreak = 0;
 		linebreaklen = 0;
 		thisline = 0;
-		plen = 0;
 #ifdef USE_TEXTBUFFER
 		bufferbreak = 0;
 		bufferbreaklen = 0;

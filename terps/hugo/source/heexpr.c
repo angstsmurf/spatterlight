@@ -183,15 +183,16 @@ Printout(line);
 			case FORWARD_SLASH_T:
 			{
 				if (n2==0)
-#if defined (DEBUGGER)
 				{
+#if defined (DEBUGGER)
 					RuntimeWarning("Division by zero:  invalid result");
 					result = 0;
-				}
 #else
 					FatalError(DIVIDE_E);
 #endif
-				result = n1 / n2;
+				}
+				else
+					result = n1 / n2;
 				break;
 			}
 			case PIPE_T:

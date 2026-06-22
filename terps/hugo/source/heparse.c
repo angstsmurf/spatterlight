@@ -592,7 +592,7 @@ int MatchCommand(void)
 
 	if (!strcmp(word[1], "~oops"))
 	{
-		strcpy(parseerr, "");
+		parseerr[0] = '\0';
 
 		/* "oops" on its own */
 		if (words==1 || !strcmp(oops, ""))
@@ -782,7 +782,7 @@ MatchVerb:
 		/* No match, ergo an invalid command */
 		if (flag==0 && nextverb==true)
 		{
-			strcpy(parseerr, "");
+			parseerr[0] = '\0';
 			ParseError(6, 0);        /* "...doesn't make any sense..." */
 			return 0;
 		}
@@ -790,7 +790,7 @@ MatchVerb:
 		/* No provision made for addressing objects (characters) */
 		if (flag==0 || speaktoaddr==0)
 		{
-			strcpy(parseerr, "");
+			parseerr[0] = '\0';
 			ParseError(2, 0);        /* "Better start with a verb..." */
 			return 0;
 		}
@@ -944,7 +944,7 @@ NextStructure:
 			/* ...or if we reached the end without a sensible
 			   syntax matched:
 			*/
-			strcpy(parseerr, "");
+			parseerr[0] = '\0';
 
 			/* "...doesn't make any sense..." */
 			ParseError(6, 0);
@@ -1030,7 +1030,7 @@ int MatchObject(int *wordnum)
 #ifdef DEBUG_PARSER
 	Printout("MatchObject(): Entering");
 #endif
-	strcpy(parseerr, "");
+	parseerr[0] = '\0';
 
 	do                                 /* starting at word #a */
 	{
@@ -1633,7 +1633,7 @@ Clarify:
 
 RestoreTempArrays:
 		/* Rebuild <buffer> and word[] array */
-			strcpy(buffer, "");
+			buffer[0] = '\0';
 			for (i=1; i<=wtemp; i++)
 			{
 				strncat(buffer, GetWord(wdtemp[i]), MAXBUFFER+MAXWORDS);
@@ -1796,7 +1796,7 @@ RestoreTempArrays:
 	/* Go back for the next object phrase */
 	pobjcount = 0;
 	mobjs = 0;
-	strcpy(parseerr, "");
+	parseerr[0] = '\0';
 
 	goto NextLoop;
 }
@@ -2205,7 +2205,7 @@ int Parse(void)
 	period = FindWord(".");
 	comma = FindWord(",");
 
-	strcpy(parsestr, "");           /* for storing any unknown string */
+	parsestr[0] = '\0';           /* for storing any unknown string */
 	parsed_number = 0;              /*  "     "     "  parsed number  */
 
 	for (i=1; i<=words; i++)        /* find dictionary addresses */
@@ -2293,7 +2293,7 @@ NotinDictionary:
 						if (m)
 						{
 							if (m + (int)strlen(buffer) > 81)
-								{strcpy(buffer, "");
+								{buffer[0] = '\0';
 								words = 0;
 								ParseError(0, 0);
 								return 0;}
@@ -2302,10 +2302,10 @@ NotinDictionary:
 							{
 								strncpy(tempword, word[k], 81);
 								word[k] += m;
-								strcpy(word[k], tempword);
+								strlcpy(word[k], tempword, sizeof(tempword));
 							}
 						}
-						strcpy(word[i], GetWord(wd[i]));
+						strlcpy(word[i], GetWord(wd[i]), 81);
 						i--;
 						break;
 					}
@@ -2354,7 +2354,7 @@ NextSyn:
 
 	defseg = gameseg;
 
-	if (strcmp(word[1], "~oops")) strcpy(oops, "");
+	if (strcmp(word[1], "~oops")) oops[0] = '\0';
 
 	if (words==0)
 	{
@@ -2624,7 +2624,7 @@ void SeparateWords(void)
 				bloc++;
 				if (++words > MAXWORDS) words = MAXWORDS;
 				word[words] = buffer + bloc;
-				strcpy(word[words], "");
+				word[words][0] = '\0';
 			}
 
 			if (b[0]=='\"' && inquote==0)
@@ -2644,11 +2644,11 @@ void SeparateWords(void)
 					if (++words > MAXWORDS) words = MAXWORDS;
 				}
 				word[words] = buffer + bloc;
-				strcpy(word[words], b);
+				strlcpy(word[words], b, sizeof(b));
 				bloc += strlen(b) + 1;
 				if (++words > MAXWORDS) words = MAXWORDS;
 				word[words] = buffer + bloc;
-				strcpy(word[words], "");
+				word[words][0] = '\0';
 			}
 			else
 			{
@@ -2832,7 +2832,7 @@ int ValidObj(int obj)
 				{
 					strncpy(parseerr, "", MAXBUFFER + 1);
 					if (GetProp(obj, article, 1, 0))
-						strcpy(parseerr, "the ");
+						strlcpy(parseerr, "the ", sizeof(parseerr));
 					strncat(parseerr, Name(obj), MAXBUFFER + 1);
 
 					/* "...can't do that with..." */
@@ -2856,7 +2856,7 @@ int ValidObj(int obj)
 			{
 				strncpy(parseerr, "", MAXBUFFER + 1);
 				if (GetProp(obj, article, 1, 0))
-					strcpy(parseerr, "the ");
+					strlcpy(parseerr, "the ", sizeof(parseerr));
 				strncat(parseerr, Name(obj), MAXBUFFER + 1);
 
 				/* "...can't do that with..." */
