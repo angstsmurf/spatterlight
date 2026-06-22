@@ -280,6 +280,7 @@ void args(argc, argv)
     if (strcmp(prgnam, PROGNAME) != 0
         && strstr(prgnam, PROGNAME) == 0)
       advnam = strdup(argv[0]);
+  free(prgnam);
 #else
   Unimplemented OS!
 #endif

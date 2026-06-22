@@ -95,8 +95,8 @@ static void unknown(token)
   char *str = allocate((int)strlen(token)+4);
 
   str[0] = '\'';
-  strcpy(&str[1], token);
-  strcat(str, "'?");
+  strncpy(&str[1], token, strlen(token) + 3);
+  strlcat(str, "'?", strlen(token) + 4);
 #if ISO == 0
   fromIso(str, str);
 #endif
@@ -218,7 +218,7 @@ static void agetline()
 #if ISO == 0
     toIso(isobuf, buf, NATIVECHARSET);
 #else
-    strcpy(isobuf, buf);
+    strncpy(isobuf, buf, sizeof(isobuf) - 1);
 #endif
     token = gettoken(isobuf);
     if (token != NULL && strcmp("debug", token) == 0 && header->debug) {

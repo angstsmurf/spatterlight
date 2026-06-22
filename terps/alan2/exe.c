@@ -1532,8 +1532,8 @@ void save()
 
   /* First save ? */
   if (savfnm[0] == '\0') {
-    strcpy(savfnm, advnam);
-    strcat(savfnm, ".sav");
+    strncpy(savfnm, advnam, sizeof(savfnm) - 1);
+    strncat(savfnm, ".sav", sizeof(savfnm) - strlen(savfnm) - 1);
   }
   prmsg(M_SAVEWHERE);
   sprintf(str, "(%s) : ", savfnm);
@@ -1551,13 +1551,13 @@ frefid_t fref;
 fref = glk_fileref_create_by_prompt(fileusage_SavedGame, filemode_Write, 0);
 if (fref == NULL)
 	error(M_SAVEFAILED);
-strcpy(str, glkunix_fileref_get_filename(fref));
+strncpy(str, glkunix_fileref_get_filename(fref), sizeof(str) - 1);
 glk_fileref_destroy(fref);
 
 #endif
 
   if (str[0] == '\0')
-    strcpy(str, savfnm);
+    strncpy(str, savfnm, sizeof(str) - 1);
   col = 1;
 #ifndef GARGLK
   if ((savfil = fopen(str, READ_MODE)) != NULL)
@@ -1567,7 +1567,7 @@ glk_fileref_destroy(fref);
 #endif
   if ((savfil = fopen(str, WRITE_MODE)) == NULL)
     error(M_SAVEFAILED);
-  strcpy(savfnm, str);
+  strncpy(savfnm, str, sizeof(savfnm) - 1);
 
   /* Save version of interpreter and name of game */
   fwrite((void *)&header->vers, sizeof(Aword), 1, savfil);
@@ -1636,8 +1636,8 @@ void restore()
 
   /* First save ? */
   if (savfnm[0] == '\0') {
-    strcpy(savfnm, advnam);
-    strcat(savfnm, ".sav");
+    strncpy(savfnm, advnam, sizeof(savfnm) - 1);
+    strncat(savfnm, ".sav", sizeof(savfnm) - strlen(savfnm) - 1);
   }
   prmsg(M_RESTOREFROM);
   sprintf(str, "(%s) : ", savfnm);
@@ -1654,21 +1654,25 @@ frefid_t fref;
 fref = glk_fileref_create_by_prompt(fileusage_SavedGame, filemode_Read, 0);
 if (fref == NULL)
 	error(M_SAVEFAILED);
-strcpy(str, glkunix_fileref_get_filename(fref));
+strncpy(str, glkunix_fileref_get_filename(fref), sizeof(str) - 1);
 glk_fileref_destroy(fref);
 
 #endif
 
   if (str[0] == '\0')
-    strcpy(str, savfnm);
+    strncpy(str, savfnm, sizeof(str) - 1);
   col = 1;
   if (str[0] == '\0')
-    strcpy(str, savfnm);        /* Use the name temporarily */
+    strncpy(str, savfnm, sizeof(str) - 1);        /* Use the name temporarily */
   if ((savfil = fopen(str, READ_MODE)) == NULL)
     error(M_SAVEMISSING);
-  strcpy(savfnm, str);          /* Save it for future use */
+  strncpy(savfnm, str, sizeof(savfnm) - 1);          /* Save it for future use */
 
-  tmp = fread((void *)&savedVersion, sizeof(Aword), 1, savfil);
+  if (fread((void *)&savedVersion, sizeof(Aword), 1, savfil) != 1) {
+    fclose(savfil);
+    error(M_SAVEVERS);
+    return;
+  }
   /* 4f - save file version check doesn't seem to work on PC's! */
   if (strncmp(savedVersion, header->vers, 4)) {
     fclose(savfil);
@@ -1676,7 +1680,20 @@ glk_fileref_destroy(fref);
     return;
   }
   i = 0;
-  while ((savedName[i++] = fgetc(savfil)) != '\0');
+  {
+    int c;
+    int foundNull = 0;
+    while (i < (int)(sizeof(savedName) - 1) && (c = fgetc(savfil)) != EOF) {
+      savedName[i++] = (char)c;
+      if (c == '\0') { foundNull = 1; break; }
+    }
+    savedName[i] = '\0';
+    if (!foundNull) {
+      fclose(savfil);
+      error(M_SAVEFAILED);
+      return;
+    }
+  }
   if (strcmp(savedName, advnam) != 0) {
     fclose(savfil);
     error(M_SAVENAME);
@@ -1684,32 +1701,60 @@ glk_fileref_destroy(fref);
   }
 
   /* Restore current values */
-  tmp = fread((void *)&cur, sizeof(cur), 1, savfil);
+  if (fread((void *)&cur, sizeof(cur), 1, savfil) != 1) {
+    fclose(savfil);
+    error(M_SAVEFAILED);
+    return;
+  }
   /* Restore actors */
   for (unsigned int i = ACTMIN; i <= ACTMAX; i++) {
-    tmp = fread((void *)&acts[i-ACTMIN].loc, sizeof(Aword), 1, savfil);
-    tmp = fread((void *)&acts[i-ACTMIN].script, sizeof(Aword), 1, savfil);
-    tmp = fread((void *)&acts[i-ACTMIN].step, sizeof(Aword), 1, savfil);
-    tmp = fread((void *)&acts[i-ACTMIN].count, sizeof(Aword), 1, savfil);
+    if (fread((void *)&acts[i-ACTMIN].loc, sizeof(Aword), 1, savfil) != 1 ||
+        fread((void *)&acts[i-ACTMIN].script, sizeof(Aword), 1, savfil) != 1 ||
+        fread((void *)&acts[i-ACTMIN].step, sizeof(Aword), 1, savfil) != 1 ||
+        fread((void *)&acts[i-ACTMIN].count, sizeof(Aword), 1, savfil) != 1) {
+      fclose(savfil);
+      error(M_SAVEFAILED);
+      return;
+    }
     if (acts[i-ACTMIN].atrs)
       for (atr = (AtrElem *) addrTo(acts[i-ACTMIN].atrs); !endOfTable(atr); atr++)
-	tmp = fread((void *)&atr->val, sizeof(Aword), 1, savfil);
+        if (fread((void *)&atr->val, sizeof(Aword), 1, savfil) != 1) {
+          fclose(savfil);
+          error(M_SAVEFAILED);
+          return;
+        }
   }
 
   /* Restore locations */
   for (unsigned int i = LOCMIN; i <= LOCMAX; i++) {
-    tmp = fread((void *)&locs[i-LOCMIN].describe, sizeof(Aword), 1, savfil);
+    if (fread((void *)&locs[i-LOCMIN].describe, sizeof(Aword), 1, savfil) != 1) {
+      fclose(savfil);
+      error(M_SAVEFAILED);
+      return;
+    }
     if (locs[i-LOCMIN].atrs)
       for (atr = (AtrElem *) addrTo(locs[i-LOCMIN].atrs); !endOfTable(atr); atr++)
-	tmp = fread((void *)&atr->val, sizeof(Aword), 1, savfil);
+        if (fread((void *)&atr->val, sizeof(Aword), 1, savfil) != 1) {
+          fclose(savfil);
+          error(M_SAVEFAILED);
+          return;
+        }
   }
 
   /* Restore objects */
   for (unsigned int i = OBJMIN; i <= OBJMAX; i++) {
-    tmp = fread((void *)&objs[i-OBJMIN].loc, sizeof(Aword), 1, savfil);
+    if (fread((void *)&objs[i-OBJMIN].loc, sizeof(Aword), 1, savfil) != 1) {
+      fclose(savfil);
+      error(M_SAVEFAILED);
+      return;
+    }
     if (objs[i-OBJMIN].atrs)
       for (atr = (AtrElem *) addrTo(objs[i-OBJMIN].atrs); !endOfTable(atr); atr++)
-	tmp = fread((void *)&atr->val, sizeof(atr->val), 1, savfil);
+        if (fread((void *)&atr->val, sizeof(atr->val), 1, savfil) != 1) {
+          fclose(savfil);
+          error(M_SAVEFAILED);
+          return;
+        }
   }
 
   /* Restore the eventq */
@@ -1717,12 +1762,25 @@ glk_fileref_destroy(fref);
   do {
     tmp = fread((void *)&eventq[etop], sizeof(eventq[0]), 1, savfil);
     etop++;
-  } while (eventq[etop-1].time != 0);
+  } while (tmp == 1 && eventq[etop-1].time != 0);
   etop--;
+  if (tmp != 1) {
+    fclose(savfil);
+    error(M_SAVEFAILED);
+    return;
+  }
 
   /* Restore scores */
-  for (i = 0; (int)scores[i] != EOF; i++)
-    tmp = fread((void *)&scores[i], sizeof(Aword), 1, savfil);
+  {
+    int nscores = 0;
+    while ((int)scores[nscores] != EOF) nscores++;
+    for (i = 0; i < nscores; i++)
+      if (fread((void *)&scores[i], sizeof(Aword), 1, savfil) != 1) {
+        fclose(savfil);
+        error(M_SAVEFAILED);
+        return;
+      }
+  }
 
   fclose(savfil);
 }

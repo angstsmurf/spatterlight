@@ -13,6 +13,7 @@
 #include "types.h"
 #include "main.h"
 
+#include <errno.h>
 #include <time.h>
 #ifdef USE_READLINE
 #include "readline.h"
@@ -116,6 +117,7 @@ static jmp_buf jmpbuf;		/* Error return long jump buffer */
 
  */
 #ifdef _PROTOTYPES_
+void terminate(int code) __attribute__((noreturn));
 void terminate(int code)
 #else
 void terminate(code)
@@ -201,6 +203,7 @@ void usage()
 
  */
 #ifdef _PROTOTYPES_
+void syserr(char *str) __attribute__((noreturn));
 void syserr(char *str)
 #else
 void syserr(str)
@@ -1189,7 +1192,7 @@ static void do_it(void)
 static void do_it()
 #endif
 {
-  AltElem *alt[MAXPARAMS+2];	/* List of alt-pointers, one for each param */
+  AltElem *alt[MAXPARAMS+2] = {0};	/* List of alt-pointers, one for each param */
   Boolean done[MAXPARAMS+2];	/* Is it done */
   int i;			/* Parameter index */
   char trace[80];		/* Trace string buffer */
@@ -1456,6 +1459,7 @@ static void checkvers(header)
   }
 
   /* Compatible if version and revision match... */
+  errno = 0;
   if (strncmp(header->vers, vers, 2) != 0) {
 #ifdef V25COMPATIBLE
     if (header->vers[0] == 2 && header->vers[1] == 5) /* Check for 2.5 version */
@@ -1497,9 +1501,17 @@ static void load()
   int i,tmp;
   char err[100];
 
+  errno = 0;
   rewind(codfil);
+  if (errno != 0)
+    syserr("Could not rewind ACD file.");
   tmp = fread(&tmphdr, sizeof(tmphdr), 1, codfil);
+  if (tmp != 1)
+    syserr("Could not read ACD header.");
+  errno = 0;
   rewind(codfil);
+  if (errno != 0)
+    syserr("Could not rewind ACD file.");
   checkvers(&tmphdr);
 
   /* Allocate and load memory */
@@ -1828,12 +1840,12 @@ static void openFiles()
   time_t tick;
 
   /* Open Acode file */
-  strcpy(codfnm, advnam);
-  strcat(codfnm, ".acd");
+  strncpy(codfnm, advnam, sizeof(codfnm) - 1);
+  strncat(codfnm, ".acd", sizeof(codfnm) - strlen(codfnm) - 1);
   if ((codfil = fopen(codfnm, READ_MODE)) == NULL) {
-    strcpy(str, "Can't open adventure code file '");
-    strcat(str, codfnm);
-    strcat(str, "'.");
+    strncpy(str, "Can't open adventure code file '", sizeof(str) - 1);
+    strncat(str, codfnm, sizeof(str) - strlen(str) - 1);
+    strncat(str, "'.", sizeof(str) - strlen(str) - 1);
     syserr(str);
   }
 
@@ -1846,12 +1858,12 @@ static void openFiles()
 #endif
 
   /* Open Text file */
-  strcpy(txtfnm, advnam);
-  strcat(txtfnm, ".dat");
+  strncpy(txtfnm, advnam, sizeof(txtfnm) - 1);
+  strncat(txtfnm, ".dat", sizeof(txtfnm) - strlen(txtfnm) - 1);
   if ((txtfil = fopen(txtfnm, READ_MODE)) == NULL) {
-    strcpy(str, "Can't open adventure text data file '");
-    strcat(str, txtfnm);
-    strcat(str, "'.");
+    strncpy(str, "Can't open adventure text data file '", sizeof(str) - 1);
+    strncat(str, txtfnm, sizeof(str) - strlen(str) - 1);
+    strncat(str, "'.", sizeof(str) - strlen(str) - 1);
     syserr(str);
   }
 

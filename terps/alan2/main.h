@@ -67,10 +67,10 @@ extern Boolean needsp;
 
 #ifdef _PROTOTYPES_
 extern void *allocate(unsigned long len);
-extern void terminate(int code);
+extern void terminate(int code) __attribute__((noreturn));
 extern void usage(void);
 extern void error(MsgKind msg);
-extern void syserr(char *msg);
+extern void syserr(char *msg) __attribute__((noreturn));
 extern void statusline(void);
 extern void output(char string[]);
 extern void prmsg(MsgKind msg);
@@ -97,8 +97,8 @@ extern void run(void);
 
 #else
 extern void *allocate();
-extern void terminate();
-extern void syserr();
+extern void terminate() __attribute__((noreturn));
+extern void syserr() __attribute__((noreturn));
 extern void usage();
 extern void error();
 extern void output();
