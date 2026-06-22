@@ -190,17 +190,43 @@
             return [self buttonToolbarItemWithImage:@"play.fill" selector:@selector(play:) label:@"Play" tooltip:@"Play selected game" identifier:itemIdentifier enabled:NO];
         }
     } else if (itemIdentifier == searchBar) {
-        NSSearchField *searchField = [[NSSearchField alloc] initWithFrame: CGRectZero];
-        _searchField = searchField;
-        searchField.action = @selector(searchForGames:);
-        searchField.target = self.tableViewController;
-        toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-        toolbarItem.view = searchField;
-        toolbarItem.label = NSLocalizedString(@"Search", nil);
-        toolbarItem.toolTip = NSLocalizedString(@"Search game database", nil);
-
         if (@available(macOS 11.0, *)) {
+            NSSearchToolbarItem *searchItem =
+            [[NSSearchToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+
+            // Configure the built-in search field. Don't replace it — just configure it.
+            NSSearchField *field = searchItem.searchField;
+            field.action = @selector(searchForGames:);
+            field.target = self.tableViewController;
+
+            // Keep the existing weak-ish reference used elsewhere (state restore, etc.)
+            _searchField = field;
+            // Stop AppKit's autofill heuristic from walking outward into the
+            // library window's content hierarchy.
+            [field setNextKeyView:field];
+
+            searchItem.label   = NSLocalizedString(@"Search", nil);
+            searchItem.toolTip = NSLocalizedString(@"Search game database", nil);
+            searchItem.resignsFirstResponderWithCancel = YES;
+            searchItem.preferredWidthForSearchField = 100;
+
+            toolbarItem = searchItem;
         } else {
+            // Pre-11 fallback: cache & reuse so we don't leak a dangling field
+            // into the window's key-view chain.
+            if (!_searchField) {
+                NSSearchField *field = [[NSSearchField alloc] initWithFrame:CGRectZero];
+                field.action = @selector(searchForGames:);
+                field.target = self.tableViewController;
+                _searchField = field;
+                // Stop AppKit's autofill heuristic from walking outward into the
+                // library window's content hierarchy.
+                [field setNextKeyView:field];
+            }
+            toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+            toolbarItem.view    = _searchField;
+            toolbarItem.label   = NSLocalizedString(@"Search", nil);
+            toolbarItem.toolTip = NSLocalizedString(@"Search game database", nil);
             toolbarItem.maxSize = NSMakeSize(200, 20);
             toolbarItem.minSize = NSMakeSize(100, 20);
         }
