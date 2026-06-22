@@ -316,9 +316,12 @@ bool Comprehend::loadStateFromPath(const char *path) {
         return false;
     std::vector<byte> payload;
     byte buf[4096];
-    size_t n;
-    while ((n = fread(buf, 1, sizeof(buf), f)) > 0)
+    for (;;) {
+        size_t n = fread(buf, 1, sizeof(buf), f);
         payload.insert(payload.end(), buf, buf + n);
+        if (n < sizeof(buf))
+            break;
+    }
     bool readError = ferror(f);
     fclose(f);
     if (readError)
