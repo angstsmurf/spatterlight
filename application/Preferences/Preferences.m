@@ -724,7 +724,7 @@ NSString *fontToString(NSFont *font) {
     NSInteger scrollbackLimit = (NSInteger)[GlkTextBufferWindow scrollbackLimit];
     _scrollbackLimitTextField.integerValue = scrollbackLimit;
     _scrollbackLimitStepper.integerValue = scrollbackLimit;
-    _scrollbackUnitLabel.stringValue = (scrollbackLimit == 0) ? @"= unlimited" : @"characters";
+    _scrollbackUnitLabel.stringValue = (scrollbackLimit == 0) ? NSLocalizedString(@"= unlimited", nil) : NSLocalizedString(@"characters", nil);
 
     if (theme.minTimer != 0) {
         if (_timerSlider.doubleValue != floor(1000.0 / theme.minTimer)) {
@@ -2015,7 +2015,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
                                                forKey:@"BufferScrollbackLimit"];
     _scrollbackLimitTextField.integerValue = value;
     _scrollbackLimitStepper.integerValue = value;
-    _scrollbackUnitLabel.stringValue = (value == 0) ? @"= unlimited" : @"characters";
+    _scrollbackUnitLabel.stringValue = (value == 0) ? NSLocalizedString(@"= unlimited", nil) : NSLocalizedString(@"characters", nil);
 }
 
 - (IBAction)changeAutosaveOnTimer:(id)sender {
