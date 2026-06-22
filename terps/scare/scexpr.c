@@ -532,7 +532,7 @@ expr_eval_push_string (const sc_char *value)
 
   /* Push a copy of value. */
   value_copy = sc_malloc (strlen (value) + 1);
-  strcpy (value_copy, value);
+  strncpy (value_copy, value, strlen (value) + 1);
   expr_eval_stack[expr_eval_stack_index].is_collectible = TRUE;
   expr_eval_stack[expr_eval_stack_index++].value.mutable_string = value_copy;
 }
@@ -1126,7 +1126,7 @@ expr_eval_action (sc_int token)
          * free text2, and push back the concatenation.
          */
         text1 = sc_realloc (text1, strlen (text1) + strlen (text2) + 1);
-        strcat (text1, text2);
+        strncat (text1, text2, strlen (text2));
         sc_free (text2);
         expr_eval_push_alloced_string (text1);
         break;

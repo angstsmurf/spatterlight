@@ -141,7 +141,6 @@ lib_use_room_alt (sc_gameref_t game, sc_int room, sc_int alt)
   type = prop_get_integer (bundle, "I<-sisis", vt_key);
 
   /* Select based on type. */
-  retval = FALSE;
   switch (type)
     {
     case 0:                    /* Task. */
@@ -3338,7 +3337,7 @@ lib_list_in_object (sc_gameref_t game, sc_int container, sc_bool is_described)
 
       object_position = gs_object_position (game, container);
 
-      if (object_position == OBJ_PART_NPC || object_position == OBJ_PART_PLAYER)
+      if (object_position == OBJ_PART_NPC)
         use_alternate_format = TRUE;
     }
   else
@@ -9118,10 +9117,8 @@ lib_stand_sit_lie (sc_gameref_t game, sc_int movement)
   const sc_char *already_doing_that, *success_message;
 
   /* Initialize variables to avoid gcc warnings. */
-  object = -1;
   already_doing_that = FALSE;
   success_message = FALSE;
-  position = 0;
 
   /* Get a target object for movement, -1 if floor. */
   switch (movement)
@@ -9138,7 +9135,6 @@ lib_stand_sit_lie (sc_gameref_t game, sc_int movement)
         /* Initialize variables to avoid gcc warnings. */
         disambiguate = NULL;
         cant_do_that = NULL;
-        movement_mask = 0;
 
         /* Set disambiguation and not amenable messages. */
         switch (movement)

@@ -244,8 +244,8 @@ scr_concatenate (sc_char *string, const sc_char *buffer)
     {
       string = sx_realloc (string,
                            strlen (string) + 1 + strlen (buffer) + 1);
-      strcat (string, " ");
-      strcat (string, buffer);
+      strncat (string, " ", 1);
+      strncat (string, buffer, strlen (buffer));
     }
   else
     {
@@ -510,7 +510,7 @@ scr_print_string_callback (const sc_char *string)
       scr_game_output = sx_realloc (scr_game_output,
                                     strlen (scr_game_output)
                                     + strlen (string) + 1);
-      strcat (scr_game_output, string);
+      strncat (scr_game_output, string, strlen (string));
     }
 }
 

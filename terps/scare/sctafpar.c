@@ -979,7 +979,7 @@ parse_read_multiline (void)
   /* Take a simple copy of the first line. */
   line = parse_get_taf_string ();
   multiline = sc_malloc (strlen (line) + 1);
-  strcpy (multiline, line);
+  strncpy (multiline, line, strlen (line) + 1);
 
   /* Now concatenate until separator found. */
   line = parse_get_taf_string ();
@@ -987,8 +987,8 @@ parse_read_multiline (void)
     {
       multiline = sc_realloc (multiline,
                               strlen (multiline) + strlen (line) + 2);
-      strcat (multiline, "\n");
-      strcat (multiline, line);
+      strncat (multiline, "\n", 1);
+      strncat (multiline, line, strlen (line));
       line = parse_get_taf_string ();
     }
 
@@ -1144,7 +1144,7 @@ parse_get_v400_resource_offset (const sc_char *name,
    * indicator flag.  Who thinks this junk up?
    */
   clean_name = sc_malloc (strlen (name) + 1);
-  strcpy (clean_name, name);
+  strncpy (clean_name, name, strlen (name) + 1);
   if (strcmp (clean_name + strlen (clean_name) - 2, "##") == 0)
     clean_name[strlen (clean_name) - 2] = NUL;
 
@@ -2025,9 +2025,9 @@ parse_fixup_v390 (const sc_char *fixup)
           sc_int index_;
 
           restrmask = sc_malloc (2 * restriction_count);
-          strcpy (restrmask, "#");
+          strncpy (restrmask, "#", 2 * restriction_count);
           for (index_ = 1; index_ < restriction_count; index_++)
-            strcat (restrmask, "A#");
+            strncat (restrmask, "A#", 2);
 
           vt_key.string = "RestrMask";
           parse_push_key (vt_key, PROP_KEY_STRING);
@@ -2454,10 +2454,6 @@ parse_fixup_v380_objstate_restr (sc_int obj, sc_int ivar1, sc_int ivar2,
   sc_vartype_t vt_key[3];
   sc_int object, dynamic, var2, var3;
 
-  /* Initialize variables to avoid gcc warnings. */
-  var2 = -1;
-  var3 = -1;
-
   /* Ignore restrictions with no "type". */
   if (ivar1 == 0)
     return;
@@ -2835,9 +2831,9 @@ parse_fixup_v380 (const sc_char *fixup)
           sc_int index_;
 
           restrmask = sc_malloc (2 * restriction_count);
-          strcpy (restrmask, "#");
+          strncpy (restrmask, "#", 2 * restriction_count);
           for (index_ = 1; index_ < restriction_count; index_++)
-            strcat (restrmask, "A#");
+            strncat (restrmask, "A#", 2);
 
           vt_key.string = "RestrMask";
           parse_push_key (vt_key, PROP_KEY_STRING);

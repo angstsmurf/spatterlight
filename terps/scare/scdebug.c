@@ -1449,7 +1449,6 @@ debug_dump_common (sc_gameref_t game, sc_command_t command,
   sc_bool printed = FALSE;
 
   /* Initialize variables to avoid gcc warnings. */
-  limit = 0;
   class_ = NULL;
   filter_function = NULL;
   dumper_function = NULL;
@@ -1750,10 +1749,8 @@ debug_watchpoint_common (sc_gameref_t game, sc_command_t command,
   assert (debug_is_valid (debug));
 
   /* Initialize variables to avoid gcc warnings. */
-  limit = 0;
   class_ = NULL;
   watchpoints = NULL;
-  action = FALSE;
 
   /* Set action to TRUE or FALSE, for setting/clearing watchpoints. */
   switch (command)
@@ -2063,7 +2060,7 @@ debug_compare_variable (sc_gameref_t from, sc_gameref_t with, sc_int variable)
   const sc_prop_setref_t bundle = from->bundle;
   const sc_var_setref_t from_var = from->vars;
   const sc_var_setref_t with_var = with->vars;
-  sc_vartype_t vt_key[3], vt_rvalue, vt_rvalue2;
+  sc_vartype_t vt_key[3], vt_rvalue, vt_rvalue2 = {0};
   const sc_char *name;
   sc_int var_type, var_type2;
   sc_bool equal = FALSE;
@@ -2427,9 +2424,9 @@ debug_dialog (sc_gameref_t game)
   while (TRUE)
     {
       sc_char buffer[DEBUG_BUFFER_SIZE];
-      sc_command_t command, help_topic;
-      sc_command_type_t type;
-      sc_int arg1, arg2;
+      sc_command_t command, help_topic = DEBUG_NONE;
+      sc_command_type_t type = COMMAND_QUERY;
+      sc_int arg1 = 0, arg2 = 0;
 
       /* Get a debugging command string from the user. */
       do

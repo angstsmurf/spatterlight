@@ -1117,7 +1117,7 @@ gs_string_copy (sc_char **to_string, const sc_char *from_string)
   if (from_string)
     {
       *to_string = sc_malloc (strlen (from_string) + 1);
-      strcpy (*to_string, from_string);
+      strncpy (*to_string, from_string, strlen (from_string) + 1);
     }
   else
     *to_string = NULL;

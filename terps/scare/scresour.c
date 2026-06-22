@@ -169,9 +169,9 @@ res_handle_resource (sc_gameref_t game,
 
       /* Get soundfile property from the node supplied. */
       vt_full[partial_length].string = "SoundFile";
-      strcpy (format, "S<-");
-      strcat (format, partial_format);
-      strcat (format, "s");
+      strncpy (format, "S<-", partial_length + 5);
+      strncat (format, partial_format, partial_length);
+      strncat (format, "s", 1);
       soundfile = prop_get_string (bundle, format, vt_full);
 
       /* If a sound is defined, handle it. */
@@ -181,16 +181,16 @@ res_handle_resource (sc_gameref_t game,
             {
               /* Retrieve offset and length. */
               vt_full[partial_length].string = "SoundOffset";
-              strcpy (format, "I<-");
-              strcat (format, partial_format);
-              strcat (format, "s");
+              strncpy (format, "I<-", partial_length + 5);
+              strncat (format, partial_format, partial_length);
+              strncat (format, "s", 1);
               soundoffset = prop_get_integer (bundle, format, vt_full)
                             + resource_start_offset;
 
               vt_full[partial_length].string = "SoundLen";
-              strcpy (format, "I<-");
-              strcat (format, partial_format);
-              strcat (format, "s");
+              strncpy (format, "I<-", partial_length + 5);
+              strncat (format, partial_format, partial_length);
+              strncat (format, "s", 1);
               soundlen = prop_get_integer (bundle, format, vt_full);
             }
           else
@@ -225,9 +225,9 @@ res_handle_resource (sc_gameref_t game,
 
       /* Get graphicfile property from the node supplied. */
       vt_full[partial_length].string = "GraphicFile";
-      strcpy (format, "S<-");
-      strcat (format, partial_format);
-      strcat (format, "s");
+      strncpy (format, "S<-", partial_length + 5);
+      strncat (format, partial_format, partial_length);
+      strncat (format, "s", 1);
       graphicfile = prop_get_string (bundle, format, vt_full);
 
       /* If a graphic is defined, handle it. */
@@ -237,16 +237,16 @@ res_handle_resource (sc_gameref_t game,
             {
               /* Retrieve offset and length. */
               vt_full[partial_length].string = "GraphicOffset";
-              strcpy (format, "I<-");
-              strcat (format, partial_format);
-              strcat (format, "s");
+              strncpy (format, "I<-", partial_length + 5);
+              strncat (format, partial_format, partial_length);
+              strncat (format, "s", 1);
               graphicoffset = prop_get_integer (bundle, format, vt_full)
                               + resource_start_offset;
 
               vt_full[partial_length].string = "GraphicLen";
-              strcpy (format, "I<-");
-              strcat (format, partial_format);
-              strcat (format, "s");
+              strncpy (format, "I<-", partial_length + 5);
+              strncat (format, partial_format, partial_length);
+              strncat (format, "s", 1);
               graphiclen = prop_get_integer (bundle, format, vt_full);
             }
           else
@@ -305,7 +305,7 @@ res_sync_resources (sc_gameref_t game)
       is_looping = !strcmp (name + strlen (name) - 2, "##");
 
       clean_name = sc_malloc (strlen (name) + 1);
-      strcpy (clean_name, name);
+      strncpy (clean_name, name, strlen (name) + 1);
       if (is_looping)
         clean_name[strlen (clean_name) - 2] = NUL;
 

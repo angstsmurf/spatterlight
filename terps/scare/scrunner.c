@@ -1136,7 +1136,7 @@ run_player_input (sc_gameref_t game)
         }
 
       /* Make the last element the current input element. */
-      strcpy (line_element, prior_element);
+      strncpy (line_element, prior_element, LINE_BUFFER_SIZE);
     }
   else
     {
@@ -1300,7 +1300,7 @@ run_player_input (sc_gameref_t game)
        * up as do_again set in the game, where it wasn't when we entered here.
        */
       if (!game->do_again && !is_rerunning)
-        strcpy (prior_element, line_element);
+        strncpy (prior_element, line_element, LINE_BUFFER_SIZE);
 
       /*
        * If this was a request to run a command from the history, copy that
@@ -1314,7 +1314,7 @@ run_player_input (sc_gameref_t game)
 
           redo_command = memo_find_command (memento, game->redo_sequence);
           if (redo_command)
-            strcpy (prior_element, redo_command);
+            strncpy (prior_element, redo_command, LINE_BUFFER_SIZE);
           else
             {
               sc_error ("run_player_input: invalid redo sequence request\n");

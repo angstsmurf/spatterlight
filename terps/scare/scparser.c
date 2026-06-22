@@ -356,7 +356,7 @@ uip_new_word (const sc_char *word)
 
       /* Use the slot and update the pool cursor and free count. */
       shortword = uip_word_pool + index_;
-      strcpy (shortword->word, word);
+      strncpy (shortword->word, word, UIP_SHORT_WORD_SIZE);
       shortword->is_in_use = TRUE;
 
       uip_word_pool_cursor = index_;
@@ -371,7 +371,7 @@ uip_new_word (const sc_char *word)
 
       /* Fall back to less efficient allocations. */
       word_copy = sc_malloc (required);
-      strcpy (word_copy, word);
+      strncpy (word_copy, word, required);
       return word_copy;
     }
 }
@@ -1730,7 +1730,7 @@ uip_cleanse_string (const sc_char *original, sc_char *buffer, sc_int length)
    */
   required = strlen (original) + 1;
   string = (required < length) ? buffer : sc_malloc (required);
-  strcpy (string, original);
+  strncpy (string, original, required);
 
   /* Trim, and return the string. */
   sc_trim_string (string);
@@ -1933,7 +1933,7 @@ uip_replace_pronouns (sc_gameref_t game, const sc_char *string)
             {
               buffer_allocation = strlen (string) + 1;
               buffer = sc_malloc (buffer_allocation);
-              strcpy (buffer, string);
+              strncpy (buffer, string, buffer_allocation);
               current = buffer + (current - string);
             }
 

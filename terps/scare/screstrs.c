@@ -182,10 +182,6 @@ restr_pass_task_object_location (sc_gameref_t game,
                 " location restriction, %ld, %ld, %ld\n", var1, var2, var3);
     }
 
-  /* Initialize variables to avoid gcc warnings. */
-  should_be = FALSE;
-  object = -1;
-
   /* See how things should look. */
   if (var2 >= 0 && var2 < 6)
     should_be = TRUE;
@@ -312,9 +308,6 @@ restr_pass_task_task_state (sc_gameref_t game, sc_int var1, sc_int var2)
 
   if (restr_trace)
     sc_trace ("Restr: running task restriction, %ld, %ld\n", var1, var2);
-
-  /* Initialize variables to avoid gcc warnings. */
-  should_be = FALSE;
 
   /* See if the task should be done or not done. */
   if (var2 == 0)

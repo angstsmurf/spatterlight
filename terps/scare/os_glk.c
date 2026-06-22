@@ -484,13 +484,10 @@ static void
 glk_request_line_event_uni (winid_t win,
                             glui32 *buf, glui32 maxlen, glui32 initlen)
 {
-  winid_t unused1;
-  glui32 *unused2;
-  glui32 unused3, unused4;
-  unused1 = win;
-  unused2 = buf;
-  unused3 = maxlen;
-  unused4 = initlen;
+  (void) win;
+  (void) buf;
+  (void) maxlen;
+  (void) initlen;
   gsc_fatal ("GLK: Stub unicode function called");
 }
 
@@ -801,6 +798,7 @@ gsc_read_line_locale (sc_char *buffer,
        * then read in a unicode line.
        */
       unicode = gsc_malloc (length * sizeof (*unicode));
+      memset (unicode, 0, length * sizeof (*unicode));
       glk_request_line_event_uni (gsc_main_window, unicode, length, 0);
       gsc_event_wait (evtype_LineInput, &event);
 
@@ -923,7 +921,7 @@ gsc_status_update (void)
       else
         {
           const sc_char *status;
-          char score[64];
+          char score[64] = {0};
 
           /* Print the player location. */
           glk_window_move_cursor (gsc_status_window, 1, 0);
@@ -990,12 +988,11 @@ gsc_status_print (void)
   room = sc_get_game_room (gsc_game);
   if (gsc_is_string_usable (room))
     {
-      char buffer[GSC_STATUS_BUFFER_LENGTH + 1];
+      char buffer[GSC_STATUS_BUFFER_LENGTH + 1] = {0};
       const sc_char *status;
-      char score[64];
+      char score[64] = {0};
 
       /* Make an attempt at a status line, starting with player location. */
-      strcpy (buffer, "");
       gsc_status_safe_strcat (buffer, sizeof (buffer), room);
 
       /* Get the game's status line, or if none, format score. */
@@ -1019,7 +1016,7 @@ gsc_status_print (void)
           glk_put_string (" ]\n");
 
           /* Save the details of the printed status buffer. */
-          strcpy (current_status, buffer);
+          strncpy (current_status, buffer, sizeof (current_status));
         }
     }
 }
@@ -1252,7 +1249,7 @@ gsc_handle_font_tag (const sc_char *argument)
 
       /* Copy and convert argument to all lowercase. */
       lower = gsc_malloc (strlen (argument) + 1);
-      strcpy (lower, argument);
+      strncpy (lower, argument, strlen (argument) + 1);
       for (index_ = 0; lower[index_] != '\0'; index_++)
         lower[index_] = glk_char_to_lower (lower[index_]);
 
@@ -1788,8 +1785,7 @@ os_play_sound (const sc_char *filepath,
                sc_int offset, sc_int length, sc_bool is_looping)
 {
   glui32 id;
-  const sc_char *unused1;
-  unused1 = filepath;
+  (void) filepath;
 
   if (length <= 0 || gli_game_path == NULL)
     return;
@@ -1822,13 +1818,10 @@ void
 os_play_sound (const sc_char *filepath,
                sc_int offset, sc_int length, sc_bool is_looping)
 {
-  const sc_char *unused1;
-  sc_int unused2, unused3;
-  sc_bool unused4;
-  unused1 = filepath;
-  unused2 = offset;
-  unused3 = length;
-  unused4 = is_looping;
+  (void) filepath;
+  (void) offset;
+  (void) length;
+  (void) is_looping;
 }
 
 void
@@ -1863,8 +1856,7 @@ void
 os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
 {
   glui32 id;
-  const sc_char *unused1;
-  unused1 = filepath;
+  (void) filepath;
 
   if (length <= 0 || gsc_main_window == NULL || gli_game_path == NULL)
     return;
@@ -1892,8 +1884,7 @@ static char *gsclinux_game_file = NULL;
 void
 os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
 {
-  const sc_char *unused1;
-  unused1 = filepath;
+  (void) filepath;
 
   if (length > 0
       && gsclinux_graphics_enabled && glk_gestalt (gestalt_Graphics, 0))
@@ -1922,11 +1913,9 @@ os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
 void
 os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
 {
-  const sc_char *unused1;
-  sc_int unused2, unused3;
-  unused1 = filepath;
-  unused2 = offset;
-  unused3 = length;
+  (void) filepath;
+  (void) offset;
+  (void) length;
 }
 #endif
 #endif
@@ -2546,7 +2535,7 @@ gsc_command_escape (const char *string)
 
   /* Take a copy of the string, without any leading space or introducer. */
   string_copy = gsc_malloc (strlen (string + posn) + 1 - strlen ("glk"));
-  strcpy (string_copy, string + posn + strlen ("glk"));
+  strncpy (string_copy, string + posn + strlen ("glk"), strlen (string + posn) + 1 - strlen ("glk"));
 
   /*
    * Find the subcommand; the first word in the string copy.  Find its end,
@@ -2738,6 +2727,7 @@ os_read_line (sc_char *buffer, sc_int length)
       glui32 chars;
 
       /* Get the next line from the log stream. */
+      memset (buffer, 0, length);
       chars = glk_get_line_stream (gsc_readlog_stream, buffer, length);
       if (chars > 0)
         {
@@ -3373,10 +3363,7 @@ gsc_main (void)
        * game repeat loop.
        */
       if (!sc_has_game_completed (gsc_game))
-        {
-          is_running = FALSE;
-          break;
-        }
+        break;
 
       /*
        * If reading from an input log, close it now.  We need to request a

@@ -68,11 +68,11 @@ extern void sc_trace (const sc_char *format, ...)
 extern void sc_error (const sc_char *format, ...)
   __attribute__ ((__format__ (__printf__, 1, 2)));
 extern void sc_fatal (const sc_char *format, ...)
-  __attribute__ ((__format__ (__printf__, 1, 2)));
+  __attribute__ ((__format__ (__printf__, 1, 2), __noreturn__));
 #else
 extern void sc_trace (const sc_char *format, ...);
 extern void sc_error (const sc_char *format, ...);
-extern void sc_fatal (const sc_char *format, ...);
+extern void sc_fatal (const sc_char *format, ...) __attribute__ ((__noreturn__));
 #endif
 extern void *sc_malloc (size_t size);
 extern void *sc_realloc (void *pointer, size_t size);
