@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)verifyInBackground:(nullable id)sender;
 - (void)startVerifyTimer;
+
+- (void)migrateConvertedAGTGames;
 - (void)stopVerifyTimer;
 
 - (void)lookForMissingFile:(Game *)game;

@@ -1,0 +1,29 @@
+# Build the raw-AGT IFID prototype (agt_ifid) + its reusable module (agtifid.c).
+#
+#   make -f Makefile.ifid
+#   ./agt_ifid <game.d$$> [more games...]
+#
+# Prints the Treaty-of-Babel IFID (AGT-NNNNN-XXXXXXXX) computed directly from
+# the original AGT data files, matching what babel derives from the
+# agt2agx-converted .agx file.
+#
+# Built with -DGLK to select the SAME file layer as the shipped agt2agx (and
+# the Spatterlight app), so absolute .D$$ paths and case-insensitive sibling
+# lookup behave exactly as they will in-process.  agt_copy_ifid_for_file()
+# (agtifid.c) is the function the app links; this CLI just exercises it.
+
+CC= clang
+CFLAGS= -w -O2 -DGLK -DMAXSTRUC=4194304L -I.
+
+BASE= agtread.o gamedata.o util.o agxfile.o auxfile.o filename.o
+
+all: agt_ifid
+
+agt_ifid: agt_ifid.o agtifid.o agilstub.o $(BASE)
+	$(CC) $(CFLAGS) -o agt_ifid agt_ifid.o agtifid.o agilstub.o $(BASE)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+clean:
+	rm -f agt_ifid.o agtifid.o agilstub.o $(BASE) agt_ifid

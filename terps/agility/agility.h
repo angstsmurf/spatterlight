@@ -903,6 +903,11 @@ void init_flags(void);
 #endif
 void fatal(const char*);
 
+#include <setjmp.h>
+/* When non-NULL, fatal() longjmps here instead of calling exit(); see
+   gamedata.c and agtifid.c.  Lets the reader run safely in-process. */
+extern jmp_buf *agt_fatal_jmp;
+
 long new_str(char *buff,int max_leng,rbool pasc);
 
 descr_line *read_descr(long start,long size);

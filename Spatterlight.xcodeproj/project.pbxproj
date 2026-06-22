@@ -883,6 +883,14 @@
 		C3CED4482810190E0040252F /* loadtotpicture.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CED4462810190E0040252F /* loadtotpicture.c */; };
 		C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3693265FA461004D0F7B /* CoverImageView.m */; };
 		C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3697265FB2FA004D0F7B /* GameImporter.m */; };
+		AC710000000000000000B001 /* agtifid.c in Sources */ = {isa = PBXBuildFile; fileRef = AC710000000000000000A001 /* agtifid.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
+		AC710000000000000000B002 /* agtread.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031C109F29EE10083E64E /* agtread.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
+		AC710000000000000000B003 /* agxfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031C209F29EE10083E64E /* agxfile.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
+		AC710000000000000000B004 /* auxfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031C309F29EE10083E64E /* auxfile.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
+		AC710000000000000000B005 /* filename.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031CA09F29EE10083E64E /* filename.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
+		AC710000000000000000B006 /* gamedata.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031CB09F29EE10083E64E /* gamedata.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
+		AC710000000000000000B007 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031E509F29EE10083E64E /* util.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
+		AC710000000000000000B008 /* agilstub.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031BE09F29EE10083E64E /* agilstub.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
 		C3CF369B2660207E004D0F7B /* neo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CF36992660207E004D0F7B /* neo.c */; };
 		C3CF8A172DF8799500EF2297 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
@@ -2299,6 +2307,8 @@
 		965031BF09F29EE10083E64E /* agt2agx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = agt2agx.c; sourceTree = "<group>"; };
 		965031C009F29EE10083E64E /* agtout.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = agtout.c; sourceTree = "<group>"; };
 		965031C109F29EE10083E64E /* agtread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = agtread.c; sourceTree = "<group>"; };
+		AC710000000000000000A001 /* agtifid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = agtifid.c; sourceTree = "<group>"; };
+		AC710000000000000000A002 /* agtifid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agtifid.h; sourceTree = "<group>"; };
 		965031C209F29EE10083E64E /* agxfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = agxfile.c; sourceTree = "<group>"; };
 		965031C309F29EE10083E64E /* auxfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = auxfile.c; sourceTree = "<group>"; };
 		965031C409F29EE10083E64E /* changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changes.txt; sourceTree = "<group>"; };
@@ -4849,6 +4859,8 @@
 				965031CE09F29EE10083E64E /* interp.h */,
 				965031BB09F29EE10083E64E /* agil.c */,
 				965031C109F29EE10083E64E /* agtread.c */,
+				AC710000000000000000A001 /* agtifid.c */,
+				AC710000000000000000A002 /* agtifid.h */,
 				965031C209F29EE10083E64E /* agxfile.c */,
 				965031C309F29EE10083E64E /* auxfile.c */,
 				965031C609F29EE10083E64E /* debugcmd.c */,
@@ -8121,6 +8133,14 @@
 				C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */,
 				961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */,
 				C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */,
+				AC710000000000000000B001 /* agtifid.c in Sources */,
+				AC710000000000000000B002 /* agtread.c in Sources */,
+				AC710000000000000000B003 /* agxfile.c in Sources */,
+				AC710000000000000000B004 /* auxfile.c in Sources */,
+				AC710000000000000000B005 /* filename.c in Sources */,
+				AC710000000000000000B006 /* gamedata.c in Sources */,
+				AC710000000000000000B007 /* util.c in Sources */,
+				AC710000000000000000B008 /* agilstub.c in Sources */,
 				C384A68E2C6F480C0081FC50 /* JourneyMenuHandler.m in Sources */,
 				6D85C897218BD6E10088D849 /* HelpPanelController.m in Sources */,
 				C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */,

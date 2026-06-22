@@ -163,6 +163,10 @@
         [self startVerifyTimer];
     }
 
+    // One-time migration of old AGT games (converted to .agx in the container)
+    // to play directly from their original .D$$ files where they can be found.
+    [self migrateConvertedAGTGames];
+
     [[NSNotificationCenter defaultCenter]
      postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
 

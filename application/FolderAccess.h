@@ -30,6 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSURL *)restoreURL:(NSURL *)url;
 + (void)listActiveSecurityBookmarks;
 
+// The folder URLs we currently hold security-scoped bookmarks for. Used by the
+// AGT migration to locate original game folders the user has granted access to.
++ (NSArray<NSURL *> *)bookmarkedFolders;
+
 @end
 
 NS_ASSUME_NONNULL_END

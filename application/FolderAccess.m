@@ -252,6 +252,10 @@ NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
     globalBookmarks[url] = newAccess;
 }
 
++ (NSArray<NSURL *> *)bookmarkedFolders {
+    return globalBookmarks.allKeys ?: @[];
+}
+
 + (NSURL *)restoreURL:(NSURL *)url {
     FolderAccess *storedAccess = globalBookmarks[url];
     if (!storedAccess) {

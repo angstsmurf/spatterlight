@@ -381,6 +381,24 @@
     }];
 }
 
+- (void)migrateConvertedAGTGames {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AGTConvertedToDirectMigrationDone"])
+        return;
+
+    NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
+    childContext.undoManager = nil;
+
+    TableViewController * __weak weakSelf = self;
+    [childContext performBlock:^{
+        TableViewController *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        GameImporter *importer = [[GameImporter alloc] initWithTableViewController:strongSelf];
+        [importer migrateConvertedAGTGamesInContext:childContext];
+        [childContext safeSave];
+    }];
+}
+
 - (void)startVerifyTimer {
     if (self.verifyTimer)
         [self.verifyTimer invalidate];
