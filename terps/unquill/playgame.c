@@ -431,38 +431,45 @@ void playgame(ushort zxptr)
 	lbstart = linebuf;
 	while(1) /* Main loop */
 	{
+		/* `desc` marks a genuine re-describe (movement, a DESC condact, or
+		 * undo/restore): only then do we (re)draw the Illustrator picture and
+		 * run the once-per-description flag decrements. draw_location_graphic
+		 * redraws the whole bitmap (and replays its reveal), so it must not
+		 * fire on turns where the location is unchanged. */
+		if (desc && !(flags[0] && (!present(0))))
+			draw_location_graphic(CURLOC);
+
+		/* The location description and the objects present are drawn into the
+		 * text-grid status window above the main buffer, Scott-style; command
+		 * input and responses keep scrolling below. This is re-rendered every
+		 * turn so the object list stays current after GET/DROP even when the
+		 * game doesn't issue a DESC. status_begin()/status_end() capture and
+		 * lay out the text produced in between. */
+		status_begin();
+		/* 0.7.5: Darkness */
+		if (flags[0] && (!present(0)))
+		{
+			sysmess(0);
+			opch32('\n');
+		}
+		else
+		{
+			oneitem(loctab,CURLOC);
+			opch32('\n');
+			listat(CURLOC);  /* List objects present */
+			put_ch('\n');
+		}
+		status_end();
+
 		if (desc)
 		{
-			/* The location description and the objects present are drawn
-			 * into the text-grid status window above the main buffer,
-			 * Scott-style; command input and responses keep scrolling
-			 * below. status_begin()/status_end() capture and lay out the
-			 * text produced in between. */
-			status_begin();
-			/* 0.7.5: Darkness */
-			if (flags[0] && (!present(0)))
-			{
-				sysmess(0);
-				opch32('\n');
-			}
-			else
-			{
-				/* Draw the location's Illustrator picture, if any. */
-				draw_location_graphic(CURLOC);
-
-				oneitem(loctab,CURLOC);
-				opch32('\n');
-				listat(CURLOC);  /* List objects present */
-				put_ch('\n');
-			}
-			status_end();
 			desc = 0;
 
 		/* Decrement flags depending on location descriptions */
 
 			if (flags[2]) flags[2]--;
 			if (flags[0] && flags[3]) flags[3]--;
-			if (flags[0] && (!present(0)) && flags[4]) flags[4]--; 
+			if (flags[0] && (!present(0)) && flags[4]) flags[4]--;
 		}
 
 		/* [new in 0.7.0: Flag decrements moved to *after* the

@@ -1124,11 +1124,6 @@ winid_t statuswin = NULL;
  * therefore through opch32(), oneitem() and listat()) is collected into capbuf
  * instead of being sent to a window, ready to be laid out in the grid. */
 static int    status_capture = 0;
-/* Set during status_begin/status_end while at the title screen (CURLOC==0).
- * In this mode put_ch / opch32 bypass the line-reformatter (no leading-space
- * collapse, no auto-wrap at column 31), and expch maps 0x06 to '\n' instead
- * of padding spaces, so capbuf preserves the original line layout. */
-int           title_capture = 0;
 static char  *capbuf = NULL;
 static size_t caplen = 0, capcap = 0;
 
@@ -1170,10 +1165,6 @@ void status_begin(void)
 {
     caplen = 0;
     status_capture = 1;
-    /* Location 0 holds the title screen on most Quill games; capture it with
-     * line breaks and indentation preserved so status_render can centre each
-     * line rather than reflowing it as a paragraph. */
-    title_capture = (CURLOC == 0);
 }
 
 /* Greedy word-wrap of text[0..len) to `width` columns, returning a malloc'd
@@ -1297,53 +1288,11 @@ static char **wrap_text(const char *text, size_t len, int width, int *out_n)
  * reflow the description on a window resize (status_relayout). Returns 0 if
  * the grid is unusable (no width); the caller can then decide whether to fall
  * back to inline printing. */
-/* Split capbuf on '\n' into one malloc'd string per line, preserving leading
- * and trailing whitespace. Used by status_render's title-screen path so the
- * original line layout survives into rendering without word-wrap. */
-static char **split_capbuf_lines(int *out_n)
-{
-    int    nlines = 1;
-    size_t i, start;
-    char **lines;
-    int    li;
-
-    for (i = 0; i < caplen; i++)
-	if (capbuf[i] == '\n')
-	    nlines++;
-
-    lines = malloc((size_t)nlines * sizeof(char *));
-    if (!lines)
-    {
-	*out_n = 0;
-	return NULL;
-    }
-    li = 0;
-    start = 0;
-    for (i = 0; i <= caplen; i++)
-    {
-	if (i == caplen || capbuf[i] == '\n')
-	{
-	    size_t len = i - start;
-	    char  *ln  = malloc(len + 1);
-	    if (ln)
-	    {
-		memcpy(ln, capbuf + start, len);
-		ln[len] = '\0';
-	    }
-	    lines[li++] = ln;
-	    start = i + 1;
-	}
-    }
-    *out_n = nlines;
-    return lines;
-}
-
 static int status_render(void)
 {
     glui32 width = 0, height = 0;
     char **lines;
     int    nlines = 0, row;
-    int    title_mode = (CURLOC == 0);
 
     if (!statuswin || !capbuf || caplen == 0)
 	return 0;
@@ -1352,10 +1301,7 @@ static int status_render(void)
     if (width == 0)
 	return 0;
 
-    if (title_mode)
-	lines = split_capbuf_lines(&nlines);
-    else
-	lines = wrap_text(capbuf, caplen, (int)width, &nlines);
+    lines = wrap_text(capbuf, caplen, (int)width, &nlines);
     if (nlines < 1)
 	nlines = 1;
 
@@ -1388,42 +1334,14 @@ static int status_render(void)
     glk_window_clear(statuswin);
     glk_set_window(statuswin);
     /* The arrangement change may have nudged the grid's width; query again so
-     * the title-screen centring (and the underline below) uses the actual
-     * width of the grid we ended up with. */
+     * the underline below uses the actual width of the grid we ended up with. */
     glk_window_get_size(statuswin, &width, &height);
     for (row = 0; row < nlines; row++)
     {
 	char *ln = lines[row];
-	if (title_mode && ln)
-	{
-	    /* Centre the line by stripping its existing leading/trailing
-	     * spaces and computing a left margin against the current grid
-	     * width. Preserves the original line breaks (no word-wrap). */
-	    size_t ln_len = strlen(ln);
-	    size_t lead   = 0;
-	    while (lead < ln_len && ln[lead] == ' ')
-		lead++;
-	    while (ln_len > lead && ln[ln_len - 1] == ' ')
-		ln_len--;
-	    size_t content = ln_len > lead ? ln_len - lead : 0;
-	    int col = ((int)width - (int)content) / 2;
-	    if (col < 0)
-		col = 0;
-	    glk_window_move_cursor(statuswin, (glui32)col, (glui32)row);
-	    if (content > 0)
-	    {
-		char saved = ln[ln_len];
-		ln[ln_len] = '\0';
-		glk_put_string(ln + lead);
-		ln[ln_len] = saved;
-	    }
-	}
-	else
-	{
-	    glk_window_move_cursor(statuswin, 0, (glui32)row);
-	    if (ln)
-		glk_put_string(ln);
-	}
+	glk_window_move_cursor(statuswin, 0, (glui32)row);
+	if (ln)
+	    glk_put_string(ln);
 	free(ln);
     }
     free(lines);
@@ -1479,36 +1397,6 @@ static void status_relayout(void)
 /* Output a character, assuming 32-column screen */
 void opch32(char ch)
 {
-    /* Title screen (location 0): pass characters through to capbuf unchanged
-     * so the original line layout and indentation are preserved. On Spectrum
-     * expch maps 0x06 to '\n', so each source paragraph already becomes one
-     * line in capbuf. C64 titles have no newline codes at all (the text is
-     * padded out to fill each 40-column row), so we emit a '\n' once xpos
-     * reaches 40 to reproduce the original C64 screen's row breaks. */
-    if (title_capture && status_capture)
-    {
-	if (ch == '\n')
-	{
-	    put_ch('\n');
-	    xpos = 0;
-	}
-	else if (ch == 8)
-	{
-	    if (xpos > 0) xpos--;
-	}
-	else
-	{
-	    put_ch(ch);
-	    xpos++;
-	}
-	if (arch == ARCH_C64 && xpos >= 40)
-	{
-	    put_ch('\n');
-	    xpos = 0;
-	}
-	return;
-    }
-
 #if 0 // original 32/40 column screen exact replica output
     glk_put_char(ch);
     if (ch == '\n') xpos = 0;

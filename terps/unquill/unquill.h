@@ -192,7 +192,6 @@ extern char oopt, xpos, dbver,verbose,nobeep,running,indent,*inname;
 extern ushort ofarg,vocab,dict,loctab,objtab,msgtab,sysbase,conntab,objmap;
 extern ushort postab, proctab, resptab;
 extern uchar comment_out;
-extern int title_capture;
 
 extern uchar fileid,ramsave[0x101],flags[37];
 #define TURNLO flags[31] 
