@@ -1831,6 +1831,129 @@ os_stop_sound (void)
 #endif
 
 
+#ifdef SPATTERLIGHT
+/*
+ * Title/cover graphic support.  Adrift games can carry an "IntroRes" cover
+ * image, shown by the engine before the game's first turn.  Adrift intros
+ * routinely clear the main window with <cls> tags -- "To Hell in a Hamper"
+ * emits one as its very first output -- so drawing the cover inline would wipe
+ * it immediately.  Instead, any graphic requested before the player's first
+ * input is shown in a temporary graphics window at the top of the display,
+ * closed on that first keypress.  This mirrors the original Runner, which
+ * shows the title in a separate picture pane that text clears don't touch.
+ */
+static winid_t gsc_graphics_window = NULL;
+static glui32 gsc_title_image = 0;
+static int gsc_seen_input = FALSE;
+
+/*
+ * gsc_title_redraw()
+ *
+ * Draw, or redraw on a resize, the title image scaled to fit within the
+ * graphics window, preserving its aspect ratio and centring it.
+ */
+static void
+gsc_title_redraw (void)
+{
+  glui32 win_width, win_height, img_width, img_height, draw_width, draw_height;
+
+  if (gsc_graphics_window == NULL || gsc_title_image == 0)
+    return;
+
+  glk_window_get_size (gsc_graphics_window, &win_width, &win_height);
+  if (win_width == 0 || win_height == 0)
+    return;
+  if (!glk_image_get_info (gsc_title_image, &img_width, &img_height)
+      || img_width == 0 || img_height == 0)
+    return;
+
+  /* Fit within the pane, limited by width or height, whichever binds first. */
+  if (win_width * img_height <= win_height * img_width)
+    {
+      draw_width = win_width;
+      draw_height = img_height * win_width / img_width;
+    }
+  else
+    {
+      draw_height = win_height;
+      draw_width = img_width * win_height / img_height;
+    }
+
+  glk_window_fill_rect (gsc_graphics_window, 0, 0, 0, win_width, win_height);
+  glk_image_draw_scaled (gsc_graphics_window, gsc_title_image,
+                         (glsi32) ((win_width - draw_width) / 2),
+                         (glsi32) ((win_height - draw_height) / 2),
+                         draw_width, draw_height);
+}
+
+/*
+ * gsc_show_title_graphic()
+ *
+ * Open a temporary graphics window above the main text, sized to the image's
+ * aspect ratio, and draw the title image into it.  Returns TRUE on success,
+ * FALSE if graphics windows are unavailable, in which case the caller falls
+ * back to an inline draw.
+ */
+static int
+gsc_show_title_graphic (glui32 image)
+{
+  glui32 win_width, win_height, img_width, img_height, pane_height;
+
+  if (!glk_gestalt (gestalt_Graphics, 0)
+      || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
+    return FALSE;
+  if (!glk_image_get_info (image, &img_width, &img_height)
+      || img_width == 0 || img_height == 0)
+    return FALSE;
+
+  if (gsc_graphics_window == NULL)
+    {
+      gsc_graphics_window = glk_window_open (gsc_main_window,
+                                             winmethod_Above | winmethod_Fixed,
+                                             0, wintype_Graphics, 0);
+      if (gsc_graphics_window == NULL)
+        return FALSE;
+    }
+
+  gsc_title_image = image;
+
+  /* Size the pane to fit the image width, preserving its aspect ratio. */
+  glk_window_get_size (gsc_graphics_window, &win_width, &win_height);
+  if (win_width == 0)
+    {
+      glk_window_close (gsc_graphics_window, NULL);
+      gsc_graphics_window = NULL;
+      gsc_title_image = 0;
+      return FALSE;
+    }
+  pane_height = img_height * win_width / img_width;
+  glk_window_set_arrangement (glk_window_get_parent (gsc_graphics_window),
+                              winmethod_Above | winmethod_Fixed,
+                              pane_height, gsc_graphics_window);
+
+  gsc_title_redraw ();
+  return TRUE;
+}
+
+/*
+ * gsc_close_title_graphic()
+ *
+ * Close the temporary title window, if open, returning its space to the main
+ * window.  Called when the player provides their first input.
+ */
+static void
+gsc_close_title_graphic (void)
+{
+  if (gsc_graphics_window != NULL)
+    {
+      glk_window_close (gsc_graphics_window, NULL);
+      gsc_graphics_window = NULL;
+      gsc_title_image = 0;
+    }
+}
+#endif
+
+
 #ifdef GLK_MODULE_GARGLK_FILE_RESOURCES
 /*
  * os_show_graphic()
@@ -1850,7 +1973,9 @@ os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
  * os_show_graphic()
  *
  * Pre-load the requested image chunk from the game file into the
- * Spatterlight Glk image cache and draw it inline in the main window.
+ * Spatterlight Glk image cache.  Before the player's first input, show it as
+ * a title image in a dedicated graphics window; afterwards, draw it inline in
+ * the main window.
  */
 void
 os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
@@ -1864,6 +1989,10 @@ os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
   id = gsc_resource_id (offset, length);
   if (!win_findimage ((int) id))
     win_loadimage ((int) id, gli_game_path, (int) offset, (int) length);
+
+  if (!gsc_seen_input && gsc_show_title_graphic (id))
+    return;
+
   glk_image_draw (gsc_main_window, id, imagealign_InlineDown, 0);
 }
 #else
@@ -2987,10 +3116,23 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
         case evtype_Redraw:
           /* Refresh any sensitive windows on size events. */
           gsc_status_redraw ();
+#ifdef SPATTERLIGHT
+          gsc_title_redraw ();
+#endif
           break;
         }
     }
   while (!(event->type == wait_type_1 || event->type == wait_type_2));
+
+#ifdef SPATTERLIGHT
+  /* The player's first input dismisses any title/cover image window. */
+  if (!gsc_seen_input
+      && (event->type == evtype_LineInput || event->type == evtype_CharInput))
+    {
+      gsc_seen_input = TRUE;
+      gsc_close_title_graphic ();
+    }
+#endif
 }
 
 static void
@@ -3354,6 +3496,10 @@ gsc_main (void)
   is_running = TRUE;
   while (is_running)
     {
+#ifdef SPATTERLIGHT
+      /* Each (re)start replays the intro, so allow the title window again. */
+      gsc_seen_input = FALSE;
+#endif
       /* Run the game until it ends, or the user quits. */
       gsc_status_notify ();
       sc_interpret_game (gsc_game);
