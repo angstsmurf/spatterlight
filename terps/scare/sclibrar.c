@@ -4155,38 +4155,6 @@ lib_cmd_count (sc_gameref_t game)
 
 
 /*
- * lib_cmd_capacity()
- *
- * Toggle and report how the player's carried load is accounted for.  By default
- * SCARE mirrors the real Runner, keeping a running total updated on take/drop
- * (which double-counts a container's contents once they're taken back out, and
- * so can refuse an over-encumbered take exactly as the Runner does).  The legacy
- * mode recomputes the load afresh from currently held objects on each check,
- * which never double-counts but diverges from the Runner.  This admin command
- * flips between the two and reports the mode now in effect.
- */
-sc_bool
-lib_cmd_capacity (sc_gameref_t game)
-{
-  game->capacity_recompute = !game->capacity_recompute;
-
-  if_print_string ("Carrying capacity accounting is now ");
-  if_print_tag (SC_TAG_ITALICS, "");
-  if_print_string (game->capacity_recompute ? "recompute" : "runner");
-  if_print_tag (SC_TAG_ENDITALICS, "");
-  if (game->capacity_recompute)
-    if_print_string (", summing the load afresh from held objects on each"
-                     " check (legacy SCARE behaviour).\n");
-  else
-    if_print_string (", keeping a running total as the original ADRIFT Runner"
-                     " does.\n");
-
-  game->is_admin = TRUE;
-  return TRUE;
-}
-
-
-/*
  * lib_object_too_heavy()
  *
  * Return TRUE if the given object is too heavy for the player to carry.

@@ -2336,6 +2336,68 @@ gsc_command_abbreviations (const char *argument)
 
 
 /*
+ * gsc_command_capacity()
+ *
+ * Select how the player's carried load is accounted for.  When off (the
+ * default) SCARE mirrors the real ADRIFT Runner, keeping a running total
+ * updated on take and drop.  When on, SCARE recomputes the load afresh from
+ * the objects currently held on each check (legacy SCARE behaviour).
+ */
+static void
+gsc_command_capacity (const char *argument)
+{
+  assert (argument);
+
+  if (sc_strcasecmp (argument, "on") == 0)
+    {
+      if (sc_get_game_capacity_recompute (gsc_game))
+        {
+          gsc_normal_string ("Glk carrying capacity recompute is already"
+                             " on.\n");
+          return;
+        }
+
+      sc_set_game_capacity_recompute (gsc_game, TRUE);
+      gsc_normal_string ("Glk carrying capacity recompute is now on; the load"
+                         " is summed afresh from held objects on each check"
+                         " (legacy SCARE behaviour).\n");
+    }
+
+  else if (sc_strcasecmp (argument, "off") == 0)
+    {
+      if (!sc_get_game_capacity_recompute (gsc_game))
+        {
+          gsc_normal_string ("Glk carrying capacity recompute is already"
+                             " off.\n");
+          return;
+        }
+
+      sc_set_game_capacity_recompute (gsc_game, FALSE);
+      gsc_normal_string ("Glk carrying capacity recompute is now off; a running"
+                         " total is kept as the original ADRIFT Runner"
+                         " does.\n");
+    }
+
+  else if (strlen (argument) == 0)
+    {
+      gsc_normal_string ("Glk carrying capacity recompute is ");
+      gsc_normal_string (sc_get_game_capacity_recompute (gsc_game)
+                         ? "on" : "off");
+      gsc_normal_string (".\n");
+    }
+
+  else
+    {
+      gsc_normal_string ("Glk carrying capacity recompute can be ");
+      gsc_standout_string ("on");
+      gsc_normal_string (", or ");
+      gsc_standout_string ("off");
+      gsc_normal_string (".\n");
+    }
+}
+
+
+/*
  * gsc_command_print_version_number()
  * gsc_command_version()
  *
@@ -2464,6 +2526,7 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
   {"inputlog",       gsc_command_inputlog,       TRUE},
   {"readlog",        gsc_command_readlog,        TRUE},
   {"abbreviations",  gsc_command_abbreviations,  TRUE},
+  {"capacity",       gsc_command_capacity,       TRUE},
   {"version",        gsc_command_version,        FALSE},
   {"commands",       gsc_command_commands,       TRUE},
   {"license",        gsc_command_license,        FALSE},
@@ -2610,6 +2673,21 @@ gsc_command_help (const char *command)
                          " can bypass abbreviation expansion for an"
                          " individual game command by prefixing it with a"
                          " single quote.\n");
+    }
+
+  else if (matched->handler == gsc_command_capacity)
+    {
+      gsc_normal_string ("Controls how your carried load is accounted for.\n\n"
+                         "By default SCARE mirrors the real ADRIFT Runner,"
+                         " keeping a running total updated as you take and drop"
+                         " objects.  Use ");
+      gsc_standout_string ("glk capacity on");
+      gsc_normal_string (" to instead recompute the load afresh from the"
+                         " objects you are currently holding on each check"
+                         " (legacy SCARE behaviour), and ");
+      gsc_standout_string ("glk capacity off");
+      gsc_normal_string (" to return to matching the Runner.  This affects only"
+                         " when an over-encumbered take is refused.\n");
     }
 
   else if (matched->handler == gsc_command_version)

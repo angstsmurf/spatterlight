@@ -1041,14 +1041,10 @@ run_all_commands (sc_gameref_t game, const sc_char *string)
    * is the real behavior supposed to be?
    */
   /*
-   * The carrying-capacity accounting toggle is a SCARE administrative
-   * meta-command, not part of any game.  Match it before game commands so a
-   * game's catch-all "* " task can't shadow it (the way it shadows the other
-   * standard library commands tried at the end of this sequence).
+   * The carrying-capacity accounting toggle is exposed as a Glk port command
+   * ("glk capacity"), handled in the front end before input ever reaches the
+   * interpreter, so there is no administrative meta-command to match here.
    */
-  if (uip_match ("[capacity/encumbrance]", string, game))
-    return lib_cmd_capacity (game);
-
   status = run_game_commands_in_parser_context (game, string, FALSE);
   if (!status)
     status = run_priority_commands (game, string);

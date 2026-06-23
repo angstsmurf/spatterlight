@@ -985,6 +985,38 @@ sc_set_game_notify_score_change (sc_game game, sc_bool flag)
 
 
 /*
+ * sc_get_game_capacity_recompute()
+ * sc_set_game_capacity_recompute()
+ *
+ * Query and set how the player's carried load is accounted for.  When FALSE
+ * (the default) SCARE mirrors the real ADRIFT Runner, keeping a running total
+ * updated on take/drop; when TRUE it recomputes the load afresh from currently
+ * held objects on each check (legacy SCARE behaviour).
+ */
+sc_bool
+sc_get_game_capacity_recompute (sc_game game)
+{
+  const sc_gameref_t game_ = game;
+
+  if (if_game_error (game_, "sc_get_game_capacity_recompute"))
+    return FALSE;
+
+  return game_->capacity_recompute;
+}
+
+void
+sc_set_game_capacity_recompute (sc_game game, sc_bool flag)
+{
+  const sc_gameref_t game_ = game;
+
+  if (if_game_error (game_, "sc_set_game_capacity_recompute"))
+    return;
+
+  game_->capacity_recompute = flag;
+}
+
+
+/*
  * sc_does_game_use_sounds()
  * sc_does_game_use_graphics()
  *

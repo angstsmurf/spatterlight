@@ -425,7 +425,6 @@ extern sc_bool lib_cmd_examine_self (sc_gameref_t game);
 extern sc_bool lib_cmd_examine_npc (sc_gameref_t game);
 extern sc_bool lib_cmd_examine_object (sc_gameref_t game);
 extern sc_bool lib_cmd_count (sc_gameref_t game);
-extern sc_bool lib_cmd_capacity (sc_gameref_t game);
 extern sc_bool lib_cmd_take_all (sc_gameref_t game);
 extern sc_bool lib_cmd_take_except_multiple (sc_gameref_t game);
 extern sc_bool lib_cmd_take_multiple (sc_gameref_t game);

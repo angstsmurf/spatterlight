@@ -145,6 +145,9 @@ extern void sc_set_game_bold_room_names (sc_game game, sc_bool flag);
 extern void sc_set_game_verbose (sc_game game, sc_bool flag);
 extern void sc_set_game_notify_score_change (sc_game game, sc_bool flag);
 
+extern sc_bool sc_get_game_capacity_recompute (sc_game game);
+extern void sc_set_game_capacity_recompute (sc_game game, sc_bool flag);
+
 extern sc_bool sc_does_game_use_sounds (sc_game);
 extern sc_bool sc_does_game_use_graphics (sc_game);
 
