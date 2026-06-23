@@ -1227,3 +1227,20 @@ sc_reseed_random_sequence (sc_uint new_seed)
 
   sc_seed_random (new_seed);
 }
+
+
+/*
+ * sc_set_combat_assist()
+ *
+ * Enable or disable the optional Battle-System "combat assist" mode.  When on,
+ * games that leave every character's Accuracy and Agility unconfigured (0) get
+ * an automatic hit roll, so their otherwise-dead combat plays out on the
+ * author's intended strength-vs-defence basis.  Off by default; opt-in only, as
+ * it deliberately diverges from the reference Runner.  Games that configure
+ * accuracy/agility are unaffected.
+ */
+void
+sc_set_combat_assist (sc_bool flag)
+{
+  battle_set_combat_assist (flag);
+}

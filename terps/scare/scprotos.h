@@ -731,6 +731,7 @@ extern void npc_debug_trace (sc_bool flag);
 
 /* Battle system functions, in scnpcs.c. */
 extern sc_bool battle_is_enabled (sc_gameref_t game);
+extern void battle_set_combat_assist (sc_bool flag);
 extern sc_int battle_attribute (sc_gameref_t game, sc_int npc,
                                 const sc_char *base);
 extern sc_int battle_attribute_max (sc_gameref_t game, sc_int npc,

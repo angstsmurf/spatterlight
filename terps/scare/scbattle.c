@@ -52,6 +52,29 @@
  */
 
 /*
+ * Optional "combat assist" mode (off by default, opt-in via
+ * sc_set_combat_assist).  Many amateur ADRIFT games enable the Battle System
+ * but leave every character's Accuracy and Agility at the editor's default of
+ * 0.  Because ADRIFT decides a hit with the strict test accuracy > agility
+ * before applying strength - defence damage, 0 > 0 never passes and no blow
+ * ever lands, silently disabling combat the author plainly intended (they did
+ * configure strength/defence/stamina).  When this mode is on AND a game has no
+ * configured accuracy or agility anywhere (battle_unconfigured, detected at
+ * battle_start), the hit roll is treated as an automatic hit, so combat plays
+ * out on the author's strength-vs-defence basis.  This deliberately diverges
+ * from the reference Runner, so it is strictly opt-in; games that do configure
+ * accuracy/agility (e.g. Sun Empire) are never affected, even with it on.
+ */
+static sc_bool battle_combat_assist = FALSE;
+static sc_bool battle_unconfigured = FALSE;
+
+void
+battle_set_combat_assist (sc_bool flag)
+{
+  battle_combat_assist = flag;
+}
+
+/*
  * battle_is_enabled()
  *
  * Return TRUE if the game has the Battle System turned on.
@@ -282,6 +305,26 @@ battle_start (sc_gameref_t game)
       gs_set_npc_stamina (game, npc, (hi > 0) ? sc_randomint (lo, hi) : 0);
       gs_set_npc_staminacounter (game, npc, 0);
       gs_set_npc_attackcounter (game, npc, battle_speed_roll (game, npc));
+    }
+
+  /*
+   * Detect "unconfigured combat" for the optional combat-assist mode: a game in
+   * which no character (player or NPC) has any configured Accuracy or Agility.
+   * Only such games get auto-hit; properly-configured games are left untouched.
+   */
+  battle_unconfigured = FALSE;
+  if (battle_combat_assist)
+    {
+      sc_bool any = FALSE;
+      sc_int n;
+
+      for (n = -1; n < gs_npc_count (game) && !any; n++)
+        {
+          if (battle_attribute_max (game, n, "Accuracy") > 0
+              || battle_attribute_max (game, n, "Agility") > 0)
+            any = TRUE;
+        }
+      battle_unconfigured = !any;
     }
 }
 
@@ -771,8 +814,9 @@ battle_resolve (sc_gameref_t game, sc_int attacker, sc_int target,
 {
   const sc_filterref_t filter = gs_get_filter (game);
 
-  if (battle_eff_accuracy (game, attacker, weapon)
-      > battle_eff_agility (game, target))
+  if (battle_unconfigured
+      || battle_eff_accuracy (game, attacker, weapon)
+         > battle_eff_agility (game, target))
     {
       sc_int damage = battle_eff_strength (game, attacker, weapon)
                       - battle_eff_defence (game, target);
