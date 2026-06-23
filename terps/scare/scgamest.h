@@ -208,6 +208,24 @@ typedef struct sc_game_s
   /* Player's setting for waitturns; overrides the game's. */
   sc_int waitturns;
 
+  /* ADRIFT-style carried-load running totals.  The real Runner keeps the
+   * player's carried weight and size as running totals, updated incrementally
+   * on each take/drop (so taking a container and then removing its contents
+   * double-counts those contents); it recomputes them only when loading state.
+   * These mirror that: maintained incrementally during play, recomputed at
+   * game create/copy/restore.  Derived state -- not part of the saved stream
+   * (the Runner stores live totals in the save but recomputes on load).
+   * carried_ready gates the incremental tracker off during game setup. */
+  sc_int carried_weight;
+  sc_int carried_size;
+  sc_bool carried_ready;
+
+  /* When TRUE, the capacity checks recompute the carried load from currently
+   * held objects each time (legacy SCARE behaviour, which avoids the Runner's
+   * double-count); when FALSE (default) they consult the running totals above,
+   * matching the real Runner.  Toggled with the "capacity" metacommand. */
+  sc_bool capacity_recompute;
+
   /* Miscellaneous library and main loop conveniences. */
   sc_int waitcounter;
   sc_bool has_notified;

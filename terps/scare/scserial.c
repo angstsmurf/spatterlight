@@ -517,14 +517,15 @@ ser_save_game (sc_gameref_t game,
   /*
    * Write encumbrance details: the player's size and weight limits (constant
    * for a game, the same converted values the Runner stores), then the current
-   * size and weight.  We don't maintain the current totals (they recompute from
-   * held objects), so we write zeros; the Runner stores live totals here but
-   * recomputes from inventory on load, so zeros are harmless.
+   * carried size and weight.  We now maintain these running totals (matching the
+   * Runner's accounting, double-count and all), so we write the live values just
+   * as the Runner does.  They are still recomputed from inventory on load, so a
+   * reader that ignores them remains correct.
    */
   ser_buffer_int (obj_get_player_size_limit (game));
-  ser_buffer_int (0);
+  ser_buffer_int (gs_carried_size (game));
   ser_buffer_int (obj_get_player_weight_limit (game));
-  ser_buffer_int (0);
+  ser_buffer_int (gs_carried_weight (game));
 
   /*
    * Battle System: the player's interleaved battle block sits here, between the

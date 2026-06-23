@@ -31,6 +31,64 @@
 #include "scprotos.h"
 #include "scgamest.h"
 
+/*
+ * gs_carried_recompute()
+ *
+ * Recompute the player's carried weight and size totals from the objects
+ * currently held or worn.  This is the "healed" load -- it does not reproduce
+ * the Runner's take/drop double-count -- and matches what the real Runner does
+ * when it loads game state.  Used to seed the running totals at game create,
+ * copy, and restore, after which gs_carried_track() maintains them.
+ */
+static void
+gs_carried_recompute (sc_gameref_t gs)
+{
+  sc_int index_, weight = 0, size = 0;
+
+  for (index_ = 0; index_ < gs->object_count; index_++)
+    {
+      if (gs->objects[index_].position == OBJ_HELD_PLAYER
+          || gs->objects[index_].position == OBJ_WORN_PLAYER)
+        {
+          weight += obj_get_weight (gs, index_);
+          size += obj_get_size (gs, index_);
+        }
+    }
+  gs->carried_weight = weight;
+  gs->carried_size = size;
+  gs->carried_ready = TRUE;
+}
+
+/*
+ * gs_carried_track()
+ *
+ * Maintain the carried weight/size running totals as objects move in and out
+ * of the player's hands, mirroring the Runner's incremental accounting: an
+ * object's weight (including its container contents) is added when it becomes
+ * held and subtracted when it leaves.  Because a container's contents are
+ * counted both inside the container and again when taken out individually, the
+ * running total can exceed the true held weight -- exactly the Runner quirk
+ * that blocks an over-encumbered take.  No-op until the totals are seeded
+ * (carried_ready), so it ignores object placement during game setup.
+ */
+static void
+gs_carried_track (sc_gameref_t gs, sc_int object, sc_int old_pos, sc_int new_pos)
+{
+  if (!gs->carried_ready || old_pos == new_pos)
+    return;
+
+  if (new_pos == OBJ_HELD_PLAYER)
+    {
+      gs->carried_weight += obj_get_weight (gs, object);
+      gs->carried_size += obj_get_size (gs, object);
+    }
+  else if (old_pos == OBJ_HELD_PLAYER)
+    {
+      gs->carried_weight -= obj_get_weight (gs, object);
+      gs->carried_size -= obj_get_size (gs, object);
+    }
+}
+
 
 /* Assorted definitions and constants. */
 static const sc_uint GAME_MAGIC = 0x35aed26e;
@@ -159,6 +217,20 @@ gs_playerparent (sc_gameref_t gs)
 {
   assert (gs_is_game_valid (gs));
   return gs->playerparent;
+}
+
+sc_int
+gs_carried_weight (sc_gameref_t gs)
+{
+  assert (gs_is_game_valid (gs));
+  return gs->carried_weight;
+}
+
+sc_int
+gs_carried_size (sc_gameref_t gs)
+{
+  assert (gs_is_game_valid (gs));
+  return gs->carried_size;
 }
 
 
@@ -369,65 +441,81 @@ gs_object_parent (sc_gameref_t gs, sc_int object)
 static void
 gs_object_move_onto_unchecked (sc_gameref_t gs, sc_int object, sc_int onto)
 {
+  sc_int old_pos = gs->objects[object].position;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   gs->objects[object].position = OBJ_ON_OBJECT;
   gs->objects[object].parent = onto;
+  gs_carried_track (gs, object, old_pos, OBJ_ON_OBJECT);
 }
 
 static void
 gs_object_move_into_unchecked (sc_gameref_t gs, sc_int object, sc_int into)
 {
+  sc_int old_pos = gs->objects[object].position;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   gs->objects[object].position = OBJ_IN_OBJECT;
   gs->objects[object].parent = into;
+  gs_carried_track (gs, object, old_pos, OBJ_IN_OBJECT);
 }
 
 static void
 gs_object_make_hidden_unchecked (sc_gameref_t gs, sc_int object)
 {
+  sc_int old_pos = gs->objects[object].position;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   gs->objects[object].position = OBJ_HIDDEN;
   gs->objects[object].parent = -1;
+  gs_carried_track (gs, object, old_pos, OBJ_HIDDEN);
 }
 
 static void
 gs_object_player_get_unchecked (sc_gameref_t gs, sc_int object)
 {
+  sc_int old_pos = gs->objects[object].position;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   gs->objects[object].position = OBJ_HELD_PLAYER;
   gs->objects[object].parent = -1;
+  gs_carried_track (gs, object, old_pos, OBJ_HELD_PLAYER);
 }
 
 static void
 gs_object_npc_get_unchecked (sc_gameref_t gs, sc_int object, sc_int npc)
 {
+  sc_int old_pos = gs->objects[object].position;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   gs->objects[object].position = OBJ_HELD_NPC;
   gs->objects[object].parent = npc;
+  gs_carried_track (gs, object, old_pos, OBJ_HELD_NPC);
 }
 
 static void
 gs_object_player_wear_unchecked (sc_gameref_t gs, sc_int object)
 {
+  sc_int old_pos = gs->objects[object].position;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   gs->objects[object].position = OBJ_WORN_PLAYER;
   gs->objects[object].parent = 0;
+  gs_carried_track (gs, object, old_pos, OBJ_WORN_PLAYER);
 }
 
 static void
 gs_object_npc_wear_unchecked (sc_gameref_t gs, sc_int object, sc_int npc)
 {
+  sc_int old_pos = gs->objects[object].position;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   gs->objects[object].position = OBJ_WORN_NPC;
   gs->objects[object].parent = npc;
+  gs_carried_track (gs, object, old_pos, OBJ_WORN_NPC);
 }
 
 static void
 gs_object_to_room_unchecked (sc_gameref_t gs, sc_int object, sc_int room)
 {
+  sc_int old_pos = gs->objects[object].position;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
   gs->objects[object].position = room + 1;
   gs->objects[object].parent = -1;
+  gs_carried_track (gs, object, old_pos, room + 1);
 }
 
 void
@@ -798,6 +886,13 @@ gs_create (sc_var_setref_t vars,
   game->undo = NULL;
   game->undo_available = FALSE;
 
+  /* Carried-load tracking off until seeded below; default to Runner-faithful
+   * running totals rather than the legacy per-check recompute. */
+  game->carried_weight = 0;
+  game->carried_size = 0;
+  game->carried_ready = FALSE;
+  game->capacity_recompute = FALSE;
+
   /* Create rooms state array. */
   vt_key[0].string = "Rooms";
   game->room_count = prop_get_child_count (bundle, "I<-s", vt_key);
@@ -1084,6 +1179,10 @@ gs_create (sc_var_setref_t vars,
   /* Clear the quit jump buffer for tidiness. */
   memset (&game->quitter, 0, sizeof (game->quitter));
 
+  /* Seed the carried-load totals now that initial object placement is done;
+   * this also arms gs_carried_track() for subsequent moves. */
+  gs_carried_recompute (game);
+
   /* Return the constructed game state. */
   return game;
 }
@@ -1276,6 +1375,16 @@ gs_copy (sc_gameref_t to, sc_gameref_t from)
   to->him_npc = from->him_npc;
   to->her_npc = from->her_npc;
   to->it_npc = from->it_npc;
+
+  /*
+   * Recompute the carried-load totals from the copied object positions rather
+   * than carrying over the source's running totals.  This matches the Runner,
+   * which recomputes carried load when it loads state, so undo and restore both
+   * "heal" any accumulated take/drop double-count.  The capacity_recompute mode
+   * flag is a session preference, so (like verbose) it is left invariant across
+   * copies and deliberately not propagated here.
+   */
+  gs_carried_recompute (to);
 
   /* Copy over the quit jump buffer. */
   memcpy (&to->quitter, &from->quitter, sizeof (from->quitter));

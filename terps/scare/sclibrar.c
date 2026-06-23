@@ -4064,25 +4064,32 @@ sc_bool
 lib_cmd_count (sc_gameref_t game)
 {
   const sc_filterref_t filter = gs_get_filter (game);
-  sc_int index_, size, weight;
+  sc_int size, weight;
   sc_char buffer[32];
 
-  /* Sum sizes for objects currently held or worn by player. */
-  size = 0;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  /*
+   * Report the same carried totals the capacity checks use: the running totals
+   * by default, or a fresh recompute from held/worn objects in legacy mode.
+   */
+  if (game->capacity_recompute)
     {
-      if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
-          || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
-        size += obj_get_size (game, index_);
-    }
+      sc_int index_;
 
-  /* Sum weights for objects currently held or worn by player. */
-  weight = 0;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+      size = weight = 0;
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
+              || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
+            {
+              size += obj_get_size (game, index_);
+              weight += obj_get_weight (game, index_);
+            }
+        }
+    }
+  else
     {
-      if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
-          || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
-        weight += obj_get_weight (game, index_);
+      size = gs_carried_size (game);
+      weight = gs_carried_weight (game);
     }
 
   /* Print the player limits and amounts used. */
@@ -4108,6 +4115,38 @@ lib_cmd_count (sc_gameref_t game)
 
 
 /*
+ * lib_cmd_capacity()
+ *
+ * Toggle and report how the player's carried load is accounted for.  By default
+ * SCARE mirrors the real Runner, keeping a running total updated on take/drop
+ * (which double-counts a container's contents once they're taken back out, and
+ * so can refuse an over-encumbered take exactly as the Runner does).  The legacy
+ * mode recomputes the load afresh from currently held objects on each check,
+ * which never double-counts but diverges from the Runner.  This admin command
+ * flips between the two and reports the mode now in effect.
+ */
+sc_bool
+lib_cmd_capacity (sc_gameref_t game)
+{
+  game->capacity_recompute = !game->capacity_recompute;
+
+  if_print_string ("Carrying capacity accounting is now ");
+  if_print_tag (SC_TAG_ITALICS, "");
+  if_print_string (game->capacity_recompute ? "recompute" : "runner");
+  if_print_tag (SC_TAG_ENDITALICS, "");
+  if (game->capacity_recompute)
+    if_print_string (", summing the load afresh from held objects on each"
+                     " check (legacy SCARE behaviour).\n");
+  else
+    if_print_string (", keeping a running total as the original ADRIFT Runner"
+                     " does.\n");
+
+  game->is_admin = TRUE;
+  return TRUE;
+}
+
+
+/*
  * lib_object_too_heavy()
  *
  * Return TRUE if the given object is too heavy for the player to carry.
@@ -4115,20 +4154,31 @@ lib_cmd_count (sc_gameref_t game)
 static sc_bool
 lib_object_too_heavy (sc_gameref_t game, sc_int object, sc_bool *is_portable)
 {
-  sc_int player_limit, index_, weight, object_weight;
+  sc_int player_limit, weight, object_weight;
 
   /* Get the player limit and the given object weight. */
   player_limit = obj_get_player_weight_limit (game);
   object_weight = obj_get_weight (game, object);
 
-  /* Sum weights for objects currently held or worn by player. */
-  weight = 0;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  /*
+   * Establish the player's current carried weight.  By default this is the
+   * Runner's running total (gs_carried_weight, with its take/drop double-count);
+   * in legacy mode it is recomputed afresh from currently held or worn objects.
+   */
+  if (game->capacity_recompute)
     {
-      if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
-          || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
-        weight += obj_get_weight (game, index_);
+      sc_int index_;
+
+      weight = 0;
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
+              || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
+            weight += obj_get_weight (game, index_);
+        }
     }
+  else
+    weight = gs_carried_weight (game);
 
   /* If requested, return object portability. */
   if (is_portable)
@@ -4147,20 +4197,30 @@ lib_object_too_heavy (sc_gameref_t game, sc_int object, sc_bool *is_portable)
 static sc_bool
 lib_object_too_large (sc_gameref_t game, sc_int object, sc_bool *is_portable)
 {
-  sc_int player_limit, index_, size, object_size;
+  sc_int player_limit, size, object_size;
 
   /* Get the player limit and the given object size. */
   player_limit = obj_get_player_size_limit (game);
   object_size = obj_get_size (game, object);
 
-  /* Sum sizes for objects currently held or worn by player. */
-  size = 0;
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
+  /*
+   * Current carried size: the running total by default, or a fresh recompute
+   * from held/worn objects in legacy mode (see lib_object_too_heavy).
+   */
+  if (game->capacity_recompute)
     {
-      if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
-          || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
-        size += obj_get_size (game, index_);
+      sc_int index_;
+
+      size = 0;
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
+              || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
+            size += obj_get_size (game, index_);
+        }
     }
+  else
+    size = gs_carried_size (game);
 
   /* If requested, return object portability. */
   if (is_portable)
