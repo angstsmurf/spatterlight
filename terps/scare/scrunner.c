@@ -1338,6 +1338,36 @@ run_player_input (sc_gameref_t game)
 
 
 /*
+ * run_text_ends_in_newline()
+ *
+ * Return TRUE if the displayable form of text -- tags stripped and any <br>
+ * mapped to a newline -- ends in a newline, ignoring trailing horizontal
+ * whitespace.  Used so the startup intro's own trailing line break is not
+ * doubled up by SCARE's paragraph break before the first room.
+ */
+static sc_bool
+run_text_ends_in_newline (const sc_char *text)
+{
+  sc_char *stripped;
+  sc_int length;
+  sc_bool result;
+
+  stripped = sc_malloc (strlen (text) + 1);
+  strcpy (stripped, text);
+  pf_strip_tags_for_hints (stripped);
+
+  length = strlen (stripped);
+  while (length > 0
+         && (stripped[length - 1] == ' ' || stripped[length - 1] == '\t'))
+    length--;
+  result = (length > 0 && stripped[length - 1] == '\n');
+
+  sc_free (stripped);
+  return result;
+}
+
+
+/*
  * run_main_loop()
  *
  * Main interpreter loop.
@@ -1370,12 +1400,21 @@ run_main_loop (sc_gameref_t game)
       pf_buffer_string (filter, gamename);
       pf_buffer_character (filter, '\n');
 
-      /* Print the game header. */
+      /*
+       * Print the game header.  Adrift StartupText conventionally ends with a
+       * <br> tag to set off the intro from the first room.  SCARE supplies its
+       * own paragraph break below (the forced newline here plus the leading
+       * newline from lib_cmd_look()), so adding a terminator when the text
+       * already ends in a line break leaves the first room preceded by two
+       * blank lines.  The Adrift Runner shows just one; only add the
+       * terminator when the displayed text doesn't already end in a newline.
+       */
       vt_key[0].string = "Header";
       vt_key[1].string = "StartupText";
       startuptext = prop_get_string (bundle, "S<-ss", vt_key);
       pf_buffer_string (filter, startuptext);
-      pf_buffer_character (filter, '\n');
+      if (!run_text_ends_in_newline (startuptext))
+        pf_buffer_character (filter, '\n');
 
       /* If flagged, describe the initial room. */
       vt_key[0].string = "Globals";
