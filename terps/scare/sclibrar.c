@@ -1132,6 +1132,46 @@ static const sc_char *const DIRNAMES_8[] = {
 
 
 /*
+ * lib_room_has_exits()
+ *
+ * Return TRUE if the player room has at least one usable exit.  Used to
+ * suppress the automatic exit listing appended to room descriptions when a
+ * room has no exits at all.  The original ADRIFT runner builds the exit
+ * string and, for the room description (as opposed to an explicit "exits"
+ * command), discards it if it ends in "any direction!"; testing for usable
+ * exits up front is the equivalent.
+ */
+static sc_bool
+lib_room_has_exits (sc_gameref_t game)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[4], vt_rvalue;
+  sc_bool eightpointcompass;
+  const sc_char *const *dirnames;
+  sc_int index_;
+
+  /* Decide on four or eight point compass names list. */
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "EightPointCompass";
+  eightpointcompass = prop_get_boolean (bundle, "B<-ss", vt_key);
+  dirnames = eightpointcompass ? DIRNAMES_8 : DIRNAMES_4;
+
+  /* Return on the first valid, usable exit found. */
+  for (index_ = 0; dirnames[index_]; index_++)
+    {
+      vt_key[0].string = "Rooms";
+      vt_key[1].integer = gs_playerroom (game);
+      vt_key[2].string = "Exits";
+      vt_key[3].integer = index_;
+      if (prop_get (bundle, "I<-sisi", &vt_rvalue, vt_key)
+          && lib_can_go (game, gs_playerroom (game), index_))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
  * lib_cmd_print_room_exits()
  *
  * Print a list of exits from the player room.
@@ -1249,7 +1289,7 @@ lib_describe_player_room (sc_gameref_t game, sc_bool force_verbose)
       vt_key[0].string = "Globals";
       vt_key[1].string = "ShowExits";
       showexits = prop_get_boolean (bundle, "B<-ss", vt_key);
-      if (showexits)
+      if (showexits && lib_room_has_exits (game))
         {
           pf_buffer_character (filter, '\n');
           lib_cmd_print_room_exits (game);
