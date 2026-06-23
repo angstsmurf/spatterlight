@@ -68,10 +68,52 @@
 static sc_bool battle_combat_assist = FALSE;
 static sc_bool battle_unconfigured = FALSE;
 
+/*
+ * Legacy (version 3.9 / 3.8) combat model.
+ *
+ * The reverse-engineered ADRIFT 3.9 Runner (run390) uses a much simpler combat
+ * model than version 4.0: characters have only Stamina, Strength and Defence
+ * (single scalars, not [lo,hi] ranges), and there is no Accuracy, Agility,
+ * Recovery, Max-Stamina or StaminaTask.  An attack is resolved by the strictly
+ * deterministic test "hit strength (Strength + weapon HitValue) > armour
+ * strength (Defence + worn ProtectionValue)"; there is no separate accuracy/
+ * agility dodge step and, crucially, no "manages to avoid" outcome -- every
+ * attack connects, and armour merely absorbs the blow ("...but it doesn't seem
+ * to do any damage." when Defence >= Strength).
+ *
+ * SCARE otherwise implements the 4.0 model, whose hit test is accuracy >
+ * agility.  A 3.9 game has no Accuracy/Agility properties, so both read as 0
+ * and the test 0 > 0 never passes, silently making all combat an endless
+ * stalemate.  When battle_legacy is set (detected from the game version at
+ * battle_start), battle_resolve skips the accuracy/agility test and always
+ * connects, letting the existing Strength - Defence damage path -- which already
+ * matches the 3.9 formula and message -- decide the outcome.
+ */
+static sc_bool battle_legacy = FALSE;
+
 void
 battle_set_combat_assist (sc_bool flag)
 {
   battle_combat_assist = flag;
+}
+
+/*
+ * battle_is_legacy_version()
+ *
+ * Return TRUE for a version 3.9 or 3.8 game, read from the bundle's top-level
+ * "Version" integer (written by the parser).  A missing or unrecognised version
+ * is treated as modern (4.0), leaving behaviour unchanged.
+ */
+static sc_bool
+battle_is_legacy_version (sc_gameref_t game)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key, vt_rvalue;
+
+  vt_key.string = "Version";
+  if (prop_get (bundle, "I<-s", &vt_rvalue, &vt_key))
+    return vt_rvalue.integer < TAF_VERSION_400;
+  return FALSE;
 }
 
 /*
@@ -292,6 +334,9 @@ battle_start (sc_gameref_t game)
 
   if (!battle_is_enabled (game))
     return;
+
+  /* Version 3.9/3.8 games use the legacy strength-vs-defence hit model. */
+  battle_legacy = battle_is_legacy_version (game);
 
   battle_seed_attributes (game, -1);
   battle_bundle_range (game, -1, "Stamina", &lo, &hi);
@@ -815,6 +860,7 @@ battle_resolve (sc_gameref_t game, sc_int attacker, sc_int target,
   const sc_filterref_t filter = gs_get_filter (game);
 
   if (battle_unconfigured
+      || battle_legacy
       || battle_eff_accuracy (game, attacker, weapon)
          > battle_eff_agility (game, target))
     {
