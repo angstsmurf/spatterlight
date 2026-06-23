@@ -266,6 +266,16 @@ restr_pass_task_object_state (sc_gameref_t game, sc_int var1, sc_int var2)
   else
     object = obj_stateful_object (game, var1 - 1);
 
+  /*
+   * If the restriction refers to "the referenced object" but the player's
+   * command bound no object (var_get_ref_object returns -1, e.g. a wildcard
+   * task command with no %object%), there is no object whose state can match,
+   * so the restriction simply fails.  Guarding here avoids passing a negative
+   * key down to prop_get_integer (which aborts); the Runner does not crash.
+   */
+  if (object < 0)
+    return FALSE;
+
   /* We're interested only in openable objects. */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
