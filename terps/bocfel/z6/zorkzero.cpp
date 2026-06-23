@@ -581,7 +581,6 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
 // Z-machine entry point: wraps z0_init_status_line with the DONT-CLEAR
 // parameter from the Z-machine call stack.
 void INIT_STATUS_LINE(void) {
-    fprintf(stderr, "INIT-STATUS-LINE(DONT-CLEAR: %s)\n", variable(1) == 1 ? "true" : "false");
     z0_init_status_line(variable(1));
 }
 
@@ -672,12 +671,6 @@ static void z0_resize_status_windows(void) {
         CURRENT_BORDER = get_global(zg.CURRENT_BORDER);
     else if (zr.SET_BORDER != 0)
         CURRENT_BORDER = internal_call(pack_routine(zr.SET_BORDER));
-
-    if (CURRENT_BORDER != 0) {
-        int imgwidth, imgheight;
-        get_image_size(CURRENT_BORDER, &imgwidth, &imgheight);
-        fprintf(stderr, "z0_resize_status_windows: image width of CURRENT_BORDER (%d) is %d\n", CURRENT_BORDER, imgwidth);
-    }
 
     int x, y, width, height;
 

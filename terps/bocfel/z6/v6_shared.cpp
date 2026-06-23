@@ -50,11 +50,11 @@
 int margin_images[100];
 int number_of_margin_images = 0;
 
-#define MAX_MARGIN_IMAGES 10
+#define MAX_MARGIN_IMAGES 100
 
 // Shifts the margin image list when full, discarding the oldest entry.
 void shift_margin_image_list(void) {
-    fprintf(stderr, "More than 100 margin images! Shifting list, forgetting the first margin image (%d)\n", margin_images[0]);
+    fprintf(stderr, "Margin image list full (%d entries); forgetting the oldest margin image (%d)\n", MAX_MARGIN_IMAGES, margin_images[0]);
     for (int i = 1; i < number_of_margin_images; i++) {
        margin_images[i - 1] = margin_images[i];
     }

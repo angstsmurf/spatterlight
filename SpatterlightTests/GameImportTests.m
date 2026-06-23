@@ -886,6 +886,83 @@
     XCTAssertEqual(container.marginImages[0].pos, 50u);
 }
 
+// Resizing a buffer window whose scrollback holds many margin images must
+// remain responsive. Without the unoverlap: pos-distance early-exit, every
+// laid-out line did an O(M) overlap scan against every margin image, making
+// a single resize pass O(L * M^2). This test exercises that path without
+// loading a game: stand up a minimal NSTextStorage / NSLayoutManager /
+// MarginContainer / NSTextView pipeline, populate it with the shape of a
+// long Zork Zero session (~500 short paragraphs, ~100 margin images), and
+// measure a sequence of textview-frame resizes - the same code path a live
+// window drag triggers.
+- (void)testMarginContainerResizePerformance {
+    NSTextStorage *storage = [[NSTextStorage alloc] init];
+    NSLayoutManager *lm = [[NSLayoutManager alloc] init];
+    [storage addLayoutManager:lm];
+
+    MarginContainer *container =
+        [[MarginContainer alloc] initWithContainerSize:NSMakeSize(600, CGFLOAT_MAX)];
+    [lm addTextContainer:container];
+
+    NSTextView *textview =
+        [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 600, 10000)
+                            textContainer:container];
+
+    NSImage *image = [[NSImage alloc] initWithSize:NSMakeSize(80, 80)];
+
+    // 500 short paragraphs with a margin image every fifth one represents a
+    // realistic long Zork Zero session (~18KB of text, ~100 inline margin
+    // images held by the MarginContainer at once). Enough to demonstrate the
+    // O(M^2) layout cost without dominating the rest of the test suite.
+    NSUInteger imageCount = 0;
+    for (int i = 0; i < 500; i++) {
+        NSUInteger pos = storage.length;
+        NSAttributedString *para = [[NSAttributedString alloc]
+            initWithString:@"A short room description paragraph.\n"];
+        [storage appendAttributedString:para];
+        if ((i % 5) == 0) {
+            [container addImage:image
+                      alignment:(i & 1) ? imagealign_MarginLeft
+                                        : imagealign_MarginRight
+                             at:pos
+                         linkid:0];
+            imageCount++;
+        }
+    }
+    XCTAssertGreaterThan(imageCount, 50u);
+
+    // Establish a baseline layout and warm caches with one full resize cycle
+    // before measuring, so a cold first iteration doesn't skew the average.
+    [lm ensureLayoutForTextContainer:container];
+    [textview setFrameSize:NSMakeSize(500, 10000)];
+    [container invalidateLayout:nil];
+    [lm ensureLayoutForTextContainer:container];
+    [textview setFrameSize:NSMakeSize(700, 10000)];
+    [container invalidateLayout:nil];
+    [lm ensureLayoutForTextContainer:container];
+
+    // Each iteration runs two full re-layouts at different widths. Per-pass
+    // cost is O(L * M) just for lineFragmentRectForProposedRect:, so at this
+    // scrollback size a single iteration already takes several seconds; cap
+    // measure-block iterations to keep total test time bounded.
+    XCTMeasureOptions *opts = [XCTMeasureOptions defaultOptions];
+    opts.iterationCount = 3;
+    [self measureWithMetrics:@[[[XCTClockMetric alloc] init]]
+                     options:opts
+                       block:^{
+        [textview setFrameSize:NSMakeSize(500, 10000)];
+        [container invalidateLayout:nil];
+        [lm ensureLayoutForTextContainer:container];
+
+        [textview setFrameSize:NSMakeSize(700, 10000)];
+        [container invalidateLayout:nil];
+        [lm ensureLayoutForTextContainer:container];
+    }];
+
+    XCTAssertEqual(container.marginImages.count, imageCount,
+                   @"resize must not lose margin images");
+}
+
 // The scrollback limit reads from the BufferScrollbackLimit user default,
 // falls back to the built-in default when unset/zero, and clamps tiny values
 // up to the floor.

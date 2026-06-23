@@ -260,6 +260,13 @@
     for (NSInteger i = (NSInteger)[_marginImages indexOfObject:image] - 1; i >= 0; i--) {
         MarginImage *img2 = _marginImages[(NSUInteger)i];
 
+        // Margin images are appended in pos order and unoverlap only ever moves
+        // the current image down, never up - so once we're 1000 character
+        // positions past img2 there's no way a downward push could reach it.
+        // Mirrors the flowbreak cutoff in lineFragmentRectForProposedRect:.
+        if (image.pos - img2.pos > 1000)
+            break;
+
         // If overlapping, shift in opposite alignment direction
         if (NSIntersectsRect(img2.bounds, adjustedBounds)) {
             if (image.glkImgAlign == img2.glkImgAlign) {
