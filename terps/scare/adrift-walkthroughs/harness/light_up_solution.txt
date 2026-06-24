@@ -1,0 +1,688 @@
+2
+2
+open trunk
+get flashlight
+north
+get rock
+break window
+turn light on
+look under chair
+take saw
+ne
+open refrigerator
+take vial
+sw
+north
+saw door
+west
+dig
+take laptop
+east
+open door
+north
+down
+91020
+put vial in machine
+press button
+get in box
+
+
+
+
+north
+north
+dig
+wear mask
+north
+north
+east
+east
+east
+north
+take rock
+north
+dig
+south
+south
+west
+break chain
+look
+look
+look
+look
+look
+throw rock at bird
+look
+west
+look
+take medallion
+west
+look
+take medallion
+south
+look
+take medallion
+south
+look
+take medallion
+south
+look
+take medallion
+south
+look
+take medallion
+give medallion to woman
+north
+north
+north
+north
+east
+east
+east
+north
+look
+take medallion
+wear medallion
+north
+open gate
+
+
+
+
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+close blue box
+look
+look
+look
+look
+look
+look
+
+
+
+
+look
+look
+look
+look
+look
+look
+look
+look
+take blanket
+look
+look
+look
+look
+look
+look
+look
+look
+open red box
+take child
+use blanket on child
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+open box
+look
+look
+look
+look
+look
+look
+his name is Shane
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+open blank box
+take red orb
+take orange orb
+take yellow orb
+take green orb
+take blue orb
+take indigo orb
+take violet orb
+put violet orb in indigo orb
+put indigo orb in blue orb
+put blue orb in green orb
+put green orb in yellow orb
+put yellow orb in orange orb
+put orange orb in red orb
+shout
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+open green box
+take lighter
+attack chip
+take lighter
+attack chip
+
+
+
+
+
+
+
+
+
+
+
+
+hard
+north
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+east
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+north
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+east
+take double-lighter
+wield double-lighter
+west
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+west
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+north
+north
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+northeast
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+attack ozgat
+attack riven
+attack higher
+take lighter
+rest
+north
+east
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look

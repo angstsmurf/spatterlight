@@ -1,0 +1,40 @@
+d
+take armour
+wear armour
+d
+take colt 45
+wear space suit
+open door
+out
+n
+n
+u
+take climbing equipment
+d
+s
+s
+e
+n
+climb cliff
+e
+u
+in
+climb cable
+take light helmet
+take bullets
+wear light helmet
+load bullets
+d
+d
+s
+shoot rubble
+s
+d
+s
+s
+e
+n
+climb cliff
+e
+u
+fly ship

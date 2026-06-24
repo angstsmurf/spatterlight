@@ -8,6 +8,59 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-06-24 session: the newly-added games (see `TRIAGE_NOTES.md`)
+
+The `games/` folder grew to 50 `.taf` since this file was first written; all 32
+not-yet-covered games were triaged with the structural dump and `TRIAGE_NOTES.md`
+records the full classification. Progress this session (12 new walkthroughs):
+
+- **Wins, verified deterministic:** `Cyber_walkthrough.md` (150/150),
+  `cyber2_walkthrough.md` (355/355), `TheCatintheTree_walkthrough.md` (50/50),
+  `Colony_walkthrough.md` (200/200), `Jason_Vs_Salm_walkthrough.md` (WIN, honest
+  max 0/1000 — scored difficulties are an unwinnable combat-balance bug),
+  `donuts_intro_walkthrough.md` (0/0 win intro).
+- **Documented unwinnable / sandbox / no-ending:** `Del_Sol_walkthrough.md`
+  (orphaned win — Moreland's KilledTask gated behind a stamina-0 NPC; 24/46),
+  `QuestI_walkthrough.md`, `IceCream_walkthrough.md`, `Trabula_walkthrough.md`,
+  `Invasion_of_the_Second-Hand_Shirts_walkthrough.md`, `adriftorama_walkthrough.md`.
+- **Deferred (winnable, route not yet banked):** FunHouse (scrambled mirror maze +
+  likely kid/ticket gate), thetest (color-key/phone-number/teleporter puzzle-box),
+  Main Course (catnip + cat-fur-disguise puzzle).
+- **Still untouched:** Melbourne Beach, The Screen Savers
+  On Planet X, ALEXIS, Shadowpeak, circus, WesGHN, Space Boy's First Adventure
+  (all winnable, large); Bomb Threat, tcom (win, 0-score); Matt's House, Les Feux
+  de l'enfer (score, no win); Through time (lose-only); SRSintro (0/0 intro);
+  Theannihilationofthink2, deaths, lair-of-the-cybercow (hang after "Loading…").
+
+## 2026-06-24 (later): light_up_4summer_comp — **WON 73/75**
+
+`Light_Up_walkthrough.md`; solution `harness/light_up_solution.txt`. *Light Up:
+An Interactive Horror* by TDS — a full 5-chapter game (House → suffocation Field
+maze → six Village "trials" → a Death combat gauntlet → Waste Land / Arkot ending,
+marker **"THE END / Congratulations!"**), deterministic. **The Battle System here
+is correctly configured (non-zero accuracy), so combat actually works — no
+combat-assist needed** (contrast Azra/V&K/Mr-Smith/To-Hell). Notable mechanics
+reverse-engineered: Ch2 bird/medallion needs the woman's walk `CharTask` to fire
+`#encounter` when she re-meets the player (give her the medallion, then chase her
+down); the medallion must be **worn** (not held) to open the gate. Ch3 trials:
+*close the blue box* to smother the bomb, *take the child then blanket it*, nest
+the 7 orbs by visibility then `shout`, kill Chip with the lighter. Ch4: kill 10
+Ozgat/Riven/Higher across rooms 24–32 (the NPCs also fight each other) → +15 →
+Waste Land. **Max reachable 75** = 60 story + `hard` +15; banked **73** omits the
+licence-plate laptop password +2 (910-CCC) — that puzzle works, but its 2 extra
+upstream turns reshuffle the shared `erkyrath_random` stream and get the
+`hard`-weakened player killed in the gauntlet, so the fixed turn-list can't bank
+both at once (a human with live combat feedback can). **Tooling note:** a
+reusable `SC_DUMP_TASKS` structural dump (tasks + restrictions/actions + room
+exits + events + NPC walks/CharTask + battle stats) was added to `sctasks.c` to
+RE this, then **fully removed** (tree clean; the committed move-assist change was
+left intact). `git checkout` is NOT needed — instrumentation already stripped.
+
+**Tooling note:** the reusable `SC_DUMP_TASKS` structural-dump block (+ per-NPC
+battle-stat line) is currently live in `terps/scare/sctasks.c` (uncommitted) so
+the remaining games can be triaged/derived; `git checkout sctasks.c` when the
+batch is finished. Rebuild with `sh harness/build.sh`.
+
 ## Combat-assist note (opt-in, committed)
 
 Several Battle-System games here ship with every character's Accuracy/Agility
@@ -18,10 +71,8 @@ has an opt-in `sc_set_combat_assist` (harness: `SC_ASSUME_COMBAT=1`, committed
 combat plays out on strength-vs-defence as intended (faithful default is off;
 configured games like Sun Empire are unaffected). Assisted maxima derived so
 far: **Villains & Kings 13→30/37** (`harness/villains_and_kings_assisted_solution.txt`);
-**Azra** combat goals 1/2/6 become reachable; **To Hell & Beyond** needed a
-*second* opt-in aid beyond combat — `SC_ASSUME_MOVES` (`sc_set_move_assist`), a
-repair for unset (`Var2=-1`) move actions the Runner ignores — after which its
-full 248/373 route is banked (see its entry below); **Mr. Smith stays stuck**
+**Azra** combat goals 1/2/6 become reachable; **To Hell & Beyond** becomes
+winnable in principle (full route not yet banked); **Mr. Smith stays stuck**
 (Fernelli's defence 25 > best accessible weapon 20 — a strength imbalance, not
 just accuracy).
 
@@ -33,10 +84,9 @@ The_Spirits_Flight, inverness, **SecretOfLostWorld (WIN 3300/3300)**,
 **Toxically_Earth (WIN; 0/0 multi-ending)**, **gateway (WIN 30/30)**,
 **Phoenix_Destiny (unwinnable 0/0 beta)**, **hyper_b_s (WIN 100/100)**,
 **Shadow_Of_The_Past (WIN 90/100)**, **X-Files (WIN 299/299)**.
-**Untouched: none — every game on the original list is done.** The last
-follow-up (banking the full assisted To_Hell_And_Beyond route) is now also done:
-it required the new `SC_ASSUME_MOVES` opt-in fix, and the 248/373 win is banked
-and verified — see its entry below.
+**Untouched: none — every game on the original list is done.** Only optional
+follow-up left: banking the full assisted To_Hell_And_Beyond route (already
+proven winnable, just not the full 190-room turn list).
 
 ## Player name/gender start-up prompts (real SCARE fixes, committed)
 
@@ -97,17 +147,10 @@ Villains_And_Kings, SecretOfLostWorld) now begin with `Hero` (and `male`/
       confirmed ADRIFT's `*` is zero-or-more and both run390/run400 match it.)
       Compass labels in Bellefleur are rotated vs the exit table; navigate by the
       game's "you can move…" text.
-- [x] **To_Hell_And_Beyond** — DONE. Faithful default is **UNWINNABLE** (see the
-      entry below): combat is dead *and* the mid-game progression moves are
-      authored with the "To:" combo unset (`Var2=-1`), which run400.exe ignores
-      (verified on Windows: `jump down` no-ops, the player is trapped in the
-      mansion). Added an opt-in **move assist** (`sc_set_move_assist`, env
-      `SC_ASSUME_MOVES`; commit on claudeslop) — sibling of the combat assist,
-      off by default so SCARE stays faithful. With `SC_ASSUME_COMBAT=1
-      SC_ASSUME_MOVES=1` the intended game completes at **248/373** (claim the
-      throne); full 224-cmd route `harness/to_hell_and_beyond_assisted_solution.txt`,
-      verified 3×. (greet-Trace +25 is preempted by the auto-discussion and armor
-      +20 is money/trigger-locked, so 248 is the assisted max; +25+20+80-alt = 373.)
+- [ ] **To_Hell_And_Beyond** (optional, large) — bank the full *assisted*
+      (`SC_ASSUME_COMBAT=1`) ~293/373 route across 190 rooms. Roadmap already in
+      the walkthrough (Oran→Tinev→ship→shore/forest→Mika→Sulfan(Megasword)→
+      final<B>→`movetolargecave`→kill Xozim→claim throne). Multi-session.
 
 ### B. Untouched games — derive walkthroughs (smallest first)
 For each: boot, dump structure (re-add the `SC_DUMP_MAP` block to sctasks.c —
@@ -362,31 +405,26 @@ faithful-unwinnable + test with `SC_ASSUME_COMBAT=1`.
       (task31) after `ko` in the Forest Clearing. The last +1 (`Look up
       *%character%*`) just needs the phone book HELD and OPEN (`take phone book` →
       `open phone book` → `look up byers`) — not a parser/engine issue.
-- [x] **To_Hell_And_Beyond** — **UNWINNABLE (faithful max ≈ 23/373)**, broken in
-      *two* independent ways. Analysis `To_Hell_And_Beyond_walkthrough.md`.
-      (1) **Combat is dead:** player + all 41 NPCs + all 10 weapons have
-      Accuracy/Agility 0 (kills only boost stamina/str/def), so `acc>agi`=`0>0`
-      never hits; both endings need `^^xozimisdead^^`.  (2) **Progression moves
-      are dead** (the real blocker, found this pass): the towns are joined only by
-      type-1 move task actions, and the mid-game ones (`jump down`, `out`, `get
-      in`, `^^discussion^^`) were authored with the "To:" combo unset (`Var2=-1`,
-      dest in Var3). **run400.exe ignores them — verified on Windows: `jump down`
-      prints its flavour line and leaves you on the balcony — so the player is
-      permanently trapped in the mansion.** A corpus scan shows `Var2=-1` moves
-      occur ONLY in native-4.0 games (this ×10, X-Files ×2, Hyperbole ×1) and in
-      zero 3.9 games — it's the shipped 4.0 data (likely a 3.9→4.0 Generator
-      upgrade leaving the combo unset), not a SCARE conversion bug.  Faithful
-      reachable: rope/cliff +3, meat-pkg/nimf +10, meat/dog +5, crowbar/manhole
-      +5 = **23** (then the mansion traps you); `^^Days^^` docks -3/day.
-      **Opt-in fixes (off by default → SCARE stays faithful):** `SC_ASSUME_COMBAT=1`
-      (forces hits) + `SC_ASSUME_MOVES=1` (`sc_set_move_assist`, the unset-move
-      repair, committed on claudeslop).  With both, the intended game completes at
-      **248/373** (claim throne) — full 224-cmd route
-      `harness/to_hell_and_beyond_assisted_solution.txt`, verified 3×.  (greet-Trace
-      +25 preempted by the auto-discussion; armor +20 money/trigger-locked; the
-      other +80 is the mutually-exclusive "go home" ending — 248+25+20+80 = 373.)
-      X-Files (299/299) and Hyperbole (100/100) are byte-identical with
-      `SC_ASSUME_MOVES` on or off (their unset moves are inert offstage NPC moves).
+- [x] **To_Hell_And_Beyond** — **UNWINNABLE** (max reachable ~68/373).
+      Analysis `To_Hell_And_Beyond_walkthrough.md`; opening solution
+      `harness/to_hell_and_beyond_solution.txt`. Large (190 rooms) but its whole
+      win is gated behind combat that can't work: player + all 41 NPCs + all 10
+      weapons have Accuracy/Agility 0 (and NO type-7 action or weapon ever raises
+      accuracy — kills only boost stamina/str/def), so `acc>agi` = `0>0` never
+      hits. The 4 kills are battle KilledTasks (zero type-5 actions in the game,
+      no event triggers them) and BOTH endings (`go home` +80, `claim throne`
+      +150) require `^^xozimisdead^^`. Same zero-accuracy data as Azra/V&K,
+      faithful to Runner (SCARE reads non-zero stats fine, cf. Sun Empire).
+      Reachable non-combat: rope/cliff +3, meat pkg/nimf +10, meat/dog +5,
+      crowbar/manhole +5, armor +20, greet Trace +25; `^^Days^^` docks -3/day.
+      **ASSISTED (`SC_ASSUME_COMBAT=1`): winnable, ~293/373 (claim throne +150).**
+      Full reverse-engineered route map added to the walkthrough (Oran→Tinev→
+      ship→shore/forest→Mika→castle/Sulfan→final<B>→Large cave/Xozim r189 via
+      `^^movetolargecave^^` teleport; Megasword in Sulfan Weapons shop r177 kills
+      Xozim). Verified the assisted opening only (`greet zifan`/`open door`/Oran/
+      hook in Ilsar's house, `harness/to_hell_and_beyond_assisted_opening.txt`);
+      full 190-room turn-by-turn list NOT banked — needs multi-session play-
+      discovery of the conversation/plot teleports. Roadmap is RE'd from data.
 - [ ] Toxically_Earth
 - [x] **Villains_And_Kings** — 13/37, no win ending (max reachable; verified
       deterministic). Walkthrough `Villains_And_Kings_walkthrough.md`; solution
