@@ -555,6 +555,37 @@ prop_put (sc_prop_setref_t bundle, const sc_char *format,
  * Retrieve a property from a properties set.  Format stuff as above, except
  * with "->" replaced with "<-".  Returns FALSE if no such property exists.
  */
+/*
+ * prop_put_integer()
+ *
+ * Update the integer value of an already-present leaf node, addressed the same
+ * way as prop_get().  Used for the rare runtime-mutable global (player gender,
+ * chosen at game start).  Returns FALSE if the addressed node doesn't exist.
+ */
+sc_bool
+prop_put_integer (sc_prop_setref_t bundle, const sc_char *format,
+                  sc_int value, const sc_vartype_t vt_key[])
+{
+  sc_prop_noderef_t node;
+  sc_int index_;
+  assert (prop_is_valid (bundle));
+
+  if (!format || format[0] == NUL
+      || format[1] != '<' || format[2] != '-' || format[3] == NUL)
+    sc_fatal ("prop_put_integer: format error\n");
+
+  node = bundle->root_node;
+  for (index_ = 0; format[index_ + 3] != NUL; index_++)
+    {
+      node = prop_find_child (node, format[index_ + 3], vt_key[index_]);
+      if (!node)
+        return FALSE;
+    }
+  node->property.integer = value;
+  return TRUE;
+}
+
+
 sc_bool
 prop_get (sc_prop_setref_t bundle, const sc_char *format,
           sc_vartype_t *vt_rvalue, const sc_vartype_t vt_key[])

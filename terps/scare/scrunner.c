@@ -1364,6 +1364,66 @@ run_text_ends_in_newline (const sc_char *text)
 
 
 /*
+ * run_prompt_player_gender()
+ *
+ * Adrift stores the player's gender as Male, Female, or Unknown.  When it is
+ * Unknown, the Runner shows a "Please choose player gender" dialog at game
+ * start and stores the answer; tasks and restrictions then test it (for
+ * example, "the Player is Male").  Without this choice such a restriction can
+ * never pass, which can render a game unwinnable (e.g. The Secret of the Lost
+ * World gates the castle on it).  Prompt for the choice and record it in the
+ * globals, mirroring the Runner.  The value lives in the (session-persistent)
+ * property bundle, so it survives save/restore/undo within a session, and a
+ * fresh load re-asks -- exactly as the Runner behaves.
+ */
+static void
+run_prompt_player_gender (sc_gameref_t game)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  const sc_var_setref_t vars = gs_get_vars (game);
+  sc_vartype_t vt_key[2];
+  sc_int gender;
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "PlayerGender";
+  gender = prop_get_integer (bundle, "I<-ss", vt_key);
+
+  /* Only an Unknown (2) gender needs a choice; Male (1)/Female (0) are set. */
+  if (gender != 2)
+    return;
+
+  for (;;)
+    {
+      sc_char buffer[LINE_BUFFER_SIZE];
+      const sc_char *reply;
+
+      pf_buffer_string (filter,
+                        "Please choose the player's gender (male or female): ");
+      pf_flush (filter, vars, bundle);
+
+      if_read_line (buffer, sizeof (buffer));
+
+      for (reply = buffer; *reply == ' ' || *reply == '\t'; reply++)
+        ;
+      if (*reply == 'm' || *reply == 'M')
+        {
+          gender = 1;
+          break;
+        }
+      if (*reply == 'f' || *reply == 'F')
+        {
+          gender = 0;
+          break;
+        }
+      pf_buffer_string (filter, "Please answer \"male\" or \"female\".\n");
+    }
+
+  prop_put_integer (bundle, "I<-ss", gender, vt_key);
+}
+
+
+/*
  * run_main_loop()
  *
  * Main interpreter loop.
@@ -1411,6 +1471,9 @@ run_main_loop (sc_gameref_t game)
       pf_buffer_string (filter, startuptext);
       if (!run_text_ends_in_newline (startuptext))
         pf_buffer_character (filter, '\n');
+
+      /* If the player's gender is Unknown, ask for it, like the Runner. */
+      run_prompt_player_gender (game);
 
       /* If flagged, describe the initial room. */
       vt_key[0].string = "Globals";
