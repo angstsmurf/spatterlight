@@ -403,6 +403,7 @@ extern sc_bool lib_cmd_go_northwest (sc_gameref_t game);
 extern sc_bool lib_cmd_go_southwest (sc_gameref_t game);
 extern sc_bool lib_cmd_go_room (sc_gameref_t game);
 extern sc_bool lib_cmd_verbose (sc_gameref_t game);
+extern sc_bool lib_cmd_verbose_on_off (sc_gameref_t game);
 extern sc_bool lib_cmd_brief (sc_gameref_t game);
 extern sc_bool lib_cmd_notify_on_off (sc_gameref_t game);
 extern sc_bool lib_cmd_notify (sc_gameref_t game);

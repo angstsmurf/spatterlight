@@ -333,6 +333,7 @@ static sc_commands_t STANDARD_COMMANDS[] = {
   {"[hist/history] %number%", lib_cmd_history_number},
   {"[hist/history]", lib_cmd_history},
   {"[hint/hints]", lib_cmd_hints},
+  {"verbose %text%", lib_cmd_verbose_on_off},
   {"verbose", lib_cmd_verbose},
   {"brief", lib_cmd_brief},
   {"[notify/notification] %text%", lib_cmd_notify_on_off},

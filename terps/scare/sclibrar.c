@@ -2153,6 +2153,36 @@ lib_cmd_brief (sc_gameref_t game)
   return TRUE;
 }
 
+/*
+ * lib_cmd_verbose_on_off()
+ *
+ * Set/clear the game verbose flag from "verbose on" / "verbose off".  This
+ * mirrors the Adrift runner's Verbose user-interface option, and the form
+ * with an explicit "on"/"off" works even when a game defines its own bare
+ * "verbose" task (which would otherwise shadow the plain "verbose" command).
+ */
+sc_bool
+lib_cmd_verbose_on_off (sc_gameref_t game)
+{
+  const sc_var_setref_t vars = gs_get_vars (game);
+  const sc_char *control;
+
+  /* Get the text following the verbose command, and check for "on"/"off". */
+  control = var_get_ref_text (vars);
+  if (sc_strcasecmp (control, "on") == 0)
+    return lib_cmd_verbose (game);
+  else if (sc_strcasecmp (control, "off") == 0)
+    return lib_cmd_brief (game);
+  else
+    {
+      if_print_string ("Use 'verbose on' or 'verbose off' to control whether"
+                       " the game always gives long descriptions of"
+                       " locations.\n");
+      game->is_admin = TRUE;
+      return TRUE;
+    }
+}
+
 
 /*
  * lib_cmd_notify_on_off()
