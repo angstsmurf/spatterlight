@@ -32,12 +32,65 @@ records the full classification. Progress this session (12 new walkthroughs):
   the 2026-06-24 (later) entry below).
 - **Still untouched:** The Screen Savers
   On Planet X, ALEXIS, Shadowpeak, circus, Space Boy's First Adventure
-  (all winnable, large); Bomb Threat, tcom (win, 0-score); Matt's House, Les Feux
-  de l'enfer (score, no win); Through time (lose-only); SRSintro (0/0 intro);
-  Theannihilationofthink2, deaths, lair-of-the-cybercow (hang after "Loading…").
+  (all winnable, large); tcom (win, 0-score); Matt's House, Les Feux
+  de l'enfer (score, no win); Through time (lose-only); SRSintro (0/0 intro).
+  Bomb Threat (win, 0-score), lair-of-the-cybercow (win 10/10), and **deaths
+  (WON 100/100)** are now **DONE** — see the entries below.
 - **Banked since:** `WesGHN_walkthrough.md` (**UNWINNABLE, max 30/100**) and
   `Melbourne_Beach_walkthrough.md` (**WON, max 38/41**) — see the 2026-06-24
   (later) entries below.
+
+## 2026-06-25: deaths (*Death's Door*) — **WON, full 100/100**
+
+`deaths_walkthrough.md`; solution `harness/deaths_solution.txt` (1st two lines =
+name `Hero` + gender `male` — both start-up prompts). ADRIFT **3.90** dungeon
+crawl ("free the house of death"): break into a 3-storey building, collect four
+coloured keys, kill the **Dark force** in the attic. Was on the "untouched/boot
+via name+gender prompt" list. **Not a hang — boots fine once name/gender are
+fed** (same class as Theannihilationofthink2/CyberCow). Deterministic; **100/100
+is the true max** (9 ChangeScore tasks sum exactly to 100, no orphans). Key
+mechanics RE'd from the structural dump: **(1) one long key/door chain** — mail
+box→silver-key→unlock Red kitchen→`kill jim`→gold-key→unlock Lit dining→`kill
+ireen`→red-key→unlock Dark closet→`kill rooth`→crystal-key→unlock Living
+room→Debbie/Beth/Ross (+45); **(2) the win stair (Third floor→Attic) opens via
+`kill witch`** (task 23, a no-restriction scripted task that runs anywhere on the
+Third floor — the witch needn't be present), and **`kill force`** in the Attic is
+the type-6 EndGame win. **(3) Real Battle System: most enemies are harmless
+(`str−def≤0`) but Rooth one-shots an unarmoured player on room entry** — the
+intro's "upgrade your armor" is mandatory: buy `scale male` then `plate male` at
+the Third-floor shop (money from the 500-gp kills + `sell silver-key` after using
+it); plate male reduces incoming damage to 0, making Rooth AND the Attic boss
+safe. The "kill *name*" tasks are scripted (restr=0) so the command itself kills;
+the shop's other gear/special-attacks and the Driveway monsters
+(Ghost/Wolfe/Cat/Vampire) are unscored flavour. Faithful to the 3.90 Runner; no
+SCARE change needed. Verified 3× identical (100/100 + "crumbles into dust" win).
+
+## 2026-06-24 (later): Bomb Threat — **WON, 0/0** (+ scdump event-dump fix)
+
+`Bomb_Threat_walkthrough.md`; solution `harness/bomb_threat_solution.txt`. An
+FBI agent (Jack Wayne) follows the bomber's floor-by-floor phone clues through a
+skyscraper to find and defuse a bomb in the sewers, then wins the final
+shoot-out. **0/0 — zero ChangeScore actions; the win is the max result.** Route:
+booth→footpath→lobby→elevator up to 28F (office: `open desk`/`take key`/`unlock
+cabinet`/`open portfolio`/`look at piece of paper`; conference: `open
+folder`/`take card` — the **security card** is the one genuinely-required item)→
+`read magazine` (an unrestricted command-only clue → enables `press 3rd floor`)
+→ 3F Tool Room (`take pliers`/`take crowbar`)→ground→Footpath: holding the
+crowbar auto-opens the manhole (an every-turn event) → `down` to the Sewers →
+`open package` → `cut red wire` (**blue = instant death**) → `shoot edgar`.
+**Key mechanic: `shoot edgar` rolls `hit += random(1,3)` — 1/2 = win
+(`#hitedgar1/2`), 3 = death (`#hitedgar3`); cutting the red wire arms a 2-turn
+`#die2` countdown so you can only fire on the next turn (no re-roll).** The
+street "traffic" event draws 2 randoms/turn, so the roll is stream-position
+dependent; under seed 1234, one `z` before `cut red wire` lands a headshot
+deterministically. The 43rd-floor detour (`press 43rd floor`, gated on `look at
+piece of paper`) is **optional** — the "piece of paper" and "magazine" are
+command-only clue tasks with no object/location restriction. **Tooling fix:**
+`terps/scare/scdump.c`'s event dump used `prop_get_integer` (which `sc_fatal`s
+on a missing field) and so aborted on any game whose events omit `Obj2`/`Obj3`
+(like this one); converted to the tolerant `prop_get` pattern + added
+`Time1`/`Time2`/`PauseTask` (which made the Edgar/timer interplay legible).
+Harness-only (gated behind `-DSCARE_DUMP_TOOLS`; Spatterlight never builds it).
 
 ## 2026-06-24 (later): Theannihilationofthink2 — **WON 35/35** (+ real engine fix)
 
@@ -237,6 +290,72 @@ little indigestion!"). Combat is faithful/deterministic (both kills are 1 hit);
 catnip + wandering-cat lines are decoys. **Tooling:** extended `SC_DUMP_TASKS`
 (Variables, room exits, Events, object Openable/aliases), used it, then
 `git checkout terps/scare/sctasks.c` — tree clean.
+
+## 2026-06-25 TODO: 4.0 conversion-damage deep-dive (untested 4.0 games)
+
+**Question to answer:** are any of the *untested* 4.0 games unwinnable because
+their authors converted them from 3.9 in the ADRIFT 4.0 Generator and the
+conversion broke their tasks — and if so, is it **faithful data damage** (the
+real ADRIFT 4.0 Runner fails too → document as unwinnable, do NOT "fix") or a
+**SCARE interpreter divergence** on a converted 4.0 file (→ real engine fix, the
+class of the CyberCow `MeetObject`/event bugs committed in `ff6d0567`)?
+
+**What we already know (scan over all 50 `games/`):**
+- Version split by header byte 8 (`0x93`=4.0, `0x94`=3.x): **27 are 4.0, 23 are
+  3.9, 0 are 3.8.**
+- **No 4.0 game has any out-of-range task/event reference** (no type-2 restriction
+  or event `affTask`/`TaskNum` past the task table). So there is **no gross
+  table-shift corruption** from a botched conversion — any damage would be
+  subtle (off-by-one within range, or a wrong field meaning), not wholesale.
+- Only 3 of the 27 use a walk **ObjectTask**: **FunHouse** and **Sun_Empire**
+  (both already WON with the `MeetObject` dynamic→global fix in place) and
+  **Shadowpeak** (untested). So SCARE's `>3.8` converted-walk path is sound where
+  tested.
+
+**Candidates (4.0, no checked-in walkthrough — *untested*, not proven
+unwinnable):** Shadowpeak (574 tasks, 43 endings — biggest), Space Boy's First
+Adventure (78), Through time (164, lose-only?), Les Feux de l'enfer (289,
+French), Invasion of the Second-Hand Shirts (19), Trabula (4 — stub), SRSintro /
+adriftorama (intros). **Start with Shadowpeak and Space Boy's** (substantial,
+plausibly winnable).
+
+**Method (per game, on top of the standard per-game workflow below):**
+1. Derive a route with the headless harness as usual. If it dead-ends, classify
+   the block, then check it against the **3.9↔4.0 schema divergences** that a
+   conversion can expose:
+   - **Walk `MeetObject`** — 4.0 reads it raw; SCARE converts dynamic→global for
+     all `>3.8` (`npc_walk_meetobject_needs_fixup`). Confirm the converted index
+     lands on a *sensible* object that actually appears in the walk's rooms. **If
+     a native-4.0 game stores `MeetObject` as a global index, this fix would
+     MIS-convert it** — then the gate must become 3.9-only. (FunHouse/Sun_Empire
+     say dynamic is right for them; verify on Shadowpeak's three ObjectTask
+     walks.)
+   - **Walk `MeetChar`** — 4.0 reads `#MeetChar`, 3.9 has `ZMeetChar` (absent /
+     defaulted 0 = "meet player"). A converted game may carry a stray/garbage
+     `MeetChar`; check whether a CharTask is meeting the wrong character.
+   - **Action `Type` renumbering** — the V390 schema applies `Type>4?#Type++`;
+     V400 does not. A file the Generator converted but did not renumber would
+     have 3.9-numbered actions read with 4.0 meanings (e.g. ChangeScore vs
+     exec/unset vs EndGame mismatch). Symptom: a task whose actions don't do what
+     its prose says.
+   - **Event `TaskFinished`** (set-incomplete) — now clears the done flag
+     directly (`scevents.c`, `ff6d0567`); confirm any "reset" event behaves.
+2. **Decide data-damage vs SCARE divergence.** Reproduce the exact task/event in
+   the **ADRIFT Runner P-code** (`~/Desktop/run400.txt` for 4.0,
+   `~/Desktop/run390.txt` for 3.9; `grep -a`, `LC_ALL=C`). If SCARE matches the
+   Runner, the breakage is the *author's converted data* → document the game as
+   unwinnable with the evidence, do not patch. Only patch if SCARE's evaluation
+   actually differs from the Runner.
+3. **Deliverables:** `<Game>_walkthrough.md` (header + full command list +
+   annotated phases + honest unreachable-point note) and
+   `harness/<game>_solution.txt`; if a real divergence is found, an engine fix +
+   note that the bundled-walkthrough corpus stays byte-identical
+   (`diff -rq` two corpus runs, as in the CyberCow work) and
+   `make -f Makefile.headless test` is green.
+
+**Side check while here:** re-confirm `npc_walk_meetobject_needs_fixup` (`>380`,
+i.e. 3.9 **and** 4.0) is correct for *native* 4.0 — the inverse of the CyberCow
+bug. Evidence so far (FunHouse/Sun_Empire win) says yes; nail it on Shadowpeak.
 
 ## Combat-assist note (opt-in, committed)
 
