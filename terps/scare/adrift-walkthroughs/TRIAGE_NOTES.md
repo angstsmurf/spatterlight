@@ -28,7 +28,7 @@ Structural dump (SC_DUMP_TASKS) classification. "win" = a type-6 EndGame with
 |---|---|---|---|
 | donuts_intro | 5.2 | 6 | 1 | **DONE WIN (0/0 intro)** |
 | Main Course | 7.4 | 11 | 1 | **DONE WIN (0/0)** — eat cat→use toilet→button wakes pilot→wear cat-fur disguise→kill+eat pilot→`main course`. Deterministic |
-| Bomb Threat | 18 | 16 | 2 |
+| Bomb Threat | 18 | 16 | 2 | **DONE WIN (0/0)** — defuse the skyscraper bomb (cut RED wire, blue=death) then win the Edgar shoot-out; `shoot edgar` is `hit+=random(1,3)` (1/2 win, 3 death), pad 1 `z` for the deterministic headshot |
 | tcom | 37 | 29 | 1 |
 
 ## C. Score but NO win ending (max-score only; document like Mr_Smith/V&K)
@@ -63,5 +63,11 @@ they boot and play normally. All three have a real win ending (type-6 var1=0):
   which had made it unwinnable.
 - **deaths** (62 tasks, 9 score, 1 win) — playable; "House of Death" RPG, not
   yet banked.
-- **lair-of-the-cybercow** (226 tasks, 17 score, 1 win) — playable; large, not
-  yet banked.
+- **lair-of-the-cybercow** (226 tasks, 17 score, 1 win) — **DONE: max 10/10,
+  deterministic; the lone win-ending appears unreachable.** Conrad Cook, ADRIFT
+  3.9, IF Comp 2008. See `Lair_of_the_CyberCow_walkthrough.md` /
+  `harness/cybercow_solution.txt`. Surfaced + fixed a real SCARE bug (walk
+  `MeetObject` dynamic→global conversion missing for 3.9/4.0 — the fairy
+  *Vluurinik* was uncatchable, capping the game at 6/10). 10/10 route ends at the
+  Robot-vs-CyberCow confrontation; the "fairy kiss" `#end game` (task 175) needs
+  the lair-flood, whose only entrances (tasks 98/112/117) are all deadlocked.

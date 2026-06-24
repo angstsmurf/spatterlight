@@ -38,6 +38,31 @@ static sc_bool npc_trace = FALSE;
 
 
 /*
+ * npc_walk_meetobject_needs_fixup()
+ *
+ * A walk's MeetObject is stored in the TAF as a 1-based dynamic-object
+ * index, but the runtime needs a global object index.  The parser rewrites
+ * it (the "|V380_WALK:_MeetObject_|" fixup in sctafpar.c) only for version
+ * 3.8 games; the version 3.9 and 4.0 WALK schemas read it raw.  Return TRUE
+ * when the conversion still has to be done at run time, i.e. for any game
+ * newer than 3.8.  Without it a walk's ObjectTask checks the wrong object
+ * and never fires (e.g. the milk-bowl fairy lure in "Lair of the CyberCow"
+ * was uncatchable, making the game unwinnable).
+ */
+static sc_bool
+npc_walk_meetobject_needs_fixup (sc_gameref_t game)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key, vt_rvalue;
+
+  vt_key.string = "Version";
+  if (prop_get (bundle, "I<-s", &vt_rvalue, &vt_key))
+    return vt_rvalue.integer > TAF_VERSION_380;
+  return TRUE;
+}
+
+
+/*
  * npc_in_room()
  *
  * Return TRUE if a given NPC is currently in a given room.
@@ -451,6 +476,9 @@ npc_tick_npc_walk (sc_gameref_t game, sc_int npc, sc_int walk)
       /* Run meetobject task if appropriate. */
       vt_key[4].string = "MeetObject";
       meetobject = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
+      /* Convert a dynamic-object index to a global one where required. */
+      if (meetobject >= 0 && npc_walk_meetobject_needs_fixup (game))
+        meetobject = obj_dynamic_object (game, meetobject);
       if (meetobject >= 0 && obj_directly_in_room (game, meetobject, dest))
         {
           if (task_can_run_task (game, objecttask))

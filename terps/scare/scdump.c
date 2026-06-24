@@ -221,23 +221,60 @@ sc_dump_structure_once (sc_gameref_t game)
     ecount = prop_get_child_count (bundle, "I<-s", ek);
     for (e = 0; e < ecount; e++)
       {
-        sc_int st, tn, ta, tf, o2, o2d, o3, o3d;
+        sc_int st, tn, ta, tf, o2, o2d, o3, o3d, t1, t2, pf;
+        sc_vartype_t evt;
         const sc_char *en;
 
+        st = tn = ta = tf = o2 = o2d = o3 = o3d = t1 = t2 = pf = 0;
+        en = NULL;
         ek[1].integer = e;
-        ek[2].string = "Short";        en = prop_get_string (bundle, "S<-sis", ek);
-        ek[2].string = "StarterType";  st = prop_get_integer (bundle, "I<-sis", ek);
-        ek[2].string = "TaskNum";      tn = prop_get_integer (bundle, "I<-sis", ek);
-        ek[2].string = "TaskAffected"; ta = prop_get_integer (bundle, "I<-sis", ek);
-        ek[2].string = "TaskFinished"; tf = prop_get_integer (bundle, "I<-sis", ek);
-        ek[2].string = "Obj2";         o2 = prop_get_integer (bundle, "I<-sis", ek);
-        ek[2].string = "Obj2Dest";     o2d = prop_get_integer (bundle, "I<-sis", ek);
-        ek[2].string = "Obj3";         o3 = prop_get_integer (bundle, "I<-sis", ek);
-        ek[2].string = "Obj3Dest";     o3d = prop_get_integer (bundle, "I<-sis", ek);
+        /* Use tolerant prop_get -- not every game defines every field. */
+        ek[2].string = "Short";        if (prop_get (bundle, "S<-sis", &evt, ek)) en = evt.string;
+        ek[2].string = "StarterType";  if (prop_get (bundle, "I<-sis", &evt, ek)) st = evt.integer;
+        ek[2].string = "TaskNum";      if (prop_get (bundle, "I<-sis", &evt, ek)) tn = evt.integer;
+        ek[2].string = "TaskAffected"; if (prop_get (bundle, "I<-sis", &evt, ek)) ta = evt.integer;
+        ek[2].string = "TaskFinished"; if (prop_get (bundle, "I<-sis", &evt, ek)) tf = evt.integer;
+        ek[2].string = "Time1";        if (prop_get (bundle, "I<-sis", &evt, ek)) t1 = evt.integer;
+        ek[2].string = "Time2";        if (prop_get (bundle, "I<-sis", &evt, ek)) t2 = evt.integer;
+        ek[2].string = "PauseTask";    if (prop_get (bundle, "I<-sis", &evt, ek)) pf = evt.integer;
+        ek[2].string = "Obj2";         if (prop_get (bundle, "I<-sis", &evt, ek)) o2 = evt.integer;
+        ek[2].string = "Obj2Dest";     if (prop_get (bundle, "I<-sis", &evt, ek)) o2d = evt.integer;
+        ek[2].string = "Obj3";         if (prop_get (bundle, "I<-sis", &evt, ek)) o3 = evt.integer;
+        ek[2].string = "Obj3Dest";     if (prop_get (bundle, "I<-sis", &evt, ek)) o3d = evt.integer;
         fprintf (stderr,
                  "EVENT %ld [%s] starter=%ld startTask=%ld affTask=%ld(fin=%ld)"
-                 " o2=%ld->%ld o3=%ld->%ld\n",
-                 e, en ? en : "", st, tn, ta, tf, o2, o2d, o3, o3d);
+                 " time1=%ld time2=%ld pauseTask=%ld o2=%ld->%ld o3=%ld->%ld\n",
+                 e, en ? en : "", st, tn, ta, tf, t1, t2, pf, o2, o2d, o3, o3d);
+      }
+  }
+
+  /* Room exits + their task gates (dir order N,E,S,W,U,D,IN,OUT,NE,NW,SE,SW). */
+  {
+    sc_vartype_t rk[5];
+    sc_int r, rcount;
+    static const char *dirs[] =
+      { "N","E","S","W","U","D","IN","OUT","NE","NW","SE","SW" };
+
+    rk[0].string = "Rooms";
+    rcount = prop_get_child_count (bundle, "I<-s", rk);
+    for (r = 0; r < rcount; r++)
+      {
+        sc_int d;
+        for (d = 0; d < 12; d++)
+          {
+            sc_int dest = 0, v1 = 0, v2 = 0, v3 = 0;
+            sc_vartype_t rv;
+            rk[1].integer = r;
+            rk[2].string = "Exits";
+            rk[3].integer = d;
+            rk[4].string = "Dest"; if (prop_get (bundle, "I<-sisis", &rv, rk)) dest = rv.integer; else continue;
+            rk[4].string = "Var1"; if (prop_get (bundle, "I<-sisis", &rv, rk)) v1 = rv.integer;
+            rk[4].string = "Var2"; if (prop_get (bundle, "I<-sisis", &rv, rk)) v2 = rv.integer;
+            rk[4].string = "Var3"; if (prop_get (bundle, "I<-sisis", &rv, rk)) v3 = rv.integer;
+            if (dest > 0)
+              fprintf (stderr, "EXIT room=%ld %s -> dest=%ld gateTask=%ld expectDone=%ld v3=%ld\n",
+                       r, dirs[d], dest - 1, v1 - 1, v2, v3);
+          }
       }
   }
 
