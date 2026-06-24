@@ -27,7 +27,7 @@ Structural dump (SC_DUMP_TASKS) classification. "win" = a type-6 EndGame with
 | game | KB | tasks | win-endings |
 |---|---|---|---|
 | donuts_intro | 5.2 | 6 | 1 | **DONE WIN (0/0 intro)** |
-| Main Course | 7.4 | 11 | 1 | DEFERRED — winnable (eat cat+pilot→"main course"); catnip/disguise puzzle not yet banked |
+| Main Course | 7.4 | 11 | 1 | **DONE WIN (0/0)** — eat cat→use toilet→button wakes pilot→wear cat-fur disguise→kill+eat pilot→`main course`. Deterministic |
 | Bomb Threat | 18 | 16 | 2 |
 | tcom | 37 | 29 | 1 |
 

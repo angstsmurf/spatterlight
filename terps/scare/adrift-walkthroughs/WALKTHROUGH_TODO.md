@@ -23,11 +23,11 @@ records the full classification. Progress this session (12 new walkthroughs):
   (orphaned win — Moreland's KilledTask gated behind a stamina-0 NPC; 24/46),
   `QuestI_walkthrough.md`, `IceCream_walkthrough.md`, `Trabula_walkthrough.md`,
   `Invasion_of_the_Second-Hand_Shirts_walkthrough.md`, `adriftorama_walkthrough.md`.
-- **Deferred (winnable, route not yet banked):** Main Course (catnip + cat-fur-
-  disguise puzzle).
-- **Banked since:** `FunHouse_walkthrough.md` (**WON, max 310/410**) and
-  `thetest_walkthrough.md` (**UNWINNABLE, max 5/25** — circular first-door lock) —
-  see the 2026-06-24 (later) entries below.
+- **Deferred (winnable, route not yet banked):** *(none — all three banked)*.
+- **Banked since:** `FunHouse_walkthrough.md` (**WON, max 310/410**),
+  `thetest_walkthrough.md` (**UNWINNABLE, max 5/25** — circular first-door lock),
+  and `Main_Course_walkthrough.md` (**WON, 0/0** — cat-fur disguise puzzle) — see
+  the 2026-06-24 (later) entries below.
 - **Still untouched:** Melbourne Beach, The Screen Savers
   On Planet X, ALEXIS, Shadowpeak, circus, WesGHN, Space Boy's First Adventure
   (all winnable, large); Bomb Threat, tcom (win, 0-score); Matt's House, Les Feux
@@ -111,6 +111,25 @@ breaking) — `listen` +5 is itself gated on an uncompleteable task, and the oth
 ADRIFT exit/variable/character restrictions, evaluated identically). **Tooling:**
 extended the `SC_DUMP_TASKS` block (added Variables + room-exit + Events dumps),
 used it, then `git checkout terps/scare/sctasks.c` — tree clean.
+
+## 2026-06-24 (later): Main Course — **WON (0/0, no score)**
+
+`Main_Course_walkthrough.md`; solution `harness/maincourse_solution.txt`. By
+quantumsheep (2008). You are a SoMorph (shape-shifting alien) that "appears as
+its most recent prey." 5 rooms. **No score (zero ChangeScore actions); the lone
+ending is the win** (task 8 `* course *` in the Command Deck, type-6 EndGame,
+gated solely on task 0 `eat human`). The puzzle chain, fully RE'd: eat the cat
+(1-hit kill → drops cat fur) → bathroom: `open door`/`east`/`close door` (privacy)
+/`open loo`/`use toilet` (digest, unlocks wearing the fur) → `wear cat fur`
+(disguise) → `push button` ("Premature Ejection during Hyperspace" opens the Cryo
+Tube and wakes the frozen pilot Alan Davies as a fleeing NPC) → cryo room: the
+disguise stops him fleeing so `attack human` lands (1-hit kill) → `eat human`
+(now you appear human) → `remove cat fur` (so FRANK the computer sees a human,
+not a cat) → Command Deck → `main course` = WIN ("…on your way home with just a
+little indigestion!"). Combat is faithful/deterministic (both kills are 1 hit);
+catnip + wandering-cat lines are decoys. **Tooling:** extended `SC_DUMP_TASKS`
+(Variables, room exits, Events, object Openable/aliases), used it, then
+`git checkout terps/scare/sctasks.c` — tree clean.
 
 ## Combat-assist note (opt-in, committed)
 
