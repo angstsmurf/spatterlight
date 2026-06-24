@@ -1065,7 +1065,7 @@
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sc2-Tf-ie2">
                     <rect key="frame" x="200" y="39" width="72" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <string key="toolTip">Maximum number of characters kept in each scrolling text window before the oldest text is trimmed. Applies to all themes. Set to 0 for unlimited scrollback (no trimming).</string>
+                    <string key="toolTip">Maximum number of characters kept in each scrolling text window before the oldest text is trimmed. Set per theme. Set to 0 for unlimited scrollback (no trimming).</string>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="30 000" drawsBackground="YES" id="Sc2-Tf-cel">
                         <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="Scb-Nf-mt9">
                             <real key="minimum" value="0.0"/>

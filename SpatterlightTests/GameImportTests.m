@@ -28,6 +28,14 @@
 #import "Preferences.h"
 #include "glk.h"
 
+// Expose the private progressive-migration entry point for testing.
+@interface CoreDataManager (ProgressiveMigrationTesting)
+- (BOOL)progressivelyMigrateStoreAtURL:(NSURL *)sourceURL
+                                ofType:(NSString *)type
+                               toModel:(NSManagedObjectModel *)finalModel
+                                 error:(NSError * __autoreleasing *)error;
+@end
+
 @interface GameImportXCTests : XCTestCase
 
 @property (nonatomic, strong) CoreDataManager *coreDataManager;
@@ -963,43 +971,25 @@
                    @"resize must not lose margin images");
 }
 
-// The scrollback limit reads from the BufferScrollbackLimit user default,
-// falls back to the built-in default when unset/zero, and clamps tiny values
-// up to the floor.
+// The scrollback limit is a per-theme value (the Theme.scrollbackLimit Core
+// Data attribute), clamped via +clampScrollbackLimit:. A positive value is
+// honoured, tiny values are clamped up to the floor, and 0 or negative means
+// unlimited.
 - (void)testScrollbackLimitSetting {
-    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    NSString *key = @"BufferScrollbackLimit";
-    id saved = [defaults objectForKey:key];
+    // A positive value is honoured.
+    XCTAssertEqual([GlkTextBufferWindow clampScrollbackLimit:50000], 50000u);
 
-    // Unset => built-in default.
-    [defaults removeObjectForKey:key];
-    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 30000u);
-
-    // A positive override is honoured.
-    [defaults setInteger:50000 forKey:key];
-    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 50000u);
+    // The built-in default value passes through unchanged.
+    XCTAssertEqual([GlkTextBufferWindow clampScrollbackLimit:30000], 30000u);
 
     // Below the floor => clamped up.
-    [defaults setInteger:100 forKey:key];
-    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 2000u);
+    XCTAssertEqual([GlkTextBufferWindow clampScrollbackLimit:100], 2000u);
 
-    // Explicit 0 => unlimited (distinct from unset, which is the default).
-    [defaults setInteger:0 forKey:key];
-    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 0u);
+    // Explicit 0 => unlimited.
+    XCTAssertEqual([GlkTextBufferWindow clampScrollbackLimit:0], 0u);
 
     // Negative is also treated as unlimited.
-    [defaults setInteger:-5 forKey:key];
-    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 0u);
-
-    // Removing the key again falls back to the default, not unlimited.
-    [defaults removeObjectForKey:key];
-    XCTAssertEqual([GlkTextBufferWindow scrollbackLimit], 30000u);
-
-    // Restore whatever was there before.
-    if (saved)
-        [defaults setObject:saved forKey:key];
-    else
-        [defaults removeObjectForKey:key];
+    XCTAssertEqual([GlkTextBufferWindow clampScrollbackLimit:-5], 0u);
 }
 
 // The Preferences nib must instantiate with the new scrollback controls wired
@@ -1261,6 +1251,166 @@
             XCTFail(@"Test timed out: %@", error);
         }
     }];
+}
+
+#pragma mark - Progressive Core Data migration (real model-13 store)
+
+// Copy the file at url (plus its -wal/-shm sidecars, if present) to dstURL.
+// A purely read-only snapshot of the source - we never open or modify it.
+- (BOOL)copyStoreFilesFrom:(NSURL *)url to:(NSURL *)dstURL {
+    NSFileManager *fm = NSFileManager.defaultManager;
+    for (NSString *suffix in @[@"", @"-wal", @"-shm"]) {
+        NSURL *src = [NSURL fileURLWithPath:[url.path stringByAppendingString:suffix]];
+        if (![fm fileExistsAtPath:src.path])
+            continue;
+        NSURL *dst = [NSURL fileURLWithPath:[dstURL.path stringByAppendingString:suffix]];
+        [fm removeItemAtURL:dst error:NULL];
+        if (![fm copyItemAtURL:src toURL:dst error:NULL])
+            return NO;
+    }
+    return YES;
+}
+
+// End-to-end check that progressive migration chains a real, pre-hash store all
+// the way to the current model AND actually runs the custom
+// IfidToHashMigrationPolicy (i.e. passes through "Spatterlight 15"), rather than
+// taking a single inferred hop. Uses the on-disk model-13 group-container store
+// as a read-only fixture; skips cleanly if it is not present.
+//
+// Discriminator: the policy nils every Game.hashTag (and recomputes it from the
+// file only for "found" games). We set found=NO first, so after a policy-driven
+// migration every hashTag is empty. Plain inference would instead have copied
+// the old non-empty hashTags straight across. Zero non-empty hashTags therefore
+// proves the policy ran.
+- (void)testProgressiveMigrationFromRealV13Store {
+    NSFileManager *fm = NSFileManager.defaultManager;
+
+    // The app momd (in the test host bundle) holds every model version.
+    NSURL *momd = [[NSBundle mainBundle] URLForResource:@"Spatterlight" withExtension:@"momd"];
+    XCTAssertNotNil(momd, @"Spatterlight.momd must be in the test host bundle");
+    NSManagedObjectModel *v13 = [[NSManagedObjectModel alloc]
+                                 initWithContentsOfURL:[momd URLByAppendingPathComponent:@"Spatterlight 13.mom"]];
+    XCTAssertNotNil(v13, @"model 13 must exist in the momd");
+
+    // Locate the real model-13 fixture store.
+    NSURL *realStore = nil;
+    NSMutableArray<NSURL *> *candidates = [NSMutableArray array];
+    for (NSString *group in @[@"group.net.ccxvii.spatterlight", @"6U7YY3724Y.group.net.ccxvii.spatterlight"]) {
+        NSURL *c = [fm containerURLForSecurityApplicationGroupIdentifier:group];
+        if (c)
+            [candidates addObject:[c URLByAppendingPathComponent:@"Spatterlight.storedata"]];
+    }
+    [candidates addObject:[NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingPathComponent:
+                           @"Library/Group Containers/group.net.ccxvii.spatterlight/Spatterlight.storedata"]]];
+    for (NSURL *s in candidates) {
+        if (![fm fileExistsAtPath:s.path])
+            continue;
+        NSDictionary *m = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:s options:nil error:NULL];
+        if (m && [v13 isConfiguration:nil compatibleWithStoreMetadata:m]) { realStore = s; break; }
+    }
+    if (!realStore) {
+        NSLog(@"Skipping testProgressiveMigrationFromRealV13Store: no model-13 fixture store found.");
+        return;
+    }
+
+    // Snapshot it to a temp location; the original is never opened/modified.
+    NSURL *tmpStore = [[NSURL fileURLWithPath:NSTemporaryDirectory()]
+                       URLByAppendingPathComponent:[NSString stringWithFormat:@"v13fixture-%@.storedata",
+                                                    NSProcessInfo.processInfo.globallyUniqueString]];
+    XCTAssertTrue([self copyStoreFilesFrom:realStore to:tmpStore], @"failed to snapshot fixture store");
+
+    NSManagedObjectModel *finalModel = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"].managedObjectModel;
+    XCTAssertNotNil(finalModel);
+
+    // Open the snapshot at v13: set found=NO everywhere (so the policy does no
+    // file I/O) and record the discriminator baseline.
+    NSUInteger preGames = 0, preMeta = 0, preNonEmptyHash = 0;
+    @autoreleasepool {
+        NSPersistentStoreCoordinator *c13 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v13];
+        NSError *e = nil;
+        XCTAssertNotNil([c13 addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:tmpStore options:nil error:&e], @"open v13 snapshot: %@", e);
+        NSManagedObjectContext *ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        ctx.persistentStoreCoordinator = c13;
+        NSArray<NSManagedObject *> *games = [ctx executeFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Game"] error:&e];
+        for (NSManagedObject *g in games) {
+            if (((NSString *)[g valueForKey:@"hashTag"]).length)
+                preNonEmptyHash++;
+            [g setValue:@NO forKey:@"found"];
+        }
+        preGames = games.count;
+        preMeta = [ctx countForFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Metadata"] error:&e];
+        XCTAssertTrue([ctx save:&e], @"save found=NO: %@", e);
+        for (NSPersistentStore *s in c13.persistentStores.copy)
+            [c13 removePersistentStore:s error:NULL];
+    }
+    XCTAssertGreaterThan(preGames, 0u, @"fixture should contain games");
+    // The discriminator below relies on the policy reconciling Metadata to one
+    // row per Game, so the fixture must start out NOT already 1:1.
+    XCTAssertNotEqual(preMeta, preGames, @"fixture should have a different Metadata and Game count");
+    // ...and on the policy nilling hashTags, so the fixture must have some.
+    XCTAssertGreaterThan(preNonEmptyHash, 0u, @"fixture needs some non-empty hashTags");
+
+    // The snapshot must NOT already be at the current model.
+    NSDictionary *preMetaDict = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:tmpStore options:nil error:NULL];
+    XCTAssertFalse([finalModel isConfiguration:nil compatibleWithStoreMetadata:preMetaDict]);
+
+    // Run the real progressive migration.
+    CoreDataManager *cdm = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"];
+    NSError *migErr = nil;
+    BOOL ok = [cdm progressivelyMigrateStoreAtURL:tmpStore ofType:NSSQLiteStoreType toModel:finalModel error:&migErr];
+    XCTAssertTrue(ok, @"progressive migration failed: %@", migErr);
+
+    // It must now be at the current model.
+    NSDictionary *postMetaDict = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:tmpStore options:nil error:NULL];
+    XCTAssertTrue([finalModel isConfiguration:nil compatibleWithStoreMetadata:postMetaDict], @"store is not at the current model after migration");
+
+    // Verify data survived and the policy ran.
+    NSUInteger postGames = 0, postMeta = 0, postNonEmptyHash = 0;
+    @autoreleasepool {
+        NSPersistentStoreCoordinator *c16 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel];
+        NSError *e = nil;
+        XCTAssertNotNil([c16 addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:tmpStore options:nil error:&e], @"open migrated store: %@", e);
+        NSManagedObjectContext *ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        ctx.persistentStoreCoordinator = c16;
+        NSArray<NSManagedObject *> *games = [ctx executeFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Game"] error:&e];
+        for (NSManagedObject *g in games)
+            if (((NSString *)[g valueForKey:@"hashTag"]).length)
+                postNonEmptyHash++;
+        postGames = games.count;
+        postMeta = [ctx countForFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Metadata"] error:&e];
+        for (NSPersistentStore *s in c16.persistentStores.copy)
+            [c16 removePersistentStore:s error:NULL];
+    }
+
+    NSLog(@"Progressive migration: games %lu->%lu, metadata %lu->%lu, non-empty hashTags %lu->%lu",
+          (unsigned long)preGames, (unsigned long)postGames, (unsigned long)preMeta, (unsigned long)postMeta,
+          (unsigned long)preNonEmptyHash, (unsigned long)postNonEmptyHash);
+
+    XCTAssertEqual(postGames, preGames, @"Game rows must be preserved across migration");
+    XCTAssertGreaterThan(postMeta, 0u, @"Metadata must survive migration");
+    // Discriminator that the custom IfidToHashMigrationPolicy actually ran (i.e.
+    // the chain passed through model 15) rather than a single inferred hop: the
+    // policy rebuilds Game<->Metadata relationships and reconciles Metadata to
+    // one row per Game. A plain inferred migration is structurally incapable of
+    // deleting rows, so it would have preserved the original Metadata count.
+    // Reaching one-Metadata-per-Game from a non-1:1 source therefore proves the
+    // policy ran.
+    XCTAssertNotEqual(postMeta, preMeta,
+                      @"Metadata count must change - inference cannot delete rows, so an unchanged count would mean the policy did not run");
+    XCTAssertEqual(postMeta, postGames,
+                   @"policy should reconcile Metadata to exactly one row per Game (got %lu Metadata for %lu Games)",
+                   (unsigned long)postMeta, (unsigned long)postGames);
+    // With found=NO set above, the (now-fixed) policy nils every Game.hashTag
+    // and does not recompute it from a file. Plain inference would have copied
+    // the old non-empty values across, so zero proves the hashTag-deletion path
+    // (IfidToHashMigrationPolicy.m line 77) actually runs now.
+    XCTAssertEqual(postNonEmptyHash, 0u,
+                   @"the policy should have nilled every hashTag (got %lu non-empty of %lu before the migration)",
+                   (unsigned long)postNonEmptyHash, (unsigned long)preNonEmptyHash);
+
+    // Clean up the temp snapshot.
+    [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel]
+     destroyPersistentStoreAtURL:tmpStore withType:NSSQLiteStoreType options:nil error:NULL];
 }
 
 @end

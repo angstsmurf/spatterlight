@@ -73,8 +73,11 @@
     // Copy attributes from old model to new
     [IfidToHashMigrationPolicy copyAttributesFrom:sInstance to:destinationInstance usingValues:sourceValues andKeys:destinationKeys];
 
-    // Delete any old hash tags (because we use a new system)
-    if ([destinationKeys indexOfObjectIdenticalTo:@"hashTag"] != NSNotFound) {
+    // Delete any old hash tags (because we use a new system).
+    // NB: use containsObject: (value equality) not indexOfObjectIdenticalTo:
+    // (pointer identity), which never matched the literal against the model's
+    // attribute-key strings and so left this whole block as dead code.
+    if ([destinationKeys containsObject:@"hashTag"]) {
         if ([mapping.destinationEntityName isEqualToString:@"Game"]) {
             NSString *detectedFormat = [sInstance valueForKey:@"detectedFormat"];
             if (detectedFormat.length && [detectedFormat isEqualToString:@"glulx"]) {

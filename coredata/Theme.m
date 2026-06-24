@@ -69,6 +69,7 @@
 @dynamic sADisplayStyle;
 @dynamic sAInventory;
 @dynamic sAPalette;
+@dynamic scrollbackLimit;
 @dynamic slowDrawing;
 @dynamic smartQuotes;
 @dynamic smoothScroll;

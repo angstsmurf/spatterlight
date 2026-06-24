@@ -31,13 +31,13 @@
 #endif // DEBUG
 
 // Rolling scrollback cap. When the live text storage grows past the limit
-// (the "BufferScrollbackLimit" user default, or kScrollbackTrimDefault when
-// unset) the oldest committed text is trimmed back to two thirds of the limit
-// at a paragraph boundary, so layout, margin-image anchoring, and scrolling
-// stay bounded over very long sessions. The active input region is never
-// trimmed, and trimming only happens while the view is scrolled to the bottom.
+// (the current theme's scrollbackLimit attribute) the oldest committed text is
+// trimmed back to two thirds of the limit at a paragraph boundary, so layout,
+// margin-image anchoring, and scrolling stay bounded over very long sessions.
+// The active input region is never trimmed, and trimming only happens while
+// the view is scrolled to the bottom.
 static const NSUInteger kScrollbackTrimDefault = 30000;
-// Floor for the user setting, so the keep math stays meaningful and paging
+// Floor for the setting, so the keep math stays meaningful and paging
 // still works even if someone sets a tiny value.
 static const NSUInteger kScrollbackTrimMinimum = 2000;
 
@@ -2227,22 +2227,22 @@ replacementString:(id)repl {
     return cut;
 }
 
-// The scrollback character limit. Power users can override it with
-//   defaults write net.ccxvii.spatterlight BufferScrollbackLimit <chars>
-// When the key is absent, the built-in default applies. An explicit value of
+// Clamp a raw scrollback-limit value into the supported range. A value of
 // 0 (or negative) means unlimited - the scrollback is never trimmed. Any other
-// positive value is clamped up to a sensible floor.
-+ (NSUInteger)scrollbackLimit {
-    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    // Distinguish "never set" (use the default) from an explicit 0 (unlimited).
-    if ([defaults objectForKey:@"BufferScrollbackLimit"] == nil)
-        return kScrollbackTrimDefault;
-    NSInteger pref = [defaults integerForKey:@"BufferScrollbackLimit"];
-    if (pref <= 0)
+// positive value is clamped up to a sensible floor. Shared by the per-window
+// getter below and by the Preferences UI.
++ (NSUInteger)clampScrollbackLimit:(NSInteger)value {
+    if (value <= 0)
         return 0; // unlimited - no trimming
-    if ((NSUInteger)pref < kScrollbackTrimMinimum)
+    if ((NSUInteger)value < kScrollbackTrimMinimum)
         return kScrollbackTrimMinimum;
-    return (NSUInteger)pref;
+    return (NSUInteger)value;
+}
+
+// The scrollback character limit for this window, taken from the current
+// theme's scrollbackLimit attribute (clamped). 0 means unlimited.
+- (NSUInteger)scrollbackLimit {
+    return [GlkTextBufferWindow clampScrollbackLimit:self.theme.scrollbackLimit];
 }
 
 // Enforce the rolling scrollback cap: when the buffer grows past the limit,
@@ -2267,13 +2267,13 @@ replacementString:(id)repl {
         // buffer has grown well past the limit, hand off to a background trim
         // that rebuilds a trimmed, pre-laid-out text system off the main thread
         // and swaps it in with the scroll position preserved.
-        NSUInteger limit = [GlkTextBufferWindow scrollbackLimit];
+        NSUInteger limit = self.scrollbackLimit;
         if (limit != 0 && textstorage.length > limit * 2)
             [self scheduleBackgroundTrimToLimit:limit];
         return;
     }
 
-    NSUInteger limit = [GlkTextBufferWindow scrollbackLimit];
+    NSUInteger limit = self.scrollbackLimit;
     if (limit == 0)
         return; // unlimited scrollback
     if (textstorage.length <= limit)

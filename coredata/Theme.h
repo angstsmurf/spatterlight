@@ -116,6 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t sADisplayStyle;
 @property (nonatomic) int32_t sAInventory;
 @property (nonatomic) int32_t sAPalette;
+@property (nonatomic) int32_t scrollbackLimit;
 @property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
 @property (nonatomic) BOOL smoothScroll;

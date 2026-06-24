@@ -721,7 +721,7 @@ NSString *fontToString(NSFont *font) {
 
     _btnShowBezels.state = [defaults boolForKey:@"ShowBezels"] ? NSOnState : NSOffState;
 
-    NSInteger scrollbackLimit = (NSInteger)[GlkTextBufferWindow scrollbackLimit];
+    NSInteger scrollbackLimit = (NSInteger)[GlkTextBufferWindow clampScrollbackLimit:theme.scrollbackLimit];
     _scrollbackLimitTextField.integerValue = scrollbackLimit;
     _scrollbackLimitStepper.integerValue = scrollbackLimit;
     _scrollbackUnitLabel.stringValue = (scrollbackLimit == 0) ? NSLocalizedString(@"= unlimited", nil) : NSLocalizedString(@"characters", nil);
@@ -1998,11 +1998,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [self changeBooleanAttribute:@"smoothScroll" fromButton:sender];
 }
 
-// The buffer scrollback limit is a global setting (applies to all themes),
-// stored in the BufferScrollbackLimit user default. Both the text field and
-// the stepper drive this. 0 means unlimited (never trim); any other value is
-// clamped to the supported range. Keep both controls and the unit label in
-// sync so the "= unlimited" affordance is visible.
+// The buffer scrollback limit is a per-theme setting, stored in the theme's
+// scrollbackLimit Core Data attribute. Both the text field and the stepper
+// drive this. 0 means unlimited (never trim); any other value is clamped to
+// the supported range. Keep both controls and the unit label in sync so the
+// "= unlimited" affordance is visible.
 - (IBAction)changeScrollbackLimit:(id)sender {
     NSInteger value = [sender integerValue];
     if (value <= 0)
@@ -2011,8 +2011,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
         value = 2000;
     else if (value > 2000000)
         value = 2000000;
-    [[NSUserDefaults standardUserDefaults] setInteger:value
-                                               forKey:@"BufferScrollbackLimit"];
+    if (theme.scrollbackLimit != value) {
+        Theme *themeToChange = [self cloneThemeIfNotEditable];
+        themeToChange.scrollbackLimit = (int32_t)value;
+    }
     _scrollbackLimitTextField.integerValue = value;
     _scrollbackLimitStepper.integerValue = value;
     _scrollbackUnitLabel.stringValue = (value == 0) ? NSLocalizedString(@"= unlimited", nil) : NSLocalizedString(@"characters", nil);

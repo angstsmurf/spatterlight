@@ -150,6 +150,7 @@
         <attribute name="sADisplayStyle" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sAInventory" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sAPalette" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="scrollbackLimit" optional="YES" attributeType="Integer 32" defaultValueString="30000" usesScalarValueType="YES"/>
         <attribute name="slowDrawing" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="smartQuotes" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="smoothScroll" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>

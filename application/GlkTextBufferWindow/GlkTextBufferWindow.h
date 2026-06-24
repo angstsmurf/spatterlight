@@ -58,9 +58,14 @@ NS_ASSUME_NONNULL_BEGIN
                                targetKeep:(NSUInteger)targetKeep
                                 safeLimit:(NSUInteger)safeLimit;
 
-// The scrollback character limit, read from the "BufferScrollbackLimit" user
-// default (clamped to a sensible floor), or a built-in default when unset.
-+ (NSUInteger)scrollbackLimit;
+// The scrollback character limit for this window, taken from the current
+// theme's scrollbackLimit attribute (clamped to a sensible floor). 0 means
+// unlimited (the scrollback is never trimmed).
+- (NSUInteger)scrollbackLimit;
+
+// Clamp a raw scrollback-limit value into the supported range (0 = unlimited,
+// otherwise at least the minimum floor). Exposed for the Preferences UI.
++ (NSUInteger)clampScrollbackLimit:(NSInteger)value;
 
 - (void)padWithNewlines:(NSUInteger)lines;
 
