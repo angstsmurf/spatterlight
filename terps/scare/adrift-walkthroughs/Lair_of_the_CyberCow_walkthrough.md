@@ -2,24 +2,29 @@
 
 - **Author:** Conrad Cook, *Lair of the CyberCow*, copyright 2008, written in
   ADRIFT 3.9 for **IF Comp 2008**. No published walkthrough on Key & Compass,
-  IF Archive, or CASA. (The game ships an in-game `walkthrough` command, but its
-  text is an inaccurate draft — it uses verbs the game does not implement, e.g.
-  `fix robot` for `complete robot`, `catch fairy` for `catch Vluurinik`,
-  `milk cow` etc. — and its routing does not actually win.)
+  IF Archive, or CASA.
 - **Engine:** ADRIFT 3.90 data. The Battle System is **not** used for any
   reachable point (no combat-assist involved).
-- **Result:** **Max score reached: 10/10 (100%), deterministic.** The play-through
-  below banks every one of the game's display points and reaches the climactic
-  **Robot-vs-CyberCow confrontation**, where the CyberCow is destroyed.
-- **The separate "fairy kiss" END-GAME ending (`#end game`, task 175) does NOT
-  appear to be reachable in SCARE through any path found — see the closing
-  analysis.** The 10/10 route is the furthest reachable, fully-scored state.
-- Solution file: `harness/cybercow_solution.txt` (first two lines are the
-  name/gender start-up prompts: `Hero`, `male`).
-- **Required engine fix:** the fairy *Vluurinik* was **uncatchable** in SCARE
-  until a real interpreter bug was fixed (walk `MeetObject` dynamic-index
-  conversion, missing for 3.9/4.0 games). Without it the game caps at 6/10. See
-  the "Engine fix" note below.
+- **Result: the game is fully winnable in SCARE.** It reaches its proper
+  `EndGame` ending — **task 175, the "fairy kiss"** (`*** The End ***`). The
+  game's own in-game `walkthrough` command now plays through to that ending; an
+  earlier draft of this file wrongly concluded the win was unreachable, but that
+  was only because of the three interpreter bugs fixed below.
+- **Two routes are documented:**
+  1. **The win** — the in-game `walkthrough` route (`put fairy into robot →
+     uncle → ... → give berry to fairy`). Solution:
+     `harness/cybercow_win_solution.txt`.
+  2. **Max display score (10/10)** — a deterministic route that banks every one
+     of the game's display points and reaches the climactic **Robot-vs-CyberCow
+     confrontation** set-piece (but stops short of the fairy-kiss ending).
+     Solution: `harness/cybercow_solution.txt`.
+- Both solution files begin with the name/gender start-up prompts: `Hero`,
+  `male`.
+- **Caveat:** Vluurinik (the fairy) moves on a partly random walk, so the exact
+  number of `z` waits needed to lure and catch her can vary from run to run. The
+  headless harness is deterministic (fixed RNG seed), so the checked-in command
+  lists are reproducible there; in normal play, wait a few extra turns if she
+  hasn't taken the bait yet.
 
 ## The map
 
@@ -45,7 +50,45 @@ it). The **Well** (reached after you rig the rope) is home to the **CyberCow**.
 The fairy **Vluurinik** flies a fixed loop through the **Steeple → Meadow →
 Chapel Yard**.
 
-## The deterministic 10/10 command list
+## Route 1 — the win (fairy-kiss ending)
+
+This is the game's own in-game `walkthrough` route (type `walkthrough` in the
+game to see it). It builds the robot, powers it with the **live fairy**,
+surrenders to it (`uncle`), is led down to the lair, and ends in the floating
+bell. See `harness/cybercow_win_solution.txt` for the exact command list.
+
+Phases:
+
+1. **Cottage + bell tower (same as the 10/10 route, steps 1–3 below):** open the
+   cupboard, take the **bowl** and **flashlight**, `push couch`, fetch the
+   **snail** in the Meadow, rig the **well rope**, and get the **robot plans**
+   from inside the bell (`flip bell with cross`, `take packet`, `unfold packet`).
+2. **Build the robot and milk the cow:** in the Cellar, `complete robot`
+   (the in-game text calls it `fix robot`). Down the well, `give snail to cow`
+   then `milk cow` to fill the bowl.
+3. **Bait and catch the fairy:** carry the milk to a room on Vluurinik's loop
+   (the steeple or the **chapel yard** both work — see the walk-meet engine fix),
+   `drop` the bowl, wait until she snatches it, then `catch Vluurinik`
+   (`catch fairy`).
+4. **Power the robot with the live fairy and surrender:** back in the Cellar,
+   `put fairy into robot`. The robot wakes up, grabs you, and interrogates you;
+   answer `uncle`. After a few turns it gives up — **"The Robot releases you
+   with a mean little shove"** — and the cellar `up` exit, which `put fairy in
+   robot` had sealed, **reopens.**
+5. **Lead the robot to the lair:** go `up`, `w`, `d`. The robot **follows you**
+   ("The Robot marches in"); at the **Bottom of the Well** it finally meets the
+   CyberCow ("The Robot and the CyberCow lock eyes") and the way `w` into the
+   lair opens.
+6. **Lair → floating bell → the kiss:** `take steak` triggers the flood; ride it
+   up, `get in bell`, and when the fairy reappears, `take berry` and
+   `give berry to fairy`. *"…in the only place she considered safe, she kissed
+   you."* — **`*** The End ***`.**
+
+## Route 2 — the deterministic 10/10 max-score command list
+
+This route banks all ten display points and ends at the Robot-vs-CyberCow
+confrontation set-piece (it does **not** reach the fairy-kiss ending — it powers
+the robot with **bones**, not the live fairy).
 
 ```
 Hero
@@ -121,7 +164,7 @@ d              +1  fleeing into the Chapel Yard triggers the Robot-vs-CyberCow
 score          -> 10 out of 10
 ```
 
-## Phase notes
+### Phase notes (route 2)
 
 1. **Opening / cottage (push couch +1).** From the Bus Stop go `s` to the Chapel
    Yard hub. `e` into the Living Room: open the cupboard and take the **bowl**
@@ -142,11 +185,10 @@ score          -> 10 out of 10
    it "won't work as a power source.")
 5. **CyberCow (milk +1).** `u`,`w`,`d` down the well to the CyberCow.
    `feed snail to cybercow`, then `milk cybercow` (+1) fills the bowl.
-6. **Catch the fairy (baited +1).** Carry the milk up to the **steeple** (`u`,`s`,
-   `e`,`u`,`out`) — this is where Vluurinik's flight loop passes a room you can
-   stand in. `drop milk` and wait: Vluurinik flies in, **snatches the bowl
-   (+1)** and bolts for the meadow. Chase it down (`in`,`d`,`w`,`n`,`w`) and
-   `catch Vluurinik`.
+6. **Catch the fairy (baited +1).** Carry the milk to a room on Vluurinik's loop
+   (here the **steeple**: `u`,`s`,`e`,`u`,`out`). `drop milk` and wait: Vluurinik
+   flies in, **snatches the bowl (+1)** and bolts for the meadow. Chase it down
+   (`in`,`d`,`w`,`n`,`w`) and `catch Vluurinik`.
 7. **Bones robot (+2) and the confrontation (+1).** `eat fairy` turns the caught
    fairy into **bones**. Back to the Cellar (`e`,`e`,`d`) and `put bones in
    robot` (+2) — the bones power it and it wakes up berserk ("-DEATH-").
@@ -158,83 +200,77 @@ score          -> 10 out of 10
    *Do **not** linger near the berserk Robot and do **not** `push` it — it kills
    you with its ray ("a blinding, searing ray of light — You have died").*
 
-## Engine fix required (the fairy was uncatchable)
+## Engine fixes (all confirmed against the ADRIFT 3.9 Runner P-code)
 
-Catching Vluurinik depends on the fairy's **walk ObjectTask**: when the fairy's
-fixed walk steps into a room that holds the milk bowl, it runs task 76
-(`#lured`). A walk's `MeetObject` is stored in the TAF as a **1-based dynamic-
-object index**, and the runtime needs a **global** object index. The parser
-performs this dynamic→global conversion (the `|V380_WALK:_MeetObject_|` fixup)
-**only for version 3.8 games**; the 3.9 and 4.0 WALK schemas read it raw.
-`npc_tick_npc_walk()` then used that raw dynamic index as if it were a global
-index — so for this 3.9 game `MeetObject` (the milk bowl, dynamic index 17,
-global object 28) was read as global object 17 (`_sleeping`), which is never in
-any room, so the lure **never fired** and the fairy could never be caught.
-This caps the game at 6/10.
+Three interpreter bugs blocked this game; all three are engine-level (they ship
+in Spatterlight, not just the harness) and leave the bundled-walkthrough corpus
+output byte-identical.
 
-**Fix (`scnpcs.c`):** convert `MeetObject` from a dynamic to a global index at
-run time for any game newer than 3.8 (`npc_walk_meetobject_needs_fixup()` +
-`obj_dynamic_object()`), matching what the 3.8 parser already does. Engine-level
-(applies to Spatterlight, not just the harness); the existing winnable corpus
-games are unaffected (they have no object-meet walks).
+### 1. Walk `MeetObject` dynamic→global index (the fairy was uncatchable)
 
-## Second engine fix: `take all` ignored open containers / surfaces
+Catching Vluurinik depends on the fairy's **walk ObjectTask**: when her fixed
+walk steps into a room that holds the milk bowl, it runs a `#lured` task. A
+walk's `MeetObject` is stored in the TAF as a **1-based dynamic-object index**,
+but the runtime needs a **global** object index. The parser performs this
+conversion (the `|V380_WALK:_MeetObject_|` fixup) **only for version 3.8 games**;
+the 3.9/4.0 WALK schemas read it raw. `npc_tick_npc_walk()` then used that raw
+dynamic index as a global one — so `MeetObject` (the milk bowl) pointed at the
+wrong object, the lure never fired, and the fairy could never be caught.
 
-A separate SCARE bug surfaced in this room: after `open cupboard` (which holds
-the bowl and flashlight), the ADRIFT runner answers `take all` with *"You take
-the bowl and the flashlight from the cupboard."* — but SCARE said *"There is
-nothing to pick up here."* `lib_cmd_take_all` / `lib_cmd_take_except_multiple`
-used `lib_take_not_associated_filter`, which **unconditionally excludes** any
-object that is inside or on another object — so contents of an open container
-(or items on a surface) present in the room were never picked up. The base
-`lib_take_filter` already does the right thing: it uses `obj_indirectly_in_room`,
-which recurses only through *open* containers/surfaces, so it includes
-open-container/surface contents while still excluding the contents of *closed*
-containers. **Fix (`sclibrar.c`):** both "take all" frontends now use
-`lib_take_filter` (the over-restrictive `lib_take_not_associated_filter` is
-retired). Verified the two banked corpus wins that use `take all`
-(SecretOfLostWorld, X-Files) still complete.
+**Fix (`scnpcs.c`):** convert `MeetObject` from dynamic to global at run time for
+any game newer than 3.8 (`npc_walk_meetobject_needs_fixup()` +
+`obj_dynamic_object()`), matching the 3.8 parser.
 
-## Why the "fairy kiss" ending is not reachable (analysis)
+### 2. Walk-met tasks are dispatched by command, honouring "Where"
 
-The game's only `EndGame`/win action is **task 175 `#end game`** (the "fairy
-kiss"), reached by a flood finale: in the floating bell (room 32) the fairy
-appears, you `take berry` and `give berry to fairy`, and a kiss ends the game.
-That flood only starts from **`#fairy appears` (task 169)**, which fires from
-**`take steak` (task 96)** or **`turn on television` (task 106)** — both deep
-inside the **lair** (rooms 28/30). Reaching the lair requires entering the
-"Bottom of the Well" confrontation cluster (rooms 25–30), whose three entrances
-are all blocked in SCARE:
+When a walking character meets an object/character, the Runner does **not** run
+the single task stored in the walk; it copies that task's **command text** and
+runs it through the normal task matcher, so every task sharing that command is a
+candidate and the one whose "Where" room list matches the **player's** room
+(restrictions permitting) is what fires. CyberCow has **two `#lured` tasks** —
+one for the steeple, one for the chapel yard — so the fairy steals the milk bowl
+in **either** room. Running only the literal walk task fired the steeple variant
+only; dropping the milk in the chapel yard did nothing.
 
-- **`d` from the well — task 98 — needs `_permaUncle`.** `_permaUncle` is set by
-  saying `uncle` (task 37) to the **psycho (fairy-powered) Robot**. But powering
-  the robot with the *live fairy* (`put fairy in robot`, task 82) **seals the
-  cellar**: the cellar's only exit (`up`) is gated on task 82 being *not* done,
-  so once the fairy is installed you are trapped in the cellar with the
-  interrogating robot. `_permaUncle` can therefore only ever be obtained while
-  sealed in the cellar, with no way to reach the well to use it.
-- **`d` from the Chapel Yard — task 117 — needs `put bones in robot` done.** This
-  is the route the 10/10 list uses, but its move action relocates the **CyberCow**
-  into the arena (for the confrontation set-piece), not the player; the player
-  stays in the Chapel Yard and is then washed back out after the milk explosion.
-  It never delivers the player into the arena.
-- **`d` from the Chapel Yard — task 112 — needs the "dead fairy" (object 41)
-  held.** Object 41 is recovered (task 5) only from the Robot's **hulk** — i.e.
-  after the Robot has been *killed* with the cross (task 147). But the Robot can
-  never be brought to that state: the fairy-powered robot is locked in the
-  sealed cellar, and the bones-powered robot is berserk and lethal — `push robot`
-  (the move that begins the bell-tower "fall" that makes it vulnerable) is an
-  instant death.
+A brief earlier attempt instead made walk-met tasks *skip* the "Where" check.
+That is wrong (and broke the robot's confrontation, firing it the instant the
+robot was built): `Form1.characters` runs the met task through `Form1.tasks()`,
+which **does** check "Where". **Fix:** `run_npc_walk_task()` in `scrunner.c`
+dispatches the met task by command across same-command siblings, gated by "Where"
++ restrictions; the three walk-meet sites in `scnpcs.c` call it.
 
-The CyberCow that blocks the lair entrance (`west` from the Bottom of the Well)
-is never removed — it still blocks even after the confrontation destroys "a"
-CyberCow in the set-piece. With the lair unreachable, `#fairy appears` never
-fires, the flood never starts, and **task 175 (the win) is unreachable**.
+### 3. An event that marks a task incomplete clears the flag (doesn't reverse)
 
-This is consistent with the in-game `walkthrough` text being a non-working
-draft (it routes through `put fairy into robot → say uncle → up`, but the
-cellar is sealed the instant the fairy goes in). Whether the deadlock is
-faithful to the original ADRIFT Runner (an as-shipped broken comp game) or a
-further SCARE divergence on top of the `MeetObject` bug was not resolved; the
-`MeetObject` fix is independently correct and is what raises the reachable
-score from 6 to the full 10.
+After `uncle`, the **"De-Uncle 2 Freedom"** event clears the `put fairy in
+robot` task so the cellar's `up` exit (gated on that task being *not* done)
+reopens. SCARE implemented an event's "set task incomplete" as a task **reverse**,
+which it gates on the task's `Reversible` flag — and `put fairy in robot` is not
+reversible, so the event silently did nothing and the player stayed **trapped in
+the cellar**. The Runner's `checkevent` just **clears the task's completed flag
+directly** (no reverse, no `Reversible`/`Where` check). **Fix (`scevents.c`):**
+when an event marks a task finished/incomplete, call `gs_set_task_done(…, FALSE)`
+instead of running the task backwards.
+
+### Bonus: `take all` ignored open containers / surfaces
+
+A separate bug surfaced here: after `open cupboard` (holding the bowl and
+flashlight), the Runner answers `take all` with *"You take the bowl and the
+flashlight from the cupboard."* but SCARE said *"There is nothing to pick up
+here."* The "take all" frontends used `lib_take_not_associated_filter`, which
+unconditionally excludes any object inside/on another object. **Fix
+(`sclibrar.c`):** both frontends now use `lib_take_filter`
+(`obj_indirectly_in_room`, which recurses through *open* containers/surfaces).
+
+## How the win was unblocked
+
+The win is **task 175 `#end game`** (the fairy kiss): in the floating bell the
+fairy reappears, you `take berry` and `give berry to fairy`. The flood that
+floats the bell starts from `take steak`/`turn on television` deep in the
+**lair**, reached by `d` from the Bottom of the Well (**task 98**, which needs
+`_permaUncle`). `_permaUncle` is set by saying `uncle` to the fairy-powered
+robot — but `put fairy in robot` seals the cellar, so the only way `uncle` is
+ever useful is if the cellar then **reopens**. The "De-Uncle 2 Freedom" event
+does exactly that, and fix #3 above is what makes it work; fixes #1 and #2 let
+you catch the fairy and bait it in the natural rooms. With the cellar reopening,
+you lead the robot to the well, the lair opens, and the fairy-kiss ending is
+reached — exactly as the game's own `walkthrough` command intends.
