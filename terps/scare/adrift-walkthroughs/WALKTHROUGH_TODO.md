@@ -28,11 +28,77 @@ records the full classification. Progress this session (12 new walkthroughs):
   `thetest_walkthrough.md` (**UNWINNABLE, max 5/25** — circular first-door lock),
   and `Main_Course_walkthrough.md` (**WON, 0/0** — cat-fur disguise puzzle) — see
   the 2026-06-24 (later) entries below.
-- **Still untouched:** Melbourne Beach, The Screen Savers
-  On Planet X, ALEXIS, Shadowpeak, circus, WesGHN, Space Boy's First Adventure
+- **Banked since:** `Melbourne_Beach_walkthrough.md` (**WON, max 38/41** — see
+  the 2026-06-24 (later) entry below).
+- **Still untouched:** The Screen Savers
+  On Planet X, ALEXIS, Shadowpeak, circus, Space Boy's First Adventure
   (all winnable, large); Bomb Threat, tcom (win, 0-score); Matt's House, Les Feux
   de l'enfer (score, no win); Through time (lose-only); SRSintro (0/0 intro);
   Theannihilationofthink2, deaths, lair-of-the-cybercow (hang after "Loading…").
+- **Banked since:** `WesGHN_walkthrough.md` (**UNWINNABLE, max 30/100**) and
+  `Melbourne_Beach_walkthrough.md` (**WON, max 38/41**) — see the 2026-06-24
+  (later) entries below.
+
+## 2026-06-24 (later): Melbourne Beach — **WON, max 38/41**
+
+`Melbourne_Beach_walkthrough.md`; solution `harness/melbourne_beach_solution.txt`.
+*Melbourne Beach* v1.0f by David D. Good (2001), ADRIFT 3.90 — a domestic
+slice-of-life game (no Battle System): an overnight guest does helpful morning
+chores around David & Judy's beach house, then drives to the beach; the win is
+`use shower` to rinse sandy feet (type-6 EndGame). Deterministic. Key RE'd
+mechanics: **`oil trumpet` (+5) secretly drops the hidden leather purse (car
+keys) into the Eating area** (the only way the keys appear); **"music" = the
+folder** from the car, given to Judy after the trumpet (`give music` needs
+`give trumpet` done); the **shower needs sandy feet** (set by walking east onto
+the Beach), and **volleyball is a deterministic skill counter** (variable[8]
++=1 per play; the 7th play scores +2). Two wandering NPCs (Judy, David) whose
+walks consume the shared RNG — met by **repeating** the give/play command until
+present (robust under determinism). **Max 38/41; the 3 lost points are all
+faithful game data:** (1) `wash clothes` is non-repeatable so the single wet
+batch makes **turn-on-dryer +1 mutually exclusive with fold +5** (take fold);
+(2) **red-cup coffee #2 (+1) is a logical contradiction** — the red cup is only
+revealed by `give coffee to the Captain`, which needs `drink oil` DONE, but the
+scoring drink needs `drink oil` NOT done; (3) **red-cup coffee #3 (+1) is gated
+behind `drink oil` (−1)** = net 0. Verified 3× identical. **Tooling note:** this
+session the `SC_DUMP_TASKS` instrumentation was finally factored into a
+committed, opt-in module — `terps/scare/scdump.c` (built only into the harness
+via `-DSCARE_DUMP_TOOLS`; one-line `#ifdef`-guarded hooks in sctasks.c /
+scnpcs.c) — so it no longer needs re-deriving each session. It adds
+`SC_TRACE_JUDY` (per-turn NPC-room trace) and `SC_TRACE_TASKS` (built-in
+task/restr trace) alongside the structural dump (tasks/restrictions/actions +
+container table + event table, with object/task names resolved). The Spatterlight
+build never compiles it.
+
+## 2026-06-24 (later): WesGHN (Wes Garden's Halting Nightmare) — **UNWINNABLE, max 30/100**
+
+`WesGHN_walkthrough.md`; solution `harness/wes_ghn_solution.txt`. *Wes Garden's
+Halting Nightmare* by Jubell (ADRIFT Spring Thing 2010) — a 3.5 MB graphics file
+but a tiny 10-room / 25-task / 3-NPC game. A surreal Mercy-Hospital nightmare:
+summon the **Soul Scythe**, kill the candy-striper **Hope**, box her spirit.
+**Triaged "winnable (1 win-ending)"; full RE proves it is NOT.** The win
+(`Put Hope's spirit into box`, task 24) and the *entire* back half (Radiology →
+eyeball → Medicine Cabinet → Ward → spirit) are fully built and verified to work
+when force-injected, but they are all sealed behind **one orphaned key object**:
+the **gold ring** needed to solve the first gate, the **Lovers' Fountain**
+(`Give ring and candle to fountain`, +20), sits **on a `severed hand` that no
+task, event, or NPC character-walk ever un-hides** (the hand is `OBJ_HIDDEN`,
+parented to nothing; the only two actions touching the hand/ring *hide* them).
+Fountain unsolvable ⇒ `#OpenRadiology` (its only non-circular opener) never fires
+⇒ everything downstream unreachable. **Constructively confirmed the ring is the
+SOLE break**: with it injected, fountain +20 → drops the **vial** (= the Medicine
+Cabinet door's key) → Radiology → `slash painting` +5 (eyeball, the Grand
+Corridor *optical scanner*'s key) → Medicine Cabinet `talk to charity` +10 →
+unlock with vial → Ward, all work. Faithful to the Runner (same `.taf` data, no
+reveal action — same class as Spirit's Flight's orphaned Ice Totem). **Max
+reachable 30** = talk Charity +10, closely-examine-figure +5 (also one-ways the
+Foyer shut), drink water +5, kill Hope +10. **Combat correctly configured** (no
+assist): summon the scythe → acc 50 > Hope's agi 30, she dies in ~6 hits, player
+has 40 stamina. **Footgun:** the attack verb is `attack hope`, NOT `attack hope
+with scythe` (grammar rejects the latter), and the scythe must be summoned first.
+**Tooling note:** used the reusable `SC_DUMP_TASKS` block in `sctasks.c` (extended
+with an object-position/door-`Key` dump + a one-shot `SC_GIVE_RING` injector to
+prove the chain) plus a temporary stamina/accuracy trace in `scbattle.c`; both
+files `git checkout`'d afterward — tree clean.
 
 ## 2026-06-24 (later): light_up_4summer_comp — **WON 73/75**
 
@@ -387,14 +453,19 @@ faithful-unwinnable + test with `SC_ASSUME_COMBAT=1`.
   ./scare GAME` then `debug` + `tasks 0 N` / `rooms` / `objects` / `npcs`.
   Find N from the "valid values are 0 to N" error. Read with `grep -a`
   (NUL bytes); set `LC_ALL=C` for games with non-UTF8 room names.
-- **Score/win existence test (definitive, fast):** temporarily add a
-  `task_dump_all(game)` block to `sctasks.c` (gated on `getenv("SC_DUMP_TASKS")`,
-  static-guard, called at the top of `task_can_run_task_directional`). It walks
-  `gs_task_count` tasks and `prop_get_child_count` for "Restrictions"/"Actions",
-  printing each task's `Command[0]` (read `S<-sisi`, index 0 — `Command` is an
-  ARRAY node, not a leaf!), `RestrMask`, and every restriction/action `Type`+Vars
-  to stderr. **Use raw `prop_get` (returns FALSE on missing), NOT
-  `prop_get_string/integer` (they `sc_fatal`).** Action types: 0 move-obj,
+- **Score/win existence test (definitive, fast):** the dump is now a **committed,
+  opt-in module — `terps/scare/scdump.c`** (built only into the harness via
+  `-DSCARE_DUMP_TOOLS`; `#ifdef`-guarded one-line hooks in `sctasks.c` /
+  `scnpcs.c`; the Spatterlight build omits it). Just `SC_DUMP_TASKS=1
+  ./harness/scare GAME </dev/null 2>dump.txt`. It prints, per task: `Command[0]`
+  (read `S<-sisi`, index 0 — `Command` is an ARRAY node, not a leaf!), `Where`,
+  `Repeatable`, and every restriction/action `Type`+Vars with object/task names
+  resolved, plus a container-index table and the full event table. It uses raw
+  `prop_get` (returns FALSE on missing), NOT `prop_get_string/integer` (they
+  `sc_fatal`). Also adds `SC_TRACE_TASKS=1` (built-in task/restr PASS/FAIL trace)
+  and `SC_TRACE_JUDY=1` (per-turn NPC-room dump, for pinning a wandering NPC's
+  walk). No more re-deriving or `git checkout` of the dump each session. Action
+  types: 0 move-obj,
   1 move-char, 2 obj-status, 3 change-var, 4 **ChangeScore**, 5 exec/unset-task,
   6 **EndGame** (var1: 0 win/WinText, 1 lose, 2 death, 3 silent stop), 7 battle-
   attr. **No type-4 ⇒ 0/0 no score; no type-6 ⇒ no win/lose ending** (proved

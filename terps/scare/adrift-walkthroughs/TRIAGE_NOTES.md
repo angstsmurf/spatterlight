@@ -15,12 +15,12 @@ Structural dump (SC_DUMP_TASKS) classification. "win" = a type-6 EndGame with
 | Colony | 14.8 | 10 | 4 | 1 | **DONE WIN 200/200** |
 | thetest | 22 | 29 | 6 | 1 | **DONE — UNWINNABLE, max 5/25** (the win exists but is sealed by a circular lock on the first door: #unlockdoor needs robot2==3, set only by #shoutrobots which needs Room 1, which the door gates) |
 | light_up_4summer_comp | 28 | 71 | 19 | 1 | **DONE WIN 73/75** (5-chapter horror; Battle System works; `hard`+15; laptop +2 RNG-conflicts) |
-| Melbourne Beach | 70 | 107 | 19 | 1 | todo |
+| Melbourne Beach | 70 | 107 | 19 | 1 | **DONE WIN, max 38/41** (beach-house morning chores → drive → rinse sandy feet at the beach shower = win; 3 lost pts are faithful data: non-repeatable wash makes turn-dryer+1 XOR fold+5, and 2 red-cup coffees are oil-contradiction / oil-penalty net-0) |
 | The Screen Savers On Planet X | 80 | 133 | 15 | 1 | todo |
 | ALEXIS | 87 | 78 | 25 | 1 | todo |
 | Shadowpeak | 96 | 574 | 69 | 1 | todo (large) |
 | circus | 117 | 158 | 58 | 3 | todo (large) |
-| WesGHN | 3500 | 25 | 12 | 1 | todo (graphics-heavy, tiny game) |
+| WesGHN | 3500 | 25 | 12 | 1 | **DONE — UNWINNABLE, max 30/100** (orphaned gold ring on a never-revealed severed hand seals the Lovers'-Fountain gate → whole back half unreachable; combat is correctly configured, scythe kills Hope) |
 | Space Boy's First Adventure | 3865 | 78 | 37 | 1 | todo (graphics-heavy) |
 
 ## B. Win ending but NO score (pure 0/0 win)

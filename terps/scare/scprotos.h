@@ -854,4 +854,10 @@ extern void if_update_graphic (const sc_char *filepath,
                                sc_int graphic_offset,
                                sc_int graphic_length);
 
+/* Developer dump/trace tooling (scdump.c); compiled only with SCARE_DUMP_TOOLS. */
+#ifdef SCARE_DUMP_TOOLS
+extern void sc_dump_structure_once (sc_gameref_t game);
+extern void sc_dump_npc_trace (sc_gameref_t game);
+#endif
+
 #endif

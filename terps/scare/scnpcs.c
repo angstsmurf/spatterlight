@@ -630,6 +630,10 @@ npc_tick_npcs (sc_gameref_t game)
   /* Iterate and tick each individual NPC. */
   for (npc = 0; npc < gs_npc_count (game); npc++)
     npc_tick_npc (game, npc);
+
+#ifdef SCARE_DUMP_TOOLS
+  sc_dump_npc_trace (game);     /* Per-turn NPC-location trace; see scdump.c. */
+#endif
 }
 
 

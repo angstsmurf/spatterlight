@@ -16,11 +16,11 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 OUT="$HERE/scare"
 
 cd "$SCARE"
-clang -O2 -w -I. \
+clang -O2 -w -I. -DSCARE_DUMP_TOOLS \
   sctafpar.c sctaffil.c scprops.c scvars.c scexpr.c scprintf.c scinterf.c \
   scparser.c sclibrar.c scrunner.c scevents.c scnpcs.c scbattle.c scobjcts.c \
   sctasks.c screstrs.c scgamest.c scserial.c scresour.c scmemos.c scutils.c \
-  sclocale.c scdebug.c os_ansi.c \
+  sclocale.c scdebug.c scdump.c os_ansi.c \
   "$HERE/seed.c" \
   -lz -o "$OUT"
 

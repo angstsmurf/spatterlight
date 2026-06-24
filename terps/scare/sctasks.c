@@ -140,6 +140,13 @@ task_can_run_task_directional (sc_gameref_t game,
   sc_vartype_t vt_key[5];
   sc_int type;
 
+#ifdef SCARE_DUMP_TOOLS
+  /* Reusable structural-dump / NPC-trace instrumentation; see scdump.c.
+   * Compiled only into the headless walkthrough harness (-DSCARE_DUMP_TOOLS);
+   * a normal Spatterlight build omits this entirely. */
+  sc_dump_structure_once (game);
+#endif
+
   /* If already run, non-repeatable tasks are not re-runnable forwards. */
   if (forwards && gs_task_done (game, task))
     {
