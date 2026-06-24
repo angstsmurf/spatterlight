@@ -586,6 +586,38 @@ prop_put_integer (sc_prop_setref_t bundle, const sc_char *format,
 }
 
 
+/*
+ * prop_put_string()
+ *
+ * Update the string value of an already-present leaf node.  The new value is
+ * interned into the bundle's string dictionary (so the bundle owns it and
+ * frees it on teardown).  Used for the runtime-mutable player name, chosen at
+ * game start.  Returns FALSE if the addressed node doesn't exist.
+ */
+sc_bool
+prop_put_string (sc_prop_setref_t bundle, const sc_char *format,
+                 const sc_char *value, const sc_vartype_t vt_key[])
+{
+  sc_prop_noderef_t node;
+  sc_int index_;
+  assert (prop_is_valid (bundle));
+
+  if (!format || format[0] == NUL
+      || format[1] != '<' || format[2] != '-' || format[3] == NUL)
+    sc_fatal ("prop_put_string: format error\n");
+
+  node = bundle->root_node;
+  for (index_ = 0; format[index_ + 3] != NUL; index_++)
+    {
+      node = prop_find_child (node, format[index_ + 3], vt_key[index_]);
+      if (!node)
+        return FALSE;
+    }
+  node->property.string = prop_dictionary_lookup (bundle, value);
+  return TRUE;
+}
+
+
 sc_bool
 prop_get (sc_prop_setref_t bundle, const sc_char *format,
           sc_vartype_t *vt_rvalue, const sc_vartype_t vt_key[])

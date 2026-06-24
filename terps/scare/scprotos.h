@@ -147,6 +147,10 @@ extern sc_int prop_get_child_count (sc_prop_setref_t bundle,
 extern sc_bool prop_put_integer (sc_prop_setref_t bundle,
                                  const sc_char *format,
                                  sc_int value, const sc_vartype_t vt_key[]);
+extern sc_bool prop_put_string (sc_prop_setref_t bundle,
+                                const sc_char *format,
+                                const sc_char *value,
+                                const sc_vartype_t vt_key[]);
 extern void prop_adopt (sc_prop_setref_t bundle, void *addr);
 extern void prop_debug_trace (sc_bool flag);
 extern void prop_debug_dump (sc_prop_setref_t bundle);

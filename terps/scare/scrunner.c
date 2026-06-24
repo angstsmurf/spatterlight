@@ -1364,6 +1364,48 @@ run_text_ends_in_newline (const sc_char *text)
 
 
 /*
+ * run_prompt_player_name()
+ *
+ * When a game's "prompt for player name" option is set, the Runner asks the
+ * player to type a name at game start (InputBox "Please enter your name:") and
+ * uses it for the player throughout (%player% substitutions); an empty answer
+ * becomes "Anonymous".  SCARE parsed but never honoured the option, so the
+ * name stayed at its authored default (often blank -> "Player").  Ask for it
+ * here, mirroring the Runner.  Like the gender choice, the answer is stored in
+ * the session-persistent property bundle.
+ */
+static void
+run_prompt_player_name (sc_gameref_t game)
+{
+  const sc_filterref_t filter = gs_get_filter (game);
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  const sc_var_setref_t vars = gs_get_vars (game);
+  sc_vartype_t vt_key[2];
+  sc_char buffer[LINE_BUFFER_SIZE];
+  const sc_char *name;
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "PromptName";
+  if (!prop_get_boolean (bundle, "B<-ss", vt_key))
+    return;
+
+  pf_buffer_string (filter, "Please enter your name: ");
+  pf_flush (filter, vars, bundle);
+
+  if_read_line (buffer, sizeof (buffer));        /* Trailing newline stripped. */
+
+  /* Skip leading whitespace; a blank answer becomes "Anonymous". */
+  for (name = buffer; *name == ' ' || *name == '\t'; name++)
+    ;
+  if (*name == NUL)
+    name = "Anonymous";
+
+  vt_key[1].string = "PlayerName";
+  prop_put_string (bundle, "S<-ss", name, vt_key);
+}
+
+
+/*
  * run_prompt_player_gender()
  *
  * Adrift stores the player's gender as Male, Female, or Unknown.  When it is
@@ -1472,7 +1514,9 @@ run_main_loop (sc_gameref_t game)
       if (!run_text_ends_in_newline (startuptext))
         pf_buffer_character (filter, '\n');
 
-      /* If the player's gender is Unknown, ask for it, like the Runner. */
+      /* If the game asks, prompt for the player's name, then (if Unknown) the
+       * player's gender -- both at game start, like the Runner. */
+      run_prompt_player_name (game);
       run_prompt_player_gender (game);
 
       /* If flagged, describe the initial room. */
