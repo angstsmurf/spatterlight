@@ -4934,9 +4934,8 @@ lib_take_from_npc_backend (sc_gameref_t game, sc_int associate)
 
 /*
  * lib_take_filter()
- * lib_take_not_associated_filter()
  *
- * Helper functions for deciding if an object may be acquired in this context.
+ * Helper function for deciding if an object may be acquired in this context.
  * Returns TRUE if an object may be acquired, FALSE otherwise.
  */
 static sc_bool
@@ -4946,7 +4945,12 @@ lib_take_filter (sc_gameref_t game, sc_int object, sc_int unused)
 
   /*
    * To be take-able, an object must be visible in the room, not static,
-   * and not already held or worn by the player or an NPC.
+   * and not already held or worn by the player or an NPC.  Note that
+   * obj_indirectly_in_room() recurses only through open containers and
+   * surfaces, so this naturally includes objects inside an open container
+   * (or on a surface) present in the room -- "take all" pulls them out, as
+   * the ADRIFT runner does -- while excluding the contents of closed
+   * containers.
    */
   return obj_indirectly_in_room (game, object, gs_playerroom (game))
          && !obj_is_static (game, object)
@@ -4954,18 +4958,6 @@ lib_take_filter (sc_gameref_t game, sc_int object, sc_int unused)
               || gs_object_position (game, object) == OBJ_WORN_PLAYER)
          && !(gs_object_position (game, object) == OBJ_HELD_NPC
               || gs_object_position (game, object) == OBJ_WORN_NPC);
-}
-
-static sc_bool
-lib_take_not_associated_filter (sc_gameref_t game,
-                                sc_int object, sc_int unused)
-{
-  assert (unused == -1);
-
-  /* In addition to other checks, the object may not be in or on an object. */
-  return lib_take_filter (game, object, -1)
-         && !(gs_object_position (game, object) == OBJ_ON_OBJECT
-              || gs_object_position (game, object) == OBJ_IN_OBJECT);
 }
 
 
@@ -4983,7 +4975,7 @@ lib_cmd_take_all (sc_gameref_t game)
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
   objects = lib_apply_multiple_filter (game,
-                                       lib_take_not_associated_filter, -1,
+                                       lib_take_filter, -1,
                                        NULL);
   gs_clear_multiple_references (game);
   if (objects > 0)
@@ -5010,7 +5002,7 @@ lib_cmd_take_except_multiple (sc_gameref_t game)
 
   /* Parse the multiple objects list to find leave target objects. */
   if (!lib_parse_multiple_objects (game, "leave",
-                                   lib_take_not_associated_filter, -1,
+                                   lib_take_filter, -1,
                                    &references))
     return FALSE;
   else if (references == 0)
@@ -5018,7 +5010,7 @@ lib_cmd_take_except_multiple (sc_gameref_t game)
 
   /* Filter objects into references, then handle with the backend. */
   objects = lib_apply_except_filter (game,
-                                     lib_take_not_associated_filter, -1,
+                                     lib_take_filter, -1,
                                      &references);
   if (objects > 0 || references > 0)
     lib_take_backend (game);

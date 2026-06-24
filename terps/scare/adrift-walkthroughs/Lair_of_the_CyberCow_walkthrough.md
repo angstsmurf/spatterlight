@@ -178,6 +178,23 @@ run time for any game newer than 3.8 (`npc_walk_meetobject_needs_fixup()` +
 (applies to Spatterlight, not just the harness); the existing winnable corpus
 games are unaffected (they have no object-meet walks).
 
+## Second engine fix: `take all` ignored open containers / surfaces
+
+A separate SCARE bug surfaced in this room: after `open cupboard` (which holds
+the bowl and flashlight), the ADRIFT runner answers `take all` with *"You take
+the bowl and the flashlight from the cupboard."* — but SCARE said *"There is
+nothing to pick up here."* `lib_cmd_take_all` / `lib_cmd_take_except_multiple`
+used `lib_take_not_associated_filter`, which **unconditionally excludes** any
+object that is inside or on another object — so contents of an open container
+(or items on a surface) present in the room were never picked up. The base
+`lib_take_filter` already does the right thing: it uses `obj_indirectly_in_room`,
+which recurses only through *open* containers/surfaces, so it includes
+open-container/surface contents while still excluding the contents of *closed*
+containers. **Fix (`sclibrar.c`):** both "take all" frontends now use
+`lib_take_filter` (the over-restrictive `lib_take_not_associated_filter` is
+retired). Verified the two banked corpus wins that use `take all`
+(SecretOfLostWorld, X-Files) still complete.
+
 ## Why the "fairy kiss" ending is not reachable (analysis)
 
 The game's only `EndGame`/win action is **task 175 `#end game`** (the "fairy
