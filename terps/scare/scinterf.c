@@ -1257,3 +1257,20 @@ sc_set_combat_assist (sc_bool flag)
 {
   battle_set_combat_assist (flag);
 }
+
+
+/*
+ * sc_set_move_assist()
+ *
+ * Enable or disable the optional "move assist" mode.  A few native-4.0 games
+ * were authored with a move task action's "To:" combo left at VB's default -1
+ * (the destination room sitting in Var3); the reference Runner silently ignores
+ * such a move, which in e.g. To Hell & Beyond leaves the game unwinnable.  When
+ * on, an unset (-1) move whose Var3 names a real room is honoured as "to room".
+ * Off by default; opt-in only, as it deliberately diverges from the Runner.
+ */
+void
+sc_set_move_assist (sc_bool flag)
+{
+  task_set_move_assist (flag);
+}

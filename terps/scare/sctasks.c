@@ -44,6 +44,30 @@ enum { TASK_MAXIMUM_RECURSION = 128 };
 /* Trace flag, set before running. */
 static sc_bool task_trace = FALSE;
 
+/*
+ * Optional "move assist" mode (opt-in, off by default; sibling of the Battle
+ * System's combat assist).  An ADRIFT 4.0 move task action stores its
+ * destination type as a combo-box ListIndex; VB leaves an untouched combo at
+ * -1.  A handful of native-4.0 games (e.g. To Hell & Beyond) were authored --
+ * most likely upgraded from 3.9 in ADRIFT's own Generator -- with that combo
+ * left at -1 on "move to room" actions, the room sitting unused in Var3.  The
+ * reference Runner (run400.exe) silently ignores such a move (its Select Case
+ * has no matching/else branch), so the faithful default here is also a no-op
+ * (verified against run400.exe).  In some games those unset moves are redundant
+ * (X-Files, Hyperbole still win); in others they sit on the critical path,
+ * leaving the game unwinnable (To Hell & Beyond traps the player in the
+ * mansion).  With move assist on, an unset (-1) move whose Var3 names a real
+ * room is honoured as "to room", letting such games be completed.  Strictly
+ * opt-in, as it deliberately diverges from the reference Runner.
+ */
+static sc_bool task_move_assist = FALSE;
+
+void
+task_set_move_assist (sc_bool flag)
+{
+  task_move_assist = flag;
+}
+
 
 /*
  * task_get_hint_common()
@@ -473,7 +497,15 @@ task_run_move_npc_action (sc_gameref_t game,
            * of -1 (and any other out-of-range value) means the game's author
            * left the destination unset.  The Runner's Select Case silently
            * ignores such an action, so we treat it as a no-op rather than fatal.
+           * With move assist on, honour an unset (-1) move whose Var3 names a
+           * real room as "to room" (see task_move_assist).
            */
+          if (task_move_assist && var2 == -1
+              && var3 >= 0 && var3 < gs_room_count (game))
+            {
+              gs_move_player_to_room (game, var3);
+              return;
+            }
           if (task_trace)
             sc_trace ("Task: ignoring move with unset/unknown"
                       " player move type %ld\n", var2);
@@ -562,7 +594,15 @@ task_run_move_npc_action (sc_gameref_t game,
           return;
 
         default:
-          /* Unset/unknown NPC move destination; ignored, as the Runner does. */
+          /* Unset/unknown NPC move destination; ignored, as the Runner does.
+           * With move assist on, honour an unset (-1) move whose Var3 names a
+           * real room as "to room" (1-based, as for case 0). */
+          if (task_move_assist && var2 == -1
+              && var3 - 1 >= 0 && var3 - 1 < gs_room_count (game))
+            {
+              task_move_npc_to_room (game, npc, var3 - 1);
+              return;
+            }
           if (task_trace)
             sc_trace ("Task: ignoring move with unset/unknown"
                       " NPC move type %ld\n", var2);

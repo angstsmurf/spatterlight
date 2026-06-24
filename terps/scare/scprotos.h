@@ -714,6 +714,7 @@ extern sc_bool task_can_run_task_directional (sc_gameref_t game,
 extern sc_bool task_can_run_task (sc_gameref_t game, sc_int task);
 extern sc_bool task_run_task (sc_gameref_t game, sc_int task, sc_bool forwards);
 extern void task_debug_trace (sc_bool flag);
+extern void task_set_move_assist (sc_bool flag);
 
 /* Task restriction functions. */
 extern sc_bool restr_pass_task_object_state (sc_gameref_t game,
