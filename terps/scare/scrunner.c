@@ -959,6 +959,57 @@ run_game_commands_in_library_context (sc_gameref_t game, const sc_char *string)
 
 
 /*
+ * run_does_command_match()
+ *
+ * Non-destructive probe: return TRUE if the input string matches a command of
+ * any currently runnable game task (forwards or reverse), without running it.
+ *
+ * This lets the front end give author-defined commands precedence over its own
+ * conveniences.  In particular, the Glk port expands single letters such as
+ * "c", "k" and "p" into "close", "attack" and "open"; that silently corrupts
+ * games which use single letters as menu choices (battle/conversation menus,
+ * e.g. attack choices in hyper_b_s.taf, or "C" in The PK Girl).  The port asks
+ * here first, and skips its expansion when the game already recognises the raw
+ * input.
+ *
+ * Matching has the same incidental side effects as ordinary command matching
+ * (it may set referenced-object/NPC/variable state via uip_match()), but this
+ * is harmless: the probe runs before input is submitted, and the real command
+ * pass that follows re-matches and overwrites that state.
+ */
+sc_bool
+run_does_command_match (sc_gameref_t game, const sc_char *string)
+{
+  sc_int task_count, task, direction;
+
+  /* Only meaningful while a game is actually running. */
+  if (!run_is_running (game))
+    return FALSE;
+
+  /* Iterate over every task, ignoring those not runnable. */
+  task_count = gs_task_count (game);
+  for (task = 0; task < task_count; task++)
+    {
+      if (!task_can_run_task (game, task))
+        continue;
+
+      /* A match in either direction means the game claims this command. */
+      for (direction = 0; direction < 2; direction++)
+        {
+          const sc_bool is_forwards = !direction;
+
+          if (task_can_run_task_directional (game, task, is_forwards)
+              && run_match_task_commands (game, task, string,
+                                          is_forwards, FALSE))
+            return TRUE;
+        }
+    }
+
+  return FALSE;
+}
+
+
+/*
  * run_game_functions()
  *
  * Iterate over every task, ignoring those not runnable, searching just for

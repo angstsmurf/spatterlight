@@ -2672,7 +2672,11 @@ gsc_command_help (const char *command)
       gsc_normal_string (" to turn it off.  While the feature is on, you"
                          " can bypass abbreviation expansion for an"
                          " individual game command by prefixing it with a"
-                         " single quote.\n");
+                         " single quote.  Abbreviations never override the"
+                         " game's own commands: if the game already recognises"
+                         " the single letter you typed (for example as a"
+                         " battle or menu choice), it is passed through"
+                         " unchanged.\n");
     }
 
   else if (matched->handler == gsc_command_capacity)
@@ -2881,6 +2885,23 @@ gsc_expand_abbreviations (char *buffer, int size)
           expansion = entry->expansion;
           break;
         }
+    }
+
+  /*
+   * Give author-defined commands precedence over our conveniences.  Many
+   * games use single letters as menu choices (battle/conversation menus); if
+   * the game already recognises the raw input, leave it untouched rather than
+   * expanding it (e.g. "c" -> "close", "k" -> "attack").  The probe matches
+   * against the literal letter the player typed.
+   */
+  if (expansion)
+    {
+      char literal[2];
+
+      literal[0] = command[0];
+      literal[1] = '\0';
+      if (sc_does_command_match (gsc_game, literal))
+        return;
     }
 
   /*

@@ -741,6 +741,19 @@ sc_is_game_running (sc_game game)
   return run_is_running (game_);
 }
 
+sc_bool
+sc_does_command_match (sc_game game, const sc_char *string)
+{
+  const sc_gameref_t game_ = game;
+
+  if (if_game_error (game_, "sc_does_command_match"))
+    return FALSE;
+  if (!string)
+    return FALSE;
+
+  return run_does_command_match (game_, string);
+}
+
 const sc_char *
 sc_get_game_name (sc_game game)
 {

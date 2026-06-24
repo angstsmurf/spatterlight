@@ -659,6 +659,8 @@ extern void res_cancel_resources (sc_gameref_t game);
 /* Game runner functions. */
 extern sc_bool run_game_task_commands (sc_gameref_t game,
                                        const sc_char *string);
+extern sc_bool run_does_command_match (sc_gameref_t game,
+                                       const sc_char *string);
 extern sc_gameref_t run_create (sc_read_callbackref_t callback, void *opaque);
 extern void run_interpret (sc_gameref_t game);
 extern void run_destroy (sc_gameref_t game);

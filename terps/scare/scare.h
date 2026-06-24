@@ -127,6 +127,7 @@ extern sc_bool sc_load_game_from_callback (sc_game game,
                                            void *opaque);
 extern void sc_free_game (sc_game game);
 extern sc_bool sc_is_game_running (sc_game game);
+extern sc_bool sc_does_command_match (sc_game game, const sc_char *string);
 extern const sc_char *sc_get_game_name (sc_game game);
 extern const sc_char *sc_get_game_author (sc_game game);
 extern const sc_char *sc_get_game_compile_date (sc_game game);

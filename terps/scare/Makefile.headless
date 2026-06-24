@@ -19,7 +19,7 @@ CC      ?= clang
 CFLAGS  ?= -O2 -w -I.
 LDLIBS  ?= -lz
 
-# All interpreter sources, plus the os-layer stubs the harness needs.
+# All interpreter sources, plus the os-layer stubs the battle harness needs.
 SRC  := $(wildcard sc*.c)
 STUBS   := sxstubs.c sxglob.c sxutils.c
 HARNESS := test/battle_test.c
@@ -27,18 +27,30 @@ HARNESS := test/battle_test.c
 TAF     := test/battle_test.taf
 BIN     := test/battle_test_hl
 
+# The precedence harness brings its own os-layer port, so it links SRC alone
+# (no sx* stubs) and drives the real interpreter loop over its own synthetic taf.
+PREC_HARNESS := test/precedence_test.c
+PREC_TAF     := test/precedence_test.taf
+PREC_BIN     := test/precedence_test_hl
+
 .PHONY: test taf clean
 
-test: $(BIN) $(TAF)
+test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF)
 	./$(BIN) $(TAF)
+	./$(PREC_BIN) $(PREC_TAF)
 
 $(BIN): $(SRC) $(STUBS) $(HARNESS)
 	$(CC) $(CFLAGS) $(SRC) $(STUBS) $(HARNESS) $(LDLIBS) -o $@
 
-# The TAF is checked in; this target only refreshes it from the generator.
-taf: $(TAF)
+$(PREC_BIN): $(SRC) $(PREC_HARNESS)
+	$(CC) $(CFLAGS) $(SRC) $(PREC_HARNESS) $(LDLIBS) -o $@
+
+# The TAFs are checked in; these targets only refresh them from the generators.
+taf: $(TAF) $(PREC_TAF)
 $(TAF): test/make_battle_taf.py
 	python3 test/make_battle_taf.py $(TAF)
+$(PREC_TAF): test/make_precedence_taf.py
+	python3 test/make_precedence_taf.py $(PREC_TAF)
 
 clean:
-	rm -f $(BIN)
+	rm -f $(BIN) $(PREC_BIN)
