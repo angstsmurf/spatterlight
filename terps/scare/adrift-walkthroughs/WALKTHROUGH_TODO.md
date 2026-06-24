@@ -328,8 +328,8 @@ plausibly winnable).
      lands on a *sensible* object that actually appears in the walk's rooms. **If
      a native-4.0 game stores `MeetObject` as a global index, this fix would
      MIS-convert it** — then the gate must become 3.9-only. (FunHouse/Sun_Empire
-     say dynamic is right for them; verify on Shadowpeak's three ObjectTask
-     walks.)
+     say dynamic is right for them; verify on Shadowpeak's four ObjectTask
+     walks — now done, see the 2026-06-25 progress note below.)
    - **Walk `MeetChar`** — 4.0 reads `#MeetChar`, 3.9 has `ZMeetChar` (absent /
      defaulted 0 = "meet player"). A converted game may carry a stray/garbage
      `MeetChar`; check whether a CharTask is meeting the wrong character.
@@ -356,6 +356,74 @@ plausibly winnable).
 **Side check while here:** re-confirm `npc_walk_meetobject_needs_fixup` (`>380`,
 i.e. 3.9 **and** 4.0) is correct for *native* 4.0 — the inverse of the CyberCow
 bug. Evidence so far (FunHouse/Sun_Empire win) says yes; nail it on Shadowpeak.
+
+### 2026-06-25 progress: Shadowpeak triage — side-check **RESOLVED** (native-4.0 MeetObject fixup is correct)
+
+Started the deep-dive on **Shadowpeak** (the biggest candidate). Triage from the
+`SC_DUMP_TASKS`/object/exit dump:
+- **Native 4.0** (header byte8 `0x93`/byte10 `0x3e`), no name/gender prompt
+  (you are *Loralang*). **574 tasks, 194 objects, 50 NPCs, 157 events, ~125 used
+  rooms** (multi-realm, portal-connected). **Max score 790** across 69 ChangeScore
+  tasks; **exactly 1 win** (`ACT type=6 v1=0`) = **task 417 `blow * horn`** (where=3,
+  restr=3), **1 lose**, **41 death endings**. Full max-score route is a genuine
+  **multi-session** job (left as the open next step).
+- **MeetObject side-check — decisively confirmed correct for native 4.0.** Shadowpeak
+  has **4** ObjectTask walks (not 3); scdump prints the **raw** stored MeetObject.
+  Runtime does `meetobject = stored−1`, then `obj_dynamic_object()` for any
+  version `>380`. The clincher is **NPC 45 Reevling**, whose ObjectTask (**task 549**)
+  is *self-documenting*: its command is `////when Reevling sees sword//`. Its
+  MeetObject raw=7 → `−1`=6 → `obj_dynamic_object(6)` = **global obj 10 "sword"** ✓.
+  Read **raw-as-global** it would be obj 7 **"nest"** ✗ — i.e. without the fixup the
+  "sees sword" task would silently check the wrong object and never fire. Corroborated
+  by **NPC 24 Melvin** (objTask 422): raw 78 → dyn#77 → **obj 147 "The horn of the
+  angels"** (the *win item* — `blow horn`), vs raw-as-global obj 78 "table". (Berto
+  objTask 550 → sword too; Cerberus objTask 510 → a hidden-utility object, the one
+  ambiguous case, but it's a death-ending tail task.) **Conclusion:** the CyberCow
+  `>380` dynamic→global conversion is **right for native 4.0**, not just 3.9 — no
+  3.9-only narrowing needed. The deep-dive's central "did conversion break a walk"
+  worry does **not** apply to Shadowpeak's walks.
+- **Open next step:** bank the full Shadowpeak route to the `blow horn` win (790
+  max). Structure dumped to scratch; no engine change needed so far.
+
+### 2026-06-25 progress: Space Boy's First Adventure — triage + **scdump off-by-one fix**
+
+Triaged the 2nd deep-dive candidate. **Native 4.0** (the banner says *"created
+using ADRIFT Generator 4.0"*, ver 2.0, 2005, David Parish) — i.e. **not a 3.9→4.0
+conversion**, so the conversion-damage hypothesis simply does not apply; it's just
+an untested, winnable game needing a normal (large) derivation. **78 tasks, 73
+rooms, 1 NPC (Evil Man), 1 event, 3 death endings, 1 win** = **task 46 `read
+scribbled note`** in room 65 (Space Boy's Secret Hide-Out, *no* restriction).
+Score-task sum 1319 (many repeatable; true max TBD). **Win dependency chain
+(decoded):** the only way into the endgame is room 0 (Living Room) →W→ room 7
+(Space Boy's Room, Evil Man) →W→ room 65 (note). Room 0→7 is `gateTask=51` =
+**task 51 `open room door`**, which needs the Room Door in the state set by **task
+44 `unlock door`** (needs the **Room Key** held). The Room Key is **task 57 `take
+key`** in room 71 (*Under the rock*), reachable only via **task 43 `move huge
+rock`** in room 4 (Backyard Garden) — which requires the **Strength Belt** worn.
+So the spine is *Strength Belt → move rock → Room Key → unlock+open door → room 7
+→ room 65 note = WIN*, on top of the four power-item puzzles (Flight Boots / Ice
+Gloves / Heat Goggles / Strength Belt mimic the lost cape powers) and several
+letter-mazes (LAVAaH islands rooms 18–25; "TO THE GARAGE" / B–Z letter rooms
+29–58). Author left debug cheats (`gimme gimme gimme` = all 4 items, `shout spade`
+= the ion bridge) — avoid for a legit scored route. **Open next step:** bank the
+full route (multi-iteration; map the power-item gating + letter mazes).
+
+**Real harness fix found & applied (`scdump.c`):** decoding the door chain
+surfaced a genuine off-by-one in the dump's **object-status (type-2) ACTION**
+labels. ADRIFT indexes the stateful-object list **0-based for object-status
+actions** (`sctasks.c task_run_change_object_status` → `obj_stateful_object
+(var1)`) but **1-based for the matching type-1 restriction** (`screstrs.c` →
+`obj_stateful_object(var1-1)`, with 0 = "the referenced object"). This asymmetry
+is **original upstream SCARE and correct** (matches the Runner; the whole corpus
+depends on it) — but scdump applied the restriction's `-1` to *both*, so every
+type-2 action object was mislabelled by one (it claimed Space Boy's `unlock door`
+set the *Rock*, and `open window` set the *Room Door* — both wrong; really
+*Room Door* and *Office Window*). Fixed by passing `v1+1` for type-2 actions so
+the resolver's `-1` cancels. Harness-only (Spatterlight never builds scdump); the
+projectile-combat regression golden is unaffected (no dump output in it).
+**Lesson for future ADRIFT analysis: trust this corrected labelling — a type-2
+action's Var1 is one *less* than the restriction Var1 that checks the same
+object.**
 
 ## Combat-assist note (opt-in, committed)
 

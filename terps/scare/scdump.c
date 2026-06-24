@@ -201,7 +201,20 @@ sc_dump_structure_once (sc_gameref_t game)
 
           obj = -1;
           if (atype == 0) obj = scdump_resolve_object (game, 0, v1);
-          else if (atype == 2) obj = scdump_resolve_object (game, 1, v1);
+          else if (atype == 2)
+            {
+              /*
+               * Object-status ACTIONS index the stateful-object list 0-based
+               * (sctasks.c task_run_change_object_status: obj_stateful_object
+               * (var1)), whereas the matching type-1 RESTRICTION is 1-based
+               * (var1-1, with 0 = "the referenced object"; screstrs.c).  This
+               * is a genuine ADRIFT schema asymmetry, not a bug.  Pass v1+1 so
+               * the resolver's -1 cancels and we label the object the runtime
+               * actually changes (e.g. Space Boy's task 44 "unlock door" sets
+               * stateful obj 18 = the Room Door, not obj 17).
+               */
+              obj = scdump_resolve_object (game, 1, v1 + 1);
+            }
           if (obj >= 0)
             {
               const sc_char *s = scdump_object_name (game, obj);
