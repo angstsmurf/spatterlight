@@ -1,0 +1,26 @@
+Hero
+male
+
+n
+e
+take poker
+w
+w
+open bookcase with poker
+d
+take torch
+u
+e
+e
+light torch in fireplace
+w
+u
+e
+open curtain
+untie girl
+w
+d
+w
+d
+n
+drink water

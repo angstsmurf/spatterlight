@@ -1,0 +1,51 @@
+examine mustach
+take coin
+put coin in slot
+take newspaper
+open suitcase
+take pistol
+board train
+give ticket to oddly istink
+s
+s
+take bag
+give bag to ivanna
+s
+s
+e
+use toilet
+wash hands
+in
+take shower
+out
+w
+s
+read menu
+take spoon
+order tea
+give coin to waiter
+give waiter tip
+s
+z
+z
+z
+z
+buy ivanna a drink
+kill igotta bigbottom
+take card
+n
+n
+n
+n
+n
+out
+use phone
+w
+n
+give card to habibo
+examine ivanna
+w
+examine anita
+shoot thug
+examine ivill getyou
+use spoon to get jewel

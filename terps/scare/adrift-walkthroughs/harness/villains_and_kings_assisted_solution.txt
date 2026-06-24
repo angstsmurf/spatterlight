@@ -1,0 +1,42 @@
+Hero
+male
+
+take note
+n
+n
+give note to king
+s
+s
+s
+e
+take sword
+wield sword
+w
+n
+n
+n
+w
+push tile
+e
+s
+attack guy
+attack guy
+attack guy
+search guy
+take golden soap
+n
+give the golden soap to king
+s
+take soap on a rope
+x window
+close window
+n
+give soap on a rope to king
+take doughnut
+s
+s
+s
+w
+n
+w
+use radio
