@@ -403,6 +403,8 @@ npc_tick_npc_walk (sc_gameref_t game, sc_int npc, sc_int walk)
           dest = npc_random_adjacent_roomgroup_member (game, start, group);
           if (dest == -1)
             dest = lib_random_roomgroup_member (game, group);
+          if (dest == -1)
+            dest = start;        /* Empty group: the NPC stays put. */
         }
     }
 

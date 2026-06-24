@@ -113,8 +113,13 @@ gs_move_player_to_room (sc_gameref_t game, sc_int room)
   else if (room < game->room_count)
     game->playerroom = room;
   else
-    game->playerroom = lib_random_roomgroup_member (game,
-                                                    room - game->room_count);
+    {
+      sc_int dest = lib_random_roomgroup_member (game,
+                                                 room - game->room_count);
+      if (dest < 0)
+        return;                  /* Empty group: leave the player in place. */
+      game->playerroom = dest;
+    }
 
   game->playerparent = -1;
   game->playerposition = 0;

@@ -101,8 +101,17 @@ lib_random_roomgroup_member (sc_gameref_t game, sc_int roomgroup)
   count = prop_get_child_count (bundle, "I<-sis", vt_key);
   if (count == 0)
     {
-      sc_fatal ("lib_random_roomgroup_member:"
-                " no rooms in group %ld\n", roomgroup);
+      /*
+       * The group contains no rooms -- some games define a room group but
+       * never assign any rooms to it, then point an NPC walk (or other move)
+       * at it.  There is no valid destination, so return -1 ("no room"); each
+       * caller leaves the mover where it is.  The Runner tolerates this rather
+       * than aborting.
+       */
+      if (lib_trace)
+        sc_trace ("Library: room group %ld is empty, no destination\n",
+                  roomgroup);
+      return -1;
     }
 
   /* Pick a room at random and return it. */

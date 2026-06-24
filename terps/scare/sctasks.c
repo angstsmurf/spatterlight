@@ -233,8 +233,11 @@ task_move_object (sc_gameref_t game, sc_int object, sc_int var2, sc_int var3)
                     object, var3);
         }
 
-      gs_object_to_room (game, object,
-                         lib_random_roomgroup_member (game, var3));
+      {
+        sc_int dest = lib_random_roomgroup_member (game, var3);
+        if (dest >= 0)           /* Empty group: leave the object in place. */
+          gs_object_to_room (game, object, dest);
+      }
       break;
 
     case 2:                    /* Into object */
@@ -374,9 +377,13 @@ task_move_npc_to_room (sc_gameref_t game, sc_int npc, sc_int room)
   if (room < gs_room_count (game))
     gs_set_npc_location (game, npc, room + 1);
   else
-    gs_set_npc_location (game, npc,
-                         lib_random_roomgroup_member (game,
-                                              room - gs_room_count (game)) + 1);
+    {
+      sc_int dest = lib_random_roomgroup_member (game,
+                                                 room - gs_room_count (game));
+      if (dest < 0)
+        return;                  /* Empty group: leave the NPC in place. */
+      gs_set_npc_location (game, npc, dest + 1);
+    }
 
   gs_set_npc_parent (game, npc, -1);
   gs_set_npc_position (game, npc, 0);
@@ -412,8 +419,11 @@ task_run_move_npc_action (sc_gameref_t game,
                         var3);
             }
 
-          gs_move_player_to_room (game,
-                                  lib_random_roomgroup_member (game, var3));
+          {
+            sc_int dest = lib_random_roomgroup_member (game, var3);
+            if (dest >= 0)       /* Empty group: leave the player in place. */
+              gs_move_player_to_room (game, dest);
+          }
           return;
 
         case 2:                /* To same room as... */
@@ -492,8 +502,11 @@ task_run_move_npc_action (sc_gameref_t game,
                         npc, var3);
             }
 
-          task_move_npc_to_room (game, npc,
-                                 lib_random_roomgroup_member (game, var3));
+          {
+            sc_int dest = lib_random_roomgroup_member (game, var3);
+            if (dest >= 0)       /* Empty group: leave the NPC in place. */
+              task_move_npc_to_room (game, npc, dest);
+          }
           return;
 
         case 2:                /* To same room as... */

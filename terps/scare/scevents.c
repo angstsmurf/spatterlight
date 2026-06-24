@@ -140,7 +140,8 @@ evt_move_object (sc_gameref_t game, sc_int object, sc_int destination)
 
               roomgroup = destination - gs_room_count (game) - 2;
               room = lib_random_roomgroup_member (game, roomgroup);
-              gs_object_to_room (game, object, room);
+              if (room >= 0)     /* Empty group: leave the object in place. */
+                gs_object_to_room (game, object, room);
             }
           break;
         }
