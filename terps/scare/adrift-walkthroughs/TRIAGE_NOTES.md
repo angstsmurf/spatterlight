@@ -13,7 +13,7 @@ Structural dump (SC_DUMP_TASKS) classification. "win" = a type-6 EndGame with
 | TheCatintheTree | 6.2 | 16 | 1 | 1 | **DONE WIN 50/50** |
 | Del Sol | 6.5 | 28 | 16 | 1 | **DONE unwinnable, 24/46** |
 | Colony | 14.8 | 10 | 4 | 1 | **DONE WIN 200/200** |
-| thetest | 22 | 29 | 6 | 1 | DEFERRED — winnable puzzle-box (color key + phone number + teleporter); route not yet banked |
+| thetest | 22 | 29 | 6 | 1 | **DONE — UNWINNABLE, max 5/25** (the win exists but is sealed by a circular lock on the first door: #unlockdoor needs robot2==3, set only by #shoutrobots which needs Room 1, which the door gates) |
 | light_up_4summer_comp | 28 | 71 | 19 | 1 | **DONE WIN 73/75** (5-chapter horror; Battle System works; `hard`+15; laptop +2 RNG-conflicts) |
 | Melbourne Beach | 70 | 107 | 19 | 1 | todo |
 | The Screen Savers On Planet X | 80 | 133 | 15 | 1 | todo |

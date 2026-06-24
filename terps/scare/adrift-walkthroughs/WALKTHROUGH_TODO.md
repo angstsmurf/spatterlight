@@ -23,10 +23,11 @@ records the full classification. Progress this session (12 new walkthroughs):
   (orphaned win — Moreland's KilledTask gated behind a stamina-0 NPC; 24/46),
   `QuestI_walkthrough.md`, `IceCream_walkthrough.md`, `Trabula_walkthrough.md`,
   `Invasion_of_the_Second-Hand_Shirts_walkthrough.md`, `adriftorama_walkthrough.md`.
-- **Deferred (winnable, route not yet banked):** thetest (color-key/phone-number/
-  teleporter puzzle-box), Main Course (catnip + cat-fur-disguise puzzle).
-- **Banked since:** `FunHouse_walkthrough.md` (**WON, max 310/410**) — see the
-  2026-06-24 (later) FunHouse entry below.
+- **Deferred (winnable, route not yet banked):** Main Course (catnip + cat-fur-
+  disguise puzzle).
+- **Banked since:** `FunHouse_walkthrough.md` (**WON, max 310/410**) and
+  `thetest_walkthrough.md` (**UNWINNABLE, max 5/25** — circular first-door lock) —
+  see the 2026-06-24 (later) entries below.
 - **Still untouched:** Melbourne Beach, The Screen Savers
   On Planet X, ALEXIS, Shadowpeak, circus, WesGHN, Space Boy's First Adventure
   (all winnable, large); Bomb Threat, tcom (win, 0-score); Matt's House, Les Feux
@@ -84,6 +85,32 @@ faithful to the data. Combat present (Brat Kid/Bumpy/mafia man) but no fight is
 entered (their swings miss the player under seed 1234), so no assist is needed.
 **Tooling note:** re-added the `SC_DUMP_TASKS` block to `sctasks.c`, used it,
 then `git checkout terps/scare/sctasks.c` — tree is clean.
+
+## 2026-06-24 (later): thetest — **UNWINNABLE, max 5/25**
+
+`thetest_walkthrough.md`; solution `harness/thetest_solution.txt`. A whimsical
+ADRIFT 4 puzzle-box: Gordon is flung by a time-lord teacher into Room 0
+("Somewhere you don't want to be"), meant to traverse Room 1 (phone + Robot
+Guard with a key) → Room 2 (teleporter) → Room 3 (Morse slot) → Room 4 (`use key
+with keyhole` = the win, task 28). **Triaged as winnable; full RE proves it is
+NOT.** The very first exit, Room 0 → Room 1, is gated (room-exit table) on task
+15 `#unlockdoor` being complete; `#unlockdoor` needs **`robot2 == 3`** (var 6);
+`robot2` is written by **exactly one** action in the game — task 16
+`#shoutrobots` — whose restriction requires the player to be **in the same room
+as the Robot Guard**, who sits in Room 1 and never moves. So the door needs an
+action only possible *beyond* the door: a closed loop. EVENT 2 calls
+`#shoutrobots` on a timer but `evt_run` only runs the affected task if its
+room-check passes (no restriction bypass), so it never fires in Room 0. A 45-verb
+× 25-rep brute force of Room 0 finds no escape. **The colour-key/colour-door
+minigame is a deliberate red herring:** `unlock door` (task 14) keeps a
+consecutive-match counter `addything` (var 4) that **no task/event/exit ever
+reads** — inserting the key only recolours the door, never opens it. Max reachable
+= **5/25**, the one cut-scene `#finalfluff` (task 3, the fluff-allergic machine
+breaking) — `listen` +5 is itself gated on an uncompleteable task, and the other
++5s live in the sealed Rooms 1–4. Faithful to the data and the Runner (standard
+ADRIFT exit/variable/character restrictions, evaluated identically). **Tooling:**
+extended the `SC_DUMP_TASKS` block (added Variables + room-exit + Events dumps),
+used it, then `git checkout terps/scare/sctasks.c` — tree clean.
 
 ## Combat-assist note (opt-in, committed)
 
