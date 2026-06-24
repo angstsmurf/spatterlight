@@ -215,6 +215,21 @@ static sc_commands_t PRIORITY_COMMANDS[] = {
    lib_cmd_drop_except_multiple},
   {"[drop/put down] %text%", lib_cmd_drop_multiple},
   {"put %text% down", lib_cmd_drop_multiple},
+
+  /*
+   * Inventory display.  Treated as a priority system command so that it is
+   * not pre-empted by a game task whose command matches "i"/"inventory" but
+   * whose restrictions fail (those tasks print their fail message in a later
+   * pass).  This matches the Adrift runner -- e.g. "i" in Lair of the
+   * CyberCow lists the items you hold rather than showing the failing task's
+   * "...lost it all in the well" message.  A game task with *passing*
+   * restrictions still overrides this, as those run before priority commands.
+   */
+#ifdef SCARE_NO_ABBREVIATIONS
+  {"[inventory/inv]", lib_cmd_inventory},
+#else
+  {"[inventory/inv/i]", lib_cmd_inventory},
+#endif
   {NULL, NULL}
 };
 
