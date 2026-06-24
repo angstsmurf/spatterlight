@@ -295,7 +295,7 @@ evt_finish_event (sc_gameref_t game, sc_int event)
   sc_vartype_t vt_key[4];
   sc_int obj2, obj2dest, obj3, obj3dest;
   sc_int task, startertype, restarttype;
-  sc_bool taskdir;
+  sc_bool taskfinished;
 
   if (evt_trace)
     sc_trace ("Event: finishing event %ld\n", event);
@@ -343,21 +343,37 @@ evt_finish_event (sc_gameref_t game, sc_int event)
   if (task >= 0)
     {
       vt_key[2].string = "TaskFinished";
-      taskdir = !prop_get_boolean (bundle, "B<-sis", vt_key);
-      if (task_can_run_task_directional (game, task, taskdir))
+      taskfinished = prop_get_boolean (bundle, "B<-sis", vt_key);
+      if (taskfinished)
+        {
+          /*
+           * The event marks the affected task incomplete.  The reference
+           * Runner does this by clearing the task's completion flag directly
+           * (verified in the ADRIFT 3.9 Runner's checkevent: the "task
+           * finished" branch stores 0 into the affected task's completed
+           * field).  It is not a task "reverse": no reverse message is shown,
+           * and neither the task's Reversible flag nor its "where the task can
+           * be run" room list is consulted.  Gating it like a reverse wrongly
+           * left non-reversible tasks completed -- e.g. in "Lair of the
+           * CyberCow" the "De-Uncle 2 Freedom" event could not clear "put
+           * fairy in robot", so the cellar exit that task seals never
+           * reopened and the player stayed trapped after saying "uncle".
+           */
+          gs_set_task_done (game, task, FALSE);
+          if (evt_trace)
+            sc_trace ("Event: event cleared task %ld\n", task);
+        }
+      else if (task_can_run_task_directional (game, task, TRUE))
         {
           if (evt_trace)
-            {
-              sc_trace ("Event: event running task %ld, %s\n",
-                        task, taskdir ? "forwards" : "backwards");
-            }
+            sc_trace ("Event: event running task %ld forwards\n", task);
 
-          task_run_task (game, task, taskdir);
+          task_run_task (game, task, TRUE);
         }
       else
         {
           if (evt_trace)
-            sc_trace ("Event: event can't run task %ld\n", task);
+            sc_trace ("Event: event can't run task %ld forwards\n", task);
         }
     }
 

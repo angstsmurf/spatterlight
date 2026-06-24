@@ -462,8 +462,7 @@ npc_tick_npc_walk (sc_gameref_t game, sc_int npc, sc_int walk)
       if ((meetchar == -1 && gs_player_in_room (game, dest))
           || (meetchar >= 0 && dest == gs_npc_location (game, meetchar) - 1))
         {
-          if (task_can_run_task (game, chartask))
-            task_run_task (game, chartask, TRUE);
+          run_npc_walk_task (game, chartask);
         }
     }
 
@@ -481,8 +480,7 @@ npc_tick_npc_walk (sc_gameref_t game, sc_int npc, sc_int walk)
         meetobject = obj_dynamic_object (game, meetobject);
       if (meetobject >= 0 && obj_directly_in_room (game, meetobject, dest))
         {
-          if (task_can_run_task (game, objecttask))
-            task_run_task (game, objecttask, TRUE);
+          run_npc_walk_task (game, objecttask);
         }
     }
 }
@@ -647,8 +645,7 @@ npc_tick_npcs (sc_gameref_t game)
                   if (meetchar == -1 &&
                       gs_player_in_room (game, gs_npc_location (game, npc) - 1))
                     {
-                      if (task_can_run_task (game, chartask))
-                        task_run_task (game, chartask, TRUE);
+                      run_npc_walk_task (game, chartask);
                     }
                 }
             }

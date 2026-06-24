@@ -2523,6 +2523,67 @@ gsc_command_move_assist (const char *argument)
 
 
 /*
+ * gsc_command_verbose()
+ *
+ * Turn the game's verbose room descriptions on and off.  This mirrors the
+ * ADRIFT Runner's Verbose user-interface option: when on, the game always gives
+ * long descriptions of locations, even ones already visited.  Handling it as a
+ * Glk port command (rather than as a game command) means it works even when a
+ * game defines its own "verbose" task that would otherwise shadow it.  The
+ * plain "verbose" and "brief" game commands continue to work as before.
+ */
+static void
+gsc_command_verbose (const char *argument)
+{
+  assert (argument);
+
+  if (sc_strcasecmp (argument, "on") == 0)
+    {
+      if (sc_get_game_verbose (gsc_game))
+        {
+          gsc_normal_string ("Glk verbose descriptions are already on.\n");
+          return;
+        }
+
+      sc_set_game_verbose (gsc_game, TRUE);
+      gsc_normal_string ("Glk verbose descriptions are now on; the game always"
+                         " gives long descriptions of locations, even ones"
+                         " you've visited before.\n");
+    }
+
+  else if (sc_strcasecmp (argument, "off") == 0)
+    {
+      if (!sc_get_game_verbose (gsc_game))
+        {
+          gsc_normal_string ("Glk verbose descriptions are already off.\n");
+          return;
+        }
+
+      sc_set_game_verbose (gsc_game, FALSE);
+      gsc_normal_string ("Glk verbose descriptions are now off; long"
+                         " descriptions are given for places never before"
+                         " visited and short descriptions otherwise.\n");
+    }
+
+  else if (strlen (argument) == 0)
+    {
+      gsc_normal_string ("Glk verbose descriptions are ");
+      gsc_normal_string (sc_get_game_verbose (gsc_game) ? "on" : "off");
+      gsc_normal_string (".\n");
+    }
+
+  else
+    {
+      gsc_normal_string ("Glk verbose descriptions can be ");
+      gsc_standout_string ("on");
+      gsc_normal_string (", or ");
+      gsc_standout_string ("off");
+      gsc_normal_string (".\n");
+    }
+}
+
+
+/*
  * gsc_command_print_version_number()
  * gsc_command_version()
  *
@@ -2654,6 +2715,7 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
   {"capacity",       gsc_command_capacity,       TRUE},
   {"combatassist",   gsc_command_combat_assist,  TRUE},
   {"moveassist",     gsc_command_move_assist,    TRUE},
+  {"verbose",        gsc_command_verbose,        TRUE},
   {"version",        gsc_command_version,        FALSE},
   {"commands",       gsc_command_commands,       TRUE},
   {"license",        gsc_command_license,        FALSE},
@@ -2848,6 +2910,19 @@ gsc_command_help (const char *command)
       gsc_standout_string ("glk moveassist off");
       gsc_normal_string (" to turn it off.  This deliberately deviates from the"
                          " original ADRIFT Runner.\n");
+    }
+
+  else if (matched->handler == gsc_command_verbose)
+    {
+      gsc_normal_string ("Controls verbose room descriptions.\n\nUse ");
+      gsc_standout_string ("glk verbose on");
+      gsc_normal_string (" to make the game always give long descriptions of"
+                         " locations, even ones you have visited before, and ");
+      gsc_standout_string ("glk verbose off");
+      gsc_normal_string (" to give long descriptions only for places never"
+                         " before visited.  This mirrors the ADRIFT Runner's"
+                         " Verbose option, and works even when a game defines"
+                         " its own \"verbose\" command.\n");
     }
 
   else if (matched->handler == gsc_command_version)

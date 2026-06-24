@@ -348,7 +348,6 @@ static sc_commands_t STANDARD_COMMANDS[] = {
   {"[hist/history] %number%", lib_cmd_history_number},
   {"[hist/history]", lib_cmd_history},
   {"[hint/hints]", lib_cmd_hints},
-  {"verbose %text%", lib_cmd_verbose_on_off},
   {"verbose", lib_cmd_verbose},
   {"brief", lib_cmd_brief},
   {"[notify/notification] %text%", lib_cmd_notify_on_off},
@@ -1085,6 +1084,62 @@ run_game_functions (sc_gameref_t game, const sc_char *string)
                 task_run_task (game, task, is_forwards);
             }
         }
+    }
+}
+
+
+/*
+ * run_npc_walk_task()
+ *
+ * Run the task triggered by an NPC walk meeting a character or an object (a
+ * walk's CharTask or ObjectTask).  The reference Runner does not run this one
+ * task by its stored index: it copies the task's command text and dispatches
+ * it through the same task matcher used for player input, so every task that
+ * shares that command is a candidate and the one whose "Where the task can be
+ * run" room list matches the player's location (and whose restrictions pass)
+ * is what actually fires.  This matters when an author splits one logical
+ * reaction across several same-command tasks, one per room -- e.g. "Lair of
+ * the CyberCow" has two "#lured" tasks (steeple and chapel yard) so the fairy
+ * snatches the milk bowl in whichever of those rooms the player is standing.
+ * Running only the literal walk task would fire just one room's variant.
+ *
+ * The walk task's command is matched here by exact command text rather than by
+ * the pattern matcher, because these tasks customarily use an un-typeable
+ * "#name" command, which the normal command matcher deliberately skips.
+ */
+void
+run_npc_walk_task (sc_gameref_t game, sc_int walktask)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[4];
+  const sc_char *command;
+  sc_int task_count, task;
+
+  /* Get the walk task's first command pattern; nothing to match if absent. */
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = walktask;
+  vt_key[2].string = "Command";
+  vt_key[3].integer = 0;
+  command = prop_get_string (bundle, "S<-sisi", vt_key);
+  if (sc_strempty (command))
+    return;
+
+  /* Run every same-command task the player's room and restrictions permit. */
+  task_count = gs_task_count (game);
+  for (task = 0; task < task_count; task++)
+    {
+      const sc_char *other;
+
+      if (!task_can_run_task_directional (game, task, TRUE))
+        continue;
+
+      vt_key[1].integer = task;
+      other = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (sc_strcasecmp (command, other) != 0)
+        continue;
+
+      if (run_task_is_unrestricted (game, task))
+        task_run_task (game, task, TRUE);
     }
 }
 

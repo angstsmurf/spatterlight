@@ -248,6 +248,54 @@ sc_dump_structure_once (sc_gameref_t game)
       }
   }
 
+  /* NPCs and their walks (StartTask/CharTask/MeetChar/ObjectTask/Rooms). */
+  {
+    sc_vartype_t nk[6];
+    sc_int n, ncount;
+
+    nk[0].string = "NPCs";
+    ncount = prop_get_child_count (bundle, "I<-s", nk);
+    for (n = 0; n < ncount; n++)
+      {
+        sc_int sr = 0, w, wcount;
+        const sc_char *nm = NULL;
+        sc_vartype_t nv;
+        nk[1].integer = n;
+        nk[2].string = "Name";      if (prop_get (bundle, "S<-sis", &nv, nk)) nm = nv.string;
+        nk[2].string = "StartRoom"; if (prop_get (bundle, "I<-sis", &nv, nk)) sr = nv.integer;
+        fprintf (stderr, "NPC %ld [%s] startRoom=%ld\n", n, nm ? nm : "", sr - 1);
+
+        nk[2].string = "Walks";
+        wcount = prop_get_child_count (bundle, "I<-sis", nk);
+        for (w = 0; w < wcount; w++)
+          {
+            sc_int loop = 0, st = 0, ct = 0, mo = 0, ot = 0, sp = 0, mc = 0;
+            sc_int rc, s;
+            nk[3].integer = w;
+            nk[4].string = "BLoop";       if (prop_get (bundle, "B<-sisis", &nv, nk)) loop = nv.integer;
+            nk[4].string = "StartTask";   if (prop_get (bundle, "I<-sisis", &nv, nk)) st = nv.integer;
+            nk[4].string = "CharTask";    if (prop_get (bundle, "I<-sisis", &nv, nk)) ct = nv.integer;
+            nk[4].string = "MeetObject";  if (prop_get (bundle, "I<-sisis", &nv, nk)) mo = nv.integer;
+            nk[4].string = "ObjectTask";  if (prop_get (bundle, "I<-sisis", &nv, nk)) ot = nv.integer;
+            nk[4].string = "StoppingTask";if (prop_get (bundle, "I<-sisis", &nv, nk)) sp = nv.integer;
+            nk[4].string = "MeetChar";    if (prop_get (bundle, "I<-sisis", &nv, nk)) mc = nv.integer;
+            fprintf (stderr,
+                     "  WALK %ld loop=%ld startTask=%ld charTask=%ld(task%ld)"
+                     " meetChar=%ld meetObj=%ld objTask=%ld(task%ld) stopTask=%ld\n",
+                     w, loop, st, ct, ct - 1, mc, mo, ot, ot - 1, sp);
+            nk[4].string = "Rooms";
+            rc = prop_get_child_count (bundle, "I<-sisis", nk);
+            for (s = 0; s < rc; s++)
+              {
+                sc_int rm = 0;
+                nk[5].integer = s;
+                if (prop_get (bundle, "I<-sisisi", &nv, nk)) rm = nv.integer;
+                fprintf (stderr, "    step %ld dest=%ld\n", s, rm);
+              }
+          }
+      }
+  }
+
   /* Room exits + their task gates (dir order N,E,S,W,U,D,IN,OUT,NE,NW,SE,SW). */
   {
     sc_vartype_t rk[5];
