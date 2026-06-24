@@ -169,7 +169,9 @@ extern sc_bool sc_run_game_debugger_command (sc_game game,
 extern void sc_set_portable_random (sc_bool flag);
 extern void sc_reseed_random_sequence (sc_uint new_seed);
 extern void sc_set_combat_assist (sc_bool flag);
+extern sc_bool sc_get_combat_assist (void);
 extern void sc_set_move_assist (sc_bool flag);
+extern sc_bool sc_get_move_assist (void);
 
 /* Locale control and query functions. */
 extern sc_bool sc_set_locale (const sc_char *name);

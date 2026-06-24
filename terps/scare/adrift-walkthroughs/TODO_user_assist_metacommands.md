@@ -1,5 +1,14 @@
 # TODO: make the combat assist and move assist user-settable
 
+> **Status: Approach A DONE.** Both aids are now reachable in the Glk build as
+> `glk combatassist on|off` and `glk moveassist on|off` (os_glk.c), each with an
+> on-switch faithfulness warning, and both appear in `glk summary` and
+> `glk help`. Public getters `sc_get_combat_assist()` / `sc_get_move_assist()`
+> were added (scinterf.c / scare.h, backed by `battle_get_combat_assist` /
+> `task_get_move_assist`). Faithful default is unchanged (both off). Approach B
+> (a persistent Spatterlight GUI preference) is still open — see below.
+
+
 SCARE has two opt-in, non-faithful aids that let an *otherwise-unwinnable*
 amateur ADRIFT game be completed:
 

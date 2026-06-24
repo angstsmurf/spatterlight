@@ -97,6 +97,12 @@ battle_set_combat_assist (sc_bool flag)
   battle_combat_assist = flag;
 }
 
+sc_bool
+battle_get_combat_assist (void)
+{
+  return battle_combat_assist;
+}
+
 /*
  * battle_is_legacy_version()
  *

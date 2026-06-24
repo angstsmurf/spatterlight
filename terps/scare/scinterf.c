@@ -1260,6 +1260,18 @@ sc_set_combat_assist (sc_bool flag)
 
 
 /*
+ * sc_get_combat_assist()
+ *
+ * Return the current combat-assist setting (see sc_set_combat_assist()).
+ */
+sc_bool
+sc_get_combat_assist (void)
+{
+  return battle_get_combat_assist ();
+}
+
+
+/*
  * sc_set_move_assist()
  *
  * Enable or disable the optional "move assist" mode.  A few native-4.0 games
@@ -1273,4 +1285,16 @@ void
 sc_set_move_assist (sc_bool flag)
 {
   task_set_move_assist (flag);
+}
+
+
+/*
+ * sc_get_move_assist()
+ *
+ * Return the current move-assist setting (see sc_set_move_assist()).
+ */
+sc_bool
+sc_get_move_assist (void)
+{
+  return task_get_move_assist ();
 }

@@ -2398,6 +2398,131 @@ gsc_command_capacity (const char *argument)
 
 
 /*
+ * gsc_command_combat_assist()
+ *
+ * Turn the optional Battle-System combat assist on and off.  This is a
+ * deliberately non-faithful aid for amateur ADRIFT games that left every
+ * character's Accuracy and Agility unconfigured (0), so the 4.0 "accuracy >
+ * agility" hit test (0 > 0) never lands and combat stalemates forever.  When on,
+ * such fully-unconfigured games get an automatic hit, letting combat play out on
+ * the author's strength-vs-defence basis.  Games that do configure combat (e.g.
+ * Sun Empire) are never affected.  Off by default.
+ */
+static void
+gsc_command_combat_assist (const char *argument)
+{
+  assert (argument);
+
+  if (sc_strcasecmp (argument, "on") == 0)
+    {
+      if (sc_get_combat_assist ())
+        {
+          gsc_normal_string ("Glk combat assist is already on.\n");
+          return;
+        }
+
+      sc_set_combat_assist (TRUE);
+      gsc_normal_string ("Glk combat assist is now on.  Note this deviates from"
+                         " the original ADRIFT Runner and is intended only for"
+                         " games whose combat data is broken (every character's"
+                         " Accuracy and Agility left at 0).  It takes effect for"
+                         " the next fight; games that configure combat are"
+                         " unaffected.\n");
+    }
+
+  else if (sc_strcasecmp (argument, "off") == 0)
+    {
+      if (!sc_get_combat_assist ())
+        {
+          gsc_normal_string ("Glk combat assist is already off.\n");
+          return;
+        }
+
+      sc_set_combat_assist (FALSE);
+      gsc_normal_string ("Glk combat assist is now off; combat matches the"
+                         " original ADRIFT Runner.\n");
+    }
+
+  else if (strlen (argument) == 0)
+    {
+      gsc_normal_string ("Glk combat assist is ");
+      gsc_normal_string (sc_get_combat_assist () ? "on" : "off");
+      gsc_normal_string (".\n");
+    }
+
+  else
+    {
+      gsc_normal_string ("Glk combat assist can be ");
+      gsc_standout_string ("on");
+      gsc_normal_string (", or ");
+      gsc_standout_string ("off");
+      gsc_normal_string (".\n");
+    }
+}
+
+
+/*
+ * gsc_command_move_assist()
+ *
+ * Turn the optional move assist on and off.  This is a deliberately non-faithful
+ * aid for a few native-4.0 games authored with a move task action's "To:" combo
+ * left at VB's default -1 (the destination room sitting in Var3).  The reference
+ * Runner silently ignores such a move, which in e.g. To Hell & Beyond traps the
+ * player in the mansion.  When on, an unset (-1) move whose Var3 names a real
+ * room is honoured as "to room".  Off by default.
+ */
+static void
+gsc_command_move_assist (const char *argument)
+{
+  assert (argument);
+
+  if (sc_strcasecmp (argument, "on") == 0)
+    {
+      if (sc_get_move_assist ())
+        {
+          gsc_normal_string ("Glk move assist is already on.\n");
+          return;
+        }
+
+      sc_set_move_assist (TRUE);
+      gsc_normal_string ("Glk move assist is now on.  Note this deviates from the"
+                         " original ADRIFT Runner and is intended only for games"
+                         " with a broken move task (a destination room left"
+                         " unset) that would otherwise be unwinnable.\n");
+    }
+
+  else if (sc_strcasecmp (argument, "off") == 0)
+    {
+      if (!sc_get_move_assist ())
+        {
+          gsc_normal_string ("Glk move assist is already off.\n");
+          return;
+        }
+
+      sc_set_move_assist (FALSE);
+      gsc_normal_string ("Glk move assist is now off; moves match the original"
+                         " ADRIFT Runner.\n");
+    }
+
+  else if (strlen (argument) == 0)
+    {
+      gsc_normal_string ("Glk move assist is ");
+      gsc_normal_string (sc_get_move_assist () ? "on" : "off");
+      gsc_normal_string (".\n");
+    }
+
+  else
+    {
+      gsc_normal_string ("Glk move assist can be ");
+      gsc_standout_string ("on");
+      gsc_normal_string (", or ");
+      gsc_standout_string ("off");
+      gsc_normal_string (".\n");
+    }
+}
+
+
+/*
  * gsc_command_print_version_number()
  * gsc_command_version()
  *
@@ -2527,6 +2652,8 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
   {"readlog",        gsc_command_readlog,        TRUE},
   {"abbreviations",  gsc_command_abbreviations,  TRUE},
   {"capacity",       gsc_command_capacity,       TRUE},
+  {"combatassist",   gsc_command_combat_assist,  TRUE},
+  {"moveassist",     gsc_command_move_assist,    TRUE},
   {"version",        gsc_command_version,        FALSE},
   {"commands",       gsc_command_commands,       TRUE},
   {"license",        gsc_command_license,        FALSE},
@@ -2692,6 +2819,35 @@ gsc_command_help (const char *command)
       gsc_standout_string ("glk capacity off");
       gsc_normal_string (" to return to matching the Runner.  This affects only"
                          " when an over-encumbered take is refused.\n");
+    }
+
+  else if (matched->handler == gsc_command_combat_assist)
+    {
+      gsc_normal_string ("Helps with broken combat.\n\nSome amateur ADRIFT games"
+                         " left every character's Accuracy and Agility at 0, so"
+                         " no attack ever lands and combat stalemates forever."
+                         "  Use ");
+      gsc_standout_string ("glk combatassist on");
+      gsc_normal_string (" to give such games an automatic hit, letting combat"
+                         " play out on the author's strength-vs-defence basis,"
+                         " and ");
+      gsc_standout_string ("glk combatassist off");
+      gsc_normal_string (" to turn it off.  This deliberately deviates from the"
+                         " original ADRIFT Runner; games that do configure"
+                         " combat are never affected.\n");
+    }
+
+  else if (matched->handler == gsc_command_move_assist)
+    {
+      gsc_normal_string ("Helps with a broken move task.\n\nA few games were"
+                         " authored with a move's destination room left unset;"
+                         " the original ADRIFT Runner ignores such a move, which"
+                         " can make the game impossible to finish.  Use ");
+      gsc_standout_string ("glk moveassist on");
+      gsc_normal_string (" to honour these moves to the named room, and ");
+      gsc_standout_string ("glk moveassist off");
+      gsc_normal_string (" to turn it off.  This deliberately deviates from the"
+                         " original ADRIFT Runner.\n");
     }
 
   else if (matched->handler == gsc_command_version)

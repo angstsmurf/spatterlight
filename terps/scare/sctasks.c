@@ -68,6 +68,12 @@ task_set_move_assist (sc_bool flag)
   task_move_assist = flag;
 }
 
+sc_bool
+task_get_move_assist (void)
+{
+  return task_move_assist;
+}
+
 
 /*
  * task_get_hint_common()
