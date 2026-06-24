@@ -1,0 +1,18 @@
+south
+take hundred dollars
+pick up money
+east
+north
+east
+east
+north
+take ring
+south
+take kewbie doll
+take cassette
+west
+west
+south
+west
+score
+give ticket man cassette

@@ -9,7 +9,7 @@ Structural dump (SC_DUMP_TASKS) classification. "win" = a type-6 EndGame with
 | cyber | 1.8 | 5 | 3 | 0* | **DONE 150/150** (*only a lose-stop ending; max score reached) |
 | cyber2 | 3.4 | 14 | 10 | 2 | **DONE WIN 355/355** |
 | Jason Vs. Salm | 2.9 | 19 | 3 | 4 | **DONE WIN, honest max 0/1000** |
-| FunHouse | 3.6 | 31 | 4 | 2 | DEFERRED — winnable (cassette→ticket man) but scrambled maze + likely kid/ticket gate; route not yet banked |
+| FunHouse | 3.6 | 31 | 4 | 2 | **DONE WIN, max 310/410** (cassette→ticket man; maze BFS-mapped; +100 locked behind 2 orphaned NO_ROOMS tasks) |
 | TheCatintheTree | 6.2 | 16 | 1 | 1 | **DONE WIN 50/50** |
 | Del Sol | 6.5 | 28 | 16 | 1 | **DONE unwinnable, 24/46** |
 | Colony | 14.8 | 10 | 4 | 1 | **DONE WIN 200/200** |

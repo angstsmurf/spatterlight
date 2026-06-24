@@ -23,9 +23,10 @@ records the full classification. Progress this session (12 new walkthroughs):
   (orphaned win — Moreland's KilledTask gated behind a stamina-0 NPC; 24/46),
   `QuestI_walkthrough.md`, `IceCream_walkthrough.md`, `Trabula_walkthrough.md`,
   `Invasion_of_the_Second-Hand_Shirts_walkthrough.md`, `adriftorama_walkthrough.md`.
-- **Deferred (winnable, route not yet banked):** FunHouse (scrambled mirror maze +
-  likely kid/ticket gate), thetest (color-key/phone-number/teleporter puzzle-box),
-  Main Course (catnip + cat-fur-disguise puzzle).
+- **Deferred (winnable, route not yet banked):** thetest (color-key/phone-number/
+  teleporter puzzle-box), Main Course (catnip + cat-fur-disguise puzzle).
+- **Banked since:** `FunHouse_walkthrough.md` (**WON, max 310/410**) — see the
+  2026-06-24 (later) FunHouse entry below.
 - **Still untouched:** Melbourne Beach, The Screen Savers
   On Planet X, ALEXIS, Shadowpeak, circus, WesGHN, Space Boy's First Adventure
   (all winnable, large); Bomb Threat, tcom (win, 0-score); Matt's House, Les Feux
@@ -60,6 +61,29 @@ left intact). `git checkout` is NOT needed — instrumentation already stripped.
 battle-stat line) is currently live in `terps/scare/sctasks.c` (uncommitted) so
 the remaining games can be triaged/derived; `git checkout sctasks.c` when the
 batch is finished. Rebuild with `sh harness/build.sh`.
+
+## 2026-06-24 (later): FunHouse — **WON 310/410**
+
+`FunHouse_walkthrough.md`; solution `harness/funhouse_solution.txt`. A tiny
+carnival game with **zero restrictions on any of its 31 tasks** — gated purely by
+*which room* each task runs in. The plot: a hidden cassette (inside the **kewbie
+doll** in the Dark Room) must be delivered to the **ticket man** at the booth.
+`take kewbie doll` (task 17) carries the move-object action that drops dynamic
+object 11 = the cassette into the room; `give ticket man cassette` (task 24) is
+the type-6 win (var1=0). The "scrambled mirror maze" was mapped with a small
+**Python BFS driver** that replays full paths from start through the headless
+`scare` and parses the room name + "you can move…" line (`/tmp/funbfs*.py`) —
+robust against any path-history dependence since every probe replays from turn 0.
+Route: booth (`take hundred dollars` +100, `pick up money` +100) → Hall→Strobe→
+Vampire→Dark Room→Fun slide (`take ring` +110) → back to Dark Room (`take doll`,
+`take cassette`) → return to booth → `give ticket man cassette`. **Max reachable
+310/410:** the stored max is 410 but the missing +100 sits in two ChangeScore
+tasks (`take money`, `take drink`) whose `Where` is **NO_ROOMS** and which **no
+task ever executes** (zero type-5 actions in the game) — orphaned, unreachable,
+faithful to the data. Combat present (Brat Kid/Bumpy/mafia man) but no fight is
+entered (their swings miss the player under seed 1234), so no assist is needed.
+**Tooling note:** re-added the `SC_DUMP_TASKS` block to `sctasks.c`, used it,
+then `git checkout terps/scare/sctasks.c` — tree is clean.
 
 ## Combat-assist note (opt-in, committed)
 
