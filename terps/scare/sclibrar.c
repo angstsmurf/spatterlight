@@ -786,6 +786,22 @@ lib_print_room_contents (sc_gameref_t game, sc_int room)
                 pf_buffer_character (filter, '\n');
               else
                 pf_buffer_string (filter, "  ");
+              /*
+               * The room description already ended with a newline and the
+               * block above starts the NPC text on its own line, so a
+               * leading line break in the author's InRoomText -- a literal
+               * newline or a "<br>" tag -- would print a spurious blank line
+               * before the text (the ADRIFT runner shows none).  Skip it.
+               */
+              for (;;)
+                {
+                  if (*description == '\n')
+                    description++;
+                  else if (!sc_strncasecmp (description, "<br>", 4))
+                    description += 4;
+                  else
+                    break;
+                }
               pf_buffer_string (filter, description);
               count++;
             }
