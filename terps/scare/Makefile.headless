@@ -1,0 +1,44 @@
+# Headless build + regression test for the SCARE Battle System port.
+#
+# Builds a small console harness (test/battle_test.c) that links the SCARE
+# interpreter sources against the bundled sx* os-layer stubs (no Glk, links the
+# system zlib) and runs it against the synthetic, fully deterministic game
+# test/battle_test.taf.  The harness checks the combat math through the public
+# battle API and exits non-zero on any mismatch.
+#
+# Usage:
+#   make -f Makefile.headless test     # build and run the battle test
+#   make -f Makefile.headless taf      # regenerate test/battle_test.taf
+#   make -f Makefile.headless clean
+#
+# test/battle_test.taf is a hand-authored ADRIFT 4.0 file (see
+# test/make_battle_taf.py) and contains no third-party game data, so it is safe
+# to keep in the tree and to rebuild offline.
+
+CC      ?= clang
+CFLAGS  ?= -O2 -w -I.
+LDLIBS  ?= -lz
+
+# All interpreter sources, plus the os-layer stubs the harness needs.
+SRC  := $(wildcard sc*.c)
+STUBS   := sxstubs.c sxglob.c sxutils.c
+HARNESS := test/battle_test.c
+
+TAF     := test/battle_test.taf
+BIN     := test/battle_test_hl
+
+.PHONY: test taf clean
+
+test: $(BIN) $(TAF)
+	./$(BIN) $(TAF)
+
+$(BIN): $(SRC) $(STUBS) $(HARNESS)
+	$(CC) $(CFLAGS) $(SRC) $(STUBS) $(HARNESS) $(LDLIBS) -o $@
+
+# The TAF is checked in; this target only refreshes it from the generator.
+taf: $(TAF)
+$(TAF): test/make_battle_taf.py
+	python3 test/make_battle_taf.py $(TAF)
+
+clean:
+	rm -f $(BIN)
