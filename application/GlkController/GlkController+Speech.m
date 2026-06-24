@@ -320,31 +320,88 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
 }
 
 - (IBAction)speakStatus:(id)sender {
-    GlkWindow *win;
+    // The grid status path normally cancels any pending menu/form speech; do the
+    // same here since we no longer route through -[GlkTextGridWindow speakStatus].
+    if (self.zmenu)
+        [NSObject cancelPreviousPerformRequestsWithTarget:self.zmenu];
+    if (self.form)
+        [NSObject cancelPreviousPerformRequestsWithTarget:self.form];
 
-    // Lazy heuristic to find Tads 3 status window: if there are more than one window and
-    // only one of them sits at the top, pick that one
-    if ( self.gwindows.allValues.count > 1 && [self.game.detectedFormat isEqualToString:@"tads3"]) {
-        NSMutableArray<GlkWindow *> *array = [[NSMutableArray alloc] initWithCapacity: self.gwindows.allValues.count];
-        for (win in self.gwindows.allValues) {
+    // The main text/input window is read by the "speak move" actions, not here.
+    GlkWindow *mainWindow = self.largestWithMoves;
+
+    // Speak the status bar first, then every other non-graphic window that holds
+    // text (skipping the main window and the status window already spoken), all
+    // in a single announcement.
+    GlkWindow *statusWindow = self.statusWindow;
+
+    NSMutableArray<NSString *> *parts = [[NSMutableArray alloc] init];
+
+    NSString *statusText = [self speakableStringForWindow:statusWindow];
+    if (statusText.length)
+        [parts addObject:statusText];
+
+    // Read the remaining text windows in natural top-to-bottom, left-to-right
+    // order so the speech follows the on-screen layout.
+    NSArray<GlkWindow *> *others = [self.gwindows.allValues sortedArrayUsingComparator:^NSComparisonResult(GlkWindow *a, GlkWindow *b) {
+        if (a.frame.origin.y != b.frame.origin.y)
+            return a.frame.origin.y < b.frame.origin.y ? NSOrderedAscending : NSOrderedDescending;
+        if (a.frame.origin.x != b.frame.origin.x)
+            return a.frame.origin.x < b.frame.origin.x ? NSOrderedAscending : NSOrderedDescending;
+        return NSOrderedSame;
+    }];
+
+    for (GlkWindow *win in others) {
+        if (win == mainWindow || win == statusWindow)
+            continue;
+        NSString *text = [self speakableStringForWindow:win];
+        if (text.length)
+            [parts addObject:text];
+    }
+
+    if (!parts.count) {
+        [self speakStringNow:@"No status window found!"];
+        return;
+    }
+
+    [self speakStringNow:[parts componentsJoinedByString:@"\n"]];
+}
+
+// Find the window acting as the status bar, or nil if there is none.
+- (nullable GlkWindow *)statusWindow {
+    // Lazy heuristic to find a Tads 3 status window: if there is more than one
+    // window and only one of them sits at the top, pick that one.
+    if (self.gwindows.allValues.count > 1 && [self.game.detectedFormat isEqualToString:@"tads3"]) {
+        NSMutableArray<GlkWindow *> *array = [[NSMutableArray alloc] initWithCapacity:self.gwindows.allValues.count];
+        for (GlkWindow *win in self.gwindows.allValues) {
             if (win.frame.origin.y == 0 && ![win isKindOfClass:[GlkGraphicsWindow class]]) {
                 [array addObject:win];
             }
         }
-        if (array.count == 1) {
-            [array.firstObject speakStatus];
-            return;
-        }
+        if (array.count == 1)
+            return array.firstObject;
     }
 
-    // Try to find status window to pass this on to
-    for (win in self.gwindows.allValues) {
-        if ([win isKindOfClass:[GlkTextGridWindow class]]) {
-            [(GlkTextGridWindow *)win speakStatus];
-            return;
-        }
+    // Otherwise the first text grid window is the status line.
+    for (GlkWindow *win in self.gwindows.allValues) {
+        if ([win isKindOfClass:[GlkTextGridWindow class]])
+            return win;
     }
-    [self speakStringNow:@"No status window found!"];
+    return nil;
+}
+
+// The text a window contributes to the spoken status, or nil for windows with
+// no text (e.g. graphics windows). Grid windows with a merged side-by-side
+// quote box store their text interleaved, so de-interleave it here.
+- (nullable NSString *)speakableStringForWindow:(nullable GlkWindow *)win {
+    if ([win isKindOfClass:[GlkTextGridWindow class]]) {
+        GlkTextGridWindow *grid = (GlkTextGridWindow *)win;
+        return grid.quoteboxColumns.count ? grid.deinterleavedQuoteboxString : grid.textview.string;
+    }
+    if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+        return ((GlkTextBufferWindow *)win).textview.string;
+    }
+    return nil;
 }
 
 - (void)forceSpeech {
