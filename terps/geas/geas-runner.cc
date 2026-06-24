@@ -1230,32 +1230,33 @@ void geas_implementation::look()
 			 + get_svar ("quest.formatroom"));
     }
 
-  /* List the objects and characters present.  The default room display
-   * always did this; do it after a custom description too -- otherwise a
-   * character such as World's End's snowville "woman" is never mentioned and
-   * the player has no way to know it is there (Quest shows these in its
-   * objects pane, which this interface doesn't have). */
+  /* List the objects and characters present.  The default room display always
+   * did this; do it after a custom description too -- otherwise a character such
+   * as World's End's snowville "woman" is never mentioned and the player has no
+   * way to know it is there.  Like the exits below, the original Quest runner
+   * printed this inline in the main text ("There is a key here.") *and* mirrored
+   * it in its objects pane, so print it in the main window even on a host that
+   * provides such a pane (see has_objects_window); the pane stays a
+   * supplementary copy. */
   regen_var_objects ();
-  if (!gi->has_objects_window() &&
-      (tmp = get_svar ("quest.formatobjects")) != "")
+  if ((tmp = get_svar ("quest.formatobjects")) != "")
     print_eval ("There is #quest.formatobjects# here.");
 
   /* List the available exits, after the objects.  The original Quest runner
-   * showed these in a separate exits/compass pane; a host that provides a
-   * room-objects pane (see has_objects_window) lists them there instead via
-   * get_room_exits, so only print them in the main window when there is no such
-   * pane.  Do this whether or not the room has a custom description -- otherwise
-   * the player has no way to know which way to go out of a custom-described
-   * room. */
-  if (!gi->has_objects_window())
-    {
-      if ((tmp = get_svar ("quest.doorways.out")) != "")
-	print_formatted ("You can go out to " + tmp + ".");
-      if ((tmp = get_svar ("quest.doorways.dirs")) != "")
-	print_eval ("You can go #quest.doorways.dirs#.");
-      if ((tmp = get_svar ("quest.doorways.places")) != "")
-	print_formatted ("You can go to " + tmp + ".");
-    }
+   * printed these directly in the main text ("You can go north, south, east or
+   * west.") *and* mirrored them in its compass/exits pane -- the pane was just a
+   * set of clickable shortcuts, not a replacement for the inline line.  So
+   * always print them in the main window, even on a host that also provides a
+   * room-exits pane (see has_objects_window / get_room_exits); the pane stays a
+   * supplementary copy.  Do this whether or not the room has a custom
+   * description -- otherwise the player has no way to know which way to go out
+   * of a custom-described room. */
+  if ((tmp = get_svar ("quest.doorways.out")) != "")
+    print_formatted ("You can go out to " + tmp + ".");
+  if ((tmp = get_svar ("quest.doorways.dirs")) != "")
+    print_eval ("You can go #quest.doorways.dirs#.");
+  if ((tmp = get_svar ("quest.doorways.places")) != "")
+    print_formatted ("You can go to " + tmp + ".");
 
   if (!described)
     {
