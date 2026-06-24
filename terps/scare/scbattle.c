@@ -319,6 +319,41 @@ battle_seed_attributes (sc_gameref_t game, sc_int npc)
 }
 
 /*
+ * battle_all_ranges_degenerate()
+ *
+ * Return TRUE if every configured attribute range -- Stamina, Strength,
+ * Accuracy, Defence and Agility, for the player and every NPC -- is degenerate
+ * (Lo == Hi).  This is the fingerprint of a version 3.9 game mechanically
+ * upgraded to the 4.0 file format by the ADRIFT 4 editor: the importer turns
+ * each 3.9 scalar into a Lo == Hi pair, whereas a native 4.0 author wiring up
+ * combat would normally leave at least one true Lo < Hi range.  Combined with
+ * an absence of any Accuracy/Agility (see battle_start), it identifies a game
+ * whose combat was authored for the 3.9 strength-vs-defence model.
+ */
+static sc_bool
+battle_all_ranges_degenerate (sc_gameref_t game)
+{
+  static const sc_char *const names[] = {
+    "Stamina", "Strength", "Accuracy", "Defense", "Agility"
+  };
+  sc_int n;
+  size_t i;
+
+  for (n = -1; n < gs_npc_count (game); n++)
+    {
+      for (i = 0; i < sizeof names / sizeof names[0]; i++)
+        {
+          sc_int lo, hi;
+
+          battle_bundle_range (game, n, names[i], &lo, &hi);
+          if (lo != hi)
+            return FALSE;
+        }
+    }
+  return TRUE;
+}
+
+/*
  * battle_start()
  *
  * Initialise battle state at game start.  Seed every mutable attribute from
@@ -353,23 +388,29 @@ battle_start (sc_gameref_t game)
     }
 
   /*
-   * Detect "unconfigured combat" for the optional combat-assist mode: a game in
-   * which no character (player or NPC) has any configured Accuracy or Agility.
-   * Only such games get auto-hit; properly-configured games are left untouched.
+   * Detect "unconfigured combat" for the optional combat-assist mode: a version
+   * 3.9 game upgraded to the 4.0 file format, whose combat was authored for the
+   * 3.9 strength-vs-defence model.  Such a game has the upgrade fingerprint --
+   * no Accuracy or Agility configured on any character AND every attribute range
+   * degenerate (see battle_all_ranges_degenerate) -- so the 4.0 accuracy>agility
+   * hit test (0 > 0) stalemates it.  Only such games get auto-hit; native 4.0
+   * games (which configure accuracy/agility, or use true Lo<Hi ranges) are left
+   * untouched even with the assist on.  True 3.9/3.8-signature games are handled
+   * unconditionally by battle_legacy and do not depend on this.
    */
   battle_unconfigured = FALSE;
   if (battle_combat_assist)
     {
-      sc_bool any = FALSE;
+      sc_bool any_accuracy = FALSE;
       sc_int n;
 
-      for (n = -1; n < gs_npc_count (game) && !any; n++)
+      for (n = -1; n < gs_npc_count (game) && !any_accuracy; n++)
         {
           if (battle_attribute_max (game, n, "Accuracy") > 0
               || battle_attribute_max (game, n, "Agility") > 0)
-            any = TRUE;
+            any_accuracy = TRUE;
         }
-      battle_unconfigured = !any;
+      battle_unconfigured = !any_accuracy && battle_all_ranges_degenerate (game);
     }
 }
 
