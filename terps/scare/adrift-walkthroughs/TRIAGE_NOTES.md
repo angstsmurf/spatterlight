@@ -52,7 +52,16 @@ Structural dump (SC_DUMP_TASKS) classification. "win" = a type-6 EndGame with
 | Invasion of the Second-Hand Shirts | 5.3 | 19 | 7 | **DONE 0/0 no ending** |
 | SRSintro | 158 | 37 | 3 |
 
-## F. Hangs after "Loading game…" (need investigation — intro loop / prompt)
-- Theannihilationofthink2
-- deaths
-- lair-of-the-cybercow
+## F. "Hangs after Loading game…" — MISDIAGNOSED: they just use the name+gender prompts
+These three are **not** hangs. With `</dev/null` they print nothing after the
+banner because they block on the **"Please enter your name"** + **"choose
+gender"** start-up prompts (the committed prompt support). Feed `name`,`male` and
+they boot and play normally. All three have a real win ending (type-6 var1=0):
+- **Theannihilationofthink2** (10 tasks) — **DONE, WON 35/35** (see
+  `Theannihilationofthink2_walkthrough.md`). Surfaced + fixed a real SCARE
+  command-separator bug (split on bare `.` vs the Runner's `. `/`,`/`then`),
+  which had made it unwinnable.
+- **deaths** (62 tasks, 9 score, 1 win) — playable; "House of Death" RPG, not
+  yet banked.
+- **lair-of-the-cybercow** (226 tasks, 17 score, 1 win) — playable; large, not
+  yet banked.

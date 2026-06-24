@@ -40,7 +40,33 @@ static const sc_char NUL = '\0';
 static const sc_char SPECIAL_PATTERN = '#';
 static const sc_char WILDCARD_PATTERN = '*';
 static const sc_char *const WHITESPACE = "\t\n\v\f\r ";
-static const sc_char *const SEPARATORS = ".,";
+
+/*
+ * run_is_separator()
+ *
+ * Return TRUE if the character at the given position in the line buffer acts
+ * as a player-input command separator.  A comma always separates.  A period
+ * separates only when followed by whitespace or the end of the line.
+ *
+ * This matches the ADRIFT Runner, whose input splitter (verified by reverse-
+ * engineering run390/run400) normalises on ", ", ". " and "then" -- i.e. it
+ * splits on a period only when that period is followed by a space.  A period
+ * embedded in a word (e.g. "login to think.com", or a decimal like "3.5") is
+ * therefore part of the command, not a separator.  Splitting on a bare period
+ * made such commands untypeable and rendered games that rely on them
+ * unwinnable (e.g. "The Annihilation of think.com").  Splitting on a trailing
+ * period is harmless (and preserves long-standing behaviour for input like
+ * "n.").
+ */
+static sc_bool
+run_is_separator (const sc_char *line, sc_int posn)
+{
+  if (line[posn] == ',')
+    return TRUE;
+  if (line[posn] == '.')
+    return line[posn + 1] == NUL || sc_isspace (line[posn + 1]);
+  return FALSE;
+}
 
 
 /*
@@ -1217,7 +1243,7 @@ run_player_input (sc_gameref_t game)
        */
       length = (line_buffer[0] == NUL) ? 0 : 1;
       while (line_buffer[length] != NUL
-             && strchr (SEPARATORS, line_buffer[length]) == NULL)
+             && !run_is_separator (line_buffer, length))
         length++;
 
       /*
@@ -1231,7 +1257,7 @@ run_player_input (sc_gameref_t game)
 
       extent = length;
       extent += (line_buffer[length] == NUL
-                 || strchr (SEPARATORS, line_buffer[length]) == NULL) ? 0 : 1;
+                 || !run_is_separator (line_buffer, length)) ? 0 : 1;
       extent += strspn (line_buffer + extent, WHITESPACE);
       memmove (line_buffer,
                line_buffer + extent, strlen (line_buffer) - extent + 1);

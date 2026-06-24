@@ -75,7 +75,7 @@ partial_flush (void)
       if (line_break)
         {
           fwrite (line_buffer, 1, line_break - line_buffer, stdout);
-          memmove (line_buffer, line_break + 1, strlen (line_break) + 1);
+          memmove (line_buffer, line_break + 1, strlen (line_break + 1) + 1);
           line_length = strlen (line_buffer);
         }
       else
@@ -135,6 +135,15 @@ os_print_tag (sc_int tag, const sc_char *argument)
       {
         sc_char dummy[256];
         full_flush ();
+        /*
+         * A "press a key" pause.  Normally we consume one line of input to
+         * stand in for the keypress.  For scripted/headless walkthrough
+         * derivation, SC_SKIP_WAITKEY=1 makes these pauses transparent so a
+         * solution file maps one line to one game command regardless of how
+         * many <waitkey> tags the game's text embeds.
+         */
+        if (getenv ("SC_SKIP_WAITKEY"))
+          break;
         if (!feof (stdin))
           fgets (dummy, sizeof (dummy), stdin);
         break;
@@ -223,11 +232,27 @@ os_read_line (sc_char *buffer, sc_int length)
 {
   full_flush ();
   if (feof (stdin))
-    sc_quit_game (game);
+    {
+      /*
+       * Already at end of input.  If the game is still running, ask it to
+       * quit (sc_quit_game longjmps out of the main loop and never returns).
+       * If it does return, the game has already ended -- e.g. we're inside the
+       * end-of-game debugger dialog -- so terminate the harness rather than
+       * spin re-reading EOF (which previously looped forever printing the
+       * debugger prompt and "run_quit: game is not running").
+       */
+      sc_quit_game (game);
+      exit (EXIT_SUCCESS);
+    }
 
   putchar ('>');
   fflush (stdout);
-  fgets (buffer, length, stdin);
+  if (!fgets (buffer, length, stdin))
+    {
+      /* EOF (or error) on this read with no data; quit cleanly as above. */
+      sc_quit_game (game);
+      exit (EXIT_SUCCESS);
+    }
   return TRUE;
 }
 

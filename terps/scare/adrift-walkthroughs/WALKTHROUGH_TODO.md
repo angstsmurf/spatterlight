@@ -39,6 +39,47 @@ records the full classification. Progress this session (12 new walkthroughs):
   `Melbourne_Beach_walkthrough.md` (**WON, max 38/41**) — see the 2026-06-24
   (later) entries below.
 
+## 2026-06-24 (later): Theannihilationofthink2 — **WON 35/35** (+ real engine fix)
+
+`Theannihilationofthink2_walkthrough.md`; solution `harness/think2_solution.txt`.
+*The Annihilation of think.com* (ADRIFT **3.90**) — tiny linear satire: log into
+think.com from your bedroom and fight up through the site's pages to beat Herald
+the dog (`4`=Defend in his office = +15 win). Route: `login to think.com` +5 →
+`take paper` → `say icons are banned` (past the Guard) → `put paper on Mrs Mac
+Intire` +10 → `out` → `2` (duck Mrs Assface's gun) +5 → `n`,`n`,`u`,`w` →
+Herald's office → `4` +15 WIN ("Think.com has been restored…").
+
+**This game was UNWINNABLE in SCARE until a real engine bug was found+fixed:**
+SCARE split player input on **any** bare `.`/`,` (`SEPARATORS=".,"`), chopping
+the only bedroom exit command `login to think.com` into `login to think`+`com`,
+which never matched → sealed first room. The ADRIFT Runner does NOT do this —
+RE of the 3.90 Runner input splitter (`run390.txt` @~`0x5EC80`) shows it
+normalises on `","`, `". "` (period **+ space**) and `"then"`; a period inside a
+word (`think.com`, decimals like `3.5`) is part of the command. **Fix in
+`scrunner.c`:** new `run_is_separator()` — comma always splits, period splits
+only when followed by whitespace/EOL. Verified `look. look` / `look,look` still
+split into two commands while `login to think.com` is one. Engine-level (applies
+to Spatterlight, not just the harness).
+
+**Also fixed (user request: "fix the debugger output") + harness robustness in
+`os_ansi.c`:** (1) the SCARE debugger spun forever at EOF printing
+`[SCARE debug]>` + `run_quit: game is not running` — `os_read_line` now exits
+cleanly when `fgets` hits EOF instead of looping (the old `feof→sc_quit_game`
+can't quit an already-ended game, e.g. the end-of-game debug dialog). (2) A
+real **global-buffer-overflow** in `partial_flush()` (ASAN-confirmed): the
+word-wrap `memmove` used `strlen(line_break)+1` (counts the space) while copying
+from `line_break+1`, over-reading past the 79-byte `line_buffer` on a full line
+— now `strlen(line_break+1)+1`. (3) New opt-in **`SC_SKIP_WAITKEY=1`** makes the
+harness ignore `<waitkey>` "press a key" pauses for clean one-line-per-command
+derivation; the faithful default still consumes one input line per pause (the
+banked solution has 3 blank lines after `2` for the duck text's three waitkeys).
+
+**Triage correction:** the three games filed under "Hangs after Loading…"
+(`Theannihilationofthink2`, `deaths`, `lair-of-the-cybercow`) are NOT hangs —
+they just block on the name+gender start-up prompts under `</dev/null`. All
+three boot and play with `name`/`male` fed; all have a real win ending. `deaths`
+(62 tasks) and `lair-of-the-cybercow` (226 tasks) remain to be banked.
+
 ## 2026-06-24 (later): Melbourne Beach — **WON, max 38/41**
 
 `Melbourne_Beach_walkthrough.md`; solution `harness/melbourne_beach_solution.txt`.
