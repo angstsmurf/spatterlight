@@ -912,6 +912,13 @@ gs_create (sc_var_setref_t vars,
   game->object_count = prop_get_child_count (bundle, "I<-s", vt_key);
   game->objects = sc_malloc (game->object_count * sizeof (*game->objects));
 
+  /* The NPCs array is not built until further below, but the object setup
+   * that follows needs the NPC count to validate objects whose initial state
+   * is "held/worn by NPC" (some games name a nonexistent NPC); read it now. */
+  vt_key[0].string = "NPCs";
+  game->npc_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  vt_key[0].string = "Objects";
+
   /* Set up initial object states. */
   for (index_ = 0; index_ < game->object_count; index_++)
     {
@@ -960,17 +967,47 @@ gs_create (sc_var_setref_t vars,
               if (initialparent == 0)   /* By player. */
                 gs_object_player_get_unchecked (game, index_);
               else                      /* By NPC. */
-                gs_object_npc_get_unchecked (game, index_, initialparent - 1);
+                {
+                  const sc_int npc = initialparent - 1;
+                  if (npc >= 0 && npc < game->npc_count)
+                    gs_object_npc_get_unchecked (game, index_, npc);
+                  else
+                    {
+                      sc_error ("gs_create: object held by"
+                                " nonexistent NPC, %ld\n", npc);
+                      gs_object_make_hidden_unchecked (game, index_);
+                    }
+                }
               break;
 
             case 2:            /* In container. */
-              gs_object_move_into_unchecked (game, index_,
-                                    obj_container_object (game, initialparent));
+              {
+                const sc_int container = obj_container_object (game,
+                                                               initialparent);
+                if (container >= 0 && container < game->object_count)
+                  gs_object_move_into_unchecked (game, index_, container);
+                else
+                  {
+                    sc_error ("gs_create: object in"
+                              " nonexistent container, %ld\n", container);
+                    gs_object_make_hidden_unchecked (game, index_);
+                  }
+              }
               break;
 
             case 3:            /* On surface. */
-              gs_object_move_onto_unchecked (game, index_,
-                                      obj_surface_object (game, initialparent));
+              {
+                const sc_int surface = obj_surface_object (game,
+                                                           initialparent);
+                if (surface >= 0 && surface < game->object_count)
+                  gs_object_move_onto_unchecked (game, index_, surface);
+                else
+                  {
+                    sc_error ("gs_create: object on"
+                              " nonexistent surface, %ld\n", surface);
+                    gs_object_make_hidden_unchecked (game, index_);
+                  }
+              }
               break;
 
             default:           /* In room, or worn by player/NPC. */
@@ -985,8 +1022,17 @@ gs_create (sc_var_setref_t vars,
                   if (initialparent == 0)
                     gs_object_player_wear_unchecked (game, index_);
                   else
-                    gs_object_npc_wear_unchecked (game,
-                                                  index_, initialparent - 1);
+                    {
+                      const sc_int npc = initialparent - 1;
+                      if (npc >= 0 && npc < game->npc_count)
+                        gs_object_npc_wear_unchecked (game, index_, npc);
+                      else
+                        {
+                          sc_error ("gs_create: object worn by"
+                                    " nonexistent NPC, %ld\n", npc);
+                          gs_object_make_hidden_unchecked (game, index_);
+                        }
+                    }
                 }
               else
                 {
