@@ -473,6 +473,9 @@ actual Win32 `run400.exe` on *Through time* (e.g. under Wine) as ground truth.
 `NO_ROOMS → not player-runnable`, and a wrong change would silently break it.
 If confirmed, the fix is the deep-dive's payoff (a real engine fix making a
 native-4.0 game playable) and must keep the bundled corpus byte-identical.
+**A step-by-step plan to decode the Runner's gate is in
+`TODO_decode_sub_20_74.md`** (routine map, what's already decoded, the open
+questions in priority order, and the Wine `run400.exe` ground-truth shortcut).
 
 ## Combat-assist note (opt-in, committed)
 
