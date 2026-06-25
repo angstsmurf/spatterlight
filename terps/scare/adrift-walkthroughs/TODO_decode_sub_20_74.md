@@ -1,5 +1,29 @@
 # TODO: decode the ADRIFT 4 Runner's task room-gate (`Sub_20_74`) to settle the SCARE "No Rooms" divergence
 
+> **CLOSED 2026-06-25 — verdict: faithful, do NOT patch. CONFIRMED on the real
+> Win32 `run400.exe` Runner** (Petter): the first-prompt No-Rooms probes
+> (`east`/`up`/`down`, `say through adversity to the stars`, `examine outhouse`)
+> all returned the faithful responses ("You can only move south.", the generic
+> `say` reply, "You see no such thing.") — the Runner does not run No-Rooms tasks
+> for the player either. The premise below is
+> wrong: `Sub_20_74` is **not** the task room-gate. It's a command-reference /
+> exit *scope* filter (switches on a reference-type 0/1/2 + sub-types 0–5, indexes
+> the object/character arrays, accessibility via `General.Sub_22_54`, `0x9C`=156
+> "nowhere" sentinel), called only by the pattern builders `Sub_20_64`/`Sub_20_75`.
+> The "conditional where-type-0 path" is the reference-type-0 branch, unrelated to
+> `ROOMLIST_NO_ROOMS`. The Runner's task-match path is `Sub_20_12` → executor
+> `Sub_20_11` (the sole caller of `Sub_20_11`) with no No-Rooms enablement.
+>
+> Decisive evidence that No-Rooms tasks must stay non-player-runnable (so SCARE is
+> faithful and *Through time* is unplayable-by-design, an authoring error):
+> structural — Through time's No-Rooms movement tasks are identical in shape to
+> Melbourne Beach's No-Rooms *subroutine* tasks; empirical — flipping
+> `NO_ROOMS→TRUE` is byte-identical for FunHouse / To_Hell_And_Beyond / Sun_Empire
+> but **breaks Melbourne Beach** (No-Rooms task 60 hijacks `get dry clothes`).
+> Reverted; tree clean. Full write-up in `WALKTHROUGH_TODO.md` (Through time entry).
+> Everything below is the original (now-superseded) investigation plan.
+
+
 **Why.** *Through time* (native 4.0) is unplayable past the opening house in
 SCARE because 82 % of its tasks have `Where = No Rooms` (`ROOMLIST_NO_ROOMS`,
 type 0) and `sctasks.c task_can_run_task_directional` returns `FALSE` for that

@@ -471,17 +471,70 @@ applying a **location-specific** condition (the Sub_20_74 conditional) that
 SCARE lacks — its exact form (the VB6 task `Where` record layout / param
 semantics) was not fully decoded.
 
-**Verdict: OPEN.** High-probability real SCARE divergence in No-Rooms task
-handling, but the correct behaviour needs either (a) finishing the RE of
-`Sub_20_74`'s conditional + the task `Where` record layout, or (b) running the
-actual Win32 `run400.exe` on *Through time* (e.g. under Wine) as ground truth.
-**Do not patch on current evidence** — the whole corpus relies on
-`NO_ROOMS → not player-runnable`, and a wrong change would silently break it.
-If confirmed, the fix is the deep-dive's payoff (a real engine fix making a
-native-4.0 game playable) and must keep the bundled corpus byte-identical.
-**A step-by-step plan to decode the Runner's gate is in
-`TODO_decode_sub_20_74.md`** (routine map, what's already decoded, the open
-questions in priority order, and the Wine `run400.exe` ground-truth shortcut).
+**Verdict (2026-06-25, RESOLVED — faithful, unplayable-by-design; do NOT patch).**
+The `TODO_decode_sub_20_74.md` deep-dive settled this. Three independent lines
+of evidence converge on *SCARE is faithful*; the earlier "probable divergence"
+rested on a misread of the Runner.
+
+1. **The `Sub_20_74` premise was wrong.** That routine is **not** the task
+   room-gate. Re-RE of `run400.txt` shows it is a command-**reference / exit
+   scope filter**: it switches on a reference-type (0/1/2 with sub-types 0–5,
+   *not* the 0–4 `ROOMLIST_*` enum), indexes the object/character arrays, tests
+   accessibility via the ubiquitous `General.Sub_22_54`, and uses the
+   `0x9C (156)` "nowhere" location sentinel. It is called only from the
+   string/pattern builders (`Sub_20_64`, `Sub_20_75`), whose results feed
+   command matching — never a player/room runnability decision. The "conditional
+   where-type-0 path" earlier read as a No-Rooms exception is just the
+   *reference-type-0* branch. The Runner's task-match path
+   (`Sub_20_12` → executor `Sub_20_11`, the **only** caller of `Sub_20_11`)
+   carries no special No-Rooms enablement.
+
+2. **Structural: Through time's working tasks are indistinguishable from
+   blocked subroutine tasks elsewhere.** Dumped the full structure
+   (`SC_DUMP_TASKS`): 135 No-Rooms / 16 One-Room / 2 Some-Rooms / 11 All-Rooms,
+   **3 events, and zero execute-task chaining** (every `ACT type=6` is an
+   end-game: lose / death / silent-stop `v1=1/2/3` — matching the known
+   endings). So the homebrew "every map node is a No-Rooms task gated by
+   task-state restrictions + FinishText" navigation can only function if
+   No-Rooms tasks are **directly player-runnable**. But its movement tasks
+   (e.g. task 89 `north` gated on task 104; task 55 `south` gated on task 54)
+   are *structurally identical* — No-Rooms + restriction + action/FinishText —
+   to **Melbourne Beach's** No-Rooms subroutine tasks (task 60 `get* dry*`,
+   task 61 `get* fold*`). No predicate distinguishes "should run" from "should
+   not run".
+
+3. **Empirical corpus regression proves No-Rooms-blocked is required.** Flipping
+   `ROOMLIST_NO_ROOMS → TRUE` (the only change that could make Through time move)
+   and replaying the bundled solutions: FunHouse, To_Hell_And_Beyond (×2),
+   Sun_Empire stay byte-identical, **but Melbourne Beach diverges** — No-Rooms
+   task 60 hijacks `get dry clothes` (`"You now have the dry clothes."` instead
+   of the author's dryer-specific `"You take the dry clothes from the dryer."`).
+   Reverted; tree clean; Melbourne Beach byte-identical again. This is exactly
+   the corpus breakage the warning predicted, and it is direct evidence that the
+   real Runner (and standard ADRIFT) **blocks** No-Rooms tasks from direct player
+   execution — the ADRIFT idiom for "subroutine task, call via Execute-Task /
+   event only."
+
+4. **CONFIRMED on the real Win32 `run400.exe` Runner (ground truth, 2026-06-25).**
+   At the very first prompt (living room — real exits south/west only), the
+   No-Rooms probes all returned the *faithful* responses: bare directions →
+   *"You can only move south."* (No-Rooms directional tasks 27/30/97/99 did not
+   fire); `say through adversity to the stars` → ADRIFT's generic library reply
+   *"That's the most interesting thing I've ever heard!"* (No-Rooms task 54 did
+   not fire); `examine outhouse` → *"You see no such thing."* (No-Rooms task 26
+   did not fire). The real Runner blocks No-Rooms tasks from direct player
+   execution — identical to SCARE. (Had it diverged, those probes would have
+   printed the spaceship/Rome node text, as SCARE does when `NO_ROOMS` is
+   force-flipped to `TRUE`.)
+
+**Conclusion.** `Through time`'s author built the entire post-house game out of
+No-Rooms tasks with no Execute-Task callers, so those tasks are unreachable in
+the real ADRIFT 4 Runner too. The game is **unplayable past the opening house by
+design (an authoring error), not a SCARE divergence.** SCARE's unconditional
+`NO_ROOMS → FALSE` is **faithful** and must stay. (The Win32 `run400.exe`
+ground-truth shortcut was moot anyway: only the disassembly `run400.txt` is on
+disk — the `.exe` itself is not present, and the host is Apple-Silicon with no
+Wine.) `TODO_decode_sub_20_74.md` is closed; see its tail for the closing note.
 
 ## Combat-assist note (opt-in, committed)
 
