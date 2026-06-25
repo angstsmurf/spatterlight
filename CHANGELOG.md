@@ -3,11 +3,12 @@
 ## Release 1.5.0
 ### New game systems
 - A port of the ScummVM Comprehend interpreter, for the illustrated Penguin Software / Polarware adventures with The Graphics Magician pictures: *Transylvania*, *The Crimson Crown*, *Oo-Topos*, *The Coveted Mirror* and *Talisman: Challenging the Sands of Time*. The Apple II disk versions (.dsk and .woz) are supported, as well as the MS-DOS versions in both CGA and IBM PCjr 16-colour graphics. Pictures are revealed progressively, the way the original games drew them, and the Apple II games can be switched to double hi-res graphics. Title screens, *The Coveted Mirror*'s animated hourglass and side panel, and the games' end-of-game and death menus are all in place, with the option to undo a death rather than only restart or restore. Save and restore use the standard Spatterlight file dialog, and a set of meta-commands is available — type #help for the list (#undo, #restart, #transcript, #quit, and so on). The single-letter shortcuts I, X and Z work as inventory, examine and wait, following modern conventions. A pair of variable-comparison opcodes that had been inverted are now corrected against the original interpreters, so puzzles that depend on them behave as they should — for instance, *Talisman*'s loose prison-cell brick is now guarded by the executioner until after King Darius's speech, rather than the other way round. Answering an in-game prompt with a bare number now re-uses the verb of the question, so *Talisman*'s shop clerk accepts the 5-digit product code ("A fine choice.") instead of rejecting it. Scripted scenes that whisk the player away and back (such as *Talisman*'s magic lamp) now return them to the room they came from rather than stranding them.
-- Quest 4 games are now playable in the Geas interpreter. Geas now shows pictures, plays MIDI and MOD music, lists room exits and objects in a side pane, displays status variables, and offers undo, restart, restore and quit when a game ends. Text output more closely matches the original Quest, including room descriptions, the order of the opening text and startscript, spacing in displayed text blocks, and screen clears (which leave the transcript intact).
-- Also adds a port of the Archetype interpreter from ScummVM.
+- Quest 4 games are now playable in the Geas interpreter. It shows pictures, plays MIDI and MOD music, lists room exits and objects in a side pane, displays status variables, and offers undo, restart, restore and quit when a game ends. Text output more closely matches the original Quest, including room descriptions, the order of the opening text and startscript, spacing in displayed text blocks, and screen clears (which leave the transcript intact).
+- Also adds a port of the Archetype interpreter from ScummVM, now with undo, restart and transcript meta-commands.
 
 ### Scott Adams and SAGA
-- Adds the ZX Spectrum loading screens as title images in Scott, Taylormade and UnQuill. This includes the Alkatraz-protected *Scott Adams Scoops* tape.
+- Adds the ZX Spectrum loading screens as title images in Scott, Taylormade and UnQuill.
+- Adds support for the Alkatraz-protected *Scott Adams Scoops* tzx tape image.
 - Loads more Commodore 64 disk versions, including the c64.com SAGA disks, several *Hulk* cracks and the c64.com *Pirate Adventure*.
 - The Apple II, Atari 8-bit and ZX Spectrum vector renderers have a couple of bug fixes, mostly to do with the draw order of object images.
 - The Atari 8-bit slow-draw pauses now matches the real machine.
@@ -17,16 +18,29 @@
 - ZX Spectrum BEEP sound is now reproduced at hardware-accurate pitch and tempo.
 
 ### Quill / PAW (UnQuill)
-- Renders The Illustrator location graphics, placed above the room description like in the Scott Adams games. Split-screen games are detected and the picture window is cropped to match.
+- Renders The Illustrator location graphics, placed above the room description like in the Scott Adams games. Split-screen games are detected and the picture window is cropped to match. A window at the top displays the room description.
 - Loads Commodore 64 .t64 Quill games, ZX Spectrum .z80 snapshots, and custom turbo-loader .tzx tapes such as *Bugsy*, and shows the .z80 loading screens.
 - Adds interpreter-level UNDO and the #save, #restore, #restart, #quit, #transcript and #help meta-commands.
-- ZX Spectrum BEEP is now hardware-accurate, and sound no longer blocks the interpreter.
+- Hardware-accurate, non-blocking ZX Spectrum BEEPs.
 
 ### Level 9
 - Loads ZX Spectrum .z80 snapshots, .tzx tapes and .dsk disk images, including Amstrad CPC and +3 disks, together with their separate picture files.
 - Renders both monochrome and colour Spectrum +3 pictures, honouring the colorize preference.
 - Multi-part tape and disk games now advance across sides and disks automatically, and compilations get a part-selection menu (or you can pick a sub-game with #N).
 - Optional slow vector image drawing.
+
+### AGiliTy (AGT)
+- AGT games now play directly from their original files, including `.d$$` and `.agx` versions; the separate AGX conversion step has been removed.
+- The title screen image is displayed when a game starts.
+- Indented list items keep their own lines when the text is reflowed.
+
+### SCARE (Adrift)
+- SCARE (Adrift) now displays images and plays sound, and implements the optional Adrift Battle System: real combat with stamina, weapons and armour, the `wield`, `unwield` and `status` commands, weapon attack-method verbs (`chop`, `cut`, `stab`, `shoot`, `throw`…), proper handling of a slain character's dropped belongings and of the player's own death, and preservation of live combat state across save and restore. Can now load and save the original Adrift save format.
+- SCARE has had a further round of work: it asks for the player's name and gender when a game needs them, tracks the Runner's carrying-capacity limits (toggled with a port command), shows the title or cover image in its own graphics window, adds optional combat- and movement-assist commands for games whose battle data is left unconfigured, and adds a `glk verbose` command that forces long room descriptions even when a game shadows the built-in `verbose` command (as *Lair of the CyberCow* does). Legacy 3.8/3.9 games now use the original strength-versus-defence hit model, room descriptions no longer print a spurious "You can't go in any direction!", game-defined commands can override Glk's single-letter shortcuts, and several crashes on malformed game data are fixed. When a walking character meets an object or another character, the triggered task is now matched by its command — so a game that splits one reaction across several same-command tasks, one per room, gets the right one for where the player is standing (in *Lair of the CyberCow*, the fairy snatches the bowl of milk whether you leave it in the steeple or the chapel yard). An event that turns a task back off now simply clears it instead of trying to run it in reverse, so the same game's robot lets you out of the cellar once you say "uncle" and confronts the CyberCow down at the well rather than the instant it is built.
+
+### Other interpreters
+- The JACL interpreter has been updated to upstream DangarStu/JACL 4.7.0, together with a number of correctness fixes.
+- TADS 3 gets a batch of virtual-machine bug fixes backported from FrobTADS.
 
 ### Z-code (Bocfel)
 - Updated to Bocfel 2.5.1.
@@ -35,13 +49,16 @@
 - With VoiceOver on, *Zork Zero*'s full-screen images — the title screen, the graphical map and the rebus pictures — are now described in text.
 
 ### General
-- Adds a preference to cap the scrollback buffer length.
+- Adds a per-theme preference to cap the scrollback buffer length.
 - Scrolling up to read during real-time or command-script output now pauses auto-scroll, and scrolling back to the bottom resumes it without getting stuck.
 - Graphics in *Magnetic* and Level 9 games are now resized automatically.
 - Fixes horizontal and vertical drift of margin images.
-- SCARE (Adrift) now displays images and plays sound, and implements the optional Adrift Battle System: real combat with stamina, weapons and armour, the `wield`, `unwield` and `status` commands, weapon attack-method verbs (`chop`, `cut`, `stab`, `shoot`, `throw`…), proper handling of a slain character's dropped belongings and of the player's own death, and preservation of live combat state across save and restore. Can now load and save the original Adrift save format.
-- Several VoiceOver improvements: the custom rotors are reachable from the command prompt, side-by-side quote boxes are read as two separate blocks, and announcements are no longer dropped or cut off around graphics.
+- Several VoiceOver improvements: the custom rotors are reachable from the command prompt, side-by-side quote boxes are read as two separate blocks, announcements are no longer dropped or cut off around graphics, and the "speak status bar" command now reads every non-main text window rather than only the status line.
+- All bundled interpreters now share a single deterministic random-number generator, so the Determinism option gives reproducible playthroughs in every interpreter.
+- Opening a library database from a much older version now upgrades it one format at a time, so very old libraries migrate correctly to the current format.
+- The library search field no longer disappears when the toolbar is rebuilt.
 - The library search bar is cleared when an added game would otherwise be hidden by it.
+- Numerous robustness and crash fixes across the bundled interpreters, many of them found with Xcode's static analyzer.
 - Fixes a one-pixel preview-colour line in Preferences after restart.
 
 ## Release 1.4.9
