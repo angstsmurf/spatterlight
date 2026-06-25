@@ -1,0 +1,78 @@
+# Headless regression harness for AGiliTy.
+#
+# Builds a stdin-driven console interpreter that uses the SAME shared
+# erkyrath_random() generator (seeded 1234) as the Spatterlight (Glk) build,
+# so deterministic playthroughs match Spatterlight exactly.  This lets us
+# replay and validate the UITest command scripts without launching the app.
+#
+#   make -f Makefile.headless
+#   ./agil_headless <game.agx> < commandscript.txt
+#
+# char-input ("press any key", yes/no) prompts are auto-satisfied; only
+# line-input prompts consume a line from the script on stdin.
+
+CC= clang
+COMMON= ../common_utils
+# Stay on the PLAIN/ANSI file layer (avoids the broken UNIX PATH_SEP path),
+# but raise MAXSTRUC from PLAIN's 32K (too small for this game).
+# -DAGT_HEADLESS selects the erkyrath RNG branch (token.c) and os_headless.c.
+CFLAGS= -w -O2 -DMAXSTRUC=4194304L -DAGT_HEADLESS -I. -I$(COMMON) -I../cheapglk
+
+BASE= agtread.o gamedata.o util.o agxfile.o auxfile.o filename.o
+AGIL= parser.o exec.o runverb.o metacommand.o savegame.o debugcmd.o agil.o \
+	token.o disassemble.o object.o
+INTERFACE= interface.o os_headless.o
+EXTRA= hl_randomness.o
+
+all: agil_headless
+
+agil_headless: $(BASE) $(AGIL) $(INTERFACE) $(EXTRA)
+	$(CC) $(CFLAGS) -o agil_headless $(AGIL) $(BASE) $(INTERFACE) $(EXTRA)
+
+# ---------------------------------------------------------------------------
+# Regression test: replay the Shades of Gray command scripts under the shared
+# erkyrath seed-1234 RNG and assert their final scores.  The .agx and the
+# command scripts already live in the UITest support tree.
+#
+#   make -f Makefile.headless test
+#
+#   * "Shades of Gray command script.txt"          -> canonical full win, 991/1000
+#   * "Shades of Gray over 1000 command script.txt" -> candle-farm exploit, 1091/1000
+#
+# The over-1000 script is identical to the canonical one except it cycles
+# `light candle`/`extinguish candle` in the voodoo Plain White Room (CMD957
+# awards +10 each `light`; CMD960 `extinguish` clears the guard flag without
+# penalty -- a repeatable-scoring bug) and uses a spam-based taxi endgame that
+# is robust to the resulting turn-count shift.
+SUPPORT  := ../../UITests/Supporting Files
+GAME     := $(SUPPORT)/Games/AGT-03201-0000E16C.agx
+SCRIPT_DIR := $(SUPPORT)/Command scripts
+CANON    := $(SCRIPT_DIR)/Shades of Gray command script.txt
+OVER1000 := $(SCRIPT_DIR)/Shades of Gray over 1000 command script.txt
+
+test: agil_headless
+	@fail=0; \
+	check() { \
+	  name="$$1"; script="$$2"; want="$$3"; \
+	  out=$$(./agil_headless "$(GAME)" < "$$script" 2>/dev/null); \
+	  score=$$(printf '%s\n' "$$out" | sed -n 's/.*Your score is \([0-9]*\).*/\1/p' | tail -1); \
+	  if printf '%s\n' "$$out" | grep -q 'YOU HAVE WON THE GAME' && [ "$$score" = "$$want" ]; then \
+	    echo "PASS  $$name: WON, score $$score/1000"; \
+	  else \
+	    echo "FAIL  $$name: won=$$(printf '%s\n' "$$out" | grep -qc 'YOU HAVE WON THE GAME' && echo yes || echo no) score=$$score (wanted $$want)"; \
+	    fail=1; \
+	  fi; \
+	}; \
+	check "canonical (991)" "$(CANON)" 991; \
+	check "over-1000 (1091)" "$(OVER1000)" 1091; \
+	exit $$fail
+
+hl_randomness.o: $(COMMON)/randomness.c
+	$(CC) $(CFLAGS) -c -o hl_randomness.o $(COMMON)/randomness.c
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+.PHONY: all test clean
+clean:
+	rm -f $(BASE) $(AGIL) $(INTERFACE) $(EXTRA) agil_headless
