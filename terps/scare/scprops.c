@@ -589,10 +589,13 @@ prop_put_integer (sc_prop_setref_t bundle, const sc_char *format,
 /*
  * prop_put_string()
  *
- * Update the string value of an already-present leaf node.  The new value is
- * interned into the bundle's string dictionary (so the bundle owns it and
- * frees it on teardown).  Used for the runtime-mutable player name, chosen at
- * game start.  Returns FALSE if the addressed node doesn't exist.
+ * Update the string value of an already-present leaf node.  This runs at game
+ * start (the runtime-mutable player name), which is after prop_solidify() has
+ * trimmed and frozen the string dictionary, so the value cannot be interned
+ * there -- growing the trimmed dictionary overruns it.  Instead the bundle
+ * takes a private copy and adopts it (freed on teardown like any orphan); the
+ * orphans list is deliberately left growable past solidify for exactly this.
+ * Returns FALSE if the addressed node doesn't exist.
  */
 sc_bool
 prop_put_string (sc_prop_setref_t bundle, const sc_char *format,
@@ -600,6 +603,7 @@ prop_put_string (sc_prop_setref_t bundle, const sc_char *format,
 {
   sc_prop_noderef_t node;
   sc_int index_;
+  sc_char *copy;
   assert (prop_is_valid (bundle));
 
   if (!format || format[0] == NUL
@@ -613,7 +617,12 @@ prop_put_string (sc_prop_setref_t bundle, const sc_char *format,
       if (!node)
         return FALSE;
     }
-  node->property.string = prop_dictionary_lookup (bundle, value);
+
+  /* Take a bundle-owned copy of the value and point the node at it. */
+  copy = sc_malloc (strlen (value) + 1);
+  memcpy (copy, value, strlen (value) + 1);
+  prop_adopt (bundle, copy);
+  node->property.string = copy;
   return TRUE;
 }
 
@@ -762,11 +771,14 @@ prop_solidify (sc_prop_setref_t bundle)
   assert (prop_is_valid (bundle));
 
   /*
-   * Trim back the dictionary, orphans, pools array, and every internal tree
-   * node.  The one thing _not_ to trim is the final node pool -- there are
-   * references to nodes within it strewn all over the properties tree, and
+   * Trim back the dictionary, pools array, and every internal tree node.  Two
+   * things are deliberately _not_ trimmed.  The final node pool, because there
+   * are references to nodes within it strewn all over the properties tree, and
    * it's a large job to try to find and update them; instead, we just live
-   * with a little wasted heap memory.
+   * with a little wasted heap memory.  And the orphans array, because it stays
+   * growable past solidify so that runtime-mutable string properties (the
+   * player name, set at game start) can adopt a bundle-owned copy of their
+   * value -- see prop_put_string().
    */
   bundle->dictionary = prop_trim_capacity (bundle->dictionary,
                                            bundle->dictionary_length,
@@ -774,9 +786,6 @@ prop_solidify (sc_prop_setref_t bundle)
   bundle->node_pools = prop_trim_capacity (bundle->node_pools,
                                            bundle->node_pools_length,
                                            sizeof (bundle->node_pools[0]));
-  bundle->orphans = prop_trim_capacity (bundle->orphans,
-                                        bundle->orphans_length,
-                                        sizeof (bundle->orphans[0]));
   prop_trim_node (bundle->root_node);
 
   /* Set the bundle so that no more properties can be added. */
