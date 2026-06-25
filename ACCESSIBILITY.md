@@ -38,7 +38,7 @@ Use this keyboard shortcut and the next to navigate back and forth through all v
 (shortcut Alt + Command + down arrow) 
 ### Speak Status
 (shortcut Alt + Command + Backspace)
-This one looks for a status window and reads its text if it finds one. It is particularly useful for games that print the room description in a separate window, such as the Scott Adams games. Depending on the game layout, it may fail to find the status window of certain games. 
+This one looks for a status window and reads its text if it finds one. It will then go on and read the text in all non-main windows. This is particularly useful for games that print the room description in a separate window, such as the Scott Adams games.
 
 <a id='vo-rotors'></a>
 ## Custom rotors
