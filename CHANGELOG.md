@@ -1,64 +1,87 @@
 # Change log
 
-## Release 1.5.0
-### New game systems
-- A port of the ScummVM Comprehend interpreter, for the illustrated Penguin Software / Polarware adventures with The Graphics Magician pictures: *Transylvania*, *The Crimson Crown*, *Oo-Topos*, *The Coveted Mirror* and *Talisman: Challenging the Sands of Time*. The Apple II disk versions (.dsk and .woz) are supported, as well as the MS-DOS versions in both CGA and IBM PCjr 16-colour graphics. Pictures are revealed progressively, the way the original games drew them, and the Apple II games can be switched to double hi-res graphics. Title screens, *The Coveted Mirror*'s animated hourglass and side panel, and the games' end-of-game and death menus are all in place, with the option to undo a death rather than only restart or restore. Save and restore use the standard Spatterlight file dialog, and a set of meta-commands is available — type #help for the list (#undo, #restart, #transcript, #quit, and so on). The single-letter shortcuts I, X and Z work as inventory, examine and wait, following modern conventions. A pair of variable-comparison opcodes that had been inverted are now corrected against the original interpreters, so puzzles that depend on them behave as they should — for instance, *Talisman*'s loose prison-cell brick is now guarded by the executioner until after King Darius's speech, rather than the other way round. Answering an in-game prompt with a bare number now re-uses the verb of the question, so *Talisman*'s shop clerk accepts the 5-digit product code ("A fine choice.") instead of rejecting it. Scripted scenes that whisk the player away and back (such as *Talisman*'s magic lamp) now return them to the room they came from rather than stranding them.
-- Quest 4 games are now playable in the Geas interpreter. It shows pictures, plays MIDI and MOD music, lists room exits and objects in a side pane, displays status variables, and offers undo, restart, restore and quit when a game ends. Text output more closely matches the original Quest, including room descriptions, the order of the opening text and startscript, spacing in displayed text blocks, and screen clears (which leave the transcript intact).
-- Also adds a port of the Archetype interpreter from ScummVM, now with undo, restart and transcript meta-commands.
+## Unreleased
 
-### Scott Adams and SAGA
-- Adds the ZX Spectrum loading screens as title images in Scott, Taylormade and UnQuill.
-- Adds support for the Alkatraz-protected *Scott Adams Scoops* tzx tape image.
-- Loads more Commodore 64 disk versions, including the c64.com SAGA disks, several *Hulk* cracks and the c64.com *Pirate Adventure*.
-- The Apple II, Atari 8-bit and ZX Spectrum vector renderers have a couple of bug fixes, mostly to do with the draw order of object images.
-- The Atari 8-bit slow-draw pauses now matches the real machine.
+### Z-code (Bocfel)
+- Special support for *Zork Zero*, equivalent to the existing support for the other Infocom z6 games. Autosave, window resizing, change graphics format on-the-fly, and improved VoiceOver integration with skippable graphical puzzles. Several pre-release and demo revisions now work.
+- *Trinity*'s side-by-side double quote boxes are now drawn and spoken correctly by VoiceOver.
+- Updated to Bocfel 2.5.1.
 
-### Taylor-made adventures
-- Loads more Commodore 64 disk versions, including newly discovered variants of *Masters of the Universe* (*He-Man*) and *Temple of Terror*.
-- ZX Spectrum BEEP sound is now reproduced at hardware-accurate pitch and tempo.
+### Comprehend
+- A port of the ScummVM Comprehend interpreter, for the Penguin Software / Polarware adventures *Transylvania*, *The Crimson Crown*, *Oo-Topos*, *The Coveted Mirror*, and *Talisman: Challenging the Sands of Time*. All games are fully playable from start to finish.
+- The Apple II disk versions (.dsk and .woz) are supported, as well as the MS-DOS versions.
+- Optional slow vector drawing.
+- Undo, transcript, restart, restore and quit. Type #help for the full list of metacommands.
+- Modern single-letter abbreviations for inventory, examine and wait.
 
-### Quill / PAW (UnQuill)
-- Renders The Illustrator location graphics, placed above the room description like in the Scott Adams games. Split-screen games are detected and the picture window is cropped to match. A window at the top displays the room description.
-- Loads Commodore 64 .t64 Quill games, ZX Spectrum .z80 snapshots, and custom turbo-loader .tzx tapes such as *Bugsy*, and shows the .z80 loading screens.
-- Adds interpreter-level UNDO and the #save, #restore, #restart, #quit, #transcript and #help meta-commands.
-- Hardware-accurate, non-blocking ZX Spectrum BEEPs.
+### Archetype
+- A port of the Archetype interpreter from ScummVM, with added undo, restart and transcript. This interpreter supports two real games, *The Gorreven Papers* (1995) and *The Starship Solitaire Adventure* (1995), both written by the developer Derek T. Jones as demonstration games for the Archetype authoring system.
 
-### Level 9
-- Loads ZX Spectrum .z80 snapshots, .tzx tapes and .dsk disk images, including Amstrad CPC and +3 disks, together with their separate picture files.
-- Renders both monochrome and colour Spectrum +3 pictures, honouring the colorize preference.
-- Multi-part tape and disk games now advance across sides and disks automatically, and compilations get a part-selection menu (or you can pick a sub-game with #N).
-- Optional slow vector image drawing.
+### Geas (Quest 4)
+- All the Quest 4 games I've been able to find work.
+- Displays pictures and plays MIDI and MOD music.
+- Status variables listed in the status bar, room exits and objects in a side pane.
+- A VERBS command that lists available verbs for an object, similar to the contextual verb menus of the original Quest 4 runner.
+- UNDO and OOPS.
+- Some text output has been adjusted to be closer to the original.
+
+### Scare (Adrift)
+- Implements the Adrift 4.0 battle system: stamina, weapons and armour.
+- Also implements the very different Adrift 3.8/3.9 battle system.
+- Most Adrift games using the battle system are unfinished, broken and / or not very good.
+- Adds a GLK COMBATASSIST and GLK MOVEASSIST commands for games that were broken when converted from earlier versions to Adrift 4.0.
+- Displays images and plays sounds.
+- Can load and save the original Adrift 4.0 save format.
+- Asks for the player's name and gender (strictly binary) at game start when the original game did so.
+- Original carrying-capacity limits (toggled with the GLK CAPACITY command).
+- Optional combat- and movement-assist commands for games whose battle data is left unconfigured.
+- Adds a GLK VERBOSE command for those games where the built-in VERBOSE does not work.
+- No longer prints a spurious "You can't go in any direction!" after room descriptions.
+- The Glk single-letter shortcuts no longer interfer with single-letter commands in the original games.
+- Several crashes on malformed game data are fixed.
+- Full support for the original *LAIR of the CYBER-COW*.
 
 ### AGiliTy (AGT)
-- AGT games now play directly from their original files, including `.d$$` and `.agx` versions; the separate AGX conversion step has been removed.
-- The title screen image is displayed when a game starts.
-- Indented list items keep their own lines when the text is reflowed.
+- AGT games now play directly from their original .D$$ files; the separate AGX conversion step has been removed.
+- The title image is displayed when a game starts.
+- Inventory and other indented lists now properly prints every item on its own line.
 
-### SCARE (Adrift)
-- SCARE (Adrift) now displays images and plays sound, and implements the optional Adrift Battle System: real combat with stamina, weapons and armour, the `wield`, `unwield` and `status` commands, weapon attack-method verbs (`chop`, `cut`, `stab`, `shoot`, `throw`…), proper handling of a slain character's dropped belongings and of the player's own death, and preservation of live combat state across save and restore. Can now load and save the original Adrift save format.
-- SCARE has had a further round of work: it asks for the player's name and gender when a game needs them, tracks the Runner's carrying-capacity limits (toggled with a port command), shows the title or cover image in its own graphics window, adds optional combat- and movement-assist commands for games whose battle data is left unconfigured, and adds a `glk verbose` command that forces long room descriptions even when a game shadows the built-in `verbose` command (as *Lair of the CyberCow* does). Legacy 3.8/3.9 games now use the original strength-versus-defence hit model, room descriptions no longer print a spurious "You can't go in any direction!", game-defined commands can override Glk's single-letter shortcuts, and several crashes on malformed game data are fixed. When a walking character meets an object or another character, the triggered task is now matched by its command — so a game that splits one reaction across several same-command tasks, one per room, gets the right one for where the player is standing (in *Lair of the CyberCow*, the fairy snatches the bowl of milk whether you leave it in the steeple or the chapel yard). An event that turns a task back off now simply clears it instead of trying to run it in reverse, so the same game's robot lets you out of the cellar once you say "uncle" and confronts the CyberCow down at the well rather than the instant it is built.
+### Level 9
+- Loads games from ZX Spectrum .z80 snapshots, .tzx tapes and .dsk images.
+- Can render Spectrum +3 pictures in both the original monochrome and in color. (The Level 9 bitmap image data format is identical for Commodore 64, Amstrad CPC and Spectrum +3.)
+- Multi-part tape and disk games now advance across sides and disks correctly, and compilations get a part-selection menu.
+- Optional slow vector image drawing.
+- Graphics in Level 9 (and Magnetic) games are now resized automatically.
+
+### Scott Adams and related
+- ZX Spectrum loading screens are shown as title images in Scott, Taylormade and UnQuill.
+- Adds support for the Alkatraz-protected *Scott Adams Scoops* tzx tape image.
+- Loads more Commodore 64 disk versions of ScottFree and TaylorMade games, including several *Hulk* variants, one new *Pirate Adventure*, and variants of *Masters of the Universe* (*He-Man*) and *Temple of Terror*.
+- The Apple II, Atari 8-bit and ZX Spectrum vector renderers have had a couple of bug fixes, mostly to do with the draw order of object images.
+- The Atari 8-bit slow-draw pauses now matches the real machine.
+- ZX Spectrum BEEP sound is now reproduced at hardware-accurate pitch and tempo in *Rebel Planet*.
+
+### UnQuill
+- Despite many improvements, the UnQuill interpreter is still kind of useless. A ZX Spectrum emulator is the better option. The exception is for VoiceOver users. Most Quill games are probably still not completable (let alone enjoyable) using VoiceOver, though.
+- Quill games now render The Illustrator-format location graphics, placed above the room description. Split-screen games are detected and the picture window is cropped to match. A window at the top displays the room description text.
+- Loads Commodore 64 .t64 Quill games, ZX Spectrum .z80 snapshots, and custom turbo-loader .tzx tapes such as *Bugsy*, and shows the .z80 loading screens.
+- Adds interpreter-level UNDO and the #save, #restore, #restart, #quit, #transcript and #help meta-commands.
+- Hardware-accurate, non-blocking BEEP sounds.
 
 ### Other interpreters
 - The JACL interpreter has been updated to upstream DangarStu/JACL 4.7.0, together with a number of correctness fixes.
 - TADS 3 gets a batch of virtual-machine bug fixes backported from FrobTADS.
 
-### Z-code (Bocfel)
-- Updated to Bocfel 2.5.1.
-- Extensive work on the V6 graphical games. In *Zork Zero*, this fixes the on-screen MAP, the clickable compass rose, the encyclopedia, the status-window and text colours, and numerous glitches around autorestore, restart and window resizing; several pre-release and demo revisions are now supported. *Arthur*'s extended banner no longer has empty gaps between its pillars.
-- *Trinity*'s side-by-side quote boxes are now drawn and spoken correctly by VoiceOver.
-- With VoiceOver on, *Zork Zero*'s full-screen images — the title screen, the graphical map and the rebus pictures — are now described in text.
-
 ### General
 - Adds a per-theme preference to cap the scrollback buffer length.
-- Scrolling up to read during real-time or command-script output now pauses auto-scroll, and scrolling back to the bottom resumes it without getting stuck.
-- Graphics in *Magnetic* and Level 9 games are now resized automatically.
+- Scrolling up to read during real-time or command-script output now pauses auto-scroll, and scrolling back to the bottom resumes it without getting stuck. This does not work very reliably, but a little better than it used to.
 - Fixes horizontal and vertical drift of margin images.
 - Several VoiceOver improvements: the custom rotors are reachable from the command prompt, side-by-side quote boxes are read as two separate blocks, announcements are no longer dropped or cut off around graphics, and the "speak status bar" command now reads every non-main text window rather than only the status line.
-- All bundled interpreters now share a single deterministic random-number generator, so the Determinism option gives reproducible playthroughs in every interpreter.
-- Opening a library database from a much older version now upgrades it one format at a time, so very old libraries migrate correctly to the current format.
-- The library search field no longer disappears when the toolbar is rebuilt.
-- The library search bar is cleared when an added game would otherwise be hidden by it.
-- Numerous robustness and crash fixes across the bundled interpreters, many of them found with Xcode's static analyzer.
+- All bundled interpreters now share a single deterministic random-number generator (stolen from Glulxe).
+- More reliable migration from older library database formats.
+- The library search field was recreated constantly, which caused crashes and irregular behavior.
+- The library search bar is cleared automatically when a newly added game would otherwise be hidden.
+- Numerous robustness and crash fixes across the bundled interpreters, and many more pointless changes to placate Xcode's static analyzer.
 - Fixes a one-pixel preview-colour line in Preferences after restart.
 
 ## Release 1.4.9
