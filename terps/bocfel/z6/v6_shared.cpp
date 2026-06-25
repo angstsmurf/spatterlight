@@ -20,6 +20,7 @@
 // - Credits display and color management after V-COLOR.
 // - Visual puzzle skip prompt for accessibility.
 
+#include <cmath>
 #include <sstream>
 
 #include "draw_image.hpp"
@@ -919,15 +920,38 @@ static void center_line(const char *str, int line, int length, bool reverse) {
     if (length > width)
         width = length;
     glk_window_move_cursor(win, (width - length) / 2, line - 1);
+    // Pin explicit upper-window colours around the reverse-video title so the
+    // fg/bg swap yields a contrasting glyph. Without this, reverse video swaps
+    // against the grid style_Normal colours and draws the title in
+    // user_selected_background (often white), making it invisible.
+    //
+    // Both colours handed to the swap must be concrete: if upperwin_background
+    // is zcolor_Default (the case for VGA/Blorb/Amiga graphics), the reverse
+    // resolves it to the theme's default *foreground*, which is white in a
+    // dark theme, producing a white-on-white title. Resolve it to the concrete
+    // window background instead.
+    bool set_upperwin_colors = is_spatterlight_shogun || is_spatterlight_zork0;
+    glui32 title_background = upperwin_background;
+    if (title_background == zcolor_Default)
+        title_background = user_selected_background;
+    // After the reverse swap the title bar is painted in upperwin_foreground
+    // and the glyphs in title_background. Some graphics/interpreter
+    // combinations leave those two colours with too little contrast for the
+    // current theme (e.g. Macintosh + Amiga forces a black bar while the dark
+    // theme's background is also near-black). Fall back to a plain black or
+    // white glyph chosen to contrast with the bar.
+    if (fabs(perceived_brightness(title_background) - perceived_brightness(upperwin_foreground)) < 0.2) {
+        title_background = (perceived_brightness(upperwin_foreground) < 0.5) ? 0xffffff : 0;
+    }
     if (reverse) {
-        if (is_spatterlight_shogun) {
-            garglk_set_zcolors(upperwin_foreground, upperwin_background);
+        if (set_upperwin_colors) {
+            garglk_set_zcolors(upperwin_foreground, title_background);
         }
         garglk_set_reversevideo(1);
     }
     glk_put_string(const_cast<char *>(str));
     garglk_set_reversevideo(0);
-    if (is_spatterlight_shogun) {
+    if (set_upperwin_colors) {
         garglk_set_zcolors(upperwin_foreground, zcolor_Default);
     }
 }

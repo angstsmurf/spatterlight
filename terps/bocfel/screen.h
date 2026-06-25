@@ -229,6 +229,8 @@ void set_current_window(Window *window);
 void transcribe(uint32_t c);
 int count_characters_in_object(uint16_t obj);
 void update_monochrome_colours(void);
+double perceived_brightness(glui32 col);
+glui32 brightest(glui32 col1, glui32 col2);
 
 #endif
 

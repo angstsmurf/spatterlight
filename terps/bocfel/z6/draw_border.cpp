@@ -721,9 +721,9 @@ void draw_border_common(int border, int BL, int BR,
                     }
                     break;
                 case kGraphicsTypeEGA:
-                    left_margin = 0;
-                    should_draw_covering_rectangle = true;
-                    rectangle_color = ORANGE;
+                    // The EGA hint border keeps its original top graphics; no
+                    // covering rectangle is drawn over it.
+                    break;
                 default:
                     break;
             }
