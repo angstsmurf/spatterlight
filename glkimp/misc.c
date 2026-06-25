@@ -65,6 +65,7 @@ GLK_ATTRIBUTE_NORETURN void glk_exit(void)
     gli_stop_all_sound_channels();
     gli_close_all_file_streams();
     win_flush();
+    gli_cleanup_tempdir();
 
     close(0);
     close(1);

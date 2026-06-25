@@ -142,6 +142,27 @@ void gettempdir(void)
     }
 }
 
+/* Remove the per-session temp directory and everything in it. The directory
+   is a dedicated NSItemReplacementDirectory created by gettempdir() and used
+   only by this process, so it is safe to delete the whole tree. This sweeps
+   up any temp files that outlive their owners, e.g. the last .tiff registered
+   under each image resource id by the V6 image code (see z6/draw_image.cpp),
+   which is never purged because nothing replaces it. */
+void gli_cleanup_tempdir(void)
+{
+    if (tempdir[0] == '\0')   /* never created -> nothing to do */
+        return;
+
+    @autoreleasepool {
+        NSError *error = nil;
+        NSString *path = @(tempdir);
+        if (![[NSFileManager defaultManager] removeItemAtPath:path error:&error]) {
+            NSLog(@"gli_cleanup_tempdir: %@", error);
+        }
+    }
+    tempdir[0] = '\0';
+}
+
 int create_workdir(void) {
     int retval = 0;
     getworkdir();
