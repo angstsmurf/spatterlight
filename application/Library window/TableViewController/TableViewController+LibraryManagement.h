@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)lookForMissingFile:(Game *)game;
 - (void)deleteGameMetaAndIfid:(Game *)game inContext:(NSManagedObjectContext *)context;
 - (void)deleteIfDuplicate:(NSString *)hashTag inContext:(NSManagedObjectContext *)context;
+- (void)pruneDuplicateGamesInContext:(NSManagedObjectContext *)context;
 
 @end
 NS_ASSUME_NONNULL_END

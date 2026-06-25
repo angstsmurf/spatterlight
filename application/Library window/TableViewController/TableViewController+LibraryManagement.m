@@ -106,6 +106,51 @@
     }
 }
 
+// Single grouped pass over *every* Game (including hidden ones) that prunes
+// any games sharing a hashTag, keeping one survivor per hash. The fetch is
+// sorted so the survivor of each group is the most recently played game
+// (falling back to visible, earliest-added for never-played duplicates).
+// deleteGameMetaAndIfid: refuses to delete a game that is currently playing,
+// so an active session is never affected.
+- (void)pruneDuplicateGamesInContext:(NSManagedObjectContext *)context {
+    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
+    fetchRequest.sortDescriptors = @[
+        [NSSortDescriptor sortDescriptorWithKey:@"hashTag" ascending:YES selector:@selector(caseInsensitiveCompare:)],
+        // Most recently played first; nil (never played) sorts last under descending.
+        [NSSortDescriptor sortDescriptorWithKey:@"lastPlayed" ascending:NO],
+        [NSSortDescriptor sortDescriptorWithKey:@"hidden" ascending:YES],
+        [NSSortDescriptor sortDescriptorWithKey:@"added" ascending:YES]
+    ];
+
+    NSArray<Game *> *games = [context executeFetchRequest:fetchRequest error:&error];
+    if (!games) {
+        NSLog(@"pruneDuplicateGamesInContext: %@", error);
+        return;
+    }
+
+    NSString *survivorHash = nil;
+    NSUInteger pruned = 0;
+    for (Game *game in games) {
+        NSString *hash = game.hashTag;
+        // Games without a hash can't be reliably matched; leave them alone.
+        if (!hash.length) {
+            survivorHash = nil;
+            continue;
+        }
+        if (survivorHash && [hash caseInsensitiveCompare:survivorHash] == NSOrderedSame) {
+            // Same hash as the survivor we already kept: this is a duplicate.
+            [self deleteGameMetaAndIfid:game inContext:context];
+            pruned++;
+        } else {
+            // First game of a new hash group: keep it as the survivor.
+            survivorHash = hash;
+        }
+    }
+    if (pruned)
+        NSLog(@"pruneDuplicateGamesInContext: pruned %lu duplicate game(s)", (unsigned long)pruned);
+}
+
 - (IBAction)deleteLibrary:(id)sender {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert setMessageText:NSLocalizedString(@"Do you really want to delete the library?", nil)];
@@ -319,6 +364,10 @@
         TableViewController *strongSelf = weakSelf;
         if (!strongSelf)
             return;
+        // Prune duplicate games (same hashTag) across the whole library before
+        // the per-game verification loop below, which only walks visible games.
+        [strongSelf pruneDuplicateGamesInContext:childContext];
+
         BOOL deleteMissing = [[NSUserDefaults standardUserDefaults] boolForKey:@"DeleteMissing"];
         NSArray *gameTableCopy = strongSelf.gameTableModel.copy;
         for (Game *gameInMain in gameTableCopy) {
@@ -327,7 +376,7 @@
                 return;
             }
             Game *game = [childContext objectWithID:gameInMain.objectID];
-            if (game) {
+            if (game && !game.isDeleted) {
                 NSURL *gameURL = game.urlForBookmark;
 
                 NSString *path = nil;
@@ -371,7 +420,6 @@
                         }];
                     }
                 }
-                [strongSelf deleteIfDuplicate:game.hashTag inContext:childContext];
             }
         }
         [childContext safeSave];
