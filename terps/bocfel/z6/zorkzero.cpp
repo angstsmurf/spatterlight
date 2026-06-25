@@ -192,7 +192,6 @@ void V_MODE(void) {
 // Z-machine entry point: handles screen refresh. Cleans up window 3
 // (encyclopedia caption) when returning from encyclopedia text view.
 void V_REFRESH(void) {
-    fprintf(stderr, "V-REFRESH\n");
     uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
     if (CURRENT_SPLIT == TEXT_WINDOW_PIC_LOC) {
         v6_delete_win(&windows[3]);
@@ -895,14 +894,6 @@ void z0_update_colors(void) {
     // IBM: EGA & VGA: black text on white. CGA: white text on black (on a real CGA monitor, "white" may be green or orange)
     // Macintosh: Black text on white
     // Apple 2: White text on black
-
-    // In r393-s890714,
-//    FG-COLOR   is global 0x1c
-//    BG_COLOR   is global 0xcc
-//    DEFAULT_FG is global 0x4f
-//    DEFAULT_BG is global 0x81
-
-    fprintf(stderr, "update_z0_colors: Called %d times\n", ++number_of_update_color_calls);
 
     uint16_t default_fg = get_global(zg.DEFAULT_FG);
     uint16_t default_bg = get_global(zg.DEFAULT_BG);

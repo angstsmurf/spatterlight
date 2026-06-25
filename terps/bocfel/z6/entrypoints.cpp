@@ -2106,9 +2106,6 @@ static void find_arthur_globals(void) {
             }
         } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
             start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04 }, { &seen_hints_table_addr }, entrypoint.found_at_address, 300);
-            if (start != -1) {
-//                fprintf(stderr, "seen_hints_table_addr = 0x%x\n", seen_hints_table_addr);
-            }
         } else if (entrypoint.fn == RT_SEE_QST && entrypoint.found_at_address != 0) {
             ar.RT_SEE_QST = entrypoint.found_at_address - 1;
             entrypoint.found_at_address = 0;
@@ -2455,11 +2452,7 @@ static void find_shogun_globals(void) {
 //                fprintf(stderr, "hint_quest_global_idx = 0x%x\n", hint_quest_global_idx);
                 start = find_globals_in_pattern({ 0x01, 0x55, WILDCARD, 0x01, 0x00 }, { &hint_chapter_global_idx }, start, 200);
                 if (start != -1) {
-//                    fprintf(stderr, "hint_chapter_global_idx = 0x%x\n", hint_chapter_global_idx);
                     start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04 }, { &seen_hints_table_addr }, start, 300);
-                    if (start != -1) {
-//                        fprintf(stderr, "seen_hints_table_addr = 0x%x\n", seen_hints_table_addr);
-                    }
                 } else {
                     fprintf(stderr, "Error! Could not find hint_chapter_global_idx!\n");
                 }
@@ -2855,8 +2848,6 @@ static void find_zork0_globals(void) {
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == TOWER_WIN_CHECK && entrypoint.found_at_address != 0) {
             zr.TOWER_WIN_CHECK = entrypoint.found_at_address;
-            fprintf(stderr, "zr.TOWER_WIN_CHECK at address 0x%x\n", entrypoint.found_at_address);
-
             std::vector<uint16_t *> weights = {&zo.ONE_WEIGHT, &zo.TWO_WEIGHT, &zo.THREE_WEIGHT, &zo.FOUR_WEIGHT, &zo.FIVE_WEIGHT, &zo.SIX_WEIGHT};
 
             start = entrypoint.found_at_address;
@@ -2873,10 +2864,8 @@ static void find_zork0_globals(void) {
                 }
 
                 if (start == -1) {
-                    fprintf(stderr, "ERROR!\n");
+                    fprintf(stderr, "ERROR! Weight object not found!\n");
                     break;
-                } else {
-                    fprintf(stderr, "Found weight object 0x%x\n", *weight);
                 }
             }
 

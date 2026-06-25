@@ -125,7 +125,6 @@
     GlkController *glkctl = _glkctrl;
     if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes) {
-        NSLog(@"GlkHelperView calling glkctl storeScrollOffsets");
         [glkctl storeScrollOffsets];
     }
 }
@@ -139,7 +138,6 @@
     if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes) {
         [glkctl contentDidResize:self.frame];
-        NSLog(@"GlkHelperView viewDidEndLiveResize calling restoreScrollOffsets");
         [glkctl restoreScrollOffsets];
     }
 }
@@ -1604,8 +1602,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     if (NSEqualRects(frame, lastContentResize)) {
         return;
     }
-
-    NSLog(@"contentDidResize: frame: %@ window frame: %@", NSStringFromRect(frame), NSStringFromRect(self. window.frame));
 
     lastContentResize = frame;
     lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];

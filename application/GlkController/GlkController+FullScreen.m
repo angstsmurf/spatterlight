@@ -110,7 +110,6 @@
 }
 
 - (void)storeScrollOffsets {
-    NSLog(@"GlkController storeScrollOffsets");
     if (self.ignoreResizes)
         return;
     for (GlkWindow *win in self.gwindows.allValues)
