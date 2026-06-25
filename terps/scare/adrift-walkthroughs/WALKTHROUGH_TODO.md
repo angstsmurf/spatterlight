@@ -293,6 +293,12 @@ catnip + wandering-cat lines are decoys. **Tooling:** extended `SC_DUMP_TASKS`
 
 ## 2026-06-25 TODO: 4.0 conversion-damage deep-dive (untested 4.0 games)
 
+> **PARKED 2026-06-25.** Progress banked below: Shadowpeak side-check RESOLVED
+> (native-4.0 MeetObject fixup correct); Space Boy's triaged + scdump off-by-one
+> fix; Through time = probable-but-unconfirmed No-Rooms SCARE divergence (decode
+> plan in `TODO_decode_sub_20_74.md`). Resume next with Les Feux de l'enfer (the
+> last untouched 4.0 candidate) and/or executing `TODO_decode_sub_20_74.md`.
+
 **Question to answer:** are any of the *untested* 4.0 games unwinnable because
 their authors converted them from 3.9 in the ADRIFT 4.0 Generator and the
 conversion broke their tasks — and if so, is it **faithful data damage** (the
