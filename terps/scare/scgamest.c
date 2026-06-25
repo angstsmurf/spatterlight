@@ -1180,7 +1180,7 @@ gs_create (sc_var_setref_t vars,
   game->turns = 0;
   game->score = 0;
   game->bold_room_names = TRUE;
-  game->verbose = FALSE;
+  game->verbose = TRUE;
   game->current_room_name = NULL;
   game->status_line = NULL;
   game->title = NULL;

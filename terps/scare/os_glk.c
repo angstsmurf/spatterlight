@@ -2537,7 +2537,7 @@ gsc_command_verbose (const char *argument)
 {
   assert (argument);
 
-  if (sc_strcasecmp (argument, "on") == 0)
+  if (sc_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
     {
       if (sc_get_game_verbose (gsc_game))
         {
@@ -2563,13 +2563,6 @@ gsc_command_verbose (const char *argument)
       gsc_normal_string ("Glk verbose descriptions are now off; long"
                          " descriptions are given for places never before"
                          " visited and short descriptions otherwise.\n");
-    }
-
-  else if (strlen (argument) == 0)
-    {
-      gsc_normal_string ("Glk verbose descriptions are ");
-      gsc_normal_string (sc_get_game_verbose (gsc_game) ? "on" : "off");
-      gsc_normal_string (".\n");
     }
 
   else

@@ -1512,6 +1512,36 @@ run_text_ends_in_newline (const sc_char *text)
 
 
 /*
+ * run_prompt_restore()
+ *
+ * Helper for the game-start name and gender prompts.  If the player types
+ * "restore" (or "load") at one of these prompts, initiate a restore, exactly
+ * as the equivalent game command would.  On a successful restore this longjumps
+ * back into the interpreter loop and never returns; on a failed or cancelled
+ * restore it returns TRUE so the caller re-prompts (rather than treating the
+ * typed word as an answer).  Returns FALSE when the reply is not a restore.
+ */
+static sc_bool
+run_prompt_restore (sc_gameref_t game, const sc_char *reply)
+{
+  const sc_char *string;
+
+  /* Skip leading whitespace. */
+  for (string = reply; *string == ' ' || *string == '\t'; string++)
+    ;
+
+  if (sc_strcasecmp (string, "restore") == 0
+      || sc_strcasecmp (string, "load") == 0)
+    {
+      run_restore_prompted (game);
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
+
+/*
  * run_prompt_player_name()
  *
  * When a game's "prompt for player name" option is set, the Runner asks the
@@ -1537,16 +1567,24 @@ run_prompt_player_name (sc_gameref_t game)
   if (!prop_get_boolean (bundle, "B<-ss", vt_key))
     return;
 
-  pf_buffer_string (filter, "Please enter your name: ");
-  pf_flush (filter, vars, bundle);
+  for (;;)
+    {
+      pf_buffer_string (filter, "Please enter your name: ");
+      pf_flush (filter, vars, bundle);
 
-  if_read_line (buffer, sizeof (buffer));        /* Trailing newline stripped. */
+      if_read_line (buffer, sizeof (buffer));      /* Trailing newline stripped. */
 
-  /* Skip leading whitespace; a blank answer becomes "Anonymous". */
-  for (name = buffer; *name == ' ' || *name == '\t'; name++)
-    ;
-  if (*name == NUL)
-    name = "Anonymous";
+      /* "restore"/"load" initiates a restore instead of naming the player. */
+      if (run_prompt_restore (game, buffer))
+        continue;
+
+      /* Skip leading whitespace; a blank answer becomes "Anonymous". */
+      for (name = buffer; *name == ' ' || *name == '\t'; name++)
+        ;
+      if (*name == NUL)
+        name = "Anonymous";
+      break;
+    }
 
   vt_key[1].string = "PlayerName";
   prop_put_string (bundle, "S<-ss", name, vt_key);
@@ -1593,6 +1631,10 @@ run_prompt_player_gender (sc_gameref_t game)
       pf_flush (filter, vars, bundle);
 
       if_read_line (buffer, sizeof (buffer));
+
+      /* "restore"/"load" initiates a restore instead of choosing a gender. */
+      if (run_prompt_restore (game, buffer))
+        continue;
 
       for (reply = buffer; *reply == ' ' || *reply == '\t'; reply++)
         ;
