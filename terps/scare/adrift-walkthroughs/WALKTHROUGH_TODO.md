@@ -425,6 +425,55 @@ projectile-combat regression golden is unaffected (no dump output in it).
 action's Var1 is one *less* than the restriction Var1 that checks the same
 object.**
 
+### 2026-06-25 progress: Through time — **probable (UNCONFIRMED) SCARE "No Rooms" divergence**
+
+Triaged the 3rd deep-dive candidate (*Through time*, native 4.0, a 1954-Texas
+farmer-abducted-by-aliens / Rome time-travel comedy by ?). **0/0 no score, NO
+win-flagged ending** (1 lose = `talk to guards`; 1 death = `*Busted bladder*`
+timer; 8 silent-stop `type-6 var=3` endings). Confirms the old "lose-only?" flag.
+**But the real story: 135 of its 164 tasks (82%) have `Where = No Rooms`
+(`ROOMLIST_NO_ROOMS`, type 0)** — and they are the actual gameplay (movement
+`go east/south`, `use toilet`, `talk to alien`, `swipe card`, …). The game has
+only **2 hard room-exits**; everything past the opening house is reached via
+these No-Rooms tasks.
+
+**In SCARE the game is unplayable past the porch:** `sctasks.c
+task_can_run_task_directional` returns `FALSE` for `ROOMLIST_NO_ROOMS`
+unconditionally, so a player `south` on the porch prints "You can't go in any
+direction!" — the No-Rooms movement tasks never fire (verified). Parsing is
+sound (SCARE reads 4.0 correctly — Space Boy's & Shadowpeak have **zero**
+where=0 tasks and play fine; the positional parse is aligned, restrictions/actions
+decode coherently), so the file genuinely stores "No Rooms".
+
+**Why this is the deep-dive's most interesting hit — a *probable* real divergence:**
+the ADRIFT Runner's task-runnable gate is **`mdlSpreadTheLoad.Sub_20_74`**
+(run400.txt; called from the dispatcher `Sub_20_12` → predicate `Sub_20_64`,
+then executor `Sub_20_11`). Unlike SCARE's unconditional reject, Sub_20_74 has a
+**conditional** path for the where-type-0 case (returns True under a condition on
+the task's Where sub-record), i.e. the Runner does *not* hard-block No-Rooms
+tasks. A released comp game with 82% No-Rooms tasks was presumably playable in
+the real Runner, which also points to SCARE diverging.
+
+**But it is NOT a one-line fix, and I did NOT change the engine.** A naive
+experiment (make `NO_ROOMS` return `TRUE`, i.e. treat as ALL_ROOMS; reverted,
+tree clean) makes `south` fire the **wrong** task — task 91 (`south`, *no*
+restriction) intercepts everywhere, printing spaceship-corridor text on the
+porch. The author *did* sequence many No-Rooms tasks with task-state restrictions
+(e.g. task 55 `south` requires task 54 `say through adversity to the stars`), but
+others (task 91) have none, so a blanket enable is incoherent. The Runner must be
+applying a **location-specific** condition (the Sub_20_74 conditional) that
+SCARE lacks — its exact form (the VB6 task `Where` record layout / param
+semantics) was not fully decoded.
+
+**Verdict: OPEN.** High-probability real SCARE divergence in No-Rooms task
+handling, but the correct behaviour needs either (a) finishing the RE of
+`Sub_20_74`'s conditional + the task `Where` record layout, or (b) running the
+actual Win32 `run400.exe` on *Through time* (e.g. under Wine) as ground truth.
+**Do not patch on current evidence** — the whole corpus relies on
+`NO_ROOMS → not player-runnable`, and a wrong change would silently break it.
+If confirmed, the fix is the deep-dive's payoff (a real engine fix making a
+native-4.0 game playable) and must keep the bundled corpus byte-identical.
+
 ## Combat-assist note (opt-in, committed)
 
 Several Battle-System games here ship with every character's Accuracy/Agility
