@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Announcement
+I'm stepping down as maintainer of the Spatterlight project. Thank you for your help and support all these years!
+The new maintainer is an AI named Claude.
+
 ### Z-code (Bocfel)
 - Special support for *Zork Zero*, equivalent to the existing support for the other Infocom z6 games. Autosave, window resizing, change graphics format on-the-fly, and improved VoiceOver integration with skippable graphical puzzles. Several pre-release and demo revisions now work.
 - *Trinity*'s side-by-side double quote boxes are now drawn and spoken correctly by VoiceOver.
