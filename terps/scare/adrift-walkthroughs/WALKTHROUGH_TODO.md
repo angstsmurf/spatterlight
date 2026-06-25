@@ -431,6 +431,30 @@ projectile-combat regression golden is unaffected (no dump output in it).
 action's Var1 is one *less* than the restriction Var1 that checks the same
 object.**
 
+### 2026-06-25 (later): Space Boy's First Adventure — route banking, **PARKED 275/1374**
+
+Picked up the triage above and began banking the real route. `Space_Boy_walkthrough.md`
++ `harness/space_boy_solution.txt` (deterministic; re-verify with `play.sh`).
+**Done & verified: opening → flight hub (room 11, `fly north/south/east` to the
+three regions) → full Castle (Ice-Gloves tile/safe puzzle, +the orange/bluish
+shrink bottles) → full Volcano (Fire God statue: shout `ell/aay/vee/aay aay/ach`
+to open the 5 letter-doors for feet/legs/chest/arms/head → assemble → put on base
+→ `freeze wall` → Treasure Island **Heat Goggles**). 3 of 4 power items worn.**
+Gotchas banked: can't fly off the magma island (leave room 18 via plain `north`);
+side-room returns are the *opposite* compass dir; the dump's compass labels don't
+match the display — navigate by the game's own exit hints. **Resume at the East
+region (room 26, hub `fly east`)** for the Strength Belt + Transporter maze +
+Phased Ion Bridge, then the Room-Key/Evil-Man endgame (spine already decoded above).
+
+**Resolved fidelity question (not a bug):** the Ice-Gloves +30 (task 11) never
+fires because its command is `{take\get}` with a **backslash** (lone author typo;
+the 8 other take/get tasks use the correct `{take/get}`). ADRIFT command syntax
+splits alternatives only on `/`, so `{take\get}` is a dead single-alternative
+("take\get") in **both** SCARE (`scparser.c` `TOK_ALTERNATES_SEPARATOR` = `/`) and
+the decompiled real Runner (`NewParse.bas`; chr(92) never special in any `.bas`).
+So `take gloves` falls through to the library take with no score in the original
+too — **SCARE is faithful; the +30 is lost for everyone, true max ≤ 1344.**
+
 ### 2026-06-25 progress: Through time — **probable (UNCONFIRMED) SCARE "No Rooms" divergence**
 
 Triaged the 3rd deep-dive candidate (*Through time*, native 4.0, a 1954-Texas

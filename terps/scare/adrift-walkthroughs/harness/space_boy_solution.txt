@@ -1,0 +1,78 @@
+# Space Boy's First Adventure (David Parish, 2005) — walkthrough in progress.
+# Deterministic headless harness:  sh harness/play.sh games/"Space Boy's First Adventure.taf" harness/space_boy_solution.txt
+# VERIFIED so far: 80/1374. Flight Boots + Ice Gloves obtained. (Ice-gloves
+# task-11 +30 is shadowed by the library "take" — see Space_Boy_walkthrough.md.)
+#
+# --- Phase 1: Flight Boots (up the oak tree) ---
+s
+sw
+s
+climb up oak tree
+take boots
+wear boots
+climb down tree
+# --- Phase 2: to the flight hub (Living Room -> Front Yard -> Landing Platform) ---
+n
+ne
+n
+e
+e
+# --- Phase 3: fly NORTH to the Castle, solve the tile/safe puzzle, get Ice Gloves ---
+fly north
+e
+ne
+examine old painting
+sw
+e
+take book page
+read book page
+w
+s
+take small bottle
+drink orange liquid
+s
+take whiteredblue tile
+put whiteredblue tile on control panel
+in
+take gloves
+wear gloves
+# --- Phase 4: leave the Castle (grow back), return to hub, fly SOUTH ---
+out
+take tiny bottle
+drink bluish liquid
+n
+w
+s
+fly south
+# --- Phase 5: Volcano Islands — Fire God statue puzzle, Heat Goggles ---
+read sign
+w
+read plaque
+d
+shout ell
+shout aay
+shout vee
+shout aay aay
+shout ach
+nw
+take feet
+se
+ne
+take legs
+sw
+se
+take chest
+nw
+sw
+take arms
+ne
+s
+take head
+n
+u
+assemble statue
+put statue on base
+freeze wall
+south
+take goggles
+wear goggles
