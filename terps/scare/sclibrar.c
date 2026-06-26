@@ -669,6 +669,27 @@ lib_get_npc_inroom_text (sc_gameref_t game, sc_int npc)
 
 
 /*
+ * lib_text_ends_with_break()
+ *
+ * Return TRUE if the text ends with a line break -- either a literal newline
+ * or a trailing "<br>" tag (the unfiltered buffer holds tags verbatim).  Used
+ * to decide whether a character's in-room description needs its own leading
+ * break stripped to avoid doubling up on one already in the output.
+ */
+static sc_bool
+lib_text_ends_with_break (const sc_char *text)
+{
+  sc_int length = strlen (text);
+
+  if (length > 0 && text[length - 1] == '\n')
+    return TRUE;
+  if (length >= 4 && !sc_strncasecmp (text + length - 4, "<br>", 4))
+    return TRUE;
+  return FALSE;
+}
+
+
+/*
  * lib_print_room_contents()
  *
  * Print a list of the contents of a room.
@@ -782,26 +803,43 @@ lib_print_room_contents (sc_gameref_t game, sc_int room)
           description = lib_get_npc_inroom_text (game, npc);
           if (!sc_strempty (description) && sc_strcasecmp (description, "#"))
             {
-              if (count == 0)
-                pf_buffer_character (filter, '\n');
-              else
-                pf_buffer_string (filter, "  ");
+              const sc_char *buffered;
+              sc_bool buffer_has_break, desc_has_break;
+
               /*
-               * The room description already ended with a newline and the
-               * block above starts the NPC text on its own line, so a
-               * leading line break in the author's InRoomText -- a literal
-               * newline or a "<br>" tag -- would print a spurious blank line
-               * before the text (the ADRIFT runner shows none).  Skip it.
+               * Authors typically begin a character's InRoomText with a line
+               * break -- a literal newline or a "<br>" tag -- so that each
+               * character appears on its own line.  The ADRIFT runner simply
+               * concatenates these texts and lets that break do the spacing,
+               * rather than inserting separators of its own.  Mirror that as
+               * closely as we can:
+               *
+               *   - If the output already ends with a break (the room name or
+               *     description's trailing newline before the first character,
+               *     or a previous character's own trailing break) and this
+               *     description leads with one too, drop the leading break so
+               *     we don't print a spurious blank line.
+               *   - If neither side supplies a break, fall back to the old
+               *     two-space separator so successive descriptions written
+               *     without any "<br>" of their own don't run together.
                */
-              for (;;)
+              buffered = pf_get_buffer (filter);
+              buffer_has_break = buffered && lib_text_ends_with_break (buffered);
+              desc_has_break = (*description == '\n')
+                               || !sc_strncasecmp (description, "<br>", 4);
+
+              if (buffer_has_break)
                 {
-                  if (*description == '\n')
-                    description++;
-                  else if (!sc_strncasecmp (description, "<br>", 4))
-                    description += 4;
-                  else
-                    break;
+                  while (desc_has_break)
+                    {
+                      description += (*description == '\n') ? 1 : 4;
+                      desc_has_break = (*description == '\n')
+                                       || !sc_strncasecmp (description, "<br>", 4);
+                    }
                 }
+              else if (count > 0 && !desc_has_break)
+                pf_buffer_string (filter, "  ");
+
               pf_buffer_string (filter, description);
               count++;
             }
