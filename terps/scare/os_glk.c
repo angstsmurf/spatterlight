@@ -579,6 +579,14 @@ gsc_put_char_uni (glui32 unicode, const char *ascii)
 
 
 /*
+ * Tracks whether the next character written to the main window would start a
+ * new line, i.e. the last thing printed there was a newline.  Used by
+ * os_show_graphic() to avoid emitting a redundant leading break (and a blank
+ * line) when an image is already at the start of a line.
+ */
+static sc_bool gsc_main_at_line_start = TRUE;
+
+/*
  * gsc_put_char_locale()
  *
  * Write a single character using the supplied locale.  Select either the
@@ -589,6 +597,8 @@ gsc_put_char_locale (sc_char ch,
                      const gsc_locale_t *locale, sc_bool is_alternate)
 {
   const gsc_codepages_t *codepage;
+
+  gsc_main_at_line_start = (ch == '\n');
   unsigned char character;
   glui32 unicode;
   const char *ascii;
@@ -1455,6 +1465,43 @@ gsc_reset_glk_style (void)
 }
 
 
+#if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
+/*
+ * Tracking for redrawing a graphic that an immediate screen clear would
+ * otherwise wipe.  Adrift shows graphics in a separate pane that text clears
+ * don't affect; this port draws them inline in the main window, so a graphic
+ * drawn at the start of a turn is lost if that same turn's text then clears
+ * the screen (as "examine girl" in Majesty Mall Center does).  We remember the
+ * graphic drawn since the last player input and, on a clear, redraw it.
+ */
+static glui32 gsc_pending_graphic_id = 0;
+static sc_bool gsc_graphic_drawn_since_input = FALSE;
+
+/*
+ * gsc_draw_inline_graphic()
+ *
+ * Draw a graphic inline in the main window, on its own line -- break before it
+ * if not already at the start of a line, and always after it so the following
+ * text starts below the image rather than wrapping up alongside its tall line
+ * fragment -- and note it for a possible redraw after a screen clear.
+ */
+static void
+gsc_draw_inline_graphic (glui32 id)
+{
+  strid_t stream = glk_window_get_stream (gsc_main_window);
+
+  if (!gsc_main_at_line_start)
+    glk_put_char_stream (stream, '\n');
+  glk_image_draw (gsc_main_window, id, imagealign_InlineDown, 0);
+  glk_put_char_stream (stream, '\n');
+  gsc_main_at_line_start = TRUE;
+
+  gsc_pending_graphic_id = id;
+  gsc_graphic_drawn_since_input = TRUE;
+}
+#endif
+
+
 /*
  * os_print_tag()
  *
@@ -1472,6 +1519,16 @@ os_print_tag (sc_int tag, const sc_char *argument)
     case SC_TAG_CLS:
       /* Clear the main text display window. */
       glk_window_clear (gsc_main_window);
+      gsc_main_at_line_start = TRUE;
+#if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
+      /*
+       * If a graphic was drawn earlier this turn (no player input since), the
+       * clear just wiped it.  Redraw it so it survives the clear, matching
+       * Adrift's separate graphics pane.
+       */
+      if (gsc_graphic_drawn_since_input)
+        gsc_draw_inline_graphic (gsc_pending_graphic_id);
+#endif
       break;
 
     case SC_TAG_FONT:
@@ -1964,9 +2021,8 @@ void
 os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
 {
   glui32 id = garglk_add_resource_from_file(giblorb_ID_Pict, gamefile, offset, length);
-  if (id != 0) {
-    glk_image_draw(gsc_main_window, id, imagealign_InlineDown, 0);
-  }
+  if (id != 0)
+    gsc_draw_inline_graphic(id);
 }
 #elif defined(SPATTERLIGHT)
 /*
@@ -1993,7 +2049,7 @@ os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
   if (!gsc_seen_input && gsc_show_title_graphic (id))
     return;
 
-  glk_image_draw (gsc_main_window, id, imagealign_InlineDown, 0);
+  gsc_draw_inline_graphic (id);
 }
 #else
 /*
@@ -3446,6 +3502,15 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
         }
     }
   while (!(event->type == wait_type_1 || event->type == wait_type_2));
+
+#if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
+  /*
+   * A completed command line ends a turn, so any graphic drawn before it is no
+   * longer a candidate for redraw-after-clear on later turns.
+   */
+  if (event->type == evtype_LineInput)
+    gsc_graphic_drawn_since_input = FALSE;
+#endif
 
 #ifdef SPATTERLIGHT
   /* The player's first input dismisses any title/cover image window. */
