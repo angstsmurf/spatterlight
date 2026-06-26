@@ -2007,6 +2007,15 @@ replacementString:(id)repl {
     unichar uc = NSAttachmentCharacter;
     [textstorage.mutableString appendString:[NSString stringWithCharacters:&uc
                                                                     length:1]];
+    // Appending via mutableString makes the new character inherit the
+    // attributes of the preceding one. When a flow break immediately follows an
+    // inline image, that preceding character is the image's attachment, so the
+    // marker would carry NSAttachmentAttributeName and both render the image a
+    // second time and show up as a phantom entry in the VoiceOver image rotor.
+    // Strip any inherited attachment (and link) so the marker stays inert.
+    NSRange markerRange = NSMakeRange(textstorage.length - 1, 1);
+    [textstorage removeAttribute:NSAttachmentAttributeName range:markerRange];
+    [textstorage removeAttribute:NSLinkAttributeName range:markerRange];
     [container flowBreakAt:textstorage.length - 1];
 }
 
