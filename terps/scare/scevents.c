@@ -228,7 +228,7 @@ evt_start_event (sc_gameref_t game, sc_int event)
       starttext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!sc_strempty (starttext))
         {
-          pf_buffer_string (filter, starttext);
+          pf_buffer_paragraph (filter, starttext);
           pf_buffer_character (filter, '\n');
         }
 
@@ -314,7 +314,7 @@ evt_finish_event (sc_gameref_t game, sc_int event)
       finishtext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!sc_strempty (finishtext))
         {
-          pf_buffer_string (filter, finishtext);
+          pf_buffer_paragraph (filter, finishtext);
           pf_buffer_character (filter, '\n');
         }
 
@@ -583,7 +583,7 @@ evt_handle_preftime_notifications (sc_gameref_t game, sc_int event)
       preftext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!sc_strempty (preftext))
         {
-          pf_buffer_string (filter, preftext);
+          pf_buffer_paragraph (filter, preftext);
           pf_buffer_character (filter, '\n');
         }
 
@@ -600,7 +600,7 @@ evt_handle_preftime_notifications (sc_gameref_t game, sc_int event)
       preftext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!sc_strempty (preftext))
         {
-          pf_buffer_string (filter, preftext);
+          pf_buffer_paragraph (filter, preftext);
           pf_buffer_character (filter, '\n');
         }
 

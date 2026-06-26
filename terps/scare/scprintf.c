@@ -1120,6 +1120,63 @@ pf_buffer_character (sc_filterref_t filter, sc_char character)
 
 
 /*
+ * pf_text_ends_with_break()
+ * pf_text_leads_with_break()
+ *
+ * Return TRUE if text ends with / begins with a line break -- either a literal
+ * newline or a "<br>" tag (the unfiltered buffer holds tags verbatim).
+ */
+static sc_bool
+pf_text_ends_with_break (const sc_char *text)
+{
+  sc_int length = strlen (text);
+
+  if (length > 0 && text[length - 1] == '\n')
+    return TRUE;
+  if (length >= 4 && !sc_strncasecmp (text + length - 4, "<br>", 4))
+    return TRUE;
+  return FALSE;
+}
+
+static sc_bool
+pf_text_leads_with_break (const sc_char *text)
+{
+  return text[0] == '\n' || !sc_strncasecmp (text, "<br>", 4);
+}
+
+
+/*
+ * pf_buffer_paragraph()
+ *
+ * Buffer a block of text that conventionally begins with its own line break(s)
+ * for spacing -- Adrift event and atmosphere texts typically start with "<br>"
+ * or "<br><br>".  The Adrift runner relies on those leading breaks alone for
+ * paragraph spacing, whereas SCARE also terminates the preceding room
+ * description and contents with a newline of its own.  To avoid a doubled blank
+ * line, if the buffer already ends with a break and this text leads with one,
+ * drop a single leading break from the text before appending it.
+ */
+void
+pf_buffer_paragraph (sc_filterref_t filter, const sc_char *string)
+{
+  const sc_char *buffered;
+
+  assert (pf_is_valid (filter));
+  assert (string);
+
+  buffered = pf_get_buffer (filter);
+  if (buffered
+      && pf_text_ends_with_break (buffered)
+      && pf_text_leads_with_break (string))
+    {
+      /* Skip exactly one leading break -- a literal newline or a "<br>" tag. */
+      string += (*string == '\n') ? 1 : 4;
+    }
+  pf_buffer_string (filter, string);
+}
+
+
+/*
  * pf_prepend_string()
  *
  * Add a string to the front of the printfilter buffer, rather than to the

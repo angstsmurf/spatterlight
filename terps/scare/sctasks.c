@@ -1321,7 +1321,7 @@ task_run_task_unrestricted (sc_gameref_t game, sc_int task, sc_bool forwards)
           reversemessage = prop_get_string (bundle, "S<-sis", vt_key);
           if (!sc_strempty (reversemessage))
             {
-              pf_buffer_string (filter, reversemessage);
+              pf_buffer_paragraph (filter, reversemessage);
               pf_buffer_character (filter, '\n');
               status |= TRUE;
             }
@@ -1357,7 +1357,7 @@ task_run_task_unrestricted (sc_gameref_t game, sc_int task, sc_bool forwards)
                             " trying to repeat completed action, aborting\n");
                 }
 
-              pf_buffer_string (filter, repeattext);
+              pf_buffer_paragraph (filter, repeattext);
               pf_buffer_character (filter, '\n');
               status |= TRUE;
               return status;
@@ -1381,7 +1381,7 @@ task_run_task_unrestricted (sc_gameref_t game, sc_int task, sc_bool forwards)
   completetext = prop_get_string (bundle, "S<-sis", vt_key);
   if (!sc_strempty (completetext))
     {
-      pf_buffer_string (filter, completetext);
+      pf_buffer_paragraph (filter, completetext);
       pf_buffer_character (filter, '\n');
       status |= TRUE;
     }
@@ -1445,7 +1445,7 @@ task_run_task_unrestricted (sc_gameref_t game, sc_int task, sc_bool forwards)
   additionalmessage = prop_get_string (bundle, "S<-sis", vt_key);
   if (!sc_strempty (additionalmessage))
     {
-      pf_buffer_string (filter, additionalmessage);
+      pf_buffer_paragraph (filter, additionalmessage);
       pf_buffer_character (filter, '\n');
       status |= TRUE;
     }
@@ -1500,7 +1500,7 @@ task_run_task (sc_gameref_t game, sc_int task, sc_bool forwards)
            * "done" (more accurately, we've output text, so the task command
            * searching in the main run loop can exit...).
            */
-          pf_buffer_string (filter, fail_message);
+          pf_buffer_paragraph (filter, fail_message);
           pf_buffer_character (filter, '\n');
           return TRUE;
         }

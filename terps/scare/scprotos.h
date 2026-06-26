@@ -228,6 +228,8 @@ extern void pf_buffer_string (sc_filterref_t filter,
                               const sc_char *string);
 extern void pf_buffer_character (sc_filterref_t filter,
                                  sc_char character);
+extern void pf_buffer_paragraph (sc_filterref_t filter,
+                                 const sc_char *string);
 extern void pf_prepend_string (sc_filterref_t filter,
                                const sc_char *string);
 extern void pf_new_sentence (sc_filterref_t filter);
