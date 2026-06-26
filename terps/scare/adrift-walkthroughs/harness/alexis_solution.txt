@@ -1,0 +1,102 @@
+easy
+take all
+wear cloak
+down
+take oil
+take coin
+up
+put oil in lantern
+light lantern
+out
+east
+take tonerith stone
+west
+north
+take small sword
+south
+west
+north
+north
+take dusteron stone
+east
+push tree
+north
+north
+nw
+nw
+e
+take glaven stone
+w
+se
+se
+ne
+look
+give food to tarin
+ne
+se
+take longmore stone
+se
+se
+se
+e
+s
+se
+take kedarn stone
+nw
+n
+w
+nw
+nw
+nw
+nw
+ne
+ne
+e
+se
+take nelone stone
+e
+e
+give stones to larnt
+e
+e
+ne
+nw
+ne
+n
+say the password
+open door
+n
+n
+take all
+s
+w
+u
+unlock chest
+open chest
+take all
+d
+e
+n
+unlock door
+open door
+n
+drink gourd
+north
+north
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+score
+

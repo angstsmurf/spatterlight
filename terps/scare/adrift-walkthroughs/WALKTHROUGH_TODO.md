@@ -8,6 +8,291 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-06-27 (cont.) — Space Boy's First Adventure — **WON, 1184/1374** (was parked 275)
+
+`Space_Boy_walkthrough.md`; solution `harness/space_boy_solution.txt` (145 cmds).
+Picked up the parked 275/1374 (Castle + Volcano done, 3/4 power items) and **banked
+the full deterministic win** (verified 3× identical; marker *"STAY TUNED FOR MORE
+EXCITING EPISODES…"*). The East region + endgame, fully solved:
+
+- **Return from Treasure Island:** `fly ne`→25 LAVaaH, `n`→11 hub (compass rotated —
+  in-game `n` = the dump's NE exit).
+- **East = the "TO THE GARAGE" letter maze.** `fly east`→26, `enter cave` triggers a
+  scripted cave-in into room 72; `take small shovel`, `dig a hole in sand`→27,
+  `dig more`→28, `w`→29 (dark). `take stick` + `light stick with goggles` (Heat
+  Goggles ignite it). Each maze room shows one carved letter; follow **T-O-T-H-E-G-
+  A-R-A-G-E** (maze is NOT compass-rotated — dump dirs work: `w,s,w,w,n` to the G
+  room, then `w,n` past the A/R to the second A, then `e,e,u`→40 Garage Bay).
+- **Two elemental gates inside the maze** (the powers pay off): the **G room** has a
+  block of ice (`melt ice with goggles` → a wind blows out the stick → Dark Room →
+  `light stick with goggles` returns you, ice gone → `n`); the **second A room** has
+  a fireball (`freeze fire with ice gloves`).
+- **Transporter + Phased Ion Bridge → Strength Belt.** Garage Office (68) has the
+  Phased Ion Bridge (`take` it, opens the window→`out`); back home, **`put bridge in
+  power plant`** (an openable container in the Hangar Bay — the home transporter's
+  blue button fails until the bridge is *inside* container #3, decoded from the
+  object-**location** restriction `(16, Inside, container-3)`). `push blue button`
+  →Moon Base 69, `out`→67, `e`→Mess Hall 60 `take fork`, `w`, `use fork on hole`
+  (also powers the Beam Generator) → room 66 **Strength Belt** (`take`+`wear`).
+- **Endgame:** Moon Base `push red button`→home, `move huge rock` (belt worn) →71
+  `take key` (Room Key) → Living Room `unlock door`+`open room door`→7 (Evil Man,
+  **harmless** — 0 damage) → `take cape` (+105) + `drop cape to the floor` (+250, a
+  scripted no-restriction scoring task that fires despite a cosmetic "Drop what?"
+  library echo) → `w`→65 `read scribbled note` (+200) = **WIN**.
+
+**Class:** faithful native-4.0 win, fully deterministic (no combat-assist, no engine
+change). Reusable lessons: (1) maze rooms reuse the *same room index* as the volcano
+elemental-challenge rooms (room 34 is the "G room" AND the melt-ice room); (2) SCARE
+room-exit gate decode — `Var3`=type (0 task / 1 object-state), `Var1−1`=task or
+stateful-object index, `Var2`=expected; (3) restriction **type-0 = object LOCATION**
+(`restr_object_in_place`: Var2 0/6=hidden-at-room, 1/7=held, 2/8=worn, 3/9=visible,
+4/10=inside-container, 5/11=on-surface; Var3 0=player/nothing else 1-based
+char/container/surface) — this is how the bridge-in-Power-Plant gate was cracked.
+Compass is rotated in the home/volcano zones (navigate by prose) but NOT in the maze.
+
+## 2026-06-26 (cont. 3) — Les Feux de l'enfer — TESTED: **UNWINNABLE by design** (score-only, max 115)
+
+`Les Feux de l'enfer` ("The Fires of Hell") — **native ADRIFT 4.0** (header byte8
+`0x93`), **French**, by ?. A Battle-System dungeon crawl: you return to your home
+town of Calah and descend into the underground dungeon of the demon **Anarazel** (in
+the Wastes of Chaos) to slay him. **289 tasks, 23 NPCs, 59 exits, 1 event; max score
+115** (18 all-positive ChangeScore tasks — mostly Battle-System enemy kills +5 each:
+homchove/goule/demon_effroi/voyou/voleur/garde/capo/chef/tarator/assassin, plus
+puzzles: disarm trap +10, give potions to the femme +10, `jouer note mi do` +10,
+`Hors d'ici` +10, examine objet +5, push right button +5, etc.).
+
+**Boots & plays fine** (NOT a hang): start menu `1.Nouvelle partie / 2.Préface /
+3.Aide / 4.Note de l'auteur` — pick `1`, then type `intro` or `passer` to begin.
+You start with épée longue + armure chainmail + sac à dos + bourse.
+
+**No win exists.** All **5 `ACT type=6` endings are `v1=2` (death/lose)** — flee
+n/s from room8 (92/93), `***mort du player***` (106), `[s]` room24 (174), `[jump]`
+room33 (203). **Zero `v1=0` EndGame.** No victory text anywhere (grep gagn/victoire/
+félicitation/… = nil). The "kill the demon" tasks (85/105/146 demon_effroi/2mob/
+demonkill) are `type=7` ChangeBattle + `type=1` move actions, NOT endings.
+
+**The finale chain proves it (the killer evidence):** the deepest path is room34's
+~50-task two-note music puzzle (only `jouer note mi do` = task 232 +10 opens EXIT
+room34 W→35), then room35 `n`→ room36. Room 36 = the demon's lair (NPC20 rhinocéros
+guard + NPC21 **mourant** = the dying demon): `rhinoceros_kill` → `kill mourant`
+(spawns obj110 cadavre) → `examine cadavre` (reveals obj111 **lumière**) →
+**`enter lumière` → `ACT type=1 v1=0 v3=8` = moves the PLAYER back to room 8** (the
+entrance), with NO EndGame. Room 8 then only offers `Hors d'ici` (+10, needs the
+magic mirror) or death. So you slay Anarazel, enter the light, and get dumped at the
+start — **the author never wired a win ending.**
+
+**Class & verdict:** faithful, unwinnable-by-design (incomplete authoring) — same
+class as IceCream / SRSintro / Through-time, but notable because the Préface *promises*
+the Anarazel kill as the goal while the `.taf` delivers no victory. **Native 4.0
+(not a 3.9→4.0 conversion), so NOT the conversion-damage hypothesis and NOT a SCARE
+divergence** — there is simply no win action for any Runner to fire.
+
+### 2026-06-27: max-score derivation — **115 is IMPOSSIBLE (orphan); true max ≤ 105, RNG-hard**
+
+Pursued the 115/115 max-score route (`Les_Feux_de_l_enfer_walkthrough.md` +
+`harness/les_feux_solution.txt`). **Cracked all mechanics, banked a verified
+deterministic route to 25/115** (5 combat kills: ogre/goule/demon/voyou/voleur), and
+found two structural reasons 115 is unreachable:
+
+1. **Disarm-trap +10 (task 116) is an unreachable ORPHAN — faithful authoring bug.**
+   The crystal key is initialised **inside** the trap (container #4; `get cristal` =
+   task 112, restr "object in place 39,**4**,5" PASS — verified by SC_TRACE_TASKS),
+   but every disarm-family task (113/114/115/118/119/120) requires the key **on
+   surface #2** (restr type 5), and **NO action in the game ever moves obj39 onto a
+   surface** (all its move-actions are dest-type 4=to-player or 0=to-room). So the
+   +10 can never fire. Real Runner fails identically (same data). **→ true max ≤ 105.**
+2. **Room-19 capo/chef (+10 of +15) = one-shot RNG (var#16 via task 153, rep=0)** —
+   the guard count is fixed by upstream RNG-draw count, NOT tunable by neutral turns;
+   seed gives a lone garde (+5). Plus **all combat is RNG-stream-position-dependent**
+   (kill-swing counts shift if any upstream turn changes), so the route must be tuned
+   holistically. The rope (+10, room 33) is RNG but **retryable** (`throw grappin`
+   repeats). So reliably-deterministic ceiling ≈ **85–95**; ≤105 only with RNG luck.
+
+**Mechanics cracked (reusable):** verbs are SCARE's built-in **ENGLISH** library
+(French `tue`/`bois` fail; use `attack`/`drink`/`open`/`get`, dirs `n/s/e/o`);
+`attack <enemy>` combat works no-assist; enemies are dormant until triggered
+(`look` wakes the goule, `ouvre coffre` the ogre, `open porte` the petit homme);
+two-step doors (a `[n]` task grants an item w/o moving → need a 2nd `n`); flee=death
+only while enemy present; max endurance 13 (fiole bleue heals to cap, drink mid-fight);
+petit-homme answer **1/2 not 3** (3's task-105 chain eats the voleur points).
+**Restriction operators (from screstrs.c):** type-4 var cmp v2: 0=`<` 1=`<=` 2=`==`
+3=`>=` 4=`>` 5=`!=` (10-15 = compare-to-variable); type-3 = player/NPC presence
+(v2=0 "in same room as NPC v3-2"); char/obj move dests are 1-based (v3=11→room10,
+v3=0→off-stage). No engine change; no combat-assist needed. All runs via `safeplay.sh`.
+
+**Resume:** the remaining ~10 deterministic points (buttons/vieillard/tarator/femme→
+mirror/assassin/grappin/note/Hors d'ici) need the item-fetch web mapped + holistic
+RNG tuning — a multi-session grind for an ~85-105 cap on a no-win game. Table of all
+18 events + methods is in `Les_Feux_de_l_enfer_walkthrough.md`.
+
+## 2026-06-26 (cont. 2) — circus (*Menagerie!*) TRIAGED + opening banked, PARKED
+
+> ⚠️ **SAFETY (learned the hard way): playing event-heavy ADRIFT games through the
+> headless harness can eat ALL system RAM and HARD-CRASH the machine.** It happened
+> this session while driving `circus.taf`. SCARE buffers a turn's output text in
+> memory; Menagerie is event-saturated (`runmeeveryturn`, `randomwalks`, 5 per-turn
+> music events, timed clown/pickpocket/tightrope events, ~16 walking NPCs), so a
+> command that puts two tasks/events into a mutual re-trigger within one turn grows
+> the buffer without bound → OOM. **Always run bounded** — use
+> `scratchpad/safeplay.sh` (`ulimit -t 12` CPU-seconds, SIGXCPU-killed on macOS, +
+> `head -c 4M` output cap). NEVER `run_in_background` a harness run. A run that dies
+> at the CPU limit = you hit the loop trigger; bisect the command list to isolate it.
+> (Memory: `scare-harness-oom-bound-runs`.)
+
+**circus.taf = David Good's "Menagerie!"** (v1.03, 2001; **WON 1st place** ADRIFT
+Spring 2001 Minicomp). Native **ADRIFT 3.90.17**. You are **Willow Murphy**, a PETA
+spy, sent to the Waleri Bros. Menagerie & Circus to **film animal cruelty on a
+videocamera without getting caught**. **18 rooms, 158 tasks, 16 NPCs, 18 events.**
+Difficulty (`Easy`/`Medium`/`Hard`, Medium default — type before any scoring) gates
+the clown/pac timers and the stored max (**Easy max = 140**).
+
+**Win = `home`** (the only `ACT type=6 v1=0` endings: tasks 48/49/50, 3 tiers gated
+on var#33 ≥ 52/53 and var#24==1). `v1=2` type-6 = death endings (opening ANY animal
+cage = instant death: lion/tiger/gorilla/elephant tasks 10/11/36/38; plus mad-clown,
+tightrope/guido, lion-tamer, magic-act, elephant-stampede, gorillas-loose, timed-die).
+
+**Confirmed opening spine (deterministic, banked in `harness/circus_solution.txt`,
+reaches score 10/140):** `Easy` → `open case` (camera is inside) → `n` (Main Entrance,
+room0) → `buy 4 tokens` ($2 start = 4 tokens, 2-for-$1 from Marie) → `s e` (Midway
+East, room15) → `play duck pond` ×4. The duck pond is a **random carnival game**
+(var#8 = which duck, set per play under the seed); the seed sequence yields
+duck-toy / clown / frog-toy / **FREE TICKET** on the 4th play (**task 13** moves
+obj2=[ticket] to you, +10) — **and the ticket is what actually opens the big top**
+(the tent-interior exits gate on task 13, NOT on a bought ticket; the $17 Marie
+"Adult Admission" is a **red herring**).
+
+**The two hard gates:**
+1. **Camera theft.** Winning the ticket triggers the **pickpocket** (EVENT 2): the
+   camera case + videocamera are stolen ("Maybe if you can find it..."). The filming
+   tasks (31/32/33 `use camera`, room4, +10 each, repeatable) need the camera back.
+2. **Funhouse recovery.** Camera is recovered in **room10 = the Funhouse interior**,
+   reached by `west` from the Midway (**task 19**, costs 1 token, gated var#14==1 —
+   almost certainly set BY the theft, i.e. the thief flees into the funhouse). Bill
+   (NPC 8) is there; the recovery chain is the **mirror** tasks: `show mirror to bill`
+   (task 66, +5) → `take money` (task 67, +5) and/or `give popcorn to bill` (116, +5).
+
+**The core challenge = a BOOTSTRAP ECONOMY with RNG-seeded outcomes.** $2 start = 4
+tokens, and winning the ticket consumes all 4 → **$0/0 tokens, cannot afford the
+1-token funhouse entry.** So you must interleave the other point/cash sources:
+midway games (ring toss room9 +6, wheel room16 +5, pac-man room17 +3 — all random
+outcomes via var#16/21/47/48 set by per-turn events), prize-selling (`sell toy`
+room0 +5), and the **points↔cash↔score** loop (`sell N points` room0 trades score
+for money but reduces var#33, which the win needs ≥52/53; `sell/buy N tokens`
+room0). Vars: **var#4 = dollars, var#5 = tokens, var#31/#33 = points/footage,
+var#7 = "have a token" flag.** Because every game outcome is drawn from the shared
+`erkyrath` seed-1234 stream (like Bomb Threat / Melbourne Beach), the route is
+**turn-order sensitive** — a deterministic win exists but needs iterative tuning of
+which games to play in which order to bank ≥52 points AND keep enough tokens/cash
+for the funhouse + big-top filming.
+
+**Map (from EXIT dump):** room9 Midway(start) — N→0 MainEntrance, E→15 MidwayEast
+(duck pond), S→16 (wheel), NW→13, W→10 Funhouse(task19/token). room0 — N/NE/SW into
+tent(2/1/7) **gated task13=ticket**, S→9. room1/7 = E/W bleachers (room1 D→14 "look
+under bleachers" task93 +5). room4 = the ring/cages (filming `use camera` here).
+room2 U→12 = highwire (jump task9 = death; save guido task41). room11 fortune teller
+(ask reading task4 +6). room17 = pac-man (W of room16). NPCs: Marie(booth), Bill,
+Wemmie, Pringles(walks), Lance, etc.
+
+**Resume next:** solve the token/cash bootstrap so you can (a) recover the camera in
+the funhouse, then (b) enter the big top and `use camera` on each cruelty act until
+var#33 ≥ 52 (Easy tier, task 50), then `home`. Decode the type-3/type-4 operator
+semantics from `screstrs.c`/`sctasks.c` if the RNG tuning needs it (v2 codes 10/13
+on the win restr are non-standard — confirm they're var-vs-var, not var-vs-const).
+All runs via `safeplay.sh`. Tree: only docs + `harness/circus_solution.txt` +
+`WALKTHROUGH_TODO.md` touched; no terp `.c` edits.
+
+## 2026-06-26 session (cont.) — PARKED (2 more banked: Matt's House, Screen Savers)
+
+**Parked here.** This continuation added **Matt's House** (sandbox, 5/5, no win)
+and **The Screen Savers on Planet X** (**WON 142/142**, full max, verified 3×) —
+entries below. Also consolidated all walkthrough docs/solutions into the repo
+(`terps/scare/adrift-walkthroughs/`) as the single source of truth; the
+`~/adrift-battle` copies are working mirrors. Tree clean (docs/solutions only; no
+terp `.c` edits). **Uncommitted** in the repo: `Matts_House_walkthrough.md`,
+`The_Screen_Savers_On_Planet_X_walkthrough.md`, the two new `harness/*_solution.txt`,
+and the modified `WALKTHROUGH_TODO.md` — ready to commit when desired.
+
+## 2026-06-26 session — PARKED (3 games banked: tcom, SRSintro, ALEXIS)
+
+**Parked here.** This session added 3 deliverables (entries below): **tcom**
+(WON 0/0), **SRSintro** (intro demo, 0/0 no ending), **ALEXIS** (WON 23/65,
+native 3.9, win verified 3×). Tree clean (docs/solutions only; no terp `.c`
+edits — `scdump` is already committed in the harness).
+
+**Resume points (untouched / partial), smallest-effort first:**
+- **ALEXIS max-score pass** — banked win is the min-combat 23/65; the other ~42
+  pts (Hard +10, ~8 optional monster kills via Serond, turn-ring/water/dig/
+  marsh-chest side puzzles, power-up items) are detailed in `ALEXIS_walkthrough.md`.
+- ~~**Matt's House**~~ — **DONE** (sandbox, max 5/5, no win) — see 2026-06-26 entry below.
+- ~~**The Screen Savers On Planet X**~~ — **DONE (WON 142/142)** — see 2026-06-26 entry below.
+- **circus** (*Menagerie!*, 158 tasks) — **TRIAGED + opening banked (10/140), PARKED**;
+  resume at the token/cash bootstrap → funhouse camera recovery → big-top filming →
+  `home` (see the 2026-06-26 cont.2 entry above).
+- ~~**Les Feux de l'enfer**~~ — **TESTED: UNWINNABLE by design** (native 4.0, French,
+  289 tasks, death-only endings). **115/115 is IMPOSSIBLE** — the disarm-trap +10 is
+  an unreachable authoring orphan, so true max ≤ 105 (and that's RNG-hard). Verified
+  deterministic route to 25/115 banked; full analysis in
+  `Les_Feux_de_l_enfer_walkthrough.md` (see 2026-06-27 entry above).
+- ~~**Space Boy's First Adventure**~~ — **DONE, WON 1184/1374** (see the 2026-06-27
+  entry at the top).
+- **Shadowpeak** (574 tasks, win route not banked) — the last big multi-session one.
+  circus (*Menagerie!*) is winnable but parked at the RNG token/cash bootstrap
+  (10/140, OOM-risky); ALEXIS/Les Feux have optional max-score passes.
+
+## 2026-06-26: The Screen Savers on Planet X — **WON, full 142/142**
+
+`The_Screen_Savers_On_Planet_X_walkthrough.md`; solution
+`harness/screen_savers_solution.txt` (132 cmds). Native **ADRIFT 3.9** TechTV fan
+game (38 rooms, 10 NPCs, no combat): all **13 *Screen Savers* cast members** are
+scattered across Planet X + a space section, and you must herd them back to the
+studio. **The win is a single all-rooms `*` task (task 0) gated on game-variable
+#1 == 13** — a "cast gathered" counter bumped by **13 milestone tasks**; the win
+fires on the first command *after* the 13th completes (solution ends on a bare
+`look`). **Stored max 142 = the thirteen +10 milestones + `search room` +6 +
+`drop bulldozer` +6** (the `push green button` travel tasks score nothing — an
+earlier read of a restriction `Var1` as a ChangeScore was wrong). Reached the win
+and the max simultaneously, verified 3× identical (marker *"You've managed to get
+everyone to the set! Congratulations!"*).
+
+**Structure RE'd from the dump (incl. the full EXIT table + event list):** studio
+hub (Main hall → Lab A **teleporter** to the office cubes) + planet overworld
+(Library/Dark Room, Hotel/Cafe, Mr. Universe, Sea of Dust, Rocket Pad) + a
+**rocket/space finale** flown by `set dial to <code>`+`push green button`
+(1119=Galactic Mart, 3071=rift, 4692=satellite, 7438=saucer; `push blue button`
+returns to pad; EVA needs the spacesuit **worn**). Cast: Megan `install disc`,
+Jessica `drop peel`, Martin `play video`, Darci `flip switch`, Joshua `shoot
+bulldozer`, Tom `talk to Tom about John Hanson` (riddle = first president of the
+U.S. Congress), Roger `show printout to Roger` (ID→tube→printout), Patrick `drop
+bulldozer`, Scott `buy modulator`, Yosh `install modulator`, Cat (rift), Morgan
+`kick satellite`, Leo `enter saucer`. **Three ordering traps:** (1) the bazooka is
+"Hotel property" — `drop bazooka` before leaving; (2) `enter rift` is allowed only
+*before* the rift is fixed — that's how you reach the Storage Room for the patch
+(sticker→red crate→patch→`fix rift`), so it's not circular; (3) **the saucer must
+be the LAST space trip** because `enter saucer` warps you back to Outside studio.
+Faithful; no SCARE change, no combat-assist. (Object-move actions use 1-based room
+refs, player-moves are direct — harmless quirk, noted because it explains where
+scattered items land.)
+
+## 2026-06-26: Matt's House — **sandbox, max 5/5, no win**
+
+`Matts_House_walkthrough.md`; solution `harness/matts_house_solution.txt` (7
+cmds). Native **ADRIFT 3.9** (byte8 `0x94`/byte10 `0x37`) — a juvenile author's
+"day-in-the-life" model of his house (~24 rooms, family NPCs Mom/Dad/Rachel + the
+dog Dozer). Structural dump of all **105 tasks: zero `ACT type=6` (EndGame) ⇒ no
+win/lose/death ending**, and **exactly one `ACT type=4` (ChangeScore)** = task 11
+`eat apple` (+5) ⇒ stored **max 5, 100%-completable in one command**. Route is a
+straight dash to the Kitchen: `n` (stand up, leave Your Room → upstairs Hallway
+hub) → `e e` (east through the hallway chain to the stairwell) → `d` (Downstairs
+Hallway) → `n` (Kitchen) → `open refridgerator` → `eat apple` = **+5 (5/5)**.
+Verified 3× identical. **The Battle System is enabled but vestigial:** 19
+`type=7` (ChangeBattle) actions hang off self-care verbs (`drink root
+beer`/`eat turkey`/`eat soup`/`drink coffee`/`turn on treadmill`/`wash
+hands`/`fart`/`pet`+`hit dozer`) nudging hidden stamina/strength, but there is no
+enemy, no `KilledTask`, and no EndGame, so the stats do nothing observable
+(`hit dozer` is the only attack verb and leads nowhere). Same "score, no win"
+sandbox class as `lifesimulation`/`The_Town_Of_Azra`, but with one token scoring
+task instead of zero. Faithful; no SCARE change, no combat-assist.
+
 ## 2026-06-24 session: the newly-added games (see `TRIAGE_NOTES.md`)
 
 The `games/` folder grew to 50 `.taf` since this file was first written; all 32
@@ -30,15 +315,85 @@ records the full classification. Progress this session (12 new walkthroughs):
   the 2026-06-24 (later) entries below.
 - **Banked since:** `Melbourne_Beach_walkthrough.md` (**WON, max 38/41** — see
   the 2026-06-24 (later) entry below).
-- **Still untouched:** The Screen Savers
-  On Planet X, ALEXIS, Shadowpeak, circus, Space Boy's First Adventure
-  (all winnable, large); tcom (win, 0-score); Matt's House, Les Feux
-  de l'enfer (score, no win); Through time (lose-only); SRSintro (0/0 intro).
+- **Still untouched:** only **Shadowpeak** (winnable, large) remains among the
+  WINNABLE list; **circus** (*Menagerie!*) is winnable but parked at the RNG
+  bootstrap (10/140). The Screen Savers, ALEXIS, **Space Boy's First Adventure
+  (WON 1184/1374)**, Matt's House are DONE; Les Feux de l'enfer (score, no win)
+  and Through time (lose-only) are documented unwinnable.
+  **tcom (win, 0-score), SRSintro (0/0 intro) and ALEXIS (WON 23/65) are now
+  DONE** — see the 2026-06-26 entries above.
   Bomb Threat (win, 0-score), lair-of-the-cybercow (win 10/10), and **deaths
   (WON 100/100)** are now **DONE** — see the entries below.
 - **Banked since:** `WesGHN_walkthrough.md` (**UNWINNABLE, max 30/100**) and
   `Melbourne_Beach_walkthrough.md` (**WON, max 38/41**) — see the 2026-06-24
   (later) entries below.
+
+## 2026-06-26: ALEXIS (*Alexis: Dalskee*) — **WON, 23/65** (win verified deterministic)
+
+`ALEXIS_walkthrough.md`; solution `harness/alexis_solution.txt` (101 cmds).
+Native **ADRIFT 3.9** (byte8 `0x94`/byte10 `0x37`) fantasy quest w/ Battle
+System + a companion NPC (**Serond**) who fights alongside you. **Win = kill
+Urgorn** in the Dungeon (r72) inside Uron Castle. **The only mandatory combat is
+Urgorn** — every one of the 7 elemental stones just lies in a room, and the
+central hub opens by *giving food to Tarin* (+2), not by fighting the
+Bridgekeeper. Spine: collect 7 stones (Forecarn start / Tonerith r3 / Dusteron
+r5 / Glaven r21 caves / Longmore r42 / Kedarn r27 / Nelone r56) → give all to
+**Larnt** at Nelone Bridge (a traitor — opens the bridge to Uron) → `say the
+password`+`open door` into the castle → small key (Long-room table) + large key
+(bedroom chest, opened w/ small key) → unlock the stone door → **Mirror room:
+`north` is the only safe exit** (`east`/`west` are teleport death-traps) →
+Torture → Dungeon → `attack urgorn` (Serond assists; legacy 3.9 str-vs-def
+combat works, plain small sword + one gourd drink on Easy is enough). Verified
+3× identical win. **Two time-sinks worth recording: (1) light the lantern AT
+HOME** — task 1 `light *lantern *` (+5) is cottage-scoped, not runnable at the
+cave entrance (looked like a glued-`*lantern` parser bug, but SCARE matches it
+fine in scope — **faithful, no engine issue**); **(2) the scdump compass labels
+are scrambled** (ADRIFT's real dir order ≠ dump slot order) — navigate by the
+game's room prose, the dump connectivity is still correct. **Banked 23/65 is the
+minimum-combat WIN path**; the other ~42 pts are an optional max-score pass
+(Hard +10 but −40 stats; ~8 optional monster kills w/ Serond; turn-ring/water/
+dig/marsh-chest side puzzles; touch-ball r66 is a teleport trap; power-ups =
+Haron's +200-stamina potion, +20-str juice, leaves, elven armour, the
+`dard dard larna dard` buff). Faithful; no SCARE change, no combat-assist.
+
+## 2026-06-26: SRSintro (*Silk Road Secrets*) — **INTRO DEMO, 0/0 no ending**
+
+`SRSintro_walkthrough.md`; tour solution `harness/srsintro_solution.txt`.
+*"Silk Road Secrets (Samarkand to Lop Nor)"* by C. Henshaw (ADRIFT 3.9) — you
+are Beghram of Tokharia, summoned to Samarkand; the Khan offers the Sword of
+Nismus for recovering stolen "Heavenly" beasts from China. **Structural dump of
+all 37 tasks: zero `ACT type=6` (EndGame) AND zero `ACT type=4` (ChangeScore) ⇒
+no win/lose/death and no score** — it's an introduction/demo only (same class as
+IceCream/Invasion/lifesimulation). 3 rooms: Marketplace (start) → `E` Citadel
+(the Khan gives the **Jan-wa** sword + cryptic mission) → `NE` Zoroastrian
+Shrine (a fire-priest answers `ask priest about beasts/omens/articles/khan/
+mission` lore). **Gate:** the Marketplace→Shrine `NE` exit is gated on **task 1
+`take the sword from the khan`**, so visit the Khan first. (Shrine exit displays
+as `sw` though the table lists SE — rotated labels.) No name/gender prompt
+(despite the earlier "F" mention; it boots straight to the intro). Faithful;
+no SCARE change, no combat-assist needed. NOT a 3.9→4.0 conversion (native 3.9).
+
+## 2026-06-26: tcom (*The Cave of Morpheus*, Part 1) — **WON, 0/0 (no score)**
+
+`tcom_walkthrough.md`; solution `harness/tcom_solution.txt` (13 cmds). ADRIFT
+3.9 anxiety-dream: a nude undergraduate wakes late in Ionesco Hall and must dash
+across campus to his 9 AM Western Civ exam while **Death himself gives chase**.
+**0/0 — zero ChangeScore (type-4) actions; the win is the max result.** The win
+is **task 0 `open wooden door`** (Where=ONE_ROOM = the Great Wooden Door room,
+**no restriction**, single `ACT type=6 v1=0`), so any route that reaches that
+room and opens the door wins — nothing to collect/wear/solve. Route is one
+straight dash: from the dorm `n n d n n n n n` (Dorm→Outside→Top-Stairwell→
+Bottom→Back-of-Courtyard→Fountain→Front-of-Courtyard→Foyer→Front-Steps), then
+`d` steps down into the street (Death appears, room 13), then `n n n` up the
+alley to the door, `open wooden door` = WIN (*"This ends the first part… open
+the file entitled 'tcom2'"*). **Death is the Battle System NPC but harmless** —
+he prints *"Death hits you"* but has no player-kill damage/KilledTask, so the
+chase is pure atmosphere (deterministic, verified 3× identical). Two lose-ends
+avoided by the route: `eat pizza` (task 5) and touching the courtyard **grass**
+(`* grass`, task 8 = "hand of God squashes you" — stay on the gravel paths,
+i.e. just keep going `n`). Optional unscored scenery (fountain/crest/Lester/a
+one-way `push`-escape maze) is irrelevant. Faithful to the Runner; no SCARE
+change, no combat-assist needed.
 
 ## 2026-06-25: deaths (*Death's Door*) — **WON, full 100/100**
 

@@ -1,7 +1,9 @@
-# Space Boy's First Adventure (David Parish, 2005) — walkthrough in progress.
+# Space Boy's First Adventure (David Parish, 2005) — FULL WIN, 934/1374.
 # Deterministic headless harness:  sh harness/play.sh games/"Space Boy's First Adventure.taf" harness/space_boy_solution.txt
-# VERIFIED so far: 80/1374. Flight Boots + Ice Gloves obtained. (Ice-gloves
-# task-11 +30 is shadowed by the library "take" — see Space_Boy_walkthrough.md.)
+# Win marker: "STAY TUNED FOR MORE EXCITING EPISODES..." (task 46, EndGame var1=0).
+# All 4 power items (Boots/Gloves/Goggles/Belt) + cape recovered. (Ice-gloves
+# task-11 +30 is a dead author typo, shadowed by the library "take" — see
+# Space_Boy_walkthrough.md; true max <= 1344.)
 #
 # --- Phase 1: Flight Boots (up the oak tree) ---
 s
@@ -76,3 +78,68 @@ freeze wall
 south
 take goggles
 wear goggles
+fly ne
+n
+fly east
+read sign
+enter cave
+take small shovel
+read small sign
+dig a hole in sand
+dig more
+w
+take stick
+read note
+light stick with goggles
+w
+s
+w
+w
+n
+melt ice with goggles
+light stick with goggles
+n
+w
+n
+freeze fire with ice gloves
+e
+e
+u
+e
+n
+take phased ion bridge
+out
+w
+w
+w
+s
+in
+out
+put bridge in power plant
+in
+push blue button
+out
+e
+take fork
+w
+use fork on hole
+read paper
+take belt
+wear belt
+u
+in
+push red button
+out
+sw
+w
+move huge rock
+take key
+e
+ne
+n
+unlock door
+open room door
+take cape
+drop cape to the floor
+w
+read scribbled note

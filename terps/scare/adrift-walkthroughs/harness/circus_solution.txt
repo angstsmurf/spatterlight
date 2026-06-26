@@ -1,0 +1,11 @@
+Easy
+open case
+n
+buy 4 tokens
+s
+e
+play duck pond
+play duck pond
+play duck pond
+play duck pond
+w
