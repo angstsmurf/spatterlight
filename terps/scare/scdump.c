@@ -353,6 +353,13 @@ sc_dump_npc_trace (sc_gameref_t game)
 {
   sc_int npc;
 
+  /* SC_TRACE_PLAYER: just the player's room each turn (maze-mapping aid). */
+  if (getenv ("SC_TRACE_PLAYER"))
+    {
+      fprintf (stderr, "PLAYERROOM room=%ld\n", gs_playerroom (game));
+      fflush (stderr);
+    }
+
   if (!getenv ("SC_TRACE_JUDY"))
     return;
   for (npc = 0; npc < gs_npc_count (game); npc++)
