@@ -748,7 +748,14 @@ run_match_task_common (sc_gameref_t game,
 
       /* Stop searching if we find a match. */
       if (is_matched)
-        break;
+        {
+#ifdef SCARE_DUMP_TOOLS
+          if (getenv ("SC_TRACE_MATCH"))
+            fprintf (stderr, "MATCH task=%ld pattern=[%s] input=[%s]\n",
+                     task, pattern, string);
+#endif
+          break;
+        }
     }
 
   /* Return TRUE if we found a pattern match. */

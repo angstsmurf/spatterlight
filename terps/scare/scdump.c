@@ -107,6 +107,47 @@ sc_dump_structure_once (sc_gameref_t game)
       fprintf (stderr, "CONTAINER idx=%ld obj=%ld [%s]\n", i, oo, s ? s : "");
     }
 
+  /* Static-object room membership (the "Where" list). Dynamic objects are
+   * located via the debugger; statics have no single position, so list every
+   * room each static is directly present in -- the only way to pin a locked
+   * chest / fixed scenery to a room. */
+  for (i = 0; i < gs_object_count (game); i++)
+    {
+      sc_vartype_t sk[3];
+      sc_int r;
+      const sc_char *s;
+      sk[0].string = "Objects";
+      sk[1].integer = i;
+      sk[2].string = "Static";
+      if (!prop_get_boolean (bundle, "B<-sis", sk))
+        continue;
+      s = scdump_object_name (game, i);
+      fprintf (stderr, "STATIC obj=%ld [%s] rooms=", i, s ? s : "");
+      for (r = 0; r < gs_room_count (game); r++)
+        if (obj_directly_in_room (game, i, r))
+          fprintf (stderr, "%ld ", r);
+      fprintf (stderr, "\n");
+    }
+
+  /* Synonyms (input-rewrite rules applied before task/library matching). */
+  {
+    sc_vartype_t yk[3];
+    sc_int yc, yi;
+    yk[0].string = "Synonyms";
+    yc = prop_get_child_count (bundle, "I<-s", yk);
+    for (yi = 0; yi < yc; yi++)
+      {
+        const sc_char *orig, *repl;
+        yk[1].integer = yi;
+        yk[2].string = "Original";
+        orig = prop_get_string (bundle, "S<-sis", yk);
+        yk[2].string = "Replacement";
+        repl = prop_get_string (bundle, "S<-sis", yk);
+        fprintf (stderr, "SYNONYM [%s] -> [%s]\n",
+                 orig ? orig : "", repl ? repl : "");
+      }
+  }
+
   /* Tasks: command, Where, Repeatable, restrictions, actions. */
   for (t = 0; t < gs_task_count (game); t++)
     {
@@ -114,11 +155,13 @@ sc_dump_structure_once (sc_gameref_t game)
       const sc_char *cmd;
       sc_int wtype, wroom, acount, rcount, rep;
 
+      sc_int ccount, ci;
       k[0].string = "Tasks";
       k[1].integer = t;
       k[2].string = "Command";
       k[3].integer = 0;
       cmd = prop_get_string (bundle, "S<-sisi", k);
+      ccount = prop_get_child_count (bundle, "I<-sis", k);
 
       k[2].string = "Where";
       k[3].string = "Type";
@@ -140,6 +183,17 @@ sc_dump_structure_once (sc_gameref_t game)
       fprintf (stderr,
                "TASK %ld where=%ld room=%ld restr=%ld rep=%ld cmd=[%s]\n",
                t, wtype, wroom, rcount, rep, cmd ? cmd : "");
+
+      /* Print any extra command alternatives (Command[1..]) -- these are the
+       * synonym/wildcard forms ADRIFT matches in addition to Command[0]. */
+      for (ci = 1; ci < ccount; ci++)
+        {
+          const sc_char *ac;
+          k[2].string = "Command";
+          k[3].integer = ci;
+          ac = prop_get_string (bundle, "S<-sisi", k);
+          fprintf (stderr, "    ALTCMD[%ld]=[%s]\n", ci, ac ? ac : "");
+        }
 
       for (i = 0; i < rcount; i++)
         {
