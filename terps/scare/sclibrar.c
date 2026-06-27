@@ -3772,6 +3772,48 @@ lib_restore_object_references (sc_gameref_t game, const sc_bool references[])
  * to retry game commands using standard "get " and "drop " commands.  This
  * makes "take/pick up/put down" work with a game's overridden get/drop.
  */
+/*
+ * lib_object_short_name_is_ambiguous()
+ *
+ * Return TRUE if any object other than the one passed shares its Short name
+ * (case-insensitively).  Used to suppress the bare-name game-command retry
+ * below: if "key" names several objects, a generic game task matched by the
+ * bare noun ("get key") is a disambiguation/catch-all handler, not a specific
+ * override for the addressed object, and must not block the standard take of a
+ * fully-qualified reference ("get brass key").  The Runner never reconstructs a
+ * bare noun like this, so it never lets such a task hijack the take; mirror that
+ * by only attempting the bare-name retry when the name is unambiguous.
+ */
+static sc_bool
+lib_object_short_name_is_ambiguous (sc_gameref_t game, sc_int object)
+{
+  const sc_prop_setref_t bundle = gs_get_bundle (game);
+  sc_vartype_t vt_key[3];
+  const sc_char *name;
+  sc_int other, object_count;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Short";
+  name = prop_get_string (bundle, "S<-sis", vt_key);
+  if (!name || name[0] == NUL)
+    return FALSE;
+
+  object_count = gs_object_count (game);
+  for (other = 0; other < object_count; other++)
+    {
+      const sc_char *other_name;
+
+      if (other == object)
+        continue;
+      vt_key[1].integer = other;
+      other_name = prop_get_string (bundle, "S<-sis", vt_key);
+      if (other_name && sc_strcasecmp (name, other_name) == 0)
+        return TRUE;
+    }
+  return FALSE;
+}
+
 static sc_bool
 lib_try_game_command_common (sc_gameref_t game,
                              const sc_char *verb, sc_int object,
@@ -3872,7 +3914,7 @@ lib_try_game_command_common (sc_gameref_t game,
       /* Try the command with and without prefixes on the addressed object. */
       sprintf (command, "%s %s %s", verb, prefix, name);
       status = run_game_task_commands (game, command);
-      if (!status)
+      if (!status && !lib_object_short_name_is_ambiguous (game, object))
         {
           sprintf (command, "%s %s", verb, name);
           status = run_game_task_commands (game, command);
