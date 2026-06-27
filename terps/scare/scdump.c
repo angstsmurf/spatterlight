@@ -137,6 +137,19 @@ sc_dump_structure_once (sc_gameref_t game)
       fprintf (stderr, "OBJNAME obj=%ld [%s]\n", i, s ? s : "");
     }
 
+  /* Surface / container index enumeration (chisel-of-the-ages hunt). */
+  {
+    sc_int si = 0, ci = 0;
+    for (i = 0; i < gs_object_count (game); i++)
+      {
+        const sc_char *s = scdump_object_name (game, i);
+        if (obj_is_surface (game, i))
+          fprintf (stderr, "SURFACE idx=%ld obj=%ld [%s]\n", si++, i, s ? s : "");
+        if (obj_is_container (game, i))
+          fprintf (stderr, "CONTAINERIDX idx=%ld obj=%ld [%s]\n", ci++, i, s ? s : "");
+      }
+  }
+
   /* Synonyms (input-rewrite rules applied before task/library matching). */
   {
     sc_vartype_t yk[3];
@@ -191,6 +204,19 @@ sc_dump_structure_once (sc_gameref_t game)
       fprintf (stderr,
                "TASK %ld where=%ld room=%ld restr=%ld rep=%ld cmd=[%s]\n",
                t, wtype, wroom, rcount, rep, cmd ? cmd : "");
+
+      /* Built-in author hints attached to this task (Question/Hint1=subtle/
+       * Hint2=sledgehammer) -- the game's own context-sensitive walkthrough. */
+      {
+        const sc_char *hq = NULL, *h1 = NULL, *h2 = NULL;
+        sc_vartype_t hv;
+        k[2].string = "Question"; if (prop_get (bundle, "S<-sis", &hv, k)) hq = hv.string;
+        k[2].string = "Hint1";    if (prop_get (bundle, "S<-sis", &hv, k)) h1 = hv.string;
+        k[2].string = "Hint2";    if (prop_get (bundle, "S<-sis", &hv, k)) h2 = hv.string;
+        if (hq && *hq) fprintf (stderr, "    HINTQ=[%s]\n", hq);
+        if (h1 && *h1) fprintf (stderr, "    HINT1=[%s]\n", h1);
+        if (h2 && *h2) fprintf (stderr, "    HINT2=[%s]\n", h2);
+      }
 
       /* Print any extra command alternatives (Command[1..]) -- these are the
        * synonym/wildcard forms ADRIFT matches in addition to Command[0]. */
