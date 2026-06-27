@@ -137,6 +137,31 @@ sc_dump_structure_once (sc_gameref_t game)
       fprintf (stderr, "OBJNAME obj=%ld [%s]\n", i, s ? s : "");
     }
 
+  /* Lockable objects: the "Key" property is the *dynamic-object index* of the
+   * key that opens it; obj_dynamic_object() maps it to a real object id. */
+  for (i = 0; i < gs_object_count (game); i++)
+    {
+      sc_vartype_t kk[3];
+      sc_int key_index, the_key, openable;
+      kk[0].string = "Objects";
+      kk[1].integer = i;
+      kk[2].string = "Openable";
+      openable = prop_get_integer (bundle, "I<-sis", kk);
+      if (openable <= 0)
+        continue;
+      kk[2].string = "Key";
+      key_index = prop_get_integer (bundle, "I<-sis", kk);
+      if (key_index < 0)
+        continue;
+      the_key = obj_dynamic_object (game, key_index);
+      fprintf (stderr, "LOCKKEY obj=%ld [%s] keyidx=%ld keyobj=%ld [%s]\n",
+               i, scdump_object_name (game, i) ? scdump_object_name (game, i) : "",
+               key_index, the_key,
+               (the_key >= 0 && the_key < gs_object_count (game))
+                 ? (scdump_object_name (game, the_key) ? scdump_object_name (game, the_key) : "")
+                 : "?");
+    }
+
   /* Surface / container index enumeration (chisel-of-the-ages hunt). */
   {
     sc_int si = 0, ci = 0;
