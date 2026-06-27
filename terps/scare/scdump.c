@@ -129,6 +129,14 @@ sc_dump_structure_once (sc_gameref_t game)
       fprintf (stderr, "\n");
     }
 
+  /* Every object's Short name (for spotting ambiguous shared names that the
+   * library bare-noun get/drop retry guard cares about). */
+  for (i = 0; i < gs_object_count (game); i++)
+    {
+      const sc_char *s = scdump_object_name (game, i);
+      fprintf (stderr, "OBJNAME obj=%ld [%s]\n", i, s ? s : "");
+    }
+
   /* Synonyms (input-rewrite rules applied before task/library matching). */
   {
     sc_vartype_t yk[3];
