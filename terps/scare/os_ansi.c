@@ -253,6 +253,27 @@ os_read_line (sc_char *buffer, sc_int length)
       sc_quit_game (game);
       exit (EXIT_SUCCESS);
     }
+
+#ifdef SCARE_DUMP_TOOLS
+  /*
+   * Scripting aid (harness only): treat a line whose first non-blank character
+   * is '#' as a comment and skip it, reading the next line instead.  This lets
+   * walkthrough solution files carry inline documentation without the SCARE
+   * parser pulling stray direction/verb tokens out of the prose and firing
+   * spurious, timing-desyncing moves.  A '#' is never the start of a valid
+   * ADRIFT command, so nothing legitimate is lost.  Gated behind the dump-tools
+   * build macro so the standard SCARE CLI keeps its byte-faithful input path.
+   */
+  while (buffer[strspn (buffer, " \t")] == '#')
+    {
+      if (!fgets (buffer, length, stdin))
+        {
+          sc_quit_game (game);
+          exit (EXIT_SUCCESS);
+        }
+    }
+#endif
+
   return TRUE;
 }
 
