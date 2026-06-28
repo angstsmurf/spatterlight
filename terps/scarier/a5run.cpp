@@ -22,6 +22,7 @@
 #include <vector>
 
 #include "a5parse.h"
+#include "a5rand.h"
 #include "a5restr.h"
 #include "a5run.h"
 #include "a5text.h"
@@ -53,10 +54,37 @@ static char *sb_take (sb_t *b) { return b->p ? b->p : strdup (""); }
 
 /* ----------------------------------------------------------------- run state */
 
+/* Per-event runtime (clsEvent instance state).  Status mirrors
+   clsEvent.StatusEnum; the timers mirror TimerToEndOfEvent / iLastSubEventTime /
+   bJustStarted / NextCommand.  Random ranges (Length / sub-event offsets) are
+   resolved per run via a5rand_between (a from==to range draws no RNG). */
+enum { A5_EV_NOTYET = 0, A5_EV_RUNNING = 1, A5_EV_COUNTDOWN = 2,
+       A5_EV_PAUSED = 3, A5_EV_FINISHED = 4 };
+enum { A5_CMD_NONE = 0, A5_CMD_START = 1, A5_CMD_STOP = 2,
+       A5_CMD_PAUSE = 3, A5_CMD_RESUME = 4 };
+struct a5_event_rt {
+  int  status;
+  long length_value;       /* resolved Length for this run                   */
+  long timer_to_end;
+  long last_se_time;       /* iLastSubEventTime                              */
+  int  last_se_index;      /* -1 = none (LastSubEvent Is Nothing)            */
+  int  just_started;
+  int  next_command;
+  int  when_start;         /* mutable: Immediately -> BetweenXY after start  */
+  std::string triggering_task;
+  std::vector<long> se_ft; /* resolved per-sub-event turn offset             */
+};
+
 struct a5_run_s {
   const a5_adventure_t *adv;
   a5_state_t *st;
   std::vector<int> *order;   /* task indices, ascending priority */
+
+  /* Event runtime, one slot per adv->events (clsEvent instances). */
+  std::vector<a5_event_rt> *events;
+  int events_running;        /* clsUserSession.bEventsRunning (immediate vs
+                                deferred Start/Stop on control triggers)      */
+  sb_t *event_out;           /* sink for sub-event output during a tick       */
 
   /* Pending general-reference disambiguation (clsUserSession sAmbTask /
      NewReferences).  When amb_active, the previous turn matched a task whose
@@ -92,10 +120,31 @@ a5run_new (const a5_adventure_t *adv)
   int i;
   if (adv == NULL)
     return NULL;
+  /* Deterministic RNG sequence per game (seed 1234), like the other Scarier
+     headless engines; routes RAND through the shared erkyrath_random.  When the
+     v5 path is wired into Spatterlight this should honour the determinism /
+     native-seed toggle, as scutils.cpp does for the v4 engine. */
+  a5rand_seed (1234u);
   run = new a5_run_s;
   run->adv = adv;
   run->st = a5state_new (adv);
   run->order = new std::vector<int>;
+  run->events = new std::vector<a5_event_rt> (adv->n_events);
+  run->events_running = 0;
+  run->event_out = NULL;
+  for (i = 0; i < adv->n_events; i++)
+    {
+      a5_event_rt &rt = (*run->events)[i];
+      rt.status = A5_EV_NOTYET;
+      rt.length_value = 0;
+      rt.timer_to_end = 0;
+      rt.last_se_time = 0;
+      rt.last_se_index = -1;
+      rt.just_started = 0;
+      rt.next_command = A5_CMD_NONE;
+      rt.when_start = adv->events[i].when_start;
+      rt.se_ft.assign ((size_t) adv->events[i].n_subevents, 0);
+    }
   run->amb_active = 0;
   run->amb_task_index = run->amb_command_index = -1;
   run->amb_ref_type = 'o';
@@ -116,6 +165,7 @@ a5run_free (a5_run_t *run)
     return;
   a5state_free (run->st);
   delete run->order;
+  delete run->events;
   delete run;
 }
 
@@ -500,13 +550,18 @@ eval_num_value (a5_state_t *st, const char *raw)
   long v;
   if (raw != NULL && strncmp (raw, "RAND", 4) == 0)
     {
-      /* RAND(min,max): deterministic lower bound for reproducible runs
-         (Phase 4 will route this through the shared erkyrath_random). */
-      long lo = 0;
+      /* RAND (min, max): inclusive random in [min, max] via the shared
+         erkyrath_random (frankendrift Global.Random(iMin, iMax)).  The data
+         writes it as "RAND (1, 4)" (spaces optional). */
+      long lo = 0, hi = 0;
+      char *end;
       const char *p = raw + 4;
-      while (*p && (*p == ' ' || *p == '(')) p++;
-      lo = strtol (p, NULL, 10);
-      return lo;
+      while (*p && !(*p == '-' || (*p >= '0' && *p <= '9'))) p++;
+      lo = strtol (p, &end, 10);
+      p = end;
+      while (*p && !(*p == '-' || (*p >= '0' && *p <= '9'))) p++;
+      hi = (*p) ? strtol (p, NULL, 10) : lo;
+      return a5rand_between (lo, hi);
     }
   proc = a5text_process (st, raw ? raw : "0");
   v = strtol (proc, NULL, 10);
@@ -540,6 +595,7 @@ split_assignment (const std::string &body, std::string &name, std::string &value
 static void run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out);
 static void run_action (a5_run_t *run, const char *kind, const char *body,
                         int depth, sb_t *out);
+static void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
 
 /* ----------------------------------------- specific-override task dispatch */
 
@@ -915,7 +971,20 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                       free (val);
                     }
                 }
+              /* AttemptToExecuteTask: gate on Completed/Repeatable and the
+                 task's own restrictions (with any refs just bound above) -- the
+                 stock list-runner tasks (e.g. the bomb cascade) execute a list
+                 of candidate tasks and rely on each one's restrictions to pick
+                 the one that fires. */
+              int tti = a5state_task_index (st, key.c_str ());
+              if (tti >= 0 && st->task_done[tti] && !tt->repeatable)
+                return;
+              if (!a5restr_pass (st, tt->restrictions))
+                return;
               run_task (run, tt, depth + 1, out);
+              if (tti >= 0)
+                st->task_done[tti] = 1;
+              ev_on_task_completed (run, key.c_str (), out);
             }
         }
       else if (tk[0] == "Unset" || tk[0] == "Clear")
@@ -977,6 +1046,319 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
     }
 }
 
+/* ------------------------------------------------------------------- events */
+
+/* A faithful port of clsEvent's turn-based state machine: IncrementTimer /
+   DoAnySubEvents / RunSubEvent / lStart / lStop, driven each turn by
+   clsUserSession.TurnBasedStuff and on task completion by the EventControls.
+   Only TurnBased events are handled (this engine has no real-time clock). */
+
+static void ev_lstart (a5_run_t *run, int ei, int restart, sb_t *out);
+static void ev_lstop  (a5_run_t *run, int ei, int run_subs, sb_t *out);
+static void ev_do_subevents (a5_run_t *run, int ei, sb_t *out);
+static void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
+static void attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out);
+
+static long ev_from_start (const a5_event_rt &rt) { return rt.length_value - rt.timer_to_end; }
+static long ev_from_last  (const a5_event_rt &rt) { return ev_from_start (rt) - rt.last_se_time; }
+
+/* The TimerToEndOfEvent property setter: assigning it can start a counted-down
+   event or stop a running one (clsEvent.TimerToEndOfEvent Set). */
+static void
+ev_set_timer_to_end (a5_run_t *run, int ei, long value, sb_t *out)
+{
+  a5_event_rt &rt = (*run->events)[ei];
+  rt.timer_to_end = value;
+  if (rt.status == A5_EV_COUNTDOWN && ev_from_start (rt) == 0)
+    ev_lstart (run, ei, 1, out);                  /* Start(True) */
+  if (rt.status == A5_EV_RUNNING && rt.timer_to_end == 0)
+    ev_lstop (run, ei, 1, out);                   /* lStop(True) */
+}
+
+static void
+ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
+{
+  const a5_event_t *e = &run->adv->events[ei];
+  a5_event_rt &rt = (*run->events)[ei];
+  const a5_subevent_t *se = &e->subevents[sei];
+
+  switch (se->what)
+    {
+    case A5_SE_EXECTASK:
+      if (se->key != NULL)
+        attempt_event_task (run, se->key, 0, out);
+      break;
+    case A5_SE_UNSETTASK:
+      if (se->key != NULL)
+        { int ti = a5state_task_index (run->st, se->key);
+          if (ti >= 0) run->st->task_done[ti] = 0; }
+      break;
+    case A5_SE_DISPLAY:
+      if (se->description != NULL)
+        { char *m = a5text_describe (run->st, se->description);
+          if (m[0]) { sb_puts (out, m); sb_puts (out, "\n"); }
+          free (m); }
+      break;
+    case A5_SE_SETLOOK:
+      /* clsEvent SetLook overrides the room view via a look-text stack; not
+         used by Six Silver Bullets -- left as a no-op for now. */
+      break;
+    }
+  rt.last_se_time  = ev_from_start (rt);
+  rt.last_se_index = sei;
+}
+
+static void
+ev_do_subevents (a5_run_t *run, int ei, sb_t *out)
+{
+  const a5_event_t *e = &run->adv->events[ei];
+  a5_event_rt &rt = (*run->events)[ei];
+  int i;
+  if (rt.status != A5_EV_RUNNING)
+    return;
+  for (i = 0; i < e->n_subevents; i++)
+    {
+      const a5_subevent_t *se = &e->subevents[i];
+      long ft = rt.se_ft[i];
+      int go = 0;
+      switch (se->when)
+        {
+        case A5_SE_FROM_START:
+          if (ev_from_start (rt) == ft && ft <= rt.length_value
+              && (ft > 0 || rt.when_start != 1))
+            go = 1;
+          break;
+        case A5_SE_FROM_LAST:
+          if (ev_from_last (rt) == ft
+              && ((rt.last_se_index == -1 && i == 0)
+                  || (i > 0 && rt.last_se_index == i - 1)))
+            go = 1;
+          break;
+        case A5_SE_BEFORE_END:
+          if (rt.timer_to_end == ft)
+            go = 1;
+          break;
+        }
+      if (go)
+        ev_run_subevent (run, ei, i, out);
+    }
+}
+
+static void
+ev_lstart (a5_run_t *run, int ei, int restart, sb_t *out)
+{
+  const a5_event_t *e = &run->adv->events[ei];
+  a5_event_rt &rt = (*run->events)[ei];
+  int i;
+  if (!(rt.status == A5_EV_NOTYET || rt.status == A5_EV_COUNTDOWN
+        || rt.status == A5_EV_FINISHED
+        || (rt.status == A5_EV_RUNNING && restart)))
+    return;
+  rt.status = A5_EV_RUNNING;
+  rt.length_value = a5rand_between (e->length_from, e->length_to);  /* Length.Reset + first .Value */
+  rt.last_se_index = -1;
+  rt.last_se_time = 0;
+  for (i = 0; i < e->n_subevents; i++)
+    rt.se_ft[i] = a5rand_between (e->subevents[i].ft_from, e->subevents[i].ft_to);
+
+  ev_set_timer_to_end (run, ei, rt.length_value, out);
+  if (ev_from_start (rt) == 0)
+    ev_do_subevents (run, ei, out);              /* 'after 0 turns' sub-events */
+
+  if (rt.when_start == 1)                         /* Immediately -> BetweenXY  */
+    rt.when_start = 2;
+  rt.just_started = 1;
+}
+
+static void
+ev_lstop (a5_run_t *run, int ei, int run_subs, sb_t *out)
+{
+  const a5_event_t *e = &run->adv->events[ei];
+  a5_event_rt &rt = (*run->events)[ei];
+  if (run_subs)
+    ev_do_subevents (run, ei, out);
+  if (rt.status == A5_EV_PAUSED)
+    return;
+  rt.status = A5_EV_FINISHED;
+  if (e->repeating && rt.timer_to_end == 0)
+    {
+      if (rt.length_value > 0)
+        {
+          if (e->repeat_countdown)
+            {
+              long delay = a5rand_between (e->start_from, e->start_to);
+              rt.status = A5_EV_COUNTDOWN;
+              ev_set_timer_to_end (run, ei, delay + rt.length_value, out);
+            }
+          else
+            ev_lstart (run, ei, 1, out);
+        }
+      /* else: zero-length repeating event -- don't restart (infinite loop) */
+    }
+}
+
+static void
+ev_increment (a5_run_t *run, int ei, sb_t *out)
+{
+  a5_event_rt &rt = (*run->events)[ei];
+
+  if (rt.next_command != A5_CMD_NONE)
+    {
+      switch (rt.next_command)
+        {
+        case A5_CMD_START:  ev_lstart (run, ei, 0, out); break;
+        case A5_CMD_STOP:   ev_lstop  (run, ei, 0, out); break;
+        case A5_CMD_PAUSE:  if (rt.status == A5_EV_RUNNING) rt.status = A5_EV_PAUSED; break;
+        case A5_CMD_RESUME: if (rt.status == A5_EV_PAUSED)  rt.status = A5_EV_RUNNING; break;
+        }
+      rt.next_command = A5_CMD_NONE;
+      rt.triggering_task.clear ();
+    }
+
+  switch (rt.status)
+    {
+    case A5_EV_COUNTDOWN:
+      ev_set_timer_to_end (run, ei, rt.timer_to_end - 1, out);
+      break;
+    case A5_EV_RUNNING:
+      if (!rt.just_started)
+        ev_set_timer_to_end (run, ei, rt.timer_to_end - 1, out);
+      break;
+    default:
+      break;
+    }
+
+  if (!rt.just_started)
+    ev_do_subevents (run, ei, out);
+  rt.just_started = 0;
+}
+
+/* Defer a control's Start/Stop/etc. unless we are already inside an event tick
+   (clsEvent.Start/Stop: NextCommand vs immediate). */
+static void
+ev_control (a5_run_t *run, int ei, int cmd, const char *task_key, sb_t *out)
+{
+  a5_event_rt &rt = (*run->events)[ei];
+  int force = (cmd == A5_CMD_START) ? 0 : 0;  /* control triggers never force */
+  if (run->events_running)
+    {
+      switch (cmd)
+        {
+        case A5_CMD_START:  ev_lstart (run, ei, 0, out); break;
+        case A5_CMD_STOP:   ev_lstop  (run, ei, 0, out); break;
+        case A5_CMD_PAUSE:  if (rt.status == A5_EV_RUNNING) rt.status = A5_EV_PAUSED; break;
+        case A5_CMD_RESUME: if (rt.status == A5_EV_PAUSED)  rt.status = A5_EV_RUNNING; break;
+        }
+    }
+  else
+    rt.next_command = cmd;
+  (void) force;
+  rt.triggering_task = task_key ? task_key : "";
+}
+
+/* clsUserSession: when a task completes (bPass), fire any EventControls. */
+static void
+ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
+{
+  int ei;
+  if (task_key == NULL)
+    return;
+  for (ei = 0; ei < run->adv->n_events; ei++)
+    {
+      const a5_event_t *e = &run->adv->events[ei];
+      a5_event_rt &rt = (*run->events)[ei];
+      int ci;
+      for (ci = 0; ci < e->n_controls; ci++)
+        {
+          const a5_eventctrl_t *c = &e->controls[ci];
+          if (!c->on_completion || !streq (c->task_key, task_key))
+            continue;
+          /* Guard against a task re-triggering the control it just triggered. */
+          if (!rt.triggering_task.empty () && rt.triggering_task == task_key)
+            continue;
+          switch (c->control)
+            {
+            case A5_CTRL_START:   ev_control (run, ei, A5_CMD_START,  task_key, out); break;
+            case A5_CTRL_STOP:    ev_control (run, ei, A5_CMD_STOP,   task_key, out); break;
+            case A5_CTRL_SUSPEND: ev_control (run, ei, A5_CMD_PAUSE,  task_key, out); break;
+            case A5_CTRL_RESUME:  ev_control (run, ei, A5_CMD_RESUME, task_key, out); break;
+            }
+        }
+    }
+}
+
+/* Run a task fired by an event (clsUserSession.AttemptToExecuteTask, bEvent):
+   restriction-checked, silent on failure, and itself a control trigger. */
+static void
+attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  const a5_task_t *t = a5model_task (st->adv, key);
+  int ti;
+  if (t == NULL || depth > 16)
+    return;
+  ti = a5state_task_index (st, key);
+  if (ti >= 0 && st->task_done[ti] && !t->repeatable)
+    return;
+  a5state_clear_refs (st);                 /* event tasks carry no command refs */
+  if (!a5restr_pass (st, t->restrictions))
+    return;
+  run_task (run, t, depth + 1, out);
+  if (ti >= 0)
+    st->task_done[ti] = 1;
+  ev_on_task_completed (run, key, out);
+}
+
+/* clsUserSession.TurnBasedStuff: tick every turn-based event once. */
+static void
+ev_tick_all (a5_run_t *run, sb_t *out)
+{
+  int ei;
+  if (run->st->game_over)
+    return;
+  run->events_running = 1;
+  for (ei = 0; ei < run->adv->n_events && !run->st->game_over; ei++)
+    if (streq (run->adv->events[ei].type, "TurnBased")
+        || run->adv->events[ei].type == NULL)
+      ev_increment (run, ei, out);
+  /* Separate loop: an event started by a later event must not also tick. */
+  for (ei = 0; ei < run->adv->n_events; ei++)
+    (*run->events)[ei].just_started = 0;
+  run->events_running = 0;
+}
+
+/* Game start: set each event's initial status (clsUserSession init loop). */
+static void
+ev_init (a5_run_t *run, sb_t *out)
+{
+  int ei;
+  run->events_running = 1;
+  for (ei = 0; ei < run->adv->n_events; ei++)
+    {
+      const a5_event_t *e = &run->adv->events[ei];
+      a5_event_rt &rt = (*run->events)[ei];
+      switch (rt.when_start)
+        {
+        case 3:                                  /* AfterATask */
+          rt.status = A5_EV_NOTYET;
+          break;
+        case 2:                                  /* BetweenXandYTurns */
+          rt.status = A5_EV_COUNTDOWN;
+          rt.length_value = a5rand_between (e->length_from, e->length_to);
+          ev_set_timer_to_end (run, ei,
+                               a5rand_between (e->start_from, e->start_to)
+                                 + rt.length_value, out);
+          break;
+        case 1:                                  /* Immediately */
+          ev_lstart (run, ei, 0, out);
+          break;
+        }
+    }
+  for (ei = 0; ei < run->adv->n_events; ei++)
+    (*run->events)[ei].just_started = 0;
+  run->events_running = 0;
+}
+
 /* ------------------------------------------------------ disambiguation prompt */
 
 /* An entity's definite display name ("the Yellow Note" / a character's name). */
@@ -1035,6 +1417,7 @@ run_remembered (a5_run_t *run, const char *chosen, sb_t *out)
     return 0;
   run_general (run, t, &m, out);
   st->task_done[run->amb_task_index] = 1;
+  ev_on_task_completed (run, t->key, out);
   return 1;
 }
 
@@ -1073,6 +1456,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
             {
               run_general (run, t, &m, out);
               st->task_done[ti] = 1;
+              ev_on_task_completed (run, t->key, out);
               return 1;
             }
           if (r == RR_AMBIG && !*have_amb)
@@ -1106,6 +1490,8 @@ a5run_intro (a5_run_t *run)
   look = a5text_view_location (run->st);
   sb_puts (&out, look);
   free (look);
+  /* Start the Immediately events (clsUserSession init loop, after intro). */
+  ev_init (run, &out);
   return sb_take (&out);
 }
 
@@ -1139,14 +1525,14 @@ a5run_input (a5_run_t *run, const char *line)
         possible_keys (st, run->amb_keys, in, run->amb_ref_type);
       if (narrowed.size () == 1
           && run_remembered (run, narrowed[0].c_str (), &out))
-        { run->amb_active = 0; return sb_take (&out); }
+        { run->amb_active = 0; ev_tick_all (run, &out); return sb_take (&out); }
       if (narrowed.size () > 1)            /* a partial narrowing: keep progress */
         run->amb_keys = narrowed;
     }
 
   if (scan_tasks (run, in, &out, &have_amb, &amb, &amb_ti, &amb_ci,
                   &have_fail, &fail_text))
-    { run->amb_active = 0; return sb_take (&out); }
+    { run->amb_active = 0; ev_tick_all (run, &out); return sb_take (&out); }
 
   if (have_amb)
     {

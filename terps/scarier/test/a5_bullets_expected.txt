@@ -29,22 +29,22 @@ There is nothing to do except WAKE UP
 
 > wake up
 
-"Who dares insult us with this blasphemous mockery? Seize him and unmask him --that we may know whom we have to hang at sunrise, from the battlements!"
+"...and in the blood of Time that Sword shall rust away."
 
-- Edgar Allen Poe, the Mask of Red Death
+- Lord Dunsanay, The Gods of Pegana
 
 ***
 
-You dream of a woman dressed in green. Beautiful. Vivacious. Her eyes captivate you. She speaks of faraway lands and secret plans. You cannot help but listen. You have a part to play in her latest scheme. You must remember.
-
-She pulls you close, and whispers something in your ear. The word barely escapes her perfect lips when a shot rings out. Blood. Madness. This is a nightmare.
+You dream of garden. Paths diverge and converge, forking endlessly. It is night. The stars are cold and bitter. Something hunts for you. You run, madly, down paths you do not choose. Are you running from the monster? Are you running toward it? A shot rings out in the night.
 
 You awaken.
 
 You know nothing about yourself. If you had memories, they are gone.
 
-Before you have a chance to LOOK, or cry out for HELP, you hear something. The voice in your head. It tells you things. Details. Dangers. Things other people would miss. Life is a game. You are a talented player. You are the Silver Agent.
+Before you LOOK, You listen carefully. You hear sounds you have heard before. A voice in your head. You, of course, but not you. Your training. It tells you things. It says you must get up. It says you must not fall asleep. It says to ask for HELP, if you need it.
 
+It says you are the Silver Agent.
+It says you must escape the City.  
 
 
 > look
@@ -83,6 +83,20 @@ You take the Silver Gun from the Table.
 
 
 
+ENCOUNTER: THE VISITOR
+
+Three knocks on the hotel door. Sharp. Strangely Hesitant. Foreboding, almost. They override your other concerns. Your training speaks to you. Behind that door, an enemy waits. You are sure of it.
+
+...but the whole City is behind that door.
+
+What will you do?
+
+LOOK through the peephole
+OPEN the door
+IGNORE the visitor
+HIDE from the visitor (difficult)
+
+
 > inventory
 You have The Yellow Note and The Silver Gun.  
 And zero Silver Bullets
@@ -91,8 +105,6 @@ And zero Silver Bullets
 > examine peephole
 
 Small, dark, like an eye into hell. The hall beyond opens onto the lobby.  
-
-The purple agent waits in the hall...  
 
 
 > drop note

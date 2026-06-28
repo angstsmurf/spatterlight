@@ -16,8 +16,15 @@
 # to keep in the tree and to rebuild offline.
 
 CXX     ?= clang++
+CC      ?= clang
 CXXFLAGS ?= -std=c++11 -O2 -w -I.
 LDLIBS  ?= -lz
+
+# Shared, seedable cross-platform RNG (erkyrath_random), used by the v5 engine
+# so deterministic walkthroughs reproduce.  Compiled as C; it pulls in glk.h
+# (for glui32) from cheapglk but otherwise has no Glk dependency at seed 1234.
+COMMON  := ../common_utils
+A5_RAND_OBJ := test/a5_randomness.o
 
 # All interpreter sources, plus the os-layer stubs the battle harness needs.
 SRC  := $(wildcard sc*.cpp)
@@ -46,10 +53,11 @@ A5_MODEL_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp
 A5_TEXT_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp \
                a5state.cpp a5restr.cpp a5expr.cpp a5text.cpp a5parse.cpp
 A5_RUN_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp \
-              a5state.cpp a5restr.cpp a5expr.cpp a5text.cpp a5parse.cpp a5run.cpp
+              a5state.cpp a5restr.cpp a5expr.cpp a5text.cpp a5parse.cpp \
+              a5rand.cpp a5run.cpp
 A5_HDRS := a5blorb.h a5deobf.h a5xml.h a5model.h
 A5_TEXT_HDRS := $(A5_HDRS) a5state.h a5restr.h a5expr.h a5text.h a5parse.h
-A5_RUN_HDRS := $(A5_TEXT_HDRS) a5parse.h a5run.h
+A5_RUN_HDRS := $(A5_TEXT_HDRS) a5parse.h a5rand.h a5run.h
 A5DUMP_HARNESS := test/a5dump.cpp
 A5DUMP_BIN     := test/a5dump
 A5MODEL_HARNESS := test/a5model_dump.cpp
@@ -128,8 +136,13 @@ $(A5TEXT_BIN): $(A5_TEXT_SRC) $(A5TEXT_HARNESS) $(A5_TEXT_HDRS)
 #   make -f Makefile.headless a5run
 #   ./test/a5run_dump path/to/game.blorb [script.txt]
 a5run: $(A5RUN_BIN)
-$(A5RUN_BIN): $(A5_RUN_SRC) $(A5RUN_HARNESS) $(A5_RUN_HDRS)
-	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5RUN_HARNESS) $(LDLIBS) -o $@
+$(A5RUN_BIN): $(A5_RUN_SRC) $(A5RUN_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
+	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5RUN_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
+
+# The shared erkyrath RNG, compiled as C with cheapglk on the include path
+# (only for glui32 via glk.h).
+$(A5_RAND_OBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
+	$(CC) -O2 -w -I../cheapglk -c -o $@ $(COMMON)/randomness.c
 
 # Self-contained matcher regression test (no game data); part of `test`.
 a5parsetest: $(A5PARSE_BIN)
@@ -141,8 +154,8 @@ $(A5PARSE_BIN): a5parse.cpp a5parse.h $(A5PARSE_HARNESS)
 # no game data); part of `test`.  Links the full a5 run pipeline.
 a5distest: $(A5DIS_BIN)
 	./$(A5DIS_BIN)
-$(A5DIS_BIN): $(A5_RUN_SRC) $(A5DIS_HARNESS) $(A5_RUN_HDRS)
-	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5DIS_HARNESS) $(LDLIBS) -o $@
+$(A5DIS_BIN): $(A5_RUN_SRC) $(A5DIS_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
+	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5DIS_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # The TAFs are checked in; these targets only refresh them from the generators.
 taf: $(TAF) $(PREC_TAF) $(BADP_TAF)
@@ -154,4 +167,4 @@ $(BADP_TAF): test/make_badparent_taf.py
 	python3 test/make_badparent_taf.py $(BADP_TAF)
 
 clean:
-	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5DIS_BIN)
+	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5DIS_BIN) $(A5_RAND_OBJ)

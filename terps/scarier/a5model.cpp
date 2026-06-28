@@ -222,6 +222,143 @@ a5_load_variables (a5_adventure_t *a)
     }
 }
 
+/* Parse "1" or "1 To 5" (a FromTo range) into [*from, *to]. */
+static void
+a5_parse_range (const char *s, long *from, long *to)
+{
+  char *end;
+  if (s == NULL) { *from = *to = 0; return; }
+  *from = strtol (s, &end, 10);
+  while (*end != '\0' && (*end < '0' || *end > '9') && *end != '-') end++;
+  *to = (*end != '\0') ? strtol (end, NULL, 10) : *from;
+}
+
+/* The last whitespace-delimited token of `s` (an enum name), or "". */
+static const char *
+a5_last_token (const char *s)
+{
+  const char *p, *last = s ? s : "";
+  for (p = last; p != NULL && *p; p++)
+    if (*p == ' ' || *p == '\t')
+      last = p + 1;
+  return last;
+}
+
+static a5_se_when_t
+a5_parse_se_when (const char *s)
+{
+  if (s != NULL && strcmp (s, "FromStartOfEvent") == 0) return A5_SE_FROM_START;
+  if (s != NULL && strcmp (s, "BeforeEndOfEvent") == 0) return A5_SE_BEFORE_END;
+  return A5_SE_FROM_LAST;
+}
+
+static a5_se_what_t
+a5_parse_se_what (const char *s)
+{
+  if (s != NULL && strcmp (s, "SetLook") == 0)    return A5_SE_SETLOOK;
+  if (s != NULL && strcmp (s, "ExecuteTask") == 0) return A5_SE_EXECTASK;
+  if (s != NULL && strcmp (s, "UnsetTask") == 0)  return A5_SE_UNSETTASK;
+  return A5_SE_DISPLAY;
+}
+
+static a5_ctrl_t
+a5_parse_ctrl (const char *s)
+{
+  if (s != NULL && strcmp (s, "Stop") == 0)    return A5_CTRL_STOP;
+  if (s != NULL && strcmp (s, "Suspend") == 0) return A5_CTRL_SUSPEND;
+  if (s != NULL && strcmp (s, "Resume") == 0)  return A5_CTRL_RESUME;
+  return A5_CTRL_START;
+}
+
+/* Decode the parsed-enum / range fields of one <Event> (clsEvent FileIO load). */
+static void
+a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
+{
+  const char *ws = a5xml_child_text (c, "WhenStart");
+  const char *rep = a5xml_child_text (c, "Repeating");
+  const char *rc = a5xml_child_text (c, "RepeatCountdown");
+  a5_xml_node_t *ch;
+  int si = 0, ki = 0;
+
+  e->when_start = 1;                                  /* Immediately default */
+  if (ws != NULL && strcmp (ws, "BetweenXandYTurns") == 0) e->when_start = 2;
+  else if (ws != NULL && strcmp (ws, "AfterATask") == 0)   e->when_start = 3;
+  a5_parse_range (a5xml_child_text (c, "StartDelay"), &e->start_from, &e->start_to);
+  a5_parse_range (a5xml_child_text (c, "Length"),     &e->length_from, &e->length_to);
+  e->repeating       = (rep != NULL && strcmp (rep, "1") == 0);
+  e->repeat_countdown = (rc != NULL && strcmp (rc, "1") == 0);
+
+  e->n_controls  = a5xml_count (c, "Control");
+  e->n_subevents = a5xml_count (c, "SubEvent");
+  if (e->n_controls > 0)
+    e->controls = (a5_eventctrl_t *) calloc ((size_t) e->n_controls,
+                                             sizeof *e->controls);
+  if (e->n_subevents > 0)
+    e->subevents = (a5_subevent_t *) calloc ((size_t) e->n_subevents,
+                                             sizeof *e->subevents);
+
+  for (ch = c->first_child; ch != NULL; ch = ch->next)
+    {
+      if (strcmp (ch->name, "Control") == 0)
+        {
+          /* "Start Completion Gamestart" -> control, completion flag, key. */
+          const char *t = ch->text ? ch->text : "";
+          char buf[64]; int n = 0;
+          a5_eventctrl_t *cc = &e->controls[ki++];
+          const char *p = t, *toks[3]; int nt = 0;
+          /* split into up to 3 tokens by spaces, aliasing where possible */
+          while (*p == ' ') p++;
+          while (*p && nt < 3)
+            {
+              toks[nt++] = p;
+              while (*p && *p != ' ') p++;
+              while (*p == ' ') p++;
+            }
+          /* control enum (token 0), completion (token 1), task key (token 2) */
+          if (nt >= 1)
+            {
+              n = 0;
+              while (toks[0][n] && toks[0][n] != ' ' && n < 63) { buf[n] = toks[0][n]; n++; }
+              buf[n] = '\0';
+              cc->control = a5_parse_ctrl (buf);
+            }
+          cc->on_completion = 1;
+          if (nt >= 2)
+            cc->on_completion = (strncmp (toks[1], "UnCompletion", 12) != 0);
+          /* The task key is the final token, which runs to the NUL-terminated
+             end of the <Control> text, so it can alias directly. */
+          if (nt >= 3)
+            cc->task_key = toks[2];
+        }
+      else if (strcmp (ch->name, "SubEvent") == 0)
+        {
+          a5_subevent_t *se = &e->subevents[si++];
+          const char *when = a5xml_child_text (ch, "When");
+          a5_xml_node_t *act = a5xml_child (ch, "Action");
+          a5_parse_range (when, &se->ft_from, &se->ft_to);
+          se->when = a5_parse_se_when (a5_last_token (when));
+          if (act != NULL)
+            {
+              if (a5xml_child (act, "Description") != NULL)
+                { se->what = A5_SE_DISPLAY; se->description = act; }
+              else
+                {
+                  /* "ExecuteTask Roller2" -> what, key. */
+                  const char *txt = act->text ? act->text : "";
+                  const char *sp = strchr (txt, ' ');
+                  char wbuf[32]; int n = 0;
+                  while (txt[n] && txt[n] != ' ' && n < 31) { wbuf[n] = txt[n]; n++; }
+                  wbuf[n] = '\0';
+                  se->what = a5_parse_se_what (wbuf);
+                  /* The key is the final token (NUL-terminated end of <Action>). */
+                  if (sp != NULL)
+                    se->key = sp + 1;
+                }
+            }
+        }
+    }
+}
+
 static void
 a5_load_events (a5_adventure_t *a)
 {
@@ -240,6 +377,7 @@ a5_load_events (a5_adventure_t *a)
       e->node = c;
       e->key = a5xml_child_text (c, "Key");
       e->type = a5xml_child_text (c, "Type");
+      a5_parse_event_body (e, c);
     }
 }
 
@@ -463,6 +601,11 @@ a5model_free (a5_adventure_t *a)
       for (s = 0; s < a->tasks[i].n_specifics; s++)
         free ((void *) a->tasks[i].specifics[s].keys);
       free (a->tasks[i].specifics);
+    }
+  for (i = 0; i < a->n_events; i++)
+    {
+      free (a->events[i].subevents);
+      free (a->events[i].controls);
     }
   for (i = 0; i < a->n_groups; i++)
     free ((void *) a->groups[i].members);

@@ -7,3 +7,4 @@ a5parse_test
 a5run_dump
 a5text_dump
 a5_disambig_test
+a5_randomness.o

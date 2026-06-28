@@ -317,8 +317,8 @@ ADRIFT text is full of embedded directives evaluated at display time:
       `ShouldWeLoadLibraryItem`).  So `take`/`drop`/`open` need that library
       ported/bundled (cf. the Geas typelib approach) — tasks with embedded
       actions (PlayerMovement, "Take the money", custom puzzle tasks) already run.
-- [~] **P4 Dynamic**: **core verbs + property/text engine DONE; events/walks/
-      conversation/scoring + disambiguation remain.**
+- [~] **P4 Dynamic**: **core verbs + property/text engine + disambiguation +
+      events/timers DONE; walks/conversation/scoring remain.**
       - **Key correction to the P3 "standard-library merge" finding:** the stock
         verbs are **not** missing their actions.  Six Silver Bullets (and every v5
         game) **ships the full ADRIFT Standard Library inside the game file** —
@@ -398,13 +398,65 @@ ADRIFT text is full of embedded directives evaluated at display time:
         game file is absent — it can't be checked in).  Movement + intros for
         Anno 1700 and Stone of Wisdom remain clean (no raw `%…%`/`.Prop` tokens).
         **ASan/UBSan-clean** on all three games.
-      - **Still TODO**: events/timers; characters/walks/conversation/topics;
-        full UDF (`%FunctionName[args]%`) + array variables; scoring; "seen"/
-        visibility (`HaveBeenSeen*`/`BeVisibleTo*` still approximated); routing
-        v5 RAND through `erkyrath_random` for determinism (#5); and the
-        ground-truth diff vs the official Runner / frankendrift (no VB.NET build
-        set up yet — the lazy-take `(from you)` parenthetical is plausibly
-        faithful but unverified).
+      - **v5 RAND through the shared `erkyrath_random`** (#5) — DONE.  New
+        `a5rand.cpp/.h` (`a5rand_seed`/`a5rand_between`) wraps
+        `terps/common_utils/randomness.c` (the same seedable xoshiro128**
+        generator the v4 path uses via scutils.cpp); `a5run_new` seeds 1234 per
+        game so headless runs are reproducible, and `eval_num_value` parses
+        `RAND (min, max)` to an inclusive draw (frankendrift
+        `Global.Random(iMin, iMax)`).  `Makefile.headless` compiles
+        `randomness.c` as `test/a5_randomness.o` (`-I../cheapglk` for glui32)
+        and links it into the a5run / a5distest harnesses.  This deconflicts the
+        Six Silver Bullets `Roller==1` catch-all (it now fires only when RAND
+        lands on 1) and makes the intro's RAND-selected dream/epigraph variants
+        real; the golden transcript was regenerated (dream variant 4 under seed
+        1234).  **ASan/UBSan-clean.**  NOTE: when the v5 path is wired into
+        Spatterlight, seeding should honour the determinism / native-seed toggle
+        as scutils.cpp does, and `a5rand.cpp` + `randomness.c` must be added to
+        the Xcode target.
+      - **Events / timers** — DONE.  A faithful port of `clsEvent`'s turn-based
+        state machine into `a5run.cpp` (model parsing in `a5model.cpp`):
+        - Model: `a5_event_t` now carries the parsed `WhenStart`/`Length`/
+          `StartDelay`/`Repeating`/`RepeatCountdown`, the `<SubEvent>` list
+          (`a5_subevent_t`: when {FromStart/FromLast/BeforeEnd} + turn-offset
+          range + what {ExecuteTask/UnsetTask/DisplayMessage/SetLook} + key/
+          description) and the `<Control>` list (`a5_eventctrl_t`: control +
+          Completion flag + task key).
+        - Runtime (`a5_event_rt`): a per-event `clsEvent` instance — Status,
+          TimerToEndOfEvent, iLastSubEventTime/LastSubEvent, bJustStarted,
+          NextCommand, the Immediately→BetweenXY WhenStart flip, and resolved
+          random `Length`/sub-event offsets (via `a5rand_between`; a `from==to`
+          range draws no RNG).  Ported `IncrementTimer` / `DoAnySubEvents` /
+          `RunSubEvent` / `lStart` / `lStop` / the `TimerToEndOfEvent` setter and
+          the deferred-vs-immediate (`bEventsRunning`) Start/Stop on control
+          triggers.
+        - Driver: `ev_init` (game start, after the intro — Immediately events
+          start) and `ev_tick_all` (clsUserSession.TurnBasedStuff) run once per
+          *successful, non-system* player turn; `ev_on_task_completed` fires the
+          EventControls when a player **or** event-fired task completes.
+        - **Key fix surfaced:** the stock list-runner tasks (e.g. the bomb
+          cascade `Bomb2List` → `SetTasks Execute Bomb2BoomG1…`) rely on each
+          candidate's **restrictions** to pick which fires.  `SetTasks Execute`
+          was running them unconditionally (every bomb message every turn, then
+          insta-death); it now mirrors `AttemptToExecuteTask` — gate on
+          Completed/Repeatable + restriction-check (with any just-bound refs) +
+          fire controls.  `attempt_event_task` (event-fired ExecuteTask) does the
+          same, restriction-checked and silent on failure.
+        - **Validated on Six Silver Bullets:** Roller re-rolls each turn (no
+          spam), bombs stay gated, and `TheVisitor2` fires the "ENCOUNTER: THE
+          VISITOR" knock exactly 5 turns after waking, its `PurpleRese`
+          sub-event moving the purple agent out of the hall (so the peephole's
+          `ThePurpleA Must BeAtLocation Location1`-gated line correctly
+          disappears).  Golden transcript regenerated; deterministic; a 40-turn
+          soak is stable.  Anno 1700 + Stone of Wisdom still clean.  **ASan/
+          UBSan-clean** on all.
+      - **Still TODO**: characters/walks/conversation/topics; full UDF
+        (`%FunctionName[args]%`) + array variables + full numeric-expression
+        evaluation (`%a%+%b%`, currently truncates at the operator); scoring;
+        "seen"/visibility (`HaveBeenSeen*`/`BeVisibleTo*` still approximated);
+        DisplayMessage/SetLook sub-events (no-op/best-effort — unused by Six
+        Silver Bullets); and the ground-truth diff vs the official Runner /
+        frankendrift (no VB.NET build set up yet).
 - [ ] **P5 Resources & save**: blorb media via Glk; v5 XML save/restore; finish a
       full deterministic walkthrough of Six Silver Bullets.
 
@@ -425,6 +477,7 @@ ADRIFT text is full of embedded directives evaluated at display time:
    accordingly and lean on frankendrift's enums verbatim.
 5. **Determinism**: route any v5 randomness through the shared `erkyrath_random`
    (seed 1234) like the other Scarier engines, for reproducible walkthroughs.
+   **DONE** — see `a5rand.cpp/.h` + the P4 note above.
 6. **STL boundary**: borrowed Bocfel code pulls in `<map>`/exceptions; keep it at
    the container edge so the bulk of the engine stays "C-like".
 ```

@@ -89,10 +89,52 @@ typedef struct a5_variable_s {
   const a5_xml_node_t *node;
 } a5_variable_t;
 
+/* One <SubEvent>: at `when` (an offset measured in turns, a random range
+   [ft_from, ft_to]) do `what` to `key` (clsEvent.SubEvent). */
+typedef enum {
+  A5_SE_FROM_LAST  = 0,             /* FromLastSubEvent                      */
+  A5_SE_FROM_START = 1,             /* FromStartOfEvent                      */
+  A5_SE_BEFORE_END = 2              /* BeforeEndOfEvent                      */
+} a5_se_when_t;
+typedef enum {
+  A5_SE_DISPLAY   = 0,              /* DisplayMessage (oDescription)         */
+  A5_SE_SETLOOK   = 1,              /* SetLook                               */
+  A5_SE_EXECTASK  = 2,              /* ExecuteTask sKey                      */
+  A5_SE_UNSETTASK = 3               /* UnsetTask sKey                        */
+} a5_se_what_t;
+typedef struct a5_subevent_s {
+  a5_se_when_t when;
+  long ft_from, ft_to;              /* turn offset (random range)            */
+  a5_se_what_t what;
+  const char *key;                  /* task/location key (ExecuteTask/...)   */
+  const a5_xml_node_t *description; /* <Action> Description (DisplayMessage) */
+} a5_subevent_t;
+
+/* One <Control> "Start|Stop|Suspend|Resume Completion|UnCompletion <TaskKey>"
+   (EventOrWalkControl): trigger the event on a task (un)completing. */
+typedef enum {
+  A5_CTRL_START   = 0,
+  A5_CTRL_STOP    = 1,
+  A5_CTRL_SUSPEND = 2,
+  A5_CTRL_RESUME  = 3
+} a5_ctrl_t;
+typedef struct a5_eventctrl_s {
+  a5_ctrl_t control;
+  int on_completion;                /* 1 = Completion, 0 = UnCompletion      */
+  const char *task_key;
+} a5_eventctrl_t;
+
 typedef struct a5_event_s {
   const char *key;
-  const char *type;
-  const a5_xml_node_t *node;        /* SubEvent list etc.                    */
+  const char *type;                 /* TurnBased / TimeBased                 */
+  int when_start;                   /* 1 Immediately/2 BetweenXY/3 AfterATask */
+  long start_from, start_to;        /* StartDelay random range               */
+  long length_from, length_to;      /* Length random range                   */
+  int repeating;
+  int repeat_countdown;
+  a5_subevent_t  *subevents; int n_subevents;
+  a5_eventctrl_t *controls;  int n_controls;
+  const a5_xml_node_t *node;
 } a5_event_t;
 
 typedef struct a5_group_s {
