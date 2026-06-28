@@ -1,0 +1,54 @@
+Hero
+male
+open mail box
+take silver-key
+west
+press pound
+press 5
+press 7
+press 2
+press 4
+south
+up
+up
+unlock door
+east
+kill jim
+take gold-key
+west
+sell silver-key
+buy scale male
+buy plate male
+down
+unlock door
+west
+kill ireen
+take red-key
+east
+up
+unlock door
+west
+kill rooth
+take crystal-key
+east
+down
+unlock door
+east
+north
+east
+kill debbie
+east
+north
+kill beth
+south
+south
+kill ross
+north
+west
+west
+south
+west
+up
+kill witch
+up
+kill force

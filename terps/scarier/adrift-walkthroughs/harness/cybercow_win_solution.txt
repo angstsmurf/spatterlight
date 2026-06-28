@@ -1,0 +1,129 @@
+Hero
+male
+s
+x well
+e
+x mailbox
+x cupboard
+open cupboard
+take all
+x couch
+push couch
+w
+w
+x snail
+take snail
+e
+s
+e
+x bell
+up
+x rope
+untie rope
+out
+x cross
+push cross
+look
+in
+d
+take rope
+w
+n
+tie rope to well
+throw rope down well
+take cross
+s
+e
+hit bell
+hit bell with cross
+flip bell
+flip bell with cross
+take cross
+hit bell with cross
+drop cross
+in
+x thing
+take packet
+out
+unfold packet
+w
+n
+e
+d
+x robot
+fix robot
+x robot
+fix robot
+put flashlight in robot
+up
+w
+d
+x cow
+milk cow
+give snail to cow
+milk cow
+up
+drop milk
+z
+z
+z
+z
+z
+z
+w
+look
+x fairy
+catch fairy
+e
+e
+d
+put fairy into robot
+say uncle
+uncle
+z
+z
+z
+z
+up
+w
+d
+w
+x thing
+take steak
+eat steak
+w
+x map
+read notation
+x desk
+open desk
+read note
+read envelope
+open envelope
+take new letter
+read new letter
+x fridge
+e
+e
+up
+up
+s
+e
+get in bell
+z
+look
+x me
+i
+talk to fairy
+ask fairy about fairy
+x hair
+x water
+take berry
+x berry
+x fairy
+give berry to fairy
+z
+z
+z
+z
+z
+z

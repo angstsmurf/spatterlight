@@ -1,0 +1,849 @@
+# Shadowpeak ADRIFT 4.0 walkthrough IN PROGRESS, banked 230/790 (session 7: full village cluster).
+# Full prose notes: terps/scare/adrift-walkthroughs/Shadowpeak_walkthrough.md
+# Lines whose first non-blank character is '#' are COMMENTS: the harness skips
+# them (os_ansi.c, gated by -DSCARE_DUMP_TOOLS), so inline notes no longer leak
+# direction/verb tokens into the parser. Everything else is one command per line.
+s
+se
+u
+examine nest
+take egg
+take medallion
+d
+nw
+give fet egg
+n
+fet read runes
+death
+take shield
+hide from dragon
+n
+climb up
+take gloves
+wear gloves
+d
+s
+e
+n
+n
+w
+feel inside
+get brass key
+n
+pick flower
+s
+e
+s
+s
+w
+give rose to rossi
+s
+sw
+w
+take sword
+n
+nw
+w
+wear medallion
+w
+e
+e
+se
+se
+ne
+n
+e
+e
+e
+d
+d
+open slab
+e
+open sarcophagus
+take vial
+stand on sarcophagus
+turn handle
+n
+turn wheel
+s
+w
+u
+u
+n
+n
+e
+open vial
+w
+sw
+s
+w
+w
+s
+sw
+nw
+nw
+w
+w
+z
+z
+z
+z
+z
+z
+say move boulder
+w
+unlock large wooden chest with brass key
+open large wooden chest
+take all from large wooden chest
+wear ring
+e
+e
+e
+se
+se
+ne
+# === SESSION 11: BOOTS (we are now in room 3, the lightning-tree clearing, on
+# the way back to the chasm edge). The thick leather boots are hidden under the
+# dead villager: roll the fallen oak (T5 +5) to expose him, move him aside (T18
+# +5) to reveal the boots+pants, then take and WEAR the boots. The boots are
+# mandatory later for the castle cellar (room 85 rats = instant death unless
+# worn). Collecting them here costs 4 turns that shift the village-combat RNG,
+# so Phase A below was re-tuned to a self-syncing single-target focus loop.
+roll oak tree
+move villager
+take boots
+wear boots
+se
+fly
+# === VILLAGE (rooms 36-52): kill the 4 wandering named zombies, +40 -> 130 ===
+# Phase A re-tuned for the boots-shifted RNG. The named zombies oscillate in and
+# out of the Village Square (37) every turn. Camping with three attacks per cycle
+# scrambles the turn count (a landed attack advances time, a missed one does not),
+# which the boots detour desynced. Instead use a SELF-SYNCING single-target focus:
+# `attack X; z` does nothing (no turn) when X is absent and only `z` advances time,
+# so we step one turn at a time and hit X whenever it wanders in. Holga (12), then
+# Jarris (18, 100 stamina = many hits), then Boris last (24, he roams in slowly
+# from room 42). +40 -> 130.
+s
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+# Phase B: walk east to the blacksmith/breastplate (40-41) where Arthur lives.
+e
+e
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+# ===== SESSION 7: village scoring cluster 130 -> 230/790 =====
+# We end the zombie phase at room 41 (blacksmith breastplate). Grab the
+# tinderbox from the cupboard here (needed later to light the pipe).
+open cupboard
+take tinderbox
+# --- Inn (44): the bottle is high on a shelf, stand on the bar to reach it.
+w
+w
+s
+w
+stand on bar
+get bottle
+# --- Inn upstairs (47): examine the shadow to reveal the silver coin.
+u
+u
+examine shadow
+take coin
+d
+d
+# --- Inn kitchen (45): open the box -> leg of lamb + Bambi the child zombie.
+w
+open wooden box
+take lamb
+attack bambi
+# T71 Bambi dies +10.
+# --- Well bottom (38, down from the square): empty the poison, fill with water.
+e
+e
+n
+d
+pour liquid out
+fill bottle with water
+u
+# Holga died here at the square (37); she dropped the garlic bud.
+take garlic
+# --- Footpath (53): the wolves block the way; feed them the lamb. T115 +10.
+s
+s
+w
+give leg of lamb to wolves
+# --- Church (49): say horamis to summon him, say loralang -> he gives the
+# pipe (T96 +10... +5) and blesses the water into holy water (T91 +10).
+ne
+se
+open door
+s
+say horamis
+say loralang
+take pipe
+put bottle on altar
+take bottle
+light pipe
+# --- Webbed Woods (57): examine the web to get stuck (room 59), burn it free.
+n
+w
+w
+s
+e
+examine web
+burn web
+# T126 burn web +5.
+# --- Up the oak (58): kill Haraxis the giant spider (battle NPC, flees a lot,
+# needs ~7 landed hits). T122 +30.
+u
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+# --- Gypsy Grove (56): with the spider dead, Madam Evenov gives the fog spell
+# (give coin = T138+T139 +10) and a fortune card (one = T144 +5).
+d
+w
+give coin to madam evenov
+one
+# --- Through the foul fog (60) south to the castle entrance (63).
+se
+s
+s
+s
+# Maretta the vampire wife arrives; the garlic bud already repels her (T156 +5).
+# Throw the holy water to destroy her and open the castle. T155 +10.
+throw bottle at maretta
+# === CASTLE (session 12): pentagram +15 (255 -> 270), Morac-clock-safe ===
+# Enter the castle: s->64 courtyard, s->65 long hall (FrontDoorsSlam T162 seals
+# the doors and drops the rubble + chisel of the ages into the cellar), s->71
+# the main hall, where the four stone gargoyles wake and spring to life.
+s
+s
+s
+# Kill only gargoyles #2, #3 and #4 (Seeker one-shots each). Leaving #1 ALIVE
+# keeps the Melvin behead (T333) from ever firing: that instakill-teleport needs
+# ALL four gargoyles dead AND the painting destroyed AND Melvin met. One slow
+# (speed-1) gargoyle trailing us does almost no damage (end stamina 25/50).
+z
+attack gargoyle #2
+attack gargoyle #3
+attack gargoyle #4
+# === SESSION 19: CHAPEL pipe-on-altar (T188 +10) + staff of Borantha (270->...) ===
+# Done BEFORE entering room 77, so the Morac timer stays off. From the main hall
+# s->74 the fountain room. Diving the fountain teleports through room 76 to the
+# hidden chapel (room 75) - but carrying the sword, Shield or breastplate while in
+# the water/chapel is instant death (T182-T185, T187), so DROP the sword + Shield
+# first (we never picked up a breastplate). In the chapel, put the smoking pipe on
+# the altar to Horamis (T188 +10): the pipe vanishes and the unbroken staff of
+# Borantha appears - the endgame staff (say borantha / snap staff). Take it, dive
+# back to room 74, recover the sword + Shield, and grab the gold coin that sits in
+# the fountain (needed later for Charon the ferryman in the Hell realm).
+s
+drop sword
+drop shield
+swim
+put pipe on altar
+take staff
+dive
+take sword
+take shield
+take gold coin
+# n->71 back to the main hall to begin the (timer-starting) lantern run.
+n
+# ============================ SESSION 20 (+105) ============================
+# THE MORAC ENDGAME. The castle Morac death-timer (event 92, ~49 turns from
+# first entering room 77) fires task 326 'Morac arrives' then, 2 turns later,
+# task 327 'Morac kills player' - but BOTH are scoped to the room group
+# {65,69-103}. Rooms 104+ (the upper laboratory tower) are OUTSIDE that group,
+# so once we climb past room 101 the timer can never kill us. Reach room 104
+# fast, survive the timer there, THEN take the rest at leisure.
+#
+# --- Lantern run (enters 77, STARTS the timer). w->77 (Zandos paces, trapped
+# in the pentagram), s->78 (Melvin), s->79 storeroom: the lit lantern is needed
+# both for the dark cellar AND the dark crypt.
+w
+s
+s
+take lantern
+turn lantern on
+n
+n
+e
+# --- Cellar for the chisel (carry venison from the dining table as our castle
+# heal). e->72 dining (venison), e->73, d->84, d->83, e->85 (rats; boots save
+# us), s->86 cellar, chisel on the rubble. Back n,w,u,u,w,w to room 71.
+e
+take venison
+e
+d
+d
+e
+s
+take chisel
+n
+w
+u
+u
+w
+w
+# --- Crypt for the BROOCH (opens the steel door at 96). d->97 (dark, lantern
+# lit), n->99 main crypt. Coffin #7 holds the brooch. Back s,u to 71. (We come
+# back for the sceptre/silver key once the timer is spent.)
+d
+n
+open coffin #7
+take brooch
+s
+u
+# --- Scroll + pentagram burst. w->77, w->90 gallery: rip painting #6 (+5),
+# n->91, n->93 kill the cat (+10, also fells the witch), n->94 take the scroll,
+# back s,s,s,e to 77. Incantation FIRST (+5) then chip (+10): chip-first matches
+# T221 and Zandos kills you.
+w
+w
+destroy painting #6
+n
+n
+attack cat
+n
+take scroll
+s
+s
+s
+e
+say nomorey palenvoid
+chip pentagram with chisel
+# --- CLIMB to the safe zone. e->71, u->95, u->96: unlock the steel door with
+# the brooch, open it, n->101, n->104. We are now OUTSIDE the Morac death group;
+# the timer fires harmlessly while we deal with the golem.
+e
+u
+u
+unlock steel door with brooch
+open steel door
+n
+n
+# --- COLOS the stone golem blocks the iron steps (104->105). Hit him with the
+# Seeker sword until nearly spent, then say the password 'carom' (anagram of
+# Morac) to finish him (+5). Eat the venison to top up Stamina.
+attack golem
+attack golem
+attack golem
+attack golem
+attack golem
+say carom
+eat venison
+# --- DESCEND for the sceptre (timer spent now, lower castle safe). The sceptre
+# is in coffin #2, guarded by Grazilda the vampire Dark Queen; opening it wakes
+# her, so carry the wooden stake (room 82) and stake her at once. s->101, s->96,
+# d->95, d->71. Detour for the stake + a venison refuel: the eaten venison
+# reappears on the dining table, so take/eat/take banks +10 Stamina AND keeps one.
+s
+s
+d
+d
+e
+take venison
+eat venison
+take venison
+e
+s
+w
+take stake
+e
+n
+w
+w
+# Crypt: d->97, s->98 silver key (deep-dungeon doors), n, n->99. Open coffin #2,
+# stake Grazilda, take the sceptre; open coffin #11 (springs the family-crypt
+# portal for our exit). Back s,u to 71.
+d
+s
+take silver key
+n
+n
+open coffin #2
+stake grazilda
+take sceptre
+open coffin #11
+s
+u
+# --- RE-CLIMB to Morac. u->95, u->96 (steel door already open), n->101. Detour
+# e->102 the magical prison: kiss the captive lady Rosanah (+10) for the golden
+# key, unlock the iron chest, take the ballista bolt (downs the dragon). w->101.
+u
+u
+n
+e
+kiss lady
+unlock iron chest with golden key
+open iron chest
+take ballista bolt
+w
+# n->104, u->105: WEAR the shield (deflects Morac's fireball), open the wooden
+# door, n->108 Morac's laboratory.
+n
+u
+wear shield
+open wooden door
+n
+# --- MORAC FIGHT (room 108). Shield worn = fireball deflected (+5). 'look away'
+# breaks his hypnotic gaze (+5). Strike him with the sceptre (+10): he crashes
+# through the window and escapes on a black dragon.
+look away
+attack morac with sceptre
+# --- BALLISTA. n->109 (door now open), d->106, n->68 the ballista (auto-loads
+# from the bolt in hand). Fire it (+20): the bolt kills the dragon and Morac
+# tumbles down to the stone henge.
+n
+d
+n
+fire
+# --- KILL MORAC. Down to the crypt portal and through it to Stonehenge, where
+# the fallen Morac waits. d->66, se->64 (rotated exit), s->65, s->71, d->97,
+# n->99, n->100, enter portal -> room 0. kill morac with the sceptre (+50):
+# 'You cleave Morac's skull... he explodes into dust.'
+d
+se
+s
+s
+d
+n
+n
+enter portal
+kill morac
+# --- Grassy plains -> Andro the sphinx's riddle room (123). From Stonehenge:
+# e->33 the gap, e->110, ne->114, n->115, e->116 (Grumski's old abode),
+# e->122 (gate = fairy/vial subquest T381, already done), e->123.
+e
+e
+ne
+n
+e
+e
+e
+# Andro poses three riddles; the answers are literally the questioned words:
+# g (+5), silence (+10), secret (+15). Solving all three opens the path east.
+g
+silence
+secret
+# e->124 eastern mountainside. Topple the boulder stack onto the undead horde
+# (T410 +50). DO NOT continue east into 125 - it is a stray-arrow death trap.
+e
+move tree trunk
+# SESSION 21 (horn): Quentis the knight rides up and drops the horn of the
+# angels (obj147) at our feet (T416, after the avalanche T410+endofbattle).
+# Grab it here - it is the WIN item (blow horn near Asmodeus). Do NOT follow
+# Quentis east into room 125 (stray-arrow death). +2 turns -> re-tune Edna/Damastus.
+z
+take horn
+
+# ============================ SESSION 15 (+100) ===========================
+# --- DEEP DUNGEON (rooms 128-138), entered from forest room 16. Big cluster:
+# crawl escape +10, Edna +20, throw flesh +20, alam nadeer +20, rub lamp +5,
+# genie wish b +5, colour tiles +20. The double doors at room 16 are unlocked
+# by the TRIANGULAR PIECE OF METAL (obj150) we already carry (from the cave-end
+# chest); the silver key from the prison (grabbed at the crypt earlier) opens
+# the prison cell, not these doors.
+#
+# Walk back from the avalanche (room 124) to Stonehenge: w->123, w->122,
+# w->116, w->115, s->114, sw->110, w->33, w->0. (Compass is heavily rotated;
+# these are the verified typed directions, not the EXIT-table slots.)
+w
+w
+w
+w
+s
+sw
+w
+w
+# Stonehenge -> Doors in the mountains (room 16): w->27, nw->15, n->16.
+w
+nw
+n
+# Unlock and open the great double doors with the triangular piece of metal,
+# then n->128 (the entrance seals behind you with a sliding stone block).
+unlock double doors with triangular piece of metal
+open double doors
+n
+# Room 128: the stone block slides north to crush you. Open the golden chest
+# (bolted to the east-wall fresco; a lever is inside), pull the lever to open a
+# crawl-panel in the east wall, then crawl east just in time (T432 +10 -> 129).
+open golden chest
+pull lever
+crawl
+# Room 130 "the crossroads": Edna the flesh construct. Defeat her in melee
+# (sleep first to restore Strength so she dies fast before the trailing gargoyle
+# whittles our low Stamina; the waits align the seeded battle rolls so Edna's
+# death does NOT force-move us onto a wrong, lethal passage). Her death = +20
+# and drops a fleshy mound. NOTE: the true way out of the crossroads is NORTH;
+# east and south are instant spike-pit deaths.
+# SESSION 16: re-tuned 4 waits -> 3 because the upstream `take venison` adds one
+# turn, shifting this fight's RNG (z counts 0/1/2/3/5/7/8 all clean here).
+e
+z
+z
+sleep
+attack edna
+attack edna
+attack edna
+attack edna
+attack edna
+attack edna
+attack edna
+attack edna
+take fleshy mound
+# Room 133 "the long passage": copper plates electrify the way north. Throw the
+# fleshy mound at them to short them out (T443 +20 - command MUST be "throw
+# flesh", the library intercepts "throw fleshy mound at ...").
+n
+throw flesh
+# Room 134 "midway": dozens of slits spell "Ernamadlea" = alam nadeer reversed.
+# Say his name to pass safely (T446 +20); otherwise the plates fry you.
+n
+say alam nadeer
+# n->135 the north end.
+n
+# Room 135 "north end": a glowing lamp sits on a pedestal. DO NOT take the lamp
+# (instant death). Rub it (T448 +5) to summon Olmo the genie, who offers three
+# wishes a/b/c; wish b ("a blessing from the gods ... to stop the devil's seed")
+# is the helpful one (T451 +5) and opens the way up.
+rub lamp
+say b
+u
+# Room 136 -> 137 "multicoloured room": cross the tiles in rainbow order from
+# the nursery rhyme "I can sing a rainbow" - red, yellow, pink, green, purple,
+# orange, blue. The final blue tile (T460 +20) drops the wall of fire -> 138.
+# Any wrong colour is instant death.
+n
+red
+yellow
+pink
+green
+purple
+orange
+blue
+# ============================================================================
+# SESSION 16: THE MAZE (rooms 139-165) -> +50 (Damastus +25, buttons +10,
+# catch the wind +15). The trailing gargoyle #1 (kept alive to suppress the
+# Melvin behead) slowly drains Stamina, which is pinned near zero by the long
+# endgame. Survival hinges on the venison (taken from the dining-room table in
+# room 72 during the castle cellar run) eaten just before the Damastus fight
+# for +10 Stamina, plus an EFFICIENT Damastus kill. Maze directions are NOT
+# rotated (typed dir == map slot), unlike the rest of the game.
+# n n -> room 139 maze entry ("behind the wall of fire").
+n
+n
+# SESSION 19: eat the carried venison HERE (room 139, +10 Stamina T189) rather
+# than just before Damastus. The session-19 chapel detour shifted the trailing
+# gargoyle's hit-RNG so it now lands a lethal hit at the copper button; healing
+# here carries us past it AND still through the Damastus fight. The venison then
+# teleports back to the room-72 dining table (our one and only heal).
+eat venison
+# Iron button (room 143): e->140 e->142 e->143.
+e
+e
+e
+press iron button
+# Copper button (room 145): w->142 w->140 w->139 w->141 w->144 w->145.
+w
+w
+w
+w
+w
+w
+press copper button
+# North corridor to the stone button (room 157): n->152..157.
+n
+n
+n
+n
+n
+n
+press stone button
+# DAMASTUS chase RE-DERIVED (session 21: the horn grab adds +2 turns, shifting
+# his RNG). Greedy BFS from the stone button (room 157): attack when co-located,
+# else BFS-step toward him. He dies at room 150 (+25). Re-derive with /tmp/chase.py
+# if upstream turns change (seeded scare + SC_TRACE_PLAYER + SC_TRACE_JUDY npc=35).
+e
+e
+e
+e
+e
+e
+s
+s
+attack damastus
+attack damastus
+n
+attack damastus
+s
+attack damastus
+n
+attack damastus
+# Bronze button (room 151), the 4th: from room 150 (where Damastus died) n->151.
+# All four buttons pressed AND Damastus dead fires the 'all buttons' task (+10),
+# unsealing 160<->163.
+n
+press bronze button
+# Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
+# greaves (obj170) here in the Minotaur's lair and WEAR them - they are required
+# to survive Cerberus's tail-sting in Hell (T509 = death without them). Then
+# u,u->165, catch the wind (+15) -> magically lifted back to room 16.
+w
+w
+w
+s
+take greaves
+wear greaves
+u
+u
+catch the wind
+# ============================================================================
+# SESSION 21: THE HELL FINALE -> THE WIN (+170: say borantha +20, snap staff
+# +50, Cerberus +20, ... blow horn = victory).
+# ----------------------------------------------------------------------------
+# Maze exit (room 16) -> Stonehenge (room 0): s->15, se->27, e->0 (rotated).
+s
+se
+e
+# The staff of Borantha is the way out of this era. Speak its maker's name to
+# charge it (T360 +20), then snap it (T358 +50). Morac infused the staff with
+# black magic, so the time-jump warps us to Hell (room 166) - where Morac and
+# the sceptre's true destiny lie.
+say borantha
+snap staff
+# Room 166 "Gate of Hades": the iron gate to the north is locked; its key (the
+# black key) lies across the river. Go south to the River Styx (170), whistle
+# for Charon the ferryman, wait for him to pole across, then pay the gold coin
+# -> he ferries us over to the Garden of Lost Souls (171).
+s
+whistle
+z
+z
+z
+z
+z
+give gold coin to charon
+# Up the pillar of debris (172) for the black key; back down (171); stand on
+# the ferry and Charon takes us back across to 170 (T505).
+u
+take black key
+d
+stand on ferry
+# Back at the gate (166): unlock and open the iron gate, then north into the
+# tunnel of the underdark (167).
+n
+unlock iron gate with black key
+open iron gate
+n
+# Room 167: CERBERUS, three-headed hound of Hades (Stamina 99). His tail-sting
+# is INSTANT DEATH unless we wear BOTH the arm-and-leg greaves and the Shield
+# (T509/T510) - both are worn. Cut him down with the sword (T490 +20, ~2 hits).
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
+# North through the demon room (168). The demons would devour an unblessed
+# soul (T495 death), but `say b` to the genie blessed us (T494), so we pass.
+n
+# Room 169: touch the devil's picture to open the golden door (T515) -> 173.
+n
+touch picture
+# Room 173: ASMODEUS the devil-lord. With the horn of the angels held and the
+# sceptre held, in his presence -> blow the horn = VICTORY (T417).
+n
+blow horn

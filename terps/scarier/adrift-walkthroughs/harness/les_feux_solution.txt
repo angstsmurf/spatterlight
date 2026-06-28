@@ -1,0 +1,54 @@
+1
+passer
+2
+s
+s
+s
+ouvre coffre
+attack ogre
+attack ogre
+attack ogre
+attack ogre
+o
+n
+look
+attack goule
+attack goule
+attack goule
+attack goule
+attack goule
+attack goule
+n
+look
+attack demon
+attack demon
+attack demon
+attack demon
+attack demon
+attack demon
+attack demon
+attack demon
+attack demon
+attack demon
+attack demon
+attack demon
+open porte
+n
+drink fiole bleue
+n
+open porte
+examine petit homme
+1
+attack voyou
+attack voyou
+attack voyou
+attack voleur
+attack voleur
+attack voleur
+attack voleur
+attack voleur
+attack voleur
+attack voleur
+ne
+n
+get cristal

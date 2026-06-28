@@ -1,0 +1,419 @@
+/* vi: set ts=8:
+ *
+ * ADRIFT 5 support for Scarier -- runtime state (Phase 2).  See a5state.h.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "a5state.h"
+
+/* ----------------------------------------------------------------- helpers */
+
+static const char *
+obj_prop (const a5_object_t *o, const char *key)
+{
+  const a5_prop_t *p = a5_prop_find (o->props, o->n_props, key);
+  return p ? p->value : NULL;
+}
+
+static int
+obj_has_prop (const a5_object_t *o, const char *key)
+{
+  return a5_prop_find (o->props, o->n_props, key) != NULL;
+}
+
+static const char *
+chr_prop (const a5_character_t *c, const char *key)
+{
+  const a5_prop_t *p = a5_prop_find (c->props, c->n_props, key);
+  return p ? p->value : NULL;
+}
+
+static int
+streq (const char *a, const char *b)
+{
+  return a != NULL && b != NULL && strcmp (a, b) == 0;
+}
+
+/* Decode an object's location property block into an a5_objloc_t. */
+static void
+compute_objloc (const a5_object_t *o, a5_objloc_t *loc)
+{
+  const char *sd = obj_prop (o, "StaticOrDynamic");
+
+  loc->where = A5_OWHERE_NONE;
+  loc->key = NULL;
+  loc->is_static = !streq (sd, "Dynamic");   /* default Static */
+
+  if (!loc->is_static && obj_has_prop (o, "DynamicLocation"))
+    {
+      const char *dl = obj_prop (o, "DynamicLocation");
+      if (streq (dl, "Held By Character"))
+        { loc->where = A5_OWHERE_HELD_BY;   loc->key = obj_prop (o, "HeldByWho"); }
+      else if (streq (dl, "Hidden"))
+        { loc->where = A5_OWHERE_HIDDEN; }
+      else if (streq (dl, "In Location"))
+        { loc->where = A5_OWHERE_LOCATION;  loc->key = obj_prop (o, "InLocation"); }
+      else if (streq (dl, "Inside Object"))
+        { loc->where = A5_OWHERE_IN_OBJECT; loc->key = obj_prop (o, "InsideWhat"); }
+      else if (streq (dl, "On Object"))
+        { loc->where = A5_OWHERE_ON_OBJECT; loc->key = obj_prop (o, "OnWhat"); }
+      else if (streq (dl, "Worn By Character"))
+        { loc->where = A5_OWHERE_WORN_BY;   loc->key = obj_prop (o, "WornByWho"); }
+    }
+  else if (loc->is_static && obj_has_prop (o, "StaticLocation"))
+    {
+      const char *sl = obj_prop (o, "StaticLocation");
+      if (streq (sl, "Nowhere") || streq (sl, "Hidden"))
+        { loc->where = A5_OWHERE_HIDDEN; }
+      else if (streq (sl, "Single Location"))
+        { loc->where = A5_OWHERE_LOCATION;  loc->key = obj_prop (o, "AtLocation"); }
+      else if (streq (sl, "Location Group"))
+        { loc->where = A5_OWHERE_LOCGROUP;  loc->key = obj_prop (o, "AtLocationGroup"); }
+      else if (streq (sl, "Everywhere"))
+        { loc->where = A5_OWHERE_ALLROOMS; }
+      else if (streq (sl, "Part of Character"))
+        { loc->where = A5_OWHERE_PART_CHAR; loc->key = obj_prop (o, "PartOfWho"); }
+      else if (streq (sl, "Part of Object"))
+        { loc->where = A5_OWHERE_PART_OBJECT; loc->key = obj_prop (o, "PartOfWhat"); }
+    }
+}
+
+/* ------------------------------------------------------------------- public */
+
+a5_state_t *
+a5state_new (const a5_adventure_t *adv)
+{
+  a5_state_t *st;
+  int i;
+
+  if (adv == NULL)
+    return NULL;
+  st = (a5_state_t *) calloc (1, sizeof *st);
+  if (st == NULL)
+    return NULL;
+  st->adv = adv;
+
+  if (adv->n_objects > 0)
+    {
+      st->obj = (a5_objloc_t *) calloc ((size_t) adv->n_objects, sizeof *st->obj);
+      for (i = 0; i < adv->n_objects; i++)
+        compute_objloc (&adv->objects[i], &st->obj[i]);
+    }
+
+  if (adv->n_characters > 0)
+    {
+      st->char_loc = (const char **) calloc ((size_t) adv->n_characters,
+                                             sizeof *st->char_loc);
+      st->char_position = (char **) calloc ((size_t) adv->n_characters,
+                                            sizeof *st->char_position);
+      for (i = 0; i < adv->n_characters; i++)
+        {
+          const a5_character_t *c = &adv->characters[i];
+          const char *cl = chr_prop (c, "CharacterLocation");
+          const char *pos = chr_prop (c, "CharacterPosition");
+          /* For Phase 2 we resolve only the simple "At Location" case. */
+          if (cl == NULL || streq (cl, "At Location"))
+            st->char_loc[i] = chr_prop (c, "CharacterAtLocation");
+          st->char_position[i] = strdup (pos ? pos : "Standing");
+        }
+    }
+
+  if (adv->n_variables > 0)
+    {
+      st->var_num = (long *) calloc ((size_t) adv->n_variables, sizeof *st->var_num);
+      st->var_text = (char **) calloc ((size_t) adv->n_variables, sizeof *st->var_text);
+      for (i = 0; i < adv->n_variables; i++)
+        {
+          const a5_variable_t *v = &adv->variables[i];
+          if (streq (v->type, "Text"))
+            st->var_text[i] = v->initial ? strdup (v->initial) : strdup ("");
+          else
+            st->var_num[i] = v->initial ? strtol (v->initial, NULL, 10) : 0;
+        }
+    }
+
+  if (adv->n_tasks > 0)
+    st->task_done = (char *) calloc ((size_t) adv->n_tasks, 1);
+
+  return st;
+}
+
+void
+a5state_free (a5_state_t *st)
+{
+  int i;
+  if (st == NULL)
+    return;
+  if (st->var_text != NULL)
+    for (i = 0; i < st->adv->n_variables; i++)
+      free (st->var_text[i]);
+  if (st->char_position != NULL)
+    for (i = 0; i < st->adv->n_characters; i++)
+      free (st->char_position[i]);
+  for (i = 0; i < st->n_ov; i++)
+    {
+      free (st->ov[i].entity);
+      free (st->ov[i].prop);
+      free (st->ov[i].value);
+    }
+  free (st->ov);
+  free (st->end_message);
+  free (st->obj);
+  free ((void *) st->char_loc);
+  free (st->char_position);
+  free (st->var_num);
+  free (st->var_text);
+  free (st->task_done);
+  free (st);
+}
+
+/* ------------------------------------------------------- reference bindings */
+
+void
+a5state_clear_refs (a5_state_t *st)
+{
+  st->n_refbind = 0;
+}
+
+void
+a5state_bind_ref (a5_state_t *st, const char *name, const char *value)
+{
+  int i;
+  if (name == NULL || value == NULL)
+    return;
+  for (i = 0; i < st->n_refbind; i++)
+    if (streq (st->ref_name[i], name))
+      {
+        snprintf (st->ref_value[i], sizeof st->ref_value[i], "%s", value);
+        return;
+      }
+  if (st->n_refbind >= (int) (sizeof st->ref_name / sizeof st->ref_name[0]))
+    return;
+  snprintf (st->ref_name[st->n_refbind], sizeof st->ref_name[0], "%s", name);
+  snprintf (st->ref_value[st->n_refbind], sizeof st->ref_value[0], "%s", value);
+  st->n_refbind++;
+}
+
+const char *
+a5state_lookup_ref (const a5_state_t *st, const char *name)
+{
+  int i;
+  if (name == NULL)
+    return NULL;
+  for (i = 0; i < st->n_refbind; i++)
+    if (streq (st->ref_name[i], name))
+      return st->ref_value[i];
+  return NULL;
+}
+
+/* ------------------------------------------------------- property overrides */
+
+const char *
+a5state_entity_prop (const a5_state_t *st, const char *entkey, const char *propkey)
+{
+  int i;
+  const a5_object_t *o;
+  const a5_character_t *c;
+  const a5_location_t *l;
+  const a5_prop_t *p;
+
+  if (entkey == NULL || propkey == NULL)
+    return NULL;
+  for (i = 0; i < st->n_ov; i++)
+    if (streq (st->ov[i].entity, entkey) && streq (st->ov[i].prop, propkey))
+      return st->ov[i].value;
+
+  /* Fall back to the model's static value. */
+  o = a5model_object (st->adv, entkey);
+  if (o != NULL && (p = a5_prop_find (o->props, o->n_props, propkey)) != NULL)
+    return p->value;
+  c = a5model_character (st->adv, entkey);
+  if (c != NULL && (p = a5_prop_find (c->props, c->n_props, propkey)) != NULL)
+    return p->value;
+  l = a5model_location (st->adv, entkey);
+  if (l != NULL && (p = a5_prop_find (l->props, l->n_props, propkey)) != NULL)
+    return p->value;
+  return NULL;
+}
+
+void
+a5state_set_prop (a5_state_t *st, const char *entkey, const char *propkey,
+                  const char *value)
+{
+  int i;
+  if (entkey == NULL || propkey == NULL)
+    return;
+  for (i = 0; i < st->n_ov; i++)
+    if (streq (st->ov[i].entity, entkey) && streq (st->ov[i].prop, propkey))
+      {
+        free (st->ov[i].value);
+        st->ov[i].value = strdup (value ? value : "");
+        return;
+      }
+  if (st->n_ov >= st->cap_ov)
+    {
+      int nc = st->cap_ov ? st->cap_ov * 2 : 8;
+      st->ov = (a5_prop_ov_t *) realloc (st->ov, (size_t) nc * sizeof *st->ov);
+      st->cap_ov = nc;
+    }
+  st->ov[st->n_ov].entity = strdup (entkey);
+  st->ov[st->n_ov].prop = strdup (propkey);
+  st->ov[st->n_ov].value = strdup (value ? value : "");
+  st->n_ov++;
+}
+
+int
+a5state_object_index (const a5_state_t *st, const char *key)
+{
+  int i;
+  if (key == NULL)
+    return -1;
+  for (i = 0; i < st->adv->n_objects; i++)
+    if (streq (st->adv->objects[i].key, key))
+      return i;
+  return -1;
+}
+
+int
+a5state_character_index (const a5_state_t *st, const char *key)
+{
+  int i;
+  if (key == NULL)
+    return -1;
+  for (i = 0; i < st->adv->n_characters; i++)
+    if (streq (st->adv->characters[i].key, key))
+      return i;
+  return -1;
+}
+
+int
+a5state_variable_index (const a5_state_t *st, const char *key)
+{
+  int i;
+  if (key == NULL)
+    return -1;
+  for (i = 0; i < st->adv->n_variables; i++)
+    if (streq (st->adv->variables[i].key, key))
+      return i;
+  return -1;
+}
+
+int
+a5state_task_index (const a5_state_t *st, const char *key)
+{
+  int i;
+  if (key == NULL)
+    return -1;
+  for (i = 0; i < st->adv->n_tasks; i++)
+    if (streq (st->adv->tasks[i].key, key))
+      return i;
+  return -1;
+}
+
+const char *
+a5state_player_location (const a5_state_t *st)
+{
+  int pi = a5state_character_index (st, "Player");
+  if (pi < 0)
+    return NULL;
+  return st->char_loc[pi];
+}
+
+/* Recursive ExistsAtLocation, with a depth guard against cyclic placements. */
+static int
+exists_at (const a5_state_t *st, int oi, const char *lockey, int directly, int depth)
+{
+  const a5_objloc_t *loc;
+  int parent;
+
+  if (oi < 0 || depth > 32)
+    return 0;
+  loc = &st->obj[oi];
+
+  switch (loc->where)
+    {
+    case A5_OWHERE_ALLROOMS:
+      return 1;
+    case A5_OWHERE_HIDDEN:
+    case A5_OWHERE_NONE:
+      return streq (lockey, "Hidden");
+    case A5_OWHERE_LOCATION:
+      return streq (loc->key, lockey);
+    case A5_OWHERE_LOCGROUP:
+      {
+        const a5_group_t *g;
+        int i;
+        for (i = 0; i < st->adv->n_groups; i++)
+          if (streq (st->adv->groups[i].key, loc->key))
+            {
+              g = &st->adv->groups[i];
+              for (int m = 0; m < g->n_members; m++)
+                if (streq (g->members[m], lockey))
+                  return 1;
+              return 0;
+            }
+        return 0;
+      }
+    case A5_OWHERE_ON_OBJECT:
+    case A5_OWHERE_IN_OBJECT:
+    case A5_OWHERE_PART_OBJECT:
+      if (directly)
+        return 0;
+      parent = a5state_object_index (st, loc->key);
+      return exists_at (st, parent, lockey, 0, depth + 1);
+    case A5_OWHERE_HELD_BY:
+    case A5_OWHERE_WORN_BY:
+    case A5_OWHERE_PART_CHAR:
+      {
+        int ci;
+        if (directly)
+          return 0;
+        ci = a5state_character_index (st, loc->key);
+        if (ci < 0)
+          return 0;
+        return streq (st->char_loc[ci], lockey);
+      }
+    }
+  return 0;
+}
+
+int
+a5state_object_at_location (const a5_state_t *st, int oi, const char *lockey,
+                            int directly)
+{
+  return exists_at (st, oi, lockey, directly, 0);
+}
+
+int
+a5state_object_key_at_location (const a5_state_t *st, const char *objkey,
+                                const char *lockey, int directly)
+{
+  return exists_at (st, a5state_object_index (st, objkey), lockey, directly, 0);
+}
+
+int
+a5state_var_num_by_name (const a5_state_t *st, const char *name, long *out)
+{
+  int i;
+  for (i = 0; i < st->adv->n_variables; i++)
+    if (streq (st->adv->variables[i].name, name))
+      {
+        if (out != NULL)
+          *out = st->var_num[i];
+        return 1;
+      }
+  return 0;
+}
+
+const char *
+a5state_var_text_by_name (const a5_state_t *st, const char *name)
+{
+  int i;
+  for (i = 0; i < st->adv->n_variables; i++)
+    if (streq (st->adv->variables[i].name, name))
+      return st->var_text[i];
+  return NULL;
+}

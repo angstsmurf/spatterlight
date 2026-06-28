@@ -1,0 +1,737 @@
+# Shadowpeak ADRIFT 4.0 - ALTERNATIVE walkthrough: KILL THE WRAITH FIRST.
+# Deterministic 0-death WIN, 740/790. Run:
+#   SC_SEED=1 sh harness/play.sh games/Shadowpeak.taf shadowpeak_killwraith_solution.txt
+#
+# Variant of the canonical 710/790 win that ALSO:
+#   * kills the wraith Alam Nadeer at the sarcophagus (room 119) the moment he
+#     appears - 8x `attack alam nadeer` with the Seeker sword (T393 +20); and
+#   * kills Fang the wolf in the swamp (room 27, T31 +5, self-syncing attack/z
+#     loop because Fang wanders rooms 27-33); and
+#   * cuts down the werewolf Margo in the prison (room 98, T255 +5).
+# Net: 710 + 20 + 5 + 5 = 740/790. The killing of the wraith shifts the seeded
+# combat RNG, so the deep-dungeon Damastus maze chase was re-derived (greedy BFS)
+# and the Hell Cerberus fight widened to 8 attacks.
+#
+# NOTE on the score ceiling: 740 is near the practical maximum for a wraith-kill
+# route. The only further points are Woody +10 (T529) and "examine dragon" +10
+# (T387). The dragon task is UNREACHABLE - its counter object is permanently
+# placed in room 81 and the task requires it hidden, which never happens. Woody
+# is a wandering wererat with Agility 60 / Defence 30 who flees after every hit
+# and retreats to an off-map lair (room 204); with the player's high-variance
+# melee damage the killing blow rarely lands before he escapes (verified across
+# several RNG alignments). So >750 while killing the wraith is not achievable in
+# practice; the ceiling is ~745 (Woody excluded, the hard 203-stamina graveyard
+# zombie-mob battle for Rex's +5 included).
+#
+# Lines beginning with '#' are comments (harness skips them); one command/line.
+s
+se
+u
+examine nest
+take egg
+take medallion
+d
+nw
+give fet egg
+n
+fet read runes
+death
+take shield
+hide from dragon
+n
+climb up
+take gloves
+wear gloves
+d
+s
+e
+n
+n
+w
+feel inside
+get brass key
+n
+pick flower
+s
+e
+s
+s
+w
+give rose to rossi
+s
+sw
+w
+take sword
+n
+nw
+w
+wear medallion
+w
+e
+e
+se
+se
+ne
+n
+e
+e
+e
+d
+d
+open slab
+e
+open sarcophagus
+take vial
+attack alam nadeer
+attack alam nadeer
+attack alam nadeer
+attack alam nadeer
+attack alam nadeer
+attack alam nadeer
+attack alam nadeer
+attack alam nadeer
+stand on sarcophagus
+turn handle
+n
+turn wheel
+s
+w
+u
+u
+n
+n
+e
+open vial
+w
+sw
+s
+w
+w
+s
+sw
+nw
+nw
+w
+w
+z
+z
+z
+z
+z
+z
+say move boulder
+w
+unlock large wooden chest with brass key
+open large wooden chest
+take all from large wooden chest
+wear ring
+e
+e
+e
+se
+se
+ne
+roll oak tree
+move villager
+take boots
+wear boots
+se
+fly
+s
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack holga
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+attack boris
+z
+e
+e
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+attack arthur
+z
+open cupboard
+take tinderbox
+w
+w
+s
+w
+stand on bar
+get bottle
+u
+u
+examine shadow
+take coin
+d
+d
+w
+open wooden box
+take lamb
+attack bambi
+e
+e
+n
+d
+pour liquid out
+fill bottle with water
+u
+take garlic
+s
+s
+w
+give leg of lamb to wolves
+ne
+se
+open door
+s
+say horamis
+say loralang
+take pipe
+put bottle on altar
+take bottle
+light pipe
+n
+w
+w
+s
+e
+examine web
+burn web
+u
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+attack haraxis
+z
+d
+w
+give coin to madam evenov
+one
+se
+s
+s
+s
+throw bottle at maretta
+s
+s
+s
+z
+attack gargoyle #2
+attack gargoyle #3
+attack gargoyle #4
+s
+drop sword
+drop shield
+swim
+put pipe on altar
+take staff
+dive
+take sword
+take shield
+take gold coin
+n
+w
+s
+s
+take lantern
+turn lantern on
+n
+n
+e
+e
+take venison
+e
+d
+d
+e
+s
+take chisel
+n
+w
+u
+u
+w
+w
+d
+n
+open coffin #7
+take brooch
+s
+u
+w
+w
+destroy painting #6
+n
+n
+attack cat
+n
+take scroll
+s
+s
+s
+e
+say nomorey palenvoid
+chip pentagram with chisel
+e
+u
+u
+unlock steel door with brooch
+open steel door
+n
+n
+attack golem
+attack golem
+attack golem
+attack golem
+attack golem
+say carom
+eat venison
+s
+s
+d
+d
+e
+take venison
+eat venison
+take venison
+e
+s
+w
+take stake
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+attack woody
+z
+e
+n
+w
+w
+d
+s
+take silver key
+unlock cell door with silver key
+open cell door
+attack margo with sword
+attack margo with sword
+n
+n
+open coffin #2
+stake grazilda
+take sceptre
+open coffin #11
+s
+u
+u
+u
+n
+e
+kiss lady
+unlock iron chest with golden key
+open iron chest
+take ballista bolt
+w
+n
+u
+wear shield
+open wooden door
+n
+look away
+attack morac with sceptre
+n
+d
+n
+fire
+d
+se
+s
+s
+d
+n
+n
+enter portal
+kill morac
+e
+e
+ne
+n
+e
+e
+e
+g
+silence
+secret
+e
+move tree trunk
+z
+take horn
+w
+w
+w
+w
+s
+sw
+w
+w
+w
+attack fang
+z
+attack fang
+z
+attack fang
+z
+attack fang
+z
+attack fang
+z
+attack fang
+z
+attack fang
+z
+attack fang
+z
+attack fang
+z
+attack fang
+z
+attack fang
+z
+attack fang
+z
+nw
+n
+unlock double doors with triangular piece of metal
+open double doors
+n
+open golden chest
+pull lever
+crawl
+e
+z
+z
+sleep
+attack edna
+attack edna
+attack edna
+attack edna
+attack edna
+attack edna
+attack edna
+attack edna
+take fleshy mound
+n
+throw flesh
+n
+say alam nadeer
+n
+rub lamp
+say b
+u
+n
+red
+yellow
+pink
+green
+purple
+orange
+blue
+n
+n
+eat venison
+e
+e
+e
+press iron button
+w
+w
+w
+w
+w
+w
+press copper button
+n
+n
+n
+n
+n
+n
+press stone button
+attack damastus
+attack damastus
+e
+attack damastus
+w
+attack damastus
+s
+attack damastus
+n
+e
+e
+e
+e
+e
+e
+press bronze button
+w
+w
+w
+s
+take greaves
+wear greaves
+u
+u
+catch the wind
+s
+se
+e
+say borantha
+snap staff
+s
+whistle
+z
+z
+z
+z
+z
+give gold coin to charon
+u
+take black key
+d
+stand on ferry
+n
+unlock iron gate with black key
+open iron gate
+n
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
+n
+n
+touch picture
+n
+blow horn

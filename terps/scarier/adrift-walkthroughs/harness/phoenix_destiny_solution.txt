@@ -1,0 +1,33 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hero
+male
+Human
+Warrior
+height 180
+weight 80
+age 25
+west
+southeast
+drink water
+northwest
+west
+west
+south
+south
+south
+south
+date
+vitals
+wealth

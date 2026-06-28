@@ -1,0 +1,33 @@
+Hero
+male
+walk through door
+east
+east
+south
+down
+north
+west
+south
+pick flower
+north
+east
+north
+east
+get flower
+west
+north
+down
+get key
+south
+east
+get flower
+west
+north
+up
+up
+south
+south
+west
+west
+west
+end game

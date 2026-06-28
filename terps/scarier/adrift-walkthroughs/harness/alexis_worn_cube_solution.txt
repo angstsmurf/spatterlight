@@ -1,0 +1,253 @@
+hard
+nnamen tutem selronden flar darg
+wear cube
+take all
+wear cloak
+down
+take oil
+take coin
+up
+put oil in lantern
+light lantern
+out
+east
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+take tonerith stone
+e
+e
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+w
+w
+west
+north
+take small sword
+south
+west
+north
+north
+take dusteron stone
+east
+push tree
+north
+north
+nw
+nw
+attack narfild
+attack narfild
+attack narfild
+attack narfild
+attack narfild
+attack narfild
+e
+take glaven stone
+turn ring
+w
+w
+w
+take spade
+e
+e
+nw
+nw
+e
+sw
+give food to tarin
+ne
+dig
+se
+take longmore stone
+se
+se
+se
+sw
+take pot
+take ornate key
+fill pot with water
+ne
+e
+e
+e
+open desk
+take jacket
+take coins
+wear jacket
+w
+n
+buy metal helmet
+wear metal helmet
+s
+s
+put water in pan
+n
+se
+open cupboard
+take elven armour
+wear elven armour
+nw
+w
+s
+se
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+take kedarn stone
+nw
+n
+w
+nw
+nw
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+ne
+unlock chest
+open chest
+take longmore chest plate
+wear longmore chest plate
+sw
+nw
+e
+e
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+w
+w
+nw
+ne
+ne
+e
+se
+take nelone stone
+e
+e
+give stones to larnt
+e
+e
+ne
+nw
+ne
+n
+say the password
+open door
+n
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+n
+take all
+s
+w
+u
+unlock chest
+open chest
+take all
+d
+e
+n
+unlock door
+open door
+n
+drink gourd
+north
+north
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+score
+

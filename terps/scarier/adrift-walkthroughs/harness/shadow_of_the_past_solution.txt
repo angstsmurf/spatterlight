@@ -1,0 +1,25 @@
+
+climb statue
+get down
+n
+listen
+remove portraits
+s
+w
+pull lever
+open door
+w
+examine good book
+nw
+hang rope on hooks
+d
+get tuning fork
+u
+se
+e
+get crown
+e
+n
+touch tuning fork to crystal
+ne
+ne

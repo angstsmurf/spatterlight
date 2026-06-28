@@ -1,0 +1,15 @@
+# P4 regression script for Six Silver Bullets (ADRIFT 5).
+# Exercises: specific-override take dispatch, property expressions
+# (%object%.Description / %objects%.Name / .Parent), perspective/pronouns,
+# the List* function family, SetTasks Execute (arg|arg) reference passing,
+# and the "<>" description-segment separator.
+wake up
+look
+examine table
+examine note
+take note
+take gun
+inventory
+examine peephole
+drop note
+inventory

@@ -1,0 +1,24 @@
+Hero
+male
+
+take note
+n
+n
+give note to king
+w
+push tile
+e
+s
+take soap on a rope
+x window
+close window
+n
+give soap on a rope to king
+take doughnut
+s
+s
+s
+w
+n
+w
+use radio

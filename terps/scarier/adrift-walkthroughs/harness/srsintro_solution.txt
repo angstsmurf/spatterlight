@@ -1,0 +1,13 @@
+
+info
+east
+take sword from khan
+west
+ne
+ask priest about mission
+ask priest about beasts
+ask priest about omens
+ask priest about articles of protection
+ask priest about khan
+sit on ledge
+sw

@@ -1,0 +1,147 @@
+# Headless build + regression test for the Scarier Battle System port.
+#
+# Builds a small console harness (test/battle_test.cpp) that links the Scarier
+# interpreter sources against the bundled sx* os-layer stubs (no Glk, links the
+# system zlib) and runs it against the synthetic, fully deterministic game
+# test/battle_test.taf.  The harness checks the combat math through the public
+# battle API and exits non-zero on any mismatch.
+#
+# Usage:
+#   make -f Makefile.headless test     # build and run the battle test
+#   make -f Makefile.headless taf      # regenerate test/battle_test.taf
+#   make -f Makefile.headless clean
+#
+# test/battle_test.taf is a hand-authored ADRIFT 4.0 file (see
+# test/make_battle_taf.py) and contains no third-party game data, so it is safe
+# to keep in the tree and to rebuild offline.
+
+CXX     ?= clang++
+CXXFLAGS ?= -std=c++11 -O2 -w -I.
+LDLIBS  ?= -lz
+
+# All interpreter sources, plus the os-layer stubs the battle harness needs.
+SRC  := $(wildcard sc*.cpp)
+STUBS   := sxstubs.cpp sxglob.cpp sxutils.cpp
+HARNESS := test/battle_test.cpp
+
+TAF     := test/battle_test.taf
+BIN     := test/battle_test_hl
+
+# The precedence and bad-parent harnesses bring their own os-layer port, so they
+# link SRC alone (no sx* stubs) and drive the real interpreter loop over their
+# own synthetic tafs.
+PREC_HARNESS := test/precedence_test.cpp
+PREC_TAF     := test/precedence_test.taf
+PREC_BIN     := test/precedence_test_hl
+
+BADP_HARNESS := test/badparent_test.cpp
+BADP_TAF     := test/badparent_test.taf
+BADP_BIN     := test/badparent_test_hl
+
+# ADRIFT 5 (Phases 0-1): container + de-obfuscation + zlib inflate -> XML, then
+# an in-situ XML DOM parser -> typed object model.  Self-contained at the
+# "container edge" -- links no interpreter sources.
+A5_SRC  := a5blorb.cpp a5deobf.cpp
+A5_MODEL_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp
+A5_TEXT_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp \
+               a5state.cpp a5restr.cpp a5expr.cpp a5text.cpp a5parse.cpp
+A5_RUN_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp \
+              a5state.cpp a5restr.cpp a5expr.cpp a5text.cpp a5parse.cpp a5run.cpp
+A5_HDRS := a5blorb.h a5deobf.h a5xml.h a5model.h
+A5_TEXT_HDRS := $(A5_HDRS) a5state.h a5restr.h a5expr.h a5text.h a5parse.h
+A5_RUN_HDRS := $(A5_TEXT_HDRS) a5parse.h a5run.h
+A5DUMP_HARNESS := test/a5dump.cpp
+A5DUMP_BIN     := test/a5dump
+A5MODEL_HARNESS := test/a5model_dump.cpp
+A5MODEL_BIN     := test/a5model_dump
+A5TEXT_HARNESS := test/a5text_dump.cpp
+A5TEXT_BIN     := test/a5text_dump
+A5RUN_HARNESS := test/a5run_dump.cpp
+A5RUN_BIN     := test/a5run_dump
+A5PARSE_HARNESS := test/a5parse_test.cpp
+A5PARSE_BIN     := test/a5parse_test
+
+.PHONY: test taf clean a5dump a5model a5text a5run a5parsetest a5runtest
+
+# Path to Six Silver Bullets for the P4 golden-transcript regression.  The game
+# file is not in the repo; override A5_BULLETS to point at it, or the a5runtest
+# target skips gracefully when it is absent.
+A5_BULLETS ?= /Users/administrator/Delad Virtual Box-mapp/Test games/IFComp2018/Games/Six Silver Bullets/six silver bullets/Six Silver Bullets (v 1.0).blorb
+
+test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(A5PARSE_BIN)
+	./$(BIN) $(TAF)
+	./$(PREC_BIN) $(PREC_TAF)
+	./$(BADP_BIN) $(BADP_TAF)
+	./$(A5PARSE_BIN)
+	@$(MAKE) -f Makefile.headless a5runtest
+
+# Golden-transcript regression for the ADRIFT 5 (P4) engine: replays
+# test/a5_bullets_script.txt through Six Silver Bullets and diffs against
+# test/a5_bullets_expected.txt.  Skips (does not fail) if the game file is
+# missing, since it cannot be checked in.
+a5runtest: $(A5RUN_BIN)
+	@if [ -f "$(A5_BULLETS)" ]; then \
+	  ./$(A5RUN_BIN) "$(A5_BULLETS)" test/a5_bullets_script.txt > /tmp/a5_bullets_got.txt 2>/dev/null; \
+	  if diff -u test/a5_bullets_expected.txt /tmp/a5_bullets_got.txt; then \
+	    echo "a5runtest: Six Silver Bullets transcript matches"; \
+	  else \
+	    echo "a5runtest: FAILED (transcript diverged)"; exit 1; \
+	  fi; \
+	else \
+	  echo "a5runtest: SKIP (game file not found: $(A5_BULLETS))"; \
+	fi
+
+$(BIN): $(SRC) $(STUBS) $(HARNESS)
+	$(CXX) $(CXXFLAGS) $(SRC) $(STUBS) $(HARNESS) $(LDLIBS) -o $@
+
+$(PREC_BIN): $(SRC) $(PREC_HARNESS)
+	$(CXX) $(CXXFLAGS) $(SRC) $(PREC_HARNESS) $(LDLIBS) -o $@
+
+$(BADP_BIN): $(SRC) $(BADP_HARNESS)
+	$(CXX) $(CXXFLAGS) $(SRC) $(BADP_HARNESS) $(LDLIBS) -o $@
+
+# Build the ADRIFT 5 XML dumper.  Run it by hand on a game:
+#   make -f Makefile.headless a5dump
+#   ./test/a5dump path/to/game.blorb > game.xml
+a5dump: $(A5DUMP_BIN)
+$(A5DUMP_BIN): $(A5_SRC) $(A5DUMP_HARNESS) a5blorb.h a5deobf.h
+	$(CXX) $(CXXFLAGS) $(A5_SRC) $(A5DUMP_HARNESS) $(LDLIBS) -o $@
+
+# Build the ADRIFT 5 object-model dumper (Phase 1).  Run it by hand:
+#   make -f Makefile.headless a5model
+#   ./test/a5model_dump path/to/game.blorb
+a5model: $(A5MODEL_BIN)
+$(A5MODEL_BIN): $(A5_MODEL_SRC) $(A5MODEL_HARNESS) $(A5_HDRS)
+	$(CXX) $(CXXFLAGS) $(A5_MODEL_SRC) $(A5MODEL_HARNESS) $(LDLIBS) -o $@
+
+# Build the ADRIFT 5 text-engine harness (Phase 2).  Run it by hand:
+#   make -f Makefile.headless a5text
+#   ./test/a5text_dump path/to/game.blorb [LocationKey]
+a5text: $(A5TEXT_BIN)
+$(A5TEXT_BIN): $(A5_TEXT_SRC) $(A5TEXT_HARNESS) $(A5_TEXT_HDRS)
+	$(CXX) $(CXXFLAGS) $(A5_TEXT_SRC) $(A5TEXT_HARNESS) $(LDLIBS) -o $@
+
+# Build the ADRIFT 5 turn-loop harness (Phase 3).  Run it by hand:
+#   make -f Makefile.headless a5run
+#   ./test/a5run_dump path/to/game.blorb [script.txt]
+a5run: $(A5RUN_BIN)
+$(A5RUN_BIN): $(A5_RUN_SRC) $(A5RUN_HARNESS) $(A5_RUN_HDRS)
+	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5RUN_HARNESS) $(LDLIBS) -o $@
+
+# Self-contained matcher regression test (no game data); part of `test`.
+a5parsetest: $(A5PARSE_BIN)
+	./$(A5PARSE_BIN)
+$(A5PARSE_BIN): a5parse.cpp a5parse.h $(A5PARSE_HARNESS)
+	$(CXX) $(CXXFLAGS) a5parse.cpp $(A5PARSE_HARNESS) -o $@
+
+# The TAFs are checked in; these targets only refresh them from the generators.
+taf: $(TAF) $(PREC_TAF) $(BADP_TAF)
+$(TAF): test/make_battle_taf.py
+	python3 test/make_battle_taf.py $(TAF)
+$(PREC_TAF): test/make_precedence_taf.py
+	python3 test/make_precedence_taf.py $(PREC_TAF)
+$(BADP_TAF): test/make_badparent_taf.py
+	python3 test/make_badparent_taf.py $(BADP_TAF)
+
+clean:
+	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN)

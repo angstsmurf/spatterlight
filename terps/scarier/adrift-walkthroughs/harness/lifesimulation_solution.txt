@@ -1,0 +1,19 @@
+Hero
+male
+look at watch
+west
+down
+turn on tv
+channel 1
+channel 7
+turn off tv
+west
+west
+west
+north
+buy chips
+south
+look
+score
+quit
+y

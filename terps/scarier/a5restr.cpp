@@ -1,0 +1,672 @@
+/* vi: set ts=8:
+ *
+ * ADRIFT 5 support for Scarier -- restriction evaluation.  See a5restr.h.
+ */
+
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "a5parse.h"
+#include "a5restr.h"
+
+int a5restr_trace = 0;
+
+#define ANYOBJECT     "AnyObject"
+#define NOOBJECT      "NoObject"
+#define ANYCHARACTER  "AnyCharacter"
+#define NOCHARACTER   "NoCharacter"
+#define PLAYERLOCATION "PlayerLocation"
+
+/* ---------------------------------------------------------- one restriction */
+
+typedef struct {
+  const char *type;   /* Object / Location / Character / Variable / Task / ...  */
+  char *buf;          /* owned tokenised copy of the spec; key1/op/key2 alias it */
+  const char *key1;
+  int must_not;
+  const char *op;
+  const char *key2;   /* may be "" */
+} a5_restr_t;
+
+/* Split "key1 Must|MustNot Op key2..." in place.  buf is owned by the restr. */
+static void
+parse_spec (a5_restr_t *r, const char *spec)
+{
+  char *p, *tok;
+  r->buf = spec ? strdup (spec) : strdup ("");
+  r->key1 = "";
+  r->op = "";
+  r->key2 = "";
+  r->must_not = 0;
+
+  p = r->buf;
+  /* key1 */
+  while (*p == ' ') p++;
+  tok = p;
+  while (*p && *p != ' ') p++;
+  if (*p) *p++ = '\0';
+  r->key1 = tok;
+  /* Must / MustNot */
+  while (*p == ' ') p++;
+  tok = p;
+  while (*p && *p != ' ') p++;
+  if (*p) *p++ = '\0';
+  if (strcmp (tok, "MustNot") == 0)
+    r->must_not = 1;
+  /* operator */
+  while (*p == ' ') p++;
+  tok = p;
+  while (*p && *p != ' ') p++;
+  if (*p) *p++ = '\0';
+  r->op = tok;
+  /* remainder = key2 (may contain spaces) */
+  while (*p == ' ') p++;
+  r->key2 = p;
+}
+
+/* The type element of a <Restriction> is its first child named a known type. */
+static const a5_xml_node_t *
+restr_type_node (const a5_xml_node_t *restriction)
+{
+  static const char *types[] = {
+    "Object", "Location", "Character", "Variable", "Task",
+    "Item", "Property", "Direction", "Expression", NULL
+  };
+  const a5_xml_node_t *c;
+  for (c = restriction->first_child; c != NULL; c = c->next)
+    {
+      int i;
+      for (i = 0; types[i] != NULL; i++)
+        if (strcmp (c->name, types[i]) == 0)
+          return c;
+    }
+  return NULL;
+}
+
+/* ------------------------------------------------------------- value helpers */
+
+static int
+streq (const char *a, const char *b)
+{
+  return a != NULL && b != NULL && strcmp (a, b) == 0;
+}
+
+static const char *
+resolve_key (a5_state_t *st, const char *k)
+{
+  const char *bound;
+  if (streq (k, "%Player%"))
+    return "Player";
+  /* A per-turn binding (ReferencedObject2, ReferencedDirection, ...) wins. */
+  bound = a5state_lookup_ref (st, k);
+  if (bound != NULL)
+    return bound;
+  if (streq (k, "ReferencedCharacter"))
+    return "Player";
+  return k;
+}
+
+/* Evaluate key2 as a number: a variable key's value, else an integer literal. */
+static long
+num_value (a5_state_t *st, const char *k)
+{
+  int vi = a5state_variable_index (st, k);
+  if (vi >= 0)
+    return st->var_num[vi];
+  return strtol (k != NULL ? k : "0", NULL, 10);
+}
+
+static const char *
+obj_prop (const a5_object_t *o, const char *key)
+{
+  const a5_prop_t *p = a5_prop_find (o->props, o->n_props, key);
+  return p ? p->value : NULL;
+}
+
+/* ------------------------------------------------------ object sub-evaluator */
+
+static int
+pass_object (a5_state_t *st, a5_restr_t *r)
+{
+  const char *k1 = resolve_key (st, r->key1);
+  const char *k2 = resolve_key (st, r->key2);
+  int oi = a5state_object_index (st, k1);
+
+  if (streq (r->op, "BeAtLocation"))
+    {
+      if (streq (k1, NOOBJECT) || streq (k1, ANYOBJECT))
+        {
+          int i, any = 0;
+          for (i = 0; i < st->adv->n_objects; i++)
+            if (a5state_object_at_location (st, i, k2, 0)) { any = 1; break; }
+          return streq (k1, ANYOBJECT) ? any : !any;
+        }
+      return a5state_object_at_location (st, oi, k2, 0);
+    }
+  if (streq (r->op, "BeOnObject") || streq (r->op, "BeInsideObject"))
+    {
+      a5_owhere_t want = streq (r->op, "BeOnObject")
+                           ? A5_OWHERE_ON_OBJECT : A5_OWHERE_IN_OBJECT;
+      if (streq (k1, ANYOBJECT) || streq (k1, NOOBJECT))
+        {
+          int i, any = 0;
+          for (i = 0; i < st->adv->n_objects; i++)
+            if (st->obj[i].where == want && streq (st->obj[i].key, k2))
+              { any = 1; break; }
+          return streq (k1, ANYOBJECT) ? any : !any;
+        }
+      if (oi < 0) return 0;
+      if (streq (k2, ANYOBJECT))
+        return st->obj[oi].where == want;
+      return st->obj[oi].where == want && streq (st->obj[oi].key, k2);
+    }
+  if (streq (r->op, "BeHeldByCharacter") || streq (r->op, "BeWornByCharacter"))
+    {
+      a5_owhere_t want = streq (r->op, "BeHeldByCharacter")
+                           ? A5_OWHERE_HELD_BY : A5_OWHERE_WORN_BY;
+      if (streq (k1, ANYOBJECT) || streq (k1, NOOBJECT))
+        {
+          int i, any = 0;
+          for (i = 0; i < st->adv->n_objects; i++)
+            if (st->obj[i].where == want
+                && (streq (k2, ANYCHARACTER) || streq (st->obj[i].key, k2)))
+              { any = 1; break; }
+          return streq (k1, ANYOBJECT) ? any : !any;
+        }
+      if (oi < 0) return 0;
+      if (streq (k2, ANYCHARACTER))
+        return st->obj[oi].where == want;
+      return st->obj[oi].where == want && streq (st->obj[oi].key, k2);
+    }
+  if (streq (r->op, "BeHidden"))
+    return oi >= 0 && st->obj[oi].where == A5_OWHERE_HIDDEN;
+  if (streq (r->op, "Exist"))
+    {
+      if (streq (k1, NOOBJECT)) return st->adv->n_objects == 0;
+      if (streq (k1, ANYOBJECT)) return st->adv->n_objects > 0;
+      return oi >= 0;
+    }
+  if (streq (r->op, "HaveProperty"))
+    {
+      if (streq (k1, ANYOBJECT) || streq (k1, NOOBJECT))
+        {
+          int i, any = 0;
+          for (i = 0; i < st->adv->n_objects; i++)
+            if (a5_prop_find (st->adv->objects[i].props,
+                              st->adv->objects[i].n_props, k2)) { any = 1; break; }
+          return streq (k1, ANYOBJECT) ? any : !any;
+        }
+      return oi >= 0
+             && a5_prop_find (st->adv->objects[oi].props,
+                              st->adv->objects[oi].n_props, k2) != NULL;
+    }
+  if (streq (r->op, "BeInState"))
+    {
+      int i;
+      if (oi < 0) return 0;
+      /* Consult the runtime override layer so SetProperty (e.g. OpenStatus) is
+         reflected; fall back to the model's static value. */
+      for (i = 0; i < st->adv->objects[oi].n_props; i++)
+        {
+          const char *pk = st->adv->objects[oi].props[i].key;
+          const char *val = a5state_entity_prop (st, k1, pk);
+          if (streq (val, k2))
+            return 1;
+        }
+      return 0;
+    }
+  if (streq (r->op, "BeInGroup"))
+    {
+      int i;
+      for (i = 0; i < st->adv->n_groups; i++)
+        if (streq (st->adv->groups[i].key, k2))
+          {
+            int m;
+            for (m = 0; m < st->adv->groups[i].n_members; m++)
+              if (streq (st->adv->groups[i].members[m], k1))
+                return 1;
+            return 0;
+          }
+      return 0;
+    }
+  if (streq (r->op, "BeExactText"))
+    {
+      /* True if the player's typed reference text equals k2 (e.g. "All"). */
+      char alias[64];
+      const char *typed;
+      snprintf (alias, sizeof alias, "%s$text", r->key1);
+      typed = a5state_lookup_ref (st, alias);
+      if (typed == NULL)
+        return 0;
+      while (*typed && *k2 && tolower ((unsigned char) *typed) == tolower ((unsigned char) *k2))
+        { typed++; k2++; }
+      return *typed == '\0' && *k2 == '\0';
+    }
+  if (streq (r->op, "BeObject"))
+    return streq (k1, k2);
+  if (streq (r->op, "BeVisibleToCharacter"))
+    {
+      int ci = a5state_character_index (st, k2);
+      const char *cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
+      return oi >= 0 && cloc != NULL
+             && a5state_object_at_location (st, oi, cloc, 0);
+    }
+  if (streq (r->op, "HaveBeenSeenByCharacter"))
+    return 1;                 /* no "seen" tracking yet (Phase 4) */
+  return 1;                   /* unknown operator: don't suppress text */
+}
+
+/* --------------------------------------------------- location sub-evaluator */
+
+static int
+pass_location (a5_state_t *st, a5_restr_t *r)
+{
+  const char *k1 = r->key1;
+  const char *here = a5state_player_location (st);
+  const char *loc = streq (k1, PLAYERLOCATION) ? here : k1;
+
+  if (streq (r->op, "BeLocation"))
+    return streq (loc, r->key2);
+  if (streq (r->op, "BeInGroup"))
+    {
+      int i;
+      for (i = 0; i < st->adv->n_groups; i++)
+        if (streq (st->adv->groups[i].key, r->key2))
+          {
+            int m;
+            for (m = 0; m < st->adv->groups[i].n_members; m++)
+              if (streq (st->adv->groups[i].members[m], loc))
+                return 1;
+            return 0;
+          }
+      return 0;
+    }
+  if (streq (r->op, "HaveProperty"))
+    {
+      const a5_location_t *l;
+      if (loc == NULL) return 0;
+      l = a5model_location (st->adv, loc);
+      return l != NULL && a5_prop_find (l->props, l->n_props, r->key2) != NULL;
+    }
+  if (streq (r->op, "Exist"))
+    return 1;
+  if (streq (r->op, "HaveBeenSeenByCharacter"))
+    return 1;
+  return 1;
+}
+
+/* ------------------------------------------------------------ exit lookup */
+
+const char *
+a5restr_exit_in_direction (a5_state_t *st, const char *lockey, const char *dir)
+{
+  const a5_location_t *l;
+  const a5_xml_node_t *c;
+  if (lockey == NULL || dir == NULL)
+    return NULL;
+  l = a5model_location (st->adv, lockey);
+  if (l == NULL)
+    return NULL;
+  for (c = l->node->first_child; c != NULL; c = c->next)
+    {
+      const char *d, *dest;
+      const a5_xml_node_t *mr;
+      if (strcmp (c->name, "Movement") != 0)
+        continue;
+      d = a5xml_child_text (c, "Direction");
+      if (!streq (d, dir))
+        continue;
+      mr = a5xml_child (c, "Restrictions");
+      if (mr != NULL && !a5restr_pass (st, mr))
+        continue;                       /* route blocked by its restriction */
+      dest = a5xml_child_text (c, "Destination");
+      return (dest != NULL && dest[0] != '\0') ? dest : NULL;
+    }
+  return NULL;
+}
+
+/* -------------------------------------------------- character sub-evaluator */
+
+static int
+pass_character (a5_state_t *st, a5_restr_t *r)
+{
+  const char *k1 = resolve_key (st, r->key1);
+  const char *k2 = resolve_key (st, r->key2);
+  int ci = a5state_character_index (st, k1);
+  const char *cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
+
+  if (streq (r->op, "BeAtLocation"))
+    return streq (cloc, k2);
+  if (streq (r->op, "BeHoldingObject"))
+    {
+      int oi = a5state_object_index (st, k2);
+      return oi >= 0 && st->obj[oi].where == A5_OWHERE_HELD_BY
+             && streq (st->obj[oi].key, k1);
+    }
+  if (streq (r->op, "BeWearingObject"))
+    {
+      int oi = a5state_object_index (st, k2);
+      return oi >= 0 && st->obj[oi].where == A5_OWHERE_WORN_BY
+             && streq (st->obj[oi].key, k1);
+    }
+  if (streq (r->op, "BeInSameLocationAsObject"))
+    {
+      int oi = a5state_object_index (st, k2);
+      return oi >= 0 && cloc != NULL
+             && a5state_object_at_location (st, oi, cloc, 0);
+    }
+  if (streq (r->op, "BeInSameLocationAsCharacter"))
+    {
+      int c2 = a5state_character_index (st, k2);
+      return c2 >= 0 && cloc != NULL && streq (cloc, st->char_loc[c2]);
+    }
+  if (streq (r->op, "BeWithinLocationGroup"))
+    {
+      int i;
+      for (i = 0; i < st->adv->n_groups; i++)
+        if (streq (st->adv->groups[i].key, k2))
+          {
+            int m;
+            for (m = 0; m < st->adv->groups[i].n_members; m++)
+              if (streq (st->adv->groups[i].members[m], cloc))
+                return 1;
+            return 0;
+          }
+      return 0;
+    }
+  if (streq (r->op, "HaveProperty"))
+    {
+      const a5_character_t *c = (ci >= 0) ? &st->adv->characters[ci] : NULL;
+      return c != NULL && a5_prop_find (c->props, c->n_props, k2) != NULL;
+    }
+  if (streq (r->op, "Exist"))
+    return ci >= 0;
+  if (streq (r->op, "HaveRouteInDirection"))
+    {
+      const char *dir = a5parse_canonical_direction (k2);
+      const char *cl = streq (k1, "Player") ? a5state_player_location (st) : cloc;
+      if (dir == NULL)
+        dir = k2;             /* already canonical (e.g. bound ReferencedDirection) */
+      return cl != NULL && a5restr_exit_in_direction (st, cl, dir) != NULL;
+    }
+  if (streq (r->op, "BeInPosition"))
+    {
+      const char *pos = (ci >= 0 && st->char_position) ? st->char_position[ci] : NULL;
+      return streq (pos, k2);
+    }
+  return 1;                   /* HaveSeen*, BeInConversation*, etc: Phase 4 */
+}
+
+/* --------------------------------------------------- variable sub-evaluator */
+
+static int
+pass_variable (a5_state_t *st, a5_restr_t *r)
+{
+  int vi = a5state_variable_index (st, r->key1);
+  const a5_variable_t *v;
+  if (vi < 0)
+    return 1;
+  v = &st->adv->variables[vi];
+
+  if (streq (v->type, "Text"))
+    {
+      const char *cur = st->var_text[vi] ? st->var_text[vi] : "";
+      int vj = a5state_variable_index (st, r->key2);
+      const char *rhs = (vj >= 0 && st->var_text[vj]) ? st->var_text[vj] : r->key2;
+      int cmp = strcmp (cur, rhs);
+      if (streq (r->op, "BeEqualTo"))            return cmp == 0;
+      if (streq (r->op, "BeGreaterThan"))        return cmp > 0;
+      if (streq (r->op, "BeGreaterThanOrEqualTo")) return cmp >= 0;
+      if (streq (r->op, "BeLessThan"))           return cmp < 0;
+      if (streq (r->op, "BeLessThanOrEqualTo"))  return cmp <= 0;
+      if (streq (r->op, "BeContain"))            return strstr (cur, rhs) != NULL;
+      return 1;
+    }
+  else
+    {
+      long cur = st->var_num[vi];
+      long rhs = num_value (st, r->key2);
+      if (streq (r->op, "BeEqualTo"))            return cur == rhs;
+      if (streq (r->op, "BeGreaterThan"))        return cur > rhs;
+      if (streq (r->op, "BeGreaterThanOrEqualTo")) return cur >= rhs;
+      if (streq (r->op, "BeLessThan"))           return cur < rhs;
+      if (streq (r->op, "BeLessThanOrEqualTo"))  return cur <= rhs;
+      return 1;
+    }
+}
+
+/* ---------------------------------------------------------- single + block */
+
+static int
+pass_single (a5_state_t *st, a5_restr_t *r)
+{
+  int result;
+  if (streq (r->type, "Object"))         result = pass_object (st, r);
+  else if (streq (r->type, "Location"))  result = pass_location (st, r);
+  else if (streq (r->type, "Character")) result = pass_character (st, r);
+  else if (streq (r->type, "Variable"))  result = pass_variable (st, r);
+  else if (streq (r->type, "Task"))
+    {
+      int ti = a5state_task_index (st, resolve_key (st, r->key1));
+      result = ti >= 0 && st->task_done[ti];
+    }
+  else
+    result = 1;               /* Item/Property/Direction/Expression: Phase 3-4 */
+
+  if (r->must_not)
+    result = !result;
+  if (a5restr_trace)
+    fprintf (stderr, "    [restr %s: %s %s%s %s] -> %d\n", r->type, r->key1,
+             r->must_not ? "MustNot " : "", r->op, r->key2, result);
+  return result;
+}
+
+/*
+ * Ported EvaluateRestrictionBlock (clsUserSession.vb:5190): consume '#' tokens
+ * from `block` against rs[0..n) left-to-right, AND binding tighter than OR.
+ * *idx tracks the next restriction; advances past short-circuited #'s.
+ */
+static int count_hashes (const char *s)
+{
+  int n = 0;
+  for (; *s; s++) if (*s == '#') n++;
+  return n;
+}
+
+/* Normalise "A#O" -> "(...A#)O..." so AND binds before OR (as frankendrift). */
+static char *
+normalise_block (const char *in)
+{
+  char *s = strdup (in);
+  char *hit;
+  while ((hit = strstr (s, "A#O")) != NULL)
+    {
+      int i = (int) (hit - s);
+      /* find last '(' before i, insert '(' after it (or at start) */
+      int j = -1, k;
+      for (k = 0; k < i; k++)
+        if (s[k] == '(') j = k;
+      j += 1;
+      /* build: left[0,j) + "(" + mid[j,i) + "A#)O" + right[i+3..] */
+      {
+        int len = (int) strlen (s);
+        char *out = (char *) malloc ((size_t) len + 8);
+        int p = 0, q;
+        for (q = 0; q < j; q++) out[p++] = s[q];
+        out[p++] = '(';
+        for (q = j; q < i; q++) out[p++] = s[q];
+        out[p++] = 'A'; out[p++] = '#'; out[p++] = ')'; out[p++] = 'O';
+        for (q = i + 3; q < len; q++) out[p++] = s[q];
+        out[p] = '\0';
+        free (s);
+        s = out;
+      }
+    }
+  return s;
+}
+
+/*
+ * Port of EvaluateRestrictionBlock: normalise at entry, evaluate the leading
+ * term (a bracketed sub-block or a single '#'), then recurse on the remainder.
+ * AND short-circuits false, OR short-circuits true; *idx advances over every
+ * '#' actually consumed (including short-circuited ones).
+ */
+static int
+eval_block (a5_state_t *st, a5_restr_t *rs, int n, const char *block, int *idx)
+{
+  char *norm = normalise_block (block);
+  const char *rest;       /* remainder after the leading term + operator */
+  char op;
+  int first;
+  int result;
+
+  if (norm[0] == '(')
+    {
+      int depth = 1, off = 1;
+      int sublen;
+      char *sub;
+      while (norm[off] && depth > 0)
+        {
+          if (norm[off] == '(') depth++;
+          else if (norm[off] == ')') depth--;
+          off++;
+        }
+      sublen = off - 2;
+      if (sublen < 0) sublen = 0;
+      sub = (char *) malloc ((size_t) sublen + 1);
+      memcpy (sub, norm + 1, (size_t) sublen);
+      sub[sublen] = '\0';
+      first = eval_block (st, rs, n, sub, idx);
+      free (sub);
+      op = norm[off];
+      rest = (op == '\0') ? NULL : norm + off + 1;
+    }
+  else if (norm[0] == '#')
+    {
+      int my = (*idx)++;
+      first = (my < n) ? pass_single (st, &rs[my]) : 1;
+      op = norm[1];
+      rest = (op == '\0') ? NULL : norm + 2;
+    }
+  else
+    {
+      free (norm);
+      return 1;             /* malformed bracket sequence: pass */
+    }
+
+  if (rest == NULL)
+    result = first;
+  else if (op == 'A')
+    {
+      if (!first) { *idx += count_hashes (rest); result = 0; }
+      else result = eval_block (st, rs, n, rest, idx);
+    }
+  else if (op == 'O')
+    {
+      if (first) { *idx += count_hashes (rest); result = 1; }
+      else result = eval_block (st, rs, n, rest, idx);
+    }
+  else
+    result = first;
+
+  free (norm);
+  return result;
+}
+
+const a5_xml_node_t *
+a5restr_fail_message (a5_state_t *st, const a5_xml_node_t *restrictions)
+{
+  const a5_xml_node_t *c;
+  if (restrictions == NULL)
+    return NULL;
+  for (c = restrictions->first_child; c != NULL; c = c->next)
+    {
+      a5_restr_t r;
+      const a5_xml_node_t *tn;
+      int ok;
+      if (strcmp (c->name, "Restriction") != 0)
+        continue;
+      memset (&r, 0, sizeof r);
+      tn = restr_type_node (c);
+      r.type = tn ? tn->name : "";
+      parse_spec (&r, tn ? tn->text : "");
+      ok = pass_single (st, &r);
+      free (r.buf);
+      if (!ok)
+        return a5xml_child (c, "Message");   /* the description wrapper */
+    }
+  return NULL;
+}
+
+int
+a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
+{
+  a5_restr_t *rs;
+  const a5_xml_node_t *c;
+  const char *bracket;
+  int n, i, idx = 0, result;
+  char *normbrackets = NULL;
+
+  if (restrictions == NULL)
+    return 1;
+  n = a5xml_count (restrictions, "Restriction");
+  if (n == 0)
+    return 1;
+
+  rs = (a5_restr_t *) calloc ((size_t) n, sizeof *rs);
+  i = 0;
+  for (c = restrictions->first_child; c != NULL; c = c->next)
+    if (strcmp (c->name, "Restriction") == 0)
+      {
+        const a5_xml_node_t *tn = restr_type_node (c);
+        rs[i].type = tn ? tn->name : "";
+        parse_spec (&rs[i], tn ? tn->text : "");
+        i++;
+      }
+
+  bracket = a5xml_child_text (restrictions, "BracketSequence");
+  if (bracket == NULL || bracket[0] == '\0')
+    {
+      /* default: AND all restrictions -> "#A#A#..." */
+      int sz = n * 2;
+      normbrackets = (char *) malloc ((size_t) sz + 1);
+      {
+        int p = 0, j;
+        for (j = 0; j < n; j++)
+          {
+            if (j) normbrackets[p++] = 'A';
+            normbrackets[p++] = '#';
+          }
+        normbrackets[p] = '\0';
+      }
+      bracket = normbrackets;
+    }
+
+  /*
+   * Expand the square-bracket grouping ADRIFT uses: '[' -> "((", ']' -> "))"
+   * (FileIO.vb:640).  This is not a stray-bracket cleanup -- the doubling is what
+   * keeps sequences such as "#A#A#A#A[#A#A#A#A#)O#)A#A#" balanced.
+   */
+  {
+    char *b = (char *) malloc (strlen (bracket) * 2 + 1);
+    char *w = b;
+    const char *q;
+    for (q = bracket; *q; q++)
+      {
+        if (*q == '[')      { *w++ = '('; *w++ = '('; }
+        else if (*q == ']') { *w++ = ')'; *w++ = ')'; }
+        else                  *w++ = *q;
+      }
+    *w = '\0';
+    result = eval_block (st, rs, n, b, &idx);
+    free (b);
+  }
+
+  free (normbrackets);
+  for (i = 0; i < n; i++)
+    free (rs[i].buf);
+  free (rs);
+  return result;
+}

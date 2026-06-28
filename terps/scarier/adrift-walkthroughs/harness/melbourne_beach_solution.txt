@@ -1,0 +1,129 @@
+
+open dresser
+get jeans
+wear jeans
+open closet
+get shirt
+wear shirt
+pet kitty
+w
+w
+open case
+get trumpet
+get bottle
+open bottle
+oil trumpet
+e
+s
+s
+sw
+s
+open purse
+get keys
+n
+e
+e
+unlock car
+open car
+in
+get folder
+out
+w
+w
+ne
+n
+n
+w
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give trumpet to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+give music to judy
+e
+s
+e
+read book
+w
+s
+sw
+e
+get dirty clothes
+open washer
+put dirty clothes in washer
+wash clothes
+get wet clothes
+open dryer
+put wet clothes in dryer
+dry clothes
+get dry clothes
+fold clothes
+w
+get pot
+pour coffee
+drink coffee
+ne
+nw
+play chess
+play chess
+play chess
+se
+sw
+e
+e
+in
+get opener
+open garage door
+drive car
+out
+e
+n
+play volleyball
+play volleyball
+play volleyball
+play volleyball
+play volleyball
+play volleyball
+play volleyball
+play volleyball
+s
+e
+e
+w
+w
+se
+use shower
