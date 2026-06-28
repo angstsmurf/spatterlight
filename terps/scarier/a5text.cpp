@@ -246,7 +246,7 @@ a5text_object_name (const a5_object_t *o, a5_article_t art)
 
 /* ---------------------------------------------------- function replacement */
 
-static char *replace_functions (a5_state_t *st, const char *src);
+static char *replace_functions (a5_state_t *st, const char *src, int as_arg = 0);
 
 /* Resolve a function argument (a key or display name) to an object key. */
 static const char *
@@ -837,7 +837,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
 
 /* Replace %function%/%variable% tokens in src (single pass; args recurse). */
 static char *
-replace_functions (a5_state_t *st, const char *src)
+replace_functions (a5_state_t *st, const char *src, int as_arg)
 {
   sb_t sb;
   const char *p = src;
@@ -875,6 +875,25 @@ replace_functions (a5_state_t *st, const char *src)
                           continue;
                         }
                     }
+                  /* A bare reference (%object%, %character%, ...) used as the
+                     argument of an outer %Func[...]% must resolve to the entity
+                     *key*, not its display name: frankendrift substitutes
+                     %object%->MatchingPossibilities(0) (the key) before any
+                     %Func[]% is evaluated (Global.vb:1752+), so e.g.
+                     "%TheObject[%object%]%" keys off the exact referenced object
+                     rather than re-resolving the rendered noun by name (which
+                     would pick the first object sharing that noun). */
+                  if (as_arg)
+                    {
+                      char *fk = oo_firstkey (st, name);
+                      if (fk != NULL)
+                        {
+                          sb_puts (&sb, fk);
+                          free (fk); free (name);
+                          p = q + 1;
+                          continue;
+                        }
+                    }
                   value = eval_function (st, name, NULL);
                   free (name);
                   q++;
@@ -895,7 +914,7 @@ replace_functions (a5_state_t *st, const char *src)
                     {
                       char *rawargs = strndup (astart, (size_t) (a - astart));
                       name = strndup (name_start, nlen);
-                      args = replace_functions (st, rawargs);
+                      args = replace_functions (st, rawargs, 1);
                       value = eval_function (st, name, args);
                       free (rawargs);
                       free (args);
@@ -1212,7 +1231,7 @@ expr_substitute (a5_state_t *st, const char *src)
                 {
                   char *rawargs = strndup (astart, (size_t) (a - astart));
                   char *name = strndup (name_start, (size_t) (q - name_start));
-                  char *args = replace_functions (st, rawargs);
+                  char *args = replace_functions (st, rawargs, 1);
                   char *val = eval_function (st, name, args);
                   free (rawargs); free (args); free (name);
                   if (val != NULL)
