@@ -4,6 +4,7 @@ badparent_test_hl
 a5dump
 a5model_dump
 a5parse_test
+a5arith_test
 a5run_dump
 a5text_dump
 a5_disambig_test
