@@ -808,11 +808,31 @@ ADRIFT text is full of embedded directives evaluated at display time:
         6. **NotUnderstood seen-object branch** — an unmatched command naming a
            seen+visible object answers "I don't understand what you want to do
            with the <object>.".
-      - **Remaining Anno divergences (~36 non-RNG, increasingly fine-grained;
+      - **Deferred `RR_CANTSEE` so a character task can override it** — **DONE.**
+        A noun like "woman" matches BOTH an object reference (`ExamineObjects`
+        `%object%` → the out-of-scope `Woman`/`Woman1` objects, yielding
+        `RR_CANTSEE`) AND a lower-priority character reference (`ExamineCharacter`
+        `%character%` → the seen-but-absent NPC Susan, whose
+        `BeInSameLocationAsCharacter` restriction fails *with* an authored
+        message).  `RR_CANTSEE` was emitting "You can't see any women!" and
+        claiming the turn immediately, shadowing the character task; FrankenDrift
+        instead records the can't-see as a pending ambiguity (`sAmbTask`) that is
+        shown only if no later task claims `sTaskKey` (GetGeneralTask /
+        DisplayAmbiguityQuestion).  Fix: `scan_tasks` now treats `RR_CANTSEE`
+        exactly like `RR_AMBIG` — record the first one (`amb_cantsee` flag) and
+        keep scanning, so a later uniquely-resolving (`RR_OK`) or failing-with-
+        output (`RR_FAIL`) task overrides it; only when nothing else claims does
+        `a5run_input` emit the deferred "You can't see any <plural>!" (the
+        emission is factored into `emit_cantsee`).  So `x woman` (Susan seen,
+        elsewhere) now byte-matches FrankenDrift's authored
+        "You can't see a young woman!" while the genuine object-only out-of-scope
+        cases (60 in the Anno walkthrough) still emit "You can't see any …!".
+        Anno diff 46 → 37 hunks; Six Silver Bullets golden + a5distest unchanged;
+        ASan/UBSan-clean across the whole 15-game corpus.
+      - **Remaining Anno divergences (~34 non-RNG, increasingly fine-grained;
         diminishing returns):** object name-alias selection when several
         same-noun objects are seen (Scarier's seen-tier picks "the walls" where
-        FrankenDrift picks "the wall"); the character form of "can't see any"
-        (`You can't see a young woman!` — indefinite singular, not pluralised);
+        FrankenDrift picks "the wall");
         the remaining `Verb what?` no-reference prompts (`Light what?`); a few
         stock "trying to <verb>" no-reference messages; and assorted
         game-specific puzzle-task responses (parchment/hat/key-rack).  The

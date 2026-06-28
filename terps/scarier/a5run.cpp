@@ -2440,13 +2440,36 @@ run_remembered (a5_run_t *run, const char *chosen, sb_t *out)
   return 1;
 }
 
+/* Emit the "You can't see any <plural>!" message for an out-of-scope object
+   reference (clsUserSession.DisplayAmbiguityQuestion, bCanSeeAny=False). */
+static void
+emit_cantsee (a5_state_t *st, const amb_info *amb, sb_t *out)
+{
+  std::string w = amb_word (st, amb->keys, amb->ref_text, 'o');
+  /* clsObject.IsPlural == (Article == "some"): a mass/plural object
+     ("some firewood") keeps the bare noun; others are pluralised. */
+  int any_plural = 0;
+  for (auto &k : amb->keys)
+    {
+      int ki = a5state_object_index (st, k.c_str ());
+      if (ki >= 0 && streq (st->adv->objects[ki].article, "some"))
+        { any_plural = 1; break; }
+    }
+  std::string pl = any_plural ? w : guess_plural_from_noun (w);
+  sb_puts (out, "You can't see any ");
+  sb_puts (out, pl.c_str ());
+  sb_puts (out, "!");
+}
+
 /* Scan general tasks for `in`.  Runs (and returns 1) on the first unique passing
    match.  Otherwise returns 0, recording -- for the caller to act on after the
-   scan -- the first ambiguity (*have_amb/*amb/*amb_ti/*amb_ci) and the first
-   restriction-failure message (*have_fail/*fail_text). */
+   scan -- the first ambiguity (*have_amb/*amb/*amb_ti/*amb_ci; *amb_cantsee
+   distinguishes the "can't see any" out-of-scope case from a "which?" prompt)
+   and the first restriction-failure message (*have_fail/*fail_text). */
 static int
 scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
             int *have_amb, amb_info *amb, int *amb_ti, int *amb_ci,
+            int *amb_cantsee,
             int *have_fail, std::string *fail_text)
 {
   a5_state_t *st = run->st;
@@ -2484,25 +2507,19 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                 break;          /* stop trying this task's commands; keep scanning */
               return 1;
             }
-          if (r == RR_CANTSEE)
+          if (r == RR_CANTSEE && !*have_amb)
             {
-              /* "You can't see any <plural>!" -- the highest-priority matching
-                 task with the out-of-scope reference claims the turn. */
-              std::string w  = amb_word (st, this_amb.keys, this_amb.ref_text, 'o');
-              /* clsObject.IsPlural == (Article == "some"): a mass/plural object
-                 ("some firewood") keeps the bare noun; others are pluralised. */
-              int any_plural = 0;
-              for (auto &k : this_amb.keys)
-                {
-                  int ki = a5state_object_index (st, k.c_str ());
-                  if (ki >= 0 && streq (st->adv->objects[ki].article, "some"))
-                    { any_plural = 1; break; }
-                }
-              std::string pl = any_plural ? w : guess_plural_from_noun (w);
-              sb_puts (out, "You can't see any ");
-              sb_puts (out, pl.c_str ());
-              sb_puts (out, "!");
-              return 1;
+              /* "You can't see any <plural>!" -- an out-of-scope object
+                 reference.  Like a "which?" ambiguity (sAmbTask), this does NOT
+                 claim the turn: a lower-priority task that uniquely resolves or
+                 fails its restrictions *with output* (e.g. ExamineCharacter
+                 resolving the same noun to an NPC and reporting "You can't see
+                 the woman!") overrides it.  Mirrors GetGeneralTask, where
+                 sAmbTask is shown only when no later task claims sTaskKey.  Record
+                 the first such reference and keep scanning. */
+              *have_amb = 1; *amb_cantsee = 1; *amb = this_amb;
+              *amb_ti = ti; *amb_ci = ci;
+              continue;
             }
           if (r == RR_AMBIG && !*have_amb)
             { *have_amb = 1; *amb = this_amb; *amb_ti = ti; *amb_ci = ci; }
@@ -2699,7 +2716,7 @@ a5run_input (a5_run_t *run, const char *line)
   sb_t out;
   std::string in = lower (line ? line : "");
   std::string fail_text;
-  int have_fail = 0, have_amb = 0, amb_ti = -1, amb_ci = -1;
+  int have_fail = 0, have_amb = 0, amb_ti = -1, amb_ci = -1, amb_cantsee = 0;
   amb_info amb;
 
   sb_init (&out);
@@ -2733,8 +2750,19 @@ a5run_input (a5_run_t *run, const char *line)
     }
 
   if (scan_tasks (run, in, &out, &have_amb, &amb, &amb_ti, &amb_ci,
-                  &have_fail, &fail_text))
+                  &amb_cantsee, &have_fail, &fail_text))
     { run->amb_active = 0; ev_tick_all (run, &out); return sb_take (&out); }
+
+  if (have_amb && amb_cantsee)
+    {
+      /* No later task claimed the turn: emit the deferred "You can't see any
+         <plural>!" and advance the turn (the out-of-scope reference is a dead
+         end, not a pending prompt). */
+      run->amb_active = 0;
+      emit_cantsee (st, &amb, &out);
+      ev_tick_all (run, &out);
+      return sb_take (&out);
+    }
 
   if (have_amb)
     {
