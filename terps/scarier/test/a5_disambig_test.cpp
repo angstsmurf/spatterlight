@@ -157,10 +157,19 @@ main (void)
 
   /* 4. Restriction-based refinement: once the brass key is held, "take key"
         is no longer ambiguous -- the take restriction (MustNot be held) rules
-        out the held brass key, leaving the iron key as the unique match. */
+        out the held brass key, leaving the iron key as the unique match
+        (clsUserSession.RefineMatchingPossibilitesUsingRestrictions Applicable
+        tier narrows the pair to one). */
   check (run, "take brass key", "Taken: brass key", 1);     /* now held */
   check (run, "take key", "Taken: iron key", 1);            /* refined unique */
-  check (run, "take key", "Which key", 0);
+
+  /* 5. With *both* keys held, the Applicable tier eliminates both (each fails
+        "MustNot be held"), so the refine resets the reference to the full pair
+        (bResetRef) and the Visible tier can't narrow it either -- both are in
+        the room -- so the Runner falls back to the ambiguity prompt rather than
+        a unique match.  This is faithful to FrankenDrift's DisplayAmbiguityQuestion
+        (count > 1, bCanSeeAny). */
+  check (run, "take key", "Which key", 1);
 
   a5run_free (run);
   a5model_free (adv);

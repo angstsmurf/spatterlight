@@ -268,6 +268,48 @@ collect_words (const char *article, const char *prefix,
       { allowed.push_back (lower (w)); nouns.push_back (lower (w)); }
 }
 
+/* Match `text` against an entity the way clsObject/clsCharacter's
+   sRegularExpressionString does: `^(article |the )?(prefix_i )?...(name_alt)$` --
+   an optional article, each prefix word independently optional in order, then
+   exactly one whole name (a multi-word name like "key rack" must appear in full,
+   unlike the looser word-set words_match used for clarifiers/AmbWord). */
+static int
+name_match (const char *article, const char *prefix,
+            const char **names, int n_names, const std::string &text)
+{
+  std::vector<std::string> in = split_ws (text.c_str ());
+  size_t i = 0;
+  if (in.empty ())
+    return 0;
+  /* optional leading article: the entity's own article, or "the". */
+  {
+    std::string w = lower (in[i]);
+    std::string art = article ? lower (article) : "";
+    if (w == "the" || (!art.empty () && w == art))
+      i++;
+  }
+  /* optional prefix words, each independent, in defined order. */
+  for (auto &p : split_ws (prefix))
+    if (i < in.size () && lower (in[i]) == lower (p))
+      i++;
+  /* the remaining words must equal exactly one whole name. */
+  std::vector<std::string> rest (in.begin () + i, in.end ());
+  if (rest.empty ())
+    return 0;
+  for (int n = 0; n < n_names; n++)
+    {
+      std::vector<std::string> nw = split_ws (names[n]);
+      if (nw.size () != rest.size ())
+        continue;
+      int eq = 1;
+      for (size_t k = 0; k < nw.size (); k++)
+        if (lower (nw[k]) != lower (rest[k])) { eq = 0; break; }
+      if (eq)
+        return 1;
+    }
+  return 0;
+}
+
 static int
 words_match (const std::vector<std::string> &allowed,
              const std::vector<std::string> &nouns, const std::string &text)
@@ -334,54 +376,64 @@ character_words (a5_state_t *st, const a5_character_t *c,
     }
 }
 
-/* All object keys whose names match `text`, visible-to-the-player first; if any
-   visible candidate matched, the non-visible ones are dropped (mirrors
-   frankendrift's Visible-then-Seen scope narrowing).  The order is significant:
-   the first entry is the default pick when no disambiguation is needed. */
+/* All object keys whose names match `text` (the full any-scope match set, as
+   clsUserSession.InputMatchesObject builds -- no scope filter), ordered
+   visible-first then seen then the rest.  The ordering is only a default-pick
+   hint; resolve_refine narrows the set by the Applicable/Visible/Seen tiers. */
 static std::vector<const char *>
 resolve_object_candidates (a5_state_t *st, const std::string &text)
 {
-  std::vector<const char *> vis, seen, any;
+  std::vector<const char *> vis, seen, rest;
   const char *ploc = a5state_player_location (st);
   for (int i = 0; i < st->adv->n_objects; i++)
     {
       const a5_object_t *o = &st->adv->objects[i];
-      std::vector<std::string> allowed, nouns;
-      object_words (o, allowed, nouns);
-      if (!words_match (allowed, nouns, text))
+      if (!name_match (o->article, o->prefix, o->names, o->n_names, text))
         continue;
-      any.push_back (o->key);
       if (ploc != NULL && a5state_object_at_location (st, i, ploc, 0))
         vis.push_back (o->key);
       else if (st->obj_seen != NULL && st->obj_seen[i])
         seen.push_back (o->key);   /* known but not here now */
+      else
+        rest.push_back (o->key);
     }
-  /* Scope preference: visible, else previously-seen, else any name-match.  A
-     seen-but-elsewhere object resolves to itself (examine -> "You can't see the
-     X."); only when nothing is visible *or* seen does the reference stay a bag
-     of never-encountered objects ("You can't see any <plural>!"). */
-  if (!vis.empty ())  return vis;
-  if (!seen.empty ()) return seen;
-  return any;
+  std::vector<const char *> all;
+  all.insert (all.end (), vis.begin (), vis.end ());
+  all.insert (all.end (), seen.begin (), seen.end ());
+  all.insert (all.end (), rest.begin (), rest.end ());
+  return all;
 }
 
+/* All character keys whose names match `text`, visible-first (full any-scope
+   set, mirroring InputMatchesCharacter). */
 static std::vector<const char *>
 resolve_character_candidates (a5_state_t *st, const std::string &text)
 {
-  std::vector<const char *> vis, any;
+  std::vector<const char *> vis, rest;
   const char *ploc = a5state_player_location (st);
   for (int i = 0; i < st->adv->n_characters; i++)
     {
       const a5_character_t *c = &st->adv->characters[i];
-      std::vector<std::string> allowed, nouns;
-      character_words (st, c, allowed, nouns);
-      if (!words_match (allowed, nouns, text))
+      /* The character's matchable names are its descriptors plus -- only once it
+         is Known -- its proper name (clsCharacter.sRegularExpressionString). */
+      std::vector<const char *> names;
+      for (int d = 0; d < c->n_descriptors; d++)
+        names.push_back (c->descriptors[d]);
+      if (char_name_usable (st, c) && c->name != NULL)
+        names.push_back (c->name);
+      if (!name_match (c->article, c->prefix,
+                       names.empty () ? NULL : &names[0],
+                       (int) names.size (), text))
         continue;
-      any.push_back (c->key);
       if (streq (st->char_loc[i], ploc))
         vis.push_back (c->key);
+      else
+        rest.push_back (c->key);
     }
-  return vis.empty () ? any : vis;
+  std::vector<const char *> all;
+  all.insert (all.end (), vis.begin (), vis.end ());
+  all.insert (all.end (), rest.begin (), rest.end ());
+  return all;
 }
 
 /* PossibleKeys: narrow a candidate list to those entities every word of the
@@ -534,8 +586,34 @@ obj_in_scope (a5_state_t *st, const char *key)
   return ploc != NULL && i >= 0 && a5state_object_at_location (st, i, ploc, 0);
 }
 
+/* Visible/seen predicates the refine tiers use (clsObject.IsVisibleTo /
+   SeenBy and clsCharacter.CanSeeCharacter / SeenBy), keyed by entity key. */
+static int
+obj_visible (a5_state_t *st, const char *key) { return obj_in_scope (st, key); }
+
+static int
+obj_seen_p (a5_state_t *st, const char *key)
+{
+  int i = a5state_object_index (st, key);
+  return i >= 0 && st->obj_seen != NULL && st->obj_seen[i];
+}
+
+static int
+char_visible (a5_state_t *st, const char *key)
+{
+  int i = a5state_character_index (st, key);
+  return i >= 0 && streq (st->char_loc[i], a5state_player_location (st));
+}
+
+static int
+char_seen_p (a5_state_t *st, const char *key)
+{
+  int i = a5state_character_index (st, key);
+  return i >= 0 && st->char_seen != NULL && st->char_seen[i];
+}
+
 /* Outcome of resolve_refine. */
-enum { RR_NOMATCH = 0, RR_OK, RR_FAIL, RR_AMBIG, RR_CANTSEE };
+enum { RR_NOMATCH = 0, RR_OK, RR_FAIL, RR_AMBIG, RR_CANTSEE, RR_NOREF };
 
 /* What the caller needs to raise (or carry forward) a disambiguation prompt. */
 struct amb_info {
@@ -552,10 +630,20 @@ struct amb_info {
  * ambiguity check (GetGeneralTask).  Each reference is bound (first surviving
  * candidate) so restriction/action evaluation can read it.
  *
- *   RR_NOMATCH  a reference named nothing in scope -> try the next task
+ *   RR_NOMATCH  a non-object/character reference failed to parse -> next task
  *   RR_OK       every reference resolved uniquely and restrictions pass
  *   RR_FAIL     restrictions fail for the (uniquely) resolved references
- *   RR_AMBIG    a reference still has >1 candidate -> *amb describes it
+ *   RR_AMBIG    a reference still has >1 candidate, >=1 visible -> *amb (prompt)
+ *   RR_CANTSEE  a reference still has >1 candidate, none visible -> *amb
+ *   RR_NOREF    an object/character reference named nothing -> *amb (sNoRefTask:
+ *               run the task with the reference unresolved so a `Must Exist`
+ *               restriction surfaces "Sorry, I'm not sure which object ...")
+ *
+ * Candidates begin as the full any-scope name-match set (InputMatchesObject),
+ * then a three-tier refine (Applicable / Visible / Seen), each tier resetting a
+ * reference to its full original set when it empties -- a port of
+ * clsUserSession.RefineMatchingPossibilitesUsingRestrictions + the post-refine
+ * count check (GetGeneralTask / DisplayAmbiguityQuestion).
  *
  * `force_name`/`force_key`: when re-running a remembered task to resolve a
  * pending ambiguity, pin that reference to the chosen key.
@@ -565,12 +653,15 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
                 const char *force_name, const char *force_key, amb_info *amb)
 {
   a5_state_t *st = run->st;
-  struct rref { std::string name, text; char type; std::vector<std::string> keys; };
+  struct rref { std::string name, text; char type;
+                std::vector<std::string> orig, keys; };
   std::vector<rref> refs;
+  int have_noref = 0;
+  rref noref_r;
 
   a5state_clear_refs (st);
 
-  /* Pass 1: gather candidates and bind the default (first) of each. */
+  /* Pass 1: gather full any-scope candidate sets; bind the default of each. */
   for (int i = 0; i < m->n_refs; i++)
     {
       rref r;
@@ -594,52 +685,49 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
           continue; }
 
       if (force_name != NULL && r.name == force_name)
-        r.keys.assign (1, force_key);
+        { r.orig.assign (1, force_key); r.keys = r.orig; }
       else
         {
           std::vector<const char *> c = (r.type == 'o')
             ? resolve_object_candidates (st, r.text)
             : resolve_character_candidates (st, r.text);
           if (c.empty ())
-            return RR_NOMATCH;
-          /* An object noun that names several objects, none of them in scope:
-             the Runner answers "You can't see any <plural>!" rather than running
-             the task (clsUserSession.DisplayAmbiguityQuestion, bCanSeeAny=False
-             on MatchingPossibilities.Count>1).  Surface it so the caller can emit
-             that message; single-match / any-visible cases proceed normally and
-             let the task's own restriction message render. */
-          if (r.type == 'o' && c.size () > 1 && amb != NULL)
             {
-              int any_vis = 0, any_seen = 0;
-              for (const char *k : c)
-                {
-                  if (obj_in_scope (st, k)) any_vis = 1;
-                  int ki = a5state_object_index (st, k);
-                  if (ki >= 0 && st->obj_seen != NULL && st->obj_seen[ki])
-                    any_seen = 1;
-                }
-              if (!any_vis && !any_seen)
-                {
-                  amb->ref_name = r.name; amb->type = 'o'; amb->ref_text = r.text;
-                  amb->keys.clear ();
-                  for (const char *k : c) amb->keys.push_back (k);
-                  return RR_CANTSEE;
-                }
+              /* The reference names no entity at all.  Remember the first such
+                 task (sNoRefTask) and leave the reference unbound; if nothing
+                 else claims, the caller runs the task with it unresolved. */
+              if (!have_noref)
+                { have_noref = 1; noref_r = r; }
+              continue;
             }
-          for (const char *k : c) r.keys.push_back (k);
+          for (const char *k : c) r.orig.push_back (k);
+          r.keys = r.orig;
         }
       bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
       refs.push_back (r);
     }
 
-  /* Pass 2: refine each ambiguous reference by the task's restrictions, keeping
-     only candidates that pass (others bound to their current first).  Mirrors
-     RefineMatchingPossibilitesUsingRestrictions for the single-ambiguous-ref
-     case; interacting multi-ref ambiguity is approximated independently. */
+  /* A reference matched nothing -> defer the whole task as the no-reference
+     fallback (GetGeneralTask sNoRefTask; bMatchesPreRefine is false because the
+     empty reference had count 0).  Other references stay bound for the message. */
+  if (have_noref)
+    {
+      if (amb != NULL)
+        { amb->ref_name = noref_r.name; amb->type = noref_r.type;
+          amb->ref_text = noref_r.text; amb->keys.clear (); }
+      return RR_NOREF;
+    }
+
+  /* Pass 2: three-tier refinement (Applicable / Visible / Seen).  Each tier that
+     empties a reference resets it to the full original set; a tier that leaves
+     >1 falls through to the next.  Single-candidate references are already
+     unique (clsUserSession's reset-on-empty makes refining them a no-op). */
   for (auto &r : refs)
     {
       if (r.keys.size () <= 1)
         continue;
+
+      /* Tier 1: Applicable -- the candidates that pass the task's restrictions. */
       std::vector<std::string> pass;
       for (auto &k : r.keys)
         {
@@ -647,28 +735,58 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
           if (a5restr_pass (st, t->restrictions))
             pass.push_back (k);
         }
-      if (pass.empty ())
+      int more;
+      if (pass.empty ())          { r.keys = r.orig; more = 1; }
+      else if (pass.size () > 1)  { r.keys = pass;   more = 1; }
+      else                        { r.keys = pass;   more = 0; }
+
+      /* Tier 2: Visible. */
+      if (more)
         {
-          /* restrictions eliminate every candidate: a genuine failure.  Bind
-             the first so the fail message renders against a real entity. */
-          bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
-          return RR_FAIL;
+          std::vector<std::string> vis;
+          for (auto &k : r.keys)
+            if (r.type == 'o' ? obj_visible (st, k.c_str ())
+                              : char_visible (st, k.c_str ()))
+              vis.push_back (k);
+          if (vis.empty ())          { r.keys = r.orig; more = 1; }
+          else if (vis.size () > 1)  { r.keys = vis;    more = 1; }
+          else                       { r.keys = vis;    more = 0; }
         }
-      r.keys.swap (pass);
+
+      /* Tier 3: Seen. */
+      if (more)
+        {
+          std::vector<std::string> sn;
+          for (auto &k : r.keys)
+            if (r.type == 'o' ? obj_seen_p (st, k.c_str ())
+                              : char_seen_p (st, k.c_str ()))
+              sn.push_back (k);
+          r.keys = sn.empty () ? r.orig : sn;
+        }
+
       bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
     }
 
-  /* A still-ambiguous reference -> prompt. */
+  /* Post-refine: a reference left with >1 candidate is an ambiguity.  The Runner
+     prompts "Which X?" when at least one candidate is currently visible, else it
+     answers "You can't see any <plural>!" (DisplayAmbiguityQuestion bCanSeeAny). */
   for (auto &r : refs)
     if (r.keys.size () > 1)
       {
+        int any_vis = 0;
+        for (auto &k : r.keys)
+          if (r.type == 'o' ? obj_visible (st, k.c_str ())
+                            : char_visible (st, k.c_str ()))
+            { any_vis = 1; break; }
         if (amb != NULL)
           { amb->ref_name = r.name; amb->type = r.type;
             amb->ref_text = r.text; amb->keys = r.keys; }
-        return RR_AMBIG;
+        return any_vis ? RR_AMBIG : RR_CANTSEE;
       }
 
   /* Unique references: confirm the whole restriction set passes. */
+  for (auto &r : refs)
+    bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
   return a5restr_pass (st, t->restrictions) ? RR_OK : RR_FAIL;
 }
 
@@ -2454,7 +2572,16 @@ run_remembered (a5_run_t *run, const char *chosen, sb_t *out)
 static void
 emit_cantsee (a5_state_t *st, const amb_info *amb, sb_t *out)
 {
-  std::string w = amb_word (st, amb->keys, amb->ref_text, 'o');
+  std::string w = amb_word (st, amb->keys, amb->ref_text, amb->type);
+  /* Characters use the bare AmbWord (DisplayAmbiguityQuestion does not
+     pluralise the character case). */
+  if (amb->type == 'c')
+    {
+      sb_puts (out, "You can't see any ");
+      sb_puts (out, w.c_str ());
+      sb_puts (out, "!");
+      return;
+    }
   /* clsObject.IsPlural == (Article == "some"): a mass/plural object
      ("some firewood") keeps the bare noun; others are pluralised. */
   int any_plural = 0;
@@ -2479,7 +2606,8 @@ static int
 scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
             int *have_amb, amb_info *amb, int *amb_ti, int *amb_ci,
             int *amb_cantsee,
-            int *have_fail, std::string *fail_text)
+            int *have_fail, std::string *fail_text,
+            int *have_noref, int *noref_ti, int *noref_ci)
 {
   a5_state_t *st = run->st;
   for (size_t oi = 0; oi < run->order->size (); oi++)
@@ -2528,6 +2656,16 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                  the first such reference and keep scanning. */
               *have_amb = 1; *amb_cantsee = 1; *amb = this_amb;
               *amb_ti = ti; *amb_ci = ci;
+              continue;
+            }
+          if (r == RR_NOREF && !*have_noref)
+            {
+              /* A reference named nothing: remember this task as the
+                 no-reference fallback (clsUserSession.GetGeneralTask sNoRefTask).
+                 Keep scanning -- a later task may resolve uniquely or fail with
+                 output; only if nothing claims does the caller run this task
+                 with the reference unresolved. */
+              *have_noref = 1; *noref_ti = ti; *noref_ci = ci;
               continue;
             }
           if (r == RR_AMBIG && !*have_amb)
@@ -2728,6 +2866,30 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
   sb_puts (out, "Sorry, I didn't understand that command.");
 }
 
+/* Run the deferred sNoRefTask (clsUserSession.GetGeneralTask, GetGeneralTask =
+   sNoRefTask): re-bind the resolvable references and surface the task's
+   restriction message for the unresolved one ("Sorry, I'm not sure which object
+   you are trying to <verb>.").  Returns 1 if it produced output. */
+static int
+run_noref (a5_run_t *run, int ti, int ci, const std::string &in, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  const a5_task_t *t = &run->adv->tasks[ti];
+  a5_match_t m;
+  if (!a5parse_match_command (t->commands[ci], in.c_str (), &m))
+    return 0;
+  resolve_refine (run, t, &m, NULL, NULL, NULL);   /* binds the resolvable refs */
+  const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
+  if (fm == NULL)
+    return 0;
+  char *fmsg = a5text_describe (st, fm);
+  int has = fmsg[0] != '\0';
+  if (has)
+    sb_puts (out, fmsg);
+  free (fmsg);
+  return has;
+}
+
 char *
 a5run_input (a5_run_t *run, const char *line)
 {
@@ -2736,6 +2898,7 @@ a5run_input (a5_run_t *run, const char *line)
   std::string in = lower (line ? line : "");
   std::string fail_text;
   int have_fail = 0, have_amb = 0, amb_ti = -1, amb_ci = -1, amb_cantsee = 0;
+  int have_noref = 0, noref_ti = -1, noref_ci = -1;
   amb_info amb;
 
   sb_init (&out);
@@ -2769,8 +2932,32 @@ a5run_input (a5_run_t *run, const char *line)
     }
 
   if (scan_tasks (run, in, &out, &have_amb, &amb, &amb_ti, &amb_ci,
-                  &amb_cantsee, &have_fail, &fail_text))
+                  &amb_cantsee, &have_fail, &fail_text,
+                  &have_noref, &noref_ti, &noref_ci))
     { run->amb_active = 0; ev_tick_all (run, &out); return sb_take (&out); }
+
+  if (have_fail)
+    {
+      /* A HighestPriorityPassingTask game: no task passed, so show the
+         highest-priority failing task's recorded message.  In frankendrift this
+         sets GetGeneralTask (non-Nothing), so it preempts the sNoRefTask and the
+         ambiguity display.  It is non-empty output, so the turn advances. */
+      run->amb_active = 0;
+      sb_puts (&out, fail_text.c_str ());
+      ev_tick_all (run, &out);
+      return sb_take (&out);
+    }
+
+  if (have_noref && run_noref (run, noref_ti, noref_ci, in, &out))
+    {
+      /* sNoRefTask: a command matched but a reference named nothing.  Running
+         the task with the reference unresolved surfaced its `Must Exist`
+         message.  This preempts the ambiguity display (GetGeneralTask returns
+         sNoRefTask before DisplayAmbiguityQuestion is consulted). */
+      run->amb_active = 0;
+      ev_tick_all (run, &out);
+      return sb_take (&out);
+    }
 
   if (have_amb && amb_cantsee)
     {
@@ -2807,17 +2994,7 @@ a5run_input (a5_run_t *run, const char *line)
       return sb_take (&out);
     }
 
-  if (have_fail)
-    {
-      /* A HighestPriorityPassingTask game: no task passed, so show the
-         highest-priority failing task's recorded message.  It is non-empty
-         output, so the turn advances (clsUserSession: sOutputText <> "" =>
-         TurnBasedStuff). */
-      run->amb_active = 0;
-      sb_puts (&out, fail_text.c_str ());
-      ev_tick_all (run, &out);
-    }
-  else if (system_command (run, in, &out))
+  if (system_command (run, in, &out))
     { run->amb_active = 0; }
   else
     not_understood (run, in, &out);

@@ -914,59 +914,57 @@ ADRIFT text is full of embedded directives evaluated at display time:
         later." (was the generic "There is no route to the east, only ...").  Anno
         diff 52 → 46 hunks; full headless suite green; Stone of Wisdom clean;
         ASan/UBSan-clean across the corpus (incl. direction-spam soak).
-      - **Remaining Anno divergences (~28 non-RNG, fine-grained; diminishing
-        returns):** the bulk is now the **`You can't see any <plural>!` family**
-        (lines like cannon/doors/pistols/threads/wine/trees), which all stem from
-        one architectural difference: **Scarier pre-filters object-reference
-        candidates by a visible→seen→any scope tier (`resolve_object_candidates`),
-        collapsing the count; FrankenDrift keeps ALL name-matching objects (any
-        scope — `InputMatchesObject` adds every regex-matching object) and lets
-        the task's restrictions refine them**, then decides at the end
-        (`DisplayAmbiguityQuestion`):
-          - `MatchingPossibilities.Count > 1` after refinement AND **none
-            currently VISIBLE** (`Player.CanSeeObject`; "seen" is irrelevant here)
-            => "You can't see any <plural>!" (no prompt); if ≥1 visible => "Which
-            <noun>?" prompt.
-          - `Count == 1` => resolve to it; its restrictions yield "You can't see
-            the X." / "You see no such thing." etc.
-          - `Count == 0` (all refined away) => `sNoRefTask` runs the task with an
-            unresolved ref, surfacing e.g. DrinkObject's `ReferencedObject Must
-            Exist` "Sorry, I'm not sure which object you are trying to drink."
-        So fixing this means **restructuring resolution so candidates are the full
-        any-scope set + scope filtering comes from restrictions, not a pre-filter**
-        — a deliberate change with real regression risk against `a5distest` and
-        the ~60 currently-correct "can't see any" cases; parked.
-        **Exact FrankenDrift algorithm to port** (traced in
-        `clsUserSession.RefineMatchingPossibilitesUsingRestrictions`,
-        vb:5734-5914, called from `GetGeneralTask` vb:6015): candidates begin as
-        the **full any-scope** match set (`InputMatchesObject` adds every
-        regex-matching object, no scope filter), then a **multi-tier reset-on-empty
-        refine**: (1) *Applicable* tier — keep candidates that pass the task's
-        restrictions; if a ref empties, **reset it to the original full set**
-        (`bResetRef`) and flag `bCheckNextScope`; a ref left with >1 also flags it.
-        (2) *Visible* tier (only if flagged) — drop the non-`IsVisibleTo(Player)`
-        candidates; again **reset-to-original on empty**.  After the tiers,
-        `GetGeneralTask` reads the surviving count: **1** => run the task (its
-        restrictions then yield "You can't see the X." / "You see no such thing.");
-        **>1** => `sAmbTask` => `DisplayAmbiguityQuestion` (none visible =>
-        "You can't see any <plural>!" via IsPlural/GuessPlural; ≥1 visible =>
-        "Which <noun>?"); **0** but `bMatchesPreRefine` (every ref had exactly 1
-        pre-refine) => restore originals and run; **0** otherwise => `sNoRefTask`
-        runs the task with an unresolved ref ("Sorry, I'm not sure which object
-        you are trying to <verb>.").  The cannon("you see no such thing")
-        vs doors("can't see any doors!") split is purely **post-reset count 1 vs
-        >1**.  Implementation sketch: replace `resolve_object_candidates`' scope
-        collapse with the full set + ordering hint; move the RR_CANTSEE / RR_AMBIG
-        decision **after** Pass-2 refine; add an `RR_NOREF` outcome that runs the
-        task with the ref unresolved (so `ReferencedObject Must Exist` surfaces).
-        Validate every step against `a5distest` + the SSB golden + the Anno diff.
-        Other residuals:
-        object name-alias selection when several same-noun objects are seen
-        ("the walls" vs "the wall"); a few stock "trying to <verb>" no-reference
-        messages; and game-specific puzzle-task responses (parchment/hat/key-rack,
-        "prime wick"=>"...do with Player").  The RNG-selected guest-event lines
-        ("a guest walks by you and hangs their room key on the rack") are expected
-        divergence (.NET `System.Random` vs xoshiro).
+      - **Reference resolution restructured to full-set + three-tier refine
+        (the parked architectural item) — DONE.**  Three coupled changes in
+        `a5run.cpp`, validated against FrankenDrift ground truth (Anno
+        walkthrough diff **25 → 14 hunks**, the residual 12 being RNG guest-event
+        lines + 2 fine-grained cases below; Six Silver Bullets golden + Stone of
+        Wisdom byte-identical to HEAD; **ASan/UBSan-clean across the whole 15-game
+        v5 corpus**; `a5distest` updated for the now-faithful both-held case):
+        1. **Strict name matching (`name_match`)** — the candidate gatherers used
+           a loose word-set test (`words_match`) that treated each word of a
+           multi-word Name as an independently-matchable noun, so "key" matched
+           "key rack" and "cannon"/"pistols"/"threads"/"wine" over-matched.
+           `name_match` now mirrors `clsObject/clsCharacter.sRegularExpressionString`
+           exactly: `^(article |the )?(prefix_i )?...(name1|name2|...)$` — optional
+           article, each prefix word independently optional **in order**, then
+           **exactly one whole Name** (a multi-word name must appear in full).
+           The looser `words_match`/`object_words` is kept only for the clarifier
+           narrowing (`possible_keys`) and `AmbWord`.
+        2. **Full any-scope candidate set + Applicable/Visible/Seen refine**
+           (port of `RefineMatchingPossibilitesUsingRestrictions`, vb:5734-5962):
+           `resolve_object_candidates`/`resolve_character_candidates` now return
+           the **full** name-match set (visible-first ordering is only a
+           default-pick hint), and `resolve_refine` Pass 2 runs the three tiers
+           with **reset-to-original-on-empty** per reference.  Post-refine count
+           decides (GetGeneralTask / DisplayAmbiguityQuestion): **1** => run the
+           task (its restrictions yield "You can't see the X." / "You see no such
+           thing."); **>1 with ≥1 visible** => `RR_AMBIG` "Which <noun>?"; **>1
+           none visible** => `RR_CANTSEE` "You can't see any <plural>!"
+           (`emit_cantsee` now type-aware: characters use the bare AmbWord, no
+           GuessPlural).  This is the cannon("you see no such thing") vs
+           doors("can't see any doors!") post-refine count-1-vs-many split.
+        3. **`RR_NOREF` (sNoRefTask)** — when an object/character reference names
+           no entity at all, the task is no longer skipped (old `RR_NOMATCH`);
+           it is remembered as the no-reference fallback and, if nothing else
+           claims, `run_noref` re-binds the resolvable references and surfaces the
+           task's unresolved-reference restriction message
+           ("Sorry, I'm not sure which object you are trying to drink.").
+           Precedence in `a5run_input` now matches GetGeneralTask:
+           claim(RR_OK) > recorded fail-with-output > sNoRefTask > ambiguity
+           display.
+        Fixed Anno's pull/cannon/doors/pistols/key/wine/trees lines and the
+        latent "Which key? … or the key rack" mis-prompt (`get key` while holding
+        the skeleton key now says "You are already carrying …" because "key" no
+        longer matches "key rack").
+        **Remaining Anno divergences (~12, diminishing returns):** mostly the
+        RNG-selected guest-event lines (".NET `System.Random` vs xoshiro" — a
+        guest walks by / hangs a key on the rack); plus two fine-grained cases —
+        "braid threads" (`You can't see any threads!` vs FD "Sorry, I'm not sure
+        which object you're referring to.") and a character-noref→Player message
+        ("I don't understand what you want to do with Player.").  Other residual
+        cosmetics: object name-alias selection among several same-noun *seen*
+        objects, and game-specific puzzle-task responses.
       - **Still TODO (earlier list)**: full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);
