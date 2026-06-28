@@ -288,6 +288,25 @@ sc_dump_structure_once (sc_gameref_t game)
                  t, wtype, wroom, rcount, rep, score, cmd ? cmd : "");
       }
 
+      /* For SOME_ROOMS (where=2) tasks, dump the room-group membership (the
+       * "Where"/"Rooms" boolean array indexed by room; see sctasks.c
+       * task_can_run_task_directional). Lets us tell whether a group-scoped
+       * death (e.g. the Morac castle timer T327) fires in a given room. */
+      if (wtype == ROOMLIST_SOME_ROOMS)
+        {
+          sc_int rm, nrooms = gs_room_count (game);
+          fprintf (stderr, "    WHERE_ROOMS=[");
+          for (rm = 0; rm < nrooms; rm++)
+            {
+              k[2].string = "Where";
+              k[3].string = "Rooms";
+              k[4].integer = rm;
+              if (prop_get_boolean (bundle, "B<-sissi", k))
+                fprintf (stderr, "%ld ", rm);
+            }
+          fprintf (stderr, "]\n");
+        }
+
       /* Built-in author hints attached to this task (Question/Hint1=subtle/
        * Hint2=sledgehammer) -- the game's own context-sensitive walkthrough. */
       {
@@ -448,6 +467,47 @@ sc_dump_structure_once (sc_gameref_t game)
         nk[2].string = "Name";      if (prop_get (bundle, "S<-sis", &nv, nk)) nm = nv.string;
         nk[2].string = "StartRoom"; if (prop_get (bundle, "I<-sis", &nv, nk)) sr = nv.integer;
         fprintf (stderr, "NPC %ld [%s] startRoom=%ld\n", n, nm ? nm : "", sr - 1);
+
+        /* Battle System configuration for this NPC, read straight from the
+         * bundle (NPCs[n].Battle.<attr>).  4.0 games store <attr>Lo/<attr>Hi
+         * pairs; 3.9 games a single <attr>.  Prints stamina + the four ranged
+         * combat attributes + attitude/speed + the KilledTask reference, so a
+         * "damage stalemate" (target Defence >= attacker Strength) is visible.
+         * Only emitted when SC_DUMP_BATTLE is set, to keep the task dump terse. */
+        if (getenv ("SC_DUMP_BATTLE"))
+          {
+            static const sc_char *const attrs[] =
+              { "Stamina", "Strength", "Accuracy", "Defense", "Agility" };
+            sc_vartype_t bk[5], bv;
+            size_t a;
+            sc_int att = 0, spd = 0, kt = 0;
+
+            bk[0].string = "NPCs"; bk[1].integer = n; bk[2].string = "Battle";
+            fprintf (stderr, "  BATTLE npc=%ld", n);
+            for (a = 0; a < sizeof attrs / sizeof attrs[0]; a++)
+              {
+                sc_char key[32];
+                sc_int lo = 0, hi = -1;
+                snprintf (key, sizeof key, "%sHi", attrs[a]);
+                bk[3].string = key;
+                if (prop_get (bundle, "I<-siss", &bv, bk)) hi = bv.integer;
+                snprintf (key, sizeof key, "%sLo", attrs[a]);
+                bk[3].string = key;
+                if (prop_get (bundle, "I<-siss", &bv, bk)) lo = bv.integer;
+                if (hi < 0)
+                  {
+                    bk[3].string = (sc_char *) attrs[a];
+                    if (prop_get (bundle, "I<-siss", &bv, bk)) lo = hi = bv.integer;
+                    else hi = 0;
+                  }
+                fprintf (stderr, " %s=%ld-%ld", attrs[a], lo, hi);
+              }
+            bk[3].string = "Attitude"; if (prop_get (bundle, "I<-siss", &bv, bk)) att = bv.integer;
+            bk[3].string = "Speed";    if (prop_get (bundle, "I<-siss", &bv, bk)) spd = bv.integer;
+            bk[3].string = "KilledTask"; if (prop_get (bundle, "I<-siss", &bv, bk)) kt = bv.integer;
+            fprintf (stderr, " attitude=%ld speed=%ld killedTask=%ld\n",
+                     att, spd, kt - 1);
+          }
 
         nk[2].string = "Walks";
         wcount = prop_get_child_count (bundle, "I<-sis", nk);
