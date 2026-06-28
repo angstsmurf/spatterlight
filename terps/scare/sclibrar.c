@@ -1051,8 +1051,22 @@ lib_print_room_description (sc_gameref_t game, sc_int room)
           res_handle_resource (game, "sisi", vt_key);
         }
     }
+  /*
+   * Terminate the description block with a single line break.  Many ADRIFT
+   * room descriptions already end with a trailing "<br>" of their own; if we
+   * unconditionally added a newline here it would double up with that break
+   * (and with the leading break the contents list adds of its own), leaving a
+   * stray blank line before "Also here is ...".  Add the break only when the
+   * buffer does not already end with one, so the description-to-contents gap
+   * matches the single blank line used between the other room sections.
+   */
   if (is_described)
-    pf_buffer_character (filter, '\n');
+    {
+      const sc_char *buffered = pf_get_buffer (filter);
+
+      if (!(buffered && lib_text_ends_with_break (buffered)))
+        pf_buffer_character (filter, '\n');
+    }
 
   /* Finally, print room contents. */
   if (showobjects)
