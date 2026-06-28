@@ -71,6 +71,15 @@ typedef struct a5_state_s {
   char  ref_name[16][32];
   char  ref_value[16][256];
   int   n_refbind;
+
+  /* <DisplayOnce> description segments that have already been shown (keyed by
+     the segment's DOM node).  `marking_display` is set while rendering real
+     output (vs a peek/test render) so a segment is only retired once it has
+     actually reached the player -- mirrors clsDescription.ToString's
+     Displayed flag gated on UserSession.bTestingOutput. */
+  const void **disp_once;
+  int n_disp_once, cap_disp_once;
+  int marking_display;
 } a5_state_t;
 
 extern a5_state_t *a5state_new  (const a5_adventure_t *adv);
@@ -105,6 +114,11 @@ extern const char *a5state_entity_prop (const a5_state_t *st, const char *entkey
                                         const char *propkey);
 extern void a5state_set_prop (a5_state_t *st, const char *entkey,
                               const char *propkey, const char *value);
+
+/* <DisplayOnce> tracking: has this description-segment node already been shown,
+   and (when marking) record that it has. */
+extern int  a5state_disp_once_seen (const a5_state_t *st, const void *node);
+extern void a5state_disp_once_mark (a5_state_t *st, const void *node);
 
 /* Per-turn reference bindings. */
 extern void        a5state_clear_refs  (a5_state_t *st);

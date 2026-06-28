@@ -65,7 +65,9 @@ main (int argc, char **argv)
         }
     }
 
-  printf ("Title:  %s\n", a->title ? a->title : "(none)");
+  /* FrankenDrift opens with the centered title ("<c>Title</c>" + newline), so
+     print the bare title to keep the ground-truth diff free of harness noise. */
+  printf ("%s\n", a->title ? a->title : "(none)");
   txt = a5run_intro (run);
   printf ("\n%s\n", txt);
   free (txt);

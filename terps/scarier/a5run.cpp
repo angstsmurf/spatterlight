@@ -1006,11 +1006,33 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
 
 /* ------------------------------------------------------------- run one task */
 
+/* Render a completion message and emit it as one response: trailing whitespace
+   (the newline the XML <Text> carries before </Text>) is trimmed so a "Before"
+   message followed by a sub-task's output is not separated by a spurious blank
+   line -- FrankenDrift trims each response the same way. */
+static void
+emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
+{
+  char *m = a5text_describe (run->st, comp);
+  size_t n = strlen (m);
+  while (n > 0 && (m[n - 1] == '\n' || m[n - 1] == '\r'
+                   || m[n - 1] == ' ' || m[n - 1] == '\t'))
+    m[--n] = '\0';
+  if (m[0]) { sb_puts (out, m); sb_puts (out, "\n"); }
+  free (m);
+}
+
 static void
 run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
 {
+  /* v5's FileIO.Load defaults a missing <MessageBeforeOrAfter> to Before (the
+     class default After is overridden at load time, FileIO.vb:1618), so the
+     completion message is evaluated and emitted *before* the actions run.  This
+     is what makes TakeObjectsFromOthersLazy's "(from %objects%.Parent.Name)"
+     render "(from the Table)" (parent still the source) ahead of the
+     SetTasks-Execute sub-task's "You take ... from the Table." line. */
   const char *when = a5xml_child_text (t->node, "MessageBeforeOrAfter");
-  int before = streq (when, "Before");
+  int before = !streq (when, "After");
   const a5_xml_node_t *comp = a5xml_child (t->node, "CompletionMessage");
   const a5_xml_node_t *act = t->actions;
 
@@ -1031,11 +1053,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
     }
 
   if (before && comp != NULL)
-    {
-      char *m = a5text_describe (run->st, comp);
-      if (m[0]) { sb_puts (out, m); sb_puts (out, "\n"); }
-      free (m);
-    }
+    emit_completion (run, comp, out);
 
   if (act != NULL)
     {
@@ -1045,11 +1063,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
     }
 
   if (!before && comp != NULL)
-    {
-      char *m = a5text_describe (run->st, comp);
-      if (m[0]) { sb_puts (out, m); sb_puts (out, "\n"); }
-      free (m);
-    }
+    emit_completion (run, comp, out);
 }
 
 /* ------------------------------------------------------------------- events */

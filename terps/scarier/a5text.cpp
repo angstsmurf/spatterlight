@@ -139,6 +139,7 @@ a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
     {
       const a5_xml_node_t *restr;
       const char *when, *text;
+      int once;
       if (strcmp (c->name, "Description") != 0)
         continue;
       text = a5xml_child_text (c, "Text");
@@ -147,12 +148,28 @@ a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
       if (first)
         default_text = text;
 
+      /* A <DisplayOnce> segment is suppressed once it has been shown (the start
+         room's "soft rain" line in Stone of Wisdom shows at game start, then not
+         on a later LOOK) -- clsDescription.ToString: "If Not sd.DisplayOnce
+         OrElse Not sd.Displayed". */
+      once = streq (a5xml_child_text (c, "DisplayOnce"), "1");
+      if (once && a5state_disp_once_seen (st, c))
+        {
+          first = 0;
+          continue;
+        }
+
       restr = a5xml_child (c, "Restrictions");
       if (restr != NULL && !a5restr_pass (st, restr))
         {
           first = 0;
           continue;             /* (Phase 4: show the description's FailMessage) */
         }
+
+      /* Retire the segment only when this is real output, not a value peek
+         (Displayed is set unless UserSession.bTestingOutput). */
+      if (once && st->marking_display)
+        a5state_disp_once_mark (st, c);
 
       when = a5xml_child_text (c, "DisplayWhen");
       if (streq (when, "StartDescriptionWithThis"))
@@ -285,6 +302,73 @@ chars_on_in (a5_state_t *st, const char *objkey, int on)
         v.push_back (c);
     }
   return v;
+}
+
+/*
+ * Port of Global.ToProper (bForceRestLower=True): upper-case the first char and
+ * lower-case the rest of the string.  Used by DisplayObjectChildren on the
+ * on-object list so "The Yellow Note, The Silver Gun and The Silver Bullets"
+ * renders as "The yellow note, the silver gun and the silver bullets".
+ */
+static std::string
+to_proper (const std::string &s)
+{
+  std::string r = s;
+  for (size_t i = 0; i < r.size (); i++)
+    r[i] = (i == 0) ? (char) toupper ((unsigned char) r[i])
+                    : (char) tolower ((unsigned char) r[i]);
+  return r;
+}
+
+/*
+ * Port of clsObject.DisplayObjectChildren: "<on-list> is/are on <the object>[,
+ * and inside is/are <in-list>]." — the on-list ToProper-cased, both lists using
+ * the objects' own (indefinite) articles, the parent definite.  The inside list
+ * is suppressed for a closed openable object.  Returns "" when there is nothing
+ * to show (the ListObjectsOnAndIn caller only invokes it for objects that have
+ * children, so the "Nothing is on or inside ..." fallback never surfaces here).
+ */
+static std::string
+display_object_children (a5_state_t *st, const char *objkey)
+{
+  const a5_object_t *o = a5model_object (st->adv, objkey);
+  std::vector<const char *> on = objects_on_in (st, objkey, A5_OWHERE_ON_OBJECT);
+  std::vector<const char *> in = objects_on_in (st, objkey, A5_OWHERE_IN_OBJECT);
+
+  /* Inside children are only listed when the object is open (or not openable). */
+  int openable = o && a5_prop_find (o->props, o->n_props, "Openable") != NULL;
+  if (openable)
+    {
+      const char *os = a5state_entity_prop (st, objkey, "OpenStatus");
+      if (os == NULL || !streq (os, "Open"))
+        in.clear ();
+    }
+
+  std::string s;
+  char *defn = o ? a5text_object_name (o, A5_ART_DEFINITE) : strdup (objkey);
+  if (!on.empty ())
+    {
+      char *lst = list_objects (st, on);
+      s += to_proper (lst);
+      free (lst);
+      s += (on.size () == 1) ? " is on " : " are on ";
+      s += defn;
+    }
+  if (!in.empty ())
+    {
+      if (!on.empty ())
+        s += ", and inside";
+      else
+        { s += "Inside "; s += defn; }
+      s += (in.size () == 1) ? " is " : " are ";
+      char *lst = list_objects (st, in);
+      s += lst;
+      free (lst);
+    }
+  if (!on.empty () || !in.empty ())
+    s += ".";
+  free (defn);
+  return s;
 }
 
 /* A character's perspective (FirstPerson=1 / SecondPerson=2 / ThirdPerson=3). */
@@ -477,21 +561,38 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       return strdup (k ? k : "");
     }
   if (args != NULL
-      && (ci_eq (name, "listobjectson") || ci_eq (name, "listobjectsin")
-          || ci_eq (name, "listobjectsonandin")))
+      && (ci_eq (name, "listobjectson") || ci_eq (name, "listobjectsin")))
     {
+      /* Bare indefinite-article list of the children on / in the object,
+         mirroring Children(On|Inside).List(, , Indefinite). */
       const char *k = resolve_object_arg (st, args);
+      a5_owhere_t want = ci_eq (name, "listobjectson") ? A5_OWHERE_ON_OBJECT
+                                                       : A5_OWHERE_IN_OBJECT;
       std::vector<const char *> v;
-      if (k != NULL)
-        {
-          if (!ci_eq (name, "listobjectsin"))
-            { auto on = objects_on_in (st, k, A5_OWHERE_ON_OBJECT);
-              v.insert (v.end (), on.begin (), on.end ()); }
-          if (!ci_eq (name, "listobjectson"))
-            { auto in = objects_on_in (st, k, A5_OWHERE_IN_OBJECT);
-              v.insert (v.end (), in.begin (), in.end ()); }
-        }
+      if (k != NULL) v = objects_on_in (st, k, want);
       return list_objects (st, v);
+    }
+  if (args != NULL && ci_eq (name, "listobjectsonandin"))
+    {
+      /* clsUserSession.ListObjectsOnAndIn: ignore the argument and concatenate
+         DisplayObjectChildren for every object with on/in children (joined by
+         pSpace's two spaces). */
+      std::string out;
+      for (int oi = 0; oi < st->adv->n_objects; oi++)
+        {
+          const char *ok = st->adv->objects[oi].key;
+          int has_on = !objects_on_in (st, ok, A5_OWHERE_ON_OBJECT).empty ();
+          int has_in = !objects_on_in (st, ok, A5_OWHERE_IN_OBJECT).empty ();
+          if (st->adv->n_objects != 1 && !has_on && !has_in)
+            continue;
+          std::string d = display_object_children (st, ok);
+          if (d.empty ())
+            continue;
+          if (!out.empty ())
+            out += "  ";
+          out += d;
+        }
+      return strdup (out.c_str ());
     }
   if (args != NULL
       && (ci_eq (name, "listcharacterson") || ci_eq (name, "listcharactersin")
@@ -935,7 +1036,16 @@ a5text_render_plain (const char *src)
             q++;
           if (strcmp (tag, "br") == 0)
             sb_putc (&sb, '\n');
-          /* every other tag (<>, <c>, </c>, <b>, <i>, <font...>, ...) drops */
+          else if (strcmp (tag, "cls") == 0)
+            {
+              /* Screen clear: drop everything buffered so far, mirroring the
+                 GlkHtmlWin / FrankenDrift.Headless handling of <cls>.  An Anno
+                 1700-style intro ends with a <cls>, so its credits/preamble are
+                 wiped and only the post-clear text (here, none) survives. */
+              sb.len = 0;
+              if (sb.p != NULL) sb.p[0] = '\0';
+            }
+          /* every other tag (<>, <c>, </c>, <b>, <i>, <font...>, <waitkey>...) drops */
           p = q;
           continue;
         }
@@ -997,6 +1107,11 @@ a5text_view_location (a5_state_t *st)
   if (loc == NULL)
     return strdup ("");
 
+  /* A v5 location view is prefixed with a blank line before the room name
+     (clsLocation.ViewLocation: "If Adventure.dVersion >= 5 Then sView = vbCrLf
+     & sView"), so after a "> look" echo the room name has a paragraph break. */
+  sb_putc (&sb, '\n');
+
   /* Room name (bold), then the long description. */
   {
     char *name = a5text_describe (st, a5xml_child (loc->node, "ShortDescription"));
@@ -1005,8 +1120,14 @@ a5text_view_location (a5_state_t *st)
     free (name);
   }
   {
-    char *raw = a5text_eval_description (st, a5xml_child (loc->node, "LongDescription"));
-    char *proc = a5text_process (st, raw);
+    /* The location view is real output: retire any <DisplayOnce> segments it
+       shows so they do not reappear on a later LOOK. */
+    int prev_mark = st->marking_display;
+    char *raw, *proc;
+    st->marking_display = 1;
+    raw = a5text_eval_description (st, a5xml_child (loc->node, "LongDescription"));
+    st->marking_display = prev_mark;
+    proc = a5text_process (st, raw);
     free (raw);
     /* Special-listed objects directly here. */
     for (i = 0; i < st->adv->n_objects; i++)

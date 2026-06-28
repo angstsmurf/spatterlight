@@ -167,7 +167,35 @@ a5state_free (a5_state_t *st)
   free (st->var_num);
   free (st->var_text);
   free (st->task_done);
+  free (st->disp_once);
   free (st);
+}
+
+/* ------------------------------------------------------------ DisplayOnce */
+
+int
+a5state_disp_once_seen (const a5_state_t *st, const void *node)
+{
+  int i;
+  for (i = 0; i < st->n_disp_once; i++)
+    if (st->disp_once[i] == node)
+      return 1;
+  return 0;
+}
+
+void
+a5state_disp_once_mark (a5_state_t *st, const void *node)
+{
+  if (node == NULL || a5state_disp_once_seen (st, node))
+    return;
+  if (st->n_disp_once >= st->cap_disp_once)
+    {
+      int nc = st->cap_disp_once ? st->cap_disp_once * 2 : 8;
+      st->disp_once = (const void **) realloc (st->disp_once,
+                                               (size_t) nc * sizeof *st->disp_once);
+      st->cap_disp_once = nc;
+    }
+  st->disp_once[st->n_disp_once++] = node;
 }
 
 /* ------------------------------------------------------- reference bindings */

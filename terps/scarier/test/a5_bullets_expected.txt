@@ -1,4 +1,4 @@
-Title:  SIX SILVER BULLETS
+SIX SILVER BULLETS
 
 
 ===========================
@@ -39,10 +39,11 @@ You know nothing about yourself. If you had memories, they are gone.
 Before you LOOK, You listen carefully. You hear sounds you have heard before. A voice in your head. You, of course, but not you. Your training. It tells you things. It says you must get up. It says you must not fall asleep. It says to ask for HELP, if you need it.
 
 It says you are the Silver Agent.
-It says you must escape the City.  
+It says you must escape the City.
 
 
 > look
+
 The Suite
 
 Woke up here. Seems expensive. Wallpaper's terrible. Silver and gold. Floor is tile. Well maintained. 
@@ -58,24 +59,22 @@ On the table: A yellow note, a silver gun, and six silver bullets
 
 > examine table
 
-Exceptional woodwork. Tectona grandis. Sri Lankan Teak. Very Expensive.  The Yellow Note, The Silver Gun and The Silver Bullets  
+Exceptional woodwork. Tectona grandis. Sri Lankan Teak. Very Expensive.  The yellow note, the silver gun and the silver bullets are on the Table.
 
 
 > examine note
 
-Paper is a dull yellow. They call this ivory? Faint watermark. A serpent eating its own tail. Orobos. Infinity and extinction. Who sent this? You must find them.  
+Paper is a dull yellow. They call this ivory? Faint watermark. A serpent eating its own tail. Orobos. Infinity and extinction. Who sent this? You must find them.
 
 
 > take note
+(from the Table)
 You take the Yellow Note from the Table.
-(from you)
-
 
 
 > take gun
+(from the Table)
 You take the Silver Gun from the Table.
-(from you)
-
 
 
 ENCOUNTER: THE VISITOR
@@ -99,7 +98,7 @@ And zero Silver Bullets
 
 > examine peephole
 
-Small, dark, like an eye into hell. The hall beyond opens onto the lobby.  
+Small, dark, like an eye into hell. The hall beyond opens onto the lobby.
 
 
 > drop note

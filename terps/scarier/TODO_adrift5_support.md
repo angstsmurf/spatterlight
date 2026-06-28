@@ -230,29 +230,61 @@ ADRIFT text is full of embedded directives evaluated at display time:
   `System.Random`, Scarier the erkyrath xoshiro128\*\* — RAND-selected text
   (dream/epigraph variants, combat rolls, the `Roller==1` catch-all) will NOT
   match; diff the RAND-independent portions.
-  - **Divergences surfaced by the first diff (concrete P4/P5 follow-ups, not yet
-    fixed):**
-    1. **Take "(from X)" line** — the stock `TakeObjectsFromOthersLazy` emits
-       `(from %objects%.Parent.Name)`.  FrankenDrift renders `(from the Table)`
-       *before* the "You take … from the Table." sub-task message (parent still
-       the source); Scarier runs the inline `SetTasks Execute` first, so it
-       renders `(from you)` *after* (parent already the player).  The exact
-       ordering is governed by FrankenDrift's position-based `AddResponse`/
-       `htblResponses` output assembly — needs careful porting, do not guess.
-    2. **`%ListObjectsOn[/In/OnAndIn]%`** — the object-list variants in
-       `a5text.cpp` (the `listobjectson/in/onandin` branch) just call
-       `list_objects` (bare names), but FrankenDrift's `clsObject.
-       DisplayObjectChildren` wraps the list: `ToProper(<list, definite article>)
-       + " is/are on " + <FullName definite> [+ ", and inside …"] + "."`.  So
-       examine-table shows Scarier `The Yellow Note, The Silver Gun and The
-       Silver Bullets` vs FrankenDrift `The yellow note, the silver gun and the
-       silver bullets are on the Table.` (one ToProper at the front, lowercase
-       definite articles, the " are on the Table." suffix).  The **character**
-       variants (`listcharacterson…`, a5text.cpp ~507) already port this and are
-       the template; mirror them for objects (mind `list_objects` uses indefinite
-       articles — these need definite + a single leading ToProper, not per-item
-       Title-casing).
-    3. **Start-room auto-LOOK** — FIXED.  Scarier rendered the start location
+  - **Ground-truth status (all three shipped games now byte-match
+    FrankenDrift):** with the FrankenDrift.Headless reference actually built and
+    run, **Anno 1700 and Stone of Wisdom diff to ZERO** hunks (intro→start
+    room→moves), and **Six Silver Bullets** diffs only on the five RAND-selected
+    intro lines (epigraph / dream / training-block variants — the .NET
+    `System.Random` vs xoshiro caveat).  The five divergences the first diff
+    surfaced are all fixed:
+    1. **Take "(from X)" line** — FIXED.  The stock `TakeObjectsFromOthersLazy`
+       completion message `(from %objects%.Parent.Name)` must print *before* its
+       `SetTasks Execute` sub-task ("You take … from the Table.") so the parent
+       is still the source ("the Table"), not the player.  Root cause: v5's
+       `FileIO.Load` defaults a missing `<MessageBeforeOrAfter>` to **Before**
+       (FileIO.vb:1618 overrides the class default of After); `run_task` was
+       defaulting to After.  Fixed by `before = !streq(when, "After")`.  Emitting
+       the message pre-action also evaluates it pre-action, matching FrankenDrift's
+       position-locked AddResponse assembly for the common case.  `emit_completion`
+       now trims trailing whitespace/newlines from each rendered completion message
+       (FrankenDrift trims each response), removing the spurious blank line a
+       Before-message's trailing `\n` left before the sub-task output.
+    2. **`%ListObjectsOnAndIn%`** — FIXED (and the original note was wrong about
+       the bare `%ListObjectsOn/In%`).  Per Global.vb:2199+, **`ListObjectsOn` and
+       `ListObjectsIn` are bare indefinite lists** (`Children(On|Inside).List(, ,
+       Indefinite)`) — Scarier's `list_objects` already matches; only
+       **`ListObjectsOnAndIn`** wraps via `clsObject.DisplayObjectChildren`, and
+       it **ignores its argument**, looping every object with on/in children
+       (joined by pSpace's two spaces).  The wrap is `ToProper(<on-list,
+       indefinite>) + " is/are on " + <FullName definite> [+ ", and inside is/are
+       <in-list>"] + "."` where **`ToProper` upper-cases the first char and
+       lower-cases the rest** (Global.ToProper bForceRestLower=True), and the
+       inside list is suppressed for a closed openable object.  So examine-table:
+       Scarier now renders `The yellow note, the silver gun and the silver bullets
+       are on the Table.` (was `The Yellow Note, The Silver Gun and The Silver
+       Bullets`) — the objects' own article happens to be "The", lower-cased by
+       ToProper except the leading one.  New `to_proper`/`display_object_children`
+       helpers in `a5text.cpp`.
+    3. **`<cls>` screen-clear** — FIXED.  Anno 1700's `<Introduction>` ends with
+       `<cls>` (after `<waitkey>`/credits), which FrankenDrift.Headless handles by
+       clearing the buffer (`sb.Clear()`), so its entire credits/preamble is wiped
+       and the intro shows *nothing* post-clear.  `a5text_render_plain` now treats
+       `<cls>` as a buffer reset (mirroring GlkHtmlWin), making Anno 1700's start
+       byte-match FrankenDrift.  `<waitkey>` and other tags still drop.
+    4. **Location-view leading blank** — FIXED.  A v5 location view is prefixed
+       with a blank line (clsLocation.ViewLocation: `If Adventure.dVersion >= 5
+       Then sView = vbCrLf & sView`), so after a `> look` echo the room name has
+       a paragraph break.  `a5text_view_location` now emits a leading `\n`.
+    5. **`<DisplayOnce>` description segments** — FIXED.  Stone of Wisdom's start
+       room has an `AppendToPreviousDescription` segment with `<DisplayOnce>1`
+       (the "soft rain" line): shown at game start, suppressed on a later LOOK.
+       `a5state` now tracks displayed segment nodes (`disp_once`/`marking_display`)
+       and `a5text_eval_description` skips a seen DisplayOnce segment and retires
+       it only on real output (the location-view render sets `marking_display`,
+       mirroring clsDescription.ToString's Displayed flag gated on
+       `bTestingOutput`).  ReturnToDefault and non-location DisplayOnce uses are
+       still best-effort.
+  - **Earlier note — Start-room auto-LOOK** — FIXED.  Scarier rendered the start location
        ("Dead or Dreaming?") during the intro; FrankenDrift gates that on
        `Adventure.ShowFirstRoom` (XML `<ShowFirstLocation>`, default true), which
        Six Silver Bullets clears.  Added `a5_adventure_t.show_first_location`
@@ -510,6 +542,15 @@ ADRIFT text is full of embedded directives evaluated at display time:
         (`min`/`max`/`if`/`either`/`abs`/`upr`/`val`/`str`/`oneof`/comparison +
         logic ops …) is **not** ported — no shipped Six Silver Bullets / Anno
         1700 / Stone of Wisdom assignment uses it; add on demand.
+      - **Ground-truth diff vs FrankenDrift — DONE & GREEN.**  The
+        FrankenDrift.Headless reference is built (`dotnet build` under
+        `~/frankendrift`) and `test/a5_groundtruth.sh` drives it; **Anno 1700 and
+        Stone of Wisdom now diff to zero** and **Six Silver Bullets** only on the
+        RAND-selected intro variants.  Five real divergences found and fixed —
+        Before-default completion ordering, `ListObjectsOnAndIn`/
+        `DisplayObjectChildren` wording, `<cls>` screen-clear, v5 location-view
+        leading blank, and `<DisplayOnce>` segments (see the §8 list).  All three
+        games **ASan/UBSan-clean**; golden transcript regenerated.
       - **Still TODO**: characters/walks/conversation/topics; full UDF
         (`%FunctionName[args]%`) + array variables + the
         `SetToExpression` function library (see the arithmetic note above);
@@ -517,8 +558,9 @@ ADRIFT text is full of embedded directives evaluated at display time:
         ADRIFT Score/MaxScore status); "seen"/visibility
         (`HaveBeenSeen*`/`BeVisibleTo*` still approximated);
         DisplayMessage/SetLook sub-events (no-op/best-effort — unused by Six
-        Silver Bullets); and the ground-truth diff vs the official Runner /
-        frankendrift (no VB.NET build set up yet).
+        Silver Bullets); `<DisplayOnce>` ReturnToDefault + non-location
+        DisplayOnce uses (best-effort); and a deeper multi-turn / walkthrough
+        ground-truth pass (the harness now makes this cheap).
 - [ ] **P5 Resources & save**: blorb media via Glk; v5 XML save/restore; finish a
       full deterministic walkthrough of Six Silver Bullets.
 
