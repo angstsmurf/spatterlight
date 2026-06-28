@@ -88,6 +88,9 @@
 extern glui32 gli_determinism;
 extern int gli_sa_delays;
 
+/* Synthesised square-wave tone (glkimp/connect.c); used by agt_tone() below. */
+extern void win_beep_freq(int frequency, int millisecs);
+
 /*
  * True and false definitions -- usually defined in glkstart.h, but we need
  * them early, so we'll define them here too.  We also need NULL, but that's
@@ -343,12 +346,18 @@ gagt_debug (const char *function, const char *format, ...)
 /*
  * agt_tone()
  *
- * Produce a hz-Hertz sound for ms milliseconds.
+ * Produce a hz-Hertz sound for ms milliseconds.  The Tone(hz,ms) opcode is
+ * already gated engine-side by PURE_TONE && sound_on (token.c); the app gates
+ * playback further on theme.doSound.  We reuse the same synthesised square-wave
+ * BEEP path the ZX Spectrum tones ride.  This is non-blocking (the original DOS
+ * agt_tone blocked for the duration), but consecutive Tone calls are chained
+ * back-to-back by the app, which preserves AGT melodies.
  */
 void
 agt_tone (int hz, int ms)
 {
   gagt_debug ("agt_tone", "hz=%d, ms=%d", hz, ms);
+  win_beep_freq (hz, ms);
 }
 
 
@@ -6783,6 +6792,17 @@ gagt_startup_code (int argc, char *argv[])
 
   /* Make the mandatory call for initialization. */
   set_default_options ();
+
+  /*
+   * Enable the Tone(hz,ms) opcode.  PURE_TONE is the interface's "low-level
+   * tone supported" capability flag (only ever set by the -tone CLI option in
+   * the other ports); now that agt_tone() synthesises a square wave, advertise
+   * support here.  sound_on is the runtime on/off toggle exposed to the player
+   * as SOUND ON/OFF; default it on so tones play out of the box (the app gates
+   * actual playback on the user's sound preference, theme.doSound).
+   */
+  PURE_TONE = 1;
+  sound_on = 1;
 
   /* Handle command line arguments. */
   for (argv_index = 1;

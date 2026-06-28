@@ -445,6 +445,20 @@ void win_beep_zx(int pitch, int cycles)
     sendmsg(BEEP, 0, frequency, millisecs, 0, 0, 0, NULL);
 }
 
+/* Play a synthesised square-wave tone of a given frequency (Hz) held for a
+ * given length (ms). This is the AGT Tone(hz,ms) opcode, which (unlike the ZX
+ * Spectrum BEEPs above) already supplies frequency and duration directly, so no
+ * conversion is needed. It rides the same a1 == 0 square-wave synthesis path the
+ * app uses for the Spectrum BEEPs. */
+void win_beep_freq(int frequency, int millisecs)
+{
+    if (frequency <= 0 || millisecs <= 0)
+        return;
+
+    win_flush();
+    sendmsg(BEEP, 0, frequency, millisecs, 0, 0, 0, NULL);
+}
+
 
 void win_timer(int millisecs)
 {

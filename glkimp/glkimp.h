@@ -133,6 +133,8 @@ void win_beep(int type);
 void win_beep_spectrum(int pitch, int duration);
 // Accurate ZX Spectrum BEEP from ROM-beeper (pitch=HL, cycles=DE) values (Taylor)
 void win_beep_zx(int pitch, int cycles);
+// Synthesised square-wave tone at a given frequency (Hz) and length (ms) (AGiliTy)
+void win_beep_freq(int frequency, int millisecs);
 void win_timer(int millisecs);
 void win_select(event_t *event, int block);
 void win_flush(void);
