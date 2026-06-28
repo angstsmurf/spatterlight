@@ -123,6 +123,13 @@ typedef struct a5_state_s {
   const void **disp_once;
   int n_disp_once, cap_disp_once;
   int marking_display;
+
+  /* Set by a HaveRouteInDirection evaluation (a5restr pass_character) to the
+     blocked exit's *own* restriction <Message> when the exit exists but is
+     restriction-gated -- frankendrift's sRouteError, which overrides the
+     movement restriction's generic "There is no route..." text.  NULL when the
+     exit is open or simply absent.  Not owned (a DOM node). */
+  const a5_xml_node_t *route_error;
 } a5_state_t;
 
 extern a5_state_t *a5state_new  (const a5_adventure_t *adv);

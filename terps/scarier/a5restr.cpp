@@ -308,7 +308,8 @@ pass_location (a5_state_t *st, a5_restr_t *r)
 /* ------------------------------------------------------------ exit lookup */
 
 const char *
-a5restr_exit_in_direction (a5_state_t *st, const char *lockey, const char *dir)
+a5restr_exit_in_direction (a5_state_t *st, const char *lockey, const char *dir,
+                           const a5_xml_node_t **blocked_msg)
 {
   const a5_location_t *l;
   const a5_xml_node_t *c;
@@ -328,7 +329,11 @@ a5restr_exit_in_direction (a5_state_t *st, const char *lockey, const char *dir)
         continue;
       mr = a5xml_child (c, "Restrictions");
       if (mr != NULL && !a5restr_pass (st, mr))
-        continue;                       /* route blocked by its restriction */
+        {                               /* route blocked by its restriction */
+          if (blocked_msg != NULL)
+            *blocked_msg = a5restr_fail_message (st, mr);
+          continue;
+        }
       dest = a5xml_child_text (c, "Destination");
       return (dest != NULL && dest[0] != '\0') ? dest : NULL;
     }
@@ -418,9 +423,18 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     {
       const char *dir = a5parse_canonical_direction (k2);
       const char *cl = streq (k1, "Player") ? a5state_player_location (st) : cloc;
+      const a5_xml_node_t *blocked = NULL;
+      const char *exit;
       if (dir == NULL)
         dir = k2;             /* already canonical (e.g. bound ReferencedDirection) */
-      return cl != NULL && a5restr_exit_in_direction (st, cl, dir) != NULL;
+      /* sRouteError: clear, then capture the blocked exit's own message (if the
+         exit exists but is restriction-gated) so the deciding fail message
+         override below can prefer it over the generic "no route" text. */
+      st->route_error = NULL;
+      exit = (cl != NULL) ? a5restr_exit_in_direction (st, cl, dir, &blocked) : NULL;
+      if (exit == NULL && blocked != NULL)
+        st->route_error = blocked;
+      return exit != NULL;
     }
   if (streq (r->op, "BeInPosition"))
     {
@@ -832,7 +846,18 @@ eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
   }
 
   if (fail_node_out != NULL && !result && last_fail >= 0 && last_fail < n)
-    *fail_node_out = nodes[last_fail];
+    {
+      *fail_node_out = nodes[last_fail];
+      /* sRouteError override: keep st->route_error set only when the deciding
+         failing restriction is the HaveRouteInDirection one whose exit was
+         restriction-blocked (PassSingleRestriction: "If sRouteError <>
+         sRestrictionText AndAlso sRouteError <> ''").  The getter then prefers
+         it over the restriction's generic "There is no route..." message. */
+      if (!(st->route_error != NULL
+            && streq (rs[last_fail].type, "Character")
+            && streq (rs[last_fail].op, "HaveRouteInDirection")))
+        st->route_error = NULL;
+    }
 
   free (normbrackets);
   for (i = 0; i < n; i++)
@@ -846,7 +871,10 @@ const a5_xml_node_t *
 a5restr_fail_message (a5_state_t *st, const a5_xml_node_t *restrictions)
 {
   const a5_xml_node_t *fail_node = NULL;
+  st->route_error = NULL;
   eval_restrictions (st, restrictions, &fail_node);
+  if (st->route_error != NULL)
+    return st->route_error;             /* blocked-exit message wins */
   return fail_node ? a5xml_child (fail_node, "Message") : NULL;
 }
 

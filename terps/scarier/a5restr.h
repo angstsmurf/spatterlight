@@ -38,9 +38,15 @@ extern const a5_xml_node_t *a5restr_fail_message (a5_state_t *st,
  * `dir` ("SouthEast", "Up", ...), honouring the exit's own restrictions, or
  * NULL if there is no (passable) route.  The result may be a location key or a
  * location-group key (the caller resolves a group to a concrete room).
+ *
+ * When `blocked_msg` is non-NULL it is set to the blocking exit-restriction's
+ * <Message> node if the exit exists but its restriction fails (left untouched
+ * otherwise) -- frankendrift's sRouteError, which overrides the movement task's
+ * generic "There is no route..." message.
  */
 extern const char *a5restr_exit_in_direction (a5_state_t *st, const char *lockey,
-                                              const char *dir);
+                                              const char *dir,
+                                              const a5_xml_node_t **blocked_msg);
 
 /* Trace restriction evaluation to stderr (driven by the harness/A5_TRACE). */
 extern int a5restr_trace;

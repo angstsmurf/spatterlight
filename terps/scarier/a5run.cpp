@@ -1330,7 +1330,7 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
           const char *here = st->char_loc[ci];
           const char *dest;
           if (canon == NULL) canon = dir;   /* already canonical */
-          dest = here ? a5restr_exit_in_direction (st, here, canon) : NULL;
+          dest = here ? a5restr_exit_in_direction (st, here, canon, NULL) : NULL;
           if (dest != NULL)
             {
               /* destination may be a location group -> first member */

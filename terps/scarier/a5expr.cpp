@@ -532,7 +532,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           Ctx nc; nc.is_dirs = 1;
           if (cl != NULL)
             for (int i = 0; i < 12; i++)
-              if (a5restr_exit_in_direction (st, cl, kEnumDirs[i]) != NULL)
+              if (a5restr_exit_in_direction (st, cl, kEnumDirs[i], NULL) != NULL)
                 nc.dirs.push_back (kEnumDirs[i]);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }

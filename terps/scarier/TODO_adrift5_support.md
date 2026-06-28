@@ -894,6 +894,26 @@ ADRIFT text is full of embedded directives evaluated at display time:
         "...step into the reception." thereafter, matching FrankenDrift.  Anno diff
         54 → 52 hunks; full headless suite green; Stone of Wisdom clean;
         ASan/UBSan-clean across the corpus.
+      - **Blocked-exit message (sRouteError) overrides the generic "no route"**
+        — **DONE.**  A movement task's `Player Must HaveRouteInDirection
+        %direction%` restriction carries a generic `There is no route to the
+        %direction%, only %...%.` message.  But when the exit *exists* and is
+        gated by its own `<Movement><Restrictions>`, FrankenDrift surfaces that
+        exit-restriction's message instead (clsCharacter.HasRouteInDirection sets
+        sErrorMessage = the exit's sRestrictionText; PassSingleRestriction:
+        "If sRouteError <> sRestrictionText AndAlso sRouteError <> '' Then
+        sRestrictionText = sRouteError").  Ported: `a5restr_exit_in_direction`
+        gained an optional `blocked_msg` out-param (the blocked exit's deciding
+        `<Message>` node); `pass_character`'s HaveRouteInDirection sets
+        `a5_state_t.route_error` to it when the exit is present-but-blocked;
+        `eval_restrictions` keeps `route_error` only when the deciding failing
+        restriction *is* that HaveRouteInDirection; `a5restr_fail_message` then
+        prefers it.  Fixed Anno's `e` from the reception before introducing
+        yourself => "Maybe you should introduce yourself to your new employer
+        before going around exploring things. There'll be plenty of time for that
+        later." (was the generic "There is no route to the east, only ...").  Anno
+        diff 52 → 46 hunks; full headless suite green; Stone of Wisdom clean;
+        ASan/UBSan-clean across the corpus (incl. direction-spam soak).
       - **Remaining Anno divergences (~28 non-RNG, fine-grained; diminishing
         returns):** the bulk is now the **`You can't see any <plural>!` family**
         (lines like cannon/doors/pistols/threads/wine/trees), which all stem from
