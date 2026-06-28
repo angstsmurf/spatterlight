@@ -5,8 +5,11 @@
  * A port of the player-turn half of clsUserSession: GetGeneralTask (walk tasks
  * in priority order, match command, resolve references, refine by restrictions)
  * + ExecuteActions / ExecuteSingleAction (the core action set).  Reference
- * resolution (InputMatchesObject/Character) is the in-scope name match; full
- * disambiguation prompting is deferred to a later pass.
+ * resolution (InputMatchesObject/Character) is the in-scope name match, refined
+ * by the task's restrictions; when a reference still names several in-scope
+ * candidates it raises the "Which X?" disambiguation prompt and resolves the
+ * pick on the next turn (clsUserSession DisplayAmbiguityQuestion /
+ * ResolveAmbiguity / PossibleKeys).
  */
 
 #include <ctype.h>
@@ -54,6 +57,20 @@ struct a5_run_s {
   const a5_adventure_t *adv;
   a5_state_t *st;
   std::vector<int> *order;   /* task indices, ascending priority */
+
+  /* Pending general-reference disambiguation (clsUserSession sAmbTask /
+     NewReferences).  When amb_active, the previous turn matched a task whose
+     reference resolved to several in-scope candidates; the next input is first
+     tried as a clarifier (narrowing amb_keys) before being re-parsed as a fresh
+     command. */
+  int amb_active;
+  int amb_task_index;        /* the remembered task to re-run                  */
+  int amb_command_index;     /* which of its command patterns matched          */
+  std::string amb_input;     /* the original proper input (sLastProperInput)   */
+  std::string amb_ref_name;  /* the ambiguous reference ("object1", ...)       */
+  char amb_ref_type;         /* 'o' object / 'c' character                     */
+  std::string amb_word;      /* the noun echoed in "Which <word>?"             */
+  std::vector<std::string> amb_keys;   /* the surviving candidate keys         */
 };
 
 static int
@@ -79,6 +96,9 @@ a5run_new (const a5_adventure_t *adv)
   run->adv = adv;
   run->st = a5state_new (adv);
   run->order = new std::vector<int>;
+  run->amb_active = 0;
+  run->amb_task_index = run->amb_command_index = -1;
+  run->amb_ref_type = 'o';
   for (i = 0; i < adv->n_tasks; i++)
     run->order->push_back (i);
   /* TaskSorter: ascending Priority (lower value checked first). */
@@ -160,52 +180,96 @@ words_match (const std::vector<std::string> &allowed,
   return noun_hit;
 }
 
-/* Resolve object text -> key, preferring objects visible to the player. */
-static const char *
-resolve_object (a5_state_t *st, const std::string &text)
+/* Collect the matchable words of an object / character key, so the same
+   word-set drives both the initial match and the cross-turn clarifier. */
+static void
+object_words (const a5_object_t *o,
+              std::vector<std::string> &allowed, std::vector<std::string> &nouns)
 {
-  const char *vis = NULL, *any = NULL;
+  collect_words (o->article, o->prefix, o->names, o->n_names, allowed, nouns);
+}
+static void
+character_words (const a5_character_t *c,
+                 std::vector<std::string> &allowed, std::vector<std::string> &nouns)
+{
+  const char *one_name[1];
+  one_name[0] = c->name;
+  collect_words (c->article, c->prefix, one_name, c->name ? 1 : 0, allowed, nouns);
+  collect_words (NULL, NULL, c->descriptors, c->n_descriptors, allowed, nouns);
+}
+
+/* All object keys whose names match `text`, visible-to-the-player first; if any
+   visible candidate matched, the non-visible ones are dropped (mirrors
+   frankendrift's Visible-then-Seen scope narrowing).  The order is significant:
+   the first entry is the default pick when no disambiguation is needed. */
+static std::vector<const char *>
+resolve_object_candidates (a5_state_t *st, const std::string &text)
+{
+  std::vector<const char *> vis, any;
   const char *ploc = a5state_player_location (st);
-  int i;
-  for (i = 0; i < st->adv->n_objects; i++)
+  for (int i = 0; i < st->adv->n_objects; i++)
     {
       const a5_object_t *o = &st->adv->objects[i];
       std::vector<std::string> allowed, nouns;
-      collect_words (o->article, o->prefix, o->names, o->n_names, allowed, nouns);
+      object_words (o, allowed, nouns);
       if (!words_match (allowed, nouns, text))
         continue;
-      if (any == NULL)
-        any = o->key;
-      if (vis == NULL && ploc != NULL
-          && a5state_object_at_location (st, i, ploc, 0))
-        vis = o->key;
+      any.push_back (o->key);
+      if (ploc != NULL && a5state_object_at_location (st, i, ploc, 0))
+        vis.push_back (o->key);
     }
-  return vis ? vis : any;
+  return vis.empty () ? any : vis;
 }
 
-static const char *
-resolve_character (a5_state_t *st, const std::string &text)
+static std::vector<const char *>
+resolve_character_candidates (a5_state_t *st, const std::string &text)
 {
-  const char *vis = NULL, *any = NULL;
+  std::vector<const char *> vis, any;
   const char *ploc = a5state_player_location (st);
-  int i;
-  for (i = 0; i < st->adv->n_characters; i++)
+  for (int i = 0; i < st->adv->n_characters; i++)
     {
       const a5_character_t *c = &st->adv->characters[i];
-      const char *one_name[1];
       std::vector<std::string> allowed, nouns;
-      one_name[0] = c->name;
-      collect_words (c->article, c->prefix, one_name, c->name ? 1 : 0,
-                     allowed, nouns);
-      collect_words (NULL, NULL, c->descriptors, c->n_descriptors, allowed, nouns);
+      character_words (c, allowed, nouns);
       if (!words_match (allowed, nouns, text))
         continue;
-      if (any == NULL)
-        any = c->key;
-      if (vis == NULL && streq (st->char_loc[i], ploc))
-        vis = c->key;
+      any.push_back (c->key);
+      if (streq (st->char_loc[i], ploc))
+        vis.push_back (c->key);
     }
-  return vis ? vis : any;
+  return vis.empty () ? any : vis;
+}
+
+/* PossibleKeys: narrow a candidate list to those entities every word of the
+   clarifier input matches (clsUserSession.PossibleKeys).  "the" always matches. */
+static std::vector<std::string>
+possible_keys (a5_state_t *st, const std::vector<std::string> &keys,
+               const std::string &input, char type)
+{
+  std::vector<std::string> out;
+  std::vector<std::string> words = split_ws (input.c_str ());
+  for (auto &k : keys)
+    {
+      std::vector<std::string> allowed, nouns;
+      if (type == 'o')
+        { int oi = a5state_object_index (st, k.c_str ());
+          if (oi < 0) continue;
+          object_words (&st->adv->objects[oi], allowed, nouns); }
+      else
+        { int ci = a5state_character_index (st, k.c_str ());
+          if (ci < 0) continue;
+          character_words (&st->adv->characters[ci], allowed, nouns); }
+      int all = 1;
+      for (auto &w : words)
+        {
+          std::string lw = lower (w);
+          int found = (lw == "the");
+          for (auto &a : allowed) if (a == lw) { found = 1; break; }
+          if (!found) { all = 0; break; }
+        }
+      if (all) out.push_back (k);
+    }
+  return out;
 }
 
 /*
@@ -242,43 +306,148 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
   if (base == "characters") bind ("ReferencedCharacters");
 }
 
-/* Resolve every captured reference; 0 if any object/character/direction is
-   unresolvable (so the caller tries the next command/task). */
-static int
-resolve_refs (a5_state_t *st, const a5_match_t *m)
+/* The "Which <word>?" noun: the first word of the typed reference text that
+   names every candidate (clsUserSession.AmbWord); falls back to the raw text. */
+static std::string
+amb_word (a5_state_t *st, const std::vector<std::string> &keys,
+          const std::string &ref_text, char type)
 {
-  int i;
-  a5state_clear_refs (st);
-  for (i = 0; i < m->n_refs; i++)
+  for (auto &w : split_ws (ref_text.c_str ()))
     {
-      std::string name = m->ref_name[i];
-      std::string text = m->ref_text[i];
-      std::string base = name;
+      std::string lw = lower (w);
+      int in_all = 1;
+      for (auto &k : keys)
+        {
+          std::vector<std::string> allowed, nouns;
+          if (type == 'o')
+            { int oi = a5state_object_index (st, k.c_str ());
+              if (oi < 0) { in_all = 0; break; }
+              object_words (&st->adv->objects[oi], allowed, nouns); }
+          else
+            { int ci = a5state_character_index (st, k.c_str ());
+              if (ci < 0) { in_all = 0; break; }
+              character_words (&st->adv->characters[ci], allowed, nouns); }
+          int hit = 0;
+          for (auto &n : nouns) if (n == lw) { hit = 1; break; }
+          if (!hit) { in_all = 0; break; }
+        }
+      if (in_all) return lw;
+    }
+  return lower (ref_text);
+}
+
+/* Outcome of resolve_refine. */
+enum { RR_NOMATCH = 0, RR_OK, RR_FAIL, RR_AMBIG };
+
+/* What the caller needs to raise (or carry forward) a disambiguation prompt. */
+struct amb_info {
+  std::string ref_name;          /* "object1", "character1", ...              */
+  char        type;              /* 'o' / 'c'                                 */
+  std::string ref_text;          /* the captured reference text typed         */
+  std::vector<std::string> keys; /* surviving candidate keys                  */
+};
+
+/*
+ * Resolve a matched command's references in scope, refining ambiguous
+ * object/character references by the task's own restrictions, mirroring
+ * clsUserSession.RefineMatchingPossibilitesUsingRestrictions + the post-refine
+ * ambiguity check (GetGeneralTask).  Each reference is bound (first surviving
+ * candidate) so restriction/action evaluation can read it.
+ *
+ *   RR_NOMATCH  a reference named nothing in scope -> try the next task
+ *   RR_OK       every reference resolved uniquely and restrictions pass
+ *   RR_FAIL     restrictions fail for the (uniquely) resolved references
+ *   RR_AMBIG    a reference still has >1 candidate -> *amb describes it
+ *
+ * `force_name`/`force_key`: when re-running a remembered task to resolve a
+ * pending ambiguity, pin that reference to the chosen key.
+ */
+static int
+resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
+                const char *force_name, const char *force_key, amb_info *amb)
+{
+  a5_state_t *st = run->st;
+  struct rref { std::string name, text; char type; std::vector<std::string> keys; };
+  std::vector<rref> refs;
+
+  a5state_clear_refs (st);
+
+  /* Pass 1: gather candidates and bind the default (first) of each. */
+  for (int i = 0; i < m->n_refs; i++)
+    {
+      rref r;
+      r.name = m->ref_name[i];
+      r.text = m->ref_text[i];
+      std::string base = r.name;
       while (!base.empty () && isdigit ((unsigned char) base.back ()))
         base.pop_back ();
 
       if (base == "object" || base == "objects" || base == "item")
-        {
-          const char *k = resolve_object (st, text);
-          if (k == NULL) return 0;
-          bind_reference (st, name.c_str (), k, text.c_str ());
-        }
+        r.type = 'o';
       else if (base == "character" || base == "characters")
-        {
-          const char *k = resolve_character (st, text);
-          if (k == NULL) return 0;
-          bind_reference (st, name.c_str (), k, text.c_str ());
-        }
+        r.type = 'c';
       else if (base == "direction")
-        {
-          const char *d = a5parse_canonical_direction (text.c_str ());
-          if (d == NULL) return 0;
-          bind_reference (st, name.c_str (), d, text.c_str ());
-        }
+        { const char *d = a5parse_canonical_direction (r.text.c_str ());
+          if (d == NULL) return RR_NOMATCH;
+          bind_reference (st, r.name.c_str (), d, r.text.c_str ());
+          continue; }
       else /* text, number, location */
-        bind_reference (st, name.c_str (), text.c_str (), text.c_str ());
+        { bind_reference (st, r.name.c_str (), r.text.c_str (), r.text.c_str ());
+          continue; }
+
+      if (force_name != NULL && r.name == force_name)
+        r.keys.assign (1, force_key);
+      else
+        {
+          std::vector<const char *> c = (r.type == 'o')
+            ? resolve_object_candidates (st, r.text)
+            : resolve_character_candidates (st, r.text);
+          if (c.empty ())
+            return RR_NOMATCH;
+          for (const char *k : c) r.keys.push_back (k);
+        }
+      bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
+      refs.push_back (r);
     }
-  return 1;
+
+  /* Pass 2: refine each ambiguous reference by the task's restrictions, keeping
+     only candidates that pass (others bound to their current first).  Mirrors
+     RefineMatchingPossibilitesUsingRestrictions for the single-ambiguous-ref
+     case; interacting multi-ref ambiguity is approximated independently. */
+  for (auto &r : refs)
+    {
+      if (r.keys.size () <= 1)
+        continue;
+      std::vector<std::string> pass;
+      for (auto &k : r.keys)
+        {
+          bind_reference (st, r.name.c_str (), k.c_str (), r.text.c_str ());
+          if (a5restr_pass (st, t->restrictions))
+            pass.push_back (k);
+        }
+      if (pass.empty ())
+        {
+          /* restrictions eliminate every candidate: a genuine failure.  Bind
+             the first so the fail message renders against a real entity. */
+          bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
+          return RR_FAIL;
+        }
+      r.keys.swap (pass);
+      bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
+    }
+
+  /* A still-ambiguous reference -> prompt. */
+  for (auto &r : refs)
+    if (r.keys.size () > 1)
+      {
+        if (amb != NULL)
+          { amb->ref_name = r.name; amb->type = r.type;
+            amb->ref_text = r.text; amb->keys = r.keys; }
+        return RR_AMBIG;
+      }
+
+  /* Unique references: confirm the whole restriction set passes. */
+  return a5restr_pass (st, t->restrictions) ? RR_OK : RR_FAIL;
 }
 
 /* ----------------------------------------------------------- action helpers */
@@ -378,7 +547,7 @@ static void run_action (a5_run_t *run, const char *kind, const char *body,
 struct ref_info { char type; const char *key; };   /* 'o'/'c'/'d'/'t'/'n'/'l' */
 
 /* Recompute the ordered, resolved references for a matched command, using the
-   bindings resolve_refs already established this turn. */
+   bindings resolve_refine already established this turn. */
 static std::vector<ref_info>
 collect_refs (a5_state_t *st, const a5_match_t *m)
 {
@@ -808,6 +977,121 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
     }
 }
 
+/* ------------------------------------------------------ disambiguation prompt */
+
+/* An entity's definite display name ("the Yellow Note" / a character's name). */
+static std::string
+entity_def_name (a5_state_t *st, const std::string &key, char type)
+{
+  if (type == 'o')
+    {
+      int oi = a5state_object_index (st, key.c_str ());
+      if (oi >= 0)
+        { char *n = a5text_object_name (&st->adv->objects[oi], A5_ART_DEFINITE);
+          std::string s = n ? n : ""; free (n); return s; }
+    }
+  else
+    {
+      int ci = a5state_character_index (st, key.c_str ());
+      if (ci >= 0 && st->adv->characters[ci].name)
+        return st->adv->characters[ci].name;
+    }
+  return key;
+}
+
+/* "Which <word>?  The a, the b or the c."  Mirrors DisplayAmbiguityQuestion:
+   the candidate list uses definite names joined ", "/" or ", run through ToProper
+   (capitalise the first letter, lower-case the rest), with pSpace's two spaces. */
+static std::string
+build_amb_prompt (a5_state_t *st, const std::string &word,
+                  const std::vector<std::string> &keys, char type)
+{
+  std::string list;
+  for (size_t i = 0; i < keys.size (); i++)
+    {
+      if (i > 0)
+        list += (i + 1 == keys.size ()) ? " or " : ", ";
+      list += entity_def_name (st, keys[i], type);
+    }
+  for (char &c : list) c = (char) tolower ((unsigned char) c);   /* ToProper rest */
+  if (!list.empty ()) list[0] = (char) toupper ((unsigned char) list[0]);
+  return "Which " + word + "?  " + list + ".";
+}
+
+/* Re-run the remembered task with its ambiguous reference pinned to `chosen`;
+   returns 1 if it ran (RR_OK). */
+static int
+run_remembered (a5_run_t *run, const char *chosen, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  if (run->amb_task_index < 0)
+    return 0;
+  const a5_task_t *t = &run->adv->tasks[run->amb_task_index];
+  a5_match_t m;
+  if (!a5parse_match_command (t->commands[run->amb_command_index],
+                              run->amb_input.c_str (), &m))
+    return 0;
+  if (resolve_refine (run, t, &m, run->amb_ref_name.c_str (), chosen, NULL) != RR_OK)
+    return 0;
+  run_general (run, t, &m, out);
+  st->task_done[run->amb_task_index] = 1;
+  return 1;
+}
+
+/* Scan general tasks for `in`.  Runs (and returns 1) on the first unique passing
+   match.  Otherwise returns 0, recording -- for the caller to act on after the
+   scan -- the first ambiguity (*have_amb/*amb/*amb_ti/*amb_ci) and the first
+   restriction-failure message (*have_fail/*fail_text). */
+static int
+scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
+            int *have_amb, amb_info *amb, int *amb_ti, int *amb_ci,
+            int *have_fail, std::string *fail_text)
+{
+  a5_state_t *st = run->st;
+  for (size_t oi = 0; oi < run->order->size (); oi++)
+    {
+      int ti = (*run->order)[oi];
+      const a5_task_t *t = &run->adv->tasks[ti];
+      if (!streq (t->type, "General"))
+        continue;
+      if (st->task_done[ti] && !t->repeatable)
+        continue;
+
+      for (int ci = 0; ci < t->n_commands; ci++)
+        {
+          a5_match_t m;
+          amb_info this_amb;
+          if (!a5parse_match_command (t->commands[ci], in.c_str (), &m))
+            continue;
+          int r = resolve_refine (run, t, &m, NULL, NULL, &this_amb);
+          if (r == RR_NOMATCH)
+            continue;
+          if (a5run_trace)
+            fprintf (stderr, "[match task %s cmd \"%s\" -> %d]\n",
+                     t->key, t->commands[ci], r);
+          if (r == RR_OK)
+            {
+              run_general (run, t, &m, out);
+              st->task_done[ti] = 1;
+              return 1;
+            }
+          if (r == RR_AMBIG && !*have_amb)
+            { *have_amb = 1; *amb = this_amb; *amb_ti = ti; *amb_ci = ci; }
+          if (r == RR_FAIL && !*have_fail)
+            {
+              /* Render now, while this task's reference bindings are still live
+                 (a later resolve_refine would clear them). */
+              const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
+              if (fm != NULL)
+                { char *fmsg = a5text_describe (st, fm);
+                  *fail_text = fmsg; free (fmsg); *have_fail = 1; }
+            }
+          /* command matched but did not resolve to a unique pass: keep scanning */
+        }
+    }
+  return 0;
+}
+
 /* --------------------------------------------------------------- public turn */
 
 char *
@@ -832,7 +1116,8 @@ a5run_input (a5_run_t *run, const char *line)
   sb_t out;
   std::string in = lower (line ? line : "");
   std::string fail_text;
-  int have_fail = 0;
+  int have_fail = 0, have_amb = 0, amb_ti = -1, amb_ci = -1;
+  amb_info amb;
 
   sb_init (&out);
   /* trim */
@@ -844,45 +1129,47 @@ a5run_input (a5_run_t *run, const char *line)
   if (in.empty ())
     return sb_take (&out);
 
-  for (size_t oi = 0; oi < run->order->size (); oi++)
+  /* Pending disambiguation (clsUserSession.ResolveAmbiguity): try `in` as a
+     clarifier first -- if it narrows the remembered candidates to exactly one,
+     re-run the remembered task with that pick.  Otherwise fall through and let
+     `in` be parsed as a fresh command; only if nothing runs do we re-prompt. */
+  if (run->amb_active)
     {
-      int ti = (*run->order)[oi];
-      const a5_task_t *t = &run->adv->tasks[ti];
-      if (!streq (t->type, "General"))
-        continue;
-      if (st->task_done[ti] && !t->repeatable)
-        continue;
+      std::vector<std::string> narrowed =
+        possible_keys (st, run->amb_keys, in, run->amb_ref_type);
+      if (narrowed.size () == 1
+          && run_remembered (run, narrowed[0].c_str (), &out))
+        { run->amb_active = 0; return sb_take (&out); }
+      if (narrowed.size () > 1)            /* a partial narrowing: keep progress */
+        run->amb_keys = narrowed;
+    }
 
-      for (int ci = 0; ci < t->n_commands; ci++)
-        {
-          a5_match_t m;
-          if (!a5parse_match_command (t->commands[ci], in.c_str (), &m))
-            continue;
-          if (!resolve_refs (st, &m))
-            continue;
-          if (a5run_trace)
-            fprintf (stderr, "[match task %s cmd \"%s\"]\n", t->key, t->commands[ci]);
-          if (a5restr_pass (st, t->restrictions))
-            {
-              run_general (run, t, &m, &out);
-              st->task_done[ti] = 1;
-              return sb_take (&out);
-            }
-          if (!have_fail)
-            {
-              /* Render now, while this task's reference bindings are still live
-                 (a later resolve_refs would clear them). */
-              const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
-              if (fm != NULL)
-                {
-                  char *m = a5text_describe (st, fm);
-                  fail_text = m;
-                  free (m);
-                  have_fail = 1;
-                }
-            }
-          /* command matched but restrictions failed: keep scanning */
-        }
+  if (scan_tasks (run, in, &out, &have_amb, &amb, &amb_ti, &amb_ci,
+                  &have_fail, &fail_text))
+    { run->amb_active = 0; return sb_take (&out); }
+
+  if (have_amb)
+    {
+      /* Remember the ambiguity and prompt; the next turn resolves it. */
+      run->amb_active = 1;
+      run->amb_task_index = amb_ti;
+      run->amb_command_index = amb_ci;
+      run->amb_input = in;
+      run->amb_ref_name = amb.ref_name;
+      run->amb_ref_type = amb.type;
+      run->amb_word = amb_word (st, amb.keys, amb.ref_text, amb.type);
+      run->amb_keys = amb.keys;
+      sb_puts (&out,
+               build_amb_prompt (st, run->amb_word, amb.keys, amb.type).c_str ());
+      return sb_take (&out);
+    }
+
+  if (run->amb_active)
+    {
+      /* A clarifier that neither resolved nor ran a fresh command: re-prompt. */
+      sb_puts (&out, build_amb_prompt (st, run->amb_word, run->amb_keys,
+                                       run->amb_ref_type).c_str ());
+      return sb_take (&out);
     }
 
   if (have_fail)

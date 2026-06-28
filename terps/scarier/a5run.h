@@ -11,8 +11,9 @@
  * and prints its completion message, else surfaces the first failing
  * restriction's message.  Movement, take/drop, open and examine work.
  *
- * Mirrors clsUserSession.EvaluateInput / GetGeneralTask / ExecuteActions; the
- * full event/character/walk/score machinery is Phase 4.
+ * Mirrors clsUserSession.EvaluateInput / GetGeneralTask / ExecuteActions,
+ * including general-reference disambiguation ("Which X?" + cross-turn clarifier);
+ * the full event/character/walk/score machinery is the rest of Phase 4.
  */
 
 #ifndef SCARIER_A5RUN_H

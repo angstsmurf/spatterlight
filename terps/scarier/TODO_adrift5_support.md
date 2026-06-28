@@ -362,16 +362,46 @@ ADRIFT text is full of embedded directives evaluated at display time:
         the evaluated argument keys, so the stock "take from others lazy" →
         "take from others" re-dispatch resolves `%object2%` (the container) and
         prints "from the table".  `MoveObject ToSameLocationAs` (drop) added.
+      - **General-reference disambiguation** — DONE
+        (`a5run.cpp resolve_refine`/`scan_tasks`/`run_remembered` +
+        `possible_keys`/`amb_word`/`build_amb_prompt`).  Ports
+        clsUserSession.RefineMatchingPossibilitesUsingRestrictions + the
+        GetGeneralTask ambiguity check + DisplayAmbiguityQuestion /
+        ResolveAmbiguity / PossibleKeys:
+        - a reference now gathers **all** in-scope candidates (visible-first),
+          which the task's own restrictions then refine (a candidate that fails
+          the restrictions is dropped — so "take key" with one key already held
+          resolves to the other **without** a prompt);
+        - a still-multiple reference raises `Which <word>?  The a, the b or
+          the c.` (AmbWord = the common typed noun; the definite-name list joined
+          ", "/" or " through ToProper, with pSpace's two spaces) and remembers
+          the task;
+        - the next turn is tried as a **clarifier** first (PossibleKeys narrows
+          the remembered candidates — "brass" → the brass key), then, failing
+          that, as a fresh command (so "look" interrupts a pending prompt), and
+          re-prompts if neither resolves.
+        Validated by `test/a5_disambig_test.cpp` — a **self-contained synthetic
+        v5 adventure** (built as in-memory XML, run through the real
+        a5xml/a5model/a5run pipeline; no game data) covering the prompt wording,
+        clarifier resolution, fresh-command interrupt, and restriction-based
+        refinement — wired into `make -f Makefile.headless test` as `a5distest`.
+        **ASan/UBSan-clean.**  NOTE: in Six Silver Bullets the natural ambiguity
+        rooms (The Bar's two signs, The Hamlet's five houses) are shadowed under
+        the deterministic seed by a `Roller==1` catch-all task (`*`) — faithful,
+        since the official Runner would also fire it whenever its RAND lands on 1
+        (the prompt is confirmed reached: `ExamineObjects` returns the ambiguity
+        before the catch-all runs).  Routing v5 RAND through the shared
+        `erkyrath_random` (open item #5) would deconflict it.
       - **Validated**: `test/a5_bullets_script.txt` → `test/a5_bullets_expected.txt`
         golden transcript (wake/look/examine table+note/take/inventory/drop),
         wired into `make -f Makefile.headless test` as `a5runtest` (skips if the
         game file is absent — it can't be checked in).  Movement + intros for
         Anno 1700 and Stone of Wisdom remain clean (no raw `%…%`/`.Prop` tokens).
         **ASan/UBSan-clean** on all three games.
-      - **Still TODO**: general-reference disambiguation prompt (still first
-        in-scope match); events/timers; characters/walks/conversation/topics;
+      - **Still TODO**: events/timers; characters/walks/conversation/topics;
         full UDF (`%FunctionName[args]%`) + array variables; scoring; "seen"/
-        visibility (`HaveBeenSeen*`/`BeVisibleTo*` still approximated); and the
+        visibility (`HaveBeenSeen*`/`BeVisibleTo*` still approximated); routing
+        v5 RAND through `erkyrath_random` for determinism (#5); and the
         ground-truth diff vs the official Runner / frankendrift (no VB.NET build
         set up yet — the lazy-take `(from you)` parenthetical is plausibly
         faithful but unverified).
