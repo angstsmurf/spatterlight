@@ -883,6 +883,17 @@ ADRIFT text is full of embedded directives evaluated at display time:
         corroded skeleton key.").  Anno diff 58 → 54 hunks; Six Silver Bullets
         golden + a5parse/a5arith/a5distest/walk unchanged; Stone of Wisdom clean;
         ASan/UBSan-clean across the 15-game corpus.
+      - **CompletionMessage `<DisplayOnce>` retirement** — **DONE.**
+        `emit_completion` rendered completion messages without setting
+        `marking_display`, so a multi-segment CompletionMessage whose first
+        segment is `<DisplayOnce>1` showed the first-visit text *every* time
+        instead of retiring it (clsDescription.ToString marks `Displayed` on real
+        output, `bTestingOutput=False`).  Now renders under `marking_display` like
+        `a5text_view_location`.  Fixed Anno's MovingFrom5: `open door`
+        (porch→reception) says "...step into the hotel." only the first time, then
+        "...step into the reception." thereafter, matching FrankenDrift.  Anno diff
+        54 → 52 hunks; full headless suite green; Stone of Wisdom clean;
+        ASan/UBSan-clean across the corpus.
       - **Remaining Anno divergences (~28 non-RNG, fine-grained; diminishing
         returns):** the bulk is now the **`You can't see any <plural>!` family**
         (lines like cannon/doors/pistols/threads/wine/trees), which all stem from

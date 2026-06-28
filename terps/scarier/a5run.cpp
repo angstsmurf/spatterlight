@@ -1553,7 +1553,16 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
 static void
 emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
 {
+  /* A completion message is real output, so its <DisplayOnce> segments must be
+     retired after the first show (clsDescription.ToString marks Displayed when
+     bTestingOutput is false) -- otherwise the first-visit segment shows every
+     time.  Mirror a5text_view_location: render under marking_display.  Fixes
+     Anno's MovingFrom5 ("step into the hotel" once, "step into the reception"
+     thereafter). */
+  int prev_mark = run->st->marking_display;
+  run->st->marking_display = 1;
   char *m = a5text_describe (run->st, comp);
+  run->st->marking_display = prev_mark;
   size_t n = strlen (m);
   while (n > 0 && (m[n - 1] == '\n' || m[n - 1] == '\r'
                    || m[n - 1] == ' ' || m[n - 1] == '\t'))
