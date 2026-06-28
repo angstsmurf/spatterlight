@@ -122,6 +122,8 @@ a5_load_locations (a5_adventure_t *a)
     }
 }
 
+static void a5_load_walks (a5_character_t *ch);   /* defined below the helpers */
+
 /* Parse a character's <Topic> children (clsTopic / FileIO topic load).  The
    first direct <Description> child is the reply; <Restrictions>/<Actions> are
    the topic-level gating block and action list. */
@@ -183,6 +185,7 @@ a5_load_characters (a5_adventure_t *a)
       ch->descriptors = a5_collect_text (c, "Descriptor", &ch->n_descriptors);
       ch->props = a5_collect_props (c, &ch->n_props);
       a5_load_topics (ch);
+      a5_load_walks (ch);
     }
 }
 
@@ -311,6 +314,155 @@ a5_parse_ctrl (const char *s)
   return A5_CTRL_START;
 }
 
+/* Parse one <Control>/<Control> body ("Start Completion TaskKey") into *cc
+   (EventOrWalkControl, shared by events and walks).  The task key aliases the
+   final, NUL-terminated token of `text`, so it stays valid as long as the DOM. */
+static void
+a5_parse_control_text (const char *text, a5_eventctrl_t *cc)
+{
+  const char *t = text ? text : "";
+  const char *p = t, *toks[3]; int nt = 0;
+  char buf[64]; int n;
+  while (*p == ' ') p++;
+  while (*p && nt < 3)
+    {
+      toks[nt++] = p;
+      while (*p && *p != ' ') p++;
+      while (*p == ' ') p++;
+    }
+  if (nt >= 1)
+    {
+      n = 0;
+      while (toks[0][n] && toks[0][n] != ' ' && n < 63) { buf[n] = toks[0][n]; n++; }
+      buf[n] = '\0';
+      cc->control = a5_parse_ctrl (buf);
+    }
+  cc->on_completion = 1;
+  if (nt >= 2)
+    cc->on_completion = (strncmp (toks[1], "UnCompletion", 12) != 0);
+  if (nt >= 3)
+    cc->task_key = toks[2];
+}
+
+/* EnumParseSubEventWhat: the <What> override on an event SubEvent. */
+static a5_se_what_t
+a5_parse_se_what_elem (const char *s)
+{
+  if (s != NULL && strcmp (s, "SetLook") == 0)     return A5_SE_SETLOOK;
+  if (s != NULL && strcmp (s, "ExecuteTask") == 0) return A5_SE_EXECTASK;
+  if (s != NULL && strcmp (s, "UnsetTask") == 0)   return A5_SE_UNSETTASK;
+  return A5_SE_DISPLAY;
+}
+
+static a5_sw_when_t
+a5_parse_sw_when (const char *s)
+{
+  if (s != NULL && strcmp (s, "FromStartOfWalk") == 0) return A5_SW_FROM_START;
+  if (s != NULL && strcmp (s, "BeforeEndOfWalk") == 0) return A5_SW_BEFORE_END;
+  return A5_SW_FROM_LAST;
+}
+
+static a5_sw_what_t
+a5_parse_sw_what (const char *s)
+{
+  if (s != NULL && strcmp (s, "ExecuteTask") == 0) return A5_SW_EXECTASK;
+  if (s != NULL && strcmp (s, "UnsetTask") == 0)   return A5_SW_UNSETTASK;
+  return A5_SW_DISPLAY;
+}
+
+/* Parse one <Walk> body (clsWalk: FileIO.vb:1799-1865). */
+static void
+a5_parse_walk (a5_walk_t *w, const char *char_key, const a5_xml_node_t *c)
+{
+  const char *loops = a5xml_child_text (c, "Loops");
+  const char *active = a5xml_child_text (c, "StartActive");
+  const a5_xml_node_t *ch;
+  int si = 0, ki = 0, pi = 0;
+
+  w->char_key = char_key;
+  w->description = a5xml_child_text (c, "Description");
+  w->loops = (loops != NULL && strcmp (loops, "1") == 0);
+  w->start_active = (active != NULL && strcmp (active, "1") == 0);
+
+  w->n_steps    = a5xml_count (c, "Step");
+  w->n_controls = a5xml_count (c, "Control");
+  w->n_subwalks = a5xml_count (c, "Activity");
+  if (w->n_steps > 0)
+    w->steps = (a5_walkstep_t *) calloc ((size_t) w->n_steps, sizeof *w->steps);
+  if (w->n_controls > 0)
+    w->controls = (a5_eventctrl_t *) calloc ((size_t) w->n_controls, sizeof *w->controls);
+  if (w->n_subwalks > 0)
+    w->subwalks = (a5_subwalk_t *) calloc ((size_t) w->n_subwalks, sizeof *w->subwalks);
+
+  for (ch = c->first_child; ch != NULL; ch = ch->next)
+    {
+      if (strcmp (ch->name, "Step") == 0)
+        {
+          /* "Player 1" or "cl_Foo 1 To 3" -> destination key, duration range.
+             The key is the first space-delimited token; parse the duration from
+             the rest, then truncate the (in-situ DOM) text so location aliases
+             just the key (the Step text is read nowhere else). */
+          a5_walkstep_t *st = &w->steps[pi++];
+          char *t = (char *) (ch->text ? ch->text : "");
+          char *sp = strchr (t, ' ');
+          a5_parse_range (sp ? sp + 1 : NULL, &st->ft_from, &st->ft_to);
+          if (sp != NULL) *sp = '\0';
+          st->location = t;
+        }
+      else if (strcmp (ch->name, "Control") == 0)
+        a5_parse_control_text (ch->text, &w->controls[ki++]);
+      else if (strcmp (ch->name, "Activity") == 0)
+        {
+          a5_subwalk_t *sw = &w->subwalks[si++];
+          const char *when = a5xml_child_text (ch, "When");
+          a5_xml_node_t *act = a5xml_child (ch, "Action");
+          if (when != NULL && strncmp (when, "ComesAcross", 11) == 0)
+            {
+              /* "ComesAcross %Player%" -> come_key (the subject met). */
+              const char *sp = strchr (when, ' ');
+              sw->when = A5_SW_COMES_ACROSS;
+              if (sp != NULL) sw->come_key = sp + 1;
+            }
+          else
+            {
+              a5_parse_range (when, &sw->ft_from, &sw->ft_to);
+              sw->when = a5_parse_sw_when (a5_last_token (when));
+            }
+          if (act != NULL)
+            {
+              if (a5xml_child (act, "Description") != NULL)
+                { sw->what = A5_SW_DISPLAY; sw->description = act; }
+              else
+                {
+                  /* "ExecuteTask cl_Foo" -> what, sKey2. */
+                  const char *txt = act->text ? act->text : "";
+                  const char *sp = strchr (txt, ' ');
+                  char wbuf[32]; int n = 0;
+                  while (txt[n] && txt[n] != ' ' && n < 31) { wbuf[n] = txt[n]; n++; }
+                  wbuf[n] = '\0';
+                  sw->what = a5_parse_sw_what (wbuf);
+                  if (sp != NULL) sw->task_key = sp + 1;
+                }
+            }
+          sw->only_apply_at = a5xml_child_text (ch, "OnlyApplyAt");   /* sKey3 */
+        }
+    }
+}
+
+static void
+a5_load_walks (a5_character_t *ch)
+{
+  const a5_xml_node_t *c;
+  int i = 0;
+  ch->n_walks = a5xml_count (ch->node, "Walk");
+  if (ch->n_walks == 0)
+    return;
+  ch->walks = (a5_walk_t *) calloc ((size_t) ch->n_walks, sizeof *ch->walks);
+  for (c = ch->node->first_child; c != NULL; c = c->next)
+    if (strcmp (c->name, "Walk") == 0)
+      a5_parse_walk (&ch->walks[i++], ch->key, c);
+}
+
 /* Decode the parsed-enum / range fields of one <Event> (clsEvent FileIO load). */
 static void
 a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
@@ -341,40 +493,13 @@ a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
   for (ch = c->first_child; ch != NULL; ch = ch->next)
     {
       if (strcmp (ch->name, "Control") == 0)
-        {
-          /* "Start Completion Gamestart" -> control, completion flag, key. */
-          const char *t = ch->text ? ch->text : "";
-          char buf[64]; int n = 0;
-          a5_eventctrl_t *cc = &e->controls[ki++];
-          const char *p = t, *toks[3]; int nt = 0;
-          /* split into up to 3 tokens by spaces, aliasing where possible */
-          while (*p == ' ') p++;
-          while (*p && nt < 3)
-            {
-              toks[nt++] = p;
-              while (*p && *p != ' ') p++;
-              while (*p == ' ') p++;
-            }
-          /* control enum (token 0), completion (token 1), task key (token 2) */
-          if (nt >= 1)
-            {
-              n = 0;
-              while (toks[0][n] && toks[0][n] != ' ' && n < 63) { buf[n] = toks[0][n]; n++; }
-              buf[n] = '\0';
-              cc->control = a5_parse_ctrl (buf);
-            }
-          cc->on_completion = 1;
-          if (nt >= 2)
-            cc->on_completion = (strncmp (toks[1], "UnCompletion", 12) != 0);
-          /* The task key is the final token, which runs to the NUL-terminated
-             end of the <Control> text, so it can alias directly. */
-          if (nt >= 3)
-            cc->task_key = toks[2];
-        }
+        a5_parse_control_text (ch->text, &e->controls[ki++]);
       else if (strcmp (ch->name, "SubEvent") == 0)
         {
           a5_subevent_t *se = &e->subevents[si++];
           const char *when = a5xml_child_text (ch, "When");
+          const char *what_elem = a5xml_child_text (ch, "What");
+          const char *only = a5xml_child_text (ch, "OnlyApplyAt");
           a5_xml_node_t *act = a5xml_child (ch, "Action");
           a5_parse_range (when, &se->ft_from, &se->ft_to);
           se->when = a5_parse_se_when (a5_last_token (when));
@@ -396,6 +521,13 @@ a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
                     se->key = sp + 1;
                 }
             }
+          /* The <What> element overrides the action-derived kind, and for a
+             DisplayMessage/SetLook the location/group gate is <OnlyApplyAt>
+             (FileIO.vb:1722-1723: se.eWhat / se.sKey). */
+          if (what_elem != NULL)
+            se->what = a5_parse_se_what_elem (what_elem);
+          if (only != NULL)
+            se->key = only;
         }
     }
 }
@@ -638,9 +770,17 @@ a5model_free (a5_adventure_t *a)
     free (a->locations[i].props);
   for (i = 0; i < a->n_characters; i++)
     {
+      int w;
       free ((void *) a->characters[i].descriptors);
       free (a->characters[i].props);
       free (a->characters[i].topics);
+      for (w = 0; w < a->characters[i].n_walks; w++)
+        {
+          free (a->characters[i].walks[w].steps);
+          free (a->characters[i].walks[w].subwalks);
+          free (a->characters[i].walks[w].controls);
+        }
+      free (a->characters[i].walks);
     }
   for (i = 0; i < a->n_tasks; i++)
     {

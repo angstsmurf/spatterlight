@@ -181,7 +181,68 @@ a5state_free (a5_state_t *st)
   free (st->var_text);
   free (st->task_done);
   free (st->disp_once);
+  for (i = 0; i < st->n_looks; i++)
+    { free (st->looks[i].loc_key); free (st->looks[i].text); }
+  free (st->looks);
   free (st);
+}
+
+/* ----------------------------------------------------- group/location gate */
+
+int
+a5state_in_group_or_location (const a5_state_t *st, const char *charkey,
+                              const char *key)
+{
+  const char *cloc;
+  int ci, i;
+  if (key == NULL || key[0] == '\0')
+    return 0;
+  ci = a5state_character_index (st, charkey ? charkey : "Player");
+  cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
+  if (cloc == NULL)
+    return 0;
+  /* A location key: the character is at exactly that location. */
+  if (a5model_location (st->adv, key) != NULL)
+    return streq (cloc, key);
+  /* A group key: the character's location is one of its members. */
+  for (i = 0; i < st->adv->n_groups; i++)
+    if (streq (st->adv->groups[i].key, key))
+      {
+        const a5_group_t *g = &st->adv->groups[i];
+        int m;
+        for (m = 0; m < g->n_members; m++)
+          if (streq (g->members[m], cloc))
+            return 1;
+        return 0;
+      }
+  return 0;
+}
+
+/* -------------------------------------------------------- SetLook look stack */
+
+void
+a5state_push_look (a5_state_t *st, const char *loc_key, const char *text)
+{
+  if (st->n_looks == st->cap_looks)
+    {
+      st->cap_looks = st->cap_looks ? st->cap_looks * 2 : 4;
+      st->looks = (a5_looktext_t *)
+        realloc (st->looks, (size_t) st->cap_looks * sizeof *st->looks);
+    }
+  st->looks[st->n_looks].loc_key = strdup (loc_key ? loc_key : "");
+  st->looks[st->n_looks].text    = strdup (text ? text : "");
+  st->n_looks++;
+}
+
+const char *
+a5state_player_look (const a5_state_t *st)
+{
+  int i;
+  /* LIFO: the most recently pushed matching look text wins. */
+  for (i = st->n_looks - 1; i >= 0; i--)
+    if (a5state_in_group_or_location (st, "Player", st->looks[i].loc_key))
+      return st->looks[i].text;
+  return NULL;
 }
 
 /* ----------------------------------------------------------- conversation */

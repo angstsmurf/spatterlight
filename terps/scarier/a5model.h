@@ -60,6 +60,64 @@ typedef struct a5_topic_s {
   const a5_xml_node_t *actions;      /* <Actions>, or NULL                   */
 } a5_topic_t;
 
+/* One <Control> "Start|Stop|Suspend|Resume Completion|UnCompletion <TaskKey>"
+   (EventOrWalkControl): trigger an event or walk on a task (un)completing.
+   Shared by events and walks, so it is defined before both. */
+typedef enum {
+  A5_CTRL_START   = 0,
+  A5_CTRL_STOP    = 1,
+  A5_CTRL_SUSPEND = 2,
+  A5_CTRL_RESUME  = 3
+} a5_ctrl_t;
+typedef struct a5_eventctrl_s {
+  a5_ctrl_t control;
+  int on_completion;                /* 1 = Completion, 0 = UnCompletion      */
+  const char *task_key;
+} a5_eventctrl_t;
+
+/* One <Step> of a walk (clsWalk.clsStep): a destination key (location / group /
+   character / "%Player%") reached after a turn duration (random range). */
+typedef struct a5_walkstep_s {
+  const char *location;             /* destination key                       */
+  long ft_from, ft_to;              /* duration in turns (random range)      */
+} a5_walkstep_t;
+
+/* One <Activity> of a walk (clsWalk.SubWalk): like an event SubEvent, but with
+   the extra ComesAcross trigger and an OnlyApplyAt (sKey3) display gate. */
+typedef enum {
+  A5_SW_FROM_LAST    = 0,           /* FromLastSubWalk                       */
+  A5_SW_FROM_START   = 1,           /* FromStartOfWalk                       */
+  A5_SW_BEFORE_END   = 2,           /* BeforeEndOfWalk                       */
+  A5_SW_COMES_ACROSS = 3            /* ComesAcross <char> (meets the char)   */
+} a5_sw_when_t;
+typedef enum {
+  A5_SW_DISPLAY   = 0,              /* DisplayMessage (oDescription)         */
+  A5_SW_EXECTASK  = 1,              /* ExecuteTask sKey2                     */
+  A5_SW_UNSETTASK = 2               /* UnsetTask sKey2                       */
+} a5_sw_what_t;
+typedef struct a5_subwalk_s {
+  a5_sw_when_t when;
+  long ft_from, ft_to;              /* turn offset (random range)            */
+  const char *come_key;             /* ComesAcross subject (%Player%/key)    */
+  a5_sw_what_t what;
+  const char *task_key;             /* sKey2 (ExecuteTask/UnsetTask)         */
+  const char *only_apply_at;        /* sKey3 (OnlyApplyAt loc/group gate)    */
+  const a5_xml_node_t *description; /* <Action> DisplayMessage block         */
+} a5_subwalk_t;
+
+/* One character walk (clsWalk): a turn-based state machine that moves the
+   character along its steps, runs sub-walk activities, and is started/stopped by
+   WalkControls on task (un)completion. */
+typedef struct a5_walk_s {
+  const char *char_key;             /* owning character key                  */
+  const char *description;
+  int loops;                        /* <Loops>                               */
+  int start_active;                 /* <StartActive>                         */
+  a5_walkstep_t  *steps;     int n_steps;
+  a5_subwalk_t   *subwalks;  int n_subwalks;
+  a5_eventctrl_t *controls;  int n_controls;
+} a5_walk_t;
+
 typedef struct a5_character_s {
   const char *key;
   const char *name;
@@ -70,6 +128,7 @@ typedef struct a5_character_s {
   const char **descriptors; int n_descriptors;
   a5_prop_t *props;         int n_props;
   a5_topic_t *topics;       int n_topics;
+  a5_walk_t  *walks;        int n_walks;
   const a5_xml_node_t *node;
 } a5_character_t;
 
@@ -126,20 +185,6 @@ typedef struct a5_subevent_s {
   const char *key;                  /* task/location key (ExecuteTask/...)   */
   const a5_xml_node_t *description; /* <Action> Description (DisplayMessage) */
 } a5_subevent_t;
-
-/* One <Control> "Start|Stop|Suspend|Resume Completion|UnCompletion <TaskKey>"
-   (EventOrWalkControl): trigger the event on a task (un)completing. */
-typedef enum {
-  A5_CTRL_START   = 0,
-  A5_CTRL_STOP    = 1,
-  A5_CTRL_SUSPEND = 2,
-  A5_CTRL_RESUME  = 3
-} a5_ctrl_t;
-typedef struct a5_eventctrl_s {
-  a5_ctrl_t control;
-  int on_completion;                /* 1 = Completion, 0 = UnCompletion      */
-  const char *task_key;
-} a5_eventctrl_t;
 
 typedef struct a5_event_s {
   const char *key;

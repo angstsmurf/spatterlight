@@ -401,7 +401,8 @@ ADRIFT text is full of embedded directives evaluated at display time:
       ported/bundled (cf. the Geas typelib approach) — tasks with embedded
       actions (PlayerMovement, "Take the money", custom puzzle tasks) already run.
 - [~] **P4 Dynamic**: **core verbs + property/text engine + disambiguation +
-      events/timers DONE; walks/conversation/scoring remain.**
+      events/timers + conversation + walks + DisplayMessage/SetLook sub-events
+      DONE; scoring display + full UDF/expression library remain.**
       - **Key correction to the P3 "standard-library merge" finding:** the stock
         verbs are **not** missing their actions.  Six Silver Bullets (and every v5
         game) **ships the full ADRIFT Standard Library inside the game file** —
@@ -691,14 +692,63 @@ ADRIFT text is full of embedded directives evaluated at display time:
         - NOTE: no new source files — all changes are in the existing `a5model`/
            `a5state`/`a5restr`/`a5text`/`a5run`, so the Makefiles and the Xcode
            target need no new entries.
+      - **Character walks + DisplayMessage/SetLook sub-events** — **DONE.**  A
+        faithful port of `clsWalk` and the previously-stubbed event
+        `RunSubEvent` DisplayMessage/SetLook cases, all in the existing files
+        (no new sources, so no Makefile/Xcode entries):
+        1. **Walk model** (`a5model`): each `<Character>`'s `<Walk>` children are
+           parsed into `a5_walk_t` — `<Step>` route legs (`a5_walkstep_t`:
+           destination key + turn duration; the in-situ DOM Step text is
+           truncated at the space so the key aliases cleanly), `<Control>`
+           triggers (the shared `EventOrWalkControl` parse, now factored into
+           `a5_parse_control_text`), and `<Activity>` sub-walks (`a5_subwalk_t`:
+           when {FromStart/FromLast/BeforeEnd/**ComesAcross**} + what
+           {DisplayMessage/ExecuteTask/UnsetTask} + the `OnlyApplyAt` display
+           gate).
+        2. **Walk runtime** (`a5run.cpp` `a5_walk_rt`, one slot per character
+           walk, flattened): a per-walk `clsWalk` instance — `wk_lstart`/
+           `wk_lstop`/`wk_increment`/`wk_set_timer` (the Status/Timer machine,
+           re-rolling step durations each start but, like `clsWalk`, **not**
+           resetting LastSubWalk/the sub-walk offsets), `wk_do_steps` (the
+           location / random-adjacent-group-member / follow-character move
+           dispatch + `Move`), and `wk_do_subwalks`.  Driven by `wk_tick_all`
+           (run **before** the events in `ev_tick_all`, mirroring TurnBasedStuff),
+           `wk_init` (StartActive walks at game start), and `wk_on_task_completed`
+           (the WalkControls, fired before the EventControls).  The
+           **ShowEnterExit** narration (`wk_show_enter_exit` + new
+           `a5text_char_proper_name`, `loc_is_adjacent`/`loc_direction_to` ports
+           of clsLocation.IsAdjacent/DirectionTo over the DirectionsEnum order)
+           prints `<Name> enters/exits [to/from <dir>]` when a `ShowEnterExit`
+           NPC crosses the player's room boundary.
+        3. **Event sub-events**: the event `SubEvent` parse now honours the
+           `<What>` override and the `<OnlyApplyAt>` gate (`se->key`);
+           **DisplayMessage** is gated on `key <> "" AndAlso
+           Player.IsInGroupOrLocation(key)` (new `a5state_in_group_or_location`),
+           and **SetLook** pushes a (gate, rendered-text) entry onto a per-state
+           look stack (`a5state_push_look`) that `a5text_view_location` consults
+           (`a5state_player_look` / clsEvent.LookText), appended after the listed
+           objects.  Walk DisplayMessage sub-walks use the same gate.
+        - **Validated**: a new self-contained synthetic regression
+          `test/a5_walk_test.cpp` (`make -f Makefile.headless test` as
+          `a5walktest`) — Adventure A drives a StartActive looping two-room
+          patrol and asserts the exit/enter ShowEnterExit prose (correct
+          DirectionTo), the ComesAcross→DisplayMessage nod (OnlyApplyAt-gated),
+          and the loop restart; Adventure B asserts a SetLook line riding the
+          room view and a DisplayMessage shown only when its OnlyApplyAt gate
+          matches the player's room (the Room1 bell shows, the Room2 horn does
+          not).  **Ground truth**: the Anno 1700 walkthrough diff is
+          **byte-identical** to the pre-change baseline (187 hunks — Susan's
+          stock "Follow Player" walk does not cross the player boundary visibly
+          in this transcript, matching FrankenDrift; the "walks by you" line is
+          the RNG-selected guest *event*, not a walk).  Six Silver Bullets golden
+          (its six StartActive=0, output-less patrol walks) + Stone of Wisdom
+          stay clean; **ASan/UBSan-clean** across the whole 15-game corpus.
       - **Remaining Anno divergences (the next targets, in rough frequency):**
-        - **walks** (`A woman walks by you and hangs her room key on the rack.`)
-          and DisplayMessage/SetLook sub-events.
         - inventory `%ListObjectsOnAndIn%` over-listing (the `i` line lists every
           container in the room, not just carried/worn); unknown-word message
           wording ("I don't understand." vs "I did not understand the word …");
           walkthrough comment lines parsed as commands.
-      - **Still TODO (earlier list)**: walks; full
+      - **Still TODO (earlier list)**: full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);
         "seen"/visibility (`HaveBeenSeen*`/`BeVisibleTo*` still approximated);

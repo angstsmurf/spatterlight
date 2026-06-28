@@ -70,10 +70,12 @@ A5PARSE_HARNESS := test/a5parse_test.cpp
 A5PARSE_BIN     := test/a5parse_test
 A5DIS_HARNESS   := test/a5_disambig_test.cpp
 A5DIS_BIN       := test/a5_disambig_test
+A5WALK_HARNESS  := test/a5_walk_test.cpp
+A5WALK_BIN      := test/a5_walk_test
 A5ARITH_HARNESS := test/a5arith_test.cpp
 A5ARITH_BIN     := test/a5arith_test
 
-.PHONY: test taf clean a5dump a5model a5text a5run a5parsetest a5runtest a5distest a5arithtest
+.PHONY: test taf clean a5dump a5model a5text a5run a5parsetest a5runtest a5distest a5walktest a5arithtest
 
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
@@ -82,13 +84,14 @@ A5ARITH_BIN     := test/a5arith_test
 A5_GAMES_DIR ?= test/adrift5-games
 A5_BULLETS ?= $(A5_GAMES_DIR)/Six Silver Bullets (v 1.0).blorb
 
-test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN)
+test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5WALK_BIN)
 	./$(BIN) $(TAF)
 	./$(PREC_BIN) $(PREC_TAF)
 	./$(BADP_BIN) $(BADP_TAF)
 	./$(A5PARSE_BIN)
 	./$(A5ARITH_BIN)
 	./$(A5DIS_BIN)
+	./$(A5WALK_BIN)
 	@$(MAKE) -f Makefile.headless a5runtest
 
 # Golden-transcript regression for the ADRIFT 5 (P4) engine: replays
@@ -168,6 +171,15 @@ a5distest: $(A5DIS_BIN)
 $(A5DIS_BIN): $(A5_RUN_SRC) $(A5DIS_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
 	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5DIS_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
+# Self-contained walks + event sub-events regression (synthetic in-memory v5
+# adventures, no game data); part of `test`.  Exercises clsWalk (steps,
+# ShowEnterExit, ComesAcross, looping) and clsEvent.RunSubEvent
+# (DisplayMessage gate + SetLook), which the shipped corpus does not cover.
+a5walktest: $(A5WALK_BIN)
+	./$(A5WALK_BIN)
+$(A5WALK_BIN): $(A5_RUN_SRC) $(A5WALK_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
+	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5WALK_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
+
 # The TAFs are checked in; these targets only refresh them from the generators.
 taf: $(TAF) $(PREC_TAF) $(BADP_TAF)
 $(TAF): test/make_battle_taf.py
@@ -178,4 +190,4 @@ $(BADP_TAF): test/make_badparent_taf.py
 	python3 test/make_badparent_taf.py $(BADP_TAF)
 
 clean:
-	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5_RAND_OBJ)
+	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5_RAND_OBJ)

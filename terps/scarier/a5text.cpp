@@ -465,6 +465,17 @@ a5text_character_subjective (a5_state_t *st, const a5_character_t *c)
   return character_name (st, c, A5_PRO_SUBJ);
 }
 
+char *
+a5text_char_proper_name (a5_state_t *st, const char *charkey)
+{
+  int ci = a5state_character_index (st, charkey);
+  char *nm = character_display_name (st, ci >= 0 ? &st->adv->characters[ci] : NULL, 0);
+  /* ToProper(.Name, bForceRestLower:=False): upper-case the first char only. */
+  if (nm[0])
+    nm[0] = (char) toupper ((unsigned char) nm[0]);
+  return nm;
+}
+
 /*
  * Map a bare %reference% name (the token between the percents, already without
  * them) to the resolved entity key(s) for a property expression %name%.Chain.
@@ -1591,6 +1602,19 @@ a5text_view_location (a5_state_t *st)
     free ((void *) names);
   }
   (void) listed;
+
+  /* Event SetLook text (clsLocation.ViewLocation: "For Each e ... e.LookText()"):
+     a SetLook sub-event pushed a location-gated look line onto the look stack;
+     append the most-recent entry matching the player's location. */
+  {
+    const char *lt = a5state_player_look (st);
+    if (lt != NULL && lt[0] != '\0')
+      {
+        if (add_space (sb.p, sb.len))
+          sb_puts (&sb, "  ");
+        sb_puts (&sb, lt);
+      }
+  }
 
   /* Present NPCs (clsLocation.ViewLocation character loop): each visible
      character contributes its CharHereDesc (or "<Name> is here."); identical

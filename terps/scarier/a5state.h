@@ -41,6 +41,13 @@ typedef struct a5_objloc_s {
   int is_static;
 } a5_objloc_t;
 
+/* One SetLook stack entry (clsEvent.clsLookText): rendered look text gated on a
+   location/group key. */
+typedef struct a5_looktext_s {
+  char *loc_key;          /* OnlyApplyAt gate (owned)                          */
+  char *text;             /* rendered look text (owned)                        */
+} a5_looktext_t;
+
 /* A runtime property override (set by SetProperty actions in Phase 3). */
 typedef struct a5_prop_ov_s {
   char *entity;           /* entity key (object/character/...)                 */
@@ -94,6 +101,13 @@ typedef struct a5_state_s {
   char  ref_value[16][256];
   int   n_refbind;
 
+  /* SetLook event sub-event "look stack" (clsEvent.stackLookText): each SetLook
+     pushes a (location/group gate, rendered text) entry; a5text_view_location
+     appends the most-recent entry whose gate matches the player's location.
+     Unused by the shipped corpus, but ported for faithfulness.  Owned. */
+  a5_looktext_t *looks;
+  int n_looks, cap_looks;
+
   /* <DisplayOnce> description segments that have already been shown (keyed by
      the segment's DOM node).  `marking_display` is set while rendering real
      output (vs a peek/test render) so a segment is only retired once it has
@@ -115,6 +129,17 @@ extern int a5state_task_index      (const a5_state_t *st, const char *key);
 
 /* The player's current location key (NULL if unknown). */
 extern const char *a5state_player_location (const a5_state_t *st);
+
+/* clsCharacter.IsInGroupOrLocation: is character `charkey` at location `key`, or
+   at a location that is a member of group `key`?  charkey NULL => the Player. */
+extern int a5state_in_group_or_location (const a5_state_t *st,
+                                         const char *charkey, const char *key);
+
+/* SetLook look-text stack (clsEvent): push a rendered look entry; fetch the
+   most-recent one whose location/group gate matches the player (or NULL). */
+extern void        a5state_push_look (a5_state_t *st, const char *loc_key,
+                                      const char *text);
+extern const char *a5state_player_look (const a5_state_t *st);
 
 /*
  * Does object `oi` exist at location `lockey`?  When `directly` is set, only a

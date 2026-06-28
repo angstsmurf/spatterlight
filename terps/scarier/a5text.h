@@ -55,4 +55,11 @@ extern char *a5text_object_name (const a5_object_t *o, a5_article_t art);
  */
 extern char *a5text_character_subjective (a5_state_t *st, const a5_character_t *c);
 
+/*
+ * A character's display name with only the first letter upper-cased
+ * (Global.ToProper(.Name, bForceRestLower:=False)), used by a walk's
+ * ShowEnterExit "<Name> enters/exits ..." message.  Heap-allocated.
+ */
+extern char *a5text_char_proper_name (a5_state_t *st, const char *charkey);
+
 #endif
