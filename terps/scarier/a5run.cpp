@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 
+#include "a5arith.h"
 #include "a5parse.h"
 #include "a5rand.h"
 #include "a5restr.h"
@@ -564,7 +565,12 @@ eval_num_value (a5_state_t *st, const char *raw)
       return a5rand_between (lo, hi);
     }
   proc = a5text_process (st, raw ? raw : "0");
-  v = strtol (proc, NULL, 10);
+  {
+    bool ok = false;
+    long e = a5_eval_arith (proc, &ok);
+    if (ok) { free (proc); return e; }   /* arithmetic expression */
+  }
+  v = strtol (proc, NULL, 10);           /* fall back: leading integer */
   free (proc);
   return v;
 }

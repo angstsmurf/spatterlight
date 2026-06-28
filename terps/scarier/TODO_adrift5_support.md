@@ -450,10 +450,29 @@ ADRIFT text is full of embedded directives evaluated at display time:
           disappears).  Golden transcript regenerated; deterministic; a 40-turn
           soak is stable.  Anno 1700 + Stone of Wisdom still clean.  **ASan/
           UBSan-clean** on all.
+      - **Integer arithmetic expression evaluation** — DONE.  New
+        `a5arith.cpp/.h` (`a5_eval_arith`): a recursive-descent integer
+        evaluator (`+ - * / mod ^`, unary minus, parentheses, right-associative
+        power; div/mod-by-zero → 0 per frankendrift's `SafeInt`) that ports the
+        arithmetic core of `clsVariable.SetToExpression`'s token reducer.
+        `eval_num_value` now runs it on the post-`a5text_process` string and only
+        falls back to `strtol` when the result is not well-formed arithmetic — so
+        a variable assignment like Six Silver Bullets'
+        `Sneakscore = "%roller%+%sneakbonus%"` evaluates to the **sum** instead
+        of `strtol`-truncating to `%roller%`.  Self-contained regression
+        `test/a5arith_test.cpp` (`make -f Makefile.headless a5arithtest`, in
+        `make test`) covers precedence/associativity/mod/power/parens/unary-minus
+        + non-arithmetic rejection.  Golden transcript unchanged; **ASan/UBSan-
+        clean**.  NOTE: the full `SetToExpression` **function library**
+        (`min`/`max`/`if`/`either`/`abs`/`upr`/`val`/`str`/`oneof`/comparison +
+        logic ops …) is **not** ported — no shipped Six Silver Bullets / Anno
+        1700 / Stone of Wisdom assignment uses it; add on demand.
       - **Still TODO**: characters/walks/conversation/topics; full UDF
-        (`%FunctionName[args]%`) + array variables + full numeric-expression
-        evaluation (`%a%+%b%`, currently truncates at the operator); scoring;
-        "seen"/visibility (`HaveBeenSeen*`/`BeVisibleTo*` still approximated);
+        (`%FunctionName[args]%`) + array variables + the
+        `SetToExpression` function library (see the arithmetic note above);
+        scoring display (`%swissaccount%`-style score variables render, but no
+        ADRIFT Score/MaxScore status); "seen"/visibility
+        (`HaveBeenSeen*`/`BeVisibleTo*` still approximated);
         DisplayMessage/SetLook sub-events (no-op/best-effort — unused by Six
         Silver Bullets); and the ground-truth diff vs the official Runner /
         frankendrift (no VB.NET build set up yet).
