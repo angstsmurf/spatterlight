@@ -602,15 +602,13 @@ eval_function (a5_state_t *st, const char *name, const char *args)
                            : A5_ART_NONE;
       if (o == NULL && args != NULL && args[0] != '\0')
         {
-          int k;
-          for (k = 0; k < st->adv->n_objects; k++)
-            {
-              const a5_object_t *cand = &st->adv->objects[k];
-              int j;
-              for (j = 0; j < cand->n_names; j++)
-                if (ci_eq (cand->names[j], args)) { o = cand; break; }
-              if (o != NULL) break;
-            }
+          /* args may be a key or a display name; resolve_object_arg also
+             matches a "prefix + name" full name (e.g. "framed newspaper
+             article"), which a bare %object% inner render produces -- the
+             plain names[] search missed those and dropped the article. */
+          const char *k = resolve_object_arg (st, args);
+          if (k != NULL)
+            o = a5model_object (st->adv, k);
         }
       if (o != NULL)
         return a5text_object_name (o, art);
