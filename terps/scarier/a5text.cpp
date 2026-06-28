@@ -1433,6 +1433,23 @@ replace_expressions (a5_state_t *st, const char *src)
   return sb_finish (&sb);
 }
 
+/* Evaluate a raw expression string to its string value, mirroring
+   Global.EvaluateExpression -> clsVariable.SetToExpression: substitute the
+   %references%/%variables%/OO chains (bExpression quoting), then reduce.  Used
+   for <Expression>-type task restrictions and SetVariable-to-expression.
+   Returns a heap string the caller frees; never NULL. */
+char *
+a5text_eval_expression (a5_state_t *st, const char *expr)
+{
+  char *sub, *val;
+  if (expr == NULL)
+    return strdup ("");
+  sub = expr_substitute (st, expr);
+  val = a5_eval_sexpr (sub);
+  free (sub);
+  return val;   /* a5_eval_sexpr never returns NULL */
+}
+
 /* Swap each `<#...#>` for a \x01<n>\x01 sentinel so the %function%/OO passes
    leave the expression body untouched (frankendrift guards them behind GUIDs);
    the sentinel survives both passes verbatim and is restored before

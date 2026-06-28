@@ -10,8 +10,25 @@
 
 #include "a5parse.h"
 #include "a5restr.h"
+#include "a5text.h"
 
 int a5restr_trace = 0;
+
+/* CBool-ish (Global.SafeBool): "true"/"false" by name, else a numeric string is
+   true iff non-zero; anything else is false. */
+static int
+safe_bool (const char *s)
+{
+  char *end;
+  double d;
+  if (s == NULL) return 0;
+  while (*s == ' ') s++;
+  if (strcasecmp (s, "true") == 0)  return 1;
+  if (strcasecmp (s, "false") == 0) return 0;
+  d = strtod (s, &end);
+  while (*end == ' ') end++;
+  return (end != s && *end == '\0') ? (d != 0.0) : 0;
+}
 
 #define ANYOBJECT     "AnyObject"
 #define NOOBJECT      "NoObject"
@@ -522,11 +539,86 @@ pass_character (a5_state_t *st, a5_restr_t *r)
 
 /* --------------------------------------------------- variable sub-evaluator */
 
+/* A restriction's comparison value as a string (FileIO.LoadRestrictions +
+   EvaluateExpression): a quoted literal is de-quoted then expression-evaluated
+   (so `"" the ""` -> `" the "` -> ` the `); a bare token naming a variable
+   yields that variable's value; otherwise the token is expression-evaluated. */
+static char *
+restr_text_value (a5_state_t *st, const char *key2)
+{
+  size_t n;
+  if (key2 == NULL)
+    return strdup ("");
+  n = strlen (key2);
+  if (n >= 2 && ((key2[0] == '"' && key2[n - 1] == '"')
+              || (key2[0] == '\'' && key2[n - 1] == '\'')))
+    {
+      char *inner = strndup (key2 + 1, n - 2);
+      char *v = a5text_eval_expression (st, inner);
+      free (inner);
+      return v;
+    }
+  {
+    int vj = a5state_variable_index (st, key2);
+    if (vj >= 0 && st->var_text[vj] != NULL)
+      return strdup (st->var_text[vj]);
+  }
+  return a5text_eval_expression (st, key2);
+}
+
+static int
+str_compare_op (const char *op, const char *cur, const char *rhs)
+{
+  int cmp = strcmp (cur, rhs);
+  if (streq (op, "BeEqualTo"))               return cmp == 0;
+  if (streq (op, "BeGreaterThan"))           return cmp > 0;
+  if (streq (op, "BeGreaterThanOrEqualTo"))  return cmp >= 0;
+  if (streq (op, "BeLessThan"))              return cmp < 0;
+  if (streq (op, "BeLessThanOrEqualTo"))     return cmp <= 0;
+  if (streq (op, "BeContain"))               return strstr (cur, rhs) != NULL;
+  return 1;
+}
+
 static int
 pass_variable (a5_state_t *st, a5_restr_t *r)
 {
-  int vi = a5state_variable_index (st, r->key1);
+  int vi;
   const a5_variable_t *v;
+
+  /* ReferencedText[n] / ReferencedNumber[n]: the parser-matched text/number,
+     not a user variable (clsUserSession.vb:4459-4470).  These are the values
+     the stock library tasks test against %text%/%number%. */
+  if (strncmp (r->key1, "ReferencedText", 14) == 0)
+    {
+      const char *cur = a5state_lookup_ref (st, r->key1);
+      char *rhs;
+      int res;
+      if (cur == NULL) cur = a5state_lookup_ref (st, "ReferencedText");
+      if (cur == NULL) cur = "";
+      rhs = restr_text_value (st, r->key2);
+      res = str_compare_op (r->op, cur, rhs);
+      free (rhs);
+      return res;
+    }
+  if (strncmp (r->key1, "ReferencedNumber", 16) == 0)
+    {
+      const char *cur_s = a5state_lookup_ref (st, r->key1);
+      char *rhs_s;
+      long cur, rhs;
+      if (cur_s == NULL) cur_s = a5state_lookup_ref (st, "ReferencedNumber");
+      cur = cur_s ? strtol (cur_s, NULL, 10) : 0;
+      rhs_s = restr_text_value (st, r->key2);
+      rhs = strtol (rhs_s, NULL, 10);
+      free (rhs_s);
+      if (streq (r->op, "BeEqualTo"))               return cur == rhs;
+      if (streq (r->op, "BeGreaterThan"))           return cur > rhs;
+      if (streq (r->op, "BeGreaterThanOrEqualTo"))  return cur >= rhs;
+      if (streq (r->op, "BeLessThan"))              return cur < rhs;
+      if (streq (r->op, "BeLessThanOrEqualTo"))     return cur <= rhs;
+      return 1;
+    }
+
+  vi = a5state_variable_index (st, r->key1);
   if (vi < 0)
     return 1;
   v = &st->adv->variables[vi];
@@ -652,8 +744,17 @@ pass_single (a5_state_t *st, a5_restr_t *r)
       int ti = a5state_task_index (st, resolve_key (st, r->key1));
       result = ti >= 0 && st->task_done[ti];
     }
+  else if (streq (r->type, "Expression"))
+    {
+      /* clsUserSession.vb:5165: r = SafeBool(EvaluateExpression(StringValue)).
+         The whole element text is the expression (parse_spec's key1/op/key2
+         split is meaningless here -- use the un-tokenised raw). */
+      char *v = a5text_eval_expression (st, r->raw);
+      result = safe_bool (v);
+      free (v);
+    }
   else
-    result = 1;               /* Item/Direction/Expression: Phase 3-4 */
+    result = 1;               /* Item/Direction: Phase 3-4 */
 
   if (r->must_not)
     result = !result;

@@ -153,6 +153,17 @@ objs_children (a5_state_t *st, const char *objkey, int in_only)
   return v;
 }
 
+/* Append every recursive descendant (inside + on a surface) of each key, so a
+   list "includes sub-objects" (clsObjectList bIncludeSubObjects=True).  Indexed
+   iteration: children appended at the end are themselves expanded. */
+static void
+add_descendants (a5_state_t *st, std::vector<std::string> &keys)
+{
+  for (size_t i = 0; i < keys.size (); i++)
+    for (auto &c : objs_children (st, keys[i].c_str (), 0))
+      keys.push_back (c);
+}
+
 /* Objects directly in a location (ExistsAtLocation, directly). */
 static std::vector<std::string>
 objs_in_location (a5_state_t *st, const char *lockey)
@@ -538,11 +549,17 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         }
       if (fn == "Held" || fn == "Worn")
         {
+          /* clsCharacter.Held/Worn(Optional bIncludeSubObjects=True): the
+             default recurses into the held/worn containers; (False) is the
+             direct list only.  The inventory contents segment keys off
+             Held.Count > Held(False).Count to detect sub-objects. */
           std::string a = lower (args);
+          int include_sub = !(a == "false" || a == "0");
           Ctx nc; nc.is_list = 1;
           nc.keys = (fn == "Held") ? objs_held_by (st, key.c_str ())
                                    : objs_worn_by (st, key.c_str ());
-          (void) a;
+          if (include_sub)
+            add_descendants (st, nc.keys);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       if (fn == "WornAndHeld")

@@ -32,6 +32,10 @@ extern char *a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapp
 /* Run the %function%/%variable% and ALR passes + auto-capitalisation on src. */
 extern char *a5text_process (a5_state_t *st, const char *src);
 
+/* Evaluate a raw expression string (Global.EvaluateExpression): substitute its
+   %references%/OO chains then reduce to a string value.  Heap; never NULL. */
+extern char *a5text_eval_expression (a5_state_t *st, const char *expr);
+
 /* Render markup (tags + entities) to plain text. */
 extern char *a5text_render_plain (const char *src);
 
