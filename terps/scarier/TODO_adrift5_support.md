@@ -239,10 +239,19 @@ ADRIFT text is full of embedded directives evaluated at display time:
        renders `(from you)` *after* (parent already the player).  The exact
        ordering is governed by FrankenDrift's position-based `AddResponse`/
        `htblResponses` output assembly — needs careful porting, do not guess.
-    2. **`%ListObjectsOn%`-style list** — examine-table shows
-       `The Yellow Note, The Silver Gun and The Silver Bullets` vs FrankenDrift's
-       `the yellow note, the silver gun and the silver bullets are on the
-       Table.` (lowercase articles + an " are on the <container>." suffix).
+    2. **`%ListObjectsOn[/In/OnAndIn]%`** — the object-list variants in
+       `a5text.cpp` (the `listobjectson/in/onandin` branch) just call
+       `list_objects` (bare names), but FrankenDrift's `clsObject.
+       DisplayObjectChildren` wraps the list: `ToProper(<list, definite article>)
+       + " is/are on " + <FullName definite> [+ ", and inside …"] + "."`.  So
+       examine-table shows Scarier `The Yellow Note, The Silver Gun and The
+       Silver Bullets` vs FrankenDrift `The yellow note, the silver gun and the
+       silver bullets are on the Table.` (one ToProper at the front, lowercase
+       definite articles, the " are on the Table." suffix).  The **character**
+       variants (`listcharacterson…`, a5text.cpp ~507) already port this and are
+       the template; mirror them for objects (mind `list_objects` uses indefinite
+       articles — these need definite + a single leading ToProper, not per-item
+       Title-casing).
     3. **Start-room auto-LOOK** — FIXED.  Scarier rendered the start location
        ("Dead or Dreaming?") during the intro; FrankenDrift gates that on
        `Adventure.ShowFirstRoom` (XML `<ShowFirstLocation>`, default true), which
