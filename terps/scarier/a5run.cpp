@@ -771,7 +771,28 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
           { after.push_back (child); continue; }
 
         if (!a5restr_pass (st, child->restrictions))
-          continue;                       /* failing child: parent still runs */
+          {
+            /* A Specific task is a first-class, higher-priority task in
+               frankendrift (its command is the parent's with the specifics
+               substituted), so when it matches the references but its
+               restrictions fail it still claims the turn: if it has a fail
+               message, show it and suppress the parent (the default move/etc.);
+               if it has no output, fall through and let the parent run (the
+               HighestPriorityPassingTask "fails but no output -> continue"
+               rule). */
+            const a5_xml_node_t *fm =
+              a5restr_fail_message (st, child->restrictions);
+            if (fm != NULL)
+              {
+                char *fmsg = a5text_describe (st, fm);
+                sb_puts (out, fmsg);
+                free (fmsg);
+                parent_text = 0;
+                parent_actions = 0;
+                break;
+              }
+            continue;                     /* no output: parent still runs */
+          }
 
         run_task (run, child, 0, out);
         if (ot == NULL || streq (ot, "Override"))
