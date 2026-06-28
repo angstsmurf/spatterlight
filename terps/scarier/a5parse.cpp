@@ -42,20 +42,27 @@ static const dir_entry kDirs[] = {
 };
 static const int kNumDirs = (int) (sizeof kDirs / sizeof kDirs[0]);
 
-/* The full direction alternation, lowercased, built once (North..NorthWest). */
+/* The full direction alternation, lowercased, built once.  frankendrift's
+   %direction% builder loops `For eDirection = North To NorthWest` -- and by the
+   DirectionsEnum VALUES (North=0, East=1, South=2, West=3, Up=4, Down=5, In=6,
+   Out=7, NorthEast=8, SouthEast=9, SouthWest=10, NorthWest=11) that range spans
+   ALL TWELVE directions, including Up/Down/In/Out.  (An earlier reading took the
+   names literally and emitted only the 8 compass points, which made bare "up"/
+   "u"/"in"/"out" fail to match movement tasks -- e.g. Anno 1700's upstairs.) */
 static std::string
 directions_re ()
 {
   std::string s;
-  /* frankendrift walks North..NorthWest, i.e. the 8 compass points only. */
-  static const char *order[] = { "North", "NorthEast", "East", "SouthEast",
-                                 "South", "SouthWest", "West", "NorthWest" };
-  for (int i = 0; i < 8; i++)
+  static const char *order[] = {
+    "North", "East", "South", "West", "Up", "Down",
+    "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest" };
+  const int n = (int) (sizeof order / sizeof order[0]);
+  for (int i = 0; i < n; i++)
     {
       for (int j = 0; j < kNumDirs; j++)
         if (strcmp (kDirs[j].canonical, order[i]) == 0)
           { s += kDirs[j].re; break; }
-      if (i != 7)
+      if (i != n - 1)
         s += "|";
     }
   return s;
