@@ -965,6 +965,34 @@ ADRIFT text is full of embedded directives evaluated at display time:
         ("I don't understand what you want to do with Player.").  Other residual
         cosmetics: object name-alias selection among several same-noun *seen*
         objects, and game-specific puzzle-task responses.
+      - **Inventory rendering: worn-container holder key + `ListObjectsOnAndIn`
+        argument** — **DONE.**  A Stone of Wisdom `inventory` (`%ListWorn%` /
+        `%ListHeld%` template + `%ListObjectsOnAndIn[%Player%.WornAndHeld]%`
+        contents line) diverged from FrankenDrift two ways, both engine bugs:
+        1. **`%Player%` holder key not resolved** — Stone's backpack stores
+           `WornByWho` as the literal variable `%Player%`, not the resolved
+           player key, so it was dropped from `ListWorn` ("wearing a ring, a
+           scabbard and your clothes" vs FD's "wearing a backpack, a ring, …").
+           FrankenDrift resolves `%Player%`→`Adventure.Player.Key` in every
+           holder accessor (clsObjectLocation.Key getter, clsObject.vb:1058);
+           `a5state.cpp compute_objloc` now normalises any holder key `%Player%`
+           → "Player" (the engine's player key) for all where-types.
+        2. **`ListObjectsOnAndIn` ignored its argument** — the handler looped
+           *every* object with on/in children, so inventory leaked the room's
+           "small sword … on the table" / "Stone … on the pedestal".
+           Global.vb:2213 instead iterates only the **argument's** object set.
+           Ported: new `arg_object_keys` resolves the arg (a key, a `key1|key2`
+           pipe list, or an OO expression like `Player.WornAndHeld` via
+           `a5expr_eval`) to its object keys, and the handler shows
+           DisplayObjectChildren for each with on/in children — or, when the set
+           is a single object, unconditionally (so its "Nothing is on or inside
+           …" canned line can surface; `display_object_children` now emits it).
+           Added the missing **`WornAndHeld`** OO step to `a5expr.cpp` (worn list
+           then held list, per Global.vb:1350).  **Stone of Wisdom now diffs to
+           ZERO** (look + inventory); Six Silver Bullets golden (its
+           `examine table` `%ListObjectsOnAndIn[%object%]%` → single-key path)
+           and Anno (14 hunks, all RNG/residual) unchanged; ASan/UBSan-clean
+           across the whole v5 corpus.
       - **Still TODO (earlier list)**: full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);

@@ -545,6 +545,16 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           (void) a;
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
+      if (fn == "WornAndHeld")
+        {
+          /* clsCharacter WornAndHeld OO step (Global.vb:1350): worn objects
+             followed by held objects, as one list. */
+          Ctx nc; nc.is_list = 1;
+          nc.keys = objs_worn_by (st, key.c_str ());
+          std::vector<std::string> held = objs_held_by (st, key.c_str ());
+          for (auto &h : held) nc.keys.push_back (h);
+          return oo_prop (st, nc, rem, depth + 1, ok);
+        }
       if (fn == "Location")
         {
           int ci = a5state_character_index (st, key.c_str ());

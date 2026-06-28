@@ -63,6 +63,14 @@ compute_objloc (const a5_object_t *o, a5_objloc_t *loc)
       else if (streq (dl, "Worn By Character"))
         { loc->where = A5_OWHERE_WORN_BY;   loc->key = obj_prop (o, "WornByWho"); }
     }
+
+  /* A holder key may be stored as the literal variable "%Player%" rather than
+     the resolved player key (frankendrift resolves it to Adventure.Player.Key
+     in every accessor, e.g. clsObjectLocation.Key getter, clsObject.vb:1058).
+     The engine uses "Player" as the player key throughout, so normalise here —
+     otherwise e.g. a backpack with WornByWho=%Player% is dropped from ListWorn. */
+  if (streq (loc->key, "%Player%"))
+    loc->key = "Player";
   else if (loc->is_static && obj_has_prop (o, "StaticLocation"))
     {
       const char *sl = obj_prop (o, "StaticLocation");

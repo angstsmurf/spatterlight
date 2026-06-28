@@ -379,8 +379,54 @@ display_object_children (a5_state_t *st, const char *objkey)
     }
   if (!on.empty () || !in.empty ())
     s += ".";
+  /* clsObject.DisplayObjectChildren: nothing on or inside -> the canned line
+     (only surfaced by ListObjectsOnAndIn when the resolved set is a single
+     childless object). */
+  if (s.empty ())
+    { s = "Nothing is on or inside "; s += defn ? defn : objkey; s += "."; }
   free (defn);
   return s;
+}
+
+/*
+ * Resolve a ListObjectsOnAndIn argument to the set of object keys it names.
+ * The argument is frankendrift's ReplaceFunctions-processed value: a single key,
+ * a "key1|key2" pipe list, or an OO expression like "Player.WornAndHeld" (which
+ * a5expr resolves to a pipe list).  Mirrors Global.vb:2055-2069 (split on '|',
+ * trim a trailing ",..." per key, keep only real object keys).
+ */
+static std::vector<std::string>
+arg_object_keys (a5_state_t *st, const char *args)
+{
+  std::vector<std::string> keys;
+  if (args == NULL)
+    return keys;
+  std::string a = args;
+  size_t dot = a.find ('.');
+  if (dot != std::string::npos && dot > 0)
+    {
+      std::string first = a.substr (0, dot);
+      std::string chain = a.substr (dot);
+      char *r = a5expr_eval (st, first.c_str (), chain.c_str ());
+      a = r ? r : "";
+      free (r);
+    }
+  size_t start = 0;
+  while (start <= a.size ())
+    {
+      size_t bar = a.find ('|', start);
+      std::string seg = a.substr (start, bar == std::string::npos
+                                  ? std::string::npos : bar - start);
+      size_t comma = seg.find (',');
+      if (comma != std::string::npos)
+        seg = seg.substr (0, comma);
+      if (!seg.empty () && a5model_object (st->adv, seg.c_str ()) != NULL)
+        keys.push_back (seg);
+      if (bar == std::string::npos)
+        break;
+      start = bar + 1;
+    }
+  return keys;
 }
 
 /* A character's perspective (FirstPerson=1 / SecondPerson=2 / ThirdPerson=3). */
@@ -686,18 +732,20 @@ eval_function (a5_state_t *st, const char *name, const char *args)
     }
   if (args != NULL && ci_eq (name, "listobjectsonandin"))
     {
-      /* clsUserSession.ListObjectsOnAndIn: ignore the argument and concatenate
-         DisplayObjectChildren for every object with on/in children (joined by
-         pSpace's two spaces). */
+      /* Global.vb:2213 ListObjectsOnAndIn: iterate the *argument's* object set
+         (e.g. %Player%.WornAndHeld for inventory), concatenating
+         DisplayObjectChildren (joined by pSpace's two spaces) for each that has
+         on/in children -- or, when the set is a single object, unconditionally
+         (so its "Nothing is on or inside ..." surfaces). */
+      std::vector<std::string> objs = arg_object_keys (st, args);
       std::string out;
-      for (int oi = 0; oi < st->adv->n_objects; oi++)
+      for (const std::string &ok : objs)
         {
-          const char *ok = st->adv->objects[oi].key;
-          int has_on = !objects_on_in (st, ok, A5_OWHERE_ON_OBJECT).empty ();
-          int has_in = !objects_on_in (st, ok, A5_OWHERE_IN_OBJECT).empty ();
-          if (st->adv->n_objects != 1 && !has_on && !has_in)
+          int has_on = !objects_on_in (st, ok.c_str (), A5_OWHERE_ON_OBJECT).empty ();
+          int has_in = !objects_on_in (st, ok.c_str (), A5_OWHERE_IN_OBJECT).empty ();
+          if (objs.size () != 1 && !has_on && !has_in)
             continue;
-          std::string d = display_object_children (st, ok);
+          std::string d = display_object_children (st, ok.c_str ());
           if (d.empty ())
             continue;
           if (!out.empty ())
