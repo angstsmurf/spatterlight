@@ -8,6 +8,165 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-06-28 — ALEXIS max-score — combat RE done, route mapped (banked still 23/65)
+
+Picked up the parked ALEXIS max-score pass. **Reverse-engineered the 3.9 Battle
+System** with a temp `battle_resolve` `SC_TRACE_DMG` trace + a new committed
+`SC_DUMP_OBJLOC` scdump path (object positions + weapon/armour Battle props):
+
+- **Corrected two false claims** in `ALEXIS_walkthrough.md`: the gourd does NOT
+  give +20 defence and the potion does NOT give +200 stamina — both are pure
+  flavour (zero type-7 ChangeBattle actions; the only type-7s are the difficulty
+  tasks). `easy` = +20 **Stamina** +20 Strength (the survival buffer), `hard` =
+  −20/−20 +10 score, `medium` = neutral +5.
+- **Why the win is fragile:** player effective **Defence = 2** (glass cannon),
+  enemies wield weapons (effective Strength up to **35**: Narfild 35, Larnt 30,
+  Longmore king 25), and enemy **targeting is a per-attack coin-flip** between the
+  player and Serond. The banked stream survives only because the flips land on
+  Serond (player hit 4×, 54 dmg, ends 66/120). **Any added turn reshuffles the
+  RNG → the flips change → an unlucky run takes >120 dmg and dies** (adding
+  `turn ring` → Larnt one-shots in the Main Hall). Confirmed: phasing `look`s
+  don't rescue it; you must harden the player first.
+- **Gear table dumped** (HitValue / ProtectionValue / location; armour STACKS):
+  large knife 30 (room21 but "too heavy" w/o a Strength boost), **magic cube
+  50/50** (hidden master item), elven armour 3 (cupboard r37), longmore chest
+  plate 5, steel vest/metal helmet 3, elven chain mail 5 (NPC-worn). 
+- **Resume route (mapped, not banked):** detour the **combat-safe elven village**
+  (rooms 29–38, no hostiles) for **water +1+1** and **wear elven armour**, stack
+  surface armour, THEN add turn ring +3 + on-path kills (Serond present) +
+  goblin→juice→carry the large knife → hard +10. Long interactive grind (compass
+  rotated; shared erkyrath stream re-tunes per change). **23/65 stays the verified
+  deterministic win** for now. Committed: `SC_DUMP_OBJLOC` tooling + walkthrough
+  rewrite. (This session's env was unstable — classifier outages + OOM; always
+  `ulimit`-bound single runs, never background, per scare-harness-oom note.)
+
+## 2026-06-28 — Through time — DONE: **UNFINISHED DEMO (0/0, no win)**
+
+The last untouched game in the corpus. Turns out to be an **incomplete demo**:
+only the opening **1954 Texas farm** is wired up. Trying to step off the porch
+into the yard hits the author's own wall — *"You can't leave the porch.... This
+is as far as this adventure will take you at this point. Take care ;-)"* — in
+every direction.
+
+- **Playable content** = living room (read magazines → matches + TV remote drop),
+  kitchen (garbage can / sixpack / pizza), a scripted bedroom bounce (the
+  nagging wife ejects you), and the porch dead-end. Turning on the **TV** plays
+  the plot hook: a news flash about a UFO heading for *Duff's Waterhole* (= the
+  farm). Then the demo ends.
+- **Unreachable data** (164 tasks, ~130 of them sealed off): an alien spaceship
+  (airlock/corridors/reception card/elevator/council passphrase *"through
+  adversity to the stars"*/lab/**time machine** + artifact analyzer), **Ancient
+  Rome** (Caesar's Villa, Venus Victrix Temple, Pompey's Theater, **Curia
+  Pompeii** = Caesar's assassination; pugio + Roman coin), and the **Battle of
+  Tours, 732 AD** (Charles Martel's camp vs four Muslim camps; embeds the
+  Wikipedia link as a task; scimitar/battleaxe).
+- **Endings** all sit past the wall: 0 win (`var1=0` — none exists), 1 lose
+  (talk to guards), 1 death ("Busted bladder"), 8 stop (map-edge walks). **No
+  reachable `ChangeScore`** → `score` is permanently 0/0.
+- Banked `harness/through_time_solution.txt` (deterministic tour to the wall) +
+  `Through_time_walkthrough.md`. Triage section D updated.
+
+**This completes the corpus triage** — every `.taf` in `games/` now has a
+walkthrough or a documented verdict. Remaining open work is the parked **circus**
+token-economy grind (below) and the optional ~80 missable extras in Shadowpeak.
+
+## 2026-06-28 (cont.) — circus (*Menagerie!*) — ★ WON 64/140 (economy SOLVED)
+
+Picked the parked circus back up and **banked a deterministic full win**
+(`harness/circus_solution.txt`, `SC_SEED=2`; verified via `play.sh`; marker *"PETA
+plants a Willow tree in your name"*). The grind that had it parked is solved:
+
+- **FOOTGUN: the committed `harness/scare` binary was stale** — `SC_SEED=2` died in
+  the funhouse until I re-ran `build.sh`. After rebuild, seed 2 survives (fundeath=8);
+  seeds 1 & 9 die (fundeath==1, ~1/11). Always rebuild before trusting seed behaviour.
+- **Economy cracked:** the closer is the **toy-knife chain**, not the food pump.
+  `buy peanut` ($1) → `give peanut to pringles` (monkey, room14, +10) → `take knife`
+  → `sell knife` to Marie (**+$2 +5pts**) = net **+$1 +18pts**. Token granularity
+  ($1=2 tok, 9 spent) forces buying **10 tokens/$5**; start $2 + knife + selling ~30
+  points covers it. (`play wheel`/`give tip cecily`/food are net-negative — avoided.)
+- **Combo is randomised** = the three tarot-card numerals from `ask reading`
+  (re-read `x first/second/third card`). The old note's "13/10/5" was wrong; **seed 2
+  = XIII/IX/V → 13, 9, 5**. The reading resets combo vars 27/28/29 to 0; cards
+  repopulate them (lock tasks 82–90).
+- **Camera must be LOADED:** holding the parts isn't enough — `put battery in camera`
+  + `put tape in camera` (it's a container), then `use camera` in room4 sets
+  `videodone`, then `home` = WIN (+20 tier; Willow dies in a car crash but the footage
+  reaches PETA — the author's bittersweet victory).
+- **NPC timing solved by spam-until-present:** Joe (peanut, room0) and Barb (tape,
+  room4) wander deterministically; repeat the action until they walk in (robust to
+  turn drift). Pringles & Bill are stationary (Bill only leaves on `give popcorn zap`).
+- Tape is in the lion cage (Barb fetches it — never `open` a cage = death); battery on
+  the Platform (never `jump` = death). Compass rotated at the entrance/bleachers
+  (East Bleachers→entrance is `sw`, by prose).
+
+**The corpus is now complete: every winnable game in `games/` has a banked win.**
+
+## 2026-06-28 — circus (*Menagerie!*) — STRUCTURE FULLY DECODED (economy grind remains)
+
+Picked up the parked circus. **Cracked the entire win/recovery/economy graph** — see
+`Circus_walkthrough.md` for the full writeup. Key results:
+- **Win = set `videodone`(var22)=1 via `use camera` (room4), then `home`** (tasks 48/49/50,
+  3 score tiers on `thescore`(var31) vs `escore1/2` = 120/90; bare win = task50, any score).
+- **Theft scatter** (pickpocket on winning the ticket): videocamera→**trunk(room5)**,
+  videotape→**lion cage(room4)**, battery→**room12(Platform)**, case→**NPC15(Zap)** (case
+  optional — task31 films with camera+battery+tape only).
+- **Recovery**: funhouse `show mirror to bill`(+5, mandatory prereq) → fortune `ask reading`
+  (4 tokens, +6, reveals trunk combo, needs the mirror task done) → trunk combo **13/10/5**
+  + `open trunk` → take camera → `ask barb for tape`(room4) → `take battery`(room12) →
+  `use camera`×N → `home`. (Do NOT open any cage / `jump` the Platform = deaths.)
+- **Funhouse is an RNG death** (`fundeath`=rnd(0,10); ==1 ⇒ instant clown-heart-attack on
+  `west`). **Default harness seed 1 ⇒ fundeath==1 ⇒ UNWINNABLE**; ~1/11 seeds are deadly.
+  Made `harness/seed.c` read **`SC_SEED`** (default 1). **Use `SC_SEED=2`** (fundeath=8).
+- **Economy is the unfinished part**: need 9 tokens (4 duck + 1 funhouse + 4 reading),
+  start with 4 ($2). Sources are marginal: `sell 10 pts→$1` (2 tokens), `look under
+  bleachers` +5, food pump (`buy`+`eat` peanut/popcorn = +3 net pts each, vendor must be
+  present), ring toss (+0.2 token/win). Funhouse "$5 tip" (task67) is **blocked** — needs
+  Bill absent and nothing moves Bill. Banked `harness/circus_solution.txt` (seed 2) reaches
+  Madame Elsa **1 token short of the reading** — resume by filling the token grind there.
+- **Tooling**: `seed.c` now `SC_SEED`-configurable; restriction var-index = `Var1-2`,
+  action var-index = `Var1` direct (documented in Circus_walkthrough.md).
+
+## 2026-06-28 — Shadowpeak — ★ COMPLETE: WON 710/790, 0 deaths (21 sessions)
+
+Deterministic winning walkthrough banked in `harness/shadowpeak_solution.txt`; full
+session-by-session writeup in `Shadowpeak_walkthrough.md`, author-hint dump in
+`Shadowpeak_hints.txt`. The last big winnable ADRIFT game in the corpus is done. The
+remaining ~80 points are scattered missable/exclusive extras, deliberately not chased
+to protect the clean win. (Details below were the in-progress log.)
+
+## 2026-06-27 (cont. 2) — Shadowpeak — STARTED (opening banked @ 20/790, multi-session)
+
+`Shadowpeak_walkthrough.md`; solution `harness/shadowpeak_solution.txt`. Began the
+last big winnable game. **Foundation laid + a deterministic opening to 20/790.**
+
+- **Win fully decoded:** task 417 `blow horn` with 3 restrictions — hold **The horn
+  of the angels** (obj147, Hidden/task-revealed) + hold the **sceptre** (obj112,
+  Hidden) + **be in the same room as Asmodeus** (NPC 39; type-3 char restr v3=41 →
+  npc 41−2=39). The endgame is a **Hell realm** (NPCs 36–41 = Cerberus / Charon /
+  lost souls / Asmodeus / Devils / Lazaraz). Morac is a scripted **"seeker"**
+  chasing-enemy (tasks `#Moracyboyarrives`/`#Morackillsplayer`/`evade morac`/`kill
+  morac` +50); your starting sword is named "Seeker". Max 790 / 69 score tasks /
+  1 win / 1 lose / **41 death endings**.
+- **`hint` command = the author's built-in, context-sensitive puzzle guide** — shows
+  only the hints relevant to your current area (consult per-area). Also `status`
+  (combat HP), `wield`, `kill <name>`, `ask <name> about <x>`, `say <x>`.
+- **Opening banked (20/790):** from Stonehenge (0) `s`→3 (Lightning tree, Fetlar)
+  `se`→4 (Chasm edge) `u`→6 (Leaning tree); `examine nest`, `take egg`, `take
+  medallion`; `d`,`nw`→3; **`give fet egg`** → broadsword "Seeker" (+10); `n`→0;
+  **`fet read runes`** (+5, a riddle *"the only thing you can be sure to achieve in
+  your life?"*); answer **`death`** (+5) → a Shield appears, `take shield`. Fetlar
+  is a companion who follows you room-to-room.
+- **NAVIGATION FOOTGUN (important):** Shadowpeak has **severe compass rotation**,
+  SCARE room *indices ≠ display names*, AND a room's in-game offered directions
+  don't line up with the dump's exit slots. **Navigate strictly by room prose /
+  "you can move…"**, never by the dumped N/E/S/W. (Verified opening room-name map is
+  in the walkthrough.)
+- **Resume:** explore the rest of Realm 1 (Great Swamp, ledges, rooms ~14–33), find
+  what activates the Stonehenge **portal** (tasks 292/293; currently "What portal?")
+  = the link to the other realms. Then the long haul: NPC-kill points, `snap staff`
+  +50 (`say borantha` repairs it first), `kill morac` +50, the Hell endgame →
+  horn + sceptre → `blow horn` win. Faithful native-4.0; no engine change.
+
 ## 2026-06-27 (cont.) — Space Boy's First Adventure — **WON, 1184/1374** (was parked 275)
 
 `Space_Boy_walkthrough.md`; solution `harness/space_boy_solution.txt` (145 cmds).

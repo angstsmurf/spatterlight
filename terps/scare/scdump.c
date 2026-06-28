@@ -120,8 +120,27 @@ sc_dump_structure_once (sc_gameref_t game)
           ok[3].string = "HitValue";        if (prop_get (bundle, "I<-siss", &bv, ok)) hit = bv.integer;
           ok[3].string = "ProtectionValue"; if (prop_get (bundle, "I<-siss", &bv, ok)) prot = bv.integer;
           ok[3].string = "Method";          if (prop_get (bundle, "I<-siss", &bv, ok)) method = bv.integer;
-          fprintf (stderr, "OBJLOC obj=%ld pos=%ld room=%ld hit=%ld prot=%ld method=%ld [%s]\n",
-                   i, pos, room, hit, prot, method, s ? s : "");
+          {
+            /* Resolve the ultimate room by chasing parent containers/surfaces
+             * (pos -10/-20) or the holding/wearing NPC (pos -200/-300). */
+            sc_int eff = room, par = gs_object_parent (game, i), guard = 0;
+            if (eff < 0 && (pos == -10 || pos == -20))
+              {
+                sc_int cur = i;
+                while (guard++ < 32 && cur >= 0
+                       && (gs_object_position (game, cur) == -10
+                           || gs_object_position (game, cur) == -20))
+                  cur = gs_object_parent (game, cur);
+                if (cur >= 0)
+                  for (r = 0; r < gs_room_count (game); r++)
+                    if (obj_directly_in_room (game, cur, r)) { eff = r; break; }
+              }
+            if (eff < 0 && (pos == -200 || pos == -300) && par >= 0)
+              eff = gs_npc_location (game, par) - 1;
+            fprintf (stderr,
+                     "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld hit=%ld prot=%ld method=%ld [%s]\n",
+                     i, pos, room, par, eff, hit, prot, method, s ? s : "");
+          }
         }
       return;
     }
@@ -260,9 +279,14 @@ sc_dump_structure_once (sc_gameref_t game)
       k[2].string = "Restrictions";
       rcount = prop_get_child_count (bundle, "I<-sis", k);
 
-      fprintf (stderr,
-               "TASK %ld where=%ld room=%ld restr=%ld rep=%ld cmd=[%s]\n",
-               t, wtype, wroom, rcount, rep, cmd ? cmd : "");
+      {
+        sc_int score = 0;
+        k[2].string = "Score";
+        if (prop_get (bundle, "I<-sis", &vt, k)) score = vt.integer;
+        fprintf (stderr,
+                 "TASK %ld where=%ld room=%ld restr=%ld rep=%ld score=%ld cmd=[%s]\n",
+                 t, wtype, wroom, rcount, rep, score, cmd ? cmd : "");
+      }
 
       /* Built-in author hints attached to this task (Question/Hint1=subtle/
        * Hint2=sledgehammer) -- the game's own context-sensitive walkthrough. */
@@ -467,6 +491,14 @@ sc_dump_structure_once (sc_gameref_t game)
     rcount = prop_get_child_count (bundle, "I<-s", rk);
     for (r = 0; r < rcount; r++)
       {
+        sc_vartype_t rnv;
+        const sc_char *rname = NULL;
+        rk[1].integer = r; rk[2].string = "Short";
+        if (prop_get (bundle, "S<-sis", &rnv, rk)) rname = rnv.string;
+        fprintf (stderr, "ROOM %ld [%s]\n", r, rname ? rname : "");
+      }
+    for (r = 0; r < rcount; r++)
+      {
         sc_int d;
         for (d = 0; d < 12; d++)
           {
@@ -503,7 +535,18 @@ sc_dump_npc_trace (sc_gameref_t game)
   /* SC_TRACE_PLAYER: just the player's room each turn (maze-mapping aid). */
   if (getenv ("SC_TRACE_PLAYER"))
     {
-      fprintf (stderr, "PLAYERROOM room=%ld\n", gs_playerroom (game));
+      fprintf (stderr, "PLAYERROOM room=%ld stamina=%ld",
+               gs_playerroom (game), game->playerstamina);
+      {
+        const sc_char *ov = getenv ("SC_TRACE_OBJ");
+        if (ov)
+          {
+            sc_int oi = atol (ov);
+            fprintf (stderr, " obj%ld_pos=%ld state=%ld", oi,
+                     gs_object_position (game, oi), gs_object_state (game, oi));
+          }
+      }
+      fprintf (stderr, "\n");
       fflush (stderr);
     }
 

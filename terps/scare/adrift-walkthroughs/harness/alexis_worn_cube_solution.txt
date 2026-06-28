@@ -1,5 +1,6 @@
-easy
+hard
 nnamen tutem selronden flar darg
+wear cube
 take all
 wear cloak
 down
@@ -13,9 +14,27 @@ east
 attack wolf
 attack wolf
 attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
+attack wolf
 take tonerith stone
 e
 e
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
+attack bridgekeeper
 attack bridgekeeper
 attack bridgekeeper
 attack bridgekeeper
@@ -40,6 +59,7 @@ attack narfild
 attack narfild
 attack narfild
 attack narfild
+attack narfild
 e
 take glaven stone
 turn ring
@@ -49,10 +69,10 @@ w
 take spade
 e
 e
-se
-se
-ne
-look
+nw
+nw
+e
+sw
 give food to tarin
 ne
 dig
@@ -92,12 +112,29 @@ se
 attack goblin
 attack goblin
 attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
+attack goblin
 take kedarn stone
 nw
 n
 w
 nw
 nw
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
+attack monster
 attack monster
 attack monster
 attack monster
@@ -111,6 +148,14 @@ sw
 nw
 e
 e
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+attack eagle
+attack eagle
 attack eagle
 attack eagle
 w
@@ -136,6 +181,17 @@ n
 attack larnt
 attack larnt
 attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
+attack larnt
 n
 take all
 s
@@ -153,6 +209,31 @@ n
 drink gourd
 north
 north
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
+attack urgorn
 attack urgorn
 attack urgorn
 attack urgorn
