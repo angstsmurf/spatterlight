@@ -155,11 +155,16 @@ convert_to_re (const char *pattern, std::string &out_pattern,
   replace_all (sC, "(", "\\(");
   replace_all (sC, ")", "\\)");
 
-  /* Wildcards (non-capturing variants of frankendrift's groups). */
-  replace_all (sC, " * ", " (?:.*? )?");
-  replace_all (sC, "* ",  "(?:.*? )?");
-  replace_all (sC, " *",  "(?: .*?)?");
-  replace_all (sC, "*",   ".*?");
+  /* Wildcards (non-capturing variants of frankendrift's groups).  Like
+     frankendrift (ConvertToRE), substitute a placeholder for the wildcard body
+     and expand it to ".*?" only at the very end -- otherwise the bare-'*' pass
+     re-rewrites the '*' inside an already-inserted ".*?", corrupting the regex
+     (e.g. "{the} *[string/twig]" never matched "get twig"). */
+  replace_all (sC, " * ", " (?:\x01 )?");
+  replace_all (sC, "* ",  "(?:\x01 )?");
+  replace_all (sC, " *",  "(?: \x01)?");
+  replace_all (sC, "*",   "\x01");
+  replace_all (sC, "\x01", ".*?");
 
   replace_all (sC, "_", " ");
 
