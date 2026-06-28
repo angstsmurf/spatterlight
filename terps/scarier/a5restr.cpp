@@ -24,6 +24,7 @@ int a5restr_trace = 0;
 typedef struct {
   const char *type;   /* Object / Location / Character / Variable / Task / ...  */
   char *buf;          /* owned tokenised copy of the spec; key1/op/key2 alias it */
+  const char *raw;    /* the original (un-tokenised) spec text -- stable DOM     */
   const char *key1;
   int must_not;
   const char *op;
@@ -36,6 +37,7 @@ parse_spec (a5_restr_t *r, const char *spec)
 {
   char *p, *tok;
   r->buf = spec ? strdup (spec) : strdup ("");
+  r->raw = spec;
   r->key1 = "";
   r->op = "";
   r->key2 = "";
@@ -525,6 +527,84 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
     }
 }
 
+/* --------------------------------------------------- property sub-evaluator */
+
+static int
+is_clean_int (const char *s)
+{
+  if (s == NULL || *s == '\0') return 0;
+  if (*s == '-' || *s == '+') s++;
+  if (*s == '\0') return 0;
+  for (; *s; s++)
+    if (!isdigit ((unsigned char) *s)) return 0;
+  return 1;
+}
+
+/*
+ * Port of clsUserSession.PassSingleRestriction's Property case (clsUserSession
+ * .vb:5060).  The spec is "<propKey> <itemRef> Must|MustNot <Op> <value>" -- it
+ * carries an extra item token that parse_spec (built for the one-key Object/
+ * Character layout) cannot represent, so re-tokenise the raw text here.
+ *
+ * An item lacking the property fails the test (bItemContainsProperty=False).
+ * EqualTo compares the (override-aware) property value against the resolved
+ * value as a string -- covering StaticOrDynamic / OpenStatus / state lists /
+ * integer flags / object-key properties.  The numeric inequality operators are
+ * evaluated only when the value is a plain integer; an expression value
+ * (%Player%-relative weight/bulk sums) is not yet computed, so the restriction
+ * passes (the lenient default, matching the previous always-pass stub).
+ */
+static int
+pass_property (a5_state_t *st, a5_restr_t *r)
+{
+  char *buf = strdup (r->raw ? r->raw : "");
+  char *p = buf, *propkey, *item, *musttok, *op, *value;
+  int must_not, rr;
+  const char *itemkey, *pv;
+
+#define NEXT_TOK(dst)                                                          \
+  do { while (*p == ' ') p++; (dst) = p;                                       \
+       while (*p && *p != ' ') p++; if (*p) *p++ = '\0'; } while (0)
+  NEXT_TOK (propkey);
+  NEXT_TOK (item);
+  NEXT_TOK (musttok);
+  NEXT_TOK (op);
+  while (*p == ' ') p++;
+  value = p;
+#undef NEXT_TOK
+
+  must_not = (strcmp (musttok, "MustNot") == 0);
+  itemkey = resolve_key (st, item);
+
+  if (strcmp (op, "EqualTo") == 0)
+    {
+      const char *rhs = resolve_key (st, value);
+      pv = a5state_entity_prop (st, itemkey, propkey);
+      if (pv == NULL && strcmp (propkey, "StaticOrDynamic") == 0)
+        pv = "Static";          /* the StaticOrDynamic default for an object */
+      rr = (pv != NULL) && streq (pv, rhs);
+    }
+  else if (is_clean_int (value))
+    {
+      long lv, rv = strtol (value, NULL, 10);
+      pv = a5state_entity_prop (st, itemkey, propkey);
+      lv = pv ? strtol (pv, NULL, 10) : 0;
+      if (strcmp (op, "GreaterThanOrEqualTo") == 0)      rr = lv >= rv;
+      else if (strcmp (op, "GreaterThan") == 0)          rr = lv > rv;
+      else if (strcmp (op, "LessThanOrEqualTo") == 0)    rr = lv <= rv;
+      else if (strcmp (op, "LessThan") == 0)             rr = lv < rv;
+      else                                               rr = 1;
+    }
+  else
+    rr = 1;                     /* expression value not yet evaluated: pass */
+
+  if (a5restr_trace)
+    fprintf (stderr, "    [restr Property: %s %s %s%s %s] -> %d\n", propkey,
+             item, must_not ? "MustNot " : "", op, value, must_not ? !rr : rr);
+  free (buf);
+  return must_not ? !rr : rr;
+}
+
 /* ---------------------------------------------------------- single + block */
 
 static int
@@ -535,13 +615,14 @@ pass_single (a5_state_t *st, a5_restr_t *r)
   else if (streq (r->type, "Location"))  result = pass_location (st, r);
   else if (streq (r->type, "Character")) result = pass_character (st, r);
   else if (streq (r->type, "Variable"))  result = pass_variable (st, r);
+  else if (streq (r->type, "Property"))  return pass_property (st, r);
   else if (streq (r->type, "Task"))
     {
       int ti = a5state_task_index (st, resolve_key (st, r->key1));
       result = ti >= 0 && st->task_done[ti];
     }
   else
-    result = 1;               /* Item/Property/Direction/Expression: Phase 3-4 */
+    result = 1;               /* Item/Direction/Expression: Phase 3-4 */
 
   if (r->must_not)
     result = !result;
