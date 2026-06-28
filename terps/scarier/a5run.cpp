@@ -341,7 +341,7 @@ character_words (a5_state_t *st, const a5_character_t *c,
 static std::vector<const char *>
 resolve_object_candidates (a5_state_t *st, const std::string &text)
 {
-  std::vector<const char *> vis, any;
+  std::vector<const char *> vis, seen, any;
   const char *ploc = a5state_player_location (st);
   for (int i = 0; i < st->adv->n_objects; i++)
     {
@@ -353,8 +353,16 @@ resolve_object_candidates (a5_state_t *st, const std::string &text)
       any.push_back (o->key);
       if (ploc != NULL && a5state_object_at_location (st, i, ploc, 0))
         vis.push_back (o->key);
+      else if (st->obj_seen != NULL && st->obj_seen[i])
+        seen.push_back (o->key);   /* known but not here now */
     }
-  return vis.empty () ? any : vis;
+  /* Scope preference: visible, else previously-seen, else any name-match.  A
+     seen-but-elsewhere object resolves to itself (examine -> "You can't see the
+     X."); only when nothing is visible *or* seen does the reference stay a bag
+     of never-encountered objects ("You can't see any <plural>!"). */
+  if (!vis.empty ())  return vis;
+  if (!seen.empty ()) return seen;
+  return any;
 }
 
 static std::vector<const char *>
@@ -602,9 +610,15 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
              let the task's own restriction message render. */
           if (r.type == 'o' && c.size () > 1 && amb != NULL)
             {
-              int any_vis = 0;
-              for (const char *k : c) if (obj_in_scope (st, k)) { any_vis = 1; break; }
-              if (!any_vis)
+              int any_vis = 0, any_seen = 0;
+              for (const char *k : c)
+                {
+                  if (obj_in_scope (st, k)) any_vis = 1;
+                  int ki = a5state_object_index (st, k);
+                  if (ki >= 0 && st->obj_seen != NULL && st->obj_seen[ki])
+                    any_seen = 1;
+                }
+              if (!any_vis && !any_seen)
                 {
                   amb->ref_name = r.name; amb->type = 'o'; amb->ref_text = r.text;
                   amb->keys.clear ();
