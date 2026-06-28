@@ -1,0 +1,263 @@
+# Anno 1700 -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: the community walkthrough for Finn Rosenlov's "Anno 1700",
+# played by Denk.  Cleaned for use as an a5_groundtruth.sh diff script:
+# the prose header and every inline "(...)" play-by-play note have been
+# removed so each line is a bare command (both harnesses skip blank and
+# "#"-prefixed lines).  Run with:
+#
+#   test/a5_groundtruth.sh test/adrift5-games/Anno_1700.blorb \
+#       test/anno1700_walkthrough.txt
+#
+# NOTE: after "drink wine" the walkthrough expects a timed event to drop
+# the player into a storage room ("keep waiting until you wake up in a
+# storage room").  That event does not fire deterministically under the
+# fixed RNG seed (the original author was unsure of its trigger too), so
+# the waits below and the commands after them are best-effort.
+x tree
+x crooked tree
+x hole
+search hole
+get nuts
+get twig
+x string
+x key
+s
+s
+s
+say hello
+n
+x article
+read article
+u
+unlock door 101
+open closet
+look inside closet
+x board
+move board
+close closet
+x candleholder
+get candleholder
+x handle
+x closet
+x hole
+x feet
+insert handle in hole
+turn handle
+push closet
+w
+x wall
+x brick
+move brick
+x hole
+pull hook
+push wall
+x wall
+push wall
+n
+x fireplace
+x column
+x woman
+x pitcher
+x bucket
+get bucket
+x firewood
+get firewood
+x fireplace
+x columns
+turn pitcher
+insert key in hole
+s
+out
+out
+d
+x counter
+x lantern
+get lantern
+e
+n
+x fridge
+open fridge
+x floor
+x floorboards
+move fridge
+move floorboards
+x hole
+x range
+open stove
+get twig
+light lantern
+d
+x barrels
+x spigots
+pull left spigot
+enter barrel
+e
+x walls
+x ledge
+s
+x sand
+dig sand
+get trunk
+n
+drop trunk
+climb trunk
+climb wall
+e
+d
+x cannon
+x sails
+move sails
+x door
+x skull
+get skull
+open door
+x yard
+d
+x benches
+get pistol
+x pistol
+d
+x kegs
+x wedged keg
+open wedged keg
+get powder
+u
+x gun deck
+get ball
+get ball
+u
+x mast
+get ramrod
+pour powder in cannon
+put ball in cannon
+x charred sail
+get threads
+braid threads
+prime wick
+place fuse in cannon
+aim cannon at yard
+light fuse
+e
+x skeleton
+x parchment
+get parchment
+out
+n
+w
+d
+w
+out
+get pitcher
+x pitcher
+drink wine
+u
+s
+w
+s
+tell susan about cave
+show susan the parchment
+ask about jacques
+n
+u
+e
+e
+e
+knock on door 107
+ask jacques about parchment
+show parchment to jacques
+out
+# --- keep waiting until the storage-room wake event fires ---
+z
+z
+z
+z
+z
+x closet
+x hole
+open closet
+look in closet
+x board
+move board
+close closet
+x candleholder
+get candleholder
+insert handle in hole
+turn handle
+push closet
+w
+x wall
+x brick
+move brick
+x hole
+pull hook
+push wall
+x wall
+push wall
+e
+open door
+x shelves
+x goods
+move goods
+get hat
+x hat
+get wire
+x wire
+bend wire
+unlock door
+out
+d
+e
+e
+open door
+x bed
+x human
+x bundle
+get bundle
+wear clothes
+out
+w
+w
+d
+x woman
+say hello
+out
+d
+x sea
+x silhouette
+x light
+listen
+u
+in
+tell lulu about raid
+out
+x tree
+x hole
+get key
+s
+u
+w
+open door
+e
+in
+open closet
+hide key
+close closet
+out
+w
+listen
+open door
+attack officer
+open closet
+get key
+get handle
+get holder
+w
+n
+x fireplace
+x floor
+get firewood
+turn pitcher
+insert key in hole
+lift floor
+*** YOU HAVE WON! ***

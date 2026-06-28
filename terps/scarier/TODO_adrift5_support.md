@@ -743,11 +743,50 @@ ADRIFT text is full of embedded directives evaluated at display time:
           the RNG-selected guest *event*, not a walk).  Six Silver Bullets golden
           (its six StartActive=0, output-less patrol walks) + Stone of Wisdom
           stay clean; **ASan/UBSan-clean** across the whole 15-game corpus.
+      - **Unknown-word message wording + `wait`/`z` + clean walkthrough script**
+        — **DONE.**  Three changes, validated against FrankenDrift ground truth:
+        1. **The `clsUserSession.NotUnderstood` ladder** replaces the single
+           catch-all "I don't understand.".  A lazily-built known-words set
+           (`a5_run_t.known_words`, seeded exactly as NotUnderstood does: every
+           General task command word with `[]{}/` blanked, each object's
+           article/prefix/names, each character's article/prefix/descriptors/
+           proper name, the direction words via the new
+           `a5parse_directions_re`, and `"and"`) drives the word-validity check:
+           the first input word the game doesn't recognise stops the turn with
+           `I did not understand the word "X".`; otherwise the fall-through is the
+           adventure's catch-all `Sorry, I didn't understand that command.`
+           (FileIO.vb:850 default).  Every former "I don't understand." was
+           already a hunk (FrankenDrift never emits that literal), so this is
+           strictly non-regressing.
+        2. **`wait`/`z` system command** (`system_command`, a minimal
+           `clsUserSession.SystemTasks`, tried after task-match fails but before
+           NotUnderstood): prints `Time passes...` and advances `WaitTurns`
+           (new `<WaitTurns>` model field, default 3) turns of `ev_tick_all`
+           (TurnBasedStuff).
+        3. **Cleaned walkthrough script** `test/anno1700_walkthrough.txt` — the
+           community Anno 1700 walkthrough rewritten as a bare-command
+           ground-truth script: the prose header and every inline `(...)`
+           play-by-play note stripped (both harnesses skip blank / `#`-prefixed
+           lines), so each line actually executes instead of being rejected
+           wholesale.  This is the fix for the old "walkthrough comment lines
+           parsed as commands" divergence — the game now genuinely plays through
+           (the diff compares real gameplay, 187 → 142 hunks).  **NOTE:** the
+           post-"drink wine" kidnapping/storage-room wake event does not fire
+           deterministically under the fixed seed (the original author was unsure
+           of its trigger too), so the waits and following commands are
+           best-effort.  **ASan/UBSan-clean; `make -f Makefile.headless test`
+           green** (Six Silver Bullets golden + a5parse/a5arith/a5distest/walk
+           unchanged).
       - **Remaining Anno divergences (the next targets, in rough frequency):**
-        - inventory `%ListObjectsOnAndIn%` over-listing (the `i` line lists every
-          container in the room, not just carried/worn); unknown-word message
-          wording ("I don't understand." vs "I did not understand the word …");
-          walkthrough comment lines parsed as commands.
+        the reference-resolution visibility messages — `You can't see any %plural%!`
+        (a typed noun matches object(s) by name but none are in scope;
+        clsUserSession.DisplayAmbiguityQuestion's `bCanSeeAny=False` path +
+        `GuessPluralFromNoun`), `You see no such thing.` (the stock examine fail),
+        the missing definite article in Scarier's own `You can't see the X.` fail
+        text, and the `Verb what?` no-reference prompts — plus the inventory
+        `%ListObjectsOnAndIn%` over-listing.  (The RNG-selected guest-event lines
+        — "a guest walks by you and hangs their room key on the rack" — are
+        expected divergence, .NET `System.Random` vs xoshiro.)
       - **Still TODO (earlier list)**: full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);
