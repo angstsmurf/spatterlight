@@ -71,6 +71,8 @@ typedef struct a5_task_s {
   const char *type;                 /* General / Specific / System           */
   const char **commands;    int n_commands;
   int repeatable;
+  int continue_lower;               /* <Continue>ContinueAlways: keep running
+                                       lower-priority matching tasks after this */
   const a5_xml_node_t *restrictions; /* <Restrictions> node, or NULL         */
   const a5_xml_node_t *actions;      /* <Actions> node, or NULL              */
   const a5_xml_node_t *node;

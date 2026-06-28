@@ -109,6 +109,9 @@ a5state_new (const a5_adventure_t *adv)
                                              sizeof *st->char_loc);
       st->char_position = (char **) calloc ((size_t) adv->n_characters,
                                             sizeof *st->char_position);
+      st->char_onobj = (const char **) calloc ((size_t) adv->n_characters,
+                                               sizeof *st->char_onobj);
+      st->char_in = (char *) calloc ((size_t) adv->n_characters, 1);
       for (i = 0; i < adv->n_characters; i++)
         {
           const a5_character_t *c = &adv->characters[i];
@@ -164,6 +167,8 @@ a5state_free (a5_state_t *st)
   free (st->obj);
   free ((void *) st->char_loc);
   free (st->char_position);
+  free ((void *) st->char_onobj);
+  free (st->char_in);
   free (st->var_num);
   free (st->var_text);
   free (st->task_done);

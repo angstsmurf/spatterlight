@@ -396,6 +396,29 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       const char *pos = (ci >= 0 && st->char_position) ? st->char_position[ci] : NULL;
       return streq (pos, k2);
     }
+  /* On/in object, optionally constrained by stance.  Mirrors clsUserSession's
+     BeOnObject / BeInsideObject / Be{Standing,Sitting,Lying}OnObject cases:
+     ANYOBJECT -> just the ExistWhere; THEFLOOR / else -> object-key compare. */
+  if (streq (r->op, "BeOnObject") || streq (r->op, "BeInsideObject")
+      || streq (r->op, "BeStandingOnObject") || streq (r->op, "BeSittingOnObject")
+      || streq (r->op, "BeLyingOnObject"))
+    {
+      const char *onobj = (ci >= 0 && st->char_onobj) ? st->char_onobj[ci] : NULL;
+      int inside = (ci >= 0 && st->char_in) ? st->char_in[ci] : 0;
+      const char *want_pos =
+          streq (r->op, "BeStandingOnObject") ? "Standing"
+        : streq (r->op, "BeSittingOnObject")  ? "Sitting"
+        : streq (r->op, "BeLyingOnObject")    ? "Lying" : NULL;
+      int want_in = streq (r->op, "BeInsideObject");
+      const char *pos = (ci >= 0 && st->char_position) ? st->char_position[ci] : NULL;
+      if (ci < 0) return 0;
+      if (want_pos != NULL && !streq (pos, want_pos))
+        return 0;
+      if (streq (k2, ANYOBJECT))
+        return onobj != NULL && (inside ? 1 : 0) == want_in;
+      /* THEFLOOR and any concrete object key fall here: must be on/in that key. */
+      return onobj != NULL && (inside ? 1 : 0) == want_in && streq (onobj, k2);
+    }
   return 1;                   /* HaveSeen*, BeInConversation*, etc: Phase 4 */
 }
 

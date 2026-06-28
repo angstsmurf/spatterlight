@@ -54,6 +54,10 @@ typedef struct a5_state_s {
   a5_objloc_t *obj;       /* [adv->n_objects], parallel to adv->objects        */
   const char **char_loc;  /* [adv->n_characters] location key, or NULL         */
   char **char_position;   /* [adv->n_characters] Standing/Sitting/Lying, owned */
+  const char **char_onobj;/* [adv->n_characters] object key the char is on/in,
+                             or NULL when "at location" (ExistWhere==AtLocation) */
+  char *char_in;          /* [adv->n_characters] when char_onobj set: 1=inside,
+                             0=on the surface (ExistWhere InObject vs OnObject)  */
 
   long  *var_num;         /* [adv->n_variables] numeric value                  */
   char **var_text;        /* [adv->n_variables] text value (owned), or NULL    */

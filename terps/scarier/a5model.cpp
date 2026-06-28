@@ -173,6 +173,10 @@ a5_load_tasks (a5_adventure_t *a)
       t->commands = a5_collect_text (c, "Command", &t->n_commands);
       rep = a5xml_child_text (c, "Repeatable");
       t->repeatable = (rep != NULL && strcmp (rep, "1") == 0);
+      {
+        const char *cont = a5xml_child_text (c, "Continue");
+        t->continue_lower = (cont != NULL && strcmp (cont, "ContinueAlways") == 0);
+      }
       t->restrictions = a5xml_child (c, "Restrictions");
       t->actions = a5xml_child (c, "Actions");
 

@@ -868,6 +868,7 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                       { dest = st->adv->groups[g].members[0]; break; }
                 }
               st->char_loc[ci] = dest;
+              st->char_onobj[ci] = NULL;   /* now "at location" */
             }
           return;
         }
@@ -875,15 +876,23 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
         {
           const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
           st->char_loc[ci] = streq (k2, "Hidden") ? NULL : k2;
+          st->char_onobj[ci] = NULL;       /* now "at location" */
           return;
         }
       if (to == "ToStandingOn" || to == "ToSittingOn" || to == "ToLyingOn")
         {
           const char *pos = (to == "ToSittingOn") ? "Sitting"
                           : (to == "ToLyingOn")   ? "Lying" : "Standing";
+          const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
           free (st->char_position[ci]);
           st->char_position[ci] = strdup (pos);
           a5state_set_prop (st, k1, "CharacterPosition", pos);
+          /* "TheFloor" means standing/sitting/lying at the location, not on an
+             object (clsCharacterLocation.ExistsWhere AtLocation vs OnObject). */
+          if (k2 == NULL || streq (k2, "TheFloor"))
+            st->char_onobj[ci] = NULL;
+          else
+            { st->char_onobj[ci] = k2; st->char_in[ci] = 0; }
           return;
         }
       /* ToParentLocation / others: best-effort no-op for Phase 3 */
@@ -1477,6 +1486,12 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
               run_general (run, t, &m, out);
               st->task_done[ti] = 1;
               ev_on_task_completed (run, t->key, out);
+              /* <Continue>ContinueAlways: run lower-priority matching tasks too
+                 (clsUserSession GetGeneralTask -> EvaluateInput(Priority+1)).
+                 E.g. GetOffBeforeMoving prints "(getting off X first)" then lets
+                 the actual movement task run. */
+              if (t->continue_lower)
+                break;          /* stop trying this task's commands; keep scanning */
               return 1;
             }
           if (r == RR_AMBIG && !*have_amb)
