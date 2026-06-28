@@ -1493,9 +1493,15 @@ a5run_intro (a5_run_t *run)
   intro = a5text_describe (run->st, run->adv->introduction);
   if (intro[0]) { sb_puts (&out, intro); sb_puts (&out, "\n\n"); }
   free (intro);
-  look = a5text_view_location (run->st);
-  sb_puts (&out, look);
-  free (look);
+  /* Show the start room only when <ShowFirstLocation> is set (the default);
+     games like Six Silver Bullets clear it and reveal the room via a LOOK or
+     the first move (clsUserSession game-start: gated on Adventure.ShowFirstRoom). */
+  if (run->adv->show_first_location)
+    {
+      look = a5text_view_location (run->st);
+      sb_puts (&out, look);
+      free (look);
+    }
   /* Start the Immediately events (clsUserSession init loop, after intro). */
   ev_init (run, &out);
   return sb_take (&out);

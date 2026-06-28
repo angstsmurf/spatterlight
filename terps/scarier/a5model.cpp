@@ -490,6 +490,12 @@ a5model_from_doc (a5_xml_doc_t *doc)
   a->author = a5xml_child_text (root, "Author");
   a->version = a5xml_child_text (root, "Version");
   a->introduction = a5xml_child (root, "Introduction");
+  /* <ShowFirstLocation> gates the post-intro start-room display; absent =>
+     true (clsAdventure.bShowFirstRoom default), "0" => false. */
+  {
+    const char *sfl = a5xml_child_text (root, "ShowFirstLocation");
+    a->show_first_location = !(sfl != NULL && strcmp (sfl, "0") == 0);
+  }
 
   a5_load_propdefs (a);
   a5_load_locations (a);

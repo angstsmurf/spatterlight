@@ -20,12 +20,7 @@ You are asleep, and sleep is a terrible thing.
 You must WAKE UP!
 
 
-Dead or Dreaming?
 
-You cannot LOOK here, for there is nothing to see.
-You are dead, or dreaming. Perhaps both.
-There is nothing to do except WAKE UP
-...or is there?
 
 > wake up
 

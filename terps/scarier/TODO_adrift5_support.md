@@ -243,9 +243,15 @@ ADRIFT text is full of embedded directives evaluated at display time:
        `The Yellow Note, The Silver Gun and The Silver Bullets` vs FrankenDrift's
        `the yellow note, the silver gun and the silver bullets are on the
        Table.` (lowercase articles + an " are on the <container>." suffix).
-    3. **Start-room auto-LOOK** — Scarier renders the start location
-       ("Dead or Dreaming?") description during the intro; FrankenDrift does not
-       auto-look the start room (it shows only the intro/WAKE-UP text).
+    3. **Start-room auto-LOOK** — FIXED.  Scarier rendered the start location
+       ("Dead or Dreaming?") during the intro; FrankenDrift gates that on
+       `Adventure.ShowFirstRoom` (XML `<ShowFirstLocation>`, default true), which
+       Six Silver Bullets clears.  Added `a5_adventure_t.show_first_location`
+       (parsed in `a5model.cpp`, "0" => false) and gated the post-intro
+       `a5text_view_location` in `a5run_intro` on it.  Verified: Six Silver
+       Bullets no longer shows the room at start (matches FrankenDrift), while
+       Anno 1700 and Stone of Wisdom (`<ShowFirstLocation>1`) still display their
+       start rooms.  Golden transcript regenerated; **ASan/UBSan-clean**.
 - Keep the original `.exe` (official Runner) for spot-checks.
 - Add per-phase dumps mirroring the existing `SCR_DUMP_*` env knobs:
   `A5_DUMP_XML` (decompressed XML), `A5_DUMP_MODEL` (parsed objects/properties),
