@@ -14,6 +14,7 @@
 
 #include "a5expr.h"
 #include "a5restr.h"
+#include "a5sexpr.h"
 #include "a5text.h"
 
 /* ------------------------------------------------------- string builder */
@@ -1029,19 +1030,255 @@ resolve_perspective (a5_state_t *st, const char *src)
   return sb_finish (&sb);
 }
 
+/* ------------------------------------------------- embedded <#...#> expressions */
+
+/* A signed decimal integer? (frankendrift's bIntValue -- expression results
+   that are pure integers are left unquoted; everything else is quoted.) */
+static int
+is_signed_int (const char *s)
+{
+  if (s == NULL || *s == '\0')
+    return 0;
+  const char *p = s;
+  if (*p == '+' || *p == '-') p++;
+  if (*p == '\0') return 0;
+  for (; *p; p++)
+    if (!isdigit ((unsigned char) *p))
+      return 0;
+  return 1;
+}
+
+/* End of a ".step(args)..." property chain that starts at `dot` (mirrors the
+   scan in a5expr_replace). */
+static const char *
+sexpr_scan_chain (const char *dot)
+{
+  const char *r = dot;
+  while (*r == '.')
+    {
+      const char *seg = r + 1;
+      if (!isalpha ((unsigned char) *seg))
+        break;
+      r = seg;
+      while (isalnum ((unsigned char) *r) || *r == '_' || *r == '|') r++;
+      if (*r == '(')
+        { int d = 1; r++; while (*r && d > 0) { if (*r == '(') d++; else if (*r == ')') d--; r++; } }
+    }
+  return r;
+}
+
+/* Emit a substituted value into `sb`, quoting it (frankendrift's bExpression
+   path) unless it is a bare integer or we are already inside a quoted literal. */
+static void
+sb_quote_val (sb_t *sb, const char *val, int in_quote)
+{
+  if (in_quote || is_signed_int (val))
+    sb_puts (sb, val);
+  else
+    { sb_putc (sb, '"'); sb_puts (sb, val); sb_putc (sb, '"'); }
+}
+
+/*
+ * Substitute the %references%, %variables% and OO property-expressions inside a
+ * `<#...#>` expression body, quoting non-numeric results so the evaluator sees a
+ * self-contained expression.  Ports frankendrift's ReplaceFunctions(expr, True)
+ * + ReplaceOO(bExpression:=True) (Global.vb:639-647): a substituted value is
+ * wrapped in double quotes unless it is an integer or already lies between
+ * quotes in the source.
+ */
+static char *
+expr_substitute (a5_state_t *st, const char *src)
+{
+  sb_t sb;
+  const char *p = src;
+  int in_quote = 0;
+
+  sb_init (&sb);
+  while (*p != '\0')
+    {
+      if (*p == '"')
+        { in_quote = !in_quote; sb_putc (&sb, '"'); p++; continue; }
+      if (*p == '%')
+        {
+          const char *q = p + 1;
+          const char *name_start = q;
+          while (*q && (isalnum ((unsigned char) *q) || *q == '_')) q++;
+          if (q > name_start && *q == '%')
+            {
+              size_t nlen = (size_t) (q - name_start);
+              char *name = strndup (name_start, nlen);
+              /* %reference%.Property... : resolve the OO chain (quoted) */
+              if (q[1] == '.')
+                {
+                  char *fk = oo_firstkey (st, name);
+                  if (fk != NULL)
+                    {
+                      const char *chain_end = sexpr_scan_chain (q + 1);
+                      char *chain = strndup (q + 1, (size_t) (chain_end - (q + 1)));
+                      char *val = a5expr_eval (st, fk, chain);
+                      sb_quote_val (&sb, val ? val : "", in_quote);
+                      free (val); free (chain); free (fk); free (name);
+                      p = chain_end;
+                      continue;
+                    }
+                }
+              /* plain %name% */
+              {
+                char *val = eval_function (st, name, NULL);
+                free (name);
+                if (val != NULL)
+                  { sb_quote_val (&sb, val, in_quote); free (val); p = q + 1; continue; }
+              }
+              /* unresolved: leave the %name% token verbatim */
+              sb_need (&sb, (size_t) (q + 1 - p));
+              memcpy (sb.p + sb.len, p, (size_t) (q + 1 - p));
+              sb.len += (size_t) (q + 1 - p);
+              sb.p[sb.len] = '\0';
+              p = q + 1;
+              continue;
+            }
+          if (q > name_start && *q == '[')
+            {
+              int depth = 1;
+              const char *a = q + 1;
+              const char *astart = a;
+              while (*a && depth > 0)
+                { if (*a == '[') depth++; else if (*a == ']') depth--; if (depth > 0) a++; }
+              if (*a == ']' && a[1] == '%')
+                {
+                  char *rawargs = strndup (astart, (size_t) (a - astart));
+                  char *name = strndup (name_start, (size_t) (q - name_start));
+                  char *args = replace_functions (st, rawargs);
+                  char *val = eval_function (st, name, args);
+                  free (rawargs); free (args); free (name);
+                  if (val != NULL)
+                    { sb_quote_val (&sb, val, in_quote); free (val); p = a + 2; continue; }
+                  /* unresolved: leave verbatim */
+                  sb_need (&sb, (size_t) (a + 2 - p));
+                  memcpy (sb.p + sb.len, p, (size_t) (a + 2 - p));
+                  sb.len += (size_t) (a + 2 - p);
+                  sb.p[sb.len] = '\0';
+                  p = a + 2;
+                  continue;
+                }
+            }
+          /* a lone '%' */
+          sb_putc (&sb, '%');
+          p++;
+          continue;
+        }
+      sb_putc (&sb, *p);
+      p++;
+    }
+  return sb_finish (&sb);
+}
+
+/* Evaluate every `<#...#>` expression in `src` (frankendrift ReplaceExpressions:
+   substitute the body, then reduce it to its string value). */
+static char *
+replace_expressions (a5_state_t *st, const char *src)
+{
+  sb_t sb;
+  const char *p = src;
+
+  if (strstr (src, "<#") == NULL)
+    return strdup (src);
+
+  sb_init (&sb);
+  while (*p != '\0')
+    {
+      if (p[0] == '<' && p[1] == '#')
+        {
+          const char *end = strstr (p + 2, "#>");
+          if (end != NULL)
+            {
+              char *inner = strndup (p + 2, (size_t) (end - (p + 2)));
+              char *sub = expr_substitute (st, inner);
+              char *val = a5_eval_sexpr (sub);
+              sb_puts (&sb, val);
+              free (inner); free (sub); free (val);
+              p = end + 2;
+              continue;
+            }
+        }
+      sb_putc (&sb, *p);
+      p++;
+    }
+  return sb_finish (&sb);
+}
+
+/* Swap each `<#...#>` for a \x01<n>\x01 sentinel so the %function%/OO passes
+   leave the expression body untouched (frankendrift guards them behind GUIDs);
+   the sentinel survives both passes verbatim and is restored before
+   replace_expressions evaluates the bodies. */
+static std::string
+protect_exprs (const char *src, std::vector<std::string> &saved)
+{
+  std::string out;
+  const char *p = src;
+  while (*p != '\0')
+    {
+      if (p[0] == '<' && p[1] == '#')
+        {
+          const char *end = strstr (p + 2, "#>");
+          if (end != NULL)
+            {
+              char buf[24];
+              snprintf (buf, sizeof buf, "\x01%d\x01", (int) saved.size ());
+              saved.push_back (std::string (p, (size_t) (end + 2 - p)));
+              out += buf;
+              p = end + 2;
+              continue;
+            }
+        }
+      out += *p++;
+    }
+  return out;
+}
+
+static std::string
+restore_exprs (const char *src, const std::vector<std::string> &saved)
+{
+  std::string out;
+  const char *p = src;
+  while (*p != '\0')
+    {
+      if (*p == '\x01')
+        {
+          const char *q = p + 1;
+          while (isdigit ((unsigned char) *q)) q++;
+          if (*q == '\x01' && q > p + 1)
+            {
+              int idx = atoi (p + 1);
+              if (idx >= 0 && idx < (int) saved.size ())
+                out += saved[idx];
+              p = q + 1;
+              continue;
+            }
+        }
+      out += *p++;
+    }
+  return out;
+}
+
 /* ------------------------------------------------------------- process core */
 
 static char *
 process_inner (a5_state_t *st, const char *src, int depth)
 {
-  char *funcs = replace_functions (st, src);
+  std::vector<std::string> saved;
+  std::string prot = protect_exprs (src, saved);
+  char *funcs = replace_functions (st, prot.c_str ());
   char *oo = a5expr_replace (st, funcs);    /* resolve key.Property expressions */
+  std::string restored = restore_exprs (oo, saved);
+  char *exprs = replace_expressions (st, restored.c_str ());  /* <#...#> */
   char *alrs;
   free (funcs);
-  if (depth > 8)
-    return oo;
-  alrs = replace_alrs (st, oo, depth);
   free (oo);
+  if (depth > 8)
+    return exprs;
+  alrs = replace_alrs (st, exprs, depth);
+  free (exprs);
   return alrs;
 }
 

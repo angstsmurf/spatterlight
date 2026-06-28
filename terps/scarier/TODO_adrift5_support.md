@@ -590,21 +590,53 @@ ADRIFT text is full of embedded directives evaluated at display time:
         All eight are committed (one per fix), Six Silver Bullets golden +
         a5parse/a5arith/a5distest unchanged, ASan/UBSan-clean over the whole
         walkthrough.
+      - **`<# IF(...) #>` expression engine + `%X.Location.Exits.Count/.List`**
+        — **DONE.**  New `a5sexpr.cpp/.h` (`a5_eval_sexpr`): a string-capable
+        recursive-descent port of `clsVariable.SetToExpression`'s token reducer —
+        numbers / "quoted strings" / bare-identifier-as-string; arithmetic
+        `+ - * / mod ^` with ADRIFT's precedence (`* /` tighter than `+ - mod ^`,
+        all left-assoc; `+` is numeric-add when both sides are numeric else
+        string concat; `/` rounds away from zero and follows IEEE so `0/0`→NaN,
+        `x/0`→∞ — formatted as .NET does, "NaN"/"∞"); comparisons
+        `= == <> != > < >= <=` (numeric or string → "1"/"0"); logic `AND OR`
+        (`&& ||`); and the deterministic function set `if/min/max/abs/upr/lwr/
+        ppr/len/val/str/mid/replace/lft/rgt/ist` (`either/oneof/rand/urand` are
+        best-effort, no shipped expression uses them).  Wired into `a5text`
+        `process_inner` as `replace_expressions` (`<#…#>`) after `a5expr_replace`,
+        mirroring frankendrift's ReplaceFunctions→ReplaceExpressions→ALR order:
+        `process_inner` now **protects** each `<#…#>` behind a `\x01N\x01`
+        sentinel (like frankendrift's GUID swap) so the `%function%`/OO passes
+        leave the body untouched, restores them, then `replace_expressions`
+        evaluates each via `expr_substitute` + `a5_eval_sexpr`.  `expr_substitute`
+        ports the **quoted** OO/reference substitution (frankendrift
+        `bExpression=True`, Global.vb:639-647): a substituted value is wrapped in
+        `"…"` unless it is a bare integer or already lies between quotes, so the
+        evaluator sees a self-contained expression (e.g. `Exits.List`'s
+        "north and south" is quoted, `Exits.Count`'s "2" is not).  Added **`.Exits`
+        to a5expr** (a `Ctx.is_dirs` direction-list path): a location's Exits is
+        the DirectionsEnum-order list of Movement directions with a non-empty
+        Destination (no restriction filter, matching `arlDirections(d).LocationKey
+        <> ""`), a character's via `a5restr_exit_in_direction` (restriction-
+        checked, like `HasRouteInDirection`); `.Count`/`.List`/`.Name`/bare-`` ``
+        terminate it (`.List` lowercases canonical names, ", "/" and "/" or "
+        join).  **Validated vs FrankenDrift ground truth:** the no-route messages
+        in **Anno 1700** ("There is no route to the west, only south and up."; bare
+        "up"/"down"/"in"/"out" correctly drop the "to the " via the up/down/in/out
+        IF) and **Six Silver Bullets** ("There is no route to the west." when
+        `Exits.Count=0`) now byte-match; the Six Silver Bullets `score` line
+        matches FrankenDrift's `(NaN%)` (the game divides by a missing
+        `%maxscore%`); **StoneOfWisdom and the Six Silver Bullets golden
+        transcript are unchanged**, and the Anno walkthrough diff has **zero**
+        remaining `<#…#>`/Exits hunks.  Self-contained regression: the evaluator
+        is exercised directly; **ASan/UBSan-clean** on all three games.  Added
+        `a5sexpr.cpp` to `Makefile.headless` (A5_TEXT_SRC/A5_RUN_SRC); when the v5
+        path is wired into Spatterlight it must be added to the Xcode target
+        alongside the other `a5*.cpp`.  NOTE: the bare Adventure-level
+        `%score%`/`%maxscore%`
+        specials (outside an expression, when the game has no Score/MaxScore
+        *variable*) are still a separate TODO (scoring display); they are not
+        needed by the expression engine.
       - **Remaining Anno divergences (the next targets, in rough frequency):**
-        - **`<# IF(...) #>` expression engine + `%X.Location.Exits.Count/.List`**
-          — the no-route message (`There is no route <# IF(...) #>%LCase[dir]%<#
-          IF(%Player%.Location.Exits.Count=0,".",", only "+…Exits.List+".") #>`)
-          renders as bare "There is no route west" (~25 hunks); also the Six
-          Silver Bullets `score` percentage `(%)` vs `(NaN%)`.  Port
-          `clsVariable.SetToExpression` (the token reducer: IF / EQ-NE-GT-LT /
-          AND-OR / `+` numeric-add-vs-string-concat / parens / the string
-          function library) as a string-capable evaluator, wire a
-          `replace_expressions` (`<#…#>`) pass after `a5expr_replace` (mirroring
-          ReplaceFunctions→ReplaceExpressions→ALR order) with **quoted** OO
-          substitution (frankendrift's `bExpression=True`), and add `.Exits` to
-          a5expr (a DirectionsEnum list in enum order → `.Count` / `.List`
-          lowercased, ADRIFT "a, b and c" join).  Self-contained, reusable, no
-          dependency on the NPC/scope work — **do this next.**
         - **NPC in-room presence + conversation** — a location view should append
           present NPCs' in-room text ("A young woman stands leaning over the big
           desk…"), and `say hello`/topics need the conversation engine

@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "a5expr.h"
+#include "a5restr.h"
 #include "a5text.h"
 #include "a5xml.h"
 
@@ -50,8 +51,68 @@ struct Ctx {
   std::vector<std::string> dirs;   /* direction names (the lstDirs path)         */
   std::string prop_key;            /* sPropertyKey carried for Sum               */
   int is_list;                     /* lst path (vs a single resolved item)       */
-  Ctx () : is_list (0) {}
+  int is_dirs;                     /* the lstDirs path (a .Exits direction list) */
+  Ctx () : is_list (0), is_dirs (0) {}
 };
+
+/* The twelve directions in DirectionsEnum order (North=0 .. NorthWest=11);
+   `.Exits` enumerates them in this order (Global.vb:1468). */
+static const char *kEnumDirs[12] = {
+  "North", "East", "South", "West", "Up", "Down",
+  "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest"
+};
+
+/* A location has an exit in `dir` if its Movement table names that direction
+   with a non-empty Destination -- frankendrift's location `.Exits` checks
+   arlDirections(d).LocationKey <> "" and does NOT apply the route's
+   restrictions (unlike a character's HasRouteInDirection). */
+static int
+loc_has_exit (a5_state_t *st, const char *lockey, const char *dir)
+{
+  const a5_location_t *l = a5model_location (st->adv, lockey);
+  const a5_xml_node_t *c;
+  if (l == NULL)
+    return 0;
+  for (c = l->node->first_child; c != NULL; c = c->next)
+    {
+      const char *d, *dest;
+      if (strcmp (c->name, "Movement") != 0)
+        continue;
+      d = a5xml_child_text (c, "Direction");
+      if (!streq (d, dir))
+        continue;
+      dest = a5xml_child_text (c, "Destination");
+      return dest != NULL && dest[0] != '\0';
+    }
+  return 0;
+}
+
+/* Lowercase a direction's canonical name for the `.List` display
+   ("NorthEast" -> "northeast", matching LCase(DirectionName)). */
+static std::string
+dir_display (const std::string &canon)
+{
+  return lower (canon);
+}
+
+/* Join a direction list the way clsLocation.List does: ", " between, " and "
+   (or " or " if the args ask) before the last. */
+static std::string
+render_dirs (const std::vector<std::string> &dirs, const std::string &args)
+{
+  std::string sep = contains (lower (args), "or") ? " or " : " and ";
+  if (dirs.empty ())
+    return "nothing";
+  std::string out;
+  int n = (int) dirs.size ();
+  for (int i = 0; i < n; i++)
+    {
+      if (i > 0 && i < n - 1) out += ", ";
+      if (n > 1 && i == n - 1) out += sep;
+      out += dir_display (dirs[i]);
+    }
+  return out;
+}
 
 static char item_kind (a5_state_t *st, const char *key);   /* 'o'/'c'/'l'/'g'/0 */
 
@@ -325,6 +386,19 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
   if (depth > 24) { *ok = 0; return ""; }
   split_property (sProperty, fn, args, rem);
 
+  /* ---- direction list (a .Exits result) ---- */
+  if (ctx.is_dirs)
+    {
+      if (fn.empty ())
+        { std::string r; for (size_t i = 0; i < ctx.dirs.size (); i++)
+            { if (i) r += "|"; r += ctx.dirs[i]; } return r; }
+      if (fn == "Count")
+        return std::to_string (ctx.dirs.size ());
+      if (fn == "List" || fn == "Name")
+        return render_dirs (ctx.dirs, args);
+      return "";
+    }
+
   /* ---- list path (also single items routed through here when convenient) ---- */
   if (ctx.is_list)
     {
@@ -451,6 +525,17 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         { char *n = a5text_character_subjective (st, c);
           std::string r = n ? n : key; free (n); return r; }
       if (fn == "Descriptor")   return c->n_descriptors > 0 ? c->descriptors[0] : "";
+      if (fn == "Exits")
+        {
+          int ci = a5state_character_index (st, key.c_str ());
+          const char *cl = (ci >= 0) ? st->char_loc[ci] : NULL;
+          Ctx nc; nc.is_dirs = 1;
+          if (cl != NULL)
+            for (int i = 0; i < 12; i++)
+              if (a5restr_exit_in_direction (st, cl, kEnumDirs[i]) != NULL)
+                nc.dirs.push_back (kEnumDirs[i]);
+          return oo_prop (st, nc, rem, depth + 1, ok);
+        }
       if (fn == "Held" || fn == "Worn")
         {
           std::string a = lower (args);
@@ -495,6 +580,14 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         { char *n = a5text_describe (st, a5xml_child (l->node, "ShortDescription"));
           std::string r = n ? n : ""; free (n); return r; }
       if (fn == "Description")  return item_description (st, key);
+      if (fn == "Exits")
+        {
+          Ctx nc; nc.is_dirs = 1;
+          for (int i = 0; i < 12; i++)
+            if (loc_has_exit (st, key.c_str (), kEnumDirs[i]))
+              nc.dirs.push_back (kEnumDirs[i]);
+          return oo_prop (st, nc, rem, depth + 1, ok);
+        }
       if (fn == "Objects")
         {
           Ctx nc; nc.is_list = 1; nc.keys = objs_in_location (st, key.c_str ());
