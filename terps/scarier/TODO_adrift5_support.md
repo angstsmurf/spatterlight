@@ -4,9 +4,17 @@ Add support for **ADRIFT 5.0** games to the Scarier interpreter, validated again
 the IFComp 2018 entry **Six Silver Bullets**:
 
 ```
-.../IFComp2018/Games/Six Silver Bullets/six silver bullets/Six Silver Bullets (v 1.0).blorb
+terps/scarier/test/adrift5-games/Six Silver Bullets (v 1.0).blorb
 (== bullets.blorb, 376 934 bytes)
 ```
+
+> **Game files**: the ADRIFT 5 test corpus lives in the untracked (gitignored)
+> folder `terps/scarier/test/adrift5-games/` — the harnesses default to it via
+> `A5_GAMES_DIR`.  The blorbs are copyrighted and **not committed**; populate the
+> folder locally.  Six Silver Bullets, Anno 1700 and Stone of Wisdom are the
+> ground-truth set; other v5 games (FBA, Bug Hunt On Menelaus, Grandpa, Lost
+> Coastlines, RtC, TBN, TEE, XXR, MI, Oct 31st, Halloween) are there for wider
+> soak testing.
 
 Concepts and algorithms are borrowed from the VB.NET reimplementation of the
 official ADRIFT 5 Runner, **frankendrift** (`/Users/administrator/frankendrift`,
