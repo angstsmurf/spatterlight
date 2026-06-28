@@ -777,16 +777,48 @@ ADRIFT text is full of embedded directives evaluated at display time:
            best-effort.  **ASan/UBSan-clean; `make -f Makefile.headless test`
            green** (Six Silver Bullets golden + a5parse/a5arith/a5distest/walk
            unchanged).
-      - **Remaining Anno divergences (the next targets, in rough frequency):**
-        the reference-resolution visibility messages — `You can't see any %plural%!`
-        (a typed noun matches object(s) by name but none are in scope;
-        clsUserSession.DisplayAmbiguityQuestion's `bCanSeeAny=False` path +
-        `GuessPluralFromNoun`), `You see no such thing.` (the stock examine fail),
-        the missing definite article in Scarier's own `You can't see the X.` fail
-        text, and the `Verb what?` no-reference prompts — plus the inventory
-        `%ListObjectsOnAndIn%` over-listing.  (The RNG-selected guest-event lines
-        — "a guest walks by you and hangs their room key on the rack" — are
-        expected divergence, .NET `System.Random` vs xoshiro.)
+      - **Reference-resolution visibility messages + object "seen" tracking** —
+        **DONE (the bulk; Anno diff 142 → 46 hunks, ~10 of those now the
+        unfixable RNG guest-event lines).**  Six engine fixes, each validated
+        against FrankenDrift ground truth, Six Silver Bullets golden + Stone of
+        Wisdom unchanged, ASan/UBSan-clean on all three:
+        1. **`%TheObject%` definite article for prefixed names** — the stock
+           "not visible" fail text `%CharacterName% can't see %TheObject[%object%]%.`
+           rendered no article because a bare inner `%object%` produces the full
+           "prefix + noun" display name and the handler's own name search only
+           matched `names[]`.  Now uses `resolve_object_arg` (key / name /
+           "prefix + name"), so the article lands ("...the framed newspaper
+           article.").
+        2. **`You can't see any <plural>!`** — a typed object noun naming several
+           objects, none in scope, now yields this canned message
+           (clsUserSession.DisplayAmbiguityQuestion `bCanSeeAny=False` on
+           `MatchingPossibilities.Count>1`) via a new `RR_CANTSEE` resolve
+           outcome + ported `clsObject.GuessPluralFromNoun` (irregulars + the
+           quirky "feet"→"feets").
+        3. **Player object "seen" tracking** (`a5_state_t.obj_seen`, marked each
+           turn for every object visible in the room) drives
+           `HaveBeenSeenByCharacter %Player%`, so the examine chain distinguishes
+           "never encountered" (`You see no such thing.`) from "seen but not here
+           now" (`You can't see the X.`).
+        4. **Seen-then-any scope tier** — `resolve_object_candidates` prefers
+           visible, else seen, else any, and `RR_CANTSEE` fires only on the
+           never-seen bag (a lone seen object resolves to itself).
+        5. **Mass-noun plural** — `IsPlural == (Article == "some")`, so
+           "some firewood" stays "You can't see any firewood!" (not "firewoods").
+        6. **NotUnderstood seen-object branch** — an unmatched command naming a
+           seen+visible object answers "I don't understand what you want to do
+           with the <object>.".
+      - **Remaining Anno divergences (~36 non-RNG, increasingly fine-grained;
+        diminishing returns):** object name-alias selection when several
+        same-noun objects are seen (Scarier's seen-tier picks "the walls" where
+        FrankenDrift picks "the wall"); the character form of "can't see any"
+        (`You can't see a young woman!` — indefinite singular, not pluralised);
+        the remaining `Verb what?` no-reference prompts (`Light what?`); a few
+        stock "trying to <verb>" no-reference messages; and assorted
+        game-specific puzzle-task responses (parchment/hat/key-rack).  The
+        RNG-selected guest-event lines ("a guest walks by you and hangs their
+        room key on the rack") are expected divergence (.NET `System.Random` vs
+        xoshiro).
       - **Still TODO (earlier list)**: full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);
