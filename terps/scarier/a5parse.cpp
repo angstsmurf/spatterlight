@@ -68,6 +68,18 @@ directions_re ()
   return s;
 }
 
+/* The full lowercased direction alternation ("north|n|...|down|d"), exposed so
+   the turn loop can seed listKnownWords (clsUserSession NotUnderstood splits
+   sDirectionsRE on "|"). */
+const char *
+a5parse_directions_re (void)
+{
+  static std::string cached;
+  if (cached.empty ())
+    cached = directions_re ();
+  return cached.c_str ();
+}
+
 const char *
 a5parse_canonical_direction (const char *text)
 {

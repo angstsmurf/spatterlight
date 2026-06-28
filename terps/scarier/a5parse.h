@@ -58,6 +58,10 @@ extern const char *a5parse_ref (const a5_match_t *m, const char *name);
  */
 extern const char *a5parse_canonical_direction (const char *text);
 
+/* The full lowercased direction-word alternation ("north|n|east|e|..."),
+   split on "|" to seed the known-words list (clsUserSession.NotUnderstood). */
+extern const char *a5parse_directions_re (void);
+
 #ifdef __cplusplus
 }
 #endif

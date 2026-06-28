@@ -18,6 +18,7 @@
 #include <string.h>
 
 #include <algorithm>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -123,6 +124,11 @@ struct a5_run_s {
   char amb_ref_type;         /* 'o' object / 'c' character                     */
   std::string amb_word;      /* the noun echoed in "Which <word>?"             */
   std::vector<std::string> amb_keys;   /* the surviving candidate keys         */
+
+  /* Every word the game recognises (clsAdventure.listKnownWords), built lazily
+     the first time an unmatched command needs the "I did not understand the
+     word ..." check (clsUserSession.NotUnderstood). */
+  std::set<std::string> *known_words;
 };
 
 static int
@@ -196,6 +202,7 @@ a5run_new (const a5_adventure_t *adv)
   run->amb_active = 0;
   run->amb_task_index = run->amb_command_index = -1;
   run->amb_ref_type = 'o';
+  run->known_words = NULL;
   for (i = 0; i < adv->n_tasks; i++)
     run->order->push_back (i);
   /* TaskSorter: ascending Priority (lower value checked first). */
@@ -215,6 +222,7 @@ a5run_free (a5_run_t *run)
   delete run->order;
   delete run->events;
   delete run->walks;
+  delete run->known_words;
   delete run;
 }
 
@@ -2439,6 +2447,107 @@ a5run_intro (a5_run_t *run)
   return sb_take (&out);
 }
 
+/* Seed the known-words list exactly as clsUserSession.NotUnderstood does, lazily
+   (the first time an unmatched command needs the word-validity check). */
+static void
+build_known_words (a5_run_t *run)
+{
+  const a5_adventure_t *adv = run->adv;
+  std::set<std::string> *kw = new std::set<std::string>;
+  int i, j;
+
+  /* Verbs: every word of every General task command, with the pattern
+     punctuation ([]{}/) blanked to spaces (NotUnderstood does the same). */
+  for (i = 0; i < adv->n_tasks; i++)
+    {
+      if (!streq (adv->tasks[i].type, "General"))
+        continue;
+      for (j = 0; j < adv->tasks[i].n_commands; j++)
+        {
+          std::string c = adv->tasks[i].commands[j];
+          for (char &ch : c)
+            if (ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == '/')
+              ch = ' ';
+          for (auto &w : split_ws (c.c_str ()))
+            kw->insert (lower (w));
+        }
+    }
+  /* Nouns: each object's article + prefix words + names. */
+  for (i = 0; i < adv->n_objects; i++)
+    {
+      const a5_object_t *o = &adv->objects[i];
+      if (o->article && o->article[0]) kw->insert (lower (o->article));
+      for (auto &w : split_ws (o->prefix)) kw->insert (lower (w));
+      for (j = 0; j < o->n_names; j++)
+        for (auto &w : split_ws (o->names[j])) kw->insert (lower (w));
+    }
+  /* Characters: article + prefix words + descriptors + proper name. */
+  for (i = 0; i < adv->n_characters; i++)
+    {
+      const a5_character_t *c = &adv->characters[i];
+      if (c->article && c->article[0]) kw->insert (lower (c->article));
+      for (auto &w : split_ws (c->prefix)) kw->insert (lower (w));
+      for (j = 0; j < c->n_descriptors; j++)
+        for (auto &w : split_ws (c->descriptors[j])) kw->insert (lower (w));
+      if (c->name && c->name[0]) kw->insert (lower (c->name));
+    }
+  /* Adverbs: every direction word (sDirectionsRE split on "|"). */
+  {
+    std::string dr = a5parse_directions_re (), cur;
+    for (size_t k = 0; k <= dr.size (); k++)
+      {
+        if (k == dr.size () || dr[k] == '|')
+          { if (!cur.empty ()) kw->insert (cur); cur.clear (); }
+        else
+          cur += dr[k];
+      }
+  }
+  kw->insert ("and");
+  run->known_words = kw;
+}
+
+/* clsUserSession.SystemTasks: the built-in verbs handled outside the task
+   engine, tried after task matching fails but before NotUnderstood.  Only the
+   one this corpus exercises is implemented -- "wait"/"z" prints "Time passes..."
+   and advances WaitTurns turns of TurnBasedStuff.  Returns 1 if handled. */
+static int
+system_command (a5_run_t *run, const std::string &in, sb_t *out)
+{
+  if (in == "wait" || in == "z")
+    {
+      int n = run->adv->wait_turns;
+      sb_puts (out, "Time passes...");
+      for (int i = 0; i < n; i++)
+        ev_tick_all (run, out);
+      return 1;
+    }
+  return 0;
+}
+
+/* The clsUserSession.NotUnderstood ladder, reached when no task ran, no task
+   failed with output, and there is no pending disambiguation: first reject the
+   earliest unrecognised input word ("I did not understand the word ..."), then
+   fall back to the adventure's catch-all message. */
+static void
+not_understood (a5_run_t *run, const std::string &in, sb_t *out)
+{
+  if (run->known_words == NULL)
+    build_known_words (run);
+
+  for (auto &w : split_ws (in.c_str ()))
+    if (run->known_words->find (lower (w)) == run->known_words->end ())
+      {
+        sb_puts (out, "I did not understand the word \"");
+        sb_puts (out, w.c_str ());
+        sb_puts (out, "\".");
+        return;
+      }
+
+  /* All words known but nothing matched: Adventure.NotUnderstood (FileIO.vb:850
+     defaults a missing <NotUnderstood> to this string). */
+  sb_puts (out, "Sorry, I didn't understand that command.");
+}
+
 char *
 a5run_input (a5_run_t *run, const char *line)
 {
@@ -2509,7 +2618,9 @@ a5run_input (a5_run_t *run, const char *line)
 
   if (have_fail)
     sb_puts (&out, fail_text.c_str ());
+  else if (system_command (run, in, &out))
+    { run->amb_active = 0; }
   else
-    sb_puts (&out, "I don't understand.");
+    not_understood (run, in, &out);
   return sb_take (&out);
 }
