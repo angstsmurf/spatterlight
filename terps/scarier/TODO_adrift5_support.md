@@ -559,16 +559,65 @@ ADRIFT text is full of embedded directives evaluated at display time:
         `DisplayObjectChildren` wording, `<cls>` screen-clear, v5 location-view
         leading blank, and `<DisplayOnce>` segments (see the §8 list).  All three
         games **ASan/UBSan-clean**; golden transcript regenerated.
-      - **Still TODO**: characters/walks/conversation/topics; full UDF
-        (`%FunctionName[args]%`) + array variables + the
-        `SetToExpression` function library (see the arithmetic note above);
-        scoring display (`%swissaccount%`-style score variables render, but no
-        ADRIFT Score/MaxScore status); "seen"/visibility
-        (`HaveBeenSeen*`/`BeVisibleTo*` still approximated);
-        DisplayMessage/SetLook sub-events (no-op/best-effort — unused by Six
-        Silver Bullets); `<DisplayOnce>` ReturnToDefault + non-location
-        DisplayOnce uses (best-effort); and a deeper multi-turn / walkthrough
-        ground-truth pass (the harness now makes this cheap).
+      - **Anno 1700 walkthrough ground-truth pass (8 fixes; diff 733 → 362
+        hunks).**  Denk's full Anno 1700 walkthrough (`~/Desktop/anno1700.txt`,
+        242 commands) was run through `test/a5_groundtruth.sh`; it surfaced and
+        fixed eight real engine bugs, none game-specific:
+        1. **Character on/in-object state + restriction** — `%Player% Must
+           BeOnObject AnyObject` was unhandled in pass_character (fell through to
+           `return 1`), so the stock `GetOffBeforeMoving` task fired every move
+           and stranded the player.  Added `char_onobj`/`char_in` tracking +
+           the BeOnObject/BeInsideObject/Be{Standing,Sitting,Lying}OnObject
+           character ops, and honour `<Continue>ContinueAlways`.
+        2. **DisplayOnce terminates a description** — clsDescription.ToString
+           does `Return sb.ToString` inside `If .DisplayOnce`, so a not-yet-shown
+           DisplayOnce segment ends the description (the "long first-visit /
+           short thereafter" location pattern).  a5text now breaks after it.
+        3. **`%PropertyValue[entity,prop]%`** text function (Text property values
+           are rich `<Description>` blocks → `value_node`, rendered).
+        4. **`%direction%` must include up/down/in/out** — the regex emitted only
+           the 8 compass points; frankendrift's `North To NorthWest` loop spans
+           all 12 by enum *value* (Up=4…Out=7).  Bare "u"/"up"/"in"/"out" now
+           match movement (Anno's upstairs).
+        5. **A failing Specific override claims the turn** — a Specific task is a
+           first-class higher-priority task; on restriction failure it shows its
+           fail message and suppresses the parent (no-output failures still fall
+           through).  Fixed Anno's `MovingFrom1` stairs gate.
+        6. **`*` wildcard regex corruption** — the bare-`*`→`.*?` pass rewrote
+           the `*` inside an already-inserted `.*?`; use a placeholder like
+           frankendrift's `[[#]]` (we use a `\x01` sentinel).  Fixed the
+           take/search `*[string/twig]`-style commands.
+        All eight are committed (one per fix), Six Silver Bullets golden +
+        a5parse/a5arith/a5distest unchanged, ASan/UBSan-clean over the whole
+        walkthrough.
+      - **Remaining Anno divergences (the next targets, in rough frequency):**
+        - **`<# IF(...) #>` expression engine + `%X.Location.Exits.Count/.List`**
+          — the no-route message (`There is no route <# IF(...) #>%LCase[dir]%<#
+          IF(%Player%.Location.Exits.Count=0,".",", only "+…Exits.List+".") #>`)
+          renders as bare "There is no route west" (~25 hunks); also the Six
+          Silver Bullets `score` percentage `(%)` vs `(NaN%)`.  Port
+          `clsVariable.SetToExpression` (the token reducer: IF / EQ-NE-GT-LT /
+          AND-OR / `+` numeric-add-vs-string-concat / parens / the string
+          function library) as a string-capable evaluator, wire a
+          `replace_expressions` (`<#…#>`) pass after `a5expr_replace` (mirroring
+          ReplaceFunctions→ReplaceExpressions→ALR order) with **quoted** OO
+          substitution (frankendrift's `bExpression=True`), and add `.Exits` to
+          a5expr (a DirectionsEnum list in enum order → `.Count` / `.List`
+          lowercased, ADRIFT "a, b and c" join).  Self-contained, reusable, no
+          dependency on the NPC/scope work — **do this next.**
+        - **NPC in-room presence + conversation** — a location view should append
+          present NPCs' in-room text ("A young woman stands leaning over the big
+          desk…"), and `say hello`/topics need the conversation engine
+          ("I'm not sure who you are referring to.").  Gates Anno's
+          meet-employer → get-key → upstairs chain (hence many downstream
+          "You can't see tall closet" once the player can't progress).
+        - **walks** (`A woman walks by you and hangs her room key on the rack.`)
+          and DisplayMessage/SetLook sub-events.
+      - **Still TODO (earlier list)**: characters/walks/conversation/topics; full
+        UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
+        function library; scoring display (no ADRIFT Score/MaxScore status);
+        "seen"/visibility (`HaveBeenSeen*`/`BeVisibleTo*` still approximated);
+        `<DisplayOnce>` ReturnToDefault + non-location uses (best-effort).
 - [ ] **P5 Resources & save**: blorb media via Glk; v5 XML save/restore; finish a
       full deterministic walkthrough of Six Silver Bullets.
 
