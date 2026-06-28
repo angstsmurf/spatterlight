@@ -35,6 +35,16 @@
  *
  *   SC_TRACE_JUDY   per-turn one-line dump of every NPC's current room, for
  *                   pinning down a wandering NPC's deterministic walk.
+ *
+ *   SC_DUMP_OBJLOC  one-shot, isolated per-object dump: starting position
+ *                   (gs_object_position code: >=1 room+1, 0 held, -1 hidden,
+ *                   -10/-20 in/on object, -100/-200/-300 worn-player/held-NPC/
+ *                   worn-NPC), the room it is directly in (or -1), and its
+ *                   Battle weapon/armour properties (HitValue, ProtectionValue,
+ *                   Method).  Deliberately skips the heavy task/exit/walk
+ *                   sections, so it is safe on games whose full SC_DUMP_TASKS
+ *                   output is pathologically large.  Built for combat-
+ *                   survivability route planning (which armour/weapon is where).
  */
 
 #include <stdio.h>
@@ -90,6 +100,30 @@ sc_dump_structure_once (sc_gameref_t game)
     {
       task_debug_trace (TRUE);
       restr_debug_trace (TRUE);
+    }
+
+  /* SC_DUMP_OBJLOC: minimal, isolated object-location + battle-property dump
+   * (does NOT touch the heavy task/exit/walk sections, so it is safe on games
+   * whose full dump is large). */
+  if (getenv ("SC_DUMP_OBJLOC") && !dumped)
+    {
+      dumped = TRUE;
+      for (i = 0; i < gs_object_count (game); i++)
+        {
+          sc_vartype_t ok[4], bv;
+          sc_int pos, r, room = -1, hit = 0, prot = 0, method = 0;
+          const sc_char *s = scdump_object_name (game, i);
+          pos = gs_object_position (game, i);
+          for (r = 0; r < gs_room_count (game); r++)
+            if (obj_directly_in_room (game, i, r)) { room = r; break; }
+          ok[0].string = "Objects"; ok[1].integer = i; ok[2].string = "Battle";
+          ok[3].string = "HitValue";        if (prop_get (bundle, "I<-siss", &bv, ok)) hit = bv.integer;
+          ok[3].string = "ProtectionValue"; if (prop_get (bundle, "I<-siss", &bv, ok)) prot = bv.integer;
+          ok[3].string = "Method";          if (prop_get (bundle, "I<-siss", &bv, ok)) method = bv.integer;
+          fprintf (stderr, "OBJLOC obj=%ld pos=%ld room=%ld hit=%ld prot=%ld method=%ld [%s]\n",
+                   i, pos, room, hit, prot, method, s ? s : "");
+        }
+      return;
     }
 
   if (!getenv ("SC_DUMP_TASKS") || dumped)
