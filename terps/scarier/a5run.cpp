@@ -2656,6 +2656,37 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
         return;
       }
 
+  /* The input names an object the player has seen and can see now, but no task
+     accepted it: "I don't understand what you want to do with the X."
+     (NotUnderstood's seen-noun branch).  First seen+visible match wins. */
+  {
+    a5_state_t *st = run->st;
+    std::vector<std::string> words = split_ws (in.c_str ());
+    for (int oi = 0; oi < st->adv->n_objects; oi++)
+      {
+        const a5_object_t *o = &st->adv->objects[oi];
+        if (st->obj_seen == NULL || !st->obj_seen[oi]
+            || !obj_in_scope (st, o->key))
+          continue;
+        std::vector<std::string> allowed, nouns;
+        object_words (o, allowed, nouns);
+        int hit = 0;
+        for (auto &w : words)
+          { std::string lw = lower (w);
+            for (auto &n : nouns) if (n == lw) { hit = 1; break; }
+            if (hit) break; }
+        if (hit)
+          {
+            char *nm = a5text_object_name (o, A5_ART_DEFINITE);
+            sb_puts (out, "I don't understand what you want to do with ");
+            sb_puts (out, nm);
+            sb_puts (out, ".");
+            free (nm);
+            return;
+          }
+      }
+  }
+
   /* All words known but nothing matched: Adventure.NotUnderstood (FileIO.vb:850
      defaults a missing <NotUnderstood> to this string). */
   sb_puts (out, "Sorry, I didn't understand that command.");
