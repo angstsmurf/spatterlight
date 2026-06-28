@@ -681,9 +681,17 @@ normalise_block (const char *in)
  * term (a bracketed sub-block or a single '#'), then recurse on the remainder.
  * AND short-circuits false, OR short-circuits true; *idx advances over every
  * '#' actually consumed (including short-circuited ones).
+ *
+ * `last_fail` mirrors frankendrift's sRestrictionText side effect: every single
+ * restriction actually evaluated clears it on a pass and sets it to its own
+ * index on a fail, so after the (short-circuiting) walk it names the failing
+ * restriction on the deciding path -- the one whose Message the Runner shows.
+ * Short-circuited '#'s are skipped (no PassSingleRestriction call), so they do
+ * not touch it.  `nodes[i]` is the XML <Restriction> for rs[i].
  */
 static int
-eval_block (a5_state_t *st, a5_restr_t *rs, int n, const char *block, int *idx)
+eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
+            const char *block, int *idx, int *last_fail)
 {
   char *norm = normalise_block (block);
   const char *rest;       /* remainder after the leading term + operator */
@@ -707,7 +715,7 @@ eval_block (a5_state_t *st, a5_restr_t *rs, int n, const char *block, int *idx)
       sub = (char *) malloc ((size_t) sublen + 1);
       memcpy (sub, norm + 1, (size_t) sublen);
       sub[sublen] = '\0';
-      first = eval_block (st, rs, n, sub, idx);
+      first = eval_block (st, rs, nodes, n, sub, idx, last_fail);
       free (sub);
       op = norm[off];
       rest = (op == '\0') ? NULL : norm + off + 1;
@@ -716,6 +724,8 @@ eval_block (a5_state_t *st, a5_restr_t *rs, int n, const char *block, int *idx)
     {
       int my = (*idx)++;
       first = (my < n) ? pass_single (st, &rs[my]) : 1;
+      if (my < n)
+        *last_fail = first ? -1 : my;   /* clear on pass, record on fail */
       op = norm[1];
       rest = (op == '\0') ? NULL : norm + 2;
     }
@@ -730,12 +740,12 @@ eval_block (a5_state_t *st, a5_restr_t *rs, int n, const char *block, int *idx)
   else if (op == 'A')
     {
       if (!first) { *idx += count_hashes (rest); result = 0; }
-      else result = eval_block (st, rs, n, rest, idx);
+      else result = eval_block (st, rs, nodes, n, rest, idx, last_fail);
     }
   else if (op == 'O')
     {
       if (first) { *idx += count_hashes (rest); result = 1; }
-      else result = eval_block (st, rs, n, rest, idx);
+      else result = eval_block (st, rs, nodes, n, rest, idx, last_fail);
     }
   else
     result = first;
@@ -744,40 +754,26 @@ eval_block (a5_state_t *st, a5_restr_t *rs, int n, const char *block, int *idx)
   return result;
 }
 
-const a5_xml_node_t *
-a5restr_fail_message (a5_state_t *st, const a5_xml_node_t *restrictions)
-{
-  const a5_xml_node_t *c;
-  if (restrictions == NULL)
-    return NULL;
-  for (c = restrictions->first_child; c != NULL; c = c->next)
-    {
-      a5_restr_t r;
-      const a5_xml_node_t *tn;
-      int ok;
-      if (strcmp (c->name, "Restriction") != 0)
-        continue;
-      memset (&r, 0, sizeof r);
-      tn = restr_type_node (c);
-      r.type = tn ? tn->name : "";
-      parse_spec (&r, tn ? tn->text : "");
-      ok = pass_single (st, &r);
-      free (r.buf);
-      if (!ok)
-        return a5xml_child (c, "Message");   /* the description wrapper */
-    }
-  return NULL;
-}
-
-int
-a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
+/*
+ * Shared core for a5restr_pass / a5restr_fail_message: parse the restriction
+ * specs, build the (square-bracket-expanded) BracketSequence and evaluate it.
+ * Returns the boolean result; when `fail_node_out` is non-NULL it is set to the
+ * <Restriction> on the deciding failing path (frankendrift's sRestrictionText
+ * source) -- NULL if the block passes or no single restriction failed.
+ */
+static int
+eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
+                   const a5_xml_node_t **fail_node_out)
 {
   a5_restr_t *rs;
+  const a5_xml_node_t **nodes;
   const a5_xml_node_t *c;
   const char *bracket;
-  int n, i, idx = 0, result;
+  int n, i, idx = 0, result, last_fail = -1;
   char *normbrackets = NULL;
 
+  if (fail_node_out != NULL)
+    *fail_node_out = NULL;
   if (restrictions == NULL)
     return 1;
   n = a5xml_count (restrictions, "Restriction");
@@ -785,6 +781,7 @@ a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
     return 1;
 
   rs = (a5_restr_t *) calloc ((size_t) n, sizeof *rs);
+  nodes = (const a5_xml_node_t **) calloc ((size_t) n, sizeof *nodes);
   i = 0;
   for (c = restrictions->first_child; c != NULL; c = c->next)
     if (strcmp (c->name, "Restriction") == 0)
@@ -792,6 +789,7 @@ a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
         const a5_xml_node_t *tn = restr_type_node (c);
         rs[i].type = tn ? tn->name : "";
         parse_spec (&rs[i], tn ? tn->text : "");
+        nodes[i] = c;
         i++;
       }
 
@@ -829,13 +827,31 @@ a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
         else                  *w++ = *q;
       }
     *w = '\0';
-    result = eval_block (st, rs, n, b, &idx);
+    result = eval_block (st, rs, nodes, n, b, &idx, &last_fail);
     free (b);
   }
+
+  if (fail_node_out != NULL && !result && last_fail >= 0 && last_fail < n)
+    *fail_node_out = nodes[last_fail];
 
   free (normbrackets);
   for (i = 0; i < n; i++)
     free (rs[i].buf);
   free (rs);
+  free (nodes);
   return result;
+}
+
+const a5_xml_node_t *
+a5restr_fail_message (a5_state_t *st, const a5_xml_node_t *restrictions)
+{
+  const a5_xml_node_t *fail_node = NULL;
+  eval_restrictions (st, restrictions, &fail_node);
+  return fail_node ? a5xml_child (fail_node, "Message") : NULL;
+}
+
+int
+a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
+{
+  return eval_restrictions (st, restrictions, NULL);
 }

@@ -861,6 +861,28 @@ ADRIFT text is full of embedded directives evaluated at display time:
         EqualTo Dynamic` — and since the AND chain short-circuits on the first
         failure, restriction 2's message wins over restriction 5's "not
         carrying").
+      - **Fail message respects the BracketSequence (sRestrictionText port)** —
+        **DONE.**  `a5restr_fail_message` used to return the *first document-order*
+        restriction that fails its single check, ignoring the `<BracketSequence>`
+        boolean structure entirely — so a `Must BeExactText All` with no message
+        (failing first under an AND that is itself inside an OR alternative) made
+        the whole task emit nothing and fall through to NotUnderstood.
+        FrankenDrift instead leaves the message in `sRestrictionText` as a *side
+        effect* of `PassSingleRestriction` (cleared on pass, set on fail) while
+        `EvaluateRestrictionBlock` walks the bracket sequence with short-circuit,
+        so the surfaced message is the failing single restriction on the *deciding
+        path*.  Ported: `eval_block` now threads a `last_fail` index (cleared on a
+        passing `#`, set on a failing `#`, untouched by short-circuited `#`s) plus
+        a parallel `nodes[]` map; `a5restr_pass`/`a5restr_fail_message` share a new
+        `eval_restrictions` core that returns the result and the deciding
+        `<Restriction>`.  Fixed Anno's `get key` (held) =>
+        `You are already carrying the corroded skeleton key!` — TakeObjects'
+        sequence `R1..R4 A ((R5 BeExactText-All ...)O(R10 .. R11 already-carrying
+        ..))A(..)` now correctly surfaces R11's message instead of R5's empty one
+        (was falling through to "I don't understand what you want to do with the
+        corroded skeleton key.").  Anno diff 58 → 54 hunks; Six Silver Bullets
+        golden + a5parse/a5arith/a5distest/walk unchanged; Stone of Wisdom clean;
+        ASan/UBSan-clean across the 15-game corpus.
       - **Remaining Anno divergences (~28 non-RNG, fine-grained; diminishing
         returns):** the bulk is now the **`You can't see any <plural>!` family**
         (lines like cannon/doors/pistols/threads/wine/trees), which all stem from
