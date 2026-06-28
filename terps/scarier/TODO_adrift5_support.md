@@ -935,7 +935,32 @@ ADRIFT text is full of embedded directives evaluated at display time:
         So fixing this means **restructuring resolution so candidates are the full
         any-scope set + scope filtering comes from restrictions, not a pre-filter**
         — a deliberate change with real regression risk against `a5distest` and
-        the ~60 currently-correct "can't see any" cases; parked.  Other residuals:
+        the ~60 currently-correct "can't see any" cases; parked.
+        **Exact FrankenDrift algorithm to port** (traced in
+        `clsUserSession.RefineMatchingPossibilitesUsingRestrictions`,
+        vb:5734-5914, called from `GetGeneralTask` vb:6015): candidates begin as
+        the **full any-scope** match set (`InputMatchesObject` adds every
+        regex-matching object, no scope filter), then a **multi-tier reset-on-empty
+        refine**: (1) *Applicable* tier — keep candidates that pass the task's
+        restrictions; if a ref empties, **reset it to the original full set**
+        (`bResetRef`) and flag `bCheckNextScope`; a ref left with >1 also flags it.
+        (2) *Visible* tier (only if flagged) — drop the non-`IsVisibleTo(Player)`
+        candidates; again **reset-to-original on empty**.  After the tiers,
+        `GetGeneralTask` reads the surviving count: **1** => run the task (its
+        restrictions then yield "You can't see the X." / "You see no such thing.");
+        **>1** => `sAmbTask` => `DisplayAmbiguityQuestion` (none visible =>
+        "You can't see any <plural>!" via IsPlural/GuessPlural; ≥1 visible =>
+        "Which <noun>?"); **0** but `bMatchesPreRefine` (every ref had exactly 1
+        pre-refine) => restore originals and run; **0** otherwise => `sNoRefTask`
+        runs the task with an unresolved ref ("Sorry, I'm not sure which object
+        you are trying to <verb>.").  The cannon("you see no such thing")
+        vs doors("can't see any doors!") split is purely **post-reset count 1 vs
+        >1**.  Implementation sketch: replace `resolve_object_candidates`' scope
+        collapse with the full set + ordering hint; move the RR_CANTSEE / RR_AMBIG
+        decision **after** Pass-2 refine; add an `RR_NOREF` outcome that runs the
+        task with the ref unresolved (so `ReferencedObject Must Exist` surfaces).
+        Validate every step against `a5distest` + the SSB golden + the Anno diff.
+        Other residuals:
         object name-alias selection when several same-noun objects are seen
         ("the walls" vs "the wall"); a few stock "trying to <verb>" no-reference
         messages; and game-specific puzzle-task responses (parchment/hat/key-rack,
