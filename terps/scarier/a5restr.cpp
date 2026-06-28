@@ -534,6 +534,18 @@ pass_character (a5_state_t *st, a5_restr_t *r)
           return 0;
       return 1;
     }
+  if (streq (r->op, "BeOnCharacter"))
+    {
+      /* clsCharacterLocation.ExistsWhereEnum.OnCharacter: the character is
+         sitting/standing on *another character*.  char_onobj holds whatever the
+         character is on; it names a character here (vs an object). */
+      const char *onk = (ci >= 0 && st->char_onobj) ? st->char_onobj[ci] : NULL;
+      if (onk == NULL || a5state_character_index (st, onk) < 0)
+        return 0;
+      if (streq (k2, ANYCHARACTER))
+        return 1;
+      return streq (onk, k2);
+    }
   return 1;                   /* other character ops: best-effort pass */
 }
 
