@@ -1044,6 +1044,63 @@ ADRIFT text is full of embedded directives evaluated at display time:
         `examine food`/`inventory` between each) now **diffs to ZERO** vs
         FrankenDrift; Six Silver Bullets golden + Anno (11 hunks, RNG residual)
         unchanged; full headless suite green; ASan/UBSan-clean.
+      - **Wider-corpus soak pass (Grandpa / TEE / the 15-game corpus via a
+        generic `look/examine me/inventory/score/<dirs>/get all/wait` script) —
+        four game-agnostic fixes:**
+        1. **`<Expression>`-type task restrictions** were stubbed to always-pass,
+           so Grandpa's `cl_MoreThanTw1` ("more than two words", command
+           `%text%`, restricted by `LEN(REPLACE(%text%," ","gg"))-LEN(%text%)>1`)
+           fired on *every* command and shadowed the whole game.  Ported
+           clsUserSession.vb:5165 `SafeBool(EvaluateExpression(StringValue))`:
+           new `a5text_eval_expression` (substitute `%refs%`/OO via the existing
+           `expr_substitute`, then `a5_eval_sexpr` — i.e. Global.EvaluateExpression
+           → clsVariable.SetToExpression) + a CBool-ish `safe_bool` in `a5restr`.
+        2. **Variable restrictions on `ReferencedText`/`ReferencedNumber`**
+           resolved no user variable (`vi<0` → always-pass).  Ported
+           clsUserSession.vb:4459: `key1` `ReferencedText[n]`/`ReferencedNumber[n]`
+           = the parser-matched `%text%`/`%number%`; the RHS is de-quoted then
+           `EvaluateExpression`'d (`restr_text_value`), so the stock library's
+           `ReferencedText Must BeContain "" the ""` compares against ` the `
+           (FileIO.LoadRestrictions strips one outer quote layer; the inner
+           `" the "` evaluates to ` the `).
+        3. **`a5expr` `.Held`/`.Worn` ignored their argument and never recursed**,
+           so `.Held.Count == .Held(False).Count` and (once Expression
+           restrictions began evaluating) the stock Inventory contents segment
+           (shown iff `Held.Count+Worn.Count > Held(False).Count+Worn(False).Count`)
+           was dropped.  clsCharacter.Held/Worn(`bIncludeSubObjects=True` default):
+           recurse into the held/worn containers unless `(False)` (`add_descendants`).
+        4. **`BeOnCharacter`** fell through `pass_character` to the best-effort
+           `return 1`, leaking a raw `%character%.CharOnWho.Name` examine-character
+           segment ("you are Standing on Player.CharOnWho.Name.") for a player on
+           the floor.  Ported clsUserSession.vb:4956 (location ExistWhere ==
+           OnCharacter).
+        Plus a harness fix: `a5run_dump` printed a blank line between the title
+        and the introduction; FrankenDrift emits them adjacent (the intro supplies
+        its own leading blank when it has one), so games whose intro starts with
+        content (Grandpa) showed a spurious blank.  **Results:** Grandpa explore
+        diff 16 → 2, TEE 3 → 2; Stone eat-chain + inventory back to zero; SSB
+        golden regenerated (one fewer blank); Anno (11) + the full headless suite
+        unchanged; ASan/UBSan-clean across the corpus.
+      - **Still TODO — multiple-object references (`%objects%` / "all")**: the
+        biggest remaining general gap.  Scarier resolves `%objects%` like a single
+        `%object%`; it does **not** implement the plural reference grammar
+        (`InputMatchesObjects`, clsUserSession.vb:5305): `all`/`all <plural>`,
+        `X and Y`, comma lists, `… except/but/apart from …`, plural-noun matching,
+        per-item task execution, and the **`all`→`htblObjects.SeenBy` expansion**
+        (vb:5318) with restriction filtering.  Knock-on: `get all` with nothing
+        takeable should surface the take task's `<FailOverride>` ("There is
+        nothing worth taking here.") — FD shows it when the input contains "all"
+        and no response passed (vb:788 / vb:6059).  This is a self-contained
+        subsystem; budget it as its own pass.
+      - **Known non-fixable / game-specific corpus residuals**: FBA is
+        event/RNG-shifted (an early "custodian catches you" event fires turn 1
+        under the xoshiro seed → immediate loss; .NET `System.Random` divergence)
+        and its end-menu prompt is the single-key "Please press O…" variant; RtC
+        opens with an interactive "Adventure Upgrade" prompt (a 5.0.26 task
+        auto-correct FD offers) and uses an ALR whose OldText carries a leading
+        capital ("You is wearing…") that depends on `%CharacterName%` sentence-
+        capitalisation; Grandpa's first-turn "Tutorial:" hints are first-time
+        system messages not yet wired.
       - **Still TODO (earlier list)**: full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);
