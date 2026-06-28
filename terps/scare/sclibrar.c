@@ -1038,10 +1038,13 @@ lib_print_room_description (sc_gameref_t game, sc_int room)
           vt_key[1].integer = event;
           vt_key[2].string = "LookText";
           looktext = prop_get_string (bundle, "S<-sis", vt_key);
-          if (is_described)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter, looktext);
-          is_described = TRUE;
+          if (!sc_strempty (looktext))
+            {
+              if (is_described)
+                pf_buffer_string (filter, "  ");
+              pf_buffer_string (filter, looktext);
+              is_described = TRUE;
+            }
 
           vt_key[2].string = "Res";
           vt_key[3].integer = 1;
