@@ -9,3 +9,87 @@ play duck pond
 play duck pond
 play duck pond
 w
+n
+sell 10 points
+buy peanut
+buy peanut
+buy peanut
+buy peanut
+ne
+look under bleachers
+down
+give peanut to pringles
+take knife
+up
+sw
+sell knife
+sell 10 points
+sell 10 points
+buy 6 tokens
+s
+w
+show mirror to bill
+e
+e
+e
+ask reading
+w
+w
+n
+n
+n
+n
+e
+turn lock 13
+turn lock 9
+turn lock 5
+open trunk
+take videocamera
+w
+n
+ask barb about tape
+ask barb about tape
+ask barb about tape
+ask barb about tape
+ask barb about tape
+ask barb about tape
+ask barb about tape
+ask barb about tape
+ask barb about tape
+ask barb about tape
+ask barb about tape
+ask barb about tape
+s
+s
+s
+u
+take battery
+put battery in camera
+put tape in camera
+d
+n
+n
+n
+use camera
+home
+# --- DETERMINISTIC FULL WIN (seed 2): 64/140, ending "...plants a Willow tree in your name" ---
+# Run with: SC_SEED=2 sh play.sh ../../games/circus.taf circus_solution.txt   (path per your tree)
+# Seed 1 (default) is UNWINNABLE: fundeath=1 => funhouse west = instant clown heart-attack death.
+# Seeds 1 and 9 die (fundeath==1, ~1/11 of seeds); seed 2 has fundeath=8 (survivable).
+#
+# ECONOMY: token granularity forces buying 10 tokens ($5) for the 9 spent (4 duck + 1 funhouse
+# + 4 reading). Start $2; the gap is closed by the peanut->Pringles->toy-knife chain
+# (buy peanut $1 -> give to the monkey Pringles in room14 for the toy knife +10pts -> SELL the
+# knife to Marie for +$2 +5pts), plus selling the ticket/knife points back for cash.
+#
+# NPC TIMING is handled by "spam until present": Joe the peanut vendor and Barb the lion tamer
+# both wander, so buy-peanut (room0) and ask-barb-about-tape (room4) are repeated until the NPC
+# walks into the room. This is robust to turn-count drift. Pringles & Bill stay put (reliable).
+#
+# COMBO IS RANDOMISED per game: the trunk combo = the three tarot-card numbers revealed by
+# `ask reading` (and re-readable with `x first/second/third card` at the fortune teller).
+# Under seed 2 the cards are XIII / IX / V  => turn lock 13, 9, 5.  Re-derive for other seeds.
+#
+# WIN = videodone (use camera in room4 with the videocamera LOADED: put battery in camera +
+# put tape in camera) then `home`. The tape lives in the lion cage (Barb fetches it; do NOT
+# open any cage = death) and the battery is on the Platform (do NOT `jump` = death).

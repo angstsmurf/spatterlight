@@ -18,8 +18,8 @@ Structural dump (SC_DUMP_TASKS) classification. "win" = a type-6 EndGame with
 | Melbourne Beach | 70 | 107 | 19 | 1 | **DONE WIN, max 38/41** (beach-house morning chores → drive → rinse sandy feet at the beach shower = win; 3 lost pts are faithful data: non-repeatable wash makes turn-dryer+1 XOR fold+5, and 2 red-cup coffees are oil-contradiction / oil-penalty net-0) |
 | The Screen Savers On Planet X | 80 | 133 | 15 | 1 | todo |
 | ALEXIS | 87 | 78 | 25 | 1 | **DONE — WON 23/65** (native 3.9; collect 7 stones→give Larnt→password into Uron→keys→Mirror-room `north`-only trap→kill Urgorn; Serond NPC assists, only mandatory fight; light lantern AT HOME; banked min-combat win, ~42 optional pts) |
-| Shadowpeak | 96 | 574 | 69 | 1 | todo (large) |
-| circus | 117 | 158 | 58 | 3 | todo (large) |
+| Shadowpeak | 96 | 574 | 69 | 1 | **★ DONE — WON 710/790, 0 deaths** (native 4.0; 21 sessions. Win = `say borantha`/`snap staff`→Hell realm, Charon ferry→black key→Cerberus→`touch picture`→`blow horn` w/ horn-of-angels + sceptre near Asmodeus. Morac endgame escapes the EVENT-92 death-timer by climbing past room 104; gargoyle #1 must stay alive (killing it hides all inventory). Remaining ~80 = scattered missable/exclusive extras. Severe compass rotation — navigate by prose; maze NOT rotated. Two author hints (pentagram T221, fountain T181) are lethal traps if followed literally) |
+| circus | 117 | 158 | 58 | 3 | **DONE — WON 64/140** (*Menagerie!*, ADRIFT 3.9, David Good. Seed 2 deterministic win; seed 1/9 die in the RNG funhouse. PETA spy films animals: toy-knife economy (peanut→Pringles→sell knife) funds 10 tokens; reading→tarot-card combo (seed2=13/9/5)→trunk→camera, Barb→tape, Platform→battery, load camera, `use camera`+`home`. NPC timing solved by spam-until-present) |
 | WesGHN | 3500 | 25 | 12 | 1 | **DONE — UNWINNABLE, max 30/100** (orphaned gold ring on a never-revealed severed hand seals the Lovers'-Fountain gate → whole back half unreachable; combat is correctly configured, scythe kills Hope) |
 | Space Boy's First Adventure | 3865 | 78 | 37 | 1 | **DONE — WON 1184/1374** (native 4.0; 4 power items mimic the lost cape: Flight Boots/Ice Gloves/Heat Goggles/Strength Belt → fly N/S/E from the hub. East = "TOTHEGARAGE" letter maze w/ melt-ice + freeze-fire elemental gates → Phased-Ion-Bridge-in-Power-Plant transporter → fork → belt; endgame move-rock→Room-Key→unlock door→take+drop cape→read note. Evil Man harmless. Dead Ice-gloves +30 typo caps max ≤1344) |
 
@@ -42,7 +42,7 @@ Structural dump (SC_DUMP_TASKS) classification. "win" = a type-6 EndGame with
 ## D. No score, lose/stop ending only (unwinnable; document)
 | game | KB | tasks | endings |
 |---|---|---|---|
-| Through time | 42 | 164 | 1 lose / 1 death / 8 stop (no win) |
+| Through time | 42 | 164 | 1 lose / 1 death / 8 stop (no win) | **DONE — UNFINISHED DEMO, 0/0** (only the 1954 Texas farm is implemented; the author walls off the yard: *"This is as far as this adventure will take you at this point. Take care ;-)"*. The TV news-flash UFO hook fires, but the abduction + spaceship + Ancient Rome (Caesar's assassination) + Battle of Tours 732AD all exist as unreachable data. No reachable win or score; all 10 endings sit past the wall) |
 | adriftorama | 46 | 51 | 1 lose | **DONE — no victory, mini-golf** |
 
 ## E. No score, no ending (sandbox / not-a-game / intro)
