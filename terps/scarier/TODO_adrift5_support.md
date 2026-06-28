@@ -1025,10 +1025,25 @@ ADRIFT text is full of embedded directives evaluated at display time:
            engine (§5), left as-is.
         Stone look/inventory/examine all diff to zero (modulo that one pronoun);
         Six Silver Bullets golden + Anno (14 hunks) unchanged; full headless
-        suite green; ASan/UBSan-clean across the v5 corpus.  NOTE: a Stone `eat
-        food` state divergence (the multi-ration object vanishes from the
-        backpack instead of decrementing to "three") was observed in a longer
-        soak — a separate Edible/quantity-property TODO, not chased here.
+        suite green; ASan/UBSan-clean across the v5 corpus.
+      - **`MoveObject ... ToSameLocationAs <object>`** — **DONE.**  The action
+        was implemented only for a *character* target (the "drop" case: place the
+        object in the character's room); when the target was an **object** it fell
+        through to Hidden.  This broke the standard "eat one of N rations" idiom
+        (and any object-swap puzzle): Stone of Wisdom's `EatAFourFo` does
+        `MoveObject FourFoodRa1 ToSameLocationAs FourFoodRa` then hides
+        `FourFoodRa`, where `FourFoodRa1` is the hidden "three food rations" stack
+        — so eating made the rations *vanish* from the backpack instead of
+        decrementing four→three→two→one.  Ported clsUserSession.vb:1570's
+        object-target branch: when `sKey2` is an object, copy that object's full
+        runtime location (`where` + `key`) — `dest = obDest.Location.Copy` (the
+        Hidden→Hidden special-case is subsumed since a hidden target's objloc is
+        already Hidden).  Character target keeps the existing room-drop path
+        (checked first, matching FD's `htblCharacters`-then-`htblObjects` order).
+        **Validated:** the full Stone `eat food` chain (four→three→two→one, with
+        `examine food`/`inventory` between each) now **diffs to ZERO** vs
+        FrankenDrift; Six Silver Bullets golden + Anno (11 hunks, RNG residual)
+        unchanged; full headless suite green; ASan/UBSan-clean.
       - **Still TODO (earlier list)**: full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);

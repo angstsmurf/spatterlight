@@ -1424,11 +1424,24 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       else if (to == "ToLocationGroup") { L->where = A5_OWHERE_LOCGROUP; L->key = k2; }
       else if (to == "ToSameLocationAs")
         {
-          /* drop: place the object directly in the target character's room. */
+          /* The target may be a character or an object (clsUserSession.vb:1570).
+             Character: place the object in the character's room (the common
+             "drop" case).  Object: copy the target object's full location
+             (where + key) — e.g. eating "four food rations" reveals the hidden
+             "three food rations" inside the same backpack. */
           int ci = a5state_character_index (st, k2);
-          const char *loc = (ci >= 0) ? st->char_loc[ci] : NULL;
-          if (loc != NULL) { L->where = A5_OWHERE_LOCATION; L->key = loc; }
-          else             { L->where = A5_OWHERE_HIDDEN;   L->key = NULL; }
+          if (ci >= 0)
+            {
+              const char *loc = st->char_loc[ci];
+              if (loc != NULL) { L->where = A5_OWHERE_LOCATION; L->key = loc; }
+              else             { L->where = A5_OWHERE_HIDDEN;   L->key = NULL; }
+            }
+          else
+            {
+              int ti = a5state_object_index (st, k2);
+              if (ti >= 0) { L->where = st->obj[ti].where; L->key = st->obj[ti].key; }
+              else         { L->where = A5_OWHERE_HIDDEN;  L->key = NULL; }
+            }
         }
       return;
     }
