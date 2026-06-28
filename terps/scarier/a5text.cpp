@@ -201,6 +201,15 @@ a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
           sb_puts (&sb, text);
         }
       first = 0;
+      /* A DisplayOnce segment terminates the description: clsDescription.ToString
+         does `Return sb.ToString` inside `If .DisplayOnce`, so once a not-yet-
+         shown DisplayOnce segment is output, later segments are NOT considered.
+         This is what makes a location's "long first-visit / short thereafter"
+         pair work -- the long block is DisplayOnce + StartDescriptionWithThis, so
+         a plain StartDescriptionWithThis follow-up only wins once the first has
+         been retired. */
+      if (once)
+        break;
     }
 
   return sb_finish (&sb);
