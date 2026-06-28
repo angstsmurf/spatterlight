@@ -254,7 +254,13 @@ pass_object (a5_state_t *st, a5_restr_t *r)
              && a5state_object_at_location (st, oi, cloc, 0);
     }
   if (streq (r->op, "HaveBeenSeenByCharacter"))
-    return 1;                 /* no "seen" tracking yet (Phase 4) */
+    {
+      /* Player-centric seen set (clsCharacter.HasSeenObject); a non-player
+         observer falls back to "seen" so its tasks aren't over-suppressed. */
+      if (k2 != NULL && !streq (k2, "Player"))
+        return 1;
+      return oi >= 0 && st->obj_seen != NULL && st->obj_seen[oi];
+    }
   return 1;                   /* unknown operator: don't suppress text */
 }
 

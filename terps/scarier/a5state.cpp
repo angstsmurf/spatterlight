@@ -123,6 +123,7 @@ a5state_new (const a5_adventure_t *adv)
           st->char_position[i] = strdup (pos ? pos : "Standing");
         }
       st->char_seen = (char *) calloc ((size_t) adv->n_characters, 1);
+      st->obj_seen = (char *) calloc ((size_t) adv->n_objects, 1);
     }
 
   st->conv_char = strdup ("");
@@ -173,6 +174,7 @@ a5state_free (a5_state_t *st)
   free ((void *) st->char_loc);
   free (st->char_position);
   free (st->char_seen);
+  free (st->obj_seen);
   free (st->conv_char);
   free (st->conv_node);
   free ((void *) st->char_onobj);

@@ -1004,6 +1004,13 @@ update_seen (a5_state_t *st)
       if (ploc != NULL && streq (st->char_loc[i], ploc))
         st->char_seen[i] = 1;
     }
+  /* Mark every object currently visible in the player's room as seen
+     (clsCharacter.HasSeenObject), so HaveBeenSeenByCharacter persists once an
+     object has been viewed. */
+  if (st->obj_seen != NULL && ploc != NULL)
+    for (i = 0; i < st->adv->n_objects; i++)
+      if (a5state_object_at_location (st, i, ploc, 0))
+        st->obj_seen[i] = 1;
 }
 
 /* ContainsWord (clsUserSession): every space-separated word of `check` appears

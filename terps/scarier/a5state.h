@@ -88,6 +88,13 @@ typedef struct a5_state_s {
      and the conversation "characters must be seen" gates work.  [n_characters] */
   char *char_seen;
 
+  /* Player "seen" state for objects (clsCharacter.HasSeenObject): set each turn
+     for every object the player can currently see, so a later out-of-scope
+     reference can tell "never seen" (HaveBeenSeenByCharacter fails -> "You see
+     no such thing.") from "seen but not here now" ("You can't see the X.").
+     [n_objects] */
+  char *obj_seen;
+
   /* Transient character context for char-scoped text functions (%CharacterName%
      etc.).  v5 rewrites a character's own text "%CharacterName%" ->
      "%CharacterName[Key]%" at load (FileIO SearchAndReplace); we instead set the
