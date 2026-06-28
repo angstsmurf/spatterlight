@@ -2489,7 +2489,16 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
               /* "You can't see any <plural>!" -- the highest-priority matching
                  task with the out-of-scope reference claims the turn. */
               std::string w  = amb_word (st, this_amb.keys, this_amb.ref_text, 'o');
-              std::string pl = guess_plural_from_noun (w);
+              /* clsObject.IsPlural == (Article == "some"): a mass/plural object
+                 ("some firewood") keeps the bare noun; others are pluralised. */
+              int any_plural = 0;
+              for (auto &k : this_amb.keys)
+                {
+                  int ki = a5state_object_index (st, k.c_str ());
+                  if (ki >= 0 && streq (st->adv->objects[ki].article, "some"))
+                    { any_plural = 1; break; }
+                }
+              std::string pl = any_plural ? w : guess_plural_from_noun (w);
               sb_puts (out, "You can't see any ");
               sb_puts (out, pl.c_str ());
               sb_puts (out, "!");
