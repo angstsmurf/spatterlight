@@ -829,16 +829,66 @@ ADRIFT text is full of embedded directives evaluated at display time:
         cases (60 in the Anno walkthrough) still emit "You can't see any …!".
         Anno diff 46 → 37 hunks; Six Silver Bullets golden + a5distest unchanged;
         ASan/UBSan-clean across the whole 15-game corpus.
-      - **Remaining Anno divergences (~34 non-RNG, increasingly fine-grained;
-        diminishing returns):** object name-alias selection when several
-        same-noun objects are seen (Scarier's seen-tier picks "the walls" where
-        FrankenDrift picks "the wall");
-        the remaining `Verb what?` no-reference prompts (`Light what?`); a few
-        stock "trying to <verb>" no-reference messages; and assorted
-        game-specific puzzle-task responses (parchment/hat/key-rack).  The
-        RNG-selected guest-event lines ("a guest walks by you and hangs their
-        room key on the rack") are expected divergence (.NET `System.Random` vs
-        xoshiro).
+      - **TaskExecution mode drives claim-on-fail (not `n_refs`)** — **DONE.**
+        The earlier "a failing-with-output task claims the turn only if it bears
+        references" gate was an approximation; the real distinguisher is
+        `Adventure.TaskExecution` (parsed into `a5_adventure_t.hp_passing`).
+        `HighestPriorityTask` (the clsAdventure default, element absent —
+        Anno/Stone): the highest-priority command-matching task that fails its
+        restrictions *with output* claims the turn, refless and reference-bearing
+        alike (`htblCompleteableGeneralTasks` has no `HasReferences`/
+        `IsCompleteable` filter — that lives only in the background UI predictor).
+        `HighestPriorityPassingTask` (Six Silver Bullets): it does NOT claim;
+        the first/highest-priority fail message is recorded and the scan keeps
+        looking for a *passing* task, which overrides it (so SSB's refless `LOOK`
+        peephole, priority 49000, falls through to the real Look at 50031 — the
+        case the old gate papered over).  A recorded fail is non-empty output, so
+        emitting it advances the turn (`sOutputText <> "" => TurnBasedStuff`).
+        Fixed Anno's "light lantern" => "Light what?" (refless `LightBrass1`).
+      - **Property restriction implemented** — **DONE.**  Property-type
+        restrictions were stubbed to always-pass; ported
+        clsUserSession.PassSingleRestriction's Property case
+        (`a5restr.cpp pass_property`).  The spec is
+        `<propKey> <itemRef> Must|MustNot <Op> <value>` — an extra item token the
+        one-key `parse_spec` layout can't hold, so the raw spec is re-tokenised
+        (new `a5_restr_t.raw`).  An item lacking the property fails; `EqualTo`
+        compares the override-aware value as a string (StaticOrDynamic /
+        OpenStatus / state lists / integer flags / object-key props); the numeric
+        inequalities evaluate only for a plain-integer value — an expression value
+        (`%Player%`-relative weight/bulk sums) still passes (the lenient default).
+        Fixed Anno's "drop trunk" => "You can't drop the old crooked tree!" (the
+        static tree now fails DropObjects restriction 2 `StaticOrDynamic ... Must
+        EqualTo Dynamic` — and since the AND chain short-circuits on the first
+        failure, restriction 2's message wins over restriction 5's "not
+        carrying").
+      - **Remaining Anno divergences (~28 non-RNG, fine-grained; diminishing
+        returns):** the bulk is now the **`You can't see any <plural>!` family**
+        (lines like cannon/doors/pistols/threads/wine/trees), which all stem from
+        one architectural difference: **Scarier pre-filters object-reference
+        candidates by a visible→seen→any scope tier (`resolve_object_candidates`),
+        collapsing the count; FrankenDrift keeps ALL name-matching objects (any
+        scope — `InputMatchesObject` adds every regex-matching object) and lets
+        the task's restrictions refine them**, then decides at the end
+        (`DisplayAmbiguityQuestion`):
+          - `MatchingPossibilities.Count > 1` after refinement AND **none
+            currently VISIBLE** (`Player.CanSeeObject`; "seen" is irrelevant here)
+            => "You can't see any <plural>!" (no prompt); if ≥1 visible => "Which
+            <noun>?" prompt.
+          - `Count == 1` => resolve to it; its restrictions yield "You can't see
+            the X." / "You see no such thing." etc.
+          - `Count == 0` (all refined away) => `sNoRefTask` runs the task with an
+            unresolved ref, surfacing e.g. DrinkObject's `ReferencedObject Must
+            Exist` "Sorry, I'm not sure which object you are trying to drink."
+        So fixing this means **restructuring resolution so candidates are the full
+        any-scope set + scope filtering comes from restrictions, not a pre-filter**
+        — a deliberate change with real regression risk against `a5distest` and
+        the ~60 currently-correct "can't see any" cases; parked.  Other residuals:
+        object name-alias selection when several same-noun objects are seen
+        ("the walls" vs "the wall"); a few stock "trying to <verb>" no-reference
+        messages; and game-specific puzzle-task responses (parchment/hat/key-rack,
+        "prime wick"=>"...do with Player").  The RNG-selected guest-event lines
+        ("a guest walks by you and hangs their room key on the rack") are expected
+        divergence (.NET `System.Random` vs xoshiro).
       - **Still TODO (earlier list)**: full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);
