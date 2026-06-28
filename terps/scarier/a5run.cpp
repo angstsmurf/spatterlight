@@ -2523,26 +2523,36 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
             }
           if (r == RR_AMBIG && !*have_amb)
             { *have_amb = 1; *amb = this_amb; *amb_ti = ti; *amb_ci = ci; }
-          if (r == RR_FAIL && m.n_refs > 0)
+          if (r == RR_FAIL)
             {
-              /* TaskExecution = HighestPriorityTask (the v5 default): the first
-                 command-matching task that fails its restrictions *with output*
-                 claims the turn -- it shows its fail message and no lower task
-                 runs (clsUserSession.GetGeneralTask -> AttemptToExecuteTask: a
-                 failing task with output stops the scan unless TaskExecution is
-                 HighestPriorityPassingTask).  This applies only to tasks with
-                 references: a reference-free task whose restrictions currently
-                 fail is pre-filtered out of htblCompleteableGeneralTasks
-                 (kept only if HasReferences OrElse IsCompleteable), so it never
-                 claims -- e.g. Six Silver Bullets' refless "LOOK" peephole task
-                 must fall through to the real Look. */
+              /* The task matched the command but its restrictions fail.  If a
+                 failing restriction has output, this is a candidate fail message
+                 (clsUserSession.GetGeneralTask: sRestrictionText = the failing
+                 restriction's Message; refless and reference-bearing tasks are
+                 treated identically -- htblCompleteableGeneralTasks has no
+                 HasReferences/IsCompleteable filter; that lives only in the
+                 background-thread predictor).  The TaskExecution mode decides
+                 whether it claims the turn now:
+                   - HighestPriorityTask (the v5 default): the highest-priority
+                     command-matching task that fails *with output* claims the
+                     turn -- show its message, no lower task runs.
+                   - HighestPriorityPassingTask: it does NOT claim; record the
+                     first (highest-priority) such message and keep scanning for
+                     a lower-priority *passing* task, which overrides it.  Six
+                     Silver Bullets sets this, so its refless "LOOK" peephole
+                     task falls through to the real Look. */
               const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
               if (fm != NULL)
                 {
                   char *fmsg = a5text_describe (st, fm);
-                  sb_puts (out, fmsg);
+                  if (fmsg[0])
+                    {
+                      if (!st->adv->hp_passing)
+                        { sb_puts (out, fmsg); free (fmsg); return 1; }
+                      if (!*have_fail)
+                        { *have_fail = 1; *fail_text = fmsg; }
+                    }
                   free (fmsg);
-                  return 1;
                 }
             }
           /* command matched but did not resolve to a unique pass: keep scanning */
@@ -2789,7 +2799,15 @@ a5run_input (a5_run_t *run, const char *line)
     }
 
   if (have_fail)
-    sb_puts (&out, fail_text.c_str ());
+    {
+      /* A HighestPriorityPassingTask game: no task passed, so show the
+         highest-priority failing task's recorded message.  It is non-empty
+         output, so the turn advances (clsUserSession: sOutputText <> "" =>
+         TurnBasedStuff). */
+      run->amb_active = 0;
+      sb_puts (&out, fail_text.c_str ());
+      ev_tick_all (run, &out);
+    }
   else if (system_command (run, in, &out))
     { run->amb_active = 0; }
   else

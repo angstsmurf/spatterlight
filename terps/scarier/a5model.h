@@ -240,6 +240,11 @@ typedef struct a5_adventure_s {
                                        the start room after the intro          */
   int wait_turns;                   /* <WaitTurns> (default 3): turns a single
                                        "wait"/"z" advances                      */
+  int hp_passing;                   /* <TaskExecution> == HighestPriorityPassingTask:
+                                       a failing-with-output task does NOT claim
+                                       the turn; the scan keeps looking for a
+                                       passing task (clsAdventure.TaskExecution,
+                                       default HighestPriorityTask => 0)        */
 
   a5_object_t    *objects;    int n_objects;
   a5_location_t  *locations;  int n_locations;

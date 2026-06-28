@@ -676,6 +676,15 @@ a5model_from_doc (a5_xml_doc_t *doc)
     a->wait_turns = (wt != NULL) ? (int) strtol (wt, NULL, 10) : 3;
     if (a->wait_turns < 0) a->wait_turns = 0;
   }
+  /* <TaskExecution>: HighestPriorityTask (the clsAdventure default, when the
+     element is absent) vs HighestPriorityPassingTask.  Under the latter a task
+     that matches the command but fails its restrictions with output does not
+     claim the turn -- the scan keeps looking for a lower-priority passing task,
+     and the recorded fail message is shown only if none is found. */
+  {
+    const char *te = a5xml_child_text (root, "TaskExecution");
+    a->hp_passing = (te != NULL && strcmp (te, "HighestPriorityPassingTask") == 0);
+  }
 
   a5_load_propdefs (a);
   a5_load_locations (a);
