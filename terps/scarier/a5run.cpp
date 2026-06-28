@@ -239,14 +239,43 @@ object_words (const a5_object_t *o,
 {
   collect_words (o->article, o->prefix, o->names, o->n_names, allowed, nouns);
 }
+/* Is the character's *proper name* usable as a reference word yet?  Mirrors
+   clsCharacter.sRegularExpressionString: the proper name is excluded once the
+   game defines a "Known" character property and this character does not (yet)
+   have it -- i.e. an unintroduced NPC is addressable only by descriptor
+   ("woman"), not by name ("susan").  A character with no descriptors, or a game
+   with no Known property, always exposes the proper name. */
+static int
+char_name_usable (a5_state_t *st, const a5_character_t *c)
+{
+  int game_has_known = 0, i;
+  if (c->n_descriptors == 0)
+    return 1;
+  for (i = 0; i < st->adv->n_propdefs; i++)
+    if (streq (st->adv->propdefs[i].key, "Known")
+        && streq (st->adv->propdefs[i].property_of, "Characters"))
+      { game_has_known = 1; break; }
+  if (!game_has_known)
+    return 1;
+  if (a5_prop_find (c->props, c->n_props, "Known") != NULL)
+    return 1;
+  return a5state_entity_prop (st, c->key, "Known") != NULL;
+}
+
 static void
-character_words (const a5_character_t *c,
+character_words (a5_state_t *st, const a5_character_t *c,
                  std::vector<std::string> &allowed, std::vector<std::string> &nouns)
 {
-  const char *one_name[1];
-  one_name[0] = c->name;
-  collect_words (c->article, c->prefix, one_name, c->name ? 1 : 0, allowed, nouns);
-  collect_words (NULL, NULL, c->descriptors, c->n_descriptors, allowed, nouns);
+  /* Article + prefix apply to every noun ("young woman", "the woman"); the
+     proper name is exposed only once the character is Known (see above). */
+  collect_words (c->article, c->prefix, c->descriptors, c->n_descriptors,
+                 allowed, nouns);
+  if (char_name_usable (st, c) && c->name != NULL)
+    {
+      const char *one_name[1];
+      one_name[0] = c->name;
+      collect_words (c->article, c->prefix, one_name, 1, allowed, nouns);
+    }
 }
 
 /* All object keys whose names match `text`, visible-to-the-player first; if any
@@ -281,7 +310,7 @@ resolve_character_candidates (a5_state_t *st, const std::string &text)
     {
       const a5_character_t *c = &st->adv->characters[i];
       std::vector<std::string> allowed, nouns;
-      character_words (c, allowed, nouns);
+      character_words (st, c, allowed, nouns);
       if (!words_match (allowed, nouns, text))
         continue;
       any.push_back (c->key);
@@ -309,7 +338,7 @@ possible_keys (a5_state_t *st, const std::vector<std::string> &keys,
       else
         { int ci = a5state_character_index (st, k.c_str ());
           if (ci < 0) continue;
-          character_words (&st->adv->characters[ci], allowed, nouns); }
+          character_words (st, &st->adv->characters[ci], allowed, nouns); }
       int all = 1;
       for (auto &w : words)
         {
@@ -377,7 +406,7 @@ amb_word (a5_state_t *st, const std::vector<std::string> &keys,
           else
             { int ci = a5state_character_index (st, k.c_str ());
               if (ci < 0) { in_all = 0; break; }
-              character_words (&st->adv->characters[ci], allowed, nouns); }
+              character_words (st, &st->adv->characters[ci], allowed, nouns); }
           int hit = 0;
           for (auto &n : nouns) if (n == lw) { hit = 1; break; }
           if (!hit) { in_all = 0; break; }
@@ -603,6 +632,12 @@ static void run_action (a5_run_t *run, const char *kind, const char *body,
                         int depth, sb_t *out);
 static void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
 
+/* Conversation type bits (clsAction.ConversationEnum). */
+enum { A5_CONV_GREET = 1, A5_CONV_ASK = 2, A5_CONV_TELL = 4,
+       A5_CONV_COMMAND = 8, A5_CONV_FAREWELL = 16 };
+static void exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
+                               const char *subject, sb_t *out);
+
 /* ----------------------------------------- specific-override task dispatch */
 
 /* One resolved command reference: its general type and resolved entity key. */
@@ -822,6 +857,275 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
       run_task (run, child, 0, out);
 }
 
+/* ------------------------------------------------------------ conversation */
+
+/* Mark every character the player can currently see as "seen" (player-centric
+   clsCharacter.HasSeenCharacter, set each turn by clsUserSession's
+   PrepareForNextTurn).  The player is always considered self-seen. */
+static void
+update_seen (a5_state_t *st)
+{
+  const char *ploc = a5state_player_location (st);
+  int i;
+  if (st->char_seen == NULL)
+    return;
+  for (i = 0; i < st->adv->n_characters; i++)
+    {
+      if (streq (st->adv->characters[i].key, "Player"))
+        { st->char_seen[i] = 1; continue; }
+      if (ploc != NULL && streq (st->char_loc[i], ploc))
+        st->char_seen[i] = 1;
+    }
+}
+
+/* ContainsWord (clsUserSession): every space-separated word of `check` appears
+   among the space-separated words of `sentence` (case-insensitive). */
+static int
+conv_contains_word (const std::string &sentence, const std::string &check)
+{
+  std::vector<std::string> words = split_ws (lower (sentence).c_str ());
+  for (auto &c : split_ws (check.c_str ()))
+    {
+      int found = 0;
+      for (auto &w : words)
+        if (w == c) { found = 1; break; }
+      if (!found)
+        return 0;
+    }
+  return 1;
+}
+
+static int
+topic_has_children (const a5_character_t *ch, const char *key)
+{
+  int i;
+  for (i = 0; i < ch->n_topics; i++)
+    if (streq (ch->topics[i].parent_key, key))
+      return 1;
+  return 0;
+}
+
+/* Render a topic reply / message with the conversation character as the text
+   context, trimmed and newline-terminated (one AddResponse). */
+static void
+emit_conv (a5_run_t *run, const char *rendered_owned, sb_t *out)
+{
+  char *m = (char *) rendered_owned;
+  size_t n = m ? strlen (m) : 0;
+  while (n > 0 && (m[n - 1] == '\n' || m[n - 1] == '\r'
+                   || m[n - 1] == ' ' || m[n - 1] == '\t'))
+    m[--n] = '\0';
+  if (m != NULL && m[0])
+    { sb_puts (out, m); sb_puts (out, "\n"); }
+  free (m);
+}
+
+/*
+ * FindConversationNode (clsUserSession): the best topic of `ch` matching the
+ * conversation type + subject at the current node.  Ask/Tell topics match by
+ * keyword (most matches, then highest %); Command topics by command pattern;
+ * Greet/Farewell topics just by restrictions.  When a candidate matches its
+ * trigger but fails its restrictions, its restriction fail-message is captured
+ * into *restr_text (last wins), so the caller can surface it as the default.
+ */
+static const a5_topic_t *
+find_conv_node (a5_run_t *run, const a5_character_t *ch, int conv_type,
+                const char *subject, std::string *restr_text)
+{
+  a5_state_t *st = run->st;
+  int t = conv_type;
+  int b_farewell = 0, b_command = 0, b_tell = 0, b_ask = 0, b_intro = 0;
+  double best_pct = 0.0;
+  int best_matches = 0;
+  const a5_topic_t *best = NULL;
+  int i;
+
+  if (t >= A5_CONV_FAREWELL) { b_farewell = 1; t -= A5_CONV_FAREWELL; }
+  if (t >= A5_CONV_COMMAND)  { b_command  = 1; t -= A5_CONV_COMMAND; }
+  if (t >= A5_CONV_TELL)     { b_tell     = 1; t -= A5_CONV_TELL; }
+  if (t >= A5_CONV_ASK)      { b_ask      = 1; t -= A5_CONV_ASK; }
+  if (t >= A5_CONV_GREET)    { b_intro    = 1; t -= A5_CONV_GREET; }
+
+  for (i = 0; i < ch->n_topics; i++)
+    {
+      const a5_topic_t *tp = &ch->topics[i];
+      if (!(streq (tp->parent_key, "") || streq (tp->parent_key, st->conv_node)))
+        continue;
+      if (b_intro && !tp->is_intro)       continue;
+      if (b_farewell && !tp->is_farewell) continue;
+      if (b_command != tp->is_command)    continue;
+      if (b_ask && !tp->is_ask)           continue;
+      if (b_tell && !tp->is_tell)         continue;
+
+      if (b_ask || b_tell)
+        {
+          std::vector<std::string> kws;
+          { std::string cur; const char *p = tp->keywords;
+            for (; p && *p; p++)
+              { if (*p == ',') { kws.push_back (cur); cur.clear (); }
+                else cur += *p; }
+            kws.push_back (cur); }
+          int matched = 0, low_priority = 0;
+          for (auto &kw : kws)
+            {
+              std::string k = lower (kw);
+              size_t a = k.find_first_not_of (" \t");
+              size_t z = k.find_last_not_of (" \t");
+              k = (a == std::string::npos) ? "" : k.substr (a, z - a + 1);
+              if (conv_contains_word (subject, k) || k == "*")
+                {
+                  if (a5restr_pass (st, tp->restrictions))
+                    matched++;
+                  else if (restr_text != NULL)
+                    { const a5_xml_node_t *fm =
+                        a5restr_fail_message (st, tp->restrictions);
+                      if (fm != NULL)
+                        { char *t2 = a5text_describe (st, fm);
+                          *restr_text = t2; free (t2); } }
+                  if (k == "*") low_priority = 1;
+                }
+            }
+          double pct = kws.empty () ? 0.0 : (double) matched / (double) kws.size ();
+          if (low_priority && pct == 1.0) pct = 0.001;
+          if (matched > best_matches
+              || (matched == best_matches && pct > best_pct))
+            { best = tp; best_pct = pct; best_matches = matched; }
+        }
+      else if (b_command)
+        {
+          a5_match_t m;
+          if (a5parse_match_command (tp->keywords, subject, &m))
+            {
+              if (a5restr_pass (st, tp->restrictions))
+                return tp;
+              else if (restr_text != NULL)
+                { const a5_xml_node_t *fm =
+                    a5restr_fail_message (st, tp->restrictions);
+                  if (fm != NULL)
+                    { char *t2 = a5text_describe (st, fm);
+                      *restr_text = t2; free (t2); } }
+            }
+        }
+      else /* greet / farewell: no keyword match, just restrictions */
+        {
+          if (a5restr_pass (st, tp->restrictions))
+            return tp;
+          else if (restr_text != NULL)
+            { const a5_xml_node_t *fm =
+                a5restr_fail_message (st, tp->restrictions);
+              if (fm != NULL)
+                { char *t2 = a5text_describe (st, fm);
+                  *restr_text = t2; free (t2); } }
+        }
+    }
+  return best;
+}
+
+/*
+ * ExecuteConversation (clsUserSession): drive a Greet/Ask/Tell/Command/Farewell
+ * against a character -- implicit/explicit intro on first contact, then the
+ * matching topic's reply + actions, else a default "doesn't understand" message
+ * (or a topic restriction's fail text).
+ */
+static void
+exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
+                   const char *subject, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  const a5_character_t *conv_ch;
+  const a5_topic_t *topic = NULL;
+  std::string restr_text;
+
+  if (char_key == NULL || char_key[0] == '\0')
+    return;
+
+  /* Leaving a different conversation: implicit farewell, then reset. */
+  if (st->conv_char[0] != '\0' && !streq (st->conv_char, char_key))
+    {
+      const a5_character_t *prev = a5model_character (st->adv, st->conv_char);
+      if (prev != NULL)
+        {
+          const a5_topic_t *fw = find_conv_node (run, prev, conv_type, "", NULL);
+          if (fw != NULL)
+            {
+              const char *pc = st->ctx_char; st->ctx_char = prev->key;
+              emit_conv (run, a5text_describe (st, fw->conversation), out);
+              st->ctx_char = pc;
+            }
+        }
+      a5state_set_conv_char (st, "");
+      a5state_set_conv_node (st, "");
+    }
+
+  conv_ch = a5model_character (st->adv, char_key);
+  if (conv_ch == NULL)
+    return;
+
+  /* Not yet in a conversation: try an explicit then an implicit intro. */
+  if (st->conv_char[0] == '\0')
+    {
+      const a5_topic_t *intro =
+        find_conv_node (run, conv_ch, conv_type | A5_CONV_GREET, subject, NULL);
+      if (intro == NULL)
+        intro = find_conv_node (run, conv_ch, A5_CONV_GREET, "", NULL);
+      if (intro != NULL)
+        {
+          const char *pc = st->ctx_char; st->ctx_char = conv_ch->key;
+          emit_conv (run, a5text_describe (st, intro->conversation), out);
+          st->ctx_char = pc;
+          a5state_set_conv_node (st, intro->key);
+          if (intro->is_ask || intro->is_tell || intro->is_command)
+            {
+              a5state_set_conv_char (st, char_key);
+              if (intro->actions != NULL)
+                for (const a5_xml_node_t *c = intro->actions->first_child;
+                     c != NULL; c = c->next)
+                  run_action (run, c->name, c->text, 0, out);
+              return;
+            }
+        }
+    }
+
+  a5state_set_conv_char (st, char_key);
+
+  if (conv_type == A5_CONV_COMMAND)
+    topic = find_conv_node (run, conv_ch, conv_type | A5_CONV_FAREWELL,
+                            subject, NULL);
+  if (topic == NULL)
+    topic = find_conv_node (run, conv_ch, conv_type, subject, &restr_text);
+  else
+    { a5state_set_conv_char (st, ""); a5state_set_conv_node (st, ""); }
+
+  if (topic != NULL)
+    {
+      const char *pc = st->ctx_char; st->ctx_char = conv_ch->key;
+      emit_conv (run, a5text_describe (st, topic->conversation), out);
+      st->ctx_char = pc;
+      if (topic_has_children (conv_ch, topic->key))
+        a5state_set_conv_node (st, topic->key);
+      else if (!topic->stay_in_node)
+        a5state_set_conv_node (st, "");
+      if (topic->actions != NULL)
+        for (const a5_xml_node_t *c = topic->actions->first_child;
+             c != NULL; c = c->next)
+          run_action (run, c->name, c->text, 0, out);
+    }
+  else
+    {
+      std::string msg;
+      a5state_set_conv_node (st, "");
+      if (!restr_text.empty ())
+        msg = restr_text;
+      else
+        {
+          std::string verb = (conv_type == A5_CONV_COMMAND)
+            ? "ignores you." : "doesn't appear to understand you.";
+          msg = std::string ("%CharacterName[") + conv_ch->key + "]% " + verb;
+        }
+      emit_conv (run, a5text_process (st, msg.c_str ()), out);
+    }
+}
+
 /* ----------------------------------------------------------- action: execute */
 
 static void
@@ -1031,7 +1335,64 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       return;
     }
 
-  /* AddLocationToGroup / RemoveLocationFromGroup / Conversation: Phase 4. */
+  if (streq (kind, "Conversation"))
+    {
+      /* FileIO conversation-action parse: GREET/FAREWELL/ASK/TELL <key> [About|with
+         '<subject>'], SAY '<subject>' to <key>, ENTERWITH/LEAVEWITH <key>.  The
+         key (often ReferencedCharacter) and subject (often %text%) are resolved
+         here, then ExecuteConversation runs. */
+      if (tk.empty ())
+        return;
+      std::string verb = tk[0];
+      for (char &c : verb) c = (char) toupper ((unsigned char) c);
+
+      if (verb == "ENTERWITH")
+        { if (tk.size () >= 2) a5state_set_conv_char (st, act_key (st, tk[1].c_str ())); return; }
+      if (verb == "LEAVEWITH")
+        { if (tk.size () >= 2 && streq (st->conv_char, act_key (st, tk[1].c_str ())))
+            { a5state_set_conv_char (st, ""); a5state_set_conv_node (st, ""); }
+          return; }
+
+      int conv_type = 0;
+      std::string keytok, subjraw;
+      if (verb == "GREET" || verb == "FAREWELL")
+        {
+          conv_type = (verb == "GREET") ? A5_CONV_GREET : A5_CONV_FAREWELL;
+          if (tk.size () >= 2) keytok = tk[1];
+          for (size_t i = 3; i < tk.size (); i++)        /* tk[2] = "with" */
+            { if (i > 3) subjraw += " "; subjraw += tk[i]; }
+        }
+      else if (verb == "ASK" || verb == "TELL")
+        {
+          conv_type = (verb == "ASK") ? A5_CONV_ASK : A5_CONV_TELL;
+          if (tk.size () >= 2) keytok = tk[1];
+          for (size_t i = 3; i < tk.size (); i++)        /* tk[2] = "About" */
+            { if (i > 3) subjraw += " "; subjraw += tk[i]; }
+        }
+      else if (verb == "SAY")
+        {
+          conv_type = A5_CONV_COMMAND;
+          if (tk.size () >= 1) keytok = tk[tk.size () - 1];   /* last = key */
+          for (size_t i = 1; i + 2 < tk.size (); i++)         /* before "to <key>" */
+            { if (i > 1) subjraw += " "; subjraw += tk[i]; }
+        }
+      else
+        return;
+
+      /* strip surrounding single quotes from the subject */
+      if (subjraw.size () >= 1 && subjraw.front () == '\'')
+        subjraw.erase (subjraw.begin ());
+      if (subjraw.size () >= 1 && subjraw.back () == '\'')
+        subjraw.pop_back ();
+
+      const char *ckey = act_key (st, keytok.c_str ());
+      char *subj = a5text_process (st, subjraw.c_str ());
+      exec_conversation (run, ckey, conv_type, subj, out);
+      free (subj);
+      return;
+    }
+
+  /* AddLocationToGroup / RemoveLocationFromGroup: later phases. */
 }
 
 /* ------------------------------------------------------------- run one task */
@@ -1517,14 +1878,27 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
             }
           if (r == RR_AMBIG && !*have_amb)
             { *have_amb = 1; *amb = this_amb; *amb_ti = ti; *amb_ci = ci; }
-          if (r == RR_FAIL && !*have_fail)
+          if (r == RR_FAIL && m.n_refs > 0)
             {
-              /* Render now, while this task's reference bindings are still live
-                 (a later resolve_refine would clear them). */
+              /* TaskExecution = HighestPriorityTask (the v5 default): the first
+                 command-matching task that fails its restrictions *with output*
+                 claims the turn -- it shows its fail message and no lower task
+                 runs (clsUserSession.GetGeneralTask -> AttemptToExecuteTask: a
+                 failing task with output stops the scan unless TaskExecution is
+                 HighestPriorityPassingTask).  This applies only to tasks with
+                 references: a reference-free task whose restrictions currently
+                 fail is pre-filtered out of htblCompleteableGeneralTasks
+                 (kept only if HasReferences OrElse IsCompleteable), so it never
+                 claims -- e.g. Six Silver Bullets' refless "LOOK" peephole task
+                 must fall through to the real Look. */
               const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
               if (fm != NULL)
-                { char *fmsg = a5text_describe (st, fm);
-                  *fail_text = fmsg; free (fmsg); *have_fail = 1; }
+                {
+                  char *fmsg = a5text_describe (st, fm);
+                  sb_puts (out, fmsg);
+                  free (fmsg);
+                  return 1;
+                }
             }
           /* command matched but did not resolve to a unique pass: keep scanning */
         }
@@ -1554,6 +1928,7 @@ a5run_intro (a5_run_t *run)
     }
   /* Start the Immediately events (clsUserSession init loop, after intro). */
   ev_init (run, &out);
+  update_seen (run->st);
   return sb_take (&out);
 }
 
@@ -1576,6 +1951,11 @@ a5run_input (a5_run_t *run, const char *line)
   }
   if (in.empty ())
     return sb_take (&out);
+
+  /* Refresh the player's "seen" set from where things ended up last turn
+     (clsUserSession.PrepareForNextTurn), so HaveSeenCharacter / "characters
+     must be seen" gates reflect everyone visible by now. */
+  update_seen (st);
 
   /* Pending disambiguation (clsUserSession.ResolveAmbiguity): try `in` as a
      clarifier first -- if it narrows the remembered candidates to exactly one,

@@ -636,16 +636,69 @@ ADRIFT text is full of embedded directives evaluated at display time:
         specials (outside an expression, when the game has no Score/MaxScore
         *variable*) are still a separate TODO (scoring display); they are not
         needed by the expression engine.
+      - **NPC in-room presence + conversation** — **DONE.**  Three pieces, all
+        validated against FrankenDrift ground truth (Anno 1700 full-walkthrough
+        diff dropped 362 → 187 hunks, with **zero** remaining presence/
+        conversation hunks; the Six Silver Bullets golden + Stone of Wisdom stay
+        clean; ASan/UBSan-clean across the whole 15-game v5 corpus):
+        1. **In-room presence** (`a5text_view_location`, ported from
+           clsLocation.ViewLocation's character loop): after the room
+           description + listed objects, each visible NPC contributes its
+           `CharHereDesc` property (rendered with the character as the text
+           context — new `a5_state_t.ctx_char` — so a bare `%CharacterName%`
+           resolves to it, and retiring its `<DisplayOnce>` segments), else the
+           default "<Name> is here.".  Identical descriptions from several
+           characters merge via the `##CHARNAME##` de-named form (" is "→" are ",
+           names listed); a single character emits its description **verbatim**
+           (preserving the authored capital, matching FrankenDrift, whose
+           round-trip is a no-op for the singleton case).  So entering Anno's
+           Office shows "A young woman stands leaning over the big desk. She
+           greets you with a big smile as you enter." (first visit) then "a young
+           woman is here." (the descriptor name — Susan is not yet Known).
+        2. **Conversation engine** (`a5run.cpp` `exec_conversation` /
+           `find_conv_node`, ports of clsUserSession.ExecuteConversation /
+           FindConversationNode; topics parsed into `a5_topic_t` in `a5model`):
+           a `<Conversation>` action (GREET/ASK/TELL/SAY → Greet/Ask/Tell/Command
+           + ENTERWITH/LEAVEWITH) drives implicit/explicit intro on first
+           contact, then the matching topic's reply + actions, else the default
+           "%CharacterName% doesn't appear to understand you." / "ignores you."
+           (or a topic restriction's fail text).  Ask/Tell match comma-keywords
+           (ContainsWord, most-matches-then-%); Command matches the subject via
+           the existing `a5parse_match_command`; Greet/Farewell match on
+           restrictions only.  Conversation state lives in
+           `a5_state_t.conv_char`/`conv_node`; `%ConvCharacter%`/`%AloneWithChar%`
+           text specials and the `BeInConversationWith`/`BeAloneWith`/`BeAlone`/
+           `HaveSeenCharacter` restriction ops were added (`a5restr`), with a
+           per-turn player-"seen" set (`char_seen`, updated like
+           PrepareForNextTurn).
+        3. **TaskExecution = HighestPriorityTask precedence** (the v5 default,
+           the real reason Anno's `say hello` → "I'm not sure who you are
+           referring to."): the first command-matching task that fails its
+           restrictions **with output** now claims the turn (shows its fail
+           message, no lower task runs) — but **only for tasks that bear
+           references**, mirroring clsUserSession's
+           `htblCompleteableGeneralTasks` pre-filter (a refless task is kept only
+           if `HasReferences OrElse IsCompleteable`, so Six Silver Bullets'
+           refless "LOOK" peephole task correctly falls through to the real Look
+           instead of stranding the player on "You simply cannot do that.").
+        - Also faithful now: a character's **proper name is unusable until
+           Known** (clsCharacter.sRegularExpressionString — the game defines a
+           Known character property), so `say hello to susan` does **not** resolve
+           "susan" while she is unintroduced and falls through to the bare `Say`
+           task's message, exactly as FrankenDrift does; and
+           `character_display_name` renders the descriptor ("a young woman") vs
+           the proper name ("Susan") off the same Known-selected test.
+        - NOTE: no new source files — all changes are in the existing `a5model`/
+           `a5state`/`a5restr`/`a5text`/`a5run`, so the Makefiles and the Xcode
+           target need no new entries.
       - **Remaining Anno divergences (the next targets, in rough frequency):**
-        - **NPC in-room presence + conversation** — a location view should append
-          present NPCs' in-room text ("A young woman stands leaning over the big
-          desk…"), and `say hello`/topics need the conversation engine
-          ("I'm not sure who you are referring to.").  Gates Anno's
-          meet-employer → get-key → upstairs chain (hence many downstream
-          "You can't see tall closet" once the player can't progress).
         - **walks** (`A woman walks by you and hangs her room key on the rack.`)
           and DisplayMessage/SetLook sub-events.
-      - **Still TODO (earlier list)**: characters/walks/conversation/topics; full
+        - inventory `%ListObjectsOnAndIn%` over-listing (the `i` line lists every
+          container in the room, not just carried/worn); unknown-word message
+          wording ("I don't understand." vs "I did not understand the word …");
+          walkthrough comment lines parsed as commands.
+      - **Still TODO (earlier list)**: walks; full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);
         "seen"/visibility (`HaveBeenSeen*`/`BeVisibleTo*` still approximated);

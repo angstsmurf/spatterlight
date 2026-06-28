@@ -329,6 +329,29 @@ a5restr_exit_in_direction (a5_state_t *st, const char *lockey, const char *dir)
 
 /* -------------------------------------------------- character sub-evaluator */
 
+/* AloneWithChar (clsCharacter.AloneWithChar): the single other character in the
+   same location as `charkey`, or NULL if there are zero or more than one. */
+static const char *
+alone_with_char (a5_state_t *st, const char *charkey)
+{
+  int ci = a5state_character_index (st, charkey);
+  const char *cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
+  const char *found = NULL;
+  int count = 0, i;
+  if (cloc == NULL)
+    return NULL;
+  for (i = 0; i < st->adv->n_characters; i++)
+    {
+      if (i == ci)
+        continue;
+      if (streq (st->char_loc[i], cloc))
+        { count++; found = st->adv->characters[i].key; }
+      if (count > 1)
+        return NULL;
+    }
+  return (count == 1) ? found : NULL;
+}
+
 static int
 pass_character (a5_state_t *st, a5_restr_t *r)
 {
@@ -419,7 +442,43 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       /* THEFLOOR and any concrete object key fall here: must be on/in that key. */
       return onobj != NULL && (inside ? 1 : 0) == want_in && streq (onobj, k2);
     }
-  return 1;                   /* HaveSeen*, BeInConversation*, etc: Phase 4 */
+  /* Conversation / acquaintance operators (clsUserSession character cases). */
+  if (streq (r->op, "BeInConversationWith"))
+    {
+      if (streq (k2, ANYCHARACTER))
+        return st->conv_char != NULL && st->conv_char[0] != '\0';
+      return streq (st->conv_char, k2);
+    }
+  if (streq (r->op, "HaveSeenCharacter"))
+    {
+      /* key1 is the observer (typically Player), key2 the target.  We track the
+         player's "seen" set; a non-player observer is treated as having seen
+         (best-effort, no shipped restriction needs the general case). */
+      int c2 = a5state_character_index (st, k2);
+      if (c2 < 0)
+        return 0;
+      if (!streq (k1, "Player"))
+        return 1;
+      return st->char_seen != NULL && st->char_seen[c2];
+    }
+  if (streq (r->op, "BeAloneWith"))
+    {
+      const char *aw = alone_with_char (st, k1);
+      if (streq (k2, ANYCHARACTER))
+        return aw != NULL;
+      return streq (aw, k2);
+    }
+  if (streq (r->op, "BeAlone"))
+    {
+      int i;
+      if (cloc == NULL)
+        return 1;
+      for (i = 0; i < st->adv->n_characters; i++)
+        if (i != ci && streq (st->char_loc[i], cloc))
+          return 0;
+      return 1;
+    }
+  return 1;                   /* other character ops: best-effort pass */
 }
 
 /* --------------------------------------------------- variable sub-evaluator */

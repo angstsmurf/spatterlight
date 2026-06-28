@@ -122,7 +122,12 @@ a5state_new (const a5_adventure_t *adv)
             st->char_loc[i] = chr_prop (c, "CharacterAtLocation");
           st->char_position[i] = strdup (pos ? pos : "Standing");
         }
+      st->char_seen = (char *) calloc ((size_t) adv->n_characters, 1);
     }
+
+  st->conv_char = strdup ("");
+  st->conv_node = strdup ("");
+  st->ctx_char = NULL;
 
   if (adv->n_variables > 0)
     {
@@ -167,6 +172,9 @@ a5state_free (a5_state_t *st)
   free (st->obj);
   free ((void *) st->char_loc);
   free (st->char_position);
+  free (st->char_seen);
+  free (st->conv_char);
+  free (st->conv_node);
   free ((void *) st->char_onobj);
   free (st->char_in);
   free (st->var_num);
@@ -174,6 +182,22 @@ a5state_free (a5_state_t *st)
   free (st->task_done);
   free (st->disp_once);
   free (st);
+}
+
+/* ----------------------------------------------------------- conversation */
+
+void
+a5state_set_conv_char (a5_state_t *st, const char *key)
+{
+  free (st->conv_char);
+  st->conv_char = strdup (key ? key : "");
+}
+
+void
+a5state_set_conv_node (a5_state_t *st, const char *key)
+{
+  free (st->conv_node);
+  st->conv_node = strdup (key ? key : "");
 }
 
 /* ------------------------------------------------------------ DisplayOnce */

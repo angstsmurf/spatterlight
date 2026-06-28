@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "a5expr.h"
@@ -400,29 +401,61 @@ char_perspective (const a5_character_t *c)
 typedef enum { A5_PRO_SUBJ, A5_PRO_OBJ, A5_PRO_POSS, A5_PRO_REFL } a5_pronoun_t;
 
 /*
+ * A third-person character's displayed name, mirroring clsCharacter.Name's
+ * non-pronoun branch: a "Known"-and-selected character (or one with no
+ * descriptor) shows its ProperName; otherwise its Descriptor(Article) --
+ * "a young woman" (Indefinite) / "the young woman" (Definite).  The "Known"
+ * property may be set at runtime (SetProperty Susan Known <Selected>), so check
+ * the override layer too.
+ */
+static char *
+character_display_name (a5_state_t *st, const a5_character_t *c, int definite)
+{
+  const char *known = c ? a5state_entity_prop (st, c->key, "Known") : NULL;
+  int model_known = c != NULL
+                    && a5_prop_find (c->props, c->n_props, "Known") != NULL;
+  int has_known = (known != NULL) || model_known;
+  int selected = has_known
+                 && (known == NULL || strstr (known, "Selected") != NULL);
+  int use_proper = has_known ? selected : (c == NULL || c->n_descriptors == 0);
+  if (use_proper)
+    return strdup ((c != NULL && c->name != NULL) ? c->name : "Anonymous");
+  {
+    sb_t sb;
+    sb_init (&sb);
+    if (c->article != NULL && c->article[0] != '\0')
+      { sb_puts (&sb, definite ? "the" : c->article); sb_putc (&sb, ' '); }
+    if (c->prefix != NULL && c->prefix[0] != '\0')
+      { sb_puts (&sb, c->prefix); sb_putc (&sb, ' '); }
+    sb_puts (&sb, c->descriptors[0]);
+    return sb_finish (&sb);
+  }
+}
+
+/*
  * The displayed name of a character with a pronoun, mirroring clsCharacter.Name:
  * first/second person always render as a pronoun (I/you/...); third person
- * renders the proper name (we don't pronoun-replace NPCs without mention
- * tracking, which is the safe default).
+ * renders the proper/descriptor name (we don't pronoun-replace NPCs without
+ * mention tracking, which is the safe default).
  */
 static char *
 character_name (a5_state_t *st, const a5_character_t *c, a5_pronoun_t pr)
 {
   int persp = char_perspective (c);
-  (void) st;
   if (persp == 1)
     return strdup (pr == A5_PRO_OBJ ? "me" : pr == A5_PRO_POSS ? "my"
                  : pr == A5_PRO_REFL ? "myself" : "I");
   if (persp == 2)
     return strdup (pr == A5_PRO_POSS ? "your" : pr == A5_PRO_REFL ? "yourself"
                  : "you");
-  /* third person: the character's name (possessive adds 's) */
+  /* third person: the display name (possessive adds 's) */
   {
-    const char *nm = (c && c->name) ? c->name : "";
+    char *nm = character_display_name (st, c, 0);
     if (pr == A5_PRO_POSS)
       { size_t n = strlen (nm); char *s = (char *) malloc (n + 3);
-        memcpy (s, nm, n); s[n] = '\''; s[n + 1] = 's'; s[n + 2] = '\0'; return s; }
-    return strdup (nm);
+        memcpy (s, nm, n); s[n] = '\''; s[n + 1] = 's'; s[n + 2] = '\0';
+        free (nm); return s; }
+    return nm;
   }
 }
 
@@ -496,7 +529,10 @@ eval_function (a5_state_t *st, const char *name, const char *args)
         size_t e = s.find_last_not_of (" \t");
         s = (b == std::string::npos) ? "" : s.substr (b, e - b + 1); };
       trim (key); trim (pron);
-      if (key.empty ()) key = "Player";
+      /* A bare %CharacterName% (no key) resolves to the character whose text is
+         being rendered (CharHereDesc / topic reply), else the Player -- v5
+         rewrites char-scoped %CharacterName% to %CharacterName[Key]% at load. */
+      if (key.empty ()) key = st->ctx_char ? st->ctx_char : "Player";
       const a5_character_t *ch = a5model_character (st->adv, key.c_str ());
       if (ch == NULL) ch = a5model_character (st->adv, "Player");
       a5_pronoun_t pr = A5_PRO_SUBJ;
@@ -507,6 +543,25 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       else if (pl.find ("possess") != std::string::npos) pr = A5_PRO_POSS;
       else if (pl.find ("reflect") != std::string::npos) pr = A5_PRO_REFL;
       return character_name (st, ch, pr);
+    }
+  if (ci_eq (name, "convcharacter"))
+    /* Global.vb:1762 substitutes %ConvCharacter% with the conversation char KEY. */
+    return strdup (st->conv_char ? st->conv_char : "");
+  if (ci_eq (name, "alonewithchar"))
+    {
+      /* The single other character in the player's location, else NoCharacter
+         (clsCharacter.AloneWithChar / Global.vb:1768). */
+      const char *ploc = a5state_player_location (st);
+      const char *found = NULL;
+      int count = 0, i;
+      for (i = 0; ploc != NULL && i < st->adv->n_characters; i++)
+        {
+          if (ci_eq (st->adv->characters[i].key, "Player"))
+            continue;
+          if (streq (st->char_loc[i], ploc))
+            { count++; found = st->adv->characters[i].key; }
+        }
+      return strdup ((count == 1) ? found : "NoCharacter");
     }
   if (ci_eq (name, "locationname"))
     {
@@ -1375,6 +1430,58 @@ object_list_desc (a5_state_t *st, const a5_object_t *o, int is_static)
   return NULL;
 }
 
+/* A present character's "is here" line: its CharHereDesc property rendered (with
+   the character as the text context, retiring its DisplayOnce segments), else
+   the default "<Name> is here." (clsLocation.ViewLocation: IsHereDesc / fallback). */
+static char *
+char_here_desc (a5_state_t *st, const a5_character_t *c)
+{
+  const a5_prop_t *p = a5_prop_find (c->props, c->n_props, "CharHereDesc");
+  const char *prev_ctx = st->ctx_char;
+  char *result;
+  st->ctx_char = c->key;
+  if (p != NULL && p->value_node != NULL)
+    {
+      int prev_mark = st->marking_display;
+      char *raw;
+      st->marking_display = 1;
+      raw = a5text_eval_description (st, p->value_node);
+      st->marking_display = prev_mark;
+      result = process_inner (st, raw, 0);     /* %functions% / OO pass */
+      free (raw);
+    }
+  else
+    {
+      char *nm = character_display_name (st, c, 0);
+      size_t need = strlen (nm) + 11;
+      result = (char *) malloc (need);
+      snprintf (result, need, "%s is here.", nm);
+      free (nm);
+    }
+  st->ctx_char = prev_ctx;
+  return result;
+}
+
+/* Case-insensitive replace-all of `from` with `to` in `s`. */
+static std::string
+ci_replace_all (const std::string &s, const std::string &from, const std::string &to)
+{
+  if (from.empty ()) return s;
+  std::string out, low_from, low_s;
+  for (char ch : from) low_from += (char) tolower ((unsigned char) ch);
+  for (char ch : s)    low_s    += (char) tolower ((unsigned char) ch);
+  size_t i = 0;
+  while (i < s.size ())
+    {
+      if (i + from.size () <= s.size ()
+          && low_s.compare (i, from.size (), low_from) == 0)
+        { out += to; i += from.size (); }
+      else
+        out += s[i++];
+    }
+  return out;
+}
+
 char *
 a5text_view_location (a5_state_t *st)
 {
@@ -1484,6 +1591,66 @@ a5text_view_location (a5_state_t *st)
     free ((void *) names);
   }
   (void) listed;
+
+  /* Present NPCs (clsLocation.ViewLocation character loop): each visible
+     character contributes its CharHereDesc (or "<Name> is here."); identical
+     descriptions are grouped, the name folded out via ##CHARNAME##, the verb
+     pluralised (" is "->" are ") for a shared description, and the names listed. */
+  {
+    struct cgroup { std::string keyd, first_desc; std::vector<std::string> names; };
+    std::vector<cgroup> groups;
+    for (i = 0; i < st->adv->n_characters; i++)
+      {
+        const a5_character_t *c = &st->adv->characters[i];
+        char *nmr, *descr;
+        if (ci_eq (c->key, "Player"))
+          continue;
+        if (!streq (st->char_loc[i], lockey))   /* visible at this location */
+          continue;
+        nmr = character_display_name (st, c, 0);
+        descr = char_here_desc (st, c);
+        std::string sName = nmr ? nmr : "";
+        std::string sDesc = descr ? descr : "";
+        free (nmr); free (descr);
+        if (sDesc.empty ())
+          continue;
+        std::string keyd = ci_replace_all (sDesc, sName, "##CHARNAME##");
+        size_t g;
+        for (g = 0; g < groups.size (); g++)
+          if (groups[g].keyd == keyd)
+            break;
+        if (g == groups.size ())
+          { cgroup ng; ng.keyd = keyd; ng.first_desc = sDesc; groups.push_back (ng); }
+        if (std::find (groups[g].names.begin (), groups[g].names.end (), sName)
+            == groups[g].names.end ())
+          groups[g].names.push_back (sName);
+      }
+    for (size_t g = 0; g < groups.size (); g++)
+      {
+        const std::vector<std::string> &nm = groups[g].names;
+        std::string d;
+        /* A single character contributes its description verbatim (preserving
+           authored casing); identical descriptions from several characters merge
+           via the de-named form, pluralising the verb and listing the names. */
+        if (nm.size () <= 1)
+          d = groups[g].first_desc;
+        else
+          {
+            d = ci_replace_all (groups[g].keyd, " is ", " are ");
+            std::string list;
+            for (size_t j = 0; j < nm.size (); j++)
+              {
+                if (j > 0)
+                  list += (j == nm.size () - 1) ? " and " : ", ";
+                list += nm[j];
+              }
+            d = ci_replace_all (d, "##CHARNAME##", list);
+          }
+        if (add_space (sb.p, sb.len))
+          sb_puts (&sb, "  ");
+        sb_puts (&sb, d.c_str ());
+      }
+  }
 
   plain = a5text_render_plain (sb.p ? sb.p : "");
   free (sb.p);

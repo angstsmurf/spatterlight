@@ -70,6 +70,24 @@ typedef struct a5_state_s {
   int   game_over;        /* set by EndGame: 0 running, else 1                 */
   char *end_message;      /* Win/Lose/etc. (owned), or NULL                   */
 
+  /* Conversation state (clsAdventure.sConversationCharKey / sConversationNode):
+     the NPC the player is currently talking to and the current topic node.
+     Both owned; "" when not in a conversation. */
+  char *conv_char;
+  char *conv_node;
+
+  /* Player "seen" state (clsCharacter.HasSeenCharacter, player-centric): set at
+     end of turn for every character the player can see, so HaveSeenCharacter
+     and the conversation "characters must be seen" gates work.  [n_characters] */
+  char *char_seen;
+
+  /* Transient character context for char-scoped text functions (%CharacterName%
+     etc.).  v5 rewrites a character's own text "%CharacterName%" ->
+     "%CharacterName[Key]%" at load (FileIO SearchAndReplace); we instead set the
+     context key while rendering that character's CharHereDesc / topic reply, so
+     a bare %CharacterName% resolves to it.  NULL = default (Player). */
+  const char *ctx_char;
+
   /* Per-turn reference bindings (e.g. "ReferencedObject2" -> "Table1"), set by
      the parser before restriction/action evaluation. */
   char  ref_name[16][32];
@@ -118,6 +136,10 @@ extern const char *a5state_entity_prop (const a5_state_t *st, const char *entkey
                                         const char *propkey);
 extern void a5state_set_prop (a5_state_t *st, const char *entkey,
                               const char *propkey, const char *value);
+
+/* Conversation state setters (own the string; "" clears). */
+extern void a5state_set_conv_char (a5_state_t *st, const char *key);
+extern void a5state_set_conv_node (a5_state_t *st, const char *key);
 
 /* <DisplayOnce> tracking: has this description-segment node already been shown,
    and (when marking) record that it has. */

@@ -122,6 +122,42 @@ a5_load_locations (a5_adventure_t *a)
     }
 }
 
+/* Parse a character's <Topic> children (clsTopic / FileIO topic load).  The
+   first direct <Description> child is the reply; <Restrictions>/<Actions> are
+   the topic-level gating block and action list. */
+static void
+a5_load_topics (a5_character_t *ch)
+{
+  a5_xml_node_t *c;
+  int i = 0;
+  ch->n_topics = a5xml_count (ch->node, "Topic");
+  if (ch->n_topics == 0)
+    return;
+  ch->topics = (a5_topic_t *) calloc ((size_t) ch->n_topics, sizeof *ch->topics);
+  for (c = ch->node->first_child; c != NULL; c = c->next)
+    {
+      a5_topic_t *t;
+      const char *s;
+      if (strcmp (c->name, "Topic") != 0)
+        continue;
+      t = &ch->topics[i++];
+      t->key = a5xml_child_text (c, "Key");
+      t->parent_key = a5xml_child_text (c, "ParentKey");
+      if (t->parent_key == NULL) t->parent_key = "";
+      t->keywords = a5xml_child_text (c, "Keywords");
+      if (t->keywords == NULL) t->keywords = "";
+      s = a5xml_child_text (c, "IsIntro");    t->is_intro    = (s && strcmp (s, "1") == 0);
+      s = a5xml_child_text (c, "IsAsk");      t->is_ask      = (s && strcmp (s, "1") == 0);
+      s = a5xml_child_text (c, "IsTell");     t->is_tell     = (s && strcmp (s, "1") == 0);
+      s = a5xml_child_text (c, "IsCommand");  t->is_command  = (s && strcmp (s, "1") == 0);
+      s = a5xml_child_text (c, "IsFarewell"); t->is_farewell = (s && strcmp (s, "1") == 0);
+      s = a5xml_child_text (c, "StayInNode"); t->stay_in_node = (s && strcmp (s, "1") == 0);
+      t->conversation = a5xml_child (c, "Description");
+      t->restrictions = a5xml_child (c, "Restrictions");
+      t->actions = a5xml_child (c, "Actions");
+    }
+}
+
 static void
 a5_load_characters (a5_adventure_t *a)
 {
@@ -146,6 +182,7 @@ a5_load_characters (a5_adventure_t *a)
       ch->perspective = a5xml_child_text (c, "Perspective");
       ch->descriptors = a5_collect_text (c, "Descriptor", &ch->n_descriptors);
       ch->props = a5_collect_props (c, &ch->n_props);
+      a5_load_topics (ch);
     }
 }
 
@@ -603,6 +640,7 @@ a5model_free (a5_adventure_t *a)
     {
       free ((void *) a->characters[i].descriptors);
       free (a->characters[i].props);
+      free (a->characters[i].topics);
     }
   for (i = 0; i < a->n_tasks; i++)
     {

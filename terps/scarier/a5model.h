@@ -46,6 +46,20 @@ typedef struct a5_location_s {
   const a5_xml_node_t *node;        /* ShortDescription/LongDescription/Movement here */
 } a5_location_t;
 
+/* One conversation node of a character (clsTopic): a reply gated by keywords or
+   a command pattern, with its own restrictions and actions.  Greet/Farewell
+   topics carry no keyword; Ask/Tell match on comma-separated keywords; Command
+   matches the player's subject against a command pattern. */
+typedef struct a5_topic_s {
+  const char *key;
+  const char *parent_key;           /* <ParentKey> ("" = top-level node)     */
+  const char *keywords;             /* <Keywords> (comma list or pattern)    */
+  int is_intro, is_ask, is_tell, is_command, is_farewell, stay_in_node;
+  const a5_xml_node_t *conversation; /* the reply <Description> block         */
+  const a5_xml_node_t *restrictions; /* <Restrictions>, or NULL              */
+  const a5_xml_node_t *actions;      /* <Actions>, or NULL                   */
+} a5_topic_t;
+
 typedef struct a5_character_s {
   const char *key;
   const char *name;
@@ -55,6 +69,7 @@ typedef struct a5_character_s {
   const char *perspective;          /* FirstPerson / SecondPerson / ...      */
   const char **descriptors; int n_descriptors;
   a5_prop_t *props;         int n_props;
+  a5_topic_t *topics;       int n_topics;
   const a5_xml_node_t *node;
 } a5_character_t;
 
