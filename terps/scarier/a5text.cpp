@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -547,6 +548,43 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       if (o != NULL)
         return a5text_object_name (o, art);
       return strdup (args ? args : "");
+    }
+  if (ci_eq (name, "propertyvalue") && args != NULL)
+    {
+      /* %PropertyValue[entity, propkey]% -> the entity's value for that property.
+         (Global.vb:2322 literally loops every object/character/location, but in
+         practice the call is always made for the single bound entity whose
+         property is in context -- the observed Runner/FrankenDrift output is just
+         that one entity's value, so resolve arg0 to a key and read it.)  A Text
+         property stores its value as a rich <Description> block (value_node), so
+         render that; otherwise return the scalar. */
+      std::string a = args;
+      size_t comma = a.find (',');
+      if (comma == std::string::npos)
+        return strdup ("");
+      std::string ent = a.substr (0, comma), prop = a.substr (comma + 1);
+      auto strip = [](std::string &s){
+        s.erase (std::remove (s.begin (), s.end (), ' '), s.end ()); };
+      strip (prop);
+      /* arg0 may be a key or a display name; map to a key. */
+      const char *ekey = resolve_object_arg (st, ent.c_str ());
+      const a5_prop_t *props = NULL; int n_props = 0;
+      const a5_object_t *o = ekey ? a5model_object (st->adv, ekey) : NULL;
+      if (o != NULL) { props = o->props; n_props = o->n_props; }
+      else {
+        const a5_character_t *c = ekey ? a5model_character (st->adv, ekey) : NULL;
+        if (c != NULL) { props = c->props; n_props = c->n_props; }
+        else {
+          const a5_location_t *l = ekey ? a5model_location (st->adv, ekey) : NULL;
+          if (l != NULL) { props = l->props; n_props = l->n_props; }
+        }
+      }
+      const a5_prop_t *pr = props ? a5_prop_find (props, n_props, prop.c_str ()) : NULL;
+      if (pr == NULL)
+        return strdup ("");
+      if (pr->value_node != NULL)
+        return a5text_eval_description (st, pr->value_node);
+      return strdup (pr->value ? pr->value : "");
     }
   if (ci_eq (name, "parentof") && args != NULL)
     {
