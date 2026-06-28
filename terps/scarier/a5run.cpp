@@ -472,8 +472,62 @@ amb_word (a5_state_t *st, const std::vector<std::string> &keys,
   return lower (ref_text);
 }
 
+/* clsObject.GuessPluralFromNoun: a naive English pluraliser (the quirky FRotZ
+   one, "feet"->"feets" and all -- ported verbatim so the canned "You can't see
+   any <plural>!" message byte-matches the Runner/FrankenDrift). */
+static std::string
+guess_plural_from_noun (const std::string &n)
+{
+  if (n.empty ())
+    return n;
+  static const char *same[] = { "deer","fish","cod","mackerel","trout","moose",
+    "sheep","swine","aircraft","blues","cannon" };
+  for (const char *s : same) if (n == s) return n;
+  if (n == "ox")    return "oxen";
+  if (n == "cow")   return "kine";
+  if (n == "child") return "children";
+  if (n == "foot")  return "feet";
+  if (n == "goose") return "geese";
+  if (n == "louse") return "lice";
+  if (n == "mouse") return "mice";
+  if (n == "tooth") return "teeth";
+  size_t L = n.size ();
+  if (L <= 2)
+    return n + "s";
+  std::string l3 = n.substr (L - 3), l2 = n.substr (L - 2), l1 = n.substr (L - 1);
+  if (l3 == "man") return n.substr (0, L - 2) + "en";
+  if (l3 == "ies") return n;
+  if (l2 == "sh" || l2 == "ss" || l2 == "ch") return n + "es";
+  if (l2 == "ge" || l2 == "se") return n + "s";
+  if (l2 == "ex") return n.substr (0, L - 2) + "ices";
+  if (l2 == "is") return n.substr (0, L - 2) + "es";
+  if (l2 == "um") return n.substr (0, L - 2) + "a";
+  if (l2 == "us") return n.substr (0, L - 2) + "i";
+  const char *cons = "bcdfghjklmnpqrstvwxz";
+  if (l1 == "f")
+    {
+      if (n == "dwarf" || n == "hoof" || n == "roof") return n + "s";
+      return n.substr (0, L - 1) + "ves";
+    }
+  if (l1 == "o" && strchr (cons, n[L - 2]) != NULL) return n + "es";
+  if (l1 == "x") return n + "es";
+  if (l1 == "y" && strchr (cons, n[L - 2]) != NULL) return n.substr (0, L - 1) + "ies";
+  if (l1 == "s") return n;
+  return n + "s";
+}
+
+/* Is object `key` in the player's scope this turn (the visibility proxy
+   resolve_object_candidates uses)? */
+static int
+obj_in_scope (a5_state_t *st, const char *key)
+{
+  const char *ploc = a5state_player_location (st);
+  int i = a5state_object_index (st, key);
+  return ploc != NULL && i >= 0 && a5state_object_at_location (st, i, ploc, 0);
+}
+
 /* Outcome of resolve_refine. */
-enum { RR_NOMATCH = 0, RR_OK, RR_FAIL, RR_AMBIG };
+enum { RR_NOMATCH = 0, RR_OK, RR_FAIL, RR_AMBIG, RR_CANTSEE };
 
 /* What the caller needs to raise (or carry forward) a disambiguation prompt. */
 struct amb_info {
@@ -540,6 +594,24 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
             : resolve_character_candidates (st, r.text);
           if (c.empty ())
             return RR_NOMATCH;
+          /* An object noun that names several objects, none of them in scope:
+             the Runner answers "You can't see any <plural>!" rather than running
+             the task (clsUserSession.DisplayAmbiguityQuestion, bCanSeeAny=False
+             on MatchingPossibilities.Count>1).  Surface it so the caller can emit
+             that message; single-match / any-visible cases proceed normally and
+             let the task's own restriction message render. */
+          if (r.type == 'o' && c.size () > 1 && amb != NULL)
+            {
+              int any_vis = 0;
+              for (const char *k : c) if (obj_in_scope (st, k)) { any_vis = 1; break; }
+              if (!any_vis)
+                {
+                  amb->ref_name = r.name; amb->type = 'o'; amb->ref_text = r.text;
+                  amb->keys.clear ();
+                  for (const char *k : c) amb->keys.push_back (k);
+                  return RR_CANTSEE;
+                }
+            }
           for (const char *k : c) r.keys.push_back (k);
         }
       bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
@@ -2389,6 +2461,17 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                  the actual movement task run. */
               if (t->continue_lower)
                 break;          /* stop trying this task's commands; keep scanning */
+              return 1;
+            }
+          if (r == RR_CANTSEE)
+            {
+              /* "You can't see any <plural>!" -- the highest-priority matching
+                 task with the out-of-scope reference claims the turn. */
+              std::string w  = amb_word (st, this_amb.keys, this_amb.ref_text, 'o');
+              std::string pl = guess_plural_from_noun (w);
+              sb_puts (out, "You can't see any ");
+              sb_puts (out, pl.c_str ());
+              sb_puts (out, "!");
               return 1;
             }
           if (r == RR_AMBIG && !*have_amb)
