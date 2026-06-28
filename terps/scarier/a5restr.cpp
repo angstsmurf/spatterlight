@@ -365,6 +365,17 @@ alone_with_char (a5_state_t *st, const char *charkey)
   return (count == 1) ? found : NULL;
 }
 
+/* Does character `charkey` hold (where==HELD_BY) or wear (WORN_BY) any object? */
+static int
+char_holds_any (a5_state_t *st, const char *charkey, a5_owhere_t where)
+{
+  int i;
+  for (i = 0; i < st->adv->n_objects; i++)
+    if (st->obj[i].where == where && streq (st->obj[i].key, charkey))
+      return 1;
+  return 0;
+}
+
 static int
 pass_character (a5_state_t *st, a5_restr_t *r)
 {
@@ -377,12 +388,18 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     return streq (cloc, k2);
   if (streq (r->op, "BeHoldingObject"))
     {
+      /* ANYOBJECT -> holding at least one object (clsCharacter.IsHoldingObject:
+         "If sObKey = ANYOBJECT Then Return HeldObjects.Count > 0"). */
+      if (streq (k2, ANYOBJECT))
+        return char_holds_any (st, k1, A5_OWHERE_HELD_BY);
       int oi = a5state_object_index (st, k2);
       return oi >= 0 && st->obj[oi].where == A5_OWHERE_HELD_BY
              && streq (st->obj[oi].key, k1);
     }
   if (streq (r->op, "BeWearingObject"))
     {
+      if (streq (k2, ANYOBJECT))     /* WornObjects.Count > 0 */
+        return char_holds_any (st, k1, A5_OWHERE_WORN_BY);
       int oi = a5state_object_index (st, k2);
       return oi >= 0 && st->obj[oi].where == A5_OWHERE_WORN_BY
              && streq (st->obj[oi].key, k1);

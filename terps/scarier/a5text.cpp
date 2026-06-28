@@ -389,6 +389,54 @@ display_object_children (a5_state_t *st, const char *objkey)
 }
 
 /*
+ * Port of ObjectHashTable.List(sep, bIncludeSubObjects:=True, Indefinite)
+ * (StronglyTypedCollections.vb:183) -- the indefinite main list followed, for
+ * each object with on/inside children, by its DisplayObjectChildren-style block
+ * joined with ".  " and *no* trailing period.  Used by %ListWorn% / %ListHeld%
+ * (which both pass bIncludeSubObjects=True), so e.g. examining yourself shows
+ * "... a scabbard and your clothes.  Inside the backpack are three food rations.
+ * Inside the scabbard is a long sword".
+ */
+static char *
+list_objects_subobj (a5_state_t *st, const std::vector<const char *> &keys)
+{
+  char *main = list_objects (st, keys);
+  std::string out = main ? main : "";
+  free (main);
+  for (const char *ok : keys)
+    {
+      const a5_object_t *o = a5model_object (st->adv, ok);
+      std::vector<const char *> on = objects_on_in (st, ok, A5_OWHERE_ON_OBJECT);
+      std::vector<const char *> in = objects_on_in (st, ok, A5_OWHERE_IN_OBJECT);
+      int openable = o && a5_prop_find (o->props, o->n_props, "Openable") != NULL;
+      if (openable)
+        { const char *os = a5state_entity_prop (st, ok, "OpenStatus");
+          if (os == NULL || !streq (os, "Open")) in.clear (); }
+      char *defn = o ? a5text_object_name (o, A5_ART_DEFINITE) : strdup (ok);
+      if (!on.empty ())
+        {
+          if (!out.empty ()) out += ".  ";
+          char *lst = list_objects (st, on);
+          out += to_proper (lst); free (lst);
+          out += (on.size () == 1) ? " is on " : " are on ";
+          out += defn;
+        }
+      if (!in.empty ())
+        {
+          if (!on.empty ())
+            out += ", and inside";
+          else
+            { if (!out.empty ()) out += ".  "; out += "Inside "; out += defn; }
+          out += (in.size () == 1) ? " is " : " are ";
+          char *lst = list_objects (st, in);
+          out += lst; free (lst);
+        }
+      free (defn);
+    }
+  return strdup (out.c_str ());
+}
+
+/*
  * Resolve a ListObjectsOnAndIn argument to the set of object keys it names.
  * The argument is frankendrift's ReplaceFunctions-processed value: a single key,
  * a "key1|key2" pipe list, or an OO expression like "Player.WornAndHeld" (which
@@ -800,7 +848,54 @@ eval_function (a5_state_t *st, const char *name, const char *args)
               v.push_back (st->adv->objects[i].key);
         }
       if (v.empty ()) return strdup ("nothing");
-      return list_objects (st, v);
+      /* %ListWorn% / %ListHeld% pass bIncludeSubObjects=True (Global.vb:2182/
+         2225): append each object's on/inside-contents listing. */
+      return list_objects_subobj (st, v);
+    }
+  if (args != NULL && (ci_eq (name, "displaycharacter") || ci_eq (name, "displayobject")))
+    {
+      /* Global.vb:2122/2138 DisplayCharacter/DisplayObject: the entity's
+         Description.ToString, with the canned "sees nothing interesting about"
+         fallback when empty.  a5expr's .Description already renders the node. */
+      const char *key = NULL;
+      int is_char = ci_eq (name, "displaycharacter");
+      if (is_char)
+        { const a5_character_t *c = a5model_character (st->adv, args);
+          key = c ? c->key : NULL; }
+      else
+        key = resolve_object_arg (st, args);
+      if (key != NULL)
+        {
+          char *d = a5expr_eval (st, key, ".Description");
+          if (d != NULL && d[0] != '\0')
+            return d;
+          free (d);
+          std::string fb = "%CharacterName% see[//s] nothing interesting about ";
+          if (is_char)
+            { fb += "%CharacterName["; fb += key; fb += ", target]%."; }
+          else
+            { const a5_object_t *o = a5model_object (st->adv, key);
+              char *dn = o ? a5text_object_name (o, A5_ART_DEFINITE) : strdup (key);
+              fb += dn; fb += "."; free (dn); }
+          char *proc = a5text_process (st, fb.c_str ());
+          char *plain = a5text_render_plain (proc);
+          free (proc);
+          return plain;
+        }
+    }
+  if (args != NULL && ci_eq (name, "listexits"))
+    {
+      /* clsCharacter.ListExits: the comma/"and"-joined, lower-cased list of
+         directions the character has a (restriction-checked) route in, or
+         "nowhere" when there are none.  Reuse a5expr's character .Exits path
+         (same DirectionsEnum order + HasRouteInDirection check). */
+      char *cnt = a5expr_eval (st, args, ".Exits.Count");
+      long n = cnt ? strtol (cnt, NULL, 10) : 0;
+      free (cnt);
+      if (n <= 0)
+        return strdup ("nowhere");
+      char *lst = a5expr_eval (st, args, ".Exits.List");
+      return lst ? lst : strdup ("nowhere");
     }
   if (args != NULL && ci_eq (name, "listobjectsatlocation"))
     {

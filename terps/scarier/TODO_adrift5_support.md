@@ -993,6 +993,42 @@ ADRIFT text is full of embedded directives evaluated at display time:
            `examine table` `%ListObjectsOnAndIn[%object%]%` → single-key path)
            and Anno (14 hunks, all RNG/residual) unchanged; ASan/UBSan-clean
            across the whole v5 corpus.
+      - **Examine-character text functions (`%ListExits%`, `%DisplayCharacter%`/
+        `%DisplayObject%`, `BeWearing/HoldingObject AnyObject`, `ListWorn`/
+        `ListHeld` sub-objects)** — **DONE.**  A Stone of Wisdom exploration +
+        `examine me` soak through `test/a5_groundtruth.sh` surfaced five engine
+        bugs, all game-agnostic, each validated to byte-match FrankenDrift:
+        1. **`%ListExits[%character%]%`** rendered raw — now the comma/"and"-
+           joined, lower-cased list of the character's (restriction-checked)
+           route directions, "nowhere" when none (clsCharacter.ListExits),
+           implemented by reusing a5expr's character `.Exits` machinery.  Fixed
+           Stone's "There is no route to the north, only east, down and in.".
+        2. **`%DisplayCharacter[key]%` / `%DisplayObject[key]%`** unimplemented —
+           now the entity's `.Description` (a5expr), with the canned "sees
+           nothing interesting about" fallback (Global.vb:2122/2138).
+        3. **`BeWearingObject`/`BeHoldingObject AnyObject`** failed (looked up an
+           object literally keyed "AnyObject") — now "wears/holds ≥1 object"
+           (clsCharacter.IsWearing/IsHoldingObject `If sObKey = ANYOBJECT`).  This
+           is what gated the examine-character CompletionMessage's
+           StartAfterDefaultDescription "wearing %ListWorn%, and carrying
+           %ListHeld%" segment.
+        4. **`%ListWorn%` / `%ListHeld%` ignore sub-objects** — both call
+           `List(, bIncludeSubObjects:=True, Indefinite)`
+           (StronglyTypedCollections.vb:183), so the worn/held list is followed
+           by each container's on/inside-contents block (".  Inside the backpack
+           are four food rations.  Inside the scabbard is a long sword", no
+           trailing period).  New `list_objects_subobj` port; the **Inventory**
+           task's explicit `.Worn(False).List(Indefinite, False)` keeps its
+           no-sub-objects path (still zero-diff).  `examine me` now byte-matches
+           except FrankenDrift's automatic pronoun "and **you** are carrying"
+           (vs our "and are carrying") — the simplified perspective/pronoun
+           engine (§5), left as-is.
+        Stone look/inventory/examine all diff to zero (modulo that one pronoun);
+        Six Silver Bullets golden + Anno (14 hunks) unchanged; full headless
+        suite green; ASan/UBSan-clean across the v5 corpus.  NOTE: a Stone `eat
+        food` state divergence (the multi-ration object vanishes from the
+        backpack instead of decrementing to "three") was observed in a longer
+        soak — a separate Edible/quantity-property TODO, not chased here.
       - **Still TODO (earlier list)**: full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);
