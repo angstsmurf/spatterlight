@@ -669,6 +669,13 @@ a5model_from_doc (a5_xml_doc_t *doc)
     const char *sfl = a5xml_child_text (root, "ShowFirstLocation");
     a->show_first_location = !(sfl != NULL && strcmp (sfl, "0") == 0);
   }
+  /* <WaitTurns>: how many turns a single "wait"/"z" advances (the SystemTasks
+     wait loop); absent => clsAdventure._iWaitTurns default of 3. */
+  {
+    const char *wt = a5xml_child_text (root, "WaitTurns");
+    a->wait_turns = (wt != NULL) ? (int) strtol (wt, NULL, 10) : 3;
+    if (a->wait_turns < 0) a->wait_turns = 0;
+  }
 
   a5_load_propdefs (a);
   a5_load_locations (a);

@@ -238,6 +238,8 @@ typedef struct a5_adventure_s {
   const char *version;
   int show_first_location;          /* <ShowFirstLocation> (default 1): show
                                        the start room after the intro          */
+  int wait_turns;                   /* <WaitTurns> (default 3): turns a single
+                                       "wait"/"z" advances                      */
 
   a5_object_t    *objects;    int n_objects;
   a5_location_t  *locations;  int n_locations;
