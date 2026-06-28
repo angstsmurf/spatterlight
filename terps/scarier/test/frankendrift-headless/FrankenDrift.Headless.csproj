@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AssemblyName>fd-headless</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FrankenDrift.Adrift\FrankenDrift.Adrift.vbproj" />
+    <ProjectReference Include="..\FrankenDrift.Glue\FrankenDrift.Glue.csproj" />
+  </ItemGroup>
+
+</Project>

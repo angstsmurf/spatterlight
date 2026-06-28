@@ -216,9 +216,37 @@ ADRIFT text is full of embedded directives evaluated at display time:
 - Extend `Makefile.headless` with an `a5` harness that loads `bullets.blorb`
   headlessly and feeds a command script (like the existing battle/precedence
   harnesses), capped with `ulimit`/`head` per the SCARE-harness OOM note.
-- **Ground truth**: run the same scripts through frankendrift (build via
-  `FrankenDrift.GlkRunner`/`buildmacrelease.sh`) and diff transcripts. Also keep
-  the original `.exe` (official Runner) for spot-checks.
+- **Ground truth** — DONE (harness): a headless FrankenDrift runner now exists.
+  Rather than the Glk runner (needs a Gargoyle shared lib), a ~200-line console
+  frontend (`FrankenDrift.Headless`, preserved at
+  `test/frankendrift-headless/`) implements the tiny `UIGlue`/`frmRunner`/
+  `RichTextBox`/`Map` interfaces and drives the engine via
+  `UserSession.Process`; the sole text sink is `UIGlue.OutputHTML`, stripped to
+  plain text like `GlkHtmlWin`.  It forces a fixed RNG seed (reflection on the
+  private `SharedModule.r`) so runs are reproducible, and skips real-time timer
+  events so they are turn-deterministic.  `test/a5_groundtruth.sh
+  <game> <script>` runs the same script through both engines and prints a
+  whitespace-normalised diff.  **RNG caveat:** FrankenDrift uses .NET
+  `System.Random`, Scarier the erkyrath xoshiro128\*\* — RAND-selected text
+  (dream/epigraph variants, combat rolls, the `Roller==1` catch-all) will NOT
+  match; diff the RAND-independent portions.
+  - **Divergences surfaced by the first diff (concrete P4/P5 follow-ups, not yet
+    fixed):**
+    1. **Take "(from X)" line** — the stock `TakeObjectsFromOthersLazy` emits
+       `(from %objects%.Parent.Name)`.  FrankenDrift renders `(from the Table)`
+       *before* the "You take … from the Table." sub-task message (parent still
+       the source); Scarier runs the inline `SetTasks Execute` first, so it
+       renders `(from you)` *after* (parent already the player).  The exact
+       ordering is governed by FrankenDrift's position-based `AddResponse`/
+       `htblResponses` output assembly — needs careful porting, do not guess.
+    2. **`%ListObjectsOn%`-style list** — examine-table shows
+       `The Yellow Note, The Silver Gun and The Silver Bullets` vs FrankenDrift's
+       `the yellow note, the silver gun and the silver bullets are on the
+       Table.` (lowercase articles + an " are on the <container>." suffix).
+    3. **Start-room auto-LOOK** — Scarier renders the start location
+       ("Dead or Dreaming?") description during the intro; FrankenDrift does not
+       auto-look the start room (it shows only the intro/WAKE-UP text).
+- Keep the original `.exe` (official Runner) for spot-checks.
 - Add per-phase dumps mirroring the existing `SCR_DUMP_*` env knobs:
   `A5_DUMP_XML` (decompressed XML), `A5_DUMP_MODEL` (parsed objects/properties),
   `A5_TRACE_TASKS` (match + restriction eval), to debug divergences.
