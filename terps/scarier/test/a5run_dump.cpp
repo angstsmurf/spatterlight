@@ -65,11 +65,13 @@ main (int argc, char **argv)
         }
     }
 
-  /* FrankenDrift opens with the centered title ("<c>Title</c>" + newline), so
-     print the bare title to keep the ground-truth diff free of harness noise. */
+  /* FrankenDrift opens with the centered title ("<c>Title</c>" + newline) then
+     the introduction directly -- no separating blank (the intro supplies its own
+     leading blank when it has one).  Match that so the ground-truth diff is free
+     of harness noise. */
   printf ("%s\n", a->title ? a->title : "(none)");
   txt = a5run_intro (run);
-  printf ("\n%s\n", txt);
+  printf ("%s\n", txt);
   free (txt);
 
   while (fgets (line, sizeof line, script) != NULL)
