@@ -1030,3 +1030,30 @@ a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
 {
   return eval_restrictions (st, restrictions, NULL);
 }
+
+int
+a5restr_has_exist (const a5_xml_node_t *restrictions, char type)
+{
+  const char *want_type = (type == 'c') ? "Character" : "Object";
+  const a5_xml_node_t *c;
+
+  if (restrictions == NULL)
+    return 0;
+  for (c = restrictions->first_child; c != NULL; c = c->next)
+    {
+      const a5_xml_node_t *tn;
+      a5_restr_t r;
+      int hit;
+      if (strcmp (c->name, "Restriction") != 0)
+        continue;
+      tn = restr_type_node (c);
+      if (tn == NULL || strcmp (tn->name, want_type) != 0)
+        continue;
+      parse_spec (&r, tn->text);
+      hit = streq (r.op, "Exist");
+      free (r.buf);
+      if (hit)
+        return 1;
+    }
+  return 0;
+}

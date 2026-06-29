@@ -6,12 +6,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 
 #include "a5blorb.h"
 #include "a5deobf.h"
 #include "a5model.h"
 
 /* ------------------------------------------------------------------ helpers */
+
+/* Parse an ADRIFT serialised boolean (FileIO.GetBool): only "TRUE"/"1"/"-1"/
+   "VRAI" (case-insensitively) are true; everything else is false. */
+static int
+a5xml_bool (const char *s)
+{
+  if (s == NULL)
+    return 0;
+  return strcasecmp (s, "True") == 0 || strcmp (s, "1") == 0
+      || strcmp (s, "-1") == 0       || strcasecmp (s, "Vrai") == 0;
+}
 
 /* Collect the text of every direct child named `tag` into a new const char*[]. */
 static const char **
@@ -210,6 +222,7 @@ a5_load_tasks (a5_adventure_t *a)
       prio = a5xml_child_text (c, "Priority");
       t->priority = (prio != NULL) ? strtol (prio, NULL, 10) : 0;
       t->type = a5xml_child_text (c, "Type");
+      t->location_trigger = a5xml_child_text (c, "LocationTrigger");
       t->commands = a5_collect_text (c, "Command", &t->n_commands);
       rep = a5xml_child_text (c, "Repeatable");
       t->repeatable = (rep != NULL && strcmp (rep, "1") == 0);
@@ -474,9 +487,17 @@ a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
   a5_xml_node_t *ch;
   int si = 0, ki = 0;
 
+  /* WhenStartEnum: Immediately=1, BetweenXandYTurns=2, AfterATask=3.  FrankenDrift
+     loads this with [Enum].Parse, which also accepts the *numeric* serialisation
+     (some games write "<WhenStart>0</WhenStart>" -- e.g. Axe of Kolt's "Xixon On
+     Path" event).  A value of 0 (or any non-1/2/3) matches no case in the
+     game-start init Select, so the event stays NotYetStarted and is armed only by
+     its Start control -- it must NOT be treated as Immediately. */
   e->when_start = 1;                                  /* Immediately default */
   if (ws != NULL && strcmp (ws, "BetweenXandYTurns") == 0) e->when_start = 2;
   else if (ws != NULL && strcmp (ws, "AfterATask") == 0)   e->when_start = 3;
+  else if (ws != NULL && (ws[0] == '-' || (ws[0] >= '0' && ws[0] <= '9')))
+    e->when_start = atoi (ws);
   a5_parse_range (a5xml_child_text (c, "StartDelay"), &e->start_from, &e->start_to);
   a5_parse_range (a5xml_child_text (c, "Length"),     &e->length_from, &e->length_to);
   e->repeating       = (rep != NULL && strcmp (rep, "1") == 0);
@@ -575,6 +596,57 @@ a5_load_groups (a5_adventure_t *a)
       g->type = a5xml_child_text (c, "Type");
       g->name = a5xml_child_text (c, "Name");
       g->members = a5_collect_text (c, "Member", &g->n_members);
+      g->props = a5_collect_props (c, &g->n_props);
+    }
+}
+
+/* Object-group property inheritance (clsItemWithProperties.htblProperties layers
+   htblInheritedProperties from each property-group the item belongs to,
+   clsItem.vb:272-345).  We fold each Objects-type group's <Property> list into
+   its member objects' static props at load time, so every object-property
+   accessor (obj_prop/obj_has_prop, a5restr HaveProperty, a5text) sees them with
+   no call-site changes.  Frankendrift's precedence: an inherited group property
+   overrides the object's own value when both are present, else it is appended;
+   groups iterate in load order so the last property-group wins on value.
+
+   Scope note: inheritance is resolved once, at load.  Runtime add/remove from a
+   group does not re-trigger it (frankendrift recomputes via ResetInherited);
+   not exercised by the current corpus. */
+static void
+a5_apply_group_properties (a5_adventure_t *a)
+{
+  int gi, mi, pi;
+  for (gi = 0; gi < a->n_groups; gi++)
+    {
+      a5_group_t *g = &a->groups[gi];
+      if (g->n_props == 0 || g->type == NULL || strcmp (g->type, "Objects") != 0)
+        continue;
+      for (mi = 0; mi < g->n_members; mi++)
+        {
+          a5_object_t *o = (a5_object_t *) a5model_object (a, g->members[mi]);
+          if (o == NULL)
+            continue;
+          for (pi = 0; pi < g->n_props; pi++)
+            {
+              a5_prop_t *ex = (a5_prop_t *)
+                a5_prop_find (o->props, o->n_props, g->props[pi].key);
+              if (ex != NULL)
+                {
+                  ex->value = g->props[pi].value;
+                  ex->value_node = g->props[pi].value_node;
+                }
+              else
+                {
+                  a5_prop_t *grown = (a5_prop_t *)
+                    realloc (o->props, (size_t) (o->n_props + 1) * sizeof *grown);
+                  if (grown == NULL)
+                    continue;
+                  o->props = grown;
+                  o->props[o->n_props] = g->props[pi];  /* shallow: shares doc strings */
+                  o->n_props++;
+                }
+            }
+        }
     }
 }
 
@@ -664,11 +736,20 @@ a5model_from_doc (a5_xml_doc_t *doc)
   a->author = a5xml_child_text (root, "Author");
   a->version = a5xml_child_text (root, "Version");
   a->introduction = a5xml_child (root, "Introduction");
+  a->end_game_text = a5xml_child (root, "EndGameText");
   /* <ShowFirstLocation> gates the post-intro start-room display; absent =>
      true (clsAdventure.bShowFirstRoom default), "0" => false. */
   {
     const char *sfl = a5xml_child_text (root, "ShowFirstLocation");
     a->show_first_location = !(sfl != NULL && strcmp (sfl, "0") == 0);
+  }
+  /* <ShowExits> gates the "Exits are .../An exit leads ..." listing appended
+     to every location view; absent => true (clsAdventure.bShowExits default).
+     ADRIFT serialises the boolean as "True"/"False" text (FileIO.GetBool:
+     only TRUE/1/-1/VRAI are true, everything else false). */
+  {
+    const char *se = a5xml_child_text (root, "ShowExits");
+    a->show_exits = (se == NULL) || a5xml_bool (se);
   }
   /* <WaitTurns>: how many turns a single "wait"/"z" advances (the SystemTasks
      wait loop); absent => clsAdventure._iWaitTurns default of 3. */
@@ -712,6 +793,7 @@ a5model_from_doc (a5_xml_doc_t *doc)
   a5_load_characters (a);
   a5_load_variables (a);
   a5_load_groups (a);
+  a5_apply_group_properties (a);
   a5_load_alrs (a);
   a5_load_udfs (a);
   return a;
@@ -830,7 +912,10 @@ a5model_free (a5_adventure_t *a)
       free (a->events[i].controls);
     }
   for (i = 0; i < a->n_groups; i++)
-    free ((void *) a->groups[i].members);
+    {
+      free ((void *) a->groups[i].members);
+      free (a->groups[i].props);
+    }
   free (a->objects);
   free (a->locations);
   free (a->characters);

@@ -1,0 +1,486 @@
+# Magnetic Moon -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Solution by Doreen Bardon (Spectrum), Larry Horsfield / FSF Adventures.
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
+# Verbs kept exactly as written, including the original walkthrough's typos
+# (e.g. "et grapnel", "cur grill", "put ... n crate", "put re cylinder").
+# NOTE: CASA solution is for the original; ADRIFT 5 remake is a faithful port.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/MagneticMoon.blorb test/MagneticMoon_walkthrough.txt
+#
+# Start-options preamble (not in the prose walkthrough): the game gates play
+# behind a Start Options page -- type O to continue, B to begin from the first
+# location, then N to decline the "explore the ship first?" tour.
+o
+b
+n
+wait
+wait
+aft
+starboard
+aft
+search flitter
+get backpack
+wear backpack
+aft
+search tools
+get headshield
+wear headshield
+aft
+listen
+wait
+port
+port
+forward
+starboard
+search shelves
+search racks
+open cupboard
+search cupboard
+get flashlight
+get rope
+get laser
+get forcer
+put all in backpack
+port
+aft
+starboard
+starboard
+f
+f
+f
+f
+port
+get grapnel
+get axe
+starboard
+f
+f
+port
+aft
+starboard
+search sick bay
+get bottle
+port
+f
+exam panel
+press hand on panel
+say erlin in microphone
+port
+f
+u
+f
+exam couch
+search compartment
+get helmet
+fit bottle to helmet
+aft
+d
+aft
+aft
+port
+press red button
+enter airlock
+wear helmet
+press green button
+leave airlock
+jump down
+w
+w
+w
+get flashlight from backpack
+switch on flashlight
+w
+s
+w
+n
+n
+get rope from backpack
+get grapnel from backpack
+tie ropes together
+look up
+throw grapnel
+climb rope
+climb into port
+get grapnel
+port
+aft
+port
+port
+aft
+search wreckage
+get laser from backpack
+cut girder with laser
+put laser in backpack
+get girder
+f
+drop girder
+look up
+jump to handrail
+u
+throw grapnel
+climb rope
+u
+u
+port
+aft
+port
+search junk
+get wire
+starboard
+f
+starboard
+exam door
+tie wire to boltholes
+throw wire into hold
+d
+d
+d
+climb down rope
+d
+jump down
+girder
+tie wire to girder
+drop girder
+jump to handrail
+u
+climb rope
+et grapnel
+u
+u
+pull wire up
+get girder
+untie wire
+port
+aft
+prop girder under plates
+run aft
+aft
+port
+exam glass
+get laser from backpack
+cut glass with laser
+put laser in backpack
+break glass with axe
+exam port
+hook grapnel onto port
+drop wire
+climb out of port
+climb down rope
+flick rope
+follow tracks
+exam cliff
+exam niche
+push/pull/turn button
+enter tunnel
+s
+s
+s
+exam alcove
+search rubbish
+get glue
+push crate hard
+s
+get wire
+n
+open crate
+put helmet and axe n crate
+close crate
+climb onto crate
+get paper
+exam grill
+cur grill with laser
+put laser in backpack
+climb into hole
+get grill
+glue grill
+n
+exam paper
+n
+exam paper
+e
+exam paper
+w
+exam paper
+n
+exam paper
+s
+exam paper
+n
+exam paper
+look up
+exam shaft
+throw grapnel
+get forcer from backpack
+climb up rope
+exam grill
+unscrew grill with forcer
+climb into hole
+get grapnel
+get grill
+screw grill with forcer
+press button
+n
+w
+pick lock with wire
+open door
+n
+wait
+drop all
+s
+w
+w
+n
+search lockers
+get overalls
+wear overalls
+s
+e
+enter shaft
+d
+d
+d
+leave shaft
+e
+search table
+get wrench
+w
+enter shaft
+u
+u
+leave shaft
+w
+s
+wait
+n
+e
+enter shaft
+d
+leave shaft
+look west
+quietly west
+hit medic with wrench
+search desk
+get dictaphone
+e
+enter shaft
+u
+leave shaft
+w
+s
+wait
+press record
+drop dictaphone
+drop wrench
+get box
+get all from box
+drop all but box
+n
+e
+enter shaft
+d
+leave shaft
+w
+search medic
+get key
+search sickbay
+unlock locker
+open locker
+drop key
+get red cylinder
+get green cylinder
+e
+enter shaft
+d
+leave shaft
+e
+get cutter from backpack
+exam pump
+cut pipe with cutter
+drop cutter
+wear box on head
+open valve on green cylinder
+open valve on red cylinder
+put re cylinder into hole
+remove box
+drop box
+w
+enter shaft
+u
+u
+leave shaft
+e
+exam pirates
+pull ryrzq west
+pull ryrzq west
+s
+get dictaphone
+n
+press ryrzq hand onto door
+press play
+s
+drop dictaphone
+get plunger
+get cloth
+get tin
+put tin and cloth into backpack
+stick plunger into doorway
+w
+search man
+get card
+search table
+get notebook
+read notebook
+drop notebook
+e
+e
+enter shaft
+u
+u
+leave shaft
+exam reader
+insert card into slot
+exam console
+get pad
+exam pad
+read pad
+drop pad
+w
+enter shaft
+d
+d
+leave shaft
+e
+n
+get flashlight
+get glue
+get grapnel
+put all in backpack
+s
+w
+enter shaft
+d
+d
+leave shaft
+insert card into slot
+exam keyboard
+exam vdu
+type 'shutdown all except ls'
+exam vdu
+type 'shutdown sequence commence'
+exam vdu
+type 'rigel'
+exam vdu
+type 'code delta'
+exam vdu
+e
+enter shaft
+d
+leave shaft
+e
+insert card into slot
+drop card
+e
+e
+exam crawler
+open crate
+get helmet from crate
+wear helmet
+w
+s
+turn wheel
+s
+d
+search nest
+get diamond
+put diamond in backpack
+d
+n
+search rubbish
+get pole
+s
+get cylinder
+se
+open valve on green cylinder
+s
+look up
+throw pole up
+throw grapnel over pole
+hold rope
+drop cylinder
+hold rope
+swing across hole
+get flashlight from backpack
+switch on flashlight
+s
+d
+d
+remove helmet
+d
+n
+nw
+n
+e
+se
+exam moss
+get berries
+exam berries
+nw
+ne
+se
+ne junction
+exam flower
+eat berry
+spit into flower
+ne
+n
+ne
+d
+e
+exam statue
+throw grapnel
+climb rope
+exam socket
+get diamond from backpack
+get glue from backpack
+stick diamond into socket
+d
+look ne
+ne
+u
+exam statue
+exam mirror
+get tin and cloth from backpack
+clean mirror with cloth
+d
+sw
+e
+look into port
+e
+exam ship
+pull lever
+u
+exam body
+roll body
+get blaster
+cut hole in door with blaster
+starboard
+forward
+get all
+aft
+port
+d
+w
+w
+nw
+ne
+exam commander
+exam beacon
+switch on beacon
+sw
+se
+e
+e
+ne
+report to captain

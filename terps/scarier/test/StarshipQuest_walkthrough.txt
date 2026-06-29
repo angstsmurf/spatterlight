@@ -1,0 +1,341 @@
+# Starship Quest -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Solution by Barbara Gibb, http://www.stairwaytohell.com ; displayed on
+# the Classic Adventures Solution Archive: http://solutionarchive.com.
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
+# NOTE: CASA solution is for the original; ADRIFT 5 remake is a faithful port.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/StarshipQuest.blorb test/StarshipQuest_walkthrough.txt
+#
+# Start-options preamble (not in the prose walkthrough): the game gates play
+# behind a Start Options page -- type O to continue, B to begin from the first
+# location, then N to decline the "explore the ship first?" tour.
+o
+b
+n
+s
+s
+e
+exam locker
+take flashlight
+exam rack
+take mask
+w
+n
+press hand
+say mike erlin
+enter door
+press button
+climb steps
+press button
+sit down
+wear harness
+press a
+i
+drop stungun
+exam rack
+take blaster
+remove harness
+get up
+press button
+enter door
+s
+in
+flashlight on
+look down
+exam shaft
+climb rail
+d
+s
+exam map
+enter car
+enter cubicle
+exam dead cell
+disconnect wires
+take dead cell
+out
+out
+enter door
+exam junk
+drop dead cell
+take charged cell
+out
+enter car
+enter cubicle
+drop charged cell
+connect wires
+out
+press button
+out
+exam platform
+take key
+enter car
+enter cubicle
+reverse wires
+out
+press button
+press button
+out
+s
+exam shaft
+look up
+jump
+up
+out
+flashlight off
+w
+take helmet
+e
+s
+look under
+take bottle
+exam bottle
+e
+s
+exam ground
+push knob
+exam pillar
+insert key
+turn key
+drop key
+oil lever
+pull lever
+take tube
+exam tube
+exam jeep
+open flap
+screw valve
+turn lever
+u
+enter airlock
+press button
+exit airlock
+press button
+sit down
+wear helmet
+exam panel
+insert disc
+press power
+press launch
+get up
+press button
+enter airlock
+press button
+exit airlock
+d
+i
+w
+climb rubble
+enter window
+exam debris
+take clip
+exam clip
+out
+d
+s
+e
+exam ditch
+look across
+fire blaster
+e
+cross tree
+s
+e
+n
+n
+e
+dodge bearion
+fire blaster
+drop blaster
+e
+i
+exam door
+look up
+wait
+wait
+wait
+wait
+wait
+jump
+jump
+take spear
+enter door
+n
+look around
+throw clip
+w
+take flashlight
+take mask
+take bottle
+take torch
+e
+e
+e
+s
+wear mask
+e
+e
+climb bank
+throw torch
+remove mask
+drop mask
+n
+flashlight on
+e
+e
+n
+enter gap
+sleep
+i
+get up
+out
+s
+look around
+e
+n
+duck
+look down
+s
+s
+pick flowers
+exam flowers
+s
+exam river
+w
+exam path
+take paddle
+e
+jump s
+jump s
+vault river
+w
+rub flowers
+w
+u
+u
+w
+n
+u
+enter veil
+e
+d
+d
+e
+e
+vault river
+jump n
+jump n
+n
+n
+w
+look around
+enter bushes
+exam clearing
+take machete
+enter bushes
+cut bushes
+take brushwood
+e
+n
+exam tree
+cut vines
+take vines
+knot vines
+tie vines
+climb vines
+skin tiger
+take skin
+wrap brushwood
+enter waterfall
+d
+flashlight on
+s
+exam skeletons
+take rope
+e
+exam boulder
+exam ground
+take flint
+unwrap brushwood
+spread brushwood
+light brush
+throw bottle
+drop flint
+exam boulder
+take skin
+w
+n
+u
+enter waterfall
+climb vines
+s
+w
+n
+cut bushes
+drop machete
+take brushwood
+wrap brushwood
+s
+e
+n
+climb vines
+enter waterfall
+d
+s
+e
+unwrap brushwood
+spread brushwood
+wait
+exam fragments
+take crystal
+s
+s
+tie rope
+throw spear
+climb rope
+u
+w
+s
+s
+place crystal
+say jaeline
+take matrix
+n
+e
+n
+out
+jump
+n
+n
+w
+n
+u
+enter waterfall
+climb vines
+s
+s
+pick flowers
+s
+jump
+jump s
+vault river
+drop paddle
+w
+rub flowers
+w
+u
+u
+w
+n
+u
+enter veil
+give matrix
+w
+u
+u
+insert matrix
+sit down
+pull bowl
+exam chair
+insert disc

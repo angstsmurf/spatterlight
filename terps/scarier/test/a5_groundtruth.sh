@@ -17,12 +17,26 @@
 # Env:
 #     FD_ROOT   frankendrift checkout (default: ~/frankendrift)
 #     FD_SEED   fixed RNG seed for FrankenDrift (default 1234, for reproducibility)
+#     FD_CACHE  directory for cached FrankenDrift transcripts
+#               (default: test/.fd_cache).  The FD engine is deterministic given
+#               (game, script, FD_SEED, FD_RNG, FD build), so its transcript is
+#               cached under a content hash of exactly those inputs and reused on
+#               the next run -- this is what makes a repeat `make a5walkthroughs`
+#               fast (no dotnet startup per game).  Set FD_NOCACHE=1 to bypass
+#               (always re-run dotnet; still refreshes the cache entry).
+#     FD_RNG    set to "xoshiro" to make FrankenDrift draw from a generator
+#               byte-identical to Scarier's erkyrath xoshiro128** under the same
+#               seed (see FrankenDrift.Headless/Program.cs XoshiroRandom).  This
+#               aligns RAND-selected text so the diff becomes a full every-line
+#               conformance check.  Inherited by the dotnet child, so:
+#                   FD_RNG=xoshiro test/a5_groundtruth.sh <game> <script>
 #
-# IMPORTANT -- RNG caveat: FrankenDrift uses .NET System.Random while Scarier
-# uses the shared erkyrath xoshiro128** (a5rand.cpp).  Even seeded identically
-# the two sequences differ, so RAND-selected text (dream/epigraph variants,
-# combat rolls, the Roller catch-all) will NOT match.  Diff the RAND-independent
-# portions; treat RAND blocks as expected divergence.
+# RNG caveat (FD_RNG unset / default): FrankenDrift uses .NET System.Random while
+# Scarier uses xoshiro128** (a5rand.cpp); even seeded identically the sequences
+# differ, so RAND-selected text (dream/epigraph variants, combat rolls, the
+# Roller catch-all) will NOT match -- diff the RAND-independent portions.  Set
+# FD_RNG=xoshiro to remove this caveat (any residual RAND divergence then points
+# at a real draw-order/count difference, i.e. a Scarier bug).
 
 set -eu
 
@@ -54,7 +68,36 @@ TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
 "$A5RUN" "$GAME" "$SCRIPT" 2>/dev/null > "$TMP/scarier.txt" || true
-FD_SEED="$FD_SEED" dotnet "$FD_DLL" "$GAME" "$SCRIPT" 2>/dev/null > "$TMP/frankendrift.txt" || true
+
+# FrankenDrift is deterministic given (game, script, FD_SEED, FD_RNG, FD build),
+# so cache its transcript under a content hash of exactly those inputs and reuse
+# it next run -- a dotnet launch per game is the slow part of the suite.  The
+# build is captured by hashing the engine assemblies (fd-headless.dll plus the
+# FrankenDrift.Adrift/Glue dlls beside it), so a rebuilt engine invalidates the
+# cache automatically.
+FD_CACHE=${FD_CACHE:-$HERE/test/.fd_cache}
+FD_BINDIR=$(dirname "$FD_DLL")
+fd_key=$(
+    {
+        shasum "$GAME" "$SCRIPT" "$FD_DLL" \
+               "$FD_BINDIR/FrankenDrift.Adrift.dll" \
+               "$FD_BINDIR/FrankenDrift.Glue.dll" 2>/dev/null
+        echo "seed=$FD_SEED rng=${FD_RNG:-default}"
+    } | shasum | cut -d' ' -f1
+)
+fd_cached="$FD_CACHE/$fd_key.txt"
+
+if [ -z "${FD_NOCACHE:-}" ] && [ -s "$fd_cached" ]; then
+    cp "$fd_cached" "$TMP/frankendrift.txt"
+else
+    FD_SEED="$FD_SEED" dotnet "$FD_DLL" "$GAME" "$SCRIPT" 2>/dev/null > "$TMP/frankendrift.txt" || true
+    # Only cache a non-empty transcript (an empty file means dotnet failed; don't
+    # poison the cache with it).
+    if [ -s "$TMP/frankendrift.txt" ]; then
+        mkdir -p "$FD_CACHE"
+        cp "$TMP/frankendrift.txt" "$fd_cached"
+    fi
+fi
 
 # Normalise trailing whitespace and collapse blank runs so the diff highlights
 # real content divergence rather than spacing.

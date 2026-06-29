@@ -1,0 +1,103 @@
+# Grandpa's Ranch -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: "Grandpa's Ranch" Cheat Sheet by Kenneth Pedersen (bundled PDF).
+# Cleaned for a5_groundtruth.sh: one bare command per line, room headings,
+# prose and "(...)"/"[ point ]" notes stripped.
+# NOTE: linear -- the cheat sheet is a single ordered solution.
+# The opening "type any name you like" prompt is answered with a name line.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/Grandpa_ParserComp_V1.blorb test/GrandpasRanch_walkthrough.txt
+Pete
+open door
+n
+x table
+x cloth
+get it
+x laptop
+type password
+e
+say hi
+talk
+n
+x house
+climb rope
+get flashlight
+get rope
+untie rope
+climb down
+s
+w
+n
+x table
+open drawer
+s
+w
+say hi
+say kennedy
+say cherries
+e
+x laptop
+type cherries
+play game
+play game
+play game
+w
+x hood
+stand chair
+x hood
+get key
+x key
+e
+s
+unlock car
+enter car
+open compartment
+go out
+n
+w
+w
+x carpet
+move carpet
+x trapdoor
+unlock trapdoor
+go down
+go south
+x flashlight
+flashlight on
+insert batteries
+flashlight on
+s
+x shelves
+w
+x wheel
+spin wheel
+x recess
+x box
+turn dial
+853
+get map
+x map
+e
+n
+u
+e
+e
+e
+n
+n
+w
+climb ladder
+x gate
+x handle
+tie handle
+open gate
+climb ladder
+e
+x bull
+wave cloth
+go west
+pull rope
+e
+open gate
+dig

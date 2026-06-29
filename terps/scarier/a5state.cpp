@@ -125,9 +125,19 @@ a5state_new (const a5_adventure_t *adv)
           const a5_character_t *c = &adv->characters[i];
           const char *cl = chr_prop (c, "CharacterLocation");
           const char *pos = chr_prop (c, "CharacterPosition");
-          /* For Phase 2 we resolve only the simple "At Location" case. */
+          /* clsCharacterLocation.ExistWhere / Key decode.  "At Location" stores
+             the location in char_loc; "On Object"/"In Object" store the carrier
+             object in char_onobj (char_in distinguishes inside vs on the surface)
+             and leave char_loc NULL -- the effective location is resolved through
+             the object (a5state_character_at_location).  "On Character"/"Hidden"
+             stay NULL (treated as not-at-any-location). */
           if (cl == NULL || streq (cl, "At Location"))
             st->char_loc[i] = chr_prop (c, "CharacterAtLocation");
+          else if (streq (cl, "On Object"))
+            st->char_onobj[i] = chr_prop (c, "CharOnWhat");
+          else if (streq (cl, "In Object"))
+            { st->char_onobj[i] = chr_prop (c, "CharInsideWhat");
+              if (st->char_in != NULL) st->char_in[i] = 1; }
           st->char_position[i] = strdup (pos ? pos : "Standing");
         }
       st->char_seen = (char *) calloc ((size_t) adv->n_characters, 1);
@@ -137,6 +147,11 @@ a5state_new (const a5_adventure_t *adv)
   st->conv_char = strdup ("");
   st->conv_node = strdup ("");
   st->ctx_char = NULL;
+
+  st->s_it = strdup ("");
+  st->s_them = strdup ("");
+  st->s_him = strdup ("");
+  st->s_her = strdup ("");
 
   if (adv->n_variables > 0)
     {
@@ -185,6 +200,10 @@ a5state_free (a5_state_t *st)
   free (st->obj_seen);
   free (st->conv_char);
   free (st->conv_node);
+  free (st->s_it);
+  free (st->s_them);
+  free (st->s_him);
+  free (st->s_her);
   free ((void *) st->char_onobj);
   free (st->char_in);
   free (st->var_num);
@@ -522,6 +541,22 @@ a5state_object_key_at_location (const a5_state_t *st, const char *objkey,
                                 const char *lockey, int directly)
 {
   return exists_at (st, a5state_object_index (st, objkey), lockey, directly, 0);
+}
+
+int
+a5state_character_at_location (const a5_state_t *st, int ci, const char *lockey)
+{
+  if (ci < 0 || lockey == NULL || st->char_loc == NULL)
+    return 0;
+  /* "At Location": directly compare the recorded location key. */
+  if (st->char_loc[ci] != NULL)
+    return streq (st->char_loc[ci], lockey);
+  /* "On Object"/"In Object": present wherever the carrier object is (its
+     container chain reaches lockey).  clsObject.BoundVisible would hide a char
+     inside a closed opaque container; that nuance is unused by the corpus. */
+  if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)
+    return a5state_object_key_at_location (st, st->char_onobj[ci], lockey, 0);
+  return 0;
 }
 
 int

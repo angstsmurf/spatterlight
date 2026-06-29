@@ -1,0 +1,133 @@
+# ADRIFT 5 walkthrough regression corpus — findings
+
+Differential regression tests built from published walkthroughs for the
+real-world ADRIFT 5 games in `test/adrift5-games/`. Each game's walkthrough was
+cleaned into a one-command-per-line script (`test/<Game>_walkthrough.txt`,
+anno1700 style: `#` headers + bare commands) and replayed through **both** the
+Scarier harness (`test/a5run_dump`) and the **FrankenDrift** reference engine
+via `test/a5_groundtruth.sh`. FrankenDrift is the ground truth.
+
+## Running
+
+```sh
+make -f Makefile.headless a5run          # build test/a5run_dump
+# build FrankenDrift.Headless once (see a5_groundtruth.sh header)
+test/run_a5_walkthroughs.sh              # whole corpus, summary table
+test/run_a5_walkthroughs.sh -v Spectre   # one game, dump diff to /tmp/a5wt/
+test/a5_groundtruth.sh test/adrift5-games/<Game>.blorb test/<Game>_walkthrough.txt
+```
+
+`run_a5_walkthroughs.sh` reports **MATCH** (Scarier == FrankenDrift),
+**DIVERGE n** (n diff hunks; compared to the per-game baseline budget recorded
+in the runner's MAP), or **FAIL** (hunks exceeded budget = a regression to
+investigate). Games with a committed golden (`<Game>_expected.txt`) are
+strict-diffed against Scarier with no dotnet dependency.
+
+## Corpus status (baseline = current known divergence)
+
+| Game | cmds | status | hunks | diagnosis |
+|---|---:|---|---:|---|
+| Achtung Panzer! | 6 | **MATCH** ✅ | 0 | golden committed; conformant |
+| Anno 1700 | 246 | diverge | 335 | pre-existing script; timed storage-room event is RNG-gated (335 after P1: its 1 LocationTrigger task now fires, shifting RNG alignment) |
+| The Axe of Kolt | 1010 | diverge | 72 | ~~BUG 1~~ **FIXED** (was 1 = instant death on `o`); now plays the whole script — remaining 72 are **BUG 2** object-in-room listings ("…you see a brewer's dray") + missing event prose |
+| The Spectre of Castle Coris | 400 | diverge | 96 | ~~BUG 1~~ **FIXED** (no more teleport/flood); remaining 96 are **BUG 9** parser wording ("…not sure which object you are trying to examine." vs "You can't see any X!") |
+| Run, Bronwynn, Run! | 299 | diverge | 49 | ~~BUG 1~~ **FIXED** (no more turn-4 `[GAME OVER]`); plays whole script; 47→49 after end-game text added (Scarier ends prematurely, FD plays on ⇒ win/lose block diverges) |
+| Die Feuerfaust | 528 | diverge | 40 | ~~BUG 1~~ **FIXED** (no more Part-3 death); plays whole script, downstream P2/P9 visible |
+| Starship Quest | 328 | diverge | 16 | ~~BUG 1~~ **FIXED** (no premature death); also **BUG 8** missing Y/N prompt text; 15→16 after end-game text (Scarier plays 1 extra turn ⇒ "in 53 turns" vs FD "52") |
+| The Lost Children | 417 | diverge | 383 | **BUG 1b** *misses* a first-turn event (lost broadsword/money); stray "Follow Cancelled."; **BUG 9** parser wording; "SouthEast" vs "Southeast" |
+| Magnetic Moon | 472 | diverge | 32 | **BUG 5** NPC "Captain Rosenloev" omitted from room characters; **BUG 8** missing Y/N prompt; 34→32 after end-game text (win/lose banner now matches) |
+| Revenge of the Space Pirates | 414 | diverge | 53 | **BUG 4** noun alias `id`→"ID pass" not resolved (`examine id` → "You see no such thing.") → customs puzzle desyncs (139→53 after P1 LocationTrigger fix) |
+| Return to Camelot (RtC) | 118 | diverge | 141 | ~~**BUG 6** 5.0.26 OR-after-AND~~ **DISPROVEN** — FD headless answers the auto-correct prompt *no* (default), so it does *not* apply CorrectBracketSequence; `x desk` works in Scarier in isolation. Real gaps: the auto-correct question *prose* + a downstream `x desk` resolution cascade (after `open/get folders/get gun/x gun/close drawer`). See TODO P5. |
+| Treasure Hunt in the Amazon | 133 | diverge | 41 | ~~**BUG 3**~~ **FIXED** (object-group property inheritance: the `BuyableItems` group confers `StaticOrDynamic=Dynamic`+`BuyableItem`, so `buy` works; 44→41); residual **BUG 2** no `Date:/Time:`+`You move` lines (NOT a stdlib merge — FD loads no library), provisions line-join, title centring, downstream darkness |
+| Grandpa's Ranch | 93 | diverge | 125 | **BUG 2** missing room desc/exit+object listings; **BUG 7** `dig` → "nothing to dig with" (shovel not taken from `x shelves`) |
+| Jacaranda Jim | 440 | diverge | 439 | **BUG 4** pronoun `get it`/`get them` unresolved (35×); **BUG 2** missing "Exits are …"; **BUG 10** leaks template `%AlanRemarks[%AlanRemarkIndex%]%`; darkness handling |
+| Stone of Wisdom | 34 | diverge | 8 | weak test — reconstructed from a ROT13 hint sheet with no navigation; neither engine progresses. Candidate for removal. |
+
+Anno 1700 predates this batch; its FrankenDrift golden was never empty
+because of an RNG-gated storage-room event (documented in its script header).
+
+FrankenDrift reaches `*** You have won ***` on the **Amazon** and **Grandpa's
+Ranch** scripts, so those walkthroughs are *correct* — the divergence is all
+Scarier. The CASA Horsfield scripts are for the original releases; a handful of
+verbs differ in the remakes (both engines reject those identically, so they are
+not counted as Scarier bugs).
+
+## Prioritized Scarier conformance bugs (surfaced by this corpus)
+
+1. **Event/timer scheduler fires too early.** ✅ **FIXED** (2026-06-29). Two
+   root causes, both in event/task arming at game start:
+   - **`<WhenStart>0</WhenStart>`** (a numeric serialisation FrankenDrift loads
+     via `[Enum].Parse`, e.g. Axe of Kolt's "Xixon On Path") was collapsed to
+     the `Immediately` default by the Scarier model parser, so the event started
+     at load and fired turn ~1. FD's game-start `Select Case` matches no case for
+     0, leaving the event `NotYetStarted` (armed only by its Start control). Fix:
+     `a5model.cpp` now parses the numeric form (0/non-1-2-3 ⇒ that int), and
+     `ev_init`'s switch already no-ops for it.
+   - **`<LocationTrigger>` System tasks** (chapter/scene transitions, e.g. Axe's
+     Task3 "Wagon at Start" → move to Crossroads, then Task6 "Haywain Goes")
+     were never run: Scarier had no System-task auto-execution. Ported
+     `clsCharacter.Move`'s queue — a Player move into a location arms every
+     System task whose `LocationTrigger` is that location onto `qTasksToRun`,
+     drained after the turn's task and before `TurnBasedStuff` (`ev_tick_all`).
+   Result: **Axe** survives past `b` to the Crossroads; **Starship / Die
+   Feuerfaust / Run Bronwynn** no longer hit a premature `[GAME OVER]`;
+   **Spectre** no longer teleports/floods. Revenge 139→53 and Amazon 230→45 also
+   dropped (their LocationTrigger scene tasks now fire). The premature-death
+   games' budgets *rose* because they now play their whole scripts and expose
+   downstream P2/P9 divergences — those are the remaining work, not a regression.
+   - 1b. **Still open** — inverse in **The Lost Children**: a legitimate
+     first-turn event is *missed*, and a stray "Follow Cancelled." is emitted.
+2. **Room-rendering omissions.** Scarier omits the `Exits are …` / `An exit
+   leads …` exit lists appended to room descriptions, and per-turn movement
+   confirmations (`You move <dir>.`) / status lines (`Date: … Time: …`).
+   Seen in Amazon, Grandpa's Ranch, Jacaranda Jim. High hunk-count inflator.
+3. **Shop / "objects must be seen".** ✅ **FIXED** (2026-06-29). Was *not* a
+   visibility gate — it was missing **object-group property inheritance**. The
+   Amazon for-sale items get `StaticOrDynamic=Dynamic` + `BuyableItem` from the
+   `BuyableItems` Objects-group, which FD inherits onto members but Scarier
+   ignored, so the items stayed static/Hidden (never seen) and lacked
+   `BuyableItem`. `a5_apply_group_properties` (a5model.cpp) now folds each
+   Objects-group's `<Property>` list into its member objects' props at load.
+   `buy ammo/provisions/matches/torch` purchase; Amazon 44→41, no regressions.
+4. **Noun & pronoun resolution.** (a) Pronouns `it`/`them` after an examine are
+   not resolved (`get it` → "not sure which object", Jacaranda Jim 35×).
+   (b) Object aliases not matched: `id` → "ID pass" (Revenge of the Space
+   Pirates).
+5. **NPC presence list.** Magnetic Moon's control room omits the present NPC
+   "Captain Rosenloev" that FrankenDrift lists.
+6. **Missing 5.0.26 restriction correction.** FrankenDrift applies the ADRIFT
+   5.0.26 "OR restrictions after AND restrictions were not evaluated"
+   auto-correction; Scarier does not, so OR-after-AND task restrictions
+   evaluate wrong (Return to Camelot: many `x <thing>` tasks fail).
+7. **Object pickup via examine.** Grandpa's Ranch: the shovel revealed by
+   `x shelves` is never taken, so `dig` fails "nothing to dig with".
+8. **Y/N prompt text.** Scarier enters the yes/no state but doesn't print the
+   question ("Do You Wish To Explore The Ship First? (Y/N)") — Starship Quest,
+   Magnetic Moon.
+9. **Parser error wording.** Scarier "Sorry, I'm not sure which object you are
+   trying to examine." vs FrankenDrift "You see no such thing." / "You can't
+   see any <noun>!". Cosmetic but inflates diffs.
+10. **Template/function expansion.** Jacaranda Jim leaks a literal
+    `%AlanRemarks[%AlanRemarkIndex%]%` — nested array-index function not
+    evaluated. Direction capitalization "SouthEast" vs "Southeast"
+    (Lost Children).
+
+## Caveats
+
+- **RNG divergence** (default mode): Scarier (xoshiro128**) and FrankenDrift
+  (.NET System.Random) produce different random text even seeded — combat /
+  epigraph / dream / "random catch" lines differ. **`FD_RNG=xoshiro`** patches
+  FrankenDrift to draw from a byte-identical xoshiro128** stream
+  (`FrankenDrift.Headless/Program.cs` `XoshiroRandom`); RAND choices then match
+  Scarier exactly (verified: the Six Silver Bullets intro epigraph/dream/voice
+  variants line up across consecutive draws).
+  - *Measured on this corpus, FD_RNG=xoshiro does NOT lower the hunk counts*
+    (14/15 unchanged; Jacaranda Jim +15). These games desync on the structural
+    bugs above (esp. BUG 1) before RNG matters, so once the transcripts diverge
+    the aligned stream is washed out / adds churn. The payoff is unlocked per
+    game as the structural bugs are fixed — a transcript that stays in sync then
+    rides the aligned RNG to an exact every-line match. Keep it opt-in until
+    BUG 1 is fixed; do not re-bless the (vanilla) baselines to it yet.
+- These scripts are **best-effort**: CASA walkthroughs target the original
+  releases, and some commands differ in the ADRIFT 5 remakes.
+- Source walkthroughs and provenance: `test/adrift5-games/walkthroughs/`.

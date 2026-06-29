@@ -1,0 +1,429 @@
+# Revenge of the Space Pirates -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Solution by Terri Sheehan (2005-09-20), Larry Horsfield / FSF Adventures;
+# displayed on the Classic Adventures Solution Archive: http://solutionarchive.com.
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes/hints
+# stripped. Verbs kept exactly as written, including the walkthrough's typo
+# ("cllimb duct").
+# NOTE: CASA solution is for the original; ADRIFT 5 remake is a faithful port.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/RevengeOfTheSpacePirates.blorb test/RevengeOfTheSpacePirates_walkthrough.txt
+#
+# Start-options preamble (not in the prose walkthrough): the game gates play
+# behind a Start Options page -- type O to continue, B to begin from the first
+# location (this game starts play immediately, with no "explore first?" prompt).
+o
+b
+inventory
+examine lighter
+examine id
+examine documents
+examine card
+w
+look around
+examine official
+n
+buy drink
+s
+examine official
+w
+show id
+show documents
+w
+w
+wait
+w
+look around
+w
+n
+sign register
+examine window
+examine bed
+sleep
+s
+e
+s
+s
+w
+buy map
+e
+find hort street
+n
+n
+e
+n
+w
+examine notice
+up
+e
+s
+w
+s
+w
+examine jobs
+clerk "job 7135"
+examine slip
+e
+s
+s
+w
+buy pe kit
+e
+n
+n
+n
+e
+n
+w
+give slip
+n
+search equipment
+take mat
+examine mat
+s
+down
+e
+s
+w
+w
+n
+sleep
+s
+e
+e
+n
+w
+remove clothes
+w
+listen
+wear clothes
+n
+down
+e
+find park
+s
+w
+w
+w
+examine bench
+sit on bench
+wait
+listen
+up
+e
+e
+s
+e
+examine list
+buy rope
+buy forcer
+buy lead
+examine rope
+examine forcer
+examine lead
+w
+s
+s
+look south
+examine guard
+e
+examine lingerie
+light lingerie
+s
+examine lorry
+enter lorry
+examine controls
+examine handbrake
+release handbrake
+search cab
+inventory
+leave lorry
+climb on lorry
+examine wire
+put mat on wire
+hook rope on wire
+climb rope
+s
+w
+s
+e
+se
+sw
+n
+w
+nw
+examine freighter
+w
+examine console
+examine computer
+examine compartment
+take crystal
+examine crystal
+examine wall
+e
+ne
+s
+e
+se
+examine courier
+e
+examine console
+examine computer
+examine panel
+open panel
+drop forcer
+take panel
+examine panel
+drop panel
+drop lighter
+w
+nw
+n
+w
+n
+n
+climb rope
+take rope
+take mat
+down
+n
+n
+n
+n
+e
+shopkeeper "retune crystal"
+shopkeeper "13922"
+examine card
+w
+n
+w
+n
+sleep
+examine window
+open window
+climb window
+examine man
+search man
+read diary
+read diary
+e
+n
+w
+examine card
+s
+w
+s
+e
+give ticket
+w
+drop pe kit
+wear badge
+s
+s
+s
+enter lorry
+release handbrake
+leave lorry
+climb on lorry
+put mat on wire
+hook rope on wire
+climb rope
+s
+w
+s
+e
+se
+e
+insert crystal in bracket
+drop diary
+take forcer
+launch ship
+input waystar 4361 9292
+launch ship
+waystar "venus"
+inventory
+w
+n
+w
+search locker
+examine coveralls
+wear coveralls
+e
+n
+w
+examine doors
+n
+examine doors
+w
+move sofa
+examine grille
+unscrew grille
+n
+look behind fridge
+take cockroach
+s
+climb duct
+n
+e
+look through grille
+unscrew grille
+climb duct
+woman "mike"
+glenda "ducts"
+climb duct
+w
+s
+climb duct
+e
+s
+e
+e
+n
+search cabinets
+s
+e
+e
+search rubble
+search rubble
+examine semtex
+w
+w
+w
+w
+n
+w
+climb duct
+n
+e
+climb duct
+examine plans
+show plans
+read index
+climb duct
+goto b4
+look through grille
+unscrew grille
+climb duct
+search workbench
+examine ropegun
+look under workbench
+search workshop
+take bar
+make bomb
+climb duct
+goto s1
+fire gun
+climb rope
+release grapnel
+reload gun
+goto s1
+fire gun
+climb rope
+release grapnel
+reload gun
+goto s1
+look through grille
+unscrew grille
+climb duct
+search installation
+cllimb duct
+goto b3
+tie lead to bar
+lay bar across shaft
+goto b3
+look through grille
+w
+look through grille
+wait
+e
+look through grille
+unscrew grille
+climb duct
+wake scientist
+simon "jaelaine"
+climb duct
+goto c1
+look through grille
+goto a14
+climb duct
+glenda "nurse"
+climb duct
+goto c1
+wait
+unscrew grille
+climb duct
+search cupboard
+climb duct
+screw grille
+e
+look through grille
+examine console
+wait
+unscrew grille
+climb duct
+put cockroach in sandwich
+climb duct
+screw grille
+wait
+unscrew grille
+climb duct
+wotan "merlin"
+wotan "merlin"
+wotan "4361 9292"
+climb duct
+screw grille
+goto b3
+climb duct
+give antidote
+give spanner
+simon "bomb"
+simon "timer"
+climb duct
+goto s1
+fire gun
+climb rope
+release grapnel
+reload gun
+goto s1
+climb duct
+make bomb
+set timer
+climb duct
+goto a11
+climb duct
+e
+s
+e
+e
+e
+up
+w
+wait
+w
+hit guard
+e
+e
+down
+w
+w
+w
+n
+w
+climb duct
+goto b3
+climb duct
+give spanner
+w
+w
+take jaelaine
+e
+s
+e
+e
+down
+w
+w
+s
+s
+e

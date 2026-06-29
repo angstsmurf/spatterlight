@@ -1,0 +1,36 @@
+Achtung Panzer!
+ACHTUNG - PANZER!
+
+An Entry for the ADRIFT GAMEJAM JANUARY 2022
+
+By Larry Horsfield
+
+Created using ADRIFT 5 by Campbell Wild
+
+Press Enter To Continue
+
+PLEASE NOTE:
+
+This game has an event that runs as soon as the game starts. You have a limited number of moves to get out of the tank and find cover before it blows up.
+
+If you wish to disable this event press Y and press Enter.
+
+Otherwise type NO + Enter to play the game normally.
+
+> up
+Please type Y or NO and press Enter to make your choice.
+
+> up
+Please type Y or NO and press Enter to make your choice.
+
+> n
+Please type Y or NO and press Enter to make your choice.
+
+> n
+Please type Y or NO and press Enter to make your choice.
+
+> n
+Please type Y or NO and press Enter to make your choice.
+
+> crawl
+Please type Y or NO and press Enter to make your choice.

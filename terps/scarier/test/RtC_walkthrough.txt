@@ -1,0 +1,127 @@
+# Return to Camelot -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Author's walkthrough by Finn Rosenloev for IF Comp 2011
+# (test/adrift5-games/walkthroughs/RtC_walkthrough.doc; "direct route to winning").
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped
+# (both harnesses skip blank and "#"-prefixed lines).
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/RtC.blorb test/RtC_walkthrough.txt
+open top drawer
+get folders
+get gun
+x gun
+holster gun
+close top drawer
+x desk
+x phone
+use phone
+x picture
+x office chair
+sit in office chair
+x woman
+say hello to woman
+ask about job
+ask about master
+ask about pay
+ask about woman
+kiss woman
+ask merlin about job
+x fireplace
+x northeastern fireplace
+x dragon
+touch head
+push head
+i
+ne
+x torch
+get torch
+x picture
+wear ring
+x picture
+enter arthur's picture
+i
+out
+x excalibur
+x stone
+out
+x guard
+look at queen's door
+open queen's door
+w
+d
+d
+out
+tell guards about queen
+x guard
+ask guard about key
+ask guard about food
+d
+x maid
+ask maid for food
+up
+w
+x rose
+get rose
+e
+e
+d
+d
+listen
+ask igor about music
+up
+wear ring
+d
+x hagrid
+ask hagrid about freeze
+i
+leave
+i
+up
+up
+out
+w
+use freeze on rose
+get rose
+e
+d
+give rose to maid
+ask rose for food
+i
+up
+give sandwich to guard
+i
+ask guard about key
+n
+x knight
+help knight
+x rack
+x armour
+x suits of armor
+x battered suit of armour
+get armour
+unlock chain
+get armour
+wear armour
+out
+enter tent
+x table
+x props
+get magnifying glass
+d
+ask maid about substance
+i
+up
+enter tent
+give candy to parrot
+get magnifying glass
+out
+x catapult
+x wall
+x catapult rope
+aim catapult
+climb catapult
+burn rope
+grab guinevere
+wear ring
+enter merlin's painting

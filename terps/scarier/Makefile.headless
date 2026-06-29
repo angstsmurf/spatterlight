@@ -101,7 +101,7 @@ A5ARITH_BIN     := test/a5arith_test
 A5SAVE_HARNESS  := test/a5_save_test.cpp
 A5SAVE_BIN      := test/a5_save_test
 
-.PHONY: test sanitize taf clean a5dump a5model a5text a5run a5parsetest a5runtest a5distest a5walktest a5objtest a5savetest a5arithtest
+.PHONY: test sanitize taf clean a5dump a5model a5text a5run a5parsetest a5runtest a5walkthroughs a5distest a5walktest a5objtest a5savetest a5arithtest
 
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
@@ -139,6 +139,17 @@ a5runtest: $(A5RUN_BIN)
 	else \
 	  echo "a5runtest: SKIP (game file not found: $(A5_BULLETS))"; \
 	fi
+
+# Real-game walkthrough corpus: replays published walkthroughs for the games in
+# $(A5_GAMES_DIR) through BOTH a5run_dump and FrankenDrift (test/a5_groundtruth.sh)
+# and checks each transcript's divergence against its recorded baseline (see
+# test/A5_WALKTHROUGH_FINDINGS.md).  Per-game SKIP when the (uncommittable) game
+# file is absent; needs FrankenDrift.Headless built for the differential games
+# (the golden-backed games, e.g. Achtung Panzer, need only a5run_dump).
+# Not part of `test` (external data + dotnet).  Fails if any game regresses
+# past its baseline hunk budget.
+a5walkthroughs: $(A5RUN_BIN)
+	@test/run_a5_walkthroughs.sh
 
 # ASan/UBSan sweep of every self-contained, no-external-data harness that `test`
 # runs (the a5runtest game-file replay is excluded: it needs uncommittable game

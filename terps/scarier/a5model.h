@@ -143,6 +143,9 @@ typedef struct a5_task_s {
   const char *key;
   long priority;
   const char *type;                 /* General / Specific / System           */
+  const char *location_trigger;     /* <LocationTrigger>: a System task armed
+                                       when the Player moves into this location
+                                       (clsCharacter.Move), or NULL            */
   const char **commands;    int n_commands;
   int repeatable;
   int continue_lower;               /* <Continue>ContinueAlways: keep running
@@ -209,6 +212,9 @@ typedef struct a5_group_s {
   const char *type;                 /* Locations / Objects / Characters      */
   const char *name;
   const char **members;     int n_members;
+  a5_prop_t *props;         int n_props;  /* group <Property> list; for Objects
+                                             groups these are inherited by member
+                                             objects (clsItem htblInheritedProperties) */
   const a5_xml_node_t *node;
 } a5_group_t;
 
@@ -237,12 +243,18 @@ typedef struct a5_adventure_s {
   a5_xml_doc_t *doc;                /* owned                                 */
   const a5_xml_node_t *root;
   const a5_xml_node_t *introduction;
+  const a5_xml_node_t *end_game_text;   /* <EndGameText> (clsAdventure.WinningText),
+                                           shown after the win/lose line, or NULL */
 
   const char *title;
   const char *author;
   const char *version;
   int show_first_location;          /* <ShowFirstLocation> (default 1): show
                                        the start room after the intro          */
+  int show_exits;                   /* <ShowExits> (default 1): append the
+                                       "Exits are .../An exit leads ..." listing
+                                       to each location view (clsAdventure.
+                                       bShowExits default True)                 */
   int wait_turns;                   /* <WaitTurns> (default 3): turns a single
                                        "wait"/"z" advances                      */
   int hp_passing;                   /* <TaskExecution> == HighestPriorityPassingTask:

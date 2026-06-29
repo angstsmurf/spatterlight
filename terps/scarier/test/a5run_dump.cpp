@@ -95,10 +95,9 @@ main (int argc, char **argv)
         printf ("%s\n", txt);
         free (txt);
         if (a5run_is_over (run))
-          {
-            printf ("\n[GAME OVER]\n");
-            break;
-          }
+          /* The engine has already emitted the win/lose/score/restart block
+             (clsUserSession.CheckEndOfGame); nothing more to print. */
+          break;
         if (++cmd_no == save_at)
           {
             /* Save, tear the run down, rebuild + restore, and continue: the rest

@@ -1,0 +1,50 @@
+# Stone of Wisdom -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: "HINTS FOR STONE OF WISDOM BY KENNETH PEDERSEN" (bundled PDF),
+# ROT13-encoded spoiler hints, decoded here.
+# Cleaned for a5_groundtruth.sh: one bare command per line.
+#
+# NOTE: RECONSTRUCTED FROM A NON-LINEAR HINT SHEET. The PDF is a spoiler-tiered
+# Q&A document organized BY PUZZLE, not a linear transcript. It reveals the
+# *solution actions* but gives NO room-to-room navigation (no compass moves
+# between puzzles) and leaves some exact verbs/targets implicit. The lines below
+# are the decoded solution steps in the order the puzzles are presented; the
+# connecting movement is missing, so this is expected to DIVERGE from a real
+# playthrough and will not produce a clean golden.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/StoneOfWisdom.blorb test/StoneOfWisdom_walkthrough.txt
+put all in backpack
+put sword in scabbard
+get sword
+attack troll
+attack troll
+attack troll
+hit troll with ring
+x troll
+unlock door
+close door
+lock door
+sleep
+x window
+x window
+tie rope to table
+turn off lamp
+put lamp in backpack
+climb out of window
+talk to dwarf
+say yes
+open pillory
+talk to bumil
+talk to puk
+x wall
+push bricks
+climb tree
+taste honey
+get rations
+put food in beehive
+give food to dog
+get stone
+sell sword
+buy canoe
+sail in canoe

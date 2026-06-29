@@ -1,0 +1,144 @@
+# Treasure Hunt in the Amazon -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: "HINTS, TIPS AND WALKTHROUGH FOR Treasure Hunt in the Amazon"
+# (bundled hint/walkthrough PDF; WALKTHROUGH section "all challenges disabled").
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
+# NOTE: linear -- transcribed verbatim from the PDF's WALKTHROUGH command list.
+# The four leading "yes" answers disable the challenges/randomness so the run
+# is deterministic.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/TreasureHuntInTheAmazon.blorb test/TreasureHuntInTheAmazon_walkthrough.txt
+yes
+yes
+yes
+yes
+n
+west
+n
+buy ammo
+buy provisions
+buy matches
+buy torch
+south
+east
+n
+x altar
+get box
+south
+south
+south
+south
+get rifle
+n
+n
+west
+shoot bear
+south
+read diary
+n
+west
+west
+south
+east
+west
+get all
+east
+n
+east
+east
+eat bear
+east
+south
+south
+west
+shoot jaguar
+eat jaguar
+unlock box
+open box
+south
+get opener
+east
+east
+south
+unlock door
+open door
+south
+west
+west
+x bridge
+get rope
+east
+east
+n
+n
+west
+west
+n
+cut thicket
+west
+west
+talk to natives
+hire natives
+east
+east
+east
+south
+east
+east
+south
+south
+west
+get dynamite
+east
+south
+south
+x ravine
+tie rope to stump
+down
+east
+east
+east
+drop dynamite
+light it
+west
+z
+east
+east
+get ammo and rifle
+get flashlight
+east
+get crown and bottle
+west
+west
+west
+west
+west
+west
+west
+south
+south
+x hole
+open bottle
+pour whiskey in hole
+south
+get key
+n
+n
+east
+east
+n
+up
+n
+n
+unlock door
+open door
+n
+n
+west
+west
+n
+east
+shoot panther
+n
+n

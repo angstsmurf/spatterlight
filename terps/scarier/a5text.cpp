@@ -1892,7 +1892,7 @@ a5text_view_location (a5_state_t *st)
         char *nmr, *descr;
         if (ci_eq (c->key, "Player"))
           continue;
-        if (!streq (st->char_loc[i], lockey))   /* visible at this location */
+        if (!a5state_character_at_location (st, i, lockey))   /* incl. on/in furniture */
           continue;
         nmr = character_display_name (st, c, 0);
         descr = char_here_desc (st, c);
@@ -1938,6 +1938,29 @@ a5text_view_location (a5_state_t *st)
         sb_puts (&sb, d.c_str ());
       }
   }
+
+  /* Exit listing (clsLocation.ViewLocation: "If Adventure.ShowExits Then ...").
+     ListExits enumerates the player's routes (restriction-unchecked, matching
+     HasRouteInDirection(d, False)); >1 exits => "Exits are <list>.", exactly one
+     => "An exit leads <dir>.", none => nothing. */
+  if (st->adv->show_exits)
+    {
+      char *cnt = a5expr_eval (st, "Player", ".Exits.Count");
+      long n = cnt ? strtol (cnt, NULL, 10) : 0;
+      free (cnt);
+      if (n >= 1)
+        {
+          char *lst = a5expr_eval (st, "Player", ".Exits.List");
+          if (add_space (sb.p, sb.len))
+            sb_puts (&sb, "  ");
+          if (n > 1)
+            { sb_puts (&sb, "Exits are "); sb_puts (&sb, lst ? lst : ""); }
+          else
+            { sb_puts (&sb, "An exit leads "); sb_puts (&sb, lst ? lst : ""); }
+          sb_putc (&sb, '.');
+          free (lst);
+        }
+    }
 
   plain = a5text_render_plain (sb.p ? sb.p : "");
   free (sb.p);

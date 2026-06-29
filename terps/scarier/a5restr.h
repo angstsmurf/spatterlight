@@ -26,6 +26,17 @@
 extern int a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions);
 
 /*
+ * 1 if the block contains a restriction with the `Exist` operator on the given
+ * reference type ('o' = Object, 'c' = Character).  Mirrors clsTask's
+ * HasObjectExistRestriction / HasCharacterExistRestriction: it is the gate that
+ * decides whether a command whose reference resolves to nothing nonetheless
+ * "matches" the task (so the task can surface its Must-Exist message on the
+ * second-chance pass) rather than not matching at all.  Must/MustNot is ignored,
+ * exactly like the originals (they test eObject/eCharacter == Exist only).
+ */
+extern int a5restr_has_exist (const a5_xml_node_t *restrictions, char type);
+
+/*
  * The <Message> description node of the first restriction that individually
  * fails (document order), or NULL.  Used to surface a task's failure text;
  * faithful for the common AND-chain case.

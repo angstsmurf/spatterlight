@@ -1,0 +1,540 @@
+# Die Feuerfaust -- The Fist of Fire -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Solution by Terri Sheehan (2007-02-18),
+# Classic Adventures Solution Archive http://solutionarchive.com.
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
+# NOTE: CASA solution is for the original Spectrum 128 release; the ADRIFT 5
+# version is a faithful port. Best-effort differential script.
+# CAVEAT: the iron-door dial numbers (Part 2) are dynamic in-game readings, so
+# the TURN ... DIAL TO lines have no fixed argument and will diverge.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/DieFeuerfaust.blorb test/DieFeuerfaust_walkthrough.txt
+o
+b
+inventory
+examine pouch
+examine leatherwork
+read words
+look in pouch
+examine flotsam
+search flotsam
+examine cliffs
+climb steps
+s
+examine milestone
+examine cottages
+w
+examine cottage
+examine porch
+knock on door
+fix porch
+knock on door
+e
+sw
+wait
+look around
+examine inn
+se
+examine willy
+look around
+listen
+buy ale
+willy "tomb"
+nw
+n
+examine tomb
+n
+s
+s
+se
+willy "light"
+examine customers
+examine table
+sit down
+listen
+up
+willy "hermit"
+willy "fist"
+nw
+e
+examine stiggy
+stiggy "thieves"
+stiggy "light"
+down
+n
+n
+torch "zunde"
+search debris
+examine shirt
+take shirt
+examine rings
+search bones
+examine talisman
+take lid
+move lid
+take tome
+examine tome
+s
+torch "losch"
+s
+e
+show talisman
+stiggy "fist"
+show tome
+down
+se
+willy "bergen"
+examine soldiers
+soldiers "market"
+smell
+examine men
+men "fist"
+find kurt
+listen
+listen
+wait
+kurt "margo"
+haggle
+examine horse
+ride horse
+e
+e
+examine max
+buy tack
+haggle
+w
+sw
+ride horse
+sw
+sw
+give pouch
+pouch "ruckk"
+sw
+se
+wait
+examine klaus
+klaus "city"
+klaus "go city"
+buy badge
+examine badge
+wear badge
+tether horse to tree
+dismount
+nw
+sw
+sw
+w
+w
+s
+sw
+knock on door
+show talisman
+examine crucifix
+examine number
+wait
+oberin "stiggy"
+show talisman
+oberin "churches"
+oberin "thank you"
+ne
+n
+n
+examine floor
+examine pattern
+wear talisman
+s
+e
+e
+ne
+ne
+se
+undo reins
+nw
+sw
+cast unsic at horse
+sw
+w
+w
+n
+fahren rostock
+look down
+n
+e
+examine clock
+examine number
+w
+w
+s
+wait
+boy "stable horse"
+examine token
+examine facade
+examine coin
+examine number
+n
+n
+ne
+e
+s
+torch "zunde"
+down
+cast stark at me
+clear rubble
+s
+examine dials
+turn red dial to
+turn black dial to
+turn gold dial to
+s
+examine bottle
+take bottle
+take ring
+examine ring
+wear ring
+examine open
+turn opal
+drop bottle
+turn opal
+turn opal
+take bottle
+n
+n
+up
+w
+sw
+w
+n
+examine zampf
+examine ears
+separate rings
+examine rings
+s
+w
+w
+w
+sw
+drop bottle
+e
+e
+e
+e
+s
+w
+s
+give token
+mount horse
+turn opal
+turn opal
+dismount
+take bottle
+sw
+s
+cast wahne at soldiers
+examine soldiers
+look under soldiers
+examine halberd
+take sword
+examine sword
+s
+s
+search stalls
+take turnips
+examine turnips
+s
+w
+s
+sw
+w
+look west
+throw bottle to boy
+turn opal
+turn opal
+take bottle
+call woman
+throw bottle to woman
+children "hold me"
+turn opal
+children "hold me"
+turn opal
+take bottle
+s
+e
+n
+up
+take dagger
+look through window
+examine plunder
+wait
+examine cart
+drop bottle on cushion
+wait
+down
+s
+w
+n
+ne
+n
+look up
+cast wolke at sky
+cast regen at clouds
+w
+look west
+take string
+take string with halberd
+examine string
+e
+e
+e
+wait
+cast heile at people
+w
+s
+s
+s
+s
+cast eizap at river
+s
+s
+sw
+w
+examine saplings
+cut saplings
+take poles
+take branches
+s
+s
+n
+dig pit
+cast stark at me
+dig pit
+lay poles across pit
+lay branches on poles
+s
+lay turnips on grass
+ne
+sw
+attach reins to zampf
+jump on zampf
+cast stark at zampf
+inventory
+s
+sw
+sw
+examine heads
+search vegetation
+examine wineskin
+ne
+s
+look around
+cut sapling
+n
+ne
+se
+e
+examine tree
+up
+examine nest
+take twigs
+down
+e
+search rags
+read label
+w
+n
+tie twigs to staff
+move debris
+move leaves
+examine floor
+examine pattern
+s
+se
+e
+e
+examine chest
+w
+examine wall
+examine hole
+w
+nw
+w
+w
+sw
+s
+s
+se
+examine web
+examine bushes
+hide in bushes
+wait
+examine boar
+ne
+examine trail
+nw
+examine trail
+ne
+jump in pool
+fill wineskin
+sw
+se
+se
+s
+examine waterfall
+enter waterfall
+search rocks
+examine tile
+out
+climb cliff
+pour oil on me
+n
+nw
+nw
+ne
+fill wineskin
+sw
+n
+n
+ne
+se
+e
+n
+put tile in pattern
+examine pattern
+turn opal
+turn opal
+take bottle
+search boxes
+take bellows
+examine bellows
+cut hole in tent
+look north
+s
+e
+cut hole in tent
+look north
+listen
+drop bottle
+s
+e
+search mud
+examine tile
+e
+down
+n
+nw
+nw
+ne
+fill wineskin
+sw
+n
+n
+ne
+se
+e
+n
+put tile in pattern
+examine pattern
+turn opal
+turn opal
+take bottle
+listen
+n
+show talisman
+examine candles
+drop bottle
+women "hold me"
+turn opal
+turn opal
+s
+s
+e
+e
+down
+enter waterfall
+out
+turn opal
+turn opal
+fill hole with wax
+s
+s
+e
+e
+pour oil over me
+down
+n
+nw
+nw
+n
+n
+ne
+se
+e
+se
+e
+insert bellows in hole
+e
+take key
+unlock chest
+search chest
+examine phial
+turn opal
+turn opal
+s
+look east
+crawl east
+cut tent
+listen
+wait
+n
+examine table
+poison wine
+look under bed
+s
+wait
+wait
+n
+examine chieftain
+take gauntlet
+examine gauntlet
+s
+crawl west
+n
+take bottle
+s
+s
+e
+e
+d
+n
+nw
+nw
+n
+n
+ne
+se
+e
+n
+insert tile in pattern
+examine pattern
+fahren schwerin
+drop bottle
+turn opal
+women "hold me"
+turn opal
+fahren lubeck
+n
+examine priest
+show talisman
+s
+w
+n
+n
+turn opal
+turn opal
+take bottle
+fahren marienkirche
+s
+se
+e
+e
+put gauntlet on pedestal

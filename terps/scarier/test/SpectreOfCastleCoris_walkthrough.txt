@@ -1,0 +1,413 @@
+# The Spectre of Castle Coris -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Classic Adventures Solution Archive, http://solutionarchive.com
+#   "THE SPECTRE OF CASTLE CORIS", FSF Adventures / Larry Horsfield;
+#   solution by Terri Sheehan (2003-12-09).
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
+# NOTE: CASA solution is for the original release; the ADRIFT 5 remake is a
+# faithful port so most commands carry over. Best-effort differential script.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/TheSpectreOfCastleCoris.blorb test/SpectreOfCastleCoris_walkthrough.txt
+#
+# Intro page navigation: O = continue to options page, B = begin adventure.
+o
+b
+inventory
+examine money
+n
+examine bakery
+examine boards
+move boards
+climb in bakery
+search counter
+examine sack
+examine flour
+climb out
+n
+w
+examine landlord
+examine patrons
+ask landlord
+buy ale
+ask landlord
+say blackmoon
+say yes
+buy ale
+e
+s
+s
+w
+w
+n
+n
+examine altar
+search pulpit
+examine book
+read book
+pray
+s
+s
+e
+e
+s
+read sign
+s
+e
+examine will
+examine tools
+ask about bran
+ask about megan
+ask about castle
+say lend tools
+w
+n
+n
+w
+w
+nw
+up
+n
+s
+sw
+examine wall closely
+remove bricks
+ne
+down
+se
+e
+e
+s
+s
+e
+drop tools
+w
+n
+w
+examine bran
+ask bran
+ask about spectre
+examine wares
+buy lantern
+e
+n
+w
+w
+n
+n
+light lantern
+down
+examine coffin
+read plaque
+up
+extinguish lantern
+s
+s
+nw
+up
+sw
+nw
+ne
+nw
+w
+w
+nw
+examine fountain
+examine mud
+ne
+examine ponds
+sw
+sw
+w
+w
+w
+examine agnes
+examine fireplace
+e
+s
+look over fence
+climb fence
+s
+examine shrine
+read inscription
+n
+climb fence
+take wood
+n
+w
+drop wood
+examine fire
+take wood
+make fire
+e
+n
+w
+search shelves
+e
+s
+e
+e
+ne
+nw
+w
+nw
+up
+pull bellrope
+n
+examine weapons
+w
+e
+n
+take ladder
+examine ladder
+s
+w
+n
+look up
+n
+s
+e
+drop ladder
+climb chimney
+light lantern
+search soot
+examine amulet
+read runes
+wear amulet
+down
+take ladder
+w
+extinguish lantern
+s
+drop ladder
+climb ladder
+examine display
+examine swords
+examine cutlass closely
+snap wire
+examine wire
+down
+e
+e
+n
+n
+pick lock
+n
+w
+search kitchen
+e
+e
+examine butler
+ask butler about xixon
+ask butler about horde
+down
+e
+s
+dig
+take bones
+examine bones
+w
+drop bones
+w
+n
+up
+give bottle
+hum lullaby
+search butler
+w
+n
+search shelves
+examine chalice
+s
+s
+s
+w
+w
+w
+n
+examine bookcase
+find bible
+examine bible
+s
+w
+n
+examine books
+take grimoire
+read grimoire
+read chapter
+drop grimoire
+s
+e
+e
+e
+n
+examine panelling
+sprinkle flour
+s
+drop sack
+w
+up
+n
+w
+w
+examine drainpipe
+e
+e
+e
+look around
+examine wall
+examine handle
+turn handle
+drop all
+jump on chandelier
+up
+examine dome
+examine ringbolt
+grab ringbolt
+jump e
+up
+up
+examine weathervane
+remove amulet
+hang amulet on weathervane
+down
+down
+climb drainpipe
+e
+look under bed
+examine reliquary
+take reliquary
+e
+e
+take all
+wait
+wait
+drop all
+jump on chandelier
+up
+grab ringbolt
+jump e
+up
+up
+take arcanus
+wear arcanus
+down
+down
+climb drainpipe
+e
+e
+e
+take all
+w
+w
+sleep
+e
+s
+down
+e
+n
+examine flour
+examine panel
+push button
+e
+down
+call baron
+e
+n
+push button
+e
+down
+examine woman
+untie woman
+up
+press button
+w
+s
+e
+n
+n
+e
+down
+e
+s
+take bones
+put bones in reliquary
+w
+n
+up
+w
+s
+s
+w
+w
+s
+down
+se
+e
+se
+ne
+fill chalice
+sw
+pour water into fountain
+examine fountain
+examine mud
+search mud
+examine medal
+sw
+w
+w
+s
+climb fence
+s
+fill chalice
+drink water
+n
+climb fence
+n
+e
+e
+ne
+se
+e
+e
+se
+sw
+se
+ne
+down
+se
+n
+n
+clean dust
+read inscription
+light lantern
+down
+take bones from reliquary
+put bones in coffin
+up
+extinguish lantern
+s
+s
+e
+e
+e
+knock
+show medal
+no
+yes
+examine crucifix
+w
+w
+w
+n
+n
+light lantern
+put crucifix on altar
+pray
+pray to saint celia
+bless water
+down
+pour water on coffin
+bless coffin
+up
+s

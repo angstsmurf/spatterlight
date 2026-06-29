@@ -1,0 +1,1022 @@
+# The Axe of Kolt -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Classic Adventures Solution Archive, http://solutionarchive.com
+#   "THE AXE OF KOLT (128K)", written by Larry Horsfield, solution by Barbara Gibb.
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
+# NOTE: CASA solution is for the original release; the ADRIFT 5 remake is a
+# faithful port so most commands carry over. Best-effort differential script.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/TheAxeOfKolt.blorb test/AxeOfKolt_walkthrough.txt
+#
+# Intro page navigation: O = continue to options page, B = begin adventure.
+o
+b
+i
+x signpost
+read notice
+e
+e
+e
+e
+look e
+w
+s
+s
+search grass
+e
+w
+n
+nw
+nw
+nw
+help landlord
+talk to lorna
+ask lorna about "pass"
+ask lorna about "dwark"
+x beam
+w
+x tapestry
+e
+e
+n
+nw
+w
+say "zorak"
+w
+x bell
+fit clapper
+ring bell
+w
+u
+tell magor about "xixon"
+x bag
+look in bag
+d
+e
+e
+se
+d
+s
+x stalls
+nw
+w
+buy ale
+e
+e
+talk to lampmaker
+buy lamp
+buy tinderbox
+x lamp
+ask lampmaker about "oil"
+s
+x cross
+wait
+buy oil
+x stall
+w
+ask trapper about "dwark"
+x coats
+buy coat
+ne
+n
+wear coat
+u
+light lamp
+u
+e
+dive into snow
+u
+e
+dive into snow
+u
+throw rock
+run se
+run e
+extinguish lamp
+w
+d
+sw
+look sw
+ne
+e
+e
+n
+e
+x signpost
+s
+e
+talk to lady
+search bed
+x lady
+give coat to lady
+w
+n
+w
+n
+search farmyard
+take sieve
+s
+e
+s
+s
+s
+talk to ferryman
+ask ferryman "cross river"
+n
+n
+n
+w
+w
+s
+say sawyer "wood"
+take rod
+n
+e
+e
+ne
+say blacksmith "straighten rod"
+sw
+s
+s
+w
+buy ale
+e
+n
+n
+w
+w
+w
+say sergeant "forest"
+sw
+sw
+w
+w
+n
+help girl
+s
+s
+talk to toolmaker
+buy hammer
+nw
+x stall
+buy axe
+look in bag
+s
+x goat
+w
+search weeds
+drop all
+take pin
+drop pin
+ne
+ne
+turn handle
+turn handle
+x bucket
+wash
+sw
+sw
+take all
+n
+n
+w
+look around
+x men
+w
+dry clothes
+x mantelpiece
+search dust
+e
+give domino
+x talisman
+x runes
+e
+e
+n
+nw
+w
+ring bell
+w
+u
+show talisman to magor
+wear talisman
+d
+e
+e
+se
+d
+s
+e
+e
+e
+ne
+ne
+e
+e
+n
+chop logs
+take sieve
+s
+e
+s
+e
+sieve bed
+drop sieve
+s
+w
+buy ale
+e
+n
+n
+ne
+give ale
+give rod
+drop tankard
+sw
+w
+w
+s
+give rod
+n
+e
+e
+s
+s
+x woman
+talk to woman
+n
+climb tree
+take hat
+d
+s
+give hat
+give pin
+give fruit
+n
+n
+w
+w
+w
+sw
+sw
+w
+w
+w
+buy chainmail
+e
+e
+e
+ne
+ne
+e
+e
+e
+s
+s
+s
+give planks
+give hammer
+n
+n
+n
+ne
+say to apprentice "nails"
+give axe
+sw
+s
+s
+s
+give nails
+board ferry
+s
+w
+w
+wear chainmail
+nw
+n
+e
+x path
+search leaves
+lift doormat
+unlock door
+e
+light lamp
+x floor
+search rubbish
+x ball
+x table
+open drawer
+search drawer
+remove drawer
+turn drawer over
+drop drawer
+x paper
+read paper
+w
+drop key
+extinguish lamp
+s
+x flowers
+take pod
+shake pod
+shake pod hard
+take seeds
+n
+w
+w
+brush spider
+stamp on spider
+x spider
+w
+sw
+sw
+x river
+x fish
+se
+e
+e
+s
+sw
+x door
+knock
+s
+search ivy
+x window
+remove glass
+climb in
+light lamp
+search wreckage
+x book
+read book
+climb out
+x gap
+x string
+take string
+x shed
+light lamp
+w
+x junk
+search junk
+close door
+search junk
+x wood
+x knickers
+tear knickers
+tie elastic to wood
+open door
+e
+extinguish lamp
+n
+ne
+n
+w
+listen
+look n
+find stone
+fire stone at woodsmen
+n
+take spear
+x spear
+s
+w
+nw
+s
+se
+x dovecot
+x dove
+throw seed
+take cotton
+nw
+n
+se
+e
+find stone
+fire stone at magpie
+take cotton
+e
+x hedge
+n
+x bushes
+throw spear at bushes
+n
+take spear
+search bushes
+s
+s
+s
+sw
+knock
+say to dwarf "yes"
+show spear
+show bow
+show paper
+ne
+n
+e
+ne
+nw
+n
+e
+n
+look e
+fire arrow at partridge
+drop bow
+e
+x dog
+whistle
+bounce ball
+throw ball over wall
+take partridge
+w
+s
+w
+w
+w
+sw
+throw spear at boar
+take spear
+sw
+se
+e
+e
+s
+sw
+knock
+show paper
+show book
+ne
+n
+w
+w
+nw
+follow man
+n
+n
+search hut
+lock door
+s
+open door
+d
+light lamp
+look under wardrobe
+read grimoire
+replace grimoire
+u
+s
+follow tracks
+sw
+sw
+empty bottle into river
+cross river
+u
+nw
+take thorn
+se
+d
+cross river
+se
+e
+e
+e
+ne
+nw
+x sapling
+break branch
+dip thorn into resin
+stick cotton to thorn
+n
+w
+x spider
+dip thorn into poison
+w
+sw
+sw
+cross river
+u
+s
+duck
+jump
+throw spear at xixon
+w
+w
+take spear
+w
+look w
+e
+e
+sw
+x brambles
+crawl w
+w
+look n
+x spear
+untie head
+say "nilre ekim"
+insert dart into tube
+blow dart at morgeth
+e
+e
+ne
+w
+w
+w
+x morgeth
+i
+drop tube
+remove chainmail
+drop chainmail
+d
+se
+look e
+se
+look e
+find stone
+fire stone
+run e
+look around
+crawl e
+look around
+tie string to head
+whirl head
+release string
+run e
+se
+s
+s
+x boards
+wait
+grab rope
+climb d
+a
+a
+feel around
+jump s
+feel around
+s
+feel around
+a
+feel object
+wear goggles
+n
+jump n
+climb u
+a
+a
+a
+a
+jump e
+look u
+e
+x wagon
+x carriage
+x brake
+x wheels
+x box
+x lug
+e
+e
+e
+e
+w
+w
+n
+e
+run w
+run s
+run w
+run w
+run w
+grab bar
+e
+look under wagon
+x pin
+scrape rust
+search compartment
+w
+x buffers
+saw bolts
+saw bar
+drop hacksaw
+e
+e
+e
+x turntable
+n
+e
+search equipment
+search boxes
+pull shelves
+take chalk
+move crates
+x hole
+reach in hole
+x chalk
+x tub
+x hammer
+x hammer closely
+read name
+rub chalk on shaft
+read name
+drop chalk
+w
+n
+look n
+x bar
+take pickaxe with bar
+s
+s
+s
+search rubble
+n
+e
+search track
+e
+lever track s
+a
+a
+look along track
+w
+w
+lever turntable
+w
+w
+grease wheels
+drop tub
+insert pin in lug
+climb into wagon
+drop all except bar
+climb out
+w
+take buffer
+e
+e
+e
+e
+e
+slide buffer under track
+w
+w
+w
+w
+insert bar into brake
+e
+e
+s
+x tunnel
+x timbers
+pull timber carefully
+take timber
+n
+w
+w
+place timber in wagon
+climb in wagon
+push against roof
+apply brake
+take timber
+throw timber out wagon
+take all
+climb out
+e
+e
+x wight
+remove talisman
+show talisman to wight
+say "begone torbig brisfak"
+wear talisman
+e
+e
+e
+w
+w
+w
+w
+n
+n
+take spade
+s
+s
+e
+e
+x tunnel
+x timbers
+drop all
+w
+w
+w
+take timber
+e
+e
+e
+prop roof with timber
+take hammer
+hammer timber
+take all
+e
+e
+x tunnel
+search timbers
+tap rock with chisel
+make hole
+drop chisel
+attach fuse to explosive
+insert explosive into hole
+light fuse
+w
+w
+s
+n
+e
+e
+e
+look behind boxes
+x staff
+s
+x floor closely
+throw hammer onto floor
+x doors
+push doors with staff
+s
+look up
+open golden doors with staff
+s
+x throne
+take axe
+look under throne
+n
+n
+n
+unlock bronze doors
+n
+u
+n
+hit wall with pickaxe
+dig earth
+a
+a
+a
+a
+push slab
+a
+a
+a
+n
+n
+nw
+x grille
+remove goggles
+put goggles into channel
+remove talisman
+put talisman into channel
+r
+search cell
+shout
+a
+a
+say "food"
+wait
+a
+a
+take plate
+eat food
+groan
+a
+a
+say "yes"
+groan loudly
+a
+a
+a
+a
+kick jailer
+search jailer
+unlock manacles
+search cell
+gag jailer
+chain jailer
+e
+close door
+lock door
+s
+unlock door
+open door
+e
+close door
+lock door
+wait
+a
+drop plate
+unlock door
+open door
+drop keys
+w
+x channel
+x grille
+search hole
+n
+u
+e
+e
+x table
+r
+hide under table
+wait
+feel around
+w
+w
+n
+hit xixon with cudgel
+take all
+u
+n
+e
+e
+open door
+n
+wear goggles
+search chamber
+search shelf
+tear sheet
+bandage leg
+search bed
+x bottle
+x door
+read sign
+s
+w
+open door
+push door hard
+s
+calm woman
+say alison "heal leg"
+search scullery
+n
+e
+e
+look n
+listen
+w
+w
+w
+w
+u
+u
+u
+u
+listen
+e
+creep e
+strangle xixon with string
+take sword
+unlock door
+open door
+s
+take all
+n
+drag xixon s
+n
+close door
+lock door
+w
+w
+d
+d
+d
+d
+e
+e
+knock on door
+say "alaric"
+give linen to alison
+give bag to alison
+say alison "food"
+search cupboard
+talk to alison
+give talisman to alison
+open door
+kiss alison
+n
+w
+w
+n
+u
+u
+u
+e
+e
+e
+u
+u
+w
+eat meat
+w
+w
+u
+x embrasure
+climb embrasure
+x opening
+w
+d
+d
+e
+e
+e
+d
+d
+w
+w
+w
+d
+d
+d
+d
+e
+s
+d
+search xixon
+move xixon
+take knife
+s
+e
+search table
+take butter
+w
+n
+u
+n
+w
+u
+x door
+look through spyhole
+u
+u
+u
+e
+e
+e
+u
+u
+w
+w
+w
+u
+climb embrasure
+rub butter on opening
+w
+wear gloves
+jump w
+u
+x xixon
+pull xixon
+u
+n
+wait
+look d
+x flagpole
+untie rope
+e
+throw knife at xixon
+e
+se
+ne
+look u
+grab bar
+pull bar
+a
+a
+sw
+w
+w
+look d
+x rope
+tie rope to bar
+wedge bar in battlements
+climb d rope
+x grille
+pour acid on grille
+tie rope to grille
+climb in opening
+x staples
+pour acid on staples
+climb out
+climb u rope
+pull rope
+ne
+look d
+wedge bar in battlements
+climb d
+look around
+swing
+flick rope
+d
+n
+look d
+shout
+wave axe
+s
+run
+jump
+untie rope
+tie rope to axe
+lower axe

@@ -1,0 +1,309 @@
+# Run, Bronwynn, Run! -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Solution by Phoebe M. Fuentes (July 2000, rev. Nov 2018),
+# Classic Adventures Solution Archive http://solutionarchive.com.
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
+# NOTE: CASA solution is for the original release; the ADRIFT 5 version is a
+# faithful port. Best-effort differential script.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/RunBronwynnRun.blorb test/RunBronwynnRun_walkthrough.txt
+o
+b
+search fireplace
+read paper
+look under cushions
+s
+look under bed
+open chest
+search clothes
+x table
+search drawers
+cut hair
+get hair
+remove tiara, gown and shoes
+wear leathers and boots
+drop gown
+n
+open window
+climb out
+n
+jump ne
+d
+se
+s
+x horse
+search straw
+e
+get fleetwind saddle and fleetwind bridle
+w
+u
+search hay
+get dummy
+d
+remove uniform from dummy
+remove leathers
+wear uniform
+put leathers on dummy
+tie hair to dummy
+saddle horse
+put bridle on horse
+feed horse
+put dummy on horse
+smack horse
+wait
+n
+n
+n
+n
+n
+n
+ne
+e
+se
+sw
+nw
+give tiara to boy
+ask about bridget
+n
+e
+e
+n
+n
+n
+w
+w
+n
+search shadow
+climb into bin
+wait
+search bin
+climb out
+n
+read nameplates
+pick lock
+u
+search washstand quietly
+d
+w
+unlock door
+n
+look n
+whistle
+n
+look under bed
+s
+w
+s
+e
+say to woman "where horse"
+say to woman "return horse"
+x curtains
+get cotton
+w
+nw
+w
+d
+n
+x line
+get dress
+s
+w
+n
+e
+search sawdust
+w
+n
+w
+sit on bench
+e
+s
+s
+s
+s
+x scarecrow
+get coat and hat
+thread needle
+sew button to coat
+wear coat and hat
+fasten coat
+n
+n
+w
+w
+w
+s
+d
+search vegetation
+u
+n
+w
+w
+s
+search tables
+x patrons
+start fight
+get knife
+w
+w
+s
+e
+get wool
+w
+n
+e
+e
+e
+e
+e
+e
+e
+s
+e
+talk to sue
+x sue
+wash sue
+say to sue "follow me"
+n
+w
+w
+w
+w
+w
+w
+s
+e
+get wool
+w
+se
+search shed
+spin wool
+search shed
+get crate
+nw
+n
+e
+n
+drop crate
+climb fence
+look in opening
+sharpen stick
+put wool on stick
+dip wool in dye
+climb fence
+get crate
+e
+se
+e
+e
+e
+e
+s
+s
+drop crate
+light crate
+hold wool by fire
+separate wool from stick
+n
+n
+e
+u
+e
+s
+e
+give wool to woman
+say to woman "return horse"
+threaten woman
+crawl out
+no
+w
+w
+w
+w
+nw
+nw
+nw
+w
+wait
+w
+sw
+sw
+sw
+sw
+n
+n
+n
+n
+w
+sw
+s
+s
+s
+s
+w
+free horses
+mount fleetwind
+yell
+x hummock
+get pebbles
+throw pebble sw
+sw
+throw pebble w
+w
+throw pebble s
+s
+throw pebble se
+se
+sw
+throw pebble w
+w
+throw pebble w
+w
+throw pebble sw
+sw
+throw pebble sw
+sw
+w
+dismount
+x soldier
+talk to soldier
+pull bolt
+search body
+mount fleetwind
+w
+x milestone
+w
+dismount
+n
+tether fleetwind to tree
+w
+search undergrowth
+search soldiers
+s
+s
+e
+search undergrowth
+search horse
+w
+w
+w
+climb tree
+look down
+x outlaws
+d
+e
+e
+fire crossbow at outlaw
+w
+move outlaw
+get longbow
+fit bowstring on longbow
+w
+climb tree
+wait
+wait
+wait
+wait
+wait
+wait
+fire longbow at outlaws

@@ -1,0 +1,427 @@
+# The Lost Children -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Solution by Terri Sheehan (2005-05-15),
+# Classic Adventures Solution Archive http://solutionarchive.com.
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
+# NOTE: CASA solution is for the original Spectrum 128 release; the ADRIFT 5
+# version is a faithful port. Best-effort differential script.
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/TheLostChildren.blorb test/LostChildren_walkthrough.txt
+o
+b
+info
+vocab
+speech
+inventory
+examine amulet
+examine food
+examine dolmen
+sw
+sw
+sw
+sw
+w
+examine woman
+examine cigarette
+anne "give cigarette"
+anne "dolmen"
+anne "children"
+anne "trolls"
+anne "woods"
+anne "tobacco"
+buy tobacco
+anne "hillside"
+e
+e
+e
+e
+examine field
+pick buttercups
+e
+n
+n
+ne
+e
+s
+e
+s
+w
+search hut
+examine nails
+e
+se
+examine basket
+search ashes
+down
+e
+se
+se
+examine boy
+examine bowl
+read notice
+drop food in bowl
+follow boy
+n
+jenny "roof"
+jenny "children"
+jenny "tom"
+jenny "anne"
+w
+e
+pet cat
+s
+se
+e
+read blackboard
+w
+sw
+se
+take crowbar
+examine crowbar
+s
+ne
+read sign
+s
+down
+look around
+examine jetty
+search rocks
+examine net
+up
+n
+up
+se
+se
+e
+e
+e
+se
+s
+s
+e
+s
+hit hut
+search wood
+take felt
+examine felt
+examine quarry
+n
+w
+n
+n
+n
+nw
+n
+n
+ne
+examine floor
+lever floor
+take bag
+take floorboard
+examine floorboard
+examine bag
+sw
+s
+s
+s
+se
+s
+s
+e
+s
+se
+down
+e
+se
+se
+s
+w
+w
+s
+read list
+buy lantern
+buy rope
+buy tinderbox
+n
+e
+s
+s
+e
+look through wndow
+examine display
+n
+n
+e
+s
+examine inkeeper
+buy ale
+inkeeper "find pawnbroker"
+buy ale
+n
+w
+s
+s
+e
+buy tinderbox
+w
+n
+n
+e
+ne
+up
+se
+se
+s
+w
+look around
+n
+n
+light lantern
+n
+n
+extinguish lantern
+s
+e
+e
+e
+se
+e
+s
+e
+s
+chisel slates
+take slates
+examine slates
+se
+lever ladder
+take ladder
+e
+examine carpenter
+carpenter "lend saw"
+se
+ne
+nw
+n
+w
+w
+prop ladder
+climb ladder
+examine hole
+fix roof
+down
+e
+e
+s
+se
+sw
+nw
+return saw
+se
+se
+s
+se
+e
+search pews
+examine carnation
+remove pin
+examine pin
+w
+nw
+n
+nw
+look around
+examine boat
+board boat
+examine fisherman
+fisherman "boat"
+up
+se
+s
+w
+w
+s
+read list
+buy kit
+n
+e
+e
+n
+nw
+board boat
+give kit
+examine beeswax
+up
+ne
+e
+buy helmet
+buy shield
+buy sword
+examine shield
+examine sword
+examine helmet
+w
+sw
+se
+s
+ne
+s
+down
+up
+drop shield
+sit on shield
+drop all
+sit on shield
+slide down
+examine seashells
+take seashells
+take shield
+examine roof
+up
+up
+up
+ne
+up
+take all
+n
+up
+se
+se
+ne
+nw
+n
+examine plant
+pick plant
+s
+s
+se
+s
+s
+sw
+sw
+sw
+w
+give shells
+show plant
+anne "potion"
+anne "make potion"
+give carnation
+give buttercup
+give beeswax
+e
+ne
+ne
+ne
+ne
+ne
+e
+look around
+ne
+n
+ne
+search vegetation
+e
+examine bob
+examine pipe
+bob "tom"
+bob "maze"
+bob "trolls"
+bob "children"
+show amulet
+bob "find children"
+give tobacco
+light lantern
+s
+up
+n
+down
+e
+w
+s
+examine box
+read letters
+climb in
+s
+w
+e
+d
+e
+n
+n
+look n
+look w
+w
+look n
+look e
+e
+look e
+e
+examine boulder
+climb boulder
+examine wall
+jump on ledge
+n
+n
+down
+examine tower
+look up
+examine opening
+climb opening
+tie rope to crowbar
+throw crowbar at opening
+climb rope
+sw
+down
+down
+examine table
+examine tankards
+examine barrel
+drop potion in barrel
+up
+wait
+up
+up
+up
+e
+examine glider
+examine straps
+cut straps
+w
+down
+down
+down
+down
+s
+sw
+search rondio
+ne
+climb boulder
+jump on ledge
+n
+e
+e
+throw net
+kill troll
+e
+ne
+unlock door
+sw
+w
+w
+w
+sw
+s
+s
+s
+w
+up
+w
+e
+n
+n
+e
+w
+up
+s
+s
+s

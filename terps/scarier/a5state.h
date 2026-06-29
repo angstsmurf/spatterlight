@@ -79,7 +79,10 @@ typedef struct a5_state_s {
   int n_ov, cap_ov;
 
   int   game_over;        /* set by EndGame: 0 running, else 1                 */
-  char *end_message;      /* Win/Lose/etc. (owned), or NULL                   */
+  char *end_message;      /* EndGame enum "Win"/"Lose"/"Neutral" (owned), NULL */
+  int   end_displayed;    /* the win/lose/score/restart block has been emitted */
+  int   turns;            /* commands processed (clsAdventure.Turns); the score
+                             line shows the count BEFORE the ending command     */
 
   /* Conversation state (clsAdventure.sConversationCharKey / sConversationNode):
      the NPC the player is currently talking to and the current topic node.
@@ -98,6 +101,17 @@ typedef struct a5_state_s {
      no such thing.") from "seen but not here now" ("You can't see the X.").
      [n_objects] */
   char *obj_seen;
+
+  /* Last-referenced pronoun targets (clsUserSession.sIt/sThem/sHim/sHer), the
+     full display name of the object/character most recently named by the player
+     in each pronoun class.  GrabIt recomputes these each turn from the (already
+     it->name substituted) input; the next turn's "it"/"them"/"him"/"her" is
+     textually replaced by the stored name before parsing.  All owned; ""
+     until something has been referenced.  Save/restored. */
+  char *s_it;
+  char *s_them;
+  char *s_him;
+  char *s_her;
 
   /* Transient character context for char-scoped text functions (%CharacterName%
      etc.).  v5 rewrites a character's own text "%CharacterName%" ->
@@ -181,6 +195,17 @@ extern int a5state_object_at_location     (const a5_state_t *st, int oi,
                                            const char *lockey, int directly);
 extern int a5state_object_key_at_location (const a5_state_t *st, const char *objkey,
                                            const char *lockey, int directly);
+
+/*
+ * Is character `ci` visible at location `lockey`?  Mirrors
+ * clsCharacter.IsVisibleAtLocation (via BoundVisible): a character "At Location"
+ * matches that location; one "On Object"/"In Object" matches wherever its
+ * carrier object exists (resolved through the container chain).  Used by the
+ * location renderer's "characters present" list, which includes characters
+ * seated on / inside furniture in the room.
+ */
+extern int a5state_character_at_location (const a5_state_t *st, int ci,
+                                          const char *lockey);
 
 /*
  * Property access with the runtime override layer.  Returns the overridden

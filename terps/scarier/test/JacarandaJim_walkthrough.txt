@@ -1,0 +1,452 @@
+# Jacaranda Jim -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Solution by Neil Shipman, via grahamcluley.com
+# (test/adrift5-games/walkthroughs/JacarandaJim_walkthrough.html).
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped
+# (both harnesses skip blank and "#"-prefixed lines). The source mixes commands
+# with conditionals ("... if he appears") and placeholders ("say swearword",
+# "say postman's name"); conditionals were reduced to their bare command and
+# "wait until X" to "wait".
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/JacarandaJim.blorb test/JacarandaJim_walkthrough.txt
+N
+U
+exam Alan
+N
+exam torch
+get it
+S
+D
+S
+exam tape
+get it
+pull chain
+look
+exam carnation
+get it
+S
+W
+exam cow
+milk it
+exam bottle
+get it
+exam postman
+N
+N
+in
+drop carnation
+exam wand
+get it
+out
+E
+exam crowbar
+get it
+in
+exam spade
+get it
+in
+exam boxer
+drop bottle
+exam gloves
+get them
+wear them
+out
+out
+E
+exam book
+in
+exam basket
+get it
+out
+S
+in
+exam gristle
+get it
+in
+D
+dig
+open manhole with crowbar
+drop crowbar
+D
+exam pirate
+give tape to pirate
+dig
+dig
+exam pig
+get it
+U
+N
+give pig to thief
+exam flag
+get it
+W
+S
+S
+W
+in
+drop flag
+out
+S
+S
+in
+exam uniform
+wear it
+out
+E
+exam parchment
+in
+exam boots
+get them
+wear them
+out
+drop uniform
+wait
+say invoices
+look
+wave wand
+push pink button
+push red button
+D
+N
+U
+drop gristle
+look
+exam money
+get it
+D
+exam medicine
+get it
+E
+D
+S
+pull chain
+S
+in
+drop all
+exam champagne
+get it
+drink it
+spit
+exam seed
+get it
+go back to tailors
+get basket
+get all
+wear gloves
+wear boots
+out
+N
+E
+in
+give medicine to wolf
+exam blueberry
+out
+N
+in
+buy cucumber
+exam it
+out
+N
+N
+plant seed
+exam ticket
+get it
+W
+exam deckchair
+get it
+E
+E
+wait
+climb rocks
+exam carrot
+get it
+D
+W
+S
+S
+S
+in
+in
+drop cucumber
+drop deckchair
+say invoices
+wait
+wave wand
+push green button
+D
+pull chain
+E
+N
+N
+N
+E
+S
+S
+exam Grog
+exam wall
+eat wall
+N
+N
+W
+S
+S
+in
+in
+out
+out
+S
+in
+in
+exam key
+get it
+out
+out
+N
+in
+in
+flush key
+out
+out
+N
+N
+E
+S
+S
+S
+get key
+open door with key
+drop key
+S
+drop blueberry
+exam watch
+N
+N
+N
+N
+W
+S
+S
+W
+in
+exam spoon
+get it
+out
+W
+in
+exam oil-can
+get it
+out
+S
+exam Yitshak
+sell Alan
+say invoices
+wait
+wave wand
+push blue button
+D
+pull chain
+E
+N
+N
+N
+E
+S
+exam bell
+get it
+S
+S
+S
+exam card
+get it
+fuse forcefield with spoon
+drop spoon
+S
+say swearword
+S
+oil lever
+pull lever
+drop oil-can
+D
+in
+insert card
+get it
+push T button
+S
+in
+give card to man
+exam aqualung
+out
+E
+N
+N
+N
+in
+push button
+out
+S
+S
+in
+in
+in
+in
+out
+N
+N
+in
+push button
+out
+S
+S
+in
+in
+exam ear-muffs
+get them
+out
+out
+S
+W
+W
+ring bell
+drop it
+E
+wait
+kill postman
+look
+exam body
+get it
+N
+push button
+out
+U
+N
+N
+N
+N
+N
+D
+bury body
+U
+close manhole
+S
+S
+S
+S
+S
+D
+milk cow
+drop torch
+wear aqualung
+swim
+eat carrot
+exam needle
+get it
+swim
+look
+get torch
+U
+N
+N
+N
+N
+N
+wait
+D
+exam Grog
+U
+S
+S
+S
+S
+S
+D
+drop aqualung
+drop boots
+in
+push T button
+S
+exam telegram
+get it
+exam rollerskates
+get them
+exam papers
+get them
+E
+N
+N
+N
+N
+W
+exam attendant
+give telegram to Ernie
+give skates to Ernie
+dig
+exam bomb
+get it
+E
+exam beachball
+get it
+S
+S
+S
+W
+push button
+out
+E
+say postman's name
+U
+drop bomb
+D
+look in safe
+exam mirror
+get it
+U
+wear ear-muffs
+U
+burst beachball
+D
+D
+W
+in
+push T button
+N
+in
+in
+out
+out
+E
+in
+in
+drop beachball
+say invoices
+wait
+wave wand
+push yellow button
+D
+pull chain
+E
+N
+in
+in
+exam axe
+get it
+out
+out
+S
+W
+push button
+out
+E
+U
+U
+N
+D
+say Dagorlas Brantbrock
+chop door
+N
+wave mirror
+N
+drop all
+in
+wait
+push button

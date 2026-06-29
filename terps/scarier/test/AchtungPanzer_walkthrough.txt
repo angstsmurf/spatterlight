@@ -1,0 +1,19 @@
+# Achtung Panzer! -- ground-truth walkthrough script (ADRIFT 5).
+#
+# Source: Denk's published review on intfiction.org (the author did not release
+# a standalone walkthrough; CASA/IF Archive have none). See
+# test/adrift5-games/walkthroughs/AchtungPanzer_walkthrough.txt for provenance.
+# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped
+# (both harnesses skip blank and "#"-prefixed lines).
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/AchtungPanzer.blorb \
+#       test/AchtungPanzer_walkthrough.txt
+#
+# Minimum-points (~60) escape in seven moves. Max score is 100.
+up
+up
+n
+n
+n
+crawl

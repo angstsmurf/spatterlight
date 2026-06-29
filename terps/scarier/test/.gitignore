@@ -23,3 +23,6 @@ a5_randomness.o
 # ADRIFT 5 game files (copyrighted; not redistributable in the repo).
 # The a5run / groundtruth harnesses look here by default (A5_GAMES_DIR).
 adrift5-games/
+
+# Cached FrankenDrift ground-truth transcripts (a5_groundtruth.sh FD_CACHE).
+.fd_cache/

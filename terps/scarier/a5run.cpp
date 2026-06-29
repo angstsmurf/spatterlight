@@ -141,6 +141,11 @@ struct a5_run_s {
      clsUserSession.vb:788, shown only when the input contains "all").  Cleared
      each resolve. */
   const a5_xml_node_t *pending_failover;
+
+  /* clsAdventure.qTasksToRun: System tasks armed by a Player move into their
+     <LocationTrigger> (clsCharacter.Move); drained after the turn's task runs,
+     before TurnBasedStuff (clsUserSession.vb:3421). */
+  std::vector<std::string> *tasks_to_run;
 };
 
 static int
@@ -219,6 +224,7 @@ a5run_new (const a5_adventure_t *adv)
   run->amb_task_index = run->amb_command_index = -1;
   run->amb_ref_type = 'o';
   run->known_words = NULL;
+  run->tasks_to_run = new std::vector<std::string>;
   for (i = 0; i < adv->n_tasks; i++)
     run->order->push_back (i);
   /* TaskSorter: ascending Priority (lower value checked first). */
@@ -239,6 +245,7 @@ a5run_free (a5_run_t *run)
   delete run->events;
   delete run->walks;
   delete run->known_words;
+  delete run->tasks_to_run;
   delete run;
 }
 
@@ -1023,7 +1030,18 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
                 resolve_object_candidates (st, r.text);
               for (const char *k : c) r.orig.push_back (k); }
           if (r.orig.empty ())
-            { if (!have_noref) { have_noref = 1; noref_r = r; } continue; }
+            {
+              /* The reference names no object.  A task only "matches" such input
+                 if it has an Object `Must Exist` restriction (clsUserSession's
+                 second-chance pass, gated on HasObjectExistRestriction); else the
+                 command simply does not match this task. */
+              if (have_noref)
+                continue;
+              if (!a5restr_has_exist (t->restrictions, 'o'))
+                return RR_NOMATCH;
+              have_noref = 1; noref_r = r;
+              continue;
+            }
           r.keys = r.orig;
           bind_reference (st, r.name.c_str (), r.keys[0].c_str (),
                           r.text.c_str ());
@@ -1053,11 +1071,19 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
             : resolve_character_candidates (st, r.text);
           if (c.empty ())
             {
-              /* The reference names no entity at all.  Remember the first such
-                 task (sNoRefTask) and leave the reference unbound; if nothing
-                 else claims, the caller runs the task with it unresolved. */
-              if (!have_noref)
-                { have_noref = 1; noref_r = r; }
+              /* The reference names no entity at all.  A task only "matches"
+                 such input if it has a `Must Exist` restriction of this
+                 reference's type (clsUserSession's second-chance pass, gated on
+                 HasObjectExistRestriction / HasCharacterExistRestriction); then
+                 it is remembered as the no-reference fallback (sNoRefTask) and
+                 the reference is left unbound so the caller can surface its
+                 Must-Exist message.  Without such a restriction the command does
+                 not match this task at all. */
+              if (have_noref)
+                continue;
+              if (!a5restr_has_exist (t->restrictions, r.type))
+                return RR_NOMATCH;
+              have_noref = 1; noref_r = r;
               continue;
             }
           for (const char *k : c) r.orig.push_back (k);
@@ -1155,7 +1181,12 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
       if (pr == RR_NOMATCH)
         {
           /* The plural reference named no object (e.g. "take all" with nothing
-             in scope).  Treat like sNoRefTask: defer so a later task can claim. */
+             in scope).  As with a singular reference, the task only matches if
+             it has an Object `Must Exist` restriction (so it can surface that
+             message); otherwise the command does not match this task. */
+          if (!a5restr_has_exist (t->restrictions, 'o'))
+            return RR_NOMATCH;
+          /* Treat like sNoRefTask: defer so a later task can claim. */
           if (amb != NULL)
             { amb->ref_name = "objects"; amb->type = 'o';
               amb->ref_text = plural_text; amb->keys.clear (); }
@@ -1774,6 +1805,31 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
     }
 }
 
+/* clsCharacter.Move (Player branch): when the Player moves into a new location,
+   arm every System task whose <LocationTrigger> is that location and that may
+   still run (Repeatable or not yet Completed), by enqueuing it onto
+   qTasksToRun.  The queue is drained after the turn's task, before the event
+   tick (ev_tick_all).  `old_loc` is where the Player was *before* the move. */
+static void
+enqueue_loc_trigger_tasks (a5_run_t *run, const char *old_loc, const char *new_loc)
+{
+  a5_state_t *st = run->st;
+  int i;
+  if (new_loc == NULL || streq (old_loc, new_loc))
+    return;
+  for (i = 0; i < st->adv->n_tasks; i++)
+    {
+      const a5_task_t *t = &st->adv->tasks[i];
+      int ti;
+      if (!streq (t->type, "System") || !streq (t->location_trigger, new_loc))
+        continue;
+      ti = a5state_task_index (st, t->key);
+      if (!t->repeatable && ti >= 0 && st->task_done[ti])
+        continue;
+      run->tasks_to_run->push_back (t->key);
+    }
+}
+
 /* ----------------------------------------------------------- action: execute */
 
 static void
@@ -1874,6 +1930,8 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                         && st->adv->groups[g].n_members > 0)
                       { dest = st->adv->groups[g].members[0]; break; }
                 }
+              if (streq (k1, "Player"))
+                enqueue_loc_trigger_tasks (run, st->char_loc[ci], dest);
               st->char_loc[ci] = dest;
               st->char_onobj[ci] = NULL;   /* now "at location" */
             }
@@ -1882,7 +1940,10 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       if (to == "ToLocation")
         {
           const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
-          st->char_loc[ci] = streq (k2, "Hidden") ? NULL : k2;
+          const char *new_loc = streq (k2, "Hidden") ? NULL : k2;
+          if (streq (k1, "Player"))
+            enqueue_loc_trigger_tasks (run, st->char_loc[ci], new_loc);
+          st->char_loc[ci] = new_loc;
           st->char_onobj[ci] = NULL;       /* now "at location" */
           return;
         }
@@ -2425,11 +2486,31 @@ attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
   ev_on_task_completed (run, key, out);
 }
 
+/* Drain clsAdventure.qTasksToRun: run each LocationTrigger-armed System task in
+   FIFO order (clsUserSession.vb:3421 "While qTasksToRun.Count > 0").  A drained
+   task may itself move the Player and arm further triggers, so loop until empty.
+   Runs after the turn's command task and before TurnBasedStuff. */
+static void
+drain_tasks_to_run (a5_run_t *run, sb_t *out)
+{
+  size_t guard = 0;
+  while (!run->tasks_to_run->empty () && guard++ < 256)
+    {
+      std::string key = run->tasks_to_run->front ();
+      run->tasks_to_run->erase (run->tasks_to_run->begin ());
+      attempt_event_task (run, key.c_str (), 0, out);
+    }
+}
+
 /* clsUserSession.TurnBasedStuff: tick every turn-based event once. */
 static void
 ev_tick_all (a5_run_t *run, sb_t *out)
 {
   int ei;
+  /* clsUserSession.ProcessTurn drains qTasksToRun after the command's task,
+     before TurnBasedStuff; do the same here (ev_tick_all is the turn's only
+     TurnBasedStuff entry). */
+  drain_tasks_to_run (run, out);
   if (run->st->game_over)
     return;
   /* TurnBasedStuff: tick the walks first, then the turn-based events. */
@@ -3141,11 +3222,55 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
    ALR boundary (clsUserSession.Display -> Global.ReplaceALRs), so the engine's
    stock literals are translated for a non-English game.  A no-op (bar a copy)
    when the game has no ALRs. */
+/* Append the end-of-game block (clsUserSession.CheckEndOfGame): the win/lose
+   banner, the optional EndGameText (WinningText), the score line when MaxScore>0,
+   and the restart prompt.  Emitted once, the first turn game_over is set, before
+   `turns` is bumped for the ending command -- so the score shows the count of
+   commands processed *before* this one (FD displays during Process, ahead of its
+   per-command Adventure.Turns increment). */
+static void
+emit_endgame (a5_run_t *run, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  const char *es = st->end_message;     /* "Win" / "Lose" / "Neutral" */
+  long score = 0, maxscore = 0;
+
+  if (es != NULL && streq (es, "Win"))
+    sb_puts (out, "*** You have won ***\n");
+  else if (es != NULL && streq (es, "Lose"))
+    sb_puts (out, "*** You have lost ***\n");
+  /* Neutral (and an unset/unknown enum): no banner, like FD. */
+
+  if (run->adv->end_game_text != NULL)
+    {
+      char *wt = a5text_describe (st, run->adv->end_game_text);
+      if (wt[0]) { sb_puts (out, wt); sb_puts (out, "\n"); }
+      free (wt);
+    }
+
+  a5state_var_num_by_name (st, "Score", &score);
+  if (a5state_var_num_by_name (st, "MaxScore", &maxscore) && maxscore > 0)
+    {
+      char line[160];
+      snprintf (line, sizeof line,
+                "In that game you scored %ld out of a possible %ld, in %d turns.\n\n",
+                score, maxscore, st->turns - 1);
+      sb_puts (out, line);
+    }
+
+  sb_puts (out, "Would you like to restart, restore a saved game, quit or "
+                "undo the last command?\n\n");
+  st->end_displayed = 1;
+}
+
 static char *
 finish_turn (a5_run_t *run, sb_t *out)
 {
-  char *raw = sb_take (out);
-  char *fin = a5text_display_alr (run->st, raw);
+  char *raw, *fin;
+  if (run->st->game_over && !run->st->end_displayed)
+    emit_endgame (run, out);
+  raw = sb_take (out);
+  fin = a5text_display_alr (run->st, raw);
   free (raw);
   return fin;
 }
@@ -3420,6 +3545,182 @@ run_noref (a5_run_t *run, int ti, int ci, const std::string &in, sb_t *out)
   return has;
 }
 
+/* clsUserSession.ReplaceWord: replace whole-word occurrences of `find` in `text`
+   with `repl` (word boundaries are spaces / string ends; case-sensitive on the
+   already-lowercased input, exactly as FD). */
+static void
+replace_word (std::string &text, const std::string &find, const std::string &repl)
+{
+  /* " find " -> " repl " (interior) */
+  std::string from = " " + find + " ", to = " " + repl + " ";
+  size_t pos = 0;
+  while ((pos = text.find (from, pos)) != std::string::npos)
+    { text.replace (pos, from.size (), to); pos += to.size (); }
+  /* leading / trailing / whole */
+  if (text.size () > find.size () + 1
+      && text.compare (0, find.size () + 1, find + " ") == 0)
+    text = repl + " " + text.substr (find.size () + 1);
+  if (text.size () > find.size () + 1
+      && text.compare (text.size () - find.size () - 1, find.size () + 1, " " + find) == 0)
+    text = text.substr (0, text.size () - find.size () - 1) + " " + repl;
+  if (text == find)
+    text = repl;
+}
+
+/*
+ * clsUserSession.GrabIt: after the player's command words are known, work out
+ * what "it"/"them"/"him"/"her" should refer to *next* turn.  Scan the input
+ * words against in-scope (visible, then seen) objects' names and characters'
+ * proper-name/descriptors; an unambiguous single match in a pronoun class sets
+ * that class's stored display name.  Objects use the definite full name,
+ * characters their (definite) known name.  "them" considers only plural objects;
+ * characters split into him/her/it by Gender.  A >1 match is narrowed by a
+ * prefix word appearing in the input (FD's second pass); still-ambiguous classes
+ * keep the previous value.
+ */
+static void
+grab_it (a5_run_t *run, const std::string &in)
+{
+  a5_state_t *st = run->st;
+  std::vector<std::string> words = split_ws (lower (in).c_str ());
+  std::string new_it, new_them, new_him, new_her;
+  std::vector<const char *> it_keys, them_keys, him_keys, her_keys;
+  int scope;
+
+  auto has_word = [&] (const std::string &w) {
+    for (auto &x : words) if (x == w) return 1;
+    return 0;
+  };
+  auto add_uniq = [] (std::vector<const char *> &v, const char *k) {
+    for (auto *e : v) if (streq (e, k)) return;
+    v.push_back (k);
+  };
+
+  /* Visible first, then seen (eScope.Visible To eScope.Seen). */
+  for (scope = 0; scope < 2; scope++)
+    {
+      int oi, ci;
+      for (oi = 0; oi < st->adv->n_objects; oi++)
+        {
+          const a5_object_t *o = &st->adv->objects[oi];
+          int inscope = (scope == 0) ? obj_visible (st, o->key)
+                                     : (!obj_visible (st, o->key) && obj_seen_p (st, o->key));
+          if (!inscope)
+            continue;
+          int is_plural = (o->article != NULL && lower (o->article) == "some");
+          for (int n = 0; n < o->n_names; n++)
+            if (has_word (lower (o->names[n])))
+              {
+                if (new_it.empty ()) add_uniq (it_keys, o->key);
+                if (new_them.empty () && is_plural) add_uniq (them_keys, o->key);
+              }
+        }
+      for (ci = 0; ci < st->adv->n_characters; ci++)
+        {
+          const a5_character_t *c = &st->adv->characters[ci];
+          int inscope = (scope == 0) ? char_visible (st, c->key)
+                                     : (!char_visible (st, c->key) && char_seen_p (st, c->key));
+          if (!inscope)
+            continue;
+          int matched = 0;
+          if (c->name != NULL && has_word (lower (c->name)))
+            matched = 1;
+          for (int d = 0; !matched && d < c->n_descriptors; d++)
+            if (has_word (lower (c->descriptors[d])))
+              matched = 1;
+          if (!matched)
+            continue;
+          const char *g = a5state_entity_prop (st, c->key, "Gender");
+          if (g != NULL && lower (g) == "male")
+            add_uniq (him_keys, c->key);
+          else if (g != NULL && lower (g) == "female")
+            add_uniq (her_keys, c->key);
+          else
+            add_uniq (it_keys, c->key);
+        }
+
+      /* Resolve each class that is now unambiguous (or narrowable by prefix). */
+      struct { std::string *out; std::vector<const char *> *keys; int definite; } cls[] = {
+        { &new_it,   &it_keys,   1 },
+        { &new_them, &them_keys, 1 },
+        { &new_him,  &him_keys,  1 },
+        { &new_her,  &her_keys,  1 },
+      };
+      for (auto &cl : cls)
+        {
+          if (!cl.out->empty ())
+            continue;
+          std::vector<const char *> *ks = cl.keys;
+          const char *chosen = NULL;
+          if (ks->size () == 1)
+            chosen = (*ks)[0];
+          else if (ks->size () > 1)
+            {
+              /* Second pass: keep candidates whose prefix word is in the input. */
+              const char *only = NULL;
+              int n = 0;
+              for (auto *k : *ks)
+                {
+                  const a5_object_t *o = a5model_object (st->adv, k);
+                  const a5_character_t *c = a5model_character (st->adv, k);
+                  const char *prefix = o ? o->prefix : (c ? c->prefix : NULL);
+                  int hit = 0;
+                  for (auto &pw : split_ws (prefix))
+                    if (has_word (lower (pw))) { hit = 1; break; }
+                  if (hit) { only = k; n++; }
+                }
+              if (n == 1)
+                chosen = only;
+            }
+          if (chosen != NULL)
+            {
+              const a5_object_t *o = a5model_object (st->adv, chosen);
+              const a5_character_t *c = a5model_character (st->adv, chosen);
+              char *nm = o ? a5text_object_name (o, A5_ART_DEFINITE)
+                           : (c ? a5text_character_known_name (st, c, cl.definite)
+                                : strdup (chosen));
+              *cl.out = nm ? nm : "";
+              free (nm);
+            }
+        }
+    }
+
+  if (!new_it.empty ())   { free (st->s_it);   st->s_it = strdup (new_it.c_str ()); }
+  if (!new_them.empty ()) { free (st->s_them); st->s_them = strdup (new_them.c_str ()); }
+  if (!new_him.empty ())  { free (st->s_him);  st->s_him = strdup (new_him.c_str ()); }
+  if (!new_her.empty ())  { free (st->s_her);  st->s_her = strdup (new_her.c_str ()); }
+
+  /* Defaults so a later "it"/etc. with no referent prints FD's placeholder. */
+  if (st->s_it[0]   == '\0') { free (st->s_it);   st->s_it   = strdup ("Absolutely Nothing"); }
+  if (st->s_them[0] == '\0') { free (st->s_them); st->s_them = strdup ("Absolutely Nothing"); }
+  if (st->s_him[0]  == '\0') { free (st->s_him);  st->s_him  = strdup ("No male"); }
+  if (st->s_her[0]  == '\0') { free (st->s_her);  st->s_her  = strdup ("No female"); }
+}
+
+/* Substitute "it"/"them"/"him"/"her" in the player's input with the last
+   referenced object/character name, emitting FD's "(name)" echo line, then
+   recompute the referents for next turn (clsUserSession.EvaluateInput). */
+static void
+resolve_pronouns (a5_run_t *run, std::string &in, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  struct { const char *word; char *val; } pr[] = {
+    { "it",   st->s_it },
+    { "them", st->s_them },
+    { "him",  st->s_him },
+    { "her",  st->s_her },
+  };
+  for (auto &p : pr)
+    if (conv_contains_word (in, p.word) && p.val != NULL && p.val[0])
+      {
+        sb_puts (out, "(");
+        sb_puts (out, p.val);
+        sb_puts (out, ")\n");
+        replace_word (in, p.word, lower (p.val));
+      }
+  grab_it (run, in);
+}
+
 char *
 a5run_input (a5_run_t *run, const char *line)
 {
@@ -3441,6 +3742,13 @@ a5run_input (a5_run_t *run, const char *line)
   if (in.empty ())
     return finish_turn (run, &out);
 
+  /* This command claims a turn (clsAdventure.Turns, bumped once per processed
+     command by the Runner).  The end-of-game score line shows the count *before*
+     this command, so emit_endgame reads turns-1; bump here, after the blank-line
+     skip, so empty input does not count.  A remembered-verb retry decrements
+     first (below) to keep one user command == one turn. */
+  st->turns++;
+
   /* Consume any remembered verb for this turn (sRememberedVerb): captured here so
      a turn that does anything naturally clears it (clsUserSession clears it on a
      successful task); a system command re-sets it (FD keeps it across SystemTasks)
@@ -3452,6 +3760,13 @@ a5run_input (a5_run_t *run, const char *line)
      (clsUserSession.PrepareForNextTurn), so HaveSeenCharacter / "characters
      must be seen" gates reflect everyone visible by now. */
   update_seen (st);
+
+  /* Resolve "it"/"them"/"him"/"her" to the last-referenced entity (echoing the
+     "(name)" line) and recompute the referents for next turn, before the input
+     is parsed -- clsUserSession.EvaluateInput.  Skipped while resolving a pending
+     disambiguation clarifier, which is not a fresh command. */
+  if (!run->amb_active)
+    resolve_pronouns (run, in, &out);
 
   /* Pending disambiguation (clsUserSession.ResolveAmbiguity): try `in` as a
      clarifier first -- if it narrows the remembered candidates to exactly one,
@@ -3485,31 +3800,40 @@ a5run_input (a5_run_t *run, const char *line)
       return finish_turn (run, &out);
     }
 
-  if (have_noref && run_noref (run, noref_ti, noref_ci, in, &out))
-    {
-      /* sNoRefTask: a command matched but a reference named nothing.  Running
-         the task with the reference unresolved surfaced its `Must Exist`
-         message.  This preempts the ambiguity display (GetGeneralTask returns
-         sNoRefTask before DisplayAmbiguityQuestion is consulted). */
-      run->amb_active = 0;
-      ev_tick_all (run, &out);
-      return finish_turn (run, &out);
-    }
-
   if (have_amb && amb_cantsee)
     {
       /* No later task claimed the turn: emit the deferred "You can't see any
-         <plural>!" and advance the turn (the out-of-scope reference is a dead
-         end, not a pending prompt). */
+         <plural>!" (the out-of-scope reference is a dead end, not a pending
+         prompt).  This does NOT tick TurnBasedStuff: in FrankenDrift an
+         unresolvable reference leaves GetGeneralTask returning Nothing, so
+         ProcessTurn takes the `sTaskKey Is Nothing` branch (clsUserSession.vb
+         :3436) which shows the message but never calls TurnBasedStuff -- unlike
+         a failing-but-matched task (the noref/have_fail paths), which does tick.
+         Ticking here drifts turn-based event countdowns early (StarshipQuest's
+         hyperspace timer fired ~8 turns too soon).
+
+         A cantsee preempts the sNoRefTask below: in FD a cantsee/ambiguity is a
+         *first-pass* result (the reference name-matched >1 objects) that sets
+         sAmbTask, whereas the exist-restriction sNoRefTask is only found in the
+         *second-chance* pass -- and that pass runs solely when sAmbTask Is
+         Nothing (GetGeneralTask, clsUserSession.vb:5965 recursion guard).  So a
+         command like "get flashlight from backpack", where TakeObjectsFromOthers
+         (%objects% from %object2%) name-resolves "flashlight" to several unseen
+         objects (cantsee) but GetObjectC (%objects%) swallows the whole
+         "flashlight from backpack" as one unmatched reference (a Must-Exist
+         noref), must show "You can't see any flashlights!" -- not the noref's
+         "I'm not sure which object...".  Likewise for a visible ambiguity below. */
       run->amb_active = 0;
       emit_cantsee (st, &amb, &out);
-      ev_tick_all (run, &out);
       return finish_turn (run, &out);
     }
 
   if (have_amb)
     {
-      /* Remember the ambiguity and prompt; the next turn resolves it. */
+      /* Remember the ambiguity and prompt; the next turn resolves it.  Like the
+         cantsee above, a first-pass ambiguity preempts the second-chance
+         sNoRefTask below (FD enters the exist pass only when sAmbTask Is
+         Nothing). */
       run->amb_active = 1;
       run->amb_task_index = amb_ti;
       run->amb_command_index = amb_ci;
@@ -3520,6 +3844,19 @@ a5run_input (a5_run_t *run, const char *line)
       run->amb_keys = amb.keys;
       sb_puts (&out,
                build_amb_prompt (st, run->amb_word, amb.keys, amb.type).c_str ());
+      return finish_turn (run, &out);
+    }
+
+  if (have_noref && run_noref (run, noref_ti, noref_ci, in, &out))
+    {
+      /* sNoRefTask: a command matched but a reference named nothing.  Running
+         the task with the reference unresolved surfaced its `Must Exist`
+         message.  Reached only when no task produced a cantsee/ambiguity above
+         -- in FD the sNoRefTask is the result of the second-chance (existence)
+         pass, which GetGeneralTask runs only if the first pass left sAmbTask
+         Nothing (clsUserSession.vb:5965).  It does claim the turn and ticks. */
+      run->amb_active = 0;
+      ev_tick_all (run, &out);
       return finish_turn (run, &out);
     }
 
@@ -3540,6 +3877,7 @@ a5run_input (a5_run_t *run, const char *line)
          it claims the turn (FD: "If sOutputText <> '' Then Exit Sub"). */
       run->amb_active = 0;
       free (out.p);
+      st->turns--;            /* the retry re-bumps it; one user command == one turn */
       return a5run_input (run, (rverb + " " + in).c_str ());
     }
   else
@@ -3656,12 +3994,22 @@ a5run_save (a5_run_t *run, size_t *out_len)
 
   sb_elem_l (&b, "EventsRunning", run->events_running);
   sb_elem_l (&b, "GameOver", st->game_over);
+  sb_elem_l (&b, "Turns", st->turns);
+  sb_elem_l (&b, "EndDisplayed", st->end_displayed);
   if (st->end_message != NULL)
     sb_elem (&b, "EndMessage", st->end_message);
   if (st->conv_char != NULL && st->conv_char[0])
     sb_elem (&b, "ConvChar", st->conv_char);
   if (st->conv_node != NULL && st->conv_node[0])
     sb_elem (&b, "ConvNode", st->conv_node);
+  if (st->s_it != NULL && st->s_it[0])
+    sb_elem (&b, "ItRef", st->s_it);
+  if (st->s_them != NULL && st->s_them[0])
+    sb_elem (&b, "ThemRef", st->s_them);
+  if (st->s_him != NULL && st->s_him[0])
+    sb_elem (&b, "HimRef", st->s_him);
+  if (st->s_her != NULL && st->s_her[0])
+    sb_elem (&b, "HerRef", st->s_her);
 
   /* Objects (model order). */
   for (i = 0; i < adv->n_objects; i++)
@@ -3849,6 +4197,12 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
   free (st->end_message);
   st->end_message = NULL;
   st->game_over = 0;
+  st->turns = 0;
+  st->end_displayed = 0;
+  free (st->s_it);   st->s_it   = strdup ("");
+  free (st->s_them); st->s_them = strdup ("");
+  free (st->s_him);  st->s_him  = strdup ("");
+  free (st->s_her);  st->s_her  = strdup ("");
 
   for (n = root->first_child; n != NULL; n = n->next)
     {
@@ -3861,12 +4215,24 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
         run->events_running = (int) strtol (n->text ? n->text : "0", NULL, 10);
       else if (streq (nm, "GameOver"))
         st->game_over = (int) strtol (n->text ? n->text : "0", NULL, 10);
+      else if (streq (nm, "Turns"))
+        st->turns = (int) strtol (n->text ? n->text : "0", NULL, 10);
+      else if (streq (nm, "EndDisplayed"))
+        st->end_displayed = (int) strtol (n->text ? n->text : "0", NULL, 10);
       else if (streq (nm, "EndMessage"))
         st->end_message = strdup (n->text ? n->text : "");
       else if (streq (nm, "ConvChar"))
         a5state_set_conv_char (st, n->text ? n->text : "");
       else if (streq (nm, "ConvNode"))
         a5state_set_conv_node (st, n->text ? n->text : "");
+      else if (streq (nm, "ItRef"))
+        { free (st->s_it);   st->s_it   = strdup (n->text ? n->text : ""); }
+      else if (streq (nm, "ThemRef"))
+        { free (st->s_them); st->s_them = strdup (n->text ? n->text : ""); }
+      else if (streq (nm, "HimRef"))
+        { free (st->s_him);  st->s_him  = strdup (n->text ? n->text : ""); }
+      else if (streq (nm, "HerRef"))
+        { free (st->s_her);  st->s_her  = strdup (n->text ? n->text : ""); }
       else if (streq (nm, "Object"))
         {
           if (obj_i < adv->n_objects)
