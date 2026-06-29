@@ -57,8 +57,7 @@ pf_strdup (const std::string &string)
 /* Assorted definitions and constants. */
 static const scr_uint PRINTFILTER_MAGIC = 0xb4736417;
 enum
-{ BUFFER_GROW_INCREMENT = 32,
-  ITERATION_LIMIT = 32
+{ ITERATION_LIMIT = 32
 };
 static const scr_char NUL = '\0';
 static const scr_char LESSTHAN = '<';
@@ -114,9 +113,7 @@ static const scr_html_tags_t HTML_TAGS_TABLE[] = {
 typedef struct scr_filter_s
 {
   scr_uint magic;
-  scr_int buffer_length;
-  scr_int buffer_allocation;
-  scr_char *buffer;
+  std::string buffer;
   scr_bool new_sentence;
   scr_bool is_muted;
   scr_bool needs_filtering;
@@ -166,12 +163,9 @@ pf_create (void)
       initialized = TRUE;
     }
 
-  /* Create a new printfilter. */
-  filter = (decltype(filter)) scr_malloc (sizeof (*filter));
+  /* Create a new printfilter; 'buffer' default-constructs empty. */
+  filter = new scr_filter_t ();
   filter->magic = PRINTFILTER_MAGIC;
-  filter->buffer_length = 0;
-  filter->buffer_allocation = 0;
-  filter->buffer = NULL;
   filter->new_sentence = FALSE;
   filter->is_muted = FALSE;
   filter->needs_filtering = FALSE;
@@ -190,10 +184,9 @@ pf_destroy (scr_filterref_t filter)
 {
   assert (pf_is_valid (filter));
 
-  /* Free buffer space, and poison and free the printfilter. */
-  scr_free (filter->buffer);
-  memset (filter, 0xaa, sizeof (*filter));
-  scr_free (filter);
+  /* Poison the magic, then delete (frees the std::string buffer too). */
+  filter->magic = 0;
+  delete filter;
 }
 
 
@@ -826,7 +819,7 @@ pf_flush (scr_filterref_t filter,
   assert (vars && bundle);
 
   /* See if there is any buffered data to flush. */
-  if (filter->buffer_length > 0)
+  if (!filter->buffer.empty ())
     {
       /*
        * Filter the buffered string, then print it untagged.  Remember to free
@@ -838,20 +831,20 @@ pf_flush (scr_filterref_t filter,
         {
           scr_char *filtered;
 
-          filtered = pf_filter_internal (filter->buffer, vars, bundle);
+          filtered = pf_filter_internal (filter->buffer.c_str (), vars, bundle);
           if (filtered)
             {
               pf_output_untagged (filtered);
               scr_free (filtered);
             }
           else
-            pf_output_untagged (filter->buffer);
+            pf_output_untagged (filter->buffer.c_str ());
         }
       else
-        pf_output_untagged (filter->buffer);
+        pf_output_untagged (filter->buffer.c_str ());
 
-      /* Remove buffered data by resetting length to zero. */
-      filter->buffer_length = 0;
+      /* Remove buffered data. */
+      filter->buffer.clear ();
       filter->needs_filtering = FALSE;
     }
 
@@ -869,36 +862,8 @@ pf_flush (scr_filterref_t filter,
 static void
 pf_append_string (scr_filterref_t filter, const scr_char *string)
 {
-  scr_int length, required;
-
-  /*
-   * Calculate the required buffer size to append string.  Remember to add
-   * one for the terminating NUL.
-   */
-  length = strlen (string);
-  required = filter->buffer_length + length + 1;
-
-  /* If this is more than the current buffer allocation, resize it. */
-  if (required > filter->buffer_allocation)
-    {
-      scr_int new_allocation;
-
-      /* Calculate the new malloc size, in increment chunks. */
-      new_allocation = ((required + BUFFER_GROW_INCREMENT - 1)
-                        / BUFFER_GROW_INCREMENT) * BUFFER_GROW_INCREMENT;
-
-      /* Grow the buffer. */
-      filter->buffer = (decltype(filter->buffer)) scr_realloc (filter->buffer, new_allocation);
-      filter->buffer_allocation = new_allocation;
-    }
-
-  /* If empty, put a NUL into the buffer to permit strcat. */
-  if (filter->buffer_length == 0)
-    filter->buffer[0] = NUL;
-
-  /* Append the string to the buffer and extend length. */
-  strncat (filter->buffer, string, length);
-  filter->buffer_length += length;
+  /* std::string handles growth (amortized) and termination for us. */
+  filter->buffer.append (string);
 }
 
 
@@ -918,23 +883,20 @@ pf_checkpoint (scr_filterref_t filter,
   assert (vars && bundle);
 
   /* See if there is any buffered data to filter. */
-  if (filter->buffer_length > 0)
+  if (!filter->buffer.empty ())
     {
       /*
        * Filter the buffered string, and place the filtered result, if any,
-       * back into the filter buffer.  We do this by setting the buffer length
-       * back to zero, then appending the filtered string; this keeps the
-       * grown buffer intact.
+       * back into the filter buffer.
        */
       if (filter->needs_filtering)
         {
           scr_char *filtered;
 
-          filtered = pf_filter_internal (filter->buffer, vars, bundle);
+          filtered = pf_filter_internal (filter->buffer.c_str (), vars, bundle);
           if (filtered)
             {
-              filter->buffer_length = 0;
-              pf_append_string (filter, filtered);
+              filter->buffer.assign (filtered);
               scr_free (filtered);
             }
         }
@@ -961,15 +923,9 @@ pf_get_buffer (scr_filterref_t filter)
 {
   assert (pf_is_valid (filter));
 
-  /*
-   * Return buffer if filter length is greater than zero.  Note that this
-   * assumes that the buffer is a nul-terminated string.
-   */
-  if (filter->buffer_length > 0)
-    {
-      assert (filter->buffer[filter->buffer_length] == NUL);
-      return filter->buffer;
-    }
+  /* Return the buffer if it holds any text, otherwise NULL. */
+  if (!filter->buffer.empty ())
+    return filter->buffer.c_str ();
   else
     return NULL;
 }
@@ -980,22 +936,18 @@ pf_transfer_buffer (scr_filterref_t filter)
   assert (pf_is_valid (filter));
 
   /*
-   * If the filter length is greater than zero, pass out the buffer (a nul-
-   * terminated string) and zero our length, allocation, and set the buffer
-   * back to NULL; an empty in all except the free-ing.
+   * If the filter holds text, hand the caller a freshly allocated copy (which
+   * they scr_free) and reset the filter to an empty state.
    */
-  if (filter->buffer_length > 0)
+  if (!filter->buffer.empty ())
     {
       scr_char *retval;
 
-      /* Set the return value to be the buffered text. */
-      assert (filter->buffer[filter->buffer_length] == NUL);
-      retval = filter->buffer;
+      /* Copy out the buffered text for the caller to own. */
+      retval = pf_strdup (filter->buffer);
 
       /* Clear all filter fields down to empty values. */
-      filter->buffer_length = 0;
-      filter->buffer_allocation = 0;
-      filter->buffer = NULL;
+      filter->buffer.clear ();
       filter->new_sentence = FALSE;
       filter->is_muted = FALSE;
       filter->needs_filtering = FALSE;
@@ -1019,10 +971,7 @@ pf_empty (scr_filterref_t filter)
   assert (pf_is_valid (filter));
 
   /* Free any allocation, and return the filter to initialization state. */
-  filter->buffer_length = 0;
-  filter->buffer_allocation = 0;
-  scr_free (filter->buffer);
-  filter->buffer = NULL;
+  filter->buffer.clear ();
   filter->new_sentence = FALSE;
   filter->is_muted = FALSE;
   filter->needs_filtering = FALSE;
@@ -1045,14 +994,14 @@ pf_buffer_string (scr_filterref_t filter, const scr_char *string)
   /* Ignore the call if the printfilter is muted. */
   if (!filter->is_muted)
     {
-      scr_int noted;
+      size_t noted;
 
       /* Note append start, then append the string to the buffer. */
-      noted = filter->buffer_length;
+      noted = filter->buffer.size ();
       pf_append_string (filter, string);
 
       /* Adjust the first character of the appended string if flagged. */
-      if (filter->new_sentence)
+      if (filter->new_sentence && noted < filter->buffer.size ())
         filter->buffer[noted] = scr_toupper (filter->buffer[noted]);
 
       /* Clear new sentence, and note as currently needing filtering. */
@@ -1147,18 +1096,13 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
   /* Ignore the call if the printfilter is muted. */
   if (!filter->is_muted)
     {
-      if (filter->buffer_length > 0)
+      if (!filter->buffer.empty ())
         {
           /* Take a copy of the current buffered string. */
-          assert (filter->buffer[filter->buffer_length] == NUL);
-          std::string copy (filter->buffer, filter->buffer_length);
+          std::string copy = filter->buffer;
 
-          /*
-           * Now restart buffering with the input string passed in.  Removing
-           * the current content by zeroing the length preserves the grown
-           * allocation of the main buffer.
-           */
-          filter->buffer_length = 0;
+          /* Now restart buffering with the input string passed in. */
+          filter->buffer.clear ();
           pf_append_string (filter, string);
 
           /* Append the string saved above; the copy frees itself. */

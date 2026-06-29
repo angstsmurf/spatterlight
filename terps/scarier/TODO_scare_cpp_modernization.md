@@ -206,19 +206,31 @@ drops.
   reallocation); still takes `const char*` and returns `char*` via `pf_strdup`,
   so callers are untouched. The match branch is genuinely exercised by the corpus
   (secret_of_lost_world 32×, circus 16×, cybercow_win 4×, les_feux 3×,
-  melbourne_beach 2×, inverness 1× — all byte-identical). **Still raw (deferred —
-  cross-function ownership / transfer contracts):** the `scr_filter_t::buffer`
-  growth accumulator (explicit ownership transfer via `pf_transfer_buffer`) and
-  the `pf_interpolate_vars`/`pf_replace_alrs`/`pf_filter_internal`/`pf_filter`
-  return-`char*`-caller-frees chain (incl. `current`/`intermediate`).
-  Validation: `make -f
+  melbourne_beach 2×, inverness 1× — all byte-identical). **`scr_filter_t::buffer`
+  accumulator done** (fourth commit): the filter's grow-by-`scr_realloc` char*
+  accumulator (with `buffer_length`/`buffer_allocation`/`BUFFER_GROW_INCREMENT`
+  chunked growth and `strncat`) is now a `std::string`. The struct is fully
+  opaque (only a forward-declared `scr_filter_s *` escapes via `scprotos.h`; no
+  other TU touches `->buffer`), so it is now `new`/`delete`d (was `scr_malloc` +
+  `memset(0xaa)` poison — incompatible with a `std::string` member). `pf_append`
+  → `.append`, `pf_get_buffer` → `.c_str()`, `pf_empty`/flush/checkpoint →
+  `.clear()`/`.assign()`. `pf_transfer_buffer` now hands the caller a `pf_strdup`
+  copy (the one caller, `sctasks.cpp:1417`, already `scr_free`s it — semantics
+  unchanged, loses only the zero-copy pointer steal on a single turn's text).
+  **Still raw (deferred — cross-function ownership / transfer contract):** the
+  `pf_interpolate_vars`/`pf_replace_alrs`/`pf_filter_internal`/`pf_filter`
+  return-`char*`-caller-frees chain (incl. `current`/`intermediate`); converting
+  it ripples into `scrunner`/`sclibrar`/`scdebug` callers.  Validation: `make -f
   Makefile.headless test` green; **byte-identical across the deterministic v4
   corpus** — a determinism-filtered diff (run the baseline binary twice, compare
-  the new binary only where the baseline is stable) gives **46 MATCH / 0 DIFFER /
-  1 NONDET** (Shadowpeak is nondeterministic in the *baseline* `os_ansi` player
-  too, so it can't be byte-validated this way — not a regression). Harness:
-  standalone `os_ansi` player, `SCR_STABLE_RANDOM_ENABLED`. ASan/UBSan clean on
-  ALR-heavy games (light_up, X-Files, Screen Savers, Alexis). NB: LeakSanitizer
+  the new binary only where the baseline is stable) gives **up to 47 MATCH / 0
+  DIFFER / 0–1 NONDET** across the 47 walkthrough scripts (Shadowpeak is
+  *time-dependent* in the `os_ansi` player — it can flip to NONDET in the
+  baseline binary too, so it can't always be byte-validated this way; never a
+  regression). Harness: standalone `os_ansi` player, `SCR_STABLE_RANDOM_ENABLED`.
+  ASan/UBSan clean across heavy + ALR/synonym/task-heavy games (light_up,
+  X-Files, Screen Savers, Alexis, secret_of_lost_world, circus, space_boy,
+  sun_empire). NB: LeakSanitizer
   is unavailable on macOS/arm64, so the "leak ledger" can't be measured here —
   but the change only removes manual `malloc`/`free`, so the leak surface can
   only shrink. **Reusable validation harness:** build a standalone player with
