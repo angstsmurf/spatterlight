@@ -132,10 +132,34 @@ returns an error rather than aborting; existing golden transcripts unchanged;
 ASan/UBSan clean (watch for leaks newly *reachable* on the throw path — expected,
 note them, fix in P3).
 
-- [ ] `scr_error` exception type; `scr_fatal` throws.
-- [ ] `try`/`catch` boundary in `scinterf.cpp` public entries.
-- [ ] Migrate `scexpr.cpp` `longjmp` → the same exception; drop `setjmp.h`.
-- [ ] Corrupt-game regression (no abort, clean error return).
+- [x] `scr_fatal_error` exception type (`scprotos.h`, guarded `#ifdef
+  __cplusplus`); `scr_fatal` formats the message once to stderr and `throw`s it
+  instead of `abort()`-ing. Signature unchanged, still `__noreturn__`-compatible.
+- [x] `try`/`catch` boundary on every active `scinterf.cpp` public entry
+  (`scr_game_from_{filename,stream,callback}`, `scr_interpret_game`,
+  `scr_restart_game`, `scr_{save,load}_game`, `scr_undo_game_turn`, and the six
+  `scr_{save,load}_game_{to,from}_*` variants) via the `if_report_fatal`
+  helper — each returns the existing clean failure (NULL / FALSE / no-op). The
+  read-only getters are left unwrapped (low risk; an uncaught fatal there still
+  only terminates the process as before, never worse). The normal-quit /
+  successful-restore `longjmp(game->quitter)` flows pass through the new
+  try-blocks, but those blocks hold no non-trivial-destructor locals, so the
+  longjmp stays well-defined.
+- [~] **Declined:** migrate `scexpr.cpp` `longjmp` → exception. These are **not**
+  the fatal/abort mechanism — `expr_evaluate_expression`'s
+  `setjmp(expr_parse_error)` is *local recovery*: on a bad expression it cleans
+  up the tokenizer, garbage-collects, returns FALSE, and **the game continues**.
+  The same is true of the parser / serial / restr / taf `setjmp`s. Converting
+  them to the top-level `scr_fatal_error` would change behavior (tear the game
+  down instead of recovering) and skip their local cleanup. They are a correct,
+  self-contained idiom and stay as-is; `setjmp.h` remains needed.
+- [x] Corrupt-game regression: `test/corrupt_test.cpp` (wired into
+  `make -f Makefile.headless test`). Asserts `scr_fatal` throws and carries its
+  message; that empty / garbage / bad-header inputs return NULL without
+  aborting; and — the real integration check — that a `scr_fatal` raised deep
+  inside the `run_create` parse call stack is caught at the boundary and
+  reported as NULL (where the host previously `abort()`ed). ASan/UBSan clean
+  (throw-path leaks are expected and deferred to P3).
 
 ---
 

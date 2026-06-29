@@ -1,6 +1,7 @@
 battle_test_hl
 precedence_test_hl
 badparent_test_hl
+corrupt_test_hl
 a5dump
 a5model_dump
 a5parse_test

@@ -389,6 +389,10 @@ if_file_write_callback (void *opaque, const scr_byte *buffer, scr_int length)
  * Called by the OS-specific layer to create a run context.  The _filename()
  * and _stream() variants are adapters for run_create().
  */
+/* Defined below; logs a fatal engine error caught at the host boundary. */
+static void if_report_fatal (const scr_char *function_name,
+                             const scr_fatal_error &error);
+
 scr_game
 scr_game_from_filename (const scr_char *filename)
 {
@@ -409,7 +413,15 @@ scr_game_from_filename (const scr_char *filename)
       return NULL;
     }
 
-  game = run_create (if_file_read_callback, stream);
+  game = NULL;
+  try
+    {
+      game = run_create (if_file_read_callback, stream);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_game_from_filename", error);
+    }
   fclose (stream);
 
   return game;
@@ -425,7 +437,15 @@ scr_game_from_stream (FILE *stream)
       return NULL;
     }
 
-  return run_create (if_file_read_callback, stream);
+  try
+    {
+      return run_create (if_file_read_callback, stream);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_game_from_stream", error);
+      return NULL;
+    }
 }
 
 scr_game
@@ -439,7 +459,15 @@ scr_game_from_callback (scr_int (*callback) (void *, scr_byte *, scr_int),
       return NULL;
     }
 
-  return run_create (callback, opaque);
+  try
+    {
+      return run_create (callback, opaque);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_game_from_callback", error);
+      return NULL;
+    }
 }
 
 
@@ -468,6 +496,23 @@ if_game_error (scr_gameref_t game, const scr_char *function_name)
 
 
 /*
+ * if_report_fatal()
+ *
+ * Log a fatal engine error caught at the host boundary.  scr_fatal() now throws
+ * scr_fatal_error instead of abort()-ing, so the public entry points below
+ * catch it and return a clean failure (NULL / FALSE / no-op) rather than
+ * crashing the host application on a corrupt or pathological game.  The engine
+ * leaks its raw-malloc'd state on this path (it is not exception-safe -- see the
+ * RAII phase, P3), but the whole game session is being torn down here anyway.
+ */
+static void
+if_report_fatal (const scr_char *function_name, const scr_fatal_error &error)
+{
+  scr_error ("%s: fatal: %s", function_name, error.message.c_str ());
+}
+
+
+/*
  * scr_interpret_game()
  * scr_restart_game()
  * scr_save_game()
@@ -491,7 +536,14 @@ scr_interpret_game (scr_game game)
   if (if_game_error (game_, "scr_interpret_game"))
     return;
 
-  run_interpret (game_);
+  try
+    {
+      run_interpret (game_);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_interpret_game", error);
+    }
 }
 
 void
@@ -502,7 +554,14 @@ scr_restart_game (scr_game game)
   if (if_game_error (game_, "scr_restart_game"))
     return;
 
-  run_restart (game_);
+  try
+    {
+      run_restart (game_);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_restart_game", error);
+    }
 }
 
 scr_bool
@@ -513,7 +572,15 @@ scr_save_game (scr_game game)
   if (if_game_error (game_, "scr_save_game"))
     return FALSE;
 
-  return run_save_prompted (game_);
+  try
+    {
+      return run_save_prompted (game_);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_save_game", error);
+      return FALSE;
+    }
 }
 
 scr_bool
@@ -524,7 +591,15 @@ scr_load_game (scr_game game)
   if (if_game_error (game_, "scr_load_game"))
     return FALSE;
 
-  return run_restore_prompted (game_);
+  try
+    {
+      return run_restore_prompted (game_);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_load_game", error);
+      return FALSE;
+    }
 }
 
 scr_bool
@@ -535,7 +610,15 @@ scr_undo_game_turn (scr_game game)
   if (if_game_error (game_, "scr_undo_game_turn"))
     return FALSE;
 
-  return run_undo (game_);
+  try
+    {
+      return run_undo (game_);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_undo_game_turn", error);
+      return FALSE;
+    }
 }
 
 void
@@ -586,10 +669,19 @@ scr_save_game_to_filename (scr_game game, const scr_char *filename)
       return FALSE;
     }
 
-  run_save (game_, if_file_write_callback, stream);
+  scr_bool status = TRUE;
+  try
+    {
+      run_save (game_, if_file_write_callback, stream);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_save_game_to_filename", error);
+      status = FALSE;
+    }
   fclose (stream);
 
-  return TRUE;
+  return status;
 }
 
 void
@@ -606,7 +698,14 @@ scr_save_game_to_stream (scr_game game, FILE *stream)
       return;
     }
 
-  run_save (game_, if_file_write_callback, stream);
+  try
+    {
+      run_save (game_, if_file_write_callback, stream);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_save_game_to_stream", error);
+    }
 }
 
 void
@@ -625,7 +724,14 @@ scr_save_game_to_callback (scr_game game,
       return;
     }
 
-  run_save (game_, callback, opaque);
+  try
+    {
+      run_save (game_, callback, opaque);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_save_game_to_callback", error);
+    }
 }
 
 scr_bool
@@ -651,7 +757,15 @@ scr_load_game_from_filename (scr_game game, const scr_char *filename)
       return FALSE;
     }
 
-  status = run_restore (game_, if_file_read_callback, stream);
+  status = FALSE;
+  try
+    {
+      status = run_restore (game_, if_file_read_callback, stream);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_load_game_from_filename", error);
+    }
   fclose (stream);
 
   return status;
@@ -671,7 +785,15 @@ scr_load_game_from_stream (scr_game game, FILE *stream)
       return FALSE;
     }
 
-  return run_restore (game_, if_file_read_callback, stream);
+  try
+    {
+      return run_restore (game_, if_file_read_callback, stream);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_load_game_from_stream", error);
+      return FALSE;
+    }
 }
 
 scr_bool
@@ -690,7 +812,15 @@ scr_load_game_from_callback (scr_game game,
       return FALSE;
     }
 
-  return run_restore (game_, callback, opaque);
+  try
+    {
+      return run_restore (game_, callback, opaque);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_load_game_from_callback", error);
+      return FALSE;
+    }
 }
 
 

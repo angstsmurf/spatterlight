@@ -45,6 +45,12 @@ BADP_HARNESS := test/badparent_test.cpp
 BADP_TAF     := test/badparent_test.taf
 BADP_BIN     := test/badparent_test_hl
 
+# The corrupt-game harness (P2) links SRC alone with its own minimal os-layer
+# port and needs no game data -- it drives the public boundary with corrupt byte
+# buffers and an in-stack scr_fatal to prove no abort() reaches the host.
+CORRUPT_HARNESS := test/corrupt_test.cpp
+CORRUPT_BIN     := test/corrupt_test_hl
+
 # ADRIFT 5 (Phases 0-1): container + de-obfuscation + zlib inflate -> XML, then
 # an in-situ XML DOM parser -> typed object model.  Self-contained at the
 # "container edge" -- links no interpreter sources.
@@ -88,10 +94,11 @@ A5SAVE_BIN      := test/a5_save_test
 A5_GAMES_DIR ?= test/adrift5-games
 A5_BULLETS ?= $(A5_GAMES_DIR)/Six Silver Bullets (v 1.0).blorb
 
-test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN)
+test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BIN) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN)
 	./$(BIN) $(TAF)
 	./$(PREC_BIN) $(PREC_TAF)
 	./$(BADP_BIN) $(BADP_TAF)
+	./$(CORRUPT_BIN)
 	./$(A5PARSE_BIN)
 	./$(A5ARITH_BIN)
 	./$(A5DIS_BIN)
@@ -124,6 +131,9 @@ $(PREC_BIN): $(SRC) $(PREC_HARNESS)
 
 $(BADP_BIN): $(SRC) $(BADP_HARNESS)
 	$(CXX) $(CXXFLAGS) $(SRC) $(BADP_HARNESS) $(LDLIBS) -o $@
+
+$(CORRUPT_BIN): $(SRC) $(CORRUPT_HARNESS)
+	$(CXX) $(CXXFLAGS) $(SRC) $(CORRUPT_HARNESS) $(LDLIBS) -o $@
 
 # Build the ADRIFT 5 XML dumper.  Run it by hand on a game:
 #   make -f Makefile.headless a5dump
@@ -215,4 +225,4 @@ $(BADP_TAF): test/make_badparent_taf.py
 	python3 test/make_badparent_taf.py $(BADP_TAF)
 
 clean:
-	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5_RAND_OBJ)
+	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5_RAND_OBJ)

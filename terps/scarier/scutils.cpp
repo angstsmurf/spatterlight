@@ -81,14 +81,24 @@ void
 scr_fatal (const scr_char *format, ...)
 {
   va_list ap;
+  scr_char message[1024];
   assert (format);
 
-  fprintf (stderr, "scarier: internal error: ");
+  /* Format the message once, both for stderr diagnostics and the exception. */
   va_start (ap, format);
-  vfprintf (stderr, format, ap);
+  vsnprintf (message, sizeof (message), format, ap);
   va_end (ap);
-  fprintf (stderr, "scarier: aborting...\n");
-  abort ();
+
+  fprintf (stderr, "scarier: internal error: %s", message);
+
+  /*
+   * Throw rather than abort().  The public entry points in scinterf.cpp catch
+   * this at the host boundary and return a clean failure, so a corrupt or
+   * pathological game no longer takes down the whole application.  If thrown
+   * from an unwrapped path it still terminates the process (as abort() did),
+   * so this is strictly more robust, never less.
+   */
+  throw scr_fatal_error (message);
 }
 
 
