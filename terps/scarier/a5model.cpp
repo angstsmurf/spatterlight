@@ -240,6 +240,10 @@ a5_load_tasks (a5_adventure_t *a)
         t->continue_lower = (cont != NULL && strcmp (cont, "ContinueAlways") == 0);
         const char *lp = a5xml_child_text (c, "LowPriority");
         t->low_priority = a5xml_bool (lp);
+        /* clsTask.AggregateOutput defaults True; FileIO only overrides it when
+           an <Aggregate> element is present (FileIO.vb:1605). */
+        const char *agg = a5xml_child_text (c, "Aggregate");
+        t->aggregate = (agg == NULL) ? 1 : a5xml_bool (agg);
       }
       t->restrictions = a5xml_child (c, "Restrictions");
       t->actions = a5xml_child (c, "Actions");

@@ -27,6 +27,7 @@
 #include "a5rand.h"
 #include "a5restr.h"
 #include "a5run.h"
+#include "a5sexpr.h"
 #include "a5text.h"
 
 int a5run_trace = 0;
@@ -199,6 +200,9 @@ a5run_new (const a5_adventure_t *adv)
      v5 path is wired into Spatterlight this should honour the determinism /
      native-seed toggle, as scutils.cpp does for the v4 engine. */
   a5rand_seed (1234u);
+  /* Let embedded <#...#> expressions (OneOf/Either/Rand) draw from the same RNG
+     stream as the rest of the engine -- a5sexpr is otherwise RNG-less. */
+  a5sexpr_rng_hook = a5rand_between;
   /* Install the game's localized direction synonyms (the localization
      subsystem); English when the <Direction*> fields are absent.  Resets the
      parser's direction table, so every game starts from a known state. */
@@ -1364,6 +1368,7 @@ static void run_action (a5_run_t *run, const char *kind, const char *body,
                         int depth, sb_t *out);
 static void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
 static void emit_look (a5_run_t *run, sb_t *out);
+static void emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out);
 
 /* Conversation type bits (clsAction.ConversationEnum). */
 enum { A5_CONV_GREET = 1, A5_CONV_ASK = 2, A5_CONV_TELL = 4,
@@ -1646,6 +1651,20 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
           break;
       }
 
+  /* FrankenDrift defers an AggregateOutput task's completion-message function
+     replacement to final Display (clsUserSession.vb:1184/1210 replace eagerly
+     only when NOT AggregateOutput).  So an aggregate parent's text reflects
+     state changed by its AfterTextAndActions / AfterActionsOnly children, which
+     run before Display.  Mirror that: when an aggregate parent with no actions
+     of its own has After-children, run the children first, then render the
+     parent text -- keeping the parent text ahead of the children's output.
+     Stone of Wisdom's `x window` needs this: ExamineAnO (AfterTextAndActions)
+     increments Windowcoun, and ExamineObjects' %object%.Description segments are
+     gated on it, so the "movement"/"creatures" lines must reflect the post-
+     increment count on the same turn FD shows them. */
+  int defer_text = parent_text && parent->aggregate
+                   && parent->actions == NULL && !after.empty ();
+
   if (parent_text || parent_actions)
     {
       /* run_task emits both text and actions; gate via temporary copies. */
@@ -1656,18 +1675,39 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
             for (const a5_xml_node_t *c = act->first_child; c; c = c->next)
               run_action (run, c->name, c->text, 0, out);
         }
-      else if (parent_text)
+      else if (parent_text && !defer_text)
         run_task (run, parent, 0, out);
     }
 
-  for (auto *child : after)
-    if (a5restr_pass (st, child->restrictions))
-      {
-        run_task (run, child, 0, out);
-        int ai = a5state_task_index (st, child->key);
-        if (ai >= 0) st->task_done[ai] = 1;   /* task.Completed = True */
-        ev_on_task_completed (run, child->key, out);   /* fire its controls too */
-      }
+  if (defer_text)
+    {
+      /* Children run into a side buffer so the parent text can be spliced ahead
+         of them once their actions have updated state. */
+      sb_t after_buf; sb_init (&after_buf);
+      for (auto *child : after)
+        if (a5restr_pass (st, child->restrictions))
+          {
+            run_task (run, child, 0, &after_buf);
+            int ai = a5state_task_index (st, child->key);
+            if (ai >= 0) st->task_done[ai] = 1;
+            ev_on_task_completed (run, child->key, &after_buf);
+          }
+      int self_ti = a5state_task_index (st, parent->key);
+      if (self_ti >= 0) st->task_done[self_ti] = 1;
+      const a5_xml_node_t *comp = a5xml_child (parent->node, "CompletionMessage");
+      if (comp != NULL) emit_completion (run, comp, out);
+      if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
+      free (after_buf.p);
+    }
+  else
+    for (auto *child : after)
+      if (a5restr_pass (st, child->restrictions))
+        {
+          run_task (run, child, 0, out);
+          int ai = a5state_task_index (st, child->key);
+          if (ai >= 0) st->task_done[ai] = 1;   /* task.Completed = True */
+          ev_on_task_completed (run, child->key, out);   /* fire its controls too */
+        }
 }
 
 /* Run a matched General task (the directly command-matched parent), honouring

@@ -155,6 +155,12 @@ typedef struct a5_task_s {
                                        higher-priority failing-with-output task
                                        (or a continuation floor) has been seen
                                        (GetGeneralTask iPriorityFail filter)   */
+  int aggregate;                    /* clsTask.AggregateOutput: FD defers an
+                                       aggregate task's completion-message
+                                       function replacement to final Display, so
+                                       its text reflects state changed by its
+                                       After* override children.  Default True;
+                                       False only on <Aggregate>0</Aggregate>.  */
   const a5_xml_node_t *restrictions; /* <Restrictions> node, or NULL         */
   const a5_xml_node_t *actions;      /* <Actions> node, or NULL              */
   const a5_xml_node_t *fail_override;/* <FailOverride> Description, or NULL:

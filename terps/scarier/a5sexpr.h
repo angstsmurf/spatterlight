@@ -25,7 +25,9 @@
  *   - comparisons = == <> != > < >= <=  (numeric or string; yield "1"/"0");
  *   - logic  AND OR  (also && ||);
  *   - functions  if min max abs upr lwr ppr len val str mid replace lft rgt ist
- *     (the deterministic subset; either/oneof/rand/urand are best-effort stubs).
+ *     either oneof rand urand  (the random ones draw via a5sexpr_rng_hook when
+ *     the host wires it up -- see below; otherwise they fall back to the
+ *     deterministic first operand / lower bound).
  *
  * This ports the token reducer of clsVariable.SetToExpression as a clean
  * recursive-descent evaluator that reproduces the same results for the
@@ -39,5 +41,13 @@
 
 /* Evaluate a fully-substituted `<#...#>` expression body to its string value. */
 char *a5_eval_sexpr (const char *expr);
+
+/* RNG hook for the random functions (either/oneof/rand/urand).  Must return an
+   integer in the inclusive range [lo, hi], mirroring frankendrift's
+   Global.Random(iMin, iMax).  The run harness sets this to a5rand_between so
+   shipped <# OneOf(...) #> text picks draw from the same xoshiro stream as
+   FrankenDrift; left NULL (a5text_dump, which links no RNG) the functions fall
+   back to the deterministic first operand / lower bound. */
+extern long (*a5sexpr_rng_hook) (long lo, long hi);
 
 #endif /* A5SEXPR_H */

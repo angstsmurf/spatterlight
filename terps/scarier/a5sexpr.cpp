@@ -19,6 +19,9 @@
 
 #include "a5sexpr.h"
 
+/* Wired to a5rand_between by the run harness; NULL in RNG-less builds. */
+long (*a5sexpr_rng_hook) (long lo, long hi) = NULL;
+
 namespace {
 
 /* --------------------------------------------------------------- values */
@@ -295,12 +298,26 @@ apply_function (const std::string &lid, std::vector<Val> &a)
       return mk_str ((size_t) k >= s.size () ? s : s.substr (s.size () - (size_t) k)); }
   if (f == "ist" && n >= 2)
     { size_t i = a[0].s.find (a[1].s); return mk_num (i == std::string::npos ? 0 : (double) (i + 1)); }
-  /* either/oneof/rand/urand: no shipped <#...#> uses these; pick the first
-     (deterministic) operand / lower bound rather than pulling in the RNG. */
-  if ((f == "either" || f == "oneof") && n >= 1)
-    return a[0];
+  /* either/oneof/rand/urand draw via the host RNG hook (a5rand_between, wired by
+     the run harness) so shipped <# OneOf(...) #> picks match frankendrift's --
+     e.g. Stone of Wisdom's troll-approach lines.  Without the hook (a5text_dump)
+     they fall back to the deterministic first operand / lower bound. */
+  if (f == "either" && n >= 2)
+    /* clsVariable.SetToExpression "either": Random(1)=1 -> left, else right. */
+    return (a5sexpr_rng_hook && a5sexpr_rng_hook (0, 1) == 1) ? a[0] : a[1];
+  if (f == "oneof" && n >= 1)
+    { long idx = a5sexpr_rng_hook ? a5sexpr_rng_hook (0, (long) n - 1) : 0;
+      if (idx < 0) idx = 0; if ((size_t) idx >= n) idx = (long) n - 1;
+      return a[idx]; }
+  if ((f == "rand" || f == "urand") && n >= 2)
+    /* rand(min,max) -> Random(min,max); urand uses NoRepeatRandom, approximated
+       here by the same inclusive draw (no shipped corpus text uses urand). */
+    return mk_num ((double) (a5sexpr_rng_hook
+                              ? a5sexpr_rng_hook ((long) val_of (a[0]),
+                                                  (long) val_of (a[1]))
+                              : (long) val_of (a[0])));
   if ((f == "rand" || f == "urand") && n >= 1)
-    return mk_num (n >= 2 ? val_of (a[0]) : 0.0);
+    return mk_num (val_of (a[0]));
 
   /* unknown / wrong arity: empty string */
   return mk_str ("");

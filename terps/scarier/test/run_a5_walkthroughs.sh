@@ -4,28 +4,38 @@
 #
 # Each test/<Game>_walkthrough.txt is paired with its game file below.  A game
 # is SKIPped when its (uncommittable) .blorb/.taf is absent.  For each present
-# game we run test/a5_groundtruth.sh and count the diff hunks:
+# game we run test/a5_groundtruth.sh in TWO RNG modes and count the diff hunks
+# in each, comparing against a per-mode baseline budget:
 #
-#   MATCH        0 hunks  -- Scarier transcript == FrankenDrift (after the
-#                            harness's whitespace normalisation).  A golden
-#                            test/<Game>_expected.txt is also strict-diffed if
-#                            present (fast, no dotnet).
-#   DIVERGES n   n hunks  -- compared against the recorded baseline in
-#                            test/A5_WALKTHROUGH_FINDINGS.md.  Most current
-#                            divergences are REAL Scarier conformance bugs the
-#                            walkthroughs surfaced; see that file for diagnoses.
+#   vanilla   FrankenDrift's stock System.Random (what the real ADRIFT Runner and
+#             upstream FD use).  Answers "does Scarier match a faithful FD running
+#             as shipped?"  RAND-selected text (combat rolls, OneOf picks, random
+#             teleports) can't line up here, so such games keep an RNG residual.
+#   xoshiro   FD patched (FD_RNG=xoshiro) to draw Scarier's xoshiro128** stream,
+#             so RAND text aligns and the diff becomes a full every-line check.
+#             A xoshiro count BELOW vanilla = that residual was pure RNG noise;
+#             a count EQUAL to vanilla = a real RNG-independent logic bug.
 #
-# Exit status: non-zero if any game's hunk count EXCEEDS its baseline budget
-# (a regression) or a golden strict-diff fails.  Improvements (below baseline)
-# are reported but do not fail -- re-bless the baseline when you see them.
+# Tracking both is the point: it separates real divergences (same in both columns)
+# from RNG-stream noise (xoshiro lower), and a draw-order regression shows up as
+# the xoshiro number rising even when vanilla stays flat.  A golden
+# test/<Game>_expected.txt is strict-diffed for the vanilla column (fast, no
+# dotnet) when present.  STATUS combines the two modes:
+#
+#   MATCH      0 hunks in BOTH modes.
+#   DIVERGE    at baseline in both modes (recorded bug; see A5_WALKTHROUGH_FINDINGS.md).
+#   OKbetter   below baseline in some mode -- re-bless that column in the MAP.
+#   FAIL       exceeded a budget in either mode (regression), or golden mismatch.
+#
+# Exit status: non-zero iff any game regressed in either mode.
 #
 # Usage:
 #   test/run_a5_walkthroughs.sh [-v] [substring]
-#     -v          dump each diff to /tmp/a5wt/<Game>.diff
+#     -v          dump each diff to /tmp/a5wt/<Game>{,.xoshiro}.diff
 #     substring   only run scripts whose name contains <substring>
 #
 # Env: FD_ROOT (default ~/frankendrift), FD_SEED (default 1234) -- see
-#      a5_groundtruth.sh.
+#      a5_groundtruth.sh.  XOSHIRO=0 skips the (dotnet-heavy) xoshiro pass.
 
 set -u
 HERE=$(cd "$(dirname "$0")/.." && pwd)
@@ -283,67 +293,135 @@ FILTER="${1:-}"
 #    rain-timing RAND residual.  No rendering bug (verified: no pipe leaks, correct
 #    "a, b and c" lists).  Remaining JJ blockers: MoveCharacter ToLocationGroup +
 #    %DisplayLocation%/%LocationOf% functions (champagne), the Alan follower, rain RNG.
+# (2026-06-30) StoneOfWisdom 5->2: the two non-RNG residuals are gone.
+#  - Window-counter off-by-one (`x window`): ExamineObjects is AggregateOutput, so FD
+#    defers its %object%.Description function replacement to final Display -- AFTER the
+#    AfterTextAndActions child ExamineAnO increments Windowcoun.  Scarier rendered the
+#    parent text eagerly, before the child's action, so the "movement"/"creatures"
+#    segments lagged one turn.  Fixed in execute_task_with_overrides: an aggregate
+#    parent with no actions of its own and passing After-children now runs the children
+#    first, then renders the parent text (spliced ahead of the children's output).
+#  - <# OneOf(...) #> always returned the first operand (a5sexpr stub): SoW's troll
+#    "step forward" line is a 4-way OneOf.  Wired a5sexpr_rng_hook = a5rand_between and
+#    implemented oneof/either/rand/urand per FD's clsVariable.SetToExpression semantics
+#    (oneof index = Random(n-1)).  StoneOfWisdom is now a perfect MATCH (0) under
+#    FD_RNG=xoshiro; the vanilla residual 2 is only the troll OneOf drawing a different
+#    element from the unaligned System.Random stream (the documented RNG caveat).
+# Two budgets per game: VANILLA (FD's stock System.Random) | XOSHIRO (FD patched
+# to draw Scarier's xoshiro128** stream, FD_RNG=xoshiro -- RAND-selected text then
+# aligns, so the diff is a full every-line check).  Tracking both separates
+# RNG-independent logic bugs (same count in both columns) from RNG-stream noise
+# (xoshiro lower).  A xoshiro count BELOW vanilla means real RAND divergence
+# collapsed once the streams aligned -- the truer conformance number.
+#   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
-AchtungPanzer|AchtungPanzer.blorb|0
-anno1700|Anno1700.blorb|5
-AxeOfKolt|TheAxeOfKolt.blorb|12
-SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|17
-StarshipQuest|StarshipQuest.blorb|0
-MagneticMoon|MagneticMoon.blorb|6
-RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|5
-DieFeuerfaust|DieFeuerfaust.blorb|6
-LostChildren|TheLostChildren.blorb|4
-RunBronwynnRun|RunBronwynnRun.blorb|9
-RtC|RtC.blorb|142
-TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|6
-StoneOfWisdom|StoneOfWisdom.blorb|5
-GrandpasRanch|Grandpa_ParserComp_V1.blorb|2
-JacarandaJim|JacarandaJim.blorb|271
+AchtungPanzer|AchtungPanzer.blorb|0|0
+anno1700|Anno1700.blorb|5|5
+AxeOfKolt|TheAxeOfKolt.blorb|12|12
+SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|17|17
+StarshipQuest|StarshipQuest.blorb|0|0
+MagneticMoon|MagneticMoon.blorb|6|6
+RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|5|5
+DieFeuerfaust|DieFeuerfaust.blorb|6|6
+LostChildren|TheLostChildren.blorb|4|4
+RunBronwynnRun|RunBronwynnRun.blorb|9|9
+RtC|RtC.blorb|142|142
+TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|6|6
+StoneOfWisdom|StoneOfWisdom.blorb|2|0
+GrandpasRanch|Grandpa_ParserComp_V1.blorb|2|2
+JacarandaJim|JacarandaJim.blorb|271|256
 EOF
 )
 
-pass=0; fail=0; skip=0; match=0; improved=0
-printf "%-26s %-8s %-8s %s\n" "GAME" "STATUS" "HUNKS" "(budget)"
-printf "%-26s %-8s %-8s %s\n" "----" "------" "-----" "--------"
+# Set XOSHIRO=0 to skip the (dotnet-heavy) xoshiro pass and check vanilla only.
+RUN_XOSHIRO="${XOSHIRO:-1}"
 
-echo "$MAP" | while IFS='|' read -r name game budget; do
+# Hunk count for one (game, script) under a given RNG mode.  $3="" = vanilla,
+# $3="xoshiro" = aligned stream.  Diff hunk headers look like 12c12 / 5a6 / 10,14d9.
+count_hunks() {  # $1=gamefile $2=script $3=rngmode
+    FD_RNG="$3" "$GT" "$1" "$2" 2>/dev/null \
+        | grep -cE '^[0-9]+(,[0-9]+)?[acd][0-9]+'
+}
+
+# Per-mode verdict vs budget, echoed as "<count> <tag>" where tag is one of
+# ok/better/REGRESSION (or a bare count when that mode is skipped).
+verdict() {  # $1=count $2=budget
+    if   [ "$1" -gt "$2" ]; then echo "$1 REGRESSION"
+    elif [ "$1" -lt "$2" ]; then echo "$1 better"
+    else                         echo "$1 ok"
+    fi
+}
+
+REGFILE=$(mktemp)
+trap 'rm -f "$REGFILE"' EXIT
+
+printf "%-24s %-9s %-12s %-12s\n" "GAME" "STATUS" "vanilla" "xoshiro"
+printf "%-24s %-9s %-12s %-12s\n" "----" "------" "-------" "-------"
+
+echo "$MAP" | while IFS='|' read -r name game vbudget xbudget; do
     [ -z "$name" ] && continue
     case "$name" in *"$FILTER"*) : ;; *) continue ;; esac
     script="$HERE/test/${name}_walkthrough.txt"
     gf="$GAMES/$game"
-    [ -f "$script" ] || { printf "%-26s %-8s\n" "$name" "NOSCRIPT"; continue; }
+    [ -f "$script" ] || { printf "%-24s %-9s\n" "$name" "NOSCRIPT"; continue; }
     if [ ! -f "$gf" ]; then
-        printf "%-26s %-8s (game file absent: %s)\n" "$name" "SKIP" "$game"
+        printf "%-24s %-9s (game file absent: %s)\n" "$name" "SKIP" "$game"
         continue
     fi
 
-    # Fast strict path when a golden exists.
+    # --- vanilla -------------------------------------------------------------
+    # Fast strict golden diff when a golden exists (vanilla transcript, no dotnet).
     golden="$HERE/test/${name}_expected.txt"
     if [ -f "$golden" ] && [ -x "$A5RUN" ]; then
         got=$("$A5RUN" "$gf" "$script" 2>/dev/null | sed 's/[[:space:]]*$//' | cat -s)
-        if printf '%s\n' "$got" | diff -q "$golden" - >/dev/null 2>&1; then
-            printf "%-26s %-8s %-8s (golden)\n" "$name" "PASS" "0"
-        else
-            printf "%-26s %-8s %-8s (golden MISMATCH)\n" "$name" "FAIL" "?"
-        fi
-        continue
+        if printf '%s\n' "$got" | diff -q "$golden" - >/dev/null 2>&1; then hv=0; else hv=999; fi
+    else
+        vout=$("$GT" "$gf" "$script" 2>/dev/null)
+        [ "$VERBOSE" = 1 ] && printf '%s\n' "$vout" > "/tmp/a5wt/${name}.diff"
+        hv=$(printf '%s\n' "$vout" | grep -cE '^[0-9]+(,[0-9]+)?[acd][0-9]+')
+    fi
+    vv=$(verdict "$hv" "$vbudget"); vtag=${vv#* }
+    vcell="$hv (=$vbudget)"
+    [ "$vtag" = better ] && vcell="$hv (<$vbudget rebless)"
+    [ "$vtag" = REGRESSION ] && vcell="$hv (>$vbudget FAIL)"
+    [ "$hv" = 999 ] && vcell="golden MISMATCH"
+
+    # --- xoshiro -------------------------------------------------------------
+    if [ "$RUN_XOSHIRO" = 1 ]; then
+        xout=$(FD_RNG=xoshiro "$GT" "$gf" "$script" 2>/dev/null)
+        [ "$VERBOSE" = 1 ] && printf '%s\n' "$xout" > "/tmp/a5wt/${name}.xoshiro.diff"
+        hx=$(printf '%s\n' "$xout" | grep -cE '^[0-9]+(,[0-9]+)?[acd][0-9]+')
+        xv=$(verdict "$hx" "$xbudget"); xtag=${xv#* }
+        xcell="$hx (=$xbudget)"
+        [ "$xtag" = better ] && xcell="$hx (<$xbudget rebless)"
+        [ "$xtag" = REGRESSION ] && xcell="$hx (>$xbudget FAIL)"
+    else
+        hx=$xbudget; xtag=ok; xcell="(skipped)"
     fi
 
-    out=$("$GT" "$gf" "$script" 2>/dev/null)
-    [ "$VERBOSE" = 1 ] && printf '%s\n' "$out" > "/tmp/a5wt/${name}.diff"
-    # plain `diff` hunk headers look like 12c12 / 5a6 / 10,14d9
-    hunks=$(printf '%s\n' "$out" | grep -cE '^[0-9]+(,[0-9]+)?[acd][0-9]+')
-    if [ "$hunks" -eq 0 ]; then
-        printf "%-26s %-8s %-8s\n" "$name" "MATCH" "$hunks"
-    elif [ "$hunks" -gt "$budget" ]; then
-        printf "%-26s %-8s %-8s (>%s REGRESSION)\n" "$name" "FAIL" "$hunks" "$budget"
-    elif [ "$hunks" -lt "$budget" ]; then
-        printf "%-26s %-8s %-8s (<%s improved-rebless)\n" "$name" "OKbetter" "$hunks" "$budget"
+    # --- combined status -----------------------------------------------------
+    if [ "$vtag" = REGRESSION ] || [ "$xtag" = REGRESSION ]; then
+        status=FAIL; echo "$name" >> "$REGFILE"
+    elif [ "$vtag" = better ] || [ "$xtag" = better ]; then
+        status=OKbetter
+    elif [ "$hv" = 0 ] && [ "$hx" = 0 ]; then
+        status=MATCH
     else
-        printf "%-26s %-8s %-8s (=%s known)\n" "$name" "DIVERGE" "$hunks" "$budget"
+        status=DIVERGE
     fi
+    printf "%-24s %-9s %-12s %-12s\n" "$name" "$status" "$vcell" "$xcell"
 done
 
 echo
-echo "MATCH = conformant; DIVERGE = known bug at baseline (see"
-echo "test/A5_WALKTHROUGH_FINDINGS.md); FAIL = exceeded budget (regression)."
+echo "MATCH = 0 in both modes; DIVERGE = at baseline (see"
+echo "test/A5_WALKTHROUGH_FINDINGS.md); OKbetter = below baseline in some mode"
+echo "(re-bless the MAP); FAIL = exceeded a budget (regression).  vanilla = FD's"
+echo "stock System.Random; xoshiro = FD_RNG=xoshiro aligned stream (XOSHIRO=0 skips)."
+
+# Non-zero exit if any game regressed in either mode (the documented contract).
+if [ -s "$REGFILE" ]; then
+    echo
+    echo "REGRESSIONS: $(tr '\n' ' ' < "$REGFILE")"
+    exit 1
+fi
+exit 0
