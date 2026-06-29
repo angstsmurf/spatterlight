@@ -267,64 +267,46 @@ drops.
   heap alloc on a hot path or change the caller-buffer return contract). These
   are correct as-is and stay. Validation: same harness, byte-identical corpus,
   ASan/UBSan clean.
-- [~] `scrunner.cpp` / `sctasks.cpp` — **BLOCKED on the `longjmp` quit mechanism;
-  deferred on purpose.** Unlike `scparser`'s *localized* parse setjmp, the runner
-  has `setjmp(game->quitter)` in `run_interpret` (scrunner.cpp:2066) and
-  `longjmp(game->quitter)` in `run_quit`/`run_restart`/`run_restore`/`run_undo`
-  (2170/2195/2267/2343). Those are invoked re-entrantly via the **scinterf public
-  API** (`scr_quit_game`/`scr_restart_game`/`scr_restore_game`/
-  `scr_undo_game_turn`) and `scdebug`, and the longjmp unwinds the *entire*
-  `run_main_loop` stack — skipping the destructors of any non-trivial local
-  (`std::string`/`std::vector`) currently live in the command/task/print/expr call
-  tree. So adding RAII anywhere reachable from `run_main_loop` would convert
-  today's *benign, defined* leak-on-longjmp into *undefined behaviour*. (The
-  `scr_fatal`→`throw` path from P2 is fine — exceptions *do* run destructors; only
-  the longjmp is the hazard.)
-  **Prerequisite to unblock:** convert `run_quit`/`run_restart`/`run_restore`/
-  `run_undo` from `longjmp(game->quitter)` to throwing a dedicated control-flow
-  exception caught where the `setjmp` is today (run_interpret's loop, 2063–2088),
-  i.e. finish the P2 idea for the *quit* mechanism too. Once the runner has no
-  `longjmp` over live frames, RAII across `scrunner`/`sctasks` becomes safe.
-  **CORRECTION (verified by code trace + a real app build, 2026-06-29):** an
-  earlier draft of this note claimed the longjmp prerequisite was *"unvalidatable
-  headless … only the glk host abort uses the longjmp … must be verified in real
-  Spatterlight against the glk window-close / host-quit flow."* **Both halves are
-  wrong:**
-  1. **It IS exercised headlessly** (empirically confirmed by an instrumented
-     corpus run). The `os_ansi` player's `os_read_line` calls `scr_quit_game(game)`
-     at stdin EOF (os_ansi.cpp:244, 253, 271, 285) → `run_quit` →
-     `longjmp(game->quitter)` (scinterf.cpp `scr_quit_game` → scrunner.cpp:2170),
-     which unwinds the live `run_main_loop` stack. This fires for any walkthrough
-     whose script ends **while the game is still running** — verified firing on
-     `alexis` and `to_hell_and_beyond`. (Walkthroughs that end in a win/death
-     first set `is_running=FALSE`, so the EOF `scr_quit_game` hits `run_quit`'s
-     `!is_running` early-return and does *not* longjmp — light_up, sun_empire,
-     secret_of_lost_world, gateway, colony showed 0. Likewise the in-game
-     `quit`/`restart` *typed commands* use the flag path — `lib_cmd_quit` sets
-     `is_running=FALSE` and returns, sclibrar.cpp:1403.) So a longjmp→exception
-     swap is covered by the determinism-checked corpus byte-diff + ASan/`sanitize`
-     today, and a tiny "stop the script mid-game" fixture pins it deterministically.
-  2. **Real Spatterlight never takes the longjmp at all.** Window-close / host-quit
-     arrives as glkimp `EVTQUIT` → `glk_exit()` → `exit(0)` (glkimp/connect.c:1119,
-     glkimp/misc.c:63): the process is terminated *inside* `glk_select`, the engine
-     stack is never unwound. The Glk `os_read_line` (os_glk.cpp:3214) never calls
-     `scr_quit_game`/`restart`/`restore`/`undo`, and neither does any other part of
-     `os_glk.cpp` — so the `longjmp(game->quitter)` mechanism is effectively **dead
-     code in the shipping app's normal flow**; it is reached only by the headless
-     `os_ansi` player (EOF) and the interactive `scdebug` console.
-  Net: the longjmp→exception swap is a **headless-validatable, low-real-app-risk**
-  change, *not* a Spatterlight-side task. (Aside: `terps/scarier` is not wired into
-  the Xcode project at all — the app builds `terps/scare` — so "test it in the real
-  app" is doubly moot until/unless scarier is adopted as the shipping engine.)
-  Remaining reason it is still **[~] and not yet done:** it is core-run-loop
-  surgery whose only *payoff* is unlocking the scrunner/scgamest RAII work (a
-  separate large effort); it should be done as the first commit of that effort, not
-  in isolation.
-- [ ] `scgamest.cpp` / `scprops.cpp` (with P4). NB: much of the runner-adjacent
-  ownership here is **game-struct fields** (`current_room_name`, `status_line`,
-  `hint_text`, the property tree) whose frees happen during the turn loop, so the
-  same `longjmp(game->quitter)` hazard above applies — gated on the same
-  longjmp→exception prerequisite.
+- **Prerequisite — DONE (commits `74c9bcdf` + `b07515ee`): the runner quit
+  `longjmp` is now a C++ exception, so RAII across `scrunner`/`sctasks`/`scgamest`
+  is unblocked.** Background: the runner used `setjmp(game->quitter)` in
+  `run_interpret` with `longjmp(game->quitter)` in
+  `run_quit`/`run_restart`/`run_restore`/`run_undo`, invoked re-entrantly via the
+  scinterf public API and `scdebug`. That longjmp unwinds the *entire*
+  `run_main_loop` stack, skipping the destructors of any non-trivial local
+  (`std::string`/`std::vector`) live in the command/task/print/expr tree — so RAII
+  reachable from `run_main_loop` would have turned today's benign leak-on-longjmp
+  into UB. The four sites now `throw` a file-local `run_loop_halt`, caught
+  specifically (not `catch (...)`, so a P2 `scr_fatal_error` still propagates) in
+  `run_interpret`'s loop; the `do_restart`/`do_restore` flags carry the meaning as
+  before, and the vestigial `game->quitter` `jmp_buf` is gone.
+  - **Why it was headlessly validatable** (an earlier draft wrongly called this a
+    "Spatterlight-side task, unvalidatable headless"): the `os_ansi` player's
+    `os_read_line` calls `scr_quit_game` at stdin EOF → `run_quit` → the throw,
+    unwinding the live `run_main_loop` — for any walkthrough that ends **while the
+    game is still running** (verified firing on `alexis`, `to_hell_and_beyond`;
+    walkthroughs ending in win/death set `is_running=FALSE` first, so the EOF quit
+    hits `run_quit`'s `!is_running` early-return). Real Spatterlight, conversely,
+    **never takes this path**: window-close/host-quit is glkimp `EVTQUIT` →
+    `glk_exit()` → `exit(0)` (connect.c:1119, misc.c:63) — the process is killed
+    inside `glk_select`, never unwound; the Glk `os_read_line` never calls
+    `scr_quit_game`/`restart`/`restore`/`undo`. So the mechanism is dead in the
+    shipping app's normal flow (only the headless player + interactive `scdebug`
+    reach it). (Aside: `terps/scarier` isn't wired into the Xcode project at all —
+    the app builds `terps/scare` — so this could not be "tested in the real app"
+    regardless.)
+  - **Validation:** new deterministic in-repo fixture `test/quit_test.cpp` (in
+    `make test` + `sanitize`) drives the re-entrant `scr_restart_game` *and*
+    `scr_quit_game` from inside `os_read_line` and asserts both
+    throw→catch→re-loop and throw→catch→stop return cleanly; determinism-checked v4
+    corpus byte-identical; `sanitize` ASan/UBSan-clean incl. the throw-unwind.
+- [ ] `scrunner.cpp` / `sctasks.cpp` RAII — **now unblocked, not yet started.**
+  With no `longjmp` over live frames, owning `char*`/hand-rolled arrays here can
+  move to `std::string`/`std::vector`/`unique_ptr` as in the earlier phases.
+- [ ] `scgamest.cpp` / `scprops.cpp` (with P4) — also unblocked now. Much of the
+  runner-adjacent ownership here is **game-struct fields** (`current_room_name`,
+  `status_line`, `hint_text`, the property tree) freed during the turn loop; the
+  old `longjmp` hazard over those is gone, so RAII on them is now safe to pursue.
 - [ ] Track corpus leak count before/after each file. (Blocked on tooling:
   LeakSanitizer is unavailable on macOS/arm64, so the ledger can't be produced in
   this environment; the proxy used so far is "changes only remove manual
