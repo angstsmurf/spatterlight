@@ -47,6 +47,28 @@ static const scr_char NUL = '\0';
 /* Variables trace flag. */
 static scr_bool var_trace = FALSE;
 
+/*
+ * var_is_clock_frozen()
+ *
+ * Determinism/testing mode -- the same switch that selects the portable,
+ * predictable congruential RNG via scr_set_portable_random() (the os layers
+ * enable both together: os_ansi via SCR_STABLE_RANDOM_ENABLED, os_glk via
+ * Spatterlight's determinism mode) -- also freezes the real-time clock.
+ *
+ * ADRIFT's %time% / elapsed-seconds system variable is
+ * difftime(time(NULL), game_start), genuinely non-reproducible: it makes
+ * day/night-style displays flip across runs depending on how a replay straddles
+ * a wall-clock second boundary.  Freezing it (delta == 0, so only time_offset
+ * remains) makes scripted regression replays byte-stable, exactly as seeding
+ * the RNG does.  When determinism is off, faithful real-time behaviour (as in
+ * the reference Runner) is retained.
+ */
+static scr_bool
+var_is_clock_frozen (void)
+{
+  return scr_is_congruential_random ();
+}
+
 /* Table of numbers zero to twenty spelled out. */
 enum { VAR_NUMBERS_SIZE = 21 };
 static const scr_char *const VAR_NUMBERS[VAR_NUMBERS_SIZE] = {
@@ -1431,7 +1453,8 @@ var_get_system (scr_var_setref_t vars,
       scr_int retval;
 
       /* Return the elapsed game time in seconds. */
-      delta = difftime (time (NULL), vars->timestamp);
+      delta = var_is_clock_frozen ()
+              ? 0.0 : difftime (time (NULL), vars->timestamp);
       retval = (scr_int) delta + vars->time_offset;
 
       return var_return_integer (retval, type, vt_rvalue);
@@ -1824,7 +1847,8 @@ var_get_elapsed_seconds (scr_var_setref_t vars)
   double delta;
   assert (var_is_valid (vars));
 
-  delta = difftime (time (NULL), vars->timestamp);
+  delta = var_is_clock_frozen ()
+          ? 0.0 : difftime (time (NULL), vars->timestamp);
   return (scr_uint) delta + vars->time_offset;
 }
 

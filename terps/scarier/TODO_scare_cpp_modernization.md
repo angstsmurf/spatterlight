@@ -328,17 +328,43 @@ drops.
   (light_up, secret_of_lost_world, circus, space_boy, sun_empire).
   - ⚠️ **Validation-harness refinement (important for the remaining P3/P4
     work).** The standalone `os_ansi` corpus player's run-twice determinism
-    check is **necessary but not sufficient**: four combat/RNG games — `alexis`,
-    `alexis_worn_cube`, `cybercow`, `cybercow_win` — are *stable within a binary*
-    yet **diverge across two builds of byte-identical HEAD source** (different
-    Mach-O link → different heap layout → a latent uninitialised-read in the v4
-    engine returns different garbage, stable per-binary). They therefore can't
-    be byte-validated by a cross-binary baseline diff and must be **excluded**,
-    the same class of exclusion as the time-dependent Shadowpeak runs. The
-    robust baseline is the set of games that agree between **two** identical-source
-    builds (`scares_base` vs a fresh HEAD rebuild) — 45 of the 49 mapped
-    walkthroughs. (Earlier phases that reported alexis/cybercow as "MATCH" were
-    comparing within a single baseline link and got lucky on layout.)
+    check is **necessary but not sufficient**: a handful of games are not
+    byte-reproducible across runs/builds and must be excluded from a
+    cross-binary baseline diff. **A 2026-06 deep-dive corrected the earlier
+    (wrong) diagnosis of why** — it is *not* one uniform "latent uninitialised
+    read." There are **three distinct causes**, now teased apart (repro recipes
+    below use the standalone player with `SCR_STABLE_RANDOM_ENABLED=1`):
+    - **`cybercow` / `cybercow_win` — NOT a bug. Real-time clock.** ADRIFT's
+      `%time%` / elapsed-seconds system variable is
+      `difftime(time(NULL), game_start)` (`scvars.cpp`), genuine wall-clock
+      seconds; the game's "It is daytime." display keys off it, so output flips
+      when a replay straddles a wall-clock second boundary. Faithful to
+      run400.exe. **FIXED for testing** by the determinism clock-freeze (see
+      "Realized win" below): with determinism on, cybercow is now byte-stable and
+      validatable. (Confirmed stack-clean via `-ftrivial-auto-var-init`,
+      heap-clean via `MallocPreScribble`/`MallocScribble`, ASan-clean on the full
+      playthrough.)
+    - **`alexis` / `alexis_worn_cube` — real bug: `scr_realloc` grown-tail
+      uninitialised read.** `scr_malloc` zeroes (documented "cleared to zero"),
+      but `scr_realloc` only zeroes a *fresh* alloc — **growing an existing
+      buffer leaves the new tail uninitialised** (`scutils.cpp:155`), violating
+      the same contract. alexis reads such a tail (detector: `MallocPreScribble=1`
+      changes output; a size-tracking `scr_realloc` that zeroes the grown tail
+      makes alexis fully deterministic). Time-freeze alone does *not* fix alexis.
+    - **`shadowpeak` (+ `_killwraith` / `_allgargoyles`) — real bug:
+      use-after-free / dangling pointer after a `realloc` move.** Residual
+      nondeterminism remains even with the clock frozen, the realloc tail zeroed,
+      *and* stack zero-init (`-ftrivial-auto-var-init=zero`). Detector:
+      `MallocScribble=1` (free-poison 0x55) changes output; **ASan does not catch
+      it even with `quarantine_size_mb=512`** because the freed slot is reused
+      before the read (ASan treats reused memory as valid). Pinning the exact
+      site wants MSan/Valgrind, both unavailable on macOS/arm64. Tracked as an
+      open bug below; must stay excluded from byte-validation until fixed.
+    All three are **pre-existing** (present in the baseline, not introduced by
+    the modernization). Footgun while testing: macOS libmalloc treats
+    `MallocScribble=""`/`MallocPreScribble=""` (empty-but-*present*) as ENABLED,
+    and `env -u VAR` placed *after* an assignment is mis-parsed — both produce
+    bogus "divergence." Put `env -u` options first and never pass empty strings.
 - [~] `scgamest.cpp` (done) / `scprops.cpp` (with P4, still open) — unblocked now. Much of the
   runner-adjacent ownership here is **game-struct fields** (`current_room_name`,
   `status_line`, `hint_text`, the property tree) freed during the turn loop; the
@@ -548,6 +574,56 @@ the signal mask between `setjmp` and `longjmp`, so the save/restore is pure wast
   records peak RSS + wall-clock, so P1/P3 wins are measured, not assumed.
 - **Leak ledger**: record the corpus LeakSanitizer count per commit so P3
   progress is visible.
+- [x] **Determinism clock-freeze** (so real-time games are byte-validatable).
+  ADRIFT's `%time%` / elapsed-seconds variable reads the real wall clock
+  (`difftime(time(NULL), game_start)` at `scvars.cpp`), which makes day/night and
+  "you have been running for…" output non-reproducible across replays. Under
+  determinism mode — gated on `scr_is_congruential_random()`, the *same* switch
+  the os layers already flip for the portable RNG (`os_ansi` via
+  `SCR_STABLE_RANDOM_ENABLED`, `os_glk` via Spatterlight's determinism mode) — the
+  two `difftime` sites now return delta 0 (only `time_offset` survives), via a
+  file-local `var_is_clock_frozen()` helper. No new public API or os-layer wiring;
+  rides the existing flag exactly like the RNG seeding. Validated: `make test` +
+  `sanitize` green; cybercow/alexis/cybercow_win now run-to-run **byte-stable**
+  under determinism; every non-time game **byte-identical** (freeze is inert when
+  the game never reads `%time%`); faithful real-time behaviour retained when
+  determinism is off.
+
+---
+
+## 5a. Open bugs (pre-existing; surfaced during the P3/P4 determinism audit)
+
+These are **not** modernization regressions — they exist in the baseline engine.
+Found while chasing the corpus's non-reproducible games (see the validation-harness
+refinement note in P3). Both block byte-validation of their games until fixed.
+
+- [ ] **`scr_realloc` grown tail is uninitialised** (`scutils.cpp:155`). The
+  documented contract (at `scr_malloc`) is "newly allocated memory is cleared to
+  zero," and `scr_realloc` honors it only for a *fresh* alloc (`if (!pointer)`);
+  **growing** an existing buffer leaves bytes `[old_size, new_size)`
+  indeterminate. Some grower reads its tail before writing it → `alexis` /
+  `alexis_worn_cube` nondeterminism. Proven: a size-tracking `scr_realloc` that
+  zeroes the grown tail makes alexis fully deterministic. **Fix options
+  (decision needed — weigh against upstream-merge cost):** (a) honor the contract
+  centrally by storing each allocation's size in a header word so `scr_realloc`
+  can zero the tail — robust, fixes the whole class, but a high-blast-radius core
+  allocator change (all heap goes through `scr_*`; verified no raw `free`/`realloc`
+  on scr pointers, but still a big upstream divergence); (b) find the specific
+  grower alexis hits and zero its own tail locally — surgical, low divergence,
+  needs the exact site; (c) treat as a faithful upstream bug and leave it (it is
+  almost certainly present in Simon Baldwin's original). Repro:
+  `MallocPreScribble=1 SCR_STABLE_RANDOM_ENABLED=1 ./scares alexis` vs clean.
+- [ ] **Use-after-free / dangling pointer after a `realloc` move** —
+  `shadowpeak` (+ `_killwraith` / `_allgargoyles`). Residual run-to-run
+  nondeterminism persists with the clock frozen, the realloc tail zeroed, AND
+  stack zero-init, so it is neither time, nor grown-tail, nor an uninitialised
+  stack var. Repro: `MallocScribble=1` (free-poison) changes output; **ASan does
+  not catch it even at `quarantine_size_mb=512`** (the freed slot is reused before
+  the read). No raw allocations bypass `scr_*`, so it is a stale pointer into a
+  `scr_realloc`-moved or `scr_free`d block that has since been reused. Pinning the
+  exact site realistically wants MSan or Valgrind — both unavailable on
+  macOS/arm64; needs a Linux/MSan environment or painstaking pointer-lifetime
+  bisection of shadowpeak's (large) command stream.
 
 ---
 
