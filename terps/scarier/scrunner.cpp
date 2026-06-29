@@ -28,6 +28,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <vector>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
@@ -102,15 +104,12 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_vartype_t vt_key[3];
   scr_int room, object;
-  scr_char *argument;
 
   /* Simple comparison against the one known task expression. */
-  argument = (decltype(argument)) scr_malloc (strlen (pattern) + 1);
-  if (sscanf (pattern, " # %%object%% = getdynfromroom (%[^)])", argument) == 0)
-    {
-      scr_free (argument);
-      return FALSE;
-    }
+  std::vector<scr_char> argument (strlen (pattern) + 1);
+  if (sscanf (pattern, " # %%object%% = getdynfromroom (%[^)])",
+              argument.data ()) == 0)
+    return FALSE;
 
   /*
    * Compare the argument read in against known room names.
@@ -125,10 +124,9 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
       vt_key[1].integer = room;
       vt_key[2].string = "Short";
       name = prop_get_string (bundle, "S<-sis", vt_key);
-      if (scr_strcasecmp (name, argument) == 0)
+      if (scr_strcasecmp (name, argument.data ()) == 0)
         break;
     }
-  scr_free (argument);
   if (room == gs_room_count (game))
     return FALSE;
 
@@ -897,21 +895,17 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
                           scr_bool include_restrictions, scr_bool is_library)
 {
   scr_bool is_matched = FALSE, is_handled = FALSE;
-  scr_bool *is_matching;
   scr_int task_count, task, direction;
 
   /*
    * Matching is expensive, so it helps to use a cache of results from the
-   * first loop in the second.  If we're using the second, that is.
+   * first loop in the second.  If we're using the second, that is.  The cache
+   * stays empty when restrictions are off (the second loop is then skipped).
    */
   task_count = gs_task_count (game);
+  std::vector<scr_bool> is_matching;
   if (include_restrictions)
-    {
-      is_matching = (decltype(is_matching)) scr_malloc (task_count * sizeof (*is_matching));
-      memset (is_matching, FALSE, task_count * sizeof (*is_matching));
-    }
-  else
-    is_matching = NULL;
+    is_matching.assign (task_count, FALSE);
 
   /*
    * Iterate over every task, ignoring those not runnable.  For each runnable
@@ -945,7 +939,7 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
                   break;
                 }
 
-              if (is_matching)
+              if (!is_matching.empty ())
                 is_matching[task] = TRUE;
             }
         }
@@ -996,7 +990,6 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
     }
 
   /* Return TRUE if any game task handled the command in some way. */
-  scr_free (is_matching);
   return is_handled;
 }
 
@@ -1282,7 +1275,6 @@ run_player_input (scr_gameref_t game)
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_memo_setref_t memento = gs_get_memento (game);
   scr_bool is_rerunning, was_undo_available, status;
-  scr_char *filtered, *replaced;
   const scr_char *command;
 
   /* Special case; reset statics if the game isn't running. */
@@ -1362,16 +1354,23 @@ run_player_input (scr_gameref_t game)
   /* Copy the current game to the temporary undo buffer. */
   gs_copy (game->temporary, game);
 
-  /* Filter the input element for synonyms, then for pronouns. */
-  filtered = pf_filter_input (line_element, bundle);
-  replaced = uip_replace_pronouns (game, filtered ? filtered : line_element);
+  /*
+   * Filter the input element for synonyms, then for pronouns.  Both are
+   * scr_malloc'd, so own them with RAII -- run_all_commands() below can throw
+   * (run_loop_halt / scr_fatal_error), and the old manual scr_free()s sat after
+   * that call, leaking on the throw.  .get() still feeds the raw char* to the
+   * pointer-aliasing logic that decides which buffer "wins".
+   */
+  scr_owned_string filtered (pf_filter_input (line_element, bundle));
+  scr_owned_string replaced (uip_replace_pronouns (game,
+      filtered ? filtered.get () : line_element));
 
   /*
    * If filtering didn't replace synonyms, or no pronouns were replaced, use
    * the original line element.
    */
-  command = replaced ? scr_normalize_string (replaced)
-            : (filtered ? scr_normalize_string (filtered) : line_element);
+  command = replaced ? scr_normalize_string (replaced.get ())
+            : (filtered ? scr_normalize_string (filtered.get ()) : line_element);
   if (command != line_element)
     {
       if_print_tag (SCR_TAG_ITALICS, "");
@@ -1408,8 +1407,6 @@ run_player_input (scr_gameref_t game)
            * input line elements.
            */
           line_buffer[0] = NUL;
-          scr_free (filtered);
-          scr_free (replaced);
           return status;
         }
     }
@@ -1431,8 +1428,6 @@ run_player_input (scr_gameref_t game)
           uip_assign_pronouns (game, command);
         }
     }
-  scr_free (filtered);
-  scr_free (replaced);
 
   /*
    * If do_again is set, we'll come round with the prior command in line
@@ -1517,22 +1512,16 @@ run_player_input (scr_gameref_t game)
 static scr_bool
 run_text_ends_in_newline (const scr_char *text)
 {
-  scr_char *stripped;
   scr_int length;
-  scr_bool result;
 
-  stripped = (decltype(stripped)) scr_malloc (strlen (text) + 1);
-  strcpy (stripped, text);
-  pf_strip_tags_for_hints (stripped);
+  std::vector<scr_char> stripped (text, text + strlen (text) + 1);
+  pf_strip_tags_for_hints (stripped.data ());
 
-  length = strlen (stripped);
+  length = strlen (stripped.data ());
   while (length > 0
          && (stripped[length - 1] == ' ' || stripped[length - 1] == '\t'))
     length--;
-  result = (length > 0 && stripped[length - 1] == '\n');
-
-  scr_free (stripped);
-  return result;
+  return (length > 0 && stripped[length - 1] == '\n');
 }
 
 

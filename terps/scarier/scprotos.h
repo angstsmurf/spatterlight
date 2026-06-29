@@ -112,6 +112,24 @@ struct scr_fatal_error
 extern void *scr_malloc (size_t size);
 extern void *scr_realloc (void *pointer, size_t size);
 extern void scr_free (void *pointer);
+
+#ifdef __cplusplus
+#include <memory>
+/*
+ * RAII owner for a scr_malloc'd C string.  Frees with scr_free() at scope exit,
+ * so an scr_fatal_error / run_loop_halt thrown between acquiring the buffer and
+ * the old manual scr_free() no longer leaks it (P3).  This keeps the engine's
+ * char* contract intact: .get() hands the raw pointer back to the existing C
+ * call sites and to the pointer-aliasing logic that decides which buffer "wins",
+ * so callers are otherwise unchanged.
+ */
+struct scr_free_deleter
+{
+  void operator () (void *pointer) const { scr_free (pointer); }
+};
+typedef std::unique_ptr<scr_char, scr_free_deleter> scr_owned_string;
+#endif
+
 extern void scr_set_congruential_random (void);
 extern void scr_set_platform_random (void);
 extern scr_bool scr_is_congruential_random (void);
