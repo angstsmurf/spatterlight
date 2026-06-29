@@ -1133,6 +1133,23 @@ ADRIFT text is full of embedded directives evaluated at display time:
           and the plural grammar is wired for `%objects%` only, not `%characters%`
           (no shipped corpus command needs the latter).  None are exercised by the
           ground-truth corpus.
+      - **Expression negative-zero formatting (score percentage)** — **DONE.**
+        A `score` soak across the 15-game corpus surfaced Lost Coastlines'
+        score line `(<#%score%/%maxscore%#>%)` diverging: with `score=0` and a
+        negative `maxscore=-96`, `0 / -96 == -0.0`, which .NET Core's
+        `Math.Round(.., AwayFromZero).ToString()` renders as **"-0"**, but
+        `a5sexpr` produced "0" twice over — `parse_mul`'s away-from-zero
+        `floor(q + 0.5)` collapses `-0.0` to `+0.0`, and `fmt_num`'s
+        `(long long)` cast drops the sign anyway.  Fixed both: the division
+        rounding now `copysign`s the sign of `q` back onto a zero result (faithful
+        to `Math.Round`, which preserves `-0.0`), and `fmt_num` emits "-0" for a
+        negative zero.  Lost Coastlines `score` now byte-matches FrankenDrift;
+        Six Silver Bullets' `(NaN%)` (divide by a missing `%maxscore%`) and the
+        whole-corpus `score` soak (Anno/Stone/TEE/XXR/Halloween/… all zero)
+        unchanged; full headless suite green; ASan/UBSan-clean.  NOTE: MI and TBN
+        still emit a spurious turn-0 "the ball of handfire winks out" line (a
+        shared event/task fires under the seed where FrankenDrift's does not) —
+        a separate event-trigger investigation, not a scoring issue.
       - **Known non-fixable / game-specific corpus residuals**: FBA is
         event/RNG-shifted (an early "custodian catches you" event fires turn 1
         under the xoshiro seed → immediate loss; .NET `System.Random` divergence)

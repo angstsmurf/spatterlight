@@ -43,6 +43,10 @@ fmt_num (double d)
     return "NaN";
   if (isinf (d))
     return d < 0 ? "-\xe2\x88\x9e" : "\xe2\x88\x9e";
+  /* .NET Core formats negative zero (e.g. 0 / -96 -> -0.0, Lost Coastlines'
+     score percentage) as "-0"; the (long long) cast would drop the sign. */
+  if (d == 0.0 && signbit (d))
+    return "-0";
   if (d == floor (d) && fabs (d) < 9.0e15)
     snprintf (buf, sizeof buf, "%lld", (long long) d);
   else
@@ -358,6 +362,10 @@ parse_mul (Parser &p)
           double q = val_of (left) / r;       /* IEEE: x/0 -> +/-inf, 0/0 -> NaN */
           double rounded = (isnan (q) || isinf (q)) ? q
                          : (q >= 0 ? floor (q + 0.5) : ceil (q - 0.5));
+          /* Math.Round(AwayFromZero) preserves -0.0 (0 / -96 -> -0); our
+             floor(q+0.5) would yield +0.0, so restore the sign of zero. */
+          if (rounded == 0.0)
+            rounded = copysign (0.0, q);
           left = mk_num (rounded); }
       else break;
     }
