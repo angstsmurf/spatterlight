@@ -40,6 +40,17 @@ extern char *a5text_eval_expression (a5_state_t *st, const char *expr);
 extern char *a5text_render_plain (const char *src);
 
 /*
+ * The Display() ALR boundary (clsUserSession.Display -> Global.ReplaceALRs):
+ * apply the game's ALR ("Text Override") substitutions + auto-capitalisation to
+ * an already-assembled, already-plain turn output, then render any markup an ALR
+ * NewText introduced.  This is how a non-English game (e.g. Danish Halloween)
+ * translates the engine's stock literals (NotUnderstood, "Also here is ",
+ * "Time passes...") -- which never passed through a5text_process per fragment.
+ * A no-op for a game without ALRs.  Heap; never NULL (caller frees).
+ */
+extern char *a5text_display_alr (a5_state_t *st, const char *plain);
+
+/*
  * Convenience: eval_description -> process -> render_plain, i.e. the finished
  * plain text for a description wrapper.
  */

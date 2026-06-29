@@ -1613,6 +1613,63 @@ a5text_render_plain (const char *src)
   return sb_finish (&sb);
 }
 
+/* One ALR pass for the Display boundary: like replace_alrs, but the input and
+   output are PLAIN text -- each NewText is fully rendered (functions/expr/ALR +
+   markup -> plain) before substitution, so an override that carries markup (e.g.
+   "<br>Tiden gaar...<br>") lands as plain text rather than leaking literal tags.
+   The whole-output markup renderer is deliberately not used (it would eat a
+   literal '<' the descriptions legitimately carry). */
+static char *
+boundary_alr_once (a5_state_t *st, const char *src)
+{
+  char *cur = strdup (src);
+  int i;
+  for (i = 0; i < st->adv->n_alrs; i++)
+    {
+      const a5_alr_t *alr = &st->adv->alrs[i];
+      if (alr->old_text == NULL || alr->old_text[0] == '\0')
+        continue;
+      if (strstr (cur, alr->old_text) != NULL)
+        {
+          char *raw = a5text_eval_description (st, alr->new_text);
+          char *proc = process_inner (st, raw, 1);
+          char *val = a5text_render_plain (proc);
+          if (!streq (cur, val))     /* guard against self-referential ALRs */
+            {
+              char *next = str_replace_all (cur, alr->old_text, val);
+              free (cur);
+              cur = next;
+            }
+          free (raw);
+          free (proc);
+          free (val);
+        }
+    }
+  return cur;
+}
+
+char *
+a5text_display_alr (a5_state_t *st, const char *plain)
+{
+  char *a1, *cap, *a2;
+  if (plain == NULL)
+    return strdup ("");
+  /* No ALRs -> the boundary is a pure pass-through (English games never pay for
+     this; their per-fragment ALR already ran).  Mirrors Display() doing nothing
+     when htblALRs is empty. */
+  if (st == NULL || st->adv == NULL || st->adv->n_alrs == 0)
+    return strdup (plain);
+  /* ReplaceALRs: ALR loop -> auto-capitalise -> a second ALR round (the input is
+     already plain and per-fragment-processed, so the function/expression passes
+     have nothing left to expand). */
+  a1 = boundary_alr_once (st, plain);
+  cap = auto_capitalise (a1);
+  a2 = boundary_alr_once (st, cap);
+  free (a1);
+  free (cap);
+  return a2;
+}
+
 char *
 a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper)
 {

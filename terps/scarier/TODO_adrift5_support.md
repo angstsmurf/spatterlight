@@ -1174,32 +1174,49 @@ ADRIFT text is full of embedded directives evaluated at display time:
         PART_OBJECT` (k2 == ANYOBJECT) or also parent key == k2.  MI and TBN now
         diff to ZERO; the three ground-truth games + the whole-corpus score soak
         unchanged; ASan/UBSan-clean.
-      - **Non-English localization (Halloween — the next big P4 subsystem;
-        direction half DONE, ALR-boundary half still TODO).**  Halloween is a
-        Danish ADRIFT 5 game; a generic `look/examine me/inventory/get all/
-        <dirs>/wait` soak originally showed ~29 divergence lines, all
-        localization, from two coupled mechanisms:
-        1. **ALR applied to the *whole assembled turn output*, not per-fragment.**
-           *(STILL TODO.)*
-           FrankenDrift's `Global.ReplaceALRs` (Global.vb:519 — the real text
-           pipeline: ReplaceFunctions → ReplaceExpressions → ALR loop →
-           auto-capitalise → a second ALR round) is run by **`Display()` on the
-           final output string**, so even engine-generated stock literals get
-           translated.  Halloween ships ~138 `<TextOverride>` ALRs whose OldText
-           are the *English* built-ins: `I did not understand the word ` → `Jeg
+      - **Non-English localization (Halloween — the next big P4 subsystem; BOTH
+        halves DONE).**  Halloween is a Danish ADRIFT 5 game; a generic
+        `look/examine me/inventory/get all/<dirs>/wait` soak originally showed
+        ~29 divergence lines, all localization, from two coupled mechanisms:
+        1. **ALR applied at the Display boundary, translating the stock
+           literals.** — **DONE.**  The real FrankenDrift text pipeline is
+           **`clsUserSession.Display` → `Global.ReplaceALRs`** (Global.vb:519:
+           ReplaceFunctions → ReplaceExpressions → ALR loop → auto-capitalise →
+           a second ALR round), and `Display()` is called **per output fragment**
+           (room desc, completion message, conversation, event text, *and* the
+           explicit stock literals — e.g. `sOutputText = ReplaceALRs("Time
+           passes...")`, clsUserSession.vb:3638).  So FrankenDrift is **per-
+           fragment**, not whole-output; Scarier's per-fragment `a5text_process`
+           already matched it for game-authored text — the gap was only the
+           engine's **stock C-literals** (the NotUnderstood ladder, the `Also
+           here is ` prefix, `Time passes...`, the canned visibility messages)
+           which were emitted as raw `sb_puts` and never saw an ALR pass.
+           Halloween ships ~138 `<TextOverride>` ALRs whose OldText are exactly
+           those English built-ins (`I did not understand the word ` → `Jeg
            forstod ikke ordet `, `Also here is ` → `Desuden er her `, ` and ` →
-           ` og `, `You ` → `Du `, ` nothing ` → ` intet `, etc.  Scarier instead
-           applies `a5text_process`/`replace_alrs` **per fragment** and emits its
-           stock messages (NotUnderstood ladder in `a5run.cpp`, the `Also here
-           is ` prefix in `a5text_view_location`, the route/visibility messages)
-           as **raw C literals that never see the ALR pass** — so they stay
-           English.  The faithful fix is to ALR the assembled turn output at the
-           Display boundary (mirroring FrankenDrift), but that risks
-           double-applying ALRs / re-auto-capitalising the already-per-fragment-
-           processed descriptions in the three English ground-truth games, so it
-           needs care (likely: stop ALR-ing per fragment and move the single ALR
-           pass to the output boundary, keeping per-fragment *function* expansion
-           for its character/object context).
+           ` og `, `Time passes...` → `<br>Tiden går...<br>`, etc.).  **Fix:** a
+           single Display-boundary ALR pass — new `a5text_display_alr` (ALR loop
+           → auto-capitalise → second ALR round, `boundary_alr_once` rendering
+           each NewText to plain so an override carrying `<br>` lands as a
+           newline, not a literal tag) — applied to the assembled turn output by
+           the new `finish_turn` helper at every `a5run_intro`/`a5run_input`
+           exit.  It is a **pass-through when the game has no ALRs** (the three
+           English ground-truth games never pay for it), and double-applying the
+           already-per-fragment-ALR'd game text is idempotent for these games
+           (their OldTexts never recur in their NewTexts) — verified: **Six
+           Silver Bullets golden + the synthetic tests unchanged; Anno/Stone
+           byte-identical (Stone actually improved 3→1, the boundary capitalise
+           tidying two lines)**; ASan/UBSan-clean across the 15-game corpus.
+           Halloween's NotUnderstood / catch-all / `Also here is ` / `Time
+           passes` lines now byte-match FrankenDrift's Danish.
+           **Remaining Halloween divergences are NOT localization:** (a) FD's
+           richer **NotUnderstood ladder** — a verb-only input that matches a
+           task bearing a `%character%`/`%object%`/`%direction%` reference prompts
+           `<Verb> who?` / `what?` / `where?` (clsUserSession.vb:3557-3576), and a
+           seen-noun / no-route fallback gives `Sådan noget findes ikke her.` etc.
+           — so bare `u`/`d`/`e` get gameplay responses in FD where Scarier's
+           simpler ladder rejects them (a separate P4 NotUnderstood item); and
+           (b) pre-existing multi-segment description blank-line spacing.
         2. **Localized direction names from the Adventure header.**  — **DONE.**
            The header carries 12 `<DirectionNorth>Nord/N/Nordpå</DirectionNorth>`
            … `<DirectionOut>Ud/Udenfor/Forlad</DirectionOut>` fields (slash-

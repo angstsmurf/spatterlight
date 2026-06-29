@@ -3132,6 +3132,19 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
 
 /* --------------------------------------------------------------- public turn */
 
+/* Finalise a turn: take the assembled output and run it through the Display()
+   ALR boundary (clsUserSession.Display -> Global.ReplaceALRs), so the engine's
+   stock literals are translated for a non-English game.  A no-op (bar a copy)
+   when the game has no ALRs. */
+static char *
+finish_turn (a5_run_t *run, sb_t *out)
+{
+  char *raw = sb_take (out);
+  char *fin = a5text_display_alr (run->st, raw);
+  free (raw);
+  return fin;
+}
+
 char *
 a5run_intro (a5_run_t *run)
 {
@@ -3153,7 +3166,7 @@ a5run_intro (a5_run_t *run)
   /* Start the Immediately events (clsUserSession init loop, after intro). */
   ev_init (run, &out);
   update_seen (run->st);
-  return sb_take (&out);
+  return finish_turn (run, &out);
 }
 
 /* Seed the known-words list exactly as clsUserSession.NotUnderstood does, lazily
@@ -3331,7 +3344,7 @@ a5run_input (a5_run_t *run, const char *line)
     in = (a == std::string::npos) ? "" : in.substr (a, b - a + 1);
   }
   if (in.empty ())
-    return sb_take (&out);
+    return finish_turn (run, &out);
 
   /* Refresh the player's "seen" set from where things ended up last turn
      (clsUserSession.PrepareForNextTurn), so HaveSeenCharacter / "characters
@@ -3348,7 +3361,7 @@ a5run_input (a5_run_t *run, const char *line)
         possible_keys (st, run->amb_keys, in, run->amb_ref_type);
       if (narrowed.size () == 1
           && run_remembered (run, narrowed[0].c_str (), &out))
-        { run->amb_active = 0; ev_tick_all (run, &out); return sb_take (&out); }
+        { run->amb_active = 0; ev_tick_all (run, &out); return finish_turn (run, &out); }
       if (narrowed.size () > 1)            /* a partial narrowing: keep progress */
         run->amb_keys = narrowed;
     }
@@ -3356,7 +3369,7 @@ a5run_input (a5_run_t *run, const char *line)
   if (scan_tasks (run, in, &out, &have_amb, &amb, &amb_ti, &amb_ci,
                   &amb_cantsee, &have_fail, &fail_text,
                   &have_noref, &noref_ti, &noref_ci))
-    { run->amb_active = 0; ev_tick_all (run, &out); return sb_take (&out); }
+    { run->amb_active = 0; ev_tick_all (run, &out); return finish_turn (run, &out); }
 
   if (have_fail)
     {
@@ -3367,7 +3380,7 @@ a5run_input (a5_run_t *run, const char *line)
       run->amb_active = 0;
       sb_puts (&out, fail_text.c_str ());
       ev_tick_all (run, &out);
-      return sb_take (&out);
+      return finish_turn (run, &out);
     }
 
   if (have_noref && run_noref (run, noref_ti, noref_ci, in, &out))
@@ -3378,7 +3391,7 @@ a5run_input (a5_run_t *run, const char *line)
          sNoRefTask before DisplayAmbiguityQuestion is consulted). */
       run->amb_active = 0;
       ev_tick_all (run, &out);
-      return sb_take (&out);
+      return finish_turn (run, &out);
     }
 
   if (have_amb && amb_cantsee)
@@ -3389,7 +3402,7 @@ a5run_input (a5_run_t *run, const char *line)
       run->amb_active = 0;
       emit_cantsee (st, &amb, &out);
       ev_tick_all (run, &out);
-      return sb_take (&out);
+      return finish_turn (run, &out);
     }
 
   if (have_amb)
@@ -3405,7 +3418,7 @@ a5run_input (a5_run_t *run, const char *line)
       run->amb_keys = amb.keys;
       sb_puts (&out,
                build_amb_prompt (st, run->amb_word, amb.keys, amb.type).c_str ());
-      return sb_take (&out);
+      return finish_turn (run, &out);
     }
 
   if (run->amb_active)
@@ -3413,12 +3426,12 @@ a5run_input (a5_run_t *run, const char *line)
       /* A clarifier that neither resolved nor ran a fresh command: re-prompt. */
       sb_puts (&out, build_amb_prompt (st, run->amb_word, run->amb_keys,
                                        run->amb_ref_type).c_str ());
-      return sb_take (&out);
+      return finish_turn (run, &out);
     }
 
   if (system_command (run, in, &out))
     { run->amb_active = 0; }
   else
     not_understood (run, in, &out);
-  return sb_take (&out);
+  return finish_turn (run, &out);
 }
