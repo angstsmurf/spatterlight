@@ -38,6 +38,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <vector>
+
 #include "scarier.h"
 #include "scprotos.h"
 
@@ -2852,14 +2854,17 @@ parse_fixup_v380 (const scr_char *fixup)
   else if (strcmp (fixup, "|V380_OBJECT:_InitialPositions_|") == 0)
     {
       scr_vartype_t vt_key[3];
-      scr_int object_count, object, *object_type;
+      scr_int object_count, object;
 
       /* Get a count of objects. */
       vt_key[0].string = "Objects";
       object_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
 
-      /* Build an array of object container/surface types. */
-      object_type = (decltype(object_type)) scr_malloc (object_count * sizeof (*object_type));
+      /*
+       * Build an array of object container/surface types.  A std::vector
+       * frees itself if a prop_*() call below throws (scr_fatal) mid-parse.
+       */
+      std::vector<scr_int> object_type (object_count);
       for (object = 0; object < object_count; object++)
         {
           vt_key[1].integer = object;
@@ -2938,9 +2943,6 @@ parse_fixup_v380 (const scr_char *fixup)
               prop_put (parse_bundle, "I->sis", vt_value, vt_key);
             }
         }
-
-      /* Done with temporary array. */
-      scr_free (object_type);
     }
 
   /* Convert carry limit into version 4.0-like size and weight limits. */
@@ -3302,16 +3304,15 @@ parse_add_movetimes (scr_prop_setref_t bundle)
 
       for (walk = 0; walk < walk_count; walk++)
         {
-          scr_int waittimes;
-          scr_int *movetimes, index_;
+          scr_int waittimes, index_;
           scr_vartype_t vt_value;
 
           vt_key[3].integer = walk;
           vt_key[4].string = "Times";
           waittimes = prop_get_child_count (bundle, "I<-sisis", vt_key);
 
-          movetimes = (decltype(movetimes)) scr_malloc ((waittimes + 1) * sizeof (*movetimes));
-          memset (movetimes, 0, (waittimes + 1) * sizeof (*movetimes));
+          /* Value-initialized to zero; frees itself if prop_*() throws. */
+          std::vector<scr_int> movetimes (waittimes + 1);
           for (index_ = waittimes - 1; index_ >= 0; index_--)
             {
               vt_key[4].string = "Times";
@@ -3328,7 +3329,6 @@ parse_add_movetimes (scr_prop_setref_t bundle)
               vt_value.integer = movetimes[index_];
               prop_put (bundle, "I->sisisi", vt_value, vt_key);
             }
-          scr_free (movetimes);
         }
     }
 }
@@ -3345,7 +3345,7 @@ parse_add_alrs_index (scr_prop_setref_t bundle)
 {
   scr_vartype_t vt_key[3];
   scr_int alr_count, index_, alr;
-  scr_int *alr_lengths, longest, shortest, length;
+  scr_int longest, shortest, length;
 
   /* Count ALRs, and set invariant part of properties key. */
   vt_key[0].string = "ALRs";
@@ -3353,9 +3353,10 @@ parse_add_alrs_index (scr_prop_setref_t bundle)
 
   /*
    * Set up an array of the lengths of ALR original strings, and while at it,
-   * get the shortest and longest defined.
+   * get the shortest and longest defined.  A std::vector frees itself if a
+   * prop_*() call below throws (scr_fatal) mid-parse.
    */
-  alr_lengths = (decltype(alr_lengths)) scr_malloc (alr_count * sizeof (*alr_lengths));
+  std::vector<scr_int> alr_lengths (alr_count);
   shortest = INT_MAX;
   longest = 0;
   for (index_ = 0; index_ < alr_count; index_++)
@@ -3397,9 +3398,6 @@ parse_add_alrs_index (scr_prop_setref_t bundle)
         }
     }
   assert (alr == alr_count);
-
-  /* Done with ALR lengths array. */
-  scr_free (alr_lengths);
 }
 
 

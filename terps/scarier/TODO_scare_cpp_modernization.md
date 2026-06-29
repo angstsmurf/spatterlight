@@ -397,6 +397,28 @@ drops.
     P4 profiling confirmed is the hot path — converting it to `std::vector`/RAII
     risks both the byte-exact bar and the arena's performance, so it stays its own
     coordinated P4-adjacent project, not a mechanical sweep.
+- [x] `sctafpar.cpp` — **the load-time leak-on-throw scratch arrays** (P2
+  follow-up: P2 noted that a `scr_fatal` thrown through the TAF parser leaks raw
+  buffers, so RAII here makes the corrupt-game error path unwind cleanly).
+  Converted the three plain local `scr_int` scratch arrays that are
+  indexed-only, not aliased by any raw pointer, and bracket throwable `prop_*`
+  calls between `scr_malloc` and `scr_free` → `std::vector<scr_int>`:
+  `parse_fixup_v380`'s `object_type` (the v3.8→v4.0 container/surface fixup),
+  `parse_add_movetimes`'s `movetimes` (the `memset(0)` becomes vector
+  value-init), and `parse_add_alrs_index`'s `alr_lengths`. These are TAF
+  load-time only (not the per-turn hot path) and free themselves if a
+  `prop_get_*`/`prop_put` in the loops throws. **Left raw on purpose:**
+  `restrmask` (×2) is an ownership *transfer* to the bundle via `prop_adopt`,
+  not a local free; `multiline` is a returned `char*` accumulator (separate
+  contract); `parse_resources`/`clean_name` are a file-static growable table
+  (broader, low throw-risk). Validated **byte-identical** across the
+  determinism-checked v4 corpus (**51 MATCH / 0 DIFFER**; the 1 NONDET is the
+  layout-sensitive `shadowpeak_allgargoyles` whose two HEAD baselines already
+  disagree — never a regression; the corpus exercises all three paths: 3.8/3.9
+  fixups, `secret_of_lost_world` ALRs, walk-bearing games); `make -f
+  Makefile.headless test` + `sanitize` green; ASan/UBSan clean. (Byte-identity
+  is structural: every element is written before it is read, so vector
+  value-init vs. the old uninitialised/`memset`'d `scr_malloc` is inert.)
 - [ ] Track corpus leak count before/after each file. (Blocked on tooling:
   LeakSanitizer is unavailable on macOS/arm64, so the ledger can't be produced in
   this environment; the proxy used so far is "changes only remove manual
