@@ -319,13 +319,30 @@ prop_find_child (scr_prop_noderef_t parent, scr_int type, scr_vartype_t name)
           break;
 
         case PROP_KEY_STRING:
-          /* Scan children for a string name match. */
+          /*
+           * Scan children for a string name match.  This is the engine's
+           * single hottest inner loop (tens of millions of iterations on a
+           * full walkthrough -- see the P4 profiling notes in
+           * TODO_scare_cpp_modernization.md).  The names are interned, but the
+           * incoming lookup key never is (profiling: 0% pointer-equal), so we
+           * can't shortcut with a pointer compare.  Instead gate the strcmp()
+           * call on a cheap inline first-byte compare: the field names within
+           * a node are diverse, so the common non-matching child is rejected by
+           * a single byte load + branch rather than a strcmp() function call.
+           * Identical match semantics, so output is byte-for-byte unchanged.
+           */
+          {
+          const scr_char *const key = name.string;
+          const scr_char key0 = key[0];
           for (index_ = 0; index_ < parent->property.integer; index_++)
             {
+              const scr_char *cn;
               child = parent->child_list[index_];
-              if (strcmp (child->name.string, name.string) == 0)
+              cn = child->name.string;
+              if (cn[0] == key0 && strcmp (cn, key) == 0)
                 break;
             }
+          }
 
           /* Return child if we found a match. */
           if (index_ < parent->property.integer)

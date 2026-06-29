@@ -526,9 +526,44 @@ the event-heavy games to confirm the win justifies the risk.
     realized win below. Fixed.
 - [~] ~~Cache parsed format paths~~ — **withdrawn** (premise was wrong; format
   walk is already trivial char reads, see premise correction above).
-- [ ] (Optional) typed/`unordered_map` node lookup, or move-to-front → single
-  swap. Lower expected payoff than first assumed (scans are already ~2 deep);
-  weigh against the byte-exact-validation cost before attempting.
+- [~] **`unordered_map` / typed node lookup — measured and declined; the cheaper
+  first-byte gate (below) was taken instead.** A second, finer profiling pass
+  (opt-in counters in `prop_find_child`, since reverted) settled the ceiling
+  question empirically on the heavy walkthroughs:
+  - **String lookups dominate but are shallow.** Shadowpeak's 849-command run:
+    **33.2 M `prop_find_child`, 21.4 M string lookups (99.3 % hit), 43.8 M
+    `strcmp`, avg 2.04 `strcmp`/lookup.** Most lookups land on **9–32-child**
+    nodes (object/room field bundles), yet the move-to-front recency sort still
+    keeps the scan ~2 deep — so the child lists are *not* pathologically deep and
+    there is little depth for a hash to remove.
+  - **No pointer-equality to exploit.** Names are interned, but **0 %** of the
+    43.8 M compares were pointer-equal — the incoming lookup key is always a
+    distinct (literal/runtime) allocation, never the interned dictionary pointer.
+    So a pointer-compare fast path would never fire, and a `std::string`/`const
+    char*`-keyed `unordered_map` would have to **hash the key (a full string walk)
+    on every lookup** — at ~2-deep scans that loses to the existing scan, on top
+    of per-node map overhead and worse cache behaviour. (And a per-node map makes
+    nodes non-POD, breaking the bulk arena allocator.) Declined on the data.
+  - **Move-to-front → single swap:** not worth it either — the memmove shuffles
+    avg ~3 pointers; a single swap-toward-front would save that but degrade the
+    recency sort (deeper future scans), a likely net wash. Left as-is.
+
+  ### Realized win (P4): inline first-byte gate on the hot string scan
+
+- [x] **Gate the `strcmp()` call in `prop_find_child`'s string scan on a cheap
+  inline first-byte compare** (`cn[0] == key0 && strcmp(cn, key) == 0`). Since
+  the field names within a node are diverse, the ~1 non-matching child per lookup
+  is now rejected by a byte load + branch instead of a `strcmp()` function call;
+  the match path is unchanged. **Identical match semantics → byte-for-byte
+  identical output** (validated: 15/15 determinism-checked v4 corpus games MATCH,
+  incl. shadowpeak/light_up/secret_of_lost_world/circus/space_boy/sun_empire/
+  cybercow_win/villains_and_kings/…). Zero memory overhead, no node-layout or
+  arena change, no upstream-merge hazard beyond the one loop. Measured **20/20
+  paired-run wins** on both heavy games (mean −46 ms ≈ 5 % on Shadowpeak, −10 ms
+  on light_up; whole-run wall clock, so the steady-state turn-loop share is
+  larger once the constant TAF-load cost is amortized). `make -f
+  Makefile.headless test` + `sanitize` green; standalone-player ASan/UBSan clean
+  on shadowpeak/secret_of_lost_world/alexis.
 
 ### Realized win (from P4 profiling): skip the `setjmp` signal-mask save
 
