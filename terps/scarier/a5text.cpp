@@ -570,6 +570,12 @@ a5text_char_proper_name (a5_state_t *st, const char *charkey)
   return nm;
 }
 
+char *
+a5text_character_known_name (a5_state_t *st, const a5_character_t *c, int definite)
+{
+  return character_display_name (st, c, definite);
+}
+
 /*
  * Map a bare %reference% name (the token between the percents, already without
  * them) to the resolved entity key(s) for a property expression %name%.Chain.

@@ -77,4 +77,13 @@ extern char *a5text_character_subjective (a5_state_t *st, const a5_character_t *
  */
 extern char *a5text_char_proper_name (a5_state_t *st, const char *charkey);
 
+/*
+ * A character's Known-aware display name (clsCharacter.Name's non-pronoun
+ * branch): the proper name once Known/Selected, else the descriptor with an
+ * article ("a young woman" indefinite / "the young woman" definite).  Used by
+ * the NotUnderstood seen-character branch.  Heap-allocated.
+ */
+extern char *a5text_character_known_name (a5_state_t *st, const a5_character_t *c,
+                                          int definite);
+
 #endif

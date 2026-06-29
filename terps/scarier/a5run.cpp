@@ -125,6 +125,11 @@ struct a5_run_s {
   std::string amb_word;      /* the noun echoed in "Which <word>?"             */
   std::vector<std::string> amb_keys;   /* the surviving candidate keys         */
 
+  /* clsUserSession.sRememberedVerb: a bare verb that matched a "verb %ref%"
+     command but supplied no reference prompted "<Verb> what/who/where?"; the
+     next input is re-tried as "<verb> <input>" (NotUnderstood, vb:3471). */
+  std::string remembered_verb;
+
   /* Every word the game recognises (clsAdventure.listKnownWords), built lazily
      the first time an unmatched command needs the "I did not understand the
      word ..." check (clsUserSession.NotUnderstood). */
@@ -3265,6 +3270,71 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
         return;
       }
 
+  /* The user entered just a verb that matches a "verb %ref%" command: prompt for
+     the missing reference ("<Verb> what?/who?") and remember the verb so the next
+     input is re-tried as "<verb> <input>" (NotUnderstood, vb:3543-3581).  Only a
+     single-word input.
+
+     FAITHFUL QUIRK: FrankenDrift (and the original Runner) test the *normalised*
+     command, where every bare singular reference has been suffixed with "1"
+     (%object% -> %object1%, %character% -> %character1%, %direction% ->
+     %direction1%; FileIO.vb:647).  The object/character branch checks for the
+     substring "%object"/"%character" (no trailing %), which still matches
+     %object1%/%character1%; but the direction branch checks for "%direction%"
+     WITH the trailing %, which no longer matches %direction1%.  So the "where?"
+     prompt is effectively dead code in the Runner -- a bare movement verb falls
+     through to the catch-all.  We reproduce that exactly by normalising the
+     command before the same three Contains checks. */
+  if (in.find (' ') == std::string::npos)
+    {
+      for (size_t oi = 0; oi < run->order->size (); oi++)
+        {
+          const a5_task_t *t = &run->adv->tasks[(*run->order)[oi]];
+          if (!streq (t->type, "General") || t->n_commands == 0)
+            continue;
+          const char *cmd0 = t->commands[0];
+          /* arlCommands(0) must contain the verb and be a multi-word pattern. */
+          if (strstr (cmd0, in.c_str ()) == NULL || strchr (cmd0, ' ') == NULL)
+            continue;
+          std::string norm = cmd0;          /* normalise bare singular refs */
+          static const char *bare[] = { "%object%", "%character%", "%direction%",
+                                        "%number%", "%text%" };
+          static const char *num[]  = { "%object1%", "%character1%", "%direction1%",
+                                        "%number1%", "%text1%" };
+          for (int b = 0; b < 5; b++)
+            { size_t p; const std::string from = bare[b], to = num[b];
+              while ((p = norm.find (from)) != std::string::npos)
+                norm.replace (p, from.size (), to); }
+          const char *q = NULL;
+          if (norm.find ("%object") != std::string::npos)
+            q = "what?";
+          else if (norm.find ("%character") != std::string::npos)
+            q = "who?";
+          else if (norm.find ("%direction%") != std::string::npos)
+            q = "where?";             /* never true: %direction1%, see above */
+          else
+            continue;
+          /* Confirm a command pattern of this task actually matches verb+dummy. */
+          int hit = 0;
+          for (int ci = 0; ci < t->n_commands && !hit; ci++)
+            { a5_match_t m;
+              if (a5parse_match_command (t->commands[ci],
+                                         (in + " sdkfjdslkj").c_str (), &m))
+                hit = 1; }
+          if (!hit)
+            continue;
+          run->remembered_verb = in;
+          {
+            std::string vp = in;            /* PCase(verb) */
+            if (!vp.empty ()) vp[0] = (char) toupper ((unsigned char) vp[0]);
+            sb_puts (out, vp.c_str ());
+            sb_puts (out, " ");
+            sb_puts (out, q);
+          }
+          return;
+        }
+    }
+
   /* The input names an object the player has seen and can see now, but no task
      accepted it: "I don't understand what you want to do with the X."
      (NotUnderstood's seen-noun branch).  First seen+visible match wins. */
@@ -3287,6 +3357,31 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
         if (hit)
           {
             char *nm = a5text_object_name (o, A5_ART_DEFINITE);
+            sb_puts (out, "I don't understand what you want to do with ");
+            sb_puts (out, nm);
+            sb_puts (out, ".");
+            free (nm);
+            return;
+          }
+      }
+
+    /* Likewise a seen+visible character: "...what you want to do with <Name>."
+       (NotUnderstood's character branch, vb:3597). */
+    for (int ci = 0; ci < st->adv->n_characters; ci++)
+      {
+        const a5_character_t *c = &st->adv->characters[ci];
+        if (!char_seen_p (st, c->key) || !char_visible (st, c->key))
+          continue;
+        std::vector<std::string> allowed, nouns;
+        character_words (st, c, allowed, nouns);
+        int hit = 0;
+        for (auto &w : words)
+          { std::string lw = lower (w);
+            for (auto &n : nouns) if (n == lw) { hit = 1; break; }
+            if (hit) break; }
+        if (hit)
+          {
+            char *nm = a5text_character_known_name (st, c, 0);
             sb_puts (out, "I don't understand what you want to do with ");
             sb_puts (out, nm);
             sb_puts (out, ".");
@@ -3345,6 +3440,13 @@ a5run_input (a5_run_t *run, const char *line)
   }
   if (in.empty ())
     return finish_turn (run, &out);
+
+  /* Consume any remembered verb for this turn (sRememberedVerb): captured here so
+     a turn that does anything naturally clears it (clsUserSession clears it on a
+     successful task); a system command re-sets it (FD keeps it across SystemTasks)
+     and the NotUnderstood fallback re-tries the input as "<verb> <input>". */
+  std::string rverb = run->remembered_verb;
+  run->remembered_verb.clear ();
 
   /* Refresh the player's "seen" set from where things ended up last turn
      (clsUserSession.PrepareForNextTurn), so HaveSeenCharacter / "characters
@@ -3430,7 +3532,16 @@ a5run_input (a5_run_t *run, const char *line)
     }
 
   if (system_command (run, in, &out))
-    { run->amb_active = 0; }
+    { run->amb_active = 0; run->remembered_verb = rverb; }   /* SystemTasks keeps it */
+  else if (!rverb.empty ())
+    {
+      /* Remembered-verb retry: re-run the whole turn as "<verb> <input>".  The
+         retried turn always produces output (its own NotUnderstood at worst), so
+         it claims the turn (FD: "If sOutputText <> '' Then Exit Sub"). */
+      run->amb_active = 0;
+      free (out.p);
+      return a5run_input (run, (rverb + " " + in).c_str ());
+    }
   else
     not_understood (run, in, &out);
   return finish_turn (run, &out);

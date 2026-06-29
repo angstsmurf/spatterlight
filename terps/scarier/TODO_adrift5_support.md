@@ -1210,13 +1210,12 @@ ADRIFT text is full of embedded directives evaluated at display time:
            Halloween's NotUnderstood / catch-all / `Also here is ` / `Time
            passes` lines now byte-match FrankenDrift's Danish.
            **Remaining Halloween divergences are NOT localization:** (a) FD's
-           richer **NotUnderstood ladder** — a verb-only input that matches a
-           task bearing a `%character%`/`%object%`/`%direction%` reference prompts
-           `<Verb> who?` / `what?` / `where?` (clsUserSession.vb:3557-3576), and a
-           seen-noun / no-route fallback gives `Sådan noget findes ikke her.` etc.
-           — so bare `u`/`d`/`e` get gameplay responses in FD where Scarier's
-           simpler ladder rejects them (a separate P4 NotUnderstood item); and
-           (b) pre-existing multi-segment description blank-line spacing.
+           richer **NotUnderstood ladder** — a verb-only input prompting
+           `<Verb> who?` / `what?` (and the seen-noun fallback) — **NOW DONE**
+           (see the dedicated "Verb-only NotUnderstood ladder" item below; `tag`→
+           "Tag hvad?" byte-matches FD); the residual `<Verb> where?` is dead in
+           FD too (the normalised-command quirk, documented there); and (b)
+           pre-existing multi-segment description blank-line spacing.
         2. **Localized direction names from the Adventure header.**  — **DONE.**
            The header carries 12 `<DirectionNorth>Nord/N/Nordpå</DirectionNorth>`
            … `<DirectionOut>Ud/Udenfor/Forlad</DirectionOut>` fields (slash-
@@ -1243,6 +1242,59 @@ ADRIFT text is full of embedded directives evaluated at display time:
            ` og ` ALR; the remaining Halloween divergences are all item 1 (the
            stock C literals — NotUnderstood, `Also here is `, `Time passes…` —
            never see the ALR pass, so they stay English).
+      - **Verb-only NotUnderstood ladder (`<Verb> what?/who?`) + remembered-verb
+        retry + seen-character branch** — **DONE.**  The previously-flagged
+        "richer NotUnderstood ladder" P4 item (clsUserSession.NotUnderstood,
+        vb:3469-3613): a bare verb that matches a "verb %ref%" command now prompts
+        for the missing reference and remembers the verb, the next input is re-run
+        as "<verb> <input>", and a seen+visible character noun gets the canned
+        "I don't understand what you want to do with <Name>." line.
+        - **Verb-ladder** (`a5run.cpp not_understood`): for a single-word input,
+          walk the General tasks (priority order); the first whose command(0)
+          contains the verb + a space + an object/character reference prompts
+          `PCase(verb) what?` / `who?` (confirmed by regex-matching `verb
+          sdkfjdslkj`), stores `run->remembered_verb`, and returns.
+          **FAITHFUL QUIRK reproduced:** FrankenDrift (and the original Runner)
+          test the *normalised* command — every bare singular reference suffixed
+          with "1" (`%object%`→`%object1%` …, FileIO.vb:647).  The object/character
+          branch checks the substring `"%object"`/`"%character"` (no trailing %),
+          which still matches `%object1%`/`%character1%`, but the direction branch
+          checks `"%direction%"` *with* the trailing %, which no longer matches
+          `%direction1%` — so the "where?" prompt is **dead code** in the Runner
+          (a bare movement verb falls through to the catch-all).  Verified in
+          FrankenDrift by instrumenting `NotUnderstood` (the `%direction%` branch
+          is never entered).  We normalise the command before the same three
+          Contains checks, so `where?` is dead by the identical mechanism — `go`
+          gives the catch-all, matching FD, while `take`/`drop`/`open`/`unlock`
+          give "X what?".
+        - **Remembered-verb retry** (`a5run_input`): a bare clarifier after a
+          "<Verb> what/who?" prompt is re-run as a fresh turn `"<verb> <input>"`
+          (FD prepends and re-`EvaluateInput`s; the retried turn always produces
+          output so it claims the turn).  `rverb` is captured-and-cleared at the
+          top of each turn (so any successful turn naturally drops it, matching
+          FD's clear-on-success) and only a SystemTask re-sets it (FD keeps it
+          across `SystemTasks`).
+        - **Seen-character branch**: mirrors the existing seen-object branch —
+          a seen+visible character whose descriptor/name appears in the input
+          yields "...what you want to do with <Name>." via the new
+          `a5text_character_known_name` (clsCharacter.Name's Known-aware
+          descriptor/proper-name selection).
+        - **Validated vs FrankenDrift ground truth:** `take`/`drop`/`open`/
+          `unlock` → "X what?"; `go`/`walk`/`run`/`move` → catch-all (where? dead);
+          `get`/`ask` → the unresolved-reference message; all byte-match.  The
+          **Danish Halloween** game now byte-matches too — `tag`→"Tag hvad?"
+          (the stock " what?" literal is ALR-translated at the Display boundary to
+          " hvad?"), `gå`→the Danish catch-all — and the remembered-verb retry
+          re-runs the Danish noun.  **No regressions:** the Anno 1700 walkthrough
+          output is byte-identical to HEAD (so its 15 vs-FD hunks are all the
+          pre-existing RNG guest-event lines + the documented braid-threads /
+          character-noref-Player / `0`-pronoun residuals), Stone of Wisdom
+          look/examine/inventory still diff to ZERO, the Six Silver Bullets golden
+          + a5parse/a5arith/a5distest/a5walk/a5objtest all unchanged.
+          **ASan/UBSan-clean** across the whole 15-game corpus (ladder +
+          remembered-verb-retry-recursion soaks).  No new source files — all in
+          the existing `a5run`/`a5text` (+ one new `a5text` export), so the
+          Makefiles and Xcode target need no new entries.
       - **Known non-fixable / game-specific corpus residuals**: FBA is
         event/RNG-shifted (an early "custodian catches you" event fires turn 1
         under the xoshiro seed → immediate loss; .NET `System.Random` divergence)
