@@ -28,6 +28,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <vector>
+
 #include "zlib.h"
 #include "scarier.h"
 #include "scprotos.h"
@@ -354,7 +356,6 @@ static scr_bool
 taf_unobfuscate (scr_tafref_t taf, scr_read_callbackref_t callback,
                  void *opaque, scr_bool is_gamefile)
 {
-  scr_byte *buffer;
   scr_int bytes, used_bytes, total_bytes, index_;
 
   /* Reset the PRNG, and synchronize with the header already read. */
@@ -363,10 +364,13 @@ taf_unobfuscate (scr_tafref_t taf, scr_read_callbackref_t callback,
     taf_random ();
 
   /*
-   * Malloc buffer, done to help systems with limited stacks, and initialize
-   * count of bytes read and used in the buffer to zero.
+   * Allocate buffer on the heap, done to help systems with limited stacks,
+   * and initialize count of bytes read and used in the buffer to zero.  The
+   * RAII owner frees the buffer if taf_append_buffer or the unterminated-slab
+   * scr_fatal below throws.
    */
-  buffer = (decltype(buffer)) scr_malloc (IN_BUFFER_SIZE);
+  std::vector<scr_byte> buffer_storage (IN_BUFFER_SIZE);
+  scr_byte *const buffer = buffer_storage.data ();
   used_bytes = 0;
   total_bytes = 0;
 
@@ -423,7 +427,6 @@ taf_unobfuscate (scr_tafref_t taf, scr_read_callbackref_t callback,
     scr_fatal ("taf_unobfuscate: unterminated final data slab\n");
 
   /* Return successfully. */
-  scr_free (buffer);
   return TRUE;
 }
 
@@ -440,17 +443,20 @@ static scr_bool
 taf_decompress (scr_tafref_t taf, scr_read_callbackref_t callback,
                 void *opaque, scr_bool is_gamefile)
 {
-  scr_byte *in_buffer, *out_buffer;
   z_stream stream;
   scr_int status;
   scr_bool is_first_block;
 
   /*
-   * Malloc buffers, done this way rather than as stack variables for systems
-   * such as PalmOS that may have limited stacks.
+   * Allocate buffers on the heap rather than as stack variables for systems
+   * such as PalmOS that may have limited stacks.  The RAII owners free them on
+   * every exit, including if taf_append_buffer or the unterminated-slab
+   * scr_fatal below throws.
    */
-  in_buffer = (decltype(in_buffer)) scr_malloc (IN_BUFFER_SIZE);
-  out_buffer = (decltype(out_buffer)) scr_malloc (OUT_BUFFER_SIZE);
+  std::vector<scr_byte> in_storage (IN_BUFFER_SIZE);
+  std::vector<scr_byte> out_storage (OUT_BUFFER_SIZE);
+  scr_byte *const in_buffer = in_storage.data ();
+  scr_byte *const out_buffer = out_storage.data ();
 
   /* Initialize Zlib inflation functions. */
   stream.next_out = out_buffer;
@@ -466,8 +472,6 @@ taf_decompress (scr_tafref_t taf, scr_read_callbackref_t callback,
   if (status != Z_OK)
     {
       scr_error ("taf_decompress: inflateInit: error %ld\n", status);
-      scr_free (in_buffer);
-      scr_free (out_buffer);
       return FALSE;
     }
 
@@ -498,8 +502,6 @@ taf_decompress (scr_tafref_t taf, scr_read_callbackref_t callback,
         {
           if (is_gamefile || !is_first_block)
             scr_error ("taf_decompress: inflate: error %ld\n", status);
-          scr_free (in_buffer);
-          scr_free (out_buffer);
           return FALSE;
         }
       out_bytes = OUT_BUFFER_SIZE - stream.avail_out;
@@ -547,8 +549,6 @@ taf_decompress (scr_tafref_t taf, scr_read_callbackref_t callback,
     scr_fatal ("taf_decompress: unterminated final data slab\n");
 
   /* Return successfully. */
-  scr_free (in_buffer);
-  scr_free (out_buffer);
   return TRUE;
 }
 

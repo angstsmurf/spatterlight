@@ -397,6 +397,26 @@ drops.
     P4 profiling confirmed is the hot path — converting it to `std::vector`/RAII
     risks both the byte-exact bar and the arena's performance, so it stays its own
     coordinated P4-adjacent project, not a mechanical sweep.
+- [x] `sctaffil.cpp` — **the load-time decompression/unobfuscation scratch
+  buffers** (same P2 follow-up class as `sctafpar` below). The two file readers
+  each `scr_malloc` a fixed-size working buffer and then call `taf_append_buffer`
+  (which `scr_realloc`s → can `scr_fatal`/throw on OOM) and finally `scr_fatal`
+  on an unterminated final slab — so a corrupt/truncated game leaked the raw
+  buffer(s) on the throw path. Converted: `taf_unobfuscate`'s `buffer` and
+  `taf_decompress`'s `in_buffer`/`out_buffer` → fixed-size `std::vector<scr_byte>`
+  owners, handing `.data()` (a `scr_byte *const`) to the unchanged
+  pointer-walked body (callback fill, `taf_random` XOR, `memmove` compaction, the
+  zlib `z_stream` next_in/next_out). All five `scr_free` calls (success + the
+  three early `return FALSE` error paths) are gone; the vectors free themselves on
+  every exit including the throw. The zlib `inflateEnd` ordering is unchanged
+  (still skipped on the mid-stream `inflate` error early-return, as before — not
+  my buffers' concern). Validated **byte-identical** across the
+  determinism-checked v4 corpus (**37 MATCH / 0 DIFFER**, both the v4.0
+  zlib-decompress and the v3.9/3.8 unobfuscate paths exercised; the 1 NONDET is
+  the time-dependent `shadowpeak`, nondeterministic within the baseline binary
+  too — never a regression); `make -f Makefile.headless test` + `sanitize` green;
+  ASan/UBSan clean. (Byte-identity is structural: the `std::vector` is the same
+  fixed size, `.data()` is the same kind of contiguous buffer used identically.)
 - [x] `sctafpar.cpp` — **the load-time leak-on-throw scratch arrays** (P2
   follow-up: P2 noted that a `scr_fatal` thrown through the TAF parser leaks raw
   buffers, so RAII here makes the corrupt-game error path unwind cleanly).
