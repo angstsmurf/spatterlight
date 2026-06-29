@@ -3546,3 +3546,456 @@ a5run_input (a5_run_t *run, const char *line)
     not_understood (run, in, &out);
   return finish_turn (run, &out);
 }
+
+/* ============================================================ save / restore */
+
+/* Phase 5 save/restore (clsState / FileIO.SaveState|LoadState).  The v5 save is
+   an XML game-state snapshot.  We serialise the full mutable runtime to a
+   self-contained <SaveState> document and apply it back.  Entity arrays
+   (objects, characters, variables, events, walks) are written in model order and
+   restored positionally; the task/seen/override/displayed/look sets are sparse.
+   Holder/location keys are re-interned to the model's stable strings on restore
+   so they outlive the (freed) save buffer, mirroring how a5state computes them.
+
+   Unlike FrankenDrift's format we also record the RNG state, so a restored game
+   replays the identical deterministic sequence -- otherwise a fresh a5run would
+   re-seed to 1234 and diverge. */
+
+static void
+sb_putc_ (sb_t *b, char c) { char t[2] = { c, '\0' }; sb_puts (b, t); }
+
+static void
+xml_esc (sb_t *b, const char *s)
+{
+  const char *p;
+  if (s == NULL)
+    return;
+  for (p = s; *p; p++)
+    switch (*p)
+      {
+      case '&': sb_puts (b, "&amp;"); break;
+      case '<': sb_puts (b, "&lt;");  break;
+      case '>': sb_puts (b, "&gt;");  break;
+      case '"': sb_puts (b, "&quot;"); break;
+      default:  sb_putc_ (b, *p);     break;
+      }
+}
+
+static void
+sb_elem (sb_t *b, const char *tag, const char *val)
+{
+  sb_puts (b, "<"); sb_puts (b, tag); sb_puts (b, ">");
+  xml_esc (b, val);
+  sb_puts (b, "</"); sb_puts (b, tag); sb_puts (b, ">\n");
+}
+
+static void
+sb_elem_l (sb_t *b, const char *tag, long v)
+{
+  char num[32];
+  snprintf (num, sizeof num, "%ld", v);
+  sb_elem (b, tag, num);
+}
+
+/* Pre-order list of every node in the game DOM, so a <DisplayOnce> segment
+   (tracked by node pointer) has a stable index across a save/restore that
+   re-parses an identical game file. */
+static void
+collect_dom_nodes (const a5_xml_node_t *n,
+                   std::vector<const a5_xml_node_t *> &out)
+{
+  for (; n != NULL; n = n->next)
+    {
+      out.push_back (n);
+      collect_dom_nodes (n->first_child, out);
+    }
+}
+
+/* Resolve a holder/location key to the model's own stable string pointer (so it
+   survives the save buffer being freed).  Keys are globally unique in ADRIFT. */
+static const char *
+intern_key (const a5_adventure_t *adv, const char *key)
+{
+  int i;
+  const a5_object_t *o;
+  const a5_location_t *l;
+  const a5_character_t *c;
+  if (key == NULL || key[0] == '\0')
+    return NULL;
+  if ((o = a5model_object (adv, key)) != NULL)    return o->key;
+  if ((l = a5model_location (adv, key)) != NULL)  return l->key;
+  if ((c = a5model_character (adv, key)) != NULL) return c->key;
+  for (i = 0; i < adv->n_groups; i++)
+    if (streq (adv->groups[i].key, key))
+      return adv->groups[i].key;
+  return NULL;
+}
+
+char *
+a5run_save (a5_run_t *run, size_t *out_len)
+{
+  sb_t b;
+  a5_state_t *st;
+  const a5_adventure_t *adv;
+  int i, native;
+  unsigned int rng[4];
+  std::vector<const a5_xml_node_t *> dom;
+
+  if (run == NULL)
+    return NULL;
+  st = run->st;
+  adv = run->adv;
+  sb_init (&b);
+  sb_puts (&b, "<SaveState>\n");
+  sb_elem_l (&b, "Version", 1);
+
+  a5rand_get_state (&native, rng);
+  sb_elem_l (&b, "RngNative", native);
+  for (i = 0; i < 4; i++)
+    sb_elem_l (&b, "Rng", (long) rng[i]);
+
+  sb_elem_l (&b, "EventsRunning", run->events_running);
+  sb_elem_l (&b, "GameOver", st->game_over);
+  if (st->end_message != NULL)
+    sb_elem (&b, "EndMessage", st->end_message);
+  if (st->conv_char != NULL && st->conv_char[0])
+    sb_elem (&b, "ConvChar", st->conv_char);
+  if (st->conv_node != NULL && st->conv_node[0])
+    sb_elem (&b, "ConvNode", st->conv_node);
+
+  /* Objects (model order). */
+  for (i = 0; i < adv->n_objects; i++)
+    {
+      sb_puts (&b, "<Object>\n");
+      sb_elem_l (&b, "Where", (long) st->obj[i].where);
+      if (st->obj[i].key != NULL && st->obj[i].key[0])
+        sb_elem (&b, "Key", st->obj[i].key);
+      sb_puts (&b, "</Object>\n");
+    }
+
+  /* Characters (model order). */
+  for (i = 0; i < adv->n_characters; i++)
+    {
+      sb_puts (&b, "<Character>\n");
+      if (st->char_loc[i] != NULL && st->char_loc[i][0])
+        sb_elem (&b, "Loc", st->char_loc[i]);
+      if (st->char_position[i] != NULL)
+        sb_elem (&b, "Position", st->char_position[i]);
+      if (st->char_onobj[i] != NULL && st->char_onobj[i][0])
+        sb_elem (&b, "OnObj", st->char_onobj[i]);
+      sb_elem_l (&b, "In", st->char_in ? st->char_in[i] : 0);
+      sb_puts (&b, "</Character>\n");
+    }
+
+  /* Variables (model order). */
+  for (i = 0; i < adv->n_variables; i++)
+    {
+      sb_puts (&b, "<Variable>\n");
+      sb_elem_l (&b, "Num", st->var_num[i]);
+      if (st->var_text[i] != NULL)
+        sb_elem (&b, "Text", st->var_text[i]);
+      sb_puts (&b, "</Variable>\n");
+    }
+
+  /* Completed tasks (sparse, by key). */
+  for (i = 0; i < adv->n_tasks; i++)
+    if (st->task_done[i])
+      sb_elem (&b, "TaskDone", adv->tasks[i].key);
+
+  /* Property overrides. */
+  for (i = 0; i < st->n_ov; i++)
+    {
+      sb_puts (&b, "<PropOv>\n");
+      sb_elem (&b, "Entity", st->ov[i].entity);
+      sb_elem (&b, "Prop", st->ov[i].prop);
+      sb_elem (&b, "Value", st->ov[i].value);
+      sb_puts (&b, "</PropOv>\n");
+    }
+
+  /* "Seen" sets (sparse, by key). */
+  if (st->obj_seen != NULL)
+    for (i = 0; i < adv->n_objects; i++)
+      if (st->obj_seen[i])
+        sb_elem (&b, "ObjSeen", adv->objects[i].key);
+  if (st->char_seen != NULL)
+    for (i = 0; i < adv->n_characters; i++)
+      if (st->char_seen[i])
+        sb_elem (&b, "CharSeen", adv->characters[i].key);
+
+  /* Events (model order). */
+  for (i = 0; i < (int) run->events->size (); i++)
+    {
+      a5_event_rt &e = (*run->events)[i];
+      size_t s;
+      sb_puts (&b, "<Event>\n");
+      sb_elem_l (&b, "Status", e.status);
+      sb_elem_l (&b, "Length", e.length_value);
+      sb_elem_l (&b, "Timer", e.timer_to_end);
+      sb_elem_l (&b, "LastSeTime", e.last_se_time);
+      sb_elem_l (&b, "LastSeIndex", e.last_se_index);
+      sb_elem_l (&b, "JustStarted", e.just_started);
+      sb_elem_l (&b, "NextCommand", e.next_command);
+      sb_elem_l (&b, "WhenStart", e.when_start);
+      sb_elem (&b, "Trigger", e.triggering_task.c_str ());
+      for (s = 0; s < e.se_ft.size (); s++)
+        sb_elem_l (&b, "SeFt", e.se_ft[s]);
+      sb_puts (&b, "</Event>\n");
+    }
+
+  /* Walks (flattened order, as built by a5run_new). */
+  for (i = 0; i < (int) run->walks->size (); i++)
+    {
+      a5_walk_rt &w = (*run->walks)[i];
+      size_t s;
+      sb_puts (&b, "<Walk>\n");
+      sb_elem_l (&b, "Status", w.status);
+      sb_elem_l (&b, "Length", w.length);
+      sb_elem_l (&b, "Timer", w.timer_to_end);
+      sb_elem_l (&b, "LastSwTime", w.last_sw_time);
+      sb_elem_l (&b, "LastSwIndex", w.last_sw_index);
+      sb_elem_l (&b, "JustStarted", w.just_started);
+      sb_elem_l (&b, "NextCommand", w.next_command);
+      sb_elem (&b, "Trigger", w.triggering_task.c_str ());
+      for (s = 0; s < w.step_dur.size (); s++)
+        sb_elem_l (&b, "StepDur", w.step_dur[s]);
+      for (s = 0; s < w.sw_ft.size (); s++)
+        sb_elem_l (&b, "SwFt", w.sw_ft[s]);
+      for (s = 0; s < w.came_across.size (); s++)
+        sb_elem_l (&b, "CameAcross", w.came_across[s]);
+      sb_puts (&b, "</Walk>\n");
+    }
+
+  /* Displayed <DisplayOnce> segments (by DOM pre-order index). */
+  if (st->n_disp_once > 0)
+    {
+      int j;
+      collect_dom_nodes (a5xml_root (adv->doc), dom);
+      for (j = 0; j < st->n_disp_once; j++)
+        {
+          size_t k;
+          for (k = 0; k < dom.size (); k++)
+            if (dom[k] == st->disp_once[j])
+              { sb_elem_l (&b, "Displayed", (long) k); break; }
+        }
+    }
+
+  /* SetLook stack. */
+  for (i = 0; i < st->n_looks; i++)
+    {
+      sb_puts (&b, "<Look>\n");
+      sb_elem (&b, "LocKey", st->looks[i].loc_key);
+      sb_elem (&b, "Text", st->looks[i].text);
+      sb_puts (&b, "</Look>\n");
+    }
+
+  sb_puts (&b, "</SaveState>\n");
+  if (out_len != NULL)
+    *out_len = b.len;
+  return sb_take (&b);
+}
+
+/* strtol on a child's text (0 when absent). */
+static long
+child_long (const a5_xml_node_t *n, const char *name)
+{
+  const char *t = a5xml_child_text (n, name);
+  return t != NULL ? strtol (t, NULL, 10) : 0;
+}
+
+int
+a5run_restore (a5_run_t *run, const char *data, size_t len)
+{
+  a5_xml_doc_t *doc;
+  a5_xml_node_t *root, *n;
+  a5_state_t *st;
+  const a5_adventure_t *adv;
+  char *buf;
+  unsigned int rng[4] = { 0, 0, 0, 0 };
+  int native = 0, rng_i = 0, i;
+  int obj_i = 0, char_i = 0, var_i = 0, ev_i = 0, wk_i = 0;
+  std::vector<const a5_xml_node_t *> dom;
+
+  if (run == NULL || data == NULL)
+    return 0;
+  buf = (char *) malloc (len + 1);
+  if (buf == NULL)
+    return 0;
+  memcpy (buf, data, len);
+  buf[len] = '\0';
+  doc = a5xml_parse (buf, (uint32_t) len);
+  if (doc == NULL)
+    { free (buf); return 0; }
+  root = a5xml_root (doc);
+  if (root == NULL || !streq (root->name, "SaveState"))
+    { a5xml_free (doc); return 0; }
+
+  st = run->st;
+  adv = run->adv;
+
+  /* Reset the accumulating / sparse fields before applying. */
+  for (i = 0; i < adv->n_tasks; i++)
+    st->task_done[i] = 0;
+  for (i = 0; i < st->n_ov; i++)
+    { free (st->ov[i].entity); free (st->ov[i].prop); free (st->ov[i].value); }
+  st->n_ov = 0;
+  if (st->obj_seen != NULL)
+    memset (st->obj_seen, 0, (size_t) adv->n_objects);
+  if (st->char_seen != NULL)
+    memset (st->char_seen, 0, (size_t) adv->n_characters);
+  st->n_disp_once = 0;
+  for (i = 0; i < st->n_looks; i++)
+    { free (st->looks[i].loc_key); free (st->looks[i].text); }
+  st->n_looks = 0;
+  free (st->end_message);
+  st->end_message = NULL;
+  st->game_over = 0;
+
+  for (n = root->first_child; n != NULL; n = n->next)
+    {
+      const char *nm = n->name;
+      if (streq (nm, "RngNative"))
+        native = (int) strtol (n->text ? n->text : "0", NULL, 10);
+      else if (streq (nm, "Rng"))
+        { if (rng_i < 4) rng[rng_i++] = (unsigned int) strtoul (n->text ? n->text : "0", NULL, 10); }
+      else if (streq (nm, "EventsRunning"))
+        run->events_running = (int) strtol (n->text ? n->text : "0", NULL, 10);
+      else if (streq (nm, "GameOver"))
+        st->game_over = (int) strtol (n->text ? n->text : "0", NULL, 10);
+      else if (streq (nm, "EndMessage"))
+        st->end_message = strdup (n->text ? n->text : "");
+      else if (streq (nm, "ConvChar"))
+        a5state_set_conv_char (st, n->text ? n->text : "");
+      else if (streq (nm, "ConvNode"))
+        a5state_set_conv_node (st, n->text ? n->text : "");
+      else if (streq (nm, "Object"))
+        {
+          if (obj_i < adv->n_objects)
+            {
+              st->obj[obj_i].where = (a5_owhere_t) child_long (n, "Where");
+              st->obj[obj_i].key = intern_key (adv, a5xml_child_text (n, "Key"));
+              obj_i++;
+            }
+        }
+      else if (streq (nm, "Character"))
+        {
+          if (char_i < adv->n_characters)
+            {
+              const char *loc = a5xml_child_text (n, "Loc");
+              const char *pos = a5xml_child_text (n, "Position");
+              const char *onobj = a5xml_child_text (n, "OnObj");
+              st->char_loc[char_i] = intern_key (adv, loc);
+              free (st->char_position[char_i]);
+              st->char_position[char_i] = strdup (pos ? pos : "Standing");
+              st->char_onobj[char_i] = intern_key (adv, onobj);
+              if (st->char_in != NULL)
+                st->char_in[char_i] = (char) child_long (n, "In");
+              char_i++;
+            }
+        }
+      else if (streq (nm, "Variable"))
+        {
+          if (var_i < adv->n_variables)
+            {
+              const char *txt = a5xml_child_text (n, "Text");
+              st->var_num[var_i] = child_long (n, "Num");
+              free (st->var_text[var_i]);
+              st->var_text[var_i] = txt != NULL ? strdup (txt) : NULL;
+              var_i++;
+            }
+        }
+      else if (streq (nm, "TaskDone"))
+        {
+          int ti = a5state_task_index (st, n->text ? n->text : "");
+          if (ti >= 0)
+            st->task_done[ti] = 1;
+        }
+      else if (streq (nm, "PropOv"))
+        {
+          const char *e = a5xml_child_text (n, "Entity");
+          const char *p = a5xml_child_text (n, "Prop");
+          const char *v = a5xml_child_text (n, "Value");
+          if (e != NULL && p != NULL)
+            a5state_set_prop (st, e, p, v ? v : "");
+        }
+      else if (streq (nm, "ObjSeen"))
+        {
+          int oi = a5state_object_index (st, n->text ? n->text : "");
+          if (oi >= 0 && st->obj_seen != NULL)
+            st->obj_seen[oi] = 1;
+        }
+      else if (streq (nm, "CharSeen"))
+        {
+          int ci = a5state_character_index (st, n->text ? n->text : "");
+          if (ci >= 0 && st->char_seen != NULL)
+            st->char_seen[ci] = 1;
+        }
+      else if (streq (nm, "Event"))
+        {
+          if (ev_i < (int) run->events->size ())
+            {
+              a5_event_rt &e = (*run->events)[ev_i];
+              const a5_xml_node_t *c;
+              const char *trg = a5xml_child_text (n, "Trigger");
+              int s = 0;
+              e.status       = (int)  child_long (n, "Status");
+              e.length_value =        child_long (n, "Length");
+              e.timer_to_end =        child_long (n, "Timer");
+              e.last_se_time =        child_long (n, "LastSeTime");
+              e.last_se_index = (int) child_long (n, "LastSeIndex");
+              e.just_started = (int)  child_long (n, "JustStarted");
+              e.next_command = (int)  child_long (n, "NextCommand");
+              e.when_start   = (int)  child_long (n, "WhenStart");
+              e.triggering_task = trg ? trg : "";
+              for (c = n->first_child; c != NULL; c = c->next)
+                if (streq (c->name, "SeFt") && s < (int) e.se_ft.size ())
+                  e.se_ft[s++] = strtol (c->text ? c->text : "0", NULL, 10);
+              ev_i++;
+            }
+        }
+      else if (streq (nm, "Walk"))
+        {
+          if (wk_i < (int) run->walks->size ())
+            {
+              a5_walk_rt &w = (*run->walks)[wk_i];
+              const a5_xml_node_t *c;
+              const char *trg = a5xml_child_text (n, "Trigger");
+              int sd = 0, sf = 0, ca = 0;
+              w.status       = (int) child_long (n, "Status");
+              w.length       =       child_long (n, "Length");
+              w.timer_to_end =       child_long (n, "Timer");
+              w.last_sw_time =       child_long (n, "LastSwTime");
+              w.last_sw_index = (int) child_long (n, "LastSwIndex");
+              w.just_started = (int) child_long (n, "JustStarted");
+              w.next_command = (int) child_long (n, "NextCommand");
+              w.triggering_task = trg ? trg : "";
+              for (c = n->first_child; c != NULL; c = c->next)
+                {
+                  if (streq (c->name, "StepDur") && sd < (int) w.step_dur.size ())
+                    w.step_dur[sd++] = strtol (c->text ? c->text : "0", NULL, 10);
+                  else if (streq (c->name, "SwFt") && sf < (int) w.sw_ft.size ())
+                    w.sw_ft[sf++] = strtol (c->text ? c->text : "0", NULL, 10);
+                  else if (streq (c->name, "CameAcross") && ca < (int) w.came_across.size ())
+                    w.came_across[ca++] = (char) strtol (c->text ? c->text : "0", NULL, 10);
+                }
+              wk_i++;
+            }
+        }
+      else if (streq (nm, "Displayed"))
+        {
+          long k = strtol (n->text ? n->text : "-1", NULL, 10);
+          if (dom.empty ())
+            collect_dom_nodes (a5xml_root (adv->doc), dom);
+          if (k >= 0 && k < (long) dom.size ())
+            a5state_disp_once_mark (st, dom[(size_t) k]);
+        }
+      else if (streq (nm, "Look"))
+        {
+          a5state_push_look (st, a5xml_child_text (n, "LocKey"),
+                             a5xml_child_text (n, "Text"));
+        }
+    }
+
+  a5rand_set_state (native, rng);
+  a5xml_free (doc);
+  return 1;
+}

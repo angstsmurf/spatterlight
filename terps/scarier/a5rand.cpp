@@ -3,6 +3,7 @@
  * ADRIFT 5 support for Scarier -- randomness.  See a5rand.h.
  */
 
+#include <stddef.h>
 #include <stdint.h>
 
 #include "a5rand.h"
@@ -13,6 +14,8 @@
 extern "C" {
   void   set_erkyrath_random (uint32_t seed);
   uint32_t erkyrath_random   (void);
+  void erkyrath_random_get_detstate (int *usenative, uint32_t **arr, int *count);
+  void erkyrath_random_set_detstate (int usenative, uint32_t *arr, int count);
 }
 
 static int a5rand_seeded = 0;
@@ -42,4 +45,27 @@ a5rand_between (long lo, long hi)
   if (hi < lo) { t = lo; lo = hi; hi = t; }
   span = (unsigned long) (hi - lo) + 1UL;
   return lo + (long) (erkyrath_random () % span);
+}
+
+void
+a5rand_get_state (int *native, unsigned int state[4])
+{
+  uint32_t *arr = NULL;
+  int count = 0, n = 0, i;
+  erkyrath_random_get_detstate (&n, &arr, &count);
+  if (native != NULL)
+    *native = n;
+  for (i = 0; i < 4; i++)
+    state[i] = (arr != NULL && i < count) ? (unsigned int) arr[i] : 0u;
+}
+
+void
+a5rand_set_state (int native, const unsigned int state[4])
+{
+  uint32_t arr[4];
+  int i;
+  for (i = 0; i < 4; i++)
+    arr[i] = (uint32_t) state[i];
+  erkyrath_random_set_detstate (native, arr, 4);
+  a5rand_seeded = 1;
 }

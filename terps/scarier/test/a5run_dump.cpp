@@ -11,6 +11,10 @@
  *
  * A5_TRACE_RUN=1   trace task matching + action execution
  * A5_TRACE_RESTR=1 trace restriction evaluation
+ * A5_SAVE_AT=N     after the Nth command, a5run_save the state, free the run,
+ *                  build a fresh run, a5run_restore it, and continue from there
+ *                  -- a save/restore self-check: the transcript must be identical
+ *                  to a plain run (Phase 5).
  */
 
 #include <stdio.h>
@@ -74,23 +78,42 @@ main (int argc, char **argv)
   printf ("%s\n", txt);
   free (txt);
 
-  while (fgets (line, sizeof line, script) != NULL)
-    {
-      size_t n = strlen (line);
-      while (n > 0 && (line[n - 1] == '\n' || line[n - 1] == '\r'))
-        line[--n] = '\0';
-      if (n == 0 || line[0] == '#')
-        continue;
-      printf ("\n> %s\n", line);
-      txt = a5run_input (run, line);
-      printf ("%s\n", txt);
-      free (txt);
-      if (a5run_is_over (run))
-        {
-          printf ("\n[GAME OVER]\n");
-          break;
-        }
-    }
+  {
+    const char *sa = getenv ("A5_SAVE_AT");
+    long save_at = sa != NULL ? strtol (sa, NULL, 10) : -1;
+    long cmd_no = 0;
+
+    while (fgets (line, sizeof line, script) != NULL)
+      {
+        size_t n = strlen (line);
+        while (n > 0 && (line[n - 1] == '\n' || line[n - 1] == '\r'))
+          line[--n] = '\0';
+        if (n == 0 || line[0] == '#')
+          continue;
+        printf ("\n> %s\n", line);
+        txt = a5run_input (run, line);
+        printf ("%s\n", txt);
+        free (txt);
+        if (a5run_is_over (run))
+          {
+            printf ("\n[GAME OVER]\n");
+            break;
+          }
+        if (++cmd_no == save_at)
+          {
+            /* Save, tear the run down, rebuild + restore, and continue: the rest
+               of the transcript must match a plain run. */
+            size_t len = 0;
+            char *blob = a5run_save (run, &len);
+            a5run_free (run);
+            run = a5run_new (a);
+            if (blob == NULL || !a5run_restore (run, blob, len))
+              { fprintf (stderr, "a5run_dump: save/restore failed\n"); free (blob); break; }
+            free (blob);
+            fprintf (stderr, "[restored after command %ld]\n", cmd_no);
+          }
+      }
+  }
 
   if (script != stdin)
     fclose (script);

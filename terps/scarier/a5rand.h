@@ -26,6 +26,13 @@ extern void a5rand_seed (unsigned int seed);
    bounds if hi < lo, exactly like frankendrift. */
 extern long a5rand_between (long lo, long hi);
 
+/* Save/restore the full generator state, so a saved game replays the same RNG
+   sequence after restore (the v5 save format records it).  `state` holds the
+   four xoshiro128** words; `native` is the platform-native-RNG flag.  Mirrors
+   erkyrath_random_get_detstate / set_detstate (autorestore). */
+extern void a5rand_get_state (int *native, unsigned int state[4]);
+extern void a5rand_set_state (int native, const unsigned int state[4]);
+
 #ifdef __cplusplus
 }
 #endif

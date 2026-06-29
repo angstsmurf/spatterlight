@@ -40,6 +40,20 @@ extern char *a5run_input (a5_run_t *run, const char *line);
 /* Non-zero once an EndGame action has fired. */
 extern int a5run_is_over (a5_run_t *run);
 
+/* Save/restore (Phase 5).  a5run_save serialises the full mutable runtime state
+   -- object/character locations, variable values, completed tasks, property
+   overrides, the "seen" sets, event/walk timers, displayed <DisplayOnce>
+   segments, conversation state and the RNG -- to a malloc'd, NUL-terminated XML
+   buffer (caller frees); *out_len receives its byte length (excluding the NUL).
+   Returns NULL on failure.  a5run_restore applies such a buffer to `run` (which
+   must have been created from the *same* game), returning 1 on success, 0 on a
+   malformed/incompatible buffer (in which case `run` is left unchanged on the
+   structural level, though a partial apply may have occurred -- callers should
+   treat a 0 return as fatal for the session).  The buffer is the v5 save body;
+   the Glk/Spatterlight layer may compress/wrap it. */
+extern char *a5run_save    (a5_run_t *run, size_t *out_len);
+extern int   a5run_restore (a5_run_t *run, const char *data, size_t len);
+
 /* Trace task matching / action execution to stderr. */
 extern int a5run_trace;
 

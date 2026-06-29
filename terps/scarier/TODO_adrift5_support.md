@@ -1313,8 +1313,51 @@ ADRIFT text is full of embedded directives evaluated at display time:
         function library; scoring display (no ADRIFT Score/MaxScore status);
         "seen"/visibility (`HaveBeenSeen*`/`BeVisibleTo*` still approximated);
         `<DisplayOnce>` ReturnToDefault + non-location uses (best-effort).
-- [ ] **P5 Resources & save**: blorb media via Glk; v5 XML save/restore; finish a
+- [~] **P5 Resources & save**: blorb media via Glk; v5 XML save/restore; finish a
       full deterministic walkthrough of Six Silver Bullets.
+      - **v5 save/restore (engine level) — DONE.**  `a5run_save` / `a5run_restore`
+        (in `a5run.cpp`, declared in `a5run.h`) serialise the full mutable runtime
+        to a self-contained `<SaveState>` XML buffer and apply it back, mirroring
+        FrankenDrift's `FileIO.SaveState`/`LoadState` (clsGameState).  Captured:
+        object locations (`Where`+holder/location `Key`), character location/
+        position/on-object, variable numeric+text values, completed tasks,
+        property overrides (`SetProperty` layer), the cumulative object/character
+        "seen" sets, the per-event timer machine (status / Length / TimerToEnd /
+        LastSubEvent time+index / WhenStart / triggering task / resolved sub-event
+        offsets), the per-walk machine (status / timer / LastSubWalk / step
+        durations / sub-walk offsets / ComesAcross flags), the `<DisplayOnce>`
+        displayed-segment set (by DOM pre-order index, stable across an identical
+        re-parse), the SetLook stack, conversation state and end-game state.
+        **Beyond FrankenDrift's format we also record the RNG state** (new
+        `a5rand_get_state`/`a5rand_set_state` over `erkyrath_random_get/set_detstate`)
+        so a restored game replays the identical deterministic sequence instead of
+        re-seeding to 1234 and diverging.  On restore, holder/location keys are
+        re-interned to the model's own stable string pointers (`intern_key`) so
+        they outlive the freed save buffer; entity arrays restore positionally
+        (model order), the task/seen/override/displayed/look sets sparsely.
+        - **Validated**: a new self-contained synthetic regression
+          `test/a5_save_test.cpp` (`make -f Makefile.headless test` as
+          `a5savetest`) plays an intro + pre-split sequence (take object, roll a
+          RAND variable, tick a timed event), saves, then proves a fresh run
+          restored from the blob (no intro replay) produces **byte-identical**
+          continuation output — exercising object location, the variable + RNG
+          round-trip (the rolled value must match across the restore), the event
+          timer (the clock strike lands on the same turn), the seen sets and the
+          completed-task / carried state via the room view.  Plus a real-game
+          self-check knob in the `a5run_dump` harness (`A5_SAVE_AT=N`: save after
+          the Nth command, tear the run down, rebuild + restore, continue): the
+          **Six Silver Bullets golden script, Anno 1700 and Stone of Wisdom all
+          round-trip byte-identically** to a plain run at splits 1/3/5/7, and a
+          `save@3` soak across the whole 15-game corpus is **ASan/UBSan-clean**.
+        - NOTE / still TODO: the save format is Scarier's own `<SaveState>`, not
+          byte-compatible with the official Runner / FrankenDrift `.tas` saves
+          (interop is a separate effort).  Mid-prompt disambiguation state
+          (the "Which X?" `amb_*` fields), the remembered-verb retry and the
+          `known_words` cache are transient and not serialised (a save resumes at
+          a fresh command boundary).  And this is the *engine* API only — wiring
+          it into `scinterf.cpp` + the Glk save stream (and the v5 path into
+          Spatterlight at all) is the remaining integration work, alongside blorb
+          media via Glk and the full deterministic Six Silver Bullets walkthrough.
 
 ---
 
