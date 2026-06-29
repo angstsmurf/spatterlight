@@ -3781,6 +3781,21 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
    * Passing the message string around like this is a nuisance...
    */
   scr_set_trace_flags (trace_flags);
+
+  /*
+   * Select portable, predictable random number generation *before* loading the
+   * game.  Game creation (run_create -> gs_create) draws random initial event
+   * times (scr_randomint, scgamest.cpp), so reseeding only after the load would
+   * leave those initial times -- and hence the whole event schedule -- governed
+   * by the unseeded, time-based RNG, making event-heavy games nondeterministic
+   * run to run even with determinism mode on.
+   */
+  if (stable_random)
+    {
+      scr_set_portable_random (TRUE);
+      scr_reseed_random_sequence (1);
+    }
+
   gsc_game = scr_game_from_callback (gsc_callback, game_stream);
   if (!gsc_game)
     {
@@ -3816,13 +3831,6 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
     {
       scr_set_game_debugger_enabled (gsc_game, enable_debugger);
       gsc_set_locale (scr_get_locale ());
-    }
-
-  /* Set portable and predictable random number generation if requested. */
-  if (stable_random)
-    {
-      scr_set_portable_random (TRUE);
-      scr_reseed_random_sequence (1);
     }
 
   /* Close the temporary window. */

@@ -351,17 +351,19 @@ drops.
       the same contract. alexis reads such a tail (detector: `MallocPreScribble=1`
       changes output; a size-tracking `scr_realloc` that zeroes the grown tail
       makes alexis fully deterministic). Time-freeze alone does *not* fix alexis.
-    - **`shadowpeak` (+ `_killwraith` / `_allgargoyles`) — real bug:
-      use-after-free / dangling pointer after a `realloc` move.** Residual
-      nondeterminism remains even with the clock frozen, the realloc tail zeroed,
-      *and* stack zero-init (`-ftrivial-auto-var-init=zero`). Detector:
-      `MallocScribble=1` (free-poison 0x55) changes output; **ASan does not catch
-      it even with `quarantine_size_mb=512`** because the freed slot is reused
-      before the read (ASan treats reused memory as valid). Pinning the exact
-      site wants MSan/Valgrind, both unavailable on macOS/arm64. Tracked as an
-      open bug below; must stay excluded from byte-validation until fixed.
-    All three are **pre-existing** (present in the baseline, not introduced by
-    the modernization). Footgun while testing: macOS libmalloc treats
+    - **`shadowpeak` (+ `_killwraith` / `_allgargoyles`) and `alexis_worn_cube`
+      — NOT a memory bug: the determinism reseed ran *after* game load.**
+      `gs_create` randomizes initial event times during load
+      (`scr_randomint`/`scgamest.cpp:1118`), but the os layers reseeded only
+      afterward, so those times used the unseeded time-based RNG → per-run event
+      schedule → cascading divergence. Confirmed by RNG-stream instrumentation
+      (draw #0's value already differed) and **FIXED** by reseeding before the
+      load (see §5a). All the memory tooling was correctly clean (Valgrind, Guard
+      Malloc, `-ftrivial-auto-var-init`, realloc-tail zeroing) — the earlier
+      "use-after-free / indeterminate memory" framing here was wrong.
+    All three were **pre-existing** (present in the baseline, not introduced by
+    the modernization) and are now fixed (§5a). Footgun while testing: macOS
+    libmalloc treats
     `MallocScribble=""`/`MallocPreScribble=""` (empty-but-*present*) as ENABLED,
     and `env -u VAR` placed *after* an assignment is mis-parsed — both produce
     bogus "divergence." Put `env -u` options first and never pass empty strings.
@@ -591,11 +593,12 @@ the signal mask between `setjmp` and `longjmp`, so the save/restore is pure wast
 
 ---
 
-## 5a. Open bugs (pre-existing; surfaced during the P3/P4 determinism audit)
+## 5a. Bugs surfaced during the P3/P4 determinism audit (both now FIXED)
 
-These are **not** modernization regressions — they exist in the baseline engine.
-Found while chasing the corpus's non-reproducible games (see the validation-harness
-refinement note in P3). Both block byte-validation of their games until fixed.
+These were **not** modernization regressions — they pre-existed in the baseline
+engine. Found while chasing the corpus's non-reproducible games (see the
+validation-harness refinement note in P3). Both are now fixed; the only remaining
+follow-up is re-deriving the Shadowpeak walkthrough (a content task, noted below).
 
 - [x] **`scr_realloc` grown tail is uninitialised → `prop_ensure_capacity`
   under-zeroed. FIXED surgically.** Root cause: `scr_realloc` honors the
@@ -616,32 +619,38 @@ refinement note in P3). Both block byte-validation of their games until fixed.
   no-op everywhere except the bug path); `make test` + `sanitize` green. Repro of
   the original bug: `MallocPreScribble=1 SCR_STABLE_RANDOM_ENABLED=1 ./scares
   ALEXIS.TAF < alexis_solution` vs clean.
-- [ ] **Residual read of indeterminate-but-valid memory** — `shadowpeak`
-  (+ `_killwraith` / `_allgargoyles`) and `alexis_worn_cube`. Run-to-run
-  nondeterminism persists after the clock-freeze and the `prop_ensure_capacity`
-  fix. Systematically narrowed (each ruled out independently):
-  - **not time** — persists with the clock frozen;
-  - **not an uninitialised stack/auto var** — persists under
-    `-ftrivial-auto-var-init=zero`;
-  - **not a `scr_realloc` grown tail** — persisted even with a size-tracking
-    `scr_realloc` that zeroed *every* grown tail (so it is a different mechanism
-    from the alexis bug fixed above);
-  - **not a freed-block use-after-free** — runs to completion with **no fault**
-    under macOS **Guard Malloc** (`DYLD_INSERT_LIBRARIES=/usr/lib/libgmalloc.dylib`),
-    which never reuses freed addresses and leaves freed pages `PROT_NONE`, so a
-    real UAF read *would* fault. (Supersedes an earlier, wrong "use-after-free"
-    label here.)
-  It *is* allocator-fill-sensitive: both `MallocScribble=1` (free-fill) and
-  `MallocPreScribble=1` (alloc-fill) change the output, so genuine indeterminate
-  *content* is read — but from a valid, currently-live allocation, and no raw
-  allocations bypass `scr_*` (which zeroes on fresh alloc). Remaining suspects:
-  an intra-block over-read past the written portion of a valid buffer (Guard
-  Malloc reported "16-byte boundaries … some buffer overruns may not be
-  noticed"), or content that depends on allocation *ordering*. Pinning it
-  realistically wants **MemorySanitizer** (uninitialised-read tracking), which is
-  unavailable on macOS/arm64 (no docker/colima/valgrind here either). Next step
-  when an MSan-capable Linux box is available: build `c++ -fsanitize=memory
-  os_ansi.cpp sc*.cpp` and replay `shadowpeak_solution.txt`.
+- [x] **Determinism reseed ran *after* game load → nondeterministic initial
+  event times. ROOT CAUSE FOUND & FIXED.** This — **not** any memory bug — was
+  the residual `shadowpeak` (+ `_killwraith` / `_allgargoyles`) and
+  `alexis_worn_cube` nondeterminism. `scr_game_from_* → run_create → gs_create`
+  draws random **initial event times** (`scr_randomint`, `scgamest.cpp:1118`)
+  *during load*, but both os layers applied
+  `scr_set_portable_random`/`scr_reseed_random_sequence(1)` only *afterward* — so
+  those initial times (and thus the whole event schedule) came from the unseeded,
+  **time-based** RNG (`rand()` seeded from `time(NULL)`). Classic heisenbug: same
+  wall-clock second → same seed → "stable" in rapid-succession tests; across
+  seconds / builds / allocator-poison layouts → different schedule → cascading
+  divergence for event-heavy games. The earlier "indeterminate-memory" framing was
+  wrong — and the tools agreed: Valgrind, Guard Malloc, `-ftrivial-auto-var-init`,
+  and the realloc-tail zeroing were all correctly *clean*. The "allocator-fill
+  sensitivity" was layout shifting the libc `rand()` seed/timing, and
+  `MallocPreScribble` can't alter `scr_malloc`'d *content* anyway (the `memset(0)`
+  overwrites its `0xAA`). **Diagnosis method that cracked it:** instrument
+  `scr_rand` to log a global sequence counter + caller, run twice, diff — RNG draw
+  #0 already differed, proving the *seed*, not memory, varied.
+  **Fix:** apply portable-random + reseed(1) **before** `scr_game_from_*` in both
+  `os_ansi.cpp` and `os_glk.cpp` (so `gs_create`'s initial-event randomization is
+  seeded). Normal (non-determinism) play is unchanged — no reseed happens there,
+  initial events stay time-random as ADRIFT/the Runner intend. Validated:
+  shadowpeak ×3 + alexis_worn_cube now run-to-run **byte-stable**;
+  previously-deterministic corpus games **byte-identical**; `make test` +
+  `sanitize` green.
+  - ⚠️ **Follow-up — re-derive the Shadowpeak walkthrough.** It was tuned against
+    the *old, non-reproducible* initial-event RNG (its "deterministic win" was a
+    same-second illusion), so under genuinely-stable seeding it now
+    *deterministically dies* in the Morac/chase sequence. `alexis_worn_cube` and
+    `cybercow_win` still complete. Re-tuning is now finally durable because the
+    seed is stable. Tracked as a walkthrough task, not an engine bug.
 
 ---
 

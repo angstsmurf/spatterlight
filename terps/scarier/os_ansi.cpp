@@ -470,6 +470,20 @@ main (int argc, const char *argv[])
   if (locale)
     scr_set_locale (locale);
 
+  /*
+   * Select portable, predictable random number generation *before* loading the
+   * game.  Game creation (run_create -> gs_create) draws random initial event
+   * times (scr_randomint, scgamest.cpp), so reseeding only after the load would
+   * leave those initial times -- and hence the whole event schedule -- governed
+   * by the unseeded, time-based RNG, making event-heavy games (Shadowpeak, …)
+   * nondeterministic run to run despite "stable random".
+   */
+  if (getenv ("SCR_STABLE_RANDOM_ENABLED"))
+    {
+      scr_set_portable_random (TRUE);
+      scr_reseed_random_sequence (1);
+    }
+
   printf ("Loading game...\n");
   game = scr_game_from_stream (stream);
   if (!game)
@@ -483,11 +497,6 @@ main (int argc, const char *argv[])
 
   if (getenv ("SCR_DEBUGGER_ENABLED"))
     scr_set_game_debugger_enabled (game, TRUE);
-  if (getenv ("SCR_STABLE_RANDOM_ENABLED"))
-    {
-      scr_set_portable_random (TRUE);
-      scr_reseed_random_sequence (1);
-    }
 
   game_file = argv[1];
 
