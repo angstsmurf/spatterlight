@@ -339,7 +339,7 @@ drops.
     builds (`scares_base` vs a fresh HEAD rebuild) — 45 of the 49 mapped
     walkthroughs. (Earlier phases that reported alexis/cybercow as "MATCH" were
     comparing within a single baseline link and got lucky on layout.)
-- [~] `scgamest.cpp` / `scprops.cpp` (with P4) — also unblocked now. Much of the
+- [~] `scgamest.cpp` (done) / `scprops.cpp` (with P4, still open) — unblocked now. Much of the
   runner-adjacent ownership here is **game-struct fields** (`current_room_name`,
   `status_line`, `hint_text`, the property tree) freed during the turn loop; the
   old `longjmp` hazard over those is gone, so RAII on them is now safe to pursue.
@@ -365,10 +365,35 @@ drops.
     NONDET are the time-dependent Shadowpeak variants whose two identical-source
     baselines already disagree — never a regression); `make -f Makefile.headless
     test` + `sanitize` green; ASan/UBSan clean.
-  - **STILL OPEN — `scprops.cpp` property tree + the remaining `scgamest.cpp`
-    POD state arrays** (`rooms`/`objects`/`tasks`/`events`/`npcs[].walksteps`/
-    `*_references`, still `scr_malloc`/`scr_free`'d). The property bundle uses a
-    deliberate **arena/pool allocator** (`node_pools`, dictionary, orphans) that
+  - **DONE — the `scgamest.cpp` POD state arrays** (`rooms`, `objects`, `tasks`,
+    `events`, `npcs` and each NPC's `walksteps`, and the `object_references`/
+    `multiple_references`/`npc_references` flags) → `std::vector`. These were the
+    last hand-`scr_malloc`'d owners in the game struct, allocated one-by-one in
+    `gs_create`: a `prop_*` `scr_fatal` thrown partway through construction (the
+    object-placement and walks loops make many `prop_get_*` calls) leaked every
+    array already allocated before it — exactly the P3 leak-on-throw class. Now
+    the vectors free themselves when the (already non-POD, `new`/`delete`d) game
+    is destroyed, so a throw unwinds them cleanly. The `*_count` fields stay as
+    the iteration source of truth (every loop, the serializer, and the asserts
+    are unchanged); `.resize()`/`.assign()` size the vectors to match. Notes:
+    `gs_create`'s per-element init loops still set every field, so vector
+    value-init (zero) vs. the old uninitialised `scr_malloc` is behaviourally
+    inert on the corpus; the `gs_copy` undo/restore `memcpy`s became vector
+    copy-assignment (POD element copy; the NPC `walksteps` inner vector deep-copies
+    too); `gs_destroy`'s manual `scr_free` block is gone; `scr_bool` is `int`
+    (not `bool`), so `std::vector<scr_bool>` stays contiguous and `.data()` is
+    valid for the two `sclibrar.cpp` reference-buffer `memcpy`s. Boundary fixes
+    where callers took a raw array pointer: `scdebug.cpp` (`from->objects + i` →
+    `&from->objects[i]`, NPC walkstep compare → `==` on the vectors),
+    `scrunner.cpp` (`game->tasks + task` → `&game->tasks[task]`; `hint -
+    game->tasks` → `hint - game->tasks.data()`). Validated **byte-identical**
+    across the determinism-checked v4 corpus (**51 MATCH / 0 DIFFER**; the 1
+    NONDET is a layout-sensitive Shadowpeak variant excluded as before — never a
+    regression); `make -f Makefile.headless test` + `sanitize` green; ASan/UBSan
+    clean on the heavy games (light_up, secret_of_lost_world, circus, sun_empire,
+    space_boy).
+  - **STILL OPEN — `scprops.cpp` property tree** (`node_pools`, dictionary,
+    orphans). The property bundle uses a deliberate **arena/pool allocator** that
     P4 profiling confirmed is the hot path — converting it to `std::vector`/RAII
     risks both the byte-exact bar and the arena's performance, so it stays its own
     coordinated P4-adjacent project, not a mechanical sweep.

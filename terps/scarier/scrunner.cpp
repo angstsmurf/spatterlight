@@ -2548,7 +2548,7 @@ run_hint_iterate (scr_gameref_t game, scr_hintref_t hint)
   else
     {
       /* Convert into pointer, and range check. */
-      task = hint - game->tasks;
+      task = hint - game->tasks.data ();
       if (task < 0 || task >= gs_task_count (game))
         {
           scr_error ("run_hint_iterate: invalid iteration hint\n");
@@ -2567,7 +2567,7 @@ run_hint_iterate (scr_gameref_t game, scr_hintref_t hint)
     }
 
   /* Return a pointer to the state of the task identified, or NULL. */
-  return task < gs_task_count (game) ? game->tasks + task : NULL;
+  return task < gs_task_count (game) ? &game->tasks[task] : NULL;
 }
 
 
@@ -2595,7 +2595,7 @@ run_get_hint_common (scr_gameref_t game, scr_hintref_t hint,
   assert (gs_is_game_valid (game));
 
   /* Verify the caller passed in a valid hint. */
-  task = hint - game->tasks;
+  task = hint - game->tasks.data ();
   if (task < 0 || task >= gs_task_count (game))
     {
       scr_error ("run_get_hint_common: invalid iteration hint\n");

@@ -1980,8 +1980,8 @@ debug_watchall_common (scr_gameref_t game,
 static scr_bool
 debug_compare_object (scr_gameref_t from, scr_gameref_t with, scr_int object)
 {
-  const scr_objectstate_t *from_object = from->objects + object;
-  const scr_objectstate_t *with_object = with->objects + object;
+  const scr_objectstate_t *from_object = &from->objects[object];
+  const scr_objectstate_t *with_object = &with->objects[object];
 
   return from_object->unmoved == with_object->unmoved
          && from_object->static_unmoved == with_object->static_unmoved
@@ -2001,8 +2001,8 @@ debug_compare_object (scr_gameref_t from, scr_gameref_t with, scr_int object)
 static scr_bool
 debug_compare_npc (scr_gameref_t from, scr_gameref_t with, scr_int npc)
 {
-  const scr_npcstate_t *from_npc = from->npcs + npc;
-  const scr_npcstate_t *with_npc = with->npcs + npc;
+  const scr_npcstate_t *from_npc = &from->npcs[npc];
+  const scr_npcstate_t *with_npc = &with->npcs[npc];
 
   if (from_npc->walkstep_count != with_npc->walkstep_count)
     scr_fatal ("debug_compare_npc: walkstep count error\n");
@@ -2011,9 +2011,7 @@ debug_compare_npc (scr_gameref_t from, scr_gameref_t with, scr_int npc)
          && from_npc->position == with_npc->position
          && from_npc->parent == with_npc->parent
          && from_npc->seen == with_npc->seen
-         && memcmp (from_npc->walksteps, with_npc->walksteps,
-                    from_npc->walkstep_count
-                    * sizeof (*from_npc->walksteps)) == 0;
+         && from_npc->walksteps == with_npc->walksteps;
 }
 
 
@@ -2025,8 +2023,8 @@ debug_compare_npc (scr_gameref_t from, scr_gameref_t with, scr_int npc)
 static scr_bool
 debug_compare_event (scr_gameref_t from, scr_gameref_t with, scr_int event)
 {
-  const scr_eventstate_t *from_event = from->events + event;
-  const scr_eventstate_t *with_event = with->events + event;
+  const scr_eventstate_t *from_event = &from->events[event];
+  const scr_eventstate_t *with_event = &with->events[event];
 
   return from_event->state == with_event->state
          && from_event->time == with_event->time;
@@ -2041,8 +2039,8 @@ debug_compare_event (scr_gameref_t from, scr_gameref_t with, scr_int event)
 static scr_bool
 debug_compare_task (scr_gameref_t from, scr_gameref_t with, scr_int task)
 {
-  const scr_taskstate_t *from_task = from->tasks + task;
-  const scr_taskstate_t *with_task = with->tasks + task;
+  const scr_taskstate_t *from_task = &from->tasks[task];
+  const scr_taskstate_t *with_task = &with->tasks[task];
 
   return from_task->done == with_task->done
          && from_task->scored == with_task->scored;

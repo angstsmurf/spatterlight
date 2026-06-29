@@ -27,6 +27,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <algorithm>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
@@ -828,32 +830,31 @@ void
 gs_clear_npc_references (scr_gameref_t gs)
 {
   assert (gs_is_game_valid (gs));
-  memset (gs->npc_references,
-          FALSE, gs->npc_count * sizeof (*gs->npc_references));
+  std::fill (gs->npc_references.begin (), gs->npc_references.end (), FALSE);
 }
 
 void
 gs_clear_object_references (scr_gameref_t gs)
 {
   assert (gs_is_game_valid (gs));
-  memset (gs->object_references,
-          FALSE, gs->object_count * sizeof (*gs->object_references));
+  std::fill (gs->object_references.begin (), gs->object_references.end (),
+             FALSE);
 }
 
 void
 gs_set_multiple_references (scr_gameref_t gs)
 {
   assert (gs_is_game_valid (gs));
-  memset (gs->multiple_references,
-          TRUE, gs->object_count * sizeof (*gs->multiple_references));
+  std::fill (gs->multiple_references.begin (), gs->multiple_references.end (),
+             TRUE);
 }
 
 void
 gs_clear_multiple_references (scr_gameref_t gs)
 {
   assert (gs_is_game_valid (gs));
-  memset (gs->multiple_references,
-          FALSE, gs->object_count * sizeof (*gs->multiple_references));
+  std::fill (gs->multiple_references.begin (), gs->multiple_references.end (),
+             FALSE);
 }
 
 
@@ -868,7 +869,7 @@ gs_create (scr_var_setref_t vars,
 {
   scr_gameref_t game;
   scr_vartype_t vt_key[4];
-  scr_int index_, bytes;
+  scr_int index_;
   assert (vars && bundle && filter);
 
   /* Create the initial state structure.  sc_game_s now owns std::unique_ptr
@@ -904,7 +905,7 @@ gs_create (scr_var_setref_t vars,
   /* Create rooms state array. */
   vt_key[0].string = "Rooms";
   game->room_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->rooms = (decltype(game->rooms)) scr_malloc (game->room_count * sizeof (*game->rooms));
+  game->rooms.resize (game->room_count);
 
   /* Set up initial rooms states. */
   for (index_ = 0; index_ < game->room_count; index_++)
@@ -913,7 +914,7 @@ gs_create (scr_var_setref_t vars,
   /* Create objects state array. */
   vt_key[0].string = "Objects";
   game->object_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->objects = (decltype(game->objects)) scr_malloc (game->object_count * sizeof (*game->objects));
+  game->objects.resize (game->object_count);
 
   /* The NPCs array is not built until further below, but the object setup
    * that follows needs the NPC count to validate objects whose initial state
@@ -1075,7 +1076,7 @@ gs_create (scr_var_setref_t vars,
   /* Create tasks state array. */
   vt_key[0].string = "Tasks";
   game->task_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->tasks = (decltype(game->tasks)) scr_malloc (game->task_count * sizeof (*game->tasks));
+  game->tasks.resize (game->task_count);
 
   /* Set up initial tasks states. */
   for (index_ = 0; index_ < game->task_count; index_++)
@@ -1087,7 +1088,7 @@ gs_create (scr_var_setref_t vars,
   /* Create events state array. */
   vt_key[0].string = "Events";
   game->event_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->events = (decltype(game->events)) scr_malloc (game->event_count * sizeof (*game->events));
+  game->events.resize (game->event_count);
 
   /* Set up initial events states. */
   for (index_ = 0; index_ < game->event_count; index_++)
@@ -1128,7 +1129,7 @@ gs_create (scr_var_setref_t vars,
   /* Create NPCs state array. */
   vt_key[0].string = "NPCs";
   game->npc_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->npcs = (decltype(game->npcs)) scr_malloc (game->npc_count * sizeof (*game->npcs));
+  game->npcs.resize (game->npc_count);
 
   /* Set up initial NPCs states. */
   for (index_ = 0; index_ < game->npc_count; index_++)
@@ -1153,8 +1154,7 @@ gs_create (scr_var_setref_t vars,
       walkstep_count = prop_get_child_count (bundle, "I<-sis", vt_key);
 
       game->npcs[index_].walkstep_count = walkstep_count;
-      game->npcs[index_].walksteps = (decltype(game->npcs[index_].walksteps)) scr_malloc (walkstep_count
-                                           * sizeof (*game->npcs[0].walksteps));
+      game->npcs[index_].walksteps.resize (walkstep_count);
 
       for (walk = 0; walk < walkstep_count; walk++)
         gs_set_npc_walkstep (game, index_, walk, 0);
@@ -1210,16 +1210,9 @@ gs_create (scr_var_setref_t vars,
   game->do_restart = FALSE;
   game->do_restore = FALSE;
 
-  bytes = game->object_count * sizeof (*game->object_references);
-  game->object_references = (decltype(game->object_references)) scr_malloc (bytes);
-  memset (game->object_references, FALSE, bytes);
-  bytes = game->object_count * sizeof (*game->multiple_references);
-  game->multiple_references = (decltype(game->multiple_references)) scr_malloc (bytes);
-  memset (game->multiple_references, FALSE, bytes);
-
-  bytes = game->npc_count * sizeof (*game->npc_references);
-  game->npc_references = (decltype(game->npc_references)) scr_malloc (bytes);
-  memset (game->npc_references, FALSE, bytes);
+  game->object_references.assign (game->object_count, FALSE);
+  game->multiple_references.assign (game->object_count, FALSE);
+  game->npc_references.assign (game->npc_count, FALSE);
 
   game->it_object = -1;
   game->him_npc = -1;
@@ -1331,20 +1324,19 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
 
   /* Copy over room states. */
   assert (to->room_count == from->room_count);
-  memcpy (to->rooms, from->rooms, from->room_count * sizeof (*from->rooms));
+  to->rooms = from->rooms;
 
   /* Copy over object states. */
   assert (to->object_count == from->object_count);
-  memcpy (to->objects, from->objects,
-          from->object_count * sizeof (*from->objects));
+  to->objects = from->objects;
 
   /* Copy over task states. */
   assert (to->task_count == from->task_count);
-  memcpy (to->tasks, from->tasks, from->task_count * sizeof (*from->tasks));
+  to->tasks = from->tasks;
 
   /* Copy over event states. */
   assert (to->event_count == from->event_count);
-  memcpy (to->events, from->events, from->event_count * sizeof (*from->events));
+  to->events = from->events;
 
   /* Copy over NPC states individually, to avoid walks problems. */
   for (npc = 0; npc < from->npc_count; npc++)
@@ -1361,9 +1353,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
 
       /* Copy over NPC walks information. */
       assert (to->npcs[npc].walkstep_count == from->npcs[npc].walkstep_count);
-      memcpy (to->npcs[npc].walksteps, from->npcs[npc].walksteps,
-              from->npcs[npc].walkstep_count
-              * sizeof (*from->npcs[npc].walksteps));
+      to->npcs[npc].walksteps = from->npcs[npc].walksteps;
     }
 
   /* Copy over player information. */
@@ -1410,12 +1400,9 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->do_restart = from->do_restart;
   to->do_restore = from->do_restore;
 
-  memcpy (to->object_references, from->object_references,
-          from->object_count * sizeof (*from->object_references));
-  memcpy (to->multiple_references, from->multiple_references,
-          from->object_count * sizeof (*from->multiple_references));
-  memcpy (to->npc_references, from->npc_references,
-          from->npc_count * sizeof (*from->npc_references));
+  to->object_references = from->object_references;
+  to->multiple_references = from->multiple_references;
+  to->npc_references = from->npc_references;
 
   to->it_object = from->it_object;
   to->him_npc = from->him_npc;
@@ -1442,25 +1429,13 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
 void
 gs_destroy (scr_gameref_t game)
 {
-  scr_int npc;
   assert (gs_is_game_valid (game));
 
-  /* Free the malloc'ed state arrays. */
-  scr_free (game->rooms);
-  scr_free (game->objects);
-  scr_free (game->tasks);
-  scr_free (game->events);
-  for (npc = 0; npc < game->npc_count; npc++)
-    scr_free (game->npcs[npc].walksteps);
-  scr_free (game->npcs);
-
-  /* Free the malloc'ed object and NPC references. */
-  scr_free (game->object_references);
-  scr_free (game->multiple_references);
-  scr_free (game->npc_references);
-
-  /* The owning game strings (current_room_name, status_line, title, author,
-   * hint_text) free themselves when the game is delete'd below. */
+  /* The state arrays (rooms, objects, tasks, events, npcs and their walksteps,
+   * the *_references) are std::vector and the owning game strings
+   * (current_room_name, status_line, title, author, hint_text) are
+   * scr_owned_string; all free themselves when the game is delete'd below
+   * (P3 RAII), so there is nothing to free by hand here. */
 
   /* Free the game state itself; its destructor releases the owned strings.
    * (The old 0xaa poison is gone — it would corrupt the unique_ptr members the

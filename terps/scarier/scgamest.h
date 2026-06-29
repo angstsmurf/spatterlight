@@ -23,6 +23,8 @@
 #ifndef SCARIER_GAMESTATE_H
 #define SCARIER_GAMESTATE_H
 
+#include <vector>
+
 /* Room state structure, tracks rooms visited by the player. */
 typedef struct scr_roomstate_s
 {
@@ -110,7 +112,7 @@ typedef struct scr_npcstate_s
   scr_int position;
   scr_int parent;
   scr_int walkstep_count;
-  scr_int *walksteps;
+  std::vector<scr_int> walksteps;
   scr_bool seen;
 
   /* Battle system state -- current stamina, recovery and attack counters. */
@@ -155,17 +157,22 @@ typedef struct scr_game_s
   struct scr_game_s *undo;
   scr_bool undo_available;
 
-  /* Basic game state -- rooms, objects, and so on. */
+  /* Basic game state -- rooms, objects, and so on.  The state arrays are
+   * std::vector (P3 RAII): they free themselves when the game is delete'd, so a
+   * throw partway through gs_create (a prop_* scr_fatal) no longer leaks the
+   * already-allocated arrays.  The *_count fields remain the iteration source
+   * of truth (matching every existing loop, the serializer, and the asserts);
+   * the vectors are sized to match. */
   scr_int room_count;
-  scr_roomstate_t *rooms;
+  std::vector<scr_roomstate_t> rooms;
   scr_int object_count;
-  scr_objectstate_t *objects;
+  std::vector<scr_objectstate_t> objects;
   scr_int task_count;
-  scr_taskstate_t *tasks;
+  std::vector<scr_taskstate_t> tasks;
   scr_int event_count;
-  scr_eventstate_t *events;
+  std::vector<scr_eventstate_t> events;
   scr_int npc_count;
-  scr_npcstate_t *npcs;
+  std::vector<scr_npcstate_t> npcs;
   scr_int playerroom;
   scr_int playerposition;
   scr_int playerparent;
@@ -241,9 +248,9 @@ typedef struct scr_game_s
   scr_int redo_sequence;
   scr_bool do_restart;
   scr_bool do_restore;
-  scr_bool *object_references;
-  scr_bool *multiple_references;
-  scr_bool *npc_references;
+  std::vector<scr_bool> object_references;
+  std::vector<scr_bool> multiple_references;
+  std::vector<scr_bool> npc_references;
   scr_int it_object;
   scr_int him_npc;
   scr_int her_npc;
