@@ -597,33 +597,39 @@ These are **not** modernization regressions — they exist in the baseline engin
 Found while chasing the corpus's non-reproducible games (see the validation-harness
 refinement note in P3). Both block byte-validation of their games until fixed.
 
-- [ ] **`scr_realloc` grown tail is uninitialised** (`scutils.cpp:155`). The
-  documented contract (at `scr_malloc`) is "newly allocated memory is cleared to
-  zero," and `scr_realloc` honors it only for a *fresh* alloc (`if (!pointer)`);
-  **growing** an existing buffer leaves bytes `[old_size, new_size)`
-  indeterminate. Some grower reads its tail before writing it → `alexis` /
-  `alexis_worn_cube` nondeterminism. Proven: a size-tracking `scr_realloc` that
-  zeroes the grown tail makes alexis fully deterministic. **Fix options
-  (decision needed — weigh against upstream-merge cost):** (a) honor the contract
-  centrally by storing each allocation's size in a header word so `scr_realloc`
-  can zero the tail — robust, fixes the whole class, but a high-blast-radius core
-  allocator change (all heap goes through `scr_*`; verified no raw `free`/`realloc`
-  on scr pointers, but still a big upstream divergence); (b) find the specific
-  grower alexis hits and zero its own tail locally — surgical, low divergence,
-  needs the exact site; (c) treat as a faithful upstream bug and leave it (it is
-  almost certainly present in Simon Baldwin's original). Repro:
-  `MallocPreScribble=1 SCR_STABLE_RANDOM_ENABLED=1 ./scares alexis` vs clean.
+- [x] **`scr_realloc` grown tail is uninitialised → `prop_ensure_capacity`
+  under-zeroed. FIXED surgically.** Root cause: `scr_realloc` honors the
+  "cleared to zero" contract only for a *fresh* alloc (`scutils.cpp:155`);
+  growing leaves `[old_size, new_size)` indeterminate. `prop_ensure_capacity`
+  (`scprops.cpp`) knew this and did its own `memset` of new elements — but
+  cleared only `[round_up(old_size), required)`, leaving the `[old_size,
+  round_up(old_size))` gap unzeroed. In the common grow path that gap was
+  already zeroed by the previous grow (no-op), but the **orphans array** — which
+  `prop_solidify()` deliberately leaves growable past read-only for
+  runtime-mutable strings — is reallocated off the rounded boundary and read its
+  indeterminate tail → `alexis` nondeterminism. Fix: clear from `old_size`, i.e.
+  the whole not-yet-live region `[old_size, required)` (a harmless re-zero in the
+  common case). Surgical 2-line change in the exact buggy function, honoring its
+  own stated intent — **not** the considered high-blast-radius global-allocator
+  header change. Validated: `alexis` now run-to-run byte-stable and
+  `MallocPreScribble`-clean; **37/37 corpus games byte-identical** (the fix is a
+  no-op everywhere except the bug path); `make test` + `sanitize` green. Repro of
+  the original bug: `MallocPreScribble=1 SCR_STABLE_RANDOM_ENABLED=1 ./scares
+  ALEXIS.TAF < alexis_solution` vs clean.
 - [ ] **Use-after-free / dangling pointer after a `realloc` move** —
-  `shadowpeak` (+ `_killwraith` / `_allgargoyles`). Residual run-to-run
-  nondeterminism persists with the clock frozen, the realloc tail zeroed, AND
-  stack zero-init, so it is neither time, nor grown-tail, nor an uninitialised
-  stack var. Repro: `MallocScribble=1` (free-poison) changes output; **ASan does
-  not catch it even at `quarantine_size_mb=512`** (the freed slot is reused before
-  the read). No raw allocations bypass `scr_*`, so it is a stale pointer into a
-  `scr_realloc`-moved or `scr_free`d block that has since been reused. Pinning the
-  exact site realistically wants MSan or Valgrind — both unavailable on
-  macOS/arm64; needs a Linux/MSan environment or painstaking pointer-lifetime
-  bisection of shadowpeak's (large) command stream.
+  `shadowpeak` (+ `_killwraith` / `_allgargoyles`) and `alexis_worn_cube`.
+  Residual run-to-run nondeterminism persists with the clock frozen, the
+  `prop_ensure_capacity` gap fixed, AND stack zero-init — so it is neither time,
+  nor grown-tail, nor an uninitialised stack var. Repro: `MallocScribble=1`
+  (free-poison) changes output; **ASan does not catch it even at
+  `quarantine_size_mb=512`** (the freed slot is reused before the read). No raw
+  allocations bypass `scr_*`, so it is a stale pointer into a `scr_realloc`-moved
+  or `scr_free`d block that has since been reused. Pinning the exact site
+  realistically wants MSan or Valgrind — both unavailable on macOS/arm64; needs a
+  Linux/MSan environment or painstaking pointer-lifetime bisection. (Note: the
+  `prop_ensure_capacity` fix means a `scr_realloc` move within the property tree
+  no longer leaves an uninitialised tail, so the surviving dangling read is into
+  a *reused* block, not an uninitialised one — a true UAF, not a read-before-write.)
 
 ---
 

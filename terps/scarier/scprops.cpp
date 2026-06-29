@@ -134,10 +134,20 @@ prop_ensure_capacity (void *array,
     {
       scr_byte *new_array, *start_clearing;
 
-      /* Grow array to the required size, and zero new elements. */
+      /*
+       * Grow array to the required size, and zero new elements.  scr_realloc()
+       * does not clear the bytes it grows into (only a fresh allocation is
+       * zeroed), so clear from old_size -- not the rounded-up `current` -- to
+       * cover the whole not-yet-live region [old_size, required).  In the
+       * common grow path [old_size, current) was already zeroed by the previous
+       * grow, so this is a harmless re-zero; but an array whose allocation was
+       * shrunk by prop_trim_capacity() and then grown again (the orphans array,
+       * which stays growable past prop_solidify() for runtime-mutable strings)
+       * would otherwise read indeterminate realloc tail bytes.
+       */
       new_array = (decltype(new_array)) scr_realloc (array, required * element_size);
-      start_clearing = new_array + current * element_size;
-      memset (start_clearing, 0, (required - current) * element_size);
+      start_clearing = new_array + old_size * element_size;
+      memset (start_clearing, 0, (required - old_size) * element_size);
 
       return new_array;
     }
