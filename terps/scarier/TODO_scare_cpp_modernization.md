@@ -300,9 +300,45 @@ drops.
     `scr_quit_game` from inside `os_read_line` and asserts both
     throw→catch→re-loop and throw→catch→stop return cleanly; determinism-checked v4
     corpus byte-identical; `sanitize` ASan/UBSan-clean incl. the throw-unwind.
-- [ ] `scrunner.cpp` / `sctasks.cpp` RAII — **now unblocked, not yet started.**
-  With no `longjmp` over live frames, owning `char*`/hand-rolled arrays here can
-  move to `std::string`/`std::vector`/`unique_ptr` as in the earlier phases.
+- [x] `scrunner.cpp` / `sctasks.cpp` RAII — **DONE (two commits).** With no
+  `longjmp` over live frames, every self-contained owning `char*`/hand-rolled
+  array in these two files now uses RAII. New shared owner
+  `scr_owned_string` (`std::unique_ptr<scr_char>` + an `scr_free` deleter,
+  added to `scprotos.h` guarded by `#ifdef __cplusplus`) carries the engine's
+  char* contract — `.get()` still hands the raw pointer to the existing C call
+  sites and to the pointer-aliasing logic that picks the "winning" buffer, so
+  callers are unchanged. Converted:
+  - **scrunner.cpp** — `run_is_task_function`'s sscanf scratch (`argument`) and
+    `run_text_ends_in_newline`'s tag-strip scratch (`stripped`) →
+    `std::vector<scr_char>`; `run_game_commands_common`'s match cache
+    (`is_matching`) → `std::vector<scr_bool>` (empty vector replaces the old
+    NULL sentinel; `task_run_task` in the loop can throw, which leaked the
+    array); `run_player_input`'s per-command synonym/pronoun buffers
+    (`filtered`/`replaced`) → `scr_owned_string` (`run_all_commands` between
+    acquire and the old frees can throw).
+  - **sctasks.cpp** — `task_run_change_variable_action` case 2's string-expr
+    result → block-scoped `scr_owned_string` (`var_put_string`→`prop_put` can
+    throw); `task_run_task_unrestricted`'s `pf_transfer_buffer` result →
+    `scr_owned_string` across `task_start_npc_walks`/`task_run_task_actions`
+    (both can throw).
+
+  Validated **byte-identical** across the determinism-checked v4 corpus (45
+  cross-binary-stable games MATCH / 0 DIFFER); `make -f Makefile.headless test`
+  + `sanitize` green; ASan/UBSan-clean on heavy/task-heavy real games
+  (light_up, secret_of_lost_world, circus, space_boy, sun_empire).
+  - ⚠️ **Validation-harness refinement (important for the remaining P3/P4
+    work).** The standalone `os_ansi` corpus player's run-twice determinism
+    check is **necessary but not sufficient**: four combat/RNG games — `alexis`,
+    `alexis_worn_cube`, `cybercow`, `cybercow_win` — are *stable within a binary*
+    yet **diverge across two builds of byte-identical HEAD source** (different
+    Mach-O link → different heap layout → a latent uninitialised-read in the v4
+    engine returns different garbage, stable per-binary). They therefore can't
+    be byte-validated by a cross-binary baseline diff and must be **excluded**,
+    the same class of exclusion as the time-dependent Shadowpeak runs. The
+    robust baseline is the set of games that agree between **two** identical-source
+    builds (`scares_base` vs a fresh HEAD rebuild) — 45 of the 49 mapped
+    walkthroughs. (Earlier phases that reported alexis/cybercow as "MATCH" were
+    comparing within a single baseline link and got lucky on layout.)
 - [ ] `scgamest.cpp` / `scprops.cpp` (with P4) — also unblocked now. Much of the
   runner-adjacent ownership here is **game-struct fields** (`current_room_name`,
   `status_line`, `hint_text`, the property tree) freed during the turn loop; the
