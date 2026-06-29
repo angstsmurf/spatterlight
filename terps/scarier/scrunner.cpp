@@ -24,7 +24,6 @@
  */
 
 #include <assert.h>
-#include <setjmp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,6 +39,25 @@ static const scr_char NUL = '\0';
 static const scr_char SPECIAL_PATTERN = '#';
 static const scr_char WILDCARD_PATTERN = '*';
 static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
+
+/*
+ * run_loop_halt
+ *
+ * Control-flow exception used to unwind out of run_main_loop() back to
+ * run_interpret() when a *running* game is quit / restarted / restored / has a
+ * turn undone.  This replaces a longjmp(game->quitter) that skipped the
+ * destructors of any non-trivial C++ local live in the command/task/print/expr
+ * call tree -- undefined behaviour once that tree holds std::string/std::vector,
+ * which is what blocked RAII across the runner.  Throwing unwinds the same
+ * frames but runs their destructors.  All throw sites and the sole catch are in
+ * this file; the meaning (quit vs restart vs restore) is still carried by the
+ * game's do_restart/do_restore flags exactly as before, so the type is empty.
+ *
+ * It is caught specifically (never `catch (...)`) so that a P2 scr_fatal_error
+ * -- or any other genuine exception -- still propagates to the scinterf boundary
+ * instead of being mistaken for a normal halt.
+ */
+namespace { struct run_loop_halt {}; }
 
 /*
  * run_is_separator()
@@ -1523,8 +1541,9 @@ run_text_ends_in_newline (const scr_char *text)
  *
  * Helper for the game-start name and gender prompts.  If the player types
  * "restore" (or "load") at one of these prompts, initiate a restore, exactly
- * as the equivalent game command would.  On a successful restore this longjumps
- * back into the interpreter loop and never returns; on a failed or cancelled
+ * as the equivalent game command would.  On a successful restore this unwinds
+ * back into the interpreter loop (via run_loop_halt) and never returns; on a
+ * failed or cancelled
  * restore it returns TRUE so the caller re-prompts (rather than treating the
  * typed word as an answer).  Returns FALSE when the reply is not a restore.
  */
@@ -2063,8 +2082,18 @@ run_interpret (scr_gameref_t game)
   do
     {
       /* Run the game until some form of halt is requested. */
-      if (scr_setjmp (game->quitter) == 0)
-        run_main_loop (game);
+      try
+        {
+          run_main_loop (game);
+        }
+      catch (const run_loop_halt &)
+        {
+          /*
+           * run_quit / run_restart / run_restore / run_undo unwound a running
+           * game out of the main loop; the do_restart/do_restore flags below
+           * decide whether we loop again or stop (matching the old longjmp).
+           */
+        }
 
       /*
        * If the halt was a restart or restore, cancel the request, handle
@@ -2150,8 +2179,9 @@ run_destroy (scr_gameref_t game)
 /*
  * run_quit()
  *
- * Quits a running game.  This function calls a longjump to act as if
- * run_main_loop() returned, and so never returns to its caller.
+ * Quits a running game.  This function throws run_loop_halt to unwind back to
+ * run_interpret as if run_main_loop() returned, and so never returns to its
+ * caller.
  */
 void
 run_quit (scr_gameref_t game)
@@ -2165,10 +2195,9 @@ run_quit (scr_gameref_t game)
       return;
     }
 
-  /* Exit the main loop with a longjump. */
+  /* Exit the main loop by unwinding back to run_interpret. */
   game->is_running = FALSE;
-  scr_longjmp (game->quitter, 1);
-  scr_fatal ("run_quit: unable to quit cleanly\n");
+  throw run_loop_halt ();
 }
 
 
@@ -2176,8 +2205,9 @@ run_quit (scr_gameref_t game)
  * run_restart()
  *
  * Restarts either a running or a stopped game.  For running games, this
- * function calls a longjump to act as if run_main_loop() returned, and so
- * never returns to its caller.  For stopped games, it returns.
+ * function throws run_loop_halt to unwind back to run_interpret as if
+ * run_main_loop() returned, and so never returns to its caller.  For stopped
+ * games, it returns.
  */
 void
 run_restart (scr_gameref_t game)
@@ -2186,14 +2216,13 @@ run_restart (scr_gameref_t game)
 
   /*
    * If the game is running, stop it, request a restart, and exit the main
-   * loop with a longjump.
+   * loop by throwing run_loop_halt.
    */
   if (game->is_running)
     {
       game->is_running = FALSE;
       game->do_restart = TRUE;
-      scr_longjmp (game->quitter, 1);
-      scr_fatal ("run_restart: unable to restart cleanly\n");
+      throw run_loop_halt ();
     }
 
   /* Restart locally, and ensure that the game remains stopped. */
@@ -2232,8 +2261,9 @@ run_save_prompted (scr_gameref_t game)
  * run_restore_prompted()
  *
  * Restores either a running or a stopped game.  For running games, on
- * successful restore, these functions call a longjump to act as if
- * run_main_loop() returned, and so never return to their caller.  On failed
+ * successful restore, these functions throw run_loop_halt to unwind back to
+ * run_interpret as if run_main_loop() returned, and so never return to their
+ * caller.  On failed
  * restore, and for stopped games, they will return, with TRUE if successful,
  * FALSE if restore failed.
  */
@@ -2258,14 +2288,13 @@ run_restore_common (scr_gameref_t game,
 
       /*
        * If the game is (was) running, set flags so that the interpreter
-       * loop cycles, and exit the main loop with a longjump.
+       * loop cycles, and exit the main loop by throwing run_loop_halt.
        */
       if (game->is_running)
         {
           game->is_running = FALSE;
           game->do_restore = TRUE;
-          scr_longjmp (game->quitter, 1);
-          scr_fatal ("run_restore_common: unable to restart cleanly\n");
+          throw run_loop_halt ();
         }
     }
 
@@ -2334,14 +2363,13 @@ run_undo (scr_gameref_t game)
 
       /*
        * If the game is (was) running, set flags so that the interpreter
-       * loop cycles, and exit the main loop with a longjump.
+       * loop cycles, and exit the main loop by throwing run_loop_halt.
        */
       if (game->is_running)
         {
           game->is_running = FALSE;
           game->do_restore = TRUE;
-          scr_longjmp (game->quitter, 1);
-          scr_fatal ("run_undo: unable to restart cleanly\n");
+          throw run_loop_halt ();
         }
 
       /* Game undo on non-running game accomplished with memos. */
