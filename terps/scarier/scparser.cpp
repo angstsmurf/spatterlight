@@ -1271,12 +1271,8 @@ uip_match_text (scr_ptnoderef_t node)
   /* See if we found a match in the loop. */
   if (matched)
     {
-      scr_char *string;
-
       /* Found a match; create a string and save the text. */
-      string = (decltype(string)) scr_malloc (uip_posn - start_posn + 1);
-      memcpy (string, uip_string + start_posn, uip_posn - start_posn);
-      string[uip_posn - start_posn] = NUL;
+      std::string string (uip_string + start_posn, uip_posn - start_posn);
 
       /*
        * Adrift seems to save referenced text as all-lowercase; we need to do
@@ -1284,8 +1280,7 @@ uip_match_text (scr_ptnoderef_t node)
        */
       for (index_ = 0; string[index_] != NUL; index_++)
         string[index_] = scr_tolower (string[index_]);
-      var_set_ref_text (vars, string);
-      scr_free (string);
+      var_set_ref_text (vars, string.c_str ());
 
       /* Return TRUE since we matched text. */
       return TRUE;
