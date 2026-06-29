@@ -1227,9 +1227,6 @@ gs_create (scr_var_setref_t vars,
   game->her_npc = -1;
   game->it_npc = -1;
 
-  /* Clear the quit jump buffer for tidiness. */
-  memset (&game->quitter, 0, sizeof (game->quitter));
-
   /* Seed the carried-load totals now that initial object placement is done;
    * this also arms gs_carried_track() for subsequent moves. */
   gs_carried_recompute (game);
@@ -1436,9 +1433,6 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
    * copies and deliberately not propagated here.
    */
   gs_carried_recompute (to);
-
-  /* Copy over the quit jump buffer. */
-  memcpy (&to->quitter, &from->quitter, sizeof (from->quitter));
 }
 
 

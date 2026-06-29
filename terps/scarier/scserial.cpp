@@ -1148,13 +1148,6 @@ ser_load_game (scr_gameref_t game,
   new_game->requested_graphic = game->requested_graphic;
 
   /*
-   * Quitter tweak -- set the quit jump buffer in the new game to be the
-   * same as the current one, so that it remains unchanged by gs_copy().  The
-   * one in the new game is still the unset one from gs_create().
-   */
-  memcpy (&new_game->quitter, &game->quitter, sizeof (game->quitter));
-
-  /*
    * If we got this far, we successfully restored the game from the file.
    * As our final act, copy the new game onto the old one.
    */

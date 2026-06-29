@@ -17,8 +17,6 @@
  * USA
  */
 
-#include <setjmp.h>
-
 #include "scarier.h"
 #include "scprotos.h"
 
@@ -241,9 +239,6 @@ typedef struct scr_game_s
   scr_int him_npc;
   scr_int her_npc;
   scr_int it_npc;
-
-  /* Longjump buffer for external requests to quit. */
-  jmp_buf quitter;
 } scr_game_t;
 
 #endif
