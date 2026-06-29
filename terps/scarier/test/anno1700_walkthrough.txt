@@ -6,7 +6,7 @@
 # removed so each line is a bare command (both harnesses skip blank and
 # "#"-prefixed lines).  Run with:
 #
-#   test/a5_groundtruth.sh test/adrift5-games/Anno_1700.blorb \
+#   test/a5_groundtruth.sh test/adrift5-games/Anno1700.blorb \
 #       test/anno1700_walkthrough.txt
 #
 # NOTE: after "drink wine" the walkthrough expects a timed event to drop

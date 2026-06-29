@@ -108,7 +108,7 @@ A5SAVE_BIN      := test/a5_save_test
 # copyrighted and not committed.  Override A5_GAMES_DIR / A5_BULLETS to relocate.
 # The a5runtest target skips gracefully when the file is absent.
 A5_GAMES_DIR ?= test/adrift5-games
-A5_BULLETS ?= $(A5_GAMES_DIR)/Six Silver Bullets (v 1.0).blorb
+A5_BULLETS ?= $(A5_GAMES_DIR)/SixSilverBullets.blorb
 
 test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BIN) $(QUIT_BIN) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN)
 	./$(BIN) $(TAF)
