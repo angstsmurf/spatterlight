@@ -187,7 +187,12 @@ prerequisite for clean exception unwinding (P2).
 counts drop monotonically across the corpus; the event-heavy soak's peak RSS
 drops.
 
-- [~] `scprintf.cpp` ownership → `std::string`/RAII (finish P1). **Self-contained
+- [x] `scprintf.cpp` ownership → `std::string`/RAII (finish P1). **DONE across
+  five commits** — every owning accumulator and scratch buffer in scprintf is now
+  RAII; the only remaining `scr_malloc`/`scr_free` are the deliberate `pf_strdup`
+  char* boundary handed to callers and immediate free-after-use of the internal
+  char* return contract (`scr_free(intermediate)`/`scr_free(filtered)`), neither
+  a leak-on-throw accumulator. **Self-contained
   scratch buffers done** (commit): `alr_applied` flag array → `std::vector<scr_bool>`
   in `pf_filter_internal` (passes `.data()` to `pf_replace_alrs`); `pf_output_text`
   entity-decode scratch → `std::string`; `pf_output_untagged` tag-parse scratch →
@@ -217,10 +222,17 @@ drops.
   `.clear()`/`.assign()`. `pf_transfer_buffer` now hands the caller a `pf_strdup`
   copy (the one caller, `sctasks.cpp:1417`, already `scr_free`s it — semantics
   unchanged, loses only the zero-copy pointer steal on a single turn's text).
-  **Still raw (deferred — cross-function ownership / transfer contract):** the
-  `pf_interpolate_vars`/`pf_replace_alrs`/`pf_filter_internal`/`pf_filter`
-  return-`char*`-caller-frees chain (incl. `current`/`intermediate`); converting
-  it ripples into `scrunner`/`sclibrar`/`scdebug` callers.  Validation: `make -f
+  **`pf_filter_internal` accumulator done** (fifth commit): its `current` char*
+  (which leaked on a throw from a `prop_*` deep in `pf_interpolate_vars` /
+  `pf_replace_alrs`) is now a `std::string` + `have_current` flag; the
+  no-change detection switched from `current == initial` pointer compare to a
+  `changed` flag. The public `pf_filter` / `pf_filter_for_info` /
+  `pf_interpolate_vars` / `pf_replace_alrs` still return `char*` by contract
+  (callers in `scrunner`/`sclibrar`/`scdebug` unchanged); `pf_filter_internal`
+  copies each returned `char*` into the `std::string` and frees it immediately,
+  and hands its own result back via `pf_strdup`. Both the interpolate and ALR
+  paths are corpus-exercised (secret_of_lost_world 115 ALR replacements,
+  sun_empire 2 interpolations, alexis 13 — byte-identical).  Validation: `make -f
   Makefile.headless test` green; **byte-identical across the deterministic v4
   corpus** — a determinism-filtered diff (run the baseline binary twice, compare
   the new binary only where the baseline is stable) gives **up to 47 MATCH / 0

@@ -646,7 +646,8 @@ pf_filter_internal (const scr_char *string,
                     scr_var_setref_t vars, scr_prop_setref_t bundle)
 {
   scr_int alr_count, iteration;
-  scr_char *current;
+  std::string current;
+  scr_bool have_current;
   std::vector<scr_bool> alr_applied;
   assert (string && vars);
 
@@ -676,34 +677,41 @@ pf_filter_internal (const scr_char *string,
       alr_count = 0;
     }
 
-  /* Loop for a sort-of arbitrary number of passes; probably enough. */
-  current = NULL;
+  /*
+   * Loop for a sort-of arbitrary number of passes; probably enough.
+   * 'have_current' tracks whether any replacement has produced a 'current'
+   * string yet; until then we work on the input 'string'.
+   */
+  have_current = FALSE;
   for (iteration = 0; iteration < ITERATION_LIMIT; iteration++)
     {
       scr_int inner_iteration;
-      const scr_char *initial;
+      scr_bool changed;
       scr_char *intermediate;
 
-      /* Note the initial string, so we can check for no change. */
-      initial = current;
+      /* Note whether this iteration changes anything, to check for no change. */
+      changed = FALSE;
 
       for (inner_iteration = 0;
            inner_iteration < ITERATION_LIMIT; inner_iteration++)
         {
           /*
-           * Interpolate variables.  If any changes were made, advance current
-           * to the interpolated version, and free the old current if required.
+           * Interpolate variables.  If any changes were made, adopt the
+           * interpolated version as current, freeing the returned char*.
            * Work on the current string, if any, otherwise the input string.
            */
-          intermediate = pf_interpolate_vars (current ? current : string, vars);
+          intermediate = pf_interpolate_vars (have_current ? current.c_str ()
+                                                           : string, vars);
           if (intermediate)
             {
-              scr_free (current);
               current = intermediate;
+              scr_free (intermediate);
+              have_current = TRUE;
+              changed = TRUE;
               if (pf_trace)
                 {
                   scr_trace ("Printfilter: interpolated [%ld,%ld] \"%s\"\n",
-                            iteration, inner_iteration, current);
+                            iteration, inner_iteration, current.c_str ());
                 }
             }
           else
@@ -718,21 +726,24 @@ pf_filter_internal (const scr_char *string,
           while (TRUE)
             {
               /*
-               * Replace ALRs, and advance current as for variables above.
+               * Replace ALRs, and adopt current as for variables above.
                * Leave the loop when ALR replacements stop.  Again, work on
                * the current string if any, otherwise the input string.
                */
-              intermediate = pf_replace_alrs (current ? current : string,
+              intermediate = pf_replace_alrs (have_current ? current.c_str ()
+                                                           : string,
                                               bundle, alr_applied.data (),
                                               alr_count);
               if (intermediate)
                 {
-                  scr_free (current);
                   current = intermediate;
+                  scr_free (intermediate);
+                  have_current = TRUE;
+                  changed = TRUE;
                   if (pf_trace)
                     {
                       scr_trace ("Printfilter: replaced [%ld,%ld] \"%s\"\n",
-                                iteration, inner_iteration, current);
+                                iteration, inner_iteration, current.c_str ());
                     }
                 }
               else
@@ -742,12 +753,12 @@ pf_filter_internal (const scr_char *string,
         }
 
       /* If nothing changed this iteration, stop now. */
-      if (current == initial)
+      if (!changed)
         break;
     }
 
-  /* Return current, NULL if no change; ALR flags free themselves. */
-  return current;
+  /* Return an allocated current, or NULL if nothing changed. */
+  return have_current ? pf_strdup (current) : NULL;
 }
 
 
