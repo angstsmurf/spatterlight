@@ -219,6 +219,7 @@ a5_load_tasks (a5_adventure_t *a)
       }
       t->restrictions = a5xml_child (c, "Restrictions");
       t->actions = a5xml_child (c, "Actions");
+      t->fail_override = a5xml_child (c, "FailOverride");
 
       /* Specific-override linkage. */
       t->general_key = a5xml_child_text (c, "GeneralTask");

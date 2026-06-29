@@ -149,6 +149,11 @@ typedef struct a5_task_s {
                                        lower-priority matching tasks after this */
   const a5_xml_node_t *restrictions; /* <Restrictions> node, or NULL         */
   const a5_xml_node_t *actions;      /* <Actions> node, or NULL              */
+  const a5_xml_node_t *fail_override;/* <FailOverride> Description, or NULL:
+                                        shown for a "get all"-style command when
+                                        no item passed (clsTask.FailOverride,
+                                        clsUserSession.vb:788) -- "There is
+                                        nothing worth taking here." */
   const a5_xml_node_t *node;
 
   /* Specific-override task linkage (clsTask Specifics / GeneralKey). */

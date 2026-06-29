@@ -20,6 +20,10 @@
 
 #include "a5model.h"
 
+/* Upper bound on the number of items a single %objects% reference can resolve to
+   (e.g. "take all" in a room of dozens of objects). */
+#define A5_MAX_ITEMS 256
+
 /* Where an object is.  key meaning depends on `where` (see comments). */
 typedef enum {
   A5_OWHERE_NONE = 0,     /* unplaced / unknown                                */
@@ -107,6 +111,19 @@ typedef struct a5_state_s {
   char  ref_name[16][32];
   char  ref_value[16][256];
   int   n_refbind;
+
+  /* Multiple-object reference items (the %objects% grammar: "all", "all
+     <plural>", "X and Y", comma lists, "... except/but/apart from ..." and
+     plural nouns -- clsUserSession.InputMatchesObjects).  When a %objects%/
+     %characters% reference resolves to a set, these hold the chosen item keys
+     (each aliasing the model, in command order).  ReferencedObject is bound to
+     the first; ReferencedObjects is bound to the "key1|key2|..." pipe list so
+     the OO/text engine renders the whole set.  The per-item action loop
+     (run_action ReferencedObjects) and the bare %objects% list renderer read
+     these; n_ref_items == 0 means the ordinary single-object path. */
+  const char *ref_items[A5_MAX_ITEMS];
+  int   n_ref_items;
+  char  ref_items_type;        /* 'o' object / 'c' character                  */
 
   /* SetLook event sub-event "look stack" (clsEvent.stackLookText): each SetLook
      pushes a (location/group gate, rendered text) entry; a5text_view_location

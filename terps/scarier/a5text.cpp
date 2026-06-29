@@ -938,6 +938,25 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       else if (ci_eq (name, "object") || ci_eq (name, "objects")
                || ci_eq (name, "object1") || ci_eq (name, "object2"))
         {
+          /* A plural %objects% that resolved to several items renders the whole
+             set as an "a, b and c" list of full names (mirroring frankendrift's
+             %objects% -> "key1|key2|..." -> OO list render; each name without an
+             article, like a bare %object%). */
+          if (ci_eq (name, "objects") && st->n_ref_items > 1)
+            {
+              sb_t sb; sb_init (&sb);
+              for (int i = 0; i < st->n_ref_items; i++)
+                {
+                  const a5_object_t *o = a5model_object (st->adv, st->ref_items[i]);
+                  char *nm = o ? a5text_object_name (o, A5_ART_NONE)
+                               : strdup (st->ref_items[i]);
+                  if (i > 0)
+                    sb_puts (&sb, (i == st->n_ref_items - 1) ? " and " : ", ");
+                  sb_puts (&sb, nm);
+                  free (nm);
+                }
+              return sb_finish (&sb);
+            }
           /* the bound object('s display name) */
           const char *ref = ci_eq (name, "object2") ? "ReferencedObject2"
                                                      : "ReferencedObject";
@@ -1006,8 +1025,12 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                   /* %reference%.Property...  : emit the resolved entity key and
                      leave the ".chain" as literal text for the later OO pass
                      (mirrors frankendrift substituting %object%->key before
-                     ReplaceOO, so embedded %Func[]% are gone by then). */
-                  if (q[1] == '.')
+                     ReplaceOO, so embedded %Func[]% are gone by then).  Require
+                     a real property step after the dot (an alpha char) so a
+                     sentence-ending period ("you take %objects%.") is not
+                     mistaken for a chain -- that renders via the bare path
+                     below (the name / multi-object list), not the raw key. */
+                  if (q[1] == '.' && isalpha ((unsigned char) q[2]))
                     {
                       char *fk = oo_firstkey (st, name);
                       if (fk != NULL)

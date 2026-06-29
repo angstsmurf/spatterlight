@@ -129,6 +129,13 @@ struct a5_run_s {
      the first time an unmatched command needs the "I did not understand the
      word ..." check (clsUserSession.NotUnderstood). */
   std::set<std::string> *known_words;
+
+  /* Set by resolve_refine when a "get all"-style command resolved its %objects%
+     reference to no passing item: the matched task's <FailOverride> to show
+     instead of a restriction message ("There is nothing worth taking here." --
+     clsUserSession.vb:788, shown only when the input contains "all").  Cleared
+     each resolve. */
+  const a5_xml_node_t *pending_failover;
 };
 
 static int
@@ -404,6 +411,25 @@ resolve_object_candidates (a5_state_t *st, const std::string &text)
   return all;
 }
 
+/* clsObject.GuessPluralFromNoun (defined below; shared with emit_cantsee). */
+static std::string guess_plural_from_noun (const std::string &n);
+
+/* Like name_match, but the candidate nouns are the objects' *plural* forms, so
+   a plural reference ("balls"/"boxes"/"knives") matches each object whose noun
+   pluralises to it (clsObject.sRegularExpressionString(bPlural:=True), whose arl
+   is arlPlurals).  Article + prefix stay as for the singular. */
+static int
+name_match_plural (const a5_object_t *o, const std::string &text)
+{
+  std::vector<std::string> plurals;
+  std::vector<const char *> pp;
+  for (int i = 0; i < o->n_names; i++)
+    plurals.push_back (guess_plural_from_noun (lower (o->names[i])));
+  for (auto &s : plurals) pp.push_back (s.c_str ());
+  return name_match (o->article, o->prefix,
+                     pp.empty () ? NULL : &pp[0], (int) pp.size (), text);
+}
+
 /* All character keys whose names match `text`, visible-first (full any-scope
    set, mirroring InputMatchesCharacter). */
 static std::vector<const char *>
@@ -612,6 +638,159 @@ char_seen_p (a5_state_t *st, const char *key)
   return i >= 0 && st->char_seen != NULL && st->char_seen[i];
 }
 
+/* -------------------------------------------- multiple-object references */
+
+static std::string
+trim_ws (const std::string &s)
+{
+  size_t a = s.find_first_not_of (" \t");
+  if (a == std::string::npos) return "";
+  size_t b = s.find_last_not_of (" \t");
+  return s.substr (a, b - a + 1);
+}
+
+/*
+ * InputMatchesObject (clsUserSession.vb:5378): every object whose name matches
+ * `input` is recorded.  For a singular reference the matches accumulate into one
+ * item (a candidate set, disambiguated later); for a *plural* reference each
+ * matching object becomes its own item (so "take balls" grabs every ball).  In
+ * the `excepts` pass the matching keys are removed from the items instead.
+ * `items` is the per-item candidate-key list being built; returns true if any
+ * object matched.
+ */
+static bool
+match_object_one (a5_state_t *st, const std::string &input,
+                  std::vector<std::vector<std::string>> &items,
+                  int item_num, bool excepts, bool plural)
+{
+  bool result = false, added = false;
+  if (item_num == 0 && plural)
+    item_num = -1;
+  for (int i = 0; i < st->adv->n_objects; i++)
+    {
+      const a5_object_t *o = &st->adv->objects[i];
+      int hit = plural ? name_match_plural (o, input)
+                       : name_match (o->article, o->prefix, o->names,
+                                     o->n_names, input);
+      if (!hit)
+        continue;
+      result = true;
+      if (!excepts)
+        {
+          if (plural) item_num++;
+          if (plural || !added)
+            { if ((int) items.size () <= item_num) items.resize (item_num + 1); }
+          added = true;
+          if (item_num >= 0 && item_num < (int) items.size ())
+            items[item_num].push_back (o->key);
+        }
+      else
+        {
+          for (auto &itm : items)
+            itm.erase (std::remove (itm.begin (), itm.end (),
+                                    std::string (o->key)), itm.end ());
+        }
+    }
+  if (excepts)
+    items.erase (std::remove_if (items.begin (), items.end (),
+                  [] (const std::vector<std::string> &v) { return v.empty (); }),
+                 items.end ());
+  return result;
+}
+
+/* Every object the player has seen (clsObject.SeenBy / htblObjects.SeenBy) ->
+   one single-candidate item each, in model order; the source of a bare "all". */
+static void
+expand_all_objects (a5_state_t *st, std::vector<std::vector<std::string>> &items)
+{
+  for (int i = 0; i < st->adv->n_objects; i++)
+    if (st->obj_seen != NULL && st->obj_seen[i])
+      items.push_back (std::vector<std::string> (1, st->adv->objects[i].key));
+}
+
+/*
+ * InputMatchesObjects (clsUserSession.vb:5305): parse the plural-reference
+ * grammar into per-item candidate sets -- "all" / "all <plural>",
+ * "X and Y" / comma lists, and a trailing "... except/but/apart from ...".
+ * `had_all` is set when a bare/refined "all" appeared (drives the FailOverride).
+ * Returns true if the text resolved to at least one item.
+ */
+static bool
+match_objects (a5_state_t *st, const std::string &input_raw,
+               std::vector<std::vector<std::string>> &items,
+               bool excepts, bool plural, int *had_all)
+{
+  std::string input = trim_ws (input_raw);
+  if (input.empty ())
+    return false;
+
+  if (!plural)
+    {
+      /* Split off a trailing "... except|but|apart from <objects2>" (the regex
+         is RightToLeft, so the *last* connector wins). */
+      std::string head = input, excepts_text;
+      static const char *conns[] = { " except ", " but ", " apart from ", NULL };
+      std::string lin = lower (input);
+      size_t best = std::string::npos, best_len = 0;
+      for (int i = 0; conns[i]; i++)
+        {
+          size_t p = lin.rfind (conns[i]);
+          if (p != std::string::npos && (best == std::string::npos || p > best))
+            { best = p; best_len = strlen (conns[i]); }
+        }
+      if (best != std::string::npos)
+        { head = trim_ws (input.substr (0, best));
+          excepts_text = trim_ws (input.substr (best + best_len)); }
+
+      std::string lhead = lower (head);
+      bool head_ok = true;
+      if (lhead == "all")
+        { if (had_all) *had_all = 1; expand_all_objects (st, items); }
+      else if (lhead.rfind ("all ", 0) == 0)
+        { if (had_all) *had_all = 1;
+          if (!match_objects (st, head.substr (4), items, false, true, had_all))
+            head_ok = false; }                         /* GoTo NextCheck */
+      else if (!head.empty ())
+        { if (!match_objects (st, head, items, excepts, true, had_all))
+            head_ok = false; }                         /* GoTo NextCheck */
+
+      if (head_ok)
+        {
+          if (!excepts_text.empty ())
+            match_objects (st, excepts_text, items, true, false, had_all);
+          return true;
+        }
+
+      /* NextCheck: "(<csv>, )* <o2> and <o3>". */
+      size_t andp = lin.rfind (" and ");
+      if (andp != std::string::npos)
+        {
+          std::string left = trim_ws (input.substr (0, andp));
+          std::string o3   = trim_ws (input.substr (andp + 5));
+          int item_num = 0;
+          /* split `left` on ", " into csv items + o2 */
+          size_t start = 0;
+          while (start <= left.size ())
+            {
+              size_t comma = left.find (", ", start);
+              std::string tok = trim_ws (comma == std::string::npos
+                                  ? left.substr (start)
+                                  : left.substr (start, comma - start));
+              if (!tok.empty ()
+                  && !match_object_one (st, tok, items, item_num++, excepts, false))
+                return false;
+              if (comma == std::string::npos) break;
+              start = comma + 2;
+            }
+          if (!match_object_one (st, o3, items, item_num++, excepts, false))
+            return false;
+          return true;
+        }
+    }
+
+  return match_object_one (st, input, items, 0, excepts, plural);
+}
+
 /* Outcome of resolve_refine. */
 enum { RR_NOMATCH = 0, RR_OK, RR_FAIL, RR_AMBIG, RR_CANTSEE, RR_NOREF };
 
@@ -648,6 +827,139 @@ struct amb_info {
  * `force_name`/`force_key`: when re-running a remembered task to resolve a
  * pending ambiguity, pin that reference to the chosen key.
  */
+
+/* Pick the key that represents an item: the first currently-visible candidate,
+   else the first seen, else simply the first (the visible-first default pick
+   used throughout resolve_refine). */
+static std::string
+pick_item_key (a5_state_t *st, const std::vector<std::string> &cands)
+{
+  for (auto &k : cands) if (obj_visible (st, k.c_str ())) return k;
+  for (auto &k : cands) if (obj_seen_p (st, k.c_str ())) return k;
+  return cands.empty () ? std::string () : cands[0];
+}
+
+/* Re-order a candidate list visible-first, then seen, then the rest (the same
+   default-pick ordering resolve_object_candidates produces), so a single-item
+   %objects% reference refines and disambiguates exactly like a bare %object%. */
+static std::vector<std::string>
+order_visible_first (a5_state_t *st, const std::vector<std::string> &keys)
+{
+  std::vector<std::string> vis, seen, rest, out;
+  for (auto &k : keys)
+    {
+      if (obj_visible (st, k.c_str ()))     vis.push_back (k);
+      else if (obj_seen_p (st, k.c_str ())) seen.push_back (k);
+      else                                  rest.push_back (k);
+    }
+  out.insert (out.end (), vis.begin (),  vis.end ());
+  out.insert (out.end (), seen.begin (), seen.end ());
+  out.insert (out.end (), rest.begin (), rest.end ());
+  return out;
+}
+
+/*
+ * Resolve the plural %objects% reference (the only reference whose base is
+ * "objects") to a concrete item list -- InputMatchesObjects + the single-
+ * reference case of RefineMatchingPossibilitesUsingRestrictions.  Parse the
+ * all/and/comma/except grammar, then keep the items whose chosen key passes the
+ * task's restrictions (with the other references already bound); if at least one
+ * passes those are the items, else reset to the full list (so the task runs and
+ * fails) and, when the command contained "all", arm the FailOverride.
+ *
+ * Stores the resolved keys in st->ref_items and binds ReferencedObject = the
+ * first item and ReferencedObjects = the "key1|key2|..." pipe list (so the OO /
+ * text engine renders the whole set, and the per-item action loop iterates).
+ * Returns RR_OK (>=1 passing/forced item), RR_FAIL (items exist, none pass), or
+ * RR_NOMATCH (the text named no object at all).
+ */
+static int
+resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
+                amb_info *amb)
+{
+  a5_state_t *st = run->st;
+  std::vector<std::vector<std::string>> items;
+  int had_all = 0;
+
+  if (!match_objects (st, text, items, false, false, &had_all))
+    return RR_NOMATCH;
+
+  /* Choose one key per item; keep the items whose key passes the restrictions. */
+  std::vector<std::string> chosen, all_keys;
+  for (auto &cand : items)
+    {
+      std::string pick = pick_item_key (st, cand);
+      if (pick.empty ()) continue;
+      all_keys.push_back (pick);
+      bind_reference (st, "objects", pick.c_str (), text.c_str ());
+      if (a5restr_pass (st, t->restrictions))
+        chosen.push_back (pick);
+    }
+
+  if (all_keys.empty ())
+    {
+      if (had_all && t->fail_override != NULL)
+        { run->pending_failover = t->fail_override; return RR_FAIL; }
+      return RR_NOMATCH;
+    }
+
+  int none_passed = chosen.empty ();
+  if (none_passed)
+    {
+      /* No item passed.  A "get all"-style command shows the FailOverride; an
+         explicit plural/list that named only out-of-scope objects is the
+         "You can't see any <plural>!" case (DisplayAmbiguityQuestion,
+         bCanSeeAny=False) -- mirroring the single-reference path so e.g.
+         "x threads" (several thread objects, none here) matches FrankenDrift. */
+      if (!had_all)
+        {
+          int any_vis = 0;
+          for (auto &k : all_keys)
+            if (obj_visible (st, k.c_str ())) { any_vis = 1; break; }
+          if (!any_vis)
+            {
+              if (amb != NULL)
+                { amb->ref_name = "objects"; amb->type = 'o';
+                  amb->ref_text = text; amb->keys = all_keys; }
+              return RR_CANTSEE;
+            }
+        }
+      chosen = all_keys;          /* reset to the original set; the task fails */
+    }
+
+  /* De-duplicate, preserving order (a noun and "all" may name an object twice). */
+  std::vector<std::string> uniq;
+  for (auto &k : chosen)
+    if (std::find (uniq.begin (), uniq.end (), k) == uniq.end ())
+      uniq.push_back (k);
+
+  st->n_ref_items = 0;
+  st->ref_items_type = 'o';
+  std::string pipe;
+  for (auto &k : uniq)
+    {
+      const a5_object_t *o = a5model_object (st->adv, k.c_str ());
+      if (o == NULL) continue;                 /* stable model-key pointer */
+      if (st->n_ref_items < A5_MAX_ITEMS)
+        st->ref_items[st->n_ref_items++] = o->key;
+      if (!pipe.empty ()) pipe += "|";
+      pipe += o->key;
+    }
+  if (st->n_ref_items == 0)
+    return RR_NOMATCH;
+
+  bind_reference (st, "objects", st->ref_items[0], text.c_str ());
+  a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
+
+  if (none_passed)
+    {
+      if (had_all && t->fail_override != NULL)
+        run->pending_failover = t->fail_override;
+      return RR_FAIL;
+    }
+  return RR_OK;
+}
+
 static int
 resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
                 const char *force_name, const char *force_key, amb_info *amb)
@@ -658,8 +970,11 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
   std::vector<rref> refs;
   int have_noref = 0;
   rref noref_r;
+  int plural_idx = -1;
+  std::string plural_text;
 
   a5state_clear_refs (st);
+  run->pending_failover = NULL;
 
   /* Pass 1: gather full any-scope candidate sets; bind the default of each. */
   for (int i = 0; i < m->n_refs; i++)
@@ -671,7 +986,38 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
       while (!base.empty () && isdigit ((unsigned char) base.back ()))
         base.pop_back ();
 
-      if (base == "object" || base == "objects" || base == "item")
+      /* The plural %objects% reference.  Only a *genuine* multiple-object input
+         ("all", "X and Y", a comma list, or a plural noun matching several
+         objects) is deferred to resolve_plural; a single-object input is bound
+         here as an ordinary object reference so the existing refine / ambiguity
+         / "can't see any" / no-ref semantics are byte-identical to a bare
+         %object% (clsUserSession.InputMatchesObjects yields one item in that
+         case, which RefineMatchingPossibilitesUsingRestrictions then treats like
+         any single reference). */
+      if (base == "objects")
+        {
+          std::vector<std::vector<std::string>> items;
+          int had_all = 0;
+          bool ok = match_objects (st, r.text, items, false, false, &had_all);
+          if (ok && items.size () > 1)
+            { plural_idx = i; plural_text = r.text; continue; }   /* multi */
+          r.type = 'o';
+          if (ok && items.size () == 1)
+            r.orig = order_visible_first (st, items[0]);
+          else
+            { std::vector<const char *> c =
+                resolve_object_candidates (st, r.text);
+              for (const char *k : c) r.orig.push_back (k); }
+          if (r.orig.empty ())
+            { if (!have_noref) { have_noref = 1; noref_r = r; } continue; }
+          r.keys = r.orig;
+          bind_reference (st, r.name.c_str (), r.keys[0].c_str (),
+                          r.text.c_str ());
+          refs.push_back (r);
+          continue;
+        }
+
+      if (base == "object" || base == "item")
         r.type = 'o';
       else if (base == "character" || base == "characters")
         r.type = 'c';
@@ -784,9 +1130,28 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
         return any_vis ? RR_AMBIG : RR_CANTSEE;
       }
 
-  /* Unique references: confirm the whole restriction set passes. */
+  /* Bind the resolved singular references, then resolve the deferred plural
+     %objects% reference against them. */
   for (auto &r : refs)
     bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
+
+  if (plural_idx >= 0)
+    {
+      int pr = resolve_plural (run, t, plural_text, amb);
+      if (pr == RR_NOMATCH)
+        {
+          /* The plural reference named no object (e.g. "take all" with nothing
+             in scope).  Treat like sNoRefTask: defer so a later task can claim. */
+          if (amb != NULL)
+            { amb->ref_name = "objects"; amb->type = 'o';
+              amb->ref_text = plural_text; amb->keys.clear (); }
+          return RR_NOREF;
+        }
+      if (pr != RR_OK)
+        return pr;                  /* RR_FAIL / RR_CANTSEE (amb already set) */
+    }
+
+  /* Unique references: confirm the whole restriction set passes. */
   return a5restr_pass (st, t->restrictions) ? RR_OK : RR_FAIL;
 }
 
@@ -918,8 +1283,10 @@ collect_refs (a5_state_t *st, const a5_match_t *m)
       ref_info ri; ri.type = 't'; ri.key = NULL;
       if (base == "object" || base == "objects" || base == "item")
         { ri.type = 'o';
-          ri.key = a5state_lookup_ref (st, base == "objects"
-                     ? "ReferencedObjects" : "ReferencedObject"); }
+          /* %objects% binds ReferencedObjects to the "key1|key2|..." pipe list;
+             specific-override matching keys off a single object, so use the
+             first item (ReferencedObject) here. */
+          ri.key = a5state_lookup_ref (st, "ReferencedObject"); }
       else if (base == "character" || base == "characters")
         { ri.type = 'c'; ri.key = a5state_lookup_ref (st, "ReferencedCharacter"); }
       else if (base == "direction")
@@ -1403,6 +1770,27 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
 
   if (a5run_trace)
     fprintf (stderr, "    [action %s] %s\n", kind, body ? body : "");
+
+  /* Multiple-object expansion (clsUserSession.ExecuteSingleAction's
+     ReferencedObjects loop): when an operand names the plural %objects%
+     reference and it resolved to a set, run this action once per item with the
+     item's key substituted for "ReferencedObjects".  The recursive call sees a
+     concrete key in place of the token, so it does not loop again. */
+  if (st->n_ref_items > 0 && depth < 16)
+    for (auto &w : tk)
+      if (w == "ReferencedObjects")
+        {
+          for (int it = 0; it < st->n_ref_items; it++)
+            {
+              std::string b2;
+              for (size_t wi = 0; wi < tk.size (); wi++)
+                { if (wi) b2 += ' ';
+                  b2 += (tk[wi] == "ReferencedObjects") ? st->ref_items[it]
+                                                        : tk[wi]; }
+              run_action (run, kind, b2.c_str (), depth + 1, out);
+            }
+          return;
+        }
 
   if (streq (kind, "MoveObject"))
     {
@@ -2685,6 +3073,18 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
             { *have_amb = 1; *amb = this_amb; *amb_ti = ti; *amb_ci = ci; }
           if (r == RR_FAIL)
             {
+              /* A "get all"-style command whose %objects% resolved to no passing
+                 item: the task's FailOverride claims the turn ("There is nothing
+                 worth taking here.") -- clsUserSession.vb:788, shown when no
+                 response passed and the input contained "all". */
+              if (run->pending_failover != NULL)
+                {
+                  char *fo = a5text_describe (st, run->pending_failover);
+                  run->pending_failover = NULL;
+                  if (fo[0]) { sb_puts (out, fo); sb_puts (out, "\n"); }
+                  free (fo);
+                  return 1;
+                }
               /* The task matched the command but its restrictions fail.  If a
                  failing restriction has output, this is a candidate fail message
                  (clsUserSession.GetGeneralTask: sRestrictionText = the failing

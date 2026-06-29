@@ -1081,17 +1081,58 @@ ADRIFT text is full of embedded directives evaluated at display time:
         diff 16 → 2, TEE 3 → 2; Stone eat-chain + inventory back to zero; SSB
         golden regenerated (one fewer blank); Anno (11) + the full headless suite
         unchanged; ASan/UBSan-clean across the corpus.
-      - **Still TODO — multiple-object references (`%objects%` / "all")**: the
-        biggest remaining general gap.  Scarier resolves `%objects%` like a single
-        `%object%`; it does **not** implement the plural reference grammar
-        (`InputMatchesObjects`, clsUserSession.vb:5305): `all`/`all <plural>`,
-        `X and Y`, comma lists, `… except/but/apart from …`, plural-noun matching,
-        per-item task execution, and the **`all`→`htblObjects.SeenBy` expansion**
-        (vb:5318) with restriction filtering.  Knock-on: `get all` with nothing
-        takeable should surface the take task's `<FailOverride>` ("There is
-        nothing worth taking here.") — FD shows it when the input contains "all"
-        and no response passed (vb:788 / vb:6059).  This is a self-contained
-        subsystem; budget it as its own pass.
+      - **Multiple-object references (`%objects%` / "all")** — **DONE.**  A port
+        of clsUserSession.InputMatchesObjects (vb:5305) + the ExecuteSingleAction
+        ReferencedObjects loop (vb:1391), in the existing files (no new sources):
+        - **Grammar** (`a5run.cpp match_objects` / `match_object_one`): `all`,
+          `all <plural>`, `X and Y`, comma lists, a trailing `… except/but/apart
+          from …`, and plural-noun matching.  Plural nouns match via a new
+          `name_match_plural` keyed on `clsObject.GuessPluralFromNoun` (the
+          existing `guess_plural_from_noun`, now shared with emit_cantsee).  A
+          bare `all` expands over the player's seen objects
+          (`expand_all_objects`, the `htblObjects.SeenBy` analogue).
+        - **Resolution** (`resolve_plural`, called from `resolve_refine` only for
+          a *genuinely* multi-object input — `match_objects` yielding > 1 item):
+          each item's chosen key is restriction-filtered (the Applicable tier per
+          item); items that pass are kept, and if **none** pass the whole set
+          resets so the task fails.  A *single*-object `%objects%` input is bound
+          and refined exactly like a bare `%object%` (one item), so the existing
+          ambiguity / "You can't see any &lt;plural&gt;!" / no-ref semantics are
+          byte-identical to before (e.g. Anno's `x candleholder`, `x threads`).
+          A multi-item set that resolved to only out-of-scope objects also yields
+          `RR_CANTSEE`.
+        - **Per-item execution**: the resolved keys are stored in
+          `a5_state_t.ref_items` (+ `ReferencedObject` = the first, and
+          `ReferencedObjects` = the `key1|key2|…` pipe list so the OO/text engine
+          renders the whole set).  `run_action` runs each `ReferencedObjects`
+          action once per item; a bare `%objects%` renders the items as an
+          "a, b and c" name list.
+        - **FailOverride**: a "get all"-style command whose `%objects%` resolved
+          to no passing item shows the matched task's `<FailOverride>` ("There is
+          nothing worth taking here." — vb:788), now modelled
+          (`a5_task_t.fail_override`) and emitted by `scan_tasks`.
+        - **Fix surfaced**: a sentence-ending `%objects%.`/`%object%.` was
+          mis-parsed as the start of an OO property chain (rendering a raw key);
+          the OO branch now requires an alpha char after the dot, so the bare
+          name/list path renders it.
+        - **Validated**: new self-contained synthetic regression
+          `test/a5_objects_test.cpp` (`make -f Makefile.headless test` as
+          `a5objtest`) covering "X and Y", `all` + per-item filtering, "all
+          except Z", plural nouns and the FailOverride.  **Ground truth**: the
+          Anno 1700 walkthrough, Stone of Wisdom and the Six Silver Bullets
+          golden are **byte-identical** to the pre-change baseline (the single-
+          object `%objects%` path is unchanged); a 15-game `all`/`drop all`/`get
+          all` soak shows only the intended new behaviour (FailOverride + real
+          per-item moves) and **no crashes**.  **ASan/UBSan-clean** across the
+          corpus.
+        - NOTE (simplifications): a *still-ambiguous individual item* inside a
+          multi-object list ("take key and coin" with two keys) is collapsed to
+          the visible-first candidate rather than re-prompting per item; the full
+          combinatorial RefineMatchingPossibilites cross-product across two
+          reference slots is not ported (the single-plural-reference case is);
+          and the plural grammar is wired for `%objects%` only, not `%characters%`
+          (no shipped corpus command needs the latter).  None are exercised by the
+          ground-truth corpus.
       - **Known non-fixable / game-specific corpus residuals**: FBA is
         event/RNG-shifted (an early "custodian catches you" event fires turn 1
         under the xoshiro seed → immediate loss; .NET `System.Random` divergence)

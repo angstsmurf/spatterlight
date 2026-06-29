@@ -9,6 +9,7 @@ a5run_dump
 a5text_dump
 a5_disambig_test
 a5_walk_test
+a5_objects_test
 a5_randomness.o
 
 # ADRIFT 5 game files (copyrighted; not redistributable in the repo).
