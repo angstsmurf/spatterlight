@@ -454,8 +454,8 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
 static void
 pf_output_text (const scr_char *string)
 {
-  scr_int index_, b_index;
-  scr_char *buffer;
+  scr_int index_;
+  std::string buffer;
 
   /* Optimize away the allocation and copy if possible. */
   if (!(strstr (string, ENTITY_LESSTHAN)
@@ -472,36 +472,33 @@ pf_output_text (const scr_char *string)
    * +percent+ elements by percent characters; apparently an undocumented
    * Adrift Runner extension.
    */
-  buffer = (decltype(buffer)) scr_malloc (strlen (string) + 1);
-  for (index_ = 0, b_index = 0;
-       string[index_] != NUL; index_++, b_index++)
+  buffer.reserve (strlen (string));
+  for (index_ = 0; string[index_] != NUL; index_++)
     {
       if (scr_strncasecmp (string + index_,
                           ENTITY_LESSTHAN, ENTITY_LENGTH) == 0)
         {
-          buffer[b_index] = LESSTHAN;
+          buffer.push_back (LESSTHAN);
           index_ += ENTITY_LENGTH - 1;
         }
       else if (scr_strncasecmp (string + index_,
                                ENTITY_GREATERTHAN, ENTITY_LENGTH) == 0)
         {
-          buffer[b_index] = GREATERTHAN;
+          buffer.push_back (GREATERTHAN);
           index_ += ENTITY_LENGTH - 1;
         }
       else if (scr_strncasecmp (string + index_,
                                ENTITY_PERCENT, PERCENT_LENGTH) == 0)
         {
-          buffer[b_index] = PERCENT;
+          buffer.push_back (PERCENT);
           index_ += PERCENT_LENGTH - 1;
         }
       else
-        buffer[b_index] = string[index_];
+        buffer.push_back (string[index_]);
     }
 
-  /* Terminate, print, and free the buffer. */
-  buffer[b_index] = NUL;
-  if_print_string (buffer);
-  scr_free (buffer);
+  /* Print the rebuilt string. */
+  if_print_string (buffer.c_str ());
 }
 
 
@@ -570,7 +567,7 @@ pf_output_tag (const scr_char *contents)
 static void
 pf_output_untagged (const scr_char *string)
 {
-  scr_char *temporary, *untagged, *contents, *cursor;
+  scr_char *untagged, *contents, *cursor;
   const scr_char *marker;
 
   /*
@@ -591,8 +588,8 @@ pf_output_untagged (const scr_char *string)
    * Create a general temporary string, and alias it to both untagged text
    * and the tag name, for sharing inside the loop.
    */
-  temporary = (decltype(temporary)) scr_malloc (strlen (string) + 1);
-  untagged = contents = temporary;
+  std::vector<scr_char> temporary (strlen (string) + 1);
+  untagged = contents = temporary.data ();
 
   /* Run through the string looking for <...> tags. */
   marker = string;
@@ -637,9 +634,8 @@ pf_output_untagged (const scr_char *string)
       marker += (marker[0] == GREATERTHAN) ? 1 : 0;
     }
 
-  /* Output any remaining string text, and free the temporary buffer. */
+  /* Output any remaining string text; the temporary buffer frees itself. */
   pf_output_text (marker);
-  scr_free (temporary);
 }
 
 
@@ -675,7 +671,7 @@ pf_filter_internal (const scr_char *string,
 {
   scr_int alr_count, iteration;
   scr_char *current;
-  scr_bool *alr_applied;
+  std::vector<scr_bool> alr_applied;
   assert (string && vars);
 
   if (pf_trace)
@@ -693,21 +689,15 @@ pf_filter_internal (const scr_char *string,
       /*
        * Create a new set of ALR application flags.  These are used to ensure
        * that a given ALR is applied only once on a given pass.  If the game
-       * has no ALRs, don't create a flag set.
+       * has no ALRs, leave the flag set empty.
        */
       if (alr_count > 0)
-        {
-          alr_applied = (decltype(alr_applied)) scr_malloc (alr_count * sizeof (*alr_applied));
-          memset (alr_applied, FALSE, alr_count * sizeof (*alr_applied));
-        }
-      else
-        alr_applied = NULL;
+        alr_applied.assign (alr_count, FALSE);
     }
   else
     {
-      /* Not including ALRs, so set alr count to 0, and flags to NULL. */
+      /* Not including ALRs, so set alr count to 0. */
       alr_count = 0;
-      alr_applied = NULL;
     }
 
   /* Loop for a sort-of arbitrary number of passes; probably enough. */
@@ -757,7 +747,8 @@ pf_filter_internal (const scr_char *string,
                * the current string if any, otherwise the input string.
                */
               intermediate = pf_replace_alrs (current ? current : string,
-                                              bundle, alr_applied, alr_count);
+                                              bundle, alr_applied.data (),
+                                              alr_count);
               if (intermediate)
                 {
                   scr_free (current);
@@ -779,8 +770,7 @@ pf_filter_internal (const scr_char *string,
         break;
     }
 
-  /* Free any ALR application flags, and return current, NULL if no change. */
-  scr_free (alr_applied);
+  /* Return current, NULL if no change; ALR flags free themselves. */
   return current;
 }
 
@@ -1176,12 +1166,9 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
     {
       if (filter->buffer_length > 0)
         {
-          scr_char *copy;
-
           /* Take a copy of the current buffered string. */
           assert (filter->buffer[filter->buffer_length] == NUL);
-          copy = (decltype(copy)) scr_malloc (filter->buffer_length + 1);
-          strncpy (copy, filter->buffer, filter->buffer_length + 1);
+          std::string copy (filter->buffer, filter->buffer_length);
 
           /*
            * Now restart buffering with the input string passed in.  Removing
@@ -1191,9 +1178,8 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
           filter->buffer_length = 0;
           pf_append_string (filter, string);
 
-          /* Append the string saved above and then free it. */
-          pf_append_string (filter, copy);
-          scr_free (copy);
+          /* Append the string saved above; the copy frees itself. */
+          pf_append_string (filter, copy.c_str ());
 
           /* Adjust the first character of the prepended string if flagged. */
           if (filter->new_sentence)

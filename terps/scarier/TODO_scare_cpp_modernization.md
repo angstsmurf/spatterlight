@@ -187,7 +187,25 @@ prerequisite for clean exception unwinding (P2).
 counts drop monotonically across the corpus; the event-heavy soak's peak RSS
 drops.
 
-- [ ] `scprintf.cpp` ownership → `std::string`/RAII (finish P1).
+- [~] `scprintf.cpp` ownership → `std::string`/RAII (finish P1). **Self-contained
+  scratch buffers done** (commit): `alr_applied` flag array → `std::vector<scr_bool>`
+  in `pf_filter_internal` (passes `.data()` to `pf_replace_alrs`); `pf_output_text`
+  entity-decode scratch → `std::string`; `pf_output_untagged` tag-parse scratch →
+  `std::vector<scr_char>`; `pf_prepend_string` saved copy → `std::string`. These
+  were the leak-on-throw-prone locals (a `scr_fatal` raised by a `prop_*` call
+  mid-function now unwinds them cleanly). **Still raw (deferred — cross-function
+  ownership / transfer contracts):** the `scr_filter_t::buffer` growth accumulator
+  (explicit ownership transfer via `pf_transfer_buffer`), the
+  `pf_interpolate_vars`/`pf_replace_alrs`/`pf_filter_internal`/`pf_filter` return-
+  `char*`-caller-frees chain (incl. `current`/`intermediate`), the
+  `pf_replace_alrs` `buffer1`/`buffer2` double-buffer juggling, and the
+  `pf_filter_input` in-place copy-on-write editor. Validation: `make -f
+  Makefile.headless test` green; **byte-identical across the full 42-game v4
+  corpus** (standalone `os_ansi` player, `SCR_STABLE_RANDOM_ENABLED`, old-vs-new
+  transcript diff); ASan/UBSan clean on the heavy games (light_up, Shadowpeak,
+  X-Files, Space Boy). NB: LeakSanitizer is unavailable on macOS/arm64, so the
+  "leak ledger" can't be measured here — but the change only removes manual
+  `malloc`/`free`, so the leak surface can only shrink.
 - [ ] `scparser.cpp`.
 - [ ] `scrunner.cpp` / `sctasks.cpp`.
 - [ ] `scgamest.cpp` / `scprops.cpp` (with P4).
