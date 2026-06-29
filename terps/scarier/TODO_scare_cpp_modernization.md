@@ -267,9 +267,45 @@ drops.
   heap alloc on a hot path or change the caller-buffer return contract). These
   are correct as-is and stay. Validation: same harness, byte-identical corpus,
   ASan/UBSan clean.
-- [ ] `scrunner.cpp` / `sctasks.cpp`.
-- [ ] `scgamest.cpp` / `scprops.cpp` (with P4).
-- [ ] Track corpus leak count before/after each file.
+- [~] `scrunner.cpp` / `sctasks.cpp` — **BLOCKED on the `longjmp` quit mechanism;
+  deferred on purpose.** Unlike `scparser`'s *localized* parse setjmp, the runner
+  has `setjmp(game->quitter)` in `run_interpret` (scrunner.cpp:2066) and
+  `longjmp(game->quitter)` in `run_quit`/`run_restart`/`run_restore`/`run_undo`
+  (2170/2195/2267/2343). Those are invoked re-entrantly via the **scinterf public
+  API** (`scr_quit_game`/`scr_restart_game`/`scr_restore_game`/
+  `scr_undo_game_turn`) and `scdebug`, and the longjmp unwinds the *entire*
+  `run_main_loop` stack — skipping the destructors of any non-trivial local
+  (`std::string`/`std::vector`) currently live in the command/task/print/expr call
+  tree. So adding RAII anywhere reachable from `run_main_loop` would convert
+  today's *benign, defined* leak-on-longjmp into *undefined behaviour*. Worse, it
+  is **unvalidatable with the current harness**: the `os_ansi` player (and a
+  player typing `quit`/`restart`) uses the **flag-based** path —
+  `lib_cmd_quit`/`lib_cmd_restart`/`lib_cmd_restore` just set
+  `is_running=FALSE`/`do_restart`/`do_restore` and **return normally**, so
+  `run_main_loop` returns without any longjmp and the corpus byte-diff never
+  exercises the longjmp path at all. (The `scr_fatal`→`throw` path from P2 is fine
+  — exceptions *do* run destructors; only the longjmp is the hazard.)
+  **Prerequisite to unblock:** convert `run_quit`/`run_restart`/`run_restore`/
+  `run_undo` from `longjmp(game->quitter)` to throwing a dedicated control-flow
+  exception caught where the `setjmp` is today (run_interpret's loop, 2063–2088),
+  i.e. finish the P2 idea for the *quit* mechanism too. Once the runner has no
+  `longjmp` over live frames, RAII across `scrunner`/`sctasks` becomes safe and
+  testable. Until then, the raw-pointer ownership here stays intentional.
+  **Caveat on the prerequisite itself:** the longjmp→exception swap is *also*
+  unvalidatable headless — no headless harness ever drives `scr_quit_game` /
+  `scr_restart_game` / `scr_restore_game` re-entrantly (in-game `restart`/`undo`
+  are the flag path; only the glk host abort uses the longjmp), so it must be
+  verified in **real Spatterlight** against the glk window-close / host-quit flow,
+  not in this repo's headless tests. Treat it as a Spatterlight-side task.
+- [ ] `scgamest.cpp` / `scprops.cpp` (with P4). NB: much of the runner-adjacent
+  ownership here is **game-struct fields** (`current_room_name`, `status_line`,
+  `hint_text`, the property tree) whose frees happen during the turn loop, so the
+  same `longjmp(game->quitter)` hazard above applies — gated on the same
+  longjmp→exception prerequisite.
+- [ ] Track corpus leak count before/after each file. (Blocked on tooling:
+  LeakSanitizer is unavailable on macOS/arm64, so the ledger can't be produced in
+  this environment; the proxy used so far is "changes only remove manual
+  malloc/free, so the leak surface can only shrink", plus ASan/UBSan-clean runs.)
 
 ---
 
