@@ -14,6 +14,11 @@ a5_objects_test
 a5_save_test
 a5_randomness.o
 
+# Sanitizer build artifacts from `make -f Makefile.headless sanitize`.
+*_san
+*_san.o
+*.dSYM/
+
 # ADRIFT 5 game files (copyrighted; not redistributable in the repo).
 # The a5run / groundtruth harnesses look here by default (A5_GAMES_DIR).
 adrift5-games/

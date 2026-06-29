@@ -395,9 +395,18 @@ the signal mask between `setjmp` and `longjmp`, so the save/restore is pure wast
 - **Golden transcripts**: ensure each touched subsystem has a replayable
   before/after transcript (extend the existing `.taf` harnesses where a feature
   is uncovered).
-- **ASan/UBSan harness**: a one-liner build of the headless runner with
-  sanitizers + a corpus sweep; wire a `make -f Makefile.headless sanitize`
-  convenience target if it helps.
+- [x] **ASan/UBSan harness** — `make -f Makefile.headless sanitize` builds every
+  self-contained, no-external-data harness that `test` runs (battle, precedence,
+  badparent, corrupt; a5 parse/arith/disambig/walk/objects/save) with
+  `-fsanitize=address,undefined -fno-sanitize-recover=all` into `*_san` binaries
+  and runs each, aborting on any finding (verified the gate traps real UBSan,
+  exit 134). LeakSanitizer is left off (`detect_leaks=0`): unavailable on
+  macOS/arm64, and throw-path leaks are expected per P2/P3. The game-data replays
+  (`a5runtest`, the v4 walkthrough corpus) are excluded because their game files
+  are uncommittable — run those under sanitizers by hand with
+  `make … a5runtest CXXFLAGS="$(CXXFLAGS) $(SAN_FLAGS)"` or the standalone
+  `os_ansi` corpus player (see the P3 validation-harness note). All harnesses
+  currently ASan/UBSan-clean.
 - **Memory soak**: a bounded (`ulimit -t` / `head -c`) Menagerie/circus run that
   records peak RSS + wall-clock, so P1/P3 wins are measured, not assumed.
 - **Leak ledger**: record the corpus LeakSanitizer count per commit so P3

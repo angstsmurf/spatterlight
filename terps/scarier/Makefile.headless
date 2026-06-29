@@ -20,6 +20,16 @@ CC      ?= clang
 CXXFLAGS ?= -std=c++11 -O2 -w -I.
 LDLIBS  ?= -lz
 
+# Sanitizer flags for the `sanitize` target (TODO ground rule: "ASan/UBSan-clean
+# is mandatory").  -fno-sanitize-recover makes any UBSan finding abort with a
+# non-zero status so the target actually fails rather than just printing.
+# LeakSanitizer is left off via detect_leaks=0: it is unavailable on
+# macOS/arm64, and throw-path leaks are expected (and documented) under P2/P3.
+SAN_FLAGS := -fsanitize=address,undefined -fno-omit-frame-pointer \
+             -fno-sanitize-recover=all -g
+SAN_ENV   := ASAN_OPTIONS=detect_leaks=0 UBSAN_OPTIONS=print_stacktrace=1
+SAN_RAND_OBJ := test/a5_randomness_san.o
+
 # Shared, seedable cross-platform RNG (erkyrath_random), used by the v5 engine
 # so deterministic walkthroughs reproduce.  Compiled as C; it pulls in glk.h
 # (for glui32) from cheapglk but otherwise has no Glk dependency at seed 1234.
@@ -85,7 +95,7 @@ A5ARITH_BIN     := test/a5arith_test
 A5SAVE_HARNESS  := test/a5_save_test.cpp
 A5SAVE_BIN      := test/a5_save_test
 
-.PHONY: test taf clean a5dump a5model a5text a5run a5parsetest a5runtest a5distest a5walktest a5objtest a5savetest a5arithtest
+.PHONY: test sanitize taf clean a5dump a5model a5text a5run a5parsetest a5runtest a5distest a5walktest a5objtest a5savetest a5arithtest
 
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
@@ -122,6 +132,40 @@ a5runtest: $(A5RUN_BIN)
 	else \
 	  echo "a5runtest: SKIP (game file not found: $(A5_BULLETS))"; \
 	fi
+
+# ASan/UBSan sweep of every self-contained, no-external-data harness that `test`
+# runs (the a5runtest game-file replay is excluded: it needs uncommittable game
+# data -- run it under sanitizers by hand with
+#   make -f Makefile.headless a5runtest CXXFLAGS="$(CXXFLAGS) $(SAN_FLAGS)").
+# Each harness is rebuilt from source into a *_san binary (so there is no
+# timestamp/flag-staleness footgun) and run immediately; a sanitizer abort or a
+# non-zero exit stops the target.
+sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(SAN_RAND_OBJ)
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(STUBS) $(HARNESS) $(LDLIBS) -o $(BIN)_san
+	$(SAN_ENV) ./$(BIN)_san $(TAF)
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(PREC_HARNESS) $(LDLIBS) -o $(PREC_BIN)_san
+	$(SAN_ENV) ./$(PREC_BIN)_san $(PREC_TAF)
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(BADP_HARNESS) $(LDLIBS) -o $(BADP_BIN)_san
+	$(SAN_ENV) ./$(BADP_BIN)_san $(BADP_TAF)
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(CORRUPT_HARNESS) $(LDLIBS) -o $(CORRUPT_BIN)_san
+	$(SAN_ENV) ./$(CORRUPT_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) a5parse.cpp $(A5PARSE_HARNESS) -o $(A5PARSE_BIN)_san
+	$(SAN_ENV) ./$(A5PARSE_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) a5arith.cpp $(A5ARITH_HARNESS) -o $(A5ARITH_BIN)_san
+	$(SAN_ENV) ./$(A5ARITH_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5DIS_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5DIS_BIN)_san
+	$(SAN_ENV) ./$(A5DIS_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5WALK_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5WALK_BIN)_san
+	$(SAN_ENV) ./$(A5WALK_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5OBJ_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5OBJ_BIN)_san
+	$(SAN_ENV) ./$(A5OBJ_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5SAVE_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5SAVE_BIN)_san
+	$(SAN_ENV) ./$(A5SAVE_BIN)_san
+	@echo "sanitize: all self-contained harnesses ASan/UBSan-clean"
+
+# RNG object built with sanitizers, for the a5 run-pipeline sanitize builds.
+$(SAN_RAND_OBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
+	$(CC) -O2 -w -I../cheapglk $(SAN_FLAGS) -c -o $@ $(COMMON)/randomness.c
 
 $(BIN): $(SRC) $(STUBS) $(HARNESS)
 	$(CXX) $(CXXFLAGS) $(SRC) $(STUBS) $(HARNESS) $(LDLIBS) -o $@
@@ -226,3 +270,4 @@ $(BADP_TAF): test/make_badparent_taf.py
 
 clean:
 	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5_RAND_OBJ)
+	rm -f $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(A5PARSE_BIN)_san $(A5ARITH_BIN)_san $(A5DIS_BIN)_san $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(SAN_RAND_OBJ)
