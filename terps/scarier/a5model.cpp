@@ -686,6 +686,23 @@ a5model_from_doc (a5_xml_doc_t *doc)
     const char *te = a5xml_child_text (root, "TaskExecution");
     a->hp_passing = (te != NULL && strcmp (te, "HighestPriorityPassingTask") == 0);
   }
+  /* <Direction*>: per-direction synonym specs for non-English games (the
+     localization subsystem, FileIO.vb:1254-1265 overriding clsAdventure's
+     English sDirectionsRE defaults).  Stored in DirectionsEnum order; an absent
+     or empty field keeps the English default (a5parse_set_directions). */
+  {
+    static const char *const kFields[12] = {
+      "DirectionNorth", "DirectionEast", "DirectionSouth", "DirectionWest",
+      "DirectionUp", "DirectionDown", "DirectionIn", "DirectionOut",
+      "DirectionNorthEast", "DirectionSouthEast", "DirectionSouthWest",
+      "DirectionNorthWest" };
+    int i;
+    for (i = 0; i < 12; i++)
+      {
+        const char *v = a5xml_child_text (root, kFields[i]);
+        a->dir_re[i] = (v != NULL && v[0] != '\0') ? v : NULL;
+      }
+  }
 
   a5_load_propdefs (a);
   a5_load_locations (a);

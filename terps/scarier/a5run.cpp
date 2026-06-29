@@ -162,6 +162,10 @@ a5run_new (const a5_adventure_t *adv)
      v5 path is wired into Spatterlight this should honour the determinism /
      native-seed toggle, as scutils.cpp does for the v4 engine. */
   a5rand_seed (1234u);
+  /* Install the game's localized direction synonyms (the localization
+     subsystem); English when the <Direction*> fields are absent.  Resets the
+     parser's direction table, so every game starts from a known state. */
+  a5parse_set_directions (adv->dir_re);
   run = new a5_run_s;
   run->adv = adv;
   run->st = a5state_new (adv);

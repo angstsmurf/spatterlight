@@ -250,6 +250,16 @@ typedef struct a5_adventure_s {
                                        the turn; the scan keeps looking for a
                                        passing task (clsAdventure.TaskExecution,
                                        default HighestPriorityTask => 0)        */
+  const char *dir_re[12];           /* <DirectionNorth>..<DirectionDown>:
+                                       localized direction synonym specs, indexed
+                                       by DirectionsEnum (North=0, East=1,
+                                       South=2, West=3, Up=4, Down=5, In=6,
+                                       Out=7, NorthEast=8, SouthEast=9,
+                                       SouthWest=10, NorthWest=11); NULL when the
+                                       game omits the field (=> English default).
+                                       Slash-separated synonyms, first = display
+                                       name (clsAdventure.sDirectionsRE /
+                                       Global.DirectionName)                     */
 
   a5_object_t    *objects;    int n_objects;
   a5_location_t  *locations;  int n_locations;

@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "a5expr.h"
+#include "a5parse.h"
 #include "a5restr.h"
 #include "a5text.h"
 #include "a5xml.h"
@@ -87,12 +88,14 @@ loc_has_exit (a5_state_t *st, const char *lockey, const char *dir)
   return 0;
 }
 
-/* Lowercase a direction's canonical name for the `.List` display
-   ("NorthEast" -> "northeast", matching LCase(DirectionName)). */
+/* The localized, lowercased display name for a direction's `.List`
+   (LCase(DirectionName) -- "NorthEast" -> "northeast", or the game's localized
+   "Nordøst" -> "nordøst"). */
 static std::string
 dir_display (const std::string &canon)
 {
-  return lower (canon);
+  const char *nm = a5parse_direction_name (canon.c_str ());
+  return lower (nm != NULL ? std::string (nm) : canon);
 }
 
 /* Join a direction list the way clsLocation.List does: ", " between, " and "

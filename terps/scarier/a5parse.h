@@ -62,6 +62,22 @@ extern const char *a5parse_canonical_direction (const char *text);
    split on "|" to seed the known-words list (clsUserSession.NotUnderstood). */
 extern const char *a5parse_directions_re (void);
 
+/*
+ * Install the game's localized direction synonyms (the localization subsystem).
+ * `raw_by_enum` is a 12-element array of <Direction*> field strings indexed by
+ * DirectionsEnum (North=0, East=1, South=2, West=3, Up=4, Down=5, In=6, Out=7,
+ * NorthEast=8, SouthEast=9, SouthWest=10, NorthWest=11); a NULL or empty entry
+ * keeps the English default.  Resets to all-English first, so it is idempotent
+ * and a later game cannot inherit an earlier one's localization.  Call once at
+ * a5run_new before any command matching.  `raw_by_enum` itself may be NULL.
+ */
+extern void a5parse_set_directions (const char *const *raw_by_enum);
+
+/* The localized display name of a canonical direction key ("North" -> "Nord"),
+   or the canonical key for the English default; NULL if not a direction.
+   Mirrors Global.DirectionName (the first synonym before the first '/'). */
+extern const char *a5parse_direction_name (const char *canonical);
+
 #ifdef __cplusplus
 }
 #endif

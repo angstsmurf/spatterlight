@@ -42,6 +42,87 @@ static const dir_entry kDirs[] = {
 };
 static const int kNumDirs = (int) (sizeof kDirs / sizeof kDirs[0]);
 
+/*
+ * Per-direction runtime spec (the localization subsystem).  Defaults to the
+ * English kDirs; a5parse_set_directions overrides selected entries from the
+ * game's <Direction*> header fields (clsAdventure.sDirectionsRE).  `re` is the
+ * lowercased "|"-separated synonym alternation used for parsing/regex; `name`
+ * is the display name -- the first synonym in its authored case
+ * (Global.DirectionName, the substring before the first separator).
+ */
+static struct { std::string re; std::string name; } g_dirs[kNumDirs];
+static bool g_dirs_init = false;
+
+/* DirectionsEnum value -> canonical key, for mapping the model's enum-ordered
+   <Direction*> array onto kDirs. */
+static const char *const kDirEnum[12] = {
+  "North", "East", "South", "West", "Up", "Down",
+  "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest" };
+
+/* The English display name of a canonical direction is the canonical key
+   itself ("North/N" -> DirectionName "North"). */
+static void
+ensure_dirs_default ()
+{
+  int j;
+  if (g_dirs_init)
+    return;
+  for (j = 0; j < kNumDirs; j++)
+    {
+      g_dirs[j].re = kDirs[j].re;
+      g_dirs[j].name = kDirs[j].canonical;
+    }
+  g_dirs_init = true;
+}
+
+static std::string cached_dirs_re;   /* invalidated by a5parse_set_directions */
+
+void
+a5parse_set_directions (const char *const *raw_by_enum)
+{
+  int e, j;
+  /* Reset to the English defaults first so the call is idempotent and a later
+     game with no overrides cannot inherit an earlier game's localization. */
+  g_dirs_init = false;
+  ensure_dirs_default ();
+  cached_dirs_re.clear ();
+  if (raw_by_enum == NULL)
+    return;
+  for (e = 0; e < 12; e++)
+    {
+      const char *raw = raw_by_enum[e];
+      if (raw == NULL || raw[0] == '\0')
+        continue;
+      for (j = 0; j < kNumDirs; j++)
+        if (strcmp (kDirs[j].canonical, kDirEnum[e]) == 0)
+          {
+            /* Display name = first synonym (authored case), before the first
+               '/' (Global.DirectionName). */
+            const char *slash = strchr (raw, '/');
+            g_dirs[j].name = slash ? std::string (raw, slash - raw) : std::string (raw);
+            /* Parse/regex form: lowercased, '/' -> '|' (Global.DirectionRE). */
+            std::string re;
+            for (const char *p = raw; *p; p++)
+              re += (*p == '/') ? '|' : (char) tolower ((unsigned char) *p);
+            g_dirs[j].re = re;
+            break;
+          }
+    }
+}
+
+const char *
+a5parse_direction_name (const char *canonical)
+{
+  int j;
+  if (canonical == NULL)
+    return NULL;
+  ensure_dirs_default ();
+  for (j = 0; j < kNumDirs; j++)
+    if (strcmp (kDirs[j].canonical, canonical) == 0)
+      return g_dirs[j].name.c_str ();
+  return NULL;
+}
+
 /* The full direction alternation, lowercased, built once.  frankendrift's
    %direction% builder loops `For eDirection = North To NorthWest` -- and by the
    DirectionsEnum VALUES (North=0, East=1, South=2, West=3, Up=4, Down=5, In=6,
@@ -53,15 +134,13 @@ static std::string
 directions_re ()
 {
   std::string s;
-  static const char *order[] = {
-    "North", "East", "South", "West", "Up", "Down",
-    "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest" };
-  const int n = (int) (sizeof order / sizeof order[0]);
+  const int n = 12;
+  ensure_dirs_default ();
   for (int i = 0; i < n; i++)
     {
       for (int j = 0; j < kNumDirs; j++)
-        if (strcmp (kDirs[j].canonical, order[i]) == 0)
-          { s += kDirs[j].re; break; }
+        if (strcmp (kDirs[j].canonical, kDirEnum[i]) == 0)
+          { s += g_dirs[j].re; break; }
       if (i != n - 1)
         s += "|";
     }
@@ -74,10 +153,9 @@ directions_re ()
 const char *
 a5parse_directions_re (void)
 {
-  static std::string cached;
-  if (cached.empty ())
-    cached = directions_re ();
-  return cached.c_str ();
+  if (cached_dirs_re.empty ())
+    cached_dirs_re = directions_re ();
+  return cached_dirs_re.c_str ();
 }
 
 const char *
@@ -91,9 +169,10 @@ a5parse_canonical_direction (const char *text)
       t += (char) tolower ((unsigned char) *p);
   if (t.empty ())
     return NULL;
+  ensure_dirs_default ();
   for (int j = 0; j < kNumDirs; j++)
     {
-      std::string re = kDirs[j].re;
+      std::string re = g_dirs[j].re;
       size_t start = 0, bar;
       do {
         bar = re.find ('|', start);

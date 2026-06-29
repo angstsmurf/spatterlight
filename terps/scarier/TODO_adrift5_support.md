@@ -1174,11 +1174,13 @@ ADRIFT text is full of embedded directives evaluated at display time:
         PART_OBJECT` (k2 == ANYOBJECT) or also parent key == k2.  MI and TBN now
         diff to ZERO; the three ground-truth games + the whole-corpus score soak
         unchanged; ASan/UBSan-clean.
-      - **Non-English localization (Halloween — the next big P4 subsystem,
-        fully RE'd, NOT yet implemented).**  Halloween is a Danish ADRIFT 5 game;
-        a generic `look/examine me/inventory/get all/<dirs>/wait` soak shows ~29
-        divergence lines, all localization, from two coupled mechanisms:
+      - **Non-English localization (Halloween — the next big P4 subsystem;
+        direction half DONE, ALR-boundary half still TODO).**  Halloween is a
+        Danish ADRIFT 5 game; a generic `look/examine me/inventory/get all/
+        <dirs>/wait` soak originally showed ~29 divergence lines, all
+        localization, from two coupled mechanisms:
         1. **ALR applied to the *whole assembled turn output*, not per-fragment.**
+           *(STILL TODO.)*
            FrankenDrift's `Global.ReplaceALRs` (Global.vb:519 — the real text
            pipeline: ReplaceFunctions → ReplaceExpressions → ALR loop →
            auto-capitalise → a second ALR round) is run by **`Display()` on the
@@ -1198,25 +1200,32 @@ ADRIFT text is full of embedded directives evaluated at display time:
            needs care (likely: stop ALR-ing per fragment and move the single ALR
            pass to the output boundary, keeping per-fragment *function* expansion
            for its character/object context).
-        2. **Localized direction names from the Adventure header.**  The header
-           carries 12 `<DirectionNorth>Nord/N/Nordpå</DirectionNorth>` …
-           `<DirectionOut>Ud/Udenfor/Forlad</DirectionOut>` fields (slash-
+        2. **Localized direction names from the Adventure header.**  — **DONE.**
+           The header carries 12 `<DirectionNorth>Nord/N/Nordpå</DirectionNorth>`
+           … `<DirectionOut>Ud/Udenfor/Forlad</DirectionOut>` fields (slash-
            separated synonyms; the **first** is the display name).  These drive
            BOTH (a) **direction parsing** — only the listed synonyms match, so
-           Danish `w` is *not* a direction and must fall to `Jeg forstod ikke
-           ordet "w"` (Scarier's hardcoded English compass words wrongly match
-           `w`→west), and (b) **direction display** — the no-route / exit-list
-           messages must use `nord, syd og op`, not `north, south and up`
-           (canonical English is currently hardcoded in `a5parse`/`a5restr`/
-           `a5expr`'s `.Exits`).  The two are coupled: even localized names render
-           `nord, syd and op` until the ` and `→` og ` ALR (item 1) also runs.
-           **Safe to add:** the three ground-truth games define **no** `<Direction*>`
-           fields (verified), so defaulting to the English compass set when the
-           fields are absent leaves SSB/Anno/Stone byte-identical.  Implement as:
-           parse the 12 fields into `a5_adventure_t`, build the parse synonym set
-           and the display-name array from them (English fallback), and thread
-           through `a5parse_directions_re`/`a5parse_canonical_direction` + the
-           Exits renderers.
+           Danish `w`/`e` are *not* directions and fall through (FrankenDrift's
+           `Jeg forstod ikke ordet "w"`; Scarier formerly hardcoded the English
+           compass words and wrongly matched `w`→west), and (b) **direction
+           display** — the no-route / exit-list messages now use `nord, syd og
+           op`, not `north, south og up`.  Implemented: the 12 `<Direction*>`
+           fields parse into `a5_adventure_t.dir_re[12]` (DirectionsEnum order,
+           `a5model.cpp`); `a5parse_set_directions` (called once from
+           `a5run_new`, resets to English first so it is idempotent across games)
+           installs them into the parser's mutable per-direction table —
+           `directions_re`/`a5parse_canonical_direction`/`a5parse_directions_re`
+           now read it (Global.DirectionRE: lowercase, `/`→`|`), and the new
+           `a5parse_direction_name` (Global.DirectionName: the first synonym
+           before `/`) feeds a5expr's `.Exits`/`%ListExits%` renderer
+           (`dir_display`).  **The three ground-truth games define no
+           `<Direction*>` fields (verified), so they stay byte-identical**
+           (English fallback); Six Silver Bullets golden + the synthetic tests
+           unchanged; ASan/UBSan-clean across the whole 15-game corpus.  NOTE:
+           the `nord, syd og op` join still relies on the per-fragment ` and `→
+           ` og ` ALR; the remaining Halloween divergences are all item 1 (the
+           stock C literals — NotUnderstood, `Also here is `, `Time passes…` —
+           never see the ALR pass, so they stay English).
       - **Known non-fixable / game-specific corpus residuals**: FBA is
         event/RNG-shifted (an early "custodian catches you" event fires turn 1
         under the xoshiro seed → immediate loss; .NET `System.Random` divergence)
