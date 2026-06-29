@@ -596,7 +596,11 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
       a5state_bind_ref (st, (alias + "$text").c_str (), text);
   };
   bind ("Referenced" + stem + num);
-  bind ("Referenced" + stem);
+  /* The bare "Referenced<Stem>" is the *first* reference (%object% == %object1%);
+     a higher index (%object2%..) must not clobber it -- FD keeps ReferencedObject
+     pinned to ref 1 so 2-specific overrides (e.g. PutSomeDry: Gunpowder1 + Keg)
+     resolve per index. */
+  if (num.empty () || num == "1") bind ("Referenced" + stem);
   if (num == "1") bind ("Referenced" + stem + "1");
   if (base == "objects")    bind ("ReferencedObjects");
   if (base == "characters") bind ("ReferencedCharacters");
@@ -1372,6 +1376,34 @@ static void exec_conversation (a5_run_t *run, const char *char_key, int conv_typ
 /* One resolved command reference: its general type and resolved entity key. */
 struct ref_info { char type; const char *key; };   /* 'o'/'c'/'d'/'t'/'n'/'l' */
 
+/* Map one command reference name ("objects", "object2", "character1", ...) to
+   its (general type, resolved entity key) using this turn's bindings.  The bare
+   "Referenced<Stem>" is reference 1; "Referenced<Stem>N" is the N-th, so a
+   2-specific override keys each Specific off its own reference. */
+static ref_info
+ref_info_for_name (a5_state_t *st, const std::string &name)
+{
+  std::string base = name, num;
+  while (!base.empty () && isdigit ((unsigned char) base.back ()))
+    { num.insert (num.begin (), base.back ()); base.pop_back (); }
+  ref_info ri; ri.type = 't'; ri.key = NULL;
+  std::string stem;
+  if (base == "object" || base == "objects" || base == "item")
+    { stem = "Object"; ri.type = 'o'; }
+  else if (base == "character" || base == "characters")
+    { stem = "Character"; ri.type = 'c'; }
+  else if (base == "direction") { stem = "Direction"; ri.type = 'd'; }
+  else if (base == "number")    { stem = "Number"; ri.type = 'n'; }
+  else if (base == "location")  { stem = "Location"; ri.type = 'l'; }
+  else if (base == "text")      { stem = "Text"; ri.type = 't'; }
+  else return ri;
+  if (!num.empty () && num != "1")
+    ri.key = a5state_lookup_ref (st, ("Referenced" + stem + num).c_str ());
+  if (ri.key == NULL)
+    ri.key = a5state_lookup_ref (st, ("Referenced" + stem).c_str ());
+  return ri;
+}
+
 /* Recompute the ordered, resolved references for a matched command, using the
    bindings resolve_refine already established this turn. */
 static std::vector<ref_info>
@@ -1379,28 +1411,7 @@ collect_refs (a5_state_t *st, const a5_match_t *m)
 {
   std::vector<ref_info> v;
   for (int i = 0; i < m->n_refs; i++)
-    {
-      std::string name = m->ref_name[i];
-      std::string base = name;
-      while (!base.empty () && isdigit ((unsigned char) base.back ()))
-        base.pop_back ();
-      ref_info ri; ri.type = 't'; ri.key = NULL;
-      if (base == "object" || base == "objects" || base == "item")
-        { ri.type = 'o';
-          /* %objects% binds ReferencedObjects to the "key1|key2|..." pipe list;
-             specific-override matching keys off a single object, so use the
-             first item (ReferencedObject) here. */
-          ri.key = a5state_lookup_ref (st, "ReferencedObject"); }
-      else if (base == "character" || base == "characters")
-        { ri.type = 'c'; ri.key = a5state_lookup_ref (st, "ReferencedCharacter"); }
-      else if (base == "direction")
-        { ri.type = 'd'; ri.key = a5state_lookup_ref (st, "ReferencedDirection"); }
-      else if (base == "number")
-        { ri.type = 'n'; ri.key = a5state_lookup_ref (st, "ReferencedNumber"); }
-      else if (base == "location")
-        { ri.type = 'l'; ri.key = a5state_lookup_ref (st, "ReferencedLocation"); }
-      v.push_back (ri);
-    }
+    v.push_back (ref_info_for_name (st, m->ref_name[i]));
   return v;
 }
 
@@ -1439,6 +1450,18 @@ command_refs (const a5_task_t *t)
   return v;
 }
 
+/* Build the resolved references for TASK from its first command's reference
+   names and this turn's bindings -- used when re-dispatching a task via
+   SetTasks Execute, where there is no a5_match_t to derive them from. */
+static std::vector<ref_info>
+refs_from_bindings (a5_state_t *st, const a5_task_t *t)
+{
+  std::vector<ref_info> v;
+  for (auto &nm : command_refs (t))
+    v.push_back (ref_info_for_name (st, nm));
+  return v;
+}
+
 /* Evaluate a SetTasks "Execute (...)" argument to an entity KEY (not a display
    name): a plain %reference% yields its bound key; %ParentOf[..]% and the like
    evaluate via the text engine (which already returns keys). */
@@ -1449,6 +1472,12 @@ eval_arg_to_key (a5_state_t *st, const std::string &arg)
   size_t b = a.find_first_not_of (" \t");
   size_t e = a.find_last_not_of (" \t");
   a = (b == std::string::npos) ? "" : a.substr (b, e - b + 1);
+  /* A bare entity key (no %...% at all, e.g. `vnl_Dial`) is already a key -- pass
+     it through verbatim.  It must NOT go through a5text_process, whose display
+     pipeline auto-capitalises the first letter ("vnl_Dial" -> "Vnl_Dial") and so
+     corrupts the case-sensitive object key. */
+  if (a.find ('%') == std::string::npos)
+    return strdup (a.c_str ());
   if (a.size () >= 2 && a.front () == '%' && a.back () == '%'
       && a.find ('[') == std::string::npos)
     {
@@ -1464,7 +1493,11 @@ eval_arg_to_key (a5_state_t *st, const std::string &arg)
         k = a5state_lookup_ref (st, "ReferencedCharacter");
       if (k != NULL) return strdup (k);
     }
-  return a5text_process (st, a.c_str ());
+  /* A function/OO arg (e.g. %PropertyValue[%object1%,LockKey]%) evaluates to an
+     entity KEY -- run the substitution passes but NOT auto-capitalisation, which
+     would turn "s_SkeletonKe" into "S_SkeletonKe" and break the case-sensitive
+     lookup (same class of bug as the bare-key `vnl_Dial` case above). */
+  return a5text_process_nocap (st, a.c_str ());
 }
 
 /* Resolve a Specific's key to a concrete key (handles %Player%/references). */
@@ -1499,7 +1532,15 @@ refs_match_specifics (a5_state_t *st, const a5_task_t *child,
         {
           const char *want = specific_key (st, sp->keys[k]);
           if (want == NULL) { matched = 1; break; }       /* empty key = any */
-          if (refs[i].key != NULL && streq (want, refs[i].key))
+          /* FD compares the Specific key to the reference's matched possibility
+             case-insensitively (RefsMatchSpecifics, clsUserSession.vb:634).  For a
+             Text specific (e.g. Grandpa's `say %text%` -> `vnl_SayKennedy`,
+             key "kennedy") the reference resolves to the typed text, so match it
+             case-insensitively; entity keys stay exact. */
+          if (refs[i].key != NULL
+              && (streq (want, refs[i].key)
+                  || (refs[i].type == 't'
+                      && lower (want) == lower (refs[i].key))))
             { matched = 1; break; }
         }
       if (!matched)
@@ -1509,21 +1550,27 @@ refs_match_specifics (a5_state_t *st, const a5_task_t *child,
 }
 
 /*
- * Run a matched General task, honouring Specific child overrides (clsTask
- * Children + SpecificOverrideType).  A child whose Specifics match the resolved
- * references and whose own restrictions pass runs in place of (Override) or
- * before/after the parent's text+actions.
+ * Run PARENT honouring its Specific child overrides (clsTask Children +
+ * SpecificOverrideType), recursively -- a faithful port of FD's
+ * AttemptToExecuteTask -> AttemptToExecuteSubTask -> AttemptToExecuteTask.  A
+ * child whose Specifics match REFS and whose own restrictions pass runs in place
+ * of (Override) or before/after the parent's text+actions, and is itself
+ * resolved for nested overrides.  Reusable from both the command-matched parent
+ * (run_general) and a SetTasks-Execute re-dispatch.
  */
 static void
-run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
-             sb_t *out)
+execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
+                             const std::vector<ref_info> &refs, int depth,
+                             sb_t *out)
 {
   a5_state_t *st = run->st;
-  std::vector<ref_info> refs = collect_refs (st, m);
   int parent_text = 1, parent_actions = 1;
   std::vector<const a5_task_t *> after;
 
-  if (parent->n_commands > 0)            /* only reference-bearing parents have children */
+  /* A command-bearing General has override children; a Specific override
+     (depth>0) is itself scanned for its OWN nested children -- e.g. GetAWooden
+     overrides TakeObjectFromLocation, which overrides TakeObjects. */
+  if ((parent->n_commands > 0 || depth > 0) && depth < 16)
     for (size_t oi = 0; oi < run->order->size (); oi++)
       {
         int cidx = (*run->order)[oi];
@@ -1576,8 +1623,17 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
             continue;                       /* no output (or HPPT): keep scanning */
           }
 
-        run_task (run, child, 0, out);
+        /* Recurse so the child's own Specific overrides fire in its place
+           (AttemptToExecuteSubTask -> recursive AttemptToExecuteTask). */
+        execute_task_with_overrides (run, child, refs, depth + 1, out);
         st->task_done[cidx] = 1;        /* clsUserSession.vb:1193 task.Completed = True */
+        /* A completing override child fires its own EventControls/WalkControls,
+           exactly like the parent (FD's AttemptToExecuteSubTask -> recursive
+           AttemptToExecuteTask runs the control loop for every task).  E.g. Stone
+           of Wisdom's ring-knockout `s_AttackTheT` is a Specific override of
+           AttackCharacterWithObject; only its completion fires StartTroll's
+           `Stop Completion s_AttackTheT`, disarming the troll's death subevent. */
+        ev_on_task_completed (run, child->key, out);
         if (ot == NULL || streq (ot, "Override"))
           { parent_text = 0; parent_actions = 0; }
         else if (streq (ot, "BeforeTextOnly"))      parent_text = 0;
@@ -1610,7 +1666,18 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
         run_task (run, child, 0, out);
         int ai = a5state_task_index (st, child->key);
         if (ai >= 0) st->task_done[ai] = 1;   /* task.Completed = True */
+        ev_on_task_completed (run, child->key, out);   /* fire its controls too */
       }
+}
+
+/* Run a matched General task (the directly command-matched parent), honouring
+   its Specific child overrides. */
+static void
+run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
+             sb_t *out)
+{
+  std::vector<ref_info> refs = collect_refs (run->st, m);
+  execute_task_with_overrides (run, parent, refs, 0, out);
 }
 
 /* ------------------------------------------------------------ conversation */
@@ -1910,6 +1977,44 @@ enqueue_loc_trigger_tasks (a5_run_t *run, const char *old_loc, const char *new_l
     }
 }
 
+/* clsCharacter.Move conversation maintenance (clsCharacter.vb:535-545): after the
+   Player moves, if we are in a conversation whose partner is no longer at the
+   Player's (new) location, show an implicit Farewell topic and end the
+   conversation.  Without this, conv_char persists across rooms so `say %text%`
+   keeps matching `Say` (BeInConversationWith) instead of falling to `SayLazy`
+   (BeAloneWith) -- e.g. Stone of Wisdom's `say yes` to Pamba never routes
+   `SayToCharacter (yes|%AloneWithChar%)`, and the weapon-stall trade fails. */
+static void
+clear_conv_if_partner_gone (a5_run_t *run, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  int pci;
+  const char *ploc;
+  if (st->conv_char == NULL || st->conv_char[0] == '\0')
+    return;
+  pci = a5state_character_index (st, st->conv_char);
+  ploc = a5state_player_location (st);
+  if (pci >= 0 && ploc != NULL && a5state_character_at_location (st, pci, ploc))
+    return;                                   /* partner still here */
+  /* partner gone -> implicit Farewell (if any), then end the conversation. */
+  {
+    const a5_character_t *prev = a5model_character (st->adv, st->conv_char);
+    if (prev != NULL)
+      {
+        const a5_topic_t *fw =
+          find_conv_node (run, prev, A5_CONV_FAREWELL, "", NULL);
+        if (fw != NULL)
+          {
+            const char *pc = st->ctx_char; st->ctx_char = prev->key;
+            emit_conv (run, a5text_describe (st, fw->conversation), out);
+            st->ctx_char = pc;
+          }
+      }
+  }
+  a5state_set_conv_char (st, "");
+  a5state_set_conv_node (st, "");
+}
+
 /* ----------------------------------------------------------- action: execute */
 
 static void
@@ -2091,6 +2196,8 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                 enqueue_loc_trigger_tasks (run, st->char_loc[ci], dest);
               st->char_loc[ci] = dest;
               st->char_onobj[ci] = NULL;   /* now "at location" */
+              if (streq (k1, "Player"))
+                clear_conv_if_partner_gone (run, out);
             }
           return;
         }
@@ -2102,6 +2209,8 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
             enqueue_loc_trigger_tasks (run, st->char_loc[ci], new_loc);
           st->char_loc[ci] = new_loc;
           st->char_onobj[ci] = NULL;       /* now "at location" */
+          if (streq (k1, "Player"))
+            clear_conv_if_partner_gone (run, out);
           return;
         }
       if (to == "ToStandingOn" || to == "ToSittingOn" || to == "ToLyingOn")
@@ -2192,9 +2301,20 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       if (tk[0] == "Execute" && tk.size () >= 2)
         {
           std::string key = tk[1];
-          if (key == "Look")            /* built-in room view + darkness override */
+          if (key == "Look")            /* built-in room view + the Look task's actions */
             {
               emit_look (run, out);
+              /* FD's ExecuteTask(Look) is a full AttemptToExecuteTask, so the Look
+                 task's own <Actions> run after the view -- e.g. Grandpa's Ranch
+                 chains `Execute vnl_TutorialSt` (the location-gated tutorial lines)
+                 off every room view via vnl_NameTyped's `Execute Look`.  emit_look
+                 only renders the view, so run those actions here too.  (No-op for
+                 every other corpus game: only Grandpa's Look carries actions.) */
+              const a5_task_t *lt = a5model_task (st->adv, "Look");
+              if (lt != NULL && lt->actions != NULL && depth < 16)
+                for (const a5_xml_node_t *c = lt->actions->first_child; c;
+                     c = c->next)
+                  run_action (run, c->name, c->text, depth + 1, out);
               return;
             }
           const a5_task_t *tt = a5model_task (st->adv, key.c_str ());
@@ -2232,7 +2352,14 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                 return;
               if (!a5restr_pass (st, tt->restrictions))
                 return;
-              run_task (run, tt, depth + 1, out);
+              /* FD's ExecuteTask is a full AttemptToExecuteTask, so the executed
+                 task's own Specific overrides apply too -- e.g. the lazy
+                 take-from-others re-dispatch lets PutSomeDry (the "skull" override
+                 of TakeObjectsFromOthers) fire, moving Anno's gunpowder into the
+                 held skull.  The downstream cannon puzzle reads it via the now
+                 recursive BeHoldingObject (a5restr char_holds_object). */
+              std::vector<ref_info> refs = refs_from_bindings (st, tt);
+              execute_task_with_overrides (run, tt, refs, 0, out);
               if (tti >= 0)
                 st->task_done[tti] = 1;
               ev_on_task_completed (run, key.c_str (), out);
@@ -2400,6 +2527,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
   int before = !streq (when, "After");
   const a5_xml_node_t *comp = a5xml_child (t->node, "CompletionMessage");
   const a5_xml_node_t *act = t->actions;
+  int self_ti = a5state_task_index (run->st, t->key);
 
   if (a5run_trace)
     fprintf (stderr, "  [run task %s]\n", t->key ? t->key : "?");
@@ -2411,6 +2539,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
   if (streq (t->key, "Look"))
     {
       emit_look (run, out);
+      if (self_ti >= 0) run->st->task_done[self_ti] = 1;
       if (t->actions != NULL)
         for (const a5_xml_node_t *c = t->actions->first_child; c; c = c->next)
           run_action (run, c->name, c->text, depth, out);
@@ -2419,6 +2548,14 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
 
   if (before && comp != NULL)
     emit_completion (run, comp, out);
+
+  /* clsUserSession.vb:1193 sets `task.Completed = True` *before* ExecuteActions
+     (vb:1194), so an action that runs or gates on this task's own completion sees
+     it complete -- e.g. Anno's Translatin runs `SetTasks Execute SettingOff`, and
+     SettingOff requires `Translatin Must BeComplete`.  (Callers also mark it after
+     run_task; this earlier mark is the one FD relies on.) */
+  if (self_ti >= 0)
+    run->st->task_done[self_ti] = 1;
 
   if (act != NULL)
     {
@@ -2653,6 +2790,28 @@ ev_control (a5_run_t *run, int ei, int cmd, const char *task_key, sb_t *out)
   rt.triggering_task = task_key ? task_key : "";
 }
 
+/* clsTask.Children(True): is `candidate` a (recursive) Specific-override
+   descendant of `ancestor`?  Used by the control loop so a parent task does not
+   re-trigger an event/walk control that one of its override children already
+   triggered -- clsUserSession.vb:872/893
+   `Not task.Children(True).Contains(e.sTriggeringTask)`.  (E.g. the parent
+   AttackCharacterWithObject must NOT re-fire a control its override child
+   s_AttackTheT already handled, which would shift Spectre's noon-bell event.) */
+static int
+task_is_descendant (const a5_adventure_t *adv, const char *ancestor,
+                    const char *candidate, int depth)
+{
+  const a5_task_t *c;
+  if (depth > 16 || candidate == NULL || ancestor == NULL)
+    return 0;
+  c = a5model_task (adv, candidate);
+  if (c == NULL || !streq (c->type, "Specific") || c->general_key == NULL)
+    return 0;
+  if (streq (c->general_key, ancestor))
+    return 1;
+  return task_is_descendant (adv, ancestor, c->general_key, depth + 1);
+}
+
 /* clsUserSession: when a task completes (bPass), fire any EventControls. */
 static void
 ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
@@ -2672,8 +2831,13 @@ ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
           const a5_eventctrl_t *c = &e->controls[ci];
           if (!c->on_completion || !streq (c->task_key, task_key))
             continue;
-          /* Guard against a task re-triggering the control it just triggered. */
-          if (!rt.triggering_task.empty () && rt.triggering_task == task_key)
+          /* Guard against a task re-triggering the control it just triggered,
+             and (FD's children check) against a parent re-firing a control one
+             of its override descendants already triggered. */
+          if (!rt.triggering_task.empty ()
+              && (rt.triggering_task == task_key
+                  || task_is_descendant (run->adv, task_key,
+                                         rt.triggering_task.c_str (), 0)))
             continue;
           switch (c->control)
             {
@@ -2880,6 +3044,29 @@ walk_player_key (a5_state_t *st)
   return "Player";
 }
 
+/* clsCharacter.GetPropertyValue for a character property: runtime override if
+   set, else the static value -- which for a rich Text property is stored as a
+   <Description> (value_node) and must be rendered.  Returns a malloc'd string
+   when the property is *present* (HasProperty), or NULL when absent so the
+   caller can apply its default.  Mirrors FD's `If .HasProperty(k) Then s =
+   .GetPropertyValue(k)`. */
+static char *
+char_prop_value (a5_state_t *st, const char *charkey, const char *propkey)
+{
+  const char *ov = a5state_entity_prop (st, charkey, propkey);
+  if (ov != NULL)
+    return strdup (ov);
+  const a5_character_t *c = a5model_character (st->adv, charkey);
+  if (c == NULL)
+    return NULL;
+  const a5_prop_t *p = a5_prop_find (c->props, c->n_props, propkey);
+  if (p == NULL)
+    return NULL;
+  if (p->value_node != NULL)
+    return a5text_eval_description (st, p->value_node);
+  return strdup (p->value ? p->value : "");
+}
+
 /* The "ShowEnterExit" message a walking NPC shows when it enters or leaves the
    player's room (clsWalk.DoAnySteps).  Evaluated with the character's *current*
    (pre-move) location vs the player's, and the move destination `dest`. */
@@ -2903,10 +3090,11 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
 
   if (streq (cloc, ploc))                      /* leaving the player's room */
     {
-      const char *exits = a5state_entity_prop (st, c->key, "CharExits");
+      char *exits = char_prop_value (st, c->key, "CharExits");
       char *nm = a5text_char_proper_name (st, c->key);
       std::string s = std::string (nm) + " " + (exits ? exits : "exits");
       free (nm);
+      free (exits);
       if (ploc != NULL && loc_is_adjacent (st, ploc, dest))
         {
           std::string dir = loc_direction_to (st, cloc, dest);
@@ -2921,10 +3109,11 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
     }
   else if (streq (dest, ploc))                 /* entering the player's room */
     {
-      const char *enters = a5state_entity_prop (st, c->key, "CharEnters");
+      char *enters = char_prop_value (st, c->key, "CharEnters");
       char *nm = a5text_char_proper_name (st, c->key);
       std::string s = std::string (nm) + " " + (enters ? enters : "enters");
       free (nm);
+      free (enters);
       if (ploc != NULL && loc_is_adjacent (st, ploc, cloc))
         {
           std::string dir = loc_direction_to (st, dest, cloc);
@@ -3193,7 +3382,10 @@ wk_on_task_completed (a5_run_t *run, const char *task_key)
           const a5_eventctrl_t *c = &wk->controls[ci];
           if (!c->on_completion || !streq (c->task_key, task_key))
             continue;
-          if (!rt.triggering_task.empty () && rt.triggering_task == task_key)
+          if (!rt.triggering_task.empty ()
+              && (rt.triggering_task == task_key
+                  || task_is_descendant (run->adv, task_key,
+                                         rt.triggering_task.c_str (), 0)))
             continue;
           wk_control (run, (int) wi, c->control, task_key);
         }
@@ -3329,6 +3521,17 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
 {
   a5_state_t *st = run->st;
   int fail_priority = 0;
+  /* When a <Continue>ContinueAlways task runs, FrankenDrift continues task
+     selection via EvaluateInput(Priority+1) -> GetGeneralTask with
+     iMinimumPriority = iPriorityFail = that task's Priority + 1.  So on the
+     continuation only *strictly higher* priority tasks are eligible, and a
+     LowPriority task is skipped unless its priority equals the floor (the
+     `Not (LowPriority AndAlso Priority > iPriorityFail)` guard,
+     clsUserSession.vb:5981).  E.g. RunBronwynn's GetOffBeforeMoving (50432,
+     ContinueAlways) prints "...get off the bed first?" and the LowPriority
+     PlayerMovement (50434) is then NOT run, so the player stays put. */
+  int cont_active = 0;
+  long cont_floor = 0;        /* = the continue task's Priority (min = floor+1) */
   for (size_t oi = 0; oi < run->order->size (); oi++)
     {
       int ti = (*run->order)[oi];
@@ -3337,6 +3540,13 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
         continue;
       if (st->task_done[ti] && !t->repeatable)
         continue;
+      if (cont_active)
+        {
+          if (t->priority <= cont_floor)              /* below iMinimumPriority */
+            continue;
+          if (t->low_priority && t->priority > cont_floor + 1) /* iPriorityFail */
+            continue;
+        }
 
       /* HighestPriorityTask mode: a recorded failing-with-output task claims the
          turn over any *lower*-priority task (higher Priority value).  But an
@@ -3373,7 +3583,14 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                  E.g. GetOffBeforeMoving prints "(getting off X first)" then lets
                  the actual movement task run. */
               if (t->continue_lower)
-                break;          /* stop trying this task's commands; keep scanning */
+                {
+                  /* EvaluateInput(Priority+1): only strictly-higher-priority
+                     tasks remain eligible, with the LowPriority/iPriorityFail
+                     guard.  A second ContinueAlways task raises the floor. */
+                  if (!cont_active || t->priority > cont_floor)
+                    { cont_active = 1; cont_floor = t->priority; }
+                  break;          /* stop trying this task's commands; keep scanning */
+                }
               return 1;
             }
           if (r == RR_CANTSEE && !*have_amb)
@@ -3453,6 +3670,13 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
           /* command matched but did not resolve to a unique pass: keep scanning */
         }
     }
+  /* A <Continue>ContinueAlways task already ran and claimed this turn; the
+     continuation (FD's EvaluateInput at iMinimumPriority>0) found no further
+     task, but unlike a first-pass empty result it must NOT print "I didn't
+     understand" (that path is gated on iMinimumPriority=0).  So report the
+     turn as handled. */
+  if (cont_active)
+    return 1;
   return 0;
 }
 

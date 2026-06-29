@@ -150,6 +150,11 @@ typedef struct a5_task_s {
   int repeatable;
   int continue_lower;               /* <Continue>ContinueAlways: keep running
                                        lower-priority matching tasks after this */
+  int low_priority;                 /* <LowPriority>: clsTask.LowPriority -- a
+                                       low-priority task is skipped once a
+                                       higher-priority failing-with-output task
+                                       (or a continuation floor) has been seen
+                                       (GetGeneralTask iPriorityFail filter)   */
   const a5_xml_node_t *restrictions; /* <Restrictions> node, or NULL         */
   const a5_xml_node_t *actions;      /* <Actions> node, or NULL              */
   const a5_xml_node_t *fail_override;/* <FailOverride> Description, or NULL:
@@ -223,6 +228,10 @@ typedef struct a5_propdef_s {
   const char *type;                 /* Boolean / Integer / Text / ...        */
   const char *property_of;          /* Objects / Characters / Locations      */
   const char *dependent_key;
+  const char *append_to;            /* <AppendTo>: a StateList whose value is
+                                       appended to another property's state
+                                       list (e.g. LockStatus -> OpenStatus).
+                                       FD's BeInState ignores appended props.  */
   const a5_xml_node_t *node;
 } a5_propdef_t;
 
@@ -303,5 +312,6 @@ extern const a5_location_t  *a5model_location  (const a5_adventure_t *a, const c
 extern const a5_character_t *a5model_character (const a5_adventure_t *a, const char *key);
 extern const a5_task_t      *a5model_task      (const a5_adventure_t *a, const char *key);
 extern const a5_variable_t  *a5model_variable  (const a5_adventure_t *a, const char *key);
+extern const a5_propdef_t   *a5model_propdef   (const a5_adventure_t *a, const char *key);
 
 #endif

@@ -166,6 +166,17 @@ a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
       if (restr != NULL && !a5restr_pass (st, restr))
         {
           first = 0;
+          /* clsDescription.ToString does `Return sb.ToString` inside
+             `If .DisplayOnce` *regardless* of whether the restrictions passed
+             (it only sets Displayed=True when they did).  So a not-yet-shown
+             DisplayOnce segment whose restrictions FAIL still terminates the
+             loop -- later segments are not considered -- but is left un-retired
+             so it can show on a future turn.  (Anno's Room 101 has two identical
+             "narrow opening" appends straddling a DisplayOnce faint segment; FD
+             shows the line once because the failing faint segment returns before
+             the second append.)  */
+          if (once)
+            break;
           continue;             /* (Phase 4: show the description's FailMessage) */
         }
 
@@ -1248,6 +1259,13 @@ replace_alrs (a5_state_t *st, const char *src, int depth)
 
 /* ------------------------------------------------------ auto-capitalisation */
 
+/* Mirror FrankenDrift's CapAfterFullStop regex
+   "^(?<cap>[a-z])|\n(?<cap>[a-z])|[a-z][\.\!\?] ( )?(?<cap>[a-z])"
+   (Global.vb:539).  The third alternative requires a *lowercase letter*
+   immediately before the .!? so an ellipsis ("...") or a digit/upper char
+   before the stop does NOT start a new sentence. */
+#define A5_IS_LOWER(c) ((c) >= 'a' && (c) <= 'z')
+
 static int
 is_sentence_start (const char *s, size_t i)
 {
@@ -1255,12 +1273,15 @@ is_sentence_start (const char *s, size_t i)
     return 1;
   if (s[i - 1] == '\n')
     return 1;
-  /* "x. y" or "x.  y" where x is a letter */
-  if (i >= 2 && s[i - 1] == ' '
-      && (s[i - 2] == '.' || s[i - 2] == '!' || s[i - 2] == '?'))
+  /* "x. y" where x is a lowercase letter */
+  if (i >= 3 && s[i - 1] == ' '
+      && (s[i - 2] == '.' || s[i - 2] == '!' || s[i - 2] == '?')
+      && A5_IS_LOWER (s[i - 3]))
     return 1;
-  if (i >= 3 && s[i - 1] == ' ' && s[i - 2] == ' '
-      && (s[i - 3] == '.' || s[i - 3] == '!' || s[i - 3] == '?'))
+  /* "x.  y" (two spaces) where x is a lowercase letter */
+  if (i >= 4 && s[i - 1] == ' ' && s[i - 2] == ' '
+      && (s[i - 3] == '.' || s[i - 3] == '!' || s[i - 3] == '?')
+      && A5_IS_LOWER (s[i - 4]))
     return 1;
   return 0;
 }
@@ -1628,6 +1649,15 @@ a5text_process (a5_state_t *st, const char *src)
   return capped;
 }
 
+char *
+a5text_process_nocap (a5_state_t *st, const char *src)
+{
+  char *inner = process_inner (st, src, 0);
+  char *persp = resolve_perspective (st, inner);
+  free (inner);
+  return persp;
+}
+
 /* ----------------------------------------------------------- plain renderer */
 
 char *
@@ -1922,7 +1952,11 @@ a5text_view_location (a5_state_t *st)
       }
     if (n > 0)
       {
-        sb_puts (&sb, "  Also here is ");
+        /* pSpace(sView) before the list (clsLocation.ViewLocation:134): two
+           spaces unless the buffer is empty or already ends in a newline. */
+        if (sb.len > 0 && sb.p[sb.len - 1] != '\n')
+          sb_puts (&sb, "  ");
+        sb_puts (&sb, "Also here is ");
         for (i = 0; i < n; i++)
           {
             if (i > 0)

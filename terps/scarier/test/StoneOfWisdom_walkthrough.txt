@@ -1,50 +1,167 @@
-# Stone of Wisdom -- ground-truth walkthrough script (ADRIFT 5).
+# Stone of Wisdom -- winning walkthrough script (ADRIFT 5).
 #
-# Source: "HINTS FOR STONE OF WISDOM BY KENNETH PEDERSEN" (bundled PDF),
-# ROT13-encoded spoiler hints, decoded here.
-# Cleaned for a5_groundtruth.sh: one bare command per line.
+# A real, linear, max-score playthrough: 50 out of 50 points, *** You have won ***
+# in 137 turns under FrankenDrift (the ground-truth reference runner, FD_SEED=1234).
+# Derived by playing the game; the bundled ROT13 hint sheet supplied the puzzle
+# solutions, the connecting room-to-room navigation was solved from the map.
 #
-# NOTE: RECONSTRUCTED FROM A NON-LINEAR HINT SHEET. The PDF is a spoiler-tiered
-# Q&A document organized BY PUZZLE, not a linear transcript. It reveals the
-# *solution actions* but gives NO room-to-room navigation (no compass moves
-# between puzzles) and leaves some exact verbs/targets implicit. The lines below
-# are the decoded solution steps in the order the puzzles are presented; the
-# connecting movement is missing, so this is expected to DIVERGE from a real
-# playthrough and will not produce a clean golden.
+# Puzzle spine:
+#   * Light the lamp, descend into the abandoned mine.
+#   * Knock the troll UNCONSCIOUS with the combat ring (4x "hit troll with ring";
+#     NEVER kill it -- killing reduces karma and the creatures' village gate later
+#     only admits good karma, making the game unwinnable). Search it for the key.
+#   * Grab the rope at the dead end; unlock the Manager's office with the skeleton
+#     key; lock yourself in, eat and sleep; tie the rope to the table, throw it out
+#     of the window and climb down to the small hole; cross the bamboo bridge
+#     (it collapses -> you land in the net in the inner-mountain forest).
+#   * Dwarf village: distract Milla (say yes) and free Puk from the pillory.
+#   * Honey the food rations in the beehive up the clearing tree.
+#   * Creatures' village (across the river, karma-gated): Puk gives a silver coin
+#     and the secret-brick coordinates; Bumil confirms the mission; sell the sword
+#     to Pamba for a gold coin.
+#   * Behind the dwarf castle: examine + push the two marked bricks to open the
+#     secret door; in the cellar, sleep the guard dog with a honeyed ration and
+#     take the Stone of Wisdom from the pedestal.
+#   * Show the stone to Bumil, buy Luma's canoe (1 gold + 1 silver), carry it to
+#     the river and SAIL IN CANOE -> the river drags you home -> win.
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/StoneOfWisdom.blorb test/StoneOfWisdom_walkthrough.txt
-put all in backpack
-put sword in scabbard
-get sword
-attack troll
-attack troll
-attack troll
+turn on lamp
+e
+e
+e
+se
+d
+d
+hit troll with ring
+hit troll with ring
+hit troll with ring
 hit troll with ring
 x troll
+sw
+sw
+get rope
+ne
+ne
+u
+u
+nw
+ne
+u
+u
+w
 unlock door
+open door
+w
 close door
 lock door
+eat ration
 sleep
 x window
 x window
 tie rope to table
+throw rope out of window
 turn off lamp
 put lamp in backpack
+put key in backpack
 climb out of window
+e
+get lamp
+turn on lamp
+e
+se
+turn off lamp
+put lamp in backpack
+e
+d
+e
+e
+e
 talk to dwarf
 say yes
 open pillory
-talk to bumil
-talk to puk
-x wall
-push bricks
-climb tree
-taste honey
+w
+w
+w
+s
+u
 get rations
-put food in beehive
-give food to dog
-get stone
+put rations in beehive
+put rations in backpack
+d
+n
+u
+w
+s
+s
+s
+s
+w
+w
+sw
+in
+talk to puk
+out
+e
+in
+talk to bumil
+out
+n
+nw
+talk to pamba
 sell sword
+say yes
+se
+e
+n
+n
+n
+n
+e
+put all in backpack
+d
+e
+e
+e
+e
+ne
+se
+x bricks
+push bricks
+w
+get rations
+give rations to dog
+get stone
+e
+nw
+sw
+w
+w
+w
+w
+put all in backpack
+u
+w
+s
+s
+s
+s
+w
+get stone
+s
+in
+talk to bumil
+out
+n
+n
+talk to luma
 buy canoe
+say yes
+get canoe
+s
+e
+n
+n
+n
 sail in canoe

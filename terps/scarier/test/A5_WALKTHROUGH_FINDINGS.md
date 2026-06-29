@@ -41,7 +41,7 @@ strict-diffed against Scarier with no dotnet dependency.
 | Treasure Hunt in the Amazon | 133 | diverge | 41 | ~~**BUG 3**~~ **FIXED** (object-group property inheritance: the `BuyableItems` group confers `StaticOrDynamic=Dynamic`+`BuyableItem`, so `buy` works; 44→41); residual **BUG 2** no `Date:/Time:`+`You move` lines (NOT a stdlib merge — FD loads no library), provisions line-join, title centring, downstream darkness |
 | Grandpa's Ranch | 93 | diverge | 125 | **BUG 2** missing room desc/exit+object listings; **BUG 7** `dig` → "nothing to dig with" (shovel not taken from `x shelves`) |
 | Jacaranda Jim | 440 | diverge | 439 | **BUG 4** pronoun `get it`/`get them` unresolved (35×); **BUG 2** missing "Exits are …"; **BUG 10** leaks template `%AlanRemarks[%AlanRemarkIndex%]%`; darkness handling |
-| Stone of Wisdom | 34 | diverge | 8 | weak test — reconstructed from a ROT13 hint sheet with no navigation; neither engine progresses. Candidate for removal. |
+| Stone of Wisdom | 137 | diverge | 6 | **REWRITTEN** as a real winning walkthrough (50/50, *** You have won *** in FrankenDrift, 137 turns). Surfaces **BUG 13** troll-knockout death — after `hit troll with ring` knocks the troll unconscious, Scarier still fires the troll's "you-didn't-act → die" event on the same turn, killing the player at turn 10 (FD's knockout cancels it). 3 of the 6 hunks are inherent RAND troll-taunt lines (default-RNG); the rest are that death + the loss-vs-win cascade. See TODO_a5_walkthrough_bugs.md. |
 
 Anno 1700 predates this batch; its FrankenDrift golden was never empty
 because of an RNG-gated storage-room event (documented in its script header).

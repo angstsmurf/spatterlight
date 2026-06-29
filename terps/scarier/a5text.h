@@ -32,6 +32,12 @@ extern char *a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapp
 /* Run the %function%/%variable% and ALR passes + auto-capitalisation on src. */
 extern char *a5text_process (a5_state_t *st, const char *src);
 
+/* Like a5text_process but WITHOUT the trailing auto-capitalisation -- for
+   evaluating a value to an entity KEY (case-sensitive), where capitalising the
+   first letter ("s_SkeletonKe" -> "S_SkeletonKe") would corrupt the key.  FD
+   applies auto-cap only at Display time, never when resolving a reference. */
+extern char *a5text_process_nocap (a5_state_t *st, const char *src);
+
 /* Evaluate a raw expression string (Global.EvaluateExpression): substitute its
    %references%/OO chains then reduce to a string value.  Heap; never NULL. */
 extern char *a5text_eval_expression (a5_state_t *st, const char *expr);

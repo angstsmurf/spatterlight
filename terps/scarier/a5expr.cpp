@@ -606,9 +606,17 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         }
       if (fn == "Parent")
         {
-          const char *pk = parent_key (st, key.c_str ());
-          Ctx nc; if (pk) nc.keys.push_back (pk);
+          /* clsCharacter.Parent == Location.Key (clsCharacter.vb:189): the object
+             the character is on/in (char_onobj) when seated/contained, else the
+             location.  parent_key only handles objects, so resolve the character
+             case here -- e.g. Grandpa's `(getting off %Player%.Parent.Name first)`
+             needs the chair the Player stands on. */
+          int ci = a5state_character_index (st, key.c_str ());
+          const char *pk = (ci >= 0)
+            ? (st->char_onobj[ci] ? st->char_onobj[ci] : st->char_loc[ci])
+            : NULL;
           if (pk == NULL) return "";
+          Ctx nc; nc.keys.push_back (pk);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       {

@@ -53,6 +53,23 @@ arith_atom (arith_p &p)
     }
   if (*p.s == '-') { p.s++; return -arith_atom (p); }
   if (*p.s == '+') { p.s++; return  arith_atom (p); }
+  if (*p.s == '"' || *p.s == '\'')
+    {
+      /* A quoted string literal "N" / 'N' is a value token (frankendrift
+         clsVariable.GetToken -> "vlu" + content, valued numerically via VB Val:
+         a numeric string yields its number, a non-numeric one yields 0).  The
+         doubled-quote serialisation `= ""1""` reaches here as `"1"` after the
+         action parser strips one surrounding pair. */
+      char q = *p.s++;
+      const char *start = p.s;
+      char *end;
+      long v;
+      while (*p.s != '\0' && *p.s != q) p.s++;
+      v = strtol (start, &end, 10);     /* Val(): leading integer, else 0 */
+      if (end == start) v = 0;
+      if (*p.s == q) p.s++;             /* consume the closing quote */
+      return (double) v;
+    }
   if (*p.s >= '0' && *p.s <= '9')
     {
       /* Literals are integers (ADRIFT variables and constants are integer);

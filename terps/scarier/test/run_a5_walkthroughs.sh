@@ -201,22 +201,77 @@ FILTER="${1:-}"
 # noise (its rain + %AlanRemarks% RAND draws shift with the corrected event
 # timing; it has no malformed bracket sequences, so the bracket fix doesn't
 # touch it) -- still the known RAND-divergence wall.
+#
+# (2026-06-29) Nested-override fix: run_general's override-children loop was
+# extracted into a recursive execute_task_with_overrides() so a Specific override
+# resolves its OWN nested children (FD's AttemptToExecuteTask recursion), plus a
+# per-index ReferencedObjectN ref lookup (collect_refs/ref_info_for_name) and a
+# bind_reference fix so %object2% no longer clobbers the bare ReferencedObject.
+# Anno's "get trunk" now shows the "heavy as sin" trunk override (GetAWooden ->
+# TakeObjectFromLocation -> TakeObjects); JacarandaJim 446->438.
+#
+# (2026-06-29) SetTasks-Execute override path NOW LIVE + cannon puzzle ported:
+# the SetTasks Execute handler dispatches through execute_task_with_overrides, so
+# Anno "get powder" fires PutSomeDry (the "skull" message, gunpowder -> held
+# skull).  The downstream "pour powder in cannon" / fuse chain gates on
+# `Player Must BeHoldingObject Gunpowder1`, which now resolves transitively:
+# BeHoldingObject (a5restr char_holds_object) recurses through held
+# containers/supporters like FD's clsCharacter.IsHoldingObject, so gunpowder
+# inside the held skull still counts as held.  Anno stays at 67 (powder message
+# fixed, cannon puzzle plays through); GrandpasRanch 39->35.
+#
+# (2026-06-29) Look-task actions + Text-type Specific overrides:
+#  - `SetTasks Execute Look` now runs the Look task's own <Actions> after the room
+#    view (FD's ExecuteTask(Look) is a full AttemptToExecuteTask), so Grandpa's
+#    `vnl_NameTyped` -> `Execute Look` -> `Execute vnl_TutorialSt` tutorial lines
+#    fire.  No-op for every other game (only Grandpa's Look carries actions).
+#  - Text-type Specific overrides now match: ref_info_for_name resolves a `%text%`
+#    reference to its bound ReferencedText, and refs_match_specifics compares a
+#    Text specific case-insensitively (FD RefsMatchSpecifics .ToLower).  Grandpa's
+#    `say %text%` -> `vnl_SayKennedy` ("kennedy") cherries puzzle now works.
+#    GrandpasRanch 35->28; JacarandaJim 438->124 (its conversation/keyword
+#    overrides are text-keyed -- big systematic win).  No regressions.
+#
+# (2026-06-29) SetTasks-Execute literal-key arg + character `.Parent`:
+#  - eval_arg_to_key ran a bare entity-key arg (no `%`, e.g. `vnl_Dial`) through
+#    a5text_process, whose display pipeline auto-capitalised the first letter
+#    ("vnl_Dial" -> "Vnl_Dial") and corrupted the case-sensitive key, so
+#    `Execute SetObjectTo (vnl_Dial)` failed `ReferencedObject Must Exist`.  Now a
+#    no-`%` arg is passed through verbatim.  Unblocked Grandpa's whole endgame
+#    (turn dial -> SetObjectTo override -> dial prompt -> box -> map -> Buster ->
+#    dig -> WIN): GrandpasRanch 28->12.
+#  - `%Player%.Parent` (a5expr) returned "" for a character; clsCharacter.Parent
+#    is Location.Key, so it now resolves the on/in object (char_onobj) else the
+#    location -- Grandpa's "(getting off the chair first)".  GrandpasRanch 12->11.
+#
+# (2026-06-29) StoneOfWisdom: real winning walkthrough.  The old script was a
+# reconstruction of the bundled ROT13 hint sheet with NO navigation -- the avatar
+# never left the first room and every command failed ("You can't see any troll!"),
+# so it tested nothing.  Replaced with a genuine 137-turn linear playthrough that
+# wins 50/50 (*** You have won ***) in FrankenDrift.  Budget 2->6: Scarier now
+# DIVERGES because of a real (catalogued, unfixed) troll-combat bug -- after the
+# combat ring knocks the troll unconscious, Scarier ALSO fires the troll's
+# "you-didn't-act -> die" death event on the same turn, so the player is killed at
+# turn 10 and never reaches the rest of the game (FD's knockout cancels that
+# event).  Of the 6 hunks, 3 are inherent RAND troll-taunt lines (default-RNG mode)
+# and the rest are that death + its loss-vs-137-turn-win cascade.  See
+# TODO_a5_walkthrough_bugs.md ("Troll knockout death") / A5_WALKTHROUGH_FINDINGS.md.
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0
-anno1700|Anno1700.blorb|98
-AxeOfKolt|TheAxeOfKolt.blorb|42
-SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|16
+anno1700|Anno1700.blorb|5
+AxeOfKolt|TheAxeOfKolt.blorb|12
+SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|17
 StarshipQuest|StarshipQuest.blorb|0
 MagneticMoon|MagneticMoon.blorb|6
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|5
-DieFeuerfaust|DieFeuerfaust.blorb|14
-LostChildren|TheLostChildren.blorb|5
-RunBronwynnRun|RunBronwynnRun.blorb|45
-RtC|RtC.blorb|143
+DieFeuerfaust|DieFeuerfaust.blorb|6
+LostChildren|TheLostChildren.blorb|4
+RunBronwynnRun|RunBronwynnRun.blorb|9
+RtC|RtC.blorb|142
 TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|6
-StoneOfWisdom|StoneOfWisdom.blorb|2
-GrandpasRanch|Grandpa_ParserComp_V1.blorb|39
-JacarandaJim|JacarandaJim.blorb|446
+StoneOfWisdom|StoneOfWisdom.blorb|44
+GrandpasRanch|Grandpa_ParserComp_V1.blorb|2
+JacarandaJim|JacarandaJim.blorb|109
 EOF
 )
 

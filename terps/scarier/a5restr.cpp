@@ -243,10 +243,23 @@ pass_object (a5_state_t *st, a5_restr_t *r)
       int i;
       if (oi < 0) return 0;
       /* Consult the runtime override layer so SetProperty (e.g. OpenStatus) is
-         reflected; fall back to the model's static value. */
+         reflected; fall back to the model's static value.  Mirror FD's
+         BeInState (clsUserSession.vb:4253): only a StateList property whose
+         AppendToProperty is empty counts -- an appended pseudo-state property
+         (e.g. LockStatus, which appends "Locked" onto OpenStatus) is skipped,
+         so unlocking (OpenStatus -> Closed) clears the "Locked" state even
+         though the child LockStatus property still reads "Locked". */
       for (i = 0; i < st->adv->objects[oi].n_props; i++)
         {
           const char *pk = st->adv->objects[oi].props[i].key;
+          const a5_propdef_t *pd = a5model_propdef (st->adv, pk);
+          if (pd != NULL)
+            {
+              if (pd->type != NULL && !streq (pd->type, "StateList"))
+                continue;
+              if (pd->append_to != NULL && pd->append_to[0] != '\0')
+                continue;
+            }
           const char *val = a5state_entity_prop (st, k1, pk);
           if (streq (val, k2))
             return 1;
@@ -398,6 +411,29 @@ char_holds_any (a5_state_t *st, const char *charkey, a5_owhere_t where)
   return 0;
 }
 
+/* clsCharacter.IsHoldingObject(sObKey): true if CHARKEY holds OBJKEY, counting
+   objects nested inside containers/on supporters the character (transitively)
+   holds -- InObject/OnObject recurse on the parent, HeldByCharacter terminates
+   (clsCharacter.vb:895).  WornByCharacter does NOT count as held, so the
+   recursion stops (returns 0) at a worn parent.  bDirectly disables the recursion
+   (the directly-held-only check). */
+static int
+char_holds_object (a5_state_t *st, const char *charkey, const char *objkey,
+                   int directly)
+{
+  int oi = a5state_object_index (st, objkey);
+  if (oi < 0)
+    return 0;
+  a5_owhere_t w = st->obj[oi].where;
+  const char *k = st->obj[oi].key;
+  if (w == A5_OWHERE_HELD_BY)
+    return k != NULL && (streq (k, charkey)
+                         || (streq (k, "%Player%") && streq (charkey, "Player")));
+  if (!directly && (w == A5_OWHERE_IN_OBJECT || w == A5_OWHERE_ON_OBJECT))
+    return k != NULL && char_holds_object (st, charkey, k, 0);
+  return 0;
+}
+
 static int
 pass_character (a5_state_t *st, a5_restr_t *r)
 {
@@ -414,9 +450,11 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          "If sObKey = ANYOBJECT Then Return HeldObjects.Count > 0"). */
       if (streq (k2, ANYOBJECT))
         return char_holds_any (st, k1, A5_OWHERE_HELD_BY);
-      int oi = a5state_object_index (st, k2);
-      return oi >= 0 && st->obj[oi].where == A5_OWHERE_HELD_BY
-             && streq (st->obj[oi].key, k1);
+      /* A specific object counts as held if it is directly held OR nested in a
+         container/supporter the character holds (clsCharacter.IsHoldingObject is
+         recursive) -- e.g. Anno's gunpowder poured into the held skull still
+         satisfies "Player Must BeHoldingObject Gunpowder1". */
+      return char_holds_object (st, k1, k2, 0);
     }
   if (streq (r->op, "BeWearingObject"))
     {
@@ -454,6 +492,65 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     {
       int c2 = a5state_character_index (st, k2);
       return c2 >= 0 && cloc != NULL && streq (cloc, st->char_loc[c2]);
+    }
+  if (streq (r->op, "BeCharacter"))
+    {
+      /* clsRestriction.CharacterEnum.BeCharacter (clsUserSession.vb:4579): the
+         subject character k1 is a specific character (ANYCHARACTER = any) -- an
+         identity test on the resolved keys (mirrors the object `BeObject`).  Without
+         this case the operator fell through to the best-effort `return 1`, so e.g.
+         RunBronwynn's `ExamineCha1` ("Examine Me", `ReferencedCharacter Must
+         BeCharacter Player`) wrongly fired for any examined character (x horse ->
+         Fleetwind), showing its description where FD's higher-priority
+         ExamineCharacter fails the HaveSeen check with "You see no such thing." */
+      if (streq (k1, ANYCHARACTER))
+        return 1;
+      return streq (k1, k2);
+    }
+  if (streq (r->op, "BeVisibleToCharacter"))
+    {
+      /* clsRestriction.CharacterEnum.BeVisibleToCharacter (clsUserSession.vb:4700):
+         true when the subject character k1 (ANYCHARACTER = any) can be seen by the
+         observer k2 -- clsCharacter.CanSeeCharacter -> IsVisibleTo: the two share a
+         BoundVisible location and the subject is not Hidden.  Reduce to "the subject
+         is at the observer's location" (a5state_character_at_location resolves an
+         on/in-object subject through its carrier and treats Hidden as not-present).
+         Without this case the operator fell through to the best-effort `return 1`,
+         so e.g. Grandpa's `vnl_JustTalk` ("talk" near Molly) wrongly fired when
+         Molly was elsewhere, swallowing the turn. */
+      const char *obs_loc;
+      if (k2 == NULL || streq (k2, "Player"))
+        obs_loc = a5state_player_location (st);
+      else if (streq (k2, ANYCHARACTER))
+        obs_loc = NULL;
+      else
+        { int oc = a5state_character_index (st, k2);
+          obs_loc = (oc >= 0) ? st->char_loc[oc] : NULL; }
+      if (k2 != NULL && streq (k2, ANYCHARACTER))
+        {
+          /* any observer: the subject (or any subject) co-located with any *other*
+             character. */
+          for (int s = 0; s < st->adv->n_characters; s++)
+            {
+              if (!streq (k1, ANYCHARACTER) && !streq (st->adv->characters[s].key, k1))
+                continue;
+              for (int o = 0; o < st->adv->n_characters; o++)
+                if (o != s && st->char_loc[o] != NULL
+                    && a5state_character_at_location (st, s, st->char_loc[o]))
+                  return 1;
+            }
+          return 0;
+        }
+      if (obs_loc == NULL)
+        return 0;
+      if (streq (k1, ANYCHARACTER))
+        {
+          for (int s = 0; s < st->adv->n_characters; s++)
+            if (a5state_character_at_location (st, s, obs_loc))
+              return 1;
+          return 0;
+        }
+      return a5state_character_at_location (st, ci, obs_loc);
     }
   if (streq (r->op, "BeWithinLocationGroup"))
     {

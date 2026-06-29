@@ -238,6 +238,8 @@ a5_load_tasks (a5_adventure_t *a)
       {
         const char *cont = a5xml_child_text (c, "Continue");
         t->continue_lower = (cont != NULL && strcmp (cont, "ContinueAlways") == 0);
+        const char *lp = a5xml_child_text (c, "LowPriority");
+        t->low_priority = a5xml_bool (lp);
       }
       t->restrictions = a5xml_child (c, "Restrictions");
       t->actions = a5xml_child (c, "Actions");
@@ -679,6 +681,7 @@ a5_load_propdefs (a5_adventure_t *a)
       p->type = a5xml_child_text (c, "Type");
       p->property_of = a5xml_child_text (c, "PropertyOf");
       p->dependent_key = a5xml_child_text (c, "DependentKey");
+      p->append_to = a5xml_child_text (c, "AppendTo");
     }
 }
 
@@ -990,5 +993,17 @@ a5model_variable (const a5_adventure_t *a, const char *key)
   for (i = 0; i < a->n_variables; i++)
     if (a->variables[i].key != NULL && strcmp (a->variables[i].key, key) == 0)
       return &a->variables[i];
+  return NULL;
+}
+
+const a5_propdef_t *
+a5model_propdef (const a5_adventure_t *a, const char *key)
+{
+  int i;
+  if (key == NULL)
+    return NULL;
+  for (i = 0; i < a->n_propdefs; i++)
+    if (a->propdefs[i].key != NULL && strcmp (a->propdefs[i].key, key) == 0)
+      return &a->propdefs[i];
   return NULL;
 }

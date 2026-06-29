@@ -80,6 +80,18 @@ main (void)
   /* Whitespace tolerance. */
   expect ("  6  +  1  ", 7);
 
+  /* Quoted string literals are value tokens (frankendrift clsVariable "vlu",
+     valued numerically via VB Val).  The doubled-quote serialisation `= ""1""`
+     reaches the evaluator as `"1"` after the action parser strips one pair, so
+     these must reduce to their inner number -- not be rejected (which strtol
+     would then truncate to 0). */
+  expect ("\"1\"", 1);
+  expect ("\"0\"", 0);
+  expect ("\"5\"", 5);
+  expect ("'7'", 7);
+  expect ("\"x\"", 0);             /* non-numeric quoted literal -> 0 (Val) */
+  expect ("\"5\" + \"3\"", 8);     /* quoted literals inside an expression  */
+
   /* Non-arithmetic -> rejected (caller falls back to strtol). */
   expect_bad ("Object3");        /* a key, not a number */
   expect_bad ("3 + ");           /* trailing operator   */
